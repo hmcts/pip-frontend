@@ -1,0 +1,11 @@
+nodejs:
+  applicationPort: 8080
+  aadIdentityName: pip-frontend
+  ingressHost: pip-frontend-pip.{{ .Values.global.environment }}.platform.hmcts.net
+  image: 'hmctspublic.azurecr.io/pip-frontend/pip:latest'
+#  Uncomment once the vault containing the app insights key has been set up
+#  keyVaults:
+#    pip-frontend:
+#      secrets:
+#        - AppInsightsInstrumentationKey
+  environment:
