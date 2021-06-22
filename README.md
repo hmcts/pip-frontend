@@ -6,7 +6,7 @@ The Publishing & Information Hub will be responsible for the following:
 * Receiving data from source systems, such as Schedule & Listing, via Hearings Management Interface
 * Publish lists, outcomes, judgements and management information onto GOV.UK
 * Provide functionality to display information in court and tribunals buildings on the relevant hardware
-* Comply with Open Justice procedures and business rules 
+* Comply with Open Justice procedures and business rules
 
 
 ## Getting Started
@@ -15,7 +15,7 @@ The Publishing & Information Hub will be responsible for the following:
 
 Running the application requires the following tools to be installed in your environment:
 
-  * [Node.js](https://nodejs.org/) v12.0.0 to v14.17.1 (later version will not work)
+  * [Node.js](https://nodejs.org/) v12.0.0 to v14.17.1
   * [yarn](https://yarnpkg.com/)
   * [Docker](https://www.docker.com)
 
