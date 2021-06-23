@@ -1,10 +1,60 @@
 {% extends "govuk/template.njk" %}
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
+
 
 {% block head %}
   {% include "webpack/css.njk" %}
+
+{% endblock %}
+
+{% block header %}
+
+{{ govukHeader({
+        homepageUrl: "#",
+        serviceName: "Find a court or tribunal listing",
+        serviceUrl: "#"
+      }) }}
 {% endblock %}
 
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   {% include "webpack/js.njk" %}
+{% endblock %}
+
+{% block footer %}
+{{ govukFooter({
+  meta: {
+    items: [
+      {
+          href: "/help",
+          text: "Help"
+      },
+      {
+          href: "/privacy-policy",
+          text: "Privacy policy"
+      },
+      {
+          href: "/Cymraeg",
+          text: "Cymraeg"
+      },
+      {
+          href: "/Cookie-policy",
+          text: "Cookie policy"
+      },
+      {
+          href: "/accessibility-statement",
+          text: "Accessibility statement"
+      },
+      {
+          href: "/Contact",
+          text: "Contact"
+      },
+      {
+          href: "/terms-and-conditions",
+          text: "Terms and conditions"
+      }
+    ]
+  }
+}) }}
 {% endblock %}

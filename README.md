@@ -1,4 +1,12 @@
-# Publishing-information-project-PI
+# Publishing Information
+
+## Purpose
+
+The Publishing & Information Hub will be responsible for the following:
+* Receiving data from source systems, such as Schedule & Listing, via Hearings Management Interface
+* Publish lists, outcomes, judgements and management information onto GOV.UK
+* Provide functionality to display information in court and tribunals buildings on the relevant hardware
+* Comply with Open Justice procedures and business rules
 
 ## Getting Started
 
@@ -6,7 +14,7 @@
 
 Running the application requires the following tools to be installed in your environment:
 
-  * [Node.js](https://nodejs.org/) v12.0.0 or later
+* [Node.js](https://nodejs.org/) v12.0.0 to v14.17.1
   * [yarn](https://yarnpkg.com/)
   * [Docker](https://www.docker.com)
 
@@ -49,7 +57,6 @@ This will start the frontend container exposing the application's port
 (set to `8080` in this template app).
 
 In order to test if the application is up, you can visit https://localhost:8080 in your browser.
-You should get a very basic home page (no styles, etc.).
 
 ## Developing
 
