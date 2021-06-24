@@ -99,5 +99,13 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-node-externals": "^1.7.2"
+  },
+  "resolutions": {
+    "glob-parent": "^5.1.2",
+    "minimist": "^1.2.5",
+    "merge": "^2.1.1",
+    "normalize-url": "^6.1.0",
+    "serialize-javascript": ">=2.1.1",
+    "trim-newlines": "^4.0.1"
   }
 }
