@@ -1,0 +1,46 @@
+{% extends "template.njk" %}
+{% block pageTitle %}
+    {{ "Search Option" | safe }}
+  {% endblock %}
+  {% block beforeContent %}
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "/"
+  }) }}
+  {% endblock %}
+{% block content %}
+
+
+  {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+  {{ govukRadios({
+    idPrefix: "find-choice",
+    name: "find-choice",
+    fieldset: {
+      legend: {
+        text: "Find a court or tribunal list",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    items: [
+              {
+                value: "1",
+                text: "Search for a court or tribunal"
+              },
+              {
+                value: "2",
+                text: "Find a court or tribunal alphabetically"
+              }
+           ]
+  }) }}
+
+  {% from "govuk/components/button/macro.njk" import govukButton %}
+  {{ govukButton({
+    text: "Continue",
+    href: '#'
+  })}}
+
+{% endblock %}
