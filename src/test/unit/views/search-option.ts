@@ -3,53 +3,41 @@ import request from 'supertest';
 
 import { app } from '../../../main/app';
 
+const PAGE_URL = '/search-option';
+const headingClass = 'govuk-heading-xl';
+const buttonClass = 'govuk-button';
+const radioClass = 'govuk-radios__item';
+
+let htmlRes: Document;
 describe('Search option Page', () => {
-  it('should display header', async () => {
-    await request(app)
-      .get('/search-option')
-      .expect((res) =>
-      {
-        expect(res.text).contains('Find a court or tribunal list', 'Could not find the header');
-      });
+  beforeAll(async () => {
+    await request(app).get(PAGE_URL).then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+    });
   });
 
-  it('should display  only 1 button', async () => {
-    await request(app)
-      .get('/search-option')
-      .expect((res) =>
-      {
-        const documentFragment = new DOMParser().parseFromString(res.text, 'text/html');
-
-        // retrieve a list of buttons from the fragment
-        const buttons = documentFragment.getElementsByTagName('button');
-        expect(buttons.length).equal(1, 'pippo');
-      });
+  it('should display header',  () => {
+    const header = htmlRes.getElementsByClassName(headingClass);
+    expect(header[0].innerHTML).contains('Find a court or tribunal listing', 'Could not find the header');
   });
 
-  it('should display button continue', async () => {
-    await request(app)
-      .get('/search-option')
-      .expect((res) =>
-      {
-        const documentFragment = new DOMParser().parseFromString(res.text, 'text/html');
-        console.log(documentFragment);
-        // retrieve a list of buttons from the fragment
-        const buttons = documentFragment.getElementsByClassName('govuk-button');
-
-        expect(buttons[0].innerHTML).contains('Continue', 'pippo');
-      });
+  it('should display continue button',  () => {
+    const buttons = htmlRes.getElementsByClassName(buttonClass);
+    expect(buttons[0].innerHTML).contains('Continue', 'Could not find button');
   });
 
-  it('should display radio button', async () => {
-    await request(app)
-      .get('/search-option')
-      .expect((res) =>
-      {
-        // let documentFragment = new DOMParser().parseFromString(res.text, 'text/html');
-        // retrieve a list of buttons from the fragment
-        //let buttons = documentFragment.getElementsByTagName('button');
-        //const button = 'govuk-button';
-        //expect(res.text).contains(button, 'Could not find the button');
-      });
+  it('should display 2 radio buttons', () => {
+    const radioButtons = htmlRes.getElementsByClassName(radioClass);
+    expect(radioButtons.length).equal(2, '2 radio buttons not found');
+  });
+
+  it('should display first radio button content',  () => {
+    const radioButtons = htmlRes.getElementsByClassName(radioClass);
+    expect(radioButtons[0].innerHTML).contains('Search for a court or tribunal', 'Could not find the radio button');
+  });
+
+  it('should display second radio button content',  () => {
+    const radioButtons = htmlRes.getElementsByClassName(radioClass);
+    expect(radioButtons[1].innerHTML).contains('Find a court or tribunal alphabetically', 'Could not find the radio button');
   });
 });
