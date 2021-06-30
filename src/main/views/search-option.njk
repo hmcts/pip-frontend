@@ -13,13 +13,13 @@
 
 {% block content %}
   {% from "govuk/components/radios/macro.njk" import govukRadios %}
-  <h1 class="govuk-heading-l">Find a court or tribunal list</h1>
   {{ govukRadios({
     idPrefix: "find-choice",
     name: "find-choice",
     fieldset: {
       legend: {
-        isPageHeading: false,
+        text: 'Find a court or tribunal list',
+        isPageHeading: true,
         classes: "govuk-fieldset__legend--l"
       }
     },
