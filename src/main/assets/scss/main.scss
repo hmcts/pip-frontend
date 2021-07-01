@@ -2,7 +2,12 @@
 
 .nav-right {
     float: right;
-    margin: -3vh 0px 0px 60vh;
+    margin: -4.0vh 0px 0.6vh 60vh;
+    li {
+      a {
+        font-size: 19px;
+      }
+    }
 }
 
 
