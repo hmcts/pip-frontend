@@ -1,5 +1,7 @@
 {% extends "template.njk" %}
-
+{% block pageTitle %}
+  {{ "Start Page" | safe }}
+{% endblock %}
 {% block content %}
   <h1 class="govuk-heading-xl">Find a court or tribunal listing</h1>
   <p class="govuk-body">Find information on hearings in courts and tribunals in England and Wales, and some non-devolved tribunals in Scotland.</p>
@@ -9,7 +11,7 @@
   {{ govukButton({
     text: "Start now",
     isStartButton: true,
-    href: '#'
+    href: 'search-option'
   })}}
 
  <div class="govuk-inset-text">
