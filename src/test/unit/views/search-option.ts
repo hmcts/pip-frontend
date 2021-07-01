@@ -4,9 +4,14 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 
 const PAGE_URL = '/search-option';
-const headingClass = 'govuk-heading-xl';
+const headingClass = 'govuk-fieldset__heading';
 const buttonClass = 'govuk-button';
 const radioClass = 'govuk-radios__item';
+
+const expectedHeader = 'Find a court or tribunal list';
+const expectedButtonText = 'Continue';
+const expectedRadioLabel1 = 'Search for a court or tribunal';
+const expectedRadioLabel2 = 'Find a court or tribunal alphabetically';
 
 let htmlRes: Document;
 describe('Search option Page', () => {
@@ -18,12 +23,12 @@ describe('Search option Page', () => {
 
   it('should display header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
-    expect(header[0].innerHTML).contains('Find a court or tribunal listing', 'Could not find the header');
+    expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
   });
 
   it('should display continue button',  () => {
     const buttons = htmlRes.getElementsByClassName(buttonClass);
-    expect(buttons[0].innerHTML).contains('Continue', 'Could not find button');
+    expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
   });
 
   it('should display 2 radio buttons', () => {
@@ -33,11 +38,11 @@ describe('Search option Page', () => {
 
   it('should display first radio button content',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[0].innerHTML).contains('Search for a court or tribunal', 'Could not find the radio button');
+    expect(radioButtons[0].innerHTML).contains(expectedRadioLabel1, 'Could not find the radio button with label ' + expectedRadioLabel1);
   });
 
   it('should display second radio button content',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[1].innerHTML).contains('Find a court or tribunal alphabetically', 'Could not find the radio button');
+    expect(radioButtons[1].innerHTML).contains(expectedRadioLabel2, 'Could not find the radio button with label ' + expectedRadioLabel2);
   });
 });
