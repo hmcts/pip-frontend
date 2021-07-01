@@ -94,6 +94,15 @@ $ yarn test:a11y
 
 Make sure all the paths in your application are covered by accessibility tests (see [a11y.ts](src/test/a11y/a11y.ts)).
 
+Running end-to-end tests:
+```bash
+$ yarn test:e2e
+```
+Running locally: make sure to have application running first, otherwise tests will fail. 
+
+To run against certain environment replace the `page.goto()` attribute in [e2e.ts](src/test/e2e/e2e.ts) 
+from localhost to environment url
+
 ### Security
 
 #### CSRF prevention
