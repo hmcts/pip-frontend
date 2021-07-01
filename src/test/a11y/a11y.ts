@@ -4,7 +4,16 @@ const pa11y = require('pa11y');
 import * as supertest from 'supertest';
 import { app } from '../../main/app';
 
+const fs = require('fs');
+const path = require('path');
 const agent = supertest.agent(app);
+
+const routesPath = '../../main/routes';
+
+const routesNotTested = [
+  'health.ts',
+  'info.ts',
+];
 
 class Pa11yResult {
   documentTitle: string;
@@ -53,6 +62,29 @@ function expectNoErrors(messages: PallyIssue[]): void {
   }
 }
 
+function removeRoutes(files): string[] {
+  const routesToTest = [];
+  files.forEach(file => {
+    if (!routesNotTested.includes(file)) {
+      routesToTest.push(file);
+    }
+  });
+  return routesToTest;
+}
+
+function convertToPath(file): string {
+  return '/' + file.slice(0, -3);
+}
+
+function readRoutes(): string[] {
+  let routes = fs.readdirSync(path.join(__dirname, routesPath));
+  routes = removeRoutes(routes);
+  routes.forEach(function (file, index) {
+    routes[index] = convertToPath(file);
+  });
+  return routes;
+}
+
 function testAccessibility(url: string): void {
   describe(`Page ${url}`, () => {
     test('should have no accessibility errors', done => {
@@ -67,9 +99,8 @@ function testAccessibility(url: string): void {
   });
 }
 
-describe('Accessibility', () => {
-  // testing accessibility of the home page
-  testAccessibility('/');
-
-  // TODO: include each path of your application in accessibility checks
+describe('Accessibility',  () => {
+  readRoutes().forEach(route => {
+    testAccessibility(route);
+  });
 });
