@@ -98,9 +98,9 @@ Running end-to-end tests:
 ```bash
 $ yarn test:e2e
 ```
-Running locally: make sure to have application running first, otherwise tests will fail. 
+Running locally: make sure to have application running first, otherwise tests will fail.
 
-To run against certain environment replace the `page.goto()` attribute in [e2e.ts](src/test/e2e/e2e.ts) 
+To run against certain environment replace the `page.goto()` attribute in [e2e.ts](src/test/e2e/e2e.ts)
 from localhost to environment url
 
 ### Security
@@ -156,4 +156,3 @@ e.g. the ones verifying the state of each service it depends on.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
