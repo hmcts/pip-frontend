@@ -30,7 +30,7 @@ describe('End to end test', () => {
   test('should open the page and press on the "Start now" button rendering title and 2 radio inputs', async () => {
     await page.click('.govuk-button--start');
 
-    const pageTitle = await page.$eval('.govuk-fieldset__heading', (e: Element) => e.textContent);
+    const pageTitle = await page.$eval('h1.govuk-fieldset__heading', (e: Element) => e.textContent);
     const radioElements = await page.$$('div.govuk-radios__item');
 
     expect(pageTitle).toContain('Find a court or tribunal list');
