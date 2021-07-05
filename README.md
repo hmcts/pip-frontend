@@ -97,11 +97,8 @@ Make sure all the paths in your application are covered by accessibility tests (
 Running end-to-end tests:
 ```bash
 $ yarn test:e2e
-```
-Running locally: make sure to have application running first, otherwise tests will fail.
-
-To run against certain environment replace the `PAGE_URL` value in [e2e.ts](src/test/e2e/e2e.ts)
-from localhost to environment url
+``` 
+make sure to have application running first while testing locally, otherwise tests will fail.
 
 ### Security
 
