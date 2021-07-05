@@ -19,7 +19,7 @@ describe('End to end test', () => {
     });
   });
 
-  test('should open main page with "Find a court or tribunal listing" title', async () => {
+  it('should open main page with "Find a court or tribunal listing" title', async () => {
     page = await browser.newPage();
     await page.goto(PAGE_URL);
 
@@ -27,7 +27,7 @@ describe('End to end test', () => {
     expect(pageTitle).toBe('Find a court or tribunal listing');
   });
 
-  test('should open the page and press on the "Start now" button rendering title and 2 radio inputs', async () => {
+  it('should open the page and press on the "Start now" button rendering title and 2 radio inputs', async () => {
     await page.click('.govuk-button--start');
 
     const pageTitle = await page.$eval('h1.govuk-fieldset__heading', (e: Element) => e.textContent);
