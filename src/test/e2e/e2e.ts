@@ -29,6 +29,7 @@ describe('End to end test', () => {
 
   it('should open the page and press on the "Start now" button rendering title and 2 radio inputs', async () => {
     await page.click('.govuk-button--start');
+    await page.waitForSelector('h1.govuk-fieldset__heading');
 
     const pageTitle = await page.$eval('h1.govuk-fieldset__heading', (e: Element) => e.textContent);
     const radioElements = await page.$$('div.govuk-radios__item');
