@@ -6,8 +6,7 @@ class HomePage {
   async OpenHomePage(page: Page): Promise<any> {
     await page.goto(helpers.baseUrl, {waitUntil: 'domcontentloaded'});
 
-    const pageTitle = await page.$eval(helpers.MainHeader, (e: Element) => e.textContent);
-    expect(pageTitle).toBe('Find a court or tribunal listing');
+    return  await page.$eval(helpers.MainHeader, (e: Element) => e.textContent);
   }
 
   async ClickStartNowButton(page: Page): Promise<any> {
@@ -20,11 +19,7 @@ class HomePage {
       console.log(`${helpers.SearchOptionsTitle} not found`);
     });
 
-    const pageTitle = await page.$eval(helpers.SearchOptionsTitle, (e: Element) => e.textContent);
-    const radioElements = await page.$$(helpers.RadioButton);
-
-    expect(pageTitle).toContain('Find a court or tribunal list');
-    expect(radioElements.length).toBe(2);
+    return await page.$eval(helpers.SearchOptionsTitle, (e: Element) => e.textContent);
   }
 }
 
