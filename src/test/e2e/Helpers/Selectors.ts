@@ -5,5 +5,5 @@ module.exports = {
   MainHeader: 'h1.govuk-heading-xl',
   // Search options page selectors
   SearchOptionsTitle: 'h1.govuk-fieldset__heading',
-  RadioButton: 'div.govuk-radios__item'
+  RadioButton: 'div.govuk-radios__item',
 };

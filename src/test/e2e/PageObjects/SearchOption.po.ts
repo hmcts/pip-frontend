@@ -15,6 +15,15 @@ export class SearchOptionPo {
     });
 
     return await page.$eval(helpers.SearchOptionsTitle, (e: Element) => e.textContent);
-    // return page;
+  }
+
+  async getRadioButtons() {
+    await page.waitForSelector(helpers.RadioButton).catch(() => {
+      console.log(`${helpers.RadioButton} not found`);
+    });
+
+    const radios = await page.$$(helpers.RadioButton);
+
+    return radios.length;
   }
 }

@@ -8,7 +8,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   preset: 'jest-puppeteer',
   globals: {
-    URL: 'http://localhost:8080',
+    URL: 'https://localhost:8080',
   },
   verbose: true,
 };
