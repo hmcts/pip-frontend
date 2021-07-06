@@ -94,6 +94,12 @@ $ yarn test:a11y
 
 Make sure all the paths in your application are covered by accessibility tests (see [a11y.ts](src/test/a11y/a11y.ts)).
 
+Running end-to-end tests:
+```bash
+$ yarn test:e2e
+``` 
+make sure to have application running first while testing locally, otherwise tests will fail.
+
 ### Security
 
 #### CSRF prevention
