@@ -1,7 +1,7 @@
 import { Browser, Page } from 'puppeteer';
 
 const puppeteer = require('puppeteer');
-const HomePage = require('../PageObjects/HomePage');
+const HomePage = require('../PageObjects/HomePage.po');
 const homePage = new HomePage;
 let browser: Browser;
 let page: Page;
