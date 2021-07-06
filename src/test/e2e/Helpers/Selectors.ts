@@ -1,5 +1,4 @@
 module.exports = {
-  baseUrl: 'https://localhost:8080',
   // Home page selectors
   StartNowButton: '.govuk-button--start',
   MainHeader: 'h1.govuk-heading-xl',
