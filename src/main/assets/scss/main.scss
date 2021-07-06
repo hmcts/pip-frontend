@@ -1,13 +1,7 @@
 @import '~govuk-frontend';
 
-@media (min-width: 48.0625em) {
-  .govuk-header__content {
-    width: 39%;
-  }
-
-  .govuk-header__logo {
-     width: 60%;
-  }
+.nav-right {
+  margin: -4vh 0 0 0;
 }
 
 
