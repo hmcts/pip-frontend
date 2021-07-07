@@ -1,8 +1,8 @@
 nodejs:
   applicationPort: 8080
-  aadIdentityName: Publishing-information-project
-  ingressHost: Publishing-information-project-PI.{{ .Values.global.environment }}.platform.hmcts.net
-  image: 'hmctspublic.azurecr.io/Publishing-information-project/PI:latest'
+  aadIdentityName: pip
+  ingressHost: pip-frontend.{{ .Values.global.environment }}.platform.hmcts.net
+  image: 'hmctspublic.azurecr.io/pip-frontend:latest'
 #  Uncomment once the vault containing the app insights key has been set up
 #  keyVaults:
 #    Publishing-information-project:
