@@ -98,7 +98,7 @@ Running end-to-end tests:
 ```bash
 $ yarn test:e2e
 ``` 
-make sure to have application running first while testing locally, otherwise tests will fail.
+Make sure to have application running first while testing locally, otherwise tests will fail. To test in development mode run: `yarn start:dev`
 
 ### Security
 
