@@ -1,12 +1,13 @@
 version: '2'
 
 services:
-  publishing-information:
+  pip-frontend:
     build:
       context: .
       args:
         - http_proxy
         - https_proxy
         - no_proxy
+    image: hmctspublic.azurecr.io/pip-frontend
     ports:
       - 8080:8080
