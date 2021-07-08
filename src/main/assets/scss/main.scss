@@ -1,14 +1,11 @@
 @import '~govuk-frontend';
 
-.nav-right {
-    float: right;
-    margin: -1.6vw 0px 0vh 0;
-    li {
-      a {
-        font-size: 19px;
-      }
-    }
+.govuk-header__navigation--end {
+  margin: -5vh 0 0 0;
+  padding: 1vh 0 0 0;
 }
+
+
 
 
 
