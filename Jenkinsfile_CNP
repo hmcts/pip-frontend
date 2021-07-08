@@ -3,8 +3,8 @@
 @Library("Infrastructure")
 
 def type = "nodejs"
-def product = "Publishing-information-project"
-def component = "PI"
+def product = "pip"
+def component = "frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
@@ -14,5 +14,5 @@ withPipeline(type, product, component) {
   after('build') {
     yarnBuilder.yarn('build')
   }
-  
+  enableSlackNotifications('#pip-build-notices')
 }
