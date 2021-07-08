@@ -2,7 +2,7 @@
 
 @Library("Infrastructure")
 
-def type = "java"
+def type = "nodejs"
 def product = "pip"
 def component = "frontend"
 
