@@ -1,6 +1,7 @@
 #!groovy
 
 @Library("Infrastructure")
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 def type = "nodejs"
 def product = "pip"
@@ -12,7 +13,6 @@ withPipeline(type, product, component) {
   disableLegacyDeployment()
 
   after('build') {
-    sh 'yarn run:build'
     yarnBuilder.yarn('build')
   }
   enableSlackNotifications('#pip-build-notices')
