@@ -12,7 +12,7 @@ module.exports = {
         "linebreak-style": ["error", "unix"],
         "quotes": ["error", "single"],
         "comma-dangle": ["error", "always-multiline"],
-        "semi": ["error", "always"]
+        "semi": ["error", "always"],
       },
       "overrides": [
         {
@@ -36,7 +36,8 @@ module.exports = {
             "linebreak-style": ["error", "unix"],
             "quotes": ["error", "single", { "avoidEscape": true }],
             "comma-dangle": ["error", "always-multiline"],
-            "@typescript-eslint/no-var-requires": 0
+            "@typescript-eslint/no-var-requires": 0,
+            "@typescript-eslint/no-explicit-any": 0
           },
         }
       ]

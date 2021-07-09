@@ -9,7 +9,7 @@ export class SearchOptionPo {
     page = _page;
   }
 
-  async getPageTitle() {
+  async getPageTitle(): Promise<string> {
     await page.waitForSelector(helpers.SearchOptionsTitle).catch(() => {
       console.log(`${helpers.SearchOptionsTitle} not found`);
     });
@@ -17,7 +17,7 @@ export class SearchOptionPo {
     return await page.$eval(helpers.SearchOptionsTitle, (e: Element) => e.textContent);
   }
 
-  async getRadioButtons() {
+  async getRadioButtons(): Promise<number> {
     await page.waitForSelector(helpers.RadioButton).catch(() => {
       console.log(`${helpers.RadioButton} not found`);
     });
