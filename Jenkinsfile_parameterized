@@ -8,5 +8,10 @@ def component = "frontend"
 
 withPipeline(type, product, component) {
 
+  after('build') {
+      echo 'after the build'
+      yarnBuilder.yarn('build')
+    }
+
     enableSlackNotifications('#pip-build-notices')
 }
