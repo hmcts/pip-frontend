@@ -12,6 +12,10 @@ withPipeline(type, product, component) {
       echo 'after the build'
       yarnBuilder.yarn('build')
     }
+  before('test') {
+    echo 'before the tests'
+    sh 'yarn build'
+  }
 
     enableSlackNotifications('#pip-build-notices')
 }
