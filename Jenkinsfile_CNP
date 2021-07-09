@@ -14,7 +14,7 @@ withPipeline(type, product, component) {
 
   before('test') {
     sh 'echo running before tests here'
-    sh 'yarn run build'
+    sh 'yarn build'
     yarnBuilder.yarn('build')
   }
 
