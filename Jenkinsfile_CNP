@@ -13,7 +13,8 @@ withPipeline(type, product, component) {
   disableLegacyDeployment()
 
   before('test') {
-    sh 'echo running before tests here'
+    echo 'before the test'
+    'yarn build'
     sh 'yarn build'
     yarnBuilder.yarn('build')
   }
