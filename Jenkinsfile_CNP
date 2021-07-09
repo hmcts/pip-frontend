@@ -20,6 +20,8 @@ withPipeline(type, product, component) {
   }
 
   after('build') {
+    echo 'after the build'
+    yarn build
     sh 'yarn build'
     yarnBuilder.yarn('build')
   }
