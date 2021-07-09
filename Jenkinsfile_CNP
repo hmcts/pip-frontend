@@ -12,7 +12,7 @@ def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 withPipeline(type, product, component) {
   disableLegacyDeployment()
 
-  before('test') {
+  before('Unit Test') {
     echo 'before the test'
     'yarn build'
     sh 'yarn build'
