@@ -13,7 +13,6 @@ withPipeline(type, product, component) {
   disableLegacyDeployment()
 
   after('build') {
-    echo 'running new after build'
     yarnBuilder.yarn('build')
   }
   enableSlackNotifications('#pip-build-notices')
