@@ -11,13 +11,7 @@ def component = "frontend"
 withPipeline(type, product, component) {
 
   after('build') {
-    echo 'after the build'
     yarnBuilder.yarn('build')
   }
-  before('test') {
-    echo 'before the tests'
-    yarnBuilder.yarn('build')
-  }
-
     enableSlackNotifications('#pip-build-notices')
 }
