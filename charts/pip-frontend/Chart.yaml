@@ -9,5 +9,5 @@ maintainers:
 dependencies:
   - name: nodejs
     version: 2.3.4
-    repository: '@hmctspublic'
+    repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
 
