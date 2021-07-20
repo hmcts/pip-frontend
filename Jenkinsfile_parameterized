@@ -1,12 +1,17 @@
 #!groovy
 
-@Library("Infrastructure")
+@Library("Infrastructure") _
 
-def type = "java"
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+
+def type = "nodejs"
 def product = "pip"
 def component = "frontend"
 
 withPipeline(type, product, component) {
 
+  after('build') {
+    yarnBuilder.yarn('build')
+  }
     enableSlackNotifications('#pip-build-notices')
 }
