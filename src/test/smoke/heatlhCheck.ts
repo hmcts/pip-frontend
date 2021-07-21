@@ -1,12 +1,10 @@
 import request from 'supertest';
-import { app } from '../../main/app';
-import { expect } from 'chai';
 
 describe('GET /health', () => {
   test('should return 200 and UP status', async () => {
-    await request(app)
+    await request('https://localhost:8080')
       .get('/health')
-      .expect((res) => expect(res.status).to.equal(200))
-      .expect((res) => expect(res.body.status).to.equal('UP'));
+      .expect((res) => expect(res.status).toBe(200))
+      .expect((res) => expect(res.body.status).toBe('UP'));
   });
 });
