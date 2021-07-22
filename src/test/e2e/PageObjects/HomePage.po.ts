@@ -13,11 +13,11 @@ export class HomePagePo {
     return page;
   }
 
-  async getPageTitle() {
+  async getPageTitle(): Promise<string> {
     return await page.$eval(helpers.MainHeader, (e: Element) => e.textContent);
   }
 
-  async ClickStartNowButton() {
+  async ClickStartNowButton(): Promise<SearchOptionPo> {
     await page.waitForSelector(helpers.StartNowButton).catch(() => {
       console.log(`${helpers.StartNowButton} not found`);
     });

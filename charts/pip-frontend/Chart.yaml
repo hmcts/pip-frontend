@@ -1,6 +1,6 @@
 apiVersion: v2
 appVersion: "1.0"
-description: A Helm chart for Publishing-information-project-PI App
+description: A Helm chart for pip-frontend App
 name: pip-frontend
 home: https://github.com/hmcts/pip-frontend
 version: 0.0.1
@@ -8,6 +8,6 @@ maintainers:
   - name: HMCTS PIP Team
 dependencies:
   - name: nodejs
-    version: 2.3.4
-    repository: '@hmctspublic'
+    version: 2.3.7
+    repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
 

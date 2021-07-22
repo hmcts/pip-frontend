@@ -1,12 +1,12 @@
 #!groovy
 
-@Library("Infrastructure")
+@Library("Infrastructure") _
+
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 def type = "nodejs"
 def product = "pip"
 def component = "frontend"
-
-def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 withPipeline(type, product, component) {
   disableLegacyDeployment()
