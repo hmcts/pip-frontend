@@ -11,13 +11,12 @@ export default function(app: Application): void {
     const courtsData = JSON.parse(rawData);
     const court = courtsData?.results.filter((court) => court.courtId === courtId);
     console.log(court);
-    res.json(court);
   });
 
   app.get('/api/courts/list', (req, res) => {
     const rawData = fs.readFileSync(path.resolve(__dirname, mocksPath, 'courtsAndHearingsCount.json'), 'utf-8');
     const courtsData = JSON.parse(rawData);
-    courtsData?.results ? res.json(courtsData) : console.error('unable to get courts data');
+    courtsData?.results ? console.log(courtsData) : console.error('unable to get courts data');
   });
 
   app.get('/api/hearings/:courtId', (req, res) => {
@@ -27,7 +26,6 @@ export default function(app: Application): void {
       const hearingsData = JSON.parse(rawData);
       const courtHearings = hearingsData?.results.filter((hearing) => hearing.courtId === courtId);
       console.log(courtHearings);
-      res.json(courtHearings);
     }
     catch (error) {
       console.error('Unable to fetch court hearings', error);
@@ -42,7 +40,6 @@ export default function(app: Application): void {
       const hearingsData = JSON.parse(rawData);
       const hearingDetails = hearingsData?.results.find((hearing) => hearing.hearingId === hearingId);
       console.log(hearingDetails);
-      res.json(hearingDetails);
     }catch (error) {
       console.error('Unable to fetch hearing details', error);
       res.render('error');
