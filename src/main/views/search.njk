@@ -1,0 +1,36 @@
+{% extends "template.njk" %}
+{% block pageTitle %}
+    {{ "Search" | safe }}
+{% endblock %}
+
+{% block beforeContent %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/search-option"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  {% from "govuk/components/input/macro.njk" import govukInput %}
+  {{ govukInput({
+    label: {
+        text: "What court or tribunal are you interested in?",
+        classes: "govuk-label--l govuk-!-width-one-half",
+        isPageHeading: true
+    },
+    hint: {
+        text: "For example Blackburn Family Court or Chester"
+    },
+    classes: "govuk-!-width-one-third",
+    id: "search-field",
+    name: "search-field"
+  }) }}
+
+  {% from "govuk/components/button/macro.njk" import govukButton %}
+  {{ govukButton({
+    text: "Continue",
+    href: '#'
+  })}}
+
+{% endblock %}
