@@ -5,6 +5,29 @@
   padding: 1vh 0 0;
 }
 
+.line-bottom {
+  height: 2px;
+  background-color: #1d70b8;
+}
+
+.table-header {
+  border-spacing: 100px;
+}
+
+.govuk-table {
+  table-layout: fixed;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.right-align-text {
+  text-align: right;
+}
+
+.centre-align-text {
+  text-align: center;
+}
+
 
 
 
