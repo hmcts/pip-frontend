@@ -1,4 +1,5 @@
 {% extends "template.njk" %}
+{% from "macros/form.njk" import submitButton %}
 {% block pageTitle %}
     {{ "Search" | safe }}
 {% endblock %}
@@ -13,24 +14,21 @@
 
 {% block content %}
   {% from "govuk/components/input/macro.njk" import govukInput %}
-  {{ govukInput({
-    label: {
+  <form action="/url/of/next/page" method="post">
+    {{ govukInput({
+      label: {
         text: "What court or tribunal are you interested in?",
         classes: "govuk-label--l govuk-!-width-one-half",
         isPageHeading: true
-    },
-    hint: {
+      },
+      hint: {
         text: "For example Blackburn Family Court or Chester"
-    },
-    classes: "govuk-!-width-one-third",
-    id: "search-field",
-    name: "search-field"
-  }) }}
+      },
+      classes: "govuk-!-width-one-third",
+      id: "search-input",
+      name: "search-input"
+    }) }}
 
-  {% from "govuk/components/button/macro.njk" import govukButton %}
-  {{ govukButton({
-    text: "Continue",
-    href: '#'
-  })}}
-
+    {{ submitButton() }}
+  </form>
 {% endblock %}

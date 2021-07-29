@@ -1,0 +1,6 @@
+{% macro submitButton(label = 'Continue', id = '', ariaLabel = '') %}
+    {% from "govuk/components/button/macro.njk" import govukButton %}
+    {{ govukButton({
+        text: label
+    })}}
+{% endmacro %}
