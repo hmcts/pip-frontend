@@ -146,7 +146,7 @@ Make sure you have those values set correctly for your application.
 
 The application exposes a health endpoint (https://localhost:8080/health), created with the use of
 [Nodejs Healthcheck](https://github.com/hmcts/nodejs-healthcheck) library. This endpoint is defined
-in [health.ts](src/main/routes/health.ts) file. Make sure you adjust it correctly in your application.
+in [health.ts](src/main/routes/pages/health.ts) file. Make sure you adjust it correctly in your application.
 In particular, remember to replace the sample check with checks specific to your frontend app,
 e.g. the ones verifying the state of each service it depends on.
 
