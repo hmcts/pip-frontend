@@ -12,15 +12,44 @@
 {% endblock %}
 
 {% block content %}
-<h2 class="govuk-heading-l govuk-!-margin-bottom-8">Aylesbury Crown Court hearing list</h2>
+<h2 class="govuk-heading-l govuk-!-margin-bottom-8">Aylesbury Crown Court hearing list {{ hearings[1].name }}</h2>
 {% from "govuk/components/table/macro.njk" import govukTable %}
+
+  {% set hearing = [] %}
+
+  {% for item in hearings %}
+    {% set hearing = hearing + [
+      {
+        text: "abcd"
+      },
+      {
+        text: "Test vs Test2"
+      },
+      {
+        text: "1234"
+      },
+      {
+        text: "Justice A B"
+      },
+      {
+        text: "1pm",
+        classes: "centre-align-text"
+      },
+      {
+        text: "A",
+        classes: "right-align-text"
+      }
+    ] %}
+  {% endfor %}
+
+  <h2>{{hearing | string}}</h2>
   {{ govukTable({
-    caption: "List for June 9 2021",
+    caption: "List for June 9 2021" + courtList[1],
     captionClasses: "govuk-table__caption--m",
     firstCellIsHeader: false,
     head: [
       {
-        text: "Court Number"
+        text: "{{ pagename }}"
       },
       {
         text: "Case name"
@@ -41,138 +70,6 @@
       }
     ],
     rows: [
-      [
-        {
-          text: "1"
-        },
-        {
-          text: "Macey vs Hibbert"
-        },
-        {
-          text: "11223"
-        },
-        {
-          text: "Justice John Smith"
-        },
-        {
-          text: "2pm",
-          classes: "centre-align-text"
-        },
-        {
-          text: "VHS",
-          classes: "right-align-text"
-        }
-      ],
-      [
-        {
-          text: "2"
-        },
-        {
-          text: "Macey vs Hibbert"
-        },
-        {
-          text: "11223"
-        },
-        {
-          text: "Justice John Smith"
-        },
-        {
-          text: "2pm",
-          classes: "centre-align-text"
-        },
-        {
-          text: "CVP",
-          classes: "right-align-text"
-        }
-      ],
-      [
-        {
-          text: "3"
-        },
-        {
-          text: "Macey vs Hibbert"
-        },
-        {
-          text: "11223"
-        },
-        {
-          text: "Justice John Smith"
-        },
-        {
-          text: "2pm",
-          classes: "centre-align-text"
-        },
-        {
-          text: "Teams",
-          classes: "right-align-text"
-        }
-      ],
-      [
-        {
-          text: "4"
-        },
-        {
-          text: "Macey vs Hibbert"
-        },
-        {
-          text: "11223"
-        },
-        {
-          text: "Justice John Smith"
-        },
-        {
-          text: "2pm",
-          classes: "centre-align-text"
-        },
-        {
-          text: "Telephone",
-          classes: "right-align-text"
-        }
-      ],
-      [
-        {
-          text: "5"
-        },
-        {
-          text: "Macey vs Hibbert"
-        },
-        {
-          text: "11223"
-        },
-        {
-          text: "Justice John Smith"
-        },
-        {
-          text: "2pm",
-          classes: "centre-align-text"
-        },
-        {
-          text: "BT MeetMe",
-          classes: "right-align-text"
-        }
-      ],
-      [
-        {
-          text: "6"
-        },
-        {
-          text: "Macey vs Hibbert"
-        },
-        {
-          text: "11223"
-        },
-        {
-          text: "Justice John Smith"
-        },
-        {
-          text: "2pm",
-          classes: "centre-align-text"
-        },
-        {
-          text: "Skype for Business",
-          classes: "right-align-text"
-        }
-      ]
     ]
   }) }}
   <hr class="line-bottom govuk-!-margin-top-9"></hr>
