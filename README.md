@@ -97,7 +97,7 @@ Make sure all the paths in your application are covered by accessibility tests (
 Running end-to-end tests:
 ```bash
 $ yarn test:e2e
-``` 
+```
 Make sure to have application running in developer mode first while testing locally, otherwise tests will fail. To test in development mode run: `yarn start:dev`
 
 ### Security
@@ -146,7 +146,7 @@ Make sure you have those values set correctly for your application.
 
 The application exposes a health endpoint (https://localhost:8080/health), created with the use of
 [Nodejs Healthcheck](https://github.com/hmcts/nodejs-healthcheck) library. This endpoint is defined
-in [health.ts](src/main/routes/pages/health.ts) file. Make sure you adjust it correctly in your application.
+in [health.ts](src/main/routes/health.ts) file. Make sure you adjust it correctly in your application.
 In particular, remember to replace the sample check with checks specific to your frontend app,
 e.g. the ones verifying the state of each service it depends on.
 
