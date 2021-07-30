@@ -1,20 +1,16 @@
 {% extends "template.njk" %}
-{% from "macros/form.njk" import submitButton %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "macros/form.njk" import goBack, submitButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% block pageTitle %}
     {{ "Search" | safe }}
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "/search-option"
-  }) }}
+  {{ goBack('/search-option') }}
 {% endblock %}
 
 {% block content %}
-  <form action="/url/of/next/page" method="post">
+  <form action="search" method="post">
     {{ govukInput({
       label: {
         text: "What court or tribunal are you interested in?",

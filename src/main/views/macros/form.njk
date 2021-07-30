@@ -4,3 +4,11 @@
         text: label
     })}}
 {% endmacro %}
+
+{% macro goBack(path = '#', text = 'Back', id = '', ariaLabel = '') %}
+    {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+    {{ govukBackLink({
+        text: text,
+        href: path
+    }) }}
+{% endmacro %}

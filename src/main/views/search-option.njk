@@ -1,5 +1,5 @@
 {% extends "template.njk" %}
-{% from "macros/form.njk" import submitButton %}
+{% from "macros/form.njk" import goBack, submitButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% block pageTitle %}
@@ -7,10 +7,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-    {{ govukBackLink({
-        text: "Back",
-        href: "/"
-    }) }}
+    {{ goBack('/') }}
 {% endblock %}
 
 {% block content %}
