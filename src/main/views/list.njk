@@ -12,44 +12,42 @@
 {% endblock %}
 
 {% block content %}
-<h2 class="govuk-heading-l govuk-!-margin-bottom-8">Aylesbury Crown Court hearing list {{ hearings[1].name }}</h2>
+<h2 class="govuk-heading-l govuk-!-margin-bottom-8">{{courtName}} hearing list</h2>
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
-  {% set hearing = [] %}
-
+  {%- set hearing = [] %}
   {% for item in hearings %}
-    {% set hearing = hearing + [
+    {% set _ = hearing.push([
       {
-        text: "abcd"
+        text: item.courtId
       },
       {
-        text: "Test vs Test2"
+        text: item.caseName
       },
       {
-        text: "1234"
+        text: item.caseNumber
       },
       {
-        text: "Justice A B"
+        text: item.judge
       },
       {
-        text: "1pm",
+        text: item.time,
         classes: "centre-align-text"
       },
       {
-        text: "A",
+        text: item.platform,
         classes: "right-align-text"
       }
-    ] %}
+    ]) %}
   {% endfor %}
 
-  <h2>{{hearing | string}}</h2>
   {{ govukTable({
-    caption: "List for June 9 2021" + courtList[1],
+    caption: "List for June 9 2021",
     captionClasses: "govuk-table__caption--m",
     firstCellIsHeader: false,
     head: [
       {
-        text: "{{ pagename }}"
+        text: "Court Number"
       },
       {
         text: "Case name"
@@ -69,8 +67,7 @@
         classes: "right-align-text"
       }
     ],
-    rows: [
-    ]
+    rows: hearing
   }) }}
   <hr class="line-bottom govuk-!-margin-top-9"></hr>
   <h4 class="govuk-heading-s govuk-!-margin-bottom-1">Related Content</h4>

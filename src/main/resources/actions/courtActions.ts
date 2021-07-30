@@ -3,7 +3,7 @@ import path from 'path';
 
 export class CourtActions {
   mocksPath = '../mocks/';
-  
+
   getCourtDetails(courtId: number): any {
     const rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'courtsAndHearingsCount.json'), 'utf-8');
     const courtsData = JSON.parse(rawData);
