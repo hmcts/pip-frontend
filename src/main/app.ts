@@ -1,18 +1,19 @@
-import { glob } from 'glob';
-
-const { Logger } = require('@hmcts/nodejs-logging');
+const {Logger} = require('@hmcts/nodejs-logging');
 
 import * as bodyParser from 'body-parser';
 import config = require('config');
 import cookieParser from 'cookie-parser';
 import express from 'express';
-import { Helmet } from './modules/helmet';
+import {Helmet} from './modules/helmet';
 import * as path from 'path';
-import { HTTPError } from 'HttpError';
-import { Nunjucks } from './modules/nunjucks';
-import { PropertiesVolume } from './modules/properties-volume';
-import { AppInsights } from './modules/appinsights';
-const { setupDev } = require('./development');
+import {HTTPError} from 'HttpError';
+import {Nunjucks} from './modules/nunjucks';
+import {PropertiesVolume} from './modules/properties-volume';
+import {AppInsights} from './modules/appinsights';
+
+const {setupDev} = require('./development');
+import {Container} from './modules/awilix';
+import routes from './routes/routes';
 
 const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
@@ -26,9 +27,10 @@ new PropertiesVolume().enableFor(app);
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
+new Container().enableFor(app);
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
@@ -39,11 +41,10 @@ app.use((req, res, next) => {
   next();
 });
 
-glob.sync(__dirname + '/routes/**/*.+(ts|js)')
-  .map(filename => require(filename))
-  .forEach(route => route.default(app));
+//main routes
+routes(app);
 
-setupDev(app,developmentMode);
+setupDev(app, developmentMode);
 // returning "not found" page for requests with paths not resolved by the router
 app.use((req, res) => {
   res.status(404);

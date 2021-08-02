@@ -1,10 +1,10 @@
-import { Application } from 'express';
-import { HearingActions } from '../../resources/actions/hearingActions';
+import { Application, Request } from 'express';
+import { HearingActions } from '../resources/actions/hearingActions';
 import moment from 'moment';
 
-export default function(app: Application): void {
+export default class ListController {
 
-  app.get('/list', (req, res) => {
+  public get(req: Request, res: Application): void {
 
     var courtId = req.query.courtId as string;
 
@@ -26,6 +26,6 @@ export default function(app: Application): void {
     } else {
       res.render('error');
     }
-  });
+  };
 
 }
