@@ -1,10 +1,10 @@
-import { Application, Request } from 'express';
+import { Request, Response } from 'express';
 import { HearingActions } from '../resources/actions/hearingActions';
 import moment from 'moment';
 
 export default class ListController {
 
-  public get(req: Request, res: Application): void {
+  public get(req: Request, res: Response): void {
 
     var courtId = req.query.courtId as string;
 
@@ -14,15 +14,15 @@ export default class ListController {
 
       //Returns the error page if the court list is empty
       console.log(courtList)
-      if (courtList.size == 0) {
+      if (courtList.length == 0) {
         res.render('error')
+      } else {
+        res.render('list', {
+          courtName: 'Test Court',
+          hearings: courtList,
+          date: moment().format('MMMM DD YYYY')
+        });
       }
-
-      res.render('list', {
-        courtName: 'Test Court',
-        hearings: courtList,
-        date: moment().format('MMMM DD YYYY')
-      });
     } else {
       res.render('error');
     }
