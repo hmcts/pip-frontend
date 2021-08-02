@@ -23,7 +23,7 @@ describe('List page', () => {
 
   it('Should display court name header', () => {
     const header = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(header[0].innerHTML).contains('Test Court hearing list', 'Could not find the header');
+    expect(header[0].innerHTML).contains('Khvalynsk Court hearing list', 'Could not find the header');
   });
 
   it('Should display table caption', () => {

@@ -3,6 +3,7 @@ import { HearingActions } from '../../../../main/resources/actions/hearingAction
 const mockData = {
   hearingId: 5,
   courtId: 9,
+  courtNumber: 1,
   date: '1/9/2021',
   time: '8:29 AM',
   judge: 'Judge Brigida Francioli',
