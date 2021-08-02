@@ -69,7 +69,7 @@ describe('List page', () => {
     const relatedContent = htmlRes.getElementsByClassName('govuk-link');
 
     expect(relatedContent.item(0).innerHTML).contains('Find a court or tribunal list', 'Link text is not present');
-    expect(relatedContent.item(0).getAttribute("href")).equal('/search-option', 'Link value is not correct');
+    expect(relatedContent.item(0).getAttribute('href')).equal('/search-option', 'Link value is not correct');
   });
 
 });
