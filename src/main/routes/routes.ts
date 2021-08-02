@@ -1,6 +1,6 @@
 import { Application } from 'express';
 import {infoRequestHandler} from '@hmcts/info-provider';
-import os from "os";
+import os from 'os';
 
 export default function(app: Application): void {
 
