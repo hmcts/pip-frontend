@@ -1,13 +1,15 @@
 @import '~govuk-frontend';
 
+$line-colour: #1d70b8;
+
 .govuk-header__navigation--end {
   margin: -5vh 0 0;
   padding: 1vh 0 0;
 }
 
 .line-bottom {
+  background-color: $line-colour;
   height: 2px;
-  background-color: #1d70b8;
 }
 
 .table-header {
@@ -16,8 +18,8 @@
 
 .govuk-table {
   table-layout: fixed;
-  word-wrap: break-word;
   white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .right-align-text {
