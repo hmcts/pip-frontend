@@ -7,9 +7,8 @@ $line-colour: #1d70b8;
   padding: 1vh 0 0;
 }
 
-.line-bottom {
-  background-color: $line-colour;
-  height: 2px;
+.govuk-section-break--visible {
+  border-color: $line-colour;
 }
 
 .table-header {
