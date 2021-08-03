@@ -1,10 +1,12 @@
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink as 'govukBackLink' %}
+
 {% extends "template.njk" %}
 {% block pageTitle %}
     {{ "Hearings List" | safe }}
 {% endblock %}
 
 {% block beforeContent %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
   {{ govukBackLink({
     text: "Back",
     href: "/"
@@ -12,9 +14,7 @@
 {% endblock %}
 
 {% block content %}
-<h2 class="govuk-heading-l govuk-!-margin-bottom-8">{{courtName}} hearing list</h2>
-{% from "govuk/components/table/macro.njk" import govukTable %}
-
+  <h2 class="govuk-heading-l govuk-!-margin-bottom-8">{{courtName}} hearing list</h2>
   {%- set hearing = [] %}
   {% for item in hearings %}
     {% set _ = hearing.push([

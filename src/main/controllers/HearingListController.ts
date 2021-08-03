@@ -3,7 +3,7 @@ import { HearingActions } from '../resources/actions/hearingActions';
 import { CourtActions } from '../resources/actions/courtActions';
 import moment from 'moment';
 
-export default class ListController {
+export default class HearingListController {
 
   public get(req: Request, res: Response): void {
 
@@ -18,7 +18,7 @@ export default class ListController {
       if (court == null || courtList.length == 0) {
         res.render('error');
       } else {
-        res.render('list', {
+        res.render('hearing-list', {
           courtName: court['name'],
           hearings: courtList,
           date: moment().format('MMMM DD YYYY'),
