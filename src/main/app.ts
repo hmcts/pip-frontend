@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import {Helmet} from './modules/helmet';
 import * as path from 'path';
+import favicon from 'serve-favicon'
 import {HTTPError} from 'HttpError';
 import {Nunjucks} from './modules/nunjucks';
 import {PropertiesVolume} from './modules/properties-volume';
@@ -29,6 +30,7 @@ new Nunjucks(developmentMode).enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new Container().enableFor(app);
 
+app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
