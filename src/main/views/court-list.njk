@@ -1,0 +1,17 @@
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ "Court List" | safe }}
+{% endblock %}
+{% block beforeContent %}
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/"
+  }) }}
+{% endblock %}
+{% block content %}
+  <h2 class="govuk-heading-l">Find a court or tribunal listing</h2>
+  {% for key, value in courtList %}
+    {{ key }}
+  {% endfor %}
+{% endblock %}
