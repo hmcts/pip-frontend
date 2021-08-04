@@ -7,6 +7,7 @@ export default class HearingListController {
 
   public get(req: Request, res: Response): void {
 
+    console.log(req);
     const courtId = req.query.courtId as string;
 
     //If no court ID has been supplied, then return the error page

@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { app } from '../../../main/app';
 
-const PAGE_URL = '/list?courtId=2';
+const PAGE_URL = '/hearing-list?courtId=2';
 
 let htmlRes: Document;
 
