@@ -17,7 +17,7 @@
     {% if value| length == 0 %}
       <a class="govuk-link">{{ key }}</a>
     {% else %}
-      <a href='hello' class="govuk-link">{{ key }}</a>
+      <a href='#{{ key }}' class="govuk-link">{{ key }}</a>
     {% endif %}
   {% endfor %}
 
@@ -33,7 +33,7 @@
     {% for key, value in courtList %}
       <tr class="govuk-table__row">
         <th scope="row" class="govuk-table__header">
-          <h2 class="govuk-heading-l">{{key}}</h2>
+          <h2 id="{{ key }}" class="govuk-heading-l">{{key}}</h2>
         </th>
         <td class="govuk-table__cell">
           {% if value | length == 0 %}
