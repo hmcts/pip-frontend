@@ -1,0 +1,38 @@
+{% extends "template.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% block pageTitle %}
+  {{ "Search Results" | safe }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/search-option"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">Courts or tribunals in {{ searchInput }}</h1>
+  <p class="govuk-body">We have found {{ searchResults.length }} courts or tribunals matching your search for
+    '{{ searchInput }}'</p>
+
+  <table class="govuk-table govuk-!-width-two-thirds">
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Court or tribunal</th>
+      <th scope="col" class="govuk-table__header--numeric">Number of hearings</th>
+    </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+    {% for result in searchResults %}
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__cell--no-line govuk-link"><a href="/hearing-list?courtId={{ result.courtId }}">{{ result.name }}</a></th>
+        <td class="govuk-table__cell--no-line govuk-table__cell--numeric">{{ result.hearings }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

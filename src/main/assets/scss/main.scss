@@ -5,6 +5,27 @@
   padding: 1vh 0 0;
 }
 
+.govuk-table__cell--no-line {
+  @extend .govuk-table__cell;
+  border-style: hidden;
+  font-weight: inherit;
+}
+
+tbody > tr:first-child > th.govuk-table__cell--no-line{
+  border-style: inherit!important;
+}
+tbody > tr:first-child > td.govuk-table__cell--no-line{
+  border-top: 1px solid $govuk-border-colour !important;
+}
+
+tbody > tr:last-child > th.govuk-table__cell--no-line {
+  border-bottom-style: solid!important;
+}
+
+tbody > tr:last-child > td.govuk-table__cell--no-line{
+  border-bottom-style: solid!important;
+}
+
 
 
 
