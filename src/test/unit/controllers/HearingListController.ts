@@ -3,11 +3,11 @@ import sinon from 'sinon';
 import { Request, Response } from 'express';
 
 describe('Hearing list Controller', () => {
-  test('Check that court ID that exists renders the list page', () =>  {
+  it('should render the list page if the court ID exists', () =>  {
     const hearingListController = new HearingListController();
 
     const response = { render: function() {return '';}} as unknown as Response;
-    const request = {query: {courtId: 2}} as unknown as Request;
+    const request = {query: {courtId: 2}, headers: {referer: '/referred-page'}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
 
@@ -18,7 +18,7 @@ describe('Hearing list Controller', () => {
     responseMock.verify();
   });
 
-  test('Check that a court ID that does not return any results renders an error page', () =>  {
+  it('should render an error page if a court ID that does not return any results', () =>  {
     const hearingListController = new HearingListController();
 
     const response = { render: function() {return '';}} as unknown as Response;
@@ -33,7 +33,7 @@ describe('Hearing list Controller', () => {
     responseMock.verify();
   });
 
-  test('Check that a court ID is not defined renders an error', () =>  {
+  it('should render an error page if a court ID is not defined', () =>  {
     const hearingListController = new HearingListController();
 
     const response = { render: function() {return '';}} as unknown as Response;

@@ -20,6 +20,7 @@ export default class HearingListController {
         res.render('error');
       } else {
         res.render('hearing-list', {
+          referringPage: req.headers.referer,
           courtName: court['name'],
           hearings: courtList,
           date: moment().format('MMMM DD YYYY'),
