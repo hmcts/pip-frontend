@@ -15,7 +15,7 @@ export class InputFilterService {
     checkAgainst.forEach(item => {
       this.checkInputAgainstSearchValue(searchInput, item);
     });
-    return searchResults;
+    return this.alphabetiseResults(searchResults, 'name');
   }
 
   private checkNotNullOrEmpty(value): boolean {
@@ -24,5 +24,9 @@ export class InputFilterService {
 
   private checkInputAgainstSearchValue(searchInput, item) {
     courtsResults.filter(i => i[item] === searchInput).forEach(result => searchResults.push(result));
+  }
+
+  public alphabetiseResults(unsortedArray: JSONArray, leadValue): JSONArray {
+    return unsortedArray.sort((a, b) => a[leadValue].localeCompare(b[leadValue]));
   }
 }

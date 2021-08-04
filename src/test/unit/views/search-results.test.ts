@@ -54,14 +54,14 @@ describe('Search Results Page', () => {
     const rows = htmlRes.getElementsByClassName(rowClass);
     const items = rows.item(1).children;
 
-    expect(items[0].innerHTML).contains('Aylesbury Magistrate\'s Court', 'First court not listed correctly');
-    expect(items[1].innerHTML).contains('6', 'First court has incorrect number of hearings');
+    expect(items[0].innerHTML).contains('Aylesbury Crown Court', 'First court not listed correctly');
+    expect(items[1].innerHTML).contains('8', 'First court has incorrect number of hearings');
   });
 
   it('should contain correct link in search result', () => {
     const rows = htmlRes.getElementsByClassName(rowClass);
     const items = rows.item(1).children;
 
-    expect(items[0].children[0].getAttribute('href')).equal('/hearing-list?courtId=32', 'First court not listed correctly');
+    expect(items[0].children[0].getAttribute('href')).equal('/hearing-list?courtId=34', 'First court not listed correctly');
   });
 });

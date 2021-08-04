@@ -21,18 +21,18 @@ const expectedResultFromName = [{
 
 const expectedResultFromLocation = [
   {
-    courtId: 32,
-    name: 'Aylesbury Magistrate\'s Court',
-    jurisdiction: 'Crown Court',
-    location: 'Aylesbury',
-    hearings: 6,
-  },
-  {
     courtId: 34,
     name: 'Aylesbury Crown Court',
     jurisdiction: 'Crown Court',
     location: 'Aylesbury',
     hearings: 8,
+  },
+  {
+    courtId: 32,
+    name: 'Aylesbury Magistrate\'s Court',
+    jurisdiction: 'Crown Court',
+    location: 'Aylesbury',
+    hearings: 6,
   }];
 
 describe('Input filter service', () => {
@@ -58,5 +58,24 @@ describe('Input filter service', () => {
 
   it('should return empty array for undefined search input', () => {
     expect(inputService.findCourts(invalidSearchInputUndefined, validCheckAgainst).length).equal(0, 'No results should be returned');
+  });
+
+  it('should alphabetise an unsorted array', () => {
+    const unsorted = [
+      {
+        courtId: 34,
+        name: 'Zenon Court',
+        jurisdiction: 'Crown Court',
+        location: 'Aylesbury',
+        hearings: 8,
+      },
+      {
+        courtId: 32,
+        name: 'Aylesbury Magistrate\'s Court',
+        jurisdiction: 'Crown Court',
+        location: 'Aylesbury',
+        hearings: 6,
+      }];
+    expect(inputService.alphabetiseResults(unsorted, 'name')[0]['name']).equal('Aylesbury Magistrate\'s Court', 'List was not sorted alphabetically correctly');
   });
 });
