@@ -1,3 +1,5 @@
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+
 {% extends "template.njk" %}
 {% block pageTitle %}
   {{ "Court List" | safe }}
@@ -12,6 +14,49 @@
 {% block content %}
   <h2 class="govuk-heading-l">Find a court or tribunal listing</h2>
   {% for key, value in courtList %}
-    {{ key }}
+    {% if value| length == 0 %}
+      <a class="govuk-link">{{ key }}</a>
+    {% else %}
+      <a href='hello' class="govuk-link">{{ key }}</a>
+    {% endif %}
   {% endfor %}
+
+  <table class="govuk-table">
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header app-custom-class"></th>
+      <th scope="col" class="govuk-table__header govuk-!-width-three-quarters">Court of tribunal</th>
+      <th scope="col" class="govuk-table__header number_hearings">Number of hearings</th>
+    </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+    {% for key, value in courtList %}
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+          <h2 class="govuk-heading-l">{{key}}</h2>
+        </th>
+        <td class="govuk-table__cell">
+          {% if value | length == 0 %}
+            <div class="text_disabled">No hearings are scheduled in any of these</div>
+            <div class="text_disabled">locations today</div>
+          {% else %}
+            {% for courtName, hearings in value %}
+              <div><a href="#" class="govuk-link">{{ courtName }}</a></div>
+            {% endfor %}
+          {% endif %}
+        </td>
+        <td class="govuk-table__cell number_hearings">
+          {% if value | length == 0 %}
+            <div class="text_disabled">0</div>
+          {% else %}
+            {% for courtName, hearings in value %}
+              <div class="number_hearings">{{ hearings }}</div>
+            {% endfor %}
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
 {% endblock %}
