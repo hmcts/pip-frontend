@@ -28,7 +28,7 @@
     <tbody class="govuk-table__body">
     {% for result in searchResults %}
       <tr class="govuk-table__row">
-        <th scope="row" class="govuk-table__cell--no-line govuk-link"><a href="/hearing-list?courtId={{ result.courtId }}">{{ result.name }}</a></th>
+        <th scope="row" class="govuk-table__cell--no-line"><a class="govuk-link" href="/hearing-list?courtId={{ result.courtId }}">{{ result.name }}</a></th>
         <td class="govuk-table__cell--no-line govuk-table__cell--numeric">{{ result.hearings }}</td>
       </tr>
     {% endfor %}
