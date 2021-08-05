@@ -78,4 +78,25 @@ describe('Input filter service', () => {
       }];
     expect(inputService.alphabetiseResults(unsorted, 'name')[0]['name']).equal('Aylesbury Magistrate\'s Court', 'List was not sorted alphabetically correctly');
   });
+
+  it('should numerically sort an unsorted array', () => {
+    const unsorted = [
+      {
+        courtId: 34,
+        name: 'Zenon Court',
+        jurisdiction: 'Crown Court',
+        location: 'Aylesbury',
+        hearings: 8,
+      },
+      {
+        courtId: 32,
+        name: 'Aylesbury Magistrate\'s Court',
+        jurisdiction: 'Crown Court',
+        location: 'Aylesbury',
+        hearings: 6,
+      }];
+    expect(inputService.numericallySortResults(unsorted, 'courtId')[0]['name']).equal('Aylesbury Magistrate\'s Court', 'List was not sorted numerically correctly');
+  });
+
+
 });

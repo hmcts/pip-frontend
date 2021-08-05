@@ -29,4 +29,9 @@ export class InputFilterService {
   public alphabetiseResults(unsortedArray: JSONArray, leadValue): JSONArray {
     return unsortedArray.sort((a, b) => a[leadValue].localeCompare(b[leadValue]));
   }
+
+  public numericallySortResults(unsortedArray: JSONArray, leadValue): JSONArray {
+    return unsortedArray.sort((a, b) => a[leadValue]-b[leadValue]);
+  }
+
 }
