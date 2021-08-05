@@ -2,6 +2,9 @@ import { Request, Response } from 'express';
 import { HearingActions } from '../resources/actions/hearingActions';
 import { CourtActions } from '../resources/actions/courtActions';
 import moment from 'moment';
+import {InputFilterService} from '../service/inputFilterService';
+
+const inputFilterService = new InputFilterService();
 
 export default class HearingListController {
 
@@ -19,10 +22,11 @@ export default class HearingListController {
       if (court == null || courtList.length == 0) {
         res.render('error');
       } else {
+        const sortedCourtList = inputFilterService.numericallySortResults(courtList, 'courtNumber');
         res.render('hearing-list', {
           referringPage: req.headers.referer,
           courtName: court['name'],
-          hearings: courtList,
+          hearings: sortedCourtList,
           date: moment().format('MMMM DD YYYY'),
         });
       }
