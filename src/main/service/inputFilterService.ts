@@ -22,7 +22,7 @@ export class InputFilterService {
     return value != undefined || value != '';
   }
 
-  private checkInputAgainstSearchValue(searchInput, item) {
+  private checkInputAgainstSearchValue(searchInput, item): void {
     courtsResults.filter(i => i[item] === searchInput).forEach(result => searchResults.push(result));
   }
 
