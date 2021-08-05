@@ -18,5 +18,6 @@ export default function(app: Application): void {
       // TODO: add downstream info endpoints if your app has any
     },
   }));
+  app.get('/search-results', app.locals.container.cradle.searchResultsController.get);
 
 }
