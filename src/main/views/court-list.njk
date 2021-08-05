@@ -12,51 +12,66 @@
   }) }}
 {% endblock %}
 {% block content %}
-  <h2 class="govuk-heading-l">Find a court or tribunal listing</h2>
-  {% for key, value in courtList %}
-    {% if value| length == 0 %}
-      <a class="govuk-link">{{ key }}</a>
-    {% else %}
-      <a href='#{{ key }}' class="govuk-link">{{ key }}</a>
-    {% endif %}
-  {% endfor %}
+  <div class="govuk-grid-row">
+    <div class="layout-width-one-fifth govuk-!-display-inline-block">
+      <a class="govuk-link govuk-link--no-underline govuk-!-font-size-24" href="#">&#8593</a>
+      <a class="govuk-link govuk-!-font-size-19" href="#">Back to top</a>
+    </div>
+    <div class="layout-width-four-fifths">
+      <h2 class="govuk-heading-l">Find a court or tribunal listing</h2>
 
-  <table class="govuk-table">
-    <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header app-custom-class"></th>
-      <th scope="col" class="govuk-table__header govuk-!-width-three-quarters">Court of tribunal</th>
-      <th scope="col" class="govuk-table__header number_hearings">Number of hearings</th>
-    </tr>
-    </thead>
-    <tbody class="govuk-table__body">
-    {% for key, value in courtList %}
-      <tr class="govuk-table__row">
-        <th scope="row" class="govuk-table__header">
-          <h2 id="{{ key }}" class="govuk-heading-l">{{key}}</h2>
-        </th>
-        <td class="govuk-table__cell">
-          {% if value | length == 0 %}
-            <div class="text_disabled">No hearings are scheduled in any of these</div>
-            <div class="text_disabled">locations today</div>
+      <div class="govuk-grid-row govuk-!-margin-bottom-8">
+        {% for key, value in courtList %}
+          {% if value| length == 0 %}
+            <div class="govuk-grid-column width-column govuk-!-font-size-19">
+              <a class="govuk-link govuk-link--no-underline">{{ key }}</a>
+            </div>
           {% else %}
-            {% for courtName, hearings in value %}
-              <div><a href="#" class="govuk-link">{{ courtName }}</a></div>
-            {% endfor %}
+            <div class="govuk-grid-column width-column govuk-!-font-size-19">
+              <a href='#{{ key }}' class="govuk-link govuk-link--no-visited-state">{{ key }}</a>
+            </div>
           {% endif %}
-        </td>
-        <td class="govuk-table__cell number_hearings">
-          {% if value | length == 0 %}
-            <div class="text_disabled">0</div>
-          {% else %}
-            {% for courtName, hearings in value %}
-              <div class="number_hearings">{{ hearings }}</div>
-            {% endfor %}
-          {% endif %}
-        </td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+        {% endfor %}
+      </div>
+
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header app-custom-class"></th>
+          <th scope="col" class="govuk-table__header govuk-!-width-three-quarters">Court of tribunal</th>
+          <th scope="col" class="govuk-table__header number_hearings">Number of hearings</th>
+        </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+        {% for key, value in courtList %}
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+              <h2 id="{{ key }}" class="govuk-heading-l">{{key}}</h2>
+            </th>
+            <td class="govuk-table__cell">
+              {% if value | length == 0 %}
+                <div class="text_disabled">No hearings are scheduled in any of these</div>
+                <div class="text_disabled">locations today</div>
+              {% else %}
+                {% for courtName, hearings in value %}
+                  <div><a href="#" class="govuk-link">{{ courtName }}</a></div>
+                {% endfor %}
+              {% endif %}
+            </td>
+            <td class="govuk-table__cell number_hearings">
+              {% if value | length == 0 %}
+                <div class="text_disabled">0</div>
+              {% else %}
+                {% for courtName, hearings in value %}
+                  <div class="number_hearings">{{ hearings }}</div>
+                {% endfor %}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 
 {% endblock %}

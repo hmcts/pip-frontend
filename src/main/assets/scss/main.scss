@@ -13,6 +13,22 @@
   color: #505a5f;
 }
 
+.width-column {
+  width: calc(100% / 26);
+  float: left;
+  text-align: center;
+}
+
+.layout-width-one-fifth {
+  width: 20%;
+  float: left;
+}
+
+.layout-width-four-fifths {
+  width: 80%;
+  float: left;
+}
+
 
 
 
