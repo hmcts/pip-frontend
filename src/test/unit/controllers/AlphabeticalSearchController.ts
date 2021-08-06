@@ -22,4 +22,6 @@ describe('Alphabetical Search Controller', () => {
     responseMock.verify();
   });
 
+  //Add one more test to check the court list component
+
 });

@@ -19,4 +19,8 @@ describe('Alphabetical Search page', () => {
     expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
     expect(backLink[0].getAttribute('href')).equal('/search-option', 'Back value does not contain correct link');
   });
+
+  //Add some more tests in this for the specific components
+
+
 });
