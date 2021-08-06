@@ -72,12 +72,11 @@ export default class CourtListController {
   }
 
   public get(req: Request, res: Application) {
-
     let courtsList = new CourtActions().getCourtsList();
-    let alphabetArray = this.generateCourtArray(courtsList);
+    let alphabetArray = new CourtListController().generateCourtArray(courtsList);
 
     const bytes = randomBytes(16).toString('base64')
-    let updatedHeaders = this.generateNonce(res.get("Content-Security-Policy"), bytes)
+    let updatedHeaders = new CourtListController().generateNonce(res.get("Content-Security-Policy"), bytes)
 
     res.set("Content-Security-Policy", updatedHeaders);
     res.render("court-list", {

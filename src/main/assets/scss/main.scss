@@ -1,6 +1,7 @@
 @import '~govuk-frontend';
 
 $line-colour: #1d70b8;
+$text-disabled: #505a5f;
 
 //Global App Styling
 .govuk-header__navigation--end {
@@ -10,40 +11,40 @@ $line-colour: #1d70b8;
 
 //Styling for the Alphabetical View page
 .floating-back-to-top--fixed {
-  position: fixed !important;
-  top: calc(100% - #{govuk-spacing(8)});
   bottom: auto !important;
   left: auto !important;
-}
-
-.floating-back-to-top:hover {
-  text-decoration: none;
+  position: fixed !important;
+  top: calc(100% - #{govuk-spacing(8)});
 }
 
 .floating-back-to-top {
-  position: absolute;
   bottom: 0;
   left: 0;
+  position: absolute;
+
+  :hover {
+    text-decoration: none;
+  }
 }
 
 .text_disabled {
-  color: #505a5f;
+  color: $text-disabled;
 }
 
 .width-column {
-  width: calc(100% / 26);
   float: left;
   text-align: center;
+  width: calc(100% / 26);
 }
 
 .layout-width-one-fifth {
-  width: 20%;
   float: left;
+  width: 20%;
 }
 
 .layout-width-four-fifths {
-  width: 80%;
   float: left;
+  width: 80%;
 }
 
 #parent-box {
@@ -52,9 +53,9 @@ $line-colour: #1d70b8;
 }
 
 .govuk-grid-row {
-  margin-right: 0;
-  margin-left: 0;
   display: flex;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 //Styling for the Hearings List page
