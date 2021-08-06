@@ -12,14 +12,37 @@
   }) }}
 {% endblock %}
 {% block content %}
-  <div class="govuk-grid-row">
-    <div class="layout-width-one-fifth govuk-!-display-inline-block">
-      <a class="govuk-link govuk-link--no-underline govuk-!-font-size-24" href="#">&#8593</a>
-      <a class="govuk-link govuk-!-font-size-19" href="#">Back to top</a>
+{#  <script nonce="{{ scriptNonce }}">#}
+{#    document.addEventListener('scroll', function(e) {#}
+{#      checkOffset();#}
+{#    });#}
+
+{#    function checkOffset() {#}
+{#      console.log("We are scrolling")#}
+{#      console.log(window.scrollY);#}
+{#      console.log(window.innerHeight);#}
+{#      console.log(document.getElementsByClassName('govuk-footer').item(0).offsetTop)#}
+{#      console.log(document.getElementById('back-to-top-button').offsetTop)#}
+{#      console.log(document.getElementById('back-to-top-button').offsetParent)#}
+
+{#      var boundingBox = document.getElementById("grid-row").getBoundingClientRect();#}
+{#      console.log(Math.abs(boundingBox.top));#}
+
+{#      if(document.getElementById('back-to-top-button').offsetTop + Math.abs(boundingBox.top)#}
+{#        >= document.getElementsByClassName('govuk-footer').item(0).offsetTop - 10)#}
+{#        console.log("we are here")#}
+{#        document.getElementById('back-to-top-button').style.position = 'absolute';#}
+{#      if(window.scrollY + window.innerHeight < document.getElementsByClassName('govuk-footer').item(0).offsetTop)#}
+{#        console.log("we are here")#}
+{#        document.getElementById('back-to-top-button').style.position = 'fixed'; // restore when you scroll up#}
+{#    }#}
+{#  </script>#}
+  <div id="grid-row" class="govuk-grid-row">
+    <div id="parent-box" class="layout-width-one-fifth govuk-!-display-inline-block">
+      <a id="back-to-top-button" class="govuk-link govuk-!-font-size-19 floating-back-to-top" href="#">Back to top</a>
     </div>
     <div class="layout-width-four-fifths">
       <h2 class="govuk-heading-l">Find a court or tribunal listing</h2>
-
       <div class="govuk-grid-row govuk-!-margin-bottom-8">
         {% for key, value in courtList %}
           {% if value| length == 0 %}

@@ -1,5 +1,6 @@
 import {Application} from "express";
 import {CourtActions} from '../resources/actions/CourtActions';
+import {randomBytes} from 'crypto'
 
 export default class CourtListController {
 
@@ -29,8 +30,12 @@ export default class CourtListController {
       alphabetArray[courtName.charAt(0).toUpperCase()][courtName] = item.hearings;
     })
 
+    const bytes = randomBytes(16).toString('base64')
+
+    res.set("Content-Security-Policy", 'script-src \'nonce-' + bytes + '\'');
     res.render("court-list", {
-      courtList: alphabetArray
+      courtList: alphabetArray,
+      scriptNonce: bytes
     });
   }
 

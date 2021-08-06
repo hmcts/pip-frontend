@@ -29,6 +29,15 @@
   float: left;
 }
 
+.floating-back-to-top {
+  position: fixed;
+  top: 65vh;
+}
+
+#parent-box {
+  min-height: 1px;
+}
+
 
 
 
