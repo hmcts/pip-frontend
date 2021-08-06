@@ -3,7 +3,7 @@ import {CourtActions} from '../resources/actions/CourtActions';
 import {InputFilterService} from "../service/inputFilterService";
 import {randomBytes} from 'crypto'
 
-export default class CourtListController {
+export default class AlphabeticalSearchController {
 
   /**
    * Generates the Nonce header for the inline javascript, and returns the updated headers
@@ -73,13 +73,13 @@ export default class CourtListController {
 
   public get(req: Request, res: Application) {
     let courtsList = new CourtActions().getCourtsList();
-    let alphabetArray = new CourtListController().generateCourtArray(courtsList);
+    let alphabetArray = new AlphabeticalSearchController().generateCourtArray(courtsList);
 
     const bytes = randomBytes(16).toString('base64')
-    let updatedHeaders = new CourtListController().generateNonce(res.get("Content-Security-Policy"), bytes)
+    let updatedHeaders = new AlphabeticalSearchController().generateNonce(res.get("Content-Security-Policy"), bytes)
 
     res.set("Content-Security-Policy", updatedHeaders);
-    res.render("court-list", {
+    res.render("alphabetical-search", {
       courtList: alphabetArray,
       scriptNonce: bytes
     });
