@@ -6,14 +6,14 @@
 {% endblock %}
 {% block beforeContent %}
   {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "/search-option"
-  }) }}
+    {{ govukBackLink({
+      text: "Back",
+      href: "/search-option"
+    }) }}
 {% endblock %}
 {% block content %}
   <div id="grid-row" class="govuk-grid-row">
-    <div id="parent-box" class="layout-width-one-fifth govuk-!-display-inline-block">
+    <div class="parent-box layout-width-one-fifth govuk-!-display-inline-block">
         <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19" href="#">
           <span class="govuk-!-font-size-24">&#8593</span>
           <span class="govuk-link">Back to top</span>

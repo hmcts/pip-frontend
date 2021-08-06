@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import { Request, Response } from 'express';
-import AlphabeticalSearchController from "../../../main/controllers/AlphabeticalSearchController";
+import AlphabeticalSearchController from '../../../main/controllers/AlphabeticalSearchController';
 
 describe('Alphabetical Search Controller', () => {
   it('should render the alphabetical search page', () =>  {
@@ -8,9 +8,8 @@ describe('Alphabetical Search Controller', () => {
 
     const response = {
       render: function() {return '';},
-      get: function() {return 'abcd abcd;script-src abcd'},
-      set: function() {return ''}
-
+      get: function() {return 'abcd abcd;script-src abcd';},
+      set: function() {return '';},
     } as unknown as Response;
     const request = {query: {}} as unknown as Request;
 
@@ -18,7 +17,6 @@ describe('Alphabetical Search Controller', () => {
 
     responseMock.expects('render').once().withArgs('alphabetical-search');
 
-    // @ts-ignore
     alphabeticalSearchController.get(request, response);
 
     responseMock.verify();

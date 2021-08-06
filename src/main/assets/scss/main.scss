@@ -10,13 +10,6 @@ $text-disabled: #505a5f;
 }
 
 //Styling for the Alphabetical View page
-.floating-back-to-top--fixed {
-  bottom: auto !important;
-  left: auto !important;
-  position: fixed !important;
-  top: calc(100% - #{govuk-spacing(8)});
-}
-
 .floating-back-to-top {
   bottom: 0;
   left: 0;
@@ -47,9 +40,16 @@ $text-disabled: #505a5f;
   width: 80%;
 }
 
-#parent-box {
+.parent-box {
   min-height: 1px;
   position: relative;
+
+  .floating-back-to-top--fixed {
+    bottom: auto;
+    left: auto;
+    position: fixed;
+    top: calc(100% - #{govuk-spacing(8)});
+  }
 }
 
 .govuk-grid-row {
@@ -82,7 +82,7 @@ $text-disabled: #505a5f;
   font-weight: inherit;
 }
 
-#search-results-body {
+.search-results-body {
   tr {
     &:first-child {
       th {

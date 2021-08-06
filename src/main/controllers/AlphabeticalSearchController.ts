@@ -1,7 +1,7 @@
-import {Application} from "express";
+import {Application} from 'express';
 import {CourtActions} from '../resources/actions/CourtActions';
-import {InputFilterService} from "../service/inputFilterService";
-import {randomBytes} from 'crypto'
+import {InputFilterService} from '../service/inputFilterService';
+import {randomBytes} from 'crypto';
 
 export default class AlphabeticalSearchController {
 
@@ -11,13 +11,13 @@ export default class AlphabeticalSearchController {
    * @param bytes The byte array representing the nonce
    * @private
    */
-  private generateNonce(currentCspHeader, bytes) {
+  private generateNonce(currentCspHeader, bytes): string {
 
-    let cspHeaders = currentCspHeader.split(';');
+    const cspHeaders = currentCspHeader.split(';');
     let updatedHeaders = '';
     cspHeaders.forEach(item => {
       let itemToAdd = '';
-      if (item.startsWith("script-src")) {
+      if (item.startsWith('script-src')) {
         itemToAdd = item + ' \'nonce-' + bytes + '\'';
       } else {
         itemToAdd = item;
@@ -48,40 +48,40 @@ export default class AlphabeticalSearchController {
    * @param courtsList The original court array
    * @private
    */
-  private generateCourtArray(courtsList) {
-    let alphabetArray = {};
+  private generateCourtArray(courtsList): object {
+    const alphabetArray = {};
     //Firstly creates the array for the possible alphabet options
     for (let i = 0; i < 26; i++) {
-      let letter = String.fromCharCode(65 + i)
+      const letter = String.fromCharCode(65 + i);
       alphabetArray[letter] = {};
     }
 
-    courtsList = new InputFilterService().alphabetiseResults(courtsList, 'name')
+    courtsList = new InputFilterService().alphabetiseResults(courtsList, 'name');
 
     //Then loop through each court, and add it to the list
     courtsList.forEach(item => {
       if (item.hearings != 0) {
-        let courtName = item.name as string;
+        const courtName = item.name as string;
         alphabetArray[courtName.charAt(0).toUpperCase()][courtName] = {
           id: item.courtId,
-          hearings: item.hearings
+          hearings: item.hearings,
         };
       }
-    })
+    });
     return alphabetArray;
   }
 
-  public get(req: Request, res: Application) {
-    let courtsList = new CourtActions().getCourtsList();
-    let alphabetArray = new AlphabeticalSearchController().generateCourtArray(courtsList);
+  public get(req: Request, res: Application): void{
+    const courtsList = new CourtActions().getCourtsList();
+    const alphabetArray = new AlphabeticalSearchController().generateCourtArray(courtsList);
 
-    const bytes = randomBytes(16).toString('base64')
-    let updatedHeaders = new AlphabeticalSearchController().generateNonce(res.get("Content-Security-Policy"), bytes)
+    const bytes = randomBytes(16).toString('base64');
+    const updatedHeaders = new AlphabeticalSearchController().generateNonce(res.get('Content-Security-Policy'), bytes);
 
-    res.set("Content-Security-Policy", updatedHeaders);
-    res.render("alphabetical-search", {
+    res.set('Content-Security-Policy', updatedHeaders);
+    res.render('alphabetical-search', {
       courtList: alphabetArray,
-      scriptNonce: bytes
+      scriptNonce: bytes,
     });
   }
 
