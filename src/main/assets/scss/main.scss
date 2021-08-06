@@ -2,13 +2,28 @@
 
 $line-colour: #1d70b8;
 
+//Global App Styling
 .govuk-header__navigation--end {
   margin: -5vh 0 0;
   padding: 1vh 0 0;
 }
 
-.number_hearings {
-  text-align: right;
+//Styling for the Alphabetical View page
+.floating-back-to-top--fixed {
+  position: fixed !important;
+  top: calc(100% - #{govuk-spacing(8)});
+  bottom: auto !important;
+  left: auto !important;
+}
+
+.floating-back-to-top:hover {
+  text-decoration: none;
+}
+
+.floating-back-to-top {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 .text_disabled {
@@ -31,26 +46,25 @@ $line-colour: #1d70b8;
   float: left;
 }
 
-.floating-back-to-top {
-  position: fixed;
-  top: 65vh;
-}
-
 #parent-box {
   min-height: 1px;
+  position: relative;
+}
+
+.govuk-grid-row {
+  margin-right: 0;
+  margin-left: 0;
+  display: flex;
+}
+
+//Styling for the Hearings List page
+.number_hearings {
+  text-align: right;
 }
 
 .govuk-section-break--visible {
   border-color: $line-colour;
 }
-
-//.table-header {
-//  border-spacing: 100px;
-//}
-
-//.govuk-table {
-//  table-layout: fixed;
-//}
 
 .right-align-text {
   text-align: right;
@@ -60,40 +74,41 @@ $line-colour: #1d70b8;
   text-align: center;
 }
 
-//.govuk-table__cell--no-line {
-//  @extend .govuk-table__cell;
-//  border-style: hidden;
-//  font-weight: inherit;
-//}
-//
-//tbody {
-//  tr {
-//    &:first-child {
-//      th {
-//        &.govuk-table__cell--no-line {
-//          border-style: inherit;
-//        }
-//      }
-//
-//      td {
-//        &.govuk-table__cell--no-line {
-//          border-top: 1px solid $govuk-border-colour;
-//        }
-//      }
-//    }
-//
-//    &:last-child {
-//      th {
-//        &.govuk-table__cell--no-line {
-//          border-bottom-style: solid;
-//        }
-//      }
-//
-//      td {
-//        &.govuk-table__cell--no-line {
-//          border-bottom-style: solid;
-//        }
-//      }
-//    }
-//  }
-//}
+//Styling for Search Results page
+.govuk-table__cell--no-line {
+  @extend .govuk-table__cell;
+  border-style: hidden;
+  font-weight: inherit;
+}
+
+#search-results-body {
+  tr {
+    &:first-child {
+      th {
+        &.govuk-table__cell--no-line {
+          border-style: inherit;
+        }
+      }
+
+      td {
+        &.govuk-table__cell--no-line {
+          border-top: 1px solid $govuk-border-colour;
+        }
+      }
+    }
+
+    &:last-child {
+      th {
+        &.govuk-table__cell--no-line {
+          border-bottom-style: solid;
+        }
+      }
+
+      td {
+        &.govuk-table__cell--no-line {
+          border-bottom-style: solid;
+        }
+      }
+    }
+  }
+}

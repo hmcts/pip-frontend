@@ -8,38 +8,16 @@
   {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
   {{ govukBackLink({
     text: "Back",
-    href: "/"
+    href: "/search-option"
   }) }}
 {% endblock %}
 {% block content %}
-{#  <script nonce="{{ scriptNonce }}">#}
-{#    document.addEventListener('scroll', function(e) {#}
-{#      checkOffset();#}
-{#    });#}
-
-{#    function checkOffset() {#}
-{#      console.log("We are scrolling")#}
-{#      console.log(window.scrollY);#}
-{#      console.log(window.innerHeight);#}
-{#      console.log(document.getElementsByClassName('govuk-footer').item(0).offsetTop)#}
-{#      console.log(document.getElementById('back-to-top-button').offsetTop)#}
-{#      console.log(document.getElementById('back-to-top-button').offsetParent)#}
-
-{#      var boundingBox = document.getElementById("grid-row").getBoundingClientRect();#}
-{#      console.log(Math.abs(boundingBox.top));#}
-
-{#      if(document.getElementById('back-to-top-button').offsetTop + Math.abs(boundingBox.top)#}
-{#        >= document.getElementsByClassName('govuk-footer').item(0).offsetTop - 10)#}
-{#        console.log("we are here")#}
-{#        document.getElementById('back-to-top-button').style.position = 'absolute';#}
-{#      if(window.scrollY + window.innerHeight < document.getElementsByClassName('govuk-footer').item(0).offsetTop)#}
-{#        console.log("we are here")#}
-{#        document.getElementById('back-to-top-button').style.position = 'fixed'; // restore when you scroll up#}
-{#    }#}
-{#  </script>#}
   <div id="grid-row" class="govuk-grid-row">
     <div id="parent-box" class="layout-width-one-fifth govuk-!-display-inline-block">
-      <a id="back-to-top-button" class="govuk-link govuk-!-font-size-19 floating-back-to-top" href="#">Back to top</a>
+        <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19" href="#">
+          <span class="govuk-!-font-size-24">&#8593</span>
+          <span class="govuk-link">Back to top</span>
+        </a>
     </div>
     <div class="layout-width-four-fifths">
       <h2 class="govuk-heading-l">Find a court or tribunal listing</h2>
@@ -76,8 +54,8 @@
                 <div class="text_disabled">No hearings are scheduled in any of these</div>
                 <div class="text_disabled">locations today</div>
               {% else %}
-                {% for courtName, hearings in value %}
-                  <div><a href="#" class="govuk-link">{{ courtName }}</a></div>
+                {% for courtName, courtDetails in value %}
+                  <div><a href="/hearing-list?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></div>
                 {% endfor %}
               {% endif %}
             </td>
@@ -85,8 +63,8 @@
               {% if value | length == 0 %}
                 <div class="text_disabled">0</div>
               {% else %}
-                {% for courtName, hearings in value %}
-                  <div class="number_hearings">{{ hearings }}</div>
+                {% for courtName, courtDetails in value %}
+                  <div class="number_hearings">{{ courtDetails.hearings }}</div>
                 {% endfor %}
               {% endif %}
             </td>
@@ -97,4 +75,55 @@
     </div>
   </div>
 
+{% endblock %}
+{% block bodyEnd %}
+
+<script nonce="{{ scriptNonce }}">
+
+  function BackToTop ($module) {
+    this.$module = $module
+  }
+
+  BackToTop.prototype.init = function () {
+    // Check if we can use Intersection Observers
+    if (!('IntersectionObserver' in window)) {
+      // If there's no support fallback to regular behaviour
+      // Since JavaScript is enabled we can remove the default hidden state
+      return this.$module.classList.remove('app-back-to-top--hidden')
+    }
+
+    var $footer = document.querySelector('.govuk-footer')
+
+    // Check if there is anything to observe
+    if (!$footer) {
+      return
+    }
+
+    var footerIsIntersecting = false
+
+    var observer = new window.IntersectionObserver(function (entries) {
+      // Find the elements we care about from the entries
+      var footerEntry = entries.find(function (entry) {
+        return entry.target === $footer
+      })
+
+      // If there is an entry this means the element has changed so lets check if it's intersecting.
+      if (footerEntry) {
+        footerIsIntersecting = footerEntry.isIntersecting
+      }
+
+      // If the subnav or the footer not visible then fix the back to top link to follow the user
+      if (footerIsIntersecting) {
+        this.$module.classList.remove('floating-back-to-top--fixed')
+      } else {
+        this.$module.classList.add('floating-back-to-top--fixed')
+      }
+    }.bind(this))
+
+    observer.observe($footer)
+  }
+
+  var $backToTop = document.querySelector('#back-to-top-button')
+  new BackToTop($backToTop).init()
+</script>
 {% endblock %}
