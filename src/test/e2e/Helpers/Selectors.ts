@@ -1,6 +1,8 @@
 module.exports = {
   // Common selectors
   ContinueButton: '.govuk-button',
+  CommonPageTitle: '.govuk-heading-l',
+  Results: 'tbody > tr.govuk-table__row',
   // Home page selectors
   StartNowButton: '.govuk-button--start',
   MainHeader: 'h1.govuk-heading-xl',
@@ -12,6 +14,6 @@ module.exports = {
   SearchTitle: 'h1.govuk-label-wrapper',
   SearchInput: '#search-input',
   // Search results page selectors
-  SearchResultsTitle: 'h1.govuk-heading-l',
-  Results: 'tbody > tr.govuk-table__row',
+  LinkResult: 'tbody > tr.govuk-table__row > th > a',
+  // Hearing List selectors
 };

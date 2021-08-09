@@ -1,11 +1,10 @@
 import {Page} from 'puppeteer';
-import {HearingListPo} from './HearingList.po';
 
 const helpers = require('../Helpers/Selectors');
 
 let page: Page;
 
-export class SearchResultsPo {
+export class HearingListPo {
   constructor(_page: Page) {
     page = _page;
   }
@@ -25,15 +24,5 @@ export class SearchResultsPo {
 
     const results = await page.$$(helpers.Results);
     return results.length;
-  }
-
-  async selectCourt(): Promise<HearingListPo> {
-    await page.waitForSelector(helpers.LinkResult).catch(() => {
-      console.log(`${helpers.LinkResult} not found`);
-    });
-
-    await page.click(helpers.LinkResult);
-
-    return new HearingListPo(page);
   }
 }
