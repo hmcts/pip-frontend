@@ -18,6 +18,7 @@ export default function(app: Application): void {
     },
   }));
   app.get('/search', app.locals.container.cradle.searchController.get);
+  app.get('/search-results', app.locals.container.cradle.searchResultsController.get);
 
   app.post('/search-option', app.locals.container.cradle.searchOptionController.post);
   app.post('/search', app.locals.container.cradle.searchController.post);

@@ -1,5 +1,5 @@
 {% extends "template.njk" %}
-{% from "macros/form.njk" import goBack, submitButton %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% block pageTitle %}
     {{ "Search" | safe }}
@@ -11,20 +11,38 @@
 
 {% block content %}
   <form action="search" method="post">
-    {{ govukInput({
-      label: {
-        text: "What court or tribunal are you interested in?",
-        classes: "govuk-label--l govuk-!-width-one-half",
-        isPageHeading: true
-      },
-      hint: {
-        text: "For example Blackburn Family Court or Chester"
-      },
-      classes: "govuk-!-width-one-third",
-      id: "search-input",
-      name: "search-input"
-    }) }}
+    <div class="govuk-form-group govuk-!-width-one-half">
+      <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="event-name">
+          What court or tribunal are you interested in?
+        </label>
+      </h1>
+      <div id="event-name-hint" class="govuk-hint">
+        For example Blackburn Family Court or Chester
+      </div>
+      <div id="search-input-container"></div>
+    </div>
+
 
     {{ submitButton() }}
   </form>
+{% endblock %}
+
+{% block bodyEnd %}
+  {% set optionList = [] %}
+  {% for item in autocompleteList %}
+    {% set _ = optionList.push(
+      item.name
+    ) %}
+  {% endfor %}
+
+  <script src="/assets/js/accessible-autocomplete.min.js"></script>
+  <script>
+    const element = document.querySelector('#search-input-container')
+    const source = {{ optionList | dump |safe }}
+    accessibleAutocomplete({
+      element: element,
+      id: 'search-input',
+      source: source
+    })
+  </script>
 {% endblock %}

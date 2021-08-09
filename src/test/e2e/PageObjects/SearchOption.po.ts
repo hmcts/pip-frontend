@@ -1,4 +1,5 @@
-import { Page } from 'puppeteer';
+import { SearchPo } from './Search.po';
+import {Page} from 'puppeteer';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -25,5 +26,21 @@ export class SearchOptionPo {
     const radios = await page.$$(helpers.RadioButton);
 
     return radios.length;
+  }
+
+  async selectSearchRadio(): Promise<void> {
+    await page.waitForSelector(helpers.SearchRadioButton).catch(() => {
+      console.log(`${helpers.SearchRadioButton} not found`);
+    });
+    await page.click(helpers.SearchRadioButton);
+  }
+
+  async clickContinue(): Promise<SearchPo> {
+    await page.waitForSelector(helpers.ContinueButton).catch(() => {
+      console.log(`${helpers.ContinueButton} not found`);
+    });
+
+    await page.click(helpers.ContinueButton);
+    return new SearchPo(page);
   }
 }

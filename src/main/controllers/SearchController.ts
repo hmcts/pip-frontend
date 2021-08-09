@@ -1,14 +1,15 @@
-import { Response } from 'express';
+import { Request, Response } from 'express';
+import {CourtActions} from '../resources/actions/courtActions';
 
+const courtList = new CourtActions();
 export default class SearchController {
   public get(req: Request, res: Response): void {
-    res.render('search');
+    const autocompleteList = courtList.getCourtsList();
+    res.render('search', {autocompleteList: autocompleteList});
   }
 
   public post(req: Request, res: Response): void {
-    const searchInput = req.body['search-input'];
-    // TODO: PUB-508
-    console.log(searchInput);
-    res.redirect('/search-results');
+    const searchInput = req.body['input-autocomplete'];
+    res.redirect(`search-results?search-input=${searchInput}`);
   }
 }

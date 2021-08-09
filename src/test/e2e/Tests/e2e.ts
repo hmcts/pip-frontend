@@ -1,6 +1,8 @@
 import { HomePagePo } from '../PageObjects/HomePage.po';
 import { SearchOptionPo } from '../PageObjects/SearchOption.po';
+import { SearchPo } from '../PageObjects/Search.po';
 import {Page, Browser} from 'puppeteer';
+import {SearchResultsPo} from '../PageObjects/SearchResults.po';
 
 const puppeteerConfig = require('../../../../jest-puppeteer.config');
 const puppeteer = require('puppeteer');
@@ -8,6 +10,8 @@ const puppeteer = require('puppeteer');
 const homePage = new HomePagePo;
 
 let searchOptionPage: SearchOptionPo;
+let searchPage: SearchPo;
+let searchResultsPage: SearchResultsPo;
 
 let page: Page;
 let browser: Browser;
@@ -30,6 +34,26 @@ describe('Finding a court or tribunal listing', () => {
 
   it('should see both radio buttons', async () => {
     expect(await searchOptionPage.getRadioButtons()).toBe(2);
+  });
+
+  describe('Following the \'search\' path', () => {
+    const searchTerm = 'aylesbury';
+    const expectedNumOfResults = 2;
+    it('should select \'search\' option and navigate to search page', async() => {
+      await searchOptionPage.selectSearchRadio();
+      searchPage = await searchOptionPage.clickContinue();
+      expect(await searchPage.getPageTitle()).toContain('What court or tribunal are you interested in?');
+    });
+
+    it('should enter text and click continue', async() => {
+      await searchPage.enterText(searchTerm);
+      searchResultsPage = await searchPage.clickContinue();
+      expect(await searchResultsPage.getPageTitle()).toContain(`Courts or tribunals in ${searchTerm}`);
+    });
+
+    it(`should display ${expectedNumOfResults} results`, async() => {
+      expect(await searchResultsPage.getResults()).toBe(2);
+    });
   });
 });
 
