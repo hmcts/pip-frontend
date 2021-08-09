@@ -25,7 +25,7 @@
       <th scope="col" class="govuk-table__header--numeric">Number of hearings</th>
     </tr>
     </thead>
-    <tbody class="search-results-body govuk-table__body">
+    <tbody class="govuk-table__body">
     {% for result in searchResults %}
       <tr class="govuk-table__row">
         <th scope="row" class="govuk-table__cell--no-line"><a class="govuk-link" href="/hearing-list?courtId={{ result.courtId }}">{{ result.name }}</a></th>
