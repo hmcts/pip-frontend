@@ -19,7 +19,7 @@ export class InputFilterService {
   }
 
   private checkNotNullOrEmpty(value): boolean {
-    return value != undefined && value != '';
+    return value !== undefined && value !== '';
   }
 
   private checkInputAgainstSearchValue(searchInput, item): void {
