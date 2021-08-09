@@ -1,8 +1,19 @@
 module.exports = {
+  // Common selectors
+  ContinueButton: '.govuk-button',
+  CommonPageTitle: '.govuk-heading-l',
+  Results: 'tbody > tr.govuk-table__row',
   // Home page selectors
   StartNowButton: '.govuk-button--start',
   MainHeader: 'h1.govuk-heading-xl',
   // Search options page selectors
   SearchOptionsTitle: 'h1.govuk-fieldset__heading',
   RadioButton: 'div.govuk-radios__item',
+  SearchRadioButton: '#find-choice',
+  // Search page selectors
+  SearchTitle: 'h1.govuk-label-wrapper',
+  SearchInput: '#search-input',
+  // Search results page selectors
+  LinkResult: 'tbody > tr.govuk-table__row > th > a',
+  // Hearing List selectors
 };

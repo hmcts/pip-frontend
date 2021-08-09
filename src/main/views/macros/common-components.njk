@@ -1,0 +1,15 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% macro submitButton(label = 'Continue', id = '', ariaLabel = 'Continue Button') %}
+    {{ govukButton({
+        text: label
+    })}}
+{% endmacro %}
+
+{% macro goBack(path = '#', text = 'Back', id = '', ariaLabel = 'Back Button') %}
+    {{ govukBackLink({
+        text: text,
+        href: path
+    }) }}
+{% endmacro %}

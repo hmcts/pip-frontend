@@ -9,8 +9,6 @@ const inputFilterService = new InputFilterService();
 export default class HearingListController {
 
   public get(req: Request, res: Response): void {
-
-    console.log(req);
     const courtId = req.query.courtId as string;
 
     //If no court ID has been supplied, then return the error page
@@ -24,7 +22,6 @@ export default class HearingListController {
       } else {
         const sortedCourtList = inputFilterService.numericallySortResults(courtList, 'courtNumber');
         res.render('hearing-list', {
-          referringPage: req.headers.referer,
           courtName: court['name'],
           hearings: sortedCourtList,
           date: moment().format('MMMM DD YYYY'),
