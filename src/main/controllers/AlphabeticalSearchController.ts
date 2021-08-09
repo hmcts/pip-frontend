@@ -31,7 +31,7 @@ export default class AlphabeticalSearchController {
 
     //Then loop through each court, and add it to the list
     courtsList.forEach(item => {
-      if (item.hearings != 0) {
+      if (item.hearings !== 0) {
         const courtName = item.name as string;
         alphabetArray[courtName.charAt(0).toUpperCase()][courtName] = {
           id: item.courtId,
