@@ -1,4 +1,4 @@
-import {Application} from 'express';
+import { Request, Response } from 'express';
 import {CourtActions} from '../resources/actions/CourtActions';
 import {InputFilterService} from '../service/inputFilterService';
 
@@ -42,7 +42,7 @@ export default class AlphabeticalSearchController {
     return alphabetArray;
   }
 
-  public get(req: Request, res: Application): void{
+  public get(req: Request, res: Response): void{
     const courtsList = new CourtActions().getCourtsList();
     const alphabetArray = new AlphabeticalSearchController().generateCourtArray(courtsList);
 
