@@ -3,6 +3,7 @@
     {
       "hearingId": 1,
       "courtId": 54,
+      "courtNumber": 1,
       "date": "1/9/2021",
       "time": "4:50 PM",
       "judge": "Judge Thatcher Benes",
@@ -13,6 +14,7 @@
     {
       "hearingId": 2,
       "courtId": 19,
+      "courtNumber": 1,
       "date": "11/4/2020",
       "time": "3:42 PM",
       "judge": "Judge Tibold Kasher",
@@ -23,6 +25,7 @@
     {
       "hearingId": 3,
       "courtId": 67,
+      "courtNumber": 1,
       "date": "8/27/2020",
       "time": "3:48 PM",
       "judge": "Judge Bank Turfin",
@@ -33,6 +36,7 @@
     {
       "hearingId": 4,
       "courtId": 44,
+      "courtNumber": 1,
       "date": "8/12/2020",
       "time": "11:44 AM",
       "judge": "Judge Laural Richel",
@@ -43,6 +47,7 @@
     {
       "hearingId": 5,
       "courtId": 9,
+      "courtNumber": 1,
       "date": "1/9/2021",
       "time": "8:29 AM",
       "judge": "Judge Brigida Francioli",
@@ -53,6 +58,7 @@
     {
       "hearingId": 6,
       "courtId": 49,
+      "courtNumber": 1,
       "date": "9/3/2020",
       "time": "8:47 AM",
       "judge": "Judge Kendell Penniell",
@@ -63,6 +69,7 @@
     {
       "hearingId": 7,
       "courtId": 20,
+      "courtNumber": 1,
       "date": "6/1/2021",
       "time": "12:27 PM",
       "judge": "Judge Rhiamon Spens",
@@ -73,6 +80,7 @@
     {
       "hearingId": 8,
       "courtId": 18,
+      "courtNumber": 1,
       "date": "12/15/2020",
       "time": "11:02 AM",
       "judge": "Judge Cleavland Careless",
@@ -83,6 +91,7 @@
     {
       "hearingId": 9,
       "courtId": 79,
+      "courtNumber": 1,
       "date": "3/1/2021",
       "time": "9:07 AM",
       "judge": "Judge Brandy Gouldthorp",
@@ -93,6 +102,7 @@
     {
       "hearingId": 10,
       "courtId": 39,
+      "courtNumber": 1,
       "date": "1/2/2021",
       "time": "1:16 PM",
       "judge": "Judge Romeo Stanbridge",
@@ -103,6 +113,7 @@
     {
       "hearingId": 11,
       "courtId": 16,
+      "courtNumber": 2,
       "date": "9/19/2020",
       "time": "10:59 AM",
       "judge": "Judge Gareth Bignal",
@@ -113,6 +124,7 @@
     {
       "hearingId": 12,
       "courtId": 95,
+      "courtNumber": 2,
       "date": "6/29/2021",
       "time": "8:52 AM",
       "judge": "Judge Marline Casterot",
@@ -123,6 +135,7 @@
     {
       "hearingId": 13,
       "courtId": 52,
+      "courtNumber": 2,
       "date": "7/23/2020",
       "time": "3:13 PM",
       "judge": "Judge Rosene Sante",
@@ -133,6 +146,7 @@
     {
       "hearingId": 14,
       "courtId": 80,
+      "courtNumber": 2,
       "date": "9/10/2020",
       "time": "2:08 PM",
       "judge": "Judge Ruggiero Shillam",
@@ -143,6 +157,7 @@
     {
       "hearingId": 15,
       "courtId": 41,
+      "courtNumber": 2,
       "date": "11/6/2020",
       "time": "4:23 PM",
       "judge": "Judge Bernice Van de Velde",
@@ -153,6 +168,7 @@
     {
       "hearingId": 16,
       "courtId": 99,
+      "courtNumber": 2,
       "date": "6/20/2021",
       "time": "2:15 PM",
       "judge": "Judge Dollie Haill",
@@ -163,6 +179,7 @@
     {
       "hearingId": 17,
       "courtId": 58,
+      "courtNumber": 2,
       "date": "12/5/2020",
       "time": "9:30 AM",
       "judge": "Judge Svend Parnell",
@@ -173,6 +190,7 @@
     {
       "hearingId": 18,
       "courtId": 100,
+      "courtNumber": 2,
       "date": "9/25/2020",
       "time": "4:19 PM",
       "judge": "Judge Dev Carradice",
@@ -183,6 +201,7 @@
     {
       "hearingId": 19,
       "courtId": 33,
+      "courtNumber": 2,
       "date": "10/22/2020",
       "time": "12:02 PM",
       "judge": "Judge Ashlen Fearnyough",
@@ -193,6 +212,7 @@
     {
       "hearingId": 20,
       "courtId": 2,
+      "courtNumber": 2,
       "date": "3/31/2021",
       "time": "4:46 PM",
       "judge": "Judge Margarita Ivanonko",
@@ -203,6 +223,7 @@
     {
       "hearingId": 21,
       "courtId": 55,
+      "courtNumber": 3,
       "date": "2/11/2021",
       "time": "1:18 PM",
       "judge": "Judge Brandy Goodyear",
@@ -213,6 +234,7 @@
     {
       "hearingId": 22,
       "courtId": 45,
+      "courtNumber": 3,
       "date": "11/24/2020",
       "time": "1:26 PM",
       "judge": "Judge Guillermo Boaler",
@@ -223,6 +245,7 @@
     {
       "hearingId": 23,
       "courtId": 30,
+      "courtNumber": 3,
       "date": "9/19/2020",
       "time": "5:23 PM",
       "judge": "Judge Jeddy Drakes",
@@ -233,6 +256,7 @@
     {
       "hearingId": 24,
       "courtId": 51,
+      "courtNumber": 3,
       "date": "11/23/2020",
       "time": "12:14 PM",
       "judge": "Judge Clemmie Klaessen",
@@ -243,6 +267,7 @@
     {
       "hearingId": 25,
       "courtId": 16,
+      "courtNumber": 3,
       "date": "2/20/2021",
       "time": "1:52 PM",
       "judge": "Judge Micki Buist",
@@ -253,6 +278,7 @@
     {
       "hearingId": 26,
       "courtId": 14,
+      "courtNumber": 3,
       "date": "9/9/2020",
       "time": "2:19 PM",
       "judge": "Judge Cecilius Rilston",
@@ -263,6 +289,7 @@
     {
       "hearingId": 27,
       "courtId": 49,
+      "courtNumber": 3,
       "date": "9/26/2020",
       "time": "11:53 AM",
       "judge": "Judge Denise Pearcey",
@@ -273,6 +300,7 @@
     {
       "hearingId": 28,
       "courtId": 92,
+      "courtNumber": 3,
       "date": "1/18/2021",
       "time": "2:16 PM",
       "judge": "Judge Dudley Chattock",
@@ -283,6 +311,7 @@
     {
       "hearingId": 29,
       "courtId": 3,
+      "courtNumber": 4,
       "date": "5/28/2021",
       "time": "5:05 PM",
       "judge": "Judge Ana Salmen",
@@ -293,6 +322,7 @@
     {
       "hearingId": 30,
       "courtId": 46,
+      "courtNumber": 4,
       "date": "10/9/2020",
       "time": "5:52 PM",
       "judge": "Judge Thorndike holmes",
@@ -303,6 +333,7 @@
     {
       "hearingId": 31,
       "courtId": 40,
+      "courtNumber": 4,
       "date": "1/28/2021",
       "time": "11:11 AM",
       "judge": "Judge Celestina McDiarmid",
@@ -313,6 +344,7 @@
     {
       "hearingId": 32,
       "courtId": 23,
+      "courtNumber": 4,
       "date": "9/30/2020",
       "time": "4:23 PM",
       "judge": "Judge Marjie MacDunleavy",
@@ -323,6 +355,7 @@
     {
       "hearingId": 33,
       "courtId": 78,
+      "courtNumber": 4,
       "date": "1/30/2021",
       "time": "5:06 PM",
       "judge": "Judge Jedediah Balchen",
@@ -333,6 +366,7 @@
     {
       "hearingId": 34,
       "courtId": 31,
+      "courtNumber": 4,
       "date": "9/1/2020",
       "time": "4:16 PM",
       "judge": "Judge Franz Warren",
@@ -343,6 +377,7 @@
     {
       "hearingId": 35,
       "courtId": 1,
+      "courtNumber": 4,
       "date": "12/22/2020",
       "time": "9:35 AM",
       "judge": "Judge Hamid Douglas",
@@ -353,6 +388,7 @@
     {
       "hearingId": 36,
       "courtId": 65,
+      "courtNumber": 4,
       "date": "10/31/2020",
       "time": "8:38 AM",
       "judge": "Judge Ceil Starbuck",
@@ -363,6 +399,7 @@
     {
       "hearingId": 37,
       "courtId": 54,
+      "courtNumber": 5,
       "date": "4/6/2021",
       "time": "9:41 AM",
       "judge": "Judge Ruddie Charlo",
@@ -373,6 +410,7 @@
     {
       "hearingId": 38,
       "courtId": 60,
+      "courtNumber": 5,
       "date": "1/17/2021",
       "time": "3:43 PM",
       "judge": "Judge Noni Greggersen",
@@ -383,6 +421,7 @@
     {
       "hearingId": 39,
       "courtId": 22,
+      "courtNumber": 5,
       "date": "5/7/2021",
       "time": "11:22 AM",
       "judge": "Judge Lona Ambrosi",
@@ -393,6 +432,7 @@
     {
       "hearingId": 40,
       "courtId": 11,
+      "courtNumber": 5,
       "date": "3/9/2021",
       "time": "10:54 AM",
       "judge": "Judge Knox Jan",
@@ -403,6 +443,7 @@
     {
       "hearingId": 41,
       "courtId": 71,
+      "courtNumber": 5,
       "date": "5/25/2021",
       "time": "11:48 AM",
       "judge": "Judge Lazaro Brockway",
@@ -413,6 +454,7 @@
     {
       "hearingId": 42,
       "courtId": 62,
+      "courtNumber": 5,
       "date": "2/15/2021",
       "time": "10:53 AM",
       "judge": "Judge Betsy Carles",
@@ -423,6 +465,7 @@
     {
       "hearingId": 43,
       "courtId": 49,
+      "courtNumber": 5,
       "date": "3/9/2021",
       "time": "1:48 PM",
       "judge": "Judge Toma Swallow",
@@ -433,6 +476,7 @@
     {
       "hearingId": 44,
       "courtId": 12,
+      "courtNumber": 5,
       "date": "4/28/2021",
       "time": "5:37 PM",
       "judge": "Judge Bellina Thomel",
@@ -443,6 +487,7 @@
     {
       "hearingId": 45,
       "courtId": 51,
+      "courtNumber": 5,
       "date": "5/11/2021",
       "time": "11:04 AM",
       "judge": "Judge Barret McQuillin",
@@ -453,6 +498,7 @@
     {
       "hearingId": 46,
       "courtId": 13,
+      "courtNumber": 5,
       "date": "2/14/2021",
       "time": "2:46 PM",
       "judge": "Judge Alexine Zanolli",
@@ -463,6 +509,7 @@
     {
       "hearingId": 47,
       "courtId": 68,
+      "courtNumber": 5,
       "date": "1/1/2021",
       "time": "9:25 AM",
       "judge": "Judge Merv Middell",
@@ -473,6 +520,7 @@
     {
       "hearingId": 48,
       "courtId": 82,
+      "courtNumber": 5,
       "date": "5/4/2021",
       "time": "8:19 AM",
       "judge": "Judge Davine Abramson",
@@ -483,6 +531,7 @@
     {
       "hearingId": 49,
       "courtId": 39,
+      "courtNumber": 1,
       "date": "1/17/2021",
       "time": "12:01 PM",
       "judge": "Judge Kristien Oldland",
@@ -493,6 +542,7 @@
     {
       "hearingId": 50,
       "courtId": 7,
+      "courtNumber": 1,
       "date": "4/2/2021",
       "time": "11:19 AM",
       "judge": "Judge Curran Seifert",
@@ -503,6 +553,7 @@
     {
       "hearingId": 51,
       "courtId": 12,
+      "courtNumber": 1,
       "date": "3/6/2021",
       "time": "3:02 PM",
       "judge": "Judge Krista McKague",
@@ -513,6 +564,7 @@
     {
       "hearingId": 52,
       "courtId": 58,
+      "courtNumber": 1,
       "date": "7/15/2021",
       "time": "10:44 AM",
       "judge": "Judge Meggy Hutcheon",
@@ -523,6 +575,7 @@
     {
       "hearingId": 53,
       "courtId": 68,
+      "courtNumber": 1,
       "date": "9/17/2020",
       "time": "1:09 PM",
       "judge": "Judge Tamma Walicki",
@@ -533,6 +586,7 @@
     {
       "hearingId": 54,
       "courtId": 60,
+      "courtNumber": 1,
       "date": "10/30/2020",
       "time": "12:46 PM",
       "judge": "Judge Artie Tuther",
@@ -543,6 +597,7 @@
     {
       "hearingId": 55,
       "courtId": 54,
+      "courtNumber": 1,
       "date": "5/14/2021",
       "time": "1:37 PM",
       "judge": "Judge Binky Maric",
@@ -553,6 +608,7 @@
     {
       "hearingId": 56,
       "courtId": 46,
+      "courtNumber": 2,
       "date": "12/26/2020",
       "time": "9:28 AM",
       "judge": "Judge Marsha Banbury",
@@ -563,6 +619,7 @@
     {
       "hearingId": 57,
       "courtId": 65,
+      "courtNumber": 2,
       "date": "5/19/2021",
       "time": "1:56 PM",
       "judge": "Judge Had Ivantyev",
@@ -573,6 +630,7 @@
     {
       "hearingId": 58,
       "courtId": 17,
+      "courtNumber": 2,
       "date": "10/17/2020",
       "time": "1:58 PM",
       "judge": "Judge Clemente Lightwood",
@@ -583,6 +641,7 @@
     {
       "hearingId": 59,
       "courtId": 34,
+      "courtNumber": 2,
       "date": "8/22/2020",
       "time": "2:04 PM",
       "judge": "Judge Lorena Folkerd",
@@ -593,6 +652,7 @@
     {
       "hearingId": 60,
       "courtId": 23,
+      "courtNumber": 2,
       "date": "7/8/2021",
       "time": "12:11 PM",
       "judge": "Judge Wes Lockwood",
@@ -603,6 +663,7 @@
     {
       "hearingId": 61,
       "courtId": 20,
+      "courtNumber": 2,
       "date": "6/27/2021",
       "time": "8:01 AM",
       "judge": "Judge Maxi Martineau",
@@ -613,6 +674,7 @@
     {
       "hearingId": 62,
       "courtId": 33,
+      "courtNumber": 2,
       "date": "1/22/2021",
       "time": "1:09 PM",
       "judge": "Judge Nichole Gummery",
@@ -623,6 +685,7 @@
     {
       "hearingId": 63,
       "courtId": 24,
+      "courtNumber": 2,
       "date": "12/18/2020",
       "time": "1:10 PM",
       "judge": "Judge Elsbeth Oyley",
@@ -633,6 +696,7 @@
     {
       "hearingId": 64,
       "courtId": 79,
+      "courtNumber": 2,
       "date": "7/1/2021",
       "time": "8:38 AM",
       "judge": "Judge Cindy McClarence",
@@ -643,6 +707,7 @@
     {
       "hearingId": 65,
       "courtId": 70,
+      "courtNumber": 2,
       "date": "6/14/2021",
       "time": "5:53 PM",
       "judge": "Judge Gertrud Spight",
@@ -653,6 +718,7 @@
     {
       "hearingId": 66,
       "courtId": 64,
+      "courtNumber": 3,
       "date": "5/16/2021",
       "time": "11:45 AM",
       "judge": "Judge Kaitlynn Petraitis",
@@ -663,6 +729,7 @@
     {
       "hearingId": 67,
       "courtId": 7,
+      "courtNumber": 3,
       "date": "11/13/2020",
       "time": "8:26 AM",
       "judge": "Judge Torrin Le feuvre",
@@ -673,6 +740,7 @@
     {
       "hearingId": 68,
       "courtId": 18,
+      "courtNumber": 3,
       "date": "5/17/2021",
       "time": "12:48 PM",
       "judge": "Judge Cherish Zimmer",
@@ -683,6 +751,7 @@
     {
       "hearingId": 69,
       "courtId": 62,
+      "courtNumber": 3,
       "date": "7/21/2020",
       "time": "9:18 AM",
       "judge": "Judge Denni Paxforde",
@@ -693,6 +762,7 @@
     {
       "hearingId": 70,
       "courtId": 45,
+      "courtNumber": 3,
       "date": "9/29/2020",
       "time": "4:37 PM",
       "judge": "Judge Johannes Kinsey",
@@ -703,6 +773,7 @@
     {
       "hearingId": 71,
       "courtId": 91,
+      "courtNumber": 3,
       "date": "5/4/2021",
       "time": "3:56 PM",
       "judge": "Judge Sylas D'Avaux",
@@ -713,6 +784,7 @@
     {
       "hearingId": 72,
       "courtId": 14,
+      "courtNumber": 3,
       "date": "3/12/2021",
       "time": "8:17 AM",
       "judge": "Judge Wendi Frammingham",
@@ -723,6 +795,7 @@
     {
       "hearingId": 73,
       "courtId": 28,
+      "courtNumber": 3,
       "date": "6/26/2021",
       "time": "12:50 PM",
       "judge": "Judge Tamma Engelbrecht",
@@ -733,6 +806,7 @@
     {
       "hearingId": 74,
       "courtId": 2,
+      "courtNumber": 3,
       "date": "5/27/2021",
       "time": "2:24 PM",
       "judge": "Judge Hadlee Tampen",
@@ -743,6 +817,7 @@
     {
       "hearingId": 75,
       "courtId": 2,
+      "courtNumber": 3,
       "date": "2/11/2021",
       "time": "10:16 AM",
       "judge": "Judge Daphne Titt",
@@ -753,6 +828,7 @@
     {
       "hearingId": 76,
       "courtId": 50,
+      "courtNumber": 4,
       "date": "7/28/2020",
       "time": "2:32 PM",
       "judge": "Judge Kelly Ashford",
@@ -763,6 +839,7 @@
     {
       "hearingId": 77,
       "courtId": 34,
+      "courtNumber": 4,
       "date": "9/14/2020",
       "time": "2:05 PM",
       "judge": "Judge Collie Bumby",
@@ -773,6 +850,7 @@
     {
       "hearingId": 78,
       "courtId": 9,
+      "courtNumber": 4,
       "date": "4/6/2021",
       "time": "2:00 PM",
       "judge": "Judge Barron Wilber",
@@ -783,6 +861,7 @@
     {
       "hearingId": 79,
       "courtId": 76,
+      "courtNumber": 4,
       "date": "7/23/2020",
       "time": "9:20 AM",
       "judge": "Judge Stephanus Di Carlo",
@@ -793,6 +872,7 @@
     {
       "hearingId": 80,
       "courtId": 66,
+      "courtNumber": 4,
       "date": "6/6/2021",
       "time": "1:29 PM",
       "judge": "Judge Rosy Twelvetrees",
@@ -803,6 +883,7 @@
     {
       "hearingId": 81,
       "courtId": 40,
+      "courtNumber": 4,
       "date": "7/22/2020",
       "time": "9:23 AM",
       "judge": "Judge Richie Baitman",
@@ -813,6 +894,7 @@
     {
       "hearingId": 82,
       "courtId": 78,
+      "courtNumber": 4,
       "date": "4/30/2021",
       "time": "12:35 PM",
       "judge": "Judge Jermain Shrimptone",
@@ -823,6 +905,7 @@
     {
       "hearingId": 83,
       "courtId": 26,
+      "courtNumber": 4,
       "date": "1/21/2021",
       "time": "3:16 PM",
       "judge": "Judge Rebekkah Blunkett",
@@ -833,6 +916,7 @@
     {
       "hearingId": 84,
       "courtId": 49,
+      "courtNumber": 4,
       "date": "7/3/2021",
       "time": "9:54 AM",
       "judge": "Judge Cornell Ouver",
@@ -843,6 +927,7 @@
     {
       "hearingId": 85,
       "courtId": 57,
+      "courtNumber": 4,
       "date": "5/26/2021",
       "time": "5:55 PM",
       "judge": "Judge Jenni Akred",
@@ -853,6 +938,7 @@
     {
       "hearingId": 86,
       "courtId": 5,
+      "courtNumber": 4,
       "date": "9/15/2020",
       "time": "11:37 AM",
       "judge": "Judge Scott Dundendale",
@@ -863,6 +949,7 @@
     {
       "hearingId": 87,
       "courtId": 39,
+      "courtNumber": 4,
       "date": "11/22/2020",
       "time": "4:40 PM",
       "judge": "Judge Debby Caygill",
@@ -873,6 +960,7 @@
     {
       "hearingId": 88,
       "courtId": 55,
+      "courtNumber": 4,
       "date": "3/16/2021",
       "time": "10:32 AM",
       "judge": "Judge Christin Cours",
@@ -883,6 +971,7 @@
     {
       "hearingId": 89,
       "courtId": 70,
+      "courtNumber": 4,
       "date": "1/27/2021",
       "time": "4:10 PM",
       "judge": "Judge Nissa Gorgen",
@@ -893,6 +982,7 @@
     {
       "hearingId": 90,
       "courtId": 41,
+      "courtNumber": 4,
       "date": "5/16/2021",
       "time": "10:32 AM",
       "judge": "Judge Lavinia Archell",
@@ -903,6 +993,7 @@
     {
       "hearingId": 91,
       "courtId": 50,
+      "courtNumber": 4,
       "date": "9/13/2020",
       "time": "10:27 AM",
       "judge": "Judge Clotilda Alsopp",
@@ -913,6 +1004,7 @@
     {
       "hearingId": 92,
       "courtId": 30,
+      "courtNumber": 4,
       "date": "1/15/2021",
       "time": "5:59 PM",
       "judge": "Judge Joice Linfoot",
@@ -923,6 +1015,7 @@
     {
       "hearingId": 93,
       "courtId": 7,
+      "courtNumber": 5,
       "date": "8/2/2020",
       "time": "4:29 PM",
       "judge": "Judge Thomasina Cortese",
@@ -933,6 +1026,7 @@
     {
       "hearingId": 94,
       "courtId": 81,
+      "courtNumber": 5,
       "date": "9/7/2020",
       "time": "1:56 PM",
       "judge": "Judge Maryann Batte",
@@ -943,6 +1037,7 @@
     {
       "hearingId": 95,
       "courtId": 34,
+      "courtNumber": 5,
       "date": "12/1/2020",
       "time": "9:08 AM",
       "judge": "Judge Goober Bushell",
@@ -953,6 +1048,7 @@
     {
       "hearingId": 96,
       "courtId": 64,
+      "courtNumber": 5,
       "date": "4/28/2021",
       "time": "10:20 AM",
       "judge": "Judge Keelby Osant",
@@ -963,6 +1059,7 @@
     {
       "hearingId": 97,
       "courtId": 37,
+      "courtNumber": 5,
       "date": "6/6/2021",
       "time": "4:00 PM",
       "judge": "Judge Mandie Cresser",
@@ -973,6 +1070,7 @@
     {
       "hearingId": 98,
       "courtId": 80,
+      "courtNumber": 5,
       "date": "8/19/2020",
       "time": "8:37 AM",
       "judge": "Judge Cheslie Bolding",
@@ -983,6 +1081,7 @@
     {
       "hearingId": 99,
       "courtId": 22,
+      "courtNumber": 5,
       "date": "4/18/2021",
       "time": "9:33 AM",
       "judge": "Judge Austina Drinkel",
@@ -993,6 +1092,7 @@
     {
       "hearingId": 100,
       "courtId": 25,
+      "courtNumber": 5,
       "date": "9/1/2020",
       "time": "5:33 PM",
       "judge": "Judge Vivien Jills",

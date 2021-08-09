@@ -1,9 +1,31 @@
 @import '~govuk-frontend';
 @import 'accessible-autocomplete.min';
 
+$line-colour: #1d70b8;
+
 .govuk-header__navigation--end {
   margin: -5vh 0 0;
   padding: 1vh 0 0;
+}
+
+.govuk-section-break--visible {
+  border-color: $line-colour;
+}
+
+.table-header {
+  border-spacing: 100px;
+}
+
+.govuk-table {
+  table-layout: fixed;
+}
+
+.right-align-text {
+  text-align: right;
+}
+
+.centre-align-text {
+  text-align: center;
 }
 
 .govuk-table__cell--no-line {
