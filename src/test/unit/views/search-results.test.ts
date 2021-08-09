@@ -3,9 +3,9 @@ import request from 'supertest';
 
 import {app} from '../../../main/app';
 
-const PAGE_URL = '/search-results';
 const searchTerm = 'Aylesbury';
 const numOfResults = '2';
+const PAGE_URL = `/search-results?search-input=${searchTerm}`;
 
 const rowClass = 'govuk-table__row';
 
@@ -13,8 +13,7 @@ let htmlRes: Document;
 
 describe('Search Results Page', () => {
   beforeAll(async () => {
-    const payload = {'search-input': searchTerm};
-    await request(app).get(PAGE_URL).send(payload).then(res => {
+    await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
   });
@@ -22,7 +21,7 @@ describe('Search Results Page', () => {
   it('should display back button', () => {
     const backButton = htmlRes.getElementsByClassName('govuk-back-link');
     expect(backButton[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backButton[0].getAttribute('href')).equal('/search-option', 'Back button does not contain correct link');
+    expect(backButton[0].getAttribute('href')).equal('/search', 'Back button does not contain correct link');
   });
 
   it('should display search term in header', () => {

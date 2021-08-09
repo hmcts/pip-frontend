@@ -19,11 +19,11 @@ export class InputFilterService {
   }
 
   private checkNotNullOrEmpty(value): boolean {
-    return value != undefined || value != '';
+    return value !== undefined && value !== '';
   }
 
   private checkInputAgainstSearchValue(searchInput, item): void {
-    courtsResults.filter(i => i[item] === searchInput).forEach(result => searchResults.push(result));
+    courtsResults.filter(i => i[item].toLowerCase() === searchInput.toLowerCase()).forEach(result => searchResults.push(result));
   }
 
   public alphabetiseResults(unsortedArray: JSONArray, leadValue): JSONArray {

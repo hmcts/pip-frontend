@@ -60,6 +60,10 @@ describe('Input filter service', () => {
     expect(inputService.findCourts(invalidSearchInputUndefined, validCheckAgainst).length).equal(0, 'No results should be returned');
   });
 
+  it('should still find matches regardless of case', () => {
+    expect(inputService.findCourts('aYleSbUrY', validCheckAgainst)).to.deep.equal(expectedResultFromLocation, 'Result did not match expected');
+  });
+
   it('should alphabetise an unsorted array', () => {
     const unsorted = [
       {

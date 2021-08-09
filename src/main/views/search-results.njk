@@ -1,16 +1,13 @@
 {% extends "template.njk" %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "./macros/common-components.njk" import goBack, submitButton %}
 
 {% block pageTitle %}
   {{ "Search Results" | safe }}
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "/search-option"
-  }) }}
+  {{ goBack('/search') }}
 {% endblock %}
 
 {% block content %}

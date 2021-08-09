@@ -1,13 +1,13 @@
 import SearchResultsController from '../../../main/controllers/SearchResultsController';
 import sinon from 'sinon';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 
 describe('Search results Controller', () => {
-  it('should render the search results page if input is valid', () =>  {
+  it('should render the search results page if input is valid', () => {
     const searchResultsController = new SearchResultsController();
 
     const response = { render: function() {return '';}} as unknown as Response;
-    const request = {body: {'search-input': 'Aylesbury'}} as unknown as Request;
+    const request = {query: {'search-input': 'Aylesbury'}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
 
@@ -18,11 +18,11 @@ describe('Search results Controller', () => {
     responseMock.verify();
   });
 
-  it('should render an error page if search input does not return any results', () =>  {
+  it('should render an error page if search input does not return any results', () => {
     const searchResultsController = new SearchResultsController();
 
     const response = { render: function() {return '';}} as unknown as Response;
-    const request = { body: { 'search-input': ''}} as unknown as Request;
+    const request = { query: { 'search-input': ''}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
 
