@@ -29,14 +29,14 @@ describe('Alphabetical Search page', () => {
     const alphabeticalLetters = htmlRes.getElementsByClassName('govuk-link--no-visited-state');
 
     expect(alphabeticalLetters[0].innerHTML).contains('A', 'Alphabetical link is not present');
-    expect(alphabeticalLetters[0].getAttribute("href")).equal('#A');
+    expect(alphabeticalLetters[0].getAttribute('href')).equal('#A');
   });
 
   it('should contain no link if letter has no hearings', () => {
     const alphabeticalLetters = htmlRes.getElementsByClassName('govuk-link--no-underline');
 
     expect(alphabeticalLetters[1].innerHTML).contains('I', 'Alphabetical link is not present');
-    expect(alphabeticalLetters[1].getAttribute("href")).not.exist;
+    expect(alphabeticalLetters[1].getAttribute('href')).not.exist;
   });
 
   it('should contain no hearings text', () => {
