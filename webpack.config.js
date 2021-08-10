@@ -1,5 +1,4 @@
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const sourcePath = path.resolve(__dirname, 'src/main/');
 const govukFrontend = require(path.resolve(__dirname, 'webpack/govukFrontend'));
