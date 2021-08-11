@@ -25,9 +25,4 @@ export class CourtActions {
       return [];
     }
   }
-
-  courtNameIncluded(courtName: string): boolean {
-    const courtsData = JSON.parse(this.rawData);
-    return courtsData?.results.some((court) => court.name.includes(courtName));
-  }
 }
