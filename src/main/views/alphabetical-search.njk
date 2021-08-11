@@ -17,16 +17,16 @@
         </a>
     </div>
     <div class="layout-width-four-fifths">
-      <h2 class="govuk-heading-l">Find a court or tribunal listing</h2>
+      <h2 id='page-heading' class="govuk-heading-l">Find a court or tribunal listing</h2>
       <div class="govuk-grid-row govuk-!-margin-bottom-8">
         {% for key, value in courtList %}
           {% if value| length == 0 %}
             <div class="govuk-grid-column width-column govuk-!-font-size-19">
-              <a class="govuk-link govuk-link--no-underline">{{ key }}</a>
+              <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline">{{ key }}</a>
             </div>
           {% else %}
             <div class="govuk-grid-column width-column govuk-!-font-size-19">
-              <a href='#{{ key }}' class="govuk-link govuk-link--no-visited-state">{{ key }}</a>
+              <a id='{{ key }}-selector' href='#{{ key }}' class="govuk-link govuk-link--no-visited-state">{{ key }}</a>
             </div>
           {% endif %}
         {% endfor %}

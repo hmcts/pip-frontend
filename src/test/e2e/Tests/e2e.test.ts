@@ -4,6 +4,7 @@ import { SearchPo } from '../PageObjects/Search.po';
 import {Page, Browser} from 'puppeteer';
 import {SearchResultsPo} from '../PageObjects/SearchResults.po';
 import {HearingListPo} from '../PageObjects/HearingList.po';
+import { AlphabeticalSearchPo } from '../PageObjects/AlphabeticalSearch.po';
 
 const puppeteerConfig = require('../../../../jest-puppeteer.config');
 const puppeteer = require('puppeteer');
@@ -14,6 +15,7 @@ let searchOptionPage: SearchOptionPo;
 let searchPage: SearchPo;
 let searchResultsPage: SearchResultsPo;
 let hearingListPage: HearingListPo;
+let alphabeticalSearchPage: AlphabeticalSearchPo;
 
 let page: Page;
 let browser: Browser;
@@ -38,13 +40,49 @@ describe('Finding a court or tribunal listing', () => {
     expect(await searchOptionPage.getRadioButtons()).toBe(2);
   });
 
+  describe('Following the \'find\' path', () => {
+    afterAll(async () => {
+      await homePage.OpenHomePage(page);
+      searchOptionPage = await homePage.ClickStartNowButton();
+    })
+
+    it('should select \'find\' option and navigate to alphabetical search page', async() => {
+      await searchOptionPage.selectFindRadio();
+      alphabeticalSearchPage = await searchOptionPage.clickContinueForAlphabetical();
+      expect(await alphabeticalSearchPage.getPageTitle()).toContain('Find a court or tribunal listing');
+    });
+
+    it('should select \'Z\' option, and navigate to the end of the page', async() => {
+      const endLetter = 'Z';
+      alphabeticalSearchPage = await alphabeticalSearchPage.selectLetter(endLetter);
+      expect(await alphabeticalSearchPage.checkIfLetterIsVisible(endLetter)).toBeTruthy();
+    });
+
+    it('selecting back to top should navigate to the top of the page', async() => {
+      const startLetter = 'A';
+      alphabeticalSearchPage = await alphabeticalSearchPage.selectBackToTop();
+      expect(await alphabeticalSearchPage.checkIfLetterIsVisible(startLetter)).toBeTruthy();
+    });
+
+    it('selecting first result should take you to to the hearings list page', async() => {
+      hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
+      expect(await hearingListPage.getPageTitle()).toContain('Albertville Court hearing list');
+    });
+
+    it(`should display 1 result`, async() => {
+      expect(await hearingListPage.getResults()).toBe(1);
+    });
+
+
+  })
+
   describe('Following the \'search\' path', () => {
     const searchTerm = 'aylesbury';
     const expectedNumOfResults = 2;
     const expectedNumOfhearings = 3;
     it('should select \'search\' option and navigate to search page', async() => {
       await searchOptionPage.selectSearchRadio();
-      searchPage = await searchOptionPage.clickContinue();
+      searchPage = await searchOptionPage.clickContinueForSearch();
       expect(await searchPage.getPageTitle()).toContain('What court or tribunal are you interested in?');
     });
 
