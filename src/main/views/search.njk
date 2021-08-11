@@ -11,46 +11,48 @@
 {% endblock %}
 
 {% block content %}
-        {% if noResultsError or invalidInputError %}
-            {% set errorMessage = 'There is nothing matching your criteria' if noResultsError else 'Search must be three characters or more' %}
-            {{ govukErrorSummary({
-                titleText: "There is a problem",
-                errorList: [
-                    {
-                        text: errorMessage,
-                        href: "search-input-container"
-                    }
-                ]
-            }) }}
-        {% endif %}
-        {% set inputClasses = 'govuk-!-width-two-thirds govuk-input--error'
-            if noResultsError or invalidInputError else 'govuk-!-width-two-thirds'
-        %}
-        {% set formClasses = 'govuk-form-group--error govuk-form-group govuk-!-width-one-half'
-            if noResultsError or invalidInputError else 'govuk-form-group govuk-!-width-one-half'
-        %}
-        <form action="search" method="post">
-            <div class="{{ formClasses}}">
-                <h1 class="govuk-label-wrapper">
-                    <label class="govuk-label govuk-label--l" for="search-input">
-                        What court or tribunal are you interested in?
-                    </label>
-                </h1>
-                <div id="search-input-hint" class="govuk-hint">
-                    For example Blackburn Family Court or Chester
-                </div>
-                {% if noResultsError or invalidInputError %}
-                    <span class="govuk-error-message">Enter a court name, town or city</span>
-                {% endif %}
-                <div class="{{ inputClasses }}" id="search-input-container"></div>
+    {% if noResultsError or invalidInputError %}
+        {% set errorMessage = 'There is nothing matching your criteria' if noResultsError else 'Search must be three characters or more' %}
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-three-quarters">
+                {{ govukErrorSummary({
+                    titleText: "There is a problem",
+                    errorList: [
+                        {
+                            text: errorMessage,
+                            href: "search-input-container"
+                        }
+                    ]
+                }) }}
             </div>
-            {{ submitButton() }}
-            {% if noResultsError %}
-                <br/>
-                <h2 class="govuk-heading-s">There are no matching results.</h2>
-                <p class="govuk-body">You can improve your results by double checking your spelling.</p>
+        </div>
+    {% endif %}
+    {% set inputClasses = 'govuk-!-width-two-thirds govuk-input--error'
+        if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
+    {% set formClasses = 'govuk-form-group--error govuk-form-group govuk-!-width-one-half'
+        if noResultsError or invalidInputError else 'govuk-form-group govuk-!-width-one-half' %}
+    <form action="search" method="post">
+        <div class="{{ formClasses }}">
+            <h1 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--l" for="search-input">
+                    What court or tribunal are you interested in?
+                </label>
+            </h1>
+            <div id="search-input-hint" class="govuk-hint">
+                For example Blackburn Family Court or Chester
+            </div>
+            {% if noResultsError or invalidInputError %}
+                <span class="govuk-error-message">Enter a court name, town or city</span>
             {% endif %}
-        </form>
+            <div class="{{ inputClasses }}" id="search-input-container"></div>
+        </div>
+        {{ submitButton() }}
+        {% if noResultsError %}
+            <br/>
+            <h2 class="govuk-heading-s">There are no matching results.</h2>
+            <p class="govuk-body">You can improve your results by double checking your spelling.</p>
+        {% endif %}
+    </form>
 {% endblock %}
 {% block bodyEnd %}
     {% set optionList = [] %}
