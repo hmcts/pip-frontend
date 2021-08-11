@@ -11,14 +11,13 @@ export default class SearchController {
 
   public post(req: Request, res: Response): void {
     const searchInput = req.body['input-autocomplete'];
-    if (searchInput) {
-      if (searchInput.length < 3) {
-        res.render('search', { autocompleteList: autocompleteList, invalidInputError: true, noResultsError: false });
-      } else {
-        res.redirect(`search-results?search-input=${searchInput}`);
-      }
+    if (searchInput && searchInput.length >= 3) {
+      // check if there is court name with partial input
+      (courtList.courtNameIncluded(searchInput)) ?
+        res.redirect(`search-results?search-input=${searchInput}`) :
+        res.render('search', { autocompleteList: autocompleteList, invalidInputError: false, noResultsError: true });
     } else {
-      res.render('search', { autocompleteList: autocompleteList, invalidInputError: false, noResultsError: true});
+      res.render('search', { autocompleteList: autocompleteList, invalidInputError: true, noResultsError: false });
     }
   }
 }
