@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import {CourtActions} from '../resources/actions/CourtActions';
+import {CourtActions} from '../resources/actions/courtActions';
 import {InputFilterService} from '../service/inputFilterService';
 
 export default class AlphabeticalSearchController {
