@@ -1,6 +1,6 @@
 import { SearchPo } from './Search.po';
 import {Page} from 'puppeteer';
-import {AlphabeticalSearchPo} from "./AlphabeticalSearch.po";
+import {AlphabeticalSearchPo} from './AlphabeticalSearch.po';
 
 const helpers = require('../Helpers/Selectors');
 

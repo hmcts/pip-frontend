@@ -44,7 +44,7 @@ describe('Finding a court or tribunal listing', () => {
     afterAll(async () => {
       await homePage.OpenHomePage(page);
       searchOptionPage = await homePage.ClickStartNowButton();
-    })
+    });
 
     it('should select \'find\' option and navigate to alphabetical search page', async() => {
       await searchOptionPage.selectFindRadio();
@@ -69,12 +69,10 @@ describe('Finding a court or tribunal listing', () => {
       expect(await hearingListPage.getPageTitle()).toContain('Albertville Court hearing list');
     });
 
-    it(`should display 1 result`, async() => {
+    it('should display 1 result', async() => {
       expect(await hearingListPage.getResults()).toBe(1);
     });
-
-
-  })
+  });
 
   describe('Following the \'search\' path', () => {
     const searchTerm = 'aylesbury';

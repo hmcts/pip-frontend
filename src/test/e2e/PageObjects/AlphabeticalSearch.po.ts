@@ -1,5 +1,5 @@
-import {Page} from "puppeteer";
-import {HearingListPo} from "./HearingList.po";
+import {Page} from 'puppeteer';
+import {HearingListPo} from './HearingList.po';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -29,7 +29,7 @@ export class AlphabeticalSearchPo {
   }
 
   async checkIfLetterIsVisible(letter): Promise<boolean> {
-    const element = await page.$(helpers.RowSelector(letter))
+    const element = await page.$(helpers.RowSelector(letter));
 
     return await element.isIntersectingViewport();
   }

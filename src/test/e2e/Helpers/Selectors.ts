@@ -21,12 +21,12 @@ module.exports = {
   // Alphabetical Search selectors
   AlphabeticalHeading: '#page-heading',
   BackToTopButton: '#back-to-top-button',
-  KeySelector: (letter) => {
+  KeySelector: (letter): string => {
     return '#' + letter + '-selector';
   },
-  RowSelector: (letter) => {
+  RowSelector: (letter): string => {
     return '#' + letter;
   },
-  FirstItemResult: 'tbody > tr.govuk-table__row > td > div > a'
+  FirstItemResult: 'tbody > tr.govuk-table__row > td > div > a',
 
 };
