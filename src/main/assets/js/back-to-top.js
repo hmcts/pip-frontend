@@ -42,5 +42,6 @@ BackToTop.prototype.init = function () {
   observer.observe($footer);
 };
 
+
 var $backToTop = document.querySelector('#back-to-top-button');
 new BackToTop($backToTop).init();
