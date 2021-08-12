@@ -9,5 +9,8 @@ export default class SearchOptionController {
     if (req.body['find-choice'] === 'search') {
       res.redirect('search');
     }
+    if (req.body['find-choice'] === 'find') {
+      res.redirect('alphabetical-search');
+    }
   }
 }

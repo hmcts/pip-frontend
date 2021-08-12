@@ -2,22 +2,70 @@
 @import 'accessible-autocomplete.min';
 
 $line-colour: #1d70b8;
+$text-disabled: #505a5f;
 
+//Global App Styling
 .govuk-header__navigation--end {
   margin: -5vh 0 0;
   padding: 1vh 0 0;
 }
 
+//Styling for the Alphabetical View page
+.floating-back-to-top {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+
+  :hover {
+    text-decoration: none;
+  }
+}
+
+.text_disabled {
+  color: $text-disabled;
+}
+
+.width-column {
+  float: left;
+  text-align: center;
+  width: calc(100% / 26);
+}
+
+.layout-width-one-fifth {
+  float: left;
+  width: 20%;
+}
+
+.layout-width-four-fifths {
+  float: left;
+  width: 80%;
+}
+
+.parent-box {
+  min-height: 1px;
+  position: relative;
+
+  .floating-back-to-top--fixed {
+    bottom: auto;
+    left: auto;
+    position: fixed;
+    top: calc(100% - #{govuk-spacing(8)});
+  }
+}
+
+.govuk-grid-row {
+  display: flex;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+//Styling for the Hearings List page
+.number_hearings {
+  text-align: right;
+}
+
 .govuk-section-break--visible {
   border-color: $line-colour;
-}
-
-.table-header {
-  border-spacing: 100px;
-}
-
-.govuk-table {
-  table-layout: fixed;
 }
 
 .right-align-text {
@@ -28,6 +76,7 @@ $line-colour: #1d70b8;
   text-align: center;
 }
 
+//Styling for Search Results page
 .govuk-table__cell--no-line {
   @extend .govuk-table__cell;
   border-style: hidden;

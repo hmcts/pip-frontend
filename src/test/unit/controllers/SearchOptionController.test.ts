@@ -32,4 +32,19 @@ describe('Search Option Controller', () => {
 
     responseMock.verify();
   });
+
+  it('should render alphabetical page if choice is \'find\'', () => {
+    const searchOptionsController = new SearchOptionsController();
+
+    const response = { redirect: function() {return '';}} as unknown as Response;
+    const request = { body: { 'find-choice': 'find'}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('redirect').once().withArgs('alphabetical-search');
+
+    searchOptionsController.post(request, response);
+
+    responseMock.verify();
+  });
 });

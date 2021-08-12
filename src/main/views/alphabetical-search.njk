@@ -1,0 +1,78 @@
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+{% from "./macros/common-components.njk" import goBack %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ "Court List" | safe }}
+{% endblock %}
+{% block beforeContent %}
+  {{ goBack('/search-option') }}
+{% endblock %}
+{% block content %}
+  <div id="grid-row" class="govuk-grid-row">
+    <div class="parent-box layout-width-one-fifth govuk-!-display-inline-block">
+        <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19" href="#">
+          <span class="govuk-!-font-size-24">&#8593</span>
+          <span class="govuk-link">Back to top</span>
+        </a>
+    </div>
+    <div class="layout-width-four-fifths">
+      <h2 id='page-heading' class="govuk-heading-l">Find a court or tribunal listing</h2>
+      <div class="govuk-grid-row govuk-!-margin-bottom-8">
+        {% for key, value in courtList %}
+          {% if value| length == 0 %}
+            <div class="govuk-grid-column width-column govuk-!-font-size-19">
+              <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline">{{ key }}</a>
+            </div>
+          {% else %}
+            <div class="govuk-grid-column width-column govuk-!-font-size-19">
+              <a id='{{ key }}-selector' href='#{{ key }}' class="govuk-link govuk-link--no-visited-state">{{ key }}</a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header app-custom-class"></th>
+          <th scope="col" class="govuk-table__header govuk-!-width-three-quarters">Court or tribunal</th>
+          <th scope="col" class="govuk-table__header number_hearings govuk-!-width-one-quarter">Number of hearings</th>
+        </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+        {% for key, value in courtList %}
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+              <h2 id="{{ key }}" class="govuk-heading-l">{{key}}</h2>
+            </th>
+            <td class="govuk-table__cell">
+              {% if value | length == 0 %}
+                <div class="text_disabled">No hearings are scheduled in any of these</div>
+                <div class="text_disabled">locations today</div>
+              {% else %}
+                {% for courtName, courtDetails in value %}
+                  <div><a href="/hearing-list?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></div>
+                {% endfor %}
+              {% endif %}
+            </td>
+            <td class="govuk-table__cell number_hearings">
+              {% if value | length == 0 %}
+                <div class="text_disabled">0</div>
+              {% else %}
+                {% for courtName, courtDetails in value %}
+                  <div class="number_hearings">{{ courtDetails.hearings }}</div>
+                {% endfor %}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock %}
+{% block bodyEnd %}
+  <script src="assets/js/back-to-top.js"></script>
+{% endblock %}
