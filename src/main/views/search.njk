@@ -14,7 +14,7 @@
     {% if noResultsError or invalidInputError %}
         {% set errorMessage = 'There is nothing matching your criteria' if noResultsError else 'Search must be three characters or more' %}
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-three-quarters">
+            <div class="no_padding govuk-grid-column-three-quarters">
                 {{ govukErrorSummary({
                     titleText: "There is a problem",
                     errorList: [
