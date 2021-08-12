@@ -11,8 +11,9 @@ describe('Testing back to top button', () => {
 
   beforeAll(() => {
     interactionObserver = class IntersectionObserver {
+
       constructor() {
-        // do nothing
+        return null;
       }
 
       observe(): any {
@@ -74,6 +75,58 @@ describe('Testing back to top button', () => {
 
     expect(mockElement.classList.length).toEqual(1);
     expect(interactionStub.callCount).toEqual(1);
+  });
+
+  it('should add the floating back to top element if the footer is not intersecting', async () => {
+
+    const mockElement = document.createElement('div');
+    mockElement.classList.add('app-back-to-top--hidden');
+
+    const mockFooter = document.createElement('footer');
+    mockFooter.classList.add('.govuk-footer');
+
+    (window as any).IntersectionObserver = interactionObserver;
+
+    const stub = sinon.stub(document, 'querySelector');
+    stub.withArgs('#back-to-top-button').returns(mockElement);
+    stub.withArgs('.govuk-footer').returns(mockFooter);
+
+    const constructorSpy = sinon.spy(window, 'IntersectionObserver');
+
+    await import('../../../main/assets/js/back-to-top');
+
+    const returnedFunction = constructorSpy.getCall(0).args[0];
+
+    const entries = [{target: mockFooter, isIntersecting: false}];
+    returnedFunction(entries);
+    expect(mockElement.classList.length).toEqual(2);
+    expect(mockElement.classList.item(1)).toEqual('floating-back-to-top--fixed');
+  });
+
+  it('should remove the floating back to top element if the footer is intersecting', async () => {
+
+    const mockElement = document.createElement('div');
+    mockElement.classList.add('app-back-to-top--hidden');
+    mockElement.classList.add('floating-back-to-top--fixed');
+
+    const mockFooter = document.createElement('footer');
+    mockFooter.classList.add('.govuk-footer');
+
+    (window as any).IntersectionObserver = interactionObserver;
+
+    const stub = sinon.stub(document, 'querySelector');
+    stub.withArgs('#back-to-top-button').returns(mockElement);
+    stub.withArgs('.govuk-footer').returns(mockFooter);
+
+    const constructorSpy = sinon.spy(window, 'IntersectionObserver');
+
+    await import('../../../main/assets/js/back-to-top');
+
+    const returnedFunction = constructorSpy.getCall(0).args[0];
+
+    const entries = [{target: mockFooter, isIntersecting: true}];
+    returnedFunction(entries);
+    expect(mockElement.classList.length).toEqual(1);
   });
 
 });
