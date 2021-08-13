@@ -18,7 +18,7 @@ describe('Search Controller', () => {
     responseMock.verify();
   });
 
-  it('should render search page if input returns no results', () => {
+  it('should render search page if there are no matching results', () => {
     const searchController = new SearchController();
 
     const response = { render: function() {return '';}} as unknown as Response;
@@ -33,7 +33,7 @@ describe('Search Controller', () => {
     responseMock.verify();
   });
 
-  it('should render search page if input is less than  three characters long', () => {
+  it('should render search page if input is less than three characters long', () => {
     const searchController = new SearchController();
 
     const response = { render: function() {return '';}} as unknown as Response;
