@@ -48,9 +48,12 @@
         </div>
         {{ submitButton() }}
         {% if noResultsError %}
-            <br/>
-            <h2 class="govuk-heading-s">There are no matching results.</h2>
-            <p class="govuk-body">You can improve your results by double checking your spelling.</p>
+        <div class="govuk-grid-row">
+            <div class="no_padding govuk-grid-column-full">
+                <h2 class="govuk-heading-s">There are no matching results.</h2>
+                <p class="govuk-body">You can improve your results by double checking your spelling.</p>
+            </div>
+        </div>
         {% endif %}
     </form>
 {% endblock %}
