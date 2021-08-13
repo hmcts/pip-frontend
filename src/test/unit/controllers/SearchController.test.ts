@@ -48,6 +48,52 @@ describe('Search Controller', () => {
     responseMock.verify();
   });
 
+  it('should render search page if input is three characters long and partially correct', () => {
+    const searchController = new SearchController();
+
+    const response = { render: function() {return '';}} as unknown as Response;
+    const request = { body: { 'input-autocomplete': 'Mut'}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('search');
+
+    searchController.post(request, response);
+
+    responseMock.verify();
+  });
+
+  it('should render search page if input is not letters', () => {
+    const searchController = new SearchController();
+
+    const response = { render: function() {return '';}} as unknown as Response;
+    const request = { body: { 'input-autocomplete': '111'}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('search');
+
+    searchController.post(request, response);
+
+    responseMock.verify();
+  });
+
+  it('should render search page if no input is provided', () => {
+    const searchController = new SearchController();
+
+    const response = { render: function() {return '';}} as unknown as Response;
+    const request = { body: { 'input-autocomplete': ''}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('search');
+
+    searchController.post(request, response);
+
+    responseMock.verify();
+  });
+
+
   it('should redirect to search results page with input as query if input is valid', () => {
     const searchController = new SearchController();
 
