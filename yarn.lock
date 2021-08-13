@@ -2307,13 +2307,13 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-awilix@^4.3.4:
-  version "4.3.4"
-  resolved "https://registry.yarnpkg.com/awilix/-/awilix-4.3.4.tgz#aeecc662efa96256981af3bc6243eb201c8b4a4f"
-  integrity sha512-NgRwUPxUnoK+OTRa2fXcRQVFPOPQXlwCN1FJPkhO3IHKQJHokhdVpDfgz9L3VZTcA1iSaOFE3N/Q/5P7lIDqig==
+awilix@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/awilix/-/awilix-5.0.0.tgz#1a3acafd7ada52ec3c057aba6381386fcf9a7e49"
+  integrity sha512-+G/qw8g/5hmd+evTlVWJ0IDHDdZGazAsv3c14KbGK5zr5Obp2H2wvWMyaShyGjo/8Ye+EokHX0HN3s0YHIk44g==
   dependencies:
     camel-case "^4.1.2"
-    glob "^7.1.6"
+    glob "^7.1.7"
 
 aws-sign2@~0.7.0:
   version "0.7.0"
@@ -5070,6 +5070,18 @@ glob@^7.0.0, glob@^7.0.3, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, gl
   version "7.1.6"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.6.tgz#141f33b81a7c2492e125594307480c46679278a6"
   integrity sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^3.0.4"
+    once "^1.3.0"
+    path-is-absolute "^1.0.0"
+
+glob@^7.1.7:
+  version "7.1.7"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.7.tgz#3b193e9233f01d42d0b3f78294bbeeb418f94a90"
+  integrity sha512-OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==
   dependencies:
     fs.realpath "^1.0.0"
     inflight "^1.0.4"
