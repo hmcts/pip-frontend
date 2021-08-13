@@ -18,15 +18,45 @@ describe('Search Controller', () => {
     responseMock.verify();
   });
 
-  it('should redirect to search results page with input as query', () => {
+  it('should render search page if input returns no results', () => {
     const searchController = new SearchController();
 
-    const response = { redirect: function() {return '';}} as unknown as Response;
+    const response = { render: function() {return '';}} as unknown as Response;
     const request = { body: { 'input-autocomplete': 'test'}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('search-results?search-input=test');
+    responseMock.expects('render').once().withArgs('search');
+
+    searchController.post(request, response);
+
+    responseMock.verify();
+  });
+
+  it('should render search page if input is less than  three characters long', () => {
+    const searchController = new SearchController();
+
+    const response = { render: function() {return '';}} as unknown as Response;
+    const request = { body: { 'input-autocomplete': 'aa'}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('search');
+
+    searchController.post(request, response);
+
+    responseMock.verify();
+  });
+
+  it('should redirect to search results page with input as query if input is valid', () => {
+    const searchController = new SearchController();
+
+    const response = { redirect: function() {return '';}} as unknown as Response;
+    const request = { body: { 'input-autocomplete': 'Mutsu Court'}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('redirect').once().withArgs('search-results?search-input=Mutsu Court');
 
     searchController.post(request, response);
 
