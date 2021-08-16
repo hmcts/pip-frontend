@@ -49,7 +49,7 @@ $text-disabled: #505a5f;
     bottom: auto;
     left: auto;
     position: fixed;
-    top: calc(100% - #{govuk-spacing(8)});
+    top: calc(100% - #{govuk-spacing(8) * 2});
   }
 }
 
@@ -57,6 +57,10 @@ $text-disabled: #505a5f;
   display: flex;
   margin-left: 0;
   margin-right: 0;
+}
+
+.app-back-to-top__icon {
+  margin-right: 10px;
 }
 
 //Styling for the Hearings List page
