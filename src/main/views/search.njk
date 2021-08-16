@@ -29,22 +29,25 @@
     {% endif %}
     {% set inputClasses = 'govuk-!-width-two-thirds govuk-input--error'
         if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
-    {% set formClasses = 'govuk-form-group--error govuk-form-group govuk-!-width-one-half'
-        if noResultsError or invalidInputError else 'govuk-form-group govuk-!-width-one-half' %}
+    {% set formGroupError = 'govuk-form-group--error'
+        if noResultsError or invalidInputError else 'govuk-form-group' %}
     <form action="search" method="post">
-        <div class="{{ formClasses }}">
+        <div class="govuk-form-group govuk-!-width-one-half">
             <h1 class="govuk-label-wrapper">
                 <label class="govuk-label govuk-label--l" for="search-input">
                     What court or tribunal are you interested in?
                 </label>
             </h1>
-            <div id="search-input-hint" class="govuk-hint">
-                For example Blackburn Family Court or Chester
+            <div class="{{ formGroupError }}">
+                <div id="search-input-hint" class="govuk-hint">
+                    For example Blackburn Family Court or Chester
+                </div>
+                {% if noResultsError or invalidInputError %}
+                    <span class="govuk-error-message">Enter a court name, town or city</span>
+                {% endif %}
+                <div class="{{ inputClasses }}" id="search-input-container"></div>
             </div>
-            {% if noResultsError or invalidInputError %}
-                <span class="govuk-error-message">Enter a court name, town or city</span>
-            {% endif %}
-            <div class="{{ inputClasses }}" id="search-input-container"></div>
+
         </div>
         {{ submitButton() }}
         {% if noResultsError %}
