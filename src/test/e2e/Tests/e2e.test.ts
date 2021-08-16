@@ -77,7 +77,7 @@ describe('Finding a court or tribunal listing', () => {
   describe('Following the \'search\' path', () => {
     const searchTerm = 'aylesbury';
     const expectedNumOfResults = 2;
-    const expectedNumOfhearings = 3;
+    const expectedNumOfHearings = 3;
     it('should select \'search\' option and navigate to search page', async() => {
       await searchOptionPage.selectSearchRadio();
       searchPage = await searchOptionPage.clickContinueForSearch();
@@ -99,7 +99,7 @@ describe('Finding a court or tribunal listing', () => {
       expect(await hearingListPage.getPageTitle()).toContain('Aylesbury Crown Court hearing list');
     });
 
-    it(`should display ${expectedNumOfhearings} results`, async() => {
+    it(`should display ${expectedNumOfHearings} results`, async() => {
       expect(await hearingListPage.getResults()).toBe(3);
     });
   });

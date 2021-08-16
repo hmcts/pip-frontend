@@ -3,10 +3,10 @@ import path from 'path';
 
 export class CourtActions {
   mocksPath = '../mocks/';
+  rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'courtsAndHearingsCount.json'), 'utf-8');
 
   getCourtDetails(courtId: number): any {
-    const rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'courtsAndHearingsCount.json'), 'utf-8');
-    const courtsData = JSON.parse(rawData);
+    const courtsData = JSON.parse(this.rawData);
     const court = courtsData?.results.filter((court) => court.courtId === courtId);
     if (court.length) {
       return court[0];
@@ -17,8 +17,7 @@ export class CourtActions {
   }
 
   getCourtsList(): any {
-    const rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'courtsAndHearingsCount.json'), 'utf-8');
-    const courtsData = JSON.parse(rawData);
+    const courtsData = JSON.parse(this.rawData);
     if (courtsData?.results) {
       return courtsData.results;
     } else {
