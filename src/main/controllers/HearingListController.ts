@@ -12,12 +12,12 @@ export default class HearingListController {
     const courtId = req.query.courtId as string;
 
     //If no court ID has been supplied, then return the error page
-    if (courtId !== undefined) {
+    if (courtId != undefined) {
       const court = new CourtActions().getCourtDetails(parseInt(courtId));
       const courtList = new HearingActions().getCourtHearings(parseInt(courtId as string));
 
       //Returns the error page if the court list is empty
-      if (court === null || courtList.length === 0) {
+      if (court == null || courtList.length == 0) {
         res.render('error');
       } else {
         const sortedCourtList = inputFilterService.numericallySortResults(courtList, 'courtNumber');

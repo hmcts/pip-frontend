@@ -9,7 +9,7 @@ export default class SearchResultsController {
     const searchInput = req.query['search-input'];
     const searchResults = inputFilterService.findCourts(searchInput, searchAgainst);
 
-    if (searchResults.length) {
+    if (searchResults.length > 0) {
       res.render('search-results', {searchInput, searchResults});
     } else {
       res.render('error');
