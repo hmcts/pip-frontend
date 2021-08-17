@@ -29,7 +29,6 @@ export default class BackToTop {
     // Check if we can use Intersection Observers
     // If not enabled (e.g IE11), then we default to using scroll listeners
     if (!('IntersectionObserver' in window)) {
-      console.log('We made it into here');
       this.checkIfFooterVisible(this, $footer);
       document.addEventListener('scroll', function(): void {
         this.checkIfFooterVisible(this, $footer);
