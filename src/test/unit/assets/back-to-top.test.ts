@@ -37,7 +37,7 @@ describe('Testing back to top button', () => {
     sinon.stub(window, 'innerHeight').value(400);
     sinon.stub(mockFooter, 'getBoundingClientRect').returns({top: '200'});
 
-    await import('../../../main/alphabetical');
+    await import('../../../main/bundles/alphabetical');
 
     expect(mockElement.classList.length).toEqual(0);
   });
@@ -56,7 +56,7 @@ describe('Testing back to top button', () => {
     sinon.stub(window, 'innerHeight').value(0);
     sinon.stub(mockFooter, 'getBoundingClientRect').returns({top: '200'});
 
-    await import('../../../main/alphabetical');
+    await import('../../../main/bundles/alphabetical');
 
     expect(mockElement.classList.length).toEqual(1);
   });
@@ -77,7 +77,7 @@ describe('Testing back to top button', () => {
 
     const interactionStub = sinon.spy(interactionObserver.prototype, 'observe');
 
-    await import('../../../main/alphabetical');
+    await import('../../../main/bundles/alphabetical');
 
     expect(interactionStub.callCount).toEqual(1);
   });
@@ -97,7 +97,7 @@ describe('Testing back to top button', () => {
 
     const constructorSpy = sinon.spy(window, 'IntersectionObserver');
 
-    await import('../../../main/alphabetical');
+    await import('../../../main/bundles/alphabetical');
 
     const returnedFunction = constructorSpy.getCall(0).args[0];
 
@@ -123,7 +123,7 @@ describe('Testing back to top button', () => {
 
     const constructorSpy = sinon.spy(window, 'IntersectionObserver');
 
-    await import('../../../main/alphabetical');
+    await import('../../../main/bundles/alphabetical');
 
     const returnedFunction = constructorSpy.getCall(0).args[0];
 
