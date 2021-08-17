@@ -7,6 +7,8 @@ const agent = supertest.agent(app);
 
 const routesNotTested = [
   '/health',
+  '/health/liveness',
+  '/health/readiness',
   '/info',
 ];
 
