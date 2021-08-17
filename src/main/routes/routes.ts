@@ -2,6 +2,9 @@ import { Application } from 'express';
 import {infoRequestHandler} from '@hmcts/info-provider';
 import os from 'os';
 
+const healthcheck = require('@hmcts/nodejs-healthcheck');
+
+
 export default function(app: Application): void {
 
   app.get('/', app.locals.container.cradle.homeController.get);
@@ -24,4 +27,13 @@ export default function(app: Application): void {
 
   app.post('/search-option', app.locals.container.cradle.searchOptionController.post);
   app.post('/search', app.locals.container.cradle.searchController.post);
+
+  const healthCheckConfig = {
+    checks: {
+      // TODO: replace this sample check with proper checks for your application
+      sampleCheck: healthcheck.raw(() => healthcheck.up()),
+    },
+  };
+
+  healthcheck.addTo(app, healthCheckConfig);
 }
