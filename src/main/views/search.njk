@@ -45,7 +45,7 @@
                 {% if noResultsError or invalidInputError %}
                     <span class="govuk-error-message">Enter a court name, town or city</span>
                 {% endif %}
-                <div class="{{ inputClasses }}" id="search-input"></div>
+                <div class="{{ inputClasses }}" id="search-input-container"></div>
             </div>
 
         </div>
@@ -70,7 +70,7 @@
 
     <script src="/assets/js/accessible-autocomplete.min.js"></script>
     <script>
-      const element = document.querySelector('#search-input');
+      const element = document.querySelector('#search-inputs');
       const source = {{ optionList | dump |safe }}
         accessibleAutocomplete({
           element: element,
