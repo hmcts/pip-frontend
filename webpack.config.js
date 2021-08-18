@@ -23,7 +23,7 @@ module.exports = {
       ...scss.rules,
       {
         test: /\.ts$/,
-        use: 'ts-loader',
+        loaders: ['babel-loader', 'ts-loader'],
         exclude: /node_modules/,
       }],
   },
