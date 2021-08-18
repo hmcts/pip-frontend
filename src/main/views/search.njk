@@ -70,7 +70,7 @@
 
     <script src="/assets/js/accessible-autocomplete.min.js"></script>
     <script>
-      const element = document.querySelector('#search-inputs');
+      const element = document.querySelector('#search-input');
       const source = {{ optionList | dump |safe }}
         accessibleAutocomplete({
           element: element,
