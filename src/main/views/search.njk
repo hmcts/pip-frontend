@@ -20,7 +20,7 @@
                     errorList: [
                         {
                             text: errorMessage,
-                            href: "#"
+                            href: "#search-input"
                         }
                     ]
                 }) }}
@@ -70,12 +70,17 @@
 
     <script src="/assets/js/accessible-autocomplete.min.js"></script>
     <script>
-      const element = document.querySelector('#search-input-container')
+      const element = document.querySelector('#search-input-container');
       const source = {{ optionList | dump |safe }}
         accessibleAutocomplete({
           element: element,
           id: 'search-input',
-          source: source
-        })
+          source: source,
+          displayMenu: 'overlay'
+        });
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
     </script>
+
 {% endblock %}
