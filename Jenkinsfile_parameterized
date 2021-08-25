@@ -9,7 +9,6 @@ def product = "pip"
 def component = "frontend"
 
 withPipeline(type, product, component) {
-
   after('build') {
     yarnBuilder.yarn('build')
   }
