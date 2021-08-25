@@ -19,3 +19,16 @@ describe('Not found page', () => {
       expect(header[0].innerHTML).contains('Page Not Found', 'Could not find the header');
     });
 });
+
+describe('Not found page invakud url', () => {
+  beforeAll(async () => {
+    await request(app).get("/not-a-real-page").then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+    });
+  });
+
+  it('should display header', () => {
+    const header = htmlRes.getElementsByClassName(headingClass);
+    expect(header[0].innerHTML).contains('Page Not Found', 'Could not find the header');
+  });
+});
