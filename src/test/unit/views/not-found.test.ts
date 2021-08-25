@@ -20,7 +20,7 @@ describe('Not found page', () => {
     });
 });
 
-describe('Not found page invakud url', () => {
+describe('Not found page invalid url', () => {
   beforeAll(async () => {
     await request(app).get("/not-a-real-page").then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
