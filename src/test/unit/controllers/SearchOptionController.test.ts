@@ -48,11 +48,17 @@ describe('Search Option Controller', () => {
     responseMock.verify();
   });
 
-  it('should not re-render', () => {
+  it('should render same page if nothing selected', () => {
+    const searchOptionsController = new SearchOptionsController();
+
     const response = { redirect: function() {return '';}} as unknown as Response;
+    const request = { body: { 'find-choice': ''}} as unknown as Request;
+
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').never();
+    responseMock.expects('redirect').once().withArgs('search-option');
+
+    searchOptionsController.post(request, response);
 
     responseMock.verify();
   });
