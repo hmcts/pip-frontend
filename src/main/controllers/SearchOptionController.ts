@@ -13,7 +13,7 @@ export default class SearchOptionController {
       res.redirect('alphabetical-search');
     }
     else {
-      null;
+      res.redirect('search-option');
     }
   }
 }
