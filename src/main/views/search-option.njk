@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    <form action="/search-option" method="post">
+    <form method="post">
         {{ govukRadios({
             idPrefix: "find-choice",
             name: "find-choice",
@@ -35,4 +35,15 @@
         }) }}
         {{ submitButton() }}
     </form>
+    <script>
+        const button = document.getElementsByClassName('govuk-button')[0];
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (document.getElementById('find-choice-2').checked) {
+            window.location.href = 'alphabetical-search';
+          } else if (document.getElementById('find-choice').checked) {
+            window.location.href = 'search';
+          }
+        })
+    </script>
 {% endblock %}
