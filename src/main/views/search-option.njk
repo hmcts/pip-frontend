@@ -38,11 +38,9 @@
     <script>
         const button = document.getElementsByClassName('govuk-button')[0];
         button.addEventListener('click', (e) => {
-          e.preventDefault();
-          if (document.getElementById('find-choice-2').checked) {
-            window.location.href = 'alphabetical-search';
-          } else if (document.getElementById('find-choice').checked) {
-            window.location.href = 'search';
+          const radios = document.querySelectorAll('input[type="radio"]:checked');
+          if (!radios.length) {
+            e.preventDefault();
           }
         })
     </script>
