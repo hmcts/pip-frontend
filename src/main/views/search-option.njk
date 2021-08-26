@@ -38,8 +38,8 @@
     <script>
         const button = document.getElementsByClassName('govuk-button')[0];
         button.addEventListener('click', (e) => {
-          const radios = document.querySelectorAll('input[type="radio"]:checked');
-          if (!radios.length) {
+          const checkedRadios = document.querySelectorAll('input[type="radio"]:checked');
+          if (!checkedRadios.length) {
             e.preventDefault();
           }
         })
