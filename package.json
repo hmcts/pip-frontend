@@ -16,7 +16,7 @@
     "test:coverage": "jest --coverage",
     "test:routes": "jest -c jest.routes.config.js",
     "test:a11y": "jest -c jest.a11y.config.js --maxWorkers 15",
-    "test:e2e": "npx wdio run wdio.conf.ts",
+    "test:e2e": "npx wdio run wdio.conf.js",
     "sonar-scan": "sonar-scanner",
     "test:smoke": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && jest -c jest.smoke.config.js",
     "test:functional": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && jest -c jest.smoke.config.js",

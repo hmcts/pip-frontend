@@ -1,4 +1,4 @@
-export const config: WebdriverIO.Config = {
+exports.config = {
   //
   // ====================
   // Runner Configuration
@@ -55,15 +55,15 @@ export const config: WebdriverIO.Config = {
     // maxInstances can get overwritten per capability. So if you have an in-house Selenium
     // grid with only 5 firefox instances available you can make sure that not more than
     // 5 instances get started at a time.
-    maxInstances: 5,
-    //
-    browserName: 'chrome',
-    acceptInsecureCerts: true,
+      maxInstances: 5,
+      //
+      browserName: 'chrome',
+      acceptInsecureCerts: true,
     // If outputDir is provided WebdriverIO can capture driver session logs
     // it is possible to configure which logTypes to include/exclude.
     // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
     // excludeDriverLogs: ['bugreport', 'server'],
-  },
+    },
     {
       // maxInstances can get overwritten per capability. So if you have an in-house Selenium
       // grid with only 5 firefox instances available you can make sure that not more than
@@ -81,7 +81,7 @@ export const config: WebdriverIO.Config = {
     //   maxInstances: 5,
     //   browserName: 'safari',
     //   acceptInsecureCerts: true,
-    // }
+    // },
   ],
   //
   // ===================
@@ -282,7 +282,7 @@ export const config: WebdriverIO.Config = {
      * @param {Object} exitCode 0 - success, 1 - fail
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
-     * @param {<Object>} results object containing test results
+     * @param {Object} results object containing test results
      */
   // onComplete: function(exitCode, config, capabilities, results) {
   // },
