@@ -7,6 +7,12 @@ export class AlphabeticalSearchPage {
   }
 
   async selectLetter(letter) {
-    await $(helpers.KeySelector(letter)).click;
+    const letterLink = await $(helpers.KeySelector(letter));
+    letterLink.click();
+  }
+
+  async checkIfLetterIsVisible(letter) {
+    const element = await $(helpers.RowSelector(letter));
+    return await element.isDisplayedInViewport();
   }
 }

@@ -32,5 +32,12 @@ describe('Finding a court or tribunal listing', () => {
       alphabeticalSearchPage = await searchOptionsPage.clickContinueForAlphabetical();
       await expect(alphabeticalSearchPage.pageTitle).toHaveTextContaining('Find a court or tribunal listing');
     });
+
+    it('should select \'Z\' option, and navigate to the end of the page', async() => {
+      const endLetter = 'Z';
+      await alphabeticalSearchPage.selectLetter(endLetter);
+      expect(await alphabeticalSearchPage.checkIfLetterIsVisible('Z')).toBeTruthy();
+    });
+
   });
 });
