@@ -14,24 +14,24 @@ const invalidSearchInputEmpty = '';
 const invalidSearchInputUndefined = undefined;
 
 const expectedResultFromName = [{
-  "courtId": 3,
-  "name": "Accrington Magistrates' Court",
-  "jurisdiction": "Crown Court",
-  "location": "Manchester"
+  'courtId': 3,
+  'name': 'Accrington Magistrates\' Court',
+  'jurisdiction': 'Crown Court',
+  'location': 'Manchester'
 }];
 
 const expectedResultFromLocation = [
   {
-    "courtId": 2,
-    "name": "Accrington County Court",
-    "jurisdiction": "Crown Court",
-    "location": "London"
+    'courtId': 2,
+    'name': 'Accrington County Court',
+    'jurisdiction': 'Crown Court',
+    'location': 'London'
   },
   {
-    "courtId": 6,
-    "name": "Alton Magistrates' Court",
-    "jurisdiction": "Royal Court",
-    "location": "London"
+    'courtId': 6,
+    'name': 'Alton Magistrates\' Court',
+    'jurisdiction': 'Royal Court',
+    'location': 'London'
   },
 
 ];
