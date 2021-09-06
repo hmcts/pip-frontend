@@ -15,8 +15,6 @@ export default class SearchController {
   }
 
 
-
-
   public async get(req: Request, res: Response) {
     const courtList = new CourtActions(_api);
     const autocompleteList = await courtList.getCourtsList();
@@ -28,7 +26,6 @@ export default class SearchController {
     const courtList = new CourtActions(_api);
     const autocompleteList = await courtList.getCourtsList();
     if (searchInput && searchInput.length >= 3 && autocompleteList) {
-      //res.redirect(`search-results?search-input=${searchInput}`);
       (inputService.findCourts(searchInput, searchAgainst, autocompleteList).length) ?
         res.redirect(`search-results?search-input=${searchInput}`) :
         res.render('search', { autocompleteList: autocompleteList, invalidInputError: false, noResultsError: true});

@@ -25,8 +25,6 @@ export class Container {
     });
     jsonObject['logger'] = asValue(logger);
     jsonObject['axios'] = asValue(Axios.create({ baseURL: config.get('services.api.url') }));
-    console.log(Axios);
-    console.log(Axios.create({ baseURL: config.get('services.api.url') }));
     jsonObject['api'] = asClass(PipApi);
     app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register(jsonObject);
   }

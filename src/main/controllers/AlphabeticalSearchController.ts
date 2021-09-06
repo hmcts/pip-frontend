@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import {CourtActions} from '../resources/actions/courtActions';
 import {InputFilterService} from '../service/inputFilterService';
-import {PipApi} from "../utils/PipApi";
+import {PipApi} from '../utils/PipApi';
 
-let _api:PipApi;
+let _api: PipApi;
+
 export default class AlphabeticalSearchController {
 
   constructor(private readonly api: PipApi) {
