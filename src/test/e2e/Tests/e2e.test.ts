@@ -18,9 +18,9 @@ let searchPage: SearchPo;
 let searchResultsPage: SearchResultsPo;
 let hearingListPage: HearingListPo;
 let alphabeticalSearchPage: AlphabeticalSearchPo;
-let subscriptionManagementPage: SubscriptionManagementPo
+let subscriptionManagementPage: SubscriptionManagementPo;
 
-let otpLoginPage = new OtpLoginPagePo;
+const otpLoginPage = new OtpLoginPagePo;
 
 let page: Page;
 let browser: Browser;
@@ -118,10 +118,10 @@ describe('Media User login', () => {
 
   it('should navigate to subscription page when correct passcode is entered', async () => {
     await otpLoginPage.enterText('222222');
-    subscriptionManagementPage = await otpLoginPage.clickContinue()
-    expect(await subscriptionManagementPage.getPageTitle()).toContain(`Subscription Management`);
+    subscriptionManagementPage = await otpLoginPage.clickContinue();
+    expect(await subscriptionManagementPage.getPageTitle()).toContain('Subscription Management');
   });
-})
+});
 
 afterAll(() => {
   browser.close();

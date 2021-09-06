@@ -30,6 +30,6 @@ module.exports = {
   FirstItemResult: 'tbody > tr.govuk-table__row > td > div > a',
 
   // OtpLogin page selectors
-  OtpInput: '#otp-code'
+  OtpInput: '#otp-code',
 
 };

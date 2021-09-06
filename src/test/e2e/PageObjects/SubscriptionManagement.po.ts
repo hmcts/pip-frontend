@@ -1,4 +1,4 @@
-import {Page} from "puppeteer";
+import {Page} from 'puppeteer';
 const helpers = require('../Helpers/Selectors');
 
 let page: Page;

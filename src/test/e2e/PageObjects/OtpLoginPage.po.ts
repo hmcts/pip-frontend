@@ -9,7 +9,7 @@ let page: Page;
 export class OtpLoginPagePo {
   async OpenOtpLoginPage(_page: Page): Promise<any> {
     page = _page;
-    await page.goto(config.globals.URL + "/otp-login", {waitUntil: 'domcontentloaded'});
+    await page.goto(config.globals.URL + '/otp-login', {waitUntil: 'domcontentloaded'});
     return page;
   }
 
