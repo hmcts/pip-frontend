@@ -94,7 +94,7 @@ describe('Search Controller', () => {
   });
 
 
-  it('should redirect to search results page with input as query if input is valid', () => {
+  it('should redirect to search results page with input as query if court name input is valid', () => {
     const searchController = new SearchController();
 
     const response = { redirect: function() {return '';}} as unknown as Response;
@@ -103,6 +103,36 @@ describe('Search Controller', () => {
     const responseMock = sinon.mock(response);
 
     responseMock.expects('redirect').once().withArgs('search-results?search-input=Mutsu Court');
+
+    searchController.post(request, response);
+
+    responseMock.verify();
+  });
+
+  it('should redirect to search results page with input as query if location input is valid', () => {
+    const searchController = new SearchController();
+
+    const response = { redirect: function() {return '';}} as unknown as Response;
+    const request = { body: { 'input-autocomplete': 'London'}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('redirect').once().withArgs('search-results?search-input=London');
+
+    searchController.post(request, response);
+
+    responseMock.verify();
+  });
+
+  it('should redirect to search results page with input as query if jurisdiction input is valid', () => {
+    const searchController = new SearchController();
+
+    const response = { redirect: function() {return '';}} as unknown as Response;
+    const request = { body: { 'input-autocomplete': 'Magistrates Court'}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('redirect').once().withArgs('search-results?search-input=Magistrates Court');
 
     searchController.post(request, response);
 
