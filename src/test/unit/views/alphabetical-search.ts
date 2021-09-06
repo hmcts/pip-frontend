@@ -14,13 +14,15 @@ const hearingsData = JSON.parse(rawData);
 
 
 jest.mock('axios', () => {
-    return {
-      create: function() {
-        return {
-          get: function(a, b) {return new Promise((resolve) => resolve({data: hearingsData}))}}},
+  return {
+    create: function() {
+      return {
+        get: function() {
+          return new Promise((resolve) => resolve({data: hearingsData}));
+        }
+      }},
     };
-  }
-);
+  });
 
 describe('Alphabetical Search page', () => {
   beforeAll(async () => {
@@ -32,13 +34,16 @@ describe('Alphabetical Search page', () => {
   it('should display a back button with the correct value', () => {
 
     const backLink = htmlRes.getElementsByClassName('govuk-back-link');
-    expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backLink[0].getAttribute('href')).equal('/search-option', 'Back value does not contain correct link');
+    expect(backLink[0].innerHTML)
+      .contains('Back', 'Back button does not contain correct text');
+    expect(backLink[0].getAttribute('href'))
+      .equal('/search-option', 'Back value does not contain correct link');
   });
 
   it('should contain the find a court heading', () => {
     const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(pageHeading[0].innerHTML).contains('Find a court or tribunal listing', 'Page heading does not exist');
+    expect(pageHeading[0].innerHTML)
+      .contains('Find a court or tribunal listing', 'Page heading does not exist');
   });
 
   it('should contain letters that navigate to other sections of the page', () => {
@@ -58,14 +63,18 @@ describe('Alphabetical Search page', () => {
   it('should contain no hearings text', () => {
     const noHearings = htmlRes.getElementById('B').parentNode.parentNode as Element;
 
-    expect(noHearings.innerHTML).contains('No hearings are scheduled in any of these', 'No hearings list not present');
-    expect(noHearings.innerHTML).contains('locations today', 'No hearings list not present');
+    expect(noHearings.innerHTML)
+      .contains('No hearings are scheduled in any of these', 'No hearings list not present');
+    expect(noHearings.innerHTML)
+      .contains('locations today', 'No hearings list not present');
   });
 
   it('should contain the correct headers', () => {
     const tableHeaders = htmlRes.getElementsByClassName('govuk-table__header');
-    expect(tableHeaders[1].innerHTML).contains('Court or tribunal', 'Court or tribunal header is not present');
-    expect(tableHeaders[2].innerHTML).contains('Number of hearings', 'Number of hearings header is not present');
+    expect(tableHeaders[1].innerHTML)
+      .contains('Court or tribunal', 'Court or tribunal header is not present');
+    expect(tableHeaders[2].innerHTML)
+      .contains('Number of hearings', 'Number of hearings header is not present');
   });
 
   it('should contain the letter names in rows are present', () => {
