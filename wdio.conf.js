@@ -71,11 +71,6 @@ exports.config = {
     },
     // {
     //   maxInstances: 5,
-    //   browserName: 'edge',
-    //   acceptInsecureCerts: true,
-    // },
-    // {
-    //   maxInstances: 5,
     //   browserName: 'safari',
     //   acceptInsecureCerts: true,
     // },

@@ -4,15 +4,19 @@ const helpers = require('../Helpers/Selectors');
 
 export class HomePage {
 
-  open (path) {
+  open (path): Promise<string> {
     return browser.url(`http://localhost:8080/${path}`);
   }
 
-  get pageTitle() {
-    return $(helpers.MainHeader);
+  async pageTitle(): Promise<string> {
+    $(helpers.MainHeader).catch(() => {
+      console.log(`${helpers.MainHeader} not found`);
+    });
+
+    return $(helpers.MainHeader).getText();
   }
 
-  async clickStartNowButton() {
+  async clickStartNowButton(): Promise<SearchOptionsPage> {
     const button = await $(helpers.StartNowButton);
     button.click();
     return new SearchOptionsPage();

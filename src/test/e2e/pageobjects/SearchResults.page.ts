@@ -1,6 +1,8 @@
+import { HearingListPage } from './HearingList.page';
+
 const helpers = require('../Helpers/Selectors');
 
-export class HearingListPage {
+export class SearchResultsPage {
 
   async pageTitle(): Promise<string> {
     $(helpers.CommonPageTitle).catch(() => {
@@ -14,7 +16,18 @@ export class HearingListPage {
     $(helpers.Results).catch(() => {
       console.log(`${helpers.Results} not found`);
     });
+
     const results = $$(helpers.Results);
     return results.length;
+  }
+
+  async selectCourt(): Promise<HearingListPage> {
+    $(helpers.LinkResult).catch(() => {
+      console.log(`${helpers.LinkResult} not found`);
+    });
+    const linkResult = await $(helpers.LinkResult);
+    linkResult.click();
+
+    return new HearingListPage();
   }
 }
