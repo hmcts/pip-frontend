@@ -1,21 +1,35 @@
 import { Request, Response } from 'express';
 import { CourtActions } from '../resources/actions/courtActions';
-import { InputFilterService } from '../service/inputFilterService';
+import {PipApi} from "../utils/PipApi";
+import {InputFilterService} from "../service/inputFilterService";
 
-const courtList = new CourtActions();
-const autocompleteList = courtList.getCourtsList();
 const inputService = new InputFilterService();
 const searchAgainst = ['name', 'jurisdiction', 'location'];
 
+let _api:PipApi;
+
 export default class SearchController {
-  public get(req: Request, res: Response): void {
+
+  constructor(private readonly api: PipApi) {
+    _api = this.api;
+  }
+
+
+
+
+  public async get(req: Request, res: Response) {
+    const courtList = new CourtActions(_api);
+    const autocompleteList = await courtList.getCourtsList();
     res.render('search', { autocompleteList: autocompleteList, invalidInputError: false, noResultsError: false });
   }
 
-  public post(req: Request, res: Response): void {
+  public async post(req: Request, res: Response) {
     const searchInput = req.body['input-autocomplete'];
-    if (searchInput && searchInput.length >= 3) {
-      (inputService.findCourts(searchInput, searchAgainst).length) ?
+    const courtList = new CourtActions(_api);
+    const autocompleteList = await courtList.getCourtsList();
+    if (searchInput && searchInput.length >= 3 && autocompleteList) {
+      //res.redirect(`search-results?search-input=${searchInput}`);
+      (inputService.findCourts(searchInput, searchAgainst, autocompleteList).length) ?
         res.redirect(`search-results?search-input=${searchInput}`) :
         res.render('search', { autocompleteList: autocompleteList, invalidInputError: false, noResultsError: true});
     } else {

@@ -1,0 +1,62 @@
+[
+  {
+    "courtId": 1,
+    "name": "Abergavenny Magistrates' Court",
+    "jurisdiction": "Crown Court",
+    "location": "Bedford"
+  },
+  {
+    "courtId": 2,
+    "name": "Accrington County Court",
+    "jurisdiction": "Crown Court",
+    "location": "London"
+  },
+  {
+    "courtId": 3,
+    "name": "Accrington Magistrates' Court",
+    "jurisdiction": "Crown Court",
+    "location": "Manchester"
+  },
+  {
+    "courtId": 4,
+    "name": "Aldershot and Farnham County Court and Family Court",
+    "jurisdiction": "Crown Court",
+    "location": "Manchester"
+  },
+  {
+    "courtId": 5,
+    "name": "Aldershot Magistrates' Court",
+    "jurisdiction": "Royal Court",
+    "location": "Manchester"
+  },
+  {
+    "courtId": 6,
+    "name": "Alton Magistrates' Court",
+    "jurisdiction": "Royal Court",
+    "location": "London"
+  },
+  {
+    "courtId": 7,
+    "name": "Altrincham County Court and Family Court",
+    "jurisdiction": "Crown Court",
+    "location": "Manchester"
+  },
+  {
+    "courtId": 8,
+    "name": "Andover Magistrates' Court",
+    "jurisdiction": "Royal Court",
+    "location": "Bedford"
+  },
+  {
+    "courtId": 9,
+    "name": "Tameside Magistrates' Court",
+    "jurisdiction": "Royal Court",
+    "location": "Manchester"
+  },
+  {
+    "courtId": 10,
+    "name": "Aylesbury County Court and Family Court",
+    "jurisdiction": "Royal Court",
+    "location": "Manchester"
+  }
+]

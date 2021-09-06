@@ -6,6 +6,7 @@ module.exports = {
     "js"
   ],
   "testEnvironment": "jsdom",
+  "testTimeout": 10000,
   transform: {
     '^.+\\.ts?$': 'ts-jest',
   },

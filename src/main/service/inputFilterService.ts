@@ -1,17 +1,15 @@
-import { CourtActions } from '../resources/actions/courtActions';
 import { JSONArray } from 'puppeteer';
 
-const courtActions = new CourtActions();
 let courtsResults;
 let searchResults;
 
 export class InputFilterService {
-  public findCourts(searchInput, checkAgainst): JSONArray {
+  public findCourts(searchInput, checkAgainst, courtList): JSONArray {
     searchResults = [];
     if (!this.checkNotNullOrEmpty(searchInput)) {
       return searchResults;
     }
-    courtsResults = courtActions.getCourtsList();
+    courtsResults = courtList;
     checkAgainst.forEach(item => {
       this.checkInputAgainstSearchValue(searchInput, item);
     });

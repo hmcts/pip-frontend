@@ -1,11 +1,26 @@
 import { expect } from 'chai';
 import request from 'supertest';
-
 import { app } from '../../../main/app';
+import fs from "fs";
+import path from "path";
 
 const PAGE_URL = '/alphabetical-search';
 
 let htmlRes: Document;
+
+
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings2.json'), 'utf-8');
+const hearingsData = JSON.parse(rawData);
+
+
+jest.mock('axios', () => {
+    return {
+      create: function() {
+        return {
+          get: function(a, b) {return new Promise((resolve) => resolve({data: hearingsData}))}}},
+    };
+  }
+);
 
 describe('Alphabetical Search page', () => {
   beforeAll(async () => {
@@ -15,6 +30,7 @@ describe('Alphabetical Search page', () => {
   });
 
   it('should display a back button with the correct value', () => {
+
     const backLink = htmlRes.getElementsByClassName('govuk-back-link');
     expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
     expect(backLink[0].getAttribute('href')).equal('/search-option', 'Back value does not contain correct link');
@@ -35,12 +51,12 @@ describe('Alphabetical Search page', () => {
   it('should contain no link if letter has no hearings', () => {
     const alphabeticalLetters = htmlRes.getElementsByClassName('govuk-link--no-underline');
 
-    expect(alphabeticalLetters[1].innerHTML).contains('I', 'Alphabetical link is not present');
+    expect(alphabeticalLetters[1].innerHTML).contains('B', 'Alphabetical link is not present');
     expect(alphabeticalLetters[1].getAttribute('href')).not.exist;
   });
 
   it('should contain no hearings text', () => {
-    const noHearings = htmlRes.getElementById('I').parentNode.parentNode as Element;
+    const noHearings = htmlRes.getElementById('B').parentNode.parentNode as Element;
 
     expect(noHearings.innerHTML).contains('No hearings are scheduled in any of these', 'No hearings list not present');
     expect(noHearings.innerHTML).contains('locations today', 'No hearings list not present');
@@ -60,9 +76,9 @@ describe('Alphabetical Search page', () => {
     }
   });
 
-  it('should have the first cell containing Albertville Court', () => {
+  it('should have the first cell containing Abergavenny Magistrates\' Court', () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[0].innerHTML).contains('Albertville Court');
+    expect(cell[0].innerHTML).contains('Abergavenny Magistrates\' Court');
   });
 
   it('should contain a back to top link, that links back up to the top', () => {

@@ -2,14 +2,29 @@ import {expect} from 'chai';
 import request from 'supertest';
 
 import {app} from '../../../main/app';
+import fs from "fs";
+import path from "path";
 
-const searchTerm = 'Aylesbury';
+const searchTerm = 'Accrington';
 const numOfResults = '2';
 const PAGE_URL = `/search-results?search-input=${searchTerm}`;
 
 const rowClass = 'govuk-table__row';
 
 let htmlRes: Document;
+
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAllReducedForInputSearch.json'), 'utf-8');
+const hearingsData = JSON.parse(rawData);
+
+
+jest.mock('axios', () => {
+    return {
+      create: function() {
+        return {
+          get: function(a, b) {return new Promise((resolve) => resolve({data: hearingsData}))}}},
+    };
+  }
+);
 
 describe('Search Results Page', () => {
   beforeAll(async () => {
@@ -53,7 +68,7 @@ describe('Search Results Page', () => {
     const rows = htmlRes.getElementsByClassName(rowClass);
     const items = rows.item(1).children;
 
-    expect(items[0].innerHTML).contains('Aylesbury Crown Court', 'First court not listed correctly');
+    expect(items[0].innerHTML).contains('Accrington County Court', 'First court not listed correctly');
     expect(items[1].innerHTML).contains('8', 'First court has incorrect number of hearings');
   });
 
@@ -61,6 +76,6 @@ describe('Search Results Page', () => {
     const rows = htmlRes.getElementsByClassName(rowClass);
     const items = rows.item(1).children;
 
-    expect(items[0].children[0].getAttribute('href')).equal('/hearing-list?courtId=34', 'First court not listed correctly');
+    expect(items[0].children[0].getAttribute('href')).equal('/hearing-list?courtId=2', 'First court not listed correctly');
   });
 });

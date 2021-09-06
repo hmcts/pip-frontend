@@ -1,20 +1,10 @@
-import fs from 'fs';
-import path from 'path';
+import {PipApi} from "../../utils/PipApi";
 
 export class HearingActions {
-  mocksPath = '../mocks/';
+  constructor(private readonly api: PipApi) {}
 
-  getCourtHearings(courtId: number): any {
-    const rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'hearingsList.json'), 'utf-8');
-    const hearingsData = JSON.parse(rawData);
-    const courtHearings = hearingsData?.results.filter((hearing) => hearing.courtId === courtId);
+  public async getCourtHearings(courtId: number) {
+    const courtHearings = await this.api.getHearingList(courtId);
     return courtHearings;
-  }
-
-  getHearingDetails(hearingId: number): any {
-    const rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'hearingsList.json'), 'utf-8');
-    const hearingsData = JSON.parse(rawData);
-    const hearingDetails = hearingsData?.results.find((hearing) => hearing.hearingId === hearingId);
-    return hearingDetails ? hearingDetails : null;
   }
 }

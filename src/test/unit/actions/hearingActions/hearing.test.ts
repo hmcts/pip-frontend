@@ -1,63 +1,88 @@
 import { HearingActions } from '../../../../main/resources/actions/hearingActions';
+import {PipApi} from "../../../../main/utils/PipApi";
+import fs from "fs";
+import path from "path";
+import sinon from 'sinon';
 
-const mockData = {
-  hearingId: 5,
-  courtId: 9,
-  courtNumber: 1,
-  date: '1/9/2021',
-  time: '8:29 AM',
-  judge: 'Judge Brigida Francioli',
-  platform: 'Microsoft Teams',
-  caseNumber: '74-363-1243',
-  caseName: "Hansen-Trantow's Hearing",
-};
+
+const axios = require('axios');
+jest.mock('axios');
+
+
+const api = new PipApi(axios);
+
 const validCourtId = 9;
-const invalidCourtId = 232;
+const invalidCourtId = 1232;
 const validHearingId = 5;
-const invalidHearingId = 999;
+const invalidHearingId = 2000;
 
-const hearingActions = new HearingActions();
+const hearingActions = new HearingActions(api);
+const stub = sinon.stub(api, 'getHearingList');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingsListByCourt.json'), 'utf-8');
+const hearingsData = JSON.parse(rawData);
 
 describe(`getCourtHearings(${validCourtId})`, () => {
-  const courtHearings = hearingActions.getCourtHearings(validCourtId);
 
-  it('should return list of 2 hearings', () => {
-    expect(courtHearings.length).toBe(2);
+  stub.withArgs(validCourtId).returns(hearingsData);
+
+
+  it('should return list of hearings', () => {
+    return hearingActions.getCourtHearings(validCourtId).then(data => {
+      expect(data).toBe(hearingsData);
+    });
   });
 
+  it('should return list of 1000 hearings', () => {
+    return hearingActions.getCourtHearings(validCourtId).then(data => {
+      expect(data.length).toBe(4);
+    });
+  });
+
+
   it('should have mocked object in the hearings list', () => {
-    expect(courtHearings.filter((hearings) => hearings.caseNumber === mockData.caseNumber).length).toBe(1);
+    return hearingActions.getCourtHearings(validCourtId).then(data => {
+      expect(data.filter((hearings) => hearings.caseNumber === data[0].caseNumber).length).toBe(1);
+    });
   });
 
   it(`should have only hearings for court id ${validCourtId}`, () => {
-    expect(courtHearings.filter((hearings) => hearings.courtId === validCourtId).length).toBe(courtHearings.length);
+    return hearingActions.getCourtHearings(validCourtId).then(data => {
+      expect(data.filter((hearings) => hearings.courtId === validCourtId).length).toBe(data.length);
+    });
   });
 });
 
-describe(`getCourtHearings(${invalidCourtId})`, function () {
-  const courtHearings = hearingActions.getCourtHearings(invalidCourtId);
+describe(`getCourtHearings(${invalidCourtId})`, () => {
 
-  it(`should return empty list as court with id ${invalidCourtId}`, () => {
-    expect(courtHearings.length).toBe(0);
+  stub.withArgs(invalidCourtId).returns({});
+
+
+  it('should return empty list as court with id ${invalidCourtId}', () => {
+    return hearingActions.getCourtHearings(invalidCourtId).then(data => {
+      expect(data).toStrictEqual({});
+    });
   });
+
 });
 
 describe(`getHearingDetails(${validHearingId})`, function () {
-  const courtHearings = hearingActions.getHearingDetails(validHearingId);
 
-  it(`should return an object with hearing id ${validHearingId}`, () => {
-    expect(courtHearings.hearingId).toBe(validHearingId);
-  });
+  stub.withArgs(validCourtId).returns(hearingsData);
 
   it('response should match mocked object', () => {
-    expect(courtHearings).toStrictEqual(mockData);
+    return hearingActions.getCourtHearings(validCourtId).then(data => {
+      expect(data).toBe(hearingsData);
+    });
   });
 });
 
 describe(`getHearingDetails(${invalidHearingId})`, function () {
-  const courtHearings = hearingActions.getHearingDetails(invalidHearingId);
+
+  stub.withArgs(validCourtId).returns(hearingsData);
 
   it(`should return null as hearing with id ${invalidHearingId} doesn't exist`, () => {
-    expect(courtHearings).toBe(null);
+    return hearingActions.getCourtHearings(invalidCourtId).then(data => {
+      expect(data).toStrictEqual({});
+    });
   });
 });
