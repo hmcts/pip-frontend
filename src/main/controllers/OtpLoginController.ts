@@ -6,7 +6,7 @@ export default class OtpLoginController {
   }
 
   public post(req: Request, res: Response): void {
-    if (req.body['otp-code'] !== undefined && req.body['otp-code'].length === 6) {
+    if (req.body['otp-code'] && req.body['otp-code'].length === 6) {
       res.redirect('subscription-management');
     } else {
       res.redirect('otp-login');
