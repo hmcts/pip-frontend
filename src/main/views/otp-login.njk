@@ -8,7 +8,7 @@
 {% block content %}
   <form method="post" novalidate>
     <h1 class="govuk-heading-l govuk-!-margin-top-5">Verify your email address</h1>
-    <h3 class="govuk-heading-s">Enter your 6-digit passcode</h3>
+    <h3 class="govuk-heading-s" id="input-label">Enter your 6-digit passcode</h3>
     <div>
       <input class="govuk-input
       govuk-input--width-10
@@ -16,6 +16,7 @@
              inputmode="numeric"
              type="number"
              pattern='[0-9]*'
+             aria-labelledby="input-label"
              oninput="
              if (this.value.length > 6) {
               this.value = this.value.slice(0,6);
