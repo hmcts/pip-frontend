@@ -1,5 +1,5 @@
 import { AlphabeticalSearchPage } from './AlphabeticalSearch.page';
-import {SearchPage} from "./Search.page";
+import { SearchPage } from './Search.page';
 
 const helpers = require('../Helpers/Selectors');
 
