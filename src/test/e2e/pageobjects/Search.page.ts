@@ -4,7 +4,7 @@ const helpers = require('../Helpers/Selectors');
 
 export class SearchPage {
 
-  async pageTitle(): Promise<string> {
+  async getPageTitle(): Promise<string> {
     $(helpers.SearchTitle).catch(() => {
       console.log(`${helpers.SearchTitle} not found`);
     });
@@ -18,7 +18,7 @@ export class SearchPage {
     });
 
     const searchInput = await $(helpers.SearchInput);
-    searchInput.addValue(text);
+    await searchInput.addValue(text);
     await browser.keys('Escape');
   }
 

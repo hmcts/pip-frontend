@@ -4,7 +4,7 @@ const helpers = require('../Helpers/Selectors');
 
 export class AlphabeticalSearchPage {
 
-  async pageTitle(): Promise<string> {
+  async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitle).catch(() => {
       console.log(`${helpers.CommonPageTitle} not found`);
     });

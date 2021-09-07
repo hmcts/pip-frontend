@@ -15,12 +15,12 @@ let searchResultsPage: SearchResultsPage;
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
     await homePage.open('');
-    expect(await homePage.pageTitle()).toEqual('Find a court or tribunal listing');
+    expect(await homePage.getPageTitle()).toEqual('Find a court or tribunal listing');
   });
 
   it('should click on the "Start now button and navigate to Search Options page', async () => {
     searchOptionsPage = await homePage.clickStartNowButton();
-    expect(await searchOptionsPage.pageTitle()).toEqual('Find a court or tribunal list');
+    expect(await searchOptionsPage.getPageTitle()).toEqual('Find a court or tribunal list');
   });
 
   it('should see both radio buttons', async () => {
@@ -36,7 +36,7 @@ describe('Finding a court or tribunal listing', () => {
     it('should select \'find\' option and navigate to alphabetical search page', async() => {
       await searchOptionsPage.selectFindRadio();
       alphabeticalSearchPage = await searchOptionsPage.clickContinueForAlphabetical();
-      expect(await alphabeticalSearchPage.pageTitle()).toEqual('Find a court or tribunal listing');
+      expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal listing');
     });
 
     it('should select \'Z\' option, and navigate to the end of the page', async() => {
@@ -53,7 +53,7 @@ describe('Finding a court or tribunal listing', () => {
 
     it('selecting first result should take you to to the hearings list page', async() => {
       hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-      expect(await hearingListPage.pageTitle()).toEqual('Albertville Court hearing list');
+      expect(await hearingListPage.getPageTitle()).toEqual('Albertville Court hearing list');
     });
 
     it('should display 1 result', async() => {
@@ -69,13 +69,13 @@ describe('Finding a court or tribunal listing', () => {
     it('should select \'search\' option and navigate to search page', async() => {
       await searchOptionsPage.selectSearchRadio();
       searchPage = await searchOptionsPage.clickContinueForSearch();
-      expect(await searchPage.pageTitle()).toEqual('What court or tribunal are you interested in?');
+      expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
     });
 
     it('should enter text and click continue', async() => {
       await searchPage.enterText(searchTerm);
       searchResultsPage = await searchPage.clickContinue();
-      expect(await searchResultsPage.pageTitle()).toEqual(`Courts or tribunals in ${searchTerm}`);
+      expect(await searchResultsPage.getPageTitle()).toEqual(`Courts or tribunals in ${searchTerm}`);
     });
 
     it(`should display ${expectedNumOfResults} results`, async() => {
@@ -84,7 +84,7 @@ describe('Finding a court or tribunal listing', () => {
 
     it('should navigate to hearing list page', async() => {
       hearingListPage = await searchResultsPage.selectCourt();
-      expect(await hearingListPage.pageTitle()).toEqual('Aylesbury Crown Court hearing list');
+      expect(await hearingListPage.getPageTitle()).toEqual('Aylesbury Crown Court hearing list');
     });
 
     it(`should display ${expectedNumOfHearings} results`, async() => {

@@ -5,7 +5,7 @@ const helpers = require('../Helpers/Selectors');
 
 export class SearchOptionsPage {
 
-  async pageTitle(): Promise<string> {
+  async getPageTitle(): Promise<string> {
     $(helpers.SearchOptionsTitle).catch(() => {
       console.log(`${helpers.SearchOptionsTitle} not found`);
     });

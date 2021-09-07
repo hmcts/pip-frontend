@@ -2,7 +2,7 @@ const helpers = require('../Helpers/Selectors');
 
 export class HearingListPage {
 
-  async pageTitle(): Promise<string> {
+  async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitle).catch(() => {
       console.log(`${helpers.CommonPageTitle} not found`);
     });
