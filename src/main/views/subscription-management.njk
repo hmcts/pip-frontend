@@ -1,0 +1,10 @@
+{% from "./macros/common-components.njk" import goBack %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ "Subscription Management" | safe }}
+{% endblock %}
+{% block content %}
+  <h1 class="govuk-heading-l">Subscription Management</h1>
+{% endblock %}
