@@ -16,7 +16,7 @@ export class PipApi {
 
   public getCourtList(inputSearch: String): Promise<any> {
     return this.axios
-      .get(`/courtlist/${inputSearch}`, {  headers: {'Accept-Language': "en"}})
+      .get('/courtlist/' + inputSearch, {  headers: {'Accept-Language': "en"}})
       .then(results => results.data)
       .catch(err => {
         return {};
@@ -36,7 +36,7 @@ export class PipApi {
 
   public getHearingList(courtId: number): Promise<any> {
     return this.axios
-      .get('/hearings/${courtId}', {  headers: {'Accept-Language': "en"}})
+      .get('/hearings/' + courtId, {  headers: {'Accept-Language': "en"}})
       .then(results => results.data)
       .catch(err => {
         return {};
