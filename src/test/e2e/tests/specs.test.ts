@@ -4,13 +4,17 @@ import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
 import { HearingListPage } from '../pageobjects/HearingList.page';
 import { SearchPage } from '../pageobjects/Search.page';
 import { SearchResultsPage } from '../pageobjects/SearchResults.page';
+import { OtpLoginPage } from '../pageobjects/OtpLogin.page';
+import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
 
 const homePage = new HomePage;
+const otpLoginPage = new OtpLoginPage();
 let searchOptionsPage: SearchOptionsPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
 let hearingListPage: HearingListPage;
 let searchPage: SearchPage;
 let searchResultsPage: SearchResultsPage;
+let subscriptionManagementPage: SubscriptionManagementPage;
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
@@ -91,4 +95,18 @@ describe('Finding a court or tribunal listing', () => {
       expect(await hearingListPage.getResults()).toBe(3);
     });
   });
+
+  describe('Media User Login', () => {
+    it('should open the OTP login page', async () => {
+      await otpLoginPage.open('otp-login');
+      expect(await otpLoginPage.getPageTitle()).toBe('Verify your email address');
+    });
+
+    it('should navigate to subscription page when correct passcode is entered', async () => {
+      await otpLoginPage.enterText('222222');
+      subscriptionManagementPage = await otpLoginPage.clickContinue();
+      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Subscription Management');
+    });
+  });
 });
+

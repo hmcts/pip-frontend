@@ -8,6 +8,6 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
-    image: hmctspublic.azurecr.io/pip-frontend
+    image: sdshmctspublic.azurecr.io/pip/frontend
     ports:
       - 8080:8080
