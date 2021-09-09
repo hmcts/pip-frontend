@@ -51,12 +51,12 @@ describe('Search Option Controller', () => {
   it('should render same page if nothing selected', () => {
     const searchOptionsController = new SearchOptionsController();
 
-    const response = { render: function() {return '';}} as unknown as Response;
+    const response = { redirect: function() {return '';}} as unknown as Response;
     const request = { body: { 'find-choice': ''}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('search-option');
+    responseMock.expects('redirect').once().withArgs('search-option');
 
     searchOptionsController.post(request, response);
 

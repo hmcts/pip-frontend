@@ -5,6 +5,8 @@ import {Page, Browser} from 'puppeteer';
 import {SearchResultsPo} from '../PageObjects/SearchResults.po';
 import {HearingListPo} from '../PageObjects/HearingList.po';
 import { AlphabeticalSearchPo } from '../PageObjects/AlphabeticalSearch.po';
+import { OtpLoginPagePo } from '../PageObjects/OtpLoginPage.po';
+import {SubscriptionManagementPo} from '../PageObjects/SubscriptionManagement.po';
 
 const puppeteerConfig = require('../../../../jest-puppeteer.config');
 const puppeteer = require('puppeteer');
@@ -16,6 +18,9 @@ let searchPage: SearchPo;
 let searchResultsPage: SearchResultsPo;
 let hearingListPage: HearingListPo;
 let alphabeticalSearchPage: AlphabeticalSearchPo;
+let subscriptionManagementPage: SubscriptionManagementPo;
+
+const otpLoginPage = new OtpLoginPagePo;
 
 let page: Page;
 let browser: Browser;
@@ -102,6 +107,19 @@ describe('Finding a court or tribunal listing', () => {
     it(`should display ${expectedNumOfHearings} results`, async() => {
       expect(await hearingListPage.getResults()).toBe(3);
     });
+  });
+});
+
+describe('Media User login', () => {
+  it('should open the OTP login page', async () => {
+    await otpLoginPage.OpenOtpLoginPage(page);
+    expect(await otpLoginPage.getPageTitle()).toBe('Verify your email address');
+  });
+
+  it('should navigate to subscription page when correct passcode is entered', async () => {
+    await otpLoginPage.enterText('222222');
+    subscriptionManagementPage = await otpLoginPage.clickContinue();
+    expect(await subscriptionManagementPage.getPageTitle()).toContain('Subscription Management');
   });
 });
 

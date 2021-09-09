@@ -3,25 +3,22 @@ import { fail } from 'assert';
 const pa11y = require('pa11y');
 import * as supertest from 'supertest';
 import { app } from '../../main/app';
-
-const fs = require('fs');
-const path = require('path');
 const agent = supertest.agent(app);
 
-const routesPath = '../../main/routes';
-
 const routesNotTested = [
-  'health.ts',
-  'info.ts',
+  '/health',
+  '/health/liveness',
+  '/health/readiness',
+  '/info',
 ];
 
-class Pa11yResult {
+export class Pa11yResult {
   documentTitle: string;
   pageUrl: string;
   issues: PallyIssue[];
 }
 
-class PallyIssue {
+export class PallyIssue {
   code: string;
   context: string;
   message: string;
@@ -34,7 +31,7 @@ beforeAll((done /* call it or remove it*/) => {
   done(); // calling it
 });
 
-function ensurePageCallWillSucceed(url: string): Promise<void> {
+export function ensurePageCallWillSucceed(url: string): Promise<void> {
   return agent.get(url).then((res: supertest.Response) => {
     if (res.redirect) {
       throw new Error(
@@ -47,13 +44,13 @@ function ensurePageCallWillSucceed(url: string): Promise<void> {
   });
 }
 
-function runPally(url: string): Pa11yResult {
+export function runPally(url: string): Pa11yResult {
   return pa11y(url, {
     hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
   });
 }
 
-function expectNoErrors(messages: PallyIssue[]): void {
+export function expectNoErrors(messages: PallyIssue[]): void {
   const errors = messages.filter(m => m.type === 'error');
 
   if (errors.length > 0) {
@@ -62,27 +59,22 @@ function expectNoErrors(messages: PallyIssue[]): void {
   }
 }
 
-function removeRoutes(files): string[] {
+function removeRoutes(routes): string[] {
   const routesToTest = [];
-  files.forEach(file => {
-    if (!routesNotTested.includes(file)) {
-      routesToTest.push(file);
+  routes.forEach((route) => {
+    if (!routesNotTested.includes(route)) {
+      routesToTest.push(route);
     }
   });
   return routesToTest;
 }
 
-function convertToPath(file): string {
-  return '/' + file.slice(0, -3);
-}
-
 function readRoutes(): string[] {
-  let routes = fs.readdirSync(path.join(__dirname, routesPath));
-  routes = removeRoutes(routes);
-  routes.forEach(function (file, index) {
-    routes[index] = convertToPath(file);
-  });
-  return routes;
+  let appRoutes = app._router.stack
+    .filter(r => r.route)
+    .map(r => r.route.path);
+  appRoutes = removeRoutes(appRoutes);
+  return appRoutes;
 }
 
 function testAccessibility(url: string): void {

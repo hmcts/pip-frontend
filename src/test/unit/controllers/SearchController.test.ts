@@ -127,7 +127,11 @@ describe('Search Controller', () => {
   });
 
 
-  it('should redirect to search results page with input as query if input is valid', () => {
+
+
+  it('should redirect to search results page with input as query if court name input is valid', () => {
+    const searchController = new SearchController(api);
+
 
     const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAndHearingsCount.json'), 'utf-8');
     const hearingsData = JSON.parse(rawData);
@@ -139,6 +143,45 @@ describe('Search Controller', () => {
     const responseMock = sinon.mock(response);
 
     responseMock.expects('redirect').once().withArgs('search-results?search-input=Basildon Combined Court');
+
+    return searchController.post(request, response).then(() => {
+      responseMock.verify();
+    });
+  });
+
+  it('should redirect to search results page with input as query if location input is valid', () => {
+    const searchController = new SearchController(api);
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAndHearingsCount.json'), 'utf-8');
+    const hearingsData = JSON.parse(rawData);
+
+    stub.withArgs().returns(hearingsData);
+    const response = { redirect: function() {return '';}} as unknown as Response;
+    const request = { body: { 'input-autocomplete': 'London'}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+
+    responseMock.expects('redirect').once().withArgs('search-results?search-input=London');
+
+
+    return searchController.post(request, response).then(() => {
+      responseMock.verify();
+    });
+  });
+
+  it('should redirect to search results page with input as query if jurisdiction input is valid', () => {
+    const searchController = new SearchController(api);
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAndHearingsCount.json'), 'utf-8');
+    const hearingsData = JSON.parse(rawData);
+
+    stub.withArgs().returns(hearingsData);
+
+    const response = { redirect: function() {return '';}} as unknown as Response;
+    const request = { body: { 'input-autocomplete': 'Crown Court'}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('redirect').once().withArgs('search-results?search-input=Crown Court');
 
     return searchController.post(request, response).then(() => {
       responseMock.verify();

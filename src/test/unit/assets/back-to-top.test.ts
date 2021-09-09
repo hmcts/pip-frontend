@@ -22,43 +22,49 @@ describe('Testing back to top button', () => {
     };
   });
 
-  it('should remove the app-back-to-top--hidden property, when the InteractionObserver is not enabled', async () => {
+  it('should remove the floating-back-to-top if footer is visible, for InteractionObserver disabled browsers', async () => {
 
     const mockElement = document.createElement('div');
-    mockElement.classList.add('app-back-to-top--hidden');
+    mockElement.classList.add('floating-back-to-top--fixed');
 
-    sinon.stub(document, 'querySelector').withArgs('#back-to-top-button').returns(mockElement);
+    const mockFooter = document.createElement('footer');
+    mockFooter.classList.add('.govuk-footer');
 
-    await import('../../../main/assets/js/back-to-top');
+    const stub = sinon.stub(document, 'querySelector');
+    stub.withArgs('#back-to-top-button').returns(mockElement);
+    stub.withArgs('.govuk-footer').returns(mockFooter);
+
+    sinon.stub(window, 'innerHeight').value(400);
+    sinon.stub(mockFooter, 'getBoundingClientRect').returns({top: '200'});
+
+    await import('../../../main/bundles/alphabetical');
 
     expect(mockElement.classList.length).toEqual(0);
   });
 
-  it('should keep the app-back-to-top--hidden property, when the InteractionObserver is enabled', async () => {
+  it('should add the floating-back-to-top if footer is visible, for InteractionObserver disabled browsers', async () => {
 
     const mockElement = document.createElement('div');
-    mockElement.classList.add('app-back-to-top--hidden');
 
-    (window as any).IntersectionObserver = (): void => {
-      // do nothing
-    };
+    const mockFooter = document.createElement('footer');
+    mockFooter.classList.add('.govuk-footer');
 
     const stub = sinon.stub(document, 'querySelector');
     stub.withArgs('#back-to-top-button').returns(mockElement);
-    stub.withArgs('.govuk-footer').returns(null);
+    stub.withArgs('.govuk-footer').returns(mockFooter);
 
-    const interactionStub = sinon.spy(interactionObserver.prototype, 'observe');
+    sinon.stub(window, 'innerHeight').value(0);
+    sinon.stub(mockFooter, 'getBoundingClientRect').returns({top: '200'});
 
-    await import('../../../main/assets/js/back-to-top');
+    await import('../../../main/bundles/alphabetical');
 
     expect(mockElement.classList.length).toEqual(1);
-    expect(interactionStub.callCount).toEqual(0);
   });
+
 
   it('should call the observe function, when the footer exists and the InteractionObserver is enabled', async () => {
 
     const mockElement = document.createElement('div');
-    mockElement.classList.add('app-back-to-top--hidden');
 
     const mockFooter = document.createElement('footer');
     mockFooter.classList.add('.govuk-footer');
@@ -71,16 +77,14 @@ describe('Testing back to top button', () => {
 
     const interactionStub = sinon.spy(interactionObserver.prototype, 'observe');
 
-    await import('../../../main/assets/js/back-to-top');
+    await import('../../../main/bundles/alphabetical');
 
-    expect(mockElement.classList.length).toEqual(1);
     expect(interactionStub.callCount).toEqual(1);
   });
 
   it('should add the floating back to top element if the footer is not intersecting', async () => {
 
     const mockElement = document.createElement('div');
-    mockElement.classList.add('app-back-to-top--hidden');
 
     const mockFooter = document.createElement('footer');
     mockFooter.classList.add('.govuk-footer');
@@ -93,20 +97,19 @@ describe('Testing back to top button', () => {
 
     const constructorSpy = sinon.spy(window, 'IntersectionObserver');
 
-    await import('../../../main/assets/js/back-to-top');
+    await import('../../../main/bundles/alphabetical');
 
     const returnedFunction = constructorSpy.getCall(0).args[0];
 
     const entries = [{target: mockFooter, isIntersecting: false}];
     returnedFunction(entries);
-    expect(mockElement.classList.length).toEqual(2);
-    expect(mockElement.classList.item(1)).toEqual('floating-back-to-top--fixed');
+    expect(mockElement.classList.length).toEqual(1);
+    expect(mockElement.classList.item(0)).toEqual('floating-back-to-top--fixed');
   });
 
   it('should remove the floating back to top element if the footer is intersecting', async () => {
 
     const mockElement = document.createElement('div');
-    mockElement.classList.add('app-back-to-top--hidden');
     mockElement.classList.add('floating-back-to-top--fixed');
 
     const mockFooter = document.createElement('footer');
@@ -120,13 +123,13 @@ describe('Testing back to top button', () => {
 
     const constructorSpy = sinon.spy(window, 'IntersectionObserver');
 
-    await import('../../../main/assets/js/back-to-top');
+    await import('../../../main/bundles/alphabetical');
 
     const returnedFunction = constructorSpy.getCall(0).args[0];
 
     const entries = [{target: mockFooter, isIntersecting: true}];
     returnedFunction(entries);
-    expect(mockElement.classList.length).toEqual(1);
+    expect(mockElement.classList.length).toEqual(0);
   });
 
 });
