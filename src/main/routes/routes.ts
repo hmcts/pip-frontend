@@ -32,6 +32,9 @@ export default function(app: Application): void {
 
   app.get('/subscription-management', app.locals.container.cradle.subscriptionManagementController.get);
 
+  app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
+  app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
+
   const healthCheckConfig = {
     checks: {
       // TODO: replace this sample check with proper checks for your application
