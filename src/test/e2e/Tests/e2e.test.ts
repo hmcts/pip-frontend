@@ -7,6 +7,7 @@ import {HearingListPo} from '../PageObjects/HearingList.po';
 import { AlphabeticalSearchPo } from '../PageObjects/AlphabeticalSearch.po';
 import { OtpLoginPagePo } from '../PageObjects/OtpLoginPage.po';
 import {SubscriptionManagementPo} from '../PageObjects/SubscriptionManagement.po';
+import {AccountLockedPo} from "../PageObjects/AccountLocked.po";
 
 const puppeteerConfig = require('../../../../jest-puppeteer.config');
 const puppeteer = require('puppeteer');
@@ -19,6 +20,8 @@ let searchResultsPage: SearchResultsPo;
 let hearingListPage: HearingListPo;
 let alphabeticalSearchPage: AlphabeticalSearchPo;
 let subscriptionManagementPage: SubscriptionManagementPo;
+let accountLockedPage: AccountLockedPo;
+
 
 const otpLoginPage = new OtpLoginPagePo;
 
@@ -110,17 +113,59 @@ describe('Finding a court or tribunal listing', () => {
   });
 });
 
-describe('Media User login', () => {
+describe('Media User login end to subscription page', () => {
   it('should open the OTP login page', async () => {
     await otpLoginPage.OpenOtpLoginPage(page);
     expect(await otpLoginPage.getPageTitle()).toBe('Verify your email address');
   });
 
+  it('should navigate to otp login page when incorrect passcode is entered', async () => {
+    await otpLoginPage.enterText('123457');
+    subscriptionManagementPage = await otpLoginPage.clickContinue();
+    expect(await otpLoginPage.getPageTitle()).toContain('Verify your email address');
+  });
+
   it('should navigate to subscription page when correct passcode is entered', async () => {
-    await otpLoginPage.enterText('222222');
+    await otpLoginPage.enterText('123456');
     subscriptionManagementPage = await otpLoginPage.clickContinue();
     expect(await subscriptionManagementPage.getPageTitle()).toContain('Subscription Management');
   });
+
+});
+
+describe('Media User login end to account locked page', () => {
+  it('should open the OTP login page', async () => {
+    await otpLoginPage.OpenOtpLoginPage(page);
+    expect(await otpLoginPage.getPageTitle()).toBe('Verify your email address');
+  });
+
+  it('should navigate to otp login page when incorrect passcode is entered', async () => {
+    await otpLoginPage.enterText('123457');
+    subscriptionManagementPage = await otpLoginPage.clickContinue();
+    expect(await otpLoginPage.getPageTitle()).toContain('Verify your email address');
+  });
+
+  it('should navigate to otp login page when incorrect passcode is entered', async () => {
+    await otpLoginPage.enterText('123457');
+    subscriptionManagementPage = await otpLoginPage.clickContinue();
+    expect(await otpLoginPage.getPageTitle()).toContain('Verify your email address');
+  });
+
+  it('should navigate to account locked page when incorrect passcode is entered', async () => {
+    await otpLoginPage.enterText('123457');
+    accountLockedPage = await otpLoginPage.clickContinueToAccountLocked();
+    expect(await accountLockedPage.getPageTitle()).toContain('Your account has been locked');
+  });
+
+
+});
+
+describe('Media User login account locked', () => {
+  it('should open the account locked page', async () => {
+    await accountLockedPage.OpenAccountLockedPage(page);
+    expect(await accountLockedPage.getPageTitle()).toBe('Your account has been locked');
+  });
+
 });
 
 afterAll(() => {

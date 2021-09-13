@@ -1,5 +1,6 @@
 import { SubscriptionManagementPo } from './SubscriptionManagement.po';
 import {Page} from 'puppeteer';
+import {AccountLockedPo} from "./AccountLocked.po";
 
 const helpers = require('../Helpers/Selectors');
 const config = require('../../../../jest.config.e2e');
@@ -38,5 +39,15 @@ export class OtpLoginPagePo {
     await page.click(helpers.ContinueButton);
 
     return new SubscriptionManagementPo(page);
+  }
+
+  async clickContinueToAccountLocked(): Promise<AccountLockedPo> {
+    await page.waitForSelector(helpers.ContinueButton).catch(() => {
+      console.log(`${helpers.ContinueButton} not found`);
+    });
+
+    await page.click(helpers.ContinueButton);
+
+    return new AccountLockedPo(page);
   }
 }

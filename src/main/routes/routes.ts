@@ -14,6 +14,7 @@ export default function(app: Application): void {
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
   app.get('/otp-login', app.locals.container.cradle.otpLoginController.get);
   app.post('/otp-login', app.locals.container.cradle.otpLoginController.post);
+  app.get('/account-locked', app.locals.container.cradle.accountLockedController.get);
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
       host: os.hostname(),

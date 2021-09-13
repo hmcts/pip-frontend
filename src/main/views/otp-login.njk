@@ -1,18 +1,40 @@
 {% from "./macros/common-components.njk" import goBack %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
   {{ "OTP Login" | safe }}
 {% endblock %}
 {% block content %}
+  {% if invalidInputError or noValidCodeError %}
+    {% set errorMessage = 'You have entered an incorrect passcode. Please try again' if noValidCodeError else 'Code must be six digits' %}
+    <div class="govuk-grid-row">
+      <div class="no_padding govuk-grid-column-three-quarters">
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: [
+            {
+              text: errorMessage,
+              href: "#search-input"
+            }
+          ]
+        }) }}
+      </div>
+    </div>
+  {% endif %}
+  {% set inputClasses = 'govuk-input govuk-input--width-10 govuk-!-margin-right-2 govuk-input--error'
+    if noValidCodeError or invalidInputError else 'govuk-input govuk-input--width-10 govuk-!-margin-right-2' %}
+  {% set formGroupError = 'govuk-form-group--error'
+    if noValidCodeError or invalidInputError else 'govuk-form-group' %}
+  {% set infoClasses = 'govuk-error-message'
+    if noValidCodeError or invalidInputError else 'govuk-heading-s' %}
   <form method="post" novalidate>
     <h1 class="govuk-heading-l govuk-!-margin-top-5">Verify your email address</h1>
-    <h3 class="govuk-heading-s" id="input-label">Enter your 6-digit passcode</h3>
-    <div>
-      <input class="govuk-input
-      govuk-input--width-10
-      govuk-!-margin-right-2" id="otp-code" name="otp-code"
+
+    <div class="{{ formGroupError }}">
+      <span class="{{ infoClasses }}">Enter your 6-digit passcode</span>
+      <input class="{{ inputClasses }}" id="otp-code" name="otp-code"
              inputmode="numeric"
              type="number"
              pattern='[0-9]*'
@@ -22,7 +44,7 @@
               this.value = this.value.slice(0,6);
              }">
 
-      <span class="govuk-body">You have 3 attempts</span>
+      <span class="govuk-body">You have {{ attemptCounter }} attempts</span>
     </div>
 
     {{ govukButton({

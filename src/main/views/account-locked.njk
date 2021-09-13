@@ -1,0 +1,9 @@
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ "Account locked" | safe }}
+{% endblock %}
+{% block content %}
+  <h1 class="govuk-heading-l">Your account has been locked</h1>
+  <p class="govuk-body">You have incorrectly entered the passcode 3 times and your account has been locked.</p>
+  <p class="govuk-body">Please <a class="govuk-link" href="#">contact the system administrator</a> to resolve this issue.</p>
+{% endblock %}

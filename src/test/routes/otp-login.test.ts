@@ -13,7 +13,7 @@ describe('Otp Login', () => {
     });
   });
 
-  describe('on POST', () => {
+  describe('on POST 6 digits', () => {
     test('should return subscription management page', async () => {
       await request(app)
         .post('/otp-login')
@@ -21,6 +21,17 @@ describe('Otp Login', () => {
         .expect((res) => {
           expect(res.status).to.equal(302);
           expect(res.header['location']).to.equal('subscription-management');
+        });
+    });
+  });
+
+  describe('on POST less than 6 digits', () => {
+    test('should return otp-login page', async () => {
+      await request(app)
+        .post('/otp-login')
+        .send({'otp-code': '12345'})
+        .expect((res) => {
+          expect(res.status).to.equal(200);
         });
     });
   });
