@@ -14,13 +14,8 @@
       govuk-input--width-10
       govuk-!-margin-right-2" id="otp-code" name="otp-code"
              inputmode="numeric"
-             type="number"
              pattern='[0-9]*'
-             aria-labelledby="input-label"
-             oninput="
-             if (this.value.length > 6) {
-              this.value = this.value.slice(0,6);
-             }">
+             aria-labelledby="input-label">
 
       <span class="govuk-body">You have 3 attempts</span>
     </div>
