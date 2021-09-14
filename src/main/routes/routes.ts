@@ -13,6 +13,7 @@ export default function(app: Application): void {
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
   app.get('/otp-login', app.locals.container.cradle.otpLoginController.get);
+  app.get('/otp-login-testing', app.locals.container.cradle.otpLoginTestingController.get);
   app.post('/otp-login', app.locals.container.cradle.otpLoginController.post);
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
