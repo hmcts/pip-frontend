@@ -9,8 +9,10 @@ const healthcheck = require('@hmcts/nodejs-healthcheck');
 export default function(app: Application): void {
 
   const corsOptions = {
-    origin: 'https://pib2csbox.b2clogin.com/',
+    origin: 'https://pib2csbox.b2clogin.com',
     methods: ['GET', 'OPTIONS'],
+    allowedHeaders: '*',
+    exposedHeaders: '*',
     optionsSuccessStatus: 200,
   };
 
