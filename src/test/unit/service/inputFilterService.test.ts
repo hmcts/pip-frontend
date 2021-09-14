@@ -14,7 +14,7 @@ const invalidSearchInputUndefined = undefined;
 const expectedResultFromName = [{
   courtId: 32,
   name: 'Aylesbury Magistrate\'s Court',
-  jurisdiction: 'Crown Court',
+  jurisdiction: 'Magistrates Court',
   location: 'Aylesbury',
   hearings: 6,
 }];
@@ -30,7 +30,7 @@ const expectedResultFromLocation = [
   {
     courtId: 32,
     name: 'Aylesbury Magistrate\'s Court',
-    jurisdiction: 'Crown Court',
+    jurisdiction: 'Magistrates Court',
     location: 'Aylesbury',
     hearings: 6,
   }];
@@ -49,7 +49,7 @@ describe('Input filter service', () => {
   });
 
   it('should return filtered list with matches', () => {
-    expect(inputService.findCourts(validSearchInputJurisdiction, validCheckAgainst).length).equal(27, 'Results length did not match expected');
+    expect(inputService.findCourts(validSearchInputJurisdiction, validCheckAgainst).length).equal(31, 'Results length did not match expected');
   });
 
   it('should return empty array for empty search input', () => {
@@ -76,7 +76,7 @@ describe('Input filter service', () => {
       {
         courtId: 32,
         name: 'Aylesbury Magistrate\'s Court',
-        jurisdiction: 'Crown Court',
+        jurisdiction: 'Magistrates Court',
         location: 'Aylesbury',
         hearings: 6,
       }];
