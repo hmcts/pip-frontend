@@ -24,7 +24,8 @@ export default class OtpLoginController {
     if (attempts > 0)
     {
       if (searchInput && searchInput.length === 6 && searchInput.match(/^[0-9]+$/)) {
-        const otps = otpAction.validateOtp(searchInput, email);
+        const searchInputNumber = parseInt(searchInput);
+        const otps = otpAction.validateOtp(searchInputNumber, email);
         if (otps && otps.otpValid) {
           otpAction.resetAttempts(email);
           res.redirect('subscription-management');
