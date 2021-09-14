@@ -38,12 +38,12 @@ describe('Otp Login Controller', () => {
   it('should render same page if otp code is not 6 characters long', () => {
     const otpLoginController = new OtpLoginController();
 
-    const response = { redirect: function() {return '';}} as unknown as Response;
+    const response = { render: function() {return '';}} as unknown as Response;
     const request = { body: { 'otp-login': '1234'}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('otp-login');
+    responseMock.expects('render').once().withArgs('otp-login');
 
     otpLoginController.post(request, response);
 
@@ -53,12 +53,12 @@ describe('Otp Login Controller', () => {
   it('should render same page if no otp code is entered', () => {
     const otpLoginController = new OtpLoginController();
 
-    const response = { redirect: function() {return '';}} as unknown as Response;
+    const response = { render: function() {return '';}} as unknown as Response;
     const request = { body: {}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('otp-login');
+    responseMock.expects('render').once().withArgs('otp-login');
 
     otpLoginController.post(request, response);
 
