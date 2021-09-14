@@ -4,7 +4,7 @@ import Axios from 'axios';
 import config from 'config';
 import path from 'path';
 import * as fs from 'fs';
-import {PipApi} from "../../utils/PipApi";
+import {PipApi} from '../../utils/PipApi';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app');

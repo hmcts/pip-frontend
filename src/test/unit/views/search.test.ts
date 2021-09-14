@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import request from 'supertest';
 
 import { app } from '../../../main/app';
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
 const PAGE_URL = '/search';
 const headingClass = 'govuk-label-wrapper';
@@ -25,13 +25,14 @@ const hearingsData = JSON.parse(rawData);
 
 
 jest.mock('axios', () => {
-    return {
-      create: function() {
-        return {
-          get: function(a, b) {return new Promise((resolve) => resolve({data: hearingsData}))}}},
-    };
-  }
-);
+  return {
+    create: function(): { get: () => Promise<any> } {
+      return {
+        get: function(): Promise<any> { return new Promise((resolve) => resolve({data: hearingsData}));},
+      };
+    },
+  };
+});
 
 describe('Search Page', () => {
   beforeAll(async () => {

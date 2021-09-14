@@ -7,39 +7,38 @@ export class PipApi {
 
   public getCourtDetails(courtId: number): Promise<any> {
     return this.axios
-      .get('/court/${courtId}', {  headers: {'Accept-Language': "en"}})
+      .get('/court/' + courtId, {  headers: {'Accept-Language': 'en'}})
       .then(results => results.data)
       .catch(err => {
-        return {};
+        return {err};
       });
   }
 
-  public getCourtList(inputSearch: String): Promise<any> {
+  public getCourtList(inputSearch: string): Promise<any> {
     return this.axios
-      .get('/courtlist/' + inputSearch, {  headers: {'Accept-Language': "en"}})
+      .get('/courtlist/' + inputSearch, {  headers: {'Accept-Language': 'en'}})
       .then(results => results.data)
       .catch(err => {
-        return {};
+        return {err};
       });
   }
 
   public getAllCourtList(): Promise<any> {
     return this.axios
-      .get('/courtlistall/', {  headers: {'Accept-Language': "en"}})
+      .get('/courtlistall/', {  headers: {'Accept-Language': 'en'}})
       .then(results => results.data)
       .catch(err => {
-
-        return {};
+        return {err};
       });
   }
 
 
   public getHearingList(courtId: number): Promise<any> {
     return this.axios
-      .get('/hearings/' + courtId, {  headers: {'Accept-Language': "en"}})
+      .get('/hearings/' + courtId, {  headers: {'Accept-Language': 'en'}})
       .then(results => results.data)
       .catch(err => {
-        return {};
+        return {err};
       });
   }
 

@@ -1,16 +1,16 @@
 import { Request, Response } from 'express';
 import { HearingActions } from '../resources/actions/hearingActions';
 import moment from 'moment';
-import {PipApi} from "../utils/PipApi";
+import {PipApi} from '../utils/PipApi';
 
-let _api:PipApi;
+let _api: PipApi;
 export default class HearingListController {
 
   constructor(private readonly api: PipApi) {
     _api = this.api;
   }
 
-  public async get(req: Request, res: Response) {
+  public async get(req: Request, res: Response): Promise<void> {
     const courtId = req.query.courtId as string;
     const courtIdNumber = parseInt(courtId);
 

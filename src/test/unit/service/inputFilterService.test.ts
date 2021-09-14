@@ -1,7 +1,7 @@
 import {InputFilterService} from '../../../main/service/inputFilterService';
 import {expect} from 'chai';
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
 const inputService = new InputFilterService();
 
@@ -17,7 +17,7 @@ const expectedResultFromName = [{
   'courtId': 3,
   'name': 'Accrington Magistrates\' Court',
   'jurisdiction': 'Crown Court',
-  'location': 'Manchester'
+  'location': 'Manchester',
 }];
 
 const expectedResultFromLocation = [
@@ -25,15 +25,14 @@ const expectedResultFromLocation = [
     'courtId': 2,
     'name': 'Accrington County Court',
     'jurisdiction': 'Crown Court',
-    'location': 'London'
+    'location': 'London',
   },
   {
     'courtId': 6,
     'name': 'Alton Magistrates\' Court',
     'jurisdiction': 'Royal Court',
-    'location': 'London'
+    'location': 'London',
   },
-
 ];
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAllReduced.json'), 'utf-8');

@@ -1,11 +1,12 @@
-import {PipApi} from "../../utils/PipApi";
+import {PipApi} from '../../utils/PipApi';
+import {Court} from '../../models/court';
 
 export class CourtActions {
 
 
   constructor(private readonly api: PipApi) {}
 
-  public async getCourtDetails(courtId: number) {
+  public async getCourtDetails(courtId: number): Promise<Court> {
 
     const court = await this.api.getCourtDetails(courtId);
 
@@ -17,7 +18,7 @@ export class CourtActions {
     }
   }
 
-  public async getCourtList(inputSearch) {
+  public async getCourtList(inputSearch): Promise<Array<Court>> {
 
 
     const courts = await this.api.getCourtList(inputSearch);
@@ -30,7 +31,7 @@ export class CourtActions {
     }
   }
 
-  public async getCourtsList() {
+  public async getCourtsList(): Promise<Array<Court>> {
 
 
     const courts = await this.api.getAllCourtList();

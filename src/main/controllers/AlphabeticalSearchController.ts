@@ -49,7 +49,7 @@ export default class AlphabeticalSearchController {
     return alphabetArray;
   }
 
-  public async get(req: Request, res: Response) {
+  public async get(req: Request, res: Response): Promise<void> {
     const courtsList = await new CourtActions(_api).getCourtsList();
     const alphabetArray = new AlphabeticalSearchController(_api).generateCourtArray(courtsList);
 

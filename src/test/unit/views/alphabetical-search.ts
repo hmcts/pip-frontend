@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import { app } from '../../../main/app';
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
 const PAGE_URL = '/alphabetical-search';
 
@@ -15,14 +15,15 @@ const hearingsData = JSON.parse(rawData);
 
 jest.mock('axios', () => {
   return {
-    create: function() {
+    create: function(): { get: () => Promise<any> } {
       return {
-        get: function() {
+        get: function(): Promise<any> {
           return new Promise((resolve) => resolve({data: hearingsData}));
-        }
-      }},
-    };
-  });
+        },
+      };
+    },
+  };
+});
 
 describe('Alphabetical Search page', () => {
   beforeAll(async () => {

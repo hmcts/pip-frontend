@@ -1,8 +1,8 @@
 import { CourtActions } from '../../../../main/resources/actions/courtActions';
-import {PipApi} from "../../../../main/utils/PipApi";
+import {PipApi} from '../../../../main/utils/PipApi';
 import sinon from 'sinon';
-import path from "path";
-import * as fs from "fs";
+import path from 'path';
+import * as fs from 'fs';
 
 const axios = require('axios');
 jest.mock('axios');
@@ -30,8 +30,8 @@ describe('getCourtsList()', () => {
 
   it('should return list of 583 courts', () => {
     return courtActions.getCourtsList().then(data => {
-        expect(data).toBe(hearingsData);
-      });
+      expect(data).toBe(hearingsData);
+    });
   });
 
 });

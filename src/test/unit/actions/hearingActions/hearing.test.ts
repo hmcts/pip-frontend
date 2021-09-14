@@ -1,7 +1,7 @@
 import { HearingActions } from '../../../../main/resources/actions/hearingActions';
-import {PipApi} from "../../../../main/utils/PipApi";
-import fs from "fs";
-import path from "path";
+import {PipApi} from '../../../../main/utils/PipApi';
+import fs from 'fs';
+import path from 'path';
 import sinon from 'sinon';
 
 

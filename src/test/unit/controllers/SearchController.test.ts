@@ -1,9 +1,9 @@
 import SearchController from '../../../main/controllers/SearchController';
 import sinon from 'sinon';
 import { Request, Response } from 'express';
-import {PipApi} from "../../../main/utils/PipApi";
-import fs from "fs";
-import path from "path";
+import {PipApi} from '../../../main/utils/PipApi';
+import fs from 'fs';
+import path from 'path';
 
 const axios = require('axios');
 jest.mock('axios');
