@@ -13,7 +13,7 @@ export class OtpActions {
     if (code.length) {
       return { otpValid: true, attempts: attemptCounter};
     } else {
-      console.log(`Court with id ${otpCode} does not exist`);
+      console.log(`Otp code with id ${otpCode} does not exist`);
       return { otpValid: false, attempts: attemptCounter - 1};
     }
   }
