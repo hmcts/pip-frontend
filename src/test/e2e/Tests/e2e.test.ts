@@ -8,6 +8,7 @@ import { AlphabeticalSearchPo } from '../PageObjects/AlphabeticalSearch.po';
 import { OtpLoginPagePo } from '../PageObjects/OtpLoginPage.po';
 import { SubscriptionManagementPo } from '../PageObjects/SubscriptionManagement.po';
 import { ViewOptionPo } from '../PageObjects/ViewOption.po';
+import { LiveHearingsPo } from '../PageObjects/LiveHearings.po';
 
 const puppeteerConfig = require('../../../../jest-puppeteer.config');
 const puppeteer = require('puppeteer');
@@ -16,6 +17,7 @@ const homePage = new HomePagePo;
 
 let viewOptionPage: ViewOptionPo;
 let searchOptionPage: SearchOptionPo;
+let liveHearingsOptionPage: LiveHearingsPo;
 let searchPage: SearchPo;
 let searchResultsPage: SearchResultsPo;
 let hearingListPage: HearingListPo;
@@ -45,6 +47,31 @@ describe('Finding a court or tribunal listing', () => {
 
   it('should see both radio buttons', async () => {
     expect(await viewOptionPage.getRadioButtons()).toBe(2);
+  });
+
+  describe('Following the \'live hearing updates\' path', () => {
+    afterAll(async () => {
+      await homePage.OpenHomePage(page);
+      viewOptionPage = await homePage.ClickStartNowButton();
+    });
+
+    it('should select \'live hearing updates\' option and navigate to live hearings page', async() => {
+      await viewOptionPage.selectLiveHearingsRadio();
+      liveHearingsOptionPage = await viewOptionPage.clickContinueForLiveHearings();
+      expect(await liveHearingsOptionPage.getPageTitle()).toContain('Live hearings updates - select a court');
+    });
+
+    it('should select \'Z\' option, and navigate to the end of the page', async () => {
+      const endLetter = 'Z';
+      liveHearingsOptionPage = await liveHearingsOptionPage.selectLetter(endLetter);
+      expect(await liveHearingsOptionPage.checkIfLetterIsVisible(endLetter)).toBeTruthy();
+    });
+
+    it('selecting back to top should navigate to the top of the page', async() => {
+      const startLetter = 'A';
+      liveHearingsOptionPage = await liveHearingsOptionPage.selectBackToTop();
+      expect(await liveHearingsOptionPage.checkIfLetterIsVisible(startLetter)).toBeTruthy();
+    });
   });
 
   describe('Following the \'tribunal hearing list \' and \'find\' path', () => {
