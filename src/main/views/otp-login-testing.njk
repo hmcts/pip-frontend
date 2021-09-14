@@ -6,16 +6,6 @@
   {{ "OTP Login" | safe }}
 {% endblock %}
 {% block content %}
-  <form method="post" novalidate>
-    <h1 class="govuk-heading-l govuk-!-margin-top-5">Verify your email address</h1>
-    <div id="api"></div>
-  </form>
-  <div class="govuk-body">If you have entered an incorrect passcode,
-    request to have a new passcode sent to your email address</div>
-
-  {{ govukButton({
-    text: "Resend passcode",
-    classes: "govuk-button--secondary govuk-!-margin-bottom-9"
-  }) }}
-
+  <h1 class="govuk-heading-l govuk-!-margin-top-5">Verify your email address</h1>
+  <div id="api"></div>
 {% endblock %}
