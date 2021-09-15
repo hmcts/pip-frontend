@@ -1,5 +1,6 @@
 import { Application } from 'express';
 import {infoRequestHandler} from '@hmcts/info-provider';
+import cors  from 'cors';
 import os from 'os';
 
 const healthcheck = require('@hmcts/nodejs-healthcheck');
@@ -7,12 +8,21 @@ const healthcheck = require('@hmcts/nodejs-healthcheck');
 
 export default function(app: Application): void {
 
+  const corsOptions = {
+    origin: 'https://pib2csbox.b2clogin.com',
+    methods: ['GET', 'OPTIONS'],
+    allowedHeaders: '*',
+    exposedHeaders: '*',
+    optionsSuccessStatus: 200,
+  };
+
   app.get('/', app.locals.container.cradle.homeController.get);
   app.get('/search-option', app.locals.container.cradle.searchOptionController.get);
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
   app.get('/otp-login', app.locals.container.cradle.otpLoginController.get);
+  app.get('/otp-login-testing', cors(corsOptions), app.locals.container.cradle.otpLoginTestingController.get);
   app.post('/otp-login', app.locals.container.cradle.otpLoginController.post);
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
