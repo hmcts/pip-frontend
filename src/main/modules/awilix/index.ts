@@ -24,7 +24,12 @@ export class Container {
       jsonObject[registerName] = asClass(clazz.default);
     });
     jsonObject['logger'] = asValue(logger);
-    jsonObject['axios'] = asValue(Axios.create({ baseURL: config.get('services.api.url') }));
+    if (process.env.PIP_LOCAL_API) {
+      jsonObject['axios'] = asValue(Axios.create({ baseURL: config.get('services.localApi.url') }));
+    } else {
+      jsonObject['axios'] = asValue(Axios.create({ baseURL: config.get('services.api.url') }));
+    }
+
     jsonObject['api'] = asClass(PipApi);
     app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register(jsonObject);
   }

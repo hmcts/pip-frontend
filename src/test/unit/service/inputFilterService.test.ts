@@ -18,6 +18,7 @@ const expectedResultFromName = [{
   'name': 'Accrington Magistrates\' Court',
   'jurisdiction': 'Crown Court',
   'location': 'Manchester',
+  'hearings': 5,
 }];
 
 const expectedResultFromLocation = [
@@ -26,12 +27,14 @@ const expectedResultFromLocation = [
     'name': 'Accrington County Court',
     'jurisdiction': 'Crown Court',
     'location': 'London',
+    'hearings': 10,
   },
   {
     'courtId': 6,
     'name': 'Alton Magistrates\' Court',
     'jurisdiction': 'Royal Court',
     'location': 'London',
+    'hearings': 2,
   },
 ];
 

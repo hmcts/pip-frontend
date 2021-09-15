@@ -4,7 +4,6 @@ import os from 'os';
 
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 
-
 export default function(app: Application): void {
 
   app.get('/', app.locals.container.cradle.homeController.get);
@@ -38,6 +37,11 @@ export default function(app: Application): void {
       sampleCheck: healthcheck.raw(() => healthcheck.up()),
     },
   };
+
+  // local api mocks data
+  app.get('/courtlistall', app.locals.container.cradle.localApiController.allCourtList);
+  app.get('/courtlist/:input', app.locals.container.cradle.localApiController.courtList);
+  app.get('/hearings/:courtId', app.locals.container.cradle.localApiController.hearingsList);
 
   healthcheck.addTo(app, healthCheckConfig);
 }

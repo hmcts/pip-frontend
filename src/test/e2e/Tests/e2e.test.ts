@@ -57,8 +57,8 @@ describe('Finding a court or tribunal listing', () => {
       expect(await alphabeticalSearchPage.getPageTitle()).toContain('Find a court or tribunal listing');
     });
 
-    it('should select \'Z\' option, and navigate to the end of the page', async() => {
-      const endLetter = 'Z';
+    it('should select \'T\' option, and navigate to the end of the page', async() => {
+      const endLetter = 'T';
       alphabeticalSearchPage = await alphabeticalSearchPage.selectLetter(endLetter);
       expect(await alphabeticalSearchPage.checkIfLetterIsVisible(endLetter)).toBeTruthy();
     });
@@ -71,17 +71,17 @@ describe('Finding a court or tribunal listing', () => {
 
     it('selecting first result should take you to to the hearings list page', async() => {
       hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-      expect(await hearingListPage.getPageTitle()).toContain('Albertville Court hearing list');
+      expect(await hearingListPage.getPageTitle()).toContain('Abergavenny Magistrates\' Court hearing list');
     });
 
-    it('should display 1 result', async() => {
-      expect(await hearingListPage.getResults()).toBe(1);
+    it('should display 3 result', async() => {
+      expect(await hearingListPage.getResults()).toBe(3);
     });
   });
 
   describe('Following the \'search\' path', () => {
-    const searchTerm = 'aylesbury';
-    const expectedNumOfResults = 2;
+    const searchTerm = 'abergavenny';
+    const expectedNumOfResults = 1;
     const expectedNumOfHearings = 3;
     it('should select \'search\' option and navigate to search page', async() => {
       await searchOptionPage.selectSearchRadio();
@@ -96,12 +96,12 @@ describe('Finding a court or tribunal listing', () => {
     });
 
     it(`should display ${expectedNumOfResults} results`, async() => {
-      expect(await searchResultsPage.getResults()).toBe(2);
+      expect(await searchResultsPage.getResults()).toBe(1);
     });
 
     it('should navigate to hearing list page', async() => {
       hearingListPage = await searchResultsPage.selectCourt();
-      expect(await hearingListPage.getPageTitle()).toContain('Aylesbury Crown Court hearing list');
+      expect(await hearingListPage.getPageTitle()).toContain('Abergavenny Magistrates\' Court hearing list');
     });
 
     it(`should display ${expectedNumOfHearings} results`, async() => {

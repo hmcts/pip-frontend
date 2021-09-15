@@ -11,7 +11,7 @@ jest.mock('axios');
 
 const api = new PipApi(axios);
 
-const validCourtId = 9;
+const validCourtId = 1;
 const invalidCourtId = 1232;
 const validHearingId = 5;
 const invalidHearingId = 2000;

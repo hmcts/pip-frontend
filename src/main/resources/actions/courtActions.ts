@@ -33,7 +33,6 @@ export class CourtActions {
 
   public async getCourtsList(): Promise<Array<Court>> {
 
-
     const courts = await this.api.getAllCourtList();
 
     if (courts) {

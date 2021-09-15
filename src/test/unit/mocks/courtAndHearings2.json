@@ -4,6 +4,7 @@
   "name":"Abergavenny Magistrates' Court",
   "jurisdiction":"Crown Court",
   "location":"Bedford",
+  "hearings": 3,
   "hearingList": [
     {
       "hearingId": 28,

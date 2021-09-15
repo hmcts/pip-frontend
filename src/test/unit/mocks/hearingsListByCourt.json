@@ -1,7 +1,7 @@
 [
   {
     "hearingId": 1,
-    "courtId": 9,
+    "courtId": 1,
     "courtNumber": 39,
     "date": "27/08/2021 21:57:01",
     "judge": "Blanche Challes",
@@ -11,7 +11,7 @@
   },
   {
     "hearingId": 2,
-    "courtId": 9,
+    "courtId": 1,
     "courtNumber": 21,
     "date": "28/08/2021 14:56:55",
     "judge": "Padriac Duckels",
@@ -21,7 +21,7 @@
   },
   {
     "hearingId": 3,
-    "courtId": 9,
+    "courtId": 1,
     "courtNumber": 38,
     "date": "20/10/2021 19:56:55",
     "judge": "Harli Sonier",
@@ -31,7 +31,7 @@
   },
   {
     "hearingId": 4,
-    "courtId": 9,
+    "courtId": 1,
     "courtNumber": 37,
     "date": "02/09/2021 14:57:06",
     "judge": "Adaline Hubbucke",
