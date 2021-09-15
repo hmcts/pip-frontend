@@ -8,18 +8,19 @@
 {% block content %}
   <form method="post" novalidate>
     <h1 class="govuk-heading-l govuk-!-margin-top-5">Verify your email address</h1>
+    <div class="govuk-body">Your OTP code will shortly be in your inbox and will have been sent from
+      <span class="govuk-!-font-weight-bold">xxxxx@xxxxx.xxx</span>. Please
+    do not open or use any codes sent from similar addresses.</div>
     <h3 class="govuk-heading-s" id="input-label">Enter your 6-digit passcode</h3>
-    <div>
-      <input class="govuk-input
-      govuk-input--width-10
-      govuk-!-margin-right-2" id="otp-code" name="otp-code"
-             inputmode="numeric"
-             pattern='[0-9]*'
-             aria-labelledby="input-label"
-             autocomplete="off">
+    <input class="govuk-input
+    govuk-input--width-10
+    govuk-!-margin-right-2" id="otp-code" name="otp-code"
+           inputmode="numeric"
+           pattern='[0-9]*'
+           aria-labelledby="input-label"
+           autocomplete="off">
 
-      <span class="govuk-body">You have 3 attempts</span>
-    </div>
+    <p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0">You have 3 attempts</p>
 
     {{ govukButton({
       text: "Continue",
