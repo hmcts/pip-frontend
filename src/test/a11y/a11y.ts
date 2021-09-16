@@ -93,7 +93,7 @@ function testAccessibility(url: string): void {
 
 describe('Accessibility',  () => {
   readRoutes().forEach(route => {
-    if (route.indexOf('/api/') !== 1) {
+    if (route.indexOf('/api/') !== 0) {
       testAccessibility(route);
     }
   });
