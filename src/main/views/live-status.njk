@@ -25,7 +25,7 @@
     {% for item in liveHearings %}
         {% if item.event.eventStatus %}
             {% set status = item.event.eventStatus +
-                ' - <br><a href="status-description#' +
+                ' - <br /><a href="status-description#' +
                 item.event.eventId +
                 '">' +
                 item.event.eventName +
