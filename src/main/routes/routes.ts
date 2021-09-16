@@ -39,9 +39,9 @@ export default function(app: Application): void {
   };
 
   // local api mocks data
-  app.get('/courtlistall', app.locals.container.cradle.localApiController.allCourtList);
-  app.get('/courtlist/:input', app.locals.container.cradle.localApiController.courtList);
-  app.get('/hearings/:courtId', app.locals.container.cradle.localApiController.hearingsList);
+  app.get('/api/courtlistall', app.locals.container.cradle.localApiController.apiAllCourtList);
+  app.get('/api/courtlist/:input', app.locals.container.cradle.localApiController.apiCourtList);
+  app.get('/api/hearings/:courtId', app.locals.container.cradle.localApiController.apiHearingsList);
 
   healthcheck.addTo(app, healthCheckConfig);
 }

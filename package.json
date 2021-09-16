@@ -43,7 +43,7 @@
     "accessible-autocomplete": "^2.0.3",
     "applicationinsights": "^1.8.8",
     "awilix": "^5.0.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "config": "^3.3.2",
     "cookie-parser": "^1.4.5",
     "core-js": "3.16.2",

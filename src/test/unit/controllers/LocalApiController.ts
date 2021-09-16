@@ -25,7 +25,7 @@ describe('Local Api Controller for all courts list', () => {
 
     responseMock.expects('send').once();
 
-    localApiController.allCourtList(request, response);
+    localApiController.apiAllCourtList(request, response);
 
     responseMock.verify();
   });
@@ -46,7 +46,7 @@ describe('Local Api Controller for search court for input text', () => {
 
     responseMock.expects('send').once();
 
-    localApiController.hearingsList(request, response);
+    localApiController.apiHearingsList(request, response);
 
     responseMock.verify();
   });
@@ -65,7 +65,7 @@ describe('Local Api Controller for search hearings for a court id', () => {
 
     responseMock.expects('send').once();
 
-    localApiController.courtList(request, response);
+    localApiController.apiCourtList(request, response);
 
     responseMock.verify();
   });

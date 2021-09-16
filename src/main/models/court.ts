@@ -1,7 +1,7 @@
 import {Protocol} from 'puppeteer';
 import integer = Protocol.integer;
 
-export class Court {
+export interface Court {
 
   courtId: integer;
 

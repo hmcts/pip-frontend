@@ -8,20 +8,20 @@ const inputService = new InputFilterService();
 
 export default class LocalApiController {
 
-  public allCourtList(req: Request, res: Response): any {
+  public apiAllCourtList(req: Request, res: Response): any {
     const rawData = fs.readFileSync(path.resolve(__dirname, '../../test/unit/mocks/courtsAllReduced.json'), 'utf-8');
     const model = JSON.parse(rawData);
     return res.send(Object.values(model));
   }
 
-  public courtList(req: Request, res: Response): any {
+  public apiCourtList(req: Request, res: Response): any {
     const rawData = fs.readFileSync(path.resolve(__dirname, '../../test/unit/mocks/courtAndHearings2.json'), 'utf-8');
     const model = JSON.parse(rawData);
     const input = req.params.input;
     return res.send(Object.values(inputService.findCourts(input, searchAgainst, model)));
   }
 
-  public hearingsList(req: Request, res: Response): any {
+  public apiHearingsList(req: Request, res: Response): any {
     const rawData = fs.readFileSync(path.resolve(__dirname, '../../test/unit/mocks/courtAndHearings2.json'), 'utf-8');
     const model = JSON.parse(rawData);
     const courtId = req.params.courtId;
