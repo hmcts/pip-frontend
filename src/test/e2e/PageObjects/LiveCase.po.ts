@@ -1,6 +1,5 @@
 // TODO: needs refactoring when PUB-695 gets merged in
 import { Page } from 'puppeteer';
-import { HearingListPo } from './HearingList.po';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -41,15 +40,6 @@ export class LiveCasePo {
 
     await page.click(helpers.BackToTopButton);
     return new LiveCasePo(page);
-  }
-
-  async selectFirstListResult(): Promise<HearingListPo> {
-    await page.waitForSelector(helpers.FirstItemResult).catch(() => {
-      console.log(`${helpers.FirstItemResult} not found`);
-    });
-
-    await page.click(helpers.FirstItemResult);
-    return new HearingListPo(page);
   }
 }
 
