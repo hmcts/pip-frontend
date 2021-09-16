@@ -21,6 +21,35 @@
     <h3 class="govuk-heading-m">{{ courtName }}</h3>
     <p class=" govuk-body-lead">{{ updateDateTime }}</p>
     <p class="govuk-body">The status of each hearing will be updated as events happen live in court</p>
+    {% set cases = [] %}
+    {% for item in liveHearings %}
+        {% if item.event.eventStatus %}
+            {% set status = item.event.eventStatus +
+                ' - <br><a href="status-description#' +
+                item.event.eventId +
+                '">' +
+                item.event.eventName +
+                '</a> - '
+                + item.event.eventTime
+            %}
+        {% else %}
+            {% set status = '<p class="govuk-!-font-weight-bold no-information-message">- No Information To Display</p>'  %}
+        {% endif %}
+        {% set _ = cases.push([
+            {
+                text: item.courtRoom
+            },
+            {
+                text: item.caseNumber
+            },
+            {
+                text: item.caseName
+            },
+            {
+                html: status
+            }
+        ]) %}
+    {% endfor %}
     {{ govukTable({
         firstCellIsHeader: false,
         classes: 'govuk-!-margin-bottom-9',
@@ -42,33 +71,7 @@
                 classes: 'table-header-bottom-align'
             }
         ],
-        rows: [
-            [{
-                text: '1'
-            },
-            {
-                text: '123-456-789'
-            },
-            {
-                text: 'The Case'
-            },
-            {
-                text: 'Status'
-            }], [
-                {
-                    text: '1'
-                },
-                {
-                    text: '123-456-789'
-                },
-                {
-                    text: 'The Case'
-                },
-                {
-                    text: 'Status'
-                }
-            ]
-        ]
+        rows: cases
     }) }}
     <hr class="govuk-header__container--full-width"/>
     <a href="/view-option" class="govuk-link govuk-!-font-weight-bold">Find a court or tribunal list</a>
