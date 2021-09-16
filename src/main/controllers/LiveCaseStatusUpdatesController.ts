@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { CourtActions } from '../resources/actions/courtActions';
 import { InputFilterService } from '../service/inputFilterService';
 
-export default class LiveHearingsController {
+export default class LiveCaseStatusUpdatesController {
   private generateCrownCourtArray(courtsList): object {
     const alphabetArray = {};
     // Firstly creates the array for the possible alphabet options
@@ -28,7 +28,7 @@ export default class LiveHearingsController {
 
   public get(req: Request, res: Response): void {
     const courtsList = new CourtActions().getCourtsList();
-    const alphabeticalCrownCourts = new LiveHearingsController().generateCrownCourtArray(courtsList);
+    const alphabeticalCrownCourts = new LiveCaseStatusUpdatesController().generateCrownCourtArray(courtsList);
 
     res.render('live-hearings', {
       courtList: alphabeticalCrownCourts,

@@ -1,10 +1,10 @@
 import sinon from 'sinon';
 import { Request, Response } from 'express';
-import LiveHearingsController from '../../../main/controllers/LiveHearingsController';
+import LiveCaseStatusUpdatesController from '../../../main/controllers/LiveCaseStatusUpdatesController';
 
 describe('Live Hearings Controller', () => {
   it('should render live hearings page', () => {
-    const liveHearingsController = new LiveHearingsController();
+    const liveHearingsController = new LiveCaseStatusUpdatesController();
 
     const response = {
       render: () => {return '';},
