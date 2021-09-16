@@ -7,7 +7,7 @@ describe('Search option', () => {
   describe('on GET', () => {
     test('should return search option page', async () => {
       await request(app)
-        .get('/live-hearings')
+        .get('/live-case')
         .expect((res) => expect(res.status).to.equal(200));
     });
   });

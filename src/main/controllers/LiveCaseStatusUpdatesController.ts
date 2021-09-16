@@ -30,7 +30,7 @@ export default class LiveCaseStatusUpdatesController {
     const courtsList = new CourtActions().getCourtsList();
     const alphabeticalCrownCourts = new LiveCaseStatusUpdatesController().generateCrownCourtArray(courtsList);
 
-    res.render('live-hearings', {
+    res.render('live-case', {
       courtList: alphabeticalCrownCourts,
     });
   }

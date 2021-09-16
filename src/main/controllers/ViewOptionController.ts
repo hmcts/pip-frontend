@@ -10,7 +10,7 @@ export default class ViewOptionController {
       res.redirect('search-option');
     }
     else if (req.body['view-choice'] === 'live') {
-      res.redirect('live-hearings');
+      res.redirect('live-case');
     }
     else {
       res.redirect('view-option');

@@ -15,7 +15,7 @@ describe('Live Hearings Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('live-hearings');
+    responseMock.expects('render').once().withArgs('live-case');
 
     liveHearingsController.get(request, response);
     responseMock.verify();

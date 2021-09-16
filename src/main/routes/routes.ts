@@ -44,7 +44,7 @@ export default function(app: Application): void {
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
 
-  app.get('/live-hearings', app.locals.container.cradle.liveCaseStatusUpdatesController.get);
+  app.get('/live-case', app.locals.container.cradle.liveCaseStatusUpdatesController.get);
 
   const healthCheckConfig = {
     checks: {
