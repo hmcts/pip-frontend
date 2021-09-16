@@ -8,7 +8,7 @@ import { AlphabeticalSearchPo } from '../PageObjects/AlphabeticalSearch.po';
 import { OtpLoginPagePo } from '../PageObjects/OtpLoginPage.po';
 import { SubscriptionManagementPo } from '../PageObjects/SubscriptionManagement.po';
 import { ViewOptionPo } from '../PageObjects/ViewOption.po';
-import { LiveHearingsPo } from '../PageObjects/LiveHearings.po';
+import { LiveCasePo } from '../PageObjects/LiveCase.po';
 
 const puppeteerConfig = require('../../../../jest-puppeteer.config');
 const puppeteer = require('puppeteer');
@@ -17,7 +17,7 @@ const homePage = new HomePagePo;
 
 let viewOptionPage: ViewOptionPo;
 let searchOptionPage: SearchOptionPo;
-let liveHearingsOptionPage: LiveHearingsPo;
+let liveHearingsOptionPage: LiveCasePo;
 let searchPage: SearchPo;
 let searchResultsPage: SearchResultsPo;
 let hearingListPage: HearingListPo;
@@ -49,7 +49,7 @@ describe('Finding a court or tribunal listing', () => {
     expect(await viewOptionPage.getRadioButtons()).toBe(2);
   });
 
-  describe('Following the \'live hearing updates\' path', () => {
+  describe('Following the \'live case status updates\' path', () => {
     afterAll(async () => {
       await homePage.OpenHomePage(page);
       viewOptionPage = await homePage.ClickStartNowButton();

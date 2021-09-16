@@ -6,7 +6,7 @@ const helpers = require('../Helpers/Selectors');
 
 let page: Page;
 
-export class LiveHearingsPo {
+export class LiveCasePo {
   constructor(_page: Page) {
     page = _page;
   }
@@ -16,17 +16,16 @@ export class LiveHearingsPo {
       console.log(`${helpers.CommonPageTitle} not found`);
     });
 
-
     return await page.$eval(helpers.CommonPageTitle, (e: Element) => e.textContent);
   }
 
-  async selectLetter(letter): Promise<LiveHearingsPo> {
+  async selectLetter(letter): Promise<LiveCasePo> {
     await page.waitForSelector(helpers.KeySelector(letter)).catch(() => {
       console.log(`${helpers.KeySelector(letter)} not found`);
     });
 
     await page.click(helpers.KeySelector(letter));
-    return new LiveHearingsPo(page);
+    return new LiveCasePo(page);
   }
 
   async checkIfLetterIsVisible(letter): Promise<boolean> {
@@ -35,13 +34,13 @@ export class LiveHearingsPo {
     return await element.isIntersectingViewport();
   }
 
-  async selectBackToTop(): Promise<LiveHearingsPo> {
+  async selectBackToTop(): Promise<LiveCasePo> {
     await page.waitForSelector(helpers.BackToTopButton).catch(() => {
       console.log(`${helpers.BackToTopButton} not found`);
     });
 
     await page.click(helpers.BackToTopButton);
-    return new LiveHearingsPo(page);
+    return new LiveCasePo(page);
   }
 
   async selectFirstListResult(): Promise<HearingListPo> {
@@ -52,7 +51,5 @@ export class LiveHearingsPo {
     await page.click(helpers.FirstItemResult);
     return new HearingListPo(page);
   }
-
-
 }
 
