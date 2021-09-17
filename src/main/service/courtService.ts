@@ -14,6 +14,24 @@ export class CourtService {
     return alphabetOptions;
   }
 
+  public generateCourtsObject(): object {
+    let courtsList = new CourtActions().getCourtsList();
+    const alphabetOptions = CourtService.generateAlphabetObject();
+    courtsList = new InputFilterService().alphabetiseResults(courtsList, 'name');
+
+    //Then loop through each court, and add it to the list
+    courtsList.forEach(item => {
+      if (item.hearings !== 0) {
+        const courtName = item.name as string;
+        alphabetOptions[courtName.charAt(0).toUpperCase()][courtName] = {
+          id: item.courtId,
+          hearings: item.hearings,
+        };
+      }
+    });
+    return alphabetOptions;
+  }
+
   public generateCrownCourtArray(): object {
     let courtsList = new CourtActions().getCourtsList();
     const alphabetOptions = CourtService.generateAlphabetObject();
