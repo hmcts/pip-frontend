@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 
 const inputService = new InputFilterService();
+declare type Serializable = number | string | boolean | null | bigint;
 
 const validSearchInputName = 'Accrington Magistrates\' Court';
 const validSearchInputLocation = 'London';
@@ -99,10 +100,9 @@ describe('Input filter service', () => {
         jurisdiction: 'Crown Court',
         location: 'Aylesbury',
         hearings: 6,
-      }];
-    expect(inputService
-      .alphabetiseResults(unsorted, 'name')[0]['name'])
-      .equal('Aylesbury Magistrate\'s Court', 'List was not sorted alphabetically correctly');
+      },
+    ] as unknown as Serializable[];
+    expect(inputService.alphabetiseResults(unsorted, 'name')[0]['name']).equal('Aylesbury Magistrate\'s Court', 'List was not sorted alphabetically correctly');
   });
 
   it('should numerically sort an unsorted array', () => {
@@ -120,11 +120,7 @@ describe('Input filter service', () => {
         jurisdiction: 'Crown Court',
         location: 'Aylesbury',
         hearings: 6,
-      }];
-    expect(inputService
-      .numericallySortResults(unsorted, 'courtId')[0]['name'])
-      .equal('Aylesbury Magistrate\'s Court', 'List was not sorted numerically correctly');
+      }] as unknown as Serializable[];
+    expect(inputService.numericallySortResults(unsorted, 'courtId')[0]['name']).equal('Aylesbury Magistrate\'s Court', 'List was not sorted numerically correctly');
   });
-
-
 });
