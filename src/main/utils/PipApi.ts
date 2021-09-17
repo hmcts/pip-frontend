@@ -4,7 +4,6 @@ import { AxiosInstance } from 'axios';
 export class PipApi {
   constructor(private readonly axios: AxiosInstance) { }
 
-
   public getCourtDetails(courtId: number): Promise<any> {
     return this.axios
       .get('/api/court/' + courtId, {  headers: {'Accept-Language': 'en'}})
@@ -31,7 +30,6 @@ export class PipApi {
         return {err};
       });
   }
-
 
   public getHearingList(courtId: number): Promise<any> {
     return this.axios

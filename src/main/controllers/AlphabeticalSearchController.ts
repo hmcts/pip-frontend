@@ -34,6 +34,7 @@ export default class AlphabeticalSearchController {
       alphabetArray[letter] = {};
     }
 
+
     courtsList = new InputFilterService().alphabetiseResults(courtsList, 'name');
 
     //Then loop through each court, and add it to the list

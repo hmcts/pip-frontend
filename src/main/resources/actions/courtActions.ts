@@ -3,7 +3,6 @@ import {Court} from '../../models/court';
 
 export class CourtActions {
 
-
   constructor(private readonly api: PipApi) {}
 
   public async getCourtDetails(courtId: number): Promise<Court> {
@@ -20,7 +19,6 @@ export class CourtActions {
 
   public async getCourtList(inputSearch): Promise<Array<Court>> {
 
-
     const courts = await this.api.getCourtList(inputSearch);
 
     if (courts) {
@@ -35,10 +33,10 @@ export class CourtActions {
 
     const courts = await this.api.getAllCourtList();
 
-    if (courts) {
+    if (courts && Array.isArray(courts)) {
       return courts;
     } else {
-      return null;
+      return [];
     }
   }
 

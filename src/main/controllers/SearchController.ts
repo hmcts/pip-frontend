@@ -14,7 +14,6 @@ export default class SearchController {
     _api = this.api;
   }
 
-
   public async get(req: Request, res: Response): Promise<void> {
     const courtList = new CourtActions(_api);
     const autocompleteList = await courtList.getCourtsList();

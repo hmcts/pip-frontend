@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import {PipApi} from '../utils/PipApi';
 import { CourtActions } from '../resources/actions/courtActions';
 
-
 let _api: PipApi;
 export default class SearchResultsController {
 

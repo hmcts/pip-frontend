@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+  import { Request, Response } from 'express';
 
 export default class SearchOptionController {
   public get(req: Request, res: Response): void {
