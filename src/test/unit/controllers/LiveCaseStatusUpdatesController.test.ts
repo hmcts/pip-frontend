@@ -9,7 +9,6 @@ describe('Live Hearings Controller', () => {
     const response = {
       render: () => {return '';},
       get: () => {return '';},
-      set: () => {return '';},
     } as unknown as Response;
     const request = {query: {}} as unknown as Request;
 

@@ -1,7 +1,9 @@
 import { InputFilterService } from './inputFilterService';
+import { CourtActions } from '../resources/actions/courtActions';
 
 export class CourtService {
-  public generateCrownCourtArray(courtsList): object {
+  public generateCrownCourtArray(): object {
+    let courtsList = new CourtActions().getCourtsList();
     const alphabetArray = {};
     // Firstly creates the array for the possible alphabet options
     for (let i = 0; i < 26; i++) {

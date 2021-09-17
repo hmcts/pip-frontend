@@ -1,10 +1,8 @@
-import { CourtActions } from '../../../main/resources/actions/courtActions';
 import { CourtService } from '../../../main/service/courtService';
 import { expect } from 'chai';
 
 const courtService = new CourtService();
-const courtsList = new CourtActions().getCourtsList();
-const crownCourtsArray = courtService.generateCrownCourtArray(courtsList);
+const crownCourtsArray = courtService.generateCrownCourtArray();
 const validKeysCount = 26;
 const alphabet = [
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -23,7 +21,6 @@ describe('Court Service', () => {
   });
 
   it(`should have ${validCourt} key`, () => {
-    console.log(crownCourtsArray);
     expect(validCourt in crownCourtsArray['A']).to.be.true;
   });
 
