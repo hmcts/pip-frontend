@@ -2,9 +2,9 @@ import sinon from 'sinon';
 import { Request, Response } from 'express';
 import LiveCaseStatusUpdatesController from '../../../main/controllers/LiveCaseStatusUpdatesController';
 
-describe('Live Hearings Controller', () => {
+describe('Live Case Status Controller', () => {
   it('should render live hearings page', () => {
-    const liveHearingsController = new LiveCaseStatusUpdatesController();
+    const liveCaseStatusUpdatesController = new LiveCaseStatusUpdatesController();
 
     const response = {
       render: () => {return '';},
@@ -16,7 +16,7 @@ describe('Live Hearings Controller', () => {
 
     responseMock.expects('render').once().withArgs('live-case');
 
-    liveHearingsController.get(request, response);
+    liveCaseStatusUpdatesController.get(request, response);
     responseMock.verify();
   });
 });
