@@ -32,4 +32,7 @@ module.exports = {
   // OtpLogin page selectors
   OtpInput: '#otp-code',
 
+  // Live Status selectors
+
+
 };
