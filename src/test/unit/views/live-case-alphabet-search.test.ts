@@ -3,7 +3,7 @@ import request from 'supertest';
 
 import { app } from '../../../main/app';
 
-const PAGE_URL = '/live-case';
+const PAGE_URL = '/live-case-alphabet-search';
 const expectedHeader = 'Live hearings updates - select a court';
 const expectedTableHeader = 'Crown courts in England and Wales';
 

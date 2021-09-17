@@ -1,7 +1,8 @@
 // TODO: needs refactoring when PUB-695 gets merged in
 import { Page } from 'puppeteer';
 import { SearchOptionPo } from './SearchOption.po';
-import { LiveCasePo } from './LiveCase.po';
+import { LiveCaseCourtSearchControllerPo } from './LiveCaseCourtSearchController.po';
+
 
 const helpers = require('../Helpers/Selectors');
 
@@ -53,12 +54,12 @@ export class ViewOptionPo {
     return new SearchOptionPo(page);
   }
 
-  async clickContinueForLiveHearings(): Promise<LiveCasePo> {
+  async clickContinueForLiveHearings(): Promise<LiveCaseCourtSearchControllerPo> {
     await page.waitForSelector(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
 
     await page.click(helpers.ContinueButton);
-    return new LiveCasePo(page);
+    return new LiveCaseCourtSearchControllerPo(page);
   }
 }

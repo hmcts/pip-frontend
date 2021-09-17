@@ -39,7 +39,7 @@ describe('View Option Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('live-case');
+    responseMock.expects('redirect').once().withArgs('live-case-alphabet-search');
 
     viewOptionController.post(request, response);
     responseMock.verify();
