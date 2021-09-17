@@ -2,6 +2,7 @@ import {InputFilterService} from '../../../main/service/inputFilterService';
 import {expect} from 'chai';
 
 const inputService = new InputFilterService();
+declare type Serializable = number | string | boolean | null | bigint;
 
 const validSearchInputName = 'Aylesbury Magistrate\'s Court';
 const validSearchInputLocation = 'Aylesbury';
@@ -79,7 +80,8 @@ describe('Input filter service', () => {
         jurisdiction: 'Crown Court',
         location: 'Aylesbury',
         hearings: 6,
-      }];
+      },
+    ] as unknown as Serializable[];
     expect(inputService.alphabetiseResults(unsorted, 'name')[0]['name']).equal('Aylesbury Magistrate\'s Court', 'List was not sorted alphabetically correctly');
   });
 
@@ -98,7 +100,7 @@ describe('Input filter service', () => {
         jurisdiction: 'Crown Court',
         location: 'Aylesbury',
         hearings: 6,
-      }];
+      }] as unknown as Serializable[];
     expect(inputService.numericallySortResults(unsorted, 'courtId')[0]['name']).equal('Aylesbury Magistrate\'s Court', 'List was not sorted numerically correctly');
   });
 

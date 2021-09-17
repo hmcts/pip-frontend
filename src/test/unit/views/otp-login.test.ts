@@ -28,7 +28,7 @@ describe('Otp Login Page', () => {
 
   it('should display how many attempts the user has left', () => {
     const attemptText = htmlRes.getElementsByClassName('govuk-body');
-    expect(attemptText[0].innerHTML).contains('You have 3 attempts', 'Could not find the attempts text');
+    expect(attemptText[1].innerHTML).contains('You have 3 attempts', 'Could not find the attempts text');
   });
 
   it('should display a text input where the user can enter a 6 digit passcode', () => {
