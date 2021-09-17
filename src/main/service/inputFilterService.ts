@@ -1,12 +1,14 @@
 import { CourtActions } from '../resources/actions/courtActions';
-import { JSONArray } from 'puppeteer';
+
+//TODO: replace with object model from common library
+declare type Serializable = number | string | boolean | null | bigint;
 
 const courtActions = new CourtActions();
 let courtsResults;
 let searchResults;
 
 export class InputFilterService {
-  public findCourts(searchInput, checkAgainst): JSONArray {
+  public findCourts(searchInput, checkAgainst): Serializable[]{
     searchResults = [];
     if (!this.checkNotNullOrEmpty(searchInput)) {
       return searchResults;
@@ -26,11 +28,11 @@ export class InputFilterService {
     courtsResults.filter(i => i[item].toLowerCase() === searchInput.toLowerCase()).forEach(result => searchResults.push(result));
   }
 
-  public alphabetiseResults(unsortedArray: JSONArray, leadValue): JSONArray {
+  public alphabetiseResults(unsortedArray: Serializable[], leadValue): Serializable[] {
     return unsortedArray.sort((a, b) => a[leadValue].localeCompare(b[leadValue]));
   }
 
-  public numericallySortResults(unsortedArray: JSONArray, leadValue): JSONArray {
+  public numericallySortResults(unsortedArray: Serializable[], leadValue): Serializable[] {
     return unsortedArray.sort((a, b) => a[leadValue]-b[leadValue]);
   }
 
