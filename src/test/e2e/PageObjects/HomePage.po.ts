@@ -1,5 +1,5 @@
+import { SearchOptionPo } from './SearchOption.po';
 import {Page} from 'puppeteer';
-import { ViewOptionPo } from './ViewOption.po';
 
 const helpers = require('../Helpers/Selectors');
 const config = require('../../../../jest.config.e2e');
@@ -17,13 +17,13 @@ export class HomePagePo {
     return await page.$eval(helpers.MainHeader, (e: Element) => e.textContent);
   }
 
-  async ClickStartNowButton(): Promise<ViewOptionPo> {
+  async ClickStartNowButton(): Promise<SearchOptionPo> {
     await page.waitForSelector(helpers.StartNowButton).catch(() => {
       console.log(`${helpers.StartNowButton} not found`);
     });
 
     await page.click(helpers.StartNowButton);
 
-    return new ViewOptionPo(page);
+    return new SearchOptionPo(page);
   }
 }
