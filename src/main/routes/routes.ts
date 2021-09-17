@@ -5,6 +5,7 @@ import os from 'os';
 
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 
+
 export default function(app: Application): void {
 
   const corsOptions = {
@@ -40,11 +41,6 @@ export default function(app: Application): void {
   app.post('/search', app.locals.container.cradle.searchController.post);
 
   app.get('/subscription-management', app.locals.container.cradle.subscriptionManagementController.get);
-
-  app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
-  app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
-
-  app.get('/live-case', app.locals.container.cradle.liveCaseStatusUpdatesController.get);
 
   const healthCheckConfig = {
     checks: {

@@ -32,9 +32,4 @@ module.exports = {
   // OtpLogin page selectors
   OtpInput: '#otp-code',
 
-  // ViewOption page selectors
-  ViewOptionsTitle: 'h1.govuk-fieldset__heading',
-  ViewSearchRadioButton: '#view-choice',
-  LiveHearingsRadioButton: '#view-choice-2',
-
 };
