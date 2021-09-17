@@ -50,6 +50,21 @@ describe('Otp Login Controller', () => {
     responseMock.verify();
   });
 
+  it('should render same page if otp code is not digits', () => {
+    const otpLoginController = new OtpLoginController();
+
+    const response = { redirect: function() {return '';}} as unknown as Response;
+    const request = { body: { 'otp-login': 'abcdef'}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('redirect').once().withArgs('otp-login');
+
+    otpLoginController.post(request, response);
+
+    responseMock.verify();
+  });
+
   it('should render same page if no otp code is entered', () => {
     const otpLoginController = new OtpLoginController();
 
