@@ -4,7 +4,7 @@ import request from 'supertest';
 
 import { app } from '../../../main/app';
 
-const PAGE_URL = '/live-status?courtId=1';
+const PAGE_URL = '/live-case-status?courtId=1';
 const expectedHeader = 'Live hearing updates - daily court list';
 const exopectedCourtName = 'Mutsu Court';
 let htmlRes: Document;
