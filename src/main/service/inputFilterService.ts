@@ -1,4 +1,3 @@
-
 import { JSONArray } from 'puppeteer';
 
 //TODO: replace with object model from common library
@@ -11,7 +10,6 @@ let searchResults;
 export class InputFilterService {
 
   public findCourts(searchInput, checkAgainst, courtList): JSONArray {
-
     searchResults = [];
     if (!this.checkNotNullOrEmpty(searchInput)) {
       return searchResults;

@@ -124,6 +124,4 @@ describe('Input filter service', () => {
     ] as unknown as Serializable[];
     expect(inputService.numericallySortResults(unsorted, 'courtId')[0]['name']).equal('Aylesbury Magistrate\'s Court', 'List was not sorted numerically correctly');
   });
-
-
 });
