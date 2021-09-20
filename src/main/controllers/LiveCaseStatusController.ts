@@ -12,7 +12,7 @@ export default class LiveCaseStatusController {
       if (liveCases) {
         res.render('live-case-status', {
           courtName: liveCases.courtName,
-          updateDateTime: moment.unix(liveCases.lastUpdated).format('MMMM Do YYYY h:mma'),
+          updateDateTime: moment.unix(liveCases.lastUpdated).format('MMMM Do YYYY\xa0\xa0\xa0\xa0h:mma'),
           liveCases: liveCases.courtUpdates,
           refreshTimer: timerMilliseconds,
         });
