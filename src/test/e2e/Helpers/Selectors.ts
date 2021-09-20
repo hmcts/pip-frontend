@@ -18,7 +18,7 @@ module.exports = {
   LinkResult: 'tbody > tr.govuk-table__row > th > a',
   // Hearing List selectors
 
-  // Alphabetical Search selectors
+  //Alphabetical Search selectors
   AlphabeticalHeading: '#page-heading',
   BackToTopButton: '#back-to-top-button',
   KeySelector: (letter): string => {

@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/test/e2e/**/*.ts"],
+  "exclude": [],
+  "compilerOptions": {
+    "types": ["node", "webdriverio/async", "@wdio/mocha-framework", "expect-webdriverio"]
+  }
+}
