@@ -80,6 +80,15 @@ $text-disabled: #505a5f;
   text-align: center;
 }
 
+.left-align-text {
+  text-align: left;
+}
+
+.link-without-formatting {
+  text-decoration: none;
+  color: #0b0c0c;
+}
+
 //Styling for Search Results page
 .govuk-table__cell--no-line {
   @extend .govuk-table__cell;

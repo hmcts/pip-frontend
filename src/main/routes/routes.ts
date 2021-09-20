@@ -42,6 +42,8 @@ export default function(app: Application): void {
 
   app.get('/subscription-management', app.locals.container.cradle.subscriptionManagementController.get);
 
+  app.get('/status-description', app.locals.container.cradle.statusDescriptionController.get);
+
   const healthCheckConfig = {
     checks: {
       // TODO: replace this sample check with proper checks for your application
