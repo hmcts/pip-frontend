@@ -1,9 +1,9 @@
 import sinon from 'sinon';
 import { Request, Response } from 'express';
-import LiveStatusController from '../../../main/controllers/LiveStatusController';
+import LiveCaseStatusController from '../../../main/controllers/LiveCaseStatusController';
 
 describe('Live Status Controller', () => {
-  const liveStatusController = new LiveStatusController();
+  const liveStatusController = new LiveCaseStatusController();
 
   it('should render live updates is court ID exists', () => {
     const response = { render: () => {return '';}} as unknown as Response;
