@@ -11,14 +11,14 @@
     "name": "Accrington County Court",
     "jurisdiction": "Crown Court",
     "location": "London",
-    "hearings": 10
+    "hearings": 2
   },
   {
     "courtId": 3,
     "name": "Accrington Magistrates' Court",
     "jurisdiction": "Crown Court",
     "location": "Manchester",
-    "hearings": 5
+    "hearings": 3
   },
   {
     "courtId": 4,
@@ -32,7 +32,7 @@
     "name": "Aldershot Magistrates' Court",
     "jurisdiction": "Royal Court",
     "location": "Manchester",
-    "hearings": 5
+    "hearings": 3
   },
   {
     "courtId": 6,
@@ -46,21 +46,21 @@
     "name": "Altrincham County Court and Family Court",
     "jurisdiction": "Crown Court",
     "location": "Manchester",
-    "hearings": 4
+    "hearings": 1
   },
   {
     "courtId": 8,
     "name": "Andover Magistrates' Court",
     "jurisdiction": "Royal Court",
     "location": "Bedford",
-    "hearings": 7
+    "hearings": 3
   },
   {
     "courtId": 9,
     "name": "Tameside Magistrates' Court",
     "jurisdiction": "Royal Court",
     "location": "Manchester",
-    "hearings": 9
+    "hearings": 2
   },
   {
     "courtId": 10,
