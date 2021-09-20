@@ -5,7 +5,7 @@ const helpers = require('../Helpers/Selectors');
 export class OtpLoginPage {
 
   open (path): Promise<string> {
-    return browser.url(`https://localhost:8080/${path}`);
+    return browser.url(path);
   }
 
   async getPageTitle(): Promise<string> {
