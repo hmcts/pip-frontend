@@ -1,5 +1,5 @@
-import { LiveHearingsActions } from '../../../../main/resources/actions/liveHearingsActions';
 import { expect } from 'chai';
+import { LiveCasesActions } from '../../../../main/resources/actions/liveCaseActions';
 
 const mockData = {
   courtId: 34,
@@ -55,24 +55,24 @@ const mockData = {
 const validCourtId = 34;
 const invalidCourtId = 777;
 
-const liveHearingActions = new LiveHearingsActions();
+const liveCaseActions = new LiveCasesActions();
 
 describe(`getLiveCases(${validCourtId})`, () => {
-  const courtHearings = liveHearingActions.getLiveCases(validCourtId);
+  const courtCases = liveCaseActions.getLiveCases(validCourtId);
 
   it(`should return hearings only for court ${validCourtId}`, () => {
-    expect(courtHearings.courtId).to.equal(validCourtId);
+    expect(courtCases.courtId).to.equal(validCourtId);
   });
 
   it('should return valid court hearings object', () => {
-    expect(courtHearings).to.deep.equal(mockData);
+    expect(courtCases).to.deep.equal(mockData);
   });
 });
 
 describe(`getLiveCases(${invalidCourtId}`, () => {
-  const courtHearings = liveHearingActions.getLiveCases(invalidCourtId);
+  const courtCases = liveCaseActions.getLiveCases(invalidCourtId);
 
   it(`should return null as court with id ${invalidCourtId} doesn't exist`, () => {
-    expect(courtHearings).to.equal(null, `Expected null, got ${courtHearings}`);
+    expect(courtCases).to.equal(null, `Expected null, got ${courtCases}`);
   });
 });

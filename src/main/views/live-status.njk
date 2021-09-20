@@ -3,7 +3,7 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-    {{ courtName + " Live Hearing Updates" | safe }}
+    {{ courtName + " Live Cases Updates" | safe }}
 {% endblock %}
 
 {% block beforeContent %}
@@ -22,7 +22,7 @@
     <p class=" govuk-body-lead">{{ updateDateTime }}</p>
     <p class="govuk-body">The status of each hearing will be updated as events happen live in court</p>
     {% set cases = [] %}
-    {% for item in liveHearings %}
+    {% for item in liveCases %}
         {% if item.event.eventStatus %}
             {% set status = item.event.eventStatus +
                 ' - <br /><a class="govuk-link" href="status-description#' +

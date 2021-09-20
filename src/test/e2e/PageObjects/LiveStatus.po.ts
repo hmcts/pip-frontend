@@ -5,7 +5,7 @@ const helpers = require('../Helpers/Selectors');
 
 let page: Page;
 
-export class LiveStatusPo {
+export class LiveCaseStatusPo {
   constructor(_page: Page) {
     page = _page;
   }
