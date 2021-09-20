@@ -42,7 +42,7 @@ export default function(app: Application): void {
 
   app.get('/subscription-management', app.locals.container.cradle.subscriptionManagementController.get);
 
-  app.get('/live-case-status', app.locals.container.cradle.liveStatusController.get);
+  app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
 
   const healthCheckConfig = {
     checks: {
