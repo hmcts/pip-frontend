@@ -2,8 +2,8 @@ import sinon from 'sinon';
 import { Request, Response } from 'express';
 import LiveCaseCourtSearchController from '../../../main/controllers/LiveCaseCourtSearchController';
 
-describe('Live Case Status Controller', () => {
-  it('should render live hearings page', () => {
+describe('Live Case Court Search Controller', () => {
+  it('should render live cases alphabetical page', () => {
     const liveCaseCourtSearchController = new LiveCaseCourtSearchController();
 
     const response = {
