@@ -10,7 +10,7 @@ describe('Live Status Controller', () => {
     const request = {query: {courtId: 1}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
-    responseMock.expects('render').once().withArgs('live-status');
+    responseMock.expects('render').once().withArgs('live-case-status');
 
     liveStatusController.get(request, response);
     responseMock.verify();
