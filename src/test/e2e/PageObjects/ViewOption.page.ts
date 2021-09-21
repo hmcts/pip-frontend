@@ -18,10 +18,10 @@ export class ViewOptionPage {
   }
 
   async selectSearchRadio(): Promise<void> {
-    $(helpers.SearchRadioButton).catch(() => {
-      console.log(`${helpers.SearchRadioButton} not found`);
+    $(helpers.ViewSearchRadioButton).catch(() => {
+      console.log(`${helpers.ViewSearchRadioButton} not found`);
     });
-    const radioButton = await $(helpers.SearchRadioButton);
+    const radioButton = await $(helpers.ViewSearchRadioButton);
     radioButton.click();
   }
 
