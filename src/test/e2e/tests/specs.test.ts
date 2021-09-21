@@ -23,7 +23,7 @@ let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
     await homePage.open('');
-    expect(await homePage.getPageTitle()).toEqual('Find a court or tribunal listing');
+    expect(await homePage.getPageTitle()).toEqual('Find a court or tribunal hearing list');
   });
 
   it('should click on the "Start now button and navigate to View Options page', async () => {
@@ -69,6 +69,7 @@ describe('Finding a court or tribunal listing', () => {
     it('should select \'tribunal hearing list\' option and navigate to search option page', async() => {
       await viewOptionPage.selectSearchRadio();
       searchOptionsPage = await viewOptionPage.clickContinueForSearch();
+      expect(await searchOptionsPage.getPageTitle()).toEqual('Find a court or tribunal list');
     });
 
     it('should select \'find\' option and navigate to alphabetical search page', async() => {
