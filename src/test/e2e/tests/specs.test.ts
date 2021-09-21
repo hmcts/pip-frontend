@@ -101,9 +101,19 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Following the \'tribunal hearing list\' and \'search\' path', () => {
+    after(async () => {
+      await homePage.open('');
+      viewOptionPage = await homePage.clickStartNowButton();
+    });
     const searchTerm = 'aylesbury';
     const expectedNumOfResults = 2;
     const expectedNumOfHearings = 3;
+
+    it('should select \'tribunal hearing list\' option and navigate to search option page', async() => {
+      await viewOptionPage.selectSearchRadio();
+      searchOptionsPage = await viewOptionPage.clickContinueForSearch();
+      expect(await searchOptionsPage.getPageTitle()).toEqual('Find a court or tribunal list');
+    });
 
     it('should select \'search\' option and navigate to search page', async() => {
       await searchOptionsPage.selectSearchRadio();
