@@ -1,6 +1,6 @@
 import { SubscriptionManagementPo } from './SubscriptionManagement.po';
 import {Page} from 'puppeteer';
-import {AccountLockedPo} from "./AccountLocked.po";
+import {AccountLockedPo} from './AccountLocked.po';
 
 const helpers = require('../Helpers/Selectors');
 const config = require('../../../../jest.config.e2e');

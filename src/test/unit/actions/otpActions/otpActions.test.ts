@@ -6,7 +6,7 @@ const email = 'pippo@pluto.com';
 
 const otpActions = new OtpActions();
 
-describe(`validateOtp(${validOtpCode})`, () => {
+describe('validateOtp(' + validOtpCode + ')', () => {
   const validateOtp = otpActions.validateOtp(validOtpCode, email);
 
 
@@ -16,34 +16,34 @@ describe(`validateOtp(${validOtpCode})`, () => {
 
 });
 
-describe(`validateOtp(${invalidOtpCode})`, function () {
+describe('validateOtp(' + invalidOtpCode + ')', function () {
   const validateOtp = otpActions.validateOtp(invalidOtpCode, email);
 
-  it(`should return an object with validOtp false`, () => {
+  it('should return an object with validOtp false', () => {
     expect(validateOtp.otpValid).toBe(false);
   });
 });
 
-describe(`getAttempts(${email})`, function () {
+describe('getAttempts(' + email + ')', function () {
   const validateOtp = otpActions.getAttempts(email);
 
-  it(`should return an object with attempts`, () => {
+  it('should return an object with attempts', () => {
     expect(validateOtp).toBeGreaterThan(0);
   });
 });
 
-describe(`decrementAttempts(${email})`, function () {
+describe('decrementAttempts(' + email + ')', function () {
   const validateOtp = otpActions.decrementAttempts(email);
 
-  it(`should return an object with left attempts`, () => {
+  it('should return an object with left attempts', () => {
     expect(validateOtp).toBeGreaterThan(0);
   });
 });
 
-describe(`resetAttempts(${email})`, function () {
+describe('resetAttempts(' + email + ')', function () {
   const validateOtp = otpActions.resetAttempts(email);
 
-  it(`should return an object with 3 attempts`, () => {
+  it('should return an object with 3 attempts', () => {
     expect(validateOtp).toBe(3);
   });
 });

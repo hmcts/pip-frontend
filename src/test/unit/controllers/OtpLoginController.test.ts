@@ -1,6 +1,7 @@
 import OtpLoginController from '../../../main/controllers/OtpLoginController';
 import sinon from 'sinon';
 import { Request, Response } from 'express';
+import {OtpActions} from '../../../main/resources/actions/otpActions';
 
 describe('Otp Login Controller', () => {
   it('should render the otp login page', () => {
@@ -39,7 +40,7 @@ describe('Otp Login Controller', () => {
     const otpLoginController = new OtpLoginController();
 
     const response = { render: function() {return '';}} as unknown as Response;
-    const request = { body: { 'otp-login': '1234'}} as unknown as Request;
+    const request = { body: { 'otp-code': '1234'}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
 
@@ -67,10 +68,14 @@ describe('Otp Login Controller', () => {
 
   it('should render same page if otp code is not digits', () => {
     const otpLoginController = new OtpLoginController();
+    OtpActions.prototype.getAttempts =  sinon.stub().returns(3);
+    OtpActions.prototype.decrementAttempts =  sinon.stub().returns(3);
 
-    const response = { render: function() {return '';}} as unknown as Response;
-    const request = { body: { 'otp-login': 'abcdef'}} as unknown as Request;
-
+    const response = {
+      render: function() {return '';},
+      redirect: function() {return '';},
+    } as unknown as Response;
+    const request = { body: { 'otp-code': 'abcdef'}} as unknown as Request;
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('otp-login');

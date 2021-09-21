@@ -7,7 +7,7 @@ import {HearingListPo} from '../PageObjects/HearingList.po';
 import { AlphabeticalSearchPo } from '../PageObjects/AlphabeticalSearch.po';
 import { OtpLoginPagePo } from '../PageObjects/OtpLoginPage.po';
 import {SubscriptionManagementPo} from '../PageObjects/SubscriptionManagement.po';
-import {AccountLockedPo} from "../PageObjects/AccountLocked.po";
+import {AccountLockedPo} from '../PageObjects/AccountLocked.po';
 
 const puppeteerConfig = require('../../../../jest-puppeteer.config');
 const puppeteer = require('puppeteer');

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import {OtpActions} from "../resources/actions/otpActions";
+import {OtpActions} from '../resources/actions/otpActions';
 
 const email = 'pippo@pluto.com';
 
