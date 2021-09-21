@@ -1,7 +1,6 @@
 import { asClass, asValue, createContainer, InjectionMode } from 'awilix';
 import {Application} from 'express';
 import Axios from 'axios';
-import config from 'config';
 import path from 'path';
 import * as fs from 'fs';
 import {PipApi} from '../../utils/PipApi';
@@ -24,11 +23,8 @@ export class Container {
       jsonObject[registerName] = asClass(clazz.default);
     });
     jsonObject['logger'] = asValue(logger);
-    if (process.env.PIP_LOCAL_API) {
-      jsonObject['axios'] = asValue(Axios.create({ baseURL: config.get('services.localApi.url') }));
-    } else {
-      jsonObject['axios'] = asValue(Axios.create({ baseURL: config.get('services.api.url') }));
-    }
+    jsonObject['axios'] = asValue(Axios.create({ baseURL: process.env.API_URL }));
+
 
     jsonObject['api'] = asClass(PipApi);
     app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register(jsonObject);
