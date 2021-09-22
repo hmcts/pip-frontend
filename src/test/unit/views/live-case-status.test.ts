@@ -71,6 +71,6 @@ describe('Live Status page', () => {
     const link = htmlRes.getElementsByClassName('govuk-link');
 
     expect(link.item(3).innerHTML).contains('Find a court or tribunal list', 'Link text is not present');
-    expect(link.item(3).getAttribute('href')).equal('/view-option', 'Link value is not correct');
+    expect(link.item(3).getAttribute('href')).equal('/live-case-alphabet-search', 'Link value is not correct');
   });
 });
