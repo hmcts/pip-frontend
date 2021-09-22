@@ -17,7 +17,9 @@ describe('Home page', () => {
 
   it('should display header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
+    const nav = htmlRes.getElementsByClassName('govuk-header__navigation-item');
     expect(header[0].innerHTML).contains('Find a court or tribunal listing', 'Could not find the header');
+    expect(nav[0].innerHTML).contains('Subscriptions', 'Could not find the header');
   });
 
   it('should display button start', () => {
