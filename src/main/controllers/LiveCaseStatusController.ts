@@ -5,7 +5,7 @@ import { LiveCasesActions } from '../resources/actions/liveCaseActions';
 export default class LiveCaseStatusController {
   public get(req: Request, res: Response): void {
     const courtId = req.query.courtId as string;
-    const timerMilliseconds = process.env.REFRESH_TIME_MILLISECONDS ? process.env.REFRESH_TIME_MILLISECONDS : 15000;
+    const timerMilliseconds = process.env.REFRESH_TIME_MILLISECONDS;
 
     if (courtId !== undefined) {
       const liveCases = new LiveCasesActions().getLiveCases(parseInt(courtId));
