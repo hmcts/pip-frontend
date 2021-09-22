@@ -18,9 +18,12 @@ describe('Home page', () => {
 
   it('should display header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
-    const nav = htmlRes.getElementsByClassName(navigationClass);
     expect(header[0].innerHTML).contains('Find a court or tribunal listing', 'Could not find the header');
-    expect(nav[0].innerHTML).contains('Subscriptions', 'Could not find the header');
+  });
+
+  it('should display navigation menu',  () => {
+    const nav = htmlRes.getElementsByClassName(navigationClass);
+    expect(nav[0].innerHTML).contains('Subscriptions', 'Could not find the navigation bar');
   });
 
   it('should display button start', () => {
