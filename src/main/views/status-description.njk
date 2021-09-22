@@ -1,12 +1,18 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
-{% from "./macros/common-components.njk" import goBack %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {{ displayGlossaryAlphabet }}
 {% extends "template.njk" %}
 {% block pageTitle %}
   {{ "Event Glossary" | safe }}
 {% endblock %}
 {% block beforeContent %}
-  {{ goBack('/') }}
+  {{ govukBackLink({
+    text: text,
+    href: '#',
+    attributes: {
+      onClick: "history.back();"
+    }
+  }) }}
 {% endblock %}
 {% block content %}
   <div id="grid-row" class="govuk-grid-row">
