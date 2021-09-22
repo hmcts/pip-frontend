@@ -10,8 +10,8 @@ const radioClass = 'govuk-radios__item';
 
 const expectedHeader = 'Find a court or tribunal list';
 const expectedButtonText = 'Continue';
-const expectedRadioLabel1 = 'Search for a court or tribunal';
-const expectedRadioLabel2 = 'Find a court or tribunal alphabetically';
+const expectedRadioLabel1 = 'search for a court or tribunal';
+const expectedRadioLabel2 = 'find a court or tribunal alphabetically';
 
 let htmlRes: Document;
 describe('Search option Page', () => {
