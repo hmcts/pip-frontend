@@ -254,6 +254,57 @@
           }
         }
       ]
+    },
+    {
+      "courtId": 88,
+      "courtName": "Ailibugai Court",
+      "lastUpdated": "1631791800",
+      "courtUpdates": [
+        {
+          "courtRoom": 1,
+          "caseNumber": "T20217099",
+          "caseName": "Mills LLC's Hearing",
+          "event": {
+            "eventId": 2,
+            "eventStatus": "Committal for Sentence",
+            "eventName": "Appeal Interpreter Sworn",
+            "eventTime": "12:25"
+          }
+        },
+        {
+          "courtRoom": 2,
+          "caseNumber": "",
+          "caseName": "",
+          "event": {
+            "eventId": 0,
+            "eventStatus": "",
+            "eventName": "",
+            "eventTime": ""
+          }
+        },
+        {
+          "courtRoom": 3,
+          "caseNumber": "T20217000",
+          "caseName": "Will-Muller",
+          "event": {
+            "eventId": 3100,
+            "eventStatus": "Trial (Part Heard)",
+            "eventName": "Case adjourned until 12:00",
+            "eventTime": "11:37"
+          }
+        },
+        {
+          "courtRoom": 4,
+          "caseNumber": "T20217010",
+          "caseName": "Wyman Inc Dispute",
+          "event": {
+            "eventId": 2,
+            "eventStatus": "For Trial",
+            "eventName": "Appeal Witness continues",
+            "eventTime": "14:11"
+          }
+        }
+      ]
     }
   ]
 }
