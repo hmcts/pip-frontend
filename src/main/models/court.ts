@@ -1,9 +1,6 @@
-import {Protocol} from 'puppeteer';
-import integer = Protocol.integer;
-
 export interface Court {
 
-  courtId: integer;
+  courtId: number;
 
   name: string;
 
