@@ -40,7 +40,7 @@ export class CourtService {
     // Then loop through each court, and add it to the list
     courtsList.forEach(item => {
       // TODO: Back end should have an API which returns only crown courts
-      if (item.hearings !== 0 && item.jurisdiction === 'Crown Court') {
+      if (item.jurisdiction === 'Crown Court') {
         const courtName = item.name as string;
         alphabetOptions[courtName.charAt(0).toUpperCase()][courtName] = {
           id: item.courtId,
