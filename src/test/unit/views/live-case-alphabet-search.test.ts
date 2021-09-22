@@ -54,9 +54,9 @@ describe('Alphabetical Search page', () => {
     }
   });
 
-  it('should have the first cell containing Albertville Court', () => {
+  it('should have the first cell containing Ailibugai Court', () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[0].innerHTML).contains('Albertville Court');
+    expect(cell[0].innerHTML).contains('Ailibugai Court');
   });
 
   it('should contain a back to top link, that links back up to the top', () => {
