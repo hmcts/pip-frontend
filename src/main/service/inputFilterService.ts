@@ -1,5 +1,3 @@
-import { JSONArray } from 'puppeteer';
-
 //TODO: replace with object model from common library
 declare type Serializable = number | string | boolean | null | bigint;
 
@@ -9,7 +7,7 @@ let searchResults;
 
 export class InputFilterService {
 
-  public findCourts(searchInput, checkAgainst, courtList): JSONArray {
+  public findCourts(searchInput, checkAgainst, courtList): Serializable[] {
     searchResults = [];
     if (!this.checkNotNullOrEmpty(searchInput)) {
       return searchResults;
