@@ -67,7 +67,7 @@ describe('Live Status page', () => {
   });
 
 
-  it('should display the link to go back to court or tribunal list', () => {
+  it('should display the link to go back to live case alphabet list', () => {
     const link = htmlRes.getElementsByClassName('govuk-link');
 
     expect(link.item(3).innerHTML).contains('Find a court or tribunal list', 'Link text is not present');
