@@ -1,4 +1,4 @@
-import { SearchOptionsPage } from './SearchOptions.page';
+import { ViewOptionPage } from './ViewOption.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -16,10 +16,10 @@ export class HomePage {
     return $(helpers.MainHeader).getText();
   }
 
-  async clickStartNowButton(): Promise<SearchOptionsPage> {
+  async clickStartNowButton(): Promise<ViewOptionPage> {
     const button = await $(helpers.StartNowButton);
     button.click();
-    return new SearchOptionsPage();
+    return new ViewOptionPage();
   }
 
 }

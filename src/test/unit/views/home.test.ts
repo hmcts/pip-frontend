@@ -5,7 +5,9 @@ import { app } from '../../../main/app';
 
 const PAGE_URL = '/';
 const headingClass = 'govuk-heading-xl';
+const navigationClass = 'govuk-header__navigation-item';
 const startButtonClass = 'govuk-button govuk-button--start';
+const expectedHeader = 'Find a court or tribunal hearing list';
 
 let htmlRes: Document;
 describe('Home page', () => {
@@ -17,7 +19,12 @@ describe('Home page', () => {
 
   it('should display header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
-    expect(header[0].innerHTML).contains('Find a court or tribunal listing', 'Could not find the header');
+    expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+  });
+
+  it('should display navigation menu',  () => {
+    const nav = htmlRes.getElementsByClassName(navigationClass);
+    expect(nav[0].innerHTML).contains('Subscriptions', 'Could not find the navigation bar');
   });
 
   it('should display button start', () => {

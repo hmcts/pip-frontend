@@ -1,0 +1,47 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% block pageTitle %}
+    {{ "View Option" | safe }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ goBack('/') }}
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {{ govukRadios({
+            idPrefix: "view-choice",
+            name: "view-choice",
+            fieldset: {
+                legend: {
+                    text: 'What would you like to view?',
+                    isPageHeading: true,
+                    classes: "govuk-fieldset__legend--l"
+                }
+            },
+            items: [
+                {
+                    value: "search",
+                    text: "Court or tribunal hearing lists"
+                },
+                {
+                    value: "live",
+                    text: "Live hearing updates - Crown Court only"
+                }
+            ]
+        }) }}
+        {{ submitButton() }}
+    </form>
+    <script>
+      const button = document.getElementsByClassName('govuk-button')[0];
+      button.addEventListener('click', (e) => {
+        const checkedRadios = document.querySelectorAll('input[type="radio"]:checked');
+        if (!checkedRadios.length) {
+          e.preventDefault();
+        }
+      })
+    </script>
+{% endblock %}
