@@ -25,5 +25,3 @@ dist/
 public/
 
 /coverage
-
-.env
