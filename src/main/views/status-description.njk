@@ -1,6 +1,6 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
 {% from "./macros/common-components.njk" import goBack %}
-{{ displayAlpha }}
+{{ displayGlossaryAlphabet }}
 {% extends "template.njk" %}
 {% block pageTitle %}
   {{ "Event Glossary" | safe }}
@@ -37,7 +37,7 @@
             <tr class="govuk-table__row">
               {% if value | length != 0 %}
                   <th scope="row" class="govuk-table__header">
-                  {% if displayAlpha != "false" %}
+                  {% if displayGlossaryAlphabet != "false" %}
                       <h2 id="{{ key }}" class="govuk-heading-l">{{key}}</h2>
                   {% endif %}
                   </th>
@@ -51,7 +51,7 @@
                 </td>
               {% endif %}
             </tr>
-            {% set displayAlpha = "false" %}
+            {% set displayGlossaryAlphabet = "false" %}
           {% endfor %}
         {% endfor %}
         </tbody>
@@ -61,8 +61,5 @@
   <hr class="govuk-section-break--visible govuk-!-margin-top-9"></hr>
   <a href="/" class="govuk-link govuk-!-font-weight-bold">Live hearing updates - select a court</a></br></br>
   <a href="/search-option" class="govuk-link govuk-!-font-weight-bold">Find a court or tribunal list</a>
-{% endblock %}
-{% block bodyEnd %}
-  <script src="alphabetical-dev.js"></script>
 {% endblock %}
 
