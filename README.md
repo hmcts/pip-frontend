@@ -2,6 +2,8 @@
 
 ## Purpose
 
+Testing
+
 The Publishing & Information Hub will be responsible for the following:
 * Receiving data from source systems, such as Schedule & Listing, via Hearings Management Interface
 * Publish lists, outcomes, judgements and management information onto GOV.UK
