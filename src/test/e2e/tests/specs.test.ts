@@ -6,35 +6,70 @@ import { SearchPage } from '../pageobjects/Search.page';
 import { SearchResultsPage } from '../pageobjects/SearchResults.page';
 import { OtpLoginPage } from '../pageobjects/OtpLogin.page';
 import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
+import { ViewOptionPage } from '../PageObjects/ViewOption.page';
+import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
 
 const homePage = new HomePage;
 const otpLoginPage = new OtpLoginPage();
 let searchOptionsPage: SearchOptionsPage;
+let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
 let hearingListPage: HearingListPage;
 let searchPage: SearchPage;
 let searchResultsPage: SearchResultsPage;
 let subscriptionManagementPage: SubscriptionManagementPage;
+let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
     await homePage.open('');
-    expect(await homePage.getPageTitle()).toEqual('Find a court or tribunal listing');
+    expect(await homePage.getPageTitle()).toEqual('Find a court or tribunal hearing list');
   });
 
-  it('should click on the "Start now button and navigate to Search Options page', async () => {
-    searchOptionsPage = await homePage.clickStartNowButton();
-    expect(await searchOptionsPage.getPageTitle()).toEqual('Find a court or tribunal list');
+  it('should click on the "Start now button and navigate to View Options page', async () => {
+    viewOptionPage = await homePage.clickStartNowButton();
+    expect(await viewOptionPage.getPageTitle()).toEqual('What would you like to view?');
   });
 
   it('should see both radio buttons', async () => {
-    expect(await searchOptionsPage.radioButtons).toBe(2);
+    expect(await viewOptionPage.radioButtons).toBe(2);
   });
 
-  describe('Following the \'find\' path', () => {
+  describe('Following the \'live case status updates\' path', () => {
     after(async () => {
       await homePage.open('');
-      searchOptionsPage = await homePage.clickStartNowButton();
+      viewOptionPage = await homePage.clickStartNowButton();
+    });
+
+    it('should select \'live hearing updates\' option and navigate to live hearings page', async () => {
+      await viewOptionPage.selectLiveHearingsRadio();
+      liveCaseCourtSearchControllerPage = await viewOptionPage.clickContinueForLiveHearings();
+      expect(await liveCaseCourtSearchControllerPage.getPageTitle()).toEqual('Live hearings updates - select a court');
+    });
+
+    it('should select \'Z\' option, and navigate to the end of the page', async () => {
+      const endLetter = 'Z';
+      await liveCaseCourtSearchControllerPage.selectLetter(endLetter);
+      expect(await liveCaseCourtSearchControllerPage.checkIfLetterIsVisible('Z')).toBeTruthy();
+    });
+
+    it('selecting back to top should navigate to the top of the page', async () => {
+      const startLetter = 'A';
+      await liveCaseCourtSearchControllerPage.selectBackToTop();
+      expect(await liveCaseCourtSearchControllerPage.checkIfLetterIsVisible(startLetter)).toBeTruthy();
+    });
+  });
+
+  describe('Following the \'tribunal hearing list\' option and \'find\' path', () => {
+    after(async () => {
+      await homePage.open('');
+      viewOptionPage = await homePage.clickStartNowButton();
+    });
+
+    it('should select \'tribunal hearing list\' option and navigate to search option page', async() => {
+      await viewOptionPage.selectSearchRadio();
+      searchOptionsPage = await viewOptionPage.clickContinueForSearch();
+      expect(await searchOptionsPage.getPageTitle()).toEqual('Find a court or tribunal list');
     });
 
     it('should select \'find\' option and navigate to alphabetical search page', async() => {
@@ -65,10 +100,20 @@ describe('Finding a court or tribunal listing', () => {
     });
   });
 
-  describe('Following the \'search\' path', () => {
+  describe('Following the \'tribunal hearing list\' and \'search\' path', () => {
+    after(async () => {
+      await homePage.open('');
+      viewOptionPage = await homePage.clickStartNowButton();
+    });
     const searchTerm = 'aylesbury';
     const expectedNumOfResults = 2;
     const expectedNumOfHearings = 3;
+
+    it('should select \'tribunal hearing list\' option and navigate to search option page', async() => {
+      await viewOptionPage.selectSearchRadio();
+      searchOptionsPage = await viewOptionPage.clickContinueForSearch();
+      expect(await searchOptionsPage.getPageTitle()).toEqual('Find a court or tribunal list');
+    });
 
     it('should select \'search\' option and navigate to search page', async() => {
       await searchOptionsPage.selectSearchRadio();

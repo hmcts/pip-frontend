@@ -3,6 +3,7 @@ module.exports = {
   ContinueButton: '.govuk-button',
   CommonPageTitle: '.govuk-heading-l',
   Results: 'tbody > tr.govuk-table__row',
+  pageTitle: '#page-heading',
   // Home page selectors
   StartNowButton: '.govuk-button--start',
   MainHeader: 'h1.govuk-heading-xl',
@@ -31,5 +32,10 @@ module.exports = {
 
   // OtpLogin page selectors
   OtpInput: '#otp-code',
+
+  // ViewOption page selectors
+  ViewOptionsTitle: 'h1.govuk-fieldset__heading',
+  ViewSearchRadioButton: '#view-choice',
+  LiveHearingsRadioButton: '#view-choice-2',
 
 };

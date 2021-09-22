@@ -1,9 +1,6 @@
-import { HearingListPage } from './HearingList.page';
-
 const helpers = require('../Helpers/Selectors');
 
-export class AlphabeticalSearchPage {
-
+export class LiveCaseCourtSearchControllerPage {
   async getPageTitle(): Promise<string> {
     $(helpers.pageTitle).catch(() => {
       console.log(`${helpers.pageTitle} not found`);
@@ -34,14 +31,5 @@ export class AlphabeticalSearchPage {
     const backToTop = await $(helpers.BackToTopButton);
     backToTop.click();
   }
-
-  async selectFirstListResult(): Promise<HearingListPage> {
-    await $(helpers.FirstItemResult).catch(() => {
-      console.log(`${helpers.FirstItemResult} not found`);
-    });
-
-    const firstItem = await $(helpers.FirstItemResult);
-    firstItem.click();
-    return new HearingListPage();
-  }
 }
+
