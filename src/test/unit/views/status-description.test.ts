@@ -34,12 +34,12 @@ describe('Status Description page', () => {
 
   it('should contain the correct headers', () => {
     const tableHeaders = htmlRes.getElementsByClassName('govuk-table__header');
-    expect(tableHeaders[1].innerHTML).contains('Hearing status', 'Court or tribunal header is not present');
-    expect(tableHeaders[2].innerHTML).contains('Description', 'Number of hearings header is not present');
+    expect(tableHeaders[1].innerHTML).contains('Hearing status', 'Hearing status for the cases');
+    expect(tableHeaders[2].innerHTML).contains('Description', 'Description for case status');
   });
 
-  it('should contain the letter names in rows are present', () => {
-    for (let i = 0; i < 2; i++) {
+  it('should contain the alphabets in rows are present', () => {
+    for (let i = 0; i < 4; i++) {
       const letter = String.fromCharCode(65 + i);
       const row = htmlRes.getElementById(letter);
       expect(row.innerHTML).contains(letter);
@@ -49,5 +49,6 @@ describe('Status Description page', () => {
   it('should have the first cell containing Adjourned', () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
     expect(cell[0].innerHTML).contains('Adjourned');
+    expect(cell[1].innerHTML).contains('The case has been adjourned.');
   });
 });
