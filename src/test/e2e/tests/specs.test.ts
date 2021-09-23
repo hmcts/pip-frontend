@@ -48,7 +48,7 @@ describe('Finding a court or tribunal listing', () => {
     it('should select \'live hearing updates\' option and navigate to live hearings page', async () => {
       await viewOptionPage.selectLiveHearingsRadio();
       liveCaseCourtSearchControllerPage = await viewOptionPage.clickContinueForLiveHearings();
-      expect(await liveCaseCourtSearchControllerPage.getPageTitle()).toEqual('Live hearings updates - select a court');
+      expect(await liveCaseCourtSearchControllerPage.getPageTitle()).toEqual('Live hearing updates - select a court');
     });
 
     it('should select \'Z\' option, and navigate to the end of the page', async () => {
