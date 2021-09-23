@@ -2,6 +2,7 @@ import {InputFilterService} from '../../../main/service/inputFilterService';
 import {expect} from 'chai';
 import fs from 'fs';
 import path from 'path';
+import {Court} from '../../../main/models/court';
 
 const inputService = new InputFilterService();
 declare type Serializable = number | string | boolean | null | bigint;
@@ -42,6 +43,7 @@ const expectedResultFromLocation = [
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAllReduced.json'), 'utf-8');
 const courtsData = JSON.parse(rawData);
 
+
 describe('Input filter service', () => {
   it('should return filtered list with 1 match', () => {
     expect(inputService
@@ -65,6 +67,7 @@ describe('Input filter service', () => {
     expect(inputService
       .findCourts(validSearchInputJurisdiction, validCheckAgainst, courtsData).length)
       .equal(5, 'Results length did not match expected');
+
   });
 
   it('should return empty array for empty search input', () => {
@@ -97,11 +100,11 @@ describe('Input filter service', () => {
       {
         courtId: 32,
         name: 'Aylesbury Magistrate\'s Court',
-        jurisdiction: 'Crown Court',
+        jurisdiction: 'Magistrates Court',
         location: 'Aylesbury',
         hearings: 6,
       },
-    ] as unknown as Serializable[];
+    ] as unknown as Array<Court>;
     expect(inputService.alphabetiseResults(unsorted, 'name')[0]['name']).equal('Aylesbury Magistrate\'s Court', 'List was not sorted alphabetically correctly');
   });
 

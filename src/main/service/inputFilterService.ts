@@ -1,4 +1,6 @@
 //TODO: replace with object model from common library
+import {Court} from '../models/court';
+
 declare type Serializable = number | string | boolean | null | bigint;
 
 
@@ -7,7 +9,7 @@ let searchResults;
 
 export class InputFilterService {
 
-  public findCourts(searchInput, checkAgainst, courtList): Serializable[] {
+  public findCourts(searchInput, checkAgainst, courtList): Array<Court> {
     searchResults = [];
     if (!this.checkNotNullOrEmpty(searchInput)) {
       return searchResults;
@@ -27,7 +29,7 @@ export class InputFilterService {
     courtsResults.filter(i => i[item].toLowerCase().indexOf(searchInput.toLowerCase()) !== -1).forEach(result => searchResults.push(result));
   }
 
-  public alphabetiseResults(unsortedArray: Serializable[], leadValue): Serializable[] {
+  public alphabetiseResults(unsortedArray: Array<Court>, leadValue): Array<Court> {
     return unsortedArray.sort((a, b) => a[leadValue].localeCompare(b[leadValue]));
   }
 

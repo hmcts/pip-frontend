@@ -10,4 +10,6 @@ export interface Court {
 
   hearingList: Array<any>;
 
+  hearings: number;
+
 }
