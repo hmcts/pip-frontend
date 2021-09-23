@@ -8,4 +8,6 @@ nodejs:
 #      secrets:
 #        - AppInsightsInstrumentationKey
   environment:
-    API_URL: pip-business-rules.{{ .Values.global.environment }}.platform.hmcts.net
+#    API_URL: pip-business-rules.{{ .Values.global.environment }}.platform.hmcts.net
+     API_URL: https://pip-business-rules-pr-15.dev.platform.hmcts.net
+     API_URL2: https://pip-business-rules.{{ .Values.global.environment }}.platform.hmcts.net
