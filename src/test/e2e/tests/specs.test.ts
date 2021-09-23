@@ -22,8 +22,6 @@ let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 
-const validCourtName = 'Ailibugai Court';
-
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
     await homePage.open('');
@@ -40,6 +38,7 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Following the \'live case status updates\' path', () => {
+    const validCourtName = 'Ailibugai Court';
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
