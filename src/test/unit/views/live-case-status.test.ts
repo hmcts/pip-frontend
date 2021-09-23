@@ -1,12 +1,11 @@
 import { expect } from 'chai';
 import request from 'supertest';
-// import moment from 'moment';
 
 import { app } from '../../../main/app';
 
 const PAGE_URL = '/live-case-status?courtId=1';
 const expectedHeader = 'Live hearing updates - daily court list';
-const exopectedCourtName = 'Mutsu Court';
+const expectedCourtName = 'Mutsu Court';
 let htmlRes: Document;
 
 describe('Live Status page', () => {
@@ -29,7 +28,7 @@ describe('Live Status page', () => {
 
   it('should display correct court name', () => {
     const courtName = htmlRes.getElementsByClassName('govuk-heading-m');
-    expect(courtName[0].innerHTML).contains(exopectedCourtName, 'could not find the court name header');
+    expect(courtName[0].innerHTML).contains(expectedCourtName, 'could not find the court name header');
   });
 
   it('should contain expected column headings', () => {
