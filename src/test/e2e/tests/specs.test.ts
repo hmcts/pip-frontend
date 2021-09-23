@@ -8,9 +8,11 @@ import { OtpLoginPage } from '../pageobjects/OtpLogin.page';
 import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
+import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
 
 const homePage = new HomePage;
 const otpLoginPage = new OtpLoginPage();
+const subscriptionAddPage = new SubscriptionAddPage();
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
@@ -152,6 +154,14 @@ describe('Finding a court or tribunal listing', () => {
       subscriptionManagementPage = await otpLoginPage.clickContinue();
       expect(await subscriptionManagementPage.getPageTitle()).toEqual('Subscription Management');
     });
+  });
+
+  describe('Add a subscription path', () => {
+    it('should open the subscription add page', async () => {
+      await subscriptionAddPage.open('subscription-add');
+      expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
+    });
+
   });
 });
 

@@ -1,0 +1,61 @@
+{% from "./macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ "Add a subscription" | safe }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: text,
+    href: '#',
+    attributes: {
+      onClick: "history.back();"
+    }
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {{ govukRadios({
+      idPrefix: "subscription-choice",
+      name: "subscription-choice",
+      fieldset: {
+        legend: {
+          text: 'How do you want to add a subscription?',
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "case-reference",
+          text: "By case reference number"
+        },
+        {
+          value: "urn",
+          text: "By unique reference number"
+        },
+        {
+          value: "name",
+          text: "By case name"
+        },
+        {
+          value: "court-or-tribunal",
+          text: "By court or tribunal"
+        }
+      ]
+    }) }}
+    {{ submitButton() }}
+  </form>
+  <hr class="govuk-section-break--visible govuk-!-margin-top-7" />
+  <div class="govuk-!-margin-bottom-2">
+    <a href="/search-option" class="govuk-link govuk-!-font-weight-bold">Manage your subscriptions</a>
+  </div>
+  <div class="govuk-!-margin-bottom-9">
+    <a href="/subscription-add" class="govuk-link govuk-!-font-weight-bold">Find a court or tribunal list</a>
+  </div>
+
+{% endblock %}

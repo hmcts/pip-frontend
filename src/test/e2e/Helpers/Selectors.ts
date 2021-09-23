@@ -38,4 +38,7 @@ module.exports = {
   ViewSearchRadioButton: '#view-choice',
   LiveHearingsRadioButton: '#view-choice-2',
 
+  //SubscriptionAdd selectors
+  SubscriptionAddTitle: 'h1.govuk-fieldset__heading',
+
 };
