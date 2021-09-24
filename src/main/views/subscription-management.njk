@@ -26,18 +26,20 @@
     text: 'Add new subscription',
     href: '#'
   }) }}
+
+  {% set allSubscriptions = caseTableData | length +  courtTableData | length %}
   {{ mojSubNavigation({
     label: 'Sub navigation',
     items: [{
-      text: 'Nav item 1',
-      href: '#1',
+      text: 'All subscriptions (' + allSubscriptions + ')',
+      href: '#all',
       active: true
     }, {
-      text: 'Nav item 2',
-      href: '#2'
+      text: 'Subscriptions by case (' + caseTableData | length + ')',
+      href: '#case'
     }, {
-      text: 'Nav item 3',
-      href: '#3'
+      text: 'Subscriptions by court or tribunal (' + courtTableData | length + ')',
+      href: '#court'
     }]
   }) }}
   {% if caseTableData | length == 0 and courtTableData | length == 0 %}
@@ -99,4 +101,9 @@
     rows: courtTableData
   }) }}
   {% endif %}
+{% endblock %}
+
+{% block bodyEnd %}
+    <script type="text/javascript" src="/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="/assets/js/mojAll.js"></script>
 {% endblock %}
