@@ -2,6 +2,7 @@ const path = require('path');
 
 const sourcePath = path.resolve(__dirname, 'src/main/bundles');
 const govukFrontend = require(path.resolve(__dirname, 'webpack/govukFrontend'));
+const mojFrontend = require(path.resolve(__dirname, 'webpack/ministryOfJusticeFrontend'))
 const scss = require(path.resolve(__dirname,'webpack/scss'));
 const HtmlWebpack = require(path.resolve(__dirname,'webpack/htmlWebpack'));
 const autocomplete = require(path.resolve(__dirname,'webpack/accessible-autocomplete'));
@@ -11,7 +12,13 @@ const fileNameSuffix = devMode ? '-dev' : '.[contenthash]';
 const filename = `[name]${fileNameSuffix}.js`;
 
 module.exports = {
-  plugins: [...govukFrontend.plugins, ...scss.plugins, ...HtmlWebpack.plugins, ...autocomplete.plugins ],
+  plugins: [
+    ...govukFrontend.plugins,
+    ...scss.plugins,
+    ...HtmlWebpack.plugins,
+    ...autocomplete.plugins,
+    ...mojFrontend.plugins,
+  ],
   entry: {
     main: path.resolve(sourcePath, 'index.js'),
     alphabetical: path.resolve(sourcePath, 'alphabetical.ts' ),
