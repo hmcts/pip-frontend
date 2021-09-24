@@ -1,10 +1,10 @@
-import { HomePage } from '../pageobjects/Home.page';
-import { SearchOptionsPage } from '../pageobjects/SearchOptions.page';
-import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
-import { HearingListPage } from '../pageobjects/HearingList.page';
-import { SearchPage } from '../pageobjects/Search.page';
-import { SearchResultsPage } from '../pageobjects/SearchResults.page';
-import { OtpLoginPage } from '../pageobjects/OtpLogin.page';
+import { HomePage } from '../PageObjects/Home.page';
+import { SearchOptionsPage } from '../PageObjects/SearchOptions.page';
+import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
+import { HearingListPage } from '../PageObjects/HearingList.page';
+import { SearchPage } from '../PageObjects/Search.page';
+import { SearchResultsPage } from '../PageObjects/SearchResults.page';
+import { OtpLoginPage } from '../PageObjects/OtpLogin.page';
 import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
