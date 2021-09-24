@@ -5,7 +5,7 @@ import { HearingListPage } from '../PageObjects/HearingList.page';
 import { SearchPage } from '../PageObjects/Search.page';
 import { SearchResultsPage } from '../PageObjects/SearchResults.page';
 import { OtpLoginPage } from '../PageObjects/OtpLogin.page';
-import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
+import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
 import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
