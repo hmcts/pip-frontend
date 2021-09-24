@@ -188,7 +188,7 @@ describe('Finding a court or tribunal listing', () => {
     it('should navigate to subscription page when correct passcode is entered', async () => {
       await otpLoginPage.enterText('222222');
       subscriptionManagementPage = await otpLoginPage.clickContinue();
-      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Subscription Management');
+      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
     });
   });
 });

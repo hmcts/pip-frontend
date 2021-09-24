@@ -5,7 +5,7 @@ import moment from 'moment';
 export class SubscriptionActions {
   mocksPath = '../mocks/';
   rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'userSubscriptions.json'), 'utf-8');
-  userId = 2;
+  userId = 1;
 
   getUserSubscriptions(userId: number): any {
     const subscriptionsData = JSON.parse(this.rawData);
