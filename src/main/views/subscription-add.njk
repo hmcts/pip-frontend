@@ -1,6 +1,8 @@
 {% from "./macros/common-components.njk" import goBack, submitButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
@@ -18,44 +20,75 @@
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    {{ govukRadios({
-      idPrefix: "subscription-choice",
-      name: "subscription-choice",
-      fieldset: {
-        legend: {
-          text: 'How do you want to add a subscription?',
-          isPageHeading: true,
-          classes: "govuk-fieldset__legend--l"
-        }
-      },
-      items: [
+  {% if selectionError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
         {
-          value: "case-reference",
-          text: "By case reference number"
-        },
-        {
-          value: "urn",
-          text: "By unique reference number"
-        },
-        {
-          value: "name",
-          text: "By case name"
-        },
-        {
-          value: "court-or-tribunal",
-          text: "By court or tribunal"
+          text: "Please tell us how you would like to add a subscription",
+          href: "#subscription-choice"
         }
       ]
     }) }}
+  {% endif %}
+  <form method="post">
+    <div class="govuk-form-group">
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">
+            How do you want to add a subscription?
+          </h1>
+        </legend>
+
+        {{ govukInsetText({
+          text: "This service displays information about published lists only. Searches can only be performed against information contained
+          within published lists.",
+          classes: "govuk-!-margin-bottom-8"
+        }) }}
+        {% if selectionError %}
+          <span id="subscription-choice-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> Please tell us how you would like to add a subscription
+          </span>
+        {% endif %}
+        <div id= "subscription-choice" class="govuk-radios
+                                              govuk-!-margin-bottom-4
+                                              {% if selectionError %}govuk-form-group--error {% endif %}">
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="subscription-choice-1" name="subscription-choice" type="radio" value="case-reference">
+            <label class="govuk-label govuk-radios__label" for="subscription-choice-1">
+              By case reference number
+            </label>
+          </div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="subscription-choice-2" name="subscription-choice" type="radio" value="urn">
+            <label class="govuk-label govuk-radios__label" for="subscription-choice-2">
+              By unique reference number
+            </label>
+          </div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="subscription-choice-3" name="subscription-choice" type="radio" value="name">
+            <label class="govuk-label govuk-radios__label" for="subscription-choice-3">
+              By case name
+            </label>
+          </div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="subscription-choice-4" name="subscription-choice" type="radio" value="court-or-tribunal">
+            <label class="govuk-label govuk-radios__label" for="subscription-choice-4">
+              By court or tribunal
+            </label>
+          </div>
+        </div>
+
+      </fieldset>
+    </div>
     {{ submitButton() }}
   </form>
   <hr class="govuk-section-break--visible govuk-!-margin-top-7" />
   <div class="govuk-!-margin-bottom-2">
-    <a href="/search-option" class="govuk-link govuk-!-font-weight-bold">Manage your subscriptions</a>
+    <a href="/subscription-management" class="govuk-link govuk-!-font-weight-bold">Manage your subscriptions</a>
   </div>
   <div class="govuk-!-margin-bottom-9">
-    <a href="/subscription-add" class="govuk-link govuk-!-font-weight-bold">Find a court or tribunal list</a>
+    <a href="/search-option" class="govuk-link govuk-!-font-weight-bold">Find a court or tribunal list</a>
   </div>
 
 {% endblock %}

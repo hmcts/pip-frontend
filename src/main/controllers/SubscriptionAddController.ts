@@ -23,7 +23,7 @@ export default class SubscriptionAddController {
         res.redirect('/');
         break;
       default:
-        res.redirect('subscription-add');
+        res.render('subscription-add', {selectionError: 'true'});
     }
   }
 }

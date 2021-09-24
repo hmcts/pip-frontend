@@ -5,8 +5,11 @@ import { app } from '../../../main/app';
 
 const PAGE_URL = '/subscription-add';
 const backButtonClass = 'govuk-back-link';
+const errorSummaryClass = 'govuk-error-summary';
+const errorMessageId = 'subscription-choice-error';
 const headingClass = 'govuk-fieldset__heading';
 const buttonClass = 'govuk-button';
+const subscriptionChoiceId = 'subscription-choice';
 const radioClass = 'govuk-radios__item';
 const linkClass = 'govuk-link';
 
@@ -20,7 +23,7 @@ const expectedLink1 = 'Manage your subscriptions';
 const expectedLink2 = 'Find a court or tribunal list';
 
 let htmlRes: Document;
-describe('Subscription add Page', () => {
+describe('Subscription add Page initial load', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
@@ -33,9 +36,24 @@ describe('Subscription add Page', () => {
     expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
   });
 
+  it('should not display the error summary on loading', () => {
+    const errorSummary = htmlRes.getElementsByClassName(errorSummaryClass);
+    expect(errorSummary.length).equals(0, 'Error summary is incorrectly displayed');
+  });
+
   it('should display header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
     expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+  });
+
+  it('should not display the error message on loading', () => {
+    const errorMessage = htmlRes.getElementById(errorMessageId);
+    expect(errorMessage).not.exist;
+  });
+
+  it('should not display the radio error highlighting on load', () => {
+    const subscriptionChoice = htmlRes.getElementById(subscriptionChoiceId);
+    expect(subscriptionChoice.getAttribute('class')).not.contains('govuk-form-group--error');
   });
 
   it('should display continue button',  () => {
@@ -71,13 +89,38 @@ describe('Subscription add Page', () => {
   it('should display manage your subscriptions link',  () => {
     const links = htmlRes.getElementsByClassName(linkClass);
     expect(links[0].innerHTML).contains(expectedLink1, 'Could not find the link with text ' + expectedLink1);
-    expect(links[0].getAttribute('href')).equal('/search-option', 'Link value is not correct');
+    expect(links[0].getAttribute('href')).equal('/subscription-management', 'Link value is not correct');
   });
 
   it('should display find a court or tribunal list link',  () => {
     const links = htmlRes.getElementsByClassName(linkClass);
     expect(links[1].innerHTML).contains(expectedLink2, 'Could not find the link with text ' + expectedLink2);
-    expect(links[1].getAttribute('href')).equal('/subscription-add', 'Link value is not correct');
+    expect(links[1].getAttribute('href')).equal('/search-option', 'Link value is not correct');
+  });
+
+});
+
+describe('Subscription add page no selection entered', () => {
+  beforeAll(async () => {
+    await request(app).post(PAGE_URL).send({selectionError: true}).then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+    });
+
+    it('should display the error summary when no selection is entered', () => {
+      const errorSummary = htmlRes.getElementsByClassName(errorSummaryClass);
+      expect(errorSummary[0].innerHTML).contains(0, 'Please tell us how you would like to add a subscription');
+    });
+
+    it('should not display the error message when no selection is entered', () => {
+      const errorMessage = htmlRes.getElementById(errorMessageId);
+      expect(errorMessage.innerHTML).contains('Please tell us how you would like to add a subscription');
+    });
+
+    it('should not display the radio error highlighting when no selection is entered', () => {
+      const subscriptionChoice = htmlRes.getElementById(subscriptionChoiceId);
+      expect(subscriptionChoice.getAttribute('class')).contains('govuk-form-group--error');
+    });
+
   });
 
 });

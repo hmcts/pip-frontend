@@ -82,12 +82,12 @@ describe('Subscription Add Controller', () => {
   it('should remain on page if no option is selected', () => {
     const subscriptionAddController = new SubscriptionAddController();
 
-    const response = { redirect: function() {return '';}} as unknown as Response;
+    const response = { render: function() {return '';}} as unknown as Response;
     const request = { body: { 'subscription-choice': ''}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('subscription-add');
+    responseMock.expects('render').once().withArgs('subscription-add', {selectionError: 'true'});
 
     subscriptionAddController.post(request, response);
 
