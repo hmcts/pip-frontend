@@ -158,6 +158,11 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Media User Login', () => {
+    it('should open the OTP login page when a user clicks "Subscriptions" header', async () => {
+      viewOptionPage = await homePage.clickSubscriptionsButton();
+      expect(await viewOptionPage.getPageTitle()).toEqual('Verify your email address');
+    });
+
     it('should open the OTP login page', async () => {
       await otpLoginPage.open('otp-login');
       expect(await otpLoginPage.getPageTitle()).toBe('Verify your email address');
