@@ -13,7 +13,7 @@ const rowClass = 'govuk-table__row';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAllReducedForInputSearch.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAllReducedForInputSearch.json'), 'utf-8');
 const hearingsData = JSON.parse(rawData);
 
 

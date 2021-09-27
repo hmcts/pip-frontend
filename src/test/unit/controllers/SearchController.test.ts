@@ -17,7 +17,7 @@ describe('Search Controller', () => {
   it('should render the search page', () => {
 
 
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAndHearingsCount.json'), 'utf-8');
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
     const hearingsData = JSON.parse(rawData);
 
     stub.withArgs().returns(hearingsData);
@@ -54,7 +54,7 @@ describe('Search Controller', () => {
 
   it('should render search page if input is less than three characters long', () => {
 
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAndHearingsCount.json'), 'utf-8');
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
     const hearingsData = JSON.parse(rawData);
 
     stub.withArgs().returns(hearingsData);
@@ -73,7 +73,7 @@ describe('Search Controller', () => {
 
   it('should render search page if input is three characters long and partially correct', () => {
 
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAndHearingsCount.json'), 'utf-8');
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
     const hearingsData = JSON.parse(rawData);
 
     stub.withArgs().returns(hearingsData);
@@ -92,7 +92,7 @@ describe('Search Controller', () => {
 
   it('should render search page if input is not letters', () => {
 
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAndHearingsCount.json'), 'utf-8');
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
     const hearingsData = JSON.parse(rawData);
 
     stub.withArgs().returns(hearingsData);
@@ -110,7 +110,7 @@ describe('Search Controller', () => {
 
   it('should render search page if no input is provided', () => {
 
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAndHearingsCount.json'), 'utf-8');
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
     const hearingsData = JSON.parse(rawData);
 
     stub.withArgs().returns(hearingsData);
@@ -133,7 +133,7 @@ describe('Search Controller', () => {
     const searchController = new SearchController(api);
 
 
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAndHearingsCount.json'), 'utf-8');
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
     const hearingsData = JSON.parse(rawData);
 
     stub.withArgs().returns(hearingsData);
@@ -151,7 +151,7 @@ describe('Search Controller', () => {
 
   it('should redirect to search results page with input as query if location input is valid', () => {
     const searchController = new SearchController(api);
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAndHearingsCount.json'), 'utf-8');
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
     const hearingsData = JSON.parse(rawData);
 
     stub.withArgs().returns(hearingsData);
@@ -171,7 +171,7 @@ describe('Search Controller', () => {
 
   it('should redirect to search results page with input as query if jurisdiction input is valid', () => {
     const searchController = new SearchController(api);
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAndHearingsCount.json'), 'utf-8');
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
     const hearingsData = JSON.parse(rawData);
 
     stub.withArgs().returns(hearingsData);

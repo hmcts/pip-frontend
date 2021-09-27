@@ -6,9 +6,9 @@ import LocalApiController from '../../../main/controllers/LocalApiController';
 jest.mock('axios');
 
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAllReduced.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAllReduced.json'), 'utf-8');
 const courtsAll = JSON.parse(rawData);
-const rawData2 = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings2.json'), 'utf-8');
+const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtAndHearings2.json'), 'utf-8');
 const courts = JSON.parse(rawData2);
 describe('Local Api Controller for all courts list', () => {
   it('should return a mock data for all court list', () =>  {

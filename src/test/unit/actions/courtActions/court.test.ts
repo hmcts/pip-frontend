@@ -16,16 +16,13 @@ const courtActions = new CourtActions(api);
 const validCourtId = 1;
 const invalidCourtId = 1232;
 const stubAllCourt = sinon.stub(api, 'getAllCourtList');
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtsAndHearingsCount.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
 const hearingsData = JSON.parse(rawData);
 const stub = sinon.stub(api, 'getCourtDetails');
-const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
+const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../../main/resources/mocks/courtAndHearings.json'), 'utf-8');
 const hearingsData2 = JSON.parse(rawData2);
 
 describe('getCourtsList()', () => {
-
-
-
   stubAllCourt.withArgs().returns(hearingsData);
 
   it('should return list of 583 courts', () => {
@@ -33,12 +30,9 @@ describe('getCourtsList()', () => {
       expect(data).toBe(hearingsData);
     });
   });
-
 });
 
 describe(`getCourtDetails(${validCourtId})`, function () {
-
-
   stub.withArgs(validCourtId).returns(hearingsData2);
 
   it('should return list of 1 court', () => {
@@ -64,12 +58,9 @@ describe(`getCourtDetails(${validCourtId})`, function () {
       expect(data.hearingList.length).toBe(3);
     });
   });
-
 });
 
 describe(`getCourtDetails(${invalidCourtId})`, function () {
-
-
   stub.withArgs(invalidCourtId).returns(null);
 
   it('should return null as court with id ${invalidCourtId} doesn\'t exist', () => {
@@ -77,7 +68,6 @@ describe(`getCourtDetails(${invalidCourtId})`, function () {
       expect(data).toBe(null);
     });
   });
-
 });
 
 

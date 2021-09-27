@@ -17,7 +17,7 @@ const stub = sinon.stub(api, 'getCourtList');
 describe('Search results Controller', () => {
   it('should render the search results page if input is valid', () => {
 
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtAndHearings.json'), 'utf-8');
     const hearingsData = JSON.parse(rawData);
 
     stub.withArgs('Abergavenny').returns(hearingsData);

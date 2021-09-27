@@ -11,7 +11,7 @@ const expectedTableHeader = 'Crown courts in England and Wales';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings2.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtAndHearings2.json'), 'utf-8');
 const hearingsData = JSON.parse(rawData);
 
 

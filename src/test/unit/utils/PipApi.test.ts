@@ -12,10 +12,10 @@ const stubGetCourtList = sinon.stub(api, 'getCourtList');
 const stubGetAllCourtList = sinon.stub(api, 'getAllCourtList');
 const stubGetHearingList = sinon.stub(api, 'getHearingList');
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtAndHearings.json'), 'utf-8');
 const hearingsData = JSON.parse(rawData);
 
-const rawData2 = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtAndHearings.json'), 'utf-8');
 const hearingsData2 = JSON.parse(rawData2);
 describe('PipApi utils', () => {
   it('should return court for passed court id', () =>  {

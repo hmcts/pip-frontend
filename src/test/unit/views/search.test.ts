@@ -20,7 +20,7 @@ const expectedButtonText = 'Continue';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAllReduced.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAllReduced.json'), 'utf-8');
 const hearingsData = JSON.parse(rawData);
 
 

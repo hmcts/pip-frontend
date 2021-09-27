@@ -18,7 +18,7 @@ const invalidHearingId = 2000;
 
 const hearingActions = new HearingActions(api);
 const stub = sinon.stub(api, 'getHearingList');
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingsListByCourt.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../../main/resources/mocks/hearingsListByCourt.json'), 'utf-8');
 const hearingsData = JSON.parse(rawData);
 
 describe(`getCourtHearings(${validCourtId})`, () => {

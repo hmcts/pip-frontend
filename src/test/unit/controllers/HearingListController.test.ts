@@ -15,7 +15,7 @@ const stub = sinon.stub(api, 'getHearingList');
 
 describe('Hearing list Controller', () => {
   it('should render the list page if the court ID exists', () =>  {
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/hearingsListByCourt.json'), 'utf-8');
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/hearingsListByCourt.json'), 'utf-8');
     const hearingsData = JSON.parse(rawData);
 
     stub.withArgs(2).returns(hearingsData);

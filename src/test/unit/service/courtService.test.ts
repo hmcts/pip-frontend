@@ -10,7 +10,7 @@ jest.mock('axios');
 
 const api = new PipApi(axios);
 const stub = sinon.stub(api, 'getAllCourtList');
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtsAndHearingsCount.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
 const hearingsData = JSON.parse(rawData);
 stub.withArgs().returns(hearingsData);
 const courtService = new CourtService(api);
