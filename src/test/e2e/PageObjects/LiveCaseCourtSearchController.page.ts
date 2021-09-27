@@ -1,12 +1,14 @@
+import { LiveCaseStatusPage } from './LiveCaseStatus.page';
+
 const helpers = require('../Helpers/Selectors');
 
 export class LiveCaseCourtSearchControllerPage {
   async getPageTitle(): Promise<string> {
-    $(helpers.pageTitle).catch(() => {
-      console.log(`${helpers.pageTitle} not found`);
+    $(helpers.CommonPageTitle).catch(() => {
+      console.log(`${helpers.CommonPageTitle} not found`);
     });
 
-    return $(helpers.pageTitle).getText();
+    return $(helpers.CommonPageTitle).getText();
   }
 
   async selectLetter(letter): Promise<void> {
@@ -30,6 +32,16 @@ export class LiveCaseCourtSearchControllerPage {
 
     const backToTop = await $(helpers.BackToTopButton);
     backToTop.click();
+  }
+
+  async selectFirstListResult(): Promise<LiveCaseStatusPage> {
+    await $(helpers.LiveHearingsTableFirstResult).catch(() => {
+      console.log(`${helpers.LiveHearingsTableFirstResult} not found`);
+    });
+
+    const firstItem = await $(helpers.LiveHearingsTableFirstResult);
+    firstItem.click();
+    return new LiveCaseStatusPage();
   }
 }
 
