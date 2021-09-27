@@ -50,7 +50,8 @@
             {# Case Subscriptions Table #}
             {{ govukTable({
                 attributes: {
-                    'data-module': 'moj-sortable-table'
+                    'data-module': 'moj-sortable-table',
+                    'id': 'cases-table'
                 },
                 classes: 'govuk-!-margin-bottom-9',
                 head: [
@@ -83,7 +84,8 @@
             {# Court Subscriptions Table #}
             {{ govukTable({
                 attributes: {
-                    'data-module': 'moj-sortable-table'
+                    'data-module': 'moj-sortable-table',
+                    'id': 'courts-table'
                 },
                 head: [
                     {
