@@ -2,7 +2,13 @@ import { Request, Response } from 'express';
 
 export default class SubscriptionAddController {
   public get(req: Request, res: Response): void {
-    res.render('subscription-add');
+
+    if (req.query.error === 'true') {
+      res.render('subscription-add', {selectionError: true});
+    } else {
+      res.render('subscription-add');
+    }
+
   }
 
   public post(req: Request, res: Response): void {
@@ -23,7 +29,7 @@ export default class SubscriptionAddController {
         res.redirect('/');
         break;
       default:
-        res.render('subscription-add', {selectionError: 'true'});
+        res.redirect('/subscription-add?error=true');
     }
   }
 }

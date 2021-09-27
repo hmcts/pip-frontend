@@ -7,11 +7,26 @@ describe('Subscription Add Controller', () => {
     const subscriptionAddController = new SubscriptionAddController();
 
     const response = { render: function() {return '';}} as unknown as Response;
-    const request = {} as unknown as Request;
+    const request = {query: {}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('subscription-add');
+
+    subscriptionAddController.get(request, response);
+
+    responseMock.verify();
+  });
+
+  it('should pass through error state if error query param is set', () => {
+    const subscriptionAddController = new SubscriptionAddController();
+
+    const response = { render: function() {return '';}} as unknown as Response;
+    const request = {query: {error: 'true'}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('subscription-add', {selectionError: true});
 
     subscriptionAddController.get(request, response);
 
@@ -79,15 +94,15 @@ describe('Subscription Add Controller', () => {
     responseMock.verify();
   });
 
-  it('should remain on page if no option is selected', () => {
+  it('should remain on page and pass error state if no option is selected', () => {
     const subscriptionAddController = new SubscriptionAddController();
 
-    const response = { render: function() {return '';}} as unknown as Response;
+    const response = { redirect: function() {return '';}} as unknown as Response;
     const request = { body: { 'subscription-choice': ''}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('subscription-add', {selectionError: 'true'});
+    responseMock.expects('redirect').once().withArgs('/subscription-add?error=true');
 
     subscriptionAddController.post(request, response);
 
