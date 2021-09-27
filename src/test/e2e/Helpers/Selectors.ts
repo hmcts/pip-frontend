@@ -4,6 +4,7 @@ module.exports = {
   CommonPageTitle: '.govuk-heading-l',
   CommonPageTitleM: '.govuk-heading-m',
   SubscriptionsButton: '#subscriptionHeaderButton',
+  SignInButton: "#signInButton",
   Results: 'tbody > tr.govuk-table__row',
   // Home page selectors
   StartNowButton: '.govuk-button--start',
