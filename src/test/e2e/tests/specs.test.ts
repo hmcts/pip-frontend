@@ -1,13 +1,14 @@
-import { HomePage } from '../pageobjects/Home.page';
-import { SearchOptionsPage } from '../pageobjects/SearchOptions.page';
-import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
-import { HearingListPage } from '../pageobjects/HearingList.page';
-import { SearchPage } from '../pageobjects/Search.page';
-import { SearchResultsPage } from '../pageobjects/SearchResults.page';
-import { OtpLoginPage } from '../pageobjects/OtpLogin.page';
-import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
+import { HomePage } from '../PageObjects/Home.page';
+import { SearchOptionsPage } from '../PageObjects/SearchOptions.page';
+import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
+import { HearingListPage } from '../PageObjects/HearingList.page';
+import { SearchPage } from '../PageObjects/Search.page';
+import { SearchResultsPage } from '../PageObjects/SearchResults.page';
+import { OtpLoginPage } from '../PageObjects/OtpLogin.page';
+import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
+import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
 
 const homePage = new HomePage;
 const otpLoginPage = new OtpLoginPage();
@@ -19,6 +20,7 @@ let searchPage: SearchPage;
 let searchResultsPage: SearchResultsPage;
 let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
+let liveCaseStatusPage: LiveCaseStatusPage;
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
@@ -36,6 +38,7 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Following the \'live case status updates\' path', () => {
+    const validCourtName = 'Ailibugai Court';
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
@@ -44,7 +47,7 @@ describe('Finding a court or tribunal listing', () => {
     it('should select \'live hearing updates\' option and navigate to live hearings page', async () => {
       await viewOptionPage.selectLiveHearingsRadio();
       liveCaseCourtSearchControllerPage = await viewOptionPage.clickContinueForLiveHearings();
-      expect(await liveCaseCourtSearchControllerPage.getPageTitle()).toEqual('Live hearings updates - select a court');
+      expect(await liveCaseCourtSearchControllerPage.getPageTitle()).toEqual('Live hearing updates - select a court');
     });
 
     it('should select \'A\' option, and navigate to the end of the page', async () => {
@@ -58,6 +61,19 @@ describe('Finding a court or tribunal listing', () => {
       await liveCaseCourtSearchControllerPage.selectBackToTop();
       expect(await liveCaseCourtSearchControllerPage.checkIfLetterIsVisible(startLetter)).toBeTruthy();
     });
+
+    it('selecting first result should take you to to the hearings list page', async () => {
+      liveCaseStatusPage = await liveCaseCourtSearchControllerPage.selectFirstListResult();
+      expect(await liveCaseStatusPage.getPageTitle()).toEqual('Live hearing updates - daily court list');
+    });
+
+    it(`should have '${validCourtName}' as a sub title`, async () => {
+      expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
+    });
+
+    it('should display 4 results in the table', async () => {
+      expect(await liveCaseStatusPage.getResults()).toBe(4);
+    });
   });
 
   describe('Following the \'tribunal hearing list\' option and \'find\' path', () => {
@@ -66,13 +82,13 @@ describe('Finding a court or tribunal listing', () => {
       viewOptionPage = await homePage.clickStartNowButton();
     });
 
-    it('should select \'tribunal hearing list\' option and navigate to search option page', async() => {
+    it('should select \'tribunal hearing list\' option and navigate to search option page', async () => {
       await viewOptionPage.selectSearchRadio();
       searchOptionsPage = await viewOptionPage.clickContinueForSearch();
       expect(await searchOptionsPage.getPageTitle()).toEqual('Find a court or tribunal list');
     });
 
-    it('should select \'find\' option and navigate to alphabetical search page', async() => {
+    it('should select \'find\' option and navigate to alphabetical search page', async () => {
       await searchOptionsPage.selectFindRadio();
       alphabeticalSearchPage = await searchOptionsPage.clickContinueForAlphabetical();
       expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal listing');
@@ -84,13 +100,13 @@ describe('Finding a court or tribunal listing', () => {
       expect(await alphabeticalSearchPage.checkIfLetterIsVisible('T')).toBeTruthy();
     });
 
-    it('selecting back to top should navigate to the top of the page', async() => {
+    it('selecting back to top should navigate to the top of the page', async () => {
       const startLetter = 'A';
       await alphabeticalSearchPage.selectBackToTop();
       expect(await alphabeticalSearchPage.checkIfLetterIsVisible(startLetter)).toBeTruthy();
     });
 
-    it('selecting first result should take you to to the hearings list page', async() => {
+    it('selecting first result should take you to to the hearings list page', async () => {
       hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
       expect(await hearingListPage.getPageTitle()).toEqual('Abergavenny Magistrates\' Court hearing list');
     });
@@ -106,19 +122,19 @@ describe('Finding a court or tribunal listing', () => {
     const expectedNumOfHearings = 1;
 
 
-    it('should select \'tribunal hearing list\' option and navigate to search option page', async() => {
+    it('should select \'tribunal hearing list\' option and navigate to search option page', async () => {
       await viewOptionPage.selectSearchRadio();
       searchOptionsPage = await viewOptionPage.clickContinueForSearch();
       expect(await searchOptionsPage.getPageTitle()).toEqual('Find a court or tribunal list');
     });
 
-    it('should select \'search\' option and navigate to search page', async() => {
+    it('should select \'search\' option and navigate to search page', async () => {
       await searchOptionsPage.selectSearchRadio();
       searchPage = await searchOptionsPage.clickContinueForSearch();
       expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
     });
 
-    it('should enter text and click continue', async() => {
+    it('should enter text and click continue', async () => {
       await searchPage.enterText(searchTerm);
       searchResultsPage = await searchPage.clickContinue();
       expect(await searchResultsPage.getPageTitle()).toEqual(`Courts or tribunals in ${searchTerm}`);
@@ -128,12 +144,12 @@ describe('Finding a court or tribunal listing', () => {
       expect(await searchResultsPage.getResults()).toBe(1);
     });
 
-    it('should navigate to hearing list page', async() => {
+    it('should navigate to hearing list page', async () => {
       hearingListPage = await searchResultsPage.selectCourt();
       expect(await hearingListPage.getPageTitle()).toEqual('Abergavenny Magistrates\' Court hearing list');
     });
 
-    it(`should display ${expectedNumOfHearings} results`, async() => {
+    it(`should display ${expectedNumOfHearings} results`, async () => {
       expect(await hearingListPage.getResults()).toBe(3);
     });
   });
@@ -151,4 +167,3 @@ describe('Finding a court or tribunal listing', () => {
     });
   });
 });
-

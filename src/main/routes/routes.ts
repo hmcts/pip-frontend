@@ -46,6 +46,8 @@ export default function(app: Application): void {
 
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
 
+  app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
+
   const healthCheckConfig = {
     checks: {
       // TODO: replace this sample check with proper checks for your application

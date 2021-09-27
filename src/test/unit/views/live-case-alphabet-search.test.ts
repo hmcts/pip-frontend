@@ -6,7 +6,7 @@ import fs from 'fs';
 import path from 'path';
 
 const PAGE_URL = '/live-case-alphabet-search';
-const expectedHeader = 'Live hearings updates - select a court';
+const expectedHeader = 'Live hearing updates - select a court';
 const expectedTableHeader = 'Crown courts in England and Wales';
 
 let htmlRes: Document;

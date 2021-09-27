@@ -18,7 +18,7 @@
             </a>
         </div>
         <div class="layout-width-four-fifths">
-            <h2 id='page-heading' class="govuk-heading-l">Live hearings updates - select a court</h2>
+            <h2 id='page-heading' class="govuk-heading-l">Live hearing updates - select a court</h2>
             <p class="govuk-body">Select a court to see live updates of each hearing within that court</p>
             <div class="govuk-!-margin-bottom-8">
                 <div class="govuk-grid-row">
@@ -61,7 +61,7 @@
                                         <th scope="row" class="govuk-table__header">
                                         </th>
                                 {% endif %}
-                                <td class="govuk-table__cell"><a href="/live-status?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></td>
+                                <td class="govuk-table__cell"><a href="/live-case-status?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></td>
                             </tr>
                         {% endfor %}
                         {% set first = '' %}
