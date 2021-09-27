@@ -4,6 +4,7 @@ import { SubscriptionActions } from '../../../../main/resources/actions/subscrip
 const userIdWithSubscriptions = 1;
 const userIdWithoutSubscriptions = 2;
 const subscriptionActions = new SubscriptionActions();
+const subscriptionActionsNoData = new SubscriptionActions();
 const mockedCaseSubscription = {
   name: 'Wyman Inc Dispute',
   reference: 'T20217010',
@@ -41,20 +42,19 @@ describe(`getUserSubscriptions(${userIdWithoutSubscriptions}) with valid user id
 });
 
 describe('generate rows functions without subscriptions', () => {
-  subscriptionActions.userId = 2;
+  subscriptionActionsNoData.userId = 2;
   it('generateCaseTableRows should return list of case subscriptions', () => {
-    const caseSubscriptionRows = subscriptionActions.generateCaseTableRows();
+    const caseSubscriptionRows = subscriptionActionsNoData.generateCaseTableRows();
     expect(caseSubscriptionRows.length).toBe(0);
   });
 
   it('generateCourtTableRows should return list of court subscriptions', () => {
-    const courtSubscriptionRows = subscriptionActions.generateCourtTableRows();
+    const courtSubscriptionRows = subscriptionActionsNoData.generateCourtTableRows();
     expect(courtSubscriptionRows.length).toBe(0);
   });
 });
 
 describe('generate rows functions with subscriptions', () => {
-  subscriptionActions.userId = 1;
   it('generateCaseTableRows should return list of case subscriptions', () => {
     const caseSubscriptionRows = subscriptionActions.generateCaseTableRows();
     expect(caseSubscriptionRows.length).toBeGreaterThan(0);
