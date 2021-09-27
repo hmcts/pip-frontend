@@ -22,7 +22,7 @@
       <div class="govuk-grid-row govuk-!-margin-bottom-8">
         {% for key, value in statusList %}
           {% if value| length != 0 %}
-            <div class="govuk-grid-column width-column left-align-text govuk-!-font-size-19">
+            <div class="govuk-grid-column govuk-!-text-align-left govuk-!-margin-right-4 govuk-!-font-size-19">
               <a id='{{ key }}-selector' href='#{{ key }}' class="govuk-link govuk-link--no-visited-state">{{ key }}</a>
             </div>
           {% endif %}
