@@ -16,6 +16,6 @@ describe('Subscription Management Page', () => {
 
   it('should display header', () => {
     const header = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(header[0].innerHTML).contains('Subscription Management', 'Could not find correct value in header');
+    expect(header[0].innerHTML).contains('Your subscriptions', 'Could not find correct value in header');
   });
 });
