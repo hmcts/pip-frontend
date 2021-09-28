@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import StatusDescriptionController from '../../../main/controllers/StatusDescriptionController';
 
 describe('Status Description Controller', () => {
-  it('should render the status descroiption page', () =>  {
+  it('should render the status description page', () =>  {
     const statusDescriptionController = new StatusDescriptionController();
 
     const response = {
