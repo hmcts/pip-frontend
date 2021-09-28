@@ -1,22 +1,12 @@
 import {SearchDescriptionActions} from '../resources/actions/searchDescriptionActions';
 import {InputFilterService} from '../service/inputFilterService';
+import {CourtService} from '../service/courtService';
 
 export class StatusDescriptionService {
-  private static generateAlphabetObject(): object {
-    // create the object for the possible alphabet options
-    const alphabetOptions = {};
-
-    for (let i = 0; i < 26; i++) {
-      const letter = String.fromCharCode(65 + i);
-      alphabetOptions[letter] = {};
-    }
-
-    return alphabetOptions;
-  }
 
   public generateStatusDescriptionObject(): object {
     let statusDescriptionList = new SearchDescriptionActions().getStatusDescriptionList();
-    const alphabetOptions = StatusDescriptionService.generateAlphabetObject();
+    const alphabetOptions = CourtService.generateAlphabetObject();
     statusDescriptionList = new InputFilterService().alphabetiseResults(statusDescriptionList, 'name');
 
     //Then loop through each status, and add it to the list

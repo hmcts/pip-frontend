@@ -2,7 +2,7 @@ import { InputFilterService } from './inputFilterService';
 import { CourtActions } from '../resources/actions/courtActions';
 
 export class CourtService {
-  private static generateAlphabetObject(): object {
+  public static generateAlphabetObject(): object {
     // create the object for the possible alphabet options
     const alphabetOptions = {};
 
