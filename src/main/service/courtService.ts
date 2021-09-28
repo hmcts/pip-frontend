@@ -1,7 +1,16 @@
 import { InputFilterService } from './inputFilterService';
 import { CourtActions } from '../resources/actions/courtActions';
+import {PipApi} from '../utils/PipApi';
+import {Court} from '../models/court';
 
+let _api: PipApi;
 export class CourtService {
+
+
+  constructor(private readonly api: PipApi) {
+    _api = this.api;
+  }
+
   private static generateAlphabetObject(): object {
     // create the object for the possible alphabet options
     const alphabetOptions = {};
@@ -14,8 +23,8 @@ export class CourtService {
     return alphabetOptions;
   }
 
-  public generateCourtsObject(): object {
-    let courtsList = new CourtActions().getCourtsList();
+  public async generateCourtsObject(): Promise<object> {
+    let courtsList = await new CourtActions(_api).getCourtsList();
     const alphabetOptions = CourtService.generateAlphabetObject();
     courtsList = new InputFilterService().alphabetiseResults(courtsList, 'name');
 
@@ -32,8 +41,8 @@ export class CourtService {
     return alphabetOptions;
   }
 
-  public generateCrownCourtArray(): object {
-    let courtsList = new CourtActions().getCourtsList();
+  public async generateCrownCourtArray(): Promise<object> {
+    let courtsList: Array<Court> = await new CourtActions(_api).getCourtsList();
     const alphabetOptions = CourtService.generateAlphabetObject();
     courtsList = new InputFilterService().alphabetiseResults(courtsList, 'name');
 

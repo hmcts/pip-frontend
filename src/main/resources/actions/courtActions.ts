@@ -1,28 +1,43 @@
-import fs from 'fs';
-import path from 'path';
+import {PipApi} from '../../utils/PipApi';
+import {Court} from '../../models/court';
 
 export class CourtActions {
-  mocksPath = '../mocks/';
-  rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'courtsAndHearingsCount.json'), 'utf-8');
 
-  getCourtDetails(courtId: number): any {
-    const courtsData = JSON.parse(this.rawData);
-    const court = courtsData?.results.filter((court) => court.courtId === courtId);
-    if (court.length) {
-      return court[0];
+  constructor(private readonly api: PipApi) {}
+
+  public async getCourtDetails(courtId: number): Promise<Court> {
+
+    const court = await this.api.getCourtDetails(courtId);
+
+    if (court) {
+      return court;
     } else {
       console.log(`Court with id ${courtId} does not exist`);
       return null;
     }
   }
 
-  getCourtsList(): any {
-    const courtsData = JSON.parse(this.rawData);
-    if (courtsData?.results) {
-      return courtsData.results;
+  public async getCourtList(inputSearch): Promise<Array<Court>> {
+
+    const courts = await this.api.getCourtList(inputSearch);
+
+    if (courts) {
+      return courts;
     } else {
-      console.error('unable to get courts list');
+      console.log(`Court with id ${inputSearch} does not exist`);
+      return null;
+    }
+  }
+
+  public async getCourtsList(): Promise<Array<Court>> {
+
+    const courts = await this.api.getAllCourtList();
+
+    if (courts && Array.isArray(courts)) {
+      return courts;
+    } else {
       return [];
     }
   }
+
 }

@@ -1,10 +1,22 @@
 import sinon from 'sinon';
 import { Request, Response } from 'express';
 import AlphabeticalSearchController from '../../../main/controllers/AlphabeticalSearchController';
+import {PipApi} from '../../../main/utils/PipApi';
+import fs from 'fs';
+import path from 'path';
+const axios = require('axios');
+jest.mock('axios');
 
+
+const api = new PipApi(axios);
+const stub = sinon.stub(api, 'getAllCourtList');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
+const hearingsData = JSON.parse(rawData);
 describe('Alphabetical Search Controller', () => {
   it('should render the alphabetical search page', () =>  {
-    const alphabeticalSearchController = new AlphabeticalSearchController();
+    const alphabeticalSearchController = new AlphabeticalSearchController(api);
+
+    stub.withArgs().returns(hearingsData);
 
     const response = {
       render: function() {return '';},
@@ -17,9 +29,10 @@ describe('Alphabetical Search Controller', () => {
 
     responseMock.expects('render').once().withArgs('alphabetical-search');
 
-    alphabeticalSearchController.get(request, response);
+    return alphabeticalSearchController.get(request, response).then(() => {
+      responseMock.verify();
+    });
 
-    responseMock.verify();
   });
 
 });

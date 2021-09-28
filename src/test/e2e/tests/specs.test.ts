@@ -50,10 +50,10 @@ describe('Finding a court or tribunal listing', () => {
       expect(await liveCaseCourtSearchControllerPage.getPageTitle()).toEqual('Live hearing updates - select a court');
     });
 
-    it('should select \'Z\' option, and navigate to the end of the page', async () => {
-      const endLetter = 'Z';
+    it('should select \'A\' option, and navigate to the end of the page', async () => {
+      const endLetter = 'A';
       await liveCaseCourtSearchControllerPage.selectLetter(endLetter);
-      expect(await liveCaseCourtSearchControllerPage.checkIfLetterIsVisible('Z')).toBeTruthy();
+      expect(await liveCaseCourtSearchControllerPage.checkIfLetterIsVisible('A')).toBeTruthy();
     });
 
     it('selecting back to top should navigate to the top of the page', async () => {
@@ -94,10 +94,10 @@ describe('Finding a court or tribunal listing', () => {
       expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal listing');
     });
 
-    it('should select \'Z\' option, and navigate to the end of the page', async () => {
-      const endLetter = 'Z';
+    it('should select \'T\' option, and navigate to the end of the page', async() => {
+      const endLetter = 'T';
       await alphabeticalSearchPage.selectLetter(endLetter);
-      expect(await alphabeticalSearchPage.checkIfLetterIsVisible('Z')).toBeTruthy();
+      expect(await alphabeticalSearchPage.checkIfLetterIsVisible('T')).toBeTruthy();
     });
 
     it('selecting back to top should navigate to the top of the page', async () => {
@@ -108,22 +108,19 @@ describe('Finding a court or tribunal listing', () => {
 
     it('selecting first result should take you to to the hearings list page', async () => {
       hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-      expect(await hearingListPage.getPageTitle()).toEqual('Albertville Court hearing list');
+      expect(await hearingListPage.getPageTitle()).toEqual('Abergavenny Magistrates\' Court hearing list');
     });
 
-    it('should display 1 result', async () => {
-      expect(await hearingListPage.getResults()).toBe(1);
+    it('should display 3 result', async() => {
+      expect(await hearingListPage.getResults()).toBe(3);
     });
   });
 
-  describe('Following the \'tribunal hearing list\' and \'search\' path', () => {
-    after(async () => {
-      await homePage.open('');
-      viewOptionPage = await homePage.clickStartNowButton();
-    });
-    const searchTerm = 'aylesbury';
-    const expectedNumOfResults = 2;
-    const expectedNumOfHearings = 3;
+  describe('Following the \'search\' path', () => {
+    const searchTerm = 'abergavenny';
+    const expectedNumOfResults = 1;
+    const expectedNumOfHearings = 1;
+
 
     it('should select \'tribunal hearing list\' option and navigate to search option page', async () => {
       await viewOptionPage.selectSearchRadio();
@@ -143,13 +140,13 @@ describe('Finding a court or tribunal listing', () => {
       expect(await searchResultsPage.getPageTitle()).toEqual(`Courts or tribunals in ${searchTerm}`);
     });
 
-    it(`should display ${expectedNumOfResults} results`, async () => {
-      expect(await searchResultsPage.getResults()).toBe(2);
+    it(`should display ${expectedNumOfResults} results`, async() => {
+      expect(await searchResultsPage.getResults()).toBe(1);
     });
 
     it('should navigate to hearing list page', async () => {
       hearingListPage = await searchResultsPage.selectCourt();
-      expect(await hearingListPage.getPageTitle()).toEqual('Aylesbury Crown Court hearing list');
+      expect(await hearingListPage.getPageTitle()).toEqual('Abergavenny Magistrates\' Court hearing list');
     });
 
     it(`should display ${expectedNumOfHearings} results`, async () => {
@@ -158,6 +155,11 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Media User Login', () => {
+    it('should open the OTP login page when a user clicks "Subscriptions" header', async () => {
+      viewOptionPage = await homePage.clickSubscriptionsButton();
+      expect(await viewOptionPage.getPageTitle()).toEqual('Verify your email address');
+    });
+
     it('should open the OTP login page', async () => {
       await otpLoginPage.open('otp-login');
       expect(await otpLoginPage.getPageTitle()).toBe('Verify your email address');
