@@ -27,7 +27,7 @@ export class StatusDescriptionService {
     return alphabetOptions;
   }
 
-  private alphabetiseResults(unsortedArray: any, leadValue): Array<any> {
+  private alphabetiseResults(unsortedArray: Array<any>, leadValue): Array<any> {
     return unsortedArray.sort((a, b) => a[leadValue].localeCompare(b[leadValue]));
   }
 }
