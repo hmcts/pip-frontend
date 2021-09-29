@@ -23,6 +23,10 @@ export default function(app: Application): void {
   app.get('/otp-login', app.locals.container.cradle.otpLoginController.get);
   app.get('/otp-login-testing', cors(corsOptions), app.locals.container.cradle.otpLoginTestingController.get);
   app.post('/otp-login', app.locals.container.cradle.otpLoginController.post);
+  app.get('/subscription-urn-search', app.locals.container.cradle.subscriptionUrnSearchController.get);
+  app.post('/subscription-urn-search', app.locals.container.cradle.subscriptionUrnSearchController.post);
+  app.get('/subscription-search-urn-results', app.locals.container.cradle.subscriptionSearchUrnResultController.get);
+
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
       host: os.hostname(),
@@ -59,6 +63,7 @@ export default function(app: Application): void {
   app.get('/api/courtlistall', app.locals.container.cradle.localApiController.apiAllCourtList);
   app.get('/api/courtlist/:input', app.locals.container.cradle.localApiController.apiCourtList);
   app.get('/api/hearings/:courtId', app.locals.container.cradle.localApiController.apiHearingsList);
+  app.get('/api/subscriptionbyurn/:urn', app.locals.container.cradle.localApiController.apiSubscriptionByUrn);
 
   healthcheck.addTo(app, healthCheckConfig);
 }

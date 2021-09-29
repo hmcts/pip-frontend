@@ -1,0 +1,70 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageTitle %}
+  {{ "Search for a URN" | safe }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ goBack('/') }}
+{% endblock %}
+
+{% block content %}
+  {% if noResultsError or invalidInputError %}
+    {% set errorMessage = 'There is nothing matching your criteria' %}
+    <div class="govuk-grid-row">
+      <div class="no_padding govuk-grid-column-three-quarters">
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: [
+            {
+              text: errorMessage,
+              href: "#search-input"
+            }
+          ]
+        }) }}
+      </div>
+    </div>
+  {% endif %}
+  {% set inputClasses = 'govuk-div govuk-input--error'
+    if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
+  {% set formGroupError = 'govuk-form-group--error'
+    if noResultsError or invalidInputError else 'govuk-form-group' %}
+  <form action="subscription-urn-search" method="post">
+    <div class="govuk-form-group govuk-!-width-one-half">
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--m" for="search-input">
+          Enter a unique reference number
+        </label>
+      </h1>
+      <div class="{{ formGroupError }}">
+        <div id="search-input-hint" class="govuk-hint">
+          Please provide the exact match
+        </div>
+        {% if noResultsError or invalidInputError %}
+          <span class="govuk-error-message">Enter a unique reference number</span>
+        {% endif %}
+        {{ govukInput({
+          label: {
+            "text": ''
+          },
+          id: "search-input",
+          name: "search-input",
+          autocomplete: "false"
+        }) }}
+      </div>
+
+    </div>
+    {{ submitButton() }}
+    {% if noResultsError %}
+      <div class="govuk-grid-row">
+        <div class="no_padding govuk-grid-column-full">
+          <h2 class="govuk-heading-s">There are no matching results.</h2>
+          <p class="govuk-body">You can improve your results by double checking your unique reference number.</p>
+        </div>
+      </div>
+    {% endif %}
+  </form>
+{% endblock %}

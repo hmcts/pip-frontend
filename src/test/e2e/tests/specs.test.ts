@@ -1,14 +1,16 @@
-import { HomePage } from '../PageObjects/Home.page';
-import { SearchOptionsPage } from '../PageObjects/SearchOptions.page';
-import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
-import { HearingListPage } from '../PageObjects/HearingList.page';
-import { SearchPage } from '../PageObjects/Search.page';
-import { SearchResultsPage } from '../PageObjects/SearchResults.page';
-import { OtpLoginPage } from '../PageObjects/OtpLogin.page';
-import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
-import { ViewOptionPage } from '../PageObjects/ViewOption.page';
-import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
-import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
+import { HomePage } from '../pageobjects/Home.page';
+import { SearchOptionsPage } from '../pageobjects/SearchOptions.page';
+import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
+import { HearingListPage } from '../pageobjects/HearingList.page';
+import { SearchPage } from '../pageobjects/Search.page';
+import { SearchResultsPage } from '../pageobjects/SearchResults.page';
+import { OtpLoginPage } from '../pageobjects/OtpLogin.page';
+import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
+import { ViewOptionPage } from '../pageobjects/ViewOption.page';
+import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
+import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
+import {SubscriptionUrnSearchResultsPage} from '../pageobjects/SubscriptionUrnSearchResults.page';
+import {SubscriptionUrnSearchPage} from '../pageobjects/SubscriptionUrnSearch.page';
 
 const homePage = new HomePage;
 const otpLoginPage = new OtpLoginPage();
@@ -21,6 +23,8 @@ let searchResultsPage: SearchResultsPage;
 let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
+let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
+const subscriptionUrnSearchPage = new SubscriptionUrnSearchPage;
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
@@ -38,7 +42,7 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Following the \'live case status updates\' path', () => {
-    const validCourtName = 'Ailibugai Court';
+    const validCourtName = 'Mutsu Court';
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
@@ -121,7 +125,6 @@ describe('Finding a court or tribunal listing', () => {
     const expectedNumOfResults = 1;
     const expectedNumOfHearings = 1;
 
-
     it('should select \'tribunal hearing list\' option and navigate to search option page', async () => {
       await viewOptionPage.selectSearchRadio();
       searchOptionsPage = await viewOptionPage.clickContinueForSearch();
@@ -153,6 +156,35 @@ describe('Finding a court or tribunal listing', () => {
       expect(await hearingListPage.getResults()).toBe(3);
     });
   });
+
+  describe('Following the subscription \'search\' path', () => {
+    const validSearchTerm = '123456789';
+    const invalidSearchTerm = '12345678';
+    const expectedNumOfResults = 1;
+
+    it('should open URN search page with Enter a unique reference number', async () => {
+      await subscriptionUrnSearchPage.open('/subscription-urn-search');
+      expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+    });
+
+    it('should enter invalid text and click continue', async () => {
+      await subscriptionUrnSearchPage.enterText(invalidSearchTerm);
+      await subscriptionUrnSearchPage.clickContinue();
+      expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+    });
+
+    it('should enter text and click continue', async () => {
+      await subscriptionUrnSearchPage.enterText(validSearchTerm);
+      subscriptionUrnSearchResultsPage =  await subscriptionUrnSearchPage.clickContinue();
+      expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
+    });
+
+    it(`should display ${expectedNumOfResults} results`, async() => {
+      expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
+    });
+
+  });
+
 
   describe('Media User Login', () => {
     it('should open the OTP login page', async () => {

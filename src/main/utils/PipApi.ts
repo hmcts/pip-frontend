@@ -40,4 +40,13 @@ export class PipApi {
       });
   }
 
+  public getSubscriptionByUrn(unr: string): Promise<any> {
+    return this.axios
+      .get('/api/subscriptionbyurn/' + unr, {  headers: {'Accept-Language': 'en'}})
+      .then(results => results.data)
+      .catch(err => {
+        return {err};
+      });
+  }
+
 }
