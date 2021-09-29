@@ -11,6 +11,8 @@ import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtS
 import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
 import {SubscriptionUrnSearchResultsPage} from '../pageobjects/SubscriptionUrnSearchResults.page';
 import {SubscriptionUrnSearchPage} from '../pageobjects/SubscriptionUrnSearch.page';
+import { OtpLoginTestingPage } from '../pageobjects/OtpLoginTesting.page';
+
 
 const homePage = new HomePage;
 const otpLoginPage = new OtpLoginPage();
@@ -25,6 +27,9 @@ let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
 const subscriptionUrnSearchPage = new SubscriptionUrnSearchPage;
+
+let otpLoginTestingPage: OtpLoginTestingPage;
+
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
@@ -187,6 +192,11 @@ describe('Finding a court or tribunal listing', () => {
 
 
   describe('Media User Login', () => {
+    it('should open the OTP login page when a user clicks "Subscriptions" header', async () => {
+      otpLoginTestingPage = await homePage.clickSubscriptionsButton();
+      expect(await otpLoginTestingPage.getPageTitle()).toEqual('Verify your email address');
+    });
+
     it('should open the OTP login page', async () => {
       await otpLoginPage.open('otp-login');
       expect(await otpLoginPage.getPageTitle()).toBe('Verify your email address');
