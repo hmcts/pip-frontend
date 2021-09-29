@@ -48,11 +48,12 @@ describe('Description fof First glossary must not be empty', () => {
 
 describe('All Glossary items must have name and description', () => {
   stubGetStatusDescriptionList.withArgs().returns(statusDescriptionData.results);
-
+  let i = 0;
   it('All Glossary items must have name and description', () => {
     return searchDescriptionActions.getStatusDescriptionList().then(data => {
-      expect(data.name).not.toBeNull();
-      expect(data.description).not.toBeNull();
+      expect(data[i].name).not.toBeNull();
+      expect(data[i].description).not.toBeNull();
+      i++;
     });
   });
 });

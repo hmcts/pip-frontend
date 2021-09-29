@@ -10,7 +10,7 @@ export class StatusDescriptionService {
   }
 
   public async generateStatusDescriptionObject(): Promise<object> {
-    let statusDescriptionList = await new SearchDescriptionActions(_api).getStatusDescriptionList();
+    let statusDescriptionList: Array<any>= await new SearchDescriptionActions(_api).getStatusDescriptionList();
     const alphabetOptions = CourtService.generateAlphabetObject();
     statusDescriptionList = this.alphabetiseResults(statusDescriptionList, 'name');
 

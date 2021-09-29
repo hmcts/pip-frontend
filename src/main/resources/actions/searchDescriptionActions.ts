@@ -3,7 +3,7 @@ import {PipApi} from '../../utils/PipApi';
 export class SearchDescriptionActions {
   constructor(private readonly api: PipApi) {}
 
-  public async getStatusDescriptionList(): Promise<any> {
+  public async getStatusDescriptionList(): Promise<Array<any>> {
 
     const statusDescriptionData = await this.api.getStatusDescriptionList();
 
