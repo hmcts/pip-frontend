@@ -1,15 +1,11 @@
 import moment from 'moment';
-import { SubscriptionActions } from '../resources/actions/subscriptionActions';
 
 export class TableService {
-  subscriptionActions = new SubscriptionActions();
   
-  generateCaseTableRows(userId: number): any[] {
-    const userSubscriptions = this.subscriptionActions.getUserSubscriptions(userId);
+  generateCaseTableRows(subscriptionData): any[] {
     const caseRows = [];
-    const caseSubscriptions = userSubscriptions.caseSubscriptions;
-    if (caseSubscriptions.length) {
-      caseSubscriptions.forEach((subscription) => {
+    if (subscriptionData.caseSubscriptions.length) {
+      subscriptionData.caseSubscriptions.forEach((subscription) => {
         caseRows.push(
           [
             {
@@ -32,12 +28,10 @@ export class TableService {
     return caseRows;
   }
 
-  generateCourtTableRows(userId): any[] {
-    const userSubscriptions = this.subscriptionActions.getUserSubscriptions(userId);
+  generateCourtTableRows(subscriptionData): any[] {
     const courtRows = [];
-    const courtSubscriptions = userSubscriptions.courtSubscriptions;
-    if (courtSubscriptions.length) {
-      courtSubscriptions.forEach((subscription) => {
+    if (subscriptionData.courtSubscriptions.length) {
+      subscriptionData.courtSubscriptions.forEach((subscription) => {
         courtRows.push([
           {
             text: subscription.name,

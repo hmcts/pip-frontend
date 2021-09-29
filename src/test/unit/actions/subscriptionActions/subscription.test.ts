@@ -2,6 +2,7 @@ import { SubscriptionActions } from '../../../../main/resources/actions/subscrip
 
 const userIdWithSubscriptions = 1;
 const userIdWithoutSubscriptions = 2;
+const nonExistingUserId = 777;
 const subscriptionActions = new SubscriptionActions();
 const mockedCaseSubscription = {
   name: 'Wyman Inc Dispute',
@@ -39,3 +40,9 @@ describe(`getUserSubscriptions(${userIdWithoutSubscriptions}) with valid user id
   });
 });
 
+describe(`non existing user Id getUserSubscriptions(${nonExistingUserId})`, () => {
+  const userSubscriptions = subscriptionActions.getUserSubscriptions(nonExistingUserId);
+  it('should return null', () => {
+    expect(userSubscriptions).toBe(null);
+  });
+});

@@ -1,13 +1,16 @@
 import { Request, Response } from 'express';
 import { TableService } from '../service/tableService';
+import { SubscriptionActions } from '../resources/actions/subscriptionActions';
+
+const tableService = new TableService();
+const userId = 1;
+const subscriptionsData = new SubscriptionActions().getUserSubscriptions(userId);
 
 export default class SubscriptionManagementController {
-  userId = 1;
-  tableService = new TableService();
 
   public get(req: Request, res: Response): void {
-    const caseTableData = this.tableService.generateCaseTableRows(this.userId);
-    const courtTableData = this.tableService.generateCourtTableRows(this.userId);
+    const caseTableData = tableService.generateCaseTableRows(subscriptionsData);
+    const courtTableData = tableService.generateCourtTableRows(subscriptionsData);
     let activeAllTab, activeCaseTab, activeCourtTab = false;
     switch (Object.keys(req.query)[0]) {
       case 'all':
