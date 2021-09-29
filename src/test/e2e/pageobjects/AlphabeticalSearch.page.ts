@@ -5,11 +5,11 @@ const helpers = require('../Helpers/Selectors');
 export class AlphabeticalSearchPage {
 
   async getPageTitle(): Promise<string> {
-    $(helpers.pageTitle).catch(() => {
-      console.log(`${helpers.pageTitle} not found`);
+    $(helpers.CommonPageTitle).catch(() => {
+      console.log(`${helpers.CommonPageTitle} not found`);
     });
 
-    return $(helpers.pageTitle).getText();
+    return $(helpers.CommonPageTitle).getText();
   }
 
   async selectLetter(letter): Promise<void> {

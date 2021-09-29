@@ -58,7 +58,8 @@ describe('Subscription Add', () => {
         .post('/subscription-add')
         .send({'subscription-choice': ''})
         .expect((res) => {
-          expect(res.status).to.equal(200);
+          expect(res.status).to.equal(302);
+          expect(res.header['location']).to.equal('/subscription-add?error=true');
         });
     });
   });
