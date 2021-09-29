@@ -1,19 +1,20 @@
-import { CourtActions } from '../resources/actions/courtActions';
-
 //TODO: replace with object model from common library
+import {Court} from '../models/court';
+
 declare type Serializable = number | string | boolean | null | bigint;
 
-const courtActions = new CourtActions();
+
 let courtsResults;
 let searchResults;
 
 export class InputFilterService {
-  public findCourts(searchInput, checkAgainst): Serializable[]{
+
+  public findCourts(searchInput, checkAgainst, courtList): Array<Court> {
     searchResults = [];
     if (!this.checkNotNullOrEmpty(searchInput)) {
       return searchResults;
     }
-    courtsResults = courtActions.getCourtsList();
+    courtsResults = courtList;
     checkAgainst.forEach(item => {
       this.checkInputAgainstSearchValue(searchInput, item);
     });
@@ -25,10 +26,10 @@ export class InputFilterService {
   }
 
   private checkInputAgainstSearchValue(searchInput, item): void {
-    courtsResults.filter(i => i[item].toLowerCase() === searchInput.toLowerCase()).forEach(result => searchResults.push(result));
+    courtsResults.filter(i => i[item].toLowerCase().indexOf(searchInput.toLowerCase()) !== -1).forEach(result => searchResults.push(result));
   }
 
-  public alphabetiseResults(unsortedArray: Serializable[], leadValue): Serializable[] {
+  public alphabetiseResults(unsortedArray: Array<Court>, leadValue): Array<Court> {
     return unsortedArray.sort((a, b) => a[leadValue].localeCompare(b[leadValue]));
   }
 

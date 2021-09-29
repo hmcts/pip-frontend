@@ -46,12 +46,19 @@ export default function(app: Application): void {
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
 
+  app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
+
   const healthCheckConfig = {
     checks: {
       // TODO: replace this sample check with proper checks for your application
       sampleCheck: healthcheck.raw(() => healthcheck.up()),
     },
   };
+
+  // local api mocks data
+  app.get('/api/courtlistall', app.locals.container.cradle.localApiController.apiAllCourtList);
+  app.get('/api/courtlist/:input', app.locals.container.cradle.localApiController.apiCourtList);
+  app.get('/api/hearings/:courtId', app.locals.container.cradle.localApiController.apiHearingsList);
 
   healthcheck.addTo(app, healthCheckConfig);
 }

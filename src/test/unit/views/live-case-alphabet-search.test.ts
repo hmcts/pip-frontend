@@ -2,12 +2,30 @@ import { expect } from 'chai';
 import request from 'supertest';
 
 import { app } from '../../../main/app';
+import fs from 'fs';
+import path from 'path';
 
 const PAGE_URL = '/live-case-alphabet-search';
-const expectedHeader = 'Live hearings updates - select a court';
+const expectedHeader = 'Live hearing updates - select a court';
 const expectedTableHeader = 'Crown courts in England and Wales';
 
 let htmlRes: Document;
+
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtAndHearings2.json'), 'utf-8');
+const hearingsData = JSON.parse(rawData);
+
+
+jest.mock('axios', () => {
+  return {
+    create: function(): { get: () => Promise<any> } {
+      return {
+        get: function(): Promise<any> {
+          return new Promise((resolve) => resolve({data: hearingsData}));
+        },
+      };
+    },
+  };
+});
 
 describe('Alphabetical Search page', () => {
   beforeAll(async () => {
@@ -37,7 +55,7 @@ describe('Alphabetical Search page', () => {
   it('should contain no link if letter has no hearings', () => {
     const alphabeticalLetters = htmlRes.getElementsByClassName('govuk-link--no-underline');
 
-    expect(alphabeticalLetters[1].innerHTML).contains('F', 'Alphabetical link is not present');
+    expect(alphabeticalLetters[1].innerHTML).contains('B', 'Alphabetical link is not present');
     expect(alphabeticalLetters[1].getAttribute('href')).not.exist;
   });
 
@@ -54,9 +72,9 @@ describe('Alphabetical Search page', () => {
     }
   });
 
-  it('should have the first cell containing Ailibugai Court', () => {
+  it('should have the first cell containing Abergavenny Magistrates\' Court', () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[0].innerHTML).contains('Ailibugai Court');
+    expect(cell[0].innerHTML).contains('Abergavenny Magistrates\' Court');
   });
 
   it('should contain a back to top link, that links back up to the top', () => {

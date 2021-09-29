@@ -2,6 +2,8 @@ import { expect } from 'chai';
 import request from 'supertest';
 
 import { app } from '../../../main/app';
+import fs from 'fs';
+import path from 'path';
 
 const PAGE_URL = '/search';
 const headingClass = 'govuk-label-wrapper';
@@ -17,6 +19,20 @@ const expectedHeader = 'What court or tribunal are you interested in?';
 const expectedButtonText = 'Continue';
 
 let htmlRes: Document;
+
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAllReduced.json'), 'utf-8');
+const hearingsData = JSON.parse(rawData);
+
+
+jest.mock('axios', () => {
+  return {
+    create: function(): { get: () => Promise<any> } {
+      return {
+        get: function(): Promise<any> { return new Promise((resolve) => resolve({data: hearingsData}));},
+      };
+    },
+  };
+});
 
 describe('Search Page', () => {
   beforeAll(async () => {
@@ -42,7 +58,7 @@ describe('Search Page', () => {
 
   it('should fill source with court names', () => {
     const script = htmlRes.getElementsByTagName('script')[2];
-    expect(script.innerHTML).contains('Mutsu Court', 'Could not find input field');
+    expect(script.innerHTML).contains('Abergavenny Magistrates\' Court', 'Could not find input field');
   });
 
   it('should display back button', () => {
