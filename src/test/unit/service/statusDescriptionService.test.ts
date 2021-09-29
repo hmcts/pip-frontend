@@ -1,8 +1,19 @@
 import { StatusDescriptionService } from '../../../main/service/statusDescriptionService';
+import sinon from 'sinon';
 import { expect } from 'chai';
+import fs from 'fs';
+import path from 'path';
+import {PipApi} from '../../../main/utils/PipApi';
+const axios = require('axios');
+jest.mock('axios');
 
-const statusDescriptionService = new StatusDescriptionService();
-const statusDescriptionArray = statusDescriptionService.generateStatusDescriptionObject();
+const api = new PipApi(axios);
+const stub = sinon.stub(api, 'getStatusDescriptionList');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/StatusDescription.json'), 'utf-8');
+const statusDescriptionData = JSON.parse(rawData);
+stub.withArgs().returns(statusDescriptionData.results);
+
+const statusDescriptionService = new StatusDescriptionService(api);
 const validStatusDescriptionKeysCount = 26;
 const alphabet = [
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -13,18 +24,28 @@ const invalidStatusDescription = 'Bench continue hearing';
 
 describe('Status Description Service', () => {
   it(`should return object with ${validStatusDescriptionKeysCount} status description keys`, () => {
-    expect(Object.keys(statusDescriptionArray).length).to.equal(validStatusDescriptionKeysCount);
+    return statusDescriptionService.generateStatusDescriptionObject().then((data) => {
+      expect(Object.keys(data).length).to.equal(validStatusDescriptionKeysCount);
+    });
   });
 
+
   it('should have have all letters of the alphabet as keys', () => {
-    expect(Object.keys(statusDescriptionArray)).to.deep.equal(alphabet);
+    return statusDescriptionService.generateStatusDescriptionObject().then((data) => {
+      expect(Object.keys(data)).to.deep.equal(alphabet);
+    });
   });
 
   it(`should have ${validStatusDescription} key`, () => {
-    expect(validStatusDescription in statusDescriptionArray['A']).to.be.true;
+    return statusDescriptionService.generateStatusDescriptionObject().then((data) => {
+      expect(validStatusDescription in data['A']).to.be.true;
+    });
+
   });
 
   it('should not have invalid status', () => {
-    expect(invalidStatusDescription in statusDescriptionArray['B']).to.be.false;
+    return statusDescriptionService.generateStatusDescriptionObject().then((data) => {
+      expect(invalidStatusDescription in data['A']).to.be.false;
+    });
   });
 });

@@ -2,10 +2,27 @@ import { expect } from 'chai';
 import request from 'supertest';
 
 import { app } from '../../../main/app';
+import fs from 'fs';
+import path from 'path';
 
 const PAGE_URL = '/status-description';
 
 let htmlRes: Document;
+
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/StatusDescription.json'), 'utf-8');
+const statusDescriptionData = JSON.parse(rawData).results;
+
+jest.mock('axios', () => {
+  return {
+    create: function(): { get: () => Promise<any> } {
+      return {
+        get: function(): Promise<any> {
+          return new Promise((resolve) => resolve({data: statusDescriptionData}));
+        },
+      };
+    },
+  };
+});
 
 describe('Status Description page', () => {
   beforeAll(async () => {

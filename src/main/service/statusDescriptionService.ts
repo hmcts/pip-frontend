@@ -1,5 +1,4 @@
 import {SearchDescriptionActions} from '../resources/actions/searchDescriptionActions';
-import {InputFilterService} from '../service/inputFilterService';
 import {CourtService} from '../service/courtService';
 import {PipApi} from '../utils/PipApi';
 
@@ -13,7 +12,7 @@ export class StatusDescriptionService {
   public async generateStatusDescriptionObject(): Promise<object> {
     let statusDescriptionList = await new SearchDescriptionActions(_api).getStatusDescriptionList();
     const alphabetOptions = CourtService.generateAlphabetObject();
-    statusDescriptionList = new InputFilterService().alphabetiseResults(statusDescriptionList, 'name');
+    statusDescriptionList = this.alphabetiseResults(statusDescriptionList, 'name');
 
     //Then loop through each status, and add it to the list
     statusDescriptionList.forEach(item => {
@@ -26,5 +25,9 @@ export class StatusDescriptionService {
       }
     });
     return alphabetOptions;
+  }
+
+  private alphabetiseResults(unsortedArray: any, leadValue): Array<any> {
+    return unsortedArray.sort((a, b) => a[leadValue].localeCompare(b[leadValue]));
   }
 }
