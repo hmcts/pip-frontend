@@ -28,4 +28,10 @@ export default class LocalApiController {
     const court = model.filter(c=>c.courtId == courtId)[0];
     return res.send(court);
   }
+
+  public apiStatusDescriptionList(req: Request, res: Response): any {
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../resources/mocks/StatusDescription.json'), 'utf-8');
+    const model = JSON.parse(rawData);
+    return res.send(model.results);
+  }
 }

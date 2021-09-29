@@ -40,4 +40,13 @@ export class PipApi {
       });
   }
 
+  public getStatusDescriptionList(): Promise<any> {
+    return this.axios
+      .get('/api/statusdescriptionlistall/', {  headers: {'Accept-Language': 'en'}})
+      .then(results => results.data)
+      .catch(err => {
+        return {err};
+      });
+  }
+
 }

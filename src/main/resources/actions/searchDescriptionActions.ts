@@ -1,14 +1,14 @@
-import fs from 'fs';
-import path from 'path';
+import {PipApi} from '../../utils/PipApi';
 
 export class SearchDescriptionActions {
-  mocksPath = '../mocks/';
-  rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'StatusDescription.json'), 'utf-8');
+  constructor(private readonly api: PipApi) {}
 
-  getStatusDescriptionList(): any {
-    const statusDescriptionData = JSON.parse(this.rawData);
-    if (statusDescriptionData?.results) {
-      return statusDescriptionData.results;
+  public async getStatusDescriptionList(): Promise<any> {
+
+    const statusDescriptionData = await this.api.getStatusDescriptionList();
+
+    if (statusDescriptionData) {
+      return statusDescriptionData;
     } else {
       console.error('unable to get court status description list');
       return [];

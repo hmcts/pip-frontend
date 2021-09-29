@@ -1,11 +1,17 @@
 import {SearchDescriptionActions} from '../resources/actions/searchDescriptionActions';
 import {InputFilterService} from '../service/inputFilterService';
 import {CourtService} from '../service/courtService';
+import {PipApi} from '../utils/PipApi';
 
+let _api: PipApi;
 export class StatusDescriptionService {
 
-  public generateStatusDescriptionObject(): object {
-    let statusDescriptionList = new SearchDescriptionActions().getStatusDescriptionList();
+  constructor(private readonly api: PipApi) {
+    _api = this.api;
+  }
+
+  public async generateStatusDescriptionObject(): Promise<object> {
+    let statusDescriptionList = await new SearchDescriptionActions(_api).getStatusDescriptionList();
     const alphabetOptions = CourtService.generateAlphabetObject();
     statusDescriptionList = new InputFilterService().alphabetiseResults(statusDescriptionList, 'name');
 

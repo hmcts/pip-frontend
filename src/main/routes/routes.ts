@@ -40,7 +40,7 @@ export default function(app: Application): void {
   app.post('/search', app.locals.container.cradle.searchController.post);
 
   app.get('/subscription-management', app.locals.container.cradle.subscriptionManagementController.get);
-  
+
   app.get('/status-description', app.locals.container.cradle.statusDescriptionController.get);
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
@@ -59,6 +59,7 @@ export default function(app: Application): void {
   app.get('/api/courtlistall', app.locals.container.cradle.localApiController.apiAllCourtList);
   app.get('/api/courtlist/:input', app.locals.container.cradle.localApiController.apiCourtList);
   app.get('/api/hearings/:courtId', app.locals.container.cradle.localApiController.apiHearingsList);
+  app.get('/api/statusdescriptionlistall', app.locals.container.cradle.localApiController.apiStatusDescriptionList);
 
   healthcheck.addTo(app, healthCheckConfig);
 }
