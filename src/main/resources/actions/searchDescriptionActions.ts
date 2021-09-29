@@ -7,7 +7,7 @@ export class SearchDescriptionActions {
 
     const statusDescriptionData = await this.api.getStatusDescriptionList();
 
-    if (statusDescriptionData) {
+    if (statusDescriptionData && Array.isArray(statusDescriptionData)) {
       return statusDescriptionData;
     } else {
       console.error('unable to get court status description list');
