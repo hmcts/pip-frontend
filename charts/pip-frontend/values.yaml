@@ -1,10 +1,12 @@
 nodejs:
   applicationPort: 8080
   ingressHost: pip-frontend.{{ .Values.global.environment }}.platform.hmcts.net
-  image: 'sdshmctspublic.azurecr.io/pip-frontend:latest'
+  image: 'sdshmctspublic.azurecr.io/pip/frontend:latest'
 #  Uncomment once the vault containing the app insights key has been set up
 #  keyVaults:
 #    Publishing-information-project:
 #      secrets:
 #        - AppInsightsInstrumentationKey
   environment:
+#    API_URL: pip-business-rules.{{ .Values.global.environment }}.platform.hmcts.net
+    API_URL: http://localhost:8080

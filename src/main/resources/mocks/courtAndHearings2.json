@@ -1,0 +1,380 @@
+[
+{
+  "courtId":1,
+  "name":"Abergavenny Magistrates' Court",
+  "jurisdiction":"Crown Court",
+  "location":"Bedford",
+  "hearings": 3,
+  "hearingList": [
+    {
+      "hearingId": 28,
+      "courtId": 1,
+      "courtNumber": 10,
+      "date": "07/10/2021 22:56:49",
+      "judge": "Mandy Stanbro",
+      "platform": "Skype",
+      "caseNumber": "56-181-2097",
+      "caseName": "Youtags's hearings"
+    },
+    {
+      "hearingId": 295,
+      "courtId": 1,
+      "courtNumber": 21,
+      "date": "17/09/2021 15:56:50",
+      "judge": "Coleen Sackler",
+      "platform": "Teams",
+      "caseNumber": "63-832-9648",
+      "caseName": "Midel's hearings"
+    },
+    {
+      "hearingId": 300,
+      "courtId": 1,
+      "courtNumber": 3,
+      "date": "08/09/2021 13:57:29",
+      "judge": "Tait Di Carlo",
+      "platform": "Zoom",
+      "caseNumber": "04-347-1750",
+      "caseName": "Roombo's hearings"
+    }
+  ]
+},
+  {
+    "courtId": 2,
+    "name": "Accrington County Court",
+    "jurisdiction": "Crown Court",
+    "location": "London",
+    "hearings": 2,
+    "hearingList": [
+      {
+        "hearingId": 28,
+        "courtId": 2,
+        "courtNumber": 10,
+        "date": "07/10/2021 22:56:49",
+        "judge": "Mandy Stanbro",
+        "platform": "Skype",
+        "caseNumber": "56-181-2097",
+        "caseName": "Youtags's hearings"
+      },
+      {
+        "hearingId": 295,
+        "courtId": 2,
+        "courtNumber": 21,
+        "date": "17/09/2021 15:56:50",
+        "judge": "Coleen Sackler",
+        "platform": "Teams",
+        "caseNumber": "63-832-9648",
+        "caseName": "Midel's hearings"
+      }
+    ]
+  },
+  {
+    "courtId": 3,
+    "name": "Accrington Magistrates' Court",
+    "jurisdiction": "Crown Court",
+    "location": "Manchester",
+    "hearings": 5,
+    "hearingList": [
+      {
+        "hearingId": 28,
+        "courtId": 3,
+        "courtNumber": 10,
+        "date": "07/10/2021 22:56:49",
+        "judge": "Mandy Stanbro",
+        "platform": "Skype",
+        "caseNumber": "56-181-2097",
+        "caseName": "Youtags's hearings"
+      },
+      {
+        "hearingId": 295,
+        "courtId": 3,
+        "courtNumber": 21,
+        "date": "17/09/2021 15:56:50",
+        "judge": "Coleen Sackler",
+        "platform": "Teams",
+        "caseNumber": "63-832-9648",
+        "caseName": "Midel's hearings"
+      },
+      {
+        "hearingId": 300,
+        "courtId": 3,
+        "courtNumber": 3,
+        "date": "08/09/2021 13:57:29",
+        "judge": "Tait Di Carlo",
+        "platform": "Zoom",
+        "caseNumber": "04-347-1750",
+        "caseName": "Roombo's hearings"
+      }
+    ]
+  },
+  {
+    "courtId": 4,
+    "name": "Aldershot and Farnham County Court and Family Court",
+    "jurisdiction": "Crown Court",
+    "location": "Manchester",
+    "hearings": 7,
+    "hearingList": [
+      {
+        "hearingId": 28,
+        "courtId": 4,
+        "courtNumber": 10,
+        "date": "07/10/2021 22:56:49",
+        "judge": "Mandy Stanbro",
+        "platform": "Skype",
+        "caseNumber": "56-181-2097",
+        "caseName": "Youtags's hearings"
+      },
+      {
+        "hearingId": 295,
+        "courtId": 4,
+        "courtNumber": 21,
+        "date": "17/09/2021 15:56:50",
+        "judge": "Coleen Sackler",
+        "platform": "Teams",
+        "caseNumber": "63-832-9648",
+        "caseName": "Midel's hearings"
+      },
+      {
+        "hearingId": 300,
+        "courtId": 4,
+        "courtNumber": 3,
+        "date": "08/09/2021 13:57:29",
+        "judge": "Tait Di Carlo",
+        "platform": "Zoom",
+        "caseNumber": "04-347-1750",
+        "caseName": "Roombo's hearings"
+      },
+      {
+        "hearingId": 300,
+        "courtId": 4,
+        "courtNumber": 3,
+        "date": "09/09/2021 13:57:29",
+        "judge": "Tait Di Carlo",
+        "platform": "Zoom",
+        "caseNumber": "04-347-1750",
+        "caseName": "Roombo's hearings"
+      },
+      {
+        "hearingId": 300,
+        "courtId": 4,
+        "courtNumber": 3,
+        "date": "10/09/2021 13:57:29",
+        "judge": "Tait Di Carlo",
+        "platform": "Zoom",
+        "caseNumber": "04-347-1750",
+        "caseName": "Roombo's hearings"
+      },
+      {
+        "hearingId": 300,
+        "courtId": 4,
+        "courtNumber": 3,
+        "date": "11/09/2021 13:57:29",
+        "judge": "Tait Di Carlo",
+        "platform": "Zoom",
+        "caseNumber": "04-347-1750",
+        "caseName": "Roombo's hearings"
+      },
+      {
+        "hearingId": 300,
+        "courtId": 4,
+        "courtNumber": 3,
+        "date": "12/09/2021 13:57:29",
+        "judge": "Tait Di Carlo",
+        "platform": "Zoom",
+        "caseNumber": "04-347-1750",
+        "caseName": "Roombo's hearings"
+      }
+    ]
+  },
+  {
+    "courtId": 5,
+    "name": "Aldershot Magistrates' Court",
+    "jurisdiction": "Royal Court",
+    "location": "Manchester",
+    "hearings": 3,
+    "hearingList": [
+      {
+        "hearingId": 28,
+        "courtId": 5,
+        "courtNumber": 10,
+        "date": "07/10/2021 22:56:49",
+        "judge": "Mandy Stanbro",
+        "platform": "Skype",
+        "caseNumber": "56-181-2097",
+        "caseName": "Youtags's hearings"
+      },
+      {
+        "hearingId": 295,
+        "courtId": 5,
+        "courtNumber": 21,
+        "date": "17/09/2021 15:56:50",
+        "judge": "Coleen Sackler",
+        "platform": "Teams",
+        "caseNumber": "63-832-9648",
+        "caseName": "Midel's hearings"
+      },
+      {
+        "hearingId": 300,
+        "courtId": 5,
+        "courtNumber": 3,
+        "date": "08/09/2021 13:57:29",
+        "judge": "Tait Di Carlo",
+        "platform": "Zoom",
+        "caseNumber": "04-347-1750",
+        "caseName": "Roombo's hearings"
+      }
+    ]
+  },
+  {
+    "courtId": 6,
+    "name": "Alton Magistrates' Court",
+    "jurisdiction": "Royal Court",
+    "location": "London",
+    "hearings": 2,
+    "hearingList": [
+      {
+        "hearingId": 28,
+        "courtId": 6,
+        "courtNumber": 10,
+        "date": "07/10/2021 22:56:49",
+        "judge": "Mandy Stanbro",
+        "platform": "Skype",
+        "caseNumber": "56-181-2097",
+        "caseName": "Youtags's hearings"
+      },
+      {
+        "hearingId": 295,
+        "courtId": 6,
+        "courtNumber": 21,
+        "date": "17/09/2021 15:56:50",
+        "judge": "Coleen Sackler",
+        "platform": "Teams",
+        "caseNumber": "63-832-9648",
+        "caseName": "Midel's hearings"
+      }
+    ]
+  },
+  {
+    "courtId": 7,
+    "name": "Altrincham County Court and Family Court",
+    "jurisdiction": "Crown Court",
+    "location": "Manchester",
+    "hearings": 1,
+    "hearingList": [
+      {
+        "hearingId": 28,
+        "courtId": 1,
+        "courtNumber": 10,
+        "date": "07/10/2021 22:56:49",
+        "judge": "Mandy Stanbro",
+        "platform": "Skype",
+        "caseNumber": "56-181-2097",
+        "caseName": "Youtags's hearings"
+      }
+    ]
+  },
+  {
+    "courtId": 8,
+    "name": "Andover Magistrates' Court",
+    "jurisdiction": "Royal Court",
+    "location": "Bedford",
+    "hearings": 3,
+    "hearingList": [
+      {
+        "hearingId": 28,
+        "courtId": 8,
+        "courtNumber": 10,
+        "date": "07/10/2021 22:56:49",
+        "judge": "Mandy Stanbro",
+        "platform": "Skype",
+        "caseNumber": "56-181-2097",
+        "caseName": "Youtags's hearings"
+      },
+      {
+        "hearingId": 295,
+        "courtId": 8,
+        "courtNumber": 21,
+        "date": "17/09/2021 15:56:50",
+        "judge": "Coleen Sackler",
+        "platform": "Teams",
+        "caseNumber": "63-832-9648",
+        "caseName": "Midel's hearings"
+      },
+      {
+        "hearingId": 300,
+        "courtId": 8,
+        "courtNumber": 3,
+        "date": "08/09/2021 13:57:29",
+        "judge": "Tait Di Carlo",
+        "platform": "Zoom",
+        "caseNumber": "04-347-1750",
+        "caseName": "Roombo's hearings"
+      }
+    ]
+  },
+  {
+    "courtId": 9,
+    "name": "Tameside Magistrates' Court",
+    "jurisdiction": "Royal Court",
+    "location": "Manchester",
+    "hearings": 2,
+    "hearingList": [
+      {
+        "hearingId": 28,
+        "courtId": 9,
+        "courtNumber": 10,
+        "date": "07/10/2021 22:56:49",
+        "judge": "Mandy Stanbro",
+        "platform": "Skype",
+        "caseNumber": "56-181-2097",
+        "caseName": "Youtags's hearings"
+      }
+    ]
+  },
+  {
+    "courtId": 10,
+    "name": "Aylesbury County Court and Family Court",
+    "jurisdiction": "Royal Court",
+    "location": "Manchester",
+    "hearings": 1,
+    "hearingList": [
+      {
+        "hearingId": 28,
+        "courtId": 10,
+        "courtNumber": 10,
+        "date": "07/10/2021 22:56:49",
+        "judge": "Mandy Stanbro",
+        "platform": "Skype",
+        "caseNumber": "56-181-2097",
+        "caseName": "Youtags's hearings"
+      }
+    ]
+  },
+  {
+    "courtId": 543,
+    "name": "Wakefield Social Security and Child Support Tribunal",
+    "jurisdiction": "Crown Court",
+    "location": "London",
+    "hearingList": [
+      {
+        "hearingId": 323,
+        "courtId": 543,
+        "courtNumber": 30,
+        "date": "04/09/2021 22:56:47",
+        "judge": "Cathie Tomas",
+        "platform": "HMCTS",
+        "caseNumber": "45-320-7260",
+        "caseName": "Linkbridge's hearings"
+      },
+      {
+        "hearingId": 324,
+        "courtId": 543,
+        "courtNumber": 25,
+        "date": "17/10/2021 17:56:54",
+        "judge": "Hirsch Bohlje",
+        "platform": "Skype",
+        "caseNumber": "45-231-1475",
+        "caseName": "Yacero's hearings"
+      }
+      ]
+  }
+  ]

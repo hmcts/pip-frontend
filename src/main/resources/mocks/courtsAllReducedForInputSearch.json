@@ -1,0 +1,16 @@
+[
+  {
+    "courtId": 2,
+    "name": "Accrington County Court",
+    "jurisdiction": "Crown Court",
+    "location": "London",
+    "hearings": 8
+  },
+  {
+    "courtId": 3,
+    "name": "Accrington Magistrates' Court",
+    "jurisdiction": "Crown Court",
+    "location": "Manchester",
+    "hearings": 10
+  }
+]

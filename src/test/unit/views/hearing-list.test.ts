@@ -3,10 +3,26 @@ import request from 'supertest';
 import moment from 'moment';
 
 import { app } from '../../../main/app';
+import fs from 'fs';
+import path from 'path';
 
-const PAGE_URL = '/hearing-list?courtId=2';
+const PAGE_URL = '/hearing-list?courtId=1';
 
 let htmlRes: Document;
+
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtAndHearings.json'), 'utf-8');
+const hearingsData = JSON.parse(rawData);
+
+
+jest.mock('axios', () => {
+  return {
+    create: function(): { get: () => Promise<any> } {
+      return {
+        get: function(): Promise<any> {return new Promise((resolve) => resolve({data: hearingsData}));},
+      };
+    },
+  };
+});
 
 describe('Hearing List page', () => {
   beforeAll(async () => {
@@ -23,7 +39,7 @@ describe('Hearing List page', () => {
 
   it('should display court name header', () => {
     const header = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(header[0].innerHTML).contains('Khvalynsk Court hearing list', 'Could not find the header');
+    expect(header[0].innerHTML).contains(' hearing list', 'Could not find the header');
   });
 
   it('should display table caption', () => {
@@ -51,12 +67,12 @@ describe('Hearing List page', () => {
     const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
     const items = tableRows.item(1).children;
 
-    expect(items.item(0).innerHTML).contains('2', 'Court Number not found / correct');
-    expect(items.item(1).innerHTML).contains('Wilkinson LLC\'s Hearing', 'Case name not found / correct');
-    expect(items.item(2).innerHTML).contains('80-541-6372', 'Case number not found / correct');
-    expect(items.item(3).innerHTML).contains('Judge Margarita Ivanonko', 'Judges not found / correct');
-    expect(items.item(4).innerHTML).contains('4:46 PM', 'Time not found / correct');
-    expect(items.item(5).innerHTML).contains('Microsoft Teams', 'Hearing Platform not found / correct');
+    expect(items.item(0).innerHTML).contains('1', 'Court Number not found / correct');
+    expect(items.item(1).innerHTML).contains("Youtags's hearings", 'Case name not found / correct');
+    expect(items.item(2).innerHTML).contains('56-181-2097', 'Case number not found / correct');
+    expect(items.item(3).innerHTML).contains('Mandy Stanbro', 'Judges not found / correct');
+    expect(items.item(4).innerHTML).contains('07/10/2021 22:56:49', 'Time not found / correct');
+    expect(items.item(5).innerHTML).contains('Skype', 'Hearing Platform not found / correct');
   });
 
   it('should display the related content section', () => {

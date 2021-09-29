@@ -1,17 +1,20 @@
-import { CourtActions } from '../resources/actions/courtActions';
-import { JSONArray } from 'puppeteer';
+//TODO: replace with object model from common library
+import {Court} from '../models/court';
 
-const courtActions = new CourtActions();
+declare type Serializable = number | string | boolean | null | bigint;
+
+
 let courtsResults;
 let searchResults;
 
 export class InputFilterService {
-  public findCourts(searchInput, checkAgainst): JSONArray {
+
+  public findCourts(searchInput, checkAgainst, courtList): Array<Court> {
     searchResults = [];
     if (!this.checkNotNullOrEmpty(searchInput)) {
       return searchResults;
     }
-    courtsResults = courtActions.getCourtsList();
+    courtsResults = courtList;
     checkAgainst.forEach(item => {
       this.checkInputAgainstSearchValue(searchInput, item);
     });
@@ -23,14 +26,14 @@ export class InputFilterService {
   }
 
   private checkInputAgainstSearchValue(searchInput, item): void {
-    courtsResults.filter(i => i[item].toLowerCase() === searchInput.toLowerCase()).forEach(result => searchResults.push(result));
+    courtsResults.filter(i => i[item].toLowerCase().indexOf(searchInput.toLowerCase()) !== -1).forEach(result => searchResults.push(result));
   }
 
-  public alphabetiseResults(unsortedArray: JSONArray, leadValue): JSONArray {
+  public alphabetiseResults(unsortedArray: Array<Court>, leadValue): Array<Court> {
     return unsortedArray.sort((a, b) => a[leadValue].localeCompare(b[leadValue]));
   }
 
-  public numericallySortResults(unsortedArray: JSONArray, leadValue): JSONArray {
+  public numericallySortResults(unsortedArray: Serializable[], leadValue): Serializable[] {
     return unsortedArray.sort((a, b) => a[leadValue]-b[leadValue]);
   }
 
