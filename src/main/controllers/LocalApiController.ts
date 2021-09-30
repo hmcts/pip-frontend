@@ -28,4 +28,12 @@ export default class LocalApiController {
     const court = model.filter(c=>c.courtId == courtId)[0];
     return res.send(court);
   }
+
+  public apiSubscriptionByCaseReference(req: Request, res: Response): any {
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../resources/mocks/subscriptionCaseList.json'), 'utf-8');
+    const model = JSON.parse(rawData);
+    const referenceNo = req.params.caseReference;
+    const result = model.filter(s=> s.referenceNo === referenceNo);
+    return res.send(Object.values(result));
+  }
 }

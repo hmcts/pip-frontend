@@ -40,4 +40,12 @@ export class PipApi {
       });
   }
 
+  public getSubscriptionByCaseReference(caseReference: string): Promise<any> {
+    return this.axios
+      .get('/api/subscriptionbycasereference/' + caseReference, {  headers: {'Accept-Language': 'en'}})
+      .then(results => results.data)
+      .catch(err => {
+        return {err};
+      });
+  }
 }
