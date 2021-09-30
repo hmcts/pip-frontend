@@ -76,7 +76,7 @@ describe('URN Search Page Blank Input', () => {
 
   it('should display minimum input error message', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
-    expect(errorSummary[0].innerHTML).contains('There is nothing matching your criteria', 'Could not find error message');
+    expect(errorSummary[0].innerHTML).contains('URN not found, please try again or search under a Case Name or subscribe to a whole court', 'Could not find error message');
   });
 
   it('should display error message', () => {
@@ -109,7 +109,7 @@ describe('URN Search Page Invalid Input', () => {
 
   it('should display minimum input error message', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
-    expect(errorSummary[0].innerHTML).contains('There is nothing matching your criteria', 'Could not find error message');
+    expect(errorSummary[0].innerHTML).contains('URN not found, please try again or search under a Case Name or subscribe to a whole court', 'Could not find error message');
   });
 
   it('should display error message', () => {

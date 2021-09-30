@@ -7,7 +7,7 @@ import path from 'path';
 
 const searchTerm = '123456789';
 const numOfResults = '1';
-const PAGE_URL = `/subscription-search-urn-results?search-input=${searchTerm}`;
+const PAGE_URL = `/subscription-urn-search-results?search-input=${searchTerm}`;
 
 const rowClass = 'govuk-table__row';
 

@@ -4,7 +4,7 @@ import {SubscriptionSearchActions} from '../resources/actions/subscriptionSearch
 
 
 let _api: PipApi;
-export default class SubscriptionSearchUrnResultController {
+export default class SubscriptionUrnSearchResultController {
 
   constructor(private readonly api: PipApi) {
     _api = this.api;
@@ -17,7 +17,7 @@ export default class SubscriptionSearchUrnResultController {
 
 
     if (searchResults && searchResults.length) {
-      res.render('subscription-search-urn-results', {searchInput, searchResults});
+      res.render('subscription-urn-search-results', {searchInput, searchResults});
     } else {
       res.render('error');
     }

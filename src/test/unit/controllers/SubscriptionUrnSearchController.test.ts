@@ -105,7 +105,7 @@ describe('Subscription Urn Search Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('subscription-search-urn-results?search-input=123456789');
+    responseMock.expects('redirect').once().withArgs('subscription-urn-search-results?search-input=123456789');
 
     return subscriptionUrnSearchController.post(request, response).then(() => {
       responseMock.verify();

@@ -13,7 +13,7 @@
 
 {% block content %}
   {% if noResultsError or invalidInputError %}
-    {% set errorMessage = 'There is nothing matching your criteria' %}
+    {% set errorMessage = 'URN not found, please try again or search under a Case Name or subscribe to a whole court' %}
     <div class="govuk-grid-row">
       <div class="no_padding govuk-grid-column-three-quarters">
         {{ govukErrorSummary({
@@ -35,7 +35,7 @@
   <form action="subscription-urn-search" method="post">
     <div class="govuk-form-group govuk-!-width-one-half">
       <h1 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--m" for="search-input">
+        <label class="govuk-label govuk-label--l" for="search-input">
           Enter a unique reference number
         </label>
       </h1>

@@ -11,4 +11,15 @@ describe('subscription URN Search', () => {
         .expect((res) => expect(res.status).to.equal(200));
     });
   });
+
+  describe('on POST', () => {
+    test('should return subscription urn result page', async () => {
+      await request(app)
+        .post('/subscription-urn-search')
+        .send({'search-input': '123456789'})
+        .expect((res) => {
+          expect(res.status).to.equal(200);
+        });
+    });
+  });
 });

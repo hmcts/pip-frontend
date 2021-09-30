@@ -25,7 +25,7 @@ export default function(app: Application): void {
   app.post('/otp-login', app.locals.container.cradle.otpLoginController.post);
   app.get('/subscription-urn-search', app.locals.container.cradle.subscriptionUrnSearchController.get);
   app.post('/subscription-urn-search', app.locals.container.cradle.subscriptionUrnSearchController.post);
-  app.get('/subscription-search-urn-results', app.locals.container.cradle.subscriptionSearchUrnResultController.get);
+  app.get('/subscription-urn-search-results', app.locals.container.cradle.subscriptionUrnSearchResultController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {

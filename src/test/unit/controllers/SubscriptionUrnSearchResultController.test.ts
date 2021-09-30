@@ -3,14 +3,14 @@ import { Request, Response } from 'express';
 import {PipApi} from '../../../main/utils/PipApi';
 import fs from 'fs';
 import path from 'path';
-import SubscriptionSearchUrnResultController from '../../../main/controllers/SubscriptionSearchUrnResultController';
+import SubscriptionUrnSearchResultController from '../../../main/controllers/SubscriptionUrnSearchResultController';
 
 const axios = require('axios');
 jest.mock('axios');
 
 
 const api = new PipApi(axios);
-const subscriptionSearchUrnResultController = new SubscriptionSearchUrnResultController(api);
+const subscriptionSearchUrnResultController = new SubscriptionUrnSearchResultController(api);
 const stub = sinon.stub(api, 'getSubscriptionByUrn');
 
 describe('Subscription Search Urn Result Controller', () => {
@@ -27,7 +27,7 @@ describe('Subscription Search Urn Result Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('subscription-search-urn-results');
+    responseMock.expects('render').once().withArgs('subscription-urn-search-results');
 
 
     return subscriptionSearchUrnResultController.get(request, response).then(() => {
