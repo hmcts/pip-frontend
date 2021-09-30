@@ -1,6 +1,12 @@
 [
     {
+      "id": 1,
       "referenceNo": "ABC12345",
       "caseName": "John Smith v B&Q PLC"
+    },
+    {
+      "id": 2,
+      "referenceNo": "ABC22222",
+      "caseName": "William Smith v B&M PLC"
     }
 ]
