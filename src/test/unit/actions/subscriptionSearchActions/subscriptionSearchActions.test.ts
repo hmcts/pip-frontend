@@ -24,26 +24,26 @@ describe(`getSubscriptionUrnDetails(${validUrn})`, () => {
   stub.withArgs(validUrn).returns(subscriptionsData);
 
 
-  it('should return list of hearings', () => {
+  it('should return list of cases', () => {
     return subscriptionActions.getSubscriptionUrnDetails(validUrn).then(data => {
       expect(data).toBe(subscriptionsData);
     });
   });
 
-  it('should return list of 1 subscription', () => {
+  it('should return list of 1 cases', () => {
     return subscriptionActions.getSubscriptionUrnDetails(validUrn).then(data => {
       expect(data.length).toBe(1);
     });
   });
 
 
-  it('should have mocked object in the subscriptions list', () => {
+  it('should have mocked object in the cases list', () => {
     return subscriptionActions.getSubscriptionUrnDetails(validUrn).then(data => {
       expect(data.filter((hearings) => hearings.urn === data[0].urn).length).toBe(1);
     });
   });
 
-  it(`should have only subscriptions for urn ${validUrn}`, () => {
+  it(`should have only cases for urn ${validUrn}`, () => {
     return subscriptionActions.getSubscriptionUrnDetails(validUrn).then(data => {
       expect(data.filter((hearings) => hearings.urn === validUrn).length).toBe(data.length);
     });

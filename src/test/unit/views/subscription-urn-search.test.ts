@@ -20,14 +20,14 @@ const expectedButtonText = 'Continue';
 let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/subscriptionListResult.json'), 'utf-8');
-const hearingsData = JSON.parse(rawData);
+const subscriptionsData = JSON.parse(rawData);
 
 
 jest.mock('axios', () => {
   return {
     create: function(): { get: () => Promise<any> } {
       return {
-        get: function(): Promise<any> { return new Promise((resolve) => resolve({data: hearingsData}));},
+        get: function(): Promise<any> { return new Promise((resolve) => resolve({data: subscriptionsData}));},
       };
     },
   };
