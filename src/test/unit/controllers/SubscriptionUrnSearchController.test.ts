@@ -18,9 +18,9 @@ describe('Subscription Urn Search Controller', () => {
 
 
     const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/subscriptionListResult.json'), 'utf-8');
-    const hearingsData = JSON.parse(rawData);
+    const subscriptionResult = JSON.parse(rawData);
 
-    stub.withArgs('123456789').returns(hearingsData);
+    stub.withArgs('123456789').returns(subscriptionResult);
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = {} as unknown as Request;
@@ -102,9 +102,9 @@ describe('Subscription Urn Search Controller', () => {
 
   it('should redirect to urn search results page with input as query if urn input is valid', () => {
     const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/subscriptionListResult.json'), 'utf-8');
-    const hearingsData = JSON.parse(rawData);
+    const subscriptionResult = JSON.parse(rawData);
 
-    stub.withArgs('123456789').returns(hearingsData);
+    stub.withArgs('123456789').returns(subscriptionResult);
 
     const response = { redirect: function() {return '';}} as unknown as Response;
     const request = { body: { 'search-input': '123456789'}} as unknown as Request;

@@ -55,7 +55,7 @@ describe(`getSubscriptionUrnDetails(${invalidUrn})`, () => {
   stub.withArgs(invalidUrn).returns({});
 
 
-  it('should return empty list as urn ${invalidCourtId}', () => {
+  it('should return empty list as urn ${invalidUrn}', () => {
     return subscriptionActions.getSubscriptionUrnDetails(invalidUrn).then(data => {
       expect(data).toStrictEqual({});
     });
