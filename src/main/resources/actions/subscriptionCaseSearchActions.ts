@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-export class SubscriptionSearchActions {
+export class SubscriptionCaseSearchActions {
   mocksPath = '../mocks/';
   rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'subscriptionCaseList.json'), 'utf-8');
 
