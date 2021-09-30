@@ -6,10 +6,10 @@ export class SubscriptionCaseSearchActions {
   constructor(private readonly api: PipApi) {}
 
   public async getSubscriptionCaseDetails(caseReferenceNo): Promise<Array<Any>> {
-    const subscriptions = await this.api.getSubscriptionByCaseReference(caseReferenceNo);
+    const subscriptionCaseDetails = await this.api.getSubscriptionByCaseReference(caseReferenceNo);
 
-    if (subscriptions) {
-      return subscriptions;
+    if (subscriptionCaseDetails) {
+      return subscriptionCaseDetails;
     } else {
       console.log(`Subscription with case reference ${caseReferenceNo} does not exist`);
       return null;
