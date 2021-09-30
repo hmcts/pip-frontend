@@ -1,18 +1,19 @@
-import fs from 'fs';
-import path from 'path';
+import {PipApi} from '../../utils/PipApi';
+import Any = jasmine.Any;
 
 export class SubscriptionCaseSearchActions {
-  mocksPath = '../mocks/';
-  rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'subscriptionCaseList.json'), 'utf-8');
 
-  getSubscriptionCaseDetails(caseReferenceNo: string): object[] {
-    const subscriptionCasesData = JSON.parse(this.rawData);
-    const subscriptionCase = subscriptionCasesData?.results.filter((subscriptionCase) => subscriptionCase.referenceNo === caseReferenceNo);
-    if (subscriptionCase.length) {
-      return subscriptionCase;
+  constructor(private readonly api: PipApi) {}
+
+  public async getSubscriptionCaseDetails(caseReferenceNo): Promise<Array<Any>> {
+    const subscriptions = await this.api.getSubscriptionByCaseReference(caseReferenceNo);
+
+    if (subscriptions) {
+      return subscriptions;
     } else {
-      console.log(`Subscription Case with reference ${caseReferenceNo} does not exist`);
+      console.log(`Subscription with case reference ${caseReferenceNo} does not exist`);
       return null;
     }
+
   }
 }
