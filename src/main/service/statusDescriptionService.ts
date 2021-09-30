@@ -19,7 +19,7 @@ export class StatusDescriptionService {
       if (item.description !== '') {
         const status = item.name as string;
         alphabetOptions[status.charAt(0).toUpperCase()][status] = {
-          id: item.statusId,
+          id: item.Id,
           description: item.description,
         };
       }
