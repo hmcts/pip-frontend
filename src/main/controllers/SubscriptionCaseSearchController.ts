@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import {SubscriptionSearchActions} from '../resources/actions/subscriptionSearchActions';
+import {SubscriptionCaseSearchActions} from '../resources/actions/subscriptionCaseSearchActions';
 import {isNull} from 'util';
 
-const subscriptionCaseList = new SubscriptionSearchActions();
+const subscriptionCaseList = new SubscriptionCaseSearchActions();
 
-export default class SubscriptionSearchController {
+export default class SubscriptionCaseSearchController {
   public get(req: Request, res: Response): void {
     res.render('subscription-case-search');
   }

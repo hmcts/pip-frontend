@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import {SubscriptionSearchActions} from '../resources/actions/subscriptionSearchActions';
+import {SubscriptionCaseSearchActions} from '../resources/actions/subscriptionCaseSearchActions';
 
-const subscriptionCaseList = new SubscriptionSearchActions();
+const subscriptionCaseList = new SubscriptionCaseSearchActions();
 
-export default class SubscriptionSearchResultController {
+export default class SubscriptionCaseSearchResultController {
   public get(req: Request, res: Response): void {
     const searchInput = req.query['search-input'];
     const searchResults = subscriptionCaseList.getSubscriptionCaseDetails(searchInput.toString());
