@@ -18,9 +18,9 @@ describe('Subscription Search Urn Result Controller', () => {
 
 
     const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/subscriptionListResult.json'), 'utf-8');
-    const hearingsData = JSON.parse(rawData);
+    const subscriptionsData = JSON.parse(rawData);
 
-    stub.withArgs('123456789').returns(hearingsData);
+    stub.withArgs('123456789').returns(subscriptionsData);
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = {query: {'search-input': '123456789'}} as unknown as Request;
