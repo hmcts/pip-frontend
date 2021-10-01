@@ -10,7 +10,6 @@ export class SearchDescriptionActions {
     if (statusDescriptionData && Array.isArray(statusDescriptionData)) {
       return statusDescriptionData;
     } else {
-      console.error('unable to get court status description list');
       return [];
     }
   }
