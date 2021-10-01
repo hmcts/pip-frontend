@@ -3,7 +3,6 @@
 
 $line-colour: #1d70b8;
 $text-disabled: #505a5f;
-$link-as-text-color: #0b0c0c;
 
 //Global App Styling
 .govuk-header__navigation--end {
@@ -84,11 +83,6 @@ $link-as-text-color: #0b0c0c;
 
 .centre-align-text {
   text-align: center;
-}
-
-.link-without-formatting {
-  color: $link-as-text-color;
-  text-decoration-line: unset;
 }
 
 //Styling for Search Results page
