@@ -11,6 +11,7 @@ const headingClass = 'govuk-fieldset__heading';
 const buttonClass = 'govuk-button';
 const subscriptionChoiceId = 'subscription-choice';
 const radioClass = 'govuk-radios__item';
+const relatedContentClass = 'govuk-heading-s';
 const linkClass = 'govuk-link';
 
 const expectedHeader = 'How do you want to add a subscription?';
@@ -19,6 +20,7 @@ const expectedRadioLabel1 = 'By case reference number';
 const expectedRadioLabel2 = 'By unique reference number';
 const expectedRadioLabel3 = 'By case name';
 const expectedRadioLabel4 = 'By court or tribunal';
+const expectedRelatedContentHeader = 'Related content';
 const expectedLink1 = 'Manage your subscriptions';
 const expectedLink2 = 'Find a court or tribunal list';
 
@@ -84,6 +86,12 @@ describe('Subscription add Page initial load', () => {
   it('should display fourth radio button content',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons[3].innerHTML).contains(expectedRadioLabel4, 'Could not find the radio button with label ' + expectedRadioLabel2);
+  });
+
+  it('should display related content header',  () => {
+    const relatedContentHeader = htmlRes.getElementsByClassName(relatedContentClass);
+    expect(relatedContentHeader[0].innerHTML).contains(expectedRelatedContentHeader,
+      'Could not find the related content header ' + expectedRelatedContentHeader);
   });
 
   it('should display manage your subscriptions link',  () => {
