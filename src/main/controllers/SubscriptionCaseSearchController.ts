@@ -27,4 +27,4 @@ export default class SubscriptionCaseSearchController {
       res.render('subscription-case-search', { invalidInputError: true, noResultsError: false });
     }
   }
-}
+} 
