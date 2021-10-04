@@ -21,6 +21,7 @@ export default function(app: Application): void {
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
   app.get('/otp-login', app.locals.container.cradle.otpLoginController.get);
+  app.get('/otp-login-azure', app.locals.container.cradle.otpLoginAzureController.get);
   app.get('/subscription-login', cors(corsOptions), app.locals.container.cradle.subscriptionLoginController.get);
   app.post('/otp-login', app.locals.container.cradle.otpLoginController.post);
   app.get('/info', infoRequestHandler({
