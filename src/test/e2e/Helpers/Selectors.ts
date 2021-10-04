@@ -2,6 +2,9 @@ module.exports = {
   // Common selectors
   ContinueButton: '.govuk-button',
   CommonPageTitle: '.govuk-heading-l',
+  CommonPageTitleM: '.govuk-heading-m',
+  SubscriptionsButton: '#subscriptionHeaderButton',
+  SignInButton: '#signInButton',
   Results: 'tbody > tr.govuk-table__row',
   // Home page selectors
   StartNowButton: '.govuk-button--start',
@@ -32,4 +35,11 @@ module.exports = {
   // OtpLogin page selectors
   OtpInput: '#otp-code',
 
+  // ViewOption page selectors
+  ViewOptionsTitle: 'h1.govuk-fieldset__heading',
+  ViewSearchRadioButton: '#view-choice',
+  LiveHearingsRadioButton: '#view-choice-2',
+
+  // LiveCaseAlphabetSearch selectors
+  LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',
 };

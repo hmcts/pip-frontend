@@ -38,6 +38,12 @@ Run:
 $ yarn start
 ```
 
+Run application for test purpose. this will run an internal API with mock data:
+
+```bash
+$ yarn start:local
+```
+
 The applications's home page will be available at https://localhost:8080
 
 ### Running with Docker

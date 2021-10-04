@@ -1,11 +1,29 @@
 import { expect } from 'chai';
 import request from 'supertest';
-
 import { app } from '../../../main/app';
+import fs from 'fs';
+import path from 'path';
 
 const PAGE_URL = '/alphabetical-search';
 
 let htmlRes: Document;
+
+
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtAndHearings2.json'), 'utf-8');
+const hearingsData = JSON.parse(rawData);
+
+
+jest.mock('axios', () => {
+  return {
+    create: function(): { get: () => Promise<any> } {
+      return {
+        get: function(): Promise<any> {
+          return new Promise((resolve) => resolve({data: hearingsData}));
+        },
+      };
+    },
+  };
+});
 
 describe('Alphabetical Search page', () => {
   beforeAll(async () => {
@@ -15,14 +33,18 @@ describe('Alphabetical Search page', () => {
   });
 
   it('should display a back button with the correct value', () => {
+
     const backLink = htmlRes.getElementsByClassName('govuk-back-link');
-    expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backLink[0].getAttribute('href')).equal('/search-option', 'Back value does not contain correct link');
+    expect(backLink[0].innerHTML)
+      .contains('Back', 'Back button does not contain correct text');
+    expect(backLink[0].getAttribute('href'))
+      .equal('/search-option', 'Back value does not contain correct link');
   });
 
   it('should contain the find a court heading', () => {
     const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(pageHeading[0].innerHTML).contains('Find a court or tribunal listing', 'Page heading does not exist');
+    expect(pageHeading[0].innerHTML)
+      .contains('Find a court or tribunal listing', 'Page heading does not exist');
   });
 
   it('should contain letters that navigate to other sections of the page', () => {
@@ -35,21 +57,25 @@ describe('Alphabetical Search page', () => {
   it('should contain no link if letter has no hearings', () => {
     const alphabeticalLetters = htmlRes.getElementsByClassName('govuk-link--no-underline');
 
-    expect(alphabeticalLetters[1].innerHTML).contains('I', 'Alphabetical link is not present');
+    expect(alphabeticalLetters[1].innerHTML).contains('B', 'Alphabetical link is not present');
     expect(alphabeticalLetters[1].getAttribute('href')).not.exist;
   });
 
   it('should contain no hearings text', () => {
-    const noHearings = htmlRes.getElementById('I').parentNode.parentNode as Element;
+    const noHearings = htmlRes.getElementById('B').parentNode.parentNode as Element;
 
-    expect(noHearings.innerHTML).contains('No hearings are scheduled in any of these', 'No hearings list not present');
-    expect(noHearings.innerHTML).contains('locations today', 'No hearings list not present');
+    expect(noHearings.innerHTML)
+      .contains('No hearings are scheduled in any of these', 'No hearings list not present');
+    expect(noHearings.innerHTML)
+      .contains('locations today', 'No hearings list not present');
   });
 
   it('should contain the correct headers', () => {
     const tableHeaders = htmlRes.getElementsByClassName('govuk-table__header');
-    expect(tableHeaders[1].innerHTML).contains('Court or tribunal', 'Court or tribunal header is not present');
-    expect(tableHeaders[2].innerHTML).contains('Number of hearings', 'Number of hearings header is not present');
+    expect(tableHeaders[1].innerHTML)
+      .contains('Court or tribunal', 'Court or tribunal header is not present');
+    expect(tableHeaders[2].innerHTML)
+      .contains('Number of hearings', 'Number of hearings header is not present');
   });
 
   it('should contain the letter names in rows are present', () => {
@@ -60,9 +86,9 @@ describe('Alphabetical Search page', () => {
     }
   });
 
-  it('should have the first cell containing Albertville Court', () => {
+  it('should have the first cell containing Abergavenny Magistrates\' Court', () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[0].innerHTML).contains('Albertville Court');
+    expect(cell[0].innerHTML).contains('Abergavenny Magistrates\' Court');
   });
 
   it('should contain a back to top link, that links back up to the top', () => {
