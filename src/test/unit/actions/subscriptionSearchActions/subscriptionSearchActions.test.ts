@@ -39,13 +39,13 @@ describe(`getSubscriptionUrnDetails(${validUrn})`, () => {
 
   it('should have mocked object in the cases list', () => {
     return subscriptionActions.getSubscriptionUrnDetails(validUrn).then(data => {
-      expect(data.filter((hearings) => hearings.urn === data[0].urn).length).toBe(1);
+      expect(data.filter((subcription) => subcription.urn === data[0].urn).length).toBe(1);
     });
   });
 
   it(`should have only cases for urn ${validUrn}`, () => {
     return subscriptionActions.getSubscriptionUrnDetails(validUrn).then(data => {
-      expect(data.filter((hearings) => hearings.urn === validUrn).length).toBe(data.length);
+      expect(data.filter((subcription) => subcription.urn === validUrn).length).toBe(data.length);
     });
   });
 });

@@ -13,7 +13,7 @@ export class SubscriptionSearchActions {
       return subscriptions;
     } else {
       console.log(`Subscription with urn ${urn} does not exist`);
-      return null;
+      return [];
     }
 
   }

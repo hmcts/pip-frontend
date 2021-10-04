@@ -1,4 +1,3 @@
-import { HearingListPage } from './HearingList.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -21,13 +20,4 @@ export class SubscriptionUrnSearchResultsPage {
     return results.length;
   }
 
-  async selectCourt(): Promise<HearingListPage> {
-    $(helpers.LinkResult).catch(() => {
-      console.log(`${helpers.LinkResult} not found`);
-    });
-    const linkResult = await $(helpers.LinkResult);
-    linkResult.click();
-
-    return new HearingListPage();
-  }
 }
