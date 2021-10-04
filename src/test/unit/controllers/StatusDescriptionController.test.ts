@@ -21,7 +21,6 @@ describe('Status Description Controller', () => {
     const response = {
       render: function() {return '';},
       get: function() {return '';},
-      set: function() {return '';},
     } as unknown as Response;
     const request = {query: {}} as unknown as Request;
 
