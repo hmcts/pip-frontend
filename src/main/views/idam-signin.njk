@@ -1,0 +1,49 @@
+{% from "./macros/common-components.njk" import goBack %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ "IDAM SignIn" | safe }}
+{% endblock %}
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: text,
+    href: '#',
+    attributes: {
+      onClick: "history.back();event.preventDefault();"
+    }
+  }) }}
+{% endblock %}
+{% block content %}
+  <form method="post" novalidate>
+    <h1 class="govuk-heading-l govuk-!-margin-top-5">Sign in to your account</h1>
+    <div class="govuk-body">You need to <a class="govuk-link" href="#">create an account</a> to use this service.</div>
+    <div class="govuk-body">Already have an account? Please tell us which jurisdiction you are signed up with and we will then ask you to sign in.</div>
+
+    {{ govukSelect({
+      id: "idam-select",
+      name: "idam-select",
+      label: {
+        text: "What service jurisdiction is your organisation set up as?"
+      },
+      items: [
+        {
+          value: "crime",
+          text: "Crime"
+        },
+        {
+          value: "cft",
+          text: "CFT"
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Continue",
+      classes: "govuk-!-margin-top-5 govuk-!-margin-bottom-8"
+    }) }}
+  </form>
+
+{% endblock %}
