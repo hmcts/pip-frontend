@@ -20,4 +20,4 @@ export default class SubscriptionCaseSearchResultController {
       res.render('error');
     }
   }
-}
+} 
