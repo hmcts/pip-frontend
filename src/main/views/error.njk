@@ -1,5 +1,15 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% extends "template.njk" %}
 
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: text,
+    href: '#',
+    attributes: {
+      onClick: "history.back();"
+    }
+  }) }}
+{% endblock %}
 {% block content %}
   <h1 class="govuk-heading-xl">Something went wrong</h1>
 {% endblock %}
