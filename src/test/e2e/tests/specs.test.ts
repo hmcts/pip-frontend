@@ -9,6 +9,7 @@ import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagemen
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
 import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
+import { OtpLoginTestingPage } from '../PageObjects/OtpLoginTesting.page';
 
 const homePage = new HomePage;
 const otpLoginPage = new OtpLoginPage();
@@ -21,6 +22,7 @@ let searchResultsPage: SearchResultsPage;
 let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
+let otpLoginTestingPage: OtpLoginTestingPage;
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
@@ -156,8 +158,8 @@ describe('Finding a court or tribunal listing', () => {
 
   describe('Media User Login', () => {
     it('should open the OTP login page when a user clicks "Subscriptions" header', async () => {
-      viewOptionPage = await homePage.clickSubscriptionsButton();
-      expect(await viewOptionPage.getPageTitle()).toEqual('Verify your email address');
+      otpLoginTestingPage = await homePage.clickSubscriptionsButton();
+      expect(await otpLoginTestingPage.getPageTitle()).toEqual('Verify your email address');
     });
 
     it('should open the OTP login page', async () => {
