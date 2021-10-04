@@ -30,7 +30,6 @@ describe('Subscription Urn Search Controller', () => {
     subscriptionUrnSearchController.get(request, response);
 
     responseMock.verify();
-
   });
 
   it('should render urn search page if there are no matching results', () => {
@@ -111,5 +110,4 @@ describe('Subscription Urn Search Controller', () => {
       responseMock.verify();
     });
   });
-
 });
