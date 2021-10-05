@@ -136,3 +136,27 @@ tbody {
 .table-header-bottom-align {
   vertical-align: bottom;
 }
+
+.intro {
+  @extend .govuk-body;
+}
+
+div {
+  .attrEntry {
+    div {
+      @extend .govuk-body;
+    }
+  }
+}
+
+.buttons {
+  button {
+    @extend .govuk-button;
+  }
+}
+
+.helpLink {
+  display: none;
+}
+
+
