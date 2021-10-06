@@ -33,7 +33,7 @@ describe('View Option Page', () => {
     expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
   });
 
-  it('should display 2 radio buttons', () => {
+  it('should display 3 radio buttons', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons.length).equal(3, '3 radio buttons not found');
   });
@@ -48,7 +48,7 @@ describe('View Option Page', () => {
     expect(radioButtons[1].innerHTML).contains(expectedRadioLabel2, 'Could not find the radio button with label ' + expectedRadioLabel2);
   });
 
-  it('should display second radio button content',  () => {
+  it('should display third radio button content',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons[2].innerHTML).contains(expectedRadioLabel3, 'Could not find the radio button with label ' + expectedRadioLabel3);
   });

@@ -38,7 +38,7 @@ describe('Finding a court or tribunal listing', () => {
     expect(await viewOptionPage.getPageTitle()).toEqual('What would you like to view?');
   });
 
-  it('should see both radio buttons', async () => {
+  it('should see 3 radio buttons', async () => {
     expect(await viewOptionPage.radioButtons).toBe(3);
   });
 
