@@ -7,7 +7,5 @@ nodejs:
 #    Publishing-information-project:
 #      secrets:
 #        - AppInsightsInstrumentationKey
-java:
-  environment:
-   API_URL: pip-business-rules.{{ .Values.global.environment }}.platform.hmcts.net > sds-app.{{ .Values.global.environment }}.platform.net 
+
   
