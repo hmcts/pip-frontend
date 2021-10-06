@@ -43,7 +43,7 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Following the \'live case status updates\' path', () => {
-    const validCourtName = 'Ailibugai Court';
+    const validCourtName = 'Mutsu Court';
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
