@@ -1,11 +1,10 @@
 import {PipApi} from '../../utils/PipApi';
-import Any = jasmine.Any;
 
 export class SubscriptionCaseSearchActions {
 
   constructor(private readonly api: PipApi) {}
 
-  public async getSubscriptionCaseDetails(caseReferenceNo): Promise<Array<Any>> {
+  public async getSubscriptionCaseDetails(caseReferenceNo): Promise<Array<any>> {
     const subscriptionCaseDetails = await this.api.getSubscriptionByCaseReference(caseReferenceNo);
 
     if (subscriptionCaseDetails) {
