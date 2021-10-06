@@ -178,6 +178,7 @@ div {
 }
 
 .verifyInput {
+  @extend .govuk-input;
   @extend .govuk-\!-margin-right-4;
 }
 
@@ -186,7 +187,7 @@ div {
 }
 
 .textInput {
-  @extend govuk-input;
+  @extend .govuk-input;
 }
 
 .helpLink {
