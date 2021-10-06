@@ -5,7 +5,7 @@ import { app } from '../../../main/app';
 
 const PAGE_URL = '/live-case-status?courtId=1';
 const expectedHeader = 'Live hearing updates - daily court list';
-const expectedCourtName = 'Mutsu Court';
+const expectedCourtName = 'Abergavenny Magistrates\' Court';
 let htmlRes: Document;
 
 describe('Live Status page', () => {
