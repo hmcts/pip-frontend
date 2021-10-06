@@ -3,6 +3,7 @@
 
 $line-colour: #1d70b8;
 $text-disabled: #505a5f;
+$error-colour: #d4351c;
 
 //Global App Styling
 .govuk-header__navigation--end {
@@ -137,6 +138,8 @@ tbody {
   vertical-align: bottom;
 }
 
+//Styling changes for the Azure OTP Logon Page
+
 .intro {
   @extend .govuk-body;
 }
@@ -150,9 +153,43 @@ div {
 }
 
 .buttons {
+  @extend .govuk-\!-margin-top-4;
+
   button {
     @extend .govuk-button;
+    @extend .govuk-\!-margin-right-4;
   }
+}
+
+.attrEntry {
+  label {
+    @extend .govuk-body;
+    @extend .govuk-\!-font-weight-bold;
+
+  }
+}
+
+.verify {
+  label {
+    @extend .govuk-\!-margin-right-4;
+  }
+}
+
+.verificationErrorText {
+  color: $error-colour;
+}
+
+.verifyInput {
+  @extend .govuk-input;
+  @extend .govuk-\!-margin-right-4;
+}
+
+.sendButton {
+  @extend .govuk-\!-margin-top-4;
+}
+
+.textInput {
+  @extend .govuk-input;
 }
 
 .helpLink {
