@@ -1,3 +1,5 @@
+import * as process from "process";
+
 const {Logger} = require('@hmcts/nodejs-logging');
 
 import * as bodyParser from 'body-parser';
@@ -21,6 +23,8 @@ const developmentMode = env === 'development';
 
 export const app = express();
 app.locals.ENV = env;
+
+app.locals.SUBSCRIPTION_URL = process.env.SUBSCRIPTION_URL;
 
 const logger = Logger.getLogger('app');
 
