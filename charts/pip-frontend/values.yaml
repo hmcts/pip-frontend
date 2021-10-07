@@ -9,4 +9,3 @@ nodejs:
 #        - AppInsightsInstrumentationKey
   environment:
    API_URL: pip-business-rules.{{ .Values.global.environment }}.platform.hmcts.net
-  
