@@ -7,6 +7,5 @@ nodejs:
 #    Publishing-information-project:
 #      secrets:
 #        - AppInsightsInstrumentationKey
-  environment:
-#    API_URL: pip-business-rules.{{ .Values.global.environment }}.platform.hmcts.net
-    API_URL: http://localhost:8080
+
+  
