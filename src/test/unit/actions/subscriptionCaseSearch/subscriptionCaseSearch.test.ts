@@ -28,7 +28,7 @@ describe(`getSubscriptionCaseDetails(${validCaseNo})`, () => {
     });
   });
 
-  it('should return list of 2 cases', () => {
+  it('should return list of 1 case', () => {
     return subscriptionSearchActions.getSubscriptionCaseDetails(validCaseNo).then(data => {
       expect(data.length).toBe(1);
     });
