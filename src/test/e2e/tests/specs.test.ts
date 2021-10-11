@@ -36,7 +36,7 @@ let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
 let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
 let courtNameSearchPage: CourtNameSearchPage;
 let subscriptionCaseSearchResultsPage: SubscriptionCaseSearchResultsPage;
-let subscriptionCaseSearchPage = new SubscriptionCaseSearchPage;
+const subscriptionCaseSearchPage = new SubscriptionCaseSearchPage;
 
 
 describe('Finding a court or tribunal listing', () => {
