@@ -322,15 +322,15 @@ describe('Finding a court or tribunal listing', () => {
     const invalidSearchTerm = 'dddd';
     const expectedNumOfResults = 1;
 
-    it('should open Case search page with Enter a unique reference number', async () => {
+    it('should open Case search page with Enter a case reference number', async () => {
       await subscriptionCaseSearchPage.open('/subscription-case-search');
-      expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+      expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a case reference number');
     });
 
     it('should enter invalid text and click continue', async () => {
       await subscriptionCaseSearchPage.enterText(invalidSearchTerm);
       await subscriptionCaseSearchPage.clickContinue();
-      expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+      expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a case reference number');
     });
 
     it('should enter text and click continue', async () => {
