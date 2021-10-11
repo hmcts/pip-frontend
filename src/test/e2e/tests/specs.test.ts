@@ -10,6 +10,8 @@ import { ViewOptionPage } from '../PageObjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
 import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
 import { OtpLoginTestingPage } from '../PageObjects/OtpLoginTesting.page';
+import {SubscriptionCaseSearchResultsPage} from '../pageobjects/SubscriptionCaseSearchResults.page';
+import {SubscriptionCaseSearchPage} from '../pageobjects/SubscriptionCaseSearch.page';
 
 const homePage = new HomePage;
 const otpLoginPage = new OtpLoginPage();
@@ -23,6 +25,9 @@ let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let otpLoginTestingPage: OtpLoginTestingPage;
+let subscriptionCaseSearchResultsPage: SubscriptionCaseSearchResultsPage;
+let subscriptionCaseSearchPage = new SubscriptionCaseSearchPage;
+
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
@@ -172,5 +177,33 @@ describe('Finding a court or tribunal listing', () => {
       subscriptionManagementPage = await otpLoginPage.clickContinue();
       expect(await subscriptionManagementPage.getPageTitle()).toEqual('Subscription Management');
     });
+  });
+
+  describe('Following the subscription \'search\' by case reference path', () => {
+    const validSearchTerm = 'ABC12345';
+    const invalidSearchTerm = 'dddd';
+    const expectedNumOfResults = 1;
+
+    it('should open Case search page with Enter a unique reference number', async () => {
+      await subscriptionCaseSearchPage.open('/subscription-case-search');
+      expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+    });
+
+    it('should enter invalid text and click continue', async () => {
+      await subscriptionCaseSearchPage.enterText(invalidSearchTerm);
+      await subscriptionCaseSearchPage.clickContinue();
+      expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+    });
+
+    it('should enter text and click continue', async () => {
+      await subscriptionCaseSearchPage.enterText(validSearchTerm);
+      subscriptionCaseSearchResultsPage =  await subscriptionCaseSearchPage.clickContinue();
+      expect(await subscriptionCaseSearchResultsPage.getPageTitle()).toEqual('Search result');
+    });
+
+    it(`should display ${expectedNumOfResults} results`, async() => {
+      expect(await subscriptionCaseSearchResultsPage.getResults()).toBe(1);
+    });
+
   });
 });
