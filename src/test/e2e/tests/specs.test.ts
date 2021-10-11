@@ -26,7 +26,7 @@ let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let otpLoginTestingPage: OtpLoginTestingPage;
 let subscriptionCaseSearchResultsPage: SubscriptionCaseSearchResultsPage;
-let subscriptionCaseSearchPage = new SubscriptionCaseSearchPage;
+const subscriptionCaseSearchPage = new SubscriptionCaseSearchPage;
 
 
 describe('Finding a court or tribunal listing', () => {
