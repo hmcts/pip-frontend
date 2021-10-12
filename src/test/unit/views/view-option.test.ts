@@ -12,6 +12,7 @@ const expectedHeader = 'What would you like to view?';
 const expectedButtonText = 'Continue';
 const expectedRadioLabel1 = 'Court or tribunal hearing list';
 const expectedRadioLabel2 = 'Live hearing updates - Crown Court only';
+const expectedRadioLabel3 = 'Single Justice Procedure list';
 
 let htmlRes: Document;
 
@@ -32,9 +33,9 @@ describe('View Option Page', () => {
     expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
   });
 
-  it('should display 2 radio buttons', () => {
+  it('should display 3 radio buttons', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons.length).equal(2, '2 radio buttons not found');
+    expect(radioButtons.length).equal(3, '3 radio buttons not found');
   });
 
   it('should display first radio button content',  () => {
@@ -45,5 +46,10 @@ describe('View Option Page', () => {
   it('should display second radio button content',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons[1].innerHTML).contains(expectedRadioLabel2, 'Could not find the radio button with label ' + expectedRadioLabel2);
+  });
+
+  it('should display third radio button content',  () => {
+    const radioButtons = htmlRes.getElementsByClassName(radioClass);
+    expect(radioButtons[2].innerHTML).contains(expectedRadioLabel3, 'Could not find the radio button with label ' + expectedRadioLabel3);
   });
 });
