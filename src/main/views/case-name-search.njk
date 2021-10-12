@@ -1,0 +1,13 @@
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+{% from "./macros/common-components.njk" import goBack %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+    {{ "Case Name Search" | safe }}
+{% endblock %}
+{% block beforeContent %}
+    {{ goBack('/subscription-add') }}
+{% endblock %}
+{% block content %}
+    case name search
+{% endblock %}
