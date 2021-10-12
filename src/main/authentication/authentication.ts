@@ -2,6 +2,8 @@ import process from "process";
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
 
+const authenticationConfig = require('./authentication-config.json');
+
 export default function(): void {
 
   var users = [];
@@ -27,11 +29,11 @@ export default function(): void {
   });
 
   passport.use(new OIDCStrategy({
-      identityMetadata: process.env.IDENTITY_METADATA,
-      clientID: process.env.CLIENT_ID,
-      responseType: process.env.RESPONSE_TYPE,
-      responseMode: process.env.RESPONSE_MODE,
-      policy: process.env.POLICY,
+      identityMetadata:  authenticationConfig.IDENTITY_METADATA,
+      clientID: authenticationConfig.CLIENT_ID,
+      responseType: authenticationConfig.RESPONSE_TYPE,
+      responseMode: authenticationConfig.RESPONSE_MODE,
+      policy: authenticationConfig.POLICY,
       redirectUrl: process.env.REDIRECT_URL,
       allowHttpForRedirectUrl: true,
       clientSecret: process.env.CLIENT_SECRET,

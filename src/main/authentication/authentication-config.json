@@ -1,0 +1,8 @@
+{
+  "RESPONSE_TYPE": "code",
+  "RESPONSE_MODE": "form_post",
+  "POLICY": "B2C_1A_SIGNUP_SIGNIN_PASSWORDLESS",
+  "IDENTITY_METADATA": "https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/B2C_1A_SIGNUP_SIGNIN_PASSWORDLESS/v2.0/.well-known/openid-configuration",
+  "SUBSCRIPTION_URL": "https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1A_SIGNUP_SIGNIN_PASSWORDLESS&client_id=c7e6e2c6-c23c-48e8-b9f4-6bad25a95331&nonce=defaultNonce&redirect_uri=https%3A%2F%2Fpip-frontend.staging.platform.hmcts.net%2Fsubscription-management&scope=openid&response_type=id_token&prompt=login",
+  "CLIENT_ID": "c7e6e2c6-c23c-48e8-b9f4-6bad25a95331"
+}
