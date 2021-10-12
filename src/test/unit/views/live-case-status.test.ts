@@ -5,7 +5,7 @@ import { app } from '../../../main/app';
 
 const PAGE_URL = '/live-case-status?courtId=1';
 const expectedHeader = 'Live hearing updates - daily court list';
-const expectedCourtName = 'Mutsu Court';
+const expectedCourtName = 'Abergavenny Magistrates\' Court';
 let htmlRes: Document;
 
 describe('Live Status page', () => {
@@ -73,3 +73,4 @@ describe('Live Status page', () => {
     expect(link.item(3).getAttribute('href')).equal('/live-case-alphabet-search', 'Link value is not correct');
   });
 });
+
