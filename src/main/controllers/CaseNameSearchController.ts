@@ -6,10 +6,16 @@ export default class CaseNameSearchController {
   }
 
   public get(req: Request, res: Response): void {
-    res.render('case-name-search');
+    res.render('case-name-search', { noResultsError: false});
   }
 
   public post(req: Request, res: Response): void {
-    res.render('case-name-search');
+    const searchInput = req.body['case-name'];
+    if (searchInput) {
+      res.redirect('case-name-search-results');
+    } else {
+      res.render('case-name-search', { noResultsError: true});
+    }
+
   }
 }

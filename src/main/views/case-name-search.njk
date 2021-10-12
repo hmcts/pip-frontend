@@ -1,5 +1,6 @@
-{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
-{% from "./macros/common-components.njk" import goBack %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "./macros/common-components.njk" import goBack, submitButton %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
@@ -9,5 +10,65 @@
     {{ goBack('/subscription-add') }}
 {% endblock %}
 {% block content %}
-    case name search
+    {% if noResultsError %}
+        {% set errorMessage = 'Case name not found. Please try again or search by case reference number, unique reference number, or by a whole court' %}
+        <div class="govuk-grid-row">
+            <div class="no_padding govuk-grid-column-full">
+                {{ govukErrorSummary({
+                    titleText: "There is a problem",
+                    errorList: [
+                        {
+                            text: errorMessage,
+                            href: "#case-name"
+                        }
+                    ]
+                }) }}
+            </div>
+        </div>
+    {% endif %}
+    {% set inputClasses = 'govuk-!-width-two-thirds govuk-input--error'
+        if noResultsError else 'govuk-!-width-two-thirds' %}
+    {% set formGroupError = 'govuk-form-group--error'
+        if noResultsError else 'govuk-form-group' %}
+    <form action="case-name-search" method="post">
+        <div class="govuk-form-group govuk-!-width-one-half">
+            <h1 class="govuk-heading-l">Enter a case name</h1>
+            {% if noResultsError %}
+                {{ govukInput({
+                    hint: {
+                        text: "Enter the name of the party or parties involved in this case"
+                    },
+                    id: "case-name",
+                    name: "case-name",
+                    errorMessage: {
+                        text: "Please provide a correct case name"
+                    }
+                }) }}
+            {% else %}
+                {{ govukInput({
+                    hint: {
+                        text: "Enter the name of the party or parties involved in this case"
+                    },
+                    id: "case-name",
+                    name: "case-name"
+                }) }}
+            {% endif %}
+        </div>
+        {{ submitButton(text='Search', ariaLabel='Search Button') }}
+        {% if noResultsError %}
+            <div class="govuk-grid-row">
+                <div class="no_padding govuk-grid-column-full">
+                    <h2 class="govuk-heading-s">There are no matching results.</h2>
+                    <p class="govuk-body">You can improve your results by double checking your spelling.</p>
+                </div>
+            </div>
+        {% endif %}
+    </form>
+{% endblock %}
+{% block bodyEnd %}
+    <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+    </script>
 {% endblock %}
