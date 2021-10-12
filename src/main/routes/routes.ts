@@ -50,7 +50,6 @@ export default function(app: Application): void {
 
   app.get('/single-justice-procedure-search', app.locals.container.cradle.singleJusticeProcedureSearchController.get);
 
-
   const healthCheckConfig = {
     checks: {
       // TODO: replace this sample check with proper checks for your application

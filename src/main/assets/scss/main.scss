@@ -175,13 +175,18 @@ div {
   }
 }
 
-.verificationErrorText {
-  color: $error-colour;
-}
-
 .verifyInput {
   @extend .govuk-input;
+  @extend .govuk-\!-width-one-half;
   @extend .govuk-\!-margin-right-4;
+  @extend .govuk-\!-margin-top-4;
+
+  //Important is required due to an inline style being applied
+  display: block !important; // sass-lint:disable-line no-important
+}
+
+.verifyButton {
+  @extend .govuk-\!-margin-top-4;
 }
 
 .sendButton {
@@ -190,6 +195,7 @@ div {
 
 .textInput {
   @extend .govuk-input;
+  @extend .govuk-\!-width-one-half;
 }
 
 .helpLink {
