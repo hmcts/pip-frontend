@@ -179,6 +179,8 @@ div {
   @extend .govuk-input;
   @extend .govuk-\!-width-one-half;
   @extend .govuk-\!-margin-right-4;
+  @extend .govuk-\!-margin-top-4;
+  display: block;
 }
 
 .verifyButton {
