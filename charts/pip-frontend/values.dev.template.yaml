@@ -4,4 +4,4 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
   environment:
     API_URL: pip-business-rules.staging.platform.hmcts.net
-    
+    FRONTEND_URL: https://pip-frontend.staging.platform.hmcts.net

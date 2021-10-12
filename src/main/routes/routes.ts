@@ -3,6 +3,8 @@ import {infoRequestHandler} from '@hmcts/info-provider';
 import cors  from 'cors';
 import os from 'os';
 
+const authenticationConfig = require('../authentication/authentication-config.json');
+
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 
@@ -20,7 +22,7 @@ export default function(app: Application): void {
     if (req.isAuthenticated()) {
       return next();
     }
-    res.redirect('/login?p=' + process.env.POLICY);
+    res.redirect('/login?p=' + authenticationConfig.POLICY);
   }
 
   app.get('/', app.locals.container.cradle.homeController.get);

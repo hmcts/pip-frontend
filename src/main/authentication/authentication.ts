@@ -34,7 +34,7 @@ export default function(): void {
       responseType: authenticationConfig.RESPONSE_TYPE,
       responseMode: authenticationConfig.RESPONSE_MODE,
       policy: authenticationConfig.POLICY,
-      redirectUrl: process.env.REDIRECT_URL,
+      redirectUrl: process.env.FRONTEND_URL + '/login/return',
       allowHttpForRedirectUrl: true,
       clientSecret: process.env.CLIENT_SECRET,
       isB2C: true,
