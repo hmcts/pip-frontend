@@ -175,13 +175,14 @@ div {
   }
 }
 
-.verificationErrorText {
-  color: $error-colour;
-}
-
 .verifyInput {
   @extend .govuk-input;
+  @extend .govuk-\!-width-one-half;
   @extend .govuk-\!-margin-right-4;
+}
+
+.verifyButton {
+  @extend .govuk-\!-margin-top-4;
 }
 
 .sendButton {
@@ -190,6 +191,7 @@ div {
 
 .textInput {
   @extend .govuk-input;
+  @extend .govuk-\!-width-one-half;
 }
 
 .helpLink {
