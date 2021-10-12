@@ -180,7 +180,9 @@ div {
   @extend .govuk-\!-width-one-half;
   @extend .govuk-\!-margin-right-4;
   @extend .govuk-\!-margin-top-4;
-  display: block;
+
+  //Important is required due to an inline style being applied
+  display: block !important; // sass-lint:disable-line no-important
 }
 
 .verifyButton {
