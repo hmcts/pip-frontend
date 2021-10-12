@@ -1,4 +1,4 @@
-import { Application } from 'express';
+import {Application, NextFunction} from 'express';
 import {infoRequestHandler} from '@hmcts/info-provider';
 import cors  from 'cors';
 import os from 'os';
@@ -18,7 +18,7 @@ export default function(app: Application): void {
     optionsSuccessStatus: 200,
   };
 
-  function ensureAuthenticated(req, res, next) {
+  function ensureAuthenticated(req, res, next): NextFunction | void {
     if (req.isAuthenticated()) {
       return next();
     }
@@ -55,7 +55,7 @@ export default function(app: Application): void {
   app.post('/login/return', passport.authenticate('azuread-openidconnect', { failureRedirect: '/error'}),
     function (req, res) {
       res.redirect('/subscription-management');
-  });
+    });
   app.get('/login', passport.authenticate('azuread-openidconnect', { failureRedirect: '/error'}));
 
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);

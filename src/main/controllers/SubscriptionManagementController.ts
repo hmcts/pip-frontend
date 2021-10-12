@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 
 export interface AuthenticatedRequest extends Request {
-  user: any // or any other type
+  user: {
+    displayName: string;
+  };
 }
 
 export default class SubscriptionManagementController {

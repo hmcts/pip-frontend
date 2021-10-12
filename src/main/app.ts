@@ -1,4 +1,4 @@
-import * as process from "process";
+import * as process from 'process';
 
 const {Logger} = require('@hmcts/nodejs-logging');
 
