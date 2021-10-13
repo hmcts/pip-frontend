@@ -50,6 +50,8 @@ export default function(app: Application): void {
 
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
 
+  app.get('/single-justice-procedure-search', app.locals.container.cradle.singleJusticeProcedureSearchController.get);
+
   const healthCheckConfig = {
     checks: {
       // TODO: replace this sample check with proper checks for your application

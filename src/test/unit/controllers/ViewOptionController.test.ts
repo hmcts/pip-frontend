@@ -45,6 +45,20 @@ describe('View Option Controller', () => {
     responseMock.verify();
   });
 
+  it('should render single justice procedure search page if choice is \'sjp\'', () => {
+    const viewOptionController = new ViewOptionController();
+
+    const response = { redirect: () => {return '';}} as unknown as Response;
+    const request = { body: { 'view-choice': 'sjp'}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('redirect').once().withArgs('single-justice-procedure-search');
+
+    viewOptionController.post(request, response);
+    responseMock.verify();
+  });
+
   it('should render same page if nothing selected', () => {
     const viewOptionController = new ViewOptionController();
 

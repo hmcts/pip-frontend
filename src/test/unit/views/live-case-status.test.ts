@@ -73,3 +73,4 @@ describe('Live Status page', () => {
     expect(link.item(3).getAttribute('href')).equal('/live-case-alphabet-search', 'Link value is not correct');
   });
 });
+
