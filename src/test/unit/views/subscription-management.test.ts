@@ -1,5 +1,6 @@
 import {expect} from 'chai';
 import request from 'supertest';
+import moment from 'moment';
 
 import {app} from '../../../main/app';
 
@@ -16,7 +17,7 @@ const actionsColumn = 'Actions';
 const courtNameColumn = 'Court or tribunal name';
 const expectedRowCaseName = 'Collins LLC';
 const expectedRowCaseReference = 'T20217002';
-const expectedRowDateAdded = '23 Sep 2021';
+const expectedRowDateAdded = moment.unix(1632351600).format('D MMM YYYY');
 const expectedRowCourtName = 'Mutsu Court';
 const expectedCaseRowsCount = 3;
 const expectedCourtRowsCount = 6;
