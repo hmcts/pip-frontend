@@ -16,7 +16,6 @@ module.exports = {
   FindRadioButton: '#find-choice-2',
   // Search page selectors
   SearchTitle: 'h1.govuk-label-wrapper',
-
   SearchResultTitle: 'h1.govuk-heading-l',
   SearchCaseResultTitle: 'h1.govuk-heading-l',
 
