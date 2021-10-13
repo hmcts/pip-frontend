@@ -1,5 +1,6 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "./macros/common-components.njk" import goBack, submitButton %}
 
 {% extends "template.njk" %}
@@ -7,7 +8,13 @@
     {{ "Case Name Search" | safe }}
 {% endblock %}
 {% block beforeContent %}
-    {{ goBack('/subscription-add') }}
+    {{ govukBackLink({
+        text: text,
+        href: '#',
+        attributes: {
+            onClick: "history.back();event.preventDefault();"
+        }
+    }) }}
 {% endblock %}
 {% block content %}
     {% if noResultsError %}
