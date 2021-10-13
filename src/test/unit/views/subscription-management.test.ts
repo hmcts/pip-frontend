@@ -14,6 +14,12 @@ const caseReferenceColumn = 'Case reference number';
 const dateAddedColumn = 'Date added';
 const actionsColumn = 'Actions';
 const courtNameColumn = 'Court or tribunal name';
+const expectedRowCaseName = 'Collins LLC';
+const expectedRowCaseReference = 'T20217002';
+const expectedRowDateAdded = '23 Sep 2021';
+const expectedRowCourtName = 'Mutsu Court';
+const expectedCaseRowsCount = 3;
+const expectedCourtRowsCount = 6;
 
 let htmlRes: Document;
 
@@ -100,5 +106,32 @@ describe('Subscription Management Page', () => {
       .getElementsByClassName('govuk-table__cell')[3];
     expect(actionsCell.innerHTML).contains('Unsubscribe');
     expect(actionsCell.querySelector('a').getAttribute('href')).equal('#');
+  });
+
+  it('case table should have correct number of rows', () => {
+    const subscriptionsCaseRows = htmlRes.getElementsByClassName('govuk-table__body')[0]
+      .getElementsByClassName('govuk-table__row');
+    expect(subscriptionsCaseRows.length).equal(expectedCaseRowsCount);
+  });
+
+  it('case table should have correct column values', () => {
+    const subscriptionCaseRowCells = htmlRes.getElementsByClassName('govuk-table__body')[0]
+      .getElementsByClassName('govuk-table__cell');
+    expect(subscriptionCaseRowCells[0].innerHTML).contains(expectedRowCaseName);
+    expect(subscriptionCaseRowCells[1].innerHTML).contains(expectedRowCaseReference);
+    expect(subscriptionCaseRowCells[2].innerHTML).contains(expectedRowDateAdded);
+  });
+
+  it('court table should have correct number of rows', () => {
+    const subscriptionsCaseRows = htmlRes.getElementsByClassName('govuk-table__body')[1]
+      .getElementsByClassName('govuk-table__row');
+    expect(subscriptionsCaseRows.length).equal(expectedCourtRowsCount);
+  });
+
+  it('court table should have correct column values', () => {
+    const subscriptionCaseRowCells = htmlRes.getElementsByClassName('govuk-table__body')[1]
+      .getElementsByClassName('govuk-table__cell');
+    expect(subscriptionCaseRowCells[0].innerHTML).contains(expectedRowCourtName);
+    expect(subscriptionCaseRowCells[1].innerHTML).contains(expectedRowDateAdded);
   });
 });
