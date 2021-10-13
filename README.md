@@ -19,6 +19,29 @@ Running the application requires the following tools to be installed in your env
   * [yarn](https://yarnpkg.com/)
   * [Docker](https://www.docker.com)
 
+
+### Authentication
+
+Some of the pages within this app are secured via authentication.
+
+Two environment variables are needed for this:
+
+Name | Value
+--- | ---
+CLIENT_SECRET | This is used to communicate with Azure
+SESSION_SECRET | A random string
+
+Passing these variables can be done via
+
+```bash
+$ (Linux) export CLIENT_SECRET=<VALUE_GOES_HERE>
+$ (Windows) set CLIENT_SECRET<VALUE_GOES_HERE>
+```
+
+or, in intellij you can pass them in the Run Configuration
+
+Both of these variables need to be passed in before running yarn start or yarn start:local
+
 ### Running the application
 
 Install dependencies by executing the following command:
