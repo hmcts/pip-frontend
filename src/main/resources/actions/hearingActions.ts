@@ -1,10 +1,13 @@
-import {PipApi} from '../../utils/PipApi';
+import { PipApi } from '../../utils/PipApi';
 
 export class HearingActions {
   constructor(private readonly api: PipApi) {}
 
   public async getCourtHearings(courtId: number): Promise<any>{
-    const courtHearings = await this.api.getHearingList(courtId);
-    return courtHearings;
+    return await this.api.getHearingList(courtId);
+  }
+
+  public async findCourtHearings(searchQuery: string): Promise<any> {
+    return await this.api.filterHearings(searchQuery);
   }
 }

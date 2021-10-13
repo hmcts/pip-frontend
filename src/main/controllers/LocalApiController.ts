@@ -28,4 +28,17 @@ export default class LocalApiController {
     const court = model.filter(c=>c.courtId == courtId)[0];
     return res.send(court);
   }
+
+  public apiFindHearings(req: Request, res: Response): any {
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../resources/mocks/hearingsList.json'), 'utf-8');
+    const model = JSON.parse(rawData);
+    const searchQuery = req.params.input;
+    const results = [];
+    model.forEach((c) => {
+      if (c.caseNumber.toLowerCase().includes(searchQuery) || c.caseName.toLowerCase().includes(searchQuery)) {
+        results.push(c);
+      }
+    });
+    return res.send(results);
+  }
 }

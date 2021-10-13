@@ -40,4 +40,12 @@ export class PipApi {
       });
   }
 
+  public filterHearings(searchQuery: string): Promise<any> {
+    return this.axios
+      .get('/api/hearing/filter/' + searchQuery, { headers: {'Accept-Language': 'en'}})
+      .then(results => results.data)
+      .catch(err => {
+        return {err};
+      });
+  }
 }

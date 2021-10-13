@@ -66,6 +66,7 @@ export default function(app: Application): void {
   app.get('/api/courtlistall', app.locals.container.cradle.localApiController.apiAllCourtList);
   app.get('/api/courtlist/:input', app.locals.container.cradle.localApiController.apiCourtList);
   app.get('/api/hearings/:courtId', app.locals.container.cradle.localApiController.apiHearingsList);
+  app.get('/api/hearing/filter/:input', app.locals.container.cradle.localApiController.apiFindHearings);
 
   healthcheck.addTo(app, healthCheckConfig);
 }
