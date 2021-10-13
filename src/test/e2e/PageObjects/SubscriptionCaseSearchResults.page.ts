@@ -4,11 +4,11 @@ const helpers = require('../Helpers/Selectors');
 export class SubscriptionCaseSearchResultsPage {
 
   async getPageTitle(): Promise<string> {
-    $(helpers.SearchCaseResultTitle).catch(() => {
-      console.log(`${helpers.SearchCaseResultTitle} not found`);
+    $(helpers.SearchResultTitle).catch(() => {
+      console.log(`${helpers.SearchResultTitle} not found`);
     });
 
-    return $(helpers.SearchCaseResultTitle).getText();
+    return $(helpers.SearchResultTitle).getText();
   }
 
   async getResults(): Promise<number> {
