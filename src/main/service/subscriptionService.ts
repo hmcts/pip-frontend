@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export class TableService {
+export class SubscriptionService {
   
   generateCaseTableRows(subscriptionData): any[] {
     const caseRows = [];
