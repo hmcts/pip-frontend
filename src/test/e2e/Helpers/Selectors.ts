@@ -42,4 +42,7 @@ module.exports = {
 
   // LiveCaseAlphabetSearch selectors
   LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',
+
+  // IdamSigin page selectors
+  IdamSiginInput: '#idam-select',
 };

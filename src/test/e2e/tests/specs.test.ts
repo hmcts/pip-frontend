@@ -10,9 +10,12 @@ import { ViewOptionPage } from '../PageObjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
 import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
 import { OtpLoginTestingPage } from '../PageObjects/OtpLoginTesting.page';
+import {IdamSigninPage} from '../pageobjects/IdamSignin.page';
 
 const homePage = new HomePage;
 const otpLoginPage = new OtpLoginPage();
+const idamSigninPage = new IdamSigninPage;
+
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
@@ -23,6 +26,7 @@ let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let otpLoginTestingPage: OtpLoginTestingPage;
+
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
@@ -116,6 +120,23 @@ describe('Finding a court or tribunal listing', () => {
     it('should display 3 result', async() => {
       expect(await hearingListPage.getResults()).toBe(3);
     });
+  });
+
+  describe('Idam SignIn selection', () => {
+    after(async () => {
+      await idamSigninPage.open('idam-signin');
+    });
+
+    it('should IdamSigIn header be exact text', async () => {
+      expect(await idamSigninPage.getPageTitle()).toEqual('Sign in to your account');
+    });
+
+    it('selecting crime and redirect to external url', async () => {
+      const valueToSelect = 'Crime';
+      await idamSigninPage.selectIdam(valueToSelect);
+      expect(await idamSigninPage.clickContinue()).toBeTruthy();
+    });
+
   });
 
   describe('Following the \'search\' path', () => {
