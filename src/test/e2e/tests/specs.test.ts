@@ -10,6 +10,7 @@ import { ViewOptionPage } from '../PageObjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
 import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
 import { OtpLoginTestingPage } from '../PageObjects/OtpLoginTesting.page';
+import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
 import {SubscriptionCaseSearchResultsPage} from '../pageobjects/SubscriptionCaseSearchResults.page';
 import {SubscriptionCaseSearchPage} from '../pageobjects/SubscriptionCaseSearch.page';
 
@@ -24,6 +25,8 @@ let searchResultsPage: SearchResultsPage;
 let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
+let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
+
 let otpLoginTestingPage: OtpLoginTestingPage;
 let subscriptionCaseSearchResultsPage: SubscriptionCaseSearchResultsPage;
 const subscriptionCaseSearchPage = new SubscriptionCaseSearchPage;
@@ -40,12 +43,12 @@ describe('Finding a court or tribunal listing', () => {
     expect(await viewOptionPage.getPageTitle()).toEqual('What would you like to view?');
   });
 
-  it('should see both radio buttons', async () => {
-    expect(await viewOptionPage.radioButtons).toBe(2);
+  it('should see 3 radio buttons', async () => {
+    expect(await viewOptionPage.radioButtons).toBe(3);
   });
 
   describe('Following the \'live case status updates\' path', () => {
-    const validCourtName = 'Ailibugai Court';
+    const validCourtName = 'Abergavenny Magistrates\' Court';
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
@@ -81,6 +84,21 @@ describe('Finding a court or tribunal listing', () => {
     it('should display 4 results in the table', async () => {
       expect(await liveCaseStatusPage.getResults()).toBe(4);
     });
+
+  });
+
+  describe('Following the \'Single Justice Procedure list\' option', () => {
+    after(async () => {
+      await homePage.open('');
+      viewOptionPage = await homePage.clickStartNowButton();
+    });
+
+    it('should select \'Single Justice Procedure list\' option and navigate to Single Justice Procedure list page', async () => {
+      await viewOptionPage.selectSingleJusticeProcedureRadio();
+      singleJusticeProcedureSearchPage = await viewOptionPage.clickContinueSingleJusticeProcedure();
+      expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure list');
+    });
+
   });
 
   describe('Following the \'tribunal hearing list\' option and \'find\' path', () => {

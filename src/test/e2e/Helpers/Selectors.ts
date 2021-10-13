@@ -17,6 +17,7 @@ module.exports = {
   // Search page selectors
   SearchTitle: 'h1.govuk-label-wrapper',
   SearchCaseResultTitle: 'h1.govuk-heading-l',
+  SearchResultTitle: 'h1.govuk-heading-l',
   SearchInput: '#search-input',
   // Search results page selectors
   LinkResult: 'tbody > tr.govuk-table__row > th > a',
@@ -40,6 +41,7 @@ module.exports = {
   ViewOptionsTitle: 'h1.govuk-fieldset__heading',
   ViewSearchRadioButton: '#view-choice',
   LiveHearingsRadioButton: '#view-choice-2',
+  SingleJusticeProcedureRadioButton: '#view-choice-3',
 
   // LiveCaseAlphabetSearch selectors
   LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',
