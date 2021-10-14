@@ -39,6 +39,8 @@ export default function(app: Application): void {
   app.post('/search-option', app.locals.container.cradle.searchOptionController.post);
   app.post('/search', app.locals.container.cradle.searchController.post);
 
+  app.get('/subscription-add', app.locals.container.cradle.subscriptionAddController.get);
+  app.post('/subscription-add', app.locals.container.cradle.subscriptionAddController.post);
   app.get('/subscription-management', app.locals.container.cradle.subscriptionManagementController.get);
 
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
