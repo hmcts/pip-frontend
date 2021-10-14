@@ -49,6 +49,9 @@
                     name: "case-name",
                     errorMessage: {
                         text: "Please provide a correct case name"
+                    },
+                    label: {
+                        text: "case-name-input"
                     }
                 }) }}
             {% else %}
@@ -57,7 +60,10 @@
                         text: "Enter the name of the party or parties involved in this case"
                     },
                     id: "case-name",
-                    name: "case-name"
+                    name: "case-name",
+                    label: {
+                        text: "case-name-search"
+                    }
                 }) }}
             {% endif %}
         </div>
