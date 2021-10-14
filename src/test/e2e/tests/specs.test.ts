@@ -11,6 +11,8 @@ import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtS
 import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
 import { OtpLoginTestingPage } from '../pageobjects/OtpLoginTesting.page';
 import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
+import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
+import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
 
 const homePage = new HomePage;
 const otpLoginPage = new OtpLoginPage();
@@ -24,6 +26,8 @@ let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
+let caseNameSearchPage: CaseNameSearchPage;
+let caseNameSearchResultsPage: CaseNameSearchResultsPage;
 
 let otpLoginTestingPage: OtpLoginTestingPage;
 
@@ -189,6 +193,32 @@ describe('Finding a court or tribunal listing', () => {
       await otpLoginPage.enterText('222222');
       subscriptionManagementPage = await otpLoginPage.clickContinue();
       expect(await subscriptionManagementPage.getPageTitle()).toEqual('Subscription Management');
+    });
+  });
+
+  describe('Following the subscription case name search path', () => {
+    const validSearchTerm = 'alo';
+    const invalidSearchTerm = 'Bob';
+    const expectedNumberOfResults = 1;
+
+    it('should navigate to case name search page', async () => {
+      expect(await caseNameSearchPage.getPageTitle()).toEqual('Enter a case name');
+    });
+
+    it('should display error message when input is invalid', async () => {
+      await caseNameSearchPage.enterText(invalidSearchTerm);
+      caseNameSearchPage = await caseNameSearchPage.clickContinueWithInvalidInput();
+      expect(await caseNameSearchPage.getErrorSummaryTitle()).toEqual('There is a problem');
+    });
+
+    it('should navigate to case name search results page when input is valid', async () => {
+      await caseNameSearchPage.enterText(validSearchTerm);
+      caseNameSearchResultsPage = await  caseNameSearchPage.clickContinue();
+      expect(await caseNameSearchResultsPage.getPageTitle()).toEqual('Search result');
+    });
+
+    it(`should should display ${expectedNumberOfResults} results in the table`, async () => {
+      expect(await caseNameSearchResultsPage.getResults()).toBe(1);
     });
   });
 });

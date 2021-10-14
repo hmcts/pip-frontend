@@ -44,4 +44,12 @@ module.exports = {
 
   // LiveCaseAlphabetSearch selectors
   LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',
+
+  // CaseNameSearch selectors
+  CaseNameInput: '#case-name',
+  CaseNameSearchErrorSummaryTitle: '.govuk-error-summary__title',
+
+  // CaseNameSearchResults selectors
+  CaseNameSearchResultsCheckbox: 'tbody > tr.govuk-table__row > td > .govuk-checkboxes__input',
+  CaseNameSearchResultsHeaderCheckbox: 'thead > tr.govuk-table__row > th > .govuk-checkboxes__input',
 };
