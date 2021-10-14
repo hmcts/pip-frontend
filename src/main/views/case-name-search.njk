@@ -42,27 +42,21 @@
             <h1 class="govuk-heading-l">Enter a case name</h1>
             {% if noResultsError %}
                 {{ govukInput({
-                    hint: {
-                        text: "Enter the name of the party or parties involved in this case"
-                    },
                     id: "case-name",
                     name: "case-name",
                     errorMessage: {
                         text: "Please provide a correct case name"
                     },
                     label: {
-                        text: "case-name-input"
+                        text: "Enter the name of the party or parties involved in this case"
                     }
                 }) }}
             {% else %}
                 {{ govukInput({
-                    hint: {
-                        text: "Enter the name of the party or parties involved in this case"
-                    },
                     id: "case-name",
                     name: "case-name",
                     label: {
-                        text: "case-name-search"
+                        text: "Enter the name of the party or parties involved in this case"
                     }
                 }) }}
             {% endif %}
