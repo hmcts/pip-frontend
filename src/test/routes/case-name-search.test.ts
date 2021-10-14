@@ -11,4 +11,12 @@ describe('Case name search', () => {
         .expect((res) => expect(res.status).to.equal(200));
     });
   });
+
+  describe('on GET', () => {
+    test('should return case name search page with errors', async () => {
+      await request(app)
+        .get('/case-name-search?error=true')
+        .expect((res) => expect(res.status).to.equal(200));
+    });
+  });
 });
