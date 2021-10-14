@@ -13,4 +13,27 @@ describe('Subscription Management', () => {
     });
   });
 
+  describe('on GET', () => {
+    test('should return subscription-management page', async () => {
+      await request(app)
+        .get('/subscription-management?all')
+        .expect((res) => expect(res.status).to.equal(200));
+    });
+  });
+
+  describe('on GET', () => {
+    test('should return subscription-management page', async () => {
+      await request(app)
+        .get('/subscription-management?case')
+        .expect((res) => expect(res.status).to.equal(200));
+    });
+  });
+
+  describe('on GET', () => {
+    test('should return subscription-management page', async () => {
+      await request(app)
+        .get('/subscription-management?court')
+        .expect((res) => expect(res.status).to.equal(200));
+    });
+  });
 });
