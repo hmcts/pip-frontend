@@ -141,23 +141,6 @@ describe('Finding a court or tribunal listing', () => {
     });
   });
 
-  describe('Idam SignIn selection', () => {
-    after(async () => {
-      await idamSigninPage.open('idam-signin');
-    });
-
-    it('should IdamSigIn header be exact text', async () => {
-      expect(await idamSigninPage.getPageTitle()).toEqual('Sign in to your account');
-    });
-
-    it('selecting crime and redirect to external url', async () => {
-      const valueToSelect = 'Crime';
-      await idamSigninPage.selectIdam(valueToSelect);
-      expect(await idamSigninPage.clickContinue()).toBeTruthy();
-    });
-
-  });
-
   describe('Following the \'search\' path', () => {
     const searchTerm = 'abergavenny';
     const expectedNumOfResults = 1;
@@ -212,5 +195,20 @@ describe('Finding a court or tribunal listing', () => {
       subscriptionManagementPage = await otpLoginPage.clickContinue();
       expect(await subscriptionManagementPage.getPageTitle()).toEqual('Subscription Management');
     });
+  });
+
+  describe('Idam SignIn selection', () => {
+
+    it('should open Idam SignIn page with Sign in to your account', async () => {
+      await idamSigninPage.open('idam-signin');
+      expect(await idamSigninPage.getPageTitle()).toEqual('Sign in to your account');
+    });
+
+    it('selecting crime and redirect to external url', async () => {
+      const valueToSelect = 'Crime';
+      await idamSigninPage.selectIdam(valueToSelect);
+      expect(await idamSigninPage.clickContinue()).toBeTruthy();
+    });
+
   });
 });

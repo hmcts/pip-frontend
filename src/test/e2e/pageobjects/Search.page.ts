@@ -1,16 +1,9 @@
 import { SearchResultsPage } from './SearchResults.page';
+import {PageBase} from './Base/PageBase.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class SearchPage {
-
-  async getPageTitle(): Promise<string> {
-    $(helpers.SearchTitle).catch(() => {
-      console.log(`${helpers.SearchTitle} not found`);
-    });
-
-    return $(helpers.SearchTitle).getText();
-  }
+export class SearchPage extends PageBase {
 
   async enterText(text: string): Promise<void> {
     $(helpers.SearchInput).catch(() => {

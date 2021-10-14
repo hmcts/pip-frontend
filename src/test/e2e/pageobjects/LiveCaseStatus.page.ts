@@ -1,13 +1,8 @@
+import {PageBase} from './Base/PageBase.page';
+
 const helpers = require('../Helpers/Selectors');
 
-export class LiveCaseStatusPage {
-  async getPageTitle(): Promise<string> {
-    $(helpers.CommonPageTitle).catch(() => {
-      console.log(`${helpers.CommonPageTitle} not found`);
-    });
-
-    return $(helpers.CommonPageTitle).getText();
-  }
+export class LiveCaseStatusPage extends PageBase {
 
   async getCourtTitle(): Promise<string> {
     $(helpers.CommonPageTitleM).catch(() => {

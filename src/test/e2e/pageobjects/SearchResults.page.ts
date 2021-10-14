@@ -1,16 +1,9 @@
 import { HearingListPage } from './HearingList.page';
+import {PageBase} from './Base/PageBase.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class SearchResultsPage {
-
-  async getPageTitle(): Promise<string> {
-    $(helpers.CommonPageTitle).catch(() => {
-      console.log(`${helpers.CommonPageTitle} not found`);
-    });
-
-    return $(helpers.CommonPageTitle).getText();
-  }
+export class SearchResultsPage extends PageBase {
 
   async getResults(): Promise<number> {
     $(helpers.Results).catch(() => {

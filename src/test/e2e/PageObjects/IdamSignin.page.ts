@@ -1,20 +1,9 @@
 import { SubscriptionManagementPage } from './SubscriptionManagement.page';
+import {PageBase} from './Base/PageBase.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class IdamSigninPage {
-
-  open (path): Promise<string> {
-    return browser.url(path);
-  }
-
-  async getPageTitle(): Promise<string> {
-    $(helpers.CommonPageTitle).catch(() => {
-      console.log(`${helpers.CommonPageTitle} not found`);
-    });
-
-    return $(helpers.CommonPageTitle).getText();
-  }
+export class IdamSigninPage extends PageBase {
 
   async selectIdam(text): Promise<void> {
     $(helpers.IdamSiginInput).catch(() => {

@@ -1,17 +1,11 @@
 import { LiveCaseCourtSearchControllerPage } from './LiveCaseCourtSearchController.page';
 import { SearchOptionsPage } from './SearchOptions.page';
 import {SingleJusticeProcedureSearchPage} from './SingleJusticeProcedureSearch.page';
+import {PageBase} from "./Base/PageBase.page";
 
 const helpers = require('../Helpers/Selectors');
 
-export class ViewOptionPage {
-  async getPageTitle(): Promise<string> {
-    $(helpers.ViewOptionsTitle).catch(() => {
-      console.log(`${helpers.ViewOptionsTitle} not found`);
-    });
-
-    return $(helpers.ViewOptionsTitle).getText();
-  }
+export class ViewOptionPage extends PageBase {
 
   get radioButtons(): Promise<number> {
     const radioButtons = $$(helpers.RadioButton);

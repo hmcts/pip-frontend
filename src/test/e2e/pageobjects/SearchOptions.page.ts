@@ -1,17 +1,10 @@
 import { AlphabeticalSearchPage } from './AlphabeticalSearch.page';
 import { SearchPage } from './Search.page';
+import {PageBase} from './Base/PageBase.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class SearchOptionsPage {
-
-  async getPageTitle(): Promise<string> {
-    $(helpers.SearchOptionsTitle).catch(() => {
-      console.log(`${helpers.SearchOptionsTitle} not found`);
-    });
-
-    return $(helpers.SearchOptionsTitle).getText();
-  }
+export class SearchOptionsPage extends PageBase {
 
   get radioButtons(): Promise<number> {
     const radioButtons = $$(helpers.RadioButton);

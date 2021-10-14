@@ -1,15 +1,9 @@
 import { LiveCaseStatusPage } from './LiveCaseStatus.page';
+import {PageBase} from './Base/PageBase.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class LiveCaseCourtSearchControllerPage {
-  async getPageTitle(): Promise<string> {
-    $(helpers.CommonPageTitle).catch(() => {
-      console.log(`${helpers.CommonPageTitle} not found`);
-    });
-
-    return $(helpers.CommonPageTitle).getText();
-  }
+export class LiveCaseCourtSearchControllerPage extends PageBase {
 
   async selectLetter(letter): Promise<void> {
     await $(helpers.KeySelector(letter)).catch(() => {
