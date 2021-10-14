@@ -31,8 +31,8 @@
         <tr class="govuk-table__row govuk-table__row--selected">
             <td class="govuk-table__cell">
                 <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
-                    <input type="checkbox" class="govuk-checkboxes__input" id="mountain-aconcagua">
-                    <label class="govuk-label govuk-checkboxes__label" for="mountain-aconcagua">
+                    <input type="checkbox" class="govuk-checkboxes__input" id="{{ result.hearingId }}" value="{{ result.hearingId }}">
+                    <label class="govuk-label govuk-checkboxes__label" for="{{ result.hearingId }}">
                         <span class="govuk-visually-hidden">Select {{ result.caseName }}</span>
                     </label>
                 </div>
@@ -44,4 +44,8 @@
         </tbody>
     </table>
     {{ submitButton() }}
+{% endblock %}
+{% block bodyEnd %}
+    <script type="text/javascript" src="/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="/assets/js/mojAll.js"></script>
 {% endblock %}
