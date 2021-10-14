@@ -1,4 +1,3 @@
-import { SubscriptionManagementPage } from './SubscriptionManagement.page';
 import {PageBase} from './Base/PageBase.page';
 
 const helpers = require('../Helpers/Selectors');
@@ -13,13 +12,13 @@ export class IdamSigninPage extends PageBase {
     selectInput.selectByVisibleText(text);
   }
 
-  async clickContinue(): Promise<SubscriptionManagementPage> {
+  async clickContinue(): Promise<string> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
 
     const button = await $(helpers.ContinueButton);
     button.click();
-    return new SubscriptionManagementPage();
+    return browser.url('https://www.google.com');
   }
 }
