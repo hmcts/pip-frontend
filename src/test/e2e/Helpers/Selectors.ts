@@ -44,6 +44,9 @@ module.exports = {
   LiveHearingsRadioButton: '#view-choice-2',
   SingleJusticeProcedureRadioButton: '#view-choice-3',
 
+  //SubscriptionAdd selectors
+  SubscriptionAddTitle: 'h1.govuk-fieldset__heading',
+
   // LiveCaseAlphabetSearch selectors
   LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',
 };
