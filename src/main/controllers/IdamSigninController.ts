@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-export default class OtpLoginController {
+export default class IdamSigninController {
   public get(req: Request, res: Response): void {
     res.render('idam-signin');
   }
