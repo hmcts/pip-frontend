@@ -22,8 +22,7 @@ export class CaseNameSearchResultsPage {
       console.log(`${helpers.CaseNameSearchResultsHeaderCheckbox} not found`);
     });
 
-    const checkBox = await $(helpers.CaseNameSearchResultsHeaderCheckbox);
-    checkBox.click();
+    await $(helpers.CaseNameSearchResultsHeaderCheckbox).click();
 
     return $(helpers.CaseNameSearchResultsHeaderCheckbox).isSelected();
   }
@@ -33,8 +32,7 @@ export class CaseNameSearchResultsPage {
       console.log(`${helpers.CaseNameSearchResultsCheckbox} not found`);
     });
 
-    const checkBox = await $(helpers.CaseNameSearchResultsCheckbox);
-    checkBox.click();
+    await $(helpers.CaseNameSearchResultsCheckbox).click();
 
     return $(helpers.CaseNameSearchResultsCheckbox).isSelected();
   }

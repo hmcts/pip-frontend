@@ -44,8 +44,7 @@ export class CaseNameSearchPage {
       console.log(`${helpers.ContinueButton} not found`);
     });
 
-    const button = await $(helpers.ContinueButton);
-    button.click();
+    await $(helpers.ContinueButton).click();
     return new CaseNameSearchPage();
   }
 }
