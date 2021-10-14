@@ -10,12 +10,12 @@ export default class CaseNameSearchResultsController {
   }
 
   public async get(req: Request, res: Response): Promise<void> {
-    const searchQuery = req.query.search.toString();
+    const searchQuery = req.query.search;
     if (searchQuery) {
-      const searchResults = await new HearingActions(_api).findCourtHearings(searchQuery);
+      const searchResults = await new HearingActions(_api).findCourtHearings(searchQuery.toString());
       res.render('case-name-search-results', {searchResults});
     } else {
-      res.redirect('case-name-search?error=true');
+      res.render('error');
     }
   }
 }
