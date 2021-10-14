@@ -35,7 +35,7 @@ export default class LocalApiController {
     const searchQuery = req.params.input;
     const results = [];
     model.forEach((c) => {
-      if (c.caseNumber.toLowerCase().includes(searchQuery) || c.caseName.toLowerCase().includes(searchQuery)) {
+      if (c.caseName.toLowerCase().includes(searchQuery)) {
         results.push(c);
       }
     });
