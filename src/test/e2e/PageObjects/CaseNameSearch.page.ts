@@ -3,6 +3,9 @@ import { CaseNameSearchResultsPage } from './CaseNameSearchResults.page';
 const helpers = require('../Helpers/Selectors');
 
 export class CaseNameSearchPage {
+  open (path): Promise<string> {
+    return browser.url(path);
+  }
 
   async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitle).catch(() => {

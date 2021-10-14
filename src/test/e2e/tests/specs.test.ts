@@ -26,7 +26,8 @@ let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
-let caseNameSearchPage: CaseNameSearchPage;
+// TODO: replace after 732 merge
+let caseNameSearchPage = new CaseNameSearchPage();
 let caseNameSearchResultsPage: CaseNameSearchResultsPage;
 
 let otpLoginTestingPage: OtpLoginTestingPage;
@@ -203,6 +204,8 @@ describe('Finding a court or tribunal listing', () => {
     const expectedNumberOfResults = 1;
 
     it('should navigate to case name search page', async () => {
+      // TODO: remove open after 732 merge
+      await caseNameSearchPage.open('case-name-search');
       expect(await caseNameSearchPage.getPageTitle()).toEqual('Enter a case name');
     });
 
