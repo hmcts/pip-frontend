@@ -46,6 +46,7 @@ describe('Finding a court or tribunal listing', () => {
 
   describe('Following the \'live case status updates\' path', () => {
     const validCourtName = 'Abergavenny Magistrates\' Court';
+
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
@@ -179,7 +180,7 @@ describe('Finding a court or tribunal listing', () => {
   describe('Media User Login', () => {
     it('should open the OTP login page when a user clicks "Subscriptions" header', async () => {
       otpLoginTestingPage = await homePage.clickSubscriptionsButton();
-      expect(await otpLoginTestingPage.getPageTitle()).toEqual('Enter your email address');
+      expect(await otpLoginTestingPage.getPageTitle()).toEqual('Verify your email address');
     });
 
     it('should open the OTP login page', async () => {
@@ -190,7 +191,7 @@ describe('Finding a court or tribunal listing', () => {
     it('should navigate to subscription page when correct passcode is entered', async () => {
       await otpLoginPage.enterText('222222');
       subscriptionManagementPage = await otpLoginPage.clickContinue();
-      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Subscription Management');
+      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
     });
   });
 
