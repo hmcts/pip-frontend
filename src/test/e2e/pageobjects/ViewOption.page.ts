@@ -1,5 +1,6 @@
 import { LiveCaseCourtSearchControllerPage } from './LiveCaseCourtSearchController.page';
 import { SearchOptionsPage } from './SearchOptions.page';
+import {SingleJusticeProcedureSearchPage} from './SingleJusticeProcedureSearch.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -33,6 +34,14 @@ export class ViewOptionPage {
     radioButton.click();
   }
 
+  async selectSingleJusticeProcedureRadio(): Promise<void> {
+    $(helpers.SingleJusticeProcedureRadioButton).catch(() => {
+      console.log(`${helpers.SingleJusticeProcedureRadioButton} not found`);
+    });
+    const radioButton = await $(helpers.SingleJusticeProcedureRadioButton);
+    radioButton.click();
+  }
+
   async clickContinueForSearch(): Promise<SearchOptionsPage> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
@@ -51,5 +60,15 @@ export class ViewOptionPage {
     continueButton.click();
 
     return new LiveCaseCourtSearchControllerPage();
+  }
+
+  async clickContinueSingleJusticeProcedure(): Promise<SingleJusticeProcedureSearchPage> {
+    $(helpers.ContinueButton).catch(() => {
+      console.log(`${helpers.ContinueButton} not found`);
+    });
+    const continueButton = await $(helpers.ContinueButton);
+    continueButton.click();
+
+    return new SingleJusticeProcedureSearchPage();
   }
 }
