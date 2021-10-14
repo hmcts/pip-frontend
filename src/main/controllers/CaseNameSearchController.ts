@@ -21,7 +21,7 @@ export default class CaseNameSearchController {
   public async post(req: Request, res: Response): Promise<void> {
     const searchInput = req.body['case-name'];
     if (searchInput) {
-      const searchResults = await new HearingActions(_api).findCourtHearings(searchInput);
+      const searchResults = await new HearingActions(_api).findCourtHearings(searchInput.toLowerCase());
       if (searchResults.length) {
         res.redirect('case-name-search-results?search=' + searchInput);
       } else {
