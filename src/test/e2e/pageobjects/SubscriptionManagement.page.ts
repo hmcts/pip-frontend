@@ -1,3 +1,5 @@
+import { SubscriptionAddPage } from './SubscriptionAdd.page';
+
 const helpers = require('../Helpers/Selectors');
 
 export class SubscriptionManagementPage {
@@ -8,5 +10,14 @@ export class SubscriptionManagementPage {
     });
 
     return $(helpers.CommonPageTitle).getText();
+  }
+
+  async clickContinue(): Promise<SubscriptionAddPage> {
+    $(helpers.ContinueButton).catch(() => {
+      console.log(`${helpers.ContinueButton} not found`);
+    });
+
+    await $(helpers.ContinueButton).click();
+    return new SubscriptionAddPage();
   }
 }
