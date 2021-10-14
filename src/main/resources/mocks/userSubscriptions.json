@@ -1,0 +1,57 @@
+{
+  "results": [
+    {
+      "userId": 1,
+      "userEmail": "joe.bloggs@mailinator.com",
+      "caseSubscriptions": [
+        {
+          "name": "Collins LLC",
+          "reference": "T20217002",
+          "dateAdded": "1632351600"
+        },
+        {
+          "name": "Wyman Inc Dispute",
+          "reference": "T20217010",
+          "dateAdded": "1632351600"
+        },
+        {
+          "name": "Lowe, Hickle and Carroll",
+          "reference": "T20218078",
+          "dateAdded": "1632351600"
+        }
+      ],
+      "courtSubscriptions": [
+        {
+          "name": "Mutsu Court",
+          "dateAdded": "1632351600"
+        },
+        {
+          "name": "Khvalynsk Court",
+          "dateAdded": "1632351600"
+        },
+        {
+          "name": "Saint-Sauveur Court",
+          "dateAdded": "1632351600"
+        },
+        {
+          "name": "Dushu Court",
+          "dateAdded": "1632351600"
+        },
+        {
+          "name": "Aylesbury Magistrate's Court",
+          "dateAdded": "1632351600"
+        },
+        {
+          "name": "Ailibugai Court",
+          "dateAdded": "1632351600"
+        }
+      ]
+    },
+    {
+      "userId": 2,
+      "userEmail": "mmassot2@mailinator.com",
+      "caseSubscriptions": [],
+      "courtSubscriptions": []
+    }
+  ]
+}
