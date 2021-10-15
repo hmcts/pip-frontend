@@ -4,25 +4,19 @@ import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
 import { HearingListPage } from '../PageObjects/HearingList.page';
 import { SearchPage } from '../PageObjects/Search.page';
 import { SearchResultsPage } from '../PageObjects/SearchResults.page';
-import { OtpLoginPage } from '../PageObjects/OtpLogin.page';
-import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
 import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
-import { OtpLoginTestingPage } from '../PageObjects/OtpLoginTesting.page';
 
 const homePage = new HomePage;
-const otpLoginPage = new OtpLoginPage();
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
 let hearingListPage: HearingListPage;
 let searchPage: SearchPage;
 let searchResultsPage: SearchResultsPage;
-let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
-let otpLoginTestingPage: OtpLoginTestingPage;
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
@@ -156,21 +150,12 @@ describe('Finding a court or tribunal listing', () => {
     });
   });
 
-  describe('Media User Login', () => {
-    it('should open the OTP login page when a user clicks "Subscriptions" header', async () => {
-      otpLoginTestingPage = await homePage.clickSubscriptionsButton();
-      expect(await otpLoginTestingPage.getPageTitle()).toEqual('Enter your email address');
-    });
-
-    it('should open the OTP login page', async () => {
-      await otpLoginPage.open('otp-login');
-      expect(await otpLoginPage.getPageTitle()).toBe('Verify your email address');
-    });
-
-    it('should navigate to subscription page when correct passcode is entered', async () => {
-      await otpLoginPage.enterText('222222');
-      subscriptionManagementPage = await otpLoginPage.clickContinue();
-      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Subscription Management');
-    });
-  });
+  // describe('Media User Login', () => {
+  //
+  //   it('should navigate to subscription page when correct passcode is entered', async () => {
+  //     await otpLoginPage.enterText('222222');
+  //     subscriptionManagementPage = await otpLoginPage.clickContinue();
+  //     expect(await subscriptionManagementPage.getPageTitle()).toEqual('Subscription Management');
+  //   });
+  // });
 });
