@@ -1,5 +1,6 @@
 @import '~govuk-frontend';
 @import 'accessible-autocomplete.min';
+@import 'node_modules/@ministryofjustice/frontend/moj/all';
 
 $line-colour: #1d70b8;
 $text-disabled: #505a5f;
@@ -204,4 +205,6 @@ div {
   display: none;
 }
 
-
+.moj-sub-navigation__item > a {
+  font-weight: bold;
+}
