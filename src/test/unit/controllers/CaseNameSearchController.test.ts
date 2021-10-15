@@ -35,10 +35,38 @@ describe('Case name search controller', () => {
     const response = { redirect: () => {return '';}} as unknown as Response;
     const request = {body: {'case-name': 'Meedoo'}} as unknown as Request;
 
-    stub.withArgs().returns({});
+    stub.withArgs().returns([{caseName: 'Meedo', caseNumber: ''}]);
     const responseMock = sinon.mock(response);
 
     responseMock.expects('redirect').once().withArgs('case-name-search-results?search=Meedoo');
+
+    caseNameSearchController.post(request, response).then(() => {
+      responseMock.verify();
+    });
+  });
+
+  it('should render same page if there are no search results', () => {
+    const response = { render: () => {return '';}} as unknown as Response;
+    const request = {body: {'case-name': 'bob'}} as unknown as Request;
+
+    stub.withArgs().returns({});
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('case-name-search',  {noResultsError: true});
+
+    caseNameSearchController.post(request, response).then(() => {
+      responseMock.verify();
+    });
+  });
+
+  it('should render same page if there are no search results', () => {
+    const response = { render: () => {return '';}} as unknown as Response;
+    const request = {body: {}} as unknown as Request;
+
+    stub.withArgs().returns({});
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('case-name-search',  {noResultsError: true});
 
     caseNameSearchController.post(request, response).then(() => {
       responseMock.verify();
