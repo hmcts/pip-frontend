@@ -64,7 +64,7 @@ describe('Subscription Add Controller', () => {
   });
 
 
-  it('should render home page if choice is \'name\'', () => {
+  it('should render case name search page if choice is \'name\'', () => {
     const subscriptionAddController = new SubscriptionAddController();
 
     const response = { redirect: function() {return '';}} as unknown as Response;
@@ -72,7 +72,7 @@ describe('Subscription Add Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('/');
+    responseMock.expects('redirect').once().withArgs('/case-name-search');
 
     subscriptionAddController.post(request, response);
 
