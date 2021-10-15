@@ -61,6 +61,7 @@
     </form>
 {% endblock %}
 {% block bodyEnd %}
+    {{ super() }}
     {% set optionList = [] %}
     {% for item in autocompleteList %}
         {% set _ = optionList.push(
