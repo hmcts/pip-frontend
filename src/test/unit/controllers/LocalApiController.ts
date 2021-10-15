@@ -10,6 +10,9 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources
 const courtsAll = JSON.parse(rawData);
 const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtAndHearings2.json'), 'utf-8');
 const courts = JSON.parse(rawData2);
+const hearingsRawData =  fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/hearingsList.json'), 'utf-8');
+const hearings = JSON.parse(hearingsRawData);
+
 describe('Local Api Controller for all courts list', () => {
   it('should return a mock data for all court list', () =>  {
     const localApiController = new LocalApiController();
@@ -66,6 +69,26 @@ describe('Local Api Controller for search hearings for a court id', () => {
     responseMock.expects('send').once();
 
     localApiController.apiCourtList(request, response);
+
+    responseMock.verify();
+  });
+});
+
+
+describe('Local Api Controller for case name filtering', () => {
+  it('should return mock data for partial case name matching', () => {
+    const localApiController = new LocalApiController();
+
+    const response = {
+      send: () => {return Object.values(hearings);},
+    } as unknown as Response;
+    const request = { params: { input: 'Meed'}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('send').once();
+
+    localApiController.apiFindHearings(request, response);
 
     responseMock.verify();
   });
