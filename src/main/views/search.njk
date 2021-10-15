@@ -61,7 +61,6 @@
     </form>
 {% endblock %}
 {% block bodyEnd %}
-    {{ super() }}
     {% set optionList = [] %}
     {% for item in autocompleteList %}
         {% set _ = optionList.push(
@@ -83,4 +82,5 @@
         window.history.replaceState( null, null, window.location.href );
       }
     </script>
+  {{ super() }}
 {% endblock %}
