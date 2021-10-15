@@ -4,10 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
 
-
 const axios = require('axios');
 jest.mock('axios');
-
 
 const api = new PipApi(axios);
 
@@ -15,6 +13,8 @@ const validCourtId = 1;
 const invalidCourtId = 1232;
 const validHearingId = 5;
 const invalidHearingId = 2000;
+// const validSearchQuery = 'Meedoo';
+const invalidSearchQuery = 'bob';
 
 const hearingActions = new HearingActions(api);
 const stub = sinon.stub(api, 'getHearingList');
@@ -24,7 +24,6 @@ const hearingsData = JSON.parse(rawData);
 describe(`getCourtHearings(${validCourtId})`, () => {
 
   stub.withArgs(validCourtId).returns(hearingsData);
-
 
   it('should return list of hearings', () => {
     return hearingActions.getCourtHearings(validCourtId).then(data => {
@@ -37,7 +36,6 @@ describe(`getCourtHearings(${validCourtId})`, () => {
       expect(data.length).toBe(4);
     });
   });
-
 
   it('should have mocked object in the hearings list', () => {
     return hearingActions.getCourtHearings(validCourtId).then(data => {
@@ -56,7 +54,6 @@ describe(`getCourtHearings(${invalidCourtId})`, () => {
 
   stub.withArgs(invalidCourtId).returns({});
 
-
   it('should return empty list as court with id ${invalidCourtId}', () => {
     return hearingActions.getCourtHearings(invalidCourtId).then(data => {
       expect(data).toStrictEqual({});
@@ -65,7 +62,7 @@ describe(`getCourtHearings(${invalidCourtId})`, () => {
 
 });
 
-describe(`getHearingDetails(${validHearingId})`, function () {
+describe(`getHearingDetails(${validHearingId})`, () => {
 
   stub.withArgs(validCourtId).returns(hearingsData);
 
@@ -76,13 +73,21 @@ describe(`getHearingDetails(${validHearingId})`, function () {
   });
 });
 
-describe(`getHearingDetails(${invalidHearingId})`, function () {
+describe(`getHearingDetails(${invalidHearingId})`, () => {
 
   stub.withArgs(validCourtId).returns(hearingsData);
 
   it(`should return null as hearing with id ${invalidHearingId} doesn't exist`, () => {
     return hearingActions.getCourtHearings(invalidCourtId).then(data => {
       expect(data).toStrictEqual({});
+    });
+  });
+});
+
+describe(`findCourtHearings(${invalidSearchQuery})`, () => {
+  it(`should return empty array for ${invalidSearchQuery}`, () => {
+    return hearingActions.findCourtHearings(invalidSearchQuery).then(data => {
+      expect(data).toStrictEqual([]);
     });
   });
 });
