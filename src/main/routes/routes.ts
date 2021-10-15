@@ -30,7 +30,7 @@ export default function(app: Application): void {
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
-  app.get('/otp-login-testing', cors(corsOptions), app.locals.container.cradle.otpLoginTestingController.get);
+  app.get('/otp-template', cors(corsOptions), app.locals.container.cradle.otpTemplateController.get);
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
       host: os.hostname(),

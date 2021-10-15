@@ -15,7 +15,7 @@ describe('Subscription Management Controller', () => {
     const response = {
       render: () => {return '';},
     } as unknown as Response;
-    const request = {query: {}, user: {displayName: "abcd"}} as unknown as Request;
+    const request = {query: {}, user: {displayName: 'abcd'}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management');
@@ -30,7 +30,7 @@ describe('Subscription Management Controller', () => {
     const response = {
       render: () => {return '';},
     } as unknown as Response;
-    const request = {query: {all: true},  user: {displayName: "abcd"}} as unknown as Request;
+    const request = {query: {all: true},  user: {displayName: 'abcd'}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management');
@@ -45,7 +45,7 @@ describe('Subscription Management Controller', () => {
     const response = {
       render: () => {return '';},
     } as unknown as Response;
-    const request = {query: {case: true},  user: {displayName: "abcd"}} as unknown as Request;
+    const request = {query: {case: true},  user: {displayName: 'abcd'}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management');
@@ -60,7 +60,7 @@ describe('Subscription Management Controller', () => {
     const response = {
       render: () => {return '';},
     } as unknown as Response;
-    const request = {query: {court: true},  user: {displayName: "abcd"}} as unknown as Request;
+    const request = {query: {court: true},  user: {displayName: 'abcd'}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management');
