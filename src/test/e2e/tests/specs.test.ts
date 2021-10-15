@@ -3,7 +3,6 @@ import { SearchOptionsPage } from '../PageObjects/SearchOptions.page';
 import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
 import { HearingListPage } from '../PageObjects/HearingList.page';
 import { SearchPage } from '../PageObjects/Search.page';
-import { SearchResultsPage } from '../PageObjects/SearchResults.page';
 import { OtpLoginPage } from '../PageObjects/OtpLogin.page';
 import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
@@ -18,7 +17,6 @@ let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
 let hearingListPage: HearingListPage;
 let searchPage: SearchPage;
-let searchResultsPage: SearchResultsPage;
 let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
@@ -40,7 +38,7 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Following the \'live case status updates\' path', () => {
-    const validCourtName = 'Ailibugai Court';
+    const validCourtName = 'Abergavenny Magistrates\' Court';
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
@@ -53,9 +51,9 @@ describe('Finding a court or tribunal listing', () => {
     });
 
     it('should select \'A\' option, and navigate to the end of the page', async () => {
-      const endLetter = 'A';
+      const endLetter = 'Y';
       await liveCaseCourtSearchControllerPage.selectLetter(endLetter);
-      expect(await liveCaseCourtSearchControllerPage.checkIfLetterIsVisible('A')).toBeTruthy();
+      expect(await liveCaseCourtSearchControllerPage.checkIfLetterIsVisible(endLetter)).toBeTruthy();
     });
 
     it('selecting back to top should navigate to the top of the page', async () => {
@@ -65,12 +63,12 @@ describe('Finding a court or tribunal listing', () => {
     });
 
     it('selecting first result should take you to to the hearings list page', async () => {
-      liveCaseStatusPage = await liveCaseCourtSearchControllerPage.selectFirstListResult();
+      liveCaseStatusPage = await liveCaseCourtSearchControllerPage.selectFirstValidListResult();
       expect(await liveCaseStatusPage.getPageTitle()).toEqual('Live hearing updates - daily court list');
     });
 
     it(`should have '${validCourtName}' as a sub title`, async () => {
-      expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
+      expect(await liveCaseStatusPage.getCourtTitle()).toEqual('Mutsu Court');
     });
 
     it('should display 4 results in the table', async () => {
@@ -114,14 +112,13 @@ describe('Finding a court or tribunal listing', () => {
     });
 
     it('should display 3 result', async() => {
-      expect(await hearingListPage.getResults()).toBe(3);
+      expect(await hearingListPage.getResults()).toBe(13);
     });
   });
 
   describe('Following the \'search\' path', () => {
-    const searchTerm = 'abergavenny';
-    const expectedNumOfResults = 1;
-    const expectedNumOfHearings = 1;
+    const searchTerm = 'Abergavenny Magistrates\' Court';
+    const expectedNumOfHearings = 13;
 
 
     it('should select \'tribunal hearing list\' option and navigate to search option page', async () => {
@@ -138,21 +135,12 @@ describe('Finding a court or tribunal listing', () => {
 
     it('should enter text and click continue', async () => {
       await searchPage.enterText(searchTerm);
-      searchResultsPage = await searchPage.clickContinue();
-      expect(await searchResultsPage.getPageTitle()).toEqual(`Courts or tribunals in ${searchTerm}`);
-    });
-
-    it(`should display ${expectedNumOfResults} results`, async() => {
-      expect(await searchResultsPage.getResults()).toBe(1);
-    });
-
-    it('should navigate to hearing list page', async () => {
-      hearingListPage = await searchResultsPage.selectCourt();
+      hearingListPage = await searchPage.clickContinue();
       expect(await hearingListPage.getPageTitle()).toEqual('Abergavenny Magistrates\' Court hearing list');
     });
 
     it(`should display ${expectedNumOfHearings} results`, async () => {
-      expect(await hearingListPage.getResults()).toBe(3);
+      expect(await hearingListPage.getResults()).toBe(expectedNumOfHearings);
     });
   });
 

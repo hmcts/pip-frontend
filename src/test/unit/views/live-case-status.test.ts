@@ -1,18 +1,27 @@
 import { expect } from 'chai';
 import request from 'supertest';
-
 import { app } from '../../../main/app';
+import sinon from 'sinon';
+import fs from 'fs';
+import path from 'path';
+import {LiveCaseRequests} from '../../../main/resources/requests/liveCaseRequests';
 
 const PAGE_URL = '/live-case-status?courtId=1';
 const expectedHeader = 'Live hearing updates - daily court list';
 const expectedCourtName = 'Mutsu Court';
 let htmlRes: Document;
 
+const rawData = fs.readFileSync(path.resolve(__dirname, '../utils/mocks/liveCaseStatusUpdates.json'), 'utf-8');
+const liveCaseData = JSON.parse(rawData).results;
+
+sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
+
 describe('Live Status page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
+    console.log(htmlRes);
   });
 
   it('should display a back button with the correct value', () => {

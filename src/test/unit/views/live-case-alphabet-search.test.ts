@@ -1,9 +1,10 @@
 import { expect } from 'chai';
 import request from 'supertest';
-
 import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
+import sinon from 'sinon';
+import {CourtRequests} from '../../../main/resources/requests/courtRequests';
 
 const PAGE_URL = '/live-case-alphabet-search';
 const expectedHeader = 'Live hearing updates - select a court';
@@ -11,21 +12,10 @@ const expectedTableHeader = 'Crown courts in England and Wales';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtAndHearings2.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../utils/mocks/courtAndHearings.json'), 'utf-8');
 const hearingsData = JSON.parse(rawData);
 
-
-jest.mock('axios', () => {
-  return {
-    create: function(): { get: () => Promise<any> } {
-      return {
-        get: function(): Promise<any> {
-          return new Promise((resolve) => resolve({data: hearingsData}));
-        },
-      };
-    },
-  };
-});
+sinon.stub(CourtRequests.prototype, 'getFilteredCourts').returns(hearingsData);
 
 describe('Alphabetical Search page', () => {
   beforeAll(async () => {
@@ -82,5 +72,4 @@ describe('Alphabetical Search page', () => {
     expect(backToTopButton.innerHTML).contains('Back to top');
     expect(backToTopButton.getAttribute('href')).contains('#');
   });
-
 });

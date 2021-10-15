@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
+import {PipRequest} from '../models/request/PipRequest';
 
 export default class ViewOptionController {
-  public get(req: Request, res: Response): void {
-    res.render('view-option');
+  public get(req: PipRequest, res: Response): void {
+    res.render('view-option', req.i18n.getDataByLanguage(req.lng)['view-option']);
   }
 
   public post(req: Request, res: Response): void {

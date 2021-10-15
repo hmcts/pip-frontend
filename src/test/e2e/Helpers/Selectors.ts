@@ -41,5 +41,5 @@ module.exports = {
   LiveHearingsRadioButton: '#view-choice-2',
 
   // LiveCaseAlphabetSearch selectors
-  LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',
+  LiveHearingsTableFirstValidResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
 };

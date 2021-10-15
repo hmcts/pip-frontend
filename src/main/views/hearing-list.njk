@@ -3,7 +3,7 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-    {{ "Hearings List" | safe }}
+    {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block content %}
-  <h2 class="govuk-heading-l govuk-!-margin-bottom-8">{{courtName}} hearing list</h2>
+  <h2 class="govuk-heading-l govuk-!-margin-bottom-8">{{courtName}} {{ heading }}</h2>
   {%- set hearing = [] %}
   {% for item in hearings %}
     {% set _ = hearing.push([
@@ -45,36 +45,36 @@
   {% endfor %}
 
   {{ govukTable({
-    caption: "List for " + date,
+    caption: tableCaption + date,
     captionClasses: "govuk-table__caption--m",
     firstCellIsHeader: false,
     head: [
       {
-        text: "Court Number"
+        text: tableHeader1
       },
       {
-        text: "Case name"
+        text: tableHeader2
       },
       {
-        text: "Case number"
+        text: tableHeader3
       },
       {
-        text: "Judges"
+        text: tableHeader4
       },
       {
-        text: "Time",
+        text: tableHeader5,
         classes: "centre-align-text"
       },
       {
-        text: "Hearing platform",
+        text: tableHeader6,
         classes: "right-align-text"
       }
     ],
     rows: hearing
   }) }}
   <hr class="govuk-section-break--visible govuk-!-margin-top-9"></hr>
-  <h4 class="govuk-heading-s govuk-!-margin-bottom-1">Related Content</h4>
-  <a href="/search-option" class="govuk-link govuk-!-font-weight-bold">Find a court or tribunal list</a>
+  <h4 class="govuk-heading-s govuk-!-margin-bottom-1">{{ relatedContent }}</h4>
+  <a href="/search-option" class="govuk-link govuk-!-font-weight-bold">{{ a1 }}</a>
 
 {% endblock %}
 

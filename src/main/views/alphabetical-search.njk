@@ -3,7 +3,7 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-  {{ "Court List" | safe }}
+  {{ title }}
 {% endblock %}
 {% block beforeContent %}
   {{ goBack('/search-option') }}
@@ -14,11 +14,11 @@
         <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19" href="#">
           <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17">
             <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
-          </svg>Back to top
+          </svg>{{ backToTop }}
         </a>
     </div>
     <div class="layout-width-four-fifths">
-      <h2 id='page-heading' class="govuk-heading-l">Find a court or tribunal listing</h2>
+      <h2 id='page-heading' class="govuk-heading-l">{{ heading }}</h2>
       <div class="govuk-grid-row govuk-!-margin-bottom-8">
         {% for key, value in courtList %}
           {% if value| length == 0 %}
@@ -37,8 +37,8 @@
         <thead class="govuk-table__head">
         <tr class="govuk-table__row">
           <th scope="col" class="govuk-table__header app-custom-class"></th>
-          <th scope="col" class="govuk-table__header govuk-!-width-three-quarters">Court or tribunal</th>
-          <th scope="col" class="govuk-table__header number_hearings govuk-!-width-one-quarter">Number of hearings</th>
+          <th scope="col" class="govuk-table__header govuk-!-width-three-quarters">{{ tableHeader1 }}</th>
+          <th scope="col" class="govuk-table__header number_hearings govuk-!-width-one-quarter">{{ tableHeader2 }}</th>
         </tr>
         </thead>
         <tbody class="govuk-table__body">
@@ -49,8 +49,8 @@
             </th>
             <td class="govuk-table__cell">
               {% if value | length == 0 %}
-                <div class="text_disabled">No hearings are scheduled in any of these</div>
-                <div class="text_disabled">locations today</div>
+                <div class="text_disabled">{{ error.line1 }}</div>
+                <div class="text_disabled">{{ error.line2 }}</div>
               {% else %}
                 {% for courtName, courtDetails in value %}
                   <div><a href="/hearing-list?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></div>

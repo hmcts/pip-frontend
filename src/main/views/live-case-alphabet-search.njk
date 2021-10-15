@@ -3,7 +3,7 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-    {{ "Live Case Alphabet Search" | safe }}
+    {{ title }}
 {% endblock %}
 {% block beforeContent %}
     {{ goBack('/view-option') }}
@@ -14,12 +14,12 @@
             <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19" href="#">
                 <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17">
                     <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
-                </svg>Back to top
+                </svg>{{ backToTop }}
             </a>
         </div>
         <div class="layout-width-four-fifths">
-            <h2 id='page-heading' class="govuk-heading-l">Live hearing updates - select a court</h2>
-            <p class="govuk-body">Select a court to see live updates of each hearing within that court</p>
+            <h2 id='page-heading' class="govuk-heading-l">{{ heading }}</h2>
+            <p class="govuk-body">{{ p1 }}</p>
             <div class="govuk-!-margin-bottom-8">
                 <div class="govuk-grid-row">
                 {% for key, value in courtList %}
@@ -43,7 +43,7 @@
             <table class="govuk-table">
                 <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header" colspan="2">Crown courts in England and Wales</th>
+                        <th scope="col" class="govuk-table__header" colspan="2">{{ tableHeader }}</th>
                     </tr>
                 </thead>
                 <tbody class="govuk-table__body">

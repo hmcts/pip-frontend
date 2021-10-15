@@ -1,31 +1,37 @@
 import sinon from 'sinon';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import LiveCaseCourtSearchController from '../../../main/controllers/LiveCaseCourtSearchController';
 import fs from 'fs';
 import path from 'path';
-import {PipApi} from '../../../main/utils/PipApi';
+import {CourtService} from '../../../main/service/courtService';
+import {mockRequest} from '../utils/mockRequest';
 
-const axios = require('axios');
-jest.mock('axios');
-const api = new PipApi(axios);
-const stub = sinon.stub(api, 'getAllCourtList');
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
-const hearingsData = JSON.parse(rawData);
+const liveCaseCourtSearchController = new LiveCaseCourtSearchController();
+const rawData = fs.readFileSync(path.resolve(__dirname, '../utils/mocks/courtAndHearings.json'), 'utf-8');
+const courtsAndHearings = JSON.parse(rawData);
+sinon.stub(CourtService.prototype, 'generateAlphabetisedCrownCourtList').returns(courtsAndHearings);
+
 describe('Live Case Court Search Controller', () => {
   it('should render live cases alphabetical page', () => {
-    const liveCaseCourtSearchController = new LiveCaseCourtSearchController(api);
 
-    stub.withArgs().returns(hearingsData);
+    const i18n = {
+      'live-case-alphabet-search': {},
+    };
 
     const response = {
       render: () => {return '';},
       get: () => {return '';},
     } as unknown as Response;
-    const request = {query: {}} as unknown as Request;
+    const request = mockRequest(i18n);
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('live-case-alphabet-search');
+    const expectedData = {
+      ...i18n['live-case-alphabet-search'],
+      courtList: courtsAndHearings,
+    };
+
+    responseMock.expects('render').once().withArgs('live-case-alphabet-search', expectedData);
 
     return liveCaseCourtSearchController.get(request, response).then(() => {
       responseMock.verify();

@@ -1,9 +1,10 @@
 import { expect } from 'chai';
 import request from 'supertest';
-
 import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
+import sinon from 'sinon';
+import {CourtRequests} from '../../../main/resources/requests/courtRequests';
 
 const PAGE_URL = '/search';
 const headingClass = 'govuk-label-wrapper';
@@ -20,19 +21,11 @@ const expectedButtonText = 'Continue';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAllReduced.json'), 'utf-8');
-const hearingsData = JSON.parse(rawData);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../utils/mocks/courtAndHearings.json'), 'utf-8');
+const courtData = JSON.parse(rawData);
 
-
-jest.mock('axios', () => {
-  return {
-    create: function(): { get: () => Promise<any> } {
-      return {
-        get: function(): Promise<any> { return new Promise((resolve) => resolve({data: hearingsData}));},
-      };
-    },
-  };
-});
+sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(courtData);
+sinon.stub(CourtRequests.prototype, 'getCourtByName').returns(null);
 
 describe('Search Page', () => {
   beforeAll(async () => {
