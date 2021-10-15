@@ -13,11 +13,12 @@ const validCourtId = 1;
 const invalidCourtId = 1232;
 const validHearingId = 5;
 const invalidHearingId = 2000;
-// const validSearchQuery = 'Meedoo';
+const validSearchQuery = 'Meedoo';
 const invalidSearchQuery = 'bob';
 
 const hearingActions = new HearingActions(api);
 const stub = sinon.stub(api, 'getHearingList');
+const filterStub = sinon.stub(api, 'filterHearings');
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../../main/resources/mocks/hearingsListByCourt.json'), 'utf-8');
 const hearingsData = JSON.parse(rawData);
 
@@ -75,7 +76,7 @@ describe(`getHearingDetails(${validHearingId})`, () => {
 
 describe(`getHearingDetails(${invalidHearingId})`, () => {
 
-  stub.withArgs(validCourtId).returns(hearingsData);
+  stub.withArgs(invalidHearingId).returns({});
 
   it(`should return null as hearing with id ${invalidHearingId} doesn't exist`, () => {
     return hearingActions.getCourtHearings(invalidCourtId).then(data => {
@@ -85,9 +86,21 @@ describe(`getHearingDetails(${invalidHearingId})`, () => {
 });
 
 describe(`findCourtHearings(${invalidSearchQuery})`, () => {
+  filterStub.withArgs(invalidSearchQuery).returns([]);
+
   it(`should return empty array for ${invalidSearchQuery}`, () => {
     return hearingActions.findCourtHearings(invalidSearchQuery).then(data => {
       expect(data).toStrictEqual([]);
+    });
+  });
+});
+
+describe(`findCourtHearings(${validSearchQuery})`, () => {
+  filterStub.withArgs(validSearchQuery).returns(hearingsData);
+
+  it(`should return 4 records for ${validSearchQuery}`, () => {
+    return hearingActions.findCourtHearings(validSearchQuery).then(data => {
+      expect(data.length).toBe(4);
     });
   });
 });
