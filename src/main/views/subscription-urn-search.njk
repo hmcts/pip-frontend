@@ -1,14 +1,21 @@
 {% extends "template.njk" %}
-{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "macros/common-components.njk" import submitButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% block pageTitle %}
   {{ "Search case by URN" | safe }}
 {% endblock %}
 
 {% block beforeContent %}
-  {{ goBack('/') }}
+{{ govukBackLink({
+  text: text,
+  href: '#',
+  attributes: {
+    onClick: "history.back();event.preventDefault();"
+  }
+}) }}
 {% endblock %}
 
 {% block content %}

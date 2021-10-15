@@ -1,13 +1,20 @@
 {% extends "template.njk" %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "./macros/common-components.njk" import goBack, submitButton %}
+{% from "./macros/common-components.njk" import submitButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% block pageTitle %}
   {{ "Subscription URN Search Results" | safe }}
 {% endblock %}
 
 {% block beforeContent %}
-  {{ goBack('/subscription-urn-search') }}
+  {{ govukBackLink({
+    text: text,
+    href: '#',
+    attributes: {
+      onClick: "history.back();event.preventDefault();"
+    }
+  }) }}
 {% endblock %}
 
 {% block content %}
@@ -25,8 +32,8 @@
     <tbody class="govuk-table__body">
     {% for result in searchResults %}
       <tr class="govuk-table__row">
-        <th scope="row" class="govuk-table__cell--no-line">{{ result.urn }}</th>
-        <th scope="row" class="govuk-table__cell--no-line">{{ result.caseNumber }}</th>
+        <td scope="row" class="govuk-table__cell--no-line">{{ result.urn }}</td>
+        <td scope="row" class="govuk-table__cell--no-line">{{ result.caseNumber }}</td>
         <td class="govuk-table__cell--no-line">{{ result.caseName }}</td>
       </tr>
     {% endfor %}

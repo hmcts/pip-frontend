@@ -19,7 +19,7 @@ export default class SubscriptionUrnSearchController {
 
     if (searchInput && searchInput.length >= 3) {
       const searchResults = await new SubscriptionSearchActions(_api).getSubscriptionUrnDetails(searchInput);
-      (searchResults && searchResults.length > 0) ?
+      (searchResults && searchResults.length) ?
         res.redirect(`subscription-urn-search-results?search-input=${searchInput}`) :
         res.render('subscription-urn-search', {invalidInputError: false, noResultsError: true});
     } else {
