@@ -11,6 +11,7 @@ const stubGetCourtDetails = sinon.stub(api, 'getCourtDetails');
 const stubGetCourtList = sinon.stub(api, 'getCourtList');
 const stubGetAllCourtList = sinon.stub(api, 'getAllCourtList');
 const stubGetHearingList = sinon.stub(api, 'getHearingList');
+const stubFilterHearings = sinon.stub(api, 'filterHearings');
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtAndHearings.json'), 'utf-8');
 const hearingsData = JSON.parse(rawData);
@@ -50,4 +51,17 @@ describe('PipApi utils', () => {
     expect(data).toBe(hearingsData);
   });
 
+  it('should return hearings for valid search query', () => {
+    const validSearch = 'Meedoo';
+    stubFilterHearings.withArgs(validSearch).returns(hearingsData);
+
+    expect(api.filterHearings(validSearch)).toBe(hearingsData);
+  });
+
+  it('should return empty list for invalid search query', () => {
+    const invalidSearch = 'bob';
+    stubFilterHearings.withArgs(invalidSearch).returns([]);
+
+    expect(api.filterHearings(invalidSearch)).toStrictEqual([]);
+  });
 });
