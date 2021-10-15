@@ -37,7 +37,7 @@ describe('Search Results Page', () => {
   it('should display back button', () => {
     const backButton = htmlRes.getElementsByClassName('govuk-back-link');
     expect(backButton[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backButton[0].getAttribute('href')).equal('/subscription-urn-search', 'Back button does not contain correct link');
+    expect(backButton[0].getAttribute('href')).equal('#', 'Back button does not contain correct link');
   });
 
   it('should list the number of results found', () => {
