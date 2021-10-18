@@ -1,0 +1,23 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "./macros/common-components.njk" import submitButton %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+    {{ "Court Name Search" | safe }}
+{% endblock %}
+{% block beforeContent %}
+    {{ govukBackLink({
+        text: text,
+        href: '#',
+        attributes: {
+            onClick: "history.back();event.preventDefault();"
+        }
+    }) }}
+{% endblock %}
+{% block content %}
+    <h1 class="govuk-heading-l">Subscribe by court or tribunal name</h1>
+{% endblock %}
+{% block bodyEnd %}
+    <script type="text/javascript" src="/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="/assets/js/mojAll.js"></script>
+{% endblock %}
