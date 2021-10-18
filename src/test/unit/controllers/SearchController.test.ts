@@ -142,7 +142,7 @@ describe('Search Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('search-results?search-input=Basildon Combined Court');
+    responseMock.expects('redirect').once().withArgs('hearing-list?search-input=Basildon Combined Court');
 
     return searchController.post(request, response).then(() => {
       responseMock.verify();
@@ -161,7 +161,7 @@ describe('Search Controller', () => {
     const responseMock = sinon.mock(response);
 
 
-    responseMock.expects('redirect').once().withArgs('search-results?search-input=London');
+    responseMock.expects('redirect').once().withArgs('hearing-list?search-input=London');
 
 
     return searchController.post(request, response).then(() => {
@@ -181,7 +181,7 @@ describe('Search Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('search-results?search-input=Crown Court');
+    responseMock.expects('redirect').once().withArgs('hearing-list?search-input=Crown Court');
 
     return searchController.post(request, response).then(() => {
       responseMock.verify();

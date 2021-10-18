@@ -141,7 +141,6 @@ describe('Finding a court or tribunal listing', () => {
 
   describe('Following the \'search\' path', () => {
     const searchTerm = 'abergavenny';
-    const expectedNumOfResults = 1;
     const expectedNumOfHearings = 1;
 
 
@@ -160,11 +159,7 @@ describe('Finding a court or tribunal listing', () => {
     it('should enter text and click continue', async () => {
       await searchPage.enterText(searchTerm);
       searchResultsPage = await searchPage.clickContinue();
-      expect(await searchResultsPage.getPageTitle()).toEqual(`Courts or tribunals in ${searchTerm}`);
-    });
-
-    it(`should display ${expectedNumOfResults} results`, async() => {
-      expect(await searchResultsPage.getResults()).toBe(1);
+      expect(await searchResultsPage.getPageTitle()).toEqual('Abergavenny Magistrates\' Court hearing list');
     });
 
     it('should navigate to hearing list page', async () => {

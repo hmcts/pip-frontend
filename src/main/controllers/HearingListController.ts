@@ -2,8 +2,10 @@ import { Request, Response } from 'express';
 import { HearingActions } from '../resources/actions/hearingActions';
 import moment from 'moment';
 import {PipApi} from '../utils/PipApi';
+import {CourtActions} from '../resources/actions/courtActions';
 
 let _api: PipApi;
+let courtIdNumber;
 export default class HearingListController {
 
   constructor(private readonly api: PipApi) {
@@ -11,8 +13,25 @@ export default class HearingListController {
   }
 
   public async get(req: Request, res: Response): Promise<void> {
+
     const courtId = req.query.courtId as string;
-    const courtIdNumber = parseInt(courtId);
+    const searchInput = req.query['search-input'];
+
+    if(searchInput) {
+      const searchResults = await new CourtActions(_api).getCourtList(searchInput);
+
+      if(searchResults.length > 0) {
+        courtIdNumber = searchResults[0].courtId;
+      }
+      else {
+        res.render('error');
+      }
+
+    }
+    else {
+      courtIdNumber = parseInt(courtId);
+    }
+
 
     //If no court ID has been supplied, then return the error page
     if (courtIdNumber) {

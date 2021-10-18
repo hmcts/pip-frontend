@@ -26,7 +26,7 @@ export default class SearchController {
     const autocompleteList = await courtList.getCourtsList();
     if (searchInput && searchInput.length >= 3 && autocompleteList) {
       (inputService.findCourts(searchInput, searchAgainst, autocompleteList).length) ?
-        res.redirect(`search-results?search-input=${searchInput}`) :
+        res.redirect(`hearing-list?search-input=${searchInput}`) :
         res.render('search', { autocompleteList: autocompleteList, invalidInputError: false, noResultsError: true});
     } else {
       res.render('search', { autocompleteList: autocompleteList, invalidInputError: true, noResultsError: false });

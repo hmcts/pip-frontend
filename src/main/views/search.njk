@@ -32,12 +32,17 @@
     {% set formGroupError = 'govuk-form-group--error'
         if noResultsError or invalidInputError else 'govuk-form-group' %}
     <form action="search" method="post">
-        <div class="govuk-form-group govuk-!-width-one-half">
+        <div class="govuk-form-group govuk-!-width-two-third">
             <h1 class="govuk-label-wrapper">
                 <label class="govuk-label govuk-label--l" for="search-input">
                     What court or tribunal are you interested in?
                 </label>
             </h1>
+          <h2 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--m" for="search-input">
+              Enter a court or tribunal name
+            </label>
+          </h2>
             <div class="{{ formGroupError }}">
                 <div id="search-input-hint" class="govuk-hint">
                     For example Blackburn Family Court or Chester
@@ -45,7 +50,7 @@
                 {% if noResultsError or invalidInputError %}
                     <span class="govuk-error-message">Enter a court name, town or city</span>
                 {% endif %}
-                <div class="{{ inputClasses }}" id="search-input-container"></div>
+                <div class="{{ inputClasses }} govuk-!-width-one-half" id="search-input-container"></div>
             </div>
 
         </div>
