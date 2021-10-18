@@ -30,7 +30,7 @@ export default class LocalApiController {
   }
 
   public apiSubscriptionByUrn(req: Request, res: Response): any {
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../resources/mocks/subscriptionList.json'), 'utf-8');
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../resources/mocks/hearingsList.json'), 'utf-8');
     const model = JSON.parse(rawData);
     const urn = req.params.urn;
     const result = model.filter(s=> s.urn === urn);

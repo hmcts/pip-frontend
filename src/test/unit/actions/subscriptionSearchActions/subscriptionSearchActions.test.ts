@@ -4,10 +4,8 @@ import path from 'path';
 import sinon from 'sinon';
 import {SubscriptionSearchActions} from '../../../../main/resources/actions/subscriptionSearchActions';
 
-
 const axios = require('axios');
 jest.mock('axios');
-
 
 const api = new PipApi(axios);
 
@@ -23,7 +21,6 @@ describe(`getSubscriptionUrnDetails(${validUrn})`, () => {
 
   stub.withArgs(validUrn).returns(subscriptionsData);
 
-
   it('should return list of cases', () => {
     return subscriptionActions.getSubscriptionUrnDetails(validUrn).then(data => {
       expect(data).toBe(subscriptionsData);
@@ -35,7 +32,6 @@ describe(`getSubscriptionUrnDetails(${validUrn})`, () => {
       expect(data.length).toBe(1);
     });
   });
-
 
   it('should have mocked object in the cases list', () => {
     return subscriptionActions.getSubscriptionUrnDetails(validUrn).then(data => {
@@ -54,12 +50,10 @@ describe(`getSubscriptionUrnDetails(${invalidUrn})`, () => {
 
   stub.withArgs(invalidUrn).returns({});
 
-
   it('should return empty list as urn ${invalidUrn}', () => {
     return subscriptionActions.getSubscriptionUrnDetails(invalidUrn).then(data => {
       expect(data).toStrictEqual({});
     });
   });
-
 });
 

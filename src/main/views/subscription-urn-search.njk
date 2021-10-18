@@ -47,15 +47,12 @@
         </label>
       </h1>
       <div class="{{ formGroupError }}">
-        <div id="search-input-hint" class="govuk-hint">
-          Please provide the exact match
-        </div>
         {% if noResultsError or invalidInputError %}
           <span class="govuk-error-message">Enter a unique reference number</span>
         {% endif %}
         {{ govukInput({
           label: {
-            "text": ''
+            "text": 'Please provide the exact match'
           },
           id: "search-input",
           name: "search-input",
