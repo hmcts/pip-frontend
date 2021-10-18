@@ -200,9 +200,7 @@ describe('Finding a court or tribunal listing', () => {
     });
   });
 
-
   describe('Idam SignIn selection', () => {
-
     it('should open Idam SignIn page with Sign in to your account', async () => {
       await idamSigninPage.open('idam-signin');
       expect(await idamSigninPage.getPageTitle()).toEqual('Sign in to your account');
@@ -212,13 +210,13 @@ describe('Finding a court or tribunal listing', () => {
       const valueToSelect = 'Crime';
       await idamSigninPage.selectIdam(valueToSelect);
       expect(await idamSigninPage.clickContinue()).toBeTruthy();
+    });
+  });
 
   describe('Add a subscription path', () => {
     it('should open the subscription add page', async () => {
       await subscriptionAddPage.open('subscription-add');
       expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
-
     });
-
   });
 });

@@ -1,7 +1,7 @@
 import { LiveCaseCourtSearchControllerPage } from './LiveCaseCourtSearchController.page';
 import { SearchOptionsPage } from './SearchOptions.page';
 import {SingleJusticeProcedureSearchPage} from './SingleJusticeProcedureSearch.page';
-import {PageBase} from "./Base/PageBase.page";
+import {PageBase} from './Base/PageBase.page';
 
 const helpers = require('../Helpers/Selectors');
 
