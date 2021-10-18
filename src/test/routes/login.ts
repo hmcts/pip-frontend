@@ -1,5 +1,5 @@
-import request from "supertest";
-import {app} from "../../main/app";
+import request from 'supertest';
+import {app} from '../../main/app';
 
 describe('Login', () => {
   describe('Login Page', () => {
