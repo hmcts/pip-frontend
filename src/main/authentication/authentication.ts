@@ -4,12 +4,12 @@ const passport = require('passport');
 
 const authenticationConfig = require('./authentication-config.json');
 
-/**
- * This function sets up the authentication service
- * Values are read from config, and from the environment passed in
- */
-export default function(): void {
+const MockStrategy = require('passport-mock-strategy');
 
+/**
+ * This sets up the OIDC version of authentication, integrating with Azure.
+ */
+function oidcSetup(): void {
   const users = [];
 
   const findByOid = function(oid, fn): Function {
@@ -27,9 +27,7 @@ export default function(): void {
   });
 
   passport.deserializeUser(function(oid, done) {
-    findByOid(oid, function (err, user) {
-      done(err, user);
-    });
+    return done(null, {oid: '1234'});
   });
 
   passport.use(new OIDCStrategy({
@@ -57,5 +55,42 @@ export default function(): void {
     });
   },
   ));
-
 }
+
+/**
+ * This sets up the local version of authentication, which uses a mock instead.
+ */
+function mockSetup(): void {
+
+  const mockUser = {'oid': 1234, 'profile': {'oid': '1234'}};
+
+  passport.serializeUser(function(user, done) {
+    done(null, user.oid);
+  });
+
+  passport.deserializeUser(function(oid, done) {
+    return done(null, mockUser);
+  });
+
+  passport.use(new MockStrategy({
+    name: 'azuread-openidconnect',
+    user: mockUser,
+  },
+  function(user, done) {
+    done(null, user);
+  },
+  ));
+}
+
+/**
+ * This function sets up the authentication service
+ * Values are read from config, and from the environment passed in
+ */
+export default function(): void {
+  if (process.env.OIDC) {
+    oidcSetup();
+  } else {
+    mockSetup();
+  }
+}
+

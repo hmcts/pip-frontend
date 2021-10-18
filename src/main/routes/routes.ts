@@ -54,7 +54,11 @@ export default function(app: Application): void {
     function (req, res) {
       res.redirect('/subscription-management');
     });
-  app.get('/login', passport.authenticate('azuread-openidconnect', { failureRedirect: '/error'}));
+  app.get('/login', passport.authenticate('azuread-openidconnect', { failureRedirect: '/error'}),
+    function (req, res) {
+      res.redirect('/subscription-management');
+    });
+
   app.get('/subscription-add', app.locals.container.cradle.subscriptionAddController.get);
   app.post('/subscription-add', app.locals.container.cradle.subscriptionAddController.post);
 

@@ -7,6 +7,7 @@ import { SearchResultsPage } from '../pageobjects/SearchResults.page';
 import { ViewOptionPage } from '../pageobjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
 import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
+import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
 import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
 import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
 
@@ -18,6 +19,7 @@ let alphabeticalSearchPage: AlphabeticalSearchPage;
 let hearingListPage: HearingListPage;
 let searchPage: SearchPage;
 let searchResultsPage: SearchResultsPage;
+let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
@@ -170,14 +172,14 @@ describe('Finding a court or tribunal listing', () => {
     });
   });
 
-
-  // describe('Media User Login', () => {
-  //   it('should navigate to subscription page when correct passcode is entered', async () => {
-  //     await otpLoginPage.enterText('222222');
-  //     subscriptionManagementPage = await otpLoginPage.clickContinue();
-  //     expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
-  //   });
-  // });
+  describe('Media User Login', () => {
+    it('should navigate to subscription management page', async () => {
+      it('should navigate to the subscription management page when a user clicks "Subscriptions" header', async () => {
+        subscriptionManagementPage = await homePage.clickSubscriptionsButton();
+        expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
+      });
+    });
+  });
 
   describe('Add a subscription path', () => {
     it('should open the subscription add page', async () => {

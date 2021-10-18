@@ -4,12 +4,16 @@ const pa11y = require('pa11y');
 import * as supertest from 'supertest';
 import { app } from '../../main/app';
 const agent = supertest.agent(app);
+import {request as expressRequest} from 'express';
+import sinon from 'sinon';
 
 const routesNotTested = [
   '/health',
   '/health/liveness',
   '/health/readiness',
   '/info',
+  '/login',
+  '/login/return',
 ];
 
 export class Pa11yResult {
@@ -92,6 +96,7 @@ function testAccessibility(url: string): void {
 }
 
 describe('Accessibility',  () => {
+  sinon.stub(expressRequest, 'isAuthenticated').returns(true);
   readRoutes().forEach(route => {
     if (route.indexOf('/api/') !== 0) {
       testAccessibility(route);
