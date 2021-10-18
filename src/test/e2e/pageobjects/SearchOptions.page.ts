@@ -6,6 +6,14 @@ const helpers = require('../Helpers/Selectors');
 
 export class SearchOptionsPage extends PageBase {
 
+  async getPageTitle(): Promise<string> {
+    $(helpers.SearchOptionsTitle).catch(() => {
+      console.log(`${helpers.SearchOptionsTitle} not found`);
+    });
+
+    return $(helpers.SearchOptionsTitle).getText();
+  }
+
   get radioButtons(): Promise<number> {
     const radioButtons = $$(helpers.RadioButton);
     return radioButtons.length;

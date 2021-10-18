@@ -7,6 +7,14 @@ const helpers = require('../Helpers/Selectors');
 
 export class ViewOptionPage extends PageBase {
 
+  async getPageTitle(): Promise<string> {
+    $(helpers.ViewOptionsTitle).catch(() => {
+      console.log(`${helpers.ViewOptionsTitle} not found`);
+    });
+
+    return $(helpers.ViewOptionsTitle).getText();
+  }
+
   get radioButtons(): Promise<number> {
     const radioButtons = $$(helpers.RadioButton);
     return radioButtons.length;
