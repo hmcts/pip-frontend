@@ -74,4 +74,96 @@ describe('Authentication', () => {
     expect(mockCallback.mock.calls[1][1]).to.eql(firstProfile);
   });
 
+  it('Test that serialising a user returns their OID', () => {
+    const passport = require('passport');
+    authentication('true');
+
+    const serializers = passport._serializers;
+    const firstSerializer = serializers[0];
+
+    const mockCallback = jest.fn();
+
+    const profile = {oid: '1234'};
+    firstSerializer(profile, mockCallback);
+
+    expect(mockCallback.mock.calls.length).to.eql(1);
+    expect(mockCallback.mock.calls[0][0]).to.eql(null);
+    expect(mockCallback.mock.calls[0][1]).to.eql('1234');
+  });
+
+  it('Test that deserialising a user returns the original profile object', () => {
+    const passport = require('passport');
+    authentication('true');
+
+    const strategy = passport._strategies['azuread-openidconnect'];
+    const verifyFunction = strategy._verify;
+
+    const profile = {oid: '1234', profile: 'test-profile'};
+    const verifyMockCallback = jest.fn();
+
+    verifyFunction(null, null, profile, null, null, verifyMockCallback);
+
+    const deserializers = passport._deserializers;
+    const firstDeserializer = deserializers[0];
+
+    const serializeMockCallback = jest.fn();
+
+    firstDeserializer('1234', serializeMockCallback);
+
+    expect(serializeMockCallback.mock.calls.length).to.eql(1);
+    expect(serializeMockCallback.mock.calls[0][0]).to.eql(null);
+    expect(serializeMockCallback.mock.calls[0][1]).to.eql(profile);
+  });
+
+  it('Test that serialising a mock user returns their OID', () => {
+    const passport = require('passport');
+    authentication(null);
+
+    const serializers = passport._serializers;
+    const firstSerializer = serializers[0];
+
+    const profile = {oid: '1234', profile: 'test-profile'};
+    const mockCallback = jest.fn();
+
+    firstSerializer(profile, mockCallback);
+
+    expect(mockCallback.mock.calls.length).to.eql(1);
+    expect(mockCallback.mock.calls[0][0]).to.eql(null);
+    expect(mockCallback.mock.calls[0][1]).to.eql('1234');
+  });
+
+  it('Test that deserializing a mock user returns the user', () => {
+    const passport = require('passport');
+    authentication(null);
+
+    const deserializers = passport._deserializers;
+    const firstDeserializer = deserializers[0];
+
+    const mockUser = {'oid': 1234, 'profile': {'oid': '1234'}};
+    const mockCallback = jest.fn();
+
+    firstDeserializer('1234', mockCallback);
+
+    expect(mockCallback.mock.calls.length).to.eql(1);
+    expect(mockCallback.mock.calls[0][0]).to.eql(null);
+    expect(mockCallback.mock.calls[0][1]).to.eql(mockUser);
+  });
+
+  it('Test that the verify function for passport just returns the user', () => {
+    const passport = require('passport');
+    authentication(null);
+
+    const strategy = passport._strategies['azuread-openidconnect'];
+    const verifyFunction = strategy._verify;
+
+    const mockUser = {'oid': 1234, 'profile': {'oid': '1234'}};
+    const mockCallback = jest.fn();
+
+    verifyFunction(mockUser, mockCallback);
+
+    expect(mockCallback.mock.calls.length).to.eql(1);
+    expect(mockCallback.mock.calls[0][0]).to.eql(null);
+    expect(mockCallback.mock.calls[0][1]).to.eql(mockUser);
+  });
+
 });
