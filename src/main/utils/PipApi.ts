@@ -27,6 +27,7 @@ export class PipApi {
       .get('/api/courtlistall/', {  headers: {'Accept-Language': 'en'}})
       .then(results => results.data)
       .catch(err => {
+        console.log('API PROBLEM: ' + err);
         return {err};
       });
   }
