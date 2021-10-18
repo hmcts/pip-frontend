@@ -24,12 +24,27 @@ Running the application requires the following tools to be installed in your env
 
 Some of the pages within this app are secured via authentication.
 
-Two environment variables are needed for this:
+There are two modes for authentication:
+
+1) OIDC
+2) Mock Strategy
+
+The OIDC connect strategy integrates with Azure. When users try to access an authenticated page,
+they will be presented with the logon screen.
+
+To use this strategy, set the 'OIDC' environment variable to 'true' when starting up the app.
+
+Alternatively, users can use the Mock Strategy which is the default. Rather than integrating with Azure, will
+automatically log the user in with a test user. See the Authentication.ts file for details on how this
+is done.
+
+Here is a list of environment variables needed to launch the app:
 
 Name | Value
 --- | ---
-CLIENT_SECRET | This is used to communicate with Azure
+CLIENT_SECRET | This is used to communicate with Azure (OIDC mode only)
 SESSION_SECRET | A random string
+OIDC | Set to 'true' to enable OIDC mode.
 
 Passing these variables can be done via
 
@@ -39,8 +54,6 @@ $ (Windows) set CLIENT_SECRET<VALUE_GOES_HERE>
 ```
 
 or, in intellij you can pass them in the Run Configuration
-
-Both of these variables need to be passed in before running yarn start or yarn start:local
 
 ### Running the application
 
