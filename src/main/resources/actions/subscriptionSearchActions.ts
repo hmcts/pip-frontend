@@ -1,12 +1,12 @@
 import {PipApi} from '../../utils/PipApi';
-import {Subscription} from '../../models/subscription';
+import {CaseSubscription} from '../../models/caseSubscription';
 
 export class SubscriptionSearchActions {
 
   constructor(private readonly api: PipApi) {}
 
 
-  public async getSubscriptionUrnDetails(urn): Promise<Array<Subscription>> {
+  public async getSubscriptionUrnDetails(urn): Promise<Array<CaseSubscription>> {
     const subscriptions = await this.api.getSubscriptionByUrn(urn);
 
     if (subscriptions) {

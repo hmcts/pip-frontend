@@ -1,4 +1,4 @@
-export interface Subscription {
+export interface CaseSubscription {
 
   id: number;
 
