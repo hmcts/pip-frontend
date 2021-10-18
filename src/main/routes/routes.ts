@@ -25,6 +25,14 @@ export default function(app: Application): void {
     res.redirect('/login?p=' + authenticationConfig.POLICY);
   }
 
+  function regenerateSession(req, res): void {
+    const prevSession = req.session;
+    req.session.regenerate(() => {  // Compliant
+      Object.assign(req.session, prevSession);
+      res.redirect('/subscription-management');
+    });
+  }
+
   app.get('/', app.locals.container.cradle.homeController.get);
   app.get('/search-option', app.locals.container.cradle.searchOptionController.get);
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
@@ -51,13 +59,9 @@ export default function(app: Application): void {
     app.locals.container.cradle.subscriptionManagementController.get);
 
   app.post('/login/return', passport.authenticate('azuread-openidconnect', { failureRedirect: '/error'}),
-    function (req, res) {
-      res.redirect('/subscription-management');
-    });
+    regenerateSession);
   app.get('/login', passport.authenticate('azuread-openidconnect', { failureRedirect: '/error'}),
-    function (req, res) {
-      res.redirect('/subscription-management');
-    });
+    regenerateSession);
 
   app.get('/subscription-add', app.locals.container.cradle.subscriptionAddController.get);
   app.post('/subscription-add', app.locals.container.cradle.subscriptionAddController.post);

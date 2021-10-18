@@ -82,4 +82,4 @@ app.use((err: HTTPError, req: express.Request, res: express.Response) => {
   res.render('error');
 });
 
-authentication();
+authentication(process.env.OIDC);

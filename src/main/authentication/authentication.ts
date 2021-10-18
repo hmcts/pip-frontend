@@ -27,7 +27,9 @@ function oidcSetup(): void {
   });
 
   passport.deserializeUser(function(oid, done) {
-    return done(null, {oid: '1234'});
+    findByOid(oid, function (err, user) {
+      done(err, user);
+    });
   });
 
   passport.use(new OIDCStrategy({
@@ -86,8 +88,8 @@ function mockSetup(): void {
  * This function sets up the authentication service
  * Values are read from config, and from the environment passed in
  */
-export default function(): void {
-  if (process.env.OIDC) {
+export default function(oidc: string): void {
+  if (oidc) {
     oidcSetup();
   } else {
     mockSetup();
