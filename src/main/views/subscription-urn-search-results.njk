@@ -24,16 +24,16 @@
   <table class="govuk-table govuk-!-width-two-thirds">
     <thead class="govuk-table__head">
     <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header govuk-!-text-align-right">Unique reference number</th>
-      <th scope="col" class="govuk-table__header govuk-!-text-align-right">Case reference number</th>
+      <th scope="col" class="govuk-table__header">Unique reference number</th>
+      <th scope="col" class="govuk-table__header">Case reference number</th>
       <th scope="col" class="govuk-table__header govuk-!-text-align-right">Case name</th>
     </tr>
     </thead>
     <tbody class="govuk-table__body">
     {% for result in searchResults %}
       <tr class="govuk-table__row">
-        <td scope="row" class="govuk-table__cell--no-line govuk-!-text-align-right">{{ result.urn }}</td>
-        <td scope="row" class="govuk-table__cell--no-line govuk-!-text-align-right">{{ result.caseNumber }}</td>
+        <td scope="row" class="govuk-table__cell--no-line">{{ result.urn }}</td>
+        <td scope="row" class="govuk-table__cell--no-line">{{ result.caseNumber }}</td>
         <td class="govuk-table__cell--no-line govuk-!-text-align-right">{{ result.caseName }}</td>
       </tr>
     {% endfor %}
