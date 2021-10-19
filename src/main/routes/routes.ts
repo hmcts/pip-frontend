@@ -23,7 +23,7 @@ export default function(app: Application): void {
   app.get('/otp-login', app.locals.container.cradle.otpLoginController.get);
   app.get('/otp-login-testing', cors(corsOptions), app.locals.container.cradle.otpLoginTestingController.get);
   app.post('/otp-login', app.locals.container.cradle.otpLoginController.post);
-  app.get('/idam-signin', cors(corsOptions), app.locals.container.cradle.idamSigninController.get);
+  app.get('/idam-signin', app.locals.container.cradle.idamSigninController.get);
   app.post('/idam-signin', app.locals.container.cradle.idamSigninController.post);
 
   app.get('/info', infoRequestHandler({

@@ -14,7 +14,7 @@ describe('idam signin page', () => {
   });
 
   describe('on POST', () => {
-    test('should return subscription management page', async () => {
+    test('should return external page', async () => {
       await request(app)
         .post('/idam-signin')
         .send({'idam-select': 'cft'})
@@ -26,7 +26,7 @@ describe('idam signin page', () => {
   });
 
   describe('on POST', () => {
-    test('should return subscription management page', async () => {
+    test('should return external page', async () => {
       await request(app)
         .post('/idam-signin')
         .send({'idam-select': 'crime'})
