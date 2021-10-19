@@ -17,7 +17,7 @@ export default class SubscriptionUrnSearchController {
   public async post(req: Request, res: Response): Promise<void> {
     const searchInput = req.body['search-input'];
 
-    if (searchInput && searchInput.length >= 3) {
+    if (searchInput && searchInput.length) {
       const searchResults = await new SubscriptionSearchActions(_api).getSubscriptionUrnDetails(searchInput);
       (searchResults && searchResults.length) ?
         res.redirect(`subscription-urn-search-results?search-input=${searchInput}`) :
