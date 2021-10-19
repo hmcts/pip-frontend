@@ -1,7 +1,7 @@
 import OtpLoginController from '../../../main/controllers/OtpLoginController';
 import sinon from 'sinon';
 import { Request, Response } from 'express';
-import {mockRequest} from '../utils/mockRequest';
+import {mockRequest} from '../mocks/mockRequest';
 
 const otpLoginController = new OtpLoginController();
 describe('Otp Login Controller', () => {

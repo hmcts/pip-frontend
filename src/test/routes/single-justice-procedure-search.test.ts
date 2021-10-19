@@ -4,12 +4,13 @@ import request from 'supertest';
 import { app } from '../../main/app';
 
 
-describe('Search results', () => {
+describe('Single Justice Procedure Search', () => {
   describe('on GET', () => {
-    test('should return search results page', async () => {
+    test('should return single-justice-procedure-search page', async () => {
       await request(app)
-        .get('/search-results')
+        .get('/single-justice-procedure-search')
         .expect((res) => expect(res.status).to.equal(200));
     });
   });
+
 });

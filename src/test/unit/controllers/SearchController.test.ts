@@ -4,10 +4,10 @@ import {  Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 import {CourtService} from '../../../main/service/courtService';
-import {mockRequest} from '../utils/mockRequest';
+import {mockRequest} from '../mocks/mockRequest';
 
 const searchController = new SearchController();
-const rawData = fs.readFileSync(path.resolve(__dirname, '../utils/mocks/courtAndHearings.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawData);
 sinon.stub(CourtService.prototype, 'fetchAllCourts').returns(courtList);
 const stubCourt = sinon.stub(CourtService.prototype, 'getCourtByName');

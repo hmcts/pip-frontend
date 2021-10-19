@@ -11,7 +11,7 @@ const PAGE_URL = '/hearing-list?courtId=1';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../utils/mocks/courtAndHearings.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const hearingsData = JSON.parse(rawData);
 
 sinon.stub(CourtRequests.prototype, 'getCourt').returns(hearingsData[0]);

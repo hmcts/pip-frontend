@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { Response } from 'express';
 import ViewOptionController from '../../../main/controllers/ViewOptionController';
-import {mockRequest} from '../utils/mockRequest';
+import {mockRequest} from '../mocks/mockRequest';
 
 const viewOptionController = new ViewOptionController();
 
@@ -47,6 +47,20 @@ describe('View Option Controller', () => {
     const responseMock = sinon.mock(response);
 
     responseMock.expects('redirect').once().withArgs('live-case-alphabet-search');
+
+    viewOptionController.post(request, response);
+    responseMock.verify();
+  });
+
+  it('should render single justice procedure search page if choice is \'sjp\'', () => {
+
+    const response = { redirect: () => {return '';}} as unknown as Response;
+    const request = mockRequest(i18n);
+    request.body = { 'view-choice': 'sjp'};
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('redirect').once().withArgs('single-justice-procedure-search');
 
     viewOptionController.post(request, response);
     responseMock.verify();

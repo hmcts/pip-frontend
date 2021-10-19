@@ -1,6 +1,5 @@
 import { Response } from 'express';
 import moment from 'moment';
-import {REFRESH_TIMER_MILLISECONDS} from '../../../config/globalEnvs';
 import {LiveCaseService} from '../service/liveCaseService';
 import {cloneDeep} from 'lodash';
 import {PipRequest} from '../models/request/PipRequest';
@@ -21,7 +20,7 @@ export default class LiveCaseStatusController {
           courtName: liveCase.courtName,
           updateDateTime: moment.utc(Date.parse(liveCase.lastUpdated)).format('dddd D MMMM YYYY\xa0\xa0\xa0\xa0h:mma'),
           liveCases: liveCase.courtUpdates,
-          refreshTimer: REFRESH_TIMER_MILLISECONDS,
+          refreshTimer: process.env.REFRESH_TIMER_MILLISECONDS || 15000,
         });
       } else {
         res.redirect('not-found');

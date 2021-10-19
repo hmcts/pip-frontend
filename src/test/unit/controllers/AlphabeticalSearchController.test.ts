@@ -4,10 +4,10 @@ import AlphabeticalSearchController from '../../../main/controllers/Alphabetical
 import fs from 'fs';
 import path from 'path';
 import {CourtService} from '../../../main/service/courtService';
-import {mockRequest} from '../utils/mockRequest';
+import {mockRequest} from '../mocks/mockRequest';
 
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../utils/mocks/courtAndHearings.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawData);
 const alphabeticalSearchController = new AlphabeticalSearchController();
 

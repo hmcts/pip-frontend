@@ -1,10 +1,115 @@
-{% from "./macros/common-components.njk" import goBack %}
+{% from "macros/common-components.njk" import goBack %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "moj/components/sub-navigation/macro.njk" import mojSubNavigation %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
+
+{% block beforeContent %}
+    {{ govukBackLink({
+        text: text,
+        href: '#',
+        attributes: {
+            onClick: "history.back();event.preventDefault();"
+        }
+    }) }}
+{% endblock %}
+
 {% block content %}
-  <h1 class="govuk-heading-l">{{ title }}</h1>
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    {{ govukButton({
+        text: newButton,
+        href: '#'
+    }) }}
+
+    {% set allSubscriptions = caseTableData | length +  courtTableData | length %}
+    {{ mojSubNavigation({
+        label: 'Sub navigation',
+        items: [{
+            text: subNavigation.header1 + allSubscriptions + ')',
+            href: '?all',
+            active: activeAllTab
+        }, {
+            text: subNavigation.header2 + caseTableData | length + ')',
+            href: '?case',
+            active: activeCaseTab
+        }, {
+            text: subNavigation.header3 + courtTableData | length + ')',
+            href: '?court',
+            active: activeCourtTab
+        }]
+    }) }}
+    {% if caseTableData | length == 0 and courtTableData | length == 0 %}
+        <p class="govuk-body">{{ noSubs }}</p>
+    {% else %}
+        {% if activeAllTab == true or activeCaseTab == true %}
+            {# Case Subscriptions Table #}
+            {{ govukTable({
+                attributes: {
+                    'data-module': 'moj-sortable-table',
+                    'id': 'cases-table'
+                },
+                classes: 'govuk-!-margin-bottom-9',
+                head: [
+                    {
+                        text: table.header1,
+                        attributes: {
+                        "aria-sort": "none"
+                    },
+                        classes: 'govuk-!-width-one-third'
+                    },
+                    {
+                        text: table.header2,
+                        attributes: {
+                        "aria-sort": "none"
+                    },
+                        classes: 'govuk-!-width-one-third'
+                    },
+                    {
+                        text: table.date
+                    },
+                    {
+                        text: table.actions,
+                        format: "numeric"
+                    }
+                ],
+                rows: caseTableData
+            }) }}
+        {% endif %}
+        {% if activeAllTab == true or activeCourtTab == true %}
+            {# Court Subscriptions Table #}
+            {{ govukTable({
+                attributes: {
+                    'data-module': 'moj-sortable-table',
+                    'id': 'courts-table'
+                },
+                head: [
+                    {
+                        text: courtTable.header1,
+                        attributes: {
+                        "aria-sort": "none"
+                    },
+                        classes: "govuk-!-width-two-thirds"
+                    },
+                    {
+                        text: table.date
+                    },
+                    {
+                        text: table.actions,
+                        format: "numeric"
+                    }
+                ],
+                rows: courtTableData
+            }) }}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block bodyEnd %}
+    <script type="text/javascript" src="/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="/assets/js/mojAll.js"></script>
 {% endblock %}

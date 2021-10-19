@@ -11,7 +11,7 @@ const expectedHeader = 'Live hearing updates - daily court list';
 const expectedCourtName = 'Mutsu Court';
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../utils/mocks/liveCaseStatusUpdates.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/liveCaseStatusUpdates.json'), 'utf-8');
 const liveCaseData = JSON.parse(rawData).results;
 
 sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
@@ -21,7 +21,6 @@ describe('Live Status page', () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
-    console.log(htmlRes);
   });
 
   it('should display a back button with the correct value', () => {
@@ -82,3 +81,4 @@ describe('Live Status page', () => {
     expect(link.item(3).getAttribute('href')).equal('/live-case-alphabet-search', 'Link value is not correct');
   });
 });
+

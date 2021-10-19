@@ -1,8 +1,10 @@
 @import '~govuk-frontend';
 @import 'accessible-autocomplete.min';
+@import 'node_modules/@ministryofjustice/frontend/moj/all';
 
 $line-colour: #1d70b8;
 $text-disabled: #505a5f;
+$error-colour: #d4351c;
 
 //Global App Styling
 .govuk-header__navigation--end {
@@ -137,6 +139,8 @@ tbody {
   vertical-align: bottom;
 }
 
+//Styling changes for the Azure OTP Logon Page
+
 .intro {
   @extend .govuk-body;
 }
@@ -150,13 +154,57 @@ div {
 }
 
 .buttons {
+  @extend .govuk-\!-margin-top-4;
+
   button {
     @extend .govuk-button;
+    @extend .govuk-\!-margin-right-4;
   }
+}
+
+.attrEntry {
+  label {
+    @extend .govuk-body;
+    @extend .govuk-\!-font-weight-bold;
+
+  }
+}
+
+.verify {
+  label {
+    @extend .govuk-\!-margin-right-4;
+  }
+}
+
+.verifyInput {
+  @extend .govuk-input;
+  @extend .govuk-\!-width-one-half;
+  @extend .govuk-\!-margin-right-4;
+  @extend .govuk-\!-margin-top-4;
+
+  &[aria-hidden='false'] {
+    //Important is required due to an inline style being applied
+    display: block !important; // sass-lint:disable-line no-important
+  }
+}
+
+.verifyButton {
+  @extend .govuk-\!-margin-top-4;
+}
+
+.sendButton {
+  @extend .govuk-\!-margin-top-4;
+}
+
+.textInput {
+  @extend .govuk-input;
+  @extend .govuk-\!-width-one-half;
 }
 
 .helpLink {
   display: none;
 }
 
-
+.moj-sub-navigation__item > a {
+  font-weight: bold;
+}

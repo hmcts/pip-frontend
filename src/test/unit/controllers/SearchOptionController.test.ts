@@ -1,7 +1,7 @@
 import SearchOptionsController from '../../../main/controllers/SearchOptionController';
 import sinon from 'sinon';
 import { Response } from 'express';
-import {mockRequest} from '../utils/mockRequest';
+import {mockRequest} from '../mocks/mockRequest';
 
 const searchOptionsController = new SearchOptionsController();
 describe('Search Option Controller', () => {

@@ -9,14 +9,13 @@ const courtService = new CourtService();
 
 const courtRequest = CourtRequests.prototype;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../utils/mocks/courtAndHearings.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const hearingsData = JSON.parse(rawData);
 
 sinon.stub(courtRequest, 'getAllCourts').returns(hearingsData);
 const stubCourt = sinon.stub(courtRequest, 'getCourt');
 const stubCourtByName = sinon.stub(courtRequest, 'getCourtByName');
 const stubCourtsFilter = sinon.stub(courtRequest, 'getFilteredCourts');
-stubCourtsFilter.withArgs(['jurisdiction'], ['crown court']).returns(hearingsData);
 
 const validKeysCount = 26;
 const alphabet = [
@@ -25,6 +24,10 @@ const alphabet = [
 ];
 const validCourt = 'Abergavenny Magistrates\' Court';
 const noHearingsCourt = 'West London Court no hearings';
+
+stubCourtsFilter.withArgs(['jurisdiction'], ['crown court']).returns(hearingsData);
+stubCourt.withArgs(1).returns(hearingsData[0]);
+stubCourtByName.withArgs(validCourt).returns(hearingsData[0]);
 
 describe('Court Service', () => {
   it('should return all courts', async () => {
@@ -41,10 +44,10 @@ describe('Court Service', () => {
   });
 
   it('should return found court for court name match', async () => {
-    expect(await courtService.getCourtByName("Abergavenny Magistrates' Court")).to.equal(hearingsData[0]);
+    expect(await courtService.getCourtByName(validCourt)).to.equal(hearingsData[0]);
   });
 
-  it('should return found court for court name match', async () => {
+  it('should return null for no name match', async () => {
     stubCourtByName.withArgs('test').returns(null);
     expect(await courtService.getCourtByName('test')).to.equal(null);
   });

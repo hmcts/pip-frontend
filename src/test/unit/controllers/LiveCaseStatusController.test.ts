@@ -4,11 +4,10 @@ import LiveCaseStatusController from '../../../main/controllers/LiveCaseStatusCo
 import fs from 'fs';
 import path from 'path';
 import {LiveCaseService} from '../../../main/service/liveCaseService';
-import {mockRequest} from '../utils/mockRequest';
+import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
-import {REFRESH_TIMER_MILLISECONDS} from '../../../../config/globalEnvs';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../utils/mocks/liveCaseStatusUpdates.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/liveCaseStatusUpdates.json'), 'utf-8');
 const liveCases = JSON.parse(rawData);
 const stub = sinon.stub(LiveCaseService.prototype, 'getLiveCases');
 stub.withArgs(1).returns(liveCases.results);
@@ -32,7 +31,7 @@ describe('Live Status Controller', () => {
       courtName: liveCases.results[0].courtName,
       updateDateTime: moment.utc(Date.parse(liveCases.results[0].lastUpdated)).format('dddd D MMMM YYYY\xa0\xa0\xa0\xa0h:mma'),
       liveCases: liveCases.results[0].courtUpdates,
-      refreshTimer: REFRESH_TIMER_MILLISECONDS,
+      refreshTimer: 15000,
     };
 
     const responseMock = sinon.mock(response);

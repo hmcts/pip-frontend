@@ -1,4 +1,3 @@
 import axios from 'axios';
-import {DATA_MANAGEMENT_URL} from '../../../../../config/globalEnvs';
 
-export const dataManagementApi = axios.create({baseURL: (DATA_MANAGEMENT_URL)});
+export const dataManagementApi = axios.create({baseURL: (process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net/')});

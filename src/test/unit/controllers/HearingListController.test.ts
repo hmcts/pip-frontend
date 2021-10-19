@@ -4,7 +4,7 @@ import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 import {CourtService} from '../../../main/service/courtService';
-import {mockRequest} from '../utils/mockRequest';
+import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
 
 const hearingListController = new HearingListController();
@@ -14,7 +14,7 @@ let i18n = {};
 
 describe('Hearing list Controller', () => {
   it('should render the list page if the court ID exists', () =>  {
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../utils/mocks/courtAndHearings.json'), 'utf-8');
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
     const hearingsData = JSON.parse(rawData)[0];
 
     stub.withArgs(1).returns(hearingsData);

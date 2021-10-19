@@ -38,6 +38,8 @@ export default function(app: Application): void {
   app.post('/search-option', app.locals.container.cradle.searchOptionController.post);
   app.post('/search', app.locals.container.cradle.searchController.post);
 
+  app.get('/subscription-add', app.locals.container.cradle.subscriptionAddController.get);
+  app.post('/subscription-add', app.locals.container.cradle.subscriptionAddController.post);
   app.get('/subscription-management', app.locals.container.cradle.subscriptionManagementController.get);
 
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
@@ -46,6 +48,8 @@ export default function(app: Application): void {
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
 
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
+
+  app.get('/single-justice-procedure-search', app.locals.container.cradle.singleJusticeProcedureSearchController.get);
 
   const healthCheckConfig = {
     checks: {

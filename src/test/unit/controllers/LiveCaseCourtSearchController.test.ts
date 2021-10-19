@@ -4,10 +4,10 @@ import LiveCaseCourtSearchController from '../../../main/controllers/LiveCaseCou
 import fs from 'fs';
 import path from 'path';
 import {CourtService} from '../../../main/service/courtService';
-import {mockRequest} from '../utils/mockRequest';
+import {mockRequest} from '../mocks/mockRequest';
 
 const liveCaseCourtSearchController = new LiveCaseCourtSearchController();
-const rawData = fs.readFileSync(path.resolve(__dirname, '../utils/mocks/courtAndHearings.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtsAndHearings = JSON.parse(rawData);
 sinon.stub(CourtService.prototype, 'generateAlphabetisedCrownCourtList').returns(courtsAndHearings);
 
