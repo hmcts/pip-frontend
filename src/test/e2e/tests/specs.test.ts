@@ -1,21 +1,23 @@
-import { HomePage } from '../PageObjects/Home.page';
-import { SearchOptionsPage } from '../PageObjects/SearchOptions.page';
-import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
-import { HearingListPage } from '../PageObjects/HearingList.page';
-import { SearchPage } from '../PageObjects/Search.page';
-import { SearchResultsPage } from '../PageObjects/SearchResults.page';
-import { OtpLoginPage } from '../PageObjects/OtpLogin.page';
-import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
-import { ViewOptionPage } from '../PageObjects/ViewOption.page';
-import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
-import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
-import { OtpLoginTestingPage } from '../PageObjects/OtpLoginTesting.page';
+import { HomePage } from '../pageobjects/Home.page';
+import { SearchOptionsPage } from '../pageobjects/SearchOptions.page';
+import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
+import { HearingListPage } from '../pageobjects/HearingList.page';
+import { SearchPage } from '../pageobjects/Search.page';
+import { SearchResultsPage } from '../pageobjects/SearchResults.page';
+import { OtpLoginPage } from '../pageobjects/OtpLogin.page';
+import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
+import { ViewOptionPage } from '../pageobjects/ViewOption.page';
+import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
+import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
+import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
+import { OtpLoginTestingPage } from '../pageobjects/OtpLoginTesting.page';
 import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
 import {SubscriptionCaseSearchResultsPage} from '../pageobjects/SubscriptionCaseSearchResults.page';
 import {SubscriptionCaseSearchPage} from '../pageobjects/SubscriptionCaseSearch.page';
 
 const homePage = new HomePage;
 const otpLoginPage = new OtpLoginPage();
+const subscriptionAddPage = new SubscriptionAddPage();
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
@@ -49,6 +51,7 @@ describe('Finding a court or tribunal listing', () => {
 
   describe('Following the \'live case status updates\' path', () => {
     const validCourtName = 'Abergavenny Magistrates\' Court';
+
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
@@ -182,7 +185,7 @@ describe('Finding a court or tribunal listing', () => {
   describe('Media User Login', () => {
     it('should open the OTP login page when a user clicks "Subscriptions" header', async () => {
       otpLoginTestingPage = await homePage.clickSubscriptionsButton();
-      expect(await otpLoginTestingPage.getPageTitle()).toEqual('Enter your email address');
+      expect(await otpLoginTestingPage.getPageTitle()).toEqual('Verify your email address');
     });
 
     it('should open the OTP login page', async () => {
@@ -193,7 +196,7 @@ describe('Finding a court or tribunal listing', () => {
     it('should navigate to subscription page when correct passcode is entered', async () => {
       await otpLoginPage.enterText('222222');
       subscriptionManagementPage = await otpLoginPage.clickContinue();
-      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Subscription Management');
+      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
     });
   });
 
@@ -215,13 +218,19 @@ describe('Finding a court or tribunal listing', () => {
 
     it('should enter text and click continue', async () => {
       await subscriptionCaseSearchPage.enterText(validSearchTerm);
-      subscriptionCaseSearchResultsPage =  await subscriptionCaseSearchPage.clickContinue();
+      subscriptionCaseSearchResultsPage = await subscriptionCaseSearchPage.clickContinue();
       expect(await subscriptionCaseSearchResultsPage.getPageTitle()).toEqual('Search result');
     });
 
-    it(`should display ${expectedNumOfResults} results`, async() => {
+    it(`should display ${expectedNumOfResults} results`, async () => {
       expect(await subscriptionCaseSearchResultsPage.getResults()).toBe(1);
     });
+  });
 
+  describe('Add a subscription path', () => {
+    it('should open the subscription add page', async () => {
+      await subscriptionAddPage.open('subscription-add');
+      expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
+    });
   });
 });
