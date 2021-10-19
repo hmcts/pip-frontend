@@ -11,7 +11,7 @@ const api = new PipApi(axios);
 
 const hearingListController = new HearingListController(api);
 const stub = sinon.stub(api, 'getHearingList');
-
+const stubGetCourtList = sinon.stub(api, 'getCourtList');
 
 describe('Hearing list Controller', () => {
   it('should render the list page if the court ID exists', () =>  {
@@ -22,6 +22,29 @@ describe('Hearing list Controller', () => {
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = {query: {courtId: 2}, headers: {referer: '/referred-page'}} as unknown as Request;
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('hearing-list');
+
+    return hearingListController.get(request, response).then(() => {
+      responseMock.verify();
+    });
+
+  });
+
+  it('should render the list page if the court name exists', () =>  {
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/hearingsListByCourt.json'), 'utf-8');
+    const hearingsData = JSON.parse(rawData);
+
+    const rawCourtsData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
+    const courtsData = JSON.parse(rawCourtsData);
+
+    stub.withArgs(1).returns(hearingsData);
+    stubGetCourtList.withArgs('Abergavenny Magistrates\' Court').returns(courtsData);
+
+    const response = { render: function() {return '';}} as unknown as Response;
+    const request = {query: {'search-input': 'Abergavenny Magistrates\' Court'}, headers: {referer: '/referred-page'}} as unknown as Request;
 
     const responseMock = sinon.mock(response);
 
