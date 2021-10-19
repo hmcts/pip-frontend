@@ -40,4 +40,21 @@ export class PipApi {
       });
   }
 
+  public getJurisdictionsList(): Promise<any> {
+    return this.axios
+      .get('/api/jurisdictions/', {  headers: {'Accept-Language': 'en'}})
+      .then(results => results.data)
+      .catch(err => {
+        return [];
+      });
+  }
+
+  public getRegionsList(): Promise<any> {
+    return this.axios
+      .get('/api/regions/', {  headers: {'Accept-Language': 'en'}})
+      .then(results => results.data)
+      .catch(err => {
+        return [];
+      });
+  }
 }

@@ -58,4 +58,25 @@ export class CourtService {
     });
     return alphabetOptions;
   }
+
+  /*
+  * TODO:
+  *   Merge generateCrownCourtArray & generateCourtsAlphabetObject into one,
+  *   once BE returns courts list.
+  *   Pass into function courtsList
+  */
+  public async generateCourtsAlphabetObject(): Promise<object> {
+    let courtsList: Array<Court> = await new CourtActions(_api).getCourtsList();
+    const alphabetOptions = CourtService.generateAlphabetObject();
+    courtsList = new InputFilterService().alphabetiseResults(courtsList, 'name');
+
+    // Then loop through each court, and add it to the list
+    courtsList.forEach(item => {
+      const courtName = item.name as string;
+      alphabetOptions[courtName.charAt(0).toUpperCase()][courtName] = {
+        id: item.courtId,
+      };
+    });
+    return alphabetOptions;
+  }
 }

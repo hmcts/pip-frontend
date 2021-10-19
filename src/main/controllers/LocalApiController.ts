@@ -28,4 +28,18 @@ export default class LocalApiController {
     const court = model.filter(c=>c.courtId == courtId)[0];
     return res.send(court);
   }
+
+  public apiJurisdictionsList(req: Request, res: Response): any {
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
+    const model = JSON.parse(rawData);
+    const distinctJurisdictions = [...new Set(model.map(item => item.jurisdiction))];
+    return res.send(distinctJurisdictions);
+  }
+
+  public apiRegionsList(req: Request, res: Response): any {
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
+    const model = JSON.parse(rawData);
+    const distinctLocations = [...new Set(model.map(item => item.location))];
+    return res.send(distinctLocations);
+  }
 }

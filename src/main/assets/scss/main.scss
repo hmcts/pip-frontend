@@ -208,3 +208,25 @@ div {
 .moj-sub-navigation__item > a {
   font-weight: bold;
 }
+
+.selection-counter-box {
+  background-color: govuk-colour("light-grey");
+}
+
+.vertical_align_middle {
+  vertical-align: middle;
+}
+
+.moj-filter__selected-heading {
+  .moj-filter__heading-action {
+    p {
+      font-weight: 700;
+      font-size: 18px;
+      font-size: 1.125rem;
+      line-height: 1.11111;
+      display: inline-block;
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+  }
+}

@@ -40,4 +40,11 @@ export class CourtActions {
     }
   }
 
+  public async getJurisdictionList(): Promise<any[]> {
+    return await this.api.getJurisdictionsList();
+  }
+
+  public async getRegionsList(): Promise<any[]> {
+    return await this.api.getRegionsList();
+  }
 }
