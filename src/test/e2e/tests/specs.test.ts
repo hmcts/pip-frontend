@@ -131,7 +131,7 @@ describe('Finding a court or tribunal listing', () => {
       expect(await hearingListPage.getPageTitle()).toEqual('Abergavenny Magistrates\' Court hearing list');
     });
 
-    it('should display 3 result', async() => {
+    it('should display 13 results', async() => {
       expect(await hearingListPage.getResults()).toBe(13);
     });
   });
