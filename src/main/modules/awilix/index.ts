@@ -23,7 +23,7 @@ export class Container {
       jsonObject[registerName] = asClass(clazz.default);
     });
     jsonObject['logger'] = asValue(logger);
-    jsonObject['axios'] = asValue(Axios.create({ baseURL: process.env.API_URL }));
+    jsonObject['axios'] = asValue(Axios.create({ baseURL: process.env.DATA_MANAGEMENT_URL }));
 
 
     jsonObject['api'] = asClass(PipApi);
