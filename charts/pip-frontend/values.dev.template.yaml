@@ -2,7 +2,6 @@ nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
-  java:
   environment:
-   API_URL: pip-business-rules.staging.platform.hmcts.net
+   DATA_MANAGEMENT_URL: https://pip-data-management.staging.platform.hmcts.net/
     
