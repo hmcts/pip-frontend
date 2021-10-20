@@ -5,12 +5,76 @@
 $line-colour: #1d70b8;
 $text-disabled: #505a5f;
 $error-colour: #d4351c;
+$underline-colour: #2e3133;
+$min-width: 52em;
 
-//Global App Styling
-.govuk-header__navigation--end {
-  margin: -5vh 0 0;
-  padding: 1vh 0 0;
+//Styling for the Header
+
+//This allows the subscription drop down to not overlap
+@media (min-width: $min-width) {
+  .govuk-header__navigation--end {
+    padding-top: 1px;
+  }
 }
+//The below styling makes sure the subscription text doesn't overlap with the heading as the screen is made smaller
+//by increasing the minimum width
+@media (max-width: $min-width) {
+  .js-enabled {
+    .govuk-header__menu-button  {
+      display: block;
+    }
+
+    .govuk-header__navigation  {
+      display: none;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.js-enabled {
+  .govuk-header__navigation--open {
+    display: block;
+  }
+}
+
+@media (max-width: $min-width) {
+  .govuk-header__navigation-item {
+    border: 0;
+    border-bottom: 1px solid $underline-colour;
+    display: block;
+    margin-right: 0;
+    padding: 10px 0;
+
+  }
+}
+
+@media (max-width: $min-width) {
+  .govuk-header__content {
+    float: none;
+    padding-left: 0;
+    width: auto;
+  }
+}
+
+@media (min-width: $min-width) {
+  .govuk-header__content {
+    display: flex;
+  }
+}
+
+@media (min-width: $min-width) {
+  nav {
+    flex: 1;
+  }
+}
+
+@media (max-width: $min-width) {
+  .govuk-header__navigation--end {
+    padding: 0;
+    text-align: left;
+  }
+}
+//End of header styling
 
 //Styling for the Alphabetical View page
 .floating-back-to-top {
