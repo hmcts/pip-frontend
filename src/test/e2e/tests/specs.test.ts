@@ -108,7 +108,7 @@ describe('Finding a court or tribunal listing', () => {
     it('should select \'tribunal hearing list\' option and navigate to search option page', async () => {
       await viewOptionPage.selectSearchRadio();
       searchOptionsPage = await viewOptionPage.clickContinueForSearch();
-      expect(await searchOptionsPage.getPageTitle()).toEqual('Do you know the name of the court or Tribunal?');
+      expect(await searchOptionsPage.getPageTitle()).toEqual('Do you know the name of the court or tribunal?');
     });
 
     it('should select \'find\' option and navigate to alphabetical search page', async () => {
@@ -148,7 +148,7 @@ describe('Finding a court or tribunal listing', () => {
     it('should select \'tribunal hearing list\' option and navigate to search option page', async () => {
       await viewOptionPage.selectSearchRadio();
       searchOptionsPage = await viewOptionPage.clickContinueForSearch();
-      expect(await searchOptionsPage.getPageTitle()).toEqual('Do you know the name of the court or Tribunal?');
+      expect(await searchOptionsPage.getPageTitle()).toEqual('Do you know the name of the court or tribunal?');
     });
 
     it('should select \'search\' option and navigate to search page', async () => {
