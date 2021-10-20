@@ -69,12 +69,13 @@ export class CourtService {
     let courtsList: Array<Court> = await new CourtActions(_api).getCourtsList();
     const alphabetOptions = CourtService.generateAlphabetObject();
     courtsList = new InputFilterService().alphabetiseResults(courtsList, 'name');
-
     // Then loop through each court, and add it to the list
     courtsList.forEach(item => {
       const courtName = item.name as string;
       alphabetOptions[courtName.charAt(0).toUpperCase()][courtName] = {
         id: item.courtId,
+        jurisdiction: item.jurisdiction,
+        region: item.location,
       };
     });
     return alphabetOptions;
