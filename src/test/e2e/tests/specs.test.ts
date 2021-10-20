@@ -8,12 +8,14 @@ import { OtpLoginPage } from '../pageobjects/OtpLogin.page';
 import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
 import { ViewOptionPage } from '../pageobjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
+import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
 import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
 import { OtpLoginTestingPage } from '../pageobjects/OtpLoginTesting.page';
 import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
 
 const homePage = new HomePage;
 const otpLoginPage = new OtpLoginPage();
+const subscriptionAddPage = new SubscriptionAddPage();
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
@@ -44,6 +46,7 @@ describe('Finding a court or tribunal listing', () => {
 
   describe('Following the \'live case status updates\' path', () => {
     const validCourtName = 'Abergavenny Magistrates\' Court';
+
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
@@ -188,7 +191,15 @@ describe('Finding a court or tribunal listing', () => {
     it('should navigate to subscription page when correct passcode is entered', async () => {
       await otpLoginPage.enterText('222222');
       subscriptionManagementPage = await otpLoginPage.clickContinue();
-      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Subscription Management');
+      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
     });
+  });
+
+  describe('Add a subscription path', () => {
+    it('should open the subscription add page', async () => {
+      await subscriptionAddPage.open('subscription-add');
+      expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
+    });
+
   });
 });
