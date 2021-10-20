@@ -10,13 +10,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-    {{ govukBackLink({
-        text: text,
-        href: '#',
-        attributes: {
-            onClick: "history.back();event.preventDefault();"
-        }
-    }) }}
+    {{ goBack() }}
 {% endblock %}
 
 {% block content %}

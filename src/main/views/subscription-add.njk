@@ -1,5 +1,4 @@
-{% from "./macros/common-components.njk" import goBack, submitButton %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "./macros/common-components.njk" import goBack %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
@@ -10,13 +9,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukBackLink({
-    text: text,
-    href: '#',
-    attributes: {
-      onClick: "history.back(); event.preventDefault();"
-    }
-  }) }}
+  {{ goBack() }}
 {% endblock %}
 
 {% block content %}
