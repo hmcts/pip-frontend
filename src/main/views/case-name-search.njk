@@ -37,29 +37,26 @@
         if noResultsError else 'govuk-!-width-two-thirds' %}
     {% set formGroupError = 'govuk-form-group--error'
         if noResultsError else 'govuk-form-group' %}
+    {% set inputProperties = {
+        id: "case-name",
+        name: "case-name",
+        errorMessage: {
+            text: "Please provide a correct case name"
+        },
+        label: {
+            text: "Enter the name of the party or parties involved in this case"
+        }
+    } if noResultsError else {
+        id: "case-name",
+        name: "case-name",
+        label: {
+        text: "Enter the name of the party or parties involved in this case"
+    }
+        } %}
     <form action="case-name-search" method="post">
         <div class="govuk-form-group govuk-!-width-one-half">
             <h1 class="govuk-heading-l">Enter a case name</h1>
-            {% if noResultsError %}
-                {{ govukInput({
-                    id: "case-name",
-                    name: "case-name",
-                    errorMessage: {
-                        text: "Please provide a correct case name"
-                    },
-                    label: {
-                        text: "Enter the name of the party or parties involved in this case"
-                    }
-                }) }}
-            {% else %}
-                {{ govukInput({
-                    id: "case-name",
-                    name: "case-name",
-                    label: {
-                        text: "Enter the name of the party or parties involved in this case"
-                    }
-                }) }}
-            {% endif %}
+                {{ govukInput(inputProperties) }}
         </div>
         {{ submitButton() }}
         {% if noResultsError %}
