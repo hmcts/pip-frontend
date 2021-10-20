@@ -31,7 +31,7 @@ let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
-const subscriptionUrnSearchPage = new SubscriptionUrnSearchPage;
+let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
 
 let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
 
@@ -187,35 +187,6 @@ describe('Finding a court or tribunal listing', () => {
     });
   });
 
-  describe('Following the subscription \'search\' path', () => {
-    const validSearchTerm = '123456789';
-    const invalidSearchTerm = '12345678';
-    const expectedNumOfResults = 1;
-
-    it('should open URN search page with Enter a unique reference number', async () => {
-      await subscriptionUrnSearchPage.open('/subscription-urn-search');
-      expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
-    });
-
-    it('should enter invalid text and click continue', async () => {
-      await subscriptionUrnSearchPage.enterText(invalidSearchTerm);
-      await subscriptionUrnSearchPage.clickContinue();
-      expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
-    });
-
-    it('should enter text and click continue', async () => {
-      await subscriptionUrnSearchPage.enterText(validSearchTerm);
-      subscriptionUrnSearchResultsPage =  await subscriptionUrnSearchPage.clickContinue();
-      expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
-    });
-
-    it(`should display ${expectedNumOfResults} results`, async() => {
-      expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
-    });
-
-  });
-
-
   describe('Media User Login', () => {
     it('should open the OTP login page when a user clicks "Subscriptions" header', async () => {
       otpLoginTestingPage = await homePage.clickSubscriptionsButton();
@@ -235,10 +206,39 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Add a subscription path', () => {
+    const validSearchTerm = '123456789';
+    const invalidSearchTerm = '12345678';
+    const expectedNumOfResults = 1;
+
     it('should open the subscription add page', async () => {
       await subscriptionAddPage.open('subscription-add');
       expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
     });
 
+    it('should see 4 radio buttons', async () => {
+      expect(await subscriptionAddPage.radioButtons).toBe(4);
+    });
+
+    it('should select \'By unique reference number\' option and navigate to search urn page', async () => {
+      await subscriptionAddPage.selectUrnSearchRadio();
+      subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
+      expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+    });
+
+    it('should enter invalid text and click continue', async () => {
+      await subscriptionUrnSearchPage.enterText(invalidSearchTerm);
+      await subscriptionUrnSearchPage.clickContinue();
+      expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+    });
+
+    it('should enter text and click continue', async () => {
+      await subscriptionUrnSearchPage.enterText(validSearchTerm);
+      subscriptionUrnSearchResultsPage =  await subscriptionUrnSearchPage.clickContinue();
+      expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
+    });
+
+    it(`should display ${expectedNumOfResults} results`, async() => {
+      expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
+    });
   });
 });

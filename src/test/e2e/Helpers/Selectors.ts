@@ -49,4 +49,7 @@ module.exports = {
 
   // LiveCaseAlphabetSearch selectors
   LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',
+
+  // Add Subscription selector
+  UrnSearchRadioButton: '#subscription-choice-2',
 };
