@@ -27,11 +27,15 @@ export class FilterService {
     };
   }
 
+  generateSelectedTags(): object {
+    return {};
+  }
+
   // TODO: this logic should be done on the back end
   filterObject(allCourts, filteringList, filterValues): any {
     const recordsToRemove = [];
     const filtersList = this.splitFilters(filterValues);
-    if (filteringList.length > 0) {
+    if (filtersList.length) {
       allCourts.forEach((court) => {
         const comparisons = [];
         filtersList.forEach((filter) => {
@@ -67,10 +71,12 @@ export class FilterService {
 
   removeRecords(recordsList, recordsToRemove): object {
     const records = recordsList;
-    recordsToRemove.forEach((record) => {
-      const firstChar = record.charAt(0);
-      delete records[firstChar][record];
-    });
+    if (recordsToRemove.length) {
+      recordsToRemove.forEach((record) => {
+        const firstChar = record.charAt(0);
+        delete records[firstChar][record];
+      });
+    }
     return records;
   }
 }

@@ -36,20 +36,19 @@ export default class CourtNameSearchController {
   }
 
   public async post(req: Request, res: Response): Promise<void> {
-    let alphabeticalCourts = await new CourtService(_api).generateCourtsAlphabetObject();
-
     if (req.body.jurisdiction) {
       checkedJurisdictionsFilter = Array.isArray(req.body.jurisdiction) ? req.body.jurisdiction : [req.body.jurisdiction];
-    }
-    if (req.body.region) {
-      checkedRegionsFilter = Array.isArray(req.body.region) ? req.body.region : [req.body.region];
+    } else {
+      checkedJurisdictionsFilter = [];
     }
 
-    if(Object.keys(req.body).length === 0) {
-      checkedJurisdictionsFilter = [];
+    if (req.body.region) {
+      checkedRegionsFilter = Array.isArray(req.body.region) ? req.body.region : [req.body.region];
+    } else {
       checkedRegionsFilter = [];
     }
 
+    let alphabeticalCourts = await new CourtService(_api).generateCourtsAlphabetObject();
     const courtsList = await courtActions.getCourtsList();
     const jurisdictionsList = await courtActions.getJurisdictionList();
     const regionsList = await courtActions.getRegionsList();
