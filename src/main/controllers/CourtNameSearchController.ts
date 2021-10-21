@@ -59,8 +59,9 @@ export default class CourtNameSearchController {
       filterService.generateCheckboxGroup(regionCheckboxes, 'Region'),
     ];
 
+    const categories = filterService.generateSelectedTags([{jurisdiction: checkedJurisdictionsFilter}, {location: checkedRegionsFilter}]);
     alphabeticalCourts = filterService.filterObject(courtsList, alphabeticalCourts,
       [{jurisdiction: checkedJurisdictionsFilter}, {location: checkedRegionsFilter}]);
-    res.render('court-name-search', {alphabeticalCourts, checkBoxesComponents});
+    res.render('court-name-search', {alphabeticalCourts, checkBoxesComponents, categories});
   }
 }

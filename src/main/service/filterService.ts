@@ -27,8 +27,27 @@ export class FilterService {
     };
   }
 
-  generateSelectedTags(): object {
-    return {};
+  generateSelectedTags(filterValues): object[] {
+    const filtersList = this.splitFilters(filterValues);
+    const selectedTags = [];
+    if (filtersList.length) {
+      filtersList.forEach((value) => {
+        /* For each filterList element generate category which will be rendered
+        * {
+        *   heading: {
+        *     text: ''
+        *   },
+        *   items: [
+        *     {
+        *       href: #
+        *       text: 'Label'
+        *     }
+        *   ]
+        * }
+        * */
+      });
+    }
+    return selectedTags;
   }
 
   // TODO: this logic should be done on the back end
