@@ -36,7 +36,7 @@ let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
 let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
 let courtNameSearchPage: CourtNameSearchPage;
 let subscriptionCaseSearchResultsPage: SubscriptionCaseSearchResultsPage;
-const subscriptionCaseSearchPage = new SubscriptionCaseSearchPage;
+let subscriptionCaseSearchPage: SubscriptionCaseSearchPage;
 
 
 describe('Finding a court or tribunal listing', () => {
@@ -322,8 +322,18 @@ describe('Finding a court or tribunal listing', () => {
     const invalidSearchTerm = 'dddd';
     const expectedNumOfResults = 1;
 
-    it('should open Case search page with Enter a case reference number', async () => {
-      await subscriptionCaseSearchPage.open('/subscription-case-search');
+    it('should open the subscription add page', async () => {
+      await subscriptionAddPage.open('subscription-add');
+      expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
+    });
+
+    it('should see 4 radio buttons', async () => {
+      expect(await subscriptionAddPage.radioButtons).toBe(4);
+    });
+
+    it('should select \'By case reference number\' option and navigate to search urn page', async () => {
+      await subscriptionAddPage.selectCaseSearchRadio();
+      subscriptionCaseSearchPage = await subscriptionAddPage.clickContinueForCaseSearch();
       expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a case reference number');
     });
 
