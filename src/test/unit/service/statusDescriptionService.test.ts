@@ -38,7 +38,7 @@ describe('Status Description Service', () => {
 
   it(`should have ${validStatusDescription} key`, () => {
     return statusDescriptionService.generateStatusDescriptionObject().then((data) => {
-      expect(validStatusDescription in data['A']).to.be.true;
+      expect(validStatusDescription).to.deep.equal(data['A'][1].status);
     });
 
   });

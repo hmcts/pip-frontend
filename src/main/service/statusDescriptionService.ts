@@ -10,24 +10,21 @@ export class StatusDescriptionService {
   }
 
   public async generateStatusDescriptionObject(): Promise<object> {
-    let statusDescriptionList: Array<any>= await new SearchDescriptionActions(_api).getStatusDescriptionList();
+    const statusDescriptionList: Array<any>= await new SearchDescriptionActions(_api).getStatusDescriptionList();
     const alphabetOptions = CourtService.generateAlphabetObject();
-    statusDescriptionList = this.alphabetiseResults(statusDescriptionList, 'name');
 
     //Then loop through each status, and add it to the list
     statusDescriptionList.forEach(item => {
       if (item.description !== '') {
         const status = item.name as string;
-        alphabetOptions[status.charAt(0).toUpperCase()][status] = {
+        alphabetOptions[status.charAt(0).toUpperCase()][item.Id] = {
           id: item.Id,
           description: item.description,
+          status: status,
+          initial: status.charAt(0).toUpperCase(),
         };
       }
     });
     return alphabetOptions;
-  }
-
-  private alphabetiseResults(unsortedArray: Array<any>, leadValue): Array<any> {
-    return unsortedArray.sort((a, b) => a[leadValue].localeCompare(b[leadValue]));
   }
 }

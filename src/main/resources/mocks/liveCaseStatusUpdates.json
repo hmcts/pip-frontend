@@ -32,7 +32,7 @@
           "caseNumber": "T20217000",
           "caseName": "Will-Muller",
           "event": {
-            "eventId": 3100,
+            "eventId": 11,
             "eventStatus": "Trial (Part Heard)",
             "eventName": "Case adjourned until 12:00",
             "eventTime": "11:37"
@@ -43,7 +43,7 @@
           "caseNumber": "T20217010",
           "caseName": "Wyman Inc Dispute",
           "event": {
-            "eventId": 2,
+            "eventId": 3,
             "eventStatus": "For Trial",
             "eventName": "Appeal Witness continues",
             "eventTime": "14:11"
@@ -298,7 +298,7 @@
           "caseNumber": "T20217010",
           "caseName": "Wyman Inc Dispute",
           "event": {
-            "eventId": 2,
+            "eventId": 3,
             "eventStatus": "For Trial",
             "eventName": "Appeal Witness continues",
             "eventTime": "14:11"

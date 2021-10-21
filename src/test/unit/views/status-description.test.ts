@@ -68,4 +68,11 @@ describe('Status Description page', () => {
     expect(cell[0].innerHTML).contains('Adjourned');
     expect(cell[1].innerHTML).contains('The case has been adjourned.');
   });
+
+  it('should have the first cell containing Adjourned with link Id in it', () => {
+    const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+    const divCell = cell[0].getElementsByClassName('govuk-grid-column');
+    expect(cell[0].innerHTML).contains('1-selector');
+    expect(divCell[0].innerHTML).contains('1');
+  });
 });
