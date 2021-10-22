@@ -43,18 +43,20 @@
         errorMessage: {
             text: "Please provide a correct case name"
         },
+        classes: 'govuk-!-width-one-half',
         label: {
             text: "Enter the name of the party or parties involved in this case"
         }
     } if noResultsError else {
         id: "case-name",
         name: "case-name",
+        classes: 'govuk-!-width-one-half',
         label: {
         text: "Enter the name of the party or parties involved in this case"
     }
         } %}
     <form action="case-name-search" method="post">
-        <div class="govuk-form-group govuk-!-width-one-half">
+        <div class="govuk-form-group">
             <h1 class="govuk-heading-l">Enter a case name</h1>
                 {{ govukInput(inputProperties) }}
         </div>
