@@ -1,17 +1,23 @@
 import SearchOptionsController from '../../../main/controllers/SearchOptionController';
 import sinon from 'sinon';
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import {mockRequest} from '../mocks/mockRequest';
 
+const searchOptionsController = new SearchOptionsController();
 describe('Search Option Controller', () => {
+  let i18n = {};
   it('should render the search options page', () => {
-    const searchOptionsController = new SearchOptionsController();
+
+    i18n = {
+      'search-option': {},
+    };
 
     const response = { render: function() {return '';}} as unknown as Response;
-    const request = {} as unknown as Request;
+    const request = mockRequest(i18n);
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('search-option');
+    responseMock.expects('render').once().withArgs('search-option', request.i18n.getDataByLanguage(request.lng)['search-option']);
 
     searchOptionsController.get(request, response);
 
@@ -19,10 +25,10 @@ describe('Search Option Controller', () => {
   });
 
   it('should render search page if choice is \'search\'', () => {
-    const searchOptionsController = new SearchOptionsController();
 
     const response = { redirect: function() {return '';}} as unknown as Response;
-    const request = { body: { 'find-choice': 'search'}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.body = { 'find-choice': 'search'};
 
     const responseMock = sinon.mock(response);
 
@@ -34,10 +40,10 @@ describe('Search Option Controller', () => {
   });
 
   it('should render alphabetical page if choice is \'find\'', () => {
-    const searchOptionsController = new SearchOptionsController();
 
     const response = { redirect: function() {return '';}} as unknown as Response;
-    const request = { body: { 'find-choice': 'find'}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.body = { 'find-choice': 'find'};
 
     const responseMock = sinon.mock(response);
 
@@ -49,10 +55,10 @@ describe('Search Option Controller', () => {
   });
 
   it('should render same page if nothing selected', () => {
-    const searchOptionsController = new SearchOptionsController();
 
     const response = { redirect: function() {return '';}} as unknown as Response;
-    const request = { body: { 'find-choice': ''}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.body = { 'find-choice': ''};
 
     const responseMock = sinon.mock(response);
 

@@ -1,27 +1,34 @@
 import sinon from 'sinon';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import ViewOptionController from '../../../main/controllers/ViewOptionController';
+import {mockRequest} from '../mocks/mockRequest';
+
+const viewOptionController = new ViewOptionController();
 
 describe('View Option Controller', () => {
+  let i18n = {};
   it('should render view options page', () => {
-    const viewOptionController = new ViewOptionController();
+
+    i18n = {
+      'view-option': {},
+    };
 
     const response = { render: () => {return '';}} as unknown as Response;
-    const request = {} as unknown as Request;
+    const request = mockRequest(i18n);
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('view-option');
+    responseMock.expects('render').once().withArgs('view-option', request.i18n.getDataByLanguage(request.lng)['view-option']);
 
     viewOptionController.get(request, response);
     responseMock.verify();
   });
 
   it('should render search option page if choice is \'search\'', () => {
-    const viewOptionController = new ViewOptionController();
 
     const response = { redirect: () => {return '';}} as unknown as Response;
-    const request = { body: { 'view-choice': 'search'}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.body = { 'view-choice': 'search'};
 
     const responseMock = sinon.mock(response);
 
@@ -32,10 +39,10 @@ describe('View Option Controller', () => {
   });
 
   it('should render live hearings page if choice is \'live\'', () => {
-    const viewOptionController = new ViewOptionController();
 
     const response = { redirect: () => {return '';}} as unknown as Response;
-    const request = { body: { 'view-choice': 'live'}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.body = { 'view-choice': 'live'};
 
     const responseMock = sinon.mock(response);
 
@@ -46,10 +53,10 @@ describe('View Option Controller', () => {
   });
 
   it('should render single justice procedure search page if choice is \'sjp\'', () => {
-    const viewOptionController = new ViewOptionController();
 
     const response = { redirect: () => {return '';}} as unknown as Response;
-    const request = { body: { 'view-choice': 'sjp'}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.body = { 'view-choice': 'sjp'};
 
     const responseMock = sinon.mock(response);
 
@@ -63,7 +70,8 @@ describe('View Option Controller', () => {
     const viewOptionController = new ViewOptionController();
 
     const response = { redirect: () => {return '';}} as unknown as Response;
-    const request = { body: { 'view-choice': ''}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.body = { 'view-choice': ''};
 
     const responseMock = sinon.mock(response);
 

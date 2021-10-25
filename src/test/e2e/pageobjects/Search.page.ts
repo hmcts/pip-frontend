@@ -1,4 +1,4 @@
-import { SearchResultsPage } from './SearchResults.page';
+import {HearingListPage} from './HearingList.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -22,13 +22,13 @@ export class SearchPage {
     await browser.keys('Escape');
   }
 
-  async clickContinue(): Promise<SearchResultsPage> {
+  async clickContinue(): Promise<HearingListPage> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
 
     const button = await $(helpers.ContinueButton);
     button.click();
-    return new SearchResultsPage();
+    return new HearingListPage();
   }
 }

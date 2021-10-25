@@ -1,8 +1,12 @@
 import moment from 'moment';
+import {SubscriptionRequests} from '../resources/requests/subscriptionRequests';
+
+const subscriptionRequests = new SubscriptionRequests();
 
 export class SubscriptionService {
-  
-  generateCaseTableRows(subscriptionData): any[] {
+
+  generateCaseTableRows(userid: number): any[] {
+    const subscriptionData = subscriptionRequests.getUserSubscriptions(userid);
     const caseRows = [];
     if (subscriptionData.caseSubscriptions.length) {
       subscriptionData.caseSubscriptions.forEach((subscription) => {
@@ -28,7 +32,8 @@ export class SubscriptionService {
     return caseRows;
   }
 
-  generateCourtTableRows(subscriptionData): any[] {
+  generateCourtTableRows(userId: number): any[] {
+    const subscriptionData = subscriptionRequests.getUserSubscriptions(userId);
     const courtRows = [];
     if (subscriptionData.courtSubscriptions.length) {
       subscriptionData.courtSubscriptions.forEach((subscription) => {

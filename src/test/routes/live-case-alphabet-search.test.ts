@@ -1,7 +1,11 @@
 import { expect } from 'chai';
 import request from 'supertest';
+import sinon from 'sinon';
 
 import { app } from '../../main/app';
+import {CourtService} from '../../main/service/courtService';
+
+sinon.stub(CourtService.prototype, 'generateAlphabetisedCrownCourtList').returns([]);
 
 describe('Search option', () => {
   describe('on GET', () => {
