@@ -29,7 +29,7 @@ describe('Subscription Add', () => {
         .send({'subscription-choice': 'urn'})
         .expect((res) => {
           expect(res.status).to.equal(302);
-          expect(res.header['location']).to.equal('/');
+          expect(res.header['location']).to.equal('/subscription-urn-search');
         });
     });
 
