@@ -201,15 +201,22 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Idam SignIn selection', () => {
+    const valueToSelectCrime = 'Crime';
+    const valueToSelectCFT= 'CFT';
+    const returnUrl= 'https://www.google.com';
     it('should open Idam SignIn page with Sign in to your account', async () => {
       await idamSigninPage.open('idam-signin');
       expect(await idamSigninPage.getPageTitle()).toEqual('Sign in to your account');
     });
 
     it('selecting crime and redirect to external url', async () => {
-      const valueToSelect = 'Crime';
-      await idamSigninPage.selectIdam(valueToSelect);
-      expect(await idamSigninPage.clickContinue()).toBeTruthy();
+      await idamSigninPage.selectIdam(valueToSelectCrime);
+      expect(await idamSigninPage.clickContinue()).toHaveHref(returnUrl);
+    });
+
+    it('selecting CFT and redirect to external url', async () => {
+      await idamSigninPage.selectIdam(valueToSelectCFT);
+      expect(await idamSigninPage.clickContinue()).toHaveHref(returnUrl);
     });
   });
 
