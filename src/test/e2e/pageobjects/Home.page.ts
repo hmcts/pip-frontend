@@ -1,5 +1,5 @@
-import { OtpLoginTestingPage } from './OtpLoginTesting.page';
 import { ViewOptionPage } from './ViewOption.page';
+import {OtpLoginPage} from './OtpLogin.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -23,9 +23,9 @@ export class HomePage {
     return new ViewOptionPage();
   }
 
-  async clickSubscriptionsButton(): Promise<OtpLoginTestingPage> {
+  async clickSubscriptionsButton(): Promise<OtpLoginPage> {
     const button = await $(helpers.SubscriptionsButton);
     button.click();
-    return new OtpLoginTestingPage();
+    return new OtpLoginPage();
   }
 }

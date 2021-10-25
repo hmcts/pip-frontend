@@ -9,11 +9,9 @@ import { ViewOptionPage } from '../pageobjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
 import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
 import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
-import { OtpLoginTestingPage } from '../pageobjects/OtpLoginTesting.page';
 import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
 
 const homePage = new HomePage;
-const otpLoginPage = new OtpLoginPage();
 const subscriptionAddPage = new SubscriptionAddPage();
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
@@ -24,8 +22,7 @@ let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
-
-let otpLoginTestingPage: OtpLoginTestingPage;
+let otpLoginPage: OtpLoginPage;
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
@@ -166,13 +163,8 @@ describe('Finding a court or tribunal listing', () => {
 
   describe('Media User Login', () => {
     it('should open the OTP login page when a user clicks "Subscriptions" header', async () => {
-      otpLoginTestingPage = await homePage.clickSubscriptionsButton();
-      expect(await otpLoginTestingPage.getPageTitle()).toEqual('Verify your email address');
-    });
-
-    it('should open the OTP login page', async () => {
-      await otpLoginPage.open('otp-login');
-      expect(await otpLoginPage.getPageTitle()).toBe('Verify your email address');
+      otpLoginPage = await homePage.clickSubscriptionsButton();
+      expect(await otpLoginPage.getPageTitle()).toEqual('Verify your email address');
     });
 
     it('should navigate to subscription page when correct passcode is entered', async () => {
