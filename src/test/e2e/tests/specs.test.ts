@@ -9,7 +9,7 @@ import { ViewOptionPage } from '../pageobjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
 import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
 import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
-// import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
+import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
 
 const homePage = new HomePage;
 const subscriptionAddPage = new SubscriptionAddPage();
@@ -21,7 +21,7 @@ let searchPage: SearchPage;
 let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
-// let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
+let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
 let otpLoginPage: OtpLoginPage;
 
 describe('Finding a court or tribunal listing', () => {
@@ -79,24 +79,24 @@ describe('Finding a court or tribunal listing', () => {
 
   });
 
-  // describe('Following the \'Single Justice Procedure list\' option', () => {
-  //   after(async () => {
-  //     await homePage.open('');
-  //     viewOptionPage = await homePage.clickStartNowButton();
-  //   });
-  //
-  //   before(async () => {
-  //     await homePage.open('');
-  //     viewOptionPage = await homePage.clickStartNowButton();
-  //   });
-  //
-  //   it('should select \'Single Justice Procedure list\' option and navigate to Single Justice Procedure list page', async () => {
-  //     await viewOptionPage.selectSingleJusticeProcedureRadio();
-  //     singleJusticeProcedureSearchPage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-  //     expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure list');
-  //   });
-  //
-  // });
+  describe('Following the \'Single Justice Procedure list\' option', () => {
+    after(async () => {
+      await homePage.open('');
+      viewOptionPage = await homePage.clickStartNowButton();
+    });
+
+    before(async () => {
+      await homePage.open('');
+      viewOptionPage = await homePage.clickStartNowButton();
+    });
+
+    it('should select \'Single Justice Procedure list\' option and navigate to Single Justice Procedure list page', async () => {
+      await viewOptionPage.selectSingleJusticeProcedureRadio();
+      singleJusticeProcedureSearchPage = await viewOptionPage.clickContinueSingleJusticeProcedure();
+      expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure list');
+    });
+
+  });
 
   describe('Following the \'tribunal hearing list\' option and \'find\' path', () => {
     after(async () => {
