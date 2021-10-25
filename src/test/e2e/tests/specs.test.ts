@@ -85,6 +85,11 @@ describe('Finding a court or tribunal listing', () => {
       viewOptionPage = await homePage.clickStartNowButton();
     });
 
+    before(async () => {
+      await homePage.open('');
+      viewOptionPage = await homePage.clickStartNowButton();
+    });
+
     it('should select \'Single Justice Procedure list\' option and navigate to Single Justice Procedure list page', async () => {
       await viewOptionPage.selectSingleJusticeProcedureRadio();
       singleJusticeProcedureSearchPage = await viewOptionPage.clickContinueSingleJusticeProcedure();
@@ -162,6 +167,10 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Media User Login', () => {
+    after(async () => {
+      await homePage.open('');
+      viewOptionPage = await homePage.clickStartNowButton();
+    });
     it('should open the OTP login page when a user clicks "Subscriptions" header', async () => {
       otpLoginPage = await homePage.clickSubscriptionsButton();
       expect(await otpLoginPage.getPageTitle()).toEqual('Verify your email address');
