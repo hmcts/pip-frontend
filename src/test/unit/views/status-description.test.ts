@@ -5,7 +5,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 
-const PAGE_URL = '/status-description';
+const PAGE_URL = '/status-description?courtId=1';
 
 let htmlRes: Document;
 
@@ -34,7 +34,7 @@ describe('Status Description page', () => {
   it('should display a back button with the correct value', () => {
     const backLink = htmlRes.getElementsByClassName('govuk-back-link');
     expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
+    expect(backLink[0].getAttribute('href')).equal('/live-case-status?courtId=1', 'Back value does not contain correct link');
   });
 
   it('should contain the glossary of terms', () => {

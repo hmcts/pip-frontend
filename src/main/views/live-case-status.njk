@@ -19,10 +19,12 @@
     <p class=" govuk-body-lead">{{ updateDateTime }}</p>
     <p class="govuk-body">The status of each hearing will be updated as events happen live in court</p>
     {% set cases = [] %}
+    {% set courtId = courtId %}
     {% for item in liveCases %}
         {% if item.event.eventStatus %}
             {% set status = item.event.eventStatus +
-                ' - <br /><a class="govuk-link" href="status-description#' +
+                ' - <br /><a class="govuk-link" href="status-description?courtId=' + courtId +
+                '#' +
                 item.event.eventId +
                 '">' +
                 item.event.eventName +

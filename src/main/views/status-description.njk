@@ -5,13 +5,11 @@
 {% block pageTitle %}
   {{ "Event Glossary" | safe }}
 {% endblock %}
+{% set courtId = courtId %}
 {% block beforeContent %}
   {{ govukBackLink({
     text: text,
-    href: '#',
-    attributes: {
-      onClick: "history.back();event.preventDefault();"
-    }
+    href: '/live-case-status?courtId=' + courtId
   }) }}
 {% endblock %}
 {% block content %}

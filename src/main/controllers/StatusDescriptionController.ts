@@ -11,9 +11,10 @@ export default class StatusDescriptionController {
   }
   public async get(req: Request, res: Response): Promise<void> {
     const alphabetObject = await new StatusDescriptionService(_api).generateStatusDescriptionObject();
-
+    const courtId = req.query.courtId;
     res.render('status-description', {
       statusList: alphabetObject,
+      courtId: courtId,
     });
   }
 }
