@@ -34,13 +34,13 @@ export class LiveCaseCourtSearchControllerPage {
     backToTop.click();
   }
 
-  async selectFirstListResult(): Promise<LiveCaseStatusPage> {
-    await $(helpers.LiveHearingsTableFirstResult).catch(() => {
-      console.log(`${helpers.LiveHearingsTableFirstResult} not found`);
+  async selectFirstValidListResult(): Promise<LiveCaseStatusPage> {
+    await $(helpers.LiveHearingsTableFirstValidResult).catch(() => {
+      console.log(`${helpers.LiveHearingsTableFirstValidResult} not found`);
     });
 
-    const firstItem = await $(helpers.LiveHearingsTableFirstResult);
-    firstItem.click();
+    const firstValidItem = await $(helpers.LiveHearingsTableFirstValidResult);
+    firstValidItem.click();
     return new LiveCaseStatusPage();
   }
 }

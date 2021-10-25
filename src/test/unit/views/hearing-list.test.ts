@@ -1,28 +1,20 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import moment from 'moment';
-
 import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
+import sinon from 'sinon';
+import {CourtRequests} from '../../../main/resources/requests/courtRequests';
 
 const PAGE_URL = '/hearing-list?courtId=1';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtAndHearings.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const hearingsData = JSON.parse(rawData);
 
-
-jest.mock('axios', () => {
-  return {
-    create: function(): { get: () => Promise<any> } {
-      return {
-        get: function(): Promise<any> {return new Promise((resolve) => resolve({data: hearingsData}));},
-      };
-    },
-  };
-});
+sinon.stub(CourtRequests.prototype, 'getCourt').returns(hearingsData[0]);
 
 describe('Hearing List page', () => {
   beforeAll(async () => {
