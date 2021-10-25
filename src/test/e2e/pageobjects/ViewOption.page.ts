@@ -1,6 +1,6 @@
 import { LiveCaseCourtSearchControllerPage } from './LiveCaseCourtSearchController.page';
 import { SearchOptionsPage } from './SearchOptions.page';
-import {SingleJusticeProcedureSearchPage} from './SingleJusticeProcedureSearch.page';
+// import {SingleJusticeProcedureSearchPage} from './SingleJusticeProcedureSearch.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -62,13 +62,13 @@ export class ViewOptionPage {
     return new LiveCaseCourtSearchControllerPage();
   }
 
-  async clickContinueSingleJusticeProcedure(): Promise<SingleJusticeProcedureSearchPage> {
-    $(helpers.ContinueButton).catch(() => {
-      console.log(`${helpers.ContinueButton} not found`);
-    });
-    const continueButton = await $(helpers.ContinueButton);
-    continueButton.click();
-
-    return new SingleJusticeProcedureSearchPage();
-  }
+  // async clickContinueSingleJusticeProcedure(): Promise<SingleJusticeProcedureSearchPage> {
+  //   $(helpers.ContinueButton).catch(() => {
+  //     console.log(`${helpers.ContinueButton} not found`);
+  //   });
+  //   const continueButton = await $(helpers.ContinueButton);
+  //   continueButton.click();
+  //
+  //   return new SingleJusticeProcedureSearchPage();
+  // }
 }

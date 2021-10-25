@@ -9,7 +9,7 @@ import { ViewOptionPage } from '../pageobjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
 import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
 import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
-import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
+// import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
 
 const homePage = new HomePage;
 const subscriptionAddPage = new SubscriptionAddPage();
@@ -21,7 +21,7 @@ let searchPage: SearchPage;
 let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
-let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
+// let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
 let otpLoginPage: OtpLoginPage;
 
 describe('Finding a court or tribunal listing', () => {
