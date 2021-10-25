@@ -13,7 +13,7 @@ export class CourtRequests {
         console.log(error.response.status);
         console.log(error.response.headers);
       } else if (error.request) {
-        console.log(`Request failed. ${error.request}`);
+        console.log(`Request failed. ${JSON.stringify(error.request)}`);
       } else {
         console.log(`ERROR: ${error.message}`);
       }
@@ -31,7 +31,7 @@ export class CourtRequests {
         console.log(error.response.status);
         console.log(error.response.headers);
       } else if (error.request) {
-        console.log(`Request failed. ${error.request}`);
+        console.log(`Request failed. ${JSON.stringify(error.request)}`);
       } else {
         console.log(`ERROR: ${error.message}`);
       }
@@ -54,7 +54,7 @@ export class CourtRequests {
         console.log(error.response.status);
         console.log(error.response.headers);
       } else if (error.request) {
-        console.log(`Request failed. ${error.request}`);
+        console.log(`Request failed. ${JSON.stringify(error.request)}`);
       } else {
         console.log(`ERROR: ${error.message}`);
       }
@@ -72,7 +72,7 @@ export class CourtRequests {
         console.log(error.response.status);
         console.log(error.response.headers);
       } else if (error.request) {
-        console.log(`Request failed. ${error.request}`);
+        console.log(`Request failed. ${JSON.stringify(error.request)}`);
       } else {
         console.log(`ERROR: ${error.message}`);
       }
