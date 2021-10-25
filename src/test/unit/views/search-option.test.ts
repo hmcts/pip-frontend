@@ -8,10 +8,10 @@ const headingClass = 'govuk-fieldset__heading';
 const buttonClass = 'govuk-button';
 const radioClass = 'govuk-radios__item';
 
-const expectedHeader = 'Find a court or tribunal list';
+const expectedHeader = 'Do you know the name of the court or tribunal?';
 const expectedButtonText = 'Continue';
 const expectedRadioLabel1 = 'I have the name';
-const expectedRadioLabel2 = 'I don\'t have the name';
+const expectedRadioLabel2 = 'I do not have the name';
 
 let htmlRes: Document;
 describe('Search option Page', () => {
