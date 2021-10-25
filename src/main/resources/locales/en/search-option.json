@@ -1,6 +1,6 @@
 {
   "title": "Search Option",
-  "radioLegend": "Find a court or tribunal list",
+  "radioLegend": "Do you know the name of the court or tribunal?",
   "radio1": "I have the name",
-  "radio2": "I don't have the name"
+  "radio2": "I do not have the name"
 }
