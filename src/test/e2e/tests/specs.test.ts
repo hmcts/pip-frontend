@@ -79,24 +79,24 @@ describe('Finding a court or tribunal listing', () => {
 
   });
 
-  describe('Following the \'Single Justice Procedure list\' option', () => {
-    after(async () => {
-      await homePage.open('');
-      viewOptionPage = await homePage.clickStartNowButton();
-    });
-
-    before(async () => {
-      await homePage.open('');
-      viewOptionPage = await homePage.clickStartNowButton();
-    });
-
-    it('should select \'Single Justice Procedure list\' option and navigate to Single Justice Procedure list page', async () => {
-      await viewOptionPage.selectSingleJusticeProcedureRadio();
-      singleJusticeProcedureSearchPage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-      expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure list');
-    });
-
-  });
+  // describe('Following the \'Single Justice Procedure list\' option', () => {
+  //   after(async () => {
+  //     await homePage.open('');
+  //     viewOptionPage = await homePage.clickStartNowButton();
+  //   });
+  //
+  //   before(async () => {
+  //     await homePage.open('');
+  //     viewOptionPage = await homePage.clickStartNowButton();
+  //   });
+  //
+  //   it('should select \'Single Justice Procedure list\' option and navigate to Single Justice Procedure list page', async () => {
+  //     await viewOptionPage.selectSingleJusticeProcedureRadio();
+  //     singleJusticeProcedureSearchPage = await viewOptionPage.clickContinueSingleJusticeProcedure();
+  //     expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure list');
+  //   });
+  //
+  // });
 
   describe('Following the \'tribunal hearing list\' option and \'find\' path', () => {
     after(async () => {
