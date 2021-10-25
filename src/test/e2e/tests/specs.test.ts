@@ -52,7 +52,7 @@ describe('Finding a court or tribunal listing', () => {
       expect(await liveCaseCourtSearchControllerPage.getPageTitle()).toEqual('Live hearing updates - select a court');
     });
 
-    it('should select \'A\' option, and navigate to the end of the page', async () => {
+    it('should select \'Y\' option, and navigate to the end of the page', async () => {
       const endLetter = 'Y';
       await liveCaseCourtSearchControllerPage.selectLetter(endLetter);
       expect(await liveCaseCourtSearchControllerPage.checkIfLetterIsVisible(endLetter)).toBeTruthy();
