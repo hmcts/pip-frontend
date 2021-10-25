@@ -6,23 +6,17 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-    {{ "Subscription Management" | safe }}
+  {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
-    {{ govukBackLink({
-        text: text,
-        href: '#',
-        attributes: {
-            onClick: "history.back();event.preventDefault();"
-        }
-    }) }}
+    {{ goBack() }}
 {% endblock %}
 
 {% block content %}
-    <h1 class="govuk-heading-l">Your subscriptions</h1>
+    <h1 class="govuk-heading-l">{{ header }}</h1>
     {{ govukButton({
-        text: 'Add new subscription',
+        text: newButton,
         href: 'subscription-add'
     }) }}
 
@@ -30,21 +24,21 @@
     {{ mojSubNavigation({
         label: 'Sub navigation',
         items: [{
-            text: 'All subscriptions (' + allSubscriptions + ')',
+            text: subNavigation.header1 + allSubscriptions + ')',
             href: '?all',
             active: activeAllTab
         }, {
-            text: 'Subscriptions by case (' + caseTableData | length + ')',
+            text: subNavigation.header2 + caseTableData | length + ')',
             href: '?case',
             active: activeCaseTab
         }, {
-            text: 'Subscriptions by court or tribunal (' + courtTableData | length + ')',
+            text: subNavigation.header3 + courtTableData | length + ')',
             href: '?court',
             active: activeCourtTab
         }]
     }) }}
     {% if caseTableData | length == 0 and courtTableData | length == 0 %}
-        <p class="govuk-body">You currently have no subscriptions</p>
+        <p class="govuk-body">{{ noSubs }}</p>
     {% else %}
         {% if activeAllTab == true or activeCaseTab == true %}
             {# Case Subscriptions Table #}
@@ -56,24 +50,24 @@
                 classes: 'govuk-!-margin-bottom-9',
                 head: [
                     {
-                        text: "Case name",
+                        text: table.header1,
                         attributes: {
                         "aria-sort": "none"
                     },
                         classes: 'govuk-!-width-one-third'
                     },
                     {
-                        text: "Case reference number",
+                        text: table.header2,
                         attributes: {
                         "aria-sort": "none"
                     },
                         classes: 'govuk-!-width-one-third'
                     },
                     {
-                        text: "Date added"
+                        text: table.date
                     },
                     {
-                        text: "Actions",
+                        text: table.actions,
                         format: "numeric"
                     }
                 ],
@@ -89,17 +83,17 @@
                 },
                 head: [
                     {
-                        text: "Court or tribunal name",
+                        text: courtTable.header1,
                         attributes: {
                         "aria-sort": "none"
                     },
                         classes: "govuk-!-width-two-thirds"
                     },
                     {
-                        text: "Date added"
+                        text: table.date
                     },
                     {
-                        text: "Actions",
+                        text: table.actions,
                         format: "numeric"
                     }
                 ],

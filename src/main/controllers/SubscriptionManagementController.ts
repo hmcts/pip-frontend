@@ -1,17 +1,16 @@
-import { Request, Response } from 'express';
+import {PipRequest} from '../models/request/PipRequest';
+import { Response } from 'express';
 import { SubscriptionService } from '../service/subscriptionService';
-import { SubscriptionActions } from '../resources/actions/subscriptionActions';
+import {cloneDeep} from 'lodash';
 
 const subscriptionService = new SubscriptionService();
-const userId = 1;
-const subscriptionsData = new SubscriptionActions().getUserSubscriptions(userId);
 
 export default class SubscriptionManagementController {
 
-  public get(req: Request, res: Response): void {
-    const caseTableData = subscriptionService.generateCaseTableRows(subscriptionsData);
-    const courtTableData = subscriptionService.generateCourtTableRows(subscriptionsData);
-    let activeAllTab, activeCaseTab, activeCourtTab = false;
+  public get(req: PipRequest, res: Response): void {
+    const caseTableData = subscriptionService.generateCaseTableRows(1);
+    const courtTableData = subscriptionService.generateCourtTableRows(1);
+    let activeAllTab = false, activeCaseTab = false, activeCourtTab = false;
     switch (Object.keys(req.query)[0]) {
       case 'all':
         activeAllTab = true;
@@ -26,6 +25,12 @@ export default class SubscriptionManagementController {
         activeAllTab = true;
         break;
     }
-    res.render('subscription-management', {caseTableData, courtTableData, activeAllTab, activeCaseTab, activeCourtTab});
+    res.render('subscription-management', {
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-management']),
+      caseTableData,
+      courtTableData,
+      activeAllTab,
+      activeCaseTab,
+      activeCourtTab});
   }
 }

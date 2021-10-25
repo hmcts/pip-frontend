@@ -1,40 +1,75 @@
 import sinon from 'sinon';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import LiveCaseStatusController from '../../../main/controllers/LiveCaseStatusController';
+import fs from 'fs';
+import path from 'path';
+import {LiveCaseService} from '../../../main/service/liveCaseService';
+import {mockRequest} from '../mocks/mockRequest';
+import moment from 'moment';
+
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/liveCaseStatusUpdates.json'), 'utf-8');
+const liveCases = JSON.parse(rawData);
+const stub = sinon.stub(LiveCaseService.prototype, 'getLiveCases');
+stub.withArgs(1).returns(liveCases.results);
+stub.withArgs(777).returns(null);
 
 describe('Live Status Controller', () => {
   const liveStatusController = new LiveCaseStatusController();
+  let i18n = {};
 
-  it('should render live updates is court ID exists', () => {
+  it('should render live updates if court ID exists', () => {
+    i18n = {
+      'live-case-status': {},
+    };
+
     const response = { render: () => {return '';}} as unknown as Response;
-    const request = {query: {courtId: 1}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.query = {courtId: '1'};
+
+    const expectedData = {
+      ...i18n['live-case-status'],
+      courtName: liveCases.results[0].courtName,
+      updateDateTime: moment.utc(Date.parse(liveCases.results[0].lastUpdated)).format('dddd D MMMM YYYY\xa0\xa0\xa0\xa0h:mma'),
+      liveCases: liveCases.results[0].courtUpdates,
+      refreshTimer: 15000,
+    };
 
     const responseMock = sinon.mock(response);
-    responseMock.expects('render').once().withArgs('live-case-status');
+    responseMock.expects('render').once().withArgs('live-case-status', expectedData);
 
-    liveStatusController.get(request, response);
-    responseMock.verify();
+    return liveStatusController.get(request, response).then(() => {
+      responseMock.verify();
+    });
   });
 
   it('should redirect to not found page if a court ID that does not return any results', () => {
+
     const response = { redirect: () => {return '';}} as unknown as Response;
-    const request = {query: {courtId: 777}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.query = {courtId: '777'};
 
     const responseMock = sinon.mock(response);
     responseMock.expects('redirect').once().withArgs('not-found');
 
-    liveStatusController.get(request, response);
-    responseMock.verify();
+    return liveStatusController.get(request, response).then(() => {
+      responseMock.verify();
+    });
   });
 
   it('should render an error page if a court ID is not defined', () => {
+    i18n = {
+      error: {},
+    };
+
     const response = { render: () => {return '';}} as unknown as Response;
-    const request = {query: {}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.query = {};
 
     const responseMock = sinon.mock(response);
-    responseMock.expects('render').once().withArgs('error');
+    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-    liveStatusController.get(request, response);
-    responseMock.verify();
+    return liveStatusController.get(request, response).then(() => {
+      responseMock.verify();
+    });
   });
 });
