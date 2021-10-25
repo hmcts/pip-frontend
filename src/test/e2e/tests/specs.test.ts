@@ -205,7 +205,7 @@ describe('Finding a court or tribunal listing', () => {
     const valueToSelectCFT= 'CFT';
     const returnUrl= 'https://www.google.com';
     it('should open Idam SignIn page with Sign in to your account', async () => {
-      await idamSigninPage.open('idam-signin');
+      await idamSigninPage.selectSignIn();
       expect(await idamSigninPage.getPageTitle()).toEqual('Sign in to your account');
     });
 
