@@ -7,7 +7,15 @@ export class LiveCaseRequests {
       const response = await dataManagementApi.get(`/lcsu/${courtId}`);
       return response.data;
     } catch (error) {
-      console.log(error.response.data);
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
+      }
     }
     return null;
   }
