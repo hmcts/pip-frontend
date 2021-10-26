@@ -1,19 +1,17 @@
-import { Request, Response } from 'express';
-import { CourtService } from '../service/courtService';
-import {PipApi} from '../utils/PipApi';
+import {  Response } from 'express';
+import {CourtService} from '../service/courtService';
+import {PipRequest} from '../models/request/PipRequest';
+import {cloneDeep} from 'lodash';
 
-let _api: PipApi;
+const courtService = new CourtService();
+
 export default class LiveCaseCourtSearchController {
 
-  constructor(private readonly api: PipApi) {
-    _api = this.api;
-  }
-
-  public async get(req: Request, res: Response): Promise<void> {
-    const alphabeticalCrownCourts = await new CourtService(_api).generateCrownCourtArray();
-
+  public async get(req: PipRequest, res: Response): Promise<void> {
+    const crownCourts = await courtService.generateAlphabetisedCrownCourtList();
     res.render('live-case-alphabet-search', {
-      courtList: alphabeticalCrownCourts,
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['live-case-alphabet-search']),
+      courtList: crownCourts,
     });
   }
 }

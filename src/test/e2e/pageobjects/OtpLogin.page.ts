@@ -4,10 +4,6 @@ const helpers = require('../Helpers/Selectors');
 
 export class OtpLoginPage {
 
-  open (path): Promise<string> {
-    return browser.url(path);
-  }
-
   async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitle).catch(() => {
       console.log(`${helpers.CommonPageTitle} not found`);

@@ -5,7 +5,7 @@
 #   - Replace package `demo`
 #   - Replace slug from `spring-boot-template` to one of two (first in first used):
 #      - user input
-#      - git config value of the root project. Value in use: `remote.origin.url`
+#      - git config.ts value of the root project. Value in use: `remote.origin.url`
 #   - Clean-up README file from template related info
 #   - Self-destruct
 
@@ -46,7 +46,7 @@ done
 # Rename title to slug
 perl -i -pe "s/.*\n/# ${product}-${component}\n/g if 1 .. 1" README.md
 
-# remove ci checks github actions.
+# remove ci checks github requests.
 rm -r .github/workflows
 
 # Self-destruct
