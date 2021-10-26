@@ -11,13 +11,13 @@
 
 {{ govukHeader({
         homepageUrl: "#",
-        serviceName: "Find a court or tribunal listing",
+        serviceName: serviceNameText,
         serviceUrl: "#",
         navigationClasses: 'govuk-header__navigation--end',
         navigation: [
             {
               href: "/subscription-management",
-              text: "Subscriptions",
+              text: subscriptionText,
               active: false,
               attributes: {
                 id: "subscriptionHeaderButton"
@@ -25,7 +25,7 @@
             },
             {
               href: "#",
-              text: "Sign in",
+              text: signInText,
               active: false,
               attributes: {
                 id: "signInButton"
@@ -46,31 +46,31 @@
     items: [
       {
           href: "/help",
-          text: "Help"
+          text: help
       },
       {
           href: "/privacy-policy",
-          text: "Privacy policy"
+          text: privacyPolicy
       },
       {
           href: "/Cymraeg",
-          text: "Cymraeg"
+          text: language
       },
       {
           href: "/Cookie-policy",
-          text: "Cookie policy"
+          text: cookiePolicy
       },
       {
           href: "/accessibility-statement",
-          text: "Accessibility statement"
+          text: accessibilityStatement
       },
       {
           href: "/Contact",
-          text: "Contact"
+          text: contact
       },
       {
           href: "/terms-and-conditions",
-          text: "Terms and conditions"
+          text: tc
       }
     ]
   }

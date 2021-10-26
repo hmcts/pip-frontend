@@ -13,5 +13,4 @@ nodejs:
         - name: session-key
           alias: SESSION_SECRET
   environment:
-   API_URL: pip-business-rules.{{ .Values.global.environment }}.platform.hmcts.net
 

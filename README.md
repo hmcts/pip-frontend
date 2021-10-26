@@ -44,7 +44,8 @@ Name | Value
 --- | ---
 CLIENT_SECRET | This is used to communicate with Azure (OIDC mode only)
 SESSION_SECRET | A random string
-OIDC | Set to 'true' to enable OIDC mode.
+OIDC | (Optional) - Set to 'true' to enable OIDC mode.
+FRONTEND_URL | (Optional) - This is the host that you are redirected back to from Azure. Default is staging.
 
 Passing these variables can be done via
 
@@ -72,12 +73,6 @@ Run:
 
 ```bash
 $ yarn start
-```
-
-Run application for test purpose. this will run an internal API with mock data:
-
-```bash
-$ yarn start:local
 ```
 
 The applications's home page will be available at https://localhost:8080

@@ -3,6 +3,10 @@ import { fail } from 'assert';
 const pa11y = require('pa11y');
 import * as supertest from 'supertest';
 import { app } from '../../main/app';
+import fs from 'fs';
+import path from 'path';
+import {CourtRequests} from '../../main/resources/requests/courtRequests';
+import {LiveCaseRequests} from '../../main/resources/requests/liveCaseRequests';
 const agent = supertest.agent(app);
 import {request as expressRequest} from 'express';
 import sinon from 'sinon';
@@ -15,6 +19,19 @@ const routesNotTested = [
   '/login',
   '/login/return',
 ];
+
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
+const rawDataLive = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/liveCaseStatusUpdates.json'), 'utf-8');
+
+const allCourtData = JSON.parse(rawDataCourt);
+const courtData = allCourtData[0];
+const liveCaseData = JSON.parse(rawDataLive).results;
+
+sinon.stub(CourtRequests.prototype, 'getCourt').returns(courtData);
+sinon.stub(CourtRequests.prototype, 'getCourtByName').returns(courtData);
+sinon.stub(CourtRequests.prototype, 'getFilteredCourts').returns(allCourtData);
+sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(allCourtData);
+sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
 
 export class Pa11yResult {
   documentTitle: string;

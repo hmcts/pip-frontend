@@ -1,0 +1,13 @@
+{
+  "title": "Search",
+  "error": {
+    "noResults": "There is nothing matching your criteria",
+    "invalidInput": "Search must be three characters or more",
+    "summaryTitleText": "There is a problem",
+    "spanText": "Enter a court name, town or city",
+    "noResultsHeader": "There are no matching results.",
+    "pText": "You can improve your results by double checking your spelling."
+  },
+  "header": "What court or tribunal are you interested in?",
+  "inputHint": "For example Blackburn Family Court or Chester"
+}

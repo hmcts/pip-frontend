@@ -107,7 +107,7 @@ describe('Subscription Management Page', () => {
     expect(courtHeaders[2].innerHTML).contains(actionsColumn, 'Actions header is not present');
   });
 
-  it('actions cell should contain a link', () => {
+  it('requests cell should contain a link', () => {
     const actionsCell = htmlRes.getElementsByClassName('govuk-table__body')[0]
       .getElementsByClassName('govuk-table__cell')[3];
     expect(actionsCell.innerHTML).contains('Unsubscribe');

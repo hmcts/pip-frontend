@@ -1,0 +1,18 @@
+{
+  "title": "Start Page",
+  "header": "Find a court or tribunal hearing list",
+  "p1": "You can use this service to find and view information on hearings in courts and tribunals in England and Wales, and some non-devolved tribunals in Scotland.",
+  "p2": "Find a court or tribunal hearing list allows you to view:",
+  "bullets1": ["court or tribunal hearing list", "live hearing updates - Crown Court only"],
+  "startButton": "Start now",
+  "p3": "This service is also available in ",
+  "language": "Welsh (Cymraeg)",
+  "p4": "You cannot use this service if you live in Northern Ireland. Contact the ",
+  "a1": "Northern Ireland Courts and Tribunals",
+  "p5": " for help.",
+  "p6": "This service is limited in Scotland to:",
+  "bullets2": ["immigration appeals", "benefit appeals", "employment claims appeals"],
+  "p7": "Contact the ",
+  "a2": "Scottish Courts and Tribunals",
+  "p8": " for other services."
+}
