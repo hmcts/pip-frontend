@@ -2,10 +2,18 @@ nodejs:
   applicationPort: 8080
   ingressHost: pip-frontend.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'sdshmctspublic.azurecr.io/pip/frontend:latest'
-#  Uncomment once the vault containing the app insights key has been set up
-#  keyVaults:
-#    Publishing-information-project:
-#      secrets:
-#        - AppInsightsInstrumentationKey
+  keyVaults:
+    pip-shared-kv:
+      excludeEnvironmentSuffix: false
+      resourceGroup: pip-sharedservices-{{ .Values.global.environment }}-rg
+      usePodIdentity: true
+      secrets:
+        - name: otp-app-pip-frontend-id
+          alias: CLIENT_ID
+        - name: otp-app-pip-frontend-pwd
+          alias: CLIENT_SECRET
+        - name: otp-tenant-id
+          alias: TENANT_GUID
+        - name: pipsharedinfrasa-storageaccount-connection-string
+          alias: CONNECTION_STRING
   environment:
-
