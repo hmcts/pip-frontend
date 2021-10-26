@@ -1,6 +1,10 @@
 
 export class FilterService {
-  generateCheckboxObjects(items, checkedItems): any {
+  public getDistinctValues(filterName: string, list: Array<any>): any {
+    return [...new Set(list.map(item => item[filterName]))];
+  }
+
+  public generateCheckboxObjects(items, checkedItems): any {
     const itemsList = [];
     items.forEach((itemValue) => {
       itemsList.push({
@@ -12,7 +16,7 @@ export class FilterService {
     return itemsList;
   }
 
-  generateCheckboxGroup(items, groupName = ''): any {
+  public generateCheckboxGroup(items, groupName = ''): any {
     return {
       idPrefix: groupName.toLowerCase(),
       name: groupName.toLowerCase(),
@@ -27,75 +31,25 @@ export class FilterService {
     };
   }
 
-  generateSelectedTags(filterValues): object[] {
-    const filtersList = this.splitFilters(filterValues);
+  public generateSelectedTags(filterValues): object[] {
     const selectedTags = [];
-    if (filtersList.length) {
-      filtersList.forEach((value) => {
-        /* For each filterList element generate category which will be rendered
-        * {
-        *   heading: {
-        *     text: ''
-        *   },
-        *   items: [
-        *     {
-        *       href: #
-        *       text: 'Label'
-        *     }
-        *   ]
-        * }
-        * */
-      });
-    }
-    return selectedTags;
-  }
-
-  // TODO: this logic should be done on the back end
-  filterObject(allCourts, filteringList, filterValues): any {
-    const recordsToRemove = [];
-    const filtersList = this.splitFilters(filterValues);
-    if (filtersList.length) {
-      allCourts.forEach((court) => {
-        const comparisons = [];
-        filtersList.forEach((filter) => {
-          const attributeName = Object.keys(filter)[0]; // jurisdiction or location
-          // check whether court has a value and push 1 (true)
-          if (court[attributeName] === filter[attributeName]) {
-            comparisons.push(1);
+    //  filteredValues = [ { jurisdiction: [selections] }, { location: [selections] } ]
+    if (filterValues.length) {
+      filterValues.forEach((filter) => {
+        const objectKeys = Object.keys(filter);
+        if (objectKeys.length) {
+          const filterName = objectKeys[0];
+          // if there are no selected filters do not add categories
+          if (filter[filterName].length > 0) {
+            const category = { heading: { text: filterName[0].toUpperCase() + filterName.slice(1) }, items: [] };
+            filter[filterName].forEach((filterItem) => {
+              category.items.push({ href: `?clear=${filterItem}`, text: filterItem});
+            });
+            selectedTags.push(category);
           }
-        });
-        // if there is no 1 (true) in the list it means that element should be filtered out
-        if (!comparisons.includes(1)) {
-          recordsToRemove.push(court.name);
         }
       });
     }
-    return this.removeRecords(filteringList, recordsToRemove);
-  }
-
-  splitFilters(filterValues): any[] {
-    const filters = [];
-    filterValues.forEach((filter) => {
-      const objectKey = Object.keys(filter)[0]; // jurisdiction or location
-      if (filter[objectKey].length) {
-        filter[objectKey].forEach((filterVal) => {
-          const filterObject = {};
-          filterObject[objectKey] = filterVal;
-          filters.push(filterObject);
-        });
-      }
-    });
-    return filters;
-  }
-
-  removeRecords(recordsList, recordsToRemove): object {
-    const records = recordsList;
-    if (recordsToRemove.length) {
-      recordsToRemove.forEach((record) => {
-        const firstChar = record.charAt(0);
-        delete records[firstChar][record];
-      });
-    }
-    return records;
+    return selectedTags;
   }
 }
