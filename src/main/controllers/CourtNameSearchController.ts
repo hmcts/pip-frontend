@@ -1,41 +1,60 @@
-import { Request, Response} from 'express';
-import { PipApi } from '../utils/PipApi';
-import { CourtActions } from '../resources/actions/courtActions';
+import { Response} from 'express';
 import { FilterService } from '../service/filterService';
 import { CourtService } from '../service/courtService';
+import { PipRequest } from '../models/request/PipRequest';
+import { cloneDeep } from 'lodash';
 
-let _api: PipApi;
-let courtActions;
+const courtService = new CourtService();
 const filterService = new FilterService();
-let checkedRegionsFilter;
-let checkedJurisdictionsFilter;
+let checkedRegionsFilter = [];
+let checkedJurisdictionsFilter = [];
 
 export default class CourtNameSearchController {
-  constructor(private readonly api: PipApi) {
-    _api = this.api;
-    courtActions = new CourtActions(_api);
-    checkedJurisdictionsFilter = [];
-    checkedRegionsFilter = [];
-  }
-  
-  public async get(req: Request, res: Response): Promise<void> {
-    if (req.query['clear'] === 'all') {
-      checkedJurisdictionsFilter = [];
-      checkedRegionsFilter = [];
+  public async get(req: PipRequest, res: Response): Promise<void> {
+    // remove filter selections
+    if (req.query['clear']) {
+      const clearValue = req.query['clear'];
+      if (checkedJurisdictionsFilter.indexOf(clearValue) >= 0) {
+        checkedJurisdictionsFilter.splice(checkedJurisdictionsFilter.indexOf(clearValue), 1);
+      }
+
+      if (checkedRegionsFilter.indexOf(clearValue) >= 0) {
+        checkedRegionsFilter.splice(checkedRegionsFilter.indexOf(clearValue),1);
+      }
+
+      if (clearValue === 'all') {
+        checkedJurisdictionsFilter = [];
+        checkedRegionsFilter = [];
+      }
     }
-    const alphabeticalCourts = await new CourtService(_api).generateCourtsAlphabetObject();
-    const jurisdictionsList = await courtActions.getJurisdictionList();
-    const regionsList = await courtActions.getRegionsList();
+
+    let courtsList = [];
+    await courtService.fetchAllCourts().then((courts) => {
+      if (courts) {
+        courtsList = courts;
+      }
+    });
+
+    const alphabeticalCourts = await courtService.generateCourtsAlphabetObject(courtsList);
+    const jurisdictionsList = await filterService.getDistinctValues('jurisdiction', courtsList);
+    const regionsList = await filterService.getDistinctValues('location', courtsList);
     const regionCheckboxes = filterService.generateCheckboxObjects(regionsList, checkedRegionsFilter);
     const jurisdictionCheckboxes = filterService.generateCheckboxObjects(jurisdictionsList, checkedJurisdictionsFilter);
     const checkBoxesComponents = [
       filterService.generateCheckboxGroup(jurisdictionCheckboxes, 'Jurisdiction'),
       filterService.generateCheckboxGroup(regionCheckboxes, 'Region'),
     ];
-    res.render('court-name-search', {alphabeticalCourts, checkBoxesComponents});
+    const categories = filterService.generateSelectedTags([{jurisdiction: checkedJurisdictionsFilter}, {location: checkedRegionsFilter}]);
+
+    res.render('court-name-search', {
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['court-name-search']),
+      alphabeticalCourts,
+      checkBoxesComponents,
+      categories,
+    });
   }
 
-  public async post(req: Request, res: Response): Promise<void> {
+  public async post(req: PipRequest, res: Response): Promise<void> {
     if (req.body.jurisdiction) {
       checkedJurisdictionsFilter = Array.isArray(req.body.jurisdiction) ? req.body.jurisdiction : [req.body.jurisdiction];
     } else {
@@ -48,10 +67,10 @@ export default class CourtNameSearchController {
       checkedRegionsFilter = [];
     }
 
-    let alphabeticalCourts = await new CourtService(_api).generateCourtsAlphabetObject();
-    const courtsList = await courtActions.getCourtsList();
-    const jurisdictionsList = await courtActions.getJurisdictionList();
-    const regionsList = await courtActions.getRegionsList();
+    const courtsList = await courtService.fetchAllCourts();
+    const alphabeticalCourts = await courtService.generateCourtsAlphabetObject(courtsList);
+    const jurisdictionsList = await filterService.getDistinctValues('jurisdiction', courtsList);
+    const regionsList = await filterService.getDistinctValues('location', courtsList);
     const regionCheckboxes = filterService.generateCheckboxObjects(regionsList, checkedRegionsFilter);
     const jurisdictionCheckboxes = filterService.generateCheckboxObjects(jurisdictionsList, checkedJurisdictionsFilter);
     const checkBoxesComponents = [
@@ -60,8 +79,12 @@ export default class CourtNameSearchController {
     ];
 
     const categories = filterService.generateSelectedTags([{jurisdiction: checkedJurisdictionsFilter}, {location: checkedRegionsFilter}]);
-    alphabeticalCourts = filterService.filterObject(courtsList, alphabeticalCourts,
-      [{jurisdiction: checkedJurisdictionsFilter}, {location: checkedRegionsFilter}]);
-    res.render('court-name-search', {alphabeticalCourts, checkBoxesComponents, categories});
+
+    res.render('court-name-search', {
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['court-name-search']),
+      alphabeticalCourts,
+      checkBoxesComponents,
+      categories,
+    });
   }
 }
