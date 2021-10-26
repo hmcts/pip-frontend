@@ -8,5 +8,4 @@ nodejs:
 #      secrets:
 #        - AppInsightsInstrumentationKey
   environment:
-   DATA_MANAGEMENT_URL: pip-data-management.{{ .Values.global.environment }}.platform.hmcts.net
 
