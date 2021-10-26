@@ -4,9 +4,7 @@ nodejs:
   image: 'sdshmctspublic.azurecr.io/pip/frontend:latest'
   keyVaults:
     pip-shared-kv:
-      excludeEnvironmentSuffix: false
       resourceGroup: pip-sharedservices-{{ .Values.global.environment }}-rg
-      usePodIdentity: true
       secrets:
         - name: otp-app-pip-frontend-id
           alias: CLIENT_ID
