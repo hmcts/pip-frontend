@@ -7,7 +7,7 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-    {{ "Court Name Search" | safe }}
+    {{ title }}
 {% endblock %}
 {% block beforeContent %}
     {{ govukBackLink({
@@ -25,21 +25,21 @@
         {% endfor %}
     {% endset %}
 
-    <h1 class="govuk-heading-l">Subscribe by court or tribunal name</h1>
-    <p class="govuk-body">Subscribe to receive hearings list by court or tribunal</p>
+    <h1 class="govuk-heading-l">{{ heading }}</h1>
+    <p class="govuk-body">{{ subHeading }}</p>
     <div class="moj-filter-layout">
         <form class="moj-filter-layout__filter" method="post" action="court-name-search">
             {{ mojFilter({
                 heading: {
-                    text: 'Filter'
+                    text: filter
                 },
                 selectedFilters: {
                     clearLink: {
-                        text: 'Clear filters',
+                        text: filterClear,
                         href: '?clear=all'
                     },
                     heading: {
-                        text: 'Selected filter'
+                        text: filterSelected
                     },
                     categories: categories
                 },
@@ -48,9 +48,9 @@
         </form>
         <div class="moj-filter-layout__content">
             <form class="moj-action-bar" action="pending-subscriptions" method="post">
-                <h2 class="govuk-heading-m">Your selections</h2>
+                <h2 class="govuk-heading-m">{{ userSelections }}</h2>
                 <div class="selection-counter-box govuk-!-padding-top-3 govuk-!-padding-bottom-1 govuk-!-padding-left-2 govuk-!-padding-right-2 govuk-!-margin-bottom-4">
-                    <p class="govuk-body"><span id="selectionCount">0</span> selected</p>
+                    <p class="govuk-body"><span id="selectionCount">0</span> {{ selected }}</p>
                 </div>
                 {{ submitButton() }}
                 <hr />
@@ -79,7 +79,7 @@
                     <table class="govuk-table">
                         <thead class="govuk-table__head">
                         <tr class="govuk-table__row">
-                            <th scope="col" class="govuk-table__header" colspan="3">Courts and tribunals in England and Wales</th>
+                            <th scope="col" class="govuk-table__header" colspan="3">{{ tableHeader }}</th>
                         </tr>
                         </thead>
                         <tbody class="govuk-table__body">
@@ -119,7 +119,6 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
 {% block bodyEnd %}
     <script type="text/javascript" src="/assets/js/jquery.js"></script>
