@@ -4,11 +4,11 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-    {{ "Case Name Search Results" | safe }}
+    {{ title }}
 {% endblock %}
 {% block beforeContent %}
     {{ govukBackLink({
-        text: text,
+        text: backButton,
         href: '#',
         attributes: {
             onClick: "history.back();event.preventDefault();"
@@ -16,18 +16,16 @@
     }) }}
 {% endblock %}
 {% block content %}
-    <h1 class="govuk-heading-l">Search result</h1>
-    <p class="govuk-body govuk-!-font-weight-bold">{{ searchResults | length }} results successfully found</p>
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <p class="govuk-body govuk-!-font-weight-bold">{{ searchResults | length }} {{ resultsCount }}</p>
     <form action="pending-subscriptions" method="post">
         <table class="govuk-table govuk-!-width-two-thirds" data-module="moj-multi-select"
                data-multi-select-checkbox="#select-all">
             <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th class="govuk-table__header" scope="col" id="select-all"></th>
-                <th class="govuk-table__header" scope="col">Case Name</th>
-                <th class="govuk-table__header govuk-table__header--numeric" scope="col">Case
-                    Reference Number
-                </th>
+                <th class="govuk-table__header vertical-center-table-header" scope="col" id="select-all"></th>
+                <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column1Header }}</th>
+                <th class="govuk-table__header vertical-center-table-header govuk-table__header--numeric" scope="col">{{ table.column2Header }}</th>
             </tr>
             </thead>
             <tbody class="govuk-table__body">
@@ -38,7 +36,7 @@
                             <input type="checkbox" class="govuk-checkboxes__input" id="{{ result.hearingId }}"
                                    value="{{ result.hearingId }}">
                             <label class="govuk-label govuk-checkboxes__label" for="{{ result.hearingId }}">
-                                <span class="govuk-visually-hidden">Select {{ result.caseName }}</span>
+                                <span class="govuk-visually-hidden">{{ select }} {{ result.caseName }}</span>
                             </label>
                         </div>
                     </td>
