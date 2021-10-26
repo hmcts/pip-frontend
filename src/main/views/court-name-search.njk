@@ -50,7 +50,7 @@
             <form class="moj-action-bar" action="pending-subscriptions" method="post">
                 <h2 class="govuk-heading-m">Your selections</h2>
                 <div class="selection-counter-box govuk-!-padding-top-3 govuk-!-padding-bottom-1 govuk-!-padding-left-2 govuk-!-padding-right-2 govuk-!-margin-bottom-4">
-                    <p class="govuk-body">0 selected</p>
+                    <p class="govuk-body"><span id="selectionCount">0</span> selected</p>
                 </div>
                 {{ submitButton() }}
                 <hr />
@@ -101,7 +101,7 @@
                                         <td class="govuk-table__cell">
                                             <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
                                                 <input type="checkbox" class="govuk-checkboxes__input" id="{{ courtDetails.id }}"
-                                                       value="{{ courtDetails.id }}">
+                                                       value="{{ courtDetails.id }}" name="court-checkbox" onclick="calculateChecked()">
                                                 <label class="govuk-label govuk-checkboxes__label" for="{{ courtDetails.id }}">
                                                     <span class="govuk-visually-hidden">Select {{ courtName }}</span>
                                                 </label>
@@ -124,4 +124,10 @@
 {% block bodyEnd %}
     <script type="text/javascript" src="/assets/js/jquery.js"></script>
     <script type="text/javascript" src="/assets/js/mojAll.js"></script>
+    <script>
+      function calculateChecked() {
+        const checkedBoxes = document.querySelectorAll('input[name="court-checkbox"]:checked').length;
+        document.getElementById('selectionCount').innerText = checkedBoxes.toString();
+      }
+    </script>
 {% endblock %}
