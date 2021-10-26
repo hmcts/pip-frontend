@@ -1,5 +1,5 @@
 import { CourtRequests } from '../resources/requests/courtRequests';
-import {Court} from '../models/court';
+import { Court } from '../models/court';
 
 const courtRequest = new CourtRequests();
 
@@ -48,7 +48,7 @@ export class CourtService {
   public async generateAlphabetisedCrownCourtList(): Promise<object> {
     const filter = ['jurisdiction'];
     const value = ['crown court'];
-    const courtsList= await courtRequest.getFilteredCourts(filter, value);
+    const courtsList = await courtRequest.getFilteredCourts(filter, value);
     const alphabetisedCourtList = CourtService.generateAlphabetObject();
 
     courtsList.forEach(item => {
@@ -60,18 +60,12 @@ export class CourtService {
     return alphabetisedCourtList;
   }
 
-  /*
-  * TODO:
-  *   Merge generateCrownCourtArray & generateCourtsAlphabetObject into one,
-  *   once BE returns courts list.
-  *   Pass into function courtsList
-  */
-  public async generateCourtsAlphabetObject(): Promise<object> {
-    let courtsList: Array<Court> = await new CourtActions(_api).getCourtsList();
+  public generateCourtsAlphabetObject(courtsList): any {
+    const _courtsList = courtsList;
     const alphabetOptions = CourtService.generateAlphabetObject();
-    courtsList = new InputFilterService().alphabetiseResults(courtsList, 'name');
+
     // Then loop through each court, and add it to the list
-    courtsList.forEach(item => {
+    _courtsList.forEach(item => {
       const courtName = item.name as string;
       alphabetOptions[courtName.charAt(0).toUpperCase()][courtName] = {
         id: item.courtId,
