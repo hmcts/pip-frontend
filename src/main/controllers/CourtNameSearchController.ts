@@ -3,14 +3,25 @@ import { FilterService } from '../service/filterService';
 import { CourtService } from '../service/courtService';
 import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
+import { CourtRequests } from '../resources/requests/courtRequests';
 
 const courtService = new CourtService();
+const courtRequests = new CourtRequests();
 const filterService = new FilterService();
 let checkedRegionsFilter = [];
 let checkedJurisdictionsFilter = [];
 
 export default class CourtNameSearchController {
   public async get(req: PipRequest, res: Response): Promise<void> {
+    let allCourts = [];
+    let courtsList: any[];
+
+    await courtService.fetchAllCourts().then((courts) => {
+      if (courts) {
+        allCourts = courts;
+      }
+    });
+
     // remove filter selections
     if (req.query['clear']) {
       const clearValue = req.query['clear'];
@@ -28,16 +39,22 @@ export default class CourtNameSearchController {
       }
     }
 
-    let courtsList = [];
-    await courtService.fetchAllCourts().then((courts) => {
-      if (courts) {
-        courtsList = courts;
+    if (!checkedJurisdictionsFilter.length && !checkedRegionsFilter.length) {
+      courtsList = allCourts;
+    } else {
+      const filters = [];
+      if (checkedJurisdictionsFilter.length > 0) {
+        filters.push('jurisdiction');
       }
-    });
+      if (checkedRegionsFilter.length > 0) {
+        filters.push('location');
+      }
+      courtsList = await courtRequests.getFilteredCourts(filters, [...checkedJurisdictionsFilter, ...checkedRegionsFilter]);
+    }
 
     const alphabeticalCourts = await courtService.generateCourtsAlphabetObject(courtsList);
-    const jurisdictionsList = await filterService.getDistinctValues('jurisdiction', courtsList);
-    const regionsList = await filterService.getDistinctValues('location', courtsList);
+    const jurisdictionsList = await filterService.getDistinctValues('jurisdiction', allCourts);
+    const regionsList = await filterService.getDistinctValues('location', allCourts);
     const regionCheckboxes = filterService.generateCheckboxObjects(regionsList, checkedRegionsFilter);
     const jurisdictionCheckboxes = filterService.generateCheckboxObjects(jurisdictionsList, checkedJurisdictionsFilter);
     const checkBoxesComponents = [
@@ -55,6 +72,14 @@ export default class CourtNameSearchController {
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
+    let allCourts = [];
+    let courtsList: any[];
+    await courtService.fetchAllCourts().then((courts) => {
+      if (courts) {
+        allCourts = courts;
+      }
+    });
+
     if (req.body.jurisdiction) {
       checkedJurisdictionsFilter = Array.isArray(req.body.jurisdiction) ? req.body.jurisdiction : [req.body.jurisdiction];
     } else {
@@ -67,10 +92,22 @@ export default class CourtNameSearchController {
       checkedRegionsFilter = [];
     }
 
-    const courtsList = await courtService.fetchAllCourts();
+    if (!checkedJurisdictionsFilter.length && !checkedRegionsFilter.length) {
+      courtsList = allCourts;
+    } else {
+      const filters = [];
+      if (checkedJurisdictionsFilter.length > 0) {
+        filters.push('jurisdiction');
+      }
+      if (checkedRegionsFilter.length > 0) {
+        filters.push('location');
+      }
+      courtsList = await courtRequests.getFilteredCourts(filters, [...checkedJurisdictionsFilter, ...checkedRegionsFilter]);
+    }
+
     const alphabeticalCourts = await courtService.generateCourtsAlphabetObject(courtsList);
-    const jurisdictionsList = await filterService.getDistinctValues('jurisdiction', courtsList);
-    const regionsList = await filterService.getDistinctValues('location', courtsList);
+    const jurisdictionsList = await filterService.getDistinctValues('jurisdiction', allCourts);
+    const regionsList = await filterService.getDistinctValues('location', allCourts);
     const regionCheckboxes = filterService.generateCheckboxObjects(regionsList, checkedRegionsFilter);
     const jurisdictionCheckboxes = filterService.generateCheckboxObjects(jurisdictionsList, checkedJurisdictionsFilter);
     const checkBoxesComponents = [
