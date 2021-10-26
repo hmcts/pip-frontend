@@ -1,51 +1,64 @@
 import SearchController from '../../../main/controllers/SearchController';
 import sinon from 'sinon';
-import { Request, Response } from 'express';
-import {PipApi} from '../../../main/utils/PipApi';
+import {  Response } from 'express';
 import fs from 'fs';
 import path from 'path';
+import {CourtService} from '../../../main/service/courtService';
+import {mockRequest} from '../mocks/mockRequest';
 
-const axios = require('axios');
-jest.mock('axios');
-
-
-const api = new PipApi(axios);
-const searchController = new SearchController(api);
-const stub = sinon.stub(api, 'getAllCourtList');
+const searchController = new SearchController();
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const courtList = JSON.parse(rawData);
+sinon.stub(CourtService.prototype, 'fetchAllCourts').returns(courtList);
+const stubCourt = sinon.stub(CourtService.prototype, 'getCourtByName');
 
 describe('Search Controller', () => {
+  let i18n = {};
   it('should render the search page', () => {
 
-
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
-    const hearingsData = JSON.parse(rawData);
-
-    stub.withArgs().returns(hearingsData);
+    i18n = {
+      search: {},
+    };
 
     const response = { render: function() {return '';}} as unknown as Response;
-    const request = {} as unknown as Request;
+    const request = mockRequest(i18n);
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('search');
+    const expectedData = {
+      ...i18n['search'],
+      autocompleteList: courtList,
+      invalidInputError: false,
+      noResultsError: false,
+    };
+
+    responseMock.expects('render').once().withArgs('search', expectedData);
 
     return searchController.get(request, response).then(() => {
       responseMock.verify();
     });
   });
 
-  it('should render search page if there are no matching results', () => {
-    const searchController = new SearchController(api);
+  it('should render search page if no input is provided', () => {
 
-
-    stub.withArgs().returns(null);
+    i18n = {
+      search: {},
+    };
 
     const response = { render: function() {return '';}} as unknown as Response;
-    const request = { body: { 'input-autocomplete': 'test'}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.body = {'input-autocomplete': ''};
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('search');
+    const expectedData = {
+      ...i18n['search'],
+      autocompleteList: courtList,
+      invalidInputError: true,
+      noResultsError: false,
+    };
+
+    responseMock.expects('render').once().withArgs('search', expectedData);
 
     return searchController.post(request, response).then(() => {
       responseMock.verify();
@@ -54,134 +67,97 @@ describe('Search Controller', () => {
 
   it('should render search page if input is less than three characters long', () => {
 
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
-    const hearingsData = JSON.parse(rawData);
-
-    stub.withArgs().returns(hearingsData);
-
-    const response = { render: function() {return '';}} as unknown as Response;
-    const request = { body: { 'input-autocomplete': 'aa'}} as unknown as Request;
-
-    const responseMock = sinon.mock(response);
-
-    responseMock.expects('render').once().withArgs('search');
-
-    return searchController.post(request, response).then(() => {
-      responseMock.verify();
-    });
-  });
-
-  it('should render search page if input is three characters long and partially correct', () => {
-
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
-    const hearingsData = JSON.parse(rawData);
-
-    stub.withArgs().returns(hearingsData);
+    i18n = {
+      search: {},
+    };
 
     const response = { render: function() {return '';}} as unknown as Response;
-    const request = { body: { 'input-autocomplete': 'Mut'}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.body = {'input-autocomplete': 'aa'};
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('search');
+    const expectedData = {
+      ...i18n['search'],
+      autocompleteList: courtList,
+      invalidInputError: true,
+      noResultsError: false,
+    };
+
+    responseMock.expects('render').once().withArgs('search', expectedData);
 
     return searchController.post(request, response).then(() => {
       responseMock.verify();
     });
   });
 
-  it('should render search page if input is not letters', () => {
+  it('should render search page if there are no matching results', () => {
 
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
-    const hearingsData = JSON.parse(rawData);
+    stubCourt.returns(null);
 
-    stub.withArgs().returns(hearingsData);
+    i18n = {
+      search: {},
+    };
+
     const response = { render: function() {return '';}} as unknown as Response;
-    const request = { body: { 'input-autocomplete': '111'}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.body = {'input-autocomplete': 'test'};
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('search');
+    const expectedData = {
+      ...i18n['search'],
+      autocompleteList: courtList,
+      invalidInputError: false,
+      noResultsError: true,
+    };
+
+    responseMock.expects('render').once().withArgs('search', expectedData);
 
     return searchController.post(request, response).then(() => {
       responseMock.verify();
     });
   });
 
-  it('should render search page if no input is provided', () => {
+  it('should render search page if input is three characters long and partially correct as noResultsError', () => {
 
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
-    const hearingsData = JSON.parse(rawData);
+    stubCourt.returns(null);
 
-    stub.withArgs().returns(hearingsData);
+    i18n = {
+      search: {},
+    };
+
     const response = { render: function() {return '';}} as unknown as Response;
-    const request = { body: { 'input-autocomplete': ''}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.body = {'input-autocomplete': 'Mut'};
 
     const responseMock = sinon.mock(response);
-
-    responseMock.expects('render').once().withArgs('search');
 
     return searchController.post(request, response).then(() => {
       responseMock.verify();
     });
   });
 
+  it('should redirect to hearing list page with input as query if court name input is valid', () => {
 
+    const court = {
+      courtId: 1,
+    };
 
+    stubCourt.returns(court);
 
-  it('should redirect to search results page with input as query if court name input is valid', () => {
-    const searchController = new SearchController(api);
-
-
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
-    const hearingsData = JSON.parse(rawData);
-
-    stub.withArgs().returns(hearingsData);
-    const response = { redirect: function() {return '';}} as unknown as Response;
-    const request = { body: { 'input-autocomplete': 'Basildon Combined Court'}} as unknown as Request;
-
-    const responseMock = sinon.mock(response);
-
-    responseMock.expects('redirect').once().withArgs('hearing-list?search-input=Basildon Combined Court');
-
-    return searchController.post(request, response).then(() => {
-      responseMock.verify();
-    });
-  });
-
-  it('should redirect to search results page with input as query if location input is valid', () => {
-    const searchController = new SearchController(api);
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
-    const hearingsData = JSON.parse(rawData);
-
-    stub.withArgs().returns(hearingsData);
-    const response = { redirect: function() {return '';}} as unknown as Response;
-    const request = { body: { 'input-autocomplete': 'London'}} as unknown as Request;
-
-    const responseMock = sinon.mock(response);
-
-
-    responseMock.expects('redirect').once().withArgs('hearing-list?search-input=London');
-
-
-    return searchController.post(request, response).then(() => {
-      responseMock.verify();
-    });
-  });
-
-  it('should redirect to search results page with input as query if jurisdiction input is valid', () => {
-    const searchController = new SearchController(api);
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtsAndHearingsCount.json'), 'utf-8');
-    const hearingsData = JSON.parse(rawData);
-
-    stub.withArgs().returns(hearingsData);
+    i18n = {
+      search: {},
+    };
 
     const response = { redirect: function() {return '';}} as unknown as Response;
-    const request = { body: { 'input-autocomplete': 'Crown Court'}} as unknown as Request;
+    const request = mockRequest(i18n);
+    request.body = {'input-autocomplete': 'Valid Court'};
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('hearing-list?search-input=Crown Court');
+    responseMock.expects('redirect').once().withArgs('hearing-list?courtId=1');
+
 
     return searchController.post(request, response).then(() => {
       responseMock.verify();

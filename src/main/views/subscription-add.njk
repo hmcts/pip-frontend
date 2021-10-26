@@ -1,31 +1,24 @@
 {% from "./macros/common-components.njk" import goBack, submitButton %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-  {{ "Add a subscription" | safe }}
+  {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukBackLink({
-    text: text,
-    href: '#',
-    attributes: {
-      onClick: "history.back(); event.preventDefault();"
-    }
-  }) }}
+  {{ goBack() }}
 {% endblock %}
 
 {% block content %}
   {% if selectionError %}
     {{ govukErrorSummary({
-      titleText: "There is a problem",
+      titleText: error.title,
       errorList: [
         {
-          text: "Please tell us how you would like to add a subscription",
+          text: error.text,
           href: "#subscription-choice"
         }
       ]
@@ -36,18 +29,17 @@
       <fieldset class="govuk-fieldset">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
           <h1 class="govuk-fieldset__heading">
-            How do you want to add a subscription?
+            {{ header }}
           </h1>
         </legend>
 
         {{ govukInsetText({
-          text: "This service displays information about published lists only. Searches can only be performed against information contained
-          within published lists.",
+          text: insetText,
           classes: "govuk-!-margin-bottom-8"
         }) }}
         {% if selectionError %}
           <span id="subscription-choice-error" class="govuk-error-message">
-            <span class="govuk-visually-hidden">Error:</span> Please tell us how you would like to add a subscription
+            <span class="govuk-visually-hidden">{{ error.error }}</span> {{ error.text }}
           </span>
         {% endif %}
         <div id= "subscription-choice" class="govuk-radios
@@ -56,25 +48,25 @@
           <div class="govuk-radios__item">
             <input class="govuk-radios__input" id="subscription-choice-1" name="subscription-choice" type="radio" value="case-reference">
             <label class="govuk-label govuk-radios__label" for="subscription-choice-1">
-              By case reference number
+              {{ radio1 }}
             </label>
           </div>
           <div class="govuk-radios__item">
             <input class="govuk-radios__input" id="subscription-choice-2" name="subscription-choice" type="radio" value="urn">
             <label class="govuk-label govuk-radios__label" for="subscription-choice-2">
-              By unique reference number
+              {{ radio2 }}
             </label>
           </div>
           <div class="govuk-radios__item">
             <input class="govuk-radios__input" id="subscription-choice-3" name="subscription-choice" type="radio" value="name">
             <label class="govuk-label govuk-radios__label" for="subscription-choice-3">
-              By case name
+              {{ radio3 }}
             </label>
           </div>
           <div class="govuk-radios__item">
             <input class="govuk-radios__input" id="subscription-choice-4" name="subscription-choice" type="radio" value="court-or-tribunal">
             <label class="govuk-label govuk-radios__label" for="subscription-choice-4">
-              By court or tribunal
+              {{ radio4 }}
             </label>
           </div>
         </div>
@@ -84,12 +76,12 @@
     {{ submitButton() }}
   </form>
   <hr class="govuk-section-break--visible govuk-!-margin-top-7" />
-  <h4 class="govuk-heading-s govuk-!-margin-bottom-2 govuk-!-margin-top-2">Related content</h4>
+  <h4 class="govuk-heading-s govuk-!-margin-bottom-2 govuk-!-margin-top-2">{{ related }}</h4>
   <div class="govuk-!-margin-bottom-2">
-    <a href="/subscription-management" class="govuk-link govuk-!-font-weight-bold">Manage your subscriptions</a>
+    <a href="/subscription-management" class="govuk-link govuk-!-font-weight-bold">{{ manage }}</a>
   </div>
   <div class="govuk-!-margin-bottom-9">
-    <a href="/search-option" class="govuk-link govuk-!-font-weight-bold">Find a court or tribunal list</a>
+    <a href="/search-option" class="govuk-link govuk-!-font-weight-bold">{{ search }}</a>
   </div>
 
 {% endblock %}

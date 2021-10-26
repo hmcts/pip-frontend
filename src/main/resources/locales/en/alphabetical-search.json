@@ -1,0 +1,11 @@
+{
+  "title": "Court List",
+  "backToTop": "Back to top",
+  "heading": "Find a court or tribunal listing",
+  "tableHeader1": "Court or tribunal",
+  "tableHeader2": "Number of hearings",
+  "error": {
+    "line1": "No hearings are scheduled in any of these",
+    "line2": "locations today"
+  }
+}

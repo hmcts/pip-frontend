@@ -8,8 +8,11 @@
 {% endmacro %}
 
 {% macro goBack(path = '#', text = 'Back', id = '', ariaLabel = 'Back Button') %}
-    {{ govukBackLink({
-        text: text,
-        href: path
-    }) }}
+  {{ govukBackLink({
+    text: text,
+    href: path,
+    attributes: {
+      onClick: "history.back(); event.preventDefault();"
+    }
+  }) }}
 {% endmacro %}
