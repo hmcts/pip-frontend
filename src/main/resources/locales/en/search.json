@@ -9,5 +9,6 @@
     "pText": "You can improve your results by double checking your spelling."
   },
   "header": "What court or tribunal are you interested in?",
+  "header2": "Enter a court or tribunal name",
   "inputHint": "For example Blackburn Crown Court"
 }
