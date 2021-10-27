@@ -19,13 +19,16 @@ export default function(app: Application): void {
   };
 
   function ensureAuthenticated(req, res, next): NextFunction | void {
+    console.log('We are checking if they are authenticated');
     if (req.isAuthenticated()) {
+      console.log('User is authenticated');
       return next();
     }
     res.redirect('/login?p=' + authenticationConfig.POLICY);
   }
 
   function regenerateSession(req, res): void {
+    console.log('We made it into regenerate session');
     const prevSession = req.session;
     req.session.regenerate(() => {  // Compliant
       Object.assign(req.session, prevSession);
