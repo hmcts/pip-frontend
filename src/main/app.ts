@@ -67,6 +67,7 @@ new Container().enableFor(app);
 const sessionConfig = {
   secret: process.env.SESSION_SECRET,
   resave: false,
+  proxy: true,
   saveUninitialized: false,
   cookie: { secure: true },
 };
