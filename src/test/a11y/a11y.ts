@@ -1,5 +1,4 @@
 import { fail } from 'assert';
-import sinon from 'sinon';
 
 const pa11y = require('pa11y');
 import * as supertest from 'supertest';

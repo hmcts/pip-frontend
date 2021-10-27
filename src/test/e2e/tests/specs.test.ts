@@ -4,15 +4,18 @@ import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
 import { HearingListPage } from '../pageobjects/HearingList.page';
 import { SearchPage } from '../pageobjects/Search.page';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { SearchResultsPage } from '../pageobjects/SearchResults.page';
 =======
 import { OtpLoginPage } from '../pageobjects/OtpLogin.page';
 import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
 >>>>>>> master
+=======
+import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
+>>>>>>> 9f828b2b1afe6f767327409f9f80baf7c7c3dd63
 import { ViewOptionPage } from '../pageobjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
 import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
-import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
 import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
 import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
 
@@ -28,9 +31,12 @@ let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 let otpLoginPage: OtpLoginPage;
 >>>>>>> master
+=======
+>>>>>>> 9f828b2b1afe6f767327409f9f80baf7c7c3dd63
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
@@ -176,26 +182,27 @@ describe('Finding a court or tribunal listing', () => {
 
   describe('Media User Login', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
     it('should navigate to subscription management page', async () => {
       it('should navigate to the subscription management page when a user clicks "Subscriptions" header', async () => {
         subscriptionManagementPage = await homePage.clickSubscriptionsButton();
         expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
       });
 =======
+=======
+>>>>>>> 9f828b2b1afe6f767327409f9f80baf7c7c3dd63
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
     });
-    it('should open the OTP login page when a user clicks "Subscriptions" header', async () => {
-      otpLoginPage = await homePage.clickSubscriptionsButton();
-      expect(await otpLoginPage.getPageTitle()).toEqual('Verify your email address');
-    });
 
-    it('should navigate to subscription page when correct passcode is entered', async () => {
-      await otpLoginPage.enterText('222222');
-      subscriptionManagementPage = await otpLoginPage.clickContinue();
+    it('should open the Subscription Manage Page when a user clicks "Subscriptions" header', async () => {
+      subscriptionManagementPage = await homePage.clickSubscriptionsButton();
       expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> 9f828b2b1afe6f767327409f9f80baf7c7c3dd63
     });
   });
 
@@ -204,6 +211,5 @@ describe('Finding a court or tribunal listing', () => {
       await subscriptionAddPage.open('subscription-add');
       expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
     });
-
   });
 });
