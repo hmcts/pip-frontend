@@ -5,15 +5,5 @@
   },
   "appInsights": {
     "instrumentationKey": false
-  },
-  "services": {
-    "api": {
-      "name": "PIP API",
-      "url": "http://localhost:8000"
-    },
-    "localApi": {
-      "name": "PIP API Local",
-      "url": "https://localhost:8080"
-    }
   }
 }

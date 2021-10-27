@@ -3,11 +3,11 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% block pageTitle %}
-    {{ "View Option" | safe }}
+    {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
-    {{ goBack('/') }}
+    {{ goBack() }}
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@
             name: "view-choice",
             fieldset: {
                 legend: {
-                    text: 'What would you like to view?',
+                    text: radioLegend,
                     isPageHeading: true,
                     classes: "govuk-fieldset__legend--l"
                 }
@@ -25,15 +25,15 @@
             items: [
                 {
                     value: "search",
-                    text: "Court or tribunal hearing lists"
+                    text: radio1
                 },
                 {
-                  value: "live",
-                  text: "Live hearing updates - Crown Court only"
+                    value: "live",
+                    text: radio2
                 },
                 {
                   value: "sjp",
-                  text: "Single Justice Procedure list"
+                  text: radio3
                 }
             ]
         }) }}

@@ -3,11 +3,11 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% block pageTitle %}
-    {{ "Search Option" | safe }}
+    {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
-    {{ goBack('/view-option') }}
+    {{ goBack() }}
 {% endblock %}
 
 {% block content %}
@@ -17,22 +17,23 @@
             name: "find-choice",
             fieldset: {
                 legend: {
-                    text: 'Find a court or tribunal list',
+                    text: radioLegend,
                     isPageHeading: true,
                     classes: "govuk-fieldset__legend--l"
                 }
             },
             hint: {
-              text: "Do you know the name of the court or tribunal?"
+              text: "The name of the court or tribunal can be found on a letter, email or text from us"
             },
             items: [
                 {
                     value: "search",
-                    text: "I have the name"
+                    text: radio1
                 },
                 {
                     value: "find",
-                    text: "I don't have the name"
+                    text: radio2
+
                 }
             ]
         }) }}

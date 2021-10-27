@@ -12,8 +12,3 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   setupFiles: ["<rootDir>/jestEnvVars.js"]
 }
-
-process.env = Object.assign(process.env, {
-  PIP_LOCAL_API: true,
-  NODE_TLS_REJECT_UNAUTHORIZED:0
-});

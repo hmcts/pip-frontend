@@ -8,10 +8,15 @@ nodejs:
       resourceGroup: pip-sharedservices-{{ .Values.global.environment }}-rg
       usePodIdentity: true
       secrets:
-        - name: otp-app-pip-frontend-pwd
-          alias: CLIENT_SECRET
         - name: session-key
           alias: SESSION_SECRET
+        - name: otp-app-pip-frontend-id
+          alias: CLIENT_ID
+        - name: otp-app-pip-frontend-pwd
+          alias: CLIENT_SECRET
+        - name: otp-tenant-id
+          alias: TENANT_GUID
+        - name: pipsharedinfrasa-storageaccount-connection-string
+          alias: CONNECTION_STRING
   environment:
-   API_URL: pip-business-rules.{{ .Values.global.environment }}.platform.hmcts.net
-
+  aadIdentityName: pip

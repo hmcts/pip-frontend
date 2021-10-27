@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import * as process from 'process';
+=======
+import {I18next} from './modules/i18next';
+>>>>>>> master
 
 const {Logger} = require('@hmcts/nodejs-logging');
 
@@ -21,6 +25,7 @@ const passport = require('passport');
 const {setupDev} = require('./development');
 import {Container} from './modules/awilix';
 import routes from './routes/routes';
+import {PipRequest} from './models/request/PipRequest';
 
 const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
@@ -60,26 +65,27 @@ app.use((req, res, next) => {
   );
   next();
 });
+new I18next().enableFor(app);
 
 //main routes
 routes(app);
 
 setupDev(app, developmentMode);
 // returning "not found" page for requests with paths not resolved by the router
-app.use((req, res) => {
+app.use((req: PipRequest, res) => {
   res.status(404);
-  res.render('not-found');
+  res.render('not-found', req.i18n.getDataByLanguage(req.lng)['not-found']);
 });
 
 // error handler
-app.use((err: HTTPError, req: express.Request, res: express.Response) => {
+app.use((err: HTTPError, req: PipRequest, res: express.Response) => {
   logger.error(`${err.stack || err}`);
 
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = env === 'development' ? err : {};
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', req.i18n.getDataByLanguage(req.lng).error);
 });
 
 authentication(process.env.OIDC);

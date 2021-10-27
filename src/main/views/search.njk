@@ -3,20 +3,20 @@
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% block pageTitle %}
-    {{ "Search" | safe }}
+    {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
-    {{ goBack('/search-option') }}
+    {{ goBack() }}
 {% endblock %}
 
 {% block content %}
     {% if noResultsError or invalidInputError %}
-        {% set errorMessage = 'There is nothing matching your criteria' if noResultsError else 'Search must be three characters or more' %}
+        {% set errorMessage = error.noResults if noResultsError else error.invalidInput %}
         <div class="govuk-grid-row">
             <div class="no_padding govuk-grid-column-three-quarters">
                 {{ govukErrorSummary({
-                    titleText: "There is a problem",
+                    titleText: error.summaryTitleText,
                     errorList: [
                         {
                             text: errorMessage,
@@ -35,15 +35,15 @@
         <div class="govuk-form-group govuk-!-width-one-half">
             <h1 class="govuk-label-wrapper">
                 <label class="govuk-label govuk-label--l" for="search-input">
-                    What court or tribunal are you interested in?
+                    {{ header }}
                 </label>
             </h1>
             <div class="{{ formGroupError }}">
                 <div id="search-input-hint" class="govuk-hint">
-                    For example Blackburn Family Court or Chester
+                    {{ inputHint }}
                 </div>
                 {% if noResultsError or invalidInputError %}
-                    <span class="govuk-error-message">Enter a court name, town or city</span>
+                    <span class="govuk-error-message">{{ spanText }}</span>
                 {% endif %}
                 <div class="{{ inputClasses }}" id="search-input-container"></div>
             </div>
@@ -53,8 +53,8 @@
         {% if noResultsError %}
         <div class="govuk-grid-row">
             <div class="no_padding govuk-grid-column-full">
-                <h2 class="govuk-heading-s">There are no matching results.</h2>
-                <p class="govuk-body">You can improve your results by double checking your spelling.</p>
+                <h2 class="govuk-heading-s">{{ error.noResultsHeader }}</h2>
+                <p class="govuk-body">{{ pText }}</p>
             </div>
         </div>
         {% endif %}
@@ -82,4 +82,5 @@
         window.history.replaceState( null, null, window.location.href );
       }
     </script>
+  {{ super() }}
 {% endblock %}

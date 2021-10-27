@@ -1,0 +1,38 @@
+{% from "./macros/common-components.njk" import goBack %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block content %}
+  <form method="post" novalidate>
+    <h1 class="govuk-heading-l govuk-!-margin-top-5">{{ heading }}</h1>
+    <div class="govuk-body">{{ div1 }}
+      <span class="govuk-!-font-weight-bold">{{ span1 }}</span>{{ div2 }}</div>
+    <h3 class="govuk-heading-s" id="input-label">{{ header2 }}</h3>
+    <input class="govuk-input
+    govuk-input--width-10
+    govuk-!-margin-right-2" id="otp-code" name="otp-code"
+           inputmode="numeric"
+           pattern='[0-9]*'
+           aria-labelledby="input-label"
+           autocomplete="off">
+
+    <p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0">You have 3 attempts</p>
+
+    {{ govukButton({
+      text: continueButton,
+      classes: "govuk-!-margin-top-5 govuk-!-margin-bottom-8"
+
+    }) }}
+
+  </form>
+  <div class="govuk-body">{{ div3 }}</div>
+
+  {{ govukButton({
+    text: resendButton,
+    classes: "govuk-button--secondary govuk-!-margin-bottom-9"
+  }) }}
+
+{% endblock %}

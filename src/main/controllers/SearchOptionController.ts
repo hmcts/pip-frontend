@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
+import {PipRequest} from '../models/request/PipRequest';
 
 export default class SearchOptionController {
-  public get(req: Request, res: Response): void {
-    res.render('search-option');
+  public get(req: PipRequest, res: Response): void {
+    res.render('search-option', req.i18n.getDataByLanguage(req.lng)['search-option']);
   }
 
   public post(req: Request, res: Response): void {
