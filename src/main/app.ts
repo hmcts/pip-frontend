@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-import * as process from 'process';
-=======
-import {I18next} from './modules/i18next';
->>>>>>> master
-=======
 import * as process from 'process';
 import {I18next} from './modules/i18next';
->>>>>>> 9f828b2b1afe6f767327409f9f80baf7c7c3dd63
 
 const {Logger} = require('@hmcts/nodejs-logging');
 

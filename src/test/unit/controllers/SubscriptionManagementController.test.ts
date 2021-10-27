@@ -22,15 +22,6 @@ describe('Subscription Management Controller', () => {
       'subscription-management': {},
     };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    const response = {
-      render: () => {return '';},
-    } as unknown as Response;
-    const request = {query: {}, user: {displayName: 'abcd'}} as unknown as Request;
-=======
-=======
->>>>>>> 9f828b2b1afe6f767327409f9f80baf7c7c3dd63
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     request.query = {};
@@ -43,10 +34,6 @@ describe('Subscription Management Controller', () => {
       activeCaseTab: false,
       activeCourtTab: false,
     };
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> 9f828b2b1afe6f767327409f9f80baf7c7c3dd63
 
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management', expectedData);
@@ -56,16 +43,6 @@ describe('Subscription Management Controller', () => {
   });
 
   it('should render the subscription management page with all query param', () => {
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-    const response = {
-      render: () => {return '';},
-    } as unknown as Response;
-    const request = {query: {all: true},  user: {displayName: 'abcd'}} as unknown as Request;
-=======
-=======
->>>>>>> 9f828b2b1afe6f767327409f9f80baf7c7c3dd63
     const i18n = {
       'subscription-management': {},
     };
@@ -82,10 +59,6 @@ describe('Subscription Management Controller', () => {
       activeCaseTab: false,
       activeCourtTab: false,
     };
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> 9f828b2b1afe6f767327409f9f80baf7c7c3dd63
 
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management', expectedData);
@@ -95,17 +68,6 @@ describe('Subscription Management Controller', () => {
   });
 
   it('should render the subscription management page with case query param', () => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    const subscriptionManagementController = new SubscriptionManagementController();
-
-    const response = {
-      render: () => {return '';},
-    } as unknown as Response;
-    const request = {query: {case: true},  user: {displayName: 'abcd'}} as unknown as Request;
-=======
-=======
->>>>>>> 9f828b2b1afe6f767327409f9f80baf7c7c3dd63
     const i18n = {
       'subscription-management': {},
     };
@@ -122,10 +84,6 @@ describe('Subscription Management Controller', () => {
       activeCaseTab: true,
       activeCourtTab: false,
     };
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> 9f828b2b1afe6f767327409f9f80baf7c7c3dd63
 
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management', expectedData);
@@ -135,17 +93,6 @@ describe('Subscription Management Controller', () => {
   });
 
   it('should render the subscription management page with court query param', () => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    const subscriptionManagementController = new SubscriptionManagementController();
-
-    const response = {
-      render: () => {return '';},
-    } as unknown as Response;
-    const request = {query: {court: true},  user: {displayName: 'abcd'}} as unknown as Request;
-=======
-=======
->>>>>>> 9f828b2b1afe6f767327409f9f80baf7c7c3dd63
     const i18n = {
       'subscription-management': {},
     };
@@ -162,10 +109,6 @@ describe('Subscription Management Controller', () => {
       activeCaseTab: false,
       activeCourtTab: true,
     };
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> 9f828b2b1afe6f767327409f9f80baf7c7c3dd63
 
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management', expectedData);
