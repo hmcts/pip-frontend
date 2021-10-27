@@ -56,12 +56,7 @@ app.locals.POLICY = process.env.POLICY;
 
 const logger = Logger.getLogger('app');
 
-if (process.env.SECRETS_DIRECTORY) {
-  config['mountPoint'] = process.env.SECRETS_DIRECTORY;
-}
-
 new PropertiesVolume().enableFor(app);
-console.log(config['pip-shared-kv']);
 
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
