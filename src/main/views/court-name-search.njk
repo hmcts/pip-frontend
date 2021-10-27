@@ -45,6 +45,13 @@
                 },
                 optionsHtml: filterOptionsHtml
             }) }}
+            <div class="parent-box filter-back-to-top-wrapper">
+                <a id="back-to-top-button" class="govuk-link govuk-link--no-underline govuk-!-font-size-19 govuk-!-margin-right-5" href="#">
+                    <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17">
+                        <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
+                    </svg>{{ backToTop }}
+                </a>
+            </div>
         </form>
         <div class="moj-filter-layout__content">
             <form class="moj-action-bar" action="pending-subscriptions" method="post">
@@ -123,6 +130,7 @@
 {% block bodyEnd %}
     <script type="text/javascript" src="/assets/js/jquery.js"></script>
     <script type="text/javascript" src="/assets/js/mojAll.js"></script>
+    <script src="alphabetical-dev.js"></script>
     <script>
       function calculateChecked() {
         const checkedBoxes = document.querySelectorAll('input[name="court-checkbox"]:checked').length;
