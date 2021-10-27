@@ -23,10 +23,10 @@ const {setupDev} = require('./development');
 import {Container} from './modules/awilix';
 import routes from './routes/routes';
 import {PipRequest} from './models/request/PipRequest';
-import * as fs from "fs";
+import * as fs from 'fs';
 
 
-function populateSecrets() {
+function populateSecrets(): void {
   if (process.env.SECRETS_DIRECTORY) {
 
     const secretsdirectory = process.env.SECRETS_DIRECTORY;
@@ -39,7 +39,6 @@ function populateSecrets() {
     }
   }
 }
-
 
 const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
