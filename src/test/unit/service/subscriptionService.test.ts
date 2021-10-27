@@ -1,31 +1,43 @@
 import { SubscriptionService } from '../../../main/service/subscriptionService';
-import { SubscriptionActions } from '../../../main/resources/actions/subscriptionActions';
+import fs from 'fs';
+import path from 'path';
+import sinon from 'sinon';
 
 const subscriptionService = new SubscriptionService();
-const subscriptionsData = new SubscriptionActions().getUserSubscriptions(1);
-const noSubscriptionsData = new SubscriptionActions().getUserSubscriptions(2);
 
+const stubSubscriptionSearchUrn = sinon.stub(subscriptionService, 'getSubscriptionUrnDetails');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
+const subscriptionResult = JSON.parse(rawData);
+const validUrn = '123456789';
+
+stubSubscriptionSearchUrn.withArgs(validUrn).returns(subscriptionResult);
 describe('generate rows functions without subscriptions', () => {
 
   it('generateCaseTableRows should return list of case subscriptions', () => {
-    const caseSubscriptionRows = subscriptionService.generateCaseTableRows(noSubscriptionsData);
+    const caseSubscriptionRows = subscriptionService.generateCaseTableRows(2);
     expect(caseSubscriptionRows.length).toBe(0);
   });
 
   it('generateCourtTableRows should return list of court subscriptions', () => {
-    const courtSubscriptionRows = subscriptionService.generateCourtTableRows(noSubscriptionsData);
+    const courtSubscriptionRows = subscriptionService.generateCourtTableRows(2);
     expect(courtSubscriptionRows.length).toBe(0);
   });
 });
 
 describe('generate rows functions with subscriptions', () => {
   it('generateCaseTableRows should return list of case subscriptions', () => {
-    const caseSubscriptionRows = subscriptionService.generateCaseTableRows(subscriptionsData);
+    const caseSubscriptionRows = subscriptionService.generateCaseTableRows(1);
     expect(caseSubscriptionRows.length).toBeGreaterThan(0);
   });
 
   it('generateCourtTableRows should return list of court subscriptions', () => {
-    const courtSubscriptionRows = subscriptionService.generateCourtTableRows(subscriptionsData);
+    const courtSubscriptionRows = subscriptionService.generateCourtTableRows(1);
     expect(courtSubscriptionRows.length).toBeGreaterThan(0);
   });
+
+  it('getSubscriptionUrnDetails should return the cases', () => {
+    const courtSubscription= subscriptionService.getSubscriptionUrnDetails(validUrn);
+    expect(courtSubscription).not.toBeNull();
+  });
+
 });

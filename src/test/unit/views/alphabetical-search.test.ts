@@ -3,27 +3,18 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
+import sinon from 'sinon';
+import {CourtRequests} from '../../../main/resources/requests/courtRequests';
 
 const PAGE_URL = '/alphabetical-search';
 
 let htmlRes: Document;
 
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/courtAndHearings2.json'), 'utf-8');
-const hearingsData = JSON.parse(rawData);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const courtData = JSON.parse(rawData);
 
-
-jest.mock('axios', () => {
-  return {
-    create: function(): { get: () => Promise<any> } {
-      return {
-        get: function(): Promise<any> {
-          return new Promise((resolve) => resolve({data: hearingsData}));
-        },
-      };
-    },
-  };
-});
+sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(courtData);
 
 describe('Alphabetical Search page', () => {
   beforeAll(async () => {
@@ -38,7 +29,7 @@ describe('Alphabetical Search page', () => {
     expect(backLink[0].innerHTML)
       .contains('Back', 'Back button does not contain correct text');
     expect(backLink[0].getAttribute('href'))
-      .equal('/search-option', 'Back value does not contain correct link');
+      .equal('#', 'Back value does not contain correct link');
   });
 
   it('should contain the find a court heading', () => {

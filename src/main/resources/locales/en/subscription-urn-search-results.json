@@ -1,0 +1,10 @@
+{
+  "title": "Subscription URN search results",
+  "header": "Search result",
+  "subheader": "result successfully found",
+  "table": {
+    "header1": "Unique reference number",
+    "header2": "Case reference number",
+    "header3": "Case name"
+  }
+}

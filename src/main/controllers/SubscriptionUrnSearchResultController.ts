@@ -1,26 +1,32 @@
-import { Request, Response } from 'express';
-import {PipApi} from '../utils/PipApi';
-import {SubscriptionSearchActions} from '../resources/actions/subscriptionSearchActions';
+import { Response } from 'express';
+import {PipRequest} from '../models/request/PipRequest';
+import {cloneDeep} from 'lodash';
+import {SubscriptionService} from '../service/subscriptionService';
 
+const subscriptionService = new SubscriptionService();
 
-let _api: PipApi;
 export default class SubscriptionUrnSearchResultController {
 
-  constructor(private readonly api: PipApi) {
-    _api = this.api;
-  }
-
-  public async get(req: Request, res: Response): Promise<void> {
+  public async get(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.query['search-input'];
 
-    const searchResults = await new SubscriptionSearchActions(_api).getSubscriptionUrnDetails(searchInput);
+    if (searchInput && searchInput.length) {
+      const searchResults = await subscriptionService.getSubscriptionUrnDetails(searchInput.toString());
 
 
-    if (searchResults && searchResults.length) {
-      res.render('subscription-urn-search-results', {searchInput, searchResults});
-    } else {
-      res.render('error');
+      if (searchResults) {
+        res.render('subscription-urn-search-results', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search-results']),
+          searchInput : searchInput,
+          searchResults: searchResults,
+        });
+      } else {
+        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+      }
+
+    }
+    else {
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
   }
-
 }

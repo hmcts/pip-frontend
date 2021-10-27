@@ -1,9 +1,7 @@
 import { asClass, asValue, createContainer, InjectionMode } from 'awilix';
 import {Application} from 'express';
-import Axios from 'axios';
 import path from 'path';
 import * as fs from 'fs';
-import {PipApi} from '../../utils/PipApi';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app');
@@ -23,10 +21,6 @@ export class Container {
       jsonObject[registerName] = asClass(clazz.default);
     });
     jsonObject['logger'] = asValue(logger);
-    jsonObject['axios'] = asValue(Axios.create({ baseURL: process.env.API_URL }));
-
-
-    jsonObject['api'] = asClass(PipApi);
     app.locals.container = createContainer({ injectionMode: InjectionMode.CLASSIC }).register(jsonObject);
   }
 }

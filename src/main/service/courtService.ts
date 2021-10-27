@@ -1,16 +1,9 @@
-import { InputFilterService } from './inputFilterService';
-import { CourtActions } from '../resources/actions/courtActions';
-import {PipApi} from '../utils/PipApi';
+import { CourtRequests } from '../resources/requests/courtRequests';
 import {Court} from '../models/court';
 
-let _api: PipApi;
+const courtRequest = new CourtRequests();
+
 export class CourtService {
-
-
-  constructor(private readonly api: PipApi) {
-    _api = this.api;
-  }
-
   private static generateAlphabetObject(): object {
     // create the object for the possible alphabet options
     const alphabetOptions = {};
@@ -23,39 +16,63 @@ export class CourtService {
     return alphabetOptions;
   }
 
-  public async generateCourtsObject(): Promise<object> {
-    let courtsList = await new CourtActions(_api).getCourtsList();
-    const alphabetOptions = CourtService.generateAlphabetObject();
-    courtsList = new InputFilterService().alphabetiseResults(courtsList, 'name');
+  public async fetchAllCourts(): Promise<Array<Court>> {
+    return await courtRequest.getAllCourts();
+  }
+
+  public async getCourtById(courtId: number): Promise<Court> {
+    return await courtRequest.getCourt(courtId);
+  }
+
+  public async getCourtByName(courtName: string): Promise<Court> {
+    return await courtRequest.getCourtByName(courtName);
+  }
+
+  public async generateAlphabetisedCourtList(): Promise<object> {
+    const courtsList = await this.fetchAllCourts();
+    const alphabetisedCourtList = CourtService.generateAlphabetObject();
 
     //Then loop through each court, and add it to the list
     courtsList.forEach(item => {
       if (item.hearings !== 0) {
-        const courtName = item.name as string;
-        alphabetOptions[courtName.charAt(0).toUpperCase()][courtName] = {
+        const courtName = item.name;
+        alphabetisedCourtList[courtName.charAt(0).toUpperCase()][courtName] = {
           id: item.courtId,
           hearings: item.hearings,
         };
       }
     });
-    return alphabetOptions;
+    return alphabetisedCourtList;
   }
 
-  public async generateCrownCourtArray(): Promise<object> {
-    let courtsList: Array<Court> = await new CourtActions(_api).getCourtsList();
-    const alphabetOptions = CourtService.generateAlphabetObject();
-    courtsList = new InputFilterService().alphabetiseResults(courtsList, 'name');
+  public async generateAlphabetisedCrownCourtList(): Promise<object> {
+    const filter = ['jurisdiction'];
+    const value = ['crown court'];
+    const courtsList= await courtRequest.getFilteredCourts(filter, value);
+    const alphabetisedCourtList = CourtService.generateAlphabetObject();
 
-    // Then loop through each court, and add it to the list
     courtsList.forEach(item => {
-      // TODO: Back end should have an API which returns only crown courts
-      if (item.jurisdiction === 'Crown Court') {
-        const courtName = item.name as string;
-        alphabetOptions[courtName.charAt(0).toUpperCase()][courtName] = {
-          id: item.courtId,
-        };
-      }
+      const courtName = item.name;
+      alphabetisedCourtList[courtName.charAt(0).toUpperCase()][courtName] = {
+        id: item.courtId,
+      };
     });
-    return alphabetOptions;
+    return alphabetisedCourtList;
   }
+
+  public async getSubscriptionUrnDetails(): Promise<object> {
+    const filter = ['jurisdiction'];
+    const value = ['crown court'];
+    const courtsList= await courtRequest.getFilteredCourts(filter, value);
+    const alphabetisedCourtList = CourtService.generateAlphabetObject();
+
+    courtsList.forEach(item => {
+      const courtName = item.name;
+      alphabetisedCourtList[courtName.charAt(0).toUpperCase()][courtName] = {
+        id: item.courtId,
+      };
+    });
+    return alphabetisedCourtList;
+  }
+
 }

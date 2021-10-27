@@ -5,7 +5,7 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% block pageTitle %}
-  {{ "Search case by URN" | safe }}
+  {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
@@ -20,14 +20,13 @@
 
 {% block content %}
   {% if noResultsError or invalidInputError %}
-    {% set errorMessage = 'URN not found, please try again or search under a Case Name or subscribe to a whole court' %}
     <div class="govuk-grid-row">
       <div class="no_padding govuk-grid-column-three-quarters">
         {{ govukErrorSummary({
-          titleText: "There is a problem",
+          titleText: error.title,
           errorList: [
             {
-              text: errorMessage,
+              text: error.notfound,
               href: "#search-input"
             }
           ]
@@ -43,16 +42,16 @@
     <div class="govuk-form-group govuk-!-width-one-half">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="search-input">
-          Enter a unique reference number
+          {{ header }}
         </label>
       </h1>
       <div class="{{ formGroupError }}">
         {% if noResultsError or invalidInputError %}
-          <span class="govuk-error-message">Enter a unique reference number</span>
+          <span class="govuk-error-message">{{ header }}</span>
         {% endif %}
         {{ govukInput({
           label: {
-            "text": 'Please provide the exact match'
+            "text": hint
           },
           id: "search-input",
           name: "search-input",
@@ -65,8 +64,8 @@
     {% if noResultsError %}
       <div class="govuk-grid-row">
         <div class="no_padding govuk-grid-column-full">
-          <h2 class="govuk-heading-s">There are no matching results.</h2>
-          <p class="govuk-body">URN not found, please try again or search under a Case Name or subscribe to a whole court.</p>
+          <h2 class="govuk-heading-s">{{ error.header }}</h2>
+          <p class="govuk-body">{{ error.notfound }}</p>
         </div>
       </div>
     {% endif %}

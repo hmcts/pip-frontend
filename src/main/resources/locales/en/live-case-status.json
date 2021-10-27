@@ -1,0 +1,11 @@
+{
+  "title": " Live Cases Updates",
+  "heading": "Live hearing updates - daily court list",
+  "p1": "The status of each hearing will be updated as events happen live in court",
+  "emptyText": "<p class=\"govuk-!-font-weight-bold govuk-!-margin-2\">- No Information To Display</p>",
+  "tableHeader1": "Court number",
+  "tableHeader2": "Case number",
+  "tableHeader3": "Case name",
+  "tableHeader4": "Status",
+  "a1": "Find a court or tribunal list"
+}

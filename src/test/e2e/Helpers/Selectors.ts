@@ -52,4 +52,5 @@ module.exports = {
 
   // Add Subscription selector
   UrnSearchRadioButton: '#subscription-choice-2',
+  LiveHearingsTableFirstValidResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
 };
