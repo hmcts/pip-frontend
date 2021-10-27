@@ -53,13 +53,9 @@ export default class CourtNameSearchController {
     }
 
     const alphabeticalCourts = await courtService.generateCourtsAlphabetObject(courtsList);
-    const jurisdictionsList = await filterService.getDistinctValues('jurisdiction', allCourts);
-    const regionsList = await filterService.getDistinctValues('location', allCourts);
-    const regionCheckboxes = filterService.generateCheckboxObjects(regionsList, checkedRegionsFilter);
-    const jurisdictionCheckboxes = filterService.generateCheckboxObjects(jurisdictionsList, checkedJurisdictionsFilter);
     const checkBoxesComponents = [
-      filterService.generateCheckboxGroup(jurisdictionCheckboxes, 'Jurisdiction'),
-      filterService.generateCheckboxGroup(regionCheckboxes, 'Region'),
+      filterService.generateCheckboxGroup(checkedJurisdictionsFilter, 'Jurisdiction', allCourts),
+      filterService.generateCheckboxGroup(checkedRegionsFilter, 'Region', allCourts),
     ];
     const categories = filterService.generateSelectedTags([{jurisdiction: checkedJurisdictionsFilter}, {location: checkedRegionsFilter}]);
 
@@ -106,13 +102,9 @@ export default class CourtNameSearchController {
     }
 
     const alphabeticalCourts = await courtService.generateCourtsAlphabetObject(courtsList);
-    const jurisdictionsList = await filterService.getDistinctValues('jurisdiction', allCourts);
-    const regionsList = await filterService.getDistinctValues('location', allCourts);
-    const regionCheckboxes = filterService.generateCheckboxObjects(regionsList, checkedRegionsFilter);
-    const jurisdictionCheckboxes = filterService.generateCheckboxObjects(jurisdictionsList, checkedJurisdictionsFilter);
     const checkBoxesComponents = [
-      filterService.generateCheckboxGroup(jurisdictionCheckboxes, 'Jurisdiction'),
-      filterService.generateCheckboxGroup(regionCheckboxes, 'Region'),
+      filterService.generateCheckboxGroup(checkedJurisdictionsFilter, 'Jurisdiction', allCourts),
+      filterService.generateCheckboxGroup(checkedRegionsFilter, 'Region', allCourts),
     ];
 
     const categories = filterService.generateSelectedTags([{jurisdiction: checkedJurisdictionsFilter}, {location: checkedRegionsFilter}]);

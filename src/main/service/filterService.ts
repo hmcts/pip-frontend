@@ -4,7 +4,8 @@ export class FilterService {
     return [...new Set(list.map(item => item[filterName]))];
   }
 
-  public generateCheckboxObjects(items, checkedItems): any {
+  public generateCheckboxObjects(checkedItems, filterName, list): any {
+    const items = this.getDistinctValues(filterName, list);
     const itemsList = [];
     items.forEach((itemValue) => {
       itemsList.push({
@@ -16,7 +17,10 @@ export class FilterService {
     return itemsList;
   }
 
-  public generateCheckboxGroup(items, groupName = ''): any {
+  public generateCheckboxGroup(checkedItems, groupName = '', list): any {
+    // workaround to convert region to location as it is currently mapped under location attribute
+    const _groupName =  groupName === 'Region' ? 'location' : groupName;
+    const items = this.generateCheckboxObjects(checkedItems, _groupName.toLowerCase(), list);
     return {
       idPrefix: groupName.toLowerCase(),
       name: groupName.toLowerCase(),
