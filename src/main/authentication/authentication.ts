@@ -70,14 +70,10 @@ function mockSetup(): void {
   const mockUser = {'oid': 1234, 'profile': {'oid': '1234'}};
 
   passport.serializeUser(function(user, done) {
-    console.log('We made it into serialize');
-    console.log(user);
     done(null, user.oid);
   });
 
   passport.deserializeUser(function(oid, done) {
-    console.log('We made it into deserialize');
-    console.log(oid);
     return done(null, mockUser);
   });
 
@@ -86,8 +82,6 @@ function mockSetup(): void {
     user: mockUser,
   },
   function(user, done) {
-    console.log('We made it into checking');
-    console.log(user);
     done(null, user);
   },
   ));
