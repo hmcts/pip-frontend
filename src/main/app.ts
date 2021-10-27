@@ -23,6 +23,23 @@ const {setupDev} = require('./development');
 import {Container} from './modules/awilix';
 import routes from './routes/routes';
 import {PipRequest} from './models/request/PipRequest';
+import * as fs from "fs";
+
+
+function populateSecrets() {
+  if (process.env.SECRETS_DIRECTORY) {
+
+    const secretsdirectory = process.env.SECRETS_DIRECTORY;
+
+    const files = fs.readdirSync(secretsdirectory);
+
+    for( const fileName of files ) {
+      const data = fs.readFileSync(secretsdirectory + '/' + fileName, 'binary');
+      process.env[fileName] = data.trim();
+    }
+  }
+}
+
 
 const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
@@ -85,4 +102,5 @@ app.use((err: HTTPError, req: PipRequest, res: express.Response) => {
   res.render('error', req.i18n.getDataByLanguage(req.lng).error);
 });
 
+populateSecrets();
 authentication(process.env.OIDC);
