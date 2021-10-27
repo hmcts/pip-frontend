@@ -31,7 +31,9 @@ function populateSecrets(): void {
 
     const secretsdirectory = process.env.SECRETS_DIRECTORY;
 
+    console.info(secretsdirectory);
     const files = fs.readdirSync(secretsdirectory);
+    console.info('We made it to here');
 
     console.info(files);
 
