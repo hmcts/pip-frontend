@@ -50,7 +50,7 @@ const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
 
 export const app = express();
-app.enable('trust proxy')
+app.enable('trust proxy');
 app.locals.ENV = env;
 
 app.locals.POLICY = process.env.POLICY;
