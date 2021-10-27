@@ -27,10 +27,13 @@ import * as fs from 'fs';
 
 
 function populateSecrets(): void {
+  console.log('We only made it here');
+  console.log(process.env.SECRETS_DIRECTORY);
   if (process.env.SECRETS_DIRECTORY) {
 
     const secretsdirectory = process.env.SECRETS_DIRECTORY;
-
+    console.log('We made it here as well');
+    console.log(secretsdirectory);
     console.info(secretsdirectory);
     const files = fs.readdirSync(secretsdirectory);
     console.info('We made it to here');
