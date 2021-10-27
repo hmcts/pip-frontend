@@ -1,39 +1,38 @@
 {% extends "template.njk" %}
 {% block pageTitle %}
-    {{ "Start Page" | safe }}
+    {{ title }}
 {% endblock %}
 {% block content %}
-    <h1 class="govuk-heading-xl">Find a court or tribunal hearing list</h1>
-    <p class="govuk-body">You can use this service to find and view information on hearings in courts and tribunals in England and Wales,<br>
-        and some non-devolved tribunals in Scotland.</p>
-    <p class="govuk-body">Find a court or tribunal hearing list allows you to view:</p>
+    <h1 class="govuk-heading-xl">{{ header }}</h1>
+    <p class="govuk-body">{{ p1 }}</p>
+    <p class="govuk-body">{{ p2 }}</p>
     <ul class="govuk-list govuk-list--bullet">
-        <li>court or tribunal hearing list</li>
-        <li>live hearing updates - Crown Court only</li>
+      {% for bullet in bullets1 %}
+        <li>{{ bullet }}</li>
+      {% endfor %}
     </ul>
 
     <br/>
 
     {% from "govuk/components/button/macro.njk" import govukButton %}
     {{ govukButton({
-        text: "Start now",
+        text: startButton ,
         isStartButton: true,
         href: 'view-option'
     }) }}
 
     <div class="govuk-inset-text">
-        This service is also available in <a class="govuk-link" href="#">Welsh (Cymraeg)</a>
+        {{ p3 }}<a class="govuk-link" href="#">{{ language }}</a>
     </div>
 
-    <p class="govuk-body">You cannot use this service if you live in Northern Ireland. Contact the <br>
-        <a class="govuk-link" href="#">Northern Ireland Courts and Tribunals</a> for help.</p>
-    <p class="govuk-body">This service is limited in Scotland to:</p>
+    <p class="govuk-body">{{ p4 }}<br>
+        <a class="govuk-link" href="#">{{ a1 }}</a>{{ p5 }}</p>
+    <p class="govuk-body">{{ p6 }}</p>
     <ul class="govuk-list govuk-list--bullet">
-        <li>immigration appeals</li>
-        <li>benefit appeals</li>
-        <li>employment claims appeals</li>
+      {% for bullet in bullets2 %}
+        <li>{{ bullet }}</li>
+      {% endfor %}
     </ul>
-    <p class="govuk-body">Contact the <a class="govuk-link" href="#">Scottish Courts and Tribunals</a> for other
-        services.</p>
+    <p class="govuk-body">{{ p7 }}<a class="govuk-link" href="#">Scottish Courts and Tribunals</a>{{ p8 }}</p>
 
 {% endblock %}

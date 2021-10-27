@@ -3,4 +3,3 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
   environment:
-    API_URL: pip-business-rules.staging.platform.hmcts.net

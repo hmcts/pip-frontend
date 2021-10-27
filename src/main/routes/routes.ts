@@ -34,7 +34,6 @@ export default function(app: Application): void {
     },
   }));
   app.get('/search', app.locals.container.cradle.searchController.get);
-  app.get('/search-results', app.locals.container.cradle.searchResultsController.get);
 
   app.post('/search-option', app.locals.container.cradle.searchOptionController.post);
   app.post('/search', app.locals.container.cradle.searchController.post);
@@ -58,12 +57,6 @@ export default function(app: Application): void {
       sampleCheck: healthcheck.raw(() => healthcheck.up()),
     },
   };
-
-  // local api mocks data
-  app.get('/api/courtlistall', app.locals.container.cradle.localApiController.apiAllCourtList);
-  app.get('/api/courtlist/:input', app.locals.container.cradle.localApiController.apiCourtList);
-  app.get('/api/hearings/:courtId', app.locals.container.cradle.localApiController.apiHearingsList);
-  app.get('/api/statusdescriptionlistall', app.locals.container.cradle.localApiController.apiStatusDescriptionList);
-
+  
   healthcheck.addTo(app, healthCheckConfig);
 }

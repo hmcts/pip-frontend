@@ -32,7 +32,7 @@
                 + item.event.eventTime
             %}
         {% else %}
-            {% set status = '<p class="govuk-!-font-weight-bold govuk-!-margin-2">- No Information To Display</p>'  %}
+            {% set status = emptyText  %}
         {% endif %}
         {% set _ = cases.push([
             {
@@ -54,26 +54,26 @@
         classes: 'govuk-!-margin-bottom-9',
         head: [
             {
-                text: 'Court number',
+                text: tableHeader1,
                 classes: 'table-column-court-number'
             },
             {
-                text: 'Case number',
+                text: tableHeader2,
                 classes: 'govuk-!-width-one-quarter table-header-bottom-align'
             },
             {
-                text: 'Case name',
+                text: tableHeader3,
                 classes: 'govuk-!-width-one-quarter table-header-bottom-align'
             },
             {
-                text: 'Status',
+                text: tableHeader4,
                 classes: 'table-header-bottom-align'
             }
         ],
         rows: cases
     }) }}
     <hr class="govuk-header__container--full-width"/>
-    <a href="/live-case-alphabet-search" class="govuk-link govuk-!-font-weight-bold">Find a court or tribunal list</a>
+    <a href="/live-case-alphabet-search" class="govuk-link govuk-!-font-weight-bold">{{ a1 }}</a>
     <script>
       const timer = {{ refreshTimer }}
       setTimeout(function () {

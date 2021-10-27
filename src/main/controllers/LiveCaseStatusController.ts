@@ -1,20 +1,26 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import moment from 'moment';
-import { LiveCasesActions } from '../resources/actions/liveCaseActions';
+import {LiveCaseService} from '../service/liveCaseService';
+import {cloneDeep} from 'lodash';
+import {PipRequest} from '../models/request/PipRequest';
+
+const liveCaseStatusService = new LiveCaseService();
 
 export default class LiveCaseStatusController {
-  public get(req: Request, res: Response): void {
+
+  public async get(req: PipRequest, res: Response): Promise<void> {
     const courtId = req.query.courtId as string;
-    const timerMilliseconds = process.env.REFRESH_TIME_MILLISECONDS;
 
     if (courtId !== undefined) {
-      const liveCases = new LiveCasesActions().getLiveCases(parseInt(courtId));
-      if (liveCases) {
+      let liveCase = await liveCaseStatusService.getLiveCases(parseInt(courtId));
+      if (liveCase) {
+        liveCase = liveCase[0];
         res.render('live-case-status', {
-          courtName: liveCases.courtName,
-          updateDateTime: moment.unix(liveCases.lastUpdated).format('dddd D MMMM YYYY\xa0\xa0\xa0\xa0h:mma'),
-          liveCases: liveCases.courtUpdates,
-          refreshTimer: timerMilliseconds,
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['live-case-status']),
+          courtName: liveCase.courtName,
+          updateDateTime: moment.utc(Date.parse(liveCase.lastUpdated)).format('dddd D MMMM YYYY\xa0\xa0\xa0\xa0h:mma'),
+          liveCases: liveCase.courtUpdates,
+          refreshTimer: process.env.REFRESH_TIMER_MILLISECONDS || 15000,
           courtId: courtId,
         });
       } else {
@@ -22,7 +28,7 @@ export default class LiveCaseStatusController {
       }
     }
     else {
-      res.render('error');
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
   }
 }
