@@ -33,7 +33,10 @@ function populateSecrets(): void {
 
     const files = fs.readdirSync(secretsdirectory);
 
+    console.info(files);
+
     for( const fileName of files ) {
+      console.info(fileName);
       const data = fs.readFileSync(secretsdirectory + '/' + fileName, 'binary');
       process.env[fileName] = data.trim();
     }
