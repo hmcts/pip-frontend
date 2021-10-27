@@ -40,6 +40,8 @@ function populateSecrets(): void {
   }
 }
 
+populateSecrets();
+
 const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
 
@@ -101,5 +103,4 @@ app.use((err: HTTPError, req: PipRequest, res: express.Response) => {
   res.render('error', req.i18n.getDataByLanguage(req.lng).error);
 });
 
-populateSecrets();
 authentication(process.env.OIDC);
