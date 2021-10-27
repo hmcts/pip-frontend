@@ -9,12 +9,6 @@ const subscriptionManagementController = new SubscriptionManagementController();
 sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns([]);
 sinon.stub(SubscriptionService.prototype, 'generateCourtTableRows').returns([]);
 
-export interface AuthenticatedRequest extends Request {
-  user: {
-    displayName: string;
-  };
-}
-
 describe('Subscription Management Controller', () => {
   it('should render the subscription management page with all as default', () => {
 

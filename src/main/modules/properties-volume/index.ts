@@ -7,11 +7,7 @@ export class PropertiesVolume {
 
   enableFor(server: Application): void {
     if (server.locals.ENV !== 'development') {
-      propertiesVolume.addTo(config, {mountPoint: process.env.SECRETS_DIRECTORY});
-
-      console.log(config);
-      console.log(config['pip-shared-kv']);
-      console.log(Object.keys(config));
+      propertiesVolume.addTo(config);
 
       this.setSecret('secrets.Publishing-information-project.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
     }

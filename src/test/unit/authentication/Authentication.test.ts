@@ -28,7 +28,6 @@ describe('Authentication', () => {
   });
 
   it('Should set up passport correctly for mock authentication', () => {
-    const passport = require('passport');
     authentication(null);
 
     expect(passport._serializers).length(1);
@@ -37,7 +36,6 @@ describe('Authentication', () => {
   });
 
   it('Test that a new user is added for azure authentication', () => {
-    const passport = require('passport');
     authentication('true');
 
     const strategy = passport._strategies['azuread-openidconnect'];
@@ -54,7 +52,6 @@ describe('Authentication', () => {
   });
 
   it('Test that if an existing user is found, then that user is returned', () => {
-    const passport = require('passport');
     authentication('true');
 
     const strategy = passport._strategies['azuread-openidconnect'];
@@ -75,7 +72,6 @@ describe('Authentication', () => {
   });
 
   it('Test that serialising a user returns their OID', () => {
-    const passport = require('passport');
     authentication('true');
 
     const serializers = passport._serializers;
@@ -92,7 +88,6 @@ describe('Authentication', () => {
   });
 
   it('Test that deserialising a user returns the original profile object', () => {
-    const passport = require('passport');
     authentication('true');
 
     const strategy = passport._strategies['azuread-openidconnect'];
@@ -116,7 +111,6 @@ describe('Authentication', () => {
   });
 
   it('Test that serialising a mock user returns their OID', () => {
-    const passport = require('passport');
     authentication(null);
 
     const serializers = passport._serializers;
@@ -133,7 +127,6 @@ describe('Authentication', () => {
   });
 
   it('Test that deserializing a mock user returns the user', () => {
-    const passport = require('passport');
     authentication(null);
 
     const deserializers = passport._deserializers;
@@ -150,7 +143,6 @@ describe('Authentication', () => {
   });
 
   it('Test that the verify function for passport just returns the user', () => {
-    const passport = require('passport');
     authentication(null);
 
     const strategy = passport._strategies['azuread-openidconnect'];

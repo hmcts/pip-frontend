@@ -5,4 +5,5 @@ nodejs:
   environment:
     DATA_MANAGEMENT_URL: https://pip-data-management.platform.hmcts.net
     FRONTEND_URL: https://pip-frontend.platform.hmcts.net
+    SECRETS_DIRECTORY: /mnt/secrets/pip-shared-kv
 
