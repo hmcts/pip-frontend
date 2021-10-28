@@ -13,9 +13,9 @@ describe('Case name search results controller', () => {
   const i18n = {
     'case-name-search-results': {},
   };
+  const response = { render: () => {return '';}} as unknown as Response;
 
   it('should render case name search results page if query param is valid', async () => {
-    const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     request.query = {search: 'Meedoo'};
     const expectedData = {
@@ -31,16 +31,14 @@ describe('Case name search results controller', () => {
     });
   });
 
-  it('should render error page is query param is invalid', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
+  it('should render error page is query param is invalid', async () => {
     const request = mockRequest(i18n);
-    request.query = {search: ''};
+    request.query = {};
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('error');
-    return caseNameSearchResultsController.get(request, response).then(() => {
-      responseMock.verify();
-    });
+    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+    await caseNameSearchResultsController.get(request, response);
+    return responseMock.verify();
   });
 });

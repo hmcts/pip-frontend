@@ -23,7 +23,6 @@ export class CaseNameSearchResultsPage {
     });
 
     await $(helpers.CaseNameSearchResultsHeaderCheckbox).click();
-
     return $(helpers.CaseNameSearchResultsHeaderCheckbox).isSelected();
   }
 
@@ -33,7 +32,6 @@ export class CaseNameSearchResultsPage {
     });
 
     await $(helpers.CaseNameSearchResultsCheckbox).click();
-
     return $(helpers.CaseNameSearchResultsCheckbox).isSelected();
   }
 }

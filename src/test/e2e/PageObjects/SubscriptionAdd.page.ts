@@ -11,36 +11,12 @@ export class SubscriptionAddPage {
     return $(helpers.SubscriptionAddTitle).getText();
   }
 
-  async selectCaseReferenceNumberOption(): Promise<void> {
-    $(helpers.SubscriptionAddByCaseRefNumber).catch(() => {
-      console.log(`${helpers.SubscriptionAddByCaseRefNumber} not found`);
+  async selectOption(optionName: string): Promise<void> {
+    $(helpers[optionName]).catch(() => {
+      console.log(`${helpers[optionName]} not found`);
     });
 
-    await $(helpers.SubscriptionAddByCaseRefNumber).click();
-  }
-
-  async selectUniqueReferenceNumberOption(): Promise<void> {
-    $(helpers.SubscriptionAddByUniqueRefNumber).catch(() => {
-      console.log(`${helpers.SubscriptionAddByUniqueRefNumber} not found`);
-    });
-
-    await $(helpers.SubscriptionAddByUniqueRefNumber).click();
-  }
-
-  async selectCaseNameOption(): Promise<void> {
-    $(helpers.SubscriptionAddByCaseName).catch(() => {
-      console.log(`${helpers.SubscriptionAddByCaseName} not found`);
-    });
-
-    await $(helpers.SubscriptionAddByCaseName).click();
-  }
-
-  async selectCourtOrTribunalOption(): Promise<void> {
-    $(helpers.SubscriptionAddByCourtOrTribunal).catch(() => {
-      console.log(`${helpers.SubscriptionAddByCourtOrTribunal} not found`);
-    });
-
-    await $(helpers.SubscriptionAddByCourtOrTribunal).click();
+    await $(helpers[optionName]).click();
   }
 
   // TODO: add remaining clicks

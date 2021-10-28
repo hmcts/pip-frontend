@@ -15,7 +15,7 @@ export default class CaseNameSearchResultsController {
         searchResults,
       });
     } else {
-      res.render('error');
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
   }
 }
