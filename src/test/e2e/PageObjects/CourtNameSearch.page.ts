@@ -65,4 +65,13 @@ export class CourtNameSearchPage {
     await $(helpers.ApplyFiltersButton).click();
     return new CourtNameSearchPage();
   }
+
+  async clickClearFiltersButton(): Promise<CourtNameSearchPage> {
+    await $(helpers.ClearFiltersLink).catch(() => {
+      console.log(`${helpers.ClearFiltersLink} not found`);
+    });
+
+    await $(helpers.ClearFiltersLink).click();
+    return new CourtNameSearchPage();
+  }
 }

@@ -55,4 +55,5 @@ module.exports = {
   // CourtNameSearch selectors
   JurisdictionCheckbox: '#jurisdiction',
   ApplyFiltersButton: '.moj-filter__options > .govuk-button',
+  ClearFiltersLink: '.moj-filter__heading-action > p > a',
 };
