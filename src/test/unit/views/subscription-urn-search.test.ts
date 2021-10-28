@@ -92,16 +92,6 @@ describe('URN Search Page Blank Input', () => {
 });
 
 
-// jest.mock('axios', () => {
-//   return {
-//     create: function(): { get: () => Promise<any> } {
-//       return {
-//         get: function(): Promise<any> { return new Promise((resolve) => resolve({data: {}}));},
-//       };
-//     },
-//   };
-// });
-
 describe('URN Search Page Invalid Input', () => {
 
   beforeAll(async () => {

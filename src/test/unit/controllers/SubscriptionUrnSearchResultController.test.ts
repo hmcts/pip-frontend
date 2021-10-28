@@ -9,11 +9,11 @@ import {mockRequest} from '../mocks/mockRequest';
 const subscriptionSearchUrnResultController = new SubscriptionUrnSearchResultController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
-sinon.stub(SubscriptionService.prototype, 'getSubscriptionUrnDetails').returns(subscriptionsData);
-
+const stub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionUrnDetails');
+stub.withArgs('123456789').returns(subscriptionsData);
 describe('Subscription Urn Search Result Controller', () => {
   let i18n = {};
-  it('should render the search page', () => {
+  it('should render tshe search result page', () => {
 
     i18n = {
       'subscription-urn-search': {},
@@ -35,6 +35,23 @@ describe('Subscription Urn Search Result Controller', () => {
     };
 
     responseMock.expects('render').once().withArgs('subscription-urn-search-results', expectedData);
+
+    return subscriptionSearchUrnResultController.get(request, response).then(() => {
+      responseMock.verify();
+    });
+  });
+
+  it('should render error page if input is empty', () => {
+
+    stub.withArgs('').returns(null);
+
+    const response = { render: function() {return '';}} as unknown as Response;
+    const request = mockRequest(i18n);
+    request.query = { 'search-input': ''};
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('error');
 
     return subscriptionSearchUrnResultController.get(request, response).then(() => {
       responseMock.verify();
