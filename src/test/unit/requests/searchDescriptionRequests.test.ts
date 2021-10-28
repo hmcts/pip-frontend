@@ -24,21 +24,21 @@ describe('getStatusDescriptionList()', () => {
 
   it('First glossary should be Adjourned', () => {
     return searchDescriptionRequests.getStatusDescriptionList().then(data => {
-      expect(data[0].name).toEqual('Adjourned');
+      expect(data[0].eventName).toEqual('Adjourned');
     });
   });
 
   it('Description fof First glossary must not be empty', () => {
     return searchDescriptionRequests.getStatusDescriptionList().then(data => {
-      expect(data[0].description).not.toBeNull();
+      expect(data[0].eventStatus).not.toBeNull();
     });
   });
 
   let i = 0;
   it('All Glossary items must have name and description', () => {
     return searchDescriptionRequests.getStatusDescriptionList().then(data => {
-      expect(data[i].name).not.toBeNull();
-      expect(data[i].description).not.toBeNull();
+      expect(data[i].eventName).not.toBeNull();
+      expect(data[i].eventStatus).not.toBeNull();
       i++;
     });
   });

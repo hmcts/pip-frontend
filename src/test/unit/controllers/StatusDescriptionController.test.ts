@@ -6,11 +6,12 @@ import path from 'path';
 import {StatusDescriptionService} from '../../../main/service/statusDescriptionService';
 import {mockRequest} from '../mocks/mockRequest';
 
+
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const statusDescriptionData = JSON.parse(rawData);
 const statusDescriptionController = new StatusDescriptionController();
 
-sinon.stub(StatusDescriptionService.prototype, 'getStatusDescriptionList').returns(statusDescriptionData);
+const stub = sinon.stub(StatusDescriptionService.prototype, 'generateStatusDescriptionObject').returns(statusDescriptionData);
 
 describe('Status Description Controller', () => {
   it('should render the status description page', () =>  {
@@ -18,19 +19,15 @@ describe('Status Description Controller', () => {
       'status-description': {},
     };
 
-    const response = {
-      render: function() {return '';},
-    } as unknown as Response;
+    stub.withArgs(1).returns(statusDescriptionData);
+
+    const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
+    request.query = {courtId: '1'};
 
     const responseMock = sinon.mock(response);
 
-    const expectedData = {
-      ...i18n['status-description'],
-      courtList: statusDescriptionData,
-    };
-
-    responseMock.expects('render').once().withArgs('status-description', expectedData);
+    responseMock.expects('render').once().withArgs('status-description');
 
     return statusDescriptionController.get(request, response).then(() => {
       responseMock.verify();
