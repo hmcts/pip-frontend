@@ -1,6 +1,8 @@
 import request from 'supertest';
+import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
+import { HearingRequests } from '../../../main/resources/requests/hearingRequests';
 
 const PAGE_URL = '/case-name-search-results?search=Meedo';
 let htmlRes: Document;
@@ -13,17 +15,7 @@ const data = [
   {caseName: "Meedoo's hearings", caseNumber: ''},
 ];
 
-jest.mock('axios', () => {
-  return {
-    create: function(): { get: () => Promise<any> } {
-      return {
-        get: function(): Promise<any> {
-          return new Promise((resolve) => resolve({data}));
-        },
-      };
-    },
-  };
-});
+sinon.stub(HearingRequests.prototype, 'getHearingsByCaseName').withArgs('Meedo').returns(data);
 
 describe('Case name search results page', () => {
   beforeAll(async () => {
@@ -39,7 +31,7 @@ describe('Case name search results page', () => {
 
   it('should display results count message', () => {
     const resultsMessage = htmlRes.getElementsByClassName('govuk-body');
-    expect(resultsMessage[0].innerHTML).contains('5 results successfully found', 'Results message not found');
+    expect(resultsMessage[0].innerHTML).contains('5  results successfully found', 'Results message not found');
   });
 
   it('should contain expected column headings', () => {
