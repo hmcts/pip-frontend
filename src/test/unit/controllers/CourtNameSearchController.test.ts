@@ -71,7 +71,6 @@ describe('Court Name Search Controller', () => {
   it('should render court name search page if reset london location filter is applied', () => {
     request.query = {clear: 'london'};
 
-
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('court-name-search', expectedData);
