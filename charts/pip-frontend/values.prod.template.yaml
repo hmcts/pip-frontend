@@ -4,7 +4,7 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
   environment:
     DATA_MANAGEMENT_URL: https://pip-data-management.platform.hmcts.net
-    FRONTEND_URL: https://pip-frontend.platform.hmcts.net
     SECRETS_DIRECTORY: /mnt/secrets/pip-shared-kv
     OIDC: true
+    FRONTEND_URL: https://${SERVICE_FQDN}
 

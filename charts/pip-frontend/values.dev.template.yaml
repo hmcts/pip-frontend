@@ -5,5 +5,4 @@ nodejs:
   environment:
     SECRETS_DIRECTORY: /mnt/secrets/pip-shared-kv
     OIDC: true
-    FRONTEND_URL: https://pip-frontend-pr-115.dev.platform.hmcts.net
-    FRONTEND_URL2: ${SERVICE_FQDN}
+    FRONTEND_URL: https://${SERVICE_FQDN}
