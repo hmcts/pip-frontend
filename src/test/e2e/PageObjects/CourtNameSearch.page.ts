@@ -39,4 +39,30 @@ export class CourtNameSearchPage {
     const results = $$(helpers.Results);
     return results.length;
   }
+
+  async selectJurisdictionFilter(): Promise<void> {
+    await $(helpers.JurisdictionCheckbox).catch(() => {
+      console.log(`${helpers.JurisdictionCheckbox} not found`);
+    });
+
+    await $(helpers.JurisdictionCheckbox).click();
+  }
+
+  async jurisdictionChecked(): Promise<boolean> {
+    await $(helpers.JurisdictionCheckbox).catch(() => {
+      console.log(`${helpers.JurisdictionCheckbox} not found`);
+    });
+    const element = await $(helpers.JurisdictionCheckbox);
+
+    return element.isSelected();
+  }
+
+  async clickApplyFiltersButton(): Promise<CourtNameSearchPage> {
+    await $(helpers.ApplyFiltersButton).catch(() => {
+      console.log(`${helpers.ApplyFiltersButton} not found`);
+    });
+
+    await $(helpers.ApplyFiltersButton).click();
+    return new CourtNameSearchPage();
+  }
 }

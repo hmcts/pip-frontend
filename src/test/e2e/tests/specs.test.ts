@@ -10,9 +10,10 @@ import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtS
 import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
 import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
 import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
+import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
 
 const homePage = new HomePage;
-const subscriptionAddPage = new SubscriptionAddPage();
+let subscriptionAddPage: SubscriptionAddPage;
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
@@ -23,6 +24,7 @@ let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
 let otpLoginPage: OtpLoginPage;
+let courtNameSearchPage: CourtNameSearchPage;
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
@@ -181,13 +183,51 @@ describe('Finding a court or tribunal listing', () => {
       subscriptionManagementPage = await otpLoginPage.clickContinue();
       expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
     });
-  });
 
-  describe('Add a subscription path', () => {
     it('should open the subscription add page', async () => {
-      await subscriptionAddPage.open('subscription-add');
+      subscriptionAddPage = await subscriptionManagementPage.clickAddNewSubscriptionButton();
       expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
     });
 
+    describe('Add subscription by court or tribunal path', () => {
+
+      it('should open court or tribunal name search page', async () => {
+        await subscriptionAddPage.selectCourtOrTribunalOption();
+        courtNameSearchPage = await subscriptionAddPage.clickContinueForCourtOrTribunal();
+
+        expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
+      });
+
+      it('should display 581 results', async() => {
+        expect(await courtNameSearchPage.getResults()).toBe(581);
+      });
+
+      it('should select \'Y\' option and navigate to the end of the page', async () => {
+        const endLetter = 'Y';
+        await courtNameSearchPage.selectLetter(endLetter);
+        expect(await courtNameSearchPage.checkIfLetterIsVisible('Y')).toBeTruthy();
+      });
+
+      it('selecting back to top should navigate to the top of the page', async () => {
+        const startLetter = 'A';
+        await courtNameSearchPage.selectBackToTop();
+        expect(await courtNameSearchPage.checkIfLetterIsVisible(startLetter)).toBeTruthy();
+      });
+
+      it('should select first jurisdiction filter', async () => {
+        await courtNameSearchPage.selectJurisdictionFilter();
+        expect(await courtNameSearchPage.jurisdictionChecked()).toBeTruthy();
+      });
+
+      it('should click on the apply filters button', async () => {
+        courtNameSearchPage = await courtNameSearchPage.clickApplyFiltersButton();
+        expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
+      });
+
+      it('should display 297 results (Crown Courts) filter', async() => {
+        expect(await courtNameSearchPage.getResults()).toBe(297);
+      });
+    });
   });
+
 });
