@@ -15,6 +15,6 @@ export class SearchDescriptionRequests {
         console.log(`ERROR: ${error.message}`);
       }
     }
-    return null;
+    return [];
   }
 }

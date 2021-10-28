@@ -22,7 +22,7 @@ describe('getStatusDescriptionList()', () => {
 
   it('should return null if request fails', async () => {
     stubGetStatusDescriptionList.withArgs('/courts/getCourtEventStatus').resolves(Promise.reject({response:{data: 'test error'}}));
-    expect(await searchDescriptionRequests.getStatusDescriptionList()).toBe(null);
+    expect(await searchDescriptionRequests.getStatusDescriptionList()).toHaveLength(0);
   });
 
   it('First glossary should be Adjourned', () => {
