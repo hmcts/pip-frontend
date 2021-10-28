@@ -26,11 +26,9 @@ export default function(app: Application): void {
   }
 
   function regenerateSession(req, res): void {
-    console.log('We made it into regenerating session');
     const prevSession = req.session;
     req.session.regenerate(() => {  // Compliant
       Object.assign(req.session, prevSession);
-      console.log('About to redirect to subscription management');
       res.redirect('/subscription-management');
     });
   }

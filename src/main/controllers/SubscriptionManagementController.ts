@@ -8,7 +8,6 @@ const subscriptionService = new SubscriptionService();
 export default class SubscriptionManagementController {
 
   public get(req: PipRequest, res: Response): void {
-    console.log('We made it into subscription management');
     const caseTableData = subscriptionService.generateCaseTableRows(1);
     const courtTableData = subscriptionService.generateCourtTableRows(1);
     let activeAllTab = false, activeCaseTab = false, activeCourtTab = false;
