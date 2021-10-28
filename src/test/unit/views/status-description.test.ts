@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {SearchDescriptionRequests} from "../../../main/resources/requests/searchDescriptionRequests";
+import {SearchDescriptionRequests} from '../../../main/resources/requests/searchDescriptionRequests';
 const PAGE_URL = '/status-description?courtId=1#1';
 
 let htmlRes: Document;
