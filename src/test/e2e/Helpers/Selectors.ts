@@ -44,6 +44,10 @@ module.exports = {
 
   //SubscriptionAdd selectors
   SubscriptionAddTitle: 'h1.govuk-fieldset__heading',
+  SubscriptionAddByCaseRefNumber: '#subscription-choice-1',
+  SubscriptionAddByUniqueRefNumber: '#subscription-choice-2',
+  SubscriptionAddByCaseName: '#subscription-choice-3',
+  SubscriptionAddByCourtOrTribunal: '#subscription-choice-4',
 
   // LiveCaseAlphabetSearch selectors
   LiveHearingsTableFirstValidResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',

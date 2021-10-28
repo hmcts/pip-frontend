@@ -31,4 +31,12 @@ export class CourtNameSearchPage {
     const backToTop = await $(helpers.BackToTopButton);
     backToTop.click();
   }
+
+  async getResults(): Promise<number> {
+    $(helpers.Results).catch(() => {
+      console.log(`${helpers.Results} not found`);
+    });
+    const results = $$(helpers.Results);
+    return results.length;
+  }
 }
