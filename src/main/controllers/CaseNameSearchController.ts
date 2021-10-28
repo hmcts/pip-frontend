@@ -1,35 +1,40 @@
-import { Request, Response} from 'express';
-import { PipApi } from '../utils/PipApi';
-import { HearingActions } from '../resources/actions/hearingActions';
+import { Response} from 'express';
+import { HearingService } from '../service/hearingService';
+import { cloneDeep } from 'lodash';
+import { PipRequest } from '../models/request/PipRequest';
 
-let _api: PipApi;
+const hearingService = new HearingService();
+
 export default class CaseNameSearchController {
 
-  constructor(private readonly api: PipApi) {
-    _api = this.api;
-  }
-
-  public get(req: Request, res: Response): void {
+  public get(req: PipRequest, res: Response): void {
     if (req.query.error === 'true') {
-      res.render('case-name-search', { noResultsError: true});
+      res.render('case-name-search', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-name-search']),
+        noResultsError: true,
+      });
     } else {
-      res.render('case-name-search');
+      res.render('case-name-search', {...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-name-search'])});
     }
-
   }
 
-  public async post(req: Request, res: Response): Promise<void> {
+  public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['case-name'];
     if (searchInput) {
-      const searchResults = await new HearingActions(_api).findCourtHearings(searchInput.toLowerCase());
+      const searchResults = await hearingService.getHearingsByCaseName(searchInput.toLowerCase());
       if (searchResults.length) {
         res.redirect('case-name-search-results?search=' + searchInput);
       } else {
-        res.render('case-name-search', { noResultsError: true});
+        res.render('case-name-search', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-name-search']),
+          noResultsError: true,
+        });
       }
     } else {
-      res.render('case-name-search', { noResultsError: true});
+      res.render('case-name-search', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-name-search']),
+        noResultsError: true,
+      });
     }
-
   }
 }
