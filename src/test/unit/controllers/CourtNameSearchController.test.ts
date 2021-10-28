@@ -22,18 +22,16 @@ describe('Court Name Search Controller', () => {
   const i18n = {
     'court-name-search': {},
   };
-
   const expectedData = {
     ...i18n['court-name-search'],
     alphabeticalCourts: {},
     checkBoxesComponents: [{}, {}],
     categories: [],
   };
+  const response = { render: () => {return '';}} as unknown as Response;
+  const request = mockRequest(i18n);
 
   it('should render court name search page', () => {
-
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.query = {};
 
     const responseMock = sinon.mock(response);
@@ -46,8 +44,6 @@ describe('Court Name Search Controller', () => {
   });
 
   it('should render court name search page if reset all filters is applied', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.query = {clear: 'all'};
 
     const responseMock = sinon.mock(response);
@@ -60,8 +56,6 @@ describe('Court Name Search Controller', () => {
   });
 
   it('should render court name search page if reset crown jurisdiction filter is applied', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.query = {clear: 'crown'};
 
     const responseMock = sinon.mock(response);
@@ -75,8 +69,6 @@ describe('Court Name Search Controller', () => {
 
 
   it('should render court name search page if reset london location filter is applied', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.query = {clear: 'london'};
 
 
@@ -90,9 +82,6 @@ describe('Court Name Search Controller', () => {
   });
 
   it('should render court name search page if filters are applied', () => {
-
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.body = { jurisdiction: [], region: []};
 
     const responseMock = sinon.mock(response);
@@ -105,8 +94,6 @@ describe('Court Name Search Controller', () => {
   });
 
   it('should render court name search page if only jurisdiction filter is applied', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.body = { jurisdiction: []};
 
     const responseMock = sinon.mock(response);
@@ -119,8 +106,6 @@ describe('Court Name Search Controller', () => {
   });
 
   it('should render court name search page when jurisdiction element is removed', async () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.body = { jurisdiction: ['crown']};
 
     await courtNameSearchController.post(request, response);
@@ -134,8 +119,6 @@ describe('Court Name Search Controller', () => {
   });
 
   it('should render court name search page when region element is removed', async () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.body = { region: ['london']};
 
     await courtNameSearchController.post(request, response);
@@ -149,8 +132,6 @@ describe('Court Name Search Controller', () => {
   });
 
   it('should render court name search page if only region filter is applied', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.body = { region: []};
 
     const responseMock = sinon.mock(response);
@@ -163,8 +144,6 @@ describe('Court Name Search Controller', () => {
   });
 
   it('should render court name search page if no filters are applied', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.body = {};
 
     const responseMock = sinon.mock(response);
@@ -177,8 +156,6 @@ describe('Court Name Search Controller', () => {
   });
 
   it('should render court name search page when one jurisdiction is removed and there are still other jurisdiction filters', async () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.body = { jurisdiction: ['crown', 'crown court']};
 
     await courtNameSearchController.post(request, response);
