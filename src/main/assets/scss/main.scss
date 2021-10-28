@@ -274,7 +274,7 @@ div {
 }
 
 .selection-counter-box {
-  background-color: govuk-colour("light-grey");
+  background-color: govuk-colour('light-grey');
 }
 
 .vertical_align_middle {
@@ -285,19 +285,14 @@ div {
 .moj-filter__selected-heading {
   .moj-filter__heading-action {
     p {
-      font-weight: 700;
-      font-size: 18px;
-      font-size: 1.125rem;
-      line-height: 1.11111;
-      display: inline-block;
+      @include govuk-font(19);
       margin-top: 0;
-      margin-bottom: 15px;
     }
   }
 }
 
 .filter-back-to-top-wrapper {
-  width: 100%;
   display: flex;
   flex-direction: row-reverse;
+  width: 100%;
 }
