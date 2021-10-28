@@ -26,11 +26,18 @@ function oidcSetup(): void {
   };
 
   passport.serializeUser(function(user, done) {
+    console.log('We are serializing user');
+    console.log(user);
     done(null, user.oid);
   });
 
   passport.deserializeUser(function(oid, done) {
+    console.log('We are deserializing user');
+    console.log(oid);
     findByOid(oid, function (err, user) {
+      console.log('Found user');
+      console.log(err);
+      console.log(user);
       done(err, user);
     });
   });
@@ -53,6 +60,7 @@ function oidcSetup(): void {
       }
       if (!user) {
         // "Auto-registration"
+        console.log('We are pushing user to store');
         users.push(profile);
         return done(null, profile);
       }

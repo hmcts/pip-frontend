@@ -26,9 +26,11 @@ export default function(app: Application): void {
   }
 
   function regenerateSession(req, res): void {
+    console.log('We made it into regenerating session');
     const prevSession = req.session;
     req.session.regenerate(() => {  // Compliant
       Object.assign(req.session, prevSession);
+      console.log('About to redirect to subscription management');
       res.redirect('/subscription-management');
     });
   }
@@ -57,12 +59,8 @@ export default function(app: Application): void {
   app.get('/subscription-management', ensureAuthenticated,
     app.locals.container.cradle.subscriptionManagementController.get);
 
-  app.post('/login/return', function(req, res, next) {
-    passport.authenticate('azuread-openidconnect', function(err, user, info) {
-      console.log(err);
-      console.log(user);
-      console.log(info);
-    })(req, res, next);}, regenerateSession);
+  app.post('/login/return', passport.authenticate('azuread-openidconnect', { failureRedirect: '/error'}),
+    regenerateSession);
 
   app.get('/login', passport.authenticate('azuread-openidconnect', { failureRedirect: '/error'}),
     regenerateSession);
