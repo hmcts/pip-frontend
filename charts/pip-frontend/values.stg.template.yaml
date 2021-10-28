@@ -4,4 +4,4 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
   environment:
     SECRETS_DIRECTORY: /mnt/secrets/pip-shared-kv
-    USE_OIDC: true
+    OIDC: true
