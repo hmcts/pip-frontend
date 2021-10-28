@@ -3,6 +3,10 @@ import { SubscriptionRequests } from '../../../main/resources/requests/subscript
 const userIdWithSubscriptions = 1;
 const userIdWithoutSubscriptions = 2;
 const nonExistingUserId = 777;
+
+const validUrn = '12345678';
+//const invalidUrn = '1234';
+
 const subscriptionActions = new SubscriptionRequests();
 const mockedCaseSubscription = {
   name: 'Wyman Inc Dispute',
@@ -44,5 +48,12 @@ describe(`non existing user Id getUserSubscriptions(${nonExistingUserId})`, () =
   const userSubscriptions = subscriptionActions.getUserSubscriptions(nonExistingUserId);
   it('should return null', () => {
     expect(userSubscriptions).toBe(null);
+  });
+});
+
+describe(`getSubscriptionByUrn(${validUrn}) with valid urn`, () => {
+  const subscriptions = subscriptionActions.getSubscriptionByUrn(validUrn);
+  it('should return hearing matching the urn', () => {
+    expect(subscriptions.then(x=>x.urn === validUrn)).toBeTruthy();
   });
 });
