@@ -4,7 +4,7 @@ export class SearchDescriptionRequests {
 
   public async getStatusDescriptionList(): Promise<Array<any>> {
     try {
-      const response = await dataManagementApi.get('/courts/getCourtEventStatus');
+      const response = await dataManagementApi.get('/courteventglossary');
       return response.data;
     } catch (error) {
       if (error.response) {
