@@ -1,10 +1,12 @@
 import { LiveCaseCourtSearchControllerPage } from './LiveCaseCourtSearchController.page';
 import { SearchOptionsPage } from './SearchOptions.page';
 import {SingleJusticeProcedureSearchPage} from './SingleJusticeProcedureSearch.page';
+import {PageBase} from './Base/PageBase.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class ViewOptionPage {
+export class ViewOptionPage extends PageBase {
+
   async getPageTitle(): Promise<string> {
     $(helpers.ViewOptionsTitle).catch(() => {
       console.log(`${helpers.ViewOptionsTitle} not found`);

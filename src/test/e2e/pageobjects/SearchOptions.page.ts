@@ -1,9 +1,10 @@
 import { AlphabeticalSearchPage } from './AlphabeticalSearch.page';
 import { SearchPage } from './Search.page';
+import {PageBase} from './Base/PageBase.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class SearchOptionsPage {
+export class SearchOptionsPage extends PageBase {
 
   async getPageTitle(): Promise<string> {
     $(helpers.SearchOptionsTitle).catch(() => {

@@ -1,16 +1,10 @@
 import { HearingListPage } from './HearingList.page';
+import {PageBase} from './Base/PageBase.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class AlphabeticalSearchPage {
+export class AlphabeticalSearchPage extends PageBase {
 
-  async getPageTitle(): Promise<string> {
-    $(helpers.CommonPageTitle).catch(() => {
-      console.log(`${helpers.CommonPageTitle} not found`);
-    });
-
-    return $(helpers.CommonPageTitle).getText();
-  }
 
   async selectLetter(letter): Promise<void> {
     await $(helpers.KeySelector(letter)).catch(() => {
@@ -44,4 +38,6 @@ export class AlphabeticalSearchPage {
     firstItem.click();
     return new HearingListPage();
   }
+
 }
+

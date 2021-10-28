@@ -1,0 +1,25 @@
+{
+  "title": "IDAM SignIn",
+  "header": "Sign in to your account",
+  "p1": "You need to ",
+  "p1link": "#",
+  "p1linkText": "create an account",
+  "p1b": " to use this service.",
+  "p2": "Already have an account? Please tell us which jurisdiction you are signed up with and we will then ask you to sign in.",
+  "hint": "What service jurisdiction is your organisation set up as?",
+  "continue_button_text": "Continue",
+  "select_items": [
+    {
+      "value": "",
+      "text": ""
+    },
+    {
+      "value": "crime",
+      "text": "Crime"
+    },
+    {
+      "value": "cft",
+      "text": "CFT"
+    }
+  ]
+}

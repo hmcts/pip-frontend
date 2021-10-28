@@ -1,0 +1,48 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: text,
+    href: '#',
+    attributes: {
+      onClick: "history.back();event.preventDefault();"
+    }
+  }) }}
+{% endblock %}
+{% block content %}
+  <form method="post" novalidate>
+    <h1 class="govuk-heading-l govuk-!-margin-top-5">{{ header }}</h1>
+    <div class="govuk-body">{{ p1 }}<a class="govuk-link" href="{{ p1link }}">{{ p1linkText }}</a> {{ p1b }}</div>
+    <div class="govuk-body">{{ p2 }}</div>
+    <div class="govuk-grid-row">
+    {{ govukSelect({
+      id: "idam-select",
+      name: "idam-select",
+      classes: "govuk-grid-column-full",
+      label: {
+        text: hint
+      },
+      items: select_items
+    }) }}
+    </div>
+    {{ govukButton({
+      text: continue_button_text,
+      classes: "govuk-!-margin-top-5 govuk-!-margin-bottom-8"
+    }) }}
+  </form>
+  <script>
+    const button = document.getElementsByClassName('govuk-button')[0];
+    button.addEventListener('click', (e) => {
+      const checkedSelect = document.querySelector('select');
+      if (checkedSelect.selectedIndex === 0) {
+        e.preventDefault();
+      }
+    })
+  </script>
+{% endblock %}

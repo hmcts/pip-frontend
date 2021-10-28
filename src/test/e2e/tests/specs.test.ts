@@ -1,3 +1,4 @@
+
 import { HomePage } from '../pageobjects/Home.page';
 import { SearchOptionsPage } from '../pageobjects/SearchOptions.page';
 import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
@@ -12,10 +13,10 @@ import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
 import { SubscriptionUrnSearchResultsPage} from '../pageobjects/SubscriptionUrnSearchResults.page';
 import { SubscriptionUrnSearchPage} from '../pageobjects/SubscriptionUrnSearch.page';
 import { SingleJusticeProcedureSearchPage } from '../pageobjects/SingleJusticeProcedureSearch.page';
-
-
+import {IdamSigninPage} from '../PageObjects/IdamSignin.page';
 
 const homePage = new HomePage;
+const idamSigninPage = new IdamSigninPage;
 const subscriptionAddPage = new SubscriptionAddPage();
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
@@ -29,6 +30,7 @@ let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
 let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
 let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
 let otpLoginPage: OtpLoginPage;
+
 
 
 describe('Finding a court or tribunal listing', () => {
@@ -187,6 +189,26 @@ describe('Finding a court or tribunal listing', () => {
       await otpLoginPage.enterText('222222');
       subscriptionManagementPage = await otpLoginPage.clickContinue();
       expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
+    });
+  });
+
+  describe('Idam SignIn selection', () => {
+    const valueToSelectCrime = 'Crime';
+    const valueToSelectCFT= 'CFT';
+    const returnUrl= 'https://www.google.com';
+    it('should open Idam SignIn page with Sign in to your account', async () => {
+      await idamSigninPage.selectSignIn();
+      expect(await idamSigninPage.getPageTitle()).toEqual('Sign in to your account');
+    });
+
+    it('selecting crime and redirect to external url', async () => {
+      await idamSigninPage.selectIdam(valueToSelectCrime);
+      expect(await idamSigninPage.clickContinue()).toHaveHref(returnUrl);
+    });
+
+    it('selecting CFT and redirect to external url', async () => {
+      await idamSigninPage.selectIdam(valueToSelectCFT);
+      expect(await idamSigninPage.clickContinue()).toHaveHref(returnUrl);
     });
   });
 

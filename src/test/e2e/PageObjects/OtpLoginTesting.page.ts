@@ -1,16 +1,5 @@
-const helpers = require('../Helpers/Selectors');
+import {PageBase} from './Base/PageBase.page';
 
-export class OtpLoginTestingPage {
+export class OtpLoginTestingPage extends PageBase {
 
-  open (path): Promise<string> {
-    return browser.url(path);
-  }
-
-  async getPageTitle(): Promise<string> {
-    $(helpers.CommonPageTitle).catch(() => {
-      console.log(`${helpers.CommonPageTitle} not found`);
-    });
-
-    return $(helpers.CommonPageTitle).getText();
-  }
 }

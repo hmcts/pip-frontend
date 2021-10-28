@@ -26,6 +26,8 @@ export default function(app: Application): void {
   app.get('/subscription-urn-search', app.locals.container.cradle.subscriptionUrnSearchController.get);
   app.post('/subscription-urn-search', app.locals.container.cradle.subscriptionUrnSearchController.post);
   app.get('/subscription-urn-search-results', app.locals.container.cradle.subscriptionUrnSearchResultController.get);
+  app.get('/idam-signin', app.locals.container.cradle.idamSigninController.get);
+  app.post('/idam-signin', app.locals.container.cradle.idamSigninController.post);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
