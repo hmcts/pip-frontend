@@ -190,6 +190,8 @@ describe('Finding a court or tribunal listing', () => {
     });
 
     describe('Add subscription by court or tribunal path', () => {
+      const allCourts = 581;
+      const crownCourts = 297;
 
       it('should open court or tribunal name search page', async () => {
         await subscriptionAddPage.selectCourtOrTribunalOption();
@@ -198,20 +200,14 @@ describe('Finding a court or tribunal listing', () => {
         expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
       });
 
-      it('should display 581 results', async() => {
-        expect(await courtNameSearchPage.getResults()).toBe(581);
+      it(`should display ${allCourts} results`, async() => {
+        expect(await courtNameSearchPage.getResults()).toBe(allCourts);
       });
 
       it('should select \'Y\' option and navigate to the end of the page', async () => {
         const endLetter = 'Y';
         await courtNameSearchPage.selectLetter(endLetter);
         expect(await courtNameSearchPage.checkIfLetterIsVisible('Y')).toBeTruthy();
-      });
-
-      it('selecting back to top should navigate to the top of the page', async () => {
-        const startLetter = 'A';
-        await courtNameSearchPage.selectBackToTop();
-        expect(await courtNameSearchPage.checkIfLetterIsVisible(startLetter)).toBeTruthy();
       });
 
       it('should select first jurisdiction filter', async () => {
@@ -224,8 +220,17 @@ describe('Finding a court or tribunal listing', () => {
         expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
       });
 
-      it('should display 297 results (Crown Courts) filter', async() => {
-        expect(await courtNameSearchPage.getResults()).toBe(297);
+      it(`should display ${crownCourts} results (Crown Courts) filter`, async() => {
+        expect(await courtNameSearchPage.getResults()).toBe(crownCourts);
+      });
+
+      it('should click clear filters button', async () => {
+        courtNameSearchPage = await courtNameSearchPage.clickClearFiltersButton();
+        expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
+      });
+
+      it(`should display ${allCourts} results`, async() => {
+        expect(await courtNameSearchPage.getResults()).toBe(allCourts);
       });
     });
   });
