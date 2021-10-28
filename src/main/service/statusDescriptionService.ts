@@ -1,25 +1,21 @@
-import {SearchDescriptionActions} from '../resources/actions/searchDescriptionActions';
+import {SearchDescriptionRequests} from '../resources/requests/searchDescriptionRequests';
 import {CourtService} from '../service/courtService';
-import {PipApi} from '../utils/PipApi';
 
-let _api: PipApi;
+const searchDescriptionRequests = new SearchDescriptionRequests();
+
 export class StatusDescriptionService {
 
-  constructor(private readonly api: PipApi) {
-    _api = this.api;
-  }
-
   public async generateStatusDescriptionObject(): Promise<object> {
-    const statusDescriptionList: Array<any>= await new SearchDescriptionActions(_api).getStatusDescriptionList();
+    const statusDescriptionList: Array<any>= await searchDescriptionRequests.getStatusDescriptionList();
     const alphabetOptions = CourtService.generateAlphabetObject();
 
     //Then loop through each status, and add it to the list
     statusDescriptionList.forEach(item => {
-      if (item.description !== '') {
-        const status = item.name as string;
-        alphabetOptions[status.charAt(0).toUpperCase()][item.Id] = {
-          id: item.Id,
-          description: item.description,
+      if (item.eventStatus !== '') {
+        const status = item.eventName as string;
+        alphabetOptions[status.charAt(0).toUpperCase()][item.eventId] = {
+          id: item.eventId,
+          description: item.eventStatus,
           status: status,
           initial: status.charAt(0).toUpperCase(),
         };

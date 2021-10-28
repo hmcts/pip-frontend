@@ -1,18 +1,17 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { StatusDescriptionService } from '../service/statusDescriptionService';
-import {PipApi} from '../utils/PipApi';
+import {cloneDeep} from 'lodash';
+import {PipRequest} from '../models/request/PipRequest';
 
-let _api: PipApi;
+const statusDescriptionService = new StatusDescriptionService();
 
 export default class StatusDescriptionController {
 
-  constructor(private readonly api: PipApi) {
-    _api = this.api;
-  }
-  public async get(req: Request, res: Response): Promise<void> {
-    const alphabetObject = await new StatusDescriptionService(_api).generateStatusDescriptionObject();
+  public async get(req: PipRequest, res: Response): Promise<void> {
+    const alphabetObject = await statusDescriptionService.generateStatusDescriptionObject();
     const courtId = req.query.courtId;
     res.render('status-description', {
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['status-description']),
       statusList: alphabetObject,
       courtId: courtId,
     });

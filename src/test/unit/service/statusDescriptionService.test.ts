@@ -3,17 +3,18 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import {PipApi} from '../../../main/utils/PipApi';
-const axios = require('axios');
-jest.mock('axios');
+import {SearchDescriptionRequests} from '../../../main/resources/requests/searchDescriptionRequests';
 
-const api = new PipApi(axios);
-const stub = sinon.stub(api, 'getStatusDescriptionList');
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/StatusDescription.json'), 'utf-8');
+const statusDescriptionService = new StatusDescriptionService();
+
+const searchDescriptionRequests = SearchDescriptionRequests.prototype;
+
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/StatusDescription.json'), 'utf-8');
 const statusDescriptionData = JSON.parse(rawData);
-stub.withArgs().returns(statusDescriptionData.results);
 
-const statusDescriptionService = new StatusDescriptionService(api);
+const stub = sinon.stub(searchDescriptionRequests, 'getStatusDescriptionList').returns(statusDescriptionData);
+stub.withArgs().returns(statusDescriptionData);
+
 const validStatusDescriptionKeysCount = 26;
 const alphabet = [
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
