@@ -7,7 +7,7 @@ import {LiveCaseService} from '../../main/service/liveCaseService';
 import fs from 'fs';
 import path from 'path';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/utils/mocks/liveCaseStatusUpdates.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/liveCaseStatusUpdates.json'), 'utf-8');
 const liveCases = JSON.parse(rawData).results;
 
 sinon.stub(LiveCaseService.prototype, 'getLiveCases').returns(liveCases);
