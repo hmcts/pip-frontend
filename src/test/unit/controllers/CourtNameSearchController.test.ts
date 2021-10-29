@@ -6,13 +6,20 @@ import { CourtService } from '../../../main/service/courtService';
 import { CourtRequests } from '../../../main/resources/requests/courtRequests';
 import { FilterService } from '../../../main/service/filterService';
 
+const blankFiltersObject = {
+  'jurisdiction': [],
+  'region': [],
+};
+const withValuesFilters = {
+  'jurisdiction': ['crown'],
+  'region': [],
+};
 const courtNameSearchController = new CourtNameSearchController();
 sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves([]);
 sinon.stub(CourtRequests.prototype, 'getFilteredCourts').withArgs(['jurisdiction'], ['crown']).resolves([]);
-const filterServiceStub = sinon.stub(FilterService.prototype, 'generateCheckboxGroup');
-filterServiceStub.withArgs([], 'Jurisdiction', []).returns({});
-filterServiceStub.withArgs([], 'Region', []).returns({});
-filterServiceStub.withArgs(['crown'], 'Jurisdiction', []).returns({});
+const filterServiceStub = sinon.stub(FilterService.prototype, 'generateCheckboxGroups');
+filterServiceStub.withArgs(blankFiltersObject, []).returns({});
+filterServiceStub.withArgs(withValuesFilters, []).returns({});
 const selectedTagsStub = sinon.stub(FilterService.prototype, 'generateSelectedTags');
 selectedTagsStub.withArgs([{jurisdiction: []}, {location: []}]).returns([]);
 selectedTagsStub.withArgs([{jurisdiction: ['crown']}, {location: []}]).returns([]);
@@ -25,7 +32,7 @@ describe('Court Name Search Controller', () => {
   const expectedData = {
     ...i18n['court-name-search'],
     alphabeticalCourts: {},
-    checkBoxesComponents: [{}, {}],
+    checkBoxesComponents: {},
     categories: [],
   };
   const response = { render: () => {return '';}} as unknown as Response;
