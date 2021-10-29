@@ -61,11 +61,10 @@ export class CourtService {
   }
 
   public generateCourtsAlphabetObject(courtsList: Court[]): object {
-    const _courtsList = courtsList;
     const alphabetOptions = CourtService.generateAlphabetObject();
 
     // Then loop through each court, and add it to the list
-    _courtsList.forEach(item => {
+    courtsList.forEach(item => {
       const courtName = item.name as string;
       alphabetOptions[courtName.charAt(0).toUpperCase()][courtName] = {
         id: item.courtId,
