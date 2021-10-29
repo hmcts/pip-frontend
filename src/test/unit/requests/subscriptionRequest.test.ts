@@ -87,7 +87,7 @@ describe(`non existing subscriptions getSubscriptionByUrn(${invalidUrn})`, () =>
   });
 });
 
-describe(`non existing subscriptions getSubscriptionByUrn error request`, () => {
+describe('non existing subscriptions getSubscriptionByUrn error request', () => {
   stub.withArgs('/hearings/urn/12345').resolves(Promise.reject(errorRequest));
   it('should return null list of subscriptions', async () => {
     const userSubscriptions = await subscriptionActions.getSubscriptionByUrn('12345');
@@ -95,7 +95,7 @@ describe(`non existing subscriptions getSubscriptionByUrn error request`, () => 
   });
 });
 
-describe(`non existing subscriptions getSubscriptionByUrn error response`, () => {
+describe('non existing subscriptions getSubscriptionByUrn error response', () => {
   stub.withArgs('/hearings/urn/12345').resolves(Promise.reject(errorResponse));
   it('should return null list of subscriptions', async () => {
     const userSubscriptions = await subscriptionActions.getSubscriptionByUrn('12345');
