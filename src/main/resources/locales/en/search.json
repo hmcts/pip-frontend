@@ -6,7 +6,9 @@
     "summaryTitleText": "There is a problem",
     "spanText": "Enter a court name, town or city",
     "noResultsHeader": "There are no matching results.",
-    "pText": "You can improve your results by double checking your spelling."
+    "pText": "You can:",
+    "li1Text": "Double check your spelling",
+    "li2Text": "Find a court or tribunal using A to Z"
   },
   "header": "What court or tribunal are you interested in?",
   "inputHint": "For example Blackburn Crown Court"
