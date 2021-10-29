@@ -2,6 +2,7 @@ import { SubscriptionRequests } from '../../../main/resources/requests/subscript
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
+import {dataManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
 
 const userIdWithSubscriptions = 1;
 const userIdWithoutSubscriptions = 2;
@@ -20,58 +21,58 @@ const mockedCourtSubscription = {
   name: 'Mutsu Court',
   dateAdded: '1632351600',
 };
+
+
+
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
-sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').returns(subscriptionsData);
+const stub = sinon.stub(dataManagementApi, 'get');
 
-describe('Subscription request', () => {
-
-  describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, () => {
-    const userSubscriptions = subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-    it('should return user subscription object', () => {
-      expect(userSubscriptions.courtSubscriptions.length).toBeGreaterThan(0);
-      expect(userSubscriptions.caseSubscriptions.length).toBeGreaterThan(0);
-    });
-
-    it('should have mocked object in the case subscriptions list', () => {
-      expect(userSubscriptions.caseSubscriptions.filter((subscription) =>
-        subscription.reference === mockedCaseSubscription.reference).length).toBe(1);
-    });
-
-    it('should have mocked object in the court subscriptions list', () => {
-      expect(userSubscriptions.courtSubscriptions.filter((subscription) =>
-        subscription.name === mockedCourtSubscription.name).length).toBe(1);
-    });
+describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, () => {
+  const userSubscriptions = subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
+  it('should return user subscription object', () => {
+    expect(userSubscriptions.courtSubscriptions.length).toBeGreaterThan(0);
+    expect(userSubscriptions.caseSubscriptions.length).toBeGreaterThan(0);
   });
 
-  describe(`getUserSubscriptions(${userIdWithoutSubscriptions}) with valid user id`, () => {
-    const userSubscriptions = subscriptionActions.getUserSubscriptions(userIdWithoutSubscriptions);
-    it('should return user subscription object', () => {
-      expect(userSubscriptions.courtSubscriptions.length).toBe(0);
-      expect(userSubscriptions.caseSubscriptions.length).toBe(0);
-    });
+  it('should have mocked object in the case subscriptions list', () => {
+    expect(userSubscriptions.caseSubscriptions.filter((subscription) =>
+      subscription.reference === mockedCaseSubscription.reference).length).toBe(1);
   });
 
-  describe(`non existing user Id getUserSubscriptions(${nonExistingUserId})`, () => {
-    const userSubscriptions = subscriptionActions.getUserSubscriptions(nonExistingUserId);
-    it('should return null', () => {
-      expect(userSubscriptions).toBe(null);
-    });
+  it('should have mocked object in the court subscriptions list', () => {
+    expect(userSubscriptions.courtSubscriptions.filter((subscription) =>
+      subscription.name === mockedCourtSubscription.name).length).toBe(1);
   });
+});
 
-  describe(`getSubscriptionByUrn(${validUrn}) with valid urn`, async () => {
-    const subscriptions = await subscriptionActions.getSubscriptionByUrn(validUrn);
-    it('should return hearing matching the urn', () => {
-      expect(subscriptions.urn === validUrn).toBeTruthy();
-    });
+describe(`getUserSubscriptions(${userIdWithoutSubscriptions}) with valid user id`, () => {
+  const userSubscriptions = subscriptionActions.getUserSubscriptions(userIdWithoutSubscriptions);
+  it('should return user subscription object', () => {
+    expect(userSubscriptions.courtSubscriptions.length).toBe(0);
+    expect(userSubscriptions.caseSubscriptions.length).toBe(0);
   });
+});
 
-  describe(`non existing subscriptions getSubscriptionByUrn(${invalidUrn})`, () => {
-    sinon.restore();
-    sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').returns(null);
-    const userSubscriptions = subscriptionActions.getSubscriptionByUrn(invalidUrn);
-    it('should return null', () => {
-      expect(userSubscriptions).toBe(null);
-    });
+describe(`non existing user Id getUserSubscriptions(${nonExistingUserId})`, () => {
+  const userSubscriptions = subscriptionActions.getUserSubscriptions(nonExistingUserId);
+  it('should return null', () => {
+    expect(userSubscriptions).toBe(null);
+  });
+});
+
+describe(`getSubscriptionByUrn(${validUrn}) with valid urn`, () => {
+  stub.withArgs('/hearings/urn/123456789').resolves({data: subscriptionsData});
+  it('should return hearing matching the urn', async () => {
+    const sub = await subscriptionActions.getSubscriptionByUrn(validUrn);
+    expect(sub.urn).toEqual(validUrn);
+  });
+});
+
+describe(`non existing subscriptions getSubscriptionByUrn(${invalidUrn})`, () => {
+  stub.withArgs(`/hearings/urn/${invalidUrn}`).resolves({data: null});
+  const userSubscriptions = subscriptionActions.getSubscriptionByUrn(invalidUrn);
+  it('should return null', () => {
+    expect(userSubscriptions).toBe(null);
   });
 });
