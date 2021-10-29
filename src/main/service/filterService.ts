@@ -56,4 +56,15 @@ export class FilterService {
     }
     return selectedTags;
   }
+
+  public getFilterValues(filtersObject: object): string[] {
+    const objectKeys = Object.keys(filtersObject);
+    const filterValues = [];
+    objectKeys.forEach((objKey) => {
+      if (filtersObject[objKey].length > 0) {
+        objKey === 'region' ? filterValues.push('location') : filterValues.push(objKey);
+      }
+    });
+    return filterValues;
+  }
 }

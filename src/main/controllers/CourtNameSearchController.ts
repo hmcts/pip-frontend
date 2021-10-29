@@ -8,8 +8,10 @@ import { CourtRequests } from '../resources/requests/courtRequests';
 const courtService = new CourtService();
 const courtRequests = new CourtRequests();
 const filterService = new FilterService();
-let checkedRegionsFilter = [];
-let checkedJurisdictionsFilter = [];
+const checkedFilters = {
+  'jurisdiction': [],
+  'region': [],
+};
 
 export default class CourtNameSearchController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -25,39 +27,33 @@ export default class CourtNameSearchController {
     // remove filter selections
     if (req.query['clear']) {
       const clearValue = req.query['clear'];
-      if (checkedJurisdictionsFilter.indexOf(clearValue) >= 0) {
-        checkedJurisdictionsFilter.splice(checkedJurisdictionsFilter.indexOf(clearValue), 1);
+      if (checkedFilters.jurisdiction.indexOf(clearValue) >= 0) {
+        checkedFilters.jurisdiction.splice(checkedFilters.jurisdiction.indexOf(clearValue), 1);
       }
 
-      if (checkedRegionsFilter.indexOf(clearValue) >= 0) {
-        checkedRegionsFilter.splice(checkedRegionsFilter.indexOf(clearValue),1);
+      if (checkedFilters.region.indexOf(clearValue) >= 0) {
+        checkedFilters.region.splice(checkedFilters.region.indexOf(clearValue),1);
       }
 
       if (clearValue === 'all') {
-        checkedJurisdictionsFilter = [];
-        checkedRegionsFilter = [];
+        checkedFilters.jurisdiction = [];
+        checkedFilters.region = [];
       }
     }
 
-    if (!checkedJurisdictionsFilter.length && !checkedRegionsFilter.length) {
-      courtsList = allCourts;
+    const filters = filterService.getFilterValues(checkedFilters);
+    if (filters.length) {
+      courtsList = await courtRequests.getFilteredCourts(filters, [...checkedFilters.jurisdiction, ...checkedFilters.region]);
     } else {
-      const filters = [];
-      if (checkedJurisdictionsFilter.length > 0) {
-        filters.push('jurisdiction');
-      }
-      if (checkedRegionsFilter.length > 0) {
-        filters.push('location');
-      }
-      courtsList = await courtRequests.getFilteredCourts(filters, [...checkedJurisdictionsFilter, ...checkedRegionsFilter]);
+      courtsList = allCourts;
     }
 
     const alphabeticalCourts = await courtService.generateCourtsAlphabetObject(courtsList);
     const checkBoxesComponents = [
-      filterService.generateCheckboxGroup(checkedJurisdictionsFilter, 'Jurisdiction', allCourts),
-      filterService.generateCheckboxGroup(checkedRegionsFilter, 'Region', allCourts),
+      filterService.generateCheckboxGroup(checkedFilters.jurisdiction, 'Jurisdiction', allCourts),
+      filterService.generateCheckboxGroup(checkedFilters.region, 'Region', allCourts),
     ];
-    const categories = filterService.generateSelectedTags([{jurisdiction: checkedJurisdictionsFilter}, {location: checkedRegionsFilter}]);
+    const categories = filterService.generateSelectedTags([{jurisdiction: checkedFilters.jurisdiction}, {location: checkedFilters.region}]);
 
     res.render('court-name-search', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['court-name-search']),
@@ -77,37 +73,31 @@ export default class CourtNameSearchController {
     });
 
     if (req.body.jurisdiction) {
-      checkedJurisdictionsFilter = Array.isArray(req.body.jurisdiction) ? req.body.jurisdiction : [req.body.jurisdiction];
+      checkedFilters.jurisdiction = Array.isArray(req.body.jurisdiction) ? req.body.jurisdiction : [req.body.jurisdiction];
     } else {
-      checkedJurisdictionsFilter = [];
+      checkedFilters.jurisdiction = [];
     }
 
     if (req.body.region) {
-      checkedRegionsFilter = Array.isArray(req.body.region) ? req.body.region : [req.body.region];
+      checkedFilters.region = Array.isArray(req.body.region) ? req.body.region : [req.body.region];
     } else {
-      checkedRegionsFilter = [];
+      checkedFilters.region = [];
     }
 
-    if (!checkedJurisdictionsFilter.length && !checkedRegionsFilter.length) {
-      courtsList = allCourts;
+    const filters = filterService.getFilterValues(checkedFilters);
+    if (filters.length) {
+      courtsList = await courtRequests.getFilteredCourts(filters, [...checkedFilters.jurisdiction, ...checkedFilters.region]);
     } else {
-      const filters = [];
-      if (checkedJurisdictionsFilter.length > 0) {
-        filters.push('jurisdiction');
-      }
-      if (checkedRegionsFilter.length > 0) {
-        filters.push('location');
-      }
-      courtsList = await courtRequests.getFilteredCourts(filters, [...checkedJurisdictionsFilter, ...checkedRegionsFilter]);
+      courtsList = allCourts;
     }
 
     const alphabeticalCourts = await courtService.generateCourtsAlphabetObject(courtsList);
     const checkBoxesComponents = [
-      filterService.generateCheckboxGroup(checkedJurisdictionsFilter, 'Jurisdiction', allCourts),
-      filterService.generateCheckboxGroup(checkedRegionsFilter, 'Region', allCourts),
+      filterService.generateCheckboxGroup(checkedFilters.jurisdiction, 'Jurisdiction', allCourts),
+      filterService.generateCheckboxGroup(checkedFilters.region, 'Region', allCourts),
     ];
 
-    const categories = filterService.generateSelectedTags([{jurisdiction: checkedJurisdictionsFilter}, {location: checkedRegionsFilter}]);
+    const categories = filterService.generateSelectedTags([{jurisdiction: checkedFilters.jurisdiction}, {location: checkedFilters.region}]);
 
     res.render('court-name-search', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['court-name-search']),
