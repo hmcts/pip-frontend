@@ -54,7 +54,11 @@
         <div class="govuk-grid-row">
             <div class="no_padding govuk-grid-column-full">
                 <h2 class="govuk-heading-s">{{ error.noResultsHeader }}</h2>
-                <p class="govuk-body">{{ pText }}</p>
+                <p class="govuk-body">{{ error.pText }}</p>
+                <ul>
+                <li class="govuk-body">{{ error.li1Text }}</li>
+                <li class="govuk-body"><a href="/alphabetical-search">{{ error.li2Text }}</a></li>
+                </ul>
             </div>
         </div>
         {% endif %}
