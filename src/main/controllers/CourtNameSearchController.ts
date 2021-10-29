@@ -60,7 +60,6 @@ export default class CourtNameSearchController {
 
   public async post(req: PipRequest, res: Response): Promise<void> {
     let allCourts = [];
-    let courtsList: any[];
     await courtService.fetchAllCourts().then((courts) => {
       if (courts) {
         allCourts = courts;
@@ -80,11 +79,7 @@ export default class CourtNameSearchController {
     }
 
     const filters = filterService.getFilterValues(checkedFilters);
-    if (filters.length) {
-      courtsList = await courtRequests.getFilteredCourts(filters, [...checkedFilters.jurisdiction, ...checkedFilters.region]);
-    } else {
-      courtsList = allCourts;
-    }
+    const courtsList = filters.length ? await courtRequests.getFilteredCourts(filters, [...checkedFilters.jurisdiction, ...checkedFilters.region]) : allCourts;
 
     const renderOptions = {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['court-name-search']),
