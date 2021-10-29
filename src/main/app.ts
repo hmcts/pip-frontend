@@ -25,7 +25,6 @@ import routes from './routes/routes';
 import {PipRequest} from './models/request/PipRequest';
 import * as fs from 'fs';
 
-
 function populateSecrets(): void {
   if (process.env.SECRETS_DIRECTORY) {
     const secretsdirectory = process.env.SECRETS_DIRECTORY;
