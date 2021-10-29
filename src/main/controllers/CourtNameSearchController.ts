@@ -48,19 +48,14 @@ export default class CourtNameSearchController {
       courtsList = allCourts;
     }
 
-    const alphabeticalCourts = await courtService.generateCourtsAlphabetObject(courtsList);
-    const checkBoxesComponents = [
-      filterService.generateCheckboxGroup(checkedFilters.jurisdiction, 'Jurisdiction', allCourts),
-      filterService.generateCheckboxGroup(checkedFilters.region, 'Region', allCourts),
-    ];
-    const categories = filterService.generateSelectedTags([{jurisdiction: checkedFilters.jurisdiction}, {location: checkedFilters.region}]);
-
-    res.render('court-name-search', {
+    const renderOptions = {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['court-name-search']),
-      alphabeticalCourts,
-      checkBoxesComponents,
-      categories,
-    });
+      alphabeticalCourts: await courtService.generateCourtsAlphabetObject(courtsList),
+      checkBoxesComponents: filterService.generateCheckboxGroups(checkedFilters, allCourts),
+      categories: filterService.generateSelectedTags([{jurisdiction: checkedFilters.jurisdiction}, {location: checkedFilters.region}]),
+    };
+
+    res.render('court-name-search', renderOptions);
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
@@ -91,19 +86,13 @@ export default class CourtNameSearchController {
       courtsList = allCourts;
     }
 
-    const alphabeticalCourts = await courtService.generateCourtsAlphabetObject(courtsList);
-    const checkBoxesComponents = [
-      filterService.generateCheckboxGroup(checkedFilters.jurisdiction, 'Jurisdiction', allCourts),
-      filterService.generateCheckboxGroup(checkedFilters.region, 'Region', allCourts),
-    ];
-
-    const categories = filterService.generateSelectedTags([{jurisdiction: checkedFilters.jurisdiction}, {location: checkedFilters.region}]);
-
-    res.render('court-name-search', {
+    const renderOptions = {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['court-name-search']),
-      alphabeticalCourts,
-      checkBoxesComponents,
-      categories,
-    });
+      alphabeticalCourts: await courtService.generateCourtsAlphabetObject(courtsList),
+      checkBoxesComponents: filterService.generateCheckboxGroups(checkedFilters, allCourts),
+      categories: filterService.generateSelectedTags([{jurisdiction: checkedFilters.jurisdiction}, {location: checkedFilters.region}]),
+    };
+
+    res.render('court-name-search', renderOptions);
   }
 }

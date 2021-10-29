@@ -35,6 +35,29 @@ export class FilterService {
     };
   }
 
+  public generateCheckboxGroups(checkedItems: object, list: any[]): object[] {
+    const checkboxGroups = [];
+    const checkedGroups = Object.keys(checkedItems);
+    checkedGroups.forEach((group) => {
+      const groupName = group === 'region' ? 'location' : group;
+      const items = this.generateCheckboxObjects(checkedItems[group], groupName, list);
+      const capitalizedGroup = group.charAt(0).toUpperCase() + group.slice(1);
+      checkboxGroups.push({
+        idPrefix: group,
+        name: group,
+        classes: 'govuk-checkboxes--small',
+        fieldset: {
+          legend: {
+            text: capitalizedGroup,
+            classes: 'govuk-fieldset__legend--m',
+          },
+        },
+        items,
+      });
+    });
+    return checkboxGroups;
+  }
+
   public generateSelectedTags(filterValues: any[]): object[] {
     const selectedTags = [];
     //  filteredValues = [ { jurisdiction: [selections] }, { location: [selections] } ]
@@ -45,7 +68,8 @@ export class FilterService {
           const filterName = objectKeys[0];
           // if there are no selected filters do not add categories
           if (filter[filterName].length > 0) {
-            const category = { heading: { text: filterName[0].toUpperCase() + filterName.slice(1) }, items: [] };
+            const filterTitle = filterName === 'location' ? 'Region' : filterName[0].toUpperCase() + filterName.slice(1);
+            const category = { heading: { text: filterTitle }, items: [] };
             filter[filterName].forEach((filterItem) => {
               category.items.push({ href: `?clear=${filterItem}`, text: filterItem});
             });
