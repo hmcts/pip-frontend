@@ -22,6 +22,15 @@ const mockedCourtSubscription = {
   dateAdded: '1632351600',
 };
 
+const errorResponse = {
+  response: {
+    data: 'test error',
+  },
+};
+
+const errorRequest = {
+  request: 'test error',
+};
 
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
@@ -71,8 +80,27 @@ describe(`getSubscriptionByUrn(${validUrn}) with valid urn`, () => {
 
 describe(`non existing subscriptions getSubscriptionByUrn(${invalidUrn})`, () => {
   stub.withArgs(`/hearings/urn/${invalidUrn}`).resolves({data: null});
-  const userSubscriptions = subscriptionActions.getSubscriptionByUrn(invalidUrn);
-  it('should return null', () => {
+
+  it('should return null', async () => {
+    const userSubscriptions = await subscriptionActions.getSubscriptionByUrn(invalidUrn);
     expect(userSubscriptions).toBe(null);
   });
 });
+
+describe(`non existing subscriptions getSubscriptionByUrn error request`, () => {
+  stub.withArgs('/hearings/urn/12345').resolves(Promise.reject(errorRequest));
+  it('should return null list of subscriptions', async () => {
+    const userSubscriptions = await subscriptionActions.getSubscriptionByUrn('12345');
+    expect(userSubscriptions).toBe(null);
+  });
+});
+
+describe(`non existing subscriptions getSubscriptionByUrn error response`, () => {
+  stub.withArgs('/hearings/urn/12345').resolves(Promise.reject(errorResponse));
+  it('should return null list of subscriptions', async () => {
+    const userSubscriptions = await subscriptionActions.getSubscriptionByUrn('12345');
+    expect(userSubscriptions).toBe(null);
+  });
+});
+
+
