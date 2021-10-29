@@ -10,19 +10,27 @@ const blankFiltersObject = {
   'jurisdiction': [],
   'region': [],
 };
-const withValuesFilters = {
+const withOneFilter = {
   'jurisdiction': ['crown'],
   'region': [],
 };
+const withMultipleFilters = {
+  'jurisdiction': ['crown'],
+  'region': ['london'],
+};
 const courtNameSearchController = new CourtNameSearchController();
 sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves([]);
-sinon.stub(CourtRequests.prototype, 'getFilteredCourts').withArgs(['jurisdiction'], ['crown']).resolves([]);
+const courtRequestsStub = sinon.stub(CourtRequests.prototype, 'getFilteredCourts');
+courtRequestsStub.withArgs(['jurisdiction'], ['crown']).resolves([]);
+courtRequestsStub.withArgs(['jurisdiction', 'location'], ['crown', 'london']).resolves([]);
 const filterServiceStub = sinon.stub(FilterService.prototype, 'generateCheckboxGroups');
 filterServiceStub.withArgs(blankFiltersObject, []).returns({});
-filterServiceStub.withArgs(withValuesFilters, []).returns({});
+filterServiceStub.withArgs(withOneFilter, []).returns({});
+filterServiceStub.withArgs(withMultipleFilters, []).returns({});
 const selectedTagsStub = sinon.stub(FilterService.prototype, 'generateSelectedTags');
 selectedTagsStub.withArgs([{jurisdiction: []}, {location: []}]).returns([]);
 selectedTagsStub.withArgs([{jurisdiction: ['crown']}, {location: []}]).returns([]);
+selectedTagsStub.withArgs([{jurisdiction: ['crown']}, {location: ['london']}]).returns([]);
 sinon.stub(CourtService.prototype, 'generateCourtsAlphabetObject').withArgs([]).returns({});
 
 describe('Court Name Search Controller', () => {
@@ -89,6 +97,18 @@ describe('Court Name Search Controller', () => {
 
   it('should render court name search page if filters are applied', () => {
     request.body = { jurisdiction: [], region: []};
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+
+    return courtNameSearchController.post(request, response).then(() => {
+      responseMock.verify();
+    });
+  });
+
+  it('should render court name search page if more than 2 filters are applied', () => {
+    request.body = { jurisdiction: ['crown'], region: ['london']};
 
     const responseMock = sinon.mock(response);
 
