@@ -50,12 +50,10 @@ module.exports = {
   // LiveCaseAlphabetSearch selectors
   LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',
 
-
   // Add Subscription selector
   UrnSearchRadioButton: '#subscription-choice-2',
   LiveHearingsTableFirstValidResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
 
   // IdamSigin page selectors
   IdamSiginInput: '#idam-select',
-
 };

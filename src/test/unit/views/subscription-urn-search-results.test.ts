@@ -69,5 +69,4 @@ describe('Search Results Page', () => {
     expect(items[0].innerHTML).contains('123456789', 'URN does not exist');
     expect(items[1].innerHTML).contains('63-694-7292', 'Case number does not exist');
   });
-
 });
