@@ -17,24 +17,6 @@ export class FilterService {
     return itemsList;
   }
 
-  public generateCheckboxGroup(checkedItems: any[], groupName = '', list: any[]): object {
-    // workaround to convert region to location as it is currently mapped under location attribute
-    const _groupName =  groupName === 'Region' ? 'location' : groupName;
-    const items = this.generateCheckboxObjects(checkedItems, _groupName.toLowerCase(), list);
-    return {
-      idPrefix: groupName.toLowerCase(),
-      name: groupName.toLowerCase(),
-      classes: 'govuk-checkboxes--small',
-      fieldset: {
-        legend: {
-          text: groupName,
-          classes: 'govuk-fieldset__legend--m',
-        },
-      },
-      items,
-    };
-  }
-
   public generateCheckboxGroups(checkedItems: object, list: any[]): object[] {
     const checkboxGroups = [];
     const checkedGroups = Object.keys(checkedItems);

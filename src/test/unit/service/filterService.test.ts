@@ -16,6 +16,7 @@ const validDistinctValues = ['crown court', 'magistrate court', 'crown'];
 const validObjectKeys = ['idPrefix', 'name', 'classes', 'fieldset', 'items'];
 const validSelectionCombination = [ { jurisdiction: ['magistrate court'] }, { location: ['bar'] } ];
 const validIndividualSelection = [ { jurisdiction: ['crown'] }, { location: [] } ];
+const validCheckedItems = { jurisdiction: [], region: [] };
 
 describe('Filter Service', () => {
   it('should return list of distinct values', () => {
@@ -34,12 +35,14 @@ describe('Filter Service', () => {
     expect(filterService.generateCheckboxObjects(validDistinctValues, invalidFilterName, emptyList)).to.deep.equal(emptyList);
   });
 
-  it('should return checkbox group object with valid keys for empty data', () => {
-    expect(Object.keys(filterService.generateCheckboxGroup(emptyList, invalidFilterName, emptyList))).to.deep.equal(validObjectKeys);
+  it('should return empty list for empty data', () => {
+    expect(filterService.generateCheckboxGroups(emptyList, emptyList)).to.deep.equal(emptyList);
   });
 
-  it('should return checkbox group object with valid keys for valid data', () => {
-    expect(Object.keys(filterService.generateCheckboxGroup(validDistinctValues, validFilterName, validCourtsList)));
+  it('should return list of checkbox group objects with valid keys for valid data', () => {
+    const objectsList = filterService.generateCheckboxGroups(validCheckedItems, validCourtsList);
+    expect(objectsList.length).to.equal(2);
+    expect(Object.keys(objectsList[0])).to.deep.equal(validObjectKeys);
   });
 
   it('should return empty list if there are no selected tags', () => {
