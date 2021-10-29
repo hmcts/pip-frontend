@@ -1,7 +1,16 @@
 import { expect } from 'chai';
 import request from 'supertest';
+import sinon from 'sinon';
 
 import { app } from '../../main/app';
+import {LiveCaseService} from '../../main/service/liveCaseService';
+import fs from 'fs';
+import path from 'path';
+
+const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/liveCaseStatusUpdates.json'), 'utf-8');
+const liveCases = JSON.parse(rawData).results;
+
+sinon.stub(LiveCaseService.prototype, 'getLiveCases').returns(liveCases);
 
 describe('Live Status', () => {
   describe('on GET', () => {

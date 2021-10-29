@@ -1,0 +1,20 @@
+{
+  "title": "Subscription Management",
+  "header": "Your subscriptions",
+  "newButton": "Add new subscription",
+  "subNavigation": {
+    "header1": "All subscriptions (",
+    "header2": "Subscriptions by case (",
+    "header3": "Subscriptions by court or tribunal ("
+  },
+  "noSubs": "You currently have no subscriptions",
+  "table": {
+    "header1": "Case name",
+    "header2": "Case reference number",
+    "date": "Date added",
+    "actions": "Actions"
+  },
+  "courtTable": {
+    "header1": "Court or tribunal name"
+  }
+}

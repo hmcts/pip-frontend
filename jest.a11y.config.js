@@ -11,8 +11,3 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 }
-
-process.env = Object.assign(process.env, {
-  PIP_LOCAL_API: true,
-  NODE_TLS_REJECT_UNAUTHORIZED:0
-});

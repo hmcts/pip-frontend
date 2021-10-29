@@ -47,5 +47,5 @@ module.exports = {
   CaseSearchRadioButton: '#subscription-choice-1',
 
   // LiveCaseAlphabetSearch selectors
-  LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',
+  LiveHearingsTableFirstValidResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
 };

@@ -1,36 +1,34 @@
-import { Request, Response } from 'express';
-import { HearingActions } from '../resources/actions/hearingActions';
+import { Response } from 'express';
+import {CourtService} from '../service/courtService';
 import moment from 'moment';
-import {PipApi} from '../utils/PipApi';
+import {cloneDeep} from 'lodash';
+import {PipRequest} from '../models/request/PipRequest';
 
-let _api: PipApi;
+const courtService = new CourtService();
+
 export default class HearingListController {
 
-  constructor(private readonly api: PipApi) {
-    _api = this.api;
-  }
-
-  public async get(req: Request, res: Response): Promise<void> {
-    const courtId = req.query.courtId as string;
-    const courtIdNumber = parseInt(courtId);
+  public async get(req: PipRequest, res: Response): Promise<void> {
+    const courtId = parseInt(req.query.courtId as string);
 
     //If no court ID has been supplied, then return the error page
-    if (courtIdNumber) {
+    if (courtId) {
 
-      const courtList = await new HearingActions(_api).getCourtHearings(courtIdNumber);
+      const court = await courtService.getCourtById(courtId);
 
       //Returns the error page if the court list is empty
-      if (courtList) {
+      if (court) {
         res.render('hearing-list', {
-          courtName: courtList['name'],
-          hearings: courtList['hearingList'],
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['hearing-list']),
+          courtName: court.name,
+          hearings: court.hearingList,
           date: moment().format('MMMM DD YYYY'),
         });
       } else {
-        res.render('error');
+        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
       }
     } else {
-      res.render('error');
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
   }
 
