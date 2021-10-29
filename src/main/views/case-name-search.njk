@@ -1,20 +1,14 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "./macros/common-components.njk" import submitButton %}
+{% from "./macros/common-components.njk" import goBack, submitButton %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
     {{ title }}
 {% endblock %}
 {% block beforeContent %}
-    {{ govukBackLink({
-        text: backButton,
-        href: '#',
-        attributes: {
-            onClick: "history.back();event.preventDefault();"
-        }
-    }) }}
+    {{ goBack() }}
 {% endblock %}
 {% block content %}
     {% if noResultsError %}
