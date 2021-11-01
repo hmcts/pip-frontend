@@ -12,7 +12,7 @@
 
 {% block content %}
   <h1 class="govuk-heading-l">Search result</h1>
-  <h3 class="govuk-heading-m">{{ searchResults.length }} result successfully found</h3>
+  <h3 class="govuk-heading-m">Result successfully found</h3>
 
   <table class="govuk-table govuk-!-width-two-thirds">
     <thead class="govuk-table__head">
@@ -22,12 +22,10 @@
     </tr>
     </thead>
     <tbody class="govuk-table__body">
-    {% for result in searchResults %}
       <tr class="govuk-table__row">
-        <th scope="row" class="govuk-table__cell--no-line">{{ result.referenceNo }}</th>
-        <td class="govuk-table__cell--no-line govuk-table__cell--numeric">{{ result.caseName }}</td>
+        <th scope="row" class="govuk-table__cell--no-line">{{ searchResults.caseNumber }}</th>
+        <td class="govuk-table__cell--no-line govuk-table__cell--numeric">{{ searchResults.caseName }}</td>
       </tr>
-    {% endfor %}
     </tbody>
   </table>
   {{ submitButton() }}

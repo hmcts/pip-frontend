@@ -1,23 +1,26 @@
-import { Request, Response } from 'express';
-import {PipApi} from '../utils/PipApi';
-import {SubscriptionCaseSearchActions} from '../resources/actions/subscriptionCaseSearchActions';
+import { Response } from 'express';
+import {SubscriptionCaseSearchRequests} from '../resources/requests/subscriptionCaseSearchRequests';
+import {PipRequest} from '../models/request/PipRequest';
+import {cloneDeep} from 'lodash';
 
-let _api: PipApi;
+const subscriptionCaseSearchResults = new SubscriptionCaseSearchRequests();
 
 export default class SubscriptionCaseSearchResultController {
 
-  constructor(private readonly api: PipApi) {
-    _api = this.api;
-  }
+  public async get(req: PipRequest, res: Response): Promise<void> {
+    const searchInput = req.query['search-input'] as string;
+    const searchResults = await subscriptionCaseSearchResults.getSubscriptionCaseDetails(searchInput);
 
-  public async get(req: Request, res: Response): Promise<void> {
-    const searchInput = req.query['search-input'];
-    const searchResults = await new SubscriptionCaseSearchActions(_api).getSubscriptionCaseDetails(searchInput);
-
-    if (searchResults && searchResults.length) {
-      res.render('subscription-search-case-results', {searchInput, searchResults});
+    if (searchResults) {
+      res.render('subscription-search-case-results', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-search-case-results']),
+        searchInput : searchInput,
+        searchResults: searchResults,
+      });
     } else {
-      res.render('error');
+      res.render('error', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['error']),
+      });
     }
   }
 }

@@ -1,57 +1,73 @@
 import sinon from 'sinon';
-import { Request, Response } from 'express';
-import {PipApi} from '../../../main/utils/PipApi';
+import { Response } from 'express';
+import SubscriptionCaseSearchResultController from '../../../main/controllers/SubscriptionCaseSearchResultController';
 import fs from 'fs';
 import path from 'path';
-import SubscriptionCaseSearchResultController from '../../../main/controllers/SubscriptionCaseSearchResultController';
+import {mockRequest} from '../mocks/mockRequest';
+import {SubscriptionCaseSearchRequests} from '../../../main/resources/requests/subscriptionCaseSearchRequests';
 
-const axios = require('axios');
-jest.mock('axios');
-
-
-const api = new PipApi(axios);
-const subscriptionCaseSearchResultController = new SubscriptionCaseSearchResultController(api);
-const stub = sinon.stub(api, 'getSubscriptionByCaseReference');
+const subscriptionCaseSearchResultController = new SubscriptionCaseSearchResultController();
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCaseList.json'), 'utf-8');
+const subscriptionsCaseData = JSON.parse(rawData);
+const stub = sinon.stub(SubscriptionCaseSearchRequests.prototype, 'getSubscriptionCaseDetails');
+stub.withArgs('ABC12345').returns(subscriptionsCaseData);
 
 describe('Subscription Search Case Reference Result Controller', () => {
-  it('should render the Case Reference search result page', () => {
+  let i18n = {};
+  it('should render the search result page', () => {
 
+    i18n = {
+      'subscription-case-search': {},
+    };
 
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/subscriptionCaseList.json'), 'utf-8');
-    const subscriptionsCaseData = JSON.parse(rawData);
-
-    stub.withArgs('ABC12345').returns(subscriptionsCaseData);
-
-    const response = { render: function() {return '';}} as unknown as Response;
-    const request = {query: {'search-input': 'ABC12345'}} as unknown as Request;
-
+    const response = {
+      render: function () {
+        return '';
+      },
+    } as unknown as Response;
+    const request = mockRequest(i18n);
+    request.query = { 'search-input': 'ABC12345'};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('subscription-search-case-results');
+    const expectedData = {
+      ...i18n['subscription-search-case-results'],
+      searchInput : 'ABC12345',
+      searchResults: subscriptionsCaseData,
+    };
 
+    responseMock.expects('render').once().withArgs('subscription-search-case-results', expectedData);
 
     return subscriptionCaseSearchResultController.get(request, response).then(() => {
       responseMock.verify();
     });
-
   });
 
   it('should render an error page if search input does not return any results', () => {
 
-    stub.withArgs('').returns(null);
+    stub.withArgs('12345678').returns(null);
 
-    const response = { render: function() {return '';}} as unknown as Response;
-    const request = { query: { 'search-input': ''}} as unknown as Request;
+    const i18n = {
+      'subscription-search-case-results': {},
+    };
+
+    const response = {
+      render: function() {return '';},
+    } as unknown as Response;
+
+    const request = mockRequest(i18n);
+    request.query = {'search-input': ''};
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('error');
+    const expectedData = {
+      ...i18n['error'],
+    };
+
+    responseMock.expects('render').once().withArgs('error', expectedData);
 
     return subscriptionCaseSearchResultController.get(request, response).then(() => {
       responseMock.verify();
     });
-
   });
-
 
 });

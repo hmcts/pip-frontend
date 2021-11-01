@@ -1,30 +1,36 @@
-import { Request, Response } from 'express';
-import {SubscriptionCaseSearchActions} from '../resources/actions/subscriptionCaseSearchActions';
-import {isNull} from 'util';
-import {PipApi} from '../utils/PipApi';
+import { Response } from 'express';
+import {SubscriptionCaseSearchRequests} from '../resources/requests/subscriptionCaseSearchRequests';
+import {cloneDeep} from 'lodash';
+import {PipRequest} from '../models/request/PipRequest';
 
-let _api: PipApi;
+const subscriptionCaseSearchResults = new SubscriptionCaseSearchRequests();
 
 export default class SubscriptionCaseSearchController {
 
-  constructor(private readonly api: PipApi) {
-    _api = this.api;
+  public async get(req: PipRequest, res: Response):  Promise<void> {
+    res.render('subscription-case-search', {
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-case-search']),
+    });
   }
 
-  public get(req: Request, res: Response): void {
-    res.render('subscription-case-search');
-  }
+  public async post(req: PipRequest, res: Response): Promise<void> {
+    const searchInput = req.body['search-input'] as string;
+    if (searchInput) {
+      const searchResults = await subscriptionCaseSearchResults.getSubscriptionCaseDetails(searchInput);
 
-  public async post(req: Request, res: Response): Promise<void> {
-    const searchInput = req.body['search-input'];
-    if (searchInput && searchInput.length >= 3) {
-      const searchResults = await new SubscriptionCaseSearchActions(_api).getSubscriptionCaseDetails(searchInput);
-
-      (!isNull(searchResults) && searchResults.length > 0) ?
+      (searchResults) ?
         res.redirect(`subscription-search-case-results?search-input=${searchInput}`) :
-        res.render('subscription-case-search', { invalidInputError: false, noResultsError: true});
+        res.render('subscription-case-search', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-case-search']),
+          invalidInputError: false,
+          noResultsError: true,
+        });
     } else {
-      res.render('subscription-case-search', { invalidInputError: true, noResultsError: false });
+      res.render('subscription-case-search', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-case-search']),
+        invalidInputError: true,
+        noResultsError: false,
+      });
     }
   }
-} 
+}

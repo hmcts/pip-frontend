@@ -1,21 +1,23 @@
 import {expect} from 'chai';
 import request from 'supertest';
-
+import sinon from 'sinon';
 import {app} from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
+import {SubscriptionCaseSearchRequests} from '../../../main/resources/requests/subscriptionCaseSearchRequests';
 
 const searchTerm = 'ABC12345';
 const numOfResults = '1';
+const resultFound = 'Result successfully found';
 const PAGE_URL = `/subscription-search-case-results?search-input=${searchTerm}`;
 
 const rowClass = 'govuk-table__row';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/subscriptionCaseList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCaseList.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
-
+sinon.stub(SubscriptionCaseSearchRequests.prototype, 'getSubscriptionCaseDetails').returns(subscriptionsData);
 
 jest.mock('axios', () => {
   return {
@@ -41,8 +43,8 @@ describe('Search Results Page', () => {
   });
 
   it('should list the number of results found', () => {
-    const bodyText = htmlRes.getElementsByClassName('govuk-table__body');
-    expect(bodyText[0].innerHTML).contains(numOfResults, `Could not find ${numOfResults} results in the body`);
+    const bodyText = htmlRes.getElementsByClassName('govuk-heading-m');
+    expect(bodyText[0].innerHTML).contains(resultFound, `Could find ${numOfResults} results in the body`);
   });
 
   it('should display first table header', () => {
