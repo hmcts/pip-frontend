@@ -112,6 +112,16 @@ $min-width: 52em;
   width: 80%;
 }
 
+.layout-width-three-fifths {
+  float: left;
+  width: 60%;
+}
+
+.layout-width-two-fifths {
+  float: left;
+  width: 40%;
+}
+
 .parent-box {
   min-height: 1px;
   position: relative;
