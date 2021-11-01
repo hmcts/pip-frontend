@@ -1,26 +1,32 @@
 {% extends "template.njk" %}
-{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "macros/common-components.njk" import submitButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% block pageTitle %}
-  {{ "Search for a Case" | safe }}
+  {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
-  {{ goBack('/') }}
+  {{ govukBackLink({
+    text: text,
+    href: '#',
+    attributes: {
+      onClick: "history.back();event.preventDefault();"
+    }
+  }) }}
 {% endblock %}
 
 {% block content %}
   {% if noResultsError or invalidInputError %}
-    {% set errorMessage = 'There is nothing matching your criteria' %}
     <div class="govuk-grid-row">
       <div class="no_padding govuk-grid-column-three-quarters">
         {{ govukErrorSummary({
-          titleText: "There is a problem",
+          titleText: error.title,
           errorList: [
             {
-              text: errorMessage,
+              text: error.header,
               href: "#search-input"
             }
           ]
@@ -36,15 +42,15 @@
     <div class="govuk-form-group govuk-!-width-one-half">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="search-input">
-          Enter a case reference number
+          {{ header }}
         </label>
       </h1>
       <div class="{{ formGroupError }}">
         <div id="search-input-hint" class="govuk-hint">
-          Please provide the exact match
+          {{ hint }}
         </div>
         {% if noResultsError or invalidInputError %}
-          <span class="govuk-error-message">Enter a case reference number</span>
+          <span class="govuk-error-message">{{ header }}</span>
         {% endif %}
         {{ govukInput({
           label: {
@@ -61,10 +67,15 @@
     {% if noResultsError %}
       <div class="govuk-grid-row">
         <div class="no_padding govuk-grid-column-full">
-          <h2 class="govuk-heading-s">There are no matching results.</h2>
-          <p class="govuk-body">Case ID not found, please try again or search under a Case Name or subscribe to a whole court</p>
+          <h2 class="govuk-heading-s">{{ error.header }}</h2>
+          <p class="govuk-body">{{ error.notfound }}</p>
         </div>
       </div>
     {% endif %}
   </form>
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
 {% endblock %}

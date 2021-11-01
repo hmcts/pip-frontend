@@ -20,6 +20,8 @@ export interface PipRequest extends Request {
       'view-option': {};
       'single-justice-procedure-search': {};
       'subscription-add': {};
+      'subscription-case-search': {};
+      'subscription-search-case-results': {};
     };
   };
   lng?: string;

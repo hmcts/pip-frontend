@@ -56,7 +56,7 @@ describe('URN Search Page', () => {
   it('should display back button', () => {
     const backButton = htmlRes.getElementsByClassName('govuk-back-link');
     expect(backButton[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backButton[0].getAttribute('href')).equal('/', 'Back button does not contain correct link');
+    expect(backButton[0].getAttribute('href')).equal('#', 'Back button does not contain correct link');
   });
 
   it('should not display error summary on the initial load', () => {
@@ -79,7 +79,7 @@ describe('URN Search Page Blank Input', () => {
 
   it('should display minimum input error message', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
-    expect(errorSummary[0].innerHTML).contains('There is nothing matching your criteria', 'Could not find error message');
+    expect(errorSummary[0].innerHTML).contains('There are no matching results.', 'Could not find error message');
   });
 
   it('should display error message', () => {
@@ -114,7 +114,7 @@ describe('URN Search Page Invalid Input', () => {
 
   it('should display minimum input error message', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
-    expect(errorSummary[0].innerHTML).contains('There is nothing matching your criteria', 'Could not find error message');
+    expect(errorSummary[0].innerHTML).contains('There are no matching results.', 'Could not find error message');
   });
 
   it('should display error message', () => {
