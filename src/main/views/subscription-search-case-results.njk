@@ -3,7 +3,7 @@
 {% from "./macros/common-components.njk" import goBack, submitButton %}
 
 {% block pageTitle %}
-  {{ "Subscription Case Search Results" | safe }}
+  {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
@@ -11,14 +11,14 @@
 {% endblock %}
 
 {% block content %}
-  <h1 class="govuk-heading-l">Search result</h1>
-  <h3 class="govuk-heading-m">Result successfully found</h3>
+  <h1 class="govuk-heading-l">{{ header }}</h1>
+  <h3 class="govuk-heading-m">{{ subheader }}</h3>
 
   <table class="govuk-table govuk-!-width-two-thirds">
     <thead class="govuk-table__head">
     <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Case reference number</th>
-      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Case name</th>
+      <th scope="col" class="govuk-table__header">{{ table.header1 }}</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">{{ table.header2 }}</th>
     </tr>
     </thead>
     <tbody class="govuk-table__body">

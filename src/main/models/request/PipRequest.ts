@@ -28,6 +28,8 @@ export interface PipRequest extends Request {
       'list-option': {};
       'session-management': {};
       'standard-list': {};
+      'subscription-case-search': {};
+      'subscription-search-case-results': {};
     };
   };
   lng?: string;
