@@ -1,25 +1,30 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
-{% from "macros/common-components.njk" import goBack %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-    {{ courtName + title | safe }}
+    {{ courtName + " Live Cases Updates" | safe }}
 {% endblock %}
 
 {% block beforeContent %}
-    {{ goBack() }}
+    {{ govukBackLink({
+        text: text,
+        href: '/live-case-alphabet-search'
+    }) }}
 {% endblock %}
 
 {% block content %}
-    <h2 class="govuk-heading-l">{{ heading }}</h2>
+    <h2 class="govuk-heading-l">Live hearing updates - daily court list</h2>
     <h3 class="govuk-heading-m">{{ courtName }}</h3>
     <p class=" govuk-body-lead">{{ updateDateTime }}</p>
-    <p class="govuk-body">{{ p1 }}</p>
+    <p class="govuk-body">The status of each hearing will be updated as events happen live in court</p>
     {% set cases = [] %}
+    {% set courtId = courtId %}
     {% for item in liveCases %}
         {% if item.event.eventStatus %}
             {% set status = item.event.eventStatus +
-                ' - <br /><a class="govuk-link" href="status-description#' +
+                ' - <br /><a class="govuk-link" href="status-description?courtId=' + courtId +
+                '#' +
                 item.event.eventId +
                 '">' +
                 item.event.eventName +
