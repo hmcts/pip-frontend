@@ -52,6 +52,14 @@ module.exports = {
   // LiveCaseAlphabetSearch selectors
   LiveHearingsTableFirstValidResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
 
+  // CaseNameSearch selectors
+  CaseNameInput: '#case-name',
+  CaseNameSearchErrorSummaryTitle: '.govuk-error-summary__title',
+
+  // CaseNameSearchResults selectors
+  CaseNameSearchResultsCheckbox: 'tbody > tr.govuk-table__row > td > .govuk-checkboxes__input',
+  CaseNameSearchResultsHeaderCheckbox: 'thead > tr.govuk-table__row > th > .govuk-checkboxes__input',
+
   // CourtNameSearch selectors
   JurisdictionCheckbox: '#jurisdiction',
   ApplyFiltersButton: '.moj-filter__options > .govuk-button',

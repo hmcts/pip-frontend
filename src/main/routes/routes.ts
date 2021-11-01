@@ -54,6 +54,11 @@ export default function(app: Application): void {
   app.get('/court-name-search', app.locals.container.cradle.courtNameSearchController.get);
   app.post('/court-name-search', app.locals.container.cradle.courtNameSearchController.post);
 
+  app.get('/case-name-search', app.locals.container.cradle.caseNameSearchController.get);
+  app.post('/case-name-search', app.locals.container.cradle.caseNameSearchController.post);
+
+  app.get('/case-name-search-results', app.locals.container.cradle.caseNameSearchResultsController.get);
+
   const healthCheckConfig = {
     checks: {
       // TODO: replace this sample check with proper checks for your application
