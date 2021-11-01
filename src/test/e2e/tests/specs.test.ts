@@ -10,9 +10,11 @@ import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtS
 import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
 import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
 import { SingleJusticeProcedureSearchPage } from '../pageobjects/SingleJusticeProcedureSearch.page';
+import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
+import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
 
 const homePage = new HomePage;
-const subscriptionAddPage = new SubscriptionAddPage();
+let subscriptionAddPage: SubscriptionAddPage;
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
@@ -23,6 +25,8 @@ let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
 let otpLoginPage: OtpLoginPage;
+let caseNameSearchPage: CaseNameSearchPage;
+let caseNameSearchResultsPage: CaseNameSearchResultsPage;
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
@@ -208,12 +212,35 @@ describe('Finding a court or tribunal listing', () => {
       subscriptionManagementPage = await otpLoginPage.clickContinue();
       expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
     });
-  });
 
-  describe('Add a subscription path', () => {
-    it('should open the subscription add page', async () => {
-      await subscriptionAddPage.open('subscription-add');
+    it('should navigate to add subscription page on button click', async () => {
+      subscriptionAddPage = await subscriptionManagementPage.clickAddNewSubscriptionButton();
       expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
     });
+
+    describe('Following case name search path', () => {
+      it('should open case name search path', async () => {
+        await subscriptionAddPage.selectOption('SubscriptionAddByCaseName');
+        caseNameSearchPage = await subscriptionAddPage.clickContinueForCaseName();
+        expect(await caseNameSearchPage.getPageTitle()).toBe('Enter a case name');
+      });
+
+      it('should display error dialog for a invalid case name', async () => {
+        await caseNameSearchPage.enterText('foo');
+        caseNameSearchPage = await caseNameSearchPage.clickContinueWithInvalidInput();
+        expect(await caseNameSearchPage.getErrorSummaryTitle()).toBe('There is a problem');
+      });
+
+      it('should search for a valid case name and navigate to results page', async () => {
+        await caseNameSearchPage.enterText('meed');
+        caseNameSearchResultsPage = await caseNameSearchPage.clickContinue();
+        expect(await caseNameSearchResultsPage.getPageTitle()).toBe('Search result');
+      });
+
+      it('should display 5 results', async () => {
+        expect(await caseNameSearchResultsPage.getResults()).toBe(5);
+      });
+    });
   });
+
 });
