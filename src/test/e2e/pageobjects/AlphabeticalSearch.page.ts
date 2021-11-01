@@ -38,6 +38,4 @@ export class AlphabeticalSearchPage extends PageBase {
     firstItem.click();
     return new HearingListPage();
   }
-
 }
-

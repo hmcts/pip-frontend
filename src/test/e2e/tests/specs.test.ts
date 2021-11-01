@@ -1,4 +1,3 @@
-
 import { HomePage } from '../pageobjects/Home.page';
 import { SearchOptionsPage } from '../pageobjects/SearchOptions.page';
 import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
@@ -30,8 +29,6 @@ let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
 let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
 let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
 let otpLoginPage: OtpLoginPage;
-
-
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {

@@ -116,6 +116,4 @@ describe('URN Search Page Invalid Input', () => {
     const formError = htmlRes.getElementsByClassName(formErrorClass);
     expect(formError.length).equal(1, 'Could not find form errors');
   });
-
 });
-

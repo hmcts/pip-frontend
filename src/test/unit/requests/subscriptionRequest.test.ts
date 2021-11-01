@@ -32,7 +32,6 @@ const errorRequest = {
   request: 'test error',
 };
 
-
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
 const stub = sinon.stub(dataManagementApi, 'get');
@@ -102,5 +101,3 @@ describe('non existing subscriptions getSubscriptionByUrn error response', () =>
     expect(userSubscriptions).toBe(null);
   });
 });
-
-

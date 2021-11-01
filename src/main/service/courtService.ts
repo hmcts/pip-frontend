@@ -59,5 +59,4 @@ export class CourtService {
     });
     return alphabetisedCourtList;
   }
-
 }
