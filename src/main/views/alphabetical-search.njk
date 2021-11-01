@@ -101,18 +101,17 @@
       {% for key, value in courtList %}
         {% if value | length > 0 %}
           {% for courtName, courtDetails in value %}
-            <tr class="govuk-table__row">
+            <tr  class="govuk-table__row">
               {% if first != key %}
                 {% set first = key %}
                 <th scope="row" class="govuk-table__header">
-                  <div id="{{ key }}" class="govuk-!-font-size-27">{{ key }}</div>
+                  <div id="{{ key }}" class="govuk-!-font-size-27">{{key}}</div>
                 </th>
               {% else %}
                 <th scope="row" class="govuk-table__header">
                 </th>
               {% endif %}
-              <td class="govuk-table__cell"><a href="/live-case-status?courtId={{ courtDetails.id }}"
-                                               class="govuk-link">{{ courtName }}</a></td>
+              <td class="govuk-table__cell"><a href="/hearing-list?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></td>
             </tr>
           {% endfor %}
           {% set first = '' %}
