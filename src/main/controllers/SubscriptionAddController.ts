@@ -26,7 +26,7 @@ export default class SubscriptionAddController {
         break;
       }
       case 'name': {
-        res.redirect('/');
+        res.redirect('/case-name-search');
         break;
       }
       case 'court-or-tribunal':
