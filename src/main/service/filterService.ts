@@ -17,7 +17,7 @@ export class FilterService {
     return itemsList;
   }
 
-  public generateCheckboxGroups(checkedItems: object, list: any[]): object[] {
+  public generateCheckboxGroups(checkedItems: object, list: any): object[] {
     const checkboxGroups = [];
     const checkedGroups = Object.keys(checkedItems);
     checkedGroups.forEach((group) => {

@@ -60,7 +60,7 @@ export class CourtService {
     return alphabetisedCourtList;
   }
 
-  public generateCourtsAlphabetObject(courtsList: Court[]): object {
+  public generateCourtsAlphabetObject(courtsList: any): object {
     const alphabetOptions = CourtService.generateAlphabetObject();
 
     // Then loop through each court, and add it to the list
