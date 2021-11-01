@@ -22,10 +22,11 @@ export class FilterService {
   }
 
   public handleFilterClear(selectedFilters: string[], reqQuery: string): string[] {
-    if (reqQuery) {
+    if (reqQuery == 'all') {
+      return [];
+    } else {
       selectedFilters.splice(selectedFilters.indexOf(reqQuery), 1);
       return selectedFilters;
     }
-    return [];
   }
 }
