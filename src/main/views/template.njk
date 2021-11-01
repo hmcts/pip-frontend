@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block header %}
-
   <header class="govuk-header" role="banner" data-module="govuk-header">
     <div class="govuk-header__container govuk-width-container">
       <div class="govuk-header__logo">
@@ -37,12 +36,12 @@
           {{ serviceNameText }}
         </a>
         <div class="govuk-form-group header-select">
-          <select class="govuk-select" id="my-services" name="my services" onchange="location = this.value;">
-            <option value="" selected></option>
+          <select class="govuk-select" id="select-option" name="select option" onchange="location = this.value;">
+            <option disabled selected value=""></option>
             <option value="otp-login">My subscriptions</option>
             <option value="">Return to My Services</option>
-            <option value="">View Public Single Justice Procedure</option>
-            <option value="">Find Live Case Status Updates</option>
+            <option value="single-justice-procedure-search">View Public Single Justice Procedure</option>
+            <option value="live-case-alphabet-search">Find Live Case Status Updates</option>
             <option value="">Find a publication</option>
             <option value="">Log out</option>
           </select>

@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 
 const PAGE_URL = '/';
 const headingClass = 'govuk-heading-xl';
-const navigationClass = 'govuk-header__navigation-item';
+const selectClass = 'govuk-select';
 const startButtonClass = 'govuk-button govuk-button--start';
 const expectedHeader = 'Find a court or tribunal hearing list';
 
@@ -21,9 +21,9 @@ describe('Home page', () => {
     expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
   });
 
-  it('should display navigation menu',  () => {
-    const nav = htmlRes.getElementsByClassName(navigationClass);
-    expect(nav[0].innerHTML).contains('Subscriptions', 'Could not find the navigation bar');
+  it('should display select menu',  () => {
+    const select = htmlRes.getElementsByClassName(selectClass);
+    expect(select[0].innerHTML).contains('My subscriptions', 'Could not find the select menu');
   });
 
   it('should display button start', () => {

@@ -9,7 +9,7 @@ import { ViewOptionPage } from '../pageobjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
 import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
 import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
-import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
+import { SingleJusticeProcedureSearchPage } from '../pageobjects/SingleJusticeProcedureSearch.page';
 
 const homePage = new HomePage;
 const subscriptionAddPage = new SubscriptionAddPage();
@@ -76,7 +76,18 @@ describe('Finding a court or tribunal listing', () => {
     it('should display 4 results in the table', async () => {
       expect(await liveCaseStatusPage.getResults()).toBe(4);
     });
+  });
 
+  describe('Following the Select Header \'Find Live Case Status Updates\' option', () => {
+    after(async () => {
+      await homePage.open('');
+    });
+
+    it('should select  \'Find Live Case Status Updates\' option and navigate to the Live Hearing Updates page', async () => {
+      await homePage.open('');
+      liveCaseCourtSearchControllerPage = await homePage.clickSelectLiveCaseStatusUpdates();
+      expect(await liveCaseCourtSearchControllerPage.getPageTitle()).toEqual('Live hearing updates - select a court');
+    });
   });
 
   describe('Following the \'Single Justice Procedure list\' option', () => {
@@ -95,10 +106,26 @@ describe('Finding a court or tribunal listing', () => {
       singleJusticeProcedureSearchPage = await viewOptionPage.clickContinueSingleJusticeProcedure();
       expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure list');
     });
+  });
 
+  describe('Following the Select Header \'View Public Single Justice Procedure\' option', () => {
+    after(async () => {
+      await homePage.open('');
+    });
+
+    it('should select  \'View Public Single Justice Procedure\' option and navigate to Single Justice Procedure list page', async () => {
+      await homePage.open('');
+      singleJusticeProcedureSearchPage = await homePage.clickSelectViewPublicSingleJusticeProcedure();
+      expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure list');
+    });
   });
 
   describe('Following the \'tribunal hearing list\' option and \'find\' path', () => {
+    before(async () => {
+      await homePage.open('');
+      viewOptionPage = await homePage.clickStartNowButton();
+    });
+
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
@@ -142,7 +169,6 @@ describe('Finding a court or tribunal listing', () => {
     const searchTerm = 'Abergavenny Magistrates\' Court';
     const expectedNumOfHearings = 13;
 
-
     it('should select \'tribunal hearing list\' option and navigate to search option page', async () => {
       await viewOptionPage.selectSearchRadio();
       searchOptionsPage = await viewOptionPage.clickContinueForSearch();
@@ -171,8 +197,9 @@ describe('Finding a court or tribunal listing', () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
     });
-    it('should open the OTP login page when a user clicks "Subscriptions" header', async () => {
-      otpLoginPage = await homePage.clickSubscriptionsButton();
+
+    it('should open the OTP login page when a user clicks "My Subscriptions" select', async () => {
+      otpLoginPage = await homePage.clickSelectSubscriptions();
       expect(await otpLoginPage.getPageTitle()).toEqual('Verify your email address');
     });
 
@@ -188,6 +215,5 @@ describe('Finding a court or tribunal listing', () => {
       await subscriptionAddPage.open('subscription-add');
       expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
     });
-
   });
 });

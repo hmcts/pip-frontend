@@ -10,43 +10,6 @@ $min-width: 52em;
 
 //Styling for the Header
 
-////This allows the subscription drop down to not overlap
-//@media (min-width: $min-width) {
-//  .govuk-header__navigation--end {
-//    padding-top: 1px;
-//  }
-//}
-////The below styling makes sure the subscription text doesn't overlap with the heading as the screen is made smaller
-////by increasing the minimum width
-//@media (max-width: $min-width) {
-//  .js-enabled {
-//    .govuk-header__menu-button  {
-//      display: block;
-//    }
-//
-//    .govuk-header__navigation  {
-//      display: none;
-//      margin-bottom: 10px;
-//    }
-//  }
-//}
-//
-//.js-enabled {
-//  .govuk-header__navigation--open {
-//    display: block;
-//  }
-//}
-//
-//@media (max-width: $min-width) {
-//  .govuk-header__navigation-item {
-//    border: 0;
-//    border-bottom: 1px solid $underline-colour;
-//    display: block;
-//    margin-right: 0;
-//    padding: 10px 0;
-//  }
-//}
-
 .header-select {
   margin-bottom: 10px;
 }

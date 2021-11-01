@@ -3,7 +3,9 @@ module.exports = {
   ContinueButton: '.govuk-button',
   CommonPageTitle: '.govuk-heading-l',
   CommonPageTitleM: '.govuk-heading-m',
-  SubscriptionsButton: '#subscriptionHeaderButton',
+  SubscriptionsSelect: '#select-option > option:nth-child(2)',
+  SingleJusticeProcedureSelect: '#select-option > option:nth-child(4)',
+  LiveCaseSelect: '#select-option > option:nth-child(5)',
   SignInButton: '#signInButton',
   Results: 'tbody > tr.govuk-table__row',
   // Home page selectors

@@ -1,5 +1,7 @@
 import { ViewOptionPage } from './ViewOption.page';
-import {OtpLoginPage} from './OtpLogin.page';
+import { OtpLoginPage } from './OtpLogin.page';
+import { SingleJusticeProcedureSearchPage } from './SingleJusticeProcedureSearch.page';
+import { LiveCaseCourtSearchControllerPage } from './LiveCaseCourtSearchController.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -23,9 +25,21 @@ export class HomePage {
     return new ViewOptionPage();
   }
 
-  async clickSubscriptionsButton(): Promise<OtpLoginPage> {
-    const button = await $(helpers.SubscriptionsButton);
-    button.click();
+  async clickSelectSubscriptions(): Promise<OtpLoginPage> {
+    const select = await $(helpers.SubscriptionsSelect);
+    select.click();
     return new OtpLoginPage();
+  }
+
+  async clickSelectViewPublicSingleJusticeProcedure(): Promise<SingleJusticeProcedureSearchPage> {
+    const select = await $(helpers.SingleJusticeProcedureSelect);
+    select.click();
+    return new SingleJusticeProcedureSearchPage();
+  }
+
+  async clickSelectLiveCaseStatusUpdates(): Promise<LiveCaseCourtSearchControllerPage> {
+    const select = await $(helpers.LiveCaseSelect);
+    select.click();
+    return new LiveCaseCourtSearchControllerPage();
   }
 }
