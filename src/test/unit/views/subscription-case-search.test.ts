@@ -1,9 +1,11 @@
 import { expect } from 'chai';
 import request from 'supertest';
+import sinon from 'sinon';
 
 import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
+import {SubscriptionCaseSearchRequests} from '../../../main/resources/requests/subscriptionCaseSearchRequests';
 
 const PAGE_URL = '/subscription-case-search';
 const headingClass = 'govuk-label-wrapper';
@@ -19,9 +21,10 @@ const expectedButtonText = 'Continue';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/subscriptionCaseList.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData);
 
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCaseList.json'), 'utf-8');
+const subscriptionsData = JSON.parse(rawData);
+sinon.stub(SubscriptionCaseSearchRequests.prototype, 'getSubscriptionCaseDetails').returns(subscriptionsData);
 
 jest.mock('axios', () => {
   return {
@@ -95,14 +98,16 @@ jest.mock('axios', () => {
   return {
     create: function(): { get: () => Promise<any> } {
       return {
-        get: function(): Promise<any> { return new Promise((resolve) => resolve({data: {}}));},
+        get: function(): Promise<any> { return new Promise((resolve) => resolve({data: {'search-input': '123'}}));},
       };
     },
   };
 });
 describe('URN Search Page Invalid Input', () => {
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'search-input': '123'}).then(res => {
+    sinon.restore();
+    sinon.stub(SubscriptionCaseSearchRequests.prototype, 'getSubscriptionCaseDetails').returns(null);
+    await request(app).post(PAGE_URL).send({'search-input': '12345'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
   });

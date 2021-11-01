@@ -318,7 +318,7 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Following the subscription \'search\' by case reference path', () => {
-    const validSearchTerm = 'ABC12345';
+    const validSearchTerm = '487065515';
     const invalidSearchTerm = 'dddd';
     const expectedNumOfResults = 1;
 
