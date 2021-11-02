@@ -19,6 +19,7 @@ export interface PipRequest extends Request {
       'subscription-management': {};
       'view-option': {};
       'single-justice-procedure-search': {};
+      'status-description': {};
       'subscription-add': {};
       'case-name-search': {};
       'case-name-search-results': {};
