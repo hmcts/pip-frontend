@@ -19,7 +19,6 @@ export interface PipRequest extends Request {
       'subscription-management': {};
       'view-option': {};
       'single-justice-procedure-search': {};
-      'status-description': {};
       'subscription-add': {};
       'subscription-urn-search': {};
       'subscription-urn-search-result': {};
