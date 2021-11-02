@@ -104,20 +104,20 @@ describe('Finding a court or tribunal listing', () => {
 
   });
 
-  describe('Following the \'tribunal hearing list\' option and \'find\' path', () => {
+  describe('Following the \'Court or Tribunal hearing Publications\' option and \'no name\' path', () => {
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
     });
 
-    it('should select \'tribunal hearing list\' option and navigate to search option page', async () => {
+    it('should select \'Court or Tribunal hearing Publications\' option and navigate to search option page', async () => {
       await viewOptionPage.selectSearchRadio();
       searchOptionsPage = await viewOptionPage.clickContinueForSearch();
       expect(await searchOptionsPage.getPageTitle()).toEqual('Do you know the name of the court or tribunal?');
     });
 
-    it('should select \'find\' option and navigate to alphabetical search page', async () => {
-      await searchOptionsPage.selectFindRadio();
+    it('should select \'I do not have the name\' option and navigate to alphabetical search page', async () => {
+      await searchOptionsPage.selectDontHaveTheNameRadio();
       alphabeticalSearchPage = await searchOptionsPage.clickContinueForAlphabetical();
       expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal listing');
     });
@@ -136,11 +136,11 @@ describe('Finding a court or tribunal listing', () => {
 
     it('selecting first result should take you to to the hearings list page', async () => {
       hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-      expect(await hearingListPage.getPageTitle()).toEqual('Abergavenny Magistrates\' Court hearing list');
+      expect(await hearingListPage.getPageTitle()).toEqual('Aberdeen Tribunal Hearing Centre hearing list');
     });
 
-    it('should display 13 results', async() => {
-      expect(await hearingListPage.getResults()).toBe(13);
+    it('should display 0 results', async() => {
+      expect(await hearingListPage.getResults()).toBe(0);
     });
   });
 
@@ -156,7 +156,7 @@ describe('Finding a court or tribunal listing', () => {
     });
 
     it('should select \'search\' option and navigate to search page', async () => {
-      await searchOptionsPage.selectSearchRadio();
+      await searchOptionsPage.selectHaveTheNameRadio();
       searchPage = await searchOptionsPage.clickContinueForSearch();
       expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
     });
