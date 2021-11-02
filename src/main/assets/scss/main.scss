@@ -236,6 +236,11 @@ div {
   }
 }
 
+.error {
+  @extend .govuk-body;
+  color:  $govuk-error-colour;
+}
+
 .attrEntry {
   label {
     @extend .govuk-body;
