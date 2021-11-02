@@ -39,42 +39,31 @@ describe('Alphabetical Search page', () => {
   });
 
   it('should contain letters that navigate to other sections of the page', () => {
-    const alphabeticalLetters = htmlRes.getElementsByClassName('govuk-link--no-visited-state');
+    const alphabeticalLetters = htmlRes.getElementById('A-selector');
 
-    expect(alphabeticalLetters[0].innerHTML).contains('A', 'Alphabetical link is not present');
-    expect(alphabeticalLetters[0].getAttribute('href')).equal('#A');
+    expect(alphabeticalLetters.innerHTML).contains('A', 'Alphabetical link is not present');
+    expect(alphabeticalLetters.getAttribute('href')).equal('#A');
   });
 
   it('should contain no link if letter has no hearings', () => {
-    const alphabeticalLetters = htmlRes.getElementsByClassName('govuk-link--no-underline');
+    const alphabeticalLetters = htmlRes.getElementById('B-selector');
 
-    expect(alphabeticalLetters[1].innerHTML).contains('B', 'Alphabetical link is not present');
-    expect(alphabeticalLetters[1].getAttribute('href')).not.exist;
-  });
-
-  it('should contain no hearings text', () => {
-    const noHearings = htmlRes.getElementById('B').parentNode.parentNode as Element;
-
-    expect(noHearings.innerHTML)
-      .contains('No hearings are scheduled in any of these', 'No hearings list not present');
-    expect(noHearings.innerHTML)
-      .contains('locations today', 'No hearings list not present');
+    expect(alphabeticalLetters.innerHTML).contains('B', 'Alphabetical link is not present');
+    expect(alphabeticalLetters.getAttribute('href')).not.exist;
   });
 
   it('should contain the correct headers', () => {
     const tableHeaders = htmlRes.getElementsByClassName('govuk-table__header');
     expect(tableHeaders[1].innerHTML)
       .contains('Court or tribunal', 'Court or tribunal header is not present');
-    expect(tableHeaders[2].innerHTML)
-      .contains('Number of hearings', 'Number of hearings header is not present');
   });
 
   it('should contain the letter names in rows are present', () => {
-    for (let i = 0; i < 26; i++) {
-      const letter = String.fromCharCode(65 + i);
+    const lettersUsed = ['A', 'T', 'W'];
+    lettersUsed.forEach(letter => {
       const row = htmlRes.getElementById(letter);
       expect(row.innerHTML).contains(letter);
-    }
+    });
   });
 
   it('should have the first cell containing Abergavenny Magistrates\' Court', () => {

@@ -83,6 +83,16 @@ $min-width: 52em;
   width: 80%;
 }
 
+.layout-width-three-fifths {
+  float: left;
+  width: 60%;
+}
+
+.layout-width-two-fifths {
+  float: left;
+  width: 40%;
+}
+
 .parent-box {
   min-height: 1px;
   position: relative;
@@ -184,6 +194,10 @@ div {
   .attrEntry {
     div {
       @extend .govuk-body;
+
+      &.error {
+        color:  $govuk-error-colour;
+      }
     }
   }
 }
@@ -195,6 +209,15 @@ div {
     @extend .govuk-button;
     @extend .govuk-\!-margin-right-4;
   }
+}
+
+.error {
+  @extend .govuk-body;
+  color:  $govuk-error-colour;
+}
+
+.verifying-modal {
+  display: none;
 }
 
 .attrEntry {
@@ -246,4 +269,10 @@ div {
 
 .vertical-center-table-header {
   vertical-align: middle;
+}
+
+.filter-back-to-top-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
 }
