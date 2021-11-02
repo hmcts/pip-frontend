@@ -7,5 +7,8 @@
   "error": {
     "line1": "No hearings are scheduled in any of these",
     "line2": "locations today"
-  }
+  },
+  "filter": "Filter",
+  "clearAll": "Clear filters",
+  "selectedFilter": "Selected filter"
 }
