@@ -14,12 +14,7 @@ const courtNameSearchController = new CourtNameSearchController();
 sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves([]);
 sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList').resolves({});
 sinon.stub(FilterService.prototype, 'reCreateKeysList').withArgs(filters, {}).returns([]);
-const filterServiceStub = sinon.stub(FilterService.prototype, 'buildFilterValueOptions');
-filterServiceStub.withArgs(filters, [], []).returns({});
-filterServiceStub.withArgs(filters, [], ['crown', 'london']).returns({});
-filterServiceStub.withArgs(filters, [], ['crown', 'crown court']).returns({});
-filterServiceStub.withArgs(filters, [], ['crown']).returns({});
-
+sinon.stub(FilterService.prototype, 'buildFilterValueOptions').returns({});
 
 describe('Court Name Search Controller', () => {
   const i18n = {
