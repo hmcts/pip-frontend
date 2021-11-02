@@ -43,9 +43,9 @@ export default function(app: Application): void {
   app.post('/subscription-add', app.locals.container.cradle.subscriptionAddController.post);
   app.get('/subscription-management', app.locals.container.cradle.subscriptionManagementController.get);
 
+  app.get('/status-description', app.locals.container.cradle.statusDescriptionController.get);
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
-
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
 
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
@@ -63,6 +63,6 @@ export default function(app: Application): void {
       sampleCheck: healthcheck.raw(() => healthcheck.up()),
     },
   };
-
+  
   healthcheck.addTo(app, healthCheckConfig);
 }

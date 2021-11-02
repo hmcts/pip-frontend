@@ -26,7 +26,7 @@ describe('Live Status page', () => {
   it('should display a back button with the correct value', () => {
     const backLink = htmlRes.getElementsByClassName('govuk-back-link');
     expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
+    expect(backLink[0].getAttribute('href')).equal('/live-case-alphabet-search', 'Back value does not contain correct link');
   });
 
   it('should display correct header', () => {
@@ -55,7 +55,7 @@ describe('Live Status page', () => {
   it('should contain a row with the correct values', () => {
     const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
     const items = tableRows.item(1).children;
-    const statusColumnValue = 'Committal for Sentence - <br><a class="govuk-link" href="status-description#2">Appeal Interpreter Sworn</a> - 12:25';
+    const statusColumnValue = 'Committal for Sentence - <br><a class="govuk-link" href="status-description?courtId=1#2">Appeal Interpreter Sworn</a> - 12:25';
 
     expect(items.item(0).innerHTML).contains('1', 'Court Number not found / correct');
     expect(items.item(1).innerHTML).contains('T20217099', 'Case number not found / correct');
