@@ -32,6 +32,7 @@ describe('Live Status Controller', () => {
       updateDateTime: moment.utc(Date.parse(liveCases.results[0].lastUpdated)).format('dddd D MMMM YYYY\xa0\xa0\xa0\xa0h:mma'),
       liveCases: liveCases.results[0].courtUpdates,
       refreshTimer: 15000,
+      courtId: '1',
     };
 
     const responseMock = sinon.mock(response);
