@@ -1,0 +1,13 @@
+{
+  "title": "Case Name Search",
+  "heading": "Enter a case name",
+  "backButton": "Back",
+  "inputLabel": "Enter the name of the party or parties involved in this case",
+  "error": {
+    "notFound": "Case name not found. Please try again or search by case reference number, unique reference number, or by a whole court",
+    "title": "There is a problem",
+    "input": "Please provide a correct case name",
+    "line1": "There are no matching results.",
+    "line2": "You can improve your results by double checking your spelling."
+  }
+}

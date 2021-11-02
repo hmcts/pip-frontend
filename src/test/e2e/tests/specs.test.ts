@@ -8,15 +8,17 @@ import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagemen
 import { ViewOptionPage } from '../pageobjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
 import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
-import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
-import { SubscriptionUrnSearchResultsPage} from '../pageobjects/SubscriptionUrnSearchResults.page';
+import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';import { SubscriptionUrnSearchResultsPage} from '../pageobjects/SubscriptionUrnSearchResults.page';
 import { SubscriptionUrnSearchPage} from '../pageobjects/SubscriptionUrnSearch.page';
 import { SingleJusticeProcedureSearchPage } from '../pageobjects/SingleJusticeProcedureSearch.page';
 import {IdamSigninPage} from '../PageObjects/IdamSignin.page';
 
-const homePage = new HomePage;
 const idamSigninPage = new IdamSigninPage;
-const subscriptionAddPage = new SubscriptionAddPage();
+import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
+import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
+
+const homePage = new HomePage;
+let subscriptionAddPage: SubscriptionAddPage;
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
@@ -29,6 +31,8 @@ let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
 let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
 let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
 let otpLoginPage: OtpLoginPage;
+let caseNameSearchPage: CaseNameSearchPage;
+let caseNameSearchResultsPage: CaseNameSearchResultsPage;
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "Find a court or tribunal listing title', async () => {
@@ -187,62 +191,90 @@ describe('Finding a court or tribunal listing', () => {
       subscriptionManagementPage = await otpLoginPage.clickContinue();
       expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
     });
-  });
 
-  describe('Idam SignIn selection', () => {
-    const valueToSelectCrime = 'Crime';
-    const valueToSelectCFT= 'CFT';
-    const returnUrl= 'https://www.google.com';
-    it('should open Idam SignIn page with Sign in to your account', async () => {
-      await idamSigninPage.selectSignIn();
-      expect(await idamSigninPage.getPageTitle()).toEqual('Sign in to your account');
+    describe('Following case name search path', () => {
+      it('should open case name search path', async () => {
+        await subscriptionAddPage.selectOption('SubscriptionAddByCaseName');
+        caseNameSearchPage = await subscriptionAddPage.clickContinueForCaseName();
+        expect(await caseNameSearchPage.getPageTitle()).toBe('Enter a case name');
+      });
+
+      it('should display error dialog for a invalid case name', async () => {
+        await caseNameSearchPage.enterText('foo');
+        caseNameSearchPage = await caseNameSearchPage.clickContinueWithInvalidInput();
+        expect(await caseNameSearchPage.getErrorSummaryTitle()).toBe('There is a problem');
+      });
+
+      it('should search for a valid case name and navigate to results page', async () => {
+        await caseNameSearchPage.enterText('meed');
+        caseNameSearchResultsPage = await caseNameSearchPage.clickContinue();
+        expect(await caseNameSearchResultsPage.getPageTitle()).toBe('Search result');
+      });
+
+      it('should display 5 results', async () => {
+        expect(await caseNameSearchResultsPage.getResults()).toBe(5);
+      });
     });
 
-    it('selecting crime and redirect to external url', async () => {
-      await idamSigninPage.selectIdam(valueToSelectCrime);
-      expect(await idamSigninPage.clickContinue()).toHaveHref(returnUrl);
+    describe('Idam SignIn selection', () => {
+      const valueToSelectCrime = 'Crime';
+      const valueToSelectCFT= 'CFT';
+      const returnUrl= 'https://www.google.com';
+      it('should open Idam SignIn page with Sign in to your account', async () => {
+        await idamSigninPage.selectSignIn();
+        expect(await idamSigninPage.getPageTitle()).toEqual('Sign in to your account');
+      });
+
+      it('selecting crime and redirect to external url', async () => {
+        await idamSigninPage.selectIdam(valueToSelectCrime);
+        expect(await idamSigninPage.clickContinue()).toHaveHref(returnUrl);
+      });
+
+      it('selecting CFT and redirect to external url', async () => {
+        await idamSigninPage.selectIdam(valueToSelectCFT);
+        expect(await idamSigninPage.clickContinue()).toHaveHref(returnUrl);
+      });
     });
 
-    it('selecting CFT and redirect to external url', async () => {
-      await idamSigninPage.selectIdam(valueToSelectCFT);
-      expect(await idamSigninPage.clickContinue()).toHaveHref(returnUrl);
-    });
-  });
+    describe('Add a subscription path', () => {
+      const validSearchTerm = '12345678';
+      const invalidSearchTerm = '123456';
+      const expectedNumOfResults = 1;
 
-  describe('Add a subscription path', () => {
-    const validSearchTerm = '12345678';
-    const invalidSearchTerm = '123456';
-    const expectedNumOfResults = 1;
+      it('should open the subscription add page', async () => {
+        await subscriptionAddPage.open('subscription-add');
+        expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
+      });
 
-    it('should open the subscription add page', async () => {
-      await subscriptionAddPage.open('subscription-add');
-      expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
-    });
+      it('should see 4 radio buttons', async () => {
+        expect(await subscriptionAddPage.radioButtons).toBe(4);
+      });
 
-    it('should see 4 radio buttons', async () => {
-      expect(await subscriptionAddPage.radioButtons).toBe(4);
-    });
+      it('should select \'By unique reference number\' option and navigate to search urn page', async () => {
+        await subscriptionAddPage.selectUrnSearchRadio();
+        subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
+        expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+      });
 
-    it('should select \'By unique reference number\' option and navigate to search urn page', async () => {
-      await subscriptionAddPage.selectUrnSearchRadio();
-      subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
-      expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
-    });
+      it('should enter invalid text and click continue', async () => {
+        await subscriptionUrnSearchPage.enterText(invalidSearchTerm);
+        await subscriptionUrnSearchPage.clickContinue();
+        expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+      });
 
-    it('should enter invalid text and click continue', async () => {
-      await subscriptionUrnSearchPage.enterText(invalidSearchTerm);
-      await subscriptionUrnSearchPage.clickContinue();
-      expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
-    });
+      it('should enter text and click continue', async () => {
+        await subscriptionUrnSearchPage.enterText(validSearchTerm);
+        subscriptionUrnSearchResultsPage =  await subscriptionUrnSearchPage.clickContinue();
+        expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
+      });
 
-    it('should enter text and click continue', async () => {
-      await subscriptionUrnSearchPage.enterText(validSearchTerm);
-      subscriptionUrnSearchResultsPage =  await subscriptionUrnSearchPage.clickContinue();
-      expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
-    });
-
-    it(`should display ${expectedNumOfResults} results`, async() => {
-      expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
+      it(`should display ${expectedNumOfResults} results`, async() => {
+        expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
+      });
+      it('should navigate to add subscription page on button click', async () => {
+        subscriptionAddPage = await subscriptionManagementPage.clickAddNewSubscriptionButton();
+        expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
+      });
     });
   });
 });

@@ -23,6 +23,8 @@ export interface PipRequest extends Request {
       'subscription-urn-search': {};
       'subscription-urn-search-result': {};
       'idam-signin': {};
+      'case-name-search': {};
+      'case-name-search-results': {};
     };
   };
   lng?: string;
