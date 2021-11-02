@@ -52,15 +52,15 @@
         <form class="moj-filter-layout__filter" method="post" action="court-name-search">
             {{ mojFilter({
                 heading: {
-                    text: 'Filter'
+                    text: filter
                 },
                 selectedFilters: {
                     clearLink: {
-                        text: 'Clear filters',
+                        text: filterClear,
                         href: '?clear=all'
                     },
                     heading: {
-                        text: 'Selected filter'
+                        text: filterSelected
                     },
                     categories: checkedFilters
                 },
