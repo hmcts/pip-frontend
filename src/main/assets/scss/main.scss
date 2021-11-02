@@ -241,6 +241,10 @@ div {
   color:  $govuk-error-colour;
 }
 
+.verifying-modal {
+  display: none;
+}
+
 .attrEntry {
   label {
     @extend .govuk-body;
