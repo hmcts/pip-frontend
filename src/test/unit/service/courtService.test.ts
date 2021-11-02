@@ -75,4 +75,15 @@ describe('Court Service', () => {
     const data = await courtService.generateAlphabetisedCrownCourtList();
     expect(Object.keys(data).length).to.equal(validKeysCount);
   });
+
+  it(`should have filtered a ${validCourt} key`, async () => {
+    const data = await courtService.generateFilteredAlphabetisedCourtList(['jurisdiction'], ['crown court']);
+    expect(validCourt in data['A']).to.be.true;
+  });
+
+  it(`should return object with ${validKeysCount} keys`, async () => {
+    const data = await courtService.generateFilteredAlphabetisedCourtList(['jurisdiction'], ['crown court']);
+    expect(Object.keys(data).length).to.equal(validKeysCount);
+  });
+
 });

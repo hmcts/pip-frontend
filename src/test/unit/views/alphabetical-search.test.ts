@@ -77,4 +77,20 @@ describe('Alphabetical Search page', () => {
     expect(backToTopButton.getAttribute('href')).contains('#');
   });
 
+  it('should display the filter', () => {
+    const filter = htmlRes.getElementsByClassName('moj-filter');
+    expect(filter[0].innerHTML).contains('Filter');
+  });
+
+  it('should display filter options', () => {
+    const fieldsets = htmlRes.getElementsByClassName('govuk-fieldset');
+    expect(fieldsets[0].innerHTML).contains('Jurisdiction');
+    expect(fieldsets[1].innerHTML).contains('Region');
+  });
+
+  it('should display filter options value', () => {
+    const fieldsets = htmlRes.getElementsByClassName('govuk-fieldset');
+    expect(fieldsets[0].innerHTML).contains('Crown Court');
+    expect(fieldsets[1].innerHTML).contains('London');
+  });
 });

@@ -1,11 +1,13 @@
 import {Court} from '../models/court';
 
+const filterNames = ['Jurisdiction', 'Region'];
+
 export class FilterService {
-  public getFilterValueOptions(filterName: string, list: Array<Court>): string[] {
+  private getFilterValueOptions(filterName: string, list: Array<Court>): string[] {
     return [...new Set(list.map(court => court[filterName.toLowerCase()]))];
   }
 
-  public buildFilterValueOptions(filterNames: string[], list, selectedFilters: string[]): object {
+  public buildFilterValueOptions(list, selectedFilters: string[]): object {
     const filterValueOptions = {};
     filterNames.forEach(filter => {
       filterValueOptions[filter] = {};
@@ -28,5 +30,21 @@ export class FilterService {
       selectedFilters.splice(selectedFilters.indexOf(reqQuery), 1);
       return selectedFilters;
     }
+  }
+
+  public handleKeys(filterOptions: object, filterValues: string[]) {
+    const keys = [];
+    if (filterValues.length > 0) {
+      filterNames.forEach(filter => {
+        filterValues.forEach(value => {
+          if (Object.keys(filterOptions[filter]).includes(value)) {
+            if (filterOptions[filter][value].checked) {
+              filter === 'Region' ? keys.push('Location') : keys.push(filter);
+            }
+          }
+        });
+      });
+    }
+    return [...new Set(keys.map(key => key))];
   }
 }
