@@ -4,7 +4,7 @@ import { Court } from '../models/court';
 const courtRequest = new CourtRequests();
 
 export class CourtService {
-  private static generateAlphabetObject(): object {
+  public static generateAlphabetObject(): object {
     // create the object for the possible alphabet options
     const alphabetOptions = {};
 
