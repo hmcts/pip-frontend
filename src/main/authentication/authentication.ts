@@ -19,10 +19,10 @@ function oidcSetup(): void {
     for (let i = 0, len = users.length; i < len; i++) {
       const user = users[i];
       if (user.oid === oid) {
-        return fn(null, user);
+        return fn(user);
       }
     }
-    return fn(null, null);
+    return fn(null);
   };
 
   passport.serializeUser(function(user, done) {
@@ -30,8 +30,8 @@ function oidcSetup(): void {
   });
 
   passport.deserializeUser(function(oid, done) {
-    findByOid(oid, function (err, user) {
-      done(err, user);
+    findByOid(oid, function (user) {
+      done(null, user);
     });
   });
 
@@ -47,10 +47,7 @@ function oidcSetup(): void {
     isB2C: true,
   },
   function(iss, sub, profile, accessToken, refreshToken, done) {
-    findByOid(profile.oid, function(err, user) {
-      if (err) {
-        return done(err);
-      }
+    findByOid(profile.oid, function(user) {
       if (!user) {
         // "Auto-registration"
         users.push(profile);

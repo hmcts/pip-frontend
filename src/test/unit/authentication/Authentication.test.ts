@@ -23,8 +23,20 @@ describe('Authentication', () => {
     expect(passport._serializers).length(1);
     expect(passport._deserializers).length(1);
     expect(passport._strategies).to.have.property('azuread-openidconnect');
+    expect(passport._strategies['azuread-openidconnect']._options.redirectUrl)
+      .to.eql('https://localhost:8080/login/return');
 
-    console.log(passport);
+  });
+
+  it('Should set up passport correctly for azure authentication when FRONTEND_URL is set', () => {
+    process.env.FRONTEND_URL = '';
+    authentication('true');
+
+    expect(passport._serializers).length(1);
+    expect(passport._deserializers).length(1);
+    expect(passport._strategies).to.have.property('azuread-openidconnect');
+    expect(passport._strategies['azuread-openidconnect']._options.redirectUrl)
+      .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/return');
   });
 
   it('Should set up passport correctly for mock authentication', () => {
