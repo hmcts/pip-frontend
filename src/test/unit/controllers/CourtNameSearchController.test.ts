@@ -3,35 +3,23 @@ import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import CourtNameSearchController from '../../../main/controllers/CourtNameSearchController';
 import { CourtService } from '../../../main/service/courtService';
-import { CourtRequests } from '../../../main/resources/requests/courtRequests';
 import { FilterService } from '../../../main/service/filterService';
 
-const blankFiltersObject = {
-  'jurisdiction': [],
-  'region': [],
-};
-const withOneFilter = {
-  'jurisdiction': ['crown'],
-  'region': [],
-};
-const withMultipleFilters = {
-  'jurisdiction': ['crown'],
-  'region': ['london'],
+const filters = ['Jurisdiction', 'Region'];
+const alphabet = {
+  A: {}, B: {}, C: {}, D: {}, E: {}, F: {}, G: {}, H: {}, I: {}, J: {}, K: {}, L: {}, M: {},
+  N: {}, O: {}, P: {}, Q: {}, R: {}, S: {}, T: {}, U: {}, V: {}, W: {}, X: {}, Y: {}, Z: {},
 };
 const courtNameSearchController = new CourtNameSearchController();
 sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves([]);
-const courtRequestsStub = sinon.stub(CourtRequests.prototype, 'getFilteredCourts');
-courtRequestsStub.withArgs(['jurisdiction'], ['crown']).resolves([]);
-courtRequestsStub.withArgs(['jurisdiction', 'location'], ['crown', 'london']).resolves([]);
-const filterServiceStub = sinon.stub(FilterService.prototype, 'generateCheckboxGroups');
-filterServiceStub.withArgs(blankFiltersObject, []).returns({});
-filterServiceStub.withArgs(withOneFilter, []).returns({});
-filterServiceStub.withArgs(withMultipleFilters, []).returns({});
-const selectedTagsStub = sinon.stub(FilterService.prototype, 'generateSelectedTags');
-selectedTagsStub.withArgs([{jurisdiction: []}, {location: []}]).returns([]);
-selectedTagsStub.withArgs([{jurisdiction: ['crown']}, {location: []}]).returns([]);
-selectedTagsStub.withArgs([{jurisdiction: ['crown']}, {location: ['london']}]).returns([]);
-sinon.stub(CourtService.prototype, 'generateCourtsAlphabetObject').withArgs([]).returns({});
+sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList').resolves({});
+sinon.stub(FilterService.prototype, 'reCreateKeysList').withArgs(filters, {}).returns([]);
+const filterServiceStub = sinon.stub(FilterService.prototype, 'buildFilterValueOptions');
+filterServiceStub.withArgs(filters, [], []).returns({});
+filterServiceStub.withArgs(filters, [], ['crown', 'london']).returns({});
+filterServiceStub.withArgs(filters, [], ['crown', 'crown court']).returns({});
+filterServiceStub.withArgs(filters, [], ['crown']).returns({});
+
 
 describe('Court Name Search Controller', () => {
   const i18n = {
@@ -39,9 +27,13 @@ describe('Court Name Search Controller', () => {
   };
   const expectedData = {
     ...i18n['court-name-search'],
-    alphabeticalCourts: {},
-    checkBoxesComponents: {},
-    categories: [],
+    filterOptions: {},
+    courtList: alphabet,
+  };
+  const postExpectedData = {
+    ...i18n['court-name-search'],
+    filterOptions: {},
+    courtList: {},
   };
   const response = { render: () => {return '';}} as unknown as Response;
   const request = mockRequest(i18n);
@@ -100,7 +92,7 @@ describe('Court Name Search Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+    responseMock.expects('render').once().withArgs('court-name-search', postExpectedData);
 
     return courtNameSearchController.post(request, response).then(() => {
       responseMock.verify();
@@ -112,7 +104,7 @@ describe('Court Name Search Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+    responseMock.expects('render').once().withArgs('court-name-search', postExpectedData);
 
     return courtNameSearchController.post(request, response).then(() => {
       responseMock.verify();
@@ -124,7 +116,7 @@ describe('Court Name Search Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+    responseMock.expects('render').once().withArgs('court-name-search', postExpectedData);
 
     return courtNameSearchController.post(request, response).then(() => {
       responseMock.verify();
@@ -162,7 +154,7 @@ describe('Court Name Search Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+    responseMock.expects('render').once().withArgs('court-name-search', postExpectedData);
 
     return courtNameSearchController.post(request, response).then(() => {
       responseMock.verify();
@@ -174,7 +166,7 @@ describe('Court Name Search Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+    responseMock.expects('render').once().withArgs('court-name-search', postExpectedData);
 
     return courtNameSearchController.post(request, response).then(() => {
       responseMock.verify();
@@ -182,13 +174,13 @@ describe('Court Name Search Controller', () => {
   });
 
   it('should render court name search page when one jurisdiction is removed and there are still other jurisdiction filters', async () => {
-    request.body = { jurisdiction: ['crown', 'crown court']};
+    request.body = { jurisdiction: ['crown', 'crown court'], region: []};
 
     await courtNameSearchController.post(request, response);
     request.query = {clear: 'crown court'};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+    responseMock.expects('render').once().withArgs('court-name-search', postExpectedData);
 
     await courtNameSearchController.get(request, response);
     responseMock.verify();

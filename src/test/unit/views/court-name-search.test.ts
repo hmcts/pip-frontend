@@ -71,12 +71,12 @@ describe('Court Name Search Page', () => {
   });
 
   it('should contain 2 jurisdiction checkboxes', () => {
-    const checkboxes = htmlRes.getElementsByName('jurisdiction');
+    const checkboxes = htmlRes.getElementsByName('Jurisdiction');
     expect(checkboxes.length).equal(2, 'Could not find jurisdiction checkboxes');
   });
 
   it('should contain 2 region checkboxes', () => {
-    const checkboxes = htmlRes.getElementsByName('region');
+    const checkboxes = htmlRes.getElementsByName('Region');
     expect(checkboxes.length).equal(3, 'Could not find region checkboxes');
   });
 
