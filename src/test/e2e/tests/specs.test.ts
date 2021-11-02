@@ -155,7 +155,7 @@ describe('Finding a court or tribunal listing', () => {
       expect(await searchOptionsPage.getPageTitle()).toEqual('Do you know the name of the court or tribunal?');
     });
 
-    it('should select \'search\' option and navigate to search page', async () => {
+    it('should select \'have the name\' option and navigate to search page', async () => {
       await searchOptionsPage.selectHaveTheNameRadio();
       searchPage = await searchOptionsPage.clickContinueForSearch();
       expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
