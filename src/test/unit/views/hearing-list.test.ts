@@ -45,7 +45,7 @@ describe('Hearing List page', () => {
     expect(columnHeadings[0].innerHTML).contains('Court Number', 'Could not find court number header');
     expect(columnHeadings[1].innerHTML).contains('Case name', 'Could not find case name header');
     expect(columnHeadings[2].innerHTML).contains('Case number', 'Could not find court number header');
-    expect(columnHeadings[3].innerHTML).contains('Judges', 'Could not find judges header');
+    expect(columnHeadings[3].innerHTML).contains('Overseen by', 'Could not find judges header');
     expect(columnHeadings[4].innerHTML).contains('Time', 'Could not find time header');
     expect(columnHeadings[5].innerHTML).contains('Hearing platform', 'Could not find hearing platform header');
   });
@@ -76,7 +76,7 @@ describe('Hearing List page', () => {
   it('should display the link', () => {
     const link = htmlRes.getElementsByClassName('govuk-link');
 
-    expect(link.item(0).innerHTML).contains('Find a court or tribunal list', 'Link text is not present');
+    expect(link.item(0).innerHTML).contains('See another court or tribunal', 'Link text is not present');
     expect(link.item(0).getAttribute('href')).equal('/search-option', 'Link value is not correct');
   });
 
