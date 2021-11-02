@@ -6,7 +6,7 @@ const PAGE_URL = '/';
 const headingClass = 'govuk-heading-xl';
 const selectClass = 'govuk-select';
 const startButtonClass = 'govuk-button govuk-button--start';
-const expectedHeader = 'Find a court or tribunal hearing list';
+const expectedHeader = 'See publications and information from a court or tribunal';
 
 let htmlRes: Document;
 describe('Home page', () => {

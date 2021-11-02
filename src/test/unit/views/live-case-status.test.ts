@@ -7,7 +7,7 @@ import path from 'path';
 import {LiveCaseRequests} from '../../../main/resources/requests/liveCaseRequests';
 
 const PAGE_URL = '/live-case-status?courtId=1';
-const expectedHeader = 'Live hearing updates - daily court list';
+const expectedHeader = 'Live hearing updates';
 const expectedCourtName = 'Mutsu Court';
 let htmlRes: Document;
 
@@ -77,7 +77,7 @@ describe('Live Status page', () => {
   it('should display the link to go back to live case alphabet list', () => {
     const link = htmlRes.getElementsByClassName('govuk-link');
 
-    expect(link.item(3).innerHTML).contains('Find a court or tribunal list', 'Link text is not present');
+    expect(link.item(3).innerHTML).contains('See another court or tribunal', 'Link text is not present');
     expect(link.item(3).getAttribute('href')).equal('/live-case-alphabet-search', 'Link value is not correct');
   });
 });

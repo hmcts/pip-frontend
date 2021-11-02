@@ -29,9 +29,9 @@ let caseNameSearchPage: CaseNameSearchPage;
 let caseNameSearchResultsPage: CaseNameSearchResultsPage;
 
 describe('Finding a court or tribunal listing', () => {
-  it('should open main page with "Find a court or tribunal listing title', async () => {
+  it('should open main page with "See publications and information from a court or tribunal title', async () => {
     await homePage.open('');
-    expect(await homePage.getPageTitle()).toEqual('Find a court or tribunal hearing list');
+    expect(await homePage.getPageTitle()).toEqual('See publications and information from a court or tribunal');
   });
 
   it('should click on the "Start now button and navigate to View Options page', async () => {
@@ -70,7 +70,7 @@ describe('Finding a court or tribunal listing', () => {
 
     it('selecting first result should take you to to the hearings list page', async () => {
       liveCaseStatusPage = await liveCaseCourtSearchControllerPage.selectFirstValidListResult();
-      expect(await liveCaseStatusPage.getPageTitle()).toEqual('Live hearing updates - daily court list');
+      expect(await liveCaseStatusPage.getPageTitle()).toEqual('Live hearing updates');
     });
 
     it(`should have '${validCourtName}' as a sub title`, async () => {
@@ -94,7 +94,7 @@ describe('Finding a court or tribunal listing', () => {
     });
   });
 
-  describe('Following the \'Single Justice Procedure list\' option', () => {
+  describe('Following the \'Single Justice Procedure case\' option', () => {
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
@@ -105,10 +105,10 @@ describe('Finding a court or tribunal listing', () => {
       viewOptionPage = await homePage.clickStartNowButton();
     });
 
-    it('should select \'Single Justice Procedure list\' option and navigate to Single Justice Procedure list page', async () => {
+    it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
       await viewOptionPage.selectSingleJusticeProcedureRadio();
       singleJusticeProcedureSearchPage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-      expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure list');
+      expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure case');
     });
   });
 
