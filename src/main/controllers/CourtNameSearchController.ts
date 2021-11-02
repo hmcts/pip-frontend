@@ -18,7 +18,7 @@ export default class CourtNameSearchController {
     }
 
     const filterOptions = filterService.buildFilterValueOptions(filters, await courtService.fetchAllCourts(), filterValues);
-    keys = filterService.checkIfKeyNeedsRemoval(keys, filterOptions);
+    keys = filterService.reCreateKeysList(keys, filterOptions);
     const alphabetisedList = filterValues.length ? await courtService.generateFilteredAlphabetisedCourtList(keys, filterValues) :
       await courtService.generateAlphabetisedAllCourtList();
 

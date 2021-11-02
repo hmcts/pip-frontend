@@ -30,7 +30,7 @@ export class FilterService {
     }
   }
 
-  public checkIfKeyNeedsRemoval(keys: string[], filterOptions: object): string[] {
+  public reCreateKeysList(keys: string[], filterOptions: object): string[] {
     const validatedKeys = [];
     const filterOptionsKeys = Object.keys(filterOptions);
     filterOptionsKeys.forEach((filterObject) => {
