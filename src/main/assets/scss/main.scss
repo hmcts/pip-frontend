@@ -223,10 +223,10 @@ div {
   .attrEntry {
     div {
       @extend .govuk-body;
-    }
 
-    &.error {
-      color:  $govuk-error-colour;
+      &.error {
+        color:  $govuk-error-colour;
+      }
     }
   }
 }
