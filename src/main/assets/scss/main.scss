@@ -224,6 +224,10 @@ div {
     div {
       @extend .govuk-body;
     }
+
+    &.error {
+      color:  $govuk-error-colour;
+    }
   }
 }
 
