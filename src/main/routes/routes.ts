@@ -58,10 +58,10 @@ export default function(app: Application): void {
   app.get('/subscription-management', ensureAuthenticated,
     app.locals.container.cradle.subscriptionManagementController.get);
 
-  app.post('/login/return', passport.authenticate('azuread-openidconnect', { failureRedirect: '/error'}),
+  app.post('/login/return',passport.authenticate('azuread-openidconnect', { failureRedirect: '/'}),
     regenerateSession);
 
-  app.get('/login', passport.authenticate('azuread-openidconnect', { failureRedirect: '/error'}),
+  app.get('/login', passport.authenticate('azuread-openidconnect', { failureRedirect: '/'}),
     regenerateSession);
 
   app.get('/subscription-add', app.locals.container.cradle.subscriptionAddController.get);
@@ -72,6 +72,7 @@ export default function(app: Application): void {
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
 
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
+
 
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
 
