@@ -38,7 +38,11 @@ export default class AlphabeticalSearchController {
     keys.forEach(key => values.push(body[key]));
     filterValues = Array.prototype.concat.apply([], values);
 
-    keys.splice(keys.indexOf('Region'), 1, 'Location');
+    keys.forEach(key => {
+      if (key === 'Region') {
+        keys.splice(keys.indexOf(key), 1, 'Location');
+      }
+    });
 
     const alphabetisedList = await courtService.generateFilteredAlphabetisedCourtList(keys, filterValues);
     const filterOptions = filterService.buildFilterValueOptions(filters, await courtService.fetchAllCourts(), filterValues);
