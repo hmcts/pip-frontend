@@ -19,6 +19,10 @@ const errorRequest = {
   request: 'test error',
 };
 
+const errorMessage = {
+  message: 'test',
+};
+
 const courtNameSearch = 'Abergavenny Magistrates\' Court';
 
 const stub = sinon.stub(dataManagementApi, 'get');
@@ -33,13 +37,16 @@ describe('Court get requests', () => {
     stub.withArgs('/courts/1').resolves({data: courtList[0]});
     stub.withArgs('/courts/2').resolves(Promise.reject(errorResponse));
     stub.withArgs('/courts/3').resolves(Promise.reject(errorRequest));
+    stub.withArgs('/courts/4').resolves(Promise.reject(errorMessage));
 
     stub.withArgs(`/courts/find/${courtNameSearch}`).resolves({data: courtList[0]});
     stub.withArgs('/courts/find/test').resolves(Promise.reject(errorResponse));
     stub.withArgs('/courts/find/testReq').resolves(Promise.reject(errorRequest));
+    stub.withArgs('/courts/find/testMes').resolves(Promise.reject(errorMessage));
 
     stub.withArgs('/courts/filter', {data: {filters: filters, values: values}}).resolves({data: courtList});
     stub.withArgs('/courts/filter', {data: {filters: test, values: test}}).resolves(Promise.reject(errorResponse));
+    stub.withArgs('/courts/filter', {data: {filters: test, values: 'error'}}).resolves(Promise.reject(errorMessage));
 
     stub.withArgs('/courts').resolves({data: courtList});
   });
@@ -48,7 +55,7 @@ describe('Court get requests', () => {
     expect(await courtRequests.getCourt(1)).toBe(courtList[0]);
   });
 
-  it('should return null if request fails', async () => {
+  it('should return null if response fails ', async () => {
     expect(await courtRequests.getCourt(2)).toBe(null);
   });
 
@@ -56,16 +63,24 @@ describe('Court get requests', () => {
     expect(await courtRequests.getCourt(3)).toBe(null);
   });
 
+  it('should return null if call fails', async () => {
+    expect(await courtRequests.getCourt(4)).toBe(null);
+  });
+
   it('should return court by name', async () => {
     expect(await courtRequests.getCourtByName(courtNameSearch)).toBe(courtList[0]);
   });
 
-  it('should return null if request fails', async () => {
+  it('should return null if response fails', async () => {
     expect(await courtRequests.getCourtByName('test')).toBe(null);
   });
 
   it('should return null if request fails', async () => {
     expect(await courtRequests.getCourtByName('testReq')).toBe(null);
+  });
+
+  it('should return null if call fails', async () => {
+    expect(await courtRequests.getCourtByName('testMes')).toBe(null);
   });
 
   it('should return list of courts based on search filter', async () => {
@@ -76,17 +91,26 @@ describe('Court get requests', () => {
     expect(await courtRequests.getFilteredCourts(test, test)).toBe(null);
   });
 
+  it('should return null if request fails', async () => {
+    expect(await courtRequests.getFilteredCourts(test, ['error'])).toBe(null);
+  });
+
   it('should return list of courts', async () => {
     expect(await courtRequests.getAllCourts()).toBe(courtList);
   });
 
-  it('should return null list of courts', async () => {
+  it('should return null list of courts for error response', async () => {
     stub.withArgs('/courts').resolves(Promise.reject(errorResponse));
     expect(await courtRequests.getFilteredCourts(test, test)).toBe(null);
   });
 
-  it('should return null list of courts', async () => {
+  it('should return null list of courts for error request', async () => {
     stub.withArgs('/courts').resolves(Promise.reject(errorRequest));
+    expect(await courtRequests.getAllCourts()).toBe(null);
+  });
+
+  it('should return null list of courts for errored call', async () => {
+    stub.withArgs('/courts').resolves(Promise.reject(errorMessage));
     expect(await courtRequests.getAllCourts()).toBe(null);
   });
 });
