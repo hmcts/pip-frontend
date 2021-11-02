@@ -1,6 +1,6 @@
 import {SubscriptionUrnSearchPage} from './SubscriptionUrnSearch.page';
 import { CaseNameSearchPage } from './CaseNameSearch.page';
-import {PageBase} from "./Base/PageBase.page";
+import {PageBase} from './Base/PageBase.page';
 
 const helpers = require('../Helpers/Selectors');
 
