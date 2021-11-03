@@ -13,7 +13,11 @@ import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProc
 import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
 import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
 import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
+import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
+import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
+import { IdamSigninPage } from '../PageObjects/IdamSignin.page';
 
+const idamSigninPage = new IdamSigninPage;
 const homePage = new HomePage;
 let subscriptionAddPage: SubscriptionAddPage;
 let searchOptionsPage: SearchOptionsPage;
@@ -29,6 +33,8 @@ let otpLoginPage: OtpLoginPage;
 let caseNameSearchPage: CaseNameSearchPage;
 let caseNameSearchResultsPage: CaseNameSearchResultsPage;
 let courtNameSearchPage: CourtNameSearchPage;
+let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
+let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "See publications and information from a court or tribunal title', async () => {
@@ -265,6 +271,57 @@ describe('Finding a court or tribunal listing', () => {
         expect(await courtNameSearchPage.getResults()).toBe(allCourts);
       });
     });
-  });
 
+    describe('Following urn search path', () => {
+      const validSearchTerm = '12345678';
+      const invalidSearchTerm = '123456';
+      const expectedNumOfResults = 1;
+
+      before(async () => {
+        await subscriptionAddPage.open('subscription-add');
+      });
+
+      it('should select \'By unique reference number\' option and navigate to search urn page', async () => {
+        await subscriptionAddPage.selectOption('SubscriptionAddByUniqueRefNumber');
+        subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
+        expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+      });
+
+      it('should enter invalid text and click continue', async () => {
+        await subscriptionUrnSearchPage.enterText(invalidSearchTerm);
+        await subscriptionUrnSearchPage.clickContinue();
+        expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+      });
+
+      it('should enter text and click continue', async () => {
+        await subscriptionUrnSearchPage.enterText(validSearchTerm);
+        subscriptionUrnSearchResultsPage =  await subscriptionUrnSearchPage.clickContinue();
+        expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
+      });
+
+      it(`should display ${expectedNumOfResults} results`, async() => {
+        expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
+      });
+    });
+
+    describe('Idam SignIn selection', () => {
+      const valueToSelectCrime = 'Crime';
+      const valueToSelectCFT= 'CFT';
+      const returnUrl= 'https://www.google.com';
+      it('should open Idam SignIn page with Sign in to your account', async () => {
+        await idamSigninPage.selectSignIn();
+        expect(await idamSigninPage.getPageTitle()).toEqual('Sign in to your account');
+      });
+
+      it('selecting crime and redirect to external url', async () => {
+        await idamSigninPage.selectIdam(valueToSelectCrime);
+        expect(await idamSigninPage.clickContinue()).toHaveHref(returnUrl);
+      });
+
+      it('selecting CFT and redirect to external url', async () => {
+        await idamSigninPage.selectIdam(valueToSelectCFT);
+        expect(await idamSigninPage.clickContinue()).toHaveHref(returnUrl);
+      });
+    });
+  });
 });
