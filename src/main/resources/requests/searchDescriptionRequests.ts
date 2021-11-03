@@ -1,13 +1,11 @@
-import fs from 'fs';
-import path from 'path';
+import {dataManagementApi} from './utils/axiosConfig';
 
 export class SearchDescriptionRequests {
 
   public async getStatusDescriptionList(): Promise<Array<any>> {
     try {
-      const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/StatusDescription.json'), 'utf-8');
-      const courtStatusEvents = JSON.parse(rawData);
-      return courtStatusEvents;
+      const response = await dataManagementApi.get('/glossary');
+      return response.data;
     } catch (error) {
       if (error.response) {
         console.log(error.response.data);
