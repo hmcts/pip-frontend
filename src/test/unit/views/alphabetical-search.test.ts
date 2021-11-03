@@ -35,7 +35,7 @@ describe('Alphabetical Search page', () => {
   it('should contain the find a court heading', () => {
     const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
     expect(pageHeading[0].innerHTML)
-      .contains('Find a court or tribunal listing', 'Page heading does not exist');
+      .contains('Find a court or tribunal', 'Page heading does not exist');
   });
 
   it('should contain letters that navigate to other sections of the page', () => {
