@@ -223,6 +223,10 @@ div {
   .attrEntry {
     div {
       @extend .govuk-body;
+
+      &.error {
+        color:  $govuk-error-colour;
+      }
     }
   }
 }
@@ -234,6 +238,15 @@ div {
     @extend .govuk-button;
     @extend .govuk-\!-margin-right-4;
   }
+}
+
+.error {
+  @extend .govuk-body;
+  color:  $govuk-error-colour;
+}
+
+.verifying-modal {
+  display: none;
 }
 
 .attrEntry {
