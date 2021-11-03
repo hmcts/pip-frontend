@@ -51,6 +51,12 @@ export default function(app: Application): void {
 
   app.get('/single-justice-procedure-search', app.locals.container.cradle.singleJusticeProcedureSearchController.get);
 
+  // expose route only if not on the production environment
+  if (process.env.NODE_ENV !== 'production') {
+    app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
+    app.post('/mock-session', app.locals.container.cradle.mockSessionController.post);
+  }
+
   const healthCheckConfig = {
     checks: {
       // TODO: replace this sample check with proper checks for your application

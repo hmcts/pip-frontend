@@ -1,0 +1,132 @@
+{% from "./macros/common-components.njk" import submitButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+    {{ "Session Management" | safe }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ govukBackLink({
+        text: text,
+        href: '#',
+        attributes: {
+            onClick: "history.back(); event.preventDefault();"
+        }
+    }) }}
+{% endblock %}
+
+{% block content %}
+    <h1 class="govuk-heading-l">Mock User Session Data</h1>
+    {% if haveUser %}
+        <p class="govuk-body">It seems like user session is already set with following details. You can click clear button to reset this session.</p>
+        {{govukTag({
+            text: "Session Set",
+            classes: "govuk-tag--green govuk-!-margin-bottom-6"
+        })}}
+        {{ govukSummaryList({
+            classes: 'govuk-!-width-one-half',
+            rows: [
+                {
+                    key: {
+                        text: 'Username'
+                    },
+                    value: {
+                        text: userDetails['user-name']
+                    }
+                },
+                {
+                    key: {
+                        text: 'User ID'
+                    },
+                    value: {
+                        text: userDetails['user-id']
+                    }
+                },
+                {
+                    key: {
+                        text: 'User Type'
+                    },
+                    value: {
+                        text: userDetails['user-type']
+                    }
+                }
+            ]
+        }) }}
+        <div class="govuk-button-group">
+            {{ govukButton({
+                text: 'Continue',
+                href: 'subscription-management'
+            }) }}
+            {{ govukButton({
+                text: "Clear",
+                classes: "govuk-button--warning",
+                href: '?user=reset'
+            }) }}
+        </div>
+
+    {% else %}
+        <p class="govuk-body">Use bellow fields to create mock user session required in order to access restricted pages.</p>
+        {{govukTag({
+            text: "Session Not Set",
+            classes: "govuk-tag--red govuk-!-margin-bottom-6"
+        })}}
+        <form action="mock-session" method="post" class="govuk-!-width-one-half">
+            {{ govukInput({
+                label: {
+                    text: "What is username?"
+                },
+                id: "user-name",
+                name: "user-name"
+            }) }}
+            {{ govukInput({
+                label: {
+                    text: "What is user id?"
+                },
+                id: "user-id",
+                name: "user-id",
+                spellcheck: false
+            }) }}
+            {{ govukRadios({
+                idPrefix: "user-type",
+                name: "user-type",
+                fieldset: {
+                    legend: {
+                        text: "What is user type?"
+                    }
+                },
+                items: [
+                    {
+                        value: "media",
+                        text: "Media"
+                    },
+                    {
+                        value: "professional",
+                        text: "Professional"
+                    }
+                ]
+            }) }}
+            {{ submitButton() }}
+        </form>
+    {% endif %}
+{% endblock %}
+{% block bodyEnd %}
+    <script>
+      const button = document.getElementsByClassName('govuk-button')[0];
+      button.addEventListener('click', (e) => {
+        const checkedRadios = document.querySelectorAll('input[type="radio"]:checked');
+        const userSet = {{ haveUser | dump |safe }};
+        console.log('alo', userSet);
+        if (!userSet && !checkedRadios.length) {
+          e.preventDefault();
+        }
+      });
+    </script>
+    {{ super() }}
+{% endblock %}
