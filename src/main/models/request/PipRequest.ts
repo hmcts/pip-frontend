@@ -20,6 +20,7 @@ export interface PipRequest extends Request {
       'view-option': {};
       'single-justice-procedure-search': {};
       'subscription-add': {};
+      'court-name-search': {};
       'subscription-urn-search': {};
       'subscription-urn-search-result': {};
       'idam-signin': {};

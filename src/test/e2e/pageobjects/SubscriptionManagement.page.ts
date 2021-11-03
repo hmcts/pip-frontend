@@ -1,10 +1,8 @@
-import {PageBase} from './Base/PageBase.page';
 import { SubscriptionAddPage } from './SubscriptionAdd.page';
 
 const helpers = require('../Helpers/Selectors');
 
-
-export class SubscriptionManagementPage extends PageBase {
+export class SubscriptionManagementPage {
   async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitle).catch(() => {
       console.log(`${helpers.CommonPageTitle} not found`);

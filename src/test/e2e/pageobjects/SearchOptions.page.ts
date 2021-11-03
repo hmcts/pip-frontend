@@ -19,7 +19,7 @@ export class SearchOptionsPage extends PageBase {
     return radioButtons.length;
   }
 
-  async selectSearchRadio(): Promise<void> {
+  async selectHaveTheNameRadio(): Promise<void> {
     $(helpers.SearchRadioButton).catch(() => {
       console.log(`${helpers.SearchRadioButton} not found`);
     });
@@ -27,7 +27,7 @@ export class SearchOptionsPage extends PageBase {
     radioButton.click();
   }
 
-  async selectFindRadio(): Promise<void> {
+  async selectDontHaveTheNameRadio(): Promise<void> {
     $(helpers.FindRadioButton).catch(() => {
       console.log(`${helpers.FindRadioButton} not found`);
     });
