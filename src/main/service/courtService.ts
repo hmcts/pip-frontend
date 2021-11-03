@@ -1,5 +1,5 @@
 import { CourtRequests } from '../resources/requests/courtRequests';
-import {Court} from '../models/court';
+import { Court } from '../models/court';
 
 const courtRequest = new CourtRequests();
 
