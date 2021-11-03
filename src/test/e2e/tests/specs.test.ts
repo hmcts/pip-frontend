@@ -119,7 +119,7 @@ describe('Finding a court or tribunal listing', () => {
     it('should select \'I do not have the name\' option and navigate to alphabetical search page', async () => {
       await searchOptionsPage.selectDontHaveTheNameRadio();
       alphabeticalSearchPage = await searchOptionsPage.clickContinueForAlphabetical();
-      expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal listing');
+      expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
     });
 
     it('should select \'T\' option, and navigate to the end of the page', async() => {
