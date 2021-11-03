@@ -36,11 +36,11 @@ export class AlphabeticalSearchPage {
   }
 
   async selectFirstListResult(): Promise<HearingListPage> {
-    await $(helpers.FirstItemResult).catch(() => {
-      console.log(`${helpers.FirstItemResult} not found`);
+    await $(helpers.SecondItemResult).catch(() => {
+      console.log(`${helpers.SecondItemResult} not found`);
     });
 
-    const firstItem = await $(helpers.FirstItemResult);
+    const firstItem = await $(helpers.SecondItemResult);
     firstItem.click();
     return new HearingListPage();
   }

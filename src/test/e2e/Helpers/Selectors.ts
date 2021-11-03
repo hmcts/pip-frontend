@@ -31,7 +31,7 @@ module.exports = {
   RowSelector: (letter): string => {
     return '#' + letter;
   },
-  FirstItemResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
+  SecondItemResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
 
   // OtpLogin page selectors
   OtpInput: '#otp-code',

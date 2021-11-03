@@ -7,7 +7,7 @@ export class FilterService {
     return [...new Set(list.map(court => court[filterName.toLowerCase()]))];
   }
 
-  public buildFilterValueOptions(list, selectedFilters: string[]): object {
+  public buildFilterValueOptions(list: Array<Court>, selectedFilters: string[]): object {
     const filterValueOptions = {};
     filterNames.forEach(filter => {
       filterValueOptions[filter] = {};
@@ -32,7 +32,7 @@ export class FilterService {
     }
   }
 
-  public handleKeys(filterOptions: object, filterValues: string[]) {
+  public handleKeys(filterOptions: object, filterValues: string[]): string[] {
     const keys = [];
     if (filterValues.length > 0) {
       filterNames.forEach(filter => {
