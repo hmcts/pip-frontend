@@ -1,0 +1,12 @@
+{
+  "title": "Case Name Search Results",
+  "heading": "Search result",
+  "resultsCount": " results successfully found",
+  "backButton": "Back",
+  "table": {
+    "column1Header": "Case Name",
+    "column2Header": "Case Reference Number"
+  },
+  "select": "Select"
+}
+

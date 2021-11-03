@@ -16,6 +16,6 @@ describe('Single Justice Procedure Search Page', () => {
 
   it('should display header', () => {
     const header = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(header[0].innerHTML).contains('Single Justice Procedure list', 'Could not find correct value in header');
+    expect(header[0].innerHTML).contains('Single Justice Procedure case', 'Could not find correct value in header');
   });
 });

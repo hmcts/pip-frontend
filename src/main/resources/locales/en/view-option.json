@@ -1,7 +1,7 @@
 {
   "title": "View Option",
   "radioLegend": "What would you like to view?",
-  "radio1": "Court or Tribunal hearing Publications",
+  "radio1": "Court or Tribunal publications",
   "radio2": "Live hearing updates - Crown Court only",
-  "radio3": "Single Justice Procedure list"
+  "radio3": "Single Justice Procedure case"
 }
