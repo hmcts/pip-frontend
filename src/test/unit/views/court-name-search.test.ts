@@ -120,7 +120,7 @@ describe('Court Name Search Page', () => {
     const elementsCount = 12;
     const tableRows = htmlRes.getElementsByClassName('govuk-table__body')[0]
       .getElementsByClassName('govuk-table__row');
-    const rowCheckboxes = htmlRes.getElementsByName('court-checkbox');
+    const rowCheckboxes = htmlRes.getElementsByName('court-selections[]');
     expect(tableRows.length).equal(elementsCount, 'Could not find all table rows');
     expect(rowCheckboxes.length).equal(elementsCount, 'Could not find all row checkboxes');
   });
