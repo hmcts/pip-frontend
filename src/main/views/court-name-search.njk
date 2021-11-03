@@ -160,7 +160,7 @@
     <script src="alphabetical-dev.js"></script>
     <script>
       function calculateChecked() {
-        const checkedBoxes = document.querySelectorAll('input[name="court-checkbox"]:checked').length;
+        const checkedBoxes = document.querySelectorAll('input[name="court-selections[]"]:checked').length;
         document.getElementById('selectionCount').innerText = checkedBoxes.toString();
       }
     </script>
