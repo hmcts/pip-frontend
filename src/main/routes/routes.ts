@@ -78,6 +78,9 @@ export default function(app: Application): void {
 
   app.get('/single-justice-procedure-search', app.locals.container.cradle.singleJusticeProcedureSearchController.get);
 
+  app.get('/court-name-search', app.locals.container.cradle.courtNameSearchController.get);
+  app.post('/court-name-search', app.locals.container.cradle.courtNameSearchController.post);
+
   app.get('/case-name-search', app.locals.container.cradle.caseNameSearchController.get);
   app.post('/case-name-search', app.locals.container.cradle.caseNameSearchController.post);
 

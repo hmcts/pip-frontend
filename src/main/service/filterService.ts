@@ -29,4 +29,20 @@ export class FilterService {
       return selectedFilters;
     }
   }
+
+  public reCreateKeysList(keys: string[], filterOptions: object): string[] {
+    const validatedKeys = [];
+    const filterOptionsKeys = Object.keys(filterOptions);
+    filterOptionsKeys.forEach((filterObject) => {
+      const nestedObjectKeys = Object.keys(filterOptions[filterObject]);
+      const checkedValues = [];
+      nestedObjectKeys.forEach((nested) => {
+        filterOptions[filterObject][nested].checked ? checkedValues.push(1) : checkedValues.push(0);
+      });
+      if (checkedValues.includes(1)) {
+        filterObject === 'Region' ? validatedKeys.push('Location') : validatedKeys.push(filterObject);
+      }
+    });
+    return validatedKeys;
+  }
 }
