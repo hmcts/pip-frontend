@@ -76,6 +76,10 @@ describe('Court get requests', () => {
     expect(await courtRequests.getFilteredCourts(test, test)).toBe(null);
   });
 
+  it('should return null if filter request fails', async () => {
+    expect(await courtRequests.getFilteredCourts([], [])).toBe(null);
+  });
+
   it('should return list of courts', async () => {
     expect(await courtRequests.getAllCourts()).toBe(courtList);
   });
