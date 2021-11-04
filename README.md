@@ -19,6 +19,44 @@ Running the application requires the following tools to be installed in your env
   * [yarn](https://yarnpkg.com/)
   * [Docker](https://www.docker.com)
 
+
+### Authentication
+
+Some of the pages within this app are secured via authentication.
+
+There are two modes for authentication:
+
+1) OIDC
+2) Mock Strategy
+
+The OIDC connect strategy integrates with Azure. When users try to access an authenticated page,
+they will be presented with the logon screen.
+
+To use this strategy, set the 'OIDC' environment variable to 'true' when starting up the app.
+
+Alternatively, users can use the Mock Strategy which is the default. Rather than integrating with Azure, will
+automatically log the user in with a test user. See the Authentication.ts file for details on how this
+is done.
+
+Here is a list of environment variables needed to launch the app:
+
+Name | Value
+--- | ---
+CLIENT_SECRET | This is used to communicate with Azure (OIDC mode only)
+SESSION_SECRET | A random string
+OIDC | (Optional) - Set to 'true' to enable OIDC mode.
+FRONTEND_URL | (Optional) - This is the host that you are redirected back to from Azure. Default is staging.
+SECRETS_DIRECTORY | (Optional) - Uses only in Azure, when reading secrets from key vaults
+
+Passing these variables can be done via
+
+```bash
+$ (Linux) export CLIENT_SECRET=<VALUE_GOES_HERE>
+$ (Windows) set CLIENT_SECRET<VALUE_GOES_HERE>
+```
+
+or, in intellij you can pass them in the Run Configuration
+
 ### Running the application
 
 Install dependencies by executing the following command:
