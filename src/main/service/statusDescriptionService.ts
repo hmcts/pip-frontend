@@ -1,12 +1,12 @@
 import {StatusDescriptionRequests} from '../resources/requests/statusDescriptionRequests';
 import {CourtService} from '../service/courtService';
 
-const searchDescriptionRequests = new StatusDescriptionRequests();
+const statusDescriptionRequests = new StatusDescriptionRequests();
 
 export class StatusDescriptionService {
 
   public async generateStatusDescriptionObject(): Promise<object> {
-    const statusDescriptionList: Array<any>= await searchDescriptionRequests.getStatusDescriptionList();
+    const statusDescriptionList: Array<any>= await statusDescriptionRequests.getStatusDescriptionList();
     const alphabetOptions = CourtService.generateAlphabetObject();
 
     //Then loop through each status, and add it to the list
