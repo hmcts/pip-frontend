@@ -22,6 +22,9 @@ export interface PipRequest extends Request {
       'subscription-add': {};
       'subscription-case-search': {};
       'subscription-search-case-results': {};
+      'court-name-search': {};
+      'case-name-search': {};
+      'case-name-search-results': {};
     };
   };
   lng?: string;

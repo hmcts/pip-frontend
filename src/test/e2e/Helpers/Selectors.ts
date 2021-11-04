@@ -31,7 +31,7 @@ module.exports = {
   RowSelector: (letter): string => {
     return '#' + letter;
   },
-  FirstItemResult: 'tbody > tr.govuk-table__row > td > div > a',
+  FirstItemResult: 'tbody > tr.govuk-table__row > td > a',
 
   // OtpLogin page selectors
   OtpInput: '#otp-code',
@@ -46,6 +46,24 @@ module.exports = {
   SubscriptionAddTitle: 'h1.govuk-fieldset__heading',
   CaseSearchRadioButton: '#subscription-choice-1',
 
+  SubscriptionAddByCaseRefNumber: '#subscription-choice-1',
+  SubscriptionAddByUniqueRefNumber: '#subscription-choice-2',
+  SubscriptionAddByCaseName: '#subscription-choice-3',
+  SubscriptionAddByCourtOrTribunal: '#subscription-choice-4',
+
   // LiveCaseAlphabetSearch selectors
   LiveHearingsTableFirstValidResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
+
+  // CaseNameSearch selectors
+  CaseNameInput: '#case-name',
+  CaseNameSearchErrorSummaryTitle: '.govuk-error-summary__title',
+
+  // CaseNameSearchResults selectors
+  CaseNameSearchResultsCheckbox: 'tbody > tr.govuk-table__row > td > .govuk-checkboxes__input',
+  CaseNameSearchResultsHeaderCheckbox: 'thead > tr.govuk-table__row > th > .govuk-checkboxes__input',
+
+  // CourtNameSearch selectors
+  JurisdictionCheckbox: '#Jurisdiction',
+  ApplyFiltersButton: '.moj-filter__options > .govuk-button',
+  ClearFiltersLink: '.moj-filter__heading-action > p > a',
 };

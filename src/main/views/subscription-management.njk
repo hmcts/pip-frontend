@@ -17,7 +17,7 @@
     <h1 class="govuk-heading-l">{{ header }}</h1>
     {{ govukButton({
         text: newButton,
-        href: '#'
+        href: 'subscription-add'
     }) }}
 
     {% set allSubscriptions = caseTableData | length +  courtTableData | length %}

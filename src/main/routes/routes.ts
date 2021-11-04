@@ -18,6 +18,7 @@ export default function(app: Application): void {
   app.get('/', app.locals.container.cradle.homeController.get);
   app.get('/search-option', app.locals.container.cradle.searchOptionController.get);
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
+  app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
   app.get('/otp-login', app.locals.container.cradle.otpLoginController.get);
@@ -46,15 +47,24 @@ export default function(app: Application): void {
   app.post('/subscription-case-search', app.locals.container.cradle.subscriptionCaseSearchController.post);
 
   app.get('/subscription-search-case-results', app.locals.container.cradle.subscriptionCaseSearchResultController.get);
+  
+  app.get('/status-description', app.locals.container.cradle.statusDescriptionController.get);
 
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
-
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
 
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
 
   app.get('/single-justice-procedure-search', app.locals.container.cradle.singleJusticeProcedureSearchController.get);
+
+  app.get('/court-name-search', app.locals.container.cradle.courtNameSearchController.get);
+  app.post('/court-name-search', app.locals.container.cradle.courtNameSearchController.post);
+
+  app.get('/case-name-search', app.locals.container.cradle.caseNameSearchController.get);
+  app.post('/case-name-search', app.locals.container.cradle.caseNameSearchController.post);
+
+  app.get('/case-name-search-results', app.locals.container.cradle.caseNameSearchResultsController.get);
 
   const healthCheckConfig = {
     checks: {
@@ -62,6 +72,6 @@ export default function(app: Application): void {
       sampleCheck: healthcheck.raw(() => healthcheck.up()),
     },
   };
-  
+
   healthcheck.addTo(app, healthCheckConfig);
 }
