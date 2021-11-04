@@ -33,9 +33,6 @@ module.exports = {
   },
   SecondItemResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
 
-  // OtpLogin page selectors
-  OtpInput: '#otp-code',
-
   // ViewOption page selectors
   ViewOptionsTitle: 'h1.govuk-fieldset__heading',
   ViewSearchRadioButton: '#view-choice',

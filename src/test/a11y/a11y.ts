@@ -1,5 +1,4 @@
 import { fail } from 'assert';
-import sinon from 'sinon';
 
 const pa11y = require('pa11y');
 import * as supertest from 'supertest';
@@ -10,6 +9,8 @@ import {CourtRequests} from '../../main/resources/requests/courtRequests';
 import {LiveCaseRequests} from '../../main/resources/requests/liveCaseRequests';
 import {StatusDescriptionRequests} from '../../main/resources/requests/statusDescriptionRequests';
 const agent = supertest.agent(app);
+import {request as expressRequest} from 'express';
+import sinon from 'sinon';
 
 const routesNotTested = [
   '/health',
@@ -116,6 +117,7 @@ function testAccessibility(url: string): void {
 }
 
 describe('Accessibility',  () => {
+  sinon.stub(expressRequest, 'isAuthenticated').returns(true);
   readRoutes().forEach(route => {
     if (route.indexOf('/api/') !== 0) {
       testAccessibility(route);

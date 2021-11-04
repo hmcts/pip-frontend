@@ -11,8 +11,7 @@ export interface PipRequest extends Request {
       'live-case-alphabet-search': {};
       'live-case-status': {};
       'not-found': {};
-      'otp-login': {};
-      'otp-login-testing': {};
+      'otp-template': {};
       'search': {};
       'search-option': {};
       'search-results': {};
