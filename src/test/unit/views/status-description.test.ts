@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {SearchDescriptionRequests} from '../../../main/resources/requests/searchDescriptionRequests';
+import {StatusDescriptionRequests} from '../../../main/resources/requests/statusDescriptionRequests';
 const PAGE_URL = '/status-description?courtId=1#1';
 
 let htmlRes: Document;
@@ -13,7 +13,7 @@ let htmlRes: Document;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/StatusDescription.json'), 'utf-8');
 const statusDescriptionData = JSON.parse(rawData);
 
-sinon.stub(SearchDescriptionRequests.prototype, 'getStatusDescriptionList').returns(statusDescriptionData);
+sinon.stub(StatusDescriptionRequests.prototype, 'getStatusDescriptionList').returns(statusDescriptionData);
 
 describe('Status Description page', () => {
   beforeAll(async () => {
