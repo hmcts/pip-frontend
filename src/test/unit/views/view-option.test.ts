@@ -56,6 +56,6 @@ describe('View Option Page', () => {
 
   it('should display third radio button hint',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[2].innerHTML).contains(expectedRadioLabel3, 'Could not find the radio button with hint ' + expectedRadioHint3);
+    expect(radioButtons[2].innerHTML).contains(expectedRadioHint3, 'Could not find the radio button with hint ' + expectedRadioHint3);
   });
 });
