@@ -8,6 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import {CourtRequests} from '../../main/resources/requests/courtRequests';
 import {LiveCaseRequests} from '../../main/resources/requests/liveCaseRequests';
+import { dataManagementApi } from '../../main/resources/requests/utils/axiosConfig';
 const agent = supertest.agent(app);
 
 const routesNotTested = [
@@ -15,20 +16,25 @@ const routesNotTested = [
   '/health/liveness',
   '/health/readiness',
   '/info',
+  '/login',
+  '/login/return',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
 const rawDataLive = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/liveCaseStatusUpdates.json'), 'utf-8');
+const rawDataStatusDescription = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/StatusDescription.json'), 'utf-8');
 
 const allCourtData = JSON.parse(rawDataCourt);
 const courtData = allCourtData[0];
 const liveCaseData = JSON.parse(rawDataLive).results;
+const statusDescriptionData = JSON.parse(rawDataStatusDescription);
 
 sinon.stub(CourtRequests.prototype, 'getCourt').returns(courtData);
 sinon.stub(CourtRequests.prototype, 'getCourtByName').returns(courtData);
 sinon.stub(CourtRequests.prototype, 'getFilteredCourts').returns(allCourtData);
 sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(allCourtData);
 sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
+sinon.stub(dataManagementApi, 'get').withArgs('/courteventglossary').resolves({data: statusDescriptionData});
 
 export class Pa11yResult {
   documentTitle: string;
