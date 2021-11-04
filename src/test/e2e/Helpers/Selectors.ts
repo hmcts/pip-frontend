@@ -46,6 +46,10 @@ module.exports = {
 
   //SubscriptionAdd selectors
   SubscriptionAddTitle: 'h1.govuk-fieldset__heading',
+  SubscriptionAddByCaseRefNumber: '#subscription-choice-1',
+  SubscriptionAddByUniqueRefNumber: '#subscription-choice-2',
+  SubscriptionAddByCaseName: '#subscription-choice-3',
+  SubscriptionAddByCourtOrTribunal: '#subscription-choice-4',
 
   // LiveCaseAlphabetSearch selectors
   LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',
@@ -53,4 +57,12 @@ module.exports = {
   // Add Subscription selector
   UrnSearchRadioButton: '#subscription-choice-2',
   LiveHearingsTableFirstValidResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
+
+  // CaseNameSearch selectors
+  CaseNameInput: '#case-name',
+  CaseNameSearchErrorSummaryTitle: '.govuk-error-summary__title',
+
+  // CaseNameSearchResults selectors
+  CaseNameSearchResultsCheckbox: 'tbody > tr.govuk-table__row > td > .govuk-checkboxes__input',
+  CaseNameSearchResultsHeaderCheckbox: 'thead > tr.govuk-table__row > th > .govuk-checkboxes__input',
 };

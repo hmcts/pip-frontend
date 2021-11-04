@@ -9,14 +9,14 @@ import { ViewOptionPage } from '../pageobjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
 import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
 import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
-import { SubscriptionUrnSearchResultsPage} from '../pageobjects/SubscriptionUrnSearchResults.page';
-import { SubscriptionUrnSearchPage} from '../pageobjects/SubscriptionUrnSearch.page';
-import { SingleJusticeProcedureSearchPage } from '../pageobjects/SingleJusticeProcedureSearch.page';
-
-
+import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
+import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
+import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
+import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
+import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
 
 const homePage = new HomePage;
-const subscriptionAddPage = new SubscriptionAddPage();
+let subscriptionAddPage: SubscriptionAddPage;
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
@@ -25,16 +25,17 @@ let searchPage: SearchPage;
 let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
-let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
-let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
 let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
 let otpLoginPage: OtpLoginPage;
-
+let caseNameSearchPage: CaseNameSearchPage;
+let caseNameSearchResultsPage: CaseNameSearchResultsPage;
+let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
+let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
 
 describe('Finding a court or tribunal listing', () => {
-  it('should open main page with "Find a court or tribunal listing title', async () => {
+  it('should open main page with "See publications and information from a court or tribunal title', async () => {
     await homePage.open('');
-    expect(await homePage.getPageTitle()).toEqual('Find a court or tribunal hearing list');
+    expect(await homePage.getPageTitle()).toEqual('See publications and information from a court or tribunal');
   });
 
   it('should click on the "Start now button and navigate to View Options page', async () => {
@@ -47,7 +48,6 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Following the \'live case status updates\' path', () => {
-
     const validCourtName = 'Abergavenny Magistrates\' Court';
     after(async () => {
       await homePage.open('');
@@ -74,7 +74,7 @@ describe('Finding a court or tribunal listing', () => {
 
     it('selecting first result should take you to to the hearings list page', async () => {
       liveCaseStatusPage = await liveCaseCourtSearchControllerPage.selectFirstValidListResult();
-      expect(await liveCaseStatusPage.getPageTitle()).toEqual('Live hearing updates - daily court list');
+      expect(await liveCaseStatusPage.getPageTitle()).toEqual('Live hearing updates');
     });
 
     it(`should have '${validCourtName}' as a sub title`, async () => {
@@ -87,7 +87,7 @@ describe('Finding a court or tribunal listing', () => {
 
   });
 
-  describe('Following the \'Single Justice Procedure list\' option', () => {
+  describe('Following the \'Single Justice Procedure case\' option', () => {
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
@@ -98,30 +98,30 @@ describe('Finding a court or tribunal listing', () => {
       viewOptionPage = await homePage.clickStartNowButton();
     });
 
-    it('should select \'Single Justice Procedure list\' option and navigate to Single Justice Procedure list page', async () => {
+    it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
       await viewOptionPage.selectSingleJusticeProcedureRadio();
       singleJusticeProcedureSearchPage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-      expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure list');
+      expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure case');
     });
 
   });
 
-  describe('Following the \'tribunal hearing list\' option and \'find\' path', () => {
+  describe('Following the \'Court or Tribunal hearing Publications\' option and \'no name\' path', () => {
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
     });
 
-    it('should select \'tribunal hearing list\' option and navigate to search option page', async () => {
+    it('should select \'Court or Tribunal hearing Publications\' option and navigate to search option page', async () => {
       await viewOptionPage.selectSearchRadio();
       searchOptionsPage = await viewOptionPage.clickContinueForSearch();
       expect(await searchOptionsPage.getPageTitle()).toEqual('Do you know the name of the court or tribunal?');
     });
 
-    it('should select \'find\' option and navigate to alphabetical search page', async () => {
-      await searchOptionsPage.selectFindRadio();
+    it('should select \'I do not have the name\' option and navigate to alphabetical search page', async () => {
+      await searchOptionsPage.selectDontHaveTheNameRadio();
       alphabeticalSearchPage = await searchOptionsPage.clickContinueForAlphabetical();
-      expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal listing');
+      expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
     });
 
     it('should select \'T\' option, and navigate to the end of the page', async() => {
@@ -138,11 +138,11 @@ describe('Finding a court or tribunal listing', () => {
 
     it('selecting first result should take you to to the hearings list page', async () => {
       hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-      expect(await hearingListPage.getPageTitle()).toEqual('Abergavenny Magistrates\' Court hearing list');
+      expect(await hearingListPage.getPageTitle()).toEqual('Aberdeen Tribunal Hearing Centre hearing list');
     });
 
-    it('should display 13 results', async() => {
-      expect(await hearingListPage.getResults()).toBe(13);
+    it('should display 0 results', async() => {
+      expect(await hearingListPage.getResults()).toBe(0);
     });
   });
 
@@ -150,14 +150,15 @@ describe('Finding a court or tribunal listing', () => {
     const searchTerm = 'Abergavenny Magistrates\' Court';
     const expectedNumOfHearings = 13;
 
+
     it('should select \'tribunal hearing list\' option and navigate to search option page', async () => {
       await viewOptionPage.selectSearchRadio();
       searchOptionsPage = await viewOptionPage.clickContinueForSearch();
       expect(await searchOptionsPage.getPageTitle()).toEqual('Do you know the name of the court or tribunal?');
     });
 
-    it('should select \'search\' option and navigate to search page', async () => {
-      await searchOptionsPage.selectSearchRadio();
+    it('should select \'have the name\' option and navigate to search page', async () => {
+      await searchOptionsPage.selectHaveTheNameRadio();
       searchPage = await searchOptionsPage.clickContinueForSearch();
       expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
     });
@@ -188,42 +189,67 @@ describe('Finding a court or tribunal listing', () => {
       subscriptionManagementPage = await otpLoginPage.clickContinue();
       expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
     });
-  });
 
-  describe('Add a subscription path', () => {
-    const validSearchTerm = '12345678';
-    const invalidSearchTerm = '123456';
-    const expectedNumOfResults = 1;
-
-    it('should open the subscription add page', async () => {
-      await subscriptionAddPage.open('subscription-add');
+    it('should navigate to add subscription page on button click', async () => {
+      subscriptionAddPage = await subscriptionManagementPage.clickAddNewSubscriptionButton();
       expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
     });
 
-    it('should see 4 radio buttons', async () => {
-      expect(await subscriptionAddPage.radioButtons).toBe(4);
+    describe('Following case name search path', () => {
+      it('should open case name search path', async () => {
+        await subscriptionAddPage.selectOption('SubscriptionAddByCaseName');
+        caseNameSearchPage = await subscriptionAddPage.clickContinueForCaseName();
+        expect(await caseNameSearchPage.getPageTitle()).toBe('Enter a case name');
+      });
+
+      it('should display error dialog for a invalid case name', async () => {
+        await caseNameSearchPage.enterText('foo');
+        caseNameSearchPage = await caseNameSearchPage.clickContinueWithInvalidInput();
+        expect(await caseNameSearchPage.getErrorSummaryTitle()).toBe('There is a problem');
+      });
+
+      it('should search for a valid case name and navigate to results page', async () => {
+        await caseNameSearchPage.enterText('meed');
+        caseNameSearchResultsPage = await caseNameSearchPage.clickContinue();
+        expect(await caseNameSearchResultsPage.getPageTitle()).toBe('Search result');
+      });
+
+      it('should display 5 results', async () => {
+        expect(await caseNameSearchResultsPage.getResults()).toBe(5);
+      });
+    });
+    
+    describe('Following urn search path', () => {
+      const validSearchTerm = '12345678';
+      const invalidSearchTerm = '123456';
+      const expectedNumOfResults = 1;
+
+      before(async () => {
+        await subscriptionAddPage.open('subscription-add');
+      });
+
+      it('should select \'By unique reference number\' option and navigate to search urn page', async () => {
+        await subscriptionAddPage.selectOption('SubscriptionAddByUniqueRefNumber');
+        subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
+        expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+      });
+
+      it('should enter invalid text and click continue', async () => {
+        await subscriptionUrnSearchPage.enterText(invalidSearchTerm);
+        await subscriptionUrnSearchPage.clickContinue();
+        expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+      });
+
+      it('should enter text and click continue', async () => {
+        await subscriptionUrnSearchPage.enterText(validSearchTerm);
+        subscriptionUrnSearchResultsPage =  await subscriptionUrnSearchPage.clickContinue();
+        expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
+      });
+
+      it(`should display ${expectedNumOfResults} results`, async() => {
+        expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
+      });
     });
 
-    it('should select \'By unique reference number\' option and navigate to search urn page', async () => {
-      await subscriptionAddPage.selectUrnSearchRadio();
-      subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
-      expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
-    });
-
-    it('should enter invalid text and click continue', async () => {
-      await subscriptionUrnSearchPage.enterText(invalidSearchTerm);
-      await subscriptionUrnSearchPage.clickContinue();
-      expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
-    });
-
-    it('should enter text and click continue', async () => {
-      await subscriptionUrnSearchPage.enterText(validSearchTerm);
-      subscriptionUrnSearchResultsPage =  await subscriptionUrnSearchPage.clickContinue();
-      expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
-    });
-
-    it(`should display ${expectedNumOfResults} results`, async() => {
-      expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
-    });
   });
 });

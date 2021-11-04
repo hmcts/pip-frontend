@@ -18,6 +18,22 @@ export class SearchOptionsPage {
     return radioButtons.length;
   }
 
+  async selectHaveTheNameRadio(): Promise<void> {
+    $(helpers.SearchRadioButton).catch(() => {
+      console.log(`${helpers.SearchRadioButton} not found`);
+    });
+    const radioButton = await $(helpers.SearchRadioButton);
+    radioButton.click();
+  }
+
+  async selectDontHaveTheNameRadio(): Promise<void> {
+    $(helpers.FindRadioButton).catch(() => {
+      console.log(`${helpers.FindRadioButton} not found`);
+    });
+    const radioButton = await $(helpers.FindRadioButton);
+    radioButton.click();
+  }
+
   async selectSearchRadio(): Promise<void> {
     $(helpers.SearchRadioButton).catch(() => {
       console.log(`${helpers.SearchRadioButton} not found`);

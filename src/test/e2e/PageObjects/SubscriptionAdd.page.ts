@@ -1,10 +1,10 @@
 import {SubscriptionUrnSearchPage} from './SubscriptionUrnSearch.page';
+import { CaseNameSearchPage } from './CaseNameSearch.page';
 
 const helpers = require('../Helpers/Selectors');
 
 export class SubscriptionAddPage {
-
-  open(path): Promise<string> {
+  open (path): Promise<string> {
     return browser.url(path);
   }
 
@@ -37,5 +37,24 @@ export class SubscriptionAddPage {
     continueButton.click();
 
     return new SubscriptionUrnSearchPage();
+  }
+
+  async selectOption(optionName: string): Promise<void> {
+    $(helpers[optionName]).catch(() => {
+      console.log(`${helpers[optionName]} not found`);
+    });
+
+    await $(helpers[optionName]).click();
+  }
+
+  // TODO: add remaining clicks
+
+  async clickContinueForCaseName(): Promise<CaseNameSearchPage> {
+    $(helpers.ContinueButton).catch(() => {
+      console.log(`${helpers.ContinueButton} not found`);
+    });
+
+    await $(helpers.ContinueButton).click();
+    return new CaseNameSearchPage();
   }
 }

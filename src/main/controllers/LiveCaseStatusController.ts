@@ -21,6 +21,7 @@ export default class LiveCaseStatusController {
           updateDateTime: moment.utc(Date.parse(liveCase.lastUpdated)).format('dddd D MMMM YYYY\xa0\xa0\xa0\xa0h:mma'),
           liveCases: liveCase.courtUpdates,
           refreshTimer: process.env.REFRESH_TIMER_MILLISECONDS || 15000,
+          courtId: courtId,
         });
       } else {
         res.redirect('not-found');
