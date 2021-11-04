@@ -6,7 +6,6 @@ import { cloneDeep } from 'lodash';
 
 const courtService = new CourtService();
 const filterService = new FilterService();
-const filters = ['Jurisdiction', 'Region'];
 let keys = [];
 let filterValues = [];
 
@@ -17,11 +16,10 @@ export default class CourtNameSearchController {
       filterValues = filterService.handleFilterClear(filterValues, query);
     }
 
-    const filterOptions = filterService.buildFilterValueOptions(filters, await courtService.fetchAllCourts(), filterValues);
-    keys = filterService.reCreateKeysList(keys, filterOptions);
+    const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
+    keys = filterService.handleKeys(filterOptions);
     const alphabetisedList = filterValues.length ? await courtService.generateFilteredAlphabetisedCourtList(keys, filterValues) :
       await courtService.generateAlphabetisedAllCourtList();
-
 
     res.render('court-name-search', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['court-name-search']),
@@ -44,7 +42,7 @@ export default class CourtNameSearchController {
     filterValues = Array.prototype.concat.apply([], values);
 
     const alphabetisedList = await courtService.generateFilteredAlphabetisedCourtList(keys, filterValues);
-    const filterOptions = filterService.buildFilterValueOptions(filters, await courtService.fetchAllCourts(), filterValues);
+    const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
 
     res.render('court-name-search', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['court-name-search']),

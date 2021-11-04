@@ -14,4 +14,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 
   collectCoverageFrom: [ "!**/modules/**" ],
+  setupFiles: ["<rootDir>/jestEnvVars.js"]
+
+
 }

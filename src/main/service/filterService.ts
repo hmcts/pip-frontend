@@ -1,11 +1,13 @@
 import {Court} from '../models/court';
 
+const filterNames = ['Jurisdiction', 'Region'];
+
 export class FilterService {
-  public getFilterValueOptions(filterName: string, list: Array<Court>): string[] {
+  private getFilterValueOptions(filterName: string, list: Array<Court>): string[] {
     return [...new Set(list.map(court => court[filterName.toLowerCase()]))];
   }
 
-  public buildFilterValueOptions(filterNames: string[], list, selectedFilters: string[]): object {
+  public buildFilterValueOptions(list: Array<Court>, selectedFilters: string[]): object {
     const filterValueOptions = {};
     filterNames.forEach(filter => {
       filterValueOptions[filter] = {};
@@ -30,19 +32,15 @@ export class FilterService {
     }
   }
 
-  public reCreateKeysList(keys: string[], filterOptions: object): string[] {
-    const validatedKeys = [];
-    const filterOptionsKeys = Object.keys(filterOptions);
-    filterOptionsKeys.forEach((filterObject) => {
-      const nestedObjectKeys = Object.keys(filterOptions[filterObject]);
-      const checkedValues = [];
-      nestedObjectKeys.forEach((nested) => {
-        filterOptions[filterObject][nested].checked ? checkedValues.push(1) : checkedValues.push(0);
+  public handleKeys(filterOptions: object): string[] {
+    const keys = [];
+    filterNames.forEach(filter => {
+      Object.keys(filterOptions[filter]).forEach(filterValue => {
+        if (filterOptions[filter][filterValue].checked) {
+          filter === 'Region' ? keys.push('Location') : keys.push(filter);
+        }
       });
-      if (checkedValues.includes(1)) {
-        filterObject === 'Region' ? validatedKeys.push('Location') : validatedKeys.push(filterObject);
-      }
     });
-    return validatedKeys;
+    return [...new Set(keys.map(key => key))];
   }
 }
