@@ -25,6 +25,17 @@ describe('getStatusDescriptionList()', () => {
     expect(await searchDescriptionRequests.getStatusDescriptionList()).toHaveLength(0);
   });
 
+  it('should return null if request fails', async () => {
+    stubGetStatusDescriptionList.withArgs('/glossary').resolves(Promise.reject({request:'test error'}));
+    expect(await searchDescriptionRequests.getStatusDescriptionList()).toHaveLength(0);
+  });
+
+  it('should return null if request fails', async () => {
+    stubGetStatusDescriptionList.withArgs('/glossary').resolves(Promise.reject({message:'test error'}));
+    expect(await searchDescriptionRequests.getStatusDescriptionList()).toHaveLength(0);
+  });
+
+
   it('First glossary should be Adjourned', () => {
     stubGetStatusDescriptionList.withArgs('/glossary').resolves({data: statusDescriptionData});
     return searchDescriptionRequests.getStatusDescriptionList().then(data => {
