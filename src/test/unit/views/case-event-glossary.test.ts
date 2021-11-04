@@ -4,18 +4,18 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {StatusDescriptionRequests} from '../../../main/resources/requests/statusDescriptionRequests';
-const PAGE_URL = '/status-description?courtId=1#1';
+import {CaseEventGlossaryRequests} from '../../../main/resources/requests/caseEventGlossaryRequests';
+const PAGE_URL = '/case-event-glossary?courtId=1#1';
 
 let htmlRes: Document;
 
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/StatusDescription.json'), 'utf-8');
-const statusDescriptionData = JSON.parse(rawData);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/CaseEventGlossary.json'), 'utf-8');
+const caseEventGlossaryData = JSON.parse(rawData);
 
-sinon.stub(StatusDescriptionRequests.prototype, 'getStatusDescriptionList').returns(statusDescriptionData);
+sinon.stub(CaseEventGlossaryRequests.prototype, 'getCourtEventGlossaryList').returns(caseEventGlossaryData);
 
-describe('Status Description page', () => {
+describe('Case Event Glossary page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

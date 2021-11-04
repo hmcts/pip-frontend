@@ -1,8 +1,8 @@
 import {dataManagementApi} from './utils/axiosConfig';
 
-export class StatusDescriptionRequests {
+export class CaseEventGlossaryRequests {
 
-  public async getStatusDescriptionList(): Promise<Array<any>> {
+  public async getCourtEventGlossaryList(): Promise<Array<any>> {
     try {
       const response = await dataManagementApi.get('/glossary');
       return response.data;

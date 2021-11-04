@@ -8,7 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import {CourtRequests} from '../../main/resources/requests/courtRequests';
 import {LiveCaseRequests} from '../../main/resources/requests/liveCaseRequests';
-import {StatusDescriptionRequests} from '../../main/resources/requests/statusDescriptionRequests';
+import {CaseEventGlossaryRequests} from '../../main/resources/requests/caseEventGlossaryRequests';
 const agent = supertest.agent(app);
 
 const routesNotTested = [
@@ -22,19 +22,19 @@ const routesNotTested = [
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
 const rawDataLive = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/liveCaseStatusUpdates.json'), 'utf-8');
-const rawDataStatusDescription = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/StatusDescription.json'), 'utf-8');
+const rawDataCaseEventGlossary = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/CaseEventGlossary.json'), 'utf-8');
 
 const allCourtData = JSON.parse(rawDataCourt);
 const courtData = allCourtData[0];
 const liveCaseData = JSON.parse(rawDataLive).results;
-const statusDescriptionData = JSON.parse(rawDataStatusDescription);
+const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
 
 sinon.stub(CourtRequests.prototype, 'getCourt').returns(courtData);
 sinon.stub(CourtRequests.prototype, 'getCourtByName').returns(courtData);
 sinon.stub(CourtRequests.prototype, 'getFilteredCourts').returns(allCourtData);
 sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(allCourtData);
 sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
-sinon.stub(StatusDescriptionRequests.prototype, 'getStatusDescriptionList').returns(statusDescriptionData);
+sinon.stub(CaseEventGlossaryRequests.prototype, 'getCourtEventGlossaryList').returns(caseEventGlossaryData);
 
 export class Pa11yResult {
   documentTitle: string;
