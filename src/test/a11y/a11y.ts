@@ -8,7 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import {CourtRequests} from '../../main/resources/requests/courtRequests';
 import {LiveCaseRequests} from '../../main/resources/requests/liveCaseRequests';
-import { dataManagementApi } from '../../main/resources/requests/utils/axiosConfig';
+import {StatusDescriptionRequests} from '../../main/resources/requests/statusDescriptionRequests';
 const agent = supertest.agent(app);
 
 const routesNotTested = [
@@ -34,7 +34,7 @@ sinon.stub(CourtRequests.prototype, 'getCourtByName').returns(courtData);
 sinon.stub(CourtRequests.prototype, 'getFilteredCourts').returns(allCourtData);
 sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(allCourtData);
 sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
-sinon.stub(dataManagementApi, 'get').withArgs('/courteventglossary').resolves({data: statusDescriptionData});
+sinon.stub(StatusDescriptionRequests.prototype, 'getStatusDescriptionList').returns(statusDescriptionData);
 
 export class Pa11yResult {
   documentTitle: string;

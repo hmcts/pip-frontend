@@ -1,7 +1,7 @@
-import {SearchDescriptionRequests} from '../resources/requests/searchDescriptionRequests';
+import {StatusDescriptionRequests} from '../resources/requests/statusDescriptionRequests';
 import {CourtService} from '../service/courtService';
 
-const searchDescriptionRequests = new SearchDescriptionRequests();
+const searchDescriptionRequests = new StatusDescriptionRequests();
 
 export class StatusDescriptionService {
 

@@ -1,10 +1,10 @@
 import {dataManagementApi} from './utils/axiosConfig';
 
-export class SearchDescriptionRequests {
+export class StatusDescriptionRequests {
 
   public async getStatusDescriptionList(): Promise<Array<any>> {
     try {
-      const response = await dataManagementApi.get('/courteventglossary');
+      const response = await dataManagementApi.get('/glossary');
       return response.data;
     } catch (error) {
       if (error.response) {
