@@ -11,6 +11,10 @@ const statusDescriptionData = JSON.parse(rawData);
 
 const stubGetStatusDescriptionList = sinon.stub(dataManagementApi, 'get');
 
+const errorRequest = {
+  request: 'test error',
+};
+
 describe('getStatusDescriptionList()', () => {
 
   it('should return list of 49 courts events status', () => {
@@ -41,12 +45,17 @@ describe('getStatusDescriptionList()', () => {
 
   let i = 0;
   it('All Glossary items must have name and description', () => {
-    stubGetStatusDescriptionList.withArgs('/courteventglossary').resolves({data: statusDescriptionData});
+    stubGetStatusDescriptionList.withArgs('/glossary').resolves({data: statusDescriptionData});
     return searchDescriptionRequests.getStatusDescriptionList().then(data => {
       expect(data[i].eventName).not.toBeNull();
       expect(data[i].eventStatus).not.toBeNull();
       i++;
     });
+  });
+
+  it('should return null list of court event status', async () => {
+    stubGetStatusDescriptionList.withArgs('/glossary').resolves(Promise.reject(errorRequest));
+    expect(await searchDescriptionRequests.getStatusDescriptionList()).toStrictEqual([]);
   });
 
 });
