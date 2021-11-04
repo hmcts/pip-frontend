@@ -42,14 +42,6 @@ export class SearchOptionsPage {
     radioButton.click();
   }
 
-  async selectFindRadio(): Promise<void> {
-    $(helpers.FindRadioButton).catch(() => {
-      console.log(`${helpers.FindRadioButton} not found`);
-    });
-    const radioButton = await $(helpers.FindRadioButton);
-    radioButton.click();
-  }
-
   async clickContinueForSearch(): Promise<SearchPage> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);

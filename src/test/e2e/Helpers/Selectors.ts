@@ -33,10 +33,7 @@ module.exports = {
   RowSelector: (letter): string => {
     return '#' + letter;
   },
-  FirstItemResult: 'tbody > tr.govuk-table__row > td > div > a',
-
-  // OtpLogin page selectors
-  OtpInput: '#otp-code',
+  SecondItemResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
 
   // ViewOption page selectors
   ViewOptionsTitle: 'h1.govuk-fieldset__heading',
@@ -65,4 +62,9 @@ module.exports = {
   // CaseNameSearchResults selectors
   CaseNameSearchResultsCheckbox: 'tbody > tr.govuk-table__row > td > .govuk-checkboxes__input',
   CaseNameSearchResultsHeaderCheckbox: 'thead > tr.govuk-table__row > th > .govuk-checkboxes__input',
+
+  // CourtNameSearch selectors
+  JurisdictionCheckbox: '#Jurisdiction',
+  ApplyFiltersButton: '.moj-filter__options > .govuk-button',
+  ClearFiltersLink: '.moj-filter__heading-action > p > a',
 };

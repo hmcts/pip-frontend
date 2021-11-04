@@ -223,6 +223,10 @@ div {
   .attrEntry {
     div {
       @extend .govuk-body;
+
+      &.error {
+        color:  $govuk-error-colour;
+      }
     }
   }
 }
@@ -234,6 +238,15 @@ div {
     @extend .govuk-button;
     @extend .govuk-\!-margin-right-4;
   }
+}
+
+.error {
+  @extend .govuk-body;
+  color:  $govuk-error-colour;
+}
+
+.verifying-modal {
+  display: none;
 }
 
 .attrEntry {
@@ -283,12 +296,16 @@ div {
   font-weight: bold;
 }
 
-.vertical-center-table-header {
-  vertical-align: middle;
+.selection-counter-box {
+  background-color: govuk-colour('light-grey');
 }
 
 .filter-back-to-top-wrapper {
   display: flex;
   flex-direction: row-reverse;
   width: 100%;
+}
+
+.vertical-center-table-header {
+  vertical-align: middle;
 }

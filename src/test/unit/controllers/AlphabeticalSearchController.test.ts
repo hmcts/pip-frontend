@@ -13,18 +13,20 @@ const courtList = JSON.parse(rawData);
 const alphabeticalSearchController = new AlphabeticalSearchController();
 
 sinon.stub(CourtService.prototype, 'generateAlphabetisedAllCourtList').resolves(courtList);
-sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList').resolves(courtList);
+const filteredCourtStub = sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList');
+filteredCourtStub.resolves(courtList);
 sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves(courtList);
 sinon.stub(FilterService.prototype, 'buildFilterValueOptions').returns([]);
 sinon.stub(FilterService.prototype, 'handleFilterClear').returns(['test']);
+sinon.stub(FilterService.prototype, 'handleKeys').returns(['test']);
+
+const i18n = {
+  'alphabetical-search': {},
+};
 
 describe('Alphabetical Search Controller', () => {
   describe('get', () => {
     it('should render the alphabetical search page', () => {
-      const i18n = {
-        'alphabetical-search': {},
-      };
-
       const response = {
         render: function() {return '';},
       } as unknown as Response;
@@ -47,10 +49,6 @@ describe('Alphabetical Search Controller', () => {
     });
 
     it('should render the alphabetical search page with a query param', () => {
-      const i18n = {
-        'alphabetical-search': {},
-      };
-
       const response = {
         render: function() {return '';},
       } as unknown as Response;
@@ -74,10 +72,6 @@ describe('Alphabetical Search Controller', () => {
   });
   describe('post', () => {
     it('should render page with body', () => {
-      const i18n = {
-        'alphabetical-search': {},
-      };
-
       const response = {
         render: function() {return '';},
       } as unknown as Response;
@@ -89,6 +83,30 @@ describe('Alphabetical Search Controller', () => {
       const expectedData = {
         ...i18n['alphabetical-search'],
         courtList: courtList,
+        filterOptions: [],
+      };
+
+      responseMock.expects('render').once().withArgs('alphabetical-search', expectedData);
+
+      return alphabeticalSearchController.post(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+
+    it('should render page after switching Region for Location', () => {
+      filteredCourtStub.withArgs(['Location'], ['Crown']).resolves(['switched filter']);
+
+      const response = {
+        render: function() {return '';},
+      } as unknown as Response;
+      const request = mockRequest(i18n);
+      request.body = {Region: 'Crown'};
+
+      const responseMock = sinon.mock(response);
+
+      const expectedData = {
+        ...i18n['alphabetical-search'],
+        courtList: ['switched filter'],
         filterOptions: [],
       };
 

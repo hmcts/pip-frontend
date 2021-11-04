@@ -49,7 +49,7 @@ describe('Subscription Add', () => {
         .send({'subscription-choice': 'court-or-tribunal'})
         .expect((res) => {
           expect(res.status).to.equal(302);
-          expect(res.header['location']).to.equal('/');
+          expect(res.header['location']).to.equal('/court-name-search');
         });
     });
 

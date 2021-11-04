@@ -35,7 +35,7 @@ describe('Alphabetical Search page', () => {
   it('should contain the find a court heading', () => {
     const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
     expect(pageHeading[0].innerHTML)
-      .contains('Find a court or tribunal listing', 'Page heading does not exist');
+      .contains('Find a court or tribunal', 'Page heading does not exist');
   });
 
   it('should contain letters that navigate to other sections of the page', () => {
@@ -77,4 +77,20 @@ describe('Alphabetical Search page', () => {
     expect(backToTopButton.getAttribute('href')).contains('#');
   });
 
+  it('should display the filter', () => {
+    const filter = htmlRes.getElementsByClassName('moj-filter');
+    expect(filter[0].innerHTML).contains('Filter');
+  });
+
+  it('should display filter options', () => {
+    const fieldsets = htmlRes.getElementsByClassName('govuk-fieldset');
+    expect(fieldsets[0].innerHTML).contains('Jurisdiction');
+    expect(fieldsets[1].innerHTML).contains('Region');
+  });
+
+  it('should display filter options value', () => {
+    const fieldsets = htmlRes.getElementsByClassName('govuk-fieldset');
+    expect(fieldsets[0].innerHTML).contains('Crown Court');
+    expect(fieldsets[1].innerHTML).contains('London');
+  });
 });

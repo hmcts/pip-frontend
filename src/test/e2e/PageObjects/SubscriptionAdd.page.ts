@@ -1,6 +1,8 @@
 import {SubscriptionUrnSearchPage} from './SubscriptionUrnSearch.page';
 import { CaseNameSearchPage } from './CaseNameSearch.page';
 
+import { CourtNameSearchPage } from './CourtNameSearch.page';
+
 const helpers = require('../Helpers/Selectors');
 
 export class SubscriptionAddPage {
@@ -56,5 +58,14 @@ export class SubscriptionAddPage {
 
     await $(helpers.ContinueButton).click();
     return new CaseNameSearchPage();
+  }
+
+  async clickContinueForCourtOrTribunal(): Promise<CourtNameSearchPage> {
+    $(helpers.ContinueButton).catch(() => {
+      console.log(`${helpers.ContinueButton} not found`);
+    });
+
+    await $(helpers.ContinueButton).click();
+    return new CourtNameSearchPage();
   }
 }
