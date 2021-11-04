@@ -1,12 +1,14 @@
 import sinon from 'sinon';
 import {dataManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
-import {SearchDescriptionRequests} from '../../../main/resources/requests/searchDescriptionRequests';
+import {StatusDescriptionRequests} from '../../../main/resources/requests/statusDescriptionRequests';
 import fs from 'fs';
 import path from 'path';
 
-const searchDescriptionRequests = new SearchDescriptionRequests();
+const searchDescriptionRequests = new StatusDescriptionRequests();
+
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/StatusDescription.json'), 'utf-8');
 const statusDescriptionData = JSON.parse(rawData);
+
 const stubGetStatusDescriptionList = sinon.stub(dataManagementApi, 'get');
 
 describe('getStatusDescriptionList()', () => {
@@ -30,7 +32,7 @@ describe('getStatusDescriptionList()', () => {
     });
   });
 
-  it('Description of First glossary must not be empty', () => {
+  it('Description fof First glossary must not be empty', () => {
     stubGetStatusDescriptionList.withArgs('/glossary').resolves({data: statusDescriptionData});
     return searchDescriptionRequests.getStatusDescriptionList().then(data => {
       expect(data[0].eventStatus).not.toBeNull();
@@ -39,7 +41,7 @@ describe('getStatusDescriptionList()', () => {
 
   let i = 0;
   it('All Glossary items must have name and description', () => {
-    stubGetStatusDescriptionList.withArgs('/glossary').resolves({data: statusDescriptionData});
+    stubGetStatusDescriptionList.withArgs('/courteventglossary').resolves({data: statusDescriptionData});
     return searchDescriptionRequests.getStatusDescriptionList().then(data => {
       expect(data[i].eventName).not.toBeNull();
       expect(data[i].eventStatus).not.toBeNull();

@@ -3,11 +3,11 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import {SearchDescriptionRequests} from '../../../main/resources/requests/searchDescriptionRequests';
+import {StatusDescriptionRequests} from '../../../main/resources/requests/statusDescriptionRequests';
 
 const statusDescriptionService = new StatusDescriptionService();
 
-const searchDescriptionRequests = SearchDescriptionRequests.prototype;
+const searchDescriptionRequests = StatusDescriptionRequests.prototype;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/StatusDescription.json'), 'utf-8');
 const statusDescriptionData = JSON.parse(rawData);
