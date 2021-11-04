@@ -3,7 +3,6 @@ import { SearchOptionsPage } from '../pageobjects/SearchOptions.page';
 import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
 import { HearingListPage } from '../pageobjects/HearingList.page';
 import { SearchPage } from '../pageobjects/Search.page';
-import { OtpLoginPage } from '../pageobjects/OtpLogin.page';
 import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
 import { ViewOptionPage } from '../pageobjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
@@ -25,7 +24,6 @@ let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
-let otpLoginPage: OtpLoginPage;
 let caseNameSearchPage: CaseNameSearchPage;
 let caseNameSearchResultsPage: CaseNameSearchResultsPage;
 let courtNameSearchPage: CourtNameSearchPage;
@@ -177,14 +175,9 @@ describe('Finding a court or tribunal listing', () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
     });
-    it('should open the OTP login page when a user clicks "Subscriptions" header', async () => {
-      otpLoginPage = await homePage.clickSubscriptionsButton();
-      expect(await otpLoginPage.getPageTitle()).toEqual('Verify your email address');
-    });
 
-    it('should navigate to subscription page when correct passcode is entered', async () => {
-      await otpLoginPage.enterText('222222');
-      subscriptionManagementPage = await otpLoginPage.clickContinue();
+    it('should open the Subscription Manage Page when a user clicks "Subscriptions" header', async () => {
+      subscriptionManagementPage = await homePage.clickSubscriptionsButton();
       expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
     });
 
@@ -266,5 +259,4 @@ describe('Finding a court or tribunal listing', () => {
       });
     });
   });
-
 });
