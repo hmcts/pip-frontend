@@ -32,19 +32,15 @@ export class FilterService {
     }
   }
 
-  public handleKeys(filterOptions: object, filterValues: string[]): string[] {
+  public handleKeys(filterOptions: object): string[] {
     const keys = [];
-    if (filterValues.length > 0) {
-      filterNames.forEach(filter => {
-        filterValues.forEach(value => {
-          if (Object.keys(filterOptions[filter]).includes(value)) {
-            if (filterOptions[filter][value].checked) {
-              filter === 'Region' ? keys.push('Location') : keys.push(filter);
-            }
-          }
-        });
+    filterNames.forEach(filter => {
+      Object.keys(filterOptions[filter]).forEach(filterValue => {
+        if (filterOptions[filter][filterValue].checked) {
+          filter === 'Region' ? keys.push('Location') : keys.push(filter);
+        }
       });
-    }
+    });
     return [...new Set(keys.map(key => key))];
   }
 }

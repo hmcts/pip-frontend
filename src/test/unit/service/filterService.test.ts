@@ -11,6 +11,9 @@ const crownCourt = 'Crown Court';
 const royalCourt = 'Royal Court';
 const jurisdiction = 'Jurisdiction';
 const filterOptions = {Jurisdiction: {'Crown Court': {checked: true}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: true}}};
+const filterOptionsNoJurisdiction = {Jurisdiction: {'Crown Court': {checked: false}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: true}}};
+const filterOptionsNoRegion = {Jurisdiction: {'Crown Court': {checked: true}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: false}}};
+const filterOptionsNoFilters = {Jurisdiction: {'Crown Court': {checked: false}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: false}}};
 
 describe('Filter Service', () => {
   it('should build filter header options for checkboxes', () => {
@@ -47,18 +50,18 @@ describe('Filter Service', () => {
   });
 
   it('should return no keys needed for no checked options', () => {
-    expect(filterService.handleKeys(filterOptions, [])).toStrictEqual([]);
+    expect(filterService.handleKeys(filterOptionsNoFilters)).toStrictEqual([]);
   });
 
   it('should return Jurisdiction needed for checked options', () => {
-    expect(filterService.handleKeys(filterOptions, [crownCourt])).toStrictEqual(['Jurisdiction']);
+    expect(filterService.handleKeys(filterOptionsNoRegion)).toStrictEqual(['Jurisdiction']);
   });
 
   it('should return Location needed for checked options', () => {
-    expect(filterService.handleKeys(filterOptions, ['Hull'])).toStrictEqual(['Location']);
+    expect(filterService.handleKeys(filterOptionsNoJurisdiction)).toStrictEqual(['Location']);
   });
 
   it('should return both keys needed for checked options', () => {
-    expect(filterService.handleKeys(filterOptions, ['Hull', crownCourt])).toStrictEqual([jurisdiction, 'Location']);
+    expect(filterService.handleKeys(filterOptions)).toStrictEqual([jurisdiction, 'Location']);
   });
 });

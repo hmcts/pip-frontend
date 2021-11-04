@@ -59,4 +59,9 @@ module.exports = {
   // CaseNameSearchResults selectors
   CaseNameSearchResultsCheckbox: 'tbody > tr.govuk-table__row > td > .govuk-checkboxes__input',
   CaseNameSearchResultsHeaderCheckbox: 'thead > tr.govuk-table__row > th > .govuk-checkboxes__input',
+
+  // CourtNameSearch selectors
+  JurisdictionCheckbox: '#Jurisdiction',
+  ApplyFiltersButton: '.moj-filter__options > .govuk-button',
+  ClearFiltersLink: '.moj-filter__heading-action > p > a',
 };

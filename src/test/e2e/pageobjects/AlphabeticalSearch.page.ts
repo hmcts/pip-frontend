@@ -35,13 +35,13 @@ export class AlphabeticalSearchPage {
     backToTop.click();
   }
 
-  async selectFirstListResult(): Promise<HearingListPage> {
+  async selectSecondListResult(): Promise<HearingListPage> {
     await $(helpers.SecondItemResult).catch(() => {
       console.log(`${helpers.SecondItemResult} not found`);
     });
 
-    const firstItem = await $(helpers.SecondItemResult);
-    firstItem.click();
+    const secondItem = await $(helpers.SecondItemResult);
+    secondItem.click();
     return new HearingListPage();
   }
 }

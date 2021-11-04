@@ -3,7 +3,6 @@ import { SubscriptionAddPage } from './SubscriptionAdd.page';
 const helpers = require('../Helpers/Selectors');
 
 export class SubscriptionManagementPage {
-
   async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitle).catch(() => {
       console.log(`${helpers.CommonPageTitle} not found`);

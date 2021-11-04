@@ -91,7 +91,7 @@ describe('Court get requests', () => {
     expect(await courtRequests.getFilteredCourts(test, test)).toBe(null);
   });
 
-  it('should return null if request fails', async () => {
+  it('should return null if response fails', async () => {
     expect(await courtRequests.getFilteredCourts(test, ['error'])).toBe(null);
   });
 
