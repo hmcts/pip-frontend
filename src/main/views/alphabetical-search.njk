@@ -59,15 +59,15 @@
     <form method="post" action="alphabetical-search" class="moj-filter-layout__filter layout-width-four-fifths">
       {{ mojFilter({
         heading: {
-          text: 'Filter'
+          text: filter
         },
         selectedFilters: {
           clearLink: {
-            text: 'Clear filters',
+            text: clearAll,
             href: '?clear=all'
           },
           heading: {
-            text: 'Selected filter'
+            text: selectedFilter
           },
           categories: checkedFilters
         },

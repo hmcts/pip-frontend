@@ -1,76 +1,67 @@
-import { expect } from 'chai';
-import { FilterService } from '../../../main/service/filterService';
+import {FilterService} from '../../../main/service/filterService';
 import fs from 'fs';
 import path from 'path';
 
 const filterService = new FilterService();
+
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const listData = JSON.parse(rawData);
-const validFilterName = 'jurisdiction';
-const invalidFilterName = 'foo';
 
-const emptyList = [];
-const validFilterNames = ['Jurisdiction', 'Region'];
-const validDistinctValues = ['Crown Court', 'Royal Court'];
+const crownCourt = 'Crown Court';
+const royalCourt = 'Royal Court';
+const jurisdiction = 'Jurisdiction';
+const filterOptions = {Jurisdiction: {'Crown Court': {checked: true}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: true}}};
+const filterOptionsNoJurisdiction = {Jurisdiction: {'Crown Court': {checked: false}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: true}}};
+const filterOptionsNoRegion = {Jurisdiction: {'Crown Court': {checked: true}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: false}}};
+const filterOptionsNoFilters = {Jurisdiction: {'Crown Court': {checked: false}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: false}}};
 
 describe('Filter Service', () => {
-  it('should return list of distinct values', () => {
-    expect(filterService.getFilterValueOptions(validFilterName, listData)).to.deep.equal(validDistinctValues);
-  });
-
-  it('should return empty list', () => {
-    expect(filterService.getFilterValueOptions(invalidFilterName, emptyList)).to.deep.equal(emptyList);
+  it('should build filter header options for checkboxes', () => {
+    expect(Object.keys(filterService.buildFilterValueOptions(listData, [])).length).toBe(2);
   });
 
   it('should build filter values options for checkboxes', () => {
-    const filterOptions = filterService.buildFilterValueOptions(validFilterNames, listData, []);
-    expect(Object.keys(filterOptions)).to.deep.equal(validFilterNames);
-    expect(Object.keys(filterOptions['Jurisdiction'])[0]).to.equal('Crown Court');
-    expect(Object.keys(filterOptions['Jurisdiction'])[1]).to.equal('Royal Court');
-    expect(Object.keys(filterOptions['Region'])[0]).to.equal('Bedford');
-    expect(Object.keys(filterOptions['Region'])[1]).to.equal('London');
-    expect(Object.keys(filterOptions['Region'])[2]).to.equal('Manchester');
+    const data = filterService.buildFilterValueOptions(listData, []);
+    expect(Object.keys(data[jurisdiction])[0]).toBe(crownCourt);
+    expect(Object.keys(data[jurisdiction])[1]).toBe(royalCourt);
+    expect(Object.keys(data['Region'])[0]).toBe('Bedford');
   });
 
   it('should build filters options for checkboxes with checked false', () => {
-    const filterOptions = filterService.buildFilterValueOptions(validFilterNames, listData, []);
-    expect(filterOptions['Jurisdiction']['Crown Court'].checked).to.equal(false);
+    const data = filterService.buildFilterValueOptions(listData, []);
+    expect(data[jurisdiction][crownCourt]['checked']).toBe(false);
   });
 
   it('should build filters options for checkboxes with checked true', () => {
-    const filterOptions = filterService.buildFilterValueOptions(validFilterNames, listData, ['Crown Court']);
-    expect(filterOptions['Jurisdiction']['Crown Court'].checked).to.equal(true);
+    const data = filterService.buildFilterValueOptions(listData, ['Crown Court']);
+    expect(data[jurisdiction][crownCourt]['checked']).toBe(true);
   });
 
   it('should return empty array if clear is set to all', () => {
-    expect(filterService.handleFilterClear(['test', 'foo'], 'all')).to.deep.equal(emptyList);
+    expect(filterService.handleFilterClear(['test'], 'all')).toStrictEqual([]);
   });
 
   it('should remove item in array', () => {
-    expect(filterService.handleFilterClear(['test', 'removed'], 'removed')).to.deep.equal(['test']);
+    expect(filterService.handleFilterClear(['test', 'removed'], 'removed')).toStrictEqual(['test']);
   });
 
   it('should remove item in array leaving empty', () => {
-    expect(filterService.handleFilterClear(['removed'], 'removed')).to.deep.equal(emptyList);
+    expect(filterService.handleFilterClear(['removed'], 'removed')).toStrictEqual([]);
   });
 
   it('should return no keys needed for no checked options', () => {
-    const filterOptions = filterService.buildFilterValueOptions(validFilterNames, listData, []);
-    expect(filterService.reCreateKeysList(validFilterNames, filterOptions)).to.deep.equal(emptyList);
+    expect(filterService.handleKeys(filterOptionsNoFilters)).toStrictEqual([]);
   });
 
   it('should return Jurisdiction needed for checked options', () => {
-    const filterOptions = filterService.buildFilterValueOptions(validFilterNames, listData, ['Crown Court']);
-    expect(filterService.reCreateKeysList(validFilterNames, filterOptions)).to.deep.equal(['Jurisdiction']);
+    expect(filterService.handleKeys(filterOptionsNoRegion)).toStrictEqual(['Jurisdiction']);
   });
 
   it('should return Location needed for checked options', () => {
-    const filterOptions = filterService.buildFilterValueOptions(validFilterNames, listData, ['London']);
-    expect(filterService.reCreateKeysList(validFilterNames, filterOptions)).to.deep.equal(['Location']);
+    expect(filterService.handleKeys(filterOptionsNoJurisdiction)).toStrictEqual(['Location']);
   });
 
   it('should return both keys needed for checked options', () => {
-    const filterOptions = filterService.buildFilterValueOptions(validFilterNames, listData, ['London', 'Crown Court']);
-    expect(filterService.reCreateKeysList(validFilterNames, filterOptions)).to.deep.equal(['Jurisdiction', 'Location']);
+    expect(filterService.handleKeys(filterOptions)).toStrictEqual([jurisdiction, 'Location']);
   });
 });
