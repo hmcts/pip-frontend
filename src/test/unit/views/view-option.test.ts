@@ -13,6 +13,7 @@ const expectedButtonText = 'Continue';
 const expectedRadioLabel1 = 'Court or Tribunal publications';
 const expectedRadioLabel2 = 'Live hearing updates - Crown Court only';
 const expectedRadioLabel3 = 'Single Justice Procedure case';
+const expectedRadioHint3 = 'Cases involving adults charged with summary-only non-imprisonable offences. Such as Transport for London, TV Licensing, and the DVLA';
 
 let htmlRes: Document;
 
@@ -51,5 +52,10 @@ describe('View Option Page', () => {
   it('should display third radio button content',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons[2].innerHTML).contains(expectedRadioLabel3, 'Could not find the radio button with label ' + expectedRadioLabel3);
+  });
+
+  it('should display third radio button hint',  () => {
+    const radioButtons = htmlRes.getElementsByClassName(radioClass);
+    expect(radioButtons[2].innerHTML).contains(expectedRadioLabel3, 'Could not find the radio button with hint ' + expectedRadioHint3);
   });
 });
