@@ -17,7 +17,7 @@ const errorRequest = {
 
 describe('getCaseEventGlossaryList()', () => {
 
-  it('should return list of 49 courts events status', async () => {
+  it('should return list of 49 case events status', async () => {
     stub.withArgs('/glossary').resolves({data: caseEventGlossaryData});
     return await searchDescriptionRequests.getCaseEventGlossaryList().then(data => {
       expect(data.length).toBe(49);

@@ -33,7 +33,7 @@ describe('Case Event Glossary page', () => {
     expect(pageHeading[0].innerHTML).contains('Live hearing updates - glossary of terms', 'Page heading does not exist');
   });
 
-  it('should contain letters that link to court events status', () => {
+  it('should contain letters that link to case events glossary', () => {
     const alphabeticalLetters = htmlRes.getElementsByClassName('govuk-link--no-visited-state');
 
     expect(alphabeticalLetters[0].innerHTML).contains('A', 'Alphabetical link is not present');
