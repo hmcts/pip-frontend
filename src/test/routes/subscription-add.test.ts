@@ -1,7 +1,10 @@
 import { expect } from 'chai';
 import request from 'supertest';
-
+import sinon from 'sinon';
+import { request as expressRequest } from 'express';
 import { app } from '../../main/app';
+
+sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Subscription Add', () => {
   describe('on GET', () => {
