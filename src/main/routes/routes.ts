@@ -52,40 +52,27 @@ export default function(app: Application): void {
     },
   }));
   app.get('/search', app.locals.container.cradle.searchController.get);
-
   app.post('/search-option', app.locals.container.cradle.searchOptionController.post);
   app.post('/search', app.locals.container.cradle.searchController.post);
-
   app.get('/subscription-management', ensureAuthenticated,
     app.locals.container.cradle.subscriptionManagementController.get);
-
   app.post('/login/return',passport.authenticate(authType, { failureRedirect: '/'}),
     regenerateSession);
-
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}),
     regenerateSession);
-
-  app.get('/subscription-add', app.locals.container.cradle.subscriptionAddController.get);
-  app.post('/subscription-add', app.locals.container.cradle.subscriptionAddController.post);
-
+  app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
+  app.post('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.post);
   app.get('/status-description', app.locals.container.cradle.statusDescriptionController.get);
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
-
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
-
-
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
-
   app.get('/single-justice-procedure-search', app.locals.container.cradle.singleJusticeProcedureSearchController.get);
-
-  app.get('/court-name-search', app.locals.container.cradle.courtNameSearchController.get);
-  app.post('/court-name-search', app.locals.container.cradle.courtNameSearchController.post);
-
-  app.get('/case-name-search', app.locals.container.cradle.caseNameSearchController.get);
-  app.post('/case-name-search', app.locals.container.cradle.caseNameSearchController.post);
-
-  app.get('/case-name-search-results', app.locals.container.cradle.caseNameSearchResultsController.get);
+  app.get('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.get);
+  app.post('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.post);
+  app.get('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.get);
+  app.post('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.post);
+  app.get('/case-name-search-results', ensureAuthenticated, app.locals.container.cradle.caseNameSearchResultsController.get);
 
   // expose route only if not on the production environment
   if (process.env.NODE_ENV !== 'production') {
