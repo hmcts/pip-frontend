@@ -16,7 +16,7 @@ import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.
 import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
 
 const homePage = new HomePage;
-let subscriptionAddPage: SubscriptionAddPage;
+let subscriptionAddPage = new SubscriptionAddPage;
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;

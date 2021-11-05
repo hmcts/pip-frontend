@@ -39,9 +39,6 @@ export default function(app: Application): void {
   app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
-  app.get('/otp-login', app.locals.container.cradle.otpLoginController.get);
-  app.get('/otp-login-testing', cors(corsOptions), app.locals.container.cradle.otpLoginTestingController.get);
-  app.post('/otp-login', app.locals.container.cradle.otpLoginController.post);
   app.get('/subscription-urn-search', app.locals.container.cradle.subscriptionUrnSearchController.get);
   app.post('/subscription-urn-search', app.locals.container.cradle.subscriptionUrnSearchController.post);
   app.get('/subscription-urn-search-results', app.locals.container.cradle.subscriptionUrnSearchResultController.get);
