@@ -8,8 +8,10 @@ const subscriptionService = new SubscriptionService();
 export default class SubscriptionManagementController {
 
   public get(req: PipRequest, res: Response): void {
-    const caseTableData = subscriptionService.generateCaseTableRows(1);
-    const courtTableData = subscriptionService.generateCourtTableRows(1);
+    // currently only 2 users are mocked, userId: 1 has subscriptions, userId: 2 doesnt
+    const userId = req.user['id'] === '1' ? 1 : 2;
+    const caseTableData = subscriptionService.generateCaseTableRows(userId);
+    const courtTableData = subscriptionService.generateCourtTableRows(userId);
     let activeAllTab = false, activeCaseTab = false, activeCourtTab = false;
     switch (Object.keys(req.query)[0]) {
       case 'all':

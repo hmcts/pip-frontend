@@ -1,4 +1,4 @@
-import {Application, NextFunction} from 'express';
+import { Application, NextFunction } from 'express';
 import {infoRequestHandler} from '@hmcts/info-provider';
 import cors  from 'cors';
 import os from 'os';
@@ -9,6 +9,7 @@ const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 
 export default function(app: Application): void {
+  const authType = (process.env.NODE_ENV === 'production') ? 'azuread-openidconnect' : 'mockaroo';
 
   const corsOptions = {
     origin: 'https://pib2csbox.b2clogin.com',
@@ -58,10 +59,10 @@ export default function(app: Application): void {
   app.get('/subscription-management', ensureAuthenticated,
     app.locals.container.cradle.subscriptionManagementController.get);
 
-  app.post('/login/return',passport.authenticate('azuread-openidconnect', { failureRedirect: '/'}),
+  app.post('/login/return',passport.authenticate(authType, { failureRedirect: '/'}),
     regenerateSession);
 
-  app.get('/login', passport.authenticate('azuread-openidconnect', { failureRedirect: '/'}),
+  app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}),
     regenerateSession);
 
   app.get('/subscription-add', app.locals.container.cradle.subscriptionAddController.get);
@@ -89,7 +90,8 @@ export default function(app: Application): void {
   // expose route only if not on the production environment
   if (process.env.NODE_ENV !== 'production') {
     app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
-    app.post('/mock-session', app.locals.container.cradle.mockSessionController.post);
+    app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
+      (req, res) => {res.redirect('/subscription-management');});
   }
 
   const healthCheckConfig = {
