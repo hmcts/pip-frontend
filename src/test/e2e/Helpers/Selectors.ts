@@ -31,7 +31,7 @@ module.exports = {
   RowSelector: (letter): string => {
     return '#' + letter;
   },
-  FirstItemResult: 'tbody > tr.govuk-table__row > td > a',
+  SecondItemResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
 
   // ViewOption page selectors
   ViewOptionsTitle: 'h1.govuk-fieldset__heading',

@@ -133,12 +133,12 @@ describe('Finding a court or tribunal listing', () => {
     });
 
     it('selecting first result should take you to to the hearings list page', async () => {
-      hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-      expect(await hearingListPage.getPageTitle()).toEqual('Aberdeen Tribunal Hearing Centre hearing list');
+      hearingListPage = await alphabeticalSearchPage.selectSecondListResult();
+      expect(await hearingListPage.getPageTitle()).toEqual('Abergavenny Magistrates\' Court hearing list');
     });
 
-    it('should display 0 results', async() => {
-      expect(await hearingListPage.getResults()).toBe(0);
+    it('should display 13 results', async() => {
+      expect(await hearingListPage.getResults()).toBe(13);
     });
   });
 
