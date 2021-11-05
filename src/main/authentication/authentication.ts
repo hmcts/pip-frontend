@@ -26,10 +26,14 @@ function oidcSetup(): void {
   };
 
   passport.serializeUser(function(user, done) {
+    console.log('Into serialization');
+    console.log(user);
     done(null, user.oid);
   });
 
   passport.deserializeUser(function(oid, done) {
+    console.log('Into deserialization');
+    console.log(oid);
     findByOid(oid, function (user) {
       done(null, user);
     });
@@ -47,6 +51,8 @@ function oidcSetup(): void {
     isB2C: true,
   },
   function(iss, sub, profile, accessToken, refreshToken, done) {
+    console.log('Into the auth strategy');
+    console.log(profile);
     findByOid(profile.oid, function(user) {
       if (!user) {
         // "Auto-registration"
