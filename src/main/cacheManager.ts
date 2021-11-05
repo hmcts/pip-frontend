@@ -17,10 +17,6 @@ redisClient.on('error', error => {
 const cacheGet = promisify(redisClient.get).bind(redisClient);
 const cacheSet = promisify(redisClient.set).bind(redisClient);
 
-//
-// global.Cache = redisClient;
-// module.exports = redisClient;
-
 module.exports = {
   redisClient,
   cacheGet,
