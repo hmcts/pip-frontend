@@ -11,23 +11,31 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/CaseEventGloss
 const caseEventGlossaryData = JSON.parse(rawData);
 const caseEventGlossaryController = new CaseEventGlossaryController();
 
-const stub = sinon.stub(CaseEventGlossaryService.prototype, 'generateCourtEventGlossaryObject').returns(caseEventGlossaryData);
+sinon.stub(CaseEventGlossaryService.prototype, 'generateCaseEventGlossaryObject').resolves(caseEventGlossaryData);
 
-describe('Status Description Controller', () => {
-  it('should render the status description page', () =>  {
-    const i18n = {
-      'case-event-glossary': {},
-    };
+const i18n = {
+  'case-event-glossary': {},
+};
 
-    stub.withArgs(1).returns(caseEventGlossaryData);
+describe('Case Event Glossary Controller', () => {
+  it('should render the case event glossary page', () =>  {
 
-    const response = { render: function() {return '';}} as unknown as Response;
+    const response = {
+      render: function() {return '';},
+    } as unknown as Response;
     const request = mockRequest(i18n);
+
     request.query = {courtId: '1'};
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('case-event-glossary');
+    const expectedData = {
+      ...i18n['case-event-glossary'],
+      statusList: caseEventGlossaryData,
+      courtId: '1',
+    };
+
+    responseMock.expects('render').once().withArgs('case-event-glossary', expectedData);
 
     return caseEventGlossaryController.get(request, response).then(() => {
       responseMock.verify();

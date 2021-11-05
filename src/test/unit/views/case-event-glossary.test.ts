@@ -13,7 +13,7 @@ let htmlRes: Document;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/CaseEventGlossary.json'), 'utf-8');
 const caseEventGlossaryData = JSON.parse(rawData);
 
-sinon.stub(CaseEventGlossaryRequests.prototype, 'getCourtEventGlossaryList').returns(caseEventGlossaryData);
+sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').returns(caseEventGlossaryData);
 
 describe('Case Event Glossary page', () => {
   beforeAll(async () => {

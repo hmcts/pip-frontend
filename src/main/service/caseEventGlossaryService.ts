@@ -5,8 +5,8 @@ const caseEventGlossaryRequests = new CaseEventGlossaryRequests();
 
 export class CaseEventGlossaryService {
 
-  public async generateCourtEventGlossaryObject(): Promise<object> {
-    const courtEventGlossaryList: Array<any>= await caseEventGlossaryRequests.getCourtEventGlossaryList();
+  public async generateCaseEventGlossaryObject(): Promise<object> {
+    const courtEventGlossaryList: Array<any>= await caseEventGlossaryRequests.getCaseEventGlossaryList();
     const alphabetOptions = CourtService.generateAlphabetObject();
 
     //Then loop through each status, and add it to the list

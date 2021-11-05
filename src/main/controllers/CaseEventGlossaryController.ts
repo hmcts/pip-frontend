@@ -8,8 +8,9 @@ const caseEventGlossaryService = new CaseEventGlossaryService();
 export default class CaseEventGlossaryController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
-    const alphabetObject = await caseEventGlossaryService.generateCourtEventGlossaryObject();
+    const alphabetObject = await caseEventGlossaryService.generateCaseEventGlossaryObject();
     const courtId = req.query.courtId;
+
     res.render('case-event-glossary', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-event-glossary']),
       statusList: alphabetObject,

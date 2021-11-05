@@ -35,7 +35,7 @@ sinon.stub(CourtRequests.prototype, 'getCourtByName').returns(courtData);
 sinon.stub(CourtRequests.prototype, 'getFilteredCourts').returns(allCourtData);
 sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(allCourtData);
 sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
-sinon.stub(CaseEventGlossaryRequests.prototype, 'getCourtEventGlossaryList').returns(caseEventGlossaryData);
+sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').returns(caseEventGlossaryData);
 
 export class Pa11yResult {
   documentTitle: string;

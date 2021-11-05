@@ -15,38 +15,38 @@ const errorRequest = {
   request: 'test error',
 };
 
-describe('getCourtEventGlossaryList()', () => {
+describe('getCaseEventGlossaryList()', () => {
 
-  it('should return list of 49 courts events status', () => {
+  it('should return list of 49 courts events status', async () => {
     stub.withArgs('/glossary').resolves({data: caseEventGlossaryData});
-    return searchDescriptionRequests.getCourtEventGlossaryList().then(data => {
+    return await searchDescriptionRequests.getCaseEventGlossaryList().then(data => {
       expect(data.length).toBe(49);
     });
   });
 
   it('should return null if request fails', async () => {
     stub.withArgs('/glossary').resolves(Promise.reject({response:{data: 'test error'}}));
-    expect(await searchDescriptionRequests.getCourtEventGlossaryList()).toHaveLength(0);
+    expect(await searchDescriptionRequests.getCaseEventGlossaryList()).toHaveLength(0);
   });
 
-  it('First glossary should be Adjourned', () => {
+  it('should return first glossary as Adjourned', async () => {
     stub.withArgs('/glossary').resolves({data: caseEventGlossaryData});
-    return searchDescriptionRequests.getCourtEventGlossaryList().then(data => {
+    return await searchDescriptionRequests.getCaseEventGlossaryList().then(data => {
       expect(data[0].name).toEqual('Adjourned');
     });
   });
 
-  it('Description fof First glossary must not be empty', () => {
+  it('should not have description for the first glossary', async () => {
     stub.withArgs('/glossary').resolves({data: caseEventGlossaryData});
-    return searchDescriptionRequests.getCourtEventGlossaryList().then(data => {
+    return await searchDescriptionRequests.getCaseEventGlossaryList().then(data => {
       expect(data[0].description).not.toBeNull();
     });
   });
 
-  let i = 0;
-  it('All Glossary items must have name and description', () => {
+  it('should have  name and description for all case event glossary', async () => {
+    let i = 0;
     stub.withArgs('/glossary').resolves({data: caseEventGlossaryData});
-    return searchDescriptionRequests.getCourtEventGlossaryList().then(data => {
+    return await searchDescriptionRequests.getCaseEventGlossaryList().then(data => {
       expect(data[i].name).not.toBeNull();
       expect(data[i].description).not.toBeNull();
       i++;
@@ -55,7 +55,7 @@ describe('getCourtEventGlossaryList()', () => {
 
   it('should return null list of court event status', async () => {
     stub.withArgs('/glossary').resolves(Promise.reject(errorRequest));
-    expect(await searchDescriptionRequests.getCourtEventGlossaryList()).toStrictEqual([]);
+    expect(await searchDescriptionRequests.getCaseEventGlossaryList()).toStrictEqual([]);
   });
 
 });
