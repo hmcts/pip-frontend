@@ -37,7 +37,6 @@ describe('Subscription Management Controller', () => {
   });
 
   it('should render the subscription management page with all query param', () => {
-
     const i18n = {
       'subscription-management': {},
     };

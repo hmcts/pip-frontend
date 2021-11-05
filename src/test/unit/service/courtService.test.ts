@@ -23,7 +23,6 @@ const alphabet = [
   'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
 ];
 const validCourt = 'Abergavenny Magistrates\' Court';
-const noHearingsCourt = 'West London Court no hearings';
 
 stubCourtsFilter.withArgs(['jurisdiction'], ['crown court']).returns(hearingsData);
 stubCourt.withArgs(1).returns(hearingsData[0]);
@@ -53,23 +52,18 @@ describe('Court Service', () => {
   });
 
   it(`should return object with ${validKeysCount} keys`, async () => {
-    const data = await courtService.generateAlphabetisedCourtList();
+    const data = await courtService.generateAlphabetisedAllCourtList();
     expect(Object.keys(data).length).to.equal(validKeysCount);
   });
 
   it('should have have all letters of the alphabet as keys', async () => {
-    const data = await courtService.generateAlphabetisedCourtList();
+    const data = await courtService.generateAlphabetisedAllCourtList();
     expect(Object.keys(data)).to.deep.equal(alphabet);
   });
 
   it('should have keys with courts alphabetically assigned to them', async () => {
-    const data = await courtService.generateAlphabetisedCourtList();
+    const data = await courtService.generateAlphabetisedAllCourtList();
     expect(validCourt in data['A']).to.be.true;
-  });
-
-  it('should not have courts with no hearings', async () => {
-    const data = await courtService.generateAlphabetisedCourtList();
-    expect(noHearingsCourt in data['W']).to.be.false;
   });
 
   it(`should have ${validCourt} key`, async () => {
@@ -81,4 +75,15 @@ describe('Court Service', () => {
     const data = await courtService.generateAlphabetisedCrownCourtList();
     expect(Object.keys(data).length).to.equal(validKeysCount);
   });
+
+  it(`should have filtered a ${validCourt} key`, async () => {
+    const data = await courtService.generateFilteredAlphabetisedCourtList(['jurisdiction'], ['crown court']);
+    expect(validCourt in data['A']).to.be.true;
+  });
+
+  it(`should return object with ${validKeysCount} keys`, async () => {
+    const data = await courtService.generateFilteredAlphabetisedCourtList(['jurisdiction'], ['crown court']);
+    expect(Object.keys(data).length).to.equal(validKeysCount);
+  });
+
 });

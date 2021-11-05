@@ -1,0 +1,49 @@
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "./macros/common-components.njk" import goBack, submitButton %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ goBack() }}
+{% endblock %}
+{% block content %}
+    <h1 class="govuk-heading-l">{{ heading }}</h1>
+    <p class="govuk-body govuk-!-font-weight-bold">{{ searchResults | length }} {{ resultsCount }}</p>
+    <form action="pending-subscriptions" method="post">
+        <table class="govuk-table govuk-!-width-two-thirds" data-module="moj-multi-select"
+               data-multi-select-checkbox="#select-all">
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header vertical-center-table-header" scope="col" id="select-all"></th>
+                <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column1Header }}</th>
+                <th class="govuk-table__header vertical-center-table-header govuk-table__header--numeric" scope="col">{{ table.column2Header }}</th>
+            </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+            {% for result in searchResults %}
+                <tr class="govuk-table__row govuk-table__row--selected">
+                    <td class="govuk-table__cell">
+                        <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
+                            <input type="checkbox" class="govuk-checkboxes__input" id="{{ result.hearingId }}"
+                                   value="{{ result.hearingId }}" name="hearing-selections[]">
+                            <label class="govuk-label govuk-checkboxes__label" for="{{ result.hearingId }}">
+                                <span class="govuk-visually-hidden">{{ select }} {{ result.caseName }}</span>
+                            </label>
+                        </div>
+                    </td>
+                    <td class="govuk-table__cell">{{ result.caseName }}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{{ result.caseNumber }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {{ submitButton() }}
+    </form>
+{% endblock %}
+{% block bodyEnd %}
+    <script type="text/javascript" src="/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="/assets/js/mojAll.js"></script>
+{% endblock %}

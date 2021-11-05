@@ -10,9 +10,9 @@ const radioClass = 'govuk-radios__item';
 
 const expectedHeader = 'What would you like to view?';
 const expectedButtonText = 'Continue';
-const expectedRadioLabel1 = 'Court or tribunal hearing list';
+const expectedRadioLabel1 = 'Court or Tribunal publications';
 const expectedRadioLabel2 = 'Live hearing updates - Crown Court only';
-const expectedRadioLabel3 = 'Single Justice Procedure list';
+const expectedRadioLabel3 = 'Single Justice Procedure case';
 
 let htmlRes: Document;
 

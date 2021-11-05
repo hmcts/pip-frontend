@@ -7,7 +7,7 @@ import path from 'path';
 import {LiveCaseRequests} from '../../../main/resources/requests/liveCaseRequests';
 
 const PAGE_URL = '/live-case-status?courtId=1';
-const expectedHeader = 'Live hearing updates - daily court list';
+const expectedHeader = 'Live hearing updates';
 const expectedCourtName = 'Mutsu Court';
 let htmlRes: Document;
 
@@ -26,7 +26,7 @@ describe('Live Status page', () => {
   it('should display a back button with the correct value', () => {
     const backLink = htmlRes.getElementsByClassName('govuk-back-link');
     expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
+    expect(backLink[0].getAttribute('href')).equal('/live-case-alphabet-search', 'Back value does not contain correct link');
   });
 
   it('should display correct header', () => {
@@ -55,7 +55,7 @@ describe('Live Status page', () => {
   it('should contain a row with the correct values', () => {
     const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
     const items = tableRows.item(1).children;
-    const statusColumnValue = 'Committal for Sentence - <br><a class="govuk-link" href="status-description#2">Appeal Interpreter Sworn</a> - 12:25';
+    const statusColumnValue = 'Committal for Sentence - <br><a class="govuk-link" href="status-description?courtId=1#2">Appeal Interpreter Sworn</a> - 12:25';
 
     expect(items.item(0).innerHTML).contains('1', 'Court Number not found / correct');
     expect(items.item(1).innerHTML).contains('T20217099', 'Case number not found / correct');
@@ -77,7 +77,7 @@ describe('Live Status page', () => {
   it('should display the link to go back to live case alphabet list', () => {
     const link = htmlRes.getElementsByClassName('govuk-link');
 
-    expect(link.item(3).innerHTML).contains('Find a court or tribunal list', 'Link text is not present');
+    expect(link.item(3).innerHTML).contains('See another court or tribunal', 'Link text is not present');
     expect(link.item(3).getAttribute('href')).equal('/live-case-alphabet-search', 'Link value is not correct');
   });
 });
