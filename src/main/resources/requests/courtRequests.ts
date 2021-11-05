@@ -1,18 +1,24 @@
 import { Court } from '../../models/court';
 import { dataManagementApi } from './utils/axiosConfig';
 
-const { cacheGet, cacheSet } = require('../../cacheManager');
+const { redisClient } = require('../../cacheManager');
 
 export class CourtRequests {
   public async getCourt(courtId: number): Promise<Court> {
-    const cachedCourt = await cacheGet(`courtId-${courtId}`);
+    let cachedCourt;
+
+    if (redisClient.status === 'ready') {
+      cachedCourt = await redisClient.get(`court-${courtId}`);
+    }
 
     if (cachedCourt) {
       return JSON.parse(cachedCourt);
     } else {
       try {
         const response = await dataManagementApi.get(`/courts/${courtId}`);
-        cacheSet(`courtId-${courtId}`, JSON.stringify(response.data));
+        if (redisClient.status === 'ready') {
+          redisClient.set(`court-${courtId}`, JSON.stringify(response.data));
+        }
         return response.data;
       } catch (error) {
         if (error.response) {
@@ -65,14 +71,19 @@ export class CourtRequests {
   }
 
   public async getAllCourts(): Promise<Array<Court>> {
-    const allCachedCourts = await cacheGet('allCourts');
+    let allCachedCourts;
+    if (redisClient.status === 'ready') {
+      allCachedCourts = await redisClient.get('allCourts');
+    }
 
     if (allCachedCourts) {
       return JSON.parse(allCachedCourts);
     } else {
       try {
         const response = await dataManagementApi.get('/courts');
-        cacheSet('allCourts', JSON.stringify(response.data));
+        if (redisClient.status === 'ready') {
+          redisClient.set('allCourts', JSON.stringify(response.data));
+        }
         return response.data;
       } catch (error) {
         if (error.response) {

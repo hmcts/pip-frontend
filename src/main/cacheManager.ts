@@ -1,5 +1,4 @@
 import { Logger } from '@hmcts/nodejs-logging';
-const { promisify } = require('util');
 
 const logger = Logger.getLogger('app');
 
@@ -11,15 +10,11 @@ redisClient.on('connect', () => {
 });
 
 redisClient.on('error', error => {
+  redisClient.quit();
   logger.error('Failed to connect to Redis', error.message);
 });
 
-const cacheGet = promisify(redisClient.get).bind(redisClient);
-const cacheSet = promisify(redisClient.set).bind(redisClient);
-
 module.exports = {
   redisClient,
-  cacheGet,
-  cacheSet,
 };
 
