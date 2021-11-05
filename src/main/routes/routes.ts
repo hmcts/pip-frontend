@@ -61,14 +61,8 @@ export default function(app: Application): void {
   app.get('/subscription-management', ensureAuthenticated,
     app.locals.container.cradle.subscriptionManagementController.get);
 
-  app.post('/login/return', function(req, res, next) {
-    passport.authenticate('azuread-openidconnect', function(error, user, info) {
-      console.log(error);
-      console.log(user);
-      console.log(info);
-      next();})(req, res);
-  },
-  regenerateSession);
+  app.post('/login/return', passport.authenticate('azuread-openidconnect', { failureRedirect: '/'}),
+    regenerateSession);
 
   app.get('/login', passport.authenticate('azuread-openidconnect', { failureRedirect: '/'}),
     regenerateSession);
