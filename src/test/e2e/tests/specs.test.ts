@@ -177,7 +177,7 @@ describe('Finding a court or tribunal listing', () => {
     });
 
     it('should open the Subscription Manage Page when a user clicks "Subscriptions" header', async () => {
-      subscriptionManagementPage = await homePage.clickSubscriptionsButton();
+      subscriptionManagementPage = await homePage.clickSignInButton();
       expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
     });
 

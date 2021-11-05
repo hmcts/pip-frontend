@@ -23,7 +23,7 @@ describe('Home page', () => {
 
   it('should display navigation menu',  () => {
     const nav = htmlRes.getElementsByClassName(navigationClass);
-    expect(nav[0].innerHTML).contains('Subscriptions', 'Could not find the navigation bar');
+    expect(nav[0].innerHTML).contains('Sign in', 'Could not find the navigation bar');
   });
 
   it('should display button start', () => {
