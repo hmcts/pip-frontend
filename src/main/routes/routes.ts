@@ -86,6 +86,8 @@ export default function(app: Application): void {
 
   app.get('/case-name-search-results', app.locals.container.cradle.caseNameSearchResultsController.get);
 
+  app.get('/warned-list', app.locals.container.cradle.warnedListController.get);
+
   const healthCheckConfig = {
     checks: {
       // TODO: replace this sample check with proper checks for your application
