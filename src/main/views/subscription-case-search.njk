@@ -2,20 +2,14 @@
 {% from "macros/common-components.njk" import submitButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "macros/common-components.njk" import goBack %}
 
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukBackLink({
-    text: text,
-    href: '#',
-    attributes: {
-      onClick: "history.back();event.preventDefault();"
-    }
-  }) }}
+  {{ goBack() }}
 {% endblock %}
 
 {% block content %}
@@ -46,15 +40,12 @@
         </label>
       </h1>
       <div class="{{ formGroupError }}">
-        <div id="search-input-hint" class="govuk-hint">
-          {{ hint }}
-        </div>
         {% if noResultsError or invalidInputError %}
           <span class="govuk-error-message">{{ header }}</span>
         {% endif %}
         {{ govukInput({
           label: {
-            "text": ''
+            "text":  hint
           },
           id: "search-input",
           name: "search-input",

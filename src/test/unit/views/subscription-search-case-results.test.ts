@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import {app} from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
-import {SubscriptionCaseSearchRequests} from '../../../main/resources/requests/subscriptionCaseSearchRequests';
+import {HearingRequests} from '../../../main/resources/requests/hearingRequests';
 
 const searchTerm = 'ABC12345';
 const numOfResults = '1';
@@ -17,7 +17,7 @@ let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCaseList.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
-sinon.stub(SubscriptionCaseSearchRequests.prototype, 'getSubscriptionCaseDetails').returns(subscriptionsData);
+sinon.stub(HearingRequests.prototype, 'getSubscriptionCaseDetails').returns(subscriptionsData);
 
 jest.mock('axios', () => {
   return {

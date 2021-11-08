@@ -4,6 +4,9 @@ import { HearingRequests } from '../../../main/resources/requests/hearingRequest
 
 const hearingRequests = new HearingRequests();
 const stub = sinon.stub(dataManagementApi, 'get');
+
+const subscriptionsCaseData = [{caseName: 'John Smith v B&Q PLC', caseNumber: 'ABC12345'}];
+
 const errorResponse = {
   response: {
     data: 'test error',
@@ -12,6 +15,12 @@ const errorResponse = {
 const errorRequest = {
   request: 'test error',
 };
+
+const errorMessage = {
+  message: 'test',
+};
+
+const validCaseNo = 'ABC12345';
 const data = [{caseName: 'my hearing', caseNumber: '11223344'}];
 
 describe('Hearing get requests', () => {
@@ -31,5 +40,50 @@ describe('Hearing get requests', () => {
 
   it('should return empty list if request fails', async () => {
     expect(await hearingRequests.getHearingsByCaseName('bob')).toStrictEqual([]);
+  });
+});
+
+describe(`getSubscriptionCaseDetails(${validCaseNo})`, () => {
+
+  stub.withArgs('/hearings/case-number/ABC12345').resolves({data: subscriptionsCaseData});
+
+  it('should return list of cases', async () => {
+    return hearingRequests.getSubscriptionCaseDetails(validCaseNo).then(data => {
+      expect(data).toBe(subscriptionsCaseData);
+    });
+  });
+
+  it('should return list of 1 case', () => {
+    return hearingRequests.getSubscriptionCaseDetails(validCaseNo).then(data => {
+      expect((data? 1:0)).toBe(1);
+    });
+  });
+
+  it('should have mocked object in the cases list', () => {
+    return hearingRequests.getSubscriptionCaseDetails(validCaseNo).then(data => {
+      expect((data === subscriptionsCaseData) ? 1 : 0).toBe(1);
+    });
+  });
+
+  it(`should have only cases for case reference ${validCaseNo}`, () => {
+    return hearingRequests.getSubscriptionCaseDetails(validCaseNo).then(data => {
+      expect((data[0].caseNumber === validCaseNo ? 1 : 0)).toBe(1);
+    });
+  });
+});
+
+describe('non existing subscriptions getSubscriptionCaseDetails error request', () => {
+  stub.withArgs('/hearings/case-number/12345').resolves(Promise.reject(errorRequest));
+  it('should return null list of subscriptions for error request', async () => {
+    const userSubscriptions = await hearingRequests.getSubscriptionCaseDetails('12345');
+    expect(userSubscriptions).toBe(null);
+  });
+});
+
+describe('non existing subscriptions getSubscriptionCaseDetails error response', () => {
+  stub.withArgs('/hearings/case-number/12345').resolves(Promise.reject(errorMessage));
+  it('should return null list of subscriptions for errored call', async () => {
+    const userSubscriptions = await hearingRequests.getSubscriptionCaseDetails('12345');
+    expect(userSubscriptions).toBe(null);
   });
 });

@@ -4,12 +4,12 @@ import SubscriptionCaseSearchController from '../../../main/controllers/Subscrip
 import fs from 'fs';
 import path from 'path';
 import {mockRequest} from '../mocks/mockRequest';
-import {SubscriptionCaseSearchRequests} from '../../../main/resources/requests/subscriptionCaseSearchRequests';
+import {HearingRequests} from '../../../main/resources/requests/hearingRequests';
 
 const subscriptionCaseSearchController = new SubscriptionCaseSearchController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCaseList.json'), 'utf-8');
 const subscriptionCaseResult = JSON.parse(rawData);
-const stub = sinon.stub(SubscriptionCaseSearchRequests.prototype, 'getSubscriptionCaseDetails');
+const stub = sinon.stub(HearingRequests.prototype, 'getSubscriptionCaseDetails');
 
 const validCaseNo = 'ABC12345';
 
