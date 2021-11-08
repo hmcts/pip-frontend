@@ -33,7 +33,7 @@ describe('Hearing list Controller', () => {
       ...i18n['hearing-list'],
       courtName: hearingsData.name,
       hearings: hearingsData.hearingList,
-      date: moment().format('MMMM DD YYYY'),
+      date: moment().format('DD MMMM YYYY'),
     };
 
     responseMock.expects('render').once().withArgs('hearing-list', expectedData);

@@ -36,7 +36,7 @@ describe('Hearing List page', () => {
 
   it('should display table caption', () => {
     const tableHeader = htmlRes.getElementsByClassName('govuk-table__caption--m');
-    const formattedDate = moment().format('MMMM DD YYYY');
+    const formattedDate = moment().format('DD MMMM YYYY');
     expect(tableHeader[0].innerHTML).contains('List for ' + formattedDate, 'Could not find the table header');
   });
 
