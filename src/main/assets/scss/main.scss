@@ -87,10 +87,12 @@ $min-width: 52em;
   }
 }
 
-.offset-back-to-top {
+.offset-parent-box {
+  @extend .parent-box;
   left: -20%;
-  float: left;
-  min-width: 125px;
+  a:not(.floating-back-to-top--fixed) {
+    width: 125px;
+  }
 }
 
 .text_disabled {
