@@ -7,6 +7,10 @@ const headingClass = 'govuk-heading-xl';
 const navigationClass = 'govuk-header__navigation-item';
 const startButtonClass = 'govuk-button govuk-button--start';
 const expectedHeader = 'See publications and information from a court or tribunal';
+const govUkLinkClass = 'govuk-header__logo';
+const expectedGovUkLink = 'https://www.gov.uk/';
+const expectedServiceNameHeader = 'govuk-header__content';
+const expectedServiceNameText = 'Courts and tribunal hearing information';
 
 let htmlRes: Document;
 describe('Home page', () => {
@@ -19,6 +23,16 @@ describe('Home page', () => {
   it('should display header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
     expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+  });
+
+  it('should have a link to gov.uk', () => {
+    const govHeaderLink = htmlRes.getElementsByClassName(govUkLinkClass);
+    expect(govHeaderLink[0].innerHTML).contains(expectedGovUkLink, 'Link was not accurate');
+  });
+
+  it('should have the correct service name text', () => {
+    const serviceNameHeader = htmlRes.getElementsByClassName(expectedServiceNameHeader);
+    expect(serviceNameHeader[0].innerHTML).contains(expectedServiceNameText, 'Text was not accurate');
   });
 
   it('should display navigation menu',  () => {
