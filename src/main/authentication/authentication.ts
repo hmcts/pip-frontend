@@ -70,8 +70,8 @@ function mockSetup(): void {
   passport.use('mockaroo', new CustomStrategy(
     function (req, done) {
       const user = req.body;
-      findUser(user, function(user) {
-        return (user) ? done(null, user) : done(null, user);
+      findUser(user, function(_user = user) {
+        return (user) ? done(null, _user) : done(null, user);
       });
     },
   ));
@@ -81,8 +81,8 @@ function mockSetup(): void {
   });
 
   passport.deserializeUser(function(user, done) {
-    findUser(user, function (user) {
-      done(null, user);
+    findUser(user, function (_user) {
+      done(null, _user);
     });
   });
 }
