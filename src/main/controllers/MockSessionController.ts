@@ -10,7 +10,8 @@ export default class MockSessionController {
       userSet = true;
       res.render('session-management', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['session-management']),
-        haveUser: userSet, userDetails,
+        haveUser: userSet,
+        userDetails,
       });
     } else {
       res.render('session-management', {

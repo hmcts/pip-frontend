@@ -6,7 +6,11 @@ export const mockRequest = (data: any): PipRequest => {
     i18n: {
       getDataByLanguage: '',
     },
-    user: {id: '1'},
+    user: {
+      id: '1',
+      username: '',
+      userType: 'media',
+    },
   };
   req.body = jest.fn().mockReturnValue(req);
   req.i18n.getDataByLanguage = jest.fn().mockReturnValue(data);

@@ -6,16 +6,13 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-
 {% extends "template.njk" %}
 {% block pageTitle %}
     {{ title }}
 {% endblock %}
-
 {% block beforeContent %}
     {{ goBack() }}
 {% endblock %}
-
 {% block content %}
     <h1 class="govuk-heading-l">{{ header }}</h1>
     {% if haveUser %}
@@ -57,7 +54,6 @@
             text: continueButton,
             href: 'subscription-management'
         }) }}
-
     {% else %}
         <p class="govuk-body">{{ noUser }}</p>
         {{govukTag({
