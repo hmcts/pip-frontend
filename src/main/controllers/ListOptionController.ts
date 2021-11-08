@@ -12,11 +12,11 @@ export default class ListOptionController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const courtId = req.query['courtId'];
     if (courtId) {
-      if (req.isAuthenticated()) {
+      if (req.user) {
         const court = await courtService.getCourtById(parseInt(courtId.toString()));
         res.render('list-option', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-option']),
-          court: court
+          court: court,
         });
       } else {
         res.redirect(`hearing-list?courtId=${courtId}`);

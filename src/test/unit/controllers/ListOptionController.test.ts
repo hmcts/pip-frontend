@@ -24,7 +24,7 @@ describe('Get List option', () => {
 
     const request = mockRequest(i18n);
     request.query = {courtId: '1'};
-    sinon.stub(request, 'isAuthenticated').returns(true);
+    request.user = {id: 1};
 
     const responseMock = sinon.mock(response);
 
@@ -47,7 +47,7 @@ describe('Get List option', () => {
 
     const request = mockRequest(i18n);
     request.query = {courtId: '1'};
-    sinon.stub(request, 'isAuthenticated').returns(false);
+    request.user = undefined;
 
     const responseMock = sinon.mock(response);
 
