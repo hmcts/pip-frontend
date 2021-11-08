@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
-import {SubscriptionCaseSearchRequests} from '../../../main/resources/requests/subscriptionCaseSearchRequests';
+import {HearingRequests} from '../../../main/resources/requests/hearingRequests';
 
 const PAGE_URL = '/subscription-case-search';
 const headingClass = 'govuk-label-wrapper';
@@ -24,7 +24,7 @@ let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCaseList.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
-sinon.stub(SubscriptionCaseSearchRequests.prototype, 'getSubscriptionCaseDetails').returns(subscriptionsData);
+sinon.stub(HearingRequests.prototype, 'getSubscriptionCaseDetails').returns(subscriptionsData);
 
 jest.mock('axios', () => {
   return {
@@ -106,7 +106,7 @@ jest.mock('axios', () => {
 describe('URN Search Page Invalid Input', () => {
   beforeAll(async () => {
     sinon.restore();
-    sinon.stub(SubscriptionCaseSearchRequests.prototype, 'getSubscriptionCaseDetails').returns(null);
+    sinon.stub(HearingRequests.prototype, 'getSubscriptionCaseDetails').returns(null);
     await request(app).post(PAGE_URL).send({'search-input': '12345'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -117,7 +117,7 @@ describe('URN Search Page Invalid Input', () => {
     expect(errorSummary[0].innerHTML).contains('There are no matching results.', 'Could not find error message');
   });
 
-  it('should display error message', () => {
+  it('should display error message when search invalid case reference no', () => {
     const errorTitle = htmlRes.getElementsByClassName(errorSummaryTitleClass);
     expect(errorTitle[0].innerHTML).contains('There is a problem', 'Could not find error title');
   });

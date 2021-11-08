@@ -1,9 +1,9 @@
 import { Response } from 'express';
-import {SubscriptionCaseSearchRequests} from '../resources/requests/subscriptionCaseSearchRequests';
+import {HearingRequests} from '../resources/requests/hearingRequests';
 import {cloneDeep} from 'lodash';
 import {PipRequest} from '../models/request/PipRequest';
 
-const subscriptionCaseSearchResults = new SubscriptionCaseSearchRequests();
+const hearingRequests = new HearingRequests();
 
 export default class SubscriptionCaseSearchController {
 
@@ -16,7 +16,7 @@ export default class SubscriptionCaseSearchController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['search-input'] as string;
     if (searchInput) {
-      const searchResults = await subscriptionCaseSearchResults.getSubscriptionCaseDetails(searchInput);
+      const searchResults = await hearingRequests.getSubscriptionCaseDetails(searchInput);
 
       (searchResults) ?
         res.redirect(`subscription-search-case-results?search-input=${searchInput}`) :
