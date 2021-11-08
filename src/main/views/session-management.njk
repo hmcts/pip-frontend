@@ -9,7 +9,7 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-    {{ "Session Management" | safe }}
+    {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
@@ -17,11 +17,11 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="govuk-heading-l">Mock User Session Data</h1>
+    <h1 class="govuk-heading-l">{{ header }}</h1>
     {% if haveUser %}
-        <p class="govuk-body">It seems like user session is already set with following details.</p>
+        <p class="govuk-body">{{ haveUser }}</p>
         {{govukTag({
-            text: "Session Set",
+            text: labelSet,
             classes: "govuk-tag--green govuk-!-margin-bottom-6"
         })}}
         {{ govukSummaryList({
@@ -29,7 +29,7 @@
             rows: [
                 {
                     key: {
-                        text: 'Username'
+                        text: keyUsername
                     },
                     value: {
                         text: userDetails['username']
@@ -37,7 +37,7 @@
                 },
                 {
                     key: {
-                        text: 'User ID'
+                        text: keyUserId
                     },
                     value: {
                         text: userDetails['id']
@@ -45,7 +45,7 @@
                 },
                 {
                     key: {
-                        text: 'User Type'
+                        text: keyUserType
                     },
                     value: {
                         text: userDetails['userType']
@@ -54,27 +54,27 @@
             ]
         }) }}
         {{ govukButton({
-            text: 'Continue',
+            text: continueButton,
             href: 'subscription-management'
         }) }}
 
     {% else %}
-        <p class="govuk-body">Use bellow fields to create mock user session required in order to access restricted pages.</p>
+        <p class="govuk-body">{{ noUser }}</p>
         {{govukTag({
-            text: "Session Not Set",
+            text: labelNotSet,
             classes: "govuk-tag--red govuk-!-margin-bottom-6"
         })}}
         <form action="mock-login" method="post" class="govuk-!-width-one-half">
             {{ govukInput({
                 label: {
-                    text: "What is username?"
+                    text: usernameLabel
                 },
                 id: "username",
                 name: "username"
             }) }}
             {{ govukInput({
                 label: {
-                    text: "What is user id?"
+                    text: userIdLabel
                 },
                 id: "id",
                 name: "id",
@@ -85,17 +85,17 @@
                 name: "userType",
                 fieldset: {
                     legend: {
-                        text: "What is user type?"
+                        text: userTypeLabel
                     }
                 },
                 items: [
                     {
                         value: "media",
-                        text: "Media"
+                        text: item1
                     },
                     {
                         value: "professional",
-                        text: "Professional"
+                        text: item2
                     }
                 ]
             }) }}
