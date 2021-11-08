@@ -61,4 +61,9 @@ module.exports = {
   JurisdictionCheckbox: '#Jurisdiction',
   ApplyFiltersButton: '.moj-filter__options > .govuk-button',
   ClearFiltersLink: '.moj-filter__heading-action > p > a',
+
+  // MockSession selectors
+  UsernameInput: '#username',
+  UserIdInput: '#id',
+  UserType: '#userType',
 };
