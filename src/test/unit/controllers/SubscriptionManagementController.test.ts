@@ -97,4 +97,16 @@ describe('Subscription Management Controller', () => {
     subscriptionManagementController.get(request, response);
     responseMock.verify();
   });
+
+  it('should render error page if there is no user data', () => {
+    const response = { render: () => {return '';}} as unknown as Response;
+    const request = mockRequest(i18n);
+    request.user = undefined;
+
+    const responseMock = sinon.mock(response);
+    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+    subscriptionManagementController.get(request, response);
+    responseMock.verify();
+  });
 });

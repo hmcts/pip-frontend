@@ -6,7 +6,6 @@ import {cloneDeep} from 'lodash';
 const subscriptionService = new SubscriptionService();
 
 export default class SubscriptionManagementController {
-
   public get(req: PipRequest, res: Response): void {
     if (req.user) {
       // currently only 2 users are mocked, userId: 1 has subscriptions, userId: 2 doesnt
