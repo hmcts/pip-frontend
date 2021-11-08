@@ -27,15 +27,15 @@ Some of the pages within this app are secured via authentication.
 There are two modes for authentication:
 
 1) OIDC
-2) Mock Strategy
+2) Custom Strategy
 
 The OIDC connect strategy integrates with Azure. When users try to access an authenticated page,
 they will be presented with the logon screen.
 
 To use this strategy, set the 'OIDC' environment variable to 'true' when starting up the app.
 
-Alternatively, users can use the Mock Strategy which is the default. Rather than integrating with Azure, will
-automatically log the user in with a test user. See the Authentication.ts file for details on how this
+Alternatively, users can use the Custom Strategy which is the default. Rather than integrating with Azure, user will
+need to set up mocked user via mock-session screens. See the Authentication.ts file for details on how this
 is done.
 
 Here is a list of environment variables needed to launch the app:
@@ -68,6 +68,11 @@ Bundle:
 
 ```bash
 $ yarn webpack
+```
+
+Start Redis:
+```bash
+$ docker run -d -p 6379:6379 redis
 ```
 
 Run:
