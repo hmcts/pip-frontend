@@ -3,6 +3,7 @@ import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { HearingRequests } from '../../../main/resources/requests/hearingRequests';
+import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/case-name-search-results?search=Meedo';
 let htmlRes: Document;
@@ -19,6 +20,8 @@ sinon.stub(HearingRequests.prototype, 'getHearingsByCaseName').withArgs('Meedo')
 
 describe('Case name search results page', () => {
   beforeAll(async () => {
+    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
