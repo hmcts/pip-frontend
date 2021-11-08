@@ -16,7 +16,7 @@
 {% block content %}
     <h1 class="govuk-heading-l">{{ header }}</h1>
     {% if haveUser %}
-        <p class="govuk-body">{{ haveUser }}</p>
+        <p class="govuk-body">{{ haveUserMessage }}</p>
         {{govukTag({
             text: labelSet,
             classes: "govuk-tag--green govuk-!-margin-bottom-6"

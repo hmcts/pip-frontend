@@ -1,7 +1,7 @@
 {
   "title": "Session Management",
   "header": "Mock User Session Data",
-  "haveUser": "It seems like user session is already set with following details.",
+  "haveUserMessage": "It seems like user session is already set with following details.",
   "noUser": "Use bellow fields to create mock user session required in order to access restricted pages.",
   "labelSet": "Session Set",
   "labelNotSet": "Session Not Set",
