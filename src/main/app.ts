@@ -23,26 +23,6 @@ const {setupDev} = require('./development');
 import {Container} from './modules/awilix';
 import routes from './routes/routes';
 import {PipRequest} from './models/request/PipRequest';
-import * as fs from 'fs';
-
-function populateSecrets(): void {
-  if (process.env.SECRETS_DIRECTORY) {
-    const secretsdirectory = process.env.SECRETS_DIRECTORY;
-
-    const files = fs.readdirSync(secretsdirectory);
-
-    for( const fileName of files ) {
-      try {
-        const data = fs.readFileSync(secretsdirectory + '/' + fileName, 'binary');
-        process.env[fileName] = data.trim();
-      } catch (err) {
-        console.error('Error reading file: ' + fileName);
-      }
-    }
-  }
-}
-
-populateSecrets();
 
 const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
