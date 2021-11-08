@@ -26,16 +26,6 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCa
 const subscriptionsData = JSON.parse(rawData);
 sinon.stub(HearingRequests.prototype, 'getSubscriptionCaseDetails').returns(subscriptionsData);
 
-jest.mock('axios', () => {
-  return {
-    create: function(): { get: () => Promise<any> } {
-      return {
-        get: function(): Promise<any> { return new Promise((resolve) => resolve({data: subscriptionsData}));},
-      };
-    },
-  };
-});
-
 describe('URN Search Page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
@@ -93,16 +83,6 @@ describe('URN Search Page Blank Input', () => {
   });
 });
 
-
-jest.mock('axios', () => {
-  return {
-    create: function(): { get: () => Promise<any> } {
-      return {
-        get: function(): Promise<any> { return new Promise((resolve) => resolve({data: {'search-input': '123'}}));},
-      };
-    },
-  };
-});
 describe('URN Search Page Invalid Input', () => {
   beforeAll(async () => {
     sinon.restore();
