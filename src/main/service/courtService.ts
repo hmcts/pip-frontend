@@ -54,19 +54,4 @@ export class CourtService {
     return alphabetisedCourtList;
   }
 
-  public async getSubscriptionUrnDetails(): Promise<object> {
-    const filter = ['jurisdiction'];
-    const value = ['crown court'];
-    const courtsList= await courtRequest.getFilteredCourts(filter, value);
-    const alphabetisedCourtList = CourtService.generateAlphabetObject();
-
-    courtsList.forEach(item => {
-      const courtName = item.name;
-      alphabetisedCourtList[courtName.charAt(0).toUpperCase()][courtName] = {
-        id: item.courtId,
-      };
-    });
-    return alphabetisedCourtList;
-  }
-
 }
