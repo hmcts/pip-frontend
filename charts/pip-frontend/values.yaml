@@ -18,4 +18,5 @@ nodejs:
           alias: CONNECTION_STRING
   environment:
     OIDC: true
+    FRONTEND_URL: https://${SERVICE_FQDN}
   aadIdentityName: pip
