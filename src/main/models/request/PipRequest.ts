@@ -22,7 +22,9 @@ export interface PipRequest extends Request {
       'court-name-search': {};
       'case-name-search': {};
       'case-name-search-results': {};
+      'session-management': {};
     };
   };
   lng?: string;
+  user?: object;
 }
