@@ -59,12 +59,12 @@ describe('Hearing List page', () => {
     const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
     const items = tableRows.item(1).children;
 
-    expect(items.item(0).innerHTML).contains('1', 'Court Number not found / correct');
-    expect(items.item(1).innerHTML).contains("Youtags's hearings", 'Case name not found / correct');
-    expect(items.item(2).innerHTML).contains('56-181-2097', 'Case number not found / correct');
-    expect(items.item(3).innerHTML).contains('Mandy Stanbro', 'Judges not found / correct');
-    expect(items.item(4).innerHTML).contains('07/10/2021 22:56:49', 'Time not found / correct');
-    expect(items.item(5).innerHTML).contains('Skype', 'Hearing Platform not found / correct');
+    expect(items.item(0).innerHTML).contains('3', 'Court Number not found / correct');
+    expect(items.item(1).innerHTML).contains("Roombo's hearings", 'Case name not found / correct');
+    expect(items.item(2).innerHTML).contains('04-347-1750', 'Case number not found / correct');
+    expect(items.item(3).innerHTML).contains('Tait Di Carlo', 'Judges not found / correct');
+    expect(items.item(4).innerHTML).contains('08/09/2021 13:57:29', 'Time not found / correct');
+    expect(items.item(5).innerHTML).contains('Zoom', 'Hearing Platform not found / correct');
   });
 
   it('should display the related content section', () => {
