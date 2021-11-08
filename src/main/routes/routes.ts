@@ -9,7 +9,9 @@ const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 
 export default function(app: Application): void {
-  const authType = (process.env.NODE_ENV === 'production') ? 'azuread-openidconnect' : 'mockaroo';
+  // TODO: use this to toggle between different auth identities
+  // const authType = (process.env.NODE_ENV === 'production') ? 'azuread-openidconnect' : 'mockaroo';
+  const authType = 'mockaroo';
 
   const corsOptions = {
     origin: 'https://pib2csbox.b2clogin.com',
@@ -74,12 +76,10 @@ export default function(app: Application): void {
   app.post('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.post);
   app.get('/case-name-search-results', ensureAuthenticated, app.locals.container.cradle.caseNameSearchResultsController.get);
 
-  // expose route only if not on the production environment
-  if (process.env.NODE_ENV !== 'production') {
-    app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
-    app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
-      (req, res) => {res.redirect('/subscription-management');});
-  }
+  // TODO: expose route only if not on the production environment
+  app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
+  app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
+    (req, res) => {res.redirect('/subscription-management');});
 
   const healthCheckConfig = {
     checks: {
