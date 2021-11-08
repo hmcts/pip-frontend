@@ -9,5 +9,6 @@ export const mockRequest = (data: any): PipRequest => {
   };
   req.body = jest.fn().mockReturnValue(req);
   req.i18n.getDataByLanguage = jest.fn().mockReturnValue(data);
+  req.isAuthenticated = jest.fn().mockReturnValue(req);
   return req;
 };

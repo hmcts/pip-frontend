@@ -70,9 +70,9 @@ describe('Court Name Search Page', () => {
     expect(regionLegend[1].innerHTML).contains('Region', 'Region filter doesn\'t exist');
   });
 
-  it('should contain 2 jurisdiction checkboxes', () => {
+  it('should contain 3 jurisdiction checkboxes', () => {
     const checkboxes = htmlRes.getElementsByName('Jurisdiction');
-    expect(checkboxes.length).equal(2, 'Could not find jurisdiction checkboxes');
+    expect(checkboxes.length).equal(3, 'Could not find jurisdiction checkboxes');
   });
 
   it('should contain 2 region checkboxes', () => {

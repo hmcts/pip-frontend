@@ -86,6 +86,9 @@ export default function(app: Application): void {
 
   app.get('/case-name-search-results', app.locals.container.cradle.caseNameSearchResultsController.get);
 
+  //TODO: To be deleted/modified post UAT with suitable solution
+  app.get('/list-option', app.locals.container.cradle.listOptionController.get);
+
   const healthCheckConfig = {
     checks: {
       // TODO: replace this sample check with proper checks for your application
