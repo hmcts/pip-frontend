@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import request from 'supertest';
-
+import sinon from 'sinon';
 import { app } from '../../../main/app';
+import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/subscription-add';
 const backButtonClass = 'govuk-back-link';
@@ -27,6 +28,8 @@ const expectedLink2 = 'Find a court or tribunal list';
 let htmlRes: Document;
 describe('Subscription add Page initial load', () => {
   beforeAll(async () => {
+    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
