@@ -5,7 +5,6 @@ import CourtNameSearchController from '../../../main/controllers/CourtNameSearch
 import { CourtService } from '../../../main/service/courtService';
 import { FilterService } from '../../../main/service/filterService';
 
-const filters = ['Jurisdiction', 'Region'];
 const alphabet = {
   A: {}, B: {}, C: {}, D: {}, E: {}, F: {}, G: {}, H: {}, I: {}, J: {}, K: {}, L: {}, M: {},
   N: {}, O: {}, P: {}, Q: {}, R: {}, S: {}, T: {}, U: {}, V: {}, W: {}, X: {}, Y: {}, Z: {},
@@ -13,7 +12,7 @@ const alphabet = {
 const courtNameSearchController = new CourtNameSearchController();
 sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves([]);
 sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList').resolves({});
-sinon.stub(FilterService.prototype, 'reCreateKeysList').withArgs(filters, {}).returns([]);
+sinon.stub(FilterService.prototype, 'handleKeys').returns([]);
 sinon.stub(FilterService.prototype, 'buildFilterValueOptions').returns({});
 
 describe('Court Name Search Controller', () => {

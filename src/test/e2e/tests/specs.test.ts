@@ -3,7 +3,6 @@ import { SearchOptionsPage } from '../pageobjects/SearchOptions.page';
 import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
 import { HearingListPage } from '../pageobjects/HearingList.page';
 import { SearchPage } from '../pageobjects/Search.page';
-import { OtpLoginPage } from '../pageobjects/OtpLogin.page';
 import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
 import { ViewOptionPage } from '../pageobjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
@@ -29,7 +28,7 @@ let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
 let subscriptionCaseSearchResultsPage: SubscriptionCaseSearchResultsPage;
 let subscriptionCaseSearchPage: SubscriptionCaseSearchPage;
-let otpLoginPage: OtpLoginPage;
+
 let caseNameSearchPage: CaseNameSearchPage;
 let caseNameSearchResultsPage: CaseNameSearchResultsPage;
 let courtNameSearchPage: CourtNameSearchPage;
@@ -139,12 +138,12 @@ describe('Finding a court or tribunal listing', () => {
     });
 
     it('selecting first result should take you to to the hearings list page', async () => {
-      hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-      expect(await hearingListPage.getPageTitle()).toEqual('Aberdeen Tribunal Hearing Centre hearing list');
+      hearingListPage = await alphabeticalSearchPage.selectSecondListResult();
+      expect(await hearingListPage.getPageTitle()).toEqual('Abergavenny Magistrates\' Court hearing list');
     });
 
-    it('should display 0 results', async() => {
-      expect(await hearingListPage.getResults()).toBe(0);
+    it('should display 13 results', async() => {
+      expect(await hearingListPage.getResults()).toBe(13);
     });
   });
 
@@ -181,14 +180,9 @@ describe('Finding a court or tribunal listing', () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
     });
-    it('should open the OTP login page when a user clicks "Subscriptions" header', async () => {
-      otpLoginPage = await homePage.clickSubscriptionsButton();
-      expect(await otpLoginPage.getPageTitle()).toEqual('Verify your email address');
-    });
 
-    it('should navigate to subscription page when correct passcode is entered', async () => {
-      await otpLoginPage.enterText('222222');
-      subscriptionManagementPage = await otpLoginPage.clickContinue();
+    it('should open the Subscription Manage Page when a user clicks "Subscriptions" header', async () => {
+      subscriptionManagementPage = await homePage.clickSubscriptionsButton();
       expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
     });
   });

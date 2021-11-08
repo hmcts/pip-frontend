@@ -31,10 +31,7 @@ module.exports = {
   RowSelector: (letter): string => {
     return '#' + letter;
   },
-  FirstItemResult: 'tbody > tr.govuk-table__row > td > a',
-
-  // OtpLogin page selectors
-  OtpInput: '#otp-code',
+  SecondItemResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
 
   // ViewOption page selectors
   ViewOptionsTitle: 'h1.govuk-fieldset__heading',

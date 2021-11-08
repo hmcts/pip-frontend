@@ -6,6 +6,8 @@ nodejs:
     pip-shared-kv:
       resourceGroup: pip-sharedservices-{{ .Values.global.environment }}-rg
       secrets:
+        - name: session-key
+          alias: SESSION_SECRET
         - name: otp-app-pip-frontend-id
           alias: CLIENT_ID
         - name: otp-app-pip-frontend-pwd
@@ -15,4 +17,5 @@ nodejs:
         - name: pipsharedinfrasa-storageaccount-connection-string
           alias: CONNECTION_STRING
   environment:
+    SECRETS_DIRECTORY: /mnt/secrets/pip-shared-kv
   aadIdentityName: pip

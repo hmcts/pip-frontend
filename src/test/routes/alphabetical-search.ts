@@ -11,4 +11,12 @@ describe('Alphabetical search', () => {
         .expect((res) => expect(res.status).to.equal(200));
     });
   });
+
+  describe('on POST', () => {
+    test('should return search option page', () => {
+      request(app)
+        .post('/alphabetical-search')
+        .expect((res) => expect(res.status).to.equal(200));
+    });
+  });
 });
