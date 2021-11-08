@@ -1,10 +1,10 @@
 import process from 'process';
+import passportCustom from 'passport-custom';
+
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
-
 const authenticationConfig = require('./authentication-config.json');
-
-const MockStrategy = require('passport-mock-strategy');
+const CustomStrategy = passportCustom.Strategy;
 
 /**
  * This sets up the OIDC version of authentication, integrating with Azure.
@@ -63,25 +63,28 @@ function oidcSetup(): void {
  * This sets up the local version of authentication, which uses a mock instead.
  */
 function mockSetup(): void {
+  const findUser = function(user, fn): Function {
+    return (user['id'] && user['username']) ? fn(user) : fn(null);
+  };
 
-  const mockUser = {'oid': 1234, 'profile': {'oid': '1234'}};
+  passport.use('mockaroo', new CustomStrategy(
+    function (req, done) {
+      const user = req.body;
+      findUser(user, function(_user = user) {
+        return (user) ? done(null, _user) : done(null, user);
+      });
+    },
+  ));
 
   passport.serializeUser(function(user, done) {
-    done(null, user.oid);
-  });
-
-  passport.deserializeUser(function(oid, done) {
-    return done(null, mockUser);
-  });
-
-  passport.use(new MockStrategy({
-    name: 'azuread-openidconnect',
-    user: mockUser,
-  },
-  function(user, done) {
     done(null, user);
-  },
-  ));
+  });
+
+  passport.deserializeUser(function(user, done) {
+    findUser(user, function (_user) {
+      done(null, _user);
+    });
+  });
 }
 
 /**
@@ -89,10 +92,6 @@ function mockSetup(): void {
  * Values are read from config, and from the environment passed in
  */
 export default function(oidc: string): void {
-  if (oidc) {
-    oidcSetup();
-  } else {
-    mockSetup();
-  }
+  (oidc) ? oidcSetup() : mockSetup();
 }
 
