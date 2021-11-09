@@ -3,13 +3,16 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import { app } from '../../main/app';
 import { request as expressRequest } from 'express';
+
+import fs from 'fs';
+import path from 'path';
 import {CourtService} from '../../main/service/courtService';
 
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-sinon.stub(CourtService.prototype, 'generateAlphabetisedCourtList').returns([]);
-sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList').returns([]);
-sinon.stub(CourtService.prototype, 'fetchAllCourts').returns([]);
-
+const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
+const courtList = JSON.parse(rawData);
+sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves(courtList);
+sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList').resolves(courtList);
 
 describe('Court Name Search', () => {
   describe('on GET', () => {

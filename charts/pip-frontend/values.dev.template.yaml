@@ -4,5 +4,4 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
   environment:
     SECRETS_DIRECTORY: /mnt/secrets/pip-shared-kv
-    OIDC: true
     FRONTEND_URL: https://${SERVICE_FQDN}

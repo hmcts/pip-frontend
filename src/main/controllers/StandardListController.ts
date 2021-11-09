@@ -9,7 +9,7 @@ const courtService = new CourtService();
 
 export default class StandardListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
-    const courtId = req.query['courtId'].toString();
+    const courtId = req.query['courtId'] as string;
     const court = await courtService.getCourtById(parseInt(courtId));
     res.render('standard-list', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['standard-list']),

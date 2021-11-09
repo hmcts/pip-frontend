@@ -1,8 +1,12 @@
 {# TODO: solution for UAT only, not to be kept and removed post UAT #}
 {% extends "template.njk" %}
+{% from "./macros/common-components.njk" import goBack %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% block pageTitle %}
   {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ goBack() }}
 {% endblock %}
 {% block content %}
   <div id="grid-row" class="govuk-grid-row list-div">
