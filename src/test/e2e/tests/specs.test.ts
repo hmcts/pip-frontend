@@ -191,6 +191,12 @@ describe('Finding a court or tribunal listing', () => {
       expect(await subscriptionManagementPage.getPageTitle()).toBe('Your subscriptions');
     });
 
+    it('should open the Subscription Manage Page when a user clicks "Sign in" header', async () => {
+      await homePage.open('');
+      subscriptionManagementPage = await homePage.clickSignInButton();
+      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
+    });
+
     it('should navigate to add subscription page on button click', async () => {
       subscriptionAddPage = await subscriptionManagementPage.clickAddNewSubscriptionButton();
       expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');

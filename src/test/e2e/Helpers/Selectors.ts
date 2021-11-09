@@ -3,7 +3,6 @@ module.exports = {
   ContinueButton: '.govuk-button',
   CommonPageTitle: '.govuk-heading-l',
   CommonPageTitleM: '.govuk-heading-m',
-  SubscriptionsButton: '#subscriptionHeaderButton',
   SignInButton: '#signInButton',
   SignOutButton: '#signOutButton',
   Results: 'tbody > tr.govuk-table__row',
