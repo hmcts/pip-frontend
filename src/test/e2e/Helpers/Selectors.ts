@@ -3,7 +3,6 @@ module.exports = {
   ContinueButton: '.govuk-button',
   CommonPageTitle: '.govuk-heading-l',
   CommonPageTitleM: '.govuk-heading-m',
-  SubscriptionsButton: '#subscriptionHeaderButton',
   SignInButton: '#signInButton',
   Results: 'tbody > tr.govuk-table__row',
   // Home page selectors
@@ -61,4 +60,9 @@ module.exports = {
   JurisdictionCheckbox: '#Jurisdiction',
   ApplyFiltersButton: '.moj-filter__options > .govuk-button',
   ClearFiltersLink: '.moj-filter__heading-action > p > a',
+
+  // MockSession selectors
+  UsernameInput: '#username',
+  UserIdInput: '#id',
+  UserType: '#userType',
 };

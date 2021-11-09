@@ -1,23 +1,26 @@
-import { expect } from 'chai';
 import request from 'supertest';
-
+import sinon from 'sinon';
+import { expect } from 'chai';
 import { app } from '../../main/app';
+import { request as expressRequest } from 'express';
 
-describe('Case Name Search', () => {
+sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+
+describe('Court Name Search', () => {
   describe('on GET', () => {
-    test('should return case name search page', async () => {
+    test('should return court name search page', async () => {
       await request(app)
         .get('/court-name-search')
         .expect((res) => expect(res.status).to.equal(200));
     });
 
-    test('should return case name search page with unchecked checkboxes', async () => {
+    test('should return court name search page with unchecked checkboxes', async () => {
       await request(app)
         .get('/court-name-search?clear=all')
         .expect((res) => expect(res.status).to.equal(200));
     });
 
-    test('should return case name search page with unchecked filter', async () => {
+    test('should return court name search page with unchecked filter', async () => {
       await request(app)
         .get('/court-name-search?clear=Crown%20Court')
         .expect((res) => expect(res.status).to.equal(200));
@@ -25,7 +28,7 @@ describe('Case Name Search', () => {
   });
 
   describe('on POST', () => {
-    test('should return case name search page applied filter', async () => {
+    test('should return court name search page applied filter', async () => {
       await request(app)
         .post('/court-name-search')
         .send({jurisdiction: 'crown'})
