@@ -12,7 +12,7 @@ import * as path from 'path';
 import favicon from 'serve-favicon';
 import {HTTPError} from 'HttpError';
 import {Nunjucks} from './modules/nunjucks';
-import {PropertiesVolume} from '@hmcts/properties-volume';
+import * as propertiesVolume from '@hmcts/properties-volume'
 import {AppInsights} from './modules/appinsights';
 import session from 'express-session';
 import authentication from './authentication/authentication';
@@ -35,7 +35,7 @@ app.locals.POLICY = process.env.POLICY;
 
 const logger = Logger.getLogger('app');
 
-PropertiesVolume.addTo(config);
+propertiesVolume.addTo(config)
 //new PropertiesVolume().enableFor(app);
 
 new AppInsights().enable();
