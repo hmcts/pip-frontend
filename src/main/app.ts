@@ -12,7 +12,7 @@ import * as path from 'path';
 import favicon from 'serve-favicon';
 import {HTTPError} from 'HttpError';
 import {Nunjucks} from './modules/nunjucks';
-import * as propertiesVolume from '@hmcts/properties-volume'
+import * as propertiesVolume from '@hmcts/properties-volume';
 import {AppInsights} from './modules/appinsights';
 import session from 'express-session';
 import authentication from './authentication/authentication';
