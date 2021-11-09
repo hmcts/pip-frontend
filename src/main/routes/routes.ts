@@ -28,6 +28,12 @@ export default function(app: Application): void {
     res.redirect('/login?p=' + authenticationConfig.POLICY);
   }
 
+  function globalAuthGiver(req, res, next){
+    //this function allows us to share authentication status across all views
+    res.locals.isAuthenticated = req.isAuthenticated();
+    next();
+  };
+
   function regenerateSession(req, res): void {
     const prevSession = req.session;
     req.session.regenerate(() => {  // Compliant
@@ -35,7 +41,7 @@ export default function(app: Application): void {
       res.redirect('/subscription-management');
     });
   }
-
+  app.get('/*', globalAuthGiver);
   app.get('/', app.locals.container.cradle.homeController.get);
   app.get('/search-option', app.locals.container.cradle.searchOptionController.get);
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);

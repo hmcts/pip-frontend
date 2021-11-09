@@ -8,7 +8,8 @@
 {% endblock %}
 
 {% block header %}
-{% if haveUser %}
+
+{% if isAuthenticated %}
 {{ govukHeader({
         homepageUrl: "https://www.gov.uk/",
         serviceName: serviceNameText,
