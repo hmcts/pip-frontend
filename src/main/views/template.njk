@@ -8,7 +8,32 @@
 {% endblock %}
 
 {% block header %}
-
+{% if haveUser %}
+{{ govukHeader({
+        homepageUrl: "https://www.gov.uk/",
+        serviceName: serviceNameText,
+        serviceUrl: "/",
+        navigationClasses: 'govuk-header__navigation--end',
+        navigation: [
+            {
+              href: "/subscription-management",
+              text: subscriptionText,
+              active: false,
+              attributes: {
+                id: "subscriptionHeaderButton"
+              }
+            },
+            {
+              href: "#",
+              text: signOutText,
+              active: false,
+              attributes: {
+                id: "signOutButton"
+              }
+            }
+          ]
+      }) }}
+{% else %}
 {{ govukHeader({
         homepageUrl: "https://www.gov.uk/",
         serviceName: serviceNameText,
@@ -33,6 +58,8 @@
             }
           ]
       }) }}
+{% endif %}
+
 {% endblock %}
 
 {% block bodyEnd %}
