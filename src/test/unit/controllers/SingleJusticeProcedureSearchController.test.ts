@@ -1,19 +1,19 @@
 import sinon from 'sinon';
 import { Response } from 'express';
-import SingleJusticeProcedureSearchController from '../../../main/controllers/SingleJusticeProcedureSearchController';
 import { mockRequest } from '../mocks/mockRequest';
 import { SjpRequests } from '../../../main/resources/requests/sjpRequests';
 import fs from 'fs';
 import path from 'path';
+import SingleJusticeProcedureController from '../../../main/controllers/SingleJusticeProcedureController';
 
-const singleJusticeProcedureSearchController = new SingleJusticeProcedureSearchController();
+const singleJusticeProcedureController = new SingleJusticeProcedureController();
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawSJPData).results;
 sinon.stub(SjpRequests.prototype, 'getSJPCases').returns(sjpCases);
 
-describe('Single Justice Procedure Search Controller', () => {
+describe('Single Justice Procedure Controller', () => {
   const i18n = {
-    'single-justice-procedure-search': {},
+    'single-justice-procedure': {},
   };
 
   it('should render the subscription management page', async () => {
@@ -22,13 +22,13 @@ describe('Single Justice Procedure Search Controller', () => {
     const responseMock = sinon.mock(response);
 
     const expectedData = {
-      ...i18n['single-justice-procedure-search'],
+      ...i18n['single-justice-procedure'],
       casesList: sjpCases,
     };
 
-    responseMock.expects('render').once().withArgs('single-justice-procedure-search', expectedData);
+    responseMock.expects('render').once().withArgs('single-justice-procedure', expectedData);
 
-    await singleJusticeProcedureSearchController.get(request, response);
+    await singleJusticeProcedureController.get(request, response);
     responseMock.verify();
   });
 

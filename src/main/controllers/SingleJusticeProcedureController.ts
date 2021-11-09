@@ -5,11 +5,11 @@ import { SjpService } from '../service/sjpService';
 
 const sjpService = new SjpService();
 
-export default class SingleJusticeProcedureSearchController {
+export default class SingleJusticeProcedureController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const casesList = await sjpService.getSJPCases();
-    res.render('single-justice-procedure-search', {
-      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['single-justice-procedure-search']),
+    res.render('single-justice-procedure', {
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['single-justice-procedure']),
       casesList,
     });
   }

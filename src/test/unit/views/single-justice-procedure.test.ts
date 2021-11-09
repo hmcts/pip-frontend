@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { SjpRequests } from '../../../main/resources/requests/sjpRequests';
 
-const PAGE_URL = '/single-justice-procedure-search';
+const PAGE_URL = '/single-justice-procedure';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawData).results;
 
@@ -14,7 +14,7 @@ let htmlRes: Document;
 
 sinon.stub(SjpRequests.prototype, 'getSJPCases').returns(sjpCases);
 
-describe('Single Justice Procedure Search Page', () => {
+describe('Single Justice Procedure Page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
