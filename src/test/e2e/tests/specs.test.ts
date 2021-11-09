@@ -14,9 +14,11 @@ import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.
 import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
 import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
 import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
+import { MockSessionPage } from '../PageObjects/MockSession.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage;
+const mockSessionPage = new MockSessionPage();
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
@@ -180,8 +182,22 @@ describe('Finding a court or tribunal listing', () => {
       viewOptionPage = await homePage.clickStartNowButton();
     });
 
-    it('should open the Subscription Manage Page when a user clicks "Subscriptions" header', async () => {
-      subscriptionManagementPage = await homePage.clickSubscriptionsButton();
+    it('should open Session Mock Page to authenticate user', async () => {
+      await mockSessionPage.open('/mock-session');
+      expect(await mockSessionPage.getPageTitle()).toBe('Mock User Session Data');
+    });
+
+    it('should fill session form open subscription management page', async () => {
+      await mockSessionPage.enterText('Joe Bloggs', 'UsernameInput');
+      await mockSessionPage.enterText('1', 'UserIdInput');
+      await mockSessionPage.selectOption('UserType');
+      subscriptionManagementPage = await mockSessionPage.clickContinue();
+      expect(await subscriptionManagementPage.getPageTitle()).toBe('Your subscriptions');
+    });
+
+    it('should open the Subscription Manage Page when a user clicks "Sign in" header', async () => {
+      await homePage.open('');
+      subscriptionManagementPage = await homePage.clickSignInButton();
       expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
     });
 
