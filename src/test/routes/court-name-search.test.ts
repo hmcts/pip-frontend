@@ -3,8 +3,13 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import { app } from '../../main/app';
 import { request as expressRequest } from 'express';
+import {CourtService} from '../../main/service/courtService';
 
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(CourtService.prototype, 'generateAlphabetisedCourtList').returns([]);
+sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList').returns([]);
+sinon.stub(CourtService.prototype, 'fetchAllCourts').returns([]);
+
 
 describe('Court Name Search', () => {
   describe('on GET', () => {

@@ -88,5 +88,8 @@ export default function(app: Application): void {
     },
   };
 
+  // TODO: UAT solution only, to be removed post UAT and replaced with suitable solution
+  app.get('/standard-list', ensureAuthenticated, app.locals.container.cradle.standardListController.get);
+
   healthcheck.addTo(app, healthCheckConfig);
 }
