@@ -33,6 +33,7 @@ describe('Warned List Controller', () => {
 
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
+    request.user = null;
 
     const responseMock = sinon.mock(response);
 
