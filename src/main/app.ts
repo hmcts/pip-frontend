@@ -36,7 +36,7 @@ app.locals.POLICY = process.env.POLICY;
 
 const logger = Logger.getLogger('app');
 
-propertiesVolume.addTo(config, {mountPoint: '/mnt/secrets/pip-shared-kv'});
+propertiesVolume.addTo(config);
 
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
