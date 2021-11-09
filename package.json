@@ -11,7 +11,7 @@
     "start:dev": "nodemon --config nodemon.json",
     "lint": "sass-lint -v -q && eslint . --ext .js,.jsx,.ts,.tsx",
     "build": "yarn webpack --config webpack.config.js",
-    "build:prod": "NODE_ENV=production yarn webpack --mode production --config webpack.config.js",
+    "build:prod": "DEBUG=express-session NODE_ENV=production yarn webpack --mode production --config webpack.config.js",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:routes": "jest -c jest.routes.config.js",
