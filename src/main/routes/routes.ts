@@ -28,16 +28,16 @@ export default function(app: Application): void {
     res.redirect('/login?p=' + authenticationConfig.POLICY);
   }
 
-  function globalAuthGiver(req, res, next){
+  function globalAuthGiver(req, res, next): void{
     //this function allows us to share authentication status across all views
     res.locals.isAuthenticated = req.isAuthenticated();
     next();
-  };
+  }
 
-  function logOut(req, res, next){
+  function logOut(req, res): void{
     req.session.destroy();
     res.redirect('/');
-  };
+  }
 
   function regenerateSession(req, res): void {
     const prevSession = req.session;
