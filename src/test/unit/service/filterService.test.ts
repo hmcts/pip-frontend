@@ -7,6 +7,7 @@ const filterService = new FilterService();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 
+const magsCourt = 'Magistrates\' Court';
 const crownCourt = 'Crown Court';
 const royalCourt = 'Royal Court';
 const jurisdiction = 'Jurisdiction';
@@ -22,8 +23,9 @@ describe('Filter Service', () => {
 
   it('should build filter values options for checkboxes', () => {
     const data = filterService.buildFilterValueOptions(listData, []);
-    expect(Object.keys(data[jurisdiction])[0]).toBe(crownCourt);
-    expect(Object.keys(data[jurisdiction])[1]).toBe(royalCourt);
+    expect(Object.keys(data[jurisdiction])[0]).toBe(magsCourt);
+    expect(Object.keys(data[jurisdiction])[1]).toBe(crownCourt);
+    expect(Object.keys(data[jurisdiction])[2]).toBe(royalCourt);
     expect(Object.keys(data['Region'])[0]).toBe('Bedford');
   });
 
