@@ -23,8 +23,8 @@ export class HomePage {
     return new ViewOptionPage();
   }
 
-  async clickSubscriptionsButton(): Promise<SubscriptionManagementPage> {
-    const button = await $(helpers.SubscriptionsButton);
+  async clickSignInButton(): Promise<SubscriptionManagementPage> {
+    const button = await $(helpers.SignInButton);
     button.click();
     return new SubscriptionManagementPage();
   }
