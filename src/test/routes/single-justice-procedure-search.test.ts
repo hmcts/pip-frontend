@@ -1,8 +1,6 @@
 import { expect } from 'chai';
-import request from 'supertest';
-
 import { app } from '../../main/app';
-
+import request from 'supertest';
 
 describe('Single Justice Procedure Search', () => {
   describe('on GET', () => {
@@ -12,5 +10,4 @@ describe('Single Justice Procedure Search', () => {
         .expect((res) => expect(res.status).to.equal(200));
     });
   });
-
 });

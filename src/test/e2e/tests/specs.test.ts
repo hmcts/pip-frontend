@@ -99,7 +99,7 @@ describe('Finding a court or tribunal listing', () => {
     it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
       await viewOptionPage.selectSingleJusticeProcedureRadio();
       singleJusticeProcedureSearchPage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-      expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure case');
+      expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure cases');
     });
 
   });
