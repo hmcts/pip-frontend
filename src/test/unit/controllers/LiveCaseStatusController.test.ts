@@ -29,7 +29,8 @@ describe('Live Status Controller', () => {
     const expectedData = {
       ...i18n['live-case-status'],
       courtName: liveCases.results[0].courtName,
-      updateDateTime: moment.utc(Date.parse(liveCases.results[0].lastUpdated)).format('dddd D MMMM YYYY\xa0\xa0\xa0\xa0h:mma'),
+      updateDate: moment(Date.parse(liveCases.results[0].lastUpdated)).format('dddd D MMMM YYYY'),
+      updateTime: moment(Date.parse(liveCases.results[0].lastUpdated)).format('h:mma'),
       liveCases: liveCases.results[0].courtUpdates,
       refreshTimer: 15000,
       courtId: '1',
