@@ -9,49 +9,29 @@
 
 {% block header %}
 
-{% if isAuthenticated %}
-{{ govukHeader({
-        homepageUrl: "https://www.gov.uk/",
-        serviceName: serviceNameText,
-        serviceUrl: "/",
-        navigationClasses: 'govuk-header__navigation--end',
-        navigation: [
-            {
-              href: "/subscription-management",
-              text: subscriptionText,
-              active: false,
-              attributes: {
-                id: "subscriptionHeaderButton"
-              }
-            },
-            {
+{% set lastElement = {
               href: "/logout",
               text: signOutText,
               active: false,
               attributes: {
                 id: "signOutButton"
               }
-            }
-          ]
-      }) }}
-{% else %}
+} if isAuthenticated else {
+    href: "/subscription-management",
+    text: signInText,
+    active: false,
+    attributes: {
+        id: "signInButton"
+    }
+} %}
+
 {{ govukHeader({
         homepageUrl: "https://www.gov.uk/",
         serviceName: serviceNameText,
         serviceUrl: "/",
         navigationClasses: 'govuk-header__navigation--end',
-        navigation: [
-            {
-              href: "/subscription-management",
-              text: signInText,
-              active: false,
-              attributes: {
-                id: "signInButton"
-              }
-            }
-          ]
+        navigation: [lastElement]
       }) }}
-{% endif %}
 
 {% endblock %}
 
