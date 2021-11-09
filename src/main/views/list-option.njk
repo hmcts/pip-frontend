@@ -1,0 +1,26 @@
+{#TODO: solution for UAT, not to be kept and removed post UAT#}
+{% from "./macros/common-components.njk" import goBack %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ 'List Option' | safe }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ goBack() }}
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">{{ heading}} {{ court.name }}</h1>
+  <p class="govuk-body">{{ p1 }}</p>
+  <p class="govuk-body govuk-!-font-weight-bold">{{ court.jurisdiction }} {{ p2 }}</p>
+  {% if  court.jurisdiction === "Magistrates' Court"%}
+  <p><a class="govuk-link govuk-link--no-visited-state" href="#">{{ court.name }} {{ standardLists }}</a></p>
+  <p><a class="govuk-link govuk-link--no-visited-state" href="/hearing-list?courtId={{ court.courtId }}/">{{ court.name }} {{ publicLists }}</a></p>
+  {% else %}
+  <p><a class="govuk-link govuk-link--no-visited-state" href="/hearing-list?courtId={{ court.courtId }}/">{{ court.name }} {{ dailyLists }}</a></p>
+  <p><a class="govuk-link govuk-link--no-visited-state" href="/warned-list">{{ court.name }} {{ warnedLists }}</a></p>
+  <p><a class="govuk-link govuk-link--no-visited-state" href="#">{{ court.name }} {{ firmedLists }}</a></p>
+  {% endif %}
+
+{% endblock %}
