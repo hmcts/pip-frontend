@@ -4,7 +4,7 @@ import {I18next} from './modules/i18next';
 const {Logger} = require('@hmcts/nodejs-logging');
 
 import * as bodyParser from 'body-parser';
-import config = require('config');
+import * as config from 'config';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import {Helmet} from './modules/helmet';
@@ -36,7 +36,6 @@ app.locals.POLICY = process.env.POLICY;
 const logger = Logger.getLogger('app');
 
 propertiesVolume.addTo(config);
-//new PropertiesVolume().enableFor(app);
 
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
