@@ -10,7 +10,8 @@
 {% endblock %}
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
-  <p class="govuk-body">{{ p1 }}</p>
+  <p class="govuk-body govuk-!-font-weight-bold">{{ p1 }}</p>
+  <p class="govuk-body">{{ p2 }} {{ published }}</p>
   <div class="parent-box">
   {% set sjpCase = [] %}
   {% for item in casesList |sort(attribute="Name")%}

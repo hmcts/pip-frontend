@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
+import moment from 'moment';
 import { app } from '../../../main/app';
 import { SjpRequests } from '../../../main/resources/requests/sjpRequests';
 
@@ -32,6 +33,12 @@ describe('Single Justice Procedure Page', () => {
     const paragraph = htmlRes.getElementsByClassName('govuk-body');
     expect(paragraph[0].innerHTML).contains('Cases involving adults charged with summary-only non-imprisonable offences.',
       'Could not find the table header');
+  });
+
+  it('should display published date', () => {
+    const paragraph = htmlRes.getElementsByClassName('govuk-body');
+    expect(paragraph[1].innerHTML).contains(`Published ${moment().format('DD MMMM YYYY [at] ha')}`,
+      'Could not find the published text');
   });
 
   it('should contain expected column headings', () => {

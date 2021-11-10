@@ -4,6 +4,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import { SjpRequests } from '../../../main/resources/requests/sjpRequests';
 import fs from 'fs';
 import path from 'path';
+import moment from 'moment';
 import SingleJusticeProcedureController from '../../../main/controllers/SingleJusticeProcedureController';
 
 const singleJusticeProcedureController = new SingleJusticeProcedureController();
@@ -24,6 +25,7 @@ describe('Single Justice Procedure Controller', () => {
     const expectedData = {
       ...i18n['single-justice-procedure'],
       casesList: sjpCases,
+      published: moment().format('DD MMMM YYYY [at] ha'),
     };
 
     responseMock.expects('render').once().withArgs('single-justice-procedure', expectedData);
