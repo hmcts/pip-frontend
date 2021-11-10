@@ -22,7 +22,7 @@ export default class HearingListController {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['hearing-list']),
           courtName: court.name,
           hearings: court.hearingList,
-          date: moment().format('MMMM DD YYYY'),
+          date: moment().format('DD MMMM YYYY'),
         });
       } else {
         res.render('error', req.i18n.getDataByLanguage(req.lng).error);
