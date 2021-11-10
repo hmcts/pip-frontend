@@ -9,6 +9,8 @@ import { SjpRequests } from '../../../main/resources/requests/sjpRequests';
 const PAGE_URL = '/single-justice-procedure';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawData).results;
+const validOffence = 'Keep a vehicle without a valid vehicle licence';
+const validProsecutor = 'Driver and Vehicle Licensing Agency';
 
 let htmlRes: Document;
 
@@ -45,6 +47,18 @@ describe('Single Justice Procedure Page', () => {
   it('should contain 8 rows, including the header', () => {
     const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
     expect(tableRows.length).equal(8, 'Number of rows is not equal to expected amount');
+  });
+
+  it('should contain a row with the correct values', () => {
+    const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
+    const items = tableRows.item(1).children;
+
+    expect(items.item(0).innerHTML).contains('A Morley', 'Name not found / correct');
+    expect(items.item(1).innerHTML).contains('Aberdeen', 'Town not found / correct');
+    expect(items.item(2).innerHTML).contains('', 'County not found / correct');
+    expect(items.item(3).innerHTML).contains('AB', 'Postcode not found / correct');
+    expect(items.item(4).innerHTML).contains(validOffence, 'Offence not found / correct');
+    expect(items.item(5).innerHTML).contains(validProsecutor, 'Prosecutor not found / correct');
   });
 
   it('should display a back button with the correct value', () => {
