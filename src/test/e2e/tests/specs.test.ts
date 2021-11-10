@@ -8,11 +8,11 @@ import { ViewOptionPage } from '../pageobjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
 import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
 import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
-import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
 import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
 import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
 import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
 import { MockSessionPage } from '../PageObjects/MockSession.page';
+import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -25,7 +25,7 @@ let searchPage: SearchPage;
 let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
-let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
+let singleJusticeProcedurePage: SingleJusticeProcedurePage;
 let caseNameSearchPage: CaseNameSearchPage;
 let caseNameSearchResultsPage: CaseNameSearchResultsPage;
 let courtNameSearchPage: CourtNameSearchPage;
@@ -98,8 +98,8 @@ describe('Finding a court or tribunal listing', () => {
 
     it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
       await viewOptionPage.selectSingleJusticeProcedureRadio();
-      singleJusticeProcedureSearchPage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-      expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure case');
+      singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
+      expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Single Justice Procedure cases');
     });
 
   });

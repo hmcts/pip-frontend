@@ -1,6 +1,6 @@
 const helpers = require('../Helpers/Selectors');
 
-export class SingleJusticeProcedureSearchPage {
+export class SingleJusticeProcedurePage {
 
   async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitle).catch(() => {

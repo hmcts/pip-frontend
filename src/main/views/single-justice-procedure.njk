@@ -1,0 +1,78 @@
+{% from "./macros/common-components.njk" import goBack %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ goBack() }}
+{% endblock %}
+{% block content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body govuk-!-font-weight-bold">{{ p1 }}</p>
+  <p class="govuk-body">{{ p2 }} {{ published }}</p>
+  <div class="parent-box">
+  {% set sjpCase = [] %}
+  {% for item in casesList |sort(attribute="Name")%}
+    {% set _ = sjpCase.push([
+      {
+        text: item.Name
+      },
+      {
+        text: item.Town
+      },
+      {
+        text: item.County
+      },
+      {
+        text: item.Postcode
+      },
+      {
+        text: item.Offence,
+        colspan: 2
+      },
+      {
+        text: item.Prosecutor
+      }
+    ]) %}
+  {% endfor %}
+
+  {{ govukTable({
+    firstCellIsHeader: false,
+    head: [
+      {
+        text: column1
+      },
+      {
+        text: column2
+      },
+      {
+        text: column3
+      },
+      {
+        text: column4
+      },
+      {
+        text: column5,
+        colspan: 2
+      },
+      {
+        text: column6
+      }
+    ],
+    rows: sjpCase
+  }) }}
+  <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19 with-background"
+     href="#">
+    <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17"
+         viewBox="0 0 13 17">
+      <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
+    </svg>{{ backToTop }}
+  </a>
+  </div>
+{% endblock %}
+{% block bodyEnd %}
+  {{ super() }}
+  <script src="alphabetical-dev.js"></script>
+{% endblock %}

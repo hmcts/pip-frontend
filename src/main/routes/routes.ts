@@ -81,7 +81,7 @@ export default function(app: Application): void {
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
-  app.get('/single-justice-procedure-search', app.locals.container.cradle.singleJusticeProcedureSearchController.get);
+  app.get('/single-justice-procedure', app.locals.container.cradle.singleJusticeProcedureController.get);
   app.get('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.get);
   app.post('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.post);
   app.get('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.get);
