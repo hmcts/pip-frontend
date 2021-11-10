@@ -21,6 +21,7 @@ const routesNotTested = [
   '/login',
   '/login/return',
   '/mock-login',
+  '/logout',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
