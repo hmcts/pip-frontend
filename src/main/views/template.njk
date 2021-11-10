@@ -1,7 +1,7 @@
 {% extends "govuk/template.njk" %}
 {% from "govuk/components/header/macro.njk" import govukHeader %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
-
+{% from "moj/components/sub-navigation/macro.njk" import mojSubNavigation %}
 
 {% block head %}
   {% include "webpack/css.njk" %}
@@ -33,6 +33,37 @@
         navigation: [lastElement]
       }) }}
 
+{% endblock %}
+
+{% block beforeContent %}
+    {% if isAuthenticated  %}
+        {{ mojSubNavigation({
+            label: 'Primary navigation',
+            classes: 'pub-navigation govuk-!-margin-bottom-0',
+            items: [
+                {
+                    text: navLinks.link1,
+                    href: '/account'
+                },
+                {
+                    text: navLinks.link2,
+                    href: '/search-option'
+                },
+                {
+                    text: navLinks.link3,
+                    href: '/live-case-alphabet-search'
+                },
+                {
+                    text: navLinks.link4,
+                    href: '/single-justice-procedure'
+                },
+                {
+                    text: navLinks.link5,
+                    href: '/subscription-management'
+                }
+            ]
+        }) }}
+    {% endif %}
 {% endblock %}
 
 {% block bodyEnd %}

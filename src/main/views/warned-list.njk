@@ -1,0 +1,367 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ goBack() }}
+{% endblock %}
+
+{% block content %}
+  <div id="grid-row" class="govuk-grid-row list-div">
+    <div class="offset-parent-box layout-width-one-fifth govuk-!-display-inline-block">
+      <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19" href="#">
+        <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17">
+          <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
+        </svg>{{ backToTop }}
+      </a>
+    </div>
+    <div>
+      <h2 class="govuk-heading-l govuk-!-margin-bottom-1">Derby Crown Court:</h2>
+      <h2 class="govuk-heading-l">{{ warnedHeading }}</h2>
+
+      <p class="govuk-body govuk-!-margin-bottom-1">Morledge</p>
+      <p class="govuk-body govuk-!-margin-bottom-1">Derby</p>
+      <p class="govuk-body govuk-!-margin-bottom-1">DE1 2XE</p>
+      <p class="govuk-body">{{ telephone }}: 01223 622600</p>
+
+      <p class="govuk-body govuk-!-margin-bottom-1 govuk-!-font-weight-bold">{{ dateRangeP1 }} 28 June 2021 {{ dateRangeP2 }} 8 July 2021</p>
+      <p class="govuk-body">{{ publishedListP1 }} 18th May 2021 {{ publishedListP2 }} 1:26pm</p>
+
+      <hr class="hr-colour govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-bottom-2">
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-1">28 June 2021</h3>
+      <hr class="hr-colour govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-2">
+
+      <h3 class="govuk-heading-m">{{ forPreTrialReview }}</h3>
+      <div class="govuk-inset-text govuk-!-margin-top-0">
+        {{ govukSummaryList({
+          classes: 'govuk-summary-list--no-border',
+          rows: [
+            {
+              key: {
+                text: defendant
+              },
+              value: {
+                html: "<p class='govuk-body govuk-!-font-weight-bold'>BLOGGS Joe</p>"
+              }
+            },
+            {
+              key: {
+                text: dateOfBirth
+              },
+              value: {
+                text: "1 January 2001"
+              }
+            },
+            {
+              key: {
+                text: gender
+              },
+              value: {
+                html: "Male"
+              }
+            },
+            {
+              key: {
+                text: caseId
+              },
+              value: {
+                html: 'T20207119'
+              }
+            },
+            {
+              key: {
+                text: solicitor
+              },
+              value: {
+                html: 'VHS CHESTERFIELD'
+              }
+            },
+            {
+              key: {
+                text: urn
+              },
+              value: {
+                html: '30DI0763519CPS'
+              }
+            },
+            {
+              key: {
+                text: defendantInCustody
+              },
+              value: {
+                html: 'No'
+              }
+            },
+            {
+              key: {
+                text: linkedCases
+              },
+              value: {
+                html: 'None'
+              }
+            },
+            {
+              key: {
+                text: notes
+              },
+              value: {
+                html: 'None'
+              }
+            }
+          ]
+        }) }}
+      </div>
+      <h3 class="govuk-heading-m">{{ forTrial }}</h3>
+      <div class="govuk-inset-text govuk-!-margin-top-0">
+        {{ govukSummaryList({
+          classes: 'govuk-summary-list--no-border',
+          rows: [
+            {
+              key: {
+                text: defendant
+              },
+              value: {
+                html: "<p class='govuk-body govuk-!-font-weight-bold'>SMITH John</p>"
+              }
+            },
+            {
+              key: {
+                text: dateOfBirth
+              },
+              value: {
+                text: "1 January 2001"
+              }
+            },
+            {
+              key: {
+                text: gender
+              },
+              value: {
+                html: "Male"
+              }
+            },
+            {
+              key: {
+                text: caseId
+              },
+              value: {
+               html: 'T20200422'
+              }
+            },
+            {
+              key: {
+                text: solicitor
+              },
+              value: {
+                html: 'SKR LEGAL/DERBY'
+              }
+            },
+            {
+              key: {
+                text: urn
+              },
+              value: {
+                html: '30DI1117419CPS'
+              }
+            },
+            {
+              key: {
+                text: defendantInCustody
+              },
+              value: {
+                html: 'Yes'
+              }
+            },
+            {
+              key: {
+                text: linkedCases
+              },
+              value: {
+                html: 'T20210061FIX'
+              }
+            },
+            {
+              key: {
+                text: notes
+              },
+              value: {
+                html: 'T/E 10 days'
+              }
+            }
+          ]
+        }) }}
+        <hr class="hr-colour govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-2">
+        {{ govukSummaryList({
+          classes: 'govuk-summary-list--no-border',
+          rows: [
+            {
+              key: {
+                text: defendant
+              },
+              value: {
+                html: "<p class='govuk-body govuk-!-font-weight-bold'>WHITE George</p>"
+              }
+            },
+            {
+              key: {
+                text: dateOfBirth
+              },
+              value: {
+                text: "1 January 2001"
+              }
+            },
+            {
+              key: {
+                text: gender
+              },
+              value: {
+                html: "Male"
+              }
+            },
+            {
+              key: {
+                text: caseId
+              },
+              value: {
+                html: 'T20207153'
+              }
+            },
+            {
+              key: {
+                text: solicitor
+              },
+              value: {
+                html: 'VHS CHESTERFIELD'
+              }
+            },
+            {
+              key: {
+                text: urn
+              },
+              value: {
+                html: '30DI1707220CPS'
+              }
+            },
+            {
+              key: {
+                text: defendantInCustody
+              },
+              value: {
+                html: 'No'
+              }
+            },
+            {
+              key: {
+                text: linkedCases
+              },
+              value: {
+                html: 'None'
+              }
+            },
+            {
+              key: {
+                text: notes
+              },
+              value: {
+                html: 'Order made under s45, Youth Justice and Criminal Evidence Act 1999, T/E 4 Days'
+              }
+            }
+          ]
+        }) }}
+      </div>
+      <hr class="hr-colour govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-bottom-2">
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-1">28 June 2021</h3>
+      <hr class="hr-colour govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-2">
+      <h3 class="govuk-heading-m">{{ forSentence }}</h3>
+      <div class="govuk-inset-text govuk-!-margin-top-0">
+        {{ govukSummaryList({
+          classes: 'govuk-summary-list--no-border',
+          rows: [
+            {
+              key: {
+                text: defendant
+              },
+              value: {
+                html: "<p class='govuk-body govuk-!-font-weight-bold'>OLIVER Michael</p>"
+              }
+            },
+            {
+              key: {
+                text: dateOfBirth
+            },
+              value: {
+                text: "1 January 2001"
+              }
+            },
+            {
+              key: {
+                text: gender
+              },
+              value: {
+                html: "Male"
+              }
+            },
+            {
+              key: {
+                text: caseId
+            },
+              value: {
+                html: 'T20207119'
+              }
+            },
+            {
+              key: {
+                text: solicitor
+              },
+              value: {
+                html: 'VHS CHESTERFIELD'
+              }
+            },
+            {
+              key: {
+                text: urn
+              },
+              value: {
+                html: '30DIO763519CPS'
+              }
+            },
+            {
+              key: {
+                text: defendantInCustody
+              },
+              value: {
+                html: 'No'
+              }
+            },
+            {
+              key: {
+                text: linkedCases
+              },
+              value: {
+                html: 'None'
+              }
+            },
+            {
+              key: {
+                text: notes
+              },
+              value: {
+                html: 'None'
+              }
+            }
+          ]
+        }) }}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block bodyEnd %}
+  {{ super() }}
+  <script src="alphabetical-dev.js"></script>
+{% endblock %}
+

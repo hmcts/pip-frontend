@@ -93,6 +93,8 @@ export default function(app: Application): void {
   app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
     (req, res) => {res.redirect('/');});
 
+  app.get('/warned-list', app.locals.container.cradle.warnedListController.get);
+
   //TODO: To be deleted/modified post UAT with suitable solution
   app.get('/list-option', app.locals.container.cradle.listOptionController.get);
 
