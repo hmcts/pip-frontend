@@ -17,13 +17,15 @@ export interface PipRequest extends Request {
       'search-results': {};
       'subscription-management': {};
       'view-option': {};
-      'single-justice-procedure-search': {};
+      'single-justice-procedure': {};
       'subscription-add': {};
       'court-name-search': {};
       'case-name-search': {};
       'case-name-search-results': {};
+      'warned-list': {};
       'list-option': {};
       'session-management': {};
+      'standard-list': {};
     };
   };
   lng?: string;

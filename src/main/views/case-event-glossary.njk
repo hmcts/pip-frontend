@@ -7,10 +7,11 @@
 {% endblock %}
 {% set courtId = courtId %}
 {% block beforeContent %}
-  {{ govukBackLink({
-    text: text,
-    href: '/live-case-status?courtId=' + courtId
-  }) }}
+    {{ super() }}
+    {{ govukBackLink({
+        text: text,
+        href: '/live-case-status?courtId=' + courtId
+    }) }}
 {% endblock %}
 {% block content %}
   <div id="grid-row" class="govuk-grid-row">

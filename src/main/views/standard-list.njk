@@ -1,0 +1,467 @@
+{# TODO: solution for UAT only, not to be kept and removed post UAT #}
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import goBack %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ goBack() }}
+{% endblock %}
+{% block content %}
+  <div id="grid-row" class="govuk-grid-row list-div">
+    <div class="offset-parent-box layout-width-one-fifth govuk-!-display-inline-block">
+      <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19"
+         href="#">
+        <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17"
+             viewBox="0 0 13 17">
+          <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
+        </svg>{{ backToTop }}
+      </a>
+    </div>
+
+    <div>
+      <h1 class="govuk-heading-xl govuk-!-margin-bottom-1">{{ court.name }}:</h1>
+      <h1 class="govuk-heading-xl">{{ standardList }}</h1>
+
+      <p class="govuk-body govuk-!-margin-bottom-1">{{ ljs }}</p>
+      <p class="govuk-body govuk-!-margin-bottom-1">{{ cmu }}</p>
+      <p class="govuk-body govuk-!-margin-bottom-1">{{ panel }}</p>
+      <p class="govuk-body">{{ trial }}</p>
+
+      <br/>
+      <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listFor }}</p>
+      <p class="govuk-body">{{ publishedOn }}</p>
+      <br/>
+
+      <h2 class="govuk-heading-l">Courtroom 1</h2>
+
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Hearing at 10am</h2>
+      <hr class="govuk-section-break--m govuk-!-margin-top-2">
+
+      {{ govukSummaryList({
+        classes: 'govuk-summary-list--no-border',
+        rows: [
+          {
+            key: {
+            text: "Defendant"
+          },
+            value: {
+            text: "ASHLEY Mike",
+            classes: "govuk-!-font-weight-bold"
+          }
+          },
+          {
+            key: {
+            text: "Address"
+          },
+            value: {
+            text: "50 Any Street, Any Town, AN1 Y23"
+          }
+          },
+          {
+            key: {
+            text: "Date of Birth"
+          },
+            value: {
+            text: "1 January 2001"
+          }
+          },
+          {
+            key: {
+            text: "Case ID"
+          },
+            value: {
+            text: "20012345678 (listing)"
+          }
+          },
+          {
+            key: {
+            text: "Solicitor"
+          },
+            value: {
+            text:  "Any Law Company LLP"
+          }
+          },
+          {
+            key: {
+            text: "Informant"
+          },
+            value: {
+            text:  "005"
+          }
+          },
+          {
+            key: {
+            text: "URN"
+          },
+            value: {
+            text:  "02DR9876654"
+          }
+          },
+          {
+            key: {
+            text: "ASN"
+          },
+            value: {
+            text:  "3001TR120000000212127H"
+          }
+          },
+          {
+            key: {
+            text: "Notes"
+          },
+            value: {
+            text:  "Any notes or further information is populated here"
+          }
+          }
+        ]
+      }) }}
+
+      <div class="govuk-inset-text">
+        <h2 class="govuk-heading-m">Charge 1</h2>
+        {{ govukSummaryList({
+          classes: 'govuk-summary-list--no-border govuk-!-margin-bottom-1',
+          rows: [
+            {
+              key: {
+              text: "Hearing ID"
+            },
+              value: {
+              text: "RT88010"
+            }
+            },
+            {
+              key: {
+              text: "Charge"
+            },
+              value: {
+              text: "Fail to provide specimen for analysis - vehicle driver"
+            }
+            },
+            {
+              key: {
+              text: "Charge details"
+            },
+              value: {
+              text: "On 8 December 2020 at LOUDON STREET, DERBY when suspected of having driven a vehicle and having been required to provide a specimen of urine for a laboratory test pursuant to section 7 of the Road Traffic Act 1988 in the course of an investigation into whether you had committed an offence under section 3A, 4, 5 or 5A thereof, failed without reasonable excuse to do so"
+            }
+            },
+            {
+              key: {
+              text: "Maximum penalty"
+            },
+              value: {
+              text: "SL3"
+            }
+            },
+            {
+              key: {
+              text: "Plea"
+            },
+              value: {
+              text: "Not guilty"
+            }
+            },
+            {
+              key: {
+              text: "Plea date"
+            },
+              value: {
+              text: "7 July 2021"
+            }
+            },
+            {
+              key: {
+              text: "Status"
+            },
+              value: {
+              text: "Adjourned from 21 June 2021 for the trial"
+            }
+            }
+          ]
+        }) }}
+        <hr class="govuk-section-break--m">
+
+        <h2 class="govuk-heading-m">Charge 2</h2>
+        {{ govukSummaryList({
+          classes: 'govuk-summary-list--no-border govuk-!-margin-bottom-1',
+          rows: [
+            {
+              key: {
+              text: "Hearing ID"
+            },
+              value: {
+              text: "MD71210"
+            }
+            },
+            {
+              key: {
+              text: "Charge"
+            },
+              value: {
+              text: "Possess a controlled drug of Class A - Cocaine"
+            }
+            },
+            {
+              key: {
+              text: "Charge details"
+            },
+              value: {
+              text: "On 08/12/2020 at Normanton, Derby had in your possession a quantity of cocaine a controlled drug of class A in contravention of section 5(1) of the Misuse of Drugs Act 1971"
+            }
+            },
+            {
+              key: {
+              text: "Maximum penalty"
+            },
+              value: {
+              text: "SL4"
+            }
+            },
+            {
+              key: {
+              text: "Plea"
+            },
+              value: {
+              text: "Not guilty"
+            }
+            },
+            {
+              key: {
+              text: "Plea date"
+            },
+              value: {
+              text: "7 July 2021"
+            }
+            },
+            {
+              key: {
+              text: "Status"
+            },
+              value: {
+              text: "Adjourned from 21 June 2021 for the trial"
+            }
+            }
+          ]
+        }) }}
+      </div>
+      <h2 class="govuk-heading-l">Courtroom 2</h2>
+
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Hearing at 4pm</h2>
+      <hr class="govuk-section-break--m govuk-!-margin-top-2">
+
+      {{ govukSummaryList({
+        classes: 'govuk-summary-list--no-border',
+        rows: [
+          {
+            key: {
+            text: "Defendant"
+          },
+            value: {
+            text: "HENRY David",
+            classes: "govuk-!-font-weight-bold"
+          }
+          },
+          {
+            key: {
+            text: "Address"
+          },
+            value: {
+            text: "50 Any Street, Any Town, AN1 Y23"
+          }
+          },
+          {
+            key: {
+            text: "Date of Birth"
+          },
+            value: {
+            text: "1 January 2001"
+          }
+          },
+          {
+            key: {
+            text: "Case ID"
+          },
+            value: {
+            text: "20012345678"
+          }
+          },
+          {
+            key: {
+            text: "Solicitor"
+          },
+            value: {
+            text:  "Any Law Company LLP"
+          }
+          },
+          {
+            key: {
+            text: "Informant"
+          },
+            value: {
+            text:  "20021345678"
+          }
+          },
+          {
+            key: {
+            text: "URN"
+          },
+            value: {
+            text:  "02DR9876654"
+          }
+          },
+          {
+            key: {
+            text: "ASN"
+          },
+            value: {
+            text:  "3001TR120000000212127H"
+          }
+          },
+          {
+            key: {
+            text: "Notes"
+          },
+            value: {
+            text:  "Any notes or further information is populated here"
+          }
+          }
+        ]
+      }) }}
+      <div class="govuk-inset-text">
+        <h2 class="govuk-heading-m">Charge 1</h2>
+        {{ govukSummaryList({
+          classes: 'govuk-summary-list--no-border govuk-!-margin-bottom-1',
+          rows: [
+            {
+              key: {
+              text: "Hearing ID"
+            },
+              value: {
+              text: "20021345678"
+            }
+            },
+            {
+              key: {
+              text: "Charge"
+            },
+              value: {
+              text: "Theft"
+            }
+            },
+            {
+              key: {
+              text: "Charge details"
+            },
+              value: {
+              text: "1 June 2021 at Waterloo Station"
+            }
+            },
+            {
+              key: {
+              text: "Maximum penalty"
+            },
+              value: {
+              text: "SL4"
+            }
+            },
+            {
+              key: {
+              text: "Plea"
+            },
+              value: {
+              text: "Not guilty"
+            }
+            },
+            {
+              key: {
+              text: "Plea date"
+            },
+              value: {
+              text: "April 26 2021"
+            }
+            },
+            {
+              key: {
+              text: "Status"
+            },
+              value: {
+              text: "Adjourned from March 23 2021 for the trial"
+            }
+            }
+          ]
+        }) }}
+        <hr class="govuk-section-break--m">
+
+        <h2 class="govuk-heading-m">Charge 2</h2>
+        {{ govukSummaryList({
+          classes: 'govuk-summary-list--no-border govuk-!-margin-bottom-1',
+          rows: [
+            {
+              key: {
+              text: "Hearing ID"
+            },
+              value: {
+              text: "20021345678"
+            }
+            },
+            {
+              key: {
+              text: "Charge"
+            },
+              value: {
+              text: "Theft"
+            }
+            },
+            {
+              key: {
+              text: "Charge details"
+            },
+              value: {
+              text: "1 June 2021 at Waterloo Station"
+            }
+            },
+            {
+              key: {
+              text: "Maximum penalty"
+            },
+              value: {
+              text: "SL4"
+            }
+            },
+            {
+              key: {
+              text: "Plea"
+            },
+              value: {
+              text: "Not guilty"
+            }
+            },
+            {
+              key: {
+              text: "Plea date"
+            },
+              value: {
+              text: "April 26 2021"
+            }
+            },
+            {
+              key: {
+              text: "Status"
+            },
+              value: {
+              text: "Adjourned from March 23 2021 for the trial"
+            }
+            }
+          ]
+        }) }}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script src="alphabetical-dev.js"></script>
+{% endblock %}

@@ -2,6 +2,7 @@
 {% extends "template.njk" %}
 
 {% block beforeContent %}
+  {{ super() }}
   {{ goBack() }}
 {% endblock %}
 {% block content %}

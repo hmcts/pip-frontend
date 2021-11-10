@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block beforeContent %}
+    {{ super() }}
     {{ govukBackLink({
         text: text,
         href: '/live-case-alphabet-search'

@@ -5,11 +5,14 @@ import * as supertest from 'supertest';
 import { app } from '../../main/app';
 import fs from 'fs';
 import path from 'path';
+
 import {CourtRequests} from '../../main/resources/requests/courtRequests';
 import {LiveCaseRequests} from '../../main/resources/requests/liveCaseRequests';
 import {CaseEventGlossaryRequests} from '../../main/resources/requests/caseEventGlossaryRequests';
+import { SjpRequests } from '../../main/resources/requests/sjpRequests';
+
 const agent = supertest.agent(app);
-import {request as expressRequest} from 'express';
+import { request as expressRequest } from 'express';
 import sinon from 'sinon';
 
 const routesNotTested = [
@@ -20,16 +23,19 @@ const routesNotTested = [
   '/login',
   '/login/return',
   '/mock-login',
+  '/logout',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
 const rawDataLive = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/liveCaseStatusUpdates.json'), 'utf-8');
 const rawDataCaseEventGlossary = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/CaseEventGlossary.json'), 'utf-8');
+const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/trimmedSJPCases.json'), 'utf-8');
 
 const allCourtData = JSON.parse(rawDataCourt);
 const courtData = allCourtData[0];
 const liveCaseData = JSON.parse(rawDataLive).results;
 const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
+const sjpCases = JSON.parse(rawSJPData).results;
 
 sinon.stub(CourtRequests.prototype, 'getCourt').returns(courtData);
 sinon.stub(CourtRequests.prototype, 'getCourtByName').returns(courtData);
@@ -37,6 +43,7 @@ sinon.stub(CourtRequests.prototype, 'getFilteredCourts').returns(allCourtData);
 sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(allCourtData);
 sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
 sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').returns(caseEventGlossaryData);
+sinon.stub(SjpRequests.prototype, 'getSJPCases').returns(sjpCases);
 
 export class Pa11yResult {
   documentTitle: string;
