@@ -1,4 +1,4 @@
-{% from "./macros/common-components.njk" import goBack, navigationBanner, submitButton %}
+{% from "./macros/common-components.njk" import goBack, submitButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
@@ -11,7 +11,6 @@
     {{ title }}
 {% endblock %}
 {% block beforeContent %}
-    {{ navigationBanner(showBanner = true) }}
     {{ goBack() }}
 {% endblock %}
 {% block content %}

@@ -1,5 +1,5 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "./macros/common-components.njk" import goBack %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
@@ -7,10 +7,8 @@
 {% endblock %}
 
 {% block beforeContent %}
-    {{ govukBackLink({
-        text: text,
-        href: '/live-case-alphabet-search'
-    }) }}
+    {{ super() }}
+    {{ goBack }}
 {% endblock %}
 
 {% block content %}
