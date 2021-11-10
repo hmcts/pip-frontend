@@ -87,6 +87,17 @@ $min-width: 52em;
   }
 }
 
+.offset-parent-box {
+  @extend .parent-box;
+  left: -20%;
+
+  a {
+    &:not(.floating-back-to-top--fixed) {
+      width: 125px;
+    }
+  }
+}
+
 .text_disabled {
   color: $text-disabled;
 }
