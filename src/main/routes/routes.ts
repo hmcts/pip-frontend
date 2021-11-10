@@ -35,7 +35,7 @@ export default function(app: Application): void {
   }
 
   function logOut(req, res): void{
-    req.session.destroy();
+    res.clearCookie('session');
     res.redirect('/');
   }
 
@@ -91,7 +91,7 @@ export default function(app: Application): void {
   // TODO: expose route only if not on the production environment
   app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
   app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
-    (req, res) => {res.redirect('/subscription-management');});
+    (req, res) => {res.redirect('/');});
 
   app.get('/warned-list', app.locals.container.cradle.warnedListController.get);
 
