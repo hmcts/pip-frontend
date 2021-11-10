@@ -1,5 +1,6 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
 
 {% macro submitButton(label = 'Continue', id = '', ariaLabel = 'Continue Button') %}
     {{ govukButton({
@@ -15,4 +16,35 @@
       onClick: "history.back(); event.preventDefault();"
     }
   }) }}
+{% endmacro %}
+
+{% macro  navigationBanner(showBanner = false)%}
+    {% if showBanner %}
+        {{ mojSubNavigation({
+            label: 'Primary navigation',
+            items: [
+                {
+                    text: 'Nav item 1',
+                    href: '#1',
+                    active: true
+                },
+                {
+                    text: 'Nav item 2',
+                    href: '#2'
+                },
+                {
+                    text: 'Nav item 3',
+                    href: '#3'
+                },
+                {
+                    text: 'Nav item 4',
+                    href: '#3'
+                },
+                {
+                    text: 'Nav item 5',
+                    href: '#3'
+                }
+            ]
+        }) }}
+    {% endif %}
 {% endmacro %}
