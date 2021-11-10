@@ -28,6 +28,17 @@ export default function(app: Application): void {
     res.redirect('/login?p=' + authenticationConfig.POLICY);
   }
 
+  function globalAuthGiver(req, res, next): void{
+    //this function allows us to share authentication status across all views
+    res.locals.isAuthenticated = req.isAuthenticated();
+    next();
+  }
+
+  function logOut(req, res): void{
+    req.session.destroy();
+    res.redirect('/');
+  }
+
   function regenerateSession(req, res): void {
     const prevSession = req.session;
     req.session.regenerate(() => {  // Compliant
@@ -35,7 +46,7 @@ export default function(app: Application): void {
       res.redirect('/subscription-management');
     });
   }
-
+  app.get('/*', globalAuthGiver);
   app.get('/', app.locals.container.cradle.homeController.get);
   app.get('/search-option', app.locals.container.cradle.searchOptionController.get);
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
@@ -62,6 +73,7 @@ export default function(app: Application): void {
     regenerateSession);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}),
     regenerateSession);
+  app.get('/logout', logOut);
   app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
   app.post('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.post);
   app.get('/status-description', app.locals.container.cradle.statusDescriptionController.get);
