@@ -321,6 +321,10 @@ div {
   vertical-align: middle;
 }
 
+.hr-colour {
+  border-color: $govuk-border-colour;
+}
+
 .with-background {
   background-color: govuk-colour('white');
 }

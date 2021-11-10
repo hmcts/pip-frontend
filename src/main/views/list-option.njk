@@ -19,7 +19,7 @@
   <p><a class="govuk-link govuk-link--no-visited-state" href="/hearing-list?courtId={{ court.courtId }}/">{{ court.name }} {{ publicLists }}</a></p>
   {% else %}
   <p><a class="govuk-link govuk-link--no-visited-state" href="/hearing-list?courtId={{ court.courtId }}/">{{ court.name }} {{ dailyLists }}</a></p>
-  <p><a class="govuk-link govuk-link--no-visited-state" href="#">{{ court.name }} {{ warnedLists }}</a></p>
+  <p><a class="govuk-link govuk-link--no-visited-state" href="/warned-list">{{ court.name }} {{ warnedLists }}</a></p>
   <p><a class="govuk-link govuk-link--no-visited-state" href="#">{{ court.name }} {{ firmedLists }}</a></p>
   {% endif %}
 
