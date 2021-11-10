@@ -324,3 +324,7 @@ div {
 .hr-colour {
   border-color: $govuk-border-colour;
 }
+
+.with-background {
+  background-color: govuk-colour('white');
+}
