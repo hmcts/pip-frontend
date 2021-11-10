@@ -45,6 +45,13 @@ describe('List option page', () => {
         .contains('Magistrates\' Court', 'List heading does not exist');
     });
 
+    it('should display standard list link', () => {
+      const publicationOption = htmlRes.getElementsByClassName('govuk-link--no-visited-state');
+      expect(publicationOption[0].innerHTML)
+        .contains('Abergavenny Magistrates\' Court Standard court lists', 'Publication link does not exist');
+      expect(publicationOption[0].getAttribute('href')).equal('/standard-list?courtId=1', 'links dont match');
+    });
+
     it('should display public list link', () => {
       const publicationOption = htmlRes.getElementsByClassName('govuk-link--no-visited-state');
       expect(publicationOption[1].innerHTML)
