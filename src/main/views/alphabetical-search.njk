@@ -8,7 +8,8 @@
   {{ title }}
 {% endblock %}
 {% block beforeContent %}
-  {{ goBack() }}
+    {{ super() }}
+    {{ goBack() }}
 {% endblock %}
 {% block content %}
   <div id="grid-row" class="govuk-grid-row">

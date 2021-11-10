@@ -328,3 +328,9 @@ div {
 .with-background {
   background-color: govuk-colour('white');
 }
+
+.pub-navigation {
+  .moj-sub-navigation__link {
+    font-size: 16px;
+  }
+}
