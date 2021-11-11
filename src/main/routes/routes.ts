@@ -35,7 +35,7 @@ export default function(app: Application): void {
   }
 
   function logOut(req, res): void{
-    req.session.destroy();
+    res.clearCookie('session');
     res.redirect('/');
   }
 
@@ -73,10 +73,13 @@ export default function(app: Application): void {
     regenerateSession);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}),
     regenerateSession);
+
   app.get('/logout', logOut);
+
   app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
   app.post('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.post);
-  app.get('/status-description', app.locals.container.cradle.statusDescriptionController.get);
+  app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
+
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
@@ -91,7 +94,9 @@ export default function(app: Application): void {
   // TODO: expose route only if not on the production environment
   app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
   app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
-    (req, res) => {res.redirect('/subscription-management');});
+    (req, res) => {res.redirect('/');});
+
+  app.get('/warned-list', app.locals.container.cradle.warnedListController.get);
 
   //TODO: To be deleted/modified post UAT with suitable solution
   app.get('/list-option', app.locals.container.cradle.listOptionController.get);
@@ -102,6 +107,9 @@ export default function(app: Application): void {
       sampleCheck: healthcheck.raw(() => healthcheck.up()),
     },
   };
+
+  // TODO: UAT solution only, to be removed post UAT and replaced with suitable solution
+  app.get('/standard-list', ensureAuthenticated, app.locals.container.cradle.standardListController.get);
 
   healthcheck.addTo(app, healthCheckConfig);
 }

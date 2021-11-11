@@ -3,7 +3,7 @@
 {{ displayGlossaryAlphabet }}
 {% extends "template.njk" %}
 {% block pageTitle %}
-  {{ "Event Glossary" | safe }}
+  {{ title }}
 {% endblock %}
 {% set courtId = courtId %}
 {% block beforeContent %}
@@ -16,8 +16,8 @@
 {% block content %}
   <div id="grid-row" class="govuk-grid-row">
     <div>
-      <h2 id='page-heading' class="govuk-heading-l">Live hearing updates - glossary of terms</h2>
-      <p class="govuk-body">A list of descriptions for each hearing status that reflects in-court events</p>
+      <h2 id='page-heading' class="govuk-heading-l">{{ header }}</h2>
+      <p class="govuk-body">{{ p1 }}</p>
       <div class="govuk-grid-row govuk-!-margin-bottom-8">
         {% for key, value in statusList %}
           {% if value| length != 0 %}
@@ -64,7 +64,7 @@
     </div>
   </div>
   <hr class="govuk-section-break--visible govuk-!-margin-top-9"></hr>
-  <a href="/live-case-alphabet-search" class="govuk-link govuk-!-font-weight-bold">Live hearing updates - select a court</a></br></br>
-  <a href="/search-option" class="govuk-link govuk-!-font-weight-bold">Find a court or tribunal list</a>
+  <a href="/live-case-alphabet-search" class="govuk-link govuk-!-font-weight-bold">{{ link1 }}</a></br></br>
+  <a href="/search-option" class="govuk-link govuk-!-font-weight-bold">{{ link2 }}</a>
 {% endblock %}
 

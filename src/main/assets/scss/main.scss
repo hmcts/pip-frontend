@@ -87,6 +87,17 @@ $min-width: 52em;
   }
 }
 
+.offset-parent-box {
+  @extend .parent-box;
+  left: -20%;
+
+  a {
+    &:not(.floating-back-to-top--fixed) {
+      width: 125px;
+    }
+  }
+}
+
 .text_disabled {
   color: $text-disabled;
 }
@@ -308,6 +319,10 @@ div {
 
 .vertical-center-table-header {
   vertical-align: middle;
+}
+
+.hr-colour {
+  border-color: $govuk-border-colour;
 }
 
 .with-background {
