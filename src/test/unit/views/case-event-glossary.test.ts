@@ -4,18 +4,18 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {StatusDescriptionRequests} from '../../../main/resources/requests/statusDescriptionRequests';
-const PAGE_URL = '/status-description?courtId=1#1';
+import {CaseEventGlossaryRequests} from '../../../main/resources/requests/caseEventGlossaryRequests';
+const PAGE_URL = '/case-event-glossary?courtId=1#1';
 
 let htmlRes: Document;
 
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/StatusDescription.json'), 'utf-8');
-const statusDescriptionData = JSON.parse(rawData);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/CaseEventGlossary.json'), 'utf-8');
+const caseEventGlossaryData = JSON.parse(rawData);
 
-sinon.stub(StatusDescriptionRequests.prototype, 'getStatusDescriptionList').returns(statusDescriptionData);
+sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').returns(caseEventGlossaryData);
 
-describe('Status Description page', () => {
+describe('Case Event Glossary page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
@@ -33,7 +33,7 @@ describe('Status Description page', () => {
     expect(pageHeading[0].innerHTML).contains('Live hearing updates - glossary of terms', 'Page heading does not exist');
   });
 
-  it('should contain letters that link to court events status', () => {
+  it('should contain letters that link to case events glossary', () => {
     const alphabeticalLetters = htmlRes.getElementsByClassName('govuk-link--no-visited-state');
 
     expect(alphabeticalLetters[0].innerHTML).contains('A', 'Alphabetical link is not present');

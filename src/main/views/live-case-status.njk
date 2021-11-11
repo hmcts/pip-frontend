@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block beforeContent %}
+    {{ super() }}
     {{ govukBackLink({
         text: text,
         href: '/live-case-alphabet-search'
@@ -24,7 +25,7 @@
     {% for item in liveCases %}
         {% if item.event.eventStatus %}
             {% set status = item.event.eventStatus +
-                ' - <br /><a class="govuk-link" href="status-description?courtId=' + courtId +
+                ' - <br /><a class="govuk-link" href="case-event-glossary?courtId=' + courtId +
                 '#' +
                 item.event.eventId +
                 '">' +
