@@ -3,14 +3,13 @@ import request from 'supertest';
 
 import { app } from '../../main/app';
 
-
-describe('Single Justice Procedure Search', () => {
+describe('Warned list', () => {
   describe('on GET', () => {
-    test('should return single-justice-procedure-search page', async () => {
+    test('should return warned list page', async () => {
+      app['user'] = {id:1};
       await request(app)
-        .get('/single-justice-procedure-search')
+        .get('/warned-list')
         .expect((res) => expect(res.status).to.equal(200));
     });
   });
-
 });

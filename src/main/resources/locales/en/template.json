@@ -1,11 +1,19 @@
 {
   "serviceNameText": "Courts and tribunal hearing information",
   "signInText": "Sign in",
+  "signOutText": "Sign out",
   "help": "Help",
   "privacyPolicy": "Privacy policy",
   "language": "Cymraeg",
   "cookiePolicy": "Cookie policy",
   "accessibilityStatement": "Accessibility statement",
   "contact": "Contact",
-  "tc": "Terms and conditions"
+  "tc": "Terms and conditions",
+  "navLinks": {
+    "link1": "Account home",
+    "link2": "Court or tribunal publications",
+    "link3": "Live hearing updates",
+    "link4": "Single Justice Procedure",
+    "link5": "Subscriptions"
+  }
 }
