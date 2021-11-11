@@ -127,6 +127,11 @@
 
 {% endblock %}
 {% block bodyEnd %}
-  {{ super() }}
-  <script src="alphabetical-dev.js"></script>
+    {{ super() }}
+    <script src="alphabetical-dev.js"></script>
+    <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+    </script>
 {% endblock %}
