@@ -36,7 +36,7 @@ describe('Hearing List page', () => {
 
   it('should display table caption', () => {
     const tableHeader = htmlRes.getElementsByClassName('govuk-table__caption--m');
-    const formattedDate = moment().format('MMMM DD YYYY');
+    const formattedDate = moment().format('DD MMMM YYYY');
     expect(tableHeader[0].innerHTML).contains('List for ' + formattedDate, 'Could not find the table header');
   });
 
@@ -57,7 +57,7 @@ describe('Hearing List page', () => {
 
   it('should contain a row with the correct values', () => {
     const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
-    const items = tableRows.item(1).children;
+    const items = tableRows.item(2).children;
 
     expect(items.item(0).innerHTML).contains('1', 'Court Number not found / correct');
     expect(items.item(1).innerHTML).contains("Youtags's hearings", 'Case name not found / correct');

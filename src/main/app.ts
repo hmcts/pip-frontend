@@ -48,7 +48,7 @@ const sessionConfig = {
   resave: false,
   proxy: true,
   saveUninitialized: false,
-  cookie: { secure: true },
+  cookie: { secure: false },
 };
 
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
