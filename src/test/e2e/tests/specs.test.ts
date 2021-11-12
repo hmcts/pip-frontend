@@ -332,7 +332,7 @@ describe('Finding a court or tribunal listing', () => {
     });
 
     it('should select \'By case reference number\' option and navigate to search urn page', async () => {
-      await subscriptionAddPage.selectCaseSearchRadio();
+      await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
       subscriptionCaseSearchPage = await subscriptionAddPage.clickContinueForCaseSearch();
       expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a case reference number');
     });
@@ -343,7 +343,7 @@ describe('Finding a court or tribunal listing', () => {
       expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a case reference number');
     });
 
-    it('should enter text and click continue', async () => {
+    it('should enter valid text and click continue', async () => {
       await subscriptionCaseSearchPage.enterText(validSearchTerm);
       subscriptionCaseSearchResultsPage =  await subscriptionCaseSearchPage.clickContinue();
       expect(await subscriptionCaseSearchResultsPage.getPageTitle()).toEqual('Search result');
