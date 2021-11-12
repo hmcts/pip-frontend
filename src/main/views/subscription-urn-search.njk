@@ -1,0 +1,78 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import submitButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: text,
+  href: '#',
+  attributes: {
+    onClick: "history.back();event.preventDefault();"
+  }
+}) }}
+{% endblock %}
+
+{% block content %}
+  {% if noResultsError or invalidInputError %}
+    <div class="govuk-grid-row">
+      <div class="no_padding govuk-grid-column-three-quarters">
+        {{ govukErrorSummary({
+          titleText: error.title,
+          errorList: [
+            {
+              text: error.notfound,
+              href: "#search-input"
+            }
+          ]
+        }) }}
+      </div>
+    </div>
+  {% endif %}
+  {% set inputClasses = 'govuk-div govuk-input--error'
+    if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
+  {% set formGroupError = 'govuk-form-group--error'
+    if noResultsError or invalidInputError else 'govuk-form-group' %}
+  <form action="subscription-urn-search" method="post">
+    <div class="govuk-form-group govuk-!-width-one-half">
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="search-input">
+          {{ header }}
+        </label>
+      </h1>
+      <div class="{{ formGroupError }}">
+        {% if noResultsError or invalidInputError %}
+          <span class="govuk-error-message">{{ header }}</span>
+        {% endif %}
+        {{ govukInput({
+          label: {
+            "text": hint
+          },
+          id: "search-input",
+          name: "search-input",
+          autocomplete: "false"
+        }) }}
+      </div>
+
+    </div>
+    {{ submitButton() }}
+    {% if noResultsError %}
+      <div class="govuk-grid-row">
+        <div class="no_padding govuk-grid-column-full">
+          <h2 class="govuk-heading-s">{{ error.header }}</h2>
+          <p class="govuk-body">{{ error.notfound }}</p>
+        </div>
+      </div>
+    {% endif %}
+  </form>
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+{% endblock %}
