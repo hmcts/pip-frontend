@@ -1,5 +1,6 @@
 import moment from 'moment';
 import {SubscriptionRequests} from '../resources/requests/subscriptionRequests';
+import {CaseSubscription} from '../models/caseSubscription';
 
 const subscriptionRequests = new SubscriptionRequests();
 
@@ -53,4 +54,16 @@ export class SubscriptionService {
     }
     return courtRows;
   }
+
+  public async getSubscriptionUrnDetails(urn: string): Promise<CaseSubscription> {
+    const subscriptions = await subscriptionRequests.getSubscriptionByUrn(urn);
+
+    if (subscriptions) {
+      return subscriptions;
+    } else {
+      console.log(`Subscription with urn ${urn} does not exist`);
+      return null;
+    }
+  }
+
 }
