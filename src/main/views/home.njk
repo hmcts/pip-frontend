@@ -2,6 +2,9 @@
 {% block pageTitle %}
     {{ title }}
 {% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+{% endblock %}
 {% block content %}
     <h1 class="govuk-heading-xl">{{ header }}</h1>
     <p class="govuk-body">{{ p1 }}</p>

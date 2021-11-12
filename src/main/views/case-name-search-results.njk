@@ -7,6 +7,7 @@
     {{ title }}
 {% endblock %}
 {% block beforeContent %}
+    {{ super() }}
     {{ goBack() }}
 {% endblock %}
 {% block content %}
@@ -46,4 +47,9 @@
 {% block bodyEnd %}
     <script type="text/javascript" src="/assets/js/jquery.js"></script>
     <script type="text/javascript" src="/assets/js/mojAll.js"></script>
+    <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+    </script>
 {% endblock %}

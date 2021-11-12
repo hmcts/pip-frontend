@@ -1,4 +1,4 @@
-import {SubscriptionCaseSearchPage} from './SubscriptionCaseSearch.page';
+import {SubscriptionUrnSearchPage} from './SubscriptionUrnSearch.page';
 import { CaseNameSearchPage } from './CaseNameSearch.page';
 import { CourtNameSearchPage } from './CourtNameSearch.page';
 
@@ -22,14 +22,22 @@ export class SubscriptionAddPage {
     return radioButtons.length;
   }
 
-  async clickContinueForCaseSearch(): Promise<SubscriptionCaseSearchPage> {
+  async selectUrnSearchRadio(): Promise<void> {
+    $(helpers.UrnSearchRadioButton).catch(() => {
+      console.log(`${helpers.UrnSearchRadioButton} not found`);
+    });
+    const radioButton = await $(helpers.UrnSearchRadioButton);
+    radioButton.click();
+  }
+
+  async clickContinueForUrnSearch(): Promise<SubscriptionUrnSearchPage> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
     const continueButton = await $(helpers.ContinueButton);
     continueButton.click();
 
-    return new SubscriptionCaseSearchPage();
+    return new SubscriptionUrnSearchPage();
   }
 
   async selectOption(optionName: string): Promise<void> {

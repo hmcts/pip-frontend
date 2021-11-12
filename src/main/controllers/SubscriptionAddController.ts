@@ -22,7 +22,7 @@ export default class SubscriptionAddController {
         break;
       }
       case 'urn': {
-        res.redirect('/');
+        res.redirect('/subscription-urn-search');
         break;
       }
       case 'name': {

@@ -18,7 +18,8 @@ export default class LiveCaseStatusController {
         res.render('live-case-status', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['live-case-status']),
           courtName: liveCase.courtName,
-          updateDateTime: moment.utc(Date.parse(liveCase.lastUpdated)).format('dddd D MMMM YYYY\xa0\xa0\xa0\xa0h:mma'),
+          updateDate: moment(Date.parse(liveCase.lastUpdated)).format('DD MMMM YYYY'),
+          updateTime: moment(Date.parse(liveCase.lastUpdated)).format('h:mma'),
           liveCases: liveCase.courtUpdates,
           refreshTimer: process.env.REFRESH_TIMER_MILLISECONDS || 15000,
           courtId: courtId,

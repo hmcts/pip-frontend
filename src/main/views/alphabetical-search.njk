@@ -1,6 +1,6 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
 {% from "./macros/common-components.njk" import goBack %}
-{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {%- from "moj/components/filter/macro.njk" import mojFilter -%}
 
 {% extends "template.njk" %}
@@ -8,7 +8,8 @@
   {{ title }}
 {% endblock %}
 {% block beforeContent %}
-  {{ goBack() }}
+    {{ super() }}
+    {{ goBack() }}
 {% endblock %}
 {% block content %}
   <div id="grid-row" class="govuk-grid-row">
@@ -113,7 +114,7 @@
                 <th scope="row" class="govuk-table__header">
                 </th>
               {% endif %}
-              <td class="govuk-table__cell"><a href="/hearing-list?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></td>
+              <td class="govuk-table__cell"><a href="/list-option?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></td>
             </tr>
           {% endfor %}
           {% set first = '' %}
@@ -126,6 +127,11 @@
 
 {% endblock %}
 {% block bodyEnd %}
-  {{ super() }}
-  <script src="alphabetical-dev.js"></script>
+    {{ super() }}
+    <script src="alphabetical-dev.js"></script>
+    <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+    </script>
 {% endblock %}

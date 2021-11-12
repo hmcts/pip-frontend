@@ -5,6 +5,7 @@ import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { CourtRequests } from '../../../main/resources/requests/courtRequests';
+import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/court-name-search';
 let htmlRes: Document;
@@ -15,6 +16,8 @@ sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(courtData);
 
 describe('Court Name Search Page', () => {
   beforeAll(async () => {
+    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -70,9 +73,9 @@ describe('Court Name Search Page', () => {
     expect(regionLegend[1].innerHTML).contains('Region', 'Region filter doesn\'t exist');
   });
 
-  it('should contain 2 jurisdiction checkboxes', () => {
+  it('should contain 3 jurisdiction checkboxes', () => {
     const checkboxes = htmlRes.getElementsByName('Jurisdiction');
-    expect(checkboxes.length).equal(2, 'Could not find jurisdiction checkboxes');
+    expect(checkboxes.length).equal(3, 'Could not find jurisdiction checkboxes');
   });
 
   it('should contain 2 region checkboxes', () => {

@@ -1,5 +1,7 @@
 import fs from 'fs';
 import path from 'path';
+import {dataManagementApi} from './utils/axiosConfig';
+import {CaseSubscription} from '../../models/caseSubscription';
 
 export class SubscriptionRequests {
   mocksPath = '../mocks/';
@@ -14,5 +16,21 @@ export class SubscriptionRequests {
       console.log(`User with id ${userId} does not exist`);
       return null;
     }
+  }
+
+  public async getSubscriptionByUrn(urnNumber: string): Promise<CaseSubscription> {
+    try {
+      const response = await dataManagementApi.get(`/hearings/urn/${urnNumber}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
+      }
+    }
+    return null;
   }
 }

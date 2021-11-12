@@ -1,0 +1,70 @@
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{{ displayGlossaryAlphabet }}
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% set courtId = courtId %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ govukBackLink({
+        text: text,
+        href: '/live-case-status?courtId=' + courtId
+    }) }}
+{% endblock %}
+{% block content %}
+  <div id="grid-row" class="govuk-grid-row">
+    <div>
+      <h2 id='page-heading' class="govuk-heading-l">{{ header }}</h2>
+      <p class="govuk-body">{{ p1 }}</p>
+      <div class="govuk-grid-row govuk-!-margin-bottom-8">
+        {% for key, value in statusList %}
+          {% if value| length != 0 %}
+            <div class="govuk-grid-column govuk-!-text-align-left govuk-!-margin-right-4 govuk-!-font-size-19">
+              <a id='{{ key }}-selector' href='#{{ key }}' class="govuk-link govuk-link--no-visited-state">{{ key }}</a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header app-custom-class"></th>
+          <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Hearing status</th>
+          <th scope="col" class="govuk-table__header govuk-!-width-three-quarters">Description</th>
+        </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+        {% for key, value in statusList %}
+          {% for status, statusDetails in value %}
+            <tr class="govuk-table__row">
+              {% if value | length != 0 %}
+                  <th scope="row" class="govuk-table__header">
+                  {% if displayGlossaryAlphabet != "false" %}
+                      <h2 id="{{ key }}" class="govuk-heading-l">{{statusDetails.initial}}</h2>
+                  {% endif %}
+                  </th>
+                <td class="govuk-table__cell">
+                  <div id='{{ statusDetails.id }}' class="govuk-grid-column">
+                    <div id='{{ statusDetails.id }}-selector'>{{ statusDetails.status }}</div>
+                  </div>
+                </td>
+                <td class="govuk-table__cell">
+                  <div><p class="govuk-body">{{ statusDetails.description }}</p></div>
+                </td>
+              {% endif %}
+            </tr>
+            {% set displayGlossaryAlphabet = "false" %}
+          {% endfor %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <hr class="govuk-section-break--visible govuk-!-margin-top-9"></hr>
+  <a href="/live-case-alphabet-search" class="govuk-link govuk-!-font-weight-bold">{{ link1 }}</a></br></br>
+  <a href="/search-option" class="govuk-link govuk-!-font-weight-bold">{{ link2 }}</a>
+{% endblock %}
+

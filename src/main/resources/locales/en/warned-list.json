@@ -1,0 +1,21 @@
+{
+  "backToTop": "Back to top",
+  "warnedHeading": "Warned list",
+  "telephone": "Tel",
+  "dateRangeP1": "List for the period",
+  "dateRangeP2": "to",
+  "publishedListP1": "Published",
+  "publishedListP2": "at",
+  "forPreTrialReview": "For Pre-Trial Review",
+  "defendant": "Defendant",
+  "dateOfBirth": "Date of Birth",
+  "gender": "Gender",
+  "caseId": "Case ID",
+  "solicitor": "Solicitor",
+  "urn": "URN",
+  "defendantInCustody": "Defendant in custody",
+  "linkedCases": "Linked cases",
+  "notes": "Notes",
+  "forTrial": "For Trial",
+  "forSentence": "For Sentence"
+}

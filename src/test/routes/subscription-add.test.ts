@@ -1,7 +1,10 @@
 import { expect } from 'chai';
 import request from 'supertest';
-
+import sinon from 'sinon';
+import { request as expressRequest } from 'express';
 import { app } from '../../main/app';
+
+sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Subscription Add', () => {
   describe('on GET', () => {
@@ -29,7 +32,7 @@ describe('Subscription Add', () => {
         .send({'subscription-choice': 'urn'})
         .expect((res) => {
           expect(res.status).to.equal(302);
-          expect(res.header['location']).to.equal('/');
+          expect(res.header['location']).to.equal('/subscription-urn-search');
         });
     });
 
