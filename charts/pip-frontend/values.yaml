@@ -17,5 +17,6 @@ nodejs:
         - name: pipsharedinfrasa-storageaccount-connection-string
           alias: CONNECTION_STRING
   environment:
-    SECRETS_DIRECTORY: /mnt/secrets/pip-shared-kv
+    OIDC: false
+    FRONTEND_URL: https://${SERVICE_FQDN}
   aadIdentityName: pip
