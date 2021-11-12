@@ -4,10 +4,6 @@ const helpers = require('../Helpers/Selectors');
 
 export class SubscriptionCaseSearchPage {
 
-  open (path): Promise<string> {
-    return browser.url(path);
-  }
-
   async getPageTitle(): Promise<string> {
     $(helpers.SearchTitle).catch(() => {
       console.log(`${helpers.SearchTitle} not found`);

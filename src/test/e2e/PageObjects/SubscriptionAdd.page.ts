@@ -22,14 +22,6 @@ export class SubscriptionAddPage {
     return radioButtons.length;
   }
 
-  async selectCaseSearchRadio(): Promise<void> {
-    $(helpers.CaseSearchRadioButton).catch(() => {
-      console.log(`${helpers.CaseSearchRadioButton} not found`);
-    });
-    const radioButton = await $(helpers.CaseSearchRadioButton);
-    radioButton.click();
-  }
-
   async clickContinueForCaseSearch(): Promise<SubscriptionCaseSearchPage> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);

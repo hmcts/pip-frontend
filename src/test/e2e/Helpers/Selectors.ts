@@ -41,7 +41,6 @@ module.exports = {
 
   //SubscriptionAdd selectors
   SubscriptionAddTitle: 'h1.govuk-fieldset__heading',
-  CaseSearchRadioButton: '#subscription-choice-1',
 
   SubscriptionAddByCaseRefNumber: '#subscription-choice-1',
   SubscriptionAddByUniqueRefNumber: '#subscription-choice-2',
