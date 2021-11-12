@@ -10,10 +10,10 @@ const radioClass = 'govuk-radios__item';
 
 const expectedHeader = 'What would you like to view?';
 const expectedButtonText = 'Continue';
-const expectedRadioLabel1 = 'Court or Tribunal publications';
+const expectedRadioLabel1 = 'Court or tribunal hearings';
 const expectedRadioLabel2 = 'Live hearing updates - Crown Court only';
-const expectedRadioLabel3 = 'Single Justice Procedure case';
-const expectedRadioHint3 = 'Cases involving adults charged with summary-only non-imprisonable offences. Such as Transport for London, TV Licensing, and the DVLA';
+const expectedRadioLabel3 = 'Single Justice Procedure cases';
+const expectedRadioHint3 = 'Cases involving adults charged with summary-only non-imprisonable offences, such as cases from Transport for London, TV Licensing, and the DVLA';
 
 let htmlRes: Document;
 
