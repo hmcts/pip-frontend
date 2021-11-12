@@ -4,6 +4,7 @@ import {I18next} from './modules/i18next';
 const {Logger} = require('@hmcts/nodejs-logging');
 
 import * as bodyParser from 'body-parser';
+//import * as config from 'config';
 import config = require('config');
 import cookieParser from 'cookie-parser';
 import express from 'express';
@@ -12,7 +13,7 @@ import * as path from 'path';
 import favicon from 'serve-favicon';
 import {HTTPError} from 'HttpError';
 import {Nunjucks} from './modules/nunjucks';
-import {PropertiesVolume} from './modules/properties-volume';
+import * as propertiesVolume from '@hmcts/properties-volume';
 import {AppInsights} from './modules/appinsights';
 import authentication from './authentication/authentication';
 
@@ -23,26 +24,6 @@ const {setupDev} = require('./development');
 import {Container} from './modules/awilix';
 import routes from './routes/routes';
 import {PipRequest} from './models/request/PipRequest';
-import * as fs from 'fs';
-
-function populateSecrets(): void {
-  if (process.env.SECRETS_DIRECTORY) {
-    const secretsdirectory = process.env.SECRETS_DIRECTORY;
-
-    const files = fs.readdirSync(secretsdirectory);
-
-    for( const fileName of files ) {
-      try {
-        const data = fs.readFileSync(secretsdirectory + '/' + fileName, 'binary');
-        process.env[fileName] = data.trim();
-      } catch (err) {
-        console.error('Error reading file: ' + fileName);
-      }
-    }
-  }
-}
-
-populateSecrets();
 
 const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
@@ -55,7 +36,7 @@ app.locals.POLICY = process.env.POLICY;
 
 const logger = Logger.getLogger('app');
 
-new PropertiesVolume().enableFor(app);
+propertiesVolume.addTo(config);
 
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
