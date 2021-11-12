@@ -16,7 +16,9 @@ module.exports = {
   FindRadioButton: '#find-choice-2',
   // Search page selectors
   SearchTitle: 'h1.govuk-label-wrapper',
+
   SearchResultTitle: 'h1.govuk-heading-l',
+
   SearchInput: '#search-input',
   // Search results page selectors
   LinkResult: 'tbody > tr.govuk-table__row > th > a',
@@ -47,6 +49,10 @@ module.exports = {
   SubscriptionAddByCourtOrTribunal: '#subscription-choice-4',
 
   // LiveCaseAlphabetSearch selectors
+  LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',
+
+  // Add Subscription selector
+  UrnSearchRadioButton: '#subscription-choice-2',
   LiveHearingsTableFirstValidResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
 
   // CaseNameSearch selectors

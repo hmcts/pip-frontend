@@ -44,4 +44,14 @@ export class AlphabeticalSearchPage {
     secondItem.click();
     return new HearingListPage();
   }
+
+  async selectFirstListResult(): Promise<HearingListPage> {
+    await $(helpers.FirstItemResult).catch(() => {
+      console.log(`${helpers.FirstItemResult} not found`);
+    });
+
+    const firstItem = await $(helpers.FirstItemResult);
+    firstItem.click();
+    return new HearingListPage();
+  }
 }
