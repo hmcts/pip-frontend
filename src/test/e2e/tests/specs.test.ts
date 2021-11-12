@@ -176,6 +176,43 @@ describe('Finding a court or tribunal listing', () => {
     });
   });
 
+  describe('Following the subscription \'search\' by case reference path', () => {
+    const validSearchTerm = '487065515';
+    const invalidSearchTerm = 'dddd';
+    const expectedNumOfResults = 1;
+
+    it('should open the subscription add page', async () => {
+      await subscriptionAddPage.open('subscription-add');
+      expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
+    });
+
+    it('should see 4 radio buttons', async () => {
+      expect(await subscriptionAddPage.radioButtons).toBe(4);
+    });
+
+    it('should select \'By case reference number\' option and navigate to search urn page', async () => {
+      await subscriptionAddPage.selectCaseSearchRadio();
+      subscriptionCaseSearchPage = await subscriptionAddPage.clickContinueForCaseSearch();
+      expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a case reference number');
+    });
+
+    it('should enter invalid text and click continue', async () => {
+      await subscriptionCaseSearchPage.enterText(invalidSearchTerm);
+      await subscriptionCaseSearchPage.clickContinue();
+      expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a case reference number');
+    });
+
+    it('should enter text and click continue', async () => {
+      await subscriptionCaseSearchPage.enterText(validSearchTerm);
+      subscriptionCaseSearchResultsPage = await subscriptionCaseSearchPage.clickContinue();
+      expect(await subscriptionCaseSearchResultsPage.getPageTitle()).toEqual('Search result');
+    });
+
+    it(`should display ${expectedNumOfResults} results`, async () => {
+      expect(await subscriptionCaseSearchResultsPage.getResults()).toBe(1);
+    });
+  });
+
   describe('Media User Login', () => {
     after(async () => {
       await homePage.open('');
@@ -251,7 +288,7 @@ describe('Finding a court or tribunal listing', () => {
         expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
       });
 
-      it('should enter text and click continue', async () => {
+      it('should enter valid text and click continue', async () => {
         await subscriptionUrnSearchPage.enterText(validSearchTerm);
         subscriptionUrnSearchResultsPage =  await subscriptionUrnSearchPage.clickContinue();
         expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
