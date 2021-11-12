@@ -77,10 +77,13 @@ export default function(app: Application): void {
     regenerateSession);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}),
     regenerateSession);
+
   app.get('/logout', logOut);
+
   app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
   app.post('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.post);
-  app.get('/status-description', app.locals.container.cradle.statusDescriptionController.get);
+  app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
+
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
