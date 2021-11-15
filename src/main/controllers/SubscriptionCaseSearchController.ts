@@ -7,7 +7,7 @@ const hearingRequests = new HearingRequests();
 
 export default class SubscriptionCaseSearchController {
 
-  public async get(req: PipRequest, res: Response):  Promise<void> {
+  public get(req: PipRequest, res: Response):  void {
     res.render('subscription-case-search', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-case-search']),
     });
