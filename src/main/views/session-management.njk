@@ -51,8 +51,8 @@
             ]
         }) }}
         {{ govukButton({
-            text: continueButton,
-            href: 'subscription-management'
+            label: startButton,
+            href: 'alphabetical-search'
         }) }}
     {% else %}
         <p class="govuk-body">{{ noUser }}</p>
@@ -91,7 +91,7 @@
                     }
                 ]
             }) }}
-            {{ submitButton() }}
+            {{ submitButton(label= startButton) }}
         </form>
     {% endif %}
     <script>
