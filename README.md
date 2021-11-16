@@ -46,7 +46,6 @@ CLIENT_SECRET | This is used to communicate with Azure (OIDC mode only)
 SESSION_SECRET | A random string
 OIDC | (Optional) - Set to 'true' to enable OIDC mode.
 FRONTEND_URL | (Optional) - This is the host that you are redirected back to from Azure. Default is staging.
-SECRETS_DIRECTORY | (Optional) - Uses only in Azure, when reading secrets from key vaults
 
 Passing these variables can be done via
 

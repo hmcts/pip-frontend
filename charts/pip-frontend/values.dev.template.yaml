@@ -3,5 +3,3 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
   environment:
-    SECRETS_DIRECTORY: /mnt/secrets/pip-shared-kv
-    FRONTEND_URL: https://${SERVICE_FQDN}
