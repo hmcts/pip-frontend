@@ -31,7 +31,6 @@ export default function(app: Application): void {
   }
 
   function globalAuthGiver(req, res, next): void{
-    console.log('globalAuthGiver isAuthenticated', req.isAuthenticated);
     //this function allows us to share authentication status across all views
     res.locals.isAuthenticated = req.isAuthenticated();
     next();
