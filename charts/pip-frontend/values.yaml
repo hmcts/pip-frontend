@@ -18,5 +18,5 @@ nodejs:
           alias: CONNECTION_STRING
   environment:
     OIDC: false
-    FRONTEND_URL: https://${SERVICE_FQDN}
+    FRONTEND_URL: https://pip-frontend.staging.platform.hmcts.net
   aadIdentityName: pip
