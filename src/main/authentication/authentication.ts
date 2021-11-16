@@ -92,6 +92,12 @@ function mockSetup(): void {
  * Values are read from config, and from the environment passed in
  */
 export default function(oidc: string): void {
-  (oidc) ? oidcSetup() : mockSetup();
+  if (oidc === 'true') {
+    oidcSetup();
+  } else if (oidc === 'false') {
+    mockSetup();
+  } else {
+    mockSetup();
+  }
 }
 
