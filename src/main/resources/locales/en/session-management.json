@@ -13,5 +13,6 @@
   "userIdLabel": "What is user id?",
   "userTypeLabel": "What is user type?",
   "item1": "Verified Signed-in User",
-  "item2": "Unverified User (Not Signed-in)"
+  "item2": "Unverified User (Not Signed-in)",
+  "startButton": "Start Testing"
 }
