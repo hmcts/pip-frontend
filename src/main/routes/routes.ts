@@ -87,6 +87,7 @@ export default function(app: Application): void {
   app.post('/subscription-case-search', app.locals.container.cradle.subscriptionCaseSearchController.post);
 
   app.get('/subscription-search-case-results', app.locals.container.cradle.subscriptionCaseSearchResultController.get);
+  app.post('/subscription-search-case-results', app.locals.container.cradle.subscriptionCaseSearchResultController.post);
 
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);

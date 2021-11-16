@@ -23,4 +23,11 @@ export default class SubscriptionCaseSearchResultController {
       });
     }
   }
+
+  public async post(req: PipRequest, res: Response): Promise<void> {
+    const caseNumber = req.body['case-number'] as string;
+    const caseName = req.body['case-name'] as string;
+
+    res.redirect(`pending-subscriptions?case-number=${caseNumber}&case-name=${caseName}`);
+  }
 }

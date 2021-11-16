@@ -70,4 +70,24 @@ describe('Subscription Search Case Reference Result Controller', () => {
     });
   });
 
+  it('should redirect to pending subscription page when user click on Continue', () => {
+
+    const response = {
+      redirect: function() {return '';},
+      render: function() {return '';},
+    } as unknown as Response;
+
+    const request = mockRequest(i18n);
+
+    request.body = { 'case-number': 'ABC12345', 'case-name': 'test case'};
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('redirect').once().withArgs('pending-subscriptions?case-number=ABC12345&case-name=test case');
+
+    return subscriptionCaseSearchResultController.post(request, response).then(() => {
+      responseMock.verify();
+    });
+  });
+
 });
