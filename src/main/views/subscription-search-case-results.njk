@@ -1,6 +1,8 @@
 {% extends "template.njk" %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "./macros/common-components.njk" import goBack, submitButton %}
+{% from "macros/common-components.njk" import submitButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "macros/common-components.njk" import goBack %}
 
 {% block pageTitle %}
   {{ title }}
@@ -28,5 +30,21 @@
       </tr>
     </tbody>
   </table>
-  {{ submitButton() }}
+  <form action="subscription-search-case-results" method="post">
+    <div class="govuk-form-group govuk-!-width-one-half">
+      {{ govukInput({
+        id: "case-number",
+        name: "case-number",
+        type: "hidden",
+        value: searchResults.caseNumber
+      }) }}
+      {{ govukInput({
+        id: "case-name",
+        name: "case-name",
+        type: "hidden",
+        value: searchResults.caseName
+      }) }}
+    </div>
+    {{ submitButton() }}
+  </form>
 {% endblock %}

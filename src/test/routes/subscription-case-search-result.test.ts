@@ -12,4 +12,12 @@ describe('subscription case reference Search result', () => {
         .expect((res) => expect(res.status).to.equal(200));
     });
   });
+
+  describe('on POST', () => {
+    test('should return subscription case reference Search result page', async () => {
+      await request(app)
+        .post('/subscription-search-case-results')
+        .expect((res) => expect(res.status).to.equal(200));
+    });
+  });
 });
