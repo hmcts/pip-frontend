@@ -1,8 +1,10 @@
 {
   "title": "View Option",
   "radioLegend": "What would you like to view?",
-  "radio1": "Court or Tribunal publications",
+  "radio1": "Court or tribunal publications",
   "radio2": "Live hearing updates - Crown Court only",
-  "radio3": "Single Justice Procedure case",
-  "radio3Hint": "Cases involving adults charged with summary-only non-imprisonable offences. Such as Transport for London, TV Licensing, and the DVLA"
+  "radio3": "Single Justice Procedure cases",
+  "radio3Hint": "Cases involving adults charged with summary-only non-imprisonable offences, such as Transport for London, TV Licensing, and the DVLA"
+
+
 }

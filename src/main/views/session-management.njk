@@ -51,8 +51,8 @@
             ]
         }) }}
         {{ govukButton({
-            text: continueButton,
-            href: 'subscription-management'
+            text: startButton,
+            href: 'https://hmcts-sjp.herokuapp.com'
         }) }}
     {% else %}
         <p class="govuk-body">{{ noUser }}</p>
@@ -91,7 +91,7 @@
                     }
                 ]
             }) }}
-            {{ submitButton() }}
+            {{ submitButton(label = startButton) }}
         </form>
     {% endif %}
     <script>
@@ -102,7 +102,6 @@
         if (!userSet && !checkedRadios.length) {
           e.preventDefault();
         }
-
       });
     </script>
 {% endblock %}
