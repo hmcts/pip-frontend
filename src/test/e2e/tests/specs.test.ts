@@ -8,15 +8,17 @@ import { ViewOptionPage } from '../pageobjects/ViewOption.page';
 import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
 import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
 import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
-import {SingleJusticeProcedureSearchPage} from '../pageobjects/SingleJusticeProcedureSearch.page';
 import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
 import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
+import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
+import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
 import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
 import { MockSessionPage } from '../PageObjects/MockSession.page';
+import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
 
 const homePage = new HomePage;
+let subscriptionAddPage = new SubscriptionAddPage;
 const mockSessionPage = new MockSessionPage();
-let subscriptionAddPage: SubscriptionAddPage;
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
@@ -25,9 +27,11 @@ let searchPage: SearchPage;
 let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
-let singleJusticeProcedureSearchPage: SingleJusticeProcedureSearchPage;
+let singleJusticeProcedurePage: SingleJusticeProcedurePage;
 let caseNameSearchPage: CaseNameSearchPage;
 let caseNameSearchResultsPage: CaseNameSearchResultsPage;
+let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
+let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
 let courtNameSearchPage: CourtNameSearchPage;
 
 describe('Finding a court or tribunal listing', () => {
@@ -98,8 +102,8 @@ describe('Finding a court or tribunal listing', () => {
 
     it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
       await viewOptionPage.selectSingleJusticeProcedureRadio();
-      singleJusticeProcedureSearchPage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-      expect(await singleJusticeProcedureSearchPage.getPageTitle()).toEqual('Single Justice Procedure case');
+      singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
+      expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Single Justice Procedure cases');
     });
 
   });
@@ -223,6 +227,38 @@ describe('Finding a court or tribunal listing', () => {
 
       it('should display 5 results', async () => {
         expect(await caseNameSearchResultsPage.getResults()).toBe(5);
+      });
+    });
+
+    describe('Following urn search path', () => {
+      const validSearchTerm = '12345678';
+      const invalidSearchTerm = '123456';
+      const expectedNumOfResults = 1;
+
+      before(async () => {
+        await subscriptionAddPage.open('subscription-add');
+      });
+
+      it('should select \'By unique reference number\' option and navigate to search urn page', async () => {
+        await subscriptionAddPage.selectOption('SubscriptionAddByUniqueRefNumber');
+        subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
+        expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+      });
+
+      it('should enter invalid text and click continue', async () => {
+        await subscriptionUrnSearchPage.enterText(invalidSearchTerm);
+        await subscriptionUrnSearchPage.clickContinue();
+        expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+      });
+
+      it('should enter text and click continue', async () => {
+        await subscriptionUrnSearchPage.enterText(validSearchTerm);
+        subscriptionUrnSearchResultsPage =  await subscriptionUrnSearchPage.clickContinue();
+        expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
+      });
+
+      it(`should display ${expectedNumOfResults} results`, async() => {
+        expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
       });
     });
 

@@ -12,6 +12,6 @@
   "usernameLabel": "What is username?",
   "userIdLabel": "What is user id?",
   "userTypeLabel": "What is user type?",
-  "item1": "Media",
-  "item2": "Professional"
+  "item1": "Verified Signed-in User",
+  "startButton": "Start Testing"
 }

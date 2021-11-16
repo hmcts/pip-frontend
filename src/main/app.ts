@@ -4,6 +4,7 @@ import {I18next} from './modules/i18next';
 const {Logger} = require('@hmcts/nodejs-logging');
 
 import * as bodyParser from 'body-parser';
+//import * as config from 'config';
 import config = require('config');
 import cookieParser from 'cookie-parser';
 import express from 'express';
@@ -12,37 +13,17 @@ import * as path from 'path';
 import favicon from 'serve-favicon';
 import {HTTPError} from 'HttpError';
 import {Nunjucks} from './modules/nunjucks';
-import {PropertiesVolume} from './modules/properties-volume';
+import * as propertiesVolume from '@hmcts/properties-volume';
 import {AppInsights} from './modules/appinsights';
-import session from 'express-session';
 import authentication from './authentication/authentication';
 
 const passport = require('passport');
+const cookieSession = require('cookie-session');
 
 const {setupDev} = require('./development');
 import {Container} from './modules/awilix';
 import routes from './routes/routes';
 import {PipRequest} from './models/request/PipRequest';
-import * as fs from 'fs';
-
-function populateSecrets(): void {
-  if (process.env.SECRETS_DIRECTORY) {
-    const secretsdirectory = process.env.SECRETS_DIRECTORY;
-
-    const files = fs.readdirSync(secretsdirectory);
-
-    for( const fileName of files ) {
-      try {
-        const data = fs.readFileSync(secretsdirectory + '/' + fileName, 'binary');
-        process.env[fileName] = data.trim();
-      } catch (err) {
-        console.error('Error reading file: ' + fileName);
-      }
-    }
-  }
-}
-
-populateSecrets();
 
 const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
@@ -55,27 +36,23 @@ app.locals.POLICY = process.env.POLICY;
 
 const logger = Logger.getLogger('app');
 
-new PropertiesVolume().enableFor(app);
+propertiesVolume.addTo(config);
 
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new Container().enableFor(app);
 
-const sessionConfig = {
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  proxy: true,
-  saveUninitialized: false,
-  cookie: { secure: true },
-};
-
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session(sessionConfig));
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.SESSION_SECRET],
+  maxAge: 60 * 60 * 1000,
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {

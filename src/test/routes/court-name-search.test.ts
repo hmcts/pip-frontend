@@ -4,7 +4,15 @@ import { expect } from 'chai';
 import { app } from '../../main/app';
 import { request as expressRequest } from 'express';
 
+import fs from 'fs';
+import path from 'path';
+import {CourtService} from '../../main/service/courtService';
+
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
+const courtList = JSON.parse(rawData);
+sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves(courtList);
+sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList').resolves(courtList);
 
 describe('Court Name Search', () => {
   describe('on GET', () => {
@@ -13,7 +21,7 @@ describe('Court Name Search', () => {
         .get('/court-name-search')
         .expect((res) => expect(res.status).to.equal(200));
     });
-
+    
     test('should return court name search page with unchecked checkboxes', async () => {
       await request(app)
         .get('/court-name-search?clear=all')

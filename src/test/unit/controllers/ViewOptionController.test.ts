@@ -52,7 +52,7 @@ describe('View Option Controller', () => {
     responseMock.verify();
   });
 
-  it('should render single justice procedure search page if choice is \'sjp\'', () => {
+  it('should render single justice procedure page if choice is \'sjp\'', () => {
 
     const response = { redirect: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
@@ -60,7 +60,7 @@ describe('View Option Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('single-justice-procedure-search');
+    responseMock.expects('redirect').once().withArgs('single-justice-procedure');
 
     viewOptionController.post(request, response);
     responseMock.verify();

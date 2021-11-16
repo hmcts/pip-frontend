@@ -7,13 +7,14 @@
 {% endblock %}
 
 {% block beforeContent %}
+  {{ super() }}
   {{ goBack() }}
 {% endblock %}
 
 {% block content %}
   <h2 class="govuk-heading-l govuk-!-margin-bottom-8">{{courtName}} {{ heading }}</h2>
   {%- set hearing = [] %}
-  {% for item in hearings %}
+  {% for item in hearings|sort(attribute="courtNumber") %}
     {% set _ = hearing.push([
       {
         text: item.courtNumber
