@@ -16,9 +16,10 @@ import {Nunjucks} from './modules/nunjucks';
 import * as propertiesVolume from '@hmcts/properties-volume';
 import {AppInsights} from './modules/appinsights';
 import authentication from './authentication/authentication';
+import session from 'express-session';
 
 const passport = require('passport');
-const cookieSession = require('cookie-session');
+// const cookieSession = require('cookie-session');
 
 const {setupDev} = require('./development');
 import {Container} from './modules/awilix';
@@ -48,10 +49,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cookieSession({
-  name: 'session',
-  keys: [process.env.SESSION_SECRET],
-  maxAge: 60 * 60 * 1000,
+// app.use(cookieSession({
+//   name: 'session',
+//   keys: [process.env.SESSION_SECRET],
+//   maxAge: 60 * 60 * 1000,
+// }));
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
