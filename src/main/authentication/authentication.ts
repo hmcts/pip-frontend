@@ -10,7 +10,6 @@ const CustomStrategy = passportCustom.Strategy;
  * This sets up the OIDC version of authentication, integrating with Azure.
  */
 function oidcSetup(): void {
-  console.log('oidcSetup');
   const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
 
   const users = [];
@@ -63,7 +62,6 @@ function oidcSetup(): void {
  * This sets up the local version of authentication, which uses a mock instead.
  */
 function mockSetup(): void {
-  console.log('mock setup');
   const findUser = function(user, fn): Function {
     return (user['id'] && user['username']) ? fn(user) : fn(null);
   };
@@ -94,13 +92,8 @@ function mockSetup(): void {
  */
 export default function(oidc: string): void {
   if (oidc === 'true') {
-    console.log('true');
     oidcSetup();
-  } else if (oidc === 'false') {
-    console.log('else if');
-    mockSetup();
   } else {
-    console.log('else');
     mockSetup();
   }
 }

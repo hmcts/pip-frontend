@@ -4,7 +4,6 @@ import {I18next} from './modules/i18next';
 const {Logger} = require('@hmcts/nodejs-logging');
 
 import * as bodyParser from 'body-parser';
-//import * as config from 'config';
 import config = require('config');
 import cookieParser from 'cookie-parser';
 import express from 'express';
@@ -36,14 +35,14 @@ app.locals.POLICY = process.env.POLICY;
 
 const logger = Logger.getLogger('app');
 
+console.log('from charts', process.env.SESSION_SECRET_KEY);
+
 propertiesVolume.addTo(config);
 
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new Container().enableFor(app);
-logger.info('SESSION SECRET VALUE', process.env.SESSION_SECRET);
-console.log('LOG SESSION SECRET', process.env.SESSION_SECRET);
 
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json());

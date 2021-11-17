@@ -17,5 +17,5 @@ nodejs:
         - name: pipsharedinfrasa-storageaccount-connection-string
           alias: CONNECTION_STRING
   environment:
-    SESSION_SECRET: SESSION_SECRET
+    SESSION_SECRET_KEY: from-charts-session-secret-key
   aadIdentityName: pip
