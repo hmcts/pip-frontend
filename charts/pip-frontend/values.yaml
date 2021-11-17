@@ -17,4 +17,5 @@ nodejs:
         - name: pipsharedinfrasa-storageaccount-connection-string
           alias: CONNECTION_STRING
   environment:
+    SESSION_SECRET: SESSION_SECRET
   aadIdentityName: pip
