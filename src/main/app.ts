@@ -4,7 +4,6 @@ import {I18next} from './modules/i18next';
 const {Logger} = require('@hmcts/nodejs-logging');
 
 import * as bodyParser from 'body-parser';
-//import * as config from 'config';
 import config = require('config');
 import cookieParser from 'cookie-parser';
 import express from 'express';
@@ -31,7 +30,6 @@ const developmentMode = env === 'development';
 export const app = express();
 app.enable('trust proxy');
 app.locals.ENV = env;
-
 app.locals.POLICY = process.env.POLICY;
 
 const logger = Logger.getLogger('app');
@@ -50,7 +48,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieSession({
   name: 'session',
-  keys: [process.env.SESSION_SECRET],
+  keys: [config.get('secrets.pip-shared-kv.SESSION_SECRET')],
   maxAge: 60 * 60 * 1000,
 }));
 app.use(passport.initialize());
