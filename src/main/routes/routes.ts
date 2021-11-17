@@ -4,7 +4,6 @@ import cors  from 'cors';
 import os from 'os';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
-
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 
@@ -100,10 +99,10 @@ export default function(app: Application): void {
   app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
     (req, res) => {res.redirect('https://hmcts-sjp.herokuapp.com');});
 
-  app.get('/warned-list', app.locals.container.cradle.warnedListController.get);
-
   //TODO: To be deleted/modified post UAT with suitable solution
   app.get('/list-option', app.locals.container.cradle.listOptionController.get);
+  app.get('/warned-list', app.locals.container.cradle.warnedListController.get);
+  app.get('/standard-list', ensureAuthenticated, app.locals.container.cradle.standardListController.get);
 
   const healthCheckConfig = {
     checks: {
@@ -111,9 +110,6 @@ export default function(app: Application): void {
       sampleCheck: healthcheck.raw(() => healthcheck.up()),
     },
   };
-
-  // TODO: UAT solution only, to be removed post UAT and replaced with suitable solution
-  app.get('/standard-list', ensureAuthenticated, app.locals.container.cradle.standardListController.get);
 
   healthcheck.addTo(app, healthCheckConfig);
 }

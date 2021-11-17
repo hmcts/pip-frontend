@@ -16,5 +16,4 @@ nodejs:
           alias: TENANT_GUID
         - name: pipsharedinfrasa-storageaccount-connection-string
           alias: CONNECTION_STRING
-  environment:
   aadIdentityName: pip
