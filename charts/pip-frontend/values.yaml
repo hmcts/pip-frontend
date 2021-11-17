@@ -17,6 +17,4 @@ nodejs:
         - name: pipsharedinfrasa-storageaccount-connection-string
           alias: CONNECTION_STRING
   environment:
-    OIDC: false
-    FRONTEND_URL: https://${SERVICE_FQDN}
   aadIdentityName: pip
