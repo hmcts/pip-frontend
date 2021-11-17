@@ -96,7 +96,7 @@ export default function(app: Application): void {
 
   // TODO: expose route only if not on the production environment
   app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
-  app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found', 'session': true}),
+  app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
     (req, res) => {res.redirect('https://hmcts-sjp.herokuapp.com');});
 
   //TODO: To be deleted/modified post UAT with suitable solution
