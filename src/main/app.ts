@@ -30,15 +30,11 @@ const developmentMode = env === 'development';
 export const app = express();
 app.enable('trust proxy');
 app.locals.ENV = env;
-
 app.locals.POLICY = process.env.POLICY;
 
 const logger = Logger.getLogger('app');
 
 propertiesVolume.addTo(config);
-
-const sessionSecret = config.get('secrets.pip-shared-kv.SESSION_SECRET') ? config.get('secrets.pip-shared-kv.SESSION_SECRET') : 'super-secret-session';
-console.log('from charts', sessionSecret);
 
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
@@ -52,7 +48,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieSession({
   name: 'session',
-  keys: [sessionSecret],
+  keys: [config.get('secrets.pip-shared-kv.SESSION_SECRET')],
   maxAge: 60 * 60 * 1000,
 }));
 app.use(passport.initialize());
