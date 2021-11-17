@@ -42,11 +42,13 @@ new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new Container().enableFor(app);
+logger.info('SESSION SECRET VALUE', process.env.SESSION_SECRET);
+console.log('LOG SESSION SECRET', process.env.SESSION_SECRET);
 
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieSession({
   name: 'session',
