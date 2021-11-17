@@ -35,7 +35,9 @@ app.locals.POLICY = process.env.POLICY;
 
 const logger = Logger.getLogger('app');
 
-console.log('from charts', process.env.SESSION_SECRET_KEY);
+const sessionSecret = process.env['pip-shared-kv']['SESSION_SECRET'] ? process.env['pip-shared-kv']['SESSION_SECRET'] : 'super-secret-session';
+
+console.log('from charts', sessionSecret);
 
 propertiesVolume.addTo(config);
 
@@ -51,7 +53,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieSession({
   name: 'session',
-  keys: ['super-secret-session'],
+  keys: [sessionSecret],
   maxAge: 60 * 60 * 1000,
 }));
 app.use(passport.initialize());
