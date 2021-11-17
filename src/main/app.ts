@@ -35,7 +35,7 @@ app.locals.POLICY = process.env.POLICY;
 
 const logger = Logger.getLogger('app');
 
-const sessionSecret = process.env['pip-shared-kv']['SESSION_SECRET'] ? process.env['pip-shared-kv']['SESSION_SECRET'] : 'super-secret-session';
+const sessionSecret = config.get('secrets.pip-shared-kv.SESSION_SECRET') ? config.get('secrets.pip-shared-kv.SESSION_SECRET') : 'super-secret-session';
 
 console.log('from charts', sessionSecret);
 
