@@ -4,7 +4,7 @@ import {I18next} from './modules/i18next';
 const {Logger} = require('@hmcts/nodejs-logging');
 
 import * as bodyParser from 'body-parser';
-import * as config from 'config';
+import config = require('config');
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import {Helmet} from './modules/helmet';
@@ -35,11 +35,10 @@ app.locals.POLICY = process.env.POLICY;
 
 const logger = Logger.getLogger('app');
 
-const sessionSecret = config.get('secrets.pip-shared-kv.SESSION_SECRET') ? config.get('secrets.pip-shared-kv.SESSION_SECRET') : 'super-secret-session';
-
-console.log('from charts', sessionSecret);
-
 propertiesVolume.addTo(config);
+
+const sessionSecret = config.get('secrets.pip-shared-kv.SESSION_SECRET') ? config.get('secrets.pip-shared-kv.SESSION_SECRET') : 'super-secret-session';
+console.log('from charts', sessionSecret);
 
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
