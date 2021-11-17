@@ -22,9 +22,7 @@ export default function(app: Application): void {
   };
 
   function ensureAuthenticated(req, res, next): NextFunction | void {
-    console.log('ensureAuthenticated user', req.user);
     if (req.isAuthenticated()) {
-      console.log('ensureAuthenticated isAuthenticated');
       return next();
     }
     res.redirect('/login?p=' + authenticationConfig.POLICY);
@@ -43,9 +41,7 @@ export default function(app: Application): void {
 
   function regenerateSession(req, res): void {
     const prevSession = req.session;
-    console.log('regenerateSession req.session', req.session);
     req.session.regenerate(() => {  // Compliant
-      console.log('regenerate');
       Object.assign(req.session, prevSession);
       res.redirect('/subscription-management');
     });
@@ -102,7 +98,7 @@ export default function(app: Application): void {
   // TODO: expose route only if not on the production environment
   app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
   app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found', 'session': true}),
-    (req, res) => {res.redirect('/');});
+    (req, res) => {res.redirect('https://hmcts-sjp.herokuapp.com');});
 
   app.get('/warned-list', app.locals.container.cradle.warnedListController.get);
 
