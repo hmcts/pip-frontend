@@ -52,7 +52,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieSession({
   name: 'session',
-  keys: [process.env.SESSION_SECRET],
+  keys: ['super-secret-session'],
   maxAge: 60 * 60 * 1000,
 }));
 app.use(passport.initialize());
