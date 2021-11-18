@@ -16,7 +16,7 @@ export default class SubscriptionCaseSearchController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['search-input'] as string;
     if (searchInput) {
-      const searchResults = await hearingRequests.getSubscriptionCaseDetails(searchInput);
+      const searchResults = await hearingRequests.getHearingByCaseReferenceNumber(searchInput);
 
       (searchResults) ?
         res.redirect(`subscription-search-case-results?search-input=${searchInput}`) :

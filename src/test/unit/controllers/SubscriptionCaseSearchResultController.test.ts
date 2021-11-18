@@ -9,7 +9,7 @@ import {HearingRequests} from '../../../main/resources/requests/hearingRequests'
 const subscriptionCaseSearchResultController = new SubscriptionCaseSearchResultController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCaseList.json'), 'utf-8');
 const subscriptionsCaseData = JSON.parse(rawData);
-const stub = sinon.stub(HearingRequests.prototype, 'getSubscriptionCaseDetails');
+const stub = sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber');
 stub.withArgs('ABC12345').returns(subscriptionsCaseData);
 
 describe('Subscription Search Case Reference Result Controller', () => {
@@ -69,25 +69,4 @@ describe('Subscription Search Case Reference Result Controller', () => {
       responseMock.verify();
     });
   });
-
-  it('should redirect to pending subscription page when user click on Continue', () => {
-
-    const response = {
-      redirect: function() {return '';},
-      render: function() {return '';},
-    } as unknown as Response;
-
-    const request = mockRequest(i18n);
-
-    request.body = { 'case-number': 'ABC12345', 'case-name': 'test case'};
-
-    const responseMock = sinon.mock(response);
-
-    responseMock.expects('redirect').once().withArgs('pending-subscriptions?case-number=ABC12345&case-name=test case');
-
-    return subscriptionCaseSearchResultController.post(request, response).then(() => {
-      responseMock.verify();
-    });
-  });
-
 });
