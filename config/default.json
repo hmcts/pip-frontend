@@ -5,5 +5,10 @@
   },
   "appInsights": {
     "instrumentationKey": false
+  },
+  "secrets": {
+    "pip-shared-kv": {
+      "SESSION_SECRET": "super-session-secret"
+    }
   }
 }
