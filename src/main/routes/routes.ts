@@ -83,10 +83,10 @@ export default function(app: Application): void {
   app.post('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.post);
   app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
 
-  app.get('/subscription-case-search', app.locals.container.cradle.subscriptionCaseSearchController.get);
-  app.post('/subscription-case-search', app.locals.container.cradle.subscriptionCaseSearchController.post);
+  app.get('/case-reference-number-search', app.locals.container.cradle.caseReferenceNumberSearchController.get);
+  app.post('/case-reference-number-search', app.locals.container.cradle.caseReferenceNumberSearchController.post);
 
-  app.get('/subscription-search-case-results', app.locals.container.cradle.subscriptionCaseSearchResultController.get);
+  app.get('/case-reference-number-search-results', app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
 
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);

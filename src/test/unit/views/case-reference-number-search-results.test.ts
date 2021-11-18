@@ -9,7 +9,7 @@ import {HearingRequests} from '../../../main/resources/requests/hearingRequests'
 const searchTerm = 'ABC12345';
 const numOfResults = '1';
 const resultFound = 'Result successfully found';
-const PAGE_URL = `/subscription-search-case-results?search-input=${searchTerm}`;
+const PAGE_URL = `/case-reference-number-search-results?search-input=${searchTerm}`;
 
 const rowClass = 'govuk-table__row';
 
@@ -19,7 +19,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCa
 const subscriptionsData = JSON.parse(rawData);
 sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber').returns(subscriptionsData);
 
-describe('Search Results Page', () => {
+describe('Case Reference Search Results Page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
@@ -29,7 +29,7 @@ describe('Search Results Page', () => {
   it('should display back button', () => {
     const backButton = htmlRes.getElementsByClassName('govuk-back-link');
     expect(backButton[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backButton[0].getAttribute('href')).equal('/subscription-case-search', 'Back button does not contain correct link');
+    expect(backButton[0].getAttribute('href')).equal('/case-reference-number-search', 'Back button does not contain correct link');
   });
 
   it('should list the number of results found', () => {

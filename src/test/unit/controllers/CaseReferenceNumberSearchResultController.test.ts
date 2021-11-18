@@ -1,12 +1,12 @@
 import sinon from 'sinon';
 import { Response } from 'express';
-import SubscriptionCaseSearchResultController from '../../../main/controllers/SubscriptionCaseSearchResultController';
+import CaseReferenceNumberSearchResultController from '../../../main/controllers/CaseReferenceNumberSearchResultController';
 import fs from 'fs';
 import path from 'path';
 import {mockRequest} from '../mocks/mockRequest';
 import {HearingRequests} from '../../../main/resources/requests/hearingRequests';
 
-const subscriptionCaseSearchResultController = new SubscriptionCaseSearchResultController();
+const subscriptionCaseSearchResultController = new CaseReferenceNumberSearchResultController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCaseList.json'), 'utf-8');
 const subscriptionsCaseData = JSON.parse(rawData);
 const stub = sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber');
@@ -17,7 +17,7 @@ describe('Subscription Search Case Reference Result Controller', () => {
   it('should render the search result page', () => {
 
     i18n = {
-      'subscription-case-search': {},
+      'case-reference-number-search': {},
     };
 
     const response = {
@@ -30,12 +30,12 @@ describe('Subscription Search Case Reference Result Controller', () => {
     const responseMock = sinon.mock(response);
 
     const expectedData = {
-      ...i18n['subscription-search-case-results'],
+      ...i18n['case-reference-number-search-results'],
       searchInput : 'ABC12345',
       searchResults: subscriptionsCaseData,
     };
 
-    responseMock.expects('render').once().withArgs('subscription-search-case-results', expectedData);
+    responseMock.expects('render').once().withArgs('case-reference-number-search-results', expectedData);
 
     return subscriptionCaseSearchResultController.get(request, response).then(() => {
       responseMock.verify();
@@ -47,7 +47,7 @@ describe('Subscription Search Case Reference Result Controller', () => {
     stub.withArgs('12345678').returns(null);
 
     const i18n = {
-      'subscription-search-case-results': {},
+      'case-reference-number-search-results': {},
     };
 
     const response = {
