@@ -23,7 +23,7 @@ export class SubscriptionService {
               text: moment.unix(subscription.dateAdded).format('D MMM YYYY'),
             },
             {
-              html: '<a href=\'#\'>Unsubscribe</a>',
+              html: `<a href='delete-subscription?subscription=${subscription.name}'>Unsubscribe</a>`,
               format: 'numeric',
             },
           ],
@@ -46,7 +46,7 @@ export class SubscriptionService {
             text: moment.unix(subscription.dateAdded).format('D MMM YYYY'),
           },
           {
-            html: '<a href=\'#\'>Unsubscribe</a>',
+            html: `<a href='delete-subscription?subscription=${subscription.name}'>Unsubscribe</a>`,
             format: 'numeric',
           },
         ]);

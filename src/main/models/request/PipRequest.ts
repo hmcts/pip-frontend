@@ -28,6 +28,7 @@ export interface PipRequest extends Request {
       'list-option': {};
       'session-management': {};
       'standard-list': {};
+      'delete-subscription': {};
     };
   };
   lng?: string;
