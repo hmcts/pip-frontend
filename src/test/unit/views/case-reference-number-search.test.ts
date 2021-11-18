@@ -7,7 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import {HearingRequests} from '../../../main/resources/requests/hearingRequests';
 
-const PAGE_URL = '/subscription-case-search';
+const PAGE_URL = '/case-reference-number-search';
 const headingClass = 'govuk-label-wrapper';
 const buttonClass = 'govuk-button';
 const errorSummaryClass = 'govuk-error-summary';
@@ -26,7 +26,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCa
 const subscriptionsData = JSON.parse(rawData);
 sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber').returns(subscriptionsData);
 
-describe('URN Search Page', () => {
+describe('Case Reference Search Page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
@@ -83,7 +83,7 @@ describe('URN Search Page Blank Input', () => {
   });
 });
 
-describe('URN Search Page Invalid Input', () => {
+describe('Case Reference Search Page Invalid Input', () => {
   beforeAll(async () => {
     sinon.restore();
     sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber').returns(null);

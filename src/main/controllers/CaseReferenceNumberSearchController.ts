@@ -5,11 +5,11 @@ import {PipRequest} from '../models/request/PipRequest';
 
 const hearingRequests = new HearingRequests();
 
-export default class SubscriptionCaseSearchController {
+export default class CaseReferenceNumberSearchController {
 
   public get(req: PipRequest, res: Response):  void {
-    res.render('subscription-case-search', {
-      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-case-search']),
+    res.render('case-reference-number-search', {
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-reference-number-search']),
     });
   }
 
@@ -19,15 +19,15 @@ export default class SubscriptionCaseSearchController {
       const searchResults = await hearingRequests.getHearingByCaseReferenceNumber(searchInput);
 
       (searchResults) ?
-        res.redirect(`subscription-search-case-results?search-input=${searchInput}`) :
-        res.render('subscription-case-search', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-case-search']),
+        res.redirect(`case-reference-number-search-results?search-input=${searchInput}`) :
+        res.render('case-reference-number-search', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-reference-number-search']),
           invalidInputError: false,
           noResultsError: true,
         });
     } else {
-      res.render('subscription-case-search', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-case-search']),
+      res.render('case-reference-number-search', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-reference-number-search']),
         invalidInputError: true,
         noResultsError: false,
       });

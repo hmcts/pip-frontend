@@ -1,12 +1,12 @@
 import sinon from 'sinon';
 import { Response } from 'express';
-import SubscriptionCaseSearchController from '../../../main/controllers/SubscriptionCaseSearchController';
+import CaseReferenceNumberSearchController from '../../../main/controllers/CaseReferenceNumberSearchController';
 import fs from 'fs';
 import path from 'path';
 import {mockRequest} from '../mocks/mockRequest';
 import {HearingRequests} from '../../../main/resources/requests/hearingRequests';
 
-const subscriptionCaseSearchController = new SubscriptionCaseSearchController();
+const subscriptionCaseSearchController = new CaseReferenceNumberSearchController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCaseList.json'), 'utf-8');
 const subscriptionCaseResult = JSON.parse(rawData);
 const stub = sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber');
@@ -31,10 +31,10 @@ describe('Subscription Case Search Controller', () => {
     const responseMock = sinon.mock(response);
 
     const expectedData = {
-      ...i18n['subscription-case-search'],
+      ...i18n['case-reference-number-search'],
     };
 
-    responseMock.expects('render').once().withArgs('subscription-case-search', expectedData);
+    responseMock.expects('render').once().withArgs('case-reference-number-search', expectedData);
 
     subscriptionCaseSearchController.get(request, response);
 
@@ -51,7 +51,7 @@ describe('Subscription Case Search Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('subscription-case-search');
+    responseMock.expects('render').once().withArgs('case-reference-number-search');
 
     return subscriptionCaseSearchController.post(request, response).then(() => {
       responseMock.verify();
@@ -66,7 +66,7 @@ describe('Subscription Case Search Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('subscription-case-search');
+    responseMock.expects('render').once().withArgs('case-reference-number-search');
 
     return subscriptionCaseSearchController.post(request, response).then(() => {
       responseMock.verify();
@@ -83,7 +83,7 @@ describe('Subscription Case Search Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('subscription-case-search');
+    responseMock.expects('render').once().withArgs('case-reference-number-search');
 
     return subscriptionCaseSearchController.post(request, response).then(() => {
       responseMock.verify();
@@ -99,7 +99,7 @@ describe('Subscription Case Search Controller', () => {
     request.body = { 'search-input': ''};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('subscription-case-search');
+    responseMock.expects('render').once().withArgs('case-reference-number-search');
 
     return subscriptionCaseSearchController.post(request, response).then(() => {
       responseMock.verify();
@@ -120,7 +120,7 @@ describe('Subscription Case Search Controller', () => {
     const responseMock = sinon.mock(response);
     stub.withArgs(validCaseNo).returns(subscriptionCaseResult);
 
-    responseMock.expects('redirect').once().withArgs('subscription-search-case-results?search-input=ABC12345');
+    responseMock.expects('redirect').once().withArgs('case-reference-number-search-results?search-input=ABC12345');
 
     return subscriptionCaseSearchController.post(request, response).then(() => {
       responseMock.verify();

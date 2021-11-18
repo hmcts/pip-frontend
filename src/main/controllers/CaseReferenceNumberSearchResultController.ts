@@ -5,15 +5,15 @@ import {cloneDeep} from 'lodash';
 
 const hearingRequests = new HearingRequests();
 
-export default class SubscriptionCaseSearchResultController {
+export default class CaseReferenceNumberSearchResultController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.query['search-input'] as string;
     const searchResults = await hearingRequests.getHearingByCaseReferenceNumber(searchInput);
 
     if (searchResults) {
-      res.render('subscription-search-case-results', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-search-case-results']),
+      res.render('case-reference-number-search-results', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-reference-number-search-results']),
         searchInput,
         searchResults,
       });
