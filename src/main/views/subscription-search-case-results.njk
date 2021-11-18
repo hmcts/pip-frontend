@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block beforeContent %}
+  {{ super() }}
   {{ goBack('/subscription-case-search') }}
 {% endblock %}
 
@@ -30,7 +31,7 @@
       </tr>
     </tbody>
   </table>
-  <form action="subscription-search-case-results" method="post">
+  <form action="pending-subscriptions" method="post">
     <div class="govuk-form-group govuk-!-width-one-half">
       {{ govukInput({
         id: "case-number",

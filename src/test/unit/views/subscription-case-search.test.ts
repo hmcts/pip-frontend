@@ -24,7 +24,7 @@ let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCaseList.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
-sinon.stub(HearingRequests.prototype, 'getSubscriptionCaseDetails').returns(subscriptionsData);
+sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber').returns(subscriptionsData);
 
 describe('URN Search Page', () => {
   beforeAll(async () => {
@@ -86,7 +86,7 @@ describe('URN Search Page Blank Input', () => {
 describe('URN Search Page Invalid Input', () => {
   beforeAll(async () => {
     sinon.restore();
-    sinon.stub(HearingRequests.prototype, 'getSubscriptionCaseDetails').returns(null);
+    sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber').returns(null);
     await request(app).post(PAGE_URL).send({'search-input': '12345'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });

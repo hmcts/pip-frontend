@@ -19,7 +19,7 @@ export class HearingRequests {
     return [];
   }
 
-  public async getSubscriptionCaseDetails(caseReferenceNo: string): Promise<Array<any>> {
+  public async getHearingByCaseReferenceNumber(caseReferenceNo: string): Promise<Array<Hearing>> {
     try {
       const response = await dataManagementApi.get(`/hearings/case-number/${caseReferenceNo}`);
       return response.data;

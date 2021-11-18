@@ -9,7 +9,7 @@ export default class SubscriptionCaseSearchResultController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.query['search-input'] as string;
-    const searchResults = await hearingRequests.getSubscriptionCaseDetails(searchInput);
+    const searchResults = await hearingRequests.getHearingByCaseReferenceNumber(searchInput);
 
     if (searchResults) {
       res.render('subscription-search-case-results', {
@@ -22,12 +22,5 @@ export default class SubscriptionCaseSearchResultController {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['error']),
       });
     }
-  }
-
-  public async post(req: PipRequest, res: Response): Promise<void> {
-    const caseNumber = req.body['case-number'] as string;
-    const caseName = req.body['case-name'] as string;
-
-    res.redirect(`pending-subscriptions?case-number=${caseNumber}&case-name=${caseName}`);
   }
 }
