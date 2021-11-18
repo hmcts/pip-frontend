@@ -35,7 +35,7 @@
     if noResultsError or invalidInputError else 'govuk-form-group' %}
   <form action="case-reference-number-search" method="post">
     <div class="govuk-form-group govuk-!-width-one-half">
-      <h1 class="govuk-label-wrapper">
+      <h1 class="govuk-heading-l">
         <label class="govuk-label govuk-label--l" for="search-input">
           {{ header }}
         </label>
@@ -65,9 +65,12 @@
       </div>
     {% endif %}
   </form>
+{% endblock %}
+{% block bodyEnd %}
   <script>
     if ( window.history.replaceState ) {
       window.history.replaceState( null, null, window.location.href );
     }
   </script>
+  {{ super() }}
 {% endblock %}

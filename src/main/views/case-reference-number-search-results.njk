@@ -10,7 +10,7 @@
 
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack('/case-reference-number-search') }}
+  {{ goBack() }}
 {% endblock %}
 
 {% block content %}
@@ -48,4 +48,12 @@
     </div>
     {{ submitButton() }}
   </form>
+{% endblock %}
+{% block bodyEnd %}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  {{ super() }}
 {% endblock %}

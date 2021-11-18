@@ -43,7 +43,6 @@ module.exports = {
 
   //SubscriptionAdd selectors
   SubscriptionAddTitle: 'h1.govuk-fieldset__heading',
-
   SubscriptionAddByCaseRefNumber: '#subscription-choice-1',
   SubscriptionAddByUniqueRefNumber: '#subscription-choice-2',
   SubscriptionAddByCaseName: '#subscription-choice-3',
