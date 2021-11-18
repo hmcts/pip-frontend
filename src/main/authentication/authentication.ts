@@ -10,7 +10,6 @@ const CustomStrategy = passportCustom.Strategy;
  * This sets up the OIDC version of authentication, integrating with Azure.
  */
 function oidcSetup(): void {
-
   const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
 
   const users = [];
@@ -92,6 +91,10 @@ function mockSetup(): void {
  * Values are read from config, and from the environment passed in
  */
 export default function(oidc: string): void {
-  (oidc) ? oidcSetup() : mockSetup();
+  if (oidc === 'true') {
+    oidcSetup();
+  } else {
+    mockSetup();
+  }
 }
 
