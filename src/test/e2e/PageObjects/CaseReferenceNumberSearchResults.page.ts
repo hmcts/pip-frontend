@@ -1,7 +1,7 @@
 
 const helpers = require('../Helpers/Selectors');
 
-export class SubscriptionCaseSearchResultsPage {
+export class CaseReferenceNumberSearchResultsPage {
 
   async getPageTitle(): Promise<string> {
     $(helpers.SearchResultTitle).catch(() => {

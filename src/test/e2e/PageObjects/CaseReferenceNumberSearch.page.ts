@@ -1,8 +1,8 @@
-import {SubscriptionCaseSearchResultsPage} from './SubscriptionCaseSearchResults.page';
+import {CaseReferenceNumberSearchResultsPage} from './CaseReferenceNumberSearchResults.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class SubscriptionCaseSearchPage {
+export class CaseReferenceNumberSearchPage {
 
   async getPageTitle(): Promise<string> {
     $(helpers.SearchTitle).catch(() => {
@@ -22,13 +22,13 @@ export class SubscriptionCaseSearchPage {
     await browser.keys('Escape');
   }
 
-  async clickContinue(): Promise<SubscriptionCaseSearchResultsPage> {
+  async clickContinue(): Promise<CaseReferenceNumberSearchResultsPage> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
 
     const button = await $(helpers.ContinueButton);
     button.click();
-    return new SubscriptionCaseSearchResultsPage();
+    return new CaseReferenceNumberSearchResultsPage();
   }
 }
