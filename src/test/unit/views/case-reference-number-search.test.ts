@@ -9,7 +9,7 @@ import {HearingRequests} from '../../../main/resources/requests/hearingRequests'
 import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/case-reference-number-search';
-const headingClass = 'govuk-label-wrapper';
+const headingClass = 'govuk-heading-l';
 const buttonClass = 'govuk-button';
 const errorSummaryClass = 'govuk-error-summary';
 const inputErrorClass = 'govuk-input--error';

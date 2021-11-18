@@ -12,6 +12,12 @@ const subscriptionsCaseData = JSON.parse(rawData);
 const stub = sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber');
 stub.withArgs('ABC12345').returns(subscriptionsCaseData);
 
+const response = {
+  render: function () {
+    return '';
+  },
+} as unknown as Response;
+
 describe('Subscription Search Case Reference Result Controller', () => {
   let i18n = {};
   it('should render the search result page', () => {
@@ -20,11 +26,6 @@ describe('Subscription Search Case Reference Result Controller', () => {
       'case-reference-number-search': {},
     };
 
-    const response = {
-      render: function () {
-        return '';
-      },
-    } as unknown as Response;
     const request = mockRequest(i18n);
     request.query = { 'search-input': 'ABC12345'};
     const responseMock = sinon.mock(response);
