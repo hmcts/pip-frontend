@@ -6,6 +6,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import {HearingRequests} from '../../../main/resources/requests/hearingRequests';
+import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/case-reference-number-search';
 const headingClass = 'govuk-label-wrapper';
@@ -28,6 +29,7 @@ sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber').returns
 
 describe('Case Reference Search Page', () => {
   beforeAll(async () => {
+    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -60,7 +62,7 @@ describe('Case Reference Search Page', () => {
   });
 });
 
-describe('URN Search Page Blank Input', () => {
+describe('Case Reference Search Page Blank Input', () => {
   beforeAll(async () => {
     await request(app).post(PAGE_URL).send({'search-input': ''}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
@@ -86,6 +88,7 @@ describe('URN Search Page Blank Input', () => {
 describe('Case Reference Search Page Invalid Input', () => {
   beforeAll(async () => {
     sinon.restore();
+    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber').returns(null);
     await request(app).post(PAGE_URL).send({'search-input': '12345'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
