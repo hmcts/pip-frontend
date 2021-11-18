@@ -7,6 +7,6 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'js'],
   setupFiles: ["<rootDir>/jestEnvVars.js"],
-  // pa11y default
+  // pa11y recommended default
   testTimeout: 30000,
 }
