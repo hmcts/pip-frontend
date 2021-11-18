@@ -94,6 +94,7 @@ export default function(app: Application): void {
   app.post('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.post);
   app.get('/case-name-search-results', ensureAuthenticated, app.locals.container.cradle.caseNameSearchResultsController.get);
   app.get('/delete-subscription', ensureAuthenticated, app.locals.container.cradle.deleteSubscriptionController.get);
+  app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
 
   // TODO: expose route only if not on the production environment
   app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
