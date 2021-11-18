@@ -5,8 +5,9 @@ import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
 import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
+import {request as expressRequest} from 'express';
 
-const searchTerm = '123456789';
+const searchTerm = 'N363N6R4OG';
 const numOfResults = '1';
 const PAGE_URL = `/subscription-urn-search-results?search-input=${searchTerm}`;
 const backLinkClass = 'govuk-back-link';
@@ -31,6 +32,7 @@ jest.mock('axios', () => {
 
 describe('Search Results Page', () => {
   beforeAll(async () => {
+    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });

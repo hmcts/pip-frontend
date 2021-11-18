@@ -5,6 +5,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
+import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/subscription-urn-search';
 const headingClass = 'govuk-label-wrapper';
@@ -36,6 +37,7 @@ jest.mock('axios', () => {
 
 describe('URN Search Page', () => {
   beforeAll(async () => {
+    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -107,6 +109,7 @@ describe('URN Search Page Invalid Input', () => {
   beforeAll(async () => {
     sinon.restore();
     sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').returns(null);
+    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     await request(app).post(PAGE_URL).send({'search-input': '12345'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
