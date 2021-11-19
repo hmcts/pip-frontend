@@ -19,7 +19,7 @@ import {SubscriptionConfirmationPage} from '../PageObjects/SubscriptionConfirmat
 import {SubscriptionConfirmedPage} from '../PageObjects/SubscriptionConfirmed.page';
 
 const homePage = new HomePage;
-let subscriptionAddPage = new SubscriptionAddPage;
+const subscriptionAddPage = new SubscriptionAddPage;
 const mockSessionPage = new MockSessionPage();
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
