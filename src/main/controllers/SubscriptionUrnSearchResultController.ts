@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import {PipRequest} from '../models/request/PipRequest';
-import {cloneDeep} from 'lodash';
 import {SubscriptionService} from '../service/subscriptionService';
+import check from './common/utils';
 
 const subscriptionService = new SubscriptionService();
 let searchInput;
@@ -13,15 +13,8 @@ export default class SubscriptionUrnSearchResultController {
     if (searchInput && searchInput.length) {
       const searchResults = await subscriptionService.getSubscriptionUrnDetails(searchInput.toString());
 
-      if (searchResults) {
-        res.render('subscription-urn-search-results', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search-results']),
-          searchInput : searchInput,
-          searchResults: searchResults,
-        });
-      } else {
-        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-      }
+      check(searchResults,'subscription-urn-search-results',req, res, searchInput);
+
     }
     else {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);

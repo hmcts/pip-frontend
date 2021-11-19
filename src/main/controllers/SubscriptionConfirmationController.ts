@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import {PipRequest} from '../models/request/PipRequest';
-import {cloneDeep} from 'lodash';
 import {SubscriptionService} from '../service/subscriptionService';
+import check from './common/utils';
 
 const subscriptionService = new SubscriptionService();
 let searchInput;
@@ -18,15 +18,8 @@ export default class SubscriptionConfirmationController {
           break;
       }
 
-      if (searchResults) {
-        res.render('subscription-confirmation', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-confirmation']),
-          searchInput : searchInput,
-          searchResults: searchResults,
-        });
-      } else {
-        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-      }
+      check(searchResults,'subscription-confirmation',req, res, searchInput);
+
     }
     else {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
