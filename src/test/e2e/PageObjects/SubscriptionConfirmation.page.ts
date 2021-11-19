@@ -1,8 +1,8 @@
-import {SubscriptionConfirmationPage} from './SubscriptionConfirmation.page';
+import {SubscriptionConfirmedPage} from './SubscriptionConfirmed.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class SubscriptionUrnSearchResultsPage {
+export class SubscriptionConfirmationPage {
 
   async getPageTitle(): Promise<string> {
     $(helpers.SearchResultTitle).catch(() => {
@@ -21,14 +21,14 @@ export class SubscriptionUrnSearchResultsPage {
     return results.length;
   }
 
-  async clickContinue(): Promise<SubscriptionConfirmationPage> {
+  async clickContinue(): Promise<SubscriptionConfirmedPage> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
 
     const button = await $(helpers.ContinueButton);
     button.click();
-    return new SubscriptionConfirmationPage();
+    return new SubscriptionConfirmedPage();
   }
 
 }

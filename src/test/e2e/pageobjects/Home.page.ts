@@ -1,5 +1,6 @@
 import { ViewOptionPage } from './ViewOption.page';
 import { SubscriptionManagementPage } from './SubscriptionManagement.page';
+import {SubscriptionAddPage} from './SubscriptionAdd.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -27,5 +28,11 @@ export class HomePage {
     const button = await $(helpers.SignInButton);
     button.click();
     return new SubscriptionManagementPage();
+  }
+
+  async clickSubscriptionAddButton(): Promise<SubscriptionAddPage> {
+    const button = await $(helpers.SignInMenu);
+    button[4].click();
+    return new SubscriptionAddPage();
   }
 }

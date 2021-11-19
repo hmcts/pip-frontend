@@ -6,6 +6,7 @@ module.exports = {
   SignInButton: '#signInButton',
   SignOutButton: '#signOutButton',
   Results: 'tbody > tr.govuk-table__row',
+  SignInMenu: '.moj-sub-navigation__item',
   // Home page selectors
   StartNowButton: '.govuk-button--start',
   MainHeader: 'h1.govuk-heading-xl',

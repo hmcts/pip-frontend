@@ -2,21 +2,21 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import SubscriptionUrnSearchResultController from '../../../main/controllers/SubscriptionUrnSearchResultController';
 import {SubscriptionService} from '../../../main/service/subscriptionService';
 import {mockRequest} from '../mocks/mockRequest';
+import SubscriptionConfirmedController from '../../../main/controllers/SubscriptionConfirmedController';
 
-const subscriptionSearchUrnResultController = new SubscriptionUrnSearchResultController();
+const subscriptionConfirmedController = new SubscriptionConfirmedController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
 sinon.stub(SubscriptionService.prototype, 'getSubscriptionUrnDetails').returns(subscriptionsData);
 
-describe('Subscription Urn Search Result Controller', () => {
+describe('Subscription Confirmed Controller', () => {
   let i18n = {};
-  it('should render the search page', () => {
+  it('should render the confirmed page', () => {
 
     i18n = {
-      'subscription-urn-search-results': {},
+      'subscription-confirmed': {},
     };
 
     const response = {
@@ -25,18 +25,11 @@ describe('Subscription Urn Search Result Controller', () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = { 'search-input': '123456789'};
     const responseMock = sinon.mock(response);
 
-    const expectedData = {
-      ...i18n['subscription-urn-search-results'],
-      searchInput : '123456789',
-      searchResults: subscriptionsData,
-    };
+    responseMock.expects('render').once().withArgs('subscription-confirmed');
 
-    responseMock.expects('render').once().withArgs('subscription-urn-search-results', expectedData);
-
-    return subscriptionSearchUrnResultController.get(request, response).then(() => {
+    return subscriptionConfirmedController.get(request, response).then(() => {
       responseMock.verify();
     });
   });
