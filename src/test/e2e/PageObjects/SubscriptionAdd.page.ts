@@ -1,6 +1,7 @@
 import {SubscriptionUrnSearchPage} from './SubscriptionUrnSearch.page';
 import { CaseNameSearchPage } from './CaseNameSearch.page';
 import { CourtNameSearchPage } from './CourtNameSearch.page';
+import {CaseReferenceNumberSearchPage} from './CaseReferenceNumberSearch.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -38,6 +39,16 @@ export class SubscriptionAddPage {
     continueButton.click();
 
     return new SubscriptionUrnSearchPage();
+  }
+
+  async clickContinueForCaseReferenceNumberSearch(): Promise<CaseReferenceNumberSearchPage> {
+    $(helpers.ContinueButton).catch(() => {
+      console.log(`${helpers.ContinueButton} not found`);
+    });
+    const continueButton = await $(helpers.ContinueButton);
+    continueButton.click();
+
+    return new CaseReferenceNumberSearchPage();
   }
 
   async selectOption(optionName: string): Promise<void> {
