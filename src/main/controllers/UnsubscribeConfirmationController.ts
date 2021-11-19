@@ -3,7 +3,9 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 
 export default class UnsubscribeConfirmationController {
-  public post(req: PipRequest, res: Response): void {
+  public async post(req: PipRequest, res: Response): Promise<void> {
+    console.log('req, body', req.body);
+    // send request to page and based on that response render block
     if (req.body['unsubscribe-confirm']) {
       const unsubscribeBody = req.body['unsubscribe-confirm'];
       if (unsubscribeBody === 'yes') {

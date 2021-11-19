@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import {dataManagementApi} from './utils/axiosConfig';
+import { dataManagementApi, subscriptionManagementApi } from './utils/axiosConfig';
 import {CaseSubscription} from '../../models/caseSubscription';
 
 export class SubscriptionRequests {
@@ -32,5 +32,21 @@ export class SubscriptionRequests {
       }
     }
     return null;
+  }
+
+  public async unsubscribe(subscription: object): Promise<object> {
+    try {
+      const response = await subscriptionManagementApi.post(`/unsubscribe`, subscription);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
+      }
+    }
+
   }
 }
