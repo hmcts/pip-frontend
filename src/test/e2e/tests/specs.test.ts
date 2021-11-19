@@ -12,7 +12,8 @@ import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
 import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
 import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
 import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
-import { CaseReferenceNumberSearch } from '../PageObjects/CaseReferenceNumberSearch.page';
+import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
+import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
 import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
 import { MockSessionPage } from '../PageObjects/MockSession.page';
 import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
@@ -33,7 +34,8 @@ let caseNameSearchPage: CaseNameSearchPage;
 let caseNameSearchResultsPage: CaseNameSearchResultsPage;
 let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
 let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
-let caseReferenceNumberSearchPage: CaseReferenceNumberSearch;
+let caseReferenceNumberSearchPage: CaseReferenceNumberSearchPage;
+let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
 let courtNameSearchPage: CourtNameSearchPage;
 
 describe('Finding a court or tribunal listing', () => {
@@ -207,7 +209,7 @@ describe('Finding a court or tribunal listing', () => {
 
     it('should select \'By case reference number\' option and navigate to search case number page', async () => {
       await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
-      caseReferenceNumberSearchPage = await caseReferenceNumberSearchPage.clickContinueForCaseSearch();
+      caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
       expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
     });
 
@@ -219,12 +221,12 @@ describe('Finding a court or tribunal listing', () => {
 
     it('should enter text and click continue', async () => {
       await caseReferenceNumberSearchPage.enterText(validSearchTerm);
-      caseReferenceNumberSearchPage = await caseReferenceNumberSearchPage.clickContinue();
-      expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Search result');
+      caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
+      expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
     });
 
     it(`should display ${expectedNumOfResults} results`, async () => {
-      expect(await caseReferenceNumberSearchPage.getResults()).toBe(1);
+      expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
     });
   });
 
