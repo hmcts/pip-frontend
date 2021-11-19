@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import {PipRequest} from '../models/request/PipRequest';
 import {SubscriptionService} from '../service/subscriptionService';
-import check from './common/utils';
+import check from '../common/utils';
 
 const subscriptionService = new SubscriptionService();
 let searchInput;
