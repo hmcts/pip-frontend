@@ -11,7 +11,7 @@ export default class SubscriptionConfirmationController {
     searchInput = req.query['search-input'];
     const type = req.query['stype'];
     let searchResults;
-    if (searchInput && searchInput.length) {
+    if (searchInput && searchInput.length && type) {
       switch (type) {
         case 'urn':
           searchResults = await subscriptionService.getSubscriptionUrnDetails(searchInput.toString());
