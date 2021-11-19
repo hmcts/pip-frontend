@@ -1,0 +1,12 @@
+{
+  "title": "Courts and tribunals listing - GOV.UK",
+  "header": "Confirm your subscriptions",
+  "removeText": "Remove",
+  "table": {
+    "header1": "Unique reference number (URN)",
+    "header2": "Case reference number or case ID",
+    "header3": "Case name",
+    "header4": "Actions"
+  },
+  "buttonText": "Confirm Subscriptions"
+}

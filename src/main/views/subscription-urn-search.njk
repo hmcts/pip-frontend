@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block beforeContent %}
+  {{ super() }}
 {{ govukBackLink({
   text: text,
   href: '#',
@@ -36,10 +37,10 @@
   {% endif %}
   {% set inputClasses = 'govuk-div govuk-input--error'
     if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
-  {% set formGroupError = 'govuk-form-group--error'
-    if noResultsError or invalidInputError else 'govuk-form-group' %}
+  {% set formGroupError = 'govuk-form-group--error govuk-!-width-one-half'
+    if noResultsError or invalidInputError else 'govuk-form-group govuk-!-width-one-half' %}
   <form action="subscription-urn-search" method="post">
-    <div class="govuk-form-group govuk-!-width-one-half">
+    <div class="govuk-form-group govuk-!-width-one">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="search-input">
           {{ header }}
@@ -75,4 +76,5 @@
       window.history.replaceState( null, null, window.location.href );
     }
   </script>
+  {{ super() }}
 {% endblock %}

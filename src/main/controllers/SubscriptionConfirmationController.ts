@@ -5,17 +5,22 @@ import {SubscriptionService} from '../service/subscriptionService';
 
 const subscriptionService = new SubscriptionService();
 let searchInput;
-export default class SubscriptionUrnSearchResultController {
+export default class SubscriptionConfirmationController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     searchInput = req.query['search-input'];
-
+    const type = req.query['stype'];
+    let searchResults;
     if (searchInput && searchInput.length) {
-      const searchResults = await subscriptionService.getSubscriptionUrnDetails(searchInput.toString());
+      switch (type) {
+        case 'urn':
+          searchResults = await subscriptionService.getSubscriptionUrnDetails(searchInput.toString());
+          break;
+      }
 
       if (searchResults) {
-        res.render('subscription-urn-search-results', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search-results']),
+        res.render('subscription-confirmation', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-confirmation']),
           searchInput : searchInput,
           searchResults: searchResults,
         });
@@ -26,10 +31,11 @@ export default class SubscriptionUrnSearchResultController {
     else {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
+
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
-    res.redirect(`subscription-confirmation?search-input=${searchInput}&stype=urn`);
+    res.redirect('subscription-confirmed');
   }
 
 }

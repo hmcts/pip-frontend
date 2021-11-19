@@ -1,0 +1,37 @@
+{% extends "template.njk" %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "./macros/common-components.njk" import submitButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ govukBackLink({
+    text: text,
+    href: '#',
+    attributes: {
+      onClick: "history.back();event.preventDefault();"
+    }
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-panel govuk-panel--confirmation">
+    <h1 class="govuk-panel__title">
+      {{ header }}
+    </h1>
+    <div class="govuk-panel__body">
+      {{ subheader }}
+    </div>
+  </div>
+  <p class="govuk-body">{{ p1 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% for item in list %}
+      <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+  {{ super() }}
+{% endblock %}

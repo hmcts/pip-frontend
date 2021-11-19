@@ -21,13 +21,14 @@
 {% block content %}
   <h1 class="govuk-heading-l">{{ header }}</h1>
   <h3 class="govuk-heading-s">{{ subheader }}</h3>
-<form action="subscription-urn-search-results" method="post">
-  <table class="govuk-table govuk-!-width-two-thirds">
+<form  method="post">
+  <table class="govuk-table govuk-!-width-one">
     <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">{{ table.header1 }}</th>
       <th scope="col" class="govuk-table__header">{{ table.header2 }}</th>
       <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header3 }}</th>
+      <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header4 }}</th>
     </tr>
     </thead>
     <tbody class="govuk-table__body">
@@ -36,11 +37,12 @@
         <td scope="row" class="govuk-table__cell--no-line">{{ searchResults.urn }}</td>
         <td scope="row" class="govuk-table__cell--no-line">{{ searchResults.caseNumber }}</td>
         <td class="govuk-table__cell--no-line govuk-!-text-align-right">{{ searchResults.caseName }}</td>
+        <td class="govuk-table__cell--no-line govuk-!-text-align-right"><a href="#">{{ removeText }}</a></td>
       </tr>
 
     </tbody>
   </table>
-  {{ submitButton() }}
+  {{ submitButton(buttonText) }}
 </form>
   <script>
     if ( window.history.replaceState ) {
