@@ -29,12 +29,12 @@ describe('Subscription Urn Search Result Controller', () => {
     const responseMock = sinon.mock(response);
 
     const expectedData = {
-      ...i18n['subscription-urn-search-results'],
+      ...i18n['subscription-confirmation'],
       searchInput : '123456789',
       searchResults: subscriptionsData,
     };
 
-    responseMock.expects('render').once().withArgs('subscription-urn-search-results', expectedData);
+    responseMock.expects('render').once().withArgs('subscription-confirmation', expectedData);
 
     return subscriptionSearchUrnResultController.get(request, response).then(() => {
       responseMock.verify();
