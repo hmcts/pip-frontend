@@ -7,7 +7,7 @@
     "instrumentationKey": false
   },
   "secrets": {
-    "pip-shared-kv": {
+    "pip-sharedservice-kv": {
       "SESSION_SECRET": "super-session-secret"
     }
   }

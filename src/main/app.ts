@@ -48,7 +48,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieSession({
   name: 'session',
-  keys: [config.get('secrets.pip-shared-kv.SESSION_SECRET')],
+  keys: [config.get('secrets.pip-sharedservice-kv.SESSION_SECRET')],
   maxAge: 60 * 60 * 1000,
 }));
 app.use(passport.initialize());
