@@ -16,7 +16,7 @@ const errorSummaryTitleClass = 'govuk-error-summary__title';
 const errorSummaryBodyClass = 'govuk-error-summary__body';
 const formErrorClass = 'govuk-form-group--error';
 
-const expectedHeader = 'Enter a unique reference number';
+const expectedHeader = 'What is the unique reference number (URN)?';
 const expectedButtonText = 'Continue';
 
 let htmlRes: Document;
