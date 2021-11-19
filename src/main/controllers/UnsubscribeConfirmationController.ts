@@ -4,7 +4,6 @@ import { cloneDeep } from 'lodash';
 
 export default class UnsubscribeConfirmationController {
   public post(req: PipRequest, res: Response): void {
-    console.log('req', req.body);
     if (req.body['unsubscribe-confirm']) {
       const unsubscribeBody = req.body['unsubscribe-confirm'];
       if (unsubscribeBody === 'yes') {

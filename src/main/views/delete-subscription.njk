@@ -32,3 +32,16 @@
         {{ submitButton() }}
     </form>
 {% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    <script>
+      const button = document.getElementsByClassName('govuk-button')[0];
+      button.addEventListener('click', (e) => {
+        const checkedRadios = document.querySelectorAll('input[type="radio"]:checked');
+        if (!checkedRadios.length) {
+          e.preventDefault();
+        }
+      });
+    </script>
+{% endblock %}
+
