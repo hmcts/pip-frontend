@@ -10,13 +10,14 @@
 
 {% block beforeContent %}
   {{ super() }}
-{{ govukBackLink({
-  text: text,
-  href: '#',
-  attributes: {
-    onClick: "history.back();event.preventDefault();"
-  }
-}) }}
+  {{ govukBackLink({
+    text: text,
+    href: '#',
+    attributes: {
+      onClick: "history.back();event.preventDefault();"
+    }
+  })
+}}
 {% endblock %}
 
 {% block content %}
@@ -39,7 +40,7 @@
     if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
   {% set formGroupError = 'govuk-form-group--error govuk-!-width-one-half'
     if noResultsError or invalidInputError else 'govuk-form-group govuk-!-width-one-half' %}
-  <form action="subscription-urn-search" method="post">
+  <form method="post">
     <div class="govuk-form-group govuk-!-width-one">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="search-input">

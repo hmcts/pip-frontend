@@ -27,11 +27,12 @@
       {{ subheader }}
     </div>
   </div>
-  <p class="govuk-body">{{ p1 }}</p>
+  <p class="govuk-body">{{ p1 }}<a href="{{ link }}">{{ link_text }}</a>{{ p2 }}</p>
   <ul class="govuk-list govuk-list--bullet">
     {% for item in list %}
       <li>{{ item }}</li>
     {% endfor %}
   </ul>
+  <p class="govuk-body"><a href="{{ p3_link }}">{{ p3_link_text }}</a>{{ p3 }}</p>
   {{ super() }}
 {% endblock %}
