@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import {PipRequest} from '../models/request/PipRequest';
 import {SubscriptionService} from '../service/subscriptionService';
-import check from '../common/utils';
+import validateRendering from '../common/utils';
 
 const subscriptionService = new SubscriptionService();
 let searchInput;
@@ -18,7 +18,7 @@ export default class SubscriptionConfirmationController {
           break;
       }
 
-      check(searchResults,'subscription-confirmation',req, res, searchInput);
+      validateRendering(searchResults,'subscription-confirmation',req, res, searchInput);
 
     }
     else {

@@ -1,6 +1,6 @@
 import {cloneDeep} from 'lodash';
 
-export default function check(searchResults,path, req, res, searchInput) {
+export default function validateRendering(searchResults,path, req, res, searchInput) {
   if (searchResults) {
     res.render(path, {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[path]),

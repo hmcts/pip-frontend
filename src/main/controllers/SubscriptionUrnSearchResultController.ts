@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import {PipRequest} from '../models/request/PipRequest';
 import {SubscriptionService} from '../service/subscriptionService';
-import check from '../common/utils';
+import validateRendering from '../common/utils';
 
 const subscriptionService = new SubscriptionService();
 let searchInput;
@@ -13,7 +13,7 @@ export default class SubscriptionUrnSearchResultController {
     if (searchInput && searchInput.length) {
       const searchResults = await subscriptionService.getSubscriptionUrnDetails(searchInput.toString());
 
-      check(searchResults,'subscription-urn-search-results',req, res, searchInput);
+      validateRendering(searchResults,'subscription-urn-search-results',req, res, searchInput);
 
     }
     else {
