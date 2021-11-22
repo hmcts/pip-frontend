@@ -217,7 +217,7 @@ describe('Finding a court or tribunal listing', () => {
       expect(await subscriptionCaseSearchResultsPage.getResults()).toBe(1);
     });
   });
-
+ 
   describe('Media User Login', () => {
     after(async () => {
       await homePage.open('');
