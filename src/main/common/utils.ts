@@ -2,7 +2,7 @@ import {cloneDeep} from 'lodash';
 
 export default function check(searchResults,path, req, res, searchInput) {
   if (searchResults) {
-    res.render('subscription-confirmation', {
+    res.render(path, {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[path]),
       searchInput : searchInput,
       searchResults: searchResults,
