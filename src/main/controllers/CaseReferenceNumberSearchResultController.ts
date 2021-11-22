@@ -19,7 +19,7 @@ export default class CaseReferenceNumberSearchResultController {
       });
     } else {
       res.render('error', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['error']),
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng).error),
       });
     }
   }
