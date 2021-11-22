@@ -1,12 +1,14 @@
 module.exports = {
   roots: ['<rootDir>/src/test/a11y'],
-  testRegex: "(/src/test/.*|\\.(test|spec))\\.(ts|js)$",
-  testEnvironment: "node",
+  "testRegex": "(/src/test/.*|\\.(test|spec))\\.(ts|js)$",
+   "moduleFileExtensions": [
+    "ts",
+    "js"
+  ],
+  "testEnvironment": "node",
   transform: {
     '^.+\\.ts?$': 'ts-jest',
   },
-  moduleFileExtensions: ['ts', 'js'],
-  setupFiles: ["<rootDir>/jestEnvVars.js"],
-  // pa11y recommended default
-  testTimeout: 30000,
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  setupFiles: ["<rootDir>/jestEnvVars.js"]
 }
