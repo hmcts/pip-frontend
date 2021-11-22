@@ -10,7 +10,7 @@ import express from 'express';
 import {Helmet} from './modules/helmet';
 import * as path from 'path';
 import favicon from 'serve-favicon';
-import {HTTPError} from 'HttpError';
+import { HTTPError } from 'HttpError';
 import {Nunjucks} from './modules/nunjucks';
 import * as propertiesVolume from '@hmcts/properties-volume';
 import {AppInsights} from './modules/appinsights';
