@@ -7,17 +7,19 @@ import path from 'path';
 import {HearingRequests} from '../../../main/resources/requests/hearingRequests';
 import {request as expressRequest} from 'express';
 
-const searchTerm = 'ABC12345';
+const searchTerm = '56-181-2097';
 const numOfResults = '1';
-const resultFound = 'Result successfully found';
+const resultFound = '1 result successfully found';
 const PAGE_URL = `/case-reference-number-search-results?search-input=${searchTerm}`;
 
 const rowClass = 'govuk-table__row';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCaseList.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const allHearingData = JSON.parse(rawData);
+const subscriptionsData = allHearingData[0].hearingList[0];
+
 sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber').returns(subscriptionsData);
 
 describe('Case Reference Search Results Page', () => {
@@ -59,7 +61,7 @@ describe('Case Reference Search Results Page', () => {
     const rows = htmlRes.getElementsByClassName(rowClass);
     const items = rows.item(1).children;
 
-    expect(items[0].innerHTML).contains('ABC12345', 'URN does not exist');
-    expect(items[1].innerHTML.replace('&amp;','&')).contains('John Smith v B&Q PLC', 'Case number does not exist');
+    expect(items[0].innerHTML).contains('56-181-2097', 'Case reference no does not exist');
+    expect(items[1].innerHTML.replace('&amp;','&')).contains('Youtags\'s hearings', 'Case number does not exist');
   });
 });

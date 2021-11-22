@@ -23,8 +23,10 @@ const expectedButtonText = 'Continue';
 let htmlRes: Document;
 
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCaseList.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const allHearingData = JSON.parse(rawData);
+const subscriptionsData = allHearingData[0].hearingList[0];
+
 sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber').returns(subscriptionsData);
 
 describe('Case Reference Search Page', () => {

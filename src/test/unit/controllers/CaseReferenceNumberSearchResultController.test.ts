@@ -7,10 +7,14 @@ import {mockRequest} from '../mocks/mockRequest';
 import {HearingRequests} from '../../../main/resources/requests/hearingRequests';
 
 const subscriptionCaseSearchResultController = new CaseReferenceNumberSearchResultController();
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionCaseList.json'), 'utf-8');
-const subscriptionsCaseData = JSON.parse(rawData);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const allHearingData = JSON.parse(rawData);
+const subscriptionsCaseData = allHearingData[0].hearingList[0];
 const stub = sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber');
-stub.withArgs('ABC12345').returns(subscriptionsCaseData);
+
+const validCaseNo = '56-181-2097';
+
+stub.withArgs(validCaseNo).returns(subscriptionsCaseData);
 
 const response = {
   render: function () {
@@ -19,20 +23,16 @@ const response = {
 } as unknown as Response;
 
 describe('Subscription Search Case Reference Result Controller', () => {
-  let i18n = {};
+  const i18n = {};
   it('should render the search result page', () => {
 
-    i18n = {
-      'case-reference-number-search': {},
-    };
-
     const request = mockRequest(i18n);
-    request.query = { 'search-input': 'ABC12345'};
+    request.query = { 'search-input': validCaseNo};
     const responseMock = sinon.mock(response);
 
     const expectedData = {
       ...i18n['case-reference-number-search-results'],
-      searchInput : 'ABC12345',
+      searchInput : validCaseNo,
       searchResults: subscriptionsCaseData,
     };
 

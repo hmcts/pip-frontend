@@ -19,7 +19,6 @@ export class CaseReferenceNumberSearchPage {
 
     const searchInput = await $(helpers.SearchInput);
     await searchInput.addValue(text);
-    await browser.keys('Escape');
   }
 
   async clickContinue(): Promise<CaseReferenceNumberSearchResultsPage> {
