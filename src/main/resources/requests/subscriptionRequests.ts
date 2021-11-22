@@ -47,6 +47,6 @@ export class SubscriptionRequests {
         console.log(`ERROR: ${error.message}`);
       }
     }
-
+    return null;
   }
 }
