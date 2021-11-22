@@ -36,7 +36,7 @@ export class SubscriptionRequests {
 
   public async unsubscribe(subscription: object): Promise<object> {
     try {
-      const response = await subscriptionManagementApi.post(`/unsubscribe`, subscription);
+      const response = await subscriptionManagementApi.post('/unsubscribe', subscription);
       return response.data;
     } catch (error) {
       if (error.response) {
