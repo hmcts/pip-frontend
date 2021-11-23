@@ -18,7 +18,7 @@ jobs:
         prefix_case_sensitive: true # title prefix are case insensitive:
     - name: running linting
       uses: actions/checkout@v2
-      run: |
+    - run: |
         cd ..
         yarn lint
   ciChecks:
@@ -26,6 +26,6 @@ jobs:
     steps:
       - name: run ci checks
         uses: actions/checkout@v2
-        run: |
+      - run: |
           cd ..
           yarn cichecks
