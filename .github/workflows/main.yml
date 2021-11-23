@@ -19,6 +19,7 @@ jobs:
     - name: running linting
       uses: actions/checkout@v2
     - run: |
+        ls
         cd ..
         yarn lint
   ciChecks:
