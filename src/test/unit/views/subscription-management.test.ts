@@ -23,6 +23,7 @@ const expectedRowDateAdded = moment.unix(1632351600).format('D MMM YYYY');
 const expectedRowCourtName = 'Mutsu Court';
 const expectedCaseRowsCount = 3;
 const expectedCourtRowsCount = 6;
+const expectedUnsubscribeLink = 'delete-subscription?subscription=Collins LLC';
 
 let htmlRes: Document;
 
@@ -111,11 +112,11 @@ describe('Subscription Management Page', () => {
     expect(courtHeaders[2].innerHTML).contains(actionsColumn, 'Actions header is not present');
   });
 
-  it('requests cell should contain a link', () => {
+  it('requests cell should contain a link to delete subscription page', () => {
     const actionsCell = htmlRes.getElementsByClassName('govuk-table__body')[0]
       .getElementsByClassName('govuk-table__cell')[3];
     expect(actionsCell.innerHTML).contains('Unsubscribe');
-    expect(actionsCell.querySelector('a').getAttribute('href')).equal('#');
+    expect(actionsCell.querySelector('a').getAttribute('href')).equal(expectedUnsubscribeLink);
   });
 
   it('case table should have correct number of rows', () => {
