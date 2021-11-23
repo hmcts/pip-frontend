@@ -70,4 +70,14 @@ module.exports = {
   UsernameInput: '#username',
   UserIdInput: '#id',
   UserType: '#userType',
+
+  // SubscriptionManagement selectors
+  SubscriptionManagementTableFirstResultUrl: 'tbody > tr.govuk-table__row > .govuk-table__cell--numeric > a',
+
+  // DeleteSubscription selectors
+  yesRadioButton: '#unsubscribe-confirm',
+  noRadioButton: '#unsubscribe-confirm-2',
+
+  // UnsubscribeConfirmation selectors
+  panelTitle: '.govuk-panel__title',
 };

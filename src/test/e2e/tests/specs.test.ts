@@ -15,6 +15,8 @@ import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.
 import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
 import { MockSessionPage } from '../PageObjects/MockSession.page';
 import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
+import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
+import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage;
@@ -33,6 +35,8 @@ let caseNameSearchResultsPage: CaseNameSearchResultsPage;
 let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
 let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
 let courtNameSearchPage: CourtNameSearchPage;
+let deleteSubscriptionPage: DeleteSubscriptionPage;
+let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 
 describe('Finding a court or tribunal listing', () => {
   it('should open main page with "See publications and information from a court or tribunal title', async () => {
@@ -308,6 +312,23 @@ describe('Finding a court or tribunal listing', () => {
 
       it(`should display ${allCourts} results`, async() => {
         expect(await courtNameSearchPage.getResults()).toBe(allCourts);
+      });
+    });
+
+    describe('Following unsubscribe path', () => {
+      before(async () => {
+        await subscriptionManagementPage.open('subscription-management');
+      });
+
+      it('should click on the first unsubscribe record', async () => {
+        deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
+        expect(await deleteSubscriptionPage.getPageTitle()).toBe('Are you sure you want to remove this subscription?');
+      });
+
+      it('should click on yes radio button and click continue', async () => {
+        await deleteSubscriptionPage.selectRadioButton('yesRadioButton');
+        unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
+        expect(await unsubscribeConfirmationPage.getPanelTitle()).toBe('Subscription removed');
       });
     });
   });
