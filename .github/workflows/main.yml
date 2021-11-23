@@ -1,4 +1,4 @@
-name: Check PR title
+name: Check PR title and project linting
 on:
   pull_request:
     types:
