@@ -6,23 +6,24 @@ module.exports = {
   SignInButton: '#signInButton',
   SignOutButton: '#signOutButton',
   Results: 'tbody > tr.govuk-table__row',
+
   // Home page selectors
   StartNowButton: '.govuk-button--start',
   MainHeader: 'h1.govuk-heading-xl',
+
   // Search options page selectors
   SearchOptionsTitle: 'h1.govuk-fieldset__heading',
   RadioButton: 'div.govuk-radios__item',
   SearchRadioButton: '#find-choice',
   FindRadioButton: '#find-choice-2',
+
   // Search page selectors
   SearchTitle: 'h1.govuk-label-wrapper',
-
   SearchResultTitle: 'h1.govuk-heading-l',
-
   SearchInput: '#search-input',
+
   // Search results page selectors
   LinkResult: 'tbody > tr.govuk-table__row > th > a',
-  // Hearing List selectors
 
   //Alphabetical Search selectors
   AlphabeticalHeading: '#page-heading',
@@ -50,9 +51,6 @@ module.exports = {
 
   // LiveCaseAlphabetSearch selectors
   LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',
-
-  // Add Subscription selector
-  UrnSearchRadioButton: '#subscription-choice-2',
   LiveHearingsTableFirstValidResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
 
   // CaseNameSearch selectors
