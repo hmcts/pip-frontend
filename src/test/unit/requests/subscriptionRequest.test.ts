@@ -2,7 +2,7 @@ import { SubscriptionRequests } from '../../../main/resources/requests/subscript
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {dataManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
+import { dataManagementApi, subscriptionManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
 
 const userIdWithSubscriptions = 1;
 const userIdWithoutSubscriptions = 2;
@@ -32,9 +32,17 @@ const errorRequest = {
   request: 'test error',
 };
 
+const unsubscribeValidData = {
+  subscription: {name: 'real subscription'},
+  userId: '1',
+};
+
+const unsubscribeInvalidData = {};
+
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
 const stub = sinon.stub(dataManagementApi, 'get');
+const postStub = sinon.stub(subscriptionManagementApi, 'post');
 
 describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, () => {
   const userSubscriptions = subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
@@ -99,5 +107,37 @@ describe('non existing subscriptions getSubscriptionByUrn error response', () =>
   it('should return null list of subscriptions', async () => {
     const userSubscriptions = await subscriptionActions.getSubscriptionByUrn('12345');
     expect(userSubscriptions).toBe(null);
+  });
+});
+
+describe('unsubscribe with valid post data', () => {
+  postStub.withArgs('/unsubscribe', unsubscribeValidData).resolves({data: 'unsubscribed successfully'});
+  it('should return true if provided data is valid', async () => {
+    const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeValidData);
+    expect(unsubscribe).toBe('unsubscribed successfully');
+  });
+});
+
+describe('unsubscribe error response', () => {
+  postStub.withArgs('/unsubscribe', unsubscribeInvalidData).resolves(Promise.reject(errorResponse));
+  it('should return null', async () => {
+    const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeInvalidData);
+    expect(unsubscribe).toBe(null);
+  });
+});
+
+describe('unsubscribe error request', () => {
+  postStub.withArgs('/unsubscribe', unsubscribeInvalidData).resolves(Promise.reject(errorRequest));
+  it('should return null', async () => {
+    const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeInvalidData);
+    expect(unsubscribe).toBe(null);
+  });
+});
+
+describe('unsubscribe error', () => {
+  postStub.withArgs('/unsubscribe', unsubscribeInvalidData).resolves(Promise.reject({error: 'error'}));
+  it('should return null', async () => {
+    const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeInvalidData);
+    expect(unsubscribe).toBe(null);
   });
 });
