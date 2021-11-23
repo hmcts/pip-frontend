@@ -17,7 +17,7 @@ jobs:
         allowed_prefixes: 'PUB-,[Snyk]' # title should start with the given prefix
         prefix_case_sensitive: true # title prefix are case insensitive:
     - name: running linting
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
       run: |
         cd ..
         yarn lint
@@ -25,6 +25,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        run: |
+      - run: |
           cd ..
           yarn cichecks
