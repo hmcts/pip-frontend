@@ -180,56 +180,6 @@ describe('Finding a court or tribunal listing', () => {
     });
   });
 
-  describe('Following the subscription \'search\' by case reference path', () => {
-    const validSearchTerm = '487065515';
-    const invalidSearchTerm = 'dddd';
-    const expectedNumOfResults = 1;
-
-    it('should open Session Mock Page to authenticate user', async () => {
-      await mockSessionPage.open('/mock-session');
-      expect(await mockSessionPage.getPageTitle()).toBe('Mock User Session Data');
-    });
-
-    it('should fill session form open subscription management page', async () => {
-      await mockSessionPage.enterText('Joe Bloggs', 'UsernameInput');
-      await mockSessionPage.enterText('1', 'UserIdInput');
-      await mockSessionPage.selectOption('UserType');
-      subscriptionManagementPage = await mockSessionPage.clickContinue();
-      expect(await subscriptionManagementPage.getPageTitle()).toBe('Your subscriptions');
-    });
-
-    it('should open the subscription add page', async () => {
-      await subscriptionAddPage.open('subscription-add');
-      expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
-    });
-
-    it('should see 4 radio buttons', async () => {
-      expect(await subscriptionAddPage.radioButtons).toBe(4);
-    });
-
-    it('should select \'By case reference number\' option and navigate to search case number page', async () => {
-      await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
-      caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
-      expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
-    });
-
-    it('should enter invalid text and click continue', async () => {
-      await caseReferenceNumberSearchPage.enterText(invalidSearchTerm);
-      await caseReferenceNumberSearchPage.clickContinue();
-      expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
-    });
-
-    it('should enter text and click continue', async () => {
-      await caseReferenceNumberSearchPage.enterText(validSearchTerm);
-      caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
-      expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
-    });
-
-    it(`should display ${expectedNumOfResults} results`, async () => {
-      expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
-    });
-  });
- 
   describe('Media User Login', () => {
     after(async () => {
       await homePage.open('');
@@ -313,6 +263,38 @@ describe('Finding a court or tribunal listing', () => {
 
       it(`should display ${expectedNumOfResults} results`, async() => {
         expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
+      });
+    });
+
+    describe('Following the subscription \'search\' by case reference path', () => {
+      const validSearchTerm = '487065515';
+      const invalidSearchTerm = 'dddd';
+      const expectedNumOfResults = 1;
+
+      before(async () => {
+        await subscriptionAddPage.open('subscription-add');
+      });
+
+      it('should select \'By case reference number\' option and navigate to search case number page', async () => {
+        await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
+        caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
+        expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
+      });
+
+      it('should enter invalid text and click continue', async () => {
+        await caseReferenceNumberSearchPage.enterText(invalidSearchTerm);
+        await caseReferenceNumberSearchPage.clickContinue();
+        expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
+      });
+
+      it('should enter text and click continue', async () => {
+        await caseReferenceNumberSearchPage.enterText(validSearchTerm);
+        caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
+        expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
+      });
+
+      it(`should display ${expectedNumOfResults} results`, async () => {
+        expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
       });
     });
 
