@@ -105,9 +105,17 @@ describe('non existing subscriptions getSubscriptionByUrn error request', () => 
 });
 
 describe('non existing subscriptions getSubscriptionByUrn error response', () => {
-  stub.withArgs('/hearings/urn/12345').resolves(Promise.reject(errorResponse));
+  stub.withArgs('/hearings/urn/123456').resolves(Promise.reject(errorResponse));
   it('should return null list of subscriptions', async () => {
-    const userSubscriptions = await subscriptionActions.getSubscriptionByUrn('12345');
+    const userSubscriptions = await subscriptionActions.getSubscriptionByUrn('123456');
+    expect(userSubscriptions).toBe(null);
+  });
+});
+
+describe('non existing subscriptions getSubscriptionByUrn error response', () => {
+  stub.withArgs('/hearings/urn/1234567').resolves(Promise.reject({error: {message: 'failure'}}));
+  it('should return null list of subscriptions', async () => {
+    const userSubscriptions = await subscriptionActions.getSubscriptionByUrn('1234567');
     expect(userSubscriptions).toBe(null);
   });
 });
