@@ -19,6 +19,8 @@ jobs:
     - name: running linting
       uses: actions/checkout@v2
     - run: |
+        yarn
+        yarn run build
         yarn run lint
   ciChecks:
     runs-on: ubuntu-latest
