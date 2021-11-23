@@ -22,10 +22,3 @@ jobs:
         yarn
         yarn run build
         yarn run lint
-  ciChecks:
-    runs-on: ubuntu-latest
-    steps:
-      - name: run ci checks
-        uses: actions/checkout@v2
-      - run: |
-          yarn run cichecks
