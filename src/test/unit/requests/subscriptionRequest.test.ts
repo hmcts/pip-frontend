@@ -38,6 +38,8 @@ const unsubscribeValidData = {
 };
 
 const unsubscribeInvalidData = {};
+const errorBodyData = {baz: 'qux'};
+const errorRequestBodyData = {foo: 'bar'};
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
@@ -127,17 +129,17 @@ describe('unsubscribe error response', () => {
 });
 
 describe('unsubscribe error request', () => {
-  postStub.withArgs('/unsubscribe', unsubscribeInvalidData).resolves(Promise.reject(errorRequest));
+  postStub.withArgs('/unsubscribe', errorRequestBodyData).resolves(Promise.reject(errorRequest));
   it('should return null', async () => {
-    const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeInvalidData);
+    const unsubscribe = await subscriptionActions.unsubscribe(errorRequestBodyData);
     expect(unsubscribe).toBe(null);
   });
 });
 
 describe('unsubscribe error', () => {
-  postStub.withArgs('/unsubscribe', unsubscribeInvalidData).resolves(Promise.reject({error: 'error'}));
+  postStub.withArgs('/unsubscribe', errorBodyData).resolves(Promise.reject({error: 'error'}));
   it('should return null', async () => {
-    const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeInvalidData);
+    const unsubscribe = await subscriptionActions.unsubscribe(errorBodyData);
     expect(unsubscribe).toBe(null);
   });
 });
