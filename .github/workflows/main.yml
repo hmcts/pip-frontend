@@ -19,13 +19,11 @@ jobs:
     - name: running linting
       uses: actions/checkout@v2
     - run: |
-        ls
-        yarn lint
+        yarn run lint
   ciChecks:
     runs-on: ubuntu-latest
     steps:
       - name: run ci checks
         uses: actions/checkout@v2
       - run: |
-          yarn run
-          yarn cichecks
+          yarn run cichecks
