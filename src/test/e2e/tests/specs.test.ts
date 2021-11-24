@@ -214,6 +214,9 @@ describe('Finding a court or tribunal listing', () => {
     });
 
     describe('Following case name search path', () => {
+      const validCaseName = 'jadon';
+      const casesCount = 1;
+
       it('should open case name search path', async () => {
         await subscriptionAddPage.selectOption('SubscriptionAddByCaseName');
         caseNameSearchPage = await subscriptionAddPage.clickContinueForCaseName();
@@ -227,18 +230,18 @@ describe('Finding a court or tribunal listing', () => {
       });
 
       it('should search for a valid case name and navigate to results page', async () => {
-        await caseNameSearchPage.enterText('meed');
+        await caseNameSearchPage.enterText(validCaseName);
         caseNameSearchResultsPage = await caseNameSearchPage.clickContinue();
         expect(await caseNameSearchResultsPage.getPageTitle()).toBe('Search result');
       });
 
-      it('should display 5 results', async () => {
-        expect(await caseNameSearchResultsPage.getResults()).toBe(5);
+      it(`should display ${casesCount} results`, async () => {
+        expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
       });
     });
 
     describe('Following urn search path', () => {
-      const validSearchTerm = '12345678';
+      const validSearchTerm = 'N363N6R4OG';
       const invalidSearchTerm = '123456';
       const expectedNumOfResults = 1;
 
@@ -270,8 +273,8 @@ describe('Finding a court or tribunal listing', () => {
     });
 
     describe('Following court or tribunal search path', () => {
-      const allCourts = 581;
-      const crownCourts = 297;
+      const allCourts = 304;
+      const crownCourts = 48;
 
       before(async () => {
         await subscriptionAddPage.open('subscription-add');
