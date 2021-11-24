@@ -187,18 +187,12 @@ describe('Finding a court or tribunal listing', () => {
       expect(await mockSessionPage.getPageTitle()).toBe('Mock User Session Data');
     });
 
-    it('should fill session form open subscription management page', async () => {
+    it('should fill session form and open subscription management page', async () => {
       await mockSessionPage.enterText('Joe Bloggs', 'UsernameInput');
       await mockSessionPage.enterText('1', 'UserIdInput');
       await mockSessionPage.selectOption('UserType');
       subscriptionManagementPage = await mockSessionPage.clickContinue();
       expect(await subscriptionManagementPage.getPageTitle()).toBe('Your subscriptions');
-    });
-
-    it('should open the Subscription Manage Page when a user clicks "Sign in" header', async () => {
-      await homePage.open('');
-      subscriptionManagementPage = await homePage.clickSignInButton();
-      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
     });
 
     it('should navigate to add subscription page on button click', async () => {
