@@ -50,7 +50,7 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Following the \'live case status updates\' path', () => {
-    const validCourtName = 'Abergavenny Magistrates\' Court';
+    const validCourtName = 'Birmingham Crown Court';
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
@@ -74,13 +74,13 @@ describe('Finding a court or tribunal listing', () => {
       expect(await liveCaseCourtSearchControllerPage.checkIfLetterIsVisible(startLetter)).toBeTruthy();
     });
 
-    it('selecting first result should take you to to the hearings list page', async () => {
+    it('selecting first result should take you to to the live hearings list page', async () => {
       liveCaseStatusPage = await liveCaseCourtSearchControllerPage.selectFirstValidListResult();
       expect(await liveCaseStatusPage.getPageTitle()).toEqual('Live hearing updates');
     });
 
     it(`should have '${validCourtName}' as a sub title`, async () => {
-      expect(await liveCaseStatusPage.getCourtTitle()).toEqual('Mutsu Court');
+      expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
     });
 
     it('should display 4 results in the table', async () => {
@@ -138,13 +138,25 @@ describe('Finding a court or tribunal listing', () => {
       expect(await alphabeticalSearchPage.checkIfLetterIsVisible(startLetter)).toBeTruthy();
     });
 
-    it('selecting first result should take you to to the hearings list page', async () => {
-      hearingListPage = await alphabeticalSearchPage.selectSecondListResult();
-      expect(await hearingListPage.getPageTitle()).toEqual('Abergavenny Magistrates\' Court hearing list');
+    it('should select Magistrates\' Court and North West filters', async () => {
+      await alphabeticalSearchPage.selectFilter('MagistratesFilter');
+      await alphabeticalSearchPage.selectFilter('NorthWestFilter');
+      await alphabeticalSearchPage.clickApplyFiltersButton();
+      expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
     });
 
-    it('should display 13 results', async() => {
-      expect(await hearingListPage.getResults()).toBe(13);
+    it('should have Magistrates\' Court and North West filters selected', async () => {
+      expect(await alphabeticalSearchPage.checkIfSelected('MagistratesFilter')).toBeTruthy();
+      expect(await alphabeticalSearchPage.checkIfSelected('NorthWestFilter')).toBeTruthy();
+    });
+
+    it('selecting first result should take you to to the hearings list page', async () => {
+      hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
+      expect(await hearingListPage.getPageTitle()).toEqual('Blackburn Magistrates\' Court hearing list');
+    });
+
+    it('should display 15 results', async() => {
+      expect(await hearingListPage.getResults()).toBe(15);
     });
   });
 

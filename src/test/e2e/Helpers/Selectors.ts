@@ -33,7 +33,9 @@ module.exports = {
   RowSelector: (letter): string => {
     return '#' + letter;
   },
-  SecondItemResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
+  FirstItemResult: 'tbody > tr.govuk-table__row > td > a',
+  MagistratesFilter: '#Jurisdiction-4',
+  NorthWestFilter: '#Region-7',
 
   // ViewOption page selectors
   ViewOptionsTitle: 'h1.govuk-fieldset__heading',
