@@ -16,12 +16,12 @@
 {% block content %}
   {% if noResultsError or invalidInputError %}
     <div class="govuk-grid-row">
-      <div class="no_padding govuk-grid-column-three-quarters">
+      <div class="no_padding govuk-grid-column-two-quarters">
         {{ govukErrorSummary({
           titleText: error.title,
           errorList: [
             {
-              text: error.header,
+              text: error.notfound,
               href: "#search-input"
             }
           ]
@@ -29,6 +29,8 @@
       </div>
     </div>
   {% endif %}
+  {%  set hintText = ''
+    if noResultsError or invalidInputError else hint %}
   {% set inputClasses = 'govuk-div govuk-input--error'
     if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
   {% set formGroupError = 'govuk-form-group--error'
@@ -42,11 +44,11 @@
       </h1>
       <div class="{{ formGroupError }}">
         {% if noResultsError or invalidInputError %}
-          <span class="govuk-error-message">{{ header }}</span>
+          <span class="govuk-error-message">{{ error.header }}</span>
         {% endif %}
         {{ govukInput({
           label: {
-            "text":  hint
+            "text":  hintText
           },
           id: "search-input",
           name: "search-input",
@@ -59,7 +61,7 @@
     {% if noResultsError %}
       <div class="govuk-grid-row">
         <div class="no_padding govuk-grid-column-full">
-          <h2 class="govuk-heading-s">{{ error.header }}</h2>
+          <h2 class="govuk-heading-s">{{ error.title }}</h2>
           <p class="govuk-body">{{ error.notfound }}</p>
         </div>
       </div>
