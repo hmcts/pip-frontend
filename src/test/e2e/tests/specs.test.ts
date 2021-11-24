@@ -109,6 +109,8 @@ describe('Finding a court or tribunal listing', () => {
   });
 
   describe('Following the \'Court or Tribunal hearing Publications\' option and \'no name\' path', () => {
+    const expectedHearings = 15;
+
     after(async () => {
       await homePage.open('');
       viewOptionPage = await homePage.clickStartNowButton();
@@ -155,15 +157,14 @@ describe('Finding a court or tribunal listing', () => {
       expect(await hearingListPage.getPageTitle()).toEqual('Blackburn Magistrates\' Court hearing list');
     });
 
-    it('should display 15 results', async() => {
-      expect(await hearingListPage.getResults()).toBe(15);
+    it(`should display ${expectedHearings} results`, async() => {
+      expect(await hearingListPage.getResults()).toBe(expectedHearings);
     });
   });
 
   describe('Following the \'search\' path', () => {
-    const searchTerm = 'Abergavenny Magistrates\' Court';
-    const expectedNumOfHearings = 13;
-
+    const searchTerm = 'Blackpool Magistrates\' Court';
+    const expectedNumOfHearings = 9;
 
     it('should select \'tribunal hearing list\' option and navigate to search option page', async () => {
       await viewOptionPage.selectSearchRadio();
@@ -180,7 +181,7 @@ describe('Finding a court or tribunal listing', () => {
     it('should enter text and click continue', async () => {
       await searchPage.enterText(searchTerm);
       hearingListPage = await searchPage.clickContinue();
-      expect(await hearingListPage.getPageTitle()).toEqual('Abergavenny Magistrates\' Court hearing list');
+      expect(await hearingListPage.getPageTitle()).toEqual('Blackpool Magistrates\' Court hearing list');
     });
 
     it(`should display ${expectedNumOfHearings} results`, async () => {
