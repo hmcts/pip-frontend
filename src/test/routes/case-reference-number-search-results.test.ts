@@ -4,9 +4,9 @@ import request from 'supertest';
 import { app } from '../../main/app';
 
 
-describe('subscription case reference Search result', () => {
+describe('Case reference number search result', () => {
   describe('on GET', () => {
-    test('should return subscription case reference Search result page', async () => {
+    test('should return Case reference number search result', async () => {
       await request(app)
         .get('/case-reference-number-search-results')
         .expect((res) => expect(res.status).to.equal(200));

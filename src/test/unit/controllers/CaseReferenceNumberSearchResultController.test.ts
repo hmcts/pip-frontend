@@ -22,7 +22,7 @@ const response = {
   },
 } as unknown as Response;
 
-describe('Subscription Search Case Reference Result Controller', () => {
+describe('Case Reference Number Search Result Controller', () => {
   const i18n = {};
   it('should render the search result page', () => {
 
