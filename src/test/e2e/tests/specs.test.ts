@@ -12,8 +12,8 @@ import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
 import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
 import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
 import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
-import { SubscriptionCaseSearchResultsPage } from '../PageObjects/SubscriptionCaseSearchResults.page';
-import { SubscriptionCaseSearchPage } from '../PageObjects/SubscriptionCaseSearch.page';
+import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
+import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
 import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
 import { MockSessionPage } from '../PageObjects/MockSession.page';
 import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
@@ -35,8 +35,8 @@ let caseNameSearchResultsPage: CaseNameSearchResultsPage;
 let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
 let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
 let courtNameSearchPage: CourtNameSearchPage;
-let subscriptionCaseSearchResultsPage: SubscriptionCaseSearchResultsPage;
-let subscriptionCaseSearchPage: SubscriptionCaseSearchPage;
+let caseReferenceNumberSearchPage: CaseReferenceNumberSearchPage;
+let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
 
 
 describe('Finding a court or tribunal listing', () => {
@@ -181,43 +181,6 @@ describe('Finding a court or tribunal listing', () => {
     });
   });
 
-  describe('Following the subscription \'search\' by case reference path', () => {
-    const validSearchTerm = '487065515';
-    const invalidSearchTerm = 'dddd';
-    const expectedNumOfResults = 1;
-
-    it('should open the subscription add page', async () => {
-      await subscriptionAddPage.open('subscription-add');
-      expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
-    });
-
-    it('should see 4 radio buttons', async () => {
-      expect(await subscriptionAddPage.radioButtons).toBe(4);
-    });
-
-    it('should select \'By case reference number\' option and navigate to search urn page', async () => {
-      await subscriptionAddPage.selectCaseSearchRadio();
-      subscriptionCaseSearchPage = await subscriptionAddPage.clickContinueForCaseSearch();
-      expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a case reference number');
-    });
-
-    it('should enter invalid text and click continue', async () => {
-      await subscriptionCaseSearchPage.enterText(invalidSearchTerm);
-      await subscriptionCaseSearchPage.clickContinue();
-      expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a case reference number');
-    });
-
-    it('should enter text and click continue', async () => {
-      await subscriptionCaseSearchPage.enterText(validSearchTerm);
-      subscriptionCaseSearchResultsPage = await subscriptionCaseSearchPage.clickContinue();
-      expect(await subscriptionCaseSearchResultsPage.getPageTitle()).toEqual('Search result');
-    });
-
-    it(`should display ${expectedNumOfResults} results`, async () => {
-      expect(await subscriptionCaseSearchResultsPage.getResults()).toBe(1);
-    });
-  });
- 
   describe('Media User Login', () => {
     after(async () => {
       await homePage.open('');
@@ -359,36 +322,30 @@ describe('Finding a court or tribunal listing', () => {
     const invalidSearchTerm = 'dddd';
     const expectedNumOfResults = 1;
 
-    it('should open the subscription add page', async () => {
+    before(async () => {
       await subscriptionAddPage.open('subscription-add');
-      expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
     });
 
-    it('should see 4 radio buttons', async () => {
-      expect(await subscriptionAddPage.radioButtons).toBe(4);
-    });
-
-    it('should select \'By case reference number\' option and navigate to search urn page', async () => {
+    it('should select \'By case reference number\' option and navigate to search case number page', async () => {
       await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
-      subscriptionCaseSearchPage = await subscriptionAddPage.clickContinueForCaseSearch();
-      expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a case reference number');
+      caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
+      expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
     });
 
     it('should enter invalid text and click continue', async () => {
-      await subscriptionCaseSearchPage.enterText(invalidSearchTerm);
-      await subscriptionCaseSearchPage.clickContinue();
-      expect(await subscriptionCaseSearchPage.getPageTitle()).toEqual('Enter a case reference number');
+      await caseReferenceNumberSearchPage.enterText(invalidSearchTerm);
+      await caseReferenceNumberSearchPage.clickContinue();
+      expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
     });
 
-    it('should enter valid text and click continue', async () => {
-      await subscriptionCaseSearchPage.enterText(validSearchTerm);
-      subscriptionCaseSearchResultsPage =  await subscriptionCaseSearchPage.clickContinue();
-      expect(await subscriptionCaseSearchResultsPage.getPageTitle()).toEqual('Search result');
+    it('should enter text and click continue', async () => {
+      await caseReferenceNumberSearchPage.enterText(validSearchTerm);
+      caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
+      expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
     });
 
-    it(`should display ${expectedNumOfResults} results`, async() => {
-      expect(await subscriptionCaseSearchResultsPage.getResults()).toBe(1);
+    it(`should display ${expectedNumOfResults} results`, async () => {
+      expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
     });
-
   });
 });
