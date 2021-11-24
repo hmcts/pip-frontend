@@ -1,14 +1,8 @@
+import { CommonPage } from './Common.page';
+
 const helpers = require('../Helpers/Selectors');
 
-export class CaseNameSearchResultsPage {
-  async getPageTitle(): Promise<string> {
-    $(helpers.CommonPageTitle).catch(() => {
-      console.log(`${helpers.CommonPageTitle} not found`);
-    });
-
-    return $(helpers.CommonPageTitle).getText();
-  }
-
+export class CaseNameSearchResultsPage extends CommonPage {
   async getResults(): Promise<number> {
     $(helpers.Results).catch(() => {
       console.log(`${helpers.Results} not found`);
