@@ -6,7 +6,7 @@ import path from 'path';
 import {mockRequest} from '../mocks/mockRequest';
 import {HearingRequests} from '../../../main/resources/requests/hearingRequests';
 
-const subscriptionCaseSearchResultController = new CaseReferenceNumberSearchResultController();
+const caseReferenceNumberSearchResultController = new CaseReferenceNumberSearchResultController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const allHearingData = JSON.parse(rawData);
 const subscriptionsCaseData = allHearingData[0].hearingList[0];
@@ -38,7 +38,7 @@ describe('Subscription Search Case Reference Result Controller', () => {
 
     responseMock.expects('render').once().withArgs('case-reference-number-search-results', expectedData);
 
-    return subscriptionCaseSearchResultController.get(request, response).then(() => {
+    return caseReferenceNumberSearchResultController.get(request, response).then(() => {
       responseMock.verify();
     });
   });
@@ -66,7 +66,7 @@ describe('Subscription Search Case Reference Result Controller', () => {
 
     responseMock.expects('render').once().withArgs('error', expectedData);
 
-    return subscriptionCaseSearchResultController.get(request, response).then(() => {
+    return caseReferenceNumberSearchResultController.get(request, response).then(() => {
       responseMock.verify();
     });
   });

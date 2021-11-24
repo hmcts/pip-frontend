@@ -6,7 +6,7 @@ import path from 'path';
 import {mockRequest} from '../mocks/mockRequest';
 import {HearingRequests} from '../../../main/resources/requests/hearingRequests';
 
-const subscriptionCaseSearchController = new CaseReferenceNumberSearchController();
+const caseReferenceNumberSearchController = new CaseReferenceNumberSearchController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const allHearingData = JSON.parse(rawData);
 const subscriptionCaseResult = allHearingData[0].hearingList[0];
@@ -33,7 +33,7 @@ describe('Subscription Case Search Controller', () => {
 
     responseMock.expects('render').once().withArgs('case-reference-number-search', expectedData);
 
-    subscriptionCaseSearchController.get(request, response);
+    caseReferenceNumberSearchController.get(request, response);
 
     responseMock.verify();
   });
@@ -50,7 +50,7 @@ describe('Subscription Case Search Controller', () => {
 
     responseMock.expects('render').once().withArgs('case-reference-number-search');
 
-    return subscriptionCaseSearchController.post(request, response).then(() => {
+    return caseReferenceNumberSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
   });
@@ -65,7 +65,7 @@ describe('Subscription Case Search Controller', () => {
 
     responseMock.expects('render').once().withArgs('case-reference-number-search');
 
-    return subscriptionCaseSearchController.post(request, response).then(() => {
+    return caseReferenceNumberSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
   });
@@ -82,7 +82,7 @@ describe('Subscription Case Search Controller', () => {
 
     responseMock.expects('render').once().withArgs('case-reference-number-search');
 
-    return subscriptionCaseSearchController.post(request, response).then(() => {
+    return caseReferenceNumberSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
   });
@@ -98,7 +98,7 @@ describe('Subscription Case Search Controller', () => {
 
     responseMock.expects('render').once().withArgs('case-reference-number-search');
 
-    return subscriptionCaseSearchController.post(request, response).then(() => {
+    return caseReferenceNumberSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
   });
@@ -119,7 +119,7 @@ describe('Subscription Case Search Controller', () => {
 
     responseMock.expects('redirect').once().withArgs('case-reference-number-search-results?search-input=56-181-2097');
 
-    return subscriptionCaseSearchController.post(request, response).then(() => {
+    return caseReferenceNumberSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
   });
