@@ -67,7 +67,7 @@ describe('Case name search controller', () => {
       ...i18n['case-name-search'],
       noResultsError: true,
     };
-
+ 
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('case-name-search',  expectedData);
