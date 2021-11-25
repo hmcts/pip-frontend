@@ -55,7 +55,7 @@ describe('Live Status page', () => {
   it('should contain a row with the correct values', () => {
     const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
     const items = tableRows.item(1).children;
-    const statusColumnValue = 'Committal for Sentence - <br><a class="govuk-link" href="case-event-glossary?courtId=1#2">Appeal Interpreter Sworn</a> - 12:25';
+    const statusColumnValue = 'Committal for Sentence - <br><a class="govuk-link" id="status-1" href="case-event-glossary?courtId=1#2">Appeal Interpreter Sworn</a> - 12:25';
 
     expect(items.item(0).innerHTML).contains('1', 'Court Number not found / correct');
     expect(items.item(1).innerHTML).contains('T20217099', 'Case number not found / correct');
