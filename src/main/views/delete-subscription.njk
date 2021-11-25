@@ -5,7 +5,7 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-    {{ pageName }}
+    {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block content %}
-    <h2 class="govuk-heading-l">{{ title }}</h2>
+    <h2 class="govuk-heading-l">{{ header }}</h2>
     <form action="unsubscribe-confirmation" method="post">
         {{ govukInput({
             id: "subscription",
