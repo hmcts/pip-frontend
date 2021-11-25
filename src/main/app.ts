@@ -10,7 +10,7 @@ import express from 'express';
 import {Helmet} from './modules/helmet';
 import * as path from 'path';
 import favicon from 'serve-favicon';
-import {HTTPError} from 'HttpError';
+import { HTTPError } from 'HttpError';
 import {Nunjucks} from './modules/nunjucks';
 import * as propertiesVolume from '@hmcts/properties-volume';
 import {AppInsights} from './modules/appinsights';
@@ -48,7 +48,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieSession({
   name: 'session',
-  keys: [config.get('secrets.pip-shared-kv.SESSION_SECRET')],
+  keys: [config.get('secrets.pip-sharedservice-kv.SESSION_SECRET')],
   maxAge: 60 * 60 * 1000,
 }));
 app.use(passport.initialize());
