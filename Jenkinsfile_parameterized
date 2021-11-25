@@ -13,5 +13,10 @@ withPipeline(type, product, component) {
   after('build') {
     yarnBuilder.yarn('build')
   }
+
+  after('deploy:dev') {
+      yarnBuilder.yarn('test:e2e')
+    }
+
     enableSlackNotifications('#pip-build-notices')
 }
