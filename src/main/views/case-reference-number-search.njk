@@ -55,17 +55,8 @@
           autocomplete: "false"
         }) }}
       </div>
-
     </div>
     {{ submitButton() }}
-    {% if noResultsError %}
-      <div class="govuk-grid-row">
-        <div class="no_padding govuk-grid-column-full">
-          <h2 class="govuk-heading-s">{{ error.title }}</h2>
-          <p class="govuk-body">{{ error.notfound }}</p>
-        </div>
-      </div>
-    {% endif %}
   </form>
 {% endblock %}
 {% block bodyEnd %}

@@ -8,8 +8,7 @@ import { HearingService } from '../../../main/service/hearingService';
 
 const caseReferenceNumberSearchResultController = new CaseReferenceNumberSearchResultController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
-const allHearingData = JSON.parse(rawData);
-const subscriptionsCaseData = allHearingData[0].hearingList[0];
+const subscriptionsCaseData = JSON.parse(rawData)[0].hearingList[0];
 const stub = sinon.stub(HearingService.prototype, 'getHearingByCaseReferenceNumber');
 
 const validCaseNo = '56-181-2097';
