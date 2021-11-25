@@ -1,10 +1,11 @@
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
+import { SubscriptionService } from '../../../main/service/subscriptionService';
 import sinon from 'sinon';
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 import UnsubscribeConfirmationController from '../../../main/controllers/UnsubscribeConfirmationController';
 
-const stub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
+
+const stub = sinon.stub(SubscriptionService.prototype, 'unsubscribe');
 const validBody = {'unsubscribe-confirm': 'yes', subscription: 'valid subscription'};
 const invalidBody = {'unsubscribe-confirm': 'yes', subscription: 'foo'};
 const redirectBody = {'unsubscribe-confirm': 'no'};

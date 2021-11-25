@@ -66,4 +66,7 @@ export class SubscriptionService {
     }
   }
 
+  public async unsubscribe(subscription: object): Promise<object> {
+    return subscriptionRequests.unsubscribe(subscription);
+  }
 }

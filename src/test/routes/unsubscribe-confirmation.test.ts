@@ -3,10 +3,10 @@ import sinon from 'sinon';
 import { app } from '../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
-import { SubscriptionRequests } from '../../main/resources/requests/subscriptionRequests';
+import { SubscriptionService } from '../../main/service/subscriptionService';
 
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-const stub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
+const stub = sinon.stub(SubscriptionService.prototype, 'unsubscribe');
 const PAGE_URL = '/unsubscribe-confirmation';
 const validBody = {'unsubscribe-confirm': 'yes', subscription: 'valid subscription'};
 const invalidBody = {'unsubscribe-confirm': 'yes', subscription: 'foo'};

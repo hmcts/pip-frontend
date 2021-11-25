@@ -1,13 +1,13 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { SubscriptionRequests } from '../resources/requests/subscriptionRequests';
+import { SubscriptionService } from '../service/subscriptionService';
 
-const subscriptionRequests = new SubscriptionRequests();
+const subscriptionService = new SubscriptionService();
 
 export default class UnsubscribeConfirmationController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     if (req.body?.['unsubscribe-confirm'] === 'yes') {
-      const unsubscribeResponse = await subscriptionRequests.unsubscribe({...req.body, userId: req.user['id']});
+      const unsubscribeResponse = await subscriptionService.unsubscribe({...req.body, userId: req.user['id']});
       unsubscribeResponse ?
         res.render('unsubscribe-confirmation',
           req.i18n.getDataByLanguage(req.lng)['unsubscribe-confirmation']) :

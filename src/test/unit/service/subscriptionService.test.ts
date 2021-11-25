@@ -12,7 +12,6 @@ const validUrn = '123456789';
 
 stubSubscriptionSearchUrn.withArgs(validUrn).returns(subscriptionResult);
 describe('generate rows functions without subscriptions', () => {
-
   it('generateCaseTableRows should return list of case subscriptions', () => {
     const caseSubscriptionRows = subscriptionService.generateCaseTableRows(2);
     expect(caseSubscriptionRows.length).toBe(0);
@@ -39,5 +38,8 @@ describe('generate rows functions with subscriptions', () => {
     const courtSubscription= subscriptionService.getSubscriptionUrnDetails(validUrn);
     expect(courtSubscription).not.toBeNull();
   });
+});
 
+describe('unsubscribing', () => {
+  // TODO: needs tests when actual api call is implemented
 });

@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
+import { SubscriptionService } from '../../../main/service/subscriptionService';
 
 const PAGE_URL = '/unsubscribe-confirmation';
 const validBody = {'unsubscribe-confirm': 'yes', subscription: 'valid subscription'};
@@ -12,7 +12,7 @@ let htmlRes: Document;
 describe('Unsubscribe Confirmation Page', () => {
   beforeAll(async () => {
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-    sinon.stub(SubscriptionRequests.prototype, 'unsubscribe').withArgs({...validBody, userId: '1'}).resolves(true);
+    sinon.stub(SubscriptionService.prototype, 'unsubscribe').withArgs({...validBody, userId: '1'}).resolves(true);
     app.request['user'] = {id: '1'};
 
     await request(app).post(PAGE_URL).send(validBody).then(res => {
