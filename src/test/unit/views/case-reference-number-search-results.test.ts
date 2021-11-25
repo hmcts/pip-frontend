@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import {app} from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
-import {HearingRequests} from '../../../main/resources/requests/hearingRequests';
+import { HearingService } from '../../../main/service/hearingService';
 import {request as expressRequest} from 'express';
 
 const searchTerm = '56-181-2097';
@@ -20,7 +20,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearin
 const allHearingData = JSON.parse(rawData);
 const subscriptionsData = allHearingData[0].hearingList[0];
 
-sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber').returns(subscriptionsData);
+sinon.stub(HearingService.prototype, 'getHearingByCaseReferenceNumber').returns(subscriptionsData);
 
 describe('Case Reference Search Results Page', () => {
   beforeAll(async () => {

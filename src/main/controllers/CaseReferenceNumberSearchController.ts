@@ -1,9 +1,9 @@
 import { Response } from 'express';
-import {HearingRequests} from '../resources/requests/hearingRequests';
+import { HearingService } from '../service/hearingService';
 import {cloneDeep} from 'lodash';
 import {PipRequest} from '../models/request/PipRequest';
 
-const hearingRequests = new HearingRequests();
+const hearingService = new HearingService();
 
 export default class CaseReferenceNumberSearchController {
 
@@ -16,7 +16,7 @@ export default class CaseReferenceNumberSearchController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['search-input'] as string;
     if (searchInput) {
-      const searchResults = await hearingRequests.getHearingByCaseReferenceNumber(searchInput);
+      const searchResults = await hearingService.getHearingByCaseReferenceNumber(searchInput);
 
       (searchResults) ?
         res.redirect(`case-reference-number-search-results?search-input=${searchInput}`) :

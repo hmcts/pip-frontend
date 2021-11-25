@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
-import {HearingRequests} from '../../../main/resources/requests/hearingRequests';
+import { HearingService } from '../../../main/service/hearingService';
 import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/case-reference-number-search';
@@ -27,7 +27,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearin
 const allHearingData = JSON.parse(rawData);
 const subscriptionsData = allHearingData[0].hearingList[0];
 
-sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber').returns(subscriptionsData);
+sinon.stub(HearingService.prototype, 'getHearingByCaseReferenceNumber').returns(subscriptionsData);
 
 describe('Case Reference Search Page', () => {
   beforeAll(async () => {
@@ -91,7 +91,7 @@ describe('Case Reference Search Page Invalid Input', () => {
   beforeAll(async () => {
     sinon.restore();
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-    sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber').returns(null);
+    sinon.stub(HearingService.prototype, 'getHearingByCaseReferenceNumber').returns(null);
     await request(app).post(PAGE_URL).send({'search-input': '12345'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });

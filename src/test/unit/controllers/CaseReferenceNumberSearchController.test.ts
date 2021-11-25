@@ -4,13 +4,13 @@ import CaseReferenceNumberSearchController from '../../../main/controllers/CaseR
 import fs from 'fs';
 import path from 'path';
 import {mockRequest} from '../mocks/mockRequest';
-import {HearingRequests} from '../../../main/resources/requests/hearingRequests';
+import { HearingService } from '../../../main/service/hearingService';
 
 const caseReferenceNumberSearchController = new CaseReferenceNumberSearchController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const allHearingData = JSON.parse(rawData);
 const subscriptionCaseResult = allHearingData[0].hearingList[0];
-const stub = sinon.stub(HearingRequests.prototype, 'getHearingByCaseReferenceNumber');
+const stub = sinon.stub(HearingService.prototype, 'getHearingByCaseReferenceNumber');
 
 const validCaseNo = '56-181-2097';
 
