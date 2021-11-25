@@ -1,11 +1,19 @@
 export interface CaseSubscription {
 
-  id: number;
+  hearingId: number;
 
   caseName: string;
 
   caseNumber: string;
 
   urn: string;
+
+  date: string;
+
+  judge: string;
+
+  platform: string;
+
+  courtId: number;
 
 }

@@ -8,5 +8,7 @@
     "header3": "Case name",
     "header4": "Actions"
   },
-  "buttonText": "Confirm Subscriptions"
+  "buttonText": "Confirm Subscriptions",
+  "addOther_link": "/subscription-add",
+  "addOther_text": "Add another"
 }

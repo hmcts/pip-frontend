@@ -21,7 +21,7 @@
 {% block content %}
   <h1 class="govuk-heading-l">{{ header }}</h1>
   <h3 class="govuk-heading-s">{{ subheader }}</h3>
-<form  method="post">
+<form action="subscription-confirmation"  method="post">
   <table class="govuk-table govuk-!-width-one">
     <thead class="govuk-table__head">
     <tr class="govuk-table__row">
@@ -32,17 +32,18 @@
     </tr>
     </thead>
     <tbody class="govuk-table__body">
-
+    {% for hearing in searchResults %}
       <tr class="govuk-table__row">
-        <td scope="row" class="govuk-table__cell--no-line">{{ searchResults.urn }}</td>
-        <td scope="row" class="govuk-table__cell--no-line">{{ searchResults.caseNumber }}</td>
-        <td class="govuk-table__cell--no-line govuk-!-text-align-right">{{ searchResults.caseName }}</td>
-        <td class="govuk-table__cell--no-line govuk-!-text-align-right"><a href="#">{{ removeText }}</a></td>
+        <td scope="row" class="govuk-table__cell--no-line">{{ hearing.urn }}</td>
+        <td scope="row" class="govuk-table__cell--no-line">{{ hearing.caseNumber }}</td>
+        <td class="govuk-table__cell--no-line govuk-!-text-align-right">{{ hearing.caseName }}</td>
+        <td class="govuk-table__cell--no-line govuk-!-text-align-right"><a href="/remove-case?id={{ hearing.hearingId }}">{{ removeText }}</a></td>
       </tr>
-
+    {% endfor %}
     </tbody>
   </table>
   {{ submitButton(buttonText) }}
+  <a class="govuk-link" href="{{ addOther_link }}">{{ addOther_text }}</a>
 </form>
   <script>
     if ( window.history.replaceState ) {

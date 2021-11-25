@@ -59,6 +59,7 @@ export default function(app: Application): void {
   app.get('/subscription-confirmation', ensureAuthenticated, app.locals.container.cradle.subscriptionConfirmationController.get);
   app.get('/subscription-confirmed', ensureAuthenticated, app.locals.container.cradle.subscriptionConfirmedController.get);
   app.post('/subscription-confirmation', ensureAuthenticated, app.locals.container.cradle.subscriptionConfirmationController.post);
+  app.get('/remove-case', ensureAuthenticated, app.locals.container.cradle.subscriptionConfirmationController.removeCase);
   app.get('/otp-template', cors(corsOptions), app.locals.container.cradle.otpTemplateController.get);
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
@@ -96,6 +97,7 @@ export default function(app: Application): void {
   app.get('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.get);
   app.post('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.post);
   app.get('/case-name-search-results', ensureAuthenticated, app.locals.container.cradle.caseNameSearchResultsController.get);
+  app.post('/case-name-search-results', ensureAuthenticated, app.locals.container.cradle.caseNameSearchResultsController.post);
 
   // TODO: expose route only if not on the production environment
   app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);

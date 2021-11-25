@@ -66,4 +66,20 @@ export class SubscriptionService {
     }
   }
 
+  public setPendingSubscriptions(searchResult, user): boolean {
+    subscriptionRequests.setPendingSubscriptions(searchResult, user);
+    return true;
+  }
+
+  public async getPendingSubscriptions(user): Promise<Array<CaseSubscription>> {
+    return await subscriptionRequests.getPendingSubscriptions(user);
+  }
+
+  public async subscribe(searchResult, user): Promise<boolean> {
+    return await subscriptionRequests.subscribe(searchResult,user);
+  }
+
+  public async removeFromCache(id, user): Promise<boolean> {
+    return await subscriptionRequests.removeFromCache(id, user);
+  }
 }
