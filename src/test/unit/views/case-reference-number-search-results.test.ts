@@ -60,6 +60,6 @@ describe('Case Reference Search Results Page', () => {
     const items = rows.item(1).children;
 
     expect(items[0].innerHTML).contains('56-181-2097', 'Case reference no does not exist');
-    expect(items[1].innerHTML.replace('&amp;','&')).contains('Youtags\'s hearings', 'Case number does not exist');
+    expect(items[1].innerHTML).contains('Youtags\'s hearings', 'Case number does not exist');
   });
 });
