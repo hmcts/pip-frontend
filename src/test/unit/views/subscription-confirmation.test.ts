@@ -7,9 +7,8 @@ import sinon from 'sinon';
 import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
 import {request as expressRequest} from 'express';
 
-const searchTerm = 'N363N6R4OG';
-const numOfResults = '1';
-const PAGE_URL = `/subscription-confirmation?search-input=${searchTerm}&stype=urn`;
+const numOfResults = '2';
+const PAGE_URL = '/subscription-confirmation';
 const backLinkClass = 'govuk-back-link';
 const rowClass = 'govuk-table__row';
 const tableBodyClass = 'govuk-table__body';
@@ -18,7 +17,11 @@ let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
+const rawData2 = fs.readFileSync(path.resolve(__dirname, '../mocks/caseHearings.json'), 'utf-8');
+const subscriptionsData2 = JSON.parse(rawData2);
 sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').returns(subscriptionsData);
+sinon.stub(SubscriptionRequests.prototype, 'getPendingSubscriptions').returns(subscriptionsData2);
+
 
 jest.mock('axios', () => {
   return {
@@ -33,6 +36,7 @@ jest.mock('axios', () => {
 describe('Search Results Page', () => {
   beforeAll(async () => {
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+    sinon.stub()
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -59,17 +63,17 @@ describe('Search Results Page', () => {
     expect(tableHeader2[0].innerHTML).contains('Case reference number or case ID', 'Could not find text in second header');
   });
 
-  it('should contain 2 rows including the header row', () => {
+  it('should contain 3 rows including the header row', () => {
     const rows = htmlRes.getElementsByClassName(rowClass);
-    expect(rows.length).equal(2, 'Table did not contain expected number of rows');
+    expect(rows.length).equal(3, 'Table did not contain expected number of rows');
   });
 
   it('should contain rows with correct values', () => {
     const rows = htmlRes.getElementsByClassName(rowClass);
     const items = rows.item(1).children;
 
-    expect(items[0].innerHTML).contains('123456789', 'URN does not exist');
-    expect(items[1].innerHTML).contains('63-694-7292', 'Case number does not exist');
+    expect(items[0].innerHTML).contains('IBRANE1BVW', 'URN does not exist');
+    expect(items[1].innerHTML).contains('T485914', 'Case number does not exist');
   });
 
 });

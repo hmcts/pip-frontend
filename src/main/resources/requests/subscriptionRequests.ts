@@ -54,13 +54,14 @@ export class SubscriptionRequests {
   }
 
   public async getPendingSubscriptions(user): Promise<Array<CaseSubscription>> {
-    if (redisClient.status === 'ready') {
-      return JSON.parse(await redisClient.get(`pending-subscriptions${user.id}`));
+    if (redisClient.status === 'ready' && user) {
+      const cacheResult = JSON.parse(await redisClient.get(`pending-subscriptions${user.id}`));
+      return cacheResult;
     }
   }
 
   public async subscribe(searchResult: Array<CaseSubscription>, user): Promise<boolean> {
-    if (redisClient.status === 'ready') {
+    if (redisClient.status === 'ready' && user) {
 
       //TODO: call api to subscribe and clear the cache
       await redisClient.del(`pending-subscriptions${user.id}`);
@@ -69,7 +70,7 @@ export class SubscriptionRequests {
   }
 
   public async removeFromCache(id, user): Promise<boolean> {
-    if (redisClient.status === 'ready') {
+    if (redisClient.status === 'ready' && user) {
       let result = null;
       const cacheResult = JSON.parse(await redisClient.get(`pending-subscriptions${user.id}`));
       if (cacheResult) {

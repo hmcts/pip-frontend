@@ -9,13 +9,6 @@
 
 {% block beforeContent %}
   {{ super() }}
-  {{ govukBackLink({
-    text: text,
-    href: '#',
-    attributes: {
-      onClick: "history.back();event.preventDefault();"
-    }
-  }) }}
 {% endblock %}
 
 {% block content %}

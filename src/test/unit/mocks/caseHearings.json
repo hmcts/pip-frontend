@@ -1,0 +1,25 @@
+ [
+    {
+      "hearingId": 2,
+      "courtId": 50,
+      "courtNumber": 1,
+      "date": "15/11/2021 10:00:00",
+      "judge": "His Honour Judge A Morley QC",
+      "platform": "In person",
+      "caseNumber": "T485914",
+      "caseName": "Ashely Barnes",
+      "urn": "IBRANE1BVW"
+    },
+    {
+      "hearingId": 10,
+      "courtId": 50,
+      "courtNumber": 4,
+      "date": "15/11/2021 02:00:00",
+      "judge": "Mr Recorder D Bush",
+      "platform": "In person",
+      "caseNumber": "T485922",
+      "caseName": "Lukas Spencer",
+      "urn": "0JTI12PZY9"
+    }
+ ]
+
