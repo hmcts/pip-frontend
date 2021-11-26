@@ -97,6 +97,7 @@ export default function(app: Application): void {
 
   // TODO: expose route only if not on the production environment
   app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
+  /* istanbul ignore next */
   app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
     (req, res) => {res.redirect('/subscription-management');});
 
