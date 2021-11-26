@@ -1,5 +1,5 @@
 import { Application, NextFunction } from 'express';
-import {infoRequestHandler} from '@hmcts/info-provider';
+import { infoRequestHandler } from '@hmcts/info-provider';
 import cors  from 'cors';
 import os from 'os';
 
