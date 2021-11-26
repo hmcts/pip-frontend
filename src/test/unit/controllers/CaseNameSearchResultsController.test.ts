@@ -14,7 +14,7 @@ hearingServiceStub.withArgs('Meedoo').returns([{caseName: 'Meedoo', caseNumber: 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/caseHearings.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
 const stub = sinon.stub(HearingService.prototype, 'getHearingsById');
-stub.withArgs(['1']).returns(subscriptionsData);
+stub.withArgs(1).returns(subscriptionsData);
 
 describe('Case name search results controller', () => {
   const i18n = {

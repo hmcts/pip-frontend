@@ -23,12 +23,13 @@ export default class SubscriptionUrnSearchResultController {
 
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchResults = [];
+    searchInput = req.query['search-input'];
     const results = await subscriptionService.getSubscriptionUrnDetails(searchInput.toString());
     if (results) {
       searchResults.push(results);
     }
     subscriptionService.setPendingSubscriptions(searchResults, req.user);
-    res.redirect(`subscription-confirmation?search-input=${searchInput}&stype=urn`);
+    res.redirect('subscription-confirmation');
   }
 
 }
