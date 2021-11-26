@@ -1,3 +1,6 @@
+const drivers = {
+  chromiumedge: { version: '96.0.1054.34', arch: process.arch, baseUrl: ' https://msedgedriver.azureedge.net' },
+};
 exports.config = {
   //
   // ====================
@@ -55,7 +58,7 @@ exports.config = {
     // maxInstances can get overwritten per capability. So if you have an in-house Selenium
     // grid with only 5 firefox instances available you can make sure that not more than
     // 5 instances get started at a time.
-      maxInstances: 5,
+      maxInstances: 1,
       //
       browserName: 'chrome',
       acceptInsecureCerts: true,
@@ -67,11 +70,6 @@ exports.config = {
     // {
     //   maxInstances: 5,
     //   browserName: 'firefox',
-    //   acceptInsecureCerts: true,
-    // },
-    // {
-    //   maxInstances: 5,
-    //   browserName: 'safari',
     //   acceptInsecureCerts: true,
     // },
   ],
@@ -122,7 +120,10 @@ exports.config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  services: ['selenium-standalone'],
+  services: [['selenium-standalone', {
+    installArgs: {drivers},
+    args: {drivers},
+  }]],
 
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
