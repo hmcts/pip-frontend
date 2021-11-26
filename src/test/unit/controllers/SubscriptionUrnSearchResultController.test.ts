@@ -34,7 +34,7 @@ describe('Subscription Urn Search Result Controller', () => {
       searchResults: subscriptionsData,
     };
 
-    responseMock.expects('render').once().withArgs('subscription-confirmation', expectedData);
+    responseMock.expects('render').once().withArgs('subscription-urn-search-results', expectedData);
 
     return subscriptionSearchUrnResultController.get(request, response).then(() => {
       responseMock.verify();

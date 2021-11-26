@@ -9,7 +9,7 @@ import SubscriptionConfirmationController from '../../../main/controllers/Subscr
 const subscriptionConfirmationController = new SubscriptionConfirmationController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
-sinon.stub(SubscriptionService.prototype, 'getSubscriptionUrnDetails').returns(subscriptionsData);
+sinon.stub(SubscriptionService.prototype, 'getPendingSubscriptions').returns(subscriptionsData);
 
 describe('Subscription Confirmation Controller', () => {
   let i18n = {};
@@ -25,12 +25,12 @@ describe('Subscription Confirmation Controller', () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = { 'search-input': '123456789', 'stype': 'urn'};
+    //request.query = { 'search-input': '123456789', 'stype': 'urn'};
     const responseMock = sinon.mock(response);
 
     const expectedData = {
       ...i18n['subscription-confirmation'],
-      searchInput : '123456789',
+      searchInput : null,
       searchResults: subscriptionsData,
     };
 
