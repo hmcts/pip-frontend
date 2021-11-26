@@ -4,8 +4,8 @@ export default function validateRendering(searchResults,path, req, res, searchIn
   if (searchResults) {
     res.render(path, {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[path]),
-      searchInput : searchInput,
-      searchResults: searchResults,
+      searchInput,
+      searchResults,
     });
   } else {
     res.render('error', req.i18n.getDataByLanguage(req.lng).error);
