@@ -1,10 +1,8 @@
 exports.config = {
-  //
   // ====================
   // Runner Configuration
   // ====================
-  //
-  //
+  runner: 'local',
   // ==================
   // Specify Test Files
   // ==================
@@ -50,27 +48,24 @@ exports.config = {
   // https://docs.saucelabs.com/reference/platforms-configurator
   //
   capabilities: [
-
     {
-    // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-    // grid with only 5 firefox instances available you can make sure that not more than
-    // 5 instances get started at a time.
-      maxInstances: 5,
-      //
+      maxInstances: 1,
       browserName: 'chrome',
       acceptInsecureCerts: true,
-    // If outputDir is provided WebdriverIO can capture driver session logs
-    // it is possible to configure which logTypes to include/exclude.
-    // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
-    // excludeDriverLogs: ['bugreport', 'server'],
     },
     // {
-    //   maxInstances: 5,
+    //   maxInstances: 1,
     //   browserName: 'firefox',
     //   acceptInsecureCerts: true,
     // },
+    {
+      maxInstances: 1,
+      browserName: 'MicrosoftEdge',
+      acceptInsecureCerts: true,
+      platformName: 'Windows 10',
+    },
     // {
-    //   maxInstances: 5,
+    //   maxInstances: 1,
     //   browserName: 'safari',
     //   acceptInsecureCerts: true,
     // },
