@@ -43,6 +43,6 @@ export default class CaseNameSearchResultsController {
     }
 
     subscriptionService.setPendingSubscriptions(searchResults, req.user);
-    res.redirect(`subscription-confirmation?search-input=${searchInput}&stype=urn`);
+    res.redirect('subscription-confirmation');
   }
 }
