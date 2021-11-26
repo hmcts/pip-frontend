@@ -6,6 +6,7 @@ import path from 'path';
 import sinon from 'sinon';
 import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
 import {request as expressRequest} from 'express';
+import {PendingSubscriptionsFromCache} from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
 
 const numOfResults = '2';
 const PAGE_URL = '/subscription-confirmation';
@@ -20,7 +21,7 @@ const subscriptionsData = JSON.parse(rawData);
 const rawData2 = fs.readFileSync(path.resolve(__dirname, '../mocks/caseHearings.json'), 'utf-8');
 const subscriptionsData2 = JSON.parse(rawData2);
 sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').returns(subscriptionsData);
-sinon.stub(SubscriptionRequests.prototype, 'getPendingSubscriptions').returns(subscriptionsData2);
+sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions').returns(subscriptionsData2);
 
 
 jest.mock('axios', () => {
