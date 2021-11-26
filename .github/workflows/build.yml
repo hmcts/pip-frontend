@@ -7,7 +7,7 @@ on:
       - pre-release
   pull_request:
       types: [opened, synchronize, reopened]
-name: SonarCloud
+name: SonarCloudScan
 jobs:
   sonarcloud:
     runs-on: ubuntu-latest
