@@ -1,8 +1,10 @@
 import moment from 'moment';
 import {SubscriptionRequests} from '../resources/requests/subscriptionRequests';
 import {CaseSubscription} from '../models/caseSubscription';
+import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendingSubscriptionsFromCache';
 
 const subscriptionRequests = new SubscriptionRequests();
+const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
 
 export class SubscriptionService {
 
@@ -67,19 +69,22 @@ export class SubscriptionService {
   }
 
   public setPendingSubscriptions(searchResult, user): boolean {
-    subscriptionRequests.setPendingSubscriptions(searchResult, user);
+    pendingSubscriptionsFromCache.setPendingSubscriptions(searchResult, user);
     return true;
   }
 
   public async getPendingSubscriptions(user): Promise<Array<CaseSubscription>> {
-    return await subscriptionRequests.getPendingSubscriptions(user);
+    return await pendingSubscriptionsFromCache.getPendingSubscriptions(user);
   }
 
   public async subscribe(searchResult, user): Promise<boolean> {
-    return await subscriptionRequests.subscribe(searchResult,user);
+    if (await subscriptionRequests.subscribe(searchResult,user)) {
+      return await pendingSubscriptionsFromCache.clearPendingSubscription(searchResult, user);
+    }
+    return false;
   }
 
   public async removeFromCache(id, user): Promise<boolean> {
-    return await subscriptionRequests.removeFromCache(id, user);
+    return await pendingSubscriptionsFromCache.removeFromCache(id, user);
   }
 }

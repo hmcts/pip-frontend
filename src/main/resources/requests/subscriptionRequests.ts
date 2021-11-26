@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import {dataManagementApi} from './utils/axiosConfig';
 import {CaseSubscription} from '../../models/caseSubscription';
-const { redisClient } = require('../../cacheManager');
 
 
 export class SubscriptionRequests {
@@ -36,60 +35,14 @@ export class SubscriptionRequests {
     return null;
   }
 
-  public async setPendingSubscriptions(searchResult: Array<CaseSubscription>, user): Promise<void> {
-    if (redisClient.status === 'ready') {
-      const cacheResult = JSON.parse(await redisClient.get(`pending-subscriptions${user.id}`));
-      if (cacheResult) {
-        searchResult.forEach(hearing => {
-          if (cacheResult.filter(x=>x.hearingId === hearing.hearingId).length === 0) {
-            cacheResult.push(hearing);
-          }
-        });
-        redisClient.set(`pending-subscriptions${user.id}`, JSON.stringify(cacheResult));
-      }
-      else {
-        redisClient.set(`pending-subscriptions${user.id}`, JSON.stringify(searchResult));
-      }
-    }
-  }
-
-  public async getPendingSubscriptions(user): Promise<Array<CaseSubscription>> {
-    if (redisClient.status === 'ready' && user) {
-      const cacheResult = JSON.parse(await redisClient.get(`pending-subscriptions${user.id}`));
-      return cacheResult;
-    }
-  }
-
   public async subscribe(searchResult: Array<CaseSubscription>, user): Promise<boolean> {
-    if (redisClient.status === 'ready' && user) {
+    let subscribed = false;
+    if (user) {
 
       //TODO: call api to subscribe and clear the cache
-      await redisClient.del(`pending-subscriptions${user.id}`);
-      return true;
+      subscribed = true;
     }
+    return subscribed;
   }
 
-  public async removeFromCache(id, user): Promise<boolean> {
-    if (redisClient.status === 'ready' && user) {
-      let result = null;
-      const cacheResult = JSON.parse(await redisClient.get(`pending-subscriptions${user.id}`));
-      if (cacheResult) {
-
-        cacheResult.forEach(x=>{
-          if (x.hearingId === id)
-            result = x;
-        });
-
-        if (result) {
-          const index = cacheResult.indexOf(result, 0);
-          if (index > -1) {
-            cacheResult.splice(index, 1);
-          }
-        }
-
-        redisClient.set(`pending-subscriptions${user.id}`, JSON.stringify(cacheResult));
-      }
-    }
-    return true;
-  }
 }
