@@ -10,7 +10,6 @@ const healthcheck = require('@hmcts/nodejs-healthcheck');
 export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
   // const authType = (process.env.NODE_ENV === 'production') ? 'azuread-openidconnect' : 'mockaroo';
-  /* istanbul ignore next */
   const redirectUrl = (process.env.USE_PROTOTYPE) ? 'https://hmcts-sjp.herokuapp.com/index.html' : '/subscription-management';
   const authType = 'mockaroo';
 
