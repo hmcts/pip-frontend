@@ -19,13 +19,4 @@ describe('Mock login', () => {
         expect(res.header['location']).to.equal('/not-found');
       });
   });
-
-  test('should redirect to heroku app after successful login', async () => {
-    process.env.USE_PROTOTYPE = 'true';
-    await request(app).post('/mock-login').send({id: '1', username: 'joe'})
-      .expect((res) => {
-        expect(res.status).to.equal(302);
-        expect(res.header['location']).to.equal('https://hmcts-sjp.herokuapp.com/index.html');
-      });
-  });
 });
