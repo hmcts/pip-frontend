@@ -10,6 +10,7 @@ const healthcheck = require('@hmcts/nodejs-healthcheck');
 export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
   // const authType = (process.env.NODE_ENV === 'production') ? 'azuread-openidconnect' : 'mockaroo';
+  const redirectUrl = (process.env.USE_PROTOTYPE) ? 'https://hmcts-sjp.herokuapp.com/index.html' : '/subscription-management';
   const authType = 'mockaroo';
 
   const corsOptions = {
@@ -99,7 +100,7 @@ export default function(app: Application): void {
   app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
   /* istanbul ignore next */
   app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
-    (req, res) => {res.redirect('/subscription-management');});
+    (req, res) => {res.redirect(redirectUrl);});
 
   //TODO: To be deleted/modified post UAT with suitable solution
   app.get('/list-option', app.locals.container.cradle.listOptionController.get);
