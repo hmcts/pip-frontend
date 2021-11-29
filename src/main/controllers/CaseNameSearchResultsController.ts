@@ -42,7 +42,7 @@ export default class CaseNameSearchResultsController {
       }
     }
 
-    subscriptionService.setPendingSubscriptions(searchResults, req.user);
-    res.redirect('subscription-confirmation');
+    await subscriptionService.setPendingSubscriptions(searchResults, req.user);
+    res.redirect('pending-subscriptions');
   }
 }

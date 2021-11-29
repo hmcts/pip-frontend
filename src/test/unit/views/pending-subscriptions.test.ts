@@ -9,7 +9,7 @@ import {request as expressRequest} from 'express';
 import {PendingSubscriptionsFromCache} from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
 
 const numOfResults = '2';
-const PAGE_URL = '/subscription-confirmation';
+const PAGE_URL = '/pending-subscriptions';
 const backLinkClass = 'govuk-back-link';
 const rowClass = 'govuk-table__row';
 const tableBodyClass = 'govuk-table__body';
@@ -18,7 +18,7 @@ let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
-const rawData2 = fs.readFileSync(path.resolve(__dirname, '../mocks/caseHearings.json'), 'utf-8');
+const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/caseHearings.json'), 'utf-8');
 const subscriptionsData2 = JSON.parse(rawData2);
 sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').returns(subscriptionsData);
 sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions').returns(subscriptionsData2);

@@ -56,10 +56,10 @@ export default function(app: Application): void {
   app.post('/subscription-urn-search', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchController.post);
   app.get('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
   app.post('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.post);
-  app.get('/subscription-confirmation', ensureAuthenticated, app.locals.container.cradle.subscriptionConfirmationController.get);
+  app.get('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.get);
   app.get('/subscription-confirmed', ensureAuthenticated, app.locals.container.cradle.subscriptionConfirmedController.get);
-  app.post('/subscription-confirmation', ensureAuthenticated, app.locals.container.cradle.subscriptionConfirmationController.post);
-  app.get('/remove-case', ensureAuthenticated, app.locals.container.cradle.subscriptionConfirmationController.removeCase);
+  app.post('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.post);
+  app.get('/remove-case', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.removeCase);
   app.get('/otp-template', cors(corsOptions), app.locals.container.cradle.otpTemplateController.get);
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {

@@ -29,7 +29,7 @@ describe('Subscription Urn Search Result Controller', () => {
     const responseMock = sinon.mock(response);
 
     const expectedData = {
-      ...i18n['subscription-confirmation'],
+      ...i18n['pending-subscriptions'],
       searchInput : '123456789',
       searchResults: subscriptionsData,
     };
@@ -44,7 +44,7 @@ describe('Subscription Urn Search Result Controller', () => {
   it('should render the confirmation page', () => {
 
     i18n = {
-      'subscription-confirmation': {},
+      'pending-subscriptions': {},
     };
 
     const response = {
@@ -56,7 +56,7 @@ describe('Subscription Urn Search Result Controller', () => {
     request.query = { 'search-input': '123456789'};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('subscription-confirmation');
+    responseMock.expects('redirect').once().withArgs('pending-subscriptions');
 
     return subscriptionSearchUrnResultController.post(request, response).then(() => {
       responseMock.verify();

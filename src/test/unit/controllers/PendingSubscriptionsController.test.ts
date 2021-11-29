@@ -4,19 +4,19 @@ import fs from 'fs';
 import path from 'path';
 import {SubscriptionService} from '../../../main/service/subscriptionService';
 import {mockRequest} from '../mocks/mockRequest';
-import SubscriptionConfirmationController from '../../../main/controllers/SubscriptionConfirmationController';
+import PendingSubscriptionsController from '../../../main/controllers/PendingSubscriptionsController';
 
-const subscriptionConfirmationController = new SubscriptionConfirmationController();
+const subscriptionConfirmationController = new PendingSubscriptionsController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
 sinon.stub(SubscriptionService.prototype, 'getPendingSubscriptions').returns(subscriptionsData);
 
-describe('Subscription Confirmation Controller', () => {
+describe('Pending Subscriptions Controller', () => {
   let i18n = {};
   it('should render the search page', () => {
 
     i18n = {
-      'subscription-confirmation': {},
+      'pending-subscriptions': {},
     };
 
     const response = {
@@ -25,16 +25,15 @@ describe('Subscription Confirmation Controller', () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    //request.query = { 'search-input': '123456789', 'stype': 'urn'};
     const responseMock = sinon.mock(response);
 
     const expectedData = {
-      ...i18n['subscription-confirmation'],
+      ...i18n['pending-subscriptions'],
       searchInput : null,
       searchResults: subscriptionsData,
     };
 
-    responseMock.expects('render').once().withArgs('subscription-confirmation', expectedData);
+    responseMock.expects('render').once().withArgs('pending-subscriptions', expectedData);
 
     return subscriptionConfirmationController.get(request, response).then(() => {
       responseMock.verify();

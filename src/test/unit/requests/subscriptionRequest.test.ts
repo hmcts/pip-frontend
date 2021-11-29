@@ -3,15 +3,19 @@ import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
 import {dataManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
+import {SubscriptionService} from '../../../main/service/subscriptionService';
 
 const userIdWithSubscriptions = 1;
 const userIdWithoutSubscriptions = 2;
 const nonExistingUserId = 777;
-
+const mockUser = {
+  id : '1'
+};
 const validUrn = '123456789';
 const invalidUrn = '1234';
 
 const subscriptionActions = new SubscriptionRequests();
+const subscriptionService = new SubscriptionService();
 const mockedCaseSubscription = {
   name: 'Wyman Inc Dispute',
   reference: 'T20217010',
@@ -98,6 +102,22 @@ describe('non existing subscriptions getSubscriptionByUrn error response', () =>
   stub.withArgs('/hearings/urn/12345').resolves(Promise.reject(errorResponse));
   it('should return null list of subscriptions', async () => {
     const userSubscriptions = await subscriptionActions.getSubscriptionByUrn('12345');
+    expect(userSubscriptions).toBe(null);
+  });
+});
+
+describe('subscribe with valid user', async () => {
+  const sub = await subscriptionService.getPendingSubscriptions(validUrn);
+  const userSubscriptions = subscriptionActions.subscribe(sub, mockUser);
+  it('should return user subscription object', () => {
+    expect(userSubscriptions).toBe(sub);
+  });
+});
+
+describe('subscribe with null user', async () => {
+  const sub = await subscriptionService.getPendingSubscriptions(validUrn);
+  const userSubscriptions = subscriptionActions.subscribe(sub, null);
+  it('should return user subscription object', () => {
     expect(userSubscriptions).toBe(null);
   });
 });

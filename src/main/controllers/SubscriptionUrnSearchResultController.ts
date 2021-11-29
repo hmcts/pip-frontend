@@ -29,7 +29,7 @@ export default class SubscriptionUrnSearchResultController {
       searchResults.push(results);
     }
     subscriptionService.setPendingSubscriptions(searchResults, req.user);
-    res.redirect('subscription-confirmation');
+    res.redirect('pending-subscriptions');
   }
 
 }

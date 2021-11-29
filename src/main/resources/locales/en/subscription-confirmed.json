@@ -4,10 +4,7 @@
   "subheader": "Your subscription has been successful.",
   "p1": "To continue, you can go to ",
   "link_text": "your account",
-  "link": "#",
+  "link": "/my-account",
   "p2": " in order to:",
-  "list": ["add a new subscription","manage your current subscriptions","find a court or tribunal"],
-  "p3_link": "#",
-  "p3_link_text": "What did you think about this service?",
-  "p3": " (takes 30 seconds)"
+  "list": ["add a new subscription","manage your current subscriptions","find a court or tribunal"]
 }

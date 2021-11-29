@@ -11,7 +11,7 @@ const hearingServiceStub = sinon.stub(HearingService.prototype, 'getHearingsByCa
 hearingServiceStub.withArgs('').returns([]);
 hearingServiceStub.withArgs('Meedoo').returns([{caseName: 'Meedoo', caseNumber: '321321'}]);
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/caseHearings.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/caseHearings.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
 const stub = sinon.stub(HearingService.prototype, 'getHearingsById');
 stub.withArgs(1).returns(subscriptionsData);
@@ -56,7 +56,7 @@ describe('Case name search results controller', () => {
 
     const responseMock = sinon.mock(responseRedirect);
 
-    responseMock.expects('redirect').once().withArgs('subscription-confirmation');
+    responseMock.expects('redirect').once().withArgs('pending-subscriptions');
     await caseNameSearchResultsController.post(request, responseRedirect);
     return responseMock.verify();
   });
@@ -67,7 +67,7 @@ describe('Case name search results controller', () => {
 
     const responseMock = sinon.mock(responseRedirect);
 
-    responseMock.expects('redirect').once().withArgs('subscription-confirmation');
+    responseMock.expects('redirect').once().withArgs('pending-subscriptions');
     await caseNameSearchResultsController.post(request, responseRedirect);
     return responseMock.verify();
   });
