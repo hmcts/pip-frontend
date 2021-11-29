@@ -6,18 +6,16 @@ export class PendingSubscriptionsFromCache {
 
   public async setPendingSubscriptions(searchResult: Array<CaseSubscription>, user): Promise<void> {
     if (redisClient.status === 'ready') {
-      const cacheResult = JSON.parse(await redisClient.get(`pending-subscriptions${user.id}`));
+      const rawData = await redisClient.get(`pending-subscriptions${user.id}`);
+      const cacheResult = JSON.parse(rawData);
       if (cacheResult) {
         searchResult.forEach(hearing => {
           if (cacheResult.filter(x=>x.hearingId === hearing.hearingId).length === 0) {
             cacheResult.push(hearing);
           }
         });
-        redisClient.set(`pending-subscriptions${user.id}`, JSON.stringify(cacheResult));
       }
-      else {
-        redisClient.set(`pending-subscriptions${user.id}`, JSON.stringify(searchResult));
-      }
+      redisClient.set(`pending-subscriptions${user.id}`, JSON.stringify(cacheResult));
     }
   }
 
@@ -29,7 +27,7 @@ export class PendingSubscriptionsFromCache {
     return cacheResult;
   }
 
-  public async clearPendingSubscription(searchResult: Array<CaseSubscription>, user): Promise<boolean> {
+  public async clearPendingSubscription(user): Promise<boolean> {
     let subscribed = false;
     if (redisClient.status === 'ready' && user) {
       await redisClient.del(`pending-subscriptions${user.id}`);

@@ -78,7 +78,7 @@ export class SubscriptionService {
 
   public async subscribe(searchResult, user): Promise<boolean> {
     if (await subscriptionRequests.subscribe(searchResult,user)) {
-      return await pendingSubscriptionsFromCache.clearPendingSubscription(searchResult, user);
+      return await pendingSubscriptionsFromCache.clearPendingSubscription(user);
     }
     return false;
   }
