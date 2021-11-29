@@ -9,7 +9,7 @@ const userIdWithSubscriptions = 1;
 const userIdWithoutSubscriptions = 2;
 const nonExistingUserId = 777;
 const mockUser = {
-  id : '1'
+  id : '1',
 };
 const validUrn = '123456789';
 const invalidUrn = '1234';
