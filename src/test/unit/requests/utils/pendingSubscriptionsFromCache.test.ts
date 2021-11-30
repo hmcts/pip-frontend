@@ -34,6 +34,7 @@ describe('setPendingSubscriptions with valid user', () => {
   stub.withArgs(`pending-subscriptions${mockUser.id}`).resolves(rawData);
 
   const set = sinon.spy(redisClient, 'set');
+  const del = sinon.spy(redisClient, 'del');
 
   it('should set hearings collection from cache adding new ones', async () => {
     await pendingSubscriptionsFromCache.setPendingSubscriptions(newHearing, mockUser);
@@ -45,15 +46,16 @@ describe('setPendingSubscriptions with valid user', () => {
     expect(cachedResult).toStrictEqual(subscriptionsData);
   });
 
-  it('should get hearings collection from cache', async () => {
+  it('should clear hearings collection from cache', async () => {
     const result = await pendingSubscriptionsFromCache.clearPendingSubscription(mockUser);
+    sinon.assert.calledOnce(del);
     expect(result).toBe(true);
   });
 
-  it('should get hearings collection from cache', async () => {
+  it('should remove hearing collection from cache', async () => {
     const result = await pendingSubscriptionsFromCache.removeFromCache(2,mockUser);
-    expect(result).toBe(true);
     sinon.assert.called(set);
+    expect(result).toBe(true);
   });
 });
 
