@@ -3,8 +3,8 @@ nodejs:
   ingressHost: pip-frontend.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'sdshmctspublic.azurecr.io/pip/frontend:latest'
   keyVaults:
-    pip-sharedservice-kv:
-      resourceGroup: pip-sharedservice-{{ .Values.global.environment }}-rg
+    pip-ss-kv:
+      resourceGroup: pip-ss-{{ .Values.global.environment }}-rg
       secrets:
         - name: session-key
           alias: SESSION_SECRET
@@ -14,6 +14,6 @@ nodejs:
           alias: CLIENT_SECRET
         - name: otp-tenant-id
           alias: TENANT_GUID
-        - name: pipsharedinfrasa-storageaccount-connection-string
+        - name: shared-storageaccount-connection-string
           alias: CONNECTION_STRING
   aadIdentityName: pip
