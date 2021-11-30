@@ -11,7 +11,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionLi
 const subscriptionsData = JSON.parse(rawData);
 sinon.stub(SubscriptionService.prototype, 'getPendingSubscriptions').returns(subscriptionsData);
 
-let i18n = {
+const i18n = {
   'pending-subscriptions': {},
 };
 const response = {
