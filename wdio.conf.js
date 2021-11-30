@@ -1,4 +1,5 @@
 const drivers = {
+  chrome: { version: '96.0.4664.45' },
   chromiumedge: { version: '96.0.1054.34', arch: process.arch, baseUrl: ' https://msedgedriver.azureedge.net' },
 };
 exports.config = {
