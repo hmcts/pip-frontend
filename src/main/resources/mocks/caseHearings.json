@@ -1,4 +1,15 @@
  [
+     {
+       "hearingId": 1,
+       "courtId": 50,
+       "courtNumber": 1,
+       "date": "15/11/2021 10:00:00",
+       "judge": "His Honour Judge A Morley QC",
+       "platform": "In person",
+       "caseNumber": "T485913",
+       "caseName": "Tom Clancy",
+       "urn": "N363N6R4OG"
+     },
     {
       "hearingId": 2,
       "courtId": 50,

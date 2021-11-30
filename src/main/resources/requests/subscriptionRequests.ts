@@ -3,7 +3,6 @@ import path from 'path';
 import {dataManagementApi} from './utils/axiosConfig';
 import {CaseSubscription} from '../../models/caseSubscription';
 
-
 export class SubscriptionRequests {
   mocksPath = '../mocks/';
   rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'userSubscriptions.json'), 'utf-8');
@@ -36,13 +35,7 @@ export class SubscriptionRequests {
   }
 
   public async subscribe(searchResult: Array<CaseSubscription>, user): Promise<boolean> {
-    let subscribed = false;
-    if (user) {
-
-      //TODO: call api to subscribe and clear the cache
-      subscribed = true;
-    }
-    return subscribed;
+    return !!(user);
   }
 
 }

@@ -21,7 +21,6 @@ describe('Case name search results controller', () => {
     'case-name-search-results': {},
   };
   const response = { render: () => {return '';}} as unknown as Response;
-  const responseRedirect = { redirect: () => {return '';}} as unknown as Response;
 
   it('should render case name search results page if query param is valid', async () => {
     const request = mockRequest(i18n);
@@ -50,25 +49,4 @@ describe('Case name search results controller', () => {
     return responseMock.verify();
   });
 
-  it('should redirect to confirmation page if cases selected is multiple', async () => {
-    const request = mockRequest(i18n);
-    request.body = {'hearing-selections[]':['1', '10']};
-
-    const responseMock = sinon.mock(responseRedirect);
-
-    responseMock.expects('redirect').once().withArgs('pending-subscriptions');
-    await caseNameSearchResultsController.post(request, responseRedirect);
-    return responseMock.verify();
-  });
-
-  it('should redirect to confirmation page if cases selected is one', async () => {
-    const request = mockRequest(i18n);
-    request.body = {'hearing-selections[]':'1'};
-
-    const responseMock = sinon.mock(responseRedirect);
-
-    responseMock.expects('redirect').once().withArgs('pending-subscriptions');
-    await caseNameSearchResultsController.post(request, responseRedirect);
-    return responseMock.verify();
-  });
 });

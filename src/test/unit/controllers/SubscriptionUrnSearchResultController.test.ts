@@ -41,25 +41,4 @@ describe('Subscription Urn Search Result Controller', () => {
     });
   });
 
-  it('should render the confirmation page', () => {
-
-    i18n = {
-      'pending-subscriptions': {},
-    };
-
-    const response = {
-      redirect: function () {
-        return '';
-      },
-    } as unknown as Response;
-    const request = mockRequest(i18n);
-    request.query = { 'search-input': '123456789'};
-    const responseMock = sinon.mock(response);
-
-    responseMock.expects('redirect').once().withArgs('pending-subscriptions');
-
-    return subscriptionSearchUrnResultController.post(request, response).then(() => {
-      responseMock.verify();
-    });
-  });
 });

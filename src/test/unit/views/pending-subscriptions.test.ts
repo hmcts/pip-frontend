@@ -58,22 +58,17 @@ describe('Search Results Page', () => {
     expect(tableHeader1[0].innerHTML).contains('Unique reference number (URN)', 'Could not find text in first header');
   });
 
-  it('should display second table header', () => {
-    const tableHeader2 = htmlRes.getElementsByClassName(tableHeaderClass);
-    expect(tableHeader2[0].innerHTML).contains('Case reference number or case ID', 'Could not find text in second header');
-  });
-
   it('should contain 3 rows including the header row', () => {
     const rows = htmlRes.getElementsByClassName(rowClass);
-    expect(rows.length).equal(3, 'Table did not contain expected number of rows');
+    expect(rows.length).equal(4, 'Table did not contain expected number of rows');
   });
 
   it('should contain rows with correct values', () => {
     const rows = htmlRes.getElementsByClassName(rowClass);
     const items = rows.item(1).children;
 
-    expect(items[0].innerHTML).contains('IBRANE1BVW', 'URN does not exist');
-    expect(items[1].innerHTML).contains('T485914', 'Case number does not exist');
+    expect(items[0].innerHTML).contains('N363N6R4OG', 'URN does not exist');
+    expect(items[1].innerHTML).contains('T485913', 'Case number does not exist');
   });
 
 });

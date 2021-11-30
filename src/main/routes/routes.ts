@@ -56,9 +56,9 @@ export default function(app: Application): void {
   app.get('/subscription-urn-search', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchController.get);
   app.post('/subscription-urn-search', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchController.post);
   app.get('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
-  app.post('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.post);
   app.get('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.get);
   app.get('/subscription-confirmed', ensureAuthenticated, app.locals.container.cradle.subscriptionConfirmedController.get);
+  app.post('/subscription-confirmed', ensureAuthenticated, app.locals.container.cradle.subscriptionConfirmedController.post);
   app.post('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.post);
   app.get('/remove-case', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.removeCase);
   app.get('/otp-template', cors(corsOptions), app.locals.container.cradle.otpTemplateController.get);
@@ -98,7 +98,7 @@ export default function(app: Application): void {
   app.get('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.get);
   app.post('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.post);
   app.get('/case-name-search-results', ensureAuthenticated, app.locals.container.cradle.caseNameSearchResultsController.get);
-  app.post('/case-name-search-results', ensureAuthenticated, app.locals.container.cradle.caseNameSearchResultsController.post);
+  //app.post('/case-name-search-results', ensureAuthenticated, app.locals.container.cradle.caseNameSearchResultsController.post);
 
   // TODO: expose route only if not on the production environment
   app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);

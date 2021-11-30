@@ -2,10 +2,8 @@ import { Response} from 'express';
 import { HearingService } from '../service/hearingService';
 import { cloneDeep } from 'lodash';
 import { PipRequest } from '../models/request/PipRequest';
-import {SubscriptionService} from '../service/subscriptionService';
 
 const hearingService = new HearingService();
-const subscriptionService = new SubscriptionService();
 
 export default class CaseNameSearchResultsController {
   public async get(req: PipRequest , res: Response): Promise<void> {
@@ -21,28 +19,4 @@ export default class CaseNameSearchResultsController {
     }
   }
 
-  public async post(req: PipRequest, res: Response): Promise<void> {
-    const searchInput = req.body['hearing-selections[]'];
-    const searchResults = [];
-    if (Array.isArray(searchInput)) {
-
-      // get and collect all the hearings id in searchInput array
-      for (const id of searchInput) {
-        const hearing = await hearingService.getHearingsById(parseInt(id));
-        if (hearing) {
-          searchResults.push(hearing);
-        }
-      }
-
-    }
-    else {
-      const hearing = await hearingService.getHearingsById(parseInt(searchInput));
-      if (hearing) {
-        searchResults.push(hearing);
-      }
-    }
-
-    await subscriptionService.setPendingSubscriptions(searchResults, req.user);
-    res.redirect('pending-subscriptions');
-  }
 }

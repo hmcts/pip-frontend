@@ -68,8 +68,8 @@ describe('Search Results Page', () => {
     const rows = htmlRes.getElementsByClassName(rowClass);
     const items = rows.item(1).children;
 
-    expect(items[0].innerHTML).contains('123456789', 'URN does not exist');
-    expect(items[1].innerHTML).contains('63-694-7292', 'Case number does not exist');
+    expect(items[1].innerHTML).contains('123456789', 'URN does not exist');
+    expect(items[2].innerHTML).contains('63-694-7292', 'Case number does not exist');
   });
 
 });

@@ -15,10 +15,12 @@
 {% block content %}
   <h1 class="govuk-heading-l">{{ header }}</h1>
   <h3 class="govuk-heading-s">{{ subheader }}</h3>
-<form method="post">
-  <table class="govuk-table govuk-!-width-two-thirds">
+<form action="pending-subscriptions" method="post">
+  <table class="govuk-table govuk-!-width-two-thirds" data-module="moj-multi-select"
+         data-multi-select-checkbox="#select-all">
     <thead class="govuk-table__head">
     <tr class="govuk-table__row">
+      <th class="govuk-table__header vertical-center-table-header" scope="col" id="select-all"></th>
       <th scope="col" class="govuk-table__header">{{ table.header1 }}</th>
       <th scope="col" class="govuk-table__header">{{ table.header2 }}</th>
       <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header3 }}</th>
@@ -27,6 +29,15 @@
     <tbody class="govuk-table__body">
 
       <tr class="govuk-table__row">
+        <td class="govuk-table__cell">
+          <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
+            <input type="checkbox" class="govuk-checkboxes__input" id="{{ searchResults.hearingId }}"
+                   value="{{ searchResults.hearingId }}" name="hearing-selections[]">
+            <label class="govuk-label govuk-checkboxes__label" for="{{ searchResults.hearingId }}">
+              <span class="govuk-visually-hidden">{{ select }} {{ searchResults.caseName }}</span>
+            </label>
+          </div>
+        </td>
         <td scope="row" class="govuk-table__cell--no-line">{{ searchResults.urn }}</td>
         <td scope="row" class="govuk-table__cell--no-line">{{ searchResults.caseNumber }}</td>
         <td class="govuk-table__cell--no-line govuk-!-text-align-right">{{ searchResults.caseName }}</td>
@@ -40,7 +51,8 @@
 
 {% endblock %}
 {% block bodyEnd %}
-
+  <script type="text/javascript" src="/assets/js/jquery.js"></script>
+  <script type="text/javascript" src="/assets/js/mojAll.js"></script>
   <script>
     if ( window.history.replaceState ) {
       window.history.replaceState( null, null, window.location.href );
