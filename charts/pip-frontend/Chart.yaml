@@ -3,7 +3,11 @@ appVersion: "1.0"
 description: A Helm chart for pip-frontend App
 name: pip-frontend
 home: https://github.com/hmcts/pip-frontend
+<<<<<<< HEAD
 version: 0.0.13
+=======
+version: 0.0.14
+>>>>>>> 0683cd4e11ca096192a3a31364fdd9fae2c7f824
 maintainers:
   - name: HMCTS PIP Team
 dependencies:
