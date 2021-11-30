@@ -42,7 +42,6 @@ export class PendingSubscriptionsFromCache {
       let result = null;
       const cacheResult = JSON.parse(await redisClient.get(`pending-subscriptions${user.id}`));
       if (cacheResult) {
-
         cacheResult.forEach(x=>{
           if (x.hearingId === id)
             result = x;

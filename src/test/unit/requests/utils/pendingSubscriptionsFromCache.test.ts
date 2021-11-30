@@ -28,13 +28,14 @@ const newHearing = [
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../../main/resources/mocks/caseHearings.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
 const stub = sinon.stub(redisClient, 'get');
+const stubDel = sinon.stub(redisClient, 'del');
 sinon.stub(redisClient, 'status').value('ready');
 
 describe('setPendingSubscriptions with valid user', () => {
   stub.withArgs(`pending-subscriptions${mockUser.id}`).resolves(rawData);
+  stubDel.withArgs(`pending-subscriptions${mockUser.id}`);
 
   const set = sinon.spy(redisClient, 'set');
-  const del = sinon.spy(redisClient, 'del');
 
   it('should set hearings collection from cache adding new ones', async () => {
     await pendingSubscriptionsFromCache.setPendingSubscriptions(newHearing, mockUser);
@@ -48,7 +49,6 @@ describe('setPendingSubscriptions with valid user', () => {
 
   it('should clear hearings collection from cache', async () => {
     const result = await pendingSubscriptionsFromCache.clearPendingSubscription(mockUser);
-    sinon.assert.calledOnce(del);
     expect(result).toBe(true);
   });
 
