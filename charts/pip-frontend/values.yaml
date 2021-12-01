@@ -3,8 +3,6 @@ nodejs:
   ingressHost: pip-frontend.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'sdshmctspublic.azurecr.io/pip/frontend:latest'
   keyVaults:
-    pip-sharedservice-kv:
-      resourceGroup: pip-sharedservice-{{ .Values.global.environment }}-rg
     pip-ss-kv:
       resourceGroup: pip-ss-{{ .Values.global.environment }}-rg
       secrets:
