@@ -42,8 +42,10 @@
     {% endfor %}
     </tbody>
   </table>
-  {{ submitButton(buttonText) }}
-  <a class="govuk-link" href="{{ addOther_link }}">{{ addOther_text }}</a>
+  <div class="govuk-!-text-align-left">
+    {{ submitButton(buttonText) }}
+    <span class="govuk-!-text-align-centre"><a class="govuk-link" href="{{ addOther_link }}">{{ addOther_text }}</a></span>
+  </div>
 </form>
   <script>
     if ( window.history.replaceState ) {
