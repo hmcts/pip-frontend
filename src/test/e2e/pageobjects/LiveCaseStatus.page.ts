@@ -1,4 +1,4 @@
-import { CommonPage } from '../PageObjects/Common.page';
+import { CommonPage } from './Common.page';
 import { CaseEventGlossaryPage } from './CaseEventGlossary.page';
 
 const helpers = require('../Helpers/Selectors');
