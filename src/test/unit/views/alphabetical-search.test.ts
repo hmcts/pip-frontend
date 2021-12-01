@@ -54,7 +54,7 @@ describe('Alphabetical Search page', () => {
 
   it('should contain the correct headers', () => {
     const tableHeaders = htmlRes.getElementsByClassName('govuk-table__header');
-    expect(tableHeaders[1].innerHTML)
+    expect(tableHeaders[0].innerHTML)
       .contains('Court or tribunal', 'Court or tribunal header is not present');
   });
 
@@ -92,5 +92,16 @@ describe('Alphabetical Search page', () => {
     const fieldsets = htmlRes.getElementsByClassName('govuk-fieldset');
     expect(fieldsets[0].innerHTML).contains('Crown Court');
     expect(fieldsets[1].innerHTML).contains('London');
+  });
+
+  it('should display lists element', () => {
+    const nationalLists = htmlRes.getElementsByClassName('govuk-heading-s');
+    expect(nationalLists[0].innerHTML).contains('National lists');
+  });
+
+  it('should display sjp link in national lists with correct href value', () => {
+    const sjpLink = htmlRes.getElementById('sjp-link');
+    expect(sjpLink.innerHTML).contains('Single Justice Procedure cases');
+    expect(sjpLink.getAttribute('href')).contains('single-justice-procedure');
   });
 });
