@@ -11,9 +11,12 @@ const radioClass = 'govuk-radios__item';
 const expectedHeader = 'What would you like to view?';
 const expectedButtonText = 'Continue';
 const expectedRadioLabel1 = 'Court or tribunal publications';
-const expectedRadioLabel2 = 'Live hearing updates - Crown Court only';
+const expectedRadioLabel2 = 'Live hearing progress';
 const expectedRadioLabel3 = 'Single Justice Procedure cases';
-const expectedRadioHint3 = 'Cases involving adults charged with summary-only non-imprisonable offences, such as Transport for London, TV Licensing, and the DVLA';
+const expectedRadioHint1 = 'For example, list of hearings due to be heard, either today or in the future';
+const expectedRadioHint2 = 'Find out the live status of hearings currently happening - Crown Court cases only';
+const expectedRadioHint3 = 'A nationwide list of cases, that are ready to be decided by a magistrate, without a hearing. ' +
+  'Examples of the cases listed here relate to prosecutions brought by the Driver and Vehicle Licensing Agency (DVLA) or TV Licensing';
 
 let htmlRes: Document;
 
@@ -39,23 +42,17 @@ describe('View Option Page', () => {
     expect(radioButtons.length).equal(3, '3 radio buttons not found');
   });
 
-  it('should display first radio button content',  () => {
+  it('should display radio buttons with valid text',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons[0].innerHTML).contains(expectedRadioLabel1, 'Could not find the radio button with label ' + expectedRadioLabel1);
-  });
-
-  it('should display second radio button content',  () => {
-    const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons[1].innerHTML).contains(expectedRadioLabel2, 'Could not find the radio button with label ' + expectedRadioLabel2);
-  });
-
-  it('should display third radio button content',  () => {
-    const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons[2].innerHTML).contains(expectedRadioLabel3, 'Could not find the radio button with label ' + expectedRadioLabel3);
   });
 
-  it('should display third radio button hint',  () => {
+  it('should display radio buttons with valid hint',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
+    expect(radioButtons[0].innerHTML).contains(expectedRadioHint1, 'Could not find the radio button with hint ' + expectedRadioHint1);
+    expect(radioButtons[1].innerHTML).contains(expectedRadioHint2, 'Could not find the radio button with hint ' + expectedRadioHint2);
     expect(radioButtons[2].innerHTML).contains(expectedRadioHint3, 'Could not find the radio button with hint ' + expectedRadioHint3);
   });
 });
