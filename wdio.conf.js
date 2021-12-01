@@ -1,5 +1,5 @@
 const drivers = {
-  chrome: { version: '96.0.4664.45' },
+  chrome: { version: 'latest' },
   chromiumedge: { version: '96.0.1054.34', arch: process.arch, baseUrl: ' https://msedgedriver.azureedge.net' },
 };
 exports.config = {
@@ -62,7 +62,7 @@ exports.config = {
       browserName: 'chrome',
       acceptInsecureCerts: true,
       'goog:chromeOptions': {
-        args: ['--headless', 'user-agent=...','--disable-gpu'],
+        args: ['--headless', 'user-agent=...','--disable-gpu', '--no-sandbox'],
       },
     // If outputDir is provided WebdriverIO can capture driver session logs
     // it is possible to configure which logTypes to include/exclude.
