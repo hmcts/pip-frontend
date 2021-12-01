@@ -300,7 +300,7 @@ exports.config = {
     // for all available options
     tsNodeOpts: {
       transpileOnly: true,
-      project: 'tsconfig.json',
+      project: 'tsconfig.e2e.json',
     },
     // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
     // do please make sure "tsconfig-paths" is installed as dependency
