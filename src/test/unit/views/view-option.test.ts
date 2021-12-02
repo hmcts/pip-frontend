@@ -15,7 +15,8 @@ const expectedRadioLabel2 = 'Live hearing progress';
 const expectedRadioLabel3 = 'Single Justice Procedure cases';
 const expectedRadioHint1 = 'For example, list of hearings due to be heard, either today or in the future';
 const expectedRadioHint2 = 'Find out the live status of hearings currently happening - Crown Court cases only';
-const expectedRadioHint3 = 'A nationwide list of cases, ready to be decided by a magistrate without a hearing. Such as TV licensing prosecutions.';
+const expectedRadioHint3 = 'A nationwide list of cases, ready to be decided by a magistrate without a hearing. ' +
+  'Such as TV licensing prosecutions.';
 
 let htmlRes: Document;
 
