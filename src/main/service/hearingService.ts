@@ -8,7 +8,7 @@ export class HearingService {
     return await hearingRequests.getHearingsByCaseName(searchQuery);
   }
 
-  public async getHearingByCaseReferenceNumber(caseReferenceNo: string): Promise<Array<Hearing>> {
+  public async getHearingByCaseReferenceNumber(caseReferenceNo: string): Promise<Hearing[]> {
     return await hearingRequests.getHearingByCaseReferenceNumber(caseReferenceNo);
   }
 }
