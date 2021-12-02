@@ -3,11 +3,8 @@
   "backToTop": "Back to top",
   "heading": "Find a court or tribunal",
   "tableHeader1": "Court or tribunal",
-  "tableHeader2": "Number of hearings",
-  "error": {
-    "line1": "No hearings are scheduled in any of these",
-    "line2": "locations today"
-  },
+  "nationalListsHeader": "National lists",
+  "sjpLink": "Single Justice Procedure cases",
   "filter": "Filter",
   "clearAll": "Clear filters",
   "selectedFilter": "Selected filter"
