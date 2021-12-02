@@ -66,16 +66,19 @@ describe(`getHearingByCaseReferenceNumber(${validCaseNo})`, () => {
     return hearingRequests.getHearingByCaseReferenceNumber(validCaseNo).then(data => {
       expect((data === subscriptionsCaseData) ? 1 : 0).toBe(1);
     });
-
-    it('should return empty list if request fails', async () => {
-      expect(await hearingRequests.getHearingByCaseReferenceNumber('')).toStrictEqual(null);
-    });
-
-    it('should return empty list if request fails', async () => {
-      expect(await hearingRequests.getHearingByCaseReferenceNumber('fail')).toStrictEqual(null);
-    });
   });
 
+  it('should return empty list if request fails', async () => {
+    expect(await hearingRequests.getHearingByCaseReferenceNumber('')).toStrictEqual(null);
+  });
+
+  it('should return empty list if request fails', async () => {
+    expect(await hearingRequests.getHearingByCaseReferenceNumber('fail')).toStrictEqual(null);
+  });
+});
+
+describe('non existing subscriptions getSubscriptionByUrn error request', () => {
+  stub.withArgs('/hearings/case-number/12345').resolves(Promise.reject(errorRequest));
   it(`should have only cases for case reference ${validCaseNo}`, () => {
     return hearingRequests.getHearingByCaseReferenceNumber(validCaseNo).then(data => {
       expect((data[0].caseNumber === validCaseNo ? 1 : 0)).toBe(1);
