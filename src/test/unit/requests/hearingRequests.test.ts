@@ -77,7 +77,7 @@ describe(`getHearingByCaseReferenceNumber(${validCaseNo})`, () => {
   });
 });
 
-describe('non existing subscriptions getSubscriptionByUrn error request', () => {
+describe('non existing subscriptions getHearingByCaseReferenceNumber error request', () => {
   stub.withArgs('/hearings/case-number/12345').resolves(Promise.reject(errorRequest));
   it(`should have only cases for case reference ${validCaseNo}`, () => {
     return hearingRequests.getHearingByCaseReferenceNumber(validCaseNo).then(data => {
