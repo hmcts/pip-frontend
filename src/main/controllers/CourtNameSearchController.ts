@@ -14,8 +14,6 @@ export default class CourtNameSearchController {
     if (req.query['clear']) {
       const query = req.query['clear'] as string;
       filterValues = filterService.handleFilterClear(filterValues, query);
-    } else {
-      filterValues = [];
     }
 
     const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
