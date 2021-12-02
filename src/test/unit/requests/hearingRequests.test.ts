@@ -63,6 +63,14 @@ describe(`getHearingByCaseReferenceNumber(${validCaseNo})`, () => {
     return hearingRequests.getHearingByCaseReferenceNumber(validCaseNo).then(data => {
       expect((data === subscriptionsCaseData) ? 1 : 0).toBe(1);
     });
+
+    it('should return empty list if request fails', async () => {
+      expect(await hearingRequests.getHearingByCaseReferenceNumber('')).toStrictEqual(null);
+    });
+
+    it('should return empty list if request fails', async () => {
+      expect(await hearingRequests.getHearingByCaseReferenceNumber('test')).toStrictEqual(null);
+    });
   });
 
   it(`should have only cases for case reference ${validCaseNo}`, () => {
