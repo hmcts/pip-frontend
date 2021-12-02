@@ -44,8 +44,11 @@ describe('Hearing get requests', () => {
 });
 
 describe(`getHearingByCaseReferenceNumber(${validCaseNo})`, () => {
-
-  stub.withArgs('/hearings/case-number/ABC12345').resolves({data: subscriptionsCaseData});
+  beforeEach(() => {
+    stub.withArgs('/hearings/case-number/').resolves(Promise.reject(errorResponse));
+    stub.withArgs('/hearings/case-number/fail').resolves(Promise.reject(errorRequest));
+    stub.withArgs('/hearings/case-number/ABC12345').resolves({data: subscriptionsCaseData});
+  });
 
   it('should return list of cases', async () => {
     return hearingRequests.getHearingByCaseReferenceNumber(validCaseNo).then(data => {
@@ -69,7 +72,7 @@ describe(`getHearingByCaseReferenceNumber(${validCaseNo})`, () => {
     });
 
     it('should return empty list if request fails', async () => {
-      expect(await hearingRequests.getHearingByCaseReferenceNumber('test')).toStrictEqual(null);
+      expect(await hearingRequests.getHearingByCaseReferenceNumber('fail')).toStrictEqual(null);
     });
   });
 
