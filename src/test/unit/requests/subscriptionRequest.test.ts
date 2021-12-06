@@ -2,7 +2,7 @@ import { SubscriptionRequests } from '../../../main/resources/requests/subscript
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {dataManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
+import {dataManagementApi, subscriptionManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
 
 const userIdWithSubscriptions = 1;
 const userIdWithoutSubscriptions = 2;
@@ -34,11 +34,18 @@ const errorRequest = {
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
-const stub = sinon.stub(dataManagementApi, 'get');
 
-describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, () => {
-  const userSubscriptions = subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-  it('should return user subscription object', () => {
+const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/userSubscriptions.json'), 'utf-8');
+const subscriptionsData2 = JSON.parse(rawData2);
+
+
+const stub = sinon.stub(dataManagementApi, 'get');
+const stub2 = sinon.stub(subscriptionManagementApi, 'get');
+
+describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, async () => {
+  stub2.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves({data: subscriptionsData2[0]});
+  const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
+  it('should return user subscription object', async () => {
     expect(userSubscriptions.courtSubscriptions.length).toBeGreaterThan(0);
     expect(userSubscriptions.caseSubscriptions.length).toBeGreaterThan(0);
   });
@@ -54,16 +61,18 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
   });
 });
 
-describe(`getUserSubscriptions(${userIdWithoutSubscriptions}) with valid user id`, () => {
-  const userSubscriptions = subscriptionActions.getUserSubscriptions(userIdWithoutSubscriptions);
+describe(`getUserSubscriptions(${userIdWithoutSubscriptions}) with valid user id`, async () => {
+  stub2.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves({data: subscriptionsData2[1]});
+  const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithoutSubscriptions);
   it('should return user subscription object', () => {
     expect(userSubscriptions.courtSubscriptions.length).toBe(0);
     expect(userSubscriptions.caseSubscriptions.length).toBe(0);
   });
 });
 
-describe(`non existing user Id getUserSubscriptions(${nonExistingUserId})`, () => {
-  const userSubscriptions = subscriptionActions.getUserSubscriptions(nonExistingUserId);
+describe(`non existing user Id getUserSubscriptions(${nonExistingUserId})`, async () => {
+  stub2.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({ data: null });
+  const userSubscriptions = await subscriptionActions.getUserSubscriptions(nonExistingUserId);
   it('should return null', () => {
     expect(userSubscriptions).toBe(null);
   });

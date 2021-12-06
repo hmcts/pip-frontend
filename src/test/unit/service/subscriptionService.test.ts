@@ -13,30 +13,30 @@ const validUrn = '123456789';
 stubSubscriptionSearchUrn.withArgs(validUrn).returns(subscriptionResult);
 describe('generate rows functions without subscriptions', () => {
 
-  it('generateCaseTableRows should return list of case subscriptions', () => {
-    const caseSubscriptionRows = subscriptionService.generateCaseTableRows(2);
+  it('generateCaseTableRows should return list of case subscriptions', async () => {
+    const caseSubscriptionRows = await subscriptionService.generateCaseTableRows(2);
     expect(caseSubscriptionRows.length).toBe(0);
   });
 
-  it('generateCourtTableRows should return list of court subscriptions', () => {
-    const courtSubscriptionRows = subscriptionService.generateCourtTableRows(2);
+  it('generateCourtTableRows should return list of court subscriptions', async () => {
+    const courtSubscriptionRows = await subscriptionService.generateCourtTableRows(2);
     expect(courtSubscriptionRows.length).toBe(0);
   });
 });
 
 describe('generate rows functions with subscriptions', () => {
-  it('generateCaseTableRows should return list of case subscriptions', () => {
-    const caseSubscriptionRows = subscriptionService.generateCaseTableRows(1);
+  it('generateCaseTableRows should return list of case subscriptions', async () => {
+    const caseSubscriptionRows = await subscriptionService.generateCaseTableRows(1);
     expect(caseSubscriptionRows.length).toBeGreaterThan(0);
   });
 
-  it('generateCourtTableRows should return list of court subscriptions', () => {
-    const courtSubscriptionRows = subscriptionService.generateCourtTableRows(1);
+  it('generateCourtTableRows should return list of court subscriptions', async () => {
+    const courtSubscriptionRows = await subscriptionService.generateCourtTableRows(1);
     expect(courtSubscriptionRows.length).toBeGreaterThan(0);
   });
 
-  it('getSubscriptionUrnDetails should return the cases', () => {
-    const courtSubscription= subscriptionService.getSubscriptionUrnDetails(validUrn);
+  it('getSubscriptionUrnDetails should return the cases', async () => {
+    const courtSubscription = await subscriptionService.getSubscriptionUrnDetails(validUrn);
     expect(courtSubscription).not.toBeNull();
   });
 

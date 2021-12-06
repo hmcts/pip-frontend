@@ -6,8 +6,8 @@ const subscriptionRequests = new SubscriptionRequests();
 
 export class SubscriptionService {
 
-  generateCaseTableRows(userid: number): any[] {
-    const subscriptionData = subscriptionRequests.getUserSubscriptions(userid);
+  public async generateCaseTableRows(userid: number): Promise<any[]> {
+    const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
     const caseRows = [];
     if (subscriptionData.caseSubscriptions.length) {
       subscriptionData.caseSubscriptions.forEach((subscription) => {
@@ -33,8 +33,8 @@ export class SubscriptionService {
     return caseRows;
   }
 
-  generateCourtTableRows(userId: number): any[] {
-    const subscriptionData = subscriptionRequests.getUserSubscriptions(userId);
+  public async generateCourtTableRows(userId: number): Promise<any[]> {
+    const subscriptionData = await subscriptionRequests.getUserSubscriptions(userId);
     const courtRows = [];
     if (subscriptionData.courtSubscriptions.length) {
       subscriptionData.courtSubscriptions.forEach((subscription) => {
