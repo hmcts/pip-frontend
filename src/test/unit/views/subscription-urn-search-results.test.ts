@@ -14,10 +14,10 @@ const backLinkClass = 'govuk-back-link';
 const rowClass = 'govuk-table__row';
 const tableBodyClass = 'govuk-table__body';
 const tableHeaderClass = 'govuk-table__head';
-let htmlRes: Document;
-
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
+let htmlRes: Document;
+
 sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').returns(subscriptionsData);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
