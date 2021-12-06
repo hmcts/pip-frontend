@@ -78,9 +78,9 @@ export default function(app: Application): void {
   app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
   app.post('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.post);
   app.get('/subscription-management', ensureAuthenticated, app.locals.container.cradle.subscriptionManagementController.get);
-  app.get('/subscription-urn-search', app.locals.container.cradle.subscriptionUrnSearchController.get);
-  app.post('/subscription-urn-search', app.locals.container.cradle.subscriptionUrnSearchController.post);
-  app.get('/subscription-urn-search-results', app.locals.container.cradle.subscriptionUrnSearchResultController.get);
+  app.get('/subscription-urn-search', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchController.get);
+  app.post('/subscription-urn-search', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchController.post);
+  app.get('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
