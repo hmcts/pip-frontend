@@ -1,10 +1,9 @@
 import { expect } from 'chai';
+import { app } from '../../../main/app';
+import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
+import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
-import { app } from '../../../main/app';
-import fs from 'fs';
-import path from 'path';
-import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
 
 const PAGE_URL = '/subscription-urn-search';
 const headingClass = 'govuk-label-wrapper';
@@ -14,25 +13,17 @@ const inputErrorClass = 'govuk-input--error';
 const errorSummaryTitleClass = 'govuk-error-summary__title';
 const errorSummaryBodyClass = 'govuk-error-summary__body';
 const formErrorClass = 'govuk-form-group--error';
-
 const expectedHeader = 'Enter a unique reference number';
 const expectedButtonText = 'Continue';
+const expectedErrorMessage = 'URN not found, please try again or search under a Case Name or subscribe to a whole court';
+const expectedErrorTitle = 'There is a problem';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData);
-sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').returns(subscriptionsData);
-
-jest.mock('axios', () => {
-  return {
-    create: function(): { get: () => Promise<any> } {
-      return {
-        get: function(): Promise<any> { return new Promise((resolve) => resolve({data: subscriptionsData}));},
-      };
-    },
-  };
-});
+const stub = sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn');
+stub.withArgs('12345').returns(null);
+stub.withArgs('').returns(null);
+sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('URN Search Page', () => {
   beforeAll(async () => {
@@ -41,7 +32,7 @@ describe('URN Search Page', () => {
     });
   });
 
-  it('should display header',  () => {
+  it('should display the header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
     expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
   });
@@ -54,7 +45,6 @@ describe('URN Search Page', () => {
   it('should display back button', () => {
     const backButton = htmlRes.getElementsByClassName('govuk-back-link');
     expect(backButton[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backButton[0].getAttribute('href')).equal('#', 'Back button does not contain correct link');
   });
 
   it('should not display error summary on the initial load', () => {
@@ -77,12 +67,12 @@ describe('URN Search Page Blank Input', () => {
 
   it('should display minimum input error message', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
-    expect(errorSummary[0].innerHTML).contains('URN not found, please try again or search under a Case Name or subscribe to a whole court', 'Could not find error message');
+    expect(errorSummary[0].innerHTML).contains(expectedErrorMessage, 'Could not find error message');
   });
 
   it('should display error message', () => {
     const errorTitle = htmlRes.getElementsByClassName(errorSummaryTitleClass);
-    expect(errorTitle[0].innerHTML).contains('There is a problem', 'Could not find title');
+    expect(errorTitle[0].innerHTML).contains(expectedErrorTitle, 'Could not find title');
   });
 
   it('should display input errors', () => {
@@ -91,22 +81,8 @@ describe('URN Search Page Blank Input', () => {
   });
 });
 
-
-// jest.mock('axios', () => {
-//   return {
-//     create: function(): { get: () => Promise<any> } {
-//       return {
-//         get: function(): Promise<any> { return new Promise((resolve) => resolve({data: {}}));},
-//       };
-//     },
-//   };
-// });
-
 describe('URN Search Page Invalid Input', () => {
-
   beforeAll(async () => {
-    sinon.restore();
-    sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').returns(null);
     await request(app).post(PAGE_URL).send({'search-input': '12345'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -114,18 +90,17 @@ describe('URN Search Page Invalid Input', () => {
 
   it('should display minimum input error message', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
-    expect(errorSummary[0].innerHTML).contains('URN not found, please try again or search under a Case Name or subscribe to a whole court', 'Could not find error message');
+    expect(errorSummary[0].innerHTML).contains(expectedErrorMessage, 'Could not find error message');
   });
 
   it('should display error message', () => {
     const errorTitle = htmlRes.getElementsByClassName(errorSummaryTitleClass);
-    expect(errorTitle[0].innerHTML).contains('There is a problem', 'Could not find error title');
+    expect(errorTitle[0].innerHTML).contains(expectedErrorTitle, 'Could not find error title');
   });
 
   it('should display input errors', () => {
     const formError = htmlRes.getElementsByClassName(formErrorClass);
     expect(formError.length).equal(1, 'Could not find form errors');
   });
-
 });
 
