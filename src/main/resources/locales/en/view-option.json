@@ -2,9 +2,9 @@
   "title": "View Option",
   "radioLegend": "What would you like to view?",
   "radio1": "Court or tribunal publications",
-  "radio2": "Live hearing updates - Crown Court only",
+  "radio2": "Live hearing progress",
   "radio3": "Single Justice Procedure cases",
-  "radio3Hint": "Cases involving adults charged with summary-only non-imprisonable offences, such as Transport for London, TV Licensing, and the DVLA"
-
-
+  "radio1Hint": "For example, list of hearings due to be heard, either today or in the future",
+  "radio2Hint": "Find out the live status of hearings currently happening - Crown Court cases only",
+  "radio3Hint": "A nationwide list of cases, ready to be decided by a magistrate without a hearing. Such as TV licensing prosecutions."
 }
