@@ -3,6 +3,7 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import { SubscriptionService } from '../../../main/service/subscriptionService';
+import {cloneDeep} from 'lodash';
 
 const subscriptionManagementController = new SubscriptionManagementController();
 
@@ -18,14 +19,17 @@ describe('Subscription Management Controller', () => {
     courtTableData: [],
   };
 
+  const stubCase = [];
+  const stubCourt = [];
   it('should render the subscription management page with all as default', () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     request.query = {};
 
     const expectedData = {
-      ...i18n['subscription-management'],
-      ...tableData,
+      ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['subscription-management']),
+      stubCase,
+      stubCourt,
       activeAllTab: true,
       activeCaseTab: false,
       activeCourtTab: false,
@@ -34,8 +38,9 @@ describe('Subscription Management Controller', () => {
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management', expectedData);
 
-    subscriptionManagementController.get(request, response);
-    responseMock.verify();
+    subscriptionManagementController.get(request, response).then(() => {
+      responseMock.verify();
+    });
   });
 
   it('should render the subscription management page with all query param', () => {
@@ -54,8 +59,9 @@ describe('Subscription Management Controller', () => {
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management', expectedData);
 
-    subscriptionManagementController.get(request, response);
-    responseMock.verify();
+    subscriptionManagementController.get(request, response).then(() => {
+      responseMock.verify();
+    });
   });
 
   it('should render the subscription management page with case query param', () => {
@@ -74,8 +80,9 @@ describe('Subscription Management Controller', () => {
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management', expectedData);
 
-    subscriptionManagementController.get(request, response);
-    responseMock.verify();
+    subscriptionManagementController.get(request, response).then(() => {
+      responseMock.verify();
+    });
   });
 
   it('should render the subscription management page with court query param', () => {
@@ -94,8 +101,9 @@ describe('Subscription Management Controller', () => {
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management', expectedData);
 
-    subscriptionManagementController.get(request, response);
-    responseMock.verify();
+    subscriptionManagementController.get(request, response).then(() => {
+      responseMock.verify();
+    });
   });
 
   it('should render error page if there is no user data', () => {
@@ -106,7 +114,8 @@ describe('Subscription Management Controller', () => {
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-    subscriptionManagementController.get(request, response);
-    responseMock.verify();
+    subscriptionManagementController.get(request, response).then(() => {
+      responseMock.verify();
+    });
   });
 });

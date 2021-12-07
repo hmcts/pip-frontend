@@ -5,6 +5,9 @@ import sinon from 'sinon';
 import moment from 'moment';
 
 import {app} from '../../../main/app';
+import fs from 'fs';
+import path from 'path';
+import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
 
 const PAGE_URL = '/subscription-management';
 const expectedAllSubsTitle = 'All subscriptions (9)';
@@ -25,6 +28,20 @@ const expectedCaseRowsCount = 3;
 const expectedCourtRowsCount = 6;
 
 let htmlRes: Document;
+
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/userSubscriptions.json'), 'utf-8');
+const subscriptionsData = JSON.parse(rawData);
+sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns(subscriptionsData.results[0]);
+
+jest.mock('axios', () => {
+  return {
+    create: function(): { get: () => Promise<any> } {
+      return {
+        get: function(): Promise<any> {return new Promise((resolve) => resolve({data: subscriptionsData.results[0]}));},
+      };
+    },
+  };
+});
 
 describe('Subscription Management Page', () => {
   beforeAll(async () => {

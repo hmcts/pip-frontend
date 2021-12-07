@@ -6,12 +6,12 @@ import {cloneDeep} from 'lodash';
 const subscriptionService = new SubscriptionService();
 
 export default class SubscriptionManagementController {
-  public get(req: PipRequest, res: Response): void {
+  public async get(req: PipRequest, res: Response): Promise<void> {
     if (req.user) {
       // currently only 2 users are mocked, userId: 1 has subscriptions, userId: 2 doesnt
       const userId = req.user['id'] === '1' ? 1 : 2;
-      const caseTableData = subscriptionService.generateCaseTableRows(userId);
-      const courtTableData = subscriptionService.generateCourtTableRows(userId);
+      const caseTableData = await subscriptionService.generateCaseTableRows(userId);
+      const courtTableData = await subscriptionService.generateCourtTableRows(userId);
       let activeAllTab = false, activeCaseTab = false, activeCourtTab = false;
       switch (Object.keys(req.query)[0]) {
         case 'all':
@@ -33,7 +33,8 @@ export default class SubscriptionManagementController {
         courtTableData,
         activeAllTab,
         activeCaseTab,
-        activeCourtTab});
+        activeCourtTab,
+      });
     } else {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
