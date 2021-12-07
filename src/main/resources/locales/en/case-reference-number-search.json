@@ -4,7 +4,7 @@
   "hint": "Please provide the exact match",
   "error": {
     "title": "There is a problem",
-    "header": "Enter valid case reference number",
+    "header": "Enter a valid case reference number",
     "notfound": "Case reference number not found. Please try again or search by case name, by unique reference number, or by a whole court"
   }
 }

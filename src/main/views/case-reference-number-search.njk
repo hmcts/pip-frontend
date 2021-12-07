@@ -1,22 +1,20 @@
-{% extends "template.njk" %}
-{% from "macros/common-components.njk" import submitButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% from "macros/common-components.njk" import goBack %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "./macros/common-components.njk" import goBack, submitButton %}
 
+{% extends "template.njk" %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
-
 {% block beforeContent %}
   {{ super() }}
   {{ goBack() }}
 {% endblock %}
-
 {% block content %}
-  {% if noResultsError or invalidInputError %}
+  {% if noResultsError  or invalidInputError %}
     <div class="govuk-grid-row">
-      <div class="no_padding govuk-grid-column-two-quarters">
+      <div class="no_padding govuk-grid-column-full">
         {{ govukErrorSummary({
           titleText: error.title,
           errorList: [
@@ -29,34 +27,43 @@
       </div>
     </div>
   {% endif %}
-  {%  set hintText = ''
-    if noResultsError or invalidInputError else hint %}
-  {% set inputClasses = 'govuk-div govuk-input--error'
+
+  {% set inputClasses = 'govuk-!-width-two-thirds govuk-input--error'
     if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
   {% set formGroupError = 'govuk-form-group--error'
     if noResultsError or invalidInputError else 'govuk-form-group' %}
+  {% set inputProperties = {
+    id: "search-input",
+    name: "search-input",
+    errorMessage: {
+      text: error.header
+    },
+    classes: 'govuk-!-width-one-third',
+    label: {
+      text: ''
+    }
+  } if noResultsError or invalidInputError else {
+    id: "search-input",
+    name: "search-input",
+    classes: 'govuk-!-width-one-third',
+    label: {
+    text: hint
+  }
+    } %}
   <form action="case-reference-number-search" method="post">
-    <div class="govuk-form-group govuk-!-width-one-half">
-      <h1 class="govuk-heading-l">
-        <label class="govuk-label govuk-label--l" for="search-input">
-          {{ header }}
-        </label>
-      </h1>
-      <div class="{{ formGroupError }}">
-        {% if noResultsError or invalidInputError %}
-          <span class="govuk-error-message">{{ error.header }}</span>
-        {% endif %}
-        {{ govukInput({
-          label: {
-            "text":  hintText
-          },
-          id: "search-input",
-          name: "search-input",
-          autocomplete: "false"
-        }) }}
-      </div>
+    <div class="govuk-form-group">
+      <h1 class="govuk-heading-l">{{ header }}</h1>
+      {{ govukInput(inputProperties) }}
     </div>
     {{ submitButton() }}
+    {% if noResultsError or invalidInputError %}
+      <div class="govuk-grid-row">
+        <div class="no_padding govuk-grid-column-full">
+          <h2 class="govuk-heading-s">{{ error.line1 }}</h2>
+          <p class="govuk-body">{{ error.line2 }}</p>
+        </div>
+      </div>
+    {% endif %}
   </form>
 {% endblock %}
 {% block bodyEnd %}
