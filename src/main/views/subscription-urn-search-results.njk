@@ -1,26 +1,19 @@
 {% extends "template.njk" %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "./macros/common-components.njk" import submitButton %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "./macros/common-components.njk" import submitButton, goBack %}
 
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukBackLink({
-    text: text,
-    href: '#',
-    attributes: {
-      onClick: "history.back();event.preventDefault();"
-    }
-  }) }}
+  {{ super() }}
+  {{ goBack() }}
 {% endblock %}
 
 {% block content %}
   <h1 class="govuk-heading-l">{{ header }}</h1>
   <h3 class="govuk-heading-s">{{ subheader }}</h3>
-
   <table class="govuk-table govuk-!-width-two-thirds">
     <thead class="govuk-table__head">
     <tr class="govuk-table__row">
@@ -30,13 +23,11 @@
     </tr>
     </thead>
     <tbody class="govuk-table__body">
-
       <tr class="govuk-table__row">
-        <td scope="row" class="govuk-table__cell--no-line">{{ searchResults.urn }}</td>
-        <td scope="row" class="govuk-table__cell--no-line">{{ searchResults.caseNumber }}</td>
-        <td class="govuk-table__cell--no-line govuk-!-text-align-right">{{ searchResults.caseName }}</td>
+        <td class="govuk-table__cell">{{ searchResults.urn }}</td>
+        <td class="govuk-table__cell">{{ searchResults.caseNumber }}</td>
+        <td class="govuk-table__cell govuk-!-text-align-right">{{ searchResults.caseName }}</td>
       </tr>
-
     </tbody>
   </table>
   {{ submitButton() }}
