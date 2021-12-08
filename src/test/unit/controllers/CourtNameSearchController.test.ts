@@ -45,6 +45,18 @@ describe('Court Name Search Controller', () => {
       });
     });
 
+    it('should render court name search page if invalid query param is provided', () => {
+      request.query = {foo: 'blah'};
+
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+
+      return courtNameSearchController.get(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+
     it('should render court name search page if reset all filters is applied', () => {
       request.query = {clear: 'all'};
 
