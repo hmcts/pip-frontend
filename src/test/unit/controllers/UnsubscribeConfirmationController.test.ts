@@ -4,17 +4,16 @@ import { SubscriptionService } from '../../../main/service/subscriptionService';
 import sinon from 'sinon';
 import UnsubscribeConfirmationController from '../../../main/controllers/UnsubscribeConfirmationController';
 
-
 const stub = sinon.stub(SubscriptionService.prototype, 'unsubscribe');
-const validBody = {'unsubscribe-confirm': 'yes', subscription: 'valid subscription'};
+const validBody = {'unsubscribe-confirm': 'yes', subscription: '123'};
 const invalidBody = {'unsubscribe-confirm': 'yes', subscription: 'foo'};
 const redirectBody = {'unsubscribe-confirm': 'no'};
 const unsubscribeConfirmationController = new UnsubscribeConfirmationController();
 
 describe('Unsubscribe Confirmation Controller', () => {
   beforeEach(() => {
-    stub.withArgs({...validBody, userId: '1'}).resolves(true);
-    stub.withArgs({...invalidBody, userId: '1'}).resolves(undefined);
+    stub.withArgs('123').resolves(true);
+    stub.withArgs('foo').resolves(undefined);
   });
 
   const i18n = {
@@ -23,7 +22,6 @@ describe('Unsubscribe Confirmation Controller', () => {
   };
   const response = { render: () => {return '';}, redirect: () => {return '';}} as unknown as Response;
   const request = mockRequest(i18n);
-  request['user'] = {id: '1'};
 
   it('should render unsubscribe confirmation page if valid body data is provided', () => {
     request.body = validBody;

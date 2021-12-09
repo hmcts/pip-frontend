@@ -23,7 +23,8 @@ const expectedRowDateAdded = moment.unix(1632351600).format('D MMM YYYY');
 const expectedRowCourtName = 'Mutsu Court';
 const expectedCaseRowsCount = 3;
 const expectedCourtRowsCount = 6;
-const expectedUnsubscribeLink = 'delete-subscription?subscription=Collins LLC';
+// TODO: this needs to be subscription id once 654 is played
+const expectedUnsubscribeLink = 'delete-subscription?subscription=undefined';
 
 let htmlRes: Document;
 
