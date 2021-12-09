@@ -33,11 +33,11 @@ const errorRequest = {
 };
 
 const unsubscribeValidData = {
-  subscription: {name: 'real subscription'},
-  userId: '1',
+  subscriptionId: '123',
 };
-
-const unsubscribeInvalidData = {};
+const unsubscribeInvalidData = {
+  subscriptionId: 'foo',
+};
 const errorBodyData = {baz: 'qux'};
 const errorRequestBodyData = {foo: 'bar'};
 
@@ -123,7 +123,7 @@ describe('non existing subscriptions getSubscriptionByUrn error response', () =>
 describe('unsubscribe with valid post data', () => {
   postStub.withArgs('/unsubscribe', unsubscribeValidData).resolves({data: 'unsubscribed successfully'});
   it('should return true if provided data is valid', async () => {
-    const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeValidData);
+    const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeValidData.subscriptionId);
     expect(unsubscribe).toBe('unsubscribed successfully');
   });
 });
@@ -131,7 +131,7 @@ describe('unsubscribe with valid post data', () => {
 describe('unsubscribe error response', () => {
   postStub.withArgs('/unsubscribe', unsubscribeInvalidData).resolves(Promise.reject(errorResponse));
   it('should return null', async () => {
-    const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeInvalidData);
+    const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeInvalidData.subscriptionId);
     expect(unsubscribe).toBe(null);
   });
 });
@@ -139,7 +139,7 @@ describe('unsubscribe error response', () => {
 describe('unsubscribe error request', () => {
   postStub.withArgs('/unsubscribe', errorRequestBodyData).resolves(Promise.reject(errorRequest));
   it('should return null', async () => {
-    const unsubscribe = await subscriptionActions.unsubscribe(errorRequestBodyData);
+    const unsubscribe = await subscriptionActions.unsubscribe(errorRequestBodyData.foo);
     expect(unsubscribe).toBe(null);
   });
 });
@@ -147,7 +147,7 @@ describe('unsubscribe error request', () => {
 describe('unsubscribe error', () => {
   postStub.withArgs('/unsubscribe', errorBodyData).resolves(Promise.reject({error: 'error'}));
   it('should return null', async () => {
-    const unsubscribe = await subscriptionActions.unsubscribe(errorBodyData);
+    const unsubscribe = await subscriptionActions.unsubscribe(errorBodyData.baz);
     expect(unsubscribe).toBe(null);
   });
 });

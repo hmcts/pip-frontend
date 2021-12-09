@@ -7,7 +7,7 @@ const subscriptionService = new SubscriptionService();
 export default class UnsubscribeConfirmationController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     if (req.body?.['unsubscribe-confirm'] === 'yes') {
-      const unsubscribeResponse = await subscriptionService.unsubscribe({...req.body, userId: req.user['id']});
+      const unsubscribeResponse = await subscriptionService.unsubscribe(req.body.subscriptionId);
       unsubscribeResponse ?
         res.render('unsubscribe-confirmation',
           req.i18n.getDataByLanguage(req.lng)['unsubscribe-confirmation']) :
