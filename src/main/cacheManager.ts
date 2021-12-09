@@ -9,11 +9,6 @@ const redisPortalCredential = {
 
 const logger = Logger.getLogger('app');
 const connectionTest = redisPortalCredential;
-
-// const connection = process.env.NODE_ENV === 'production' ?
-//   redisPortalCredential
-//   : {};
-
 const ioRedis = require('ioredis');
 const redisClient = ioRedis.createClient(connectionTest);
 
