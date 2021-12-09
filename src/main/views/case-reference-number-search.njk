@@ -28,34 +28,34 @@
     </div>
   {% endif %}
 
-  {% set inputClasses = 'govuk-!-width-two-thirds govuk-input--error'
-    if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
+  {% set inputClasses = 'govuk-input govuk-input--error'
+    if noResultsError or invalidInputError else 'govuk-input' %}
   {% set formGroupError = 'govuk-form-group--error'
     if noResultsError or invalidInputError else 'govuk-form-group' %}
-  {% set inputProperties = {
-    id: "search-input",
-    name: "search-input",
-    errorMessage: {
-      text: error.header
-    },
-    classes: 'govuk-!-width-one-third',
-    label: {
-      text: ''
-    }
-  } if noResultsError or invalidInputError else {
-    id: "search-input",
-    name: "search-input",
-    classes: 'govuk-!-width-one-third',
-    label: {
-    text: hint
-  }
-    } %}
+
   <form action="case-reference-number-search" method="post">
     <div class="govuk-form-group">
-      <h1 class="govuk-heading-l">{{ header }}</h1>
-      {{ govukInput(inputProperties) }}
-    </div>
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="search-input">
+          {{ header }}
+        </label>
+      </h1>
+      <div class="{{ formGroupError }}">
+        {% if noResultsError or invalidInputError %}
+          <span class="govuk-error-message">{{ error.header }}</span>
+        {% else %}
+          <div id="search-input-hint" class="govuk-hint">
+            {{ hint }}
+          </div>
+        {% endif %}
+        <div class="govuk-!-width-one-third">
+          <input class="{{ inputClasses }}" id="search-input" name="search-input" type="text" aria-describedby="search-input-hint">
+        </div>
+        </div>
+      </div>
+
     {{ submitButton() }}
+    </div>
     {% if noResultsError or invalidInputError %}
       <div class="govuk-grid-row">
         <div class="no_padding govuk-grid-column-full">
