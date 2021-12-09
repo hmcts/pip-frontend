@@ -348,6 +348,7 @@ div {
   @media (max-width: 640px) {
     > div {
       flex: 100%;
+      max-width: 100%;
     }
   }
 
