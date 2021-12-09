@@ -23,10 +23,9 @@ describe('Live Status page', () => {
     });
   });
 
-  it('should display a back button with the correct value', () => {
+  it('should display a back button', () => {
     const backLink = htmlRes.getElementsByClassName('govuk-back-link');
     expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backLink[0].getAttribute('href')).equal('/live-case-alphabet-search', 'Back value does not contain correct link');
   });
 
   it('should display correct header', () => {
