@@ -14,8 +14,12 @@ const stub = sinon.stub(HearingService.prototype, 'getHearingByCaseReferenceNumb
 const validCaseNo = '56-181-2097';
 
 describe('Case Reference Number Search Controller', () => {
-  const i18n = {};
+  let i18n = {};
   it('should render the search page', () => {
+
+    i18n = {
+      'case-reference-number-search': {},
+    };
 
     const response = {
       render: function () {

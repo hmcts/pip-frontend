@@ -8,9 +8,8 @@ const hearingService = new HearingService();
 export default class CaseReferenceNumberSearchController {
 
   public get(req: PipRequest, res: Response):  void {
-    res.render('case-reference-number-search', {
-      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-reference-number-search']),
-    });
+    res.render('case-reference-number-search',
+      req.i18n.getDataByLanguage(req.lng)['case-reference-number-search']);
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {

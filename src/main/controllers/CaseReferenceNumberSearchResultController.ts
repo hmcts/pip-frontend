@@ -18,9 +18,8 @@ export default class CaseReferenceNumberSearchResultController {
         searchResults,
       });
     } else {
-      res.render('error', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng).error),
-      });
+      res.render('error',
+        req.i18n.getDataByLanguage(req.lng).error);
     }
   }
 }

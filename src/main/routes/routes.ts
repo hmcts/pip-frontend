@@ -75,6 +75,9 @@ export default function(app: Application): void {
   app.get('/case-name-search-results', ensureAuthenticated, app.locals.container.cradle.caseNameSearchResultsController.get);
   app.get('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.get);
   app.post('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.post);
+  app.get('/case-reference-number-search', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchController.get);
+  app.post('/case-reference-number-search', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchController.post);
+  app.get('/case-reference-number-search-results', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
   app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
   app.post('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.post);
   app.get('/subscription-management', ensureAuthenticated, app.locals.container.cradle.subscriptionManagementController.get);
@@ -92,38 +95,6 @@ export default function(app: Application): void {
       // TODO: add downstream info endpoints if your app has any
     },
   }));
-
-  app.get('/search', app.locals.container.cradle.searchController.get);
-  app.post('/search-option', app.locals.container.cradle.searchOptionController.post);
-  app.post('/search', app.locals.container.cradle.searchController.post);
-  app.get('/subscription-management', ensureAuthenticated,
-    app.locals.container.cradle.subscriptionManagementController.get);
-  app.post('/login/return',passport.authenticate(authType, { failureRedirect: '/'}),
-    regenerateSession);
-  app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}),
-    regenerateSession);
-
-  app.get('/logout', logOut);
-
-  app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
-  app.post('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.post);
-  app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
-
-  app.get('/case-reference-number-search', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchController.get);
-  app.post('/case-reference-number-search', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchController.post);
-
-  app.get('/case-reference-number-search-results', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
-
-  app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
-  app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
-  app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
-  app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
-  app.get('/single-justice-procedure', app.locals.container.cradle.singleJusticeProcedureController.get);
-  app.get('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.get);
-  app.post('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.post);
-  app.get('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.get);
-  app.post('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.post);
-  app.get('/case-name-search-results', ensureAuthenticated, app.locals.container.cradle.caseNameSearchResultsController.get);
 
   // TODO: expose route only if not on the production environment
   app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);

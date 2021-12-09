@@ -17,7 +17,6 @@ module.exports = {
   // Search page selectors
   SearchTitle: 'h1.govuk-label-wrapper',
   SearchResultTitle: 'h1.govuk-heading-l',
-  SearchCaseResultTitle: 'h1.govuk-heading-l',
 
   SearchInput: '#search-input',
   // Search results page selectors

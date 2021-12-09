@@ -56,18 +56,6 @@ describe(`getHearingByCaseReferenceNumber(${validCaseNo})`, () => {
     });
   });
 
-  it('should return list of 1 case', () => {
-    return hearingRequests.getHearingByCaseReferenceNumber(validCaseNo).then(data => {
-      expect((data? 1:0)).toBe(1);
-    });
-  });
-
-  it('should have mocked object in the cases list', () => {
-    return hearingRequests.getHearingByCaseReferenceNumber(validCaseNo).then(data => {
-      expect((data === subscriptionsCaseData) ? 1 : 0).toBe(1);
-    });
-  });
-
   it('should return empty list if request fails', async () => {
     expect(await hearingRequests.getHearingByCaseReferenceNumber('')).toStrictEqual(null);
   });
@@ -81,7 +69,7 @@ describe('non existing subscriptions getHearingByCaseReferenceNumber error reque
   stub.withArgs('/hearings/case-number/12345').resolves(Promise.reject(errorRequest));
   it(`should have only cases for case reference ${validCaseNo}`, () => {
     return hearingRequests.getHearingByCaseReferenceNumber(validCaseNo).then(data => {
-      expect((data[0].caseNumber === validCaseNo ? 1 : 0)).toBe(1);
+      expect(data[0].caseNumber).toEqual(validCaseNo);
     });
   });
 });

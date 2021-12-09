@@ -44,26 +44,12 @@ describe('Case Reference Number Search Result Controller', () => {
 
   it('should render an error page if search input does not return any results', () => {
 
-    stub.withArgs('12345678').returns(null);
-
-    const i18n = {
-      'case-reference-number-search-results': {},
-    };
-
-    const response = {
-      render: function() {return '';},
-    } as unknown as Response;
-
     const request = mockRequest(i18n);
-    request.query = {'search-input': ''};
+    request.query = {};
 
     const responseMock = sinon.mock(response);
 
-    const expectedData = {
-      ...i18n['error'],
-    };
-
-    responseMock.expects('render').once().withArgs('error', expectedData);
+    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
     return caseReferenceNumberSearchResultController.get(request, response).then(() => {
       responseMock.verify();
