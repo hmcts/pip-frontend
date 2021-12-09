@@ -6,14 +6,13 @@ import { request as expressRequest } from 'express';
 import { SubscriptionService } from '../../../main/service/subscriptionService';
 
 const PAGE_URL = '/unsubscribe-confirmation';
-const validBody = {'unsubscribe-confirm': 'yes', subscription: 'valid subscription'};
+const validBody = {'unsubscribe-confirm': 'yes', subscription: '123'};
 let htmlRes: Document;
 
 describe('Unsubscribe Confirmation Page', () => {
   beforeAll(async () => {
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-    sinon.stub(SubscriptionService.prototype, 'unsubscribe').withArgs({...validBody, userId: '1'}).resolves(true);
-    app.request['user'] = {id: '1'};
+    sinon.stub(SubscriptionService.prototype, 'unsubscribe').resolves(true);
 
     await request(app).post(PAGE_URL).send(validBody).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
