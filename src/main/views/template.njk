@@ -8,29 +8,10 @@
 {% endblock %}
 
 {% block header %}
-
-{% set lastElement = {
-              href: "/logout",
-              text: signOutText,
-              active: false,
-              attributes: {
-                id: "signOutButton"
-              }
-} if isAuthenticated else {
-    href: "/subscription-management",
-    text: signInText,
-    active: false,
-    attributes: {
-        id: "signInButton"
-    }
-} %}
-
 {{ govukHeader({
         homepageUrl: "https://www.gov.uk/",
         serviceName: serviceNameText,
-        serviceUrl: "/",
-        navigationClasses: 'govuk-header__navigation--end',
-        navigation: [lastElement]
+        serviceUrl: "/"
       }) }}
 
 {% endblock %}
