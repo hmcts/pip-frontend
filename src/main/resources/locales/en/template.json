@@ -11,9 +11,9 @@
   "tc": "Terms and conditions",
   "navLinks": {
     "link1": "Account home",
-    "link2": "Court or tribunal publications",
-    "link3": "Live hearing updates",
-    "link4": "Single Justice Procedure",
+    "link2": "Home",
+    "link3": "Sign-in",
+    "link4": "Sign-out",
     "link5": "Subscriptions"
   }
 }
