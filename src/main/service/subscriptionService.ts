@@ -20,7 +20,7 @@ export class SubscriptionService {
               text: subscription.reference,
             },
             {
-              text: moment.unix(subscription.dateAdded).format('D MMM YYYY'),
+              text: moment(subscription.dateAdded, 'DD/MM/YYYY').format('D MMM YYYY'),
             },
             {
               html: '<a href=\'#\'>Unsubscribe</a>',
@@ -43,7 +43,7 @@ export class SubscriptionService {
             text: subscription.name,
           },
           {
-            text: moment.unix(subscription.dateAdded).format('D MMM YYYY'),
+            text: moment(subscription.dateAdded, 'DD/MM/YYYY').format('D MMM YYYY'),
           },
           {
             html: '<a href=\'#\'>Unsubscribe</a>',

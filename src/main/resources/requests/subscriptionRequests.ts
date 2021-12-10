@@ -3,6 +3,7 @@ import path from 'path';
 import {dataManagementApi, subscriptionManagementApi} from './utils/axiosConfig';
 import {CaseSubscription} from '../../models/caseSubscription';
 import {Subscription} from '../../models/subscription';
+import {SubscriptionSearchType} from '../../models/SubscriptionSearchType';
 
 export class SubscriptionRequests {
   mocksPath = '../mocks/';
@@ -10,10 +11,42 @@ export class SubscriptionRequests {
 
   public async getUserSubscriptions(userId: number): Promise<Subscription> {
     try {
-      const response = await subscriptionManagementApi.get(`/subscription/user/${userId}`) as Array<Subscription>;
-      const userSubscriptions = response?.filter((user) => user.userId === userId);
+      const subscriptionResults: Subscription = {
+        userId: userId,
+        userEmail: '',
+        caseSubscriptions: [],
+        courtSubscriptions: [],
+      };
+      const response = await subscriptionManagementApi.get(`/subscription/user/${userId}`);
+      const userSubscriptions = response.data;
+      //const userSubscriptions = JSON.parse(this.rawData2);
       if (userSubscriptions && userSubscriptions.length) {
-        return userSubscriptions[0];
+        let subscription: CaseSubscription;
+        let caseSubs;
+        // get case details for each user subscription
+        for (const sub of userSubscriptions) {
+          caseSubs = null;
+          switch (sub.searchType) {
+            case SubscriptionSearchType.CASE_URN:
+              subscription = await this.getSubscriptionByUrn(sub.searchValue);
+              caseSubs = {
+                name: subscription.caseName,
+                reference: subscription.caseNumber,
+                urn: subscription.urn,
+                dateAdded: subscription.date,
+              };
+
+              break;
+            case SubscriptionSearchType.CASE_ID:
+              break;
+            case SubscriptionSearchType.COURT_ID:
+              break;
+          }
+          if (caseSubs) {
+            subscriptionResults.caseSubscriptions.push(caseSubs);
+          }
+        }
+        return subscriptionResults;
       }
     } catch (error) {
       if (error.response) {

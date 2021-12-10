@@ -3,4 +3,5 @@ export interface CaseSubscription {
   caseName: string;
   caseNumber: string;
   urn: string;
+  date: string;
 }
