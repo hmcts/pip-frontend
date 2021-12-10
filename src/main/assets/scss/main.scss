@@ -335,11 +335,10 @@ div {
   }
 }
 
-#search-input-container {
-  &.govuk-input--error {
-    #search-input {
-      // Important is required due javascript overriding this as it is loaded after css rendering
-      border: solid 2px $govuk-error-colour !important; // sass-lint:disable-line no-important
-    }
+.govuk-input--error {
+  .autocomplete__input {
+    // Important is required due javascript overriding this as it is loaded after css rendering
+    border: solid 2px $govuk-error-colour !important; // sass-lint:disable-line no-important
   }
 }
+
