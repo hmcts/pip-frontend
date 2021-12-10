@@ -12,8 +12,9 @@ let filterValues = [];
 export default class CourtNameSearchController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     if (req.query['clear']) {
-      const query = req.query['clear'] as string;
-      filterValues = filterService.handleFilterClear(filterValues, query);
+      filterValues = filterService.handleFilterClear(filterValues, req.query['clear'] as string);
+    } else {
+      filterValues = [];
     }
 
     const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
