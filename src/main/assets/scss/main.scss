@@ -333,6 +333,14 @@ div {
   .moj-sub-navigation__link {
     font-size: 16px;
   }
+
+  @media (min-width: 641px) {
+    .moj-sub-navigation__item {
+      &:last-child {
+        float: right;
+      }
+    }
+  }
 }
 
 .govuk-input--error {
@@ -341,4 +349,3 @@ div {
     border: solid 2px $govuk-error-colour !important; // sass-lint:disable-line no-important
   }
 }
-
