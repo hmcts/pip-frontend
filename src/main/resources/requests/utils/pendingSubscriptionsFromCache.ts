@@ -5,7 +5,7 @@ const { redisClient } = require('../../../cacheManager');
 export class PendingSubscriptionsFromCache {
 
   public async setPendingSubscriptions(searchResult: Array<CaseSubscription>, user): Promise<void> {
-    if (redisClient.status === 'ready') {
+    //if (redisClient.status === 'ready') {
       const rawData = await redisClient.get(`pending-subscriptions${user.id}`);
       let cacheResult = JSON.parse(rawData);
       if (cacheResult) {
@@ -18,8 +18,8 @@ export class PendingSubscriptionsFromCache {
       else {
         cacheResult = searchResult;
       }
-      redisClient.set(`pending-subscriptions${user.id}`, JSON.stringify(cacheResult));
-    }
+      await redisClient.setAsync(`pending-subscriptions${user.id}`, JSON.stringify(searchResult));
+    //}
   }
 
   public async getPendingSubscriptions(user): Promise<Array<CaseSubscription>> {
