@@ -70,7 +70,7 @@ $ yarn webpack
 ```
 
 Start Redis Locally:
-To connect locally run bellow command and rename connection string from `rediss` to `redis`
+To connect locally run bellow command and rename connection string from `rediss` to `redis` in [cacheManager.ts](src/main/cacheManager.ts) (line 13)
 ```bash
 $ docker run -d -p 6379:6379 redis
 ```
