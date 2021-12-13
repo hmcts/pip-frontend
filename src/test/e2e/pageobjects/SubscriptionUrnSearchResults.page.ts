@@ -1,9 +1,9 @@
-import {SubscriptionConfirmationPage} from './SubscriptionConfirmation.page';
+import { SubscriptionConfirmationPage } from './SubscriptionConfirmation.page';
+import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class SubscriptionUrnSearchResultsPage {
-
+export class SubscriptionUrnSearchResultsPage extends CommonPage {
   async getPageTitle(): Promise<string> {
     $(helpers.SearchResultTitle).catch(() => {
       console.log(`${helpers.SearchResultTitle} not found`);
@@ -30,5 +30,4 @@ export class SubscriptionUrnSearchResultsPage {
     button.click();
     return new SubscriptionConfirmationPage();
   }
-
 }
