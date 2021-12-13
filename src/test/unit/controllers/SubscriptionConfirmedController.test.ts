@@ -13,7 +13,7 @@ sinon.stub(SubscriptionService.prototype, 'getSubscriptionUrnDetails').returns(s
 
 describe('Subscription Confirmed Controller', () => {
   let i18n = {};
-  it('should render the confirmed page', () => {
+  it('should render the confirmed page', async () => {
 
     i18n = {
       'subscription-confirmed': {},
@@ -29,8 +29,7 @@ describe('Subscription Confirmed Controller', () => {
 
     responseMock.expects('render').once().withArgs('subscription-confirmed');
 
-    return subscriptionConfirmedController.get(request, response).then(() => {
-      responseMock.verify();
-    });
+    await subscriptionConfirmedController.get(request, response);
+    responseMock.verify();
   });
 });

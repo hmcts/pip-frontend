@@ -14,7 +14,7 @@ export class PendingSubscriptionsFromCache {
           }
         });
       }
-      await redisClient.setAsync(`pending-subscriptions${user.id}`, JSON.stringify(searchResult));
+      await redisClient.set(`pending-subscriptions${user.id}`, JSON.stringify(searchResult));
     }
   }
 
