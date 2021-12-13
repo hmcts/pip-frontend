@@ -63,7 +63,7 @@ describe('Case Event Glossary page', () => {
   it('should have the first cell containing Adjourned with link Id in it', () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
     const divCell = cell[0].getElementsByClassName('govuk-grid-column');
-    expect(cell[0].innerHTML).contains('1-selector');
+    expect(cell[0].innerHTML).contains('selector-1');
     expect(divCell[0].innerHTML).contains('1');
   });
 });

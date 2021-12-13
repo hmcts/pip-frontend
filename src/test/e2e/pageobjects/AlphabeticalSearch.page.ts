@@ -1,48 +1,32 @@
 import { HearingListPage } from './HearingList.page';
+import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class AlphabeticalSearchPage {
-
-  async getPageTitle(): Promise<string> {
-    $(helpers.CommonPageTitle).catch(() => {
-      console.log(`${helpers.CommonPageTitle} not found`);
+export class AlphabeticalSearchPage extends CommonPage {
+  async selectFilter(filter: string): Promise<void> {
+    await $(helpers[filter]).catch(() => {
+      console.log(`${helpers[filter]} not found`);
     });
 
-    return $(helpers.CommonPageTitle).getText();
+    await $(helpers[filter]).click();
   }
 
-  async selectLetter(letter): Promise<void> {
-    await $(helpers.KeySelector(letter)).catch(() => {
-      console.log(`${helpers.KeySelector(letter)} not found`);
+  async clickApplyFiltersButton(): Promise<void> {
+    $(helpers.ContinueButton).catch(() => {
+      console.log(`${helpers.ContinueButton} not found`);
     });
 
-    const letterLink = await $(helpers.KeySelector(letter));
-    letterLink.click();
+    const button = await $(helpers.ContinueButton);
+    await button.click();
   }
 
-  async checkIfLetterIsVisible(letter): Promise<boolean> {
-    const element = await $(helpers.RowSelector(letter));
-    return await element.isDisplayedInViewport();
-  }
-
-  async selectBackToTop(): Promise<void> {
-    await $(helpers.BackToTopButton).catch(() => {
-      console.log(`${helpers.BackToTopButton} not found`);
+  async checkIfSelected(filter: string): Promise<boolean> {
+    $(helpers[filter]).catch(() => {
+      console.log(`${helpers[filter]} not found`);
     });
 
-    const backToTop = await $(helpers.BackToTopButton);
-    backToTop.click();
-  }
-
-  async selectSecondListResult(): Promise<HearingListPage> {
-    await $(helpers.SecondItemResult).catch(() => {
-      console.log(`${helpers.SecondItemResult} not found`);
-    });
-
-    const secondItem = await $(helpers.SecondItemResult);
-    secondItem.click();
-    return new HearingListPage();
+    return await $(helpers[filter]).isSelected();
   }
 
   async selectFirstListResult(): Promise<HearingListPage> {
