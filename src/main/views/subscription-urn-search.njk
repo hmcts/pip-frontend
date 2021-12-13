@@ -13,7 +13,26 @@
 {% endblock %}
 
 {% block content %}
+  {% set inputProperties = {
+    label: {
+      "text": hint
+    },
+    id: "search-input",
+    name: "search-input",
+    autocomplete: "false"
+  } %}
   {% if noResultsError or invalidInputError %}
+    {% set inputProperties = {
+      id: "search-input",
+      name: "search-input",
+      autocomplete: "false",
+      errorMessage: {
+        text: header
+      },
+      label: {
+        text: hint
+      }
+    } %}
     <div class="govuk-grid-row">
       <div class="no_padding govuk-grid-column-three-quarters">
         {{ govukErrorSummary({
@@ -28,10 +47,6 @@
       </div>
     </div>
   {% endif %}
-  {% set inputClasses = 'govuk-div govuk-input--error'
-    if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
-  {% set formGroupError = 'govuk-form-group--error'
-    if noResultsError or invalidInputError else 'govuk-form-group' %}
   <form action="subscription-urn-search" method="post">
     <div class="govuk-form-group govuk-!-width-one-half">
       <h1 class="govuk-label-wrapper">
@@ -39,19 +54,7 @@
           {{ header }}
         </label>
       </h1>
-      <div class="{{ formGroupError }}">
-        {% if noResultsError or invalidInputError %}
-          <span class="govuk-error-message">{{ header }}</span>
-        {% endif %}
-        {{ govukInput({
-          label: {
-            "text": hint
-          },
-          id: "search-input",
-          name: "search-input",
-          autocomplete: "false"
-        }) }}
-      </div>
+      {{ govukInput(inputProperties) }}
     </div>
     {{ submitButton() }}
     {% if noResultsError %}
