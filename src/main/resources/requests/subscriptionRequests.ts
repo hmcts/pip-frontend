@@ -34,7 +34,7 @@ export class SubscriptionRequests {
     return null;
   }
 
-  public async subscribe(searchResult: Array<CaseSubscription>, user): Promise<boolean> {
+  public async subscribe(searchResult: CaseSubscription[], user): Promise<boolean> {
     return !!(user);
   }
 

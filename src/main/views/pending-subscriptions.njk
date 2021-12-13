@@ -1,21 +1,13 @@
 {% extends "template.njk" %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "./macros/common-components.njk" import submitButton %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "./macros/common-components.njk" import submitButton, goBack %}
 
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
-
 {% block beforeContent %}
   {{ super() }}
-  {{ govukBackLink({
-    text: text,
-    href: '#',
-    attributes: {
-      onClick: "history.back();event.preventDefault();"
-    }
-  }) }}
+  {{ goBack() }}
 {% endblock %}
 
 {% block content %}
@@ -34,8 +26,8 @@
     <tbody class="govuk-table__body">
     {% for hearing in searchResults %}
       <tr class="govuk-table__row">
-        <td scope="row" class="govuk-table__cell--no-line">{{ hearing.urn }}</td>
-        <td scope="row" class="govuk-table__cell--no-line">{{ hearing.caseNumber }}</td>
+        <td class="govuk-table__cell--no-line">{{ hearing.urn }}</td>
+        <td class="govuk-table__cell--no-line">{{ hearing.caseNumber }}</td>
         <td class="govuk-table__cell--no-line govuk-!-text-align-right">{{ hearing.caseName }}</td>
         <td class="govuk-table__cell--no-line govuk-!-text-align-right"><a href="/remove-case?id={{ hearing.hearingId }}">{{ removeText }}</a></td>
       </tr>
@@ -47,9 +39,11 @@
     <span class="govuk-!-text-align-centre"><a class="govuk-link" href="{{ addOther_link }}">{{ addOther_text }}</a></span>
   </div>
 </form>
+{% endblock %}
+{% block bodyEnd %}
   <script>
     if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
+      window.history.replaceState(null, null, window.location.href );
     }
   </script>
   {{ super() }}

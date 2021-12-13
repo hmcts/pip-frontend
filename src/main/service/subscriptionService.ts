@@ -1,6 +1,6 @@
 import moment from 'moment';
-import {SubscriptionRequests} from '../resources/requests/subscriptionRequests';
-import {CaseSubscription} from '../models/caseSubscription';
+import { SubscriptionRequests } from '../resources/requests/subscriptionRequests';
+import { CaseSubscription } from '../models/caseSubscription';
 import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendingSubscriptionsFromCache';
 
 const subscriptionRequests = new SubscriptionRequests();
@@ -72,7 +72,7 @@ export class SubscriptionService {
     await pendingSubscriptionsFromCache.setPendingSubscriptions(searchResult, user);
   }
 
-  public async getPendingSubscriptions(user): Promise<Array<CaseSubscription>> {
+  public async getPendingSubscriptions(user): Promise<CaseSubscription[]> {
     return await pendingSubscriptionsFromCache.getPendingSubscriptions(user);
   }
 

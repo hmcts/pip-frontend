@@ -1,28 +1,24 @@
 import {CaseSubscription} from '../../../models/caseSubscription';
-
 const { redisClient } = require('../../../cacheManager');
 
 export class PendingSubscriptionsFromCache {
 
-  public async setPendingSubscriptions(searchResult: Array<CaseSubscription>, user): Promise<void> {
-    //if (redisClient.status === 'ready') {
+  public async setPendingSubscriptions(searchResult: CaseSubscription[], user): Promise<void> {
+    if (redisClient.status === 'ready') {
       const rawData = await redisClient.get(`pending-subscriptions${user.id}`);
-      let cacheResult = JSON.parse(rawData);
+      const cacheResult = JSON.parse(rawData);
       if (cacheResult) {
         searchResult.forEach(hearing => {
-          if (cacheResult.filter(x=>x.hearingId === hearing.hearingId).length === 0) {
+          if (cacheResult.filter(x => x.hearingId === hearing.hearingId).length === 0) {
             cacheResult.push(hearing);
           }
         });
       }
-      else {
-        cacheResult = searchResult;
-      }
       await redisClient.setAsync(`pending-subscriptions${user.id}`, JSON.stringify(searchResult));
-    //}
+    }
   }
 
-  public async getPendingSubscriptions(user): Promise<Array<CaseSubscription>> {
+  public async getPendingSubscriptions(user): Promise<CaseSubscription[]> {
     let cacheResult = null;
     if (redisClient.status === 'ready' && user) {
       cacheResult = JSON.parse(await redisClient.get(`pending-subscriptions${user.id}`));

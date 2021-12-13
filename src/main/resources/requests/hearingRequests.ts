@@ -26,7 +26,7 @@ export class HearingRequests {
   }
 
   public async getHearingsById(id: number): Promise<Hearing> {
-    const subscriptionsData = JSON.parse(this.rawData) as Array<CaseSubscription>;
+    const subscriptionsData = JSON.parse(this.rawData) as CaseSubscription[];
     let result = null;
     try {
       //TODO: we need to call the api to retrieve the hearing at the moment mocked

@@ -18,5 +18,4 @@ export default class CaseNameSearchResultsController {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
   }
-
 }

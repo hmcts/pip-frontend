@@ -1,16 +1,17 @@
 import { Response } from 'express';
-import {PipRequest} from '../models/request/PipRequest';
-import {SubscriptionService} from '../service/subscriptionService';
+import { PipRequest } from '../models/request/PipRequest';
+import { SubscriptionService } from '../service/subscriptionService';
+import { HearingService } from '../service/hearingService';
 import validateRendering from '../common/utils';
-import {HearingService} from '../service/hearingService';
 
 const subscriptionService = new SubscriptionService();
 const hearingService = new HearingService();
+
 export default class PendingSubscriptionsController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const searchResults = await subscriptionService.getPendingSubscriptions(req.user);
-    validateRendering(searchResults,'pending-subscriptions',req, res, null);
+    validateRendering(searchResults,'pending-subscriptions',req, res);
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
@@ -33,15 +34,13 @@ export default class PendingSubscriptionsController {
     }
 
     await subscriptionService.setPendingSubscriptions(searchResults, req.user);
-
     searchResults = await subscriptionService.getPendingSubscriptions(req.user);
-    validateRendering(searchResults,'pending-subscriptions',req, res, null);
+    validateRendering(searchResults,'pending-subscriptions', req, res);
   }
 
   public async removeCase(req: PipRequest, res: Response): Promise<void> {
-    const id = req.query['id'] as string;
-    await subscriptionService.removeFromCache(parseInt(id), req.user);
+    await subscriptionService.removeFromCache(parseInt(req.query['id'] as string), req.user);
     const searchResults = await subscriptionService.getPendingSubscriptions(req.user);
-    validateRendering(searchResults,'pending-subscriptions',req, res, null);
+    validateRendering(searchResults,'pending-subscriptions', req, res);
   }
 }

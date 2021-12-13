@@ -23,7 +23,7 @@ const subscriptionsData2 = JSON.parse(rawData2);
 sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').returns(subscriptionsData);
 sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions').returns(subscriptionsData2);
 
-
+// TODO: sinon.stub instead of this
 jest.mock('axios', () => {
   return {
     create: function(): { get: () => Promise<any> } {
