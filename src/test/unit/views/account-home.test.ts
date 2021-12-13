@@ -19,7 +19,7 @@ const cards = [
   },
   {
     title: 'Single Justice Procedure cases',
-    description: 'A nationwide list of cases, ready to be decided by a magistrate without a hearing. Such as TB licensing prosecutions.',
+    description: 'A nationwide list of cases, ready to be decided by a magistrate without a hearing. Such as TV licensing prosecutions.',
     link: 'single-justice-procedure',
   },
   {
