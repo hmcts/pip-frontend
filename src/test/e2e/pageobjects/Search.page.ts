@@ -1,9 +1,9 @@
 import {HearingListPage} from './HearingList.page';
+import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class SearchPage {
-
+export class SearchPage extends CommonPage {
   async getPageTitle(): Promise<string> {
     $(helpers.SearchTitle).catch(() => {
       console.log(`${helpers.SearchTitle} not found`);

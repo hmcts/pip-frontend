@@ -1,45 +1,16 @@
 import { AlphabeticalSearchPage } from './AlphabeticalSearch.page';
 import { SearchPage } from './Search.page';
+import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class SearchOptionsPage {
-
+export class SearchOptionsPage extends CommonPage {
   async getPageTitle(): Promise<string> {
     $(helpers.SearchOptionsTitle).catch(() => {
       console.log(`${helpers.SearchOptionsTitle} not found`);
     });
 
     return $(helpers.SearchOptionsTitle).getText();
-  }
-
-  get radioButtons(): Promise<number> {
-    const radioButtons = $$(helpers.RadioButton);
-    return radioButtons.length;
-  }
-
-  async selectHaveTheNameRadio(): Promise<void> {
-    $(helpers.SearchRadioButton).catch(() => {
-      console.log(`${helpers.SearchRadioButton} not found`);
-    });
-    const radioButton = await $(helpers.SearchRadioButton);
-    radioButton.click();
-  }
-
-  async selectDontHaveTheNameRadio(): Promise<void> {
-    $(helpers.FindRadioButton).catch(() => {
-      console.log(`${helpers.FindRadioButton} not found`);
-    });
-    const radioButton = await $(helpers.FindRadioButton);
-    radioButton.click();
-  }
-
-  async selectSearchRadio(): Promise<void> {
-    $(helpers.SearchRadioButton).catch(() => {
-      console.log(`${helpers.SearchRadioButton} not found`);
-    });
-    const radioButton = await $(helpers.SearchRadioButton);
-    radioButton.click();
   }
 
   async clickContinueForSearch(): Promise<SearchPage> {
