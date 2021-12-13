@@ -1,16 +1,9 @@
 import { CaseNameSearchResultsPage } from './CaseNameSearchResults.page';
+import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class CaseNameSearchPage {
-  async getPageTitle(): Promise<string> {
-    $(helpers.CommonPageTitle).catch(() => {
-      console.log(`${helpers.CommonPageTitle} not found`);
-    });
-
-    return $(helpers.CommonPageTitle).getText();
-  }
-
+export class CaseNameSearchPage extends CommonPage{
   async enterText(text: string): Promise<void> {
     $(helpers.CaseNameInput).catch(() => {
       console.log(`${helpers.CaseNameInput} not found`);
@@ -21,14 +14,6 @@ export class CaseNameSearchPage {
     await browser.keys('Escape');
   }
 
-  async getErrorSummaryTitle(): Promise<string> {
-    $(helpers.CaseNameSearchErrorSummaryTitle).catch(() => {
-      console.log(`${helpers.CaseNameSearchErrorSummaryTitle} not found`);
-    });
-
-    return $(helpers.CaseNameSearchErrorSummaryTitle).getText();
-  }
-
   async clickContinue(): Promise<CaseNameSearchResultsPage> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
@@ -37,14 +22,5 @@ export class CaseNameSearchPage {
     const button = await $(helpers.ContinueButton);
     button.click();
     return new CaseNameSearchResultsPage();
-  }
-
-  async clickContinueWithInvalidInput(): Promise<CaseNameSearchPage> {
-    $(helpers.ContinueButton).catch(() => {
-      console.log(`${helpers.ContinueButton} not found`);
-    });
-
-    await $(helpers.ContinueButton).click();
-    return new CaseNameSearchPage();
   }
 }
