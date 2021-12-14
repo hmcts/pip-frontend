@@ -1,7 +1,7 @@
 import {SubscriptionUrnSearchPage} from './SubscriptionUrnSearch.page';
 import { CaseNameSearchPage } from './CaseNameSearch.page';
 import { CourtNameSearchPage } from './CourtNameSearch.page';
-import { CommonPage } from './Common.page';
+import { CommonPage } from '../PageObjects/Common.page';
 
 const helpers = require('../Helpers/Selectors');
 

@@ -1,5 +1,5 @@
 import { CaseNameSearchResultsPage } from './CaseNameSearchResults.page';
-import { CommonPage } from './Common.page';
+import { CommonPage } from '../PageObjects/Common.page';
 
 const helpers = require('../Helpers/Selectors');
 

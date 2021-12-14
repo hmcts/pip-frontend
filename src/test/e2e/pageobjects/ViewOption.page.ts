@@ -1,7 +1,7 @@
 import { LiveCaseCourtSearchControllerPage } from './LiveCaseCourtSearchController.page';
 import { SearchOptionsPage } from './SearchOptions.page';
 import { SingleJusticeProcedurePage } from './SingleJusticeProcedure.page';
-import { CommonPage } from './Common.page';
+import { CommonPage } from '../PageObjects/Common.page';
 
 const helpers = require('../Helpers/Selectors');
 
