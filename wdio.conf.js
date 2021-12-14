@@ -165,11 +165,11 @@ exports.config = {
   mochaOpts: {
     ui: 'bdd',
     timeout: 60000,
-    extension: ['ts'],
-    require: ['ts-node/register', 'tsconfig-paths/register'],
-    compilers: [
-      'tsconfig-paths/register',
-    ],
+    // extension: ['ts'],
+    // require: ['ts-node/register', 'tsconfig-paths/register'],
+    // compilers: [
+    //   'tsconfig-paths/register',
+    // ],
   },
   //
   // =====
