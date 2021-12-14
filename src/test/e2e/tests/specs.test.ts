@@ -4,6 +4,8 @@ const fs = require('fs');
 
 console.log(fs.readdirSync(__dirname));
 console.log(fs.readdirSync(__dirname + '/..'));
+console.log(fs.readdirSync(__dirname + '/../PageObjects'));
+console.log(fs.readdirSync(__dirname + '/../pageobjects'));
 
 import { HomePage } from '../PageObjects/Home.page';
 import { SearchOptionsPage } from '../PageObjects/SearchOptions.page';
