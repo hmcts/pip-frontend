@@ -311,8 +311,5 @@ exports.config = {
     },
     // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
     // do please make sure "tsconfig-paths" is installed as dependency
-    tsConfigPathsOpts: {
-      baseUrl: './',
-    },
   },
 };
