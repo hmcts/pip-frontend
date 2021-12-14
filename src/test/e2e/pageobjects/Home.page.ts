@@ -1,4 +1,4 @@
-import { ViewOptionPage } from './ViewOption.page';
+import { ViewOptionPage } from '../pageobjects/ViewOption.page';
 import { CommonPage } from '../PageObjects/Common.page';
 
 const helpers = require('../Helpers/Selectors');

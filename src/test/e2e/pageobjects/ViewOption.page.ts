@@ -1,6 +1,6 @@
-import { LiveCaseCourtSearchControllerPage } from './LiveCaseCourtSearchController.page';
-import { SearchOptionsPage } from './SearchOptions.page';
-import { SingleJusticeProcedurePage } from './SingleJusticeProcedure.page';
+import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
+import { SearchOptionsPage } from '../pageobjects/SearchOptions.page';
+import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
 import { CommonPage } from '../PageObjects/Common.page';
 
 const helpers = require('../Helpers/Selectors');

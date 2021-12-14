@@ -1,5 +1,5 @@
 import { CommonPage } from '../PageObjects/Common.page';
-import { CaseEventGlossaryPage } from './CaseEventGlossary.page';
+import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
 
 const helpers = require('../Helpers/Selectors');
 

@@ -1,4 +1,4 @@
-import { SubscriptionAddPage } from './SubscriptionAdd.page';
+import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
 import { CommonPage } from '../PageObjects/Common.page';
 
 const helpers = require('../Helpers/Selectors');
