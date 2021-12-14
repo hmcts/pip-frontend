@@ -66,7 +66,7 @@ describe('Subscription Management Page', () => {
   });
 
   it('should display all subscriptions tab with proper link', () => {
-    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1]
+    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[2]
       .getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[0].innerHTML)
       .contains(expectedAllSubsTitle, 'Could not find all subscriptions tab');
@@ -75,7 +75,7 @@ describe('Subscription Management Page', () => {
   });
 
   it('should display case subscriptions tab with proper link', () => {
-    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1]
+    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[2]
       .getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[1].innerHTML)
       .contains(expectedCaseSubsTitle, 'Could not find case subscriptions tab');
@@ -84,7 +84,7 @@ describe('Subscription Management Page', () => {
   });
 
   it('should display court subscriptions tab with proper link', () => {
-    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1]
+    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[2]
       .getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[2].innerHTML)
       .contains(expectedCourtSubsTitle, 'Could not find court subscriptions tab');
@@ -93,7 +93,7 @@ describe('Subscription Management Page', () => {
   });
 
   it('should display first tab as active', () => {
-    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1]
+    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[2]
       .getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[0].getAttribute('aria-current'))
       .equal('page', 'All subscriptions tab does not have active attribute');
