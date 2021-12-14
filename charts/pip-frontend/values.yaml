@@ -16,4 +16,10 @@ nodejs:
           alias: TENANT_GUID
         - name: shared-storageaccount-connection-string
           alias: CONNECTION_STRING
+        - name: REDIS-HOST
+          alias: REDIS_HOST
+        - name: REDIS-PASSWORD
+          alias: REDIS_PASSWORD
+        - name: REDIS-PORT
+          alias: REDIS_PORT
   aadIdentityName: pip

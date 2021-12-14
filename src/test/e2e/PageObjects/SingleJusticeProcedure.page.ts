@@ -1,12 +1,4 @@
-const helpers = require('../Helpers/Selectors');
+import { CommonPage } from './Common.page';
 
-export class SingleJusticeProcedurePage {
-
-  async getPageTitle(): Promise<string> {
-    $(helpers.CommonPageTitle).catch(() => {
-      console.log(`${helpers.CommonPageTitle} not found`);
-    });
-
-    return $(helpers.CommonPageTitle).getText();
-  }
+export class SingleJusticeProcedurePage extends CommonPage{
 }
