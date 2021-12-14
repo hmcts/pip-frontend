@@ -18,7 +18,7 @@
     "test:a11y": "jest -c jest.a11y.config.js --maxWorkers 15",
     "sonar-scan": "sonar-scanner",
     "test:smoke": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && jest -c jest.smoke.config.js",
-    "test:functional": "npx wdio run wdio.conf.js",
+    "test:functional": "echo $TEST_URL && npx wdio run wdio.conf.js",
     "cichecks": "yarn && yarn build && yarn lint  && yarn test && yarn test:routes &&  yarn test:a11y"
   },
   "dependencies": {
