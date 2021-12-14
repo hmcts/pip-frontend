@@ -1,3 +1,10 @@
+console.log(__dirname);
+
+const fs = require('fs');
+
+console.log(fs.readdirSync(__dirname));
+console.log(fs.readdirSync(__dirname + '/..'));
+
 import { HomePage } from '../PageObjects/Home.page';
 import { SearchOptionsPage } from '../PageObjects/SearchOptions.page';
 import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
