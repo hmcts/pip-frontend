@@ -15,7 +15,7 @@
   <h1 class="govuk-heading-l">{{ header }}</h1>
   <h3 class="govuk-heading-s">{{ subheader }}</h3>
   <form action="pending-subscriptions" method="post">
-    <input type="hidden" value="{{ searchResults.hearingId }}" name="hearing-selections[]"/>
+    <input type="hidden" value="{{ searchResults.caseNumber }}" name="hearing-selections[]"/>
     <table class="govuk-table govuk-!-width-two-thirds" data-module="moj-multi-select"
            data-multi-select-checkbox="#select-all">
       <thead class="govuk-table__head">
