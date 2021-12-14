@@ -11,6 +11,7 @@ export class SubscriptionService {
     const caseRows = [];
     if (subscriptionData.caseSubscriptions.length) {
       subscriptionData.caseSubscriptions.forEach((subscription) => {
+        //const date = moment.unix(subscription.dateAdded).format('D MMM YYYY');
         caseRows.push(
           [
             {
@@ -20,7 +21,7 @@ export class SubscriptionService {
               text: subscription.reference,
             },
             {
-              text: moment(subscription.dateAdded, 'DD/MM/YYYY').format('D MMM YYYY'),
+              text: moment.unix(subscription.dateAdded).format('D MMM YYYY'),
             },
             {
               html: '<a href=\'#\'>Unsubscribe</a>',
@@ -43,7 +44,7 @@ export class SubscriptionService {
             text: subscription.name,
           },
           {
-            text: moment(subscription.dateAdded, 'DD/MM/YYYY').format('D MMM YYYY'),
+            text: moment.unix(subscription.dateAdded).format('D MMM YYYY'),
           },
           {
             html: '<a href=\'#\'>Unsubscribe</a>',
