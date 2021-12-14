@@ -4,7 +4,6 @@ import { app } from '../../../main/app';
 
 const PAGE_URL = '/';
 const headingClass = 'govuk-heading-xl';
-const navigationClass = 'govuk-header__navigation-item';
 const startButtonClass = 'govuk-button govuk-button--start';
 const expectedHeader = 'See publications and information from a court or tribunal';
 const govUkLinkClass = 'govuk-header__logo';
@@ -36,8 +35,8 @@ describe('Home page', () => {
   });
 
   it('should display navigation menu',  () => {
-    const nav = htmlRes.getElementsByClassName(navigationClass);
-    expect(nav[0].innerHTML).contains('Sign in', 'Could not find the navigation bar');
+    const nav = htmlRes.getElementsByClassName('moj-sub-navigation__link');
+    expect(nav[1].innerHTML).contains('Sign in', 'Could not find the navigation bar');
   });
 
   it('should display button start', () => {
