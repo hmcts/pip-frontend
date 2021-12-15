@@ -8,10 +8,6 @@ export class HearingService {
     return await hearingRequests.getHearingsByCaseName(searchQuery);
   }
 
-  public async getHearingsById(id: number): Promise<Hearing> {
-    return await hearingRequests.getHearingsById(id);
-  }
-
   public async getCaseByNumber(caseNumber): Promise<Hearing> {
     return await hearingRequests.getCaseByCaseNumber(caseNumber);
   }
