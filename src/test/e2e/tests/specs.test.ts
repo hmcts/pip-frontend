@@ -29,12 +29,12 @@ import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
 let subscriptionAddPage = new SubscriptionAddPage();
+let subscriptionManagementPage = new SubscriptionManagementPage();
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
 let hearingListPage: HearingListPage;
 let searchPage: SearchPage;
-let subscriptionManagementPage: SubscriptionManagementPage;
 let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedurePage: SingleJusticeProcedurePage;
@@ -184,8 +184,15 @@ describe('Verified user', () => {
       await mockSessionPage.enterText('Joe Bloggs', 'UsernameInput');
       await mockSessionPage.enterText('1', 'UserIdInput');
       await mockSessionPage.selectOption('UserType');
-      subscriptionManagementPage = await mockSessionPage.clickContinue();
-      expect(await subscriptionManagementPage.getPageTitle()).toBe('Your subscriptions');
+
+      //If USE_PROTOTYPE is set then it goes to Heroku, therefore re-open to Subscription Management
+      if (process.env.USE_PROTOTYPE) {
+        await mockSessionPage.clickContinue();
+        await subscriptionManagementPage.open('/subscription-management');
+      } else {
+        let subscriptionManagementPage = await mockSessionPage.clickContinue();
+        expect(await subscriptionManagementPage.getPageTitle()).toBe('Your subscriptions');
+      }
     });
   });
 
