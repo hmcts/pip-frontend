@@ -1,0 +1,26 @@
+{
+  "title": "Account Home",
+  "heading": "Your account",
+  "cards": [
+    {
+      "title": "Court or tribunal publications",
+      "description": "For example, list of hearings due to be heard, either today or in the future.",
+      "link": "search-option"
+    },
+    {
+      "title": "Live hearing updates",
+      "description": "Find out the live status of hearings currently happening - Crown Court cases only.",
+      "link": "live-case-alphabet-search"
+    },
+    {
+      "title": "Single Justice Procedure cases",
+      "description": "A nationwide list of cases, ready to be decided by a magistrate without a hearing. Such as TV licensing prosecutions.",
+      "link": "single-justice-procedure"
+    },
+    {
+      "title": "Subscriptions",
+      "description": "Subscribe to receive court or tribunal publications by email and manage your existing subscriptions.",
+      "link": "subscription-management"
+    }
+  ]
+}
