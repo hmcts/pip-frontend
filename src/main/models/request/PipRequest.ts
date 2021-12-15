@@ -30,6 +30,7 @@ export interface PipRequest extends Request {
       'list-option': {};
       'session-management': {};
       'standard-list': {};
+      'account-home': {};
     };
   };
   lng?: string;
