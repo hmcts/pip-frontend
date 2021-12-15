@@ -33,16 +33,6 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources
 const subscriptionsData = JSON.parse(rawData);
 sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns(subscriptionsData.results[0]);
 
-jest.mock('axios', () => {
-  return {
-    create: function(): { get: () => Promise<any> } {
-      return {
-        get: function(): Promise<any> {return new Promise((resolve) => resolve({data: subscriptionsData.results[0]}));},
-      };
-    },
-  };
-});
-
 describe('Subscription Management Page', () => {
   beforeAll(async () => {
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
@@ -66,7 +56,7 @@ describe('Subscription Management Page', () => {
   });
 
   it('should display all subscriptions tab with proper link', () => {
-    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[2]
+    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1]
       .getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[0].innerHTML)
       .contains(expectedAllSubsTitle, 'Could not find all subscriptions tab');
@@ -75,7 +65,7 @@ describe('Subscription Management Page', () => {
   });
 
   it('should display case subscriptions tab with proper link', () => {
-    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[2]
+    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1]
       .getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[1].innerHTML)
       .contains(expectedCaseSubsTitle, 'Could not find case subscriptions tab');
@@ -84,7 +74,7 @@ describe('Subscription Management Page', () => {
   });
 
   it('should display court subscriptions tab with proper link', () => {
-    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[2]
+    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1]
       .getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[2].innerHTML)
       .contains(expectedCourtSubsTitle, 'Could not find court subscriptions tab');
@@ -93,7 +83,7 @@ describe('Subscription Management Page', () => {
   });
 
   it('should display first tab as active', () => {
-    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[2]
+    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1]
       .getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[0].getAttribute('aria-current'))
       .equal('page', 'All subscriptions tab does not have active attribute');

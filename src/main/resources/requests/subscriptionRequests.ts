@@ -1,12 +1,8 @@
-import fs from 'fs';
-import path from 'path';
 import {dataManagementApi, subscriptionManagementApi} from './utils/axiosConfig';
 import {CaseSubscription} from '../../models/caseSubscription';
 import {Subscription} from '../../models/subscription';
 
 export class SubscriptionRequests {
-  mocksPath = '../mocks/';
-  rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'userSubscriptions.json'), 'utf-8');
 
   public async getUserSubscriptions(userId: number): Promise<Subscription> {
     try {
