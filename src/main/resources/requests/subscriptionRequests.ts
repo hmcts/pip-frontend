@@ -6,8 +6,7 @@ export class SubscriptionRequests {
 
   public async getUserSubscriptions(userId: number): Promise<Subscription> {
     try {
-      const subscriptionResults = await subscriptionManagementApi.get(`/subscription/user/${userId}`) as Subscription;
-      return subscriptionResults;
+      return await subscriptionManagementApi.get(`/subscription/user/${userId}`) as Subscription;
     } catch (error) {
       if (error.response) {
         console.log(error.response.data);
@@ -22,8 +21,7 @@ export class SubscriptionRequests {
 
   public async getSubscriptionByUrn(urnNumber: string): Promise<CaseSubscription> {
     try {
-      const response = await dataManagementApi.get(`/hearings/urn/${urnNumber}`);
-      return response.data;
+      return await dataManagementApi.get(`/hearings/urn/${urnNumber}`);
     } catch (error) {
       if (error.response) {
         console.log(error.response.data);

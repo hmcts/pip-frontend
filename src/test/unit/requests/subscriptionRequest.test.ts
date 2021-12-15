@@ -78,6 +78,22 @@ describe(`non existing user Id getUserSubscriptions(${nonExistingUserId})`, asyn
   });
 });
 
+describe('non existing subscriptions getUserSubscriptions error request', () => {
+  stub2.withArgs(`/subscription/user/${nonExistingUserId}`).resolves(Promise.reject(errorRequest));
+  it('should return null list of subscriptions', async () => {
+    const userSubscriptions = await subscriptionActions.getUserSubscriptions(nonExistingUserId);
+    expect(userSubscriptions).toBe(null);
+  });
+});
+
+describe('non existing subscriptions getUserSubscriptions error response', () => {
+  stub2.withArgs(`/subscription/user/${nonExistingUserId}`).resolves(Promise.reject(errorResponse));
+  it('should return null list of subscriptions', async () => {
+    const userSubscriptions = await subscriptionActions.getUserSubscriptions(nonExistingUserId);
+    expect(userSubscriptions).toBe(null);
+  });
+});
+
 describe(`getSubscriptionByUrn(${validUrn}) with valid urn`, () => {
   stub.withArgs('/hearings/urn/123456789').resolves({data: subscriptionsData});
   it('should return hearing matching the urn', async () => {
