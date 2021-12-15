@@ -12,14 +12,32 @@ const errorResponse = {
 const errorRequest = {
   request: 'test error',
 };
+const errorMessage = {
+  message: 'test',
+};
 
 const data = [{caseName: 'my hearing', caseNumber: '11223344'}];
+const caseNumberData = {
+  hearingId: 1,
+  courtId: 50,
+  courtNumber: 1,
+  date: '15/11/2021 10:00:00',
+  judge: 'His Honour Judge A Morley QC',
+  platform: 'In person',
+  caseNumber: 'T485913',
+  caseName: 'Tom Clancy',
+  urn: 'N363N6R4OG',
+};
 
 describe('Hearing get requests', () => {
   beforeEach(() => {
     stub.withArgs('/hearings/case-name/').resolves(Promise.reject(errorResponse));
     stub.withArgs('/hearings/case-name/bob').resolves(Promise.reject(errorRequest));
     stub.withArgs('/hearings/case-name/my').resolves({data});
+    stub.withArgs('/hearings/case-number/').resolves(Promise.reject(errorResponse));
+    stub.withArgs('/hearings/case-number/foo').resolves(Promise.reject(errorRequest));
+    stub.withArgs('/hearings/case-number/bar').resolves(Promise.reject(errorMessage));
+    stub.withArgs('/hearings/case-number/T485913').resolves({data: caseNumberData});
   });
 
   it('should return hearings list', async () => {
@@ -32,5 +50,21 @@ describe('Hearing get requests', () => {
 
   it('should return empty list if request fails', async () => {
     expect(await hearingRequests.getHearingsByCaseName('bob')).toStrictEqual([]);
+  });
+
+  it('should return valid case', async () => {
+    expect(await hearingRequests.getCaseByCaseNumber('T485913')).toBe(caseNumberData);
+  });
+
+  it('should return null if request fails', async () => {
+    expect(await hearingRequests.getCaseByCaseNumber('foo')).toBe(null);
+  });
+
+  it('should return null if response fails', async () => {
+    expect(await hearingRequests.getCaseByCaseNumber('')).toBe(null);
+  });
+
+  it('should return null if call message', async () => {
+    expect(await hearingRequests.getCaseByCaseNumber('bar')).toBe(null);
   });
 });
