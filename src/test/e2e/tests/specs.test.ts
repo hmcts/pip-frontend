@@ -29,7 +29,7 @@ import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
 let subscriptionAddPage = new SubscriptionAddPage();
-let subscriptionManagementPage = new SubscriptionManagementPage();
+const subscriptionManagementPage = new SubscriptionManagementPage();
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
@@ -190,7 +190,7 @@ describe('Verified user', () => {
         await mockSessionPage.clickContinue();
         await subscriptionManagementPage.open('/subscription-management');
       } else {
-        let subscriptionManagementPage = await mockSessionPage.clickContinue();
+        const subscriptionManagementPage = await mockSessionPage.clickContinue();
         expect(await subscriptionManagementPage.getPageTitle()).toBe('Your subscriptions');
       }
     });
