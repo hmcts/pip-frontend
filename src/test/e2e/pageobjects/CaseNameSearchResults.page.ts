@@ -1,4 +1,4 @@
-import { CommonPage } from '../PageObjects/Common.page';
+import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 

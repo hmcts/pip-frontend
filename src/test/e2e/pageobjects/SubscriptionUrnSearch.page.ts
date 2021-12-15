@@ -1,5 +1,5 @@
-import {SubscriptionUrnSearchResultsPage} from '../pageobjects/SubscriptionUrnSearchResults.page';
-import { CommonPage } from '../PageObjects/Common.page';
+import {SubscriptionUrnSearchResultsPage} from './SubscriptionUrnSearchResults.page';
+import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 

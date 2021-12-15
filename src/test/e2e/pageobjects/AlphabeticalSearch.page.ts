@@ -1,5 +1,5 @@
-import { HearingListPage } from '../pageobjects/HearingList.page';
-import { CommonPage } from '../PageObjects/Common.page';
+import { HearingListPage } from './HearingList.page';
+import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 

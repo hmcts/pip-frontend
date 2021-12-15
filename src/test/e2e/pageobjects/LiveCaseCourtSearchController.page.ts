@@ -1,4 +1,4 @@
-import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
+import { LiveCaseStatusPage } from './LiveCaseStatus.page';
 
 const helpers = require('../Helpers/Selectors');
 

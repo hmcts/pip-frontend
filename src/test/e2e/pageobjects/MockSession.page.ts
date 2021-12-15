@@ -1,5 +1,5 @@
-import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
-import { CommonPage } from '../PageObjects/Common.page';
+import { SubscriptionManagementPage } from './SubscriptionManagement.page';
+import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 

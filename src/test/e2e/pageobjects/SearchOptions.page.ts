@@ -1,6 +1,6 @@
-import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
-import { SearchPage } from '../pageobjects/Search.page';
-import { CommonPage } from '../PageObjects/Common.page';
+import { AlphabeticalSearchPage } from './AlphabeticalSearch.page';
+import { SearchPage } from './Search.page';
+import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 
