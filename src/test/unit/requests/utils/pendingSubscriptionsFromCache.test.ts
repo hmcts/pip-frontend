@@ -1,61 +1,64 @@
 import sinon from 'sinon';
-import fs from 'fs';
-import path from 'path';
-import {PendingSubscriptionsFromCache} from '../../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
+import { PendingSubscriptionsFromCache } from '../../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
 const { redisClient } = require('../../../../main/cacheManager');
 
 const mockUser = {
   id : '1',
 };
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
-
-
-const newHearing = [
-  {
-    'hearingId': 5,
-    'courtId': 50,
-    'courtNumber': 1,
-    'date': '15/11/2021 10:00:00',
-    'judge': 'His Honour Judge A Morley QC',
-    'platform': 'In person',
-    'caseNumber': 'T485914',
-    'caseName': 'Ashely Barnes',
-    'urn': 'IBRANE1BVW',
-  },
-];
-
-
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../../../main/resources/mocks/caseHearings.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData);
-const stub = sinon.stub(redisClient, 'get');
-const stubDel = sinon.stub(redisClient, 'del');
+const mockCourt = [{
+  courtId: 643,
+  name: 'Aberdeen Tribunal Hearing Centre',
+  jurisdiction: 'Tribunal',
+  location: 'Scotland',
+  hearingList: [],
+  hearings: 0,
+}];
+const mockCase = [{
+  hearingId: 5,
+  courtId: 50,
+  courtNumber: 1,
+  date: '15/11/2021 10:00:00',
+  judge: 'His Honour Judge A Morley QC',
+  platform: 'In person',
+  caseNumber: 'T485914',
+  caseName: 'Ashely Barnes',
+  urn: 'IBRANE1BVW',
+}];
+const getStub = sinon.stub(redisClient, 'get');
+getStub.withArgs('pending-courts-subscriptions-1').resolves(JSON.stringify(mockCourt));
+getStub.withArgs('pending-cases-subscriptions-1').resolves(JSON.stringify(mockCase));
+getStub.withArgs('pending-courts-subscriptions-2').resolves([]);
 sinon.stub(redisClient, 'status').value('ready');
 
 describe('setPendingSubscriptions with valid user', () => {
-  stub.withArgs(`pending-subscriptions${mockUser.id}`).resolves(rawData);
-  stubDel.withArgs(`pending-subscriptions${mockUser.id}`);
-
   const set = sinon.spy(redisClient, 'set');
+  const get = sinon.spy(redisClient, 'get');
 
-  it('should set hearings collection from cache adding new ones', async () => {
-    await pendingSubscriptionsFromCache.setPendingSubscriptions(newHearing, mockUser);
-    sinon.assert.calledOnce(set);
-  });
-
-  it('should get hearings collection from cache', async () => {
-    const cachedResult = await pendingSubscriptionsFromCache.getPendingSubscriptions(mockUser);
-    expect(cachedResult).toStrictEqual(subscriptionsData);
-  });
-
-  it('should clear hearings collection from cache', async () => {
-    const result = await pendingSubscriptionsFromCache.clearPendingSubscription(mockUser);
-    expect(result).toBe(true);
-  });
-
-  it('should remove hearing collection from cache', async () => {
-    const result = await pendingSubscriptionsFromCache.removeFromCache(2,mockUser);
+  it('should set case into cache', async () => {
+    await pendingSubscriptionsFromCache.setPendingSubscriptions(mockCase, 'cases', mockUser.id);
     sinon.assert.called(set);
-    expect(result).toBe(true);
+  });
+
+  it('should set court into cache', async () => {
+    await pendingSubscriptionsFromCache.setPendingSubscriptions(mockCourt, 'courts', mockUser.id);
+    sinon.assert.called(set);
+  });
+
+  it('should get cases list from the cache', async () => {
+    const cachedResult = await pendingSubscriptionsFromCache.getPendingSubscriptions(mockUser.id, 'cases');
+    expect(cachedResult).toStrictEqual(mockCase);
+  });
+
+  it('should get courts list from the cache', async () => {
+    const cachedResult = await pendingSubscriptionsFromCache.getPendingSubscriptions(mockUser.id, 'courts');
+    expect(cachedResult).toStrictEqual(mockCourt);
+  });
+
+  it('should remove a record from the cache', async () => {
+    await pendingSubscriptionsFromCache.removeFromCache({court: '643'}, '2');
+    sinon.assert.called(set);
+    sinon.assert.called(get);
   });
 });
 
