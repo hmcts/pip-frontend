@@ -18,7 +18,7 @@ export default class SubscriptionAddController {
   public post(req: PipRequest, res: Response): void {
     switch(req.body['subscription-choice']) {
       case 'case-reference': {
-        res.redirect('/');
+        res.redirect('/case-reference-number-search');
         break;
       }
       case 'urn': {
