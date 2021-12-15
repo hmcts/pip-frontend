@@ -39,6 +39,9 @@ export default class SubscriptionManagementController {
           activeCourtTab,
         });
       }
+      else {
+        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+      }
 
     } else {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
