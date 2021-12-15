@@ -2,7 +2,6 @@ console.log(__dirname);
 
 const fs = require('fs');
 
-console.log(fs.readdirSync(__dirname));
 console.log(fs.readdirSync(__dirname + '/..'));
 console.log(fs.readdirSync(__dirname + '/../pageobjects'));
 
