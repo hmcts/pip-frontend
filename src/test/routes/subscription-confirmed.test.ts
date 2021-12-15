@@ -5,13 +5,11 @@ import { app } from '../../main/app';
 import { request as expressRequest } from 'express';
 import { SubscriptionService } from '../../main/service/subscriptionService';
 
-describe('Subscription Confirmed', () => {
-  beforeEach(() => {
-    sinon.stub(SubscriptionService.prototype, 'subscribe').withArgs('1').resolves(true);
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-    app.request['user'] = {id: '1'};
-  });
+sinon.stub(SubscriptionService.prototype, 'subscribe').withArgs('1').resolves(true);
+sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+app.request['user'] = {id: '1'};
 
+describe('Subscription Confirmed', () => {
   describe('on POST', () => {
     test('should return subscription confirmation page', async () => {
       await request(app)
