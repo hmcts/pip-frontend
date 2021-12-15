@@ -22,25 +22,25 @@ stubUserSubscription.withArgs(userIdWithoutSubscriptions).returns(subscriptionRe
 describe('generate rows functions without subscriptions', () => {
 
   it('generateCaseTableRows should return list of case subscriptions', async () => {
-    const caseSubscriptionRows = await subscriptionService.generateCaseTableRows(userIdWithoutSubscriptions);
-    expect(caseSubscriptionRows.length).toBe(0);
+    const caseSubscriptionRows = await subscriptionService.generateSubscriptionsTableRows(userIdWithoutSubscriptions);
+    expect(caseSubscriptionRows.cases.length).toBe(0);
   });
 
   it('generateCourtTableRows should return list of court subscriptions', async () => {
-    const courtSubscriptionRows = await subscriptionService.generateCourtTableRows(userIdWithoutSubscriptions);
-    expect(courtSubscriptionRows.length).toBe(0);
+    const courtSubscriptionRows = await subscriptionService.generateSubscriptionsTableRows(userIdWithoutSubscriptions);
+    expect(courtSubscriptionRows.courts.length).toBe(0);
   });
 });
 
 describe('generate rows functions with subscriptions', () => {
   it('generateCaseTableRows should return list of case subscriptions', async () => {
-    const caseSubscriptionRows = await subscriptionService.generateCaseTableRows(userIdWithSubscriptions);
-    expect(caseSubscriptionRows.length).toBeGreaterThan(0);
+    const caseSubscriptionRows = await subscriptionService.generateSubscriptionsTableRows(userIdWithSubscriptions);
+    expect(caseSubscriptionRows.cases.length).toBeGreaterThan(0);
   });
 
   it('generateCourtTableRows should return list of court subscriptions', async () => {
-    const courtSubscriptionRows = await subscriptionService.generateCourtTableRows(userIdWithSubscriptions);
-    expect(courtSubscriptionRows.length).toBeGreaterThan(0);
+    const courtSubscriptionRows = await subscriptionService.generateSubscriptionsTableRows(userIdWithSubscriptions);
+    expect(courtSubscriptionRows.courts.length).toBeGreaterThan(0);
   });
 
   it('getSubscriptionUrnDetails should return the cases', async () => {

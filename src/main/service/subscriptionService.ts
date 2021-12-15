@@ -1,13 +1,38 @@
 import moment from 'moment';
 import {SubscriptionRequests} from '../resources/requests/subscriptionRequests';
 import {CaseSubscription} from '../models/caseSubscription';
+import {Subscription} from '../models/subscription';
 
 const subscriptionRequests = new SubscriptionRequests();
 
 export class SubscriptionService {
 
-  public async generateCaseTableRows(userid: number): Promise<any[]> {
+  public async generateSubscriptionsTableRows(userid: number): Promise<any> {
     const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
+    const cases = {
+      cases: [],
+      courts: [],
+    };
+    if (subscriptionData) {
+      cases.cases = this.generateCaseTableRows(subscriptionData);
+      cases.courts = this.generateCourtTableRows(subscriptionData);
+    }
+
+    return cases;
+  }
+
+  public async getSubscriptionUrnDetails(urn: string): Promise<CaseSubscription> {
+    const subscriptions = await subscriptionRequests.getSubscriptionByUrn(urn);
+
+    if (subscriptions) {
+      return subscriptions;
+    } else {
+      console.log(`Subscription with urn ${urn} does not exist`);
+      return null;
+    }
+  }
+
+  private generateCaseTableRows(subscriptionData: Subscription): any[] {
     const caseRows = [];
     if (subscriptionData.caseSubscriptions.length) {
       subscriptionData.caseSubscriptions.forEach((subscription) => {
@@ -34,8 +59,7 @@ export class SubscriptionService {
     return caseRows;
   }
 
-  public async generateCourtTableRows(userId: number): Promise<any[]> {
-    const subscriptionData = await subscriptionRequests.getUserSubscriptions(userId);
+  private generateCourtTableRows(subscriptionData: Subscription): any[] {
     const courtRows = [];
     if (subscriptionData.courtSubscriptions.length) {
       subscriptionData.courtSubscriptions.forEach((subscription) => {
@@ -54,17 +78,6 @@ export class SubscriptionService {
       });
     }
     return courtRows;
-  }
-
-  public async getSubscriptionUrnDetails(urn: string): Promise<CaseSubscription> {
-    const subscriptions = await subscriptionRequests.getSubscriptionByUrn(urn);
-
-    if (subscriptions) {
-      return subscriptions;
-    } else {
-      console.log(`Subscription with urn ${urn} does not exist`);
-      return null;
-    }
   }
 
 }
