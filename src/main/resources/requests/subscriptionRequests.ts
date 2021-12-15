@@ -21,8 +21,9 @@ export class SubscriptionRequests {
 
   public async getSubscriptionByUrn(urnNumber: string): Promise<CaseSubscription> {
     try {
-      return await dataManagementApi.get(`/hearings/urn/${urnNumber}`);
-    } catch (error) {
+      const response = await dataManagementApi.get(`/hearings/urn/${urnNumber}`);
+      return response.data;
+    }  catch (error) {
       if (error.response) {
         console.log(error.response.data);
       } else if (error.request) {

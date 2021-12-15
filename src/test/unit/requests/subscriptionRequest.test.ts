@@ -101,7 +101,7 @@ describe('non existing subscriptions getUserSubscriptions error response', () =>
 });
 
 describe(`getSubscriptionByUrn(${validUrn}) with valid urn`, () => {
-  stub.withArgs('/hearings/urn/123456789').resolves(subscriptionsData);
+  stub.withArgs('/hearings/urn/123456789').resolves({data:subscriptionsData});
   it('should return hearing matching the urn', async () => {
     const sub = await subscriptionActions.getSubscriptionByUrn(validUrn);
     expect(sub.urn).toEqual(validUrn);
@@ -109,7 +109,7 @@ describe(`getSubscriptionByUrn(${validUrn}) with valid urn`, () => {
 });
 
 describe(`non existing subscriptions getSubscriptionByUrn(${invalidUrn})`, () => {
-  stub.withArgs(`/hearings/urn/${invalidUrn}`).resolves(null);
+  stub.withArgs(`/hearings/urn/${invalidUrn}`).resolves({data:null});
 
   it('should return null', async () => {
     const userSubscriptions = await subscriptionActions.getSubscriptionByUrn(invalidUrn);
