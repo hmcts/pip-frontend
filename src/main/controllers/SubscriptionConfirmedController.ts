@@ -5,12 +5,10 @@ import { SubscriptionService } from '../service/subscriptionService';
 const subscriptionService = new SubscriptionService();
 
 export default class SubscriptionConfirmedController {
-  public get(req: PipRequest, res: Response): void {
-    res.render('subscription-confirmed', req.i18n.getDataByLanguage(req.lng)['subscription-confirmed']);
-  }
-
   public async post(req: PipRequest, res: Response): Promise<void> {
-    await subscriptionService.subscribe(req.user);
-    res.render('subscription-confirmed', req.i18n.getDataByLanguage(req.lng)['subscription-confirmed']);
+    const subscribed = await subscriptionService.subscribe(req.user['id']);
+    subscribed ?
+      res.render('subscription-confirmed', req.i18n.getDataByLanguage(req.lng)['subscription-confirmed']) :
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
   }
 }
