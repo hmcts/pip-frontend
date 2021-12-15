@@ -1,35 +1,40 @@
 import sinon from 'sinon';
 import { Response } from 'express';
-import fs from 'fs';
-import path from 'path';
-import {SubscriptionService} from '../../../main/service/subscriptionService';
-import {mockRequest} from '../mocks/mockRequest';
+import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { mockRequest } from '../mocks/mockRequest';
 import SubscriptionConfirmedController from '../../../main/controllers/SubscriptionConfirmedController';
 
 const subscriptionConfirmedController = new SubscriptionConfirmedController();
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData);
-sinon.stub(SubscriptionService.prototype, 'getSubscriptionUrnDetails').returns(subscriptionsData);
+const subscribeStub = sinon.stub(SubscriptionService.prototype, 'subscribe');
+subscribeStub.withArgs('1').resolves(true);
+subscribeStub.withArgs('2').resolves(false);
+const response = {render: () => {return '';}} as unknown as Response;
+const i18n = {
+  'subscription-confirmed': {},
+  'error': {},
+};
 
 describe('Subscription Confirmed Controller', () => {
-  let i18n = {};
-  it('should render the confirmed page', async () => {
-
-    i18n = {
-      'subscription-confirmed': {},
-    };
-
-    const response = {
-      render: function () {
-        return '';
-      },
-    } as unknown as Response;
+  it('should render confirmed page if subscribed successfully', () => {
     const request = mockRequest(i18n);
+    request.user = {id: '1'};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('subscription-confirmed');
+    responseMock.expects('render').once().withArgs('subscription-confirmed', {...i18n['subscription-confirmed']});
 
-    await subscriptionConfirmedController.get(request, response);
-    responseMock.verify();
+    subscriptionConfirmedController.post(request, response).then(() => {
+      responseMock.verify();
+    });
+  });
+
+  it('should render error page if subscription failed', () => {
+    const request = mockRequest(i18n);
+    request.user = {id: '2'};
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('error', {...i18n.error});
+    subscriptionConfirmedController.post(request, response).then(() => {
+      responseMock.verify();
+    });
   });
 });
