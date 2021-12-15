@@ -2,9 +2,15 @@ import moment from 'moment';
 import { SubscriptionRequests } from '../resources/requests/subscriptionRequests';
 import { CaseSubscription } from '../models/caseSubscription';
 import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendingSubscriptionsFromCache';
+import { HearingService } from './hearingService';
+import { Hearing } from '../models/hearing';
+import { CourtService } from './courtService';
+import { Court } from '../models/court';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
+const hearingService = new HearingService();
+const courtService = new CourtService();
 
 export class SubscriptionService {
 
@@ -68,23 +74,122 @@ export class SubscriptionService {
     }
   }
 
-  public async setPendingSubscriptions(searchResult, user): Promise<void> {
-    await pendingSubscriptionsFromCache.setPendingSubscriptions(searchResult, user);
-  }
-
-  public async getPendingSubscriptions(user): Promise<CaseSubscription[]> {
-    return await pendingSubscriptionsFromCache.getPendingSubscriptions(user);
-  }
-
-  public async subscribe(user): Promise<boolean> {
-    const cachedSubscriptions = await pendingSubscriptionsFromCache.getPendingSubscriptions(user);
-    if (await subscriptionRequests.subscribe(cachedSubscriptions,user)) {
-      return await pendingSubscriptionsFromCache.clearPendingSubscription(user);
+  public async handleNewSubscription(pendingSubscription, user): Promise<void> {
+    const selectionList = Object.keys(pendingSubscription);
+    for (const selectionName of selectionList) {
+      let hearingIdsList = [];
+      let courtIdsList = [];
+      let caseDetailsList: Hearing[] = [];
+      let courtDetailsList: Court[] = [];
+      switch (selectionName) {
+        // TODO: PUB-734 not merged in yet
+        case 'case-number':
+          // get /hearings/case-number/
+          break;
+        case 'hearing-selections[]':
+          // pendingSubscription.selectionName gives undefined
+          Array.isArray(pendingSubscription[`${selectionName}`]) ?
+            hearingIdsList = pendingSubscription[`${selectionName}`] :
+            hearingIdsList.push(pendingSubscription[`${selectionName}`]);
+          caseDetailsList = await this.getCaseDetails(hearingIdsList);
+          // set results into cache
+          await this.setPendingSubscriptions(caseDetailsList, 'cases', user.id);
+          break;
+        case 'court-selections[]':
+          Array.isArray(pendingSubscription[`${selectionName}`]) ?
+            courtIdsList = pendingSubscription[`${selectionName}`] :
+            courtIdsList.push(pendingSubscription[`${selectionName}`]);
+          courtDetailsList = await this.getCourtDetails(courtIdsList);
+          // set results into cache
+          await this.setPendingSubscriptions(courtDetailsList, 'courts', user.id);
+          break;
+      }
     }
-    return false;
   }
 
-  public async removeFromCache(id, user): Promise<boolean> {
-    return await pendingSubscriptionsFromCache.removeFromCache(id, user);
+  public async getCaseDetails(cases): Promise<Hearing[]> {
+    const casesList = [];
+    for (const caseNumber of cases) {
+      const caseDetails = await hearingService.getCaseByNumber(caseNumber);
+      if (caseDetails) {
+        casesList.push(caseDetails);
+      }
+    }
+    return casesList;
+  }
+
+  public async getCourtDetails(courts): Promise<Court[]> {
+    const courtsList = [];
+    for (const courtId of courts) {
+      const courtDetails = await courtService.getCourtById(courtId);
+      if (courtDetails) {
+        courtsList.push(courtDetails);
+      }
+    }
+    return courtsList;
+  }
+
+  public async setPendingSubscriptions(subscriptions, subscriptionType, userId): Promise<void> {
+    await pendingSubscriptionsFromCache.setPendingSubscriptions(subscriptions, subscriptionType, userId);
+  }
+
+  public async getPendingSubscriptions(userId, subscriptionType): Promise<CaseSubscription[]> {
+    return await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, subscriptionType);
+  }
+
+  public async subscribe(userId): Promise<boolean> {
+    let subscribed = true;
+    const casesType = 'cases';
+    const courtsType = 'courts';
+    const cachedCaseSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, casesType);
+    const cachedCourtSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, courtsType);
+    if (cachedCaseSubs) {
+      for (const cachedCase of cachedCaseSubs) {
+        const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCase, casesType, userId));
+        response ? await this.removeFromCache({'case': cachedCase.caseNumber}, userId) : subscribed = response;
+      }
+    }
+    if (cachedCourtSubs) {
+      for (const cachedCourt of cachedCourtSubs) {
+        const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCourt, courtsType, userId));
+        response ? await this.removeFromCache({court: cachedCourt.courtId}, userId) : subscribed = response;
+      }
+      return subscribed;
+    }
+  }
+
+  createSubscriptionPayload(pendingSubscription, subscriptionType, userId): object {
+    let payload;
+    switch (subscriptionType) {
+      case 'courts':
+        payload = {
+          channel: 'API',
+          searchType: 'COURT_ID',
+          searchValue: pendingSubscription.courtId,
+          userId,
+        };
+        break;
+      case 'cases':
+        payload = {
+          channel: 'API',
+          searchType: 'CASE_ID',
+          searchValue: pendingSubscription.caseNumber,
+          userId,
+        };
+        break;
+      default:
+        payload = {
+          channel: 'API',
+          searchType: '',
+          searchValue: '',
+          userId,
+        };
+        break;
+    }
+    return payload;
+  }
+
+  public async removeFromCache(record, userId): Promise<void> {
+    return await pendingSubscriptionsFromCache.removeFromCache(record, userId);
   }
 }
