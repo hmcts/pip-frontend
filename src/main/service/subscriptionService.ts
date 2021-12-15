@@ -8,17 +8,17 @@ const subscriptionRequests = new SubscriptionRequests();
 export class SubscriptionService {
 
   public async generateSubscriptionsTableRows(userid: number): Promise<any> {
-    const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
-    const cases = {
+    const subscriptions = await subscriptionRequests.getUserSubscriptions(userid);
+    const rows = {
       cases: [],
       courts: [],
     };
-    if (subscriptionData) {
-      cases.cases = this.generateCaseTableRows(subscriptionData);
-      cases.courts = this.generateCourtTableRows(subscriptionData);
+    if (subscriptions) {
+      rows.cases = this.generateCaseTableRows(subscriptions);
+      rows.courts = this.generateCourtTableRows(subscriptions);
     }
 
-    return cases;
+    return rows;
   }
 
   public async getSubscriptionUrnDetails(urn: string): Promise<CaseSubscription> {
@@ -32,11 +32,10 @@ export class SubscriptionService {
     }
   }
 
-  private generateCaseTableRows(subscriptionData: Subscription): any[] {
+  private generateCaseTableRows(subscriptions: Subscription): any[] {
     const caseRows = [];
-    if (subscriptionData.caseSubscriptions.length) {
-      subscriptionData.caseSubscriptions.forEach((subscription) => {
-        //const date = moment.unix(subscription.dateAdded).format('D MMM YYYY');
+    if (subscriptions.caseSubscriptions.length) {
+      subscriptions.caseSubscriptions.forEach((subscription) => {
         caseRows.push(
           [
             {
@@ -59,10 +58,10 @@ export class SubscriptionService {
     return caseRows;
   }
 
-  private generateCourtTableRows(subscriptionData: Subscription): any[] {
+  private generateCourtTableRows(subscriptions: Subscription): any[] {
     const courtRows = [];
-    if (subscriptionData.courtSubscriptions.length) {
-      subscriptionData.courtSubscriptions.forEach((subscription) => {
+    if (subscriptions.courtSubscriptions.length) {
+      subscriptions.courtSubscriptions.forEach((subscription) => {
         courtRows.push([
           {
             text: subscription.name,

@@ -10,8 +10,7 @@ export default class SubscriptionManagementController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     if (req.user) {
       // currently only 2 users are mocked, userId: 1 has subscriptions, userId: 2 doesnt
-      const userId = req.user['id'] === '1' ? 1 : 2;
-      const tableData = await subscriptionService.generateSubscriptionsTableRows(userId);
+      const tableData = await subscriptionService.generateSubscriptionsTableRows(req.user['id']);
       if (tableData) {
         const caseTableData = tableData.cases;
         const courtTableData = tableData.courts;
