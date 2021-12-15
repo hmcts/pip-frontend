@@ -25,6 +25,22 @@ export class HearingRequests {
     return [];
   }
 
+  public async getCaseByCaseNumber(caseNumber: string): Promise<Hearing> {
+    try {
+      const response = await dataManagementApi.get(`/hearings/case-number/${caseNumber}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
+      }
+    }
+    return null;
+  }
+
   public async getHearingsById(id: number): Promise<Hearing> {
     const subscriptionsData = JSON.parse(this.rawData) as CaseSubscription[];
     let result = null;
