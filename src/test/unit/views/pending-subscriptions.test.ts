@@ -1,41 +1,41 @@
-import {expect} from 'chai';
+import { app } from '../../../main/app';
+import { expect } from 'chai';
+import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
+import { request as expressRequest } from 'express';
 import request from 'supertest';
-import {app} from '../../../main/app';
-import fs from 'fs';
-import path from 'path';
 import sinon from 'sinon';
-import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
-import {request as expressRequest} from 'express';
-import {PendingSubscriptionsFromCache} from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
 
-const numOfResults = '2';
+const mockCase = {
+  hearingId: 1,
+  courtId: 50,
+  courtNumber: 1,
+  date: '15/11/2021 10:00:00',
+  judge: 'His Honour Judge A Morley QC',
+  platform: 'In person',
+  caseNumber: 'T485913',
+  caseName: 'Tom Clancy',
+  urn: 'N363N6R4OG',
+};
+const mockCourt = {
+  courtId: 643,
+  name: 'Aberdeen Tribunal Hearing Centre',
+  jurisdiction: 'Tribunal',
+  location: 'Scotland',
+  hearingList: [],
+  hearings: 0,
+};
 const PAGE_URL = '/pending-subscriptions';
 const backLinkClass = 'govuk-back-link';
-const rowClass = 'govuk-table__row';
-const tableBodyClass = 'govuk-table__body';
-const tableHeaderClass = 'govuk-table__head';
+const tableHeaderClass = 'govuk-table__header';
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData);
-const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/caseHearings.json'), 'utf-8');
-const subscriptionsData2 = JSON.parse(rawData2);
-sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').returns(subscriptionsData);
-sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions').returns(subscriptionsData2);
+const getSubscriptionsStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
+getSubscriptionsStub.withArgs('1', 'cases').resolves([mockCase]);
+getSubscriptionsStub.withArgs('1', 'courts').resolves([mockCourt]);
 
-// TODO: sinon.stub instead of this
-jest.mock('axios', () => {
-  return {
-    create: function(): { get: () => Promise<any> } {
-      return {
-        get: function(): Promise<any> {return new Promise((resolve) => resolve({data: subscriptionsData}));},
-      };
-    },
-  };
-});
-
-describe('Search Results Page', () => {
+describe('Pending Subscriptions Page', () => {
   beforeAll(async () => {
+    app.request['user'] = {id: '1'};
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
@@ -44,31 +44,57 @@ describe('Search Results Page', () => {
 
   it('should display back button', () => {
     const backButton = htmlRes.getElementsByClassName(backLinkClass);
-    expect(backButton[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backButton[0].getAttribute('href')).equal('#', 'Back button does not contain correct link');
+    expect(backButton[0].innerHTML).contains('Back');
   });
 
-  it('should list the number of results found', () => {
-    const bodyText = htmlRes.getElementsByClassName(tableBodyClass);
-    expect(bodyText[0].innerHTML).contains(numOfResults, `Could not find ${numOfResults} results in the body`);
+  it('should display title', () => {
+    const title = htmlRes.getElementsByClassName('govuk-heading-l');
+    expect(title[0].innerHTML).contains('Confirm your subscriptions');
   });
 
-  it('should display first table header', () => {
-    const tableHeader1 = htmlRes.getElementsByClassName(tableHeaderClass);
-    expect(tableHeader1[0].innerHTML).contains('Unique reference number (URN)', 'Could not find text in first header');
+  it('should display correct case table headers', () => {
+    const tableHeaders = htmlRes.getElementsByClassName(tableHeaderClass);
+    expect(tableHeaders[0].innerHTML).contains('Unique reference number (URN)', 'Could not find text in first header');
+    expect(tableHeaders[1].innerHTML).contains('Case reference number or case ID', 'Could not find text in second header');
+    expect(tableHeaders[2].innerHTML).contains('Case name', 'Could not find text in third header');
+    expect(tableHeaders[3].innerHTML).contains('Actions', 'Could not find text in fourth header');
   });
 
-  it('should contain 3 rows including the header row', () => {
-    const rows = htmlRes.getElementsByClassName(rowClass);
-    expect(rows.length).equal(4, 'Table did not contain expected number of rows');
+  it('should display correct court table headers', () => {
+    const tableHeaders = htmlRes.getElementsByClassName('govuk-table')[1]
+      .getElementsByClassName('govuk-table__header');
+    expect(tableHeaders[0].innerHTML).contains('Court or tribunal name', 'Could not find text in first header');
+    expect(tableHeaders[1].innerHTML).contains('Actions', 'Could not find text in second header');
   });
 
-  it('should contain rows with correct values', () => {
-    const rows = htmlRes.getElementsByClassName(rowClass);
-    const items = rows.item(1).children;
-
-    expect(items[0].innerHTML).contains('N363N6R4OG', 'URN does not exist');
-    expect(items[1].innerHTML).contains('T485913', 'Case number does not exist');
+  it('should contain 1 row in the case table with correct values', () => {
+    const rows = htmlRes.getElementsByClassName('govuk-table__body')[0].getElementsByClassName('govuk-table__row');
+    const cells = rows[0].getElementsByClassName('govuk-table__cell');
+    expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
+    expect(cells[0].innerHTML).contains(mockCase.urn, 'First cell does not contain correct value');
+    expect(cells[1].innerHTML).contains(mockCase.caseNumber, 'Second cell does not contain correct value');
+    expect(cells[2].innerHTML).contains(mockCase.caseName, 'Third cell does not contain correct value');
+    expect(cells[3].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
+    expect(cells[3].querySelector('a').getAttribute('href')).equal(`/remove-subscription?case=${mockCase.caseNumber}`);
   });
 
+  it('should contain 1 row in the court table with correct values', () => {
+    const rows = htmlRes.getElementsByClassName('govuk-table__body')[1].getElementsByClassName('govuk-table__row');
+    const cells = rows[0].getElementsByClassName('govuk-table__cell');
+    expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
+    expect(cells[0].innerHTML).contains(mockCourt.name, 'First cell does not contain correct value');
+    expect(cells[1].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
+    expect(cells[1].querySelector('a').getAttribute('href')).equal(`/remove-subscription?court=${mockCourt.courtId}`);
+  });
+
+  it('should contain confirm subscriptions button', () => {
+    const button = htmlRes.getElementsByClassName('govuk-button')[0];
+    expect(button.innerHTML).contains('Confirm Subscriptions', 'Could not find submit button');
+  });
+
+  it('should display add another link', () => {
+    const addAnotherLink = htmlRes.getElementsByClassName('govuk-!-text-align-centre')[0];
+    expect(addAnotherLink.getElementsByClassName('govuk-link')[0].innerHTML).contains('Add another', 'Could not find add another link');
+    expect(addAnotherLink.querySelector('a').getAttribute('href')).equal('/subscription-add');
+  });
 });
