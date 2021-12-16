@@ -81,10 +81,7 @@ export class SubscriptionService {
       let caseDetailsList: Hearing[] = [];
       let courtDetailsList: Court[] = [];
       switch (selectionName) {
-        // TODO: PUB-734 not merged in yet
         case 'case-number':
-          // get /hearings/case-number/
-          break;
         case 'hearing-selections[]':
           // pendingSubscription.selectionName gives undefined
           Array.isArray(pendingSubscription[`${selectionName}`]) ?
