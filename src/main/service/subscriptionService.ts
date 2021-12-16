@@ -13,7 +13,6 @@ const hearingService = new HearingService();
 const courtService = new CourtService();
 
 export class SubscriptionService {
-
   generateCaseTableRows(userid: number): any[] {
     const subscriptionData = subscriptionRequests.getUserSubscriptions(userid);
     const caseRows = [];
@@ -154,8 +153,8 @@ export class SubscriptionService {
         const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCourt, courtsType, userId));
         response ? await this.removeFromCache({court: cachedCourt.courtId}, userId) : subscribed = response;
       }
-      return subscribed;
     }
+    return subscribed;
   }
 
   createSubscriptionPayload(pendingSubscription, subscriptionType, userId): object {
