@@ -41,5 +41,4 @@ describe('Case name search results controller', () => {
     await caseNameSearchResultsController.get(request, response);
     return responseMock.verify();
   });
-
 });
