@@ -31,8 +31,8 @@
         }
     ] if isAuthenticated else [
         {
-        text: navLinks.link2,
-        href: '/view-option'
+            text: navLinks.link2,
+            href: '/view-option'
         },
         {
             text: navLinks.link3,
@@ -44,6 +44,34 @@
         classes: 'pub-navigation govuk-!-margin-bottom-0',
         items: listItems
     }) }}
+  {% set listItems = [
+    {
+      text: navLinks.link1,
+      href: 'https://hmcts-sjp.herokuapp.com/account.html'
+    },
+    {
+      text: navLinks.link4,
+      href: 'https://hmcts-sjp.herokuapp.com/add-subscription.html'
+    },
+    {
+      text: navLinks.link3,
+      href: '/logout'
+    }
+  ] if isAuthenticated else [
+    {
+    text: navLinks.link1,
+    href: '/view-option'
+    },
+    {
+      text: navLinks.link2,
+      href: 'https://hmcts-sjp.herokuapp.com/sign-in.html'
+    }
+    ] %}
+  {{ mojSubNavigation({
+    label: 'Primary navigation',
+    classes: 'pub-navigation govuk-!-margin-bottom-0',
+    items: listItems
+  }) }}
 {% endblock %}
 
 {% block bodyEnd %}

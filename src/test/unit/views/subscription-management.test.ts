@@ -33,16 +33,6 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources
 const subscriptionsData = JSON.parse(rawData);
 sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns(subscriptionsData.results[0]);
 
-jest.mock('axios', () => {
-  return {
-    create: function(): { get: () => Promise<any> } {
-      return {
-        get: function(): Promise<any> {return new Promise((resolve) => resolve({data: subscriptionsData.results[0]}));},
-      };
-    },
-  };
-});
-
 describe('Subscription Management Page', () => {
   beforeAll(async () => {
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);

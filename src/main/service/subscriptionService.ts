@@ -1,16 +1,41 @@
 import moment from 'moment';
 import {SubscriptionRequests} from '../resources/requests/subscriptionRequests';
 import {CaseSubscription} from '../models/caseSubscription';
+import {Subscription} from '../models/subscription';
 
 const subscriptionRequests = new SubscriptionRequests();
 
 export class SubscriptionService {
 
-  public async generateCaseTableRows(userid: number): Promise<any[]> {
-    const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
+  public async generateSubscriptionsTableRows(userid: number): Promise<any> {
+    const subscriptions = await subscriptionRequests.getUserSubscriptions(userid);
+    const rows = {
+      cases: [],
+      courts: [],
+    };
+    if (subscriptions) {
+      rows.cases = this.generateCaseTableRows(subscriptions);
+      rows.courts = this.generateCourtTableRows(subscriptions);
+    }
+
+    return rows;
+  }
+
+  public async getSubscriptionUrnDetails(urn: string): Promise<CaseSubscription> {
+    const subscriptions = await subscriptionRequests.getSubscriptionByUrn(urn);
+
+    if (subscriptions) {
+      return subscriptions;
+    } else {
+      console.log(`Subscription with urn ${urn} does not exist`);
+      return null;
+    }
+  }
+
+  private generateCaseTableRows(subscriptions: Subscription): any[] {
     const caseRows = [];
-    if (subscriptionData.caseSubscriptions.length) {
-      subscriptionData.caseSubscriptions.forEach((subscription) => {
+    if (subscriptions.caseSubscriptions.length) {
+      subscriptions.caseSubscriptions.forEach((subscription) => {
         caseRows.push(
           [
             {
@@ -20,7 +45,7 @@ export class SubscriptionService {
               text: subscription.reference,
             },
             {
-              text: moment(subscription.dateAdded, 'DD/MM/YYYY').format('D MMM YYYY'),
+              text: moment.unix(subscription.dateAdded).format('D MMM YYYY'),
             },
             {
               html: '<a href=\'#\'>Unsubscribe</a>',
@@ -33,17 +58,16 @@ export class SubscriptionService {
     return caseRows;
   }
 
-  public async generateCourtTableRows(userId: number): Promise<any[]> {
-    const subscriptionData = await subscriptionRequests.getUserSubscriptions(userId);
+  private generateCourtTableRows(subscriptions: Subscription): any[] {
     const courtRows = [];
-    if (subscriptionData.courtSubscriptions.length) {
-      subscriptionData.courtSubscriptions.forEach((subscription) => {
+    if (subscriptions.courtSubscriptions.length) {
+      subscriptions.courtSubscriptions.forEach((subscription) => {
         courtRows.push([
           {
             text: subscription.name,
           },
           {
-            text: moment(subscription.dateAdded, 'DD/MM/YYYY').format('D MMM YYYY'),
+            text: moment.unix(subscription.dateAdded).format('D MMM YYYY'),
           },
           {
             html: '<a href=\'#\'>Unsubscribe</a>',
@@ -53,17 +77,6 @@ export class SubscriptionService {
       });
     }
     return courtRows;
-  }
-
-  public async getSubscriptionUrnDetails(urn: string): Promise<CaseSubscription> {
-    const subscriptions = await subscriptionRequests.getSubscriptionByUrn(urn);
-
-    if (subscriptions) {
-      return subscriptions;
-    } else {
-      console.log(`Subscription with urn ${urn} does not exist`);
-      return null;
-    }
   }
 
 }

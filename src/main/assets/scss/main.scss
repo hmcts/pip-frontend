@@ -343,3 +343,27 @@ div {
   }
 }
 
+.cards-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  > div {
+    flex: 50%;
+    max-width: 50%;
+  }
+
+  @media (max-width: 640px) {
+    > div {
+      flex: 100%;
+      max-width: 100%;
+    }
+  }
+
+  .account-card {
+    background-color: govuk-colour('light-grey');
+    border: solid 1px govuk-colour('mid-grey');
+    height: 100%;
+    padding: 0 1em;
+  }
+}

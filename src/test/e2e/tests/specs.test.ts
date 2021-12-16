@@ -12,6 +12,8 @@ import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
 import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
 import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
 import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
+import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
+import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
 import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
 import { MockSessionPage } from '../PageObjects/MockSession.page';
 import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
@@ -33,6 +35,8 @@ let caseNameSearchPage: CaseNameSearchPage;
 let caseNameSearchResultsPage: CaseNameSearchResultsPage;
 let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
 let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
+let caseReferenceNumberSearchPage: CaseReferenceNumberSearchPage;
+let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
 let courtNameSearchPage: CourtNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 
@@ -273,6 +277,38 @@ describe('Verified user', () => {
 
     it('should click on the first unsubscribe record', async () => {
       // TODO: add PUB-743 tests here
+    });
+  });
+
+  describe('Following the subscription \'search\' by case reference path', () => {
+    const validSearchTerm = '487065515';
+    const invalidSearchTerm = 'dddd';
+    const expectedNumOfResults = 1;
+
+    before(async () => {
+      await subscriptionAddPage.open('subscription-add');
+    });
+
+    it('should select \'By case reference number\' option and navigate to search case number page', async () => {
+      await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
+      caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
+      expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
+    });
+
+    it('should enter invalid text and click continue', async () => {
+      await caseReferenceNumberSearchPage.enterText(invalidSearchTerm);
+      await caseReferenceNumberSearchPage.clickContinue();
+      expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
+    });
+
+    it('should enter text and click continue', async () => {
+      await caseReferenceNumberSearchPage.enterText(validSearchTerm);
+      caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
+      expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
+    });
+
+    it(`should display ${expectedNumOfResults} results`, async () => {
+      expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
     });
   });
 });
