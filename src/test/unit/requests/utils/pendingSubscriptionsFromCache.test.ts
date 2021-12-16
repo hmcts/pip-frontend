@@ -33,7 +33,6 @@ sinon.stub(redisClient, 'status').value('ready');
 
 describe('setPendingSubscriptions with valid user', () => {
   const set = sinon.spy(redisClient, 'set');
-  const get = sinon.spy(redisClient, 'get');
 
   it('should set case into cache', async () => {
     await pendingSubscriptionsFromCache.setPendingSubscriptions(mockCase, 'cases', mockUser.id);
@@ -56,9 +55,9 @@ describe('setPendingSubscriptions with valid user', () => {
   });
 
   it('should remove a record from the cache', async () => {
-    await pendingSubscriptionsFromCache.removeFromCache({court: '643'}, '2');
+    await pendingSubscriptionsFromCache.removeFromCache({court: '643'}, '1');
     sinon.assert.called(set);
-    sinon.assert.called(get);
+    sinon.assert.called(getStub);
   });
 });
 

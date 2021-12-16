@@ -3,18 +3,11 @@ import { Response } from 'express';
 import CaseNameSearchResultsController from '../../../main/controllers/CaseNameSearchResultsController';
 import { HearingService } from '../../../main/service/hearingService';
 import { mockRequest } from '../mocks/mockRequest';
-import fs from 'fs';
-import path from 'path';
 
 const caseNameSearchResultsController = new CaseNameSearchResultsController();
 const hearingServiceStub = sinon.stub(HearingService.prototype, 'getHearingsByCaseName');
 hearingServiceStub.withArgs('').returns([]);
 hearingServiceStub.withArgs('Meedoo').returns([{caseName: 'Meedoo', caseNumber: '321321'}]);
-
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/caseHearings.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData);
-const stub = sinon.stub(HearingService.prototype, 'getHearingsById');
-stub.withArgs(1).returns(subscriptionsData);
 
 describe('Case name search results controller', () => {
   const i18n = {

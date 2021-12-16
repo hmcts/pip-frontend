@@ -1,6 +1,6 @@
 {
   "title": "Subscription URN search",
-  "header": "What is the unique reference number (URN)?",
+  "header": "Enter a unique reference number",
   "hint": "Please provide the exact match",
   "error": {
     "title": "There is a problem",
