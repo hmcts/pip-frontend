@@ -62,9 +62,9 @@ exports.config = {
       maxInstances: 1,
       browserName: 'chrome',
       acceptInsecureCerts: true,
-      'goog:chromeOptions': {
+      'goog:chromeOptions': process.env.USE_HEADLESS ? {
         args: ['--headless', 'user-agent=...','--disable-gpu', '--no-sandbox'],
-      },
+      } : {},
     },
     // {
     //   maxInstances: 1,
