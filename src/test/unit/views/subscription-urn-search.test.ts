@@ -33,7 +33,7 @@ describe('URN Search Page', () => {
   });
 
   it('should display the header',  () => {
-    const header = htmlRes.getElementsByClassName(headingClass)[0].getElementsByClassName('govuk-label--l');;
+    const header = htmlRes.getElementsByClassName(headingClass)[0].getElementsByClassName('govuk-label--l');
     expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
   });
 
