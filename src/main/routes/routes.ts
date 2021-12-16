@@ -78,6 +78,9 @@ export default function(app: Application): void {
   app.get('/case-name-search-results', ensureAuthenticated, app.locals.container.cradle.caseNameSearchResultsController.get);
   app.get('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.get);
   app.post('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.post);
+  app.get('/case-reference-number-search', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchController.get);
+  app.post('/case-reference-number-search', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchController.post);
+  app.get('/case-reference-number-search-results', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
   app.get('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.get);
   app.post('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.post);
   app.get('/remove-subscription', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.removeSubscription);

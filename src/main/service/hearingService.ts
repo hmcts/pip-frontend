@@ -11,4 +11,8 @@ export class HearingService {
   public async getCaseByNumber(caseNumber): Promise<Hearing> {
     return await hearingRequests.getCaseByCaseNumber(caseNumber);
   }
+
+  public async getHearingByCaseReferenceNumber(caseReferenceNo: string): Promise<Hearing[]> {
+    return await hearingRequests.getHearingByCaseReferenceNumber(caseReferenceNo);
+  }
 }

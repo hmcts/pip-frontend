@@ -22,7 +22,7 @@ describe('Subscription Add', () => {
         .send({'subscription-choice': 'case-reference'})
         .expect((res) => {
           expect(res.status).to.equal(302);
-          expect(res.header['location']).to.equal('/');
+          expect(res.header['location']).to.equal('/case-reference-number-search');
         });
     });
 

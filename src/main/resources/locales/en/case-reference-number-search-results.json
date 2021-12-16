@@ -1,0 +1,9 @@
+{
+  "title": "Subscription Case search results",
+  "header": "Search result",
+  "subheader": "1 result successfully found",
+  "table": {
+    "header1": "Case reference number",
+    "header2": "Case name"
+  }
+}
