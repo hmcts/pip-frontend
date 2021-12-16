@@ -54,8 +54,14 @@ describe('setPendingSubscriptions with valid user', () => {
     expect(cachedResult).toStrictEqual(mockCourt);
   });
 
-  it('should remove a record from the cache', async () => {
+  it('should remove a court record from the cache', async () => {
     await pendingSubscriptionsFromCache.removeFromCache({court: '643'}, '1');
+    sinon.assert.called(set);
+    sinon.assert.called(getStub);
+  });
+
+  it('should remove a case record from the cache', async () => {
+    await pendingSubscriptionsFromCache.removeFromCache({case: 'T485914'}, '1');
     sinon.assert.called(set);
     sinon.assert.called(getStub);
   });
