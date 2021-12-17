@@ -10,7 +10,6 @@ export default class SubscriptionUrnSearchResultController {
     const searchInput = req.query['search-input'];
     if (searchInput && searchInput.length) {
       const searchResults = await hearingService.getCaseByURN(searchInput.toString());
-
       if (searchResults) {
         res.render('subscription-urn-search-results', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search-results']),

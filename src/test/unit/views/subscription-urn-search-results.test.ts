@@ -1,11 +1,11 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 import fs from 'fs';
 import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
+import {HearingService} from '../../../main/service/hearingService';
 
 const searchTerm = '123456789';
 const numOfResults = '1';
@@ -18,7 +18,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionLi
 const subscriptionsData = JSON.parse(rawData);
 let htmlRes: Document;
 
-sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').returns(subscriptionsData);
+sinon.stub(HearingService.prototype, 'getCaseByURN').returns(subscriptionsData);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Search Results Page', () => {

@@ -6,17 +6,12 @@ import {SubscriptionRequests} from '../../../main/resources/requests/subscriptio
 
 const subscriptionService = new SubscriptionService();
 
-const stubSubscriptionSearchUrn = sinon.stub(subscriptionService, 'getSubscriptionUrnDetails');
 const stubUserSubscription = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
-const subscriptionResult = JSON.parse(rawData);
 const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionResult2 = JSON.parse(rawData2);
-const validUrn = '123456789';
 const userIdWithSubscriptions = 1;
 const userIdWithoutSubscriptions = 2;
 
-stubSubscriptionSearchUrn.withArgs(validUrn).returns(subscriptionResult);
 stubUserSubscription.withArgs(userIdWithSubscriptions).returns(subscriptionResult2.results[0]);
 stubUserSubscription.withArgs(userIdWithoutSubscriptions).returns(subscriptionResult2.results[1]);
 describe('generate rows functions without subscriptions', () => {
@@ -41,11 +36,6 @@ describe('generate rows functions with subscriptions', () => {
   it('generateCourtTableRows should return list of court subscriptions', async () => {
     const courtSubscriptionRows = await subscriptionService.generateSubscriptionsTableRows(userIdWithSubscriptions);
     expect(courtSubscriptionRows.courts.length).toBeGreaterThan(0);
-  });
-
-  it('getSubscriptionUrnDetails should return the cases', async () => {
-    const courtSubscription = await subscriptionService.getSubscriptionUrnDetails(validUrn);
-    expect(courtSubscription).not.toBeNull();
   });
 
 });
