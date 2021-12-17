@@ -6,23 +6,25 @@ module.exports = {
   SignInButton: '#signInButton',
   SignOutButton: '#signOutButton',
   Results: 'tbody > tr.govuk-table__row',
+  SearchInput: '#search-input',
 
-  // Home page selectors
+  // Home selectors
   StartNowButton: '.govuk-button--start',
   MainHeader: 'h1.govuk-heading-xl',
 
-  // Search options page selectors
+  // SearchOptions selectors
   SearchOptionsTitle: 'h1.govuk-fieldset__heading',
   RadioButton: 'div.govuk-radios__item',
-  SearchRadioButton: '#find-choice',
-  FindRadioButton: '#find-choice-2',
 
   // Search page selectors
+  HaveNameRadio: '#find-choice',
+  DontHaveNameRadio: '#find-choice-2',
+
+  // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
   SearchResultTitle: 'h1.govuk-heading-l',
-  SearchInput: '#search-input',
 
-  // Search results page selectors
+  // SearchResults selectors
   LinkResult: 'tbody > tr.govuk-table__row > th > a',
 
   //Alphabetical Search selectors
@@ -34,11 +36,13 @@ module.exports = {
   RowSelector: (letter): string => {
     return '#' + letter;
   },
-  SecondItemResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
+  FirstItemResult: 'tbody > tr.govuk-table__row > td > a',
+  MagistratesFilter: '#Jurisdiction-4',
+  NorthWestFilter: '#Region-7',
 
   // ViewOption page selectors
   ViewOptionsTitle: 'h1.govuk-fieldset__heading',
-  ViewSearchRadioButton: '#view-choice',
+  CourtOrTribunalRadioButton: '#view-choice',
   LiveHearingsRadioButton: '#view-choice-2',
   SingleJusticeProcedureRadioButton: '#view-choice-3',
 
@@ -51,7 +55,16 @@ module.exports = {
 
   // LiveCaseAlphabetSearch selectors
   LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',
-  LiveHearingsTableFirstValidResult: 'tbody > tr.govuk-table__row:nth-child(2) > td > a',
+
+  // LiveCaseResults selectors
+  GlossaryTerm: 'tbody > tr.govuk-table__row > td.govuk-table__cell:nth-child(4) > a.govuk-link',
+
+  // CaseEventGlossary selectors
+  AppealInterpreterSworn: '#selector-2',
+
+  // AddSubscription selector
+  UrnSearchRadioButton: '#subscription-choice-2',
+  LiveHearingsTableFirstValidResult: 'tbody > tr.govuk-table__row > td > a',
 
   // CaseNameSearch selectors
   CaseNameInput: '#case-name',
