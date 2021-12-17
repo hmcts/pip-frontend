@@ -9,7 +9,7 @@
   "secrets": {
     "pip-ss-kv": {
       "SESSION_SECRET": "super-session-secret",
-      "REDIS_HOST": "127.0.0.1",
+      "REDIS_HOST": "pip-sbox.redis.cache.windows.ne",
       "REDIS_PORT": "6379",
       "REDIS_PASSWORD": ""
     }
