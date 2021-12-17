@@ -21,6 +21,9 @@ export class SubscriptionAddPage extends CommonPage {
       console.log(`${helpers.ContinueButton} not found`);
     });
 
+    const continueButton = await $(helpers.ContinueButton);
+    continueButton.click();
+
     return new CaseNameSearchPage();
   }
 
@@ -39,7 +42,7 @@ export class SubscriptionAddPage extends CommonPage {
       console.log(`${helpers[optionName]} not found`);
     });
 
-    await $(helpers.ContinueButton).click();
+    await $(helpers[optionName]).click();
   }
 
   async clickContinueForCourtOrTribunal(): Promise<CourtNameSearchPage> {
