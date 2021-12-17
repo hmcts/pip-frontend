@@ -7,14 +7,16 @@ const data = [{caseName: 'my hearing', caseNumber: '11223344'}];
 const hearingService = new HearingService();
 const hearingRequest = HearingRequests.prototype;
 const stub = sinon.stub(hearingRequest, 'getHearingsByCaseName');
+const stubCaseReferenceNumberSearch = sinon.stub(hearingRequest, 'getHearingByCaseReferenceNumber');
+const urnStub = sinon.stub(hearingRequest, 'getCaseByUrn');
 stub.withArgs('my').returns(data);
 stub.withArgs('').returns([]);
 stub.withArgs('foo').returns([]);
-
-const stubCaseReferenceNumberSearch = sinon.stub(hearingRequest, 'getHearingByCaseReferenceNumber');
 stubCaseReferenceNumberSearch.withArgs('11223344').returns(data);
 stubCaseReferenceNumberSearch.withArgs('').returns(null);
 stubCaseReferenceNumberSearch.withArgs('foo').returns(null);
+urnStub.withArgs('validURN').resolves(data);
+urnStub.withArgs('bar').resolves(null);
 
 describe('Hearing Service', () => {
   it('should return hearings list for valid search query', async () => {
@@ -38,5 +40,13 @@ describe('Hearing Service', () => {
 
   it('should return empty list if there are no matching results', async () => {
     expect(await hearingService.getHearingByCaseReferenceNumber('foo')).to.deep.equal(null);
+  });
+
+  it('should return case for a valid urn', async () => {
+    expect(await hearingService.getCaseByURN('validURN')).to.equal(data);
+  });
+
+  it('should return null for a invalid urn', async () => {
+    expect(await hearingService.getCaseByURN('bar')).to.deep.equal(null);
   });
 });
