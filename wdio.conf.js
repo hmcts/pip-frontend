@@ -52,9 +52,19 @@ exports.config = {
   //
   capabilities: [
     {
+    // maxInstances can get overwritten per capability. So if you have an in-house Selenium
+    // grid with only 5 firefox instances available you can make sure that not more than
+    // 5 instances get started at a time.
+    // If outputDir is provided WebdriverIO can capture driver session logs
+    // it is possible to configure which logTypes to include/exclude.
+    // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
+    // excludeDriverLogs: ['bugreport', 'server'],
       maxInstances: 1,
       browserName: 'chrome',
       acceptInsecureCerts: true,
+      'goog:chromeOptions': process.env.USE_HEADLESS ? {
+        args: ['--headless', 'user-agent=...','--disable-gpu', '--no-sandbox'],
+      } : {},
     },
     // {
     //   maxInstances: 1,
@@ -103,7 +113,7 @@ exports.config = {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: 'https://localhost:8080',
+  baseUrl: process.env.TEST_URL || 'https://localhost:8080',
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
@@ -292,12 +302,9 @@ exports.config = {
     // for all available options
     tsNodeOpts: {
       transpileOnly: true,
-      project: 'tsconfig.json',
+      project: 'tsconfig.e2e.json',
     },
     // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
     // do please make sure "tsconfig-paths" is installed as dependency
-    tsConfigPathsOpts: {
-      baseUrl: './',
-    },
   },
 };
