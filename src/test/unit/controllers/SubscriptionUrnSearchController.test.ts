@@ -3,127 +3,106 @@ import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 import SubscriptionUrnSearchController from '../../../main/controllers/SubscriptionUrnSearchController';
-import {mockRequest} from '../mocks/mockRequest';
-import {HearingService} from '../../../main/service/hearingService';
+import { mockRequest } from '../mocks/mockRequest';
+import { HearingService } from '../../../main/service/hearingService';
 
 const subscriptionUrnSearchController = new SubscriptionUrnSearchController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionResult = JSON.parse(rawData);
 const stub = sinon.stub(HearingService.prototype, 'getCaseByURN');
-
+const i18n = {'subscription-urn-search': {}};
 
 describe('Subscription Urn Search Controller', () => {
-  let i18n = {};
-  it('should render the search page', () => {
-
-    i18n = {
-      'subscription-urn-search': {},
-    };
-
-    const response = {
-      render: function () {
-        return '';
-      },
-    } as unknown as Response;
+  it('should render the search page', async () => {
+    const response = {render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
-
     const responseMock = sinon.mock(response);
 
-    const expectedData = {
-      ...i18n['subscription-urn-search'],
-    };
-
-    responseMock.expects('render').once().withArgs('subscription-urn-search', expectedData);
-
-    subscriptionUrnSearchController.get(request, response);
-
+    responseMock.expects('render').once().withArgs('subscription-urn-search', {...i18n['subscription-urn-search']});
+    await subscriptionUrnSearchController.get(request, response);
     responseMock.verify();
-
   });
 
-
-  it('should render urn search page if there are no matching results', () => {
-
+  it('should render urn search page if there are no matching results', async () => {
     stub.withArgs('12345678').returns(null);
-
-    const response = { render: function() {return '';}} as unknown as Response;
+    const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     request.body = { 'search-input': '12345678'};
-
     const responseMock = sinon.mock(response);
+    const expectedResults = {
+      ...i18n['subscription-urn-search'],
+      invalidInputError: false,
+      noResultsError: true,
+    };
 
-    responseMock.expects('render').once().withArgs('subscription-urn-search');
-
-    return subscriptionUrnSearchController.post(request, response).then(() => {
-      responseMock.verify();
-    });
+    responseMock.expects('render').once().withArgs('subscription-urn-search', expectedResults);
+    await subscriptionUrnSearchController.post(request, response);
+    responseMock.verify();
   });
 
-  it('should render urn search page if input is less than three characters long', () => {
-
-
-
+  it('should render urn search page if input is less than three characters long', async () => {
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     request.body = { 'search-input': '12'};
-
     const responseMock = sinon.mock(response);
+    const expectedResults = {
+      ...i18n['subscription-urn-search'],
+      invalidInputError: false,
+      noResultsError: true,
+    };
 
-    responseMock.expects('render').once().withArgs('subscription-urn-search');
-
-    return subscriptionUrnSearchController.post(request, response).then(() => {
-      responseMock.verify();
-    });
+    responseMock.expects('render').once().withArgs('subscription-urn-search', expectedResults);
+    await subscriptionUrnSearchController.post(request, response);
+    responseMock.verify();
   });
 
-
-  it('should render urn search page if input is three characters long and partially correct', () => {
-
+  it('should render urn search page if input is three characters long and partially correct', async () => {
     stub.withArgs('1234').returns(null);
-
-    const response = { render: function() {return '';}} as unknown as Response;
+    const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     request.body = { 'search-input': '1234'};
-
     const responseMock = sinon.mock(response);
+    const expectedResults = {
+      ...i18n['subscription-urn-search'],
+      invalidInputError: false,
+      noResultsError: true,
+    };
 
-    responseMock.expects('render').once().withArgs('subscription-urn-search');
-
-    return subscriptionUrnSearchController.post(request, response).then(() => {
-      responseMock.verify();
-    });
+    responseMock.expects('render').once().withArgs('subscription-urn-search', expectedResults);
+    await subscriptionUrnSearchController.post(request, response);
+    responseMock.verify();
   });
 
   it('should render urn search page if no input is provided', () => {
-
     stub.withArgs('').returns(null);
-
-    const response = { render: function() {return '';}} as unknown as Response;
+    const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     request.body = { 'search-input': ''};
     const responseMock = sinon.mock(response);
+    const expectedResults = {
+      ...i18n['subscription-urn-search'],
+      invalidInputError: true,
+      noResultsError: false,
+    };
 
-    responseMock.expects('render').once().withArgs('subscription-urn-search');
-
+    responseMock.expects('render').once().withArgs('subscription-urn-search', expectedResults);
     return subscriptionUrnSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
   });
 
-  it('should redirect to urn search results page with input as query if urn input is valid', () => {
-
+  it('should redirect to urn search results page with input as query if urn input is valid', async () => {
     const response = {
-      redirect: function() {return '';},
-      render: function() {return '';},
+      redirect: () => {return '';},
+      render: () => {return '';},
     } as unknown as Response;
     const request = mockRequest(i18n);
     request.body = { 'search-input': '123456789'};
     const responseMock = sinon.mock(response);
     stub.withArgs('123456789').returns(subscriptionResult);
-    responseMock.expects('redirect').once().withArgs('subscription-urn-search-results?search-input=123456789');
 
-    return subscriptionUrnSearchController.post(request, response).then(() => {
-      responseMock.verify();
-    });
+    responseMock.expects('redirect').once().withArgs('subscription-urn-search-results?search-input=123456789');
+    await subscriptionUrnSearchController.post(request, response);
+    responseMock.verify();
   });
 });
