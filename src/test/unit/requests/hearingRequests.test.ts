@@ -32,6 +32,7 @@ describe('Hearing get requests', () => {
   beforeEach(() => {
     stub.withArgs('/hearings/case-name/').resolves(Promise.reject(errorResponse));
     stub.withArgs('/hearings/case-name/bob').resolves(Promise.reject(errorRequest));
+    stub.withArgs('/hearings/case-name/foo').resolves(Promise.reject(errorMessage));
     stub.withArgs('/hearings/case-name/my').resolves({data});
   });
 
@@ -45,6 +46,10 @@ describe('Hearing get requests', () => {
 
   it('should return empty list if request fails', async () => {
     expect(await hearingRequests.getHearingsByCaseName('bob')).toStrictEqual([]);
+  });
+
+  it('should return empty list if message error', async () => {
+    expect(await hearingRequests.getHearingsByCaseName('foo')).toStrictEqual([]);
   });
 });
 
