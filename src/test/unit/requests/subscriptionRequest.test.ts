@@ -26,13 +26,16 @@ const errorResponse = {
 const errorRequest = {
   request: 'test error',
 };
+const errorMessage = {
+  message: 'test',
+};
 
 const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData2 = JSON.parse(rawData2);
-const stub2 = sinon.stub(subscriptionManagementApi, 'get');
+const stub = sinon.stub(subscriptionManagementApi, 'get');
 
 describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, () => {
-  stub2.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves(subscriptionsData2.results[0]);
+  stub.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves(subscriptionsData2.results[0]);
 
   it('should return user subscription object', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions) as Subscription;
@@ -53,37 +56,38 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
   });
 });
 
-describe(`getUserSubscriptions(${userIdWithoutSubscriptions}) with valid user id`, () => {
-  stub2.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves(subscriptionsData2.results[1]);
+describe('getUserSubscriptions error tests', () => {
+  beforeEach(() => {
+    stub.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves(subscriptionsData2.results[1]);
+    stub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({ data: null });
+    stub.withArgs('/subscription/user/99').resolves(Promise.reject(errorRequest));
+    stub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves(Promise.reject(errorResponse));
+    stub.withArgs('/subscription/user/999').resolves(Promise.reject(errorMessage));
+  });
 
   it('should return user subscription object', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithoutSubscriptions);
     expect(userSubscriptions.courtSubscriptions.length).toBe(0);
     expect(userSubscriptions.caseSubscriptions.length).toBe(0);
   });
-});
 
-describe(`non existing user Id getUserSubscriptions(${nonExistingUserId})`, () => {
-  stub2.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({ data: null });
-
-  it('should return null', async () => {
-    const userSubscriptions = await subscriptionActions.getUserSubscriptions(nonExistingUserId);
+  it('should return null for error response', async () => {
+    const userSubscriptions = await subscriptionActions.getUserSubscriptions(99);
     expect(userSubscriptions).toBe(null);
   });
-});
 
-describe('non existing subscriptions getUserSubscriptions error request', () => {
-  stub2.withArgs(`/subscription/user/${nonExistingUserId}`).resolves(Promise.reject(errorRequest));
   it('should return null list of subscriptions', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(nonExistingUserId);
     expect(userSubscriptions).toBe(null);
   });
-});
 
-describe('non existing subscriptions getUserSubscriptions error response', () => {
-  stub2.withArgs(`/subscription/user/${nonExistingUserId}`).resolves(Promise.reject(errorResponse));
   it('should return null list of subscriptions', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(nonExistingUserId);
+    expect(userSubscriptions).toBe(null);
+  });
+
+  it('should return null for error message', async () => {
+    const userSubscriptions = await subscriptionActions.getUserSubscriptions(999);
     expect(userSubscriptions).toBe(null);
   });
 });
