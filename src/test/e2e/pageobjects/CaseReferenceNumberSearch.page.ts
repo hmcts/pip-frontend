@@ -1,16 +1,9 @@
 import {CaseReferenceNumberSearchResultsPage} from './CaseReferenceNumberSearchResults.page';
+import {CommonPage} from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class CaseReferenceNumberSearchPage {
-
-  async getPageTitle(): Promise<string> {
-    $(helpers.SearchTitle).catch(() => {
-      console.log(`${helpers.SearchTitle} not found`);
-    });
-
-    return $(helpers.SearchTitle).getText();
-  }
+export class CaseReferenceNumberSearchPage extends CommonPage {
 
   async enterText(text: string): Promise<void> {
     $(helpers.SearchInput).catch(() => {
