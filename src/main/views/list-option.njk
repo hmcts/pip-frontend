@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}
-  <h1 class="govuk-heading-xl">{{ heading}} {{ court.name }}?</h1>
+  <h1 class="govuk-heading-xl">{{ heading }} {{ court.name }}{{ postHeading }}</h1>
   <p class="govuk-body">{{ p1 }}</p>
   <p class="govuk-body govuk-!-font-weight-bold">{{ court.jurisdiction }} {{ p2 }}</p>
   {% if  court.jurisdiction === "Magistrates' Court"%}
