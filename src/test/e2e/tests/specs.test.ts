@@ -23,12 +23,12 @@ const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
 let subscriptionAddPage = new SubscriptionAddPage();
 const subscriptionManagementPage = new SubscriptionManagementPage();
+const liveCaseCourtSearchControllerPage = new LiveCaseCourtSearchControllerPage();
 let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
 let hearingListPage: HearingListPage;
 let searchPage: SearchPage;
-let liveCaseCourtSearchControllerPage: LiveCaseCourtSearchControllerPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedurePage: SingleJusticeProcedurePage;
 let caseNameSearchPage: CaseNameSearchPage;
@@ -48,11 +48,11 @@ describe('Unverified user', () => {
 
   it('should click on the \'Start now\' button and navigate to View Options page', async () => {
     viewOptionPage = await homePage.clickStartNowButton();
-    expect(await viewOptionPage.getPageTitle()).toEqual('What would you like to view?');
+    expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
   });
 
-  it('should see 3 radio buttons', async () => {
-    expect(await viewOptionPage.radioButtons).toBe(3);
+  it('should see 2 radio buttons', async () => {
+    expect(await viewOptionPage.radioButtons).toBe(2);
   });
 
   describe('find a court or tribunal publication', async () => {
@@ -123,13 +123,7 @@ describe('Unverified user', () => {
     const validCourtName = 'Amersham Law Courts';
 
     before(async () => {
-      await viewOptionPage.open('/view-option');
-    });
-
-    it('should select \'live hearing updates\' option and navigate to live hearings page', async () => {
-      await viewOptionPage.selectOption('LiveHearingsRadioButton');
-      liveCaseCourtSearchControllerPage = await viewOptionPage.clickContinueForLiveHearings();
-      expect(await liveCaseCourtSearchControllerPage.getPageTitle()).toEqual('Live hearing updates - select a court');
+      await liveCaseCourtSearchControllerPage.open('/live-case-alphabet-search');
     });
 
     it('selecting first result should take you to to the live hearings list page', async () => {
