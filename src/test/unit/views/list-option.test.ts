@@ -36,7 +36,7 @@ describe('List option page', () => {
       const pageHeading = htmlRes.getElementsByClassName('govuk-heading-xl');
       console.log(pageHeading[0].innerHTML);
       expect(pageHeading[0].innerHTML)
-        .contains('What do you want to view from Abergavenny Magistrates\' Court', 'Page heading does not exist');
+        .contains('What do you want to view from Abergavenny Magistrates\' Court?', 'Page heading does not exist');
     });
 
     it('should display Magistrates court list', () => {
