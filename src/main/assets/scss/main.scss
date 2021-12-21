@@ -345,8 +345,10 @@ div {
 
 .govuk-input--error {
   .autocomplete__input {
-    // Important is required due javascript overriding this as it is loaded after css rendering
-    border: solid 2px $govuk-error-colour !important; // sass-lint:disable-line no-important
+    &:not(.autocomplete__input--focused) {
+      // Important is required due javascript overriding this as it is loaded after css rendering
+      border: solid 2px $govuk-error-colour !important; // sass-lint:disable-line no-important
+    }
   }
 }
 
@@ -373,4 +375,8 @@ div {
     height: 100%;
     padding: 0 1em;
   }
+}
+
+.search-input-name {
+  border: 0;
 }
