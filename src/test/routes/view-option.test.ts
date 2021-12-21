@@ -19,7 +19,7 @@ describe('Search option', () => {
         .send({'view-choice': 'search'})
         .expect((res) => {
           expect(res.status).to.equal(302);
-          expect(res.header['location']).to.equal('search-option');
+          expect(res.header['location']).to.equal('search');
         });
     });
   });

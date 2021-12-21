@@ -11,5 +11,7 @@
     "li2Text": "Find a court or tribunal using A to Z"
   },
   "header": "What court or tribunal are you interested in?",
-  "inputHint": "For example Hull Tribunal Hearing Centre"
+  "inputHint": "For example Hull Tribunal Hearing Centre",
+  "allCourtAndTribunalsText": "Want to see all courts and tribunals?",
+  "allCourtAndTribunalsLinkText": "Select from an A-Z of courts and tribunals"
 }
