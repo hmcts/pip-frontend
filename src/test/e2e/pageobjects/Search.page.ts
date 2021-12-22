@@ -32,7 +32,7 @@ export class SearchPage extends CommonPage {
     button.click();
     return new HearingListPage();
   }
-  SearchAToZLink
+
   async clickAToZCourtsLink(): Promise<AlphabeticalSearchPage> {
     $(helpers.SearchAToZLink).catch(() => {
       console.log(`${helpers.SearchAToZLink} not found`);
