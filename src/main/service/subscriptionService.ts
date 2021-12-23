@@ -31,7 +31,7 @@ export class SubscriptionService {
                   text: caseSubscription.caseName,
                 },
                 {
-                  text: caseSubscription.urn,
+                  text: caseSubscription.caseNumber,
                 },
                 {
                   text: moment(subscription.createdDate).format('D MMM YYYY'),

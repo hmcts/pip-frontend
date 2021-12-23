@@ -10,9 +10,9 @@ import path from 'path';
 import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
 
 const PAGE_URL = '/subscription-management';
-const expectedAllSubsTitle = 'All subscriptions (9)';
-const expectedCaseSubsTitle = 'Subscriptions by case (3)';
-const expectedCourtSubsTitle = 'Subscriptions by court or tribunal (6)';
+const expectedAllSubsTitle = 'All subscriptions (2)';
+const expectedCaseSubsTitle = 'Subscriptions by case (1)';
+const expectedCourtSubsTitle = 'Subscriptions by court or tribunal (1)';
 const expectedAddSubscriptionButton = 'Add new subscription';
 const tabsClass = 'moj-sub-navigation__link';
 const caseNameColumn = 'Case name';
@@ -20,18 +20,18 @@ const caseReferenceColumn = 'Case reference number';
 const dateAddedColumn = 'Date added';
 const actionsColumn = 'Actions';
 const courtNameColumn = 'Court or tribunal name';
-const expectedRowCaseName = 'Collins LLC';
-const expectedRowCaseReference = 'T20217002';
-const expectedRowDateAdded = moment.unix(1632351600).format('D MMM YYYY');
+const expectedRowCaseName = 'Wyman Inc Dispute';
+const expectedRowCaseReference = 'T20217010';
+const expectedRowDateAdded = moment('2021-12-23T11:32:54.80786').format('D MMM YYYY');
 const expectedRowCourtName = 'Mutsu Court';
-const expectedCaseRowsCount = 3;
-const expectedCourtRowsCount = 6;
+const expectedCaseRowsCount = 1;
+const expectedCourtRowsCount = 1;
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/userSubscriptions.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
-sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns(subscriptionsData.results[0]);
+sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns(subscriptionsData.data);
 
 describe('Subscription Management Page', () => {
   beforeAll(async () => {
