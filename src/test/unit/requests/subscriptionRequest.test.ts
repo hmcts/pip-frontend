@@ -12,17 +12,12 @@ const subscriptionActions = new SubscriptionRequests();
 const mockedCaseSubscription = {
   name: 'Wyman Inc Dispute',
   reference: 'T20217010',
-  dateAdded: '1632351600',
 };
 const mockedCourtSubscription = {
   name: 'Mutsu Court',
   dateAdded: '1632351600',
 };
-const errorResponse = {
-  response: {
-    data: 'test error',
-  },
-};
+
 const errorRequest = {
   request: 'test error',
 };
@@ -30,45 +25,54 @@ const errorMessage = {
   message: 'test',
 };
 
-const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/userSubscriptions.json'), 'utf-8');
+const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData2 = JSON.parse(rawData2);
 const stub = sinon.stub(subscriptionManagementApi, 'get');
 
 describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, () => {
-  stub.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves(subscriptionsData2.results[0]);
+  stub.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves(subscriptionsData2);
 
   it('should return user subscription object', async () => {
-    const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions) as Subscription;
-    expect(userSubscriptions.courtSubscriptions.length).toBeGreaterThan(0);
-    expect(userSubscriptions.caseSubscriptions.length).toBeGreaterThan(0);
+    const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions) as Subscription[];
+    expect(userSubscriptions.length).toEqual(2);
+    const subscription = userSubscriptions[0]
+    expect(subscription.id).toEqual("625d98a9-eec2-422d-83a8-8eb1a704c60d");
+    expect(subscription.channel).toEqual("API");
+    expect(subscription.searchType).toEqual("CASE_URN");
+    expect(subscription.searchValue).toEqual("N3D8DLZCNP");
+    expect(subscription.userId).toEqual("1");
+    expect(subscription.createdDate).toEqual("2021-12-23T11:32:54.80786");
+    expect(subscription.caseSubscriptions.length).toEqual(1);
+    expect(subscription.courtSubscriptions.length).toEqual(0);
+
   });
 
   it('should have mocked object in the case subscriptions list', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-    expect(userSubscriptions.caseSubscriptions.filter((subscription) =>
-      subscription.reference === mockedCaseSubscription.reference).length).toBe(1);
+    const subscription = userSubscriptions[0]
+
+    expect(subscription.caseSubscriptions[0].caseNumber).toBe(mockedCaseSubscription.reference);
   });
 
   it('should have mocked object in the court subscriptions list', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-    expect(userSubscriptions.courtSubscriptions.filter((subscription) =>
-      subscription.name === mockedCourtSubscription.name).length).toBe(1);
+    const subscription = userSubscriptions[1];
+
+    expect(subscription.courtSubscriptions[0].name).toBe(mockedCourtSubscription.name);
   });
 });
 
 describe('getUserSubscriptions error tests', () => {
   beforeEach(() => {
-    stub.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves(subscriptionsData2.results[1]);
-    stub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({ data: null });
+    stub.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves({"data": []});
+    stub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({"data": []});
     stub.withArgs('/subscription/user/99').resolves(Promise.reject(errorRequest));
-    stub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves(Promise.reject(errorResponse));
     stub.withArgs('/subscription/user/999').resolves(Promise.reject(errorMessage));
   });
 
   it('should return user subscription object', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithoutSubscriptions);
-    expect(userSubscriptions.courtSubscriptions.length).toBe(0);
-    expect(userSubscriptions.caseSubscriptions.length).toBe(0);
+    expect(userSubscriptions.length).toBe(0);
   });
 
   it('should return null for error response', async () => {
@@ -76,14 +80,9 @@ describe('getUserSubscriptions error tests', () => {
     expect(userSubscriptions).toBe(null);
   });
 
-  it('should return null list of subscriptions', async () => {
+  it('should return empty list of subscriptions', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(nonExistingUserId);
-    expect(userSubscriptions).toBe(null);
-  });
-
-  it('should return null list of subscriptions', async () => {
-    const userSubscriptions = await subscriptionActions.getUserSubscriptions(nonExistingUserId);
-    expect(userSubscriptions).toBe(null);
+    expect(userSubscriptions.length).toBe(0);
   });
 
   it('should return null for error message', async () => {

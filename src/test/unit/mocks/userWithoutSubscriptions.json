@@ -1,0 +1,43 @@
+[
+  {
+    "id": "625d98a9-eec2-422d-83a8-8eb1a704c60d",
+    "channel": "API",
+    "searchType": "CASE_URN",
+    "searchValue": "N3D8DLZCNP",
+    "userId": "1",
+    "createdDate": "2021-12-23T11:32:54.80786",
+    "caseSubscriptions": [
+      {
+        "hearingId": 3,
+        "courtId": 50,
+        "courtNumber": 1,
+        "date": "15/11/2021 01:00:00",
+        "judge": "His Honour Judge A Morley QC",
+        "platform": "In person",
+        "caseNumber": "T20217010",
+        "caseName": "Wyman Inc Dispute",
+        "urn": "N3D8DLZCNP"
+      }
+    ],
+    "courtSubscriptions": []
+  },
+  {
+    "id": "f73d80d9-3ee1-4d36-ac9c-2c7e97be70fa",
+    "channel": "API",
+    "searchType": "COURT_ID",
+    "searchValue": "607",
+    "userId": "1",
+    "createdDate": "2021-12-23T11:55:49.676476",
+    "caseSubscriptions": [],
+    "courtSubscriptions": [
+      {
+        "courtId": 1,
+        "name": "Mutsu Court",
+        "jurisdiction": "County Court",
+        "location": "Wales",
+        "hearingList": [],
+        "hearings": 0
+      }
+    ]
+  }
+]

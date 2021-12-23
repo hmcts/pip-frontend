@@ -3,9 +3,10 @@ import { Subscription } from '../../models/subscription';
 
 export class SubscriptionRequests {
 
-  public async getUserSubscriptions(userId: number): Promise<Subscription> {
+  public async getUserSubscriptions(userId: number): Promise<Subscription[]> {
     try {
-      return await subscriptionManagementApi.get(`/subscription/user/${userId}`);
+      const response = await subscriptionManagementApi.get(`/subscription/user/${userId}`);
+      return response.data;
     } catch (error) {
       if (error.response) {
         console.log(error.response.data);

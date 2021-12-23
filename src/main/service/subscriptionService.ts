@@ -19,48 +19,56 @@ export class SubscriptionService {
     return rows;
   }
 
-  private generateCaseTableRows(subscriptions: Subscription): any[] {
+  private generateCaseTableRows(subscriptions: Subscription[]): any[] {
     const caseRows = [];
-    if (subscriptions.caseSubscriptions.length) {
-      subscriptions.caseSubscriptions.forEach((subscription) => {
-        caseRows.push(
-          [
-            {
-              text: subscription.name,
-            },
-            {
-              text: subscription.reference,
-            },
-            {
-              text: moment.unix(subscription.dateAdded).format('D MMM YYYY'),
-            },
-            {
-              html: '<a href=\'#\'>Unsubscribe</a>',
-              format: 'numeric',
-            },
-          ],
-        );
+    if (subscriptions.length) {
+      subscriptions.forEach((subscription) => {
+        if (subscription.caseSubscriptions.length) {
+          subscription.caseSubscriptions.forEach((caseSubscription) => {
+            caseRows.push(
+              [
+                {
+                  text: caseSubscription.caseName,
+                },
+                {
+                  text: caseSubscription.urn,
+                },
+                {
+                  text: moment(subscription.createdDate).format('D MMM YYYY'),
+                },
+                {
+                  html: '<a href=\'#\'>Unsubscribe</a>',
+                  format: 'numeric',
+                },
+              ],
+            );
+          })
+        }
       });
     }
     return caseRows;
   }
 
-  private generateCourtTableRows(subscriptions: Subscription): any[] {
+  private generateCourtTableRows(subscriptions: Subscription[]): any[] {
     const courtRows = [];
-    if (subscriptions.courtSubscriptions.length) {
-      subscriptions.courtSubscriptions.forEach((subscription) => {
-        courtRows.push([
-          {
-            text: subscription.name,
-          },
-          {
-            text: moment.unix(subscription.dateAdded).format('D MMM YYYY'),
-          },
-          {
-            html: '<a href=\'#\'>Unsubscribe</a>',
-            format: 'numeric',
-          },
-        ]);
+    if (subscriptions.length) {
+      subscriptions.forEach((subscription) => {
+        if (subscription.courtSubscriptions.length) {
+          subscription.courtSubscriptions.forEach((courtSubscription) => {
+            courtRows.push([
+              {
+                text: courtSubscription.name,
+              },
+              {
+                text: moment(subscription.createdDate).format('D MMM YYYY'),
+              },
+              {
+                html: '<a href=\'#\'>Unsubscribe</a>',
+                format: 'numeric',
+              },
+            ]);
+          })
+        }
       });
     }
     return courtRows;

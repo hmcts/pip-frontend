@@ -7,13 +7,13 @@ import {SubscriptionRequests} from '../../../main/resources/requests/subscriptio
 const subscriptionService = new SubscriptionService();
 
 const stubUserSubscription = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
-const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../main/resources/mocks/userSubscriptions.json'), 'utf-8');
+const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionResult2 = JSON.parse(rawData2);
 const userIdWithSubscriptions = 1;
 const userIdWithoutSubscriptions = 2;
 
-stubUserSubscription.withArgs(userIdWithSubscriptions).returns(subscriptionResult2.results[0]);
-stubUserSubscription.withArgs(userIdWithoutSubscriptions).returns(subscriptionResult2.results[1]);
+stubUserSubscription.withArgs(userIdWithSubscriptions).returns(subscriptionResult2.data);
+stubUserSubscription.withArgs(userIdWithoutSubscriptions).returns([]);
 describe('generate rows functions without subscriptions', () => {
 
   it('generateCaseTableRows should return list of case subscriptions', async () => {
