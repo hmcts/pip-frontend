@@ -42,7 +42,7 @@ export class SubscriptionService {
                 },
               ],
             );
-          })
+          });
         }
       });
     }
@@ -67,7 +67,7 @@ export class SubscriptionService {
                 format: 'numeric',
               },
             ]);
-          })
+          });
         }
       });
     }

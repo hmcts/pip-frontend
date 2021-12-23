@@ -35,13 +35,13 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
   it('should return user subscription object', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions) as Subscription[];
     expect(userSubscriptions.length).toEqual(2);
-    const subscription = userSubscriptions[0]
-    expect(subscription.id).toEqual("625d98a9-eec2-422d-83a8-8eb1a704c60d");
-    expect(subscription.channel).toEqual("API");
-    expect(subscription.searchType).toEqual("CASE_URN");
-    expect(subscription.searchValue).toEqual("N3D8DLZCNP");
-    expect(subscription.userId).toEqual("1");
-    expect(subscription.createdDate).toEqual("2021-12-23T11:32:54.80786");
+    const subscription = userSubscriptions[0];
+    expect(subscription.id).toEqual('625d98a9-eec2-422d-83a8-8eb1a704c60d');
+    expect(subscription.channel).toEqual('API');
+    expect(subscription.searchType).toEqual('CASE_URN');
+    expect(subscription.searchValue).toEqual('N3D8DLZCNP');
+    expect(subscription.userId).toEqual('1');
+    expect(subscription.createdDate).toEqual('2021-12-23T11:32:54.80786');
     expect(subscription.caseSubscriptions.length).toEqual(1);
     expect(subscription.courtSubscriptions.length).toEqual(0);
 
@@ -49,7 +49,7 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
 
   it('should have mocked object in the case subscriptions list', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-    const subscription = userSubscriptions[0]
+    const subscription = userSubscriptions[0];
 
     expect(subscription.caseSubscriptions[0].caseNumber).toBe(mockedCaseSubscription.reference);
   });
@@ -64,8 +64,8 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
 
 describe('getUserSubscriptions error tests', () => {
   beforeEach(() => {
-    stub.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves({"data": []});
-    stub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({"data": []});
+    stub.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves({'data': []});
+    stub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({'data': []});
     stub.withArgs('/subscription/user/99').resolves(Promise.reject(errorRequest));
     stub.withArgs('/subscription/user/999').resolves(Promise.reject(errorMessage));
   });
