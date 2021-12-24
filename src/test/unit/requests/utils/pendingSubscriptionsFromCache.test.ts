@@ -32,7 +32,7 @@ getStub.withArgs('pending-courts-subscriptions-2').resolves([]);
 sinon.stub(redisClient, 'status').value('ready');
 
 describe('setPendingSubscriptions with valid user', () => {
-  const set = sinon.spy(redisClient, 'set');
+  const set = sinon.stub(redisClient, 'set');
 
   it('should set case into cache', async () => {
     await pendingSubscriptionsFromCache.setPendingSubscriptions(mockCase, 'cases', mockUser.id);
