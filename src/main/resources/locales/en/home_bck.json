@@ -1,0 +1,18 @@
+{
+  "title": "Start Page",
+  "header": "See publications and information from a court or tribunal",
+  "p1": "You can use this service to find and view information on hearings in courts and tribunals in England and Wales, and some non-devolved tribunals in Scotland.",
+  "p2": "This service allows you to view:",
+  "bullets1": ["Information from a court or tribunal", "live hearing updates - Crown Court only", "SJP – Single Justice Procedures Cases"],
+  "startButton": "Start now",
+  "p3": "This service is also available in ",
+  "language": "Welsh (Cymraeg)",
+  "p4": "You cannot use this service if you live in Northern Ireland. Contact the ",
+  "a1": "Northern Ireland Courts and Tribunals",
+  "p5": " for help.",
+  "p6": "This service is limited in Scotland to:",
+  "bullets2": ["immigration appeals", "benefit appeals", "employment claims appeals"],
+  "p7": "Contact the ",
+  "a2": "Scottish Courts and Tribunals",
+  "p8": " for other services."
+}
