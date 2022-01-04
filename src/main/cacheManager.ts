@@ -12,9 +12,6 @@ const ioRedis = require('ioredis');
 // double s is required when using TLS connection
 const connectionString = `rediss://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
 const redisClient = new ioRedis(connectionString);
-console.log('REDIS_HOST', process.env.REDIS_HOST);
-console.log('REDIS_PORT', process.env.REDIS_PORT);
-console.log('CLIENT_ID', process.env.CLIENT_ID);
 
 redisClient.on('connect', () => {
   logger.info('Connected to Redis');
