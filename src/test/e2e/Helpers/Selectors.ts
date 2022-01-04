@@ -1,6 +1,7 @@
 module.exports = {
   // Common selectors
   ContinueButton: '.govuk-button',
+  CommonPageTitleXl: '.govuk-heading-xl',
   CommonPageTitle: '.govuk-heading-l',
   CommonPageTitleM: '.govuk-heading-m',
   SignInButton: '#signInButton',
