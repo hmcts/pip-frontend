@@ -15,7 +15,7 @@
 
 .govspeak ul {
   list-style-position: outside;
-  list-style:disc;
+  list-style-type:disc;
 }
 
 .govspeak li {
@@ -100,8 +100,6 @@
   float: left;
 }
 
-
-
 .gem-c-metadata {
   margin-right: -15px;
   margin-left: -15px;
@@ -116,15 +114,6 @@
   width:66.66%
 }
 
-.gem-c-contents-list__title {
-  font-size: 16px;
-  line-height:1.5;
-  color:#0b0c0c;
-  font-family: "GDS Transport", arial, sans-serif;
-  -moz-osx-font-smoothing: grayscale;
-  margin:0;
-  font-weight:400;
-}
 
 .group-title {
   margin-top:50px;
