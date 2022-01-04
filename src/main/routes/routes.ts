@@ -65,8 +65,6 @@ export default function(app: Application): void {
   app.get('/otp-template', cors(corsOptions), app.locals.container.cradle.otpTemplateController.get);
   app.get('/search', app.locals.container.cradle.searchController.get);
   app.post('/search', app.locals.container.cradle.searchController.post);
-  app.get('/search-option', app.locals.container.cradle.searchOptionController.get);
-  app.post('/search-option', app.locals.container.cradle.searchOptionController.post);
   app.get('/single-justice-procedure', app.locals.container.cradle.singleJusticeProcedureController.get);
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);

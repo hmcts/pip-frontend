@@ -8,7 +8,7 @@ export default class ViewOptionController {
 
   public post(req: Request, res: Response): void {
     if (req.body['view-choice'] === 'search') {
-      res.redirect('search-option');
+      res.redirect('search');
     }
     else if (req.body['view-choice'] === 'live') {
       res.redirect('live-case-alphabet-search');
