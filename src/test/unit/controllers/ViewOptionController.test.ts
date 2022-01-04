@@ -32,7 +32,7 @@ describe('View Option Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('search-option');
+    responseMock.expects('redirect').once().withArgs('search');
 
     viewOptionController.post(request, response);
     responseMock.verify();

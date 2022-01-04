@@ -10,7 +10,7 @@ const cards = [
   {
     title: 'Court or tribunal publications',
     description: 'For example, list of hearings due to be heard, either today or in the future.',
-    link: 'search-option',
+    link: 'search',
   },
   {
     title: 'Live hearing updates',
