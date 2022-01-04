@@ -46,7 +46,7 @@
                 {% if noResultsError or invalidInputError %}
                     <span class="govuk-error-message">{{ spanText }}</span>
                 {% endif %}
-                <div class="{{ inputClasses }}" id="search-input-container"></div>
+                <div class="{{ inputClasses }} search-input-name" id="search-input-container"></div>
             </div>
         </div>
         {{ submitButton() }}
