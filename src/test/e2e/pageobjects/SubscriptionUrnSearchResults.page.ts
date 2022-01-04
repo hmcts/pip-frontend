@@ -1,4 +1,3 @@
-import { SubscriptionConfirmationPage } from './SubscriptionConfirmation.page';
 import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
@@ -21,13 +20,14 @@ export class SubscriptionUrnSearchResultsPage extends CommonPage {
     return results.length;
   }
 
-  async clickContinue(): Promise<SubscriptionConfirmationPage> {
-    $(helpers.ContinueButton).catch(() => {
-      console.log(`${helpers.ContinueButton} not found`);
-    });
-
-    const button = await $(helpers.ContinueButton);
-    button.click();
-    return new SubscriptionConfirmationPage();
-  }
+  // TODO: should be pending subscriptions page
+  // async clickContinue(): Promise<SubscriptionConfirmationPage> {
+  //   $(helpers.ContinueButton).catch(() => {
+  //     console.log(`${helpers.ContinueButton} not found`);
+  //   });
+  //
+  //   const button = await $(helpers.ContinueButton);
+  //   button.click();
+  //   return new SubscriptionConfirmationPage();
+  // }
 }
