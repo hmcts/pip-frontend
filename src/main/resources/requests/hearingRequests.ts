@@ -1,12 +1,7 @@
 import { Hearing } from '../../models/hearing';
 import { dataManagementApi } from './utils/axiosConfig';
-import fs from 'fs';
-import path from 'path';
 
 export class HearingRequests {
-  mocksPath = '../mocks/';
-  rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'caseHearings.json'), 'utf-8');
-
   public async getHearingsByCaseName(searchQuery: string): Promise<Hearing[]> {
     try {
       const response = await dataManagementApi.get(`/hearings/case-name/${searchQuery}`);
