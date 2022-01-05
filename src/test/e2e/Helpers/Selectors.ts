@@ -9,8 +9,9 @@ module.exports = {
   SearchInput: '#search-input',
 
   // Home selectors
-  StartNowButton: '.govuk-button--start',
-  MainHeader: 'h1.govuk-heading-xl',
+  StartNowButton: '.govuk-button--start', //unused currently, to be re-used if start page reverts.
+  MainHeader: '.gem-c-title__text',
+  ServiceLink: '#linkToService',
 
   // SearchOptions selectors
   SearchOptionsTitle: 'h1.govuk-fieldset__heading',
@@ -19,7 +20,7 @@ module.exports = {
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
   SearchResultTitle: 'h1.govuk-heading-l',
-  SearchAToZLink: 'a.govuk-link',
+  SearchAToZLink: '.govuk-link',
 
   // SearchResults selectors
   LinkResult: 'tbody > tr.govuk-table__row > th > a',

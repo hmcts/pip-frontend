@@ -12,8 +12,15 @@ export class HomePage extends CommonPage {
     return $(helpers.MainHeader).getText();
   }
 
+  // Old function for previous start page screen - leaving in case of future reversion.
   async clickStartNowButton(): Promise<ViewOptionPage> {
     const button = await $(helpers.StartNowButton);
+    button.click();
+    return new ViewOptionPage();
+  }
+
+  async clickLinkToService(): Promise<ViewOptionPage> {
+    const button = await $(helpers.ServiceLink);
     button.click();
     return new ViewOptionPage();
   }

@@ -41,11 +41,19 @@ let caseEventGlossaryPage: CaseEventGlossaryPage;
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
     await homePage.open('');
-    expect(await homePage.getPageTitle()).toEqual('See publications and information from a court or tribunal');
+    expect(await homePage.getPageTitle()).toEqual('HMCTS hearing lists');
   });
 
-  it('should click on the \'Start now\' button and navigate to View Options page', async () => {
-    viewOptionPage = await homePage.clickStartNowButton();
+
+  // *** the below function was previously used to navigate from the old start page
+  // - leaving in to aid reversion if required ***
+  // it('should click on the \'Start now\' button and navigate to View Options page', async () => {
+  //   viewOptionPage = await homePage.clickStartNowButton();
+  //   expect(await viewOptionPage.getPageTitle()).toEqual('What would you like to view?');
+  // });
+
+  it('should click on the \'Courts and tribunal hearings\' link and navigate to View Options page', async () => {
+    viewOptionPage = await homePage.clickLinkToService();
     expect(await viewOptionPage.getPageTitle()).toEqual('What would you like to view?');
   });
 
