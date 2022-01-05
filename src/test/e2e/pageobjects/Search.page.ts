@@ -1,9 +1,10 @@
 import {HearingListPage} from './HearingList.page';
+import { CommonPage } from './Common.page';
+import {AlphabeticalSearchPage} from './AlphabeticalSearch.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class SearchPage {
-
+export class SearchPage extends CommonPage {
   async getPageTitle(): Promise<string> {
     $(helpers.SearchTitle).catch(() => {
       console.log(`${helpers.SearchTitle} not found`);
@@ -31,4 +32,15 @@ export class SearchPage {
     button.click();
     return new HearingListPage();
   }
+
+  async clickAToZCourtsLink(): Promise<AlphabeticalSearchPage> {
+    $(helpers.SearchAToZLink).catch(() => {
+      console.log(`${helpers.SearchAToZLink} not found`);
+    });
+
+    const button = await $(helpers.SearchAToZLink);
+    button.click();
+    return new AlphabeticalSearchPage();
+  }
+
 }

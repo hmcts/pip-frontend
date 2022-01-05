@@ -1,14 +1,9 @@
 import { ViewOptionPage } from './ViewOption.page';
-import { SubscriptionManagementPage } from './SubscriptionManagement.page';
+import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class HomePage {
-
-  open (path): Promise<string> {
-    return browser.url(path);
-  }
-
+export class HomePage extends CommonPage {
   async getPageTitle(): Promise<string> {
     $(helpers.MainHeader).catch(() => {
       console.log(`${helpers.MainHeader} not found`);
@@ -17,15 +12,9 @@ export class HomePage {
     return $(helpers.MainHeader).getText();
   }
 
-  async clickStartNowButton(): Promise<ViewOptionPage> {
-    const button = await $(helpers.StartNowButton);
+  async clickLinkToService(): Promise<ViewOptionPage> {
+    const button = await $(helpers.ServiceLink);
     button.click();
     return new ViewOptionPage();
-  }
-
-  async clickSignInButton(): Promise<SubscriptionManagementPage> {
-    const button = await $(helpers.SignInButton);
-    button.click();
-    return new SubscriptionManagementPage();
   }
 }

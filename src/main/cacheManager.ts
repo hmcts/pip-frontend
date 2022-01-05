@@ -1,9 +1,17 @@
 import { Logger } from '@hmcts/nodejs-logging';
+import config from 'config';
+
+const redisCredentials = {
+  host: config.get('secrets.pip-ss-kv.REDIS_HOST'),
+  port: config.get('secrets.pip-ss-kv.REDIS_PORT'),
+  password: config.get('secrets.pip-ss-kv.REDIS_PASSWORD'),
+};
 
 const logger = Logger.getLogger('app');
-
 const ioRedis = require('ioredis');
-const redisClient = new ioRedis();
+// double s is required when using connection string
+const connectionString = `rediss://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
+const redisClient = new ioRedis(connectionString);
 
 redisClient.on('connect', () => {
   logger.info('Connected to Redis');
@@ -17,4 +25,3 @@ redisClient.on('error', error => {
 module.exports = {
   redisClient,
 };
-

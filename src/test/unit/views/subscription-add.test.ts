@@ -106,7 +106,7 @@ describe('Subscription add Page initial load', () => {
   it('should display find a court or tribunal list link',  () => {
     const links = htmlRes.getElementsByClassName(linkClass);
     expect(links[1].innerHTML).contains(expectedLink2, 'Could not find the link with text ' + expectedLink2);
-    expect(links[1].getAttribute('href')).equal('/search-option', 'Link value is not correct');
+    expect(links[1].getAttribute('href')).equal('/search', 'Link value is not correct');
   });
 
 });

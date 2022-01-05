@@ -14,7 +14,7 @@ describe('Accessibility URN Search Page Error States',  () => {
         done();
       }).catch((err: Error) => done(err));
   });
-
+ 
   test('should have no accessibility errors for invalid input data', done => {
     ensurePageCallWillSucceed(URL)
       .then(() => runPally(agent.post(URL).send({'search-input': '123'}).url))

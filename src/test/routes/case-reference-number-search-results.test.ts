@@ -4,11 +4,11 @@ import request from 'supertest';
 import { app } from '../../main/app';
 
 
-describe('Search option', () => {
+describe('Case reference number search result', () => {
   describe('on GET', () => {
-    test('should return search option page', async () => {
-      await request(app)
-        .get('/search-option')
+    test('should return Case reference number search result', () => {
+      request(app)
+        .get('/case-reference-number-search-results')
         .expect((res) => expect(res.status).to.equal(200));
     });
   });
