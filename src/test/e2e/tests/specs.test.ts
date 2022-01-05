@@ -17,7 +17,7 @@ import { SingleJusticeProcedurePage } from '../pageobjects/SingleJusticeProcedur
 import { CaseEventGlossaryPage } from '../pageobjects/CaseEventGlossary.page';
 import { CaseReferenceNumberSearchPage } from '../pageobjects/CaseReferenceNumberSearch.page';
 import { CaseReferenceNumberSearchResultsPage } from '../pageobjects/CaseReferenceNumberSearchResults.page';
-import {SignInPage} from '../PageObjects/SignIn.page';
+import {SignInPage} from '../pageobjects/SignIn.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
