@@ -6,9 +6,7 @@ import path from 'path';
 import {CaseEventGlossaryRequests} from '../../../main/resources/requests/caseEventGlossaryRequests';
 
 const caseEventGlossaryService = new CaseEventGlossaryService();
-
 const caseEventGlossaryRequests = CaseEventGlossaryRequests.prototype;
-
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/CaseEventGlossary.json'), 'utf-8');
 const caseEventGlossaryData = JSON.parse(rawData);
@@ -30,7 +28,6 @@ describe('Case Event Glossary Service', () => {
       expect(Object.keys(data).length).to.equal(validStatusDescriptionKeysCount);
     });
   });
-
 
   it('should have have all letters of the alphabet as keys', () => {
     return caseEventGlossaryService.generateCaseEventGlossaryObject().then((data) => {

@@ -155,9 +155,6 @@ exports.config = {
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
   reporters: ['spec'],
-
-
-
   //
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
@@ -244,8 +241,6 @@ exports.config = {
    */
   // afterTest: function(test, context, { error, result, duration, passed, retries }) {
   // },
-
-
   /**
    * Hook that gets executed after the suite has ended
    * @param {Object} suite suite details

@@ -49,7 +49,6 @@ describe('Case Reference Search Results Page', () => {
     expect(tableHeader2[0].innerHTML).contains('Case name', 'Could not find text in second header');
   });
 
-
   it('should contain 2 rows including the header row', () => {
     const rows = htmlRes.getElementsByClassName(rowClass);
     expect(rows.length).equal(2, 'Table did not contain expected number of rows');
