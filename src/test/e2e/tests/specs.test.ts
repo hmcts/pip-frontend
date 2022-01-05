@@ -23,7 +23,6 @@ const mockSessionPage = new MockSessionPage();
 let subscriptionAddPage = new SubscriptionAddPage();
 const subscriptionManagementPage = new SubscriptionManagementPage();
 const liveCaseCourtSearchControllerPage = new LiveCaseCourtSearchControllerPage();
-let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
 let hearingListPage: HearingListPage;
