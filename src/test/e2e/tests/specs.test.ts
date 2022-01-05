@@ -47,8 +47,8 @@ describe('Sign In Page', () => {
     expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
   });
 
-  it('should see 5 radio buttons', async () => {
-    expect(await signInPage.radioButtons).toBe(5);
+  it('should see 4 radio buttons', async () => {
+    expect(await signInPage.radioButtons).toBe(4);
   });
 
   describe('sign in page routing', async () => {
@@ -75,11 +75,6 @@ describe('Sign In Page', () => {
       expect(await signInPage.clickContinueForRadio4()).toHaveHref(returnUrl);
     });
 
-    it('should select \'Create an account\' option and navigate to the login page Create an account page', async () => {
-      await signInPage.open('sign-in');
-      await signInPage.selectOption('Radio5');
-      expect(await signInPage.clickContinueForRadio5()).toHaveHref(returnUrl);
-    });
   });
 });
 

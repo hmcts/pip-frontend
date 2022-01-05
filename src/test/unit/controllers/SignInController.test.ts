@@ -84,19 +84,4 @@ describe('Sign In Option Controller', () => {
     responseMock.verify();
   });
 
-  it('should render Sign In page if choice is \'create\'', () => {
-
-    const response = { redirect: function() {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
-    request.body = { 'sign-in': 'create'};
-
-    const responseMock = sinon.mock(response);
-
-    responseMock.expects('redirect').once().withArgs('https://www.google.com');
-
-    signInController.post(request, response);
-
-    responseMock.verify();
-  });
-
 });

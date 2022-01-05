@@ -5,5 +5,7 @@
   "radio2": "Sign in with Common Platform",
   "radio3": "Sign in with my P&I details",
   "radio4": "You have signed in before but you're not sure which account you used",
-  "radio5": "Create an account"
+  "accountInfo": "If you don't have an account please",
+  "accountInfo_link_text": "create an account",
+  "accountInfo_link": "#"
 }

@@ -42,15 +42,13 @@
             value: "notsure",
             text: radio4
 
-          },
-          {
-            value: "create",
-            text: radio5
-
           }
         ]
       }) }}
         {{ submitButton() }}
+      <div class="govuk-inset-text">
+        {{ accountInfo }} <a class="govuk-link" href="{{ accountInfo_link }}">{{ accountInfo_link_text }}</a>
+      </div>
     </form>
 {% endblock %}
 {% block bodyEnd %}

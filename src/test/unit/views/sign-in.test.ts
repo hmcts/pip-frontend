@@ -14,7 +14,6 @@ const expectedRadioLabel1 = 'Sign in with My HMCTS';
 const expectedRadioLabel2 = 'Sign in with Common Platform';
 const expectedRadioLabel3 = 'Sign in with my P&amp;I details';
 const expectedRadioLabel4 = 'You have signed in before but you\'re not sure which account you used';
-const expectedRadioLabel5 = 'Create an account';
 
 let htmlRes: Document;
 describe('Sign In option Page', () => {
@@ -34,9 +33,9 @@ describe('Sign In option Page', () => {
     expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
   });
 
-  it('should display 5 radio buttons', () => {
+  it('should display 4 radio buttons', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons.length).equal(5, '5 radio buttons not found');
+    expect(radioButtons.length).equal(4, '4 radio buttons not found');
   });
 
   it('should display first radio button content',  () => {
@@ -59,8 +58,4 @@ describe('Sign In option Page', () => {
     expect(radioButtons[3].innerHTML).contains(expectedRadioLabel4, 'Could not find the radio button with label ' + expectedRadioLabel2);
   });
 
-  it('should display fifth radio button content',  () => {
-    const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[4].innerHTML).contains(expectedRadioLabel5, 'Could not find the radio button with label ' + expectedRadioLabel2);
-  });
 });
