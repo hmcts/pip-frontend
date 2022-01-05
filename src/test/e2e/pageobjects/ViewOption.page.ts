@@ -1,5 +1,5 @@
 import { LiveCaseCourtSearchControllerPage } from './LiveCaseCourtSearchController.page';
-import { SearchOptionsPage } from './SearchOptions.page';
+import { SearchPage } from './Search.page';
 import { SingleJusticeProcedurePage } from './SingleJusticeProcedure.page';
 import { CommonPage } from './Common.page';
 
@@ -14,14 +14,14 @@ export class ViewOptionPage extends CommonPage {
     return $(helpers.ViewOptionsTitle).getText();
   }
 
-  async clickContinueForSearch(): Promise<SearchOptionsPage> {
+  async clickContinueForSearch(): Promise<SearchPage> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
     const continueButton = await $(helpers.ContinueButton);
     continueButton.click();
 
-    return new SearchOptionsPage();
+    return new SearchPage();
   }
 
   async clickContinueForLiveHearings(): Promise<LiveCaseCourtSearchControllerPage> {

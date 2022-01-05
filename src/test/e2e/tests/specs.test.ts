@@ -1,5 +1,4 @@
 import { HomePage } from '../pageobjects/Home.page';
-import { SearchOptionsPage } from '../pageobjects/SearchOptions.page';
 import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
 import { HearingListPage } from '../pageobjects/HearingList.page';
 import { SearchPage } from '../pageobjects/Search.page';
@@ -24,7 +23,6 @@ const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
 let subscriptionAddPage = new SubscriptionAddPage();
 const subscriptionManagementPage = new SubscriptionManagementPage();
-let searchOptionsPage: SearchOptionsPage;
 let viewOptionPage: ViewOptionPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
 let hearingListPage: HearingListPage;
@@ -103,19 +101,13 @@ describe('Unverified user', () => {
   describe('find a court or tribunal publication', async () => {
     it('should select \'Court or Tribunal hearing Publications\' option and navigate to search option page', async () => {
       await viewOptionPage.selectOption('CourtOrTribunalRadioButton');
-      searchOptionsPage = await viewOptionPage.clickContinueForSearch();
-      expect(await searchOptionsPage.getPageTitle()).toEqual('Do you know the name of the court or tribunal?');
+      searchPage = await viewOptionPage.clickContinueForSearch();
+      expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
     });
 
     describe('following the \'I have the name\' path', async () => {
       const searchTerm = 'Blackpool Magistrates\' Court';
       const expectedNumOfHearings = 9;
-
-      it('should select \'I have the name\' option and navigate to search page', async () => {
-        await searchOptionsPage.selectOption('HaveNameRadio');
-        searchPage = await searchOptionsPage.clickContinueForSearch();
-        expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
-      });
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
@@ -128,16 +120,15 @@ describe('Unverified user', () => {
       });
     });
 
-    describe('following the \'I do not have the name\' path', async () => {
-      const expectedHearings = 15;
+    describe('following the \'Select from an A-Z of courts and tribunals\' path', async () => {
+      const expectedNumOfHearings = 15;
 
       before(async () => {
-        await searchOptionsPage.open('/search-option');
+        await searchPage.open('/search');
       });
 
-      it('should select \'I do not have the name\' option and navigate to alphabetical search page', async () => {
-        await searchOptionsPage.selectOption('DontHaveNameRadio');
-        alphabeticalSearchPage = await searchOptionsPage.clickContinueForAlphabetical();
+      it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
+        alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
       });
 
@@ -158,8 +149,8 @@ describe('Unverified user', () => {
         expect(await hearingListPage.getPageTitle()).toEqual('Blackburn Magistrates\' Court hearing list');
       });
 
-      it(`should display ${expectedHearings} results`, async() => {
-        expect(await hearingListPage.getResults()).toBe(expectedHearings);
+      it(`should display ${expectedNumOfHearings} results`, async() => {
+        expect(await hearingListPage.getResults()).toBe(expectedNumOfHearings);
       });
     });
   });

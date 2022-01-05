@@ -16,6 +16,7 @@ module.exports = {
   SearchOptionsTitle: 'h1.govuk-fieldset__heading',
   RadioButton: 'div.govuk-radios__item',
 
+
   // Search page selectors
   HaveNameRadio: '#find-choice',
   DontHaveNameRadio: '#find-choice-2',
@@ -30,6 +31,7 @@ module.exports = {
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
   SearchResultTitle: 'h1.govuk-heading-l',
+  SearchAToZLink: 'a.govuk-link',
 
   // SearchResults selectors
   LinkResult: 'tbody > tr.govuk-table__row > th > a',

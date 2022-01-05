@@ -54,7 +54,6 @@ export default function(app: Application): void {
   app.get('/', app.locals.container.cradle.homeController.get);
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
-  app.get('/search-option', app.locals.container.cradle.searchOptionController.get);
   app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
@@ -66,7 +65,6 @@ export default function(app: Application): void {
   app.get('/otp-template', cors(corsOptions), app.locals.container.cradle.otpTemplateController.get);
   app.get('/search', app.locals.container.cradle.searchController.get);
   app.post('/search', app.locals.container.cradle.searchController.post);
-  app.post('/search-option', app.locals.container.cradle.searchOptionController.post);
   app.get('/single-justice-procedure', app.locals.container.cradle.singleJusticeProcedureController.get);
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
