@@ -40,44 +40,6 @@ let courtNameSearchPage: CourtNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 const signInPage = new SignInPage;
 
-describe('Sign In Page', () => {
-  const returnUrl = 'https://www.google.com';
-  it('should open sign-in page with \'How do you want to sign in\' title', async () => {
-    await signInPage.open('sign-in');
-    expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
-  });
-
-  it('should see 4 radio buttons', async () => {
-    expect(await signInPage.radioButtons).toBe(4);
-  });
-
-  describe('sign in page routing', async () => {
-    it('should select \'Sign in with My HMCTS\' option and navigate to the login page HMCTS page', async () => {
-      await signInPage.selectOption('Radio1');
-      expect(await signInPage.clickContinueForRadio1()).toHaveHref(returnUrl);
-    });
-
-    it('should select \'Sign in with Common Platform\' option and navigate to the login page Common Platform page', async () => {
-      await signInPage.open('sign-in');
-      await signInPage.selectOption('Radio2');
-      expect(await signInPage.clickContinueForRadio2()).toHaveHref(returnUrl);
-    });
-
-    it('should select \'Sign in with my P&I details\' option and navigate to the login page P&I details page', async () => {
-      await signInPage.open('sign-in');
-      await signInPage.selectOption('Radio3');
-      expect(await signInPage.clickContinueForRadio3()).toHaveHref(returnUrl);
-    });
-
-    it('should select \'You have signed in before but you\'re not sure which account you used\' option and navigate to the not sure page', async () => {
-      await signInPage.open('sign-in');
-      await signInPage.selectOption('Radio4');
-      expect(await signInPage.clickContinueForRadio4()).toHaveHref(returnUrl);
-    });
-
-  });
-});
-
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
     await homePage.open('');
@@ -201,6 +163,45 @@ describe('Unverified user', () => {
 
 describe('Verified user', () => {
   describe('sign in process', async () => {
+
+    describe('Sign In Page', () => {
+      const returnUrl = 'https://www.google.com';
+      it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+        await signInPage.open('sign-in');
+        expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+      });
+
+      it('should see 4 radio buttons', async () => {
+        expect(await signInPage.radioButtons).toBe(4);
+      });
+
+      describe('sign in page routing', async () => {
+        it('should select \'Sign in with My HMCTS\' option and navigate to the login page HMCTS page', async () => {
+          await signInPage.selectOption('Radio1');
+          expect(await signInPage.clickContinueForRadio1()).toHaveHref(returnUrl);
+        });
+
+        it('should select \'Sign in with Common Platform\' option and navigate to the login page Common Platform page', async () => {
+          await signInPage.open('sign-in');
+          await signInPage.selectOption('Radio2');
+          expect(await signInPage.clickContinueForRadio2()).toHaveHref(returnUrl);
+        });
+
+        it('should select \'Sign in with my P&I details\' option and navigate to the login page P&I details page', async () => {
+          await signInPage.open('sign-in');
+          await signInPage.selectOption('Radio3');
+          expect(await signInPage.clickContinueForRadio3()).toHaveHref(returnUrl);
+        });
+
+        it('should select \'You have signed in before but you\'re not sure which account you used\' option and navigate to the not sure page', async () => {
+          await signInPage.open('sign-in');
+          await signInPage.selectOption('Radio4');
+          expect(await signInPage.clickContinueForRadio4()).toHaveHref(returnUrl);
+        });
+
+      });
+    });
+
     it('should open Session Mock Page to authenticate user', async () => {
       await mockSessionPage.open('/mock-session');
       expect(await mockSessionPage.getPageTitle()).toBe('Mock User Session Data');
