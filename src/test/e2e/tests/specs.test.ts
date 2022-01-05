@@ -47,7 +47,7 @@ describe('Unverified user', () => {
 
   it('should click on the \'Courts and tribunal hearings\' link and navigate to View Options page', async () => {
     viewOptionPage = await homePage.clickLinkToService();
-    expect(await viewOptionPage.getPageTitle()).toEqual('What would you like to view?');
+    expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
   });
 
   it('should see 2 radio buttons', async () => {
