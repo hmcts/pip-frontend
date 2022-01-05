@@ -44,14 +44,6 @@ describe('Unverified user', () => {
     expect(await homePage.getPageTitle()).toEqual('HMCTS hearing lists');
   });
 
-
-  // *** the below function was previously used to navigate from the old start page
-  // - leaving in to aid reversion if required ***
-  // it('should click on the \'Start now\' button and navigate to View Options page', async () => {
-  //   viewOptionPage = await homePage.clickStartNowButton();
-  //   expect(await viewOptionPage.getPageTitle()).toEqual('What would you like to view?');
-  // });
-
   it('should click on the \'Courts and tribunal hearings\' link and navigate to View Options page', async () => {
     viewOptionPage = await homePage.clickLinkToService();
     expect(await viewOptionPage.getPageTitle()).toEqual('What would you like to view?');

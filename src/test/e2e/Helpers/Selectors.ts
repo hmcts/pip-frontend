@@ -9,7 +9,6 @@ module.exports = {
   SearchInput: '#search-input',
 
   // Home selectors
-  StartNowButton: '.govuk-button--start', //unused currently, to be re-used if start page reverts.
   MainHeader: '.gem-c-title__text',
   ServiceLink: '#linkToService',
 
