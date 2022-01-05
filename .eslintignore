@@ -13,4 +13,3 @@ jest.*config.js
 /src/main/assets/js/jquery.js
 /src/main/assets/js/mojAll.js
 /src/main/assets/scss/home.scss
-/src/main/assets/scss/main.scss
