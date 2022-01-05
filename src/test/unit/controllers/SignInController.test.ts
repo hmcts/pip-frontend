@@ -84,4 +84,19 @@ describe('Sign In Option Controller', () => {
     responseMock.verify();
   });
 
+  it('should render Sign In page if choice is empty', () => {
+
+    const response = { redirect: function() {return '';}} as unknown as Response;
+    const request = mockRequest(i18n);
+    request.body = { 'sign-in': ''};
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('redirect').once().withArgs('/sign-in');
+
+    signInController.post(request, response);
+
+    responseMock.verify();
+  });
+
 });

@@ -24,10 +24,6 @@ export default class SignInController {
         res.redirect('https://www.google.com');
         break;
       }
-      case 'create': {
-        res.redirect('https://www.google.com');
-        break;
-      }
       default: {
         res.redirect('/sign-in');
       }
