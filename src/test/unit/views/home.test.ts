@@ -3,13 +3,13 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 
 const PAGE_URL = '/';
-const headingClass = 'govuk-heading-xl';
-const startButtonClass = 'govuk-button govuk-button--start';
-const expectedHeader = 'See publications and information from a court or tribunal';
+const headingClass = 'gem-c-title__text govuk-heading-l';
+const startLinkClass = 'govspeak';
+const expectedHeader = 'HMCTS hearing lists';
 const govUkLinkClass = 'govuk-header__logo';
 const expectedGovUkLink = 'https://www.gov.uk/';
 const expectedServiceNameHeader = 'govuk-header__content';
-const expectedServiceNameText = 'Courts and tribunal hearing information';
+const expectedServiceNameText = 'Court and tribunal hearings';
 
 let htmlRes: Document;
 describe('Home page', () => {
@@ -34,13 +34,8 @@ describe('Home page', () => {
     expect(serviceNameHeader[0].innerHTML).contains(expectedServiceNameText, 'Text was not accurate');
   });
 
-  it('should display navigation menu',  () => {
-    const nav = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-    expect(nav[1].innerHTML).contains('Sign in', 'Could not find the navigation bar');
-  });
-
   it('should display button start', () => {
-    const button = htmlRes.getElementsByClassName(startButtonClass);
-    expect(button[0].innerHTML).contains('Start now', 'Could not find the button');
+    const button = htmlRes.getElementsByClassName(startLinkClass);
+    expect(button[0].innerHTML).contains('Court and tribunal hearings', 'Could not find the button');
   });
 });

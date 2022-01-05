@@ -9,8 +9,8 @@ module.exports = {
   SearchInput: '#search-input',
 
   // Home selectors
-  StartNowButton: '.govuk-button--start',
-  MainHeader: 'h1.govuk-heading-xl',
+  MainHeader: '.gem-c-title__text',
+  ServiceLink: '#linkToService',
 
   // SearchOptions selectors
   SearchOptionsTitle: 'h1.govuk-fieldset__heading',
