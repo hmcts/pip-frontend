@@ -1,13 +1,9 @@
 import {SubscriptionUrnSearchResultsPage} from './SubscriptionUrnSearchResults.page';
+import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class SubscriptionUrnSearchPage {
-
-  open (path): Promise<string> {
-    return browser.url(path);
-  }
-
+export class SubscriptionUrnSearchPage extends CommonPage {
   async getPageTitle(): Promise<string> {
     $(helpers.SearchTitle).catch(() => {
       console.log(`${helpers.SearchTitle} not found`);

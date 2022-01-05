@@ -69,7 +69,8 @@ Bundle:
 $ yarn webpack
 ```
 
-Start Redis:
+Start Redis Locally:
+To connect locally run bellow command and rename connection string from `rediss` to `redis` in [cacheManager.ts](src/main/cacheManager.ts) (line 13)
 ```bash
 $ docker run -d -p 6379:6379 redis
 ```
@@ -137,10 +138,28 @@ $ yarn test:a11y
 Make sure all the paths in your application are covered by accessibility tests (see [a11y.ts](src/test/a11y/a11y.ts)).
 
 Running end-to-end tests:
+
+There are two ways to run E2E tests. Against a locally running version of the application, and remotely against the branch.
+
+If running locally, stand up the application and run the following:
+
 ```bash
-$ yarn test:e2e
+$ yarn test:functional-dev
 ```
 Make sure to have application running in developer mode first while testing locally, otherwise tests will fail. To test in development mode run: `yarn start:dev`
+
+If running against a remote instance (e.g a PR), then the following env variables need to be set:
+
+Name | Value
+--- | ---
+TEST_URL | The URL where the instance you would like to test against is hosted (https://<host>:<port>)
+(Optional) USE_PROTOTYPE | If the instance uses the prototype, then this flag must be set to TRUE
+
+The following command is run by the jenkins pipeline, although can be run locally, it will run in HEADLESS mode.
+
+```bash
+$ yarn test:functional
+```
 
 ### Security
 
