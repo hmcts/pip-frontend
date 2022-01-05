@@ -40,8 +40,7 @@ module.exports = {
   // ViewOption page selectors
   ViewOptionsTitle: 'h1.govuk-fieldset__heading',
   CourtOrTribunalRadioButton: '#view-choice',
-  LiveHearingsRadioButton: '#view-choice-2',
-  SingleJusticeProcedureRadioButton: '#view-choice-3',
+  SingleJusticeProcedureRadioButton: '#view-choice-2',
 
   //SubscriptionAdd selectors
   SubscriptionAddTitle: 'h1.govuk-fieldset__heading',
