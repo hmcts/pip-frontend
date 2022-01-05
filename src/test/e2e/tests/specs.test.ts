@@ -283,7 +283,7 @@ describe('Verified user', () => {
         expect(await courtNameSearchPage.getResults()).toBe(tribunalCourts);
       });
 
-      it(`should select court`, async () => {
+      it('should select court', async () => {
         expect(await courtNameSearchPage.tickCourtCheckbox()).toBeTruthy();
       });
 
