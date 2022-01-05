@@ -1,5 +1,4 @@
 import { HomePage } from '../pageobjects/Home.page';
-import { SearchOptionsPage } from '../pageobjects/SearchOptions.page';
 import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
 import { HearingListPage } from '../pageobjects/HearingList.page';
 import { SearchPage } from '../pageobjects/Search.page';
@@ -43,12 +42,12 @@ let caseEventGlossaryPage: CaseEventGlossaryPage;
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
     await homePage.open('');
-    expect(await homePage.getPageTitle()).toEqual('See publications and information from a court or tribunal');
+    expect(await homePage.getPageTitle()).toEqual('HMCTS hearing lists');
   });
 
-  it('should click on the \'Start now\' button and navigate to View Options page', async () => {
-    viewOptionPage = await homePage.clickStartNowButton();
-    expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+  it('should click on the \'Courts and tribunal hearings\' link and navigate to View Options page', async () => {
+    viewOptionPage = await homePage.clickLinkToService();
+    expect(await viewOptionPage.getPageTitle()).toEqual('What would you like to view?');
   });
 
   it('should see 2 radio buttons', async () => {
@@ -58,19 +57,13 @@ describe('Unverified user', () => {
   describe('find a court or tribunal publication', async () => {
     it('should select \'Court or Tribunal hearing Publications\' option and navigate to search option page', async () => {
       await viewOptionPage.selectOption('CourtOrTribunalRadioButton');
-      searchOptionsPage = await viewOptionPage.clickContinueForSearch();
-      expect(await searchOptionsPage.getPageTitle()).toEqual('Do you know the name of the court or tribunal?');
+      searchPage = await viewOptionPage.clickContinueForSearch();
+      expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
     });
 
     describe('following the \'I have the name\' path', async () => {
       const searchTerm = 'Blackpool Magistrates\' Court';
       const expectedNumOfHearings = 9;
-
-      it('should select \'I have the name\' option and navigate to search page', async () => {
-        await searchOptionsPage.selectOption('HaveNameRadio');
-        searchPage = await searchOptionsPage.clickContinueForSearch();
-        expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
-      });
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
@@ -83,16 +76,15 @@ describe('Unverified user', () => {
       });
     });
 
-    describe('following the \'I do not have the name\' path', async () => {
-      const expectedHearings = 15;
+    describe('following the \'Select from an A-Z of courts and tribunals\' path', async () => {
+      const expectedNumOfHearings = 15;
 
       before(async () => {
-        await searchOptionsPage.open('/search-option');
+        await searchPage.open('/search');
       });
 
-      it('should select \'I do not have the name\' option and navigate to alphabetical search page', async () => {
-        await searchOptionsPage.selectOption('DontHaveNameRadio');
-        alphabeticalSearchPage = await searchOptionsPage.clickContinueForAlphabetical();
+      it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
+        alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
       });
 
@@ -113,8 +105,8 @@ describe('Unverified user', () => {
         expect(await hearingListPage.getPageTitle()).toEqual('Blackburn Magistrates\' Court hearing list');
       });
 
-      it(`should display ${expectedHearings} results`, async() => {
-        expect(await hearingListPage.getResults()).toBe(expectedHearings);
+      it(`should display ${expectedNumOfHearings} results`, async() => {
+        expect(await hearingListPage.getResults()).toBe(expectedNumOfHearings);
       });
     });
   });
