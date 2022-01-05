@@ -1,0 +1,9 @@
+{
+  "title": "Sign In",
+  "header": "How do you want to sign in?",
+  "radio1": "Sign in with My HMCTS",
+  "radio2": "Sign in with Common Platform",
+  "radio3": "Sign in with my P&I details",
+  "radio4": "You have signed in before but you're not sure which account you used",
+  "radio5": "Create an account"
+}

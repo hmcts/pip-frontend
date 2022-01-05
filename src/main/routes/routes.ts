@@ -70,6 +70,8 @@ export default function(app: Application): void {
   app.get('/single-justice-procedure', app.locals.container.cradle.singleJusticeProcedureController.get);
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
+  app.get('/sign-in', app.locals.container.cradle.signInController.get);
+  app.post('/sign-in', app.locals.container.cradle.signInController.post);
 
   // Restricted paths
   app.get('/account-home', ensureAuthenticated, app.locals.container.cradle.accountHomeController.get);

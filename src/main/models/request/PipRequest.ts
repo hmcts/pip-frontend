@@ -31,6 +31,7 @@ export interface PipRequest extends Request {
       'session-management': {};
       'standard-list': {};
       'account-home': {};
+      'sign-in': {};
     };
   };
   lng?: string;

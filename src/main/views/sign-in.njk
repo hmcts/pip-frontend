@@ -1,0 +1,73 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+
+{% block content %}
+    <form action="sign-in" method="post">
+      {{ govukRadios({
+        idPrefix: "sign-in",
+        name: "sign-in",
+        fieldset: {
+          legend: {
+            text: header,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          {
+            value: "hmcts",
+            text: radio1
+          },
+          {
+            value: "common",
+            text: radio2
+
+          },
+          {
+            value: "pi",
+            text: radio3
+
+          },
+          {
+            value: "notsure",
+            text: radio4
+
+          },
+          {
+            value: "create",
+            text: radio5
+
+          }
+        ]
+      }) }}
+        {{ submitButton() }}
+    </form>
+{% endblock %}
+{% block bodyEnd %}
+    {% set optionList = [] %}
+    {% for item in autocompleteList %}
+        {% set _ = optionList.push(
+            item.name
+        ) %}
+    {% endfor %}
+    <script>
+      const button = document.getElementsByClassName('govuk-button')[0];
+      button.addEventListener('click', (e) => {
+        const checkedRadios = document.querySelectorAll('input[type="radio"]:checked');
+        if (!checkedRadios.length) {
+          e.preventDefault();
+        }
+      })
+    </script>
+  {{ super() }}
+{% endblock %}

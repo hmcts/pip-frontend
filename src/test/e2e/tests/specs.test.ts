@@ -18,6 +18,7 @@ import { SingleJusticeProcedurePage } from '../pageobjects/SingleJusticeProcedur
 import { CaseEventGlossaryPage } from '../pageobjects/CaseEventGlossary.page';
 import { CaseReferenceNumberSearchPage } from '../pageobjects/CaseReferenceNumberSearch.page';
 import { CaseReferenceNumberSearchResultsPage } from '../pageobjects/CaseReferenceNumberSearchResults.page';
+import {SignInPage} from '../PageObjects/SignIn.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -39,6 +40,50 @@ let caseReferenceNumberSearchPage: CaseReferenceNumberSearchPage;
 let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
 let courtNameSearchPage: CourtNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
+const signInPage = new SignInPage;
+
+describe('Sign In Page', () => {
+  const returnUrl = 'https://www.google.com';
+  it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+    await signInPage.open('sign-in');
+    expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+  });
+
+  it('should see 5 radio buttons', async () => {
+    expect(await signInPage.radioButtons).toBe(5);
+  });
+
+  describe('sign in page routing', async () => {
+    it('should select \'Sign in with My HMCTS\' option and navigate to the login page HMCTS page', async () => {
+      await signInPage.selectOption('Radio1');
+      expect(await signInPage.clickContinueForRadio1()).toHaveHref(returnUrl);
+    });
+
+    it('should select \'Sign in with Common Platform\' option and navigate to the login page Common Platform page', async () => {
+      await signInPage.open('sign-in');
+      await signInPage.selectOption('Radio2');
+      expect(await signInPage.clickContinueForRadio2()).toHaveHref(returnUrl);
+    });
+
+    it('should select \'Sign in with my P&I details\' option and navigate to the login page P&I details page', async () => {
+      await signInPage.open('sign-in');
+      await signInPage.selectOption('Radio3');
+      expect(await signInPage.clickContinueForRadio3()).toHaveHref(returnUrl);
+    });
+
+    it('should select \'You have signed in before but you\'re not sure which account you used\' option and navigate to the not sure page', async () => {
+      await signInPage.open('sign-in');
+      await signInPage.selectOption('Radio4');
+      expect(await signInPage.clickContinueForRadio4()).toHaveHref(returnUrl);
+    });
+
+    it('should select \'Create an account\' option and navigate to the login page Create an account page', async () => {
+      await signInPage.open('sign-in');
+      await signInPage.selectOption('Radio5');
+      expect(await signInPage.clickContinueForRadio5()).toHaveHref(returnUrl);
+    });
+  });
+});
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {

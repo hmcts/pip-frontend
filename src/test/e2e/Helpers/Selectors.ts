@@ -20,6 +20,13 @@ module.exports = {
   HaveNameRadio: '#find-choice',
   DontHaveNameRadio: '#find-choice-2',
 
+  // Sign-in routing
+  Radio1: '#sign-in',
+  Radio2: '#sign-in-2',
+  Radio3: '#sign-in-3',
+  Radio4: '#sign-in-4',
+  Radio5: '#sign-in-5',
+
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
   SearchResultTitle: 'h1.govuk-heading-l',
