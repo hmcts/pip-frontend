@@ -30,7 +30,6 @@ describe('Subscription Urn Search Result Controller', () => {
 
     const expectedData = {
       ...i18n['pending-subscriptions'],
-      searchInput : '123456789',
       searchResults: subscriptionsData,
     };
 
