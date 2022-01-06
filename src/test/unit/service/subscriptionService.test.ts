@@ -15,6 +15,12 @@ const mockCourt = {
   hearingList: [],
   hearings: 0,
 };
+const mockUrnCase = {
+  courtNumber: 100,
+  caseNumber: 'T489999',
+  caseName: 'Ashely',
+  urn: 'ValidURN',
+};
 const mockCase = {
   hearingId: 5,
   courtId: 50,
@@ -58,6 +64,7 @@ const removeStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'removeFr
 const hearingStub = sinon.stub(HearingService.prototype, 'getCaseByNumber');
 const courtStub = sinon.stub(CourtService.prototype, 'getCourtById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
+sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').withArgs('ValidURN').resolves(mockUrnCase);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', '1').resolves(true);
 subscriptionStub.withArgs(blankPayload, 'courts', '1').resolves(false);
@@ -122,6 +129,11 @@ describe('handleNewSubscription function', () => {
   it('should add new case subscriptions', async () => {
     const pendingSubscription = {'hearing-selections[]': ['T485914', 'T485912']};
     await subscriptionService.handleNewSubscription(pendingSubscription, '1');
+  });
+
+  it('should add new case subscription for urn search', async () => {
+    const pendingSubscription = {urn: 'ValidURN'};
+    await subscriptionService.handleNewSubscription(pendingSubscription, '99');
   });
 
   it('should add new court subscription', async () => {
