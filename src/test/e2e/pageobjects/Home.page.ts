@@ -12,8 +12,8 @@ export class HomePage extends CommonPage {
     return $(helpers.MainHeader).getText();
   }
 
-  async clickStartNowButton(): Promise<ViewOptionPage> {
-    const button = await $(helpers.StartNowButton);
+  async clickLinkToService(): Promise<ViewOptionPage> {
+    const button = await $(helpers.ServiceLink);
     button.click();
     return new ViewOptionPage();
   }
