@@ -26,7 +26,6 @@ export class PendingSubscriptionsFromCache {
     if (redisClient.status === 'ready' && userId) {
       cacheResult = JSON.parse(await redisClient.get(`pending-${type}-subscriptions-${userId}`));
     }
-    console.log('getPendingSubscriptions', cacheResult);
     return cacheResult;
   }
 
