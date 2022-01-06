@@ -18,7 +18,7 @@ let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData)[0].hearingList[0];
-sinon.stub(HearingService.prototype, 'getHearingByCaseReferenceNumber').returns(subscriptionsData);
+sinon.stub(HearingService.prototype, 'getCaseByNumber').returns(subscriptionsData);
 
 describe('Case Reference Search Results Page', () => {
   beforeAll(async () => {

@@ -16,19 +16,14 @@ const caseNumberData = {
   urn: 'N363N6R4OG',
 };
 const hearingService = new HearingService();
-const hearingRequest = HearingRequests.prototype;
-const caseNameStub = sinon.stub(hearingRequest, 'getHearingsByCaseName');
-const caseNumberStub = sinon.stub(hearingRequest, 'getCaseByCaseNumber');
+const caseNameStub = sinon.stub(HearingRequests.prototype, 'getHearingsByCaseName');
+const caseNumberStub = sinon.stub(HearingRequests.prototype, 'getHearingByCaseNumber');
 caseNameStub.withArgs('my').returns(data);
 caseNameStub.withArgs('').returns([]);
 caseNameStub.withArgs('foo').returns([]);
 caseNumberStub.withArgs('').returns(null);
+caseNumberStub.withArgs('foo').returns(null);
 caseNumberStub.withArgs('T485913').returns(caseNumberData);
-
-const stubCaseReferenceNumberSearch = sinon.stub(hearingRequest, 'getHearingByCaseReferenceNumber');
-stubCaseReferenceNumberSearch.withArgs('11223344').returns(data);
-stubCaseReferenceNumberSearch.withArgs('').returns(null);
-stubCaseReferenceNumberSearch.withArgs('foo').returns(null);
 
 describe('Hearing Service', () => {
   describe('get hearings by case name', () => {
@@ -53,16 +48,9 @@ describe('Hearing Service', () => {
     it('should return null for invalid case number query', async () => {
       expect(await hearingService.getCaseByNumber('')).to.equal(null);
     });
-  });
-  it('should return hearings list for valid case reference search query', async () => {
-    expect(await hearingService.getHearingByCaseReferenceNumber('11223344')).to.equal(data);
-  });
 
-  it('should return empty list for invalid case reference search', async () => {
-    expect(await hearingService.getHearingByCaseReferenceNumber('')).to.deep.equal(null);
-  });
-
-  it('should return empty list if there are no matching results', async () => {
-    expect(await hearingService.getHearingByCaseReferenceNumber('foo')).to.deep.equal(null);
+    it('should return empty list if there are no matching results', async () => {
+      expect(await hearingService.getCaseByNumber('foo')).to.deep.equal(null);
+    });
   });
 });

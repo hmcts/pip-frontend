@@ -19,25 +19,9 @@ export class HearingRequests {
     return [];
   }
 
-  public async getCaseByCaseNumber(caseNumber: string): Promise<Hearing> {
+  public async getHearingByCaseNumber(caseNumber: string): Promise<Hearing> {
     try {
       const response = await dataManagementApi.get(`/hearings/case-number/${caseNumber}`);
-      return response.data;
-    } catch (error) {
-      if (error.response) {
-        console.log(error.response.data);
-      } else if (error.request) {
-        console.log(`Request failed. ${error.request}`);
-      } else {
-        console.log(`ERROR: ${error.message}`);
-      }
-    }
-    return null;
-  }
-
-  public async getHearingByCaseReferenceNumber(caseReferenceNo: string): Promise<Hearing[]> {
-    try {
-      const response = await dataManagementApi.get(`/hearings/case-number/${caseReferenceNo}`);
       return response.data;
     } catch (error) {
       if (error.response) {

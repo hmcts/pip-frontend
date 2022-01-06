@@ -16,9 +16,7 @@ const errorMessage = {
   message: 'test',
 };
 
-const subscriptionsCaseData = [{caseName: 'John Smith v B&Q PLC', caseNumber: 'ABC12345'}];
 const data = [{caseName: 'my hearing', caseNumber: '11223344'}];
-const validCaseNo = 'ABC12345';
 const caseNumberData = {
   hearingId: 1,
   courtId: 50,
@@ -42,78 +40,35 @@ describe('Hearing get requests', () => {
     stub.withArgs('/hearings/case-number/T485913').resolves({data: caseNumberData});
   });
 
-  it('should return hearings list', async () => {
-    expect(await hearingRequests.getHearingsByCaseName('my')).toBe(data);
-  });
+  describe('hearing case name search', () => {
+    it('should return hearings list', async () => {
+      expect(await hearingRequests.getHearingsByCaseName('my')).toBe(data);
+    });
 
-  it('should return empty list if request fails', async () => {
-    expect(await hearingRequests.getHearingsByCaseName('')).toStrictEqual([]);
-  });
+    it('should return empty list if request fails', async () => {
+      expect(await hearingRequests.getHearingsByCaseName('')).toStrictEqual([]);
+    });
 
-  it('should return empty list if request fails', async () => {
-    expect(await hearingRequests.getHearingsByCaseName('bob')).toStrictEqual([]);
-  });
-
-  it('should return valid case', async () => {
-    expect(await hearingRequests.getCaseByCaseNumber('T485913')).toBe(caseNumberData);
-  });
-
-  it('should return null if request fails', async () => {
-    expect(await hearingRequests.getCaseByCaseNumber('foo')).toBe(null);
-  });
-
-  it('should return null if response fails', async () => {
-    expect(await hearingRequests.getCaseByCaseNumber('')).toBe(null);
-  });
-
-  it('should return null if call message', async () => {
-    expect(await hearingRequests.getCaseByCaseNumber('bar')).toBe(null);
-  });
-});
-
-describe(`getHearingByCaseReferenceNumber(${validCaseNo})`, () => {
-  beforeEach(() => {
-    stub.withArgs('/hearings/case-number/').resolves(Promise.reject(errorResponse));
-    stub.withArgs('/hearings/case-number/fail').resolves(Promise.reject(errorRequest));
-    stub.withArgs('/hearings/case-number/ABC12345').resolves({data: subscriptionsCaseData});
-  });
-
-  it('should return list of cases', async () => {
-    return hearingRequests.getHearingByCaseReferenceNumber(validCaseNo).then(data => {
-      expect(data).toBe(subscriptionsCaseData);
+    it('should return empty list if request fails', async () => {
+      expect(await hearingRequests.getHearingsByCaseName('bob')).toStrictEqual([]);
     });
   });
 
-  it('should return empty list if request fails', async () => {
-    expect(await hearingRequests.getHearingByCaseReferenceNumber('')).toStrictEqual(null);
-  });
-
-  it('should return empty list if request fails', async () => {
-    expect(await hearingRequests.getHearingByCaseReferenceNumber('fail')).toStrictEqual(null);
-  });
-});
-
-describe('non existing subscriptions getHearingByCaseReferenceNumber error request', () => {
-  stub.withArgs('/hearings/case-number/12345').resolves(Promise.reject(errorRequest));
-  it(`should have only cases for case reference ${validCaseNo}`, () => {
-    return hearingRequests.getHearingByCaseReferenceNumber(validCaseNo).then(data => {
-      expect(data[0].caseNumber).toEqual(validCaseNo);
+  describe('hearing case number search', () => {
+    it('should return valid case', async () => {
+      expect(await hearingRequests.getHearingByCaseNumber('T485913')).toBe(caseNumberData);
     });
-  });
-});
 
-describe('non existing subscriptions getHearingByCaseReferenceNumber error request', () => {
-  stub.withArgs('/hearings/case-number/12345').resolves(Promise.reject(errorRequest));
-  it('should return null list of subscriptions for error request', async () => {
-    const userSubscriptions = await hearingRequests.getHearingByCaseReferenceNumber('12345');
-    expect(userSubscriptions).toBe(null);
-  });
-});
+    it('should return null if request fails', async () => {
+      expect(await hearingRequests.getHearingByCaseNumber('foo')).toBe(null);
+    });
 
-describe('non existing subscriptions getHearingByCaseReferenceNumber error response', () => {
-  stub.withArgs('/hearings/case-number/12345').resolves(Promise.reject(errorMessage));
-  it('should return null list of subscriptions for errored call', async () => {
-    const userSubscriptions = await hearingRequests.getHearingByCaseReferenceNumber('12345');
-    expect(userSubscriptions).toBe(null);
+    it('should return null if response fails', async () => {
+      expect(await hearingRequests.getHearingByCaseNumber('')).toBe(null);
+    });
+
+    it('should return null if call message', async () => {
+      expect(await hearingRequests.getHearingByCaseNumber('bar')).toBe(null);
+    });
   });
 });
