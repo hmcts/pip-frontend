@@ -1,6 +1,5 @@
 import moment from 'moment';
 import { SubscriptionRequests } from '../resources/requests/subscriptionRequests';
-import { CaseSubscription } from '../models/caseSubscription';
 import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendingSubscriptionsFromCache';
 import { HearingService } from './hearingService';
 import { Hearing } from '../models/hearing';
@@ -62,7 +61,7 @@ export class SubscriptionService {
     return courtRows;
   }
 
-  public async getSubscriptionUrnDetails(urn: string): Promise<CaseSubscription> {
+  public async getSubscriptionUrnDetails(urn: string): Promise<Hearing> {
     const subscriptions = await subscriptionRequests.getSubscriptionByUrn(urn);
 
     if (subscriptions) {
