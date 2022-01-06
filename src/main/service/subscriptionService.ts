@@ -79,6 +79,7 @@ export class SubscriptionService {
       let courtIdsList = [];
       let caseDetailsList: Hearing[] = [];
       let courtDetailsList: Court[] = [];
+      let urnHearing;
       switch (selectionName) {
         case 'case-number':
         case 'hearing-selections[]':
@@ -89,6 +90,13 @@ export class SubscriptionService {
           caseDetailsList = await this.getCaseDetails(hearingIdsList);
           // set results into cache
           await this.setPendingSubscriptions(caseDetailsList, 'cases', user.id);
+          break;
+        case 'urn':
+          urnHearing = await subscriptionRequests.getSubscriptionByUrn(pendingSubscription[`${selectionName}`]);
+          if (urnHearing) {
+            urnHearing.urnSearch = true;
+            await this.setPendingSubscriptions([urnHearing], 'cases', user.id);
+          }
           break;
         case 'court-selections[]':
           Array.isArray(pendingSubscription[`${selectionName}`]) ?
@@ -167,8 +175,11 @@ export class SubscriptionService {
       case 'cases':
         payload = {
           channel: 'EMAIL',
-          searchType: 'CASE_ID',
-          searchValue: pendingSubscription.caseNumber,
+          searchType: pendingSubscription.urnSearch ? 'CASE_URN' : 'CASE_ID',
+          searchValue: pendingSubscription.urnSearch ? pendingSubscription.urn : pendingSubscription.caseNumber,
+          caseNumber: pendingSubscription.caseNumber,
+          caseName: pendingSubscription.caseName,
+          urn: pendingSubscription.urn,
           userId,
         };
         break;

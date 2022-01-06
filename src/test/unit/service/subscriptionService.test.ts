@@ -33,9 +33,12 @@ const courtSubscriptionPayload = {
   userId: '1',
 };
 const caseSubscriptionPayload = {
+  caseName: 'Ashely Barnes',
+  caseNumber: 'T485914',
   channel: 'EMAIL',
   searchType: 'CASE_ID',
   searchValue: 'T485914',
+  urn: 'IBRANE1BVW',
   userId: '1',
 };
 const blankPayload = {
