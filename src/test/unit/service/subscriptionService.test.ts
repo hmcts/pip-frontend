@@ -27,19 +27,19 @@ const mockCase = {
   urn: 'IBRANE1BVW',
 };
 const courtSubscriptionPayload = {
-  channel: 'API',
+  channel: 'EMAIL',
   searchType: 'COURT_ID',
   searchValue: 643,
   userId: '1',
 };
 const caseSubscriptionPayload = {
-  channel: 'API',
+  channel: 'EMAIL',
   searchType: 'CASE_ID',
   searchValue: 'T485914',
   userId: '1',
 };
 const blankPayload = {
-  channel: 'API',
+  channel: 'EMAIL',
   searchType: '',
   searchValue: '',
   userId: '5',

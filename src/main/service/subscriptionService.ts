@@ -158,7 +158,7 @@ export class SubscriptionService {
     switch (subscriptionType) {
       case 'courts':
         payload = {
-          channel: 'API',
+          channel: 'EMAIL',
           searchType: 'COURT_ID',
           searchValue: pendingSubscription.courtId,
           userId,
@@ -166,7 +166,7 @@ export class SubscriptionService {
         break;
       case 'cases':
         payload = {
-          channel: 'API',
+          channel: 'EMAIL',
           searchType: 'CASE_ID',
           searchValue: pendingSubscription.caseNumber,
           userId,
@@ -174,7 +174,7 @@ export class SubscriptionService {
         break;
       default:
         payload = {
-          channel: 'API',
+          channel: 'EMAIL',
           searchType: '',
           searchValue: '',
           userId,
