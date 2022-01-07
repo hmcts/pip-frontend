@@ -12,7 +12,7 @@ export default function(app: Application): void {
   // const authType = (process.env.NODE_ENV === 'production') ? 'azuread-openidconnect' : 'mockaroo';
   /* istanbul ignore next */
   const redirectUrl = (process.env.USE_PROTOTYPE) ? 'https://hmcts-sjp.herokuapp.com/index.html' : '/subscription-management';
-  const authType = 'mockaroo';
+  const authType = 'azuread-openidconnect';
 
   const corsOptions = {
     origin: 'https://pib2csbox.b2clogin.com',
