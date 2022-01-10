@@ -1,5 +1,5 @@
 {
-  "serviceNameText": "Courts and tribunal hearing information",
+  "serviceNameText": "Court and tribunal hearings",
   "signInText": "Sign in",
   "signOutText": "Sign out",
   "help": "Help",
@@ -10,10 +10,9 @@
   "contact": "Contact",
   "tc": "Terms and conditions",
   "navLinks": {
-    "link1": "Account home",
-    "link2": "Court or tribunal publications",
-    "link3": "Live hearing updates",
-    "link4": "Single Justice Procedure",
-    "link5": "Subscriptions"
+    "link1": "Home",
+    "link2": "Sign in",
+    "link3": "Sign out",
+    "link4": "Subscriptions"
   }
 }
