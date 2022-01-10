@@ -8,7 +8,7 @@
   "header": "How do you want to add a subscription?",
   "insetText": "This service displays information about published lists only. Searches can only be performed against information contained within published lists.",
   "radio1": "By case reference number",
-  "radio2": "By unique reference number",
+  "radio2": "By unique reference number (URN)",
   "radio3": "By case name",
   "radio4": "By court or tribunal",
   "related": "Related content",
