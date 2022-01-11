@@ -126,6 +126,7 @@
     "merge": "^2.1.1",
     "normalize-url": "^6.1.0",
     "serialize-javascript": ">=2.1.1",
-    "trim-newlines": "^4.0.2"
+    "trim-newlines": "^4.0.2",
+    "**/**/lodash": "^4.17.12"
   }
 }
