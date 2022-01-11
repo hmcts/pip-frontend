@@ -40,7 +40,7 @@ function oidcSetup(): void {
     responseType: authenticationConfig.RESPONSE_TYPE,
     responseMode: authenticationConfig.RESPONSE_MODE,
     policy: authenticationConfig.POLICY,
-    redirectUrl: FRONTEND_URL + 'login/return',
+    redirectUrl: FRONTEND_URL + '/login/return',
     allowHttpForRedirectUrl: true,
     clientSecret: process.env.CLIENT_SECRET,
     isB2C: true,
