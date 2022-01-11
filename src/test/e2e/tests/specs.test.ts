@@ -1,24 +1,22 @@
-import { HomePage } from '../PageObjects/Home.page';
-import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
-import { HearingListPage } from '../PageObjects/HearingList.page';
-import { SearchPage } from '../PageObjects/Search.page';
-import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
-import { ViewOptionPage } from '../PageObjects/ViewOption.page';
-import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
-import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
-import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
-import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
-import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
-import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
-import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
-import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
-import { MockSessionPage } from '../PageObjects/MockSession.page';
-import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
-import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
-import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
-import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
-import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
-import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
+import { HomePage } from '../pageobjects/Home.page';
+import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
+import { HearingListPage } from '../pageobjects/HearingList.page';
+import { SearchPage } from '../pageobjects/Search.page';
+import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
+import { ViewOptionPage } from '../pageobjects/ViewOption.page';
+import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
+import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
+import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
+import { CaseNameSearchPage } from '../pageobjects/CaseNameSearch.page';
+import { CaseNameSearchResultsPage } from '../pageobjects/CaseNameSearchResults.page';
+import { SubscriptionUrnSearchResultsPage } from '../pageobjects/SubscriptionUrnSearchResults.page';
+import { SubscriptionUrnSearchPage } from '../pageobjects/SubscriptionUrnSearch.page';
+import { CourtNameSearchPage } from '../pageobjects/CourtNameSearch.page';
+import { MockSessionPage } from '../pageobjects/MockSession.page';
+import { SingleJusticeProcedurePage } from '../pageobjects/SingleJusticeProcedure.page';
+import { CaseEventGlossaryPage } from '../pageobjects/CaseEventGlossary.page';
+import { CaseReferenceNumberSearchPage } from '../pageobjects/CaseReferenceNumberSearch.page';
+import { CaseReferenceNumberSearchResultsPage } from '../pageobjects/CaseReferenceNumberSearchResults.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -39,8 +37,6 @@ let caseReferenceNumberSearchPage: CaseReferenceNumberSearchPage;
 let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
 let courtNameSearchPage: CourtNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
-let pendingSubscriptionsPage: PendingSubscriptionsPage;
-let subscriptionsConfirmedPage: SubscriptionConfirmedPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -158,8 +154,6 @@ describe('Unverified user', () => {
 });
 
 describe('Verified user', () => {
-  const pendingSubscriptionsTitle = 'Confirm your subscriptions';
-
   describe('sign in process', async () => {
     it('should open Session Mock Page to authenticate user', async () => {
       await mockSessionPage.open('/mock-session');
@@ -207,11 +201,6 @@ describe('Verified user', () => {
       it(`should display ${expectedNumOfResults} results`, async() => {
         expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
       });
-
-      it('should go to pending subscription page', async () => {
-        pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
-        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual(pendingSubscriptionsTitle);
-      });
     });
 
     describe('following the case name path', async () => {
@@ -236,12 +225,6 @@ describe('Verified user', () => {
 
       it(`should display ${casesCount} results`, async () => {
         expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
-      });
-
-      it('should select a record and click continue to pending subscriptions', async () => {
-        await caseNameSearchResultsPage.tickResultCheckbox();
-        pendingSubscriptionsPage = await caseNameSearchResultsPage.clickContinue();
-        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual(pendingSubscriptionsTitle);
       });
     });
 
@@ -276,52 +259,6 @@ describe('Verified user', () => {
       it(`should display ${tribunalCourts} results (Tribunal) filter`, async() => {
         expect(await courtNameSearchPage.getResults()).toBe(tribunalCourts);
       });
-
-      it('should select court', async () => {
-        expect(await courtNameSearchPage.tickCourtCheckbox()).toBeTruthy();
-      });
-
-      it('it should click continue and navigate to the pending subscriptions page',  async() => {
-        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
-        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual(pendingSubscriptionsTitle);
-      });
-    });
-
-    describe('following the subscription \'search\' by case reference path', () => {
-      const validSearchTerm = 'T485913';
-      const invalidSearchTerm = 'dddd';
-      const expectedNumOfResults = 1;
-
-      before(async () => {
-        await subscriptionAddPage.open('subscription-add');
-      });
-
-      it('should select \'By case reference number\' option and navigate to search case number page', async () => {
-        await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
-        caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
-        expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
-      });
-
-      it('should enter invalid text and click continue', async () => {
-        await caseReferenceNumberSearchPage.enterText(invalidSearchTerm);
-        await caseReferenceNumberSearchPage.clickContinue();
-        expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
-      });
-
-      it('should enter text and click continue', async () => {
-        await caseReferenceNumberSearchPage.enterText(validSearchTerm);
-        caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
-        expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
-      });
-
-      it(`should display ${expectedNumOfResults} results`, async () => {
-        expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
-      });
-
-      it('should continue to pending subscriptions page', async () => {
-        pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
-        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual(pendingSubscriptionsTitle);
-      });
     });
   });
 
@@ -335,15 +272,28 @@ describe('Verified user', () => {
     });
   });
 
-  describe('add pending subscriptions', async () => {
+  describe('Following the subscription \'search\' by case reference path', () => {
+    const validSearchTerm = 'T485913';
+    const expectedNumOfResults = 1;
+
     before(async () => {
-      await pendingSubscriptionsPage.open('pending-subscriptions');
+      await subscriptionAddPage.open('subscription-add');
     });
 
-    it('should click confirm subscriptions and display sucess page', async () => {
-      subscriptionsConfirmedPage = await pendingSubscriptionsPage.clickContinue();
-      expect(await subscriptionsConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
-      expect(await subscriptionsConfirmedPage.getPanelBody()).toEqual('Your subscription has been successful.');
+    it('should select \'By case reference number\' option and navigate to search case number page', async () => {
+      await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
+      caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
+      expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
+    });
+
+    it('should enter text and click continue', async () => {
+      await caseReferenceNumberSearchPage.enterText(validSearchTerm);
+      caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
+      expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
+    });
+
+    it(`should display ${expectedNumOfResults} results`, async () => {
+      expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
     });
   });
 });
