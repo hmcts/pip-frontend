@@ -13,7 +13,6 @@ module.exports = {
         "quotes": ["error", "single"],
         "comma-dangle": ["error", "always-multiline"],
         "semi": ["error", "always"],
-        "no-multiple-empty-lines": ["error", {"max": 1}]
       },
       "overrides": [
         {
