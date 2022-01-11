@@ -63,6 +63,7 @@ export default function(app: Application): void {
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
   app.get('/otp-template', cors(corsOptions), app.locals.container.cradle.otpTemplateController.get);
+  app.get('/login/return', cors(corsOptions), app.locals.container.cradle.loginReturnController.get);
   app.get('/search', app.locals.container.cradle.searchController.get);
   app.post('/search', app.locals.container.cradle.searchController.post);
   app.get('/single-justice-procedure', app.locals.container.cradle.singleJusticeProcedureController.get);
