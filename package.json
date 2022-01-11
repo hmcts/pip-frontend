@@ -122,8 +122,10 @@
   },
   "resolutions": {
     "glob-parent": "^5.1.2",
+    "json-schema": ">=0.4.0",
     "minimist": "^1.2.5",
     "merge": "^2.1.1",
+    "node-forge": ">=1.0.0",
     "normalize-url": "^6.1.0",
     "serialize-javascript": ">=2.1.1",
     "trim-newlines": "^4.0.2"
