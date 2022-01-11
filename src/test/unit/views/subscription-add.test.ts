@@ -73,7 +73,7 @@ describe('Subscription add Page initial load', () => {
 
   it('should display first radio button content',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[0].innerHTML).contains(expectedRadioLabel1, 'Could not find the radio button with label ' + expectedRadioLabel1);
+    expect(radioButtons[3].innerHTML).contains(expectedRadioLabel1, 'Could not find the radio button with label ' + expectedRadioLabel1);
   });
 
   it('should display second radio button content',  () => {
@@ -88,7 +88,7 @@ describe('Subscription add Page initial load', () => {
 
   it('should display fourth radio button content',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[3].innerHTML).contains(expectedRadioLabel4, 'Could not find the radio button with label ' + expectedRadioLabel2);
+    expect(radioButtons[0].innerHTML).contains(expectedRadioLabel4, 'Could not find the radio button with label ' + expectedRadioLabel2);
   });
 
   it('should display related content header',  () => {

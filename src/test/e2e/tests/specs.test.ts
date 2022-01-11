@@ -274,7 +274,6 @@ describe('Verified user', () => {
 
   describe('Following the subscription \'search\' by case reference path', () => {
     const validSearchTerm = 'T485913';
-    const invalidSearchTerm = 'dddd';
     const expectedNumOfResults = 1;
 
     before(async () => {
@@ -284,12 +283,6 @@ describe('Verified user', () => {
     it('should select \'By case reference number\' option and navigate to search case number page', async () => {
       await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
       caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
-      expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
-    });
-
-    it('should enter invalid text and click continue', async () => {
-      await caseReferenceNumberSearchPage.enterText(invalidSearchTerm);
-      await caseReferenceNumberSearchPage.clickContinue();
       expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
     });
 
