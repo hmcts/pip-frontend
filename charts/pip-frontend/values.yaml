@@ -22,4 +22,4 @@ nodejs:
           alias: REDIS_PORT
       environment:
         SECRETS_DIRECTORY: /mnt/secrets/pip-shared-kv
-    aadIdentityName: pip
+  aadIdentityName: pip
