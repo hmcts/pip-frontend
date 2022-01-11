@@ -34,12 +34,12 @@ getSubscriptionsStub.withArgs('1', 'cases').resolves([mockCase]);
 getSubscriptionsStub.withArgs('1', 'courts').resolves([mockCourt]);
 getSubscriptionsStub.withArgs('2', 'cases').resolves([]);
 getSubscriptionsStub.withArgs('2', 'courts').resolves([]);
+sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Pending Subscriptions Page', () => {
   describe('user with subscriptions', () => {
     beforeAll(async () => {
       app.request['user'] = {id: '1'};
-      sinon.stub(expressRequest, 'isAuthenticated').returns(true);
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       });
@@ -105,7 +105,6 @@ describe('Pending Subscriptions Page', () => {
   describe('user without subscriptions', () => {
     beforeAll(async () => {
       app.request['user'] = {id: '2'};
-      sinon.stub(expressRequest, 'isAuthenticated').returns(true);
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       });
