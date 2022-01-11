@@ -40,14 +40,6 @@ export default function(app: Application): void {
     res.redirect('/');
   }
 
-  function regenerateSession(req, res): void {
-    const prevSession = req.session;
-    req.session.regenerate(() => {  // Compliant
-      Object.assign(req.session, prevSession);
-      res.redirect('/subscription-management');
-    });
-  }
-
   // Public paths
   app.get('/*', globalAuthGiver);
   app.post('/*', globalAuthGiver);
@@ -56,8 +48,8 @@ export default function(app: Application): void {
   app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
   app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
-  app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
-  app.post('/login/return',passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
+  app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), (req, res) => {res.redirect(redirectUrl);});
+  app.post('/login/return',passport.authenticate(authType, { failureRedirect: '/'}), (req, res) => {res.redirect(redirectUrl);});
   app.get('/logout', logOut);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
@@ -100,7 +92,7 @@ export default function(app: Application): void {
   // TODO: expose route only if not on the production environment
   app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
   /* istanbul ignore next */
-  app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
+  app.post('/mock-login', passport.authenticate('mockaroo', { failureRedirect: '/not-found'}),
     (req, res) => {res.redirect(redirectUrl);});
 
   //TODO: To be deleted/modified post UAT with suitable solution

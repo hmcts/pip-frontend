@@ -24,7 +24,7 @@ describe('Authentication', () => {
     expect(passport._deserializers).length(1);
     expect(passport._strategies).to.have.property('azuread-openidconnect');
     expect(passport._strategies['azuread-openidconnect']._options.redirectUrl)
-      .to.eql('https://localhost:8080/login/return');
+      .to.equals('https://localhost:8080/login/return');
 
   });
 
@@ -36,7 +36,7 @@ describe('Authentication', () => {
     expect(passport._deserializers).length(1);
     expect(passport._strategies).to.have.property('azuread-openidconnect');
     expect(passport._strategies['azuread-openidconnect']._options.redirectUrl)
-      .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/return');
+      .to.equals('https://pip-frontend.staging.platform.hmcts.net/login/return');
   });
 
   it('Should set up passport correctly for mock authentication', () => {
