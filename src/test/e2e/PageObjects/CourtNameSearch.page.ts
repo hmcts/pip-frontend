@@ -1,4 +1,5 @@
 import { CommonPage } from './Common.page';
+import { PendingSubscriptionsPage } from './PendingSubscriptions.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -29,12 +30,22 @@ export class CourtNameSearchPage extends CommonPage{
     return new CourtNameSearchPage();
   }
 
-  async clickClearFiltersButton(): Promise<CourtNameSearchPage> {
-    await $(helpers.ClearFiltersLink).catch(() => {
-      console.log(`${helpers.ClearFiltersLink} not found`);
+  async tickCourtCheckbox(): Promise<boolean> {
+    $(helpers.TribunalCourtCheckbox).catch(() => {
+      console.log(`${helpers.TribunalCourtCheckbox} checkbox not found`);
     });
 
-    await $(helpers.ClearFiltersLink).click();
-    return new CourtNameSearchPage();
+    await $(helpers.TribunalCourtCheckbox).click();
+    return $(helpers.TribunalCourtCheckbox).isSelected();
+  }
+
+  async clickContinue(): Promise<PendingSubscriptionsPage> {
+    $(helpers.CourtNameSearchContinueButton).catch(() => {
+      console.log(`${helpers.CourtNameSearchContinueButton} not found`);
+    });
+
+    const button = await $(helpers.CourtNameSearchContinueButton);
+    await button.click();
+    return new PendingSubscriptionsPage();
   }
 }

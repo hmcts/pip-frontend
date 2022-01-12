@@ -7,7 +7,6 @@ import {CourtService} from '../../../main/service/courtService';
 import {mockRequest} from '../mocks/mockRequest';
 import {FilterService} from '../../../main/service/filterService';
 
-
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawData);
 const alphabeticalSearchController = new AlphabeticalSearchController();

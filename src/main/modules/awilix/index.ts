@@ -11,7 +11,6 @@ export class Container {
   public enableFor(app: Application): void {
     const jsonObject = {};
 
-
     const files = fs.readdirSync(path.join(__dirname, '../../controllers'));
     files.forEach((f) => {
 

@@ -157,7 +157,6 @@ describe('Search Controller', () => {
     const request = mockRequest(i18n);
     request.body = {'input-autocomplete': 'Valid Court'};
 
-
     const responseMock = sinon.mock(response);
 
     responseMock.expects('redirect').once().withArgs('list-option?courtId=1');
