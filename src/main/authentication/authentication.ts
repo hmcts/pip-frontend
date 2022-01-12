@@ -43,7 +43,7 @@ function oidcSetup(): void {
     redirectUrl: FRONTEND_URL + '/login/return',
     allowHttpForRedirectUrl: true,
     clientSecret: process.env.CLIENT_SECRET,
-    isB2C: true
+    isB2C: true,
   },
   function(iss, sub, profile, accessToken, refreshToken, done) {
     findByOid(profile.oid, function(user) {
