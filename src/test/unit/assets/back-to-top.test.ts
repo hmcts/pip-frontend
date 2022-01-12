@@ -61,9 +61,7 @@ describe('Testing back to top button', () => {
     expect(mockElement.classList.length).toEqual(1);
   });
 
-
   it('should call the observe function, when the footer exists and the InteractionObserver is enabled', async () => {
-
     const mockElement = document.createElement('div');
 
     const mockFooter = document.createElement('footer');

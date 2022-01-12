@@ -25,3 +25,4 @@ nodejs:
       environment:
         SECRETS_DIRECTORY: /mnt/secrets/pip-ss-kv
   aadIdentityName: pip
+

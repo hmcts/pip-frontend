@@ -6,7 +6,6 @@ import path from 'path';
 import {CaseEventGlossaryService} from '../../../main/service/caseEventGlossaryService';
 import {mockRequest} from '../mocks/mockRequest';
 
-
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/CaseEventGlossary.json'), 'utf-8');
 const caseEventGlossaryData = JSON.parse(rawData);
 const caseEventGlossaryController = new CaseEventGlossaryController();
