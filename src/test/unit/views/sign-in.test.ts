@@ -10,10 +10,9 @@ const radioClass = 'govuk-radios__item';
 
 const expectedHeader = 'How do you want to sign in?';
 const expectedButtonText = 'Continue';
-const expectedRadioLabel1 = 'Sign in with My HMCTS';
-const expectedRadioLabel2 = 'Sign in with Common Platform';
-const expectedRadioLabel3 = 'Sign in with my P&amp;I details';
-const expectedRadioLabel4 = 'You have signed in before but you\'re not sure which account you used';
+const expectedRadioLabel1 = 'With My HMCTS account';
+const expectedRadioLabel2 = 'With Common Platform account';
+const expectedRadioLabel3 = 'With a Court and tribunal hearings account';
 
 let htmlRes: Document;
 describe('Sign In option Page', () => {
@@ -33,9 +32,9 @@ describe('Sign In option Page', () => {
     expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
   });
 
-  it('should display 4 radio buttons', () => {
+  it('should display 3 radio buttons', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons.length).equal(4, '4 radio buttons not found');
+    expect(radioButtons.length).equal(3, '3 radio buttons not found');
   });
 
   it('should display first radio button content',  () => {
@@ -51,11 +50,6 @@ describe('Sign In option Page', () => {
   it('should display third radio button content',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons[2].innerHTML).contains(expectedRadioLabel3, 'Could not find the radio button with label ' + expectedRadioLabel2);
-  });
-
-  it('should display fourth radio button content',  () => {
-    const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[3].innerHTML).contains(expectedRadioLabel4, 'Could not find the radio button with label ' + expectedRadioLabel2);
   });
 
 });

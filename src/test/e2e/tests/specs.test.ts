@@ -162,8 +162,8 @@ describe('Unverified user', () => {
       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
     });
 
-    it('should see 4 radio buttons', async () => {
-      expect(await signInPage.radioButtons).toBe(4);
+    it('should see 3 radio buttons', async () => {
+      expect(await signInPage.radioButtons).toBe(3);
     });
 
     describe('sign in page routing', async () => {
@@ -184,11 +184,6 @@ describe('Unverified user', () => {
         expect(await signInPage.clickContinueForRadio3()).toHaveHref(returnUrl);
       });
 
-      it('should select \'You have signed in before but you\'re not sure which account you used\' option and navigate to the not sure page', async () => {
-        await signInPage.open('sign-in');
-        await signInPage.selectOption('Radio4');
-        expect(await signInPage.clickContinueForRadio4()).toHaveHref(returnUrl);
-      });
 
     });
   });

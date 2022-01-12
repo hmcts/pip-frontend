@@ -20,10 +20,6 @@ export default class SignInController {
         res.redirect('https://www.google.com');
         break;
       }
-      case 'notsure': {
-        res.redirect('https://www.google.com');
-        break;
-      }
       default: {
         res.redirect('/sign-in');
       }
