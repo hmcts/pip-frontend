@@ -6,7 +6,7 @@ const PAGE_URL = '/view-option';
 let htmlRes;
 const NON_SIGNED_IN_LINKS = {
   Home: 'view-option',
-  'Sign in': '/sign-in',
+  'Sign in': 'https://hmcts-sjp.herokuapp.com/sign-in.html',
 };
 const SIGNED_IN_LINKS = {
   Home: 'https://hmcts-sjp.herokuapp.com/account.html',
