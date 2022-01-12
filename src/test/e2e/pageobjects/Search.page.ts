@@ -1,6 +1,6 @@
-import {HearingListPage} from './HearingList.page';
+import { HearingListPage } from './HearingList.page';
 import { CommonPage } from './Common.page';
-import {AlphabeticalSearchPage} from './AlphabeticalSearch.page';
+import { AlphabeticalSearchPage } from './AlphabeticalSearch.page';
 
 const helpers = require('../Helpers/Selectors');
 

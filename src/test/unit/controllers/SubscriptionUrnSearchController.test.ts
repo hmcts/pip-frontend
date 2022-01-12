@@ -11,7 +11,6 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionLi
 const subscriptionResult = JSON.parse(rawData);
 const stub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionUrnDetails');
 
-
 describe('Subscription Urn Search Controller', () => {
   let i18n = {};
   it('should render the search page', () => {
@@ -41,7 +40,6 @@ describe('Subscription Urn Search Controller', () => {
 
   });
 
-
   it('should render urn search page if there are no matching results', () => {
 
     stub.withArgs('12345678').returns(null);
@@ -60,9 +58,6 @@ describe('Subscription Urn Search Controller', () => {
   });
 
   it('should render urn search page if input is less than three characters long', () => {
-
-
-
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     request.body = { 'search-input': '12'};
@@ -76,9 +71,7 @@ describe('Subscription Urn Search Controller', () => {
     });
   });
 
-
   it('should render urn search page if input is three characters long and partially correct', () => {
-
     stub.withArgs('1234').returns(null);
 
     const response = { render: function() {return '';}} as unknown as Response;

@@ -19,9 +19,9 @@ export class HearingRequests {
     return [];
   }
 
-  public async getHearingByCaseReferenceNumber(caseReferenceNo: string): Promise<Hearing[]> {
+  public async getHearingByCaseNumber(caseNumber: string): Promise<Hearing> {
     try {
-      const response = await dataManagementApi.get(`/hearings/case-number/${caseReferenceNo}`);
+      const response = await dataManagementApi.get(`/hearings/case-number/${caseNumber}`);
       return response.data;
     } catch (error) {
       if (error.response) {

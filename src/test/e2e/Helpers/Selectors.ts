@@ -1,6 +1,7 @@
 module.exports = {
   // Common selectors
   ContinueButton: '.govuk-button',
+  CommonPageTitleXl: '.govuk-heading-xl',
   CommonPageTitle: '.govuk-heading-l',
   CommonPageTitleM: '.govuk-heading-m',
   SignInButton: '#signInButton',
@@ -77,16 +78,22 @@ module.exports = {
   CaseNameSearchErrorSummaryTitle: '.govuk-error-summary__title',
 
   // CaseNameSearchResults selectors
-  CaseNameSearchResultsCheckbox: 'tbody > tr.govuk-table__row > td > .govuk-checkboxes__input',
+  CaseNameSearchResultsCheckbox: 'tbody > tr.govuk-table__row > td > .govuk-checkboxes__item > .govuk-checkboxes__input',
   CaseNameSearchResultsHeaderCheckbox: 'thead > tr.govuk-table__row > th > .govuk-checkboxes__input',
 
   // CourtNameSearch selectors
   JurisdictionCheckbox: '#Jurisdiction',
   ApplyFiltersButton: '.moj-filter__options > .govuk-button',
   ClearFiltersLink: '.moj-filter__heading-action > p > a',
+  CourtNameSearchContinueButton: '.moj-action-bar > .govuk-button',
+  TribunalCourtCheckbox: '.govuk-table__body > tr > .govuk-table__cell > .govuk-checkboxes__item > .govuk-checkboxes__input',
 
   // MockSession selectors
   UsernameInput: '#username',
   UserIdInput: '#id',
   UserType: '#userType',
+
+  // SubscriptionConfirmed selectors
+  PanelTitle: 'h1.govuk-panel__title',
+  PanelBody: '.govuk-panel__body',
 };
