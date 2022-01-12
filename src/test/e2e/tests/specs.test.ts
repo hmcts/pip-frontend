@@ -224,7 +224,7 @@ describe('Verified user', () => {
       it('should select \'By unique reference number\' option and navigate to search urn page', async () => {
         await subscriptionAddPage.selectOption('SubscriptionAddByUniqueRefNumber');
         subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
-        expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+        expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number (URN)');
       });
 
       it('should enter text and click continue', async () => {
