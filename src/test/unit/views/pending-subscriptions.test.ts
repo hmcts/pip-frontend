@@ -110,12 +110,6 @@ describe('Pending Subscriptions Page', () => {
       });
     });
 
-    it('should contain disabled confirm subscriptions button', () => {
-      const button = htmlRes.getElementsByClassName('govuk-button')[0];
-      expect(button.innerHTML).contains('Confirm Subscriptions', 'Could not find submit button');
-      expect(button.getAttribute('disabled')).contains('disabled');
-    });
-
     it('should not contain any case table rows', () => {
       const rows = htmlRes.getElementsByClassName('govuk-table__body')[0].getElementsByClassName('govuk-table__row');
       expect(rows.length).equal(0, 'Case table did not contain expected number of rows');
