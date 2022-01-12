@@ -163,5 +163,8 @@
         const checkedBoxes = document.querySelectorAll('input[name="court-selections[]"]:checked').length;
         document.getElementById('selectionCount').innerText = checkedBoxes.toString();
       }
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
     </script>
 {% endblock %}
