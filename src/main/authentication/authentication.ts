@@ -1,7 +1,6 @@
 import process from 'process';
 import passportCustom from 'passport-custom';
 
-import config = require('config');
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
 const authenticationConfig = require('./authentication-config.json');
@@ -43,7 +42,7 @@ function oidcSetup(): void {
     policy: authenticationConfig.POLICY,
     redirectUrl: FRONTEND_URL + '/login/return',
     allowHttpForRedirectUrl: true,
-    clientSecret: config.get('secrets.pip-ss-kv.CLIENT_SECRET'),
+    clientSecret: process.env.CLIENT_SECRET,
     isB2C: true,
   },
   function(iss, sub, profile, accessToken, refreshToken, done) {
