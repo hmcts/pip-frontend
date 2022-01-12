@@ -9,14 +9,14 @@ import {mockRequest} from '../mocks/mockRequest';
 const subscriptionSearchUrnResultController = new SubscriptionUrnSearchResultController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
-sinon.stub(SubscriptionService.prototype, 'getSubscriptionUrnDetails').returns(subscriptionsData);
+sinon.stub(SubscriptionService.prototype, 'getSubscriptionUrnDetails').withArgs('123456789').returns(subscriptionsData);
 
 describe('Subscription Urn Search Result Controller', () => {
   let i18n = {};
-  it('should render the search page', () => {
+  it('should render the search result page', () => {
 
     i18n = {
-      'subscription-urn-search': {},
+      'subscription-urn-search-results': {},
     };
 
     const response = {
@@ -29,8 +29,7 @@ describe('Subscription Urn Search Result Controller', () => {
     const responseMock = sinon.mock(response);
 
     const expectedData = {
-      ...i18n['subscription-urn-search-results'],
-      searchInput : '123456789',
+      ...i18n['pending-subscriptions'],
       searchResults: subscriptionsData,
     };
 
@@ -40,4 +39,5 @@ describe('Subscription Urn Search Result Controller', () => {
       responseMock.verify();
     });
   });
+
 });

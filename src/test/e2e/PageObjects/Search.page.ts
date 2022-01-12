@@ -1,9 +1,10 @@
-import {SubscriptionUrnSearchResultsPage} from './SubscriptionUrnSearchResults.page';
+import { HearingListPage } from './HearingList.page';
 import { CommonPage } from './Common.page';
+import { AlphabeticalSearchPage } from './AlphabeticalSearch.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class SubscriptionUrnSearchPage extends CommonPage {
+export class SearchPage extends CommonPage {
   async getPageTitle(): Promise<string> {
     $(helpers.SearchTitle).catch(() => {
       console.log(`${helpers.SearchTitle} not found`);
@@ -22,13 +23,24 @@ export class SubscriptionUrnSearchPage extends CommonPage {
     await browser.keys('Escape');
   }
 
-  async clickContinue(): Promise<SubscriptionUrnSearchResultsPage> {
+  async clickContinue(): Promise<HearingListPage> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
 
     const button = await $(helpers.ContinueButton);
     button.click();
-    return new SubscriptionUrnSearchResultsPage();
+    return new HearingListPage();
   }
+
+  async clickAToZCourtsLink(): Promise<AlphabeticalSearchPage> {
+    $(helpers.SearchAToZLink).catch(() => {
+      console.log(`${helpers.SearchAToZLink} not found`);
+    });
+
+    const button = await $(helpers.SearchAToZLink);
+    button.click();
+    return new AlphabeticalSearchPage();
+  }
+
 }
