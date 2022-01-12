@@ -6,6 +6,8 @@ nodejs:
     pip-ss-kv:
       resourceGroup: pip-ss-{{ .Values.global.environment }}-rg
       secrets:
+        - name: session-key
+          alias: SESSION_SECRET
         - name: otp-app-pip-frontend-id
           alias: CLIENT_ID
         - name: otp-app-pip-frontend-pwd
@@ -20,4 +22,6 @@ nodejs:
           alias: REDIS_PASSWORD
         - name: REDIS-PORT
           alias: REDIS_PORT
+      environment:
+        SECRETS_DIRECTORY: /mnt/secrets/pip-shared-kv
   aadIdentityName: pip
