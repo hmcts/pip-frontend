@@ -11,7 +11,6 @@
 {% endblock %}
 
 {% block content %}
-  {% set buttonDisable = true if (pendingSubscriptions.cases | length == 0) and (pendingSubscriptions.courts | length == 0) else false %}
   <h1 class="govuk-heading-l">{{ header }}</h1>
 <form action="subscription-confirmed"  method="post">
   <table class="govuk-table govuk-!-width-one">
@@ -61,7 +60,7 @@
   {% endif %}
 
   <div class="govuk-!-text-align-left">
-    {{ submitButton(label=buttonText, disable=buttonDisable) }}
+    {{ submitButton(label=buttonText) }}
     <span class="govuk-!-text-align-centre"><a class="govuk-link" href="{{ addOther_link }}">{{ addOther_text }}</a></span>
   </div>
 </form>
