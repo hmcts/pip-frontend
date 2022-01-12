@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { dataManagementApi, subscriptionManagementApi } from './utils/axiosConfig';
-import {CaseSubscription} from '../../models/caseSubscription';
+import { Hearing } from '../../models/hearing';
 
 export class SubscriptionRequests {
   mocksPath = '../mocks/';
@@ -18,7 +18,7 @@ export class SubscriptionRequests {
     }
   }
 
-  public async getSubscriptionByUrn(urnNumber: string): Promise<CaseSubscription> {
+  public async getSubscriptionByUrn(urnNumber: string): Promise<Hearing> {
     try {
       const response = await dataManagementApi.get(`/hearings/urn/${urnNumber}`);
       return response.data;
@@ -48,5 +48,21 @@ export class SubscriptionRequests {
       }
       return null;
     }
+  }
+
+  public async subscribe(payload): Promise<boolean> {
+    try {
+      await subscriptionManagementApi.post('/subscription', payload);
+      return true;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
+      }
+    }
+    return false;
   }
 }
