@@ -9,20 +9,17 @@ module.exports = {
   SearchInput: '#search-input',
 
   // Home selectors
-  StartNowButton: '.govuk-button--start',
-  MainHeader: 'h1.govuk-heading-xl',
+  MainHeader: '.gem-c-title__text',
+  ServiceLink: '#linkToService',
 
   // SearchOptions selectors
   SearchOptionsTitle: 'h1.govuk-fieldset__heading',
   RadioButton: 'div.govuk-radios__item',
 
-  // Search page selectors
-  HaveNameRadio: '#find-choice',
-  DontHaveNameRadio: '#find-choice-2',
-
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
   SearchResultTitle: 'h1.govuk-heading-l',
+  SearchAToZLink: 'a.govuk-link',
 
   // SearchResults selectors
   LinkResult: 'tbody > tr.govuk-table__row > th > a',
@@ -43,8 +40,7 @@ module.exports = {
   // ViewOption page selectors
   ViewOptionsTitle: 'h1.govuk-fieldset__heading',
   CourtOrTribunalRadioButton: '#view-choice',
-  LiveHearingsRadioButton: '#view-choice-2',
-  SingleJusticeProcedureRadioButton: '#view-choice-3',
+  SingleJusticeProcedureRadioButton: '#view-choice-2',
 
   //SubscriptionAdd selectors
   SubscriptionAddTitle: 'h1.govuk-fieldset__heading',

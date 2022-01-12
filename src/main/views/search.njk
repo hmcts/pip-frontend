@@ -46,11 +46,16 @@
                 {% if noResultsError or invalidInputError %}
                     <span class="govuk-error-message">{{ spanText }}</span>
                 {% endif %}
-                <div class="{{ inputClasses }}" id="search-input-container"></div>
+                <div class="{{ inputClasses }} search-input-name" id="search-input-container"></div>
             </div>
-
         </div>
         {{ submitButton() }}
+        <div class="govuk-grid-row govuk-!-margin-bottom-2">
+          <div class="no_padding govuk-grid-column-full">
+            <p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ allCourtAndTribunalsText }}</p>
+            <a href="/alphabetical-search" class="govuk-link">{{ allCourtAndTribunalsLinkText }}</a>
+          </div>
+        </div>
         {% if noResultsError %}
         <div class="govuk-grid-row">
             <div class="no_padding govuk-grid-column-full">

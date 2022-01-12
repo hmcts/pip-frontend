@@ -343,6 +343,15 @@ div {
   }
 }
 
+.govuk-input--error {
+  .autocomplete__input {
+    &:not(.autocomplete__input--focused) {
+      // Important is required due javascript overriding this as it is loaded after css rendering
+      border: solid 2px $govuk-error-colour !important; // sass-lint:disable-line no-important
+    }
+  }
+}
+
 .cards-wrapper {
   display: flex;
   flex-direction: row;
@@ -367,3 +376,8 @@ div {
     padding: 0 1em;
   }
 }
+
+.search-input-name {
+  border: 0;
+}
+
