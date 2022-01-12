@@ -4,10 +4,10 @@ const helpers = require('../Helpers/Selectors');
 
 export class CourtNameSearchPage extends CommonPage{
   async getResults(): Promise<number> {
-    $(helpers.Results).catch(() => {
-      console.log(`${helpers.Results} not found`);
+    $(helpers.CourtTableResults).catch(() => {
+      console.log(`${helpers.CourtTableResults} not found`);
     });
-    const results = $$(helpers.Results);
+    const results = $$(helpers.CourtTableResults);
     return results.length;
   }
 

@@ -74,6 +74,7 @@ module.exports = {
   JurisdictionCheckbox: '#Jurisdiction',
   ApplyFiltersButton: '.moj-filter__options > .govuk-button',
   ClearFiltersLink: '.moj-filter__heading-action > p > a',
+  CourtTableResults: 'tbody:nth-child(2) > tr.govuk-table__row',
 
   // MockSession selectors
   UsernameInput: '#username',
