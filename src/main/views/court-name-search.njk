@@ -111,8 +111,34 @@
             </form>
             <table class="govuk-table">
                 <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header" colspan="3">National lists</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row sjp-row">
+                        <th scope="row" class="govuk-table__header">
+                        </th>
+                        <td class="govuk-table__cell">
+                            <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
+                                <input type="checkbox" class="govuk-checkboxes__input"
+                                       id="0"
+                                       value="0" name="court-selections[]"
+                                       onclick="calculateChecked()">
+                                <label class="govuk-label govuk-checkboxes__label"
+                                       for="0">
+                                    <span class="govuk-visually-hidden">Select Single Justice Procedure cases</span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header">Singe Justice Procedure cases</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header" colspan="3">{{ tableHeader }}</th>
+                    <th scope="col" class="govuk-table__header" colspan="3">Courts and tribunals in England and Wales</th>
                 </tr>
                 </thead>
                 <tbody class="govuk-table__body">

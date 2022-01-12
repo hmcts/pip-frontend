@@ -377,6 +377,20 @@ div {
   }
 }
 
+.sjp-row {
+  th {
+    &:first-child {
+      width: 33px;
+    }
+  }
+
+  td {
+    &:nth-child(2) {
+      width: 16px;
+    }
+  }
+}
+
 .search-input-name {
   border: 0;
 }
