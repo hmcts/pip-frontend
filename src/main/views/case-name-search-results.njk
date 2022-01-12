@@ -29,7 +29,10 @@
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
                             <input type="checkbox" class="govuk-checkboxes__input" id="{{ result.hearingId }}"
-                                   value="{{ result.caseNumber }}" name="hearing-selections[]">
+                                   value="{{ result.caseNumber }}"
+                                   name="hearing-selections[]"
+                                   onclick="countChecked()"
+                            >
                             <label class="govuk-label govuk-checkboxes__label" for="{{ result.hearingId }}">
                                 <span class="govuk-visually-hidden">{{ select }} {{ result.caseName }}</span>
                             </label>
@@ -51,5 +54,19 @@
       if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
       }
+      const continueButton = document.getElementsByClassName('govuk-button')[0];
+      const checked = document.querySelectorAll('input[name="hearing-selections[]"]:checked');
+      if (checked.length === 0) {
+        continueButton.setAttribute('disabled', 'disabled');
+      }
+      function countChecked() {
+        const checkedBoxes = document.querySelectorAll('input[name="hearing-selections[]"]:checked').length;
+        if (checkedBoxes) {
+          continueButton.removeAttribute('disabled');
+        } else {
+          continueButton.setAttribute('disabled', 'disabled');
+        }
+      }
+      document.getElementById('checkboxes-all').addEventListener('click', countChecked)
     </script>
 {% endblock %}
