@@ -31,7 +31,6 @@ export class SignInPage extends CommonPage {
     return 'https://google.com';
   }
 
-
   async clickContinueForRadio3(): Promise<string> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
