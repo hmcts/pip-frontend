@@ -72,7 +72,6 @@ describe('Subscription Add Controller', () => {
     responseMock.verify();
   });
 
-
   it('should render case name search page if choice is \'name\'', () => {
     const response = { redirect: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);

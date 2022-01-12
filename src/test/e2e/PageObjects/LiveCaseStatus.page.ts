@@ -3,7 +3,7 @@ import { CaseEventGlossaryPage } from './CaseEventGlossary.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class LiveCaseStatusPage extends CommonPage{
+export class LiveCaseStatusPage extends CommonPage {
   async getCourtTitle(): Promise<string> {
     $(helpers.CommonPageTitleM).catch(() => {
       console.log(`${helpers.CommonPageTitleM} not found`);

@@ -1,8 +1,6 @@
 import { expect } from 'chai';
 import request from 'supertest';
-
 import { app } from '../../main/app';
-
 
 describe('Case reference number search result', () => {
   describe('on GET', () => {
