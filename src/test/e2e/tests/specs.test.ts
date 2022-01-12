@@ -168,19 +168,19 @@ describe('Unverified user', () => {
 
     describe('sign in page routing', async () => {
       it('should select \'Sign in with My HMCTS\' option and navigate to the login page HMCTS page', async () => {
-        await signInPage.selectOption('Radio1');
+        await signInPage.selectOption('SignInRadio1');
         expect(await signInPage.clickContinueForRadio1()).toHaveHref(returnUrl);
       });
 
       it('should select \'Sign in with Common Platform\' option and navigate to the login page Common Platform page', async () => {
         await signInPage.open('sign-in');
-        await signInPage.selectOption('Radio2');
+        await signInPage.selectOption('SignInRadio2');
         expect(await signInPage.clickContinueForRadio2()).toHaveHref(returnUrl);
       });
 
       it('should select \'Sign in with my P&I details\' option and navigate to the login page P&I details page', async () => {
         await signInPage.open('sign-in');
-        await signInPage.selectOption('Radio3');
+        await signInPage.selectOption('SignInRadio3');
         expect(await signInPage.clickContinueForRadio3()).toHaveHref(returnUrl);
       });
 

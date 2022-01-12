@@ -22,10 +22,9 @@ module.exports = {
   DontHaveNameRadio: '#find-choice-2',
 
   // Sign-in routing
-  Radio1: '#sign-in',
-  Radio2: '#sign-in-2',
-  Radio3: '#sign-in-3',
-  Radio4: '#sign-in-4',
+  SignInRadio1: '#sign-in',
+  SignInRadio2: '#sign-in-2',
+  SignInRadio3: '#sign-in-3',
 
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',

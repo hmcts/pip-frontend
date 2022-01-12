@@ -1,5 +1,3 @@
-import { AlphabeticalSearchPage } from './AlphabeticalSearch.page';
-import { SearchPage } from './Search.page';
 import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
