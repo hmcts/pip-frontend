@@ -69,7 +69,6 @@ describe('Sign In Option Controller', () => {
     responseMock.verify();
   });
 
-
   it('should render Sign In page if choice is empty', () => {
 
     const response = { redirect: function() {return '';}} as unknown as Response;

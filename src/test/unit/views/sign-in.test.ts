@@ -7,7 +7,6 @@ const PAGE_URL = '/sign-in';
 const headingClass = 'govuk-fieldset__heading';
 const buttonClass = 'govuk-button';
 const radioClass = 'govuk-radios__item';
-
 const expectedHeader = 'How do you want to sign in?';
 const expectedButtonText = 'Continue';
 const expectedRadioLabel = ['With My HMCTS account','With Common Platform account','With a Court and tribunal hearings account'];
