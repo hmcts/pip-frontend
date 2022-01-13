@@ -10,5 +10,9 @@
   },
   "buttonText": "Confirm Subscriptions",
   "addOther_link": "/subscription-add",
-  "addOther_text": "Add another"
+  "addOther_text": "Add another",
+  "error": {
+    "title": "There is a problem",
+    "message": "At least 1 subscription is needed to confirm"
+  }
 }
