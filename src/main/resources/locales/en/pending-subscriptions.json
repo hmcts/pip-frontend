@@ -13,6 +13,6 @@
   "addOther_text": "Add another",
   "error": {
     "title": "There is a problem",
-    "message": "At least 1 subscription is needed to confirm"
+    "message": "At least 1 subscription is needed to confirm."
   }
 }

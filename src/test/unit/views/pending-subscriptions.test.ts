@@ -126,4 +126,20 @@ describe('Pending Subscriptions Page', () => {
       expect(messages[1].innerHTML).equal('No pending court subscriptions');
     });
   });
+
+  describe('user without subscriptions error screen', () => {
+    beforeAll(async () => {
+      app.request['user'] = {id: '2'};
+      await request(app).get(`${PAGE_URL}?no-subscriptions=true`).then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
+    });
+
+    it('should display error summary if user tries to confirm 0 subscriptions', () => {
+      const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list')[0];
+      const errorSummaryTitle = htmlRes.getElementById('error-summary-title');
+      expect(errorSummaryList.innerHTML).contains('At least 1 subscription is needed to confirm.');
+      expect(errorSummaryTitle.innerHTML).contains('There is a problem');
+    });
+  });
 });

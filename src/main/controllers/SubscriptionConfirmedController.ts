@@ -20,6 +20,5 @@ export default class SubscriptionConfirmedController {
     } else {
       res.redirect('pending-subscriptions?no-subscriptions=true');
     }
-
   }
 }
