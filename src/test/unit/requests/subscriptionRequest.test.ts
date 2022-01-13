@@ -12,25 +12,32 @@ const subscriptionActions = new SubscriptionRequests();
 const mockedCaseSubscription = {
   name: 'Wyman Inc Dispute',
   reference: 'T20217010',
+  dateAdded: '1632351600',
 };
 const mockedCourtSubscription = {
   name: 'Mutsu Court',
   dateAdded: '1632351600',
 };
 
-const errorRequest = {
-  request: 'test error',
+const errorResponse = {
+  response: {
+    data: 'test error',
+  },
 };
 const errorMessage = {
   message: 'test',
 };
+const errorRequest = {
+  request: 'test error',
+};
 
-const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
-const subscriptionsData2 = JSON.parse(rawData2);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
+const subscriptionsData = JSON.parse(rawData);
 const stub = sinon.stub(subscriptionManagementApi, 'get');
+const subscriptionManagementStub = sinon.stub(subscriptionManagementApi, 'post');
 
 describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, () => {
-  stub.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves(subscriptionsData2);
+  stub.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves(subscriptionsData);
 
   it('should return user subscription object', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions) as Subscription[];
@@ -90,3 +97,30 @@ describe('getUserSubscriptions error tests', () => {
     expect(userSubscriptions).toBe(null);
   });
 });
+
+describe('subscribe', () => {
+  it('should return true if call is successful', async() => {
+    subscriptionManagementStub.withArgs('/subscription').resolves({});
+    const userSubscriptions = await subscriptionActions.subscribe({});
+    expect(userSubscriptions).toBe(true);
+  });
+
+  it('should return false for failure', async() => {
+    subscriptionManagementStub.withArgs('/subscription').resolves(Promise.reject(errorMessage));
+    const userSubscriptions = await subscriptionActions.subscribe({});
+    expect(userSubscriptions).toBe(false);
+  });
+
+  it('should return false for error request', async() => {
+    subscriptionManagementStub.withArgs('/subscription').resolves(Promise.reject(errorRequest));
+    const userSubscriptions = await subscriptionActions.subscribe({});
+    expect(userSubscriptions).toBe(false);
+  });
+
+  it('should return false for error response', async() => {
+    subscriptionManagementStub.withArgs('/subscription').resolves(Promise.reject(errorResponse));
+    const userSubscriptions = await subscriptionActions.subscribe({});
+    expect(userSubscriptions).toBe(false);
+  });
+});
+

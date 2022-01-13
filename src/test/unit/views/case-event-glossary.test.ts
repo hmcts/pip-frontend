@@ -9,7 +9,6 @@ const PAGE_URL = '/case-event-glossary?courtId=1#1';
 
 let htmlRes: Document;
 
-
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/CaseEventGlossary.json'), 'utf-8');
 const caseEventGlossaryData = JSON.parse(rawData);
 

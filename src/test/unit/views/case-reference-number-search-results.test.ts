@@ -18,7 +18,7 @@ let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData)[0].hearingList[0];
-sinon.stub(HearingService.prototype, 'getHearingByCaseReferenceNumber').returns(subscriptionsData);
+sinon.stub(HearingService.prototype, 'getCaseByNumber').returns(subscriptionsData);
 
 describe('Case Reference Search Results Page', () => {
   beforeAll(async () => {
@@ -48,7 +48,6 @@ describe('Case Reference Search Results Page', () => {
     const tableHeader2 = htmlRes.getElementsByClassName('govuk-table__head');
     expect(tableHeader2[0].innerHTML).contains('Case name', 'Could not find text in second header');
   });
-
 
   it('should contain 2 rows including the header row', () => {
     const rows = htmlRes.getElementsByClassName(rowClass);
