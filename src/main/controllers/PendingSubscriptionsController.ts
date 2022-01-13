@@ -12,7 +12,7 @@ export default class PendingSubscriptionsController {
       courts: await subscriptionService.getPendingSubscriptions(req.user['id'], 'courts'),
     };
 
-    (req.query['no-subscriptions']) ?
+    (req.query?.['no-subscriptions']) ?
       res.render('pending-subscriptions', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['pending-subscriptions']),
         pendingSubscriptions,

@@ -53,6 +53,27 @@ describe('Pending Subscriptions Controller', () => {
           cases: [],
           courts: [],
         },
+        displayError: false,
+      };
+      const responseMock = sinon.mock(response);
+      responseMock.expects('render').once().withArgs('pending-subscriptions', expectedData);
+
+      return pendingSubscriptionController.get(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+
+    it('should render pending subscriptions page with error summary', () => {
+      const request = mockRequest(i18n);
+      request.user = {id: userWithoutSubscriptions};
+      request.query = {'no-subscriptions': 'true'};
+      const expectedData = {
+        ...i18n['pending-subscriptions'],
+        pendingSubscriptions: {
+          cases: [],
+          courts: [],
+        },
+        displayError: true,
       };
       const responseMock = sinon.mock(response);
       responseMock.expects('render').once().withArgs('pending-subscriptions', expectedData);
@@ -71,6 +92,7 @@ describe('Pending Subscriptions Controller', () => {
           cases: [mockCase],
           courts: [mockCourt],
         },
+        displayError: false,
       };
       const responseMock = sinon.mock(response);
       responseMock.expects('render').once().withArgs('pending-subscriptions', expectedData);
