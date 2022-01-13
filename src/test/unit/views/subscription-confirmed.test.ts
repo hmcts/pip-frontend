@@ -1,6 +1,7 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
+import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
 import { SubscriptionService } from '../../../main/service/subscriptionService';
 import request from 'supertest';
 import sinon from 'sinon';
@@ -9,6 +10,9 @@ const PAGE_URL = '/subscription-confirmed';
 let htmlRes: Document;
 sinon.stub(SubscriptionService.prototype, 'subscribe').resolves(true);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+const cacheStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
+cacheStub.withArgs('1', 'cases').resolves(['case']);
+cacheStub.withArgs('1', 'courts').resolves(['court']);
 
 describe('Subscription Confirmed Page', () => {
   beforeAll(async () => {
