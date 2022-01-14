@@ -3,7 +3,7 @@ import { Hearing } from '../../models/hearing';
 import { Subscription } from '../../models/subscription';
 
 export class SubscriptionRequests {
-  public getUserSubscriptions(userId: number): Promise<Subscription[]> {
+  public async getUserSubscriptions(userId: number): Promise<Subscription[]> {
     try {
       const response = await subscriptionManagementApi.get(`/subscription/user/${userId}`);
       return response.data;
