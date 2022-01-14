@@ -19,6 +19,7 @@ import { CaseReferenceNumberSearchPage } from '../pageobjects/CaseReferenceNumbe
 import { CaseReferenceNumberSearchResultsPage } from '../pageobjects/CaseReferenceNumberSearchResults.page';
 import { SignInPage } from '../pageobjects/SignIn.page';
 
+const authConfig = require('../authentication/authentication-config.json');
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -157,6 +158,8 @@ describe('Unverified user', () => {
 
   describe('Sign In Page', () => {
     const returnUrl = 'https://www.google.com';
+    const pAndIRedirectUrl = `${authConfig.AUTHORISATION_ENDPOINT}?p=${authConfig.PI_FLOW_NAME}&client_id=${authConfig.CLIENT_ID}&nonce=defaultNonce&redirect_uri=${authConfig.REDIRECT_URI}&scope=openid&response_type=id_token&prompt=login`;
+
     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
       await signInPage.open('sign-in');
       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
@@ -181,7 +184,7 @@ describe('Unverified user', () => {
       it('should select \'Sign in with my P&I details\' option and navigate to the login page P&I details page', async () => {
         await signInPage.open('sign-in');
         await signInPage.selectOption('SignInRadio3');
-        expect(await signInPage.clickContinueForRadio3()).toHaveHref(returnUrl);
+        expect(await signInPage.clickContinueForRadio3()).toHaveHref(pAndIRedirectUrl);
       });
     });
   });
