@@ -12,21 +12,22 @@ const hearingService = new HearingService();
 const courtService = new CourtService();
 
 export class SubscriptionService {
-  async generateCaseTableRows(userid: number): any[] {
+  async generateCaseTableRows(userid: number): Promise<any[]> {
     const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
     const caseRows = [];
-    if (subscriptionData.caseSubscriptions.length) {
+
+    if (subscriptionData && subscriptionData.caseSubscriptions.length) {
       subscriptionData.caseSubscriptions.forEach((subscription) => {
         caseRows.push(
           [
             {
-              text: subscription.name,
+              text: subscription.caseName,
             },
             {
-              text: subscription.reference,
+              text: subscription.caseNumber,
             },
             {
-              text: moment.unix(subscription.dateAdded).format('D MMM YYYY'),
+              text: moment(subscription.dateAdded).format('MMM Do YYYY'),
             },
             {
               html: '<a href=\'#\'>Unsubscribe</a>',
@@ -39,17 +40,17 @@ export class SubscriptionService {
     return caseRows;
   }
 
-  async generateCourtTableRows(userId: number): any[] {
+  async generateCourtTableRows(userId: number): Promise<any[]> {
     const subscriptionData = await subscriptionRequests.getUserSubscriptions(userId);
     const courtRows = [];
-    if (subscriptionData.courtSubscriptions.length) {
+    if (subscriptionData && subscriptionData.courtSubscriptions.length) {
       subscriptionData.courtSubscriptions.forEach((subscription) => {
         courtRows.push([
           {
-            text: subscription.name,
+            text: subscription.courtName,
           },
           {
-            text: moment.unix(subscription.dateAdded).format('D MMM YYYY'),
+            text: moment(subscription.dateAdded).format('MMM Do YYYY'),
           },
           {
             html: '<a href=\'#\'>Unsubscribe</a>',
@@ -80,7 +81,7 @@ export class SubscriptionService {
           await this.setPendingSubscriptions(caseDetailsList, 'cases', user.id);
           break;
         case 'urn':
-          urnHearing = await subscriptionRequests.getSubscriptionByUrn(pendingSubscription[`${selectionName}`]);
+          urnHearing = await hearingService.getCaseByURN(pendingSubscription[`${selectionName}`]);
           if (urnHearing) {
             urnHearing.urnSearch = true;
             await this.setPendingSubscriptions([urnHearing], 'cases', user.id);
@@ -157,6 +158,7 @@ export class SubscriptionService {
           channel: 'EMAIL',
           searchType: 'COURT_ID',
           searchValue: pendingSubscription.courtId,
+          courtName: pendingSubscription.name,
           userId,
         };
         break;

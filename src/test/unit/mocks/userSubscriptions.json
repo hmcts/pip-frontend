@@ -1,45 +1,37 @@
 {
-  "data": [
-    {
-      "id": "625d98a9-eec2-422d-83a8-8eb1a704c60d",
-      "channel": "API",
-      "searchType": "CASE_URN",
-      "searchValue": "N3D8DLZCNP",
-      "userId": "1",
-      "createdDate": "2021-12-23T11:32:54.80786",
-      "caseSubscriptions": [
-        {
-          "hearingId": 3,
-          "courtId": 50,
-          "courtNumber": 1,
-          "date": "15/11/2021 01:00:00",
-          "judge": "His Honour Judge A Morley QC",
-          "platform": "In person",
-          "caseNumber": "T20217010",
-          "caseName": "Wyman Inc Dispute",
-          "urn": "N3D8DLZCNP"
-        }
-      ],
-      "courtSubscriptions": []
-    },
-    {
-      "id": "f73d80d9-3ee1-4d36-ac9c-2c7e97be70fa",
-      "channel": "API",
-      "searchType": "COURT_ID",
-      "searchValue": "607",
-      "userId": "1",
-      "createdDate": "2021-12-23T11:55:49.676476",
-      "caseSubscriptions": [],
-      "courtSubscriptions": [
-        {
-          "courtId": 1,
-          "name": "Mutsu Court",
-          "jurisdiction": "County Court",
-          "location": "Wales",
-          "hearingList": [],
-          "hearings": 0
-        }
-      ]
-    }
-  ]
+  "data": {
+    "caseSubscriptions": [
+      {
+        "subscriptionId": "5a45699f-47e3-4283-904a-581afe624155",
+        "caseName": "Tom Clancy",
+        "caseNumber": "T485913",
+        "urn": "N363N6R4OG",
+        "dateAdded": "2022-01-14T11:30:12.357299"
+      },
+      {
+        "subscriptionId": "252899d6-2b05-43ec-86e0-a438d3854fa8",
+        "caseName": "Ashely Barnes",
+        "caseNumber": "T485914",
+        "urn": "IBRANE1BVW",
+        "dateAdded": "2022-01-14T11:42:01.611085"
+      }
+    ],
+    "courtSubscriptions": [
+      {
+        "subscriptionId": "f038b7ea-2972-4be4-a5ff-70abb4f78686",
+        "courtName": "Court 1",
+        "dateAdded": "2022-01-14T11:42:57.847708"
+      },
+      {
+        "subscriptionId": "d5b65f6f-4c43-45f7-a52d-d2c5cf8ac0e6",
+        "courtName": "Court 2",
+        "dateAdded": "2022-01-14T13:33:25.398361"
+      },
+      {
+        "subscriptionId": "fffe29f8-52f4-4e7c-9eff-753d3b82244f",
+        "courtName": "Barkingside Magistrates' Court",
+        "dateAdded": "2022-01-14T13:39:02.708126"
+      }
+    ]
+  }
 }

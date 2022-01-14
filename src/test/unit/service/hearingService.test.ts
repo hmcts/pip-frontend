@@ -17,15 +17,8 @@ const caseNumberData = {
 };
 const hearingService = new HearingService();
 const hearingRequest = HearingRequests.prototype;
-const stub = sinon.stub(hearingRequest, 'getHearingsByCaseName');
-const stubCaseReferenceNumberSearch = sinon.stub(hearingRequest, 'getHearingByCaseReferenceNumber');
 const urnStub = sinon.stub(hearingRequest, 'getCaseByUrn');
-stub.withArgs('my').returns(data);
-stub.withArgs('').returns([]);
-stub.withArgs('foo').returns([]);
-stubCaseReferenceNumberSearch.withArgs('11223344').returns(data);
-stubCaseReferenceNumberSearch.withArgs('').returns(null);
-stubCaseReferenceNumberSearch.withArgs('foo').returns(null);
+
 urnStub.withArgs('validURN').resolves(data);
 urnStub.withArgs('bar').resolves(null);
 const caseNameStub = sinon.stub(HearingRequests.prototype, 'getHearingsByCaseName');
@@ -33,6 +26,7 @@ const caseNumberStub = sinon.stub(HearingRequests.prototype, 'getHearingByCaseNu
 caseNameStub.withArgs('my').returns(data);
 caseNameStub.withArgs('').returns([]);
 caseNameStub.withArgs('foo').returns([]);
+caseNameStub.withArgs('my').returns(data);
 caseNumberStub.withArgs('').returns(null);
 caseNumberStub.withArgs('foo').returns(null);
 caseNumberStub.withArgs('T485913').returns(caseNumberData);

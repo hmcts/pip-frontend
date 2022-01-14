@@ -15,7 +15,7 @@ caseStub.withArgs('foo').returns(null);
 
 describe('Subscription Urn Search Result Controller', () => {
   let i18n = {};
-  it('should render the search result page', () => {
+  it('should render the search result page', async () => {
 
     i18n = {
       'subscription-urn-search-results': {},
@@ -27,7 +27,7 @@ describe('Subscription Urn Search Result Controller', () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = { 'search-input': '123456789'};
+    request.query = {'search-input': '123456789'};
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n['subscription-urn-search-results'],

@@ -7,7 +7,8 @@ import {cloneDeep} from 'lodash';
 
 const subscriptionManagementController = new SubscriptionManagementController();
 
-sinon.stub(SubscriptionService.prototype, 'generateSubscriptionsTableRows').returns({cases:[],courts:[]});
+sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns({cases:[]});
+sinon.stub(SubscriptionService.prototype, 'generateCourtTableRows').returns({courts:[]});
 
 describe('Subscription Management Controller', () => {
   const i18n = {
@@ -122,7 +123,8 @@ describe('Subscription Management Controller', () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     sinon.restore();
-    sinon.stub(SubscriptionService.prototype, 'generateSubscriptionsTableRows').returns(null);
+    sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns(null);
+    sinon.stub(SubscriptionService.prototype, 'generateCourtTableRows').returns(null);
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 

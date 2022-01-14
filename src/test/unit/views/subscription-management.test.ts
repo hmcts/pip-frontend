@@ -10,9 +10,9 @@ import path from 'path';
 import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
 
 const PAGE_URL = '/subscription-management';
-const expectedAllSubsTitle = 'All subscriptions (2)';
-const expectedCaseSubsTitle = 'Subscriptions by case (1)';
-const expectedCourtSubsTitle = 'Subscriptions by court or tribunal (1)';
+const expectedAllSubsTitle = 'All subscriptions (5)';
+const expectedCaseSubsTitle = 'Subscriptions by case (2)';
+const expectedCourtSubsTitle = 'Subscriptions by court or tribunal (3)';
 const expectedAddSubscriptionButton = 'Add new subscription';
 const tabsClass = 'moj-sub-navigation__link';
 const caseNameColumn = 'Case name';
@@ -20,12 +20,12 @@ const caseReferenceColumn = 'Case reference number';
 const dateAddedColumn = 'Date added';
 const actionsColumn = 'Actions';
 const courtNameColumn = 'Court or tribunal name';
-const expectedRowCaseName = 'Wyman Inc Dispute';
-const expectedRowCaseReference = 'T20217010';
-const expectedRowDateAdded = moment('2021-12-23T11:32:54.80786').format('D MMM YYYY');
-const expectedRowCourtName = 'Mutsu Court';
-const expectedCaseRowsCount = 1;
-const expectedCourtRowsCount = 1;
+const expectedRowCaseName = 'Tom Clancy';
+const expectedRowCaseReference = 'T485913';
+const expectedRowDateAdded = moment('2022-01-14T11:30:12.357299').format('MMM Do YYYY');
+const expectedRowCourtName = 'Court 1';
+const expectedCaseRowsCount = 2;
+const expectedCourtRowsCount = 3;
 
 let htmlRes: Document;
 

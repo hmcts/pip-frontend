@@ -12,7 +12,6 @@ const subscriptionResult = JSON.parse(rawData);
 const stub = sinon.stub(HearingService.prototype, 'getCaseByURN');
 const i18n = {'subscription-urn-search': {}};
 
-
 describe('Subscription Urn Search Controller', () => {
   it('should render the search page', async () => {
     const response = {render: () => {return '';}} as unknown as Response;
@@ -41,7 +40,6 @@ describe('Subscription Urn Search Controller', () => {
     await subscriptionUrnSearchController.post(request, response);
     responseMock.verify();
   });
-
 
   it('should render urn search page if input is less than three characters long', async () => {
 

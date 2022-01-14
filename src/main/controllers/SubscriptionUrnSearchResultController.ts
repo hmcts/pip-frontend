@@ -12,14 +12,6 @@ export default class SubscriptionUrnSearchResultController {
     if (searchInput && searchInput.length) {
 
       const searchResults = await hearingService.getCaseByURN(searchInput.toString());
-      if (searchResults) {
-        res.render('subscription-urn-search-results', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search-results']),
-          searchResults,
-        });
-      } else {
-        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-      }
       searchResults ?
         res.render('subscription-urn-search-results', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search-results']),

@@ -18,7 +18,7 @@ const errorRequest = {
 const errorMessage = {
   message: 'test',
 };
-
+const validCaseNo = 'ABC12345';
 const data = [{caseName: 'my hearing', caseNumber: '11223344'}];
 const validUrn = '123456789';
 const invalidUrn = '1234';

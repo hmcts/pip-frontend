@@ -15,12 +15,7 @@ const mockCourt = {
   hearingList: [],
   hearings: 0,
 };
-const mockUrnCase = {
-  courtNumber: 100,
-  caseNumber: 'T489999',
-  caseName: 'Ashely',
-  urn: 'ValidURN',
-};
+
 const mockCase = {
   hearingId: 5,
   courtId: 50,
@@ -36,6 +31,7 @@ const courtSubscriptionPayload = {
   channel: 'EMAIL',
   searchType: 'COURT_ID',
   searchValue: 643,
+  courtName: 'Aberdeen Tribunal Hearing Centre',
   userId: '1',
 };
 const caseSubscriptionPayload = {
@@ -63,14 +59,12 @@ const subscriptionResult2 = JSON.parse(rawData2);
 stubUserSubscription.withArgs(userIdWithSubscriptions).returns(subscriptionResult2.data);
 stubUserSubscription.withArgs(userIdWithoutSubscriptions).returns([]);
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
-const stubSubscriptionSearchUrn = sinon.stub(subscriptionService, 'getSubscriptionUrnDetails');
 const cacheSetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'setPendingSubscriptions');
 const cacheGetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
 const removeStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'removeFromCache');
 const hearingStub = sinon.stub(HearingService.prototype, 'getCaseByNumber');
 const courtStub = sinon.stub(CourtService.prototype, 'getCourtById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
-sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').withArgs('ValidURN').resolves(mockUrnCase);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', '1').resolves(true);
 subscriptionStub.withArgs(blankPayload, 'courts', '1').resolves(false);
@@ -91,10 +85,6 @@ cacheGetStub.withArgs(userIdWithoutSubscriptions, 'cases').resolves([]);
 cacheGetStub.withArgs(userIdWithoutSubscriptions, 'courts').resolves([]);
 removeStub.withArgs({case: '888'}, userIdWithSubscriptions).resolves();
 removeStub.withArgs({court: '111'}, userIdWithSubscriptions).resolves();
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
-const subscriptionResult = JSON.parse(rawData);
-const validUrn = '123456789';
-stubSubscriptionSearchUrn.withArgs(validUrn).returns(subscriptionResult);
 
 describe('handleNewSubscription function', () => {
   it('should add new case subscription', async () => {
