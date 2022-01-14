@@ -19,7 +19,7 @@ import { CaseReferenceNumberSearchPage } from '../pageobjects/CaseReferenceNumbe
 import { CaseReferenceNumberSearchResultsPage } from '../pageobjects/CaseReferenceNumberSearchResults.page';
 import { SignInPage } from '../pageobjects/SignIn.page';
 
-const authConfig = require('../authentication/authentication-config.json');
+const authConfig = require('../../../main/authentication/authentication-config.json');
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
 let subscriptionAddPage = new SubscriptionAddPage();
