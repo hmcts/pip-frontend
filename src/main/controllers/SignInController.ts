@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
-import {PipRequest} from '../models/request/PipRequest';
+import { PipRequest } from '../models/request/PipRequest';
+
+const authConfig = require('../authentication/authentication-config.json');
+const pAndIRedirectUrl = `${authConfig.AUTHORISATION_ENDPOINT}?p=${authConfig.PI_FLOW_NAME}&client_id=${authConfig.CLIENT_ID}&nonce=defaultNonce&redirect_uri=${authConfig.REDIRECT_URI}&scope=openid&response_type=id_token&prompt=login`;
 
 export default class SignInController {
   public get(req: PipRequest, res: Response): void {
@@ -17,7 +20,7 @@ export default class SignInController {
         break;
       }
       case 'pi': {
-        res.redirect('https://www.google.com');
+        res.redirect(pAndIRedirectUrl);
         break;
       }
       default: {
