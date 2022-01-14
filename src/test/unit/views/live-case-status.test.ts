@@ -72,7 +72,6 @@ describe('Live Status page', () => {
     expect(items.item(3).innerHTML).contains('- No Information To Display', 'Status not found / correct');
   });
 
-
   it('should display the link to go back to live case alphabet list', () => {
     const link = htmlRes.getElementsByClassName('govuk-link');
 

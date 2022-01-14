@@ -4,6 +4,7 @@ import { cloneDeep } from 'lodash';
 import { HearingService } from '../service/hearingService';
 
 const hearingService = new HearingService();
+
 export default class SubscriptionUrnSearchController {
   public get(req: PipRequest, res: Response): void {
     res.render('subscription-urn-search', req.i18n.getDataByLanguage(req.lng)['subscription-urn-search']);
@@ -14,6 +15,7 @@ export default class SubscriptionUrnSearchController {
 
     if (searchInput && searchInput.length) {
       const searchResults = await hearingService.getCaseByURN(searchInput);
+
       (searchResults) ?
         res.redirect(`subscription-urn-search-results?search-input=${searchInput}`) :
         res.render('subscription-urn-search', {
@@ -29,5 +31,4 @@ export default class SubscriptionUrnSearchController {
       });
     }
   }
-
 }

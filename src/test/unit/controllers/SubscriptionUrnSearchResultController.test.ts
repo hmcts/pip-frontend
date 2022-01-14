@@ -12,19 +12,26 @@ const subscriptionsData = JSON.parse(rawData);
 const caseStub = sinon.stub(HearingService.prototype, 'getCaseByURN');
 caseStub.withArgs('123456789').returns(subscriptionsData);
 caseStub.withArgs('foo').returns(null);
-const i18n = {
-  'subscription-urn-search': {},
-  error: {},
-};
 
 describe('Subscription Urn Search Result Controller', () => {
-  it('should render the search page', async () => {
-    const response = {render:  () => {return '';}} as unknown as Response;
+  let i18n = {};
+  it('should render the search result page', () => {
+
+    i18n = {
+      'subscription-urn-search-results': {},
+    };
+
+    const response = {
+      render: function () {
+        return '';
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
     request.query = { 'search-input': '123456789'};
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n['subscription-urn-search-results'],
+
       searchResults: subscriptionsData,
     };
 
@@ -39,7 +46,7 @@ describe('Subscription Urn Search Result Controller', () => {
     request.query = {'search-input': null};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('error', {...i18n.error});
+    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
     await subscriptionSearchUrnResultController.get(request, response);
     responseMock.verify();
   });
@@ -50,8 +57,9 @@ describe('Subscription Urn Search Result Controller', () => {
     request.query = {'search-input': 'foo'};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('error', {...i18n.error});
+    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
     await subscriptionSearchUrnResultController.get(request, response);
     responseMock.verify();
   });
+
 });

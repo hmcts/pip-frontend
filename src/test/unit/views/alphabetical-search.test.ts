@@ -10,7 +10,6 @@ const PAGE_URL = '/alphabetical-search';
 
 let htmlRes: Document;
 
-
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawData);
 

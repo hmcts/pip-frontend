@@ -2,12 +2,16 @@ import { SubscriptionRequests } from '../../../main/resources/requests/subscript
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import { subscriptionManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
-import { Subscription } from '../../../main/models/subscription';
+
+import { dataManagementApi, subscriptionManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
+import {Subscription} from '../../../main/models/subscription';
 
 const userIdWithSubscriptions = 1;
 const userIdWithoutSubscriptions = 2;
 const nonExistingUserId = 777;
+
+const validUrn = '123456789';
+const invalidUrn = '1234';
 const subscriptionActions = new SubscriptionRequests();
 const mockedCaseSubscription = {
   name: 'Wyman Inc Dispute',
@@ -18,6 +22,11 @@ const mockedCourtSubscription = {
   dateAdded: '1632351600',
 };
 
+const errorResponse = {
+  response: {
+    data: 'test error',
+  },
+};
 const errorRequest = {
   request: 'test error',
 };
@@ -28,14 +37,18 @@ const errorMessage = {
 const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData2 = JSON.parse(rawData2);
 const stub = sinon.stub(subscriptionManagementApi, 'get');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
+const subscriptionsData = JSON.parse(rawData);
+const stub = sinon.stub(dataManagementApi, 'get');
+const subscriptionManagementStub = sinon.stub(subscriptionManagementApi, 'post');
 
 describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, () => {
   stub.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves(subscriptionsData2);
 
   it('should return user subscription object', async () => {
-    const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions) as Subscription[];
-    expect(userSubscriptions.length).toEqual(2);
-    const subscription = userSubscriptions[0];
+    const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions) as Subscription;
+
+    const subscription = userSubscriptions;
     expect(subscription.id).toEqual('625d98a9-eec2-422d-83a8-8eb1a704c60d');
     expect(subscription.channel).toEqual('API');
     expect(subscription.searchType).toEqual('CASE_URN');
@@ -49,7 +62,7 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
 
   it('should have mocked object in the case subscriptions list', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-    const subscription = userSubscriptions[0];
+    const subscription = userSubscriptions;
 
     expect(subscription.caseSubscriptions[0].caseNumber).toBe(mockedCaseSubscription.reference);
   });
@@ -82,7 +95,7 @@ describe('getUserSubscriptions error tests', () => {
 
   it('should return empty list of subscriptions', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(nonExistingUserId);
-    expect(userSubscriptions.length).toBe(0);
+    expect(userSubscriptions.caseSubscriptions.length).toBe(0);
   });
 
   it('should return null for error message', async () => {
@@ -90,3 +103,30 @@ describe('getUserSubscriptions error tests', () => {
     expect(userSubscriptions).toBe(null);
   });
 });
+
+describe('subscribe', () => {
+  it('should return true if call is successful', async() => {
+    subscriptionManagementStub.withArgs('/subscription').resolves({});
+    const userSubscriptions = await subscriptionActions.subscribe({});
+    expect(userSubscriptions).toBe(true);
+  });
+
+  it('should return false for failure', async() => {
+    subscriptionManagementStub.withArgs('/subscription').resolves(Promise.reject(errorMessage));
+    const userSubscriptions = await subscriptionActions.subscribe({});
+    expect(userSubscriptions).toBe(false);
+  });
+
+  it('should return false for error request', async() => {
+    subscriptionManagementStub.withArgs('/subscription').resolves(Promise.reject(errorRequest));
+    const userSubscriptions = await subscriptionActions.subscribe({});
+    expect(userSubscriptions).toBe(false);
+  });
+
+  it('should return false for error response', async() => {
+    subscriptionManagementStub.withArgs('/subscription').resolves(Promise.reject(errorResponse));
+    const userSubscriptions = await subscriptionActions.subscribe({});
+    expect(userSubscriptions).toBe(false);
+  });
+});
+

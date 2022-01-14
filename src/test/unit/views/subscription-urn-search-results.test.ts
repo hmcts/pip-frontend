@@ -7,7 +7,7 @@ import request from 'supertest';
 import sinon from 'sinon';
 import {HearingService} from '../../../main/service/hearingService';
 
-const searchTerm = '123456789';
+const searchTerm = 'N363N6R4OG';
 const numOfResults = '1';
 const PAGE_URL = `/subscription-urn-search-results?search-input=${searchTerm}`;
 const backLinkClass = 'govuk-back-link';

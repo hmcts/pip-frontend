@@ -1,10 +1,8 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
-
 import { app } from '../../main/app';
 import {request as expressRequest} from 'express';
-
 
 describe('Subscription Management', () => {
   describe('on GET', () => {

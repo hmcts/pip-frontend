@@ -12,6 +12,7 @@ const subscriptionResult = JSON.parse(rawData);
 const stub = sinon.stub(HearingService.prototype, 'getCaseByURN');
 const i18n = {'subscription-urn-search': {}};
 
+
 describe('Subscription Urn Search Controller', () => {
   it('should render the search page', async () => {
     const response = {render: () => {return '';}} as unknown as Response;
@@ -24,6 +25,7 @@ describe('Subscription Urn Search Controller', () => {
   });
 
   it('should render urn search page if there are no matching results', async () => {
+
     stub.withArgs('12345678').returns(null);
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
@@ -40,7 +42,9 @@ describe('Subscription Urn Search Controller', () => {
     responseMock.verify();
   });
 
+
   it('should render urn search page if input is less than three characters long', async () => {
+
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     request.body = { 'search-input': '12'};
@@ -57,6 +61,7 @@ describe('Subscription Urn Search Controller', () => {
   });
 
   it('should render urn search page if input is three characters long and partially correct', async () => {
+
     stub.withArgs('1234').returns(null);
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
