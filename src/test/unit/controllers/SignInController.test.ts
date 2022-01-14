@@ -4,6 +4,9 @@ import {mockRequest} from '../mocks/mockRequest';
 import SignInController from '../../../main/controllers/SignInController';
 
 const signInController = new SignInController();
+const authConfig = require('../authentication/authentication-config.json');
+const pAndIRedirectUrl = `${authConfig.AUTHORISATION_ENDPOINT}?p=${authConfig.PI_FLOW_NAME}&client_id=${authConfig.CLIENT_ID}&nonce=defaultNonce&redirect_uri=${authConfig.REDIRECT_URI}&scope=openid&response_type=id_token&prompt=login`;
+
 describe('Sign In Option Controller', () => {
   let i18n = {};
   it('should render the search options page', () => {
@@ -62,7 +65,7 @@ describe('Sign In Option Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('https://www.google.com');
+    responseMock.expects('redirect').once().withArgs(pAndIRedirectUrl);
 
     signInController.post(request, response);
 
