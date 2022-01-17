@@ -5,6 +5,7 @@ import { HearingService } from './hearingService';
 import { Hearing } from '../models/hearing';
 import { CourtService } from './courtService';
 import { Court } from '../models/court';
+import {Subscription} from "../models/subscription";
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
@@ -13,7 +14,7 @@ const courtService = new CourtService();
 
 export class SubscriptionService {
 
-  async getSubscriptionsByUser(userid: number): Promise<any[]> {
+  async getSubscriptionsByUser(userid: number): Promise<Subscription> {
     return await subscriptionRequests.getUserSubscriptions(userid);
   }
 
