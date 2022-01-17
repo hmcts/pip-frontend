@@ -109,18 +109,20 @@
       {% for key, value in courtList %}
         {% if value | length > 0 %}
           {% for courtName, courtDetails in value %}
-            <tr  class="govuk-table__row">
-              {% if first != key %}
-                {% set first = key %}
-                <th scope="row" class="govuk-table__header">
-                  <div id="{{ key }}" class="govuk-!-font-size-27">{{key}}</div>
-                </th>
-              {% else %}
-                <th scope="row" class="govuk-table__header">
-                </th>
-              {% endif %}
-              <td class="govuk-table__cell"><a href="/list-option?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></td>
-            </tr>
+            {% if courtDetails.id > 0 %}
+              <tr  class="govuk-table__row">
+                {% if first != key %}
+                  {% set first = key %}
+                  <th scope="row" class="govuk-table__header">
+                    <div id="{{ key }}" class="govuk-!-font-size-27">{{key}}</div>
+                  </th>
+                {% else %}
+                  <th scope="row" class="govuk-table__header">
+                  </th>
+                {% endif %}
+                <td class="govuk-table__cell"><a href="/list-option?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></td>
+              </tr>
+            {% endif %}
           {% endfor %}
           {% set first = '' %}
         {% endif %}
