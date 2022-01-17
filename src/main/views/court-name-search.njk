@@ -145,31 +145,33 @@
                 {% for key, value in courtList %}
                     {% if value | length > 0 %}
                         {% for courtName, courtDetails in value %}
-                            <tr class="govuk-table__row">
-                                {% if first != key %}
-                                    {% set first = key %}
-                                    <th scope="row" class="govuk-table__header">
-                                        <div id="{{ key }}" class="govuk-!-font-size-36">{{ key }}</div>
-                                    </th>
+                            {% if courtDetails.id > 0 %}
+                                <tr class="govuk-table__row">
+                                    {% if first != key %}
+                                        {% set first = key %}
+                                        <th scope="row" class="govuk-table__header">
+                                            <div id="{{ key }}" class="govuk-!-font-size-36">{{ key }}</div>
+                                        </th>
 
-                                {% else %}
-                                    <th scope="row" class="govuk-table__header">
-                                    </th>
-                                {% endif %}
-                                <td class="govuk-table__cell">
-                                    <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
-                                        <input type="checkbox" class="govuk-checkboxes__input"
-                                               id="{{ courtDetails.id }}"
-                                               value="{{ courtDetails.id }}" name="court-selections[]"
-                                               onclick="calculateChecked()">
-                                        <label class="govuk-label govuk-checkboxes__label"
-                                               for="{{ courtDetails.id }}">
-                                            <span class="govuk-visually-hidden">Select {{ courtName }}</span>
-                                        </label>
-                                    </div>
-                                </td>
-                                <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header">{{ courtName }}</td>
-                            </tr>
+                                    {% else %}
+                                        <th scope="row" class="govuk-table__header">
+                                        </th>
+                                    {% endif %}
+                                    <td class="govuk-table__cell">
+                                        <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
+                                            <input type="checkbox" class="govuk-checkboxes__input"
+                                                   id="{{ courtDetails.id }}"
+                                                   value="{{ courtDetails.id }}" name="court-selections[]"
+                                                   onclick="calculateChecked()">
+                                            <label class="govuk-label govuk-checkboxes__label"
+                                                   for="{{ courtDetails.id }}">
+                                                <span class="govuk-visually-hidden">Select {{ courtName }}</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header">{{ courtName }}</td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                         {% set first = '' %}
                     {% endif %}
