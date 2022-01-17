@@ -1,23 +1,23 @@
-import { HomePage } from '../pageobjects/Home.page';
-import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
-import { HearingListPage } from '../pageobjects/HearingList.page';
-import { SearchPage } from '../pageobjects/Search.page';
-import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
-import { ViewOptionPage } from '../pageobjects/ViewOption.page';
-import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
-import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
-import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
-import { CaseNameSearchPage } from '../pageobjects/CaseNameSearch.page';
-import { CaseNameSearchResultsPage } from '../pageobjects/CaseNameSearchResults.page';
-import { SubscriptionUrnSearchResultsPage } from '../pageobjects/SubscriptionUrnSearchResults.page';
-import { SubscriptionUrnSearchPage } from '../pageobjects/SubscriptionUrnSearch.page';
-import { CourtNameSearchPage } from '../pageobjects/CourtNameSearch.page';
-import { MockSessionPage } from '../pageobjects/MockSession.page';
-import { SingleJusticeProcedurePage } from '../pageobjects/SingleJusticeProcedure.page';
-import { CaseEventGlossaryPage } from '../pageobjects/CaseEventGlossary.page';
-import { CaseReferenceNumberSearchPage } from '../pageobjects/CaseReferenceNumberSearch.page';
-import { CaseReferenceNumberSearchResultsPage } from '../pageobjects/CaseReferenceNumberSearchResults.page';
-import { SignInPage } from '../pageobjects/SignIn.page';
+import { HomePage } from '../PageObjects/Home.page';
+import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
+import { HearingListPage } from '../PageObjects/HearingList.page';
+import { SearchPage } from '../PageObjects/Search.page';
+import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
+import { ViewOptionPage } from '../PageObjects/ViewOption.page';
+import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
+import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
+import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
+import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
+import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
+import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
+import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
+import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
+import { MockSessionPage } from '../PageObjects/MockSession.page';
+import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
+import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
+import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
+import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
+import { SignInPage } from '../PageObjects/SignIn.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -156,9 +156,12 @@ describe('Unverified user', () => {
   });
 
   describe('Sign In Page', () => {
+    before(async () => {
+      await signInPage.open('/sign-in');
+    });
+    
     const returnUrl = 'https://www.google.com';
     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
-      await signInPage.open('sign-in');
       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
     });
 
@@ -173,13 +176,11 @@ describe('Unverified user', () => {
       });
 
       it('should select \'Sign in with Common Platform\' option and navigate to the login page Common Platform page', async () => {
-        await signInPage.open('sign-in');
         await signInPage.selectOption('SignInRadio2');
         expect(await signInPage.clickContinueForRadio2()).toHaveHref(returnUrl);
       });
 
       it('should select \'Sign in with my P&I details\' option and navigate to the login page P&I details page', async () => {
-        await signInPage.open('sign-in');
         await signInPage.selectOption('SignInRadio3');
         expect(await signInPage.clickContinueForRadio3()).toHaveHref(returnUrl);
       });

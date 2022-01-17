@@ -17,10 +17,6 @@ module.exports = {
   SearchOptionsTitle: 'h1.govuk-fieldset__heading',
   RadioButton: 'div.govuk-radios__item',
 
-  // Search page selectors
-  HaveNameRadio: '#find-choice',
-  DontHaveNameRadio: '#find-choice-2',
-
   // Sign-in routing
   SignInRadio1: '#sign-in',
   SignInRadio2: '#sign-in-2',
