@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import request from 'supertest';
 
-import { app } from '../../main/app';
+import { app } from '../../../main/app';
 
 const robotsTxt = {
   message: 'User-agent: *\nDisallow: /',
