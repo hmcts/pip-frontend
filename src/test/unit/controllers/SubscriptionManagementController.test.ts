@@ -20,6 +20,7 @@ describe('Subscription Management Controller', () => {
   };
   const response = { render: () => {return '';}} as unknown as Response;
   const request = mockRequest(i18n);
+  const responseMock = sinon.mock(response);
 
   const stubCase = [];
   const stubCourt = [];
@@ -36,7 +37,6 @@ describe('Subscription Management Controller', () => {
       activeCourtTab: false,
     };
 
-    const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management', expectedData);
 
     subscriptionManagementController.get(request, response).then(() => {
@@ -55,7 +55,6 @@ describe('Subscription Management Controller', () => {
       activeCourtTab: false,
     };
 
-    const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management', expectedData);
 
     subscriptionManagementController.get(request, response).then(() => {
@@ -74,7 +73,6 @@ describe('Subscription Management Controller', () => {
       activeCourtTab: false,
     };
 
-    const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management', expectedData);
 
     subscriptionManagementController.get(request, response).then(() => {
@@ -93,7 +91,6 @@ describe('Subscription Management Controller', () => {
       activeCourtTab: true,
     };
 
-    const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('subscription-management', expectedData);
 
     subscriptionManagementController.get(request, response).then(() => {
@@ -104,7 +101,6 @@ describe('Subscription Management Controller', () => {
   it('should render error page if there is no user data', () => {
     request.user = undefined;
 
-    const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
     subscriptionManagementController.get(request, response).then(() => {
@@ -116,7 +112,6 @@ describe('Subscription Management Controller', () => {
     sinon.restore();
     sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns(null);
     sinon.stub(SubscriptionService.prototype, 'generateCourtTableRows').returns(null);
-    const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
     subscriptionManagementController.get(request, response).then(() => {
