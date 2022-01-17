@@ -10,7 +10,6 @@ export default class SubscriptionUrnSearchResultController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.query['search-input'];
     if (searchInput && searchInput.length) {
-
       const searchResults = await hearingService.getCaseByURN(searchInput.toString());
       searchResults ?
         res.render('subscription-urn-search-results', {

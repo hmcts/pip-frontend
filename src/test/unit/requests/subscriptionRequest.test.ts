@@ -113,4 +113,3 @@ describe('subscribe', () => {
     expect(userSubscriptions).toBe(false);
   });
 });
-

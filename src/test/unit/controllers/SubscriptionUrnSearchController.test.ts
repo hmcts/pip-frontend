@@ -12,10 +12,12 @@ const subscriptionResult = JSON.parse(rawData);
 const stub = sinon.stub(HearingService.prototype, 'getCaseByURN');
 const i18n = {'subscription-urn-search': {}};
 
+
 describe('Subscription Urn Search Controller', () => {
+  const response = { render: function() {return '';}} as unknown as Response;
+  const request = mockRequest(i18n);
+
   it('should render the search page', async () => {
-    const response = {render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('subscription-urn-search', {...i18n['subscription-urn-search']});
@@ -43,8 +45,6 @@ describe('Subscription Urn Search Controller', () => {
 
   it('should render urn search page if input is less than three characters long', async () => {
 
-    const response = { render: function() {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.body = { 'search-input': '12'};
     const responseMock = sinon.mock(response);
     const expectedResults = {

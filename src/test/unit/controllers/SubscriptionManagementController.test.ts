@@ -18,12 +18,13 @@ describe('Subscription Management Controller', () => {
     caseTableData: [],
     courtTableData: [],
   };
+  const response = { render: () => {return '';}} as unknown as Response;
+  const request = mockRequest(i18n);
 
   const stubCase = [];
   const stubCourt = [];
   it('should render the subscription management page with all as default', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
+
     request.query = {};
 
     const expectedData = {
@@ -44,8 +45,6 @@ describe('Subscription Management Controller', () => {
   });
 
   it('should render the subscription management page with all query param', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.query = {'all': 'true'};
 
     const expectedData = {
@@ -65,8 +64,6 @@ describe('Subscription Management Controller', () => {
   });
 
   it('should render the subscription management page with case query param', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.query = {'case': 'true'};
 
     const expectedData = {
@@ -86,8 +83,6 @@ describe('Subscription Management Controller', () => {
   });
 
   it('should render the subscription management page with court query param', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.query = {'court': 'true'};
 
     const expectedData = {
@@ -107,8 +102,6 @@ describe('Subscription Management Controller', () => {
   });
 
   it('should render error page if there is no user data', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     request.user = undefined;
 
     const responseMock = sinon.mock(response);
@@ -120,8 +113,6 @@ describe('Subscription Management Controller', () => {
   });
 
   it('should render error page if data is null', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
     sinon.restore();
     sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns(null);
     sinon.stub(SubscriptionService.prototype, 'generateCourtTableRows').returns(null);

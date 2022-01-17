@@ -12,8 +12,12 @@ const hearingService = new HearingService();
 const courtService = new CourtService();
 
 export class SubscriptionService {
-  async generateCaseTableRows(userid: number): Promise<any[]> {
-    const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
+
+  async getSubscriptionsByUser(userid: number) {
+    return await subscriptionRequests.getUserSubscriptions(userid);
+  }
+
+  async generateCaseTableRows(subscriptionData): Promise<any[]> {
     const caseRows = [];
 
     if (subscriptionData && subscriptionData.caseSubscriptions.length) {
@@ -40,8 +44,7 @@ export class SubscriptionService {
     return caseRows;
   }
 
-  async generateCourtTableRows(userId: number): Promise<any[]> {
-    const subscriptionData = await subscriptionRequests.getUserSubscriptions(userId);
+  async generateCourtTableRows(subscriptionData): Promise<any[]> {
     const courtRows = [];
     if (subscriptionData && subscriptionData.courtSubscriptions.length) {
       subscriptionData.courtSubscriptions.forEach((subscription) => {
