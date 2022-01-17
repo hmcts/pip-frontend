@@ -86,6 +86,7 @@ module.exports = {
   ClearFiltersLink: '.moj-filter__heading-action > p > a',
   CourtNameSearchContinueButton: '.moj-action-bar > .govuk-button',
   TribunalCourtCheckbox: '.govuk-table__body > tr > .govuk-table__cell > .govuk-checkboxes__item > .govuk-checkboxes__input',
+  CourtTableResults: 'tbody:nth-child(2) > tr.govuk-table__row',
 
   // MockSession selectors
   UsernameInput: '#username',

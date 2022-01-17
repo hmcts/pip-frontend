@@ -267,8 +267,8 @@ describe('Verified user', () => {
     });
 
     describe('following court or tribunal page', async () => {
-      const allCourts = 304;
-      const tribunalCourts = 48;
+      const allCourts = 305;
+      const tribunalCourts = 49;
 
       before(async () => {
         await subscriptionAddPage.open('subscription-add');
