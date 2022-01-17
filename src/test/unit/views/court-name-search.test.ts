@@ -11,6 +11,7 @@ const PAGE_URL = '/court-name-search';
 let htmlRes: Document;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawData);
+const checkboxesCount = 13;
 
 sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(courtData);
 
@@ -113,18 +114,33 @@ describe('Court Name Search Page', () => {
     expect(alphabeticalLetters.length).equal(26, 'Could not find alphabet letters');
   });
 
-  it('should contain the correct table header', () => {
-    const tableHeaders = htmlRes.getElementsByClassName('govuk-table__header');
-    expect(tableHeaders[0].innerHTML)
+  it('should contain correct court table header', () => {
+    const tableHeader = htmlRes.getElementById('courtHeader');
+    expect(tableHeader.innerHTML)
       .contains('Courts and tribunals in England and Wales', 'Table header is not present');
   });
 
-  it('should contain table rows with checkboxes', () => {
+  it('should contain correct table header', () => {
+    const header = htmlRes.getElementsByClassName('govuk-table__header')[0];
+    expect(header.innerHTML).contains('National lists', 'Table header is not present');
+  });
+
+  it('should contain court table rows', () => {
     const elementsCount = 12;
+    const tableRows = htmlRes.getElementsByClassName('govuk-table__body')[1]
+      .getElementsByClassName('govuk-table__row');
+    expect(tableRows.length).equal(elementsCount, 'Could not find all table rows');
+  });
+
+  it('should contain national lists table rows', () => {
+    const elementsCount = 1;
     const tableRows = htmlRes.getElementsByClassName('govuk-table__body')[0]
       .getElementsByClassName('govuk-table__row');
-    const rowCheckboxes = htmlRes.getElementsByName('court-selections[]');
     expect(tableRows.length).equal(elementsCount, 'Could not find all table rows');
-    expect(rowCheckboxes.length).equal(elementsCount, 'Could not find all row checkboxes');
+  });
+
+  it(`should display ${checkboxesCount} subscription checkboxes`, () => {
+    const checkboxes = htmlRes.getElementsByName('court-selections[]');
+    expect(checkboxes.length).equal(checkboxesCount, 'Could not find all row checkboxes');
   });
 });
