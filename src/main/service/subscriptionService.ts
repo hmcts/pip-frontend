@@ -5,7 +5,7 @@ import { HearingService } from './hearingService';
 import { Hearing } from '../models/hearing';
 import { CourtService } from './courtService';
 import { Court } from '../models/court';
-import {Subscription} from "../models/subscription";
+import {Subscription} from '../models/subscription';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
