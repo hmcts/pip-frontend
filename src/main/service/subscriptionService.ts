@@ -13,7 +13,7 @@ const courtService = new CourtService();
 
 export class SubscriptionService {
 
-  async getSubscriptionsByUser(userid: number) {
+  async getSubscriptionsByUser(userid: number): Promise<any[]> {
     return await subscriptionRequests.getUserSubscriptions(userid);
   }
 

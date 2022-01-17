@@ -12,7 +12,6 @@ const subscriptionResult = JSON.parse(rawData);
 const stub = sinon.stub(HearingService.prototype, 'getCaseByURN');
 const i18n = {'subscription-urn-search': {}};
 
-
 describe('Subscription Urn Search Controller', () => {
   const response = { render: function() {return '';}} as unknown as Response;
   const request = mockRequest(i18n);
