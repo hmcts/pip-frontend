@@ -156,7 +156,7 @@ describe('Unverified user', () => {
   });
 
   describe('Sign In Page', () => {
-    before(async () => {
+    beforeEach(async () => {
       await signInPage.open('/sign-in');
     });
 
