@@ -159,7 +159,7 @@ describe('Unverified user', () => {
     before(async () => {
       await signInPage.open('/sign-in');
     });
-    
+
     const returnUrl = 'https://www.google.com';
     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
@@ -265,7 +265,7 @@ describe('Verified user', () => {
     });
 
     describe('following court or tribunal page', async () => {
-      const allCourts = 304;
+      const allCourts = 305;
       const tribunalCourts = 48;
 
       before(async () => {
