@@ -229,7 +229,7 @@ describe('Verified user', () => {
     });
 
     describe('following court or tribunal page', async () => {
-      const allCourts = 304;
+      const allCourts = 305;
       const tribunalCourts = 48;
 
       before(async () => {
