@@ -4,7 +4,8 @@
 {% from "moj/components/sub-navigation/macro.njk" import mojSubNavigation %}
 
 {% block head %}
-  {% include "webpack/css.njk" %}
+    <meta name="robots" content="noindex">
+    {% include "webpack/css.njk" %}
 {% endblock %}
 
 {% block header %}
