@@ -19,6 +19,7 @@ import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumbe
 import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
 import { SignInPage } from '../PageObjects/SignIn.page';
 
+const authConfig = require('../../../main/authentication/authentication-config.json');
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -154,13 +155,17 @@ describe('Unverified user', () => {
       expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Single Justice Procedure cases');
     });
   });
+});
 
+describe('Verified user', () => {
   describe('Sign In Page', () => {
+    const pAndIRedirectUrl = `${authConfig.AUTHORISATION_ENDPOINT}?p=${authConfig.PI_FLOW_NAME}&client_id=${authConfig.CLIENT_ID}&nonce=defaultNonce&redirect_uri=${authConfig.REDIRECT_URI}&scope=openid&response_type=id_token&prompt=login`;
+    const returnUrl = 'https://www.google.com';
+
     beforeEach(async () => {
       await signInPage.open('/sign-in');
     });
 
-    const returnUrl = 'https://www.google.com';
     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
     });
@@ -182,13 +187,11 @@ describe('Unverified user', () => {
 
       it('should select \'Sign in with my P&I details\' option and navigate to the login page P&I details page', async () => {
         await signInPage.selectOption('SignInRadio3');
-        expect(await signInPage.clickContinueForRadio3()).toHaveHref(returnUrl);
+        expect(await signInPage.clickContinueForRadio3()).toHaveHref(pAndIRedirectUrl);
       });
     });
   });
-});
 
-describe('Verified user', () => {
   describe('sign in process', async () => {
 
     it('should open Session Mock Page to authenticate user', async () => {

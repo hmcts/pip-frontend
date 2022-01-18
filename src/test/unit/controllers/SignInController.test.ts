@@ -2,8 +2,11 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import SignInController from '../../../main/controllers/SignInController';
+const authConfig = require('../../../main/authentication/authentication-config.json');
 
 const signInController = new SignInController();
+const pAndIRedirectUrl = `${authConfig.AUTHORISATION_ENDPOINT}?p=${authConfig.PI_FLOW_NAME}&client_id=${authConfig.CLIENT_ID}&nonce=defaultNonce&redirect_uri=${authConfig.REDIRECT_URI}&scope=openid&response_type=id_token&prompt=login`;
+
 describe('Sign In Option Controller', () => {
   const i18n = {
     'sign-in': {},
@@ -60,7 +63,7 @@ describe('Sign In Option Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('https://www.google.com');
+    responseMock.expects('redirect').once().withArgs(pAndIRedirectUrl);
 
     signInController.post(request, response);
 
