@@ -5,12 +5,10 @@ import SignInController from '../../../main/controllers/SignInController';
 
 const signInController = new SignInController();
 describe('Sign In Option Controller', () => {
-  let i18n = {};
+  const i18n = {
+    'sign-in': {},
+  };
   it('should render the search options page', () => {
-
-    i18n = {
-      'sign-in': {},
-    };
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);

@@ -14,7 +14,7 @@ describe('Sign In option', () => {
     });
   });
 
-  for (let i = 0; i < options.length; i += 1) {
+  for (let i = 0; i < options.length; i++) {
     describe('on POST', () => {
       test('should redirect to external url when '+ options[i] +' is chosen', async () => {
         await request(app)
