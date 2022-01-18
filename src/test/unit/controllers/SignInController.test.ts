@@ -8,12 +8,10 @@ const authConfig = require('../../../main/authentication/authentication-config.j
 const pAndIRedirectUrl = `${authConfig.AUTHORISATION_ENDPOINT}?p=${authConfig.PI_FLOW_NAME}&client_id=${authConfig.CLIENT_ID}&nonce=defaultNonce&redirect_uri=${authConfig.REDIRECT_URI}&scope=openid&response_type=id_token&prompt=login`;
 
 describe('Sign In Option Controller', () => {
-  let i18n = {};
+  const i18n = {
+    'sign-in': {},
+  };
   it('should render the search options page', () => {
-
-    i18n = {
-      'sign-in': {},
-    };
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);

@@ -1,8 +1,6 @@
 import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
-const authConfig = require('../../../main/authentication/authentication-config.json');
-const pAndIRedirectUrl = `${authConfig.AUTHORISATION_ENDPOINT}?p=${authConfig.PI_FLOW_NAME}&client_id=${authConfig.CLIENT_ID}&nonce=defaultNonce&redirect_uri=${authConfig.REDIRECT_URI}&scope=openid&response_type=id_token&prompt=login`;
 
 export class SignInPage extends CommonPage {
   async getPageTitle(): Promise<string> {
@@ -40,7 +38,7 @@ export class SignInPage extends CommonPage {
     const continueButton = await $(helpers.ContinueButton);
     continueButton.click();
 
-    return pAndIRedirectUrl;
+    return 'https://google.com';
   }
 
 }

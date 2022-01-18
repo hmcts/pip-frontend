@@ -155,13 +155,18 @@ describe('Unverified user', () => {
       expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Single Justice Procedure cases');
     });
   });
+});
 
+describe('Verified user', () => {
   describe('Sign In Page', () => {
     const returnUrl = 'https://www.google.com';
     const pAndIRedirectUrl = `${authConfig.AUTHORISATION_ENDPOINT}?p=${authConfig.PI_FLOW_NAME}&client_id=${authConfig.CLIENT_ID}&nonce=defaultNonce&redirect_uri=${authConfig.REDIRECT_URI}&scope=openid&response_type=id_token&prompt=login`;
 
+    beforeEach(async () => {
+      await signInPage.open('/sign-in');
+    });
+
     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
-      await signInPage.open('sign-in');
       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
     });
 
@@ -176,21 +181,17 @@ describe('Unverified user', () => {
       });
 
       it('should select \'Sign in with Common Platform\' option and navigate to the login page Common Platform page', async () => {
-        await signInPage.open('sign-in');
         await signInPage.selectOption('SignInRadio2');
         expect(await signInPage.clickContinueForRadio2()).toHaveHref(returnUrl);
       });
 
       it('should select \'Sign in with my P&I details\' option and navigate to the login page P&I details page', async () => {
-        await signInPage.open('sign-in');
         await signInPage.selectOption('SignInRadio3');
         expect(await signInPage.clickContinueForRadio3()).toHaveHref(pAndIRedirectUrl);
       });
     });
   });
-});
 
-describe('Verified user', () => {
   describe('sign in process', async () => {
 
     it('should open Session Mock Page to authenticate user', async () => {
