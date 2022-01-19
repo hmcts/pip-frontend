@@ -6,7 +6,7 @@ import { app } from '../../main/app';
 
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
-describe('UserSubscriptions Add', () => {
+describe('Subscriptions Add', () => {
   describe('on GET', () => {
     test('should return subscription-add page', async () => {
       await request(app)

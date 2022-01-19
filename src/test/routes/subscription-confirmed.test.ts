@@ -9,7 +9,7 @@ sinon.stub(SubscriptionService.prototype, 'subscribe').withArgs('1').resolves(tr
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 app.request['user'] = {id: '1'};
 
-describe('UserSubscriptions Confirmed', () => {
+describe('Subscriptions Confirmed', () => {
   describe('on POST', () => {
     test('should return subscription confirmation page', async () => {
       await request(app)

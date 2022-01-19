@@ -14,7 +14,7 @@ const i18n = {
   'error': {},
 };
 
-describe('UserSubscriptions Confirmed Controller', () => {
+describe('Subscriptions Confirmed Controller', () => {
   it('should render confirmed page if subscribed successfully', () => {
     const request = mockRequest(i18n);
     request.user = {id: '1'};

@@ -32,7 +32,7 @@ let htmlRes: Document;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
 
-describe('UserSubscriptions Management Page No UserSubscriptions', () => {
+describe('Subscriptions Management Page No UserSubscriptions', () => {
   sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns({caseSubscriptions:[], courtSubscriptions:[]});
   beforeAll(async () => {
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
@@ -67,7 +67,7 @@ describe('UserSubscriptions Management Page No UserSubscriptions', () => {
   });
 });
 
-describe('UserSubscriptions Management Page', () => {
+describe('Subscriptions Management Page', () => {
   beforeAll(async () => {
     sinon.restore();
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
