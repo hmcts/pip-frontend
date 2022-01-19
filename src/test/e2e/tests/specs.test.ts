@@ -160,7 +160,7 @@ describe('Unverified user', () => {
 describe('Verified user', () => {
   describe('Sign In Page', () => {
     const pAndIRedirectUrl = `${authConfig.AUTHORISATION_ENDPOINT}?p=${authConfig.PI_FLOW_NAME}&client_id=${authConfig.CLIENT_ID}&nonce=defaultNonce&redirect_uri=${authConfig.REDIRECT_URI}&scope=openid&response_type=id_token&prompt=login`;
-    const returnUrl = 'https://www.google.com';
+    const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
 
     beforeEach(async () => {
       await signInPage.open('/sign-in');
@@ -177,12 +177,12 @@ describe('Verified user', () => {
     describe('sign in page routing', async () => {
       it('should select \'Sign in with My HMCTS\' option and navigate to the login page HMCTS page', async () => {
         await signInPage.selectOption('SignInRadio1');
-        expect(await signInPage.clickContinueForRadio1()).toHaveHref(returnUrl);
+        expect(await signInPage.clickContinueForRadio1()).toHaveHref(HMCTSAccountUrl);
       });
 
       it('should select \'Sign in with Common Platform\' option and navigate to the login page Common Platform page', async () => {
         await signInPage.selectOption('SignInRadio2');
-        expect(await signInPage.clickContinueForRadio2()).toHaveHref(returnUrl);
+        expect(await signInPage.clickContinueForRadio2()).toHaveHref(HMCTSAccountUrl);
       });
 
       it('should select \'Sign in with my P&I details\' option and navigate to the login page P&I details page', async () => {
