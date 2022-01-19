@@ -16,7 +16,7 @@ export default class SignInController {
         break;
       }
       case 'common': {
-        res.redirect('https://www.google.com');
+        res.redirect('https://hmcts-sjp.herokuapp.com/sign-in-idam.html');
         break;
       }
       case 'pi': {
