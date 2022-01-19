@@ -17,6 +17,11 @@ module.exports = {
   SearchOptionsTitle: 'h1.govuk-fieldset__heading',
   RadioButton: 'div.govuk-radios__item',
 
+  // Sign-in routing
+  SignInRadio1: '#sign-in',
+  SignInRadio2: '#sign-in-2',
+  SignInRadio3: '#sign-in-3',
+
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
   SearchResultTitle: 'h1.govuk-heading-l',
