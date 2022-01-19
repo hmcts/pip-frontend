@@ -16,16 +16,7 @@ export class SubscriptionService {
 
   async getSubscriptionsByUser(userid: number): Promise<UserSubscriptions> {
     const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
-    if (subscriptionData) {
-      return subscriptionData;
-    }
-    else {
-      return new class implements UserSubscriptions {
-        caseSubscriptions: any[];
-        courtSubscriptions: any[];
-      };
-    }
-
+    return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], courtSubscriptions: []};
   }
 
   async generateCaseTableRows(subscriptionDataCases): Promise<any[]> {
