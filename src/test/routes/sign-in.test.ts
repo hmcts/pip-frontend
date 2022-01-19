@@ -27,6 +27,12 @@ describe('Sign In option', () => {
         .get('/sign-in')
         .expect((res) => expect(res.status).to.equal(200));
     });
+
+    test('should return sign-in page if there is no radio selected', async () => {
+      await request(app)
+        .get('/sign-in?error=true')
+        .expect((res) => expect(res.status).to.equal(200));
+    });
   });
 
   for (let i = 0; i < urlOptions.length; i++) {

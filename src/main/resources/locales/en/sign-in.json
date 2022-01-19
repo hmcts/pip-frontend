@@ -6,5 +6,9 @@
   "radio3": "With a Court and tribunal hearings account",
   "accountInfo": "Don't have an account?",
   "accountInfo_link_text": "Create a Court and tribunal hearings account",
-  "accountInfo_link": "#"
+  "accountInfo_link": "#",
+  "error": {
+    "title": "There is a problem",
+    "noSelection": "Please select an option"
+  }
 }

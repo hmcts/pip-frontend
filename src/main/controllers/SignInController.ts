@@ -1,12 +1,15 @@
 import { Request, Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
+import { cloneDeep } from 'lodash';
 
 const authConfig = require('../authentication/authentication-config.json');
 const pAndIRedirectUrl = `${authConfig.AUTHORISATION_ENDPOINT}?p=${authConfig.PI_FLOW_NAME}&client_id=${authConfig.CLIENT_ID}&nonce=defaultNonce&redirect_uri=${authConfig.REDIRECT_URI}&scope=openid&response_type=id_token&prompt=login`;
 
 export default class SignInController {
   public get(req: PipRequest, res: Response): void {
-    res.render('sign-in', req.i18n.getDataByLanguage(req.lng)['sign-in']);
+    (req.query?.error === 'true') ?
+      res.render('sign-in', {...cloneDeep(req.i18n.getDataByLanguage(req.lng)['sign-in']), displayError: true}) :
+      res.render('sign-in', {...cloneDeep(req.i18n.getDataByLanguage(req.lng)['sign-in']), displayError: false});
   }
 
   public post(req: Request, res: Response): void {
@@ -24,7 +27,7 @@ export default class SignInController {
         break;
       }
       default: {
-        res.redirect('/sign-in');
+        res.redirect('/sign-in?error=true');
       }
     }
   }
