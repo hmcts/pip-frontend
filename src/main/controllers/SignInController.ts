@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
+import { getRedirectURL } from '../authentication/authRedirect';
 
-const authConfig = require('../authentication/authentication-config.json');
-const pAndIRedirectUrl = `${authConfig.AUTHORISATION_ENDPOINT}?p=${authConfig.PI_FLOW_NAME}&client_id=${authConfig.CLIENT_ID}&nonce=defaultNonce&redirect_uri=${authConfig.REDIRECT_URI}&scope=openid&response_type=id_token&prompt=login`;
+const pAndIRedirectUrl = getRedirectURL(process.env.ENV);
 
 export default class SignInController {
   public get(req: PipRequest, res: Response): void {

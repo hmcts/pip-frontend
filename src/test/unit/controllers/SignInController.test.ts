@@ -2,11 +2,11 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import SignInController from '../../../main/controllers/SignInController';
-const authConfig = require('../../../main/authentication/authentication-config.json');
+import { getRedirectURL } from '../../../main/authentication/authRedirect';
 
 const signInController = new SignInController();
-const pAndIRedirectUrl = `${authConfig.AUTHORISATION_ENDPOINT}?p=${authConfig.PI_FLOW_NAME}&client_id=${authConfig.CLIENT_ID}&nonce=defaultNonce&redirect_uri=${authConfig.REDIRECT_URI}&scope=openid&response_type=id_token&prompt=login`;
 const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
+const pAndIRedirectUrl = getRedirectURL(process.env.ENV);
 
 describe('Sign In Option Controller', () => {
   const i18n = {'sign-in': {}};

@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import { app } from '../../main/app';
+import { getRedirectURL } from '../../main/authentication/authRedirect';
 
-const authConfig = require('../../main/authentication/authentication-config.json');
-const pAndIRedirectUrl = `${authConfig.AUTHORISATION_ENDPOINT}?p=${authConfig.PI_FLOW_NAME}&client_id=${authConfig.CLIENT_ID}&nonce=defaultNonce&redirect_uri=${authConfig.REDIRECT_URI}&scope=openid&response_type=id_token&prompt=login`;
+const pAndIRedirectUrl = getRedirectURL(process.env.ENV);
 const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
 const urlOptions = [
   {
