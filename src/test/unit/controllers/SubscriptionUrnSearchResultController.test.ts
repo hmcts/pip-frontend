@@ -13,7 +13,7 @@ const caseStub = sinon.stub(HearingService.prototype, 'getCaseByURN');
 caseStub.withArgs('123456789').returns(subscriptionsData);
 caseStub.withArgs('foo').returns(null);
 
-describe('Subscription Urn Search Result Controller', () => {
+describe('UserSubscriptions Urn Search Result Controller', () => {
   let i18n = {};
   it('should render the search result page', async () => {
 

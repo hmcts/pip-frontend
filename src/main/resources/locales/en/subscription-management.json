@@ -8,7 +8,7 @@
     "header3": "Subscriptions by court or tribunal ("
   },
   "noSubs": "You currently have no subscriptions",
-  "noSubsCase": "You currently have no subscriptions by cases",
+  "noSubsCase": "You currently have no subscriptions by case",
   "noSubsCourt": "You currently have no subscriptions by court or tribunal",
   "table": {
     "header1": "Case name",

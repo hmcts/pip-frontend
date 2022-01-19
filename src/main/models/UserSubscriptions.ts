@@ -1,4 +1,4 @@
-export interface Subscription {
+export interface UserSubscriptions {
   caseSubscriptions: any[];
   courtSubscriptions: any[];
 }

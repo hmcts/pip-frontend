@@ -5,7 +5,7 @@ import { HearingService } from './hearingService';
 import { Hearing } from '../models/hearing';
 import { CourtService } from './courtService';
 import { Court } from '../models/court';
-import {Subscription} from '../models/subscription';
+import {UserSubscriptions} from '../models/UserSubscriptions';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
@@ -14,15 +14,25 @@ const courtService = new CourtService();
 
 export class SubscriptionService {
 
-  async getSubscriptionsByUser(userid: number): Promise<Subscription> {
-    return await subscriptionRequests.getUserSubscriptions(userid);
+  async getSubscriptionsByUser(userid: number): Promise<UserSubscriptions> {
+    const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
+    if (subscriptionData) {
+      return subscriptionData;
+    }
+    else {
+      return new class implements UserSubscriptions {
+        caseSubscriptions: any[];
+        courtSubscriptions: any[];
+      };
+    }
+
   }
 
-  async generateCaseTableRows(subscriptionData): Promise<any[]> {
+  async generateCaseTableRows(subscriptionDataCases): Promise<any[]> {
     const caseRows = [];
 
-    if (subscriptionData && subscriptionData.caseSubscriptions.length) {
-      subscriptionData.caseSubscriptions.forEach((subscription) => {
+    if (subscriptionDataCases.length) {
+      subscriptionDataCases.forEach((subscription) => {
         caseRows.push(
           [
             {
@@ -45,10 +55,10 @@ export class SubscriptionService {
     return caseRows;
   }
 
-  async generateCourtTableRows(subscriptionData): Promise<any[]> {
+  async generateCourtTableRows(subscriptionDataCourts): Promise<any[]> {
     const courtRows = [];
-    if (subscriptionData && subscriptionData.courtSubscriptions.length) {
-      subscriptionData.courtSubscriptions.forEach((subscription) => {
+    if (subscriptionDataCourts.length) {
+      subscriptionDataCourts.forEach((subscription) => {
         courtRows.push([
           {
             text: subscription.courtName,

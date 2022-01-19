@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import { app } from '../../main/app';
 import {request as expressRequest} from 'express';
 
-describe('Subscription Management', () => {
+describe('UserSubscriptions Management', () => {
   describe('on GET', () => {
     test('should return subscription-management page', async () => {
 

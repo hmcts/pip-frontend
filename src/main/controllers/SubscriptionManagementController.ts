@@ -9,8 +9,8 @@ export default class SubscriptionManagementController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     if (req.user) {
       const subscriptionData = await subscriptionService.getSubscriptionsByUser(req.user['id']);
-      const caseTableData = await subscriptionService.generateCaseTableRows(subscriptionData);
-      const courtTableData = await subscriptionService.generateCourtTableRows(subscriptionData);
+      const caseTableData = await subscriptionService.generateCaseTableRows(subscriptionData.caseSubscriptions);
+      const courtTableData = await subscriptionService.generateCourtTableRows(subscriptionData.courtSubscriptions);
       let activeAllTab = false, activeCaseTab = false, activeCourtTab = false;
       switch (Object.keys(req.query)[0]) {
         case 'all':

@@ -10,7 +10,7 @@ const subscriptionManagementController = new SubscriptionManagementController();
 sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns({cases:[]});
 sinon.stub(SubscriptionService.prototype, 'generateCourtTableRows').returns({courts:[]});
 
-describe('Subscription Management Controller', () => {
+describe('UserSubscriptions Management Controller', () => {
   const i18n = {
     'subscription-management': {},
   };

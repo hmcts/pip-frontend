@@ -5,7 +5,7 @@ import {mockRequest} from '../mocks/mockRequest';
 
 const subscriptionAddController = new SubscriptionAddController();
 
-describe('Subscription Add Controller', () => {
+describe('UserSubscriptions Add Controller', () => {
   const i18n = {};
   it('should render the subscription add page', () => {
 

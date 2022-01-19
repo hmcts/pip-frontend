@@ -1,9 +1,9 @@
 import { subscriptionManagementApi } from './utils/axiosConfig';
-import { Subscription } from '../../models/subscription';
+import { UserSubscriptions } from '../../models/UserSubscriptions';
 
 export class SubscriptionRequests {
 
-  public async getUserSubscriptions(userId: number): Promise<Subscription> {
+  public async getUserSubscriptions(userId: number): Promise<UserSubscriptions> {
     try {
       const response = await subscriptionManagementApi.get(`/subscription/user/${userId}`);
       return response.data;

@@ -4,7 +4,6 @@ import fs from 'fs';
 import path from 'path';
 
 import { subscriptionManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
-import {Subscription} from '../../../main/models/subscription';
 
 const userIdWithSubscriptions = 1;
 const userIdWithoutSubscriptions = 2;
@@ -41,26 +40,19 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
   stub.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves(subscriptionsData2);
 
   it('should return user subscription object', async () => {
-    const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions) as Subscription;
-
-    const subscription = userSubscriptions;
-    expect(subscription.caseSubscriptions.length).toEqual(2);
-    expect(subscription.courtSubscriptions.length).toEqual(3);
-
+    const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
+    expect(userSubscriptions.caseSubscriptions.length).toEqual(2);
+    expect(userSubscriptions.courtSubscriptions.length).toEqual(3);
   });
 
   it('should have mocked object in the case subscriptions list', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-    const subscription = userSubscriptions;
-
-    expect(subscription.caseSubscriptions[0].caseNumber).toBe(mockedCaseSubscription.reference);
+    expect(userSubscriptions.caseSubscriptions[0].caseNumber).toBe(mockedCaseSubscription.reference);
   });
 
   it('should have mocked object in the court subscriptions list', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-    const subscription = userSubscriptions;
-
-    expect(subscription.courtSubscriptions[0].courtName).toBe(mockedCourtSubscription.name);
+    expect(userSubscriptions.courtSubscriptions[0].courtName).toBe(mockedCourtSubscription.name);
   });
 });
 

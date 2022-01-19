@@ -10,7 +10,7 @@ let htmlRes: Document;
 sinon.stub(SubscriptionService.prototype, 'subscribe').resolves(true);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
-describe('Subscription Confirmed Page', () => {
+describe('UserSubscriptions Confirmed Page', () => {
   beforeAll(async () => {
     app.request['user'] = {id: '1'};
     await request(app).post(PAGE_URL).then(res => {

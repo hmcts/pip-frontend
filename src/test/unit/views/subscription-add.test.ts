@@ -26,7 +26,7 @@ const expectedLink1 = 'Manage your subscriptions';
 const expectedLink2 = 'Find a court or tribunal list';
 
 let htmlRes: Document;
-describe('Subscription add Page initial load', () => {
+describe('UserSubscriptions add Page initial load', () => {
   beforeAll(async () => {
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
@@ -111,7 +111,7 @@ describe('Subscription add Page initial load', () => {
 
 });
 
-describe('Subscription add page no selection entered', () => {
+describe('UserSubscriptions add page no selection entered', () => {
   beforeAll(async () => {
     await request(app).post(PAGE_URL).send({selectionError: true}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

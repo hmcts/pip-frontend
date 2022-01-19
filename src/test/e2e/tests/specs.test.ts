@@ -201,7 +201,7 @@ describe('Verified user', () => {
       await mockSessionPage.enterText('1', 'UserIdInput');
       await mockSessionPage.selectOption('UserType');
 
-      //If USE_PROTOTYPE is set then it goes to Heroku, therefore re-open to Subscription Management
+      //If USE_PROTOTYPE is set then it goes to Heroku, therefore re-open to UserSubscriptions Management
       if (process.env.USE_PROTOTYPE) {
         await mockSessionPage.clickContinue();
         await subscriptionManagementPage.open('/subscription-management');
