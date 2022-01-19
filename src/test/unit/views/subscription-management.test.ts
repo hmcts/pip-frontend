@@ -31,13 +31,50 @@ let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
-sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns(subscriptionsData.data);
+
+
+describe('Subscription Management Page No Subscription', () => {
+  sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns({caseSubscriptions:[], courtSubscriptions:[]});
+  beforeAll(async () => {
+    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+    app.request['user'] = {id: '2'};
+    });
+
+
+  it('should display no subscription message ', async () => {
+    await request(app).get(PAGE_URL + '?all').then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      const message = htmlRes.getElementsByClassName('message');
+      expect(message[0].innerHTML)
+        .contains('You currently have no subscriptions', 'Could not find correct message');
+    });
+  });
+
+  it('should display no subscription case message ', async () => {
+    await request(app).get(PAGE_URL + '?case').then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      const message = htmlRes.getElementsByClassName('message');
+      expect(message[0].innerHTML)
+        .contains('You currently have no subscriptions by cases', 'Could not find correct message');
+    });
+  });
+
+  it('should display no subscription court message ', async () => {
+    await request(app).get(PAGE_URL + '?court').then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      const message = htmlRes.getElementsByClassName('message');
+      expect(message[0].innerHTML)
+        .contains('You currently have no subscriptions by court or tribunal', 'Could not find correct message');
+    });
+  });
+});
 
 describe('Subscription Management Page', () => {
   beforeAll(async () => {
+    sinon.restore();
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     app.request['user'] = {id: '1'};
-
+    sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns(subscriptionsData.data);
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });

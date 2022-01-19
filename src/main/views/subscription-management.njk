@@ -38,8 +38,21 @@
             active: activeCourtTab
         }]
     }) }}
+
     {% if caseTableData | length == 0 and courtTableData | length == 0 %}
-        <p class="govuk-body">{{ noSubs }}</p>
+      {% if activeAllTab == true%}
+        <div class="message">
+          <p class="govuk-body">{{ noSubs }}</p>
+        </div>
+      {% elseif activeCaseTab == true%}
+      <div class="message">
+        <p class="govuk-body">{{ noSubsCase }}</p>
+      </div>
+      {% elseif activeCourtTab == true%}
+      <div class="message">
+        <p class="govuk-body">{{ noSubsCourt }}</p>
+      </div>
+      {% endif %}
     {% else %}
         {% if activeAllTab == true or activeCaseTab == true %}
             {# Case Subscriptions Table #}
