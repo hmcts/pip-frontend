@@ -1,6 +1,7 @@
 const drivers = {
-  chromiumedge: { version: '96.0.1054.34', arch: process.arch, baseUrl: ' https://msedgedriver.azureedge.net' },
-  chrome: {version: '96.0.4664.45'},
+  chromiumedge: { version: 'latest'},
+  chrome: {version: 'latest'},
+  firefox: {version: 'latest'},
 };
 exports.config = {
   // ====================
@@ -66,11 +67,14 @@ exports.config = {
         args: ['--headless', 'user-agent=...','--disable-gpu', '--no-sandbox'],
       } : {},
     },
-    // {
-    //   maxInstances: 1,
-    //   browserName: 'firefox',
-    //   acceptInsecureCerts: true,
-    // },
+    {
+      maxInstances: 1,
+      browserName: 'firefox',
+      acceptInsecureCerts: true,
+      'moz:firefoxOptions': process.env.USE_HEADLESS ? {
+        args: ['-headless'],
+      }: {},
+    },
     // {
     //   maxInstances: 1,
     //   browserName: 'MicrosoftEdge',
