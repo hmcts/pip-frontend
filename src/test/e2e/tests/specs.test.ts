@@ -17,6 +17,8 @@ import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedur
 import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
 import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
 import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
+import { SignInPage } from '../PageObjects/SignIn.page';
+import { getRedirectURL } from '../../../main/authentication/authRedirect';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -37,8 +39,10 @@ let caseReferenceNumberSearchPage: CaseReferenceNumberSearchPage;
 let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
 let courtNameSearchPage: CourtNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
+const signInPage = new SignInPage;
 
 describe('Unverified user', () => {
+
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
     await homePage.open('');
     expect(await homePage.getPageTitle()).toEqual('HMCTS hearing lists');
@@ -154,7 +158,42 @@ describe('Unverified user', () => {
 });
 
 describe('Verified user', () => {
+  describe('Sign In Page', () => {
+    const pAndIRedirectUrl = getRedirectURL(process.env.ENV);
+    const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
+
+    beforeEach(async () => {
+      await signInPage.open('/sign-in');
+    });
+
+    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+    });
+
+    it('should see 3 radio buttons', async () => {
+      expect(await signInPage.radioButtons).toBe(3);
+    });
+
+    describe('sign in page routing', async () => {
+      it('should select \'Sign in with My HMCTS\' option and navigate to the login page HMCTS page', async () => {
+        await signInPage.selectOption('SignInRadio1');
+        expect(await signInPage.clickContinueForRadio1()).toHaveHref(HMCTSAccountUrl);
+      });
+
+      it('should select \'Sign in with Common Platform\' option and navigate to the login page Common Platform page', async () => {
+        await signInPage.selectOption('SignInRadio2');
+        expect(await signInPage.clickContinueForRadio2()).toHaveHref(HMCTSAccountUrl);
+      });
+
+      it('should select \'Sign in with my P&I details\' option and navigate to the login page P&I details page', async () => {
+        await signInPage.selectOption('SignInRadio3');
+        expect(await signInPage.clickContinueForRadio3()).toHaveHref(pAndIRedirectUrl);
+      });
+    });
+  });
+
   describe('sign in process', async () => {
+
     it('should open Session Mock Page to authenticate user', async () => {
       await mockSessionPage.open('/mock-session');
       expect(await mockSessionPage.getPageTitle()).toBe('Mock User Session Data');
@@ -230,6 +269,7 @@ describe('Verified user', () => {
 
     describe('following court or tribunal page', async () => {
       const allCourts = 305;
+
       const tribunalCourts = 49;
 
       before(async () => {
