@@ -1,11 +1,11 @@
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { CourtService } from '../../../main/service/courtService';
+import { HearingService } from '../../../main/service/hearingService';
 import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
+import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
+import { SubscriptionService } from '../../../main/service/subscriptionService';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { HearingService } from '../../../main/service/hearingService';
-import { CourtService } from '../../../main/service/courtService';
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 
 const mockCourt = {
   courtId: 643,
@@ -15,7 +15,6 @@ const mockCourt = {
   hearingList: [],
   hearings: 0,
 };
-
 const mockCase = {
   hearingId: 5,
   courtId: 50,
@@ -49,13 +48,13 @@ const blankPayload = {
   searchValue: '',
   userId: '5',
 };
+
 const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';
 const subscriptionService = new SubscriptionService();
 const stubUserSubscription = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
 const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionResult2 = JSON.parse(rawData2);
-
 stubUserSubscription.withArgs(userIdWithSubscriptions).returns(subscriptionResult2.data);
 stubUserSubscription.withArgs(userIdWithoutSubscriptions).returns([]);
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
