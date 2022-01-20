@@ -69,6 +69,7 @@ describe('getUserSubscriptions error tests', () => {
     stub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({'data': {caseSubscriptions: [], courtSubscriptions:[]}});
     stub.withArgs('/subscription/user/99').resolves(Promise.reject(errorRequest));
     stub.withArgs('/subscription/user/999').resolves(Promise.reject(errorMessage));
+    stub.withArgs('/subscription/user/9999').resolves(Promise.reject(errorResponse));
   });
 
   it('should return null for error response', async () => {
@@ -83,6 +84,11 @@ describe('getUserSubscriptions error tests', () => {
 
   it('should return null for error message', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(999);
+    expect(userSubscriptions).toBe(null);
+  });
+
+  it('should return null for error response', async () => {
+    const userSubscriptions = await subscriptionActions.getUserSubscriptions(9999);
     expect(userSubscriptions).toBe(null);
   });
 });
