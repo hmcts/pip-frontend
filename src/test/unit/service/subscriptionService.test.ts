@@ -65,6 +65,7 @@ const removeStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'removeFr
 const hearingStub = sinon.stub(HearingService.prototype, 'getCaseByNumber');
 const courtStub = sinon.stub(CourtService.prototype, 'getCourtById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
+const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
 subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', '1').resolves(true);
 subscriptionStub.withArgs(blankPayload, 'courts', '1').resolves(false);
@@ -85,6 +86,8 @@ cacheGetStub.withArgs(userIdWithoutSubscriptions, 'cases').resolves([]);
 cacheGetStub.withArgs(userIdWithoutSubscriptions, 'courts').resolves([]);
 removeStub.withArgs({case: '888'}, userIdWithSubscriptions).resolves();
 removeStub.withArgs({court: '111'}, userIdWithSubscriptions).resolves();
+deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
+deleteStub.withArgs('InValidSubscriptionId').resolves(null);
 
 describe('handleNewSubscription function', () => {
   it('should add new case subscription', async () => {
@@ -232,5 +235,13 @@ describe('createSubscriptionPayload function', () => {
 });
 
 describe('unsubscribing', () => {
-  // TODO: needs tests when actual api call is implemented
+  it('should return a message if subscription is deleted', async () => {
+    const payload = await subscriptionService.unsubscribe('ValidSubscriptionId');
+    expect(payload).toEqual('Subscription was deleted');
+  });
+
+  it('should return null if subscription delete failed', async () => {
+    const payload = await subscriptionService.unsubscribe('InValidSubscriptionId');
+    expect(payload).toEqual(null);
+  });
 });
