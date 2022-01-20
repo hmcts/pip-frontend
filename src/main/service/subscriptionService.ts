@@ -5,6 +5,7 @@ import { HearingService } from './hearingService';
 import { Hearing } from '../models/hearing';
 import { CourtService } from './courtService';
 import { Court } from '../models/court';
+import {UserSubscriptions} from '../models/UserSubscriptions';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
@@ -12,21 +13,27 @@ const hearingService = new HearingService();
 const courtService = new CourtService();
 
 export class SubscriptionService {
-  generateCaseTableRows(userid: number): any[] {
-    const subscriptionData = subscriptionRequests.getUserSubscriptions(userid);
+
+  async getSubscriptionsByUser(userid: number): Promise<UserSubscriptions> {
+    const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
+    return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], courtSubscriptions: []};
+  }
+
+  async generateCaseTableRows(subscriptionDataCases): Promise<any[]> {
     const caseRows = [];
-    if (subscriptionData.caseSubscriptions.length) {
-      subscriptionData.caseSubscriptions.forEach((subscription) => {
+
+    if (subscriptionDataCases.length) {
+      subscriptionDataCases.forEach((subscription) => {
         caseRows.push(
           [
             {
-              text: subscription.name,
+              text: subscription.caseName,
             },
             {
-              text: subscription.reference,
+              text: subscription.caseNumber,
             },
             {
-              text: moment.unix(subscription.dateAdded).format('D MMM YYYY'),
+              text: moment(subscription.dateAdded).format('MMM Do YYYY'),
             },
             {
               html: '<a href=\'#\'>Unsubscribe</a>',
@@ -39,17 +46,16 @@ export class SubscriptionService {
     return caseRows;
   }
 
-  generateCourtTableRows(userId: number): any[] {
-    const subscriptionData = subscriptionRequests.getUserSubscriptions(userId);
+  async generateCourtTableRows(subscriptionDataCourts): Promise<any[]> {
     const courtRows = [];
-    if (subscriptionData.courtSubscriptions.length) {
-      subscriptionData.courtSubscriptions.forEach((subscription) => {
+    if (subscriptionDataCourts.length) {
+      subscriptionDataCourts.forEach((subscription) => {
         courtRows.push([
           {
-            text: subscription.name,
+            text: subscription.courtName,
           },
           {
-            text: moment.unix(subscription.dateAdded).format('D MMM YYYY'),
+            text: moment(subscription.dateAdded).format('MMM Do YYYY'),
           },
           {
             html: '<a href=\'#\'>Unsubscribe</a>',
@@ -60,18 +66,6 @@ export class SubscriptionService {
     }
     return courtRows;
   }
-
-  public async getSubscriptionUrnDetails(urn: string): Promise<Hearing> {
-    const subscriptions = await subscriptionRequests.getSubscriptionByUrn(urn);
-
-    if (subscriptions) {
-      return subscriptions;
-    } else {
-      console.log(`Subscription with urn ${urn} does not exist`);
-      return null;
-    }
-  }
-
   public async handleNewSubscription(pendingSubscription, user): Promise<void> {
     const selectionList = Object.keys(pendingSubscription);
     for (const selectionName of selectionList) {
@@ -92,7 +86,7 @@ export class SubscriptionService {
           await this.setPendingSubscriptions(caseDetailsList, 'cases', user.id);
           break;
         case 'urn':
-          urnHearing = await subscriptionRequests.getSubscriptionByUrn(pendingSubscription[`${selectionName}`]);
+          urnHearing = await hearingService.getCaseByURN(pendingSubscription[`${selectionName}`]);
           if (urnHearing) {
             urnHearing.urnSearch = true;
             await this.setPendingSubscriptions([urnHearing], 'cases', user.id);
@@ -169,6 +163,7 @@ export class SubscriptionService {
           channel: 'EMAIL',
           searchType: 'COURT_ID',
           searchValue: pendingSubscription.courtId,
+          courtName: pendingSubscription.name,
           userId,
         };
         break;

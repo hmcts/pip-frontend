@@ -1,15 +1,16 @@
 import { Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
-import { SubscriptionService } from '../service/subscriptionService';
-import { cloneDeep } from 'lodash';
 
-const subscriptionService = new SubscriptionService();
+import { cloneDeep } from 'lodash';
+import { HearingService } from '../service/hearingService';
+
+const hearingService = new HearingService();
 
 export default class SubscriptionUrnSearchResultController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.query['search-input'];
     if (searchInput && searchInput.length) {
-      const searchResults = await subscriptionService.getSubscriptionUrnDetails(searchInput.toString());
+      const searchResults = await hearingService.getCaseByURN(searchInput.toString());
       searchResults ?
         res.render('subscription-urn-search-results', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search-results']),
