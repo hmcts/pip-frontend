@@ -18,6 +18,7 @@ import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
 import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
 import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
 import { SignInPage } from '../PageObjects/SignIn.page';
+import { getRedirectURL } from '../../../main/authentication/authRedirect';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -154,13 +155,17 @@ describe('Unverified user', () => {
       expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Single Justice Procedure cases');
     });
   });
+});
 
+describe('Verified user', () => {
   describe('Sign In Page', () => {
+    const pAndIRedirectUrl = getRedirectURL(process.env.ENV);
+    const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
+
     beforeEach(async () => {
       await signInPage.open('/sign-in');
     });
 
-    const returnUrl = 'https://www.google.com';
     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
     });
@@ -172,23 +177,21 @@ describe('Unverified user', () => {
     describe('sign in page routing', async () => {
       it('should select \'Sign in with My HMCTS\' option and navigate to the login page HMCTS page', async () => {
         await signInPage.selectOption('SignInRadio1');
-        expect(await signInPage.clickContinueForRadio1()).toHaveHref(returnUrl);
+        expect(await signInPage.clickContinueForRadio1()).toHaveHref(HMCTSAccountUrl);
       });
 
       it('should select \'Sign in with Common Platform\' option and navigate to the login page Common Platform page', async () => {
         await signInPage.selectOption('SignInRadio2');
-        expect(await signInPage.clickContinueForRadio2()).toHaveHref(returnUrl);
+        expect(await signInPage.clickContinueForRadio2()).toHaveHref(HMCTSAccountUrl);
       });
 
       it('should select \'Sign in with my P&I details\' option and navigate to the login page P&I details page', async () => {
         await signInPage.selectOption('SignInRadio3');
-        expect(await signInPage.clickContinueForRadio3()).toHaveHref(returnUrl);
+        expect(await signInPage.clickContinueForRadio3()).toHaveHref(pAndIRedirectUrl);
       });
     });
   });
-});
 
-describe('Verified user', () => {
   describe('sign in process', async () => {
 
     it('should open Session Mock Page to authenticate user', async () => {
