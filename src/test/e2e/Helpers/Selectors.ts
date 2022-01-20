@@ -94,7 +94,7 @@ module.exports = {
   PanelBody: '.govuk-panel__body',
 
   // SubscriptionManagement selectors
-  SubscriptionManagementTableFirstResultUrl: 'tbody > tr.govuk-table__row > .govuk-table__cell--numeric > a',
+  SubscriptionManagementTableFirstResultUrl: '>>>.unsubscribe-action',
 
   // DeleteSubscription selectors
   yesRadioButton: '#unsubscribe-confirm',
