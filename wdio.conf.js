@@ -67,14 +67,14 @@ exports.config = {
         args: ['--headless', 'user-agent=...','--disable-gpu', '--no-sandbox'],
       } : {},
     },
-    {
-      maxInstances: 1,
-      browserName: 'firefox',
-      acceptInsecureCerts: true,
-      'moz:firefoxOptions': process.env.USE_HEADLESS ? {
-        args: ['-headless'],
-      }: {},
-    },
+    // {
+    //   maxInstances: 1,
+    //   browserName: 'firefox',
+    //   acceptInsecureCerts: true,
+    //   'moz:firefoxOptions': process.env.USE_HEADLESS ? {
+    //     args: ['-headless'],
+    //   }: {},
+    // },
     // {
     //   maxInstances: 1,
     //   browserName: 'MicrosoftEdge',
