@@ -36,7 +36,7 @@ export class SubscriptionService {
               text: moment(subscription.dateAdded).format('MMM Do YYYY'),
             },
             {
-              html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.id}'>Unsubscribe</a>`,
+              html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>Unsubscribe</a>`,
               format: 'numeric',
             },
           ],
@@ -58,7 +58,7 @@ export class SubscriptionService {
             text: moment(subscription.dateAdded).format('MMM Do YYYY'),
           },
           {
-            html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.id}'>Unsubscribe</a>`,
+            html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>Unsubscribe</a>`,
             format: 'numeric',
           },
         ]);
