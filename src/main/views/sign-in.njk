@@ -1,5 +1,6 @@
 {% extends "template.njk" %}
 {% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% block pageTitle %}
@@ -12,6 +13,17 @@
 {% endblock %}
 
 {% block content %}
+    {% if displayError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.noSelection,
+                    href: "#sign-in"
+                }
+            ]
+        }) }}
+    {% endif %}
     <form action="sign-in" method="post">
       {{ govukRadios({
         idPrefix: "sign-in",
@@ -50,14 +62,5 @@
     </form>
 {% endblock %}
 {% block bodyEnd %}
-    <script>
-      const button = document.getElementsByClassName('govuk-button')[0];
-      button.addEventListener('click', (e) => {
-        const checkedRadios = document.querySelectorAll('input[type="radio"]:checked');
-        if (!checkedRadios.length) {
-          e.preventDefault();
-        }
-      })
-    </script>
   {{ super() }}
 {% endblock %}
