@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { app } from '../../../main/app';
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
+import {HearingService} from '../../../main/service/hearingService';
 
 const PAGE_URL = '/subscription-urn-search';
 const headingClass = 'govuk-label-wrapper';
@@ -20,7 +20,7 @@ const expectedErrorTitle = 'There is a problem';
 
 let htmlRes: Document;
 
-const stub = sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn');
+const stub = sinon.stub(HearingService.prototype, 'getCaseByURN');
 stub.withArgs('12345').returns(null);
 stub.withArgs('').returns(null);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
