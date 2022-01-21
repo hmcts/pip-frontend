@@ -6,11 +6,11 @@ const PAGE_URL = '/view-option';
 let htmlRes;
 const NON_SIGNED_IN_LINKS = {
   Home: 'view-option',
-  'Sign in': 'https://hmcts-sjp.herokuapp.com/sign-in.html',
+  'Sign in': 'sign-in',
 };
 const SIGNED_IN_LINKS = {
-  Home: 'https://hmcts-sjp.herokuapp.com/account.html',
-  Subscriptions: 'https://hmcts-sjp.herokuapp.com/add-subscription.html',
+  Home: 'account-home',
+  Subscriptions: 'subscription-management',
   'Sign out': 'logout',
 };
 
