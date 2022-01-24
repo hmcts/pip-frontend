@@ -2,13 +2,11 @@ import { SubscriptionRequests } from '../../../main/resources/requests/subscript
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-
 import { subscriptionManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
 
 const userIdWithSubscriptions = 1;
 const userIdWithoutSubscriptions = 2;
 const nonExistingUserId = 777;
-
 const subscriptionActions = new SubscriptionRequests();
 const mockedCaseSubscription = {
   name: 'Wyman Inc Dispute',
@@ -31,10 +29,19 @@ const errorMessage = {
   message: 'test',
 };
 
+const unsubscribeValidData = {
+  subscriptionId: '123',
+};
+const unsubscribeInvalidData = {
+  subscriptionId: 'foo',
+};
+const errorBodyData = {baz: 'qux'};
+const errorRequestBodyData = {foo: 'bar'};
 const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData2 = JSON.parse(rawData2);
 const stub = sinon.stub(subscriptionManagementApi, 'get');
 const subscriptionManagementStub = sinon.stub(subscriptionManagementApi, 'post');
+const deleteStub = sinon.stub(subscriptionManagementApi, 'delete');
 
 describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, () => {
   stub.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves(subscriptionsData2);
@@ -62,6 +69,7 @@ describe('getUserSubscriptions error tests', () => {
     stub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({'data': {caseSubscriptions: [], courtSubscriptions:[]}});
     stub.withArgs('/subscription/user/99').resolves(Promise.reject(errorRequest));
     stub.withArgs('/subscription/user/999').resolves(Promise.reject(errorMessage));
+    stub.withArgs('/subscription/user/9999').resolves(Promise.reject(errorResponse));
   });
 
   it('should return null for error response', async () => {
@@ -76,6 +84,11 @@ describe('getUserSubscriptions error tests', () => {
 
   it('should return null for error message', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(999);
+    expect(userSubscriptions).toBe(null);
+  });
+
+  it('should return null for error response', async () => {
+    const userSubscriptions = await subscriptionActions.getUserSubscriptions(9999);
     expect(userSubscriptions).toBe(null);
   });
 });
@@ -105,3 +118,38 @@ describe('subscribe', () => {
     expect(userSubscriptions).toBe(false);
   });
 });
+
+describe('unsubscribe with valid post data', () => {
+  deleteStub.withArgs('/subscription/123').resolves({data: 'unsubscribed successfully'});
+  it('should return true if provided data is valid', async () => {
+    const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeValidData.subscriptionId);
+    expect(unsubscribe).toBe('unsubscribed successfully');
+  });
+});
+
+describe('unsubscribe error states', () => {
+  describe('unsubscribe error response', () => {
+    deleteStub.withArgs(`/subscription/${unsubscribeInvalidData.subscriptionId}`).resolves(Promise.reject(errorResponse));
+    it('should return null', async () => {
+      const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeInvalidData.subscriptionId);
+      expect(unsubscribe).toBe(null);
+    });
+  });
+
+  describe('unsubscribe error request', () => {
+    deleteStub.withArgs(`/subscription/${errorRequestBodyData.foo}`).resolves(Promise.reject(errorRequest));
+    it('should return null', async () => {
+      const unsubscribe = await subscriptionActions.unsubscribe(errorRequestBodyData.foo);
+      expect(unsubscribe).toBe(null);
+    });
+  });
+
+  describe('unsubscribe error', () => {
+    deleteStub.withArgs(`/subscription/${errorBodyData.baz}`).resolves(Promise.reject({error: 'error'}));
+    it('should return null', async () => {
+      const unsubscribe = await subscriptionActions.unsubscribe(errorBodyData.baz);
+      expect(unsubscribe).toBe(null);
+    });
+  });
+});
+
