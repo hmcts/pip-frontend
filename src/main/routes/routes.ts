@@ -104,6 +104,11 @@ export default function(app: Application): void {
     },
   }));
 
+  app.get('/robots.txt', function (req, res) {
+    res.type('text/plain');
+    res.send('User-agent: *\nDisallow: /');
+  });
+
   // TODO: expose route only if not on the production environment
   app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
   /* istanbul ignore next */

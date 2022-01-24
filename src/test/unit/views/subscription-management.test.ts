@@ -5,11 +5,14 @@ import sinon from 'sinon';
 import moment from 'moment';
 
 import {app} from '../../../main/app';
+import fs from 'fs';
+import path from 'path';
+import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
 
 const PAGE_URL = '/subscription-management';
-const expectedAllSubsTitle = 'All subscriptions (9)';
-const expectedCaseSubsTitle = 'Subscriptions by case (3)';
-const expectedCourtSubsTitle = 'Subscriptions by court or tribunal (6)';
+const expectedAllSubsTitle = 'All subscriptions (5)';
+const expectedCaseSubsTitle = 'Subscriptions by case (2)';
+const expectedCourtSubsTitle = 'Subscriptions by court or tribunal (3)';
 const expectedAddSubscriptionButton = 'Add new subscription';
 const tabsClass = 'moj-sub-navigation__link';
 const caseNameColumn = 'Case name';
@@ -17,20 +20,59 @@ const caseReferenceColumn = 'Case reference number';
 const dateAddedColumn = 'Date added';
 const actionsColumn = 'Actions';
 const courtNameColumn = 'Court or tribunal name';
-const expectedRowCaseName = 'Collins LLC';
-const expectedRowCaseReference = 'T20217002';
-const expectedRowDateAdded = moment.unix(1632351600).format('D MMM YYYY');
-const expectedRowCourtName = 'Mutsu Court';
-const expectedCaseRowsCount = 3;
-const expectedCourtRowsCount = 6;
+const expectedRowCaseName = 'Tom Clancy';
+const expectedRowCaseReference = 'T485913';
+const expectedRowDateAdded = moment('2022-01-14T11:30:12.357299').format('MMM Do YYYY');
+const expectedRowCourtName = 'Court 1';
+const expectedCaseRowsCount = 2;
+const expectedCourtRowsCount = 3;
 
 let htmlRes: Document;
 
-describe('Subscription Management Page', () => {
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
+const subscriptionsData = JSON.parse(rawData);
+
+describe('Subscriptions Management Page No UserSubscriptions', () => {
+  sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns({caseSubscriptions:[], courtSubscriptions:[]});
   beforeAll(async () => {
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-    app.request['user'] = {id: '1'};
+    app.request['user'] = {id: '2'};
+  });
 
+  it('should display no subscription message ', async () => {
+    await request(app).get(PAGE_URL + '?all').then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      const message = htmlRes.getElementsByClassName('govuk-body');
+      expect(message[0].innerHTML)
+        .contains('You currently have no subscriptions', 'Could not find correct message');
+    });
+  });
+
+  it('should display no subscription case message ', async () => {
+    await request(app).get(PAGE_URL + '?case').then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      const message = htmlRes.getElementsByClassName('govuk-body');
+      expect(message[0].innerHTML)
+        .contains('You currently have no subscriptions by case', 'Could not find correct message');
+    });
+  });
+
+  it('should display no subscription court message ', async () => {
+    await request(app).get(PAGE_URL + '?court').then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      const message = htmlRes.getElementsByClassName('govuk-body');
+      expect(message[0].innerHTML)
+        .contains('You currently have no subscriptions by court or tribunal', 'Could not find correct message');
+    });
+  });
+});
+
+describe('Subscriptions Management Page', () => {
+  beforeAll(async () => {
+    sinon.restore();
+    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+    app.request['user'] = {id: '1'};
+    sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns(subscriptionsData.data);
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
