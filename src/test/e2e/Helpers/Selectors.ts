@@ -92,4 +92,14 @@ module.exports = {
   // SubscriptionConfirmed selectors
   PanelTitle: 'h1.govuk-panel__title',
   PanelBody: '.govuk-panel__body',
+
+  // SubscriptionManagement selectors
+  SubscriptionManagementTableFirstResultUrl: '>>>.unsubscribe-action',
+
+  // DeleteSubscription selectors
+  yesRadioButton: '#unsubscribe-confirm',
+  noRadioButton: '#unsubscribe-confirm-2',
+
+  // UnsubscribeConfirmation selectors
+  panelTitle: '.govuk-panel__title',
 };

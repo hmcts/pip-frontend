@@ -19,6 +19,8 @@ import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumbe
 import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
 import { SignInPage } from '../PageObjects/SignIn.page';
 import { getRedirectURL } from '../../../main/authentication/authRedirect';
+import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
+import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -39,6 +41,8 @@ let caseReferenceNumberSearchPage: CaseReferenceNumberSearchPage;
 let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
 let courtNameSearchPage: CourtNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
+let deleteSubscriptionPage: DeleteSubscriptionPage;
+let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 const signInPage = new SignInPage;
 
 describe('Unverified user', () => {
@@ -333,7 +337,14 @@ describe('Verified user', () => {
     });
 
     it('should click on the first unsubscribe record', async () => {
-      // TODO: add PUB-743 tests here
+      deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
+      expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
+    });
+
+    it('should select yes option and unsubscribe', async () => {
+      await deleteSubscriptionPage.selectOption('yesRadioButton');
+      unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
+      expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
     });
   });
 });
