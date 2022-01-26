@@ -7,7 +7,7 @@ describe('Auth Redirect', () => {
 
   describe('getRedirectURL', () => {
     it('should return default values if environments are not set', () => {
-      const encodedReturnUrl = encodeURIComponent('https://pip-frontend-pr-146.dev.platform.hmcts.net/login/return');
+      const encodedReturnUrl = encodeURIComponent('https://localhost:8080/login/return');
       expect(getRedirectURL(null))
         .toEqual('https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_SignInUserFlow' +
           '&client_id=c7e6e2c6-c23c-48e8-b9f4-6bad25a95331&nonce=defaultNonce&redirect_uri=' + encodedReturnUrl +
