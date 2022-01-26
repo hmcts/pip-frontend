@@ -12,7 +12,7 @@ export default function(app: Application): void {
   // const authType = (process.env.NODE_ENV === 'production') ? 'azuread-openidconnect' : 'mockaroo';
   /* istanbul ignore next */
   const redirectUrl = (process.env.USE_PROTOTYPE) ? 'https://hmcts-sjp.herokuapp.com/index.html' : '/subscription-management';
-  const authType = 'mockaroo';
+  const authType = 'azuread-openidconnect';
 
   const corsOptions = {
     origin: 'https://pib2csbox.b2clogin.com',
@@ -37,7 +37,7 @@ export default function(app: Application): void {
 
   function logOut(req, res): void{
     res.clearCookie('session');
-    res.redirect('/');
+    res.redirect('/view-option');
   }
 
   function regenerateSession(req, res): void {
@@ -57,7 +57,8 @@ export default function(app: Application): void {
   app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
-  app.post('/login/return',passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
+  app.post('/login/return', passport.authenticate(authType, { failureRedirect: '/view-option'}),
+    (req, res) => {res.redirect('/account-home');});
   app.get('/logout', logOut);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
