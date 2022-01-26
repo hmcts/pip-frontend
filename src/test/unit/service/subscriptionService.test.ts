@@ -1,11 +1,11 @@
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { CourtService } from '../../../main/service/courtService';
+import { HearingService } from '../../../main/service/hearingService';
 import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
+import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
+import { SubscriptionService } from '../../../main/service/subscriptionService';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { HearingService } from '../../../main/service/hearingService';
-import { CourtService } from '../../../main/service/courtService';
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 
 const mockCourt = {
   courtId: 643,
@@ -15,7 +15,6 @@ const mockCourt = {
   hearingList: [],
   hearings: 0,
 };
-
 const mockCase = {
   hearingId: 5,
   courtId: 50,
@@ -49,13 +48,13 @@ const blankPayload = {
   searchValue: '',
   userId: '5',
 };
+
 const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';
 const subscriptionService = new SubscriptionService();
 const stubUserSubscription = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
 const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionResult2 = JSON.parse(rawData2);
-
 stubUserSubscription.withArgs(userIdWithSubscriptions).returns(subscriptionResult2.data);
 stubUserSubscription.withArgs(userIdWithoutSubscriptions).returns([]);
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
@@ -65,6 +64,7 @@ const removeStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'removeFr
 const hearingStub = sinon.stub(HearingService.prototype, 'getCaseByNumber');
 const courtStub = sinon.stub(CourtService.prototype, 'getCourtById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
+const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
 subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', '1').resolves(true);
 subscriptionStub.withArgs(blankPayload, 'courts', '1').resolves(false);
@@ -85,6 +85,8 @@ cacheGetStub.withArgs(userIdWithoutSubscriptions, 'cases').resolves([]);
 cacheGetStub.withArgs(userIdWithoutSubscriptions, 'courts').resolves([]);
 removeStub.withArgs({case: '888'}, userIdWithSubscriptions).resolves();
 removeStub.withArgs({court: '111'}, userIdWithSubscriptions).resolves();
+deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
+deleteStub.withArgs('InValidSubscriptionId').resolves(null);
 
 describe('handleNewSubscription function', () => {
   it('should add new case subscription', async () => {
@@ -228,5 +230,17 @@ describe('createSubscriptionPayload function', () => {
   it('should create blank payload', async () => {
     const payload = subscriptionService.createSubscriptionPayload({}, 'foo', '5');
     expect(payload).toStrictEqual(blankPayload);
+  });
+});
+
+describe('unsubscribing', () => {
+  it('should return a message if subscription is deleted', async () => {
+    const payload = await subscriptionService.unsubscribe('ValidSubscriptionId');
+    expect(payload).toEqual('Subscription was deleted');
+  });
+
+  it('should return null if subscription delete failed', async () => {
+    const payload = await subscriptionService.unsubscribe('InValidSubscriptionId');
+    expect(payload).toEqual(null);
   });
 });

@@ -1,13 +1,12 @@
-import {expect} from 'chai';
-import request from 'supertest';
+import { app } from '../../../main/app';
+import { expect } from 'chai';
 import { request as expressRequest } from 'express';
-import sinon from 'sinon';
-import moment from 'moment';
-
-import {app} from '../../../main/app';
+import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 import fs from 'fs';
+import moment from 'moment';
 import path from 'path';
-import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
+import request from 'supertest';
+import sinon from 'sinon';
 
 const PAGE_URL = '/subscription-management';
 const expectedAllSubsTitle = 'All subscriptions (5)';
@@ -26,16 +25,18 @@ const expectedRowDateAdded = moment('2022-01-14T11:30:12.357299').format('MMM Do
 const expectedRowCourtName = 'Court 1';
 const expectedCaseRowsCount = 2;
 const expectedCourtRowsCount = 3;
+const expectedUnsubscribeLink = 'delete-subscription?subscription=5a45699f-47e3-4283-904a-581afe624155';
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
+const subscriptionsData = JSON.parse(rawData);
+const userSubscriptionsStub = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
+userSubscriptionsStub.withArgs('2').returns({caseSubscriptions:[], courtSubscriptions:[]});
+userSubscriptionsStub.withArgs('1').returns(subscriptionsData.data);
+sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData);
-
 describe('Subscriptions Management Page No UserSubscriptions', () => {
-  sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns({caseSubscriptions:[], courtSubscriptions:[]});
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     app.request['user'] = {id: '2'};
   });
 
@@ -69,10 +70,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
 
 describe('Subscriptions Management Page', () => {
   beforeAll(async () => {
-    sinon.restore();
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     app.request['user'] = {id: '1'};
-    sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns(subscriptionsData.data);
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -153,11 +151,11 @@ describe('Subscriptions Management Page', () => {
     expect(courtHeaders[2].innerHTML).contains(actionsColumn, 'Actions header is not present');
   });
 
-  it('requests cell should contain a link', () => {
+  it('requests cell should contain a link to delete subscription page', () => {
     const actionsCell = htmlRes.getElementsByClassName('govuk-table__body')[0]
       .getElementsByClassName('govuk-table__cell')[3];
     expect(actionsCell.innerHTML).contains('Unsubscribe');
-    expect(actionsCell.querySelector('a').getAttribute('href')).equal('#');
+    expect(actionsCell.querySelector('a').getAttribute('href')).equal(expectedUnsubscribeLink);
   });
 
   it('case table should have correct number of rows', () => {

@@ -5,7 +5,7 @@ import { HearingService } from './hearingService';
 import { Hearing } from '../models/hearing';
 import { CourtService } from './courtService';
 import { Court } from '../models/court';
-import {UserSubscriptions} from '../models/UserSubscriptions';
+import { UserSubscriptions } from '../models/UserSubscriptions';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
@@ -36,7 +36,7 @@ export class SubscriptionService {
               text: moment(subscription.dateAdded).format('MMM Do YYYY'),
             },
             {
-              html: '<a href=\'#\'>Unsubscribe</a>',
+              html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>Unsubscribe</a>`,
               format: 'numeric',
             },
           ],
@@ -58,7 +58,7 @@ export class SubscriptionService {
             text: moment(subscription.dateAdded).format('MMM Do YYYY'),
           },
           {
-            html: '<a href=\'#\'>Unsubscribe</a>',
+            html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>Unsubscribe</a>`,
             format: 'numeric',
           },
         ]);
@@ -66,6 +66,11 @@ export class SubscriptionService {
     }
     return courtRows;
   }
+
+  public async unsubscribe(subscriptionId: string): Promise<object> {
+    return subscriptionRequests.unsubscribe(subscriptionId);
+  }
+
   public async handleNewSubscription(pendingSubscription, user): Promise<void> {
     const selectionList = Object.keys(pendingSubscription);
     for (const selectionName of selectionList) {
