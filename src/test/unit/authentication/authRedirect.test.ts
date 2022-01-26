@@ -1,6 +1,10 @@
 import { getFlowName, getRedirectURL } from '../../../main/authentication/authRedirect';
 
 describe('Auth Redirect', () => {
+  beforeEach(() => {
+    jest.resetModules();
+  });
+
   describe('getRedirectURL', () => {
     it('should return default values if environments are not set', () => {
       const encodedReturnUrl = encodeURIComponent('https://pip-frontend-pr-146.dev.platform.hmcts.net/login/return');
