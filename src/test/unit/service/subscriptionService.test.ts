@@ -1,11 +1,11 @@
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { CourtService } from '../../../main/service/courtService';
+import { HearingService } from '../../../main/service/hearingService';
 import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
+import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
+import { SubscriptionService } from '../../../main/service/subscriptionService';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { HearingService } from '../../../main/service/hearingService';
-import { CourtService } from '../../../main/service/courtService';
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 
 const mockCourt = {
   courtId: 643,
@@ -14,12 +14,6 @@ const mockCourt = {
   location: 'Scotland',
   hearingList: [],
   hearings: 0,
-};
-const mockUrnCase = {
-  courtNumber: 100,
-  caseNumber: 'T489999',
-  caseName: 'Ashely',
-  urn: 'ValidURN',
 };
 const mockCase = {
   hearingId: 5,
@@ -36,6 +30,7 @@ const courtSubscriptionPayload = {
   channel: 'EMAIL',
   searchType: 'COURT_ID',
   searchValue: 643,
+  courtName: 'Aberdeen Tribunal Hearing Centre',
   userId: '1',
 };
 const caseSubscriptionPayload = {
@@ -53,18 +48,23 @@ const blankPayload = {
   searchValue: '',
   userId: '5',
 };
+
 const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';
 const subscriptionService = new SubscriptionService();
+const stubUserSubscription = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
+const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
+const subscriptionResult2 = JSON.parse(rawData2);
+stubUserSubscription.withArgs(userIdWithSubscriptions).returns(subscriptionResult2.data);
+stubUserSubscription.withArgs(userIdWithoutSubscriptions).returns([]);
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
-const stubSubscriptionSearchUrn = sinon.stub(subscriptionService, 'getSubscriptionUrnDetails');
 const cacheSetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'setPendingSubscriptions');
 const cacheGetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
 const removeStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'removeFromCache');
 const hearingStub = sinon.stub(HearingService.prototype, 'getCaseByNumber');
 const courtStub = sinon.stub(CourtService.prototype, 'getCourtById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
-sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn').withArgs('ValidURN').resolves(mockUrnCase);
+const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
 subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', '1').resolves(true);
 subscriptionStub.withArgs(blankPayload, 'courts', '1').resolves(false);
@@ -85,40 +85,8 @@ cacheGetStub.withArgs(userIdWithoutSubscriptions, 'cases').resolves([]);
 cacheGetStub.withArgs(userIdWithoutSubscriptions, 'courts').resolves([]);
 removeStub.withArgs({case: '888'}, userIdWithSubscriptions).resolves();
 removeStub.withArgs({court: '111'}, userIdWithSubscriptions).resolves();
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
-const subscriptionResult = JSON.parse(rawData);
-const validUrn = '123456789';
-stubSubscriptionSearchUrn.withArgs(validUrn).returns(subscriptionResult);
-
-describe('generate rows functions without subscriptions', () => {
-
-  it('generateCaseTableRows should return list of case subscriptions', () => {
-    const caseSubscriptionRows = subscriptionService.generateCaseTableRows(2);
-    expect(caseSubscriptionRows.length).toBe(0);
-  });
-
-  it('generateCourtTableRows should return list of court subscriptions', () => {
-    const courtSubscriptionRows = subscriptionService.generateCourtTableRows(2);
-    expect(courtSubscriptionRows.length).toBe(0);
-  });
-});
-
-describe('generate rows functions with subscriptions', () => {
-  it('generateCaseTableRows should return list of case subscriptions', () => {
-    const caseSubscriptionRows = subscriptionService.generateCaseTableRows(1);
-    expect(caseSubscriptionRows.length).toBeGreaterThan(0);
-  });
-
-  it('generateCourtTableRows should return list of court subscriptions', () => {
-    const courtSubscriptionRows = subscriptionService.generateCourtTableRows(1);
-    expect(courtSubscriptionRows.length).toBeGreaterThan(0);
-  });
-
-  it('getSubscriptionUrnDetails should return the cases', () => {
-    const courtSubscription= subscriptionService.getSubscriptionUrnDetails(validUrn);
-    expect(courtSubscription).not.toBeNull();
-  });
-});
+deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
+deleteStub.withArgs('InValidSubscriptionId').resolves(null);
 
 describe('handleNewSubscription function', () => {
   it('should add new case subscription', async () => {
@@ -262,5 +230,17 @@ describe('createSubscriptionPayload function', () => {
   it('should create blank payload', async () => {
     const payload = subscriptionService.createSubscriptionPayload({}, 'foo', '5');
     expect(payload).toStrictEqual(blankPayload);
+  });
+});
+
+describe('unsubscribing', () => {
+  it('should return a message if subscription is deleted', async () => {
+    const payload = await subscriptionService.unsubscribe('ValidSubscriptionId');
+    expect(payload).toEqual('Subscription was deleted');
+  });
+
+  it('should return null if subscription delete failed', async () => {
+    const payload = await subscriptionService.unsubscribe('InValidSubscriptionId');
+    expect(payload).toEqual(null);
   });
 });

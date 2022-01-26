@@ -16,11 +16,17 @@ const caseNumberData = {
   urn: 'N363N6R4OG',
 };
 const hearingService = new HearingService();
+const hearingRequest = HearingRequests.prototype;
+const urnStub = sinon.stub(hearingRequest, 'getCaseByUrn');
+
+urnStub.withArgs('validURN').resolves(data);
+urnStub.withArgs('bar').resolves(null);
 const caseNameStub = sinon.stub(HearingRequests.prototype, 'getHearingsByCaseName');
 const caseNumberStub = sinon.stub(HearingRequests.prototype, 'getHearingByCaseNumber');
 caseNameStub.withArgs('my').returns(data);
 caseNameStub.withArgs('').returns([]);
 caseNameStub.withArgs('foo').returns([]);
+caseNameStub.withArgs('my').returns(data);
 caseNumberStub.withArgs('').returns(null);
 caseNumberStub.withArgs('foo').returns(null);
 caseNumberStub.withArgs('T485913').returns(caseNumberData);
@@ -52,5 +58,13 @@ describe('Hearing Service', () => {
     it('should return empty list if there are no matching results', async () => {
       expect(await hearingService.getCaseByNumber('foo')).to.deep.equal(null);
     });
+  });
+
+  it('should return case for a valid urn', async () => {
+    expect(await hearingService.getCaseByURN('validURN')).to.equal(data);
+  });
+
+  it('should return null for a invalid urn', async () => {
+    expect(await hearingService.getCaseByURN('bar')).to.deep.equal(null);
   });
 });

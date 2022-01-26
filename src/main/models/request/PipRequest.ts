@@ -31,6 +31,8 @@ export interface PipRequest extends Request {
       'standard-list': {};
       'account-home': {};
       'login-return': {};
+      'delete-subscription': {};
+      'unsubscribe-confirmation': {};
       'sign-in': {};
     };
   };
