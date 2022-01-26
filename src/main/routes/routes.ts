@@ -9,7 +9,7 @@ const healthcheck = require('@hmcts/nodejs-healthcheck');
 
 export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
-  const authType = (process.env.NODE_ENV === 'production') ? 'azuread-openidconnect' : 'mockaroo';
+  const authType = (process.env.USE_PROTOTYPE === 'true') ? 'azuread-openidconnect' : 'mockaroo';
   // const authType = 'azuread-openidconnect';
 
   const corsOptions = {
