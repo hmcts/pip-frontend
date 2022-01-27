@@ -92,6 +92,9 @@ export default function(app: Application): void {
   app.get('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
   app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
 
+  // restricted admin paths
+  app.get('/upload-confirmation', ensureAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
+
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
       host: os.hostname(),
