@@ -1,5 +1,4 @@
-{% from "macros/common-components.njk" import goBack %}
-{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "macros/common-components.njk" import goBack, successPanel %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
@@ -12,10 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    {{ govukPanel({
-        titleText: title,
-        text: message
-    }) }}
+    {{ successPanel(title, message) }}
     <p class="govuk-body">
         {{ pStart }}
         <a class="govuk-link" href="your-account">{{ yourAccount }}</a>
