@@ -2,7 +2,6 @@
 {% from "./macros/common-components.njk" import goBack %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {%- from "moj/components/filter/macro.njk" import mojFilter -%}
-{%- from "moj/components/button-menu/macro.njk" import mojButtonMenu -%}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
@@ -13,17 +12,10 @@
     {{ goBack() }}
 {% endblock %}
 {% block content %}
-  <div class="moj-button-menu">
-    <div class="moj-button-menu__wrapper">
-      <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary " data-module="govuk-button" onclick="toggleFilters()">
-        Hide
-      </a>
-    </div>
-  </div>
   <div id="grid-row" class="govuk-grid-row">
-    <div class="parent-box layout-width-two-fifths govuk-!-display-inline-block" id="filters">
+    <div class="parent-box layout-width-two-fifths govuk-!-display-inline-block">
       <div class="filter-back-to-top-wrapper">
-        <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19"
+      <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19"
          href="#">
         <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17"
              viewBox="0 0 13 17">
@@ -87,7 +79,6 @@
 
   <div class="layout-width-three-fifths">
     <h2 id='page-heading' class="govuk-heading-l">{{ heading }}</h2>
-
     <div class="govuk-grid-row govuk-!-margin-bottom-8">
       {% for key, value in courtList %}
         {% if value| length == 0 %}
@@ -149,17 +140,5 @@
       if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
       }
-      function toggleFilters() {
-        var element = document.getElementById("filters");
-        element.classList.toggle("hide");
-        if (element.className.indexOf('hide') > 0) {
-          document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = 'Show';
-        }
-        else {
-          document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = 'Hide';
-        }
-
-      }
     </script>
-
 {% endblock %}
