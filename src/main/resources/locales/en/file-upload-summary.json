@@ -1,0 +1,14 @@
+{
+  "header": "File Upload Summary",
+  "title": "Check your answers",
+  "actionName": "Change",
+  "fileKey": "File",
+  "courtNameKey": "Court name",
+  "documentTypeKey": "Document type",
+  "listTypeKey": "List type",
+  "hearingDatesKey": "Hearing dates",
+  "availableToKey": "Available to",
+  "languageKey": "Language",
+  "displayFileDatesKey": "Display file dates",
+  "confirmButton": "Confirm"
+}
