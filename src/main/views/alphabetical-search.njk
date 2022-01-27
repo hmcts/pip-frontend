@@ -16,7 +16,7 @@
   <div class="moj-button-menu">
     <div class="moj-button-menu__wrapper">
       <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary " data-module="govuk-button" onclick="toggleFilters()">
-        Hide
+        {{ hide }}
       </a>
     </div>
   </div>
@@ -33,6 +33,7 @@
       </div>
 
     {% set checkedFilters = [] %}
+      {% set toBeCreated = true %}
     {% set filterOptionsHtml %}
       {% for key, option in filterOptions %}
         {% set checkedFilterItems = [] %}
@@ -50,6 +51,16 @@
         {% if checkedFilterItems| length > 0 %}
           {% set _ = checkedFilters.push({heading: {text: key}, items: checkedFilterItems}) %}
         {% endif %}
+        {% if toBeCreated %}
+          <div class="moj-button-menu" id="innerButton">
+            <div class="moj-button-menu__wrapper">
+              <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary " data-module="govuk-button" onclick="toggleFilters()">
+                {{ hide }}
+              </a>
+            </div>
+          </div>
+          {% set toBeCreated = false %}
+        {% endif %}
         {{ govukCheckboxes({
           idPrefix: key,
           name: key,
@@ -64,8 +75,7 @@
         }) }}
       {% endfor %}
     {% endset %}
-
-    <form method="post" action="alphabetical-search" class="moj-filter-layout__filter layout-width-four-fifths" autocomplete="off">
+    <form method="post" action="alphabetical-search" class="moj-filter-layout__filter layout-width-four-fifths" autocomplete="off" id="filterForm">
       {{ mojFilter({
         heading: {
           text: filter
@@ -153,10 +163,10 @@
         var element = document.getElementById("filters");
         element.classList.toggle("hide");
         if (element.className.indexOf('hide') > 0) {
-          document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = 'Show';
+          document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ show }}";
         }
         else {
-          document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = 'Hide';
+          document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ hide }}";
         }
 
       }

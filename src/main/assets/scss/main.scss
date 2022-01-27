@@ -398,3 +398,24 @@ div {
 .hide {
   display: none !important;
 }
+
+
+.moj-button-menu {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  #filterForm {
+    width: 100%;
+  }
+
+  .moj-button-menu {
+    display: block;
+  }
+  #innerButton {
+    position: relative;
+    margin-left: 0px;
+    margin-top: 0px;
+  }
+}
+
