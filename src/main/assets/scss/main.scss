@@ -397,15 +397,29 @@ div {
   border: 0;
 }
 
-.hide {
-  display: none !important; // sass-lint:disable-line no-important
+@media (min-width: 770px) {
+  .hide {
+    display: block;
+  }
 }
 
 .moj-button-menu {
   display: none;
 }
 
-@media (max-width: 640px) {
+.alphabetical-box {
+  .filter-back-to-top-wrapper {
+    left: 44%;
+    position: relative;
+    width: 0;
+  }
+}
+
+@media (max-width: 770px) {
+  .hide {
+    display: none !important; // sass-lint:disable-line no-important
+  }
+
   .moj-button-menu {
     display: block;
   }
@@ -424,5 +438,20 @@ div {
       position: relative;
     }
   }
+
+  .alphabetical-box {
+    .layout-width-two-fifths  {
+      width: 0;
+    }
+
+    .filter-back-to-top-wrapper {
+      left: 10%;
+      position: relative;
+      width: 0;
+    }
+  }
+
 }
+
+
 
