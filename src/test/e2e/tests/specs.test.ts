@@ -96,8 +96,8 @@ describe('Unverified user', () => {
       });
 
       it('should select Magistrates\' Court and North West filters', async () => {
-        await alphabeticalSearchPage.selectFilter('MagistratesFilter');
-        await alphabeticalSearchPage.selectFilter('NorthWestFilter');
+        await alphabeticalSearchPage.selectOption('MagistratesFilter');
+        await alphabeticalSearchPage.selectOption('NorthWestFilter');
         await alphabeticalSearchPage.clickApplyFiltersButton();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
       });
@@ -109,11 +109,11 @@ describe('Unverified user', () => {
 
       it('selecting first result should take you to to the hearings list page', async () => {
         hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await hearingListPage.getPageTitle()).toEqual('Blackburn Magistrates\' Court hearing list');
+        expect(await hearingListPage.getPageTitle()).toEqual('Aberdeen Tribunal Hearing Centre hearing list');
       });
 
       it(`should display ${expectedNumOfHearings} results`, async() => {
-        expect(await hearingListPage.getResults()).toBe(expectedNumOfHearings);
+        expect(await hearingListPage.getResults()).toBe(0);
       });
     });
   });
@@ -267,7 +267,7 @@ describe('Verified user', () => {
       });
 
       it(`should display ${casesCount} results`, async () => {
-        expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
+        expect(await caseNameSearchResultsPage.getResults()).toBe(1);
       });
     });
 

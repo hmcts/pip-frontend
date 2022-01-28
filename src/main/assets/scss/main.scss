@@ -157,6 +157,62 @@ $min-width: 52em;
   margin-right: 10px;
 }
 
+@media (min-width: 770px) {
+  .hide {
+    display: block;
+  }
+}
+
+.moj-button-menu {
+  display: none;
+}
+
+.alphabetical-box {
+  .filter-back-to-top-wrapper {
+    left: 100%;
+    position: relative;
+    width: 14%;
+  }
+}
+
+@media (max-width: 770px) {
+  .hide {
+    display: none !important; // sass-lint:disable-line no-important
+  }
+
+  .moj-button-menu {
+    display: block;
+  }
+
+  .moj-filter-layout {
+    &__filter {
+      width: 100%;
+    }
+  }
+
+  .filters {
+    &__innerButton {
+      display: block;
+      margin-left: 0;
+      margin-top: 0;
+      position: relative;
+    }
+  }
+
+  .alphabetical-box {
+    .layout-width-two-fifths  {
+      width: 0;
+    }
+
+    .filter-back-to-top-wrapper {
+      left: 10%;
+      position: absolute;
+      width: 16%;
+    }
+  }
+
+}
+
 //Styling for the Hearings List page
 .number_hearings {
   text-align: right;
@@ -395,62 +451,6 @@ div {
 
 .search-input-name {
   border: 0;
-}
-
-@media (min-width: 770px) {
-  .hide {
-    display: block;
-  }
-}
-
-.moj-button-menu {
-  display: none;
-}
-
-.alphabetical-box {
-  .filter-back-to-top-wrapper {
-    left: 44%;
-    position: relative;
-    width: 0;
-  }
-}
-
-@media (max-width: 770px) {
-  .hide {
-    display: none !important; // sass-lint:disable-line no-important
-  }
-
-  .moj-button-menu {
-    display: block;
-  }
-
-  .moj-filter-layout {
-    &__filter {
-      width: 100%;
-    }
-  }
-
-  .filters {
-    &__innerButton {
-      display: block;
-      margin-left: 0;
-      margin-top: 0;
-      position: relative;
-    }
-  }
-
-  .alphabetical-box {
-    .layout-width-two-fifths  {
-      width: 0;
-    }
-
-    .filter-back-to-top-wrapper {
-      left: 10%;
-      position: relative;
-      width: 0;
-    }
-  }
-
 }
 
 
