@@ -6,6 +6,7 @@ import os from 'os';
 const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
+const multer  = require('multer');
 
 export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
@@ -45,6 +46,9 @@ export default function(app: Application): void {
       res.redirect('/subscription-management');
     });
   }
+
+  // file upload config
+  const upload = multer();
 
   // Public paths
   app.get('/*', globalAuthGiver);
@@ -94,7 +98,7 @@ export default function(app: Application): void {
 
   // restricted admin paths
   app.get('/file-upload-summary', ensureAuthenticated, app.locals.container.cradle.fileUploadSummaryController.get);
-  app.post('/file-upload-summary', ensureAuthenticated, app.locals.container.cradle.fileUploadSummaryController.post);
+  app.post('/file-upload-summary', ensureAuthenticated, upload.single('uploaded_file'), app.locals.container.cradle.fileUploadSummaryController.post);
   app.get('/upload-confirmation', ensureAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
 
   app.get('/info', infoRequestHandler({

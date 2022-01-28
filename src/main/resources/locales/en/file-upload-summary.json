@@ -1,6 +1,6 @@
 {
-  "header": "File Upload Summary",
-  "title": "Check your answers",
+  "title": "File Upload Summary",
+  "header": "Check your answers",
   "actionName": "Change",
   "fileKey": "File",
   "courtNameKey": "Court name",
@@ -10,5 +10,9 @@
   "availableToKey": "Available to",
   "languageKey": "Language",
   "displayFileDatesKey": "Display file dates",
-  "confirmButton": "Confirm"
+  "confirmButton": "Confirm",
+  "error": {
+    "title": "There is a problem",
+    "message": "Unable to upload publication, please verify that provided fields are correct"
+  }
 }
