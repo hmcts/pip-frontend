@@ -89,7 +89,7 @@ $min-width: 52em;
 
 @media (min-width: $min-width) {
   .offset-parent-box {
-    left: -10% !important;
+    left: -10%;
   }
 }
 
@@ -403,5 +403,5 @@ div {
 }
 
 .overflow-table {
-  overflow-x:auto;
+  overflow-x: auto;
 }
