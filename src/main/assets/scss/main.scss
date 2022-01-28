@@ -16,15 +16,16 @@ $min-width: 52em;
     padding-top: 1px;
   }
 }
+
 //The below styling makes sure the subscription text doesn't overlap with the heading as the screen is made smaller
 //by increasing the minimum width
 @media (max-width: $min-width) {
   .js-enabled {
-    .govuk-header__menu-button  {
+    .govuk-header__menu-button {
       display: block;
     }
 
-    .govuk-header__navigation  {
+    .govuk-header__navigation {
       display: none;
       margin-bottom: 10px;
     }
@@ -74,6 +75,7 @@ $min-width: 52em;
     text-align: left;
   }
 }
+
 //End of header styling
 
 //Styling for the Alphabetical View page
@@ -236,7 +238,7 @@ div {
       @extend .govuk-body;
 
       &.error {
-        color:  $govuk-error-colour;
+        color: $govuk-error-colour;
       }
     }
   }
@@ -253,7 +255,7 @@ div {
 
 .error {
   @extend .govuk-body;
-  color:  $govuk-error-colour;
+  color: $govuk-error-colour;
 }
 
 .verifying-modal {
@@ -396,26 +398,31 @@ div {
 }
 
 .hide {
-  display: none !important;
+  display: none !important; // sass-lint:disable-line no-important
 }
-
 
 .moj-button-menu {
   display: none;
 }
 
 @media (max-width: 640px) {
-  #filterForm {
-    width: 100%;
-  }
-
   .moj-button-menu {
     display: block;
   }
-  #innerButton {
-    position: relative;
-    margin-left: 0px;
-    margin-top: 0px;
+
+  .moj-filter-layout {
+    &__filter {
+      width: 100%;
+    }
+  }
+
+  .filters {
+    &__innerButton {
+      display: block;
+      margin-left: 0;
+      margin-top: 0;
+      position: relative;
+    }
   }
 }
 

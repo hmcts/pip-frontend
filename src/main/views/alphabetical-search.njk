@@ -15,13 +15,13 @@
 {% block content %}
   <div class="moj-button-menu">
     <div class="moj-button-menu__wrapper">
-      <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary " data-module="govuk-button" onclick="toggleFilters()">
-        {{ hide }}
+      <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button" onclick="toggleFilters()">
+        {{ show }}
       </a>
     </div>
   </div>
   <div id="grid-row" class="govuk-grid-row">
-    <div class="parent-box layout-width-two-fifths govuk-!-display-inline-block" id="filters">
+    <div class="parent-box layout-width-two-fifths govuk-!-display-inline-block filters hide" id="filters">
       <div class="filter-back-to-top-wrapper">
         <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19"
          href="#">
@@ -52,9 +52,9 @@
           {% set _ = checkedFilters.push({heading: {text: key}, items: checkedFilterItems}) %}
         {% endif %}
         {% if toBeCreated %}
-          <div class="moj-button-menu" id="innerButton">
+          <div class="moj-button-menu filters__innerButton" id="innerButton">
             <div class="moj-button-menu__wrapper">
-              <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary " data-module="govuk-button" onclick="toggleFilters()">
+              <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button" onclick="toggleFilters()">
                 {{ hide }}
               </a>
             </div>
@@ -75,24 +75,27 @@
         }) }}
       {% endfor %}
     {% endset %}
-    <form method="post" action="alphabetical-search" class="moj-filter-layout__filter layout-width-four-fifths" autocomplete="off" id="filterForm">
-      {{ mojFilter({
-        heading: {
-          text: filter
-        },
-        selectedFilters: {
-          clearLink: {
-            text: clearAll,
-            href: '?clear=all'
-          },
-          heading: {
-            text: selectedFilter
-          },
-          categories: checkedFilters
-        },
-        optionsHtml: filterOptionsHtml
-      }) }}
-    </form>
+      <div class="filter-form">
+        <form method="post" action="alphabetical-search" class="moj-filter-layout__filter layout-width-four-fifths" autocomplete="off">
+          {{ mojFilter({
+            heading: {
+              text: filter
+            },
+            selectedFilters: {
+              clearLink: {
+                text: clearAll,
+                href: '?clear=all'
+              },
+              heading: {
+                text: selectedFilter
+              },
+              categories: checkedFilters
+            },
+            optionsHtml: filterOptionsHtml
+          }) }}
+        </form>
+      </div>
+
     </div>
 
   <div class="layout-width-three-fifths">
