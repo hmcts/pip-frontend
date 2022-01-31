@@ -55,6 +55,7 @@ export default function(app: Application): void {
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
   app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
+  app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
   app.post('/login/return',passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);

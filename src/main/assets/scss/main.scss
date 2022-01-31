@@ -394,3 +394,12 @@ div {
 .search-input-name {
   border: 0;
 }
+
+.no-border-bottom {
+  border-bottom: none;
+}
+
+.govuk-accordion__controls {
+  text-align: right;
+  margin-bottom: 20px;
+}
