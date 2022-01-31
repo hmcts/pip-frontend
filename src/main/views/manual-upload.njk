@@ -1,0 +1,204 @@
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% extends "template.njk" %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+{% block content %}
+  <h1 class="govuk-heading-xl">Manual upload</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% set fileErrorMessage = {text: errors.fileErrors} if errors.fileErrors else false %}
+    <div class="govuk-inset-text">
+      {{ govukFileUpload({
+        id: "manual-file-upload",
+        name: "manual-file-upload",
+        accept: ".json,.csv,.doc,.docx,.htm,.html",
+        label: {
+          text: "Manually upload a JSON, CSV, PDF, Word, HTM or HTML file, max size 2MB"
+        },
+        errorMessage: fileErrorMessage
+      }) }}
+    </div>
+
+    {% set courtFormGroupError = 'govuk-form-group--error' if errors.formErrors.courtError else 'govuk-form-group' %}
+    {% set inputError = 'govuk-input--error' if errors.formErrors.courtError else '' %}
+    <div id="form-wrapper" class="govuk-!-margin-bottom-9 ">
+      <div class="govuk-!-margin-bottom-3 govuk-!-width-one-third {{ courtFormGroupError }}">
+        <div id="search-input-title" class="govuk-label">
+          Court name
+        </div>
+        {% if errors.formErrors.courtError %}
+          <span class="govuk-error-message">{{ errors.formErrors.courtError }}</span>
+        {% endif %}
+        <div class="{{ inputError }}" id="search-input-container"></div>
+      </div>
+
+      <div class="govuk-form-group govuk-!-width-one-third" id="artefactType-question">
+        <label class="govuk-label" for="artefactType">
+          Document Type
+        </label>
+        <select class="govuk-select govuk-!-width-full" id="artefactType" name="artefactType">
+          <option value="LIST" selected>List</option>
+          <option value="JUDGEMENT_AND_OUTCOME">Judgement and Outcomes</option>
+        </select>
+      </div>
+
+      <div class="govuk-form-group govuk-inset-text govuk-!-padding-right-0 govuk-!-width-one-half">
+        <div id="list-question" class="govuk-!-margin-bottom-3">
+          {{ govukSelect({
+            classes: 'govuk-!-width-two-thirds',
+            id: "listType",
+            name: "listType",
+            label: {
+              text: "List type"
+            },
+            items: listItems.listSubtypes
+          }) }}
+        </div>
+
+        <div id="judgement-question" class="admin-default-hide govuk-!-margin-bottom-3">
+          {{ govukSelect({
+            classes: 'govuk-!-width-two-thirds',
+            id: "judgementType",
+            name: "judgementType",
+            label: {
+              text: "List type"
+            },
+            items: listItems.judgementsOutcomesSubtypes
+          }) }}
+        </div>
+
+        {% set cdFromError = 'govuk-input--error' if errors.formErrors.contentDateError.from else '' %}
+        {% set cdToError = 'govuk-input--error' if errors.formErrors.contentDateError.to else '' %}
+        {% set cdFormGroupError = 'govuk-form-group--error' if errors.formErrors.contentDateError.from or
+          errors.formErrors.contentDateError.to or errors.formErrors.contentDateError.range else 'govuk-form-group' %}
+        <div class="{{ cdFormGroupError }}">
+        <label class="govuk-label" for="event-start-date">
+          Hearing dates
+        </label>
+        {% if errors.formErrors.contentDateError %}
+          <label class="govuk-error-message">{{ errors.formErrors.contentDateError.from }}</label>
+        {% endif %}
+        <div class="govuk-grid-row">
+        <div class="{{ cdFromError }}" id="content-date-from"></div>
+          <p class= "govuk-grid-column-one-fourth admin-form-offset govuk-body"> to </p>
+          <div class="{{ cdToError }}" id="content-date-to"></div>
+        </div>
+      </div>
+      </div>
+      {{ govukSelect({
+        classes: 'govuk-!-width-one-third',
+        id: "classification",
+        name: "classification",
+        label: {
+          text: "Available to"
+        },
+        items: listItems.classification
+      }) }}
+
+      {{ govukSelect({
+        classes: 'govuk-!-width-one-third',
+        id: "language",
+        name: "language",
+        label: {
+          text: "Language"
+        },
+        items: [
+          {
+            text: "English",
+            value: "ENGLISH"
+          },
+          {
+            text: "Welsh",
+            value: "WELSH"
+          },
+          {
+            text: "Bilingual English/Welsh",
+            value: "BILINGUAL"
+          }
+        ]
+      }) }}
+
+      {% set displayFromError = 'govuk-input--error' if errors.formErrors.displayDateError.from else '' %}
+      {% set displayToError = 'govuk-input--error' if errors.formErrors.displayDateError.to else '' %}
+      {% set displayFormGroupError = 'govuk-form-group--error' if errors.formErrors.displayDateError.from or
+        errors.formErrors.displayDateError.to or errors.formErrors.displayDateError.range else 'govuk-form-group' %}
+      <div class="govuk-!-width-one-half {{ displayFormGroupError }}">
+      <label class="govuk-label" for="previous-event-date">
+        Display file from
+      </label>
+        {% if errors.formErrors.displayDateError %}
+          <label class="govuk-error-message">{{ errors.formErrors.displayDateError.from }}</label>
+        {% endif %}
+      <div class="govuk-grid-row">
+        <div class="{{ displayFromError }}" id="display-from"></div>
+        <p class= "govuk-grid-column-one-fourth admin-form-offset govuk-body"> to </p>
+        <div class="{{ displayToError }}" id="display-to"></div>
+      </div>
+      </div>
+
+    </div>
+
+    {{ submitButton() }}
+  </form>
+
+{% endblock %}
+
+{% block bodyEnd %}
+  {% set optionList = [] %}
+  {% for item in autocompleteList %}
+    {% set _ = optionList.push(
+      item.name
+    ) %}
+  {% endfor %}
+
+  <script src="/assets/js/date-picker.min.js"></script>
+  <script src="/assets/js/accessible-autocomplete.min.js"></script>
+  <script>
+    const block = document.getElementById('artefactType');
+    const listQuestion = document.getElementById('list-question');
+    const judgementQuestion = document.getElementById('judgement-question');
+
+    block.addEventListener("change", function() {
+      console.log(block.value);
+      if(block.value === "LIST")
+      {
+        listQuestion.style.display = "block"
+        judgementQuestion.style.display = "none"
+      } else {
+        listQuestion.style.display = "none"
+        judgementQuestion.style.display = "block"
+      }
+    });
+
+    document.getElementById('content-date-from_datepicker__input').classList.add("govuk-input", "govuk-grid-column-one-third")
+    document.getElementById('content-date-to_datepicker__input').classList.add("govuk-input", "govuk-grid-column-one-third")
+    document.getElementById('display-from_datepicker__input').classList.add("govuk-input", "govuk-grid-column-one-third")
+    document.getElementById('display-to_datepicker__input').classList.add("govuk-input", "govuk-grid-column-one-third")
+
+    {% set optionList = [] %}
+    {% for item in listItems.courtList %}
+    {% set _ = optionList.push(
+      item.name
+    ) %}
+    {% endfor %}
+
+    const element = document.querySelector('#search-input-container');
+    const source = {{ optionList | dump |safe }}
+      accessibleAutocomplete({
+        element: element,
+        id: 'search-input',
+        source: source,
+        displayMenu: 'overlay'
+      });
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
+  {{ super() }}
+{% endblock %}
+

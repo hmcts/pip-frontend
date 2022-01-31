@@ -1,5 +1,6 @@
 @import '~govuk-frontend';
 @import 'accessible-autocomplete.min';
+@import 'date-picker.min';
 @import 'node_modules/@ministryofjustice/frontend/moj/all';
 
 $line-colour: #1d70b8;
@@ -393,4 +394,13 @@ div {
 
 .search-input-name {
   border: 0;
+}
+
+//Admin css
+.admin-form-offset {
+  margin: auto;
+}
+
+.admin-default-hide {
+  display: none;
 }

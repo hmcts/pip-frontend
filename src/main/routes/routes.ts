@@ -6,11 +6,13 @@ import os from 'os';
 const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
+const multer = require('multer');
 
 export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
   // const authType = (process.env.NODE_ENV === 'production') ? 'azuread-openidconnect' : 'mockaroo';
   const authType = 'mockaroo';
+  const upload = multer();
 
   const corsOptions = {
     origin: 'https://pib2csbox.b2clogin.com',
@@ -91,6 +93,8 @@ export default function(app: Application): void {
   app.post('/subscription-urn-search', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchController.post);
   app.get('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
   app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
+  app.get('/manual-upload', ensureAuthenticated, app.locals.container.cradle.manualUploadController.get);
+  app.post('/manual-upload', ensureAuthenticated, upload.single('manual-file-upload'), app.locals.container.cradle.manualUploadController.post);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {

@@ -37,4 +37,5 @@ export interface PipRequest extends Request {
   };
   lng?: string;
   user?: object;
+  file?: File;
 }
