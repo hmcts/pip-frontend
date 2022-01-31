@@ -97,9 +97,9 @@ export default function(app: Application): void {
   app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
 
   // restricted admin paths
-  app.get('/file-upload-summary', ensureAuthenticated, app.locals.container.cradle.fileUploadSummaryController.get);
-  app.post('/file-upload-summary', ensureAuthenticated, upload.single('uploaded_file'), app.locals.container.cradle.fileUploadSummaryController.post);
-  app.get('/upload-confirmation', ensureAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
+  app.get('/file-upload-summary', app.locals.container.cradle.fileUploadSummaryController.get);
+  app.post('/file-upload-summary', upload.single('uploaded_file'), app.locals.container.cradle.fileUploadSummaryController.post);
+  app.get('/upload-confirmation', app.locals.container.cradle.fileUploadConfirmationController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
