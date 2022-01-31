@@ -2,6 +2,7 @@ import { Application, NextFunction } from 'express';
 import { infoRequestHandler } from '@hmcts/info-provider';
 import cors  from 'cors';
 import os from 'os';
+import process from 'process';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
@@ -11,7 +12,7 @@ export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
   const authType = (process.env.OIDC === 'true') ? 'azuread-openidconnect' : 'mockaroo';
   // const authType = 'azuread-openidconnect';
-
+  const FRONTEND_URL = process.env.FRONTEND_URL || 'https://localhost:8080';
   const corsOptions = {
     origin: 'https://pib2csbox.b2clogin.com',
     methods: ['GET', 'OPTIONS'],
@@ -36,7 +37,7 @@ export default function(app: Application): void {
   function logOut(req, res): void{
     res.clearCookie('session');
     const B2C_URL = 'https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/';
-    const encodedSignOutRedirect = encodeURIComponent('https://localhost:8080/view-option');
+    const encodedSignOutRedirect = encodeURIComponent(`${FRONTEND_URL}/view-option`);
     res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
   }
 
