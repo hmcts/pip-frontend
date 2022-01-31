@@ -1,5 +1,6 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 
 {% macro submitButton(label = 'Continue', id = '', ariaLabel = 'Continue Button', disable = false) %}
     {{ govukButton({
@@ -15,5 +16,58 @@
     attributes: {
       onClick: "history.back(); event.preventDefault();"
     }
+  }) }}
+{% endmacro %}
+
+{% macro backToTopButton(text = 'Back to top') %}
+  <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19 with-background" href="#">
+    <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17"
+         viewBox="0 0 13 17">
+      <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
+    </svg>{{ text }}
+  </a>
+  <script>
+    //Get the button:
+    mybutton = document.getElementById("back-to-top-button");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+  </script>
+{% endmacro %}
+
+{% macro backToTopButton2(text = 'Back to top') %}
+  {% set buttonHtml %}
+    <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19 with-background" href="#">
+      <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17"
+           viewBox="0 0 13 17">
+        <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
+      </svg>{{ text }}
+    </a>
+  {% endset %}
+  {{ govukAccordion({
+    id: "back-to-top",
+    headingLevel: 1,
+    classes: "floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19 with-background",
+    items: [
+      {
+        heading: {
+        html: buttonHtml
+      }
+      }
+    ]
   }) }}
 {% endmacro %}
