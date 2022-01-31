@@ -13,17 +13,9 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
-  <div class="moj-button-menu">
-    <div class="moj-button-menu__wrapper">
-      <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary"
-         data-module="govuk-button" onclick="toggleFilters()">
-        {{ show }}
-      </a>
-    </div>
-  </div>
   <div id="grid-row" class="govuk-grid-row parent-box alphabetical-box">
-    <div class="layout-width-two-fifths govuk-!-display-inline-block">
-      <div class="filters hide" id="filters">
+    <div class="layout-width-two-fifths govuk-!-display-inline-block hide" id="filters">
+      <div class="filters">
         {% set checkedFilters = [] %}
         {% set toBeCreated = true %}
         {% set filterOptionsHtml %}
@@ -94,7 +86,14 @@
     </div>
     <div class="layout-width-three-fifths">
       <h2 id='page-heading' class="govuk-heading-l">{{ heading }}</h2>
-
+      <div class="moj-button-menu">
+        <div class="moj-button-menu__wrapper">
+          <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary"
+             data-module="govuk-button" onclick="toggleFilters()">
+            {{ show }}
+          </a>
+        </div>
+      </div>
       <div class="govuk-grid-row govuk-!-margin-bottom-8">
         {% for key, value in courtList %}
           {% if value| length == 0 %}
@@ -137,8 +136,9 @@
                     <th scope="row" class="govuk-table__header">
                     </th>
                   {% endif %}
-                  <td class="govuk-table__cell"><a href="/list-option?courtId={{ courtDetails.id }}"
-                                                   class="govuk-link">{{ courtName }}</a></td>
+                  <td class="govuk-table__cell">
+                    <a href="/list-option?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a>
+                  </td>
                 </tr>
               {% endif %}
             {% endfor %}
@@ -148,7 +148,7 @@
         </tbody>
       </table>
     </div>
-    {{  backToTopButton() }}
+    {{ backToTopButton() }}
   </div>
 
 {% endblock %}
