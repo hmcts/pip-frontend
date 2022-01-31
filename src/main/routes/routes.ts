@@ -35,7 +35,9 @@ export default function(app: Application): void {
 
   function logOut(req, res): void{
     res.clearCookie('session');
-    res.redirect('/view-option');
+    const B2C_URL = 'https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/';
+    const encodedSignOutRedirect = encodeURIComponent('https://localhost:8080/view-option');
+    res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
   }
 
   function regenerateSession(req, res): void {
