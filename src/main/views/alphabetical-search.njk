@@ -13,17 +13,9 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
-  <div class="moj-button-menu">
-    <div class="moj-button-menu__wrapper">
-      <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary"
-         data-module="govuk-button" onclick="toggleFilters()">
-        {{ show }}
-      </a>
-    </div>
-  </div>
   <div id="grid-row" class="govuk-grid-row parent-box alphabetical-box">
-    <div class="layout-width-two-fifths govuk-!-display-inline-block">
-      <div class="filters hide" id="filters">
+    <div class="layout-width-two-fifths govuk-!-display-inline-block hide" id="filters">
+      <div class="filters">
         {% set checkedFilters = [] %}
         {% set toBeCreated = true %}
         {% set filterOptionsHtml %}
@@ -94,7 +86,14 @@
     </div>
     <div class="layout-width-three-fifths">
       <h2 id='page-heading' class="govuk-heading-l">{{ heading }}</h2>
-
+      <div class="moj-button-menu">
+        <div class="moj-button-menu__wrapper">
+          <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary"
+             data-module="govuk-button" onclick="toggleFilters()">
+            {{ show }}
+          </a>
+        </div>
+      </div>
       <div class="govuk-grid-row govuk-!-margin-bottom-8">
         {% for key, value in courtList %}
           {% if value| length == 0 %}
@@ -137,8 +136,9 @@
                     <th scope="row" class="govuk-table__header">
                     </th>
                   {% endif %}
-                  <td class="govuk-table__cell"><a href="/list-option?courtId={{ courtDetails.id }}"
-                                                   class="govuk-link">{{ courtName }}</a></td>
+                  <td class="govuk-table__cell">
+                    <a href="/list-option?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a>
+                  </td>
                 </tr>
               {% endif %}
             {% endfor %}
@@ -148,15 +148,13 @@
         </tbody>
       </table>
     </div>
-    <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19 with-background"
-       href="#">
+    <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19 with-background" href="#">
       <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17"
            viewBox="0 0 13 17">
         <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
       </svg>{{ backToTop }}
     </a>
   </div>
-
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
@@ -176,6 +174,7 @@
       }
 
     }
+
   </script>
 
 {% endblock %}
