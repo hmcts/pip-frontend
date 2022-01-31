@@ -5,12 +5,11 @@ const helpers = require('../Helpers/Selectors');
 
 export class AlphabeticalSearchPage extends CommonPage {
   async clickApplyFiltersButton(): Promise<void> {
-    $(helpers.ContinueButton).catch(() => {
-      console.log(`${helpers.ContinueButton} not found`);
+    await $(helpers.ApplyFiltersButton).catch(() => {
+      console.log(`${helpers.ApplyFiltersButton} not found`);
     });
 
-    const button = await $(helpers.ContinueButton);
-    await button.click();
+    await $(helpers.ApplyFiltersButton).click();
   }
 
   async checkIfSelected(filter: string): Promise<boolean> {

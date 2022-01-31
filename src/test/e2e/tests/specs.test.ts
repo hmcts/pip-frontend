@@ -109,11 +109,11 @@ describe('Unverified user', () => {
 
       it('selecting first result should take you to to the hearings list page', async () => {
         hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await hearingListPage.getPageTitle()).toEqual('Aberdeen Tribunal Hearing Centre hearing list');
+        expect(await hearingListPage.getPageTitle()).toEqual('Blackburn Magistrates\' Court hearing list');
       });
 
       it(`should display ${expectedNumOfHearings} results`, async() => {
-        expect(await hearingListPage.getResults()).toBe(0);
+        expect(await hearingListPage.getResults()).toBe(expectedNumOfHearings);
       });
     });
   });
