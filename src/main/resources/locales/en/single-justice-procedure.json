@@ -1,13 +1,12 @@
 {
-  "title": "Summary of publications for Single Justice Procedure",
-  "p1": "Select the list you want to view:",
+  "title": "Single Justice Procedure cases",
+  "p1": "Cases involving adults charged with summary-only non-imprisonable offences.",
   "p2": "Published",
-  "column1": "Source Artefact ID",
-  "column2": "Provenance",
-  "column3": "Date",
-  "column4": "Link",
-  "column5": "PDF?",
-  "column6": "Sensitivity",
-  "column7": "Type",
+  "column1": "Name",
+  "column2": "Town",
+  "column3": "County",
+  "column4": "Postcode",
+  "column5": "Offence",
+  "column6": "Prosecutor",
   "backToTop": "Back to top"
 }

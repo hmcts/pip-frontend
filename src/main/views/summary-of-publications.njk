@@ -14,9 +14,17 @@
   <p class="govuk-body govuk-!-font-weight-bold">{{ p1 }}</p>
   <p class="govuk-body">{{ p2 }} {{ published }}</p>
   <div class="parent-box">
-  {% set sjpCase = [] %}
-  {% for item in casesList |sort(attribute="Name")%}
-    {% set _ = sjpCase.push([
+  {% set pubs = [] %}
+  <p class = "govuk-body govuk-!-font-size-16">
+  {% for item in casesList |sort(attribute="contentDate")%}
+
+  <a class = das-search-results__link href = {{item.artefactId}}> {{item.provenance}} {{ lookup.get(item.listType) }}
+  {{item.contentDate}} </a>
+
+  <br>
+  <br>
+
+    {% set _ = pubs.push([
       {
         text: item.provenance
       },
@@ -40,34 +48,9 @@
       }
     ]) %}
   {% endfor %}
-
-  {{ govukTable({
-    firstCellIsHeader: false,
-    head: [
-      {
-        text: column1
-      },
-      {
-        text: column2
-      },
-      {
-        text: column3
-      },
-      {
-        text: column4
-      },
-      {
-        text: column5
-      },
-      {
-        text: column6
-      },
-      {
-        text: column7
-      }
-    ],
-    rows: sjpCase
-  }) }}
+</p>
+  <br/>
+  <br/>
   <br/>
   <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19 with-background"
      href="#">
