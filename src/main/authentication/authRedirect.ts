@@ -14,3 +14,7 @@ export function getRedirectURL(env): string {
         + encodeURIComponent(config.get('secrets.pip-ss-kv.AUTH_RETURN_URL')) + '&scope=openid&response_type=id_token&prompt=login';
   return redirectURL;
 }
+
+export function getFlowName(env): string {
+  return (env) ? process.env.B2C_FLOW_NAME : config.get('secrets.pip-ss-kv.B2C_FLOW_NAME');
+}

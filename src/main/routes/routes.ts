@@ -2,6 +2,7 @@ import { Application, NextFunction } from 'express';
 import { infoRequestHandler } from '@hmcts/info-provider';
 import cors  from 'cors';
 import os from 'os';
+import process from 'process';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
@@ -9,9 +10,9 @@ const healthcheck = require('@hmcts/nodejs-healthcheck');
 
 export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
-  // const authType = (process.env.NODE_ENV === 'production') ? 'azuread-openidconnect' : 'mockaroo';
-  const authType = 'mockaroo';
-
+  const authType = (process.env.OIDC === 'true') ? 'azuread-openidconnect' : 'mockaroo';
+  // const authType = 'azuread-openidconnect';
+  const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
   const corsOptions = {
     origin: 'https://pib2csbox.b2clogin.com',
     methods: ['GET', 'OPTIONS'],
@@ -35,7 +36,9 @@ export default function(app: Application): void {
 
   function logOut(req, res): void{
     res.clearCookie('session');
-    res.redirect('/');
+    const B2C_URL = 'https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/';
+    const encodedSignOutRedirect = encodeURIComponent(`${FRONTEND_URL}/view-option`);
+    res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
   }
 
   function regenerateSession(req, res): void {
@@ -55,7 +58,8 @@ export default function(app: Application): void {
   app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
-  app.post('/login/return',passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
+  app.post('/login/return', passport.authenticate(authType, { failureRedirect: '/view-option'}),
+    (req, res) => {res.redirect('/account-home');});
   app.get('/logout', logOut);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
