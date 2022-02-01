@@ -5,19 +5,25 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { AdminService } from '../../main/service/adminService';
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+const PAGE_URL = '/manual-upload-summary';
+const mockCookie = {formCookie : {'foo': 'blah'}};
 const uploadStub = sinon.stub(AdminService.prototype, 'uploadPublication');
-uploadStub.withArgs({data: 'valid'}, 'arguments', '1').resolves(true);
-uploadStub.withArgs({data: 'invalid'}, 'arguments', '1').resolves(false);
-const PAGE_URL = '/file-upload-summary';
+sinon.stub(AdminService.prototype, 'readFile').returns('');
+sinon.stub(AdminService.prototype, 'removeFile').returns(true);
+uploadStub.withArgs({ formCookie: { foo: 'blah' }, file: '', userId: '1' }, true).resolves(true);
+uploadStub.withArgs({ formCookie: { foo: 'blah' }, file: '', userId: '2' }, true).resolves(false);
 
-describe('File upload summary', () => {
+sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+
+describe('Manual upload summary', () => {
   beforeEach(() => {
     app.request['user'] = {id: '1'};
+    app.request['cookies'] = {'formCookie': JSON.stringify(mockCookie)};
   });
 
   describe('on GET', () => {
     test('should return file upload summary page', async () => {
+      console.log('app', app.request);
       await request(app).get(PAGE_URL).expect((res) => expect(res.status).to.equal(200));
     });
 
@@ -37,7 +43,7 @@ describe('File upload summary', () => {
     });
 
     test('should return summary page if upload fails', async () => {
-      app['file'] = 'arguments';
+      app.request['user'] = {id: '2'};
       await request(app).post(PAGE_URL)
         .send({data: 'invalid'})
         .expect((res) => expect(res.status).to.equal(200));
@@ -49,7 +55,7 @@ describe('File upload summary', () => {
         .send({data: 'valid'})
         .expect((res) => {
           expect(res.status).to.equal(302);
-          expect(res.header['location']).to.equal('/upload-confirmation');
+          expect(res.header['location']).to.equal('upload-confirmation');
         });
     });
   });
