@@ -94,18 +94,25 @@
           </a>
         </div>
       </div>
-      <div class="govuk-grid-row govuk-!-margin-bottom-8">
-        {% for key, value in courtList %}
+      <div class="govuk-!-margin-bottom-6 govuk-!-margin-top-6">
+        <div class="govuk-grid-row">
+          {% for key, value in courtList %}
+          {% if key == 'N' %}
+        </div>
+        <div class="govuk-grid-row">
+          {% endif %}
           {% if value| length == 0 %}
-            <div class="govuk-grid-column width-column govuk-!-font-size-19">
+            <div class="govuk-grid-column two-rows-alphabet govuk-!-font-size-19">
               <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline">{{ key }}</a>
             </div>
           {% else %}
-            <div class="govuk-grid-column width-column govuk-!-font-size-19">
-              <a id='{{ key }}-selector' href='#{{ key }}' class="govuk-link govuk-link--no-visited-state">{{ key }}</a>
+            <div class="govuk-grid-column two-rows-alphabet govuk-!-font-size-19">
+              <a id='{{ key }}-selector' href='#{{ key }}'
+                 class="govuk-link govuk-link--no-visited-state">{{ key }}</a>
             </div>
           {% endif %}
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
       <div class="govuk-grid-row">
         <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ nationalListsHeader }}</h3>
