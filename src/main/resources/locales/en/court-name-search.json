@@ -10,5 +10,7 @@
   "selected": "selected",
   "courtTableHeader": "Courts and tribunals in England and Wales",
   "sjpTableHeader": "National lists",
-  "sjpSubscription": "Single Justice Procedure cases"
+  "sjpSubscription": "Single Justice Procedure cases",
+  "hide" : "Hide Filters",
+  "show": "Show Filters"
 }
