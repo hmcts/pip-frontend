@@ -69,7 +69,7 @@
                   {% endif %}
                   {% set duration = sitting['duration'] %}
                   {% if sitting['duration'] !== '' %}
-                    {% set duration = sitting['duration'] + ' hour' %}
+                    {% set duration = sitting['duration'] + ' ' + hearingDuration %}
                   {% endif %}
                   {% for hearing in sitting['hearing'] %}
                     {% for case in hearing['case'] %}

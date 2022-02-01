@@ -1,0 +1,149 @@
+{
+  "document": {
+    "version": ""
+  },
+  "venue": {
+    "venueName": "PRESTON",
+    "venueContact": {
+      "venueTelephone":"01772 844700",
+      "venueEmail": "court1@moj.gov.u"
+    },
+    "venueAddress": {
+      "line": [
+        "THE LAW COURTS"
+      ],
+      "postCode": "PR1 2LL"
+    }
+  },
+  "@schemaLocation": "",
+  "courtLists": [
+    {
+      "courtHouse": {
+        "courtHouseName": "PRESTON",
+        "courtRoom": [
+          {
+            "courtRoomName": "1",
+            "session": [
+              {
+                "sessionStartTime": "",
+                "sessionChannel": [
+                  "VIDEO HEARING",
+                  ""
+                ],
+                "judiciary": [
+                  {
+                    "johTitle": "Mr",
+                    "johNameSurname": "Firstname1 Surname1"
+                  }
+                ],
+                "sittings": [
+                  {
+                    "sittingStart": "2022-01-27T09:40:17.496185",
+                    "sittingEnd": "2022-01-27T10:45:17.496185",
+                    "hearing": [
+                      {
+                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                        "case": [
+                          {
+                            "caseName": "A1 Vs B1",
+                            "caseNumber": "12345678"
+                          }
+                        ]
+                      },
+                      {
+                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                        "case": [
+                          {
+                            "caseName": "A2 Vs B2",
+                            "caseNumber": "112233445"
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      ""
+                    ]
+                  },
+                  {
+                    "sittingStart": "2022-01-27T08:05:17.496185",
+                    "sittingEnd": "2022-01-27T10:45:17.496185",
+                    "hearing": [
+                      {
+                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                        "case": [
+                          {
+                            "caseName": "A1 Vs B1",
+                            "caseNumber": "12345678"
+                          }
+                        ]
+                      },
+                      {
+                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                        "case": [
+                          {
+                            "caseName": "A2 Vs B2",
+                            "caseNumber": "112233445"
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      ""
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "courtRoomName": "2",
+            "session": [
+              {
+                "sessionStartTime": "",
+                "sessionChannel": [
+                  "VIDEO HEARING",
+                  ""
+                ],
+                "judiciary": [
+                  {
+                    "johTitle": "Mr",
+                    "johNameSurname": "Firstname2 Surname2"
+                  }
+                ],
+                "sittings": [
+                  {
+                    "sittingStart": "",
+                    "sittingEnd": "",
+                    "hearing": [
+                      {
+                        "hearingType": "FHDRA2 (First Hearing and Dispute Resolution Appointment)",
+                        "case": [
+                          {
+                            "caseName": "A1 Vs B1",
+                            "caseNumber": "12345678"
+                          }
+                        ]
+                      },
+                      {
+                        "hearingType": "FHDRA2 (First Hearing and Dispute Resolution Appointment)",
+                        "case": [
+                          {
+                            "caseName": "A2 Vs B2",
+                            "caseNumber": "112233445"
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      ""
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
