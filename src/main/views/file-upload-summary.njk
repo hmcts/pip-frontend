@@ -23,7 +23,7 @@
         }) }}
     {% endif %}
     <h1 class="govuk-heading-l">{{ header }}</h1>
-    <form enctype="multipart/form-data" method="post" class="govuk-!-width-two-thirds">
+    <form enctype="multipart/form-data" method="post" class="govuk-!-width-two-thirds" action="file-upload-summary">
         {{ govukSummaryList({
             rows: [
                 {
@@ -31,7 +31,7 @@
                     text: fileKey
                 },
                     value: {
-                    text: fileUploadData.fileData.originalname
+                    text: fileUploadData.fileName
                 },
                     actions: {
                     items: [

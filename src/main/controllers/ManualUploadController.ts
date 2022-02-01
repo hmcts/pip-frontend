@@ -32,7 +32,9 @@ export default class ManualUploadController {
       res.render('manual-upload', formValues);
     } else {
       req.body['court'] = await manualUploadService.appendCourtId(req.body['input-autocomplete']);
-      res.redirect('/manual-upload-summary?check=true');
+      req.body['fileName'] = 'FurtherAI_NeuroscienceInfluencedAI.pdf';
+      res.cookie('formCookie', JSON.stringify(req.body));
+      res.redirect('/file-upload-summary?check=true');
     }
   }
 }

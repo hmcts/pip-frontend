@@ -48,7 +48,14 @@ export default function(app: Application): void {
   }
 
   // file upload config
-  const upload = multer();
+  const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+      callback(null, 'manualUpload/tmp/');
+    },
+    filename: function (req, file, callback) {
+      callback(null, file.originalname);
+    },
+  });
 
   // Public paths
   app.get('/*', globalAuthGiver);
@@ -95,12 +102,13 @@ export default function(app: Application): void {
   app.post('/subscription-urn-search', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchController.post);
   app.get('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
   app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
-  app.get('/manual-upload', app.locals.container.cradle.manualUploadController.get);
-  app.post('/manual-upload', upload.single('manual-file-upload'), app.locals.container.cradle.manualUploadController.post);
 
   // restricted admin paths
-  app.get('/file-upload-summary', app.locals.container.cradle.fileUploadSummaryController.get);
-  app.get('/upload-confirmation', app.locals.container.cradle.fileUploadConfirmationController.get);
+  app.get('/file-upload-summary', ensureAuthenticated, app.locals.container.cradle.fileUploadSummaryController.get);
+  app.post('/file-upload-summary', ensureAuthenticated, app.locals.container.cradle.fileUploadSummaryController.post);
+  app.get('/manual-upload',ensureAuthenticated, app.locals.container.cradle.manualUploadController.get);
+  app.post('/manual-upload', ensureAuthenticated, multer({ storage: storage }).single('manual-file-upload'), app.locals.container.cradle.manualUploadController.post);
+  app.get('/upload-confirmation', ensureAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
