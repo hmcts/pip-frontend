@@ -2,11 +2,11 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import SignInController from '../../../main/controllers/SignInController';
-import { getRedirectURL } from '../../../main/authentication/authRedirect';
+import { getFlowName } from '../../../main/authentication/authRedirect';
 
 const signInController = new SignInController();
 const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
-const pAndIRedirectUrl = getRedirectURL(process.env.ENV);
+const piUrl = `/login?p=${getFlowName(process.env.ENV)}`;
 
 describe('Sign In Option Controller', () => {
   const i18n = {'sign-in': {}};
@@ -68,7 +68,7 @@ describe('Sign In Option Controller', () => {
     request.body = { 'sign-in': 'pi'};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs(pAndIRedirectUrl);
+    responseMock.expects('redirect').once().withArgs(piUrl);
     signInController.post(request, response);
     responseMock.verify();
   });
