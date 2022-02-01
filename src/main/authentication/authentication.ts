@@ -11,7 +11,6 @@ const CustomStrategy = passportCustom.Strategy;
  */
 function oidcSetup(): void {
   const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
-
   const users = [];
 
   const findByOid = function(oid, fn): Function {
