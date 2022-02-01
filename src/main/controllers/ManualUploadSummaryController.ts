@@ -5,7 +5,7 @@ import { AdminService } from '../service/adminService';
 
 const adminService = new AdminService();
 
-export default class FileUploadSummaryController {
+export default class ManualUploadSummaryController {
   public get(req: PipRequest, res: Response): void {
     const formData = JSON.parse(req.cookies['formCookie']);
     (req.query?.error === 'true') ?

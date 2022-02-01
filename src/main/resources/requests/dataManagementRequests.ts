@@ -7,7 +7,7 @@ export class DataManagementRequests {
       const response = await superagent.post(`${dataManagementAPI}publication`)
         .set('enctype', 'multipart/form-data')
         .set(headers)
-        .attach('file', body.file['buffer'], body.file['originalname']);
+        .attach('file', body.file, body.fileName);
       console.log('response', response);
       return true;
     }

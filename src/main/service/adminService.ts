@@ -7,7 +7,7 @@ const dataManagementRequests = new DataManagementRequests();
 export class AdminService {
   public async uploadPublication(data: any, ISODateFormat: boolean): Promise<boolean> {
     return await dataManagementRequests.uploadPublication(
-      data.file,
+      data,
       this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
     );
   }
@@ -43,7 +43,7 @@ export class AdminService {
   public generatePublicationUploadHeaders(headers): object {
     return {
       'x-provenance': headers.userId,
-      'x-source-artefact-id': headers.originalname,
+      'x-source-artefact-id': headers.fileName,
       'x-type': headers.artefactType,
       'x-sensitivity': headers.classification,
       'x-language': headers.language,
