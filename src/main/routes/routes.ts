@@ -12,7 +12,14 @@ export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
   // const authType = (process.env.NODE_ENV === 'production') ? 'azuread-openidconnect' : 'mockaroo';
   const authType = 'mockaroo';
-  const upload = multer();
+  const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+      callback(null, 'manualUpload/tmp/');
+    },
+    filename: function (req, file, callback) {
+      callback(null, file.originalname);
+    },
+  });
 
   const corsOptions = {
     origin: 'https://pib2csbox.b2clogin.com',
@@ -94,7 +101,7 @@ export default function(app: Application): void {
   app.get('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
   app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
   app.get('/manual-upload', ensureAuthenticated, app.locals.container.cradle.manualUploadController.get);
-  app.post('/manual-upload', ensureAuthenticated, upload.single('manual-file-upload'), app.locals.container.cradle.manualUploadController.post);
+  app.post('/manual-upload', ensureAuthenticated, multer({storage: storage}).single('manual-file-upload'), app.locals.container.cradle.manualUploadController.post);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {

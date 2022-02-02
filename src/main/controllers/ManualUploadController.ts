@@ -28,10 +28,12 @@ export default class ManualUploadController {
       errors,
     };
 
-    if (errors.fileErrors || errors.fileErrors) {
+    if (errors.fileErrors || errors.formErrors) {
       res.render('manual-upload', formValues);
     } else {
       req.body['court'] = await manualUploadService.appendCourtId(req.body['input-autocomplete']);
+      req.body['artefactType'] = 'LIST'; //Agreed on defaulting to only option available until more types become ready
+      res.cookie('formCookie', JSON.stringify(req.body));
       res.redirect('/manual-upload-summary?check=true');
     }
   }
