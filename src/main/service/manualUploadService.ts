@@ -122,10 +122,17 @@ export class ManualUploadService {
   }
 
   public async uploadPublication(data: any, ISODateFormat: boolean): Promise<boolean> {
-    return await dataManagementRequests.uploadPublication(
-      data,
-      this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
-    );
+    if (this.getFileExtension(data.fileName) === 'json') {
+      return await dataManagementRequests.uploadJSONPublication(
+        data,
+        this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
+      );
+    } else {
+      return await dataManagementRequests.uploadPublication(
+        data,
+        this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
+      );
+    }
   }
 
   public removeFile(file): void {
@@ -139,7 +146,12 @@ export class ManualUploadService {
 
   public readFile(fileName): object {
     try {
-      return fs.readFileSync(`./manualUpload/tmp/${fileName}`);
+      if (this.getFileExtension(fileName) === 'json') {
+        const rawData = fs.readFileSync(`./manualUpload/tmp/${fileName}`, 'utf-8');
+        return JSON.parse(rawData);
+      } else {
+        return fs.readFileSync(`./manualUpload/tmp/${fileName}`);
+      }
     } catch (err) {
       console.error(`Error while reading the file ${err}.`);
       return null;
@@ -169,5 +181,10 @@ export class ManualUploadService {
       'x-court-id': headers.court.courtId,
       'x-content-date': headers['content-date-from'],
     };
+  }
+
+  private getFileExtension(fileName: string): string {
+    const regex = /(?:\.([^.]+))?$/;
+    return regex.exec(fileName)[1];
   }
 }
