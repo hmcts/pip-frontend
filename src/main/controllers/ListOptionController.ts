@@ -12,9 +12,8 @@ export default class ListOptionController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const courtId = req.query['courtId'];
-    const publications = await publicationService.getPublications(parseInt(courtId.toString()));
-
     if (courtId) {
+      const publications = await publicationService.getPublications(parseInt(courtId.toString()));
       if (req.user) {
         if (publications.length === 1){
           res.send('Hi there, there\'s only one publication so you\'ve been directed here');

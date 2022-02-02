@@ -116,7 +116,8 @@ export default function(app: Application): void {
     (req, res) => {res.redirect('/subscription-management');});
 
   //TODO: To be deleted/modified post UAT with suitable solution
-  app.get('/list-option', app.locals.container.cradle.listOptionController.get);
+  app.get('/publication', app.locals.container.cradle.listOptionController.get);
+  app.get('/list-option', app.locals.container.cradle.oldListOptionController.get);
   app.get('/warned-list', app.locals.container.cradle.warnedListController.get);
   app.get('/standard-list', ensureAuthenticated, app.locals.container.cradle.standardListController.get);
 

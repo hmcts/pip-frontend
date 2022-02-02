@@ -1,4 +1,4 @@
-import ListOptionController from '../../../main/controllers/ListOptionController';
+import OldListOptionController from '../../../main/controllers/OldListOptionController';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import sinon from 'sinon';
@@ -6,7 +6,7 @@ import fs from 'fs';
 import path from 'path';
 import {CourtService} from '../../../main/service/courtService';
 
-const listOptionController = new ListOptionController();
+const listOptionController = new OldListOptionController();
 const i18n = {
   'list-option': {},
 };
