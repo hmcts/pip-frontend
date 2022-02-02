@@ -1,5 +1,6 @@
 import request from 'supertest';
 import sinon from 'sinon';
+import moment from 'moment';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
@@ -10,13 +11,13 @@ const summaryKeys = ['File', 'Court name', 'Document type', 'List type', 'Hearin
 const mockData = {
   artefactType: 'LIST',
   classification: 'PUBLIC',
-  'content-date-from': '1 Feb 2022',
-  'content-date-to': '1 Feb 2022',
+  'content-date-from': moment().format('D MMM YYYY'),
+  'content-date-to': moment().format('D MMM YYYY'),
   court: {
     courtName: 'Aberdeen Tribunal Hearing Centre',
   },
-  'display-from': '1 Feb 2022',
-  'display-to': '1 Feb 2022',
+  'display-from': moment().format('D MMM YYYY'),
+  'display-to': moment().format('D MMM YYYY'),
   fileName: 'Demo.pdf',
   language: 'ENGLISH',
   listType: 'SJP_PUBLIC_LIST',
@@ -59,9 +60,9 @@ describe('File Upload Summary Page', () => {
     expect(values[1].innerHTML).to.contain(mockData.court.courtName, 'Court value not found');
     expect(values[2].innerHTML).to.contain(mockData.artefactType, 'Document type value not found');
     expect(values[3].innerHTML).to.contain(mockData.listType, 'List type value not found');
-    expect(values[4].innerHTML).to.contain('1 Feb 2022 to 1 Feb 2022', 'Hearing dates values not found');
+    expect(values[4].innerHTML).to.contain(`${mockData['content-date-from']} to ${mockData['content-date-to']}`, 'Hearing dates values not found');
     expect(values[5].innerHTML).to.contain(mockData.classification, 'Classification values not found');
     expect(values[6].innerHTML).to.contain(mockData.language, 'Language value not found');
-    expect(values[7].innerHTML).to.contain('1 Feb 2022 to 1 Feb 2022', 'Display dates values not found');
+    expect(values[7].innerHTML).to.contain(`${mockData['display-from']} to ${mockData['display-to']}`, 'Display dates values not found');
   });
 });
