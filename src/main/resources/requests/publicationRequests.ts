@@ -7,9 +7,9 @@ export class PublicationRequests {
   mocksPath = '../mocks';
   rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'SingleJusticeProcedureCases.json'), 'utf-8');
 
-  public async getListOfPubsForSJP(): Promise<SingleJusticeProcedureCase[]> {
+  public async getListOfPubs(courtId): Promise<SingleJusticeProcedureCase[]> {
     try {
-      const response = await dataManagementApi.get('/publication/search/0', {headers: {'verification':'true'}});
+      const response = await dataManagementApi.get(`/publication/search/${courtId}`, {headers: {'verification':'true'}});
       return response.data;
     } catch (error) {
       if (error.response) {

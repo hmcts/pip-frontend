@@ -9,10 +9,10 @@ export default class SingleJusticeProcedureController {
   public async get(req: PipRequest, res: Response): Promise<void> {
 
     const courtName = 'Single Justice Procedure';
-    const casesList = await sjpService.getSJPPublications();
+    const publications = await sjpService.getSJPPublications();
     res.render('summary-of-publications', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
-      casesList,
+      publications,
       courtName,
     });
   }

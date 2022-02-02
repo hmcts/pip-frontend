@@ -11,6 +11,6 @@ export class SjpService {
   }
 
   public async getSJPPublications(): Promise<SingleJusticeProcedureCase[]> {
-    return PublicationReqs.getListOfPubsForSJP();
+    return PublicationReqs.getListOfPubs(0);
   }
 }
