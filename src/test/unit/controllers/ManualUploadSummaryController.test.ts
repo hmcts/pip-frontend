@@ -79,5 +79,18 @@ describe('Manual upload summary controller', () => {
       await manualUploadSummaryController.post(request, response);
       responseMock.verify();
     });
+
+    it('should redirect to success page', () => {
+      const req = mockRequest(i18n);
+      const res = { render: () => {return '';}, redirect: () => ''} as unknown as Response;
+      req.user = {id: '2'};
+      req['cookies'] = {'formCookie': JSON.stringify(mockData)};
+      const responseMock = sinon.mock(res);
+      responseMock.expects('redirect').once().withArgs('upload-confirmation');
+
+      manualUploadSummaryController.post(req, res).then(() => {
+        responseMock.verify();
+      });
+    });
   });
 });
