@@ -3,13 +3,13 @@ import { app } from '../../main/app';
 import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
-import { AdminService } from '../../main/service/adminService';
+import { ManualUploadService } from '../../main/service/manualUploadService';
 
 const PAGE_URL = '/manual-upload-summary';
 const mockCookie = {formCookie : {'foo': 'blah'}};
-const uploadStub = sinon.stub(AdminService.prototype, 'uploadPublication');
-sinon.stub(AdminService.prototype, 'readFile').returns('');
-sinon.stub(AdminService.prototype, 'removeFile').returns(true);
+const uploadStub = sinon.stub(ManualUploadService.prototype, 'uploadPublication');
+sinon.stub(ManualUploadService.prototype, 'readFile').returns('');
+sinon.stub(ManualUploadService.prototype, 'removeFile').returns(true);
 uploadStub.withArgs({ formCookie: { foo: 'blah' }, file: '', userId: '1' }, true).resolves(true);
 uploadStub.withArgs({ formCookie: { foo: 'blah' }, file: '', userId: '2' }, true).resolves(false);
 

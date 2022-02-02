@@ -2,15 +2,15 @@ import { cloneDeep } from 'lodash';
 import { mockRequest } from '../mocks/mockRequest';
 import { Response } from 'express';
 import sinon from 'sinon';
-import { AdminService } from '../../../main/service/adminService';
 import ManualUploadSummaryController from '../../../main/controllers/ManualUploadSummaryController';
+import { ManualUploadService } from '../../../main/service/manualUploadService';
 
 const mockData = {foo: 'blah'};
 const manualUploadSummaryController = new ManualUploadSummaryController();
-const uploadStub = sinon.stub(AdminService.prototype, 'uploadPublication');
-sinon.stub(AdminService.prototype, 'formatPublicationDates').returns(mockData);
-sinon.stub(AdminService.prototype, 'readFile').returns('');
-sinon.stub(AdminService.prototype, 'removeFile').returns('');
+const uploadStub = sinon.stub(ManualUploadService.prototype, 'uploadPublication');
+sinon.stub(ManualUploadService.prototype, 'formatPublicationDates').returns(mockData);
+sinon.stub(ManualUploadService.prototype, 'readFile').returns('');
+sinon.stub(ManualUploadService.prototype, 'removeFile').returns('');
 uploadStub.withArgs({ mockData, file: '', userId: '1'}, true).resolves(false);
 uploadStub.withArgs({ mockData, file: '', userId: '2'}, true).resolves(true);
 
