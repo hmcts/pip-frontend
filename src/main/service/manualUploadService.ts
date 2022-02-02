@@ -192,7 +192,7 @@ export class ManualUploadService {
     };
   }
 
-  private getFileExtension(fileName: string): string {
+  public getFileExtension(fileName: string): string {
     const regex = /(?:\.([^.]+))?$/;
     return regex.exec(fileName)[1];
   }
