@@ -7,11 +7,10 @@ export class DataManagementRequests {
 
   public async uploadPublication(body: any, headers: object): Promise<boolean> {
     try {
-      const response = await superagent.post(`${this.dataManagementAPI}publication`)
+      await superagent.post(`${this.dataManagementAPI}publication`)
         .set('enctype', 'multipart/form-data')
         .set(headers)
         .attach('file', body.file, body.fileName);
-      console.log('response', response);
       return true;
     }
     catch (error) {
@@ -28,8 +27,7 @@ export class DataManagementRequests {
 
   public async uploadJSONPublication(body: any, headers: object): Promise<boolean> {
     try {
-      const response = await dataManagementApi.post('/publication', body, headers);
-      console.log('response', response);
+      await dataManagementApi.post('/publication', body, headers);
       return true;
     }
     catch (error) {
