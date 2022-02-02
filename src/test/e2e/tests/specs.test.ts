@@ -21,6 +21,7 @@ import { SignInPage } from '../PageObjects/SignIn.page';
 import { getRedirectURL } from '../../../main/authentication/authRedirect';
 import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
+import { DailyCauseListPage } from '../PageObjects/DailyCauseList.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -43,6 +44,7 @@ let courtNameSearchPage: CourtNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
+const dailyCauseListPage = new DailyCauseListPage();
 const signInPage = new SignInPage;
 
 describe('Unverified user', () => {
@@ -345,6 +347,13 @@ describe('Verified user', () => {
       await deleteSubscriptionPage.selectOption('yesRadioButton');
       unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
       expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+    });
+  });
+
+  describe('daily cause list', async () => {
+    it('should open daily cause list page', async () => {
+      await dailyCauseListPage.open('daily-cause-list');
+      expect(await dailyCauseListPage.getPageTitle()).toContain('Daily Civil Cause list for');
     });
   });
 });
