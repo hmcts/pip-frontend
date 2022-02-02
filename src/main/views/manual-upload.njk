@@ -9,7 +9,7 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
-  <h1 class="govuk-heading-xl">Manual upload</h1>
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
   <form method="post" enctype="multipart/form-data">
     {% set fileErrorMessage = {text: errors.fileErrors} if errors.fileErrors else false %}
     <div class="govuk-inset-text">
@@ -29,7 +29,7 @@
     <div id="form-wrapper" class="govuk-!-margin-bottom-9 ">
       <div class="govuk-!-margin-bottom-3 govuk-!-width-one-third {{ courtFormGroupError }}">
         <div id="search-input-title" class="govuk-label">
-          Court name
+         {{ form.court }}
         </div>
         {% if errors.formErrors.courtError %}
           <span class="govuk-error-message">{{ errors.formErrors.courtError }}</span>
@@ -55,7 +55,7 @@
             id: "listType",
             name: "listType",
             label: {
-              text: "List type"
+              text: form.listType
             },
             items: listItems.listSubtypes
           }) }}
@@ -67,7 +67,7 @@
             id: "judgementType",
             name: "judgementType",
             label: {
-              text: "List type"
+              text: form.listType
             },
             items: listItems.judgementsOutcomesSubtypes
           }) }}
@@ -81,58 +81,58 @@
         <div class="{{ cdFormGroupError }} govuk-width-!-one-fourth">
           <fieldset class="govuk-fieldset" role="group" aria-describedby="content-date">
             <legend class="govuk-fieldset__legend">
-              Display file from
+              {{ form.contentDate }}
             </legend>
             {% if errors.formErrors.contentDateError %}
               <span class="govuk-error-message">{{ cdErrorMessage }}</span>
             {% endif %}
             <div id="content-date-hint" class="govuk-hint">
-              For example, 16 01 2022 to 20 01 2022
+              {{ form.contentDateHint }}
             </div>
             <div class="govuk-grid-row">
             <div class="govuk-date-input" id="content-date-from">
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                   <label class="govuk-label govuk-date-input__label" for="content-date-from-day">
-                    Day
+                    {{ form.day }}
                   </label>
                   <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ cdFromError }}" id="content-date-from-day" name="content-date-from-day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
               </div>
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                   <label class="govuk-label govuk-date-input__label" for="content-date-from-month">
-                    Month
+                    {{ form.month }}
                   </label>
                   <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ cdFromError }}" id="content-date-from-month" name="content-date-from-month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
               </div>
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                   <label class="govuk-label govuk-date-input__label" for="content-date-from-year">
-                    Year
+                    {{ form.year }}
                   </label>
                   <input class="govuk-input govuk-date-input__input govuk-input--width-4 {{ cdFromError }}" id="content-date-from-year" name="content-date-from-year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
               </div>
             </div>
-              <div class="admin-form-offset">to</div>
+              <div class="admin-form-offset">{{ form.to }}</div>
               <div class="govuk-date-input" id="content-date-to">
                 <div class="govuk-date-input__item">
                   <div class="govuk-form-group">
                     <label class="govuk-label govuk-date-input__label" for="content-date-to-day">
-                      Day
+                      {{ form.day }}
                     </label>
                     <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ cdToError }}" id="content-date-to-day" name="content-date-to-day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
                 </div>
                 <div class="govuk-date-input__item">
                   <div class="govuk-form-group">
                     <label class="govuk-label govuk-date-input__label" for="content-date-to-month">
-                      Month
+                      {{ form.month }}
                     </label>
                     <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ cdToError }}" id="content-date-to-month" name="content-date-to-month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
                 </div>
                 <div class="govuk-date-input__item">
                   <div class="govuk-form-group">
                     <label class="govuk-label govuk-date-input__label" for="content-date-to-year">
-                      Year
+                      {{ form.year }}
                     </label>
                     <input class="govuk-input govuk-date-input__input govuk-input--width-4 {{ cdToError }}" id="content-date-to-year" name="content-date-to-year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
                 </div>
@@ -146,9 +146,9 @@
         id: "classification",
         name: "classification",
         label: {
-          text: "Available to"
+          text: form.classificationText
         },
-        items: listItems.classification
+        items: form.classification
       }) }}
 
       {{ govukSelect({
@@ -156,22 +156,9 @@
         id: "language",
         name: "language",
         label: {
-          text: "Language"
+          text: form.languageText
         },
-        items: [
-          {
-            text: "English",
-            value: "ENGLISH"
-          },
-          {
-            text: "Welsh",
-            value: "WELSH"
-          },
-          {
-            text: "Bilingual English/Welsh",
-            value: "BILINGUAL"
-          }
-        ]
+        items: form.language
       }) }}
 
       {% set displayFromError = 'govuk-input--error' if errors.formErrors.displayDateError.from else '' %}
@@ -181,35 +168,33 @@
 
       <div class="{{ displayFormGroupError }}">
         <fieldset class="govuk-fieldset" role="group" aria-describedby="display-date">
-          <legend class="govuk-fieldset__legend">
-            Hearing dates
-          </legend>
+          <legend class="govuk-fieldset__legend">{{ form.displayDateFrom }}</legend>
           {% if errors.formErrors.displayDateError %}
             <span class="govuk-error-message">{{ displayErrorMessage }}</span>
           {% endif %}
           <div id="display-date-hint" class="govuk-hint">
-            For example, 01 05 2022 to 19 05 2022
+            {{ form.displayDateFromHint }}
           </div>
           <div class="govuk-grid-row">
             <div class="govuk-date-input" id="display-date-from">
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                   <label class="govuk-label govuk-date-input__label" for="display-date-from-day">
-                    Day
+                    {{ form.day }}
                   </label>
                   <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ displayFromError }}" id="display-date-from-day" name="display-date-from-day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
               </div>
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                   <label class="govuk-label govuk-date-input__label" for="display-date-from-month">
-                    Month
+                    {{ form.month }}
                   </label>
                   <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ displayFromError }}" id="display-date-from-month" name="display-date-from-month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
               </div>
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                   <label class="govuk-label govuk-date-input__label" for="display-date-from-year">
-                    Year
+                    {{ form.year }}
                   </label>
                   <input class="govuk-input govuk-date-input__input govuk-input--width-4 {{ displayFromError }}" id="display-date-from-year" name="display-date-from-year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
               </div>
@@ -219,21 +204,21 @@
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                   <label class="govuk-label govuk-date-input__label" for="display-date-to-day">
-                    Day
+                    {{ form.day }}
                   </label>
                   <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ displayToError }}" id="display-date-to-day" name="display-date-to-day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
               </div>
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                   <label class="govuk-label govuk-date-input__label" for="display-date-to-month">
-                    Month
+                    {{ form.month }}
                   </label>
                   <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ displayToError }}" id="display-date-to-month" name="display-date-to-month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
               </div>
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                   <label class="govuk-label govuk-date-input__label" for="display-date-to-year">
-                    Year
+                    {{ form.year }}
                   </label>
                   <input class="govuk-input govuk-date-input__input govuk-input--width-4 {{ displayToError }}" id="display-date-to-year" name="display-date-to-year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
               </div>
@@ -258,21 +243,22 @@
 
   <script src="/assets/js/accessible-autocomplete.min.js"></script>
   <script>
-    const block = document.getElementById('artefactType');
-    const listQuestion = document.getElementById('list-question');
-    const judgementQuestion = document.getElementById('judgement-question');
-
-    block.addEventListener("change", function() {
-      console.log(block.value);
-      if(block.value === "LIST")
-      {
-        listQuestion.style.display = "block"
-        judgementQuestion.style.display = "none"
-      } else {
-        listQuestion.style.display = "none"
-        judgementQuestion.style.display = "block"
-      }
-    });
+    // removed whilst 1 list type is availble, kept in as request to be able to switch back when needed
+    // const block = document.getElementById('artefactType');
+    // const listQuestion = document.getElementById('list-question');
+    // const judgementQuestion = document.getElementById('judgement-question');
+    //
+    // block.addEventListener("change", function() {
+    //   console.log(block.value);
+    //   if(block.value === "LIST")
+    //   {
+    //     listQuestion.style.display = "block"
+    //     judgementQuestion.style.display = "none"
+    //   } else {
+    //     listQuestion.style.display = "none"
+    //     judgementQuestion.style.display = "block"
+    //   }
+    // });
 
     {% set optionList = [] %}
     {% for item in listItems.courtList %}

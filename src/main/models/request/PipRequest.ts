@@ -33,6 +33,7 @@ export interface PipRequest extends Request {
       'delete-subscription': {};
       'unsubscribe-confirmation': {};
       'sign-in': {};
+      'manual-upload': {};
     };
   };
   lng?: string;
