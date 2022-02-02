@@ -14,53 +14,64 @@ const errorMessage = {
   message: 'test',
 };
 const superagent = require('superagent');
-// const mockUploadFileBody = {file: '', fileName: ''};
-const mockUploadFileHeaders = {};
+const mockUploadFileBody = {file: '', fileName: ''};
+const mockUploadFileHeaders = {'foo': 'bar'};
 const fileUploadAPI = new DataManagementRequests();
-const superAgentStub = sinon.stub(superagent, 'post');
-const dataManagementStub = sinon.stub(dataManagementApi, 'post');
 
 describe('Data Management requests', () => {
+  beforeEach(() => {
+    sinon.restore();
+  });
+
   describe('upload publication', () => {
-    // it('should return true on success', async () => {
-    //   superAgentStub.withArgs(mockUploadFileBody, mockUploadFileHeaders).resolves(true);
-    //   expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders)).toBe(true);
-    // });
+    it('should return true on success', async () => {
+      // chain call for superagent post.set.set.attach
+      sinon.stub(superagent, 'post').callsFake(() => {
+        return {
+          set(): any {
+            return { set(): any {
+              return { attach: sinon.stub().returns(true) };
+            } };
+          },
+        };
+      });
+      expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders)).toBe(true);
+    });
 
     it('should return error response', async () => {
-      superAgentStub.withArgs({file: '', fileName: 'foo'}, mockUploadFileHeaders).resolves(Promise.reject(errorResponse));
+      sinon.stub(superagent, 'post').withArgs({file: '', fileName: 'foo'}, mockUploadFileHeaders).resolves(Promise.reject(errorResponse));
       expect(await fileUploadAPI.uploadPublication({file: '', fileName: 'foo'}, mockUploadFileHeaders)).toBe(false);
     });
 
     it('should return error request', async () => {
-      superAgentStub.withArgs({file: '', fileName: 'bar'}, mockUploadFileHeaders).resolves(Promise.reject(errorRequest));
+      sinon.stub(superagent, 'post').withArgs({file: '', fileName: 'bar'}, mockUploadFileHeaders).resolves(Promise.reject(errorRequest));
       expect(await fileUploadAPI.uploadPublication({file: '', fileName: 'bar'}, mockUploadFileHeaders)).toBe(false);
     });
 
     it('should return error message', async () => {
-      superAgentStub.withArgs({file: '', fileName: 'baz'}, mockUploadFileHeaders).resolves(Promise.reject(errorMessage));
+      sinon.stub(superagent, 'post').withArgs({file: '', fileName: 'baz'}, mockUploadFileHeaders).resolves(Promise.reject(errorMessage));
       expect(await fileUploadAPI.uploadPublication({file: '', fileName: 'baz'}, mockUploadFileHeaders)).toBe(false);
     });
   });
 
   describe('upload json publication', () => {
     it('should return true on success', async () => {
-      dataManagementStub.withArgs('/publication', {}, {}).resolves(true);
+      sinon.stub(dataManagementApi, 'post').withArgs('/publication', {}, {}).resolves(true);
       expect(await fileUploadAPI.uploadJSONPublication({}, {})).toBe(true);
     });
 
     it('should return error response', async () => {
-      dataManagementStub.withArgs('/publication', {file: 'foo'}, {}).resolves(Promise.reject(errorResponse));
+      sinon.stub(dataManagementApi, 'post').withArgs('/publication', {file: 'foo'}, {}).resolves(Promise.reject(errorResponse));
       expect(await fileUploadAPI.uploadJSONPublication({file: 'foo'}, {})).toBe(false);
     });
 
     it('should return error request', async () => {
-      dataManagementStub.withArgs('/publication', {file: 'bar'}, {}).resolves(Promise.reject(errorRequest));
+      sinon.stub(dataManagementApi, 'post').withArgs('/publication', {file: 'bar'}, {}).resolves(Promise.reject(errorRequest));
       expect(await fileUploadAPI.uploadJSONPublication({file: 'bar'}, {})).toBe(false);
     });
 
     it('should return error request', async () => {
-      dataManagementStub.withArgs('/publication', {file: 'baz'}, {}).resolves(Promise.reject(errorMessage));
+      sinon.stub(dataManagementApi, 'post').withArgs('/publication', {file: 'baz'}, {}).resolves(Promise.reject(errorMessage));
       expect(await fileUploadAPI.uploadJSONPublication({file: 'baz'}, {})).toBe(false);
     });
   });
