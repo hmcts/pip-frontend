@@ -18,25 +18,23 @@
   {% for item in casesList |sort(attribute="Name")%}
     {% set _ = sjpCase.push([
       {
-        text: item.provenance
+        text: item.Name
       },
       {
-        text: item.sourceArtefactId
+        text: item.Town
       },
       {
-        text: item.contentDate
+        text: item.County
       },
       {
-        html: "<a href=read-publication&artefactId="+item.artefactId+">Link</a>"
+        text: item.Postcode
       },
       {
-        text: item.isFlatFile
+        text: item.Offence,
+        colspan: 2
       },
       {
-        text: item.sensitivity
-      },
-      {
-        text: item.type
+        text: item.Prosecutor
       }
     ]) %}
   {% endfor %}
@@ -57,18 +55,15 @@
         text: column4
       },
       {
-        text: column5
+        text: column5,
+        colspan: 2
       },
       {
         text: column6
-      },
-      {
-        text: column7
       }
     ],
     rows: sjpCase
   }) }}
-  <br/>
   <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19 with-background"
      href="#">
     <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17"
@@ -82,4 +77,3 @@
   {{ super() }}
   <script src="alphabetical-dev.js"></script>
 {% endblock %}
-

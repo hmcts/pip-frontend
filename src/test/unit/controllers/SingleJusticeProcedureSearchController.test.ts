@@ -5,9 +5,9 @@ import { SjpRequests } from '../../../main/resources/requests/sjpRequests';
 import fs from 'fs';
 import path from 'path';
 import moment from 'moment';
-import SingleJusticeProcedureController from '../../../main/controllers/SingleJusticeProcedureController';
+import OldSingleJusticeProcedureController from '../../../main/controllers/OldSingleJusticeProcedureController';
 
-const singleJusticeProcedureController = new SingleJusticeProcedureController();
+const singleJusticeProcedureController = new OldSingleJusticeProcedureController();
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawSJPData).results;
 sinon.stub(SjpRequests.prototype, 'getSJPCases').returns(sjpCases);
@@ -28,7 +28,7 @@ describe('Single Justice Procedure Controller', () => {
       published: moment().format('DD MMMM YYYY [at] ha'),
     };
 
-    responseMock.expects('render').once().withArgs('single-justice-procedure', expectedData);
+    responseMock.expects('render').once().withArgs('old-single-justice-procedure', expectedData);
 
     await singleJusticeProcedureController.get(request, response);
     responseMock.verify();

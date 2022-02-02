@@ -10,43 +10,18 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
-  <h1 class="govuk-heading-l">{{ title }}</h1>
-  <p class="govuk-body govuk-!-font-weight-bold">{{ p1 }}</p>
-  <p class="govuk-body">{{ p2 }} {{ published }}</p>
+  <h1 class="govuk-heading-l">{{ title }} {{ courtName }}</h1>
+  <h2 class="govuk-body">{{ p1 }}</h2>
+
   <div class="parent-box">
   {% set pubs = [] %}
   <p class = "govuk-body govuk-!-font-size-16">
   {% for item in casesList |sort(attribute="contentDate")%}
 
-  <a class = das-search-results__link href = {{item.artefactId}}> {{item.provenance}} {{ lookup.get(item.listType) }}
-  {{item.contentDate}} </a>
-
+  <a class = das-search-results__link href = {{item.artefactId}}> {{item.provenance}} {{ item.listType | listType }}
+  {{item.contentDate | date("DD MMMM YYYY")}} </a>
   <br>
   <br>
-
-    {% set _ = pubs.push([
-      {
-        text: item.provenance
-      },
-      {
-        text: item.sourceArtefactId
-      },
-      {
-        text: item.contentDate
-      },
-      {
-        html: "<a href=read-publication&artefactId="+item.artefactId+">Link</a>"
-      },
-      {
-        text: item.isFlatFile
-      },
-      {
-        text: item.sensitivity
-      },
-      {
-        text: item.type
-      }
-    ]) %}
   {% endfor %}
 </p>
   <br/>

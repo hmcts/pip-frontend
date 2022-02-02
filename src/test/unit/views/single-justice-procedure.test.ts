@@ -7,7 +7,7 @@ import moment from 'moment';
 import { app } from '../../../main/app';
 import { SjpRequests } from '../../../main/resources/requests/sjpRequests';
 
-const PAGE_URL = '/single-justice-procedure';
+const PAGE_URL = '/old-single-justice-procedure';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawData).results;
 const validOffence = 'Keep a vehicle without a valid vehicle licence';
