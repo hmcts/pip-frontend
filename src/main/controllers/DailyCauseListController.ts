@@ -7,8 +7,7 @@ const dailyCauseListService = new DailyCauseListService();
 
 export default class DailyCauseListControllerController {
   public async get(req: PipRequest, res: Response): Promise<void> {
-    let artefactId = req.query.artefactId as string;
-    artefactId = '10b6e951-2746-4fab-acad-564dcac9c58d';
+    const artefactId = req.query.artefactId as string;
     const searchResults = await dailyCauseListService.getDailyCauseList(artefactId);
     dailyCauseListService.calculateHearingSessionTime(searchResults);
 
