@@ -11,11 +11,16 @@
 {% endblock %}
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }} {{ courtName }}</h1>
+  {% if publications.length === 0 %}
+    <p class = "govuk-body govuk-!-font-size-16">Sorry, no lists found for this court</p>
+  {% else %}
   <h2 class="govuk-body">{{ p1 }}</h2>
+
 
   <div class="parent-box">
   {% set pubs = [] %}
   <p class = "govuk-body govuk-!-font-size-16">
+
   {% for item in publications |sort(reverse= true, attribute="contentDate, listType")%}
 
   <a class = das-search-results__link href = {{item.artefactId}}>{{ item.listType | listType }}
@@ -23,10 +28,12 @@
   {% if item.isFlatFile %}
   (opens in a new window)
   {% endif %}
+
   <br>
   <br>
   {% endfor %}
 </p>
+{% endif %}
   <br/>
   <br/>
   <br/>

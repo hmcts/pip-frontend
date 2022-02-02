@@ -13,18 +13,19 @@ export default class ListOptionController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const courtId = req.query['courtId'];
     const publications = await publicationService.getPublications(parseInt(courtId.toString()));
-    if (publications.length === 1){
-      res.send("Only one file is found so you've been transported directly to it.");
-      res.end();
-    }
-    if (courtId) {
 
+    if (courtId) {
       if (req.user) {
-        res.render('summary-of-publications', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
-          publications,
-          courtName: courtId,
-        });
+        if (publications.length === 1){
+          res.send('Hi there, there\'s only one publication so you\'ve been directed here');
+        }
+        else {
+          res.render('summary-of-publications', {
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
+            publications,
+            courtName: courtId,
+          });
+        }
       } else {
         res.redirect(`hearing-list?courtId=${courtId}`);
       }
