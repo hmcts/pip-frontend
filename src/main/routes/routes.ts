@@ -12,6 +12,14 @@ export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
   // const authType = (process.env.NODE_ENV === 'production') ? 'azuread-openidconnect' : 'mockaroo';
   const authType = 'mockaroo';
+  const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+      callback(null, 'manualUpload/tmp/');
+    },
+    filename: function (req, file, callback) {
+      callback(null, file.originalname);
+    },
+  });
 
   const corsOptions = {
     origin: 'https://pib2csbox.b2clogin.com',
@@ -46,16 +54,6 @@ export default function(app: Application): void {
       res.redirect('/subscription-management');
     });
   }
-
-  // file upload config
-  const storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-      callback(null, 'manualUpload/tmp/');
-    },
-    filename: function (req, file, callback) {
-      callback(null, file.originalname);
-    },
-  });
 
   // Public paths
   app.get('/*', globalAuthGiver);

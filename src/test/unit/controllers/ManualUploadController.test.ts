@@ -9,10 +9,11 @@ describe('Manual Upload Controller', () => {
   const i18n = {
     'manual-upload': {},
   };
-  const response = { render: () => {return '';}} as unknown as Response;
   const request = mockRequest(i18n);
+  const testFile = new File([''], 'test', {type: 'text/html'});
+  sinon.stub(ManualUploadService.prototype, 'buildFormData').resolves({});
   describe('GET', () => {
-    sinon.stub(ManualUploadService.prototype, 'buildFormData').resolves({});
+    const response = { render: () => {return '';}} as unknown as Response;
     it('should render the manual-upload page', async () =>  {
       const responseMock = sinon.mock(response);
       const expectedData = {
@@ -23,6 +24,41 @@ describe('Manual Upload Controller', () => {
       responseMock.expects('render').once().withArgs('manual-upload', expectedData);
 
       await manualUploadController.get(request, response);
+      responseMock.verify();
+    });
+  });
+  describe('POST', () => {
+    const fileValidationStub = sinon.stub(ManualUploadService.prototype, 'validateFileUpload');
+    const formValidationStub = sinon.stub(ManualUploadService.prototype, 'validateFormFields');
+    sinon.stub(ManualUploadService.prototype, 'appendCourtId').resolves({courtName: 'name', id: '1'});
+    fileValidationStub.returns('error');
+    formValidationStub.resolves('error');
+    fileValidationStub.withArgs(testFile).returns();
+    formValidationStub.withArgs({data: 'valid'}).resolves();
+    it('should render same page if errors are present', async () => {
+      const response = { render: () => {return '';}} as unknown as Response;
+      const responseMock = sinon.mock(response);
+      const expectedData = {
+        ...i18n['manual-upload'],
+        listItems: {},
+        errors: {fileErrors: 'error', formErrors: 'error'},
+      };
+
+      responseMock.expects('render').once().withArgs('manual-upload', expectedData);
+
+      await manualUploadController.post(request, response);
+      responseMock.verify();
+    });
+
+    it('should redirect page if no errors present', async () => {
+      const response = { redirect: () => {return '';}, cookie: () => {return '';}} as unknown as Response;
+      const responseMock = sinon.mock(response);
+      request.body = {data: 'valid'};
+      request.file = testFile;
+
+      responseMock.expects('redirect').once().withArgs('/manual-upload-summary?check=true');
+
+      await manualUploadController.post(request, response);
       responseMock.verify();
     });
   });

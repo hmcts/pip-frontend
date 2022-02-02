@@ -25,6 +25,11 @@ export class ManualUploadService {
       {text: 'SJP Press List', value: 'SJP_PRESS_LIST'},
       {text: 'Civil Daily Cause List', value: 'CIVIL_DAILY_CAUSE_LIST'},
       {text: 'Family Daily Cause List', value: 'FAMILY_DAILY_CAUSE_LIST'},
+      {text: 'Crown Daily List', value: 'CROWN_DAILY_LIST'},
+      {text: 'Crown Firm List', value: 'CROWN_FIRM_LIST'},
+      {text: 'Crown Warned List', value: 'CROWN_WARNED_LIST'},
+      {text: 'Magistrates Public List', value: 'MAGS_PUBLIC_LIST'},
+      {text: 'Magistrates Standard List', value: 'MAGS_STANDARD_LIST'},
     ];
   }
 
@@ -67,8 +72,8 @@ export class ManualUploadService {
   public async validateFormFields(formValues: object): Promise<object> {
     const fields = {
       courtError: await this.validateCourt(formValues['input-autocomplete']),
-      contentDateError: this.validateDates(formValues['content-date-from'], formValues['content-date-to']),
-      displayDateError: this.validateDates(formValues['display-from'], formValues['display-to']),
+      contentDateError: this.validateDates(this.buildDate(formValues,'content-date-from'), this.buildDate(formValues, 'content-date-to')),
+      displayDateError: this.validateDates(this.buildDate(formValues, 'display-date-from'), this.buildDate(formValues, 'display-date-to')),
     };
     if (!fields.courtError && !fields.contentDateError && !fields.displayDateError) {
       return null;
@@ -85,6 +90,10 @@ export class ManualUploadService {
       return 'Please enter and select a valid court';
     }
     return 'Court name must be three characters or more';
+  }
+
+  public buildDate(body: object, fieldset: string): string {
+    return body[`${fieldset}-day`]?.concat('/', body[`${fieldset}-month`],'/', body[`${fieldset}-year`]);
   }
 
   private validateDates(dateFrom: string, dateTo: string): object {
@@ -110,7 +119,7 @@ export class ManualUploadService {
   private validateDateRange(dateFrom: string, dateTo: string) {
     const firstDate = moment(dateFrom, 'DD/MM/YYYY', true);
     const secondDate = moment(dateTo, 'DD/MM/YYYY', true);
-    if (firstDate.isBefore(secondDate)) {
+    if (firstDate.isSameOrBefore(secondDate)) {
       return null;
     }
     return 'Please make sure \'to\' date is after \'from\' date';
