@@ -10,7 +10,6 @@ export class PublicationRequests {
   public async getListOfPubsForSJP(): Promise<SingleJusticeProcedureCase[]> {
     try {
       const response = await dataManagementApi.get('/publication/search/0', {headers: {'verification':'true'}});
-      console.log(response.data);
       return response.data;
     } catch (error) {
       if (error.response) {

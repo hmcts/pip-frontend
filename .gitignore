@@ -10,7 +10,7 @@ node_modules/
 *swp
 *log
 .DS_Store
-package-lock.json
+other_file.json
 
 src/main/public/img/lib/*
 src/main/public/js/lib/**/*.js
@@ -19,7 +19,7 @@ src/main/public/stylesheets/lib/*
 node-rpm-packaging/
 mochawesome-report/
 npm-debug.log.*
-package-lock.json
+other_file.json
 
 .project
 .settings/

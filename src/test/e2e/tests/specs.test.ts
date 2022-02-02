@@ -156,7 +156,7 @@ describe('Unverified user', () => {
     it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
       await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
       singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-      expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Single Justice Procedure cases');
+      expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Summary of Publications for Single Justice Procedure');
     });
   });
 });
