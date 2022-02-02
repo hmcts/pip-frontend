@@ -1,9 +1,7 @@
 import { Request, Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
-import { getRedirectURL } from '../authentication/authRedirect';
-
-const pAndIRedirectUrl = getRedirectURL(process.env.ENV);
+import { getFlowName } from '../authentication/authRedirect';
 
 export default class SignInController {
   public get(req: PipRequest, res: Response): void {
@@ -23,7 +21,7 @@ export default class SignInController {
         break;
       }
       case 'pi': {
-        res.redirect(pAndIRedirectUrl);
+        res.redirect(`/login?p=${getFlowName(process.env.ENV)}`);
         break;
       }
       default: {

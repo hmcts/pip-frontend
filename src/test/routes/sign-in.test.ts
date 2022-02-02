@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import { app } from '../../main/app';
-import { getRedirectURL } from '../../main/authentication/authRedirect';
+import { getFlowName } from '../../main/authentication/authRedirect';
 
-const pAndIRedirectUrl = getRedirectURL(process.env.ENV);
+const pAndIRedirectUrl = '/login?p='+ getFlowName(process.env.ENV);
 const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
 const urlOptions = [
   {
