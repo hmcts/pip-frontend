@@ -1,4 +1,5 @@
-import {CommonPage} from './Common.page';
+import { CommonPage } from './Common.page';
+import { PendingSubscriptionsPage } from './PendingSubscriptions.page';
 
 const helpers = require('../Helpers/Selectors');
 
