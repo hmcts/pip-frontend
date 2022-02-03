@@ -1,7 +1,7 @@
-import {SubscriptionUrnSearchPage} from './SubscriptionUrnSearch.page';
+import { SubscriptionUrnSearchPage } from './SubscriptionUrnSearch.page';
 import { CaseNameSearchPage } from './CaseNameSearch.page';
 import { CourtNameSearchPage } from './CourtNameSearch.page';
-import {CaseReferenceNumberSearchPage} from './CaseReferenceNumberSearch.page';
+import { CaseReferenceNumberSearchPage } from './CaseReferenceNumberSearch.page';
 import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
@@ -15,15 +15,12 @@ export class SubscriptionAddPage extends CommonPage {
     return $(helpers.SubscriptionAddTitle).getText();
   }
 
-  // TODO: add remaining clicks
   async clickContinueForCaseName(): Promise<CaseNameSearchPage> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
 
-    const continueButton = await $(helpers.ContinueButton);
-    continueButton.click();
-
+    await $(helpers.ContinueButton).click();
     return new CaseNameSearchPage();
   }
 
@@ -31,9 +28,8 @@ export class SubscriptionAddPage extends CommonPage {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
-    const continueButton = await $(helpers.ContinueButton);
-    continueButton.click();
 
+    await $(helpers.ContinueButton).click();
     return new CaseReferenceNumberSearchPage();
   }
 

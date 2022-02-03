@@ -1,0 +1,14 @@
+{
+  "title": "Sign In",
+  "header": "How do you want to sign in?",
+  "radio1": "With My HMCTS account",
+  "radio2": "With Common Platform account",
+  "radio3": "With a Court and tribunal hearings account",
+  "accountInfo": "Don't have an account?",
+  "accountInfo_link_text": "Create a Court and tribunal hearings account",
+  "accountInfo_link": "#",
+  "error": {
+    "title": "There is a problem",
+    "noSelection": "Please select an option"
+  }
+}
