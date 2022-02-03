@@ -138,7 +138,6 @@ describe('Unverified user', () => {
       expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
     });
 
-
     it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
       alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
       expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
@@ -376,3 +375,5 @@ describe('Verified user', () => {
         expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
       });
     });
+  });
+});
