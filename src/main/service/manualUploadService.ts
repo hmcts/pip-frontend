@@ -105,7 +105,7 @@ export class ManualUploadService {
     return 'Please enter a valid date';
   }
 
-  private validateDateRange(dateFrom: string, dateTo: string) {
+  private validateDateRange(dateFrom: string, dateTo: string): string | null {
     const firstDate = moment(dateFrom, 'DD/MM/YYYY', true);
     const secondDate = moment(dateTo, 'DD/MM/YYYY', true);
     if (firstDate.isSameOrBefore(secondDate)) {
