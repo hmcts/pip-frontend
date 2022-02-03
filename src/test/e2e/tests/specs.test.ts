@@ -21,6 +21,8 @@ import { SignInPage } from '../PageObjects/SignIn.page';
 import { getRedirectURL } from '../../../main/authentication/authRedirect';
 import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
+import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
+import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -43,6 +45,8 @@ let courtNameSearchPage: CourtNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
+let pendingSubscriptionsPage: PendingSubscriptionsPage;
+let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 const signInPage = new SignInPage;
 
 describe('Unverified user', () => {
@@ -134,11 +138,6 @@ describe('Unverified user', () => {
       expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
     });
 
-      it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
-        alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
-        expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
-      });
-
     it('should select first glossary term', async () => {
       caseEventGlossaryPage = await liveCaseStatusPage.selectGlossaryTerm();
       expect(await caseEventGlossaryPage.getPageTitle()).toEqual('Live hearing updates - glossary of terms');
@@ -196,7 +195,6 @@ describe('Verified user', () => {
       });
     });
   });
-});
 
   describe('sign in process', async () => {
 
@@ -245,6 +243,11 @@ describe('Verified user', () => {
 
       it(`should display ${expectedNumOfResults} results`, async() => {
         expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
+      });
+
+      it('should click continue', async () => {
+        pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
 
@@ -330,6 +333,17 @@ describe('Verified user', () => {
       it(`should display ${expectedNumOfResults} results`, async () => {
         expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
       });
+    });
+  });
+
+  describe('add subscription', async () => {
+    before(async () => {
+      await pendingSubscriptionsPage.open('pending-subscriptions');
+    });
+
+    it('should subscribe', async () => {
+      subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
+      expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
     });
   });
 
