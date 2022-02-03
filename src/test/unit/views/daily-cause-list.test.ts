@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
 import { DailyCauseListService } from '../../../main/service/dailyCauseListService';
+import {request as expressRequest} from "express";
 
 const PAGE_URL = '/daily-cause-list';
 const headingClass = 'govuk-heading-l';
@@ -22,6 +23,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList
 const dailyCauseListData = JSON.parse(rawData);
 
 sinon.stub(DailyCauseListService.prototype, 'getDailyCauseList').returns(dailyCauseListData);
+sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Daily Cause List page', () => {
   beforeAll(async () => {

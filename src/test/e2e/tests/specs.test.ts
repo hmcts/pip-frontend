@@ -352,7 +352,7 @@ describe('Verified user', () => {
 
   describe('daily cause list', async () => {
     it('should open daily cause list page', async () => {
-      await dailyCauseListPage.open('daily-cause-list');
+      await dailyCauseListPage.open('daily-cause-list?artefactId=34eccd85-925f-45c6-ba3b-7a3f4a73c925');
       expect(await dailyCauseListPage.getPageTitle()).toContain('Daily Civil Cause list for');
     });
   });
