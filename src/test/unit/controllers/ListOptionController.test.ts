@@ -16,7 +16,7 @@ const courtData = JSON.parse(rawData)[0];
 sinon.stub(CourtService.prototype, 'getCourtById').resolves(courtData);
 
 describe('Get List option', () => {
-  it('should render the list option page', () => {
+  it('should render the old list option page', () => {
 
     const response = {
       render: function() {return '';},

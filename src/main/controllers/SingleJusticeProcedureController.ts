@@ -10,6 +10,7 @@ export default class SingleJusticeProcedureController {
 
     const courtName = 'Single Justice Procedure';
     const publications = await sjpService.getSJPPublications();
+    console.log(publications);
     res.render('summary-of-publications', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
       publications,

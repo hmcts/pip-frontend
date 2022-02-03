@@ -10,7 +10,7 @@ import OldSingleJusticeProcedureController from '../../../main/controllers/OldSi
 const singleJusticeProcedureController = new OldSingleJusticeProcedureController();
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawSJPData).results;
-sinon.stub(SjpRequests.prototype, 'getSJPCases').returns(sjpCases);
+sinon.stub(SjpRequests.prototype, 'getSJPCases').resolves(sjpCases);
 
 describe('Single Justice Procedure Controller', () => {
   const i18n = {

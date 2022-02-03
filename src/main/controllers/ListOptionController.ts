@@ -2,7 +2,6 @@
 
 import {PipRequest} from '../models/request/PipRequest';
 import { Response } from 'express';
-// import {CourtService} from '../service/courtService';
 import {cloneDeep} from 'lodash';
 import { PublicationService } from '../service/publicationService';
 
