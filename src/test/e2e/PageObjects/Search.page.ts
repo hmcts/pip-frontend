@@ -1,6 +1,12 @@
+<<<<<<< HEAD:src/test/e2e/PageObjects/Search.page.ts
 import { HearingListPage } from './HearingList.page';
 import { CommonPage } from './Common.page';
 import { AlphabeticalSearchPage } from './AlphabeticalSearch.page';
+=======
+import {HearingListPage} from './HearingList.page';
+import { CommonPage } from './Common.page';
+import {AlphabeticalSearchPage} from './AlphabeticalSearch.page';
+>>>>>>> master:src/test/e2e/pageobjects/Search.page.ts
 
 const helpers = require('../Helpers/Selectors');
 

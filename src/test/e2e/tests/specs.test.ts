@@ -140,9 +140,10 @@ describe('Unverified user', () => {
       expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
     });
 
-    it('should display 4 results in the table', async () => {
-      expect(await liveCaseStatusPage.getResults()).toBe(4);
-    });
+      it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
+        alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
+        expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
+      });
 
     it('should select first glossary term', async () => {
       caseEventGlossaryPage = await liveCaseStatusPage.selectGlossaryTerm();
@@ -201,6 +202,7 @@ describe('Verified user', () => {
       });
     });
   });
+});
 
   describe('sign in process', async () => {
     it('should open Session Mock Page to authenticate user', async () => {
