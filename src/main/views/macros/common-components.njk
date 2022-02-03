@@ -31,10 +31,10 @@
     mybutton = document.getElementById("back-to-top-button");
 
     // When the user scrolls down 20px from the top of the document, show the button
-    window.onscroll = function() {scrollFunction()};
-
+    window.onscroll = function() { scrollFunction() };
+    var offSet = 700;
     function scrollFunction() {
-      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      if (document.body.scrollTop > offSet || document.documentElement.scrollTop > offSet) {
         mybutton.style.display = "block";
       } else {
         mybutton.style.display = "none";
@@ -49,25 +49,3 @@
   </script>
 {% endmacro %}
 
-{% macro backToTopButton2(text = 'Back to top') %}
-  {% set buttonHtml %}
-    <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19 with-background" href="#">
-      <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17"
-           viewBox="0 0 13 17">
-        <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
-      </svg>{{ text }}
-    </a>
-  {% endset %}
-  {{ govukAccordion({
-    id: "back-to-top",
-    headingLevel: 1,
-    classes: "floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19 with-background",
-    items: [
-      {
-        heading: {
-        html: buttonHtml
-      }
-      }
-    ]
-  }) }}
-{% endmacro %}

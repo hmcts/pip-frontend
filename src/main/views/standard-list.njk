@@ -11,11 +11,7 @@
 {% endblock %}
 {% block content %}
   <div id="grid-row" class="govuk-grid-row list-div">
-    <div class="offset-parent-box layout-width-one-fifth govuk-!-display-inline-block">
-      {{ backToTopButton() }}
-    </div>
-
-    <div>
+    <div class="parent-box">
       <h1 class="govuk-heading-xl govuk-!-margin-bottom-1">{{ court.name }}:</h1>
       <h1 class="govuk-heading-xl">{{ standardList }}</h1>
 
@@ -452,6 +448,7 @@
           ]
         }) }}
       </div>
+      {{ backToTopButton() }}
     </div>
   </div>
 {% endblock %}

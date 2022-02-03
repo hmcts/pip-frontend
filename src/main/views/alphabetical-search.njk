@@ -84,7 +84,7 @@
         </div>
       </div>
     </div>
-    <div class="layout-width-three-fifths">
+    <div class="layout-width-three-fifths parent-box">
       <h2 id='page-heading' class="govuk-heading-l">{{ heading }}</h2>
       <div class="moj-button-menu">
         <div class="moj-button-menu__wrapper">
@@ -147,8 +147,8 @@
         {% endfor %}
         </tbody>
       </table>
+      {{ backToTopButton() }}
     </div>
-    {{ backToTopButton() }}
   </div>
 
 {% endblock %}

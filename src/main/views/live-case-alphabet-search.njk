@@ -12,7 +12,6 @@
 {% block content %}
     <div id="grid-row" class="govuk-grid-row">
         <div class="parent-box govuk-!-display-inline-block">
-          {{ backToTopButton() }}
             <h2 id='page-heading' class="govuk-heading-l">{{ heading }}</h2>
             <p class="govuk-body">{{ p1 }}</p>
             <div class="govuk-!-margin-bottom-8">
@@ -64,6 +63,7 @@
                 {% endfor %}
                 </tbody>
             </table>
+          {{ backToTopButton() }}
         </div>
     </div>
 

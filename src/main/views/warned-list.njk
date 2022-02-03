@@ -14,10 +14,7 @@
 
 {% block content %}
   <div id="grid-row" class="govuk-grid-row list-div">
-    <div class="offset-parent-box layout-width-one-fifth govuk-!-display-inline-block">
-      {{ backToTopButton() }}
-    </div>
-    <div>
+    <div class="parent-box">
       <h2 class="govuk-heading-l govuk-!-margin-bottom-1">Derby Crown Court:</h2>
       <h2 class="govuk-heading-l">{{ warnedHeading }}</h2>
 
@@ -354,6 +351,7 @@
           ]
         }) }}
       </div>
+      {{ backToTopButton() }}
     </div>
   </div>
 {% endblock %}
