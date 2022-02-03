@@ -168,7 +168,7 @@ export class ManualUploadService {
 
   public generatePublicationUploadHeaders(headers): object {
     return {
-      'x-provenance': headers.userId,
+      'x-provenance': 'MANUAL_UPLOAD',
       'x-source-artefact-id': headers.fileName,
       'x-type': headers.artefactType,
       'x-sensitivity': headers.classification,

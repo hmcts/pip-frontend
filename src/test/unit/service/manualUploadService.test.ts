@@ -26,7 +26,7 @@ const headers = {
   'content-date-from': '',
 };
 const expectedHeaders = {
-  'x-provenance': headers.userId,
+  'x-provenance': 'MANUAL_UPLOAD',
   'x-source-artefact-id': headers.fileName,
   'x-type': headers.artefactType,
   'x-sensitivity': headers.classification,
