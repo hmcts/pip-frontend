@@ -22,6 +22,8 @@ import {getRedirectURL} from '../../../main/authentication/authRedirect';
 import {DeleteSubscriptionPage} from '../PageObjects/DeleteSubscription.page';
 import {UnsubscribeConfirmationPage} from '../PageObjects/UnsubscribeConfirmation.page';
 import {ManualUploadPage} from '../PageObjects/ManualUpload.page';
+import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
+import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -44,6 +46,8 @@ let courtNameSearchPage: CourtNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
+let manualUploadSummaryPage: ManualUploadSummaryPage;
+let fileUploadConfirmationPage: FileUploadConfirmationPage;
 const signInPage = new SignInPage;
 const manualUploadPage = new ManualUploadPage;
 
@@ -357,9 +361,16 @@ describe('Verified user', () => {
         await manualUploadPage.open('/manual-upload');
         expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
       });
-      it('should complete form', async () => {
-        manualUploadPage.completeForm();
-        await browser.pause(30000);
+
+      it('should complete form and open summary page', async () => {
+        await manualUploadPage.completeForm();
+        manualUploadSummaryPage = await manualUploadPage.clickContinue();
+        expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check your answers');
+      });
+
+      it('should open upload confirmation page', async () => {
+        fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
+        expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
       });
     });
   });
