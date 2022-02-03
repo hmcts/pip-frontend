@@ -134,10 +134,6 @@ describe('Unverified user', () => {
       expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
     });
 
-    it('should display 4 results in the table', async () => {
-      expect(await liveCaseStatusPage.getResults()).toBe(4);
-    });
-
     it('should select first glossary term', async () => {
       caseEventGlossaryPage = await liveCaseStatusPage.selectGlossaryTerm();
       expect(await caseEventGlossaryPage.getPageTitle()).toEqual('Live hearing updates - glossary of terms');
