@@ -21,7 +21,9 @@ import { SignInPage } from '../PageObjects/SignIn.page';
 import { getRedirectURL } from '../../../main/authentication/authRedirect';
 // import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 // import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
-import {ManualUploadPage} from '../PageObjects/ManualUpload.page';
+import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
+import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
+import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 
 // const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -46,6 +48,8 @@ const subscriptionManagementPage = new SubscriptionManagementPage();
 // let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 const signInPage = new SignInPage;
 const manualUploadPage = new ManualUploadPage;
+let manualUploadSummaryPage: ManualUploadSummaryPage;
+let fileUploadConfirmationPage: FileUploadConfirmationPage;
 
 // describe('Unverified user', () => {
 //
@@ -199,7 +203,6 @@ describe('Verified user', () => {
   });
 
   describe('sign in process', async () => {
-
     it('should open Session Mock Page to authenticate user', async () => {
       await mockSessionPage.open('/mock-session');
       expect(await mockSessionPage.getPageTitle()).toBe('Mock User Session Data');
@@ -356,9 +359,16 @@ describe('Verified user', () => {
         await manualUploadPage.open('/manual-upload');
         expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
       });
-      it('should complete form', async () => {
+      it('should complete form and open summary page', async () => {
         manualUploadPage.completeForm();
-        await browser.pause(30000);
+        await browser.pause(2000);
+        manualUploadSummaryPage = await manualUploadPage.clickContinue();
+        expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check your answers');
+      });
+
+      it('should open upload confirmation page', async () => {
+        fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
+        expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
       });
     });
   });
