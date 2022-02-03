@@ -66,5 +66,5 @@ describe('Hearing Service', () => {
 
   it('should return null for a invalid urn', async () => {
     expect(await hearingService.getCaseByURN('bar')).to.deep.equal(null);
-  });
+  });  
 });
