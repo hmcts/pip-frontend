@@ -12,14 +12,7 @@ const multer = require('multer');
 export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
   const authType = (process.env.OIDC === 'true') ? 'azuread-openidconnect' : 'mockaroo';
-  const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
-  const corsOptions = {
-    origin: 'https://pib2csbox.b2clogin.com',
-    methods: ['GET', 'OPTIONS'],
-    allowedHeaders: '*',
-    exposedHeaders: '*',
-    optionsSuccessStatus: 200,
-  };
+  // const authType = 'mockaroo';
   const storage = multer.diskStorage({
     destination: function (req, file, callback) {
       callback(null, 'manualUpload/tmp/');
@@ -28,6 +21,15 @@ export default function(app: Application): void {
       callback(null, file.originalname);
     },
   });
+
+  const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
+  const corsOptions = {
+    origin: 'https://pib2csbox.b2clogin.com',
+    methods: ['GET', 'OPTIONS'],
+    allowedHeaders: '*',
+    exposedHeaders: '*',
+    optionsSuccessStatus: 200,
+  };
 
   function ensureAuthenticated(req, res, next): NextFunction | void {
     if (req.isAuthenticated()) {
