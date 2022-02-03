@@ -14,7 +14,6 @@ export class ManualUploadService {
       courtList: await courtService.fetchAllCourts(),
       listSubtypes: this.getListSubtypes(),
       judgementsOutcomesSubtypes: this.getJudgementOutcomesSubtypes(),
-      classification: this.getClassificationLevels(),
     };
     return data;
   }
@@ -35,16 +34,6 @@ export class ManualUploadService {
 
   private getJudgementOutcomesSubtypes(): Array<object> {
     return [{text: 'SJP Media Register', value: 'SJP_MEDIA_REGISTER'}];
-  }
-
-  private getClassificationLevels(): Array<object> {
-    return [
-      {text: 'Public', value: 'PUBLIC'},
-      {text: 'Private', value: 'PRIVATE'},
-      {text: 'Classified - verified CFT', value: 'CLASSIFIED_CFT'},
-      {text: 'Classified - verified Crime', value: 'CLASSIFIED_CRIME'},
-      {text: 'Classified - Media ', value: 'CLASSIFIED_MEDIA'},
-    ];
   }
 
   public validateFileUpload(file: File): string {
@@ -82,7 +71,7 @@ export class ManualUploadService {
   }
 
   private async validateCourt(courtName: string): Promise<string> {
-    if (courtName?.length > 3) {
+    if (courtName?.length >= 3) {
       const validCourt = await courtService.getCourtByName(courtName);
       if (validCourt) {
         return null;
@@ -92,8 +81,8 @@ export class ManualUploadService {
     return 'Court name must be three characters or more';
   }
 
-  public buildDate(body: object, fieldset: string): string {
-    return body[`${fieldset}-day`]?.concat('/', body[`${fieldset}-month`],'/', body[`${fieldset}-year`]);
+  private buildDate(body: object, fieldsetPrefix: string): string {
+    return body[`${fieldsetPrefix}-day`]?.concat('/', body[`${fieldsetPrefix}-month`],'/', body[`${fieldsetPrefix}-year`]);
   }
 
   private validateDates(dateFrom: string, dateTo: string): object {

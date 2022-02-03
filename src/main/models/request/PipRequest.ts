@@ -18,6 +18,7 @@ export interface PipRequest extends Request {
       'list-option': {};
       'live-case-alphabet-search': {};
       'live-case-status': {};
+      'manual-upload': {};
       'not-found': {};
       'otp-template': {};
       'search': {};
