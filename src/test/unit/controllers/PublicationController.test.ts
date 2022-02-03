@@ -3,8 +3,8 @@ import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
 const publicationController = new ListOptionController();
 const i18n = {
@@ -16,7 +16,11 @@ const sjpCases = JSON.parse(rawSJPData).results;
 describe('Get publications', () => {
   it('should render the Summary of Publications page', async () => {
     sinon.stub(PublicationService.prototype, 'getPublications').resolves(sjpCases);
-    const response = { render: () => {return '';}} as unknown as Response;
+    const response = {
+      render: () => {
+        return '';
+      },
+    } as unknown as Response;
 
     const request = mockRequest(i18n);
     request.query = {courtId: '1'};
@@ -27,7 +31,7 @@ describe('Get publications', () => {
     const expectedData = {
       ...i18n['summary-of-publications'],
       courtName: '1',
-      publications:sjpCases,
+      publications: sjpCases,
     };
 
     responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
@@ -38,7 +42,9 @@ describe('Get publications', () => {
 
   it('should redirect to the hearing list page', () => {
     const response = {
-      redirect: function() {return '';},
+      redirect: function () {
+        return '';
+      },
     } as unknown as Response;
 
     const request = mockRequest(i18n);
