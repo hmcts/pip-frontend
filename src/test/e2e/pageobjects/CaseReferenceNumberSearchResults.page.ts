@@ -11,5 +11,4 @@ export class CaseReferenceNumberSearchResultsPage extends CommonPage {
     const results = $$(helpers.Results);
     return results.length;
   }
-
 }
