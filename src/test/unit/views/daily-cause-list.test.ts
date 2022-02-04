@@ -5,9 +5,9 @@ import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
 import { DailyCauseListService } from '../../../main/service/dailyCauseListService';
-import {request as expressRequest} from "express";
+import {request as expressRequest} from 'express';
 
-const PAGE_URL = '/daily-cause-list';
+const PAGE_URL = '/daily-cause-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
@@ -22,7 +22,11 @@ let htmlRes: Document;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
 const dailyCauseListData = JSON.parse(rawData);
 
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseListMetaData.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData);
+
 sinon.stub(DailyCauseListService.prototype, 'getDailyCauseList').returns(dailyCauseListData);
+sinon.stub(DailyCauseListService.prototype, 'getDailyCauseListMetaData').returns(metaData);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Daily Cause List page', () => {

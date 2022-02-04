@@ -396,10 +396,10 @@ div {
 }
 
 .no-border-bottom {
-  border-bottom: none;
+  border-bottom: 0;
 }
 
 .govuk-accordion__controls {
-  text-align: right;
   margin-bottom: 20px;
+  text-align: right;
 }

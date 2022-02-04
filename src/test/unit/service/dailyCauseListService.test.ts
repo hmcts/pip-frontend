@@ -11,8 +11,14 @@ const dailyCauseListRequests = DailyCauseListRequests.prototype;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
 const dailyCauseListData = JSON.parse(rawData);
 
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseListMetaData.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData);
+
 const stub = sinon.stub(dailyCauseListRequests, 'getDailyCauseList').returns(dailyCauseListData);
 stub.withArgs().returns(dailyCauseListData);
+
+const stubMetaData = sinon.stub(dailyCauseListRequests, 'getDailyCauseListMetaData').returns(metaData);
+stubMetaData.withArgs().returns(metaData);
 
 const validCourtName = 'PRESTON';
 const invalidCourtName = 'TEST';
@@ -21,7 +27,7 @@ describe('Daily Cause List Service', () => {
   describe('getDailyCauseList Daily Cause List Service', () => {
     it('should return daily cause list object', () => {
       return dailyCauseListService.getDailyCauseList('').then((data) => {
-        expect(Object.keys(['courtLists']).length).to.equal(1);
+        expect(data['courtLists'].length).to.equal(1);
       });
     });
 
@@ -57,6 +63,14 @@ describe('Daily Cause List Service', () => {
     it('should calculate start time of Hearing in cause list object', async () => {
       await dailyCauseListService.calculateHearingSessionTime(dailyCauseListData);
       expect(dailyCauseListData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal('09am');
+    });
+  });
+
+  describe('getDailyCauseListMetaData Daily Cause List Service', () => {
+    it('should return daily cause list meta object', () => {
+      return dailyCauseListService.getDailyCauseListMetaData('').then((data) => {
+        expect(data['contentDate']).to.equal('2022-02-04T11:01:20.734Z');
+      });
     });
   });
 });

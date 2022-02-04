@@ -8,6 +8,10 @@ export class DailyCauseListService {
     return await dailyCauseListRequests.getDailyCauseList(artefactId);
   }
 
+  public async getDailyCauseListMetaData(artefactId: string): Promise<any> {
+    return await dailyCauseListRequests.getDailyCauseListMetaData(artefactId);
+  }
+
   public calculateHearingSessionTime(searchResults: string): void {
     let hearingCount = 0;
     searchResults['courtLists'].forEach(courtList => {
@@ -22,7 +26,7 @@ export class DailyCauseListService {
 
               const duration = moment.duration(sittingEnd.startOf('hour').diff(sittingStart.startOf('hour')));
               sitting['duration'] = duration.asHours();
-              sitting['startTime'] = sittingStart.format('hhA').toLowerCase();
+              sitting['startTime'] = sittingStart.format('hha');
             }
             hearingCount = hearingCount + sitting['hearing'].length;
           });

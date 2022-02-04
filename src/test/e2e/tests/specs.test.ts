@@ -136,10 +136,10 @@ describe('Unverified user', () => {
       expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
     });
 
-      it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
-        alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
-        expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
-      });
+    it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
+      alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
+      expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
+    });
 
     it('should select first glossary term', async () => {
       caseEventGlossaryPage = await liveCaseStatusPage.selectGlossaryTerm();
@@ -200,162 +200,135 @@ describe('Verified user', () => {
   });
 });
 
-  describe('sign in process', async () => {
+describe('sign in process', async () => {
 
-    it('should open Session Mock Page to authenticate user', async () => {
-      await mockSessionPage.open('/mock-session');
-      expect(await mockSessionPage.getPageTitle()).toBe('Mock User Session Data');
+  it('should open Session Mock Page to authenticate user', async () => {
+    await mockSessionPage.open('/mock-session');
+    expect(await mockSessionPage.getPageTitle()).toBe('Mock User Session Data');
+  });
+  it('should fill session form and open subscription management page', async () => {
+    await mockSessionPage.enterText('Joe Bloggs', 'UsernameInput');
+    await mockSessionPage.enterText('1', 'UserIdInput');
+    await mockSessionPage.selectOption('UserType');
+    // If USE_PROTOTYPE is set then it goes to Heroku, therefore re-open to Subscriptions Management
+    if (process.env.USE_PROTOTYPE) {
+      await mockSessionPage.clickContinue();
+      await subscriptionManagementPage.open('/subscription-management');
+    } else {
+      const subscriptionManagementPage = await mockSessionPage.clickContinue();
+      expect(await subscriptionManagementPage.getPageTitle()).toBe('Your subscriptions');
+    }
+  });
+});
+
+describe('add subscription', async () => {
+  it('should navigate to add subscription page on button click', async () => {
+    subscriptionAddPage = await subscriptionManagementPage.clickAddNewSubscriptionButton();
+    expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
+  });
+  describe('following the URN path', async () => {
+    const validSearchTerm = 'N363N6R4OG';
+    const expectedNumOfResults = 1;
+    it('should select \'By unique reference number\' option and navigate to search urn page', async () => {
+      await subscriptionAddPage.selectOption('SubscriptionAddByUniqueRefNumber');
+      subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
+      expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number (URN)');
     });
-
-    it('should fill session form and open subscription management page', async () => {
-      await mockSessionPage.enterText('Joe Bloggs', 'UsernameInput');
-      await mockSessionPage.enterText('1', 'UserIdInput');
-      await mockSessionPage.selectOption('UserType');
-
-      // If USE_PROTOTYPE is set then it goes to Heroku, therefore re-open to Subscriptions Management
-      if (process.env.USE_PROTOTYPE) {
-        await mockSessionPage.clickContinue();
-        await subscriptionManagementPage.open('/subscription-management');
-      } else {
-        const subscriptionManagementPage = await mockSessionPage.clickContinue();
-        expect(await subscriptionManagementPage.getPageTitle()).toBe('Your subscriptions');
-      }
+    it('should enter text and click continue', async () => {
+      await subscriptionUrnSearchPage.enterText(validSearchTerm);
+      subscriptionUrnSearchResultsPage = await subscriptionUrnSearchPage.clickContinue();
+      expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
+    });
+    it(`should display ${expectedNumOfResults} results`, async() => {
+      expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
     });
   });
-
-  describe('add subscription', async () => {
-    it('should navigate to add subscription page on button click', async () => {
-      subscriptionAddPage = await subscriptionManagementPage.clickAddNewSubscriptionButton();
-      expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
-    });
-
-    describe('following the URN path', async () => {
-      const validSearchTerm = 'N363N6R4OG';
-      const expectedNumOfResults = 1;
-
-      it('should select \'By unique reference number\' option and navigate to search urn page', async () => {
-        await subscriptionAddPage.selectOption('SubscriptionAddByUniqueRefNumber');
-        subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
-        expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number (URN)');
-      });
-
-      it('should enter text and click continue', async () => {
-        await subscriptionUrnSearchPage.enterText(validSearchTerm);
-        subscriptionUrnSearchResultsPage = await subscriptionUrnSearchPage.clickContinue();
-        expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
-      });
-
-      it(`should display ${expectedNumOfResults} results`, async() => {
-        expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
-      });
-    });
-
-    describe('following the case name path', async () => {
-      const validCaseName = 'jadon';
-      const casesCount = 1;
-
-      before(async () => {
-        await subscriptionAddPage.open('/subscription-add');
-      });
-
-      it('should open case name search path', async () => {
-        await subscriptionAddPage.selectOption('SubscriptionAddByCaseName');
-        caseNameSearchPage = await subscriptionAddPage.clickContinueForCaseName();
-        expect(await caseNameSearchPage.getPageTitle()).toBe('Enter a case name');
-      });
-
-      it('should search for a valid case name and navigate to results page', async () => {
-        await caseNameSearchPage.enterText(validCaseName);
-        caseNameSearchResultsPage = await caseNameSearchPage.clickContinue();
-        expect(await caseNameSearchResultsPage.getPageTitle()).toBe('Search result');
-      });
-
-      it(`should display ${casesCount} results`, async () => {
-        expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
-      });
-    });
-
-    describe('following court or tribunal page', async () => {
-      const allCourts = 305;
-
-      const tribunalCourts = 49;
-
-      before(async () => {
-        await subscriptionAddPage.open('subscription-add');
-      });
-
-      it('should open court or tribunal name search page', async () => {
-        await subscriptionAddPage.selectOption('SubscriptionAddByCourtOrTribunal');
-        courtNameSearchPage = await subscriptionAddPage.clickContinueForCourtOrTribunal();
-        expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
-      });
-
-      it(`should display ${allCourts} results`, async() => {
-        expect(await courtNameSearchPage.getResults()).toBe(allCourts);
-      });
-
-      it('should select first jurisdiction filter', async () => {
-        await courtNameSearchPage.selectOption('JurisdictionCheckbox');
-        expect(await courtNameSearchPage.jurisdictionChecked()).toBeTruthy();
-      });
-
-      it('should click on the apply filters button', async () => {
-        courtNameSearchPage = await courtNameSearchPage.clickApplyFiltersButton();
-        expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
-      });
-
-      it(`should display ${tribunalCourts} results (Tribunal) filter`, async() => {
-        expect(await courtNameSearchPage.getResults()).toBe(tribunalCourts);
-      });
-    });
-
-    describe('Following the subscription \'search\' by case reference path', () => {
-      const validSearchTerm = 'T485913';
-      const expectedNumOfResults = 1;
-
-      before(async () => {
-        await subscriptionAddPage.open('subscription-add');
-      });
-
-      it('should select \'By case reference number\' option and navigate to search case number page', async () => {
-        await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
-        caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
-        expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
-      });
-
-      it('should enter text and click continue', async () => {
-        await caseReferenceNumberSearchPage.enterText(validSearchTerm);
-        caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
-        expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
-      });
-
-      it(`should display ${expectedNumOfResults} results`, async () => {
-        expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
-      });
-    });
-  });
-
-  describe('remove subscription', async () => {
+  describe('following the case name path', async () => {
+    const validCaseName = 'jadon';
+    const casesCount = 1;
     before(async () => {
-      await subscriptionManagementPage.open('subscription-management');
+      await subscriptionAddPage.open('/subscription-add');
     });
-
-    it('should click on the first unsubscribe record', async () => {
-      deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
-      expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
+    it('should open case name search path', async () => {
+      await subscriptionAddPage.selectOption('SubscriptionAddByCaseName');
+      caseNameSearchPage = await subscriptionAddPage.clickContinueForCaseName();
+      expect(await caseNameSearchPage.getPageTitle()).toBe('Enter a case name');
     });
-
-    it('should select yes option and unsubscribe', async () => {
-      await deleteSubscriptionPage.selectOption('yesRadioButton');
-      unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
-      expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+    it('should search for a valid case name and navigate to results page', async () => {
+      await caseNameSearchPage.enterText(validCaseName);
+      caseNameSearchResultsPage = await caseNameSearchPage.clickContinue();
+      expect(await caseNameSearchResultsPage.getPageTitle()).toBe('Search result');
+    });
+    it(`should display ${casesCount} results`, async () => {
+      expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
     });
   });
-
-  describe('daily cause list', async () => {
-    it('should open daily cause list page', async () => {
-      await dailyCauseListPage.open('daily-cause-list?artefactId=34eccd85-925f-45c6-ba3b-7a3f4a73c925');
-      expect(await dailyCauseListPage.getPageTitle()).toContain('Daily Civil Cause list for');
+  describe('following court or tribunal page', async () => {
+    const allCourts = 305;
+    const tribunalCourts = 49;
+    before(async () => {
+      await subscriptionAddPage.open('subscription-add');
     });
+    it('should open court or tribunal name search page', async () => {
+      await subscriptionAddPage.selectOption('SubscriptionAddByCourtOrTribunal');
+      courtNameSearchPage = await subscriptionAddPage.clickContinueForCourtOrTribunal();
+      expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
+    });
+    it(`should display ${allCourts} results`, async() => {
+      expect(await courtNameSearchPage.getResults()).toBe(allCourts);
+    });
+    it('should select first jurisdiction filter', async () => {
+      await courtNameSearchPage.selectOption('JurisdictionCheckbox');
+      expect(await courtNameSearchPage.jurisdictionChecked()).toBeTruthy();
+    });
+    it('should click on the apply filters button', async () => {
+      courtNameSearchPage = await courtNameSearchPage.clickApplyFiltersButton();
+      expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
+    });
+    it(`should display ${tribunalCourts} results (Tribunal) filter`, async() => {
+      expect(await courtNameSearchPage.getResults()).toBe(tribunalCourts);
+    });
+  });
+  describe('Following the subscription \'search\' by case reference path', () => {
+    const validSearchTerm = 'T485913';
+    const expectedNumOfResults = 1;
+    before(async () => {
+      await subscriptionAddPage.open('subscription-add');
+    });
+    it('should select \'By case reference number\' option and navigate to search case number page', async () => {
+      await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
+      caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
+      expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
+    });
+    it('should enter text and click continue', async () => {
+      await caseReferenceNumberSearchPage.enterText(validSearchTerm);
+      caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
+      expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
+    });
+    it(`should display ${expectedNumOfResults} results`, async () => {
+      expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
+    });
+  });
+});
+
+describe('remove subscription', async () => {
+  before(async () => {
+    await subscriptionManagementPage.open('subscription-management');
+  });
+  it('should click on the first unsubscribe record', async () => {
+    deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
+    expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
+  });
+  it('should select yes option and unsubscribe', async () => {
+    await deleteSubscriptionPage.selectOption('yesRadioButton');
+    unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
+    expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+  });
+});
+
+describe('daily cause list', async () => {
+  it('should open daily cause list page', async () => {
+    await dailyCauseListPage.open('daily-cause-list?artefactId=34eccd85-925f-45c6-ba3b-7a3f4a73c925');
+    expect(await dailyCauseListPage.getPageTitle()).toContain('Daily Civil Cause list for');
   });
 });

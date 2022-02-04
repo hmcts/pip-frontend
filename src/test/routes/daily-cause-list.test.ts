@@ -16,7 +16,7 @@ describe('Daily Cause List Page', () => {
   describe('on GET', () => {
     test('should return daily cause list page', () => {
       request(app)
-        .get('/daily-cause-list?artefactId=10b6e951-2746-4fab-acad-564dcac9c58d')
+        .get('/daily-cause-list?artefactId=test')
         .expect((res) => expect(res.status).to.equal(200));
     });
   });
