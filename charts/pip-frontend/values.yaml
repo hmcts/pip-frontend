@@ -22,5 +22,9 @@ nodejs:
           alias: REDIS_PASSWORD
         - name: REDIS-PORT
           alias: REDIS_PORT
+        - name: AUTH-RETURN-URL
+          alias: AUTH_RETURN_URL
+        - name: B2C-AUTH-ENDPOINT
+          alias: B2C_AUTH_ENDPOINT
   aadIdentityName: pip
 
