@@ -36,13 +36,16 @@ export default class ManualUploadSummaryController {
     } else {
       const response = await manualUploadService.uploadPublication({...formData, userId}, true);
       manualUploadService.removeFile(formData.fileName);
-      (response) ?
-        res.redirect('upload-confirmation') :
+      if (response) {
+        res.clearCookie('formCookie');
+        res.redirect('upload-confirmation');
+      } else {
         res.render('file-upload-summary', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['file-upload-summary']),
           fileUploadData: {...manualUploadService.formatPublicationDates(formData, false)},
           displayError: true,
         });
+      }
     }
   }
 }
