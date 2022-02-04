@@ -159,10 +159,10 @@ export class ManualUploadService {
   public formatPublicationDates(formData: any, defaultFormat: boolean): object {
     return {
       ...formData,
-      'display-from': defaultFormat ? moment(formData['display-from'], 'DD/MM/YYYY').format() : moment().format('D MMM YYYY'),
-      'display-to': defaultFormat ? moment(formData['display-to'], 'DD/MM/YYYY').format() : moment().format('D MMM YYYY'),
-      'content-date-from': defaultFormat ? moment(formData['content-date-from'], 'DD/MM/YYYY').format() : moment().format('D MMM YYYY'),
-      'content-date-to': defaultFormat ? moment(formData['content-date-to'], 'DD/MM/YYYY').format() : moment().format('D MMM YYYY'),
+      'display-from': defaultFormat ? moment(formData['display-from']).format() : moment().format('D MMM YYYY'),
+      'display-to': defaultFormat ? moment(formData['display-to']).format() : moment().format('D MMM YYYY'),
+      'content-date-from': defaultFormat ? moment(formData['content-date-from']).format() : moment().format('D MMM YYYY'),
+      'content-date-to': defaultFormat ? moment(formData['content-date-to']).format() : moment().format('D MMM YYYY'),
     };
   }
 
