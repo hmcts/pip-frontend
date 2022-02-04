@@ -100,8 +100,8 @@ describe('Unverified user', () => {
       });
 
       it('should select Magistrates\' Court and North West filters', async () => {
-        await alphabeticalSearchPage.selectOption('MagistratesFilter');
-        await alphabeticalSearchPage.selectOption('NorthWestFilter');
+        await alphabeticalSearchPage.selectFilter('MagistratesFilter');
+        await alphabeticalSearchPage.selectFilter('NorthWestFilter');
         await alphabeticalSearchPage.clickApplyFiltersButton();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
       });
@@ -245,7 +245,7 @@ describe('Verified user', () => {
         expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
       });
 
-      it('should click continue', async () => {
+      it('should click continue to create subscription', async () => {
         pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
         expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
@@ -272,7 +272,12 @@ describe('Verified user', () => {
       });
 
       it(`should display ${casesCount} results`, async () => {
-        expect(await caseNameSearchResultsPage.getResults()).toBe(1);
+        expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseNameSearchResultsPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
 
@@ -308,6 +313,11 @@ describe('Verified user', () => {
       it(`should display ${tribunalCourts} results (Tribunal) filter`, async() => {
         expect(await courtNameSearchPage.getResults()).toBe(tribunalCourts);
       });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
     });
 
     describe('Following the subscription \'search\' by case reference path', () => {
@@ -332,6 +342,11 @@ describe('Verified user', () => {
 
       it(`should display ${expectedNumOfResults} results`, async () => {
         expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
   });

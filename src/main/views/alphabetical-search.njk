@@ -161,6 +161,96 @@
         <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
       </svg>{{ backToTop }}
     </a>
+        {% if checkedFilterItems| length > 0 %}
+          {% set _ = checkedFilters.push({heading: {text: key}, items: checkedFilterItems}) %}
+        {% endif %}
+        {{ govukCheckboxes({
+          idPrefix: key,
+          name: key,
+          classes: "govuk-checkboxes--small",
+          fieldset: {
+            legend: {
+              text: key,
+              classes: 'govuk-fieldset__legend--m'
+            }
+          },
+          items: items
+        }) }}
+      {% endfor %}
+    {% endset %}
+
+    <form method="post" action="alphabetical-search" class="moj-filter-layout__filter layout-width-four-fifths" autocomplete="off">
+      {{ mojFilter({
+        heading: {
+          text: filter
+        },
+        selectedFilters: {
+          clearLink: {
+            text: clearAll,
+            href: '?clear=all'
+          },
+          heading: {
+            text: selectedFilter
+          },
+          categories: checkedFilters
+        },
+        optionsHtml: filterOptionsHtml
+      }) }}
+    </form>
+    </div>
+
+  <div class="layout-width-three-fifths">
+    <h2 id='page-heading' class="govuk-heading-l">{{ heading }}</h2>
+    <div class="govuk-grid-row govuk-!-margin-bottom-8">
+      {% for key, value in courtList %}
+        {% if value| length == 0 %}
+          <div class="govuk-grid-column width-column govuk-!-font-size-19">
+            <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline">{{ key }}</a>
+          </div>
+        {% else %}
+          <div class="govuk-grid-column width-column govuk-!-font-size-19">
+            <a id='{{ key }}-selector' href='#{{ key }}' class="govuk-link govuk-link--no-visited-state">{{ key }}</a>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="govuk-grid-row">
+      <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ nationalListsHeader }}</h3>
+    </div>
+    <hr />
+    <div class="govuk-grid-row govuk-!-margin-bottom-4 govuk-!-margin-top-4">
+      <a href="/single-justice-procedure" class="govuk-link govuk-!-margin-left-8 govuk-!-font-size-19" id="sjp-link">{{ sjpLink }}</a>
+    </div>
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header" colspan="2">{{ tableHeader1 }}</th>
+      </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+      {% for key, value in courtList %}
+        {% if value | length > 0 %}
+          {% for courtName, courtDetails in value %}
+            {% if courtDetails.id > 0 %}
+              <tr  class="govuk-table__row">
+                {% if first != key %}
+                  {% set first = key %}
+                  <th scope="row" class="govuk-table__header">
+                    <div id="{{ key }}" class="govuk-!-font-size-27">{{key}}</div>
+                  </th>
+                {% else %}
+                  <th scope="row" class="govuk-table__header">
+                  </th>
+                {% endif %}
+                <td class="govuk-table__cell"><a href="/list-option?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+          {% set first = '' %}
+        {% endif %}
+      {% endfor %}
+      </tbody>
+    </table>
   </div>
 {% endblock %}
 {% block bodyEnd %}
