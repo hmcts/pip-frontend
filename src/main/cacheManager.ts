@@ -2,8 +2,11 @@ import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 
 const redisCredentials = {
+  /* istanbul ignore next */
   host: (process.env.REDIS_HOST) ? process.env.REDIS_HOST : config.get('secrets.pip-ss-kv.REDIS_HOST'),
+  /* istanbul ignore next */
   port: (process.env.REDIS_PORT) ? process.env.REDIS_PORT :config.get('secrets.pip-ss-kv.REDIS_PORT'),
+  /* istanbul ignore next */
   password: (process.env.REDIS_PASSWORD) ? process.env.REDIS_PASSWORD :config.get('secrets.pip-ss-kv.REDIS_PASSWORD'),
 };
 
