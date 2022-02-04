@@ -26,5 +26,7 @@ nodejs:
           alias: AUTH_RETURN_URL
         - name: B2C-AUTH-ENDPOINT
           alias: B2C_AUTH_ENDPOINT
+        - name: OIDC
+          alias: OIDC
   aadIdentityName: pip
 
