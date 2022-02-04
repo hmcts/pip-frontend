@@ -13,12 +13,14 @@ describe('Manual Upload Controller', () => {
   const testFile = new File([''], 'test', {type: 'text/html'});
   sinon.stub(ManualUploadService.prototype, 'buildFormData').resolves({});
   describe('GET', () => {
+    request['cookies'] = {'formCookie': JSON.stringify({})};
     const response = { render: () => {return '';}} as unknown as Response;
     it('should render the manual-upload page', async () =>  {
       const responseMock = sinon.mock(response);
       const expectedData = {
         ...i18n['manual-upload'],
         listItems: {},
+        formData: {},
       };
 
       responseMock.expects('render').once().withArgs('manual-upload', expectedData);
@@ -42,6 +44,7 @@ describe('Manual Upload Controller', () => {
         ...i18n['manual-upload'],
         listItems: {},
         errors: {fileErrors: 'error', formErrors: 'error'},
+        formData: request.body,
       };
 
       responseMock.expects('render').once().withArgs('manual-upload', expectedData);
