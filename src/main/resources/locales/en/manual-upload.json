@@ -2,7 +2,7 @@
   "title": "Manual upload",
   "fileUploadText": "Manually upload a JSON, CSV, PDF, Word, HTM or HTML file, max size 2MB",
   "form": {
-    "court": "Court name",
+    "court": "Court name or Tribunal name",
     "listType": "List type",
     "contentDate": "Hearing dates",
     "contentDateHint": "For example, 16 01 2022 to 20 01 2022",
@@ -13,7 +13,7 @@
     "classificationText": "Available to",
     "classification": [
       {"text": "Public", "value": "PUBLIC"},
-      {"text": "Private", "value": "PRIVATE"},
+      {"text": "Private - All verified users", "value": "PRIVATE"},
       {"text": "Classified - verified CFT", "value": "CLASSIFIED_CFT"},
       {"text": "Classified - verified Crime", "value": "CLASSIFIED_CRIME"},
       {"text": "Classified - Media ", "value": "CLASSIFIED_MEDIA"}
