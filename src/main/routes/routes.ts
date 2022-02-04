@@ -21,8 +21,8 @@ export default function(app: Application): void {
       callback(null, file.originalname);
     },
     limits: {
-      fileSize: 2000000
-    }
+      fileSize: 2000000,
+    },
   });
 
   const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
