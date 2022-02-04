@@ -14,8 +14,11 @@ export default class ListOptionController {
     let courtName: string;
     if (courtId === '0'){
       courtName = 'Single Justice Procedure';
-    }else{
+    }else if(typeof courtId === 'string'){
       courtName = courtId.toString();
+    }
+    else{
+      courtName = 'Court not found';
     }
     if (courtId) {
       const publications = await publicationService.getPublications(parseInt(courtId.toString()));
