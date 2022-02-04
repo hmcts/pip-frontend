@@ -245,7 +245,8 @@ describe('Verified user', () => {
         expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
       });
 
-      it('should click continue', async () => {
+
+      it('should click continue to create subscription', async () => {
         pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
         expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
@@ -273,6 +274,11 @@ describe('Verified user', () => {
 
       it(`should display ${casesCount} results`, async () => {
         expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseNameSearchResultsPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
 
@@ -314,6 +320,16 @@ describe('Verified user', () => {
       const validSearchTerm = 'T485913';
       const expectedNumOfResults = 1;
 
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
+    });
+
+    describe('Following the subscription \'search\' by case reference path', () => {
+      const validSearchTerm = 'T485913';
+      const expectedNumOfResults = 1;
+
       before(async () => {
         await subscriptionAddPage.open('subscription-add');
       });
@@ -332,6 +348,11 @@ describe('Verified user', () => {
 
       it(`should display ${expectedNumOfResults} results`, async () => {
         expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
   });
