@@ -5,7 +5,7 @@ const PublicationReqs = new PublicationRequests();
 
 export class PublicationService {
 
-  public async getPublications(courtId): Promise<Publication[]> {
-    return PublicationReqs.getListOfPubs(courtId);
+  public async getPublications(courtId, verification: boolean): Promise<Publication[]> {
+    return PublicationReqs.getListOfPubs(courtId, verification);
   }
 }

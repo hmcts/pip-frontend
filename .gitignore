@@ -19,7 +19,6 @@ src/main/public/stylesheets/lib/*
 node-rpm-packaging/
 mochawesome-report/
 npm-debug.log.*
-other_file.json
 
 .project
 .settings/

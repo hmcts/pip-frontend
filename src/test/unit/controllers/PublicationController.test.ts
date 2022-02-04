@@ -1,4 +1,4 @@
-import ListOptionController from '../../../main/controllers/ListOptionController';
+import PublicationController from '../../../main/controllers/PublicationController';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import sinon from 'sinon';
@@ -6,7 +6,7 @@ import {PublicationService} from '../../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
 
-const publicationController = new ListOptionController();
+const publicationController = new PublicationController();
 const i18n = {
   'list-option': {},
 };
@@ -46,26 +46,6 @@ describe('Get publications', () => {
 
     await publicationController.get(request, response);
     responseMock.verify();
-  });
-
-  it('should redirect to the hearing list page', () => {
-    const response = {
-      redirect: function () {
-        return '';
-      },
-    } as unknown as Response;
-
-    const request = mockRequest(i18n);
-    request.query = {courtId: '1'};
-    request.user = undefined;
-
-    const responseMock = sinon.mock(response);
-
-    responseMock.expects('redirect').once().withArgs('hearing-list?courtId=1');
-
-    return publicationController.get(request, response).then(() => {
-      responseMock.verify();
-    });
   });
 
   it('should render the SJP if courtId = 0', async () => {

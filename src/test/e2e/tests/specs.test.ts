@@ -77,10 +77,6 @@ describe('Unverified user', () => {
         hearingListPage = await searchPage.clickContinue();
         expect(await hearingListPage.getPageTitle()).toEqual('Blackpool Magistrates\' Court hearing list');
       });
-
-      it(`should display ${expectedNumOfHearings} results`, async () => {
-        expect(await hearingListPage.getResults()).toBe(expectedNumOfHearings);
-      });
     });
 
     describe('following the \'Select from an A-Z of courts and tribunals\' path', async () => {
@@ -109,12 +105,10 @@ describe('Unverified user', () => {
 
       it('selecting first result should take you to to the hearings list page', async () => {
         hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await hearingListPage.getPageTitle()).toEqual('Blackburn Magistrates\' Court hearing list');
+        expect(await hearingListPage.getPageTitle()).toEqual('Summary of Publications for 50');
       });
 
-      it(`should display ${expectedNumOfHearings} results`, async() => {
-        expect(await hearingListPage.getResults()).toBe(expectedNumOfHearings);
-      });
+
     });
   });
 

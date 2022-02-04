@@ -14,7 +14,7 @@ export default class ViewOptionController {
       res.redirect('live-case-alphabet-search');
     }
     else if (req.body['view-choice'] === 'sjp') {
-      res.redirect('single-justice-procedure');
+      res.redirect('publication?courtId=0');
     }
     else {
       res.redirect('view-option');

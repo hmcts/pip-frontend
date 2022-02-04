@@ -18,19 +18,24 @@ describe('get Publication request', () => {
   const errorRequest = {
     request: 'test error',
   };
-  it('should return list of publications', async () => {
-    const pubReq = await pubRequests.getListOfPubs(0);
+  it('should return list of publications if verified', async () => {
+    const pubReq = await pubRequests.getListOfPubs(0, true);
+    expect(pubReq.length).toBe(totalCases);
+  });
+
+  it('should return list of publications if unverified', async () => {
+    const pubReq = await pubRequests.getListOfPubs(0, false);
     expect(pubReq.length).toBe(totalCases);
   });
 
   it('should contain a publication', async () => {
-    const pubReq = await pubRequests.getListOfPubs(0);
+    const pubReq = await pubRequests.getListOfPubs(0, true);
     expect(pubReq.some(e => e.provenance === 'NOT_A_PDF')).toBeTruthy();
   });
 
   it('should send an error to the log if error', async ()=> {
     stub.withArgs('/publication/search/x').resolves(Promise.reject(errorRequest));
-    expect(typeof(await pubRequests.getListOfPubs('x'))).toBe('undefined');
+    expect(typeof(await pubRequests.getListOfPubs('x', true))).toBe('undefined');
   });
 
 });
