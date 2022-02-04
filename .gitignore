@@ -10,7 +10,6 @@ node_modules/
 *swp
 *log
 .DS_Store
-other_file.json
 
 src/main/public/img/lib/*
 src/main/public/js/lib/**/*.js
