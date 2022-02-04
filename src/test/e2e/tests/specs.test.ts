@@ -245,7 +245,6 @@ describe('Verified user', () => {
         expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
       });
 
-
       it('should click continue to create subscription', async () => {
         pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
         expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
@@ -317,8 +316,6 @@ describe('Verified user', () => {
     });
 
     describe('Following the subscription \'search\' by case reference path', () => {
-      const validSearchTerm = 'T485913';
-      const expectedNumOfResults = 1;
       it('should click continue to create subscription', async () => {
         pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
         expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
