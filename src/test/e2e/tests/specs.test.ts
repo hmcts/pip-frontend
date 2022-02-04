@@ -387,7 +387,6 @@ describe('Verified user', () => {
       });
       it('should complete form', async () => {
         manualUploadPage.completeForm();
-        await browser.pause(30000);
       });
     });
   });
