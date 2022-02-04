@@ -70,7 +70,6 @@ describe('Unverified user', () => {
 
     describe('following the \'I have the name\' path', async () => {
       const searchTerm = 'Blackpool Magistrates\' Court';
-      const expectedNumOfHearings = 9;
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
@@ -80,7 +79,6 @@ describe('Unverified user', () => {
     });
 
     describe('following the \'Select from an A-Z of courts and tribunals\' path', async () => {
-      const expectedNumOfHearings = 15;
 
       before(async () => {
         await searchPage.open('/search');
@@ -107,8 +105,6 @@ describe('Unverified user', () => {
         hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
         expect(await hearingListPage.getPageTitle()).toEqual('Summary of Publications for 50');
       });
-
-
     });
   });
 
