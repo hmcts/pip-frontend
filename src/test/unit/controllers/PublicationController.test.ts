@@ -67,6 +67,32 @@ describe('Get publications', () => {
       responseMock.verify();
     });
   });
+
+  it('should render the SJP if courtId = 0', async () => {
+
+    const response = {
+      render: () => {
+        return '';
+      },
+    } as unknown as Response;
+
+    const request = mockRequest(i18n);
+    request.query = {courtId: '0'};
+    request.user = {id: 1};
+
+    const responseMock = sinon.mock(response);
+
+    const expectedData = {
+      ...i18n['summary-of-publications'],
+      courtName: 'Single Justice Procedure',
+      publications: sjpCases,
+    };
+
+    responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
+
+    await publicationController.get(request, response);
+    responseMock.verify();
+  });
 });
 
 describe('Get publications2', () => {
@@ -90,5 +116,7 @@ describe('Get publications2', () => {
     responseMock.verify();
 
   });
+
+
 
 });
