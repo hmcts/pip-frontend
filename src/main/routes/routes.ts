@@ -20,9 +20,6 @@ export default function(app: Application): void {
     filename: function (req, file, callback) {
       callback(null, file.originalname);
     },
-    limits: {
-      fileSize: 2000000,
-    },
   });
 
   const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
@@ -109,7 +106,7 @@ export default function(app: Application): void {
   app.get('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
   app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
   app.get('/manual-upload', ensureAuthenticated, app.locals.container.cradle.manualUploadController.get);
-  app.post('/manual-upload', ensureAuthenticated, multer({storage: storage}).single('manual-file-upload'), app.locals.container.cradle.manualUploadController.post);
+  app.post('/manual-upload', ensureAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), app.locals.container.cradle.manualUploadController.post);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
