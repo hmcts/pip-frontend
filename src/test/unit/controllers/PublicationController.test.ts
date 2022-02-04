@@ -12,7 +12,8 @@ const i18n = {
 };
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawSJPData).results;
-
+const onePubData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublication.json'), 'utf-8');
+const onePub = JSON.parse(onePubData);
 describe('Get publications', () => {
   it('should render the Summary of Publications page', async () => {
     sinon.stub(PublicationService.prototype, 'getPublications').resolves(sjpCases);
@@ -59,4 +60,27 @@ describe('Get publications', () => {
       responseMock.verify();
     });
   });
+});
+
+describe('Get publications2', () => {
+  it('should send data if only one pub is returned', async () => {
+    const response = {
+      send: function () {
+        return '';
+      },
+    } as unknown as Response;
+    const request = mockRequest(i18n);
+    request.query = {courtId: 'x'};
+    request.user = {id: 1};
+    sinon.stub(PublicationService.prototype, 'getPublications').resolves(onePub);
+    const responseMock = sinon.mock(response);
+    const onePubLength = onePub.length;
+    expect(onePubLength).toBe(1);
+    responseMock.expects('send').once().withArgs('Hi there, there\'s only one publication so you\'ve been directed here');
+
+    await publicationController.get(request, response);
+    responseMock.verify();
+
+  });
+
 });
