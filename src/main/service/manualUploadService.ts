@@ -58,7 +58,7 @@ export class ManualUploadService {
   public async validateFormFields(formValues: object): Promise<object> {
     const fields = {
       courtError: await this.validateCourt(formValues['input-autocomplete']),
-      contentDateError: this.validateDates(this.buildDate(formValues,'content-date-from'), this.buildDate(formValues, 'content-date-to')),
+      contentDateError: this.validateDate(this.buildDate(formValues,'content-date-from')),
       displayDateError: this.validateDates(this.buildDate(formValues, 'display-date-from'), this.buildDate(formValues, 'display-date-to')),
     };
     if (!fields.courtError && !fields.contentDateError && !fields.displayDateError) {

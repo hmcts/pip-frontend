@@ -20,7 +20,7 @@ const expectedFileInputType = 'file';
 const expectedCourtNameQuestion = 'Court name';
 const expectedCourtNameContainer = 'search-input-container';
 const expectedListType = 'List type';
-const expectedHearingDates = 'Hearing dates';
+const expectedHearingDates = 'Hearing start date';
 const expectedDisplayDates = 'Display file from';
 const expectedClassification = 'Available to';
 const expectedLanguage = 'Language';
@@ -69,16 +69,16 @@ describe('Manual upload page', () => {
   it('should display content date question', () => {
     const contentDate = formElements.getElementsByClassName(insetTextClass)[0].getElementsByClassName(fieldSetClass)[0];
     expect(contentDate.innerHTML).contains(expectedHearingDates, 'Could not find inset content date question');
-    expect(contentDate.getElementsByClassName(dateInputClass).length).equals(2, 'Could not find inset content date');
+    expect(contentDate.getElementsByClassName(dateInputClass).length).equals(1, 'Could not find inset content date');
   });
 
   it('should display classification question', () => {
-    const classification = formElements.getElementsByClassName(formGroupClass)[11];
+    const classification = formElements.getElementsByClassName(formGroupClass)[8];
     expect(classification.innerHTML).contains(expectedClassification, 'Could not find classification question');
   });
 
   it('should display language question', () => {
-    const language = formElements.getElementsByClassName(formGroupClass)[12];
+    const language = formElements.getElementsByClassName(formGroupClass)[9];
     expect(language.innerHTML).contains(expectedLanguage, 'Could not find language question');
   });
 

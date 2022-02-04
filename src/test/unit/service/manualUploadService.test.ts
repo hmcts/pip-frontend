@@ -104,15 +104,7 @@ describe('Manual upload service', () => {
       formValues['content-date-from-month'] = '1';
       formValues['content-date-from-year'] = '1';
       const errors = await manualUploadService.validateFormFields(formValues);
-      expect(errors['contentDateError']['from']).to.equal('Please enter a valid date');
-    });
-
-    it('should return error when invalid content date to is passed', async () => {
-      formValues['content-date-to-day'] = '1';
-      formValues['content-date-to-month'] = '1';
-      formValues['content-date-to-year'] = '1';
-      const errors = await manualUploadService.validateFormFields(formValues);
-      expect(errors['contentDateError']['to']).to.equal('Please enter a valid date');
+      expect(errors['contentDateError']).to.equal('Please enter a valid date');
     });
 
     it('should return error when invalid display date from is passed', async () => {

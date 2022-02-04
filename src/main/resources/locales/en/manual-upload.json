@@ -4,8 +4,8 @@
   "form": {
     "court": "Court name or Tribunal name",
     "listType": "List type",
-    "contentDate": "Hearing dates",
-    "contentDateHint": "For example, 16 01 2022 to 20 01 2022",
+    "contentDate": "Hearing start date",
+    "contentDateHint": "For example, 16 01 2022",
     "day": "Day",
     "month": "Month",
     "year": "Year",
