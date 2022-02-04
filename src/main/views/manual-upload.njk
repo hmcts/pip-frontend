@@ -28,9 +28,9 @@
     {% set inputError = 'govuk-input--error' if errors.formErrors.courtError else '' %}
     <div id="form-wrapper" class="govuk-!-margin-bottom-9 ">
       <div class="govuk-!-margin-bottom-3 govuk-!-width-one-third {{ courtFormGroupError }}">
-        <div id="search-input-title" class="govuk-label">
+        <label id="search-input-title" class="govuk-label" for="search-input">
          {{ form.court }}
-        </div>
+        </label>
         {% if errors.formErrors.courtError %}
           <span class="govuk-error-message">{{ errors.formErrors.courtError }}</span>
         {% endif %}
