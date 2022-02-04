@@ -11,6 +11,12 @@ export default class ListOptionController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const courtId = req.query['courtId'];
+    let courtName: string;
+    if (courtId === '0'){
+      courtName = 'Single Justice Procedure';
+    }else{
+      courtName = courtId.toString();
+    }
     if (courtId) {
       const publications = await publicationService.getPublications(parseInt(courtId.toString()));
       if (req.user) {
@@ -21,7 +27,7 @@ export default class ListOptionController {
           res.render('summary-of-publications', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
             publications,
-            courtName: courtId,
+            courtName: courtName,
           });
         }
       } else {
