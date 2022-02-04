@@ -14,9 +14,7 @@ export default function(app: Application): void {
   const authType = (process.env.OIDC === 'true') ? 'azuread-openidconnect' : 'mockaroo';
   // const authType = 'mockaroo';
   const storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-      callback(null, 'manualUpload/tmp/');
-    },
+    destination: 'manualUpload/tmp/',
     filename: function (req, file, callback) {
       callback(null, file.originalname);
     },
