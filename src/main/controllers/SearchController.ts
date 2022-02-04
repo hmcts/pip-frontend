@@ -5,7 +5,6 @@ import {cloneDeep} from 'lodash';
 
 const courtService = new CourtService();
 
-
 export default class SearchController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {

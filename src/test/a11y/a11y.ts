@@ -24,6 +24,7 @@ const routesNotTested = [
   '/login/return',
   '/mock-login',
   '/logout',
+  '/robots.txt',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
@@ -126,6 +127,7 @@ function testAccessibility(url: string): void {
 
 describe('Accessibility',  () => {
   sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+  app.request['user'] = {id: '1'};
   readRoutes().forEach(route => {
     testAccessibility(route);
   });

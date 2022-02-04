@@ -1,0 +1,36 @@
+{% extends "template.njk" %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "./macros/common-components.njk" import submitButton %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-panel govuk-panel--confirmation">
+    <h1 class="govuk-panel__title">
+      {{ header }}
+    </h1>
+    <div class="govuk-panel__body">
+      {{ subheader }}
+    </div>
+  </div>
+  <p class="govuk-body">{{ p1 }}<a href="/account-home">{{ link_text }}</a>{{ p2 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% for item in list %}
+      <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+  {{ super() }}
+{% endblock %}
+{% block bodyEnd %}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  {{ super() }}
+{% endblock %}
