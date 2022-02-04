@@ -383,6 +383,7 @@ describe('Verified user', () => {
       expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
     });
   });
+
   describe('Admin level journeys', () => {
     describe('Manual Upload', () => {
       it('should open manual upload page', async () => {

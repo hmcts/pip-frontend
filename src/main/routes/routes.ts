@@ -14,9 +14,7 @@ export default function(app: Application): void {
   const authType = (process.env.OIDC === 'true') ? 'azuread-openidconnect' : 'mockaroo';
   // const authType = 'mockaroo';
   const storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-      callback(null, 'manualUpload/tmp/');
-    },
+    destination: 'manualUpload/tmp/',
     filename: function (req, file, callback) {
       callback(null, file.originalname);
     },
@@ -110,8 +108,8 @@ export default function(app: Application): void {
   app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
 
   // restricted admin paths
-  app.get('/manual-upload',ensureAuthenticated, app.locals.container.cradle.manualUploadController.get);
-  app.post('/manual-upload', ensureAuthenticated, multer({ storage: storage }).single('manual-file-upload'), app.locals.container.cradle.manualUploadController.post);
+  app.get('/manual-upload', ensureAuthenticated, app.locals.container.cradle.manualUploadController.get);
+  app.post('/manual-upload', ensureAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), app.locals.container.cradle.manualUploadController.post);
   app.get('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.get);
   app.post('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
   app.get('/upload-confirmation', ensureAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
