@@ -1,22 +1,28 @@
-import { HomePage } from '../pageobjects/Home.page';
-import { AlphabeticalSearchPage } from '../pageobjects/AlphabeticalSearch.page';
-import { HearingListPage } from '../pageobjects/HearingList.page';
-import { SearchPage } from '../pageobjects/Search.page';
-import { SubscriptionManagementPage } from '../pageobjects/SubscriptionManagement.page';
-import { ViewOptionPage } from '../pageobjects/ViewOption.page';
-import { LiveCaseCourtSearchControllerPage } from '../pageobjects/LiveCaseCourtSearchController.page';
-import { SubscriptionAddPage } from '../pageobjects/SubscriptionAdd.page';
-import { LiveCaseStatusPage } from '../pageobjects/LiveCaseStatus.page';
-import { CaseNameSearchPage } from '../pageobjects/CaseNameSearch.page';
-import { CaseNameSearchResultsPage } from '../pageobjects/CaseNameSearchResults.page';
-import { SubscriptionUrnSearchResultsPage } from '../pageobjects/SubscriptionUrnSearchResults.page';
-import { SubscriptionUrnSearchPage } from '../pageobjects/SubscriptionUrnSearch.page';
-import { CourtNameSearchPage } from '../pageobjects/CourtNameSearch.page';
-import { MockSessionPage } from '../pageobjects/MockSession.page';
-import { SingleJusticeProcedurePage } from '../pageobjects/SingleJusticeProcedure.page';
-import { CaseEventGlossaryPage } from '../pageobjects/CaseEventGlossary.page';
-import { CaseReferenceNumberSearchPage } from '../pageobjects/CaseReferenceNumberSearch.page';
-import { CaseReferenceNumberSearchResultsPage } from '../pageobjects/CaseReferenceNumberSearchResults.page';
+import { HomePage } from '../PageObjects/Home.page';
+import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
+import { HearingListPage } from '../PageObjects/HearingList.page';
+import { SearchPage } from '../PageObjects/Search.page';
+import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
+import { ViewOptionPage } from '../PageObjects/ViewOption.page';
+import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
+import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
+import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
+import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
+import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
+import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
+import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
+import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
+import { MockSessionPage } from '../PageObjects/MockSession.page';
+import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
+import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
+import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
+import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
+import { SignInPage } from '../PageObjects/SignIn.page';
+import { getRedirectURL } from '../../../main/authentication/authRedirect';
+import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
+import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
+import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
+import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -44,6 +50,7 @@ let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 const signInPage = new SignInPage;
 
 describe('Unverified user', () => {
+
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
     await homePage.open('');
     expect(await homePage.getPageTitle()).toEqual('HMCTS hearing lists');
@@ -131,10 +138,6 @@ describe('Unverified user', () => {
       expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
     });
 
-    it('should display 4 results in the table', async () => {
-      expect(await liveCaseStatusPage.getResults()).toBe(4);
-    });
-
     it('should select first glossary term', async () => {
       caseEventGlossaryPage = await liveCaseStatusPage.selectGlossaryTerm();
       expect(await caseEventGlossaryPage.getPageTitle()).toEqual('Live hearing updates - glossary of terms');
@@ -159,7 +162,42 @@ describe('Unverified user', () => {
 });
 
 describe('Verified user', () => {
+  describe('Sign In Page', () => {
+    const pAndIRedirectUrl = getRedirectURL(process.env.ENV);
+    const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
+
+    beforeEach(async () => {
+      await signInPage.open('/sign-in');
+    });
+
+    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+    });
+
+    it('should see 3 radio buttons', async () => {
+      expect(await signInPage.radioButtons).toBe(3);
+    });
+
+    describe('sign in page routing', async () => {
+      it('should select \'Sign in with My HMCTS\' option and navigate to the login page HMCTS page', async () => {
+        await signInPage.selectOption('SignInRadio1');
+        expect(await signInPage.clickContinueForRadio1()).toHaveHref(HMCTSAccountUrl);
+      });
+
+      it('should select \'Sign in with Common Platform\' option and navigate to the login page Common Platform page', async () => {
+        await signInPage.selectOption('SignInRadio2');
+        expect(await signInPage.clickContinueForRadio2()).toHaveHref(HMCTSAccountUrl);
+      });
+
+      it('should select \'Sign in with my P&I details\' option and navigate to the login page P&I details page', async () => {
+        await signInPage.selectOption('SignInRadio3');
+        expect(await signInPage.clickContinueForRadio3()).toHaveHref(pAndIRedirectUrl);
+      });
+    });
+  });
+
   describe('sign in process', async () => {
+
     it('should open Session Mock Page to authenticate user', async () => {
       await mockSessionPage.open('/mock-session');
       expect(await mockSessionPage.getPageTitle()).toBe('Mock User Session Data');
@@ -170,7 +208,7 @@ describe('Verified user', () => {
       await mockSessionPage.enterText('1', 'UserIdInput');
       await mockSessionPage.selectOption('UserType');
 
-      //If USE_PROTOTYPE is set then it goes to Heroku, therefore re-open to Subscription Management
+      // If USE_PROTOTYPE is set then it goes to Heroku, therefore re-open to Subscriptions Management
       if (process.env.USE_PROTOTYPE) {
         await mockSessionPage.clickContinue();
         await subscriptionManagementPage.open('/subscription-management');
@@ -194,7 +232,7 @@ describe('Verified user', () => {
       it('should select \'By unique reference number\' option and navigate to search urn page', async () => {
         await subscriptionAddPage.selectOption('SubscriptionAddByUniqueRefNumber');
         subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
-        expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number');
+        expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number (URN)');
       });
 
       it('should enter text and click continue', async () => {
@@ -205,6 +243,11 @@ describe('Verified user', () => {
 
       it(`should display ${expectedNumOfResults} results`, async() => {
         expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
 
@@ -231,11 +274,17 @@ describe('Verified user', () => {
       it(`should display ${casesCount} results`, async () => {
         expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
       });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseNameSearchResultsPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
     });
 
     describe('following court or tribunal page', async () => {
-      const allCourts = 304;
-      const tribunalCourts = 48;
+      const allCourts = 305;
+
+      const tribunalCourts = 49;
 
       before(async () => {
         await subscriptionAddPage.open('subscription-add');
@@ -264,6 +313,52 @@ describe('Verified user', () => {
       it(`should display ${tribunalCourts} results (Tribunal) filter`, async() => {
         expect(await courtNameSearchPage.getResults()).toBe(tribunalCourts);
       });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
+    });
+
+    describe('Following the subscription \'search\' by case reference path', () => {
+      const validSearchTerm = 'T485913';
+      const expectedNumOfResults = 1;
+
+      before(async () => {
+        await subscriptionAddPage.open('subscription-add');
+      });
+
+      it('should select \'By case reference number\' option and navigate to search case number page', async () => {
+        await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
+        caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
+        expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
+      });
+
+      it('should enter text and click continue', async () => {
+        await caseReferenceNumberSearchPage.enterText(validSearchTerm);
+        caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
+        expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
+      });
+
+      it(`should display ${expectedNumOfResults} results`, async () => {
+        expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
+    });
+  });
+
+  describe('add subscription', async () => {
+    before(async () => {
+      await pendingSubscriptionsPage.open('pending-subscriptions');
+    });
+
+    it('should subscribe', async () => {
+      subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
+      expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
     });
   });
 
@@ -273,39 +368,14 @@ describe('Verified user', () => {
     });
 
     it('should click on the first unsubscribe record', async () => {
-      // TODO: add PUB-743 tests here
-    });
-  });
-
-  describe('Following the subscription \'search\' by case reference path', () => {
-    const validSearchTerm = 'T485913';
-    const invalidSearchTerm = 'dddd';
-    const expectedNumOfResults = 1;
-
-    before(async () => {
-      await subscriptionAddPage.open('subscription-add');
+      deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
+      expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
     });
 
-    it('should select \'By case reference number\' option and navigate to search case number page', async () => {
-      await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
-      caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
-      expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
-    });
-
-    it('should enter invalid text and click continue', async () => {
-      await caseReferenceNumberSearchPage.enterText(invalidSearchTerm);
-      await caseReferenceNumberSearchPage.clickContinue();
-      expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
-    });
-
-    it('should enter text and click continue', async () => {
-      await caseReferenceNumberSearchPage.enterText(validSearchTerm);
-      caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
-      expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
-    });
-
-    it(`should display ${expectedNumOfResults} results`, async () => {
-      expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
+    it('should select yes option and unsubscribe', async () => {
+      await deleteSubscriptionPage.selectOption('yesRadioButton');
+      unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
+      expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
     });
   });
 });
