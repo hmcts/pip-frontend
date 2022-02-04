@@ -1,27 +1,29 @@
-import {HomePage} from '../PageObjects/Home.page';
-import {AlphabeticalSearchPage} from '../PageObjects/AlphabeticalSearch.page';
-import {HearingListPage} from '../PageObjects/HearingList.page';
-import {SearchPage} from '../PageObjects/Search.page';
-import {SubscriptionManagementPage} from '../PageObjects/SubscriptionManagement.page';
-import {ViewOptionPage} from '../PageObjects/ViewOption.page';
-import {LiveCaseCourtSearchControllerPage} from '../PageObjects/LiveCaseCourtSearchController.page';
-import {SubscriptionAddPage} from '../PageObjects/SubscriptionAdd.page';
-import {LiveCaseStatusPage} from '../PageObjects/LiveCaseStatus.page';
-import {CaseNameSearchPage} from '../PageObjects/CaseNameSearch.page';
-import {CaseNameSearchResultsPage} from '../PageObjects/CaseNameSearchResults.page';
-import {SubscriptionUrnSearchResultsPage} from '../PageObjects/SubscriptionUrnSearchResults.page';
-import {SubscriptionUrnSearchPage} from '../PageObjects/SubscriptionUrnSearch.page';
-import {CourtNameSearchPage} from '../PageObjects/CourtNameSearch.page';
-import {MockSessionPage} from '../PageObjects/MockSession.page';
-import {SingleJusticeProcedurePage} from '../PageObjects/SingleJusticeProcedure.page';
-import {CaseEventGlossaryPage} from '../PageObjects/CaseEventGlossary.page';
-import {CaseReferenceNumberSearchPage} from '../PageObjects/CaseReferenceNumberSearch.page';
-import {CaseReferenceNumberSearchResultsPage} from '../PageObjects/CaseReferenceNumberSearchResults.page';
-import {SignInPage} from '../PageObjects/SignIn.page';
-import {getRedirectURL} from '../../../main/authentication/authRedirect';
-import {DeleteSubscriptionPage} from '../PageObjects/DeleteSubscription.page';
-import {UnsubscribeConfirmationPage} from '../PageObjects/UnsubscribeConfirmation.page';
-import {ManualUploadPage} from '../PageObjects/ManualUpload.page';
+import { HomePage } from '../PageObjects/Home.page';
+import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
+import { HearingListPage } from '../PageObjects/HearingList.page';
+import { SearchPage } from '../PageObjects/Search.page';
+import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
+import { ViewOptionPage } from '../PageObjects/ViewOption.page';
+import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
+import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
+import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
+import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
+import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
+import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
+import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
+import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
+import { MockSessionPage } from '../PageObjects/MockSession.page';
+import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
+import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
+import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
+import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
+import { SignInPage } from '../PageObjects/SignIn.page';
+import { getRedirectURL } from '../../../main/authentication/authRedirect';
+import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
+import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
+import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
+import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
+import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
 import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 
@@ -48,6 +50,8 @@ let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 let manualUploadSummaryPage: ManualUploadSummaryPage;
 let fileUploadConfirmationPage: FileUploadConfirmationPage;
+let pendingSubscriptionsPage: PendingSubscriptionsPage;
+let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 const signInPage = new SignInPage;
 const manualUploadPage = new ManualUploadPage;
 
@@ -138,11 +142,6 @@ describe('Unverified user', () => {
 
     it(`should have '${validCourtName}' as a sub title`, async () => {
       expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
-    });
-
-    it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
-      alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
-      expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
     });
 
     it('should select first glossary term', async () => {
@@ -251,6 +250,11 @@ describe('Verified user', () => {
       it(`should display ${expectedNumOfResults} results`, async () => {
         expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
       });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
     });
 
     describe('following the case name path', async () => {
@@ -276,11 +280,15 @@ describe('Verified user', () => {
       it(`should display ${casesCount} results`, async () => {
         expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
       });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseNameSearchResultsPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
     });
 
     describe('following court or tribunal page', async () => {
       const allCourts = 305;
-
       const tribunalCourts = 49;
 
       before(async () => {
@@ -310,6 +318,11 @@ describe('Verified user', () => {
       it(`should display ${tribunalCourts} results (Tribunal) filter`, async () => {
         expect(await courtNameSearchPage.getResults()).toBe(tribunalCourts);
       });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
     });
 
     describe('Following the subscription \'search\' by case reference path', () => {
@@ -335,6 +348,22 @@ describe('Verified user', () => {
       it(`should display ${expectedNumOfResults} results`, async () => {
         expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
       });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
+    });
+  });
+
+  describe('add subscription', async () => {
+    before(async () => {
+      await pendingSubscriptionsPage.open('pending-subscriptions');
+    });
+
+    it('should subscribe', async () => {
+      subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
+      expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
     });
   });
 
@@ -354,7 +383,6 @@ describe('Verified user', () => {
       expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
     });
   });
-
   describe('Admin level journeys', () => {
     describe('Manual Upload', () => {
       it('should open manual upload page', async () => {

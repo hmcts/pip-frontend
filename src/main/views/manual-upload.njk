@@ -267,13 +267,53 @@
     ) %}
     {% endfor %}
 
+    {% set defaultValue = formData['input-autocomplete'] if formData['input-autocomplete'] else '' %}
+    {% set populatedListType = formData['listType'] if formData['listType'] else 'SJP_PUBLIC_LIST' %}
+    {% set populatedContentDateFromDay = formData['content-date-from-day'] if formData['content-date-from-day'] else '' %}
+    {% set populatedContentDateFromMonth = formData['content-date-from-month'] if formData['content-date-from-month'] else '' %}
+    {% set populatedContentDateFromYear = formData['content-date-from-year'] if formData['content-date-from-year'] else '' %}
+    {% set populatedContentDateToDay = formData['content-date-to-day'] if formData['content-date-to-day'] else '' %}
+    {% set populatedContentDateToMonth = formData['content-date-to-month'] if formData['content-date-to-month'] else '' %}
+    {% set populatedContentDateToYear = formData['content-date-to-year'] if formData['content-date-to-year'] else '' %}
+    {% set populatedClassification = formData['classification'] if formData['classification'] else 'PUBLIC' %}
+    {% set populatedLanguage = formData['language'] if formData['language'] else 'ENGLISH' %}
+    {% set populatedDisplayDateFromDay = formData['display-date-from-day'] if formData['display-date-from-day'] else '' %}
+    {% set populatedDisplayDateFromMonth = formData['display-date-from-month'] if formData['display-date-from-month'] else '' %}
+    {% set populatedDisplayDateFromYear = formData['display-date-from-year'] if formData['display-date-from-year'] else '' %}
+    {% set populatedDisplayDateToDay = formData['display-date-to-day'] if formData['display-date-to-day'] else '' %}
+    {% set populatedDisplayDateToMonth = formData['display-date-to-month'] if formData['display-date-to-month'] else '' %}
+    {% set populatedDisplayDateToYear = formData['display-date-to-year'] if formData['display-date-to-year'] else '' %}
+
+
+    document.getElementById('listType').value = {{ populatedListType | dump | safe }};
+    document.getElementById('content-date-from-day').value = {{ populatedContentDateFromDay | dump | safe }};
+    document.getElementById('content-date-from-month').value = {{ populatedContentDateFromMonth  | dump | safe }};
+    document.getElementById('content-date-from-year').value = {{ populatedContentDateFromYear  | dump | safe }};
+    document.getElementById('content-date-to-day').value = {{ populatedContentDateToDay  | dump | safe }};
+    document.getElementById('content-date-to-month').value = {{ populatedContentDateToMonth  | dump | safe }};
+    document.getElementById('content-date-to-year').value = {{ populatedContentDateToYear  | dump | safe }};
+    document.getElementById('classification').value = {{ populatedClassification | dump | safe }};
+    document.getElementById('language').value = {{ populatedLanguage | dump | safe }};
+    document.getElementById('display-date-from-day').value = {{ populatedDisplayDateFromDay  | dump | safe }};
+    document.getElementById('display-date-from-month').value = {{ populatedDisplayDateFromMonth  | dump | safe }};
+    document.getElementById('display-date-from-year').value = {{ populatedDisplayDateFromYear  | dump | safe }};
+    document.getElementById('display-date-to-day').value = {{ populatedDisplayDateToDay  | dump | safe }};
+    document.getElementById('display-date-to-month').value = {{ populatedDisplayDateToMonth  | dump | safe }};
+    document.getElementById('display-date-to-year').value = {{ populatedDisplayDateToYear  | dump | safe }};
+
+
+
+
+    const defaultVal = {{ defaultValue | dump | safe }}
+
     const element = document.querySelector('#search-input-container');
     const source = {{ optionList | dump |safe }}
       accessibleAutocomplete({
         element: element,
         id: 'search-input',
         source: source,
-        displayMenu: 'overlay'
+        displayMenu: 'overlay',
+        defaultValue: defaultVal,
       });
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
