@@ -22,5 +22,11 @@ nodejs:
           alias: REDIS_PASSWORD
         - name: REDIS-PORT
           alias: REDIS_PORT
+        - name: b2c-auth-endpoint
+          alias: B2C_AUTH_ENDPOINT
   aadIdentityName: pip
+  environment:
+    OIDC: true
+    AUTH_RETURN_URL: https://pip-frontend.staging.platform.hmcts.net/login/return
+
 
