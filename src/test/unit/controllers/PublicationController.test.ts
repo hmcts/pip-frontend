@@ -15,8 +15,15 @@ const sjpCases = JSON.parse(rawSJPData).results;
 const onePubData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublication.json'), 'utf-8');
 const onePub = JSON.parse(onePubData);
 describe('Get publications', () => {
-  it('should render the Summary of Publications page', async () => {
+  beforeEach(function() {
     sinon.stub(PublicationService.prototype, 'getPublications').resolves(sjpCases);
+  });
+  afterEach(function() {
+    sinon.restore();
+  });
+
+  it('should render the Summary of Publications page', async () => {
+
     const response = {
       render: () => {
         return '';
@@ -72,6 +79,7 @@ describe('Get publications2', () => {
     const request = mockRequest(i18n);
     request.query = {courtId: 'x'};
     request.user = {id: 1};
+    sinon.reset();
     sinon.stub(PublicationService.prototype, 'getPublications').resolves(onePub);
     const responseMock = sinon.mock(response);
     const onePubLength = onePub.length;
