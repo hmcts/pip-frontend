@@ -23,6 +23,7 @@ import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
+import { DailyCauseListPage } from '../PageObjects/DailyCauseList.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -48,6 +49,7 @@ let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 const signInPage = new SignInPage;
+const dailyCauseListPage = new DailyCauseListPage();
 
 describe('Unverified user', () => {
 
@@ -361,6 +363,13 @@ describe('Verified user', () => {
       await deleteSubscriptionPage.selectOption('yesRadioButton');
       unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
       expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+    });
+  });
+
+  describe('daily cause list', async () => {
+    it('should open daily cause list page', async () => {
+      await dailyCauseListPage.open('daily-cause-list?artefactId=b59796a9-cba6-482a-97a4-21e6d21bc157');
+      expect(await dailyCauseListPage.getPageTitle()).toContain('Daily Civil Cause list for');
     });
   });
 });
