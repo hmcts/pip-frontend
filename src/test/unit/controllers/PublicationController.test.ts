@@ -117,6 +117,4 @@ describe('Get publications2', () => {
 
   });
 
-
-
 });
