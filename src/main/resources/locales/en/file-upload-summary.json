@@ -4,7 +4,7 @@
   "actionName": "Change",
   "fileKey": "File",
   "courtNameKey": "Court name",
-  "documentTypeKey": "Document type",
+  "documentTypeKey": "Document name",
   "listTypeKey": "List type",
   "hearingDatesKey": "Hearing dates",
   "availableToKey": "Available to",

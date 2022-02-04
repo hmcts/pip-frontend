@@ -7,7 +7,7 @@ import { request as expressRequest } from 'express';
 
 let htmlRes: Document;
 const PAGE_URL = '/manual-upload-summary';
-const summaryKeys = ['File', 'Court name', 'Document type', 'List type', 'Hearing dates', 'Available to', 'Language', 'Display file dates'];
+const summaryKeys = ['File', 'Court name', 'Document name', 'List type', 'Hearing dates', 'Available to', 'Language', 'Display file dates'];
 const mockData = {
   artefactType: 'LIST',
   classification: 'PUBLIC',
