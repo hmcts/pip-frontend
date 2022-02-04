@@ -20,8 +20,8 @@ export default function(app: Application): void {
     filename: function (req, file, callback) {
       callback(null, file.originalname);
     },
-    fileSize: {
-      limits: 2000000,
+    limits: {
+      fileSize: 2000000,
     },
   });
 
