@@ -15,7 +15,9 @@ beforeEach(async () => {
 });
 
 describe('get Publication request', () => {
-
+  const errorRequest = {
+    request: 'test error',
+  };
   it('should return list of publications', async () => {
     const pubReq = await pubRequests.getListOfPubs(0);
     expect(pubReq.length).toBe(totalCases);
@@ -24,6 +26,11 @@ describe('get Publication request', () => {
   it('should contain a publication', async () => {
     const pubReq = await pubRequests.getListOfPubs(0);
     expect(pubReq.some(e => e.provenance === 'NOT_A_PDF')).toBeTruthy();
+  });
+
+  it('should send an error to the log if error', async ()=> {
+    stub.withArgs('/publication/search/x').resolves(Promise.reject(errorRequest));
+    expect(typeof(await pubRequests.getListOfPubs('x'))).toBe('undefined');
   });
 
 });
