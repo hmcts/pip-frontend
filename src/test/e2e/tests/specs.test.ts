@@ -1,28 +1,28 @@
-import { HomePage } from '../PageObjects/Home.page';
-import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
-import { HearingListPage } from '../PageObjects/HearingList.page';
-import { SearchPage } from '../PageObjects/Search.page';
-import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
-import { ViewOptionPage } from '../PageObjects/ViewOption.page';
-import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
-import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
-import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
-import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
-import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
-import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
-import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
-import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
-import { MockSessionPage } from '../PageObjects/MockSession.page';
-import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
-import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
-import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
-import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
-import { SignInPage } from '../PageObjects/SignIn.page';
-import { getRedirectURL } from '../../../main/authentication/authRedirect';
-import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
-import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
-import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
-import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
+import {HomePage} from '../PageObjects/Home.page';
+import {AlphabeticalSearchPage} from '../PageObjects/AlphabeticalSearch.page';
+import {HearingListPage} from '../PageObjects/HearingList.page';
+import {SearchPage} from '../PageObjects/Search.page';
+import {SubscriptionManagementPage} from '../PageObjects/SubscriptionManagement.page';
+import {ViewOptionPage} from '../PageObjects/ViewOption.page';
+import {LiveCaseCourtSearchControllerPage} from '../PageObjects/LiveCaseCourtSearchController.page';
+import {SubscriptionAddPage} from '../PageObjects/SubscriptionAdd.page';
+import {LiveCaseStatusPage} from '../PageObjects/LiveCaseStatus.page';
+import {CaseNameSearchPage} from '../PageObjects/CaseNameSearch.page';
+import {CaseNameSearchResultsPage} from '../PageObjects/CaseNameSearchResults.page';
+import {SubscriptionUrnSearchResultsPage} from '../PageObjects/SubscriptionUrnSearchResults.page';
+import {SubscriptionUrnSearchPage} from '../PageObjects/SubscriptionUrnSearch.page';
+import {CourtNameSearchPage} from '../PageObjects/CourtNameSearch.page';
+import {MockSessionPage} from '../PageObjects/MockSession.page';
+import {SingleJusticeProcedurePage} from '../PageObjects/SingleJusticeProcedure.page';
+import {CaseEventGlossaryPage} from '../PageObjects/CaseEventGlossary.page';
+import {CaseReferenceNumberSearchPage} from '../PageObjects/CaseReferenceNumberSearch.page';
+import {CaseReferenceNumberSearchResultsPage} from '../PageObjects/CaseReferenceNumberSearchResults.page';
+import {SignInPage} from '../PageObjects/SignIn.page';
+import {getRedirectURL} from '../../../main/authentication/authRedirect';
+import {DeleteSubscriptionPage} from '../PageObjects/DeleteSubscription.page';
+import {UnsubscribeConfirmationPage} from '../PageObjects/UnsubscribeConfirmation.page';
+import {PendingSubscriptionsPage} from '../PageObjects/PendingSubscriptions.page';
+import {SubscriptionConfirmedPage} from '../PageObjects/SubscriptionConfirmed.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -78,7 +78,7 @@ describe('Unverified user', () => {
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
         hearingListPage = await searchPage.clickContinue();
-        expect(await hearingListPage.getPageTitle()).toEqual('Blackpool Magistrates\' Court hearing list');
+        expect(await hearingListPage.getPageTitle()).toEqual('Summary of Publications for Blackpool Magistrates\' Court');
       });
     });
 
@@ -107,7 +107,7 @@ describe('Unverified user', () => {
 
       it('selecting first result should take you to to the hearings list page', async () => {
         hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await hearingListPage.getPageTitle()).toEqual('Summary of Publications for 50');
+        expect(await hearingListPage.getPageTitle()).toEqual('Summary of Publications for Blackburn Magistrates\' Court');
       });
     });
   });
@@ -146,7 +146,7 @@ describe('Unverified user', () => {
     it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
       await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
       singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-      expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Summary of Publications for Single Justice Procedure');
+      expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Summary of Publications for Single Justice Procedure (SJP)');
     });
   });
 });
@@ -231,7 +231,7 @@ describe('Verified user', () => {
         expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
       });
 
-      it(`should display ${expectedNumOfResults} results`, async() => {
+      it(`should display ${expectedNumOfResults} results`, async () => {
         expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
       });
 
@@ -281,7 +281,7 @@ describe('Verified user', () => {
         expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
       });
 
-      it(`should display ${allCourts} results`, async() => {
+      it(`should display ${allCourts} results`, async () => {
         expect(await courtNameSearchPage.getResults()).toBe(allCourts);
       });
 
@@ -295,7 +295,7 @@ describe('Verified user', () => {
         expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
       });
 
-      it(`should display ${tribunalCourts} results (Tribunal) filter`, async() => {
+      it(`should display ${tribunalCourts} results (Tribunal) filter`, async () => {
         expect(await courtNameSearchPage.getResults()).toBe(tribunalCourts);
       });
     });

@@ -1,12 +1,13 @@
-import PublicationController from '../../../main/controllers/PublicationController';
+import SummaryOfPublicationsController from '../../../main/controllers/SummaryOfPublicationsController';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
+import {CourtService} from '../../../main/service/courtService';
 
-const publicationController = new PublicationController();
+const publicationController = new SummaryOfPublicationsController();
 const i18n = {
   'list-option': {},
 };
@@ -14,13 +15,14 @@ const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPC
 const sjpCases = JSON.parse(rawSJPData).results;
 const onePubData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublication.json'), 'utf-8');
 const onePub = JSON.parse(onePubData);
+const CourtStub = sinon.stub(CourtService.prototype, 'getCourtById');
+
 describe('Get publications', () => {
-  beforeEach(function() {
-    sinon.stub(PublicationService.prototype, 'getPublications').resolves(sjpCases);
-  });
-  afterEach(function() {
-    sinon.restore();
-  });
+  CourtStub.withArgs(0).resolves(JSON.parse('{"name":"Single Justice Procedure (SJP)"}'));
+  CourtStub.withArgs(1).resolves(JSON.parse('{"name":"New Court"}'));
+  sinon.stub(PublicationService.prototype, 'getPublications').resolves(sjpCases);
+
+  afterAll(function() {sinon.restore();});
 
   it('should render the Summary of Publications page', async () => {
 
@@ -38,7 +40,7 @@ describe('Get publications', () => {
 
     const expectedData = {
       ...i18n['summary-of-publications'],
-      courtName: '1',
+      courtName: 'New Court',
       publications: sjpCases,
     };
 
@@ -64,7 +66,7 @@ describe('Get publications', () => {
 
     const expectedData = {
       ...i18n['summary-of-publications'],
-      courtName: 'Single Justice Procedure',
+      courtName: 'Single Justice Procedure (SJP)',
       publications: sjpCases,
     };
 
@@ -75,7 +77,8 @@ describe('Get publications', () => {
   });
 });
 
-describe('Get publications2', () => {
+describe('Get individual publication and act appropriately', () => {
+
   it('should send data if only one pub is returned', async () => {
     const response = {
       send: function () {
@@ -83,9 +86,9 @@ describe('Get publications2', () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {courtId: 'x'};
+    request.query = {courtId: '0'};
     request.user = {id: 1};
-    sinon.reset();
+    CourtStub.withArgs('0').resolves(JSON.parse('{"name":"Single Justice Procedure (SJP)"}'));
     sinon.stub(PublicationService.prototype, 'getPublications').resolves(onePub);
     const responseMock = sinon.mock(response);
     const onePubLength = onePub.length;

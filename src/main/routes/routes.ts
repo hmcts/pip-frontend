@@ -69,7 +69,6 @@ export default function(app: Application): void {
   app.post('/search', app.locals.container.cradle.searchController.post);
   app.get('/sign-in', app.locals.container.cradle.signInController.get);
   app.post('/sign-in', app.locals.container.cradle.signInController.post);
-  app.get('/old-single-justice-procedure', app.locals.container.cradle.oldSingleJusticeProcedureController.get);
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
 
@@ -119,8 +118,7 @@ export default function(app: Application): void {
     (req, res) => {res.redirect('/subscription-management');});
 
   //TODO: To be deleted/modified post UAT with suitable solution
-  app.get('/publication', app.locals.container.cradle.publicationController.get);
-  app.get('/list-option', app.locals.container.cradle.oldListOptionController.get);
+  app.get('/summary-of-publications', app.locals.container.cradle.summaryOfPublicationsController.get);
   app.get('/warned-list', app.locals.container.cradle.warnedListController.get);
   app.get('/standard-list', ensureAuthenticated, app.locals.container.cradle.standardListController.get);
 

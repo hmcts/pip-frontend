@@ -97,7 +97,7 @@
     </div>
     <hr />
     <div class="govuk-grid-row govuk-!-margin-bottom-4 govuk-!-margin-top-4">
-      <a href="/publication?courtId=0" class="govuk-link govuk-!-margin-left-8 govuk-!-font-size-19" id="sjp-link">{{ sjpLink }}</a>
+      <a href="/summary-of-publications?courtId=0" class="govuk-link govuk-!-margin-left-8 govuk-!-font-size-19" id="sjp-link">{{ sjpLink }}</a>
     </div>
     <table class="govuk-table">
       <thead class="govuk-table__head">
@@ -120,7 +120,7 @@
                   <th scope="row" class="govuk-table__header">
                   </th>
                 {% endif %}
-                <td class="govuk-table__cell"><a href="/publication?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></td>
+                <td class="govuk-table__cell"><a href="/summary-of-publications?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></td>
               </tr>
             {% endif %}
           {% endfor %}

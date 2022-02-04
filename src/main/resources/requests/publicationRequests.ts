@@ -1,11 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import {dataManagementApi} from './utils/axiosConfig';
 import {Publication} from '../../models/publication';
 
 export class PublicationRequests {
-  mocksPath = '../mocks';
-  rawData = fs.readFileSync(path.resolve(__dirname, this.mocksPath, 'SingleJusticeProcedureCases.json'), 'utf-8');
 
   public async getListOfPubs(courtId, verification): Promise<Publication[]> {
     try {

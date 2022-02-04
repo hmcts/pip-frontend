@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import {app} from '../../../main/app';
 import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
 
-const PAGE_URL = '/publication?courtId=0';
+const PAGE_URL = '/summary-of-publications?courtId=0';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/summaryOfPublications.json'), 'utf-8');
 const pubs = JSON.parse(rawData);
 
@@ -38,7 +38,7 @@ describe('Publication Page', () => {
 
   it('should return three items', () => {
     const items = htmlRes.getElementsByClassName('das-search-results__link').length;
-    expect(items == 3);
+    expect(items).equal(3);
   });
 
   it('should display a back button with the correct value', () => {

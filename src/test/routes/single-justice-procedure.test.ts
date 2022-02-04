@@ -6,7 +6,7 @@ describe('Single Justice Procedure', () => {
   describe('on GET', () => {
     test('should return single-justice-procedure page', async () => {
       await request(app)
-        .get('/single-justice-procedure')
+        .get('/summary-of-publications?courtId=0')
         .expect((res) => expect(res.status).to.equal(200));
     });
   });
