@@ -23,6 +23,7 @@ import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
+import { InterstitialPage } from '../PageObjects/Interstitial.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -47,6 +48,7 @@ let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
+let interstitialPage: InterstitialPage;
 const signInPage = new SignInPage;
 
 describe('Unverified user', () => {
@@ -57,7 +59,12 @@ describe('Unverified user', () => {
   });
 
   it('should click on the \'Courts and tribunal hearings\' link and navigate to View Options page', async () => {
-    viewOptionPage = await homePage.clickLinkToService();
+    interstitialPage = await homePage.clickLinkToService();
+    expect(await interstitialPage.getPageTitle()).toEqual('Court and tribunal hearings');
+  });
+
+  it('should click on the \'Courts and tribunal hearings\' link and navigate to View Options page', async () => {
+    viewOptionPage = await interstitialPage.clickContinue();
     expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
   });
 
