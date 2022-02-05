@@ -22,7 +22,9 @@ describe('Get publications', () => {
   CourtStub.withArgs(1).resolves(JSON.parse('{"name":"New Court"}'));
   sinon.stub(PublicationService.prototype, 'getPublications').resolves(sjpCases);
 
-  afterAll(function() {sinon.restore();});
+  afterAll(function () {
+    sinon.restore();
+  });
 
   it('should render the Summary of Publications page', async () => {
 
@@ -75,11 +77,23 @@ describe('Get publications', () => {
     await publicationController.get(request, response);
     responseMock.verify();
   });
+
+  it('should render the error screen if there is no courtId passed as a param', async () => {
+    const response = {
+      render: () => {
+        return '';
+      },
+    } as unknown as Response;
+    const request = mockRequest(i18n);
+    request.user = {id: 1};
+    const responseMock = sinon.mock(response);
+    responseMock.expects('render').once().withArgs('error');
+  });
 });
 
 describe('Get individual publication and act appropriately', () => {
 
-  it('should send data if only one pub is returned', async () => {
+  it('should open the pub directly if only one pub is returned from publicationService', async () => {
     const response = {
       send: function () {
         return '';
@@ -97,7 +111,5 @@ describe('Get individual publication and act appropriately', () => {
 
     await publicationController.get(request, response);
     responseMock.verify();
-
   });
-
 });
