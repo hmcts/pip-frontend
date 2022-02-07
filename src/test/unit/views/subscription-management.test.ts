@@ -1,15 +1,17 @@
-import {expect} from 'chai';
-import request from 'supertest';
+import { app } from '../../../main/app';
+import { expect } from 'chai';
 import { request as expressRequest } from 'express';
-import sinon from 'sinon';
+import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
+import fs from 'fs';
 import moment from 'moment';
-
-import {app} from '../../../main/app';
+import path from 'path';
+import request from 'supertest';
+import sinon from 'sinon';
 
 const PAGE_URL = '/subscription-management';
-const expectedAllSubsTitle = 'All subscriptions (9)';
-const expectedCaseSubsTitle = 'Subscriptions by case (3)';
-const expectedCourtSubsTitle = 'Subscriptions by court or tribunal (6)';
+const expectedAllSubsTitle = 'All subscriptions (5)';
+const expectedCaseSubsTitle = 'Subscriptions by case (2)';
+const expectedCourtSubsTitle = 'Subscriptions by court or tribunal (3)';
 const expectedAddSubscriptionButton = 'Add new subscription';
 const tabsClass = 'moj-sub-navigation__link';
 const caseNameColumn = 'Case name';
@@ -17,20 +19,58 @@ const caseReferenceColumn = 'Case reference number';
 const dateAddedColumn = 'Date added';
 const actionsColumn = 'Actions';
 const courtNameColumn = 'Court or tribunal name';
-const expectedRowCaseName = 'Collins LLC';
-const expectedRowCaseReference = 'T20217002';
-const expectedRowDateAdded = moment.unix(1632351600).format('D MMM YYYY');
-const expectedRowCourtName = 'Mutsu Court';
-const expectedCaseRowsCount = 3;
-const expectedCourtRowsCount = 6;
+const expectedRowCaseName = 'Tom Clancy';
+const expectedRowCaseReference = 'T485913';
+const expectedRowDateAdded = moment('2022-01-14T11:30:12.357299').format('MMM Do YYYY');
+const expectedRowCourtName = 'Court 1';
+const expectedCaseRowsCount = 2;
+const expectedCourtRowsCount = 3;
+const expectedUnsubscribeLink = 'delete-subscription?subscription=5a45699f-47e3-4283-904a-581afe624155';
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
+const subscriptionsData = JSON.parse(rawData);
+const userSubscriptionsStub = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
+userSubscriptionsStub.withArgs('2').returns({caseSubscriptions:[], courtSubscriptions:[]});
+userSubscriptionsStub.withArgs('1').returns(subscriptionsData.data);
+sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 let htmlRes: Document;
 
-describe('Subscription Management Page', () => {
+describe('Subscriptions Management Page No UserSubscriptions', () => {
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-    app.request['user'] = {id: '1'};
+    app.request['user'] = {id: '2'};
+  });
 
+  it('should display no subscription message ', async () => {
+    await request(app).get(PAGE_URL + '?all').then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      const message = htmlRes.getElementsByClassName('govuk-body');
+      expect(message[0].innerHTML)
+        .contains('You currently have no subscriptions', 'Could not find correct message');
+    });
+  });
+
+  it('should display no subscription case message ', async () => {
+    await request(app).get(PAGE_URL + '?case').then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      const message = htmlRes.getElementsByClassName('govuk-body');
+      expect(message[0].innerHTML)
+        .contains('You currently have no subscriptions by case', 'Could not find correct message');
+    });
+  });
+
+  it('should display no subscription court message ', async () => {
+    await request(app).get(PAGE_URL + '?court').then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      const message = htmlRes.getElementsByClassName('govuk-body');
+      expect(message[0].innerHTML)
+        .contains('You currently have no subscriptions by court or tribunal', 'Could not find correct message');
+    });
+  });
+});
+
+describe('Subscriptions Management Page', () => {
+  beforeAll(async () => {
+    app.request['user'] = {id: '1'};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -49,7 +89,8 @@ describe('Subscription Management Page', () => {
   });
 
   it('should display all subscriptions tab with proper link', () => {
-    const subscriptionsTabs = htmlRes.getElementsByClassName(tabsClass);
+    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1]
+      .getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[0].innerHTML)
       .contains(expectedAllSubsTitle, 'Could not find all subscriptions tab');
     expect(subscriptionsTabs[0].getAttribute('href'))
@@ -57,7 +98,8 @@ describe('Subscription Management Page', () => {
   });
 
   it('should display case subscriptions tab with proper link', () => {
-    const subscriptionsTabs = htmlRes.getElementsByClassName(tabsClass);
+    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1]
+      .getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[1].innerHTML)
       .contains(expectedCaseSubsTitle, 'Could not find case subscriptions tab');
     expect(subscriptionsTabs[1].getAttribute('href'))
@@ -65,7 +107,8 @@ describe('Subscription Management Page', () => {
   });
 
   it('should display court subscriptions tab with proper link', () => {
-    const subscriptionsTabs = htmlRes.getElementsByClassName(tabsClass);
+    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1]
+      .getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[2].innerHTML)
       .contains(expectedCourtSubsTitle, 'Could not find court subscriptions tab');
     expect(subscriptionsTabs[2].getAttribute('href'))
@@ -73,7 +116,8 @@ describe('Subscription Management Page', () => {
   });
 
   it('should display first tab as active', () => {
-    const subscriptionsTabs = htmlRes.getElementsByClassName(tabsClass);
+    const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1]
+      .getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[0].getAttribute('aria-current'))
       .equal('page', 'All subscriptions tab does not have active attribute');
   });
@@ -107,11 +151,11 @@ describe('Subscription Management Page', () => {
     expect(courtHeaders[2].innerHTML).contains(actionsColumn, 'Actions header is not present');
   });
 
-  it('requests cell should contain a link', () => {
+  it('requests cell should contain a link to delete subscription page', () => {
     const actionsCell = htmlRes.getElementsByClassName('govuk-table__body')[0]
       .getElementsByClassName('govuk-table__cell')[3];
     expect(actionsCell.innerHTML).contains('Unsubscribe');
-    expect(actionsCell.querySelector('a').getAttribute('href')).equal('#');
+    expect(actionsCell.querySelector('a').getAttribute('href')).equal(expectedUnsubscribeLink);
   });
 
   it('case table should have correct number of rows', () => {

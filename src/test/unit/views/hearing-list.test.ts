@@ -77,7 +77,7 @@ describe('Hearing List page', () => {
     const link = htmlRes.getElementsByClassName('govuk-link');
 
     expect(link.item(0).innerHTML).contains('See another court or tribunal', 'Link text is not present');
-    expect(link.item(0).getAttribute('href')).equal('/search-option', 'Link value is not correct');
+    expect(link.item(0).getAttribute('href')).equal('/search', 'Link value is not correct');
   });
 
 });

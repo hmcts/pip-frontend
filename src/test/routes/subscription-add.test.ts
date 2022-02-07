@@ -6,7 +6,7 @@ import { app } from '../../main/app';
 
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
-describe('Subscription Add', () => {
+describe('Subscriptions Add', () => {
   describe('on GET', () => {
     test('should return subscription-add page', async () => {
       await request(app)
@@ -22,7 +22,7 @@ describe('Subscription Add', () => {
         .send({'subscription-choice': 'case-reference'})
         .expect((res) => {
           expect(res.status).to.equal(302);
-          expect(res.header['location']).to.equal('/');
+          expect(res.header['location']).to.equal('/case-reference-number-search');
         });
     });
 
@@ -32,7 +32,7 @@ describe('Subscription Add', () => {
         .send({'subscription-choice': 'urn'})
         .expect((res) => {
           expect(res.status).to.equal(302);
-          expect(res.header['location']).to.equal('/');
+          expect(res.header['location']).to.equal('/subscription-urn-search');
         });
     });
 

@@ -1,38 +1,50 @@
 {% extends "govuk/template.njk" %}
 {% from "govuk/components/header/macro.njk" import govukHeader %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
-
+{% from "moj/components/sub-navigation/macro.njk" import mojSubNavigation %}
 
 {% block head %}
-  {% include "webpack/css.njk" %}
+    <meta name="robots" content="noindex">
+    {% include "webpack/css.njk" %}
 {% endblock %}
 
 {% block header %}
-
-{% set lastElement = {
-              href: "/logout",
-              text: signOutText,
-              active: false,
-              attributes: {
-                id: "signOutButton"
-              }
-} if isAuthenticated else {
-    href: "/subscription-management",
-    text: signInText,
-    active: false,
-    attributes: {
-        id: "signInButton"
-    }
-} %}
-
-{{ govukHeader({
+    {{ govukHeader({
         homepageUrl: "https://www.gov.uk/",
         serviceName: serviceNameText,
-        serviceUrl: "/",
-        navigationClasses: 'govuk-header__navigation--end',
-        navigation: [lastElement]
-      }) }}
+        serviceUrl: "/"
+    }) }}
+{% endblock %}
 
+{% block beforeContent %}
+    {% set listItems = [
+        {
+            text: navLinks.link1,
+            href: '/account-home'
+        },
+        {
+            text: navLinks.link4,
+            href: '/subscription-management'
+        },
+        {
+            text: navLinks.link3,
+            href: '/logout'
+        }
+    ] if isAuthenticated else [
+        {
+        text: navLinks.link1,
+        href: '/view-option'
+        },
+        {
+            text: navLinks.link2,
+            href: '/sign-in'
+        }
+        ] %}
+    {{ mojSubNavigation({
+        label: 'Primary navigation',
+        classes: 'pub-navigation govuk-!-margin-bottom-0',
+        items: listItems
+    }) }}
 {% endblock %}
 
 {% block bodyEnd %}

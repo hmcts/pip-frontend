@@ -11,14 +11,14 @@ import express from 'express';
 import {Helmet} from './modules/helmet';
 import * as path from 'path';
 import favicon from 'serve-favicon';
-import {HTTPError} from 'HttpError';
+import { HTTPError } from 'HttpError';
 import {Nunjucks} from './modules/nunjucks';
 import * as propertiesVolume from '@hmcts/properties-volume';
 import {AppInsights} from './modules/appinsights';
-import session from 'express-session';
 import authentication from './authentication/authentication';
 
 const passport = require('passport');
+const cookieSession = require('cookie-session');
 
 const {setupDev} = require('./development');
 import {Container} from './modules/awilix';
@@ -31,7 +31,6 @@ const developmentMode = env === 'development';
 export const app = express();
 app.enable('trust proxy');
 app.locals.ENV = env;
-
 app.locals.POLICY = process.env.POLICY;
 
 const logger = Logger.getLogger('app');
@@ -43,20 +42,16 @@ new Nunjucks(developmentMode).enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new Container().enableFor(app);
 
-const sessionConfig = {
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  proxy: true,
-  saveUninitialized: false,
-  cookie: { secure: false },
-};
-
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session(sessionConfig));
+app.use(cookieSession({
+  name: 'session',
+  keys: [config.get('secrets.pip-ss-kv.SESSION_SECRET')],
+  maxAge: 60 * 60 * 1000,
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {

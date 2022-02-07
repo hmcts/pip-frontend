@@ -1,5 +1,5 @@
 {
-  "serviceNameText": "Courts and tribunal hearing information",
+  "serviceNameText": "Court and tribunal hearings",
   "signInText": "Sign in",
   "signOutText": "Sign out",
   "help": "Help",
@@ -8,5 +8,11 @@
   "cookiePolicy": "Cookie policy",
   "accessibilityStatement": "Accessibility statement",
   "contact": "Contact",
-  "tc": "Terms and conditions"
+  "tc": "Terms and conditions",
+  "navLinks": {
+    "link1": "Home",
+    "link2": "Sign in",
+    "link3": "Sign out",
+    "link4": "Subscriptions"
+  }
 }

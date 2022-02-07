@@ -1,14 +1,9 @@
+import { CommonPage } from './Common.page';
+import { PendingSubscriptionsPage } from './PendingSubscriptions.page';
+
 const helpers = require('../Helpers/Selectors');
 
-export class CaseNameSearchResultsPage {
-  async getPageTitle(): Promise<string> {
-    $(helpers.CommonPageTitle).catch(() => {
-      console.log(`${helpers.CommonPageTitle} not found`);
-    });
-
-    return $(helpers.CommonPageTitle).getText();
-  }
-
+export class CaseNameSearchResultsPage extends CommonPage {
   async getResults(): Promise<number> {
     $(helpers.Results).catch(() => {
       console.log(`${helpers.Results} not found`);
@@ -33,5 +28,15 @@ export class CaseNameSearchResultsPage {
 
     await $(helpers.CaseNameSearchResultsCheckbox).click();
     return $(helpers.CaseNameSearchResultsCheckbox).isSelected();
+  }
+
+  async clickContinue(): Promise<PendingSubscriptionsPage> {
+    $(helpers.ContinueButton).catch(() => {
+      console.log(`${helpers.ContinueButton} not found`);
+    });
+
+    const button = await $(helpers.ContinueButton);
+    await button.click();
+    return new PendingSubscriptionsPage();
   }
 }

@@ -5,7 +5,7 @@ import {mockRequest} from '../mocks/mockRequest';
 
 const subscriptionAddController = new SubscriptionAddController();
 
-describe('Subscription Add Controller', () => {
+describe('Subscriptions Add Controller', () => {
   const i18n = {};
   it('should render the subscription add page', () => {
 
@@ -50,7 +50,7 @@ describe('Subscription Add Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('/');
+    responseMock.expects('redirect').once().withArgs('/case-reference-number-search');
 
     subscriptionAddController.post(request, response);
 
@@ -65,13 +65,12 @@ describe('Subscription Add Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('/');
+    responseMock.expects('redirect').once().withArgs('/subscription-urn-search');
 
     subscriptionAddController.post(request, response);
 
     responseMock.verify();
   });
-
 
   it('should render case name search page if choice is \'name\'', () => {
     const response = { redirect: function() {return '';}} as unknown as Response;

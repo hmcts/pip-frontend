@@ -18,7 +18,7 @@ const linkClass = 'govuk-link';
 const expectedHeader = 'How do you want to add a subscription?';
 const expectedButtonText = 'Continue';
 const expectedRadioLabel1 = 'By case reference number';
-const expectedRadioLabel2 = 'By unique reference number';
+const expectedRadioLabel2 = 'By unique reference number (URN)';
 const expectedRadioLabel3 = 'By case name';
 const expectedRadioLabel4 = 'By court or tribunal';
 const expectedRelatedContentHeader = 'Related content';
@@ -26,7 +26,7 @@ const expectedLink1 = 'Manage your subscriptions';
 const expectedLink2 = 'Find a court or tribunal list';
 
 let htmlRes: Document;
-describe('Subscription add Page initial load', () => {
+describe('Subscriptions add Page initial load', () => {
   beforeAll(async () => {
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
@@ -73,7 +73,7 @@ describe('Subscription add Page initial load', () => {
 
   it('should display first radio button content',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[0].innerHTML).contains(expectedRadioLabel1, 'Could not find the radio button with label ' + expectedRadioLabel1);
+    expect(radioButtons[3].innerHTML).contains(expectedRadioLabel1, 'Could not find the radio button with label ' + expectedRadioLabel1);
   });
 
   it('should display second radio button content',  () => {
@@ -88,7 +88,7 @@ describe('Subscription add Page initial load', () => {
 
   it('should display fourth radio button content',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[3].innerHTML).contains(expectedRadioLabel4, 'Could not find the radio button with label ' + expectedRadioLabel2);
+    expect(radioButtons[0].innerHTML).contains(expectedRadioLabel4, 'Could not find the radio button with label ' + expectedRadioLabel2);
   });
 
   it('should display related content header',  () => {
@@ -106,12 +106,12 @@ describe('Subscription add Page initial load', () => {
   it('should display find a court or tribunal list link',  () => {
     const links = htmlRes.getElementsByClassName(linkClass);
     expect(links[1].innerHTML).contains(expectedLink2, 'Could not find the link with text ' + expectedLink2);
-    expect(links[1].getAttribute('href')).equal('/search-option', 'Link value is not correct');
+    expect(links[1].getAttribute('href')).equal('/search', 'Link value is not correct');
   });
 
 });
 
-describe('Subscription add page no selection entered', () => {
+describe('Subscriptions add page no selection entered', () => {
   beforeAll(async () => {
     await request(app).post(PAGE_URL).send({selectionError: true}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

@@ -1,0 +1,67 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+
+{% block content %}
+    {% if displayError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.noSelection,
+                    href: "#sign-in"
+                }
+            ]
+        }) }}
+    {% endif %}
+    <form action="sign-in" method="post">
+      {{ govukRadios({
+        idPrefix: "sign-in",
+        name: "sign-in",
+        fieldset: {
+          legend: {
+            text: header,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          {
+            value: "hmcts",
+            text: radio1,
+            disabled: true
+          },
+          {
+            value: "common",
+            text: radio2,
+            disabled: true
+          },
+          {
+            value: "pi",
+            text: radio3
+
+          }
+        ]
+      }) }}
+        {{ submitButton() }}
+      <div class="govuk-grid-row govuk-!-margin-bottom-2">
+        <div class="no_padding govuk-grid-column-full">
+          <p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ accountInfo }}</p>
+          <a class="govuk-link" href="{{ accountInfo_link }}">{{ accountInfo_link_text }}</a>
+        </div>
+      </div>
+    </form>
+{% endblock %}
+{% block bodyEnd %}
+  {{ super() }}
+{% endblock %}

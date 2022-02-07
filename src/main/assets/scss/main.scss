@@ -87,6 +87,17 @@ $min-width: 52em;
   }
 }
 
+.offset-parent-box {
+  @extend .parent-box;
+  left: -20%;
+
+  a {
+    &:not(.floating-back-to-top--fixed) {
+      width: 125px;
+    }
+  }
+}
+
 .text_disabled {
   color: $text-disabled;
 }
@@ -310,6 +321,76 @@ div {
   vertical-align: middle;
 }
 
+.hr-colour {
+  border-color: $govuk-border-colour;
+}
+
 .with-background {
   background-color: govuk-colour('white');
+}
+
+.pub-navigation {
+  .moj-sub-navigation__link {
+    font-size: 16px;
+  }
+
+  @media (min-width: 641px) {
+    .moj-sub-navigation__item {
+      &:last-child {
+        float: right;
+      }
+    }
+  }
+}
+
+.govuk-input--error {
+  .autocomplete__input {
+    &:not(.autocomplete__input--focused) {
+      // Important is required due javascript overriding this as it is loaded after css rendering
+      border: solid 2px $govuk-error-colour !important; // sass-lint:disable-line no-important
+    }
+  }
+}
+
+.cards-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  > div {
+    flex: 50%;
+    max-width: 50%;
+  }
+
+  @media (max-width: 640px) {
+    > div {
+      flex: 100%;
+      max-width: 100%;
+    }
+  }
+
+  .account-card {
+    background-color: govuk-colour('light-grey');
+    border: solid 1px govuk-colour('mid-grey');
+    height: 100%;
+    padding: 0 1em;
+  }
+}
+
+.sjp-row {
+  th {
+    &:first-child {
+      width: 33px;
+    }
+  }
+
+  td {
+    &:nth-child(2) {
+      width: 16px;
+    }
+  }
+}
+
+.search-input-name {
+  border: 0;
 }

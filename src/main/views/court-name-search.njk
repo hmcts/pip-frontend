@@ -9,75 +9,79 @@
     {{ title }}
 {% endblock %}
 {% block beforeContent %}
+    {{ super() }}
     {{ goBack() }}
 {% endblock %}
 {% block content %}
     <h1 class="govuk-heading-l">{{ heading }}</h1>
     <p class="govuk-body">{{ subHeading }}</p>
-
-    {% set checkedFilters = [] %}
-    {% set filterOptionsHtml %}
-        {% for key, option in filterOptions %}
-            {% set checkedFilterItems = [] %}
-            {% set items = [] %}
-            {% for value, item in option %}
-                {% set _ = items.push({
-                    value: item.value,
-                    text: item.text,
-                    checked: item.checked
-                }) %}
-                {% if item.checked %}
-                    {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
-                {% endif %}
-            {% endfor %}
-            {% if checkedFilterItems| length > 0 %}
-                {% set _ = checkedFilters.push({heading: {text: key}, items: checkedFilterItems}) %}
-            {% endif %}
-            {{ govukCheckboxes({
-                idPrefix: key,
-                name: key,
-                classes: "govuk-checkboxes--small",
-                fieldset: {
-                    legend: {
-                        text: key,
-                        classes: 'govuk-fieldset__legend--m'
-                    }
-                },
-                items: items
-            }) }}
-        {% endfor %}
-    {% endset %}
-
-    <div class="moj-filter-layout">
-        <form class="moj-filter-layout__filter" method="post" action="court-name-search">
-            {{ mojFilter({
-                heading: {
-                    text: filter
-                },
-                selectedFilters: {
-                    clearLink: {
-                        text: filterClear,
-                        href: '?clear=all'
-                    },
-                    heading: {
-                        text: filterSelected
-                    },
-                    categories: checkedFilters
-                },
-                optionsHtml: filterOptionsHtml
-            }) }}
-            <div class="parent-box filter-back-to-top-wrapper">
-                <a id="back-to-top-button"
-                   class="govuk-link govuk-link--no-underline govuk-!-font-size-19 govuk-!-margin-right-5" href="#">
-                    <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13"
-                         height="17" viewBox="0 0 13 17">
+    <div id="grid-row" class="govuk-grid-row">
+        <div class="parent-box layout-width-two-fifths govuk-!-display-inline-block">
+            <div class="filter-back-to-top-wrapper">
+                <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19"
+                   href="#">
+                    <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17"
+                         viewBox="0 0 13 17">
                         <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
                     </svg>{{ backToTop }}
                 </a>
             </div>
-        </form>
-        <div class="moj-filter-layout__content">
-            <form class="moj-action-bar" action="pending-subscriptions" method="post">
+
+            {% set checkedFilters = [] %}
+            {% set filterOptionsHtml %}
+                {% for key, option in filterOptions %}
+                    {% set checkedFilterItems = [] %}
+                    {% set items = [] %}
+                    {% for value, item in option %}
+                        {% set _ = items.push({
+                            value: item.value,
+                            text: item.text,
+                            checked: item.checked
+                        }) %}
+                        {% if item.checked %}
+                            {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if checkedFilterItems| length > 0 %}
+                        {% set _ = checkedFilters.push({heading: {text: key}, items: checkedFilterItems}) %}
+                    {% endif %}
+                    {{ govukCheckboxes({
+                        idPrefix: key,
+                        name: key,
+                        classes: "govuk-checkboxes--small",
+                        fieldset: {
+                            legend: {
+                                text: key,
+                                classes: 'govuk-fieldset__legend--m'
+                            }
+                        },
+                        items: items
+                    }) }}
+                {% endfor %}
+            {% endset %}
+
+            <form method="post" action="court-name-search" class="moj-filter-layout__filter layout-width-four-fifths" autocomplete="off">
+                {{ mojFilter({
+                    heading: {
+                        text: filter
+                    },
+                    selectedFilters: {
+                        clearLink: {
+                            text: filterClear,
+                            href: '?clear=all'
+                        },
+                        heading: {
+                            text: filterSelected
+                        },
+                        categories: checkedFilters
+                    },
+                    optionsHtml: filterOptionsHtml
+                }) }}
+            </form>
+        </div>
+
+        <div class="layout-width-three-fifths">
+            <form class="moj-action-bar" action="pending-subscriptions" method="post" autocomplete="off">
                 <h2 class="govuk-heading-m">{{ userSelections }}</h2>
                 <div class="selection-counter-box govuk-!-padding-top-3 govuk-!-padding-bottom-1 govuk-!-padding-left-2 govuk-!-padding-right-2 govuk-!-margin-bottom-4">
                     <p class="govuk-body"><span id="selectionCount">0</span> {{ selected }}</p>
@@ -104,53 +108,77 @@
                         {% endfor %}
                     </div>
                 </div>
-            </form>
-            <div class="moj-scrollable-pane">
-                <div class="moj-scrollable-pane__wrapper">
-                    <table class="govuk-table">
-                        <thead class="govuk-table__head">
-                        <tr class="govuk-table__row">
-                            <th scope="col" class="govuk-table__header" colspan="3">{{ tableHeader }}</th>
-                        </tr>
-                        </thead>
-                        <tbody class="govuk-table__body">
-                        {% set first = '' %}
-                        {% for key, value in courtList %}
-                            {% if value | length > 0 %}
-                                {% for courtName, courtDetails in value %}
-                                    <tr class="govuk-table__row">
-                                        {% if first != key %}
-                                            {% set first = key %}
-                                            <th scope="row" class="govuk-table__header">
-                                                <div id="{{ key }}" class="govuk-!-font-size-36">{{ key }}</div>
-                                            </th>
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header" colspan="3">{{ sjpTableHeader }}</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row sjp-row">
+                        <th scope="row" class="govuk-table__header">
+                        </th>
+                        <td class="govuk-table__cell">
+                            <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
+                                <input type="checkbox" class="govuk-checkboxes__input"
+                                       id="0"
+                                       value="0" name="court-selections[]"
+                                       onclick="calculateChecked()">
+                                <label class="govuk-label govuk-checkboxes__label"
+                                       for="0">
+                                    <span class="govuk-visually-hidden">Select {{ sjpSubscription }}</span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header">{{ sjpSubscription }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header" colspan="3" id="courtHeader">{{ courtTableHeader }}</th>
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                {% set first = '' %}
+                {% for key, value in courtList %}
+                    {% if value | length > 0 %}
+                        {% for courtName, courtDetails in value %}
+                            {% if courtDetails.id > 0 %}
+                                <tr class="govuk-table__row">
+                                    {% if first != key %}
+                                        {% set first = key %}
+                                        <th scope="row" class="govuk-table__header">
+                                            <div id="{{ key }}" class="govuk-!-font-size-36">{{ key }}</div>
+                                        </th>
 
-                                        {% else %}
-                                            <th scope="row" class="govuk-table__header">
-                                            </th>
-                                        {% endif %}
-                                        <td class="govuk-table__cell">
-                                            <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
-                                                <input type="checkbox" class="govuk-checkboxes__input"
-                                                       id="{{ courtDetails.id }}"
-                                                       value="{{ courtDetails.id }}" name="court-selections[]"
-                                                       onclick="calculateChecked()">
-                                                <label class="govuk-label govuk-checkboxes__label"
-                                                       for="{{ courtDetails.id }}">
-                                                    <span class="govuk-visually-hidden">Select {{ courtName }}</span>
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header">{{ courtName }}</td>
-                                    </tr>
-                                {% endfor %}
-                                {% set first = '' %}
+                                    {% else %}
+                                        <th scope="row" class="govuk-table__header">
+                                        </th>
+                                    {% endif %}
+                                    <td class="govuk-table__cell">
+                                        <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
+                                            <input type="checkbox" class="govuk-checkboxes__input"
+                                                   id="{{ courtDetails.id }}"
+                                                   value="{{ courtDetails.id }}" name="court-selections[]"
+                                                   onclick="calculateChecked()">
+                                            <label class="govuk-label govuk-checkboxes__label"
+                                                   for="{{ courtDetails.id }}">
+                                                <span class="govuk-visually-hidden">Select {{ courtName }}</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header">{{ courtName }}</td>
+                                </tr>
                             {% endif %}
                         {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                        {% set first = '' %}
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+            </form>
         </div>
     </div>
 {% endblock %}
@@ -162,6 +190,9 @@
       function calculateChecked() {
         const checkedBoxes = document.querySelectorAll('input[name="court-selections[]"]:checked').length;
         document.getElementById('selectionCount').innerText = checkedBoxes.toString();
+      }
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
       }
     </script>
 {% endblock %}

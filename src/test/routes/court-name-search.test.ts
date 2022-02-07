@@ -3,6 +3,7 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import { app } from '../../main/app';
 import { request as expressRequest } from 'express';
+
 import fs from 'fs';
 import path from 'path';
 import {CourtService} from '../../main/service/courtService';
@@ -20,7 +21,7 @@ describe('Court Name Search', () => {
         .get('/court-name-search')
         .expect((res) => expect(res.status).to.equal(200));
     });
-
+    
     test('should return court name search page with unchecked checkboxes', async () => {
       await request(app)
         .get('/court-name-search?clear=all')

@@ -1,0 +1,75 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import submitButton, goBack %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+
+{% block content %}
+  {% set inputProperties = {
+    label: {
+      "text": hint
+    },
+    id: "search-input",
+    name: "search-input",
+    autocomplete: "false"
+  } %}
+  {% if noResultsError or invalidInputError %}
+    {% set inputProperties = {
+      id: "search-input",
+      name: "search-input",
+      autocomplete: "false",
+      errorMessage: {
+        text: header
+      },
+      label: {
+        text: hint
+      }
+    } %}
+    <div class="govuk-grid-row">
+      <div class="no_padding govuk-grid-column-three-quarters">
+        {{ govukErrorSummary({
+          titleText: error.title,
+          errorList: [
+            {
+              text: error.notfound,
+              href: "#search-input"
+            }
+          ]
+        }) }}
+      </div>
+    </div>
+  {% endif %}
+  <form action="subscription-urn-search" method="post">
+    <div class="govuk-form-group govuk-!-width-one-half">
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="search-input">
+          {{ header }}
+        </label>
+      </h1>
+      {{ govukInput(inputProperties) }}
+    </div>
+    {{ submitButton() }}
+    {% if noResultsError %}
+      <div class="govuk-grid-row">
+        <div class="no_padding govuk-grid-column-full">
+          <h2 class="govuk-heading-s">{{ error.header }}</h2>
+          <p class="govuk-body">{{ error.notfound }}</p>
+        </div>
+      </div>
+    {% endif %}
+  </form>
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  {{ super() }}
+{% endblock %}

@@ -2,9 +2,12 @@ nodejs:
   applicationPort: 8080
   ingressHost: pip-frontend.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'sdshmctspublic.azurecr.io/pip/frontend:latest'
+  environment:
+    OIDC: true
+    AUTH_RETURN_URL: https://pip-frontend.staging.platform.hmcts.net/login/return
   keyVaults:
-    pip-shared-kv:
-      resourceGroup: pip-sharedservices-{{ .Values.global.environment }}-rg
+    pip-ss-kv:
+      resourceGroup: pip-ss-{{ .Values.global.environment }}-rg
       secrets:
         - name: session-key
           alias: SESSION_SECRET
@@ -14,9 +17,16 @@ nodejs:
           alias: CLIENT_SECRET
         - name: otp-tenant-id
           alias: TENANT_GUID
-        - name: pipsharedinfrasa-storageaccount-connection-string
+        - name: shared-storageaccount-connection-string
           alias: CONNECTION_STRING
-  environment:
-    OIDC: false
-    FRONTEND_URL: https://${SERVICE_FQDN}
+        - name: REDIS-HOST
+          alias: REDIS_HOST
+        - name: REDIS-PASSWORD
+          alias: REDIS_PASSWORD
+        - name: REDIS-PORT
+          alias: REDIS_PORT
+        - name: b2c-auth-endpoint
+          alias: B2C_AUTH_ENDPOINT
   aadIdentityName: pip
+
+

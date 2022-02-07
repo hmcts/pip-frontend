@@ -34,9 +34,8 @@ describe('List option page', () => {
 
     it('should contain the summary of publications heading', () => {
       const pageHeading = htmlRes.getElementsByClassName('govuk-heading-xl');
-      console.log(pageHeading[0].innerHTML);
       expect(pageHeading[0].innerHTML)
-        .contains('Summary of Publications for Abergavenny Magistrates\' Court', 'Page heading does not exist');
+        .contains('What do you want to view from Abergavenny Magistrates\' Court?', 'Page heading does not exist');
     });
 
     it('should display Magistrates court list', () => {
@@ -45,10 +44,17 @@ describe('List option page', () => {
         .contains('Magistrates\' Court', 'List heading does not exist');
     });
 
+    it('should display standard list link', () => {
+      const publicationOption = htmlRes.getElementsByClassName('govuk-link--no-visited-state');
+      expect(publicationOption[0].innerHTML)
+        .contains('Abergavenny Magistrates\' Court Standard Court Lists', 'Publication link does not exist');
+      expect(publicationOption[0].getAttribute('href')).equal('/standard-list?courtId=1', 'links dont match');
+    });
+
     it('should display public list link', () => {
       const publicationOption = htmlRes.getElementsByClassName('govuk-link--no-visited-state');
       expect(publicationOption[1].innerHTML)
-        .contains('Abergavenny Magistrates\' Court Public lists', 'Publication link does not exist');
+        .contains('Abergavenny Magistrates\' Court Public Lists', 'Publication link does not exist');
     });
   });
   describe('Crown Court', () => {
@@ -62,31 +68,26 @@ describe('List option page', () => {
 
     it('should display Crown court list', () => {
       const listHeading = htmlRes.getElementsByClassName('govuk-!-font-weight-bold');
-      console.log(htmlRes.body.innerHTML);
-      console.log(listHeading[0].innerHTML);
       expect(listHeading[0].innerHTML)
         .contains('Crown Court lists', 'List heading does not exist');
     });
 
     it('should display Daily list link', () => {
       const publicationOption = htmlRes.getElementsByClassName('govuk-link--no-visited-state');
-      console.log(publicationOption[0].innerHTML);
       expect(publicationOption[0].innerHTML)
-        .contains('Accrington County Court Daily lists', 'Publication link does not exist');
+        .contains('Accrington County Court Daily Lists', 'Publication link does not exist');
     });
 
     it('should display warned list link', () => {
       const publicationOption = htmlRes.getElementsByClassName('govuk-link--no-visited-state');
-      console.log(publicationOption[1].innerHTML);
       expect(publicationOption[1].innerHTML)
-        .contains('Accrington County Court Warned lists', 'Publication link does not exist');
+        .contains('Accrington County Court Warned Lists', 'Publication link does not exist');
     });
 
     it('should display firmed list link', () => {
       const publicationOption = htmlRes.getElementsByClassName('govuk-link--no-visited-state');
-      console.log(publicationOption[2].innerHTML);
       expect(publicationOption[2].innerHTML)
-        .contains('Accrington County Court Firmed lists', 'Publication link does not exist');
+        .contains('Accrington County Court Firmed Lists', 'Publication link does not exist');
     });
   });
 });

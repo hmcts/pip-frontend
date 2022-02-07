@@ -8,7 +8,8 @@
   {{ title }}
 {% endblock %}
 {% block beforeContent %}
-  {{ goBack() }}
+    {{ super() }}
+    {{ goBack() }}
 {% endblock %}
 {% block content %}
   <div id="grid-row" class="govuk-grid-row">
@@ -56,7 +57,7 @@
       {% endfor %}
     {% endset %}
 
-    <form method="post" action="alphabetical-search" class="moj-filter-layout__filter layout-width-four-fifths">
+    <form method="post" action="alphabetical-search" class="moj-filter-layout__filter layout-width-four-fifths" autocomplete="off">
       {{ mojFilter({
         heading: {
           text: filter
@@ -91,30 +92,37 @@
         {% endif %}
       {% endfor %}
     </div>
-
+    <div class="govuk-grid-row">
+      <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ nationalListsHeader }}</h3>
+    </div>
+    <hr />
+    <div class="govuk-grid-row govuk-!-margin-bottom-4 govuk-!-margin-top-4">
+      <a href="/single-justice-procedure" class="govuk-link govuk-!-margin-left-8 govuk-!-font-size-19" id="sjp-link">{{ sjpLink }}</a>
+    </div>
     <table class="govuk-table">
       <thead class="govuk-table__head">
       <tr class="govuk-table__row">
-        <th scope="col" class="govuk-table__header app-custom-class"></th>
-        <th scope="col" class="govuk-table__header">{{ tableHeader1 }}</th>
+        <th scope="col" class="govuk-table__header" colspan="2">{{ tableHeader1 }}</th>
       </tr>
       </thead>
       <tbody class="govuk-table__body">
       {% for key, value in courtList %}
         {% if value | length > 0 %}
           {% for courtName, courtDetails in value %}
-            <tr  class="govuk-table__row">
-              {% if first != key %}
-                {% set first = key %}
-                <th scope="row" class="govuk-table__header">
-                  <div id="{{ key }}" class="govuk-!-font-size-27">{{key}}</div>
-                </th>
-              {% else %}
-                <th scope="row" class="govuk-table__header">
-                </th>
-              {% endif %}
-              <td class="govuk-table__cell"><a href="/list-option?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></td>
-            </tr>
+            {% if courtDetails.id > 0 %}
+              <tr  class="govuk-table__row">
+                {% if first != key %}
+                  {% set first = key %}
+                  <th scope="row" class="govuk-table__header">
+                    <div id="{{ key }}" class="govuk-!-font-size-27">{{key}}</div>
+                  </th>
+                {% else %}
+                  <th scope="row" class="govuk-table__header">
+                  </th>
+                {% endif %}
+                <td class="govuk-table__cell"><a href="/list-option?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a></td>
+              </tr>
+            {% endif %}
           {% endfor %}
           {% set first = '' %}
         {% endif %}
@@ -126,6 +134,11 @@
 
 {% endblock %}
 {% block bodyEnd %}
-  {{ super() }}
-  <script src="alphabetical-dev.js"></script>
+    {{ super() }}
+    <script src="alphabetical-dev.js"></script>
+    <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+    </script>
 {% endblock %}
