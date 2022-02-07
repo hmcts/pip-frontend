@@ -73,10 +73,8 @@
           }) }}
         </div>
 
-        {% set cdFromError = 'govuk-input--error' if errors.formErrors.contentDateError.from else '' %}
-        {% set cdToError = 'govuk-input--error' if errors.formErrors.contentDateError.to else '' %}
+        {% set cdFromError = 'govuk-input--error' if errors.formErrors.contentDateError else '' %}
         {% set cdFormGroupError = 'govuk-form-group--error' if errors.formErrors.contentDateError else 'govuk-form-group' %}
-        {% set cdErrorMessage = errors.formErrors.contentDateError.from or errors.formErrors.contentDateError.to or errors.formErrors.contentDateError.range%}
 
         <div class="{{ cdFormGroupError }} govuk-width-!-one-fourth">
           <fieldset class="govuk-fieldset" role="group" aria-describedby="content-date">
@@ -84,12 +82,11 @@
               {{ form.contentDate }}
             </legend>
             {% if errors.formErrors.contentDateError %}
-              <span class="govuk-error-message">{{ cdErrorMessage }}</span>
+              <span class="govuk-error-message">{{ errors.formErrors.contentDateError }}</span>
             {% endif %}
             <div id="content-date-hint" class="govuk-hint">
               {{ form.contentDateHint }}
             </div>
-            <div class="govuk-grid-row">
             <div class="govuk-date-input" id="content-date-from">
               <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
@@ -111,31 +108,6 @@
                     {{ form.year }}
                   </label>
                   <input class="govuk-input govuk-date-input__input govuk-input--width-4 {{ cdFromError }}" id="content-date-from-year" name="content-date-from-year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
-              </div>
-            </div>
-              <div class="admin-form-offset">{{ form.to }}</div>
-              <div class="govuk-date-input" id="content-date-to">
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="content-date-to-day">
-                      {{ form.day }}
-                    </label>
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ cdToError }}" id="content-date-to-day" name="content-date-to-day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
-                </div>
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="content-date-to-month">
-                      {{ form.month }}
-                    </label>
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ cdToError }}" id="content-date-to-month" name="content-date-to-month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
-                </div>
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="content-date-to-year">
-                      {{ form.year }}
-                    </label>
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-4 {{ cdToError }}" id="content-date-to-year" name="content-date-to-year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
-                </div>
               </div>
             </div>
           </fieldset>
@@ -272,9 +244,6 @@
     {% set populatedContentDateFromDay = formData['content-date-from-day'] if formData['content-date-from-day'] else '' %}
     {% set populatedContentDateFromMonth = formData['content-date-from-month'] if formData['content-date-from-month'] else '' %}
     {% set populatedContentDateFromYear = formData['content-date-from-year'] if formData['content-date-from-year'] else '' %}
-    {% set populatedContentDateToDay = formData['content-date-to-day'] if formData['content-date-to-day'] else '' %}
-    {% set populatedContentDateToMonth = formData['content-date-to-month'] if formData['content-date-to-month'] else '' %}
-    {% set populatedContentDateToYear = formData['content-date-to-year'] if formData['content-date-to-year'] else '' %}
     {% set populatedClassification = formData['classification'] if formData['classification'] else 'PUBLIC' %}
     {% set populatedLanguage = formData['language'] if formData['language'] else 'ENGLISH' %}
     {% set populatedDisplayDateFromDay = formData['display-date-from-day'] if formData['display-date-from-day'] else '' %}
@@ -289,9 +258,6 @@
     document.getElementById('content-date-from-day').value = {{ populatedContentDateFromDay | dump | safe }};
     document.getElementById('content-date-from-month').value = {{ populatedContentDateFromMonth  | dump | safe }};
     document.getElementById('content-date-from-year').value = {{ populatedContentDateFromYear  | dump | safe }};
-    document.getElementById('content-date-to-day').value = {{ populatedContentDateToDay  | dump | safe }};
-    document.getElementById('content-date-to-month').value = {{ populatedContentDateToMonth  | dump | safe }};
-    document.getElementById('content-date-to-year').value = {{ populatedContentDateToYear  | dump | safe }};
     document.getElementById('classification').value = {{ populatedClassification | dump | safe }};
     document.getElementById('language').value = {{ populatedLanguage | dump | safe }};
     document.getElementById('display-date-from-day').value = {{ populatedDisplayDateFromDay  | dump | safe }};
@@ -300,9 +266,6 @@
     document.getElementById('display-date-to-day').value = {{ populatedDisplayDateToDay  | dump | safe }};
     document.getElementById('display-date-to-month').value = {{ populatedDisplayDateToMonth  | dump | safe }};
     document.getElementById('display-date-to-year').value = {{ populatedDisplayDateToYear  | dump | safe }};
-
-
-
 
     const defaultVal = {{ defaultValue | dump | safe }}
 

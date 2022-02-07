@@ -18,7 +18,6 @@ export class ManualUploadPage extends CommonPage {
     await this.uploadFile();
     await this.inputCourt();
     await this.inputContentDateFrom();
-    await this.inputContentDateTo();
     await this.inputDisplayDateFrom();
     await this.inputDisplayDateTo();
   }
@@ -56,22 +55,6 @@ export class ManualUploadPage extends CommonPage {
     await $(helpers.contentDateFromDay).addValue('01');
     await $(helpers.contentDateFromMonth).addValue('01');
     await $(helpers.contentDateFromYear).addValue('2022');
-  }
-
-  async inputContentDateTo(): Promise<void> {
-    $(helpers.contentDateToDay).catch(() => {
-      console.log(`${helpers.contentDateToDay} not found`);
-    });
-    $(helpers.contentDateToMonth).catch(() => {
-      console.log(`${helpers.contentDateToMonth} not found`);
-    });
-    $(helpers.contentDateToYear).catch(() => {
-      console.log(`${helpers.contentDateToYear} not found`);
-    });
-
-    await $(helpers.contentDateToDay).addValue('01');
-    await $(helpers.contentDateToMonth).addValue('01');
-    await $(helpers.contentDateToYear).addValue('2022');
   }
 
   async inputDisplayDateFrom(): Promise<void> {
