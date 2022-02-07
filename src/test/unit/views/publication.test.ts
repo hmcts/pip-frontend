@@ -28,7 +28,7 @@ describe('Publication Page', () => {
 
   it('should display paragraph', () => {
     const items = htmlRes.getElementsByClassName('das-search-results__link');
-    expect(items[0].innerHTML).contains('Single Justice Procedure Press List');
+    expect(items[0].innerHTML).contains('Single Justice Procedure Public List');
   });
 
   it('should display list date', () => {
