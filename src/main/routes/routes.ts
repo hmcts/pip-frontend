@@ -71,6 +71,7 @@ export default function(app: Application): void {
   app.post('/sign-in', app.locals.container.cradle.signInController.post);
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
+  app.get('/summary-of-publications', app.locals.container.cradle.summaryOfPublicationsController.get);
 
   // Restricted paths
   app.get('/account-home', ensureAuthenticated, app.locals.container.cradle.accountHomeController.get);
@@ -118,7 +119,6 @@ export default function(app: Application): void {
     (req, res) => {res.redirect('/subscription-management');});
 
   //TODO: To be deleted/modified post UAT with suitable solution
-  app.get('/summary-of-publications', app.locals.container.cradle.summaryOfPublicationsController.get);
   app.get('/warned-list', app.locals.container.cradle.warnedListController.get);
   app.get('/standard-list', ensureAuthenticated, app.locals.container.cradle.standardListController.get);
 

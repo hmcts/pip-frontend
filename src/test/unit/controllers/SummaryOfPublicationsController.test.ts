@@ -2,7 +2,7 @@ import SummaryOfPublicationsController from '../../../main/controllers/SummaryOf
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import sinon from 'sinon';
-import {PublicationService} from '../../../main/service/publicationService';
+import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
 import fs from 'fs';
 import path from 'path';
 import {CourtService} from '../../../main/service/courtService';
@@ -16,15 +16,13 @@ const sjpCases = JSON.parse(rawSJPData).results;
 const onePubData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublication.json'), 'utf-8');
 const onePub = JSON.parse(onePubData);
 const CourtStub = sinon.stub(CourtService.prototype, 'getCourtById');
+const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
 
 describe('Get publications', () => {
   CourtStub.withArgs(0).resolves(JSON.parse('{"name":"Single Justice Procedure (SJP)"}'));
   CourtStub.withArgs(1).resolves(JSON.parse('{"name":"New Court"}'));
-  sinon.stub(PublicationService.prototype, 'getPublications').resolves(sjpCases);
-
-  afterAll(function () {
-    sinon.restore();
-  });
+  SoPStub.withArgs(0).resolves(sjpCases);
+  SoPStub.withArgs(1).resolves(sjpCases);
 
   it('should render the Summary of Publications page', async () => {
 
@@ -102,8 +100,8 @@ describe('Get individual publication and act appropriately', () => {
     const request = mockRequest(i18n);
     request.query = {courtId: '0'};
     request.user = {id: 1};
+    SoPStub.withArgs(0).resolves(onePub);
     CourtStub.withArgs('0').resolves(JSON.parse('{"name":"Single Justice Procedure (SJP)"}'));
-    sinon.stub(PublicationService.prototype, 'getPublications').resolves(onePub);
     const responseMock = sinon.mock(response);
     const onePubLength = onePub.length;
     expect(onePubLength).toBe(1);

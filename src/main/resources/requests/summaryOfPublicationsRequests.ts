@@ -1,7 +1,7 @@
 import {dataManagementApi} from './utils/axiosConfig';
 import {Publication} from '../../models/publication';
 
-export class PublicationRequests {
+export class SummaryOfPublicationsRequests {
 
   public async getListOfPubs(courtId, verification): Promise<Publication[]> {
     try {

@@ -39,7 +39,6 @@ export class Nunjucks {
 
     const dateFilter = require('nunjucks-date-filter');
     env.addFilter('date', dateFilter);
-    // const listTypeLookup = require('listTypeLookup');
     const fs = require ('fs');
     const listTypeLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'listTypeLookup.json')));
     env.addFilter('listType', function(x){return listTypeLookup[x];});

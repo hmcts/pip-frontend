@@ -1,4 +1,4 @@
-import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
+import { SummaryOfPublicationsRequests } from '../../../main/resources/requests/summaryOfPublicationsRequests';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
@@ -7,7 +7,7 @@ import {dataManagementApi} from '../../../main/resources/requests/utils/axiosCon
 const rawDataPubs = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/summaryOfPublications.json'), 'utf-8');
 const pubs = JSON.parse(rawDataPubs);
 const totalCases = 3;
-const pubRequests = new PublicationRequests();
+const pubRequests = new SummaryOfPublicationsRequests();
 const stub = sinon.stub(dataManagementApi, 'get');
 
 beforeEach(async () => {
