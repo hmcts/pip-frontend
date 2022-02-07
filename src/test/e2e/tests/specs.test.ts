@@ -245,7 +245,7 @@ describe('Verified user', () => {
         expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
       });
 
-      it('should click continue', async () => {
+      it('should click continue to create subscription', async () => {
         pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
         expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
@@ -273,6 +273,11 @@ describe('Verified user', () => {
 
       it(`should display ${casesCount} results`, async () => {
         expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseNameSearchResultsPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
 
@@ -332,6 +337,11 @@ describe('Verified user', () => {
 
       it(`should display ${expectedNumOfResults} results`, async () => {
         expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
   });
