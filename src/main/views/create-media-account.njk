@@ -1,0 +1,54 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+{% block content %}
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <form method="post">
+        {{ govukInput({
+            label: {
+                text: nameLabel
+            },
+            classes: "govuk-!-width-one-half",
+            id: "fullName",
+            name: "fullName"
+        }) }}
+        {{ govukInput({
+            label: {
+                text: emailLabel
+            },
+            hint: {
+                text: emailHint
+            },
+            classes: "govuk-!-width-one-half",
+            id: "emailAddress",
+            name: "emailAddress"
+        }) }}
+        {{ govukInput({
+            label: {
+                text: employerLabel
+            },
+            classes: "govuk-!-width-one-half",
+            id: "employer",
+            name: "employer"
+        }) }}
+        <p class="govuk-body">{{ photoMessage }}</p>
+        <p class="govuk-hint">{{ photoSubMessage }}</p>
+        {{ govukFileUpload({
+            id: "file-upload",
+            name: "file-upload",
+            label: {
+                text: photoType
+            }
+        }) }}
+        {{ submitButton() }}
+    </form>
+{% endblock %}

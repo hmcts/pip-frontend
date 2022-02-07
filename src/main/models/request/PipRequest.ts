@@ -6,6 +6,7 @@ export interface PipRequest extends Request {
       'home': {};
       'template': {};
       'alphabetical-search': {};
+      'create-media-account': {};
       'error': {};
       'hearing-list': {};
       'live-case-alphabet-search': {};
