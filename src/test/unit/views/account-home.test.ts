@@ -19,7 +19,7 @@ const cards = [
   },
   {
     title: 'Email subscriptions',
-    description: 'Get emails about hearings from different courts and tribunals and manage your subscription',
+    description: 'Get emails about hearings from different courts and tribunals and manage your subscription.',
     link: 'subscription-management',
   }];
 let htmlRes: Document;
