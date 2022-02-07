@@ -69,7 +69,6 @@ export default function(app: Application): void {
   app.post('/search', app.locals.container.cradle.searchController.post);
   app.get('/sign-in', app.locals.container.cradle.signInController.get);
   app.post('/sign-in', app.locals.container.cradle.signInController.post);
-  app.get('/single-justice-procedure', app.locals.container.cradle.singleJusticeProcedureController.get);
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
 
