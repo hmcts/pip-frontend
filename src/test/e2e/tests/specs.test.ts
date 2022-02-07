@@ -21,6 +21,8 @@ import { SignInPage } from '../PageObjects/SignIn.page';
 import { getRedirectURL } from '../../../main/authentication/authRedirect';
 import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
+import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
+import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -43,6 +45,8 @@ let courtNameSearchPage: CourtNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
+let pendingSubscriptionsPage: PendingSubscriptionsPage;
+let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 const signInPage = new SignInPage;
 
 describe('Unverified user', () => {
@@ -132,10 +136,6 @@ describe('Unverified user', () => {
 
     it(`should have '${validCourtName}' as a sub title`, async () => {
       expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
-    });
-
-    it('should display 4 results in the table', async () => {
-      expect(await liveCaseStatusPage.getResults()).toBe(4);
     });
 
     it('should select first glossary term', async () => {
@@ -244,6 +244,11 @@ describe('Verified user', () => {
       it(`should display ${expectedNumOfResults} results`, async() => {
         expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
       });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
     });
 
     describe('following the case name path', async () => {
@@ -268,6 +273,11 @@ describe('Verified user', () => {
 
       it(`should display ${casesCount} results`, async () => {
         expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseNameSearchResultsPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
 
@@ -303,6 +313,11 @@ describe('Verified user', () => {
       it(`should display ${tribunalCourts} results (Tribunal) filter`, async() => {
         expect(await courtNameSearchPage.getResults()).toBe(tribunalCourts);
       });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
     });
 
     describe('Following the subscription \'search\' by case reference path', () => {
@@ -328,6 +343,22 @@ describe('Verified user', () => {
       it(`should display ${expectedNumOfResults} results`, async () => {
         expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
       });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
+    });
+  });
+
+  describe('add subscription', async () => {
+    before(async () => {
+      await pendingSubscriptionsPage.open('pending-subscriptions');
+    });
+
+    it('should subscribe', async () => {
+      subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
+      expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
     });
   });
 
