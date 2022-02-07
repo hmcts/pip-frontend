@@ -26,9 +26,9 @@ describe('Navigation banner tests on the view-option page', () => {
       });
     });
 
-    it('should display navigation banner with 2 links', () => {
+    it('should display navigation banner with 4 links', () => {
       const navigationLinks = htmlRes.getElementsByClassName('moj-sub-navigation__item');
-      expect(navigationLinks.length).to.equal(2);
+      expect(navigationLinks.length).to.equal(4);
     });
 
     it('links should have correct names and paths', () => {
