@@ -1,28 +1,28 @@
-import {HomePage} from '../PageObjects/Home.page';
-import {AlphabeticalSearchPage} from '../PageObjects/AlphabeticalSearch.page';
-import {HearingListPage} from '../PageObjects/HearingList.page';
-import {SearchPage} from '../PageObjects/Search.page';
-import {SubscriptionManagementPage} from '../PageObjects/SubscriptionManagement.page';
-import {ViewOptionPage} from '../PageObjects/ViewOption.page';
-import {LiveCaseCourtSearchControllerPage} from '../PageObjects/LiveCaseCourtSearchController.page';
-import {SubscriptionAddPage} from '../PageObjects/SubscriptionAdd.page';
-import {LiveCaseStatusPage} from '../PageObjects/LiveCaseStatus.page';
-import {CaseNameSearchPage} from '../PageObjects/CaseNameSearch.page';
-import {CaseNameSearchResultsPage} from '../PageObjects/CaseNameSearchResults.page';
-import {SubscriptionUrnSearchResultsPage} from '../PageObjects/SubscriptionUrnSearchResults.page';
-import {SubscriptionUrnSearchPage} from '../PageObjects/SubscriptionUrnSearch.page';
-import {CourtNameSearchPage} from '../PageObjects/CourtNameSearch.page';
-import {MockSessionPage} from '../PageObjects/MockSession.page';
-import {SingleJusticeProcedurePage} from '../PageObjects/SingleJusticeProcedure.page';
-import {CaseEventGlossaryPage} from '../PageObjects/CaseEventGlossary.page';
-import {CaseReferenceNumberSearchPage} from '../PageObjects/CaseReferenceNumberSearch.page';
-import {CaseReferenceNumberSearchResultsPage} from '../PageObjects/CaseReferenceNumberSearchResults.page';
-import {SignInPage} from '../PageObjects/SignIn.page';
-import {getRedirectURL} from '../../../main/authentication/authRedirect';
-import {DeleteSubscriptionPage} from '../PageObjects/DeleteSubscription.page';
-import {UnsubscribeConfirmationPage} from '../PageObjects/UnsubscribeConfirmation.page';
-import {PendingSubscriptionsPage} from '../PageObjects/PendingSubscriptions.page';
-import {SubscriptionConfirmedPage} from '../PageObjects/SubscriptionConfirmed.page';
+import { HomePage } from '../PageObjects/Home.page';
+import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
+import { HearingListPage } from '../PageObjects/HearingList.page';
+import { SearchPage } from '../PageObjects/Search.page';
+import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
+import { ViewOptionPage } from '../PageObjects/ViewOption.page';
+import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
+import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
+import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
+import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
+import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
+import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
+import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
+import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
+import { MockSessionPage } from '../PageObjects/MockSession.page';
+import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
+import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
+import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
+import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
+import { SignInPage } from '../PageObjects/SignIn.page';
+import { getRedirectURL } from '../../../main/authentication/authRedirect';
+import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
+import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
+import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
+import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -235,7 +235,8 @@ describe('Verified user', () => {
         expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
       });
 
-      it('should click continue', async () => {
+      it('should click continue to create subscription', async () => {
+
         pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
         expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
@@ -263,6 +264,11 @@ describe('Verified user', () => {
 
       it(`should display ${casesCount} results`, async () => {
         expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseNameSearchResultsPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
 
@@ -298,6 +304,11 @@ describe('Verified user', () => {
       it(`should display ${tribunalCourts} results (Tribunal) filter`, async () => {
         expect(await courtNameSearchPage.getResults()).toBe(tribunalCourts);
       });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
     });
 
     describe('Following the subscription \'search\' by case reference path', () => {
@@ -323,6 +334,12 @@ describe('Verified user', () => {
       it(`should display ${expectedNumOfResults} results`, async () => {
         expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
       });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
+
     });
   });
 
