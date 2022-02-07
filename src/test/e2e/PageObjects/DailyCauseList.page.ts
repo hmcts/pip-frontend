@@ -4,10 +4,10 @@ const helpers = require('../Helpers/Selectors');
 
 export class DailyCauseListPage extends CommonPage {
   async getPageTitle(): Promise<string> {
-    $(helpers.DailyCauseListTitle).catch(() => {
-      console.log(`${helpers.DailyCauseListTitle} not found`);
+    $(helpers.comm).catch(() => {
+      console.log(`${helpers.CommonPageTitle} not found`);
     });
 
-    return $(helpers.DailyCauseListTitle).getText();
+    return $(helpers.CommonPageTitle).getText();
   }
 }

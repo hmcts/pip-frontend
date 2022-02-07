@@ -1,13 +1,14 @@
 import { dataManagementApi } from './utils/axiosConfig';
 
+const config = {
+  headers: {
+    verification: 'true',
+  },
+};
+
 export class DailyCauseListRequests {
   public async getDailyCauseList(artefactId: string): Promise<any> {
     try {
-      const config = {
-        headers: {
-          verification: 'true',
-        },
-      };
       const response = await dataManagementApi.get('/publication/' + artefactId + '/payload', config);
       return response.data;
     } catch (error) {

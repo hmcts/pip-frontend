@@ -102,7 +102,4 @@ module.exports = {
 
   // UnsubscribeConfirmation selectors
   panelTitle: '.govuk-panel__title',
-
-  //Daily Cause list
-  DailyCauseListTitle: 'h2.govuk-heading-l',
 };
