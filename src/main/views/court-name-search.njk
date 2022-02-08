@@ -84,7 +84,7 @@
       </form>
     </div>
 
-    <div class="layout-width-three-fifths">
+    <div class="layout-width-three-fifths" id="content">
       <form class="moj-action-bar" action="pending-subscriptions" method="post" autocomplete="off">
         <h2 class="govuk-heading-m">{{ userSelections }}</h2>
         <div class="moj-button-menu">
@@ -218,7 +218,11 @@
 
     function toggleFilters() {
       var element = document.getElementById("filters");
+      var content = document.getElementById("content");
+      var navigation = document.getElementsByClassName("moj-sub-navigation pub-navigation govuk-!-margin-bottom-0");
       element.classList.toggle("hide");
+      content.classList.toggle("hide");
+      navigation[0].classList.toggle("hide");
       if (element.className.indexOf('hide') > 0) {
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ show }}";
       } else {
