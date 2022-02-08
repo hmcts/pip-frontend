@@ -30,7 +30,10 @@
             },
             classes: "govuk-!-width-one-half",
             id: "emailAddress",
-            name: "emailAddress"
+            name: "emailAddress",
+            type: 'email',
+            autocomplete: 'email',
+            spellcheck: false
         }) }}
         {{ govukInput({
             label: {
@@ -51,4 +54,12 @@
         }) }}
         {{ submitButton() }}
     </form>
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+    </script>
 {% endblock %}
