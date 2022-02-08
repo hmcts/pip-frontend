@@ -4,7 +4,6 @@ import {I18next} from './modules/i18next';
 const {Logger} = require('@hmcts/nodejs-logging');
 
 import * as bodyParser from 'body-parser';
-//import * as config from 'config';
 import config = require('config');
 import cookieParser from 'cookie-parser';
 import express from 'express';
