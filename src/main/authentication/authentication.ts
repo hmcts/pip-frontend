@@ -46,7 +46,7 @@ function oidcSetup(): void {
     policy: authenticationConfig.POLICY,
     redirectUrl: FRONTEND_URL + '/login/return',
     allowHttpForRedirectUrl: true,
-    clientSecret: process.env.CLIENT_SECRET,
+    clientSecret: clientSecret,
     isB2C: true,
   },
   function(iss, sub, profile, accessToken, refreshToken, done) {
