@@ -42,7 +42,7 @@ module.exports = {
     return '#' + letter;
   },
   FirstItemResult: 'tbody > tr.govuk-table__row > td > a',
-  SecondItemResult: '.govuk-table__body > tr:nth-child(1) > td:nth-child(2) > a:nth-child(1)',
+  SecondItemResult: 'tr.govuk-table__row:nth-child(2) > td:nth-child(2) > a:nth-child(1)',
   SJPLink: '#sjp-link',
   MagistratesFilter: '#Jurisdiction-4',
   NorthWestFilter: '#Region-7',

@@ -24,6 +24,7 @@ import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmat
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
 import {ManualUploadPage} from '../PageObjects/ManualUpload.page';
+import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -31,6 +32,7 @@ let subscriptionAddPage = new SubscriptionAddPage();
 const subscriptionManagementPage = new SubscriptionManagementPage();
 const liveCaseCourtSearchControllerPage = new LiveCaseCourtSearchControllerPage();
 let viewOptionPage: ViewOptionPage;
+let summaryOfPublicationsPage: SummaryOfPublicationsPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
 let hearingListPage: HearingListPage;
 let searchPage: SearchPage;
@@ -79,8 +81,8 @@ describe('Unverified user', () => {
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
-        hearingListPage = await searchPage.clickContinue();
-        expect(await hearingListPage.getPageTitle()).toEqual('What do you want to view from Blackpool Magistrates\' Court?');
+        summaryOfPublicationsPage = await searchPage.clickContinue();
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Blackpool Magistrates\' Court?');
       });
     });
 
@@ -107,9 +109,9 @@ describe('Unverified user', () => {
         expect(await alphabeticalSearchPage.checkIfSelected('NorthWestFilter')).toBeTruthy();
       });
 
-      it('selecting first result should take you to to the hearings list page', async () => {
-        hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await hearingListPage.getPageTitle()).toEqual('What do you want to view from Blackburn Magistrates\' Court?');
+      it('selecting first result should take you to to the Summary of Publications page', async () => {
+        summaryOfPublicationsPage = await alphabeticalSearchPage.selectFirstListResult();
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Blackburn Magistrates\' Court?');
       });
     });
   });
@@ -157,14 +159,14 @@ describe('Unverified user', () => {
       await alphabeticalSearchPage.open('/alphabetical-search');
     });
 
-    it('Should select the first item from the alphabetical search list and navigate to SJP hearing list', async () => {
-      hearingListPage = await alphabeticalSearchPage.selectSJPLink();
-      expect(await hearingListPage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
+    it('Should select the first item from the alphabetical search list and navigate to SJP summary of publications', async () => {
+      summaryOfPublicationsPage = await alphabeticalSearchPage.selectSJPLink();
+      expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
     });
 
-    it('Should select the second item from the alphabetical search list and navigate to Aberdeen Tribunal Hearing Centre', async () => {
+    it('Should select the second item from the alphabetical search list and navigate to Aberystwyth Justice Centre', async () => {
       const aberdeenTribunalPage = await alphabeticalSearchPage.selectSecondListResult();
-      expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberdeen Tribunal Hearing Centre?');
+      expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberystwyth Justice Centre?');
     });
 
     it('Should select the first item from the alphabetical search list and navigate to Aberdeen Tribunal Hearing Centre', async () => {
@@ -172,6 +174,19 @@ describe('Unverified user', () => {
       expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberdeen Tribunal Hearing Centre?');
     });
   });
+
+  describe('Render hearing list page when required', () => {
+    before(async () => {
+      await searchPage.open('/search');
+      hearingListPage = await searchPage.clickContinue();
+      await hearingListPage.open('hearing-list?courtId=68');
+    });
+
+    it('should render the hearing list page', async () => {
+      expect(await hearingListPage.getPageTitle()).toEqual('Bradford Combined Court Centre hearing list');
+    });
+  });
+
 });
 
 describe('Verified user', () => {
