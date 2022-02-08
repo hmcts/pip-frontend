@@ -41,6 +41,7 @@ const courtService = sinon.stub(CourtService.prototype, 'getCourtByName');
 courtService.withArgs('validCourt').resolves(courtData[0]);
 
 const validFile = multerFile('testFile.pdf', 1000);
+const validFileCase = multerFile('testFile.HtMl', 1000);
 const largeFile = multerFile('testFile.pdf', 3000000);
 const invalidFileType = multerFile('testFile.xyz', 1000);
 const nofileType = multerFile('testFile', 1000);
@@ -73,6 +74,10 @@ describe('Manual upload service', () => {
   describe('File validation', () => {
     it('should return null when checking a valid file', () => {
       expect(manualUploadService.validateFileUpload(validFile)).to.be.null;
+    });
+
+    it('should return null when checking file type in different case sensitivity', () => {
+      expect(manualUploadService.validateFileUpload(validFileCase)).to.be.null;
     });
 
     it('should return error message if file greater than 2MB', () => {

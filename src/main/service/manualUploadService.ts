@@ -51,7 +51,7 @@ export class ManualUploadService {
 
   private isValidFileType(fileName: string): boolean {
     const fileType = fileName.split('.')[1];
-    return allowedFileTypes.includes(fileType.toLowerCase());
+    return allowedFileTypes.includes(fileType?.toLowerCase());
   }
 
   private isFileCorrectSize(fileSize: number): boolean {
