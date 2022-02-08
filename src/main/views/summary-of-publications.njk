@@ -3,14 +3,14 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-  {{ title }}
+  {{ title }} {{ courtName }}?
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
   {{ goBack() }}
 {% endblock %}
 {% block content %}
-  <h1 class="govuk-heading-l">{{ title }} {{ courtName }}</h1>
+  <h1 class="govuk-heading-l">{{ title }} {{ courtName }}?</h1>
   {% if publications.length === 0 %}
     <p class = "govuk-body govuk-!-font-size-16">Sorry, no lists found for this court</p>
   {% else %}

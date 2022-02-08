@@ -78,7 +78,7 @@ describe('Unverified user', () => {
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
         hearingListPage = await searchPage.clickContinue();
-        expect(await hearingListPage.getPageTitle()).toEqual('Summary of Publications for Blackpool Magistrates\' Court');
+        expect(await hearingListPage.getPageTitle()).toEqual('What do you want to view from Blackpool Magistrates\' Court?');
       });
     });
 
@@ -107,7 +107,7 @@ describe('Unverified user', () => {
 
       it('selecting first result should take you to to the hearings list page', async () => {
         hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await hearingListPage.getPageTitle()).toEqual('Summary of Publications for Blackburn Magistrates\' Court');
+        expect(await hearingListPage.getPageTitle()).toEqual('What do you want to view from Blackburn Magistrates\' Court?');
       });
     });
   });
@@ -138,7 +138,7 @@ describe('Unverified user', () => {
     });
   });
 
-  describe('find single justice procedure cases', () => {
+  describe('Render summary of publications page correctly from several different entry points', () => {
     before(async () => {
       await viewOptionPage.open('/view-option');
     });
@@ -146,7 +146,31 @@ describe('Unverified user', () => {
     it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
       await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
       singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-      expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Summary of Publications for Single Justice Procedure (SJP)');
+      expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
+    });
+  });
+
+  describe('Render summary of publications screen from alphabetical search list', () => {
+    beforeEach(async () => {
+      await alphabeticalSearchPage.open('/alphabetical-search');
+    });
+
+    it('Should select the first item from the alphabetical search list and navigate to SJP hearing list', async () => {
+      // await alphabeticalSearchPage.open('/alphabetical-search');
+      hearingListPage = await alphabeticalSearchPage.selectSJPLink();
+      expect(await hearingListPage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
+    });
+
+    it('Should select the second item from the alphabetical search list and navigate to Aberdeen Tribunal Hearing Centre', async () => {
+      // await alphabeticalSearchPage.open('/alphabetical-search');
+      const aberdeenTribunalPage = await alphabeticalSearchPage.selectSecondListResult();
+      expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberdeen Tribunal Hearing Centre?');
+    });
+
+    it('Should select the first item from the alphabetical search list and navigate to Aberdeen Tribunal Hearing Centre', async () => {
+      // await alphabeticalSearchPage.open('/alphabetical-search');
+      const aberdeenTribunalPage = await alphabeticalSearchPage.selectFirstListResult();
+      expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberdeen Tribunal Hearing Centre?');
     });
   });
 });
