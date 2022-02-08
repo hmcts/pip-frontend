@@ -1,5 +1,8 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
+import { CreateAccountService } from '../service/createAccountService';
+
+const createAccountService = new CreateAccountService();
 
 export default class CreateMediaAccountController {
   public get(req: PipRequest, res: Response): void {
@@ -8,6 +11,7 @@ export default class CreateMediaAccountController {
 
   public post(req: PipRequest, res: Response): void {
     console.log('req', req.body);
+    console.log('input', createAccountService.validateFormFields(req.body));
     res.render('create-media-account', req.i18n.getDataByLanguage(req.lng)['create-media-account']);
   }
 }
