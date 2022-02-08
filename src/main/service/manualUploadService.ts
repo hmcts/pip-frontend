@@ -156,13 +156,25 @@ export class ManualUploadService {
     }
   }
 
+  public joinDateValues(formData: any, dateName: string): string {
+    const dateDay = dateName + '-day';
+    const dateMonth = dateName + '-month';
+    const dateYear = dateName + '-year';
+    return `${formData[dateDay]}/${formData[dateMonth]}/${formData[dateYear]}`;
+  }
+
   public formatPublicationDates(formData: any, defaultFormat: boolean): object {
     return {
       ...formData,
-      'display-from': defaultFormat ? moment(formData['display-from']).format() : moment().format('D MMM YYYY'),
-      'display-to': defaultFormat ? moment(formData['display-to']).format() : moment().format('D MMM YYYY'),
-      'content-date-from': defaultFormat ? moment(formData['content-date-from']).format() : moment().format('D MMM YYYY'),
-      'content-date-to': defaultFormat ? moment(formData['content-date-to']).format() : moment().format('D MMM YYYY'),
+      'display-from': defaultFormat ?
+        moment(formData['display-from'], 'MM/DD/YYYY').format() :
+        moment(formData['display-from'], 'MM/DD/YYYY').format('D MMM YYYY'),
+      'display-to': defaultFormat ?
+        moment(formData['display-to'], 'MM/DD/YYYY').format() :
+        moment(formData['display-to'], 'MM/DD/YYYY').format('D MMM YYYY'),
+      'content-date-from': defaultFormat ?
+        moment(formData['content-date-from'], 'MM/DD/YYYY').format() :
+        moment(formData['content-date-from'], 'MM/DD/YYYY').format('D MMM YYYY'),
     };
   }
 

@@ -28,23 +28,6 @@
             rows: [
                 {
                     key: {
-                    text: fileKey
-                },
-                    value: {
-                    text: fileUploadData.fileName
-                },
-                    actions: {
-                    items: [
-                        {
-                            href: "manual-upload",
-                            text: actionName,
-                            visuallyHiddenText: fileKey
-                        }
-                    ]
-                }
-                },
-                {
-                    key: {
                     text: courtNameKey
                 },
                     value: {
@@ -56,6 +39,23 @@
                             href: "manual-upload",
                             text: actionName,
                             visuallyHiddenText: courtNameKey
+                        }
+                    ]
+                }
+                },
+                {
+                    key: {
+                    text: fileKey
+                },
+                    value: {
+                    text: fileUploadData.fileName
+                },
+                    actions: {
+                    items: [
+                        {
+                            href: "manual-upload",
+                            text: actionName,
+                            visuallyHiddenText: fileKey
                         }
                     ]
                 }
@@ -82,7 +82,7 @@
                     text: hearingDatesKey
                 },
                     value: {
-                    html: "<p class='govuk-body'>" + fileUploadData['content-date-from'] + " to " + fileUploadData['content-date-to'] + "</p>"
+                    text: fileUploadData['content-date-from']
                 },
                     actions: {
                     items: [
