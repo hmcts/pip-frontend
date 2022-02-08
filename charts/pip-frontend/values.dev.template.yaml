@@ -3,5 +3,5 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
   environment:
-    OIDC: true
+    OIDC: false
     AUTH_RETURN_URL: https://pip-frontend.staging.platform.hmcts.net/login/return
