@@ -8,25 +8,21 @@ const rawDataPubs = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/
 const pubs = JSON.parse(rawDataPubs);
 const totalCases = 3;
 const pubRequests = new SummaryOfPublicationsRequests();
+const errorRequest = {
+  request: 'test error',
+};
+const errorMsg = {
+  message: 'test error msg',
+};
+const errorResponse = {
+  response: {
+    data: 'test error',
+  },
+};
 const stub = sinon.stub(dataManagementApi, 'get');
-
-beforeEach(async () => {
-  stub.withArgs('/publication/search/0').resolves({data: pubs});
-});
+stub.withArgs('/publication/search/0').resolves({data: pubs});
 
 describe('get Publication request', () => {
-  const errorRequest = {
-    request: 'test error',
-  };
-  const errorMsg = {
-    message: 'test error msg',
-  };
-  const errorResponse = {
-    response: {
-      data: 'test error',
-    },
-  };
-
   it('should return list of publications if verified', async () => {
     const pubReq = await pubRequests.getListOfPubs(0, true);
     expect(pubReq.length).toBe(totalCases);
