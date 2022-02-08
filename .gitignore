@@ -23,5 +23,6 @@ npm-debug.log.*
 .settings/
 dist/
 public/
+manualUpload/
 
 /coverage

@@ -106,4 +106,19 @@ module.exports = {
 
   // UnsubscribeConfirmation selectors
   panelTitle: '.govuk-panel__title',
+
+  //Admin selectors
+  fileUpload: '#manual-file-upload',
+  contentDateFromDay: '#content-date-from-day',
+  contentDateFromMonth: '#content-date-from-month',
+  contentDateFromYear: '#content-date-from-year',
+  contentDateToDay: '#content-date-to-day',
+  contentDateToMonth: '#content-date-to-month',
+  contentDateToYear: '#content-date-to-year',
+  displayDateFromDay: '#display-date-from-day',
+  displayDateFromMonth: '#display-date-from-month',
+  displayDateFromYear: '#display-date-from-year',
+  displayDateToDay: '#display-date-to-day',
+  displayDateToMonth: '#display-date-to-month',
+  displayDateToYear: '#display-date-to-year',
 };
