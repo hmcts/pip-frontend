@@ -36,7 +36,7 @@ describe('File Upload Summary Page', () => {
 
   it('should display correct title', async () => {
     const title = htmlRes.getElementsByClassName('govuk-heading-l')[0];
-    expect(title.innerHTML).to.equal('Check your answers', 'Unable to find header');
+    expect(title.innerHTML).to.equal('Check upload details', 'Unable to find header');
   });
 
   it('should display confirm button', async () => {

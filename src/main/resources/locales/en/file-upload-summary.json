@@ -1,6 +1,6 @@
 {
   "title": "File Upload Summary",
-  "header": "Check your answers",
+  "header": "Check upload details",
   "actionName": "Change",
   "fileKey": "File",
   "courtNameKey": "Court name",

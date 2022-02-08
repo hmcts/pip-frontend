@@ -394,7 +394,7 @@ describe('Verified user', () => {
       it('should complete form and open summary page', async () => {
         await manualUploadPage.completeForm();
         manualUploadSummaryPage = await manualUploadPage.clickContinue();
-        expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check your answers');
+        expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
       });
 
       it('should open upload confirmation page', async () => {
