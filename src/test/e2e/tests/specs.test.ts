@@ -313,6 +313,11 @@ describe('Verified user', () => {
       it(`should display ${tribunalCourts} results (Tribunal) filter`, async() => {
         expect(await courtNameSearchPage.getResults()).toBe(tribunalCourts);
       });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
     });
 
     describe('Following the subscription \'search\' by case reference path', () => {
