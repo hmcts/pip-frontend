@@ -156,19 +156,16 @@ describe('Unverified user', () => {
     });
 
     it('Should select the first item from the alphabetical search list and navigate to SJP hearing list', async () => {
-      // await alphabeticalSearchPage.open('/alphabetical-search');
       hearingListPage = await alphabeticalSearchPage.selectSJPLink();
       expect(await hearingListPage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
     });
 
     it('Should select the second item from the alphabetical search list and navigate to Aberdeen Tribunal Hearing Centre', async () => {
-      // await alphabeticalSearchPage.open('/alphabetical-search');
       const aberdeenTribunalPage = await alphabeticalSearchPage.selectSecondListResult();
       expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberdeen Tribunal Hearing Centre?');
     });
 
     it('Should select the first item from the alphabetical search list and navigate to Aberdeen Tribunal Hearing Centre', async () => {
-      // await alphabeticalSearchPage.open('/alphabetical-search');
       const aberdeenTribunalPage = await alphabeticalSearchPage.selectFirstListResult();
       expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberdeen Tribunal Hearing Centre?');
     });

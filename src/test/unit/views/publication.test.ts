@@ -23,7 +23,7 @@ describe('Publication Page', () => {
 
   it('should display header', () => {
     const header = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(header[0].innerHTML).contains('Summary of Publications', 'Could not find correct value in header');
+    expect(header[0].innerHTML).contains('What do you want to view from', 'Could not find correct value in header');
   });
 
   it('should display paragraph', () => {

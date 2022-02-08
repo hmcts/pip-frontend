@@ -1,6 +1,5 @@
 import { HearingListPage } from './HearingList.page';
 import { CommonPage } from './Common.page';
-import {SingleJusticeProcedurePage} from "./SingleJusticeProcedure.page";
 
 const helpers = require('../Helpers/Selectors');
 
