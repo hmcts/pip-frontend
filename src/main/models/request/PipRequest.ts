@@ -30,8 +30,13 @@ export interface PipRequest extends Request {
       'session-management': {};
       'standard-list': {};
       'account-home': {};
+      'delete-subscription': {};
+      'unsubscribe-confirmation': {};
+      'sign-in': {};
+      'manual-upload': {};
     };
   };
   lng?: string;
   user?: object;
+  file?: File;
 }

@@ -1,0 +1,39 @@
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+    {{ pageName }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+
+{% block content %}
+    {{ govukPanel({
+        titleText: title,
+        text: message
+    }) }}
+    <p class="govuk-body">
+        {{ pStart }}
+        <a class="govuk-link" href="your-account">{{ yourAccount }}</a>
+        {{ pEnd }}
+    </p>
+    <ul class="govuk-list govuk-list--bullet">
+        {% for item in listItems %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+    </script>
+{% endblock %}

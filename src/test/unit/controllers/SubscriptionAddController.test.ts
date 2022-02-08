@@ -5,7 +5,7 @@ import {mockRequest} from '../mocks/mockRequest';
 
 const subscriptionAddController = new SubscriptionAddController();
 
-describe('Subscription Add Controller', () => {
+describe('Subscriptions Add Controller', () => {
   const i18n = {};
   it('should render the subscription add page', () => {
 
@@ -71,7 +71,6 @@ describe('Subscription Add Controller', () => {
 
     responseMock.verify();
   });
-
 
   it('should render case name search page if choice is \'name\'', () => {
     const response = { redirect: function() {return '';}} as unknown as Response;

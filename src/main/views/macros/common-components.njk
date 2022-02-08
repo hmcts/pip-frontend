@@ -1,9 +1,10 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
-{% macro submitButton(label = 'Continue', id = '', ariaLabel = 'Continue Button') %}
+{% macro submitButton(label = 'Continue', id = '', ariaLabel = 'Continue Button', disable = false) %}
     {{ govukButton({
-        text: label
+        text: label,
+        disabled: disable
     })}}
 {% endmacro %}
 

@@ -11,4 +11,3 @@ export class CaseEventGlossaryPage extends CommonPage {
     return $(helpers.AppealInterpreterSworn).isDisplayedInViewport();
   }
 }
-
