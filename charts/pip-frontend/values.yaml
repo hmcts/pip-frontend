@@ -2,6 +2,9 @@ nodejs:
   applicationPort: 8080
   ingressHost: pip-frontend.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'sdshmctspublic.azurecr.io/pip/frontend:latest'
+  environment:
+    OIDC: true
+    AUTH_RETURN_URL: https://pip-frontend.staging.platform.hmcts.net/login/return
   keyVaults:
     pip-ss-kv:
       resourceGroup: pip-ss-{{ .Values.global.environment }}-rg
@@ -29,8 +32,5 @@ nodejs:
         - name: b2c-test-account
           alias: B2C_USERNAME
   aadIdentityName: pip
-  environment:
-    OIDC: true
-    AUTH_RETURN_URL: https://pip-frontend.staging.platform.hmcts.net/login/return
 
 

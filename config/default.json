@@ -8,7 +8,7 @@
   },
   "secrets": {
     "pip-ss-kv": {
-      "CLIENT_SECRET": "",
+      "CLIENT_SECRET": "client-secret",
       "SESSION_SECRET": "super-session-secret",
       "REDIS_HOST": "127.0.0.1",
       "REDIS_PORT": "6379",
