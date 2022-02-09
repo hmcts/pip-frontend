@@ -23,7 +23,7 @@ export class CreateAccountService {
   }
 
   isValidImageType(imageName: string): boolean {
-    const imageType = imageName.split('.')[1].toLocaleLowerCase();
+    const imageType = imageName.split('.')[1]?.toLocaleLowerCase();
     return allowedImageTypes.includes(imageType);
   }
 
