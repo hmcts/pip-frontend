@@ -13,11 +13,13 @@ export default class CreateMediaAccountController {
   }
 
   public post(req: PipRequest, res: Response): void {
-    console.log('req', req.body);
-    console.log('input', createAccountService.validateFormFields(req.body));
-    res.render('create-media-account', {
-      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-media-account']),
-      formErrors: createAccountService.validateFormFields(req.body),
-    });
+    const formValidation = createAccountService.validateFormFields(req.body);
+    const isValidForm = Object.values(formValidation).every(o => o.message === null);
+    isValidForm ?
+      res.redirect('account-request-submitted') :
+      res.render('create-media-account', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-media-account']),
+        formErrors: formValidation,
+      });
   }
 }
