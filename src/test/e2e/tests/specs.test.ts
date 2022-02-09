@@ -196,7 +196,7 @@ describe('Verified user', () => {
         await signInPage.enterText(config.get('secrets.pip-ss-kv.B2C_USERNAME'), 'EmailField');
         await signInPage.enterText(config.get('secrets.pip-ss-kv.B2C_PASSWORD'), 'PasswordField');
         accountHomePage = await signInPage.clickSignIn();
-        // await browser.pause(5000);
+        await browser.pause(2000);
       });
 
       it('should open account home page on successful sign in', async () => {
@@ -368,6 +368,7 @@ describe('Verified user', () => {
       expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
     });
   });
+
   describe('Admin level journeys', () => {
     describe('Manual Upload', () => {
       it('should open manual upload page', async () => {

@@ -38,8 +38,6 @@ export class SignInPage extends CommonPage {
     });
     const continueButton = await $(helpers.ContinueButton);
     continueButton.click();
-
-    // return 'https://google.com';
   }
 
   async enterText(text: string, field: string): Promise<void> {
