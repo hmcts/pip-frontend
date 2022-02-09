@@ -24,7 +24,9 @@ import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.
 import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
 import config = require('config');
+import { Logger } from '@hmcts/nodejs-logging';
 
+const logger = Logger.getLogger('E2E');
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
 let subscriptionManagementPage: SubscriptionManagementPage;
@@ -193,6 +195,8 @@ describe('Verified user', () => {
         await signInPage.open('/sign-in');
         await signInPage.selectOption('SignInRadio3');
         await signInPage.clickContinueForRadio3();
+        console.log('B2C_USERNAME', config.get('secrets.pip-ss-kv.B2C_USERNAME'));
+        logger.info('B2C_USERNAME', config.get('secrets.pip-ss-kv.B2C_USERNAME'));
         await signInPage.enterText(config.get('secrets.pip-ss-kv.B2C_USERNAME'), 'EmailField');
         await signInPage.enterText(config.get('secrets.pip-ss-kv.B2C_PASSWORD'), 'PasswordField');
         accountHomePage = await signInPage.clickSignIn();
