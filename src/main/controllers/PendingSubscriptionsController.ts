@@ -7,9 +7,10 @@ const subscriptionService = new SubscriptionService();
 
 export default class PendingSubscriptionsController {
   public async get(req: PipRequest, res: Response): Promise<void> {
+    console.log('get', req.user['oid']);
     const pendingSubscriptions = {
-      cases: await subscriptionService.getPendingSubscriptions(req.user['id'], 'cases'),
-      courts: await subscriptionService.getPendingSubscriptions(req.user['id'], 'courts'),
+      cases: await subscriptionService.getPendingSubscriptions(req.user['oid'], 'cases'),
+      courts: await subscriptionService.getPendingSubscriptions(req.user['oid'], 'courts'),
     };
     res.render('pending-subscriptions', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['pending-subscriptions']),
@@ -20,8 +21,8 @@ export default class PendingSubscriptionsController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     await subscriptionService.handleNewSubscription(req.body, req.user);
     const pendingSubscriptions = {
-      cases: await subscriptionService.getPendingSubscriptions(req.user['id'], 'cases'),
-      courts: await subscriptionService.getPendingSubscriptions(req.user['id'], 'courts'),
+      cases: await subscriptionService.getPendingSubscriptions(req.user['oid'], 'cases'),
+      courts: await subscriptionService.getPendingSubscriptions(req.user['oid'], 'courts'),
     };
 
     res.render('pending-subscriptions', {
@@ -31,10 +32,10 @@ export default class PendingSubscriptionsController {
   }
 
   public async removeSubscription(req: PipRequest, res: Response): Promise<void> {
-    await subscriptionService.removeFromCache(req.query, req.user['id']);
+    await subscriptionService.removeFromCache(req.query, req.user['oid']);
     const pendingSubscriptions = {
-      cases: await subscriptionService.getPendingSubscriptions(req.user['id'], 'cases'),
-      courts: await subscriptionService.getPendingSubscriptions(req.user['id'], 'courts'),
+      cases: await subscriptionService.getPendingSubscriptions(req.user['oid'], 'cases'),
+      courts: await subscriptionService.getPendingSubscriptions(req.user['oid'], 'courts'),
     };
 
     res.render('pending-subscriptions', {
