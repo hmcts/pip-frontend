@@ -3,10 +3,22 @@ import { allowedImageTypes } from '../models/consts';
 export class CreateAccountService {
   public validateFormFields(formValues: object): object {
     return {
-      nameError: this.isNotBlank(formValues['fullName']) ? null : 'Enter your full name',
-      emailError: this.validateEmail(formValues['emailAddress']),
-      employerError: this.isNotBlank(formValues['employer']) ? null : 'Enter your employer',
-      fileUploadError: this.validateImage(formValues['file-upload']),
+      nameError: {
+        message: this.isNotBlank(formValues['fullName']) ? null : 'Enter your full name',
+        href: '#fullName',
+      },
+      emailError: {
+        message: this.validateEmail(formValues['emailAddress']),
+        href: '#emailAddress',
+      },
+      employerError: {
+        message: this.isNotBlank(formValues['employer']) ? null : 'Enter your employer',
+        href: '#employer',
+      },
+      fileUploadError: {
+        message:this.validateImage(formValues['file-upload']),
+        href: '#file-upload',
+      },
     };
   }
 
