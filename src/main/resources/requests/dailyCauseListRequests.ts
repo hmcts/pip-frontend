@@ -25,11 +25,6 @@ export class DailyCauseListRequests {
 
   public async getDailyCauseListMetaData(artefactId: string): Promise<any> {
     try {
-      const config = {
-        headers: {
-          verification: 'true',
-        },
-      };
       const response = await dataManagementApi.get('/publication/' + artefactId, config);
       return response.data;
     } catch (error) {
