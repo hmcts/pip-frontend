@@ -24,6 +24,10 @@ nodejs:
           alias: REDIS_PORT
         - name: b2c-auth-endpoint
           alias: B2C_AUTH_ENDPOINT
+        - name: b2c-test-account-pwd
+          alias: B2C_PASSWORD
+        - name: b2c-test-account
+          alias: B2C_USERNAME
   aadIdentityName: pip
   environment:
     OIDC: true
