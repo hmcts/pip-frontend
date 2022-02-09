@@ -5,3 +5,4 @@ nodejs:
   environment:
     OIDC: true
     AUTH_RETURN_URL: https://pip-frontend.staging.platform.hmcts.net/login/return
+    EXCLUDE_E2E: true
