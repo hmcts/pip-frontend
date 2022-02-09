@@ -24,6 +24,8 @@ import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmat
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
 import {ManualUploadPage} from '../PageObjects/ManualUpload.page';
+import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
+import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -48,6 +50,8 @@ let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
+let createMediaAccountPage: CreateMediaAccountPage;
+let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 const signInPage = new SignInPage;
 const manualUploadPage = new ManualUploadPage;
 
@@ -159,6 +163,27 @@ describe('Unverified user', () => {
       await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
       singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
       expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Single Justice Procedure cases');
+    });
+  });
+
+  describe('request an account', () => {
+    before(async () => {
+      await signInPage.open('/sign-in');
+    });
+
+    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+    });
+
+    it('should click on the create account link', async () => {
+      createMediaAccountPage = await signInPage.clickCreateAccount();
+      expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a court and tribunal hearing account');
+    });
+
+    it('should complete form and continue to confirmation page', async () => {
+      await createMediaAccountPage.completeForm();
+      mediaAccountRequestSubmittedPage = await createMediaAccountPage.clickContinue();
+      expect(await mediaAccountRequestSubmittedPage.getPanelTitle()).toEqual('Details submitted');
     });
   });
 });

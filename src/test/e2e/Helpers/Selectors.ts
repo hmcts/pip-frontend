@@ -117,4 +117,10 @@ module.exports = {
   displayDateToDay: '#display-date-to-day',
   displayDateToMonth: '#display-date-to-month',
   displayDateToYear: '#display-date-to-year',
+
+  // CreateMediaAccount selectors
+  UploadImage: '#file-upload',
+  NameInput: '#fullName',
+  EmailInput: '#emailAddress',
+  EmployerInput: '#employer',
 };

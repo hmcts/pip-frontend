@@ -1,4 +1,5 @@
 import { CommonPage } from './Common.page';
+import { CreateMediaAccountPage } from './CreateMediaAccount.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -41,4 +42,12 @@ export class SignInPage extends CommonPage {
     return 'https://google.com';
   }
 
+  async clickCreateAccount(): Promise<CreateMediaAccountPage> {
+    $(helpers.SearchAToZLink).catch(() => {
+      console.log(`${helpers.SearchAToZLink} not found`);
+    });
+
+    await $(helpers.SearchAToZLink).click();
+    return new CreateMediaAccountPage();
+  }
 }
