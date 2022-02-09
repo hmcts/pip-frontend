@@ -7,9 +7,7 @@ const createAccountService = new CreateAccountService();
 
 export default class CreateMediaAccountController {
   public get(req: PipRequest, res: Response): void {
-    res.render('create-media-account', {
-      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-media-account']),
-    });
+    res.render('create-media-account', req.i18n.getDataByLanguage(req.lng)['create-media-account']);
   }
 
   public post(req: PipRequest, res: Response): void {
