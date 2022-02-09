@@ -3,7 +3,7 @@
   "heading": "Your account",
   "cards": [
     {
-      "title": "Court or tribunal hearings",
+      "title": "Court and tribunal hearings",
       "description": "View time, location, type of hearings and more.",
       "link": "search"
     },
@@ -14,7 +14,7 @@
     },
     {
       "title": "Email subscriptions",
-      "description": "Get emails about hearings from different courts and tribunals and manage your subscription.",
+      "description": "Get emails about hearings from different courts and tribunals and manage your subscriptions.",
       "link": "subscription-management"
     }
   ]

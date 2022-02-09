@@ -8,7 +8,7 @@ const PAGE_URL = '/account-home';
 const expectedCards = 3;
 const cards = [
   {
-    title: 'Court or tribunal hearings',
+    title: 'Court and tribunal hearings',
     description: 'View time, location, type of hearings and more.',
     link: 'search',
   },
@@ -19,7 +19,7 @@ const cards = [
   },
   {
     title: 'Email subscriptions',
-    description: 'Get emails about hearings from different courts and tribunals and manage your subscription.',
+    description: 'Get emails about hearings from different courts and tribunals and manage your subscriptions.',
     link: 'subscription-management',
   }];
 let htmlRes: Document;
