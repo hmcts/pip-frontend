@@ -33,7 +33,8 @@ export default function(app: Application): void {
         };
         next();
       } else {
-        req.render('error');
+        req.query = {showerror: 'true'};
+        next();
       }
     } else {
       next();
