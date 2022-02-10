@@ -81,7 +81,7 @@ export class ManualUploadService {
     return 'Court name must be three characters or more';
   }
 
-  private buildDate(body: object, fieldsetPrefix: string): string {
+  public buildDate(body: object, fieldsetPrefix: string): string {
     return body[`${fieldsetPrefix}-day`]?.concat('/', body[`${fieldsetPrefix}-month`],'/', body[`${fieldsetPrefix}-year`]);
   }
 
@@ -154,13 +154,6 @@ export class ManualUploadService {
       console.error(`Error while reading the file ${err}.`);
       return null;
     }
-  }
-
-  public joinDateValues(formData: any, dateName: string): string {
-    const dateDay = dateName + '-day';
-    const dateMonth = dateName + '-month';
-    const dateYear = dateName + '-year';
-    return `${formData[dateDay]}/${formData[dateMonth]}/${formData[dateYear]}`;
   }
 
   public formatPublicationDates(formData: any, defaultFormat: boolean): object {
