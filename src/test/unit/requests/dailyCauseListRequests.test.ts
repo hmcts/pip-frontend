@@ -34,6 +34,11 @@ stub.withArgs('/publication/abc2/payload').resolves(Promise.reject(errorRequest)
 stub.withArgs('/publication/abc3/payload').resolves(Promise.reject(errorMessage));
 stub.withArgs('/publication/'+ artefactId + '/payload').resolves({data: dailyCauseListData});
 
+stub.withArgs('/publication/abc1').resolves(Promise.reject(errorResponse));
+stub.withArgs('/publication/abc2').resolves(Promise.reject(errorRequest));
+stub.withArgs('/publication/abc3').resolves(Promise.reject(errorMessage));
+stub.withArgs('/publication/'+ artefactId).resolves({data: metaData});
+
 describe('getDailyCauseList()', () => {
 
   it('should return list of daily cause list', async () => {
@@ -72,12 +77,6 @@ describe('getDailyCauseList()', () => {
 });
 
 describe('getDailyCauseListMetaData()', () => {
-  beforeEach(() => {
-    stub.withArgs('/publication/abc1').resolves(Promise.reject(errorResponse));
-    stub.withArgs('/publication/abc2').resolves(Promise.reject(errorRequest));
-    stub.withArgs('/publication/abc3').resolves(Promise.reject(errorMessage));
-    stub.withArgs('/publication/'+ artefactId).resolves({data: metaData});
-  });
 
   it('should return list of daily cause list meta data', async () => {
     expect(await dailyCauseListRequests.getDailyCauseListMetaData(artefactId)).toBe(metaData);
