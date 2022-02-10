@@ -29,13 +29,12 @@ const errorMessage = {
   message: 'test',
 };
 
+stub.withArgs('/publication/abc1/payload').resolves(Promise.reject(errorResponse));
+stub.withArgs('/publication/abc2/payload').resolves(Promise.reject(errorRequest));
+stub.withArgs('/publication/abc3/payload').resolves(Promise.reject(errorMessage));
+stub.withArgs('/publication/'+ artefactId + '/payload').resolves({data: dailyCauseListData});
+
 describe('getDailyCauseList()', () => {
-  beforeEach(() => {
-    stub.withArgs('/publication/abc1/payload').resolves(Promise.reject(errorResponse));
-    stub.withArgs('/publication/abc2/payload').resolves(Promise.reject(errorRequest));
-    stub.withArgs('/publication/abc3/payload').resolves(Promise.reject(errorMessage));
-    stub.withArgs('/publication/'+ artefactId + '/payload').resolves({data: dailyCauseListData});
-  });
 
   it('should return list of daily cause list', async () => {
     expect(await dailyCauseListRequests.getDailyCauseList(artefactId)).toBe(dailyCauseListData);
