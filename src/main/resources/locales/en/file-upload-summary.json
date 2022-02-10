@@ -6,7 +6,7 @@
   "courtNameKey": "Court name",
   "documentTypeKey": "Document name",
   "listTypeKey": "List type",
-  "hearingDatesKey": "Hearing dates",
+  "hearingDatesKey": "Hearing start date",
   "availableToKey": "Available to",
   "languageKey": "Language",
   "displayFileDatesKey": "Display file dates",
