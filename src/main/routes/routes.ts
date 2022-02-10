@@ -23,6 +23,23 @@ export default function(app: Application): void {
     },
   });
 
+  const fileSizeLimitErrorHandler = (err, req, res, next): any => {
+    if (err) {
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        // set dummy properties to trigger proper error message
+        req.file = {
+          size: 2000001,
+          originalname: 'too_large_file.pdf',
+        };
+        next();
+      } else {
+        req.render('error');
+      }
+    } else {
+      next();
+    }
+  };
+
   const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
   const corsOptions = {
     origin: 'https://pib2csbox.b2clogin.com',
@@ -109,7 +126,7 @@ export default function(app: Application): void {
 
   // restricted admin paths
   app.get('/manual-upload', ensureAuthenticated, app.locals.container.cradle.manualUploadController.get);
-  app.post('/manual-upload', ensureAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), app.locals.container.cradle.manualUploadController.post);
+  app.post('/manual-upload', ensureAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualUploadController.post);
   app.get('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.get);
   app.post('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
   app.get('/upload-confirmation', ensureAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
