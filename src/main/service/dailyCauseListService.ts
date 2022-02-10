@@ -26,7 +26,7 @@ export class DailyCauseListService {
 
               const duration = moment.duration(sittingEnd.startOf('hour').diff(sittingStart.startOf('hour')));
               sitting['duration'] = duration.asHours();
-              sitting['startTime'] = sittingStart.format('hha');
+              sitting['startTime'] = sittingStart.format('ha');
             }
             hearingCount = hearingCount + sitting['hearing'].length;
           });
