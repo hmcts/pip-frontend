@@ -11,7 +11,7 @@ describe('Interstitial Controller', () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     const responseMock = sinon.mock(response);
-    request['cookies'] = {'i18next': 'en'};
+    request['lng'] = 'en';
     const expectedOptions = {
       ...i18n.interstitial,
       currentLanguage: 'en',
@@ -27,7 +27,7 @@ describe('Interstitial Controller', () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     const responseMock = sinon.mock(response);
-    request['cookies'] = {'i18next': 'en'};
+    request['lng'] = 'en';
     request.query = {lng: 'en'};
     const expectedOptions = {
       ...i18n.interstitial,
@@ -44,7 +44,7 @@ describe('Interstitial Controller', () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     const responseMock = sinon.mock(response);
-    request['cookies'] = {'i18next': 'cy'};
+    request['lng'] = 'cy';
     request.query = {lng: 'cy'};
     const expectedOptions = {
       ...i18n.interstitial,

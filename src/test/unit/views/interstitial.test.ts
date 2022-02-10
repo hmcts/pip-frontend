@@ -8,7 +8,7 @@ const PAGE_URL = '/interstitial';
 describe('Interstitial page', () => {
   describe('with English translations', () => {
     beforeAll(async () => {
-      app.request['cookies'] = {i18next: 'en'};
+      app.request['lng'] = 'en';
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       });
@@ -58,7 +58,7 @@ describe('Interstitial page', () => {
 
   describe('with Welsh translations', () => {
     beforeAll(async () => {
-      app.request['cookies'] = {i18next: 'cy'};
+      app.request['lng'] = 'cy';
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       });
@@ -80,5 +80,4 @@ describe('Interstitial page', () => {
         'Could not find language message');
     });
   });
-
 });
