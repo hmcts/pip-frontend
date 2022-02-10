@@ -24,6 +24,7 @@ import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmat
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
 import { InterstitialPage } from '../PageObjects/Interstitial.page';
+import {ManualUploadPage} from '../PageObjects/ManualUpload.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -50,20 +51,20 @@ let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 let interstitialPage: InterstitialPage;
 const signInPage = new SignInPage;
+const manualUploadPage = new ManualUploadPage;
 
 describe('Unverified user', () => {
-
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
     await homePage.open('');
     expect(await homePage.getPageTitle()).toEqual('HMCTS hearing lists');
   });
 
-  it('should click on the \'Courts and tribunal hearings\' link and navigate to View Options page', async () => {
+  it('should click on the \'Courts and tribunal hearings\' link and navigate to Interstitial page', async () => {
     interstitialPage = await homePage.clickLinkToService();
     expect(await interstitialPage.getPageTitle()).toEqual('Court and tribunal hearings');
   });
 
-  it('should click on the \'Courts and tribunal hearings\' link and navigate to View Options page', async () => {
+  it('should click on the continue and navigate to View Options page', async () => {
     viewOptionPage = await interstitialPage.clickContinue();
     expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
   });
@@ -123,7 +124,7 @@ describe('Unverified user', () => {
         expect(await hearingListPage.getPageTitle()).toEqual('Blackburn Magistrates\' Court hearing list');
       });
 
-      it(`should display ${expectedNumOfHearings} results`, async() => {
+      it(`should display ${expectedNumOfHearings} results`, async () => {
         expect(await hearingListPage.getResults()).toBe(expectedNumOfHearings);
       });
     });
@@ -248,7 +249,7 @@ describe('Verified user', () => {
         expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
       });
 
-      it(`should display ${expectedNumOfResults} results`, async() => {
+      it(`should display ${expectedNumOfResults} results`, async () => {
         expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
       });
 
@@ -290,7 +291,6 @@ describe('Verified user', () => {
 
     describe('following court or tribunal page', async () => {
       const allCourts = 305;
-
       const tribunalCourts = 49;
 
       before(async () => {
@@ -303,7 +303,7 @@ describe('Verified user', () => {
         expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
       });
 
-      it(`should display ${allCourts} results`, async() => {
+      it(`should display ${allCourts} results`, async () => {
         expect(await courtNameSearchPage.getResults()).toBe(allCourts);
       });
 
@@ -317,7 +317,7 @@ describe('Verified user', () => {
         expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
       });
 
-      it(`should display ${tribunalCourts} results (Tribunal) filter`, async() => {
+      it(`should display ${tribunalCourts} results (Tribunal) filter`, async () => {
         expect(await courtNameSearchPage.getResults()).toBe(tribunalCourts);
       });
 
@@ -383,6 +383,18 @@ describe('Verified user', () => {
       await deleteSubscriptionPage.selectOption('yesRadioButton');
       unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
       expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+    });
+  });
+
+  describe('Admin level journeys', () => {
+    describe('Manual Upload', () => {
+      it('should open manual upload page', async () => {
+        await manualUploadPage.open('/manual-upload');
+        expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
+      });
+      it('should complete form', async () => {
+        manualUploadPage.completeForm();
+      });
     });
   });
 });
