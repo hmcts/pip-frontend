@@ -32,7 +32,7 @@ export class CreateAccountService {
   }
 
   isValidEmail(email: string): boolean {
-    const emailRegex = /\S+@\S+\.\S+/;
+    const emailRegex = /^[a-zA-Z0-9._-]{0,40}@[a-zA-Z0-9.-]{0,40}\.[a-zA-Z]{2,5}$/;
     return emailRegex.test(email);
   }
 
