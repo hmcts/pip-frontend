@@ -24,7 +24,7 @@ const alphabet = [
 ];
 const validCourt = 'Abergavenny Magistrates\' Court';
 
-stubCourtsFilter.withArgs(['jurisdiction'], ['crown court']).returns(hearingsData);
+stubCourtsFilter.withArgs('', 'crown court').returns(hearingsData);
 stubCourt.withArgs(1).returns(hearingsData[0]);
 stubCourtByName.withArgs(validCourt).returns(hearingsData[0]);
 
@@ -77,12 +77,12 @@ describe('Court Service', () => {
   });
 
   it(`should have filtered a ${validCourt} key`, async () => {
-    const data = await courtService.generateFilteredAlphabetisedCourtList(['jurisdiction'], ['crown court']);
+    const data = await courtService.generateFilteredAlphabetisedCourtList('', 'crown court');
     expect(validCourt in data['A']).to.be.true;
   });
 
   it(`should return object with ${validKeysCount} keys`, async () => {
-    const data = await courtService.generateFilteredAlphabetisedCourtList(['jurisdiction'], ['crown court']);
+    const data = await courtService.generateFilteredAlphabetisedCourtList('', 'crown court');
     expect(Object.keys(data).length).to.equal(validKeysCount);
   });
 

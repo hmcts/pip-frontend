@@ -30,9 +30,9 @@ sinon.stub(redisClient, 'status').value('ready');
 const stubCacheGet = sinon.stub(redisClient, 'get');
 sinon.stub(redisClient, 'set').withArgs('court-4').returns(JSON.stringify(courtList[0]));
 
-const filters = ['location', 'jurisdiction'];
-const values = ['london', 'Crown Court'];
-const test = ['test'];
+const regions = 'london';
+const jurisdictions = 'Crown Court';
+const test = 'test';
 
 describe('Court get requests', () => {
 
@@ -43,15 +43,15 @@ describe('Court get requests', () => {
     stub.withArgs('/courts/4').resolves(Promise.reject(errorMessage));
     stub.withArgs('/courts/5').resolves({data: courtList[4]});
 
-    stub.withArgs(`/courts/find/${courtNameSearch}`).resolves({data: courtList[0]});
-    stub.withArgs('/courts/find/test').resolves(Promise.reject(errorResponse));
-    stub.withArgs('/courts/find/testReq').resolves(Promise.reject(errorRequest));
-    stub.withArgs('/courts/find/testMes').resolves(Promise.reject(errorMessage));
+    stub.withArgs(`/courts/name/${courtNameSearch}`).resolves({data: courtList[0]});
+    stub.withArgs('/courts/name/test').resolves(Promise.reject(errorResponse));
+    stub.withArgs('/courts/name/testReq').resolves(Promise.reject(errorRequest));
+    stub.withArgs('/courts/name/testMes').resolves(Promise.reject(errorMessage));
 
-    stub.withArgs('/courts/filter', {data: {filters: filters, values: values}}).resolves({data: courtList});
-    stub.withArgs('/courts/filter', {data: {filters: test, values: test}}).resolves(Promise.reject(errorResponse));
-    stub.withArgs('/courts/filter', {data: {filters: test, values: 'error'}}).resolves(Promise.reject(errorMessage));
-    stub.withArgs('/courts/filter', {data: {filters: test, values: ['foo']}}).resolves(Promise.reject(errorRequest));
+    stub.withArgs('/courts/filter', {params: {regions: regions, jurisdictions: jurisdictions}}).resolves({data: courtList});
+    stub.withArgs('/courts/filter', {params: {regions: test, jurisdictions: test}}).resolves(Promise.reject(errorResponse));
+    stub.withArgs('/courts/filter', {params: {regions: test, jurisdictions: 'error'}}).resolves(Promise.reject(errorMessage));
+    stub.withArgs('/courts/filter', {params: {regions: test, jurisdictions: 'foo'}}).resolves(Promise.reject(errorRequest));
 
     stub.withArgs('/courts').resolves({data: courtList});
   });
@@ -99,7 +99,7 @@ describe('Court get requests', () => {
   });
 
   it('should return list of courts based on search filter', async () => {
-    expect(await courtRequests.getFilteredCourts(filters, values)).toBe(courtList);
+    expect(await courtRequests.getFilteredCourts(regions, jurisdictions)).toBe(courtList);
   });
 
   it('should return null if request fails', async () => {
@@ -107,7 +107,7 @@ describe('Court get requests', () => {
   });
 
   it('should return null if response fails', async () => {
-    expect(await courtRequests.getFilteredCourts(test, ['error'])).toBe(null);
+    expect(await courtRequests.getFilteredCourts(test, 'error')).toBe(null);
   });
 
   it('should return list of courts', async () => {
@@ -126,7 +126,7 @@ describe('Court get requests', () => {
 
   it('should return null list of courts for error request', async () => {
     stub.withArgs('/courts').resolves(Promise.reject(errorRequest));
-    expect(await courtRequests.getFilteredCourts(test, ['foo'])).toBe(null);
+    expect(await courtRequests.getFilteredCourts(test, 'foo')).toBe(null);
   });
 
   it('should return null list of courts for error request', async () => {

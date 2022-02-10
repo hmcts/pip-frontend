@@ -35,7 +35,7 @@ export class CourtRequests {
 
   public async getCourtByName(courtName: string): Promise<Court> {
     try {
-      const response = await dataManagementApi.get(`/courts/find/${courtName}`);
+      const response = await dataManagementApi.get(`/courts/name/${courtName}`);
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -49,12 +49,12 @@ export class CourtRequests {
     return null;
   }
 
-  public async getFilteredCourts(filters: string[], values: string[]): Promise<Array<Court>> {
+  public async getFilteredCourts(regions: string, jurisdictions: string): Promise<Array<Court>> {
     try {
       const response = await dataManagementApi.get('/courts/filter', {
-        data: {
-          filters: filters,
-          values: values,
+        params: {
+          regions: regions,
+          jurisdictions: jurisdictions,
         },
       });
       return response.data;
