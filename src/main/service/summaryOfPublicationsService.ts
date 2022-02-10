@@ -13,7 +13,7 @@ export class SummaryOfPublicationsService {
     return PublicationReqs.getIndividualPubMetadata(artefactId, verification);
   }
 
-  public async getIndivPubFile(artefactId, verification: boolean): Promise<string> {
+  public async getIndivPubFile(artefactId, verification: boolean): Promise<Blob> {
     return PublicationReqs.getIndividualPubFile(artefactId, verification);
   }
 }

@@ -10,12 +10,14 @@ export default class PdfController {
     const artefactId = req.query['artefactId'];
     const metadata = await publicationService.getIndivPubMetadata(artefactId, (!!req.user));
     const fileData = await publicationService.getIndivPubFile(artefactId, (!!req.user));
-    const fileDataBuffer = Buffer.from(fileData, 'base64');
     if (metadata.isFlatFile) {
       console.log('this is a flatFile');
-      res.set('Content-Type', 'application/pdf');
-      res.set('filename', 'data.pdf');
-      res.send(fileDataBuffer);
+      res.set('Content-Disposition', 'inline;filename='+metadata.sourceArtefactId);
+      if(metadata.sourceArtefactId.endsWith('.pdf')){
+        res.set('Content-Type', 'application/pdf');
+      }
+      else{res.set('Content-Disposition', 'attachment;filename='+metadata.sourceArtefactId);}
+      res.send(fileData);
     } else {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }

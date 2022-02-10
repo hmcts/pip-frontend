@@ -34,9 +34,9 @@ export class SummaryOfPublicationsRequests {
     }
   }
 
-  public async getIndividualPubFile(artefactId, verification): Promise<string> {
+  public async getIndividualPubFile(artefactId, verification): Promise<Blob> {
     try{
-      const response = await dataManagementApi.get(`/publication/${artefactId}/payload`, {headers: {'verification': `${verification}`}});
+      const response = await dataManagementApi.get(`/publication/${artefactId}/file`, {headers: {'verification': `${verification}`}, responseType: 'arraybuffer'});
       return response.data;
     } catch (error) {
       if (error.response) {
