@@ -34,7 +34,7 @@ export class CourtService {
 
   public async generateAlphabetisedCrownCourtList(): Promise<object> {
     const regions = '';
-    const jurisdictions = 'crown court';
+    const jurisdictions = 'Crown Court';
     return this.generateFilteredAlphabetisedCourtList(regions, jurisdictions);
   }
 

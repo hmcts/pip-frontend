@@ -75,22 +75,16 @@ describe('Unverified user', () => {
     });
 
     describe('following the \'I have the name\' path', async () => {
-      const searchTerm = 'Blackpool Magistrates\' Court';
-      const expectedNumOfHearings = 9;
+      const searchTerm = 'Leicester Tribunal Hearing Centre';
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
         hearingListPage = await searchPage.clickContinue();
-        expect(await hearingListPage.getPageTitle()).toEqual('Blackpool Magistrates\' Court hearing list');
-      });
-
-      it(`should display ${expectedNumOfHearings} results`, async () => {
-        expect(await hearingListPage.getResults()).toBe(expectedNumOfHearings);
+        expect(await hearingListPage.getPageTitle()).toEqual('Leicester Tribunal Hearing Centre hearing list');
       });
     });
 
     describe('following the \'Select from an A-Z of courts and tribunals\' path', async () => {
-      const expectedNumOfHearings = 15;
 
       before(async () => {
         await searchPage.open('/search');
@@ -115,17 +109,13 @@ describe('Unverified user', () => {
 
       it('selecting first result should take you to to the hearings list page', async () => {
         hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await hearingListPage.getPageTitle()).toEqual('Blackburn Magistrates\' Court hearing list');
-      });
-
-      it(`should display ${expectedNumOfHearings} results`, async () => {
-        expect(await hearingListPage.getResults()).toBe(expectedNumOfHearings);
+        expect(await hearingListPage.getPageTitle()).toEqual('Leicester Tribunal Hearing Centre hearing list');
       });
     });
   });
 
   describe('find live case status updates', async () => {
-    const validCourtName = 'Amersham Law Courts';
+    const validCourtName = 'Northampton Crown Court';
 
     before(async () => {
       await liveCaseCourtSearchControllerPage.open('/live-case-alphabet-search');
@@ -133,7 +123,7 @@ describe('Unverified user', () => {
 
     it('selecting first result should take you to to the live hearings list page', async () => {
       liveCaseStatusPage = await liveCaseCourtSearchControllerPage.selectFirstValidListResult();
-      expect(await liveCaseStatusPage.getPageTitle()).toEqual('Live hearing updates');
+      expect(await liveCaseStatusPage.getPageTitle()).toContain('Live hearing updates');
     });
 
     it(`should have '${validCourtName}' as a sub title`, async () => {
@@ -284,8 +274,6 @@ describe('Verified user', () => {
     });
 
     describe('following court or tribunal page', async () => {
-      const allCourts = 305;
-      const tribunalCourts = 49;
 
       before(async () => {
         await subscriptionAddPage.open('subscription-add');
@@ -297,10 +285,6 @@ describe('Verified user', () => {
         expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
       });
 
-      it(`should display ${allCourts} results`, async () => {
-        expect(await courtNameSearchPage.getResults()).toBe(allCourts);
-      });
-
       it('should select first jurisdiction filter', async () => {
         await courtNameSearchPage.selectOption('JurisdictionCheckbox');
         expect(await courtNameSearchPage.jurisdictionChecked()).toBeTruthy();
@@ -309,10 +293,6 @@ describe('Verified user', () => {
       it('should click on the apply filters button', async () => {
         courtNameSearchPage = await courtNameSearchPage.clickApplyFiltersButton();
         expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
-      });
-
-      it(`should display ${tribunalCourts} results (Tribunal) filter`, async () => {
-        expect(await courtNameSearchPage.getResults()).toBe(tribunalCourts);
       });
 
       it('should click continue to create subscription', async () => {
