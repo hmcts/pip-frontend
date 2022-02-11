@@ -9,7 +9,7 @@ import { HearingService } from '../../../main/service/hearingService';
 const caseReferenceNumberSearchController = new CaseReferenceNumberSearchController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const subscriptionCaseResult = JSON.parse(rawData)[0].hearingList[0];
-const stub = sinon.stub(HearingService.prototype, 'getHearingByCaseReferenceNumber');
+const stub = sinon.stub(HearingService.prototype, 'getCaseByNumber');
 
 const validCaseNo = '56-181-2097';
 

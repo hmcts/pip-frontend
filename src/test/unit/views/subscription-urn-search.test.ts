@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { app } from '../../../main/app';
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
+import {HearingService} from '../../../main/service/hearingService';
 
 const PAGE_URL = '/subscription-urn-search';
 const headingClass = 'govuk-label-wrapper';
@@ -13,14 +13,14 @@ const inputErrorClass = 'govuk-input--error';
 const errorSummaryTitleClass = 'govuk-error-summary__title';
 const errorSummaryBodyClass = 'govuk-error-summary__body';
 const formErrorClass = 'govuk-form-group--error';
-const expectedHeader = 'Enter a unique reference number';
+const expectedHeader = 'Enter a unique reference number (URN)';
 const expectedButtonText = 'Continue';
 const expectedErrorMessage = 'URN not found, please try again or search under a Case Name or subscribe to a whole court';
 const expectedErrorTitle = 'There is a problem';
 
 let htmlRes: Document;
 
-const stub = sinon.stub(SubscriptionRequests.prototype, 'getSubscriptionByUrn');
+const stub = sinon.stub(HearingService.prototype, 'getCaseByURN');
 stub.withArgs('12345').returns(null);
 stub.withArgs('').returns(null);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
@@ -33,7 +33,7 @@ describe('URN Search Page', () => {
   });
 
   it('should display the header',  () => {
-    const header = htmlRes.getElementsByClassName(headingClass);
+    const header = htmlRes.getElementsByClassName(headingClass)[0].getElementsByClassName('govuk-label--l');
     expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
   });
 

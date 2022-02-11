@@ -18,7 +18,7 @@ const linkClass = 'govuk-link';
 const expectedHeader = 'How do you want to add a subscription?';
 const expectedButtonText = 'Continue';
 const expectedRadioLabel1 = 'By case reference number';
-const expectedRadioLabel2 = 'By unique reference number';
+const expectedRadioLabel2 = 'By unique reference number (URN)';
 const expectedRadioLabel3 = 'By case name';
 const expectedRadioLabel4 = 'By court or tribunal';
 const expectedRelatedContentHeader = 'Related content';
@@ -26,7 +26,7 @@ const expectedLink1 = 'Manage your subscriptions';
 const expectedLink2 = 'Find a court or tribunal list';
 
 let htmlRes: Document;
-describe('Subscription add Page initial load', () => {
+describe('Subscriptions add Page initial load', () => {
   beforeAll(async () => {
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
@@ -111,7 +111,7 @@ describe('Subscription add Page initial load', () => {
 
 });
 
-describe('Subscription add page no selection entered', () => {
+describe('Subscriptions add page no selection entered', () => {
   beforeAll(async () => {
     await request(app).post(PAGE_URL).send({selectionError: true}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
