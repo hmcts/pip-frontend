@@ -160,14 +160,14 @@ export class ManualUploadService {
     return {
       ...formData,
       'display-from': defaultFormat ?
-        moment(formData['display-from'], 'MM/DD/YYYY').format() :
-        moment(formData['display-from'], 'MM/DD/YYYY').format('D MMM YYYY'),
+        moment(formData['display-from'], 'DD/MM/YYYY').format() :
+        moment(formData['display-from'], 'DD/MM/YYYY').format('D MMM YYYY'),
       'display-to': defaultFormat ?
-        moment(formData['display-to'], 'MM/DD/YYYY').format() :
-        moment(formData['display-to'], 'MM/DD/YYYY').format('D MMM YYYY'),
+        moment(formData['display-to'], 'DD/MM/YYYY').format() :
+        moment(formData['display-to'], 'DD/MM/YYYY').format('D MMM YYYY'),
       'content-date-from': defaultFormat ?
-        moment(formData['content-date-from'], 'MM/DD/YYYY').format() :
-        moment(formData['content-date-from'], 'MM/DD/YYYY').format('D MMM YYYY'),
+        moment(formData['content-date-from'], 'DD/MM/YYYY').format() :
+        moment(formData['content-date-from'], 'DD/MM/YYYY').format('D MMM YYYY'),
     };
   }
 
