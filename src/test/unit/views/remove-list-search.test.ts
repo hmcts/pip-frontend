@@ -12,12 +12,12 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearin
 const courtData = JSON.parse(rawData);
 sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(courtData);
 sinon.stub(CourtRequests.prototype, 'getCourtByName').returns(null);
+sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 let htmlRes: Document;
 
 describe('Remove List Search Page', () => {
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     await request(app).get(PAGE_URL).then(response => {
       htmlRes = new DOMParser().parseFromString(response.text, 'text/html');
     });
@@ -61,7 +61,6 @@ describe('Remove List Search Page', () => {
 
 describe('Remove List Blank Input', () => {
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     await request(app).post(PAGE_URL).send({'input-autocomplete': ''}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -85,7 +84,6 @@ describe('Remove List Blank Input', () => {
 
 describe('Search Page Invalid Input', () => {
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     await request(app).post(PAGE_URL).send({'input-autocomplete': 'foo'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
