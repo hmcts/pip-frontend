@@ -9,8 +9,8 @@ let htmlRes: Document;
 const PAGE_URL = '/manual-upload-summary';
 const summaryKeys = ['Court name', 'File', 'List type', 'Hearing start date', 'Available to', 'Language', 'Display file dates'];
 const mockData = {
-  artefactType: 'LIST',
-  classification: 'PUBLIC',
+  artefactType: 'List',
+  classification: 'Public',
   'content-date-from': '01/01/2022',
   court: {
     courtName: 'Aberdeen Tribunal Hearing Centre',
@@ -18,8 +18,8 @@ const mockData = {
   'display-from': '02/03/2022',
   'display-to': '04/05/2022',
   fileName: 'Demo.pdf',
-  language: 'ENGLISH',
-  listType: 'SJP_PUBLIC_LIST',
+  language: 'English',
+  listType: 'Sjp public list',
 };
 
 describe('File Upload Summary Page', () => {

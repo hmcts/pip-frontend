@@ -11,6 +11,9 @@
     {{ goBack() }}
 {% endblock %}
 {% block content %}
+    {% set formatListType = fileUploadData.listType | replace('_', ' ') | capitalize %}
+    {% set formatLanguage = fileUploadData.language | capitalize %}
+    {% set formatClassification = fileUploadData.classification | capitalize %}
     {% if displayError %}
         {{ govukErrorSummary({
             titleText: error.title,
@@ -65,7 +68,7 @@
                     text: listTypeKey
                 },
                     value: {
-                        text: fileUploadData.listType
+                        text: formatListType
                     },
                     actions: {
                     items: [
@@ -99,7 +102,7 @@
                     text: availableToKey
                 },
                     value: {
-                    text: fileUploadData.classification
+                    text: formatClassification
                 },
                     actions: {
                     items: [
@@ -116,7 +119,7 @@
                     text: languageKey
                 },
                     value: {
-                    text: fileUploadData.language
+                    text: formatLanguage
                 },
                     actions: {
                     items: [
