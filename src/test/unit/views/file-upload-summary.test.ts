@@ -54,9 +54,9 @@ describe('File Upload Summary Page', () => {
   });
 
   it('should display correct summary values', async () => {
-    const formatContentDate = moment(mockData['content-date-from'], 'MM/DD/YYYY').format('D MMM YYYY');
-    const formatDisplayFromDate = moment(mockData['display-from'], 'MM/DD/YYYY').format('D MMM YYYY');
-    const formatDisplayToDate = moment(mockData['display-to'], 'MM/DD/YYYY').format('D MMM YYYY');
+    const formatContentDate = moment(mockData['content-date-from'], 'DD/MM/YYYY').format('D MMM YYYY');
+    const formatDisplayFromDate = moment(mockData['display-from'], 'DD/MM/YYYY').format('D MMM YYYY');
+    const formatDisplayToDate = moment(mockData['display-to'], 'DD/MM/YYYY').format('D MMM YYYY');
     const values = htmlRes.getElementsByClassName('govuk-summary-list__value');
     expect(values[0].innerHTML).to.contain(mockData.court.courtName, 'Court value not found');
     expect(values[1].innerHTML).to.contain(mockData.fileName, 'File value not found');
