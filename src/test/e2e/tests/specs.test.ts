@@ -23,6 +23,7 @@ import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
+import {ManualUploadPage} from '../PageObjects/ManualUpload.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -48,6 +49,7 @@ let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 const signInPage = new SignInPage;
+const manualUploadPage = new ManualUploadPage;
 
 describe('Unverified user', () => {
 
@@ -100,8 +102,8 @@ describe('Unverified user', () => {
       });
 
       it('should select Magistrates\' Court and North West filters', async () => {
-        await alphabeticalSearchPage.selectFilter('MagistratesFilter');
-        await alphabeticalSearchPage.selectFilter('NorthWestFilter');
+        await alphabeticalSearchPage.selectOption('MagistratesFilter');
+        await alphabeticalSearchPage.selectOption('NorthWestFilter');
         await alphabeticalSearchPage.clickApplyFiltersButton();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
       });
@@ -116,7 +118,7 @@ describe('Unverified user', () => {
         expect(await hearingListPage.getPageTitle()).toEqual('Blackburn Magistrates\' Court hearing list');
       });
 
-      it(`should display ${expectedNumOfHearings} results`, async() => {
+      it(`should display ${expectedNumOfHearings} results`, async () => {
         expect(await hearingListPage.getResults()).toBe(expectedNumOfHearings);
       });
     });
@@ -241,7 +243,7 @@ describe('Verified user', () => {
         expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
       });
 
-      it(`should display ${expectedNumOfResults} results`, async() => {
+      it(`should display ${expectedNumOfResults} results`, async () => {
         expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
       });
 
@@ -283,7 +285,6 @@ describe('Verified user', () => {
 
     describe('following court or tribunal page', async () => {
       const allCourts = 305;
-
       const tribunalCourts = 49;
 
       before(async () => {
@@ -296,7 +297,7 @@ describe('Verified user', () => {
         expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
       });
 
-      it(`should display ${allCourts} results`, async() => {
+      it(`should display ${allCourts} results`, async () => {
         expect(await courtNameSearchPage.getResults()).toBe(allCourts);
       });
 
@@ -310,7 +311,7 @@ describe('Verified user', () => {
         expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
       });
 
-      it(`should display ${tribunalCourts} results (Tribunal) filter`, async() => {
+      it(`should display ${tribunalCourts} results (Tribunal) filter`, async () => {
         expect(await courtNameSearchPage.getResults()).toBe(tribunalCourts);
       });
     });
@@ -377,6 +378,17 @@ describe('Verified user', () => {
       await deleteSubscriptionPage.selectOption('yesRadioButton');
       unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
       expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+    });
+  });
+  describe('Admin level journeys', () => {
+    describe('Manual Upload', () => {
+      it('should open manual upload page', async () => {
+        await manualUploadPage.open('/manual-upload');
+        expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
+      });
+      it('should complete form', async () => {
+        manualUploadPage.completeForm();
+      });
     });
   });
 });

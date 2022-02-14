@@ -16,15 +16,16 @@ $min-width: 52em;
     padding-top: 1px;
   }
 }
+
 //The below styling makes sure the subscription text doesn't overlap with the heading as the screen is made smaller
 //by increasing the minimum width
 @media (max-width: $min-width) {
   .js-enabled {
-    .govuk-header__menu-button  {
+    .govuk-header__menu-button {
       display: block;
     }
 
-    .govuk-header__navigation  {
+    .govuk-header__navigation {
       display: none;
       margin-bottom: 10px;
     }
@@ -74,6 +75,7 @@ $min-width: 52em;
     text-align: left;
   }
 }
+
 //End of header styling
 
 //Styling for the Alphabetical View page
@@ -162,6 +164,67 @@ $min-width: 52em;
   margin-right: 10px;
 }
 
+@media (min-width: 770px) {
+  .hide {
+    display: block;
+  }
+}
+
+.moj-button-menu {
+  display: none;
+}
+
+.alphabetical-box {
+  .filter-back-to-top-wrapper {
+    left: 100%;
+    position: relative;
+    width: 14%;
+  }
+
+  .layout-width-three-fifths {
+    width: 100%;
+  }
+}
+
+@media (max-width: 770px) {
+  .hide {
+    display: none !important; // sass-lint:disable-line no-important
+    visibility: hidden;
+  }
+
+  .moj-button-menu {
+    display: block;
+  }
+
+  .moj-filter-layout {
+    &__filter {
+      width: 100%;
+    }
+  }
+
+  .filters {
+    &__innerButton {
+      display: block;
+      margin-left: 0;
+      margin-top: 0;
+      position: relative;
+    }
+  }
+
+  .alphabetical-box {
+    .layout-width-two-fifths  {
+      width: 0;
+    }
+
+    .filter-back-to-top-wrapper {
+      left: 10%;
+      position: absolute;
+      width: 16%;
+    }
+  }
+
+}
+
 //Styling for the Hearings List page
 .number_hearings {
   text-align: right;
@@ -243,7 +306,7 @@ div {
       @extend .govuk-body;
 
       &.error {
-        color:  $govuk-error-colour;
+        color: $govuk-error-colour;
       }
     }
   }
@@ -260,7 +323,7 @@ div {
 
 .error {
   @extend .govuk-body;
-  color:  $govuk-error-colour;
+  color: $govuk-error-colour;
 }
 
 .verifying-modal {
@@ -404,4 +467,13 @@ div {
 
 .overflow-table {
   overflow-x: auto;
+}
+//Admin css
+.admin-form-offset {
+  margin-right: 1em;
+  margin-top: 1.8em;
+}
+
+.admin-default-hide {
+  display: none;
 }
