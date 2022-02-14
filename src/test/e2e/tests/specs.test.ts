@@ -127,7 +127,7 @@ describe('Unverified user', () => {
     });
 
     it(`should have '${validCourtName}' as a sub title`, async () => {
-      expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
+      expect(await liveCaseStatusPage.getCourtTitle()).toContain(validCourtName);
     });
 
     it('should select first glossary term', async () => {
