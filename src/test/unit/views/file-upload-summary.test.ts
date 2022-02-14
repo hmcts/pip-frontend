@@ -19,7 +19,8 @@ const mockData = {
   'display-to': '04/05/2022',
   fileName: 'Demo.pdf',
   language: 'English',
-  listType: 'Sjp public list',
+  listType: 'SJP_PUBLIC_LIST',
+  listTypeName: 'SJP Public List',
 };
 
 describe('File Upload Summary Page', () => {
@@ -60,7 +61,7 @@ describe('File Upload Summary Page', () => {
     const values = htmlRes.getElementsByClassName('govuk-summary-list__value');
     expect(values[0].innerHTML).to.contain(mockData.court.courtName, 'Court value not found');
     expect(values[1].innerHTML).to.contain(mockData.fileName, 'File value not found');
-    expect(values[2].innerHTML).to.contain(mockData.listType, 'List type value not found');
+    expect(values[2].innerHTML).to.contain(mockData.listTypeName, 'List type value not found');
     expect(values[3].innerHTML).to.contain(formatContentDate, 'Hearing start date value not found');
     expect(values[4].innerHTML).to.contain(mockData.classification, 'Classification values not found');
     expect(values[5].innerHTML).to.contain(mockData.language, 'Language value not found');

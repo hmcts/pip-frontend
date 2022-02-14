@@ -6,12 +6,13 @@ import sinon from 'sinon';
 import { ManualUploadService } from '../../main/service/manualUploadService';
 
 const PAGE_URL = '/manual-upload-summary';
-const mockCookie = {formCookie : {'foo': 'blah'}};
+const mockCookie = {'foo': 'blah', listType: ''};
 const uploadStub = sinon.stub(ManualUploadService.prototype, 'uploadPublication');
 sinon.stub(ManualUploadService.prototype, 'readFile').returns('');
 sinon.stub(ManualUploadService.prototype, 'removeFile').returns(true);
-uploadStub.withArgs({ formCookie: { foo: 'blah' }, file: '', userId: '1' }, true).resolves(true);
-uploadStub.withArgs({ formCookie: { foo: 'blah' }, file: '', userId: '2' }, true).resolves(false);
+sinon.stub(ManualUploadService.prototype, 'getListItemName').returns('');
+uploadStub.withArgs({  ...mockCookie,  listTypeName: '', file: '', userId: '1' }, true).resolves(true);
+uploadStub.withArgs({ ...mockCookie,  listTypeName: '', file: '', userId: '2' }, true).resolves(false);
 
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 

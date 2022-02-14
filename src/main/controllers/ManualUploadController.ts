@@ -26,7 +26,6 @@ export default class ManualUploadController {
       fileErrors: manualUploadService.validateFileUpload(req.file),
       formErrors: await manualUploadService.validateFormFields(req.body),
     };
-
     const listItems = await manualUploadService.buildFormData();
     const formValues = {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload']),

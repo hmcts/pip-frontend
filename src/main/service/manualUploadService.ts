@@ -6,30 +6,34 @@ import fs from 'fs';
 
 const courtService = new CourtService();
 const dataManagementRequests = new DataManagementRequests();
+const listSubTypes = [
+  {text:'SJP Public List', value: 'SJP_PUBLIC_LIST'},
+  {text: 'SJP Press List', value: 'SJP_PRESS_LIST'},
+  {text: 'Civil Daily Cause List', value: 'CIVIL_DAILY_CAUSE_LIST'},
+  {text: 'Family Daily Cause List', value: 'FAMILY_DAILY_CAUSE_LIST'},
+  {text: 'Crown Daily List', value: 'CROWN_DAILY_LIST'},
+  {text: 'Crown Firm List', value: 'CROWN_FIRM_LIST'},
+  {text: 'Crown Warned List', value: 'CROWN_WARNED_LIST'},
+  {text: 'Magistrates Public List', value: 'MAGS_PUBLIC_LIST'},
+  {text: 'Magistrates Standard List', value: 'MAGS_STANDARD_LIST'},
+];
 
 export class ManualUploadService {
 
   public async buildFormData(): Promise<object> {
-    const data = {
+    return {
       courtList: await courtService.fetchAllCourts(),
       listSubtypes: this.getListSubtypes(),
       judgementsOutcomesSubtypes: this.getJudgementOutcomesSubtypes(),
     };
-    return data;
   }
 
   private getListSubtypes(): Array<object> {
-    return [
-      {text:'SJP Public List', value: 'SJP_PUBLIC_LIST'},
-      {text: 'SJP Press List', value: 'SJP_PRESS_LIST'},
-      {text: 'Civil Daily Cause List', value: 'CIVIL_DAILY_CAUSE_LIST'},
-      {text: 'Family Daily Cause List', value: 'FAMILY_DAILY_CAUSE_LIST'},
-      {text: 'Crown Daily List', value: 'CROWN_DAILY_LIST'},
-      {text: 'Crown Firm List', value: 'CROWN_FIRM_LIST'},
-      {text: 'Crown Warned List', value: 'CROWN_WARNED_LIST'},
-      {text: 'Magistrates Public List', value: 'MAGS_PUBLIC_LIST'},
-      {text: 'Magistrates Standard List', value: 'MAGS_STANDARD_LIST'},
-    ];
+    return listSubTypes;
+  }
+
+  public getListItemName(itemValue: string): string {
+    return listSubTypes.find(item => item.value === itemValue).text;
   }
 
   private getJudgementOutcomesSubtypes(): Array<object> {
