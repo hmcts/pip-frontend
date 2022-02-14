@@ -16,4 +16,8 @@ export class SummaryOfPublicationsService {
   public async getIndivPubFile(artefactId, verification: boolean): Promise<Blob> {
     return PublicationReqs.getIndividualPubFile(artefactId, verification);
   }
+
+  public async getIndivPubJson(artefactId, verification: boolean): Promise<string> {
+    return PublicationReqs.getIndividualPubJson(artefactId, verification);
+  }
 }

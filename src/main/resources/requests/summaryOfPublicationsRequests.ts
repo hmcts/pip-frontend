@@ -34,6 +34,21 @@ export class SummaryOfPublicationsRequests {
     }
   }
 
+  public async getIndividualPubJson(artefactId, verification): Promise<string> {
+    try {
+      const response = await dataManagementApi.get('/publication/' + artefactId + '/payload', {headers: {'verification': `${verification}`}});
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
+      }
+    }
+  }
+
   public async getIndividualPubFile(artefactId, verification): Promise<Blob> {
     try{
       const response = await dataManagementApi.get(`/publication/${artefactId}/file`, {headers: {'verification': `${verification}`}, responseType: 'arraybuffer'});

@@ -4,7 +4,7 @@ import { SummaryOfPublicationsService } from '../service/summaryOfPublicationsSe
 
 const publicationService = new SummaryOfPublicationsService();
 
-export default class PdfController {
+export default class FlatFileController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query['artefactId'];
@@ -15,6 +15,9 @@ export default class PdfController {
       res.set('Content-Disposition', 'inline;filename='+metadata.sourceArtefactId);
       if(metadata.sourceArtefactId.endsWith('.pdf')){
         res.set('Content-Type', 'application/pdf');
+      }
+      else if(metadata.sourceArtefactId.endsWith('.json')){
+        res.set('Content-Type', 'application/json');
       }
       else{res.set('Content-Disposition', 'attachment;filename='+metadata.sourceArtefactId);}
       res.send(fileData);
