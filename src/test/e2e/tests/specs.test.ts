@@ -102,8 +102,8 @@ describe('Unverified user', () => {
       });
 
       it('should select Magistrates\' Court and North West filters', async () => {
-        await alphabeticalSearchPage.selectFilter('MagistratesFilter');
-        await alphabeticalSearchPage.selectFilter('NorthWestFilter');
+        await alphabeticalSearchPage.selectOption('MagistratesFilter');
+        await alphabeticalSearchPage.selectOption('NorthWestFilter');
         await alphabeticalSearchPage.clickApplyFiltersButton();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
       });
