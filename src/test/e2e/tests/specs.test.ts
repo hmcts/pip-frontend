@@ -23,7 +23,7 @@ import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
-import {ManualUploadPage} from '../PageObjects/ManualUpload.page';
+import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -364,13 +364,13 @@ describe('Verified user', () => {
   });
 
   describe('remove subscription', async () => {
-      expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
-    });
+    expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
+  });
 
-    it('should select yes option and unsubscribe', async () => {
-      await deleteSubscriptionPage.selectOption('yesRadioButton');
-      unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
-      expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+  it('should select yes option and unsubscribe', async () => {
+    await deleteSubscriptionPage.selectOption('yesRadioButton');
+    unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
+    expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
   });
   describe('Admin level journeys', () => {
     describe('Manual Upload', () => {
