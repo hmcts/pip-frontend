@@ -12,7 +12,7 @@
     "listType": "SJP_PRESS_LIST",
     "courtId": "0",
     "contentDate": "2022-02-02T12:52:01.907",
-    "isFlatFile": true,
+    "isFlatFile": false,
     "payload": "ia"
   }
 ]

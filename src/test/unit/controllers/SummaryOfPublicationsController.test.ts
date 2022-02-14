@@ -15,6 +15,8 @@ const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPC
 const sjpCases = JSON.parse(rawSJPData).results;
 const onePubData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublication.json'), 'utf-8');
 const onePub = JSON.parse(onePubData);
+const onePubJsonData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublicationJson.json'), 'utf-8');
+const onePubJson = JSON.parse(onePubJsonData);
 const CourtStub = sinon.stub(CourtService.prototype, 'getCourtById');
 const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
 
@@ -91,9 +93,9 @@ describe('Get publications', () => {
 
 describe('Get individual publication and act appropriately', () => {
 
-  it('should open the pub directly if only one pub is returned from publicationService', async () => {
+  it('should open the file directly if only one pub is returned from publicationService', async () => {
     const response = {
-      send: function () {
+      redirect: function () {
         return '';
       },
     } as unknown as Response;
@@ -105,7 +107,27 @@ describe('Get individual publication and act appropriately', () => {
     const responseMock = sinon.mock(response);
     const onePubLength = onePub.length;
     expect(onePubLength).toBe(1);
-    responseMock.expects('send').once().withArgs('Hi there, there\'s only one publication so you\'ve been directed here');
+    responseMock.expects('redirect').once().withArgs(`file-publication?artefactId=${onePub[0].artefactId}`);
+
+    await publicationController.get(request, response);
+    responseMock.verify();
+  });
+
+  it('should open the json directly if only one pub is returned from publicationService', async () => {
+    const response = {
+      redirect: function () {
+        return '';
+      },
+    } as unknown as Response;
+    const request = mockRequest(i18n);
+    request.query = {courtId: '2'};
+    request.user = {id: 1};
+    SoPStub.withArgs(2).resolves(onePubJson);
+    CourtStub.withArgs('0').resolves(JSON.parse('{"name":"Single Justice Procedure (SJP)"}'));
+    const responseMock = sinon.mock(response);
+    const onePubJsonLength = onePubJson.length;
+    expect(onePubJsonLength).toBe(1);
+    responseMock.expects('redirect').once().withArgs(`list-publication?artefactId=${onePub[0].artefactId}`);
 
     await publicationController.get(request, response);
     responseMock.verify();

@@ -32,6 +32,7 @@ export class SummaryOfPublicationsRequests {
         console.log(`ERROR: ${error.message}`);
       }
     }
+    return null;
   }
 
   public async getIndividualPubJson(artefactId, verification): Promise<string> {
@@ -47,6 +48,7 @@ export class SummaryOfPublicationsRequests {
         console.log(`ERROR: ${error.message}`);
       }
     }
+    return null;
   }
 
   public async getIndividualPubFile(artefactId, verification): Promise<Blob> {
@@ -62,5 +64,6 @@ export class SummaryOfPublicationsRequests {
         console.log(`ERROR: ${error.message}`);
       }
     }
+    return null;
   }
 }

@@ -7,7 +7,6 @@ import {CourtService} from '../service/courtService';
 const publicationService = new SummaryOfPublicationsService();
 const courtService = new CourtService();
 
-
 export default class SummaryOfPublicationsController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
