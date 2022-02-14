@@ -1,0 +1,21 @@
+{
+  "title": "Admin Dashboard",
+  "heading": "Admin Dashboard",
+  "cards": [
+    {
+      "title": "Upload file",
+      "description": "JSON, PDF, DOC, CSV, HTM, or HTML files.",
+      "link": "manual-upload"
+    },
+    {
+      "title": "Remove content",
+      "description": "JSON, PDF, DOC, CSV, HTM, or HTML files.",
+      "link": "remove-list-search"
+    },
+    {
+      "title": "Manage Media accounts",
+      "description": "Assess, approve, and reject new media account requests.",
+      "link": "manage-media-accounts"
+    }
+  ]
+}

@@ -5,6 +5,7 @@ export interface PipRequest extends Request {
     getDataByLanguage: (lng: string) => {
       'home': {};
       'template': {};
+      'admin-dashboard': {};
       'alphabetical-search': {};
       'error': {};
       'hearing-list': {};
