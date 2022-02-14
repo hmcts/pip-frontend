@@ -11,7 +11,6 @@ export default class FlatFileController {
     const metadata = await publicationService.getIndivPubMetadata(artefactId, (!!req.user));
     const fileData = await publicationService.getIndivPubFile(artefactId, (!!req.user));
     if (metadata.isFlatFile) {
-      console.log('this is a flatFile');
       res.set('Content-Disposition', 'inline;filename='+metadata.sourceArtefactId);
       if(metadata.sourceArtefactId.endsWith('.pdf')){
         res.set('Content-Type', 'application/pdf');
