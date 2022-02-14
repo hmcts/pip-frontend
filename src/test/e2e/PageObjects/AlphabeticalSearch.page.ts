@@ -4,21 +4,12 @@ import { CommonPage } from './Common.page';
 const helpers = require('../Helpers/Selectors');
 
 export class AlphabeticalSearchPage extends CommonPage {
-  async selectFilter(filter: string): Promise<void> {
-    await $(helpers[filter]).catch(() => {
-      console.log(`${helpers[filter]} not found`);
-    });
-
-    await $(helpers[filter]).click();
-  }
-
   async clickApplyFiltersButton(): Promise<void> {
-    $(helpers.ContinueButton).catch(() => {
-      console.log(`${helpers.ContinueButton} not found`);
+    await $(helpers.ApplyFiltersButton).catch(() => {
+      console.log(`${helpers.ApplyFiltersButton} not found`);
     });
 
-    const button = await $(helpers.ContinueButton);
-    await button.click();
+    await $(helpers.ApplyFiltersButton).click();
   }
 
   async checkIfSelected(filter: string): Promise<boolean> {
