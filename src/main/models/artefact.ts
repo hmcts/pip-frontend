@@ -1,4 +1,4 @@
-export interface Publication {
+export interface Artefact {
   artefactId: string;
   provenance: string;
   type: string;

@@ -1,9 +1,9 @@
 import {dataManagementApi} from './utils/axiosConfig';
-import {Publication} from '../../models/publication';
+import {Artefact} from '../../models/artefact';
 
 export class SummaryOfPublicationsRequests {
 
-  public async getListOfPubs(courtId, verification): Promise<Publication[]> {
+  public async getListOfPubs(courtId, verification): Promise<Artefact[]> {
     try {
       const response = await dataManagementApi.get(`/publication/search/${courtId}`, {headers: {'verification':`${verification}`}});
       return response.data;

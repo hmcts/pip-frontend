@@ -1,6 +1,6 @@
-import { app } from '../../../main/app';
-import { expect } from 'chai';
-import { request as expressRequest } from 'express';
+import {app} from '../../../main/app';
+import {expect} from 'chai';
+import {request as expressRequest} from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
 
@@ -44,7 +44,7 @@ describe('Your Account page', () => {
   });
 
   it('cards should have correct content and links', () => {
-    for(let i = 0; i < expectedCards; i++) {
+    for (let i = 0; i < expectedCards; i++) {
       const accountCards = htmlRes.getElementsByClassName('account-card');
       const link = accountCards[i].getElementsByTagName('a')[0];
       const description = accountCards[i].getElementsByTagName('p')[1];

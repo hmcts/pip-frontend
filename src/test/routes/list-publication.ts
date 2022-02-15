@@ -15,7 +15,7 @@ describe('', () => {
   describe('on GET', () => {
     test('should return list publication', async () => {
       await request(app)
-        .get('/list-publication?artefactId=0')
+        .get('/list-type?artefactId=0')
         .expect((res) => expect(res.status).to.equal(200));
     });
   });

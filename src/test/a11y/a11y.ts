@@ -25,7 +25,7 @@ const routesNotTested = [
   '/logout',
   '/robots.txt',
   '/file-publication',
-  '/list-publication',
+  '/list-type',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
