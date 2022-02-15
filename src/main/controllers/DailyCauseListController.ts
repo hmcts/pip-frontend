@@ -22,7 +22,7 @@ export default class DailyCauseListControllerController {
         searchResults,
         contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: moment(publishedDateTime).format('DD MMMM YYYY'),
-        publishedTime: moment(publishedDateTime).format('hha'),
+        publishedTime: moment(publishedDateTime).format('ha'),
       });
     } else {
       res.render('error',
