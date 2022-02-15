@@ -166,6 +166,7 @@
 
     function toggleFilters() {
       var element = document.getElementById("filters");
+      element.classList.toggle("hide");
       var content = document.getElementById("content");
       var navigation = document.getElementsByClassName("moj-sub-navigation pub-navigation govuk-!-margin-bottom-0");
       element.classList.toggle("hide");
@@ -176,9 +177,6 @@
       } else {
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ hide }}";
       }
-
     }
-
   </script>
-
 {% endblock %}
