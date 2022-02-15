@@ -26,7 +26,12 @@ export class DailyCauseListService {
 
               const duration = moment.duration(sittingEnd.startOf('hour').diff(sittingStart.startOf('hour')));
               sitting['duration'] = duration.asHours();
-              sitting['startTime'] = sittingStart.format('ha');
+              const min = moment(sitting['sittingStart'],'HH:mm').minutes();
+              if(min === 0) {
+                sitting['startTime'] = moment(sitting['sittingStart']).format('ha');
+              } else {
+                sitting['startTime'] = moment(sitting['sittingStart']).format('h.mma');
+              }
             }
             hearingCount = hearingCount + sitting['hearing'].length;
           });
