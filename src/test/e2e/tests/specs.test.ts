@@ -313,11 +313,7 @@ if (process.env.EXCLUDE_E2E === 'true') {
       });
     });
 
-    describe('Following the subscription \'search\' by case reference path', () => {
-      it('should click continue to create subscription', async () => {
-        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
-        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
-
+      describe('Following the subscription \'search\' by case reference path', () => {
         const validSearchTerm = 'T485913';
         const expectedNumOfResults = 1;
 
@@ -390,4 +386,3 @@ if (process.env.EXCLUDE_E2E === 'true') {
     });
   });
 }
-

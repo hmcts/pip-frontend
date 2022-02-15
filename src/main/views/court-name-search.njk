@@ -15,9 +15,10 @@
 {% block content %}
   <h1 class="govuk-heading-l">{{ heading }}</h1>
   <p class="govuk-body">{{ subHeading }}</p>
-  <div id="grid-row" class="govuk-grid-row">
-    <div class="layout-width-two-fifths govuk-!-display-inline-block">
+  <div id="grid-row" class="govuk-grid-row parent-box alphabetical-box">
+    <div class="layout-width-two-fifths govuk-!-display-inline-block hide" id="filters">
       {% set checkedFilters = [] %}
+      {% set toBeCreated = true %}
       {% set filterOptionsHtml %}
         {% for key, option in filterOptions %}
           {% set checkedFilterItems = [] %}
@@ -34,6 +35,18 @@
           {% endfor %}
           {% if checkedFilterItems| length > 0 %}
             {% set _ = checkedFilters.push({heading: {text: key}, items: checkedFilterItems}) %}
+          {% endif %}
+          {% if toBeCreated %}
+            <div class="moj-button-menu filters__innerButton" id="innerButton">
+              <div class="moj-button-menu__wrapper">
+                <a href="#" role="button" draggable="false"
+                   class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button"
+                   onclick="toggleFilters()">
+                  {{ hide }}
+                </a>
+              </div>
+            </div>
+            {% set toBeCreated = false %}
           {% endif %}
           {{ govukCheckboxes({
             idPrefix: key,
@@ -70,7 +83,6 @@
         }) }}
       </form>
     </div>
-
     <div class="layout-width-three-fifths parent-box">
       <form class="moj-action-bar" action="pending-subscriptions" method="post" autocomplete="off">
         <h2 class="govuk-heading-m">{{ userSelections }}</h2>
@@ -173,6 +185,7 @@
       </form>
       {{ backToTopButton() }}
     </div>
+    </div>
   </div>
 {% endblock %}
 {% block bodyEnd %}
@@ -187,6 +200,20 @@
 
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
+    }
+    function toggleFilters() {
+      var element = document.getElementById("filters");
+      var content = document.getElementById("content");
+      var navigation = document.getElementsByClassName("moj-sub-navigation pub-navigation govuk-!-margin-bottom-0");
+      element.classList.toggle("hide");
+      content.classList.toggle("hide");
+      navigation[0].classList.toggle("hide");
+      if (element.className.indexOf('hide') > 0) {
+        document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ show }}";
+      } else {
+        document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ hide }}";
+      }
+
     }
   </script>
 {% endblock %}
