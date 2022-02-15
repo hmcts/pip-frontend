@@ -23,7 +23,7 @@ export default class SummaryOfPublicationsController {
           res.redirect(`file-publication?artefactId=${ourPublication.artefactId}`);
         }
         else {
-          res.redirect(`list-publication?artefactId=${ourPublication.artefactId}`);
+          res.redirect(`list-type?artefactId=${ourPublication.artefactId}`);
         }
       }
       else {

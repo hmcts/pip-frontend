@@ -125,7 +125,7 @@ describe('Get individual publication and act appropriately', () => {
     const responseMock = sinon.mock(response);
     const onePubJsonLength = onePubJson.length;
     expect(onePubJsonLength).toBe(1);
-    responseMock.expects('redirect').once().withArgs(`list-publication?artefactId=${onePub[0].artefactId}`);
+    responseMock.expects('redirect').once().withArgs(`list-type?artefactId=${onePub[0].artefactId}`);
 
     await publicationController.get(request, response);
     responseMock.verify();
