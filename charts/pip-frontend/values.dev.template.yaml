@@ -4,5 +4,5 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
   environment:
     OIDC: true
-    AUTH_RETURN_URL: https://pip-frontend.staging.platform.hmcts.net/login/return
+    AUTH_RETURN_URL: https://pip-frontend-pr-220.dev.platform.hmcts.net/login/return
     EXCLUDE_E2E: true
