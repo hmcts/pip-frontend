@@ -39,7 +39,7 @@ sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 describe('Pending Subscriptions Page', () => {
   describe('user with subscriptions', () => {
     beforeAll(async () => {
-      app.request['user'] = {id: '1'};
+      app.request['user'] = {oid: '1'};
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       });
@@ -104,7 +104,7 @@ describe('Pending Subscriptions Page', () => {
 
   describe('user without subscriptions', () => {
     beforeAll(async () => {
-      app.request['user'] = {id: '2'};
+      app.request['user'] = {oid: '2'};
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       });
