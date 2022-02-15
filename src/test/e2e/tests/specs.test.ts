@@ -264,7 +264,6 @@ if (process.env.EXCLUDE_E2E === 'true') {
           expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
         });
 
-
         it('should click continue to create subscription', async () => {
           pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
           expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
