@@ -5,26 +5,22 @@ import request from 'supertest';
 import sinon from 'sinon';
 
 const PAGE_URL = '/account-home';
-const expectedCards = 4;
+const expectedCards = 3;
 const cards = [
   {
-    title: 'Court or tribunal publications',
-    description: 'For example, list of hearings due to be heard, either today or in the future.',
+    title: 'Court and tribunal hearings',
+    description: 'View time, location, type of hearings and more.',
     link: 'search',
   },
   {
-    title: 'Live hearing updates',
-    description: 'Find out the live status of hearings currently happening - Crown Court cases only.',
-    link: 'live-case-alphabet-search',
+   title: 'Single Justice Procedure cases',
+   description: 'Cases ready to be decided by a magistrate without a hearing. Includes TV licensing, minor traffic offences such as speeding and more.',
+   link: 'summary-of-publications?courtId=0',
+
   },
   {
-    title: 'Single Justice Procedure cases',
-    description: 'A nationwide list of cases, ready to be decided by a magistrate without a hearing. Such as TV licensing prosecutions.',
-    link: 'summary-of-publications?courtId=0',
-  },
-  {
-    title: 'Subscriptions',
-    description: 'Subscribe to receive court or tribunal publications by email and manage your existing subscriptions.',
+    title: 'Email subscriptions',
+    description: 'Get emails about hearings from different courts and tribunals and manage your subscriptions.',
     link: 'subscription-management',
   }];
 let htmlRes: Document;
