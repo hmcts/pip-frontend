@@ -14,7 +14,6 @@ export default class ListTypeController {
     const fileData = await publicationService.getIndivPubJson(artefactId, (!!req.user));
     const fileJson = JSON.parse(JSON.stringify(fileData));
     if (metadata.listType === 'SJP_PUBLIC_LIST'){
-      console.log(fileJson);
       const data = fileJson.courtLists[0].courtHouse.courtRoom[0].session[0].sittings;
       const length = data.length;
       res.render('single-justice-procedure', {
@@ -22,7 +21,6 @@ export default class ListTypeController {
         casesList: data,
         length: length,
         date: moment().format('dddd, MMMM Do YYYY [at] h:mm a'),
-
       },
       );
     }
