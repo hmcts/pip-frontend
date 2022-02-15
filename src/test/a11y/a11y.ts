@@ -127,7 +127,7 @@ function testAccessibility(url: string): void {
 
 describe('Accessibility',  () => {
   sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-  app.request['user'] = {id: '1'};
+  app.request['user'] = {oid: '1'};
   readRoutes().forEach(route => {
     testAccessibility(route);
   });
