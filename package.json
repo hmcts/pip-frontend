@@ -55,7 +55,6 @@
     "express": "^4.17.1",
     "express-nunjucks": "^2.2.5",
     "express-session": "^1.17.2",
-    "fetch-blob": "^3.1.4",
     "glob": "^7.1.6",
     "govuk-frontend": "^3.9.1",
     "helmet": "^4.2.0",

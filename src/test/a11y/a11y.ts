@@ -14,9 +14,6 @@ import { SjpRequests } from '../../main/resources/requests/sjpRequests';
 const agent = supertest.agent(app);
 import { request as expressRequest } from 'express';
 import sinon from 'sinon';
-import {SummaryOfPublicationsRequests} from '../../main/resources/requests/summaryOfPublicationsRequests';
-const Blob = require('node-blob');
-
 const routesNotTested = [
   '/health',
   '/health/liveness',
@@ -35,20 +32,11 @@ const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/cour
 const rawDataLive = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/liveCaseStatusUpdates.json'), 'utf-8');
 const rawDataCaseEventGlossary = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/CaseEventGlossary.json'), 'utf-8');
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/trimmedSJPCases.json'), 'utf-8');
-const onePubJsonData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/onePublicationJson.json'), 'utf-8');
-const mockPDF = new Blob(['testPDF']);
-const indivPubJsonObject = {'data':mockPDF};
-const onePubJson = JSON.parse(onePubJsonData);
 const allCourtData = JSON.parse(rawDataCourt);
 const courtData = allCourtData[0];
 const liveCaseData = JSON.parse(rawDataLive).results;
 const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
 const sjpCases = JSON.parse(rawSJPData).results;
-
-sinon.stub(SummaryOfPublicationsRequests.prototype, 'getListOfPubs').returns(onePubJson);
-sinon.stub(SummaryOfPublicationsRequests.prototype, 'getIndividualPubMetadata').returns(onePubJson[0]);
-sinon.stub(SummaryOfPublicationsRequests.prototype, 'getIndividualPubFile').resolves(indivPubJsonObject);
-sinon.stub(SummaryOfPublicationsRequests.prototype, 'getIndividualPubJson').returns(indivPubJsonObject);
 
 sinon.stub(CourtRequests.prototype, 'getCourt').returns(courtData);
 sinon.stub(CourtRequests.prototype, 'getCourtByName').returns(courtData);
