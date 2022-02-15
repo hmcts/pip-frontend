@@ -1,4 +1,5 @@
 import { CommonPage } from './Common.page';
+import { AccountHomePage } from './AccountHome.page';
 import { CreateMediaAccountPage } from './CreateMediaAccount.page';
 
 const helpers = require('../Helpers/Selectors');
@@ -32,14 +33,22 @@ export class SignInPage extends CommonPage {
     return 'https://google.com';
   }
 
-  async clickContinueForRadio3(): Promise<string> {
+  async clickContinueForRadio3(): Promise<void> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
     const continueButton = await $(helpers.ContinueButton);
     continueButton.click();
+  }
 
-    return 'https://google.com';
+  async enterText(text: string, field: string): Promise<void> {
+    $(helpers[field]).catch(() => {
+      console.log(`${helpers[field]} not found`);
+    });
+
+    const inputField = await $(helpers[field]);
+    await inputField.addValue(text);
+    await browser.keys('Escape');
   }
 
   async clickCreateAccount(): Promise<CreateMediaAccountPage> {
@@ -49,5 +58,16 @@ export class SignInPage extends CommonPage {
 
     await $(helpers.SearchAToZLink).click();
     return new CreateMediaAccountPage();
+  }
+
+  async clickSignIn(): Promise<AccountHomePage> {
+    $(helpers.UserLoginContinue).catch(() => {
+      console.log(`${helpers.UserLoginContinue} not found`);
+    });
+
+    const continueButton = await $(helpers.UserLoginContinue);
+    continueButton.click();
+
+    return new AccountHomePage();
   }
 }
