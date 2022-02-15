@@ -84,7 +84,7 @@
         </div>
       </div>
     </div>
-    <div class="layout-width-three-fifths parent-box">
+    <div class="layout-width-three-fifths" id="content">
       <h2 id='page-heading' class="govuk-heading-l">{{ heading }}</h2>
       <div class="moj-button-menu">
         <div class="moj-button-menu__wrapper">
@@ -150,7 +150,6 @@
       {{ backToTopButton() }}
     </div>
   </div>
-
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
@@ -163,6 +162,11 @@
     function toggleFilters() {
       var element = document.getElementById("filters");
       element.classList.toggle("hide");
+      var content = document.getElementById("content");
+      var navigation = document.getElementsByClassName("moj-sub-navigation pub-navigation govuk-!-margin-bottom-0");
+      element.classList.toggle("hide");
+      content.classList.toggle("hide");
+      navigation[0].classList.toggle("hide");
       if (element.className.indexOf('hide') > 0) {
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ show }}";
       } else {
@@ -171,5 +175,4 @@
 
     }
   </script>
-
 {% endblock %}

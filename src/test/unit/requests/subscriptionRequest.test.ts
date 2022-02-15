@@ -4,9 +4,9 @@ import fs from 'fs';
 import path from 'path';
 import { subscriptionManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
 
-const userIdWithSubscriptions = 1;
-const userIdWithoutSubscriptions = 2;
-const nonExistingUserId = 777;
+const userIdWithSubscriptions = '1';
+const userIdWithoutSubscriptions = '2';
+const nonExistingUserId = '777';
 const subscriptionActions = new SubscriptionRequests();
 const mockedCaseSubscription = {
   name: 'Wyman Inc Dispute',
@@ -73,7 +73,7 @@ describe('getUserSubscriptions error tests', () => {
   });
 
   it('should return null for error response', async () => {
-    const userSubscriptions = await subscriptionActions.getUserSubscriptions(99);
+    const userSubscriptions = await subscriptionActions.getUserSubscriptions('99');
     expect(userSubscriptions).toBe(null);
   });
 
@@ -83,12 +83,12 @@ describe('getUserSubscriptions error tests', () => {
   });
 
   it('should return null for error message', async () => {
-    const userSubscriptions = await subscriptionActions.getUserSubscriptions(999);
+    const userSubscriptions = await subscriptionActions.getUserSubscriptions('999');
     expect(userSubscriptions).toBe(null);
   });
 
   it('should return null for error response', async () => {
-    const userSubscriptions = await subscriptionActions.getUserSubscriptions(9999);
+    const userSubscriptions = await subscriptionActions.getUserSubscriptions('9999');
     expect(userSubscriptions).toBe(null);
   });
 });

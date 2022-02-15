@@ -183,6 +183,7 @@ $min-width: 52em;
 @media (max-width: 770px) {
   .hide {
     display: none !important; // sass-lint:disable-line no-important
+    visibility: hidden;
   }
 
   .moj-button-menu {
@@ -421,8 +422,8 @@ div {
   flex-wrap: wrap;
 
   > div {
-    flex: 50%;
-    max-width: 50%;
+    flex: 33.33%;
+    max-width: 33.33%;
   }
 
   @media (max-width: 640px) {
