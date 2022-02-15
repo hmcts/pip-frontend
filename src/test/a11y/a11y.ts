@@ -10,11 +10,11 @@ import {CourtRequests} from '../../main/resources/requests/courtRequests';
 import {LiveCaseRequests} from '../../main/resources/requests/liveCaseRequests';
 import {CaseEventGlossaryRequests} from '../../main/resources/requests/caseEventGlossaryRequests';
 import { SjpRequests } from '../../main/resources/requests/sjpRequests';
+import { ManualUploadService } from '../../main/service/manualUploadService';
 
 const agent = supertest.agent(app);
 import { request as expressRequest } from 'express';
 import sinon from 'sinon';
-import { ManualUploadService } from '../../main/service/manualUploadService';
 
 const routesNotTested = [
   '/health',
@@ -129,7 +129,7 @@ function testAccessibility(url: string): void {
 
 describe('Accessibility',  () => {
   sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-  app.request['user'] = {id: '1'};
+  app.request['user'] = {oid: '1'};
   app.request['cookies'] = {'formCookie': JSON.stringify({'foo': 'blah', listType: '', listTypeName: ''})};
   readRoutes().forEach(route => {
     testAccessibility(route);
