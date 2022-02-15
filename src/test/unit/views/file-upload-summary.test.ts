@@ -21,6 +21,7 @@ const mockData = {
   language: 'English',
   listType: 'SJP_PUBLIC_LIST',
   listTypeName: 'SJP Public List',
+  languageName: 'English',
 };
 
 describe('File Upload Summary Page', () => {
@@ -64,7 +65,7 @@ describe('File Upload Summary Page', () => {
     expect(values[2].innerHTML).to.contain(mockData.listTypeName, 'List type value not found');
     expect(values[3].innerHTML).to.contain(formatContentDate, 'Hearing start date value not found');
     expect(values[4].innerHTML).to.contain(mockData.classification, 'Classification values not found');
-    expect(values[5].innerHTML).to.contain(mockData.language, 'Language value not found');
+    expect(values[5].innerHTML).to.contain(mockData.languageName, 'Language value not found');
     expect(values[6].innerHTML).to.contain(`${formatDisplayFromDate} to ${formatDisplayToDate}`, 'Display dates values not found');
   });
 });

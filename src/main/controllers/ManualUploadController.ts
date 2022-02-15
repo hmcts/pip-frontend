@@ -43,6 +43,9 @@ export default class ManualUploadController {
       req.body['display-from'] = manualUploadService.buildDate(req.body, 'display-date-from');
       req.body['display-to'] = manualUploadService.buildDate(req.body, 'display-date-to');
       req.body['content-date-from'] = manualUploadService.buildDate(req.body, 'content-date-from');
+      if (req.body?.language) {
+        req.body['languageName'] = formValues['form'].language.find(item => item.value === req.body.language).text;
+      }
       res.cookie('formCookie', JSON.stringify(req.body));
       res.redirect('/manual-upload-summary?check=true');
     }
