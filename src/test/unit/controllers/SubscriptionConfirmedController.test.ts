@@ -17,7 +17,7 @@ const i18n = {
 describe('Subscriptions Confirmed Controller', () => {
   it('should render confirmed page if subscribed successfully', () => {
     const request = mockRequest(i18n);
-    request.user = {id: '1'};
+    request.user = {oid: '1'};
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('subscription-confirmed', {...i18n['subscription-confirmed']});
@@ -29,7 +29,7 @@ describe('Subscriptions Confirmed Controller', () => {
 
   it('should render error page if subscription failed', () => {
     const request = mockRequest(i18n);
-    request.user = {id: '2'};
+    request.user = {oid: '2'};
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', {...i18n.error});
