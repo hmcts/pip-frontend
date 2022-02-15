@@ -1952,7 +1952,7 @@
     loglevel-plugin-prefix "^0.8.4"
     strip-ansi "^6.0.0"
 
-"@wdio/mocha-framework@^7.16.6":
+"@wdio/mocha-framework@^7.16.14":
   version "7.16.14"
   resolved "https://registry.yarnpkg.com/@wdio/mocha-framework/-/mocha-framework-7.16.14.tgz#a7e406b58a73be2cd1ad7f02d4982113c6ff6687"
   integrity sha512-NvhdOe8xliNq988ex/fT5jyMJOwibE4VA/7bUKcT+nUQPkQVtoLRiXXncUYvKi755qEY3Q+12GnGGDuIUMOY+w==
@@ -2006,7 +2006,7 @@
     webdriver "7.16.14"
     webdriverio "7.16.14"
 
-"@wdio/selenium-standalone-service@^7.16.6":
+"@wdio/selenium-standalone-service@^7.16.14":
   version "7.16.14"
   resolved "https://registry.yarnpkg.com/@wdio/selenium-standalone-service/-/selenium-standalone-service-7.16.14.tgz#484f1d138b16205f54c373fe9dbd97206d5ba66b"
   integrity sha512-lkygYvdN8XUejuMTnyWtXVp583J3sBT0Fge/ww/06xU2tYek0TpodKoNNmuU779uIXAM3Lz3L4L4n67Gis4NmA==
@@ -5616,9 +5616,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 follow-redirects@^1.14.0:
-  version "1.14.7"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.7.tgz#2004c02eb9436eee9a21446a6477debf17e81685"
-  integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
+  version "1.14.8"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.8.tgz#016996fb9a11a100566398b1c6839337d7bfa8fc"
+  integrity sha512-1x0S9UVJHsQprFcEC/qnNzBLcIxsjAV905f/UkQxbclCsoTWlacCNOpQa/anodLl2uaEKFhfWOvM2Qg77+15zA==
 
 for-in@^1.0.2:
   version "1.0.2"
