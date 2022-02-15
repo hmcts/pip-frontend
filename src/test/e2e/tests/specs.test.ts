@@ -24,6 +24,7 @@ import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmat
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
 import {ManualUploadPage} from '../PageObjects/ManualUpload.page';
+import { AdminDashboardPage } from '../PageObjects/AdminDashboard.page';
 
 const homePage = new HomePage;
 const mockSessionPage = new MockSessionPage();
@@ -48,8 +49,9 @@ let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
+let manualUploadPage: ManualUploadPage;
+const adminDashboard = new AdminDashboardPage;
 const signInPage = new SignInPage;
-const manualUploadPage = new ManualUploadPage;
 
 describe('Unverified user', () => {
 
@@ -379,12 +381,19 @@ describe('Verified user', () => {
       expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
     });
   });
+
   describe('Admin level journeys', () => {
+    it('should open admin dashboard page', async () => {
+      await adminDashboard.open('/admin-dashboard');
+      expect(await adminDashboard.getPageTitle()).toEqual('Admin dashboard');
+    });
+
     describe('Manual Upload', () => {
       it('should open manual upload page', async () => {
-        await manualUploadPage.open('/manual-upload');
+        manualUploadPage = await adminDashboard.clickUploadFileCard();
         expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
       });
+
       it('should complete form', async () => {
         manualUploadPage.completeForm();
       });
