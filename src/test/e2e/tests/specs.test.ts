@@ -378,32 +378,10 @@ if (process.env.EXCLUDE_E2E === 'true') {
           expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
         });
 
-
-    it('should subscribe', async () => {
-      subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
-      expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
-    });
-  });
-
-  describe('remove subscription', async () => {
-    expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
-  });
-
-  it('should select yes option and unsubscribe', async () => {
-    await deleteSubscriptionPage.selectOption('yesRadioButton');
-    unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
-    expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
-  });
-  describe('Admin level journeys', () => {
-    describe('Manual Upload', () => {
-      it('should open manual upload page', async () => {
-        await manualUploadPage.open('/manual-upload');
-        expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
-      });
-      it('should complete form', async () => {
-        await manualUploadPage.completeForm();
+        it('should complete form', async () => {
+          await manualUploadPage.completeForm();
+        });
       });
     });
   });
 }
-
