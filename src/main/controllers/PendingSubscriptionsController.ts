@@ -7,7 +7,6 @@ const subscriptionService = new SubscriptionService();
 
 export default class PendingSubscriptionsController {
   public async get(req: PipRequest, res: Response): Promise<void> {
-    console.log('get', req.user['oid']);
     const pendingSubscriptions = {
       cases: await subscriptionService.getPendingSubscriptions(req.user['oid'], 'cases'),
       courts: await subscriptionService.getPendingSubscriptions(req.user['oid'], 'courts'),
