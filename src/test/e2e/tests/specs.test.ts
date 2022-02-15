@@ -163,7 +163,7 @@ describe('Unverified user', () => {
   });
 });
 
-if (process.env.EXCLUDE_E2E !== 'true') {
+if (process.env.EXCLUDE_E2E === 'true') {
   describe('Verified user', () => {
     describe('Sign In Page', () => {
       const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
