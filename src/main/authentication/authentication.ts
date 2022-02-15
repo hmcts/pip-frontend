@@ -1,15 +1,20 @@
 import process from 'process';
 import passportCustom from 'passport-custom';
+import { Logger } from '@hmcts/nodejs-logging';
+import config = require('config');
 
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
 const authenticationConfig = require('./authentication-config.json');
 const CustomStrategy = passportCustom.Strategy;
+const logger = Logger.getLogger('authentication');
 
 /**
  * This sets up the OIDC version of authentication, integrating with Azure.
  */
 function oidcSetup(): void {
+  const clientSecret = config.get('secrets.pip-ss-kv.CLIENT_SECRET') as string;
+  logger.info('secret', clientSecret ? clientSecret.substring(0,5) : 'client secret not set!' );
   const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
   const users = [];
 
@@ -41,7 +46,7 @@ function oidcSetup(): void {
     policy: authenticationConfig.POLICY,
     redirectUrl: FRONTEND_URL + '/login/return',
     allowHttpForRedirectUrl: true,
-    clientSecret: process.env.CLIENT_SECRET,
+    clientSecret: clientSecret,
     isB2C: true,
   },
   function(iss, sub, profile, accessToken, refreshToken, done) {
