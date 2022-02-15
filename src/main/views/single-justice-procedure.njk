@@ -11,35 +11,38 @@
 {% endblock %}
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
-  <p class="govuk-body govuk-!-font-weight-bold">{{ p1 }}</p>
-  <p class="govuk-body">{{ p2 }} {{ published }}</p>
+  <p class="govuk-body">List containing {{ length }} case(s) generated on {{ date }}</p>
   <div class="parent-box">
   {% set sjpCase = [] %}
   {% for item in casesList |sort(attribute="Name")%}
+  {% for role in item.hearing[0].party %}
+  {% if role.partyRole == "ACCUSED" %}
+  {% set accused = [role.individualDetails.individualForenames, " ", role.individualDetails.individualSurname] | join %}
+  {% set postcode = role.individualDetails.address.postCode %}
+
+ {% elif role.partyRole == "PROSECUTOR" %}
+  {% set prosecutor = [role.individualDetails.individualForenames, " ", role.individualDetails.individualSurname] | join %}
+  {% endif %}
+  {% set offence = item.hearing[0].offence.offenceTitle %}
+  {% if accused and prosecutor and postcode and offence %}
+
     {% set _ = sjpCase.push([
       {
-        text: item.provenance
+        text: accused
       },
       {
-        text: item.sourceArtefactId
+        text: postcode
       },
       {
-        text: item.contentDate
+        text: offence
       },
       {
-        html: "<a href=read-publication&artefactId="+item.artefactId+">Link</a>"
-      },
-      {
-        text: item.isFlatFile
-      },
-      {
-        text: item.sensitivity
-      },
-      {
-        text: item.type
+        text: prosecutor
       }
     ]) %}
-  {% endfor %}
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
 
   {{ govukTable({
     firstCellIsHeader: false,
@@ -55,19 +58,11 @@
       },
       {
         text: column4
-      },
-      {
-        text: column5
-      },
-      {
-        text: column6
-      },
-      {
-        text: column7
       }
     ],
     rows: sjpCase
   }) }}
+
   <br/>
   <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19 with-background"
      href="#">
