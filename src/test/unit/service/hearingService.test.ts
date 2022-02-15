@@ -58,13 +58,13 @@ describe('Hearing Service', () => {
     it('should return empty list if there are no matching results', async () => {
       expect(await hearingService.getCaseByNumber('foo')).to.deep.equal(null);
     });
-  });
 
-  it('should return case for a valid urn', async () => {
-    expect(await hearingService.getCaseByURN('validURN')).to.equal(data);
-  });
-
-  it('should return null for a invalid urn', async () => {
-    expect(await hearingService.getCaseByURN('bar')).to.deep.equal(null);
-  });  
+    it('should return case for a valid urn', async () => {
+      expect(await hearingService.getCaseByURN('validURN')).to.equal(data);
+    });
+  
+    it('should return null for a invalid urn', async () => {
+      expect(await hearingService.getCaseByURN('bar')).to.deep.equal(null);
+    }); 
+  });   
 });
