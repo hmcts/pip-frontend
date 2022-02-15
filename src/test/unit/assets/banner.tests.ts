@@ -6,11 +6,15 @@ const PAGE_URL = '/view-option';
 let htmlRes;
 const NON_SIGNED_IN_LINKS = {
   Home: 'view-option',
+  'Find a court or tribunal': 'search',
+  'Single Justice Procedure cases': 'single-justice-procedure',
   'Sign in': 'sign-in',
 };
 const SIGNED_IN_LINKS = {
   Home: 'account-home',
-  Subscriptions: 'subscription-management',
+  'Email subscriptions': 'subscription-management',
+  'Find a court or tribunal': 'search',
+  'Single Justice Procedure cases': 'single-justice-procedure',
   'Sign out': 'logout',
 };
 
@@ -22,9 +26,9 @@ describe('Navigation banner tests on the view-option page', () => {
       });
     });
 
-    it('should display navigation banner with 2 links', () => {
+    it('should display navigation banner with 4 links', () => {
       const navigationLinks = htmlRes.getElementsByClassName('moj-sub-navigation__item');
-      expect(navigationLinks.length).to.equal(2);
+      expect(navigationLinks.length).to.equal(4);
     });
 
     it('links should have correct names and paths', () => {
@@ -46,9 +50,9 @@ describe('Navigation banner tests on the view-option page', () => {
       });
     });
 
-    it('should display navigation banner with 3 links', () => {
+    it('should display navigation banner with 5 links', () => {
       const navigationLinks = htmlRes.getElementsByClassName('moj-sub-navigation__item');
-      expect(navigationLinks.length).to.equal(3);
+      expect(navigationLinks.length).to.equal(5);
     });
 
     it('links should have correct names and paths', () => {
