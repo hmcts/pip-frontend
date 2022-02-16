@@ -47,7 +47,6 @@ describe('List Type Controller', () => {
     } as unknown as PipRequest;
     request.i18n.getDataByLanguage = jest.fn().mockReturnValue('mockI18n');
     const JsonifiedData = JSON.parse(mockSJPPublic);
-    console.log(JsonifiedData.courtLists);
     const data = JsonifiedData.courtLists[0].courtHouse.courtRoom[0].session[0].sittings;
     const length = data.length;
     const expectedData = {
