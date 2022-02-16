@@ -180,7 +180,7 @@ export class ManualUploadService {
       'x-provenance': 'MANUAL_UPLOAD',
       'x-source-artefact-id': headers.fileName,
       'x-type': headers.artefactType,
-      'x-sensitivity': headers.classification,
+      'x-sensitivity': (headers.classification.includes('CLASSIFIED')) ? 'CLASSIFIED' : headers.classification,
       'x-language': headers.language,
       'x-display-from': headers['display-from'],
       'x-display-to': headers['display-to'],
