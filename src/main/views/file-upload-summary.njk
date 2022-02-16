@@ -11,8 +11,6 @@
     {{ goBack() }}
 {% endblock %}
 {% block content %}
-    {% set formatLanguage = fileUploadData.language | capitalize %}
-    {% set formatClassification = fileUploadData.classification | capitalize %}
     {% if displayError %}
         {{ govukErrorSummary({
             titleText: error.title,
@@ -101,7 +99,7 @@
                     text: availableToKey
                 },
                     value: {
-                    text: formatClassification
+                    text: fileUploadData.classificationName
                 },
                     actions: {
                     items: [
