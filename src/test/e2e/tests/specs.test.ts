@@ -21,11 +21,15 @@ import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmat
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 >>>>>>> PUB-985-lists
+=======
+import {ManualUploadPage} from '../PageObjects/ManualUpload.page';
+import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
+>>>>>>> PUB-997-render-SJP
 import { InterstitialPage } from '../PageObjects/Interstitial.page';
-import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
 import config = require('config');
 
