@@ -12,7 +12,7 @@
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">List containing {{ length }} case(s) generated on {{ date }}</p>
-  <div class="parent-box">
+  <div class="parent-box overflow-table">
   {% set sjpCase = [] %}
   {% for item in casesList |sort(attribute="Name")%}
   {% for role in item.hearing[0].party %}
