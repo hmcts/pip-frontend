@@ -311,7 +311,6 @@ if (process.env.EXCLUDE_E2E === 'true') {
           expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
         });
       });
-    });
 
       describe('Following the subscription \'search\' by case reference path', () => {
         const validSearchTerm = 'T485913';
