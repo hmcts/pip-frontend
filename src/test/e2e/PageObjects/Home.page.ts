@@ -1,5 +1,5 @@
-import { ViewOptionPage } from './ViewOption.page';
 import { CommonPage } from './Common.page';
+import { InterstitialPage } from './Interstitial.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -12,9 +12,8 @@ export class HomePage extends CommonPage {
     return $(helpers.MainHeader).getText();
   }
 
-  async clickLinkToService(): Promise<ViewOptionPage> {
-    const button = await $(helpers.ServiceLink);
-    button.click();
-    return new ViewOptionPage();
+  async clickLinkToService(): Promise<InterstitialPage> {
+    await $(helpers.ServiceLink).click();
+    return new InterstitialPage();
   }
 }
