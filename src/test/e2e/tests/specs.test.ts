@@ -23,6 +23,7 @@ import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 >>>>>>> PUB-985-lists
@@ -39,6 +40,12 @@ import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
 import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 >>>>>>> PUB-544-file-upload
+=======
+import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
+import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
+import { InterstitialPage } from '../PageObjects/Interstitial.page';
+import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
+>>>>>>> PUB-1072-file-too-large-handler
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
 import config = require('config');
 
@@ -475,6 +482,7 @@ if (process.env.EXCLUDE_E2E === 'true') {
 
 >>>>>>> PUB-985-lists
     });
+<<<<<<< HEAD
   });
 
   describe('add subscription', async () => {
@@ -503,6 +511,8 @@ if (process.env.EXCLUDE_E2E === 'true') {
       unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
       expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
     });
+=======
+>>>>>>> PUB-1072-file-too-large-handler
   });
 =======
 >>>>>>> PUB-1023-Daily-cause-list-template
@@ -550,6 +560,7 @@ if (process.env.EXCLUDE_E2E === 'true') {
         });
       });
 
+<<<<<<< HEAD
       describe('add subscription', async () => {
         before(async () => {
           await pendingSubscriptionsPage.open('pending-subscriptions');
@@ -601,6 +612,11 @@ if (process.env.EXCLUDE_E2E === 'true') {
           expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
 >>>>>>> PUB-544-file-upload
         });
+=======
+      it('should open upload confirmation page', async () => {
+        fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
+        expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
+>>>>>>> PUB-1072-file-too-large-handler
       });
     });
   });

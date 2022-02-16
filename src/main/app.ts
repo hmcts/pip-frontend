@@ -18,7 +18,6 @@ import authentication from './authentication/authentication';
 
 const passport = require('passport');
 const cookieSession = require('cookie-session');
-
 const {setupDev} = require('./development');
 import {Container} from './modules/awilix';
 import routes from './routes/routes';
