@@ -64,7 +64,7 @@ exports.config = {
       browserName: 'chrome',
       acceptInsecureCerts: true,
       'goog:chromeOptions': process.env.USE_HEADLESS ? {
-        args: ['--headless', 'user-agent=...','--disable-gpu', '--no-sandbox'],
+        args: ['--headless', 'user-agent=...', '--disable-gpu', '--no-sandbox'],
       } : {},
     },
     // {
