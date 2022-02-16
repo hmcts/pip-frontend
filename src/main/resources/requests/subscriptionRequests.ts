@@ -3,7 +3,7 @@ import { UserSubscriptions } from '../../models/UserSubscriptions';
 
 export class SubscriptionRequests {
 
-  public async getUserSubscriptions(userId: number): Promise<UserSubscriptions> {
+  public async getUserSubscriptions(userId: string): Promise<UserSubscriptions> {
     try {
       const response = await subscriptionManagementApi.get(`/subscription/user/${userId}`);
       return response.data;

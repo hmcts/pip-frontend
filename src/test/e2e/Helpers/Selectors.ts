@@ -21,6 +21,9 @@ module.exports = {
   SignInRadio1: '#sign-in',
   SignInRadio2: '#sign-in-2',
   SignInRadio3: '#sign-in-3',
+  EmailField: '#email',
+  PasswordField: '#password',
+  UserLoginContinue: '#next',
 
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
@@ -103,7 +106,7 @@ module.exports = {
   // UnsubscribeConfirmation selectors
   panelTitle: '.govuk-panel__title',
 
-  //Admin selectors
+  // Admin selectors
   fileUpload: '#manual-file-upload',
   contentDateFromDay: '#content-date-from-day',
   contentDateFromMonth: '#content-date-from-month',
@@ -122,4 +125,7 @@ module.exports = {
   UploadFile: '#card-manual-upload',
   RemoveContent: '#card-remove-list-search',
   ManageMediaAccounts: '#manage-media-accounts',
+
+  // AccountHome selectors
+  EmailSubscriptionLink: '#card-subscription-management',
 };
