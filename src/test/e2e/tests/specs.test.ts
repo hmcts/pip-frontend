@@ -73,90 +73,92 @@ describe('Unverified user', () => {
     expect(await viewOptionPage.radioButtons).toBe(2);
   });
 
-  describe('find a court or tribunal publication', async () => {
-    it('should select \'Court or Tribunal hearing Publications\' option and navigate to search option page', async () => {
-      await viewOptionPage.selectOption('CourtOrTribunalRadioButton');
-      searchPage = await viewOptionPage.clickContinueForSearch();
-      expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
-    });
+  if (process.env.EXCLUDE_E2E === 'true') {
+    describe('find a court or tribunal publication', async () => {
+      it('should select \'Court or Tribunal hearing Publications\' option and navigate to search option page', async () => {
+        await viewOptionPage.selectOption('CourtOrTribunalRadioButton');
+        searchPage = await viewOptionPage.clickContinueForSearch();
+        expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
+      });
 
-    describe('following the \'I have the name\' path', async () => {
-      const searchTerm = 'Leicester Tribunal Hearing Centre';
+      describe('following the \'I have the name\' path', async () => {
+        const searchTerm = 'Leicester Tribunal Hearing Centre';
 
-      it('should enter text and click continue', async () => {
-        await searchPage.enterText(searchTerm);
-        hearingListPage = await searchPage.clickContinue();
-        expect(await hearingListPage.getPageTitle()).toEqual('Leicester Tribunal Hearing Centre hearing list');
+        it('should enter text and click continue', async () => {
+          await searchPage.enterText(searchTerm);
+          hearingListPage = await searchPage.clickContinue();
+          expect(await hearingListPage.getPageTitle()).toEqual('Leicester Tribunal Hearing Centre hearing list');
+        });
+      });
+
+      describe('following the \'Select from an A-Z of courts and tribunals\' path', async () => {
+
+        before(async () => {
+          await searchPage.open('/search');
+        });
+
+        it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
+          alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
+          expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
+        });
+
+        it('should select Magistrates\' Court and North West filters', async () => {
+          await alphabeticalSearchPage.selectOption('MagistratesFilter');
+          await alphabeticalSearchPage.selectOption('NorthWestFilter');
+          await alphabeticalSearchPage.clickApplyFiltersButton();
+          expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
+        });
+
+        it('should have Magistrates\' Court and North West filters selected', async () => {
+          expect(await alphabeticalSearchPage.checkIfSelected('MagistratesFilter')).toBeTruthy();
+          expect(await alphabeticalSearchPage.checkIfSelected('NorthWestFilter')).toBeTruthy();
+        });
+
+        it('selecting first result should take you to to the hearings list page', async () => {
+          hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
+          expect(await hearingListPage.getPageTitle()).toEqual('Leicester Tribunal Hearing Centre hearing list');
+        });
       });
     });
 
-    describe('following the \'Select from an A-Z of courts and tribunals\' path', async () => {
+    describe('find live case status updates', async () => {
+      const validCourtName = 'Northampton Crown Court';
 
       before(async () => {
-        await searchPage.open('/search');
+        await liveCaseCourtSearchControllerPage.open('/live-case-alphabet-search');
       });
 
-      it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
-        alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
-        expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
+      it('selecting first result should take you to to the live hearings list page', async () => {
+        liveCaseStatusPage = await liveCaseCourtSearchControllerPage.selectFirstValidListResult();
+        expect(await liveCaseStatusPage.getPageTitle()).toContain('Live hearing updates');
       });
 
-      it('should select Magistrates\' Court and North West filters', async () => {
-        await alphabeticalSearchPage.selectOption('MagistratesFilter');
-        await alphabeticalSearchPage.selectOption('NorthWestFilter');
-        await alphabeticalSearchPage.clickApplyFiltersButton();
-        expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
+      it(`should have '${validCourtName}' as a sub title`, async () => {
+        expect(await liveCaseStatusPage.getCourtTitle()).toContain(validCourtName);
       });
 
-      it('should have Magistrates\' Court and North West filters selected', async () => {
-        expect(await alphabeticalSearchPage.checkIfSelected('MagistratesFilter')).toBeTruthy();
-        expect(await alphabeticalSearchPage.checkIfSelected('NorthWestFilter')).toBeTruthy();
+      it('should select first glossary term', async () => {
+        caseEventGlossaryPage = await liveCaseStatusPage.selectGlossaryTerm();
+        expect(await caseEventGlossaryPage.getPageTitle()).toEqual('Live hearing updates - glossary of terms');
       });
 
-      it('selecting first result should take you to to the hearings list page', async () => {
-        hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await hearingListPage.getPageTitle()).toEqual('Leicester Tribunal Hearing Centre hearing list');
+      it('should display glossary', async () => {
+        expect(await caseEventGlossaryPage.termIsInView()).toBeTruthy();
       });
     });
-  });
 
-  describe('find live case status updates', async () => {
-    const validCourtName = 'Northampton Crown Court';
+    describe('find single justice procedure cases', () => {
+      before(async () => {
+        await viewOptionPage.open('/view-option');
+      });
 
-    before(async () => {
-      await liveCaseCourtSearchControllerPage.open('/live-case-alphabet-search');
+      it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
+        await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
+        singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
+        expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Single Justice Procedure cases');
+      });
     });
-
-    it('selecting first result should take you to to the live hearings list page', async () => {
-      liveCaseStatusPage = await liveCaseCourtSearchControllerPage.selectFirstValidListResult();
-      expect(await liveCaseStatusPage.getPageTitle()).toContain('Live hearing updates');
-    });
-
-    it(`should have '${validCourtName}' as a sub title`, async () => {
-      expect(await liveCaseStatusPage.getCourtTitle()).toContain(validCourtName);
-    });
-
-    it('should select first glossary term', async () => {
-      caseEventGlossaryPage = await liveCaseStatusPage.selectGlossaryTerm();
-      expect(await caseEventGlossaryPage.getPageTitle()).toEqual('Live hearing updates - glossary of terms');
-    });
-
-    it('should display glossary', async () => {
-      expect(await caseEventGlossaryPage.termIsInView()).toBeTruthy();
-    });
-  });
-
-  describe('find single justice procedure cases', () => {
-    before(async () => {
-      await viewOptionPage.open('/view-option');
-    });
-
-    it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
-      await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
-      singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-      expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Single Justice Procedure cases');
-    });
-  });
+  }
 });
 
 if (process.env.EXCLUDE_E2E === 'true') {
