@@ -27,7 +27,7 @@ export class PublicationService {
 
   private getCaseFromArtefact(artefact: Artefact, term: string, value: string): SearchObject {
     let foundObject: SearchObject;
-    artefact['search'].cases.forEach(singleCase => {
+    artefact.search.cases.forEach(singleCase => {
       if (singleCase[term] == value) {
         foundObject = singleCase;
       }
@@ -38,7 +38,7 @@ export class PublicationService {
   private getFuzzyCasesFromArtefact(artefacts: Artefact[], value: string): SearchObject[] {
     const matches: SearchObject[] = [];
     artefacts.forEach(artefact => {
-      artefact['search'].cases.forEach(singleCase => {
+      artefact.search.cases.forEach(singleCase => {
         if (singleCase.caseName.toLowerCase().includes(value.toLowerCase())) {
           matches.push(singleCase);
         }
