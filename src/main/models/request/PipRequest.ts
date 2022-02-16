@@ -11,10 +11,13 @@ export interface PipRequest extends Request {
       'case-reference-number-search-results': {};
       'court-name-search': {};
       'delete-subscription': {};
+      'home': {};
+      'template': {};
+      'account-request-submitted': {};
+      'create-media-account': {};
       'error': {};
       'file-upload-confirm': {};
       'hearing-list': {};
-      'home': {};
       'list-option': {};
       'interstitial': {};
       'live-case-alphabet-search': {};
@@ -31,7 +34,6 @@ export interface PipRequest extends Request {
       'subscription-management': {};
       'subscription-urn-search': {};
       'subscription-urn-search-result': {};
-      'template': {};
       'unsubscribe-confirmation': {};
       'sign-in': {};
       'manual-upload': {};

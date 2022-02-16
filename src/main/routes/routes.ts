@@ -82,9 +82,12 @@ export default function(app: Application): void {
   app.get('/*', globalAuthGiver);
   app.post('/*', globalAuthGiver);
   app.get('/', app.locals.container.cradle.homeController.get);
+  app.get('/account-request-submitted', app.locals.container.cradle.mediaAccountRequestSubmittedController.get);
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
   app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
+  app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
+  app.post('/create-media-account', app.locals.container.cradle.createMediaAccountController.post);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/interstitial', app.locals.container.cradle.interstitialController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);

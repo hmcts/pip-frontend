@@ -24,6 +24,7 @@ import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 >>>>>>> PUB-985-lists
@@ -33,6 +34,10 @@ import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.
 >>>>>>> PUB-997-render-SJP
 =======
 >>>>>>> PUB-1023-Daily-cause-list-template
+=======
+import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
+import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
+>>>>>>> PUB-1031-request-account
 import { InterstitialPage } from '../PageObjects/Interstitial.page';
 <<<<<<< HEAD
 =======
@@ -77,8 +82,11 @@ let fileUploadConfirmationPage: FileUploadConfirmationPage;
 >>>>>>> PUB-544-file-upload
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
+let createMediaAccountPage: CreateMediaAccountPage;
+let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let interstitialPage: InterstitialPage;
 let accountHomePage: AccountHomePage;
+
 const signInPage = new SignInPage;
 const manualUploadPage = new ManualUploadPage;
 
@@ -294,11 +302,34 @@ describe('Unverified user', () => {
     });
   });
 
+<<<<<<< HEAD
 >>>>>>> PUB-985-lists
 =======
 >>>>>>> PUB-1023-Daily-cause-list-template
 =======
 >>>>>>> PUB-544-file-upload
+=======
+  describe('request an account', () => {
+    before(async () => {
+      await signInPage.open('/sign-in');
+    });
+
+    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+    });
+
+    it('should click on the create account link', async () => {
+      createMediaAccountPage = await signInPage.clickCreateAccount();
+      expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a court and tribunal hearing account');
+    });
+
+    it('should complete form and continue to confirmation page', async () => {
+      await createMediaAccountPage.completeForm();
+      mediaAccountRequestSubmittedPage = await createMediaAccountPage.clickContinue();
+      expect(await mediaAccountRequestSubmittedPage.getPanelTitle()).toEqual('Details submitted');
+    });
+  });
+>>>>>>> PUB-1031-request-account
 });
 
 if (process.env.EXCLUDE_E2E === 'true') {
