@@ -1,7 +1,7 @@
 import {dataManagementApi} from './utils/axiosConfig';
 import {Artefact} from '../../models/artefact';
 
-export class SummaryOfPublicationsRequests {
+export class PublicationRequests {
 
   public async getListOfPubs(courtId, verification): Promise<Artefact[]> {
     try {

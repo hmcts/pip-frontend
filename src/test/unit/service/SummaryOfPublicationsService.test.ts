@@ -1,13 +1,13 @@
 import sinon from 'sinon';
 import {expect} from 'chai';
 import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
-import {SummaryOfPublicationsRequests} from '../../../main/resources/requests/summaryOfPublicationsRequests';
+import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
 
 const sopService = new SummaryOfPublicationsService();
-const pubStub = sinon.stub(SummaryOfPublicationsRequests.prototype, 'getListOfPubs');
-const fileStub = sinon.stub(SummaryOfPublicationsRequests.prototype, 'getIndividualPubFile');
-const metaStub = sinon.stub(SummaryOfPublicationsRequests.prototype, 'getIndividualPubMetadata');
-const jsonStub = sinon.stub(SummaryOfPublicationsRequests.prototype, 'getIndividualPubJson');
+const pubStub = sinon.stub(PublicationRequests.prototype, 'getListOfPubs');
+const fileStub = sinon.stub(PublicationRequests.prototype, 'getIndividualPubFile');
+const metaStub = sinon.stub(PublicationRequests.prototype, 'getIndividualPubMetadata');
+const jsonStub = sinon.stub(PublicationRequests.prototype, 'getIndividualPubJson');
 
 describe('Summary Of Publications Service', () => {
   it('should return a list of publications', async () => {
