@@ -291,7 +291,6 @@ if (process.env.EXCLUDE_E2E === 'true') {
           expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
         });
 
-
         it('should click continue to create subscription', async () => {
           pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
           expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
