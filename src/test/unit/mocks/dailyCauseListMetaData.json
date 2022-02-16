@@ -1,0 +1,26 @@
+{
+  "artefactId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "contentDate": "2022-02-04T11:01:20.734Z",
+  "courtId": "string",
+  "displayFrom": "2022-02-04T11:01:20.734Z",
+  "displayTo": "2022-02-04T11:01:20.734Z",
+  "isFlatFile": true,
+  "language": "BI_LINGUAL",
+  "listType": "CIVIL_DAILY_CAUSE_LIST",
+  "payload": "string",
+  "provenance": "string",
+  "search": {
+    "additionalProp1": [
+      {}
+    ],
+    "additionalProp2": [
+      {}
+    ],
+    "additionalProp3": [
+      {}
+    ]
+  },
+  "sensitivity": "CLASSIFIED",
+  "sourceArtefactId": "string",
+  "type": "GENERAL_PUBLICATION"
+}

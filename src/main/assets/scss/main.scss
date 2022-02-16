@@ -470,6 +470,15 @@ div {
   overflow-x: auto;
 }
 
+.no-border-bottom {
+  border-bottom: 0;
+}
+
+.govuk-accordion__controls {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
 //Admin css
 .admin-form-offset {
   margin-right: 1em;

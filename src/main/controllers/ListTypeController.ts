@@ -23,6 +23,8 @@ export default class ListTypeController {
         date: moment().format('dddd, MMMM Do YYYY [at] h:mm a'),
       },
       );
+    } else if (metadata.listType === 'CIVIL_DAILY_CAUSE_LIST') {
+      res.redirect('daily-cause-list?artefactId=' + artefactId);
     }
     else {
       res.set('Content-Type', 'application/json');

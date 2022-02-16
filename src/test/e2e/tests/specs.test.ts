@@ -22,6 +22,7 @@ import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.pa
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 >>>>>>> PUB-985-lists
@@ -29,6 +30,8 @@ import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.
 import {ManualUploadPage} from '../PageObjects/ManualUpload.page';
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 >>>>>>> PUB-997-render-SJP
+=======
+>>>>>>> PUB-1023-Daily-cause-list-template
 import { InterstitialPage } from '../PageObjects/Interstitial.page';
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
 import config = require('config');
@@ -237,6 +240,7 @@ describe('Unverified user', () => {
       expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
     });
   });
+<<<<<<< HEAD
 
   describe('Render summary of publications screen from alphabetical search list', () => {
     beforeEach(async () => {
@@ -272,6 +276,8 @@ describe('Unverified user', () => {
   });
 
 >>>>>>> PUB-985-lists
+=======
+>>>>>>> PUB-1023-Daily-cause-list-template
 });
 
 if (process.env.EXCLUDE_E2E === 'true') {
@@ -418,6 +424,7 @@ if (process.env.EXCLUDE_E2E === 'true') {
         pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
         expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
+<<<<<<< HEAD
     });
 
     describe('Following the subscription \'search\' by case reference path', () => {
@@ -482,6 +489,8 @@ if (process.env.EXCLUDE_E2E === 'true') {
       expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
     });
   });
+=======
+>>>>>>> PUB-1023-Daily-cause-list-template
 
   describe('Admin level journeys', () => {
     describe('Manual Upload', () => {
