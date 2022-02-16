@@ -1,0 +1,15 @@
+{
+  "title": "P&I Court and tribunal hearings",
+  "header": "Court and tribunal hearings",
+  "message": "You can use this service to get information about:",
+  "bullets": [
+    "hearings in Civil and Family Courts in [xx region]",
+    "Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding"
+  ],
+  "moreMessage": "More courts and tribunals will become available over time.",
+  "legalMessage": "Legal and media professionals can",
+  "signInLink": "sign in",
+  "welshMessage": "Mae’r canllaw hwn hefyd ar gael yn",
+  "languageLink": "Saesneg (English)",
+  "continue": "Parhau"
+}
