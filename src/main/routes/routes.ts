@@ -71,6 +71,7 @@ export default function(app: Application): void {
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
   app.post('/create-media-account', app.locals.container.cradle.createMediaAccountController.post);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
+  app.get('/interstitial', app.locals.container.cradle.interstitialController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
   app.post('/login/return', passport.authenticate(authType, { failureRedirect: '/view-option'}),
     (req, res) => {res.redirect('/account-home');});

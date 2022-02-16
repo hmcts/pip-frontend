@@ -10,6 +10,7 @@ export interface PipRequest extends Request {
       'create-media-account': {};
       'error': {};
       'hearing-list': {};
+      'interstitial': {};
       'live-case-alphabet-search': {};
       'live-case-status': {};
       'not-found': {};
