@@ -1,0 +1,18 @@
+{
+  "serviceNameText": "Court and tribunal hearings",
+  "signInText": "Sign in",
+  "signOutText": "Sign out",
+  "help": "Help",
+  "privacyPolicy": "Privacy policy",
+  "language": "English",
+  "cookiePolicy": "Cookie policy",
+  "accessibilityStatement": "Accessibility statement",
+  "contact": "Contact",
+  "tc": "Terms and conditions",
+  "navLinks": {
+    "link1": "Home",
+    "link2": "Sign in",
+    "link3": "Sign out",
+    "link4": "Subscriptions"
+  }
+}
