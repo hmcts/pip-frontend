@@ -13,7 +13,7 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body govuk-!-font-weight-bold">{{ p1 }}</p>
   <p class="govuk-body">{{ p2 }} {{ published }}</p>
-  <div class="parent-box">
+  <div class="parent-box overflow-table">
   {% set sjpCase = [] %}
   {% for item in casesList |sort(attribute="Name")%}
     {% set _ = sjpCase.push([
