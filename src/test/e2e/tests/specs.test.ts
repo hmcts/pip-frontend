@@ -20,6 +20,10 @@ import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
+<<<<<<< HEAD
+=======
+import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
+>>>>>>> PUB-985-lists
 import { InterstitialPage } from '../PageObjects/Interstitial.page';
 import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
@@ -30,6 +34,7 @@ let subscriptionAddPage = new SubscriptionAddPage();
 let subscriptionManagementPage: SubscriptionManagementPage;
 const liveCaseCourtSearchControllerPage = new LiveCaseCourtSearchControllerPage();
 let viewOptionPage: ViewOptionPage;
+let summaryOfPublicationsPage: SummaryOfPublicationsPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
 let hearingListPage: HearingListPage;
 let searchPage: SearchPage;
@@ -72,17 +77,42 @@ describe('Unverified user', () => {
     expect(await viewOptionPage.radioButtons).toBe(2);
   });
 
+<<<<<<< HEAD
   if (process.env.EXCLUDE_E2E === 'true') {
     describe('find a court or tribunal publication', async () => {
       it('should select \'Court or Tribunal hearing Publications\' option and navigate to search option page', async () => {
         await viewOptionPage.selectOption('CourtOrTribunalRadioButton');
         searchPage = await viewOptionPage.clickContinueForSearch();
         expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
+=======
+  describe('find a court or tribunal publication', async () => {
+    it('should select \'Court or Tribunal hearing Publications\' option and navigate to search option page', async () => {
+      await viewOptionPage.selectOption('CourtOrTribunalRadioButton');
+      searchPage = await viewOptionPage.clickContinueForSearch();
+      expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
+    });
+
+    describe('following the \'I have the name\' path', async () => {
+      const searchTerm = 'Blackpool Magistrates\' Court';
+
+      it('should enter text and click continue', async () => {
+        await searchPage.enterText(searchTerm);
+        summaryOfPublicationsPage = await searchPage.clickContinue();
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Blackpool Magistrates\' Court?');
+      });
+    });
+
+    describe('following the \'Select from an A-Z of courts and tribunals\' path', async () => {
+
+      before(async () => {
+        await searchPage.open('/search');
+>>>>>>> PUB-985-lists
       });
 
       describe('following the \'I have the name\' path', async () => {
         const searchTerm = 'Leicester Tribunal Hearing Centre';
 
+<<<<<<< HEAD
         it('should enter text and click continue', async () => {
           await searchPage.enterText(searchTerm);
           hearingListPage = await searchPage.clickContinue();
@@ -158,6 +188,86 @@ describe('Unverified user', () => {
       });
     });
   }
+=======
+      it('selecting first result should take you to to the Summary of Publications page', async () => {
+        summaryOfPublicationsPage = await alphabeticalSearchPage.selectFirstListResult();
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Blackburn Magistrates\' Court?');
+      });
+    });
+  });
+
+  describe('find live case status updates', async () => {
+    const validCourtName = 'Amersham Law Courts';
+
+    before(async () => {
+      await liveCaseCourtSearchControllerPage.open('/live-case-alphabet-search');
+    });
+
+    it('selecting first result should take you to to the live hearings list page', async () => {
+      liveCaseStatusPage = await liveCaseCourtSearchControllerPage.selectFirstValidListResult();
+      expect(await liveCaseStatusPage.getPageTitle()).toEqual('Live hearing updates');
+    });
+
+    it(`should have '${validCourtName}' as a sub title`, async () => {
+      expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
+    });
+
+    it('should select first glossary term', async () => {
+      caseEventGlossaryPage = await liveCaseStatusPage.selectGlossaryTerm();
+      expect(await caseEventGlossaryPage.getPageTitle()).toEqual('Live hearing updates - glossary of terms');
+    });
+
+    it('should display glossary', async () => {
+      expect(await caseEventGlossaryPage.termIsInView()).toBeTruthy();
+    });
+  });
+
+  describe('Render summary of publications page correctly from several different entry points', () => {
+    before(async () => {
+      await viewOptionPage.open('/view-option');
+    });
+
+    it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
+      await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
+      singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
+      expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
+    });
+  });
+
+  describe('Render summary of publications screen from alphabetical search list', () => {
+    beforeEach(async () => {
+      await alphabeticalSearchPage.open('/alphabetical-search');
+    });
+
+    it('Should select the first item from the alphabetical search list and navigate to SJP summary of publications', async () => {
+      summaryOfPublicationsPage = await alphabeticalSearchPage.selectSJPLink();
+      expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
+    });
+
+    it('Should select the second item from the alphabetical search list and navigate to Aberystwyth Justice Centre', async () => {
+      const aberdeenTribunalPage = await alphabeticalSearchPage.selectSecondListResult();
+      expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberystwyth Justice Centre?');
+    });
+
+    it('Should select the first item from the alphabetical search list and navigate to Aberdeen Tribunal Hearing Centre', async () => {
+      const aberdeenTribunalPage = await alphabeticalSearchPage.selectFirstListResult();
+      expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberdeen Tribunal Hearing Centre?');
+    });
+  });
+
+  describe('Render hearing list page when required', () => {
+    before(async () => {
+      await searchPage.open('/search');
+      hearingListPage = await searchPage.clickContinue();
+      await hearingListPage.open('hearing-list?courtId=68');
+    });
+
+    it('should render the hearing list page', async () => {
+      expect(await hearingListPage.getPageTitle()).toEqual('Bradford Combined Court Centre hearing list');
+    });
+  });
+
+>>>>>>> PUB-985-lists
 });
 
 if (process.env.EXCLUDE_E2E === 'true') {
@@ -334,6 +444,10 @@ if (process.env.EXCLUDE_E2E === 'true') {
         pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
         expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
+<<<<<<< HEAD
+=======
+
+>>>>>>> PUB-985-lists
     });
   });
 
