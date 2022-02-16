@@ -23,6 +23,7 @@ import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.pa
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
 import {ManualUploadPage} from '../PageObjects/ManualUpload.page';
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
+import { InterstitialPage } from '../PageObjects/Interstitial.page';
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
 import config = require('config');
 
@@ -49,19 +50,24 @@ let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
+let interstitialPage: InterstitialPage;
 let accountHomePage: AccountHomePage;
 const signInPage = new SignInPage;
 const manualUploadPage = new ManualUploadPage;
 
 describe('Unverified user', () => {
-
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
     await homePage.open('');
     expect(await homePage.getPageTitle()).toEqual('HMCTS hearing lists');
   });
 
-  it('should click on the \'Courts and tribunal hearings\' link and navigate to View Options page', async () => {
-    viewOptionPage = await homePage.clickLinkToService();
+  it('should click on the \'Courts and tribunal hearings\' link and navigate to Interstitial page', async () => {
+    interstitialPage = await homePage.clickLinkToService();
+    expect(await interstitialPage.getPageTitle()).toEqual('Court and tribunal hearings');
+  });
+
+  it('should click on the continue and navigate to View Options page', async () => {
+    viewOptionPage = await interstitialPage.clickContinue();
     expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
   });
 
@@ -412,4 +418,3 @@ if (process.env.EXCLUDE_E2E === 'true') {
     });
   });
 }
-
