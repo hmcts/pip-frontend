@@ -33,6 +33,12 @@ import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.
 =======
 >>>>>>> PUB-1023-Daily-cause-list-template
 import { InterstitialPage } from '../PageObjects/Interstitial.page';
+<<<<<<< HEAD
+=======
+import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
+import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
+import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
+>>>>>>> PUB-544-file-upload
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
 import config = require('config');
 
@@ -57,6 +63,11 @@ let courtNameSearchPage: CourtNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
+<<<<<<< HEAD
+=======
+let manualUploadSummaryPage: ManualUploadSummaryPage;
+let fileUploadConfirmationPage: FileUploadConfirmationPage;
+>>>>>>> PUB-544-file-upload
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 let interstitialPage: InterstitialPage;
@@ -241,6 +252,7 @@ describe('Unverified user', () => {
     });
   });
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   describe('Render summary of publications screen from alphabetical search list', () => {
     beforeEach(async () => {
@@ -278,6 +290,8 @@ describe('Unverified user', () => {
 >>>>>>> PUB-985-lists
 =======
 >>>>>>> PUB-1023-Daily-cause-list-template
+=======
+>>>>>>> PUB-544-file-upload
 });
 
 if (process.env.EXCLUDE_E2E === 'true') {
@@ -425,6 +439,7 @@ if (process.env.EXCLUDE_E2E === 'true') {
         expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
 <<<<<<< HEAD
+<<<<<<< HEAD
     });
 
     describe('Following the subscription \'search\' by case reference path', () => {
@@ -498,6 +513,8 @@ if (process.env.EXCLUDE_E2E === 'true') {
         await manualUploadPage.open('/manual-upload');
         expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
       });
+=======
+>>>>>>> PUB-544-file-upload
 
       it('should complete form', async () => {
         await manualUploadPage.completeForm();
@@ -554,6 +571,7 @@ if (process.env.EXCLUDE_E2E === 'true') {
           expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
         });
 
+<<<<<<< HEAD
         it('should select yes option and unsubscribe', async () => {
           await deleteSubscriptionPage.selectOption('yesRadioButton');
           unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
@@ -571,6 +589,17 @@ if (process.env.EXCLUDE_E2E === 'true') {
           it('should complete form', async () => {
             await manualUploadPage.completeForm();
           });
+=======
+        it('should complete form and open summary page', async () => {
+          await manualUploadPage.completeForm();
+          manualUploadSummaryPage = await manualUploadPage.clickContinue();
+          expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+        });
+
+        it('should open upload confirmation page', async () => {
+          fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
+          expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
+>>>>>>> PUB-544-file-upload
         });
       });
     });
