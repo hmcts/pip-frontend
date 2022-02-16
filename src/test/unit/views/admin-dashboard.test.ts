@@ -34,7 +34,7 @@ describe('Admin Dashboard page', () => {
   it('should display header', () => {
     const header = htmlRes.getElementsByClassName('govuk-heading-l');
     expect(header[0].innerHTML)
-      .contains('Admin dashboard', 'Could not find correct value in header');
+      .contains('Admin Dashboard', 'Could not find correct value in header');
   });
 
   it('should display 3 card options', () => {
