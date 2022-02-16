@@ -12,8 +12,7 @@ const publicationService = new PublicationService();
 const courtService = new CourtService();
 
 export class SubscriptionService {
-
-  async getSubscriptionsByUser(userid: number): Promise<UserSubscriptions> {
+  async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
     const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
     return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], courtSubscriptions: []};
   }
@@ -87,13 +86,13 @@ export class SubscriptionService {
             hearingIdsList.push(pendingSubscription[`${selectionName}`]);
           caseDetailsList = await this.getCaseDetails(hearingIdsList);
           // set results into cache
-          await this.setPendingSubscriptions(caseDetailsList, 'cases', user.id);
+          await this.setPendingSubscriptions(caseDetailsList, 'cases', user.oid);
           break;
         case 'urn':
           urnHearing = await publicationService.getCaseByCaseUrn(pendingSubscription[`${selectionName}`], true);
           if (urnHearing) {
             urnHearing.urnSearch = true;
-            await this.setPendingSubscriptions([urnHearing], 'cases', user.id);
+            await this.setPendingSubscriptions([urnHearing], 'cases', user.oid);
           }
           break;
         case 'court-selections[]':
@@ -102,7 +101,7 @@ export class SubscriptionService {
             courtIdsList.push(pendingSubscription[`${selectionName}`]);
           courtDetailsList = await this.getCourtDetails(courtIdsList);
           // set results into cache
-          await this.setPendingSubscriptions(courtDetailsList, 'courts', user.id);
+          await this.setPendingSubscriptions(courtDetailsList, 'courts', user.oid);
           break;
       }
     }
