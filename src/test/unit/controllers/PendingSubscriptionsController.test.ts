@@ -46,7 +46,7 @@ describe('Pending Subscriptions Controller', () => {
   describe('GET view', () => {
     it('should render the pending subscription page without subscriptions', () => {
       const request = mockRequest(i18n);
-      request.user = {id: userWithoutSubscriptions};
+      request.user = {oid: userWithoutSubscriptions};
       const expectedData = {
         ...i18n['pending-subscriptions'],
         pendingSubscriptions: {
@@ -64,7 +64,7 @@ describe('Pending Subscriptions Controller', () => {
 
     it('should render pending subscriptions page with set subscriptions', () => {
       const request = mockRequest(i18n);
-      request.user = {id: userWithSubscriptions};
+      request.user = {oid: userWithSubscriptions};
       const expectedData = {
         ...i18n['pending-subscriptions'],
         pendingSubscriptions: {
@@ -84,7 +84,7 @@ describe('Pending Subscriptions Controller', () => {
   describe('POST view', () => {
     it('should render pending subscriptions page if post data is provided', () => {
       const request = mockRequest(i18n);
-      request.user = {id: '3'};
+      request.user = {oid: '3'};
       request.body = postData;
       const expectedData = {
         ...i18n['pending-subscriptions'],
@@ -105,7 +105,7 @@ describe('Pending Subscriptions Controller', () => {
   describe('removeSubscription view', () => {
     it('should render pending subscriptions page on removeSubscription call', () => {
       const request = mockRequest(i18n);
-      request.user = {id: '3'};
+      request.user = {oid: '3'};
       request.query = queryParams;
       const expectedData = {
         ...i18n['pending-subscriptions'],
