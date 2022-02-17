@@ -397,15 +397,15 @@ if (process.env.EXCLUDE_E2E === 'true') {
       });
 
       it('should complete form and open summary page', async () => {
-          await manualUploadPage.completeForm();
-          manualUploadSummaryPage = await manualUploadPage.clickContinue();
-          expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
-        });
+        await manualUploadPage.completeForm();
+        manualUploadSummaryPage = await manualUploadPage.clickContinue();
+        expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+      });
 
-        it('should open upload confirmation page', async () => {
-          fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
-          expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
-        });
+      it('should open upload confirmation page', async () => {
+        fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
+        expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
+      });
     });
   });
 }
