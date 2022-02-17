@@ -84,7 +84,3 @@ app.use((err: HTTPError, req: PipRequest, res: express.Response) => {
 });
 
 authentication(process.env.OIDC);
-
-process.on('exit', (code) => {
-  logger.error(`app exit on on code ${code}`);
-});
