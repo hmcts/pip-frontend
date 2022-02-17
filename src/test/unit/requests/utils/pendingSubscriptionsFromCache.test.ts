@@ -32,17 +32,17 @@ getStub.withArgs('pending-courts-subscriptions-2').resolves([]);
 sinon.stub(redisClient, 'status').value('ready');
 
 describe('setPendingSubscriptions with valid user', () => {
-  // const set = sinon.stub(redisClient, 'set');
+  const set = sinon.stub(redisClient, 'set');
 
-  // it('should set case into cache', async () => {
-  //   await pendingSubscriptionsFromCache.setPendingSubscriptions(mockCase, 'cases', mockUser.id);
-  //   sinon.assert.called(set);
-  // });
+  it('should set case into cache', async () => {
+    await pendingSubscriptionsFromCache.setPendingSubscriptions(mockCase, 'cases', mockUser.id);
+    sinon.assert.called(set);
+  });
 
-  // it('should set court into cache', async () => {
-  //   await pendingSubscriptionsFromCache.setPendingSubscriptions(mockCourt, 'courts', mockUser.id);
-  //   sinon.assert.called(set);
-  // });
+  it('should set court into cache', async () => {
+    await pendingSubscriptionsFromCache.setPendingSubscriptions(mockCourt, 'courts', mockUser.id);
+    sinon.assert.called(set);
+  });
 
   it('should get cases list from the cache', async () => {
     const cachedResult = await pendingSubscriptionsFromCache.getPendingSubscriptions(mockUser.id, 'cases');
@@ -54,16 +54,16 @@ describe('setPendingSubscriptions with valid user', () => {
     expect(cachedResult).toStrictEqual([]);
   });
 
-  // it('should remove a court record from the cache', async () => {
-  //   await pendingSubscriptionsFromCache.removeFromCache({court: '643'}, '1');
-  //   sinon.assert.called(set);
-  //   sinon.assert.called(getStub);
-  // });
+  it('should remove a court record from the cache', async () => {
+    await pendingSubscriptionsFromCache.removeFromCache({court: '643'}, '1');
+    sinon.assert.called(set);
+    sinon.assert.called(getStub);
+  });
 
-  // it('should remove a case record from the cache', async () => {
-  //   await pendingSubscriptionsFromCache.removeFromCache({case: 'T485914'}, '1');
-  //   sinon.assert.called(set);
-  //   sinon.assert.called(getStub);
-  // });
+  it('should remove a case record from the cache', async () => {
+    await pendingSubscriptionsFromCache.removeFromCache({case: 'T485914'}, '1');
+    sinon.assert.called(set);
+    sinon.assert.called(getStub);
+  });
 });
 
