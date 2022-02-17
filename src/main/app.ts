@@ -84,3 +84,7 @@ app.use((err: HTTPError, req: PipRequest, res: express.Response) => {
 });
 
 authentication(process.env.OIDC);
+
+process.on('uncaughtException', function (err) {
+  logger.error(`app crashed on ${err.stack || err}`);
+});
