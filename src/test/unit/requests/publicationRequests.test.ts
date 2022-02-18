@@ -19,11 +19,12 @@ const errorResponse = {
     data: 'test error',
   },
 };
-const mockJson = {'data':{'hello':'hello'}};
+const mockJson = {data :{'hello':'hello'}};
 const mockPDF = new Blob(['testPDF']);
-const indivPubJsonObject = {'data':mockPDF};
+const indivPubJsonObject = {data: mockPDF};
 const stub = sinon.stub(dataManagementApi, 'get');
 stub.withArgs('/publication/search/0').resolves({data: pubs});
+stub.withArgs('/publication/courtId/0').resolves({data: pubs});
 
 describe('get List of Publications request', () => {
   it('should return list of publications if verified', async () => {
@@ -38,7 +39,7 @@ describe('get List of Publications request', () => {
 
   it('should contain a publication', async () => {
     const pubReq = await pubRequests.getPublicationsByCourt(0, true);
-    expect(pubReq.some(e => e.provenance === 'NOT_A_PDF')).toBeTruthy();
+    expect(pubReq.some(e => e.sourceArtefactId === 'NOT_A_PDF')).toBeTruthy();
   });
 
   it('should send an error request to the log if error request exists', async ()=> {
