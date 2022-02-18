@@ -169,99 +169,99 @@ describe('Unverified user', () => {
         expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Single Justice Procedure cases');
       });
     });
+
+    describe('find live case status updates', async () => {
+      const validCourtName = 'Amersham Law Courts';
+
+      before(async () => {
+        await liveCaseCourtSearchControllerPage.open('/live-case-alphabet-search');
+      });
+
+      it('selecting first result should take you to to the live hearings list page', async () => {
+        liveCaseStatusPage = await liveCaseCourtSearchControllerPage.selectFirstValidListResult();
+        expect(await liveCaseStatusPage.getPageTitle()).toEqual('Live hearing updates');
+      });
+
+      it(`should have '${validCourtName}' as a sub title`, async () => {
+        expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
+      });
+
+      it('should select first glossary term', async () => {
+        caseEventGlossaryPage = await liveCaseStatusPage.selectGlossaryTerm();
+        expect(await caseEventGlossaryPage.getPageTitle()).toEqual('Live hearing updates - glossary of terms');
+      });
+
+      it('should display glossary', async () => {
+        expect(await caseEventGlossaryPage.termIsInView()).toBeTruthy();
+      });
+    });
+
+    describe('Render summary of publications page correctly from several different entry points', () => {
+      before(async () => {
+        await viewOptionPage.open('/view-option');
+      });
+
+      it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
+        await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
+        singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
+        expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
+      });
+    });
+
+    describe('Render summary of publications screen from alphabetical search list', () => {
+      beforeEach(async () => {
+        await alphabeticalSearchPage.open('/alphabetical-search');
+      });
+
+      it('Should select the first item from the alphabetical search list and navigate to SJP summary of publications', async () => {
+        summaryOfPublicationsPage = await alphabeticalSearchPage.selectSJPLink();
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
+      });
+
+      it('Should select the second item from the alphabetical search list and navigate to Aberystwyth Justice Centre', async () => {
+        const aberdeenTribunalPage = await alphabeticalSearchPage.selectSecondListResult();
+        expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberystwyth Justice Centre?');
+      });
+
+      it('Should select the first item from the alphabetical search list and navigate to Aberdeen Tribunal Hearing Centre', async () => {
+        const aberdeenTribunalPage = await alphabeticalSearchPage.selectFirstListResult();
+        expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberdeen Tribunal Hearing Centre?');
+      });
+    });
+
+    describe('Render hearing list page when required', () => {
+      before(async () => {
+        await searchPage.open('/search');
+        hearingListPage = await searchPage.clickContinue();
+        await hearingListPage.open('hearing-list?courtId=68');
+      });
+
+      it('should render the hearing list page', async () => {
+        expect(await hearingListPage.getPageTitle()).toEqual('Bradford Combined Court Centre hearing list');
+      });
+    });
+
+    describe('request an account', () => {
+      before(async () => {
+        await signInPage.open('/sign-in');
+      });
+
+      it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+        expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+      });
+
+      it('should click on the create account link', async () => {
+        createMediaAccountPage = await signInPage.clickCreateAccount();
+        expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a court and tribunal hearing account');
+      });
+
+      it('should complete form and continue to confirmation page', async () => {
+        await createMediaAccountPage.completeForm();
+        mediaAccountRequestSubmittedPage = await createMediaAccountPage.clickContinue();
+        expect(await mediaAccountRequestSubmittedPage.getPanelTitle()).toEqual('Details submitted');
+      });
+    });
   }
-
-  describe('find live case status updates', async () => {
-    const validCourtName = 'Amersham Law Courts';
-
-    before(async () => {
-      await liveCaseCourtSearchControllerPage.open('/live-case-alphabet-search');
-    });
-
-    it('selecting first result should take you to to the live hearings list page', async () => {
-      liveCaseStatusPage = await liveCaseCourtSearchControllerPage.selectFirstValidListResult();
-      expect(await liveCaseStatusPage.getPageTitle()).toEqual('Live hearing updates');
-    });
-
-    it(`should have '${validCourtName}' as a sub title`, async () => {
-      expect(await liveCaseStatusPage.getCourtTitle()).toEqual(validCourtName);
-    });
-
-    it('should select first glossary term', async () => {
-      caseEventGlossaryPage = await liveCaseStatusPage.selectGlossaryTerm();
-      expect(await caseEventGlossaryPage.getPageTitle()).toEqual('Live hearing updates - glossary of terms');
-    });
-
-    it('should display glossary', async () => {
-      expect(await caseEventGlossaryPage.termIsInView()).toBeTruthy();
-    });
-  });
-
-  describe('Render summary of publications page correctly from several different entry points', () => {
-    before(async () => {
-      await viewOptionPage.open('/view-option');
-    });
-
-    it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
-      await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
-      singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-      expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
-    });
-  });
-
-  describe('Render summary of publications screen from alphabetical search list', () => {
-    beforeEach(async () => {
-      await alphabeticalSearchPage.open('/alphabetical-search');
-    });
-
-    it('Should select the first item from the alphabetical search list and navigate to SJP summary of publications', async () => {
-      summaryOfPublicationsPage = await alphabeticalSearchPage.selectSJPLink();
-      expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
-    });
-
-    it('Should select the second item from the alphabetical search list and navigate to Aberystwyth Justice Centre', async () => {
-      const aberdeenTribunalPage = await alphabeticalSearchPage.selectSecondListResult();
-      expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberystwyth Justice Centre?');
-    });
-
-    it('Should select the first item from the alphabetical search list and navigate to Aberdeen Tribunal Hearing Centre', async () => {
-      const aberdeenTribunalPage = await alphabeticalSearchPage.selectFirstListResult();
-      expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberdeen Tribunal Hearing Centre?');
-    });
-  });
-
-  describe('Render hearing list page when required', () => {
-    before(async () => {
-      await searchPage.open('/search');
-      hearingListPage = await searchPage.clickContinue();
-      await hearingListPage.open('hearing-list?courtId=68');
-    });
-
-    it('should render the hearing list page', async () => {
-      expect(await hearingListPage.getPageTitle()).toEqual('Bradford Combined Court Centre hearing list');
-    });
-  });
-
-  describe('request an account', () => {
-    before(async () => {
-      await signInPage.open('/sign-in');
-    });
-
-    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
-      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
-    });
-
-    it('should click on the create account link', async () => {
-      createMediaAccountPage = await signInPage.clickCreateAccount();
-      expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a court and tribunal hearing account');
-    });
-
-    it('should complete form and continue to confirmation page', async () => {
-      await createMediaAccountPage.completeForm();
-      mediaAccountRequestSubmittedPage = await createMediaAccountPage.clickContinue();
-      expect(await mediaAccountRequestSubmittedPage.getPanelTitle()).toEqual('Details submitted');
-    });
-  });
 });
 
 if (process.env.EXCLUDE_E2E === 'true') {
