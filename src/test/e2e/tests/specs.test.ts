@@ -360,7 +360,7 @@ if (process.env.EXCLUDE_E2E === 'true') {
       });
     });
   });
-  
+
   describe('add subscription', async () => {
     before(async () => {
       await pendingSubscriptionsPage.open('pending-subscriptions');
@@ -388,7 +388,8 @@ if (process.env.EXCLUDE_E2E === 'true') {
       expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
     });
   });
-    describe('Admin level journeys', () => {
+
+  describe('Admin level journeys', () => {
     describe('Manual Upload', () => {
       it('should open manual upload page', async () => {
         await manualUploadPage.open('/manual-upload');
@@ -404,7 +405,6 @@ if (process.env.EXCLUDE_E2E === 'true') {
       it('should open upload confirmation page', async () => {
         fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
         expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
-
       });
     });
   });
