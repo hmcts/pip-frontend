@@ -15,6 +15,7 @@ import { ManualUploadService } from '../../main/service/manualUploadService';
 const agent = supertest.agent(app);
 import { request as expressRequest } from 'express';
 import sinon from 'sinon';
+import { PublicationService } from '../../main/service/publicationService';
 const routesNotTested = [
   '/health',
   '/health/liveness',
@@ -47,6 +48,8 @@ sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
 sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').returns(caseEventGlossaryData);
 sinon.stub(SjpRequests.prototype, 'getSJPCases').returns(sjpCases);
 sinon.stub(ManualUploadService.prototype, 'getListItemName').returns('');
+sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').withArgs('56-181-2097', true).resolves(true);
+sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').withArgs('123456789', true).resolves(true);
 
 export class Pa11yResult {
   documentTitle: string;

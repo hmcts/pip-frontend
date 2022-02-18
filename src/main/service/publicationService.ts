@@ -28,7 +28,7 @@ export class PublicationService {
   private getCaseFromArtefact(artefact: Artefact, term: string, value: string): SearchObject {
     let foundObject: SearchObject;
     artefact.search.cases.forEach(singleCase => {
-      if (singleCase[term] == value) {
+      if (singleCase[term] === value) {
         foundObject = singleCase;
       }
     });
