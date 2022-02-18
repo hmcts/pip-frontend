@@ -2,7 +2,9 @@ nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
+  startupPeriod: 30
+  startupFailureThreshold: 10
   environment:
     OIDC: true
-    AUTH_RETURN_URL: ${SERVICE_FQDN}/login/return
+    AUTH_RETURN_URL: https://${SERVICE_FQDN}/login/return
     EXCLUDE_E2E: true
