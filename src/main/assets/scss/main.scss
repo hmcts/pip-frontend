@@ -89,9 +89,16 @@ $min-width: 52em;
   }
 }
 
+@media (min-width: $min-width) {
+  .offset-parent-box {
+    left: -10%;
+  }
+}
+
+
 .offset-parent-box {
   @extend .parent-box;
-  left: -20%;
+  left: 0;
 
   a {
     &:not(.floating-back-to-top--fixed) {
@@ -421,8 +428,8 @@ div {
   flex-wrap: wrap;
 
   > div {
-    flex: 50%;
-    max-width: 50%;
+    flex: 33.33%;
+    max-width: 33.33%;
   }
 
   @media (max-width: 640px) {
@@ -456,6 +463,10 @@ div {
 
 .search-input-name {
   border: 0;
+}
+
+.overflow-table {
+  overflow-x: auto;
 }
 
 //Admin css
