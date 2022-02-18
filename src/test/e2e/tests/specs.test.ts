@@ -321,68 +321,74 @@ if (process.env.EXCLUDE_E2E === 'true') {
           expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
         });
       });
+    });
 
-      describe('Following the subscription \'search\' by case reference path', () => {
-        const validSearchTerm = 'T485913';
-        const expectedNumOfResults = 1;
-
-        before(async () => {
-          await subscriptionAddPage.open('subscription-add');
-        });
-
-        it('should select \'By case reference number\' option and navigate to search case number page', async () => {
-          await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
-          caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
-          expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
-        });
-
-        it('should enter text and click continue', async () => {
-          await caseReferenceNumberSearchPage.enterText(validSearchTerm);
-          caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
-          expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
-        });
-
-        it(`should display ${expectedNumOfResults} results`, async () => {
-          expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
-        });
-
-        it('should click continue to create subscription', async () => {
-          pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
-          expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
-        });
+    describe('Following the subscription \'search\' by case reference path', () => {
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
 
-    describe('add subscription', async () => {
+    describe('Following the subscription \'search\' by case reference path', () => {
+      const validSearchTerm = 'T485913';
+      const expectedNumOfResults = 1;
+
       before(async () => {
-        await pendingSubscriptionsPage.open('pending-subscriptions');
+        await subscriptionAddPage.open('subscription-add');
       });
 
-      it('should subscribe', async () => {
-        subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
-        expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
-      });
-    });
-
-    describe('remove subscription', async () => {
-      before(async () => {
-        await subscriptionManagementPage.open('subscription-management');
+      it('should select \'By case reference number\' option and navigate to search case number page', async () => {
+        await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
+        caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
+        expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
       });
 
-      it('should click on the first unsubscribe record', async () => {
-        deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
-        expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
+      it('should enter text and click continue', async () => {
+        await caseReferenceNumberSearchPage.enterText(validSearchTerm);
+        caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
+        expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
       });
 
-      it('should select yes option and unsubscribe', async () => {
-        await deleteSubscriptionPage.selectOption('yesRadioButton');
-        unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
-        expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+      it(`should display ${expectedNumOfResults} results`, async () => {
+        expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
   });
+  
+  describe('add subscription', async () => {
+    before(async () => {
+      await pendingSubscriptionsPage.open('pending-subscriptions');
+    });
 
-  describe('Admin level journeys', () => {
+    it('should subscribe', async () => {
+      subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
+      expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
+    });
+  });
+
+  describe('remove subscription', async () => {
+    before(async () => {
+      await subscriptionManagementPage.open('subscription-management');
+    });
+
+    it('should click on the first unsubscribe record', async () => {
+      deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
+      expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
+    });
+
+    it('should select yes option and unsubscribe', async () => {
+      await deleteSubscriptionPage.selectOption('yesRadioButton');
+      unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
+      expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+    });
+  });
+    describe('Admin level journeys', () => {
     describe('Manual Upload', () => {
       it('should open manual upload page', async () => {
         await manualUploadPage.open('/manual-upload');
@@ -398,6 +404,7 @@ if (process.env.EXCLUDE_E2E === 'true') {
       it('should open upload confirmation page', async () => {
         fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
         expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
+
       });
     });
   });
