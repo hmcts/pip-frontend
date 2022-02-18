@@ -75,9 +75,7 @@ describe('Hearing List page', () => {
 
   it('should display the link', () => {
     const link = htmlRes.getElementsByClassName('govuk-link');
-
-    expect(link.item(0).innerHTML).contains('See another court or tribunal', 'Link text is not present');
-    expect(link.item(0).getAttribute('href')).equal('/search', 'Link value is not correct');
+    expect(link.item(1).innerHTML).contains('See another court or tribunal', 'Link text is not present');
+    expect(link.item(1).getAttribute('href')).equal('/search', 'Link value is not correct');
   });
-
 });
