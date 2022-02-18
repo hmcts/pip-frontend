@@ -16,15 +16,16 @@ $min-width: 52em;
     padding-top: 1px;
   }
 }
+
 //The below styling makes sure the subscription text doesn't overlap with the heading as the screen is made smaller
 //by increasing the minimum width
 @media (max-width: $min-width) {
   .js-enabled {
-    .govuk-header__menu-button  {
+    .govuk-header__menu-button {
       display: block;
     }
 
-    .govuk-header__navigation  {
+    .govuk-header__navigation {
       display: none;
       margin-bottom: 10px;
     }
@@ -74,6 +75,7 @@ $min-width: 52em;
     text-align: left;
   }
 }
+
 //End of header styling
 
 //Styling for the Alphabetical View page
@@ -87,9 +89,16 @@ $min-width: 52em;
   }
 }
 
+@media (min-width: $min-width) {
+  .offset-parent-box {
+    left: -10%;
+  }
+}
+
+
 .offset-parent-box {
   @extend .parent-box;
-  left: -20%;
+  left: 0;
 
   a {
     &:not(.floating-back-to-top--fixed) {
@@ -153,6 +162,67 @@ $min-width: 52em;
 
 .app-back-to-top__icon {
   margin-right: 10px;
+}
+
+@media (min-width: 770px) {
+  .hide {
+    display: block;
+  }
+}
+
+.moj-button-menu {
+  display: none;
+}
+
+.alphabetical-box {
+  .filter-back-to-top-wrapper {
+    left: 100%;
+    position: relative;
+    width: 14%;
+  }
+
+  .layout-width-three-fifths {
+    width: 100%;
+  }
+}
+
+@media (max-width: 770px) {
+  .hide {
+    display: none !important; // sass-lint:disable-line no-important
+    visibility: hidden;
+  }
+
+  .moj-button-menu {
+    display: block;
+  }
+
+  .moj-filter-layout {
+    &__filter {
+      width: 100%;
+    }
+  }
+
+  .filters {
+    &__innerButton {
+      display: block;
+      margin-left: 0;
+      margin-top: 0;
+      position: relative;
+    }
+  }
+
+  .alphabetical-box {
+    .layout-width-two-fifths  {
+      width: 0;
+    }
+
+    .filter-back-to-top-wrapper {
+      left: 10%;
+      position: absolute;
+      width: 16%;
+    }
+  }
+
 }
 
 //Styling for the Hearings List page
@@ -236,7 +306,7 @@ div {
       @extend .govuk-body;
 
       &.error {
-        color:  $govuk-error-colour;
+        color: $govuk-error-colour;
       }
     }
   }
@@ -253,7 +323,7 @@ div {
 
 .error {
   @extend .govuk-body;
-  color:  $govuk-error-colour;
+  color: $govuk-error-colour;
 }
 
 .verifying-modal {
@@ -358,8 +428,8 @@ div {
   flex-wrap: wrap;
 
   > div {
-    flex: 50%;
-    max-width: 50%;
+    flex: 33.33%;
+    max-width: 33.33%;
   }
 
   @media (max-width: 640px) {
@@ -393,6 +463,10 @@ div {
 
 .search-input-name {
   border: 0;
+}
+
+.overflow-table {
+  overflow-x: auto;
 }
 
 //Admin css
