@@ -43,19 +43,19 @@ describe('get List of Publications request', () => {
 
   it('should send an error request to the log if error request exists', async ()=> {
     stub.withArgs('/publication/search/x').resolves(Promise.reject(errorRequest));
-    expect(await pubRequests.getPublicationsByCourt('x', true)).toBe(null);
+    expect(await pubRequests.getPublicationsByCourt('x', true)).toBe([]);
   });
 
   it('should send an error to the log if error message exists and error request does not exist', async () => {
     stub.withArgs('/publication/search/y').resolves(Promise.reject(errorMsg));
     const message = await pubRequests.getPublicationsByCourt('y', true);
-    expect(message).toBe(null);
+    expect(message).toBe([]);
   });
 
   it('should send an error to the log if error response exists', async () => {
     stub.withArgs('/publication/search/z').resolves(Promise.reject(errorResponse));
     const response = await pubRequests.getPublicationsByCourt('z', true);
-    expect(response).toBe(null);
+    expect(response).toBe([]);
   });
 
 });
