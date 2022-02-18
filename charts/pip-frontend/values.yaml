@@ -26,7 +26,7 @@ nodejs:
           alias: B2C_AUTH_ENDPOINT
   aadIdentityName: pip
   environment:
-    OIDC: true
+    OIDC: false
     AUTH_RETURN_URL: https://pip-frontend.staging.platform.hmcts.net/login/return
 
 
