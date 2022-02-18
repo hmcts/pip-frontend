@@ -8,6 +8,7 @@ export interface PipRequest extends Request {
       'alphabetical-search': {};
       'error': {};
       'hearing-list': {};
+      'interstitial': {};
       'live-case-alphabet-search': {};
       'live-case-status': {};
       'not-found': {};
