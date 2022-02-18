@@ -38,7 +38,6 @@ const caseSubscriptionPayload = {
   caseNumber: 'T485914',
   channel: 'EMAIL',
   searchType: 'CASE_URN',
-  searchValue: 'IBRANE1BVW',
   urn: 'IBRANE1BVW',
   userId: '1',
 };
