@@ -130,7 +130,7 @@ export class SubscriptionService {
   }
 
   public async setPendingSubscriptions(subscriptions, subscriptionType, userId): Promise<void> {
-    // await pendingSubscriptionsFromCache.setPendingSubscriptions(subscriptions, subscriptionType, userId);
+    await pendingSubscriptionsFromCache.setPendingSubscriptions(subscriptions, subscriptionType, userId);
   }
 
   public async getPendingSubscriptions(userId, subscriptionType): Promise<any[]> {
