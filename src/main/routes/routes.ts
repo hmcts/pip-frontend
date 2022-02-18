@@ -1,5 +1,6 @@
 import { Application, NextFunction } from 'express';
 import { infoRequestHandler } from '@hmcts/info-provider';
+import { Logger } from '@hmcts/nodejs-logging';
 import cors  from 'cors';
 import os from 'os';
 import process from 'process';
@@ -8,11 +9,13 @@ const authenticationConfig = require('../authentication/authentication-config.js
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const multer = require('multer');
+const logger = Logger.getLogger('routes');
 
 export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
   const authType = (process.env.OIDC === 'true') ? 'azuread-openidconnect' : 'mockaroo';
   // const authType = 'mockaroo';
+  logger.info('authType', authType);
   const storage = multer.diskStorage({
     destination: 'manualUpload/tmp/',
     filename: function (req, file, callback) {
@@ -42,6 +45,7 @@ export default function(app: Application): void {
   };
 
   const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
+  logger.info('FRONTEND_URL', FRONTEND_URL);
   const corsOptions = {
     origin: 'https://pib2csbox.b2clogin.com',
     methods: ['GET', 'OPTIONS'],
@@ -54,6 +58,7 @@ export default function(app: Application): void {
     if (req.isAuthenticated()) {
       return next();
     }
+    logger.info('POLICY', authenticationConfig.POLICY);
     res.redirect('/login?p=' + authenticationConfig.POLICY);
   }
 
@@ -67,6 +72,8 @@ export default function(app: Application): void {
     res.clearCookie('session');
     const B2C_URL = 'https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/';
     const encodedSignOutRedirect = encodeURIComponent(`${FRONTEND_URL}/view-option`);
+    logger.info('B2C_URL', B2C_URL);
+    logger.info('encodedSignOutRedirect', encodedSignOutRedirect);
     res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
   }
 
