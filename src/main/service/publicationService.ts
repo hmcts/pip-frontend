@@ -11,12 +11,12 @@ export class PublicationService {
     return this.getFuzzyCasesFromArtefact(artefacts, caseName);
   }
 
-  public async getCaseByCaseNumber(caseNumber: string, verified: boolean): Promise<SearchObject> {
+  public async getCaseByCaseNumber(caseNumber: string, verified: boolean): Promise<SearchObject> | null {
     const artefact = await publicationRequests.getPublicationByCaseValue('CASE_ID', caseNumber, verified);
     return this.getCaseFromArtefact(artefact[0], 'caseNumber', caseNumber);
   }
 
-  public async getCaseByCaseUrn(urn: string, verified: boolean): Promise<SearchObject> {
+  public async getCaseByCaseUrn(urn: string, verified: boolean): Promise<SearchObject> | null{
     const artefact = await publicationRequests.getPublicationByCaseValue('CASE_URN', urn, verified);
     return this.getCaseFromArtefact(artefact[0], 'caseUrn', urn);
   }
@@ -26,8 +26,8 @@ export class PublicationService {
   }
 
   private getCaseFromArtefact(artefact: Artefact, term: string, value: string): SearchObject {
-    let foundObject: SearchObject;
-    artefact.search.cases.forEach(singleCase => {
+    let foundObject: SearchObject = null;
+    artefact?.search.cases.forEach(singleCase => {
       if (singleCase[term] == value) {
         foundObject = singleCase;
       }

@@ -33,4 +33,8 @@ describe('Publication service', () => {
   it('should return Search Object matching case urn', async () => {
     expect(await publicationService.getCaseByCaseUrn(caseUrnValue, true)).toEqual(returnedArtefact[0].search.cases[1]);
   });
+
+  it('should return null processing failed request', async () => {
+    expect(await publicationService.getCaseByCaseUrn('invalid', true)).toBeNull();
+  });
 });

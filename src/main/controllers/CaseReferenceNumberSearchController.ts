@@ -16,7 +16,6 @@ export default class CaseReferenceNumberSearchController {
     const searchInput = req.body['search-input'] as string;
     if (searchInput) {
       const searchResults = await publicationService.getCaseByCaseNumber(searchInput, !!req.user);
-      console.log(searchResults);
       (searchResults) ?
         res.redirect(`case-reference-number-search-results?search-input=${searchInput}`) :
         res.render('case-reference-number-search', {
