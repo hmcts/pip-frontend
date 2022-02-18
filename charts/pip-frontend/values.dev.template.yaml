@@ -3,6 +3,6 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
   environment:
-    OIDC: true
+    OIDC: false
     AUTH_RETURN_URL: ${SERVICE_FQDN}/login/return
     EXCLUDE_E2E: true
