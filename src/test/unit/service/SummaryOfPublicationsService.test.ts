@@ -4,9 +4,9 @@ import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPubli
 import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
 
 const sopService = new SummaryOfPublicationsService();
-const pubStub = sinon.stub(PublicationRequests.prototype, 'getListOfPubs');
-const fileStub = sinon.stub(PublicationRequests.prototype, 'getIndividualPubFile');
+const pubStub = sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt');
 const metaStub = sinon.stub(PublicationRequests.prototype, 'getIndividualPubMetadata');
+const fileStub = sinon.stub(PublicationRequests.prototype, 'getIndividualPubFile');
 const jsonStub = sinon.stub(PublicationRequests.prototype, 'getIndividualPubJson');
 
 describe('Summary Of Publications Service', () => {
