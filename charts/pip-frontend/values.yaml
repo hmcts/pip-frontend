@@ -3,7 +3,7 @@ nodejs:
   ingressHost: pip-frontend.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'sdshmctspublic.azurecr.io/pip/frontend:latest'
   environment:
-    OIDC: false
+    OIDC: true
     AUTH_RETURN_URL: https://127.0.0.1/login/return
   keyVaults:
     pip-ss-kv:
