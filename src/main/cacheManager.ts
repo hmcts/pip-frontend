@@ -20,6 +20,11 @@ const redisClient = new ioRedis(connectionString);
 logger.info('redis env var', redisCredentials.host);
 logger.info('redis env port', redisCredentials.port);
 
+redisClient.ping((err, result) => {
+  logger.info('redis ping result should be PONG', result);
+  logger.info('redis ping error', err);
+});
+
 redisClient.on('connect', () => {
   logger.info('Connected to Redis');
 });
