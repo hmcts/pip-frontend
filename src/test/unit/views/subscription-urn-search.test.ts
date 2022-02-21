@@ -3,7 +3,7 @@ import { app } from '../../../main/app';
 import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
-import {HearingService} from '../../../main/service/hearingService';
+import {PublicationService} from '../../../main/service/publicationService';
 
 const PAGE_URL = '/subscription-urn-search';
 const headingClass = 'govuk-label-wrapper';
@@ -20,7 +20,7 @@ const expectedErrorTitle = 'There is a problem';
 
 let htmlRes: Document;
 
-const stub = sinon.stub(HearingService.prototype, 'getCaseByURN');
+const stub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn');
 stub.withArgs('12345').returns(null);
 stub.withArgs('').returns(null);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
