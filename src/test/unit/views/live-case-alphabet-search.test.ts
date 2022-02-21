@@ -45,7 +45,7 @@ describe('Alphabetical Search page', () => {
   it('should contain no link if letter has no hearings', () => {
     const alphabeticalLetters = htmlRes.getElementsByClassName('govuk-link--no-underline');
 
-    expect(alphabeticalLetters[1].innerHTML).contains('B', 'Alphabetical link is not present');
+    expect(alphabeticalLetters[1].innerHTML).contains('C', 'Alphabetical link is not present');
     expect(alphabeticalLetters[1].getAttribute('href')).not.exist;
   });
 
