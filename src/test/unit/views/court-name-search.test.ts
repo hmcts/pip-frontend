@@ -92,7 +92,7 @@ describe('Court Name Search Page', () => {
 
   it('should contain continue button', () => {
     const continueButton = htmlRes.getElementsByClassName('govuk-button');
-    expect(continueButton[2].innerHTML).contains('Continue', 'Continue button does not exist');
+    expect(continueButton[3].innerHTML).contains('Continue', 'Continue button does not exist');
   });
 
   it('should contain your selections component', () => {
