@@ -4,7 +4,7 @@ import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
 import {app} from '../../../main/app';
-import {SummaryOfPublicationsRequests} from '../../../main/resources/requests/summaryOfPublicationsRequests';
+import {PublicationRequests} from '../../../main/resources/requests/PublicationRequests';
 
 const PAGE_URL = '/summary-of-publications?courtId=0';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/summaryOfPublications.json'), 'utf-8');
@@ -12,7 +12,7 @@ const pubs = JSON.parse(rawData);
 
 let htmlRes: Document;
 
-sinon.stub(SummaryOfPublicationsRequests.prototype, 'getListOfPubs').resolves(pubs);
+sinon.stub(PublicationRequests.prototype, 'getListOfPubs').resolves(pubs);
 
 describe('Publication Page', () => {
   beforeAll(async () => {
