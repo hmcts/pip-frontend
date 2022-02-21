@@ -28,7 +28,7 @@ export class Nunjucks {
       '@ministryofjustice',
       'frontend',
     );
-    nunjucks.configure(
+    const env = nunjucks.configure(
       [path.join(__dirname, '..', '..', 'views'), govUkFrontendPath, mojFrontendPath],
       {
         autoescape: true,
@@ -36,6 +36,12 @@ export class Nunjucks {
         express: app,
       },
     );
+
+    const dateFilter = require('nunjucks-date-filter');
+    env.addFilter('date', dateFilter);
+    const fs = require ('fs');
+    const listTypeLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'listTypeLookup.json')));
+    env.addFilter('listType', function(x){return listTypeLookup[x];});
 
     app.use((req, res, next) => {
       res.locals.pagePath = req.path;

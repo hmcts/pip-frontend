@@ -10,6 +10,7 @@ import {CourtRequests} from '../../main/resources/requests/courtRequests';
 import {LiveCaseRequests} from '../../main/resources/requests/liveCaseRequests';
 import {CaseEventGlossaryRequests} from '../../main/resources/requests/caseEventGlossaryRequests';
 import { SjpRequests } from '../../main/resources/requests/sjpRequests';
+import { ManualUploadService } from '../../main/service/manualUploadService';
 
 const agent = supertest.agent(app);
 import { request as expressRequest } from 'express';
@@ -45,6 +46,7 @@ sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(allCourtData);
 sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
 sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').returns(caseEventGlossaryData);
 sinon.stub(SjpRequests.prototype, 'getSJPCases').returns(sjpCases);
+sinon.stub(ManualUploadService.prototype, 'getListItemName').returns('');
 
 export class Pa11yResult {
   documentTitle: string;
@@ -128,6 +130,7 @@ function testAccessibility(url: string): void {
 describe('Accessibility',  () => {
   sinon.stub(expressRequest, 'isAuthenticated').returns(true);
   app.request['user'] = {oid: '1'};
+  app.request['cookies'] = {'formCookie': JSON.stringify({'foo': 'blah', listType: '', listTypeName: ''})};
   readRoutes().forEach(route => {
     testAccessibility(route);
   });

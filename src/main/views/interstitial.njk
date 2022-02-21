@@ -1,0 +1,38 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+{% block content %}
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <p class="govuk-body">{{ message }} </p>
+    <ul class="govuk-body govuk-!-padding-left-4 govuk-!-width-two-thirds">
+        {% for bullet in bullets %}
+            <li >{{ bullet }}</li>
+        {% endfor %}
+    </ul>
+    <p class="govuk-body">{{ moreMessage }}</p>
+    <p class="govuk-body">{{ legalMessage }} <a href="sign-in">{{ signInLink }}</a>.</p>
+    {% if currentLanguage === 'en' %}
+        {% set inset = '<p class="govuk-body">'+ welshMessage + '<a href="?lng=cy"> '+ languageLink + '</a>.</p>' %}
+    {% else %}
+        {% set inset = '<p class="govuk-body">'+ welshMessage + '<a href="?lng=en"> ' + languageLink + '</a>.</p>' %}
+    {% endif %}
+
+    {{ govukInsetText({
+        html: inset
+    }) }}
+    {{ govukButton({
+        text: continue,
+        href: '/view-option',
+        isStartButton: true
+    }) }}
+{% endblock %}

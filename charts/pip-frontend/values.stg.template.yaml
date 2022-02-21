@@ -4,3 +4,4 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
   environment:
     EXCLUDE_E2E: false
+    AUTH_RETURN_URL: https://${SERVICE_FQDN}/login/return
