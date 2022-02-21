@@ -3,6 +3,7 @@ import { infoRequestHandler } from '@hmcts/info-provider';
 import cors  from 'cors';
 import os from 'os';
 import process from 'process';
+import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
@@ -22,6 +23,10 @@ export default function(app: Application): void {
       fileSize: 2000000,
     },
   });
+
+  const fileSizeLimitErrorHandler = (err, req, res, next): any => {
+    fileErrorHandlerMiddleware(err, req, res, next);
+  };
 
   const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
   const corsOptions = {
@@ -113,7 +118,7 @@ export default function(app: Application): void {
 
   // restricted admin paths
   app.get('/manual-upload', ensureAuthenticated, app.locals.container.cradle.manualUploadController.get);
-  app.post('/manual-upload', ensureAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), app.locals.container.cradle.manualUploadController.post);
+  app.post('/manual-upload', ensureAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualUploadController.post);
   app.get('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.get);
   app.post('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
   app.get('/upload-confirmation', ensureAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
