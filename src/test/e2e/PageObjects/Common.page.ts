@@ -5,6 +5,10 @@ export class CommonPage {
     return browser.url(path);
   }
 
+  printUrl (): Promise<string> {
+    return browser.getUrl();
+  }
+
   async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitle).catch(() => {
       console.log(`${helpers.CommonPageTitle} not found`);

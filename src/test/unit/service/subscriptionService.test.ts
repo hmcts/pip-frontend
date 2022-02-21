@@ -1,11 +1,11 @@
 import { CourtService } from '../../../main/service/courtService';
-import { HearingService } from '../../../main/service/hearingService';
 import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
 import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 import { SubscriptionService } from '../../../main/service/subscriptionService';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
+import {PublicationService} from '../../../main/service/publicationService';
 
 const mockCourt = {
   courtId: 643,
@@ -37,8 +37,8 @@ const caseSubscriptionPayload = {
   caseName: 'Ashely Barnes',
   caseNumber: 'T485914',
   channel: 'EMAIL',
-  searchType: 'CASE_ID',
-  searchValue: 'T485914',
+  searchType: 'CASE_URN',
+  searchValue: undefined,
   urn: 'IBRANE1BVW',
   userId: '1',
 };
@@ -61,7 +61,8 @@ const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
 const cacheSetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'setPendingSubscriptions');
 const cacheGetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
 const removeStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'removeFromCache');
-const hearingStub = sinon.stub(HearingService.prototype, 'getCaseByNumber');
+const publicationStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
+sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(mockCase);
 const courtStub = sinon.stub(CourtService.prototype, 'getCourtById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
 const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
@@ -72,9 +73,9 @@ subscriptionStub.withArgs(blankPayload, 'cases', '1').resolves(false);
 courtStub.withArgs('643').resolves(mockCourt);
 courtStub.withArgs('111').resolves(mockCourt);
 courtStub.withArgs('').resolves(null);
-hearingStub.withArgs('T485914').resolves(mockCase);
-hearingStub.withArgs('T485912').resolves(mockCase);
-hearingStub.withArgs('').resolves(null);
+publicationStub.withArgs('T485914').resolves(mockCase);
+publicationStub.withArgs('T485912').resolves(mockCase);
+publicationStub.withArgs('').resolves(null);
 cacheSetStub.withArgs([], 'cases', userIdWithSubscriptions).resolves();
 cacheSetStub.withArgs([], 'courts', userIdWithSubscriptions).resolves();
 cacheSetStub.withArgs([mockCourt], 'courts', userIdWithSubscriptions).resolves();

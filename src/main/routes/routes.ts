@@ -1,5 +1,6 @@
 import { Application, NextFunction } from 'express';
 import { infoRequestHandler } from '@hmcts/info-provider';
+import { Logger } from '@hmcts/nodejs-logging';
 import cors  from 'cors';
 import os from 'os';
 import process from 'process';
@@ -8,11 +9,13 @@ const authenticationConfig = require('../authentication/authentication-config.js
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const multer = require('multer');
+const logger = Logger.getLogger('routes');
 
 export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
   const authType = (process.env.OIDC === 'true') ? 'azuread-openidconnect' : 'mockaroo';
   // const authType = 'mockaroo';
+  logger.info('authType', authType);
   const storage = multer.diskStorage({
     destination: 'manualUpload/tmp/',
     filename: function (req, file, callback) {
@@ -23,7 +26,26 @@ export default function(app: Application): void {
     },
   });
 
+  const fileSizeLimitErrorHandler = (err, req, res, next): any => {
+    if (err) {
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        // set dummy properties to trigger proper error message
+        req.file = {
+          size: 2000001,
+          originalname: 'too_large_file.pdf',
+        };
+        next();
+      } else {
+        req.query = {showerror: 'true'};
+        next();
+      }
+    } else {
+      next();
+    }
+  };
+
   const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
+  logger.info('FRONTEND_URL', FRONTEND_URL);
   const corsOptions = {
     origin: 'https://pib2csbox.b2clogin.com',
     methods: ['GET', 'OPTIONS'],
@@ -36,6 +58,7 @@ export default function(app: Application): void {
     if (req.isAuthenticated()) {
       return next();
     }
+    logger.info('POLICY', authenticationConfig.POLICY);
     res.redirect('/login?p=' + authenticationConfig.POLICY);
   }
 
@@ -49,6 +72,8 @@ export default function(app: Application): void {
     res.clearCookie('session');
     const B2C_URL = 'https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/';
     const encodedSignOutRedirect = encodeURIComponent(`${FRONTEND_URL}/view-option`);
+    logger.info('B2C_URL', B2C_URL);
+    logger.info('encodedSignOutRedirect', encodedSignOutRedirect);
     res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
   }
 
@@ -64,9 +89,12 @@ export default function(app: Application): void {
   app.get('/*', globalAuthGiver);
   app.post('/*', globalAuthGiver);
   app.get('/', app.locals.container.cradle.homeController.get);
+  app.get('/account-request-submitted', app.locals.container.cradle.mediaAccountRequestSubmittedController.get);
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
   app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
+  app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
+  app.post('/create-media-account', app.locals.container.cradle.createMediaAccountController.post);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/interstitial', app.locals.container.cradle.interstitialController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
@@ -81,10 +109,12 @@ export default function(app: Application): void {
   app.post('/search', app.locals.container.cradle.searchController.post);
   app.get('/sign-in', app.locals.container.cradle.signInController.get);
   app.post('/sign-in', app.locals.container.cradle.signInController.post);
-  app.get('/single-justice-procedure', app.locals.container.cradle.singleJusticeProcedureController.get);
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
-
+  app.get('/summary-of-publications', app.locals.container.cradle.summaryOfPublicationsController.get);
+  app.get('/file-publication', app.locals.container.cradle.flatFileController.get);
+  app.get('/list-type', app.locals.container.cradle.listTypeController.get);
+  app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   // Restricted paths
   app.get('/account-home', ensureAuthenticated, app.locals.container.cradle.accountHomeController.get);
   app.get('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.get);
@@ -95,7 +125,6 @@ export default function(app: Application): void {
   app.get('/case-reference-number-search-results', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
   app.get('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.get);
   app.post('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.post);
-  app.get('/daily-cause-list', ensureAuthenticated, app.locals.container.cradle.dailyCauseListController.get);
   app.get('/delete-subscription', ensureAuthenticated, app.locals.container.cradle.deleteSubscriptionController.get);
   app.get('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.get);
   app.post('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.post);
@@ -108,8 +137,13 @@ export default function(app: Application): void {
   app.post('/subscription-urn-search', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchController.post);
   app.get('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
   app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
+
+  // restricted admin paths
   app.get('/manual-upload', ensureAuthenticated, app.locals.container.cradle.manualUploadController.get);
-  app.post('/manual-upload', ensureAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), app.locals.container.cradle.manualUploadController.post);
+  app.post('/manual-upload', ensureAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualUploadController.post);
+  app.get('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.get);
+  app.post('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
+  app.get('/upload-confirmation', ensureAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
@@ -134,7 +168,6 @@ export default function(app: Application): void {
     (req, res) => {res.redirect('/subscription-management');});
 
   //TODO: To be deleted/modified post UAT with suitable solution
-  app.get('/list-option', app.locals.container.cradle.listOptionController.get);
   app.get('/warned-list', app.locals.container.cradle.warnedListController.get);
   app.get('/standard-list', ensureAuthenticated, app.locals.container.cradle.standardListController.get);
 

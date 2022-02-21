@@ -10,11 +10,12 @@ import {CourtRequests} from '../../main/resources/requests/courtRequests';
 import {LiveCaseRequests} from '../../main/resources/requests/liveCaseRequests';
 import {CaseEventGlossaryRequests} from '../../main/resources/requests/caseEventGlossaryRequests';
 import { SjpRequests } from '../../main/resources/requests/sjpRequests';
+import { ManualUploadService } from '../../main/service/manualUploadService';
 
 const agent = supertest.agent(app);
 import { request as expressRequest } from 'express';
 import sinon from 'sinon';
-
+import { PublicationService } from '../../main/service/publicationService';
 const routesNotTested = [
   '/health',
   '/health/liveness',
@@ -25,13 +26,14 @@ const routesNotTested = [
   '/mock-login',
   '/logout',
   '/robots.txt',
+  '/file-publication',
+  '/list-type',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
 const rawDataLive = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/liveCaseStatusUpdates.json'), 'utf-8');
 const rawDataCaseEventGlossary = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/CaseEventGlossary.json'), 'utf-8');
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/trimmedSJPCases.json'), 'utf-8');
-
 const allCourtData = JSON.parse(rawDataCourt);
 const courtData = allCourtData[0];
 const liveCaseData = JSON.parse(rawDataLive).results;
@@ -45,6 +47,9 @@ sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(allCourtData);
 sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
 sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').returns(caseEventGlossaryData);
 sinon.stub(SjpRequests.prototype, 'getSJPCases').returns(sjpCases);
+sinon.stub(ManualUploadService.prototype, 'getListItemName').returns('');
+sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').withArgs('56-181-2097', true).resolves(true);
+sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').withArgs('123456789', true).resolves(true);
 
 export class Pa11yResult {
   documentTitle: string;
@@ -127,6 +132,7 @@ function testAccessibility(url: string): void {
 
 describe('Accessibility',  () => {
   sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+  app.request['cookies'] = {'formCookie': JSON.stringify({'foo': 'blah', listType: '', listTypeName: ''})};
   app.request['user'] = {oid: '1'};
   readRoutes().forEach(route => {
     testAccessibility(route);

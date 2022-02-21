@@ -1,4 +1,4 @@
-{% from "./macros/common-components.njk" import goBack %}
+{% from "./macros/common-components.njk" import goBack, backToTopButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% extends "template.njk" %}
@@ -11,33 +11,38 @@
 {% endblock %}
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
-  <p class="govuk-body govuk-!-font-weight-bold">{{ p1 }}</p>
-  <p class="govuk-body">{{ p2 }} {{ published }}</p>
+  <p class="govuk-body">List containing {{ length }} case(s) generated on {{ date }}</p>
   <div class="parent-box overflow-table">
   {% set sjpCase = [] %}
   {% for item in casesList |sort(attribute="Name")%}
+  {% for role in item.hearing[0].party %}
+  {% if role.partyRole == "ACCUSED" %}
+  {% set accused = [role.individualDetails.individualForenames, " ", role.individualDetails.individualSurname] | join %}
+  {% set postcode = role.individualDetails.address.postCode %}
+
+ {% elif role.partyRole == "PROSECUTOR" %}
+  {% set prosecutor = [role.individualDetails.individualForenames, " ", role.individualDetails.individualSurname] | join %}
+  {% endif %}
+  {% set offence = item.hearing[0].offence.offenceTitle %}
+  {% if accused and prosecutor and postcode and offence %}
+
     {% set _ = sjpCase.push([
       {
-        text: item.Name
+        text: accused
       },
       {
-        text: item.Town
+        text: postcode
       },
       {
-        text: item.County
+        text: offence
       },
       {
-        text: item.Postcode
-      },
-      {
-        text: item.Offence,
-        colspan: 2
-      },
-      {
-        text: item.Prosecutor
+        text: prosecutor
       }
     ]) %}
-  {% endfor %}
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
 
   {{ govukTable({
     firstCellIsHeader: false,
@@ -53,22 +58,13 @@
       },
       {
         text: column4
-      },
-      {
-        text: column5,
-        colspan: 2
-      },
-      {
-        text: column6
       }
     ],
     rows: sjpCase
   }) }}
-    <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19" href="#">
-      <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17">
-        <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
-      </svg>{{ backToTop }}
-    </a>
+  <br/>
+    {{ backToTopButton() }}
+
   </div>
 {% endblock %}
 {% block bodyEnd %}

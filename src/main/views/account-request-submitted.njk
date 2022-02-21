@@ -1,0 +1,23 @@
+{% extends "template.njk" %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="govuk-!-width-two-thirds">
+        {% set panelContent = panelMessage +'<br><strong>ABC123</strong>' %}
+        {{ govukPanel({
+            titleText: panelTitle,
+            html: panelContent
+        }) }}
+        <p class="govuk-body">{{ confirmationSent }}</p>
+        <p class="govuk-heading-m">{{ nextMessage }}</p>
+        <p class="govuk-body">{{ reviewMessage }}</p>
+        <p class="govuk-body">{{ moreInformationMessage }}</p>
+        <p class="govuk-body">{{ contactUsMessage }}</p>
+    </div>
+{% endblock %}
