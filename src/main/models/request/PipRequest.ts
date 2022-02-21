@@ -35,8 +35,6 @@ export interface PipRequest extends Request {
       'subscription-management': {};
       'subscription-urn-search': {};
       'subscription-urn-search-result': {};
-      'sign-in': {};
-      'manual-upload': {};
       'template': {};
       'unsubscribe-confirmation': {};
       'view-option': {};

@@ -4,7 +4,7 @@ import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
 import {app} from '../../../main/app';
-import {SummaryOfPublicationsRequests} from '../../../main/resources/requests/summaryOfPublicationsRequests';
+import { SummaryOfPublicationsService } from '../../../main/service/summaryOfPublicationsService';
 
 const PAGE_URL = '/summary-of-publications?courtId=0';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/summaryOfPublications.json'), 'utf-8');
