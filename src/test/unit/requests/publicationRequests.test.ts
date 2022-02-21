@@ -1,4 +1,4 @@
-import { SummaryOfPublicationsRequests } from '../../../main/resources/requests/summaryOfPublicationsRequests';
+import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
@@ -7,7 +7,7 @@ const Blob = require('node-blob');
 const rawDataPubs = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/summaryOfPublications.json'), 'utf-8');
 const pubs = JSON.parse(rawDataPubs);
 const totalCases = 3;
-const pubRequests = new SummaryOfPublicationsRequests();
+const pubRequests = new PublicationRequests();
 const errorRequest = {
   request: 'test error',
 };

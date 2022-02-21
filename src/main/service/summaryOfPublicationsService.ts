@@ -1,8 +1,7 @@
-import {SummaryOfPublicationsRequests} from '../resources/requests/summaryOfPublicationsRequests';
+import {PublicationRequests} from '../resources/requests/PublicationRequests';
 import {Artefact} from '../models/artefact';
 
-
-const PublicationReqs = new SummaryOfPublicationsRequests();
+const PublicationReqs = new PublicationRequests();
 
 export class SummaryOfPublicationsService {
 
