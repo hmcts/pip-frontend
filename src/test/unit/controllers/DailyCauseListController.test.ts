@@ -3,7 +3,7 @@ import { Response } from 'express';
 import DailyCauseListController from '../../../main/controllers/DailyCauseListController';
 import fs from 'fs';
 import path from 'path';
-import { SummaryOfPublicationsService } from '../../../main/service/summaryOfPublicationsService';
+import { PublicationsService } from '../../../main/service/publicationsService';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
 
@@ -15,8 +15,8 @@ const metaData = JSON.parse(rawMetaData);
 
 const dailyCauseListController = new DailyCauseListController();
 
-sinon.stub(SummaryOfPublicationsService.prototype, 'getIndivPubJson').resolves(searchResults);
-sinon.stub(SummaryOfPublicationsService.prototype, 'getIndivPubMetadata').resolves(metaData);
+sinon.stub(PublicationsService.prototype, 'getIndivPubJson').resolves(searchResults);
+sinon.stub(PublicationsService.prototype, 'getIndivPubMetadata').resolves(metaData);
 
 const i18n = {
   'daily-cause-list': {},

@@ -4,7 +4,7 @@ import moment from 'moment';
 
 const PublicationReqs = new PublicationRequests();
 
-export class SummaryOfPublicationsService {
+export class PublicationsService {
   public async getPublications(courtId, verification: boolean): Promise<Publication[]> {
     return PublicationReqs.getListOfPubs(courtId, verification);
   }

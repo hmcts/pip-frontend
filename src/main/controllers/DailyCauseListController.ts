@@ -2,9 +2,9 @@ import {Response} from 'express';
 import {PipRequest} from '../models/request/PipRequest';
 import {cloneDeep} from 'lodash';
 import moment from 'moment';
-import { SummaryOfPublicationsService } from '../service/summaryOfPublicationsService';
+import { PublicationsService } from '../service/publicationsService';
 
-const publicationService = new SummaryOfPublicationsService();
+const publicationService = new PublicationsService();
 
 export default class DailyCauseListControllerController {
   public async get(req: PipRequest, res: Response): Promise<void> {

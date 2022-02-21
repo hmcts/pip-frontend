@@ -4,9 +4,9 @@ import fs from 'fs';
 import path from 'path';
 
 import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
-import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
+import {PublicationsService} from '../../../main/service/publicationsService';
 
-const summaryOfPublicationsService = new SummaryOfPublicationsService();
+const summaryOfPublicationsService = new PublicationsService();
 const publicationRequests = PublicationRequests.prototype;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
