@@ -125,6 +125,12 @@ module.exports = {
   displayDateToMonth: '#display-date-to-month',
   displayDateToYear: '#display-date-to-year',
 
+  // CreateMediaAccount selectors
+  UploadImage: '#file-upload',
+  NameInput: '#fullName',
+  EmailInput: '#emailAddress',
+  EmployerInput: '#employer',
+
   // AccountHome selectors
   EmailSubscriptionLink: '#card-subscription-management',
 };

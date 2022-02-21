@@ -21,6 +21,8 @@ import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
+import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
+import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 import { InterstitialPage } from '../PageObjects/Interstitial.page';
 import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
@@ -54,8 +56,11 @@ let manualUploadSummaryPage: ManualUploadSummaryPage;
 let fileUploadConfirmationPage: FileUploadConfirmationPage;
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
+let createMediaAccountPage: CreateMediaAccountPage;
+let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let interstitialPage: InterstitialPage;
 let accountHomePage: AccountHomePage;
+
 const signInPage = new SignInPage;
 const manualUploadPage = new ManualUploadPage;
 
@@ -195,6 +200,27 @@ describe('Unverified user', () => {
 
       it('should render the hearing list page', async () => {
         expect(await hearingListPage.getPageTitle()).toEqual('Bradford Combined Court Centre hearing list');
+      });
+    });
+
+    describe('request an account', () => {
+      before(async () => {
+        await signInPage.open('/sign-in');
+      });
+
+      it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+        expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+      });
+
+      it('should click on the create account link', async () => {
+        createMediaAccountPage = await signInPage.clickCreateAccount();
+        expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a court and tribunal hearing account');
+      });
+
+      it('should complete form and continue to confirmation page', async () => {
+        await createMediaAccountPage.completeForm();
+        mediaAccountRequestSubmittedPage = await createMediaAccountPage.clickContinue();
+        expect(await mediaAccountRequestSubmittedPage.getPanelTitle()).toEqual('Details submitted');
       });
     });
   }
