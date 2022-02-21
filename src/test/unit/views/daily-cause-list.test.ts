@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {SummaryOfPublicationsService} from '../../../main/service/SummaryOfPublicationsService';
+import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
 import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/daily-cause-list?artefactId=abc';
