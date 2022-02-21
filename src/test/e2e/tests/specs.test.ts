@@ -202,7 +202,6 @@ describe('Unverified user', () => {
         expect(await hearingListPage.getPageTitle()).toEqual('Bradford Combined Court Centre hearing list');
       });
     });
-  });
 
     describe('request an account', () => {
       before(async () => {
