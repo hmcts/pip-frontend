@@ -83,9 +83,17 @@
         }) }}
       </form>
     </div>
-    <div class="layout-width-three-fifths parent-box">
+    <div class="layout-width-three-fifths" id="content">
       <form class="moj-action-bar" action="pending-subscriptions" method="post" autocomplete="off">
         <h2 class="govuk-heading-m">{{ userSelections }}</h2>
+        <div class="moj-button-menu">
+          <div class="moj-button-menu__wrapper">
+            <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary"
+               data-module="govuk-button" onclick="toggleFilters()">
+              {{ show }}
+            </a>
+          </div>
+        </div>
         <div
           class="selection-counter-box govuk-!-padding-top-3 govuk-!-padding-bottom-1 govuk-!-padding-left-2 govuk-!-padding-right-2 govuk-!-margin-bottom-4">
           <p class="govuk-body"><span id="selectionCount">0</span> {{ selected }}</p>
@@ -201,6 +209,7 @@
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
+
     function toggleFilters() {
       var element = document.getElementById("filters");
       var content = document.getElementById("content");
@@ -213,7 +222,6 @@
       } else {
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ hide }}";
       }
-
     }
   </script>
 {% endblock %}

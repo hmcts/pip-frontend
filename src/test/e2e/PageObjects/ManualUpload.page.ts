@@ -1,4 +1,5 @@
 import { CommonPage } from './Common.page';
+import { ManualUploadSummaryPage } from './ManualUploadSummary.page';
 const helpers = require('../Helpers/Selectors');
 
 const path = require('path');
@@ -86,5 +87,14 @@ export class ManualUploadPage extends CommonPage {
     await $(helpers.displayDateToDay).addValue('01');
     await $(helpers.displayDateToMonth).addValue('01');
     await $(helpers.displayDateToYear).addValue('2022');
+  }
+
+  async clickContinue(): Promise<ManualUploadSummaryPage> {
+    $(helpers.ContinueButton).catch(() => {
+      console.log(`${helpers.ContinueButton} not found`);
+    });
+
+    await $(helpers.ContinueButton).click();
+    return new ManualUploadSummaryPage();
   }
 }

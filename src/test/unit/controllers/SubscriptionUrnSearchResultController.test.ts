@@ -4,12 +4,12 @@ import fs from 'fs';
 import path from 'path';
 import SubscriptionUrnSearchResultController from '../../../main/controllers/SubscriptionUrnSearchResultController';
 import { mockRequest } from '../mocks/mockRequest';
-import { HearingService } from '../../../main/service/hearingService';
+import {PublicationService} from '../../../main/service/publicationService';
 
 const subscriptionSearchUrnResultController = new SubscriptionUrnSearchResultController();
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData);
-const caseStub = sinon.stub(HearingService.prototype, 'getCaseByURN');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const subscriptionsData = JSON.parse(rawData)[0].search.cases[0];
+const caseStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn');
 caseStub.withArgs('123456789').returns(subscriptionsData);
 caseStub.withArgs('foo').returns(null);
 
