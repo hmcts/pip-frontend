@@ -3,8 +3,8 @@ import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
 
-import {PublicationRequests} from '../../../main/resources/requests/PublicationRequests';
-import { SummaryOfPublicationsService } from '../../../main/service/summaryOfPublicationsService';
+import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
+import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
 
 const summaryOfPublicationsService = new SummaryOfPublicationsService();
 const publicationRequests = PublicationRequests.prototype;

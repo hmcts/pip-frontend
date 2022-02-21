@@ -14,7 +14,7 @@ const summaryText = 'govuk-details__text';
 const accordionClass='govuk-accordion__section-button';
 
 const expectedHeader = 'Daily Civil Cause list for <br>PRESTON';
-const summaryHeadingText = 'Important information'; 
+const summaryHeadingText = 'Important information';
 const accordionHeading = '1; Mr Firstname1 Surname1';
 
 let htmlRes: Document;
