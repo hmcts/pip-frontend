@@ -24,6 +24,8 @@ import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 import { InterstitialPage } from '../PageObjects/Interstitial.page';
 import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
+import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
+import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
 import config = require('config');
 
@@ -48,6 +50,8 @@ let courtNameSearchPage: CourtNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
+let manualUploadSummaryPage: ManualUploadSummaryPage;
+let fileUploadConfirmationPage: FileUploadConfirmationPage;
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 let interstitialPage: InterstitialPage;
@@ -420,8 +424,15 @@ if (process.env.EXCLUDE_E2E === 'true') {
         expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
       });
 
-      it('should complete form', async () => {
+      it('should complete form and open summary page', async () => {
         await manualUploadPage.completeForm();
+        manualUploadSummaryPage = await manualUploadPage.clickContinue();
+        expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+      });
+
+      it('should open upload confirmation page', async () => {
+        fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
+        expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
       });
     });
   });
