@@ -6,6 +6,6 @@ const PublicationReqs = new PublicationRequests();
 export class SummaryOfPublicationsService {
 
   public async getPublications(courtId, verification: boolean): Promise<Artefact[]> {
-    return PublicationReqs.getListOfPubs(courtId, verification);
+    return PublicationReqs.getPublicationsByCourt(courtId, verification);
   }
 }
