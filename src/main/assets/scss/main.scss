@@ -89,9 +89,16 @@ $min-width: 52em;
   }
 }
 
+@media (min-width: $min-width) {
+  .offset-parent-box {
+    left: -10%;
+  }
+}
+
+
 .offset-parent-box {
   @extend .parent-box;
-  left: -20%;
+  left: 0;
 
   a {
     &:not(.floating-back-to-top--fixed) {
@@ -140,10 +147,11 @@ $min-width: 52em;
   position: relative;
 
   .floating-back-to-top--fixed {
-    bottom: auto;
-    left: auto;
+    background-color: govuk-colour('light-grey');
+    padding: 5px;
     position: fixed;
-    top: calc(100% - #{govuk-spacing(8) * 2});
+    top: calc(100% - 30px);
+    width: 100%;
   }
 }
 
@@ -456,6 +464,10 @@ div {
 
 .search-input-name {
   border: 0;
+}
+
+.overflow-table {
+  overflow-x: auto;
 }
 
 //Admin css

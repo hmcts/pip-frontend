@@ -21,8 +21,13 @@ import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
+import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
+import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
+import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 import { InterstitialPage } from '../PageObjects/Interstitial.page';
 import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
+import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
+import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
 import config = require('config');
 
@@ -31,6 +36,7 @@ let subscriptionAddPage = new SubscriptionAddPage();
 let subscriptionManagementPage: SubscriptionManagementPage;
 const liveCaseCourtSearchControllerPage = new LiveCaseCourtSearchControllerPage();
 let viewOptionPage: ViewOptionPage;
+let summaryOfPublicationsPage: SummaryOfPublicationsPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
 let hearingListPage: HearingListPage;
 let searchPage: SearchPage;
@@ -46,10 +52,15 @@ let courtNameSearchPage: CourtNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
+let manualUploadSummaryPage: ManualUploadSummaryPage;
+let fileUploadConfirmationPage: FileUploadConfirmationPage;
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
+let createMediaAccountPage: CreateMediaAccountPage;
+let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let interstitialPage: InterstitialPage;
 let accountHomePage: AccountHomePage;
+
 const signInPage = new SignInPage;
 const manualUploadPage = new ManualUploadPage;
 
@@ -156,6 +167,60 @@ describe('Unverified user', () => {
         await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
         singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
         expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Single Justice Procedure cases');
+      });
+    });
+
+    describe('Render summary of publications screen from alphabetical search list', () => {
+      beforeEach(async () => {
+        await alphabeticalSearchPage.open('/alphabetical-search');
+      });
+
+      it('Should select the first item from the alphabetical search list and navigate to SJP summary of publications', async () => {
+        summaryOfPublicationsPage = await alphabeticalSearchPage.selectSJPLink();
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
+      });
+
+      it('Should select the second item from the alphabetical search list and navigate to Aberystwyth Justice Centre', async () => {
+        const aberdeenTribunalPage = await alphabeticalSearchPage.selectSecondListResult();
+        expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberystwyth Justice Centre?');
+      });
+
+      it('Should select the first item from the alphabetical search list and navigate to Aberdeen Tribunal Hearing Centre', async () => {
+        const aberdeenTribunalPage = await alphabeticalSearchPage.selectFirstListResult();
+        expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberdeen Tribunal Hearing Centre?');
+      });
+    });
+
+    describe('Render hearing list page when required', () => {
+      before(async () => {
+        await searchPage.open('/search');
+        hearingListPage = await searchPage.clickContinue();
+        await hearingListPage.open('hearing-list?courtId=68');
+      });
+
+      it('should render the hearing list page', async () => {
+        expect(await hearingListPage.getPageTitle()).toEqual('Bradford Combined Court Centre hearing list');
+      });
+    });
+
+    describe('request an account', () => {
+      before(async () => {
+        await signInPage.open('/sign-in');
+      });
+
+      it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+        expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+      });
+
+      it('should click on the create account link', async () => {
+        createMediaAccountPage = await signInPage.clickCreateAccount();
+        expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a court and tribunal hearing account');
+      });
+
+      it('should complete form and continue to confirmation page', async () => {
+        await createMediaAccountPage.completeForm();
+        mediaAccountRequestSubmittedPage = await createMediaAccountPage.clickContinue();
+        expect(await mediaAccountRequestSubmittedPage.getPanelTitle()).toEqual('Details submitted');
       });
     });
   }
@@ -356,18 +421,91 @@ if (process.env.EXCLUDE_E2E === 'true') {
           expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
         });
       });
+    });
 
-      describe('Admin level journeys', () => {
-        describe('Manual Upload', () => {
-          it('should open manual upload page', async () => {
-            await manualUploadPage.open('/manual-upload');
-            expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
-          });
+    describe('Following the subscription \'search\' by case reference path', () => {
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
+    });
 
-          it('should complete form', async () => {
-            await manualUploadPage.completeForm();
-          });
-        });
+    describe('Following the subscription \'search\' by case reference path', () => {
+      const validSearchTerm = 'T485913';
+      const expectedNumOfResults = 1;
+
+      before(async () => {
+        await subscriptionAddPage.open('subscription-add');
+      });
+
+      it('should select \'By case reference number\' option and navigate to search case number page', async () => {
+        await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
+        caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
+        expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
+      });
+
+      it('should enter text and click continue', async () => {
+        await caseReferenceNumberSearchPage.enterText(validSearchTerm);
+        caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
+        expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
+      });
+
+      it(`should display ${expectedNumOfResults} results`, async () => {
+        expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+      });
+
+    });
+  });
+
+  describe('add subscription', async () => {
+    before(async () => {
+      await pendingSubscriptionsPage.open('pending-subscriptions');
+    });
+
+    it('should subscribe', async () => {
+      subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
+      expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
+    });
+  });
+
+  describe('remove subscription', async () => {
+    before(async () => {
+      await subscriptionManagementPage.open('subscription-management');
+    });
+
+    it('should click on the first unsubscribe record', async () => {
+      deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
+      expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
+    });
+
+    it('should select yes option and unsubscribe', async () => {
+      await deleteSubscriptionPage.selectOption('yesRadioButton');
+      unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
+      expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+    });
+  });
+
+  describe('Admin level journeys', () => {
+    describe('Manual Upload', () => {
+      it('should open manual upload page', async () => {
+        await manualUploadPage.open('/manual-upload');
+        expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
+      });
+
+      it('should complete form and open summary page', async () => {
+        await manualUploadPage.completeForm();
+        manualUploadSummaryPage = await manualUploadPage.clickContinue();
+        expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+      });
+
+      it('should open upload confirmation page', async () => {
+        fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
+        expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
       });
     });
   });
