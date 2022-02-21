@@ -21,13 +21,13 @@ import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
+import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
+import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
 import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 import { InterstitialPage } from '../PageObjects/Interstitial.page';
 import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
-import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
-import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
 import config = require('config');
 

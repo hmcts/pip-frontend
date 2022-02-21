@@ -3,9 +3,9 @@ import { Request } from 'express';
 export interface PipRequest extends Request {
   i18n?: {
     getDataByLanguage: (lng: string) => {
+      'account-home': {};
       'account-request-submitted': {};
       'alphabetical-search': {};
-      'account-home': {};
       'case-name-search': {};
       'case-name-search-results': {};
       'case-reference-number-search': {};
