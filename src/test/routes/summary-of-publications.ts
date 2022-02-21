@@ -8,6 +8,7 @@ const mockJSON = '{"data":"false"}';
 const mockArray = '[{"data":"false"}]';
 sinon.stub(SummaryOfPublicationsService.prototype, 'getIndivPubJson').resolves(mockJSON);
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(mockArray);
+
 describe('', () => {
   describe('on GET', () => {
     test('should return summary of publications page', async () => {

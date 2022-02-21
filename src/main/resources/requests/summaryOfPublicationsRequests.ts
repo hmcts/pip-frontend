@@ -4,6 +4,7 @@ import {Artefact} from '../../models/artefact';
 export class SummaryOfPublicationsRequests {
 
   public async getListOfPubs(courtId, verification): Promise<Artefact[]> {
+    
     try {
       const response = await dataManagementApi.get(`/publication/search/${courtId}`, {headers: {'verification':`${verification}`}});
       return response.data;
@@ -18,7 +19,6 @@ export class SummaryOfPublicationsRequests {
     }
     return null;
   }
-
   public async getIndividualPubMetadata(artefactId, verification): Promise<string> {
     try{
       const response = await dataManagementApi.get(`/publication/${artefactId}`, {headers: {'verification': `${verification}`}});
