@@ -48,16 +48,17 @@
               </h2>
             </div>
             <div id="accordion-default-content-{{ sessionCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ sessionCount }}">
-              <table class="govuk-table">
+              <div class="parent-box overflow-table">
+                <table class="govuk-table">
                 <thead class="govuk-table__head">
-                <tr class="govuk-table__row">
-                  <th scope="col" class="govuk-table__header">Case ID</th>
-                  <th scope="col" class="govuk-table__header">Name of party or parties involved</th>
-                  <th scope="col" class="govuk-table__header">Hearing type</th>
-                  <th scope="col" class="govuk-table__header">Hearing platform</th>
-                  <th scope="col" class="govuk-table__header">Start time</th>
-                  <th scope="col" class="govuk-table__header">Duration</th>
-                </tr>
+                  <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Case ID</th>
+                    <th scope="col" class="govuk-table__header">Name of party or parties involved</th>
+                    <th scope="col" class="govuk-table__header">Hearing type</th>
+                    <th scope="col" class="govuk-table__header">Hearing platform</th>
+                    <th scope="col" class="govuk-table__header">Start time</th>
+                    <th scope="col" class="govuk-table__header">Duration</th>
+                  </tr>
                 </thead>
 
                 <tbody class="govuk-table__body">
@@ -113,6 +114,7 @@
                 {% endfor %}
                 </tbody>
               </table>
+              </div>
             </div>
           </div>
         {% endfor %}
