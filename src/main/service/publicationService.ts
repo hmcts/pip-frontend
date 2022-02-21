@@ -1,5 +1,5 @@
 import {PublicationRequests} from '../resources/requests/publicationRequests';
-import {Artefact} from '../models/Artefact';
+import {Artefact} from '../models/artefact';
 import {SearchObject} from '../models/searchObject';
 
 const publicationRequests = new PublicationRequests();
