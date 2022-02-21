@@ -1,5 +1,5 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
-{% from "./macros/common-components.njk" import goBack %}
+{% from "./macros/common-components.njk" import goBack, backToTopButton %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {%- from "moj/components/filter/macro.njk" import mojFilter -%}
 {%- from "moj/components/button-menu/macro.njk" import mojButtonMenu -%}
@@ -112,7 +112,7 @@
       </div>
       <hr/>
       <div class="govuk-grid-row govuk-!-margin-bottom-4 govuk-!-margin-top-4">
-        <a href="/single-justice-procedure" class="govuk-link govuk-!-margin-left-8 govuk-!-font-size-19"
+        <a href="/summary-of-publications?courtId=0" class="govuk-link govuk-!-margin-left-8 govuk-!-font-size-19"
            id="sjp-link">{{ sjpLink }}</a>
       </div>
       <table class="govuk-table">
@@ -147,13 +147,8 @@
         {% endfor %}
         </tbody>
       </table>
+      {{ backToTopButton() }}
     </div>
-    <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19 with-background" href="#">
-      <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17"
-           viewBox="0 0 13 17">
-        <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
-      </svg>{{ backToTop }}
-    </a>
   </div>
 {% endblock %}
 {% block bodyEnd %}
@@ -166,6 +161,7 @@
 
     function toggleFilters() {
       var element = document.getElementById("filters");
+      element.classList.toggle("hide");
       var content = document.getElementById("content");
       var navigation = document.getElementsByClassName("moj-sub-navigation pub-navigation govuk-!-margin-bottom-0");
       element.classList.toggle("hide");
@@ -176,9 +172,6 @@
       } else {
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ hide }}";
       }
-
     }
-
   </script>
-
 {% endblock %}

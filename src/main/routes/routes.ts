@@ -64,9 +64,12 @@ export default function(app: Application): void {
   app.get('/*', globalAuthGiver);
   app.post('/*', globalAuthGiver);
   app.get('/', app.locals.container.cradle.homeController.get);
+  app.get('/account-request-submitted', app.locals.container.cradle.mediaAccountRequestSubmittedController.get);
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
   app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
+  app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
+  app.post('/create-media-account', app.locals.container.cradle.createMediaAccountController.post);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/interstitial', app.locals.container.cradle.interstitialController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
@@ -81,9 +84,9 @@ export default function(app: Application): void {
   app.post('/search', app.locals.container.cradle.searchController.post);
   app.get('/sign-in', app.locals.container.cradle.signInController.get);
   app.post('/sign-in', app.locals.container.cradle.signInController.post);
-  app.get('/single-justice-procedure', app.locals.container.cradle.singleJusticeProcedureController.get);
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
+  app.get('/summary-of-publications', app.locals.container.cradle.summaryOfPublicationsController.get);
 
   // Restricted paths
   app.get('/account-home', ensureAuthenticated, app.locals.container.cradle.accountHomeController.get);
@@ -107,8 +110,13 @@ export default function(app: Application): void {
   app.post('/subscription-urn-search', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchController.post);
   app.get('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
   app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
+
+  // restricted admin paths
   app.get('/manual-upload', ensureAuthenticated, app.locals.container.cradle.manualUploadController.get);
   app.post('/manual-upload', ensureAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), app.locals.container.cradle.manualUploadController.post);
+  app.get('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.get);
+  app.post('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
+  app.get('/upload-confirmation', ensureAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
@@ -133,7 +141,6 @@ export default function(app: Application): void {
     (req, res) => {res.redirect('/subscription-management');});
 
   //TODO: To be deleted/modified post UAT with suitable solution
-  app.get('/list-option', app.locals.container.cradle.listOptionController.get);
   app.get('/warned-list', app.locals.container.cradle.warnedListController.get);
   app.get('/standard-list', ensureAuthenticated, app.locals.container.cradle.standardListController.get);
 

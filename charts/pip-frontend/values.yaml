@@ -34,5 +34,3 @@ nodejs:
         - name: b2c-test-account
           alias: B2C_USERNAME
   aadIdentityName: pip
-
-
