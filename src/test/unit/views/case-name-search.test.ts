@@ -2,13 +2,13 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { HearingRequests } from '../../../main/resources/requests/hearingRequests';
 import { request as expressRequest } from 'express';
+import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
 
 const PAGE_URL = '/case-name-search';
 let htmlRes: Document;
 
-sinon.stub(HearingRequests.prototype, 'getHearingsByCaseName').withArgs('bob').returns([]);
+sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue').returns([]);
 
 describe('Case name search page', () => {
   beforeAll(async () => {

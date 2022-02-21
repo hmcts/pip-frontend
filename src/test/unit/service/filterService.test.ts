@@ -15,6 +15,12 @@ const filterOptions = {Jurisdiction: {'Crown Court': {checked: true}, Crown: {ch
 const filterOptionsNoJurisdiction = {Jurisdiction: {'Crown Court': {checked: false}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: true}}};
 const filterOptionsNoRegion = {Jurisdiction: {'Crown Court': {checked: true}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: false}}};
 const filterOptionsNoFilters = {Jurisdiction: {'Crown Court': {checked: false}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: false}}};
+const requestFilters = {Jurisdiction: 'Crown Court', Region: 'Bedford'};
+const requestFiltersNoRegion = {Jurisdiction: ['Crown Court', 'Tribunal']};
+const requestFiltersNoJurisdiction = {Region: 'Bedford'};
+const filterNames = ['Jurisdiction', 'Region'];
+const allFilterOptions = {Jurisdiction: {Tribunal:{value:'Tribunal'}}, Region: {Wales:{value:'Wales'}}};
+const filterValues = ['Tribunal','Wales'];
 
 describe('Filter Service', () => {
   it('should build filter header options for checkboxes', () => {
@@ -65,5 +71,29 @@ describe('Filter Service', () => {
 
   it('should return both keys needed for checked options', () => {
     expect(filterService.handleKeys(filterOptions)).toStrictEqual([jurisdiction, 'Location']);
+  });
+
+  it('should return both Jurisdiction and Region', () => {
+    expect(filterService.splitFilters(filterNames, requestFilters)).toStrictEqual(requestFilters);
+  });
+
+  it('should return only Region', () => {
+    expect(filterService.splitFilters(filterNames, requestFiltersNoJurisdiction)).toStrictEqual({Jurisdiction: '', Region: 'Bedford'});
+  });
+
+  it('should return only Jurisdiction', () => {
+    expect(filterService.splitFilters(filterNames, requestFiltersNoRegion)).toStrictEqual({Jurisdiction: 'Crown Court,Tribunal', Region: ''});
+  });
+
+  it('should find and return both Jurisdiction and Region', () => {
+    expect(filterService.findAndSplitFilters(filterValues, allFilterOptions)).toStrictEqual({Jurisdiction: 'Tribunal', Region: 'Wales'});
+  });
+
+  it('should find and return only Region', () => {
+    expect(filterService.findAndSplitFilters(filterValues, {Jurisdiction: '', Region: {Wales:{value:'Wales'}}})).toStrictEqual({Jurisdiction: '', Region: 'Wales'});
+  });
+
+  it('should find and return only Jurisdiction', () => {
+    expect(filterService.findAndSplitFilters(filterValues, {Jurisdiction: {Tribunal:{value:'Tribunal'}}, Region: ''})).toStrictEqual({Jurisdiction: 'Tribunal', Region: ''});
   });
 });
