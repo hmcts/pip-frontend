@@ -3,7 +3,7 @@ import {Artefact} from '../models/artefact';
 
 const PublicationReqs = new PublicationRequests();
 
-export class SummaryOfPublicationsService {
+export class PublicationService {
 
   public async getPublications(courtId, verification: boolean): Promise<Artefact[]> {
     return PublicationReqs.getListOfPubs(courtId, verification);

@@ -1,9 +1,9 @@
 import sinon from 'sinon';
 import {expect} from 'chai';
-import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
+import {PublicationService} from '../../../main/service/publicationService';
 import {PublicationRequests} from '../../../main/resources/requests/PublicationRequests';
 
-const sopService = new SummaryOfPublicationsService();
+const sopService = new PublicationService();
 const pubStub = sinon.stub(PublicationRequests.prototype, 'getListOfPubs');
 const fileStub = sinon.stub(PublicationRequests.prototype, 'getIndividualPubFile');
 const metaStub = sinon.stub(PublicationRequests.prototype, 'getIndividualPubMetadata');

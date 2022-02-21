@@ -1,10 +1,10 @@
 import sinon from 'sinon';
 import {Response} from 'express';
-import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
+import {PublicationService} from '../../../main/service/publicationService';
 import ListTypeController from '../../../main/controllers/ListTypeController';
 import {PipRequest} from '../../../main/models/request/PipRequest';
 
-const jsonStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getIndivPubJson');
+const jsonStub = sinon.stub(PublicationService.prototype, 'getIndivPubJson');
 const mockJson = {};
 
 const response = {

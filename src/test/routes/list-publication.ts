@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import { app } from '../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
-import { SummaryOfPublicationsService} from '../../main/service/summaryOfPublicationsService';
+import { PublicationService} from '../../main/service/publicationService';
 
 const mockJSON = '{"data":"false"}';
-sinon.stub(SummaryOfPublicationsService.prototype, 'getIndivPubFile').resolves(mockJSON);
+sinon.stub(PublicationService.prototype, 'getIndivPubFile').resolves(mockJSON);
 
 describe('', () => {
   describe('on GET', () => {
