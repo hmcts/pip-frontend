@@ -2,10 +2,10 @@ import SummaryOfPublicationsController from '../../../main/controllers/SummaryOf
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import sinon from 'sinon';
-import {PublicationService} from '../../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
 import {CourtService} from '../../../main/service/courtService';
+import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
 
 const publicationController = new SummaryOfPublicationsController();
 const i18n = {
@@ -18,7 +18,7 @@ const onePub = JSON.parse(onePubData);
 const onePubJsonData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublicationJson.json'), 'utf-8');
 const onePubJson = JSON.parse(onePubJsonData);
 const CourtStub = sinon.stub(CourtService.prototype, 'getCourtById');
-const SoPStub = sinon.stub(PublicationService.prototype, 'getPublications');
+const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
 
 describe('Get publications', () => {
   CourtStub.withArgs(0).resolves(JSON.parse('{"name":"Single Justice Procedure (SJP)"}'));

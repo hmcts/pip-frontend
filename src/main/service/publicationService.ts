@@ -1,13 +1,8 @@
 import {PublicationRequests} from '../resources/requests/PublicationRequests';
-import {Artefact} from '../models/artefact';
 
 const PublicationReqs = new PublicationRequests();
 
 export class PublicationService {
-
-  public async getPublications(courtId, verification: boolean): Promise<Artefact[]> {
-    return PublicationReqs.getListOfPubs(courtId, verification);
-  }
 
   public async getIndivPubMetadata(artefactId, verification: boolean): Promise<any> {
     return PublicationReqs.getIndividualPubMetadata(artefactId, verification);

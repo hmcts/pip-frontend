@@ -3,11 +3,12 @@ import { app } from '../../main/app';
 import request from 'supertest';
 import {PublicationService} from '../../main/service/publicationService';
 import sinon from 'sinon';
+import {SummaryOfPublicationsService} from '../../main/service/summaryOfPublicationsService';
 
 const mockJSON = '{"data":"false"}';
 const mockArray = '[{"data":"false"}]';
 sinon.stub(PublicationService.prototype, 'getIndivPubJson').resolves(mockJSON);
-sinon.stub(PublicationService.prototype, 'getPublications').resolves(mockArray);
+sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(mockArray);
 
 describe('', () => {
   describe('on GET', () => {
