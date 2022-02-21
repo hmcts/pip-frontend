@@ -15,7 +15,7 @@ const logger = Logger.getLogger('app');
 const ioRedis = require('ioredis');
 // double s is required when using TLS connection
 const connectionString = `rediss://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
-const redisClient = new ioRedis(connectionString);
+const redisClient = new ioRedis(connectionString, {connectTimeout: 10000});
 
 logger.info('redis env var', redisCredentials.host);
 logger.info('redis env port', redisCredentials.port);
@@ -27,6 +27,14 @@ redisClient.on('connect', () => {
 redisClient.on('error', error => {
   redisClient.quit();
   logger.error('Failed to connect to Redis', error.message);
+});
+
+redisClient.on('ready', () => {
+  logger.info('redis ready');
+});
+
+redisClient.on('close', () => {
+  logger.info('connection closed');
 });
 
 module.exports = {

@@ -1,0 +1,12 @@
+{
+  "title": "Create Account",
+  "header": "Create a court and tribunal hearing account",
+  "nameLabel": "Full name",
+  "emailLabel": "Email address",
+  "emailHint": "We'll only use this to contact you about your account and this service.",
+  "employerLabel": "Employer",
+  "photoMessage": "Upload a clear photo of your UK Press Card or work ID",
+  "photoSubMessage": "We'll only use this to confirm your identity for this service.",
+  "photoType": "Must be a JPG, PNG, TIFF, or PDF file",
+  "errorTitle": "There is a problem"
+}
