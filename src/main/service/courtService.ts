@@ -33,13 +33,13 @@ export class CourtService {
   }
 
   public async generateAlphabetisedCrownCourtList(): Promise<object> {
-    const filter = ['jurisdiction'];
-    const value = ['crown court'];
-    return this.generateFilteredAlphabetisedCourtList(filter, value);
+    const regions = '';
+    const jurisdictions = 'Crown Court';
+    return this.generateFilteredAlphabetisedCourtList(regions, jurisdictions);
   }
 
-  public async generateFilteredAlphabetisedCourtList(filters: string[], values: string[]): Promise<object> {
-    return this.generateAlphabetisedCourtList(await courtRequest.getFilteredCourts(filters, values));
+  public async generateFilteredAlphabetisedCourtList(regions: string, jurisdictions: string): Promise<object> {
+    return this.generateAlphabetisedCourtList(await courtRequest.getFilteredCourts(regions, jurisdictions));
   }
 
   private generateAlphabetisedCourtList(listToAlphabetise: Array<Court>): object {
@@ -53,5 +53,4 @@ export class CourtService {
     });
     return alphabetisedCourtList;
   }
-
 }
