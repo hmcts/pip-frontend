@@ -3,6 +3,7 @@ import { infoRequestHandler } from '@hmcts/info-provider';
 import cors  from 'cors';
 import os from 'os';
 import process from 'process';
+import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
@@ -24,21 +25,7 @@ export default function(app: Application): void {
   });
 
   const fileSizeLimitErrorHandler = (err, req, res, next): any => {
-    if (err) {
-      if (err.code === 'LIMIT_FILE_SIZE') {
-        // set dummy properties to trigger proper error message
-        req.file = {
-          size: 2000001,
-          originalname: 'too_large_file.pdf',
-        };
-        next();
-      } else {
-        req.query = {showerror: 'true'};
-        next();
-      }
-    } else {
-      next();
-    }
+    fileErrorHandlerMiddleware(err, req, res, next);
   };
 
   const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
