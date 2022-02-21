@@ -5,8 +5,8 @@ import sinon from 'sinon';
 import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
-import { HearingService } from '../../../main/service/hearingService';
 import { request as expressRequest } from 'express';
+import {PublicationService} from '../../../main/service/publicationService';
 
 const PAGE_URL = '/case-reference-number-search';
 const headingClass = 'govuk-heading-l';
@@ -22,13 +22,14 @@ const expectedButtonText = 'Continue';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData)[0].hearingList[0];
-sinon.stub(HearingService.prototype, 'getCaseByNumber').returns(subscriptionsData);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const subscriptionsData = JSON.parse(rawData)[0].search.cases[0];
+const stub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
+stub.resolves(subscriptionsData);
+sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Case Reference Search Page', () => {
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -86,9 +87,7 @@ describe('Case Reference Search Page Blank Input', () => {
 
 describe('Case Reference Search Page Invalid Input', () => {
   beforeAll(async () => {
-    sinon.restore();
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-    sinon.stub(HearingService.prototype, 'getCaseByNumber').returns(null);
+    stub.resolves(null);
     await request(app).post(PAGE_URL).send({'search-input': '12345'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });

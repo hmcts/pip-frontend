@@ -1,9 +1,9 @@
 import { Response} from 'express';
-import { HearingService } from '../service/hearingService';
 import { cloneDeep } from 'lodash';
 import { PipRequest } from '../models/request/PipRequest';
+import {PublicationService} from '../service/publicationService';
 
-const hearingService = new HearingService();
+const publicationService = new PublicationService();
 
 export default class CaseNameSearchController {
 
@@ -21,7 +21,7 @@ export default class CaseNameSearchController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['case-name'];
     if (searchInput) {
-      const searchResults = await hearingService.getHearingsByCaseName(searchInput.toLowerCase());
+      const searchResults = await publicationService.getCasesByCaseName(searchInput.toLowerCase(), !!req.user);
       if (searchResults.length) {
         res.redirect('case-name-search-results?search=' + searchInput);
       } else {
