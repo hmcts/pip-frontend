@@ -115,6 +115,7 @@ export default function(app: Application): void {
   app.get('/file-publication', app.locals.container.cradle.flatFileController.get);
   app.get('/list-type', app.locals.container.cradle.listTypeController.get);
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
+
   // Restricted paths
   app.get('/account-home', ensureAuthenticated, app.locals.container.cradle.accountHomeController.get);
   app.get('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.get);

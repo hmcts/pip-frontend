@@ -15,8 +15,7 @@ const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPC
 const sjpCases = JSON.parse(rawSJPData).results;
 const onePubData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublication.json'), 'utf-8');
 const onePub = JSON.parse(onePubData);
-const onePubJsonData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublicationJson.json'), 'utf-8');
-const onePubJson = JSON.parse(onePubJsonData);
+
 const CourtStub = sinon.stub(CourtService.prototype, 'getCourtById');
 const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
 

@@ -133,7 +133,7 @@ describe('Unverified user', () => {
     });
 
     describe('find live case status updates', async () => {
-      const validCourtName = 'Northampton Crown Court';
+      const validCourtName = 'Amersham Law Courts';
 
       before(async () => {
         await liveCaseCourtSearchControllerPage.open('/live-case-alphabet-search');
@@ -221,11 +221,6 @@ describe('Unverified user', () => {
       it('Should select the second item from the alphabetical search list and navigate to Aberystwyth Justice Centre', async () => {
         const aberdeenTribunalPage = await alphabeticalSearchPage.selectSecondListResult();
         expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberystwyth Justice Centre?');
-      });
-
-      it('Should select the first item from the alphabetical search list and navigate to Aberdeen Tribunal Hearing Centre', async () => {
-        const aberdeenTribunalPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberdeen Tribunal Hearing Centre?');
       });
     });
 
@@ -442,6 +437,7 @@ if (process.env.EXCLUDE_E2E === 'true') {
           expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
         });
       });
+
     });
 
     describe('add subscription', async () => {
