@@ -11,60 +11,59 @@
 {% endblock %}
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
-  <p class="govuk-body">List containing {{ length }} case(s) generated on {{ date }}</p>
-  <div class="parent-box overflow-table">
-  {% set sjpCase = [] %}
-  {% for item in casesList |sort(attribute="Name")%}
-  {% for role in item.hearing[0].party %}
-  {% if role.partyRole == "ACCUSED" %}
-  {% set accused = [role.individualDetails.individualForenames, " ", role.individualDetails.individualSurname] | join %}
-  {% set postcode = role.individualDetails.address.postCode %}
-
- {% elif role.partyRole == "PROSECUTOR" %}
-  {% set prosecutor = [role.individualDetails.individualForenames, " ", role.individualDetails.individualSurname] | join %}
-  {% endif %}
-  {% set offence = item.hearing[0].offence.offenceTitle %}
-  {% if accused and prosecutor and postcode and offence %}
-
-    {% set _ = sjpCase.push([
-      {
-        text: accused
-      },
-      {
-        text: postcode
-      },
-      {
-        text: offence
-      },
-      {
-        text: prosecutor
-      }
-    ]) %}
-    {% endif %}
+  <p class="govuk-body govuk-!-font-weight-bold">{{ p1 }}</p>
+  <p class="govuk-body">{{ p2 }} {{ published }}</p>
+  <div class="parent-box">
+    {% set sjpCase = [] %}
+    {% for item in casesList |sort(attribute="Name") %}
+      {% set _ = sjpCase.push([
+        {
+          text: item.Name
+        },
+        {
+          text: item.Town
+        },
+        {
+          text: item.County
+        },
+        {
+          text: item.Postcode
+        },
+        {
+          text: item.Offence,
+          colspan: 2
+        },
+        {
+          text: item.Prosecutor
+        }
+      ]) %}
     {% endfor %}
-    {% endfor %}
-
-  {{ govukTable({
-    firstCellIsHeader: false,
-    head: [
-      {
-        text: column1
-      },
-      {
-        text: column2
-      },
-      {
-        text: column3
-      },
-      {
-        text: column4
-      }
-    ],
-    rows: sjpCase
-  }) }}
-  <br/>
+    {{ govukTable({
+      firstCellIsHeader: false,
+      head: [
+        {
+          text: column1
+        },
+        {
+          text: column2
+        },
+        {
+          text: column3
+        },
+        {
+          text: column4
+        },
+        {
+          text: column5,
+          colspan: 2
+        },
+        {
+          text: column6
+        }
+      ],
+      rows: sjpCase
+    }) }}
     {{ backToTopButton() }}
-
   </div>
 {% endblock %}
 {% block bodyEnd %}
