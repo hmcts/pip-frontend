@@ -1,0 +1,54 @@
+[
+  {
+    "artefactId": "8bdbd58c-4c64-4a73-9e4f-d6409719c508",
+    "provenance": "Bradford Crown Court",
+    "sourceArtefactId": "PDF Upload",
+    "type": "LIST",
+    "sensitivity": "PUBLIC",
+    "language": "ENGLISH",
+    "search": {
+      "court-id": [
+        "Array"
+      ]
+    },
+    "displayFrom": "2022-02-02T12:52:01.907",
+    "displayTo": "2022-05-02T12:52:01.907",
+    "listType": "SJP_PRESS_LIST",
+    "courtId": "0",
+    "contentDate": "2022-02-02T12:52:01.907",
+    "isFlatFile": "true",
+    "payload": "ia"
+  },
+  {
+    "artefactId": "2bffe0d0-a051-4657-a643-ba42d4e2f05c",
+    "provenance": "Bradford Crown Court",
+    "sourceArtefactId": "This one is JSON",
+    "type": "LIST",
+    "sensitivity": "CLASSIFIED",
+    "language": "ENGLISH",
+    "search": {},
+    "displayFrom": "2022-02-02T12:59:09.908",
+    "displayTo": "2022-06-02T12:59:09.908",
+    "listType": "SJP_PUBLIC_LIST",
+    "courtId": "0",
+    "contentDate": "2022-02-02T12:59:09.908",
+    "isFlatFile": "false",
+    "payload": "uzh"
+  },
+  {
+    "artefactId": "4a87cd10-2c1c-4f0a-b59b-e293801ad845",
+    "provenance": "NOT_A_PDF",
+    "sourceArtefactId": "NOT_A_PDF",
+    "type": "GENERAL_PUBLICATION",
+    "sensitivity": "null",
+    "language": "ENGLISH",
+    "search": {},
+    "displayFrom": "2022-01-28T18:29:18.297",
+    "displayTo": "2022-03-28T18:29:18.297",
+    "listType": "SJP_PUBLIC_LIST",
+    "courtId": "0",
+    "contentDate": "2022-01-28T18:29:18.297",
+    "isFlatFile": "false",
+    "payload": "bleh"
+  }
+]

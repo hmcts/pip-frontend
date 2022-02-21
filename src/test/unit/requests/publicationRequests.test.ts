@@ -21,6 +21,7 @@ const errorResponse = {
     data: 'test error',
   },
 };
+
 const errorRequest = {
   request: 'test error',
 };
@@ -100,4 +101,3 @@ describe('getIndividualPubMetadata()', () => {
     expect(await publicationRequests.getIndividualPubMetadata('abc3', true)).toBe(null);
   });
 });
-
