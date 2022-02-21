@@ -1,10 +1,10 @@
 import sinon from 'sinon';
 import {dataManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
-import {DailyCauseListRequests} from '../../../main/resources/requests/dailyCauseListRequests';
+import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
 import fs from 'fs';
 import path from 'path';
 
-const dailyCauseListRequests = new DailyCauseListRequests();
+const publicationRequests = new PublicationRequests();
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
 const dailyCauseListData = JSON.parse(rawData);
@@ -39,65 +39,65 @@ stub.withArgs('/publication/abc2').resolves(Promise.reject(errorRequest));
 stub.withArgs('/publication/abc3').resolves(Promise.reject(errorMessage));
 stub.withArgs('/publication/'+ artefactId).resolves({data: metaData});
 
-describe('getDailyCauseList()', () => {
+describe('getIndividualPubJson()', () => {
 
-  it('should return list of daily cause list', async () => {
-    expect(await dailyCauseListRequests.getDailyCauseList(artefactId)).toBe(dailyCauseListData);
+  it('should return publication json', async () => {
+    expect(await publicationRequests.getIndividualPubJson(artefactId, true)).toBe(dailyCauseListData);
   });
 
   it('should return court PRESTON', async () => {
-    return await dailyCauseListRequests.getDailyCauseList(artefactId).then(data => {
+    return await publicationRequests.getIndividualPubJson(artefactId, true).then(data => {
       expect(data['venue']['venueName']).toEqual('PRESTON');
     });
   });
 
   it('should return judge title Mr', async () => {
-    return await dailyCauseListRequests.getDailyCauseList(artefactId).then(data => {
+    return await publicationRequests.getIndividualPubJson(artefactId, true).then(data => {
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['judiciary'][0]['johTitle']).toEqual('Mr');
     });
   });
 
   it('should have two hearings', async () => {
-    return await dailyCauseListRequests.getDailyCauseList(artefactId).then(data => {
+    return await publicationRequests.getIndividualPubJson(artefactId, true).then(data => {
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'].length).toEqual(2);
     });
   });
 
   it('should return empty list if request fails', async () => {
-    expect(await dailyCauseListRequests.getDailyCauseList('abc1')).toBe(null);
+    expect(await publicationRequests.getIndividualPubJson('abc1', true)).toBe(null);
   });
 
   it('should return empty list if request fails', async () => {
-    expect(await dailyCauseListRequests.getDailyCauseList('abc2')).toBe(null);
+    expect(await publicationRequests.getIndividualPubJson('abc2', true)).toBe(null);
   });
 
   it('should return empty list if message error', async () => {
-    expect(await dailyCauseListRequests.getDailyCauseList('abc3')).toBe(null);
+    expect(await publicationRequests.getIndividualPubJson('abc3', true)).toBe(null);
   });
 });
 
-describe('getDailyCauseListMetaData()', () => {
+describe('getIndividualPubMetadata()', () => {
 
-  it('should return list of daily cause list meta data', async () => {
-    expect(await dailyCauseListRequests.getDailyCauseListMetaData(artefactId)).toBe(metaData);
+  it('should return publication meta data', async () => {
+    expect(await publicationRequests.getIndividualPubMetadata(artefactId, true)).toBe(metaData);
   });
 
   it('should return content datetime', async () => {
-    return await dailyCauseListRequests.getDailyCauseListMetaData(artefactId).then(data => {
+    return await publicationRequests.getIndividualPubMetadata(artefactId, true).then(data => {
       expect(data['contentDate']).toEqual('2022-02-04T11:01:20.734Z');
     });
   });
 
   it('should return empty list if request fails', async () => {
-    expect(await dailyCauseListRequests.getDailyCauseListMetaData('abc1')).toBe(null);
+    expect(await publicationRequests.getIndividualPubMetadata('abc1', true)).toBe(null);
   });
 
   it('should return empty list if request fails', async () => {
-    expect(await dailyCauseListRequests.getDailyCauseListMetaData('abc2')).toBe(null);
+    expect(await publicationRequests.getIndividualPubMetadata('abc2', true)).toBe(null);
   });
 
   it('should return empty list if message error', async () => {
-    expect(await dailyCauseListRequests.getDailyCauseListMetaData('abc3')).toBe(null);
+    expect(await publicationRequests.getIndividualPubMetadata('abc3', true)).toBe(null);
   });
 });
 

@@ -1,15 +1,10 @@
 import { dataManagementApi } from './utils/axiosConfig';
 
-const config = {
-  headers: {
-    verification: 'true',
-  },
-};
+export class PublicationRequests {
 
-export class DailyCauseListRequests {
-  public async getDailyCauseList(artefactId: string): Promise<any> {
-    try {
-      const response = await dataManagementApi.get('/publication/' + artefactId + '/payload', config);
+  public async getIndividualPubMetadata(artefactId, verification): Promise<string> {
+    try{
+      const response = await dataManagementApi.get(`/publication/${artefactId}`, {headers: {'verification': `${verification}`}});
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -23,9 +18,9 @@ export class DailyCauseListRequests {
     return null;
   }
 
-  public async getDailyCauseListMetaData(artefactId: string): Promise<any> {
+  public async getIndividualPubJson(artefactId, verification): Promise<string> {
     try {
-      const response = await dataManagementApi.get('/publication/' + artefactId, config);
+      const response = await dataManagementApi.get('/publication/' + artefactId + '/payload', {headers: {'verification': `${verification}`}});
       return response.data;
     } catch (error) {
       if (error.response) {

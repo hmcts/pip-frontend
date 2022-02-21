@@ -1,15 +1,16 @@
-import { DailyCauseListRequests } from '../resources/requests/dailyCauseListRequests';
+import {PublicationRequests} from '../resources/requests/publicationRequests';
 import moment from 'moment';
 
-const dailyCauseListRequests = new DailyCauseListRequests();
+const PublicationReqs = new PublicationRequests();
 
-export class DailyCauseListService {
-  public async getDailyCauseList(artefactId: string): Promise<any> {
-    return await dailyCauseListRequests.getDailyCauseList(artefactId);
+export class SummaryOfPublicationsService {
+
+  public async getIndivPubMetadata(artefactId, verification: boolean): Promise<any> {
+    return PublicationReqs.getIndividualPubMetadata(artefactId, verification);
   }
 
-  public async getDailyCauseListMetaData(artefactId: string): Promise<any> {
-    return await dailyCauseListRequests.getDailyCauseListMetaData(artefactId);
+  public async getIndivPubJson(artefactId, verification: boolean): Promise<string> {
+    return PublicationReqs.getIndividualPubJson(artefactId, verification);
   }
 
   public calculateHearingSessionTime(searchResults: string): void {

@@ -1,19 +1,19 @@
 import {Response} from 'express';
 import {PipRequest} from '../models/request/PipRequest';
-import { DailyCauseListService } from '../service/dailyCauseListService';
 import {cloneDeep} from 'lodash';
 import moment from 'moment';
+import { SummaryOfPublicationsService } from '../service/summaryOfPublicationsService';
 
-const dailyCauseListService = new DailyCauseListService();
+const publicationService = new SummaryOfPublicationsService();
 
 export default class DailyCauseListControllerController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query.artefactId as string;
-    const searchResults = await dailyCauseListService.getDailyCauseList(artefactId);
-    const metaData = await dailyCauseListService.getDailyCauseListMetaData(artefactId);
+    const searchResults = await publicationService.getIndivPubJson(artefactId, (!!req.user));
+    const metaData = await publicationService.getIndivPubMetadata(artefactId, (!!req.user));
 
     if (searchResults && metaData) {
-      dailyCauseListService.calculateHearingSessionTime(searchResults);
+      publicationService.calculateHearingSessionTime(searchResults);
 
       const publishedDateTime = Date.parse(searchResults['document']['publicationDate']);
 
