@@ -66,3 +66,4 @@ module.exports = {
   redisClient,
   setRedisCredentials,
 };
+
