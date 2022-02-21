@@ -26,10 +26,6 @@ const indivPubJsonObject = {'data':mockPDF};
 const stub = sinon.stub(dataManagementApi, 'get');
 stub.withArgs('/publication/search/0').resolves({data: pubs});
 
-describe('get List of Publications request', () => {
-const stub = sinon.stub(dataManagementApi, 'get');
-stub.withArgs('/publication/search/0').resolves({data: pubs});
-
 describe('get Publication request', () => {
   it('should return list of publications if verified', async () => {
     const pubReq = await pubRequests.getListOfPubs(0, true);
@@ -64,7 +60,7 @@ describe('get Publication request', () => {
   });
 
 });
-  
+
 describe('get individual publication metadata', () => {
   it('should return metadata for a given publication', async () => {
     stub.withArgs('/publication/fakeArtefactId').resolves({data: pubs});
