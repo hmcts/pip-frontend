@@ -101,6 +101,6 @@ describe('Alphabetical Search page', () => {
   it('should display sjp link in national lists with correct href value', () => {
     const sjpLink = htmlRes.getElementById('sjp-link');
     expect(sjpLink.innerHTML).contains('Single Justice Procedure cases');
-    expect(sjpLink.getAttribute('href')).contains('single-justice-procedure');
+    expect(sjpLink.getAttribute('href')).contains('summary-of-publications?courtId=0');
   });
 });
