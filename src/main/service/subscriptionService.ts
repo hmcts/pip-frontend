@@ -1,14 +1,15 @@
 import moment from 'moment';
 import { SubscriptionRequests } from '../resources/requests/subscriptionRequests';
 import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendingSubscriptionsFromCache';
+import { HearingService } from './hearingService';
+import { Hearing } from '../models/hearing';
+import { CourtService } from './courtService';
+import { Court } from '../models/court';
 import { UserSubscriptions } from '../models/UserSubscriptions';
-import {PublicationService} from './publicationService';
-import {CourtService} from './courtService';
-import {Court} from '../models/court';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
-const publicationService = new PublicationService();
+const hearingService = new HearingService();
 const courtService = new CourtService();
 
 export class SubscriptionService {
@@ -74,8 +75,8 @@ export class SubscriptionService {
     for (const selectionName of selectionList) {
       let hearingIdsList = [];
       let courtIdsList = [];
-      let caseDetailsList: object[];
-      let courtDetailsList: object[];
+      let caseDetailsList: Hearing[] = [];
+      let courtDetailsList: Court[] = [];
       let urnHearing;
       switch (selectionName) {
         case 'case-number':
@@ -89,7 +90,7 @@ export class SubscriptionService {
           await this.setPendingSubscriptions(caseDetailsList, 'cases', user.oid);
           break;
         case 'urn':
-          urnHearing = await publicationService.getCaseByCaseUrn(pendingSubscription[`${selectionName}`], true);
+          urnHearing = await hearingService.getCaseByURN(pendingSubscription[`${selectionName}`]);
           if (urnHearing) {
             urnHearing.urnSearch = true;
             await this.setPendingSubscriptions([urnHearing], 'cases', user.oid);
@@ -107,10 +108,10 @@ export class SubscriptionService {
     }
   }
 
-  public async getCaseDetails(cases): Promise<object[]> {
+  public async getCaseDetails(cases): Promise<Hearing[]> {
     const casesList = [];
     for (const caseNumber of cases) {
-      const caseDetails = await publicationService.getCaseByCaseNumber(caseNumber, true);
+      const caseDetails = await hearingService.getCaseByNumber(caseNumber);
       if (caseDetails) {
         casesList.push(caseDetails);
       }
@@ -174,7 +175,7 @@ export class SubscriptionService {
         payload = {
           channel: 'EMAIL',
           searchType: pendingSubscription.urnSearch ? 'CASE_URN' : 'CASE_ID',
-          searchValue: pendingSubscription.urnSearch ? pendingSubscription.caseUrn : pendingSubscription.caseNumber,
+          searchValue: pendingSubscription.urnSearch ? pendingSubscription.urn : pendingSubscription.caseNumber,
           caseNumber: pendingSubscription.caseNumber,
           caseName: pendingSubscription.caseName,
           urn: pendingSubscription.urn,

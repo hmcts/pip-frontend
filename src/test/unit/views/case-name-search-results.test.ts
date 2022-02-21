@@ -2,25 +2,21 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
+import { HearingRequests } from '../../../main/resources/requests/hearingRequests';
 import { request as expressRequest } from 'express';
-import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
 
 const PAGE_URL = '/case-name-search-results?search=Meedo';
 let htmlRes: Document;
 
-const data = [{
-  search: {
-    cases: [
-      {caseName: "Meedoo's hearings", caseNumber: '123'},
-      {caseName: "Meedoo's hearings", caseNumber: '321'},
-      {caseName: "Meedoo's hearings", caseNumber: '234'},
-      {caseName: "Meedoo's hearings", caseNumber: '534'},
-      {caseName: "Meedoo's hearings", caseNumber: '674'},
-    ],
-  },
-}];
+const data = [
+  {caseName: "Meedoo's hearings", caseNumber: ''},
+  {caseName: "Meedoo's hearings", caseNumber: ''},
+  {caseName: "Meedoo's hearings", caseNumber: ''},
+  {caseName: "Meedoo's hearings", caseNumber: ''},
+  {caseName: "Meedoo's hearings", caseNumber: ''},
+];
 
-sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue').returns(data);
+sinon.stub(HearingRequests.prototype, 'getHearingsByCaseName').withArgs('Meedo').returns(data);
 
 describe('Case name search results page', () => {
   beforeAll(async () => {

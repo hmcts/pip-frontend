@@ -18,6 +18,7 @@ import authentication from './authentication/authentication';
 
 const passport = require('passport');
 const cookieSession = require('cookie-session');
+
 const {setupDev} = require('./development');
 import {Container} from './modules/awilix';
 import routes from './routes/routes';
@@ -40,9 +41,6 @@ new Nunjucks(developmentMode).enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new Container().enableFor(app);
 
-logger.info('environment', env);
-logger.info('policy', process.env.POLICY);
-
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -53,7 +51,6 @@ app.use(cookieSession({
   keys: [config.get('secrets.pip-ss-kv.SESSION_SECRET')],
   maxAge: 60 * 60 * 1000,
 }));
-logger.info('SESSION Secret', config.get('secrets.pip-ss-kv.SESSION_SECRET'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {

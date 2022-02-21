@@ -7,11 +7,3 @@ export const allowedFileTypes = [
   'htm',
   'html',
 ];
-
-export const allowedImageTypes = [
-  'jpg',
-  'jpeg',
-  'png',
-  'tiff',
-  'pdf',
-];

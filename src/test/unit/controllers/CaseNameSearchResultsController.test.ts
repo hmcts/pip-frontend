@@ -1,13 +1,13 @@
 import sinon from 'sinon';
 import { Response } from 'express';
 import CaseNameSearchResultsController from '../../../main/controllers/CaseNameSearchResultsController';
+import { HearingService } from '../../../main/service/hearingService';
 import { mockRequest } from '../mocks/mockRequest';
-import {PublicationService} from '../../../main/service/publicationService';
 
 const caseNameSearchResultsController = new CaseNameSearchResultsController();
-const publicationServiceStub = sinon.stub(PublicationService.prototype, 'getCasesByCaseName');
-publicationServiceStub.withArgs('').returns([]);
-publicationServiceStub.withArgs('Meedoo').returns([{caseName: 'Meedoo', caseNumber: '321321'}]);
+const hearingServiceStub = sinon.stub(HearingService.prototype, 'getHearingsByCaseName');
+hearingServiceStub.withArgs('').returns([]);
+hearingServiceStub.withArgs('Meedoo').returns([{caseName: 'Meedoo', caseNumber: '321321'}]);
 
 describe('Case name search results controller', () => {
   const i18n = {

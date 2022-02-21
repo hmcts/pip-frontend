@@ -21,7 +21,7 @@ describe('Court Name Search', () => {
         .get('/court-name-search')
         .expect((res) => expect(res.status).to.equal(200));
     });
-
+    
     test('should return court name search page with unchecked checkboxes', async () => {
       await request(app)
         .get('/court-name-search?clear=all')

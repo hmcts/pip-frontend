@@ -14,8 +14,6 @@ sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves([]);
 sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList').resolves({});
 sinon.stub(FilterService.prototype, 'handleKeys').returns([]);
 sinon.stub(FilterService.prototype, 'buildFilterValueOptions').returns({});
-sinon.stub(FilterService.prototype, 'splitFilters').returns({'Region':'test','Jurisdiction':'test'});
-sinon.stub(FilterService.prototype, 'findAndSplitFilters').returns({'Region':'test','Jurisdiction':'test'});
 
 describe('Court Name Search Controller', () => {
   const i18n = {

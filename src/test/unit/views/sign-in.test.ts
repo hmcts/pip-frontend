@@ -48,17 +48,6 @@ describe('Sign In option Page', () => {
         expect(radioButtons[i].innerHTML).contains(expectedRadioLabel[i], 'Could not find the radio button with label ' + expectedRadioLabel[i]);
       }
     });
-
-    it('should display request account message', () => {
-      const message = htmlRes.getElementsByClassName('govuk-body-s');
-      expect(message[0].innerHTML).contains('Don\'t have an account?', 'Could not find request account message');
-    });
-
-    it('should display request account link', () => {
-      const requestAccLink = htmlRes.getElementsByClassName('govuk-link');
-      expect(requestAccLink[0].innerHTML).contains('Create a Court and tribunal hearings account', 'Could not find request account link');
-      expect(requestAccLink[0].getAttribute('href')).contains('create-media-account', 'Link does not contain correct url');
-    });
   });
 
   describe('with error state', () => {

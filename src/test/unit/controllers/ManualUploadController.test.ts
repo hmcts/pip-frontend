@@ -8,7 +8,6 @@ const manualUploadController = new ManualUploadController();
 describe('Manual Upload Controller', () => {
   const i18n = {
     'manual-upload': {},
-    error: {},
   };
   const request = mockRequest(i18n);
   const testFile = new File([''], 'test', {type: 'text/html'});
@@ -38,19 +37,6 @@ describe('Manual Upload Controller', () => {
     formValidationStub.resolves('error');
     fileValidationStub.withArgs(testFile).returns();
     formValidationStub.withArgs({data: 'valid'}).resolves();
-
-    it('should render error page if uncaught multer error occurs', async () => {
-      const req = mockRequest(i18n);
-      req.query = {showerror: 'true'};
-      const response = { render: () => {return '';}} as unknown as Response;
-      const responseMock = sinon.mock(response);
-
-      responseMock.expects('render').once().withArgs('error', {...i18n.error});
-
-      await manualUploadController.post(req, response);
-      responseMock.verify();
-    });
-
     it('should render same page if errors are present', async () => {
       const response = { render: () => {return '';}} as unknown as Response;
       const responseMock = sinon.mock(response);

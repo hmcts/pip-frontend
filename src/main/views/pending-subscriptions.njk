@@ -25,7 +25,7 @@
     <tbody class="govuk-table__body">
       {% for hearing in pendingSubscriptions.cases %}
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell">{{ hearing.caseUrn }}</td>
+          <td class="govuk-table__cell">{{ hearing.urn }}</td>
           <td class="govuk-table__cell">{{ hearing.caseNumber }}</td>
           <td class="govuk-table__cell govuk-!-text-align-right">{{ hearing.caseName }}</td>
           <td class="govuk-table__cell govuk-!-text-align-right"><a href="/remove-subscription?case={{ hearing.caseNumber }}">{{ removeText }}</a></td>

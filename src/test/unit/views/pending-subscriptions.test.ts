@@ -14,7 +14,7 @@ const mockCase = {
   platform: 'In person',
   caseNumber: 'T485913',
   caseName: 'Tom Clancy',
-  urn: '',
+  urn: 'N363N6R4OG',
 };
 const mockCourt = {
   courtId: 643,

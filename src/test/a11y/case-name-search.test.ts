@@ -2,12 +2,12 @@ import * as supertest from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../main/app';
 import { ensurePageCallWillSucceed, expectNoErrors, Pa11yResult, runPally } from './a11y';
-import {PublicationService} from '../../main/service/publicationService';
+import { HearingService } from '../../main/service/hearingService';
 const agent = supertest.agent(app);
 
 const URL = '/case-name-search';
 
-const stub = sinon.stub(PublicationService.prototype, 'getCasesByCaseName');
+const stub = sinon.stub(HearingService.prototype, 'getHearingsByCaseName');
 stub.withArgs('').returns([]);
 stub.withArgs('foo').returns([]);
 

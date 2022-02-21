@@ -29,24 +29,4 @@ export class AlphabeticalSearchPage extends CommonPage {
     firstItem.click();
     return new HearingListPage();
   }
-
-  async selectSecondListResult(): Promise<HearingListPage> {
-    await $(helpers.SecondItemResult).catch(() => {
-      console.log(`${helpers.SecondItemResult} not found`);
-    });
-
-    const secondItem = await $(helpers.SecondItemResult);
-    secondItem.click();
-    return new HearingListPage();
-  }
-
-  async selectSJPLink(): Promise<HearingListPage> {
-    await $(helpers.SJPLink).catch(() => {
-      console.log(`${helpers.SJPLink} not found`);
-    });
-    const sjpLink = await $(helpers.SJPLink);
-    sjpLink.click();
-    return new HearingListPage();
-  }
-
 }

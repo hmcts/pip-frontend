@@ -22,7 +22,7 @@ export default class SearchController {
     if (searchInput && searchInput.length >= 3) {
       const court = await courtService.getCourtByName(searchInput);
       (court) ?
-        res.redirect(`summary-of-publications?courtId=${court.courtId}`) :
+        res.redirect(`list-option?courtId=${court.courtId}`) :
         res.render('search', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng).search),
           autocompleteList: autocompleteList,

@@ -159,7 +159,7 @@ describe('Search Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('summary-of-publications?courtId=1');
+    responseMock.expects('redirect').once().withArgs('list-option?courtId=1');
 
     return searchController.post(request, response).then(() => {
       responseMock.verify();

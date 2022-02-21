@@ -21,37 +21,12 @@ logger.info('redis env var', redisCredentials.host);
 logger.info('redis env port', redisCredentials.port);
 
 redisClient.on('connect', () => {
-  logger.info('Connected to Redis', redisClient.status);
-});
-
-redisClient.on('ready', () => {
-  logger.info('ready to connect', redisClient.status);
+  logger.info('Connected to Redis');
 });
 
 redisClient.on('error', error => {
   redisClient.quit();
   logger.error('Failed to connect to Redis', error.message);
-  logger.error('Failed to connect to Redis status', redisClient.status);
-});
-
-redisClient.on('close', () => {
-  logger.info('connection closed', redisClient.status);
-});
-
-redisClient.on('reconnecting', () => {
-  logger.info('trying to reconnect', redisClient.status);
-});
-
-redisClient.on('end', () => {
-  logger.info('end', redisClient.status);
-});
-
-redisClient.on('wait', () => {
-  logger.info('waiting', redisClient.status);
-});
-
-redisClient.on('status', () => {
-  logger.info('status', redisClient.status);
 });
 
 module.exports = {

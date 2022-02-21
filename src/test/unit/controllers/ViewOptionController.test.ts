@@ -60,7 +60,7 @@ describe('View Option Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('summary-of-publications?courtId=0');
+    responseMock.expects('redirect').once().withArgs('single-justice-procedure');
 
     viewOptionController.post(request, response);
     responseMock.verify();

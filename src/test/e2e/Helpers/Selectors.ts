@@ -36,8 +36,6 @@ module.exports = {
   //Alphabetical Search selectors
   AlphabeticalHeading: '#page-heading',
   BackToTopButton: '#back-to-top-button',
-  SingleJusticeProcedureLink: '#sjp-link',
-
   KeySelector: (letter): string => {
     return '#' + letter + '-selector';
   },
@@ -45,8 +43,6 @@ module.exports = {
     return '#' + letter;
   },
   FirstItemResult: 'tbody > tr.govuk-table__row > td > a',
-  SecondItemResult: 'tr.govuk-table__row:nth-child(2) > td:nth-child(2) > a:nth-child(1)',
-  SJPLink: '#sjp-link',
   MagistratesFilter: '#Jurisdiction-4',
   NorthWestFilter: '#Region-7',
 
@@ -124,12 +120,6 @@ module.exports = {
   displayDateToDay: '#display-date-to-day',
   displayDateToMonth: '#display-date-to-month',
   displayDateToYear: '#display-date-to-year',
-
-  // CreateMediaAccount selectors
-  UploadImage: '#file-upload',
-  NameInput: '#fullName',
-  EmailInput: '#emailAddress',
-  EmployerInput: '#employer',
 
   // AccountHome selectors
   EmailSubscriptionLink: '#card-subscription-management',

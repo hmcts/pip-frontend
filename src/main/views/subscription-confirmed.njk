@@ -1,5 +1,6 @@
 {% extends "template.njk" %}
-{% from "./macros/common-components.njk" import successPanel %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "./macros/common-components.njk" import submitButton %}
 
 {% block pageTitle %}
   {{ title }}
@@ -9,7 +10,14 @@
 {% endblock %}
 
 {% block content %}
-  {{ successPanel(header, subheader) }}
+  <div class="govuk-panel govuk-panel--confirmation">
+    <h1 class="govuk-panel__title">
+      {{ header }}
+    </h1>
+    <div class="govuk-panel__body">
+      {{ subheader }}
+    </div>
+  </div>
   <p class="govuk-body">{{ p1 }}<a href="/account-home">{{ link_text }}</a>{{ p2 }}</p>
   <ul class="govuk-list govuk-list--bullet">
     {% for item in list %}

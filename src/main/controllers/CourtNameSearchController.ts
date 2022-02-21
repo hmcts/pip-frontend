@@ -8,7 +8,6 @@ const courtService = new CourtService();
 const filterService = new FilterService();
 let keys = [];
 let filterValues = [];
-const filterNames = ['Jurisdiction', 'Region'];
 
 export default class CourtNameSearchController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -20,13 +19,7 @@ export default class CourtNameSearchController {
 
     const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
     keys = filterService.handleKeys(filterOptions);
-
-    let filters ={};
-    if(filterValues.length > 0) {
-      filters = filterService.findAndSplitFilters(filterValues, filterOptions);
-    }
-
-    const alphabetisedList = filterValues.length ? await courtService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']) :
+    const alphabetisedList = filterValues.length ? await courtService.generateFilteredAlphabetisedCourtList(keys, filterValues) :
       await courtService.generateAlphabetisedAllCourtList();
 
     res.render('court-name-search', {
@@ -39,9 +32,6 @@ export default class CourtNameSearchController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     const body = req.body;
     keys = Object.keys(body);
-
-    const filters = filterService.splitFilters(filterNames, body);
-
     const values = [];
 
     keys.forEach(key => {
@@ -52,7 +42,7 @@ export default class CourtNameSearchController {
     });
     filterValues = Array.prototype.concat.apply([], values);
 
-    const alphabetisedList = await courtService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']);
+    const alphabetisedList = await courtService.generateFilteredAlphabetisedCourtList(keys, filterValues);
     const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
 
     res.render('court-name-search', {

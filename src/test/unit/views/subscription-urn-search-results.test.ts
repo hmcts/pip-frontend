@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
-import {PublicationService} from '../../../main/service/publicationService';
+import {HearingService} from '../../../main/service/hearingService';
 
 const searchTerm = 'N363N6R4OG';
 const numOfResults = '1';
@@ -14,11 +14,11 @@ const backLinkClass = 'govuk-back-link';
 const rowClass = 'govuk-table__row';
 const tableBodyClass = 'govuk-table__body';
 const tableHeaderClass = 'govuk-table__head';
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData)[0].search.cases[0];
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
+const subscriptionsData = JSON.parse(rawData);
 let htmlRes: Document;
 
-sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').returns(subscriptionsData);
+sinon.stub(HearingService.prototype, 'getCaseByURN').returns(subscriptionsData);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Search Results Page', () => {
@@ -55,7 +55,7 @@ describe('Search Results Page', () => {
 
   it('should contain rows with correct values', () => {
     const items = htmlRes.getElementsByClassName(rowClass).item(1).children;
-    expect(items[0].innerHTML).contains('38543', 'URN does not exist');
-    expect(items[1].innerHTML).contains('635356', 'Case number does not exist');
+    expect(items[0].innerHTML).contains('123456789', 'URN does not exist');
+    expect(items[1].innerHTML).contains('63-694-7292', 'Case number does not exist');
   });
 });
