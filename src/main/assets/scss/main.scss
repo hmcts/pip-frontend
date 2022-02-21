@@ -147,10 +147,11 @@ $min-width: 52em;
   position: relative;
 
   .floating-back-to-top--fixed {
-    bottom: auto;
-    left: auto;
+    background-color: govuk-colour('light-grey');
+    padding: 5px;
     position: fixed;
-    top: calc(100% - #{govuk-spacing(8) * 2});
+    top: calc(100% - 30px);
+    width: 100%;
   }
 }
 
