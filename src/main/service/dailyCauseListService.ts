@@ -24,8 +24,17 @@ export class DailyCauseListService {
               const sittingStart = moment(sitting['sittingStart']);
               const sittingEnd = moment(sitting['sittingEnd']);
 
-              const duration = moment.duration(sittingEnd.startOf('hour').diff(sittingStart.startOf('hour')));
-              sitting['duration'] = duration.asHours();
+              //CALCULATE DURATION
+              let durationAsHours = 0;
+              let durationAsMinutes = moment.duration(sittingEnd.startOf('minutes').diff(sittingStart.startOf('minutes'))).asMinutes();
+              if(durationAsMinutes >= 60) {
+                durationAsHours = moment.duration(sittingEnd.startOf('hours').diff(sittingStart.startOf('hours'))).asHours();
+                durationAsMinutes = durationAsMinutes - (durationAsHours * 60);
+              }
+
+              sitting['durationAsHours'] = durationAsHours;
+              sitting['durationAsMinutes'] = durationAsMinutes;
+
               const min = moment(sitting['sittingStart'],'HH:mm').minutes();
               if(min === 0) {
                 sitting['startTime'] = moment(sitting['sittingStart']).format('ha');
