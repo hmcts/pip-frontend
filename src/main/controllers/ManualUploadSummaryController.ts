@@ -8,6 +8,7 @@ const manualUploadService = new ManualUploadService();
 export default class ManualUploadSummaryController {
   public get(req: PipRequest, res: Response): void {
     const formData = (req.cookies?.formCookie) ? JSON.parse(req.cookies['formCookie']) : {};
+    formData.listTypeName = manualUploadService.getListItemName(formData.listType);
     (req.query?.error === 'true') ?
       res.render('file-upload-summary', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['file-upload-summary']),
@@ -26,6 +27,7 @@ export default class ManualUploadSummaryController {
     const userId = req.user['id'] ? req.user['id'] : req.user['oid'];
     const formData = (req.cookies?.formCookie) ? JSON.parse(req.cookies['formCookie']) : {};
     formData.file = manualUploadService.readFile(formData.fileName);
+    formData.listTypeName = manualUploadService.getListItemName(formData.listType);
 
     if (req.query?.check === 'true') {
       res.render('file-upload-summary', {

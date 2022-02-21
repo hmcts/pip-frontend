@@ -9,8 +9,8 @@ let htmlRes: Document;
 const PAGE_URL = '/manual-upload-summary';
 const summaryKeys = ['Court name', 'File', 'List type', 'Hearing start date', 'Available to', 'Language', 'Display file dates'];
 const mockData = {
-  artefactType: 'LIST',
-  classification: 'PUBLIC',
+  artefactType: 'List',
+  classification: 'CLASSIFIED_CRIME',
   'content-date-from': '01/01/2022',
   court: {
     courtName: 'Aberdeen Tribunal Hearing Centre',
@@ -18,8 +18,11 @@ const mockData = {
   'display-from': '02/03/2022',
   'display-to': '04/05/2022',
   fileName: 'Demo.pdf',
-  language: 'ENGLISH',
+  language: 'English',
   listType: 'SJP_PUBLIC_LIST',
+  listTypeName: 'SJP Public List',
+  languageName: 'English',
+  classificationName: 'Classified - verified Crime',
 };
 
 describe('File Upload Summary Page', () => {
@@ -54,16 +57,16 @@ describe('File Upload Summary Page', () => {
   });
 
   it('should display correct summary values', async () => {
-    const formatContentDate = moment(mockData['content-date-from'], 'MM/DD/YYYY').format('D MMM YYYY');
-    const formatDisplayFromDate = moment(mockData['display-from'], 'MM/DD/YYYY').format('D MMM YYYY');
-    const formatDisplayToDate = moment(mockData['display-to'], 'MM/DD/YYYY').format('D MMM YYYY');
+    const formatContentDate = moment(mockData['content-date-from'], 'DD/MM/YYYY').format('D MMM YYYY');
+    const formatDisplayFromDate = moment(mockData['display-from'], 'DD/MM/YYYY').format('D MMM YYYY');
+    const formatDisplayToDate = moment(mockData['display-to'], 'DD/MM/YYYY').format('D MMM YYYY');
     const values = htmlRes.getElementsByClassName('govuk-summary-list__value');
     expect(values[0].innerHTML).to.contain(mockData.court.courtName, 'Court value not found');
     expect(values[1].innerHTML).to.contain(mockData.fileName, 'File value not found');
-    expect(values[2].innerHTML).to.contain(mockData.listType, 'List type value not found');
+    expect(values[2].innerHTML).to.contain(mockData.listTypeName, 'List type value not found');
     expect(values[3].innerHTML).to.contain(formatContentDate, 'Hearing start date value not found');
-    expect(values[4].innerHTML).to.contain(mockData.classification, 'Classification values not found');
-    expect(values[5].innerHTML).to.contain(mockData.language, 'Language value not found');
+    expect(values[4].innerHTML).to.contain(mockData.classificationName, 'Classification values not found');
+    expect(values[5].innerHTML).to.contain(mockData.languageName, 'Language value not found');
     expect(values[6].innerHTML).to.contain(`${formatDisplayFromDate} to ${formatDisplayToDate}`, 'Display dates values not found');
   });
 });

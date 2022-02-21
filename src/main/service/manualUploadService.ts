@@ -6,30 +6,34 @@ import fs from 'fs';
 
 const courtService = new CourtService();
 const dataManagementRequests = new DataManagementRequests();
+const listSubTypes = [
+  {text:'SJP Public List', value: 'SJP_PUBLIC_LIST'},
+  {text: 'SJP Press List', value: 'SJP_PRESS_LIST'},
+  {text: 'Civil Daily Cause List', value: 'CIVIL_DAILY_CAUSE_LIST'},
+  {text: 'Family Daily Cause List', value: 'FAMILY_DAILY_CAUSE_LIST'},
+  {text: 'Crown Daily List', value: 'CROWN_DAILY_LIST'},
+  {text: 'Crown Firm List', value: 'CROWN_FIRM_LIST'},
+  {text: 'Crown Warned List', value: 'CROWN_WARNED_LIST'},
+  {text: 'Magistrates Public List', value: 'MAGS_PUBLIC_LIST'},
+  {text: 'Magistrates Standard List', value: 'MAGS_STANDARD_LIST'},
+];
 
 export class ManualUploadService {
 
   public async buildFormData(): Promise<object> {
-    const data = {
+    return {
       courtList: await courtService.fetchAllCourts(),
       listSubtypes: this.getListSubtypes(),
       judgementsOutcomesSubtypes: this.getJudgementOutcomesSubtypes(),
     };
-    return data;
   }
 
   private getListSubtypes(): Array<object> {
-    return [
-      {text:'SJP Public List', value: 'SJP_PUBLIC_LIST'},
-      {text: 'SJP Press List', value: 'SJP_PRESS_LIST'},
-      {text: 'Civil Daily Cause List', value: 'CIVIL_DAILY_CAUSE_LIST'},
-      {text: 'Family Daily Cause List', value: 'FAMILY_DAILY_CAUSE_LIST'},
-      {text: 'Crown Daily List', value: 'CROWN_DAILY_LIST'},
-      {text: 'Crown Firm List', value: 'CROWN_FIRM_LIST'},
-      {text: 'Crown Warned List', value: 'CROWN_WARNED_LIST'},
-      {text: 'Magistrates Public List', value: 'MAGS_PUBLIC_LIST'},
-      {text: 'Magistrates Standard List', value: 'MAGS_STANDARD_LIST'},
-    ];
+    return listSubTypes;
+  }
+
+  public getListItemName(itemValue: string): string {
+    return listSubTypes.find(item => item.value === itemValue).text;
   }
 
   private getJudgementOutcomesSubtypes(): Array<object> {
@@ -160,14 +164,14 @@ export class ManualUploadService {
     return {
       ...formData,
       'display-from': defaultFormat ?
-        moment(formData['display-from'], 'MM/DD/YYYY').format() :
-        moment(formData['display-from'], 'MM/DD/YYYY').format('D MMM YYYY'),
+        moment(formData['display-from'], 'DD/MM/YYYY').format() :
+        moment(formData['display-from'], 'DD/MM/YYYY').format('D MMM YYYY'),
       'display-to': defaultFormat ?
-        moment(formData['display-to'], 'MM/DD/YYYY').format() :
-        moment(formData['display-to'], 'MM/DD/YYYY').format('D MMM YYYY'),
+        moment(formData['display-to'], 'DD/MM/YYYY').format() :
+        moment(formData['display-to'], 'DD/MM/YYYY').format('D MMM YYYY'),
       'content-date-from': defaultFormat ?
-        moment(formData['content-date-from'], 'MM/DD/YYYY').format() :
-        moment(formData['content-date-from'], 'MM/DD/YYYY').format('D MMM YYYY'),
+        moment(formData['content-date-from'], 'DD/MM/YYYY').format() :
+        moment(formData['content-date-from'], 'DD/MM/YYYY').format('D MMM YYYY'),
     };
   }
 
@@ -176,7 +180,7 @@ export class ManualUploadService {
       'x-provenance': 'MANUAL_UPLOAD',
       'x-source-artefact-id': headers.fileName,
       'x-type': headers.artefactType,
-      'x-sensitivity': headers.classification,
+      'x-sensitivity': (headers.classification.includes('CLASSIFIED')) ? 'CLASSIFIED' : headers.classification,
       'x-language': headers.language,
       'x-display-from': headers['display-from'],
       'x-display-to': headers['display-to'],

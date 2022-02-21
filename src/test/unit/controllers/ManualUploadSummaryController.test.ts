@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import ManualUploadSummaryController from '../../../main/controllers/ManualUploadSummaryController';
 import { ManualUploadService } from '../../../main/service/manualUploadService';
 
-const mockData = {foo: 'blah'};
+const mockData = {foo: 'blah', listType: 'SJP_PUBLIC_LIST', listTypeName: 'SJP Public List', language: 'English', languageName: 'English'};
 const manualUploadSummaryController = new ManualUploadSummaryController();
 const uploadStub = sinon.stub(ManualUploadService.prototype, 'uploadPublication');
 sinon.stub(ManualUploadService.prototype, 'formatPublicationDates').returns(mockData);
