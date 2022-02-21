@@ -34,6 +34,8 @@ app.locals.POLICY = process.env.POLICY;
 
 const logger = Logger.getLogger('app');
 
+logger.info('NODE_ENV', env);
+
 propertiesVolume.addTo(config);
 
 new AppInsights().enable();

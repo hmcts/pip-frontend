@@ -2,10 +2,10 @@ import SummaryOfPublicationsController from '../../../main/controllers/SummaryOf
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import sinon from 'sinon';
-import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
 import fs from 'fs';
 import path from 'path';
 import {CourtService} from '../../../main/service/courtService';
+import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
 
 const publicationController = new SummaryOfPublicationsController();
 const i18n = {

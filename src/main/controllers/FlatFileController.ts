@@ -1,8 +1,8 @@
 import {PipRequest} from '../models/request/PipRequest';
 import { Response } from 'express';
-import { SummaryOfPublicationsService } from '../service/summaryOfPublicationsService';
+import { PublicationService } from '../service/publicationService';
 
-const publicationService = new SummaryOfPublicationsService();
+const publicationService = new PublicationService();
 
 export default class FlatFileController {
 

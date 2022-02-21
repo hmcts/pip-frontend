@@ -19,13 +19,14 @@ const errorResponse = {
     data: 'test error',
   },
 };
+
 const mockJson = {'data':{'hello':'hello'}};
 const mockPDF = new Blob(['testPDF']);
 const indivPubJsonObject = {'data':mockPDF};
 const stub = sinon.stub(dataManagementApi, 'get');
 stub.withArgs('/publication/search/0').resolves({data: pubs});
 
-describe('get List of Publications request', () => {
+describe('get Publication request', () => {
   it('should return list of publications if verified', async () => {
     const pubReq = await pubRequests.getListOfPubs(0, true);
     expect(pubReq.length).toBe(totalCases);

@@ -1,9 +1,11 @@
 import sinon from 'sinon';
 import {expect} from 'chai';
-import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
+import {PublicationService} from '../../../main/service/publicationService';
 import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
+import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
 
 const sopService = new SummaryOfPublicationsService();
+const pubService = new PublicationService();
 const pubStub = sinon.stub(PublicationRequests.prototype, 'getListOfPubs');
 const fileStub = sinon.stub(PublicationRequests.prototype, 'getIndividualPubFile');
 const metaStub = sinon.stub(PublicationRequests.prototype, 'getIndividualPubMetadata');
@@ -16,14 +18,14 @@ describe('Summary Of Publications Service', () => {
   });
   it('should return metadata', async () => {
     metaStub.withArgs(0).resolves('{"item":"listOfMetadata"}');
-    expect(await sopService.getIndivPubMetadata(0, true)).to.equal('{"item":"listOfMetadata"}');
+    expect(await pubService.getIndivPubMetadata(0, true)).to.equal('{"item":"listOfMetadata"}');
   });
   it('should return file', async () => {
     fileStub.withArgs(0).resolves('{"item":"file"}');
-    expect(await sopService.getIndivPubFile(0, true)).to.equal('{"item":"file"}');
+    expect(await pubService.getIndivPubFile(0, true)).to.equal('{"item":"file"}');
   });
   it('should return json', async () => {
     jsonStub.withArgs(0).resolves('{"item":"json"}');
-    expect(await sopService.getIndivPubJson(0, true)).to.equal('{"item":"json"}');
+    expect(await pubService.getIndivPubJson(0, true)).to.equal('{"item":"json"}');
   });
 });

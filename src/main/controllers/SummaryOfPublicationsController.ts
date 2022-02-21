@@ -1,10 +1,10 @@
 import {PipRequest} from '../models/request/PipRequest';
 import { Response } from 'express';
 import {cloneDeep} from 'lodash';
-import { SummaryOfPublicationsService } from '../service/summaryOfPublicationsService';
 import {CourtService} from '../service/courtService';
+import {SummaryOfPublicationsService} from '../service/summaryOfPublicationsService';
 
-const publicationService = new SummaryOfPublicationsService();
+const summaryOfPublicationsService = new SummaryOfPublicationsService();
 const courtService = new CourtService();
 
 export default class SummaryOfPublicationsController {
@@ -16,7 +16,7 @@ export default class SummaryOfPublicationsController {
     if (courtId) {
       const court = await courtService.getCourtById(parseInt(courtId.toString()));
       const courtName = (court == null ? 'Missing Court' : court.name);
-      const publications = await publicationService.getPublications(parseInt(courtId.toString()), (!!req.user));
+      const publications = await summaryOfPublicationsService.getPublications(parseInt(courtId.toString()), (!!req.user));
       if (publications.length === 1){
         const ourPublication = publications[0];
         if (ourPublication.isFlatFile){

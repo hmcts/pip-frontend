@@ -1,30 +1,34 @@
-import { HomePage } from '../PageObjects/Home.page';
-import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
-import { HearingListPage } from '../PageObjects/HearingList.page';
-import { SearchPage } from '../PageObjects/Search.page';
-import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
-import { ViewOptionPage } from '../PageObjects/ViewOption.page';
-import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
-import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
-import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
-import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
-import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
-import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
-import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
-import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
-import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
-import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
-import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
-import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
-import { SignInPage } from '../PageObjects/SignIn.page';
-import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
-import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
-import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
-import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
+import {HomePage} from '../PageObjects/Home.page';
+import {AlphabeticalSearchPage} from '../PageObjects/AlphabeticalSearch.page';
+import {HearingListPage} from '../PageObjects/HearingList.page';
+import {SearchPage} from '../PageObjects/Search.page';
+import {SubscriptionManagementPage} from '../PageObjects/SubscriptionManagement.page';
+import {ViewOptionPage} from '../PageObjects/ViewOption.page';
+import {LiveCaseCourtSearchControllerPage} from '../PageObjects/LiveCaseCourtSearchController.page';
+import {SubscriptionAddPage} from '../PageObjects/SubscriptionAdd.page';
+import {LiveCaseStatusPage} from '../PageObjects/LiveCaseStatus.page';
+import {CaseNameSearchPage} from '../PageObjects/CaseNameSearch.page';
+import {CaseNameSearchResultsPage} from '../PageObjects/CaseNameSearchResults.page';
+import {SubscriptionUrnSearchResultsPage} from '../PageObjects/SubscriptionUrnSearchResults.page';
+import {SubscriptionUrnSearchPage} from '../PageObjects/SubscriptionUrnSearch.page';
+import {CourtNameSearchPage} from '../PageObjects/CourtNameSearch.page';
+import {SingleJusticeProcedurePage} from '../PageObjects/SingleJusticeProcedure.page';
+import {CaseEventGlossaryPage} from '../PageObjects/CaseEventGlossary.page';
+import {CaseReferenceNumberSearchPage} from '../PageObjects/CaseReferenceNumberSearch.page';
+import {CaseReferenceNumberSearchResultsPage} from '../PageObjects/CaseReferenceNumberSearchResults.page';
+import {SignInPage} from '../PageObjects/SignIn.page';
+import {DeleteSubscriptionPage} from '../PageObjects/DeleteSubscription.page';
+import {UnsubscribeConfirmationPage} from '../PageObjects/UnsubscribeConfirmation.page';
+import {PendingSubscriptionsPage} from '../PageObjects/PendingSubscriptions.page';
+import {SubscriptionConfirmedPage} from '../PageObjects/SubscriptionConfirmed.page';
+import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
+import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
+import {SummaryOfPublicationsPage} from '../pageobjects/SummaryOfPublications.page';
+import {InterstitialPage} from '../PageObjects/Interstitial.page';
 import {ManualUploadPage} from '../PageObjects/ManualUpload.page';
-import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
-import { InterstitialPage } from '../PageObjects/Interstitial.page';
-import { AccountHomePage } from '../PageObjects/AccountHome.page';
+import {ManualUploadSummaryPage} from '../PageObjects/ManualUploadSummary.page';
+import {FileUploadConfirmationPage} from '../PageObjects/FileUploadConfirmation.page';
+import {AccountHomePage} from '../PageObjects/AccountHome.page';
 import config = require('config');
 
 const homePage = new HomePage;
@@ -48,10 +52,15 @@ let courtNameSearchPage: CourtNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
+let manualUploadSummaryPage: ManualUploadSummaryPage;
+let fileUploadConfirmationPage: FileUploadConfirmationPage;
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
+let createMediaAccountPage: CreateMediaAccountPage;
+let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let interstitialPage: InterstitialPage;
 let accountHomePage: AccountHomePage;
+
 const signInPage = new SignInPage;
 const manualUploadPage = new ManualUploadPage;
 
@@ -165,6 +174,51 @@ describe('Unverified user', () => {
       await alphabeticalSearchPage.open('/alphabetical-search');
     });
 
+    it('Should select and navigate to SJP summary of publications', async () => {
+      summaryOfPublicationsPage = await alphabeticalSearchPage.selectSJPLink();
+      expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
+    });
+
+    it('Should select the second item from the alphabetical search list and navigate to Aberystwyth Justice Centre', async () => {
+      const aberdeenTribunalPage = await alphabeticalSearchPage.selectSecondListResult();
+      expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberystwyth Justice Centre?');
+    });
+
+    it('Should select the first item from the alphabetical search list and navigate to Aberdeen Tribunal Hearing Centre', async () => {
+      const aberdeenTribunalPage = await alphabeticalSearchPage.selectFirstListResult();
+      expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberdeen Tribunal Hearing Centre?');
+    });
+  });
+
+  describe('Render hearing list page when required', () => {
+    before(async () => {
+      await searchPage.open('/search');
+      hearingListPage = await searchPage.clickContinue();
+      await hearingListPage.open('hearing-list?courtId=68');
+    });
+
+    it('should render the hearing list page', async () => {
+      expect(await hearingListPage.getPageTitle()).toEqual('Bradford Combined Court Centre hearing list');
+    });
+  });
+
+  describe('Render summary of publications page correctly from several different entry points', () => {
+    before(async () => {
+      await viewOptionPage.open('/view-option');
+    });
+
+    it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
+      await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
+      singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
+      expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
+    });
+  });
+
+  describe('Render summary of publications screen from alphabetical search list', () => {
+    beforeEach(async () => {
+      await alphabeticalSearchPage.open('/alphabetical-search');
+    });
+
     it('Should select the first item from the alphabetical search list and navigate to SJP summary of publications', async () => {
       summaryOfPublicationsPage = await alphabeticalSearchPage.selectSJPLink();
       expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
@@ -193,6 +247,26 @@ describe('Unverified user', () => {
     });
   });
 
+  describe('request an account', () => {
+    before(async () => {
+      await signInPage.open('/sign-in');
+    });
+
+    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+    });
+
+    it('should click on the create account link', async () => {
+      createMediaAccountPage = await signInPage.clickCreateAccount();
+      expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a court and tribunal hearing account');
+    });
+
+    it('should complete form and continue to confirmation page', async () => {
+      await createMediaAccountPage.completeForm();
+      mediaAccountRequestSubmittedPage = await createMediaAccountPage.clickContinue();
+      expect(await mediaAccountRequestSubmittedPage.getPanelTitle()).toEqual('Details submitted');
+    });
+  });
 });
 
 if (process.env.EXCLUDE_E2E === 'true') {
@@ -419,8 +493,15 @@ if (process.env.EXCLUDE_E2E === 'true') {
         expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
       });
 
-      it('should complete form', async () => {
+      it('should complete form and open summary page', async () => {
         await manualUploadPage.completeForm();
+        manualUploadSummaryPage = await manualUploadPage.clickContinue();
+        expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+      });
+
+      it('should open upload confirmation page', async () => {
+        fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
+        expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
       });
     });
   });

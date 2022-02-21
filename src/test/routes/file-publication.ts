@@ -3,12 +3,12 @@ import { app } from '../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
 const Blob = require('node-blob');
-import { SummaryOfPublicationsService} from '../../main/service/summaryOfPublicationsService';
+import { PublicationService} from '../../main/service/publicationService';
 
 const mockPDF = new Blob(['testPDF']);
 
-sinon.stub(SummaryOfPublicationsService.prototype, 'getIndivPubFile').resolves(mockPDF);
-const metadataStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getIndivPubMetadata');
+sinon.stub(PublicationService.prototype, 'getIndivPubFile').resolves(mockPDF);
+const metadataStub = sinon.stub(PublicationService.prototype, 'getIndivPubMetadata');
 
 describe('', () => {
   describe('on GET', () => {

@@ -22,7 +22,7 @@
     "language": [
       {"text": "English", "value": "ENGLISH"},
       {"text": "Welsh", "value": "WELSH"},
-      {"text": "Bilingual English/Welsh", "value": "BILINGUAL"}
+      {"text": "Bilingual English/Welsh", "value": "BI_LINGUAL"}
     ],
     "displayDateFrom": "Display file from",
     "displayDateFromHint": "For example, 01 05 2022 to 19 05 2022"

@@ -3,7 +3,6 @@ const { redisClient } = require('../../../cacheManager');
 export class PendingSubscriptionsFromCache {
   public async setPendingSubscriptions(subscriptions, subscriptionType, userId): Promise<void> {
     const filter = subscriptionType ===  'courts' ? 'courtId' : 'caseNumber';
-
     if (redisClient.status === 'ready') {
       let subscriptionsSet = [];
       const rawData = await redisClient.get(`pending-${subscriptionType}-subscriptions-${userId}`);

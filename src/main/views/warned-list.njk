@@ -1,5 +1,5 @@
 {% extends "template.njk" %}
-{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "macros/common-components.njk" import goBack, submitButton, backToTopButton %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
@@ -14,14 +14,7 @@
 
 {% block content %}
   <div id="grid-row" class="govuk-grid-row list-div">
-    <div class="offset-parent-box layout-width-one-fifth govuk-!-display-inline-block">
-      <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19" href="#">
-        <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17">
-          <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
-        </svg>{{ backToTop }}
-      </a>
-    </div>
-    <div>
+    <div class="parent-box">
       <h2 class="govuk-heading-l govuk-!-margin-bottom-1">Derby Crown Court:</h2>
       <h2 class="govuk-heading-l">{{ warnedHeading }}</h2>
 
@@ -358,6 +351,7 @@
           ]
         }) }}
       </div>
+      {{ backToTopButton() }}
     </div>
   </div>
 {% endblock %}

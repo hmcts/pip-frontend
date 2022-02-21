@@ -1,20 +1,21 @@
 import sinon from 'sinon';
 import {Response} from 'express';
-import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
+import {PublicationService} from '../../../main/service/publicationService';
 import ListTypeController from '../../../main/controllers/ListTypeController';
 import {PipRequest} from '../../../main/models/request/PipRequest';
 import moment from 'moment';
 import fs from 'fs';
 import path from 'path';
 
-const jsonStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getIndivPubJson');
-const metaStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getIndivPubMetadata');
+const metaStub = sinon.stub(PublicationService.prototype, 'getIndivPubMetadata');
 const mockJson = '{"listType": "false"}';
 const responseSend = {send: () => {return '';}, set: () => {return '';}} as unknown as Response;
 const responseRender = {render: () => {return '';}} as unknown as Response;
 const mockSJPPublic = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
 const meta = JSON.parse('{"artefactId": "664959fd-80ba-4dcc-ab92-38c5056327b6","provenance": "HellSJP","sourceArtefactId": "Ball4.json","type": "LIST","sensitivity": "PUBLIC","language": "ENGLISH","search": {},"displayFrom": "2022-01-28T18:29:18.298","displayTo": "2022-03-28T18:29:18.297","listType": "SJP_PUBLIC_LIST","courtId": "0","contentDate": "2022-02-15T18:29:18.29","isFlatFile": false,"payload": "https://pipsssastg.blob.core.windows.net/artefact/Ball4.json-HellSJP"}');
 let i18n = {};
+const jsonStub = sinon.stub(PublicationService.prototype, 'getIndivPubJson');
+
 describe('List Type Controller', () => {
   const listTypeController = new ListTypeController();
 

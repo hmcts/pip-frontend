@@ -1,11 +1,11 @@
 import sinon from 'sinon';
 import {Response} from 'express';
-import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
+import {PublicationService} from '../../../main/service/publicationService';
 import FlatFileController from '../../../main/controllers/FlatFileController';
 import {PipRequest} from '../../../main/models/request/PipRequest';
 
-const metaStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getIndivPubMetadata');
-const fileStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getIndivPubFile');
+const metaStub = sinon.stub(PublicationService.prototype, 'getIndivPubMetadata');
+const fileStub = sinon.stub(PublicationService.prototype, 'getIndivPubFile');
 const mockFile = new Blob(['testFile']);
 
 const response = {

@@ -1,10 +1,10 @@
 import {PipRequest} from '../models/request/PipRequest';
 import { Response } from 'express';
-import { SummaryOfPublicationsService } from '../service/summaryOfPublicationsService';
 import {cloneDeep} from 'lodash';
 import moment from 'moment';
+import { PublicationService } from '../service/publicationService';
 
-const publicationService = new SummaryOfPublicationsService();
+const publicationService = new PublicationService();
 
 export default class ListTypeController {
 
