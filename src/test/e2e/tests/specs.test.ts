@@ -20,6 +20,8 @@ import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
+import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
+import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
 import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
@@ -27,6 +29,8 @@ import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { InterstitialPage } from '../PageObjects/Interstitial.page';
 import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
+import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
+import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
 import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
 import config = require('config');
@@ -476,8 +480,15 @@ if (process.env.EXCLUDE_E2E === 'true') {
         expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
       });
 
-      it('should complete form', async () => {
+      it('should complete form and open summary page', async () => {
         await manualUploadPage.completeForm();
+        manualUploadSummaryPage = await manualUploadPage.clickContinue();
+        expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+      });
+
+      it('should open upload confirmation page', async () => {
+        fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
+        expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
       });
 
       it('should complete form and open summary page', async () => {

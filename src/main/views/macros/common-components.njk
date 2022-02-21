@@ -1,5 +1,6 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
@@ -21,10 +22,10 @@
 {% endmacro %}
 
 {% macro successPanel(title='', text='') %}
-  {{ govukPanel({
-    titleText: title,
-    text: text
-  }) }}
+    {{ govukPanel({
+        titleText: title,
+        text: text
+    }) }}
 {% endmacro %}
 
 {% macro backToTopButton(text = 'Back to top') %}
@@ -57,5 +58,3 @@
     }
   </script>
 {% endmacro %}
-
-

@@ -108,4 +108,3 @@ export default function(oidc: string): void {
     mockSetup();
   }
 }
-
