@@ -18,6 +18,8 @@ sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves(courtList);
 sinon.stub(FilterService.prototype, 'buildFilterValueOptions').returns([]);
 sinon.stub(FilterService.prototype, 'handleFilterClear').returns(['test']);
 sinon.stub(FilterService.prototype, 'handleKeys').returns(['test']);
+sinon.stub(FilterService.prototype, 'splitFilters').returns({'Region':'testRegion','Jurisdiction':'testJurisdiction'});
+sinon.stub(FilterService.prototype, 'findAndSplitFilters').returns({'Region':'testRegion','Jurisdiction':'testJurisdiction'});
 
 const i18n = {
   'alphabetical-search': {},
@@ -93,7 +95,7 @@ describe('Alphabetical Search Controller', () => {
     });
 
     it('should render page after switching Region for Location', () => {
-      filteredCourtStub.withArgs(['Location'], ['Crown']).resolves(['switched filter']);
+      filteredCourtStub.withArgs('testRegion','testJurisdiction').resolves(['switched filter']);
 
       const response = {
         render: function() {return '';},
