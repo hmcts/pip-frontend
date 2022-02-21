@@ -46,12 +46,12 @@ describe('setPendingSubscriptions with valid user', () => {
 
   it('should get cases list from the cache', async () => {
     const cachedResult = await pendingSubscriptionsFromCache.getPendingSubscriptions(mockUser.id, 'cases');
-    expect(cachedResult).toStrictEqual([]);
+    expect(cachedResult).toStrictEqual(mockCase);
   });
 
   it('should get courts list from the cache', async () => {
     const cachedResult = await pendingSubscriptionsFromCache.getPendingSubscriptions(mockUser.id, 'courts');
-    expect(cachedResult).toStrictEqual([]);
+    expect(cachedResult).toStrictEqual(mockCourt);
   });
 
   it('should remove a court record from the cache', async () => {
