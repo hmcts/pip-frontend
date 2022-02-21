@@ -4,8 +4,8 @@ import sinon from 'sinon';
 import {app} from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
-import { HearingService } from '../../../main/service/hearingService';
 import {request as expressRequest} from 'express';
+import {PublicationService} from '../../../main/service/publicationService';
 
 const searchTerm = '56-181-2097';
 const numOfResults = '1';
@@ -16,9 +16,9 @@ const rowClass = 'govuk-table__row';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData)[0].hearingList[0];
-sinon.stub(HearingService.prototype, 'getCaseByNumber').returns(subscriptionsData);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const subscriptionsData = JSON.parse(rawData)[0].search.cases[0];
+sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').returns(subscriptionsData);
 
 describe('Case Reference Search Results Page', () => {
   beforeAll(async () => {
@@ -58,7 +58,7 @@ describe('Case Reference Search Results Page', () => {
     const rows = htmlRes.getElementsByClassName(rowClass);
     const items = rows.item(1).children;
 
-    expect(items[0].innerHTML).contains('56-181-2097', 'Case reference no does not exist');
-    expect(items[1].innerHTML).contains('Youtags\'s hearings', 'Case number does not exist');
+    expect(items[0].innerHTML).contains('635356', 'Case reference no does not exist');
+    expect(items[1].innerHTML).contains('case name 1', 'Case number does not exist');
   });
 });
