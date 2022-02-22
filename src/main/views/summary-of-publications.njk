@@ -1,4 +1,4 @@
-{% from "./macros/common-components.njk" import goBack %}
+{% from "./macros/common-components.njk" import goBack, backToTopButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% extends "template.njk" %}
@@ -12,34 +12,28 @@
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }} {{ courtName }}?</h1>
   {% if publications.length === 0 %}
-    <p class = "govuk-body govuk-!-font-size-16">Sorry, no lists found for this court</p>
+    <p class="govuk-body govuk-!-font-size-16">Sorry, no lists found for this court</p>
   {% else %}
-  <h2 class="govuk-body">{{ p1 }}</h2>
+    <h2 class="govuk-body">{{ p1 }}</h2>
 
 
-  <div class="parent-box">
-  {% set pubs = [] %}
+    <div class="parent-box">
+    {% set pubs = [] %}
 
 
-  {% for item in publications |sort(reverse= true, attribute="contentDate")%}
-<p class = "govuk-body govuk-!-font-size-16">
-<a class = das-search-results__link href = {{item.artefactId}}>{{ item.listType | listType }}
-  {{item.contentDate | date("DD MMMM YYYY")}}</a>
-  {% if item.isFlatFile %}
-  (opens in a new window)
+    {% for item in publications |sort(reverse= true, attribute="contentDate") %}
+      <p class="govuk-body govuk-!-font-size-16">
+        <a class=das-search-results__link href= {{ item.artefactId }}>{{ item.listType | listType }}
+          {{ item.contentDate | date("DD MMMM YYYY") }}</a>
+        {% if item.isFlatFile %}
+          (opens in a new window)
+        {% endif %}
+      </p>
+
+    {% endfor %}
+
   {% endif %}
-  </p>
-
-  {% endfor %}
-
-{% endif %}
-  <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-margin-top-9 govuk-!-font-size-19 with-background"
-     href="#">
-    <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17"
-         viewBox="0 0 13 17">
-      <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
-    </svg>{{ backToTop }}
-  </a>
+  {{ backToTopButton() }}
   </div>
 {% endblock %}
 {% block bodyEnd %}
