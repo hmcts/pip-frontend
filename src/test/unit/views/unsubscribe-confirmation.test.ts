@@ -35,7 +35,7 @@ describe('Unsubscribe Confirmation Page', () => {
     const youAccountLink = htmlRes.getElementsByClassName('govuk-body')[0]
       .getElementsByClassName('govuk-link')[0];
     expect(youAccountLink.innerHTML).to.equal('your account');
-    expect(youAccountLink.getAttribute('href')).to.equal('your-account');
+    expect(youAccountLink.getAttribute('href')).to.equal('account-home');
   });
 
   it('should display unordered list with 3 elements with correct values', () => {
