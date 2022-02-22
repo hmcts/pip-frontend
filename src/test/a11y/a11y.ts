@@ -15,6 +15,7 @@ import { ManualUploadService } from '../../main/service/manualUploadService';
 const agent = supertest.agent(app);
 import { request as expressRequest } from 'express';
 import sinon from 'sinon';
+import {PublicationRequests} from '../../main/resources/requests/publicationRequests';
 const routesNotTested = [
   '/health',
   '/health/liveness',
@@ -26,13 +27,13 @@ const routesNotTested = [
   '/logout',
   '/robots.txt',
   '/file-publication',
-  '/list-type',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
 const rawDataLive = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/liveCaseStatusUpdates.json'), 'utf-8');
 const rawDataCaseEventGlossary = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/CaseEventGlossary.json'), 'utf-8');
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/trimmedSJPCases.json'), 'utf-8');
+const rawPublicationData = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../unit/mocks/SJPMockPage.json'), 'utf-8'));
 const allCourtData = JSON.parse(rawDataCourt);
 const courtData = allCourtData[0];
 const liveCaseData = JSON.parse(rawDataLive).results;
@@ -42,6 +43,8 @@ const sjpCases = JSON.parse(rawSJPData).results;
 sinon.stub(CourtRequests.prototype, 'getCourt').returns(courtData);
 sinon.stub(CourtRequests.prototype, 'getCourtByName').returns(courtData);
 sinon.stub(CourtRequests.prototype, 'getFilteredCourts').returns(allCourtData);
+sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').returns(rawPublicationData);
+sinon.stub(PublicationRequests.prototype, 'getIndividualPublicationJson').returns(rawPublicationData);
 sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(allCourtData);
 sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
 sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').returns(caseEventGlossaryData);

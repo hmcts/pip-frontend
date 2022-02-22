@@ -6,16 +6,16 @@ const publicationRequests = new PublicationRequests();
 
 export class PublicationService {
 
-  public async getIndivPubMetadata(artefactId, verification: boolean): Promise<any> {
-    return publicationRequests.getIndividualPubMetadata(artefactId, verification);
+  public async getIndividualPublicationMetadata(artefactId, verification: boolean): Promise<any> {
+    return publicationRequests.getIndividualPublicationMetadata(artefactId, verification);
   }
 
-  public async getIndivPubFile(artefactId, verification: boolean): Promise<Blob> {
-    return publicationRequests.getIndividualPubFile(artefactId, verification);
+  public async getIndividualPublicationFile(artefactId, verification: boolean): Promise<Blob> {
+    return publicationRequests.getIndividualPublicationFile(artefactId, verification);
   }
 
-  public async getIndivPubJson(artefactId, verification: boolean): Promise<string> {
-    return publicationRequests.getIndividualPubJson(artefactId, verification);
+  public async getIndividualPublicationJson(artefactId, verification: boolean): Promise<JSON> {
+    return publicationRequests.getIndividualPublicationJson(artefactId, verification);
   }
 
   public async getCasesByCaseName(caseName: string, verified: boolean): Promise<SearchObject[]> {

@@ -28,8 +28,8 @@
     {{ item.listType | listType }} {{item.contentDate | date("DD MMMM YYYY")}}</a>
   (opens in a new window)
   {% else %}
- <a class = das-search-results__link href = "list-type?artefactId={{item.artefactId}}">{{ item.listType | listType }} {{item.contentDate | date("DD MMMM YYYY")}}</a>
-
+ <a class = das-search-results__link href = "{{ item.listType | listUrl }}?artefactId={{item.artefactId}}">{{ item.listType | listType }} {{item.contentDate | date("DD MMMM YYYY")}}</a>
+  {# TODO add list types here as the templates are built for them #}
   {% endif %}
   </p>
 

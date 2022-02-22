@@ -93,7 +93,7 @@ export default function(app: Application): void {
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
   app.get('/summary-of-publications', app.locals.container.cradle.summaryOfPublicationsController.get);
   app.get('/file-publication', app.locals.container.cradle.flatFileController.get);
-  app.get('/list-type', app.locals.container.cradle.listTypeController.get);
+  app.get('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.get);
 
   // Restricted paths
   app.get('/account-home', ensureAuthenticated, app.locals.container.cradle.accountHomeController.get);

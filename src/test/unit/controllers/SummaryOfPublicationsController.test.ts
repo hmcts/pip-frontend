@@ -15,8 +15,6 @@ const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPC
 const sjpCases = JSON.parse(rawSJPData).results;
 const onePubData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublication.json'), 'utf-8');
 const onePub = JSON.parse(onePubData);
-const onePubJsonData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublicationJson.json'), 'utf-8');
-const onePubJson = JSON.parse(onePubJsonData);
 const CourtStub = sinon.stub(CourtService.prototype, 'getCourtById');
 const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
 
@@ -120,12 +118,13 @@ describe('Get individual publication and act appropriately', () => {
     const request = mockRequest(i18n);
     request.query = {courtId: '2'};
     request.user = {id: 1};
-    SoPStub.withArgs(2).resolves(onePubJson);
+    onePub[0]['isFlatFile'] = false;
+    SoPStub.withArgs(2).resolves(onePub);
     CourtStub.withArgs('0').resolves(JSON.parse('{"name":"Single Justice Procedure (SJP)"}'));
     const responseMock = sinon.mock(response);
-    const onePubJsonLength = onePubJson.length;
+    const onePubJsonLength = onePub.length;
     expect(onePubJsonLength).toBe(1);
-    responseMock.expects('redirect').once().withArgs(`list-type?artefactId=${onePub[0].artefactId}`);
+    responseMock.expects('redirect').once().withArgs(`sjp-public-list?artefactId=${onePub[0].artefactId}`);
 
     await publicationController.get(request, response);
     responseMock.verify();
