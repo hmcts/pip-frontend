@@ -15,22 +15,29 @@ const metaData = JSON.parse(rawMetaData);
 
 const dailyCauseListController = new DailyCauseListController();
 
-sinon.stub(PublicationsService.prototype, 'getIndivPubJson').resolves(searchResults);
-sinon.stub(PublicationsService.prototype, 'getIndivPubMetadata').resolves(metaData);
+const dailyCauseListJsonStub = sinon.stub(PublicationsService.prototype, 'getIndivPubJson');
+const dailyCauseListMetaDataStub = sinon.stub(PublicationsService.prototype, 'getIndivPubMetadata');
+
+const artefactId = 'abc';
+
+dailyCauseListJsonStub.withArgs(artefactId).returns(searchResults);
+dailyCauseListJsonStub.withArgs('').returns([]);
+
+dailyCauseListMetaDataStub.withArgs(artefactId).returns(metaData);
+dailyCauseListMetaDataStub.withArgs('').returns([]);
 
 const i18n = {
   'daily-cause-list': {},
 };
 
 describe('Daily Cause List Controller', () => {
+  const response = { render: () => {return '';}} as unknown as Response;
+
   it('should render the daily cause list page', () =>  {
 
-    const response = {
-      render: function() {return '';},
-    } as unknown as Response;
     const request = mockRequest(i18n);
 
-    request.query = {artefactId: 'abc'};
+    request.query = {artefactId: artefactId};
 
     const responseMock = sinon.mock(response);
 
@@ -47,6 +54,17 @@ describe('Daily Cause List Controller', () => {
     return dailyCauseListController.get(request, response).then(() => {
       responseMock.verify();
     });
+  });
+
+  it('should render error page is query param is empty', async () => {
+    const request = mockRequest(i18n);
+    request.query = {};
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+    await dailyCauseListController.get(request, response);
+    return responseMock.verify();
   });
 
 });
