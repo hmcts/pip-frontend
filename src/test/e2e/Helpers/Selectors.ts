@@ -47,8 +47,8 @@ module.exports = {
   FirstItemResult: 'tbody > tr.govuk-table__row > td > a',
   SecondItemResult: 'tr.govuk-table__row:nth-child(2) > td:nth-child(2) > a:nth-child(1)',
   SJPLink: '#sjp-link',
-  MagistratesFilter: '#Jurisdiction-4',
-  NorthWestFilter: '#Region-7',
+  JurisdictionFilter4: '#Jurisdiction-4',
+  RegionFilter7: '#Region-7',
 
   // ViewOption page selectors
   ViewOptionsTitle: 'h1.govuk-fieldset__heading',
