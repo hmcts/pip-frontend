@@ -1,10 +1,10 @@
 import {PipRequest} from '../models/request/PipRequest';
 import { Response } from 'express';
 import {cloneDeep} from 'lodash';
-import { SummaryOfPublicationsService } from '../service/summaryOfPublicationsService';
+import { PublicationService } from '../service/publicationService';
 import {CourtService} from '../service/courtService';
 
-const publicationService = new SummaryOfPublicationsService();
+const publicationService = new PublicationService();
 const courtService = new CourtService();
 
 export default class SummaryOfPublicationsController {
