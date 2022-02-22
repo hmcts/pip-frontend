@@ -10,8 +10,8 @@ import moment from 'moment';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
 const searchResults = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseListMetaData.json'), 'utf-8');
-const metaData = JSON.parse(rawMetaData);
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData)[0];
 
 const dailyCauseListController = new DailyCauseListController();
 

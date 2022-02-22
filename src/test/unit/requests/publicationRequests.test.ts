@@ -11,8 +11,8 @@ const totalCases = 3;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
 const dailyCauseListData = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseListMetaData.json'), 'utf-8');
-const metaData = JSON.parse(rawMetaData);
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData)[0];
 
 const stub = sinon.stub(dataManagementApi, 'get');
 
@@ -95,7 +95,7 @@ describe('getIndividualPubMetadata()', () => {
 
   it('should return content datetime', async () => {
     return await publicationRequests.getIndividualPubMetadata(artefactId, true).then(data => {
-      expect(data['contentDate']).toEqual('2022-02-04T11:01:20.734Z');
+      expect(data['contentDate']).toEqual('2022-02-14T14:14:59.73967');
     });
   });
 

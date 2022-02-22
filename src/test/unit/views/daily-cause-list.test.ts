@@ -22,8 +22,8 @@ let htmlRes: Document;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
 const dailyCauseListData = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseListMetaData.json'), 'utf-8');
-const metaData = JSON.parse(rawMetaData);
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData)[0];
 
 sinon.stub(PublicationService.prototype, 'getIndivPubJson').returns(dailyCauseListData);
 sinon.stub(PublicationService.prototype, 'getIndivPubMetadata').returns(metaData);
