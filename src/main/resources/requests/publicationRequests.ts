@@ -1,4 +1,4 @@
-import {dataManagementApi} from './utils/axiosConfig';
+import { dataManagementApi } from './utils/axiosConfig';
 import {Artefact} from '../../models/Artefact';
 
 export class PublicationRequests {

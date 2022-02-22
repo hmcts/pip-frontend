@@ -1,13 +1,20 @@
-import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
+import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
 import {dataManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
+
 const Blob = require('node-blob');
 const rawDataPubs = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/summaryOfPublications.json'), 'utf-8');
 const pubs = JSON.parse(rawDataPubs);
 const totalCases = 3;
 const pubRequests = new PublicationRequests();
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
+const dailyCauseListData = JSON.parse(rawData);
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData)[0];
+const artefactId = 'abc';
+
 const successResponse = {
   data: 'success',
 };
@@ -22,13 +29,90 @@ const errorResponse = {
 const errorMessage = {
   message: 'test',
 };
-const mockJson = {'data':{'hello':'hello'}};
+const mockJson = {'data': {'hello': 'hello'}};
 const mockPDF = new Blob(['testPDF']);
-const indivPubJsonObject = {'data':mockPDF};
+const indivPubJsonObject = {'data': mockPDF};
 const valid = 'valid';
 const invalid = 'invalid';
 const dataManagementStub = sinon.stub(dataManagementApi, 'get');
 dataManagementStub.withArgs('/publication/courtId/valid').resolves(successResponse);
+
+const publicationRequests = new PublicationRequests();
+
+dataManagementStub.withArgs('/publication/courtId/valid').resolves(successResponse);
+
+dataManagementStub.withArgs('/publication/abc1/payload').resolves(Promise.reject(errorResponse));
+dataManagementStub.withArgs('/publication/abc2/payload').resolves(Promise.reject(errorRequest));
+dataManagementStub.withArgs('/publication/abc3/payload').resolves(Promise.reject(errorMessage));
+dataManagementStub.withArgs('/publication/' + artefactId + '/payload').resolves({data: dailyCauseListData});
+
+dataManagementStub.withArgs('/publication/abc1').resolves(Promise.reject(errorResponse));
+dataManagementStub.withArgs('/publication/abc2').resolves(Promise.reject(errorRequest));
+dataManagementStub.withArgs('/publication/abc3').resolves(Promise.reject(errorMessage));
+dataManagementStub.withArgs('/publication/' + artefactId).resolves({data: metaData});
+
+describe('getIndividualPubJson()', () => {
+
+  it('should return publication json', async () => {
+    expect(await publicationRequests.getIndividualPublicationJson(artefactId, true)).toBe(dailyCauseListData);
+  });
+
+  it('should return court PRESTON', async () => {
+    return await publicationRequests.getIndividualPublicationJson(artefactId, true).then(data => {
+      expect(data['venue']['venueName']).toEqual('PRESTON');
+    });
+  });
+
+  it('should return judge title Mr', async () => {
+    return await publicationRequests.getIndividualPublicationJson(artefactId, true).then(data => {
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['judiciary'][0]['johTitle']).toEqual('Mr');
+    });
+  });
+
+  it('should have two hearings', async () => {
+    return await publicationRequests.getIndividualPublicationJson(artefactId, true).then(data => {
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'].length).toEqual(2);
+    });
+  });
+
+  it('should return empty list if request fails', async () => {
+    expect(await publicationRequests.getIndividualPublicationJson('abc1', true)).toBe(null);
+  });
+
+  it('should return empty list if request fails', async () => {
+    expect(await publicationRequests.getIndividualPublicationJson('abc2', true)).toBe(null);
+  });
+
+  it('should return empty list if message error', async () => {
+    expect(await publicationRequests.getIndividualPublicationJson('abc3', true)).toBe(null);
+  });
+});
+
+describe('getIndividualPubMetadata()', () => {
+
+  it('should return publication meta data', async () => {
+    expect(await publicationRequests.getIndividualPublicationMetadata(artefactId, true)).toBe(metaData);
+  });
+
+  it('should return content datetime', async () => {
+    return await publicationRequests.getIndividualPublicationMetadata(artefactId, true).then(data => {
+      expect(data['contentDate']).toEqual('2022-02-14T14:14:59.73967');
+    });
+  });
+
+  it('should return empty list if request fails', async () => {
+    expect(await publicationRequests.getIndividualPublicationMetadata('abc1', true)).toBe(null);
+  });
+
+  it('should return empty list if request fails', async () => {
+    expect(await publicationRequests.getIndividualPublicationMetadata('abc2', true)).toBe(null);
+  });
+
+  it('should return empty list if message error', async () => {
+    expect(await publicationRequests.getIndividualPublicationMetadata('abc3', true)).toBe(null);
+  });
+});
+
 describe('Get by case value', () => {
   dataManagementStub.withArgs('/publication/search/valid/valid').resolves(successResponse);
   dataManagementStub.withArgs('/publication/search/valid/invalid').resolves(Promise.reject(errorResponse));
@@ -98,54 +182,56 @@ describe('get individual publication metadata', () => {
     const message = await pubRequests.getIndividualPublicationMetadata('noErrRequest', true);
     expect(message).toBe(null);
   });
-});
 
-describe('get individual publication file', () => {
-  it('should return file for a given publication', async () => {
-    dataManagementStub.withArgs('/publication/fakeArtefactId/file', {headers: {'verification': 'true'}, responseType: 'arraybuffer'}).resolves(indivPubJsonObject);
-    const message = await pubRequests.getIndividualPublicationFile('fakeArtefactId', true);
-    expect(message).toBe(indivPubJsonObject.data);
+  describe('get individual publication file', () => {
+    it('should return file for a given publication', async () => {
+      dataManagementStub.withArgs('/publication/fakeArtefactId/file', {
+        headers: {'verification': 'true'},
+        responseType: 'arraybuffer'}).resolves(indivPubJsonObject);
+      const message = await pubRequests.getIndividualPublicationFile('fakeArtefactId', true);
+      expect(message).toBe(indivPubJsonObject.data);
+    });
+
+    it('should send an error request to the log if error request exists', async () => {
+      dataManagementStub.withArgs('/publication/promiseBreakingData/file').resolves(Promise.reject(errorRequest));
+      expect(await pubRequests.getIndividualPublicationFile('promiseBreakingData', true)).toBe(null);
+    });
+
+    it('should send an error to the log if error response exists', async () => {
+      dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/file').resolves(Promise.reject(errorResponse));
+      const response = await pubRequests.getIndividualPublicationFile('brokenPromiseWithErrorResponse', true);
+      expect(response).toBe(null);
+    });
+
+    it('should send an error to the log if error message exists and error request does not exist', async () => {
+      dataManagementStub.withArgs('/publication/search/y').resolves(Promise.reject(errorMessage));
+      const message = await publicationRequests.getPublicationsByCourt('y', true);
+      expect(message).toStrictEqual([]);
+    });
   });
 
-  it('should send an error request to the log if error request exists', async () => {
-    dataManagementStub.withArgs('/publication/promiseBreakingData/file').resolves(Promise.reject(errorRequest));
-    expect(await pubRequests.getIndividualPublicationFile('promiseBreakingData', true)).toBe(null);
-  });
+  describe('get individual publication json', () => {
+    it('should return json for a given publication', async () => {
+      dataManagementStub.withArgs('/publication/fakeArtefactId/payload', {headers: {'verification': 'true'}}).resolves(mockJson);
+      const message = await pubRequests.getIndividualPublicationJson('fakeArtefactId', true);
+      expect(message).toBe(mockJson.data);
+    });
 
-  it('should send an error to the log if error response exists', async () => {
-    dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/file').resolves(Promise.reject(errorResponse));
-    const response = await pubRequests.getIndividualPublicationFile('brokenPromiseWithErrorResponse', true);
-    expect(response).toBe(null);
-  });
+    it('should send an error request to the log if error request exists', async () => {
+      dataManagementStub.withArgs('/publication/promiseBreakingData/payload').resolves(Promise.reject(errorRequest));
+      expect(await pubRequests.getIndividualPublicationJson('promiseBreakingData', true)).toBe(null);
+    });
 
-  it('should send an error to the log if error message exists and error request does not exist', async () => {
-    dataManagementStub.withArgs('/publication/noErrRequest/file').resolves(Promise.reject(errorMessage));
-    const message = await pubRequests.getIndividualPublicationFile('y', true);
-    expect(message).toBe(null);
-  });
-});
+    it('should send an error to the log if error response exists', async () => {
+      dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/payload').resolves(Promise.reject(errorResponse));
+      const response = await pubRequests.getIndividualPublicationJson('brokenPromiseWithErrorResponse', true);
+      expect(response).toBe(null);
+    });
 
-describe('get individual publication json', () => {
-  it('should return json for a given publication', async () => {
-    dataManagementStub.withArgs('/publication/fakeArtefactId/payload', {headers: {'verification': 'true'}}).resolves(mockJson);
-    const message = await pubRequests.getIndividualPublicationJson('fakeArtefactId', true);
-    expect(message).toBe(mockJson.data);
-  });
-
-  it('should send an error request to the log if error request exists', async () => {
-    dataManagementStub.withArgs('/publication/promiseBreakingData/payload').resolves(Promise.reject(errorRequest));
-    expect(await pubRequests.getIndividualPublicationJson('promiseBreakingData', true)).toBe(null);
-  });
-
-  it('should send an error to the log if error response exists', async () => {
-    dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/payload').resolves(Promise.reject(errorResponse));
-    const response = await pubRequests.getIndividualPublicationJson('brokenPromiseWithErrorResponse', true);
-    expect(response).toBe(null);
-  });
-
-  it('should send an error to the log if error message exists and error request does not exist', async () => {
-    dataManagementStub.withArgs('/publication/noErrRequest/payload').resolves(Promise.reject(errorMessage));
-    const message = await pubRequests.getIndividualPublicationJson('y', true);
-    expect(message).toBe(null);
+    it('should send an error to the log if error message exists and error request does not exist', async () => {
+      dataManagementStub.withArgs('/publication/noErrRequest/payload').resolves(Promise.reject(errorMessage));
+      const message = await pubRequests.getIndividualPublicationJson('y', true);
+      expect(message).toBe(null);
+    });
   });
 });
