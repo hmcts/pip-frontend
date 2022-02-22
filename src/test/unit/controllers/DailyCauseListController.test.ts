@@ -3,7 +3,7 @@ import { Response } from 'express';
 import DailyCauseListController from '../../../main/controllers/DailyCauseListController';
 import fs from 'fs';
 import path from 'path';
-import { PublicationsService } from '../../../main/service/publicationsService';
+import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
 
@@ -15,8 +15,8 @@ const metaData = JSON.parse(rawMetaData);
 
 const dailyCauseListController = new DailyCauseListController();
 
-const dailyCauseListJsonStub = sinon.stub(PublicationsService.prototype, 'getIndivPubJson');
-const dailyCauseListMetaDataStub = sinon.stub(PublicationsService.prototype, 'getIndivPubMetadata');
+const dailyCauseListJsonStub = sinon.stub(PublicationService.prototype, 'getIndivPubJson');
+const dailyCauseListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndivPubMetadata');
 
 const artefactId = 'abc';
 

@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {PublicationsService} from '../../../main/service/publicationsService';
+import {PublicationService} from '../../../main/service/publicationService';
 import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/daily-cause-list?artefactId=abc';
@@ -25,8 +25,8 @@ const dailyCauseListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseListMetaData.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData);
 
-sinon.stub(PublicationsService.prototype, 'getIndivPubJson').returns(dailyCauseListData);
-sinon.stub(PublicationsService.prototype, 'getIndivPubMetadata').returns(metaData);
+sinon.stub(PublicationService.prototype, 'getIndivPubJson').returns(dailyCauseListData);
+sinon.stub(PublicationService.prototype, 'getIndivPubMetadata').returns(metaData);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Daily Cause List page', () => {

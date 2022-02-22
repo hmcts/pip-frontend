@@ -3,15 +3,15 @@ import request from 'supertest';
 import sinon from 'sinon';
 
 import { app } from '../../main/app';
-import { PublicationsService } from '../../main/service/publicationsService';
+import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/dailyCauseList.json'), 'utf-8');
 const dailyReferenceData = JSON.parse(rawData);
-sinon.stub(PublicationsService.prototype, 'getIndivPubJson').resolves(dailyReferenceData);
-sinon.stub(PublicationsService.prototype, 'getIndivPubMetadata').resolves(dailyReferenceData);
-sinon.stub(PublicationsService.prototype, 'calculateHearingSessionTime').resolves(dailyReferenceData);
+sinon.stub(PublicationService.prototype, 'getIndivPubJson').resolves(dailyReferenceData);
+sinon.stub(PublicationService.prototype, 'getIndivPubMetadata').resolves(dailyReferenceData);
+sinon.stub(PublicationService.prototype, 'calculateHearingSessionTime').resolves(dailyReferenceData);
 
 describe('Daily Cause List Page', () => {
   describe('on GET', () => {
