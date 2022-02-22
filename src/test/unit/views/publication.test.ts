@@ -12,7 +12,7 @@ const pubs = JSON.parse(rawData);
 
 let htmlRes: Document;
 
-sinon.stub(PublicationRequests.prototype, 'getListOfPubs').resolves(pubs);
+sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(pubs);
 
 describe('Publication Page', () => {
   beforeAll(async () => {

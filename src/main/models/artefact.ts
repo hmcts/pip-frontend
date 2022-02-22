@@ -1,14 +1,18 @@
+import {Cases} from './cases';
+
 export interface Artefact {
   artefactId: string;
   provenance: string;
-  type: string;
+  sourceArtefactId: string;
+  artefactType: string;
   sensitivity: string;
   language: string;
+  search: Cases;
   displayFrom: string;
   displayTo: string;
   listType: string;
-  courtId: number;
+  courtId: string;
   contentDate: string;
   isFlatFile: boolean;
-  payload: string;
+  payload: object;
 }
