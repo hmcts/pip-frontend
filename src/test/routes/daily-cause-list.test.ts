@@ -9,8 +9,8 @@ import path from 'path';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/dailyCauseList.json'), 'utf-8');
 const dailyReferenceData = JSON.parse(rawData);
-sinon.stub(PublicationService.prototype, 'getIndivPubJson').resolves(dailyReferenceData);
-sinon.stub(PublicationService.prototype, 'getIndivPubMetadata').resolves(dailyReferenceData);
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(dailyReferenceData);
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(dailyReferenceData);
 sinon.stub(PublicationService.prototype, 'calculateHearingSessionTime').resolves(dailyReferenceData);
 
 describe('Daily Cause List Page', () => {
