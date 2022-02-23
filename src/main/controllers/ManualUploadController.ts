@@ -24,11 +24,12 @@ export default class ManualUploadController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     if (req.query?.showerror === 'true') {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-    } else  {
+    } else {
       const errors = {
         fileErrors: manualUploadService.validateFileUpload(req.file),
         formErrors: await manualUploadService.validateFormFields(req.body),
       };
+
       const listItems = await manualUploadService.buildFormData();
       const formValues = {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload']),

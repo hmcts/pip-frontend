@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { DailyCauseListService } from '../../../main/service/dailyCauseListService';
+import {PublicationService} from '../../../main/service/publicationService';
 import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/daily-cause-list?artefactId=abc';
@@ -15,18 +15,18 @@ const accordionClass='govuk-accordion__section-button';
 
 const expectedHeader = 'Daily Civil Cause list for <br>PRESTON';
 const summaryHeadingText = 'Important information';
-const accordionHeading = 'Courtroom 1 Mr Firstname1 Surname1';
+const accordionHeading = '1 : Mr Firstname1 Surname1';
 
 let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
 const dailyCauseListData = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseListMetaData.json'), 'utf-8');
-const metaData = JSON.parse(rawMetaData);
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData)[0];
 
-sinon.stub(DailyCauseListService.prototype, 'getDailyCauseList').returns(dailyCauseListData);
-sinon.stub(DailyCauseListService.prototype, 'getDailyCauseListMetaData').returns(metaData);
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(dailyCauseListData);
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Daily Cause List page', () => {

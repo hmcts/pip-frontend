@@ -14,7 +14,7 @@ const mockCase = {
   platform: 'In person',
   caseNumber: 'T485913',
   caseName: 'Tom Clancy',
-  urn: '',
+  caseUrn: 'N363N6R4OG',
 };
 const mockCourt = {
   courtId: 643,
@@ -74,7 +74,7 @@ describe('Pending Subscriptions Page', () => {
       const rows = htmlRes.getElementsByClassName('govuk-table__body')[0].getElementsByClassName('govuk-table__row');
       const cells = rows[0].getElementsByClassName('govuk-table__cell');
       expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
-      expect(cells[0].innerHTML).contains(mockCase.urn, 'First cell does not contain correct value');
+      expect(cells[0].innerHTML).contains(mockCase.caseUrn, 'First cell does not contain correct value');
       expect(cells[1].innerHTML).contains(mockCase.caseNumber, 'Second cell does not contain correct value');
       expect(cells[2].innerHTML).contains(mockCase.caseName, 'Third cell does not contain correct value');
       expect(cells[3].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');

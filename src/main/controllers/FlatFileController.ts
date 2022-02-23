@@ -1,27 +1,23 @@
 import {PipRequest} from '../models/request/PipRequest';
-import { Response } from 'express';
-import { SummaryOfPublicationsService } from '../service/summaryOfPublicationsService';
+import {Response} from 'express';
+import {PublicationService} from '../service/publicationService';
 
-const publicationService = new SummaryOfPublicationsService();
+const publicationService = new PublicationService();
 
 export default class FlatFileController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query['artefactId'];
-    const metadata = await publicationService.getIndivPubMetadata(artefactId, (!!req.user));
-    const fileData = await publicationService.getIndivPubFile(artefactId, (!!req.user));
-    if (metadata.isFlatFile) {
-      res.set('Content-Disposition', 'inline;filename='+metadata.sourceArtefactId);
-      if(metadata.sourceArtefactId.endsWith('.pdf')){
-        res.set('Content-Type', 'application/pdf');
-      }
-      else if(metadata.sourceArtefactId.endsWith('.json')){
-        res.set('Content-Type', 'application/json');
-      }
-      else{res.set('Content-Disposition', 'attachment;filename='+metadata.sourceArtefactId);}
-      res.send(fileData);
+    const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, (!!req.user));
+    const fileData = await publicationService.getIndividualPublicationFile(artefactId, (!!req.user));
+    res.set('Content-Disposition', 'inline;filename=' + metadata.sourceArtefactId);
+    if (metadata.sourceArtefactId.endsWith('.pdf')) {
+      res.set('Content-Type', 'application/pdf');
+    } else if (metadata.sourceArtefactId.endsWith('.json')) {
+      res.set('Content-Type', 'application/json');
     } else {
-      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+      res.set('Content-Disposition', 'attachment;filename=' + metadata.sourceArtefactId);
     }
+    res.send(fileData);
   }
 }
