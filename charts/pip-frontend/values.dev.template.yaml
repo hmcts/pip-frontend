@@ -8,3 +8,4 @@ nodejs:
     OIDC: true
     AUTH_RETURN_URL: https://${SERVICE_FQDN}/login/return
     EXCLUDE_E2E: true
+    FRONTEND_URL: https://${SERVICE_FQDN}
