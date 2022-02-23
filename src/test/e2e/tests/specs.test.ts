@@ -93,12 +93,12 @@ describe('Unverified user', () => {
       });
 
       describe('following the \'I have the name\' path', async () => {
-        const searchTerm = 'Leicester Tribunal Hearing Centre';
+        const searchTerm = 'Blackpool Magistrates\' Court';
 
         it('should enter text and click continue', async () => {
           await searchPage.enterText(searchTerm);
-          hearingListPage = await searchPage.clickContinue();
-          expect(await hearingListPage.getPageTitle()).toEqual('Leicester Tribunal Hearing Centre hearing list');
+          summaryOfPublicationsPage = await searchPage.clickContinue();
+          expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Blackpool Magistrates\' Court?');
         });
       });
 
@@ -125,9 +125,9 @@ describe('Unverified user', () => {
           expect(await alphabeticalSearchPage.checkIfSelected('NorthWestFilter')).toBeTruthy();
         });
 
-        it('selecting first result should take you to to the hearings list page', async () => {
-          hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-          expect(await hearingListPage.getPageTitle()).toEqual('Leicester Tribunal Hearing Centre hearing list');
+        it('selecting first result should take you to to the Summary of Publications page', async () => {
+          summaryOfPublicationsPage = await alphabeticalSearchPage.selectFirstListResult();
+          expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Blackburn Magistrates\' Court?');
         });
       });
     });

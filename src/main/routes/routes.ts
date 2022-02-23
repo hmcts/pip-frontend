@@ -6,6 +6,7 @@ import os from 'os';
 import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 
+const { Logger } = require('@hmcts/nodejs-logging');
 const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
@@ -43,9 +44,11 @@ export default function(app: Application): void {
 
   function ensureAuthenticated(req, res, next): NextFunction | void {
     if (req.isAuthenticated()) {
+      logger.info('ensureAuthenticated is authenticated');
       return next();
     }
-    logger.info('POLICY', authenticationConfig.POLICY);
+
+    logger.info('ensureAuthenticated redirecting', authenticationConfig.POLICY);
     res.redirect('/login?p=' + authenticationConfig.POLICY);
   }
 
@@ -57,6 +60,7 @@ export default function(app: Application): void {
 
   function logOut(req, res): void{
     res.clearCookie('session');
+    logger.info('logout FE URL', FRONTEND_URL);
     const B2C_URL = 'https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/';
     const encodedSignOutRedirect = encodeURIComponent(`${FRONTEND_URL}/view-option`);
     logger.info('B2C_URL', B2C_URL);
@@ -66,7 +70,9 @@ export default function(app: Application): void {
 
   function regenerateSession(req, res): void {
     const prevSession = req.session;
+    logger.info('regenerateSession', prevSession);
     req.session.regenerate(() => {  // Compliant
+      logger.info('regenerateSession new session', req.session);
       Object.assign(req.session, prevSession);
       res.redirect('/subscription-management');
     });

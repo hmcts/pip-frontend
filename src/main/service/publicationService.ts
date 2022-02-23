@@ -76,7 +76,6 @@ export class PublicationService {
       });
     });
   }
-
   private getCaseFromArtefact(artefact: Artefact, term: string, value: string): SearchObject {
     let foundObject: SearchObject = null;
     artefact?.search.cases.forEach(singleCase => {
