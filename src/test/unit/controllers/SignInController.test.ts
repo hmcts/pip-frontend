@@ -2,11 +2,10 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import SignInController from '../../../main/controllers/SignInController';
-import { getFlowName } from '../../../main/authentication/authRedirect';
 
 const signInController = new SignInController();
 const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
-const piUrl = `/login?p=${getFlowName(process.env.ENV)}`;
+const piUrl = '/login?p=B2C_1_SignInUserFlow';
 
 describe('Sign In Option Controller', () => {
   const i18n = {'sign-in': {}};

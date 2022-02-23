@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
-import { getFlowName } from '../authentication/authRedirect';
+
+const { Logger } = require('@hmcts/nodejs-logging');
+const authenticationConfig = require('../authentication/authentication-config.json');
+const logger = Logger.getLogger('sign-in-page');
 
 export default class SignInController {
   public get(req: PipRequest, res: Response): void {
@@ -21,7 +24,8 @@ export default class SignInController {
         break;
       }
       case 'pi': {
-        res.redirect(`/login?p=${getFlowName(process.env.ENV)}`);
+        logger.info('redirect policy', authenticationConfig.POLICY);
+        res.redirect(`/login?p=${authenticationConfig.POLICY}`);
         break;
       }
       default: {
