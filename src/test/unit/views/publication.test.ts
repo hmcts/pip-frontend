@@ -9,10 +9,9 @@ import {PublicationRequests} from '../../../main/resources/requests/publicationR
 const PAGE_URL = '/summary-of-publications?courtId=0';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/summaryOfPublications.json'), 'utf-8');
 const pubs = JSON.parse(rawData);
-
 let htmlRes: Document;
 
-sinon.stub(PublicationRequests.prototype, 'getListOfPubs').resolves(pubs);
+sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(pubs);
 
 describe('Publication Page', () => {
   beforeAll(async () => {

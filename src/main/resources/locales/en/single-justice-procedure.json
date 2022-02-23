@@ -1,12 +1,8 @@
 {
-  "title": "Single Justice Procedure cases",
-  "p1": "Cases involving adults charged with summary-only non-imprisonable offences.",
-  "p2": "Published",
+  "title": "Single Justice Procedure cases that are ready for hearing",
   "column1": "Name",
-  "column2": "Town",
-  "column3": "County",
-  "column4": "Postcode",
-  "column5": "Offence",
-  "column6": "Prosecutor",
+  "column2": "Postcode",
+  "column3": "Offence",
+  "column4": "Prosecutor",
   "backToTop": "Back to top"
 }

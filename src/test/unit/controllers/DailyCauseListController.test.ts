@@ -15,16 +15,16 @@ const metaData = JSON.parse(rawMetaData)[0];
 
 const dailyCauseListController = new DailyCauseListController();
 
-const dailyCauseListJsonStub = sinon.stub(PublicationService.prototype, 'getIndivPubJson');
-const dailyCauseListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndivPubMetadata');
+const dailyCauseListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
+const dailyCauseListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
 const artefactId = 'abc';
 
-dailyCauseListJsonStub.withArgs(artefactId).returns(searchResults);
-dailyCauseListJsonStub.withArgs('').returns([]);
+dailyCauseListJsonStub.withArgs(artefactId).resolves(searchResults);
+dailyCauseListJsonStub.withArgs('').resolves([]);
 
-dailyCauseListMetaDataStub.withArgs(artefactId).returns(metaData);
-dailyCauseListMetaDataStub.withArgs('').returns([]);
+dailyCauseListMetaDataStub.withArgs(artefactId).resolves(metaData);
+dailyCauseListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'daily-cause-list': {},
