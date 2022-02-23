@@ -17,7 +17,6 @@ function oidcSetup(): void {
   logger.info('secret', clientSecret ? clientSecret.substring(0,5) : 'client secret not set!' );
   const REDIRECT_URL = process.env.AUTH_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/login/return';
   const users = [];
-  logger.info('REDIRECT_URL', REDIRECT_URL);
 
   const findByOid = function(oid, fn): Function {
     for (let i = 0, len = users.length; i < len; i++) {
@@ -38,11 +37,6 @@ function oidcSetup(): void {
       done(null, user);
     });
   });
-
-  logger.info('IDENTITY_METADATA', authenticationConfig.IDENTITY_METADATA);
-  logger.info('CLIENT_ID', authenticationConfig.CLIENT_ID);
-  logger.info('RESPONSE_TYPE', authenticationConfig.RESPONSE_TYPE);
-  logger.info('RESPONSE_MODE', authenticationConfig.RESPONSE_MODE);
 
   passport.use(new OIDCStrategy({
     identityMetadata:  authenticationConfig.IDENTITY_METADATA,
@@ -101,7 +95,6 @@ function mockSetup(): void {
  * Values are read from config, and from the environment passed in
  */
 export default function(oidc: string): void {
-  logger.info('load auth config oidc: ', oidc );
   if (oidc === 'true') {
     oidcSetup();
   } else {
