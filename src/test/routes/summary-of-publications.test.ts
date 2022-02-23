@@ -1,16 +1,16 @@
-import sinon from 'sinon';
 import { expect } from 'chai';
 import { app } from '../../main/app';
 import request from 'supertest';
-import fs from 'fs';
-import path from 'path';
 import {PublicationService} from '../../main/service/publicationService';
+import sinon from 'sinon';
+import {SummaryOfPublicationsService} from '../../main/service/summaryOfPublicationsService';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/summaryOfPublications.json'), 'utf-8');
-const summaryOfPublicationsData = JSON.parse(rawData);
-sinon.stub(PublicationService.prototype, 'getPublications').resolves(summaryOfPublicationsData);
+const mockJSON = '{"data":"false"}';
+const mockArray = '[{"data":"false"}]';
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(mockJSON);
+sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(mockArray);
 
-describe('', () => {
+describe('Summary of Publications', () => {
   describe('on GET', () => {
     test('should return summary of publications page', async () => {
       await request(app)

@@ -32,10 +32,10 @@ const dailyCauseListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const stub = sinon.stub(publicationRequests, 'getIndividualPubJson').returns(dailyCauseListData);
+const stub = sinon.stub(publicationRequests, 'getIndividualPublicationJson').returns(dailyCauseListData);
 stub.withArgs().returns(dailyCauseListData);
 
-const stubMetaData = sinon.stub(publicationRequests, 'getIndividualPubMetadata').returns(metaData);
+const stubMetaData = sinon.stub(publicationRequests, 'getIndividualPublicationMetadata').returns(metaData);
 stubMetaData.withArgs().returns(metaData);
 
 const validCourtName = 'PRESTON';
@@ -62,19 +62,19 @@ describe('Publication service', () => {
 
   describe('getIndivPubJson Service', () => {
     it('should return publication json', () => {
-      return publicationService.getIndivPubJson('', true).then((data) => {
+      return publicationService.getIndividualPublicationJson('', true).then((data) => {
         expect(data['courtLists'].length).to.equal(1);
       });
     });
 
     it('should have valid court name in the venue object', () => {
-      return publicationService.getIndivPubJson('', true).then((data) => {
+      return publicationService.getIndividualPublicationJson('', true).then((data) => {
         expect(data['venue']['venueName']).to.equal(validCourtName);
       });
     });
 
     it('should have valid court name in the venue object', () => {
-      return publicationService.getIndivPubJson('', true).then((data) => {
+      return publicationService.getIndividualPublicationJson('', true).then((data) => {
         expect(data['venue']['venueName']).not.equal(invalidCourtName);
       });
     });
@@ -104,7 +104,7 @@ describe('Publication service', () => {
 
   describe('getIndivPubMetadata Publication Service', () => {
     it('should return publication meta object', () => {
-      return publicationService.getIndivPubMetadata('', true).then((data) => {
+      return publicationService.getIndividualPublicationMetadata('', true).then((data) => {
         expect(data['contentDate']).to.equal('2022-02-14T14:14:59.73967');
       });
     });

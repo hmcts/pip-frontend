@@ -9,8 +9,8 @@ const publicationService = new PublicationService();
 export default class DailyCauseListControllerController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query.artefactId as string;
-    const searchResults = await publicationService.getIndivPubJson(artefactId, (!!req.user));
-    const metaData = await publicationService.getIndivPubMetadata(artefactId, (!!req.user));
+    const searchResults = await publicationService.getIndividualPublicationJson(artefactId, (!!req.user));
+    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, (!!req.user));
 
     if (searchResults && metaData) {
       publicationService.calculateHearingSessionTime(searchResults);
