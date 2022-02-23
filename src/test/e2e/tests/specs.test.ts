@@ -84,54 +84,58 @@ describe('Unverified user', () => {
     expect(await viewOptionPage.radioButtons).toBe(2);
   });
 
-  if (process.env.EXCLUDE_E2E === 'true') {
-    describe('find a court or tribunal publication', async () => {
-      it('should select \'Court or Tribunal hearing Publications\' option and navigate to search option page', async () => {
-        await viewOptionPage.selectOption('CourtOrTribunalRadioButton');
-        searchPage = await viewOptionPage.clickContinueForSearch();
-        expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
+  describe('find a court or tribunal', async () => {
+    it('should select \'Court or Tribunal hearing Publications\' option and navigate to search option page', async () => {
+      await viewOptionPage.selectOption('CourtOrTribunalRadioButton');
+      searchPage = await viewOptionPage.clickContinueForSearch();
+      expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
+    });
+
+    describe('following the search court path', async () => {
+      const searchTerm = 'Leicester Tribunal Hearing Centre';
+
+      it('should enter text and click continue', async () => {
+        await searchPage.enterText(searchTerm);
+        summaryOfPublicationsPage = await searchPage.clickContinue();
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Leicester Tribunal Hearing Centre?');
+      });
+    });
+
+    describe('following the \'Select from an A-Z of courts and tribunals\' path', async () => {
+
+      before(async () => {
+        await searchPage.open('/search');
       });
 
-      describe('following the \'I have the name\' path', async () => {
-        const searchTerm = 'Leicester Tribunal Hearing Centre';
-
-        it('should enter text and click continue', async () => {
-          await searchPage.enterText(searchTerm);
-          hearingListPage = await searchPage.clickContinue();
-          expect(await hearingListPage.getPageTitle()).toEqual('Leicester Tribunal Hearing Centre hearing list');
-        });
+      it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
+        alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
+        expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
       });
 
-      describe('following the \'Select from an A-Z of courts and tribunals\' path', async () => {
+      it('should select Magistrates\' Court and North West filters', async () => {
+        await alphabeticalSearchPage.selectOption('JurisdictionFilter4');
+        await alphabeticalSearchPage.selectOption('RegionFilter7');
+        await alphabeticalSearchPage.clickApplyFiltersButton();
+        expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
+      });
 
-        before(async () => {
-          await searchPage.open('/search');
-        });
+      it('should have Magistrates\' Court and North West filters selected', async () => {
+        expect(await alphabeticalSearchPage.checkIfSelected('JurisdictionFilter4')).toBeTruthy();
+        expect(await alphabeticalSearchPage.checkIfSelected('RegionFilter7')).toBeTruthy();
+      });
 
-        it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
-          alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
-          expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
-        });
-
-        it('should select Magistrates\' Court and North West filters', async () => {
-          await alphabeticalSearchPage.selectOption('MagistratesFilter');
-          await alphabeticalSearchPage.selectOption('NorthWestFilter');
-          await alphabeticalSearchPage.clickApplyFiltersButton();
-          expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
-        });
-
-        it('should have Magistrates\' Court and North West filters selected', async () => {
-          expect(await alphabeticalSearchPage.checkIfSelected('MagistratesFilter')).toBeTruthy();
-          expect(await alphabeticalSearchPage.checkIfSelected('NorthWestFilter')).toBeTruthy();
-        });
-
+      if (process.env.EXCLUDE_E2E === 'true') {
+        //TODO: needs review
         it('selecting first result should take you to to the hearings list page', async () => {
           hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
           expect(await hearingListPage.getPageTitle()).toEqual('Leicester Tribunal Hearing Centre hearing list');
         });
-      });
+      }
     });
+  });
 
+  if (process.env.EXCLUDE_E2E === 'true') {
+    // TODO: needs review
     describe('find live case status updates', async () => {
       const validCourtName = 'Northampton Crown Court';
 
@@ -157,40 +161,37 @@ describe('Unverified user', () => {
         expect(await caseEventGlossaryPage.termIsInView()).toBeTruthy();
       });
     });
+  }
 
-    describe('find single justice procedure cases', () => {
-      before(async () => {
-        await viewOptionPage.open('/view-option');
-      });
-
-      it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
-        await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
-        singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-        expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('Single Justice Procedure cases');
-      });
+  describe('find single justice procedure cases', () => {
+    before(async () => {
+      await viewOptionPage.open('/view-option');
     });
 
-    describe('Render summary of publications screen from alphabetical search list', () => {
-      beforeEach(async () => {
-        await alphabeticalSearchPage.open('/alphabetical-search');
-      });
-
-      it('Should select the first item from the alphabetical search list and navigate to SJP summary of publications', async () => {
-        summaryOfPublicationsPage = await alphabeticalSearchPage.selectSJPLink();
-        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
-      });
-
-      it('Should select the second item from the alphabetical search list and navigate to Aberystwyth Justice Centre', async () => {
-        const aberdeenTribunalPage = await alphabeticalSearchPage.selectSecondListResult();
-        expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberystwyth Justice Centre?');
-      });
-
-      it('Should select the first item from the alphabetical search list and navigate to Aberdeen Tribunal Hearing Centre', async () => {
-        const aberdeenTribunalPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberdeen Tribunal Hearing Centre?');
-      });
+    it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
+      await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
+      singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
+      expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
     });
 
+    //TODO: need more steps
+  });
+
+  describe('Render summary of publications screen from alphabetical search list', () => {
+    beforeEach(async () => {
+      await alphabeticalSearchPage.open('/alphabetical-search');
+    });
+
+    it('Should select the first item from the alphabetical search list and navigate to SJP summary of publications', async () => {
+      summaryOfPublicationsPage = await alphabeticalSearchPage.selectSJPLink();
+      expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
+    });
+
+    //TODO: need more steps
+  });
+
+  if (process.env.EXCLUDE_E2E === 'true') {
+    // TODO: needs review
     describe('Render hearing list page when required', () => {
       before(async () => {
         await searchPage.open('/search');
@@ -202,28 +203,28 @@ describe('Unverified user', () => {
         expect(await hearingListPage.getPageTitle()).toEqual('Bradford Combined Court Centre hearing list');
       });
     });
-
-    describe('request an account', () => {
-      before(async () => {
-        await signInPage.open('/sign-in');
-      });
-
-      it('should open sign-in page with \'How do you want to sign in\' title', async () => {
-        expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
-      });
-
-      it('should click on the create account link', async () => {
-        createMediaAccountPage = await signInPage.clickCreateAccount();
-        expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a court and tribunal hearing account');
-      });
-
-      it('should complete form and continue to confirmation page', async () => {
-        await createMediaAccountPage.completeForm();
-        mediaAccountRequestSubmittedPage = await createMediaAccountPage.clickContinue();
-        expect(await mediaAccountRequestSubmittedPage.getPanelTitle()).toEqual('Details submitted');
-      });
-    });
   }
+
+  describe('request an account', () => {
+    before(async () => {
+      await signInPage.open('/sign-in');
+    });
+
+    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+    });
+
+    it('should click on the create account link', async () => {
+      createMediaAccountPage = await signInPage.clickCreateAccount();
+      expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a court and tribunal hearing account');
+    });
+
+    it('should complete form and continue to confirmation page', async () => {
+      await createMediaAccountPage.completeForm();
+      mediaAccountRequestSubmittedPage = await createMediaAccountPage.clickContinue();
+      expect(await mediaAccountRequestSubmittedPage.getPanelTitle()).toEqual('Details submitted');
+    });
+  });
 });
 
 if (process.env.EXCLUDE_E2E === 'true') {
