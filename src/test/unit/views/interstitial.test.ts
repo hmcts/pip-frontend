@@ -31,7 +31,7 @@ describe('Interstitial page', () => {
 
     it('should display bullets', () => {
       const bullets = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByTagName('li');
-      expect(bullets[0].innerHTML).contains('hearings in Civil and Family Courts in [xx region]',
+      expect(bullets[0].innerHTML).contains('Hearings in Civil and Family Courts in [xx region]',
         'Could not find first bullet');
       expect(bullets[1].innerHTML).contains('Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
         'Could not find second bullet');
