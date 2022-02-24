@@ -12,18 +12,12 @@ const headingClass = 'govuk-fieldset__heading';
 const buttonClass = 'govuk-button';
 const subscriptionChoiceId = 'subscription-choice';
 const radioClass = 'govuk-radios__item';
-const relatedContentClass = 'govuk-heading-s';
-const linkClass = 'govuk-link';
-
 const expectedHeader = 'How do you want to add a subscription?';
 const expectedButtonText = 'Continue';
 const expectedRadioLabel1 = 'By case reference number';
 const expectedRadioLabel2 = 'By unique reference number (URN)';
 const expectedRadioLabel3 = 'By case name';
 const expectedRadioLabel4 = 'By court or tribunal';
-const expectedRelatedContentHeader = 'Related content';
-const expectedLink1 = 'Manage your subscriptions';
-const expectedLink2 = 'Find a court or tribunal list';
 
 let htmlRes: Document;
 describe('Subscriptions add Page initial load', () => {
@@ -90,25 +84,6 @@ describe('Subscriptions add Page initial load', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons[0].innerHTML).contains(expectedRadioLabel4, 'Could not find the radio button with label ' + expectedRadioLabel2);
   });
-
-  it('should display related content header',  () => {
-    const relatedContentHeader = htmlRes.getElementsByClassName(relatedContentClass);
-    expect(relatedContentHeader[0].innerHTML).contains(expectedRelatedContentHeader,
-      'Could not find the related content header ' + expectedRelatedContentHeader);
-  });
-
-  it('should display manage your subscriptions link',  () => {
-    const links = htmlRes.getElementsByClassName(linkClass);
-    expect(links[0].innerHTML).contains(expectedLink1, 'Could not find the link with text ' + expectedLink1);
-    expect(links[0].getAttribute('href')).equal('/subscription-management', 'Link value is not correct');
-  });
-
-  it('should display find a court or tribunal list link',  () => {
-    const links = htmlRes.getElementsByClassName(linkClass);
-    expect(links[1].innerHTML).contains(expectedLink2, 'Could not find the link with text ' + expectedLink2);
-    expect(links[1].getAttribute('href')).equal('/search', 'Link value is not correct');
-  });
-
 });
 
 describe('Subscriptions add page no selection entered', () => {
@@ -131,7 +106,5 @@ describe('Subscriptions add page no selection entered', () => {
       const subscriptionChoice = htmlRes.getElementById(subscriptionChoiceId);
       expect(subscriptionChoice.getAttribute('class')).contains('govuk-form-group--error');
     });
-
   });
-
 });
