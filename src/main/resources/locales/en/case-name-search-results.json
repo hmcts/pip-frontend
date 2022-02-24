@@ -1,7 +1,7 @@
 {
   "title": "Case Name Search Results",
   "heading": "Search result",
-  "resultsCount": " results successfully found",
+  "resultsCount": " result(s) successfully found",
   "backButton": "Back",
   "table": {
     "column1Header": "Case Name",
