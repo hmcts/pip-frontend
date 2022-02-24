@@ -1,6 +1,6 @@
-import { HearingListPage } from './HearingList.page';
 import { CommonPage } from './Common.page';
 import { AlphabeticalSearchPage } from './AlphabeticalSearch.page';
+import { SummaryOfPublicationsPage } from './SummaryOfPublications.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -23,14 +23,14 @@ export class SearchPage extends CommonPage {
     await browser.keys('Escape');
   }
 
-  async clickContinue(): Promise<HearingListPage> {
+  async clickContinue(): Promise<SummaryOfPublicationsPage> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
 
     const button = await $(helpers.ContinueButton);
     button.click();
-    return new HearingListPage();
+    return new SummaryOfPublicationsPage();
   }
 
   async clickAToZCourtsLink(): Promise<AlphabeticalSearchPage> {

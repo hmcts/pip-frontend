@@ -1,5 +1,6 @@
 import { HearingListPage } from './HearingList.page';
 import { CommonPage } from './Common.page';
+import { SummaryOfPublicationsPage } from './SummaryOfPublications.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -20,14 +21,22 @@ export class AlphabeticalSearchPage extends CommonPage {
     return await $(helpers[filter]).isSelected();
   }
 
-  async selectFirstListResult(): Promise<HearingListPage> {
+  async selectFirstListResult(): Promise<SummaryOfPublicationsPage> {
     await $(helpers.FirstItemResult).catch(() => {
       console.log(`${helpers.FirstItemResult} not found`);
     });
 
-    const firstItem = await $(helpers.FirstItemResult);
-    firstItem.click();
-    return new HearingListPage();
+    await $(helpers.FirstItemResult).click();
+    return new SummaryOfPublicationsPage();
+  }
+
+  async selectLastListResult(): Promise<SummaryOfPublicationsPage> {
+    await $(helpers.LastItemResult).catch(() => {
+      console.log(`${helpers.LastItemResult} not found`);
+    });
+
+    await $(helpers.LastItemResult).click();
+    return new SummaryOfPublicationsPage();
   }
 
   async selectSecondListResult(): Promise<HearingListPage> {
@@ -40,13 +49,13 @@ export class AlphabeticalSearchPage extends CommonPage {
     return new HearingListPage();
   }
 
-  async selectSJPLink(): Promise<HearingListPage> {
+  async selectSJPLink(): Promise<SummaryOfPublicationsPage> {
     await $(helpers.SJPLink).catch(() => {
       console.log(`${helpers.SJPLink} not found`);
     });
     const sjpLink = await $(helpers.SJPLink);
     sjpLink.click();
-    return new HearingListPage();
+    return new SummaryOfPublicationsPage();
   }
 
 }

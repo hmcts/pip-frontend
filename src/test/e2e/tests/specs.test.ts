@@ -29,6 +29,7 @@ import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
 import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
+import { DailyCauseListPage } from '../PageObjects/DailyCauseList.page';
 import config = require('config');
 
 const homePage = new HomePage;
@@ -60,6 +61,7 @@ let createMediaAccountPage: CreateMediaAccountPage;
 let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let interstitialPage: InterstitialPage;
 let accountHomePage: AccountHomePage;
+let dailyCauseListPage: DailyCauseListPage;
 
 const signInPage = new SignInPage;
 const manualUploadPage = new ManualUploadPage;
@@ -91,51 +93,52 @@ describe('Unverified user', () => {
       expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
     });
 
-
     describe('following the search court path', async () => {
-      const searchTerm = 'Leicester Tribunal Hearing Centre';
+      const searchTerm = 'Wrexham County And Family Court';
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
         summaryOfPublicationsPage = await searchPage.clickContinue();
-        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Leicester Tribunal Hearing Centre?');
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Wrexham County And Family Court?');
       });
 
-      describe('following the \'Select from an A-Z of courts and tribunals\' path', async () => {
+      it('should select the first publication', async () => {
+        dailyCauseListPage = await summaryOfPublicationsPage.clickSOPListItem();
+        expect(await dailyCauseListPage.getPageTitle()).toContain('Wrexham County And Family Court');
+      });
+    });
 
-        before(async () => {
-          await searchPage.open('/search');
-        });
+    describe('following the \'Select from an A-Z of courts and tribunals\' path', async () => {
+      before(async () => {
+        await searchPage.open('/search');
+      });
 
-        it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
-          alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
-          expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
-        });
+      it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
+        alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
+        expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
+      });
 
-        it('should select Magistrates\' Court and North West filters', async () => {
-          await alphabeticalSearchPage.selectOption('JurisdictionFilter4');
-          await alphabeticalSearchPage.selectOption('RegionFilter7');
-          await alphabeticalSearchPage.clickApplyFiltersButton();
-          expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
-        });
+      it('should select Country Court jurisdiction and Wales region filters', async () => {
+        await alphabeticalSearchPage.selectOption('JurisdictionFilter3');
+        await alphabeticalSearchPage.selectOption('RegionFilter2');
+        await alphabeticalSearchPage.clickApplyFiltersButton();
+        expect(await alphabeticalSearchPage.checkIfSelected('JurisdictionFilter3')).toBeTruthy();
+        expect(await alphabeticalSearchPage.checkIfSelected('RegionFilter2')).toBeTruthy();
+      });
 
-        it('should have Magistrates\' Court and North West filters selected', async () => {
-          expect(await alphabeticalSearchPage.checkIfSelected('JurisdictionFilter4')).toBeTruthy();
-          expect(await alphabeticalSearchPage.checkIfSelected('RegionFilter7')).toBeTruthy();
-        });
+      it('selecting last result should take you to to the summary of publications page', async () => {
+        summaryOfPublicationsPage = await alphabeticalSearchPage.selectLastListResult();
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Wrexham County And Family Court?');
+      });
 
-        if (process.env.EXCLUDE_E2E === 'true') {
-          //TODO: needs review
-          it('selecting first result should take you to to the hearings list page', async () => {
-            hearingListPage = await alphabeticalSearchPage.selectFirstListResult();
-            expect(await hearingListPage.getPageTitle()).toEqual('Leicester Tribunal Hearing Centre hearing list');
-          });
-        }
+      it('should select the first publication', async () => {
+        dailyCauseListPage = await summaryOfPublicationsPage.clickSOPListItem();
+        expect(await dailyCauseListPage.getPageTitle()).toContain('Wrexham County And Family Court');
       });
     });
 
     if (process.env.EXCLUDE_E2E === 'true') {
-      // TODO: needs review
+      // TODO: excluded at the moment, no real journey yet
       describe('find live case status updates', async () => {
         const validCourtName = 'Northampton Crown Court';
 
@@ -186,9 +189,9 @@ describe('Unverified user', () => {
         expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
       });
 
-      it('Should select the first item from the alphabetical search list and navigate to Aberdeen Tribunal Hearing Centre', async () => {
+      it('Should select the first item from the alphabetical search list and navigate to Alton Magistrates Court', async () => {
         const aberdeenTribunalPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Aberdeen Tribunal Hearing Centre?');
+        expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Alton Magistrates Court?');
       });
     });
     //TODO: need more steps
