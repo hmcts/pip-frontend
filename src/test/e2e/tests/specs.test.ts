@@ -1,6 +1,5 @@
 import { HomePage } from '../PageObjects/Home.page';
 import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
-import { HearingListPage } from '../PageObjects/HearingList.page';
 import { SearchPage } from '../PageObjects/Search.page';
 import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
@@ -30,6 +29,7 @@ import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
 import { DailyCauseListPage } from '../PageObjects/DailyCauseList.page';
+import { SJPPublicListPage } from '../PageObjects/SJPPublicList.page';
 import config = require('config');
 
 const homePage = new HomePage;
@@ -39,7 +39,6 @@ const liveCaseCourtSearchControllerPage = new LiveCaseCourtSearchControllerPage(
 let viewOptionPage: ViewOptionPage;
 let summaryOfPublicationsPage: SummaryOfPublicationsPage;
 let alphabeticalSearchPage: AlphabeticalSearchPage;
-let hearingListPage: HearingListPage;
 let searchPage: SearchPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedurePage: SingleJusticeProcedurePage;
@@ -62,6 +61,7 @@ let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let interstitialPage: InterstitialPage;
 let accountHomePage: AccountHomePage;
 let dailyCauseListPage: DailyCauseListPage;
+let sjpPublicListPage: SJPPublicListPage;
 
 const signInPage = new SignInPage;
 const manualUploadPage = new ManualUploadPage;
@@ -176,41 +176,14 @@ describe('Unverified user', () => {
         expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
       });
 
-      //TODO: need more steps
-    });
-
-    describe('Render summary of publications screen from alphabetical search list', () => {
-      beforeEach(async () => {
-        await alphabeticalSearchPage.open('/alphabetical-search');
-      });
-
-      it('Should select the first item from the alphabetical search list and navigate to SJP summary of publications', async () => {
-        summaryOfPublicationsPage = await alphabeticalSearchPage.selectSJPLink();
-        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
-      });
-
-      it('Should select the first item from the alphabetical search list and navigate to Alton Magistrates Court', async () => {
-        const aberdeenTribunalPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await aberdeenTribunalPage.getPageTitle()).toEqual('What do you want to view from Alton Magistrates Court?');
-      });
-    });
-    //TODO: need more steps
-
-    if (process.env.EXCLUDE_E2E === 'true') {
-      // TODO: needs review
-      describe('Render hearing list page when required', () => {
-        before(async () => {
-          await searchPage.open('/search');
-          hearingListPage = await searchPage.clickContinue();
-          await hearingListPage.open('hearing-list?courtId=68');
+      //TODO: enable once staging has valid SJP publication
+      if (process.env.EXCLUDE_E2E === 'true') {
+        it('should select first list item', async () => {
+          sjpPublicListPage = await singleJusticeProcedurePage.clickSOPListItem();
+          expect(await sjpPublicListPage.getPageTitle()).toEqual('Single Justice Procedure cases that are ready for hearing');
         });
-
-        it('should render the hearing list page', async () => {
-          expect(await hearingListPage.getPageTitle()).toEqual('Bradford Combined Court Centre hearing list');
-        });
-      });
-    }
-
+      }
+    });
   });
 
   describe('request an account', () => {
