@@ -41,12 +41,13 @@ export class SearchPage extends CommonPage {
     return new AlphabeticalSearchPage();
   }
 
-  async clickNavSJP(): Promise<SummaryOfPublicationsPage> {
-    $(helpers.BannerSJP).catch(() => {
-      console.log(`${helpers.BannerSJP} not found`);
+  async clickNavSJP(signedIn: boolean): Promise<SummaryOfPublicationsPage> {
+    const selector = signedIn ? 'SignedInBannerSJP' : 'BannerSJP';
+    $(helpers[selector]).catch(() => {
+      console.log(`${helpers[selector]} not found`);
     });
 
-    await $(helpers.BannerSJP).click();
+    await $(helpers[selector]).click();
     return new SummaryOfPublicationsPage();
   }
 }

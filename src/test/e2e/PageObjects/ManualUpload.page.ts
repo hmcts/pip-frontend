@@ -37,7 +37,7 @@ export class ManualUploadPage extends CommonPage {
       console.log(`${helpers.SearchInput} not found`);
     });
 
-    await $(helpers.SearchInput).addValue('Bolton Combined Court');
+    await $(helpers.SearchInput).addValue('Sevenoaks Magistrates Court And Family Court');
     await browser.keys('Escape');
   }
 

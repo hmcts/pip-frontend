@@ -1,6 +1,7 @@
 import { CommonPage } from './Common.page';
 import { DailyCauseListPage } from './DailyCauseList.page';
 import { SignInPage } from './SignIn.page';
+import { AccountHomePage } from './AccountHome.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -29,5 +30,14 @@ export class SummaryOfPublicationsPage extends CommonPage{
 
     await $(helpers.BannerSignIn).click();
     return new SignInPage();
+  }
+
+  async clickSignedInHomeBannerLink(): Promise<AccountHomePage> {
+    $(helpers.BannerHome).catch(() => {
+      console.log(`${helpers.BannerHome} not found`);
+    });
+
+    await $(helpers.BannerHome).click();
+    return new AccountHomePage();
   }
 }

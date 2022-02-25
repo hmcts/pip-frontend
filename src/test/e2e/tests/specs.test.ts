@@ -201,7 +201,7 @@ describe('Unverified user', () => {
     });
 
     it('should click on the SJP cases navigation link and take user to SJP list page', async () => {
-      summaryOfPublicationsPage = await searchPage.clickNavSJP();
+      summaryOfPublicationsPage = await searchPage.clickNavSJP(false);
       expect(await summaryOfPublicationsPage.getPageTitle()).toContain('What do you want to view');
     });
 
@@ -229,61 +229,62 @@ describe('Unverified user', () => {
   });
 });
 
-if (process.env.EXCLUDE_E2E === 'true') {
-  describe('Verified user', () => {
-    describe('Sign In Page', () => {
-      const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
+describe('Verified user', () => {
+  describe('Sign In Page', () => {
+    const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
 
-      it('should open sign-in page with \'How do you want to sign in\' title', async () => {
-        await signInPage.open('/sign-in');
-        expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
-      });
-
-      it('should see 3 radio buttons', async () => {
-        expect(await signInPage.radioButtons).toBe(3);
-      });
-
-      describe('sign in process and page routing', async () => {
-        it('should select \'Sign in with My HMCTS\' option and navigate to the login page HMCTS page', async () => {
-          await signInPage.open('/sign-in');
-          await signInPage.selectOption('SignInRadio1');
-          expect(await signInPage.clickContinueForRadio1()).toHaveHref(HMCTSAccountUrl);
-        });
-
-        it('should select \'Sign in with Common Platform\' option and navigate to the login page Common Platform page', async () => {
-          await signInPage.open('/sign-in');
-          await signInPage.selectOption('SignInRadio2');
-          expect(await signInPage.clickContinueForRadio2()).toHaveHref(HMCTSAccountUrl);
-        });
-
-        it('should select \'Sign in with my P&I details\' option, navigate to the login page, and sign in', async () => {
-          await signInPage.open('/sign-in');
-          await signInPage.selectOption('SignInRadio3');
-          await signInPage.clickContinueForRadio3();
-          console.log('B2C_USERNAME', config.get('secrets.pip-ss-kv.B2C_USERNAME'));
-          await signInPage.enterText(config.get('secrets.pip-ss-kv.B2C_USERNAME'), 'EmailField');
-          await signInPage.enterText(config.get('secrets.pip-ss-kv.B2C_PASSWORD'), 'PasswordField');
-          accountHomePage = await signInPage.clickSignIn();
-          await browser.pause(2000);
-        });
-
-        it('should open account home page on successful sign in', async () => {
-          expect(await accountHomePage.getPageTitle()).toBe('Your account');
-        });
-      });
+    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+      await signInPage.open('/sign-in');
+      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
     });
 
-    describe('add subscription', async () => {
-      it('should click on Email Subscriptions and navigate to subscription management page', async () => {
-        subscriptionManagementPage = await accountHomePage.clickSubscriptionsCard();
-        expect(await subscriptionManagementPage.getPageTitle()).toBe('Your subscriptions');
+    it('should see 3 radio buttons', async () => {
+      expect(await signInPage.radioButtons).toBe(3);
+    });
+
+    describe('sign in process and page routing', async () => {
+      it('should select \'Sign in with My HMCTS\' option and navigate to the login page HMCTS page', async () => {
+        await signInPage.open('/sign-in');
+        await signInPage.selectOption('SignInRadio1');
+        expect(await signInPage.clickContinueForRadio1()).toHaveHref(HMCTSAccountUrl);
       });
 
-      it('should navigate to add subscription page on button click', async () => {
-        subscriptionAddPage = await subscriptionManagementPage.clickAddNewSubscriptionButton();
-        expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
+      it('should select \'Sign in with Common Platform\' option and navigate to the login page Common Platform page', async () => {
+        await signInPage.open('/sign-in');
+        await signInPage.selectOption('SignInRadio2');
+        expect(await signInPage.clickContinueForRadio2()).toHaveHref(HMCTSAccountUrl);
       });
 
+      it('should select \'Sign in with my P&I details\' option, navigate to the login page, and sign in', async () => {
+        await signInPage.open('/sign-in');
+        await signInPage.selectOption('SignInRadio3');
+        await signInPage.clickContinueForRadio3();
+        console.log('B2C_USERNAME', config.get('secrets.pip-ss-kv.B2C_USERNAME'));
+        await signInPage.enterText(config.get('secrets.pip-ss-kv.B2C_USERNAME'), 'EmailField');
+        await signInPage.enterText(config.get('secrets.pip-ss-kv.B2C_PASSWORD'), 'PasswordField');
+        accountHomePage = await signInPage.clickSignIn();
+        await browser.pause(2000);
+      });
+
+      it('should open account home page on successful sign in', async () => {
+        expect(await accountHomePage.getPageTitle()).toBe('Your account');
+      });
+    });
+  });
+
+  describe('add subscription', async () => {
+    it('should click on Email Subscriptions and navigate to subscription management page', async () => {
+      subscriptionManagementPage = await accountHomePage.clickSubscriptionsCard();
+      expect(await subscriptionManagementPage.getPageTitle()).toBe('Your subscriptions');
+    });
+
+    it('should navigate to add subscription page on button click', async () => {
+      subscriptionAddPage = await subscriptionManagementPage.clickAddNewSubscriptionButton();
+      expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
+    });
+
+    //TODO: excluded URN as there are no any at the moment
+    if (process.env.EXCLUDE_E2E === 'true') {
       describe('following the URN path', async () => {
         const validSearchTerm = 'N363N6R4OG';
         const expectedNumOfResults = 1;
@@ -309,141 +310,189 @@ if (process.env.EXCLUDE_E2E === 'true') {
           expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
         });
       });
+    }
 
-      describe('following the case name path', async () => {
-        const validCaseName = 'jadon';
-        const casesCount = 1;
+    describe('following the case name path', async () => {
+      const validCaseName = 'Stark-v-Iron';
+      const casesCount = 1;
 
-        before(async () => {
-          await subscriptionAddPage.open('/subscription-add');
-        });
-
-        it('should open case name search path', async () => {
-          await subscriptionAddPage.selectOption('SubscriptionAddByCaseName');
-          caseNameSearchPage = await subscriptionAddPage.clickContinueForCaseName();
-          expect(await caseNameSearchPage.getPageTitle()).toBe('Enter a case name');
-        });
-
-        it('should search for a valid case name and navigate to results page', async () => {
-          await caseNameSearchPage.enterText(validCaseName);
-          caseNameSearchResultsPage = await caseNameSearchPage.clickContinue();
-          expect(await caseNameSearchResultsPage.getPageTitle()).toBe('Search result');
-        });
-
-        it(`should display ${casesCount} results`, async () => {
-          expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
-        });
-
-        it('should click continue to create subscription', async () => {
-          pendingSubscriptionsPage = await caseNameSearchResultsPage.clickContinue();
-          expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
-        });
-      });
-
-      describe('following court or tribunal page', async () => {
-        before(async () => {
-          await subscriptionAddPage.open('subscription-add');
-        });
-
-        it('should open court or tribunal name search page', async () => {
-          await subscriptionAddPage.selectOption('SubscriptionAddByCourtOrTribunal');
-          courtNameSearchPage = await subscriptionAddPage.clickContinueForCourtOrTribunal();
-          expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
-        });
-
-        it('should select first jurisdiction filter', async () => {
-          await courtNameSearchPage.selectOption('JurisdictionCheckbox');
-          expect(await courtNameSearchPage.jurisdictionChecked()).toBeTruthy();
-        });
-
-        it('should click on the apply filters button', async () => {
-          courtNameSearchPage = await courtNameSearchPage.clickApplyFiltersButton();
-          expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
-        });
-
-        it('should click continue to create subscription', async () => {
-          pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
-          expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
-        });
-
-        describe('Following the subscription \'search\' by case reference path', () => {
-          const validSearchTerm = 'T485913';
-          const expectedNumOfResults = 1;
-
-          before(async () => {
-            await subscriptionAddPage.open('subscription-add');
-          });
-
-          it('should select \'By case reference number\' option and navigate to search case number page', async () => {
-            await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
-            caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
-            expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
-          });
-
-          it('should enter text and click continue', async () => {
-            await caseReferenceNumberSearchPage.enterText(validSearchTerm);
-            caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
-            expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
-          });
-
-          it(`should display ${expectedNumOfResults} results`, async () => {
-            expect(await caseReferenceNumberSearchResultPage.getResults()).toBe(1);
-          });
-
-          it('should click continue to create subscription', async () => {
-            pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
-            expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
-          });
-        });
-      });
-    });
-
-    describe('add subscription', async () => {
       before(async () => {
-        await pendingSubscriptionsPage.open('pending-subscriptions');
+        await subscriptionAddPage.open('/subscription-add');
       });
 
-      it('should subscribe', async () => {
-        subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
-        expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
+      it('should open case name search path', async () => {
+        await subscriptionAddPage.selectOption('SubscriptionAddByCaseName');
+        caseNameSearchPage = await subscriptionAddPage.clickContinueForCaseName();
+        expect(await caseNameSearchPage.getPageTitle()).toBe('Enter a case name');
+      });
+
+      it('should search for a valid case name and navigate to results page', async () => {
+        await caseNameSearchPage.enterText(validCaseName);
+        caseNameSearchResultsPage = await caseNameSearchPage.clickContinue();
+        expect(await caseNameSearchResultsPage.getPageTitle()).toBe('Search result');
+      });
+
+      it(`should display ${casesCount} result(s)`, async () => {
+        expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseNameSearchResultsPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
 
-    describe('remove subscription', async () => {
+    describe('following court or tribunal path', async () => {
       before(async () => {
-        await subscriptionManagementPage.open('subscription-management');
+        await subscriptionAddPage.open('subscription-add');
       });
 
-      it('should click on the first unsubscribe record', async () => {
-        deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
-        expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
+      it('should open court or tribunal name search page', async () => {
+        await subscriptionAddPage.selectOption('SubscriptionAddByCourtOrTribunal');
+        courtNameSearchPage = await subscriptionAddPage.clickContinueForCourtOrTribunal();
+        expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
       });
 
-      it('should select yes option and unsubscribe', async () => {
-        await deleteSubscriptionPage.selectOption('yesRadioButton');
-        unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
-        expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+      it('should select first jurisdiction filter', async () => {
+        await courtNameSearchPage.selectOption('JurisdictionCheckbox');
+        expect(await courtNameSearchPage.jurisdictionChecked()).toBeTruthy();
+      });
+
+      it('should click on the apply filters button', async () => {
+        courtNameSearchPage = await courtNameSearchPage.clickApplyFiltersButton();
+        expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
 
-    describe('Admin level journeys', () => {
-      describe('Manual Upload', () => {
-        it('should open manual upload page', async () => {
-          await manualUploadPage.open('/manual-upload');
-          expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
-        });
+    describe('following the case reference number path', () => {
+      const validSearchTerm = 'H01CF553';
 
-        it('should complete form and open summary page', async () => {
-          await manualUploadPage.completeForm();
-          manualUploadSummaryPage = await manualUploadPage.clickContinue();
-          expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
-        });
+      before(async () => {
+        await subscriptionAddPage.open('subscription-add');
+      });
 
-        it('should open upload confirmation page', async () => {
-          fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
-          expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
-        });
+      it('should select \'By case reference number\' option and navigate to search case number page', async () => {
+        await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
+        caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
+        expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
+      });
+
+      it('should enter text and click continue', async () => {
+        await caseReferenceNumberSearchPage.enterText(validSearchTerm);
+        caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
+        expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
       });
     });
   });
-}
+
+  describe('add subscription', async () => {
+    before(async () => {
+      await pendingSubscriptionsPage.open('pending-subscriptions');
+    });
+
+    it('should subscribe', async () => {
+      subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
+      expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
+    });
+  });
+
+  describe('remove subscription', async () => {
+    before(async () => {
+      await subscriptionManagementPage.open('subscription-management');
+    });
+
+    it('should click on the first unsubscribe record', async () => {
+      deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
+      expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
+    });
+
+    it('should select yes option and unsubscribe', async () => {
+      await deleteSubscriptionPage.selectOption('yesRadioButton');
+      unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
+      expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+    });
+  });
+
+  describe('Admin level journeys', () => {
+    describe('Manual Upload', () => {
+      it('should open manual upload page', async () => {
+        await manualUploadPage.open('/manual-upload');
+        expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
+      });
+
+      it('should complete form and open summary page', async () => {
+        await manualUploadPage.completeForm();
+        manualUploadSummaryPage = await manualUploadPage.clickContinue();
+        expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+      });
+
+      it('should open upload confirmation page', async () => {
+        fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
+        expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
+      });
+    });
+  });
+
+  describe('banner navigation', () => {
+    before(async () => {
+      await accountHomePage.open('account-home');
+    });
+
+    it('should click on the Email subscriptions navigation link and take user to subscription management page', async () => {
+      subscriptionManagementPage = await accountHomePage.clickEmailSubscriptionsNavLink();
+      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
+    });
+
+    it('should click on the Find a court or tribunal navigation link and take user to the search page', async () => {
+      searchPage = await subscriptionManagementPage.clickFindCourtNavLink();
+      expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
+    });
+
+    it('should click on the SJP cases navigation link and take user to the sjp page', async () => {
+      summaryOfPublicationsPage = await searchPage.clickNavSJP(true);
+      expect(await summaryOfPublicationsPage.getPageTitle()).toContain('What do you want to view');
+    });
+
+    it('should click on the Home navigation link and take user to your account page', async () => {
+      accountHomePage = await summaryOfPublicationsPage.clickSignedInHomeBannerLink();
+      expect(await accountHomePage.getPageTitle()).toEqual('Your account');
+    });
+  });
+
+  describe('account home cards navigation', () => {
+    beforeEach(async () => {
+      await accountHomePage.open('account-home');
+    });
+
+    it('should click on the Court card and take user to the search page', async () => {
+      searchPage = await accountHomePage.clickCourtCard();
+      expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
+    });
+
+    it('should click on the SJP card and take user to the sjp list', async () => {
+      summaryOfPublicationsPage = await accountHomePage.clickSJPCard();
+      expect(await summaryOfPublicationsPage.getPageTitle()).toContain('What do you want to view');
+    });
+  });
+
+  describe('sign out', () => {
+    before(async () => {
+      await accountHomePage.open('account-home');
+    });
+
+    it('should sign out and open view-option page', async () => {
+      viewOptionPage = await accountHomePage.clickSignOut();
+      expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+    });
+  });
+});
