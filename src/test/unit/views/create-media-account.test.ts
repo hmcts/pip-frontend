@@ -47,7 +47,7 @@ describe('Create Media Account page', () => {
     it('should contain image upload', () => {
       const imageUpload = htmlRes.getElementById('file-upload');
       expect(imageUpload.getAttribute('type')).equals('file', 'Could not find image upload');
-      expect(htmlRes.getElementsByClassName('govuk-label')[3].innerHTML).contains('Must be a JPG, PNG, TIFF, or PDF file', 'Could not image upload label');
+      expect(htmlRes.getElementsByClassName('govuk-label')[3].innerHTML).contains('Must be a jpg, pdf, png, or tiff file', 'Could not find image upload label');
     });
 
     it('should display clear photo paragraph', () => {
