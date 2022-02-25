@@ -62,8 +62,7 @@ let interstitialPage: InterstitialPage;
 let accountHomePage: AccountHomePage;
 let dailyCauseListPage: DailyCauseListPage;
 let sjpPublicListPage: SJPPublicListPage;
-
-const signInPage = new SignInPage;
+let signInPage: SignInPage;
 const manualUploadPage = new ManualUploadPage;
 
 describe('Unverified user', () => {
@@ -186,11 +185,33 @@ describe('Unverified user', () => {
     });
   });
 
-  describe('request an account', () => {
+  describe('banner navigation', () => {
     before(async () => {
-      await signInPage.open('/sign-in');
+      await alphabeticalSearchPage.open('/alphabetical-search');
     });
 
+    it('should click on the Home navigation link and take user to view option page', async () => {
+      viewOptionPage = await alphabeticalSearchPage.clickNavHome();
+      expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+    });
+
+    it('should click on the Find a court or tribunal navigation link and take user to search page', async () => {
+      searchPage = await viewOptionPage.clickFindACourtBannerLink();
+      expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
+    });
+
+    it('should click on the SJP cases navigation link and take user to SJP list page', async () => {
+      summaryOfPublicationsPage = await searchPage.clickNavSJP();
+      expect(await summaryOfPublicationsPage.getPageTitle()).toContain('What do you want to view');
+    });
+
+    it('should click on the Sign in navigation link and take user to the sign in page', async () => {
+      signInPage = await summaryOfPublicationsPage.clickSignInBannerLink();
+      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+    });
+  });
+
+  describe('request an account', () => {
     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
     });

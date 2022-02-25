@@ -1,6 +1,7 @@
 import { HearingListPage } from './HearingList.page';
 import { CommonPage } from './Common.page';
 import { SummaryOfPublicationsPage } from './SummaryOfPublications.page';
+import { ViewOptionPage } from './ViewOption.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -44,8 +45,7 @@ export class AlphabeticalSearchPage extends CommonPage {
       console.log(`${helpers.SecondItemResult} not found`);
     });
 
-    const secondItem = await $(helpers.SecondItemResult);
-    secondItem.click();
+    await $(helpers.SecondItemResult).click();
     return new HearingListPage();
   }
 
@@ -53,9 +53,17 @@ export class AlphabeticalSearchPage extends CommonPage {
     await $(helpers.SJPLink).catch(() => {
       console.log(`${helpers.SJPLink} not found`);
     });
-    const sjpLink = await $(helpers.SJPLink);
-    sjpLink.click();
+    await $(helpers.SJPLink).click();
     return new SummaryOfPublicationsPage();
+  }
+
+  async clickNavHome(): Promise<ViewOptionPage> {
+    $(helpers.BannerHome).catch(() => {
+      console.log(`${helpers.BannerHome} not found`);
+    });
+
+    await $(helpers.BannerHome).click();
+    return new ViewOptionPage();
   }
 
 }

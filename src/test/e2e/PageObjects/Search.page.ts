@@ -28,8 +28,7 @@ export class SearchPage extends CommonPage {
       console.log(`${helpers.ContinueButton} not found`);
     });
 
-    const button = await $(helpers.ContinueButton);
-    button.click();
+    await $(helpers.ContinueButton).click();
     return new SummaryOfPublicationsPage();
   }
 
@@ -38,9 +37,16 @@ export class SearchPage extends CommonPage {
       console.log(`${helpers.SearchAToZLink} not found`);
     });
 
-    const button = await $(helpers.SearchAToZLink);
-    button.click();
+    await $(helpers.SearchAToZLink).click();
     return new AlphabeticalSearchPage();
   }
 
+  async clickNavSJP(): Promise<SummaryOfPublicationsPage> {
+    $(helpers.BannerSJP).catch(() => {
+      console.log(`${helpers.BannerSJP} not found`);
+    });
+
+    await $(helpers.BannerSJP).click();
+    return new SummaryOfPublicationsPage();
+  }
 }

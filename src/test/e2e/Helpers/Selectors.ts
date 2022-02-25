@@ -137,4 +137,10 @@ module.exports = {
 
   // SummaryOfPublications selectors
   SOPListItem: '.das-search-results__link',
+
+  // Banner navigation selectors
+  BannerHome: '.moj-sub-navigation__item:first-child',
+  BannerFindCourt: '.moj-sub-navigation__item:nth-child(2)',
+  BannerSJP: '.moj-sub-navigation__item:nth-child(3)',
+  BannerSignIn: '.moj-sub-navigation__item:nth-child(4)',
 };

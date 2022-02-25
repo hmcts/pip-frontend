@@ -1,5 +1,6 @@
 import { CommonPage } from './Common.page';
 import { DailyCauseListPage } from './DailyCauseList.page';
+import { SignInPage } from './SignIn.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -19,5 +20,14 @@ export class SummaryOfPublicationsPage extends CommonPage{
 
     await $(helpers.SOPListItem).click();
     return new DailyCauseListPage();
+  }
+
+  async clickSignInBannerLink(): Promise<SignInPage> {
+    $(helpers.BannerSignIn).catch(() => {
+      console.log(`${helpers.BannerSignIn} not found`);
+    });
+
+    await $(helpers.BannerSignIn).click();
+    return new SignInPage();
   }
 }
