@@ -15,7 +15,7 @@ const fieldSetClass = 'govuk-fieldset';
 const dateInputClass = 'govuk-date-input';
 
 const expectedHeader = 'Manual upload';
-const expectedFileQuestion = 'Manually upload a JSON, CSV, PDF, Word, HTM or HTML file, max size 2MB';
+const expectedFileQuestion = 'Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB';
 const expectedFileInputType = 'file';
 const expectedCourtNameQuestion = 'Court name';
 const expectedCourtNameContainer = 'search-input-container';
