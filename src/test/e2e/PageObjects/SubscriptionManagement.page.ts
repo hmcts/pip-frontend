@@ -2,7 +2,6 @@ import { SubscriptionAddPage } from './SubscriptionAdd.page';
 import { DeleteSubscriptionPage } from './DeleteSubscription.page';
 import { CommonPage } from './Common.page';
 import { SearchPage } from './Search.page';
-import { AccountHomePage } from './AccountHome.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -32,14 +31,5 @@ export class SubscriptionManagementPage extends CommonPage {
 
     await $(helpers.SignedInBannerFindCourt).click();
     return new SearchPage();
-  }
-
-  async clickSignedInHomeBannerLink(): Promise<AccountHomePage> {
-    $(helpers.BannerHome).catch(() => {
-      console.log(`${helpers.BannerHome} not found`);
-    });
-
-    await $(helpers.BannerHome).click();
-    return new AccountHomePage();
   }
 }
