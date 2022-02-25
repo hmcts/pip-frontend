@@ -1,12 +1,23 @@
 import {PublicationRequests} from '../resources/requests/publicationRequests';
 import {Artefact} from '../models/Artefact';
 import {SearchObject} from '../models/searchObject';
-import {Publication} from '../models/publication';
 import moment from 'moment';
 
 const publicationRequests = new PublicationRequests();
 
 export class PublicationService {
+
+  public async getIndividualPublicationMetadata(artefactId, verification: boolean): Promise<any> {
+    return publicationRequests.getIndividualPublicationMetadata(artefactId, verification);
+  }
+
+  public async getIndividualPublicationFile(artefactId, verification: boolean): Promise<Blob> {
+    return publicationRequests.getIndividualPublicationFile(artefactId, verification);
+  }
+
+  public async getIndividualPublicationJson(artefactId, verification: boolean): Promise<JSON> {
+    return publicationRequests.getIndividualPublicationJson(artefactId, verification);
+  }
 
   public async getCasesByCaseName(caseName: string, verified: boolean): Promise<SearchObject[]> {
     const artefacts = await publicationRequests.getPublicationByCaseValue('CASE_NAME', caseName, verified);
@@ -27,19 +38,7 @@ export class PublicationService {
     return await publicationRequests.getPublicationsByCourt(courtId, verified);
   }
 
-  public async getPublications(courtId, verification: boolean): Promise<Publication[]> {
-    return publicationRequests.getListOfPubs(courtId, verification);
-  }
-
-  public async getIndivPubMetadata(artefactId, verification: boolean): Promise<any> {
-    return publicationRequests.getIndividualPubMetadata(artefactId, verification);
-  }
-
-  public async getIndivPubJson(artefactId, verification: boolean): Promise<string> {
-    return publicationRequests.getIndividualPubJson(artefactId, verification);
-  }
-
-  public calculateHearingSessionTime(searchResults: string): void {
+  public calculateHearingSessionTime(searchResults: JSON): void {
     let hearingCount = 0;
     searchResults['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
@@ -77,7 +76,6 @@ export class PublicationService {
       });
     });
   }
-
   private getCaseFromArtefact(artefact: Artefact, term: string, value: string): SearchObject {
     let foundObject: SearchObject = null;
     artefact?.search.cases.forEach(singleCase => {

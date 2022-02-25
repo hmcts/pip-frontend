@@ -7,14 +7,14 @@ let htmlRes;
 const NON_SIGNED_IN_LINKS = {
   Home: 'view-option',
   'Find a court or tribunal': 'search',
-  'Single Justice Procedure cases': 'single-justice-procedure',
+  'Single Justice Procedure cases': 'summary-of-publications?courtId=0',
   'Sign in': 'sign-in',
 };
 const SIGNED_IN_LINKS = {
   Home: 'account-home',
   'Email subscriptions': 'subscription-management',
   'Find a court or tribunal': 'search',
-  'Single Justice Procedure cases': 'single-justice-procedure',
+  'Single Justice Procedure cases': 'summary-of-publications?courtId=0',
   'Sign out': 'logout',
 };
 
