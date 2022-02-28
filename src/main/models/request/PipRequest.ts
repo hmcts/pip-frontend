@@ -26,6 +26,7 @@ export interface PipRequest extends Request {
       'manual-upload-summary': {};
       'not-found': {};
       'otp-template': {};
+      'remove-list-search': {};
       'search': {};
       'search-results': {};
       'session-management': {};
