@@ -23,7 +23,7 @@
  {% elif role.partyRole == "PROSECUTOR" %}
   {% set prosecutor = [role.individualDetails.individualForenames, " ", role.individualDetails.individualSurname] | join %}
   {% endif %}
-  {% set offence = item.hearing[0].offence.offenceTitle %}
+  {% set offence = item.hearing[0].offence[0].offenceTitle %}
   {% if accused and prosecutor and postcode and offence %}
 
     {% set _ = sjpCase.push([
