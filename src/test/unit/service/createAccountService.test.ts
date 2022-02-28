@@ -26,10 +26,6 @@ const responseErrors = {
     message: null,
     href: '#employer',
   },
-  fileUploadError: {
-    message: 'The selected file must be a JPG, PNG, TIF or PDF',
-    href: '#file-upload',
-  },
 };
 
 const responseNoErrors = {
@@ -45,10 +41,6 @@ const responseNoErrors = {
     message: null,
     href: '#employer',
   },
-  fileUploadError: {
-    message: null,
-    href: '#file-upload',
-  },
 };
 
 describe('Create Account Service', () => {
@@ -59,20 +51,6 @@ describe('Create Account Service', () => {
 
     it('should return false for invalid image type', () => {
       expect(createAccountService.isValidImageType('bar.gif')).toBe(false);
-    });
-  });
-
-  describe('validateImage', () => {
-    it('should return null if valid image is provided', () => {
-      expect(createAccountService.validateImage('foo.jpg')).toBe(null);
-    });
-
-    it('should return error message is image is not provided', () => {
-      expect(createAccountService.validateImage('')).toBe('Select a file to upload');
-    });
-
-    it('should return error message is unsupported format image is provided', () => {
-      expect(createAccountService.validateImage('bar.gif')).toBe('The selected file must be a JPG, PNG, TIF or PDF');
     });
   });
 

@@ -1,11 +1,10 @@
-import {SummaryOfPublicationsRequests} from '../resources/requests/summaryOfPublicationsRequests';
-import {Publication} from '../models/publication';
+import {PublicationRequests} from '../resources/requests/publicationRequests';
+import {Artefact} from '../models/Artefact';
 
-const PublicationReqs = new SummaryOfPublicationsRequests();
+const publicationRequests = new PublicationRequests();
 
 export class SummaryOfPublicationsService {
-
-  public async getPublications(courtId, verification: boolean): Promise<Publication[]> {
-    return PublicationReqs.getListOfPubs(courtId, verification);
+  public async getPublications(courtId, verification: boolean): Promise<Artefact[]> {
+    return publicationRequests.getPublicationsByCourt(courtId, verification);
   }
 }

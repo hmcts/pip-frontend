@@ -47,7 +47,7 @@ describe('Create Media Account page', () => {
     it('should contain image upload', () => {
       const imageUpload = htmlRes.getElementById('file-upload');
       expect(imageUpload.getAttribute('type')).equals('file', 'Could not find image upload');
-      expect(htmlRes.getElementsByClassName('govuk-label')[3].innerHTML).contains('Must be a JPG, PNG, TIFF, or PDF file', 'Could not image upload label');
+      expect(htmlRes.getElementsByClassName('govuk-label')[3].innerHTML).contains('Must be a jpg, pdf, png, or tiff file', 'Could not find image upload label');
     });
 
     it('should display clear photo paragraph', () => {
@@ -79,14 +79,14 @@ describe('Create Media Account page', () => {
         .contains('There is a problem', 'Could not find error dialog title');
     });
 
-    it('should display error messages in th the dialog', () => {
+    it('should display error messages in the dialog', () => {
       const list = htmlRes.getElementsByClassName(' govuk-error-summary__list')[0];
       const listItems = list.getElementsByTagName('a');
       expect(listItems.length).to.equal(4, 'Could not find all error messages');
       expect(listItems[0].innerHTML).contains('Enter your full name', 'Could not find name error');
       expect(listItems[1].innerHTML).contains('Enter your email address', 'Could not find email error');
       expect(listItems[2].innerHTML).contains('Enter your employer', 'Could not find employer error');
-      expect(listItems[3].innerHTML).contains('Select a file to upload', 'Could not find file error');
+      expect(listItems[3].innerHTML).contains('Please provide a file', 'Could not find file error');
     });
 
     it('should display name error message', () => {
@@ -112,7 +112,7 @@ describe('Create Media Account page', () => {
 
     it('should display image upload error message', () => {
       const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
-      expect(errorMessage[3].innerHTML).contains('Select a file to upload', 'Could not find image upload error message');
+      expect(errorMessage[3].innerHTML).contains('Please provide a file', 'Could not find image upload error message');
     });
   });
 });
