@@ -1,7 +1,7 @@
-import { PipRequest } from '../models/request/PipRequest';
-import { Response } from 'express';
-import { cloneDeep } from 'lodash';
-import { ManualUploadService } from '../service/manualUploadService';
+import {PipRequest} from '../models/request/PipRequest';
+import {Response} from 'express';
+import {cloneDeep} from 'lodash';
+import {ManualUploadService} from '../service/manualUploadService';
 
 const manualUploadService = new ManualUploadService();
 

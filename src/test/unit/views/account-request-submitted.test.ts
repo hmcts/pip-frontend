@@ -2,7 +2,7 @@ import { app } from '../../../main/app';
 import { expect } from 'chai';
 import request from 'supertest';
 
-const PAGE_URL = '/account-request-submitted';
+const PAGE_URL = '/account-request-submitted?reference=ABCD1234';
 let htmlRes: Document;
 
 describe('Account request submitted page', () => {

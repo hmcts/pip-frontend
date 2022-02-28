@@ -31,7 +31,6 @@ describe('Subscriptions Urn Search Result Controller', () => {
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n['subscription-urn-search-results'],
-
       searchResults: subscriptionsData,
     };
 

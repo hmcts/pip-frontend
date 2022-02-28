@@ -1,6 +1,30 @@
 import { allowedImageTypes } from '../models/consts';
 
 export class CreateAccountService {
+
+  public async uploadCreateAccount(data: any): Promise<any> {
+    return 'ABCD1234';
+    //TODO: uncomment after PUB-1079
+    // return await accountManagementRequests.uploadNewAccountRequest(
+    //   data,
+    //   this.generatePublicationUploadHeaders(data),
+    // );
+  }
+
+  public generatePublicationUploadHeaders(headers): object {
+    return {
+      'x-provenance': 'CREATE_ACCOUNT',
+      'x-source-file-name': headers.fileName,
+      'x-full-name': headers['fullName'],
+      'x-email-address': headers['emailAddress'],
+      'x-employer': headers['employer'],
+    };
+  }
+  public getFileExtension(fileName: string): string {
+    const regex = /(?:\.([^.]+))?$/;
+    return regex.exec(fileName)[1];
+  }
+
   public validateFormFields(formValues: object): object {
     return {
       nameError: {
@@ -15,11 +39,24 @@ export class CreateAccountService {
         message: this.isNotBlank(formValues['employer']) ? null : 'Enter your employer',
         href: '#employer',
       },
-      fileUploadError: {
-        message:this.validateImage(formValues['file-upload']),
-        href: '#file-upload',
-      },
     };
+  }
+
+  public validateFileUpload(file: File): string {
+    if (file) {
+      if (this.isValidImageType(file['originalname'])) {
+        if (this.isFileCorrectSize(file.size)) {
+          return null;
+        }
+        return 'File too large, please upload file smaller than 2MB';
+      }
+      return 'Please upload a valid file format';
+    }
+    return 'Please provide a file';
+  }
+
+  isFileCorrectSize(fileSize: number): boolean {
+    return fileSize <= 2000000;
   }
 
   isValidImageType(imageName: string): boolean {
@@ -48,15 +85,4 @@ export class CreateAccountService {
     return message;
   }
 
-  validateImage(image: string): string {
-    let message = null;
-    if (this.isNotBlank(image)) {
-      if(!this.isValidImageType(image)) {
-        message = 'The selected file must be a JPG, PNG, TIF or PDF';
-      }
-    } else {
-      message = 'Select a file to upload';
-    }
-    return message;
-  }
 }

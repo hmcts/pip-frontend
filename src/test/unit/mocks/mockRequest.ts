@@ -11,10 +11,12 @@ export const mockRequest = (data: any): PipRequest => {
       username: '',
       userType: 'media',
     },
+    cookies: {},
   };
   req.body = jest.fn().mockReturnValue(req);
   req.i18n.getDataByLanguage = jest.fn().mockReturnValue(data);
   req.user = jest.fn().mockReturnValue(req);
   req.file = jest.fn().mockReturnValue(req);
+  req.cookies = jest.fn().mockReturnValue(req);
   return req;
 };

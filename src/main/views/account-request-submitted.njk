@@ -1,23 +1,25 @@
 {% extends "template.njk" %}
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "./macros/common-components.njk" import goBack, submitButton %}
 
 {% block pageTitle %}
-    {{ title }}
+  {{ title }}
 {% endblock %}
 {% block beforeContent %}
-    {{ super() }}
+  {{ super() }}
+  {{ goBack() }}
 {% endblock %}
 {% block content %}
-    <div class="govuk-!-width-two-thirds">
-        {% set panelContent = panelMessage +'<br><strong>ABC123</strong>' %}
-        {{ govukPanel({
-            titleText: panelTitle,
-            html: panelContent
-        }) }}
-        <p class="govuk-body">{{ confirmationSent }}</p>
-        <p class="govuk-heading-m">{{ nextMessage }}</p>
-        <p class="govuk-body">{{ reviewMessage }}</p>
-        <p class="govuk-body">{{ moreInformationMessage }}</p>
-        <p class="govuk-body">{{ contactUsMessage }}</p>
-    </div>
+    {% if reference | length > 0 %}
+      {% set panelContent = panelMessage + '<br><strong>' + reference + '</strong>' %}
+      {{ govukPanel({
+        titleText: panelTitle,
+        html: panelContent
+      }) }}
+      <p class="govuk-body">{{ confirmationSent }}</p>
+      <p class="govuk-heading-m">{{ nextMessage }}</p>
+      <p class="govuk-body">{{ reviewMessage }}</p>
+      <p class="govuk-body">{{ moreInformationMessage }}</p>
+      <p class="govuk-body">{{ contactUsMessage }}</p>
+    {% endif %}
 {% endblock %}
