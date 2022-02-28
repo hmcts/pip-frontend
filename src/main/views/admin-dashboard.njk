@@ -22,7 +22,16 @@
                            id="card-{{ card.link }}"
                         >{{ card.title }}</a>
                     </p>
-                    <p class="govuk-body">{{ card.description }}</p>
+                    {% if card.description %}
+                        <p class="govuk-body">{{ card.description }}</p>
+                    {% else %}
+                        <ul class="govuk-list govuk-list--bullet">
+                            {{ card.unorderedList }}
+                            {% for item in card.listItems %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}

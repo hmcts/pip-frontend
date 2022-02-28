@@ -20,7 +20,14 @@ const cards = [
     title: 'Manage Media accounts',
     description: 'Assess, approve, and reject new media account requests.',
     link: 'manage-media-accounts',
-  }];
+  },
+  {
+    title: 'Create New Administrator Account',
+    unorderedList: 'Create:',
+    listItems: ['System Admin', 'Super Admin CTSC', 'Super Admin Local', 'Admin CTSC', 'Admin Local'],
+    link: '#',
+  },
+];
 let htmlRes: Document;
 
 describe('Admin Dashboard page', () => {
@@ -49,7 +56,22 @@ describe('Admin Dashboard page', () => {
       const description = adminCards[i].getElementsByTagName('p')[1];
       expect(link.innerHTML).contains(cards[i].title);
       expect(link.getAttribute('href')).contains(cards[i].link);
-      expect(description.innerHTML).contains(cards[i].description);
+      // ignore last element as it doesn't have description
+      if (i !== cards.length -1) {
+        expect(description.innerHTML).contains(cards[i].description);
+      }
+    }
+  });
+
+  it('last card should contain unordered list with 5 list items', () => {
+    const lastElement = cards.length - 1;
+    const listItems = htmlRes.getElementsByClassName('account-card')[lastElement]
+      .getElementsByClassName('govuk-list--bullet')[0];
+    const elementsCount = listItems.getElementsByTagName('li').length;
+    expect(elementsCount).equal(5);
+    expect(listItems.innerHTML).contains('Create:');
+    for (let j = 0; j < elementsCount; j++) {
+      expect(listItems.getElementsByTagName('li')[j].innerHTML).contains(cards[lastElement].listItems[j]);
     }
   });
 });

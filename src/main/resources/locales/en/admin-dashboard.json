@@ -16,6 +16,12 @@
       "title": "Manage Media accounts",
       "description": "Assess, approve, and reject new media account requests.",
       "link": "manage-media-accounts"
+    },
+    {
+      "title": "Create New Administrator Account",
+      "unorderedList": "Create:",
+      "listItems": ["System Admin", "Super Admin CTSC", "Super Admin Local", "Admin CTSC", "Admin Local"],
+      "link": "#"
     }
   ]
 }
