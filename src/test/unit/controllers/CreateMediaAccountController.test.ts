@@ -123,5 +123,25 @@ describe('Create Media Account Controller', () => {
       await createMediaAccountController.post(request, response);
       responseMock.verify();
     });
+
+    it('should render error page if api fails', async () => {
+      sinon.restore();
+      sinon.stub(ManualUploadService.prototype, 'readFile').returns('');
+      sinon.stub(ManualUploadService.prototype, 'removeFile').returns('');
+      sinon.stub(CreateAccountService.prototype, 'isValidImageType').returns(true);
+      sinon.stub(CreateAccountService.prototype, 'isFileCorrectSize').returns(true);
+      const referenceStub = sinon.stub(CreateAccountService.prototype, 'uploadCreateAccount');
+      referenceStub.withArgs(validBody).returns(null);
+      fileValidationStub.withArgs(testFile).returns();
+
+      response = { render: () => {return '';}} as unknown as Response;
+      const responseMock = sinon.mock(response);
+      request.body = validBody;
+
+      responseMock.expects('render').once().withArgs('error');
+
+      await createMediaAccountController.post(request, response);
+      responseMock.verify();
+    });
   });
 });
