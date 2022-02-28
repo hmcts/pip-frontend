@@ -14,7 +14,7 @@
     </div>
     <div class="cards-wrapper">
         {% for card in cards %}
-            <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+            <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
                 <div class="account-card govuk-!-margin-left-2 govuk-!-margin-right-2">
                     <p>
                         <a href="{{ card.link }}"
@@ -22,16 +22,7 @@
                            id="card-{{ card.link }}"
                         >{{ card.title }}</a>
                     </p>
-                    {% if card.description %}
-                        <p class="govuk-body">{{ card.description }}</p>
-                    {% else %}
-                        <ul class="govuk-list govuk-list--bullet">
-                            {{ card.unorderedList }}
-                            {% for item in card.listItems %}
-                                <li>{{ item }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
+                    <p class="govuk-body">{{ card.description }}</p>
                 </div>
             </div>
         {% endfor %}

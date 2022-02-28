@@ -13,14 +13,13 @@
       "link": "remove-list-search"
     },
     {
-      "title": "Manage Media accounts",
-      "description": "Assess, approve, and reject new media account requests.",
+      "title": "Manage media account request",
+      "description": "CTSC assess new media account applications.",
       "link": "manage-media-accounts"
     },
     {
-      "title": "Create New Administrator Account",
-      "unorderedList": "Create:",
-      "listItems": ["System Admin", "Super Admin CTSC", "Super Admin Local", "Admin CTSC", "Admin Local"],
+      "title": "Create new account",
+      "description": "Create accounts for: System Admin, CTSC Super Admin, Local Super Admin, CTSC Admin, Local Admin.",
       "link": "#"
     }
   ]

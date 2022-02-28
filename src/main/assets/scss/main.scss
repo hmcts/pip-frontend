@@ -433,13 +433,22 @@ div {
     max-width: 33.33%;
   }
 
+  .admin-card {
+    flex: 50%;
+    max-width: 50%;
+
+    @media (max-width: 640px) {
+      flex: 100%;
+      max-width: 100%;
+    }
+  }
+
   @media (max-width: 640px) {
     > div {
       flex: 100%;
       max-width: 100%;
     }
   }
-
 
   .account-card {
     background-color: govuk-colour('light-grey');
