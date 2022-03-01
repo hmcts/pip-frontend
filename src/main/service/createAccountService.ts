@@ -2,9 +2,10 @@ import { allowedImageTypes } from '../models/consts';
 
 export class CreateAccountService {
 
-  public async uploadCreateAccount(data: any): Promise<any> {
+  public async uploadCreateAccount(): Promise<any> {
     return 'ABCD1234';
     //TODO: uncomment after PUB-1079
+    // (data: any)
     // return await accountManagementRequests.uploadNewAccountRequest(
     //   data,
     //   this.generatePublicationUploadHeaders(data),

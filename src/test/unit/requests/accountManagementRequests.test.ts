@@ -14,7 +14,7 @@ const errorMessage = {
   message: 'test',
 };
 const mockUploadFileBody = {file: '', fileName: ''};
-const mockUploadFileHeaders = {'foo': 'bar', "Content-Type": "multipart/form-data"};
+const mockUploadFileHeaders = {'foo': 'bar', 'Content-Type': 'multipart/form-data'};
 const fileUploadAPI = new AccountManagementRequests();
 
 describe('Account Management requests', () => {
