@@ -1,10 +1,6 @@
 import {accountManagementApi} from './utils/axiosConfig';
 
-//const superagent = require('superagent');
-
 export class AccountManagementRequests {
-  public accountManagementApi = process.env.ACCOUNT_MANAGEMENT_URL || 'https://pip-account-management.staging.platform.hmcts.net';
-
   public async uploadNewAccountRequest(body: any, headers: object): Promise<any> {
     try {
       const response = await accountManagementApi.post('/account/create', body, {headers});

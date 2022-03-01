@@ -20,11 +20,11 @@ const invalidBody = {
 };
 const responseErrors = {
   nameError: {
-    message:  'error',
+    message:  'Enter your full name',
     href: '#fullName',
   },
   emailError: {
-    message: null,
+    message: 'Enter an email address in the correct format, like name@example.com',
     href: '#emailAddress',
   },
   employerError: {
@@ -34,7 +34,7 @@ const responseErrors = {
 };
 
 const errors = {
-  fileErrors: 'error',
+  fileErrors: 'Please upload a valid file format',
   formErrors: responseErrors,
 };
 
@@ -62,6 +62,9 @@ fileValidationStub.returns('error');
 fileValidationStub.withArgs(testFile).returns();
 
 describe('Create Media Account Controller', () => {
+  beforeEach(() => {
+    sinon.restore();
+  });
   const i18n = {'create-media-account': {}};
   let response = { render: () => {return '';}} as unknown as Response;
   const request = mockRequest(i18n);
@@ -85,12 +88,10 @@ describe('Create Media Account Controller', () => {
   describe('post requests', () => {
     it('should render create media account page', async () => {
       request.body = invalidBody;
-      const referenceStub = sinon.stub(CreateAccountService.prototype, 'uploadCreateAccount');
-      referenceStub.withArgs(validBody).returns('ABCD1234');
       response = { render: () => {return '';},
         cookie: () => {return invalidBody;}} as unknown as Response;
       const responseMock = sinon.mock(response);
-
+      formStub.withArgs(invalidBody).returns(responseErrors);
       const expectedOptions = {
         ...i18n['create-media-account'],
         errors: errors,
@@ -104,7 +105,6 @@ describe('Create Media Account Controller', () => {
     });
 
     it('should redirect to confirmation page', async () => {
-      sinon.restore();
       sinon.stub(ManualUploadService.prototype, 'readFile').returns('');
       sinon.stub(ManualUploadService.prototype, 'removeFile').returns('');
       sinon.stub(CreateAccountService.prototype, 'isValidImageType').returns(true);
@@ -125,7 +125,6 @@ describe('Create Media Account Controller', () => {
     });
 
     it('should render error page if api fails', async () => {
-      sinon.restore();
       sinon.stub(ManualUploadService.prototype, 'readFile').returns('');
       sinon.stub(ManualUploadService.prototype, 'removeFile').returns('');
       sinon.stub(CreateAccountService.prototype, 'isValidImageType').returns(true);

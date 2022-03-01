@@ -47,7 +47,7 @@ export class CreateAccountService {
 
   public validateFileUpload(file: File): string {
     if (file) {
-      if (this.isValidImageType(file['originalname'])) {
+      if (this.isValidImageType(this.getFileExtension(file['originalname']))) {
         if (this.isFileCorrectSize(file.size)) {
           return null;
         }
@@ -63,8 +63,12 @@ export class CreateAccountService {
   }
 
   isValidImageType(imageName: string): boolean {
-    const imageType = imageName.split('.')[1]?.toLocaleLowerCase();
-    return allowedImageTypes.includes(imageType);
+    if (imageName) {
+      const imageType = imageName.split('.')[1]?.toLocaleLowerCase();
+      return allowedImageTypes.includes(imageType);
+    } else {
+      return false;
+    }
   }
 
   isNotBlank(input): boolean {
