@@ -1,6 +1,6 @@
 {
   "title": "Courts and tribunals listing - GOV.UK",
-  "header": "Confirm your subscriptions",
+  "header": "Confirm your email subscriptions",
   "removeText": "Remove",
   "table": {
     "header1": "Unique reference number (URN)",
@@ -10,5 +10,10 @@
   },
   "buttonText": "Confirm Subscriptions",
   "addOther_link": "/subscription-add",
-  "addOther_text": "Add another"
+  "addOther_text": "Add another",
+  "buttonAddText": "Add Subscriptions",
+  "error": {
+    "title": "There is a problem",
+    "message": "At least 1 subscription is needed."
+  }
 }
