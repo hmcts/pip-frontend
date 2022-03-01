@@ -18,6 +18,7 @@ export class CreateAccountService {
       'x-full-name': headers['fullName'],
       'x-email-address': headers['emailAddress'],
       'x-employer': headers['employer'],
+      'Content-Type': 'multipart/form-data',
     };
   }
   public getFileExtension(fileName: string): string {
