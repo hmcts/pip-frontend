@@ -78,11 +78,11 @@ describe('Create Account Service', () => {
 
   describe('isValidImageType', () => {
     it('should return true for valid image type', () => {
-      expect(createAccountService.isValidImageType('foo.jpg')).toBe(true);
+      expect(createAccountService.isValidImageType('jpg')).toBe(true);
     });
 
     it('should return false for invalid image type', () => {
-      expect(createAccountService.isValidImageType('bar.gif')).toBe(false);
+      expect(createAccountService.isValidImageType('gif')).toBe(false);
     });
   });
 

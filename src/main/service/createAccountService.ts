@@ -55,7 +55,7 @@ export class CreateAccountService {
       }
       return 'Please upload a valid file format';
     }
-    return 'Please provide a file';
+    return 'Select a file to upload';
   }
 
   isFileCorrectSize(fileSize: number): boolean {
@@ -64,8 +64,7 @@ export class CreateAccountService {
 
   isValidImageType(imageName: string): boolean {
     if (imageName) {
-      const imageType = imageName.split('.')[1]?.toLocaleLowerCase();
-      return allowedImageTypes.includes(imageType);
+      return allowedImageTypes.includes(imageName);
     } else {
       return false;
     }

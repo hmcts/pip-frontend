@@ -5,9 +5,13 @@ import {clone} from 'lodash';
 export default class MediaAccountRequestSubmittedController {
   public get(req: PipRequest, res: Response): void {
     const reference = req.query['reference'] as string;
-    res.render('account-request-submitted', {
-      ...clone(req.i18n.getDataByLanguage(req.lng)['account-request-submitted']),
-      reference,
-    });
+    if (reference) {
+      res.render('account-request-submitted', {
+        ...clone(req.i18n.getDataByLanguage(req.lng)['account-request-submitted']),
+        reference,
+      });
+    } else {
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+    }
   }
 }
