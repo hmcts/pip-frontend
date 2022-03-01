@@ -33,6 +33,8 @@ export default class CreateMediaAccountController {
         formData: req.body,
       });
     } else {
+      req.body.file = manualUploadService.readFile(req.file['originalname']);
+      req.body.fileName = req.file['originalname'];
       const reference = await createAccountService.uploadCreateAccount({...req.body});
       manualUploadService.removeFile(req.body.fileName);
       if (reference) {
