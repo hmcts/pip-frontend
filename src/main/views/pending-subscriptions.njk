@@ -12,6 +12,11 @@
 {% endblock %}
 
 {% block content %}
+  {% if pendingSubscriptions.cases | length == 0 and pendingSubscriptions.courts | length == 0 %}
+    {% set displayError = true %}
+  {% else %}
+    {% set displayError = false %}
+  {% endif %}
   <h1 class="govuk-heading-l">{{ header }}</h1>
   {% if displayError %}
     <div class="govuk-grid-row">
@@ -27,7 +32,7 @@
         }) }}
       </div>
     </div>
-    <form action="subscription-confirmed"  method="post">
+    <form action="subscription-add"  method="get">
       <div class="govuk-!-text-align-left">
         {{ submitButton(label=buttonAddText) }}
       </div>

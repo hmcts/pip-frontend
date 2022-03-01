@@ -110,20 +110,21 @@ describe('Pending Subscriptions Page', () => {
       });
     });
 
-    it('should not contain any case table rows', () => {
-      const rows = htmlRes.getElementsByClassName('govuk-table__body')[0].getElementsByClassName('govuk-table__row');
-      expect(rows.length).equal(0, 'Case table did not contain expected number of rows');
+    it('should display add subscriptions button', () => {
+      const button = htmlRes.getElementsByClassName('govuk-button')[0];
+      expect(button.innerHTML).contains('Add Subscriptions');
     });
 
-    it('should not contain any court table rows', () => {
-      const rows = htmlRes.getElementsByClassName('govuk-table__body')[1].getElementsByClassName('govuk-table__row');
-      expect(rows.length).equal(0, 'Court table did not contain expected number of rows');
+    it('should not display add another link', () => {
+      const addAnotherLink = htmlRes.getElementsByClassName('govuk-!-text-align-centre');
+      expect(addAnotherLink.length).equal(0);
     });
 
-    it('should display no pending subscriptions messages', () => {
-      const messages = htmlRes.getElementsByClassName('govuk-body');
-      expect(messages[0].innerHTML).equal('No pending case subscriptions');
-      expect(messages[1].innerHTML).equal('No pending court subscriptions');
+    it('should display error summary if user tries to confirm 0 subscriptions', () => {
+      const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list')[0];
+      const errorSummaryTitle = htmlRes.getElementById('error-summary-title');
+      expect(errorSummaryList.innerHTML).contains('At least 1 subscription is needed.');
+      expect(errorSummaryTitle.innerHTML).contains('There is a problem');
     });
   });
 
