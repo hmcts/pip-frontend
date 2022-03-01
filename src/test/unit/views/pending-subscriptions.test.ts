@@ -52,7 +52,7 @@ describe('Pending Subscriptions Page', () => {
 
     it('should display title', () => {
       const title = htmlRes.getElementsByClassName('govuk-heading-l');
-      expect(title[0].innerHTML).contains('Confirm your subscriptions');
+      expect(title[0].innerHTML).contains('Confirm your email subscriptions');
     });
 
     it('should display correct case table headers', () => {
@@ -124,6 +124,32 @@ describe('Pending Subscriptions Page', () => {
       const messages = htmlRes.getElementsByClassName('govuk-body');
       expect(messages[0].innerHTML).equal('No pending case subscriptions');
       expect(messages[1].innerHTML).equal('No pending court subscriptions');
+    });
+  });
+
+  describe('user without subscriptions error screen', () => {
+    beforeAll(async () => {
+      app.request['user'] = {oid: '2'};
+      await request(app).get(`${PAGE_URL}?no-subscriptions=true`).then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
+    });
+
+    it('should display error summary if user tries to confirm 0 subscriptions', () => {
+      const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list')[0];
+      const errorSummaryTitle = htmlRes.getElementById('error-summary-title');
+      expect(errorSummaryList.innerHTML).contains('At least 1 subscription is needed.');
+      expect(errorSummaryTitle.innerHTML).contains('There is a problem');
+    });
+
+    it('should display add subscriptions button', () => {
+      const button = htmlRes.getElementsByClassName('govuk-button')[0];
+      expect(button.innerHTML).contains('Add Subscriptions');
+    });
+
+    it('should not display add another link', () => {
+      const addAnotherLink = htmlRes.getElementsByClassName('govuk-!-text-align-centre');
+      expect(addAnotherLink.length).equal(0);
     });
   });
 });
