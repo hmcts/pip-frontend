@@ -84,4 +84,20 @@ export class PublicationRequests {
     }
     return [];
   }
+
+  public async deletePublication(artefactId: string): Promise<boolean> {
+    try {
+      await dataManagementApi.delete(`/publication/${artefactId}`);
+      return true;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
+      }
+    }
+    return false;
+  }
 }

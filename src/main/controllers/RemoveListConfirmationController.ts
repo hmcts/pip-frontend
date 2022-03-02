@@ -1,6 +1,9 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
+import { PublicationService } from '../service/publicationService';
+
+const publicationService = new PublicationService();
 
 export default class RemoveListConfirmationController {
   public get(req: PipRequest, res: Response): void {
@@ -16,12 +19,14 @@ export default class RemoveListConfirmationController {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
   }
 
-  public post(req: PipRequest, res: Response): void {
+  public async post(req: PipRequest, res: Response): Promise<void> {
     const formData = req.body;
     switch (formData['remove-choice']) {
       case 'yes': {
-        // TODO: remove the record and redirect to confirmation on success
-        res.redirect('/remove-list-success');
+        const response = await publicationService.removePublication(formData.artefactId);
+        response ?
+          res.redirect('/remove-list-success') :
+          res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         break;
       }
       case 'no': {
