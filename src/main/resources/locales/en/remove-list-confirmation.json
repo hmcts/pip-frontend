@@ -1,0 +1,10 @@
+{
+  "header": "Are you sure you want to remove this content",
+  "title": "Remove List Item Confirmation",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "error": {
+    "title": "There is a problem",
+    "text": "Please select an option"
+  }
+}

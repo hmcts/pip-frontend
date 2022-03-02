@@ -16,7 +16,7 @@ export default class RemoveListSummaryController {
       res.render('remove-list-summary', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-summary']),
         court: await courtService.getCourtById(courtId),
-        removalList: manualUploadService.formatListRemovalValues(await publicationService.getPublications(courtId, !!req.user)),
+        removalList: manualUploadService.formatListRemovalValues(await publicationService.getPublications(courtId, !!req.user, true)),
       }) :
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
   }

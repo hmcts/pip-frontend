@@ -115,9 +115,12 @@ export default function(app: Application): void {
   app.get('/delete-subscription', ensureAuthenticated, app.locals.container.cradle.deleteSubscriptionController.get);
   app.get('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.get);
   app.post('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.post);
+  app.get('/remove-list-confirmation', ensureAuthenticated, app.locals.container.cradle.removeListConfirmationController.get);
+  app.post('/remove-list-confirmation', ensureAuthenticated, app.locals.container.cradle.removeListConfirmationController.post);
   app.get('/remove-list-search', ensureAuthenticated, app.locals.container.cradle.removeListSearchController.get);
   app.post('/remove-list-search', ensureAuthenticated, app.locals.container.cradle.removeListSearchController.post);
-  app.get('/remove-list-summary', app.locals.container.cradle.removeListSummaryController.get);
+  app.get('/remove-list-success', ensureAuthenticated, app.locals.container.cradle.removeListSuccessController.get);
+  app.get('/remove-list-summary', ensureAuthenticated, app.locals.container.cradle.removeListSummaryController.get);
   app.get('/remove-subscription', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.removeSubscription);
   app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
   app.post('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.post);
