@@ -49,7 +49,7 @@ describe('Remove List Search', () => {
         .send({'input-autocomplete': 'Accrington County Court'})
         .expect((res) => {
           expect(res.status).to.equal(302);
-          expect(res.header['location']).to.equal('removal-confirmation?courtId=2');
+          expect(res.header['location']).to.equal('remove-list-summary?courtId=2');
         });
     });
   });
