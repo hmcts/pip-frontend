@@ -35,7 +35,7 @@ export class PublicationService {
   }
 
   public async getPublicationsByCourt(courtId: string, verified: boolean): Promise<Artefact[]> {
-    return await publicationRequests.getPublicationsByCourt(courtId, verified);
+    return await publicationRequests.getPublicationsByCourt(courtId, verified, false);
   }
 
   public calculateHearingSessionTime(searchResults: JSON): void {

@@ -143,19 +143,19 @@ describe('Get publication by court id', () => {
   dataManagementStub.withArgs('/publication/courtId/error').resolves(Promise.reject(errorMessage));
 
   it('should return data on successful get', async () => {
-    expect(await pubRequests.getPublicationsByCourt(valid, true)).toBe(successResponse.data);
+    expect(await pubRequests.getPublicationsByCourt(valid, true, false)).toBe(successResponse.data);
   });
 
   it('should handle error response from returned service returning empty array', async () => {
-    expect(await pubRequests.getPublicationsByCourt(invalid, true)).toStrictEqual([]);
+    expect(await pubRequests.getPublicationsByCourt(invalid, true, false)).toStrictEqual([]);
   });
 
   it('should handle error request from returned service returning empty array', async () => {
-    expect(await pubRequests.getPublicationsByCourt('test', true)).toStrictEqual([]);
+    expect(await pubRequests.getPublicationsByCourt('test', true, false)).toStrictEqual([]);
   });
 
   it('should handle error request from returned service returning empty array', async () => {
-    expect(await pubRequests.getPublicationsByCourt('error', true)).toStrictEqual([]);
+    expect(await pubRequests.getPublicationsByCourt('error', true, false)).toStrictEqual([]);
   });
 });
 
@@ -205,7 +205,7 @@ describe('get individual publication metadata', () => {
 
     it('should send an error to the log if error message exists and error request does not exist', async () => {
       dataManagementStub.withArgs('/publication/search/y').resolves(Promise.reject(errorMessage));
-      const message = await publicationRequests.getPublicationsByCourt('y', true);
+      const message = await publicationRequests.getPublicationsByCourt('y', true, false);
       expect(message).toStrictEqual([]);
     });
   });
