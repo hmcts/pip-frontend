@@ -32,6 +32,9 @@ const dailyCauseListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
+const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
+const sjpPressData = JSON.parse(rawSJPData);
+
 const stub = sinon.stub(publicationRequests, 'getIndividualPublicationJson').returns(dailyCauseListData);
 stub.withArgs().returns(dailyCauseListData);
 
@@ -80,7 +83,7 @@ describe('Publication service', () => {
     });
   });
 
-  describe('calculateHearingSessionTime Daily Cause List Service', () => {
+  describe('calculateHearingSessionTime Publication Service', () => {
     it('should return daily cause list object', async () => {
       await publicationService.calculateHearingSessionTime(dailyCauseListData);
       expect(dailyCauseListData['courtLists'].length).to.equal(1);
@@ -107,6 +110,28 @@ describe('Publication service', () => {
       return publicationService.getIndividualPublicationMetadata('', true).then((data) => {
         expect(data['contentDate']).to.equal('2022-02-14T14:14:59.73967');
       });
+    });
+  });
+
+  describe('formatSJPPressList Publication Service', () => {
+    it('should return SJP Press List', async () => {
+      await publicationService.formatSJPPressList(sjpPressData);
+      expect(sjpPressData['courtLists'].length).to.equal(1);
+    });
+
+    it('should formatted date of birth in correct format', async () => {
+      await publicationService.formatSJPPressList(sjpPressData);
+      expect(sjpPressData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['party'][0]['individualDetails']['formattedDateOfBirth']).to.equal('25 July 1985');
+    });
+
+    it('should formatted Reporting Restriction in correct format', async () => {
+      await publicationService.formatSJPPressList(sjpPressData);
+      expect(sjpPressData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['offence'][0]['formattedReportingRestriction']).to.equal('True');
+    });
+
+    it('should count total no of hearings', async () => {
+      await publicationService.formatSJPPressList(sjpPressData);
+      expect(sjpPressData['hearingCount']).to.equal(2);
     });
   });
 });

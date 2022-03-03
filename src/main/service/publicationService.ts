@@ -97,4 +97,31 @@ export class PublicationService {
     });
     return matches;
   }
+
+  public formatSJPPressList(data: any): void {
+    let hearingCount = 0;
+    data['courtLists'].forEach(courtList => {
+      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+        courtRoom['session'].forEach(session => {
+          session['sittings'].forEach(sitting => {
+            sitting['hearing'].forEach(hearing => {
+              hearingCount = hearingCount + 1;
+              hearing['party'].forEach(party => {
+                if (party['individualDetails'] !== undefined) {
+                  party['individualDetails']['formattedDateOfBirth'] = moment(party['individualDetails']['dateOfBirth'].split('/').reverse().join('-')).format('D MMMM YYYY');
+                }
+              });
+
+              hearing['offence'].forEach(offence => {
+                const reportingRestriction = offence['reportingRestriction'].toString();
+                offence['formattedReportingRestriction'] = reportingRestriction.charAt(0).toUpperCase() + reportingRestriction.slice(1);
+              });
+            });
+          });
+        });
+      });
+    });
+
+    data['hearingCount'] = hearingCount;
+  }
 }

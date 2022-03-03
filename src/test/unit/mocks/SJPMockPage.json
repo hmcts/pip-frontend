@@ -1,6 +1,6 @@
 {
   "document": {
-    "publicationDate": "dolor proident sit",
+    "publicationDate": "2016-09-13T23:30:52.123Z",
     "version": "3h;R(p1",
     "documentName": "liv]"
   },
@@ -21,6 +21,7 @@
                             "individualDetails": {
                               "individualForenames": "Danny",
                               "individualSurname": "Thomas",
+                              "dateOfBirth": "25/07/1985",
                               "address": {
                                 "town": "Swansea"
                               }
@@ -34,6 +35,7 @@
                             "individualDetails": {
                               "individualForenames": "Nigel",
                               "individualSurname": "Sausage",
+                              "dateOfBirth": "25/07/1985",
                               "address": {
                                 "postCode": "G14 9DU"
                               },
@@ -42,10 +44,18 @@
                             }
                           }
                         ],
-                        "offence": {
-                          "offenceTitle": "Dreadful singing and ambiguous ticket writing",
-                          "reportingRestriction": false
-                        }
+                        "offence": [
+                          {
+                            "offenceTitle": "This is an offence title",
+                            "offenceWording": "This is offence wording",
+                            "reportingRestriction": true
+                          }
+                        ],
+                        "case": [
+                          {
+                            "caseUrn": "ABC12345"
+                          }
+                        ]
                       }
                     ]
                   },
@@ -58,6 +68,7 @@
                             "individualDetails": {
                               "individualForenames": "Christopher",
                               "individualSurname": "Robin",
+                              "dateOfBirth": "25/07/1985",
                               "address": {
                                 "county": "London",
                                 "postCode": "E15 3AR",
@@ -75,6 +86,7 @@
                             "individualDetails": {
                               "individualForenames": "Junaid",
                               "individualSurname": "Thomas",
+                              "dateOfBirth": "25/07/1985",
                               "address": {
                                 "town": "Swansea"
                               }
@@ -84,10 +96,18 @@
                             }
                           }
                         ],
-                        "offence": {
-                          "offenceTitle": "Lollipop overindulgence",
-                          "reportingRestriction": false
-                        }
+                        "offence": [
+                          {
+                            "offenceTitle": "This is an offence title",
+                            "offenceWording": "This is offence wording",
+                            "reportingRestriction": true
+                          }
+                        ],
+                        "case": [
+                          {
+                            "caseUrn": "ABC12345"
+                          }
+                        ]
                       }
                     ]
                   }
