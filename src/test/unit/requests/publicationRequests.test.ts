@@ -35,6 +35,7 @@ const indivPubJsonObject = {'data': mockPDF};
 const valid = 'valid';
 const invalid = 'invalid';
 const dataManagementStub = sinon.stub(dataManagementApi, 'get');
+const dataMngmntDeleteStub = sinon.stub(dataManagementApi, 'delete');
 dataManagementStub.withArgs('/publication/courtId/valid').resolves(successResponse);
 
 const publicationRequests = new PublicationRequests();
@@ -50,6 +51,11 @@ dataManagementStub.withArgs('/publication/abc1').resolves(Promise.reject(errorRe
 dataManagementStub.withArgs('/publication/abc2').resolves(Promise.reject(errorRequest));
 dataManagementStub.withArgs('/publication/abc3').resolves(Promise.reject(errorMessage));
 dataManagementStub.withArgs('/publication/' + artefactId).resolves({data: metaData});
+
+dataMngmntDeleteStub.withArgs('/publication/abc1').resolves(Promise.reject(errorResponse));
+dataMngmntDeleteStub.withArgs('/publication/abc2').resolves(Promise.reject(errorRequest));
+dataMngmntDeleteStub.withArgs('/publication/abc3').resolves(Promise.reject(errorMessage));
+dataMngmntDeleteStub.withArgs('/publication/abc').resolves(true);
 
 describe('getIndividualPubJson()', () => {
 
@@ -232,6 +238,25 @@ describe('get individual publication metadata', () => {
       dataManagementStub.withArgs('/publication/noErrRequest/payload').resolves(Promise.reject(errorMessage));
       const message = await pubRequests.getIndividualPublicationJson('y', true);
       expect(message).toBe(null);
+    });
+  });
+
+  describe('delete publication', () => {
+    it('should return true if valid data is provided', async () => {
+      const response = await pubRequests.deletePublication('abc');
+      expect(response).toBe(true);
+    });
+
+    it('should handle error response', async () => {
+      expect(await pubRequests.deletePublication('abc1')).toBe(false);
+    });
+
+    it('should handle error request', async () => {
+      expect(await pubRequests.deletePublication('abc2')).toBe(false);
+    });
+
+    it('should handle error message', async () => {
+      expect(await pubRequests.deletePublication('abc3')).toBe(false);
     });
   });
 });
