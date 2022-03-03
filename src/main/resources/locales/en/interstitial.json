@@ -11,5 +11,20 @@
   "signInLink": "sign in",
   "welshMessage": "This service is also available in",
   "languageLink": "Welsh (Cymraeg)",
-  "continue": "Continue"
+  "continue": "Continue",
+  "beforeMessage": "Before you start",
+  "scoAndNI": "If you're in Scotland or Northern Ireland",
+  "contactMessage": "Contact the:",
+  "bulletOptions": [
+    {
+      "linkMessage": "Scottish Courts website",
+      "message": "for courts and some tribunals in Scotland",
+      "link": "https://www.scotcourts.gov.uk/"
+    },
+    {
+      "linkMessage": "Northern Ireland Courts and Tribunals Service",
+      "message": "for courts and tribunals in Northern Ireland",
+      "link": "https://www.courtsni.gov.uk/en-GB/ContactDetails/Pages/default.aspx"
+    }
+  ]
 }
