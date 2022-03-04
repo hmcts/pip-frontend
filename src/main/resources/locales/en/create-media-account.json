@@ -7,6 +7,6 @@
   "employerLabel": "Employer",
   "photoMessage": "Upload a clear photo of your UK Press Card or work ID",
   "photoSubMessage": "We'll only use this to confirm your identity for this service.",
-  "photoType": "Must be a JPG, PNG, TIFF, or PDF file",
+  "photoType": "Must be a jpg, pdf, png, or tiff file",
   "errorTitle": "There is a problem"
 }
