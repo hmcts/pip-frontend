@@ -21,7 +21,7 @@ describe('Case name search page', () => {
 
   it('should display header', () => {
     const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(pageHeading[0].innerHTML).contains('Enter a case name', 'Page heading does not exist');
+    expect(pageHeading[0].innerHTML).contains('What is the name of party or parties involved?', 'Page heading does not exist');
   });
 
   it('should display continue button',  () => {
@@ -36,7 +36,7 @@ describe('Case name search page', () => {
 
   it('should display appropriate label for input field', () => {
     const inputLabel = htmlRes.getElementsByTagName('label');
-    expect(inputLabel[0].innerHTML).contains('Enter the name of the party or parties involved in this case');
+    expect(inputLabel[0].innerHTML).contains('For example, Toyota v John Smith.');
   });
 
   it('should not display error summary on the initial load', () => {
