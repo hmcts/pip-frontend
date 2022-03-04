@@ -17,7 +17,7 @@ const mockCourt = {
 sinon.stub(CourtService.prototype, 'getCourtById').resolves(mockCourt);
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs('5', true, true).resolves([]);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns([]);
-const removeListSummaryController = new RemoveListSearchResultsController();
+const removeListSearchResultsController = new RemoveListSearchResultsController();
 
 describe('Remove List Summary Controller', () => {
   it('should render remove list summary page', async () => {
@@ -32,7 +32,7 @@ describe('Remove List Summary Controller', () => {
     };
 
     responseMock.expects('render').once().withArgs('remove-list-search-results', expectedOptions);
-    await removeListSummaryController.get(request, response);
+    await removeListSearchResultsController.get(request, response);
     await responseMock.verify();
   });
 
@@ -42,7 +42,7 @@ describe('Remove List Summary Controller', () => {
     const responseMock = sinon.mock(response);
     request.query = {};
     responseMock.expects('render').once().withArgs('error', {...i18n.error});
-    await removeListSummaryController.get(request, response);
+    await removeListSearchResultsController.get(request, response);
     await responseMock.verify();
   });
 });
