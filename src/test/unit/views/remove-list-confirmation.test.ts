@@ -50,7 +50,7 @@ describe('Remove List Confirmation Page', () => {
         .contains('There is a problem', 'Could not find error dialog title');
     });
 
-    it('should display error messages in th the summary', () => {
+    it('should display error messages in the summary', () => {
       const list = htmlRes.getElementsByClassName(' govuk-error-summary__list')[0];
       const listItems = list.getElementsByTagName('a');
       expect(listItems[0].innerHTML).contains('Please select an option', 'Could not find error');
