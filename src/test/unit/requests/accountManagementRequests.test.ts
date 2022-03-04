@@ -1,10 +1,18 @@
 import sinon from 'sinon';
 import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
-import {accountManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
+
+const application = {
+  body: {
+    applicationId: 930,
+    employer: 'MOJ',
+    email: 'boo@bar.com',
+    status: 'Pending',
+  },
+};
 
 const errorResponse = {
   response: {
-    data: 'test error',
+    body: 'test error',
   },
 };
 const errorRequest = {
@@ -16,7 +24,7 @@ const errorMessage = {
 const mockUploadFileBody = {file: '', fileName: ''};
 const mockUploadFileHeaders = {'foo': 'bar', 'Content-Type': 'multipart/form-data'};
 const fileUploadAPI = new AccountManagementRequests();
-
+const superagent = require('superagent');
 describe('Account Management requests', () => {
   describe('upload publication', () => {
     beforeEach(() => {
@@ -25,34 +33,58 @@ describe('Account Management requests', () => {
 
     it('should return reference on success', async () => {
 
-      const stub = sinon.stub(accountManagementApi, 'post');
-      stub.withArgs('/account/create').resolves({data: 'ABCD1234'});
+      sinon.stub(superagent, 'post').callsFake(() => {
+        return {
+          set(): any {
+            return {
+              set(): any {
+                return {attach: sinon.stub().returns(application)};
+              },
+            };
+          },
+        };
+      });
 
       return await fileUploadAPI.uploadNewAccountRequest(mockUploadFileBody, mockUploadFileHeaders).then(data => {
-        expect(data).toBe('ABCD1234');
+        expect(data).toBe(application.body);
       });
     });
 
     it('should return error response', async () => {
-      const stub = sinon.stub(accountManagementApi, 'post');
-      stub.withArgs('/account/create').resolves(Promise.reject(errorResponse));
-      return await fileUploadAPI.uploadNewAccountRequest({file: '', fileName: 'foo'}, mockUploadFileHeaders).then(data => {
+      sinon.stub(superagent, 'post').withArgs({
+        file: '',
+        fileName: 'foo',
+      }, mockUploadFileHeaders).resolves(Promise.reject(errorResponse));
+      return await fileUploadAPI.uploadNewAccountRequest({
+        file: '',
+        fileName: 'foo',
+      }, mockUploadFileHeaders).then(data => {
         expect(data).toBe(null);
       });
     });
 
     it('should return error request', async () => {
-      const stub = sinon.stub(accountManagementApi, 'post');
-      stub.withArgs('/account/create').resolves(Promise.reject(errorRequest));
-      return await fileUploadAPI.uploadNewAccountRequest({file: '', fileName: 'bar'}, mockUploadFileHeaders).then(data => {
+      sinon.stub(superagent, 'post').withArgs({
+        file: '',
+        fileName: 'bar',
+      }, mockUploadFileHeaders).resolves(Promise.reject(errorRequest));
+      return await fileUploadAPI.uploadNewAccountRequest({
+        file: '',
+        fileName: 'bar',
+      }, mockUploadFileHeaders).then(data => {
         expect(data).toBe(null);
       });
     });
 
     it('should return error message', async () => {
-      const stub = sinon.stub(accountManagementApi, 'post');
-      stub.withArgs('/account/create').resolves(Promise.reject(errorMessage));
-      return await fileUploadAPI.uploadNewAccountRequest({file: '', fileName: 'baz'}, mockUploadFileHeaders).then(data => {
+      sinon.stub(superagent, 'post').withArgs({
+        file: '',
+        fileName: 'baz',
+      }, mockUploadFileHeaders).resolves(Promise.reject(errorMessage));
+      return await fileUploadAPI.uploadNewAccountRequest({
+        file: '',
+        fileName: 'baz',
+      }, mockUploadFileHeaders).then(data => {
         expect(data).toBe(null);
       });
     });

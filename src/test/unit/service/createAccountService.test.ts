@@ -49,7 +49,6 @@ testFileValid['originalname'] = 'test.jpg';
 const testFileInValid = new File([''], 'test.gif', {type: 'image/gif'});
 testFileInValid['originalname'] = 'test.gif';
 const largeFile = multerFile('testFile.pdf', 3000000);
-const smallFile = multerFile('testFile.pdf', 1000000);
 
 describe('Create Account Service', () => {
   describe('validateFileUpload', () => {
@@ -63,16 +62,6 @@ describe('Create Account Service', () => {
 
     it('should return message for invalid image type', () => {
       expect(createAccountService.validateFileUpload(largeFile)).toBe('File too large, please upload file smaller than 2MB');
-    });
-  });
-
-  describe('isFileCorrectSize', () => {
-    it('should return true for valid image type', () => {
-      expect(createAccountService.isFileCorrectSize(smallFile.size)).toBe(true);
-    });
-
-    it('should return false for invalid image type', () => {
-      expect(createAccountService.isFileCorrectSize(largeFile.size)).toBe(false);
     });
   });
 

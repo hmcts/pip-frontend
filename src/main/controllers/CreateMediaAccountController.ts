@@ -35,7 +35,8 @@ export default class CreateMediaAccountController {
     } else {
       req.body.file = manualUploadService.readFile(req.file['originalname']);
       req.body.fileName = req.file['originalname'];
-      const reference = await createAccountService.uploadCreateAccount({...req.body});
+      const application = await createAccountService.uploadCreateAccount({...req.body});
+      const reference = application ? createAccountService.formatReference(application.applicationId) : null;
       manualUploadService.removeFile(req.body.fileName);
       if (reference) {
         res.clearCookie('formCookie');

@@ -53,12 +53,12 @@ export class ManualUploadService {
     return 'Please provide a file';
   }
 
-  private isValidFileType(fileName: string): boolean {
+  public isValidFileType(fileName: string): boolean {
     const fileType = fileName.split('.')[1];
     return allowedFileTypes.includes(fileType?.toLowerCase());
   }
 
-  private isFileCorrectSize(fileSize: number): boolean {
+  public isFileCorrectSize(fileSize: number): boolean {
     return fileSize <= 2000000;
   }
 

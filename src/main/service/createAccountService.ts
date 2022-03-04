@@ -1,16 +1,18 @@
+import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
 import { allowedImageTypes } from '../models/consts';
+import {ManualUploadService} from './manualUploadService';
+import { Application } from 'models/Application';
+
+const manualUploadService = new ManualUploadService();
+const accountManagementRequests = new AccountManagementRequests();
 
 export class CreateAccountService {
 
-  public async uploadCreateAccount(data: any): Promise<any> {
-    this.generatePublicationUploadHeaders(data);
-    return 'ABCD1234';
-    //TODO: uncomment after PUB-1079
-    // (data: any)
-    // return await accountManagementRequests.uploadNewAccountRequest(
-    //   data,
-    //   this.generatePublicationUploadHeaders(data),
-    // );
+  public async uploadCreateAccount(data: any): Promise<Application> {
+    return await accountManagementRequests.uploadNewAccountRequest(
+      data,
+      this.generatePublicationUploadHeaders(data),
+    );
   }
 
   public generatePublicationUploadHeaders(headers): object {
@@ -22,10 +24,6 @@ export class CreateAccountService {
       'x-employer': headers['employer'],
       'Content-Type': 'multipart/form-data',
     };
-  }
-  public getFileExtension(fileName: string): string {
-    const regex = /(?:\.([^.]+))?$/;
-    return regex.exec(fileName)[1];
   }
 
   public validateFormFields(formValues: object): object {
@@ -45,10 +43,14 @@ export class CreateAccountService {
     };
   }
 
+  public formatReference(reference: number, length = 5, paddingString = '0'): string {
+    return reference > 0 ? 'XYZ' + reference.toString().padStart(length, paddingString) : null;
+  }
+
   public validateFileUpload(file: File): string {
     if (file) {
-      if (this.isValidImageType(this.getFileExtension(file['originalname']))) {
-        if (this.isFileCorrectSize(file.size)) {
+      if (this.isValidImageType(manualUploadService.getFileExtension(file['originalname']))) {
+        if (manualUploadService.isFileCorrectSize(file.size)) {
           return null;
         }
         return 'File too large, please upload file smaller than 2MB';
@@ -56,10 +58,6 @@ export class CreateAccountService {
       return 'Please upload a valid file format';
     }
     return 'Select a file to upload';
-  }
-
-  isFileCorrectSize(fileSize: number): boolean {
-    return fileSize <= 2000000;
   }
 
   isValidImageType(imageName: string): boolean {

@@ -61,6 +61,13 @@ formStub.withArgs(invalidBody).returns(responseErrors);
 fileValidationStub.returns('error');
 fileValidationStub.withArgs(testFile).returns();
 
+const application = {
+  applicationId: 930,
+  employer: 'MOJ',
+  email: 'boo@bar.com',
+  status: 'Pending',
+};
+
 describe('Create Media Account Controller', () => {
   beforeEach(() => {
     sinon.restore();
@@ -108,9 +115,9 @@ describe('Create Media Account Controller', () => {
       sinon.stub(ManualUploadService.prototype, 'readFile').returns('');
       sinon.stub(ManualUploadService.prototype, 'removeFile').returns('');
       sinon.stub(CreateAccountService.prototype, 'isValidImageType').returns(true);
-      sinon.stub(CreateAccountService.prototype, 'isFileCorrectSize').returns(true);
+      sinon.stub(ManualUploadService.prototype, 'isFileCorrectSize').returns(true);
       const referenceStub = sinon.stub(CreateAccountService.prototype, 'uploadCreateAccount');
-      referenceStub.withArgs(validBody).returns('ABCD1234');
+      referenceStub.withArgs(validBody).returns(application);
       fileValidationStub.withArgs(testFile).returns();
 
       response = { redirect: () => {return '';},
@@ -118,7 +125,7 @@ describe('Create Media Account Controller', () => {
       const responseMock = sinon.mock(response);
       request.body = validBody;
 
-      responseMock.expects('redirect').once().withArgs('/account-request-submitted?reference=ABCD1234');
+      responseMock.expects('redirect').once().withArgs('/account-request-submitted?reference=XYZ00930');
 
       await createMediaAccountController.post(request, response);
       responseMock.verify();
@@ -128,7 +135,7 @@ describe('Create Media Account Controller', () => {
       sinon.stub(ManualUploadService.prototype, 'readFile').returns('');
       sinon.stub(ManualUploadService.prototype, 'removeFile').returns('');
       sinon.stub(CreateAccountService.prototype, 'isValidImageType').returns(true);
-      sinon.stub(CreateAccountService.prototype, 'isFileCorrectSize').returns(true);
+      sinon.stub(ManualUploadService.prototype, 'isFileCorrectSize').returns(true);
       const referenceStub = sinon.stub(CreateAccountService.prototype, 'uploadCreateAccount');
       referenceStub.withArgs(validBody).returns(null);
       fileValidationStub.withArgs(testFile).returns();
