@@ -27,7 +27,7 @@ sjpPressListMetaDataStub.withArgs(artefactId).resolves(metaData);
 sjpPressListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
-  'daily-cause-list': {},
+  'single-justice-procedure-press': {},
 };
 
 describe('SJP Press List Controller', () => {
