@@ -7,7 +7,7 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 
-const PAGE_URL = '/remove-list-summary?courtId=5';
+const PAGE_URL = '/remove-list-search-results?courtId=5';
 const mockCourt = {
   courtId: '5',
   name: 'The court',

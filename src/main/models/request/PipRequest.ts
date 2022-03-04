@@ -27,8 +27,8 @@ export interface PipRequest extends Request {
       'otp-template': {};
       'remove-list-confirmation': {};
       'remove-list-search': {};
+      'remove-list-search-results': {};
       'remove-list-success': {};
-      'remove-list-summary': {};
       'search': {};
       'search-results': {};
       'session-management': {};

@@ -4,10 +4,10 @@ import { SummaryOfPublicationsService } from '../../../main/service/summaryOfPub
 import { ManualUploadService } from '../../../main/service/manualUploadService';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import RemoveListSummaryController from '../../../main/controllers/RemoveListSummaryController';
+import RemoveListSearchResultsController from '../../../main/controllers/RemoveListSearchResultsController';
 
 const i18n = {
-  'remove-list-summary': {},
+  'remove-list-search-results': {},
   'error': {},
 };
 const mockCourt = {
@@ -17,7 +17,7 @@ const mockCourt = {
 sinon.stub(CourtService.prototype, 'getCourtById').resolves(mockCourt);
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs('5', true, true).resolves([]);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns([]);
-const removeListSummaryController = new RemoveListSummaryController();
+const removeListSummaryController = new RemoveListSearchResultsController();
 
 describe('Remove List Summary Controller', () => {
   it('should render remove list summary page', async () => {
@@ -26,12 +26,12 @@ describe('Remove List Summary Controller', () => {
     const request = mockRequest(i18n);
     request.query = {courtId: '5'};
     const expectedOptions = {
-      ...i18n['remove-list-summary'],
+      ...i18n['remove-list-search-results'],
       court: mockCourt,
       removalList: [],
     };
 
-    responseMock.expects('render').once().withArgs('remove-list-summary', expectedOptions);
+    responseMock.expects('render').once().withArgs('remove-list-search-results', expectedOptions);
     await removeListSummaryController.get(request, response);
     await responseMock.verify();
   });

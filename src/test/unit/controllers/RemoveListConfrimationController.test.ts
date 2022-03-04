@@ -84,7 +84,7 @@ describe('Remove List Confirmation Controller', () => {
       courtId: '5',
     };
 
-    responseMock.expects('redirect').once().withArgs('/remove-list-summary?courtId=5');
+    responseMock.expects('redirect').once().withArgs('/remove-list-search-results?courtId=5');
     await removeListConfirmationController.post(request, response);
     await responseMock.verify();
   });

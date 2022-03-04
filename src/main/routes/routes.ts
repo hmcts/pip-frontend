@@ -119,8 +119,8 @@ export default function(app: Application): void {
   app.post('/remove-list-confirmation', ensureAuthenticated, app.locals.container.cradle.removeListConfirmationController.post);
   app.get('/remove-list-search', ensureAuthenticated, app.locals.container.cradle.removeListSearchController.get);
   app.post('/remove-list-search', ensureAuthenticated, app.locals.container.cradle.removeListSearchController.post);
+  app.get('/remove-list-search-results', ensureAuthenticated, app.locals.container.cradle.removeListSearchResultsController.get);
   app.get('/remove-list-success', ensureAuthenticated, app.locals.container.cradle.removeListSuccessController.get);
-  app.get('/remove-list-summary', ensureAuthenticated, app.locals.container.cradle.removeListSummaryController.get);
   app.get('/remove-subscription', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.removeSubscription);
   app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
   app.post('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.post);

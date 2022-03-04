@@ -58,7 +58,7 @@ describe('Remove List Confirmation', () => {
         })
         .expect((res) => {
           expect(res.status).to.equal(302);
-          expect(res.header['location']).to.equal('/remove-list-summary?courtId=1');
+          expect(res.header['location']).to.equal('/remove-list-search-results?courtId=1');
         });
     });
 

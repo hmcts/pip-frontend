@@ -30,7 +30,7 @@ export default class RemoveListConfirmationController {
         break;
       }
       case 'no': {
-        res.redirect(`/remove-list-summary?courtId=${formData.courtId}`);
+        res.redirect(`/remove-list-search-results?courtId=${formData.courtId}`);
         break;
       }
       default:
