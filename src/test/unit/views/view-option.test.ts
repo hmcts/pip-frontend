@@ -12,7 +12,7 @@ const expectedHeader = 'What do you want to do?';
 const expectedButtonText = 'Continue';
 const expectedRadioLabel1 = 'Find a court or tribunal';
 const expectedRadioLabel2 = 'Find a Single Justice Procedure case';
-const expectedRadioHint1 = 'View time and type of hearings and more';
+const expectedRadioHint1 = 'View time, location, type of hearings and more';
 const expectedRadioHint2 = 'TV licensing, minor traffic offences such as speeding and more';
 
 let htmlRes: Document;
@@ -49,5 +49,16 @@ describe('View Option Page', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons[0].innerHTML).contains(expectedRadioHint1, 'Could not find the radio button with hint ' + expectedRadioHint1);
     expect(radioButtons[1].innerHTML).contains(expectedRadioHint2, 'Could not find the radio button with hint ' + expectedRadioHint2);
+  });
+
+  it('should display account message', () => {
+    const header2 = htmlRes.getElementsByClassName('govuk-heading-m');
+    expect(header2[0].innerHTML).contains('Do you have an account?', 'Could not find account message');
+  });
+
+  it('should display sign in link', () => {
+    const signInLink = htmlRes.getElementsByClassName('govuk-link');
+    expect(signInLink[0].innerHTML).contains('Sign in to your account', 'Could not find link');
+    expect(signInLink[0].getAttribute('href').valueOf()).contains('sign-in', 'Could not find valid link href');
   });
 });
