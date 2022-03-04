@@ -8,6 +8,6 @@ maintainers:
   - name: HMCTS PIP Team
 dependencies:
   - name: nodejs
-    version: 2.4.0
+    version: 2.4.2
     repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
 
