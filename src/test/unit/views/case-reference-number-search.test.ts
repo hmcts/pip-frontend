@@ -17,7 +17,7 @@ const errorSummaryTitleClass = 'govuk-error-summary__title';
 const errorSummaryBodyClass = 'govuk-error-summary__body';
 const formErrorClass = 'govuk-form-group--error';
 
-const expectedHeader = 'Enter a case reference number';
+const expectedHeader = 'What is the case reference number or case ID?';
 const expectedButtonText = 'Continue';
 
 let htmlRes: Document;
