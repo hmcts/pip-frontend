@@ -1,7 +1,7 @@
 {
   "title": "Subscription URN search",
-  "header": "Enter a unique reference number (URN)",
-  "hint": "Please provide the exact match",
+  "header": "What is the unique reference number (URN)?",
+  "hint": "You must enter an exact match.",
   "error": {
     "title": "There is a problem",
     "header": "There are no matching results.",
