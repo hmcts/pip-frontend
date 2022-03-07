@@ -86,4 +86,19 @@ describe('Court Service', () => {
     expect(Object.keys(data).length).to.equal(validKeysCount);
   });
 
+  it('should return sorted courts list', () => {
+    const sorted = courtService.sortCourtsAlphabetically(hearingsData);
+    expect(sorted[0].name).to.equal('Abergavenny Magistrates\' Court');
+    expect(sorted[1].name).to.equal('Accrington County Court');
+    expect(sorted[2].name).to.equal('Accrington Magistrates\' Court');
+    expect(sorted[sorted.length - 1].name).to.equal('West London Court no hearings');
+  });
+
+  it('it should return empty list if there are no courts to sort', () => {
+    expect(courtService.sortCourtsAlphabetically([])).to.deep.equal([]);
+  });
+
+  it('it should return list as it is if there is only 1 court in the list', () => {
+    expect(courtService.sortCourtsAlphabetically([hearingsData[0]])).to.deep.equal([hearingsData[0]]);
+  });
 });
