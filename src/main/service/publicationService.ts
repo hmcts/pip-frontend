@@ -98,7 +98,7 @@ export class PublicationService {
     return matches;
   }
 
-  public formatSJPPressList(sjpPressListJson: string): void {
+  public formatSJPPressList(sjpPressListJson: string): object {
     let hearingCount = 0;
     const sjpPressListData = JSON.parse(sjpPressListJson);
     sjpPressListData['courtLists'].forEach(courtList => {
