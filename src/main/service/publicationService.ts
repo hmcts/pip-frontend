@@ -98,9 +98,10 @@ export class PublicationService {
     return matches;
   }
 
-  public formatSJPPressList(data: any): void {
+  public formatSJPPressList(sjpPressListJson: string): void {
     let hearingCount = 0;
-    data['courtLists'].forEach(courtList => {
+    const sjpPressListData = JSON.parse(sjpPressListJson);
+    sjpPressListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
@@ -122,6 +123,8 @@ export class PublicationService {
       });
     });
 
-    data['hearingCount'] = hearingCount;
+    sjpPressListData['hearingCount'] = hearingCount;
+
+    return sjpPressListData;
   }
 }

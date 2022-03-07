@@ -33,7 +33,6 @@ const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedAr
 const metaData = JSON.parse(rawMetaData)[0];
 
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
-const sjpPressData = JSON.parse(rawSJPData);
 
 const stub = sinon.stub(publicationRequests, 'getIndividualPublicationJson').returns(dailyCauseListData);
 stub.withArgs().returns(dailyCauseListData);
@@ -115,23 +114,23 @@ describe('Publication service', () => {
 
   describe('formatSJPPressList Publication Service', () => {
     it('should return SJP Press List', async () => {
-      await publicationService.formatSJPPressList(sjpPressData);
-      expect(sjpPressData['courtLists'].length).to.equal(1);
+      const data = await publicationService.formatSJPPressList(rawSJPData);
+      expect(data['courtLists'].length).to.equal(1);
     });
 
     it('should formatted date of birth in correct format', async () => {
-      await publicationService.formatSJPPressList(sjpPressData);
-      expect(sjpPressData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['party'][0]['individualDetails']['formattedDateOfBirth']).to.equal('25 July 1985');
+      const data = await publicationService.formatSJPPressList(rawSJPData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['party'][0]['individualDetails']['formattedDateOfBirth']).to.equal('25 July 1985');
     });
 
     it('should formatted Reporting Restriction in correct format', async () => {
-      await publicationService.formatSJPPressList(sjpPressData);
-      expect(sjpPressData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['offence'][0]['formattedReportingRestriction']).to.equal('True');
+      const data = await publicationService.formatSJPPressList(rawSJPData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['offence'][0]['formattedReportingRestriction']).to.equal('True');
     });
 
     it('should count total no of hearings', async () => {
-      await publicationService.formatSJPPressList(sjpPressData);
-      expect(sjpPressData['hearingCount']).to.equal(2);
+      const data = await publicationService.formatSJPPressList(rawSJPData);
+      expect(data['hearingCount']).to.equal(2);
     });
   });
 });
