@@ -33,7 +33,7 @@ const i18n = {
 describe('SJP Press List Controller', () => {
   const response = { render: () => {return '';}} as unknown as Response;
 
-  it('should render the SJP press list page', () =>  {
+  it('should render the SJP press list page', async () =>  {
 
     const request = mockRequest(i18n);
 
@@ -50,9 +50,9 @@ describe('SJP Press List Controller', () => {
 
     responseMock.expects('render').once().withArgs('single-justice-procedure-press', expectedData);
 
-    return sjpPressListController.get(request, response).then(() => {
-      responseMock.verify();
-    });
+    await sjpPressListController.get(request, response);
+    return responseMock.verify();
+
   });
 
   it('should render error page is query param is empty', async () => {
@@ -62,9 +62,9 @@ describe('SJP Press List Controller', () => {
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
-    return sjpPressListController.get(request, response).then(() => {
-      responseMock.verify();
-    });
+
+    await sjpPressListController.get(request, response);
+    return responseMock.verify();
   });
 
 });
