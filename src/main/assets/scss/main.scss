@@ -169,6 +169,7 @@ $min-width: 52em;
   .hide {
     display: block;
   }
+
 }
 
 .moj-button-menu {
@@ -224,6 +225,17 @@ $min-width: 52em;
     }
   }
 
+  .floating-back-to-top {
+    bottom: -2vh;
+  }
+
+}
+@media (min-width: 640px) {
+  .parent-box {
+    .floating-back-to-top {
+      bottom: -2vh;
+    }
+  }
 }
 
 //Styling for the Hearings List page
