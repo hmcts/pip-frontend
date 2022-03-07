@@ -14,6 +14,12 @@ describe('subscription Confirmation', () => {
         .get('/pending-subscriptions')
         .expect((res) => expect(res.status).to.equal(200));
     });
+
+    test('should return pending subscriptions page with no-subscriptions query param', async () => {
+      await request(app)
+        .get('/pending-subscriptions?no-subscription=true')
+        .expect((res) => expect(res.status).to.equal(200));
+    });
   });
 
   describe('on POST', () => {
