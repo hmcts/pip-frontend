@@ -31,7 +31,6 @@ import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrn
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
-import config = require('config');
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -262,9 +261,9 @@ describe('Verified user', () => {
         await signInPage.open('/sign-in');
         await signInPage.selectOption('SignInRadio3');
         await signInPage.clickContinueForRadio3();
-        console.log('B2C_USERNAME', config.get('secrets.pip-ss-kv.B2C_USERNAME'));
-        await signInPage.enterText(config.get('secrets.pip-ss-kv.B2C_USERNAME'), 'EmailField');
-        await signInPage.enterText(config.get('secrets.pip-ss-kv.B2C_PASSWORD'), 'PasswordField');
+        console.log('B2C_USERNAME', process.env.B2C_USERNAME);
+        await signInPage.enterText(process.env.B2C_USERNAME, 'EmailField');
+        await signInPage.enterText(process.env.B2C_PASSWORD, 'PasswordField');
         accountHomePage = await signInPage.clickSignIn();
         await browser.pause(2000);
       });
