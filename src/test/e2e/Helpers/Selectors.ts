@@ -126,6 +126,11 @@ module.exports = {
   displayDateToMonth: '#display-date-to-month',
   displayDateToYear: '#display-date-to-year',
 
+  // Admin dashboard selectors
+  UploadFile: '#card-manual-upload',
+  RemoveContent: '#card-remove-list-search',
+  ManageMediaAccounts: '#manage-media-accounts',
+
   // CreateMediaAccount selectors
   UploadImage: '#file-upload',
   NameInput: '#fullName',
