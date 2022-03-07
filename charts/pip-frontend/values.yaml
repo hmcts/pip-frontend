@@ -33,8 +33,5 @@ nodejs:
           alias: B2C_PASSWORD
         - name: b2c-test-account
           alias: B2C_USERNAME
-      certs:
-        - name: cp-test
-          alias: CERT_DOWN
   aadIdentityName: pip
 
