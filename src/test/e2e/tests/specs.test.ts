@@ -374,7 +374,6 @@ describe('Verified user', () => {
     describe('following the case reference number path', () => {
       const validSearchTerm = 'H01CF553';
 
-
       before(async () => {
         await subscriptionAddPage.open('subscription-add');
       });
