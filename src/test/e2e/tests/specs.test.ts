@@ -1,34 +1,37 @@
-import {HomePage} from '../PageObjects/Home.page';
-import {AlphabeticalSearchPage} from '../PageObjects/AlphabeticalSearch.page';
-import {HearingListPage} from '../PageObjects/HearingList.page';
-import {SearchPage} from '../PageObjects/Search.page';
-import {SubscriptionManagementPage} from '../PageObjects/SubscriptionManagement.page';
-import {ViewOptionPage} from '../PageObjects/ViewOption.page';
-import {LiveCaseCourtSearchControllerPage} from '../PageObjects/LiveCaseCourtSearchController.page';
-import {SubscriptionAddPage} from '../PageObjects/SubscriptionAdd.page';
-import {LiveCaseStatusPage} from '../PageObjects/LiveCaseStatus.page';
-import {CaseNameSearchPage} from '../PageObjects/CaseNameSearch.page';
-import {CaseNameSearchResultsPage} from '../PageObjects/CaseNameSearchResults.page';
-import {SubscriptionUrnSearchResultsPage} from '../PageObjects/SubscriptionUrnSearchResults.page';
-import {SubscriptionUrnSearchPage} from '../PageObjects/SubscriptionUrnSearch.page';
-import {CourtNameSearchPage} from '../PageObjects/CourtNameSearch.page';
-import {SingleJusticeProcedurePage} from '../PageObjects/SingleJusticeProcedure.page';
-import {CaseEventGlossaryPage} from '../PageObjects/CaseEventGlossary.page';
-import {CaseReferenceNumberSearchPage} from '../PageObjects/CaseReferenceNumberSearch.page';
-import {CaseReferenceNumberSearchResultsPage} from '../PageObjects/CaseReferenceNumberSearchResults.page';
-import {SignInPage} from '../PageObjects/SignIn.page';
-import {DeleteSubscriptionPage} from '../PageObjects/DeleteSubscription.page';
-import {UnsubscribeConfirmationPage} from '../PageObjects/UnsubscribeConfirmation.page';
-import {PendingSubscriptionsPage} from '../PageObjects/PendingSubscriptions.page';
-import {SubscriptionConfirmedPage} from '../PageObjects/SubscriptionConfirmed.page';
-import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
-import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
-import {SummaryOfPublicationsPage} from '../pageobjects/SummaryOfPublications.page';
-import {InterstitialPage} from '../PageObjects/Interstitial.page';
-import {ManualUploadPage} from '../PageObjects/ManualUpload.page';
-import {ManualUploadSummaryPage} from '../PageObjects/ManualUploadSummary.page';
-import {FileUploadConfirmationPage} from '../PageObjects/FileUploadConfirmation.page';
-import {AccountHomePage} from '../PageObjects/AccountHome.page';
+import { HomePage } from '../PageObjects/Home.page';
+import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
+import { HearingListPage } from '../PageObjects/HearingList.page';
+import { SearchPage } from '../PageObjects/Search.page';
+import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
+import { ViewOptionPage } from '../PageObjects/ViewOption.page';
+import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
+import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
+import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
+import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
+import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
+import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
+import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
+import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
+import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
+import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
+import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
+import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
+import { SignInPage } from '../PageObjects/SignIn.page';
+import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
+import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
+import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
+import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
+import { AdminDashboardPage } from '../PageObjects/AdminDashboard.page';
+import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
+import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
+import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
+import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
+import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
+import { InterstitialPage } from '../PageObjects/Interstitial.page';
+import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
+import { AccountHomePage } from '../PageObjects/AccountHome.page';
+import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
+import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import config = require('config');
 
 const homePage = new HomePage;
@@ -56,13 +59,14 @@ let manualUploadSummaryPage: ManualUploadSummaryPage;
 let fileUploadConfirmationPage: FileUploadConfirmationPage;
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
+let manualUploadPage: ManualUploadPage;
+const adminDashboard = new AdminDashboardPage;
 let createMediaAccountPage: CreateMediaAccountPage;
 let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let interstitialPage: InterstitialPage;
 let accountHomePage: AccountHomePage;
 
 const signInPage = new SignInPage;
-const manualUploadPage = new ManualUploadPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -470,13 +474,6 @@ if (process.env.EXCLUDE_E2E === 'true') {
     });
 
     describe('Following the subscription \'search\' by case reference path', () => {
-      it('should click continue to create subscription', async () => {
-        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
-        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
-      });
-    });
-
-    describe('Following the subscription \'search\' by case reference path', () => {
       const validSearchTerm = 'T485913';
       const expectedNumOfResults = 1;
 
@@ -537,9 +534,14 @@ if (process.env.EXCLUDE_E2E === 'true') {
   });
 
   describe('Admin level journeys', () => {
+    it('should open admin dashboard page', async () => {
+      await adminDashboard.open('/admin-dashboard');
+      expect(await adminDashboard.getPageTitle()).toEqual('Admin dashboard');
+    });
+
     describe('Manual Upload', () => {
       it('should open manual upload page', async () => {
-        await manualUploadPage.open('/manual-upload');
+        manualUploadPage = await adminDashboard.clickUploadFileCard();
         expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
       });
 
