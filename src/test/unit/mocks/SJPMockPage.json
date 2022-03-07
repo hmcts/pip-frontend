@@ -25,22 +25,12 @@
                               "address": {
                                 "town": "Swansea"
                               }
-                            },
-                            "organisationDetails": {
-                              "organisationName": "qU8QlEo@"
                             }
                           },
                           {
-                            "partyRole": "ACCUSED",
-                            "individualDetails": {
-                              "individualForenames": "Nigel",
-                              "individualSurname": "Sausage",
-                              "dateOfBirth": "25/07/1985",
-                              "address": {
-                                "postCode": "G14 9DU"
-                              },
-                              "individualMiddleName": "F",
-                              "title": "Miss"
+                            "partyRole": "Prosecuter",
+                            "organisationDetails": {
+                              "organisationName": "qU8QlEo"
                             }
                           }
                         ],

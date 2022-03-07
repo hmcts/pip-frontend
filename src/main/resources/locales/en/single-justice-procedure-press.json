@@ -4,5 +4,10 @@
   "whatIsSJP": " What are Single Justice Procedure cases?",
   "sjpDescription": "Cases ready to be decided by a magistrate without a hearing. Includes TV licensing and minor traffic offences such as speeding.",
   "listDate": "List for",
-  "published": "Published"
+  "published": "Published",
+  "name": "Name",
+  "dateOfBirth": "Date of birth",
+  "reference": "Reference",
+  "address": "Address",
+  "reportingRestriction": "Reporting Restriction"
 }

@@ -105,9 +105,9 @@ export class PublicationService {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
             sitting['hearing'].forEach(hearing => {
-              hearingCount = hearingCount + 1;
+              hearingCount++;
               hearing['party'].forEach(party => {
-                if (party['individualDetails'] !== undefined) {
+                if (party['individualDetails']) {
                   party['individualDetails']['formattedDateOfBirth'] = moment(party['individualDetails']['dateOfBirth'].split('/').reverse().join('-')).format('D MMMM YYYY');
                 }
               });

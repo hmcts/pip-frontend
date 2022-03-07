@@ -62,8 +62,9 @@ describe('SJP Press List Controller', () => {
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
-    await sjpPressListController.get(request, response);
-    return responseMock.verify();
+    return sjpPressListController.get(request, response).then(() => {
+      responseMock.verify();
+    });
   });
 
 });

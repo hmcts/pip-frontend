@@ -1,4 +1,3 @@
-{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
 {% from "./macros/common-components.njk" import goBack %}
 
 {% extends "template.njk" %}
@@ -34,7 +33,7 @@
               <dl class="govuk-summary-list--no-border">
                 <div class="govuk-summary-list__row">
                   <dt class="govuk-summary-list__key">
-                    Name
+                      {{ name }}
                   </dt>
                   <dd class="govuk-summary-list__value">
                     {% set individualTitle = '' %}
@@ -50,7 +49,7 @@
                 </div>
                 <div class="govuk-summary-list__row">
                   <dt class="govuk-summary-list__key">
-                    Date of birth
+                      {{ dateOfBirth }}
                   </dt>
                   <dd class="govuk-summary-list__value">
                     {{ hearing['party'][0]['individualDetails']['formattedDateOfBirth'] }} ({{ hearing['party'][0]['individualDetails']['age'] }})
@@ -58,7 +57,7 @@
                 </div>
                 <div class="govuk-summary-list__row">
                   <dt class="govuk-summary-list__key">
-                    Reference
+                      {{ reference }}
                   </dt>
                   <dd class="govuk-summary-list__value">
                     {{ hearing['case'][0]['caseUrn'] }}
@@ -66,7 +65,7 @@
                 </div>
                 <div class="govuk-summary-list__row">
                   <dt class="govuk-summary-list__key">
-                    Address
+                      {{ address }}
                   </dt>
                   <dd class="govuk-summary-list__value">
                     {% for line in hearing['party'][0]['individualDetails']['address']['line'] %}
@@ -94,7 +93,7 @@
 
                 {% for offence in hearing['offence'] %}
                   <p class="govuk-body">
-                    Reporting Restriction - {{ offence['formattedReportingRestriction'] }}<br />
+                      {{ reportingRestriction }} - {{ offence['formattedReportingRestriction'] }}<br />
                     {{ offence['offenceTitle'] }} - {{ offence['offenceWording'] }}
                   </p>
                 {% endfor %}

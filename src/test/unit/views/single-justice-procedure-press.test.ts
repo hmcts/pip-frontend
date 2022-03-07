@@ -11,10 +11,18 @@ const PAGE_URL = '/sjp-press-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const listSummary = 'govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1';
+const offenderInformationClass = 'govuk-summary-list__value';
+const reportingRestrictionClass = 'govuk-body';
 
 const expectedHeader = 'Single Justice Procedure cases - Press view';
 const summaryHeadingText = 'What are Single Justice Procedure cases?';
 const listText = 'List for 14 February 2022';
+const offenderName = 'Danny  Thomas';
+const offenderDateOfBirth = '25 July 1985';
+const offenderCaseNumber = 'ABC12345';
+const offenderAddress = 'Swansea';
+const prosecutor = 'qU8QlEo';
+const reportingRestriction = 'Reporting Restriction - True';
 
 let htmlRes: Document;
 
@@ -45,7 +53,38 @@ describe('Single Justice Procedure List page', () => {
   });
 
   it('should display list date',  () => {
-    const listDate = htmlRes.getElementsByClassName(listSummary);
-    expect(listDate[0].innerHTML).contains(listText, 'Could not find the list date information');
+    const offenderData = htmlRes.getElementsByClassName(listSummary);
+    expect(offenderData[0].innerHTML).contains(listText, 'Could not find the list date information');
   });
+
+  it('should have offender name',  () => {
+    const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
+    expect(offenderData[0].innerHTML).contains(offenderName, 'Could not find the offender name');
+  });
+
+  it('should have offender date of birth',  () => {
+    const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
+    expect(offenderData[1].innerHTML).contains(offenderDateOfBirth, 'Could not find the offender date of birth');
+  });
+
+  it('should have offender Case Reference',  () => {
+    const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
+    expect(offenderData[2].innerHTML).contains(offenderCaseNumber, 'Could not find the offender case reference');
+  });
+
+  it('should have offender address',  () => {
+    const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
+    expect(offenderData[3].innerHTML).contains(offenderAddress, 'Could not find the offender address');
+  });
+
+  it('should have prosecutor',  () => {
+    const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
+    expect(offenderData[4].innerHTML).contains(prosecutor, 'Could not find the Prosecutor');
+  });
+
+  it('should have reporting restriction section',  () => {
+    const reportingRestrictionSection = htmlRes.getElementsByClassName(reportingRestrictionClass);
+    expect(reportingRestrictionSection[4].innerHTML).contains(reportingRestriction, 'Could not find the reporting Restriction');
+  });
+
 });
