@@ -1,0 +1,15 @@
+{
+  "title": "Create Admin Account",
+  "header": "Create admin account",
+  "fNameLabel": "First name",
+  "lNameLabel": "Last name",
+  "emailLabel": "Email address",
+  "userRoleLabel": "User role",
+  "userRoles": [
+    "Internal - Super Administrator - CTSC",
+    "Internal - Super Administrator - Local",
+    "Internal - Administrator - CTSC",
+    "Internal - Administrator - Local"
+  ],
+  "errorTitle": "There is a problem"
+}

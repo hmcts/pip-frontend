@@ -1,0 +1,151 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+{% block content %}
+    {% set firstNameInput = govukInput({
+        label: {
+            text: fNameLabel
+        },
+        classes: 'govuk-!-width-one-third',
+        id: "firstName",
+        name: "firstName",
+        errorMessage: {
+            text: formErrors.firstNameError.message
+        }
+    }) if formErrors.firstNameError.message else govukInput({
+        label: {
+            text: fNameLabel
+        },
+        classes: 'govuk-!-width-one-third',
+        id: "firstName",
+        name: "firstName"
+    }) %}
+
+    {% set lastNameInput = govukInput({
+        label: {
+            text: lNameLabel
+        },
+        classes: 'govuk-!-width-one-third',
+        id: "lastName",
+        name: "lastName",
+        errorMessage: {
+            text: formErrors.lastNameError.message
+        }
+    }) if formErrors.lastNameError.message else govukInput({
+        label: {
+            text: lNameLabel
+        },
+        classes: 'govuk-!-width-one-third',
+        id: "lastName",
+        name: "lastName"
+    }) %}
+
+    {% set emailInput = govukInput({
+        label: {
+            text: emailLabel
+        },
+        classes: "govuk-!-width-two-thirds",
+        id: "emailAddress",
+        name: "emailAddress",
+        type: 'email',
+        autocomplete: 'email',
+        spellcheck: false,
+        errorMessage: {
+            text: formErrors.emailError.message
+        }
+    }) if formErrors.emailError.message else govukInput({
+        label: {
+            text: emailLabel
+        },
+        classes: "govuk-!-width-two-thirds",
+        id: "emailAddress",
+        name: "emailAddress",
+        type: 'email',
+        autocomplete: 'email',
+        spellcheck: false
+    }) %}
+
+    {% set radios = govukRadios({
+        idPrefix: "user-role",
+        name: "user-role",
+        fieldset: {
+            legend: {
+                text: userRoleLabel
+            }
+        },
+        items: [
+            {
+                value: "super-admin-ctsc",
+                text: userRoles[0]
+            },
+            {
+                value: "super-admin-local",
+                text: userRoles[1]
+            },
+            {
+                value: "admin-ctsc",
+                text: userRoles[2]
+            },
+            {
+                value: "admin-local",
+                text: userRoles[3]
+            }
+        ],
+        errorMessage: {
+            text: formErrors.radioError.message
+        }
+    }) if formErrors.radioError.message else govukRadios({
+        idPrefix: "user-rolem",
+        name: "user-role",
+        fieldset: {
+            legend: {
+                text: userRoleLabel
+            }
+        },
+        items: [
+            {
+                value: "super-admin-ctsc",
+                text: userRoles[0]
+            },
+            {
+                value: "super-admin-local",
+                text: userRoles[1]
+            },
+            {
+                value: "admin-ctsc",
+                text: userRoles[2]
+            },
+            {
+                value: "admin-local",
+                text: userRoles[3]
+            }
+        ]
+    }) %}
+
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <form method="post" novalidate>
+        {{ firstNameInput }}
+        {{ lastNameInput }}
+        {{ emailInput }}
+        {{ radios }}
+        {{ submitButton() }}
+    </form>
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+    </script>
+{% endblock %}
