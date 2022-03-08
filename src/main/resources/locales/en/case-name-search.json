@@ -1,8 +1,8 @@
 {
   "title": "Case Name Search",
-  "heading": "Enter a case name",
+  "heading": "What is the name of party or parties involved?",
   "backButton": "Back",
-  "inputLabel": "Enter the name of the party or parties involved in this case",
+  "inputLabel": "For example, Toyota v John Smith.",
   "error": {
     "notFound": "Case name not found. Please try again or search by case reference number, unique reference number, or by a whole court",
     "title": "There is a problem",
