@@ -281,7 +281,7 @@ describe('Verified user', () => {
 
     it('should navigate to add subscription page on button click', async () => {
       subscriptionAddPage = await subscriptionManagementPage.clickAddNewSubscriptionButton();
-      expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add a subscription?');
+      expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add an email subscription?');
     });
 
     //TODO: excluded URN as there are no any at the moment
@@ -324,7 +324,7 @@ describe('Verified user', () => {
       it('should open case name search path', async () => {
         await subscriptionAddPage.selectOption('SubscriptionAddByCaseName');
         caseNameSearchPage = await subscriptionAddPage.clickContinueForCaseName();
-        expect(await caseNameSearchPage.getPageTitle()).toBe('Enter a case name');
+        expect(await caseNameSearchPage.getPageTitle()).toBe('What is the name of party or parties involved?');
       });
 
       it('should search for a valid case name and navigate to results page', async () => {
@@ -380,7 +380,7 @@ describe('Verified user', () => {
       it('should select \'By case reference number\' option and navigate to search case number page', async () => {
         await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
         caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
-        expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('Enter a case reference number');
+        expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('What is the case reference number or case ID?');
       });
 
       it('should enter text and click continue', async () => {
