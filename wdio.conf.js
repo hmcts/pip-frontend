@@ -1,6 +1,5 @@
 const drivers = {
-  chromiumedge: { version: 'latest'},
-  // chrome: {version: '98.0.4758.102'},
+  chromiumedge: {version: 'latest'},
   chrome: {version: '96.0.4664.45'},
   firefox: {version: 'latest'},
 };
@@ -64,10 +63,9 @@ exports.config = {
       maxInstances: 1,
       browserName: 'chrome',
       acceptInsecureCerts: true,
-      'goog:chromeOptions': {},
-    // {
-    //   args: ['--headless', 'user-agent=...', '--disable-gpu', '--no-sandbox', '--ignore-certificate-errors'],
-    // }
+      'goog:chromeOptions': process.env.USE_HEADLESS ? {
+        args: ['--headless', 'user-agent=...', '--disable-gpu', '--no-sandbox'],
+      } : {},
     },
     // {
     //   maxInstances: 1,
