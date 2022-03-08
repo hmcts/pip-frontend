@@ -115,6 +115,8 @@ export default function(app: Application): void {
   app.post('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.post);
   app.get('/create-admin-account', app.locals.container.cradle.createAdminAccountController.get);
   app.post('/create-admin-account', app.locals.container.cradle.createAdminAccountController.post);
+  app.get('/create-admin-account-summary', app.locals.container.cradle.createAdminAccountSummaryController.get);
+  app.post('/create-admin-account-summary', app.locals.container.cradle.createAdminAccountSummaryController.post);
   app.get('/delete-subscription', ensureAuthenticated, app.locals.container.cradle.deleteSubscriptionController.get);
   app.get('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.get);
   app.post('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.post);
