@@ -8,7 +8,7 @@ let formCookie;
 
 export default class CreateAdminAccountController {
   public get(req: PipRequest, res: Response): void {
-    formCookie = req.cookies['createAdminAccountCookie'];
+    formCookie = req.cookies['createAdminAccount'];
     const formData = formCookie ? JSON.parse(formCookie) : null;
     const options = {
       formData,
