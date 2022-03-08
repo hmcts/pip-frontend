@@ -16,6 +16,10 @@ export class CourtService {
     return alphabetOptions;
   }
 
+  public sortCourtsAlphabetically(courtsList: Court[]): Court[] {
+    return courtsList.sort((a, b) => (a.name > b.name) ? 1 : -1);
+  }
+
   public async fetchAllCourts(): Promise<Array<Court>> {
     return await courtRequest.getAllCourts();
   }
@@ -44,8 +48,9 @@ export class CourtService {
 
   private generateAlphabetisedCourtList(listToAlphabetise: Array<Court>): object {
     const alphabetisedCourtList = CourtService.generateAlphabetObject();
+    const sortedCourtsList = this.sortCourtsAlphabetically(listToAlphabetise);
 
-    listToAlphabetise.forEach(item => {
+    sortedCourtsList.forEach(item => {
       const courtName = item.name;
       alphabetisedCourtList[courtName.charAt(0).toUpperCase()][courtName] = {
         id: item.courtId,
