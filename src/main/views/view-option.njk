@@ -41,6 +41,8 @@
             ]
         }) }}
         {{ submitButton() }}
+        <h2 class="govuk-heading-m govuk-!-margin-top-3">{{ haveAccount }}</h2>
+        <p class="govuk-body"><a class="govuk-link" href="sign-in">{{ accountLink }}</a></p>
     </form>
     <script>
       const button = document.getElementsByClassName('govuk-button')[0];
