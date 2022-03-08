@@ -12,12 +12,36 @@
     {{ goBack() }}
 {% endblock %}
 {% block content %}
+    {% if formErrors %}
+    {{ govukErrorSummary({
+        titleText: errorTitle,
+        errorList: [
+            {
+                text: formErrors.firstNameError.message,
+                href: "#firstName"
+            },
+            {
+                text: formErrors.lastNameError.message,
+                href: "#lastName"
+            },
+            {
+                text: formErrors.emailError.message,
+                href: "#emailAddress"
+            },
+            {
+                text: formErrors.radioError.message,
+                href: "#user-role"
+            }
+        ]
+    }) }}
+    {% endif %}
     {% set firstNameInput = govukInput({
         label: {
             text: fNameLabel
         },
         classes: 'govuk-!-width-one-third',
         id: "firstName",
+        value: formData.firstName,
         name: "firstName",
         errorMessage: {
             text: formErrors.firstNameError.message
@@ -28,6 +52,7 @@
         },
         classes: 'govuk-!-width-one-third',
         id: "firstName",
+        value: formData.firstName,
         name: "firstName"
     }) %}
 
@@ -37,6 +62,7 @@
         },
         classes: 'govuk-!-width-one-third',
         id: "lastName",
+        value: formData.lastName,
         name: "lastName",
         errorMessage: {
             text: formErrors.lastNameError.message
@@ -47,6 +73,7 @@
         },
         classes: 'govuk-!-width-one-third',
         id: "lastName",
+        value: formData.lastName,
         name: "lastName"
     }) %}
 
@@ -58,6 +85,7 @@
         id: "emailAddress",
         name: "emailAddress",
         type: 'email',
+        value: formData.emailAddress,
         autocomplete: 'email',
         spellcheck: false,
         errorMessage: {
@@ -71,6 +99,7 @@
         id: "emailAddress",
         name: "emailAddress",
         type: 'email',
+        value: formData.emailAddress,
         autocomplete: 'email',
         spellcheck: false
     }) %}
@@ -83,53 +112,19 @@
                 text: userRoleLabel
             }
         },
-        items: [
-            {
-                value: "super-admin-ctsc",
-                text: userRoles[0]
-            },
-            {
-                value: "super-admin-local",
-                text: userRoles[1]
-            },
-            {
-                value: "admin-ctsc",
-                text: userRoles[2]
-            },
-            {
-                value: "admin-local",
-                text: userRoles[3]
-            }
-        ],
+        items: radios,
         errorMessage: {
             text: formErrors.radioError.message
         }
     }) if formErrors.radioError.message else govukRadios({
-        idPrefix: "user-rolem",
+        idPrefix: "user-role",
         name: "user-role",
         fieldset: {
             legend: {
                 text: userRoleLabel
             }
         },
-        items: [
-            {
-                value: "super-admin-ctsc",
-                text: userRoles[0]
-            },
-            {
-                value: "super-admin-local",
-                text: userRoles[1]
-            },
-            {
-                value: "admin-ctsc",
-                text: userRoles[2]
-            },
-            {
-                value: "admin-local",
-                text: userRoles[3]
-            }
-        ]
+        items: radios
     }) %}
 
     <h1 class="govuk-heading-l">{{ header }}</h1>
