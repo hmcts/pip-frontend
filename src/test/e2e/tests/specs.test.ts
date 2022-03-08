@@ -308,7 +308,7 @@ describe('Verified user', () => {
 
         it('should click continue to create subscription', async () => {
           pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
-          expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+          expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
         });
       });
     }
@@ -339,7 +339,7 @@ describe('Verified user', () => {
 
       it('should click continue to create subscription', async () => {
         pendingSubscriptionsPage = await caseNameSearchResultsPage.clickContinue();
-        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
       });
     });
 
@@ -366,7 +366,7 @@ describe('Verified user', () => {
 
       it('should click continue to create subscription', async () => {
         pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
-        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
       });
     });
 
@@ -391,7 +391,7 @@ describe('Verified user', () => {
 
       it('should click continue to create subscription', async () => {
         pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
-        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your subscriptions');
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
       });
     });
   });
@@ -427,7 +427,7 @@ describe('Verified user', () => {
   describe('Admin level journeys', () => {
     it('should open admin dashboard page', async () => {
       await adminDashboard.open('/admin-dashboard');
-      expect(await adminDashboard.getPageTitle()).toEqual('Admin dashboard');
+      expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
     });
 
     describe('Manual Upload', () => {
