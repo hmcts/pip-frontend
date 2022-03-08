@@ -12,12 +12,12 @@ const headingClass = 'govuk-fieldset__heading';
 const buttonClass = 'govuk-button';
 const subscriptionChoiceId = 'subscription-choice';
 const radioClass = 'govuk-radios__item';
-const expectedHeader = 'How do you want to add a subscription?';
+const expectedHeader = 'How do you want to add an email subscription?';
 const expectedButtonText = 'Continue';
-const expectedRadioLabel1 = 'By case reference number';
+const expectedRadioLabel1 = 'By case reference number or case ID';
 const expectedRadioLabel2 = 'By unique reference number (URN)';
-const expectedRadioLabel3 = 'By case name';
-const expectedRadioLabel4 = 'By court or tribunal';
+const expectedRadioLabel3 = 'By name of party or parties involved';
+const expectedRadioLabel4 = 'By court or tribunal name';
 
 let htmlRes: Document;
 describe('Subscriptions add Page initial load', () => {
@@ -67,7 +67,7 @@ describe('Subscriptions add Page initial load', () => {
 
   it('should display first radio button content',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[3].innerHTML).contains(expectedRadioLabel1, 'Could not find the radio button with label ' + expectedRadioLabel1);
+    expect(radioButtons[2].innerHTML).contains(expectedRadioLabel1, 'Could not find the radio button with label ' + expectedRadioLabel1);
   });
 
   it('should display second radio button content',  () => {
@@ -77,7 +77,7 @@ describe('Subscriptions add Page initial load', () => {
 
   it('should display third radio button content',  () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[2].innerHTML).contains(expectedRadioLabel3, 'Could not find the radio button with label ' + expectedRadioLabel2);
+    expect(radioButtons[3].innerHTML).contains(expectedRadioLabel3, 'Could not find the radio button with label ' + expectedRadioLabel2);
   });
 
   it('should display fourth radio button content',  () => {
