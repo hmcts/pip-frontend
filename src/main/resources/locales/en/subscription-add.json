@@ -5,10 +5,10 @@
     "text": "Please tell us how you would like to add a subscription",
     "error": "Error:"
   },
-  "header": "How do you want to add a subscription?",
-  "insetText": "This service displays information about published lists only. Searches can only be performed against information contained within published lists.",
-  "radio1": "By case reference number",
+  "header": "How do you want to add an email subscription?",
+  "insetText": "You can only search for information that is currently published.",
+  "radio1": "By case reference number or case ID",
   "radio2": "By unique reference number (URN)",
-  "radio3": "By case name",
-  "radio4": "By court or tribunal"
+  "radio3": "By name of party or parties involved",
+  "radio4": "By court or tribunal name"
 }

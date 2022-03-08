@@ -521,3 +521,10 @@ div {
   display: none;
 }
 
+nav {
+  .moj-sub-navigation__item {
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
