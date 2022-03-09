@@ -1,4 +1,5 @@
 import { allowedImageTypes } from '../models/consts';
+import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
 
 const adminRolesList = [
   {
@@ -22,6 +23,7 @@ const adminRolesList = [
     mapping: 'INTERNAL_ADMIN_LOCAL',
   },
 ];
+const accountManagementRequests = new AccountManagementRequests();
 
 export class CreateAccountService {
   public validateFormFields(formValues: object): object {
@@ -118,5 +120,9 @@ export class CreateAccountService {
       message = 'Select a file to upload';
     }
     return message;
+  }
+
+  public async createAdminAccount(payload): Promise<boolean> {
+    return await accountManagementRequests.createAdminAccount(payload);
   }
 }

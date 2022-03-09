@@ -1,5 +1,5 @@
 {% extends "template.njk" %}
-{% from "./macros/common-components.njk" import goBack, submitButton %}
+{% from "./macros/common-components.njk" import goBack, submitButton, successPanel %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
@@ -23,6 +23,9 @@
         }) }}
     {% endif %}
     <h1 class="govuk-heading-l">{{ header }}</h1>
+    {% if accountCreated %}
+        {{ successPanel(panelTitle) }}
+    {% endif %}
     <form method="post" action="create-admin-account-summary">
         {{ govukSummaryList({
             rows: [
@@ -96,12 +99,26 @@
                 }
             ]
         }) }}
-        {{ submitButton(confirmButton) }}
+        {% if not accountCreated %}
+            {{ submitButton(confirmButton) }}
+        {% endif %}
     </form>
+    {% if accountCreated %}
+        <h2 class="govuk-heading-m"> {{ whatNextTitle }}</h2>
+        <p class="govuk-body"> {{ whatNextMessage }}</p>
+    {% endif %}
 {% endblock %}
 {% block bodyEnd %}
     {{ super() }}
     <script>
+      if ({{ accountCreated }}) {
+        const actions = document.getElementsByClassName('govuk-summary-list__actions');
+        for(let i = 0; i < actions.length; i++) {
+          console.log('i', i);
+          actions[i].style.display = 'none';
+        }
+      }
+
       if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
       }
