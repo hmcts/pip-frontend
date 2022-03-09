@@ -12,7 +12,7 @@ export default class CreateAdminAccountController {
     const formData = formCookie ? JSON.parse(formCookie) : null;
     res.render('create-admin-account', {
       formData,
-      radios: createAccountService.buildRadiosList(formData['user-role']),
+      radios: createAccountService.buildRadiosList(formData?.['user-role']),
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-admin-account']),
     });
   }
@@ -28,7 +28,7 @@ export default class CreateAdminAccountController {
     } else {
       res.render('create-admin-account', {
         formData,
-        radios: createAccountService.buildRadiosList(formData['user-role']),
+        radios: createAccountService.buildRadiosList(formData?.['user-role']),
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-admin-account']),
         formErrors: formValidation,
       });
