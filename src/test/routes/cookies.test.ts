@@ -7,7 +7,7 @@ describe('Cookies Page', () => {
   describe('on GET', () => {
     test('should return cookies page', async () => {
       await request(app)
-        .get('/cookies')
+        .get('/cookie-policy')
         .expect((res) => expect(res.status).to.equal(200));
     });
   });

@@ -13,14 +13,13 @@
 
 {% block content %}
 <h1 class="govuk-heading-l">{{ title }}</h1>
-<div class = "govspeak">
-<p>{{ cookiesExplanation1 }}</p>
-<p>{{ cookiesExplanation2 }}</p>
-<p>{{ cookiesExplanation3 }}</p>
+<p class="govuk-body">{{ cookiesExplanation1 }}</p>
+<p class="govuk-body">{{ cookiesExplanation2 }}</p>
+<p class="govuk-body">{{ cookiesExplanation3 }}</p>
 </div>
 
 {{ govukTable({
-  caption: "Essential Cookies",
+  caption: tableCaption,
   captionClasses: "govuk-table__caption--m",
   head: [
     {
@@ -28,7 +27,6 @@
     },
     {
       text: tableHeaders[1]
-
     },
     {
       text: tableHeaders[2]

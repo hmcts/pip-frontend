@@ -3,7 +3,7 @@ import request from 'supertest';
 
 import { app } from '../../../main/app';
 
-const PAGE_URL = '/cookies';
+const PAGE_URL = '/cookie-policy';
 const headingClass = 'govuk-heading-l';
 const tableCaptionClass = 'govuk-table__caption';
 const tableCellClass = 'govuk-table';
