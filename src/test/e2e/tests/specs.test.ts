@@ -232,8 +232,6 @@ describe('Unverified user', () => {
 
 describe('Verified user', () => {
   describe('Sign In Page', () => {
-    const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
-
     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
       await signInPage.open('/sign-in');
       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
@@ -244,18 +242,6 @@ describe('Verified user', () => {
     });
 
     describe('sign in process and page routing', async () => {
-      it('should select \'Sign in with My HMCTS\' option and navigate to the login page HMCTS page', async () => {
-        await signInPage.open('/sign-in');
-        await signInPage.selectOption('SignInRadio1');
-        expect(await signInPage.clickContinueForRadio1()).toHaveHref(HMCTSAccountUrl);
-      });
-
-      it('should select \'Sign in with Common Platform\' option and navigate to the login page Common Platform page', async () => {
-        await signInPage.open('/sign-in');
-        await signInPage.selectOption('SignInRadio2');
-        expect(await signInPage.clickContinueForRadio2()).toHaveHref(HMCTSAccountUrl);
-      });
-
       it('should select \'Sign in with my P&I details\' option, navigate to the login page, and sign in', async () => {
         await signInPage.open('/sign-in');
         await signInPage.selectOption('SignInRadio3');
