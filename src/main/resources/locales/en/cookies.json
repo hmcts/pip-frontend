@@ -8,8 +8,9 @@
   "heading2": "Analytics Cookies",
   "tableHeaders": ["Name", "Purpose", "Expiry"],
   "tableCaption": "Essential Cookies",
-  "session": ["session", "Used to keep you signed in", "1 hour"],
-  "i18next": ["i18next", "Stores your language preferences", "1 year"],
-  "formCookie": ["formCookie", "Stores data within a form before it is submitted", "1 hour"]
-
+  "cookieTableData": [
+    ["session", "Used to keep you signed in", "1 hour"],
+    ["i18next", "Stores your language preferences", "1 year"],
+    ["formCookie", "Stores data within a form before it is submitted", "1 hour"]
+    ]
 }

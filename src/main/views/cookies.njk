@@ -15,6 +15,21 @@
 <p class="govuk-body">{{ cookiesExplanation2 }}</p>
 <p class="govuk-body">{{ cookiesExplanation3 }}</p>
 
+  {% set tableRows = [] %}
+{% for row in cookieTableData %}
+      {% set _ = tableRows.push([
+      {
+        text: row[0]
+      },
+      {
+        text: row[1]
+      },
+      {
+        text: row[2]
+      }
+      ]) %}
+  {% endfor %}
+
 {{ govukTable({
   caption: tableCaption,
   captionClasses: "govuk-table__caption--m",
@@ -29,41 +44,8 @@
       text: tableHeaders[2]
     }
   ],
-  rows: [
-    [
-      {
-        text: session[0]
-      },
-      {
-        text: session[1]
-      },
-      {
-        text: session[2]
-      }
-    ],
-    [
-      {
-        text: i18next[0]
-      },
-      {
-        text: i18next[1]
-      },
-      {
-      text: i18next[2]
-      }
-    ],
-    [
-      {
-        text: formCookie[0]
-      },
-      {
-        text: formCookie[1]
-      },
-      {
-        text: formCookie[2]
-      }
-    ]
-  ]
+  rows: tableRows
+
 }) }}
 
 {% endblock %}
