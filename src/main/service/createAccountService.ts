@@ -122,7 +122,16 @@ export class CreateAccountService {
     return message;
   }
 
+  formatCreateAdminAccountPayload(accountObject): object {
+    return {
+      email: accountObject.emailAddress,
+      firstName: accountObject.firstName,
+      surname: accountObject.lastName,
+      role: accountObject.userRoleObject.mapping,
+    };
+  }
+
   public async createAdminAccount(payload): Promise<boolean> {
-    return await accountManagementRequests.createAdminAccount(payload);
+    return await accountManagementRequests.createAdminAccount(this.formatCreateAdminAccountPayload(payload));
   }
 }
