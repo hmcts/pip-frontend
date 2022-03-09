@@ -7,7 +7,6 @@ const createAccountService = new CreateAccountService();
 
 export default class CreateAdminAccountSummaryController {
   public get(req: PipRequest, res: Response): void {
-    console.log('user', req.user);
     const formData = (req.cookies?.createAdminAccount) ? JSON.parse(req.cookies['createAdminAccount']) : {};
     res.render('create-admin-account-summary', {
       formData,
