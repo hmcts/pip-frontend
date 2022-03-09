@@ -3,9 +3,9 @@ import { Logger } from '@hmcts/nodejs-logging';
 
 const logger = Logger.getLogger('requests');
 export class AccountManagementRequests {
-  public async createAdminAccount(payload): Promise<boolean> {
+  public async createAdminAccount(payload, requester): Promise<boolean> {
     try {
-      const response = await accountManagementApi.post('/account/add/azure', payload);
+      const response = await accountManagementApi.post('/account/add/azure', payload, {headers: {'x-issuer-email': requester}});
       logger.info('admin account created', response);
       return true;
     }

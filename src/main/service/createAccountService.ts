@@ -131,7 +131,7 @@ export class CreateAccountService {
     };
   }
 
-  public async createAdminAccount(payload): Promise<boolean> {
-    return await accountManagementRequests.createAdminAccount(this.formatCreateAdminAccountPayload(payload));
+  public async createAdminAccount(payload: object, requester: string): Promise<boolean> {
+    return await accountManagementRequests.createAdminAccount(this.formatCreateAdminAccountPayload(payload), requester);
   }
 }
