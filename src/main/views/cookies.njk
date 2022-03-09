@@ -1,0 +1,74 @@
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import goBack, submitButton, backToTopButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "moj/components/filter/macro.njk" import mojFilter %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+<h1 class="govuk-heading-l">{{ title }}</h1>
+<div class = "govspeak">
+<p>{{ cookiesExplanation1 }}</p>
+<p>{{ cookiesExplanation2 }}</p>
+<p>{{ cookiesExplanation3 }}</p>
+</div>
+
+{{ govukTable({
+  caption: "Essential Cookies",
+  captionClasses: "govuk-table__caption--m",
+  head: [
+    {
+      text: tableHeaders[0]
+    },
+    {
+      text: tableHeaders[1]
+
+    },
+    {
+      text: tableHeaders[2]
+    }
+  ],
+  rows: [
+    [
+      {
+        text: session[0]
+      },
+      {
+        text: session[1]
+      },
+      {
+        text: session[2]
+      }
+    ],
+    [
+      {
+        text: i18next[0]
+      },
+      {
+        text: i18next[1]
+      },
+      {
+      text: i18next[2]
+      }
+    ],
+    [
+      {
+        text: formCookie[0]
+      },
+      {
+        text: formCookie[1]
+      },
+      {
+        text: formCookie[2]
+      }
+    ]
+  ]
+}) }}
+
+{% endblock %}

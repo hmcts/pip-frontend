@@ -1,0 +1,14 @@
+{
+  "title": "Cookies",
+  "backToTop": "Back to top",
+  "cookiesExplanation1": "Cookies are small files saved on your phone, tablet or computer when you visit a website.",
+  "cookiesExplanation2": "We use cookies to make Court and Tribunal Hearings work and collect information about how you use our service.",
+  "cookiesExplanation3": "Essential cookies keep your information secure while you use Courts and Tribunal Hearings. We do not need to ask permission to use them.",
+  "heading1": "Essential Cookies",
+  "heading2": "Analytics Cookies",
+  "tableHeaders": ["Name", "Purpose", "Expiry"],
+  "session": ["session", "Used to keep you signed in", "1 hour"],
+  "i18next": ["i18next", "Stores your language preferences", "1 year"],
+  "formCookie": ["formCookie", "Stores data within a form before it is submitted", "1 hour"]
+
+}
