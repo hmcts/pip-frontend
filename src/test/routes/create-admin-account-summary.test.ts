@@ -22,8 +22,8 @@ const invalidMockData = {
     mapping: 'INTERNAL_SUPER_ADMIN_LOCAL',
   },
 };
-createAccountStub.withArgs(mockData, 'TODO: USER EMAIL').resolves(true);
-createAccountStub.withArgs(invalidMockData, 'TODO: USER EMAIL').resolves(false);
+createAccountStub.withArgs(mockData, 'joe@bloggs.com').resolves(true);
+createAccountStub.withArgs(invalidMockData, 'joe@bloggs.com').resolves(false);
 
 describe('Create admin account summary page', () => {
   describe('on GET', () => {
@@ -36,11 +36,13 @@ describe('Create admin account summary page', () => {
   describe('on POST', () => {
     test('should render admin account summary with error message', async () => {
       app.request['cookies'] = {'createAdminAccount': JSON.stringify(invalidMockData)};
+      app.request['user'] = {emails: ['joe@bloggs.com']};
       await request(app).post('/create-admin-account-summary').send().expect((res) => expect(res.status).to.equal(200));
     });
 
     test('should render admin account summary with success dialog', async () => {
       app.request['cookies'] = {'createAdminAccount': JSON.stringify(mockData)};
+      app.request['user'] = {emails: ['joe@bloggs.com']};
       await request(app).post('/create-admin-account-summary').send().expect((res) => expect(res.status).to.equal(200));
     });
   });
