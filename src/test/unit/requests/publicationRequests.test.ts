@@ -243,20 +243,20 @@ describe('get individual publication metadata', () => {
 
   describe('delete publication', () => {
     it('should return true if valid data is provided', async () => {
-      const response = await pubRequests.deletePublication('abc');
+      const response = await pubRequests.deletePublication('abc', 'joe@bloggs.com');
       expect(response).toBe(true);
     });
 
     it('should handle error response', async () => {
-      expect(await pubRequests.deletePublication('abc1')).toBe(false);
+      expect(await pubRequests.deletePublication('abc1', 'joe@bloggs.com')).toBe(false);
     });
 
     it('should handle error request', async () => {
-      expect(await pubRequests.deletePublication('abc2')).toBe(false);
+      expect(await pubRequests.deletePublication('abc2', 'joe@bloggs.com')).toBe(false);
     });
 
     it('should handle error message', async () => {
-      expect(await pubRequests.deletePublication('abc3')).toBe(false);
+      expect(await pubRequests.deletePublication('abc3', 'joe@bloggs.com')).toBe(false);
     });
   });
 });

@@ -13,12 +13,13 @@ const response = { render: () => {return '';}, redirect: () => {return '';}} as 
 const request = mockRequest(i18n);
 
 const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
-removePublicationStub.withArgs('valid-artefact').resolves(true);
-removePublicationStub.withArgs('foo').resolves(false);
+removePublicationStub.withArgs('valid-artefact', 'joe@bloggs.com').resolves(true);
+removePublicationStub.withArgs('foo', 'joe@bloggs.com').resolves(false);
 
 describe('Remove List Confirmation Controller', () => {
   it('should render remove list confirmation page', async () => {
     request.query = {artefact: 'valid-artefact', court: '5'};
+    request.user = {emails: ['joe@bloggs.com']};
     const responseMock = sinon.mock(response);
     const expectedOptions = {
       ...i18n['remove-list-confirmation'],
@@ -53,6 +54,7 @@ describe('Remove List Confirmation Controller', () => {
   it('should redirect to remove list success page if remove choice is yes', async () => {
     const request = mockRequest(i18n);
     const responseMock = sinon.mock(response);
+    request.user = {emails: ['joe@bloggs.com']};
     request.body = {
       'remove-choice': 'yes',
       artefactId: 'valid-artefact',
@@ -66,6 +68,7 @@ describe('Remove List Confirmation Controller', () => {
   it('should render error if remove choice is yes and request fails', async () => {
     const request = mockRequest(i18n);
     const responseMock = sinon.mock(response);
+    request.user = {emails: ['joe@bloggs.com']};
     request.body = {
       'remove-choice': 'yes',
       artefactId: 'foo',
@@ -92,6 +95,7 @@ describe('Remove List Confirmation Controller', () => {
   it('should render remove list confirmation with error if there is no choice', async () => {
     const request = mockRequest(i18n);
     const responseMock = sinon.mock(response);
+    request.user = {emails: ['joe@bloggs.com']};
     request.body = {
       courtId: '5',
       artefactId: 'foo',

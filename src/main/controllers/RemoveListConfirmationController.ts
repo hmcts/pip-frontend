@@ -23,7 +23,7 @@ export default class RemoveListConfirmationController {
     const formData = req.body;
     switch (formData['remove-choice']) {
       case 'yes': {
-        const response = await publicationService.removePublication(formData.artefactId);
+        const response = await publicationService.removePublication(formData.artefactId, req.user['emails'][0]);
         response ?
           res.redirect('/remove-list-success') :
           res.render('error', req.i18n.getDataByLanguage(req.lng).error);

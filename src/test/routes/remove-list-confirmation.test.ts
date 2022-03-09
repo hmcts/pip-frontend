@@ -9,10 +9,12 @@ const URL = '/remove-list-confirmation';
 
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
-removePublicationStub.withArgs('valid-artefact').resolves(true);
-removePublicationStub.withArgs('invalid-artefact').resolves(false);
+removePublicationStub.withArgs('valid-artefact', 'joe@bloggs.com').resolves(true);
+removePublicationStub.withArgs('invalid-artefact', 'joe@bloggs.com').resolves(false);
 
 describe('Remove List Confirmation', () => {
+  app.request['user'] = {emails: ['joe@bloggs.com']};
+
   describe('on GET', () => {
     test('should return remove list confirmation page', async () => {
       await request(app)

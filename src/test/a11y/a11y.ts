@@ -133,7 +133,7 @@ function testAccessibility(url: string): void {
 describe('Accessibility',  () => {
   sinon.stub(expressRequest, 'isAuthenticated').returns(true);
   app.request['cookies'] = {'formCookie': JSON.stringify({'foo': 'blah'})};
-  app.request['user'] = {oid: '1'};
+  app.request['user'] = {oid: '1', emails: ['joe@bloggs.com']};
   app.request['cookies'] = {'formCookie': JSON.stringify({'foo': 'blah', listType: '', listTypeName: ''})};
   readRoutes().forEach(route => {
     testAccessibility(route);

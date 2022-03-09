@@ -98,7 +98,7 @@ export class PublicationService {
     return matches;
   }
 
-  public async removePublication(artefactId: string): Promise<boolean> {
-    return publicationRequests.deletePublication(artefactId);
+  public async removePublication(artefactId: string, email: string): Promise<boolean> {
+    return publicationRequests.deletePublication(artefactId, email);
   }
 }

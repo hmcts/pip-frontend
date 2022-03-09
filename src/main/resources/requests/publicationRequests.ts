@@ -85,9 +85,9 @@ export class PublicationRequests {
     return [];
   }
 
-  public async deletePublication(artefactId: string): Promise<boolean> {
+  public async deletePublication(artefactId: string, email: string): Promise<boolean> {
     try {
-      await dataManagementApi.delete(`/publication/${artefactId}`);
+      await dataManagementApi.delete(`/publication/${artefactId}`, {headers: {'x-issuer-email': email}});
       return true;
     } catch (error) {
       if (error.response) {
