@@ -433,6 +433,16 @@ div {
     max-width: 33.33%;
   }
 
+  .admin-card {
+    flex: 50%;
+    max-width: 50%;
+
+    @media (max-width: 640px) {
+      flex: 100%;
+      max-width: 100%;
+    }
+  }
+
   @media (max-width: 640px) {
     > div {
       flex: 100%;
@@ -466,6 +476,15 @@ div {
   border: 0;
 }
 
+.no-border-bottom {
+  border-bottom: 0;
+}
+
+.govuk-accordion__controls {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
 .overflow-table {
   overflow-x: auto;
 }
@@ -478,4 +497,12 @@ div {
 
 .admin-default-hide {
   display: none;
+}
+
+nav {
+  .moj-sub-navigation__item {
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }

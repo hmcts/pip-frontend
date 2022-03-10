@@ -19,7 +19,8 @@
     },
     id: "search-input",
     name: "search-input",
-    autocomplete: "false"
+    autocomplete: "false",
+    classes: "govuk-!-width-one-half"
   } %}
   {% if noResultsError or invalidInputError %}
     {% set inputProperties = {
@@ -31,7 +32,8 @@
       },
       label: {
         text: hint
-      }
+      },
+      classes: "govuk-!-width-one-half"
     } %}
     <div class="govuk-grid-row">
       <div class="no_padding govuk-grid-column-three-quarters">
@@ -48,7 +50,7 @@
     </div>
   {% endif %}
   <form action="subscription-urn-search" method="post">
-    <div class="govuk-form-group govuk-!-width-one-half">
+    <div class="govuk-form-group">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="search-input">
           {{ header }}

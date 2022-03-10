@@ -5,6 +5,7 @@ export interface PipRequest extends Request {
     getDataByLanguage: (lng: string) => {
       'account-home': {};
       'account-request-submitted': {};
+      'admin-dashboard': {};
       'alphabetical-search': {};
       'case-name-search': {};
       'case-name-search-results': {};
@@ -25,6 +26,7 @@ export interface PipRequest extends Request {
       'manual-upload-summary': {};
       'not-found': {};
       'otp-template': {};
+      'remove-list-search': {};
       'search': {};
       'search-results': {};
       'session-management': {};

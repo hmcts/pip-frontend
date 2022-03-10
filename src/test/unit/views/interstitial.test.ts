@@ -31,7 +31,7 @@ describe('Interstitial page', () => {
 
     it('should display bullets', () => {
       const bullets = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByTagName('li');
-      expect(bullets[0].innerHTML).contains('hearings in Civil and Family Courts in [xx region]',
+      expect(bullets[0].innerHTML).contains('Hearings in Civil and Family Courts in Milton Keynes, Oxford, Reading',
         'Could not find first bullet');
       expect(bullets[1].innerHTML).contains('Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
         'Could not find second bullet');
@@ -53,6 +53,40 @@ describe('Interstitial page', () => {
       const message = htmlRes.getElementsByClassName('govuk-body');
       expect(message[4].innerHTML).contains('This service is also available in',
         'Could not find language message');
+    });
+
+    it('should display message under continue button', () => {
+      const message = htmlRes.getElementsByClassName('govuk-heading-m');
+      expect(message[0].innerHTML).contains('Before you start',
+        'Could not find before you start message');
+    });
+
+    it('should display Scotland and NI message', () => {
+      const message = htmlRes.getElementsByClassName('govuk-body');
+      expect(message[5].innerHTML).contains('If you\'re in Scotland or Northern Ireland',
+        'Could not find Sco and NI message');
+    });
+
+    it('should display contact message', () => {
+      const message = htmlRes.getElementsByClassName('govuk-body');
+      expect(message[6].innerHTML).contains('Contact the:',
+        'Could not find contact message');
+    });
+
+    it('should display bullets', () => {
+      const bullets = htmlRes.getElementsByClassName('govuk-body')[7].getElementsByTagName('li');
+      expect(bullets[0].innerHTML).contains('for courts and some tribunals in Scotland',
+        'Could not find first bullet');
+      expect(bullets[1].innerHTML).contains('for courts and tribunals in Northern Ireland',
+        'Could not find second bullet');
+      expect(bullets[0].getElementsByClassName('govuk-link')[0].getAttribute('href').valueOf())
+        .contains('https://www.scotcourts.gov.uk/');
+      expect(bullets[0].getElementsByClassName('govuk-link')[0].innerHTML)
+        .contains('Scottish Courts website');
+      expect(bullets[1].getElementsByClassName('govuk-link')[0].getAttribute('href').valueOf())
+        .contains('https://www.courtsni.gov.uk/en-GB/ContactDetails/Pages/default.aspx');
+      expect(bullets[1].getElementsByClassName('govuk-link')[0].innerHTML)
+        .contains('Northern Ireland Courts and Tribunals Service');
     });
   });
 
