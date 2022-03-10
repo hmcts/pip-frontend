@@ -17,7 +17,7 @@ export class AccountManagementRequests {
       } else {
         logger.error('failed to create admin account with message', error.message);
       }
+      return false;
     }
-    return false;
   }
 }

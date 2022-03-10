@@ -1,4 +1,6 @@
 import { CreateAccountService } from '../../../main/service/createAccountService';
+import sinon from 'sinon';
+import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 
 const createAccountService = new CreateAccountService();
 const validBody = {
@@ -12,6 +14,18 @@ const invalidBody = {
   emailAddress: 'bar',
   employer: 'baz',
   'file-upload': 'blah',
+};
+const validAdminBody = {
+  emailAddress: 'bar@mail.com',
+  lastName: 'bar',
+  firstName: 'foo',
+  'user-role': 'admin-ctsc',
+};
+const invalidAdminBody = {
+  emailAddress: '',
+  firstName: '',
+  lastName: '',
+  'user-role': 'admin-ctsc',
 };
 const responseErrors = {
   nameError: {
@@ -31,7 +45,6 @@ const responseErrors = {
     href: '#file-upload',
   },
 };
-
 const responseNoErrors = {
   nameError: {
     message:  null,
@@ -50,6 +63,56 @@ const responseNoErrors = {
     href: '#file-upload',
   },
 };
+const adminResponseNoErrors = {
+  firstNameError: {
+    message:  null,
+    href: '#firstName',
+  },
+  emailError: {
+    message: null,
+    href: '#emailAddress',
+  },
+  lastNameError: {
+    message: null,
+    href: '#lastName',
+  },
+  radioError: {
+    message: null,
+    href: '#user-role',
+  },
+};
+const adminResponseErrors = {
+  firstNameError: {
+    message: 'Enter first name',
+    href: '#firstName',
+  },
+  emailError: {
+    message: 'Enter email address',
+    href: '#emailAddress',
+  },
+  lastNameError: {
+    message: 'Enter last name',
+    href: '#lastName',
+  },
+  radioError: {
+    message: null,
+    href: '#user-role',
+  },
+};
+const validPayload = {
+  emailAddress: 'emailAddress',
+  firstName: 'firstName',
+  surname: 'lastName',
+  userRoleObject: { mapping: 'userRoleObject'},
+};
+const invalidPayload = {
+  emailAddress: '',
+  firstName: '',
+  surname: '',
+  userRoleObject: { mapping: 'userRoleObject'},
+};
+const validEmail = 'joe@bloggs.com';
+const createAdminAccStub = sinon.stub(AccountManagementRequests.prototype, 'createAdminAccount');
 
 describe('Create Account Service', () => {
   describe('isValidImageType', () => {
@@ -122,6 +185,29 @@ describe('Create Account Service', () => {
 
     it('should return response with errors if invalid data is provided', () => {
       expect(createAccountService.validateFormFields(invalidBody)).toStrictEqual(responseErrors);
+    });
+  });
+
+  describe('validateAdminFormFields', () => {
+    it('should return valid response if all data is provided', () => {
+      expect(createAccountService.validateAdminFormFields(validAdminBody)).toStrictEqual(adminResponseNoErrors);
+    });
+
+    it('should return response with errors if invalid data is provided', () => {
+      expect(createAccountService.validateAdminFormFields(invalidAdminBody)).toStrictEqual(adminResponseErrors);
+    });
+  });
+
+  describe('createAdminAccount', () => {
+    it('should return true if valid data is provided', async () => {
+      createAdminAccStub.resolves(true);
+      const res = await createAccountService.createAdminAccount(validPayload, validEmail);
+      expect(res).toEqual(true);
+    });
+
+    it('should return false if invalid data is provided', async () => {
+      createAdminAccStub.resolves(false);
+      expect(await createAccountService.createAdminAccount(invalidPayload, validEmail)).toEqual(false);
     });
   });
 });
