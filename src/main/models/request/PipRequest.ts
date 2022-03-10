@@ -13,6 +13,7 @@ export interface PipRequest extends Request {
       'case-reference-number-search-results': {};
       'court-name-search': {};
       'create-admin-account': {};
+      'create-admin-account-summary': {};
       'create-media-account': {};
       'delete-subscription': {};
       'error': {};
