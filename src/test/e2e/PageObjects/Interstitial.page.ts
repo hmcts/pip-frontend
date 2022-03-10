@@ -12,12 +12,11 @@ export class InterstitialPage extends CommonPage {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
-
-    console.log("It's now safe to request feature flags");
+    
     // initialization succeeded, flag values are now available
     const boolFlagValue = client.variation('key', true) as boolean;
-    console.log("feature flags", boolFlagValue);
-
+    console.log(`It's now safe to request feature flags ${boolFlagValue}`);
+    
     const button = await $(helpers.ContinueButton);
     await button.click();
     return new ViewOptionPage();
