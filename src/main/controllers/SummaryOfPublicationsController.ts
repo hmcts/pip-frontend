@@ -1,10 +1,13 @@
 import {PipRequest} from '../models/request/PipRequest';
 import { Response } from 'express';
 import {cloneDeep} from 'lodash';
-import { PublicationService } from '../service/publicationService';
 import {CourtService} from '../service/courtService';
+import {SummaryOfPublicationsService} from '../service/summaryOfPublicationsService';
+import fs from 'fs';
+import path from 'path';
 
-const publicationService = new PublicationService();
+const urlLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname,'../modules/nunjucks/listUrlLookup.json'), 'utf-8'));
+const summaryOfPublicationsService = new SummaryOfPublicationsService();
 const courtService = new CourtService();
 
 export default class SummaryOfPublicationsController {
@@ -12,14 +15,17 @@ export default class SummaryOfPublicationsController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     //TODO we should link this up to the reference data endpoint when it's passed
     const courtId = req.query['courtId'];
-
     if (courtId) {
       const court = await courtService.getCourtById(parseInt(courtId.toString()));
       const courtName = (court == null ? 'Missing Court' : court.name);
-      const publications = await publicationService.getPublications(parseInt(courtId.toString()), (!!req.user));
+      const publications = await summaryOfPublicationsService.getPublications(parseInt(courtId.toString()), (!!req.user));
       if (publications.length === 1){
-        //TODO this should be changed to a call to the controller from 997/984
-        res.send('Hi there, there\'s only one publication so you\'ve been directed here');
+        if (publications[0].isFlatFile){
+          res.redirect(`file-publication?artefactId=${publications[0].artefactId}`);
+        }
+        else {
+          res.redirect(`${urlLookup[publications[0].listType]}?artefactId=${publications[0].artefactId}`);
+        }
       }
       else {
         res.render('summary-of-publications', {

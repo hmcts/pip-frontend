@@ -106,6 +106,7 @@
             </div>
           {% endif %}
         {% endfor %}
+
       </div>
       <div class="govuk-grid-row">
         <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ nationalListsHeader }}</h3>
@@ -137,7 +138,7 @@
                     </th>
                   {% endif %}
                   <td class="govuk-table__cell">
-                    <a href="/list-option?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a>
+                    <a href="/summary-of-publications?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a>
                   </td>
                 </tr>
               {% endif %}

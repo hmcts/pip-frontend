@@ -1,6 +1,6 @@
 {
   "title": "Manual upload",
-  "fileUploadText": "Manually upload a JSON, CSV, PDF, Word, HTM or HTML file, max size 2MB",
+  "fileUploadText": "Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB",
   "form": {
     "court": "Court name or Tribunal name",
     "listType": "List type",

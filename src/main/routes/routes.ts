@@ -5,10 +5,12 @@ import os from 'os';
 import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 
+const { Logger } = require('@hmcts/nodejs-logging');
 const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const multer = require('multer');
+const logger = Logger.getLogger('routes');
 
 export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
@@ -41,6 +43,7 @@ export default function(app: Application): void {
     if (req.isAuthenticated()) {
       return next();
     }
+    logger.info('ensureAuthenticated redirecting', authenticationConfig.POLICY);
     res.redirect('/login?p=' + authenticationConfig.POLICY);
   }
 
@@ -52,6 +55,7 @@ export default function(app: Application): void {
 
   function logOut(req, res): void{
     res.clearCookie('session');
+    logger.info('logout FE URL', FRONTEND_URL);
     const B2C_URL = 'https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/';
     const encodedSignOutRedirect = encodeURIComponent(`${FRONTEND_URL}/view-option`);
     res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
@@ -59,7 +63,9 @@ export default function(app: Application): void {
 
   function regenerateSession(req, res): void {
     const prevSession = req.session;
+    logger.info('regenerateSession', prevSession);
     req.session.regenerate(() => {  // Compliant
+      logger.info('regenerateSession new session', req.session);
       Object.assign(req.session, prevSession);
       res.redirect('/subscription-management');
     });
@@ -75,6 +81,7 @@ export default function(app: Application): void {
   app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
   app.post('/create-media-account', app.locals.container.cradle.createMediaAccountController.post);
+  app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/interstitial', app.locals.container.cradle.interstitialController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
@@ -92,9 +99,12 @@ export default function(app: Application): void {
   app.get('/view-option', app.locals.container.cradle.viewOptionController.get);
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
   app.get('/summary-of-publications', app.locals.container.cradle.summaryOfPublicationsController.get);
+  app.get('/file-publication', app.locals.container.cradle.flatFileController.get);
+  app.get('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.get);
 
   // Restricted paths
   app.get('/account-home', ensureAuthenticated, app.locals.container.cradle.accountHomeController.get);
+  app.get('/admin-dashboard', ensureAuthenticated, app.locals.container.cradle.adminDashboardController.get);
   app.get('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.get);
   app.post('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.post);
   app.get('/case-name-search-results', ensureAuthenticated, app.locals.container.cradle.caseNameSearchResultsController.get);
@@ -103,10 +113,11 @@ export default function(app: Application): void {
   app.get('/case-reference-number-search-results', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
   app.get('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.get);
   app.post('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.post);
-  app.get('/daily-cause-list', ensureAuthenticated, app.locals.container.cradle.dailyCauseListController.get);
   app.get('/delete-subscription', ensureAuthenticated, app.locals.container.cradle.deleteSubscriptionController.get);
   app.get('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.get);
   app.post('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.post);
+  app.get('/remove-list-search', ensureAuthenticated, app.locals.container.cradle.removeListSearchController.get);
+  app.post('/remove-list-search', ensureAuthenticated, app.locals.container.cradle.removeListSearchController.post);
   app.get('/remove-subscription', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.removeSubscription);
   app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
   app.post('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.post);

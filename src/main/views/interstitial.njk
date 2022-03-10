@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block beforeContent %}
-    {{ super() }}
     {{ goBack() }}
 {% endblock %}
 {% block content %}
@@ -35,4 +34,12 @@
         href: '/view-option',
         isStartButton: true
     }) }}
+    <h2 class="govuk-heading-m">{{ beforeMessage }}</h2>
+    <p class="govuk-body govuk-!-font-weight-bold">{{ scoAndNI }}</p>
+    <p class="govuk-body">{{ contactMessage }}</p>
+    <ul class="govuk-body govuk-!-padding-left-4 govuk-!-width-two-thirds">
+        {% for option in bulletOptions %}
+            <li><a class="govuk-link" href="{{ option.link }}">{{ option.linkMessage }}</a> {{ option.message }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
