@@ -1,5 +1,6 @@
 {% extends "template.njk" %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "./macros/common-components.njk" import submitButton, goBack %}
 
 {% block pageTitle %}
@@ -11,59 +12,86 @@
 {% endblock %}
 
 {% block content %}
+  {% if pendingSubscriptions.cases | length == 0 and pendingSubscriptions.courts | length == 0 %}
+    {% set displayError = true %}
+  {% else %}
+    {% set displayError = false %}
+  {% endif %}
   <h1 class="govuk-heading-l">{{ header }}</h1>
-<form action="subscription-confirmed"  method="post">
-  <table class="govuk-table govuk-!-width-one">
-    <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">{{ table.header1 }}</th>
-      <th scope="col" class="govuk-table__header">{{ table.header2 }}</th>
-      <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header3 }}</th>
-      <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header4 }}</th>
-    </tr>
-    </thead>
-    <tbody class="govuk-table__body">
-      {% for case in pendingSubscriptions.cases %}
+  {% if displayError %}
+    <div class="govuk-grid-row">
+      <div class="no_padding govuk-grid-column-two-thirds">
+        {{ govukErrorSummary({
+          titleText: error.title,
+          errorList: [
+            {
+              text: error.message,
+              href: "#"
+            }
+          ]
+        }) }}
+      </div>
+    </div>
+    <form action="subscription-add"  method="get">
+      <div class="govuk-!-text-align-left">
+        {{ submitButton(label=buttonAddText) }}
+      </div>
+    </form>
+  {% else %}
+    <form action="subscription-confirmed"  method="post">
+      <table class="govuk-table govuk-!-width-one">
+        <thead class="govuk-table__head">
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell">{{ case.caseUrn }}</td>
-          <td class="govuk-table__cell">{{ case.caseNumber }}</td>
-          <td class="govuk-table__cell govuk-!-text-align-right">{{ case.caseName }}</td>
-          <td class="govuk-table__cell govuk-!-text-align-right"><a href="/remove-subscription?case={{ case.caseNumber }}">{{ removeText }}</a></td>
+          <th scope="col" class="govuk-table__header">{{ table.header1 }}</th>
+          <th scope="col" class="govuk-table__header">{{ table.header2 }}</th>
+          <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header3 }}</th>
+          <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header4 }}</th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% if pendingSubscriptions.cases | length == 0 %}
-    <p class="govuk-body">No pending case subscriptions</p>
+        </thead>
+        <tbody class="govuk-table__body">
+        {% for case in pendingSubscriptions.cases %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{ case.caseUrn }}</td>
+            <td class="govuk-table__cell">{{ case.caseNumber }}</td>
+            <td class="govuk-table__cell govuk-!-text-align-right">{{ case.caseName }}</td>
+            <td class="govuk-table__cell govuk-!-text-align-right"><a href="/remove-subscription?case={{ case.caseNumber }}">{{ removeText }}</a></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% if pendingSubscriptions.cases | length == 0 %}
+        <p class="govuk-body">No pending case subscriptions</p>
+      {% endif %}
+
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Court or tribunal name</th>
+          <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header4 }}</th>
+        </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+        {% for court in pendingSubscriptions.courts %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{ court.name }}</td>
+            <td class="govuk-table__cell govuk-!-text-align-right">
+              <a href="/remove-subscription?court={{ court.courtId }}">{{ removeText }}</a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% if pendingSubscriptions.courts | length == 0 %}
+        <p class="govuk-body govuk-!-margin-bottom-8">No pending court subscriptions</p>
+      {% endif %}
+
+      <div class="govuk-!-text-align-left">
+        {{ submitButton(label=buttonText) }}
+        <span class="govuk-!-text-align-centre"><a class="govuk-link" href="{{ addOther_link }}">{{ addOther_text }}</a></span>
+      </div>
+    </form>
   {% endif %}
 
-  <table class="govuk-table">
-    <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Court or tribunal name</th>
-      <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header4 }}</th>
-    </tr>
-    </thead>
-    <tbody class="govuk-table__body">
-      {% for court in pendingSubscriptions.courts %}
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell">{{ court.name }}</td>
-          <td class="govuk-table__cell govuk-!-text-align-right">
-            <a href="/remove-subscription?court={{ court.courtId }}">{{ removeText }}</a>
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% if pendingSubscriptions.courts | length == 0 %}
-    <p class="govuk-body govuk-!-margin-bottom-8">No pending court subscriptions</p>
-  {% endif %}
-
-  <div class="govuk-!-text-align-left">
-    {{ submitButton(label=buttonText) }}
-    <span class="govuk-!-text-align-centre"><a class="govuk-link" href="{{ addOther_link }}">{{ addOther_text }}</a></span>
-  </div>
-</form>
 {% endblock %}
 {% block bodyEnd %}
   <script>
