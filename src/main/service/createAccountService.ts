@@ -138,7 +138,22 @@ export class CreateAccountService {
     };
   }
 
+  formatCreateAccountPIPayload(azureAccount): object {
+    return {
+      email: azureAccount.email,
+      provenanceUserId: azureAccount.azureAccountId,
+      roles: azureAccount.role,
+      userProvenance: 'PI_AAD',
+    };
+  }
+
   public async createAdminAccount(payload: object, requester: string): Promise<boolean> {
-    return await accountManagementRequests.createAdminAccount(this.formatCreateAdminAccountPayload(payload), requester);
+    const azureResponse = await accountManagementRequests.createAzureAccount(
+      this.formatCreateAdminAccountPayload(payload), requester);
+    if (azureResponse?.['CREATED_ACCOUNTS'][0]) {
+      return await accountManagementRequests.createPIAccount(
+        this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]), requester);
+    }
+    return false;
   }
 }

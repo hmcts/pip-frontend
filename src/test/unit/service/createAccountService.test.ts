@@ -111,8 +111,16 @@ const invalidPayload = {
   surname: '',
   userRoleObject: { mapping: 'userRoleObject'},
 };
+const azureResponse = {'CREATED_ACCOUNTS': [
+  {
+    email: 'email',
+    provenanceUserId: 'azureAccountId',
+    roles: 'role',
+  },
+]};
 const validEmail = 'joe@bloggs.com';
-const createAdminAccStub = sinon.stub(AccountManagementRequests.prototype, 'createAdminAccount');
+const createAdminAccStub = sinon.stub(AccountManagementRequests.prototype, 'createAzureAccount');
+const createPIAccStub = sinon.stub(AccountManagementRequests.prototype, 'createPIAccount');
 
 describe('Create Account Service', () => {
   describe('isValidImageType', () => {
@@ -200,13 +208,20 @@ describe('Create Account Service', () => {
 
   describe('createAdminAccount', () => {
     it('should return true if valid data is provided', async () => {
-      createAdminAccStub.resolves(true);
+      createAdminAccStub.resolves(azureResponse);
+      createPIAccStub.resolves(true);
       const res = await createAccountService.createAdminAccount(validPayload, validEmail);
       expect(res).toEqual(true);
     });
 
-    it('should return false if invalid data is provided', async () => {
-      createAdminAccStub.resolves(false);
+    it('should return false if create azure account request fails', async () => {
+      createAdminAccStub.resolves(null);
+      expect(await createAccountService.createAdminAccount(invalidPayload, validEmail)).toEqual(false);
+    });
+
+    it('should return false if create P&I account request fails', async () => {
+      createAdminAccStub.resolves(azureResponse);
+      createPIAccStub.resolves(false);
       expect(await createAccountService.createAdminAccount(invalidPayload, validEmail)).toEqual(false);
     });
   });
