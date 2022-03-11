@@ -20,21 +20,33 @@ const radios = [
     value: 'super-admin-ctsc',
     text: 'Internal - Super Administrator - CTSC',
     checked: false,
+    hint: {
+      text: 'Upload, Remove, Create new accounts, Assess New Media requests',
+    },
   },
   {
     value: 'super-admin-local',
     text: 'Internal - Super Administrator - Local',
     checked: false,
+    hint: {
+      text: 'Upload, Remove, Create new account',
+    },
   },
   {
     value: 'admin-ctsc',
     text: 'Internal - Administrator - CTSC',
     checked: true,
+    hint: {
+      text: 'Upload, Remove, Assess new media request',
+    },
   },
   {
     value: 'admin-local',
     text: 'Internal - Administrator - Local',
     checked: false,
+    hint: {
+      text: 'Upload, Remove',
+    },
   },
 ];
 const validationErrors = {foo: {message: 'error'}};
