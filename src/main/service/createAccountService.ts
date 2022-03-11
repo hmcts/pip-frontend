@@ -6,21 +6,25 @@ const adminRolesList = [
     key: 'super-admin-ctsc',
     text: 'Internal - Super Administrator - CTSC',
     mapping: 'INTERNAL_SUPER_ADMIN_CTSC',
+    hint: 'Upload, Remove, Create new accounts, Assess New Media requests',
   },
   {
     key: 'super-admin-local',
     text: 'Internal - Super Administrator - Local',
     mapping: 'INTERNAL_SUPER_ADMIN_LOCAL',
+    hint: 'Upload, Remove, Create new account',
   },
   {
     key: 'admin-ctsc',
     text: 'Internal - Administrator - CTSC',
     mapping: 'INTERNAL_ADMIN_CTSC',
+    hint: 'Upload, Remove, Assess new media request',
   },
   {
     key: 'admin-local',
     text: 'Internal - Administrator - Local',
     mapping: 'INTERNAL_ADMIN_LOCAL',
+    hint: 'Upload, Remove',
   },
 ];
 const accountManagementRequests = new AccountManagementRequests();
@@ -79,6 +83,9 @@ export class CreateAccountService {
         value: role.key,
         text: role.text,
         checked: checkedRadio === role.key,
+        hint: {
+          text: role.hint,
+        },
       });
     });
     return radios;

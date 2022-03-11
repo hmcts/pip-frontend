@@ -11,6 +11,12 @@ const radioLabels = [
   'Internal - Administrator - CTSC',
   'Internal - Administrator - Local',
 ];
+const radioHints = [
+  'Upload, Remove, Create new accounts, Assess New Media requests',
+  'Upload, Remove, Create new account',
+  'Upload, Remove, Assess new media request',
+  'Upload, Remove',
+];
 const errors = ['Enter first name', 'Enter last name', 'Enter email address', 'Select a role'];
 let htmlRes: Document;
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
@@ -50,15 +56,18 @@ describe('Create Admin Account Page', () => {
       expect(input.getAttribute('type')).equals('email', 'Could not correct input type');
     });
 
-    it('should display 4 radio buttons with valid values', () => {
+    it('should display 4 radio buttons with valid values and hints', () => {
       const radioButtons = htmlRes.getElementsByClassName('govuk-radios__item');
       const radioHeader = htmlRes.getElementsByClassName('govuk-fieldset__legend')[0];
+
       const radiosCount = radioButtons.length;
       expect(radioHeader.innerHTML).contains('User role', 'Could not find radio header');
       expect(radiosCount).equal(4, '4 radio buttons not found');
       for(let i = 0; i < radiosCount; i++) {
         const radio = htmlRes.getElementsByClassName('govuk-radios__label')[i];
+        const radioHint = htmlRes.getElementsByClassName('govuk-radios__hint')[i];
         expect(radio.innerHTML).contains(radioLabels[i], 'Could not find radio with correct label');
+        expect(radioHint.innerHTML).contains(radioHints[i], 'Could not find radio with correct label');
       }
     });
 
