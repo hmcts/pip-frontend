@@ -7,13 +7,13 @@ import sinon from 'sinon';
 const PAGE_URL = '/admin-dashboard';
 const cards = [
   {
-    title: 'Upload file',
-    description: 'JSON, PDF, DOC, CSV, HTM, or HTML files.',
+    title: 'Upload',
+    description: 'Upload a file to be published on the external facing Court and tribunal hearings service.',
     link: 'manual-upload',
   },
   {
-    title: 'Remove content',
-    description: 'JSON, PDF, DOC, CSV, HTM, or HTML files.',
+    title: 'Remove',
+    description: 'Search by court or tribunal and remove a publication from the external facing Court and tribunal hearings service.',
     link: 'remove-list-search',
   },
   {
