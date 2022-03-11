@@ -21,32 +21,65 @@ const mockValidBody = {
   surname: 'Bloggs',
   role: 'INTERNAL_ADMIN_LOCAL',
 };
-const endpoint = '/account/add/azure';
+const mockValidPIBody = {
+  email: 'joe@bloggs.com',
+  roles: 'INTERNAL_ADMIN_LOCAL',
+  provenanceUserId: 'uuid',
+  userProvenance: 'PI_ADD',
+};
+const azureEndpoint = '/account/add/azure';
+const piEndpoint = '/account/add/pi';
 const postStub = sinon.stub(accountManagementApi, 'post');
 
 describe('Account Management Requests', () => {
-  describe('Create Admin Account', () => {
+  describe('Create Azure Account', () => {
     it('should return true on success', async () => {
-      postStub.withArgs(endpoint, mockValidBody, mockHeaders).resolves(true);
-      const response = await accountManagementRequests.createAdminAccount(mockValidBody, mockHeaders);
+      postStub.withArgs(azureEndpoint).resolves({status: 'success'});
+      const response = await accountManagementRequests.createAzureAccount(mockValidBody, mockHeaders);
+      expect(response).toStrictEqual({status: 'success'});
+    });
+
+    it('should return null on error request', async () => {
+      postStub.withArgs(azureEndpoint).resolves(Promise.reject(errorRequest));
+      const response = await accountManagementRequests.createAzureAccount({}, mockHeaders);
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error response', async () => {
+      postStub.withArgs(azureEndpoint).resolves(Promise.reject(errorResponse));
+      const response = await accountManagementRequests.createAzureAccount({foo: 'blah'}, mockHeaders);
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error message', async () => {
+      postStub.withArgs(azureEndpoint).resolves(Promise.reject(errorMessage));
+      const response = await accountManagementRequests.createAzureAccount({bar: 'baz'}, mockHeaders);
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Create P&I Account', () => {
+    it('should return true on success', async () => {
+      postStub.withArgs(piEndpoint).resolves({status: 201});
+      const response = await accountManagementRequests.createPIAccount(mockValidPIBody, mockHeaders);
       expect(response).toBe(true);
     });
 
     it('should return false on error request', async () => {
-      postStub.withArgs(endpoint).resolves(Promise.reject(errorRequest));
-      const response = await accountManagementRequests.createAdminAccount({}, mockHeaders);
+      postStub.withArgs(piEndpoint).resolves(Promise.reject(errorRequest));
+      const response = await accountManagementRequests.createPIAccount({}, mockHeaders);
       expect(response).toBe(false);
     });
 
     it('should return false on error response', async () => {
-      postStub.withArgs(endpoint).resolves(Promise.reject(errorResponse));
-      const response = await accountManagementRequests.createAdminAccount({foo: 'blah'}, mockHeaders);
+      postStub.withArgs(piEndpoint).resolves(Promise.reject(errorResponse));
+      const response = await accountManagementRequests.createPIAccount({foo: 'blah'}, mockHeaders);
       expect(response).toBe(false);
     });
 
     it('should return false on error message', async () => {
-      postStub.withArgs(endpoint).resolves(Promise.reject(errorMessage));
-      const response = await accountManagementRequests.createAdminAccount({bar: 'baz'}, mockHeaders);
+      postStub.withArgs(piEndpoint).resolves(Promise.reject(errorMessage));
+      const response = await accountManagementRequests.createPIAccount({bar: 'baz'}, mockHeaders);
       expect(response).toBe(false);
     });
   });
