@@ -128,7 +128,8 @@ describe('Unverified user', () => {
 
       it('selecting last result should take you to to the summary of publications page', async () => {
         summaryOfPublicationsPage = await alphabeticalSearchPage.selectLastListResult();
-        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Wrexham County And Family Court?');
+        const title = await summaryOfPublicationsPage.getPageTitle();
+        expect(title).toEqual('What do you want to view from' + title +'?');
       });
 
       it('should select the first publication', async () => {
