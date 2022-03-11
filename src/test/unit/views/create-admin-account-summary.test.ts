@@ -18,6 +18,7 @@ const cookie = {
   },
 };
 const summaryKeys = ['First name', 'Last name', 'Email address', 'User role'];
+const changeValues = ['firstName', 'lastName', 'emailAddress', 'user-role'];
 let htmlRes: Document;
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 const createAccountStub = sinon.stub(CreateAccountService.prototype, 'createAdminAccount');
@@ -44,7 +45,7 @@ describe('Create Admin Account Summary page', () => {
       for (let i = 0; i < summaryKeys.length; i++) {
         expect(listKeys[i].innerHTML).to.contain(summaryKeys[i], `Unable to find ${summaryKeys[i]} summary key`);
         expect(actions[i].getElementsByClassName('govuk-link')[0].innerHTML).to.contain('Change');
-        expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href')).to.equal('create-admin-account');
+        expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href')).to.equal(`create-admin-account#${changeValues[i]}`);
       }
     });
 
