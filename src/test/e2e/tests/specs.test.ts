@@ -128,7 +128,7 @@ describe('Unverified user', () => {
       });
 
       it('selecting last result should take you to to the summary of publications page', async () => {
-        summaryOfPublicationsPage = await alphabeticalSearchPage.selectLastListResult();
+        summaryOfPublicationsPage = await alphabeticalSearchPage.selectFirstItemListResult();
         expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Wrexham County And Family Court?');
       });
 

@@ -41,6 +41,15 @@ export class AlphabeticalSearchPage extends CommonPage {
     return new SummaryOfPublicationsPage();
   }
 
+  async selectFirstItemListResult(): Promise<SummaryOfPublicationsPage> {
+    await $(helpers.FirstItemResult).catch(() => {
+      console.log(`${helpers.FirstItemResult} not found`);
+    });
+
+    await $(helpers.FirstItemResult).click();
+    return new SummaryOfPublicationsPage();
+  }
+
   async selectSecondListResult(): Promise<HearingListPage> {
     await $(helpers.SecondItemResult).catch(() => {
       console.log(`${helpers.SecondItemResult} not found`);
