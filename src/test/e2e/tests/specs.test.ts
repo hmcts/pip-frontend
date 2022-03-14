@@ -131,14 +131,14 @@ describe('Unverified user', () => {
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
       });
 
-      it('selecting last result should take you to to the summary of publications page', async () => {
-        summaryOfPublicationsPage = await alphabeticalSearchPage.selectLastListResult();
-        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Wrexham County And Family Court?');
+      it('selecting first result should take you to to the summary of publications page', async () => {
+        summaryOfPublicationsPage = await alphabeticalSearchPage.selectFirstListResult();
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Aberystwyth Justice Centre?');
       });
 
       it('should select the first publication', async () => {
         dailyCauseListPage = await summaryOfPublicationsPage.clickSOPListItem();
-        expect(await dailyCauseListPage.getPageTitle()).toContain('Wrexham County And Family Court');
+        expect(await dailyCauseListPage.getPageTitle()).toContain('Aberystwyth Justice Centre');
       });
     });
 
