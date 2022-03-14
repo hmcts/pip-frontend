@@ -306,7 +306,7 @@ describe('Verified user', () => {
     }
 
     describe('following the case name path', async () => {
-      const validCaseName = 'Stark-v-Iron';
+      const validCaseName = 'SOHA Housing Limited v Taylor';
       const casesCount = 1;
 
       before(async () => {
