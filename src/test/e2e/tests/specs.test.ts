@@ -94,17 +94,17 @@ describe('Unverified user', () => {
     });
 
     describe('following the search court path', async () => {
-      const searchTerm = 'Wrexham County And Family Court';
+      const searchTerm = 'Milton Keynes County Court and Family Court';
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
         summaryOfPublicationsPage = await searchPage.clickContinue();
-        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Wrexham County And Family Court?');
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from ' + searchTerm + '?');
       });
 
       it('should select the first publication', async () => {
         dailyCauseListPage = await summaryOfPublicationsPage.clickSOPListItem();
-        expect(await dailyCauseListPage.getPageTitle()).toContain('Wrexham County And Family Court');
+        expect(await dailyCauseListPage.getPageTitle()).toContain(searchTerm);
       });
     });
 
@@ -113,6 +113,7 @@ describe('Unverified user', () => {
         await searchPage.open('/search');
       });
 
+      const searchTerm = 'Milton Keynes County Court and Family Court';
       it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
         alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
@@ -120,10 +121,10 @@ describe('Unverified user', () => {
 
       it('should select Country Court jurisdiction and Wales region filters', async () => {
         await alphabeticalSearchPage.selectOption('JurisdictionFilter3');
-        await alphabeticalSearchPage.selectOption('RegionFilter2');
+        await alphabeticalSearchPage.selectOption('RegionFilter1');
 
         expect(await alphabeticalSearchPage.checkIfSelected('JurisdictionFilter3')).toBeTruthy();
-        expect(await alphabeticalSearchPage.checkIfSelected('RegionFilter2')).toBeTruthy();
+        expect(await alphabeticalSearchPage.checkIfSelected('RegionFilter1')).toBeTruthy();
       });
 
       it('should click on the apply filters button', async () => {
@@ -133,12 +134,12 @@ describe('Unverified user', () => {
 
       it('selecting first result should take you to to the summary of publications page', async () => {
         summaryOfPublicationsPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Aberystwyth Justice Centre?');
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from '+ searchTerm + '?');
       });
 
       it('should select the first publication', async () => {
         dailyCauseListPage = await summaryOfPublicationsPage.clickSOPListItem();
-        expect(await dailyCauseListPage.getPageTitle()).toContain('Aberystwyth Justice Centre');
+        expect(await dailyCauseListPage.getPageTitle()).toContain(searchTerm);
       });
     });
 

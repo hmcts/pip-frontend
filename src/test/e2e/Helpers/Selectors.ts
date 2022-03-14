@@ -49,6 +49,7 @@ module.exports = {
   LastItemResult: 'tbody > tr.govuk-table__row:last-child > td > a',
   SJPLink: '#sjp-link',
   JurisdictionFilter3: '#Jurisdiction-3',
+  RegionFilter1: '#Region',
   RegionFilter2: '#Region-2',
 
   // ViewOption page selectors
