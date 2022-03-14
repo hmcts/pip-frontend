@@ -18,13 +18,6 @@
                         "party": [
                           {
                             "partyRole": "PROSECUTOR",
-                            "individualDetails": {
-                              "individualForenames": "Danny",
-                              "individualSurname": "Thomas",
-                              "address": {
-                                "town": "Swansea"
-                              }
-                            },
                             "organisationDetails": {
                               "organisationName": "qU8QlEo@"
                             }
@@ -67,20 +60,10 @@
                               },
                               "title": "Mr",
                               "individualMiddleName": "W"
-                            },
-                            "organisationDetails": {
-                              "organisationName": "Ministry of Justice"
                             }
                           },
                           {
                             "partyRole": "PROSECUTOR",
-                            "individualDetails": {
-                              "individualForenames": "Junaid",
-                              "individualSurname": "Thomas",
-                              "address": {
-                                "town": "Swansea"
-                              }
-                            },
                             "organisationDetails": {
                               "organisationName": "qU8QlEo@"
                             }
