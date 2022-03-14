@@ -121,11 +121,12 @@ describe('Unverified user', () => {
       it('should select Country Court jurisdiction and Wales region filters', async () => {
         await alphabeticalSearchPage.selectOption('JurisdictionFilter3');
         await alphabeticalSearchPage.selectOption('RegionFilter2');
-        await alphabeticalSearchPage.clickApplyFiltersButton();
+        alphabeticalSearchPage = await alphabeticalSearchPage.clickApplyFiltersButton();
+        expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
         expect(await alphabeticalSearchPage.checkIfSelected('JurisdictionFilter3')).toBeTruthy();
         expect(await alphabeticalSearchPage.checkIfSelected('RegionFilter2')).toBeTruthy();
       });
- 
+
       it('selecting last result should take you to to the summary of publications page', async () => {
         summaryOfPublicationsPage = await alphabeticalSearchPage.selectLastListResult();
         expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from Wrexham County And Family Court?');

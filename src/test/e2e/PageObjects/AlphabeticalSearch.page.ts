@@ -6,12 +6,13 @@ import { ViewOptionPage } from './ViewOption.page';
 const helpers = require('../Helpers/Selectors');
 
 export class AlphabeticalSearchPage extends CommonPage {
-  async clickApplyFiltersButton(): Promise<void> {
+  async clickApplyFiltersButton(): Promise<AlphabeticalSearchPage> {
     await $(helpers.ApplyFiltersButton).catch(() => {
       console.log(`${helpers.ApplyFiltersButton} not found`);
     });
 
     await $(helpers.ApplyFiltersButton).click();
+    return new AlphabeticalSearchPage();
   }
 
   async checkIfSelected(filter: string): Promise<boolean> {
