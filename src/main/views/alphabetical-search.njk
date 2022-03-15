@@ -148,13 +148,12 @@
         {% endfor %}
         </tbody>
       </table>
-      {{ backToTopButton() }}
+      {{ super() }}
     </div>
   </div>
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
-  <script src="alphabetical-dev.js"></script>
   <script>
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);

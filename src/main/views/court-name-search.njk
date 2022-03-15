@@ -191,15 +191,15 @@
           </tbody>
         </table>
       </form>
-      {{ backToTopButton() }}
+      {{ super() }}
     </div>
     </div>
   </div>
 {% endblock %}
 {% block bodyEnd %}
+  {{ super() }}
   <script type="text/javascript" src="/assets/js/jquery.js"></script>
   <script type="text/javascript" src="/assets/js/mojAll.js"></script>
-  <script src="alphabetical-dev.js"></script>
   <script>
     function calculateChecked() {
       const checkedBoxes = document.querySelectorAll('input[name="court-selections[]"]:checked').length;

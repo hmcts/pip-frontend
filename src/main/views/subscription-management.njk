@@ -15,6 +15,7 @@
 {% endblock %}
 
 {% block content %}
+  <div class="parent-box">
   <h1 class="govuk-heading-l">{{ header }}</h1>
   {{ govukButton({
     text: newButton,
@@ -109,9 +110,12 @@
       }) }}
     {% endif %}
   {% endif %}
+  {{ super() }}
+  </div>
 {% endblock %}
 
 {% block bodyEnd %}
+  {{ super() }}
   <script type="text/javascript" src="/assets/js/jquery.js"></script>
   <script type="text/javascript" src="/assets/js/mojAll.js"></script>
 {% endblock %}

@@ -9,6 +9,7 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
+  <div class="parent-box">
   <h1 class="govuk-heading-xl">{{ title }}</h1>
   <form method="post" enctype="multipart/form-data">
     {% set fileErrorMessage = {text: errors.fileErrors} if errors.fileErrors else false %}
@@ -202,7 +203,8 @@
 
     {{ submitButton() }}
   </form>
-
+    {{ super() }}
+  </div>
 {% endblock %}
 
 {% block bodyEnd %}

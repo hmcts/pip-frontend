@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block content %}
+  <div class="parent-box">
   {% if pendingSubscriptions.cases | length == 0 and pendingSubscriptions.courts | length == 0 %}
     {% set displayError = true %}
   {% else %}
@@ -91,6 +92,8 @@
       </div>
     </form>
   {% endif %}
+  {{ super() }}
+  </div>
 
 {% endblock %}
 {% block bodyEnd %}
