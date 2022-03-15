@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block content %}
+  <div class="parent-box">
   <h1 class="govuk-heading-l">{{ header }}</h1>
   <h3 class="govuk-heading-s">{{ subheader }}</h3>
   <form action="pending-subscriptions" method="post">
@@ -35,9 +36,11 @@
     </table>
     {{ submitButton() }}
   </form>
-
+    {{ super() }}
+  </div>
 {% endblock %}
 {% block bodyEnd %}
+  {{ super() }}
   <script type="text/javascript" src="/assets/js/jquery.js"></script>
   <script type="text/javascript" src="/assets/js/mojAll.js"></script>
   <script>

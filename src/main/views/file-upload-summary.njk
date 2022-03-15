@@ -11,6 +11,7 @@
     {{ goBack() }}
 {% endblock %}
 {% block content %}
+  <div class="parent-box">
     {% if displayError %}
         {{ govukErrorSummary({
             titleText: error.title,
@@ -149,7 +150,8 @@
         }) }}
         {{ submitButton(confirmButton) }}
     </form>
-
+    {{ super() }}
+  </div>
 {% endblock %}
 {% block bodyEnd %}
     {{ super() }}

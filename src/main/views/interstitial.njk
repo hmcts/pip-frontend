@@ -11,6 +11,7 @@
     {{ goBack() }}
 {% endblock %}
 {% block content %}
+  <div class="parent-box">
     <h1 class="govuk-heading-l">{{ header }}</h1>
     <p class="govuk-body">{{ message }} </p>
     <ul class="govuk-body govuk-!-padding-left-4 govuk-!-width-two-thirds">
@@ -42,4 +43,10 @@
             <li><a class="govuk-link" href="{{ option.link }}">{{ option.linkMessage }}</a> {{ option.message }}</li>
         {% endfor %}
     </ul>
+    {{ super() }}
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
 {% endblock %}
