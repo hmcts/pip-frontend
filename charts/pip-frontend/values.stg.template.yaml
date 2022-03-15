@@ -5,3 +5,4 @@ nodejs:
   environment:
     EXCLUDE_E2E: false
     AUTH_RETURN_URL: https://${SERVICE_FQDN}/login/return
+    FRONTEND_URL: https://${SERVICE_FQDN}

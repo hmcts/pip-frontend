@@ -46,9 +46,11 @@ module.exports = {
   },
   FirstItemResult: 'tbody > tr.govuk-table__row > td > a',
   SecondItemResult: 'tr.govuk-table__row:nth-child(2) > td:nth-child(2) > a:nth-child(1)',
+  LastItemResult: 'tbody > tr.govuk-table__row:last-child > td > a',
   SJPLink: '#sjp-link',
-  MagistratesFilter: '#Jurisdiction-4',
-  NorthWestFilter: '#Region-7',
+  JurisdictionFilter3: '#Jurisdiction-3',
+  RegionFilter1: '#Region',
+  RegionFilter2: '#Region-2',
 
   // ViewOption page selectors
   ViewOptionsTitle: 'h1.govuk-fieldset__heading',
@@ -138,4 +140,21 @@ module.exports = {
 
   // AccountHome selectors
   EmailSubscriptionLink: '#card-subscription-management',
+  CourtSearchLink: '#card-search',
+  SJPCardLink: 'a=Single Justice Procedure cases',
+
+  // SummaryOfPublications selectors
+  SOPListItem: '.das-search-results__link',
+
+  // Banner navigation selectors
+  BannerHome: '.moj-sub-navigation__item:first-child',
+  BannerFindCourt: '.moj-sub-navigation__item:nth-child(2)',
+  BannerSJP: '.moj-sub-navigation__item:nth-child(3)',
+  BannerSignIn: '.moj-sub-navigation__item:nth-child(4)',
+
+  // Signed in banner selectors
+  SignedInBannerEmailSubs: '.moj-sub-navigation__item:nth-child(2)',
+  SignedInBannerFindCourt: '.moj-sub-navigation__item:nth-child(3)',
+  SignedInBannerSJP: '.moj-sub-navigation__item:nth-child(4)',
+  SignedInBannerSignOut: '.moj-sub-navigation__item:nth-child(5)',
 };

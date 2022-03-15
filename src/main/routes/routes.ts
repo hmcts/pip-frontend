@@ -43,7 +43,6 @@ export default function(app: Application): void {
     if (req.isAuthenticated()) {
       return next();
     }
-    logger.info('ensureAuthenticated redirecting', authenticationConfig.POLICY);
     res.redirect('/login?p=' + authenticationConfig.POLICY);
   }
 
