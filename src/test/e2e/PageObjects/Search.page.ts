@@ -1,6 +1,6 @@
-import { HearingListPage } from './HearingList.page';
 import { CommonPage } from './Common.page';
 import { AlphabeticalSearchPage } from './AlphabeticalSearch.page';
+import { SummaryOfPublicationsPage } from './SummaryOfPublications.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -23,14 +23,13 @@ export class SearchPage extends CommonPage {
     await browser.keys('Escape');
   }
 
-  async clickContinue(): Promise<HearingListPage> {
+  async clickContinue(): Promise<SummaryOfPublicationsPage> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
 
-    const button = await $(helpers.ContinueButton);
-    button.click();
-    return new HearingListPage();
+    await $(helpers.ContinueButton).click();
+    return new SummaryOfPublicationsPage();
   }
 
   async clickAToZCourtsLink(): Promise<AlphabeticalSearchPage> {
@@ -38,9 +37,17 @@ export class SearchPage extends CommonPage {
       console.log(`${helpers.SearchAToZLink} not found`);
     });
 
-    const button = await $(helpers.SearchAToZLink);
-    button.click();
+    await $(helpers.SearchAToZLink).click();
     return new AlphabeticalSearchPage();
   }
 
+  async clickNavSJP(signedIn: boolean): Promise<SummaryOfPublicationsPage> {
+    const selector = signedIn ? 'SignedInBannerSJP' : 'BannerSJP';
+    $(helpers[selector]).catch(() => {
+      console.log(`${helpers[selector]} not found`);
+    });
+
+    await $(helpers[selector]).click();
+    return new SummaryOfPublicationsPage();
+  }
 }
