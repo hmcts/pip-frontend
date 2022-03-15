@@ -74,7 +74,7 @@ describe('Remove List Summary Page', () => {
       expect(rowCells[1].innerHTML).contains(mockCourt.name, 'Could not find valid court name');
       expect(rowCells[2].innerHTML).contains(mockPublications[i].dateRange, 'Could not find valid list date range');
       expect(rowCells[3].innerHTML).contains('Remove', 'Could not find valid action');
-      expect(removeActionHref).contains(`remove-list-confirmation?artefact=${mockPublications[i].artefactId}&court=${mockCourt.courtId}`,
+      expect(removeActionHref).contains(`remove-list-confirmation?artefact=${mockPublications[i].artefactId}`,
         'Could not find valid action href');
     }
   });

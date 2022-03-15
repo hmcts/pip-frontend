@@ -3,6 +3,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import RemoveListConfirmationController from '../../../main/controllers/RemoveListConfirmationController';
 import { PublicationService } from '../../../main/service/publicationService';
+import { CourtService } from '../../../main/service/courtService';
 
 const i18n = {
   'remove-list-confirmation': {},
@@ -12,9 +13,21 @@ const removeListConfirmationController = new RemoveListConfirmationController();
 const response = { render: () => {return '';}, redirect: () => {return '';}} as unknown as Response;
 const request = mockRequest(i18n);
 
+const mockArtefact = {
+  listType: 'CIVIL_DAILY_CAUSE_LIST',
+  listTypeName: 'Civil Daily Cause List',
+  contentDate: '2022-03-24T07:36:35',
+  courtId: '5',
+  artefactId: 'valid-artefact',
+};
+const mockCourt = {courtId: '5', name: 'Mock Court'};
 const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
+const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
+sinon.stub(CourtService.prototype, 'getCourtById').resolves(mockCourt);
 removePublicationStub.withArgs('valid-artefact', 'joe@bloggs.com').resolves(true);
 removePublicationStub.withArgs('foo', 'joe@bloggs.com').resolves(false);
+metadataStub.withArgs('valid-artefact', true).resolves(mockArtefact);
+metadataStub.withArgs('invalid-artefact', true).resolves({...mockArtefact, artefactId: 'invalid-artefact'});
 
 describe('Remove List Confirmation Controller', () => {
   it('should render remove list confirmation page', async () => {
@@ -23,8 +36,8 @@ describe('Remove List Confirmation Controller', () => {
     const responseMock = sinon.mock(response);
     const expectedOptions = {
       ...i18n['remove-list-confirmation'],
-      artefactId: 'valid-artefact',
-      courtId: '5',
+      artefact: mockArtefact,
+      court: mockCourt,
       displayError: false,
     };
 
@@ -35,15 +48,6 @@ describe('Remove List Confirmation Controller', () => {
 
   it('should render error page if artefact query param is not provided', async () => {
     request.query = {court: '5'};
-    const responseMock = sinon.mock(response);
-
-    responseMock.expects('render').once().withArgs('error', {...i18n.error});
-    await removeListConfirmationController.get(request, response);
-    await responseMock.verify();
-  });
-
-  it('should render error page if court query param is not provided', async () => {
-    request.query = {artefact: 'true'};
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', {...i18n.error});
@@ -98,11 +102,12 @@ describe('Remove List Confirmation Controller', () => {
     request.user = {emails: ['joe@bloggs.com']};
     request.body = {
       courtId: '5',
-      artefactId: 'foo',
+      artefactId: 'valid-artefact',
     };
     const expectedOptions = {
       ...i18n['remove-list-confirmation'],
-      ...request.body,
+      artefact: mockArtefact,
+      court: mockCourt,
       displayError: true,
     };
 
