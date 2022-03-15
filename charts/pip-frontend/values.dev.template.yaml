@@ -7,4 +7,5 @@ nodejs:
   environment:
     OIDC: true
     AUTH_RETURN_URL: https://${SERVICE_FQDN}/login/return
+    FRONTEND_URL: https://${SERVICE_FQDN}
     EXCLUDE_E2E: true
