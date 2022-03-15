@@ -5,7 +5,6 @@ export interface HelmetConfig {
   referrerPolicy: string;
 }
 
-const googleAnalyticsDomain = '*.google-analytics.com';
 const self = "'self'";
 
 /**
@@ -29,9 +28,9 @@ export class Helmet {
           connectSrc: [self],
           defaultSrc: ["'none'"],
           fontSrc: [self, 'data:'],
-          imgSrc: [self, googleAnalyticsDomain],
+          imgSrc: [self],
           objectSrc: [self],
-          scriptSrc: [self, googleAnalyticsDomain, "'unsafe-inline'", "'unsafe-eval'"],
+          scriptSrc: [self, "'unsafe-inline'", "'unsafe-eval'"],
           styleSrc: [self, 'https://pip-frontend.staging.platform.hmcts.net'],
         },
       }),
