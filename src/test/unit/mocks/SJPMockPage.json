@@ -18,6 +18,15 @@
                         "party": [
                           {
                             "partyRole": "PROSECUTOR",
+                            "individualDetails": {
+                              "individualForenames": "Danny",
+                              "individualSurname": "Thomas",
+                              "dateOfBirth": "25/07/1985",
+                              "formattedDateOfBirth": "25 July 1985",
+                              "address": {
+                                "town": "Swansea"
+                              }
+                            },
                             "organisationDetails": {
                               "organisationName": "qU8QlEo@"
                             }
@@ -67,6 +76,15 @@
                           },
                           {
                             "partyRole": "PROSECUTOR",
+                            "individualDetails": {
+                              "individualForenames": "Junaid",
+                              "individualSurname": "Thomas",
+                              "dateOfBirth": "25/07/1985",
+                              "formattedDateOfBirth": "25 July 1985",
+                              "address": {
+                                "town": "Swansea"
+                              }
+                            },
                             "organisationDetails": {
                               "organisationName": "qU8QlEo@"
                             }
