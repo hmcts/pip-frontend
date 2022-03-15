@@ -42,10 +42,12 @@
                             }
                           }
                         ],
-                        "offence": {
-                          "offenceTitle": "Dreadful singing and ambiguous ticket writing",
-                          "reportingRestriction": false
-                        }
+                        "offence": [
+                          {
+                            "offenceTitle": "Dreadful singing and ambiguous ticket writing",
+                            "reportingRestriction": false
+                          }
+                        ]
                       }
                     ]
                   },
@@ -84,10 +86,12 @@
                             }
                           }
                         ],
-                        "offence": {
-                          "offenceTitle": "Lollipop overindulgence",
-                          "reportingRestriction": false
-                        }
+                        "offence": [
+                          {
+                            "offenceTitle": "Lollipop overindulgence",
+                            "reportingRestriction": false
+                          }
+                        ]
                       }
                     ]
                   }
