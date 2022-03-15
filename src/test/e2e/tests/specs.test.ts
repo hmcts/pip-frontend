@@ -306,7 +306,7 @@ describe('Verified user', () => {
     }
 
     describe('following the case name path', async () => {
-      const validCaseName = 'SOHA Housing Limited v Taylor';
+      const validCaseName = 'Anderson-v-Smith';
       const casesCount = 1;
 
       before(async () => {
@@ -326,6 +326,7 @@ describe('Verified user', () => {
       });
 
       it(`should display ${casesCount} result(s)`, async () => {
+        await caseNameSearchResultsPage.tickResultCheckbox();
         expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
       });
 
