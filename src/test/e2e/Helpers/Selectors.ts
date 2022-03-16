@@ -157,4 +157,9 @@ module.exports = {
   SignedInBannerFindCourt: '.moj-sub-navigation__item:nth-child(3)',
   SignedInBannerSJP: '.moj-sub-navigation__item:nth-child(4)',
   SignedInBannerSignOut: '.moj-sub-navigation__item:nth-child(5)',
+
+  // CreateAdminAccount selectors
+  FirstNameInput: '#firstName',
+  LastNameInput: '#lastName',
+  UserRoleRadio: '#user-role',
 };
