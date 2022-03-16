@@ -34,7 +34,7 @@ describe('Daily Cause List Controller', () => {
 
   const response = { render: () => {return '';}} as unknown as Response;
 
-  it('should render the daily cause list page', () =>  {
+  it('should render the daily cause list page', async () =>  {
 
     const request = mockRequest(i18n);
 
@@ -52,9 +52,8 @@ describe('Daily Cause List Controller', () => {
 
     responseMock.expects('render').once().withArgs('daily-cause-list', expectedData);
 
-    return dailyCauseListController.get(request, response).then(() => {
-      responseMock.verify();
-    });
+    await dailyCauseListController.get(request, response);
+    return responseMock.verify();
   });
 
   it('should render error page is query param is empty', async () => {
@@ -64,6 +63,7 @@ describe('Daily Cause List Controller', () => {
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
     await dailyCauseListController.get(request, response);
     return responseMock.verify();
   });

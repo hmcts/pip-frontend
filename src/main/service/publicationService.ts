@@ -38,9 +38,10 @@ export class PublicationService {
     return await publicationRequests.getPublicationsByCourt(courtId, verified);
   }
 
-  public calculateHearingSessionTime(searchResults: JSON): void {
+  public calculateHearingSessionTime(dailyCauseList: string): object {
+    const dailyCauseListData = JSON.parse(dailyCauseList);
     let hearingCount = 0;
-    searchResults['courtLists'].forEach(courtList => {
+    dailyCauseListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
@@ -75,6 +76,8 @@ export class PublicationService {
         hearingCount = 0;
       });
     });
+
+    return dailyCauseListData;
   }
   private getCaseFromArtefact(artefact: Artefact, term: string, value: string): SearchObject {
     let foundObject: SearchObject = null;

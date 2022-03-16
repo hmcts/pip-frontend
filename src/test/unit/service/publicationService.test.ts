@@ -26,8 +26,8 @@ publicationRequestStub.resolves(returnedArtefact);
 
 const publicationRequests = PublicationRequests.prototype;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
-const dailyCauseListData = JSON.parse(rawData);
+const rawDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
+const dailyCauseListData = JSON.parse(rawDailyCauseData);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
@@ -84,23 +84,23 @@ describe('Publication service', () => {
 
   describe('calculateHearingSessionTime Publication Service', () => {
     it('should return daily cause list object', async () => {
-      await publicationService.calculateHearingSessionTime(dailyCauseListData);
-      expect(dailyCauseListData['courtLists'].length).to.equal(1);
+      const data = await  publicationService.calculateHearingSessionTime(rawDailyCauseData);
+      expect(data['courtLists'].length).to.equal(1);
     });
 
     it('should calculate totalHearings in cause list object', async () => {
-      await publicationService.calculateHearingSessionTime(dailyCauseListData);
-      expect(dailyCauseListData['courtLists'][0]['courtHouse']['courtRoom'][0]['totalHearing']).to.equal(4);
+      const data = await  publicationService.calculateHearingSessionTime(rawDailyCauseData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['totalHearing']).to.equal(2);
     });
 
     it('should calculate duration of Hearing in cause list object', async () => {
-      await publicationService.calculateHearingSessionTime(dailyCauseListData);
-      expect(dailyCauseListData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']).to.equal(1);
+      const data = await  publicationService.calculateHearingSessionTime(rawDailyCauseData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']).to.equal(1);
     });
 
     it('should calculate start time of Hearing in cause list object', async () => {
-      await publicationService.calculateHearingSessionTime(dailyCauseListData);
-      expect(dailyCauseListData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal('9.40am');
+      const data = await  publicationService.calculateHearingSessionTime(rawDailyCauseData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal('9.40am');
     });
   });
 

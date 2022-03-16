@@ -13,13 +13,14 @@ export default class DailyCauseListControllerController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, (!!req.user));
 
     if (searchResults && metaData) {
-      publicationService.calculateHearingSessionTime(searchResults);
+
+      const manipulatedData = publicationService.calculateHearingSessionTime(JSON.stringify(searchResults));
 
       const publishedDateTime = Date.parse(searchResults['document']['publicationDate']);
 
       res.render('daily-cause-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['daily-cause-list']),
-        searchResults,
+        searchResults: manipulatedData,
         contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: moment(publishedDateTime).format('DD MMMM YYYY'),
         publishedTime: moment(publishedDateTime).format('ha'),
