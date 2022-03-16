@@ -131,7 +131,7 @@ module.exports = {
   UploadFile: '#card-manual-upload',
   RemoveContent: '#card-remove-list-search',
   ManageMediaAccounts: '#manage-media-accounts',
-  CreateAdminAccount: '#create-admin-account',
+  CreateAdminAccount: '#card-create-admin-account',
 
   // CreateMediaAccount selectors
   UploadImage: '#file-upload',
