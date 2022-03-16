@@ -18,47 +18,72 @@ const expectedRadioHint2 = 'TV licensing, minor traffic offences such as speedin
 let htmlRes: Document;
 
 describe('View Option Page', () => {
-  beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+  describe('without errors', () => {
+    beforeAll(async () => {
+      await request(app).get(PAGE_URL).then(response => {
+        htmlRes = new DOMParser().parseFromString(response.text, 'text/html');
+      });
+    });
+
+    it('should have correct page title', () => {
+      const pageTitle = htmlRes.title;
+      expect(pageTitle).contains(expectedHeader, 'Page title does not match header');
+    });
+
+    it('should display page header',  () => {
+      const header = htmlRes.getElementsByClassName(headingClass);
+      expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+    });
+
+    it('should display continue button',  () => {
+      const buttons = htmlRes.getElementsByClassName(buttonClass);
+      expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
+    });
+
+    it('should display 2 radio buttons', () => {
+      const radioButtons = htmlRes.getElementsByClassName(radioClass);
+      expect(radioButtons.length).equal(2, '2 radio buttons not found');
+    });
+
+    it('should display radio buttons with valid text',  () => {
+      const radioButtons = htmlRes.getElementsByClassName(radioClass);
+      expect(radioButtons[0].innerHTML).contains(expectedRadioLabel1, 'Could not find the radio button with label ' + expectedRadioLabel1);
+      expect(radioButtons[1].innerHTML).contains(expectedRadioLabel2, 'Could not find the radio button with label ' + expectedRadioLabel2);
+    });
+
+    it('should display radio buttons with valid hint',  () => {
+      const radioButtons = htmlRes.getElementsByClassName(radioClass);
+      expect(radioButtons[0].innerHTML).contains(expectedRadioHint1, 'Could not find the radio button with hint ' + expectedRadioHint1);
+      expect(radioButtons[1].innerHTML).contains(expectedRadioHint2, 'Could not find the radio button with hint ' + expectedRadioHint2);
+    });
+
+    it('should display account message', () => {
+      const header2 = htmlRes.getElementsByClassName('govuk-heading-m');
+      expect(header2[0].innerHTML).contains('Do you have an account?', 'Could not find account message');
+    });
+
+    it('should display sign in link', () => {
+      const signInLink = htmlRes.getElementsByClassName('govuk-link');
+      expect(signInLink[0].innerHTML).contains('Sign in to your account', 'Could not find link');
+      expect(signInLink[0].getAttribute('href').valueOf()).contains('sign-in', 'Could not find valid link href');
     });
   });
 
-  it('should display header',  () => {
-    const header = htmlRes.getElementsByClassName(headingClass);
-    expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
-  });
+  describe('with error', () => {
+    beforeAll(async () => {
+      await request(app).post(PAGE_URL).then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
+    });
 
-  it('should display continue button',  () => {
-    const buttons = htmlRes.getElementsByClassName(buttonClass);
-    expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
-  });
+    it('should display an error title', () => {
+      const errorTitle = htmlRes.getElementsByClassName('govuk-error-summary__title');
+      expect(errorTitle[0].innerHTML).contains('There is a problem', 'Could not find error title');
+    });
 
-  it('should display 2 radio buttons', () => {
-    const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons.length).equal(2, '2 radio buttons not found');
-  });
-
-  it('should display radio buttons with valid text',  () => {
-    const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[0].innerHTML).contains(expectedRadioLabel1, 'Could not find the radio button with label ' + expectedRadioLabel1);
-    expect(radioButtons[1].innerHTML).contains(expectedRadioLabel2, 'Could not find the radio button with label ' + expectedRadioLabel2);
-  });
-
-  it('should display radio buttons with valid hint',  () => {
-    const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[0].innerHTML).contains(expectedRadioHint1, 'Could not find the radio button with hint ' + expectedRadioHint1);
-    expect(radioButtons[1].innerHTML).contains(expectedRadioHint2, 'Could not find the radio button with hint ' + expectedRadioHint2);
-  });
-
-  it('should display account message', () => {
-    const header2 = htmlRes.getElementsByClassName('govuk-heading-m');
-    expect(header2[0].innerHTML).contains('Do you have an account?', 'Could not find account message');
-  });
-
-  it('should display sign in link', () => {
-    const signInLink = htmlRes.getElementsByClassName('govuk-link');
-    expect(signInLink[0].innerHTML).contains('Sign in to your account', 'Could not find link');
-    expect(signInLink[0].getAttribute('href').valueOf()).contains('sign-in', 'Could not find valid link href');
+    it('should display an error message', () => {
+      const errorMessage = htmlRes.getElementsByClassName('govuk-error-summary__list')[0];
+      expect(errorMessage.innerHTML).contains('An option must be selected', 'Could not find error message');
+    });
   });
 });

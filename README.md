@@ -78,7 +78,7 @@ $ docker run -d -p 6379:6379 redis
 Run:
 
 ```bash
-$ yarn start
+$ yarn start  or  yarn start:dev
 ```
 
 The applications's home page will be available at https://localhost:8080
