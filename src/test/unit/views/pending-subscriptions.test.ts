@@ -27,6 +27,7 @@ const mockCourt = {
 const PAGE_URL = '/pending-subscriptions';
 const backLinkClass = 'govuk-back-link';
 const tableHeaderClass = 'govuk-table__header';
+const pageHeader = 'Confirm your email subscriptions';
 let htmlRes: Document;
 
 const getSubscriptionsStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
@@ -45,6 +46,11 @@ describe('Pending Subscriptions Page', () => {
       });
     });
 
+    it('should have correct page title', () => {
+      const pageTitle = htmlRes.title;
+      expect(pageTitle).contains(pageHeader, 'Page title does not match header');
+    });
+
     it('should display back button', () => {
       const backButton = htmlRes.getElementsByClassName(backLinkClass);
       expect(backButton[0].innerHTML).contains('Back');
@@ -52,7 +58,7 @@ describe('Pending Subscriptions Page', () => {
 
     it('should display title', () => {
       const title = htmlRes.getElementsByClassName('govuk-heading-l');
-      expect(title[0].innerHTML).contains('Confirm your email subscriptions');
+      expect(title[0].innerHTML).contains(pageHeader);
     });
 
     it('should display correct case table headers', () => {
