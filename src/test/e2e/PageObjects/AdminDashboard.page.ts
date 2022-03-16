@@ -15,11 +15,11 @@ export class AdminDashboardPage extends CommonPage {
   }
 
   async clickCreateNewAccountCard(): Promise<CreateAdminAccountPage> {
-    await $(helpers.UploadFile).catch(() => {
-      console.log(`${helpers.UploadFile} not found`);
+    await $(helpers.CreateAdminAccount).catch(() => {
+      console.log(`${helpers.CreateAdminAccount} not found`);
     });
 
-    await $(helpers.UploadFile).click();
+    await $(helpers.CreateAdminAccount).click();
     return new CreateAdminAccountPage();
   }
 }
