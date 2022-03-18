@@ -20,11 +20,11 @@
           {% set accused = [role.individualDetails.individualForenames, " ", role.individualDetails.individualSurname] | join %}
           {% set postcode = role.individualDetails.address.postCode %}
 
-          {% elif role.partyRole == "PROSECUTOR" %}
-          {% set prosecutor = [role.individualDetails.individualForenames, " ", role.individualDetails.individualSurname] | join %}
-        {% endif %}
-        {% set offence = item.hearing[0].offence.offenceTitle %}
-        {% if accused and prosecutor and postcode and offence %}
+ {% elif role.partyRole == "PROSECUTOR" %}
+  {% set prosecutor = [role.organisationDetails.organisationName] | join %}
+  {% endif %}
+  {% set offence = item.hearing[0].offence[0].offenceTitle %}
+  {% if accused and prosecutor and postcode and offence %}
 
           {% set _ = sjpCase.push([
             {
@@ -43,32 +43,25 @@
         {% endif %}
       {% endfor %}
     {% endfor %}
-
-    {{ govukTable({
-      firstCellIsHeader: false,
-      head: [
-        {
-          text: column1
-        },
-        {
-          text: column2
-        },
-        {
-          text: column3
-        },
-        {
-          text: column4
-        }
-      ],
-      rows: sjpCase
-    }) }}
-    <br>
-    <a id="back-to-top-button" class="floating-back-to-top govuk-link govuk-link--no-underline govuk-!-font-size-19" href="#">
-      <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17">
-        <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
-      </svg>{{ backToTop }}
-    </a>
-
+  {{ govukTable({
+    firstCellIsHeader: false,
+    head: [
+      {
+        text: column1
+      },
+      {
+        text: column2
+      },
+      {
+        text: column3
+      },
+      {
+        text: column4
+      }
+    ],
+    rows: sjpCase
+  }) }}
+  {{ backToTopButton() }}
   </div>
 {% endblock %}
 {% block bodyEnd %}

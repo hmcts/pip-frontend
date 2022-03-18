@@ -43,4 +43,13 @@ export class ViewOptionPage extends CommonPage {
 
     return new SingleJusticeProcedurePage();
   }
+
+  async clickFindACourtBannerLink(): Promise<SearchPage> {
+    $(helpers.BannerFindCourt).catch(() => {
+      console.log(`${helpers.BannerFindCourt} not found`);
+    });
+
+    await $(helpers.BannerFindCourt).click();
+    return new SearchPage();
+  }
 }

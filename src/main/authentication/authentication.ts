@@ -15,7 +15,7 @@ const logger = Logger.getLogger('authentication');
 function oidcSetup(): void {
   const clientSecret = config.get('secrets.pip-ss-kv.CLIENT_SECRET') as string;
   logger.info('secret', clientSecret ? clientSecret.substring(0,5) : 'client secret not set!' );
-  const REDIRECT_URL = process.env.AUTH_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/login/return';
+  const AUTH_RETURN_URL = process.env.AUTH_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/login/return';
   const users = [];
 
   const findByOid = function(oid, fn): Function {
@@ -44,7 +44,7 @@ function oidcSetup(): void {
     responseType: authenticationConfig.RESPONSE_TYPE,
     responseMode: authenticationConfig.RESPONSE_MODE,
     policy: authenticationConfig.POLICY,
-    redirectUrl: REDIRECT_URL,
+    redirectUrl: AUTH_RETURN_URL,
     allowHttpForRedirectUrl: true,
     clientSecret: clientSecret,
     isB2C: true,
