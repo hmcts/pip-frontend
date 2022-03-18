@@ -5,17 +5,17 @@ import * as supertest from 'supertest';
 import { app } from '../../main/app';
 import fs from 'fs';
 import path from 'path';
+import sinon from 'sinon';
 
 import {CourtRequests} from '../../main/resources/requests/courtRequests';
 import {LiveCaseRequests} from '../../main/resources/requests/liveCaseRequests';
 import {CaseEventGlossaryRequests} from '../../main/resources/requests/caseEventGlossaryRequests';
 import { SjpRequests } from '../../main/resources/requests/sjpRequests';
 import { ManualUploadService } from '../../main/service/manualUploadService';
+import { request as expressRequest } from 'express';
+import {PublicationRequests} from '../../main/resources/requests/publicationRequests';
 
 const agent = supertest.agent(app);
-import { request as expressRequest } from 'express';
-import sinon from 'sinon';
-import {PublicationRequests} from '../../main/resources/requests/publicationRequests';
 const routesNotTested = [
   '/health',
   '/health/liveness',
@@ -132,7 +132,6 @@ function testAccessibility(url: string): void {
 
 describe('Accessibility',  () => {
   sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-  app.request['cookies'] = {'formCookie': JSON.stringify({'foo': 'blah'})};
   app.request['user'] = {oid: '1'};
   app.request['cookies'] = {
     'formCookie': JSON.stringify({'foo': 'blah', listType: '', listTypeName: ''}),
