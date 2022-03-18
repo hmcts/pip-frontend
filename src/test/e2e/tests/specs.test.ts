@@ -366,9 +366,9 @@ describe('Verified user', () => {
     describe('following the case reference number path', () => {
       const validSearchTerm = 'H01CF553';
 
-        before(async () => {
-          await subscriptionAddPage.open('subscription-add');
-        });
+      before(async () => {
+        await subscriptionAddPage.open('subscription-add');
+      });
 
       it('should select \'By case reference number\' option and navigate to search case number page', async () => {
         await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
@@ -376,11 +376,11 @@ describe('Verified user', () => {
         expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('What is the case reference number or case ID?');
       });
 
-        it('should enter text and click continue', async () => {
-          await caseReferenceNumberSearchPage.enterText(validSearchTerm);
-          caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
-          expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
-        });
+      it('should enter text and click continue', async () => {
+        await caseReferenceNumberSearchPage.enterText(validSearchTerm);
+        caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
+        expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
+      });
 
       it('should click continue to create subscription', async () => {
         pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
