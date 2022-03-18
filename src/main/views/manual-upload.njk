@@ -147,53 +147,51 @@
           <div id="display-date-hint" class="govuk-hint">
             {{ form.displayDateFromHint }}
           </div>
-          <div class="govuk-grid-row">
-            <div class="govuk-date-input" id="display-date-from">
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <label class="govuk-label govuk-date-input__label" for="display-date-from-day">
-                    {{ form.day }}
-                  </label>
-                  <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ displayFromError }}" id="display-date-from-day" name="display-date-from-day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
-              </div>
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <label class="govuk-label govuk-date-input__label" for="display-date-from-month">
-                    {{ form.month }}
-                  </label>
-                  <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ displayFromError }}" id="display-date-from-month" name="display-date-from-month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
-              </div>
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <label class="govuk-label govuk-date-input__label" for="display-date-from-year">
-                    {{ form.year }}
-                  </label>
-                  <input class="govuk-input govuk-date-input__input govuk-input--width-4 {{ displayFromError }}" id="display-date-from-year" name="display-date-from-year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
-              </div>
+          <div class="govuk-date-input" id="display-date-from">
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="display-date-from-day">
+                  {{ form.day }}
+                </label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ displayFromError }}" id="display-date-from-day" name="display-date-from-day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
             </div>
-            <div class="admin-form-offset govuk-body">to</div>
-            <div class="govuk-date-input" id="display-date-to">
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <label class="govuk-label govuk-date-input__label" for="display-date-to-day">
-                    {{ form.day }}
-                  </label>
-                  <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ displayToError }}" id="display-date-to-day" name="display-date-to-day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
-              </div>
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <label class="govuk-label govuk-date-input__label" for="display-date-to-month">
-                    {{ form.month }}
-                  </label>
-                  <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ displayToError }}" id="display-date-to-month" name="display-date-to-month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
-              </div>
-              <div class="govuk-date-input__item">
-                <div class="govuk-form-group">
-                  <label class="govuk-label govuk-date-input__label" for="display-date-to-year">
-                    {{ form.year }}
-                  </label>
-                  <input class="govuk-input govuk-date-input__input govuk-input--width-4 {{ displayToError }}" id="display-date-to-year" name="display-date-to-year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
-              </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="display-date-from-month">
+                  {{ form.month }}
+                </label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ displayFromError }}" id="display-date-from-month" name="display-date-from-month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="display-date-from-year">
+                  {{ form.year }}
+                </label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4 {{ displayFromError }}" id="display-date-from-year" name="display-date-from-year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+            </div>
+          </div>
+          <div class="admin-form-offset govuk-body">to</div>
+          <div class="govuk-date-input" id="display-date-to">
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="display-date-to-day">
+                  {{ form.day }}
+                </label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ displayToError }}" id="display-date-to-day" name="display-date-to-day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="display-date-to-month">
+                  {{ form.month }}
+                </label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2 {{ displayToError }}" id="display-date-to-month" name="display-date-to-month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="display-date-to-year">
+                  {{ form.year }}
+                </label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4 {{ displayToError }}" id="display-date-to-year" name="display-date-to-year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
             </div>
           </div>
         </fieldset>
