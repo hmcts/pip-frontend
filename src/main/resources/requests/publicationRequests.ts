@@ -3,9 +3,9 @@ import {Artefact} from '../../models/Artefact';
 
 export class PublicationRequests {
 
-  public async getIndividualPublicationMetadata(artefactId, verification): Promise<string> {
+  public async getIndividualPublicationMetadata(artefactId, verification, admin): Promise<string> {
     try{
-      const response = await dataManagementApi.get(`/publication/${artefactId}`, {headers: {'verification': `${verification}`}});
+      const response = await dataManagementApi.get(`/publication/${artefactId}`, {headers: {verification, 'x-admin': admin}});
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -21,7 +21,8 @@ export class PublicationRequests {
 
   public async getIndividualPublicationJson(artefactId, verification): Promise<JSON> {
     try {
-      const response = await dataManagementApi.get('/publication/' + artefactId + '/payload', {headers: {'verification': `${verification}`}});
+      const response = await dataManagementApi.get('/publication/' + artefactId + '/payload',
+        {headers: {'verification': `${verification}`}});
       return response.data;
     } catch (error) {
       if (error.response) {

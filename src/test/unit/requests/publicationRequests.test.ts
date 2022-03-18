@@ -97,25 +97,25 @@ describe('getIndividualPubJson()', () => {
 describe('getIndividualPubMetadata()', () => {
 
   it('should return publication meta data', async () => {
-    expect(await publicationRequests.getIndividualPublicationMetadata(artefactId, true)).toBe(metaData);
+    expect(await publicationRequests.getIndividualPublicationMetadata(artefactId, true, false)).toBe(metaData);
   });
 
   it('should return content datetime', async () => {
-    return await publicationRequests.getIndividualPublicationMetadata(artefactId, true).then(data => {
+    return await publicationRequests.getIndividualPublicationMetadata(artefactId, true, false).then(data => {
       expect(data['contentDate']).toEqual('2022-02-14T14:14:59.73967');
     });
   });
 
   it('should return empty list if request fails', async () => {
-    expect(await publicationRequests.getIndividualPublicationMetadata('abc1', true)).toBe(null);
+    expect(await publicationRequests.getIndividualPublicationMetadata('abc1', true, false)).toBe(null);
   });
 
   it('should return empty list if request fails', async () => {
-    expect(await publicationRequests.getIndividualPublicationMetadata('abc2', true)).toBe(null);
+    expect(await publicationRequests.getIndividualPublicationMetadata('abc2', true, false)).toBe(null);
   });
 
   it('should return empty list if message error', async () => {
-    expect(await publicationRequests.getIndividualPublicationMetadata('abc3', true)).toBe(null);
+    expect(await publicationRequests.getIndividualPublicationMetadata('abc3', true, false)).toBe(null);
   });
 });
 
@@ -168,24 +168,24 @@ describe('Get publication by court id', () => {
 describe('get individual publication metadata', () => {
   it('should return metadata for a given publication', async () => {
     dataManagementStub.withArgs('/publication/fakeArtefactId').resolves({data: pubs});
-    const message = await pubRequests.getIndividualPublicationMetadata('fakeArtefactId', true);
+    const message = await pubRequests.getIndividualPublicationMetadata('fakeArtefactId', true, false);
     expect(message.length).toBe(totalCases);
   });
 
   it('should send an error request to the log if error request exists', async () => {
     dataManagementStub.withArgs('/publication/promiseBreakingData').resolves(Promise.reject(errorRequest));
-    expect(await pubRequests.getIndividualPublicationMetadata('promiseBreakingData', true)).toBe(null);
+    expect(await pubRequests.getIndividualPublicationMetadata('promiseBreakingData', true, false)).toBe(null);
   });
 
   it('should send an error to the log if error response exists', async () => {
     dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse').resolves(Promise.reject(errorResponse));
-    const response = await pubRequests.getIndividualPublicationMetadata('brokenPromiseWithErrorResponse', true);
+    const response = await pubRequests.getIndividualPublicationMetadata('brokenPromiseWithErrorResponse', true, false);
     expect(response).toBe(null);
   });
 
   it('should send an error to the log if error message exists and error request does not exist', async () => {
     dataManagementStub.withArgs('/publication/noErrRequest').resolves(Promise.reject(errorMessage));
-    const message = await pubRequests.getIndividualPublicationMetadata('noErrRequest', true);
+    const message = await pubRequests.getIndividualPublicationMetadata('noErrRequest', true, false);
     expect(message).toBe(null);
   });
 
