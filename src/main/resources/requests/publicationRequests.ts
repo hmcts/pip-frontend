@@ -52,9 +52,9 @@ export class PublicationRequests {
     return null;
   }
 
-  public async getPublicationByCaseValue(searchQuery: string, searchValue: string, verified: boolean): Promise<Artefact[]> {
+  public async getPublicationsByCourt(courtId: string, verified: boolean): Promise<Artefact[]> {
     try {
-      const response = await dataManagementApi.get(`/publication/search/${searchQuery}/${searchValue}`,
+      const response = await dataManagementApi.get(`/publication/courtId/${courtId}`,
         {headers: {verification: verified}});
       return response.data;
     } catch (error) {
