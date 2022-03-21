@@ -6,7 +6,7 @@ const adminRolesList = [
     key: 'super-admin-ctsc',
     text: 'Internal - Super Administrator - CTSC',
     mapping: 'INTERNAL_SUPER_ADMIN_CTSC',
-    hint: 'Upload, Remove, Create new accounts, Assess New Media requests',
+    hint: 'Upload, Remove, Create new accounts, Assess new media requests',
   },
   {
     key: 'super-admin-local',

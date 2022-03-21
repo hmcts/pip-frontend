@@ -21,7 +21,7 @@ const radios = [
     text: 'Internal - Super Administrator - CTSC',
     checked: false,
     hint: {
-      text: 'Upload, Remove, Create new accounts, Assess New Media requests',
+      text: 'Upload, Remove, Create new accounts, Assess new media requests',
     },
   },
   {
