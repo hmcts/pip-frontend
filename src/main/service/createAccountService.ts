@@ -129,22 +129,22 @@ export class CreateAccountService {
     return message;
   }
 
-  formatCreateAdminAccountPayload(accountObject): object {
-    return {
+  formatCreateAdminAccountPayload(accountObject): any[] {
+    return [{
       email: accountObject.emailAddress,
       firstName: accountObject.firstName,
       surname: accountObject.lastName,
       role: accountObject.userRoleObject.mapping,
-    };
+    }];
   }
 
-  formatCreateAccountPIPayload(azureAccount): object {
-    return {
+  formatCreateAccountPIPayload(azureAccount): any[] {
+    return [{
       email: azureAccount.email,
       provenanceUserId: azureAccount.azureAccountId,
       roles: azureAccount.role,
       userProvenance: 'PI_AAD',
-    };
+    }];
   }
 
   public async createAdminAccount(payload: object, requester: string): Promise<boolean> {
