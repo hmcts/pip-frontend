@@ -12,7 +12,7 @@ const radioLabels = [
   'Internal - Administrator - Local',
 ];
 const radioHints = [
-  'Upload, Remove, Create new accounts, Assess New Media requests',
+  'Upload, Remove, Create new accounts, Assess new media requests',
   'Upload, Remove, Create new account',
   'Upload, Remove, Assess new media request',
   'Upload, Remove',
