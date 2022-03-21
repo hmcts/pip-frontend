@@ -9,3 +9,28 @@ nodejs:
     AUTH_RETURN_URL: https://${SERVICE_FQDN}/login/return
     FRONTEND_URL: https://${SERVICE_FQDN}
     EXCLUDE_E2E: true
+  keyVaults:
+    pip-ss-kv-demo:
+      excludeEnvironmentSuffix: true
+      usePodIdentity: false
+      userAssignedIdentityID: /subscriptions/c68a4bed-4c3d-4956-af51-4ae164c1957c/resourceGroups/managed-identities-demo-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/pip-demo-mi
+      resourceGroup: pip-ss-demo-rg
+      secrets:
+        - name: session-key
+          alias: SESSION_SECRET
+        - name: otp-app-pip-frontend-id
+          alias: CLIENT_ID
+        - name: otp-app-pip-frontend-pwd
+          alias: CLIENT_SECRET
+        - name: otp-tenant-id
+          alias: TENANT_GUID
+        - name: shared-storageaccount-connection-string
+          alias: CONNECTION_STRING
+        - name: REDIS-HOST
+          alias: REDIS_HOST
+        - name: REDIS-PASSWORD
+          alias: REDIS_PASSWORD
+        - name: REDIS-PORT
+          alias: REDIS_PORT
+        - name: b2c-auth-endpoint
+          alias: B2C_AUTH_ENDPOINT
