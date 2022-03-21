@@ -9,6 +9,7 @@ nodejs:
     AUTH_RETURN_URL: https://${SERVICE_FQDN}/login/return
     FRONTEND_URL: https://${SERVICE_FQDN}
     EXCLUDE_E2E: true
+    FRONTEND_URL: https://${SERVICE_FQDN}
   keyVaults:
     pip-ss-kv-demo:
       excludeEnvironmentSuffix: true
@@ -34,3 +35,4 @@ nodejs:
           alias: REDIS_PORT
         - name: b2c-auth-endpoint
           alias: B2C_AUTH_ENDPOINT
+
