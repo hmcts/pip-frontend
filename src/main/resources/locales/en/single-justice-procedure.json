@@ -1,5 +1,6 @@
 {
   "title": "Single Justice Procedure cases that are ready for hearing",
+  "listDetail": "List containing COURTS_COUNT case(s) generated on PUBLICATION_DATE",
   "column1": "Name",
   "column2": "Postcode",
   "column3": "Offence",
