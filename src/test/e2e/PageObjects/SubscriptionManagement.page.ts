@@ -1,6 +1,7 @@
 import { SubscriptionAddPage } from './SubscriptionAdd.page';
 import { DeleteSubscriptionPage } from './DeleteSubscription.page';
 import { CommonPage } from './Common.page';
+import { SearchPage } from './Search.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -21,5 +22,14 @@ export class SubscriptionManagementPage extends CommonPage {
 
     await $(helpers.SubscriptionManagementTableFirstResultUrl).click();
     return new DeleteSubscriptionPage();
+  }
+
+  async clickFindCourtNavLink(): Promise<SearchPage> {
+    await $(helpers.SignedInBannerFindCourt).catch(() => {
+      console.log(`${helpers.SignedInBannerFindCourt} not found`);
+    });
+
+    await $(helpers.SignedInBannerFindCourt).click();
+    return new SearchPage();
   }
 }

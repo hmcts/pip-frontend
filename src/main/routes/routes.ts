@@ -1,5 +1,6 @@
 import { Application, NextFunction } from 'express';
 import { infoRequestHandler } from '@hmcts/info-provider';
+import { Logger } from '@hmcts/nodejs-logging';
 import cors  from 'cors';
 import os from 'os';
 import process from 'process';
@@ -16,6 +17,7 @@ export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
   const authType = (process.env.OIDC === 'true') ? 'azuread-openidconnect' : 'mockaroo';
   // const authType = 'mockaroo';
+  logger.info('authType', authType);
   const storage = multer.diskStorage({
     destination: 'manualUpload/tmp/',
     filename: function (req, file, callback) {
@@ -31,6 +33,7 @@ export default function(app: Application): void {
   };
 
   const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
+  logger.info('FRONTEND_URL', FRONTEND_URL);
   const corsOptions = {
     origin: 'https://pib2csbox.b2clogin.com',
     methods: ['GET', 'OPTIONS'],
@@ -43,7 +46,6 @@ export default function(app: Application): void {
     if (req.isAuthenticated()) {
       return next();
     }
-    logger.info('ensureAuthenticated redirecting', authenticationConfig.POLICY);
     res.redirect('/login?p=' + authenticationConfig.POLICY);
   }
 
@@ -58,6 +60,8 @@ export default function(app: Application): void {
     logger.info('logout FE URL', FRONTEND_URL);
     const B2C_URL = 'https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/';
     const encodedSignOutRedirect = encodeURIComponent(`${FRONTEND_URL}/view-option`);
+    logger.info('B2C_URL', B2C_URL);
+    logger.info('encodedSignOutRedirect', encodedSignOutRedirect);
     res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
   }
 
@@ -79,6 +83,7 @@ export default function(app: Application): void {
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
   app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
+  app.get('/cookie-policy', app.locals.container.cradle.cookiesPageController.get);
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
   app.post('/create-media-account', app.locals.container.cradle.createMediaAccountController.post);
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
@@ -119,6 +124,7 @@ export default function(app: Application): void {
   app.get('/remove-list-search', ensureAuthenticated, app.locals.container.cradle.removeListSearchController.get);
   app.post('/remove-list-search', ensureAuthenticated, app.locals.container.cradle.removeListSearchController.post);
   app.get('/remove-subscription', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.removeSubscription);
+  app.get('/sjp-press-list', ensureAuthenticated, app.locals.container.cradle.sjpPressListController.get);
   app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
   app.post('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.post);
   app.post('/subscription-confirmed', ensureAuthenticated, app.locals.container.cradle.subscriptionConfirmedController.post);
