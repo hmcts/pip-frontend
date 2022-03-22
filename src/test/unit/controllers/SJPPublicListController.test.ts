@@ -26,7 +26,7 @@ describe('List Type Controller', () => {
     const expectedData = {
       casesList: JSON.parse(mockSJPPublic).courtLists[0].courtHouse.courtRoom[0].session[0].sittings,
       length: data.length,
-      date: data['document'].publicationDate,
+      date: JsonifiedData['document'].publicationDate,
       ...i18n['single-justice-procedure'],
     };
     const responseMock = sinon.mock(responseRender);
