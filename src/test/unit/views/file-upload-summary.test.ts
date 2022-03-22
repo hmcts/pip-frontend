@@ -52,7 +52,7 @@ describe('File Upload Summary Page', () => {
     for (let i = 0; i < summaryKeys.length; i++) {
       expect(keys[i].innerHTML).to.contain(summaryKeys[i], `Unable to find ${summaryKeys[i]} summary key`);
       expect(actions[i].getElementsByClassName('govuk-link')[0].innerHTML).to.contain('Change');
-      expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href')).to.equal('manual-upload');
+      expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href')).to.contain('manual-upload');
     }
   });
 
