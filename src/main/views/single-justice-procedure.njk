@@ -13,12 +13,12 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ listDetail | replace("CASES_COUNT", length) | replace("PUBLICATION_DATE", date)}}</p>
   <div class="parent-box overflow-table">
-  {% set sjpCase = [] %}
-  {% for item in casesList |sort(attribute="Name")%}
-  {% for role in item.hearing[0].party %}
-  {% if role.partyRole == "ACCUSED" %}
-  {% set accused = [role.individualDetails.individualForenames, " ", role.individualDetails.individualSurname] | join %}
-  {% set postcode = role.individualDetails.address.postCode %}
+    {% set sjpCase = [] %}
+    {% for item in casesList |sort(attribute="Name")%}
+      {% for role in item.hearing[0].party %}
+        {% if role.partyRole == "ACCUSED" %}
+          {% set accused = [role.individualDetails.individualForenames, " ", role.individualDetails.individualSurname] | join %}
+          {% set postcode = role.individualDetails.address.postCode %}
 
  {% elif role.partyRole == "PROSECUTOR" %}
   {% set prosecutor = [role.organisationDetails.organisationName] | join %}
@@ -26,24 +26,23 @@
   {% set offence = item.hearing[0].offence[0].offenceTitle %}
   {% if accused and prosecutor and postcode and offence %}
 
-    {% set _ = sjpCase.push([
-      {
-        text: accused
-      },
-      {
-        text: postcode
-      },
-      {
-        text: offence
-      },
-      {
-        text: prosecutor
-      }
-    ]) %}
-    {% endif %}
+          {% set _ = sjpCase.push([
+            {
+              text: accused
+            },
+            {
+              text: postcode
+            },
+            {
+              text: offence
+            },
+            {
+              text: prosecutor
+            }
+          ]) %}
+        {% endif %}
+      {% endfor %}
     {% endfor %}
-    {% endfor %}
-
   {{ govukTable({
     firstCellIsHeader: false,
     head: [
