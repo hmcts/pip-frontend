@@ -6,7 +6,7 @@ import { PublicationService } from '../service/publicationService';
 
 const publicationService = new PublicationService();
 
-export default class DailyCauseListController {
+export default class FamilyDailyCauseListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query.artefactId as string;
     const searchResults = await publicationService.getIndividualPublicationJson(artefactId, (!!req.user));
@@ -18,8 +18,8 @@ export default class DailyCauseListController {
 
       const publishedDateTime = Date.parse(searchResults['document']['publicationDate']);
 
-      res.render('daily-cause-list', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['daily-cause-list']),
+      res.render('family-daily-cause-list', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['family-daily-cause-list']),
         searchResults: manipulatedData,
         contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: moment(publishedDateTime).format('DD MMMM YYYY'),
