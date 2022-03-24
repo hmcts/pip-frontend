@@ -80,7 +80,7 @@ $min-width: 52em;
 
 //Styling for the Alphabetical View page
 .floating-back-to-top {
-  bottom: 0;
+  bottom: -3vh;
   left: 0;
   position: absolute;
 
@@ -223,7 +223,27 @@ $min-width: 52em;
       width: 16%;
     }
   }
+  .parent-box {
+    .floating-back-to-top {
+      bottom: -2vh;
+    }
+  }
+}
 
+@media (max-height: 720px) {
+  .parent-box {
+    .floating-back-to-top {
+      bottom: -5vh;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .parent-box {
+    .floating-back-to-top {
+      bottom: -1vh;
+    }
+  }
 }
 
 //Styling for the Hearings List page
