@@ -1,12 +1,16 @@
-import { Request, Response } from 'express';
-import {PipRequest} from '../models/request/PipRequest';
+import { Response } from 'express';
+import { PipRequest } from '../models/request/PipRequest';
+import { cloneDeep } from 'lodash';
 
 export default class ViewOptionController {
   public get(req: PipRequest, res: Response): void {
-    res.render('view-option', req.i18n.getDataByLanguage(req.lng)['view-option']);
+    res.render('view-option', {
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['view-option']),
+      showError: false,
+    });
   }
 
-  public post(req: Request, res: Response): void {
+  public post(req: PipRequest, res: Response): void {
     if (req.body['view-choice'] === 'search') {
       res.redirect('search');
     }
@@ -17,7 +21,10 @@ export default class ViewOptionController {
       res.redirect('summary-of-publications?courtId=0');
     }
     else {
-      res.redirect('view-option');
+      res.render('view-option', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['view-option']),
+        showError: true,
+      });
     }
   }
 }

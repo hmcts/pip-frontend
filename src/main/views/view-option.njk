@@ -1,6 +1,7 @@
 {% extends "template.njk" %}
 {% from "macros/common-components.njk" import goBack, submitButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% block pageTitle %}
     {{ title }}
@@ -12,6 +13,17 @@
 {% endblock %}
 
 {% block content %}
+    {% if showError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.text,
+                    href: "#view-choice"
+                }
+            ]
+        }) }}
+    {% endif %}
     <form method="post">
         {{ govukRadios({
             idPrefix: "view-choice",
@@ -44,13 +56,13 @@
         <h2 class="govuk-heading-m govuk-!-margin-top-3">{{ haveAccount }}</h2>
         <p class="govuk-body"><a class="govuk-link" href="sign-in">{{ accountLink }}</a></p>
     </form>
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
     <script>
-      const button = document.getElementsByClassName('govuk-button')[0];
-      button.addEventListener('click', (e) => {
-        const checkedRadios = document.querySelectorAll('input[type="radio"]:checked');
-        if (!checkedRadios.length) {
-          e.preventDefault();
-        }
-      })
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
     </script>
 {% endblock %}
+
