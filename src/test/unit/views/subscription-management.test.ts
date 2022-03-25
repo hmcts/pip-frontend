@@ -26,6 +26,7 @@ const expectedRowCourtName = 'Court 1';
 const expectedCaseRowsCount = 2;
 const expectedCourtRowsCount = 3;
 const expectedUnsubscribeLink = 'delete-subscription?subscription=5a45699f-47e3-4283-904a-581afe624155';
+const pageHeader = 'Your subscriptions';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
 const userSubscriptionsStub = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
@@ -77,9 +78,14 @@ describe('Subscriptions Management Page', () => {
   });
 
   it('should display header', () => {
-    const header = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(header[0].innerHTML)
-      .contains('Your subscriptions', 'Could not find correct value in header');
+    const header = htmlRes.getElementsByClassName('govuk-heading-l')[0];
+    expect(header.innerHTML)
+      .contains(pageHeader, 'Could not find correct value in header');
+  });
+
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).contains(pageHeader, 'Page title does not match header');
   });
 
   it('should display add subscription button', () => {
