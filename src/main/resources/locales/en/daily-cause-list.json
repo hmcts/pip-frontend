@@ -10,5 +10,11 @@
   "hearingDurationHour": "hour",
   "hearingDurationMinute": "min",
   "hearingDurationHours": "hours",
-  "hearingDurationMinutes": "mins"
+  "hearingDurationMinutes": "mins",
+  "caseId": "Case ID",
+  "nameOfParty": "Name of party or parties involved",
+  "hearingType": "Hearing type",
+  "hearingPlatform": "Hearing platform",
+  "startTime": "Start time",
+  "duration": "Duration"
 }

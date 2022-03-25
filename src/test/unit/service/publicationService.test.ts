@@ -82,24 +82,24 @@ describe('Publication service', () => {
     });
   });
 
-  describe('calculateHearingSessionTime Publication Service', () => {
+  describe('manipulatedDailyListData Publication Service', () => {
     it('should return daily cause list object', async () => {
-      const data = await  publicationService.calculateHearingSessionTime(rawDailyCauseData);
+      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
       expect(data['courtLists'].length).to.equal(1);
     });
 
     it('should calculate totalHearings in cause list object', async () => {
-      const data = await  publicationService.calculateHearingSessionTime(rawDailyCauseData);
+      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['totalHearing']).to.equal(2);
     });
 
     it('should calculate duration of Hearing in cause list object', async () => {
-      const data = await  publicationService.calculateHearingSessionTime(rawDailyCauseData);
+      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']).to.equal(1);
     });
 
     it('should calculate start time of Hearing in cause list object', async () => {
-      const data = await  publicationService.calculateHearingSessionTime(rawDailyCauseData);
+      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal('9.40am');
     });
   });

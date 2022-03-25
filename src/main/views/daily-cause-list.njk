@@ -52,22 +52,17 @@
                 <table class="govuk-table">
                   <thead class="govuk-table__head">
                   <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header">Case ID</th>
-                    <th scope="col" class="govuk-table__header">Name of party or parties involved</th>
-                    <th scope="col" class="govuk-table__header">Hearing type</th>
-                    <th scope="col" class="govuk-table__header">Hearing platform</th>
-                    <th scope="col" class="govuk-table__header">Start time</th>
-                    <th scope="col" class="govuk-table__header">Duration</th>
+                    <th scope="col" class="govuk-table__header">{{ caseId }}</th>
+                    <th scope="col" class="govuk-table__header">{{ nameOfParty }}</th>
+                    <th scope="col" class="govuk-table__header">{{ hearingType }}</th>
+                    <th scope="col" class="govuk-table__header">{{ hearingPlatform }}</th>
+                    <th scope="col" class="govuk-table__header">{{ startTime }}</th>
+                    <th scope="col" class="govuk-table__header">{{ duration }}</th>
                   </tr>
                   </thead>
 
                   <tbody class="govuk-table__body">
                   {% for sitting in session['sittings'] %}
-                    {% set hearingPlatform = sitting['channel'][0] %}
-                    {% if sitting['channel'][0] === '' %}
-                      {% set hearingPlatform = sessionChannel %}
-                    {% endif %}
-
                     {% set durationAsHours = 0 %}
                     {% if sitting['durationAsHours'] !== 0 %}
                       {% if sitting['durationAsHours'] > 1 %}
@@ -104,7 +99,7 @@
                           <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ case['caseName'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ hearingPlatform }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ sitting['startTime'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ duration }}</td>
                         </tr>

@@ -14,7 +14,7 @@ export default class DailyCauseListController {
 
     if (searchResults && metaData) {
 
-      const manipulatedData = publicationService.calculateHearingSessionTime(JSON.stringify(searchResults));
+      const manipulatedData = publicationService.manipulatedDailyListData(JSON.stringify(searchResults));
 
       const publishedDateTime = Date.parse(searchResults['document']['publicationDate']);
 
