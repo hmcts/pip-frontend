@@ -10,12 +10,12 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
-  <h2 id='page-heading' class="govuk-heading-l">{{ header }} <br />{{ searchResults['venue']['venueName']}}</h2>
+  <h2 id='page-heading' class="govuk-heading-l">{{ header }} <br />{{ listData['venue']['venueName']}}</h2>
   <p class="govuk-body">
-    {% for line in searchResults['venue']['venueAddress']['line'] %}
+    {% for line in listData['venue']['venueAddress']['line'] %}
       {{ line }}<br />
     {% endfor %}
-    {{ searchResults['venue']['venueAddress']['postCode'] }}
+    {{ listData['venue']['venueAddress']['postCode'] }}
   </p>
   <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contactDate }}</p>
   <p class="govuk-body">{{ published | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
@@ -27,12 +27,12 @@
     </summary>
     <div class="govuk-details__text">
       <p>{{ importantInformationP1 }}</p>
-      <p>{{ importantInformationP2 | replace("NAME", searchResults['venue']['venueName']) | replace("EMAIL", searchResults['venue']["venueContact"]["venueEmail"]) | replace("TELNO", searchResults['venue']['venueContact']['venueTelephone'])}}</p>
+      <p>{{ importantInformationP2 | replace("NAME", listData['venue']['venueName']) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone'])}}</p>
       <p>{{ importantInformationP3 }}</p>
     </div>
   </details>
   <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-    {% for courtList in searchResults['courtLists'] %}
+    {% for courtList in listData['courtLists'] %}
       {% set sessionCount = 0 %}
       {% for courtRoom in courtList['courtHouse']['courtRoom'] %}
         {% set hearingCount = 1 %}

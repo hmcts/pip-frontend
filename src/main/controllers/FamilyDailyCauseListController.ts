@@ -20,7 +20,7 @@ export default class FamilyDailyCauseListController {
 
       res.render('family-daily-cause-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['family-daily-cause-list']),
-        searchResults: manipulatedData,
+        listData: manipulatedData,
         contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: moment(publishedDateTime).format('DD MMMM YYYY'),
         publishedTime: moment(publishedDateTime).format('ha'),

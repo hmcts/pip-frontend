@@ -27,6 +27,7 @@ publicationRequestStub.resolves(returnedArtefact);
 const publicationRequests = PublicationRequests.prototype;
 
 const rawDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
+const rawFamilyDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
 const dailyCauseListData = JSON.parse(rawDailyCauseData);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
@@ -34,11 +35,12 @@ const metaData = JSON.parse(rawMetaData)[0];
 
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
 
-const stub = sinon.stub(publicationRequests, 'getIndividualPublicationJson').returns(dailyCauseListData);
+const stub = sinon.stub(publicationRequests, 'getIndividualPublicationJson');
+stub.returns(dailyCauseListData);
 stub.withArgs().returns(dailyCauseListData);
 
-const stubMetaData = sinon.stub(publicationRequests, 'getIndividualPublicationMetadata').returns(metaData);
-stubMetaData.withArgs().returns(metaData);
+const stubMetaData = sinon.stub(publicationRequests, 'getIndividualPublicationMetadata');
+stubMetaData.returns(metaData);
 
 const validCourtName = 'PRESTON';
 const invalidCourtName = 'TEST';
@@ -102,6 +104,13 @@ describe('Publication service', () => {
       const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal('9.40am');
     });
+
+    it('should set caseHearingChannel to sitting channel', async () => {
+      const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCauseData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']).to.equal('testSittingChannel');
+    });
+
+    //TODO: do the else if of the hearing platform, also do a test for if channel and sessionChannel less than 0. then test judiciary, then test party information
   });
 
   describe('getIndivPubMetadata Publication Service', () => {
