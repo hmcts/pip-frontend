@@ -22,8 +22,12 @@ describe('Alphabetical Search page', () => {
     });
   });
 
-  it('should display a back button with the correct value', () => {
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).contains('Find a court or tribunal - alphabetical search', 'Page title does not match');
+  });
 
+  it('should display a back button with the correct value', () => {
     const backLink = htmlRes.getElementsByClassName('govuk-back-link');
     expect(backLink[0].innerHTML)
       .contains('Back', 'Back button does not contain correct text');

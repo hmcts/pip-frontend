@@ -22,6 +22,11 @@ describe('Subscriptions Confirmed Page', () => {
     });
   });
 
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).contains('Subscription confirmation', 'Page title does not match');
+  });
+
   it('should display confirmation panel with correct title and message', () => {
     const panel = htmlRes.getElementsByClassName('govuk-panel--confirmation')[0];
     expect(panel.getElementsByClassName('govuk-panel__title')[0].innerHTML)
