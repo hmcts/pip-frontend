@@ -38,6 +38,7 @@ const footerLinks = [
     href: 'https://www.gov.uk/government/organisations/government-digital-service',
   },
 ];
+const pageHeader = 'Court and tribunal hearings';
 
 describe('Interstitial page', () => {
   describe('with English translations', () => {
@@ -48,9 +49,14 @@ describe('Interstitial page', () => {
       });
     });
 
+    it('should have correct page title', () => {
+      const pageTitle = htmlRes.title;
+      expect(pageTitle).contains(pageHeader, 'Page title does not match header');
+    });
+
     it('should display header', () => {
       const header = htmlRes.getElementsByClassName('govuk-heading-l');
-      expect(header[0].innerHTML).contains('Court and tribunal hearings', 'Could not find correct value in header');
+      expect(header[0].innerHTML).contains(pageHeader, 'Could not find correct value in header');
     });
 
     it('should display continue button',  () => {
