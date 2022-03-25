@@ -5,6 +5,9 @@
   {{ super() }}
   {{ goBack() }}
 {% endblock %}
+{% block pageTitle %}
+  {{ header }}
+{% endblock %}
 {% block content %}
   <h1 class="govuk-heading-xl">{{ header }}</h1>
 {% endblock %}
