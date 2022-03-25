@@ -27,6 +27,9 @@ publicationRequestStub.resolves(returnedArtefact);
 const publicationRequests = PublicationRequests.prototype;
 
 const rawDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
+const familyDailyCauseListWithoutHearingChannelData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseListWithoutHearingChannel.json'), 'utf-8');
+const familyDailyCauseListWithoutAnyChannelData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseListWithoutAnyChannel.json'), 'utf-8');
+
 const rawFamilyDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
 const dailyCauseListData = JSON.parse(rawDailyCauseData);
 
@@ -110,7 +113,17 @@ describe('Publication service', () => {
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']).to.equal('testSittingChannel');
     });
 
-    //TODO: do the else if of the hearing platform, also do a test for if channel and sessionChannel less than 0. then test judiciary, then test party information
+    it('should set sessionChannel to sitting channel', async () => {
+      const data = await publicationService.manipulatedDailyListData(familyDailyCauseListWithoutHearingChannelData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']).to.equal('VIDEO HEARING');
+    });
+
+    it('should return empty channel if both hearing and sessionChannel are missing', async () => {
+      const data = await publicationService.manipulatedDailyListData(familyDailyCauseListWithoutAnyChannelData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']).to.equal('');
+    });
+
+    //TODO: Test judiciary, then test party information
   });
 
   describe('getIndivPubMetadata Publication Service', () => {
