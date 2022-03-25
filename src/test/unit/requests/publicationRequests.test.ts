@@ -26,6 +26,7 @@ const errorResponse = {
     data: 'test error',
   },
 };
+
 const errorMessage = {
   message: 'test',
 };
