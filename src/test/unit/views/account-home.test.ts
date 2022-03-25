@@ -5,6 +5,7 @@ import request from 'supertest';
 import sinon from 'sinon';
 
 const PAGE_URL = '/account-home';
+const pageHeader = 'Your account';
 const expectedCards = 3;
 const cards = [
   {
@@ -32,10 +33,15 @@ describe('Your Account page', () => {
     });
   });
 
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).contains(pageHeader, 'Page title does not match header');
+  });
+
   it('should display header', () => {
     const header = htmlRes.getElementsByClassName('govuk-heading-l');
     expect(header[0].innerHTML)
-      .contains('Your account', 'Could not find correct value in header');
+      .contains(pageHeader, 'Could not find correct value in header');
   });
 
   it('should display 4 card options', () => {
