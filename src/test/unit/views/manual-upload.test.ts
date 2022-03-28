@@ -21,7 +21,8 @@ const expectedCourtNameQuestion = 'Court name';
 const expectedCourtNameContainer = 'search-input-container';
 const expectedListType = 'List type';
 const expectedHearingDates = 'Hearing start date';
-const expectedDisplayDates = 'Display file from';
+const expectedDisplayDateFrom = 'Display file from';
+const expectedDisplayDateTo = 'Display file to';
 const expectedClassification = 'Available to';
 const expectedLanguage = 'Language';
 const buttonText = 'Continue';
@@ -98,9 +99,10 @@ describe('Manual upload page', () => {
     });
 
     it('should display display date question', () => {
-      const displayDate = formElements.getElementsByClassName(fieldSetClass)[1];
-      expect(displayDate.innerHTML).contains(expectedDisplayDates, 'Could not find inset content date question');
-      expect(displayDate.getElementsByClassName(dateInputClass).length).equals(2, 'Could not find inset content date');
+      const displayDateFrom = formElements.getElementsByClassName(fieldSetClass)[1];
+      const displayDateTo = formElements.getElementsByClassName(fieldSetClass)[2];
+      expect(displayDateFrom.innerHTML).contains(expectedDisplayDateFrom, 'Could not find inset content date question');
+      expect(displayDateTo.innerHTML).contains(expectedDisplayDateTo, 'Could not find inset content date question');
     });
 
     it('should display continue button', () => {
