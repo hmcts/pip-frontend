@@ -77,36 +77,7 @@
 {% block footer %}
 {{ govukFooter({
   meta: {
-    items: [
-      {
-          href: "/help",
-          text: help
-      },
-      {
-          href: "/privacy-policy",
-          text: privacyPolicy
-      },
-      {
-          href: "/Cymraeg",
-          text: language
-      },
-      {
-          href: "/cookie-policy",
-          text: cookiePolicy
-      },
-      {
-          href: "/accessibility-statement",
-          text: accessibilityStatement
-      },
-      {
-          href: "/Contact",
-          text: contact
-      },
-      {
-          href: "/terms-and-conditions",
-          text: tc
-      }
-    ]
+    items: footerLinks
   }
 }) }}
 {% endblock %}

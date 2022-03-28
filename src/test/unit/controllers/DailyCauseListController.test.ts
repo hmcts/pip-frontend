@@ -31,6 +31,7 @@ const i18n = {
 };
 
 describe('Daily Cause List Controller', () => {
+
   const response = { render: () => {return '';}} as unknown as Response;
 
   it('should render the daily cause list page', () =>  {

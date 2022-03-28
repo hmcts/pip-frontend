@@ -387,33 +387,33 @@ describe('Verified user', () => {
         expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
       });
     });
-  });
 
-  describe('add subscription', async () => {
-    before(async () => {
-      await pendingSubscriptionsPage.open('pending-subscriptions');
+    describe('add subscription', async () => {
+      before(async () => {
+        await pendingSubscriptionsPage.open('pending-subscriptions');
+      });
+
+      it('should subscribe', async () => {
+        subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
+        expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
+      });
     });
 
-    it('should subscribe', async () => {
-      subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
-      expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
-    });
-  });
+    describe('remove subscription', async () => {
+      before(async () => {
+        await subscriptionManagementPage.open('subscription-management');
+      });
 
-  describe('remove subscription', async () => {
-    before(async () => {
-      await subscriptionManagementPage.open('subscription-management');
-    });
+      it('should click on the first unsubscribe record', async () => {
+        deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
+        expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
+      });
 
-    it('should click on the first unsubscribe record', async () => {
-      deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
-      expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
-    });
-
-    it('should select yes option and unsubscribe', async () => {
-      await deleteSubscriptionPage.selectOption('yesRadioButton');
-      unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
-      expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+      it('should select yes option and unsubscribe', async () => {
+        await deleteSubscriptionPage.selectOption('yesRadioButton');
+        unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
+        expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+      });
     });
   });
 

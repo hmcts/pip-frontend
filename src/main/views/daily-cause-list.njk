@@ -10,7 +10,7 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
-  <div class="alphabetical-box parent-box">
+  <div class="parent-box">
     <h2 id='page-heading' class="govuk-heading-l">{{ header }} <br/>{{ searchResults['venue']['venueName'] }}</h2>
     <p class="govuk-body">
       {% for line in searchResults['venue']['venueAddress']['line'] %}
@@ -46,56 +46,55 @@
               <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ sessionCount }}">
                 {{ courtRoom['courtRoomName'] }} : {{ session['judiciary'][0]['johTitle'] }} {{ session['judiciary'][0]['johNameSurname'] }}
               </span>
-                </h2>
-              </div>
-              <div id="accordion-default-content-{{ sessionCount }}" class="govuk-accordion__section-content"
-                   aria-labelledby="accordion-default-heading-{{ sessionCount }}">
-                <div class="parent-box overflow-table">
-                  <table class="govuk-table">
-                    <thead class="govuk-table__head">
-                    <tr class="govuk-table__row">
-                      <th scope="col" class="govuk-table__header">Case ID</th>
-                      <th scope="col" class="govuk-table__header">Name of party or parties involved</th>
-                      <th scope="col" class="govuk-table__header">Hearing type</th>
-                      <th scope="col" class="govuk-table__header">Hearing platform</th>
-                      <th scope="col" class="govuk-table__header">Start time</th>
-                      <th scope="col" class="govuk-table__header">Duration</th>
-                    </tr>
-                    </thead>
+              </h2>
+            </div>
+            <div id="accordion-default-content-{{ sessionCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ sessionCount }}">
+              <div class="parent-box overflow-table">
+                <table class="govuk-table">
+                <thead class="govuk-table__head">
+                  <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Case ID</th>
+                    <th scope="col" class="govuk-table__header">Name of party or parties involved</th>
+                    <th scope="col" class="govuk-table__header">Hearing type</th>
+                    <th scope="col" class="govuk-table__header">Hearing platform</th>
+                    <th scope="col" class="govuk-table__header">Start time</th>
+                    <th scope="col" class="govuk-table__header">Duration</th>
+                  </tr>
+                </thead>
 
-                    <tbody class="govuk-table__body">
-                    {% for sitting in session['sittings'] %}
-                      {% set hearingPlatform = sitting['channel'][0] %}
-                      {% if sitting['channel'][0] === '' %}
-                        {% set hearingPlatform = sessionChannel %}
-                      {% endif %}
+                <tbody class="govuk-table__body">
+                {% for sitting in session['sittings'] %}
+                  {% set hearingPlatform = sitting['channel'][0] %}
+                  {% if sitting['channel'][0] === '' %}
+                    {% set hearingPlatform = sessionChannel %}
+                  {% endif %}
 
-                      {% set durationAsHours = 0 %}
-                      {% if sitting['durationAsHours'] !== 0 %}
-                        {% if sitting['durationAsHours'] > 1 %}
-                          {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHours %}
-                          {% elif sitting['durationAsHours'] === 1 %}
-                          {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHour %}
-                        {% endif %}
-                      {% endif %}
-                      {% set durationAsMinutes = 0 %}
-                      {% if sitting['durationAsMinutes'] !== 0 %}
-                        {% if sitting['durationAsMinutes'] > 1 %}
-                          {% set durationAsMinutes = sitting['durationAsMinutes'] + ' ' + hearingDurationMinutes %}
-                          {% elif sitting['durationAsMinutes'] === 1 %}
-                          {% set durationAsMinutes = sitting['durationAsMinutes'] + ' ' + hearingDurationMinute %}
-                        {% endif %}
-                      {% endif %}
-                      {% set duration = '' %}
-                      {% if durationAsHours === 0 and durationAsMinutes === 0 %}
-                        {% set duration = '' %}
-                        {% elif durationAsHours !== 0 and durationAsMinutes !== 0 %}
-                        {% set duration = durationAsHours + ' ' + durationAsMinutes %}
-                        {% elif durationAsHours === 0 %}
-                        {% set duration = durationAsMinutes %}
-                        {% elif durationAsMinutes === 0 %}
-                        {% set duration = durationAsHours %}
-                      {% endif %}
+                  {% set durationAsHours = 0 %}
+                  {% if sitting['durationAsHours'] !== 0 %}
+                    {% if sitting['durationAsHours'] > 1 %}
+                      {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHours %}
+                      {% elif sitting['durationAsHours'] === 1 %}
+                      {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHour %}
+                    {% endif %}
+                  {% endif %}
+                  {% set durationAsMinutes = 0 %}
+                  {% if sitting['durationAsMinutes'] !== 0 %}
+                    {% if sitting['durationAsMinutes'] > 1 %}
+                      {% set durationAsMinutes = sitting['durationAsMinutes'] + ' ' + hearingDurationMinutes %}
+                      {% elif sitting['durationAsMinutes'] === 1 %}
+                      {% set durationAsMinutes = sitting['durationAsMinutes'] + ' ' + hearingDurationMinute %}
+                    {% endif %}
+                  {% endif %}
+                  {% set duration = '' %}
+                  {% if durationAsHours === 0 and durationAsMinutes === 0 %}
+                    {% set duration = '' %}
+                    {% elif durationAsHours !== 0 and durationAsMinutes !== 0 %}
+                    {% set duration = durationAsHours + ' ' + durationAsMinutes %}
+                    {% elif durationAsHours === 0 %}
+                    {% set duration = durationAsMinutes %}
+                    {% elif durationAsMinutes === 0 %}
+                    {% set duration = durationAsHours %}
+                  {% endif %}
 
                       {% for hearing in sitting['hearing'] %}
                         {% for case in hearing['case'] %}
@@ -128,8 +127,8 @@
 {% endblock %}
 {% block bodyEnd %}
   <script>
-    if (window.history.replaceState) {
-      window.history.replaceState(null, null, window.location.href);
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
     }
   </script>
   {{ super() }}

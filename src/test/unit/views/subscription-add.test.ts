@@ -29,6 +29,11 @@ describe('Subscriptions add Page initial load', () => {
     });
   });
 
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).contains(expectedHeader, 'Page title does not match header');
+  });
+
   it('should display a back button with the correct value', () => {
     const backLink = htmlRes.getElementsByClassName(backButtonClass);
     expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
