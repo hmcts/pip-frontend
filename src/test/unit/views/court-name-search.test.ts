@@ -9,6 +9,7 @@ import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/court-name-search';
 let htmlRes: Document;
+const pageHeader = 'Subscribe by court or tribunal name';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawData);
 const checkboxesCount = 13;
@@ -35,7 +36,12 @@ describe('Court Name Search Page', () => {
   it('should contain the heading', () => {
     const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
     expect(pageHeading[0].innerHTML)
-      .contains('Subscribe by court or tribunal name', 'Page heading does not exist');
+      .contains(pageHeader, 'Page heading does not exist');
+  });
+
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).contains(pageHeader, 'Page title does not match header');
   });
 
   it('should contain body text', () => {
