@@ -20,6 +20,10 @@ const returnedArtefact = [{
   },
 }];
 
+const nonPresidingJudiciary = 'Mr Firstname1 Surname1, Mr Presiding';
+const expectedApplicant = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
+const expectedRespondent = expectedApplicant;
+
 const publicationService = new PublicationService;
 const publicationRequestStub = sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue');
 publicationRequestStub.resolves(returnedArtefact);
@@ -27,8 +31,6 @@ publicationRequestStub.resolves(returnedArtefact);
 const publicationRequests = PublicationRequests.prototype;
 
 const rawDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
-const familyDailyCauseListWithoutHearingChannelData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseListWithoutHearingChannel.json'), 'utf-8');
-const familyDailyCauseListWithoutAnyChannelData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseListWithoutAnyChannel.json'), 'utf-8');
 
 const rawFamilyDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
 const dailyCauseListData = JSON.parse(rawDailyCauseData);
@@ -88,6 +90,11 @@ describe('Publication service', () => {
   });
 
   describe('manipulatedDailyListData Publication Service', () => {
+    let familyDailyCause;
+    beforeEach(() => {
+      familyDailyCause = JSON.parse(rawFamilyDailyCauseData);
+    });
+
     it('should return daily cause list object', async () => {
       const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
       expect(data['courtLists'].length).to.equal(1);
@@ -114,16 +121,34 @@ describe('Publication service', () => {
     });
 
     it('should set sessionChannel to sitting channel', async () => {
-      const data = await publicationService.manipulatedDailyListData(familyDailyCauseListWithoutHearingChannelData);
+      familyDailyCause['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['channel'] = [];
+      const data = await publicationService.manipulatedDailyListData(JSON.stringify(familyDailyCause));
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']).to.equal('VIDEO HEARING');
     });
 
     it('should return empty channel if both hearing and sessionChannel are missing', async () => {
-      const data = await publicationService.manipulatedDailyListData(familyDailyCauseListWithoutAnyChannelData);
+      familyDailyCause['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['channel'] = [];
+      familyDailyCause['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sessionChannel'] = [];
+      const data = await publicationService.manipulatedDailyListData(JSON.stringify(familyDailyCause));
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']).to.equal('');
     });
 
-    //TODO: Test judiciary, then test party information
+    it('should set judiciary to presiding judiciary over other judiciaries', async () => {
+      const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCauseData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciaries']).to.equal('Mr Presiding');
+    });
+
+    it('should concat judiciaries with no presiding', async () => {
+      familyDailyCause['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['judiciary'][1]['isPresiding'] = false;
+      const data = await publicationService.manipulatedDailyListData(JSON.stringify(familyDailyCause));
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciaries']).to.equal(nonPresidingJudiciary);
+    });
+
+    it('should build the applicants and the respondents of the party', async () => {
+      const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCauseData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant']).to.equal(expectedApplicant);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent']).to.equal(expectedRespondent);
+    });
   });
 
   describe('getIndivPubMetadata Publication Service', () => {

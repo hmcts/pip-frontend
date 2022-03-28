@@ -99,7 +99,7 @@ export class PublicationService {
     sitting['caseHearingChannel'] = caseHearingChannel;
   }
 
-  private findAndManipulateJudiciary(session: object) {
+  private findAndManipulateJudiciary(session: object): void {
     let judiciaries = '';
     let foundPresiding = false;
     session['judiciary'].forEach(judiciary => {
@@ -120,7 +120,7 @@ export class PublicationService {
 
   private findAndManipulatePartyInformation(hearing: any): void {
     let applicant;
-    let respondant;
+    let respondent;
 
     if(hearing?.party) {
       hearing.party.forEach(party => {
@@ -142,26 +142,26 @@ export class PublicationService {
             applicant += this.createIndividualDetails(party.individualDetails);
             break;
           }
-          case 'RESPONDANT':
+          case 'RESPONDENT':
           {
-            respondant = this.createIndividualDetails(party.individualDetails);
-            respondant?.length > 0 ? respondant += ', ' : '';
+            respondent = this.createIndividualDetails(party.individualDetails);
+            respondent?.length > 0 ? respondent += ', ' : '';
             break;
           }
-          case 'RESPONDANT_REPRESENTATIVE':
+          case 'RESPONDENT_REPRESENTATIVE':
           {
-            respondant += party?.friendlyRoleName;
+            respondent += party?.friendlyRoleName;
             if(party?.friendlyRoleName.length > 0) {
-              respondant += ': ';
+              respondent += ': ';
             }
-            respondant += this.createIndividualDetails(party.individualDetails);
+            respondent += this.createIndividualDetails(party.individualDetails);
             break;
           }
 
         }
       });
-      hearing['applicant'] = applicant.trim();
-      hearing['respondant'] = respondant.trim();
+      hearing['applicant'] = applicant?.trim();
+      hearing['respondent'] = respondent?.trim();
     }
   }
 

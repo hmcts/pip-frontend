@@ -28,13 +28,17 @@
               {
                 "sessionStartTime": "",
                 "sessionChannel": [
-                  "VIDEO HEARING",
-                  ""
+                  "VIDEO HEARING"
                 ],
                 "judiciary": [
                   {
                     "johTitle": "Mr",
                     "johNameSurname": "Firstname1 Surname1"
+                  },
+                  {
+                    "johTitle": "Mr",
+                    "johNameSurname": "Presiding",
+                    "isPresiding": true
                   }
                 ],
                 "sittings": [
@@ -43,11 +47,12 @@
                     "sittingEnd": "2022-01-27T10:45:17.496185",
                     "hearing": [
                       {
-                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                        "hearingType": "FMPO",
                         "case": [
                           {
                             "caseName": "A1 Vs B1",
-                            "caseNumber": "12345678"
+                            "caseNumber": "12345678",
+                            "caseJurisdictionET": "type"
                           }
                         ],
                         "party": [
@@ -58,7 +63,7 @@
                             }
                           },
                           {
-                            "partyRole": "RESPONDANT",
+                            "partyRole": "RESPONDENT",
                             "individualDetails": {
                               "individualSurname": "Surname"
                             }
@@ -74,7 +79,7 @@
                             }
                           },
                           {
-                            "partyRole": "RESPONDANT_REPRESENTATIVE",
+                            "partyRole": "RESPONDENT_REPRESENTATIVE",
                             "friendlyRoleName": "Legal Advisor",
                             "individualDetails": {
                               "individualForenames": "Individual Forenames",
@@ -101,7 +106,7 @@
                             }
                           },
                           {
-                            "partyRole": "RESPONDANT",
+                            "partyRole": "RESPONDENT",
                             "individualDetails": {
                               "individualSurname": "Surname"
                             }
@@ -117,7 +122,7 @@
                             }
                           },
                           {
-                            "partyRole": "RESPONDANT_REPRESENTATIVE",
+                            "partyRole": "RESPONDENT_REPRESENTATIVE",
                             "friendlyRoleName": "Legal Advisor",
                             "individualDetails": {
                               "individualForenames": "Individual Forenames",
