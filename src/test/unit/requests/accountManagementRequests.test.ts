@@ -34,7 +34,7 @@ const postStub = sinon.stub(accountManagementApi, 'post');
 describe('Account Management Requests', () => {
   describe('Create Azure Account', () => {
     it('should return true on success', async () => {
-      postStub.withArgs(azureEndpoint).resolves({status: 'success'});
+      postStub.withArgs(azureEndpoint).resolves({data: {status: 'success'}});
       const response = await accountManagementRequests.createAzureAccount(mockValidBody, mockHeaders);
       expect(response).toStrictEqual({status: 'success'});
     });

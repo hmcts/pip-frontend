@@ -7,7 +7,7 @@ export class AccountManagementRequests {
     try {
       const response = await accountManagementApi.post('/account/add/azure', payload, {headers: {'x-issuer-email': requester}});
       logger.info('azure account created', response);
-      return response;
+      return response.data;
     }
     catch (error) {
       if (error.response) {
