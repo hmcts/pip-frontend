@@ -27,7 +27,7 @@ export class DataManagementRequests {
 
   public async uploadJSONPublication(body: any, headers: object): Promise<boolean> {
     try {
-      await dataManagementApi.post('/publication', body, {headers});
+      await dataManagementApi.post('/publication', body.file, {headers});
       return true;
     }
     catch (error) {
