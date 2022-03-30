@@ -172,7 +172,7 @@ export class PublicationService {
       + this.writeStringIfValid(individualDetails?.individualSurname);
   }
 
-  private writeStringIfValid(stringToCheck) {
+  private writeStringIfValid(stringToCheck): string {
     if (stringToCheck) {
       return stringToCheck;
     } else {

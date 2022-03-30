@@ -16,7 +16,7 @@ const accordionClass='govuk-accordion__section-button';
 const expectedHeader = 'Daily Family Civil Cause list for <br>PRESTON';
 const summaryHeadingText = 'Important information';
 const accordionHeading = '1, Before: Mr Presiding';
-const applicantRespondent = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname'
+const applicantRespondent = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
 let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
