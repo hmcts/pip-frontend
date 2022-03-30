@@ -129,7 +129,7 @@ export class PublicationService {
           case 'APPLICANT_PETITIONER':
           {
             applicant = this.createIndividualDetails(party.individualDetails);
-            applicant?.length > 0 ? applicant += ', ' : '';
+            applicant?.length > 0 ? applicant += ', ' : applicant += '';
             break;
           }
           case 'APPLICANT_PETITIONER_REPRESENTATIVE':
@@ -145,7 +145,7 @@ export class PublicationService {
           case 'RESPONDENT':
           {
             respondent = this.createIndividualDetails(party.individualDetails);
-            respondent?.length > 0 ? respondent += ', ' : '';
+            respondent?.length > 0 ? respondent += ', ' : respondent += '';
             break;
           }
           case 'RESPONDENT_REPRESENTATIVE':
