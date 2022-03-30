@@ -3,7 +3,7 @@ import { dataManagementApi } from './utils/axiosConfig';
 const superagent = require('superagent');
 
 export class DataManagementRequests {
-  public dataManagementAPI = process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.demo.platform.hmcts.net';
+  public dataManagementAPI = process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net';
 
   public async uploadPublication(body: any, headers: object): Promise<boolean> {
     try {
