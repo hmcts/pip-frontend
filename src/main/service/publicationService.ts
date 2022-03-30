@@ -124,36 +124,30 @@ export class PublicationService {
 
     if(hearing?.party) {
       hearing.party.forEach(party => {
-        //APPLICANT
         switch(party.partyRole) {
           case 'APPLICANT_PETITIONER':
           {
             applicant = this.createIndividualDetails(party.individualDetails);
-            applicant?.length > 0 ? applicant += ', ' : applicant += '';
+            applicant += this.stringDelimiter(applicant?.length, ',');
             break;
           }
           case 'APPLICANT_PETITIONER_REPRESENTATIVE':
           {
             applicant += party?.friendlyRoleName;
-
-            if(party?.friendlyRoleName.length > 0) {
-              applicant += ': ';
-            }
+            applicant += this.stringDelimiter(party?.friendlyRoleName.length, ':');
             applicant += this.createIndividualDetails(party.individualDetails);
             break;
           }
           case 'RESPONDENT':
           {
             respondent = this.createIndividualDetails(party.individualDetails);
-            respondent?.length > 0 ? respondent += ', ' : respondent += '';
+            respondent += this.stringDelimiter(respondent?.length, ',');
             break;
           }
           case 'RESPONDENT_REPRESENTATIVE':
           {
             respondent += party?.friendlyRoleName;
-            if(party?.friendlyRoleName.length > 0) {
-              respondent += ': ';
-            }
+            respondent += this.stringDelimiter(party?.friendlyRoleName.length, ':');
             respondent += this.createIndividualDetails(party.individualDetails);
             break;
           }
@@ -178,6 +172,13 @@ export class PublicationService {
     } else {
       return '';
     }
+  }
+
+  private stringDelimiter(stringSize: number, delimiter: string): string {
+    if (stringSize > 0) {
+      return `${delimiter} `;
+    }
+    return '';
   }
 
   private getCaseFromArtefact(artefact: Artefact, term: string, value: string): SearchObject {
