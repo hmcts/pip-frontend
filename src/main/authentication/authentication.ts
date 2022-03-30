@@ -15,7 +15,7 @@ const logger = Logger.getLogger('authentication');
 function oidcSetup(): void {
   const clientSecret = config.get('secrets.pip-ss-kv.CLIENT_SECRET') as string;
   logger.info('secret', clientSecret ? clientSecret.substring(0,5) : 'client secret not set!' );
-  const AUTH_RETURN_URL = process.env.AUTH_RETURN_URL || 'https://pip-frontend.demo.platform.hmcts.net/login/return';
+  const AUTH_RETURN_URL = process.env.AUTH_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/login/return';
   const users = [];
 
   const findByOid = function(oid, fn): Function {
