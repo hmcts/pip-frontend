@@ -4,6 +4,41 @@ import request from 'supertest';
 
 let htmlRes: Document;
 const PAGE_URL = '/interstitial';
+const footerLinks = [
+  {
+    text: 'Help',
+    href: 'https://www.gov.uk/help',
+  },
+  {
+    text: 'Privacy',
+    href: 'https://www.gov.uk/help/privacy-notice',
+  },
+  {
+    text: 'Cookies',
+    href: '/cookie-policy',
+  },
+  {
+    text: 'Accessibility statement',
+    href: 'https://www.gov.uk/help/accessibility-statement',
+  },
+  {
+    text: 'Contact',
+    href: 'https://www.gov.uk/contact',
+  },
+  {
+    text: 'Terms and conditions',
+    href: 'https://www.gov.uk/help/terms-conditions',
+  },
+  {
+    text: 'Welsh',
+    href: 'https://www.gov.uk/cymraeg',
+  },
+  {
+    text: 'Government Digital Service',
+    href: 'https://www.gov.uk/government/organisations/government-digital-service',
+  },
+];
+const pageHeader = 'Court and tribunal hearings';
 
 describe('Interstitial page', () => {
   describe('with English translations', () => {
@@ -14,9 +49,14 @@ describe('Interstitial page', () => {
       });
     });
 
+    it('should have correct page title', () => {
+      const pageTitle = htmlRes.title;
+      expect(pageTitle).contains(pageHeader, 'Page title does not match header');
+    });
+
     it('should display header', () => {
       const header = htmlRes.getElementsByClassName('govuk-heading-l');
-      expect(header[0].innerHTML).contains('Court and tribunal hearings', 'Could not find correct value in header');
+      expect(header[0].innerHTML).contains(pageHeader, 'Could not find correct value in header');
     });
 
     it('should display continue button',  () => {
@@ -31,7 +71,7 @@ describe('Interstitial page', () => {
 
     it('should display bullets', () => {
       const bullets = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByTagName('li');
-      expect(bullets[0].innerHTML).contains('Hearings in Civil and Family Courts in Milton Keynes, Oxford, Reading',
+      expect(bullets[0].innerHTML).contains('Hearings in Civil and Family Courts in Milton Keynes, Oxford, and Reading',
         'Could not find first bullet');
       expect(bullets[1].innerHTML).contains('Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
         'Could not find second bullet');
@@ -87,6 +127,16 @@ describe('Interstitial page', () => {
         .contains('https://www.courtsni.gov.uk/en-GB/ContactDetails/Pages/default.aspx');
       expect(bullets[1].getElementsByClassName('govuk-link')[0].innerHTML)
         .contains('Northern Ireland Courts and Tribunals Service');
+    });
+
+    describe('Footer Links', () => {
+      it('should have proper links and names in the footer', () => {
+        const link = htmlRes.getElementsByClassName('govuk-footer__link');
+        for (let i=0; i < footerLinks.length; i++) {
+          expect(link[i].innerHTML).contain(footerLinks[i].text, `link ${footerLinks[i].text} has incorrect name`);
+          expect(link[i].getAttribute('href')).contain(footerLinks[i].href, `link ${footerLinks[i].text} has incorrect path` );
+        }
+      });
     });
   });
 
