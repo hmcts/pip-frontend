@@ -8,6 +8,7 @@ const publicationService = new PublicationService();
 
 export default class DailyCauseListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
+    const listToLoad = req.path.slice(1, req.path.length);
     const artefactId = req.query.artefactId as string;
     const searchResults = await publicationService.getIndividualPublicationJson(artefactId, (!!req.user));
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, (!!req.user));
@@ -18,12 +19,13 @@ export default class DailyCauseListController {
 
       const publishedDateTime = Date.parse(searchResults['document']['publicationDate']);
 
-      res.render('daily-cause-list', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['daily-cause-list']),
+      res.render(listToLoad, {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listToLoad]),
         listData: manipulatedData,
         contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: moment(publishedDateTime).format('DD MMMM YYYY'),
         publishedTime: moment(publishedDateTime).format('ha'),
+        provenance: metaData['provenance'],
       });
     } else {
       res.render('error',

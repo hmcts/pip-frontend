@@ -34,10 +34,10 @@ const i18n = {
 describe('Daily Cause List Controller', () => {
 
   const response = { render: () => {return '';}} as unknown as Response;
+  const request = mockRequest(i18n);
+  request.path = '/daily-cause-list';
 
   it('should render the daily cause list page', async () =>  {
-
-    const request = mockRequest(i18n);
 
     request.query = {artefactId: artefactId};
 
@@ -49,6 +49,7 @@ describe('Daily Cause List Controller', () => {
       contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
       publishedDate: moment(Date.parse(listData['document']['publicationDate'])).format('DD MMMM YYYY'),
       publishedTime: moment(Date.parse(listData['document']['publicationDate'])).format('hha'),
+      provenance: 'prov1',
     };
 
     responseMock.expects('render').once().withArgs('daily-cause-list', expectedData);
@@ -58,7 +59,6 @@ describe('Daily Cause List Controller', () => {
   });
 
   it('should render error page is query param is empty', async () => {
-    const request = mockRequest(i18n);
     request.query = {};
 
     const responseMock = sinon.mock(response);
