@@ -32,7 +32,7 @@ export default function(app: Application): void {
     fileErrorHandlerMiddleware(err, req, res, next);
   };
 
-  const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.demo.platform.hmcts.net';
+  const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
   logger.info('FRONTEND_URL', FRONTEND_URL);
   const corsOptions = {
     origin: 'https://pib2csbox.b2clogin.com',
