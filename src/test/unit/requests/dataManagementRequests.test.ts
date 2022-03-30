@@ -57,7 +57,7 @@ describe('Data Management requests', () => {
   describe('upload json publication', () => {
     it('should return true on success', async () => {
       sinon.restore();
-      sinon.stub(dataManagementApi, 'post').withArgs('/publication',{}, {}).resolves(true);
+      sinon.stub(dataManagementApi, 'post').withArgs('/publication',{file: ''}, {}).resolves(true);
       expect(await fileUploadAPI.uploadJSONPublication({}, {})).toBe(true);
     });
 
