@@ -8,6 +8,7 @@ import { request as expressRequest } from 'express';
 let htmlRes: Document;
 const PAGE_URL = '/manual-upload-summary';
 const summaryKeys = ['Court name', 'File', 'List type', 'Hearing start date', 'Available to', 'Language', 'Display file dates'];
+const manualUploadLinks = ['#search-input', '#manual-file-upload', '#listType', '#content-date-from-day', '#classification', '#language', '#display-date-from-day'];
 const mockData = {
   artefactType: 'List',
   classification: 'CLASSIFIED_CRIME',
@@ -52,7 +53,8 @@ describe('File Upload Summary Page', () => {
     for (let i = 0; i < summaryKeys.length; i++) {
       expect(keys[i].innerHTML).to.contain(summaryKeys[i], `Unable to find ${summaryKeys[i]} summary key`);
       expect(actions[i].getElementsByClassName('govuk-link')[0].innerHTML).to.contain('Change');
-      expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href')).to.equal('manual-upload');
+      expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href'))
+        .to.equal('manual-upload'+ manualUploadLinks[i]);
     }
   });
 
