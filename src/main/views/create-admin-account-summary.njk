@@ -22,9 +22,10 @@
             ]
         }) }}
     {% endif %}
-    <h1 class="govuk-heading-l">{{ header }}</h1>
     {% if accountCreated %}
         {{ successPanel(panelTitle) }}
+    {% else %}
+        <h1 class="govuk-heading-l">{{ header }}</h1>
     {% endif %}
     <form method="post" action="create-admin-account-summary">
         {{ govukSummaryList({
