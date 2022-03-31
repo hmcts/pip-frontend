@@ -23,7 +23,9 @@ export class FilterService {
             }
           });
         } else {
-          finalFilterValueOptions.push(value);
+          if (value) {
+            finalFilterValueOptions.push(value);
+          }
         }
       });
 
