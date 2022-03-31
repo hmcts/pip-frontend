@@ -1,5 +1,7 @@
 {% extends "template.njk" %}
-
+{% block pageTitle %}
+  {{ pageNotFound }}
+{% endblock %}
 {% block content %}
   <h1 class="govuk-heading-xl">{{ pageNotFound }}</h1>
 {% endblock %}

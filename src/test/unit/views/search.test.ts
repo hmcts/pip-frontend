@@ -15,7 +15,6 @@ const errorSummaryTitleClass = 'govuk-error-summary__title';
 const errorSummaryBodyClass = 'govuk-error-summary__body';
 const formErrorClass = 'govuk-form-group--error';
 const additionalMessageClass = 'govuk-heading-s';
-
 const expectedHeader = 'What court or tribunal are you interested in?';
 const expectedButtonText = 'Continue';
 
@@ -39,6 +38,11 @@ describe('Search Page', () => {
     expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
   });
 
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).contains(expectedHeader, 'Page title does not match');
+  });
+
   it('should display continue button',  () => {
     const buttons = htmlRes.getElementsByClassName(buttonClass);
     expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
@@ -55,9 +59,8 @@ describe('Search Page', () => {
   });
 
   it('should display back button', () => {
-    const backButton = htmlRes.getElementsByClassName('govuk-back-link');
-    expect(backButton[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backButton[0].getAttribute('href')).equal('#', 'Back button does not contain correct link');
+    const backButton = htmlRes.getElementsByClassName('govuk-back-link')[0];
+    expect(backButton.innerHTML).contains('Back', 'Back button does not contain correct text');
   });
 
   it('should not display error summary on the initial load', () => {
