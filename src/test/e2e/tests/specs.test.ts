@@ -108,13 +108,13 @@ describe('Unverified user', () => {
       });
     });
 
-    describe('following the \'Select From an A-Z list of courts and tribunals\' path', async () => {
+    describe('following the \'Select from an A-Z list of courts and tribunals\' path', async () => {
       before(async () => {
         await searchPage.open('/search');
       });
 
       const searchTerm = 'Milton Keynes County Court and Family Court';
-      it('should click on \'Select From an A-Z list of courts and tribunals\' link ', async () => {
+      it('should click on \'Select from an A-Z list of courts and tribunals\' link ', async () => {
         alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
       });
