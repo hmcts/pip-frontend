@@ -29,7 +29,7 @@ export class FilterService {
         }
       });
 
-      finalFilterValueOptions.forEach(value => {
+      finalFilterValueOptions.sort().forEach(value => {
         filterValueOptions[filter][value] = {
           value: value,
           text: value,
