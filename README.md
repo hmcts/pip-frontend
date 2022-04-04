@@ -78,7 +78,7 @@ $ docker run -d -p 6379:6379 redis
 Run:
 
 ```bash
-$ yarn start 
+$ yarn start
 ```
 
 or Run Dev mode:
