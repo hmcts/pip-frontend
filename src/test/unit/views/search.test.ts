@@ -72,6 +72,13 @@ describe('Search Page', () => {
     const inputError = htmlRes.getElementsByClassName(inputErrorClass);
     expect(inputError.length).equal(0, 'Input should not have error classes');
   });
+
+  it('should display a h2 element for the Want to see all courts and tribunals section', () => {
+    const h2Element = htmlRes.getElementsByTagName('h2');
+    expect(h2Element[0].innerHTML).contains('Want to see all courts and tribunals?',
+      'Could not find the h2 element');
+  });
+
 });
 
 describe('Search Page Invalid Input', () => {
