@@ -2,7 +2,6 @@ import sinon from 'sinon';
 import {Response} from 'express';
 import {PublicationService} from '../../../main/service/publicationService';
 import SjpPublicListController from '../../../main/controllers/SjpPublicListController';
-import moment from 'moment';
 import fs from 'fs';
 import path from 'path';
 import {mockRequest} from '../mocks/mockRequest';
@@ -27,7 +26,7 @@ describe('List Type Controller', () => {
     const expectedData = {
       casesList: JSON.parse(mockSJPPublic).courtLists[0].courtHouse.courtRoom[0].session[0].sittings,
       length: data.length,
-      date: moment().format('dddd, MMMM Do YYYY [at] h:mm a'),
+      date: JsonifiedData['document'].publicationDate,
       ...i18n['single-justice-procedure'],
     };
     const responseMock = sinon.mock(responseRender);

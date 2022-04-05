@@ -12,15 +12,14 @@
 {% endblock %}
 
 {% block content %}
-    {% if noResultsError or invalidInputError %}
-        {% set errorMessage = error.noResults if noResultsError else error.invalidInput %}
+    {% if noResultsError %}
         <div class="govuk-grid-row">
             <div class="no_padding govuk-grid-column-three-quarters">
                 {{ govukErrorSummary({
                     titleText: error.summaryTitleText,
                     errorList: [
                         {
-                            text: errorMessage,
+                            text: error.noResults,
                             href: "#search-input"
                         }
                     ]
@@ -29,9 +28,9 @@
         </div>
     {% endif %}
     {% set inputClasses = 'govuk-!-width-two-thirds govuk-input--error'
-        if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
+        if noResultsError else 'govuk-!-width-two-thirds' %}
     {% set formGroupError = 'govuk-form-group--error'
-        if noResultsError or invalidInputError else 'govuk-form-group' %}
+        if noResultsError else 'govuk-form-group' %}
     <form action="search" method="post">
         <div class="govuk-form-group govuk-!-width-one-half">
             <h1 class="govuk-label-wrapper">
@@ -52,7 +51,7 @@
         {{ submitButton() }}
         <div class="govuk-grid-row govuk-!-margin-bottom-2">
           <div class="no_padding govuk-grid-column-full">
-            <p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ allCourtAndTribunalsText }}</p>
+            <h2 class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ allCourtAndTribunalsText }}</h2>
             <a href="/alphabetical-search" class="govuk-link">{{ allCourtAndTribunalsLinkText }}</a>
           </div>
         </div>

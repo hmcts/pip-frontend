@@ -12,28 +12,19 @@ export default class SearchController {
     res.render('search', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng).search),
       autocompleteList: autocompleteList,
-      invalidInputError: false,
       noResultsError: false });
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['input-autocomplete'];
     const autocompleteList = await courtService.fetchAllCourts();
-    if (searchInput && searchInput.length >= 3) {
-      const court = await courtService.getCourtByName(searchInput);
-      (court) ?
-        res.redirect(`summary-of-publications?courtId=${court.courtId}`) :
-        res.render('search', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng).search),
-          autocompleteList: autocompleteList,
-          invalidInputError: false,
-          noResultsError: true});
-    } else {
+    const court = await courtService.getCourtByName(searchInput);
+    (court && searchInput) ?
+      res.redirect(`summary-of-publications?courtId=${court.courtId}`) :
       res.render('search', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng).search),
         autocompleteList: autocompleteList,
-        invalidInputError: true,
-        noResultsError: false });
-    }
+        noResultsError: true,
+      });
   }
 }

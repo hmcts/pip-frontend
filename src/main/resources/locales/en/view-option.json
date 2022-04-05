@@ -5,8 +5,6 @@
   "radio2": "Find a Single Justice Procedure case",
   "radio1Hint": "View time, location, type of hearings and more",
   "radio2Hint": "TV licensing, minor traffic offences such as speeding and more",
-  "haveAccount": "Do you have an account?",
-  "accountLink": "Sign in to your account",
   "error": {
     "title": "There is a problem",
     "text": "An option must be selected"
