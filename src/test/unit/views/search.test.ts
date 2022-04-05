@@ -81,29 +81,6 @@ describe('Search Page', () => {
 
 });
 
-describe('Search Page Blank Input', () => {
-  beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'input-autocomplete': ''}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
-  });
-
-  it('should display minimum input error message', () => {
-    const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
-    expect(errorSummary[0].innerHTML).contains('Search must be three characters or more', 'Could not find error message');
-  });
-
-  it('should display error message', () => {
-    const errorTitle = htmlRes.getElementsByClassName(errorSummaryTitleClass);
-    expect(errorTitle[0].innerHTML).contains('There is a problem', 'Could not find title');
-  });
-
-  it('should display input errors', () => {
-    const formError = htmlRes.getElementsByClassName(formErrorClass);
-    expect(formError.length).equal(1, 'Could not find form errors');
-  });
-});
-
 describe('Search Page Invalid Input', () => {
   beforeAll(async () => {
     await request(app).post(PAGE_URL).send({'input-autocomplete': 'foo'}).then(res => {
