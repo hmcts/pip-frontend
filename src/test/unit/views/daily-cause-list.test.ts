@@ -64,38 +64,38 @@ describe('Daily Cause List page', () => {
     expect(accordion[0].innerHTML).to.contains('1 :  Mr Firstname1 Surname1', 'Could not find the accordion heading');
   });
 
+  it('should display Hearing time',  () => {
+    const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+    expect(cell[0].innerHTML).contains('9.40am');
+  });
+
   it('should display Case ID',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[0].innerHTML).contains('12345678');
+    expect(cell[1].innerHTML).contains('12345678');
   });
 
   it('should display Case Name',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[1].innerHTML).contains('A1 Vs B1');
-  });
-
-  it('should display Case Sequence Indicator if it is there',  () => {
-    const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[5].innerHTML).contains('[2 of 3]');
+    expect(cell[2].innerHTML).contains('A1 Vs B1');
   });
 
   it('should display Hearing Type',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[2].innerHTML).contains('FHDRA1 (First Hearing and Dispute Resolution Appointment)');
+    expect(cell[3].innerHTML).contains('FHDRA1 (First Hearing and Dispute Resolution Appointment)');
   });
 
-  it('should display Hearing platform',  () => {
+  it('should display Hearing platform (Location)',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[3].innerHTML).contains('VIDEO HEARING');
-  });
-
-  it('should display Hearing start time',  () => {
-    const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[4].innerHTML).contains('9.40am');
+    expect(cell[4].innerHTML).contains('VIDEO HEARING');
   });
 
   it('should display Hearing duration',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
     expect(cell[5].innerHTML).contains('1 hour');
+  });
+
+  it('should display Case Sequence Indicator if it is there',  () => {
+    const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+    expect(cell[5].innerHTML).contains('[2 of 3]');
   });
 });
