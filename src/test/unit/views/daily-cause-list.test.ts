@@ -86,7 +86,7 @@ describe('Daily Cause List page', () => {
 
   it('should display Hearing platform (Location)',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[4].innerHTML).contains('VIDEO HEARING');
+    expect(cell[4].innerHTML).contains('Remote, Teams');
   });
 
   it('should display Hearing duration',  () => {

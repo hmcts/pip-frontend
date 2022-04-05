@@ -28,8 +28,7 @@
               {
                 "sessionStartTime": "",
                 "sessionChannel": [
-                  "VIDEO HEARING",
-                  ""
+                  "VIDEO HEARING"
                 ],
                 "judiciary": [
                   {
@@ -63,7 +62,8 @@
                       }
                     ],
                     "channel": [
-                      ""
+                      "Remote",
+                      "Teams"
                     ]
                   },
                   {

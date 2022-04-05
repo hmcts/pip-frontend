@@ -38,7 +38,14 @@
         {% set hearingCount = 1 %}
         {% for session in courtRoom['session'] %}
           {% set sessionCount = sessionCount + 1 %}
-          {% set sessionChannel = session['sessionChannel'][0] %}
+
+          {% set sessionChannel = '' %}
+          {% for channel in session['sessionChannel'] %}
+            {% set sessionChannel = sessionChannel + ', ' + channel %}
+          {% endfor %}
+
+          {% set sessionChannel = sessionChannel.slice(1) %}
+
           {% set judiciaryJudges = '' %}
           {% for judge in session['judiciary'] %}
             {% set judiciaryJudges = judiciaryJudges + ', ' + judge['johTitle'] + ' ' + judge['johNameSurname'] %}
@@ -69,7 +76,7 @@
                   <tbody class="govuk-table__body">
                   {% for sitting in session['sittings'] %}
                     {% set hearingPlatform = '' %}
-                    {% if sitting['channel'][0] === '' %}
+                    {% if sitting['channel'].length === 0 %}
                       {% set hearingPlatform = sessionChannel %}
                     {% else %}
                       {% for channel in sitting['channel'] %}
