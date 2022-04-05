@@ -60,13 +60,7 @@ export class PublicationService {
 
               sitting['durationAsHours'] = durationAsHours;
               sitting['durationAsMinutes'] = durationAsMinutes;
-
-              const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
-              if (min === 0) {
-                sitting['startTime'] = moment(sitting['sittingStart']).format('ha');
-              } else {
-                sitting['startTime'] = moment(sitting['sittingStart']).format('h.mma');
-              }
+              sitting['time'] = moment(sittingStart).format('HH:mm');
             }
             hearingCount = hearingCount + sitting['hearing'].length;
           });

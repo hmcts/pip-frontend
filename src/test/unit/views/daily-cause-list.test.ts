@@ -66,7 +66,7 @@ describe('Daily Cause List page', () => {
 
   it('should display Hearing time',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[0].innerHTML).contains('9.40am');
+    expect(cell[0].innerHTML).contains('09:00');
   });
 
   it('should display Case ID',  () => {

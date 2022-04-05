@@ -68,9 +68,15 @@
 
                   <tbody class="govuk-table__body">
                   {% for sitting in session['sittings'] %}
-                    {% set hearingPlatform = sitting['channel'][0] %}
+                    {% set hearingPlatform = '' %}
                     {% if sitting['channel'][0] === '' %}
                       {% set hearingPlatform = sessionChannel %}
+                    {% else %}
+                      {% for channel in sitting['channel'] %}
+                        {% set hearingPlatform = hearingPlatform + ', ' + channel %}
+                      {% endfor %}
+
+                      {% set hearingPlatform = hearingPlatform.slice(1) %}
                     {% endif %}
 
                     {% set durationAsHours = 0 %}
@@ -106,7 +112,7 @@
                           {% set noBorder = 'no-border-bottom' %}
                         {% endif %}
                         <tr class="govuk-table__row">
-                          <td class="govuk-table__cell {{ noBorder }}">{{ sitting['startTime'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ sitting['time'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ case['caseName'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>

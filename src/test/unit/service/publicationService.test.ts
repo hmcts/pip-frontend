@@ -100,7 +100,7 @@ describe('Publication service', () => {
 
     it('should calculate start time of Hearing in cause list object', async () => {
       await publicationService.calculateHearingSessionTime(dailyCauseListData);
-      expect(dailyCauseListData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal('9.40am');
+      expect(dailyCauseListData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['time']).to.equal('09:00');
     });
   });
 
