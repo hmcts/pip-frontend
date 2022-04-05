@@ -10,6 +10,7 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
+  <div class="parent-box">
   <h2 id='page-heading' class="govuk-heading-l">{{ header }} <br />{{ listData['venue']['venueName']}}</h2>
   <p class="govuk-body">
     {% for line in listData['venue']['venueAddress']['line'] %}
@@ -120,6 +121,8 @@
         {% endfor %}
       {% endfor %}
     {% endfor %}
+  </div>
+    {{ super() }}
   </div>
   <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: [{{ provenance }}]</p>
 {% endblock %}
