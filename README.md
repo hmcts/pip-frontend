@@ -54,7 +54,7 @@ $ (Linux) export CLIENT_SECRET=<VALUE_GOES_HERE>
 $ (Windows) set CLIENT_SECRET<VALUE_GOES_HERE>
 ```
 
-or, in intellij you can pass them in the Run Configuration
+or, in intellij you can pass them in the Run Configuration.
 
 ### Running the application
 
