@@ -156,6 +156,12 @@
   {{ super() }}
   <script src="alphabetical-dev.js"></script>
   <script>
+
+    //Used to ensure that page focus is set to top when the filters reload the page
+    window.onload = function() {
+      window.scrollTo(0,0);
+    };
+
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
