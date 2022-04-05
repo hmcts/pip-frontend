@@ -15,7 +15,6 @@ const accordionClass='govuk-accordion__section-button';
 
 const expectedHeader = 'Daily Civil Cause list for <br>PRESTON';
 const summaryHeadingText = 'Important information';
-const accordionHeading = '1 : Mr Firstname1 Surname1';
 
 let htmlRes: Document;
 
@@ -62,7 +61,7 @@ describe('Daily Cause List page', () => {
 
   it('should display accordion open/close all',  () => {
     const accordion = htmlRes.getElementsByClassName(accordionClass);
-    expect(accordion[0].innerHTML).contains(accordionHeading, 'Could not find the accordion heading');
+    expect(accordion[0].innerHTML).to.contains('1 :  Mr Firstname1 Surname1', 'Could not find the accordion heading');
   });
 
   it('should display Case ID',  () => {
@@ -73,6 +72,11 @@ describe('Daily Cause List page', () => {
   it('should display Case Name',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
     expect(cell[1].innerHTML).contains('A1 Vs B1');
+  });
+
+  it('should display Case Sequence Indicator if it is there',  () => {
+    const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+    expect(cell[5].innerHTML).contains('[2 of 3]');
   });
 
   it('should display Hearing Type',  () => {

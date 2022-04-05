@@ -23,6 +23,7 @@ export default class DailyCauseListControllerController {
         contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: moment(publishedDateTime).format('DD MMMM YYYY'),
         publishedTime: moment(publishedDateTime).format('ha'),
+        provenance: metaData['provenance'],
       });
     } else {
       res.render('error',

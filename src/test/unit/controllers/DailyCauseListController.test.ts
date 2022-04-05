@@ -48,6 +48,7 @@ describe('Daily Cause List Controller', () => {
       contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
       publishedDate: moment(Date.parse(searchResults['document']['publicationDate'])).format('DD MMMM YYYY'),
       publishedTime: moment(Date.parse(searchResults['document']['publicationDate'])).format('hha'),
+      provenance: 'prov1',
     };
 
     responseMock.expects('render').once().withArgs('daily-cause-list', expectedData);
