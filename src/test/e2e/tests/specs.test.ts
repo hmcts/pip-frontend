@@ -120,10 +120,10 @@ describe('Unverified user', () => {
       });
 
       it('should select Country Court jurisdiction and Wales region filters', async () => {
-        await alphabeticalSearchPage.selectOption('JurisdictionFilter3');
+        await alphabeticalSearchPage.selectOption('JurisdictionFilter1');
         await alphabeticalSearchPage.selectOption('RegionFilter1');
 
-        expect(await alphabeticalSearchPage.checkIfSelected('JurisdictionFilter3')).toBeTruthy();
+        expect(await alphabeticalSearchPage.checkIfSelected('JurisdictionFilter1')).toBeTruthy();
         expect(await alphabeticalSearchPage.checkIfSelected('RegionFilter1')).toBeTruthy();
       });
 
