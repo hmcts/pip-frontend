@@ -22,7 +22,8 @@ export class AdminDashboardPage extends CommonPage {
 
     await $(helpers.CreateAdminAccount).click();
     return new CreateAdminAccountPage();
-
+  }
+  
   async clickRemoveCard(): Promise<RemoveListSearchPage> {
     await $(helpers.RemoveContent).catch(() => {
       console.log(`${helpers.RemoveContent} not found`);
