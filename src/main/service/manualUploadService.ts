@@ -19,13 +19,23 @@ const listSubTypes = [
 ];
 
 export class ManualUploadService {
-
   public async buildFormData(): Promise<object> {
     return {
       courtList: await courtService.fetchAllCourts(),
       listSubtypes: this.getListSubtypes(),
       judgementsOutcomesSubtypes: this.getJudgementOutcomesSubtypes(),
     };
+  }
+
+  public formatListRemovalValues(summaryList): any[] {
+    const formattedList = [];
+    summaryList.forEach((value) => {
+      const listItem = {...value};
+      listItem.listTypeName = this.getListItemName(value.listType);
+      listItem.dateRange = `${moment(value.displayFrom).format('D MMM YYYY')} to ${moment(value.displayTo).format('D MMM YYYY')}`;
+      formattedList.push(listItem);
+    });
+    return formattedList;
   }
 
   private getListSubtypes(): Array<object> {

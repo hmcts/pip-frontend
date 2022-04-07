@@ -111,6 +111,7 @@ module.exports = {
 
   // UnsubscribeConfirmation selectors
   panelTitle: '.govuk-panel__title',
+  panelHome: '.govuk-link=Home',
 
   // Admin selectors
   fileUpload: '#manual-file-upload',
@@ -163,4 +164,6 @@ module.exports = {
   FirstNameInput: '#firstName',
   LastNameInput: '#lastName',
   UserRoleRadio: '#user-role',
+
+  // RemoveListSearch selectors
 };

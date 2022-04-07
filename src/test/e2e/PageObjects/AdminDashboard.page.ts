@@ -1,6 +1,7 @@
 import { CommonPage } from './Common.page';
 import { ManualUploadPage } from './ManualUpload.page';
 import { CreateAdminAccountPage } from './CreateAdminAccount.page';
+import { RemoveListSearchPage } from './RemoveListSearch.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -21,5 +22,13 @@ export class AdminDashboardPage extends CommonPage {
 
     await $(helpers.CreateAdminAccount).click();
     return new CreateAdminAccountPage();
+
+  async clickRemoveCard(): Promise<RemoveListSearchPage> {
+    await $(helpers.RemoveContent).catch(() => {
+      console.log(`${helpers.RemoveContent} not found`);
+    });
+
+    await $(helpers.RemoveContent).click();
+    return new RemoveListSearchPage();
   }
 }
