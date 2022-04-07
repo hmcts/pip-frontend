@@ -475,6 +475,9 @@ describe('Verified user', () => {
         it('should click confirm and create user account', async () => {
           createAdminAccountSummaryPage = await createAdminAccountSummaryPage.clickConfirm();
           expect(await createAdminAccountSummaryPage.getPanelTitle()).toEqual('Account has been created');
+         });
+      }
+    });
 
     describe('Manual Removal', () => {
       it('should open remove publication search page', async () => {
