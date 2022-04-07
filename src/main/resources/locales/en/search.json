@@ -2,7 +2,6 @@
   "title": "What court or tribunal are you interested in?",
   "error": {
     "noResults": "There is nothing matching your criteria",
-    "invalidInput": "Search must be three characters or more",
     "summaryTitleText": "There is a problem",
     "spanText": "Enter a court name, town or city",
     "noResultsHeader": "There are no matching results.",
@@ -12,5 +11,5 @@
   },
   "inputHint": "For example, Oxford Combined Court",
   "allCourtAndTribunalsText": "Want to see all courts and tribunals?",
-  "allCourtAndTribunalsLinkText": "Select from an A-Z of courts and tribunals"
+  "allCourtAndTribunalsLinkText": "Select from an A-Z list of courts and tribunals"
 }

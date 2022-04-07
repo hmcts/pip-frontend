@@ -47,6 +47,10 @@ stub.withArgs().returns(dailyCauseListData);
 const stubMetaData = sinon.stub(publicationRequests, 'getIndividualPublicationMetadata');
 stubMetaData.returns(metaData);
 
+const stubCourtPubs = sinon.stub(publicationRequests, 'getPublicationsByCourt');
+stubCourtPubs.withArgs('1', true, false).resolves(returnedArtefact);
+stubCourtPubs.withArgs('2', true, false).resolves([]);
+
 const validCourtName = 'PRESTON';
 const invalidCourtName = 'TEST';
 
@@ -179,5 +183,17 @@ describe('Publication service', () => {
       const data = await publicationService.formatSJPPressList(rawSJPData);
       expect(data['hearingCount']).to.equal(2);
     });
+  });
+
+  describe('getPublicationsByCourt Publication Service', () => {
+    it('should return artefact for a valid call', async () => {
+      const data = await publicationService.getPublicationsByCourt('1', true);
+      expect(data).to.deep.equal(returnedArtefact);
+    });
+    it('should return empty list for a invalid call', async () => {
+      const data = await publicationService.getPublicationsByCourt('2', true);
+      expect(data).to.deep.equal([]);
+    });
+
   });
 });

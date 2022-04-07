@@ -19,6 +19,10 @@ import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
 import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
 import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
+import { RemoveListConfirmationPage } from '../PageObjects/RemoveListConfirmation.page';
+import { RemoveListSearchPage } from '../PageObjects/RemoveListSearch.page';
+import { RemoveListSearchResultsPage } from '../PageObjects/RemoveListSearchResults.page';
+import { RemoveListSuccessPage } from '../PageObjects/RemoveListSuccess.page';
 import { SearchPage } from '../PageObjects/Search.page';
 import { SignInPage } from '../PageObjects/SignIn.page';
 import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
@@ -57,7 +61,7 @@ let fileUploadConfirmationPage: FileUploadConfirmationPage;
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 let manualUploadPage: ManualUploadPage;
-const adminDashboard = new AdminDashboardPage;
+let adminDashboard = new AdminDashboardPage;
 let createMediaAccountPage: CreateMediaAccountPage;
 let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let interstitialPage: InterstitialPage;
@@ -65,6 +69,10 @@ let accountHomePage: AccountHomePage;
 let dailyCauseListPage: DailyCauseListPage;
 let sjpPublicListPage: SJPPublicListPage;
 let signInPage: SignInPage;
+let searchPublicationPage: RemoveListSearchPage;
+let searchPublicationResultsPage: RemoveListSearchResultsPage;
+let publicationConfirmationPage: RemoveListConfirmationPage;
+let removePublicationSuccessPage: RemoveListSuccessPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -108,22 +116,22 @@ describe('Unverified user', () => {
       });
     });
 
-    describe('following the \'Select from an A-Z of courts and tribunals\' path', async () => {
+    describe('following the \'Select from an A-Z list of courts and tribunals\' path', async () => {
       before(async () => {
         await searchPage.open('/search');
       });
 
       const searchTerm = 'Milton Keynes County Court and Family Court';
-      it('should click on \'Select from an A-Z of courts and tribunals\' link ', async () => {
+      it('should click on \'Select from an A-Z list of courts and tribunals\' link ', async () => {
         alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
       });
 
       it('should select Country Court jurisdiction and Wales region filters', async () => {
-        await alphabeticalSearchPage.selectOption('JurisdictionFilter3');
+        await alphabeticalSearchPage.selectOption('JurisdictionFilter1');
         await alphabeticalSearchPage.selectOption('RegionFilter1');
 
-        expect(await alphabeticalSearchPage.checkIfSelected('JurisdictionFilter3')).toBeTruthy();
+        expect(await alphabeticalSearchPage.checkIfSelected('JurisdictionFilter1')).toBeTruthy();
         expect(await alphabeticalSearchPage.checkIfSelected('RegionFilter1')).toBeTruthy();
       });
 
@@ -439,6 +447,39 @@ describe('Verified user', () => {
         fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
         expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
       });
+    });
+
+    describe('Manual Removal', () => {
+      it('should open remove publication search page', async () => {
+        await adminDashboard.open('/admin-dashboard');
+        searchPublicationPage = await adminDashboard.clickRemoveCard();
+        expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
+      });
+
+      it('should enter valid court in the search field, click continue and open search results page', async () => {
+        const searchTerm = 'Milton Keynes County Court and Family Court';
+        await searchPublicationPage.enterText(searchTerm);
+        searchPublicationResultsPage = await searchPublicationPage.clickContinue();
+        expect(await searchPublicationResultsPage.getPageTitle()).toEqual('Select content to remove');
+      });
+
+      //TODO: enable once get publication metadata endpoint accepts x-admin header
+      if (process.env.EXCLUDE_E2E === 'true') {
+        it('should click on the first result and open confirmation page', async () => {
+          publicationConfirmationPage = await searchPublicationResultsPage.clickRemoveOnFirstRecord();
+          expect(await publicationConfirmationPage.getPageTitle()).toEqual('Are you sure you want to remove this publication?');
+        });
+
+        it('should select yes option and remove publication', async () => {
+          await publicationConfirmationPage.selectOption('remove-choice');
+          expect(await removePublicationSuccessPage.getPanelTitle()).toEqual('Success');
+        });
+
+        it('should click on the home link and open admin dashboard page', async () => {
+          adminDashboard = await removePublicationSuccessPage.clickHome();
+          expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+        });
+      }
     });
   });
 
