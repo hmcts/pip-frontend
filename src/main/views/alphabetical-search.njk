@@ -48,7 +48,7 @@
               {% set toBeCreated = false %}
             {% endif %}
             {{ govukCheckboxes({
-              idPrefix: key,
+              idPrefix: key | replace(" ", "-"),
               name: key,
               classes: "govuk-checkboxes--small",
               fieldset: {

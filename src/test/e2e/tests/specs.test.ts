@@ -356,7 +356,7 @@ describe('Verified user', () => {
       });
 
       it('should select first jurisdiction filter', async () => {
-        await courtNameSearchPage.selectOption('JurisdictionCheckbox');
+        await courtNameSearchPage.selectOption('JurisdictionFilter1');
         expect(await courtNameSearchPage.jurisdictionChecked()).toBeTruthy();
       });
 
