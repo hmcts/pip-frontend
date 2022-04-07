@@ -19,7 +19,6 @@ export default class CourtNameSearchController {
     }
 
     const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
-    keys = filterService.handleKeys(filterOptions);
 
     let filters ={};
     if(filterValues.length > 0) {
@@ -46,9 +45,6 @@ export default class CourtNameSearchController {
 
     keys.forEach(key => {
       values.push(body[key]);
-      if (key === 'Region') {
-        keys.splice(keys.indexOf(key), 1, 'Location');
-      }
     });
     filterValues = Array.prototype.concat.apply([], values);
 

@@ -17,7 +17,6 @@ filteredCourtStub.resolves(courtList);
 sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves(courtList);
 sinon.stub(FilterService.prototype, 'buildFilterValueOptions').returns([]);
 sinon.stub(FilterService.prototype, 'handleFilterClear').returns(['test']);
-sinon.stub(FilterService.prototype, 'handleKeys').returns(['test']);
 sinon.stub(FilterService.prototype, 'splitFilters').returns({'Region':'testRegion','Jurisdiction':'testJurisdiction'});
 sinon.stub(FilterService.prototype, 'findAndSplitFilters').returns({'Region':'testRegion','Jurisdiction':'testJurisdiction'});
 

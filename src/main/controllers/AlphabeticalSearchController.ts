@@ -22,8 +22,6 @@ export default class AlphabeticalSearchController {
     }
     const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
 
-    keys = filterService.handleKeys(filterOptions);
-
     let filters ={};
     if(filterValues.length > 0) {
       filters = filterService.findAndSplitFilters(filterValues, filterOptions);

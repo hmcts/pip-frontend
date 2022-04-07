@@ -50,18 +50,6 @@ export class FilterService {
     }
   }
 
-  public handleKeys(filterOptions: object): string[] {
-    const keys = [];
-    filterNames.forEach(filter => {
-      Object.keys(filterOptions[filter.filterName]).forEach(filterValue => {
-        if (filterOptions[filter.filterName][filterValue].checked) {
-          keys.push(filter);
-        }
-      });
-    });
-    return [...new Set(keys.map(key => key))];
-  }
-
   public splitFilters(filterNames: string[], body: object): object{
     const filterValueOptions = {};
     let jurisdictionFilter = '';

@@ -15,10 +15,6 @@ const londonRegion = 'London';
 const manchesterRegion = 'Manchester';
 const jurisdiction = {courtField: 'Jurisdiction', filterName: 'Type of court or tribunal'};
 const region = {courtField: 'Region', filterName: 'Region'};
-const filterOptions = {'Type of court or tribunal': {'Crown Court': {checked: true}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: true}}};
-const filterOptionsNoJurisdiction = {'Type of court or tribunal': {'Crown Court': {checked: false}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: true}}};
-const filterOptionsNoRegion = {'Type of court or tribunal': {'Crown Court': {checked: true}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: false}}};
-const filterOptionsNoFilters = {'Type of court or tribunal': {'Crown Court': {checked: false}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: false}}};
 const requestFilters = {'Type of court or tribunal': 'Crown Court', Region: 'Bedford'};
 const requestFiltersNoRegion = {'Type of court or tribunal': ['Crown Court', 'Tribunal']};
 const requestFiltersNoJurisdiction = {Region: 'Bedford'};
@@ -61,22 +57,6 @@ describe('Filter Service', () => {
 
   it('should remove item in array leaving empty', () => {
     expect(filterService.handleFilterClear(['removed'], 'removed')).toStrictEqual([]);
-  });
-
-  it('should return no keys needed for no checked options', () => {
-    expect(filterService.handleKeys(filterOptionsNoFilters)).toStrictEqual([]);
-  });
-
-  it('should return Jurisdiction needed for checked options', () => {
-    expect(filterService.handleKeys(filterOptionsNoRegion)).toStrictEqual([jurisdiction]);
-  });
-
-  it('should return Location needed for checked options', () => {
-    expect(filterService.handleKeys(filterOptionsNoJurisdiction)).toStrictEqual([region]);
-  });
-
-  it('should return both keys needed for checked options', () => {
-    expect(filterService.handleKeys(filterOptions)).toStrictEqual([jurisdiction, region]);
   });
 
   it('should return both Jurisdiction and Region', () => {
