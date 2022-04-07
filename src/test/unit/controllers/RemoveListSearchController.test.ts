@@ -97,7 +97,7 @@ describe('Remove List Search Controller', () => {
     request.body = {'input-autocomplete': 'Valid Court'};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('removal-confirmation?courtId=1');
+    responseMock.expects('redirect').once().withArgs('remove-list-search-results?courtId=1');
     return removeListSearchController.post(request, response).then(() => {
       responseMock.verify();
     });

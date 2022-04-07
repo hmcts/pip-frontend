@@ -111,6 +111,7 @@ module.exports = {
 
   // UnsubscribeConfirmation selectors
   panelTitle: '.govuk-panel__title',
+  panelHome: '.govuk-link=Home',
 
   // Admin selectors
   fileUpload: '#manual-file-upload',
@@ -157,4 +158,6 @@ module.exports = {
   SignedInBannerFindCourt: '.moj-sub-navigation__item:nth-child(3)',
   SignedInBannerSJP: '.moj-sub-navigation__item:nth-child(4)',
   SignedInBannerSignOut: '.moj-sub-navigation__item:nth-child(5)',
+
+  // RemoveListSearch selectors
 };
