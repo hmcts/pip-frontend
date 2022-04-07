@@ -9,7 +9,7 @@ const filterService = new FilterService();
 
 let keys = [];
 let filterValues = [];
-const filterNames = ['Jurisdiction', 'Region'];
+const filterNames = ['Type of court or tribunal', 'Region'];
 
 export default class AlphabeticalSearchController {
 
@@ -30,7 +30,7 @@ export default class AlphabeticalSearchController {
     }
 
     const alphabetisedList = filterValues.length == 0 ? await courtService.generateAlphabetisedAllCourtList() :
-      await courtService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']);
+      await courtService.generateFilteredAlphabetisedCourtList(filters[filterNames[1]], filters[filterNames[0]]);
 
     res.render('alphabetical-search', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['alphabetical-search']),
@@ -49,7 +49,7 @@ export default class AlphabeticalSearchController {
     keys.forEach(key => values.push(body[key]));
     filterValues = Array.prototype.concat.apply([], values);
 
-    const alphabetisedList = await courtService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']);
+    const alphabetisedList = await courtService.generateFilteredAlphabetisedCourtList(filters[filterNames[1]], filters[filterNames[0]]);
     const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
 
     res.render('alphabetical-search', {

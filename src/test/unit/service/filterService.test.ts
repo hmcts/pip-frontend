@@ -13,17 +13,17 @@ const royalCourt = 'Royal Court';
 const bedfordRegion = 'Bedford';
 const londonRegion = 'London';
 const manchesterRegion = 'Manchester';
-const jurisdiction = 'Jurisdiction';
-const region = 'Region';
-const filterOptions = {Jurisdiction: {'Crown Court': {checked: true}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: true}}};
-const filterOptionsNoJurisdiction = {Jurisdiction: {'Crown Court': {checked: false}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: true}}};
-const filterOptionsNoRegion = {Jurisdiction: {'Crown Court': {checked: true}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: false}}};
-const filterOptionsNoFilters = {Jurisdiction: {'Crown Court': {checked: false}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: false}}};
-const requestFilters = {Jurisdiction: 'Crown Court', Region: 'Bedford'};
-const requestFiltersNoRegion = {Jurisdiction: ['Crown Court', 'Tribunal']};
+const jurisdiction = {courtField: 'Jurisdiction', filterName: 'Type of court or tribunal'};
+const region = {courtField: 'Region', filterName: 'Region'};
+const filterOptions = {'Type of court or tribunal': {'Crown Court': {checked: true}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: true}}};
+const filterOptionsNoJurisdiction = {'Type of court or tribunal': {'Crown Court': {checked: false}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: true}}};
+const filterOptionsNoRegion = {'Type of court or tribunal': {'Crown Court': {checked: true}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: false}}};
+const filterOptionsNoFilters = {'Type of court or tribunal': {'Crown Court': {checked: false}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: false}}};
+const requestFilters = {'Type of court or tribunal': 'Crown Court', Region: 'Bedford'};
+const requestFiltersNoRegion = {'Type of court or tribunal': ['Crown Court', 'Tribunal']};
 const requestFiltersNoJurisdiction = {Region: 'Bedford'};
-const filterNames = ['Jurisdiction', 'Region'];
-const allFilterOptions = {Jurisdiction: {Tribunal:{value:'Tribunal'}}, Region: {Wales:{value:'Wales'}}};
+const filterNames = ['Type of court or tribunal', 'Region'];
+const allFilterOptions = {'Type of court or tribunal': {Tribunal:{value:'Tribunal'}}, Region: {Wales:{value:'Wales'}}};
 const filterValues = ['Tribunal','Wales'];
 
 describe('Filter Service', () => {
@@ -33,22 +33,22 @@ describe('Filter Service', () => {
 
   it('should build filter values options for checkboxes', () => {
     const data = filterService.buildFilterValueOptions(listData, []);
-    expect(Object.keys(data[jurisdiction])[0]).toBe(crownCourt);
-    expect(Object.keys(data[jurisdiction])[1]).toBe(magsCourt);
-    expect(Object.keys(data[jurisdiction])[2]).toBe(royalCourt);
-    expect(Object.keys(data[region])[0]).toBe(bedfordRegion);
-    expect(Object.keys(data[region])[1]).toBe(londonRegion);
-    expect(Object.keys(data[region])[2]).toBe(manchesterRegion);
+    expect(Object.keys(data[jurisdiction.filterName])[0]).toBe(crownCourt);
+    expect(Object.keys(data[jurisdiction.filterName])[1]).toBe(magsCourt);
+    expect(Object.keys(data[jurisdiction.filterName])[2]).toBe(royalCourt);
+    expect(Object.keys(data[region.filterName])[0]).toBe(bedfordRegion);
+    expect(Object.keys(data[region.filterName])[1]).toBe(londonRegion);
+    expect(Object.keys(data[region.filterName])[2]).toBe(manchesterRegion);
   });
 
   it('should build filters options for checkboxes with checked false', () => {
     const data = filterService.buildFilterValueOptions(listData, []);
-    expect(data[jurisdiction][crownCourt]['checked']).toBe(false);
+    expect(data[jurisdiction.filterName][crownCourt]['checked']).toBe(false);
   });
 
   it('should build filters options for checkboxes with checked true', () => {
     const data = filterService.buildFilterValueOptions(listData, ['Crown Court']);
-    expect(data[jurisdiction][crownCourt]['checked']).toBe(true);
+    expect(data[jurisdiction.filterName][crownCourt]['checked']).toBe(true);
   });
 
   it('should return empty array if clear is set to all', () => {
@@ -68,15 +68,15 @@ describe('Filter Service', () => {
   });
 
   it('should return Jurisdiction needed for checked options', () => {
-    expect(filterService.handleKeys(filterOptionsNoRegion)).toStrictEqual(['Jurisdiction']);
+    expect(filterService.handleKeys(filterOptionsNoRegion)).toStrictEqual([jurisdiction]);
   });
 
   it('should return Location needed for checked options', () => {
-    expect(filterService.handleKeys(filterOptionsNoJurisdiction)).toStrictEqual(['Location']);
+    expect(filterService.handleKeys(filterOptionsNoJurisdiction)).toStrictEqual([region]);
   });
 
   it('should return both keys needed for checked options', () => {
-    expect(filterService.handleKeys(filterOptions)).toStrictEqual([jurisdiction, 'Location']);
+    expect(filterService.handleKeys(filterOptions)).toStrictEqual([jurisdiction, region]);
   });
 
   it('should return both Jurisdiction and Region', () => {
@@ -84,22 +84,22 @@ describe('Filter Service', () => {
   });
 
   it('should return only Region', () => {
-    expect(filterService.splitFilters(filterNames, requestFiltersNoJurisdiction)).toStrictEqual({Jurisdiction: '', Region: 'Bedford'});
+    expect(filterService.splitFilters(filterNames, requestFiltersNoJurisdiction)).toStrictEqual({'Type of court or tribunal': '', Region: 'Bedford'});
   });
 
   it('should return only Jurisdiction', () => {
-    expect(filterService.splitFilters(filterNames, requestFiltersNoRegion)).toStrictEqual({Jurisdiction: 'Crown Court,Tribunal', Region: ''});
+    expect(filterService.splitFilters(filterNames, requestFiltersNoRegion)).toStrictEqual({'Type of court or tribunal': 'Crown Court,Tribunal', Region: ''});
   });
 
   it('should find and return both Jurisdiction and Region', () => {
-    expect(filterService.findAndSplitFilters(filterValues, allFilterOptions)).toStrictEqual({Jurisdiction: 'Tribunal', Region: 'Wales'});
+    expect(filterService.findAndSplitFilters(filterValues, allFilterOptions)).toStrictEqual({'Type of court or tribunal': 'Tribunal', Region: 'Wales'});
   });
 
   it('should find and return only Region', () => {
-    expect(filterService.findAndSplitFilters(filterValues, {Jurisdiction: '', Region: {Wales:{value:'Wales'}}})).toStrictEqual({Jurisdiction: '', Region: 'Wales'});
+    expect(filterService.findAndSplitFilters(filterValues, {'Type of court or tribunal': '', Region: {Wales:{value:'Wales'}}})).toStrictEqual({'Type of court or tribunal': '', Region: 'Wales'});
   });
 
   it('should find and return only Jurisdiction', () => {
-    expect(filterService.findAndSplitFilters(filterValues, {Jurisdiction: {Tribunal:{value:'Tribunal'}}, Region: ''})).toStrictEqual({Jurisdiction: 'Tribunal', Region: ''});
+    expect(filterService.findAndSplitFilters(filterValues, {'Type of court or tribunal': {Tribunal:{value:'Tribunal'}}, Region: ''})).toStrictEqual({'Type of court or tribunal': 'Tribunal', Region: ''});
   });
 });

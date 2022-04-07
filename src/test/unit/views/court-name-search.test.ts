@@ -72,7 +72,8 @@ describe('Court Name Search Page', () => {
 
   it('should contain jurisdiction filter', () => {
     const jurisdictionLegend = htmlRes.getElementsByTagName('legend');
-    expect(jurisdictionLegend[0].innerHTML).contains('Jurisdiction', 'Jurisdiction filter doesn\'t exist');
+    expect(jurisdictionLegend[0].innerHTML).contains('Type of court or tribunal',
+      'Type of court or tribunal filter doesn\'t exist');
   });
 
   it('should contain region filter', () => {
@@ -81,7 +82,7 @@ describe('Court Name Search Page', () => {
   });
 
   it('should contain 3 jurisdiction checkboxes', () => {
-    const checkboxes = htmlRes.getElementsByName('Jurisdiction');
+    const checkboxes = htmlRes.getElementsByName('Type of court or tribunal');
     expect(checkboxes.length).equal(3, 'Could not find jurisdiction checkboxes');
   });
 

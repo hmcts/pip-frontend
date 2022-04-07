@@ -93,29 +93,5 @@ describe('Alphabetical Search Controller', () => {
         responseMock.verify();
       });
     });
-
-    it('should render page after switching Region for Location', () => {
-      filteredCourtStub.withArgs('testRegion','testJurisdiction').resolves(['switched filter']);
-
-      const response = {
-        render: function() {return '';},
-      } as unknown as Response;
-      const request = mockRequest(i18n);
-      request.body = {Region: 'Crown'};
-
-      const responseMock = sinon.mock(response);
-
-      const expectedData = {
-        ...i18n['alphabetical-search'],
-        courtList: ['switched filter'],
-        filterOptions: [],
-      };
-
-      responseMock.expects('render').once().withArgs('alphabetical-search', expectedData);
-
-      return alphabeticalSearchController.post(request, response).then(() => {
-        responseMock.verify();
-      });
-    });
   });
 });

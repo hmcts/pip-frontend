@@ -1,6 +1,7 @@
 import {Court} from '../models/court';
 
-const filterNames = ['Jurisdiction', 'Region'];
+const jurisdictionFilterName = 'Type of court or tribunal';
+const filterNames = [{courtField: 'Jurisdiction', filterName: jurisdictionFilterName}, {courtField:'Region', filterName: 'Region'}];
 
 export class FilterService {
   private getFilterValueOptions(filterName: string, list: Array<Court>): string[] {
@@ -11,9 +12,9 @@ export class FilterService {
     const filterValueOptions = {};
     let finalFilterValueOptions = [];
     filterNames.forEach(filter => {
-      filterValueOptions[filter] = {};
+      filterValueOptions[filter.filterName] = {};
       finalFilterValueOptions = [];
-      const filteredValue = this.getFilterValueOptions(filter, list);
+      const filteredValue = this.getFilterValueOptions(filter.courtField, list);
       filteredValue.forEach(value => {
         if(Array.isArray(value)) {
           const array = [...value];
@@ -30,7 +31,7 @@ export class FilterService {
       });
 
       [...finalFilterValueOptions].sort().forEach(value => {
-        filterValueOptions[filter][value] = {
+        filterValueOptions[filter.filterName][value] = {
           value: value,
           text: value,
           checked: selectedFilters.includes(value),
@@ -52,9 +53,9 @@ export class FilterService {
   public handleKeys(filterOptions: object): string[] {
     const keys = [];
     filterNames.forEach(filter => {
-      Object.keys(filterOptions[filter]).forEach(filterValue => {
-        if (filterOptions[filter][filterValue].checked) {
-          filter === 'Region' ? keys.push('Location') : keys.push(filter);
+      Object.keys(filterOptions[filter.filterName]).forEach(filterValue => {
+        if (filterOptions[filter.filterName][filterValue].checked) {
+          keys.push(filter);
         }
       });
     });
@@ -67,14 +68,14 @@ export class FilterService {
     let regionFilter = '';
     filterNames.forEach(filter => {
       if(body[filter]) {
-        if (filter === 'Jurisdiction') {
+        if (filter === jurisdictionFilterName) {
           jurisdictionFilter = body[filter].toString();
         } else {
           regionFilter = body[filter].toString();
         }
       }
     });
-    filterValueOptions['Jurisdiction'] = jurisdictionFilter;
+    filterValueOptions[jurisdictionFilterName] = jurisdictionFilter;
     filterValueOptions['Region'] = regionFilter;
 
     return filterValueOptions;
@@ -89,11 +90,11 @@ export class FilterService {
     if(filterValues.length > 0) {
       filterNames.forEach(filter => {
         filterValues.forEach(value => {
-          Object.keys(filterOptions[filter]).forEach(filterValue => {
-            if (filterOptions[filter][filterValue].value === value) {
-              if (filter === 'Jurisdiction') {
+          Object.keys(filterOptions[filter.filterName]).forEach(filterValue => {
+            if (filterOptions[filter.filterName][filterValue].value === value) {
+              if (filter.filterName === jurisdictionFilterName) {
                 jurisdictionFilter.push(value);
-              } else if (filter === 'Region') {
+              } else if (filter.filterName === 'Region') {
                 regionFilter.push(value);
               }
             }
@@ -102,7 +103,7 @@ export class FilterService {
       });
     }
 
-    filterValueOptions['Jurisdiction'] = jurisdictionFilter.toString();
+    filterValueOptions[jurisdictionFilterName] = jurisdictionFilter.toString();
     filterValueOptions['Region'] = regionFilter.toString();
 
     return filterValueOptions;

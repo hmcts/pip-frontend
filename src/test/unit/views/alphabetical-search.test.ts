@@ -87,7 +87,7 @@ describe('Alphabetical Search page', () => {
 
   it('should display filter options', () => {
     const fieldsets = htmlRes.getElementsByClassName('govuk-fieldset');
-    expect(fieldsets[0].innerHTML).contains('Jurisdiction');
+    expect(fieldsets[0].innerHTML).contains('Type of court or tribunal');
     expect(fieldsets[1].innerHTML).contains('Region');
   });
 
