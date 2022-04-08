@@ -187,7 +187,7 @@ describe('Unverified user', () => {
       it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
         await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
         singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-        expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure (SJP)?');
+        expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure?');
       });
 
       //TODO: enable once staging has valid SJP publication
