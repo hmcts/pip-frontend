@@ -6,7 +6,7 @@ import path from 'path';
 import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
 import {request as expressRequest} from 'express';
-import {CourtService} from "../../../main/service/courtService";
+import {CourtService} from '../../../main/service/courtService';
 
 const PAGE_URL = '/daily-cause-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';

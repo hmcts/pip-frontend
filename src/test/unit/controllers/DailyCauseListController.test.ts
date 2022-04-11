@@ -6,7 +6,7 @@ import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
-import {CourtService} from "../../../main/service/courtService";
+import {CourtService} from '../../../main/service/courtService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
