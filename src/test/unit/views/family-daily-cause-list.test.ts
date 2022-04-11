@@ -14,7 +14,7 @@ const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
 const accordionClass='govuk-accordion__section-button';
 
-const expectedHeader = 'Daily Family Civil Cause list for <br>PRESTON';
+const courtName = 'Abergavenny Magistrates\' Court';
 const summaryHeadingText = 'Important information';
 const accordionHeading = '1, Before: Mr Presiding';
 const applicantRespondent = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
@@ -42,7 +42,7 @@ describe('Family Daily Cause List page', () => {
 
   it('should display header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
-    expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+    expect(header[0].innerHTML).contains(courtName, 'Could not find the header');
   });
 
   it('should display summary',  () => {
@@ -52,7 +52,7 @@ describe('Family Daily Cause List page', () => {
 
   it('should display court name summary paragraph',  () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
-    expect(summary[0].innerHTML).contains('PRESTON', 'Could not find the court name in summary text');
+    expect(summary[0].innerHTML).contains(courtName, 'Could not find the court name in summary text');
   });
 
   it('should display court email summary paragraph',  () => {
