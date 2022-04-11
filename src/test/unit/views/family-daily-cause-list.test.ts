@@ -6,6 +6,7 @@ import path from 'path';
 import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
 import {request as expressRequest} from 'express';
+import {CourtService} from "../../../main/service/courtService";
 
 const PAGE_URL = '/family-daily-cause-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -24,8 +25,12 @@ const familyDailyCauseListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const courtData = JSON.parse(rawDataCourt);
+
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(familyDailyCauseListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
+sinon.stub(CourtService.prototype, 'getCourtById').resolves(courtData[0]);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Family Daily Cause List page', () => {

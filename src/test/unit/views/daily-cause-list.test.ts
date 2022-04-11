@@ -63,7 +63,7 @@ describe('Daily Cause List page', () => {
 
   it('should display court contact number summary paragraph',  () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
-    expect(summary[0].innerHTML).contains('01772 844700', 'Could not find the court name in summary text');
+    expect(summary[0].innerHTML).contains('01772 844700', 'Could not find the court telephone no in summary text');
   });
 
   it('should display accordion open/close all',  () => {
