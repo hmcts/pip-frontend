@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { Response } from 'express';
 import DailyCauseListController from '../../../main/controllers/DailyCauseListController';
-import fs from 'fs';
+import fs from 'fs'; 
 import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
