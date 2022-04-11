@@ -20,25 +20,36 @@ const returnedArtefact = [{
   },
 }];
 
+const nonPresidingJudiciary = 'Mr Firstname1 Surname1, Mr Presiding';
+const expectedApplicant = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
+const expectedRespondent = expectedApplicant;
+
 const publicationService = new PublicationService;
 const publicationRequestStub = sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue');
 publicationRequestStub.resolves(returnedArtefact);
 
 const publicationRequests = PublicationRequests.prototype;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
-const dailyCauseListData = JSON.parse(rawData);
+const rawDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
+
+const rawFamilyDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
+const dailyCauseListData = JSON.parse(rawDailyCauseData);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
 
-const stub = sinon.stub(publicationRequests, 'getIndividualPublicationJson').returns(dailyCauseListData);
+const stub = sinon.stub(publicationRequests, 'getIndividualPublicationJson');
+stub.returns(dailyCauseListData);
 stub.withArgs().returns(dailyCauseListData);
 
-const stubMetaData = sinon.stub(publicationRequests, 'getIndividualPublicationMetadata').returns(metaData);
-stubMetaData.withArgs().returns(metaData);
+const stubMetaData = sinon.stub(publicationRequests, 'getIndividualPublicationMetadata');
+stubMetaData.returns(metaData);
+
+const stubCourtPubs = sinon.stub(publicationRequests, 'getPublicationsByCourt');
+stubCourtPubs.withArgs('1', true, false).resolves(returnedArtefact);
+stubCourtPubs.withArgs('2', true, false).resolves([]);
 
 const validCourtName = 'PRESTON';
 const invalidCourtName = 'TEST';
@@ -82,25 +93,65 @@ describe('Publication service', () => {
     });
   });
 
-  describe('calculateHearingSessionTime Publication Service', () => {
+  describe('manipulatedDailyListData Publication Service', () => {
+    let familyDailyCause;
+    beforeEach(() => {
+      familyDailyCause = JSON.parse(rawFamilyDailyCauseData);
+    });
+
     it('should return daily cause list object', async () => {
-      await publicationService.calculateHearingSessionTime(dailyCauseListData);
-      expect(dailyCauseListData['courtLists'].length).to.equal(1);
+      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
+      expect(data['courtLists'].length).to.equal(1);
     });
 
     it('should calculate totalHearings in cause list object', async () => {
-      await publicationService.calculateHearingSessionTime(dailyCauseListData);
-      expect(dailyCauseListData['courtLists'][0]['courtHouse']['courtRoom'][0]['totalHearing']).to.equal(4);
+      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['totalHearing']).to.equal(2);
     });
 
     it('should calculate duration of Hearing in cause list object', async () => {
-      await publicationService.calculateHearingSessionTime(dailyCauseListData);
-      expect(dailyCauseListData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']).to.equal(1);
+      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']).to.equal(1);
     });
 
     it('should calculate start time of Hearing in cause list object', async () => {
-      await publicationService.calculateHearingSessionTime(dailyCauseListData);
-      expect(dailyCauseListData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal('9.40am');
+      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal('9.40am');
+    });
+
+    it('should set caseHearingChannel to sitting channel', async () => {
+      const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCauseData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']).to.equal('testSittingChannel');
+    });
+
+    it('should set sessionChannel to sitting channel', async () => {
+      familyDailyCause['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['channel'] = [];
+      const data = await publicationService.manipulatedDailyListData(JSON.stringify(familyDailyCause));
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']).to.equal('VIDEO HEARING');
+    });
+
+    it('should return empty channel if both hearing and sessionChannel are missing', async () => {
+      familyDailyCause['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['channel'] = [];
+      familyDailyCause['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sessionChannel'] = [];
+      const data = await publicationService.manipulatedDailyListData(JSON.stringify(familyDailyCause));
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']).to.equal('');
+    });
+
+    it('should set judiciary to presiding judiciary over other judiciaries', async () => {
+      const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCauseData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciaries']).to.equal('Mr Presiding');
+    });
+
+    it('should concat judiciaries with no presiding', async () => {
+      familyDailyCause['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['judiciary'][1]['isPresiding'] = false;
+      const data = await publicationService.manipulatedDailyListData(JSON.stringify(familyDailyCause));
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciaries']).to.equal(nonPresidingJudiciary);
+    });
+
+    it('should build the applicants and the respondents of the party', async () => {
+      const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCauseData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant']).to.equal(expectedApplicant);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent']).to.equal(expectedRespondent);
     });
   });
 
@@ -132,5 +183,17 @@ describe('Publication service', () => {
       const data = await publicationService.formatSJPPressList(rawSJPData);
       expect(data['hearingCount']).to.equal(2);
     });
+  });
+
+  describe('getPublicationsByCourt Publication Service', () => {
+    it('should return artefact for a valid call', async () => {
+      const data = await publicationService.getPublicationsByCourt('1', true);
+      expect(data).to.deep.equal(returnedArtefact);
+    });
+    it('should return empty list for a invalid call', async () => {
+      const data = await publicationService.getPublicationsByCourt('2', true);
+      expect(data).to.deep.equal([]);
+    });
+
   });
 });

@@ -10,7 +10,8 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
-  <h2 id='page-heading' class="govuk-heading-l">{{ header }} <br />{{ courtName }}</h2>
+  <div class="parent-box">
+  <h2 id='page-heading' class="govuk-heading-l">{{ header }} <br />{{ listData['venue']['venueName']}}</h2>
   <p class="govuk-body">
     {% for line in listData['venue']['venueAddress']['line'] %}
       {{ line }}<br />
@@ -18,7 +19,6 @@
     {{ listData['venue']['venueAddress']['postCode'] }}
   </p>
   <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contactDate }}</p>
-  <p class="govuk-body">{{ published | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
   <details class="govuk-details" data-module="govuk-details" open>
     <summary class="govuk-details__summary">
         <span class="govuk-details__summary-text">
@@ -27,7 +27,7 @@
     </summary>
     <div class="govuk-details__text">
       <p>{{ importantInformationP1 }}</p>
-      <p>{{ importantInformationP2 | replace("NAME", courtName) | replace("EMAIL", searchResults['venue']["venueContact"]["venueEmail"]) | replace("TELNO", searchResults['venue']['venueContact']['venueTelephone'])}}</p>
+      <p>{{ importantInformationP2 | replace("NAME", listData['venue']['venueName']) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone'])}}</p>
       <p>{{ importantInformationP3 }}</p>
     </div>
   </details>
@@ -43,7 +43,7 @@
             <div class="govuk-accordion__section-header">
               <h2 class="govuk-accordion__section-heading">
               <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ sessionCount }}">
-                {{ courtRoom['courtRoomName'] }} : {{ session['judiciary'][0]['johTitle'] }} {{ session['judiciary'][0]['johNameSurname'] }}
+                {{ courtRoom['courtRoomName'] }}, {{ beforeJudge}}: {{ session['formattedJudiciaries'] }}
               </span>
               </h2>
             </div>
@@ -52,18 +52,21 @@
                 <table class="govuk-table">
                   <thead class="govuk-table__head">
                   <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header">{{ caseId }}</th>
-                    <th scope="col" class="govuk-table__header">{{ nameOfParty }}</th>
-                    <th scope="col" class="govuk-table__header">{{ hearingType }}</th>
-                    <th scope="col" class="govuk-table__header">{{ hearingPlatform }}</th>
-                    <th scope="col" class="govuk-table__header">{{ startTime }}</th>
-                    <th scope="col" class="govuk-table__header">{{ duration }}</th>
+                    <th scope="col" class="govuk-table__header no-wrap">{{ time }}</th>
+                    <th scope="col" class="govuk-table__header no-wrap">{{ CaseRef }}</th>
+                    <th scope="col" class="govuk-table__header no-wrap">{{ caseName }}</th>
+                    <th scope="col" class="govuk-table__header no-wrap">{{ caseType }}</th>
+                    <th scope="col" class="govuk-table__header no-wrap">{{ hearingType }}</th>
+                    <th scope="col" class="govuk-table__header no-wrap">{{ location }}</th>
+                    <th scope="col" class="govuk-table__header no-wrap">{{ duration }}</th>
+                    <th scope="col" class="govuk-table__header no-wrap">{{ applicant }}</th>
+                    <th scope="col" class="govuk-table__header no-wrap">{{ respondent }}</th>
                   </tr>
                   </thead>
 
                   <tbody class="govuk-table__body">
                   {% for sitting in session['sittings'] %}
-                    {% set durationAsHours = 0 %}
+                     {% set durationAsHours = 0 %}
                     {% if sitting['durationAsHours'] !== 0 %}
                       {% if sitting['durationAsHours'] > 1 %}
                         {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHours %}
@@ -96,12 +99,15 @@
                           {% set noBorder = 'no-border-bottom' %}
                         {% endif %}
                         <tr class="govuk-table__row">
-                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseName'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ sitting['startTime'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ duration }}</td>
+                          <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['time'] }}</td>
+                          <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseNumber'] }}</td>
+                          <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseName'] }}</td>
+                          <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseJurisdictionET'] }}</td>
+                          <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['hearingType'] }}</td>
+                          <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
+                          <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ duration }} {{ case['caseSequenceIndicator'] }}</td>
+                          <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['applicant'] }}</td>
+                          <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['respondent'] }}</td>
                         </tr>
                         {% set hearingCount = hearingCount + 1 %}
                       {% endfor %}
@@ -116,6 +122,9 @@
       {% endfor %}
     {% endfor %}
   </div>
+    {{ super() }}
+  </div>
+  <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: [{{ provenance }}]</p>
 {% endblock %}
 {% block bodyEnd %}
   <script>
