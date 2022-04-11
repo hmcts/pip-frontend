@@ -11,7 +11,7 @@ import {CourtService} from '../../../main/service/courtService';
 const PAGE_URL = '/family-daily-cause-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
-const summaryText = 'govuk-details__text';
+const summaryText = 'govuk-details__text'; 
 const accordionClass='govuk-accordion__section-button';
 
 const courtName = 'Abergavenny Magistrates\' Court';
