@@ -131,6 +131,7 @@ module.exports = {
   UploadFile: '#card-manual-upload',
   RemoveContent: '#card-remove-list-search',
   ManageMediaAccounts: '#manage-media-accounts',
+  CreateAdminAccount: '#card-create-admin-account',
 
   // CreateMediaAccount selectors
   UploadImage: '#file-upload',
@@ -157,6 +158,11 @@ module.exports = {
   SignedInBannerFindCourt: '.moj-sub-navigation__item:nth-child(3)',
   SignedInBannerSJP: '.moj-sub-navigation__item:nth-child(4)',
   SignedInBannerSignOut: '.moj-sub-navigation__item:nth-child(5)',
+
+  // CreateAdminAccount selectors
+  FirstNameInput: '#firstName',
+  LastNameInput: '#lastName',
+  UserRoleRadio: '#user-role',
 
   // RemoveListSearch selectors
 };
