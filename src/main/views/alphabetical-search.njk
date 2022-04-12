@@ -98,7 +98,7 @@
         {% for key, value in courtList %}
           {% if value| length == 0 %}
             <div class="govuk-grid-column width-column govuk-!-font-size-19">
-              <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline">{{ key }}</a>
+              <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline" aria-label="No courts/tribunals are available for the letter {{ key }}">{{ key }}</a>
             </div>
           {% else %}
             <div class="govuk-grid-column width-column govuk-!-font-size-19">
