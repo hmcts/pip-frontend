@@ -15,11 +15,11 @@ describe('Auth Redirect', () => {
     });
 
     it('should return valid url if env variables are set', () => {
-      process.env.AAD_AUTH_ENDPOINT = 'https://evnvarendpoint';
+      process.env.B2C_AUTH_ENDPOINT = 'https://evnvarendpoint';
       process.env.B2C_FLOW_NAME = 'env_flow_name';
       process.env.CLIENT_ID = '123';
       process.env.AUTH_RETURN_URL = 'https://test.com';
-      const expectedRedirectUrl = process.env.AAD_AUTH_ENDPOINT+ '?p='
+      const expectedRedirectUrl = process.env.B2C_AUTH_ENDPOINT+ '?p='
         + process.env.B2C_FLOW_NAME + '&client_id='
         + process.env.CLIENT_ID + '&nonce=defaultNonce&redirect_uri='
         + encodeURIComponent(process.env.AUTH_RETURN_URL) + '&scope=openid&response_type=id_token&prompt=login';
