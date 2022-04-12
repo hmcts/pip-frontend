@@ -121,4 +121,15 @@ export class PublicationService {
 
     return sjpPressListData;
   }
+
+  public publicationTime(publicationDatetime: string): string {
+    const min = moment.utc(publicationDatetime, 'HH:mm').minutes();
+    let publishedTime = '';
+    if (min === 0) {
+      publishedTime = moment.utc(publicationDatetime).format('ha');
+    } else {
+      publishedTime = moment.utc(publicationDatetime).format('h.mma');
+    }
+    return publishedTime;
+  }
 }

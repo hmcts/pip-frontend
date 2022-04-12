@@ -121,10 +121,10 @@
                         <tr class="govuk-table__row">
                           <td class="govuk-table__cell {{ noBorder }}">{{ sitting['time'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseName'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseName'] }} {{ case['caseSequenceIndicator'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ hearingPlatform }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ duration }} {{ case['caseSequenceIndicator'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ duration }}</td>
                         </tr>
                         {% set hearingCount = hearingCount + 1 %}
                       {% endfor %}

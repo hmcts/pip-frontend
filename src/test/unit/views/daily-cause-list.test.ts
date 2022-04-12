@@ -79,6 +79,11 @@ describe('Daily Cause List page', () => {
     expect(cell[2].innerHTML).contains('A1 Vs B1');
   });
 
+  it('should display Case Sequence Indicator if it is there',  () => {
+    const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+    expect(cell[2].innerHTML).contains('[2 of 3]');
+  });
+
   it('should display Hearing Type',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
     expect(cell[3].innerHTML).contains('FHDRA1 (First Hearing and Dispute Resolution Appointment)');
@@ -92,10 +97,5 @@ describe('Daily Cause List page', () => {
   it('should display Hearing duration',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
     expect(cell[5].innerHTML).contains('1 hour');
-  });
-
-  it('should display Case Sequence Indicator if it is there',  () => {
-    const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[5].innerHTML).contains('[2 of 3]');
   });
 });
