@@ -72,29 +72,13 @@ describe('Search Page', () => {
     const inputError = htmlRes.getElementsByClassName(inputErrorClass);
     expect(inputError.length).equal(0, 'Input should not have error classes');
   });
-});
 
-describe('Search Page Blank Input', () => {
-  beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'input-autocomplete': ''}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+  it('should display a h2 element for the Want to see all courts and tribunals section', () => {
+    const h2Element = htmlRes.getElementsByTagName('h2');
+    expect(h2Element[0].innerHTML).contains('Want to see all courts and tribunals?',
+      'Could not find the h2 element');
   });
 
-  it('should display minimum input error message', () => {
-    const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
-    expect(errorSummary[0].innerHTML).contains('Search must be three characters or more', 'Could not find error message');
-  });
-
-  it('should display error message', () => {
-    const errorTitle = htmlRes.getElementsByClassName(errorSummaryTitleClass);
-    expect(errorTitle[0].innerHTML).contains('There is a problem', 'Could not find title');
-  });
-
-  it('should display input errors', () => {
-    const formError = htmlRes.getElementsByClassName(formErrorClass);
-    expect(formError.length).equal(1, 'Could not find form errors');
-  });
 });
 
 describe('Search Page Invalid Input', () => {

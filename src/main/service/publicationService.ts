@@ -7,8 +7,8 @@ const publicationRequests = new PublicationRequests();
 
 export class PublicationService {
 
-  public async getIndividualPublicationMetadata(artefactId, verification: boolean): Promise<any> {
-    return publicationRequests.getIndividualPublicationMetadata(artefactId, verification);
+  public async getIndividualPublicationMetadata(artefactId, verification: boolean, admin = false): Promise<any> {
+    return publicationRequests.getIndividualPublicationMetadata(artefactId, verification, admin);
   }
 
   public async getIndividualPublicationFile(artefactId, verification: boolean): Promise<Blob> {
@@ -35,7 +35,7 @@ export class PublicationService {
   }
 
   public async getPublicationsByCourt(courtId: string, verified: boolean): Promise<Artefact[]> {
-    return await publicationRequests.getPublicationsByCourt(courtId, verified);
+    return await publicationRequests.getPublicationsByCourt(courtId, verified, false);
   }
 
   public calculateHearingSessionTime(searchResults: JSON): void {
@@ -120,6 +120,10 @@ export class PublicationService {
     sjpPressListData['hearingCount'] = hearingCount;
 
     return sjpPressListData;
+  }
+
+  public async removePublication(artefactId: string, email: string): Promise<boolean> {
+    return publicationRequests.deletePublication(artefactId, email);
   }
 
   public publicationTime(publicationDatetime: string): string {

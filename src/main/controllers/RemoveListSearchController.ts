@@ -22,7 +22,7 @@ export default class RemoveListSearchController {
     if (searchInput && searchInput.length >= 3) {
       const court = await courtService.getCourtByName(searchInput);
       (court) ?
-        res.redirect(`removal-confirmation?courtId=${court.courtId}`) :
+        res.redirect(`remove-list-search-results?courtId=${court.courtId}`) :
         res.render('remove-list-search', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search']),
           autocompleteList,
