@@ -94,11 +94,11 @@
           </a>
         </div>
       </div>
-      <div class="govuk-grid-row govuk-!-margin-bottom-8">
+      <nav class="govuk-grid-row govuk-!-margin-bottom-8" aria-label="{{ aria.labelNavHeader }}">
         {% for key, value in courtList %}
           {% if value| length == 0 %}
             <div class="govuk-grid-column width-column govuk-!-font-size-19">
-              <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline" aria-label="No courts/tribunals are available for the letter {{ key }}">{{ key }}</a>
+              <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline" aria-label="{{ aria.labelNav}} {{ key }}">{{ key }}</a>
             </div>
           {% else %}
             <div class="govuk-grid-column width-column govuk-!-font-size-19">
@@ -106,8 +106,7 @@
             </div>
           {% endif %}
         {% endfor %}
-
-      </div>
+      </nav>
       <div class="govuk-grid-row">
         <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ nationalListsHeader }}</h3>
       </div>

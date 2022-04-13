@@ -11,6 +11,7 @@
   "sjpTableHeader": "National lists",
   "sjpSubscription": "Single Justice Procedure cases",
   "hide" : "Hide Filters",
-  "show": "Show Filters"
+  "show": "Show Filters",
+  "ariaLabelNav": "No courts/tribunals are available for the letter"
 }
 
