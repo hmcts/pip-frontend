@@ -511,3 +511,53 @@ nav {
   list-style-type: none;
   padding-left: 0;
 }
+
+.alphabetical-search-dl{
+  display:flex;
+  flex-flow: row wrap;
+  justify-content: left;
+  font-family: "GDS Transport", arial, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  line-height: 1.25;
+  color: #0b0c0c;
+  overflow: visible;
+  border-top: 1px solid #b1b4b6;
+}
+
+.alphabetical-search-header{
+  flex-shrink: 1;
+  font-weight: 700;
+  font-size:1.125rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align:left;
+}
+
+.alphabetical-search-row{
+  overflow: hidden;
+  flex: 0 0 90%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  text-align: left;
+  text-overflow: ellipsis;
+  vertical-align: top;
+}
+
+.alphabetical-search-inflater{
+  flex-shrink: 1;
+  font-weight: 700;
+  font-size:1.125rem;
+  visibility: hidden;
+
+}
+
+dd{
+  margin-inline-start: 1rem;
+}
+
+.break{
+  flex-basis:100%;
+  height:0;
+  border-bottom: 1px solid #b1b4b6;
+}

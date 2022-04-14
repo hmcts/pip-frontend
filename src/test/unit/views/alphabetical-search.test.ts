@@ -56,8 +56,8 @@ describe('Alphabetical Search page', () => {
   });
 
   it('should contain the correct headers', () => {
-    const tableHeaders = htmlRes.getElementsByClassName('govuk-table__header');
-    expect(tableHeaders[0].innerHTML)
+    const tableHeaders = htmlRes.getElementById('dlHeader');
+    expect(tableHeaders.innerHTML)
       .contains('Court or tribunal', 'Court or tribunal header is not present');
   });
 
@@ -70,7 +70,7 @@ describe('Alphabetical Search page', () => {
   });
 
   it('should have the first cell containing Abergavenny Magistrates\' Court', () => {
-    const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+    const cell = htmlRes.getElementsByClassName('alphabetical-search-row');
     expect(cell[0].innerHTML).contains('Abergavenny Magistrates\' Court');
   });
 
