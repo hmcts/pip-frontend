@@ -8,18 +8,16 @@ const courtService = new CourtService();
 const filterService = new FilterService();
 let keys = [];
 let filterValues = [];
-const filterNames = ['Jurisdiction', 'Region'];
 
 export default class CourtNameSearchController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     if (req.query['clear']) {
       filterValues = filterService.handleFilterClear(filterValues, req.query['clear'] as string);
     } else {
-      filterValues = [];
+      filterValues = filterService.stripFilters(req.query?.filterValues as string);
     }
 
     const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
-    keys = filterService.handleKeys(filterOptions);
 
     let filters ={};
     if(filterValues.length > 0) {
@@ -40,25 +38,10 @@ export default class CourtNameSearchController {
     const body = req.body;
     keys = Object.keys(body);
 
-    const filters = filterService.splitFilters(filterNames, body);
-
     const values = [];
-
-    keys.forEach(key => {
-      values.push(body[key]);
-      if (key === 'Region') {
-        keys.splice(keys.indexOf(key), 1, 'Location');
-      }
-    });
+    keys.forEach(key => values.push(body[key]));
     filterValues = Array.prototype.concat.apply([], values);
 
-    const alphabetisedList = await courtService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']);
-    const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
-
-    res.render('court-name-search', {
-      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['court-name-search']),
-      courtList: alphabetisedList,
-      filterOptions,
-    });
+    res.redirect('court-name-search?filterValues=' + filterValues);
   }
 }

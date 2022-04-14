@@ -9,7 +9,6 @@ const filterService = new FilterService();
 
 let keys = [];
 let filterValues = [];
-const filterNames = ['Jurisdiction', 'Region'];
 
 export default class AlphabeticalSearchController {
 
@@ -18,11 +17,10 @@ export default class AlphabeticalSearchController {
       const query = req.query['clear'] as string;
       filterValues = filterService.handleFilterClear(filterValues, query);
     } else {
-      filterValues = [];
+      filterValues = filterService.stripFilters(req.query?.filterValues as string);
     }
-    const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
 
-    keys = filterService.handleKeys(filterOptions);
+    const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
 
     let filters ={};
     if(filterValues.length > 0) {
@@ -43,19 +41,10 @@ export default class AlphabeticalSearchController {
     const body = req.body;
     keys = Object.keys(body);
 
-    const filters = filterService.splitFilters(filterNames, body);
-
     const values = [];
     keys.forEach(key => values.push(body[key]));
     filterValues = Array.prototype.concat.apply([], values);
 
-    const alphabetisedList = await courtService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']);
-    const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
-
-    res.render('alphabetical-search', {
-      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['alphabetical-search']),
-      courtList: alphabetisedList,
-      filterOptions: filterOptions,
-    });
+    res.redirect('alphabetical-search?filterValues=' + filterValues);
   }
 }

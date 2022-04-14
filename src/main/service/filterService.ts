@@ -107,4 +107,8 @@ export class FilterService {
 
     return filterValueOptions;
   }
+
+  public stripFilters(currentFilters: string): string[] {
+    return currentFilters ? currentFilters.split(',') : [];
+  }
 }
