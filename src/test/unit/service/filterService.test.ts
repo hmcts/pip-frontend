@@ -10,7 +10,11 @@ const listData = JSON.parse(rawData);
 const magsCourt = 'Magistrates\' Court';
 const crownCourt = 'Crown Court';
 const royalCourt = 'Royal Court';
+const bedfordRegion = 'Bedford';
+const londonRegion = 'London';
+const manchesterRegion = 'Manchester';
 const jurisdiction = 'Jurisdiction';
+const region = 'Region';
 const filterOptions = {Jurisdiction: {'Crown Court': {checked: true}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: true}}};
 const filterOptionsNoJurisdiction = {Jurisdiction: {'Crown Court': {checked: false}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: true}}};
 const filterOptionsNoRegion = {Jurisdiction: {'Crown Court': {checked: true}, Crown: {checked: false}}, Region: {Bedford: {checked: false}, Hull: {checked: false}}};
@@ -29,10 +33,12 @@ describe('Filter Service', () => {
 
   it('should build filter values options for checkboxes', () => {
     const data = filterService.buildFilterValueOptions(listData, []);
-    expect(Object.keys(data[jurisdiction])[0]).toBe(magsCourt);
-    expect(Object.keys(data[jurisdiction])[1]).toBe(crownCourt);
+    expect(Object.keys(data[jurisdiction])[0]).toBe(crownCourt);
+    expect(Object.keys(data[jurisdiction])[1]).toBe(magsCourt);
     expect(Object.keys(data[jurisdiction])[2]).toBe(royalCourt);
-    expect(Object.keys(data['Region'])[0]).toBe('Bedford');
+    expect(Object.keys(data[region])[0]).toBe(bedfordRegion);
+    expect(Object.keys(data[region])[1]).toBe(londonRegion);
+    expect(Object.keys(data[region])[2]).toBe(manchesterRegion);
   });
 
   it('should build filters options for checkboxes with checked false', () => {

@@ -1,7 +1,6 @@
 import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {cloneDeep} from 'lodash';
-import moment from 'moment';
 import {PublicationService} from '../service/publicationService';
 
 const publicationService = new PublicationService();
@@ -17,7 +16,7 @@ export default class SjpPublicListController {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['single-justice-procedure']),
       casesList: data,
       length: length,
-      date: moment().format('dddd, MMMM Do YYYY [at] h:mm a'),
+      date: fileData['document'].publicationDate,
     },
     );
   }

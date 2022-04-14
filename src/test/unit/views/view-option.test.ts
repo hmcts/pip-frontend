@@ -56,17 +56,6 @@ describe('View Option Page', () => {
       expect(radioButtons[0].innerHTML).contains(expectedRadioHint1, 'Could not find the radio button with hint ' + expectedRadioHint1);
       expect(radioButtons[1].innerHTML).contains(expectedRadioHint2, 'Could not find the radio button with hint ' + expectedRadioHint2);
     });
-
-    it('should display account message', () => {
-      const header2 = htmlRes.getElementsByClassName('govuk-heading-m');
-      expect(header2[0].innerHTML).contains('Do you have an account?', 'Could not find account message');
-    });
-
-    it('should display sign in link', () => {
-      const signInLink = htmlRes.getElementsByClassName('govuk-link');
-      expect(signInLink[0].innerHTML).contains('Sign in to your account', 'Could not find link');
-      expect(signInLink[0].getAttribute('href').valueOf()).contains('sign-in', 'Could not find valid link href');
-    });
   });
 
   describe('with error', () => {
