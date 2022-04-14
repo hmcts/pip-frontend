@@ -477,13 +477,13 @@ describe('Verified user', () => {
         });
       }
     });
-	
+
     describe('Manual Removal', () => {
       it('should open remove publication search page', async () => {
         await adminDashboard.open('/admin-dashboard');
         searchPublicationPage = await adminDashboard.clickRemoveCard();
         expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
-      });  
+      });
       it('should enter valid court in the search field, click continue and open search results page', async () => {
         const searchTerm = 'Milton Keynes County Court and Family Court';
         await searchPublicationPage.enterText(searchTerm);
@@ -496,13 +496,13 @@ describe('Verified user', () => {
         it('should click on the first result and open confirmation page', async () => {
           publicationConfirmationPage = await searchPublicationResultsPage.clickRemoveOnFirstRecord();
           expect(await publicationConfirmationPage.getPageTitle()).toEqual('Are you sure you want to remove this publication?');
-        });  
+        });
 
         it('should select yes option and remove publication', async () => {
           await publicationConfirmationPage.selectOption('remove-choice');
           expect(await removePublicationSuccessPage.getPanelTitle()).toEqual('Success');
-        }); 
-        
+        });
+
         it('should click on the home link and open admin dashboard page', async () => {
           adminDashboard = await removePublicationSuccessPage.clickHome();
           expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
