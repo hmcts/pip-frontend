@@ -10,7 +10,7 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
-  <h2 id='page-heading' class="govuk-heading-l">{{ header }} <br />{{ searchResults['venue']['venueName']}}</h2>
+  <h2 id='page-heading' class="govuk-heading-l">{{ header }} {{ searchResults['venue']['venueName']}}</h2>
   <p class="govuk-body">
     {% for line in searchResults['venue']['venueAddress']['line'] %}
       {{ line }}<br />
