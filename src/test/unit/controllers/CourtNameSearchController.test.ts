@@ -31,10 +31,10 @@ describe('Court Name Search Controller', () => {
     filterOptions: {},
     courtList: {},
   };
-  const response = { render: () => {return '';}} as unknown as Response;
   const request = mockRequest(i18n);
 
   describe('GET requests', () => {
+    const response = { render: () => {return '';}} as unknown as Response;
     it('should render court name search page', () => {
       request.query = {};
 
@@ -96,10 +96,7 @@ describe('Court Name Search Controller', () => {
     });
 
     it('should render court name search page when jurisdiction element is removed', async () => {
-      request.body = { jurisdiction: ['crown']};
-
-      await courtNameSearchController.post(request, response);
-      request.query = {clear: 'crown'};
+      request.query = {clear: 'crown', filterValues: 'crown'};
       const responseMock = sinon.mock(response);
 
       responseMock.expects('render').once().withArgs('court-name-search', expectedData);
@@ -109,10 +106,7 @@ describe('Court Name Search Controller', () => {
     });
 
     it('should render court name search page when region element is removed', async () => {
-      request.body = { region: ['london']};
-
-      await courtNameSearchController.post(request, response);
-      request.query = {clear: 'london'};
+      request.query = {clear: 'london', filerValues: 'london'};
       const responseMock = sinon.mock(response);
 
       responseMock.expects('render').once().withArgs('court-name-search', expectedData);
@@ -122,10 +116,7 @@ describe('Court Name Search Controller', () => {
     });
 
     it('should render court name search page when one jurisdiction is removed and there are still other jurisdiction filters', async () => {
-      request.body = { jurisdiction: ['crown', 'crown court'], region: []};
-
-      await courtNameSearchController.post(request, response);
-      request.query = {clear: 'crown court'};
+      request.query = {clear: 'crown court', filterValues: 'crown,crown court'};
       const responseMock = sinon.mock(response);
 
       responseMock.expects('render').once().withArgs('court-name-search', postExpectedData);
@@ -136,12 +127,13 @@ describe('Court Name Search Controller', () => {
   });
 
   describe('POST requests', () => {
+    const response = { redirect: () => {return '';}} as unknown as Response;
     it('should render court name search page if filters are applied', () => {
       request.body = { jurisdiction: [], region: []};
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('render').once().withArgs('court-name-search', postExpectedData);
+      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=');
 
       return courtNameSearchController.post(request, response).then(() => {
         responseMock.verify();
@@ -153,7 +145,7 @@ describe('Court Name Search Controller', () => {
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('render').once().withArgs('court-name-search', postExpectedData);
+      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=crown,london');
 
       return courtNameSearchController.post(request, response).then(() => {
         responseMock.verify();
@@ -161,11 +153,11 @@ describe('Court Name Search Controller', () => {
     });
 
     it('should render court name search page if only jurisdiction filter is applied', () => {
-      request.body = { jurisdiction: []};
+      request.body = { jurisdiction: ['crown']};
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('render').once().withArgs('court-name-search', postExpectedData);
+      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=crown');
 
       return courtNameSearchController.post(request, response).then(() => {
         responseMock.verify();
@@ -173,11 +165,11 @@ describe('Court Name Search Controller', () => {
     });
 
     it('should render court name search page if only region filter is applied', () => {
-      request.body = { region: []};
+      request.body = { region: ['london']};
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('render').once().withArgs('court-name-search', postExpectedData);
+      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=london');
 
       return courtNameSearchController.post(request, response).then(() => {
         responseMock.verify();
@@ -189,7 +181,7 @@ describe('Court Name Search Controller', () => {
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('render').once().withArgs('court-name-search', postExpectedData);
+      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=');
 
       return courtNameSearchController.post(request, response).then(() => {
         responseMock.verify();

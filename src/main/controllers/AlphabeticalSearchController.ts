@@ -8,11 +8,11 @@ const courtService = new CourtService();
 const filterService = new FilterService();
 
 let keys = [];
-let filterValues = [];
 
 export default class AlphabeticalSearchController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
+    let filterValues = filterService.stripFilters(req.query?.filterValues as string);
     if (req.query['clear']) {
       const query = req.query['clear'] as string;
       filterValues = filterService.handleFilterClear(filterValues, query);
@@ -38,6 +38,7 @@ export default class AlphabeticalSearchController {
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
+    let filterValues = [];
     const body = req.body;
     keys = Object.keys(body);
 

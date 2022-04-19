@@ -44,7 +44,9 @@ export class FilterService {
     if (reqQuery == 'all') {
       return [];
     } else {
-      selectedFilters.splice(selectedFilters.indexOf(reqQuery), 1);
+      if (selectedFilters.includes(reqQuery)) {
+        selectedFilters.splice(selectedFilters.indexOf(reqQuery), 1);
+      }
       return selectedFilters;
     }
   }

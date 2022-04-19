@@ -7,10 +7,10 @@ import { cloneDeep } from 'lodash';
 const courtService = new CourtService();
 const filterService = new FilterService();
 let keys = [];
-let filterValues = [];
 
 export default class CourtNameSearchController {
   public async get(req: PipRequest, res: Response): Promise<void> {
+    let filterValues = filterService.stripFilters(req.query?.filterValues as string);
     if (req.query['clear']) {
       filterValues = filterService.handleFilterClear(filterValues, req.query['clear'] as string);
     } else {
@@ -24,8 +24,8 @@ export default class CourtNameSearchController {
       filters = filterService.findAndSplitFilters(filterValues, filterOptions);
     }
 
-    const alphabetisedList = filterValues.length ? await courtService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']) :
-      await courtService.generateAlphabetisedAllCourtList();
+    const alphabetisedList = filterValues.length == 0 ? await courtService.generateAlphabetisedAllCourtList() :
+      await courtService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']);
 
     res.render('court-name-search', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['court-name-search']),
@@ -35,6 +35,7 @@ export default class CourtNameSearchController {
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
+    let filterValues = [];
     const body = req.body;
     keys = Object.keys(body);
 

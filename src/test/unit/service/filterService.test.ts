@@ -63,6 +63,10 @@ describe('Filter Service', () => {
     expect(filterService.handleFilterClear(['removed'], 'removed')).toStrictEqual([]);
   });
 
+  it('should return full array if item already removed', () => {
+    expect(filterService.handleFilterClear(['test'], 'removed')).toStrictEqual(['test']);
+  });
+
   it('should return no keys needed for no checked options', () => {
     expect(filterService.handleKeys(filterOptionsNoFilters)).toStrictEqual([]);
   });

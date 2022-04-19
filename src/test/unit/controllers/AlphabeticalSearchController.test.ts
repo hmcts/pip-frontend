@@ -72,22 +72,16 @@ describe('Alphabetical Search Controller', () => {
     });
   });
   describe('post', () => {
+    const response = {
+      redirect: function() {return '';}} as unknown as Response;
+
     it('should render page with body', () => {
-      const response = {
-        render: function() {return '';},
-      } as unknown as Response;
       const request = mockRequest(i18n);
       request.body = {Jurisdiction: 'Manchester'};
 
       const responseMock = sinon.mock(response);
 
-      const expectedData = {
-        ...i18n['alphabetical-search'],
-        courtList: courtList,
-        filterOptions: [],
-      };
-
-      responseMock.expects('render').once().withArgs('alphabetical-search', expectedData);
+      responseMock.expects('redirect').once().withArgs('alphabetical-search?filterValues=Manchester');
 
       return alphabeticalSearchController.post(request, response).then(() => {
         responseMock.verify();
@@ -96,22 +90,12 @@ describe('Alphabetical Search Controller', () => {
 
     it('should render page after switching Region for Location', () => {
       filteredCourtStub.withArgs('testRegion','testJurisdiction').resolves(['switched filter']);
-
-      const response = {
-        render: function() {return '';},
-      } as unknown as Response;
       const request = mockRequest(i18n);
       request.body = {Region: 'Crown'};
 
       const responseMock = sinon.mock(response);
 
-      const expectedData = {
-        ...i18n['alphabetical-search'],
-        courtList: ['switched filter'],
-        filterOptions: [],
-      };
-
-      responseMock.expects('render').once().withArgs('alphabetical-search', expectedData);
+      responseMock.expects('redirect').once().withArgs('alphabetical-search?filterValues=Crown');
 
       return alphabeticalSearchController.post(request, response).then(() => {
         responseMock.verify();
