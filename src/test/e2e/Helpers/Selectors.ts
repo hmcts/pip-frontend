@@ -44,9 +44,9 @@ module.exports = {
   RowSelector: (letter): string => {
     return '#' + letter;
   },
-  FirstItemResult: 'tbody > tr.govuk-table__row > td > a',
-  SecondItemResult: 'tr.govuk-table__row:nth-child(2) > td:nth-child(2) > a:nth-child(1)',
-  LastItemResult: 'tbody > tr.govuk-table__row:last-child > td > a',
+  FirstItemResult: 'dd.alphabetical-search-row:nth-child(2) > a:nth-child(1)',
+  SecondItemResult: 'dd.alphabetical-search-row:nth-child(5) > a:nth-child(1)',
+  LastItemResult: 'dd.alphabetical-search-row:nth-child(8) > a:nth-child(1)',
   SJPLink: '#sjp-link',
   JurisdictionFilter3: '#Jurisdiction-3',
   RegionFilter1: '#Region',
