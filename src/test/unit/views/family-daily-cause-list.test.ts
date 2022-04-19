@@ -13,7 +13,7 @@ const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
 const accordionClass='govuk-accordion__section-button';
 
-const expectedHeader = 'Daily Family Civil Cause list for <br>PRESTON';
+const expectedHeader = 'Daily Family Cause List: PRESTON';
 const summaryHeadingText = 'Important information';
 const accordionHeading = '1, Before: Mr Presiding';
 const applicantRespondent = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
