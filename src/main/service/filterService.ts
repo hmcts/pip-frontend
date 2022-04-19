@@ -23,11 +23,13 @@ export class FilterService {
             }
           });
         } else {
-          finalFilterValueOptions.push(value);
+          if (value) {
+            finalFilterValueOptions.push(value);
+          }
         }
       });
 
-      finalFilterValueOptions.forEach(value => {
+      [...finalFilterValueOptions].sort().forEach(value => {
         filterValueOptions[filter][value] = {
           value: value,
           text: value,
