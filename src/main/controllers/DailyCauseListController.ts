@@ -18,13 +18,14 @@ export default class DailyCauseListController {
       const manipulatedData = publicationService.manipulatedDailyListData(JSON.stringify(searchResults));
 
       const publishedDateTime = Date.parse(searchResults['document']['publicationDate']);
+      const publishedTime = publicationService.publicationTime(searchResults['document']['publicationDate']);
 
       res.render(listToLoad, {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listToLoad]),
         listData: manipulatedData,
         contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: moment(publishedDateTime).format('DD MMMM YYYY'),
-        publishedTime: moment(publishedDateTime).format('ha'),
+        publishedTime: publishedTime,
         provenance: metaData['provenance'],
       });
     } else {

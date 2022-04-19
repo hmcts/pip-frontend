@@ -48,7 +48,7 @@ describe('Daily Cause List Controller', () => {
       listData,
       contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
       publishedDate: moment(Date.parse(listData['document']['publicationDate'])).format('DD MMMM YYYY'),
-      publishedTime: moment(Date.parse(listData['document']['publicationDate'])).format('hha'),
+      publishedTime: '11.30pm',
       provenance: 'prov1',
     };
 
