@@ -1,36 +1,19 @@
 import { Response} from 'express';
 import { FilterService } from '../service/filterService';
-import { CourtService } from '../service/courtService';
 import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 
-const courtService = new CourtService();
 const filterService = new FilterService();
 let keys = [];
 
 export default class CourtNameSearchController {
   public async get(req: PipRequest, res: Response): Promise<void> {
-    let filterValues = filterService.stripFilters(req.query?.filterValues as string);
-    if (req.query['clear']) {
-      filterValues = filterService.handleFilterClear(filterValues, req.query['clear'] as string);
-    } else {
-      filterValues = filterService.stripFilters(req.query?.filterValues as string);
-    }
-
-    const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
-
-    let filters ={};
-    if(filterValues.length > 0) {
-      filters = filterService.findAndSplitFilters(filterValues, filterOptions);
-    }
-
-    const alphabetisedList = filterValues.length == 0 ? await courtService.generateAlphabetisedAllCourtList() :
-      await courtService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']);
+    const initialisedFilter = await filterService.handleFilterInitialisation(req.query?.clear as string, req.query?.filterValues as string);
 
     res.render('court-name-search', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['court-name-search']),
-      courtList: alphabetisedList,
-      filterOptions,
+      courtList: initialisedFilter['alphabetisedList'],
+      filterOptions: initialisedFilter['filterOptions'],
     });
   }
 

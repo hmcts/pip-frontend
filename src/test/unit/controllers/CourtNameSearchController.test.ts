@@ -2,31 +2,17 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import CourtNameSearchController from '../../../main/controllers/CourtNameSearchController';
-import { CourtService } from '../../../main/service/courtService';
 import { FilterService } from '../../../main/service/filterService';
 
-const alphabet = {
-  A: {}, B: {}, C: {}, D: {}, E: {}, F: {}, G: {}, H: {}, I: {}, J: {}, K: {}, L: {}, M: {},
-  N: {}, O: {}, P: {}, Q: {}, R: {}, S: {}, T: {}, U: {}, V: {}, W: {}, X: {}, Y: {}, Z: {},
-};
 const courtNameSearchController = new CourtNameSearchController();
-sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves([]);
-sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList').resolves({});
-sinon.stub(FilterService.prototype, 'handleKeys').returns([]);
-sinon.stub(FilterService.prototype, 'buildFilterValueOptions').returns({});
-sinon.stub(FilterService.prototype, 'splitFilters').returns({'Region':'test','Jurisdiction':'test'});
-sinon.stub(FilterService.prototype, 'findAndSplitFilters').returns({'Region':'test','Jurisdiction':'test'});
+
+sinon.stub(FilterService.prototype, 'handleFilterInitialisation').resolves({alphabetisedList: {}, filterOptions: {}});
 
 describe('Court Name Search Controller', () => {
   const i18n = {
     'court-name-search': {},
   };
   const expectedData = {
-    ...i18n['court-name-search'],
-    filterOptions: {},
-    courtList: alphabet,
-  };
-  const postExpectedData = {
     ...i18n['court-name-search'],
     filterOptions: {},
     courtList: {},
@@ -119,7 +105,7 @@ describe('Court Name Search Controller', () => {
       request.query = {clear: 'crown court', filterValues: 'crown,crown court'};
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('render').once().withArgs('court-name-search', postExpectedData);
+      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
 
       await courtNameSearchController.get(request, response);
       responseMock.verify();

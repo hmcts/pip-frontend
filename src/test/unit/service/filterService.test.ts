@@ -1,11 +1,17 @@
 import {FilterService} from '../../../main/service/filterService';
 import fs from 'fs';
 import path from 'path';
+import {CourtService} from '../../../main/service/courtService';
+import sinon from 'sinon';
 
 const filterService = new FilterService();
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const listData = JSON.parse(rawData);
+
+sinon.stub(CourtService.prototype, 'generateAlphabetisedAllCourtList').resolves(listData);
+sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList').resolves([listData[0]]);
+sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves(listData);
 
 const magsCourt = 'Magistrates\' Court';
 const crownCourt = 'Crown Court';
@@ -105,5 +111,26 @@ describe('Filter Service', () => {
 
   it('should find and return only Jurisdiction', () => {
     expect(filterService.findAndSplitFilters(filterValues, {Jurisdiction: {Tribunal:{value:'Tribunal'}}, Region: ''})).toStrictEqual({Jurisdiction: 'Tribunal', Region: ''});
+  });
+
+  it('should return array from string', () => {
+    expect(filterService.stripFilters('test,filter').length).toEqual(2);
+  });
+
+  it('should return empty array if current filters are yet defined', () => {
+    expect(filterService.stripFilters(null)).toStrictEqual([]);
+  });
+
+  it('should return object for rendering with no clear or filters selected', async () => {
+    expect(await filterService.handleFilterInitialisation(null, null)).toStrictEqual({alphabetisedList: listData, filterOptions: {...filterService.buildFilterValueOptions(listData, [])}});
+  });
+
+  it('should return all courts when clear all has been passed', async () => {
+    expect(await filterService.handleFilterInitialisation('all', null)).toStrictEqual({alphabetisedList: listData, filterOptions: {...filterService.buildFilterValueOptions(listData, [])}});
+  });
+
+  it('should return filtered courts if filters have been selected', async () => {
+    const result = await filterService.handleFilterInitialisation(null, 'Manchester');
+    expect(result['alphabetisedList']).toStrictEqual([listData[0]]);
   });
 });
