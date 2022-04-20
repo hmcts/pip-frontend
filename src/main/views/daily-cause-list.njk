@@ -94,6 +94,7 @@
                         {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHour %}
                       {% endif %}
                     {% endif %}
+
                     {% set durationAsMinutes = 0 %}
                     {% if sitting['durationAsMinutes'] !== 0 %}
                       {% if sitting['durationAsMinutes'] > 1 %}
