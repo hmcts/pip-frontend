@@ -8,17 +8,19 @@ const filterService = new FilterService();
 export default class AlphabeticalSearchController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
+    const screenToRender = req.path.slice(1, req.path.length);
     const initialisedFilter = await filterService.handleFilterInitialisation(req.query?.clear as string, req.query?.filterValues as string);
 
-    res.render('alphabetical-search', {
-      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['alphabetical-search']),
+    res.render(screenToRender, {
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[screenToRender]),
       courtList: initialisedFilter['alphabetisedList'],
       filterOptions: initialisedFilter['filterOptions'],
     });
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
+    const screenToRender = req.path.slice(1, req.path.length);
     const filterValues = filterService.generateFilterKeyValues(req.body);
-    res.redirect('alphabetical-search?filterValues=' + filterValues);
+    res.redirect(`${screenToRender}?filterValues=${filterValues}`);
   }
 }
