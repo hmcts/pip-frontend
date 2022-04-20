@@ -86,18 +86,10 @@ export class PublicationRequests {
     return [];
   }
 
-<<<<<<< HEAD
-  public async getPublicationByCaseValue(searchQuery: string, searchValue: string, verified: boolean): Promise<Artefact[]> {
-    try {
-      const response = await dataManagementApi.get(`/publication/search/${searchQuery}/${searchValue}`,
-        {headers: {verification: verified}});
-      return response.data;
-=======
   public async deletePublication(artefactId: string, email: string): Promise<boolean> {
     try {
       await dataManagementApi.delete(`/publication/${artefactId}`, {headers: {'x-issuer-email': email}});
       return true;
->>>>>>> ee0433bfab0bb2010a1fc5590b617760b5efa50d
     } catch (error) {
       if (error.response) {
         console.log(error.response.data);

@@ -49,15 +49,6 @@ export class CourtService {
   private generateAlphabetisedCourtList(listToAlphabetise: Array<Court>): object {
     const alphabetisedCourtList = CourtService.generateAlphabetObject();
     const sortedCourtsList = this.sortCourtsAlphabetically(listToAlphabetise);
-    const courtToAdd = {
-      courtId: 4,
-      name: 'Old town road',
-      jurisdiction: 'Civil Court',
-      location: 'South East',
-      hearingList: [],
-      hearings: 0,
-    } as Court;
-    sortedCourtsList.push(courtToAdd);
 
     sortedCourtsList.forEach(item => {
       const courtName = item.name;
