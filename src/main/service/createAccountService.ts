@@ -1,4 +1,33 @@
 import { allowedImageTypes } from '../models/consts';
+import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+
+const adminRolesList = [
+  {
+    key: 'super-admin-ctsc',
+    text: 'Internal - Super Administrator - CTSC',
+    mapping: 'INTERNAL_SUPER_ADMIN_CTSC',
+    hint: 'Upload, Remove, Create new accounts, Assess new media requests',
+  },
+  {
+    key: 'super-admin-local',
+    text: 'Internal - Super Administrator - Local',
+    mapping: 'INTERNAL_SUPER_ADMIN_LOCAL',
+    hint: 'Upload, Remove, Create new account',
+  },
+  {
+    key: 'admin-ctsc',
+    text: 'Internal - Administrator - CTSC',
+    mapping: 'INTERNAL_ADMIN_CTSC',
+    hint: 'Upload, Remove, Assess new media request',
+  },
+  {
+    key: 'admin-local',
+    text: 'Internal - Administrator - Local',
+    mapping: 'INTERNAL_ADMIN_LOCAL',
+    hint: 'Upload, Remove',
+  },
+];
+const accountManagementRequests = new AccountManagementRequests();
 
 export class CreateAccountService {
   public validateFormFields(formValues: object): object {
@@ -22,6 +51,46 @@ export class CreateAccountService {
     };
   }
 
+  public validateAdminFormFields(formValues: object): object {
+    return {
+      firstNameError: {
+        message: this.isNotBlank(formValues['firstName']) ? null : 'Enter first name',
+        href: '#firstName',
+      },
+      lastNameError: {
+        message: this.isNotBlank(formValues['lastName']) ? null : 'Enter last name',
+        href: '#lastName',
+      },
+      emailError: {
+        message: this.validateEmail(formValues['emailAddress'], true),
+        href: '#emailAddress',
+      },
+      radioError: {
+        message: formValues['user-role'] ? null : 'Select a role',
+        href: '#user-role',
+      },
+    };
+  }
+
+  public getRoleByKey(key: string): object {
+    return adminRolesList.find(item => item.key === key);
+  }
+
+  public buildRadiosList(checkedRadio = ''): any[] {
+    const radios = [];
+    adminRolesList.forEach((role) => {
+      radios.push({
+        value: role.key,
+        text: role.text,
+        checked: checkedRadio === role.key,
+        hint: {
+          text: role.hint,
+        },
+      });
+    });
+    return radios;
+  }
+
   isValidImageType(imageName: string): boolean {
     const imageType = imageName.split('.')[1]?.toLocaleLowerCase();
     return allowedImageTypes.includes(imageType);
@@ -36,14 +105,14 @@ export class CreateAccountService {
     return emailRegex.test(email);
   }
 
-  validateEmail(email: string): string {
+  validateEmail(email: string, isAdmin = false): string {
     let message = null;
     if (this.isNotBlank(email)) {
       if (!this.isValidEmail(email)) {
         message = 'Enter an email address in the correct format, like name@example.com';
       }
     } else {
-      message = 'Enter your email address';
+      message = isAdmin ? 'Enter email address' : 'Enter your email address';
     }
     return message;
   }
@@ -58,5 +127,33 @@ export class CreateAccountService {
       message = 'Select a file to upload';
     }
     return message;
+  }
+
+  formatCreateAdminAccountPayload(accountObject): any[] {
+    return [{
+      email: accountObject.emailAddress,
+      firstName: accountObject.firstName,
+      surname: accountObject.lastName,
+      role: accountObject.userRoleObject.mapping,
+    }];
+  }
+
+  formatCreateAccountPIPayload(azureAccount): any[] {
+    return [{
+      email: azureAccount.email,
+      provenanceUserId: azureAccount.azureAccountId,
+      roles: azureAccount.role,
+      userProvenance: 'PI_AAD',
+    }];
+  }
+
+  public async createAdminAccount(payload: object, requester: string): Promise<boolean> {
+    const azureResponse = await accountManagementRequests.createAzureAccount(
+      this.formatCreateAdminAccountPayload(payload), requester);
+    if (azureResponse?.['CREATED_ACCOUNTS'][0]) {
+      return await accountManagementRequests.createPIAccount(
+        this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]), requester);
+    }
+    return false;
   }
 }

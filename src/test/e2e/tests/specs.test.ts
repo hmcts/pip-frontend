@@ -7,6 +7,8 @@ import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.
 import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
 import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
 import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
+import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
+import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
 import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
 import { DailyCauseListPage } from '../PageObjects/DailyCauseList.page';
 import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
@@ -69,6 +71,8 @@ let accountHomePage: AccountHomePage;
 let dailyCauseListPage: DailyCauseListPage;
 let sjpPublicListPage: SJPPublicListPage;
 let signInPage: SignInPage;
+let createAdminAccountPage: CreateAdminAccountPage;
+let createAdminAccountSummaryPage: CreateAdminAccountSummaryPage;
 let searchPublicationPage: RemoveListSearchPage;
 let searchPublicationResultsPage: RemoveListSearchResultsPage;
 let publicationConfirmationPage: RemoveListConfirmationPage;
@@ -449,7 +453,33 @@ describe('Verified user', () => {
       });
     });
 
-    describe('Manual Removal', () => {
+    describe('Create new account', () => {
+      it('should open admin dashboard page', async () => {
+        await adminDashboard.open('/admin-dashboard');
+        expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+      });
+
+      it('should click on the create new account card', async () => {
+        createAdminAccountPage = await adminDashboard.clickCreateNewAccountCard();
+        expect(await createAdminAccountPage.getPageTitle()).toEqual('Create admin account');
+      });
+
+      it('should complete form and open summary page', async () => {
+        await createAdminAccountPage.completeForm();
+        createAdminAccountSummaryPage = await createAdminAccountPage.clickContinue();
+        expect(await createAdminAccountSummaryPage.getPageTitle()).toEqual('Check account details');
+      });
+
+      //TODO: enable once PUB-1098 is merged into staging
+      if (process.env.EXCLUDE_E2E === 'true') {
+        it('should click confirm and create user account', async () => {
+          createAdminAccountSummaryPage = await createAdminAccountSummaryPage.clickConfirm();
+          expect(await createAdminAccountSummaryPage.getPanelTitle()).toEqual('Account has been created');
+        });
+      }
+    });
+
+>    describe('Manual Removal', () => {
       it('should open remove publication search page', async () => {
         await adminDashboard.open('/admin-dashboard');
         searchPublicationPage = await adminDashboard.clickRemoveCard();

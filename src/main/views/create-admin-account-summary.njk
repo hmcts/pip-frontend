@@ -1,0 +1,127 @@
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import goBack, submitButton, successPanel %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+{% block content %}
+    {% if displayError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.message,
+                    href: "#"
+                }
+            ]
+        }) }}
+    {% endif %}
+    {% if accountCreated %}
+        {{ successPanel(panelTitle) }}
+    {% else %}
+        <h1 class="govuk-heading-l">{{ header }}</h1>
+    {% endif %}
+    <form method="post" action="create-admin-account-summary">
+        {{ govukSummaryList({
+            rows: [
+                {
+                    key: {
+                        text: firstNameKey
+                    },
+                    value: {
+                        text: formData.firstName
+                    },
+                    actions: {
+                        items: [
+                            {
+                                href: "create-admin-account#firstName",
+                                text: actionName,
+                                visuallyHiddenText: firstNameKey
+                            }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                        text: lastNameKey
+                    },
+                    value: {
+                        text: formData.lastName
+                    },
+                    actions: {
+                        items: [
+                            {
+                                href: "create-admin-account#lastName",
+                                text: actionName,
+                                visuallyHiddenText: lastNameKey
+                            }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                        text: emailAddressKey
+                    },
+                    value: {
+                        text: formData.emailAddress
+                    },
+                    actions: {
+                        items: [
+                            {
+                                href: "create-admin-account#emailAddress",
+                                text: actionName,
+                                visuallyHiddenText: emailAddressKey
+                            }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                        text: userRoleKey
+                    },
+                    value: {
+                        text: formData.userRoleObject.text
+                    },
+                    actions: {
+                        items: [
+                            {
+                                href: "create-admin-account#user-role",
+                                text: actionName,
+                                visuallyHiddenText: userRoleKey
+                            }
+                        ]
+                    }
+                }
+            ]
+        }) }}
+        {% if not accountCreated %}
+            {{ submitButton(confirmButton) }}
+        {% endif %}
+    </form>
+    {% if accountCreated %}
+        <h2 class="govuk-heading-m"> {{ whatNextTitle }}</h2>
+        <p class="govuk-body"> {{ whatNextMessage }}</p>
+    {% endif %}
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    <script>
+      if ({{ accountCreated }}) {
+        const actions = document.getElementsByClassName('govuk-summary-list__actions');
+        for(let i = 0; i < actions.length; i++) {
+          console.log('i', i);
+          actions[i].style.display = 'none';
+        }
+      }
+
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+    </script>
+{% endblock %}
