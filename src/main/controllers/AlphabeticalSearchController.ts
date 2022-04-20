@@ -5,8 +5,6 @@ import {FilterService} from '../service/filterService';
 
 const filterService = new FilterService();
 
-let keys = [];
-
 export default class AlphabeticalSearchController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -20,14 +18,7 @@ export default class AlphabeticalSearchController {
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
-    let filterValues = [];
-    const body = req.body;
-    keys = Object.keys(body);
-
-    const values = [];
-    keys.forEach(key => values.push(body[key]));
-    filterValues = Array.prototype.concat.apply([], values);
-
+    const filterValues = filterService.generateFilterKeyValues(req.body);
     res.redirect('alphabetical-search?filterValues=' + filterValues);
   }
 }

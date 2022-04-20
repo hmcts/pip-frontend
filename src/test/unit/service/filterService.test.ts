@@ -133,4 +133,14 @@ describe('Filter Service', () => {
     const result = await filterService.handleFilterInitialisation(null, 'Manchester');
     expect(result['alphabetisedList']).toStrictEqual([listData[0]]);
   });
+
+  it('should return filter values from a key', () => {
+    const body = {jurisdiction: ['test', 'val']} as unknown as string;
+    expect(filterService.generateFilterKeyValues(body)).toStrictEqual(['test', 'val']);
+  });
+
+  it('should return filter values from keys', () => {
+    const body = {jurisdiction: ['test', 'val'], region: ['newTest']} as unknown as string;
+    expect(filterService.generateFilterKeyValues(body)).toStrictEqual(['test', 'val', 'newTest']);
+  });
 });

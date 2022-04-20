@@ -138,4 +138,16 @@ export class FilterService {
       filterOptions: filterOptions,
     };
   }
+
+  public generateFilterKeyValues(body: string): object {
+    let keys = [];
+    let filterValues = [];
+    keys = Object.keys(body);
+
+    const values = [];
+    keys.forEach(key => values.push(body[key]));
+    filterValues = Array.prototype.concat.apply([], values);
+
+    return filterValues;
+  }
 }
