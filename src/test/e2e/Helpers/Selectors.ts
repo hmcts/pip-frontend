@@ -48,7 +48,7 @@ module.exports = {
   SecondItemResult: 'dd.alphabetical-search-row:nth-child(5) > a:nth-child(1)',
   LastItemResult: 'dd.alphabetical-search-row:nth-child(8) > a:nth-child(1)',
   SJPLink: '#sjp-link',
-  JurisdictionFilter3: '#Jurisdiction-3',
+  JurisdictionFilter1: '#Jurisdiction',
   RegionFilter1: '#Region',
   RegionFilter2: '#Region-2',
 
@@ -111,6 +111,7 @@ module.exports = {
 
   // UnsubscribeConfirmation selectors
   panelTitle: '.govuk-panel__title',
+  panelHome: '.govuk-link=Home',
 
   // Admin selectors
   fileUpload: '#manual-file-upload',
@@ -131,6 +132,7 @@ module.exports = {
   UploadFile: '#card-manual-upload',
   RemoveContent: '#card-remove-list-search',
   ManageMediaAccounts: '#manage-media-accounts',
+  CreateAdminAccount: '#card-create-admin-account',
 
   // CreateMediaAccount selectors
   UploadImage: '#file-upload',
@@ -157,4 +159,11 @@ module.exports = {
   SignedInBannerFindCourt: '.moj-sub-navigation__item:nth-child(3)',
   SignedInBannerSJP: '.moj-sub-navigation__item:nth-child(4)',
   SignedInBannerSignOut: '.moj-sub-navigation__item:nth-child(5)',
+
+  // CreateAdminAccount selectors
+  FirstNameInput: '#firstName',
+  LastNameInput: '#lastName',
+  UserRoleRadio: '#user-role',
+
+  // RemoveListSearch selectors
 };

@@ -133,7 +133,18 @@ function testAccessibility(url: string): void {
 describe('Accessibility',  () => {
   sinon.stub(expressRequest, 'isAuthenticated').returns(true);
   app.request['user'] = {oid: '1', emails: ['joe@bloggs.com']};
-  app.request['cookies'] = {'formCookie': JSON.stringify({'foo': 'blah', listType: '', listTypeName: ''})};
+  app.request['cookies'] = {
+    'formCookie': JSON.stringify({'foo': 'blah', listType: '', listTypeName: ''}),
+    'createAdminAccount': JSON.stringify({
+      'user-role' : 'admin-ctsc',
+      userRoleObject: {
+        key:'admin-ctsc',
+        text:'Internal - Administrator - CTSC',
+        mapping:'INTERNAL_ADMIN_CTSC',
+      },
+    }),
+  };
+  
   readRoutes().forEach(route => {
     testAccessibility(route);
   });
