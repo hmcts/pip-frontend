@@ -51,6 +51,10 @@ const stubCourtPubs = sinon.stub(publicationRequests, 'getPublicationsByCourt');
 stubCourtPubs.withArgs('1', true, false).resolves(returnedArtefact);
 stubCourtPubs.withArgs('2', true, false).resolves([]);
 
+const stubCourtPubs = sinon.stub(publicationRequests, 'getPublicationsByCourt');
+stubCourtPubs.withArgs('1', true, false).resolves(returnedArtefact);
+stubCourtPubs.withArgs('2', true, false).resolves([]);
+
 const validCourtName = 'PRESTON';
 const invalidCourtName = 'TEST';
 

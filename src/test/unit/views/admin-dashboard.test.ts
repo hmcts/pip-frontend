@@ -24,7 +24,7 @@ const cards = [
   {
     title: 'Create new account',
     description: 'Create accounts for: System Admin, CTSC Super Admin, Local Super Admin, CTSC Admin, Local Admin.',
-    link: '#',
+    link: 'create-admin-account',
   },
 ];
 let htmlRes: Document;

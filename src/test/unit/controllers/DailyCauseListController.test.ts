@@ -32,7 +32,6 @@ const i18n = {
 };
 
 describe('Daily Cause List Controller', () => {
-
   const response = { render: () => {return '';}} as unknown as Response;
   const request = mockRequest(i18n);
   request.path = '/daily-cause-list';
