@@ -479,7 +479,7 @@ describe('Verified user', () => {
       }
     });
 
->    describe('Manual Removal', () => {
+    describe('Manual Removal', () => {
       it('should open remove publication search page', async () => {
         await adminDashboard.open('/admin-dashboard');
         searchPublicationPage = await adminDashboard.clickRemoveCard();
