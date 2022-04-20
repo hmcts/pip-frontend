@@ -6,7 +6,6 @@ import os from 'os';
 import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 
-const { Logger } = require('@hmcts/nodejs-logging');
 const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
@@ -20,7 +19,7 @@ export default function(app: Application): void {
   logger.info('authType', authType);
   const storage = multer.diskStorage({
     destination: 'manualUpload/tmp/',
-    filename: function (req, file, callback) {
+    filename: function (_req, file, callback) {
       callback(null, file.originalname);
     },
     limits: {
@@ -55,7 +54,7 @@ export default function(app: Application): void {
     next();
   }
 
-  function logOut(req, res): void{
+  function logOut(_req, res): void{
     res.clearCookie('session');
     logger.info('logout FE URL', FRONTEND_URL);
     const B2C_URL = 'https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/';
@@ -91,7 +90,7 @@ export default function(app: Application): void {
   app.get('/interstitial', app.locals.container.cradle.interstitialController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
   app.post('/login/return', passport.authenticate(authType, { failureRedirect: '/view-option'}),
-    (req, res) => {res.redirect('/account-home');});
+    (_req, res) => {res.redirect('/account-home');});
   app.get('/logout', logOut);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
@@ -118,11 +117,19 @@ export default function(app: Application): void {
   app.get('/case-reference-number-search-results', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
   app.get('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.get);
   app.post('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.post);
+  app.get('/create-admin-account', ensureAuthenticated, app.locals.container.cradle.createAdminAccountController.get);
+  app.post('/create-admin-account', ensureAuthenticated, app.locals.container.cradle.createAdminAccountController.post);
+  app.get('/create-admin-account-summary', ensureAuthenticated, app.locals.container.cradle.createAdminAccountSummaryController.get);
+  app.post('/create-admin-account-summary', ensureAuthenticated, app.locals.container.cradle.createAdminAccountSummaryController.post);
   app.get('/delete-subscription', ensureAuthenticated, app.locals.container.cradle.deleteSubscriptionController.get);
   app.get('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.get);
   app.post('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.post);
+  app.get('/remove-list-confirmation', ensureAuthenticated, app.locals.container.cradle.removeListConfirmationController.get);
+  app.post('/remove-list-confirmation', ensureAuthenticated, app.locals.container.cradle.removeListConfirmationController.post);
   app.get('/remove-list-search', ensureAuthenticated, app.locals.container.cradle.removeListSearchController.get);
   app.post('/remove-list-search', ensureAuthenticated, app.locals.container.cradle.removeListSearchController.post);
+  app.get('/remove-list-search-results', ensureAuthenticated, app.locals.container.cradle.removeListSearchResultsController.get);
+  app.get('/remove-list-success', ensureAuthenticated, app.locals.container.cradle.removeListSuccessController.get);
   app.get('/remove-subscription', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.removeSubscription);
   app.get('/sjp-press-list', ensureAuthenticated, app.locals.container.cradle.sjpPressListController.get);
   app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
@@ -152,7 +159,7 @@ export default function(app: Application): void {
     },
   }));
 
-  app.get('/robots.txt', function (req, res) {
+  app.get('/robots.txt', function (_req, res) {
     res.type('text/plain');
     res.send('User-agent: *\nDisallow: /');
   });
@@ -161,7 +168,7 @@ export default function(app: Application): void {
   app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
   /* istanbul ignore next */
   app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
-    (req, res) => {res.redirect('/subscription-management');});
+    (_req, res) => {res.redirect('/subscription-management');});
 
   //TODO: To be deleted/modified post UAT with suitable solution
   app.get('/warned-list', app.locals.container.cradle.warnedListController.get);

@@ -10,20 +10,20 @@
 {% endblock %}
 {% block content %}
   <div class="parent-box">
-  <h1 class="govuk-heading-xl">{{ title }}</h1>
-  <form method="post" enctype="multipart/form-data">
-    {% set fileErrorMessage = {text: errors.fileErrors} if errors.fileErrors else false %}
-    <div class="govuk-inset-text">
-      {{ govukFileUpload({
-        id: "manual-file-upload",
-        name: "manual-file-upload",
-        accept: ".json,.csv,.doc,.docx,.htm,.html",
-        label: {
-          text: fileUploadText
-        },
-        errorMessage: fileErrorMessage
-      }) }}
-    </div>
+    <h1 class="govuk-heading-xl">{{ title }}</h1>
+    <form method="post" enctype="multipart/form-data">
+      {% set fileErrorMessage = {text: errors.fileErrors} if errors.fileErrors else false %}
+      <div class="govuk-inset-text">
+        {{ govukFileUpload({
+          id: "manual-file-upload",
+          name: "manual-file-upload",
+          accept: ".json,.csv,.doc,.docx,.htm,.html",
+          label: {
+            text: fileUploadText
+          },
+          errorMessage: fileErrorMessage
+        }) }}
+      </div>
 
       {% set courtFormGroupError = 'govuk-form-group--error' if errors.formErrors.courtError else 'govuk-form-group' %}
       {% set inputError = 'govuk-input--error' if errors.formErrors.courtError else '' %}
@@ -260,7 +260,6 @@
     {% set populatedDisplayDateToDay = formData['display-date-to-day'] if formData['display-date-to-day'] else '' %}
     {% set populatedDisplayDateToMonth = formData['display-date-to-month'] if formData['display-date-to-month'] else '' %}
     {% set populatedDisplayDateToYear = formData['display-date-to-year'] if formData['display-date-to-year'] else '' %}
-
 
     document.getElementById('listType').value = {{ populatedListType | dump | safe }};
     document.getElementById('content-date-from-day').value = {{ populatedContentDateFromDay | dump | safe }};

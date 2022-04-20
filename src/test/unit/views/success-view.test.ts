@@ -33,8 +33,8 @@ describe('File Upload Confirmation Page', () => {
     expect(links[0].innerHTML).to.equal('Upload another file');
     expect(links[0].getAttribute('href')).contains('manual-upload');
     expect(links[1].innerHTML).to.equal('Remove file');
-    expect(links[1].getAttribute('href')).contains('#');
+    expect(links[1].getAttribute('href')).contains('remove-list-search');
     expect(links[2].innerHTML).to.equal('Home');
-    expect(links[2].getAttribute('href')).contains('#');
+    expect(links[2].getAttribute('href')).contains('admin-dashboard');
   });
 });

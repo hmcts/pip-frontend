@@ -13,6 +13,8 @@ export interface PipRequest extends Request {
       'case-reference-number-search-results': {};
       'cookie-policy': {};
       'court-name-search': {};
+      'create-admin-account': {};
+      'create-admin-account-summary': {};
       'create-media-account': {};
       'delete-subscription': {};
       'error': {};
@@ -27,7 +29,10 @@ export interface PipRequest extends Request {
       'manual-upload-summary': {};
       'not-found': {};
       'otp-template': {};
+      'remove-list-confirmation': {};
       'remove-list-search': {};
+      'remove-list-search-results': {};
+      'remove-list-success': {};
       'search': {};
       'search-results': {};
       'session-management': {};
