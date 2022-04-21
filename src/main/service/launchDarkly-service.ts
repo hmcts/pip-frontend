@@ -3,7 +3,7 @@ import config = require('config');
 import _ from 'lodash';
 
 const LaunchDarkly = require('launchdarkly-node-server-sdk');
-const ldKey: string = config.get('secrets.pip-ss-kv.LD_KEY') as string;
+const ldKey: string = process.env.LD_KEY || config.get('secrets.pip-ss-kv.LD_KEY') as string;
 const ldClient = LaunchDarkly.init(ldKey);
 const logger = Logger.getLogger('LaunchDarklyService');
 interface LaunchDarklyIService {
