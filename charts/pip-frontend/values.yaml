@@ -1,7 +1,7 @@
 nodejs:
   applicationPort: 8080
   ingressHost: pip-frontend.{{ .Values.global.environment }}.platform.hmcts.net
-  image: 'sdshmctspublic.azurecr.io/pip/frontend:latest'  
+  image: 'sdshmctspublic.azurecr.io/pip/frontend:latest'
   startupPeriod: 30
   startupFailureThreshold: 10
   environment:
@@ -17,7 +17,7 @@ nodejs:
           alias: CLIENT_ID
         - name: otp-app-pip-frontend-pwd
           alias: CLIENT_SECRET
-        - name: aad-tenant-id
+        - name: b2c-tenant-id
           alias: TENANT_GUID
         - name: shared-storageaccount-connection-string
           alias: CONNECTION_STRING
@@ -31,5 +31,6 @@ nodejs:
           alias: AAD_AUTH_ENDPOINT
         - name: ld-key
           alias: LD_KEY
+        - name: b2c-auth-endpoint
+          alias: B2C_AUTH_ENDPOINT
   aadIdentityName: pip
-

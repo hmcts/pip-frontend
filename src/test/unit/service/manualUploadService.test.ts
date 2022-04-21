@@ -45,6 +45,20 @@ const validFileCase = multerFile('testFile.HtMl', 1000);
 const largeFile = multerFile('testFile.pdf', 3000000);
 const invalidFileType = multerFile('testFile.xyz', 1000);
 const nofileType = multerFile('testFile', 1000);
+const validRemoveListInput = [{
+  listType: 'SJP_PUBLIC_LIST',
+  displayFrom: '2022-02-08T12:26:42.908',
+  displayTo: '2024-02-08T12:26:42.908',
+}];
+const expectedRemoveList = [
+  {
+    listType: 'SJP_PUBLIC_LIST',
+    displayFrom: '2022-02-08T12:26:42.908',
+    displayTo: '2024-02-08T12:26:42.908',
+    listTypeName: 'SJP Public List',
+    dateRange: '8 Feb 2022 to 8 Feb 2024',
+  },
+];
 
 sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves(courtData);
 sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(true);
@@ -214,5 +228,17 @@ describe('Manual upload service', () => {
 
   it('should return court id and name as object', async () => {
     expect(await manualUploadService.appendCourtId('validCourt')).to.deep.equal({courtName: 'validCourt', courtId: 1});
+  });
+
+  describe('formatting list removal', () => {
+    it('should return empty list if input is empty list', () => {
+      const list = manualUploadService.formatListRemovalValues([]);
+      expect(list).to.deep.equal([]);
+    });
+
+    it('should return formatted list for a valid input list', () => {
+      const list = manualUploadService.formatListRemovalValues(validRemoveListInput);
+      expect(list).to.deep.equal(expectedRemoveList);
+    });
   });
 });
