@@ -1,6 +1,5 @@
 {
-  "title": "Subscription Management",
-  "header": "Your subscriptions",
+  "title": "Your subscriptions",
   "newButton": "Add new subscription",
   "subNavigation": {
     "header1": "All subscriptions (",

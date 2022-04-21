@@ -36,7 +36,7 @@ To use this strategy, set the 'OIDC' environment variable to 'true' when startin
 
 Alternatively, users can use the Custom Strategy which is the default. Rather than integrating with Azure, user will
 need to set up mocked user via mock-session screens. See the Authentication.ts file for details on how this
-is done.
+is done
 
 Here is a list of environment variables needed to launch the app:
 
@@ -54,7 +54,7 @@ $ (Linux) export CLIENT_SECRET=<VALUE_GOES_HERE>
 $ (Windows) set CLIENT_SECRET<VALUE_GOES_HERE>
 ```
 
-or, in intellij you can pass them in the Run Configuration
+or, in intellij you can pass them in the Run Configuration.
 
 ### Running the application
 
@@ -78,7 +78,7 @@ $ docker run -d -p 6379:6379 redis
 Run:
 
 ```bash
-$ yarn start 
+$ yarn start
 ```
 
 or Run Dev mode:
