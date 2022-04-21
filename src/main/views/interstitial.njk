@@ -2,6 +2,7 @@
 {% from "macros/common-components.njk" import goBack %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% set toggle = toggleOFS %}
 
 {% block pageTitle %}
     {{ title }}
@@ -19,7 +20,9 @@
         {% endfor %}
     </ul>
     <p class="govuk-body">{{ moreMessage }}</p>
-    <p class="govuk-body">{{ legalMessage }} <a href="sign-in">{{ signInLink }}</a>.</p>
+    {% if toggle == false %}
+        <p class="govuk-body">{{ legalMessage }} <a href="sign-in">{{ signInLink }}</a>.</p>
+    {% endif %}
     {% if currentLanguage === 'en' %}
         {% set inset = '<p class="govuk-body">'+ welshMessage + '<a href="?lng=cy"> '+ languageLink + '</a>.</p>' %}
     {% else %}
