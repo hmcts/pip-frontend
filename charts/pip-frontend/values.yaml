@@ -29,5 +29,7 @@ nodejs:
           alias: REDIS_PORT
         - name: aad-auth-endpoint
           alias: AAD_AUTH_ENDPOINT
+        - name: ld-key
+          alias: LD_KEY
   aadIdentityName: pip
 
