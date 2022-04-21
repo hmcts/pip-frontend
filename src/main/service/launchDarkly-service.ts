@@ -5,12 +5,12 @@ const LaunchDarkly = require('launchdarkly-node-server-sdk');
 const ldKey: string = config.get('secrets.pip-ss-kv.LD_KEY') as string;
 const ldClient = LaunchDarkly.init(ldKey);
 
-interface ILaunchDarklyService {
+interface LaunchDarklyIService {
   getVariation: ( flag: string, defaultReturn: boolean) => {};
 }
-export default class LaunchDarklyService implements ILaunchDarklyService {
+export default class LaunchDarklyService implements LaunchDarklyIService {
   private static instance: LaunchDarklyService;
- // private initialization;
+
   public static getInstance(): LaunchDarklyService {
     if (!LaunchDarklyService.instance) {
       LaunchDarklyService.instance = new LaunchDarklyService();

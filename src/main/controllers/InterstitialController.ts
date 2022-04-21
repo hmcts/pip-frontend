@@ -10,7 +10,7 @@ export default class InterstitialController {
     res.render('interstitial', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng).interstitial),
       currentLanguage,
-      toggleOFS: toggleOFS
+      toggleOFS: toggleOFS,
     });
   }
 }
