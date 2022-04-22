@@ -1,11 +1,9 @@
-import { Logger } from '@hmcts/nodejs-logging';
 import config = require('config');
 import _ from 'lodash';
 
 const LaunchDarkly = require('launchdarkly-node-server-sdk');
 const ldKey: string = process.env.LD_KEY || config.get('secrets.pip-ss-kv.LD_KEY') as string;
 const ldClient = LaunchDarkly.init(ldKey);
-const logger = Logger.getLogger('LaunchDarklyService');
 interface LaunchDarklyIService {
   getVariation: ( flag: string, defaultReturn: boolean) => {};
 }
@@ -20,7 +18,6 @@ export default class LaunchDarklyService implements LaunchDarklyIService {
   }
 
   constructor() {
-    logger.info('secret', ldKey ? ldKey.substring(0,5) : 'client secret not set!' );
     this.init();
   }
 
