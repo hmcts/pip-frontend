@@ -36,7 +36,7 @@ To use this strategy, set the 'OIDC' environment variable to 'true' when startin
 
 Alternatively, users can use the Custom Strategy which is the default. Rather than integrating with Azure, user will
 need to set up mocked user via mock-session screens. See the Authentication.ts file for details on how this
-is done.
+is done
 
 Here is a list of environment variables needed to launch the app:
 
