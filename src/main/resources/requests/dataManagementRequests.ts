@@ -6,7 +6,7 @@ export class DataManagementRequests {
   public dataManagementAPI = process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net';
 
   public async uploadPublication(body: any, headers: object): Promise<boolean> {
-    const token = await getDataManagementCredentials()
+    const token = await getDataManagementCredentials();
 
     try {
       await superagent.post(`${this.dataManagementAPI}/publication`)
