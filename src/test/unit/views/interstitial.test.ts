@@ -40,11 +40,6 @@ const footerLinks = [
 ];
 const pageHeader = 'Court and tribunal hearings';
 
-// const acceptCookie = {
-//   essential: true,
-//   analytics: true,
-// };
-
 describe('Interstitial page', () => {
   describe('with English translations', () => {
     beforeAll(async () => {
