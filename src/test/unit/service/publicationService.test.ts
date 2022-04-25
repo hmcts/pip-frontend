@@ -104,7 +104,7 @@ describe('Publication service', () => {
 
     it('should calculate start time of Hearing in cause list object', async () => {
       await publicationService.calculateHearingSessionTime(dailyCauseListData);
-      expect(dailyCauseListData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal('9.40am');
+      expect(dailyCauseListData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['time']).to.equal('09:00');
     });
   });
 
@@ -138,6 +138,13 @@ describe('Publication service', () => {
     });
   });
 
+  describe('publicationTime Publication Service', () => {
+    it('should return Publication Time List', async () => {
+      const data = await publicationService.publicationTime(dailyCauseListData['document']['publicationDate']);
+      expect(data).to.equal('11.30pm');
+    });
+  });
+
   describe('getPublicationsByCourt Publication Service', () => {
     it('should return artefact for a valid call', async () => {
       const data = await publicationService.getPublicationsByCourt('1', true);
@@ -147,6 +154,5 @@ describe('Publication service', () => {
       const data = await publicationService.getPublicationsByCourt('2', true);
       expect(data).to.deep.equal([]);
     });
-
   });
 });
