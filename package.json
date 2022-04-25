@@ -62,6 +62,7 @@
     "i18next-http-middleware": "^3.1.1",
     "ioredis": "^4.28.0",
     "jquery": "^3.5.1",
+    "launchdarkly-node-server-sdk": "^5.14.6",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "multer": "^1.4.4",
