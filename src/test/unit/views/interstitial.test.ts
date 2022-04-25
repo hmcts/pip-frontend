@@ -211,5 +211,5 @@ describe('Cookie banner display', () => {
   it('should show post button click message', () => {
     const acceptedMessage = htmlRes.getElementById('accept-message');
     expect(acceptedMessage.innerHTML).contains('You’ve accepted analytics cookies');
-  })
+  });
 });
