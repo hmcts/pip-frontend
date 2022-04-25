@@ -10,6 +10,16 @@
 {% endblock %}
 {% block content %}
   <div class="parent-box">
+    <div class="govuk-callout">
+      <h1 class="govuk-heading-m">Warning</h1>
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true" style="margin-top:5px;">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-warning-text__assistive">Warning</span>
+          Prior to upload you must ensure the file is suitable for publication e.g. redaction of personal data has been done during the production of this file.
+        </strong>
+      </div>
+    </div>
     <h1 class="govuk-heading-xl">{{ title }}</h1>
     <form method="post" enctype="multipart/form-data">
       {% set fileErrorMessage = {text: errors.fileErrors} if errors.fileErrors else false %}
