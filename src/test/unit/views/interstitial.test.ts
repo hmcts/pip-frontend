@@ -40,12 +40,18 @@ const footerLinks = [
 ];
 const pageHeader = 'Court and tribunal hearings';
 
+// const acceptCookie = {
+//   essential: true,
+//   analytics: true,
+// };
+
 describe('Interstitial page', () => {
   describe('with English translations', () => {
     beforeAll(async () => {
       app.request['lng'] = 'en';
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
       });
     });
 
@@ -145,6 +151,7 @@ describe('Interstitial page', () => {
       app.request['lng'] = 'cy';
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
       });
     });
 
@@ -164,4 +171,45 @@ describe('Interstitial page', () => {
         'Could not find language message');
     });
   });
+});
+describe('Cookie banner display', () => {
+  const cookieBody1 = 'We use some essential cookies to make this service work.';
+  const cookieBody2 = 'We’d also like to use analytics cookies so we can understand how you use the service and make improvements.';
+
+  beforeAll(async () => {
+    await request(app).get(PAGE_URL).then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+    });
+  });
+
+  it('should display cookie banner on empty cookie policy cookie', () => {
+    const cookieBanner = htmlRes.getElementById('cookie-banner-message');
+    expect(cookieBanner.innerHTML).contains('Cookies on Court and tribunal hearings', 'Could not find cookie header');
+  });
+
+  it('should display cookie body', () => {
+    const cookieBanner = htmlRes.getElementById('cookie-banner-message');
+    expect(cookieBanner.innerHTML).contains(cookieBody1, 'Could not find cookie body');
+    expect(cookieBanner.innerHTML).contains(cookieBody2, 'Could not find cookie body');
+  });
+
+  it('should display accept cookie button', () => {
+    const acceptButton = htmlRes.getElementById('cookie-accept-analytics');
+    expect(acceptButton.innerHTML).contains('Accept analytics cookies');
+  });
+
+  it('should display reject cookie button', () => {
+    const rejectButton = htmlRes.getElementById('cookie-reject-analytics');
+    expect(rejectButton.innerHTML).contains('Reject analytics cookies');
+  });
+
+  it('should have the view cookies link', () => {
+    const viewCookies = htmlRes.getElementsByTagName('a')[0];
+    expect(viewCookies.getAttribute('href')).to.equal('/cookie-policy');
+  });
+
+  it('should show post button click message', () => {
+    const acceptedMessage = htmlRes.getElementById('accept-message');
+    expect(acceptedMessage.innerHTML).contains('You’ve accepted analytics cookies');
+  })
 });

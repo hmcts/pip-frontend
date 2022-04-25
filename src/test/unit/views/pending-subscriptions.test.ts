@@ -43,6 +43,7 @@ describe('Pending Subscriptions Page', () => {
       app.request['user'] = {oid: '1'};
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
       });
     });
 
@@ -113,6 +114,7 @@ describe('Pending Subscriptions Page', () => {
       app.request['user'] = {oid: '2'};
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
       });
     });
 
@@ -139,6 +141,7 @@ describe('Pending Subscriptions Page', () => {
       app.request['user'] = {oid: '2'};
       await request(app).get(`${PAGE_URL}?no-subscriptions=true`).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
       });
     });
 

@@ -56,6 +56,7 @@ describe('Manual upload page', () => {
     beforeAll(async () => {
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
         formElements = htmlRes.getElementById('form-wrapper');
       });
     });
@@ -119,6 +120,7 @@ describe('Manual upload page', () => {
       };
       await request(app).post(PAGE_URL).send(mockBodyData).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
         formElements = htmlRes.getElementById('form-wrapper');
       });
     });
