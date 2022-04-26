@@ -86,6 +86,7 @@ export default function(app: Application): void {
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
   app.post('/create-media-account', app.locals.container.cradle.createMediaAccountController.post);
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
+  app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/interstitial', app.locals.container.cradle.interstitialController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);

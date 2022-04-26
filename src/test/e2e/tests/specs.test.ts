@@ -485,6 +485,7 @@ describe('Verified user', () => {
         searchPublicationPage = await adminDashboard.clickRemoveCard();
         expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
       });
+
       it('should enter valid court in the search field, click continue and open search results page', async () => {
         const searchTerm = 'Milton Keynes County Court and Family Court';
         await searchPublicationPage.enterText(searchTerm);
