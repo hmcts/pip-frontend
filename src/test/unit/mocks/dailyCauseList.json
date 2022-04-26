@@ -28,8 +28,7 @@
               {
                 "sessionStartTime": "",
                 "sessionChannel": [
-                  "VIDEO HEARING",
-                  ""
+                  "VIDEO HEARING"
                 ],
                 "judiciary": [
                   {
@@ -40,6 +39,35 @@
                 "sittings": [
                   {
                     "sittingStart": "2022-01-27T09:40:17.496185",
+                    "sittingEnd": "2022-01-27T10:45:17.496185",
+                    "hearing": [
+                      {
+                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                        "case": [
+                          {
+                            "caseName": "A1 Vs B1",
+                            "caseNumber": "12345678",
+                            "caseSequenceIndicator": "[2 of 3]"
+                          }
+                        ]
+                      },
+                      {
+                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                        "case": [
+                          {
+                            "caseName": "A2 Vs B2",
+                            "caseNumber": "112233445"
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      "Remote",
+                      "Teams"
+                    ]
+                  },
+                  {
+                    "sittingStart": "2022-01-27T08:05:17.496185",
                     "sittingEnd": "2022-01-27T10:45:17.496185",
                     "hearing": [
                       {
@@ -60,8 +88,6 @@
                           }
                         ]
                       }
-                    ],
-                    "channel": [
                     ],
                     "duration": "",
                     "startTime": "9.40am",

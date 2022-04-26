@@ -91,7 +91,7 @@ export class PublicationService {
 
   private findAndConcatenateHearingPlatform(sitting: object, session: object): void {
     let caseHearingChannel = '';
-    if(sitting['channel'].length > 0) {
+    if(sitting['channel']?.length > 0) {
       caseHearingChannel = sitting['channel'].join(', ');
     } else if(session['sessionChannel'].length > 0) {
       caseHearingChannel = session['sessionChannel'].join(', ');
