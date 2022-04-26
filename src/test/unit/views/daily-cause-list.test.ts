@@ -15,7 +15,7 @@ const summaryText = 'govuk-details__text';
 const accordionClass='govuk-accordion__section-button';
 
 const courtName = 'Abergavenny Magistrates\' Court';
-const expectedHeader = 'Daily Civil Cause list for <br>' + courtName;
+const expectedHeader = 'Daily Civil Cause List: <br>' + courtName;
 const summaryHeadingText = 'Important information';
 
 let htmlRes: Document;
