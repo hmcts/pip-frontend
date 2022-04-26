@@ -106,7 +106,7 @@ describe('Publication service', () => {
 
     it('should calculate totalHearings in cause list object', async () => {
       const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['totalHearing']).to.equal(2);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['totalHearing']).to.equal(4);
     });
 
     it('should calculate duration of Hearing in cause list object', async () => {
@@ -194,6 +194,12 @@ describe('Publication service', () => {
       const data = await publicationService.getPublicationsByCourt('2', true);
       expect(data).to.deep.equal([]);
     });
+  });
 
+  describe('publicationTime Publication Service', () => {
+    it('should return Publication Time List', async () => {
+      const data = await publicationService.publicationTime(dailyCauseListData['document']['publicationDate']);
+      expect(data).to.equal('11.30pm');
+    });
   });
 });

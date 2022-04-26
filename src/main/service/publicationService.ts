@@ -91,7 +91,7 @@ export class PublicationService {
 
   private findAndConcatenateHearingPlatform(sitting: object, session: object): void {
     let caseHearingChannel = '';
-    if(sitting['channel'].length > 0) {
+    if(sitting['channel']?.length > 0) {
       caseHearingChannel = sitting['channel'].join(', ');
     } else if(session['sessionChannel'].length > 0) {
       caseHearingChannel = session['sessionChannel'].join(', ');
@@ -235,5 +235,16 @@ export class PublicationService {
 
   public async removePublication(artefactId: string, email: string): Promise<boolean> {
     return publicationRequests.deletePublication(artefactId, email);
+  }
+
+  public publicationTime(publicationDatetime: string): string {
+    const min = moment.utc(publicationDatetime, 'HH:mm').minutes();
+    let publishedTime = '';
+    if (min === 0) {
+      publishedTime = moment.utc(publicationDatetime).format('ha');
+    } else {
+      publishedTime = moment.utc(publicationDatetime).format('h.mma');
+    }
+    return publishedTime;
   }
 }

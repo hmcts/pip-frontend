@@ -20,6 +20,7 @@ export default class DailyCauseListController {
       const manipulatedData = publicationService.manipulatedDailyListData(JSON.stringify(searchResults));
 
       const publishedDateTime = Date.parse(searchResults['document']['publicationDate']);
+      const publishedTime = publicationService.publicationTime(searchResults['document']['publicationDate']);
 
       const court = await courtService.getCourtById(metaData['courtId']);
 
@@ -28,7 +29,7 @@ export default class DailyCauseListController {
         listData: manipulatedData,
         contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: moment(publishedDateTime).format('DD MMMM YYYY'),
-        publishedTime: moment(publishedDateTime).format('ha'),
+        publishedTime: publishedTime,
         provenance: metaData['provenance'],
         courtName: court.name,
       });
