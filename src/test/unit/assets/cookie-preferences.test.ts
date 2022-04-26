@@ -56,4 +56,28 @@ describe('Cookie policy', () => {
     expect(cookieBannerMessage.hidden).toBeTruthy();
     expect(rejectedMessage.hidden).toBeFalsy();
   });
+
+  it('should hide banner once accepted hide message is clicked', async () => {
+    cookieBanner.hidden = false;
+    await import('../../../main/assets/js/cookie-preferences');
+    await hideAcceptMessage.click();
+    expect(cookieBanner.hidden).toBeTruthy();
+  });
+
+  it('should hide banner once rejected hide message is clicked', async () => {
+    cookieBanner.hidden = false;
+    await import('../../../main/assets/js/cookie-preferences');
+    await hideRejectMessage.click();
+    expect(cookieBanner.hidden).toBeTruthy();
+  });
+
+  it('should getCookie', async () => {
+    cookieBanner.hidden = true;
+    Object.defineProperty(document, 'cookie', {
+      writable: true,
+      value: 'cookiePolicy={"essential":true, "analytics":false}',
+    });
+    await import('../../../main/assets/js/cookie-preferences');
+    expect(cookieBanner.hidden).toBeTruthy();
+  });
 });

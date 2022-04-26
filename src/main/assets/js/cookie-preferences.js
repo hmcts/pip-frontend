@@ -53,13 +53,12 @@ function getCookie(cname) {
   let name = cname + '=';
   let decodedCookie = decodeURIComponent(document.cookie);
   let ca = decodedCookie.split(';');
-  for(let i = 0; i <ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
+  for(let item of ca) {
+    while (item.charAt(0) == ' ') {
+      item = item.substring(1);
     }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
+    if (item.indexOf(name) == 0) {
+      return item.substring(name.length, item.length);
     }
   }
   return '';
@@ -67,8 +66,7 @@ function getCookie(cname) {
 
 function getCookieChoiceValue(cookie) {
   const analytics = cookie.split(', ')[1];
-  const analyticsValue = analytics.substring((analytics.indexOf(':') + 1), (analytics.length -1));
-  return analyticsValue;
+  return analytics.substring((analytics.indexOf(':') + 1), (analytics.length -1));
 }
 
 function checkCookie() {
