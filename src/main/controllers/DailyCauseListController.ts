@@ -17,12 +17,15 @@ export default class DailyCauseListControllerController {
 
       const publishedDateTime = Date.parse(searchResults['document']['publicationDate']);
 
+      const publishedTime = publicationService.publicationTime(searchResults['document']['publicationDate']);
+
       res.render('daily-cause-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['daily-cause-list']),
         searchResults,
         contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: moment(publishedDateTime).format('DD MMMM YYYY'),
-        publishedTime: moment(publishedDateTime).format('ha'),
+        publishedTime: publishedTime,
+        provenance: metaData['provenance'],
       });
     } else {
       res.render('error',

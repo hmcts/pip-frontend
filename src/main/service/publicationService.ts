@@ -60,13 +60,7 @@ export class PublicationService {
 
               sitting['durationAsHours'] = durationAsHours;
               sitting['durationAsMinutes'] = durationAsMinutes;
-
-              const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
-              if (min === 0) {
-                sitting['startTime'] = moment(sitting['sittingStart']).format('ha');
-              } else {
-                sitting['startTime'] = moment(sitting['sittingStart']).format('h.mma');
-              }
+              sitting['time'] = moment(sittingStart).format('HH:mm');
             }
             hearingCount = hearingCount + sitting['hearing'].length;
           });
@@ -130,5 +124,16 @@ export class PublicationService {
 
   public async removePublication(artefactId: string, email: string): Promise<boolean> {
     return publicationRequests.deletePublication(artefactId, email);
+  }
+
+  public publicationTime(publicationDatetime: string): string {
+    const min = moment.utc(publicationDatetime, 'HH:mm').minutes();
+    let publishedTime = '';
+    if (min === 0) {
+      publishedTime = moment.utc(publicationDatetime).format('ha');
+    } else {
+      publishedTime = moment.utc(publicationDatetime).format('h.mma');
+    }
+    return publishedTime;
   }
 }

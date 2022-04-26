@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { Response } from 'express';
 import DailyCauseListController from '../../../main/controllers/DailyCauseListController';
-import fs from 'fs';
+import fs from 'fs'; 
 import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
@@ -47,7 +47,8 @@ describe('Daily Cause List Controller', () => {
       searchResults,
       contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
       publishedDate: moment(Date.parse(searchResults['document']['publicationDate'])).format('DD MMMM YYYY'),
-      publishedTime: moment(Date.parse(searchResults['document']['publicationDate'])).format('hha'),
+      publishedTime: '11.30pm',
+      provenance: 'prov1',
     };
 
     responseMock.expects('render').once().withArgs('daily-cause-list', expectedData);
