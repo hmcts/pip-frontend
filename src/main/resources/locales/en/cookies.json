@@ -13,6 +13,5 @@
     ["i18next", "Stores your language preferences", "1 year"],
     ["formCookie", "Stores data within a form before it is submitted", "1 hour"]
   ],
-  "analyticsExplanation1": "With your permission, we use Google Analytics and Dynatrace to collect data about how you use this service. This information helps us to improve our service.",
-  "analyticsExplanation2": "These services are not allowed to use or share our analytics data with anyone."
+  "analyticsExplanation": "With your permission, we use Google Analytics and Dynatrace to collect data about how you use this service. This information helps us to improve our service."
 }

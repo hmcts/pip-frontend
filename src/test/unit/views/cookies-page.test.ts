@@ -66,10 +66,4 @@ describe('Cookies page', () => {
       'and Dynatrace to collect data about how you use this service. ' +
       'This information helps us to improve our service.', 'Could not find first analytics explanation text');
   });
-
-  it('should display second analytics explanation text', () => {
-    const analyticsExplanationText = htmlRes.getElementsByClassName(bodyClass);
-    expect(analyticsExplanationText[4].innerHTML).contains('These services are not allowed to use ' +
-      'or share our analytics data with anyone.', 'Could not find second analytics explanation text');
-  });
 });
