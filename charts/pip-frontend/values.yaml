@@ -29,4 +29,16 @@ nodejs:
           alias: REDIS_PORT
         - name: b2c-auth-endpoint
           alias: B2C_AUTH_ENDPOINT
+        - name: app-pip-frontend-stg-id
+          alias: CLIENT_ID_INTERNAL
+        - name: app-pip-frontend-stg-pwd
+          alias: CLIENT_SECRET_INTERNAL
+        - name: app-token-url
+          alias: TOKEN_URL
+        - name: app-pip-data-management-stg-api-id
+          alias: DATA_MANAGEMENT_AZ_API
+        - name: app-pip-subscription-management-stg-api-id
+          alias: SUBSCRIPTION_MANAGEMENT_AZ_API
+        - name: app-pip-account-management-stg-api-id
+          alias: ACCOUNT_MANAGEMENT_AZ_API
   aadIdentityName: pip
