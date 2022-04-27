@@ -91,8 +91,8 @@ describe('Unverified user', () => {
 
   it('should click accept cookies', async () => {
     expect(await interstitialPage.cookieHeader()).toEqual('Cookies on Court and tribunal hearings');
-    interstitialPage.clickAcceptCookies();
-    interstitialPage.clickHideMessage();
+    await interstitialPage.clickAcceptCookies();
+    await interstitialPage.clickHideMessage();
   });
 
   it('should click on the continue and navigate to View Options page', async () => {
