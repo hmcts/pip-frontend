@@ -1,9 +1,9 @@
 module.exports = {
   // Common selectors
-  ContinueButton: '.govuk-button',
+  ContinueButton: '//*[@id="main-content"]//*[contains(@class, "govuk-button")]',
   CommonPageTitleXl: '.govuk-heading-xl',
   CommonPageTitle: '.govuk-heading-l',
-  CommonPageTitleM: '.govuk-heading-m',
+  CommonPageTitleM: '#main-content > .govuk-heading-m',
   SignInButton: '#signInButton',
   SignOutButton: '#signOutButton',
   Results: 'tbody > tr.govuk-table__row',
