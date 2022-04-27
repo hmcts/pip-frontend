@@ -23,43 +23,38 @@ const subscriptionManagementUrl =
 const accountManagementUrl = process.env.ACCOUNT_MANAGEMENT_AZ_API ?
   process.env.ACCOUNT_MANAGEMENT_AZ_API : config.get('secrets.pip-ss-kv.ACCOUNT_MANAGEMENT_AZ_API');
 
-export const getDataManagementCredentials = oauth.client(axios.create(), {
-  url: tokenUrl,
-  GRANT_TYPE: 'client_credentials',
-  CLIENT_ID: clientId,
-  CLIENT_SECRET: clientSecret,
-  SCOPE: dataManagementUrl,
-});
-
-export const getSubscriptionManagementCredentials = oauth.client(axios.create(), {
-  url: tokenUrl,
-  GRANT_TYPE: 'client_credentials',
-  CLIENT_ID: clientId,
-  CLIENT_SECRET: clientSecret,
-  SCOPE: subscriptionManagementUrl,
-});
-
-export const getAccountManagementCredentials = oauth.client(axios.create(), {
-  url: tokenUrl,
-  GRANT_TYPE: 'client_credentials',
-  CLIENT_ID: clientId,
-  CLIENT_SECRET: clientSecret,
-  SCOPE: accountManagementUrl,
-});
-
 export const dataManagementApi = axios.create({baseURL: (process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net/'), timeout: 10000});
 export const subscriptionManagementApi = axios.create({baseURL: (process.env.SUBSCRIPTION_MANAGEMENT_URL || 'https://pip-subscription-management.staging.platform.hmcts.net/'), timeout: 10000});
 export const accountManagementApi = axios.create({baseURL: (process.env.ACCOUNT_MANAGEMENT_URL || 'https://pip-account-management.staging.platform.hmcts.net/'), timeout: 10000});
 
-dataManagementApi.interceptors.request.use(
-  oauth.interceptor(tokenProvider, getDataManagementCredentials),
-);
+function createCredentials (url): Function {
 
-subscriptionManagementApi.interceptors.request.use(
-  oauth.interceptor(tokenProvider, getSubscriptionManagementCredentials),
-);
+  if (!process.env.INSECURE) {
+    return oauth.client(axios.create(), {
+      url: tokenUrl,
+      GRANT_TYPE: 'client_credentials',
+      CLIENT_ID: clientId,
+      CLIENT_SECRET: clientSecret,
+      SCOPE: url,
+    });
+  }
+  return (): string => {return '';};
+}
 
-accountManagementApi.interceptors.request.use(
-  oauth.interceptor(tokenProvider, getAccountManagementCredentials),
-);
+export const getDataManagementCredentials = createCredentials(dataManagementUrl);
+export const getSubscriptionManagementCredentials = createCredentials(subscriptionManagementUrl);
+export const getAccountManagementCredentials = createCredentials(accountManagementUrl);
 
+if (!process.env.INSECURE) {
+  dataManagementApi.interceptors.request.use(
+    oauth.interceptor(tokenProvider, getDataManagementCredentials),
+  );
+
+  subscriptionManagementApi.interceptors.request.use(
+    oauth.interceptor(tokenProvider, getSubscriptionManagementCredentials),
+  );
+
+  accountManagementApi.interceptors.request.use(
+    oauth.interceptor(tokenProvider, getAccountManagementCredentials),
+  );
+}
