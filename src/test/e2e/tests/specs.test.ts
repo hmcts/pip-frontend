@@ -89,8 +89,8 @@ describe('Unverified user', () => {
     expect(await interstitialPage.getPageTitle()).toEqual('Court and tribunal hearings');
   });
 
-  it('should click accept cookies', () => {
-    expect(interstitialPage.cookieHeader()).toEqual('Cookies on Court and tribunal hearings');
+  it('should click accept cookies', async () => {
+    expect(await interstitialPage.cookieHeader()).toEqual('Cookies on Court and tribunal hearings');
     interstitialPage.clickAcceptCookies();
     interstitialPage.clickHideMessage();
   });

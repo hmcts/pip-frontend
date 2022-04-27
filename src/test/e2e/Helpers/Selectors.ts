@@ -2,7 +2,7 @@ module.exports = {
   // Cookie selectors outside main content
   AcceptButton: '#cookie-accept-analytics',
   HideMessageButton: '#hide-message-accept',
-  CookieHeader: '.govuk-cookie-banner__heading govuk-heading-m',
+  CookieHeader: '.govuk-cookie-banner__heading',
 
   // Common selectors
   ContinueButton: '//*[@id="main-content"]//*[contains(@class, "govuk-button")]',
