@@ -213,26 +213,26 @@
         {{ super() }}
       </div>
       <div class="govuk-grid-column-one-third">
-        <h2 class="govuk-heading-l">Page Help</h2>
+        <h2 class="govuk-heading-l">{{ pageHelpHeading }}</h2>
 
-        <h3 class="govuk-heading-s">Hearing lists</h3>
-        <p class="govuk-body">You must ensure that you only upload one file that contains all hearings for the Court or Tribunal name and List type. This should include all judges and court rooms in one document.</p>
-        <h3 class="govuk-heading-s">Available to</h3>
-        <p class="govuk-body">You need to indicate which user group your document should be available to:</p>
-        <h3 class="govuk-heading-s no-margin-bottom">Public</h3>
-        <p class="govuk-body">Publication available to all users.</p>
-        <h3 class="govuk-heading-s no-margin-bottom">Private</h3>
-        <p class="govuk-body">Publication available to all verified users e.g. Legal professionals and media.</p>
-        <h3 class="govuk-heading-s no-margin-bottom">Classified - verified CFT</h3>
-        <p class="govuk-body">Publication only available to verified users who sign in using a MyHMCTS account.</p>
-        <h3 class="govuk-heading-s no-margin-bottom">Classified - verified Crime</h3>
-        <p class="govuk-body">Publication only available to verified users who sign in using a Common Platform account.</p>
-        <h3 class="govuk-heading-s no-margin-bottom">Classified - verified Media</h3>
-        <p class="govuk-body">Publication only available to media users who sign in using a courts and tribunals hearings account.</p>
-        <h3 class="govuk-heading-s">Display from</h3>
-        <p class="govuk-body">This will be the date the publication is available from, if today's date is used it will be displayed immediately. If a date in the future is used, it will display from 00:01 of that date.</p>
-        <h3 class="govuk-heading-s">Display to</h3>
-        <p class="govuk-body">This will be the last date the publication is available. It will be displayed until 23:59 of that date.</p>
+        <h3 class="govuk-heading-s">{{ pageHelp[0].heading }}</h3>
+        <p class="govuk-body">{{ pageHelp[0].text }}</p>
+        <h3 class="govuk-heading-s">{{ pageHelp[1].heading }}</h3>
+        <p class="govuk-body">{{ pageHelp[1].text }}</p>
+        <h3 class="govuk-heading-s no-margin-bottom">{{ pageHelp[2].heading }}</h3>
+        <p class="govuk-body">{{ pageHelp[2].text }}</p>
+        <h3 class="govuk-heading-s no-margin-bottom">{{ pageHelp[3].heading }}</h3>
+        <p class="govuk-body">{{ pageHelp[3].text }}</p>
+        <h3 class="govuk-heading-s no-margin-bottom">{{ pageHelp[4].heading }}</h3>
+        <p class="govuk-body">{{ pageHelp[4].text }}</p>
+        <h3 class="govuk-heading-s no-margin-bottom">{{ pageHelp[5].heading }}</h3>
+        <p class="govuk-body">{{ pageHelp[5].text }}</p>
+        <h3 class="govuk-heading-s no-margin-bottom">{{ pageHelp[6].heading }}</h3>
+        <p class="govuk-body">{{ pageHelp[6].text }}</p>
+        <h3 class="govuk-heading-s">{{ pageHelp[7].heading }}</h3>
+        <p class="govuk-body">{{ pageHelp[7].text }}</p>
+        <h3 class="govuk-heading-s">{{ pageHelp[8].heading }}</h3>
+        <p class="govuk-body">{{ pageHelp[8].text }}</p>
       </div>
     </div>
   </div>
