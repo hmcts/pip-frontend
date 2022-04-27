@@ -16,7 +16,7 @@ describe('Alphabetical search', () => {
     test('should return search option page', () => {
       request(app)
         .post('/alphabetical-search')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect((res) => expect(res.status).to.equal(302));
     });
   });
 });

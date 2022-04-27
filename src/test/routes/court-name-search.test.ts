@@ -40,7 +40,7 @@ describe('Court Name Search', () => {
       await request(app)
         .post('/court-name-search')
         .send({jurisdiction: 'crown'})
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect((res) => expect(res.status).to.equal(302));
     });
   });
 });
