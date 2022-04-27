@@ -19,7 +19,7 @@ const CourtStub = sinon.stub(CourtService.prototype, 'getCourtById');
 const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
 
 describe('Get publications', () => {
-  CourtStub.withArgs(0).resolves(JSON.parse('{"name":"Single Justice Procedure (SJP)"}'));
+  CourtStub.withArgs(0).resolves(JSON.parse('{"name":"Single Justice Procedure"}'));
   CourtStub.withArgs(1).resolves(JSON.parse('{"name":"New Court"}'));
   SoPStub.withArgs(0).resolves(sjpCases);
   SoPStub.withArgs(1).resolves(sjpCases);
@@ -66,7 +66,7 @@ describe('Get publications', () => {
 
     const expectedData = {
       ...i18n['summary-of-publications'],
-      courtName: 'Single Justice Procedure (SJP)',
+      courtName: 'Single Justice Procedure',
       publications: sjpCases,
     };
 
@@ -101,7 +101,7 @@ describe('Get individual publication and act appropriately', () => {
     request.query = {courtId: '0'};
     request.user = {id: 1};
     SoPStub.withArgs(0).resolves(onePub);
-    CourtStub.withArgs('0').resolves(JSON.parse('{"name":"Single Justice Procedure (SJP)"}'));
+    CourtStub.withArgs('0').resolves(JSON.parse('{"name":"Single Justice Procedure"}'));
     const responseMock = sinon.mock(response);
     responseMock.expects('redirect').once().withArgs(`file-publication?artefactId=${onePub[0].artefactId}`);
 
@@ -120,7 +120,7 @@ describe('Get individual publication and act appropriately', () => {
     request.user = {id: 1};
     onePub[0]['isFlatFile'] = false;
     SoPStub.withArgs(2).resolves(onePub);
-    CourtStub.withArgs('0').resolves(JSON.parse('{"name":"Single Justice Procedure (SJP)"}'));
+    CourtStub.withArgs('0').resolves(JSON.parse('{"name":"Single Justice Procedure"}'));
     const responseMock = sinon.mock(response);
     const onePubJsonLength = onePub.length;
     expect(onePubJsonLength).toBe(1);
