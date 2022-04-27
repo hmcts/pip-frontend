@@ -1,0 +1,8 @@
+{% extends "template.njk" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{title}}</h1>
+  <p class="govuk-body">{{textContent1}}</p>
+  <p class="govuk-body">{{textContent2}}<a href="{{links[0].link}}">{{links[0].text}}</a>{{textContent3}}</p>
+  <p class="govuk-body">{{textContent4}}</p>
+{% endblock %}
