@@ -17,7 +17,7 @@ nodejs:
           alias: CLIENT_ID
         - name: otp-app-pip-frontend-pwd
           alias: CLIENT_SECRET
-        - name: aad-tenant-id
+        - name: b2c-tenant-id
           alias: TENANT_GUID
         - name: shared-storageaccount-connection-string
           alias: CONNECTION_STRING
@@ -27,6 +27,6 @@ nodejs:
           alias: REDIS_PASSWORD
         - name: REDIS-PORT
           alias: REDIS_PORT
-        - name: aad-auth-endpoint
-          alias: AAD_AUTH_ENDPOINT
+        - name: b2c-auth-endpoint
+          alias: B2C_AUTH_ENDPOINT
   aadIdentityName: pip
