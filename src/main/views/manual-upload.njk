@@ -11,12 +11,12 @@
 {% block content %}
   <div class="parent-box">
     <div class="govuk-callout">
-      <h1 class="govuk-heading-m">Warning</h1>
+      <h1 class="govuk-heading-m">{{ warning }}</h1>
       <div class="govuk-warning-text">
         <span class="govuk-warning-text__icon govuk-!-margin-1" aria-hidden="true">!</span>
         <p class="govuk-warning-text__text govuk-!-bold govuk-!-margin-0">
-          <span class="govuk-warning-text__assistive">Warning</span>
-          Prior to upload you must ensure the file is suitable for publication e.g. redaction of personal data has been done during the production of this file.
+          <span class="govuk-warning-text__assistive">{{ warning }}</span>
+          {{ warningText }}
         </p>
       </div>
     </div>
