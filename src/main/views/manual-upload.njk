@@ -30,7 +30,7 @@
           {% set courtFormGroupError = 'govuk-form-group--error' if errors.formErrors.courtError else 'govuk-form-group' %}
           {% set inputError = 'govuk-input--error' if errors.formErrors.courtError else '' %}
           <div id="form-wrapper" class="govuk-!-margin-bottom-9 ">
-            <div class="govuk-!-margin-bottom-3 govuk-!-width-one-third {{ courtFormGroupError }}">
+            <div class="govuk-!-margin-bottom-3 govuk-!-width-one-half {{ courtFormGroupError }}">
               <label id="search-input-title" class="govuk-label" for="search-input">
               {{ form.court }}
               </label>
@@ -52,7 +52,7 @@
       {#      </div>#}
 
             <div class="govuk-form-group govuk-inset-text govuk-!-padding-right-0">
-              <div id="list-question" class="govuk-!-margin-bottom-3 govuk-!-width-one-half">
+              <div id="list-question" class="govuk-!-margin-bottom-3 govuk-!-width-two-third">
                 {{ govukSelect({
                   classes: 'govuk-!-width-two-thirds',
                   id: "listType",
@@ -117,7 +117,7 @@
               </div>
             </div>
             {{ govukSelect({
-              classes: 'govuk-!-width-one-third',
+              classes: 'govuk-!-width-one-half',
               id: "classification",
               name: "classification",
               label: {
@@ -127,7 +127,7 @@
             }) }}
 
             {{ govukSelect({
-              classes: 'govuk-!-width-one-third',
+              classes: 'govuk-!-width-one-half',
               id: "language",
               name: "language",
               label: {
