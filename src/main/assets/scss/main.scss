@@ -7,6 +7,7 @@ $text-disabled: #505a5f;
 $error-colour: #d4351c;
 $underline-colour: #2e3133;
 $min-width: 52em;
+$callout-bg: #f0f4f5;
 
 //Styling for the Header
 
@@ -517,7 +518,7 @@ nav {
 }
 
 .govuk-callout {
-  background: govuk-colour('light-grey');
+  background: $callout-bg;
   margin-bottom: 40px;
   padding: 15px;
 }
