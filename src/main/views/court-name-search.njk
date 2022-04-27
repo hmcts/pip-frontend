@@ -227,6 +227,13 @@
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ show }}";
       } else {
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ hide }}";
+
+        //This ensures that focus works correctly for screen readers in the filter box.
+        var elements = document.getElementsByClassName('govuk-heading-m');
+        elements[0].setAttribute("tabindex", "0");
+        elements[1].setAttribute("tabindex", "0");
+        elements[0].focus();
+
       }
     }
 

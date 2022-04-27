@@ -176,8 +176,15 @@
       navigation[0].classList.toggle("hide");
       if (element.className.indexOf('hide') > 0) {
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ show }}";
+        element.removeAttribute("aria-live");
       } else {
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ hide }}";
+
+        //This ensures that focus works correctly for screen readers in the filter box.
+        var elements = document.getElementsByClassName('govuk-heading-m');
+        elements[0].setAttribute("tabindex", "0");
+        elements[1].setAttribute("tabindex", "0");
+        elements[0].focus();
       }
     }
     //Concat href to maintain filter values when clearing single
