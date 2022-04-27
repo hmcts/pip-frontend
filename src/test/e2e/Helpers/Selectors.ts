@@ -1,4 +1,9 @@
 module.exports = {
+  // Cookie selectors outside main content
+  AcceptButton: '#cookie-accept-analytics',
+  HideMessageButton: '#hide-message-accept',
+  CookieHeader: '.govuk-cookie-banner__heading govuk-heading-m',
+
   // Common selectors
   ContinueButton: '//*[@id="main-content"]//*[contains(@class, "govuk-button")]',
   CommonPageTitleXl: '.govuk-heading-xl',
@@ -28,7 +33,7 @@ module.exports = {
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
   SearchResultTitle: 'h1.govuk-heading-l',
-  SearchAToZLink: 'a.govuk-link',
+  SearchAToZLink: '#main-content a.govuk-link',
 
   // SearchResults selectors
   LinkResult: 'tbody > tr.govuk-table__row > th > a',
