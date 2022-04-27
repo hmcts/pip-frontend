@@ -86,6 +86,7 @@ export default function(app: Application): void {
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
   app.post('/create-media-account', app.locals.container.cradle.createMediaAccountController.post);
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
+  app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/interstitial', app.locals.container.cradle.interstitialController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
@@ -115,8 +116,8 @@ export default function(app: Application): void {
   app.get('/case-reference-number-search', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchController.get);
   app.post('/case-reference-number-search', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchController.post);
   app.get('/case-reference-number-search-results', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
-  app.get('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.get);
-  app.post('/court-name-search', ensureAuthenticated, app.locals.container.cradle.courtNameSearchController.post);
+  app.get('/court-name-search', ensureAuthenticated, app.locals.container.cradle.alphabeticalSearchController.get);
+  app.post('/court-name-search', ensureAuthenticated, app.locals.container.cradle.alphabeticalSearchController.post);
   app.get('/create-admin-account', ensureAuthenticated, app.locals.container.cradle.createAdminAccountController.get);
   app.post('/create-admin-account', ensureAuthenticated, app.locals.container.cradle.createAdminAccountController.post);
   app.get('/create-admin-account-summary', ensureAuthenticated, app.locals.container.cradle.createAdminAccountSummaryController.get);
