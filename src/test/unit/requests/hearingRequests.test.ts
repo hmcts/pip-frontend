@@ -39,9 +39,9 @@ const caseNumberData = {
 
 describe('Hearing get requests', () => {
   beforeEach(() => {
-    stub.withArgs('/hearings/case-name/').resolves(Promise.reject(errorResponse));
-    stub.withArgs('/hearings/case-name/bob').resolves(Promise.reject(errorRequest));
-    stub.withArgs('/hearings/case-name/foo').resolves(Promise.reject(errorMessage));
+    stub.withArgs('/hearings/case-name/').rejects(errorResponse);
+    stub.withArgs('/hearings/case-name/bob').rejects(errorRequest);
+    stub.withArgs('/hearings/case-name/foo').rejects(errorMessage);
     stub.withArgs('/hearings/case-name/my').resolves({data});
   });
 
@@ -64,12 +64,12 @@ describe('Hearing get requests', () => {
 
 describe(`getHearingByCaseReferenceNumber(${validCaseNo})`, () => {
   beforeEach(() => {
-    stub.withArgs('/hearings/case-number/').resolves(Promise.reject(errorResponse));
-    stub.withArgs('/hearings/case-number/fail').resolves(Promise.reject(errorRequest));
+    stub.withArgs('/hearings/case-number/').rejects(errorResponse);
+    stub.withArgs('/hearings/case-number/fail').rejects(errorRequest);
     stub.withArgs('/hearings/case-number/ABC12345').resolves({data: mockCaseData});
-    stub.withArgs('/hearings/case-number/').resolves(Promise.reject(errorResponse));
-    stub.withArgs('/hearings/case-number/foo').resolves(Promise.reject(errorRequest));
-    stub.withArgs('/hearings/case-number/bar').resolves(Promise.reject(errorMessage));
+    stub.withArgs('/hearings/case-number/').rejects(errorResponse);
+    stub.withArgs('/hearings/case-number/foo').rejects(errorRequest);
+    stub.withArgs('/hearings/case-number/bar').rejects(errorMessage);
     stub.withArgs('/hearings/case-number/T485913').resolves({data: caseNumberData});
   });
 
@@ -110,9 +110,9 @@ describe('get case by unique reference number', () => {
   beforeEach(async () => {
     stub.withArgs('/hearings/urn/123456789').resolves({data:caseData});
     stub.withArgs(`/hearings/urn/${invalidUrn}`).resolves({data:null});
-    stub.withArgs('/hearings/urn/12345').resolves(Promise.reject(errorRequest));
-    stub.withArgs('/hearings/urn/123456').resolves(Promise.reject(errorResponse));
-    stub.withArgs('/hearings/urn/1234567').resolves(Promise.reject(errorMessage));
+    stub.withArgs('/hearings/urn/12345').rejects(errorRequest);
+    stub.withArgs('/hearings/urn/123456').rejects(errorResponse);
+    stub.withArgs('/hearings/urn/1234567').rejects(errorMessage);
   });
 
   it('should return case matching the urn', async () => {
