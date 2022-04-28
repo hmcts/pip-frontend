@@ -65,17 +65,17 @@ describe('Single Justice Procedure List page', () => {
 
   it('should have offender postcode',  () => {
     const tableData = htmlRes.getElementsByClassName(sjpTableData);
-    expect(tableData[0].innerHTML).contains(offenderPostcode, 'Could not find the offender date of birth');
+    expect(tableData[0].innerHTML).contains(offenderPostcode, 'Could not find the offender postcode');
   });
 
   it('should have the correct prosecutor',  () => {
     const tableData = htmlRes.getElementsByClassName(sjpTableData);
-    expect(tableData[0].innerHTML).contains(offenderProsecutor, 'Could not find the offender case reference');
+    expect(tableData[0].innerHTML).contains(offenderProsecutor, 'Could not find the offender\'s prosecutor');
   });
 
   it('should have the offence reason',  () => {
     const tableData = htmlRes.getElementsByClassName(sjpTableData);
-    expect(tableData[0].innerHTML).contains(offenderReason, 'Could not find the offender address');
+    expect(tableData[0].innerHTML).contains(offenderReason, 'Could not find the offence reason');
   });
 
 });
