@@ -36,7 +36,7 @@ function createCredentials (url): Function {
       GRANT_TYPE: 'client_credentials',
       CLIENT_ID: clientId,
       CLIENT_SECRET: clientSecret,
-      SCOPE: url,
+      SCOPE: url + '/.default',
     });
   }
   return (): string => {return '';};
