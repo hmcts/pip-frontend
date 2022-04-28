@@ -10,12 +10,11 @@
 {% endblock %}
 {% block content %}
   <div class="parent-box">
-    <div class="govuk-callout">
+    <div class="govuk-callout" tabindex="0">
       <h1 class="govuk-heading-m">{{ warning }}</h1>
       <div class="govuk-warning-text">
         <span class="govuk-warning-text__icon govuk-!-margin-1" aria-hidden="true">!</span>
         <p class="govuk-warning-text__text govuk-!-bold govuk-!-margin-0">
-          <span class="govuk-warning-text__assistive">{{ warning }}</span>
           {{ warningText }}
         </p>
       </div>
