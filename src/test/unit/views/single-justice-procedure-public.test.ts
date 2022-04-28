@@ -23,7 +23,7 @@ const offenderReason = 'Keep a vehicle without a valid vehicle licence';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/newSJPMocks.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sjp-public-list.json'), 'utf-8');
 const sjpList = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
