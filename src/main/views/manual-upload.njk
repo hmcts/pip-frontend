@@ -313,6 +313,10 @@
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
+
+    // Set first govuk-grid-row back to display block as custom scss is written to change it to flex as that is required on other pages
+    // Block is required on this page so the help section goes underneath the form on mobile devices
+    document.querySelectorAll(".govuk-grid-row")[0].style.display = 'block';
   </script>
   {{ super() }}
 {% endblock %}
