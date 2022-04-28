@@ -155,6 +155,12 @@
 {% block bodyEnd %}
   {{ super() }}
   <script>
+
+    //Used to ensure that page focus is set to top when the filters reload the page
+    window.onload = function() {
+      window.scrollTo(0,0);
+    };
+
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
@@ -171,7 +177,25 @@
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ show }}";
       } else {
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ hide }}";
+
+        //This ensures that focus works correctly for screen readers in the filter box.
+        var elements = document.getElementsByClassName('govuk-heading-m');
+        elements[0].setAttribute("tabindex", "0");
+        elements[1].setAttribute("tabindex", "0");
+        elements[0].focus();
       }
+    }
+    //Concat href to maintain filter values when clearing single
+    let tags = document.querySelectorAll('.moj-filter__tag');
+    let currentParam = window.location.search.split('&');
+    tags.forEach(element => {
+      const tmp = element.href.slice(element.href.indexOf('?'), element.href.length);
+      element.href = buildHref(tmp, currentParam);
+    })
+    function buildHref(filterToClear, currentPath) {
+      const deleteVal = filterToClear.split('=')[1];
+      let href = currentPath ? currentPath[0].replace(deleteVal, '') + filterToClear.replace('?', '&') : filterToClear
+      return href.replace(',,', ',');
     }
   </script>
 {% endblock %}
