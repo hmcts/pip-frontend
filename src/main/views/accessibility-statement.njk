@@ -1,8 +1,86 @@
 {% extends "template.njk" %}
 
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+{% endblock %}
+
 {% block content %}
-  <h1 class="govuk-heading-l">{{title}}</h1>
-  <p class="govuk-body">{{textContent1}}</p>
-  <p class="govuk-body">{{textContent2}}<a href="{{links[0].link}}">{{links[0].text}}</a>{{textContent3}}</p>
-  <p class="govuk-body">{{textContent4}}</p>
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+
+  {# Section 1 #}
+  <p class="govuk-body">{{ section1.text1 }}</p>
+  <p class="govuk-body">{{ section1.text2 }} <a href="{{ section1.links[0].link }}">{{ section1.links[0].text }}</a> {{ section1.text3 }}</p>
+  <p class="govuk-body">{{ section1.text4 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% for item in section1.list %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+  <p class="govuk-body">{{ section1.text5 }}</p>
+  <p class="govuk-body"><a href="{{section1.links[1].link}}">{{section1.links[1].text}}</a> {{section1.text6}}</p>
+
+  {# Section 2 #}
+  <h2 class="govuk-heading-m">{{ section2.heading }}</h2>
+  {% for item in section2.text %}
+    <p class="govuk-body">{{ item }}</p>
+  {% endfor %}
+
+  {# Section 3 #}
+  <h2 class="govuk-heading-m">{{ section3.heading }}</h2>
+  <p class="govuk-body">{{ section3.text1 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ section3.text2 }} <a href="mailto:{{ section3.email }}">{{ section3.email }}</a></li>
+  </ul>
+  <p class="govuk-body">{{ section3.text3 }}</p>
+
+  {# Section 4 #}
+  <h2 class="govuk-heading-m">{{ section4.heading }}</h2>
+  <p class="govuk-body">{{ section3.text1 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ section4.text2 }} <a href="mailto:{{ section4.email }}">{{ section4.email }}</a></li>
+  </ul>
+
+  {# Section 5 #}
+  <h2 class="govuk-heading-m">{{ section5.heading }}</h2>
+  <p class="govuk-body">{{ section5.text1 }} <a href="{{ section5.links[0].link }}" target="_blank">{{ section5.links[0].text }}</a> </p>
+
+  {# Section 6 #}
+  <h2 class="govuk-heading-m">{{ section6.heading }}</h2>
+  {% for item in section6.text %}
+    <p class="govuk-body">{{ item }}</p>
+  {% endfor %}
+
+  {# Section 7 #}
+  <h2 class="govuk-heading-m">{{ section7.heading }}</h2>
+  <p class="govuk-body">{{ section7.text1 }}</p>
+
+  {# Section 8 #}
+  <h2 class="govuk-heading-m">{{ section8.heading }}</h2>
+  <p class="govuk-body">{{ section8.text1 }}</p>
+  <h3 class="govuk-heading-s">{{ section8.smallHeading }}</h3>
+  {% for item in section8.text %}
+    <p class="govuk-body">{{ item }}</p>
+  {% endfor %}
+
+  {# Section 9 #}
+  <h2 class="govuk-heading-m">{{ section9.heading }}</h2>
+  {% for item in section9.text %}
+    <p class="govuk-body">{{ item }}</p>
+  {% endfor %}
+
+  {# Section 10 #}
+  <h2 class="govuk-heading-m">{{ section10.heading }}</h2>
+  <p class="govuk-body">{{ section10.text1 }}</p>
+  <p class="govuk-body">{{ section10.text2 }} <a href="{{ section10.links[0].link }}">{{ section10.links[0].text }}</a>{{ section10.text3 }}</p>
+  <p class="govuk-body">{{ section10.text4 }}</p>
+  <h3 class="govuk-heading-s">{{ section10.smallHeading }}</h3>
+  <p class="govuk-body">{{ section10.text5 }} <a href="{{ section10.links[1].link }}">{{ section10.links[1].text }}</a> {{section10.text6 }}</p>
+  {% for item in section10.text %}
+    <p class="govuk-body">{{ item }}</p>
+  {% endfor %}
+
 {% endblock %}
