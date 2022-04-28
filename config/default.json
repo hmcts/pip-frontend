@@ -21,7 +21,7 @@
       "B2C_PASSWORD": "",
       "CLIENT_ID_INTERNAL": "",
       "CLIENT_SECRET_INTERNAL": "",
-      "TOKEN_URL": "",
+      "TENANT_ID": "",
       "DATA_MANAGEMENT_AZ_API": "",
       "SUBSCRIPTION_MANAGEMENT_AZ_API": "",
       "ACCOUNT_MANAGEMENT_AZ_API": ""
