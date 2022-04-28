@@ -3,7 +3,8 @@ import oauth from 'axios-oauth-client';
 import tokenProvider from 'axios-token-interceptor';
 import config from 'config';
 
-const tokenUrl = process.env.TOKEN_URL ? process.env.TOKEN_URL : config.get('secrets.pip-ss-kv.TOKEN_URL');
+const tenantId = process.env.TENANT_ID ? process.env.TENANT_ID : config.get('secrets.pip-ss-kv.TENANT_ID');
+const tokenUrl = 'https://login.microsoftonline.com/' + tenantId + '/oauth2/v2.0/token';
 
 const clientId =
   process.env.CLIENT_ID_INTERNAL ? process.env.CLIENT_ID_INTERNAL : config.get('secrets.pip-ss-kv.CLIENT_ID_INTERNAL');

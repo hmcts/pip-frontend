@@ -33,8 +33,8 @@ nodejs:
           alias: CLIENT_ID_INTERNAL
         - name: app-pip-frontend-pwd
           alias: CLIENT_SECRET_INTERNAL
-        - name: app-token-url
-          alias: TOKEN_URL
+        - name: app-tenant-id
+          alias: TENANT_ID
         - name: app-pip-data-management-scope
           alias: DATA_MANAGEMENT_AZ_API
         - name: app-pip-subscription-management-scope
