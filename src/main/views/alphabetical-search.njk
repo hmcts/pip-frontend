@@ -171,9 +171,19 @@
       var element = document.getElementById("filters");
       var content = document.getElementById("content");
       var navigation = document.getElementsByClassName("moj-sub-navigation pub-navigation govuk-!-margin-bottom-0");
+      var skipLink = document.getElementsByClassName("govuk-skip-link");
+      var header = document.getElementsByClassName("govuk-header");
+      var backLink = document.getElementsByClassName("govuk-back-link");
+      var footer = document.getElementsByClassName("govuk-footer");
+
+
       element.classList.toggle("hide");
       content.classList.toggle("hide");
       navigation[0].classList.toggle("hide");
+      skipLink[0].classList.toggle("hide");
+      header[0].classList.toggle("hide");
+      backLink[0].classList.toggle("hide");
+      footer[0].classList.toggle("hide");
       if (element.className.indexOf('hide') > 0) {
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ show }}";
       } else {
