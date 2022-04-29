@@ -7,23 +7,32 @@ import {cloneDeep} from 'lodash';
 
 const subscriptionManagementController = new SubscriptionManagementController();
 
-sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns({cases:[]});
-sinon.stub(SubscriptionService.prototype, 'generateCourtTableRows').returns({courts:[]});
-
 describe('Subscriptions Management Controller', () => {
+
+  sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns({cases:[]});
+  sinon.stub(SubscriptionService.prototype, 'generateCourtTableRows').returns({courts:[]});
+
+  const response = { render: () => {return '';}} as unknown as Response;
+  let responseMock;
+
+  beforeEach(function () {
+    sinon.restore();
+    responseMock = sinon.mock(response);
+  });
+
   const i18n = {
     'subscription-management': {},
+    'error': {},
   };
   const tableData = {
     caseTableData: [],
     courtTableData: [],
   };
-  const response = { render: () => {return '';}} as unknown as Response;
-  const request = mockRequest(i18n);
-  const responseMock = sinon.mock(response);
 
+  const request = mockRequest(i18n);
   const stubCase = [];
   const stubCourt = [];
+
   it('should render the subscription management page with all as default', () => {
 
     request.query = {};
@@ -99,11 +108,12 @@ describe('Subscriptions Management Controller', () => {
   });
 
   it('should render error page if there is no user data', () => {
-    request.user = undefined;
+    const erroredRequest = mockRequest(i18n);
+    erroredRequest.user = undefined;
 
-    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+    responseMock.expects('render').once().withArgs('error', erroredRequest.i18n.getDataByLanguage(request.lng).error);
 
-    subscriptionManagementController.get(request, response).then(() => {
+    subscriptionManagementController.get(erroredRequest, response).then(() => {
       responseMock.verify();
     });
   });
