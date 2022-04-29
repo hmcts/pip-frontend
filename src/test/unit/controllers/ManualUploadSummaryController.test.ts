@@ -11,8 +11,7 @@ const uploadStub = sinon.stub(ManualUploadService.prototype, 'uploadPublication'
 sinon.stub(ManualUploadService.prototype, 'formatPublicationDates').returns(mockData);
 sinon.stub(ManualUploadService.prototype, 'readFile').returns('');
 sinon.stub(ManualUploadService.prototype, 'removeFile').returns('');
-uploadStub.withArgs({ mockData, file: '', userId: '1'}, true).resolves(false);
-uploadStub.withArgs({ mockData, file: '', userId: '2'}, true).resolves(true);
+uploadStub.withArgs({ ...mockData, file: '', userId: '1'}, true).resolves(false);
 
 describe('Manual upload summary controller', () => {
   const i18n = {'file-upload-summary': {}};
@@ -80,17 +79,19 @@ describe('Manual upload summary controller', () => {
       responseMock.verify();
     });
 
-    it('should redirect to success page', () => {
+    it('should redirect to success page', async () => {
       const req = mockRequest(i18n);
-      const res = { render: () => {return '';}, redirect: () => ''} as unknown as Response;
+      const res = { render: () => {return '';}, redirect: () => '', clearCookie: () => {return '';}} as unknown as Response;
       req.user = {id: '2'};
       req['cookies'] = {'formCookie': JSON.stringify(mockData)};
       const responseMock = sinon.mock(res);
+
+      uploadStub.withArgs({ ...mockData, file: '', userId: '2'}, true).resolves(res);
+
       responseMock.expects('redirect').once().withArgs('upload-confirmation');
 
-      manualUploadSummaryController.post(req, res).then(() => {
-        responseMock.verify();
-      });
+      await manualUploadSummaryController.post(req, res);
+      responseMock.verify();
     });
   });
 });

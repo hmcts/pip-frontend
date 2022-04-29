@@ -27,7 +27,7 @@ Some of the pages within this app are secured via authentication.
 There are two modes for authentication:
 
 1) OIDC
-2) Custom Strategy
+2) Custom Strategy.
 
 The OIDC connect strategy integrates with Azure. When users try to access an authenticated page,
 they will be presented with the logon screen.
