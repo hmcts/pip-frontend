@@ -194,6 +194,7 @@ describe('Publication service', () => {
       const data = await publicationService.getPublicationsByCourt('2', true);
       expect(data).to.deep.equal([]);
     });
+
   });
 
   describe('publicationTime Publication Service', () => {
