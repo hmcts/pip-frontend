@@ -17,7 +17,7 @@ describe('Create Media Account page', () => {
     it('should display correct title', () => {
       const header = htmlRes.getElementsByClassName('govuk-heading-l');
       expect(header[0].innerHTML)
-        .contains('Create a court and tribunal hearing account', 'Could not find correct value in the title');
+        .contains('Create a Court and tribunal hearing account', 'Could not find correct value in the title');
     });
 
     it('should display correct retention hint', () => {
