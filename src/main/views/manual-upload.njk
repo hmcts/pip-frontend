@@ -11,16 +11,15 @@
 {% block content %}
   <div class="parent-box">
     <div class="govuk-grid-row">
-          <div class="govuk-callout" tabindex="0">
-      <h1 class="govuk-heading-m">{{ warning }}</h1>
-      <div class="govuk-warning-text">
-        <span class="govuk-warning-text__icon govuk-!-margin-1" aria-hidden="true">!</span>
-        <p class="govuk-warning-text__text govuk-!-bold govuk-!-margin-0">
-          {{ warningText }}
-        </p>
+      <div class="govuk-callout" tabindex="0">
+        <h1 class="govuk-heading-m">{{ warning }}</h1>
+        <div class="govuk-warning-text">
+          <span class="govuk-warning-text__icon govuk-!-margin-1" aria-hidden="true">!</span>
+          <p class="govuk-warning-text__text govuk-!-bold govuk-!-margin-0">
+            {{ warningText }}
+          </p>
+        </div>
       </div>
-    </div>
-    
       <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-xl">{{ title }}</h1>
         <form method="post" enctype="multipart/form-data">
