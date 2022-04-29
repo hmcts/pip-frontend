@@ -64,7 +64,7 @@ describe('Create Media Account page', () => {
 
     it('should display usage paragraph', () => {
       const message = htmlRes.getElementsByClassName('govuk-hint')[2];
-      expect(message.innerHTML).contains('We\'ll only use this to confirm your identity for this service, ' +
+      expect(message.innerHTML).contains('We will only use this to confirm your identity for this service, ' +
         'and will delete upon approval or rejection of your request', 'Could not find clear photo message');
     });
 
