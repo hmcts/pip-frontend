@@ -142,7 +142,7 @@
                 </label>
               </div>
             </td>
-            <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header">{{ sjpSubscription }}</td>
+            <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ sjpSubscription }}</td>
           </tr>
           </tbody>
         </table>
@@ -166,7 +166,7 @@
                       </th>
 
                     {% else %}
-                      <th scope="row" class="govuk-table__header">
+                      <th scope="row" aria-hidden="true" class="govuk-table__header">
                       </th>
                     {% endif %}
                     <td class="govuk-table__cell">
@@ -181,7 +181,7 @@
                         </label>
                       </div>
                     </td>
-                    <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header">{{ courtName }}</td>
+                    <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ courtName }}</td>
                   </tr>
                 {% endif %}
               {% endfor %}
