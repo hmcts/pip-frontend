@@ -9,5 +9,7 @@
   "clearAll": "Clirio hidlwyr",
   "selectedFilter": "Hidlwyr a ddewiswyd",
   "hide" : "Cuddio Hidlwyr",
-  "show": "Dangos Hidlwyr"
+  "show": "Dangos Hidlwyr",
+  "jurisdiction": "YA BOI",
+  "region": "NO BOI"
 }

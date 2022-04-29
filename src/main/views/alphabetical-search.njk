@@ -33,7 +33,8 @@
               {% endif %}
             {% endfor %}
             {% if checkedFilterItems| length > 0 %}
-              {% set _ = checkedFilters.push({heading: {text: key}, items: checkedFilterItems}) %}
+              {% set filterKey = daOne if key == 'Jurisdiction' else daTwo %}
+              {% set _ = checkedFilters.push({heading: {text: filterKey}, items: checkedFilterItems}) %}
             {% endif %}
             {% if toBeCreated %}
               <div class="moj-button-menu filters__innerButton" id="innerButton">
@@ -53,7 +54,7 @@
               classes: "govuk-checkboxes--small",
               fieldset: {
                 legend: {
-                  text: key,
+                  text: filterKey,
                   classes: 'govuk-fieldset__legend--m'
                 }
               },
