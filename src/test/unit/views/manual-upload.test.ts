@@ -109,6 +109,17 @@ describe('Manual upload page', () => {
       const button = htmlRes.getElementsByTagName('button')[0];
       expect(button.innerHTML).contains(buttonText, 'Could not find continue button');
     });
+
+    it('should display the warning banner', () => {
+      const banner = htmlRes.getElementsByClassName('govuk-callout')[0];
+      const warningHeader = htmlRes.getElementsByTagName('h1')[0];
+      const warningText = htmlRes.getElementsByTagName('p')[0];
+
+      expect(banner).to.exist;
+      expect(warningHeader.innerHTML).contains('Warning', 'Could not find warning header');
+      expect(warningText.innerHTML).contains('Prior to upload you must ensure the file is suitable for publication ' +
+        'e.g. redaction of personal data has been done during the production of this file.', 'Could not find warning text');
+    });
   });
 
   describe('on POST', () => {
