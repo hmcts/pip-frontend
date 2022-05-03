@@ -24,17 +24,6 @@ describe('accessibility-statement', () => {
       'Hearing Information Service', 'Could not find the header');
   });
 
-  it('should display the links in section 1', () => {
-    const links = htmlRes.getElementsByTagName('a');
-
-    expect(links[7].innerHTML).contains('www.court-tribunal-hearings.service.gov.uk.',
-      'Could not find 1st section 1 link text');
-    expect(links[7].href).contains('https://www.court-tribunal-hearings.service.gov.uk', 'Could not find 1st section 1 links href');
-
-    expect(links[8].innerHTML).contains('AbilityNet', 'Could not find 2nd section 1 link text');
-    expect(links[8].href).contains('https://mcmw.abilitynet.org.uk/', 'Could not find 2nd section 1 link href');
-  });
-
   it('should display the heading in section 2', () => {
     const heading = htmlRes.getElementsByClassName(mediumHeadingClass);
 
