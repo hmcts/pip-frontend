@@ -78,6 +78,7 @@ export default function(app: Application): void {
   app.get('/*', globalAuthGiver);
   app.post('/*', globalAuthGiver);
   app.get('/', app.locals.container.cradle.homeController.get);
+  app.get('/accessibility-statement', app.locals.container.cradle.accessibilityStatementController.get);
   app.get('/account-request-submitted', app.locals.container.cradle.mediaAccountRequestSubmittedController.get);
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
@@ -106,7 +107,6 @@ export default function(app: Application): void {
   app.get('/summary-of-publications', app.locals.container.cradle.summaryOfPublicationsController.get);
   app.get('/file-publication', app.locals.container.cradle.flatFileController.get);
   app.get('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.get);
-  app.get('/accessibility-statement', app.locals.container.cradle.accessibilityStatementController.get);
 
   // Restricted paths
   app.get('/account-home', ensureAuthenticated, app.locals.container.cradle.accountHomeController.get);
