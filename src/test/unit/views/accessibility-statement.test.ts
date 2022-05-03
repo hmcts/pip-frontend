@@ -7,7 +7,6 @@ const PAGE_URL = '/accessibility-statement';
 const largeHeadingClass = 'govuk-heading-l';
 const mediumHeadingClass = 'govuk-heading-m';
 const smallHeadingClass = 'govuk-heading-s';
-const bodyClass = 'govuk-body';
 
 let htmlRes: Document;
 
