@@ -25,22 +25,6 @@ describe('accessibility-statement', () => {
       'Hearing Information Service', 'Could not find the header');
   });
 
-  it('should display the paragraphs in section 1', () => {
-    const paragraphs = htmlRes.getElementsByClassName(bodyClass);
-
-    expect(paragraphs[0].innerHTML).contains('The Court and Tribunal Hearing Information Service provides a ' +
-      'publishing platform to enable information provided by HMCTS to be shared, displayed and updated as appropriate. ' +
-      'It will enable lists, outcomes, judgments and information to be displayed to court users, consistent with jurisdictional ' +
-      'procedures and business rules. The service supports HMCTS’ commitment to open justice and the provision of ' +
-      'transparent and consistent court/tribunal information across all jurisdictions.', 'Could not find 1st section 1 paragraph');
-
-    expect(paragraphs[2].innerHTML).contains('This website is run by HM Courts and Tribunals. We want as many people as possible ' +
-      'to be able to use this website, so we have designed it to be accessible. ' +
-      'For example, that means you should be able to:', 'Could not find 3rd section 1 paragraph');
-    expect(paragraphs[3].innerHTML).contains('We’ve also made the website text as simple as possible to understand.',
-      'Could not find 4th section 1 paragraph');
-  });
-
   it('should display the links in section 1', () => {
     const links = htmlRes.getElementsByTagName('a');
 
