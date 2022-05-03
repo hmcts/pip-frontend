@@ -30,7 +30,7 @@ module.exports = {
       ...scss.rules,
       {
         test: /\.ts$/,
-        loaders: ['babel-loader', 'ts-loader'],
+        use: ['babel-loader', 'ts-loader'],
         exclude: /node_modules/,
       }],
   },

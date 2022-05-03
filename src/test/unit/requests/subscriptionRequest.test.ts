@@ -67,9 +67,9 @@ describe('getUserSubscriptions error tests', () => {
   beforeEach(() => {
     stub.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves({'data': []});
     stub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({'data': {caseSubscriptions: [], courtSubscriptions:[]}});
-    stub.withArgs('/subscription/user/99').resolves(Promise.reject(errorRequest));
-    stub.withArgs('/subscription/user/999').resolves(Promise.reject(errorMessage));
-    stub.withArgs('/subscription/user/9999').resolves(Promise.reject(errorResponse));
+    stub.withArgs('/subscription/user/99').rejects(errorRequest);
+    stub.withArgs('/subscription/user/999').rejects(errorMessage);
+    stub.withArgs('/subscription/user/9999').rejects(errorResponse);
   });
 
   it('should return null for error response', async () => {
@@ -101,19 +101,19 @@ describe('subscribe', () => {
   });
 
   it('should return false for failure', async() => {
-    subscriptionManagementStub.withArgs('/subscription').resolves(Promise.reject(errorMessage));
+    subscriptionManagementStub.withArgs('/subscription').rejects(errorMessage);
     const userSubscriptions = await subscriptionActions.subscribe({});
     expect(userSubscriptions).toBe(false);
   });
 
   it('should return false for error request', async() => {
-    subscriptionManagementStub.withArgs('/subscription').resolves(Promise.reject(errorRequest));
+    subscriptionManagementStub.withArgs('/subscription').rejects(errorRequest);
     const userSubscriptions = await subscriptionActions.subscribe({});
     expect(userSubscriptions).toBe(false);
   });
 
   it('should return false for error response', async() => {
-    subscriptionManagementStub.withArgs('/subscription').resolves(Promise.reject(errorResponse));
+    subscriptionManagementStub.withArgs('/subscription').rejects(errorResponse);
     const userSubscriptions = await subscriptionActions.subscribe({});
     expect(userSubscriptions).toBe(false);
   });
@@ -129,7 +129,7 @@ describe('unsubscribe with valid post data', () => {
 
 describe('unsubscribe error states', () => {
   describe('unsubscribe error response', () => {
-    deleteStub.withArgs(`/subscription/${unsubscribeInvalidData.subscriptionId}`).resolves(Promise.reject(errorResponse));
+    deleteStub.withArgs(`/subscription/${unsubscribeInvalidData.subscriptionId}`).rejects(errorResponse);
     it('should return null', async () => {
       const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeInvalidData.subscriptionId);
       expect(unsubscribe).toBe(null);
@@ -137,7 +137,7 @@ describe('unsubscribe error states', () => {
   });
 
   describe('unsubscribe error request', () => {
-    deleteStub.withArgs(`/subscription/${errorRequestBodyData.foo}`).resolves(Promise.reject(errorRequest));
+    deleteStub.withArgs(`/subscription/${errorRequestBodyData.foo}`).rejects(errorRequest);
     it('should return null', async () => {
       const unsubscribe = await subscriptionActions.unsubscribe(errorRequestBodyData.foo);
       expect(unsubscribe).toBe(null);
@@ -145,7 +145,7 @@ describe('unsubscribe error states', () => {
   });
 
   describe('unsubscribe error', () => {
-    deleteStub.withArgs(`/subscription/${errorBodyData.baz}`).resolves(Promise.reject({error: 'error'}));
+    deleteStub.withArgs(`/subscription/${errorBodyData.baz}`).rejects({error: 'error'});
     it('should return null', async () => {
       const unsubscribe = await subscriptionActions.unsubscribe(errorBodyData.baz);
       expect(unsubscribe).toBe(null);

@@ -46,6 +46,11 @@ describe('View Option Page', () => {
       expect(radioButtons.length).equal(2, '2 radio buttons not found');
     });
 
+    it('should display the beta header', () => {
+      const betaHeader = htmlRes.getElementsByClassName('govuk-phase-banner');
+      expect(betaHeader[0].innerHTML).contains('beta', 'Could not locate beta heading.');
+    });
+
     it('should display radio buttons with valid text',  () => {
       const radioButtons = htmlRes.getElementsByClassName(radioClass);
       expect(radioButtons[0].innerHTML).contains(expectedRadioLabel1, 'Could not find the radio button with label ' + expectedRadioLabel1);

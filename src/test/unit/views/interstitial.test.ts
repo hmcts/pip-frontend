@@ -60,6 +60,11 @@ describe('Interstitial page', () => {
       expect(header[0].innerHTML).contains(pageHeader, 'Could not find correct value in header');
     });
 
+    it('should display beta header', () => {
+      const betaHeader = htmlRes.getElementsByClassName('govuk-phase-banner');
+      expect(betaHeader[0].innerHTML).contains('beta', 'Could not find beta header');
+    });
+
     it('should display continue button',  () => {
       const buttons = htmlRes.getElementsByClassName('govuk-button');
       expect(buttons[0].innerHTML).contains('Continue', 'Could not find button');

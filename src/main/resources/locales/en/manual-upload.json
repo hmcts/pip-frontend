@@ -28,5 +28,19 @@
     "displayDateFromHint": "For example, 27 01 2022",
     "displayDateTo": "Display file to",
     "displayDateToHint": "For example, 18 02 2022"
-  }
+  },
+  "pageHelpHeading": "Page Help",
+  "pageHelp": [
+    {"heading": "Hearing lists", "text": "You must ensure that you only upload one file that contains all hearings for the Court or Tribunal name and List type. This should include all judges and court rooms in one document."},
+    {"heading": "Available to", "text": "You need to indicate which user group your document should be available to:"},
+    {"heading": "Public", "text": "Publication available to all users."},
+    {"heading": "Private", "text": "Publication available to all verified users e.g. Legal professionals and media."},
+    {"heading": "Classified - verified CFT", "text": "Publication only available to verified users who sign in using a MyHMCTS account."},
+    {"heading": "Classified - verified Crime", "text": "Publication only available to verified users who sign in using a Common Platform account."},
+    {"heading": "Classified - verified Media", "text": "Publication only available to media users who sign in using a courts and tribunals hearings account."},
+    {"heading": "Display from", "text": "This will be the date the publication is available from, if today's date is used it will be displayed immediately. If a date in the future is used, it will display from 00:01 of that date."},
+    {"heading": "Display to", "text": "This will be the last date the publication is available. It will be displayed until 23:59 of that date."}
+  ],
+  "warning": "Warning",
+  "warningText": "Prior to upload you must ensure the file is suitable for publication e.g. redaction of personal data has been done during the production of this file."
 }

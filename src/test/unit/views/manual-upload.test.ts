@@ -110,6 +110,67 @@ describe('Manual upload page', () => {
       const button = htmlRes.getElementsByTagName('button')[0];
       expect(button.innerHTML).contains(buttonText, 'Could not find continue button');
     });
+
+    it('should display page help heading', () => {
+      const heading = htmlRes.getElementsByTagName('h2')[0];
+      expect(heading.innerHTML).contains('Page Help', 'Could not find page help heading');
+    });
+
+    it('should display the hearing lists heading', () => {
+      const heading = htmlRes.getElementsByTagName('h3')[0];
+      expect(heading.innerHTML).contains('Hearing lists', 'Could not find hearing lists heading');
+    });
+
+    it('should display the available to heading', () => {
+      const heading = htmlRes.getElementsByTagName('h3')[1];
+      expect(heading.innerHTML).contains('Available to', 'Could not find available to heading');
+    });
+
+    it('should display the public heading', () => {
+      const heading = htmlRes.getElementsByTagName('h3')[2];
+      expect(heading.innerHTML).contains('Public', 'Could not find public heading');
+    });
+
+    it('should display the private heading', () => {
+      const heading = htmlRes.getElementsByTagName('h3')[3];
+      expect(heading.innerHTML).contains('Private', 'Could not find private heading');
+    });
+
+    it('should display the classified - verified CFT heading', () => {
+      const heading = htmlRes.getElementsByTagName('h3')[4];
+      expect(heading.innerHTML).contains('Classified - verified CFT', 'Could not find classified - verified CFT heading');
+    });
+
+    it('should display the classified - verified crime heading', () => {
+      const heading = htmlRes.getElementsByTagName('h3')[5];
+      expect(heading.innerHTML).contains('Classified - verified Crime', 'Could not find classified - verified crime heading');
+    });
+
+    it('should display the classified - verified media heading', () => {
+      const heading = htmlRes.getElementsByTagName('h3')[6];
+      expect(heading.innerHTML).contains('Classified - verified Media', 'Could not find classified - verified media heading');
+    });
+
+    it('should display the display from heading', () => {
+      const heading = htmlRes.getElementsByTagName('h3')[7];
+      expect(heading.innerHTML).contains('Display from', 'Could not find display from heading');
+    });
+
+    it('should display the display to heading', () => {
+      const heading = htmlRes.getElementsByTagName('h3')[8];
+      expect(heading.innerHTML).contains('Display to', 'Could not find display to heading');
+    });
+
+    it('should display the warning banner', () => {
+      const banner = htmlRes.getElementsByClassName('govuk-callout')[0];
+      const warningHeader = htmlRes.getElementsByTagName('h1')[0];
+      const warningText = htmlRes.getElementsByTagName('p')[1];
+
+      expect(banner).to.exist;
+      expect(warningHeader.innerHTML).contains('Warning', 'Could not find warning header');
+      expect(warningText.innerHTML).contains('Prior to upload you must ensure the file is suitable for publication ' +
+        'e.g. redaction of personal data has been done during the production of this file.', 'Could not find warning text');
+    });
   });
 
   describe('on POST', () => {
