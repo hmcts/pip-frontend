@@ -5,8 +5,6 @@ import { app } from '../../../main/app';
 
 const PAGE_URL = '/accessibility-statement';
 const largeHeadingClass = 'govuk-heading-l';
-const mediumHeadingClass = 'govuk-heading-m';
-const smallHeadingClass = 'govuk-heading-s';
 
 let htmlRes: Document;
 
@@ -25,57 +23,57 @@ describe('accessibility-statement', () => {
   });
 
   it('should display the heading in section 2', () => {
-    const heading = htmlRes.getElementsByClassName(mediumHeadingClass);
+    const div = htmlRes.getElementById('section2');
 
-    expect(heading[0].innerHTML).contains('How accessible is this website?', 'Could not find section 2 heading');
+    expect(div.textContent).contains('How accessible is this website?', 'Could not find section 2 heading');
   });
 
   it('should display the heading in section 3', () => {
-    const heading = htmlRes.getElementsByClassName(mediumHeadingClass);
+    const div = htmlRes.getElementById('section3');
 
-    expect(heading[1].innerHTML).contains('Feedback and contact information', 'Could not find section 3 heading');
+    expect(div.textContent).contains('Feedback and contact information', 'Could not find section 3 heading');
   });
 
   it('should display the heading in section 4', () => {
-    const heading = htmlRes.getElementsByClassName(mediumHeadingClass);
+    const div = htmlRes.getElementById('section4');
 
-    expect(heading[2].innerHTML).contains('Reporting accessibility problems with this website', 'Could not find section 4 heading');
+    expect(div.textContent).contains('Reporting accessibility problems with this website', 'Could not find section 4 heading');
   });
 
   it('should display the heading in section 5', () => {
-    const heading = htmlRes.getElementsByClassName(mediumHeadingClass);
+    const div = htmlRes.getElementById('section5');
 
-    expect(heading[3].innerHTML).contains('Enforcement procedure', 'Could not find section 5 heading');
+    expect(div.textContent).contains('Enforcement procedure', 'Could not find section 5 heading');
   });
 
   it('should display the heading in section 6', () => {
-    const heading = htmlRes.getElementsByClassName(mediumHeadingClass);
+    const div = htmlRes.getElementById('section6');
 
-    expect(heading[4].innerHTML).contains('Contacting us by phone or visiting us in person', 'Could not find section 6 heading');
+    expect(div.textContent).contains('Contacting us by phone or visiting us in person', 'Could not find section 6 heading');
   });
 
   it('should display the heading in section 7', () => {
-    const heading = htmlRes.getElementsByClassName(mediumHeadingClass);
+    const div = htmlRes.getElementById('section7');
 
-    expect(heading[5].innerHTML).contains('Technical information about this website’s accessibility', 'Could not find section 7 heading');
+    expect(div.textContent).contains('Technical information about this website’s accessibility', 'Could not find section 7 heading');
   });
 
   it('should display the headings in section 8', () => {
-    const heading = htmlRes.getElementsByClassName(mediumHeadingClass);
-    const smallHeading = htmlRes.getElementsByClassName(smallHeadingClass);
-    expect(heading[6].innerHTML).contains('Compliance status', 'Could find find section 8 heading');
-    expect(smallHeading[0].innerHTML).contains('Non-accessible content', 'Could not find section 8 small heading');
+    const div = htmlRes.getElementById('section8');
+
+    expect(div.textContent).contains('Compliance status', 'Could find find section 8 heading');
+    expect(div.textContent).contains('Non-accessible content', 'Could not find section 8 small heading');
   });
 
   it('should display the heading in section 9', () => {
-    const heading = htmlRes.getElementsByClassName(mediumHeadingClass);
+    const div = htmlRes.getElementById('section9');
 
-    expect(heading[7].innerHTML).contains('What we’re doing to improve accessibility', 'Could not find section 9 heading');
+    expect(div.textContent).contains('What we’re doing to improve accessibility', 'Could not find section 9 heading');
   });
 
   it('should display the heading in section 10', () => {
-    const heading = htmlRes.getElementsByClassName(mediumHeadingClass);
+    const div = htmlRes.getElementById('section10');
 
-    expect(heading[8].innerHTML).contains('Preparation of this accessibility statement', 'Could not find section 10 heading');
+    expect(div.textContent).contains('Preparation of this accessibility statement', 'Could not find section 10 heading');
   });
 });
