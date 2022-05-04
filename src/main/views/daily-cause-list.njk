@@ -10,7 +10,7 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
-  <h2 id='page-heading' class="govuk-heading-l">{{ header }} <br />{{ courtName }}</h2>
+  <h2 id='page-heading' class="govuk-heading-l">{{ headerPart1 }}<br />{{ headerPart2 }}{{ courtName }}</h2>
   <p class="govuk-body">
     {% for line in listData['venue']['venueAddress']['line'] %}
       {{ line }}<br />
