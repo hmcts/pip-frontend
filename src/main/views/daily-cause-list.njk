@@ -34,14 +34,20 @@
   {% for courtList in listData['courtLists'] %}
     {% set courtHouse = courtList['courtHouse'] %}
     {% set courtHouseAddress = courtHouse['courtHouseAddress'] %}
-    <div class="site-header">
-      <h1 class="govuk-heading-l site-address">{{ courtHouse['courtHouseName'] }}</h1>
+    <div class="site-header" tabindex="0" aria-label="Court Details">
+      <h1 class="govuk-heading-l site-address" tabindex="0">{{ courtHouse['courtHouseName'] }}</h1>
       {% for line in courtHouseAddress['line'] %}
-        <p class="govuk-body site-address">{{ line }}</p>
+        <p class="govuk-body site-address" tabindex="0">{{ line }}</p>
       {% endfor %}
-      <p class="govuk-body site-address">{{ courtHouseAddress['town'] }}</p>
-      <p class="govuk-body site-address">{{ courtHouseAddress['county'] }}</p>
-      <p class="govuk-body site-address">{{ courtHouseAddress['postCode'] }}</p>
+      {% if courtHouseAddress['town'] | length %}
+        <p class="govuk-body site-address" tabindex="0">{{ courtHouseAddress['town'] }}</p>
+      {% endif %}
+      {% if courtHouseAddress['county'] | length %}
+        <p class="govuk-body site-address" tabindex="0">{{ courtHouseAddress['county'] }}</p>
+      {% endif %}
+      {% if courtHouseAddress['postCode'] | length %}
+        <p class="govuk-body site-address" tabindex="0">{{ courtHouseAddress['postCode'] }}</p>
+      {% endif %}
     </div>
     <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
         {% set sessionCount = 0 %}

@@ -110,6 +110,62 @@
           }
         ]
       }
+    },
+    {
+      "courtHouse": {
+        "courtHouseName": "Court B",
+        "courtHouseAddress": {
+          "line": [
+            "Address Line 1",
+            "Address Line 2"
+          ],
+          "town": "Town B",
+          "county": "County B",
+          "postCode": "BB1 BB1"
+        },
+        "courtRoom": [
+          {
+            "courtRoomName": "1",
+            "session": [
+              {
+                "sessionStartTime": "",
+                "sessionChannel": [
+                  "VIDEO HEARING"
+                ],
+                "judiciary": [
+                  {
+                    "johTitle": "Mr",
+                    "johNameSurname": "Firstname1 Surname1"
+                  }
+                ],
+                "sittings": [
+                  {
+                    "sittingStart": "2022-01-27T09:40:17.496185",
+                    "sittingEnd": "2022-01-27T10:45:17.496185",
+                    "hearing": [
+                      {
+                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                        "case": [
+                          {
+                            "caseName": "A1 Vs B1",
+                            "caseNumber": "12345678",
+                            "caseSequenceIndicator": "[2 of 3]"
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      "Remote",
+                      "Teams"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "totalHearing": 2
+          }
+        ]
+      }
     }
   ]
 }

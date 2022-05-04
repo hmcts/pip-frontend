@@ -158,6 +158,104 @@
           }
         ]
       }
+    },
+    {
+      "courtHouse": {
+        "courtHouseName": "Court B",
+        "courtHouseAddress": {
+          "line": [
+            "Address Line 1",
+            "Address Line 2"
+          ],
+          "town": "Town B",
+          "county": "County B",
+          "postCode": "BB1 BB1"
+        },
+        "courtRoom": [
+          {
+            "courtRoomName": "1",
+            "session": [
+              {
+                "sessionStartTime": "",
+                "sessionChannel": [
+                  "VIDEO HEARING"
+                ],
+                "judiciary": [
+                  {
+                    "johTitle": "Mr",
+                    "johNameSurname": "Firstname1 Surname1"
+                  },
+                  {
+                    "johTitle": "Mr",
+                    "johNameSurname": "Presiding",
+                    "isPresiding": true
+                  }
+                ],
+                "sittings": [
+                  {
+                    "sittingStart": "2022-01-27T09:40:17.496185",
+                    "sittingEnd": "2022-01-27T10:45:17.496185",
+                    "hearing": [
+                      {
+                        "hearingType": "FMPO",
+                        "case": [
+                          {
+                            "caseName": "A1 Vs B1",
+                            "caseNumber": "12345678",
+                            "caseJurisdictionET": "type"
+                          }
+                        ],
+                        "party": [
+                          {
+                            "partyRole": "APPLICANT_PETITIONER",
+                            "individualDetails": {
+                              "individualSurname": "Surname"
+                            }
+                          },
+                          {
+                            "partyRole": "RESPONDENT",
+                            "individualDetails": {
+                              "individualSurname": "Surname"
+                            }
+                          },
+                          {
+                            "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                            "friendlyRoleName": "Legal Advisor",
+                            "individualDetails": {
+                              "individualForenames": "Individual Forenames",
+                              "individualMiddleName": "Individual Middlename",
+                              "individualSurname": "Individual Surname",
+                              "title": "Mr"
+                            }
+                          },
+                          {
+                            "partyRole": "RESPONDENT_REPRESENTATIVE",
+                            "friendlyRoleName": "Legal Advisor",
+                            "individualDetails": {
+                              "individualForenames": "Individual Forenames",
+                              "individualMiddleName": "Individual Middlename",
+                              "individualSurname": "Individual Surname",
+                              "title": "Mr"
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      "testSittingChannel"
+                    ],
+                    "duration": "",
+                    "startTime": "9.40am",
+                    "durationAsHours": 1,
+                    "durationAsMinutes": 5
+                  }
+                ]
+              }
+            ],
+            "totalHearing": 2
+          }
+        ]
+      }
     }
   ]
 }
