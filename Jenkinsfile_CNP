@@ -38,14 +38,14 @@ static Map<String, Object> secret(String secretName, String envVariable) {
   ]
 }
 
-static String addUrlToB2c(String envName){
+static String addUrlToB2c(String envName, String prId, String clientId, String, clientPwd, String tenantId){
   def appName = 'pip-frontend-' +  envName;
-  def uri = 'https://pip-frontend-pr-' + env.CHANGE_ID + '.dev.platform.hmcts.net/login/return'
+  def uri = 'https://pip-frontend-pr-' + prId + '.dev.platform.hmcts.net/login/return'
 
   def unlockScript = "environment='" +  envName + "';" +
-        '"azureClientId="' + env.B2C_CLIENT_ID + '";' +
-        'azureClientSecret="' + env.B2C_CLIENT_PWD + '";' +
-        'azureTenant="' + env.B2C_TENANT_ID + '";' +
+        '"azureClientId="' + clientId + '";' +
+        'azureClientSecret="' + clientPwd + '";' +
+        'azureTenant="' + tenantId + '";' +
         '' +
         'az login --service-principal --username $azureClientId --password $azureClientSecret --tenant $azureTenant --allow-no-subscriptions;' +
         '' +
@@ -102,7 +102,7 @@ withPipeline(type, product, component) {
   }
   onPR() {
     env.ENV = 'dev'
-    addUrlToB2c('stg')
+    addUrlToB2c('stg', env.CHANGE_ID, env.B2C_CLIENT_ID, env.B2C_CLIENT_PWD, env.B2C_TENANT_ID)
   }
   onDemo {
     env.ENV = 'demo'
