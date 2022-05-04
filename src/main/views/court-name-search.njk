@@ -142,7 +142,7 @@
                 </label>
               </div>
             </td>
-            <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header">{{ sjpSubscription }}</td>
+            <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ sjpSubscription }}</td>
           </tr>
           </tbody>
         </table>
@@ -166,7 +166,7 @@
                       </th>
 
                     {% else %}
-                      <th scope="row" class="govuk-table__header">
+                      <th scope="row" aria-hidden="true" class="govuk-table__header">
                       </th>
                     {% endif %}
                     <td class="govuk-table__cell">
@@ -181,7 +181,7 @@
                         </label>
                       </div>
                     </td>
-                    <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header">{{ courtName }}</td>
+                    <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ courtName }}</td>
                   </tr>
                 {% endif %}
               {% endfor %}
@@ -220,9 +220,24 @@
       var element = document.getElementById("filters");
       var content = document.getElementById("content");
       var navigation = document.getElementsByClassName("moj-sub-navigation pub-navigation govuk-!-margin-bottom-0");
+      var skipLink = document.getElementsByClassName("govuk-skip-link");
+      var header = document.getElementsByClassName("govuk-header");
+      var backLink = document.getElementsByClassName("govuk-back-link");
+      var footer = document.getElementsByClassName("govuk-footer");
+      var largeHeading = document.getElementsByClassName("govuk-heading-l");
+      var paragraphBody = document.getElementsByClassName("govuk-body");
+
       element.classList.toggle("hide");
       content.classList.toggle("hide");
       navigation[0].classList.toggle("hide");
+      skipLink[0].classList.toggle("hide");
+      header[0].classList.toggle("hide");
+      backLink[0].classList.toggle("hide");
+      footer[0].classList.toggle("hide");
+      largeHeading[0].classList.toggle("hide");
+      paragraphBody[0].classList.toggle("hide");
+
+
       if (element.className.indexOf('hide') > 0) {
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ show }}";
       } else {
