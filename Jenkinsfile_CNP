@@ -43,7 +43,7 @@ static String addUrlToB2c(String envName, String prId, String clientId, String, 
   def uri = 'https://pip-frontend-pr-' + prId + '.dev.platform.hmcts.net/login/return'
 
   def script = "environment='" +  envName + "';" +
-        '"azureClientId="' + clientId + '";' +
+        'azureClientId="' + clientId + '";' +
         'azureClientSecret="' + clientPwd + '";' +
         'azureTenant="' + tenantId + '";' +
         '' +
@@ -103,6 +103,11 @@ withPipeline(type, product, component) {
   }
   onPR() {
     env.ENV = 'dev'
+    def prId = '123' // env.CHANGE_ID
+    def clientId = '123' // env.B2C_CLIENT_ID
+    def clientPwd = '123' // env.B2C_CLIENT_PWD
+    def tenantId = '123' // env.B2C_TENANT_ID
+    sh addUrlToB2c('stg', prId, clientId, clientPwd, tenantId)
   }
   onDemo {
     env.ENV = 'demo'
@@ -114,5 +119,4 @@ withPipeline(type, product, component) {
     env.ENV = 'ithc'
   }
   
-    sh addUrlToB2c('stg', env.CHANGE_ID, env.B2C_CLIENT_ID, env.B2C_CLIENT_PWD, env.B2C_TENANT_ID)
 }
