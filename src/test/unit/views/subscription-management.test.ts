@@ -44,6 +44,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
   it('should display no subscription message ', async () => {
     await request(app).get(PAGE_URL + '?all').then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
       const message = htmlRes.getElementsByClassName('govuk-body');
       expect(message[0].innerHTML)
         .contains('You currently have no subscriptions', 'Could not find correct message');
@@ -53,6 +54,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
   it('should display no subscription case message ', async () => {
     await request(app).get(PAGE_URL + '?case').then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
       const message = htmlRes.getElementsByClassName('govuk-body');
       expect(message[0].innerHTML)
         .contains('You currently have no subscriptions by case', 'Could not find correct message');
@@ -62,6 +64,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
   it('should display no subscription court message ', async () => {
     await request(app).get(PAGE_URL + '?court').then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
       const message = htmlRes.getElementsByClassName('govuk-body');
       expect(message[0].innerHTML)
         .contains('You currently have no subscriptions by court or tribunal', 'Could not find correct message');
@@ -74,6 +77,7 @@ describe('Subscriptions Management Page', () => {
     app.request['user'] = {oid: '1'};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
     });
   });
 
