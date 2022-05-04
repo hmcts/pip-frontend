@@ -32,8 +32,8 @@
                 {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
               {% endif %}
             {% endfor %}
+            {% set filterKey = jurisdiction if key == 'Jurisdiction' else region %}
             {% if checkedFilterItems| length > 0 %}
-              {% set filterKey = daOne if key == 'Jurisdiction' else daTwo %}
               {% set _ = checkedFilters.push({heading: {text: filterKey}, items: checkedFilterItems}) %}
             {% endif %}
             {% if toBeCreated %}
@@ -187,5 +187,7 @@
       let href = currentPath ? currentPath[0].replace(deleteVal, '') + filterToClear.replace('?', '&') : filterToClear
       return href.replace(',,', ',');
     }
+
+    document.getElementsByTagName("button")[0].innerHTML = '{{ applyFiltersButton }}';
   </script>
 {% endblock %}

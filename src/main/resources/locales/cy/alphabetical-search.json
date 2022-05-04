@@ -10,6 +10,7 @@
   "selectedFilter": "Hidlwyr a ddewiswyd",
   "hide" : "Cuddio Hidlwyr",
   "show": "Dangos Hidlwyr",
-  "jurisdiction": "YA BOI",
-  "region": "NO BOI"
+  "jurisdiction": "Awdurdodaeth",
+  "region": "Rhanbarth",
+  "applyFiltersButton": "Cadarnhau hidlwyr"
 }
