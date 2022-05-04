@@ -1,0 +1,56 @@
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% extends "template.njk" %}
+{% block pageTitle %}
+ Media Account Rejection
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+{% block content %}
+  <h1 class="govuk-heading-l">Are you sure you want to reject this application?</h1>
+
+  {{ govukTable({
+    caption: tableCaption,
+    captionClasses: "govuk-table__caption--m",
+    firstCellIsHeader: true,
+    rows: [
+      [
+      {
+        text: tableHeaders[0]
+      },
+        {
+          text: applicantData[0]
+        }],
+      [
+      {
+        text: tableHeaders[1]
+      },
+        {text: applicantData[1]}
+        ]
+    ]
+  }) }}
+
+
+  {{ govukRadios({
+    classes: "govuk-radios--inline",
+    idPrefix: "changed-name",
+    name: "changed-name",
+    fieldset: {
+    },
+    items: [
+      {
+        value: radioAnswers[0],
+        text: radioAnswers[0]
+      },
+      {
+        value: radioAnswers[1],
+        text: radioAnswers[1]
+      }
+    ]
+  }) }}
+  {{ submitButton() }}
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{
+  "title": "Rejection",
+  "backToTop": "Back to top",
+  "panelHeading": "Account has been rejected.",
+  "tableCaption": "Applicant's Details",
+  "tableHeaders": ["Name", "Email", "Employer", "Date Applied", "Proof of ID"],
+  "radioAnswers": ["Yes", "No"],
+  "applicantData": ["Danny", "daniel.furnivall1@justice.gov.uk", "HMCTS", "29 April 2022", "danny.png"],
+  "whatHappensNextHeader": "What happens next",
+  "whatHappensNext1": "You now need to email the applicant [",
+  "whatHappensNext2": "] to notify them why their application cannot be progressed and to reapply once the issue has been rectified.",
+  "emailTemplateHeader": "Rejection Email Template",
+  "emailTemplateContent": "<p>Dear ((Full name)),</p><p>Your request for a court and tribunals hearings account has been rejected for the following reason(s):</p><p>Reasons for rejection:<br>((reasons for rejection))</p><p>You can access the court and tribunals service from the link below should you wish to make a new request.<p><a href=\"#\">Court and tribunal hearings service</a></p><b>From</b><br> HM Courts & Tribunals Service"
+}

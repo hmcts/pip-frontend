@@ -95,6 +95,8 @@ export default function(app: Application): void {
   app.get('/logout', logOut);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
+  app.get('/admin-media-account-rejection', app.locals.container.cradle.adminMediaAccountRejectionController.get);
+  app.get('/user-media-account-rejection', app.locals.container.cradle.userMediaAccountRejectionController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
   app.get('/otp-template', cors(corsOptions), app.locals.container.cradle.otpTemplateController.get);
   app.get('/search', app.locals.container.cradle.searchController.get);
