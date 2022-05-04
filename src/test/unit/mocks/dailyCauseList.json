@@ -20,7 +20,16 @@
   "courtLists": [
     {
       "courtHouse": {
-        "courtHouseName": "PRESTON",
+        "courtHouseName": "Court A",
+        "courtHouseAddress": {
+          "line": [
+            "Address Line 1",
+            "Address Line 2"
+          ],
+          "town": "Town A",
+          "county": "County A",
+          "postCode": "AA1 AA1"
+        },
         "courtRoom": [
           {
             "courtRoomName": "1",

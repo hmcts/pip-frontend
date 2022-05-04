@@ -13,6 +13,7 @@ const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
 const accordionClass='govuk-accordion__section-button';
+const siteAddressClass = 'site-address';
 
 const courtName = 'Abergavenny Magistrates\' Court';
 const expectedHeader = 'Family Daily Cause List:<br>In the ' + courtName;
@@ -64,6 +65,36 @@ describe('Family Daily Cause List page', () => {
   it('should display court contact number summary paragraph',  () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
     expect(summary[0].innerHTML).contains('01772 844700', 'Could not find the court name in summary text');
+  });
+
+  it('should display the site name',  () => {
+    const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+    expect(siteAddress[0].innerHTML).contains('Court A', 'Could not find the court name in summary text');
+  });
+
+  it('should display the site address line 1',  () => {
+    const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+    expect(siteAddress[1].innerHTML).contains('Address Line 1', 'Could not find the court name in summary text');
+  });
+
+  it('should display the site address line 2',  () => {
+    const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+    expect(siteAddress[2].innerHTML).contains('Address Line 2', 'Could not find the court name in summary text');
+  });
+
+  it('should display the site town',  () => {
+    const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+    expect(siteAddress[3].innerHTML).contains('Town A', 'Could not find the court name in summary text');
+  });
+
+  it('should display the site county',  () => {
+    const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+    expect(siteAddress[4].innerHTML).contains('County A', 'Could not find the court name in summary text');
+  });
+
+  it('should display the site postcode',  () => {
+    const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+    expect(siteAddress[5].innerHTML).contains('AA1 AA1', 'Could not find the court name in summary text');
   });
 
   it('should display accordion heading',  () => {
