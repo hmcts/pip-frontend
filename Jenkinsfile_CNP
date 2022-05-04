@@ -38,7 +38,7 @@ static Map<String, Object> secret(String secretName, String envVariable) {
   ]
 }
 
-static String addUrlToB2c(String envName, String prId, String clientId, String, clientPwd, String tenantId){
+def String addUrlToB2c(String envName, String prId, String clientId, String, clientPwd, String tenantId){
   def appName = 'pip-frontend-' +  envName;
   def uri = 'https://pip-frontend-pr-' + prId + '.dev.platform.hmcts.net/login/return'
 
