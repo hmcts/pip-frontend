@@ -42,7 +42,7 @@ static String addUrlToB2c(String envName, String prId, String clientId, String, 
   def appName = 'pip-frontend-' +  envName;
   def uri = 'https://pip-frontend-pr-' + prId + '.dev.platform.hmcts.net/login/return'
 
-  def unlockScript = "environment='" +  envName + "';" +
+  def script = "environment='" +  envName + "';" +
         '"azureClientId="' + clientId + '";' +
         'azureClientSecret="' + clientPwd + '";' +
         'azureTenant="' + tenantId + '";' +
@@ -83,7 +83,8 @@ static String addUrlToB2c(String envName, String prId, String clientId, String, 
 
         '    az rest --method PATCH --header "Content-Type=application/json" --uri $restUrl --body "{\\"web\\":{\\"redirectUris\\":[$replayUrlsStr]}}" --debug;' +
         'fi'
-    return unlockScript;
+
+    return script;
 }
 
 withPipeline(type, product, component) {
@@ -102,7 +103,6 @@ withPipeline(type, product, component) {
   }
   onPR() {
     env.ENV = 'dev'
-    sh addUrlToB2c('stg', env.CHANGE_ID, env.B2C_CLIENT_ID, env.B2C_CLIENT_PWD, env.B2C_TENANT_ID)
   }
   onDemo {
     env.ENV = 'demo'
@@ -113,4 +113,6 @@ withPipeline(type, product, component) {
   onIthc {
     env.ENV = 'ithc'
   }
+  
+    sh addUrlToB2c('stg', env.CHANGE_ID, env.B2C_CLIENT_ID, env.B2C_CLIENT_PWD, env.B2C_TENANT_ID)
 }
