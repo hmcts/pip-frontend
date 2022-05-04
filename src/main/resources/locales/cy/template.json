@@ -3,6 +3,7 @@
   "signInText": "Sign in",
   "signOutText": "Sign out",
   "help": "Help",
+  "betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"#\">adborth</a> yn ein helpu i’w wella",
   "privacyPolicy": "Privacy policy",
   "language": "English",
   "cookiePolicy": "Cookie policy",

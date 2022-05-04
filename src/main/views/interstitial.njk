@@ -15,6 +15,10 @@
     },
     html: betaHeading
   }) }}
+  <script>
+    var link = document.getElementById("betalink")
+    link.href= "https://www.smartsurvey.co.uk/s/ET_Feedback/?pageurl=" + window.location.pathname.substring(1)
+  </script>
     {{ goBack() }}
 {% endblock %}
 {% block content %}
