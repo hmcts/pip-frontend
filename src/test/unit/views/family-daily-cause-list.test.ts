@@ -15,6 +15,7 @@ const summaryText = 'govuk-details__text';
 const accordionClass='govuk-accordion__section-button';
 
 const courtName = 'Abergavenny Magistrates\' Court';
+const expectedHeader = 'Family Daily Cause List:<br>In the ' + courtName;
 const summaryHeadingText = 'Important information';
 const accordionHeading = '1, Before: Mr Presiding';
 const applicantRespondent = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
@@ -42,7 +43,7 @@ describe('Family Daily Cause List page', () => {
 
   it('should display header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
-    expect(header[0].innerHTML).contains(courtName, 'Could not find the header');
+    expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
   });
 
   it('should display summary',  () => {
