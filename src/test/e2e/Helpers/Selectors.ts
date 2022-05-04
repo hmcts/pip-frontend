@@ -28,7 +28,7 @@ module.exports = {
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
   SearchResultTitle: 'h1.govuk-heading-l',
-  SearchAToZLink: 'a.govuk-link',
+  SearchAToZLink: 'a.govuk-link:nth-child(2)',
 
   // SearchResults selectors
   LinkResult: 'tbody > tr.govuk-table__row > th > a',

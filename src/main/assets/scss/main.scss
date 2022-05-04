@@ -7,6 +7,7 @@ $text-disabled: #505a5f;
 $error-colour: #d4351c;
 $underline-colour: #2e3133;
 $min-width: 52em;
+$callout-bg: #f0f4f5;
 
 //Styling for the Header
 
@@ -514,4 +515,14 @@ nav {
 .no-bullets-list {
   list-style-type: none;
   padding-left: 0;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0;
+}
+
+.govuk-callout {
+  background: $callout-bg;
+  margin-bottom: 40px;
+  padding: 15px;
 }
