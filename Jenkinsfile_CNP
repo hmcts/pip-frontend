@@ -19,7 +19,7 @@ def setupTestSecrets() {
       secret('b2c-test-account-pwd', 'B2C_PASSWORD'),
       secret('b2c-tenant-id', 'B2C_TENANT_ID'),
       secret('b2c-client-id', 'B2C_CLIENT_ID'),
-      secret('b2c-client-pwd', 'B2C_CLIENT_PWD')
+      secret('b2c-client-secret', 'B2C_CLIENT_PWD')
     ]) {
     env.B2C_USERNAME = "${B2C_USERNAME}"
     env.B2C_PASSWORD = "${B2C_PASSWORD}"
