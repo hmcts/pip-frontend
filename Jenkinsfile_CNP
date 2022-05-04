@@ -38,51 +38,51 @@ static Map<String, Object> secret(String secretName, String envVariable) {
   ]
 }
 
-def String addUrlToB2c(String envName, String prId, String clientId, String, clientPwd, String tenantId){
+static String addUrlToB2c(String envName, String prId, String clientId, String, clientPwd, String tenantId){
   def appName = 'pip-frontend-' +  envName;
   def uri = 'https://pip-frontend-pr-' + prId + '.dev.platform.hmcts.net/login/return'
 
   def script = "environment='" +  envName + "';" +
-        'azureClientId="' + clientId + '";' +
-        'azureClientSecret="' + clientPwd + '";' +
-        'azureTenant="' + tenantId + '";' +
-        '' +
-        'az login --service-principal --username $azureClientId --password $azureClientSecret --tenant $azureTenant --allow-no-subscriptions;' +
-        '' +
-        'newUrl="' +  uri + '";' +
-        'targetAppName="' +  appName + '";' +
-        '' +
-        'appId=$(az ad app list --all --filter "displayname eq \'${targetAppName}\'" --query "[0].appId" -o tsv --only-show-errors );' +
-        'appId=${appId//[$\'\\t\\r\\n\']/};' +
-        'echo "App ID $appId";' +
-        '' +
-        'replyUrls=$(az ad app show --id "$appId" --query "replyUrls" -o tsv --only-show-errors );' +
-        '' +
-        'echo "Found Reply URLs";' +
-        'echo $replyUrls;' +
-        '' +
-        'if [[ "${replyUrls[*]}" =~ "${newUrl}" ]]; then;' +
-        '    echo "Reply URLs contains $newUrl";' +
-        'else;' +
-        '    echo "Reply URLs DOES NOT contains $newUrl";' +
-        '    echo "Adding domain $newUrl";' +
-        '    replayUrlsStr="\"$newUrl\"";' +
-        '    for i in "${replyUrls[@]}";' +
-        '    do;' +
-        '        echo "Url: $i";' +
-        '        replayUrlsStr="$replayUrlsStr, \\"${i//[$\'\\t\\r\\n\']/}\\"";' +
-        '    done;' +
-        '    echo "reply String: $replayUrlsStr";' +
+      'azureClientId="' + clientId + '";' +
+      'azureClientSecret="' + clientPwd + '";' +
+      'azureTenant="' + tenantId + '";' +
+      '' +
+      'az login --service-principal --username $azureClientId --password $azureClientSecret --tenant $azureTenant --allow-no-subscriptions;' +
+      '' +
+      'newUrl="' +  uri + '";' +
+      'targetAppName="' +  appName + '";' +
+      '' +
+      'appId=$(az ad app list --all --filter "displayname eq \'${targetAppName}\'" --query "[0].appId" -o tsv --only-show-errors );' +
+      'appId=${appId//[$\'\\t\\r\\n\']/};' +
+      'echo "App ID $appId";' +
+      '' +
+      'replyUrls=$(az ad app show --id "$appId" --query "replyUrls" -o tsv --only-show-errors );' +
+      '' +
+      'echo "Found Reply URLs";' +
+      'echo $replyUrls;' +
+      '' +
+      'if [[ "${replyUrls[*]}" =~ "${newUrl}" ]]; then' +
+      '    echo "Reply URLs contains $newUrl";' +
+      'else' +
+      '    echo "Reply URLs DOES NOT contains $newUrl";' +
+      '    echo "Adding domain $newUrl";' +
+      '    replayUrlsStr="\"$newUrl\"";' +
+      '    for i in "${replyUrls[@]}"' +
+      '    do' +
+      '        echo "Url: $i";' +
+      '        replayUrlsStr="$replayUrlsStr, \\"${i//[$\'\\t\\r\\n\']/}\\"";' +
+      '    done' +
+      '    echo "reply String: $replayUrlsStr";' +
 
-        '    objectId=$(az ad app list --all --filter "displayname eq \'${targetAppName}\'" --query "[0].objectId" -o tsv --only-show-errors );' +
-        '    objectId=${objectId//[$\'\\t\\r\\n\']/};' +
-        '    echo "Object ID $objectId";' +
+      '    objectId=$(az ad app list --all --filter "displayname eq \'${targetAppName}\'" --query "[0].objectId" -o tsv --only-show-errors );' +
+      '    objectId=${objectId//[$\'\\t\\r\\n\']/};' +
+      '    echo "Object ID $objectId";' +
 
-        '    restUrl="https://graph.microsoft.com/v1.0/applications/${objectId//[$\'\\t\\r\\n\']/}";' +
-        '    echo "Calling: $restUrl";' +
+      '    restUrl="https://graph.microsoft.com/v1.0/applications/${objectId//[$\'\\t\\r\\n\']/}";' +
+      '    echo "Calling: $restUrl";' +
 
-        '    az rest --method PATCH --header "Content-Type=application/json" --uri $restUrl --body "{\\"web\\":{\\"redirectUris\\":[$replayUrlsStr]}}" --debug;' +
-        'fi'
+      '    az rest --method PATCH --header "Content-Type=application/json" --uri $restUrl --body "{\\"web\\":{\\"redirectUris\\":[$replayUrlsStr]}}" --debug;' +
+      'fi'
 
     return script;
 }
@@ -92,6 +92,11 @@ withPipeline(type, product, component) {
 
   after('build') {
     yarnBuilder.yarn('build')
+    def prId = '123' // env.CHANGE_ID
+    def clientId = '123' // env.B2C_CLIENT_ID
+    def clientPwd = '123' // env.B2C_CLIENT_PWD
+    def tenantId = '123' // env.B2C_TENANT_ID
+    sh addUrlToB2c('stg', prId, clientId, clientPwd, tenantId)
   }
 
   enableSlackNotifications('#pip-build-notices')
@@ -103,11 +108,6 @@ withPipeline(type, product, component) {
   }
   onPR() {
     env.ENV = 'dev'
-    def prId = '123' // env.CHANGE_ID
-    def clientId = '123' // env.B2C_CLIENT_ID
-    def clientPwd = '123' // env.B2C_CLIENT_PWD
-    def tenantId = '123' // env.B2C_TENANT_ID
-    sh addUrlToB2c('stg', prId, clientId, clientPwd, tenantId)
   }
   onDemo {
     env.ENV = 'demo'
