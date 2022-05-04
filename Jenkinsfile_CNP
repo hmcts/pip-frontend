@@ -2,6 +2,12 @@
 
 @Library("Infrastructure") _
 
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+
+def type = "nodejs"
+def product = "pip"
+def component = "frontend"
+
 def setupTestSecrets() {
 
   def bootstap_env = env.ENV == "prod" || env.ENV == "demo" || env.ENV == "sbox" ? env.ENV : "stg"
@@ -10,10 +16,16 @@ def setupTestSecrets() {
     keyVaultURL: "https://pip-bootstrap-${bootstap_env}-kv.vault.azure.net/",
     secrets: [
       secret('b2c-test-account', 'B2C_USERNAME'),
-      secret('b2c-test-account-pwd', 'B2C_PASSWORD')
+      secret('b2c-test-account-pwd', 'B2C_PASSWORD'),
+      secret('b2c-tenant-id', 'B2C_TENANT_ID'),
+      secret('b2c-client-id', 'B2C_CLIENT_ID'),
+      secret('b2c-client-pwd', 'B2C_CLIENT_PWD')
     ]) {
     env.B2C_USERNAME = "${B2C_USERNAME}"
     env.B2C_PASSWORD = "${B2C_PASSWORD}"
+    env.B2C_TENANT_ID = "${B2C_TENANT_ID}"
+    env.B2C_CLIENT_ID = "${B2C_CLIENT_ID}"
+    env.B2C_CLIENT_PWD = "${B2C_CLIENT_PWD}"
   }
 }
 
@@ -26,13 +38,53 @@ static Map<String, Object> secret(String secretName, String envVariable) {
   ]
 }
 
+static String addUrlToB2c(String envName){
+  def appName = 'pip-frontend-' +  envName;
+  def uri = 'https://pip-frontend-pr-' + env.CHANGE_ID + '.dev.platform.hmcts.net/login/return'
 
+  def unlockScript = "environment='" +  envName + "';" +
+        '"azureClientId="' + env.B2C_CLIENT_ID + '";' +
+        'azureClientSecret="' + env.B2C_CLIENT_PWD + '";' +
+        'azureTenant="' + env.B2C_TENANT_ID + '";' +
+        '' +
+        'az login --service-principal --username $azureClientId --password $azureClientSecret --tenant $azureTenant --allow-no-subscriptions;' +
+        '' +
+        'newUrl="' +  uri + '";' +
+        'targetAppName="' +  appName + '";' +
+        '' +
+        'appId=$(az ad app list --all --filter "displayname eq \'${targetAppName}\'" --query "[0].appId" -o tsv --only-show-errors );' +
+        'appId=${appId//[$\'\\t\\r\\n\']/};' +
+        'echo "App ID $appId";' +
+        '' +
+        'replyUrls=$(az ad app show --id "$appId" --query "replyUrls" -o tsv --only-show-errors );' +
+        '' +
+        'echo "Found Reply URLs";' +
+        'echo $replyUrls;' +
+        '' +
+        'if [[ "${replyUrls[*]}" =~ "${newUrl}" ]]; then;' +
+        '    echo "Reply URLs contains $newUrl";' +
+        'else;' +
+        '    echo "Reply URLs DOES NOT contains $newUrl";' +
+        '    echo "Adding domain $newUrl";' +
+        '    replayUrlsStr="\"$newUrl\"";' +
+        '    for i in "${replyUrls[@]}";' +
+        '    do;' +
+        '        echo "Url: $i";' +
+        '        replayUrlsStr="$replayUrlsStr, \\"${i//[$\'\\t\\r\\n\']/}\\"";' +
+        '    done;' +
+        '    echo "reply String: $replayUrlsStr";' +
 
-def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+        '    objectId=$(az ad app list --all --filter "displayname eq \'${targetAppName}\'" --query "[0].objectId" -o tsv --only-show-errors );' +
+        '    objectId=${objectId//[$\'\\t\\r\\n\']/};' +
+        '    echo "Object ID $objectId";' +
 
-def type = "nodejs"
-def product = "pip"
-def component = "frontend"
+        '    restUrl="https://graph.microsoft.com/v1.0/applications/${objectId//[$\'\\t\\r\\n\']/}";' +
+        '    echo "Calling: $restUrl";' +
+
+        '    az rest --method PATCH --header "Content-Type=application/json" --uri $restUrl --body "{\\"web\\":{\\"redirectUris\\":[$replayUrlsStr]}}" --debug;' +
+        'fi'
+    return unlockScript;
+}
 
 withPipeline(type, product, component) {
   disableLegacyDeployment()
@@ -43,13 +95,14 @@ withPipeline(type, product, component) {
 
   enableSlackNotifications('#pip-build-notices')
 
-
+  setupTestSecrets()
   
  onMaster() {
     env.ENV = 'stg'
   }
   onPR() {
     env.ENV = 'dev'
+    addUrlToB2c('stg')
   }
   onDemo {
     env.ENV = 'demo'
@@ -60,5 +113,4 @@ withPipeline(type, product, component) {
   onIthc {
     env.ENV = 'ithc'
   }
-  setupTestSecrets()
 }
