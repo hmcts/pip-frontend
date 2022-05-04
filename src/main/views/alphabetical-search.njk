@@ -13,6 +13,7 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
+  <h1 id='page-heading' class="govuk-heading-l">{{ heading }}</h1>
   <div id="grid-row" class="govuk-grid-row parent-box alphabetical-box">
     <div class="layout-width-two-fifths govuk-!-display-inline-block hide" id="filters">
       <div class="filters">
@@ -85,7 +86,7 @@
       </div>
     </div>
     <div class="layout-width-three-fifths" id="content">
-      <h2 id='page-heading' class="govuk-heading-l">{{ heading }}</h2>
+
       <div class="moj-button-menu">
         <div class="moj-button-menu__wrapper">
           <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary"
@@ -134,7 +135,7 @@
                       <div id="{{ key }}" class="govuk-!-font-size-27">{{ key }}</div>
                     </th>
                   {% else %}
-                    <th scope="row" class="govuk-table__header">
+                    <th scope="row" aria-hidden="true" class="govuk-table__header">
                     </th>
                   {% endif %}
                   <td class="govuk-table__cell">
@@ -171,9 +172,19 @@
       var element = document.getElementById("filters");
       var content = document.getElementById("content");
       var navigation = document.getElementsByClassName("moj-sub-navigation pub-navigation govuk-!-margin-bottom-0");
+      var skipLink = document.getElementsByClassName("govuk-skip-link");
+      var header = document.getElementsByClassName("govuk-header");
+      var backLink = document.getElementsByClassName("govuk-back-link");
+      var footer = document.getElementsByClassName("govuk-footer");
+
+
       element.classList.toggle("hide");
       content.classList.toggle("hide");
       navigation[0].classList.toggle("hide");
+      skipLink[0].classList.toggle("hide");
+      header[0].classList.toggle("hide");
+      backLink[0].classList.toggle("hide");
+      footer[0].classList.toggle("hide");
       if (element.className.indexOf('hide') > 0) {
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ show }}";
       } else {

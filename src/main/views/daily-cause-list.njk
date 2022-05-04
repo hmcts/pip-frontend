@@ -10,7 +10,7 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
-  <h2 id='page-heading' class="govuk-heading-l">{{ header }} {{ listData['venue']['venueName']}}</h2>
+  <h2 id='page-heading' class="govuk-heading-l">{{ header }} <br />{{ courtName }}</h2>
   <p class="govuk-body">
     {% for line in listData['venue']['venueAddress']['line'] %}
       {{ line }}<br />
@@ -27,7 +27,7 @@
     </summary>
     <div class="govuk-details__text">
       <p>{{ importantInformationP1 }}</p>
-      <p>{{ importantInformationP2 | replace("NAME", listData['venue']['venueName']) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone'])}}</p>
+      <p>{{ importantInformationP2 | replace("NAME", courtName) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone'])}}</p>
       <p>{{ importantInformationP3 }}</p>
     </div>
   </details>
@@ -93,10 +93,8 @@
                         {% for channel in sitting['channel'] %}
                           {% set hearingPlatform = hearingPlatform + ', ' + channel %}
                         {% endfor %}
-
                         {% set hearingPlatform = hearingPlatform.slice(1) %}
                       {% endif %}
-
                       {% set durationAsHours = 0 %}
                       {% if sitting['durationAsHours'] !== 0 %}
                         {% if sitting['durationAsHours'] > 1 %}
@@ -105,7 +103,6 @@
                           {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHour %}
                         {% endif %}
                       {% endif %}
-
                       {% set durationAsMinutes = 0 %}
                       {% if sitting['durationAsMinutes'] !== 0 %}
                         {% if sitting['durationAsMinutes'] > 1 %}
@@ -124,7 +121,6 @@
                         {% elif durationAsMinutes === 0 %}
                         {% set duration = durationAsHours %}
                       {% endif %}
-
                       {% for hearing in sitting['hearing'] %}
                         {% for case in hearing['case'] %}
                           {% if courtRoom['totalHearing'] === hearingCount %}
