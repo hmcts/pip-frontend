@@ -61,7 +61,8 @@
   "section8": {
     "heading": "Compliance status",
     "smallHeading": "Non-accessible content",
-    "text1": "This website is partially compliant with the Web Content Accessibility Guidelines version 2.1 AA standard, due to ‘the non-compliances’ listed below.",
+    "text1": "This website is partially compliant with the",
+    "text2": "AA standard, due to ‘the non-compliances’ listed below.",
     "text": [
       "The Single Justice Procedure (SJP) Public list",
       "Some hearing lists are presented within the service are presented and viewable in a PDF document. These are presented in a PDF document that is particularly difficult for screen reader users to navigate. The content was untagged, untitled and the tables were not marked up semantically to enable screen reader users to navigate and identify the information correctly.",
@@ -71,6 +72,9 @@
       "The service sign-in for a user with a court and tribunal hearings account and screens associated with a user needing to reset their password do not follow GDS design principles and are not accessible.",
       "The interface is based on the Microsoft Azure cloud platform and HMCTS has reported to Microsoft that the patterns used are not WCAG 2.1AA compliant.",
       "There is a dependency on Microsoft to resolve the non-compliance. The service team will engage with Microsoft and monitor progress, with a review set for December 2022."
+    ],
+    "links": [
+      { "link": "https://www.w3.org/TR/WCAG21/", "text": " Web Content Accessibility Guidelines version 2.1 " }
     ]
   },
   "section9": {
@@ -83,21 +87,19 @@
   },
   "section10": {
     "heading": "Preparation of this accessibility statement",
-    "smallHeading": "Testing procedure:",
+    "smallHeading1": "Testing procedure:",
+    "smallHeading2": "User testing:",
+    "smallHeading3": "Technical auditing:",
     "text1": "This statement was prepared on xx April 2022.",
     "text2": "This website was tested at all stages of its build and subjected to ",
     "text3": " testing throughout April 2021 to March 2022.",
     "text4": "This is an excerpt from the DAC report explaining their methodology:",
     "text5": "This accessibility statement applies to content published on ",
-    "text6": " It is based on an accessibility audit for carried out by the Digital Accessibility Centre (DAC) user/ technical team on 1 March 2022.",
-    "text": [
-      "The following provides an excerpt showing the methodology adopted.",
-      "“The service is tested by a team of experienced auditors and analysts, many of who are disabled individuals and users of adaptive technology. The combination of subjective pan-disability user feedback and comprehensive technical auditing allows us to measure how the service performs technically and practically, thereby offering an essential added dimension to our test results that other methods of testing cannot provide.”",
-      "User testing:",
-      "“Manual accessibility checking was conducted by a team of disabled individuals, using a range of adaptive technologies (hardware and software designed to facilitate the use of computers by people with disabilities).”",
-      "Technical auditing:",
-      "“Technical auditing involves the experienced application of a number of technical auditing and standards compliance assessment tools. This combined with an extensive knowledge of WCAG, its application and wider global practice provides the DAC website with further credibility and quality.”"
-    ],
+    "text6": " It is based on an accessibility audit for carried out by the Digital Accessibility Centre (DAC) user / technical team on 1 March 2022.",
+    "text7": "The following provides an excerpt showing the methodology adopted.",
+    "text8": "“The service is tested by a team of experienced auditors and analysts, many of who are disabled individuals and users of adaptive technology. The combination of subjective pan-disability user feedback and comprehensive technical auditing allows us to measure how the service performs technically and practically, thereby offering an essential added dimension to our test results that other methods of testing cannot provide.”",
+    "text9": "“Manual accessibility checking was conducted by a team of disabled individuals, using a range of adaptive technologies (hardware and software designed to facilitate the use of computers by people with disabilities).”",
+    "text10": "“Technical auditing involves the experienced application of a number of technical auditing and standards compliance assessment tools. This combined with an extensive knowledge of WCAG, its application and wider global practice provides the DAC website with further credibility and quality.”",
     "links": [
       { "link": "https://pa11y.org/", "text": "Pa11y" },
       { "link": "https://www.court-tribunal-hearings.service.gov.uk", "text": "www.court-tribunal-hearings.service.gov.uk." }
