@@ -207,5 +207,9 @@
       let href = currentPath ? currentPath[0].replace(deleteVal, '') + filterToClear.replace('?', '&') : filterToClear
       return href.replace(',,', ',');
     }
+
+    document.getElementsByClassName("moj-filter__header-title")[0]
+      .getElementsByTagName("h2")[0]
+      .setAttribute("aria-label", "{{ filterLabel }}");
   </script>
 {% endblock %}
