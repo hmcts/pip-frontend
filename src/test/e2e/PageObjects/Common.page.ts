@@ -53,4 +53,10 @@ export class CommonPage {
 
     await $(helpers.HideMessageButton).click();
   }
+
+  async removeOverlay(): Promise<void> {
+    await browser.execute(() => {
+      document.getElementById('back-to-top-button').remove();
+    });
+  }
 }
