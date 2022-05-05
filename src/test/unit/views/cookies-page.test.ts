@@ -7,6 +7,7 @@ const PAGE_URL = '/cookie-policy';
 const headingClass = 'govuk-heading-l';
 const tableCaptionClass = 'govuk-table__caption';
 const tableCellClass = 'govuk-table';
+const tableRow = 'govuk-table__row';
 const mediumHeadingClass = 'govuk-heading-m';
 const bodyClass = 'govuk-body';
 
@@ -16,6 +17,7 @@ describe('Cookies page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
     });
   });
 
@@ -53,6 +55,11 @@ describe('Cookies page', () => {
   it('should display table cells', () =>{
     const table = htmlRes.getElementsByClassName(tableCellClass);
     expect(table[0].innerHTML).contains('session', 'Table cells not rendered');
+  });
+
+  it('should display 4 essential cookies', () => {
+    const tableRows = htmlRes.getElementsByClassName(tableRow);
+    expect(tableRows.length).to.equal(5, 'Incorrect number of rows including header');
   });
 
   it('should display analytics header', () => {
