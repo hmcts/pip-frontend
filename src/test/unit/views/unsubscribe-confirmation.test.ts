@@ -16,6 +16,7 @@ describe('Unsubscribe Confirmation Page', () => {
 
     await request(app).post(PAGE_URL).send(validBody).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
     });
   });
 
