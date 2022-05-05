@@ -160,9 +160,9 @@ module.exports = {
   BannerSignIn: '.moj-sub-navigation__item:nth-child(4)',
 
   // Signed in banner selectors
-  SignedInBannerEmailSubs: '.moj-sub-navigation__item:nth-child(2)',
-  SignedInBannerFindCourt: '.moj-sub-navigation__item:nth-child(3)',
-  SignedInBannerSJP: '.moj-sub-navigation__item:nth-child(4)',
+  SignedInBannerEmailSubs: '.moj-sub-navigation__item:nth-child(4)',
+  SignedInBannerFindCourt: '.moj-sub-navigation__item:nth-child(2)',
+  SignedInBannerSJP: '.moj-sub-navigation__item:nth-child(3)',
   SignedInBannerSignOut: '.moj-sub-navigation__item:nth-child(5)',
 
   // CreateAdminAccount selectors
