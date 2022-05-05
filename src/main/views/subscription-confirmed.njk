@@ -10,6 +10,7 @@
 
 {% block content %}
   {{ successPanel(header, subheader) }}
+  <div class="parent-box">
   <p class="govuk-body">{{ p1 }}<a href="/account-home">{{ link_text }}</a>{{ p2 }}</p>
   <ul class="govuk-list govuk-list--bullet">
     {% for item in list %}
@@ -17,6 +18,7 @@
     {% endfor %}
   </ul>
   {{ super() }}
+  </div>
 {% endblock %}
 {% block bodyEnd %}
   <script>
