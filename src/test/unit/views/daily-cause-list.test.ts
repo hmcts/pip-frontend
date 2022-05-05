@@ -6,6 +6,7 @@ import path from 'path';
 import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
 import {request as expressRequest} from 'express';
+import {CourtService} from '../../../main/service/courtService';
 
 const PAGE_URL = '/daily-cause-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -13,7 +14,8 @@ const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
 const accordionClass='govuk-accordion__section-button';
 
-const expectedHeader = 'Daily Civil Cause List: PRESTON';
+const courtName = 'Abergavenny Magistrates\' Court';
+const expectedHeader = 'Daily Civil Cause List: <br>' + courtName;
 const summaryHeadingText = 'Important information';
 
 let htmlRes: Document;
@@ -23,8 +25,12 @@ const dailyCauseListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const courtData = JSON.parse(rawDataCourt);
+
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(dailyCauseListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
+sinon.stub(CourtService.prototype, 'getCourtById').resolves(courtData[0]);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Daily Cause List page', () => {
@@ -46,7 +52,7 @@ describe('Daily Cause List page', () => {
 
   it('should display court name summary paragraph',  () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
-    expect(summary[0].innerHTML).contains('PRESTON', 'Could not find the court name in summary text');
+    expect(summary[0].innerHTML).contains(courtName, 'Could not find the court name in summary text');
   });
 
   it('should display court email summary paragraph',  () => {
@@ -56,7 +62,7 @@ describe('Daily Cause List page', () => {
 
   it('should display court contact number summary paragraph',  () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
-    expect(summary[0].innerHTML).contains('01772 844700', 'Could not find the court name in summary text');
+    expect(summary[0].innerHTML).contains('01772 844700', 'Could not find the court telephone no in summary text');
   });
 
   it('should display accordion open/close all',  () => {

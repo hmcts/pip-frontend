@@ -3,8 +3,10 @@ import {PipRequest} from '../models/request/PipRequest';
 import {cloneDeep} from 'lodash';
 import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
+import { CourtService } from '../service/courtService';
 
 const publicationService = new PublicationService();
+const courtService = new CourtService();
 
 export default class DailyCauseListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -20,6 +22,8 @@ export default class DailyCauseListController {
       const publishedDateTime = Date.parse(searchResults['document']['publicationDate']);
       const publishedTime = publicationService.publicationTime(searchResults['document']['publicationDate']);
 
+      const court = await courtService.getCourtById(metaData['courtId']);
+
       res.render(listToLoad, {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listToLoad]),
         listData: manipulatedData,
@@ -27,6 +31,7 @@ export default class DailyCauseListController {
         publishedDate: moment(publishedDateTime).format('DD MMMM YYYY'),
         publishedTime: publishedTime,
         provenance: metaData['provenance'],
+        courtName: court.name,
       });
     } else {
       res.render('error',

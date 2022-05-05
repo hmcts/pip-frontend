@@ -6,7 +6,7 @@ The Publishing & Information Hub will be responsible for the following:
 * Receiving data from source systems, such as Schedule & Listing, via Hearings Management Interface
 * Publish lists, outcomes, judgements and management information onto GOV.UK
 * Provide functionality to display information in court and tribunals buildings on the relevant hardware
-* Comply with Open Justice procedures and business rules
+* Comply with Open Justice procedures and business rules.
 
 
 ## Getting Started
@@ -27,7 +27,7 @@ Some of the pages within this app are secured via authentication.
 There are two modes for authentication:
 
 1) OIDC
-2) Custom Strategy
+2) Custom Strategy.
 
 The OIDC connect strategy integrates with Azure. When users try to access an authenticated page,
 they will be presented with the logon screen.

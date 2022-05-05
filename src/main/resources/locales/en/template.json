@@ -2,6 +2,7 @@
   "serviceNameText": "Court and tribunal hearings",
   "signInText": "Sign in",
   "signOutText": "Sign out",
+  "betaHeading": "This is a new service – your <a class=\"govuk-link\" href=\"#\">feedback</a> will help us to improve it.",
   "navLinks": {
     "link1": "Home",
     "link2": "Sign in",

@@ -13,6 +13,8 @@ subscribeStub.withArgs('2').resolves(false);
 subscribeStub.withArgs('3').resolves(false);
 cacheStub.withArgs('1', 'cases').resolves(['cached case']);
 cacheStub.withArgs('1', 'courts').resolves(['cached court']);
+cacheStub.withArgs('2', 'cases').resolves(['cached case']);
+cacheStub.withArgs('2', 'courts').resolves(['cached court']);
 cacheStub.withArgs('3', 'cases').resolves([]);
 cacheStub.withArgs('3', 'courts').resolves([]);
 const response = {render: () => {return '';}} as unknown as Response;

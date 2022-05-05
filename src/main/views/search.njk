@@ -79,6 +79,12 @@
 
     <script src="/assets/js/accessible-autocomplete.min.js"></script>
     <script>
+
+      //Used to ensure that page focus is set to top when the page reloads
+      window.onload = function() {
+        window.scrollTo(0,0);
+      };
+
       const element = document.querySelector('#search-input-container');
       const source = {{ optionList | dump |safe }}
         accessibleAutocomplete({
