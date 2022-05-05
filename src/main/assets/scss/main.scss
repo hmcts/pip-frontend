@@ -81,7 +81,7 @@ $callout-bg: #f0f4f5;
 
 //Styling for the Alphabetical View page
 .floating-back-to-top {
-  bottom: 0;
+  bottom: -3vh;
   left: 0;
   position: absolute;
 
@@ -225,6 +225,27 @@ $callout-bg: #f0f4f5;
     }
   }
 
+  .parent-box {
+    .floating-back-to-top {
+      bottom: -2vh;
+    }
+  }
+}
+
+@media (max-height: 720px) {
+  .parent-box {
+    .floating-back-to-top {
+      bottom: -5vh;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .parent-box {
+    .floating-back-to-top {
+      bottom: -1vh;
+    }
+  }
 }
 
 //Styling for the Hearings List page
@@ -515,6 +536,10 @@ nav {
 .no-bullets-list {
   list-style-type: none;
   padding-left: 0;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0;
 }
 
 .govuk-callout {

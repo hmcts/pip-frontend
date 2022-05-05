@@ -1,9 +1,14 @@
 module.exports = {
+  // Cookie selectors outside main content
+  AcceptButton: '#cookie-accept-analytics',
+  HideMessageButton: '#hide-message-accept',
+  CookieHeader: '.govuk-cookie-banner__heading',
+
   // Common selectors
-  ContinueButton: '.govuk-button',
+  ContinueButton: '//*[@id="main-content"]//*[contains(@class, "govuk-button")]',
   CommonPageTitleXl: '.govuk-heading-xl',
   CommonPageTitle: '.govuk-heading-l',
-  CommonPageTitleM: '.govuk-heading-m',
+  CommonPageTitleM: '#main-content > .govuk-heading-m',
   SignInButton: '#signInButton',
   SignOutButton: '#signOutButton',
   Results: 'tbody > tr.govuk-table__row',
@@ -28,7 +33,7 @@ module.exports = {
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
   SearchResultTitle: 'h1.govuk-heading-l',
-  SearchAToZLink: 'a.govuk-link',
+  SearchAToZLink: '#main-content a.govuk-link:nth-child(2)',
 
   // SearchResults selectors
   LinkResult: 'tbody > tr.govuk-table__row > th > a',
@@ -155,9 +160,9 @@ module.exports = {
   BannerSignIn: '.moj-sub-navigation__item:nth-child(4)',
 
   // Signed in banner selectors
-  SignedInBannerEmailSubs: '.moj-sub-navigation__item:nth-child(2)',
-  SignedInBannerFindCourt: '.moj-sub-navigation__item:nth-child(3)',
-  SignedInBannerSJP: '.moj-sub-navigation__item:nth-child(4)',
+  SignedInBannerEmailSubs: '.moj-sub-navigation__item:nth-child(4)',
+  SignedInBannerFindCourt: '.moj-sub-navigation__item:nth-child(2)',
+  SignedInBannerSJP: '.moj-sub-navigation__item:nth-child(3)',
   SignedInBannerSignOut: '.moj-sub-navigation__item:nth-child(5)',
 
   // CreateAdminAccount selectors

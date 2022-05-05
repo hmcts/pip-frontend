@@ -2,12 +2,19 @@
 {% from "macros/common-components.njk" import goBack %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
 {% block pageTitle %}
     {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: {
+      text: "beta"
+    },
+    html: betaHeading
+  }) }}
     {{ goBack() }}
 {% endblock %}
 {% block content %}
@@ -42,4 +49,6 @@
             <li><a class="govuk-link" href="{{ option.link }}">{{ option.linkMessage }}</a> {{ option.message }}</li>
         {% endfor %}
     </ul>
+  {{ super() }}
+  </div>
 {% endblock %}

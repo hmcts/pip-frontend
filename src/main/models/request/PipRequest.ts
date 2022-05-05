@@ -11,6 +11,7 @@ export interface PipRequest extends Request {
       'case-name-search-results': {};
       'case-reference-number-search': {};
       'case-reference-number-search-results': {};
+      'cookie-policy': {};
       'court-name-search': {};
       'create-admin-account': {};
       'create-admin-account-summary': {};

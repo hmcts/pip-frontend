@@ -22,6 +22,8 @@ describe('Data Management requests', () => {
   describe('upload publication', () => {
     beforeEach(() => {
       sinon.restore();
+      const axiosConfig = require('../../../main/resources/requests/utils/axiosConfig');
+      sinon.stub(axiosConfig, 'getDataManagementCredentials').returns(() => {return '';});
     });
 
     it('should return true on success', async () => {
@@ -35,6 +37,7 @@ describe('Data Management requests', () => {
           },
         };
       });
+
       expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders)).toBe(true);
     });
 
