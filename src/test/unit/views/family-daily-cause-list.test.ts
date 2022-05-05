@@ -6,6 +6,7 @@ import path from 'path';
 import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
 import {request as expressRequest} from 'express';
+import {CourtService} from '../../../main/service/courtService';
 
 const PAGE_URL = '/family-daily-cause-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -13,7 +14,7 @@ const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
 const accordionClass='govuk-accordion__section-button';
 
-const expectedHeader = 'Daily Family Cause List: PRESTON';
+const courtName = 'Abergavenny Magistrates\' Court';
 const summaryHeadingText = 'Important information';
 const accordionHeading = '1, Before: Mr Presiding';
 const applicantRespondent = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
@@ -24,8 +25,12 @@ const familyDailyCauseListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const courtData = JSON.parse(rawDataCourt);
+
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(familyDailyCauseListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
+sinon.stub(CourtService.prototype, 'getCourtById').resolves(courtData[0]);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Family Daily Cause List page', () => {
@@ -37,7 +42,7 @@ describe('Family Daily Cause List page', () => {
 
   it('should display header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
-    expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+    expect(header[0].innerHTML).contains(courtName, 'Could not find the header');
   });
 
   it('should display summary',  () => {
@@ -47,7 +52,7 @@ describe('Family Daily Cause List page', () => {
 
   it('should display court name summary paragraph',  () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
-    expect(summary[0].innerHTML).contains('PRESTON', 'Could not find the court name in summary text');
+    expect(summary[0].innerHTML).contains(courtName, 'Could not find the court name in summary text');
   });
 
   it('should display court email summary paragraph',  () => {

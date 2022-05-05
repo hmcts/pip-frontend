@@ -43,19 +43,19 @@ const publicationRequests = new PublicationRequests();
 
 dataManagementStub.withArgs('/publication/courtId/valid').resolves(successResponse);
 
-dataManagementStub.withArgs('/publication/abc1/payload').resolves(Promise.reject(errorResponse));
-dataManagementStub.withArgs('/publication/abc2/payload').resolves(Promise.reject(errorRequest));
-dataManagementStub.withArgs('/publication/abc3/payload').resolves(Promise.reject(errorMessage));
+dataManagementStub.withArgs('/publication/abc1/payload').rejects(errorResponse);
+dataManagementStub.withArgs('/publication/abc2/payload').rejects(errorRequest);
+dataManagementStub.withArgs('/publication/abc3/payload').rejects(errorMessage);
 dataManagementStub.withArgs('/publication/' + artefactId + '/payload').resolves({data: dailyCauseListData});
 
-dataManagementStub.withArgs('/publication/abc1').resolves(Promise.reject(errorResponse));
-dataManagementStub.withArgs('/publication/abc2').resolves(Promise.reject(errorRequest));
-dataManagementStub.withArgs('/publication/abc3').resolves(Promise.reject(errorMessage));
+dataManagementStub.withArgs('/publication/abc1').rejects(errorResponse);
+dataManagementStub.withArgs('/publication/abc2').rejects(errorRequest);
+dataManagementStub.withArgs('/publication/abc3').rejects(errorMessage);
 dataManagementStub.withArgs('/publication/' + artefactId).resolves({data: metaData});
 
-dataMngmntDeleteStub.withArgs('/publication/abc1').resolves(Promise.reject(errorResponse));
-dataMngmntDeleteStub.withArgs('/publication/abc2').resolves(Promise.reject(errorRequest));
-dataMngmntDeleteStub.withArgs('/publication/abc3').resolves(Promise.reject(errorMessage));
+dataMngmntDeleteStub.withArgs('/publication/abc1').rejects(errorResponse);
+dataMngmntDeleteStub.withArgs('/publication/abc2').rejects(errorRequest);
+dataMngmntDeleteStub.withArgs('/publication/abc3').rejects(errorMessage);
 dataMngmntDeleteStub.withArgs('/publication/abc').resolves(true);
 
 describe('getIndividualPubJson()', () => {
@@ -122,9 +122,9 @@ describe('getIndividualPubMetadata()', () => {
 
 describe('Get by case value', () => {
   dataManagementStub.withArgs('/publication/search/valid/valid').resolves(successResponse);
-  dataManagementStub.withArgs('/publication/search/valid/invalid').resolves(Promise.reject(errorResponse));
-  dataManagementStub.withArgs('/publication/search/invalid/valid').resolves(Promise.reject(errorRequest));
-  dataManagementStub.withArgs('/publication/search/invalid/invalid').resolves(Promise.reject(errorMessage));
+  dataManagementStub.withArgs('/publication/search/valid/invalid').rejects(errorResponse);
+  dataManagementStub.withArgs('/publication/search/invalid/valid').rejects(errorRequest);
+  dataManagementStub.withArgs('/publication/search/invalid/invalid').rejects(errorMessage);
 
   it('should return data on successful get', async () => {
     expect(await pubRequests.getPublicationByCaseValue(valid, valid, true)).toBe(successResponse.data);
@@ -145,9 +145,9 @@ describe('Get by case value', () => {
 
 describe('Get publication by court id', () => {
   dataManagementStub.withArgs('/publication/courtId/valid').resolves(successResponse);
-  dataManagementStub.withArgs('/publication/courtId/invalid').resolves(Promise.reject(errorResponse));
-  dataManagementStub.withArgs('/publication/courtId/test').resolves(Promise.reject(errorRequest));
-  dataManagementStub.withArgs('/publication/courtId/error').resolves(Promise.reject(errorMessage));
+  dataManagementStub.withArgs('/publication/courtId/invalid').rejects(errorResponse);
+  dataManagementStub.withArgs('/publication/courtId/test').rejects(errorRequest);
+  dataManagementStub.withArgs('/publication/courtId/error').rejects(errorMessage);
 
   it('should return data on successful get', async () => {
     expect(await pubRequests.getPublicationsByCourt(valid, true, false)).toBe(successResponse.data);
@@ -174,18 +174,18 @@ describe('get individual publication metadata', () => {
   });
 
   it('should send an error request to the log if error request exists', async () => {
-    dataManagementStub.withArgs('/publication/promiseBreakingData').resolves(Promise.reject(errorRequest));
+    dataManagementStub.withArgs('/publication/promiseBreakingData').rejects(errorRequest);
     expect(await pubRequests.getIndividualPublicationMetadata('promiseBreakingData', true, false)).toBe(null);
   });
 
   it('should send an error to the log if error response exists', async () => {
-    dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse').resolves(Promise.reject(errorResponse));
+    dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse').rejects(errorResponse);
     const response = await pubRequests.getIndividualPublicationMetadata('brokenPromiseWithErrorResponse', true, false);
     expect(response).toBe(null);
   });
 
   it('should send an error to the log if error message exists and error request does not exist', async () => {
-    dataManagementStub.withArgs('/publication/noErrRequest').resolves(Promise.reject(errorMessage));
+    dataManagementStub.withArgs('/publication/noErrRequest').rejects(errorMessage);
     const message = await pubRequests.getIndividualPublicationMetadata('noErrRequest', true, false);
     expect(message).toBe(null);
   });
@@ -200,18 +200,18 @@ describe('get individual publication metadata', () => {
     });
 
     it('should send an error request to the log if error request exists', async () => {
-      dataManagementStub.withArgs('/publication/promiseBreakingData/file').resolves(Promise.reject(errorRequest));
+      dataManagementStub.withArgs('/publication/promiseBreakingData/file').rejects(errorRequest);
       expect(await pubRequests.getIndividualPublicationFile('promiseBreakingData', true)).toBe(null);
     });
 
     it('should send an error to the log if error response exists', async () => {
-      dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/file').resolves(Promise.reject(errorResponse));
+      dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/file').rejects(errorResponse);
       const response = await pubRequests.getIndividualPublicationFile('brokenPromiseWithErrorResponse', true);
       expect(response).toBe(null);
     });
 
     it('should send an error to the log if error message exists and error request does not exist', async () => {
-      dataManagementStub.withArgs('/publication/search/y').resolves(Promise.reject(errorMessage));
+      dataManagementStub.withArgs('/publication/search/y').rejects(errorMessage);
       const message = await publicationRequests.getPublicationsByCourt('y', true, false);
       expect(message).toStrictEqual([]);
     });
@@ -225,18 +225,18 @@ describe('get individual publication metadata', () => {
     });
 
     it('should send an error request to the log if error request exists', async () => {
-      dataManagementStub.withArgs('/publication/promiseBreakingData/payload').resolves(Promise.reject(errorRequest));
+      dataManagementStub.withArgs('/publication/promiseBreakingData/payload').rejects(errorRequest);
       expect(await pubRequests.getIndividualPublicationJson('promiseBreakingData', true)).toBe(null);
     });
 
     it('should send an error to the log if error response exists', async () => {
-      dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/payload').resolves(Promise.reject(errorResponse));
+      dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/payload').rejects(errorResponse);
       const response = await pubRequests.getIndividualPublicationJson('brokenPromiseWithErrorResponse', true);
       expect(response).toBe(null);
     });
 
     it('should send an error to the log if error message exists and error request does not exist', async () => {
-      dataManagementStub.withArgs('/publication/noErrRequest/payload').resolves(Promise.reject(errorMessage));
+      dataManagementStub.withArgs('/publication/noErrRequest/payload').rejects(errorMessage);
       const message = await pubRequests.getIndividualPublicationJson('y', true);
       expect(message).toBe(null);
     });

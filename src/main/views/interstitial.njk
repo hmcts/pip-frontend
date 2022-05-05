@@ -2,16 +2,22 @@
 {% from "macros/common-components.njk" import goBack %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
 {% block pageTitle %}
     {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: {
+      text: "beta"
+    },
+    html: betaHeading
+  }) }}
     {{ goBack() }}
 {% endblock %}
 {% block content %}
-  <div class="parent-box">
     <h1 class="govuk-heading-l">{{ title }}</h1>
     <p class="govuk-body">{{ message }} </p>
     <ul class="govuk-body govuk-!-padding-left-4 govuk-!-width-two-thirds">

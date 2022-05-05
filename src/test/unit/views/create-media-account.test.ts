@@ -11,13 +11,21 @@ describe('Create Media Account page', () => {
     beforeAll(async () => {
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
       });
     });
 
     it('should display correct title', () => {
       const header = htmlRes.getElementsByClassName('govuk-heading-l');
       expect(header[0].innerHTML)
-        .contains('Create a court and tribunal hearing account', 'Could not find correct value in the title');
+        .contains('Create a Court and tribunal hearing account', 'Could not find correct value in the title');
+    });
+
+    it('should display correct retention hint', () => {
+      const hint = htmlRes.getElementsByClassName('govuk-hint')[0];
+      expect(hint.innerHTML)
+        .contains('We will retain the personal information you enter here to manage your user account and our service.'
+          , 'Could not find correct value in the hint');
     });
 
     it('should display full name input', () => {
@@ -30,7 +38,7 @@ describe('Create Media Account page', () => {
     it('should display email input', () => {
       const emailLabel = htmlRes.getElementsByClassName('govuk-label')[1];
       const input = htmlRes.getElementById('emailAddress');
-      const hint = htmlRes.getElementsByClassName('govuk-hint')[0];
+      const hint = htmlRes.getElementsByClassName('govuk-hint')[1];
       expect(emailLabel.innerHTML).contains('Email address', 'Could not find email label');
       expect(hint.innerHTML).contains('We\'ll only use this to contact you about your account and this service.', 'Could not find email hint');
       expect(input.getAttribute('name')).equals('emailAddress', 'Could not find emailAddress input');
@@ -56,8 +64,9 @@ describe('Create Media Account page', () => {
     });
 
     it('should display usage paragraph', () => {
-      const message = htmlRes.getElementsByClassName('govuk-hint')[1];
-      expect(message.innerHTML).contains('We\'ll only use this to confirm your identity for this service.', 'Could not find clear photo message');
+      const message = htmlRes.getElementsByClassName('govuk-hint')[2];
+      expect(message.innerHTML).contains('We will only use this to confirm your identity for this service, ' +
+        'and will delete upon approval or rejection of your request', 'Could not find clear photo message');
     });
 
     it('should display continue button', () => {
@@ -70,6 +79,7 @@ describe('Create Media Account page', () => {
     beforeAll(async () => {
       await request(app).post(PAGE_URL).send({fullName: '', emailAddress: '', employer: '', 'file-upload': ''}).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
       });
     });
 
