@@ -4,6 +4,7 @@ import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
 import {app} from '../../../main/app';
+import {CourtService} from '../../../main/service/courtService';
 import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
 
 const PAGE_URL = '/summary-of-publications?courtId=0';
@@ -12,6 +13,7 @@ const pubs = JSON.parse(rawData);
 let htmlRes: Document;
 
 sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(pubs);
+sinon.stub(CourtService.prototype, 'getCourtById').resolves({'name': 'Court Name'});
 
 describe('Publication Page', () => {
   beforeAll(async () => {

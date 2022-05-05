@@ -1,44 +1,35 @@
 import sinon from 'sinon';
 import {Response} from 'express';
 import AlphabeticalSearchController from '../../../main/controllers/AlphabeticalSearchController';
-import fs from 'fs';
-import path from 'path';
-import {CourtService} from '../../../main/service/courtService';
+
 import {mockRequest} from '../mocks/mockRequest';
 import {FilterService} from '../../../main/service/filterService';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
-const courtList = JSON.parse(rawData);
 const alphabeticalSearchController = new AlphabeticalSearchController();
 
-sinon.stub(CourtService.prototype, 'generateAlphabetisedAllCourtList').resolves(courtList);
-const filteredCourtStub = sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList');
-filteredCourtStub.resolves(courtList);
-sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves(courtList);
-sinon.stub(FilterService.prototype, 'buildFilterValueOptions').returns([]);
-sinon.stub(FilterService.prototype, 'handleFilterClear').returns(['test']);
-sinon.stub(FilterService.prototype, 'splitFilters').returns({'Region':'testRegion','Jurisdiction':'testJurisdiction'});
-sinon.stub(FilterService.prototype, 'findAndSplitFilters').returns({'Region':'testRegion','Jurisdiction':'testJurisdiction'});
-
-const i18n = {
-  'alphabetical-search': {},
-};
+sinon.stub(FilterService.prototype, 'handleFilterInitialisation').resolves({alphabetisedList: {}, filterOptions: {}});
 
 describe('Alphabetical Search Controller', () => {
+  const i18n = {
+    'alphabetical-search': {},
+  };
+  const request = mockRequest(i18n);
+  request.path = '/alphabetical-search';
+
   describe('get', () => {
     it('should render the alphabetical search page', () => {
       const response = {
         render: function() {return '';},
       } as unknown as Response;
-      const request = mockRequest(i18n);
+
       request.query = {};
 
       const responseMock = sinon.mock(response);
 
       const expectedData = {
         ...i18n['alphabetical-search'],
-        courtList: courtList,
-        filterOptions: [],
+        courtList: {},
+        filterOptions: {},
       };
 
       responseMock.expects('render').once().withArgs('alphabetical-search', expectedData);
@@ -52,15 +43,14 @@ describe('Alphabetical Search Controller', () => {
       const response = {
         render: function() {return '';},
       } as unknown as Response;
-      const request = mockRequest(i18n);
       request.query = {clear: 'all'};
 
       const responseMock = sinon.mock(response);
 
       const expectedData = {
         ...i18n['alphabetical-search'],
-        courtList: courtList,
-        filterOptions: [],
+        courtList: {},
+        filterOptions: {},
       };
 
       responseMock.expects('render').once().withArgs('alphabetical-search', expectedData);
@@ -71,22 +61,196 @@ describe('Alphabetical Search Controller', () => {
     });
   });
   describe('post', () => {
+    const response = {
+      redirect: function() {return '';}} as unknown as Response;
+
     it('should render page with body', () => {
-      const response = {
-        render: function() {return '';},
-      } as unknown as Response;
-      const request = mockRequest(i18n);
       request.body = {Jurisdiction: 'Manchester'};
 
       const responseMock = sinon.mock(response);
 
-      const expectedData = {
-        ...i18n['alphabetical-search'],
-        courtList: courtList,
-        filterOptions: [],
-      };
+      responseMock.expects('redirect').once().withArgs('alphabetical-search?filterValues=Manchester');
 
-      responseMock.expects('render').once().withArgs('alphabetical-search', expectedData);
+      return alphabeticalSearchController.post(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+
+    it('should render page after switching Region for Location', () => {
+      request.body = {Region: 'Crown'};
+
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('redirect').once().withArgs('alphabetical-search?filterValues=Crown');
+
+      return alphabeticalSearchController.post(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+  });
+});
+
+describe('Court Name Search Controller', () => {
+  const i18n = {
+    'alphabetical-search': {},
+  };
+  const request = mockRequest(i18n);
+  request.path = '/court-name-search';
+  const expectedData = {
+    ...i18n['court-name-search'],
+    filterOptions: {},
+    courtList: {},
+  };
+
+  describe('GET requests', () => {
+    const response = { render: () => {return '';}} as unknown as Response;
+    it('should render court name search page', () => {
+      request.query = {};
+
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+
+      return alphabeticalSearchController.get(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+
+    it('should render court name search page if invalid query param is provided', () => {
+      request.query = {foo: 'blah'};
+
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+
+      return alphabeticalSearchController.get(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+
+    it('should render court name search page if reset all filters is applied', () => {
+      request.query = {clear: 'all'};
+
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+
+      return alphabeticalSearchController.get(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+
+    it('should render court name search page if reset crown jurisdiction filter is applied', () => {
+      request.query = {clear: 'crown'};
+
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+
+      return alphabeticalSearchController.get(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+
+    it('should render court name search page if reset london location filter is applied', () => {
+      request.query = {clear: 'london'};
+
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+
+      return alphabeticalSearchController.get(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+
+    it('should render court name search page when jurisdiction element is removed', async () => {
+      request.query = {clear: 'crown', filterValues: 'crown'};
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+
+      await alphabeticalSearchController.get(request, response);
+      responseMock.verify();
+    });
+
+    it('should render court name search page when region element is removed', async () => {
+      request.query = {clear: 'london', filerValues: 'london'};
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+
+      await alphabeticalSearchController.get(request, response);
+      responseMock.verify();
+    });
+
+    it('should render court name search page when one jurisdiction is removed and there are still other jurisdiction filters', async () => {
+      request.query = {clear: 'crown court', filterValues: 'crown,crown court'};
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+
+      await alphabeticalSearchController.get(request, response);
+      responseMock.verify();
+    });
+  });
+
+  describe('POST requests', () => {
+    const response = { redirect: () => {return '';}} as unknown as Response;
+    it('should render court name search page if filters are applied', () => {
+      request.body = { jurisdiction: [], region: []};
+
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=');
+
+      return alphabeticalSearchController.post(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+
+    it('should render court name search page if more than 2 filters are applied', () => {
+      request.body = { jurisdiction: ['crown'], region: ['london']};
+
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=crown,london');
+
+      return alphabeticalSearchController.post(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+
+    it('should render court name search page if only jurisdiction filter is applied', () => {
+      request.body = { jurisdiction: ['crown']};
+
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=crown');
+
+      return alphabeticalSearchController.post(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+
+    it('should render court name search page if only region filter is applied', () => {
+      request.body = { region: ['london']};
+
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=london');
+
+      return alphabeticalSearchController.post(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+
+    it('should render court name search page if no filters are applied', () => {
+      request.body = {};
+
+      const responseMock = sinon.mock(response);
+
+      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=');
 
       return alphabeticalSearchController.post(request, response).then(() => {
         responseMock.verify();

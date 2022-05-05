@@ -13,6 +13,7 @@ describe('File Upload Confirmation Page', () => {
 
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
     });
   });
 
@@ -30,11 +31,11 @@ describe('File Upload Confirmation Page', () => {
 
   it('should display links to other actions with correct paths', () => {
     const links = htmlRes.getElementsByClassName('govuk-link ');
-    expect(links[0].innerHTML).to.equal('Upload another file');
-    expect(links[0].getAttribute('href')).contains('manual-upload');
-    expect(links[1].innerHTML).to.equal('Remove file');
-    expect(links[1].getAttribute('href')).contains('remove-list-search');
-    expect(links[2].innerHTML).to.equal('Home');
-    expect(links[2].getAttribute('href')).contains('admin-dashboard');
+    expect(links[1].innerHTML).to.equal('Upload another file');
+    expect(links[1].getAttribute('href')).contains('manual-upload');
+    expect(links[2].innerHTML).to.equal('Remove file');
+    expect(links[2].getAttribute('href')).contains('remove-list-search');
+    expect(links[3].innerHTML).to.equal('Home');
+    expect(links[3].getAttribute('href')).contains('admin-dashboard');
   });
 });

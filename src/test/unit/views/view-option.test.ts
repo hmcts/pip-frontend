@@ -22,6 +22,7 @@ describe('View Option Page', () => {
     beforeAll(async () => {
       await request(app).get(PAGE_URL).then(response => {
         htmlRes = new DOMParser().parseFromString(response.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
       });
     });
 
@@ -45,6 +46,11 @@ describe('View Option Page', () => {
       expect(radioButtons.length).equal(2, '2 radio buttons not found');
     });
 
+    it('should display the beta header', () => {
+      const betaHeader = htmlRes.getElementsByClassName('govuk-phase-banner');
+      expect(betaHeader[0].innerHTML).contains('beta', 'Could not locate beta heading.');
+    });
+
     it('should display radio buttons with valid text',  () => {
       const radioButtons = htmlRes.getElementsByClassName(radioClass);
       expect(radioButtons[0].innerHTML).contains(expectedRadioLabel1, 'Could not find the radio button with label ' + expectedRadioLabel1);
@@ -62,6 +68,7 @@ describe('View Option Page', () => {
     beforeAll(async () => {
       await request(app).post(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
       });
     });
 

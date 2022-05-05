@@ -6,6 +6,7 @@ import path from 'path';
 import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
 import {request as expressRequest} from 'express';
+import {CourtService} from '../../../main/service/courtService';
 
 const PAGE_URL = '/daily-cause-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -13,9 +14,9 @@ const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
 const accordionClass='govuk-accordion__section-button';
 
-const expectedHeader = 'Daily Civil Cause list for <br>PRESTON';
+const courtName = 'Abergavenny Magistrates\' Court';
+const expectedHeader = 'Daily Civil Cause List: <br>' + courtName;
 const summaryHeadingText = 'Important information';
-const accordionHeading = '1 : Mr Firstname1 Surname1';
 
 let htmlRes: Document;
 
@@ -24,8 +25,12 @@ const dailyCauseListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const courtData = JSON.parse(rawDataCourt);
+
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(dailyCauseListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
+sinon.stub(CourtService.prototype, 'getCourtById').resolves(courtData[0]);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Daily Cause List page', () => {
@@ -47,7 +52,7 @@ describe('Daily Cause List page', () => {
 
   it('should display court name summary paragraph',  () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
-    expect(summary[0].innerHTML).contains('PRESTON', 'Could not find the court name in summary text');
+    expect(summary[0].innerHTML).contains(courtName, 'Could not find the court name in summary text');
   });
 
   it('should display court email summary paragraph',  () => {
@@ -57,37 +62,42 @@ describe('Daily Cause List page', () => {
 
   it('should display court contact number summary paragraph',  () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
-    expect(summary[0].innerHTML).contains('01772 844700', 'Could not find the court name in summary text');
+    expect(summary[0].innerHTML).contains('01772 844700', 'Could not find the court telephone no in summary text');
   });
 
   it('should display accordion open/close all',  () => {
     const accordion = htmlRes.getElementsByClassName(accordionClass);
-    expect(accordion[0].innerHTML).contains(accordionHeading, 'Could not find the accordion heading');
+    expect(accordion[0].innerHTML).to.contains('1 :  Mr Firstname1 Surname1', 'Could not find the accordion heading');
+  });
+
+  it('should display Hearing time',  () => {
+    const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+    expect(cell[0].innerHTML).contains('09:00');
   });
 
   it('should display Case ID',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[0].innerHTML).contains('12345678');
+    expect(cell[1].innerHTML).contains('12345678');
   });
 
   it('should display Case Name',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[1].innerHTML).contains('A1 Vs B1');
+    expect(cell[2].innerHTML).contains('A1 Vs B1');
+  });
+
+  it('should display Case Sequence Indicator if it is there',  () => {
+    const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+    expect(cell[2].innerHTML).contains('[2 of 3]');
   });
 
   it('should display Hearing Type',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[2].innerHTML).contains('FHDRA1 (First Hearing and Dispute Resolution Appointment)');
+    expect(cell[3].innerHTML).contains('FHDRA1 (First Hearing and Dispute Resolution Appointment)');
   });
 
-  it('should display Hearing platform',  () => {
+  it('should display Hearing platform (Location)',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[3].innerHTML).contains('VIDEO HEARING');
-  });
-
-  it('should display Hearing start time',  () => {
-    const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[4].innerHTML).contains('9.40am');
+    expect(cell[4].innerHTML).contains('Remote, Teams');
   });
 
   it('should display Hearing duration',  () => {

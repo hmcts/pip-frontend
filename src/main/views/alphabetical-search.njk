@@ -13,6 +13,7 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
+  <h1 id='page-heading' class="govuk-heading-l">{{ heading }}</h1>
   <div id="grid-row" class="govuk-grid-row parent-box alphabetical-box">
     <div class="layout-width-two-fifths govuk-!-display-inline-block hide" id="filters">
       <div class="filters">
@@ -85,7 +86,7 @@
       </div>
     </div>
     <div class="layout-width-three-fifths" id="content">
-      <h2 id='page-heading' class="govuk-heading-l">{{ heading }}</h2>
+
       <div class="moj-button-menu">
         <div class="moj-button-menu__wrapper">
           <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary"
@@ -133,7 +134,7 @@
                       <div id="{{ key }}" class="govuk-!-font-size-27">{{ key }}</div>
                     </th>
                   {% else %}
-                    <th scope="row" class="govuk-table__header">
+                    <th scope="row" aria-hidden="true" class="govuk-table__header">
                     </th>
                   {% endif %}
                   <td class="govuk-table__cell">
@@ -155,6 +156,12 @@
   {{ super() }}
   <script src="alphabetical-dev.js"></script>
   <script>
+
+    //Used to ensure that page focus is set to top when the filters reload the page
+    window.onload = function() {
+      window.scrollTo(0,0);
+    };
+
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
@@ -164,14 +171,42 @@
       var element = document.getElementById("filters");
       var content = document.getElementById("content");
       var navigation = document.getElementsByClassName("moj-sub-navigation pub-navigation govuk-!-margin-bottom-0");
+      var skipLink = document.getElementsByClassName("govuk-skip-link");
+      var header = document.getElementsByClassName("govuk-header");
+      var backLink = document.getElementsByClassName("govuk-back-link");
+      var footer = document.getElementsByClassName("govuk-footer");
+
+
       element.classList.toggle("hide");
       content.classList.toggle("hide");
       navigation[0].classList.toggle("hide");
+      skipLink[0].classList.toggle("hide");
+      header[0].classList.toggle("hide");
+      backLink[0].classList.toggle("hide");
+      footer[0].classList.toggle("hide");
       if (element.className.indexOf('hide') > 0) {
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ show }}";
       } else {
         document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ hide }}";
+
+        //This ensures that focus works correctly for screen readers in the filter box.
+        var elements = document.getElementsByClassName('govuk-heading-m');
+        elements[0].setAttribute("tabindex", "0");
+        elements[1].setAttribute("tabindex", "0");
+        elements[0].focus();
       }
+    }
+    //Concat href to maintain filter values when clearing single
+    let tags = document.querySelectorAll('.moj-filter__tag');
+    let currentParam = window.location.search.split('&');
+    tags.forEach(element => {
+      const tmp = element.href.slice(element.href.indexOf('?'), element.href.length);
+      element.href = buildHref(tmp, currentParam);
+    })
+    function buildHref(filterToClear, currentPath) {
+      const deleteVal = filterToClear.split('=')[1];
+      let href = currentPath ? currentPath[0].replace(deleteVal, '') + filterToClear.replace('?', '&') : filterToClear
+      return href.replace(',,', ',');
     }
   </script>
 {% endblock %}

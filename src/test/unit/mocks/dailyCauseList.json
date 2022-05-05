@@ -28,8 +28,7 @@
               {
                 "sessionStartTime": "",
                 "sessionChannel": [
-                  "VIDEO HEARING",
-                  ""
+                  "VIDEO HEARING"
                 ],
                 "judiciary": [
                   {
@@ -47,7 +46,8 @@
                         "case": [
                           {
                             "caseName": "A1 Vs B1",
-                            "caseNumber": "12345678"
+                            "caseNumber": "12345678",
+                            "caseSequenceIndicator": "[2 of 3]"
                           }
                         ]
                       },
@@ -62,7 +62,8 @@
                       }
                     ],
                     "channel": [
-                      ""
+                      "Remote",
+                      "Teams"
                     ]
                   },
                   {
@@ -88,60 +89,15 @@
                         ]
                       }
                     ],
-                    "channel": [
-                      ""
-                    ]
+                    "duration": "",
+                    "startTime": "9.40am",
+                    "durationAsHours": 1,
+                    "durationAsMinutes": 5
                   }
                 ]
               }
-            ]
-          },
-          {
-            "courtRoomName": "2",
-            "session": [
-              {
-                "sessionStartTime": "",
-                "sessionChannel": [
-                  "VIDEO HEARING",
-                  ""
-                ],
-                "judiciary": [
-                  {
-                    "johTitle": "Mr",
-                    "johNameSurname": "Firstname2 Surname2"
-                  }
-                ],
-                "sittings": [
-                  {
-                    "sittingStart": "",
-                    "sittingEnd": "",
-                    "hearing": [
-                      {
-                        "hearingType": "FHDRA2 (First Hearing and Dispute Resolution Appointment)",
-                        "case": [
-                          {
-                            "caseName": "A1 Vs B1",
-                            "caseNumber": "12345678"
-                          }
-                        ]
-                      },
-                      {
-                        "hearingType": "FHDRA2 (First Hearing and Dispute Resolution Appointment)",
-                        "case": [
-                          {
-                            "caseName": "A2 Vs B2",
-                            "caseNumber": "112233445"
-                          }
-                        ]
-                      }
-                    ],
-                    "channel": [
-                      ""
-                    ]
-                  }
-                ]
-              }
-            ]
+            ],
+            "totalHearing": 2
           }
         ]
       }

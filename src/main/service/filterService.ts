@@ -1,7 +1,10 @@
 import {Court} from '../models/court';
+import {CourtService} from './courtService';
 
 const jurisdictionFilterName = 'Type of court or tribunal';
 const filterNames = [{courtField: 'Jurisdiction', filterName: jurisdictionFilterName}, {courtField:'Region', filterName: 'Region'}];
+
+const courtService = new CourtService();
 
 export class FilterService {
   private getFilterValueOptions(filterName: string, list: Array<Court>): string[] {
@@ -45,7 +48,9 @@ export class FilterService {
     if (reqQuery == 'all') {
       return [];
     } else {
-      selectedFilters.splice(selectedFilters.indexOf(reqQuery), 1);
+      if (selectedFilters.includes(reqQuery)) {
+        selectedFilters.splice(selectedFilters.indexOf(reqQuery), 1);
+      }
       return selectedFilters;
     }
   }
@@ -95,5 +100,43 @@ export class FilterService {
     filterValueOptions['Region'] = regionFilter.toString();
 
     return filterValueOptions;
+  }
+
+  public stripFilters(currentFilters: string): string[] {
+    return currentFilters ? currentFilters.split(',') : [];
+  }
+
+  public async handleFilterInitialisation(clearQuery: string, filterValuesQuery: string): Promise<object> {
+    let filterValues = this.stripFilters(filterValuesQuery);
+    if (clearQuery) {
+      filterValues = this.handleFilterClear(filterValues, clearQuery);
+    }
+
+    const filterOptions = this.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
+
+    let filters ={};
+    if(filterValues.length > 0) {
+      filters = this.findAndSplitFilters(filterValues, filterOptions);
+    }
+
+    const alphabetisedList = filterValues.length == 0 ? await courtService.generateAlphabetisedAllCourtList() :
+      await courtService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']);
+
+    return {
+      alphabetisedList: alphabetisedList,
+      filterOptions: filterOptions,
+    };
+  }
+
+  public generateFilterKeyValues(body: string): object {
+    let keys = [];
+    let filterValues = [];
+    keys = Object.keys(body);
+
+    const values = [];
+    keys.forEach(key => values.push(body[key]));
+    filterValues = Array.prototype.concat.apply([], values);
+
+    return filterValues;
   }
 }
