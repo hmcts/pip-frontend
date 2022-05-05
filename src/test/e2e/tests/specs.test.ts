@@ -89,6 +89,12 @@ describe('Unverified user', () => {
     expect(await interstitialPage.getPageTitle()).toEqual('Court and tribunal hearings');
   });
 
+  it('should click accept cookies', async () => {
+    expect(await interstitialPage.cookieHeader()).toEqual('Cookies on Court and tribunal hearings');
+    await interstitialPage.clickAcceptCookies();
+    await interstitialPage.clickHideMessage();
+  });
+
   it('should click on the continue and navigate to View Options page', async () => {
     viewOptionPage = await interstitialPage.clickContinue();
     expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
@@ -237,7 +243,7 @@ describe('Unverified user', () => {
 
     it('should click on the create account link', async () => {
       createMediaAccountPage = await signInPage.clickCreateAccount();
-      expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a court and tribunal hearing account');
+      expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a Court and tribunal hearing account');
     });
 
     it('should complete form and continue to confirmation page', async () => {
@@ -268,7 +274,6 @@ describe('Verified user', () => {
         await signInPage.enterText(process.env.B2C_USERNAME, 'EmailField');
         await signInPage.enterText(process.env.B2C_PASSWORD, 'PasswordField');
         accountHomePage = await signInPage.clickSignIn();
-        await browser.pause(2000);
       });
 
       it('should open account home page on successful sign in', async () => {
@@ -485,6 +490,7 @@ describe('Verified user', () => {
         searchPublicationPage = await adminDashboard.clickRemoveCard();
         expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
       });
+
       it('should enter valid court in the search field, click continue and open search results page', async () => {
         const searchTerm = 'Milton Keynes County Court and Family Court';
         await searchPublicationPage.enterText(searchTerm);

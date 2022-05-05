@@ -11,7 +11,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/dailyCaus
 const dailyReferenceData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(dailyReferenceData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(dailyReferenceData);
-sinon.stub(PublicationService.prototype, 'calculateHearingSessionTime').resolves(dailyReferenceData);
+sinon.stub(PublicationService.prototype, 'manipulatedDailyListData').resolves(dailyReferenceData);
 
 describe('Daily Cause List Page', () => {
   describe('on GET', () => {

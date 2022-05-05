@@ -19,6 +19,7 @@ describe('Sign In option Page', () => {
     beforeAll(async () => {
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
       });
     });
 
@@ -56,8 +57,8 @@ describe('Sign In option Page', () => {
 
     it('should display request account link', () => {
       const requestAccLink = htmlRes.getElementsByClassName('govuk-link');
-      expect(requestAccLink[0].innerHTML).contains('Create a Court and tribunal hearings account', 'Could not find request account link');
-      expect(requestAccLink[0].getAttribute('href')).contains('create-media-account', 'Link does not contain correct url');
+      expect(requestAccLink[1].innerHTML).contains('Create a Court and tribunal hearings account', 'Could not find request account link');
+      expect(requestAccLink[1].getAttribute('href')).contains('create-media-account', 'Link does not contain correct url');
     });
   });
 
@@ -65,6 +66,7 @@ describe('Sign In option Page', () => {
     beforeAll(async () => {
       await request(app).get(`${PAGE_URL}?error=true`).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
       });
     });
 

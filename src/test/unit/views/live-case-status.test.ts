@@ -20,6 +20,7 @@ describe('Live Status page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
     });
   });
 
@@ -75,8 +76,8 @@ describe('Live Status page', () => {
   it('should display the link to go back to live case alphabet list', () => {
     const link = htmlRes.getElementsByClassName('govuk-link');
 
-    expect(link.item(3).innerHTML).contains('See another court or tribunal', 'Link text is not present');
-    expect(link.item(3).getAttribute('href')).equal('/live-case-alphabet-search', 'Link value is not correct');
+    expect(link.item(4).innerHTML).contains('See another court or tribunal', 'Link text is not present');
+    expect(link.item(4).getAttribute('href')).equal('/live-case-alphabet-search', 'Link value is not correct');
   });
 });
 

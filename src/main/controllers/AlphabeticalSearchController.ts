@@ -1,61 +1,26 @@
 import { Response } from 'express';
-import { CourtService } from '../service/courtService';
 import {PipRequest} from '../models/request/PipRequest';
 import {cloneDeep} from 'lodash';
 import {FilterService} from '../service/filterService';
 
-const courtService = new CourtService();
 const filterService = new FilterService();
-
-let keys = [];
-let filterValues = [];
-const filterNames = ['Jurisdiction', 'Region'];
 
 export default class AlphabeticalSearchController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
-    if (req.query['clear']) {
-      const query = req.query['clear'] as string;
-      filterValues = filterService.handleFilterClear(filterValues, query);
-    } else {
-      filterValues = [];
-    }
-    const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
+    const screenToRender = req.path.slice(1, req.path.length);
+    const initialisedFilter = await filterService.handleFilterInitialisation(req.query?.clear as string, req.query?.filterValues as string);
 
-    keys = filterService.handleKeys(filterOptions);
-
-    let filters ={};
-    if(filterValues.length > 0) {
-      filters = filterService.findAndSplitFilters(filterValues, filterOptions);
-    }
-
-    const alphabetisedList = filterValues.length == 0 ? await courtService.generateAlphabetisedAllCourtList() :
-      await courtService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']);
-
-    res.render('alphabetical-search', {
-      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['alphabetical-search']),
-      courtList: alphabetisedList,
-      filterOptions: filterOptions,
+    res.render(screenToRender, {
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[screenToRender]),
+      courtList: initialisedFilter['alphabetisedList'],
+      filterOptions: initialisedFilter['filterOptions'],
     });
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
-    const body = req.body;
-    keys = Object.keys(body);
-
-    const filters = filterService.splitFilters(filterNames, body);
-
-    const values = [];
-    keys.forEach(key => values.push(body[key]));
-    filterValues = Array.prototype.concat.apply([], values);
-
-    const alphabetisedList = await courtService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']);
-    const filterOptions = filterService.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
-
-    res.render('alphabetical-search', {
-      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['alphabetical-search']),
-      courtList: alphabetisedList,
-      filterOptions: filterOptions,
-    });
+    const screenToRender = req.path.slice(1, req.path.length);
+    const filterValues = filterService.generateFilterKeyValues(req.body);
+    res.redirect(`${screenToRender}?filterValues=${filterValues}`);
   }
 }

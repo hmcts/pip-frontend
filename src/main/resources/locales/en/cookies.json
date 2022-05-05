@@ -11,6 +11,8 @@
   "cookieTableData": [
     ["session", "Used to keep you signed in", "1 hour"],
     ["i18next", "Stores your language preferences", "1 year"],
-    ["formCookie", "Stores data within a form before it is submitted", "1 hour"]
-    ]
+    ["formCookie", "Stores data within a form before it is submitted", "1 hour"],
+    ["cookiePolicy", "Stores your cookie preferences", "1 year"]
+    ],
+  "analyticsExplanation": "With your permission, we use Google Analytics and Dynatrace to collect data about how you use this service. This information helps us to improve our service."
 }
