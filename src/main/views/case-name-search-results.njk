@@ -11,6 +11,7 @@
     {{ goBack() }}
 {% endblock %}
 {% block content %}
+  <div class="parent-box alphabetical-box">
     <h1 class="govuk-heading-l">{{ heading }}</h1>
     <p class="govuk-body govuk-!-font-weight-bold">{{ searchResults | length }} {{ resultsCount }}</p>
     <form action="pending-subscriptions" method="post" autocomplete="off">
@@ -45,8 +46,11 @@
         </table>
         {{ submitButton() }}
     </form>
+    {{ super() }}
+  </div>
 {% endblock %}
 {% block bodyEnd %}
+  {{ super() }}
     <script type="text/javascript" src="/assets/js/jquery.js"></script>
     <script type="text/javascript" src="/assets/js/mojAll.js"></script>
     <script>
