@@ -12,6 +12,7 @@
     {{ goBack() }}
 {% endblock %}
 {% block content %}
+  <div class="parent-box">
     {% set nameInput = govukInput({
         label: {
             text: nameLabel
@@ -126,6 +127,8 @@
         {{ fileInput }}
         {{ submitButton(continueButton) }}
     </form>
+  {{ super() }}
+  </div>
 {% endblock %}
 {% block bodyEnd %}
     {{ super() }}

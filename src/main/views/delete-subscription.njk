@@ -14,6 +14,7 @@
 {% endblock %}
 
 {% block content %}
+  <div class="parent-box">
     <h2 class="govuk-heading-l">{{ header }}</h2>
     <form action="unsubscribe-confirmation" method="post">
         {{ govukInput({
@@ -38,6 +39,8 @@
         }) }}
         {{ submitButton(continueButton) }}
     </form>
+    {{ super() }}
+  </div>
 {% endblock %}
 {% block bodyEnd %}
     {{ super() }}

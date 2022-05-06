@@ -11,6 +11,7 @@
     {{ goBack() }}
 {% endblock %}
 {% block content %}
+  <div class="parent-box">
     {% if noResultsError %}
         <div class="govuk-grid-row">
             <div class="no_padding govuk-grid-column-full">
@@ -63,6 +64,8 @@
             </div>
         {% endif %}
     </form>
+    {{ super() }}
+  </div>
 {% endblock %}
 {% block bodyEnd %}
     <script>

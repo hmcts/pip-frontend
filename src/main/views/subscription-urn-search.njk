@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block content %}
+  <div class="parent-box">
   {% set inputProperties = {
     label: {
       "text": hint
@@ -73,5 +74,10 @@
       window.history.replaceState( null, null, window.location.href );
     }
   </script>
+  {{ super() }}
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
   {{ super() }}
 {% endblock %}

@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block content %}
+  <div class="alphabetical-box parent-box">
   <h1 class="govuk-heading-l">{{ header }}</h1>
   <h3 class="govuk-heading-m">{{ subheader }}</h3>
 
@@ -41,6 +42,8 @@
     </div>
     {{ submitButton(continueButton) }}
   </form>
+    {{ super() }}
+  </div>
 {% endblock %}
 {% block bodyEnd %}
   <script>

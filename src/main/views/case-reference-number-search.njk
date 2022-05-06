@@ -11,45 +11,47 @@
   {{ goBack() }}
 {% endblock %}
 {% block content %}
-  {% if noResultsError  or invalidInputError %}
-    <div class="govuk-grid-row">
-      <div class="no_padding govuk-grid-column-full">
-        {{ govukErrorSummary({
-          titleText: error.title,
-          errorList: [
-            {
-              text: error.notfound,
-              href: "#search-input"
-            }
-          ]
-        }) }}
-      </div>
-    </div>
-  {% endif %}
-
-  {% set inputClasses = 'govuk-input govuk-input--error'
-    if noResultsError or invalidInputError else 'govuk-input' %}
-  {% set formGroupError = 'govuk-form-group--error'
-    if noResultsError or invalidInputError else 'govuk-form-group' %}
-
-  <form action="case-reference-number-search" method="post">
-    <div class="govuk-form-group">
-      <h1 class="govuk-heading-l">
-        <label class="govuk-label govuk-label--l" for="search-input">
-          {{ header }}
-        </label>
-      </h1>
-      <div class="{{ formGroupError }}">
-        {% if noResultsError or invalidInputError %}
-          <span class="govuk-error-message">{{ error.header }}</span>
-        {% else %}
-          <div id="search-input-hint" class="govuk-hint">
-            {{ hint }}
-          </div>
-        {% endif %}
-        <div class="govuk-!-width-one-third">
-          <input class="{{ inputClasses }}" id="search-input" name="search-input" type="text" aria-describedby="search-input-hint">
+  <div class="parent-box">
+    {% if noResultsError  or invalidInputError %}
+      <div class="govuk-grid-row">
+        <div class="no_padding govuk-grid-column-full">
+          {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+              {
+                text: error.notfound,
+                href: "#search-input"
+              }
+            ]
+          }) }}
         </div>
+      </div>
+    {% endif %}
+
+    {% set inputClasses = 'govuk-input govuk-input--error'
+      if noResultsError or invalidInputError else 'govuk-input' %}
+    {% set formGroupError = 'govuk-form-group--error'
+      if noResultsError or invalidInputError else 'govuk-form-group' %}
+
+    <form action="case-reference-number-search" method="post">
+      <div class="govuk-form-group">
+        <h1 class="govuk-heading-l">
+          <label class="govuk-label govuk-label--l" for="search-input">
+            {{ header }}
+          </label>
+        </h1>
+        <div class="{{ formGroupError }}">
+          {% if noResultsError or invalidInputError %}
+            <span class="govuk-error-message">{{ error.header }}</span>
+          {% else %}
+            <div id="search-input-hint" class="govuk-hint">
+              {{ hint }}
+            </div>
+          {% endif %}
+          <div class="govuk-!-width-one-third">
+            <input class="{{ inputClasses }}" id="search-input" name="search-input" type="text"
+                   aria-describedby="search-input-hint">
+          </div>
         </div>
       </div>
 
@@ -62,13 +64,16 @@
           <p class="govuk-body">{{ error.line2 }}</p>
         </div>
       </div>
-    {% endif %}
+    </div>
+  {% endif %}
   </form>
+  {{ super() }}
+  </div>
 {% endblock %}
 {% block bodyEnd %}
   <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
     }
   </script>
   {{ super() }}
