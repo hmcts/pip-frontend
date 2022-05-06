@@ -2,8 +2,10 @@
 {% from "govuk/components/header/macro.njk" import govukHeader %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 {% from "moj/components/sub-navigation/macro.njk" import mojSubNavigation %}
+{% from "./macros/common-components.njk" import backToTopButton %}
 {% from "govuk/components/cookie-banner/macro.njk" import govukCookieBanner %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
 
 {% block head %}
     <meta name="robots" content="noindex">
@@ -31,16 +33,16 @@
             href: '/account-home'
         },
         {
-            text: navLinks.link4,
-            href: '/subscription-management'
-        },
-        {
             text: navLinks.link5,
             href: '/search'
         },
         {
             text: navLinks.link6,
             href: '/summary-of-publications?courtId=0'
+        },
+        {
+            text: navLinks.link4,
+            href: '/subscription-management'
         },
         {
             text: navLinks.link3,
@@ -149,7 +151,12 @@
   }) }}
 {% endblock %}
 
+{%  block content %}
+  {{ backToTopButton() }}
+{% endblock %}
+
 {% block bodyEnd %}
+  <script src="alphabetical-dev.js"></script>
   <script src="assets/js/cookie-preferences.js"></script>
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   {% include "webpack/js.njk" %}

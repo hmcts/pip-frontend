@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block content %}
+  <div class="parent-box alphabetical-box">
 <h1 class="govuk-heading-l">{{ title }}</h1>
 <p class="govuk-body">{{ cookiesExplanation1 }}</p>
 <p class="govuk-body">{{ cookiesExplanation2 }}</p>
@@ -47,8 +48,12 @@
   rows: tableRows
 
 }) }}
+    <h1 class="govuk-heading-m">{{ heading2 }}</h1>
+    <p class="govuk-body">{{ analyticsExplanation }}</p>
+  {{ super() }}
+  </div>
+{% endblock %}
 
-<h1 class="govuk-heading-m">{{ heading2 }}</h1>
-<p class="govuk-body">{{ analyticsExplanation }}</p>
-
+{% block bodyEnd %}
+  {{ super() }}
 {% endblock %}
