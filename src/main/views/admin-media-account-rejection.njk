@@ -11,25 +11,28 @@
 {% endblock %}
 {% block content %}
   <h1 class="govuk-heading-l">Are you sure you want to reject this application?</h1>
-
+  <h1>{{ applicantData | dump | safe }}</h1>
   {{ govukTable({
     caption: tableCaption,
     captionClasses: "govuk-table__caption--m",
     firstCellIsHeader: true,
     rows: [
       [
-      {
-        text: tableHeaders[0]
-      },
         {
-          text: applicantData[0]
-        }],
+          text: tableHeaders[0]
+        },
+        {
+          text: applicantData[0].fullName
+        }
+      ],
       [
-      {
-        text: tableHeaders[1]
-      },
-        {text: applicantData[1]}
-        ]
+        {
+          text: tableHeaders[1]
+        },
+        {
+          text: applicantData.employer
+        }
+      ]
     ]
   }) }}
 
