@@ -11,6 +11,7 @@ const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const multer = require('multer');
 const logger = Logger.getLogger('routes');
+const adminRolesList = ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_CTSC', 'INTERNAL_ADMIN_LOCAL'];
 
 export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
@@ -46,6 +47,28 @@ export default function(app: Application): void {
       return next();
     }
     res.redirect('/login?p=' + authenticationConfig.POLICY);
+  }
+
+  function isAdminUser(req): boolean {
+    if(req.user) {
+      const userInfo = req.user['_json'];
+      if (userInfo?.extension_UserRole) {
+        if (adminRolesList.includes(userInfo?.extension_UserRole)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  function ensureAdminAuthenticated(req, res, next): void {
+    const adminRole = isAdminUser(req);
+
+    if(adminRole) {
+      return next();
+    } else {
+      res.redirect('/login?p=' + authenticationConfig.ADMIN_POLICY);
+    }
   }
 
   function globalAuthGiver(req, res, next): void{
@@ -91,7 +114,7 @@ export default function(app: Application): void {
   app.get('/interstitial', app.locals.container.cradle.interstitialController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
   app.post('/login/return', passport.authenticate(authType, { failureRedirect: '/view-option'}),
-    (_req, res) => {res.redirect('/account-home');});
+    (_req, res) => {isAdminUser(_req) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
   app.get('/logout', logOut);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
@@ -109,7 +132,6 @@ export default function(app: Application): void {
 
   // Restricted paths
   app.get('/account-home', ensureAuthenticated, app.locals.container.cradle.accountHomeController.get);
-  app.get('/admin-dashboard', ensureAuthenticated, app.locals.container.cradle.adminDashboardController.get);
   app.get('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.get);
   app.post('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.post);
   app.get('/case-name-search-results', ensureAuthenticated, app.locals.container.cradle.caseNameSearchResultsController.get);
@@ -118,10 +140,6 @@ export default function(app: Application): void {
   app.get('/case-reference-number-search-results', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
   app.get('/court-name-search', ensureAuthenticated, app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/court-name-search', ensureAuthenticated, app.locals.container.cradle.alphabeticalSearchController.post);
-  app.get('/create-admin-account', ensureAuthenticated, app.locals.container.cradle.createAdminAccountController.get);
-  app.post('/create-admin-account', ensureAuthenticated, app.locals.container.cradle.createAdminAccountController.post);
-  app.get('/create-admin-account-summary', ensureAuthenticated, app.locals.container.cradle.createAdminAccountSummaryController.get);
-  app.post('/create-admin-account-summary', ensureAuthenticated, app.locals.container.cradle.createAdminAccountSummaryController.post);
   app.get('/delete-subscription', ensureAuthenticated, app.locals.container.cradle.deleteSubscriptionController.get);
   app.get('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.get);
   app.post('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.post);
@@ -143,11 +161,16 @@ export default function(app: Application): void {
   app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
 
   // restricted admin paths
-  app.get('/manual-upload', ensureAuthenticated, app.locals.container.cradle.manualUploadController.get);
-  app.post('/manual-upload', ensureAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualUploadController.post);
-  app.get('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.get);
-  app.post('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
-  app.get('/upload-confirmation', ensureAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
+  app.get('/admin-dashboard', ensureAdminAuthenticated, app.locals.container.cradle.adminDashboardController.get);
+  app.get('/create-admin-account', ensureAdminAuthenticated, app.locals.container.cradle.createAdminAccountController.get);
+  app.post('/create-admin-account', ensureAdminAuthenticated, app.locals.container.cradle.createAdminAccountController.post);
+  app.get('/create-admin-account-summary', ensureAdminAuthenticated, app.locals.container.cradle.createAdminAccountSummaryController.get);
+  app.post('/create-admin-account-summary', ensureAdminAuthenticated, app.locals.container.cradle.createAdminAccountSummaryController.post);
+  app.get('/manual-upload', ensureAdminAuthenticated, app.locals.container.cradle.manualUploadController.get);
+  app.post('/manual-upload', ensureAdminAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualUploadController.post);
+  app.get('/manual-upload-summary', ensureAdminAuthenticated, app.locals.container.cradle.manualUploadSummaryController.get);
+  app.post('/manual-upload-summary', ensureAdminAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
+  app.get('/upload-confirmation', ensureAdminAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
