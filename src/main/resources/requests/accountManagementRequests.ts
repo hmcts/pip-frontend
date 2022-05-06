@@ -38,4 +38,14 @@ export class AccountManagementRequests {
       return false;
     }
   }
+
+  public async createMediaAccount(payload): Promise<boolean> {
+    try {
+      const response = await accountManagementApi.post('/application', payload);
+      logger.info('Media account requested', response);
+      return response.status === 200;
+    } catch (error) {
+      logger.error('lol error');
+    }
+  }
 }

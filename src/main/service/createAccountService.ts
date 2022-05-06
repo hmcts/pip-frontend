@@ -147,6 +147,14 @@ export class CreateAccountService {
     }];
   }
 
+  // formatCreateMediaAccount(accountObject): any[] {
+  //   return [{
+  //     fullName: accountObject.fullName,
+  //     email: accountObject.email,
+  //
+  //   }];
+  // }
+
   public async createAdminAccount(payload: object, requester: string): Promise<boolean> {
     const azureResponse = await accountManagementRequests.createAzureAccount(
       this.formatCreateAdminAccountPayload(payload), requester);
@@ -155,5 +163,11 @@ export class CreateAccountService {
         this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]), requester);
     }
     return false;
+  }
+
+  public async createMediaAccount(payload: object): Promise<boolean> {
+    console.log(payload);
+    return true;
+    // return await accountManagementRequests.createMediaAccount(this.formatCreateMediaAccountPayload(payload));
   }
 }

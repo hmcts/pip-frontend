@@ -10,14 +10,23 @@ export default class CreateMediaAccountController {
     res.render('create-media-account', req.i18n.getDataByLanguage(req.lng)['create-media-account']);
   }
 
-  public post(req: PipRequest, res: Response): void {
+  public async post(req: PipRequest, res: Response): Promise<void> {
     const formValidation = createAccountService.validateFormFields(req.body);
     const isValidForm = Object.values(formValidation).every(o => o.message === null);
-    isValidForm ?
-      res.redirect('account-request-submitted') :
+
+    if (isValidForm) {
+      const response = await createAccountService.createMediaAccount(req.body);
+
+      if (response) {
+        res.redirect('account-request-submitted');
+      } else {
+        res.render('create-media-account');
+      }
+    } else {
       res.render('create-media-account', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-media-account']),
         formErrors: formValidation,
       });
+    }
   }
 }
