@@ -10,7 +10,6 @@
 {% endblock %}
 {% block content %}
   <div class="parent-box">
-    <div class="govuk-grid-row">
       <div class="govuk-callout" tabindex="0">
         <h1 class="govuk-heading-m">{{ warning }}</h1>
         <div class="govuk-warning-text">
@@ -20,6 +19,7 @@
           </p>
         </div>
       </div>
+    <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-xl">{{ title }}</h1>
         <form method="post" enctype="multipart/form-data">
@@ -217,9 +217,8 @@
               </fieldset>
               </div>
             </div>
-          {{ submitButton() }}
+          {{ submitButton(continueButton) }}
         </form>
-        {{ super() }}
       </div>
       <div class="govuk-grid-column-one-third">
         <h2 class="govuk-heading-l">{{ pageHelpHeading }}</h2>
@@ -243,8 +242,7 @@
         <h3 class="govuk-heading-s">{{ pageHelp[8].heading }}</h3>
         <p class="govuk-body">{{ pageHelp[8].text }}</p>
       </div>
-      {{ submitButton(continueButton) }}
-    </form>
+    </div>
     {{ super() }}
   </div>
 {% endblock %}
