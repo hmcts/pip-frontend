@@ -3,6 +3,7 @@ import {MediaAccountApplicationService} from '../service/mediaAccountApplication
 import {Response} from "express";
 import { cloneDeep } from 'lodash';
 import moment from "moment";
+import {allowedImageTypeMappings} from '../models/consts';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 
@@ -37,10 +38,18 @@ export default class MediaAccountReviewController {
        const image = await mediaAccountApplicationService.getApplicationImageById(imageId);
        const applicant = await mediaAccountApplicationService.getApplicationById(applicantId);
        if (image && applicant) {
-         res.set('Content-Disposition', 'inline;filename=' + applicant['imageName']);
-         res.set('Content-Type', 'image/jpg');
-         res.send(image);
-         return;
+
+         const imageName = applicant['imageName'];
+         const extension = imageName.substring(imageName.lastIndexOf('.') + 1, imageName.length);
+
+         const contentType = allowedImageTypeMappings[extension];
+         if (contentType) {
+           res.set('Content-Disposition', 'inline;filename=' + applicant['imageName']);
+           res.set('Content-Type', contentType);
+           res.send(image);
+           return;
+         }
+
        }
      }
      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
