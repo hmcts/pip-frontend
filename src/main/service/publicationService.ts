@@ -196,7 +196,12 @@ export class PublicationService {
     artefacts.forEach(artefact => {
       artefact.search.cases.forEach(singleCase => {
         if (singleCase.caseName.toLowerCase().includes(value.toLowerCase())) {
-          matches.push(singleCase);
+          const alreadyExists = matches.find(m => m.caseName === singleCase.caseName
+          && m.caseUrn === singleCase.caseUrn
+          && m.caseNumber === singleCase.caseNumber);
+          if(!alreadyExists) {
+            matches.push(singleCase);
+          }
         }
       });
     });

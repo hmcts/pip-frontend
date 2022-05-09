@@ -8,7 +8,7 @@
     {{ super() }}
 {% endblock %}
 {% block content %}
-    <div class="govuk-!-width-two-thirds">
+    <div class="govuk-!-width-two-thirds parent-box">
         {% set panelContent = panelMessage +'<br><strong>ABC123</strong>' %}
         {{ govukPanel({
             titleText: panelTitle,
@@ -19,5 +19,10 @@
         <p class="govuk-body">{{ reviewMessage }}</p>
         <p class="govuk-body">{{ moreInformationMessage }}</p>
         <p class="govuk-body">{{ contactUsMessage }}</p>
+      {{ super() }}
     </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
 {% endblock %}
