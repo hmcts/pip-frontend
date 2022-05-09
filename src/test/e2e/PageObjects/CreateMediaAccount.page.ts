@@ -50,6 +50,7 @@ export class CreateMediaAccountPage extends CommonPage {
   }
 
   async clickContinue(): Promise<MediaAccountRequestSubmittedPage> {
+    await this.removeOverlay();
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
@@ -57,4 +58,5 @@ export class CreateMediaAccountPage extends CommonPage {
     await $(helpers.ContinueButton).click();
     return new MediaAccountRequestSubmittedPage();
   }
+
 }

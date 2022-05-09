@@ -25,6 +25,7 @@ describe('Case Reference Search Results Page', () => {
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
     });
   });
 

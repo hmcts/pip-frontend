@@ -1,5 +1,3 @@
-import {ViewOptionPage} from './ViewOption.page';
-
 const helpers = require('../Helpers/Selectors');
 
 export class CommonPage {
@@ -32,9 +30,33 @@ export class CommonPage {
     return radioButtons.length;
   }
 
-  async clickSignOut(): Promise<ViewOptionPage> {
-    await $(helpers.SignedInBannerSignOut).catch(() => {
-      console.log(`${helpers.SignedInBannerSignOut} not found`);
+  async clickAcceptCookies(): Promise<void> {
+    $(helpers.AcceptButton).catch(() => {
+      console.log(`${helpers.AcceptButton} not found`);
+    });
+
+    await $(helpers.AcceptButton).click();
+  }
+
+  async cookieHeader(): Promise<string> {
+    $(helpers.CookieHeader).catch(() => {
+      console.log(`${helpers.CookieHeader} not found`);
+    });
+
+    return $(helpers.CookieHeader).getText();
+  }
+
+  async clickHideMessage(): Promise<void> {
+    $(helpers.HideMessageButton).catch(() => {
+      console.log(`${helpers.HideMessageButton} not found`);
+    });
+
+    await $(helpers.HideMessageButton).click();
+  }
+
+  async removeOverlay(): Promise<void> {
+    await browser.execute(() => {
+      document.getElementById('back-to-top-button').remove();
     });
   }
 }

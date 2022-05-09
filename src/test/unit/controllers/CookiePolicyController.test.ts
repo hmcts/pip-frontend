@@ -1,9 +1,9 @@
 import { mockRequest } from '../mocks/mockRequest';
 import { Response } from 'express';
 import sinon from 'sinon';
-import CookiesPageController from '../../../main/controllers/CookiesPageController';
+import CookiePolicyPageController from '../../../main/controllers/CookiePolicyPageController';
 
-const cookiesPageController = new CookiesPageController();
+const cookiesPageController = new CookiePolicyPageController();
 
 describe('Cookies Page controller', () => {
   it('should render cookies page', async () => {
@@ -11,7 +11,7 @@ describe('Cookies Page controller', () => {
     const request = mockRequest({'cookie-policy': {}});
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('cookies', request.i18n.getDataByLanguage(request.lng)['cookies']);
+    responseMock.expects('render').once().withArgs('cookie-policy', request.i18n.getDataByLanguage(request.lng)['cookie-policy']);
     await cookiesPageController.get(request, response);
     await responseMock.verify();
   });

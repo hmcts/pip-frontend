@@ -22,6 +22,7 @@
             ]
         }) }}
     {% endif %}
+  <div class="parent-box">
     <h1 class="govuk-heading-l">{{ header }}</h1>
     <form enctype="multipart/form-data" method="post" class="govuk-!-width-two-thirds" action="manual-upload-summary">
         {{ govukSummaryList({
@@ -149,7 +150,8 @@
         }) }}
         {{ submitButton(confirmButton) }}
     </form>
-
+  {{ super() }}
+  </div>
 {% endblock %}
 {% block bodyEnd %}
     {{ super() }}

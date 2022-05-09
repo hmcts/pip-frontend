@@ -18,7 +18,13 @@
       "B2C_FLOW_NAME": "B2C_1_SignInUserFlow",
       "AAD_AUTH_ENDPOINT": "https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/oauth2/v2.0/authorize",
       "B2C_USERNAME": "testaccount@mail.com",
-      "B2C_PASSWORD": ""
+      "B2C_PASSWORD": "",
+      "CLIENT_ID_INTERNAL": "",
+      "CLIENT_SECRET_INTERNAL": "",
+      "TENANT_ID": "",
+      "DATA_MANAGEMENT_AZ_API": "",
+      "SUBSCRIPTION_MANAGEMENT_AZ_API": "",
+      "ACCOUNT_MANAGEMENT_AZ_API": ""
     }
   }
 }

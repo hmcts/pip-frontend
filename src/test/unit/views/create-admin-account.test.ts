@@ -26,6 +26,7 @@ describe('Create Admin Account Page', () => {
     beforeAll(async () => {
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
       });
     });
 
@@ -81,6 +82,7 @@ describe('Create Admin Account Page', () => {
     beforeAll(async () => {
       await request(app).post(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
       });
     });
 

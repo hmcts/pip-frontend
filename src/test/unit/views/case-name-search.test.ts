@@ -16,6 +16,7 @@ describe('Case name search page', () => {
 
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
     });
   });
 
@@ -54,6 +55,7 @@ describe('Case name search page with invalid input', () => {
   beforeAll(async () => {
     await request(app).post(PAGE_URL).send({'case-name': 'bob'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
     });
   });
 

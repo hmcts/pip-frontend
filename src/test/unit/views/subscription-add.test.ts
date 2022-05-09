@@ -26,6 +26,7 @@ describe('Subscriptions add Page initial load', () => {
 
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
     });
   });
 
@@ -95,6 +96,7 @@ describe('Subscriptions add page no selection entered', () => {
   beforeAll(async () => {
     await request(app).post(PAGE_URL).send({selectionError: true}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
     });
 
     it('should display the error summary when no selection is entered', () => {
