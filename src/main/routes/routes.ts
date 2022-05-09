@@ -141,6 +141,10 @@ export default function(app: Application): void {
   app.post('/subscription-urn-search', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchController.post);
   app.get('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
   app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
+  app.get('/media-account-review', app.locals.container.cradle.mediaAccountReviewController.get);
+  app.get('/media-account-review/image', app.locals.container.cradle.mediaAccountReviewController.getImage);
+  app.post('/media-account-review/approve', app.locals.container.cradle.mediaAccountReviewController.approve);
+  app.post('/media-account-review/reject', app.locals.container.cradle.mediaAccountReviewController.reject);
 
   // restricted admin paths
   app.get('/manual-upload', ensureAuthenticated, app.locals.container.cradle.manualUploadController.get);
