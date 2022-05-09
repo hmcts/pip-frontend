@@ -33,8 +33,9 @@
               {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
             {% endif %}
           {% endfor %}
+          {% set filterKey = jurisdiction if key == 'Jurisdiction' else region %}
           {% if checkedFilterItems| length > 0 %}
-            {% set _ = checkedFilters.push({heading: {text: key}, items: checkedFilterItems}) %}
+            {% set _ = checkedFilters.push({heading: {text: filterKey}, items: checkedFilterItems}) %}
           {% endif %}
           {% if toBeCreated %}
             <div class="moj-button-menu filters__innerButton" id="innerButton">
@@ -49,12 +50,12 @@
             {% set toBeCreated = false %}
           {% endif %}
           {{ govukCheckboxes({
-            idPrefix: key | replace(" ", "-"),
+            idPrefix: key,
             name: key,
             classes: "govuk-checkboxes--small",
             fieldset: {
               legend: {
-                text: key,
+                text: filterKey,
                 classes: 'govuk-fieldset__legend--m'
               }
             },
