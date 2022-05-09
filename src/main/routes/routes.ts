@@ -5,13 +5,14 @@ import cors  from 'cors';
 import os from 'os';
 import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
+import { AdminAuthentication } from '../authentication/adminAuthentication';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const multer = require('multer');
 const logger = Logger.getLogger('routes');
-const adminRolesList = ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_CTSC', 'INTERNAL_ADMIN_LOCAL'];
+const adminAuthentication = new AdminAuthentication();
 
 export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
@@ -49,20 +50,8 @@ export default function(app: Application): void {
     res.redirect('/login?p=' + authenticationConfig.POLICY);
   }
 
-  function isAdminUser(req): boolean {
-    if(req.user) {
-      const userInfo = req.user['_json'];
-      if (userInfo?.extension_UserRole) {
-        if (adminRolesList.includes(userInfo?.extension_UserRole)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
   function ensureAdminAuthenticated(req, res, next): void {
-    const adminRole = isAdminUser(req);
+    const adminRole = adminAuthentication.isAdminUser(req);
 
     if(adminRole) {
       return next();
@@ -114,7 +103,7 @@ export default function(app: Application): void {
   app.get('/interstitial', app.locals.container.cradle.interstitialController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
   app.post('/login/return', passport.authenticate(authType, { failureRedirect: '/view-option'}),
-    (_req, res) => {isAdminUser(_req) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
+    (_req, res) => {adminAuthentication.isAdminUser(_req) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
   app.get('/logout', logOut);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);

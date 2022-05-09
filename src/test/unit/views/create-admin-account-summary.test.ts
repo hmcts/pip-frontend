@@ -1,9 +1,9 @@
 import request from 'supertest';
 import { app } from '../../../main/app';
-import { request as expressRequest } from 'express';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import { CreateAccountService } from '../../../main/service/createAccountService';
+import { AdminAuthentication } from '../../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/create-admin-account-summary';
 const cookie = {
@@ -20,7 +20,7 @@ const cookie = {
 const summaryKeys = ['First name', 'Last name', 'Email address', 'User role'];
 const changeValues = ['firstName', 'lastName', 'emailAddress', 'user-role'];
 let htmlRes: Document;
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 const createAccountStub = sinon.stub(CreateAccountService.prototype, 'createAdminAccount');
 
 describe('Create Admin Account Summary page', () => {

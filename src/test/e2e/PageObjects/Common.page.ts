@@ -1,3 +1,5 @@
+import {ViewOptionPage} from './ViewOption.page';
+
 const helpers = require('../Helpers/Selectors');
 
 export class CommonPage {
@@ -28,5 +30,11 @@ export class CommonPage {
   get radioButtons(): Promise<number> {
     const radioButtons = $$(helpers.RadioButton);
     return radioButtons.length;
+  }
+
+  async clickSignOut(): Promise<ViewOptionPage> {
+    await $(helpers.SignedInBannerSignOut).catch(() => {
+      console.log(`${helpers.SignedInBannerSignOut} not found`);
+    });
   }
 }

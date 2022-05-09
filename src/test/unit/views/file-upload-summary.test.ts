@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import moment from 'moment';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { request as expressRequest } from 'express';
+import { AdminAuthentication } from '../../../main/authentication/adminAuthentication';
 
 let htmlRes: Document;
 const PAGE_URL = '/manual-upload-summary';
@@ -28,7 +28,7 @@ const mockData = {
 
 describe('File Upload Summary Page', () => {
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+    sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
     app.request['user'] = {id: '1'};
     app.request['cookies'] = {'formCookie': JSON.stringify(mockData)};
 
