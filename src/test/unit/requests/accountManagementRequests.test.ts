@@ -1,6 +1,8 @@
 import sinon from 'sinon';
 import { accountManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import fs from 'fs';
+import path from 'path';
 
 const accountManagementRequests = new AccountManagementRequests();
 const errorResponse = {
@@ -30,6 +32,7 @@ const mockValidPIBody = {
 const azureEndpoint = '/account/add/azure';
 const piEndpoint = '/account/add/pi';
 const postStub = sinon.stub(accountManagementApi, 'post');
+const getStub = sinon.stub(accountManagementApi, 'get');
 
 describe('Account Management Requests', () => {
   describe('Create Azure Account', () => {
@@ -81,6 +84,16 @@ describe('Account Management Requests', () => {
       postStub.withArgs(piEndpoint).resolves(Promise.reject(errorMessage));
       const response = await accountManagementRequests.createPIAccount({bar: 'baz'}, mockHeaders);
       expect(response).toBe(false);
+    });
+  });
+
+  describe('Get media applications', () => {
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/mediaApplications.json'), 'utf-8');
+    const mediaApplications = JSON.parse(rawData);
+
+    it('should return media applications', async () => {
+      getStub.withArgs('/application/status/PENDING').resolves(mediaApplications);
+      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual(mediaApplications);
     });
   });
 });
