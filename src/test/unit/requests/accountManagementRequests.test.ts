@@ -31,7 +31,7 @@ const mockValidPIBody = {
 const azureEndpoint = '/account/add/azure';
 const piEndpoint = '/account/add/pi';
 const applicationGetEndpoint = '/application/';
-const imageGetEndpoint = '/application/image/'
+const imageGetEndpoint = '/application/image/';
 const postStub = sinon.stub(accountManagementApi, 'post');
 const getStub = sinon.stub(accountManagementApi, 'get');
 
@@ -93,16 +93,16 @@ describe('Account Management Requests', () => {
     const applicationID = '1234';
 
     const dummyApplication = {
-      "id": "1234",
-      "fullName": "Test Name",
-      "email": "a@b.com",
-      "employer": "Employer",
-      "image": "12345",
-      "imageName": "ImageName",
-      "requestDate": "2022-05-09T00:00:01",
-      "status": "PENDING",
-      "statusDate": "2022-05-09T00:00:01"
-    }
+      'id': '1234',
+      'fullName': 'Test Name',
+      'email': 'a@b.com',
+      'employer': 'Employer',
+      'image': '12345',
+      'imageName': 'ImageName',
+      'requestDate': '2022-05-09T00:00:01',
+      'status': 'PENDING',
+      'statusDate': '2022-05-09T00:00:01',
+    };
 
     it('should return dummy application on success', async () => {
       getStub.withArgs(applicationGetEndpoint + applicationID).resolves({status: 201, data: dummyApplication });

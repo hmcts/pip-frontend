@@ -1,8 +1,8 @@
-import {PipRequest} from "../models/request/PipRequest";
+import {PipRequest} from '../models/request/PipRequest';
 import {MediaAccountApplicationService} from '../service/mediaAccountApplicationService';
-import {Response} from "express";
+import {Response} from 'express';
 import { cloneDeep } from 'lodash';
-import moment from "moment";
+import moment from 'moment';
 import {allowedImageTypeMappings} from '../models/consts';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
@@ -14,14 +14,14 @@ export default class MediaAccountReviewController {
     if (applicantId) {
 
       const applicantData = await mediaAccountApplicationService.getApplicationById(applicantId);
-      if (applicantData && applicantData['status'] === 'PENDING') {
+      if (applicantData && applicantData.status === 'PENDING') {
 
-        applicantData['requestDate'] = moment(Date.parse(applicantData['requestDate'])).format('DD MMMM YYYY'),
+        applicantData['requestDate'] = moment(Date.parse(applicantData.requestDate)).format('DD MMMM YYYY'),
 
-          res.render('media-account-review', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-review']),
-            applicantData: applicantData,
-          });
+        res.render('media-account-review', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-review']),
+          applicantData: applicantData,
+        });
         return;
       }
     }
@@ -35,24 +35,23 @@ export default class MediaAccountReviewController {
     const applicantId = req.query['applicantId'];
     if (imageId && applicantId) {
 
-       const image = await mediaAccountApplicationService.getApplicationImageById(imageId);
-       const applicant = await mediaAccountApplicationService.getApplicationById(applicantId);
-       if (image && applicant) {
+      const image = await mediaAccountApplicationService.getApplicationImageById(imageId);
+      const applicant = await mediaAccountApplicationService.getApplicationById(applicantId);
+      if (image && applicant) {
 
-         const imageName = applicant['imageName'];
-         const extension = imageName.substring(imageName.lastIndexOf('.') + 1, imageName.length);
+        const imageName = applicant.imageName;
+        const extension = imageName.substring(imageName.lastIndexOf('.') + 1, imageName.length);
 
-         const contentType = allowedImageTypeMappings[extension];
-         if (contentType) {
-           res.set('Content-Disposition', 'inline;filename=' + applicant['imageName']);
-           res.set('Content-Type', contentType);
-           res.send(image);
-           return;
-         }
-
-       }
-     }
-     res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        const contentType = allowedImageTypeMappings[extension];
+        if (contentType) {
+          res.set('Content-Disposition', 'inline;filename=' + imageName);
+          res.set('Content-Type', contentType);
+          res.send(image);
+          return;
+        }
+      }
+    }
+    res.render('error', req.i18n.getDataByLanguage(req.lng).error);
   }
 
   public approve(req: PipRequest, res: Response): void {

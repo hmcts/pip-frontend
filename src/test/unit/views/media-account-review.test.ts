@@ -1,8 +1,9 @@
-import {AccountManagementRequests} from "../../../main/resources/requests/accountManagementRequests";
+import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
 import sinon from 'sinon';
-import request from "supertest";
-import {app} from "../../../main/app";
-import {expect} from "chai";
+import request from 'supertest';
+import {app} from '../../../main/app';
+import {expect} from 'chai';
+import {request as expressRequest} from 'express';
 
 describe('Media Account Review Test', () => {
 
@@ -18,42 +19,41 @@ describe('Media Account Review Test', () => {
   const nameHeader = 'Name';
   const nameValue = 'Test Name';
   const emailHeader = 'Email';
-  const emailValue = "a@b.com";
+  const emailValue = 'a@b.com';
   const employerHeader = 'Employer';
   const employerValue = 'employer';
   const appliedHeader = 'Date applied';
-  const appliedValue = '09 May 2022'
+  const appliedValue = '09 May 2022';
   const proofOfIdHeader = 'Proof of ID';
-  const proofOfIdValue = 'ImageName.jpg (opens in new window)'
+  const proofOfIdValue = 'ImageName.jpg (opens in new window)';
   const proofOfIdView = 'View';
-  const proofOfIdViewLink = '/media-account-review/image?imageId=12345&applicantId=1234'
+  const proofOfIdViewLink = '/media-account-review/image?imageId=12345&applicantId=1234';
   const approveButtonText = 'Approve application';
   const rejectButtonText = 'Reject application';
 
   const dummyApplication = {
-    "id": "1234",
-    "fullName": "Test Name",
-    "email": "a@b.com",
-    "employer": "employer",
-    "image": "12345",
-    "imageName": "ImageName.jpg",
-    "requestDate": "2022-05-09T00:00:01",
-    "status": "PENDING",
-    "statusDate": "2022-05-09T00:00:01"
-  }
+    'id': '1234',
+    'fullName': 'Test Name',
+    'email': 'a@b.com',
+    'employer': 'employer',
+    'image': '12345',
+    'imageName': 'ImageName.jpg',
+    'requestDate': '2022-05-09T00:00:01',
+    'status': 'PENDING',
+    'statusDate': '2022-05-09T00:00:01',
+  };
 
   sinon.stub(AccountManagementRequests.prototype, 'getMediaApplicationById').returns(dummyApplication);
 
   let htmlRes: Document;
-  //let formElements: HTMLElement;
 
   describe('Media Account Review Page', () => {
 
     beforeAll(async () => {
+      sinon.stub(expressRequest, 'isAuthenticated').returns(true);
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
         htmlRes.getElementsByTagName('div')[0].remove();
-        //formElements = htmlRes.getElementById('form-wrapper');
       });
     });
 

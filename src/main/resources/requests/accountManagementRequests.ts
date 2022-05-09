@@ -1,5 +1,6 @@
 import {accountManagementApi} from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
+import {MediaAccount} from '../../models/mediaAccount';
 
 const logger = Logger.getLogger('requests');
 export class AccountManagementRequests {
@@ -39,7 +40,7 @@ export class AccountManagementRequests {
     }
   }
 
-  public async getMediaApplicationById(applicationId): Promise<object | null> {
+  public async getMediaApplicationById(applicationId): Promise<MediaAccount | null> {
     try {
       const response = await accountManagementApi.get('/application/' + applicationId);
       logger.info('Media Application accessed - ' + applicationId, response);
@@ -59,7 +60,7 @@ export class AccountManagementRequests {
 
   public async getMediaApplicationImageById(imageId): Promise<Blob> {
     try{
-      const response = await accountManagementApi.get(`/application/image/` + imageId, {responseType: 'arraybuffer'});
+      const response = await accountManagementApi.get('/application/image/' + imageId, {responseType: 'arraybuffer'});
       logger.info('Media Application image access with ID - ' + imageId, response);
       return response.data;
     } catch (error) {
@@ -73,6 +74,5 @@ export class AccountManagementRequests {
     }
     return null;
   }
-
 
 }
