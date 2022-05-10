@@ -141,10 +141,6 @@ export default function(app: Application): void {
   app.post('/subscription-urn-search', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchController.post);
   app.get('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
   app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
-  app.get('/media-account-review', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.get);
-  app.get('/media-account-review/image', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.getImage);
-  app.post('/media-account-review/approve', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.approve);
-  app.post('/media-account-review/reject', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.reject);
 
   // restricted admin paths
   app.get('/manual-upload', ensureAuthenticated, app.locals.container.cradle.manualUploadController.get);
@@ -152,6 +148,10 @@ export default function(app: Application): void {
   app.get('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.get);
   app.post('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
   app.get('/upload-confirmation', ensureAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
+  app.get('/media-account-review', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.get);
+  app.get('/media-account-review/image', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.getImage);
+  app.post('/media-account-review/approve', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.approve);
+  app.post('/media-account-review/reject', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.reject);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
