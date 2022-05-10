@@ -15,26 +15,71 @@
   {{ govukTable({
     caption: tableCaption,
     captionClasses: "govuk-table__caption--m",
-    firstCellIsHeader: true,
-    rows: [
-      [
-        {
-          text: tableHeaders[0]
-        },
-        {
-          text: applicantData[0].fullName
-        }
-      ],
-      [
-        {
-          text: tableHeaders[1]
-        },
-        {
-          text: applicantData.employer
-        }
+      firstCellIsHeader: true,
+      rows: [
+        [
+          {
+            text: name,
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.fullName
+          },
+          {
+            text: ""
+          }
+        ],
+        [
+          {
+            text: email,
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.email
+          },
+          {
+            text: ""
+          }
+        ],
+        [
+          {
+            text: employer,
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.employer
+          },
+          {
+            text: ""
+          }
+        ],
+        [
+          {
+            text: dateApplied,
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.requestDate
+          },
+          {
+            text: ""
+          }
+        ],
+        [
+          {
+            text: proofOfId,
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.imageName + " (" + opensInWindowText + ")"
+          },
+          {
+            html: "<a href=\"/media-account-review/image?imageId=" +  applicantData.image + "&applicantId=" + applicantData.id + "\" target=\"_blank\">" + viewText + "</a>",
+            classes: "right-align-text"
+          }
+        ]
       ]
-    ]
-  }) }}
+    }) }}
 
 
   {{ govukRadios({

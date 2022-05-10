@@ -1,8 +1,11 @@
 export interface MediaAccount {
+  id: string;
   fullName: string;
   email: string;
   employer: string;
-  MediaLegalApplicationStatus: string;
-  sensitivity: string;
-  id: string;
+  image: string;
+  imageName: string;
+  status: string;
+  requestDate: string;
+  statusDate: string;
 }

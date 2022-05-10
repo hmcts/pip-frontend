@@ -1,10 +1,16 @@
-import {MediaApplicationRequests} from '../resources/requests/mediaApplicationRequests';
+import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
+import {MediaAccount} from '../models/mediaAccount';
 
-const mediaApplicationRequests = new MediaApplicationRequests();
+const accountManagementRequests = new AccountManagementRequests();
 
 export class MediaAccountApplicationService {
 
-  public async getApplicationById(applicationId): Promise<object | null> {
-    return await mediaApplicationRequests.getMediaAccountById(applicationId);
+  public async getApplicationById(applicationId): Promise<MediaAccount | null> {
+    return await accountManagementRequests.getMediaApplicationById(applicationId);
   }
+
+  public async getApplicationImageById(imageId): Promise<Blob> {
+    return await accountManagementRequests.getMediaApplicationImageById(imageId);
+  }
+
 }

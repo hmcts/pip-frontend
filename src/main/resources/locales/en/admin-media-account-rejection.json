@@ -4,5 +4,10 @@
   "heading1": "Are you sure you want to reject this application?",
   "tableCaption": "Applicant's Details",
   "tableHeaders": ["Name", "Employer"],
-  "radioAnswers": ["Yes", "No"]
+  "radioAnswers": ["Yes", "No"],
+  "name": "Name",
+  "email": "Email",
+  "employer": "Employer",
+  "dateApplied": "Date Applied",
+  "proofOfId": "Proof of Id"
 }
