@@ -40,40 +40,42 @@ jobs:
           appId=${appId//[$'\t\r\n']/}
           echo "App ID $appId"
 
-          replyUrls=$(az ad app show --id "$appId" --query "replyUrls" -o tsv --only-show-errors )
+
+          replyUrls=$(az ad app show --id "$appId" --query "replyUrls" -o json --only-show-errors)
 
           echo "Found Reply URLs"
           echo $replyUrls
 
-          if [[ "${replyUrls[*]}" =~ "${newUrl}" ]]; then          
-              echo "Reply URLs DOES contains $existingUrl"
-              echo "Removing domain $existingUrl"
-              replayUrlsStr=""
-              for i in "${replyUrls[@]}"
-              do
-                if [[ "$i" != "$existingUrl" ]]; then
-                  echo "Url: $i"
-                  replayUrlsStr="$replayUrlsStr, \"${i//[$'\t\r\n']/}\""
-                fi
+          if [[ "${replyUrls}" =~ "${existingUrl}" ]]; then
+              echo "Reply URLs contains $existingUrl"
+              echo "Remove domain $existingUrl"
+
+              readarray -t my_array < <(echo "$replyUrls" | jq -c '.[]')
+
+              # iterate through the Bash array
+              for item in "${my_array[@]}"; do
+                  if [[ $item != "\"$existingUrl\"" ]]; then
+                      echo "Url: $item"
+                      if [[ "$replayUrlsStr" != "" ]]; then
+                          replayUrlsStr="$replayUrlsStr,"
+                      fi
+                      replayUrlsStr="$replayUrlsStr $item"
+                  fi
               done
               echo "reply String: $replayUrlsStr"
 
-              objectId=$(az ad app list --all --filter "displayname eq '${targetAppName}'" --query "[0].objectId" -o tsv --only-show-errors )
+              objectId=$(az ad app list --all --filter "displayname eq '${targetAppName}'" --query "[0].objectId" -o tsv --only-show-errors)
               objectId=${objectId//[$'\t\r\n']/}
               echo "Object ID $objectId"
 
               restUrl="https://graph.microsoft.com/v1.0/applications/${objectId//[$'\t\r\n']/}"
               echo "Calling: $restUrl"
 
-              az rest --method PATCH --header "Content-Type=application/json" --uri $restUrl --body "{\"web\":{\"redirectUris\":[$replayUrlsStr]}}" --debug
-          
+              az rest --method PATCH --header "Content-Type=application/json" --uri $restUrl --body "{\"web\":{\"redirectUris\":[$replayUrlsStr]}}" #--debug
           else
-<<<<<<< HEAD
-            echo "Reply URLs DOES NOT contains $existingUrl"
-=======
-            echo "Reply URLs DOES NOT contains $newUrl"
->>>>>>> master
+              echo "Reply URLs DOES NOT contains $existingUrl"
           fi
+
         env:
           PR_NUMBER: ${{ github.event.number }}
           B2C_TENANT_ID: ${{ steps.bootstrapKv.outputs.b2c-tenant-id }}
