@@ -3,8 +3,9 @@ export interface MediaAccountApplication {
   fullName: string;
   email: string;
   employer: string;
-  MediaLegalApplicationStatus: string;
   image: string;
+  imageName: string;
+  status: string;
   requestDate: string;
   statusDate: string;
 }
