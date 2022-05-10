@@ -1,9 +1,14 @@
 module.exports = {
+  // Cookie selectors outside main content
+  AcceptButton: '#cookie-accept-analytics',
+  HideMessageButton: '#hide-message-accept',
+  CookieHeader: '.govuk-cookie-banner__heading',
+
   // Common selectors
-  ContinueButton: '.govuk-button',
+  ContinueButton: '//*[@id="main-content"]//*[contains(@class, "govuk-button")]',
   CommonPageTitleXl: '.govuk-heading-xl',
   CommonPageTitle: '.govuk-heading-l',
-  CommonPageTitleM: '.govuk-heading-m',
+  CommonPageTitleM: '#main-content > .govuk-heading-m',
   SignInButton: '#signInButton',
   SignOutButton: '#signOutButton',
   Results: 'tbody > tr.govuk-table__row',
@@ -28,7 +33,7 @@ module.exports = {
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
   SearchResultTitle: 'h1.govuk-heading-l',
-  SearchAToZLink: 'a.govuk-link:nth-child(2)',
+  SearchAToZLink: '#main-content a.govuk-link:nth-child(2)',
 
   // SearchResults selectors
   LinkResult: 'tbody > tr.govuk-table__row > th > a',
@@ -48,7 +53,7 @@ module.exports = {
   SecondItemResult: 'tr.govuk-table__row:nth-child(2) > td:nth-child(2) > a:nth-child(1)',
   LastItemResult: 'tbody > tr.govuk-table__row:last-child > td > a',
   SJPLink: '#sjp-link',
-  JurisdictionFilter1: '#Jurisdiction',
+  JurisdictionFilter1: '#Type-of-court-or-tribunal',
   RegionFilter1: '#Region',
   RegionFilter2: '#Region-2',
 
@@ -86,7 +91,6 @@ module.exports = {
   CaseNameSearchResultsHeaderCheckbox: 'thead > tr.govuk-table__row > th > .govuk-checkboxes__input',
 
   // CourtNameSearch selectors
-  JurisdictionCheckbox: '#Jurisdiction',
   ApplyFiltersButton: '.moj-filter__options > .govuk-button',
   ClearFiltersLink: '.moj-filter__heading-action > p > a',
   CourtNameSearchContinueButton: '.moj-action-bar > .govuk-button',
@@ -155,9 +159,9 @@ module.exports = {
   BannerSignIn: '.moj-sub-navigation__item:nth-child(4)',
 
   // Signed in banner selectors
-  SignedInBannerEmailSubs: '.moj-sub-navigation__item:nth-child(2)',
-  SignedInBannerFindCourt: '.moj-sub-navigation__item:nth-child(3)',
-  SignedInBannerSJP: '.moj-sub-navigation__item:nth-child(4)',
+  SignedInBannerEmailSubs: '.moj-sub-navigation__item:nth-child(4)',
+  SignedInBannerFindCourt: '.moj-sub-navigation__item:nth-child(2)',
+  SignedInBannerSJP: '.moj-sub-navigation__item:nth-child(3)',
   SignedInBannerSignOut: '.moj-sub-navigation__item:nth-child(5)',
 
   // CreateAdminAccount selectors

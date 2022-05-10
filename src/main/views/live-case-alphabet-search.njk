@@ -63,12 +63,11 @@
                 {% endfor %}
                 </tbody>
             </table>
-          {{ backToTopButton() }}
+          {{ super() }}
         </div>
     </div>
 
 {% endblock %}
 {% block bodyEnd %}
     {{ super() }}
-    <script src="alphabetical-dev.js"></script>
 {% endblock %}
