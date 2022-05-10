@@ -92,8 +92,23 @@ describe('Account Management Requests', () => {
     const mediaApplications = JSON.parse(rawData);
 
     it('should return media applications', async () => {
-      getStub.withArgs('/application/status/PENDING').resolves(mediaApplications);
+      getStub.withArgs('/application/status/PENDING').resolves({data: mediaApplications});
       expect(await accountManagementRequests.getPendingMediaApplications()).toEqual(mediaApplications);
+    });
+
+    it('should return empty array and an error response if get fails', async () => {
+      getStub.withArgs('/application/status/PENDING').rejects(errorResponse);
+      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
+    });
+
+    it('should return empty array and an error response if request fails', async () => {
+      getStub.withArgs('/application/status/PENDING').rejects(errorRequest);
+      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
+    });
+
+    it('should return empty array and an error response if request fails', async () => {
+      getStub.withArgs('/application/status/PENDING').rejects(errorMessage);
+      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
     });
   });
 });
