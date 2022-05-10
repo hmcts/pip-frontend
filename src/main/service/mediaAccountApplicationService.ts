@@ -9,8 +9,10 @@ export class MediaAccountApplicationService {
   public async getApplicationById(applicationId): Promise<MediaAccount | null> {
     if (applicationId) {
       const mediaAccount = await accountManagementRequests.getMediaApplicationById(applicationId);
-      mediaAccount.requestDate = moment(Date.parse(mediaAccount.requestDate)).format('DD MMMM YYYY');
-      return mediaAccount;
+      if (mediaAccount) {
+        mediaAccount.requestDate = moment(Date.parse(mediaAccount.requestDate)).format('DD MMMM YYYY');
+        return mediaAccount;
+      }
     }
 
     return null;

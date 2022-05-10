@@ -44,8 +44,15 @@ describe('Summary Of Publications Service', () => {
     expect(application).toStrictEqual(formattedApplication);
   });
 
-  it('should return null application by id', async () => {
+  it('should return null application by id when no id provided', async () => {
     const application = await accountApplicationService.getApplicationById(null);
+    expect(application).toBe(null);
+  });
+
+  it('should return null when id does not match an application', async () => {
+    mediaApplicationByIdStub.withArgs(applicationId).resolves(null);
+
+    const application = await accountApplicationService.getApplicationById(applicationId);
     expect(application).toBe(null);
   });
 
