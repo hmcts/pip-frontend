@@ -5,9 +5,14 @@
   "tableHeader1": "Court or tribunal",
   "nationalListsHeader": "National lists",
   "sjpLink": "Single Justice Procedure cases",
-  "filter": "Filter by Jurisdiction / Region",
+  "filter": "Filter",
   "clearAll": "Clear filters",
   "selectedFilter": "Selected filter",
   "hide" : "Hide Filters",
-  "show": "Show Filters"
+  "show": "Show Filters",
+  "aria": {
+    "labelNav": "No courts/tribunals are available for the letter",
+    "labelNavHeader": "Alphabetical links to courts and tribunals"
+  },
+  "filterLabel": "Filter by Jurisdiction or region"
 }

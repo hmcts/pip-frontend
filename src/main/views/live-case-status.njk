@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block content %}
+  <div class="parent-box">
     <h2 class="govuk-heading-l">{{ heading }}</h2>
     <h3 class="govuk-heading-m">{{ courtName }}</h3>
     <p class=" govuk-body-lead">{{ updateDate }}</p>
@@ -71,6 +72,8 @@
         ],
         rows: cases
     }) }}
+  {{ super() }}
+  </div>
     <hr class="govuk-header__container--full-width"/>
     <a href="/live-case-alphabet-search" class="govuk-link govuk-!-font-weight-bold">{{ a1 }}</a>
     <script>
@@ -79,4 +82,8 @@
         location.reload();
       }, timer);
     </script>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
 {% endblock %}

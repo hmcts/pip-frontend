@@ -12,6 +12,7 @@
 
 {% block content %}
     {{ successPanel(title, message) }}
+  <div class="parent-box">
     <p class="govuk-body">
         {{ pStart }}
         <a class="govuk-link" href="account-home">{{ yourAccount }}</a>
@@ -22,6 +23,8 @@
             <li>{{ item }}</li>
         {% endfor %}
     </ul>
+    {{ super() }}
+  </div>
 {% endblock %}
 {% block bodyEnd %}
     {{ super() }}

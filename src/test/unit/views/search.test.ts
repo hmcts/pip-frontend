@@ -30,6 +30,7 @@ describe('Search Page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
     });
   });
 
@@ -85,6 +86,7 @@ describe('Search Page Invalid Input', () => {
   beforeAll(async () => {
     await request(app).post(PAGE_URL).send({'input-autocomplete': 'foo'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
     });
   });
 
