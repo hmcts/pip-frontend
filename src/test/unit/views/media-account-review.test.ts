@@ -72,6 +72,11 @@ describe('Media Account Review Test', () => {
       expect(value[0].innerHTML).contains(nameValue, 'Could not find the name value');
     });
 
+    it('should hide last column for display name', () => {
+      const value = htmlRes.getElementsByClassName(tableCell);
+      expect(value[1].hasAttribute('aria-hidden')).to.be.true;
+    });
+
     it('should display email header', () => {
       const header = htmlRes.getElementsByClassName(tableHeader);
       expect(header[1].innerHTML).contains(emailHeader, 'Could not find the email header');
@@ -80,6 +85,11 @@ describe('Media Account Review Test', () => {
     it('should display email value', () => {
       const value = htmlRes.getElementsByClassName(tableCell);
       expect(value[2].innerHTML).contains(emailValue, 'Could not find the email value');
+    });
+
+    it('should hide last column for email', () => {
+      const value = htmlRes.getElementsByClassName(tableCell);
+      expect(value[3].hasAttribute('aria-hidden')).to.be.true;
     });
 
     it('should display employer header', () => {
@@ -92,6 +102,11 @@ describe('Media Account Review Test', () => {
       expect(value[4].innerHTML).contains(employerValue, 'Could not find the employer value');
     });
 
+    it('should hide last column for employer', () => {
+      const value = htmlRes.getElementsByClassName(tableCell);
+      expect(value[5].hasAttribute('aria-hidden')).to.be.true;
+    });
+
     it('should display date applied header', () => {
       const header = htmlRes.getElementsByClassName(tableHeader);
       expect(header[3].innerHTML).contains(appliedHeader, 'Could not find the date applied header');
@@ -100,6 +115,11 @@ describe('Media Account Review Test', () => {
     it('should display date applied value', () => {
       const value = htmlRes.getElementsByClassName(tableCell);
       expect(value[6].innerHTML).contains(appliedValue, 'Could not find the date applied value');
+    });
+
+    it('should hide last column for date applied', () => {
+      const value = htmlRes.getElementsByClassName(tableCell);
+      expect(value[7].hasAttribute('aria-hidden')).to.be.true;
     });
 
     it('should display proof of id header', () => {
