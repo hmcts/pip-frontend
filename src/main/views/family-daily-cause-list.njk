@@ -140,9 +140,9 @@
         {% endfor %}
     </div>
   {% endfor %}
-  {{ super() }}
-  </div>
   <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: [{{ provenance }}]</p>
+  {{ super() }}
+</div>
 {% endblock %}
 {% block bodyEnd %}
   <script>
