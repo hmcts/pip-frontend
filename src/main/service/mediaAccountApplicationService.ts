@@ -6,11 +6,11 @@ const accountManagementRequests = new AccountManagementRequests();
 export class MediaAccountApplicationService {
 
   public async getApplicationById(applicationId): Promise<MediaAccount | null> {
-    return await accountManagementRequests.getMediaApplicationById(applicationId);
+    return accountManagementRequests.getMediaApplicationById(applicationId);
   }
 
   public async getApplicationImageById(imageId): Promise<Blob> {
-    return await accountManagementRequests.getMediaApplicationImageById(imageId);
+    return accountManagementRequests.getMediaApplicationImageById(imageId);
   }
 
 }

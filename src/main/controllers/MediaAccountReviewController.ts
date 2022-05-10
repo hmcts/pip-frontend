@@ -16,13 +16,12 @@ export default class MediaAccountReviewController {
       const applicantData = await mediaAccountApplicationService.getApplicationById(applicantId);
       if (applicantData && applicantData.status === 'PENDING') {
 
-        applicantData['requestDate'] = moment(Date.parse(applicantData.requestDate)).format('DD MMMM YYYY'),
+        applicantData['requestDate'] = moment(Date.parse(applicantData.requestDate)).format('DD MMMM YYYY');
 
-        res.render('media-account-review', {
+        return res.render('media-account-review', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-review']),
           applicantData: applicantData,
         });
-        return;
       }
     }
 
