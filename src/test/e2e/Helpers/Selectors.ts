@@ -135,7 +135,7 @@ module.exports = {
   // Admin dashboard selectors
   UploadFile: '#card-manual-upload',
   RemoveContent: '#card-remove-list-search',
-  ManageMediaAccounts: '#manage-media-accounts',
+  ManageMediaAccounts: '#card-media-applications',
   CreateAdminAccount: '#card-create-admin-account',
 
   // CreateMediaAccount selectors

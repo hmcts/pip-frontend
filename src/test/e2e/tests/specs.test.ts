@@ -37,6 +37,7 @@ import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrn
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
+import {MediaAccountRequestsPage} from '../PageObjects/MediaAccountRequests.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -77,6 +78,7 @@ let searchPublicationPage: RemoveListSearchPage;
 let searchPublicationResultsPage: RemoveListSearchResultsPage;
 let publicationConfirmationPage: RemoveListConfirmationPage;
 let removePublicationSuccessPage: RemoveListSuccessPage;
+let mediaAccountRequestsPage: MediaAccountRequestsPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -515,6 +517,13 @@ describe('Verified user', () => {
           expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
         });
       }
+    });
+
+    describe('Manage media account requests journey', () => {
+      it('should start the manage media account request journey', async () => {
+        mediaAccountRequestsPage = await adminDashboard.clickManageMedia();
+        expect(await mediaAccountRequestsPage.getPageTitle()).toEqual('Select an application to assess');
+      });
     });
   });
 

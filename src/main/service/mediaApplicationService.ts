@@ -1,5 +1,6 @@
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
 import {MediaAccountApplication} from '../models/MediaAccountApplication';
+import moment from 'moment';
 
 const accountManagementRequests = new AccountManagementRequests();
 export class MediaApplicationService {
@@ -14,7 +15,7 @@ export class MediaApplicationService {
       new Date(a.requestDate).getTime() - new Date(b.requestDate).getTime(),
     );
     applications?.forEach(application => {
-      application.requestDate = new Date(application.requestDate).toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'});
+      application.requestDate = moment(new Date(application.requestDate)).format('DD MMM YYYY');
     });
     return applications;
   }

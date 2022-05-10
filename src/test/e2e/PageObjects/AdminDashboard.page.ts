@@ -2,6 +2,7 @@ import { CommonPage } from './Common.page';
 import { ManualUploadPage } from './ManualUpload.page';
 import { CreateAdminAccountPage } from './CreateAdminAccount.page';
 import { RemoveListSearchPage } from './RemoveListSearch.page';
+import {MediaAccountRequestsPage} from './MediaAccountRequests.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -31,5 +32,14 @@ export class AdminDashboardPage extends CommonPage {
 
     await $(helpers.RemoveContent).click();
     return new RemoveListSearchPage();
+  }
+
+  async clickManageMedia(): Promise<MediaAccountRequestsPage> {
+    await $(helpers.ManageMediaAccounts).catch(() => {
+      console.log(`${helpers.ManageMediaAccounts} not found`);
+    });
+
+    await $(helpers.ManageMediaAccounts).click();
+    return new MediaAccountRequestsPage();
   }
 }
