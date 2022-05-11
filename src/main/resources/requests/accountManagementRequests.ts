@@ -75,18 +75,18 @@ export class AccountManagementRequests {
     return null;
   }
 
-  public async updateMediaApplicationStatus(applicantId, status): Promise<object | null> {
+  public async updateMediaApplicationStatus(applicantId, status): Promise<MediaAccount | null> {
     try {
       const response = await accountManagementApi.put('/application/' + applicantId + '/' + status);
       logger.info('Media Application updated - ' + applicantId, response);
       return response.data;}
     catch (error) {
       if (error.response) {
-        logger.error('failed to update media application', error.response.statusText);
+        logger.error('failed to update media application', error.response.data);
       } else if (error.request) {
-        logger.error('failed to update media application', error.response.statusText);
+        logger.error('failed to update media application', error.request);
       } else {
-        logger.error('failed to update media application', error.response.statusText);
+        logger.error('failed to update media application', error.message);
       }
     }
     return null;

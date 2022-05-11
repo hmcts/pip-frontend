@@ -95,13 +95,6 @@ export default function(app: Application): void {
   app.get('/logout', logOut);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
-  app.get('/admin-media-account-rejection', app.locals.container.cradle.adminMediaAccountRejectionController.get);
-  app.post('/admin-media-account-rejection', app.locals.container.cradle.adminMediaAccountRejectionController.post);
-  app.get('/admin-media-account-rejection-confirmation', app.locals.container.cradle.adminMediaAccountRejectionConfirmationController.get);
-  app.get('/media-account-review/image', app.locals.container.cradle.mediaAccountReviewController.getImage);
-  app.get('/media-account-review', app.locals.container.cradle.mediaAccountReviewController.get);
-  app.post('/media-account-review/approve', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.approve);
-  app.post('/media-account-review/reject', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.reject);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
   app.get('/otp-template', cors(corsOptions), app.locals.container.cradle.otpTemplateController.get);
   app.get('/search', app.locals.container.cradle.searchController.get);
@@ -154,6 +147,12 @@ export default function(app: Application): void {
   app.post('/manual-upload', ensureAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualUploadController.post);
   app.get('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.get);
   app.post('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
+  app.get('/media-account-rejection', ensureAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.get);
+  app.post('/media-account-rejection', ensureAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.post);
+  app.get('/media-account-review/image',ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.getImage);
+  app.get('/media-account-review',ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.get);
+  app.post('/media-account-review/approve', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.approve);
+  app.post('/media-account-review/reject', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.reject);
   app.get('/upload-confirmation', ensureAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
 
   app.get('/info', infoRequestHandler({

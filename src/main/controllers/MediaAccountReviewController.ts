@@ -54,9 +54,9 @@ export default class MediaAccountReviewController {
   }
 
   public approve(req: PipRequest, res: Response): void {
-    const applicantId = req.body['applicantId'];
+    const applicantId = req.query['applicantId'];
     if (applicantId) {
-      res.redirect('/admin-media-account-approval?applicantId=' + applicantId);
+      res.redirect('/media-account-approval?applicantId=' + applicantId);
     } else {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
@@ -65,7 +65,7 @@ export default class MediaAccountReviewController {
   public reject(req: PipRequest, res: Response): void {
     const applicantId = req.body['applicantId'];
     if (applicantId) {
-      res.redirect('/admin-media-account-rejection?applicantId=' + applicantId);
+      res.redirect('/media-account-rejection?applicantId=' + applicantId);
     } else {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }

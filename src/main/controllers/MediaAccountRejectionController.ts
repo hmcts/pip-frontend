@@ -6,7 +6,7 @@ import moment from 'moment';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 
-export default class AdminMediaAccountRejectionController {
+export default class MediaAccountRejectionController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const applicantId = req.query['applicantId'];
@@ -20,8 +20,8 @@ export default class AdminMediaAccountRejectionController {
       const imageFile = await mediaAccountApplicationService.getApplicationImageById(applicantData.image);
       applicantData['requestDate'] = moment(Date.parse(applicantData.requestDate)).format('DD MMMM YYYY'),
 
-      res.render('admin-media-account-rejection', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin-media-account-rejection']),
+      res.render('media-account-rejection', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection']),
         applicantData: applicantData,
         image: imageFile,
       });
@@ -32,10 +32,21 @@ export default class AdminMediaAccountRejectionController {
 
   public async post(req: PipRequest, res: Response): Promise<void>{
     const applicantId = req.query['applicantId'];
-    if (req.body['reject-confirmation'] == 'Yes'){
+    if (req.body['reject-confirmation'] == 'Yes') {
       const updateStatus = await mediaAccountApplicationService.updateApplicationStatus(applicantId, 'REJECTED');
-      if(updateStatus != null){
-        res.redirect('admin-media-account-rejection-confirmation?applicantId='+applicantId);
+      if (updateStatus != null && applicantId) {
+        const applicantData = await mediaAccountApplicationService.getApplicationById(applicantId);
+        const imageFile = await mediaAccountApplicationService.getApplicationImageById(applicantData.image);
+        applicantData['requestDate'] = moment(Date.parse(applicantData.requestDate)).format('DD MMMM YYYY');
+
+        res.render('media-account-rejection-confirmation', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection-confirmation']),
+          applicantData: applicantData,
+          image: imageFile,
+        });
+        return;
+      } else {
+        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
       }
     }
     else if(req.body['reject-confirmation'] == 'No'){
