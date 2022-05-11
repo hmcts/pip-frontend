@@ -138,6 +138,14 @@ export class CreateAccountService {
     }];
   }
 
+  formatCreateMediaAccountPayload(accountObject): any[] {
+    return [{
+      email: accountObject.emailAddress,
+      firstName: accountObject.fullName,
+      role: 'VERIFIED',
+    }];
+  }
+
   formatCreateAccountPIPayload(azureAccount): any[] {
     return [{
       email: azureAccount.email,
@@ -156,4 +164,15 @@ export class CreateAccountService {
     }
     return false;
   }
+
+  public async createMediaAccount(payload: object, requester: string): Promise<boolean> {
+    const azureResponse = await accountManagementRequests.createAzureAccount(
+      this.formatCreateMediaAccountPayload(payload), requester);
+    if (azureResponse?.['CREATED_ACCOUNTS'][0]) {
+      return await accountManagementRequests.createPIAccount(
+        this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]), requester);
+    }
+    return false;
+  }
+
 }

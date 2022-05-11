@@ -10,30 +10,25 @@ export default class MediaAccountRejectionController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const applicantId = req.query['applicantId'];
-    console.log('Requested data for the following id: ' + applicantId);
-    if (applicantId) {
-      const applicantData = await mediaAccountApplicationService.getApplicationById(applicantId);
-      if (applicantData.status != 'PENDING'){
-        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-        return;
-      }
-      const imageFile = await mediaAccountApplicationService.getApplicationImageById(applicantData.image);
-      applicantData['requestDate'] = moment(Date.parse(applicantData.requestDate)).format('DD MMMM YYYY'),
+    const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
 
+    if (applicantData) {
       res.render('media-account-rejection', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection']),
         applicantData: applicantData,
-        image: imageFile,
       });
       return;
     }
+
     res.render('error', req.i18n.getDataByLanguage(req.lng).error);
   }
 
-  public async post(req: PipRequest, res: Response): Promise<void>{
+  public async post(req: PipRequest, res: Response): Promise<void> {
+
     const applicantId = req.query['applicantId'];
-    if (req.body['reject-confirmation'] == 'Yes') {
-      const updateStatus = await mediaAccountApplicationService.updateApplicationStatus(applicantId, 'REJECTED');
+    const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
+    if (applicantData && req.body['reject-confirmation'] == 'Yes') {
+      const updateStatus = await mediaAccountApplicationService.rejectApplication(applicantId);
       if (updateStatus != null && applicantId) {
         const applicantData = await mediaAccountApplicationService.getApplicationById(applicantId);
         const imageFile = await mediaAccountApplicationService.getApplicationImageById(applicantData.image);
@@ -48,9 +43,15 @@ export default class MediaAccountRejectionController {
       } else {
         res.render('error', req.i18n.getDataByLanguage(req.lng).error);
       }
+    } else if (req.body['reject-confirmation'] == 'No') {
+      res.redirect('media-account-review?applicantId=' + applicantId);
+    } else {
+      return res.render('media-account-rejection', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection']),
+        applicantData: applicantData,
+        displayRadioError: true,
+      });
     }
-    else if(req.body['reject-confirmation'] == 'No'){
-      res.redirect('media-account-review?applicantId='+applicantId);
-    }
+
   }
 }

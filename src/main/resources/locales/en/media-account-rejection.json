@@ -1,5 +1,5 @@
 {
-  "title": "Rejection",
+  "title": "Are you sure you want to reject this application?",
   "backToTop": "Back to top",
   "heading1": "Are you sure you want to reject this application?",
   "tableCaption": "Applicant's Details",
@@ -8,9 +8,12 @@
   "name": "Name",
   "email": "Email",
   "employer": "Employer",
-  "dateApplied": "Date Applied",
-  "proofOfId": "Proof of Id",
+  "dateApplied": "Date applied",
+  "proofOfId": "Proof of ID",
   "opensInWindowText": "opens in new tab",
-  "viewText": "View"
-
+  "viewText": "View",
+  "error": {
+    "title": "There is a problem",
+    "radioMessage": "An option must be selected"
+  }
 }
