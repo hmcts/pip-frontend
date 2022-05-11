@@ -13,10 +13,10 @@ export class CourtNameSearchPage extends CommonPage{
   }
 
   async jurisdictionChecked(): Promise<boolean> {
-    await $(helpers.JurisdictionCheckbox).catch(() => {
-      console.log(`${helpers.JurisdictionCheckbox} not found`);
+    await $(helpers.JurisdictionFilter1).catch(() => {
+      console.log(`${helpers.JurisdictionFilter1} not found`);
     });
-    const element = await $(helpers.JurisdictionCheckbox);
+    const element = await $(helpers.JurisdictionFilter1);
 
     return element.isSelected();
   }

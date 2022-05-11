@@ -53,7 +53,7 @@ module.exports = {
   SecondItemResult: 'tr.govuk-table__row:nth-child(2) > td:nth-child(2) > a:nth-child(1)',
   LastItemResult: 'tbody > tr.govuk-table__row:last-child > td > a',
   SJPLink: '#sjp-link',
-  JurisdictionFilter1: '#Jurisdiction',
+  JurisdictionFilter1: '#Type-of-court-or-tribunal',
   RegionFilter1: '#Region',
   RegionFilter2: '#Region-2',
 
@@ -91,7 +91,6 @@ module.exports = {
   CaseNameSearchResultsHeaderCheckbox: 'thead > tr.govuk-table__row > th > .govuk-checkboxes__input',
 
   // CourtNameSearch selectors
-  JurisdictionCheckbox: '#Jurisdiction',
   ApplyFiltersButton: '.moj-filter__options > .govuk-button',
   ClearFiltersLink: '.moj-filter__heading-action > p > a',
   CourtNameSearchContinueButton: '.moj-action-bar > .govuk-button',
