@@ -49,7 +49,7 @@
               {% set toBeCreated = false %}
             {% endif %}
             {{ govukCheckboxes({
-              idPrefix: key,
+              idPrefix: key | replace(" ", "-"),
               name: key,
               classes: "govuk-checkboxes--small",
               fieldset: {
@@ -95,11 +95,11 @@
           </a>
         </div>
       </div>
-      <div class="govuk-grid-row govuk-!-margin-bottom-8">
+      <nav class="govuk-grid-row govuk-!-margin-bottom-8" aria-label="{{ aria.labelNavHeader }}">
         {% for key, value in courtList %}
           {% if value| length == 0 %}
             <div class="govuk-grid-column width-column govuk-!-font-size-19">
-              <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline">{{ key }}</a>
+              <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline" aria-label="{{ aria.labelNav}} {{ key }}">{{ key }}</a>
             </div>
           {% else %}
             <div class="govuk-grid-column width-column govuk-!-font-size-19">
@@ -107,8 +107,7 @@
             </div>
           {% endif %}
         {% endfor %}
-
-      </div>
+      </nav>
       <div class="govuk-grid-row">
         <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ nationalListsHeader }}</h3>
       </div>
@@ -208,5 +207,9 @@
       let href = currentPath ? currentPath[0].replace(deleteVal, '') + filterToClear.replace('?', '&') : filterToClear
       return href.replace(',,', ',');
     }
+
+    document.getElementsByClassName("moj-filter__header-title")[0]
+      .getElementsByTagName("h2")[0]
+      .setAttribute("aria-label", "{{ filterLabel }}");
   </script>
 {% endblock %}

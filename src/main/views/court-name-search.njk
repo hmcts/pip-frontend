@@ -49,7 +49,7 @@
             {% set toBeCreated = false %}
           {% endif %}
           {{ govukCheckboxes({
-            idPrefix: key,
+            idPrefix: key | replace(" ", "-"),
             name: key,
             classes: "govuk-checkboxes--small",
             fieldset: {
@@ -101,6 +101,7 @@
         {{ submitButton() }}
         <hr/>
         <div class="govuk-!-margin-bottom-6 govuk-!-margin-top-6">
+          <nav aria-label="Alphabetical links to courts and tribunals">
           <div class="govuk-grid-row">
             {% for key, value in courtList %}
             {% if key == 'N' %}
@@ -109,7 +110,7 @@
             {% endif %}
             {% if value| length == 0 %}
               <div class="govuk-grid-column two-rows-alphabet govuk-!-font-size-19">
-                <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline">{{ key }}</a>
+                <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline" aria-label="{{ ariaLabelNav}} {{ key }}">{{ key }}</a>
               </div>
             {% else %}
               <div class="govuk-grid-column two-rows-alphabet govuk-!-font-size-19">
@@ -119,6 +120,7 @@
             {% endif %}
             {% endfor %}
           </div>
+          </nav>
         </div>
         <table class="govuk-table">
           <thead class="govuk-table__head">
