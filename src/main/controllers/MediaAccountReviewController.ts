@@ -1,30 +1,32 @@
 import {PipRequest} from '../models/request/PipRequest';
-import {Response} from 'express';
 import {MediaAccountApplicationService} from '../service/mediaAccountApplicationService';
-import {cloneDeep} from 'lodash';
+import {Response} from 'express';
+import { cloneDeep } from 'lodash';
 import moment from 'moment';
 import {allowedImageTypeMappings} from '../models/consts';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 
-export default class AdminMediaAccountRejectionController {
-
+export default class MediaAccountReviewController {
   public async get(req: PipRequest, res: Response): Promise<void> {
-    const applicantId = req.query['applicantId'];
-    console.log('Requested data for the following id: '+applicantId);
-    if (applicantId) {
-      const applicantData = await mediaAccountApplicationService.getApplicationById(applicantId);
-      const imageFile = await mediaAccountApplicationService.getApplicationImageById(applicantData.image);
-      applicantData['requestDate'] = moment(Date.parse(applicantData.requestDate)).format('DD MMMM YYYY'),
 
-      res.render('admin-media-account-rejection', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin-media-account-rejection']),
-        applicantData: applicantData,
-        image: imageFile,
-      });
-      return;
+    const applicantId = req.query['applicantId'];
+    if (applicantId) {
+
+      const applicantData = await mediaAccountApplicationService.getApplicationById(applicantId);
+      if (applicantData && applicantData.status === 'PENDING') {
+
+        applicantData['requestDate'] = moment(Date.parse(applicantData.requestDate)).format('DD MMMM YYYY');
+
+        return res.render('media-account-review', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-review']),
+          applicantData: applicantData,
+        });
+      }
     }
+
     res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+
   }
 
   public async getImage(req: PipRequest, res: Response): Promise<void> {
@@ -48,5 +50,25 @@ export default class AdminMediaAccountRejectionController {
         }
       }
     }
+    res.render('error', req.i18n.getDataByLanguage(req.lng).error);
   }
+
+  public approve(req: PipRequest, res: Response): void {
+    const applicantId = req.body['applicantId'];
+    if (applicantId) {
+      res.redirect('/admin-media-account-approval?applicantId=' + applicantId);
+    } else {
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+    }
+  }
+
+  public reject(req: PipRequest, res: Response): void {
+    const applicantId = req.body['applicantId'];
+    if (applicantId) {
+      res.redirect('/admin-media-account-rejection?applicantId=' + applicantId);
+    } else {
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+    }
+  }
+
 }

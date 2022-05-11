@@ -9,5 +9,8 @@
   "email": "Email",
   "employer": "Employer",
   "dateApplied": "Date Applied",
-  "proofOfId": "Proof of Id"
+  "proofOfId": "Proof of Id",
+  "opensInWindowText": "opens in new tab",
+  "viewText": "View"
+
 }

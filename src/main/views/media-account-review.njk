@@ -1,0 +1,107 @@
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% from "./macros/common-components.njk" import goBack %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+{{ title }}
+{% endblock %}
+{% block beforeContent %}
+{{ super() }}
+{{ goBack() }}
+{% endblock %}
+{% block content %}
+<div>
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  {{ govukTable({
+  firstCellIsHeader: true,
+  rows: [
+  [
+  {
+  text: name,
+  classes: 'govuk-!-width-one-third'
+  },
+  {
+  text: applicantData.fullName
+  },
+  {
+  text: ""
+  }
+  ],
+  [
+  {
+  text: email,
+  classes: 'govuk-!-width-one-third'
+  },
+  {
+  text: applicantData.email
+  },
+  {
+  text: ""
+  }
+  ],
+  [
+  {
+  text: employer,
+  classes: 'govuk-!-width-one-third'
+  },
+  {
+  text: applicantData.employer
+  },
+  {
+  text: ""
+  }
+  ],
+  [
+  {
+  text: dateApplied,
+  classes: 'govuk-!-width-one-third'
+  },
+  {
+  text: applicantData.requestDate
+  },
+  {
+  text: ""
+  }
+  ],
+  [
+  {
+  text: proofOfId,
+  classes: 'govuk-!-width-one-third'
+  },
+  {
+  text: applicantData.imageName + " (" + opensInWindowText + ")"
+  },
+  {
+  html: "<a href=\"/media-account-review/image?imageId=" +  applicantData.image + "&applicantId=" + applicantData.id + "\" target=\"_blank\">" + viewText + "</a>",
+  classes: "right-align-text"
+  }
+  ]
+  ]
+  }) }}
+  <form method="post">
+    <input type="hidden" id="applicantId" name="applicantId" value="{{ applicantData.id }}" }}>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-quarter govuk-!-padding-left-0">
+        <button class="govuk-button" data-module="govuk-button" formaction="media-account-review/approve">
+          {{ approveApplication }}
+        </button>
+      </div>
+      <div class="govuk-grid-column-three-quarters govuk-!-padding-right-0">
+        <button class="govuk-button govuk-button--warning float-right" data-module="govuk-button" formaction="media-account-review/reject">
+          {{ rejectApplication }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
+{% block bodyEnd %}
+<script>
+  if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+  }
+</script>
+{{ super() }}
+{% endblock %}

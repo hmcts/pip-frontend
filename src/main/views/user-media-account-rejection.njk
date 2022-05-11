@@ -17,17 +17,75 @@
     titleText: panelHeading
   }) }}
 
-  {% set tableRows = [] %}
-  {% for i in range(0, 5) %}
-  {% set _ = tableRows.push([
-      {
-        text: tableHeaders[i]
-      },
-      {
-        text: applicantData[i]
-      }
-  ]) %}
-  {% endfor %}
+    {{ govukTable({
+      caption: tableCaption,
+      captionClasses: "govuk-table__caption--m",
+      firstCellIsHeader: true,
+      rows: [
+        [
+          {
+            text: tableHeaders[0],
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.fullName
+          },
+          {
+            text: ""
+          }
+        ],
+        [
+          {
+            text: tableHeaders[1],
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.email
+          },
+          {
+            text: ""
+          }
+        ],
+        [
+          {
+            text: tableHeaders[2],
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.employer
+          },
+          {
+            text: ""
+          }
+        ],
+        [
+          {
+            text: tableHeaders[3],
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.requestDate
+          },
+          {
+            text: ""
+          }
+        ],
+        [
+          {
+            text: tableHeaders[4],
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.imageName + " (" + opensInWindowText + ")"
+          },
+          {
+            html: "<a href=\"/media-account-review/image?imageId=" +  applicantData.image + "&applicantId=" + applicantData.id + "\" target=\"_blank\">" + viewText + "</a>",
+            classes: "right-align-text"
+          }
+        ]
+      ]
+    }) }}
+
 
   {{ govukTable({
     caption: tableCaption,
@@ -37,7 +95,7 @@
   }) }}
 
   <h1 class="govuk-heading-m">{{ whatHappensNextHeader }}</h1>
-  <p class="govuk-body">{{ whatHappensNext1 }} ((mailto link Goes Here)) {{ whatHappensNext2 }}</p>
+  <p class="govuk-body">{{ whatHappensNext1 }} <a href=mailto:{{ applicantData.email }}&subject={{ emailSubjectLine }}>{{ applicantData.email }}</a> {{ whatHappensNext2 }}</p>
 
   <h1 class = "govuk-heading-m">{{ emailTemplateHeader }}</h1>
 
