@@ -30,14 +30,11 @@ export default class MediaAccountRejectionController {
     if (applicantData && req.body['reject-confirmation'] == 'Yes') {
       const updateStatus = await mediaAccountApplicationService.rejectApplication(applicantId);
       if (updateStatus != null && applicantId) {
-        const applicantData = await mediaAccountApplicationService.getApplicationById(applicantId);
-        const imageFile = await mediaAccountApplicationService.getApplicationImageById(applicantData.image);
         applicantData['requestDate'] = moment(Date.parse(applicantData.requestDate)).format('DD MMMM YYYY');
 
         res.render('media-account-rejection-confirmation', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection-confirmation']),
           applicantData: applicantData,
-          image: imageFile,
         });
         return;
       } else {

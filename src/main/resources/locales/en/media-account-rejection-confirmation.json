@@ -3,7 +3,7 @@
   "backToTop": "Back to top",
   "panelHeading": "Account has been rejected.",
   "tableCaption": "Applicant's Details",
-  "tableHeaders": ["Name", "Email", "Employer", "Date Applied", "Proof of ID"],
+  "tableHeaders": ["Name", "Email", "Employer", "Date applied", "Proof of ID"],
   "radioAnswers": ["Yes", "No"],
   "opensInWindowText": "opens in new tab",
   "viewText": "View",
