@@ -79,25 +79,33 @@
         ]
       ]
     }) }}
-
-
+  {% if choice == "Yes" %}
+  {% set formAction = "confirmReject" %}
+  {% elif choice == "No" %}
+  {% set formAction = "declineReject" %}
+  {% else %}
+    {% set formAction = "Error" %}
+  {% endif %}
+<form method="post">
   {{ govukRadios({
     classes: "govuk-radios--inline",
-    idPrefix: "changed-name",
-    name: "changed-name",
+    idPrefix: "reject-confirmation",
+    name: "reject-confirmation",
     fieldset: {
     },
     items: [
       {
         value: radioAnswers[0],
-        text: radioAnswers[0]
+        text: radioAnswers[0],
+        checked: choice === "Yes"
       },
       {
         value: radioAnswers[1],
-        text: radioAnswers[1]
+        text: radioAnswers[1],
+        checked: choice === "No"
       }
     ]
   }) }}
   {{ submitButton() }}
-
+</form>
 {% endblock %}

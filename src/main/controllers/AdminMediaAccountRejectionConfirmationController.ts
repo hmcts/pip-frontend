@@ -4,7 +4,7 @@ import moment from 'moment';
 import {cloneDeep} from 'lodash';
 import {MediaAccountApplicationService} from '../service/mediaAccountApplicationService';
 const mediaAccountApplicationService = new MediaAccountApplicationService();
-export default class MediaAccountRequestSubmittedController {
+export default class AdminMediaAccountRejectionConfirmationController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const applicantId = req.query['applicantId'];
@@ -14,8 +14,8 @@ export default class MediaAccountRequestSubmittedController {
       const imageFile = await mediaAccountApplicationService.getApplicationImageById(applicantData.image);
       applicantData['requestDate'] = moment(Date.parse(applicantData.requestDate)).format('DD MMMM YYYY');
 
-      res.render('user-media-account-rejection', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['user-media-account-rejection']),
+      res.render('admin-media-account-rejection-confirmation', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin-media-account-rejection-confirmation']),
         applicantData: applicantData,
         image: imageFile,
       });
