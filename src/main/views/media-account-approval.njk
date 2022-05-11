@@ -1,0 +1,145 @@
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+
+{% from "./macros/common-components.njk" import goBack, submitButton %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <div>
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+    {% if displayAzureError %}
+      {{ govukErrorSummary({
+        titleText: error.title,
+        errorList: [
+          {
+            text: error.azureMessage,
+            href: "#"
+          }
+        ]
+      }) }}
+    {% elseif displayRadioError %}
+      {{ govukErrorSummary({
+        titleText: error.title,
+        errorList: [
+          {
+            text: error.radioMessage,
+            href: "#"
+          }
+        ]
+      }) }}
+    {% endif %}
+    {{ govukTable({
+      caption: tableCaption,
+      captionClasses: "govuk-table__caption--m",
+      firstCellIsHeader: true,
+      rows: [
+        [
+          {
+            text: name,
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.fullName
+          },
+          {
+            attributes: {
+            'aria-hidden': 'true'
+          }
+          }
+        ],
+        [
+          {
+            text: email,
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.email
+          },
+          {
+            attributes: {
+            'aria-hidden': 'true'
+          }
+          }
+        ],
+        [
+          {
+            text: employer,
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.employer
+          },
+          {
+            attributes: {
+            'aria-hidden': 'true'
+          }
+          }
+        ],
+        [
+          {
+            text: dateApplied,
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.requestDate
+          },
+          {
+            attributes: {
+            'aria-hidden': 'true'
+          }
+          }
+        ],
+        [
+          {
+            text: proofOfId,
+            classes: 'govuk-!-width-one-third'
+          },
+          {
+            text: applicantData.imageName + " (" + opensInWindowText + ")"
+          },
+          {
+            html: "<a href=\"/media-account-review/image?imageId=" +  applicantData.image + "&applicantId=" + applicantData.id + "\" target=\"_blank\">" + viewText + "</a>",
+            classes: "right-align-text"
+          }
+        ]
+      ]
+    }) }}
+    <form method="post">
+      {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "approved",
+        name: "approved",
+        fieldset: {
+        },
+        items: [
+          {
+            value: radioAnswers[0],
+            text: radioAnswers[0]
+          },
+          {
+            value: radioAnswers[1],
+            text: radioAnswers[1]
+          }
+        ]
+      }) }}
+      {{ submitButton() }}
+    </form>
+  </div>
+{% endblock %}
+{% block bodyEnd %}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  {{ super() }}
+{% endblock %}

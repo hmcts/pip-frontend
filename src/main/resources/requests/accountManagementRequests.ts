@@ -1,5 +1,6 @@
 import { accountManagementApi } from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
+import {MediaAccount} from "../../models/mediaAccount";
 
 const logger = Logger.getLogger('requests');
 export class AccountManagementRequests {
@@ -38,4 +39,57 @@ export class AccountManagementRequests {
       return false;
     }
   }
+
+  public async getMediaApplicationById(applicationId): Promise<MediaAccount | null> {
+    try {
+      const response = await accountManagementApi.get('/application/' + applicationId);
+      logger.info('Media Application accessed - ' + applicationId, response);
+      return response.data;
+    }
+    catch (error) {
+      if (error.response) {
+        logger.error('failed to retrieve media application', error.response.data);
+      } else if (error.request) {
+        logger.error('failed to retrieve media application', error.request);
+      } else {
+        logger.error('failed to retrieve media application', error.message);
+      }
+      return null;
+    }
+  }
+
+  public async getMediaApplicationImageById(imageId): Promise<Blob> {
+    try{
+      const response = await accountManagementApi.get('/application/image/' + imageId, {responseType: 'arraybuffer'});
+      logger.info('Media Application image access with ID - ' + imageId, response);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('failed to retrieve media application image', error.response.data);
+      } else if (error.request) {
+        logger.error('failed to retrieve media application image', error.request);
+      } else {
+        logger.error('failed to retrieve media application image', error.message);
+      }
+    }
+    return null;
+  }
+
+  public async updateMediaApplicationStatus(applicantId, status): Promise<MediaAccount | null> {
+    try {
+      const response = await accountManagementApi.put('/application/' + applicantId + '/' + status);
+      logger.info('Media Application updated - ' + applicantId, response);
+      return response.data;}
+    catch (error) {
+      if (error.response) {
+        logger.error('failed to update media application', error.response.statusText);
+      } else if (error.request) {
+        logger.error('failed to update media application', error.response.statusText);
+      } else {
+        logger.error('failed to update media application', error.response.statusText);
+      }
+    }
+    return null;
+  }
+
 }

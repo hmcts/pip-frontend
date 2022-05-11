@@ -1,0 +1,61 @@
+import {PipRequest} from "../models/request/PipRequest";
+import {Response} from 'express';
+import { cloneDeep } from 'lodash';
+import {MediaAccountApplicationService} from "../service/mediaAccountApplicationService";
+
+const mediaAccountApplicationService = new MediaAccountApplicationService();
+
+export default class MediaAccountApprovalController {
+
+  public async get(req: PipRequest, res: Response): Promise<void> {
+    const applicantId = req.query['applicantId'];
+    const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
+
+    if (applicantData) {
+      res.render('media-account-approval', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),
+        applicantData: applicantData,
+      });
+      return;
+    }
+
+    res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+  }
+
+  public async post(req: PipRequest, res: Response): Promise<void> {
+    const applicantId = req.query['applicantId'];
+    const approved = req.body['approved'];
+    const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
+
+    if (applicantData) {
+      if (!approved) {
+        return res.render('media-account-approval', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),
+          applicantData: applicantData,
+          displayRadioError: true
+        });
+      }
+
+      if (approved === "Yes") {
+
+        if (await mediaAccountApplicationService.createAccountFromApplication(applicantId, req.user?.['emails'][0])) {
+          return res.render('media-account-approval-confirmation', {
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval-confirmation']),
+            applicantData: applicantData,
+          });
+        } else {
+          return res.render('media-account-approval', {
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),
+            applicantData: applicantData,
+            displayAzureError: true
+          });
+        }
+      } else {
+        return res.redirect('/media-account-review?applicantId=' + applicantId);
+      }
+    }
+    res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+  }
+
+
+}
