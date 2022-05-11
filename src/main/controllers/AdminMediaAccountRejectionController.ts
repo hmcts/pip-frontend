@@ -13,6 +13,10 @@ export default class AdminMediaAccountRejectionController {
     console.log('Requested data for the following id: ' + applicantId);
     if (applicantId) {
       const applicantData = await mediaAccountApplicationService.getApplicationById(applicantId);
+      if (applicantData.status != 'PENDING'){
+        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        return;
+      }
       const imageFile = await mediaAccountApplicationService.getApplicationImageById(applicantData.image);
       applicantData['requestDate'] = moment(Date.parse(applicantData.requestDate)).format('DD MMMM YYYY'),
 
@@ -29,8 +33,10 @@ export default class AdminMediaAccountRejectionController {
   public async post(req: PipRequest, res: Response): Promise<void>{
     const applicantId = req.query['applicantId'];
     if (req.body['reject-confirmation'] == 'Yes'){
-      await mediaAccountApplicationService.updateApplicationStatus(applicantId, 'REJECTED');
-      res.redirect('admin-media-account-rejection-confirmation?applicantId='+applicantId);
+      const updateStatus = await mediaAccountApplicationService.updateApplicationStatus(applicantId, 'REJECTED');
+      if(updateStatus != null){
+        res.redirect('admin-media-account-rejection-confirmation?applicantId='+applicantId);
+      }
     }
     else if(req.body['reject-confirmation'] == 'No'){
       res.redirect('media-account-review?applicantId='+applicantId);
