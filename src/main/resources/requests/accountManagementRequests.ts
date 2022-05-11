@@ -75,4 +75,20 @@ export class AccountManagementRequests {
     return null;
   }
 
+  public async updateMediaApplicationStatus(applicantId, status): Promise<object | null> {
+    try {
+      const response = await accountManagementApi.put('/application/' + applicantId + '/' + status);
+      logger.info('Media Application updated - ' + applicantId, response);
+      return response.data;}
+    catch (error) {
+      if (error.response) {
+        logger.error('failed to update media application', error.response.statusText);
+      } else if (error.request) {
+        logger.error('failed to update media application', error.response.statusText);
+      } else {
+        logger.error('failed to update media application', error.response.statusText);
+      }
+    }
+    return null;
+  }
 }

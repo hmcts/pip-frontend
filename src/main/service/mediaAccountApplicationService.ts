@@ -13,4 +13,8 @@ export class MediaAccountApplicationService {
     return await accountManagementRequests.getMediaApplicationImageById(imageId);
   }
 
+  public async updateApplicationStatus(applicationId, status):  Promise<object | null> {
+    return await accountManagementRequests.updateMediaApplicationStatus(applicationId, status);
+  }
+
 }

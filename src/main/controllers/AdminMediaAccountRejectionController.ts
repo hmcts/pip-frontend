@@ -26,9 +26,10 @@ export default class AdminMediaAccountRejectionController {
     res.render('error', req.i18n.getDataByLanguage(req.lng).error);
   }
 
-  public post(req: PipRequest, res: Response): void{
+  public async post(req: PipRequest, res: Response): Promise<void>{
     const applicantId = req.query['applicantId'];
     if (req.body['reject-confirmation'] == 'Yes'){
+      await mediaAccountApplicationService.updateApplicationStatus(applicantId, 'REJECTED');
       res.redirect('admin-media-account-rejection-confirmation?applicantId='+applicantId);
     }
     else if(req.body['reject-confirmation'] == 'No'){
