@@ -1,5 +1,6 @@
 import { allowedImageTypes } from '../models/consts';
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import fs from 'fs';
 
 const adminRolesList = [
   {
@@ -30,7 +31,7 @@ const adminRolesList = [
 const accountManagementRequests = new AccountManagementRequests();
 
 export class CreateAccountService {
-  public validateFormFields(formValues: object): object {
+  public validateFormFields(formValues: object, file: File): object {
     return {
       nameError: {
         message: this.isNotBlank(formValues['fullName']) ? null : 'Enter your full name',
@@ -45,7 +46,7 @@ export class CreateAccountService {
         href: '#employer',
       },
       fileUploadError: {
-        message:this.validateImage(formValues['file-upload']),
+        message: this.validateImage(file),
         href: '#file-upload',
       },
     };
@@ -91,11 +92,6 @@ export class CreateAccountService {
     return radios;
   }
 
-  isValidImageType(imageName: string): boolean {
-    const imageType = imageName.split('.')[1]?.toLocaleLowerCase();
-    return allowedImageTypes.includes(imageType);
-  }
-
   isNotBlank(input): boolean {
     return !!(input);
   }
@@ -117,16 +113,37 @@ export class CreateAccountService {
     return message;
   }
 
-  validateImage(image: string): string {
+  validateImage(file: File): string {
     let message = null;
-    if (this.isNotBlank(image)) {
-      if(!this.isValidImageType(image)) {
+    if (this.isNotBlank(file)) {
+      if(!this.isValidImageType(file['originalname'])) {
         message = 'The selected file must be a JPG, PNG, TIF or PDF';
+      }
+      if(!this.isFileCorrectSize(file.size)) {
+        message = 'The selected file must be less than 2MB';
       }
     } else {
       message = 'Select a file to upload';
     }
     return message;
+  }
+
+  isValidImageType(imageName: string): boolean {
+    const imageType = imageName.split('.')[1]?.toLocaleLowerCase();
+    return allowedImageTypes.includes(imageType);
+  }
+
+  isFileCorrectSize(fileSize: number): boolean {
+    return fileSize <= 2000000;
+  }
+
+  public removeFile(file: File): void {
+    const filePath = './manualUpload/tmp/' + file['originalname'];
+    try {
+      fs.unlinkSync(filePath);
+    } catch (err) {
+      console.error('Error while deleting ' + file['originalname']);
+    }
   }
 
   formatCreateAdminAccountPayload(accountObject): any[] {
@@ -147,13 +164,18 @@ export class CreateAccountService {
     }];
   }
 
-  // formatCreateMediaAccount(accountObject): any[] {
-  //   return [{
-  //     fullName: accountObject.fullName,
-  //     email: accountObject.email,
-  //
-  //   }];
-  // }
+  formatCreateMediaAccount(accountObject, file): any {
+    return {
+      fullName: accountObject.fullName,
+      email: accountObject.emailAddress,
+      employer: accountObject.employer,
+      status: 'PENDING',
+      file: {
+        body: fs.readFileSync(file.path),
+        name: file.originalname,
+      },
+    };
+  }
 
   public async createAdminAccount(payload: object, requester: string): Promise<boolean> {
     const azureResponse = await accountManagementRequests.createAzureAccount(
@@ -165,9 +187,7 @@ export class CreateAccountService {
     return false;
   }
 
-  public async createMediaAccount(payload: object): Promise<boolean> {
-    console.log(payload);
-    return true;
-    // return await accountManagementRequests.createMediaAccount(this.formatCreateMediaAccountPayload(payload));
+  public async createMediaAccount(payload: object, file: File): Promise<boolean> {
+    return await accountManagementRequests.createMediaAccount(this.formatCreateMediaAccount(payload, file));
   }
 }

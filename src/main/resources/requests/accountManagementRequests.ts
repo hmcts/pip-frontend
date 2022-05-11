@@ -1,8 +1,12 @@
-import { accountManagementApi } from './utils/axiosConfig';
+import {accountManagementApi, getAccountManagementCredentials} from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
 
+const superagent = require('superagent');
 const logger = Logger.getLogger('requests');
+
 export class AccountManagementRequests {
+  public accountManagementUrl = process.env.ACCOUNT_MANAGEMENT_URL || 'https://pip-account-management.staging.platform.hmcts.net/';
+
   public async createAzureAccount(payload, requester): Promise<object | null> {
     try {
       const response = await accountManagementApi.post('/account/add/azure', payload, {headers: {'x-issuer-email': requester}});
@@ -39,13 +43,26 @@ export class AccountManagementRequests {
     }
   }
 
-  public async createMediaAccount(payload): Promise<boolean> {
+  public async createMediaAccount(form): Promise<boolean> {
     try {
-      const response = await accountManagementApi.post('/application', payload);
-      logger.info('Media account requested', response);
-      return response.status === 200;
+      const token = await getAccountManagementCredentials();
+      await superagent.post(`${this.accountManagementUrl}/application`)
+        .set('enctype', 'multipart/form-data')
+        .set({'Authorization': 'Bearer ' + token.access_token})
+        .attach('file', form.file.body, form.file.name)
+        .field('fullName', form.fullName)
+        .field('email', form.email)
+        .field('employer', form.employer)
+        .field('status', form.status);
+      return true;
     } catch (error) {
-      logger.error('lol error');
+      if (error.response) {
+        logger.error('failed to create media account on response', error.response.data);
+      } else if (error.request) {
+        logger.error('failed to create media account on request', error.request);
+      } else {
+        logger.error('failed to create media account with message', error.message);
+      }
     }
   }
 }

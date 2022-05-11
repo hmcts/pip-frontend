@@ -118,7 +118,7 @@
     {% endif %}
     <h1 class="govuk-heading-l">{{ header }}</h1>
     <p class="govuk-hint govuk-!-margin-bottom-7">{{ retainHint }}</p>
-    <form method="post" novalidate>
+    <form method="post" enctype="multipart/form-data" novalidate>
         {{ nameInput }}
         {{ emailInput }}
         {{ employerInput }}
