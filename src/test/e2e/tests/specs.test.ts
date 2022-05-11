@@ -520,9 +520,12 @@ describe('Verified user', () => {
     });
 
     describe('Manage media account requests journey', () => {
+      before(async () => {
+        await adminDashboard.open('/admin-dashboard');
+      });
       it('should start the manage media account request journey', async () => {
         mediaAccountRequestsPage = await adminDashboard.clickManageMedia();
-        expect(await mediaAccountRequestsPage.getPageTitle()).toEqual('Select an application to assess');
+        expect(await mediaAccountRequestsPage.getPageTitle()).toEqual('Select application to assess');
       });
     });
   });
