@@ -3,7 +3,6 @@ import {app} from '../../../main/app';
 import sinon from 'sinon';
 import request from 'supertest';
 import {expect} from 'chai';
-import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
 
 const applicationId = '1234';
@@ -48,13 +47,13 @@ const dummyApplication = {
   'employer': 'employer',
   'image': '12345',
   'imageName': 'ImageName.jpg',
-  'requestDate': '2022-05-09T00:00:01',
+  'requestDate': '09 May 2022',
   'status': 'PENDING',
   'statusDate': '2022-05-09T00:00:01',
 };
 
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-sinon.stub(AccountManagementRequests.prototype, 'getMediaApplicationById').returns(dummyApplication);
+sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').returns(dummyApplication);
 
 describe('Media Account Approval Page', () => {
 
