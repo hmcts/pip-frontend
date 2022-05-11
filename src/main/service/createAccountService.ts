@@ -142,7 +142,7 @@ export class CreateAccountService {
     return [{
       email: accountObject.emailAddress,
       firstName: accountObject.fullName,
-      role: "VERIFIED"
+      role: 'VERIFIED',
     }];
   }
 

@@ -1,6 +1,6 @@
 import { accountManagementApi } from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
-import {MediaAccount} from "../../models/mediaAccount";
+import {MediaAccount} from '../../models/mediaAccount';
 
 const logger = Logger.getLogger('requests');
 export class AccountManagementRequests {

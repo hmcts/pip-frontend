@@ -1,7 +1,7 @@
-import {PipRequest} from "../models/request/PipRequest";
+import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import { cloneDeep } from 'lodash';
-import {MediaAccountApplicationService} from "../service/mediaAccountApplicationService";
+import {MediaAccountApplicationService} from '../service/mediaAccountApplicationService';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 
@@ -32,11 +32,11 @@ export default class MediaAccountApprovalController {
         return res.render('media-account-approval', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),
           applicantData: applicantData,
-          displayRadioError: true
+          displayRadioError: true,
         });
       }
 
-      if (approved === "Yes") {
+      if (approved === 'Yes') {
 
         if (await mediaAccountApplicationService.createAccountFromApplication(applicantId, req.user?.['emails'][0])) {
           return res.render('media-account-approval-confirmation', {
@@ -47,7 +47,7 @@ export default class MediaAccountApprovalController {
           return res.render('media-account-approval', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),
             applicantData: applicantData,
-            displayAzureError: true
+            displayAzureError: true,
           });
         }
       } else {
@@ -56,6 +56,5 @@ export default class MediaAccountApprovalController {
     }
     res.render('error', req.i18n.getDataByLanguage(req.lng).error);
   }
-
 
 }
