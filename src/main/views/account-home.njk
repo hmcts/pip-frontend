@@ -9,6 +9,7 @@
     {{ goBack() }}
 {% endblock %}
 {% block content %}
+  <div class="parent-box">
     <div class="govuk-grid-row">
         <h1 class="govuk-heading-l">{{ title }}</h1>
     </div>
@@ -25,4 +26,10 @@
             </div>
         {% endfor %}
     </div>
+  {{ super() }}
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
 {% endblock %}

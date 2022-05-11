@@ -12,9 +12,9 @@ const NON_SIGNED_IN_LINKS = {
 };
 const SIGNED_IN_LINKS = {
   Home: 'account-home',
-  'Email subscriptions': 'subscription-management',
   'Find a court or tribunal': 'search',
   'Single Justice Procedure cases': 'summary-of-publications?courtId=0',
+  'Email subscriptions': 'subscription-management',
   'Sign out': 'logout',
 };
 

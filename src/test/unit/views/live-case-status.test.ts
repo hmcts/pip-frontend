@@ -76,8 +76,8 @@ describe('Live Status page', () => {
   it('should display the link to go back to live case alphabet list', () => {
     const link = htmlRes.getElementsByClassName('govuk-link');
 
-    expect(link.item(4).innerHTML).contains('See another court or tribunal', 'Link text is not present');
-    expect(link.item(4).getAttribute('href')).equal('/live-case-alphabet-search', 'Link value is not correct');
+    expect(link.item(5).innerHTML).contains('See another court or tribunal', 'Link text is not present');
+    expect(link.item(5).getAttribute('href')).equal('/live-case-alphabet-search', 'Link value is not correct');
   });
 });
 

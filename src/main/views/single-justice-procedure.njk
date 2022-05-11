@@ -12,7 +12,8 @@
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ listDetail | replace("CASES_COUNT", length) | replace("PUBLICATION_DATE", date)}}</p>
-  <div class="parent-box overflow-table">
+  <div class="parent-box">
+    <div class="overflow-table">
     {% set sjpCase = [] %}
     {% for item in casesList |sort(attribute="Name")%}
       {% for role in item.hearing[0].party %}
@@ -61,10 +62,11 @@
     ],
     rows: sjpCase
   }) }}
-  {{ backToTopButton() }}
+    </div>
+  {{ super() }}
   </div>
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
-  <script src="alphabetical-dev.js"></script>
 {% endblock %}
+
