@@ -3,7 +3,7 @@ import {app} from '../../main/app';
 import {expect} from 'chai';
 import { MediaAccountApplicationService } from '../../main/service/mediaAccountApplicationService';
 import sinon from 'sinon';
-import {request as expressRequest} from "express";
+import {request as expressRequest} from 'express';
 
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
@@ -27,7 +27,7 @@ describe('Media Account Approval', () => {
   const createAccountStub = sinon.stub(MediaAccountApplicationService.prototype, 'createAccountFromApplication');
 
   getApplicationByIdStub.withArgs(applicationID, 'PENDING').resolves(dummyApplication);
-  createAccountStub.withArgs(applicationID, null).resolves(dummyApplication)
+  createAccountStub.withArgs(applicationID, null).resolves(dummyApplication);
 
   describe('on view approval', () => {
     test('should return the media account approval page', () => {
