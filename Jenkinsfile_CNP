@@ -2,6 +2,12 @@
 
 @Library("Infrastructure") _
 
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+
+def type = "nodejs"
+def product = "pip"
+def component = "frontend"
+
 def setupTestSecrets() {
 
   def bootstap_env = env.ENV == "prod" || env.ENV == "demo" || env.ENV == "sbox" ? env.ENV : "stg"
@@ -30,14 +36,6 @@ static Map<String, Object> secret(String secretName, String envVariable) {
   ]
 }
 
-
-
-def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
-
-def type = "nodejs"
-def product = "pip"
-def component = "frontend"
-
 withPipeline(type, product, component) {
   disableLegacyDeployment()
 
@@ -47,9 +45,9 @@ withPipeline(type, product, component) {
 
   enableSlackNotifications('#pip-build-notices')
 
+  setupTestSecrets()
 
-
- onMaster() {
+  onMaster() {
     env.ENV = 'stg'
   }
   onPR() {
@@ -64,5 +62,5 @@ withPipeline(type, product, component) {
   onIthc {
     env.ENV = 'ithc'
   }
-  setupTestSecrets()
+
 }
