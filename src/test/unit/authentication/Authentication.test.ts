@@ -1,5 +1,9 @@
 describe('Authentication', () => {
 
+  process.env.CONFIG_ENDPOINT = 'https://localhost';
+  process.env.CLIENT_ID = '1234';
+  process.env.CLIENT_SECRET = '1234';
+
   let authentication;
   let passport;
   let expect;
