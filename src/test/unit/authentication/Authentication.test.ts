@@ -156,12 +156,9 @@ describe('Authentication', () => {
 
     process.env.CLIENT_ID = '2';
     process.env.CLIENT_SECRET = 'client_secret';
-    process.env.CONFIG_ENDPOINT = 'https://localhost:8080'
+    process.env.CONFIG_ENDPOINT = 'https://localhost:8080';
 
     authentication('true');
-    expect(passport._deserializers).length(1);
-    expect(passport._serializers).length(1);
-    expect(passport._strategies).to.have.property('azuread-openidconnect');
     expect(passport._strategies['azuread-openidconnect']._options.identityMetadata)
       .to.contain('https://localhost:8080');
     expect(passport._strategies['azuread-openidconnect']._options.clientID)
