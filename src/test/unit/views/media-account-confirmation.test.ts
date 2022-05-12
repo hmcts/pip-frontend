@@ -7,7 +7,7 @@ import {request as expressRequest} from 'express';
 
 let htmlRes: Document;
 
-describe('Media Account Submission Page', () => {
+describe('Media Account Confirmation Page', () => {
 
   const applicationId = '1234';
 
