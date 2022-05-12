@@ -114,6 +114,7 @@
       ]
     }) }}
     <form method="post">
+      <input type="hidden" id="applicantId" name="applicantId" value="{{ applicantData.id }}" }}>
       {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "approved",

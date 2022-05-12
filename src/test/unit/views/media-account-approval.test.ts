@@ -176,7 +176,7 @@ describe('Media Account Approval Page', () => {
 describe('Media Account Approval No Selection', () => {
 
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({}).then(res => {
+    await request(app).post(PAGE_URL).send({'applicationId': applicationId}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
     });
@@ -198,7 +198,7 @@ describe('Media Account Approval Page Errored', () => {
   sinon.stub(MediaAccountApplicationService.prototype, 'createAccountFromApplication').returns(null);
 
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'approved': 'Yes'}).then(res => {
+    await request(app).post(PAGE_URL).send({'approved': 'Yes', 'applicationId': applicationId}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
     });

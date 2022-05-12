@@ -23,7 +23,7 @@ export default class MediaAccountApprovalController {
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
-    const applicantId = req.query['applicantId'];
+    const applicantId = req.body['applicantId'];
     const approved = req.body['approved'];
     const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
 

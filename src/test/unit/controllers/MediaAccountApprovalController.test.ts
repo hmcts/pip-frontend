@@ -66,8 +66,7 @@ describe('Media Account Approval Controller', () => {
     const responseMock = sinon.mock(response);
 
     const request = mockRequest(i18n);
-    request['query'] = {'applicantId': applicantId};
-    request['body'] = {'approved': 'Yes'};
+    request['body'] = {'approved': 'Yes', 'applicantId': applicantId};
     request['user'] = {'emails': [email] };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
@@ -86,8 +85,7 @@ describe('Media Account Approval Controller', () => {
     const responseMock = sinon.mock(response);
 
     const request = mockRequest(i18n);
-    request['query'] = {'applicantId': '1234'};
-    request['body'] = {'approved': 'Yes'};
+    request['body'] = {'approved': 'Yes', 'applicantId': '1234'};
     request['user'] = {'emails': [email] };
 
     mediaAccountApplicationStub.withArgs('1234', status).resolves(null);
@@ -103,8 +101,7 @@ describe('Media Account Approval Controller', () => {
     const responseMock = sinon.mock(response);
 
     const request = mockRequest(i18n);
-    request['query'] = {'applicantId': applicantId};
-    request['body'] = {};
+    request['body'] = {'applicantId': applicantId};
     request['user'] = {'emails': [email] };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
@@ -123,8 +120,7 @@ describe('Media Account Approval Controller', () => {
     const responseMock = sinon.mock(response);
 
     const request = mockRequest(i18n);
-    request['query'] = {'applicantId': applicantId};
-    request['body'] = {'approved': 'No'};
+    request['body'] = {'approved': 'No', 'applicantId': applicantId};
     request['user'] = {'emails': [email] };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
@@ -140,8 +136,7 @@ describe('Media Account Approval Controller', () => {
     const responseMock = sinon.mock(response);
 
     const request = mockRequest(i18n);
-    request['query'] = {'applicantId': applicantId};
-    request['body'] = {'approved': 'Yes'};
+    request['body'] = {'approved': 'Yes', 'applicantId': applicantId};
     request['user'] = {'emails': [email] };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
