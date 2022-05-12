@@ -50,7 +50,7 @@ describe('Get publications', () => {
     responseMock.verify();
   });
 
-  it('should render the SJP if courtId = 0', async () => {
+  it('should render the SJP if locationId = 0', async () => {
 
     const response = {
       render: () => {
@@ -76,7 +76,7 @@ describe('Get publications', () => {
     responseMock.verify();
   });
 
-  it('should render the error screen if there is no courtId passed as a param', async () => {
+  it('should render the error screen if there is no locationId passed as a param', async () => {
     const response = {
       render: () => {
         return '';
