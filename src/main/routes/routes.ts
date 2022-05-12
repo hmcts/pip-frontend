@@ -148,9 +148,9 @@ export default function(app: Application): void {
   app.get('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.get);
   app.post('/manual-upload-summary', ensureAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
   app.get('/upload-confirmation', ensureAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
-  app.get('/media-account-review/image', app.locals.container.cradle.mediaAccountReviewController.getImage);
-  app.get('/media-account-approval', app.locals.container.cradle.mediaAccountApprovalController.get);
-  app.post('/media-account-approval', app.locals.container.cradle.mediaAccountApprovalController.post);
+  app.get('/media-account-review/image', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.getImage);
+  app.get('/media-account-approval', ensureAuthenticated, app.locals.container.cradle.mediaAccountApprovalController.get);
+  app.post('/media-account-approval', ensureAuthenticated, app.locals.container.cradle.mediaAccountApprovalController.post);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
