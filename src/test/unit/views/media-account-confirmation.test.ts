@@ -3,6 +3,7 @@ import request from 'supertest';
 import {expect} from 'chai';
 import sinon from 'sinon';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
+import {request as expressRequest} from 'express';
 
 let htmlRes: Document;
 
@@ -49,6 +50,7 @@ describe('Media Account Submission Page', () => {
   sinon.stub(MediaAccountApplicationService.prototype, 'createAccountFromApplication').returns(dummyApplication);
 
   beforeAll(async () => {
+    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     await request(app).post(PAGE_URL).send({'approved': 'Yes'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
