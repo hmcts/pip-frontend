@@ -19,7 +19,7 @@ const footerLinks = [
   },
   {
     text: 'Accessibility statement',
-    href: 'https://www.gov.uk/help/accessibility-statement',
+    href: '/accessibility-statement',
   },
   {
     text: 'Contact',
