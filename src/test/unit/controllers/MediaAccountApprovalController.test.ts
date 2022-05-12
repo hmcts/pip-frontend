@@ -42,7 +42,6 @@ describe('Media Account Approval Controller', () => {
       {...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-approval']),
         applicantData: dummyApplication });
 
-
     await mediaAccountApprovalController.get(request, response);
 
     responseMock.verify();
@@ -69,7 +68,7 @@ describe('Media Account Approval Controller', () => {
     const request = mockRequest(i18n);
     request['query'] = {'applicantId': applicantId};
     request['body'] = {'approved': 'Yes'};
-    request['user'] = {'emails': [email]}
+    request['user'] = {'emails': [email] };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
     mediaAccountCreationStub.withArgs(applicantId, email).resolves(true);
@@ -89,7 +88,7 @@ describe('Media Account Approval Controller', () => {
     const request = mockRequest(i18n);
     request['query'] = {'applicantId': '1234'};
     request['body'] = {'approved': 'Yes'};
-    request['user'] = {'emails': [email]}
+    request['user'] = {'emails': [email] };
 
     mediaAccountApplicationStub.withArgs('1234', status).resolves(null);
 
@@ -106,14 +105,14 @@ describe('Media Account Approval Controller', () => {
     const request = mockRequest(i18n);
     request['query'] = {'applicantId': applicantId};
     request['body'] = {};
-    request['user'] = {'emails': [email]}
+    request['user'] = {'emails': [email] };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
 
     responseMock.expects('render').once().withArgs('media-account-approval',
       {...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-approval']),
         applicantData: dummyApplication,
-        displayRadioError: true,});
+        displayRadioError: true});
 
     await mediaAccountApprovalController.post(request, response);
 
@@ -126,7 +125,7 @@ describe('Media Account Approval Controller', () => {
     const request = mockRequest(i18n);
     request['query'] = {'applicantId': applicantId};
     request['body'] = {'approved': 'No'};
-    request['user'] = {'emails': [email]}
+    request['user'] = {'emails': [email] };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
 
@@ -143,7 +142,7 @@ describe('Media Account Approval Controller', () => {
     const request = mockRequest(i18n);
     request['query'] = {'applicantId': applicantId};
     request['body'] = {'approved': 'Yes'};
-    request['user'] = {'emails': [email]}
+    request['user'] = {'emails': [email] };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
     mediaAccountCreationStub.withArgs(applicantId, email).resolves(false);
@@ -151,7 +150,7 @@ describe('Media Account Approval Controller', () => {
     responseMock.expects('render').once().withArgs('media-account-approval',
       {...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-approval']),
         applicantData: dummyApplication,
-        displayAzureError: true,});
+        displayAzureError: true});
 
     await mediaAccountApprovalController.post(request, response);
 
