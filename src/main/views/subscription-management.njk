@@ -22,6 +22,8 @@
     href: 'subscription-add'
   }) }}
 
+
+  {% if caseTableData | length > 0 and courtTableData | length > 0 %}
   {% set allSubscriptions = caseTableData | length +  courtTableData | length %}
   {{ mojSubNavigation({
     label: 'Sub navigation',
@@ -39,6 +41,7 @@
       active: activeCourtTab
     }]
   }) }}
+
 
   {% if caseTableData | length == 0 and courtTableData | length == 0 %}
     {% if activeAllTab == true %}
@@ -109,6 +112,7 @@
         rows: courtTableData
       }) }}
     {% endif %}
+  {% endif %}
   {% endif %}
   {{ super() }}
   </div>
