@@ -28,33 +28,46 @@ export default class MediaAccountApprovalController {
     const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
 
     if (applicantData) {
-      if (!approved) {
-        return res.render('media-account-approval', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),
-          applicantData: applicantData,
-          displayRadioError: true,
-        });
-      }
-
-      if (approved === 'Yes') {
-
-        if (await mediaAccountApplicationService.createAccountFromApplication(applicantId, req.user?.['emails'][0])) {
-          return res.render('media-account-approval-confirmation', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval-confirmation']),
-            applicantData: applicantData,
-          });
-        } else {
-          return res.render('media-account-approval', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),
-            applicantData: applicantData,
-            displayAzureError: true,
-          });
-        }
-      } else {
-        return res.redirect('/media-account-review?applicantId=' + applicantId);
-      }
+     return this.applicationFoundFlow(req, res, approved, applicantId, applicantData);
     }
     res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+  }
+
+  /**
+   * This handles the pages that render when submitting an approval, if the applicant has been found.
+   */
+  private async applicationFoundFlow(req, res, approved, applicantId, applicantData): Promise<void> {
+    if (!approved) {
+      return res.render('media-account-approval', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),
+        applicantData: applicantData,
+        displayRadioError: true,
+      });
+    }
+
+    if (approved === 'Yes') {
+      return this.approvalFlow(req, res, applicantId, applicantData);
+    } else {
+      return res.redirect('/media-account-review?applicantId=' + applicantId);
+    }
+  }
+
+  /**
+   * This handles the pages that render if the user has selected 'Approve' on the screen.
+   */
+  private async approvalFlow(req, res, applicantId, applicantData): Promise<void> {
+    if (await mediaAccountApplicationService.createAccountFromApplication(applicantId, req.user?.['emails'][0])) {
+      return res.render('media-account-approval-confirmation', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval-confirmation']),
+        applicantData: applicantData,
+      });
+    } else {
+      return res.render('media-account-approval', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),
+        applicantData: applicantData,
+        displayAzureError: true,
+      });
+    }
   }
 
 }
