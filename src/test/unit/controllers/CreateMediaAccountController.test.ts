@@ -54,11 +54,16 @@ const responseNoErrors = {
   },
 };
 
+const validFile = multerFile('testImage.png', 1000);
 const invalidFileType = multerFile('testImage.wrong', 1000);
 
-const formStub = sinon.stub(CreateAccountService.prototype, 'validateFormFields');
-formStub.withArgs(validBody).returns(responseNoErrors);
-formStub.withArgs(invalidBody, invalidFileType).returns(responseErrors);
+const validateFormFieldsStub = sinon.stub(CreateAccountService.prototype, 'validateFormFields');
+validateFormFieldsStub.withArgs(validBody, validFile).returns(responseNoErrors);
+validateFormFieldsStub.withArgs(invalidBody, invalidFileType).returns(responseErrors);
+
+const createMediaAccountStub = sinon.stub(CreateAccountService.prototype, 'createMediaAccount');
+
+sinon.stub(CreateAccountService.prototype, 'removeFile').returns('');
 
 describe('Create Media Account Controller', () => {
   const i18n = {'create-media-account': {}};
@@ -98,6 +103,32 @@ describe('Create Media Account Controller', () => {
       request.file = invalidFileType;
 
       responseMock.expects('render').once().withArgs('create-media-account');
+    });
+
+    it('should render same page if the response is not true', async () => {
+      const response = { render: () => {return '';}} as unknown as Response;
+      const responseMock = sinon.mock(response);
+      request.body = validBody;
+      request.file = validFile;
+
+      createMediaAccountStub.withArgs(validBody, validFile).returns(false);
+
+      responseMock.expects('render').once().withArgs('create-media-account');
+      await createMediaAccountController.post(request, response);
+      await responseMock.verify();
+    });
+
+    it('should redirect to the request submitted page if successful', async () => {
+      const response = { redirect: () => {return '';}} as unknown as Response;
+      const responseMock = sinon.mock(response);
+      request.body = validBody;
+      request.file = validFile;
+
+      createMediaAccountStub.withArgs(validBody, validFile).returns(true);
+
+      responseMock.expects('redirect').once().withArgs('account-request-submitted');
+      await createMediaAccountController.post(request, response);
+      await responseMock.verify();
     });
   });
 });
