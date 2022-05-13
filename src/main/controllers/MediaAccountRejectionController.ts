@@ -24,7 +24,10 @@ export default class MediaAccountRejectionController {
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
-
+    if(!req.query.applicantId){
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+      return;
+    }
     const applicantId = req.query['applicantId'];
     const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
     if (applicantData && req.body['reject-confirmation'] == 'Yes') {
