@@ -99,27 +99,41 @@ const adminResponseErrors = {
     href: '#user-role',
   },
 };
-const validPayload = {
+
+const validAdminPayload = {
   emailAddress: 'emailAddress',
   firstName: 'firstName',
+  lastName: 'lastName',
+  userRoleObject: { mapping: 'userRoleObject'},
+};
+
+const validAdminConvertedPayload = [{
+  email: 'emailAddress',
+  firstName: 'firstName',
   surname: 'lastName',
-  userRoleObject: { mapping: 'userRoleObject'},
+  role: 'userRoleObject',
+}];
+
+const validMediaPayload = {
+  emailAddress: 'a@b.com',
+  fullName: 'This is a full name',
 };
-const invalidPayload = {
-  emailAddress: '',
-  firstName: '',
-  surname: '',
-  userRoleObject: { mapping: 'userRoleObject'},
-};
+
+const validMediaConvertedPayload = [{
+  email: 'a@b.com',
+  firstName: 'This is a full name',
+  role: 'VERIFIED',
+}];
+
 const azureResponse = {'CREATED_ACCOUNTS': [
-  {
-    email: 'email',
-    provenanceUserId: 'azureAccountId',
-    roles: 'role',
-  },
-]};
+    {
+      email: 'email',
+      provenanceUserId: 'azureAccountId',
+      roles: 'role',
+    },
+  ]};
 const validEmail = 'joe@bloggs.com';
-const createAdminAccStub = sinon.stub(AccountManagementRequests.prototype, 'createAzureAccount');
+const createAzureAccountStub = sinon.stub(AccountManagementRequests.prototype, 'createAzureAccount');
 const createPIAccStub = sinon.stub(AccountManagementRequests.prototype, 'createPIAccount');
 
 describe('Create Account Service', () => {
@@ -208,21 +222,42 @@ describe('Create Account Service', () => {
 
   describe('createAdminAccount', () => {
     it('should return true if valid data is provided', async () => {
-      createAdminAccStub.resolves(azureResponse);
+      createAzureAccountStub.withArgs(validAdminConvertedPayload, validEmail).resolves(azureResponse);
       createPIAccStub.resolves(true);
-      const res = await createAccountService.createAdminAccount(validPayload, validEmail);
+      const res = await createAccountService.createAdminAccount(validAdminPayload, validEmail);
       expect(res).toEqual(true);
     });
 
     it('should return false if create azure account request fails', async () => {
-      createAdminAccStub.resolves(null);
-      expect(await createAccountService.createAdminAccount(invalidPayload, validEmail)).toEqual(false);
+      createAzureAccountStub.withArgs(validAdminConvertedPayload, validEmail).resolves(null);
+      expect(await createAccountService.createAdminAccount(validAdminPayload, validEmail)).toEqual(false);
     });
 
     it('should return false if create P&I account request fails', async () => {
-      createAdminAccStub.resolves(azureResponse);
+      createAzureAccountStub.withArgs(validAdminConvertedPayload, validEmail).resolves(azureResponse);
       createPIAccStub.resolves(false);
-      expect(await createAccountService.createAdminAccount(invalidPayload, validEmail)).toEqual(false);
+      expect(await createAccountService.createAdminAccount(validAdminPayload, validEmail)).toEqual(false);
     });
   });
+
+  describe('createMediaAccount', () => {
+    it('should return true if valid data is provided', async () => {
+      createAzureAccountStub.withArgs(validMediaConvertedPayload, validEmail).resolves(azureResponse);
+      createPIAccStub.resolves(true);
+      const res = await createAccountService.createMediaAccount(validMediaPayload, validEmail);
+      expect(res).toEqual(true);
+    });
+
+    it('should return false if create azure account request fails', async () => {
+      createAzureAccountStub.withArgs(validMediaConvertedPayload, validEmail).resolves(null);
+      expect(await createAccountService.createMediaAccount(validMediaPayload, validEmail)).toEqual(false);
+    });
+
+    it('should return false if create P&I account request fails', async () => {
+      createAzureAccountStub.withArgs(validMediaConvertedPayload, validEmail).resolves(azureResponse);
+      createPIAccStub.resolves(false);
+      expect(await createAccountService.createMediaAccount(validMediaPayload, validEmail)).toEqual(false);
+    });
+  });
+
 });
