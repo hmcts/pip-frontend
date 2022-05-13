@@ -12,6 +12,8 @@
   "sjpSubscription": "Single Justice Procedure cases",
   "hide" : "Hide Filters",
   "show": "Show Filters",
-  "ariaLabelNav": "No courts/tribunals are available for the letter"
+  "ariaLabelNav": "No courts/tribunals are available for the letter",
+  "jurisdiction": "Type of court or tribunal",
+  "region": "Region"
 }
 
