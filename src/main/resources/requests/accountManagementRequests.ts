@@ -1,11 +1,10 @@
-import {accountManagementApi, getAccountManagementCredentials} from './utils/axiosConfig';
+import {accountManagementApi, accountManagementApiUrl, getAccountManagementCredentials} from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
 
 const superagent = require('superagent');
 const logger = Logger.getLogger('requests');
 
 export class AccountManagementRequests {
-  public accountManagementUrl = process.env.ACCOUNT_MANAGEMENT_URL || 'https://pip-account-management.staging.platform.hmcts.net/';
 
   public async createAzureAccount(payload, requester): Promise<object | null> {
     try {
@@ -46,7 +45,7 @@ export class AccountManagementRequests {
   public async createMediaAccount(form): Promise<boolean> {
     try {
       const token = await getAccountManagementCredentials();
-      await superagent.post(`${this.accountManagementUrl}/application`)
+      await superagent.post(`${accountManagementApiUrl}/application`)
         .set('enctype', 'multipart/form-data')
         .set({'Authorization': 'Bearer ' + token.access_token})
         .attach('file', form.file.body, form.file.name)
@@ -63,6 +62,7 @@ export class AccountManagementRequests {
       } else {
         logger.error('failed to create media account with message', error.message);
       }
+      return false;
     }
   }
 }
