@@ -153,9 +153,6 @@ export default function(app: Application): void {
   app.get('/media-account-rejection', ensureAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.get);
   app.post('/media-account-rejection', ensureAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.post);
   app.get('/media-account-review/image',ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.getImage);
-  app.get('/media-account-review',ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.get);
-  app.post('/media-account-review/approve', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.approve);
-  app.post('/media-account-review/reject', ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.reject);
   app.get('/upload-confirmation', ensureAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
 
   app.get('/info', infoRequestHandler({
