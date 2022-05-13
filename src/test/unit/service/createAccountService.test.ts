@@ -2,13 +2,11 @@ import { CreateAccountService } from '../../../main/service/createAccountService
 import sinon from 'sinon';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 import { multerFile } from '../mocks/multerFile';
-import fs from 'fs';
 
 const createAccountService = new CreateAccountService();
 
 const validImage = multerFile('testImage.png', 1000);
 const invalidFileType = multerFile('testImage.wrong', 1000);
-const largeImage = multerFile('testImage.png', 3000000);
 
 const validBody = {
   fullName: 'foo',
@@ -129,38 +127,6 @@ const createPIAccStub = sinon.stub(AccountManagementRequests.prototype, 'createP
 const createMediaAccStub = sinon.stub(AccountManagementRequests.prototype, 'createMediaAccount');
 
 describe('Create Account Service', () => {
-  describe('isValidImageType', () => {
-    it('should return true for valid image type', () => {
-      expect(createAccountService.isValidImageType('foo.jpg')).toBe(true);
-    });
-
-    it('should return false for invalid image type', () => {
-      expect(createAccountService.isValidImageType('bar.gif')).toBe(false);
-    });
-
-    it('should return false for no image type', () => {
-      expect(createAccountService.isValidImageType('buzz')).toBe(false);
-    });
-  });
-
-  describe('validateImage', () => {
-    it('should return null if valid image is provided', () => {
-      expect(createAccountService.validateImage(validImage)).toBe(null);
-    });
-
-    it('should return error message if image is not provided', () => {
-      expect(createAccountService.validateImage(null)).toBe('Select a file to upload');
-    });
-
-    it('should return error message if unsupported format image is provided', () => {
-      expect(createAccountService.validateImage(invalidFileType)).toBe('The selected file must be a JPG, PNG, TIF or PDF');
-    });
-
-    it('should return error message if image is over 2MB', () => {
-      expect(createAccountService.validateImage(largeImage)).toBe('The selected file must be less than 2MB');
-    });
-  });
-
   describe('isValidEmail', () => {
     it('should return false if invalid email format is provided', () => {
       expect(createAccountService.isValidEmail('joe.bloggs@mail')).toBe(false);
@@ -251,21 +217,6 @@ describe('Create Account Service', () => {
       createMediaAccStub.resolves(false);
       const res = await createAccountService.createMediaAccount(invalidBody, validImage);
       expect(res).toEqual(false);
-    });
-  });
-
-  describe('removeFile', () => {
-    it('should remove a file', () => {
-      const stub = sinon.stub(fs, 'unlinkSync');
-      expect(createAccountService.removeFile(validImage)).toEqual(void 0);
-      stub.restore();
-    });
-
-    it('should error when failing to delete a file', () => {
-      const consoleSpy = jest.spyOn(console, 'error')
-        .mockImplementation(() => {'';});
-      createAccountService.removeFile(invalidFileType);
-      expect(consoleSpy).toHaveBeenCalledTimes(1);
     });
   });
 });

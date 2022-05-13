@@ -2,8 +2,10 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { ManualUploadService } from '../service/manualUploadService';
+import { FileHandlingService } from '../service/fileHandlingService';
 
 const manualUploadService = new ManualUploadService();
+const fileHandlingService = new FileHandlingService();
 
 export default class ManualUploadSummaryController {
   public get(req: PipRequest, res: Response): void {
@@ -26,7 +28,7 @@ export default class ManualUploadSummaryController {
     // TODO: remove this after AAD is fully functional AAD = oid, mock = id
     const userId = req.user['id'] ? req.user['id'] : req.user['oid'];
     const formData = (req.cookies?.formCookie) ? JSON.parse(req.cookies['formCookie']) : {};
-    formData.file = manualUploadService.readFile(formData.fileName);
+    formData.file = fileHandlingService.readFile(formData.fileName);
     formData.listTypeName = manualUploadService.getListItemName(formData.listType);
 
     if (req.query?.check === 'true') {
@@ -37,7 +39,7 @@ export default class ManualUploadSummaryController {
       });
     } else {
       const response = await manualUploadService.uploadPublication({...formData, userId}, true);
-      manualUploadService.removeFile(formData.fileName);
+      fileHandlingService.removeFile(formData.fileName);
       if (response) {
         res.clearCookie('formCookie');
         res.redirect('upload-confirmation');

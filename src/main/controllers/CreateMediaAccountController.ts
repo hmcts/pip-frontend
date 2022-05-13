@@ -2,8 +2,10 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { CreateAccountService } from '../service/createAccountService';
 import { cloneDeep } from 'lodash';
+import { FileHandlingService } from '../service/fileHandlingService';
 
 const createAccountService = new CreateAccountService();
+const fileHandlingService = new FileHandlingService();
 
 export default class CreateMediaAccountController {
   public get(req: PipRequest, res: Response): void {
@@ -16,7 +18,7 @@ export default class CreateMediaAccountController {
 
     if (isValidForm) {
       const response = await createAccountService.createMediaAccount(req.body, req.file);
-      createAccountService.removeFile(req.file);
+      fileHandlingService.removeFile(req.file['originalname']);
       if (response) {
         res.redirect('account-request-submitted');
       } else {

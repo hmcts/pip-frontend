@@ -1,6 +1,6 @@
-import { allowedImageTypes } from '../models/consts';
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
 import fs from 'fs';
+import { FileHandlingService } from './fileHandlingService';
 
 const adminRolesList = [
   {
@@ -29,6 +29,7 @@ const adminRolesList = [
   },
 ];
 const accountManagementRequests = new AccountManagementRequests();
+const fileHandlingService = new FileHandlingService();
 
 export class CreateAccountService {
   public validateFormFields(formValues: object, file: File): object {
@@ -46,7 +47,7 @@ export class CreateAccountService {
         href: '#employer',
       },
       fileUploadError: {
-        message: this.validateImage(file),
+        message: fileHandlingService.validateImage(file),
         href: '#file-upload',
       },
     };
@@ -111,39 +112,6 @@ export class CreateAccountService {
       message = isAdmin ? 'Enter email address' : 'Enter your email address';
     }
     return message;
-  }
-
-  validateImage(file: File): string {
-    let message = null;
-    if (this.isNotBlank(file)) {
-      if(!this.isValidImageType(file['originalname'])) {
-        message = 'The selected file must be a JPG, PNG, TIF or PDF';
-      }
-      if(!this.isFileCorrectSize(file.size)) {
-        message = 'The selected file must be less than 2MB';
-      }
-    } else {
-      message = 'Select a file to upload';
-    }
-    return message;
-  }
-
-  isValidImageType(imageName: string): boolean {
-    const imageType = imageName.split('.')[1]?.toLocaleLowerCase();
-    return allowedImageTypes.includes(imageType);
-  }
-
-  isFileCorrectSize(fileSize: number): boolean {
-    return fileSize <= 2000000;
-  }
-
-  public removeFile(file: File): void {
-    const filePath = './manualUpload/tmp/' + file['originalname'];
-    try {
-      fs.unlinkSync(filePath);
-    } catch (err) {
-      console.error('Error while deleting ' + file['originalname']);
-    }
   }
 
   formatCreateAdminAccountPayload(accountObject): any[] {

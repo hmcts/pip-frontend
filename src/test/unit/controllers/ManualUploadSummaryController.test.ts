@@ -4,13 +4,14 @@ import { Response } from 'express';
 import sinon from 'sinon';
 import ManualUploadSummaryController from '../../../main/controllers/ManualUploadSummaryController';
 import { ManualUploadService } from '../../../main/service/manualUploadService';
+import { FileHandlingService } from '../../../main/service/fileHandlingService';
 
 const mockData = {foo: 'blah', listType: 'SJP_PUBLIC_LIST', listTypeName: 'SJP Public List', language: 'English', languageName: 'English'};
 const manualUploadSummaryController = new ManualUploadSummaryController();
 const uploadStub = sinon.stub(ManualUploadService.prototype, 'uploadPublication');
 sinon.stub(ManualUploadService.prototype, 'formatPublicationDates').returns(mockData);
-sinon.stub(ManualUploadService.prototype, 'readFile').returns('');
-sinon.stub(ManualUploadService.prototype, 'removeFile').returns('');
+sinon.stub(FileHandlingService.prototype, 'readFile').returns('');
+sinon.stub(FileHandlingService.prototype, 'removeFile').returns('');
 uploadStub.withArgs({ ...mockData, file: '', userId: '1'}, true).resolves(false);
 
 describe('Manual upload summary controller', () => {

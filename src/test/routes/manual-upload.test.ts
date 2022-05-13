@@ -5,6 +5,7 @@ import sinon from 'sinon';
 import {request as expressRequest} from 'express';
 import {ManualUploadService} from '../../main/service/manualUploadService';
 import {multerFile} from '../unit/mocks/multerFile';
+import { FileHandlingService } from '../../main/service/fileHandlingService';
 
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
@@ -24,7 +25,7 @@ describe('Manual upload', () => {
     });
     test('should redirect to summary page', async () => {
       app.request['file'] = multerFile('testFile', 1000);
-      sinon.stub(ManualUploadService.prototype, 'validateFileUpload').returns(null);
+      sinon.stub(FileHandlingService.prototype, 'validateFileUpload').returns(null);
       sinon.stub(ManualUploadService.prototype, 'validateFormFields').resolves(null);
       sinon.stub(ManualUploadService.prototype, 'appendCourtId').resolves({});
       await request(app)

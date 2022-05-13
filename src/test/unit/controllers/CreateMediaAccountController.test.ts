@@ -4,6 +4,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import CreateMediaAccountController from '../../../main/controllers/CreateMediaAccountController';
 import { CreateAccountService } from '../../../main/service/createAccountService';
 import { multerFile } from '../mocks/multerFile';
+import { FileHandlingService } from '../../../main/service/fileHandlingService';
 
 const createMediaAccountController = new CreateMediaAccountController();
 const validBody = {
@@ -63,7 +64,7 @@ validateFormFieldsStub.withArgs(invalidBody, invalidFileType).returns(responseEr
 
 const createMediaAccountStub = sinon.stub(CreateAccountService.prototype, 'createMediaAccount');
 
-sinon.stub(CreateAccountService.prototype, 'removeFile').returns('');
+sinon.stub(FileHandlingService.prototype, 'removeFile').returns('');
 
 describe('Create Media Account Controller', () => {
   const i18n = {'create-media-account': {}};
