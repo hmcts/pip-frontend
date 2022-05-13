@@ -5,6 +5,7 @@ import cors  from 'cors';
 import os from 'os';
 import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
+import config from 'config';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
@@ -57,7 +58,8 @@ export default function(app: Application): void {
   function logOut(_req, res): void{
     res.clearCookie('session');
     logger.info('logout FE URL', FRONTEND_URL);
-    const B2C_URL = 'https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/';
+
+    const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
     const encodedSignOutRedirect = encodeURIComponent(`${FRONTEND_URL}/view-option`);
     logger.info('B2C_URL', B2C_URL);
     logger.info('encodedSignOutRedirect', encodedSignOutRedirect);

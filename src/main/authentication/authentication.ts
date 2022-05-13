@@ -14,11 +14,29 @@ const logger = Logger.getLogger('authentication');
  */
 function oidcSetup(): void {
   let clientSecret;
+  let clientId;
+  let identityMetadata;
+
   if(process.env.CLIENT_SECRET) {
     clientSecret = process.env.CLIENT_SECRET;
   } else {
-    clientSecret = config.get('secrets.pip-ss-kv.CLIENT_SECRET') as string;    }
+    clientSecret = config.get('secrets.pip-ss-kv.CLIENT_SECRET') as string;
+  }
+
+  if(process.env.CLIENT_ID) {
+    clientId = process.env.CLIENT_ID;
+  } else {
+    clientId = config.get('secrets.pip-ss-kv.CLIENT_ID') as string;
+  }
+
+  if(process.env.CONFIG_ENDPOINT) {
+    identityMetadata = process.env.CONFIG_ENDPOINT;
+  } else {
+    identityMetadata = config.get('secrets.pip-ss-kv.CONFIG_ENDPOINT') as string;
+  }
+
   logger.info('secret', clientSecret ? clientSecret.substring(0,5) : 'client secret not set!' );
+
   const AUTH_RETURN_URL = process.env.AUTH_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/login/return';
   const users = [];
 
@@ -43,8 +61,8 @@ function oidcSetup(): void {
   });
 
   passport.use(new OIDCStrategy({
-    identityMetadata:  authenticationConfig.IDENTITY_METADATA,
-    clientID: authenticationConfig.CLIENT_ID,
+    identityMetadata:  identityMetadata,
+    clientID: clientId,
     responseType: authenticationConfig.RESPONSE_TYPE,
     responseMode: authenticationConfig.RESPONSE_MODE,
     policy: authenticationConfig.POLICY,
