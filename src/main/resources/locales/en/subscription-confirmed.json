@@ -5,5 +5,7 @@
   "p1": "To continue, you can go to ",
   "link_text": "your account",
   "p2": " in order to:",
-  "list": ["add a new subscription","manage your current subscriptions","find a court or tribunal"]
+  "addEmailSubscription": "add a new email subscription",
+  "manageYourCurrentSubscriptions": "manage your current email subscriptions",
+  "findCourt": "find a court or tribunal"
 }
