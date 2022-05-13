@@ -42,7 +42,7 @@ describe('Media Account Rejection Controller', () => {
     responseMock.expects('render').once().withArgs('media-account-rejection',
       {
         ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-rejection']),
-        applicantData: dummyApplication
+        applicantData: dummyApplication,
       });
 
     await mediaAccountRejectionController.get(request, response);
