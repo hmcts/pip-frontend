@@ -55,13 +55,14 @@
         </div>
       </div>
 
-      {{ submitButton() }}
-  </div>
-  {% if noResultsError or invalidInputError %}
-    <div class="govuk-grid-row">
-      <div class="no_padding govuk-grid-column-full">
-        <h2 class="govuk-heading-s">{{ error.line1 }}</h2>
-        <p class="govuk-body">{{ error.line2 }}</p>
+    {{ submitButton(continueButton) }}
+    </div>
+    {% if noResultsError or invalidInputError %}
+      <div class="govuk-grid-row">
+        <div class="no_padding govuk-grid-column-full">
+          <h2 class="govuk-heading-s">{{ error.line1 }}</h2>
+          <p class="govuk-body">{{ error.line2 }}</p>
+        </div>
       </div>
     </div>
   {% endif %}
