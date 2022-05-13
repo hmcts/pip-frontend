@@ -91,7 +91,6 @@ describe('Account Management Requests', () => {
     });
   });
 
-
   describe('Get Media Application By ID', () => {
 
     const applicationID = '1234';
