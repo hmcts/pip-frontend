@@ -105,7 +105,7 @@ export default function(app: Application): void {
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/interstitial', app.locals.container.cradle.interstitialController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
-  app.post('/login/return', passport.authenticate(authType, { failureRedirect: '/view-option'}),
+  app.post('/login/return', passport.authenticate(authType, { failureRedirect: '/view-option'}), 
     (_req, res) => {adminAuthentication.isAdminUser(_req) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
   app.get('/logout', logOut);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
