@@ -126,12 +126,12 @@ const validMediaConvertedPayload = [{
 }];
 
 const azureResponse = {'CREATED_ACCOUNTS': [
-    {
-      email: 'email',
-      provenanceUserId: 'azureAccountId',
-      roles: 'role',
-    },
-  ]};
+  {
+    email: 'email',
+    provenanceUserId: 'azureAccountId',
+    roles: 'role',
+  },
+]};
 const validEmail = 'joe@bloggs.com';
 const createAzureAccountStub = sinon.stub(AccountManagementRequests.prototype, 'createAzureAccount');
 const createPIAccStub = sinon.stub(AccountManagementRequests.prototype, 'createPIAccount');
