@@ -54,7 +54,7 @@
             <h1 class="govuk-heading-l">{{ heading }}</h1>
                 {{ govukInput(inputProperties) }}
         </div>
-        {{ submitButton() }}
+        {{ submitButton(continueButton) }}
         {% if noResultsError %}
             <div class="govuk-grid-row">
                 <div class="no_padding govuk-grid-column-full">
