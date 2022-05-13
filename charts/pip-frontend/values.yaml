@@ -13,10 +13,12 @@ nodejs:
       secrets:
         - name: session-key
           alias: SESSION_SECRET
-        - name: otp-app-pip-frontend-id
+        - name: auto-pip-stg-pip-frontend-stg-id
           alias: CLIENT_ID
-        - name: otp-app-pip-frontend-pwd
+        - name: auto-pip-stg-pip-frontend-stg-pwd
           alias: CLIENT_SECRET
+        - name: b2c-config-endpoint
+          alias: CONFIG_ENDPOINT
         - name: b2c-tenant-id
           alias: TENANT_GUID
         - name: shared-storageaccount-connection-string

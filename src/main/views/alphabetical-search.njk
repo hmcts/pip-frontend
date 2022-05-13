@@ -33,8 +33,9 @@
                 {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
               {% endif %}
             {% endfor %}
+            {% set filterKey = jurisdiction if key == 'Jurisdiction' else region %}
             {% if checkedFilterItems| length > 0 %}
-              {% set _ = checkedFilters.push({heading: {text: key}, items: checkedFilterItems}) %}
+              {% set _ = checkedFilters.push({heading: {text: filterKey}, items: checkedFilterItems}) %}
             {% endif %}
             {% if toBeCreated %}
               <div class="moj-button-menu filters__innerButton" id="innerButton">
@@ -49,12 +50,12 @@
               {% set toBeCreated = false %}
             {% endif %}
             {{ govukCheckboxes({
-              idPrefix: key | replace(" ", "-"),
+              idPrefix: key,
               name: key,
               classes: "govuk-checkboxes--small",
               fieldset: {
                 legend: {
-                  text: key,
+                  text: filterKey,
                   classes: 'govuk-fieldset__legend--m'
                 }
               },
@@ -207,9 +208,12 @@
       let href = currentPath ? currentPath[0].replace(deleteVal, '') + filterToClear.replace('?', '&') : filterToClear
       return href.replace(',,', ',');
     }
+    // Replace apply filters button with localisation text as currently unconfigurable
+    document.getElementsByClassName("moj-filter-layout__filter")[0].getElementsByTagName("button")[0].innerHTML = '{{ applyFiltersButton }}';
 
+    //Add aria label to filter heading
     document.getElementsByClassName("moj-filter__header-title")[0]
       .getElementsByTagName("h2")[0]
-      .setAttribute("aria-label", "{{ filterLabel }}");
+      .setAttribute("aria-label", "{{ aria.filterLabel }}");
   </script>
 {% endblock %}
