@@ -2,7 +2,5 @@
   "RESPONSE_TYPE": "code",
   "RESPONSE_MODE": "form_post",
   "POLICY": "B2C_1_SignInUserFlow",
-  "ADMIN_POLICY": "B2C_1_SignInAdminUserFlow",
-  "IDENTITY_METADATA": "https://pib2csbox.b2clogin.com/pib2csbox.onmicrosoft.com/B2C_1_SignInUserFlow/v2.0/.well-known/openid-configuration",
-  "CLIENT_ID": "c7e6e2c6-c23c-48e8-b9f4-6bad25a95331"
+  "ADMIN_POLICY": "B2C_1_SignInAdminUserFlow"
 }
