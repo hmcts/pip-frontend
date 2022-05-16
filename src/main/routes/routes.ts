@@ -174,10 +174,6 @@ export default function(app: Application): void {
   app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
     (_req, res) => {res.redirect('/subscription-management');});
 
-  //TODO: To be deleted/modified post UAT with suitable solution
-  app.get('/warned-list', app.locals.container.cradle.warnedListController.get);
-  app.get('/standard-list', ensureAuthenticated, app.locals.container.cradle.standardListController.get);
-
   const healthCheckConfig = {
     checks: {
       // TODO: replace this sample check with proper checks for your application
