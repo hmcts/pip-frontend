@@ -18,6 +18,9 @@ describe('Manual upload', () => {
     });
   });
   describe('on POST', () => {
+    beforeEach(() => {
+      app.request['user'] = {emails: ['test@email.com']};
+    });
     test('should render manual upload page if errors present', async () => {
       await request(app)
         .post('/manual-upload')

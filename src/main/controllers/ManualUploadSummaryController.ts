@@ -25,8 +25,7 @@ export default class ManualUploadSummaryController {
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
-    // TODO: remove this after AAD is fully functional AAD = oid, mock = id
-    const userId = req.user['id'] ? req.user['id'] : req.user['oid'];
+    const userEmail = req.user['emails'][0];
     const formData = (req.cookies?.formCookie) ? JSON.parse(req.cookies['formCookie']) : {};
     formData.file = fileHandlingService.readFile(formData.fileName);
     formData.listTypeName = manualUploadService.getListItemName(formData.listType);
@@ -38,7 +37,7 @@ export default class ManualUploadSummaryController {
         fileUploadData: {...manualUploadService.formatPublicationDates(formData, false)},
       });
     } else {
-      const response = await manualUploadService.uploadPublication({...formData, userId}, true);
+      const response = await manualUploadService.uploadPublication({...formData, userEmail: userEmail}, true);
       fileHandlingService.removeFile(formData.fileName);
       if (response) {
         res.clearCookie('formCookie');
