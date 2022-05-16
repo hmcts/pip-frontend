@@ -36,6 +36,7 @@ jobs:
           azureClientSecret="${B2C_CLIENT_PWD}"
           azureTenant="${B2C_TENANT_ID}"
 
+          echo "Login to $azureTenant with $azureClientId - '$azureClientSecret'"
           az login --service-principal --username $azureClientId --password $azureClientSecret --tenant $azureTenant --allow-no-subscriptions
 
 
