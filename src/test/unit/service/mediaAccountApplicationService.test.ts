@@ -2,6 +2,7 @@ import sinon from 'sinon';
 import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
 import {CreateAccountService} from '../../../main/service/createAccountService';
+import {dummyApplication} from "../../helpers/testConsts";
 
 describe('Summary Of Publications Service', () => {
 
@@ -9,18 +10,6 @@ describe('Summary Of Publications Service', () => {
   const imageId = '12345';
   const adminEmail = 'a@b.com';
   const accountApplicationService = new MediaAccountApplicationService();
-
-  const dummyApplication = {
-    'id': '1234',
-    'fullName': 'Test Name',
-    'email': 'a@b.com',
-    'employer': 'Employer',
-    'image': '12345',
-    'imageName': 'ImageName',
-    'requestDate': '2022-05-09T00:00:01',
-    'status': 'PENDING',
-    'statusDate': '2022-05-09T00:00:01',
-  };
 
   const dummyAccount = {
     'emailAddress': 'a@b.com',
@@ -33,7 +22,7 @@ describe('Summary Of Publications Service', () => {
     'email': 'a@b.com',
     'employer': 'Employer',
     'image': '12345',
-    'imageName': 'ImageName',
+    'imageName': 'ImageName.jpg',
     'requestDate': '2022-05-09T00:00:01',
     'status': 'APPROVED',
     'statusDate': '2022-05-09T00:00:01',
@@ -45,7 +34,7 @@ describe('Summary Of Publications Service', () => {
     'email': 'a@b.com',
     'employer': 'Employer',
     'image': '12345',
-    'imageName': 'ImageName',
+    'imageName': 'ImageName.jpg',
     'requestDate': '09 May 2022',
     'status': 'PENDING',
     'statusDate': '2022-05-09T00:00:01',
@@ -99,14 +88,14 @@ describe('Summary Of Publications Service', () => {
   it('should return the expected image', async () => {
     mediaApplicationByImageStub.withArgs(imageId).resolves(dummyImage);
 
-    const applicationImage = await accountApplicationService.getApplicationImageById(imageId);
+    const applicationImage = await accountApplicationService.getImageById(imageId);
     expect(applicationImage).toBe(dummyImage);
   });
 
   it('should return null image ID', async () => {
     mediaApplicationByImageStub.withArgs(imageId).resolves(dummyImage);
 
-    const applicationImage = await accountApplicationService.getApplicationImageById(null);
+    const applicationImage = await accountApplicationService.getImageById(null);
     expect(applicationImage).toBe(null);
   });
 

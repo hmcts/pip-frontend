@@ -36,7 +36,7 @@ export default class MediaAccountApprovalController {
   /**
    * This handles the pages that render when submitting an approval, if the applicant has been found.
    */
-  private static async applicationFoundFlow(req, res, approved, applicantId, applicantData): Promise<void> {
+  private static applicationFoundFlow(req, res, approved, applicantId, applicantData): Promise<void> {
     if (!approved) {
       return res.render('media-account-approval', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),

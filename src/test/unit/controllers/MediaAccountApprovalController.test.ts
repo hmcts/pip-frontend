@@ -4,6 +4,7 @@ import sinon from 'sinon';
 import {mockRequest} from '../mocks/mockRequest';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
 import {cloneDeep} from 'lodash';
+import {dummyApplication} from "../../helpers/testConsts";
 
 const i18n = {'media-account-approval': {}, 'media-account-approval-confirmation': {}, 'error': {}};
 const mediaAccountApplicationStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
@@ -14,18 +15,6 @@ describe('Media Account Approval Controller', () => {
   const applicantId = '1234';
   const status = 'PENDING';
   const email = 'a@b.com';
-
-  const dummyApplication = {
-    'id': '1234',
-    'fullName': 'Test Name',
-    'email': 'a@b.com',
-    'employer': 'Employer',
-    'image': '12345',
-    'imageName': 'ImageName.jpg',
-    'requestDate': '2022-05-09T00:00:01',
-    'status': 'PENDING',
-    'statusDate': '2022-05-09T00:00:01',
-  };
 
   const mediaAccountApprovalController = new MediaAccountApprovalController();
   const response = { redirect: () => {return '';}, render: () => {return '';}, send: () => {return '';}, set: () => {return '';}} as unknown as Response;

@@ -3,27 +3,16 @@ import {Response} from 'express';
 import sinon from 'sinon';
 import {mockRequest} from '../mocks/mockRequest';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
+import {dummyApplication} from "../../helpers/testConsts";
 
 const i18n = {'media-account-review': {}, 'error': {}};
 const mediaAccountApplicationStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationById');
-const mediaAccountApplicationImageStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationImageById');
+const mediaAccountApplicationImageStub = sinon.stub(MediaAccountApplicationService.prototype, 'getImageById');
 
 describe('Media Account Review Controller Test', () => {
 
   const applicantId = '1234';
   const imageId = '12345';
-
-  const dummyApplication = {
-    'id': '1234',
-    'fullName': 'Test Name',
-    'email': 'a@b.com',
-    'employer': 'Employer',
-    'image': '12345',
-    'imageName': 'ImageName.jpg',
-    'requestDate': '2022-05-09T00:00:01',
-    'status': 'PENDING',
-    'statusDate': '2022-05-09T00:00:01',
-  };
 
   const dummyApplicationWithUnknownImageType = {
     'id': '1234',

@@ -10,7 +10,7 @@ export default class MediaAccountReviewController {
   public async getImage(req: PipRequest, res: Response): Promise<void> {
     const imageId = req.query['imageId'];
     const applicantId = req.query['applicantId'];
-    const image = await mediaAccountApplicationService.getApplicationImageById(imageId);
+    const image = await mediaAccountApplicationService.getImageById(imageId);
     const applicant = await mediaAccountApplicationService.getApplicationById(applicantId);
 
     if (image && applicant) {

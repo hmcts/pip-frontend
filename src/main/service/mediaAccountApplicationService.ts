@@ -30,7 +30,7 @@ export class MediaAccountApplicationService {
     return null;
   }
 
-  public async getApplicationImageById(imageId): Promise<Blob> {
+  public async getImageById(imageId): Promise<Blob> {
     if (imageId) {
       return accountManagementRequests.getMediaApplicationImageById(imageId);
     }
