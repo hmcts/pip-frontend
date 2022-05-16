@@ -12,14 +12,14 @@ const uploadStub = sinon.stub(ManualUploadService.prototype, 'uploadPublication'
 sinon.stub(FileHandlingService.prototype, 'readFile').returns('');
 sinon.stub(FileHandlingService.prototype, 'removeFile').returns(true);
 sinon.stub(ManualUploadService.prototype, 'getListItemName').returns('');
-uploadStub.withArgs({  ...mockCookie,  listTypeName: '', file: '', userId: '1' }, true).resolves(true);
-uploadStub.withArgs({ ...mockCookie,  listTypeName: '', file: '', userId: '2' }, true).resolves(false);
+uploadStub.withArgs({  ...mockCookie,  listTypeName: '', file: '', userEmail: 'test@email.com' }, true).resolves(true);
+uploadStub.withArgs({ ...mockCookie,  listTypeName: '', file: '', userEmail: '2@email.com' }, true).resolves(false);
 
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Manual upload summary', () => {
   beforeEach(() => {
-    app.request['user'] = {id: '1'};
+    app.request['user'] = {id: '1', emails: ['test@email.com']};
     app.request['cookies'] = {'formCookie': JSON.stringify(mockCookie)};
   });
 
@@ -45,7 +45,7 @@ describe('Manual upload summary', () => {
     });
 
     test('should return summary page if upload fails', async () => {
-      app.request['user'] = {id: '2'};
+      app.request['user'] = {emails: ['2@email.com']};
       await request(app).post(PAGE_URL)
         .send({data: 'invalid'})
         .expect((res) => expect(res.status).to.equal(200));

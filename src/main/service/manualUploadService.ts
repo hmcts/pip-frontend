@@ -153,6 +153,7 @@ export class ManualUploadService {
       'x-list-type': headers.listType,
       'x-court-id': headers.court.courtId,
       'x-content-date': headers['content-date-from'],
+      'x-issuer-email': headers.userEmail,
     };
   }
 }
