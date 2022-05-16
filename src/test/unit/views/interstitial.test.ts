@@ -158,7 +158,7 @@ describe('Interstitial page', () => {
 
     it('should display header', () => {
       const header = htmlRes.getElementsByClassName('govuk-heading-l');
-      expect(header[0].innerHTML).contains('Court and tribunal hearings', 'Could not find correct value in header');
+      expect(header[0].innerHTML).contains('Gwrandawiadau llys a thribiwnlys', 'Could not find correct value in header');
     });
 
     it('should display continue button',  () => {
@@ -168,7 +168,7 @@ describe('Interstitial page', () => {
 
     it('should display Welsh service message', () => {
       const message = htmlRes.getElementsByClassName('govuk-body');
-      expect(message[4].innerHTML).contains('Mae’r canllaw hwn hefyd ar gael yn',
+      expect(message[4].innerHTML).contains('Mae\'r gwasanaeth hwn hefyd ar gael yn',
         'Could not find language message');
     });
   });
@@ -178,6 +178,7 @@ describe('Cookie banner display', () => {
   const cookieBody2 = 'We’d also like to use analytics cookies so we can understand how you use the service and make improvements.';
 
   beforeAll(async () => {
+    app.request['lng'] = 'en';
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });

@@ -151,4 +151,20 @@ describe('Authentication', () => {
     verifyFunction(mockUserBody, mockCallback);
     expect(mockCallback.mock.calls.length).to.eql(1);
   });
+
+  it('Test that the call is read from the env variables when passed in', () => {
+
+    process.env.CLIENT_ID = '2';
+    process.env.CLIENT_SECRET = 'client_secret';
+    process.env.CONFIG_ENDPOINT = 'https://localhost:8080';
+
+    authentication('true');
+    expect(passport._strategies['azuread-openidconnect']._options.identityMetadata)
+      .to.contain('https://localhost:8080');
+    expect(passport._strategies['azuread-openidconnect']._options.clientID)
+      .to.eql('2');
+    expect(passport._strategies['azuread-openidconnect']._options.clientSecret)
+      .to.eq('client_secret');
+  });
+
 });

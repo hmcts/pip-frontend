@@ -1,19 +1,50 @@
 {
-  "serviceNameText": "Court and tribunal hearings",
-  "signInText": "Sign in",
+  "serviceNameText": "Gwrandawiadau llys a thribiwnlys",
+  "signInText": "Mewngofnodi",
   "signOutText": "Sign out",
-  "help": "Help",
-  "betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/ET_Feedback/?pageurl=\">adborth</a> yn ein helpu i’w wella",
-  "privacyPolicy": "Privacy policy",
-  "language": "English",
-  "cookiePolicy": "Cookie policy",
-  "accessibilityStatement": "Accessibility statement",
-  "contact": "Contact",
-  "tc": "Terms and conditions",
   "navLinks": {
-    "link1": "Home",
-    "link2": "Sign in",
+    "link1": "Hafan",
+    "link2": "Mewngofnodi",
     "link3": "Sign out",
-    "link4": "Subscriptions"
-  }
+    "link4": "Email subscriptions",
+    "link5": "Dod o hyd i lys neu dribiwnlys",
+    "link6": "Achosion Gweithdrefn Un Ynad"
+  },
+"betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/ET_Feedback/?pageurl=\">adborth</a> yn ein helpu i’w wella",
+  "footerLinks": [
+    {
+      "text": "Gymorth",
+      "href": "https://www.gov.uk/help"
+    },
+    {
+      "text": "Preifatrwydd",
+      "href": "https://www.gov.uk/help/privacy-notice"
+    },
+    {
+      "text": "Cwcis",
+      "href": "/cookie-policy"
+    },
+    {
+      "text": "Datganiad hygyrchedd",
+      "href": "https://www.gov.uk/help/accessibility-statement"
+    },
+    {
+      "text": "Cysylltwch",
+      "href": "https://www.gov.uk/contact"
+    },
+    {
+      "text": "Telerau ac amodau",
+      "href": "https://www.gov.uk/help/terms-conditions"
+    },
+    {
+      "text": "Saesneg",
+      "href": "https://www.gov.uk/english"
+    },
+    {
+      "text": "Gwasanaeth Digidol y Llywodraeth",
+      "href": "https://www.gov.uk/government/organisations/government-digital-service"
+    }
+  ],
+  "continueButton": "Parhau",
+  "backToTop": "Yn ôl i frig y dudalen"
 }
