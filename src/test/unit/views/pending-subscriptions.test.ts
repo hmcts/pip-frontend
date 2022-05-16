@@ -103,10 +103,12 @@ describe('Pending Subscriptions Page', () => {
     });
 
     it('should display add another email subscription link', () => {
-      const addAnotherLink = htmlRes.getElementsByClassName('govuk-!-text-align-left')[0];
+      const addAnotherLink = htmlRes.getElementsByTagName('a')[12];
       expect(addAnotherLink.innerHTML).contains('Add another email Subscription',
         'Could not find add another email subscription link');
-      expect(addAnotherLink.querySelector('a').getAttribute('href')).equal('/subscription-add');
+
+      expect(addAnotherLink.getAttribute('href')).equal('/subscription-add',
+        'Add another link does not contain href');
     });
   });
 
