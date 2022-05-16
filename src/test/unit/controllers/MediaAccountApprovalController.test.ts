@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import {mockRequest} from '../mocks/mockRequest';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
 import {cloneDeep} from 'lodash';
-import {dummyApplication} from "../../helpers/testConsts";
+import {dummyApplication} from '../../helpers/testConsts';
 
 const i18n = {'media-account-approval': {}, 'media-account-approval-confirmation': {}, 'error': {}};
 const mediaAccountApplicationStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');

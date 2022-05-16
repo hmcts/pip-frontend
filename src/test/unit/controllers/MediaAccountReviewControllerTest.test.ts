@@ -3,7 +3,7 @@ import {Response} from 'express';
 import sinon from 'sinon';
 import {mockRequest} from '../mocks/mockRequest';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
-import {dummyApplication} from "../../helpers/testConsts";
+import {dummyApplication} from '../../helpers/testConsts';
 
 const i18n = {'media-account-review': {}, 'error': {}};
 const mediaAccountApplicationStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationById');

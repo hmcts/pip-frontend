@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
 import {CreateAccountService} from '../../../main/service/createAccountService';
-import {dummyApplication} from "../../helpers/testConsts";
+import {dummyApplication} from '../../helpers/testConsts';
 
 describe('Summary Of Publications Service', () => {
 

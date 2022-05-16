@@ -4,7 +4,7 @@ import {expect} from 'chai';
 import { MediaAccountApplicationService } from '../../main/service/mediaAccountApplicationService';
 import sinon from 'sinon';
 import {request as expressRequest} from 'express';
-import {dummyApplication} from "../helpers/testConsts";
+import {dummyApplication} from '../helpers/testConsts';
 
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
