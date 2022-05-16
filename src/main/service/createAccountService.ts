@@ -35,15 +35,15 @@ export class CreateAccountService {
   public validateFormFields(formValues: object, file: File): object {
     return {
       nameError: {
-        message: this.isNotBlank(formValues['fullName']) ? null : 'Enter your full name',
+        message: this.validateMediaFullName(formValues['fullName']),
         href: '#fullName',
       },
       emailError: {
-        message: this.validateEmail(formValues['emailAddress']),
+        message: this.validateMediaEmailAddress(formValues['emailAddress']),
         href: '#emailAddress',
       },
       employerError: {
-        message: this.isNotBlank(formValues['employer']) ? null : 'Enter your employer',
+        message: this.validateMediaEmployer(formValues['employer']),
         href: '#employer',
       },
       fileUploadError: {
@@ -97,19 +97,59 @@ export class CreateAccountService {
     return !!(input);
   }
 
+  isDoubleSpaced(input): boolean {
+    return input.indexOf('  ') !== -1;
+  }
+
+  isStartingWithSpace(input): boolean {
+    return input.startsWith(' ');
+  }
+
   isValidEmail(email: string): boolean {
     const emailRegex = /^[a-zA-Z0-9._-]{0,40}@[a-zA-Z0-9.-]{0,40}\.[a-zA-Z]{2,5}$/;
     return emailRegex.test(email);
+  }
+
+  validateMediaFullName(input): string {
+    if(!this.isNotBlank(input)) {
+      return 'There is a problem - Full name field must be populated';
+    } else if(this.isStartingWithSpace(input)) {
+      return 'There is a problem - Full name field must not start with a space';
+    } else if(this.isDoubleSpaced(input)) {
+      return 'There is a problem - Full name field must not contain double spaces';
+    } else if((input.split(' ').length - 1) < 1) {
+      return 'There is a problem - Your full name will be needed to support your application for an account';
+    }
+  }
+
+  validateMediaEmailAddress(input): string {
+    if(this.isStartingWithSpace(input)) {
+      return 'There is a problem - Email address field cannot start with a space';
+    } else if(this.isDoubleSpaced(input)) {
+      return 'There is a problem - Email address field cannot contain double spaces';
+    } else {
+      return this.validateEmail(input);
+    }
+  }
+
+  validateMediaEmployer(input): string {
+    if(!this.isNotBlank(input)) {
+      return 'There is a problem - Your employers name will be needed to support your application for an account';
+    } else if(this.isStartingWithSpace(input)) {
+      return 'There is a problem - Employer field cannot start with a space';
+    } else if(this.isDoubleSpaced(input)) {
+      return 'There is a problem - Employer field cannot contain double spaces';
+    }
   }
 
   validateEmail(email: string, isAdmin = false): string {
     let message = null;
     if (this.isNotBlank(email)) {
       if (!this.isValidEmail(email)) {
-        message = 'Enter an email address in the correct format, like name@example.com';
+        message = 'There is a problem - Enter an email address in the correct format, like name@example.com';
       }
     } else {
-      message = isAdmin ? 'Enter email address' : 'Enter your email address';
+      message = isAdmin ? 'Enter email address' : 'There is a problem - Email address field must be populated';
     }
     return message;
   }

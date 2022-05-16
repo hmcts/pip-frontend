@@ -8,11 +8,11 @@ export class FileHandlingService {
         if (this.isFileCorrectSize(file.size)) {
           return null;
         }
-        return 'The selected file must be less than 2MB';
+        return 'There is a problem - ID evidence needs to be less than 2Mbs';
       }
-      return 'The selected file must be a JPG, PNG, TIF or PDF';
+      return 'There is a problem - ID evidence must be a JPG, PDF or PNG';
     }
-    return 'Select a file to upload';
+    return 'There is a problem - We will need ID evidence to support your application for an account';
   }
 
   validateFileUpload(file: File): string {

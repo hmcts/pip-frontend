@@ -12,6 +12,5 @@ export const allowedImageTypes = [
   'jpg',
   'jpeg',
   'png',
-  'tiff',
   'pdf',
 ];

@@ -21,15 +21,18 @@ describe('File handling service', () => {
     });
 
     it('should return error message if image is not provided', () => {
-      expect(fileHandlingService.validateImage(null)).toBe('Select a file to upload');
+      expect(fileHandlingService.validateImage(null))
+        .toBe('There is a problem - We will need ID evidence to support your application for an account');
     });
 
     it('should return error message if unsupported format image is provided', () => {
-      expect(fileHandlingService.validateImage(invalidFileType)).toBe('The selected file must be a JPG, PNG, TIF or PDF');
+      expect(fileHandlingService.validateImage(invalidFileType))
+        .toBe('There is a problem - ID evidence must be a JPG, PDF or PNG');
     });
 
     it('should return error message if image is over 2MB', () => {
-      expect(fileHandlingService.validateImage(largeImage)).toBe('The selected file must be less than 2MB');
+      expect(fileHandlingService.validateImage(largeImage))
+        .toBe('There is a problem - ID evidence needs to be less than 2Mbs');
     });
   });
 
