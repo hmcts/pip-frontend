@@ -45,7 +45,7 @@ export class AccountManagementRequests {
   public async createMediaAccount(form): Promise<boolean> {
     try {
       const token = await getAccountManagementCredentials();
-      await superagent.post(`${accountManagementApiUrl}/application`)
+      await superagent.post(`${accountManagementApiUrl}application`)
         .set('enctype', 'multipart/form-data')
         .set({'Authorization': 'Bearer ' + token.access_token})
         .attach('file', form.file.body, form.file.name)
