@@ -120,6 +120,7 @@ export class CreateAccountService {
     } else if((input.split(' ').length - 1) < 1) {
       return 'There is a problem - Your full name will be needed to support your application for an account';
     }
+    return null;
   }
 
   validateMediaEmailAddress(input): string {
@@ -140,6 +141,7 @@ export class CreateAccountService {
     } else if(this.isDoubleSpaced(input)) {
       return 'There is a problem - Employer field cannot contain double spaces';
     }
+    return null;
   }
 
   validateEmail(email: string, isAdmin = false): string {

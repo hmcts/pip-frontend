@@ -50,7 +50,7 @@ const responseErrors = {
 };
 const responseNoErrors = {
   nameError: {
-    message:  undefined,
+    message:  null,
     href: '#fullName',
   },
   emailError: {
@@ -58,7 +58,7 @@ const responseNoErrors = {
     href: '#emailAddress',
   },
   employerError: {
-    message: undefined,
+    message: null,
     href: '#employer',
   },
   fileUploadError: {
@@ -169,8 +169,8 @@ describe('Create Account Service', () => {
   });
 
   describe('validateMediaFullName', () => {
-    it('should return undefined if no errors', () => {
-      expect(createAccountService.validateMediaFullName('test user')).toBeUndefined();
+    it('should return null if no errors', () => {
+      expect(createAccountService.validateMediaFullName('test user')).toBeNull();
     });
 
     it('should return error if name is not populated', () => {
@@ -211,8 +211,8 @@ describe('Create Account Service', () => {
   });
 
   describe('validateMediaEmployer', () => {
-    it('should return undefined if no errors', () => {
-      expect(createAccountService.validateMediaEmployer('Test Employer')).toBeUndefined();
+    it('should return null if no errors', () => {
+      expect(createAccountService.validateMediaEmployer('Test Employer')).toBeNull();
     });
 
     it('should return error if employer starts with a space', () => {
