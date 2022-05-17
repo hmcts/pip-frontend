@@ -13,8 +13,10 @@ const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
 const accordionClass='govuk-accordion__section-button';
+const siteAddressClass = 'site-address';
 
 const courtName = 'Abergavenny Magistrates\' Court';
+const expectedHeader = 'Family Daily Cause List:<br>In the ' + courtName;
 const summaryHeadingText = 'Important information';
 const accordionHeading = '1, Before: Mr Presiding';
 const applicantRespondent = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
@@ -42,7 +44,7 @@ describe('Family Daily Cause List page', () => {
 
   it('should display header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
-    expect(header[0].innerHTML).contains(courtName, 'Could not find the header');
+    expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
   });
 
   it('should display summary',  () => {
@@ -63,6 +65,42 @@ describe('Family Daily Cause List page', () => {
   it('should display court contact number summary paragraph',  () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
     expect(summary[0].innerHTML).contains('01772 844700', 'Could not find the court name in summary text');
+  });
+
+  it('should display the site name for both sections',  () => {
+    const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+    expect(siteAddress[0].innerHTML).contains('Court A', 'Could not find the site name in section 1');
+    expect(siteAddress[6].innerHTML).contains('Court B', 'Could not find the site name in section 2');
+  });
+
+  it('should display the site address line 1 for both sections',  () => {
+    const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+    expect(siteAddress[1].innerHTML).contains('Address Line 1', 'Could not find the address line 1 in section 1');
+    expect(siteAddress[7].innerHTML).contains('Address Line 1', 'Could not find the address line 1 in section 2');
+  });
+
+  it('should display the site address line 2 for both sections',  () => {
+    const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+    expect(siteAddress[2].innerHTML).contains('Address Line 2', 'Could not find the address line 2 in section 1');
+    expect(siteAddress[8].innerHTML).contains('Address Line 2', 'Could not find the address line 2 in section 2');
+  });
+
+  it('should display the site town for both sections',  () => {
+    const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+    expect(siteAddress[3].innerHTML).contains('Town A', 'Could not find the town in section 1');
+    expect(siteAddress[9].innerHTML).contains('Town B', 'Could not find the town in section 2');
+  });
+
+  it('should display the site county for both sections',  () => {
+    const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+    expect(siteAddress[4].innerHTML).contains('County A', 'Could not find the county in section 1');
+    expect(siteAddress[10].innerHTML).contains('County B', 'Could not find the county in section 2');
+  });
+
+  it('should display the site postcode for both sections',  () => {
+    const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+    expect(siteAddress[5].innerHTML).contains('AA1 AA1', 'Could not find the postcode in section 1');
+    expect(siteAddress[11].innerHTML).contains('BB1 BB1', 'Could not find the postcode in section 2');
   });
 
   it('should display accordion heading',  () => {

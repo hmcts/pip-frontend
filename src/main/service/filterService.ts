@@ -1,8 +1,7 @@
 import {Court} from '../models/court';
 import {CourtService} from './courtService';
 
-const jurisdictionFilterName = 'Type of court or tribunal';
-const filterNames = [{courtField: 'Jurisdiction', filterName: jurisdictionFilterName}, {courtField:'Region', filterName: 'Region'}];
+const filterNames = ['Jurisdiction', 'Region'];
 
 const courtService = new CourtService();
 
@@ -15,9 +14,9 @@ export class FilterService {
     const filterValueOptions = {};
     let finalFilterValueOptions = [];
     filterNames.forEach(filter => {
-      filterValueOptions[filter.filterName] = {};
+      filterValueOptions[filter] = {};
       finalFilterValueOptions = [];
-      const filteredValue = this.getFilterValueOptions(filter.courtField, list);
+      const filteredValue = this.getFilterValueOptions(filter, list);
       filteredValue.forEach(value => {
         if(Array.isArray(value)) {
           const array = [...value];
@@ -34,7 +33,7 @@ export class FilterService {
       });
 
       [...finalFilterValueOptions].sort().forEach(value => {
-        filterValueOptions[filter.filterName][value] = {
+        filterValueOptions[filter][value] = {
           value: value,
           text: value,
           checked: selectedFilters.includes(value),
@@ -61,14 +60,14 @@ export class FilterService {
     let regionFilter = '';
     filterNames.forEach(filter => {
       if(body[filter]) {
-        if (filter === jurisdictionFilterName) {
+        if (filter === 'Jurisdiction') {
           jurisdictionFilter = body[filter].toString();
         } else {
           regionFilter = body[filter].toString();
         }
       }
     });
-    filterValueOptions[jurisdictionFilterName] = jurisdictionFilter;
+    filterValueOptions['Jurisdiction'] = jurisdictionFilter;
     filterValueOptions['Region'] = regionFilter;
 
     return filterValueOptions;
@@ -83,11 +82,11 @@ export class FilterService {
     if(filterValues.length > 0) {
       filterNames.forEach(filter => {
         filterValues.forEach(value => {
-          Object.keys(filterOptions[filter.filterName]).forEach(filterValue => {
-            if (filterOptions[filter.filterName][filterValue].value === value) {
-              if (filter.filterName === jurisdictionFilterName) {
+          Object.keys(filterOptions[filter]).forEach(filterValue => {
+            if (filterOptions[filter][filterValue].value === value) {
+              if (filter === 'Jurisdiction') {
                 jurisdictionFilter.push(value);
-              } else if (filter.filterName === 'Region') {
+              } else if (filter === 'Region') {
                 regionFilter.push(value);
               }
             }
@@ -96,7 +95,7 @@ export class FilterService {
       });
     }
 
-    filterValueOptions[jurisdictionFilterName] = jurisdictionFilter.toString();
+    filterValueOptions['Jurisdiction'] = jurisdictionFilter.toString();
     filterValueOptions['Region'] = regionFilter.toString();
 
     return filterValueOptions;

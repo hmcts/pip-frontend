@@ -53,7 +53,7 @@ module.exports = {
   SecondItemResult: 'tr.govuk-table__row:nth-child(2) > td:nth-child(2) > a:nth-child(1)',
   LastItemResult: 'tbody > tr.govuk-table__row:last-child > td > a',
   SJPLink: '#sjp-link',
-  JurisdictionFilter1: '#Type-of-court-or-tribunal',
+  JurisdictionFilter1: '#Jurisdiction',
   RegionFilter1: '#Region',
   RegionFilter2: '#Region-2',
 

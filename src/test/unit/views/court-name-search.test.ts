@@ -83,7 +83,7 @@ describe('Court Name Search Page', () => {
   });
 
   it('should contain 3 jurisdiction checkboxes', () => {
-    const checkboxes = htmlRes.getElementsByName('Type of court or tribunal');
+    const checkboxes = htmlRes.getElementsByName('Jurisdiction');
     expect(checkboxes.length).equal(3, 'Could not find jurisdiction checkboxes');
   });
 
