@@ -412,7 +412,7 @@ describe('Verified user', () => {
 
       it('should subscribe', async () => {
         subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
-        expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
+        expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription(s) confirmed');
       });
     });
 
