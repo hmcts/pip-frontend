@@ -2,6 +2,7 @@ import { CommonPage } from './Common.page';
 import { ManualUploadPage } from './ManualUpload.page';
 import { CreateAdminAccountPage } from './CreateAdminAccount.page';
 import { RemoveListSearchPage } from './RemoveListSearch.page';
+import {ViewOptionPage} from './ViewOption.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -31,5 +32,14 @@ export class AdminDashboardPage extends CommonPage {
 
     await $(helpers.RemoveContent).click();
     return new RemoveListSearchPage();
+  }
+
+  async clickSignOut(): Promise<ViewOptionPage> {
+    await $(helpers.SignedInBannerSignOut).catch(() => {
+      console.log(`${helpers.SignedInBannerSignOut} not found`);
+    });
+
+    await $(helpers.SignedInBannerSignOut).click();
+    return new ViewOptionPage();
   }
 }
