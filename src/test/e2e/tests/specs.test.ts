@@ -285,7 +285,7 @@ describe('Verified user', () => {
   describe('add subscription', async () => {
     it('should click on Email Subscriptions and navigate to subscription management page', async () => {
       subscriptionManagementPage = await accountHomePage.clickSubscriptionsCard();
-      expect(await subscriptionManagementPage.getPageTitle()).toBe('Your subscriptions');
+      expect(await subscriptionManagementPage.getPageTitle()).toBe('Your email subscriptions');
     });
 
     it('should navigate to add subscription page on button click', async () => {
@@ -525,7 +525,7 @@ describe('Verified user', () => {
 
     it('should click on the Email subscriptions navigation link and take user to subscription management page', async () => {
       subscriptionManagementPage = await accountHomePage.clickEmailSubscriptionsNavLink();
-      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
+      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your email subscriptions');
     });
 
     it('should click on the Find a court or tribunal navigation link and take user to the search page', async () => {
