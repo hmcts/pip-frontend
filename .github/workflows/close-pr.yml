@@ -23,8 +23,9 @@ jobs:
       - uses: Azure/get-keyvault-secrets@v1
         with: 
           keyvault: "pip-bootstrap-stg-kv"
-          secrets: 'b2c-tenant-id, b2c-client-id, b2c-client-secret'
+          secrets: 'b2c-jenkins-tenant-id, b2c-jenkins-client-id, b2c-jenkins-client-secret'
         id: bootstrapKv
+
       - run: |
           newUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/login/return"
           targetAppName="pip-frontend-stg"
@@ -33,8 +34,8 @@ jobs:
           azureClientSecret="${B2C_CLIENT_PWD}"
           azureTenant="${B2C_TENANT_ID}"
 
-          az login --service-principal --username $azureClientId --password $azureClientSecret --tenant $azureTenant --allow-no-subscriptions
-
+          echo "Login to $azureTenant with $azureClientId"
+          az login --service-principal --username $azureClientId -p=$azureClientSecret --tenant $azureTenant --allow-no-subscriptions
 
           appId=$(az ad app list --all --filter "displayname eq '${targetAppName}'" --query "[0].appId" -o tsv --only-show-errors )
           appId=${appId//[$'\t\r\n']/}
@@ -78,6 +79,6 @@ jobs:
 
         env:
           PR_NUMBER: ${{ github.event.number }}
-          B2C_TENANT_ID: ${{ steps.bootstrapKv.outputs.b2c-tenant-id }}
-          B2C_CLIENT_ID: ${{ steps.bootstrapKv.outputs.b2c-client-id }}
-          B2C_CLIENT_PWD: ${{ steps.bootstrapKv.outputs.b2c-client-secret }}
+          B2C_TENANT_ID: ${{ steps.bootstrapKv.outputs.b2c-jenkins-tenant-id }}
+          B2C_CLIENT_ID: ${{ steps.bootstrapKv.outputs.b2c-jenkins-client-id }}
+          B2C_CLIENT_PWD: ${{ steps.bootstrapKv.outputs.b2c-jenkins-client-secret }}
