@@ -27,6 +27,10 @@
     },
     html: betaHeading
   }) }}
+  <script>
+    var link = document.getElementById("betalink")
+    link.href= link.href + window.location.pathname.substring(1)
+  </script>
     {% set listItems = [
         {
             text: navLinks.link1,

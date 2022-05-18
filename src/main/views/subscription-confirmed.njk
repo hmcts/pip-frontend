@@ -13,9 +13,9 @@
   <div class="parent-box">
   <p class="govuk-body">{{ p1 }}<a href="/account-home">{{ link_text }}</a>{{ p2 }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    {% for item in list %}
-      <li>{{ item }}</li>
-    {% endfor %}
+    <li><a href="/subscription-add" class="govuk-link">{{ addEmailSubscription }}</a></li>
+    <li><a href="/subscription-management" class="govuk-link">{{ manageYourCurrentSubscriptions }}</a></li>
+    <li>{{ findCourt }}</li>
   </ul>
   {{ super() }}
   </div>
