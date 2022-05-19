@@ -38,6 +38,7 @@ const azureEndpoint = '/account/add/azure';
 const piEndpoint = '/account/add/pi';
 const authorisedListEndpointWithUserId = '/account/isAuthorised/123/CIVIL_DAILY_CAUSE_LIST';
 const authorisedListEndpointWithoutUserId = '/account/isAuthorised/CIVIL_DAILY_CAUSE_LIST';
+const userInfoEndpoint = '/account/provenance/PI_AAD/testAzureId';
 const postStub = sinon.stub(accountManagementApi, 'post');
 const getStub = sinon.stub(accountManagementApi, 'get');
 
@@ -135,6 +136,32 @@ describe('Account Management Requests', () => {
       getStub.withArgs(authorisedListEndpointWithUserId).resolves(Promise.reject(errorMessage));
       const response = await accountManagementRequests.isAuthorisedToViewList('123', null);
       expect(response).toBe(false);
+    });
+  });
+
+  describe('Get User information from P&I database', () => {
+    it('should return user information on success', async () => {
+      getStub.withArgs(userInfoEndpoint).resolves({data: {mockUserInfo}});
+      const response = await accountManagementRequests.getUserInfo('PI_AAD', 'testAzureId');
+      expect(response['mockUserInfo']).toEqual(mockUserInfo);
+    });
+
+    it('should return null on error request', async () => {
+      getStub.withArgs(userInfoEndpoint).resolves(Promise.reject(errorRequest));
+      const response = await accountManagementRequests.getUserInfo(null, 'testAzureId');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error response', async () => {
+      getStub.withArgs(userInfoEndpoint).resolves(Promise.reject(errorResponse));
+      const response = await accountManagementRequests.getUserInfo('test', 'testAzureId');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error message', async () => {
+      getStub.withArgs(userInfoEndpoint).resolves(Promise.reject(errorMessage));
+      const response = await accountManagementRequests.getUserInfo('test1', 'test2');
+      expect(response).toBe(null);
     });
   });
 });
