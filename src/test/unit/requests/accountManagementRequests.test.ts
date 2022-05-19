@@ -113,55 +113,14 @@ describe('Account Management Requests', () => {
       const response = await accountManagementRequests.isAuthorisedToViewList(null, 'SJP_PRESS_LIST');
       expect(response).toBe(false);
     });
-
-    it('should return false on error request', async () => {
-      getStub.withArgs(authorisedListEndpointWithUserId).resolves(Promise.reject(errorRequest));
-      const response = await accountManagementRequests.isAuthorisedToViewList('123', null);
-      expect(response).toBe(false);
-    });
-
-    it('should return false on error request', async () => {
-      getStub.withArgs(authorisedListEndpointWithoutUserId).resolves(Promise.reject(errorRequest));
-      const response = await accountManagementRequests.isAuthorisedToViewList(null, null);
-      expect(response).toBe(false);
-    });
-
-    it('should return false on error response', async () => {
-      getStub.withArgs(authorisedListEndpointWithUserId).resolves(Promise.reject(errorResponse));
-      const response = await accountManagementRequests.isAuthorisedToViewList('123', null);
-      expect(response).toBe(false);
-    });
-
-    it('should return false on error message', async () => {
-      getStub.withArgs(authorisedListEndpointWithUserId).resolves(Promise.reject(errorMessage));
-      const response = await accountManagementRequests.isAuthorisedToViewList('123', null);
-      expect(response).toBe(false);
-    });
   });
 
   describe('Get User information from P&I database', () => {
+
     it('should return user information on success', async () => {
       getStub.withArgs(userInfoEndpoint).resolves({data: {mockUserInfo}});
       const response = await accountManagementRequests.getUserInfo('PI_AAD', 'testAzureId');
       expect(response['mockUserInfo']).toEqual(mockUserInfo);
-    });
-
-    it('should return null on error request', async () => {
-      getStub.withArgs(userInfoEndpoint).resolves(Promise.reject(errorRequest));
-      const response = await accountManagementRequests.getUserInfo(null, 'testAzureId');
-      expect(response).toBe(null);
-    });
-
-    it('should return null on error response', async () => {
-      getStub.withArgs(userInfoEndpoint).resolves(Promise.reject(errorResponse));
-      const response = await accountManagementRequests.getUserInfo('test', 'testAzureId');
-      expect(response).toBe(null);
-    });
-
-    it('should return null on error message', async () => {
-      getStub.withArgs(userInfoEndpoint).resolves(Promise.reject(errorMessage));
-      const response = await accountManagementRequests.getUserInfo('test1', 'test2');
-      expect(response).toBe(null);
     });
   });
 });
