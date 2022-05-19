@@ -7,6 +7,7 @@ import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
 import {request as expressRequest} from 'express';
 import {CourtService} from '../../../main/service/courtService';
+import {UserService} from '../../../main/service/userService';
 
 const PAGE_URL = '/family-daily-cause-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -33,6 +34,7 @@ const courtData = JSON.parse(rawDataCourt);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(familyDailyCauseListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 sinon.stub(CourtService.prototype, 'getCourtById').resolves(courtData[0]);
+sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Family Daily Cause List page', () => {

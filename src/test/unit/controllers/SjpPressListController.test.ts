@@ -6,6 +6,7 @@ import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
+import {UserService} from '../../../main/service/userService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
 const sjpData = JSON.parse(rawData);
@@ -33,8 +34,12 @@ const i18n = {
 describe('SJP Press List Controller', () => {
   const response = { render: () => {return '';}} as unknown as Response;
 
-  it('should render the SJP press list page', async () =>  {
+  afterEach(() => {
+    sinon.restore();
+  });
 
+  it('should render the SJP press list page', async () =>  {
+    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
     const request = mockRequest(i18n);
 
     request.query = {artefactId: artefactId};
@@ -56,6 +61,20 @@ describe('SJP Press List Controller', () => {
   });
 
   it('should render error page is query param is empty', async () => {
+    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
+    const request = mockRequest(i18n);
+    request.query = {};
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+    await sjpPressListController.get(request, response);
+    return responseMock.verify();
+  });
+
+  it('should render error page if list is not allowed to view by the user', async () => {
+    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(false);
     const request = mockRequest(i18n);
     request.query = {};
 

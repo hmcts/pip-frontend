@@ -3,8 +3,10 @@ import {Response} from 'express';
 import {cloneDeep} from 'lodash';
 import moment from 'moment';
 import {PublicationService} from '../service/publicationService';
+import {UserService} from '../service/userService';
 
 const publicationService = new PublicationService();
+const userService = new UserService();
 
 export default class SjpPressListController {
 
@@ -14,6 +16,11 @@ export default class SjpPressListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, (!!req.user));
 
     if (sjpData && metaData) {
+
+      if(!await userService.isAuthorisedToViewListByAzureUserId(req.user, metaData.listType)) {
+        res.render('error',
+          req.i18n.getDataByLanguage(req.lng).error);
+      }
 
       const publishedDateTime = Date.parse(sjpData['document']['publicationDate']);
 

@@ -7,6 +7,7 @@ import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
 import {CourtService} from '../../../main/service/courtService';
+import {UserService} from '../../../main/service/userService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -42,7 +43,12 @@ describe('Daily Cause List Controller', () => {
   const request = mockRequest(i18n);
   request.path = '/daily-cause-list';
 
+  afterEach(() => {
+    sinon.restore();
+  });
+
   it('should render the daily cause list page', async () =>  {
+    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
 
     request.query = {artefactId: artefactId};
 
@@ -65,7 +71,23 @@ describe('Daily Cause List Controller', () => {
   });
 
   it('should render error page is query param is empty', async () => {
+    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
+
     request.query = {};
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+    await dailyCauseListController.get(request, response);
+    return responseMock.verify();
+  });
+
+  it('should render error page if list is not allowed to view by the user', async () => {
+
+    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(false);
+
+    request.query = {artefactId: artefactId};
 
     const responseMock = sinon.mock(response);
 

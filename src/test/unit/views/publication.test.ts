@@ -6,6 +6,7 @@ import sinon from 'sinon';
 import {app} from '../../../main/app';
 import {CourtService} from '../../../main/service/courtService';
 import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
+import {UserService} from '../../../main/service/userService';
 
 const PAGE_URL = '/summary-of-publications?courtId=0';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/summaryOfPublications.json'), 'utf-8');
@@ -14,6 +15,7 @@ let htmlRes: Document;
 
 sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(pubs);
 sinon.stub(CourtService.prototype, 'getCourtById').resolves({'name': 'Court Name'});
+sinon.stub(UserService.prototype, 'getAuthorisedPublications').withArgs(pubs).resolves(pubs);
 
 describe('Publication Page', () => {
   beforeAll(async () => {

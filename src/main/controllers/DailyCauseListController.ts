@@ -4,9 +4,11 @@ import {cloneDeep} from 'lodash';
 import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { CourtService } from '../service/courtService';
+import {UserService} from '../service/userService';
 
 const publicationService = new PublicationService();
 const courtService = new CourtService();
+const userService = new UserService();
 
 export default class DailyCauseListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -16,6 +18,11 @@ export default class DailyCauseListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, (!!req.user));
 
     if (searchResults && metaData) {
+
+      if(!await userService.isAuthorisedToViewListByAzureUserId(req.user, metaData.listType)) {
+        res.render('error',
+          req.i18n.getDataByLanguage(req.lng).error);
+      }
 
       const manipulatedData = publicationService.manipulatedDailyListData(JSON.stringify(searchResults));
 
