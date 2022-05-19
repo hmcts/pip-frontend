@@ -11,7 +11,7 @@ const manualUploadService = new ManualUploadService();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawData);
 const headers = {
-  userId: '1',
+  userEmail: 'test@email.com',
   fileName: 'file.pdf',
   artefactType: 'type',
   classification: 'public',
@@ -36,6 +36,7 @@ const expectedHeaders = {
   'x-list-type': headers.listType,
   'x-court-id': headers.court.courtId,
   'x-content-date': headers['content-date-from'],
+  'x-issuer-email': 'test@email.com',
 };
 const courtService = sinon.stub(CourtService.prototype, 'getCourtByName');
 courtService.withArgs('validCourt').resolves(courtData[0]);

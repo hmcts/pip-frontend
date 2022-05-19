@@ -23,92 +23,94 @@
   }) }}
 
   {% set allSubscriptions = caseTableData | length +  courtTableData | length %}
-  {{ mojSubNavigation({
-    label: 'Sub navigation',
-    items: [{
-      text: subNavigation.header1 + allSubscriptions + ')',
-      href: '?all',
-      active: activeAllTab
-    }, {
-      text: subNavigation.header2 + caseTableData | length + ')',
-      href: '?case',
-      active: activeCaseTab
-    }, {
-      text: subNavigation.header3 + courtTableData | length + ')',
-      href: '?court',
-      active: activeCourtTab
-    }]
-  }) }}
+  {% if allSubscriptions > 0 %}
+    {{ mojSubNavigation({
+      label: 'Sub navigation',
+      items: [{
+        text: subNavigation.header1 + allSubscriptions + ')',
+        href: '?all',
+        active: activeAllTab
+      }, {
+        text: subNavigation.header2 + caseTableData | length + ')',
+        href: '?case',
+        active: activeCaseTab
+      }, {
+        text: subNavigation.header3 + courtTableData | length + ')',
+        href: '?court',
+        active: activeCourtTab
+      }]
+    }) }}
 
-  {% if caseTableData | length == 0 and courtTableData | length == 0 %}
-    {% if activeAllTab == true %}
-      <p class="govuk-body">{{ noSubs }}</p>
-    {% elseif activeCaseTab == true %}
-      <p class="govuk-body">{{ noSubsCase }}</p>
-    {% elseif activeCourtTab == true %}
-      <p class="govuk-body">{{ noSubsCourt }}</p>
+    {% if caseTableData | length == 0 and courtTableData | length == 0 %}
+      {% if activeAllTab == true %}
+        <p class="govuk-body">{{ noSubs }}</p>
+      {% elseif activeCaseTab == true %}
+        <p class="govuk-body">{{ noSubsCase }}</p>
+      {% elseif activeCourtTab == true %}
+        <p class="govuk-body">{{ noSubsCourt }}</p>
+      {% endif %}
+    {% else %}
+      {% if activeAllTab == true or activeCaseTab == true %}
+        {# Case Subscriptions Table #}
+        {{ govukTable({
+          attributes: {
+            'id': 'cases-table'
+          },
+          classes: 'govuk-!-margin-bottom-9',
+          head: [
+            {
+              text: table.header1,
+              attributes: {
+              "aria-sort": "none"
+            },
+              classes: 'govuk-!-width-one-third'
+            },
+            {
+              text: table.header2,
+              attributes: {
+              "aria-sort": "none"
+            },
+              classes: 'govuk-!-width-one-third'
+            },
+            {
+              text: table.date
+            },
+            {
+              text: table.actions,
+              format: "numeric"
+            }
+          ],
+          rows: caseTableData
+        }) }}
+      {% endif %}
+      {% if activeAllTab == true or activeCourtTab == true %}
+        {# Court Subscriptions Table #}
+        {{ govukTable({
+          attributes: {
+            'id': 'courts-table'
+          },
+          head: [
+            {
+              text: courtTable.header1,
+              attributes: {
+              "aria-sort": "none"
+            },
+              classes: "govuk-!-width-two-thirds"
+            },
+            {
+              text: table.date
+            },
+            {
+              text: table.actions,
+              format: "numeric"
+            }
+          ],
+          rows: courtTableData
+        }) }}
+      {% endif %}
     {% endif %}
   {% else %}
-    {% if activeAllTab == true or activeCaseTab == true %}
-      {# Case Subscriptions Table #}
-      {{ govukTable({
-        attributes: {
-          'data-module': 'moj-sortable-table',
-          'id': 'cases-table'
-        },
-        classes: 'govuk-!-margin-bottom-9',
-        head: [
-          {
-            text: table.header1,
-            attributes: {
-            "aria-sort": "none"
-          },
-            classes: 'govuk-!-width-one-third'
-          },
-          {
-            text: table.header2,
-            attributes: {
-            "aria-sort": "none"
-          },
-            classes: 'govuk-!-width-one-third'
-          },
-          {
-            text: table.date
-          },
-          {
-            text: table.actions,
-            format: "numeric"
-          }
-        ],
-        rows: caseTableData
-      }) }}
-    {% endif %}
-    {% if activeAllTab == true or activeCourtTab == true %}
-      {# Court Subscriptions Table #}
-      {{ govukTable({
-        attributes: {
-          'data-module': 'moj-sortable-table',
-          'id': 'courts-table'
-        },
-        head: [
-          {
-            text: courtTable.header1,
-            attributes: {
-            "aria-sort": "none"
-          },
-            classes: "govuk-!-width-two-thirds"
-          },
-          {
-            text: table.date
-          },
-          {
-            text: table.actions,
-            format: "numeric"
-          }
-        ],
-        rows: courtTableData
-      }) }}
-    {% endif %}
+    <p class="govuk-body">{{ noSubs }}</p>
   {% endif %}
   {{ super() }}
   </div>

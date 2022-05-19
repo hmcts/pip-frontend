@@ -2,11 +2,11 @@ import { expect } from 'chai';
 import request from 'supertest';
 import { app } from '../../main/app';
 import sinon from 'sinon';
-import {request as expressRequest} from 'express';
 import {ManualUploadService} from '../../main/service/manualUploadService';
 import {multerFile} from '../unit/mocks/multerFile';
+import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 
 describe('Manual upload', () => {
   describe('on GET', () => {
@@ -17,6 +17,9 @@ describe('Manual upload', () => {
     });
   });
   describe('on POST', () => {
+    beforeEach(() => {
+      app.request['user'] = {emails: ['test@email.com']};
+    });
     test('should render manual upload page if errors present', async () => {
       await request(app)
         .post('/manual-upload')

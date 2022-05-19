@@ -2,14 +2,14 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { request as expressRequest } from 'express';
+import { AdminAuthentication } from '../../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/upload-confirmation';
 let htmlRes: Document;
 
 describe('File Upload Confirmation Page', () => {
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+    sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
