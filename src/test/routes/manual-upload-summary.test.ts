@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import { app } from '../../main/app';
-import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
 import { ManualUploadService } from '../../main/service/manualUploadService';
 import { FileHandlingService } from '../../main/service/fileHandlingService';
+import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/manual-upload-summary';
 const mockCookie = {'foo': 'blah', listType: ''};
@@ -15,7 +15,7 @@ sinon.stub(ManualUploadService.prototype, 'getListItemName').returns('');
 uploadStub.withArgs({  ...mockCookie,  listTypeName: '', file: '', userEmail: 'test@email.com' }, true).resolves(true);
 uploadStub.withArgs({ ...mockCookie,  listTypeName: '', file: '', userEmail: '2@email.com' }, true).resolves(false);
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 
 describe('Manual upload summary', () => {
   beforeEach(() => {
