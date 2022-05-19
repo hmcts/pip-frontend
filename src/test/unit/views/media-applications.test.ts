@@ -5,7 +5,7 @@ import {MediaApplicationService} from '../../../main/service/mediaApplicationSer
 import request from 'supertest';
 import {app} from '../../../main/app';
 import {expect} from 'chai';
-import {request as expressRequest} from 'express';
+import {AdminAuthentication} from '../../../main/authentication/adminAuthentication';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/mediaApplications.json'), 'utf-8');
 const mediaApplications = JSON.parse(rawData);
@@ -19,7 +19,7 @@ const tableClass = 'govuk-table';
 
 const expectedHeader = 'Select application to assess';
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 describe('Media applications page', () => {
   beforeEach(async () => {
     await request(app).get(PAGE_URL).then(res => {

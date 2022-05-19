@@ -1,8 +1,8 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
+import { AdminAuthentication } from '../../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/admin-dashboard';
 const cards = [
@@ -31,7 +31,7 @@ let htmlRes: Document;
 
 describe('Admin Dashboard page', () => {
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+    sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });

@@ -2,10 +2,10 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../main/app';
 import { expect } from 'chai';
-import { request as expressRequest } from 'express';
 import { SubscriptionService } from '../../main/service/subscriptionService';
+import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 const stub = sinon.stub(SubscriptionService.prototype, 'unsubscribe');
 const PAGE_URL = '/unsubscribe-confirmation';
 const validBody = {'unsubscribe-confirm': 'yes', subscription: 'valid subscription'};
