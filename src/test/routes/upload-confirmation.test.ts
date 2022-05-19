@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import { app } from '../../main/app';
-import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
+import { AdminAuthentication } from '../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/upload-confirmation';
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 
 describe('Upload confirmation', () => {
   describe('on GET', () => {
