@@ -124,6 +124,16 @@ describe('Account Management Requests', () => {
       expect(response).toBe(false);
     });
 
+    it('should return null if request fails', async () => {
+      const response = await accountManagementRequests.isAuthorisedToViewList('testReq', null);
+      expect(response).toBe(false);
+    });
+
+    it('should return null if call fails', async () => {
+      const response = await accountManagementRequests.isAuthorisedToViewList('testMes', null);
+      expect(response).toBe(false);
+    });
+
   });
 
   describe('Get User information from P&I database', () => {
