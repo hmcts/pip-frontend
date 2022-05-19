@@ -19,7 +19,7 @@ const cards = [
   {
     title: 'Manage media account request',
     description: 'CTSC assess new media account applications.',
-    link: 'manage-media-accounts',
+    link: 'media-applications',
   },
   {
     title: 'Create new account',

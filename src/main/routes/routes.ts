@@ -162,6 +162,7 @@ export default function(app: Application): void {
   app.post('/manual-upload', ensureAdminAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualUploadController.post);
   app.get('/manual-upload-summary', ensureAdminAuthenticated, app.locals.container.cradle.manualUploadSummaryController.get);
   app.post('/manual-upload-summary', ensureAdminAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
+  app.get('/media-applications', ensureAdminAuthenticated, app.locals.container.cradle.mediaApplicationsController.get);
   app.get('/upload-confirmation', ensureAdminAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
   app.get('/media-account-review', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.get);
   app.get('/media-account-review/image', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.getImage);
