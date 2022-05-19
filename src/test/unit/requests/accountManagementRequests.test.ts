@@ -38,7 +38,6 @@ const azureEndpoint = '/account/add/azure';
 const piEndpoint = '/account/add/pi';
 const authorisedListEndpointWithUserId = '/account/isAuthorised/123/CIVIL_DAILY_CAUSE_LIST';
 const authorisedListEndpointWithoutUserId = '/account/isAuthorised/CIVIL_DAILY_CAUSE_LIST';
-const userInfoEndpoint = '/account/provenance/PI_AAD/testAzureId';
 const postStub = sinon.stub(accountManagementApi, 'post');
 const getStub = sinon.stub(accountManagementApi, 'get');
 
