@@ -105,7 +105,7 @@ export default function(app: Application): void {
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/interstitial', app.locals.container.cradle.interstitialController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
-  app.post('/login/return', passport.authenticate(authType, { failureRedirect: '/view-option'}), 
+  app.post('/login/return', passport.authenticate(authType, { failureRedirect: '/view-option'}),
     (_req, res) => {adminAuthentication.isAdminUser(_req) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
   app.get('/logout', logOut);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
@@ -162,6 +162,7 @@ export default function(app: Application): void {
   app.post('/manual-upload', ensureAdminAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualUploadController.post);
   app.get('/manual-upload-summary', ensureAdminAuthenticated, app.locals.container.cradle.manualUploadSummaryController.get);
   app.post('/manual-upload-summary', ensureAdminAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
+  app.get('/media-applications', ensureAdminAuthenticated, app.locals.container.cradle.mediaApplicationsController.get);
   app.get('/upload-confirmation', ensureAdminAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
 
   app.get('/info', infoRequestHandler({
