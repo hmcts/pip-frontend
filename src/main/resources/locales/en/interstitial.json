@@ -1,7 +1,7 @@
 {
   "title": "Court and tribunal hearings",
   "message": "You can use this service to get information about:",
-  "betaHeading": "This is a new service – your <a class=\"govuk-link\" href=\"#\">feedback</a> will help us to improve it.",
+  "betaHeading": "This is a new service – your <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/ET_Feedback/?pageurl=interstitial\">feedback</a> will help us to improve it.",
   "bullets": [
     "Hearings in Civil and Family Courts in Milton Keynes, Oxford, and Reading",
     "Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding"

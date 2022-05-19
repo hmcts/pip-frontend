@@ -1,6 +1,7 @@
 {
-  "title": "Daily Civil Cause List",
-  "header": "Daily Civil Cause List:",
+  "title": "Civil Daily Cause List",
+  "headerPart1": "Civil Daily Cause List:",
+  "headerPart2": "In the ",
   "listDate": "List for",
   "listUpdated": "Last Updated DATE at ",
   "importantInformationHeading": "Important information",

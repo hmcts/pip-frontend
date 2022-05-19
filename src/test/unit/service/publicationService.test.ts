@@ -76,7 +76,7 @@ describe('Publication service', () => {
   describe('getIndivPubJson Service', () => {
     it('should return publication json', () => {
       return publicationService.getIndividualPublicationJson('', true).then((data) => {
-        expect(data['courtLists'].length).to.equal(1);
+        expect(data['courtLists'].length).to.equal(2);
       });
     });
 
@@ -101,7 +101,7 @@ describe('Publication service', () => {
 
     it('should return daily cause list object', async () => {
       const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
-      expect(data['courtLists'].length).to.equal(1);
+      expect(data['courtLists'].length).to.equal(2);
     });
 
     it('should calculate totalHearings in cause list object', async () => {

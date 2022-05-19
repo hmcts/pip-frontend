@@ -1,10 +1,10 @@
 import { app } from '../../main/app';
-import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
 import { expect } from 'chai';
+import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 const mockData = {
   firstName: 'Joe',
   lastName: 'Bloggs',

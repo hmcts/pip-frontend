@@ -102,10 +102,13 @@ describe('Pending Subscriptions Page', () => {
       expect(button.innerHTML).contains('Confirm Subscriptions', 'Could not find submit button');
     });
 
-    it('should display add another link', () => {
-      const addAnotherLink = htmlRes.getElementsByClassName('govuk-!-text-align-centre')[0];
-      expect(addAnotherLink.getElementsByClassName('govuk-link')[0].innerHTML).contains('Add another', 'Could not find add another link');
-      expect(addAnotherLink.querySelector('a').getAttribute('href')).equal('/subscription-add');
+    it('should display add another email subscription link', () => {
+      const addAnotherLink = htmlRes.getElementsByTagName('a')[12];
+      expect(addAnotherLink.innerHTML).contains('Add another email Subscription',
+        'Could not find add another email subscription link');
+
+      expect(addAnotherLink.getAttribute('href')).equal('/subscription-add',
+        'Add another link does not contain href');
     });
   });
 

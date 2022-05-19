@@ -12,8 +12,8 @@ import { LiveCaseRequests } from '../../main/resources/requests/liveCaseRequests
 import { CaseEventGlossaryRequests } from '../../main/resources/requests/caseEventGlossaryRequests';
 import { SjpRequests } from '../../main/resources/requests/sjpRequests';
 import { ManualUploadService } from '../../main/service/manualUploadService';
-import { request as expressRequest } from 'express';
 import { PublicationRequests } from '../../main/resources/requests/publicationRequests';
+import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
 const agent = supertest.agent(app);
 const routesNotTested = [
@@ -131,7 +131,7 @@ function testAccessibility(url: string): void {
 }
 
 describe('Accessibility',  () => {
-  sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+  sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
   app.request['user'] = {oid: '1', emails: ['joe@bloggs.com']};
   app.request['cookies'] = {
     'formCookie': JSON.stringify({'foo': 'blah', listType: '', listTypeName: ''}),
