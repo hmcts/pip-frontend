@@ -2,7 +2,7 @@
   "serviceNameText": "Court and tribunal hearings",
   "signInText": "Sign in",
   "signOutText": "Sign out",
-  "betaHeading": "This is a new service – your <a class=\"govuk-link\" href=\"#\">feedback</a> will help us to improve it.",
+  "betaHeading": "This is a new service – your <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/ET_Feedback/?pageurl=\">feedback</a> will help us to improve it.",
   "navLinks": {
     "link1": "Home",
     "link2": "Sign in",
@@ -26,7 +26,7 @@
     },
     {
       "text": "Accessibility statement",
-      "href": "https://www.gov.uk/help/accessibility-statement"
+      "href": "/accessibility-statement"
     },
     {
       "text": "Contact",
@@ -44,5 +44,7 @@
       "text": "Government Digital Service",
       "href": "https://www.gov.uk/government/organisations/government-digital-service"
     }
-  ]
+  ],
+  "continueButton": "Continue",
+  "backToTop": "Back to top"
 }
