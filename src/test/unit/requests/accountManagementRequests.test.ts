@@ -36,7 +36,6 @@ const mockUserInfo = {
 };
 const azureEndpoint = '/account/add/azure';
 const piEndpoint = '/account/add/pi';
-const userInfoEndpoint = '/account/provenance/PI_AAD/testAzureId';
 const postStub = sinon.stub(accountManagementApi, 'post');
 const getStub = sinon.stub(accountManagementApi, 'get');
 
@@ -138,10 +137,31 @@ describe('Account Management Requests', () => {
 
   describe('Get User information from P&I database', () => {
 
+    beforeEach(() => {
+      getStub.withArgs('/account/provenance/PI_AAD/testAzureId').resolves({data: mockUserInfo});
+      getStub.withArgs('/account/provenance/test').rejects(errorResponse);
+      getStub.withArgs('/account/provenance/testReq').rejects(errorRequest);
+      getStub.withArgs('/account/provenance/testMes').rejects(errorMessage);
+    });
+
     it('should return user information on success', async () => {
-      getStub.withArgs(userInfoEndpoint).resolves({data: {mockUserInfo}});
       const response = await accountManagementRequests.getUserInfo('PI_AAD', 'testAzureId');
-      expect(response['mockUserInfo']).toEqual(mockUserInfo);
+      expect(response).toEqual(mockUserInfo);
+    });
+
+    it('should return false on error request', async () => {
+      const response = await accountManagementRequests.getUserInfo('test', null);
+      expect(response).toBe(null);
+    });
+
+    it('should return null if request fails', async () => {
+      const response = await accountManagementRequests.getUserInfo('testReq', null);
+      expect(response).toBe(null);
+    });
+
+    it('should return null if call fails', async () => {
+      const response = await accountManagementRequests.getUserInfo('testMes', null);
+      expect(response).toBe(null);
     });
   });
 });
