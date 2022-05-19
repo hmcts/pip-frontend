@@ -36,8 +36,6 @@ const mockUserInfo = {
 };
 const azureEndpoint = '/account/add/azure';
 const piEndpoint = '/account/add/pi';
-const authorisedListEndpointWithUserId = '/account/isAuthorised/123/CIVIL_DAILY_CAUSE_LIST';
-const authorisedListEndpointWithoutUserId = '/account/isAuthorised/CIVIL_DAILY_CAUSE_LIST';
 const userInfoEndpoint = '/account/provenance/PI_AAD/testAzureId';
 const postStub = sinon.stub(accountManagementApi, 'post');
 const getStub = sinon.stub(accountManagementApi, 'get');
@@ -96,30 +94,36 @@ describe('Account Management Requests', () => {
   });
 
   describe('Is user authorised to view the list', () => {
+
+    beforeEach(() => {
+      getStub.withArgs('/account/isAuthorised/123/CIVIL_DAILY_CAUSE_LIST').resolves({data: true});
+      getStub.withArgs('/account/isAuthorised/CIVIL_DAILY_CAUSE_LIST').resolves({data: true});
+      getStub.withArgs('/account/isAuthorised/SJP_PRESS_LIST').resolves({data: false});
+      getStub.withArgs('/account/isAuthorised/test').rejects(errorResponse);
+      getStub.withArgs('/account/isAuthorised/testReq').rejects(errorRequest);
+      getStub.withArgs('/account/isAuthorised/testMes').rejects(errorMessage);
+    });
+
     it('should return true on success when User Id is provided', async () => {
-      getStub.withArgs(authorisedListEndpointWithUserId).resolves({data: true});
       const response = await accountManagementRequests.isAuthorisedToViewList('123', 'CIVIL_DAILY_CAUSE_LIST');
       expect(response).toBe(true);
     });
 
     it('should return true on success when User Id is not provided', async () => {
-      getStub.withArgs(authorisedListEndpointWithoutUserId).resolves({data: true});
       const response = await accountManagementRequests.isAuthorisedToViewList(null, 'CIVIL_DAILY_CAUSE_LIST');
       expect(response).toBe(true);
     });
 
     it('should return false on success when unverified user try to access private list', async () => {
-      getStub.withArgs(authorisedListEndpointWithoutUserId).resolves({data: false});
       const response = await accountManagementRequests.isAuthorisedToViewList(null, 'SJP_PRESS_LIST');
       expect(response).toBe(false);
     });
 
     it('should return false on error request', async () => {
-      getStub.withArgs(authorisedListEndpointWithoutUserId).resolves(Promise.reject(errorRequest));
-      const response = await accountManagementRequests.isAuthorisedToViewList(null, null);
+      const response = await accountManagementRequests.isAuthorisedToViewList('test', null);
       expect(response).toBe(false);
     });
-    
+
   });
 
   describe('Get User information from P&I database', () => {
