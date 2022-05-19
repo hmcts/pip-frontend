@@ -1,11 +1,11 @@
 import request from 'supertest';
 import {app} from '../../../main/app';
 import {expect} from 'chai';
-import {request as expressRequest} from 'express';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
 import {CourtRequests} from '../../../main/resources/requests/courtRequests';
+import { AdminAuthentication } from '../../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/manual-upload';
 const headingClass = 'govuk-heading-xl';
@@ -48,7 +48,8 @@ const mockBodyData = {
   'display-date-to-month': '',
   'display-date-to-year': '',
 };
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(courtData);
 
 describe('Manual upload page', () => {
