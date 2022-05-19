@@ -119,18 +119,7 @@ describe('Account Management Requests', () => {
       const response = await accountManagementRequests.isAuthorisedToViewList(null, null);
       expect(response).toBe(false);
     });
-
-    it('should return false on error response', async () => {
-      getStub.withArgs(authorisedListEndpointWithoutUserId).resolves(Promise.reject(errorResponse));
-      const response = await accountManagementRequests.isAuthorisedToViewList('123', 'TEST_LIST');
-      expect(response).toBe(false);
-    });
-
-    it('should return false on error message', async () => {
-      getStub.withArgs(authorisedListEndpointWithoutUserId).resolves(Promise.reject(errorMessage));
-      const response = await accountManagementRequests.createPIAccount('1231', 'TEST_LIST1');
-      expect(response).toBe(false);
-    });
+    
   });
 
   describe('Get User information from P&I database', () => {
