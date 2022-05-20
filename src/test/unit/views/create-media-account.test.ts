@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import request from 'supertest';
 
 const PAGE_URL = '/create-media-account';
-const pageTitleValue = 'Create a Court and tribunal hearing account';
+const pageTitleValue = 'Create a Court and tribunal hearings account';
 const errorClassList = 'govuk-input--error';
 let htmlRes: Document;
 
@@ -24,7 +24,7 @@ describe('Create Media Account page', () => {
     it('should display correct title', () => {
       const header = htmlRes.getElementsByClassName('govuk-heading-l');
       expect(header[0].innerHTML)
-        .contains('Create a Court and tribunal hearing account', 'Could not find correct value in the title');
+        .contains('Create a Court and tribunal hearings account', 'Could not find correct value in the title');
     });
 
     it('should display correct retention hint', () => {
