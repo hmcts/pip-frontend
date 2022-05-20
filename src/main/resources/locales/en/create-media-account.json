@@ -9,5 +9,6 @@
   "photoMessage": "Upload a clear photo of your UK Press Card or work ID",
   "photoSubMessage": "We will only use this to confirm your identity for this service, and will delete upon approval or rejection of your request.",
   "photoType": "Must be a jpg, pdf or png",
-  "errorTitle": "There is a problem"
+  "errorTitle": "There is a problem",
+  "ariaFileLabel": "Upload a file"
 }
