@@ -12,8 +12,9 @@ import { LiveCaseRequests } from '../../main/resources/requests/liveCaseRequests
 import { CaseEventGlossaryRequests } from '../../main/resources/requests/caseEventGlossaryRequests';
 import { SjpRequests } from '../../main/resources/requests/sjpRequests';
 import { ManualUploadService } from '../../main/service/manualUploadService';
-import { request as expressRequest } from 'express';
 import { PublicationRequests } from '../../main/resources/requests/publicationRequests';
+import {AccountManagementRequests} from '../../main/resources/requests/accountManagementRequests';
+import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
 const agent = supertest.agent(app);
 const routesNotTested = [
@@ -34,11 +35,13 @@ const rawDataLive = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/liveC
 const rawDataCaseEventGlossary = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/CaseEventGlossary.json'), 'utf-8');
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/trimmedSJPCases.json'), 'utf-8');
 const rawPublicationData = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../unit/mocks/SJPMockPage.json'), 'utf-8'));
+const rawMediaApplications = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/mediaApplications.json'), 'utf-8');
 const allCourtData = JSON.parse(rawDataCourt);
 const courtData = allCourtData[0];
 const liveCaseData = JSON.parse(rawDataLive).results;
 const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
 const sjpCases = JSON.parse(rawSJPData).results;
+const mediaApplications = JSON.parse(rawMediaApplications);
 
 sinon.stub(CourtRequests.prototype, 'getCourt').returns(courtData);
 sinon.stub(CourtRequests.prototype, 'getCourtByName').returns(courtData);
@@ -50,6 +53,7 @@ sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
 sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').returns(caseEventGlossaryData);
 sinon.stub(SjpRequests.prototype, 'getSJPCases').returns(sjpCases);
 sinon.stub(ManualUploadService.prototype, 'getListItemName').returns('');
+sinon.stub(AccountManagementRequests.prototype, 'getPendingMediaApplications').resolves(mediaApplications);
 
 export class Pa11yResult {
   documentTitle: string;
@@ -131,7 +135,7 @@ function testAccessibility(url: string): void {
 }
 
 describe('Accessibility',  () => {
-  sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+  sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
   app.request['user'] = {oid: '1', emails: ['joe@bloggs.com']};
   app.request['cookies'] = {
     'formCookie': JSON.stringify({'foo': 'blah', listType: '', listTypeName: ''}),
