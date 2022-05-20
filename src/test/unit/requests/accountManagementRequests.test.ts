@@ -1,6 +1,8 @@
 import sinon from 'sinon';
 import { accountManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import fs from 'fs';
+import path from 'path';
 
 const accountManagementRequests = new AccountManagementRequests();
 const errorResponse = {
@@ -200,6 +202,31 @@ describe('Account Management Requests', () => {
       putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).rejects(errorMessage);
       const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
       expect(response).toBe(null);
+    });
+  });
+
+  describe('Get media applications', () => {
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/mediaApplications.json'), 'utf-8');
+    const mediaApplications = JSON.parse(rawData);
+
+    it('should return media applications', async () => {
+      getStub.withArgs('/application/status/PENDING').resolves({data: mediaApplications});
+      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual(mediaApplications);
+    });
+
+    it('should return empty array and an error response if get fails', async () => {
+      getStub.withArgs('/application/status/PENDING').rejects(errorResponse);
+      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
+    });
+
+    it('should return empty array and an error response if request fails', async () => {
+      getStub.withArgs('/application/status/PENDING').rejects(errorRequest);
+      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
+    });
+
+    it('should return empty array and an error response if request fails', async () => {
+      getStub.withArgs('/application/status/PENDING').rejects(errorMessage);
+      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
     });
   });
 });
