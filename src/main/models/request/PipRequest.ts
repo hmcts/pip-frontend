@@ -27,6 +27,7 @@ export interface PipRequest extends Request {
       'live-case-status': {};
       'manual-upload': {};
       'manual-upload-summary': {};
+      'media-applications': {};
       'not-found': {};
       'otp-template': {};
       'remove-list-confirmation': {};
