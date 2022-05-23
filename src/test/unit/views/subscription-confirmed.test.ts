@@ -70,6 +70,8 @@ describe('Subscriptions Confirmed Page', () => {
   it('should display unordered list with find a court or tribunal', () => {
     const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0]
       .getElementsByTagName('li');
-    expect(listElements[2].innerHTML).to.equal('find a court or tribunal');
+    const anchor = listElements[2].getElementsByTagName('a')[0];
+    expect(anchor.getAttribute('href')).to.equal('/search');
+    expect(anchor.innerHTML).to.equal('find a court or tribunal');
   });
 });
