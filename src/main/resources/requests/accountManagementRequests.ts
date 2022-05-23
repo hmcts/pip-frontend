@@ -1,6 +1,6 @@
-import { accountManagementApi } from './utils/axiosConfig';
+import {accountManagementApi} from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
-import {MediaAccount} from '../../models/mediaAccount';
+import {MediaAccountApplication} from '../../models/MediaAccountApplication';
 
 const logger = Logger.getLogger('requests');
 export class AccountManagementRequests {
@@ -40,7 +40,7 @@ export class AccountManagementRequests {
     }
   }
 
-  public async getMediaApplicationById(applicationId): Promise<MediaAccount | null> {
+  public async getMediaApplicationById(applicationId): Promise<MediaAccountApplication | null> {
     try {
       const response = await accountManagementApi.get('/application/' + applicationId);
       logger.info('Media Application accessed - ' + applicationId, response);
@@ -75,7 +75,7 @@ export class AccountManagementRequests {
     return null;
   }
 
-  public async updateMediaApplicationStatus(applicantId, status): Promise<MediaAccount | null> {
+  public async updateMediaApplicationStatus(applicantId, status): Promise<MediaAccountApplication | null> {
     try {
       const response = await accountManagementApi.put('/application/' + applicantId + '/' + status);
       logger.info('Media Application updated - ' + applicantId, response);
@@ -92,4 +92,19 @@ export class AccountManagementRequests {
     return null;
   }
 
+  public async getPendingMediaApplications(): Promise<MediaAccountApplication[]> {
+    try {
+      const response = await accountManagementApi.get('/application/status/PENDING');
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET media application requests', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for media applications', error.request);
+      } else {
+        logger.error('Something went wrong trying to get media applications', error.message);
+      }
+      return [];
+    }
+  }
 }

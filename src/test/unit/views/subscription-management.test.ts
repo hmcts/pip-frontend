@@ -12,7 +12,7 @@ const PAGE_URL = '/subscription-management';
 const expectedAllSubsTitle = 'All subscriptions (5)';
 const expectedCaseSubsTitle = 'Subscriptions by case (2)';
 const expectedCourtSubsTitle = 'Subscriptions by court or tribunal (3)';
-const expectedAddSubscriptionButton = 'Add new subscription';
+const expectedAddSubscriptionButton = 'Add email subscription';
 const tabsClass = 'moj-sub-navigation__link';
 const caseNameColumn = 'Case name';
 const caseReferenceColumn = 'Case reference number';
@@ -26,7 +26,7 @@ const expectedRowCourtName = 'Court 1';
 const expectedCaseRowsCount = 2;
 const expectedCourtRowsCount = 3;
 const expectedUnsubscribeLink = 'delete-subscription?subscription=5a45699f-47e3-4283-904a-581afe624155';
-const pageHeader = 'Your subscriptions';
+const pageHeader = 'Your email subscriptions';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
 const userSubscriptionsStub = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
@@ -47,7 +47,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
       htmlRes.getElementsByTagName('div')[0].remove();
       const message = htmlRes.getElementsByClassName('govuk-body');
       expect(message[0].innerHTML)
-        .contains('You currently have no subscriptions', 'Could not find correct message');
+        .contains('You do not have any active subscriptions', 'Could not find correct message');
     });
   });
 
@@ -57,7 +57,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
       htmlRes.getElementsByTagName('div')[0].remove();
       const message = htmlRes.getElementsByClassName('govuk-body');
       expect(message[0].innerHTML)
-        .contains('You currently have no subscriptions by case', 'Could not find correct message');
+        .contains('You do not have any active subscriptions', 'Could not find correct message');
     });
   });
 
@@ -67,7 +67,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
       htmlRes.getElementsByTagName('div')[0].remove();
       const message = htmlRes.getElementsByClassName('govuk-body');
       expect(message[0].innerHTML)
-        .contains('You currently have no subscriptions by court or tribunal', 'Could not find correct message');
+        .contains('You do not have any active subscriptions', 'Could not find correct message');
     });
   });
 });

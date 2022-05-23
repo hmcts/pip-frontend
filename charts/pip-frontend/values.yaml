@@ -13,9 +13,9 @@ nodejs:
       secrets:
         - name: session-key
           alias: SESSION_SECRET
-        - name: auto-pip-stg-pip-frontend-stg-id
+        - name: auto-pip-<ENV>-pip-frontend-<ENV>-id
           alias: CLIENT_ID
-        - name: auto-pip-stg-pip-frontend-stg-pwd
+        - name: auto-pip-<ENV>-pip-frontend-<ENV>-pwd
           alias: CLIENT_SECRET
         - name: b2c-config-endpoint
           alias: CONFIG_ENDPOINT

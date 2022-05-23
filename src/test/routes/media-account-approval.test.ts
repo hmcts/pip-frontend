@@ -3,9 +3,9 @@ import {app} from '../../main/app';
 import {expect} from 'chai';
 import { MediaAccountApplicationService } from '../../main/service/mediaAccountApplicationService';
 import sinon from 'sinon';
-import {request as expressRequest} from 'express';
+import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 
 describe('Media Account Approval', () => {
 
