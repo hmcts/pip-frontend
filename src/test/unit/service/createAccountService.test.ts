@@ -1,19 +1,22 @@
 import { CreateAccountService } from '../../../main/service/createAccountService';
 import sinon from 'sinon';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { multerFile } from '../mocks/multerFile';
 
 const createAccountService = new CreateAccountService();
+
+const validImage = multerFile('testImage.png', 1000);
+const invalidFileType = multerFile('testImage.wrong', 1000);
+
 const validBody = {
   fullName: 'foo',
   emailAddress: 'bar@mail.com',
   employer: 'baz',
-  'file-upload': 'blah.png',
 };
 const invalidBody = {
   fullName: '',
   emailAddress: 'bar',
   employer: 'baz',
-  'file-upload': 'blah',
 };
 const validAdminBody = {
   emailAddress: 'bar@mail.com',
@@ -121,32 +124,9 @@ const azureResponse = {'CREATED_ACCOUNTS': [
 const validEmail = 'joe@bloggs.com';
 const createAdminAccStub = sinon.stub(AccountManagementRequests.prototype, 'createAzureAccount');
 const createPIAccStub = sinon.stub(AccountManagementRequests.prototype, 'createPIAccount');
+const createMediaAccStub = sinon.stub(AccountManagementRequests.prototype, 'createMediaAccount');
 
 describe('Create Account Service', () => {
-  describe('isValidImageType', () => {
-    it('should return true for valid image type', () => {
-      expect(createAccountService.isValidImageType('foo.jpg')).toBe(true);
-    });
-
-    it('should return false for invalid image type', () => {
-      expect(createAccountService.isValidImageType('bar.gif')).toBe(false);
-    });
-  });
-
-  describe('validateImage', () => {
-    it('should return null if valid image is provided', () => {
-      expect(createAccountService.validateImage('foo.jpg')).toBe(null);
-    });
-
-    it('should return error message is image is not provided', () => {
-      expect(createAccountService.validateImage('')).toBe('Select a file to upload');
-    });
-
-    it('should return error message is unsupported format image is provided', () => {
-      expect(createAccountService.validateImage('bar.gif')).toBe('The selected file must be a JPG, PNG, TIF or PDF');
-    });
-  });
-
   describe('isValidEmail', () => {
     it('should return false if invalid email format is provided', () => {
       expect(createAccountService.isValidEmail('joe.bloggs@mail')).toBe(false);
@@ -188,11 +168,11 @@ describe('Create Account Service', () => {
 
   describe('validateFormFields', () => {
     it('should return valid response if all data is provided', () => {
-      expect(createAccountService.validateFormFields(validBody)).toStrictEqual(responseNoErrors);
+      expect(createAccountService.validateFormFields(validBody, validImage)).toStrictEqual(responseNoErrors);
     });
 
-    it('should return response with errors if invalid data is provided', () => {
-      expect(createAccountService.validateFormFields(invalidBody)).toStrictEqual(responseErrors);
+    it('should return response with errors if invalid data and file', () => {
+      expect(createAccountService.validateFormFields(invalidBody, invalidFileType)).toStrictEqual(responseErrors);
     });
   });
 
@@ -223,6 +203,20 @@ describe('Create Account Service', () => {
       createAdminAccStub.resolves(azureResponse);
       createPIAccStub.resolves(false);
       expect(await createAccountService.createAdminAccount(invalidPayload, validEmail)).toEqual(false);
+    });
+  });
+
+  describe('createMediaAccount', () => {
+    it('should return true if valid data is provided', async () => {
+      createMediaAccStub.resolves(true);
+      const res = await createAccountService.createMediaAccount(validBody, validImage);
+      expect(res).toEqual(true);
+    });
+
+    it('should return false if invalid data is provided', async () => {
+      createMediaAccStub.resolves(false);
+      const res = await createAccountService.createMediaAccount(invalidBody, validImage);
+      expect(res).toEqual(false);
     });
   });
 });

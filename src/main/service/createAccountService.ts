@@ -1,5 +1,6 @@
-import { allowedImageTypes } from '../models/consts';
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import fs from 'fs';
+import { FileHandlingService } from './fileHandlingService';
 
 const adminRolesList = [
   {
@@ -28,9 +29,10 @@ const adminRolesList = [
   },
 ];
 const accountManagementRequests = new AccountManagementRequests();
+const fileHandlingService = new FileHandlingService();
 
 export class CreateAccountService {
-  public validateFormFields(formValues: object): object {
+  public validateFormFields(formValues: object, file: File): object {
     return {
       nameError: {
         message: this.isNotBlank(formValues['fullName']) ? null : 'Enter your full name',
@@ -45,7 +47,7 @@ export class CreateAccountService {
         href: '#employer',
       },
       fileUploadError: {
-        message:this.validateImage(formValues['file-upload']),
+        message: fileHandlingService.validateImage(file),
         href: '#file-upload',
       },
     };
@@ -91,11 +93,6 @@ export class CreateAccountService {
     return radios;
   }
 
-  isValidImageType(imageName: string): boolean {
-    const imageType = imageName.split('.')[1]?.toLocaleLowerCase();
-    return allowedImageTypes.includes(imageType);
-  }
-
   isNotBlank(input): boolean {
     return !!(input);
   }
@@ -113,18 +110,6 @@ export class CreateAccountService {
       }
     } else {
       message = isAdmin ? 'Enter email address' : 'Enter your email address';
-    }
-    return message;
-  }
-
-  validateImage(image: string): string {
-    let message = null;
-    if (this.isNotBlank(image)) {
-      if(!this.isValidImageType(image)) {
-        message = 'The selected file must be a JPG, PNG, TIF or PDF';
-      }
-    } else {
-      message = 'Select a file to upload';
     }
     return message;
   }
@@ -147,6 +132,19 @@ export class CreateAccountService {
     }];
   }
 
+  formatCreateMediaAccount(accountObject, file): any {
+    return {
+      fullName: accountObject.fullName,
+      email: accountObject.emailAddress,
+      employer: accountObject.employer,
+      status: 'PENDING',
+      file: {
+        body: fs.readFileSync(file.path),
+        name: file.originalname,
+      },
+    };
+  }
+
   public async createAdminAccount(payload: object, requester: string): Promise<boolean> {
     const azureResponse = await accountManagementRequests.createAzureAccount(
       this.formatCreateAdminAccountPayload(payload), requester);
@@ -155,5 +153,9 @@ export class CreateAccountService {
         this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]), requester);
     }
     return false;
+  }
+
+  public async createMediaAccount(payload: object, file: File): Promise<boolean> {
+    return await accountManagementRequests.createMediaAccount(this.formatCreateMediaAccount(payload, file));
   }
 }

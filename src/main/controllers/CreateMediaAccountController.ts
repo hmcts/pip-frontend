@@ -2,22 +2,33 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { CreateAccountService } from '../service/createAccountService';
 import { cloneDeep } from 'lodash';
+import { FileHandlingService } from '../service/fileHandlingService';
 
 const createAccountService = new CreateAccountService();
+const fileHandlingService = new FileHandlingService();
 
 export default class CreateMediaAccountController {
   public get(req: PipRequest, res: Response): void {
     res.render('create-media-account', req.i18n.getDataByLanguage(req.lng)['create-media-account']);
   }
 
-  public post(req: PipRequest, res: Response): void {
-    const formValidation = createAccountService.validateFormFields(req.body);
+  public async post(req: PipRequest, res: Response): Promise<void> {
+    const formValidation = createAccountService.validateFormFields(req.body, req.file);
     const isValidForm = Object.values(formValidation).every(o => o.message === null);
-    isValidForm ?
-      res.redirect('account-request-submitted') :
+
+    if (isValidForm) {
+      const response = await createAccountService.createMediaAccount(req.body, req.file);
+      fileHandlingService.removeFile(req.file['originalname']);
+      if (response) {
+        res.redirect('account-request-submitted');
+      } else {
+        res.render('create-media-account', req.i18n.getDataByLanguage(req.lng)['create-media-account']);
+      }
+    } else {
       res.render('create-media-account', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-media-account']),
         formErrors: formValidation,
       });
+    }
   }
 }
