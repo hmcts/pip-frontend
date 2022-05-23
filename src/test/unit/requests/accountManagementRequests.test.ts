@@ -13,6 +13,7 @@ const errorResponse = {
 const errorRequest = {
   request: 'test error',
 };
+
 const errorMessage = {
   message: 'test',
 };
@@ -29,6 +30,7 @@ const mockValidPIBody = {
   provenanceUserId: 'uuid',
   userProvenance: 'PI_ADD',
 };
+
 const mockValidMediaBody = {
   fullName: 'Test employee',
   email: 'test.employer@employer.com',
@@ -39,8 +41,11 @@ const mockValidMediaBody = {
     name: 'filename.png',
   },
 };
+
 const azureEndpoint = '/account/add/azure';
 const piEndpoint = '/account/add/pi';
+const applicationGetEndpoint = '/application/';
+const imageGetEndpoint = '/application/image/';
 const postStub = sinon.stub(accountManagementApi, 'post');
 const superagent = require('superagent');
 let getStub = null;
@@ -174,6 +179,77 @@ describe('Account Management Requests', () => {
     it('should return empty array and an error response if request fails', async () => {
       getStub.withArgs('/application/status/PENDING').rejects(errorMessage);
       expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
+    });
+  });
+
+  describe('Get Media Application By ID', () => {
+
+    const applicationID = '1234';
+
+    const dummyApplication = {
+      'id': '1234',
+      'fullName': 'Test Name',
+      'email': 'a@b.com',
+      'employer': 'Employer',
+      'image': '12345',
+      'imageName': 'ImageName',
+      'requestDate': '2022-05-09T00:00:01',
+      'status': 'PENDING',
+      'statusDate': '2022-05-09T00:00:01',
+    };
+
+    it('should return dummy application on success', async () => {
+      getStub.withArgs(applicationGetEndpoint + applicationID).resolves({status: 201, data: dummyApplication });
+      const response = await accountManagementRequests.getMediaApplicationById(applicationID);
+      expect(response).toBe(dummyApplication);
+    });
+
+    it('should return null on error request', async () => {
+      getStub.withArgs(applicationGetEndpoint + applicationID).rejects(errorRequest);
+      const response = await accountManagementRequests.getMediaApplicationById(applicationID);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error response', async () => {
+      getStub.withArgs(applicationGetEndpoint + applicationID).rejects(errorResponse);
+      const response = await accountManagementRequests.getMediaApplicationById(applicationID);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error message', async () => {
+      getStub.withArgs(applicationGetEndpoint + applicationID).rejects(errorMessage);
+      const response = await accountManagementRequests.getMediaApplicationById(applicationID);
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Get Media Application Image By ID', () => {
+
+    const imageID = '1234';
+    const dummyImage = new Blob(['testJPEG']);
+
+    it('should return dummy application on success', async () => {
+      getStub.withArgs(imageGetEndpoint + imageID).resolves({status: 201, data: dummyImage });
+      const response = await accountManagementRequests.getMediaApplicationImageById(imageID);
+      expect(response).toBe(dummyImage);
+    });
+
+    it('should return null on error request', async () => {
+      getStub.withArgs(imageGetEndpoint + imageID).rejects(errorRequest);
+      const response = await accountManagementRequests.getMediaApplicationImageById(imageID);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error response', async () => {
+      getStub.withArgs(imageGetEndpoint + imageID).rejects(errorResponse);
+      const response = await accountManagementRequests.getMediaApplicationImageById(imageID);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error message', async () => {
+      getStub.withArgs(imageGetEndpoint + imageID).rejects(errorMessage);
+      const response = await accountManagementRequests.getMediaApplicationImageById(imageID);
+      expect(response).toBe(null);
     });
   });
 });
