@@ -1,0 +1,58 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+
+{% block content %}
+  <div class="parent-box">
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+
+    {% set tableRows = [] %}
+    {% for application in mediaApplications %}
+      {% set viewButton %}
+      <a class="govuk-table__cell govuk-link" href="/media-account-review?applicantId={{ application.id }}">{{ view }}</a>
+      {% endset %}
+      {% set _ = tableRows.push([
+        {text: application.fullName},
+        {text: application.employer},
+        {text: application.requestDate},
+        {
+          html: viewButton
+        }
+      ]) %}
+    {% endfor %}
+
+    {{ govukTable({
+      head: [
+        {
+          text: table.header1
+        },
+        {
+          text: table.header2
+        },
+        {
+          text: table.header3
+        },
+        {
+          attributes: {
+          'aria-hidden': 'true'
+        }
+        }
+      ],
+      rows: tableRows
+    }) }}
+    {{ super() }}
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+{% endblock %}

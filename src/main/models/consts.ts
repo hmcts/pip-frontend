@@ -15,3 +15,10 @@ export const allowedImageTypes = [
   'tiff',
   'pdf',
 ];
+
+export const allowedImageTypeMappings = {
+  'jpg': 'image/jpeg',
+  'jpeg': 'image/jpeg',
+  'png': 'image/png',
+  'pdf': 'application/pdf',
+};
