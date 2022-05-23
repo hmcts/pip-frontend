@@ -154,7 +154,7 @@ export default function(app: Application): void {
 
   // restricted admin paths
   app.get('/media-account-rejection', ensureAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.get);
-  app.post('/media-account-rejection', ensureAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.post);
+  app.post('/media-account-rejection', app.locals.container.cradle.mediaAccountRejectionController.post);
   app.get('/media-account-review/image',ensureAuthenticated, app.locals.container.cradle.mediaAccountReviewController.getImage);
   app.get('/admin-dashboard', ensureAdminAuthenticated, app.locals.container.cradle.adminDashboardController.get);
   app.get('/create-admin-account', ensureAdminAuthenticated, app.locals.container.cradle.createAdminAccountController.get);

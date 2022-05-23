@@ -93,16 +93,8 @@
       ]
     }) }}
 
-
-  {{ govukTable({
-    caption: tableCaption,
-    captionClasses: "govuk-table__caption--m",
-    firstCellIsHeader: true,
-    rows: tableRows
-  }) }}
-
   <h1 class="govuk-heading-m">{{ whatHappensNextHeader }}</h1>
-  <p class="govuk-body">{{ whatHappensNext1 }} <a href=mailto:{{ applicantData.email }}&subject={{ emailSubjectLine }}>{{ applicantData.email }}</a> {{ whatHappensNext2 }}</p>
+  <p class="govuk-body">{{ whatHappensNext1 }} <a href=mailto:{{ applicantData.email }}>{{ applicantData.email }}</a> {{ whatHappensNext2 }}</p>
 
   <h1 class = "govuk-heading-m">{{ emailTemplateHeader }}</h1>
 
