@@ -164,6 +164,10 @@ export default function(app: Application): void {
   app.post('/manual-upload-summary', ensureAdminAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
   app.get('/media-applications', ensureAdminAuthenticated, app.locals.container.cradle.mediaApplicationsController.get);
   app.get('/upload-confirmation', ensureAdminAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
+  app.get('/media-account-review', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.get);
+  app.get('/media-account-review/image', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.getImage);
+  app.post('/media-account-review/approve', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.approve);
+  app.post('/media-account-review/reject', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.reject);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
