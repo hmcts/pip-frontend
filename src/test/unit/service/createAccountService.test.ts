@@ -9,14 +9,14 @@ const validImage = multerFile('testImage.png', 1000);
 const invalidFileType = multerFile('testImage.wrong', 1000);
 
 const validBody = {
-  fullName: 'foo',
+  fullName: 'foo bar',
   emailAddress: 'bar@mail.com',
   employer: 'baz',
 };
 const invalidBody = {
   fullName: '',
   emailAddress: 'bar',
-  employer: 'baz',
+  employer: '',
 };
 const validAdminBody = {
   emailAddress: 'bar@mail.com',
@@ -32,19 +32,19 @@ const invalidAdminBody = {
 };
 const responseErrors = {
   nameError: {
-    message:  'Enter your full name',
+    message:  'There is a problem - Full name field must be populated',
     href: '#fullName',
   },
   emailError: {
-    message: 'Enter an email address in the correct format, like name@example.com',
+    message: 'There is a problem - Enter an email address in the correct format, like name@example.com',
     href: '#emailAddress',
   },
   employerError: {
-    message: null,
+    message: 'There is a problem - Your employers name will be needed to support your application for an account',
     href: '#employer',
   },
   fileUploadError: {
-    message: 'The selected file must be a JPG, PNG, TIF or PDF',
+    message: 'There is a problem - ID evidence must be a JPG, PDF or PNG',
     href: '#file-upload',
   },
 };
@@ -143,11 +143,13 @@ describe('Create Account Service', () => {
     });
 
     it('should return error message if invalid email is provided', () => {
-      expect(createAccountService.validateEmail('joe.bloggs@mail')).toBe('Enter an email address in the correct format, like name@example.com');
+      expect(createAccountService.validateEmail('joe.bloggs@mail'))
+        .toBe('There is a problem - Enter an email address in the correct format, like name@example.com');
     });
 
     it('should return error message if email is not provided', () => {
-      expect(createAccountService.validateEmail('')).toBe('Enter your email address');
+      expect(createAccountService.validateEmail(''))
+        .toBe('There is a problem - Email address field must be populated');
     });
   });
 
@@ -163,6 +165,64 @@ describe('Create Account Service', () => {
     it('should return false', () => {
       const blank = null;
       expect(createAccountService.isNotBlank(blank)).toBe(false);
+    });
+  });
+
+  describe('validateMediaFullName', () => {
+    it('should return null if no errors', () => {
+      expect(createAccountService.validateMediaFullName('test user')).toBeNull();
+    });
+
+    it('should return error if name is not populated', () => {
+      expect(createAccountService.validateMediaFullName(''))
+        .toEqual('There is a problem - Full name field must be populated');
+    });
+
+    it('should return error if name starts with a space', () => {
+      expect(createAccountService.validateMediaFullName(' test user'))
+        .toEqual('There is a problem - Full name field must not start with a space');
+    });
+
+    it('should return error if name contains double space', () => {
+      expect(createAccountService.validateMediaFullName('test  user'))
+        .toEqual('There is a problem - Full name field must not contain double spaces');
+    });
+
+    it('should return error if name does not contain at least 1 space', () => {
+      expect(createAccountService.validateMediaFullName('testuser'))
+        .toEqual('There is a problem - Your full name will be needed to support your application for an account');
+    });
+  });
+
+  describe('validateMediaEmailAddress', () => {
+    it('should return null if no errors', () => {
+      expect(createAccountService.validateMediaEmailAddress('test@email.com')).toBeNull();
+    });
+
+    it('should return error if email starts with a space', () => {
+      expect(createAccountService.validateMediaEmailAddress(' test@email.com'))
+        .toEqual('There is a problem - Email address field cannot start with a space');
+    });
+
+    it('should return error if email contains double space', () => {
+      expect(createAccountService.validateMediaEmailAddress('test@email.com  '))
+        .toEqual('There is a problem - Email address field cannot contain double spaces');
+    });
+  });
+
+  describe('validateMediaEmployer', () => {
+    it('should return null if no errors', () => {
+      expect(createAccountService.validateMediaEmployer('Test Employer')).toBeNull();
+    });
+
+    it('should return error if employer starts with a space', () => {
+      expect(createAccountService.validateMediaEmployer(' Test Employer'))
+        .toEqual('There is a problem - Employer field cannot start with a space');
+    });
+
+    it('should return error if employer contains double space', () => {
+      expect(createAccountService.validateMediaEmployer('Test  Employer'))
+        .toEqual('There is a problem - Employer field cannot contain double spaces');
     });
   });
 
