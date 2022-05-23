@@ -2,8 +2,10 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { ManualUploadService } from '../service/manualUploadService';
+import { FileHandlingService } from '../service/fileHandlingService';
 
 const manualUploadService = new ManualUploadService();
+const fileHandlingService = new FileHandlingService();
 
 export default class ManualUploadSummaryController {
   public get(req: PipRequest, res: Response): void {
@@ -25,7 +27,7 @@ export default class ManualUploadSummaryController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     const userEmail = req.user['emails'][0];
     const formData = (req.cookies?.formCookie) ? JSON.parse(req.cookies['formCookie']) : {};
-    formData.file = manualUploadService.readFile(formData.fileName);
+    formData.file = fileHandlingService.readFile(formData.fileName);
     formData.listTypeName = manualUploadService.getListItemName(formData.listType);
 
     if (req.query?.check === 'true') {
@@ -36,7 +38,7 @@ export default class ManualUploadSummaryController {
       });
     } else {
       const response = await manualUploadService.uploadPublication({...formData, userEmail: userEmail}, true);
-      manualUploadService.removeFile(formData.fileName);
+      fileHandlingService.removeFile(formData.fileName);
       if (response) {
         res.clearCookie('formCookie');
         res.redirect('upload-confirmation');

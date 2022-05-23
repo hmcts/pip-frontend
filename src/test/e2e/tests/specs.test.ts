@@ -245,7 +245,7 @@ describe('Unverified user', () => {
 
     it('should click on the create account link', async () => {
       createMediaAccountPage = await signInPage.clickCreateAccount();
-      expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a Court and tribunal hearing account');
+      expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a Court and tribunal hearings account');
     });
 
     it('should complete form and continue to confirmation page', async () => {

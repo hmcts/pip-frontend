@@ -99,7 +99,7 @@ export default function(app: Application): void {
   app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
   app.get('/cookie-policy', app.locals.container.cradle.cookiePolicyPageController.get);
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
-  app.post('/create-media-account', app.locals.container.cradle.createMediaAccountController.post);
+  app.post('/create-media-account', multer({storage: storage, limits: {fileSize: 2000000}}).single('file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.createMediaAccountController.post);
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
