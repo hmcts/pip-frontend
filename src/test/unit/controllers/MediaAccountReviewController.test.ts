@@ -7,6 +7,7 @@ import {cloneDeep} from 'lodash';
 
 const i18n = {'media-account-review': {}, 'error': {}};
 const mediaAccountApplicationStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
+const mediaAccountApplicationByIdOnlyStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationById');
 const mediaAccountApplicationImageStub = sinon.stub(MediaAccountApplicationService.prototype, 'getImageById');
 
 describe('Media Account Review Controller Test', () => {
@@ -82,7 +83,7 @@ describe('Media Account Review Controller Test', () => {
     const request = mockRequest(i18n);
     request['query'] = {'applicantId': applicantId, 'imageId': imageId};
 
-    mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
+    mediaAccountApplicationByIdOnlyStub.withArgs(applicantId).resolves(dummyApplication);
     mediaAccountApplicationImageStub.withArgs(imageId).resolves(dummyImage);
 
     responseMock.expects('set').once().withArgs('Content-Disposition', 'inline;filename=ImageName.jpg');
@@ -94,13 +95,13 @@ describe('Media Account Review Controller Test', () => {
     responseMock.verify();
   });
 
-  it('should render error when applicant does not exist', async () => {
+  it('should render error when applicant does not exist when getting image', async () => {
     const responseMock = sinon.mock(response);
 
     const request = mockRequest(i18n);
     request['query'] = {'applicantId': applicantId, 'imageId': imageId};
 
-    mediaAccountApplicationStub.withArgs(applicantId, status).resolves(null);
+    mediaAccountApplicationByIdOnlyStub.withArgs(applicantId).resolves(null);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
     await mediaAccountReviewController.getImage(request, response);
@@ -114,7 +115,7 @@ describe('Media Account Review Controller Test', () => {
     const request = mockRequest(i18n);
     request['query'] = {'applicantId': applicantId, 'imageId': imageId};
 
-    mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
+    mediaAccountApplicationByIdOnlyStub.withArgs(applicantId).resolves(dummyApplication);
     mediaAccountApplicationImageStub.withArgs(imageId).resolves(null);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
@@ -129,7 +130,7 @@ describe('Media Account Review Controller Test', () => {
     const request = mockRequest(i18n);
     request['query'] = {'applicantId': applicantId, 'imageId': imageId};
 
-    mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplicationWithUnknownImageType);
+    mediaAccountApplicationByIdOnlyStub.withArgs(applicantId).resolves(dummyApplicationWithUnknownImageType);
     mediaAccountApplicationImageStub.withArgs(imageId).resolves(dummyImage);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);

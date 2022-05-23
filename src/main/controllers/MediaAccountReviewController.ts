@@ -26,7 +26,7 @@ export default class MediaAccountReviewController {
     const imageId = req.query['imageId'];
     const applicantId = req.query['applicantId'];
     const image = await mediaAccountApplicationService.getImageById(imageId);
-    const applicant = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
+    const applicant = await mediaAccountApplicationService.getApplicationById(applicantId);
 
     if (image && applicant) {
 
