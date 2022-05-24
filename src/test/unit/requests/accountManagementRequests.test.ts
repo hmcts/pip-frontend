@@ -46,9 +46,13 @@ const azureEndpoint = '/account/add/azure';
 const piEndpoint = '/account/add/pi';
 const applicationGetEndpoint = '/application/';
 const imageGetEndpoint = '/application/image/';
+
+const status = 'APPROVED';
+const statusEndpoint = '/' + status;
 const postStub = sinon.stub(accountManagementApi, 'post');
+let putStub = sinon.stub(accountManagementApi, 'put');
+let getStub = sinon.stub(accountManagementApi, 'get');
 const superagent = require('superagent');
-let getStub = null;
 
 describe('Account Management Requests', () => {
   describe('Create Azure Account', () => {
@@ -198,6 +202,11 @@ describe('Account Management Requests', () => {
       'statusDate': '2022-05-09T00:00:01',
     };
 
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
+
     it('should return dummy application on success', async () => {
       getStub.withArgs(applicationGetEndpoint + applicationID).resolves({status: 201, data: dummyApplication });
       const response = await accountManagementRequests.getMediaApplicationById(applicationID);
@@ -225,6 +234,11 @@ describe('Account Management Requests', () => {
 
   describe('Get Media Application Image By ID', () => {
 
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
+
     const imageID = '1234';
     const dummyImage = new Blob(['testJPEG']);
 
@@ -249,6 +263,53 @@ describe('Account Management Requests', () => {
     it('should return false on error message', async () => {
       getStub.withArgs(imageGetEndpoint + imageID).rejects(errorMessage);
       const response = await accountManagementRequests.getMediaApplicationImageById(imageID);
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Update Media Application Status by ID', () => {
+
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+      putStub = sinon.stub(accountManagementApi, 'put');
+    });
+
+    const applicationID = '1234';
+
+    const dummyApplication = {
+      'id': '1234',
+      'fullName': 'Test Name',
+      'email': 'a@b.com',
+      'employer': 'Employer',
+      'image': '12345',
+      'imageName': 'ImageName',
+      'requestDate': '2022-05-09T00:00:01',
+      'status': 'APPROVED',
+      'statusDate': '2022-05-09T00:00:01',
+    };
+
+    it('should return dummy application on success', async () => {
+      putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).resolves({status: 201, data: dummyApplication });
+      const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
+      expect(response).toBe(dummyApplication);
+    });
+
+    it('should return null on error request', async () => {
+      putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).rejects(errorRequest);
+      const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error response', async () => {
+      putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).rejects(errorResponse);
+      const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error message', async () => {
+      putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).rejects(errorMessage);
+      const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
       expect(response).toBe(null);
     });
   });

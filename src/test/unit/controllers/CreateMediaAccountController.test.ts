@@ -62,7 +62,7 @@ const validateFormFieldsStub = sinon.stub(CreateAccountService.prototype, 'valid
 validateFormFieldsStub.withArgs(validBody, validFile).returns(responseNoErrors);
 validateFormFieldsStub.withArgs(invalidBody, invalidFileType).returns(responseErrors);
 
-const createMediaAccountStub = sinon.stub(CreateAccountService.prototype, 'createMediaAccount');
+const createMediaAccountStub = sinon.stub(CreateAccountService.prototype, 'createMediaApplication');
 
 sinon.stub(FileHandlingService.prototype, 'removeFile').returns('');
 
