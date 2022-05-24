@@ -2,7 +2,6 @@ import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {MediaAccountApplicationService} from '../service/mediaAccountApplicationService';
 import {cloneDeep} from 'lodash';
-import moment from 'moment';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 
@@ -24,28 +23,21 @@ export default class MediaAccountRejectionController {
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
-    if(!req.query.applicantId){
-      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-      return;
-    }
-    const applicantId = req.query['applicantId'];
-    const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
-    if (applicantData && req.body['reject-confirmation'] == 'Yes') {
-      const updateStatus = await mediaAccountApplicationService.rejectApplication(applicantId);
-      if (updateStatus != null && applicantId) {
-        applicantData['requestDate'] = moment(Date.parse(applicantData.requestDate)).format('DD MMMM YYYY');
+    const applicantId = req.body['applicantId'];
+    const rejected = req.body['reject-confirmation'];
 
-        res.render('media-account-rejection-confirmation', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection-confirmation']),
-          applicantData: applicantData,
-        });
-        return;
-      } else {
-        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-      }
-    } else if (req.body['reject-confirmation'] == 'No') {
-      res.redirect('media-account-review?applicantId=' + applicantId);
-    } else {
+    const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
+    if (applicantData) {
+      return MediaAccountRejectionController.applicationFoundFlow(req, res, rejected, applicantId, applicantData);
+    }
+    res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+  }
+
+  /**
+   * This handles the pages that render when submitting a rejection, if the applicant has been found.
+   */
+  private static applicationFoundFlow(req, res, rejected, applicantId, applicantData): Promise<void> {
+    if (!rejected) {
       return res.render('media-account-rejection', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection']),
         applicantData: applicantData,
@@ -53,5 +45,25 @@ export default class MediaAccountRejectionController {
       });
     }
 
+    if (rejected === 'Yes') {
+      return MediaAccountRejectionController.rejectionFlow(req, res, applicantId, applicantData);
+    } else {
+      return res.redirect('/media-account-review?applicantId=' + applicantId);
+    }
   }
+
+  /**
+   * This handles the pages that render if the user has selected 'Reject' on the screen.
+   */
+  private static async rejectionFlow(req, res, applicantId, applicantData): Promise<void> {
+    if (await mediaAccountApplicationService.rejectApplication(applicantId)) {
+      return res.render('media-account-rejection-confirmation', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection-confirmation']),
+        applicantData: applicantData,
+      });
+    } else {
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+    }
+  }
+
 }

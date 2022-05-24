@@ -110,26 +110,27 @@
       ]
     }) }}
 
-<form method="post">
-  {{ govukRadios({
-    classes: "govuk-radios--inline",
-    idPrefix: "reject-confirmation",
-    name: "reject-confirmation",
-    fieldset: {
-    },
-    items: [
-      {
-        value: radioAnswers[0],
-        text: radioAnswers[0]
+  <form method="post">
+    <input type="hidden" id="applicantId" name="applicantId" value="{{ applicantData.id }}" }}>
+    {{ govukRadios({
+      classes: "govuk-radios--inline",
+      idPrefix: "reject-confirmation",
+      name: "reject-confirmation",
+      fieldset: {
       },
-      {
-        value: radioAnswers[1],
-        text: radioAnswers[1]
-      }
-    ]
-  }) }}
-  {{ submitButton() }}
-</form>
+      items: [
+        {
+          value: radioAnswers[0],
+          text: radioAnswers[0]
+        },
+        {
+          value: radioAnswers[1],
+          text: radioAnswers[1]
+        }
+      ]
+    }) }}
+    {{ submitButton() }}
+  </form>
 {% endblock %}
 {% block bodyEnd %}
   <script>

@@ -4,7 +4,6 @@ import {mockRequest} from '../mocks/mockRequest';
 import MediaAccountRejectionController from '../../../main/controllers/MediaAccountRejectionController';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
 import {cloneDeep} from 'lodash';
-
 const mediaAccountRejectionController = new MediaAccountRejectionController();
 
 const mediaAccountApplicationStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
@@ -69,8 +68,7 @@ describe('Media Account Rejection Controller', () => {
     const responseMock = sinon.mock(response);
 
     const request = mockRequest(i18n);
-    request['body'] = {'reject-confirmation': 'Yes'};
-    request['query'] = {'applicantId': applicantId};
+    request['body'] = {'reject-confirmation': 'Yes', 'applicantId': applicantId};
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
     mediaAccountRejectionStub.withArgs(applicantId).resolves(dummyApplication);
@@ -89,7 +87,6 @@ describe('Media Account Rejection Controller', () => {
     const responseMock = sinon.mock(response);
 
     const request = mockRequest(i18n);
-    request['query'] = {};
     request['body'] = {'reject-confirmation': 'Yes'};
 
     mediaAccountApplicationStub.withArgs('1234', status).resolves(null);
@@ -105,13 +102,44 @@ describe('Media Account Rejection Controller', () => {
     const responseMock = sinon.mock(response);
 
     const request = mockRequest(i18n);
-    request['query'] = {'applicantId': applicantId};
+    request['body'] = {'applicantId': applicantId};
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
 
     responseMock.expects('render').once().withArgs('media-account-rejection',
       {...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-rejection']),
         applicantData: dummyApplication,
         displayRadioError: true});
+
+    await mediaAccountRejectionController.post(request, response);
+
+    responseMock.verify();
+  });
+
+  it('should render media-account-review page if No approval is given', async () => {
+    const responseMock = sinon.mock(response);
+
+    const request = mockRequest(i18n);
+    request['body'] = {'reject-confirmation': 'No', 'applicantId': applicantId};
+
+    mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
+
+    responseMock.expects('redirect').once().withArgs('/media-account-review?applicantId=' + applicantId);
+
+    await mediaAccountRejectionController.post(request, response);
+
+    responseMock.verify();
+  });
+
+  it('should render error page if failed to update application when approval is given', async () => {
+    const responseMock = sinon.mock(response);
+
+    const request = mockRequest(i18n);
+    request['body'] = {'reject-confirmation': 'Yes', 'applicantId': applicantId};
+
+    mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
+    mediaAccountRejectionStub.withArgs(applicantId).resolves(null);
+
+    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
 
     await mediaAccountRejectionController.post(request, response);
 
