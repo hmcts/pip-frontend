@@ -78,9 +78,16 @@ describe('Media Account Submission Page', () => {
     expect(header[1].innerHTML).contains(emailHeader, 'Could not find the email header');
   });
 
-  it('should display email value', () => {
+  it('should display the summary email value', () => {
     const value = htmlRes.getElementsByClassName(summaryCell);
-    expect(value[1].innerHTML).contains(emailValue, 'Could not find the email value');
+    const anchorTag = value[1].getElementsByTagName('a');
+    expect(anchorTag[0].innerHTML).contains(emailValue, 'Could not find the email value');
+  });
+
+  it('should display the summary email mail to', () => {
+    const value = htmlRes.getElementsByClassName(summaryCell);
+    const anchorTag = value[1].getElementsByTagName('a');
+    expect(anchorTag[0].getAttribute('href')).contains('mailto:a@b.com?subject=Your%20request%20for%20a%20Court%20and%20tribunal%20hearings%20account.', 'Could not find the mail to');
   });
 
   it('should display employer header', () => {

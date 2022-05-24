@@ -30,7 +30,7 @@
         {{ tableHeaders[1] }}
       </dt>
       <dd class="govuk-summary-list__value">
-        {{ applicantData.email }}
+        <a href=mailto:{{ applicantData.email }}?subject={{ emailSubjectLine }}>{{ applicantData.email }}</a>
       </dd>
     </div>
     <div class="govuk-summary-list__row">
