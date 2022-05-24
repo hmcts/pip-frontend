@@ -153,7 +153,6 @@ export default function(app: Application): void {
   app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
 
   // restricted admin paths
-
   app.get('/admin-dashboard', ensureAdminAuthenticated, app.locals.container.cradle.adminDashboardController.get);
   app.get('/create-admin-account', ensureAdminAuthenticated, app.locals.container.cradle.createAdminAccountController.get);
   app.post('/create-admin-account', ensureAdminAuthenticated, app.locals.container.cradle.createAdminAccountController.post);
