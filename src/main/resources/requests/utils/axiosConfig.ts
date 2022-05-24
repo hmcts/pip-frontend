@@ -24,9 +24,9 @@ const subscriptionManagementUrl =
 const accountManagementUrl = process.env.ACCOUNT_MANAGEMENT_AZ_API ?
   process.env.ACCOUNT_MANAGEMENT_AZ_API : config.get('secrets.pip-ss-kv.ACCOUNT_MANAGEMENT_AZ_API');
 
-export const accountManagementApiUrl = process.env.ACCOUNT_MANAGEMENT_URL || 'https://pip-account-management.staging.platform.hmcts.net/';
-export const dataManagementApi = axios.create({baseURL: (process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net/'), timeout: 10000});
-export const subscriptionManagementApi = axios.create({baseURL: (process.env.SUBSCRIPTION_MANAGEMENT_URL || 'https://pip-subscription-management.staging.platform.hmcts.net/'), timeout: 10000});
+export const accountManagementApiUrl = process.env.ACCOUNT_MANAGEMENT_URL || 'https://pip-account-management.staging.platform.hmcts.net';
+export const dataManagementApi = axios.create({baseURL: (process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net'), timeout: 10000});
+export const subscriptionManagementApi = axios.create({baseURL: (process.env.SUBSCRIPTION_MANAGEMENT_URL || 'https://pip-subscription-management.staging.platform.hmcts.net'), timeout: 10000});
 export const accountManagementApi = axios.create({baseURL: accountManagementApiUrl, timeout: 10000});
 
 function createCredentials (url): Function {
