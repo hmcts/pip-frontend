@@ -16,6 +16,7 @@ describe('Media Account Submission Page', () => {
   const tableHeader = 'govuk-table__header';
   const tableCell = 'govuk-table__cell';
   const bottomHeaderClass = 'govuk-heading-m';
+  const bottomSummaryClass = 'govuk-body';
   const bottomContentClass = 'govuk-inset-text';
 
   const expectedPanel = 'Account has been rejected.';
@@ -148,9 +149,21 @@ describe('Media Account Submission Page', () => {
     expect(header[0].innerHTML).contains(bottomHeader, 'Could not find the bottom header');
   });
 
-  it('should display the bottom content', () => {
-    const header = htmlRes.getElementsByClassName(bottomContentClass);
-    expect(header[0].innerHTML).contains(bottomContent, 'Could not find the bottom content');
+  it('should display the bottom mail to', () => {
+    const bottomSummary = htmlRes.getElementsByClassName(bottomSummaryClass);
+    const bottomEmail = bottomSummary[0].getElementsByTagName('a');
+    expect(bottomEmail[0].getAttribute('href')).contains('mailto:a@b.com?subject=Your%20request%20for%20a%20Court%20and%20tribunal%20hearings%20account.', 'Could not find the mail to');
+  });
+
+  it('should display the bottom content reason title', () => {
+    const bottomElement = htmlRes.getElementsByClassName(bottomContentClass);
+    expect(bottomElement[0].innerHTML).contains(bottomContent, 'Could not find the bottom content');
+  });
+
+  it('should display link back to the create media account page', () => {
+    const bottomElement = htmlRes.getElementsByClassName(bottomContentClass);
+    const header = bottomElement[0].getElementsByTagName('a');
+    expect(header[0].getAttribute('href')).contains('/create-media-account', 'Could not find the link back to create media account');
   });
 
 });
