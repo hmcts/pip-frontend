@@ -1,4 +1,3 @@
-
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
 import {CreateAccountService} from '../service/createAccountService';
 import {MediaAccount} from '../models/mediaAccount';
@@ -31,7 +30,7 @@ export class MediaAccountApplicationService {
     return null;
   }
 
-  public async getApplicationImageById(imageId): Promise<Blob> {
+  public async getImageById(imageId): Promise<Blob> {
     if (imageId) {
       return accountManagementRequests.getMediaApplicationImageById(imageId);
     }
