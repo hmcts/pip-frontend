@@ -1,9 +1,9 @@
-import {request as expressRequest} from 'express';
 import {app} from '../../../main/app';
 import sinon from 'sinon';
 import request from 'supertest';
 import {expect} from 'chai';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
+import {AdminAuthentication} from '../../../main/authentication/adminAuthentication';
 
 const applicationId = '1234';
 
@@ -52,7 +52,7 @@ const dummyApplication = {
   'statusDate': '2022-05-09T00:00:01',
 };
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').returns(dummyApplication);
 
 describe('Media Account Rejection Page', () => {

@@ -63,12 +63,12 @@
     <input type="hidden" id="applicantId" name="applicantId" value="{{ applicantData.id }}" }}>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-quarter govuk-!-padding-left-0">
-          <button class="govuk-button" data-module="govuk-button" formaction="media-account-review/approve">
+          <button id ="approve" class="govuk-button" data-module="govuk-button" formaction="media-account-review/approve">
               {{ approveApplication }}
           </button>
         </div>
         <div class="govuk-grid-column-three-quarters govuk-!-padding-right-0">
-          <button class="govuk-button govuk-button--warning float-right" data-module="govuk-button" formaction="media-account-review/reject">
+          <button id="reject" class="govuk-button govuk-button--warning float-right" data-module="govuk-button" formaction="media-account-review/reject">
             {{ rejectApplication }}
           </button>
         </div>
