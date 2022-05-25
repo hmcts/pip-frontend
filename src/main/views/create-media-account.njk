@@ -3,6 +3,7 @@
 {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
 {% block pageTitle %}
     {{ title }}
@@ -122,8 +123,23 @@
         {{ employerInput }}
         <p class="govuk-body" tabindex="0">{{ photoMessage }}</p>
         <p class="govuk-hint" tabindex="0">{{ photoSubMessage }}</p>
-        <p class="govuk-hint" id="photoType" tabindex="0">{{ photoType }}</p>
+        <p class="govuk-hint" tabindex="0">{{ uploadConsent }}</p>
+      <p class="govuk-hint" id="photoType" tabindex="0">{{ photoType }}</p>
         {{ fileInput }}
+      <p class="govuk-heading-l">{{ TandCHeading }}</p>
+      <p class="govuk-body">{{ TandC1 }}</p>
+      <p class="govuk-body">{{ TandC2 }}</p>
+      {{ govukCheckboxes({
+        idPrefix: "txbox",
+        name: "tcbox",
+        items: [
+          {
+            value: "tcbox",
+            text: TandCCheckbox
+          }
+        ]
+      }) }}
+
         {{ submitButton(continueButton) }}
     </form>
   {{ super() }}
