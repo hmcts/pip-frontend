@@ -20,7 +20,7 @@ const headers = {
   'display-to': '',
   listType: 'type',
   court: {
-    courtId: '1',
+    locationId: '1',
     courtName: 'Court',
   },
   'content-date-from': '',
@@ -34,7 +34,7 @@ const expectedHeaders = {
   'x-display-from': headers['display-from'],
   'x-display-to': headers['display-to'],
   'x-list-type': headers.listType,
-  'x-court-id': headers.court.courtId,
+  'x-court-id': headers.court.locationId,
   'x-content-date': headers['content-date-from'],
   'x-issuer-email': 'test@email.com',
 };
@@ -228,7 +228,7 @@ describe('Manual upload service', () => {
   });
 
   it('should return court id and name as object', async () => {
-    expect(await manualUploadService.appendCourtId('validCourt')).to.deep.equal({courtName: 'validCourt', courtId: 1});
+    expect(await manualUploadService.appendlocationId('validCourt')).to.deep.equal({courtName: 'validCourt', locationId: 1});
   });
 
   describe('formatting list removal', () => {

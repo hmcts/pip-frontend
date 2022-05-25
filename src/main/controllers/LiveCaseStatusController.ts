@@ -9,10 +9,10 @@ const liveCaseStatusService = new LiveCaseService();
 export default class LiveCaseStatusController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
-    const courtId = req.query.courtId as string;
+    const locationId = req.query.locationId as string;
 
-    if (courtId !== undefined) {
-      let liveCase = await liveCaseStatusService.getLiveCases(parseInt(courtId));
+    if (locationId !== undefined) {
+      let liveCase = await liveCaseStatusService.getLiveCases(parseInt(locationId));
       if (liveCase) {
         liveCase = liveCase[0];
         res.render('live-case-status', {
@@ -22,7 +22,7 @@ export default class LiveCaseStatusController {
           updateTime: moment(Date.parse(liveCase.lastUpdated)).format('h:mma'),
           liveCases: liveCase.courtUpdates,
           refreshTimer: process.env.REFRESH_TIMER_MILLISECONDS || 15000,
-          courtId: courtId,
+          locationId: locationId,
         });
       } else {
         res.redirect('not-found');

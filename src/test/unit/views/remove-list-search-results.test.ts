@@ -7,9 +7,9 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 
-const PAGE_URL = '/remove-list-search-results?courtId=5';
+const PAGE_URL = '/remove-list-search-results?locationId=5';
 const mockCourt = {
-  courtId: '5',
+  locationId: '5',
   name: 'The court',
 };
 const mockPublications = [
@@ -19,7 +19,7 @@ const mockPublications = [
     displayTo: '2024-02-08T12:26:42.908',
     dateRange: '8 Feb 2022 to 8 Feb 2024',
     listTypeName: 'SJP Public List',
-    courtId: '5',
+    locationId: '5',
     artefactId: 'valid-artefact',
   },
   {
@@ -28,7 +28,7 @@ const mockPublications = [
     displayTo: '2024-02-08T12:26:42.908',
     dateRange: '8 Feb 2022 to 8 Feb 2024',
     listTypeName: 'SJP Public List',
-    courtId: '5',
+    locationId: '5',
     artefactId: 'valid-artefact-777',
   },
 ];

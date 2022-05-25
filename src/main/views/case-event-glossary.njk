@@ -5,12 +5,12 @@
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
-{% set courtId = courtId %}
+{% set locationId = locationId %}
 {% block beforeContent %}
     {{ super() }}
     {{ govukBackLink({
         text: text,
-        href: '/live-case-status?courtId=' + courtId
+        href: '/live-case-status?locationId=' + locationId
     }) }}
 {% endblock %}
 {% block content %}

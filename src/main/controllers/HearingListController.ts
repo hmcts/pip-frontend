@@ -9,12 +9,12 @@ const courtService = new CourtService();
 export default class HearingListController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
-    const courtId = parseInt(req.query.courtId as string);
+    const locationId = parseInt(req.query.locationId as string);
 
     //If no court ID has been supplied, then return the error page
-    if (courtId) {
+    if (locationId) {
 
-      const court = await courtService.getCourtById(courtId);
+      const court = await courtService.getCourtById(locationId);
 
       //Returns the error page if the court list is empty
       if (court) {

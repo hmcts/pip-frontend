@@ -51,7 +51,7 @@ describe('View Option Controller', () => {
     request.body = { 'view-choice': 'sjp'};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('summary-of-publications?courtId=0');
+    responseMock.expects('redirect').once().withArgs('summary-of-publications?locationId=0');
 
     viewOptionController.post(request, response);
     responseMock.verify();

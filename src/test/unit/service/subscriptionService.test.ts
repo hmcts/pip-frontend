@@ -8,7 +8,7 @@ import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
 
 const mockCourt = {
-  courtId: 643,
+  locationId: 643,
   name: 'Aberdeen Tribunal Hearing Centre',
   jurisdiction: 'Tribunal',
   location: 'Scotland',
@@ -17,7 +17,7 @@ const mockCourt = {
 };
 const mockCase = {
   hearingId: 5,
-  courtId: 50,
+  locationId: 50,
   courtNumber: 1,
   date: '15/11/2021 10:00:00',
   judge: 'His Honour Judge A Morley QC',

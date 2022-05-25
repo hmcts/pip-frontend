@@ -76,7 +76,7 @@
           <tr class="govuk-table__row">
             <td class="govuk-table__cell">{{ court.name }}</td>
             <td class="govuk-table__cell govuk-!-text-align-right">
-              <a href="/remove-subscription?court={{ court.courtId }}">{{ removeText }}</a>
+              <a href="/remove-subscription?court={{ court.locationId }}">{{ removeText }}</a>
             </td>
           </tr>
         {% endfor %}

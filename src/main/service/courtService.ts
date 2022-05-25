@@ -24,8 +24,8 @@ export class CourtService {
     return await courtRequest.getAllCourts();
   }
 
-  public async getCourtById(courtId: number): Promise<Court> {
-    return await courtRequest.getCourt(courtId);
+  public async getCourtById(locationId: number): Promise<Court> {
+    return await courtRequest.getCourt(locationId);
   }
 
   public async getCourtByName(courtName: string): Promise<Court> {

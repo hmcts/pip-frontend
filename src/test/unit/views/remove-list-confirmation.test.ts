@@ -12,13 +12,13 @@ const mockArtefact = {
   listType: 'CIVIL_DAILY_CAUSE_LIST',
   listTypeName: 'Civil Daily Cause List',
   contentDate: '2022-03-24T07:36:35',
-  courtId: '5',
+  locationId: '5',
   artefactId: 'valid-artefact',
 };
 const keyValues = ['Court or tribunal name', 'Publication', 'Publication date'];
 const content = ['Mock Court', 'Civil Daily Cause List', '24 March 2022'];
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
-sinon.stub(CourtService.prototype, 'getCourtById').resolves({courtId: '5', name: 'Mock Court'});
+sinon.stub(CourtService.prototype, 'getCourtById').resolves({locationId: '5', name: 'Mock Court'});
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 sinon.stub(PublicationService.prototype, 'removePublication').withArgs('foo').resolves(false);
 
@@ -72,7 +72,7 @@ describe('Remove List Confirmation Page', () => {
 
   describe('with error', () => {
     beforeAll(async () => {
-      await request(app).post(PAGE_URL).send({courtId: '5', artefactId: 'foo'}).then(res => {
+      await request(app).post(PAGE_URL).send({locationId: '5', artefactId: 'foo'}).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       });
     });

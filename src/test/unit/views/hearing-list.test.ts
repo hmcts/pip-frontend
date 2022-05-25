@@ -7,7 +7,7 @@ import path from 'path';
 import sinon from 'sinon';
 import {CourtRequests} from '../../../main/resources/requests/courtRequests';
 
-const PAGE_URL = '/hearing-list?courtId=1';
+const PAGE_URL = '/hearing-list?locationId=1';
 
 let htmlRes: Document;
 

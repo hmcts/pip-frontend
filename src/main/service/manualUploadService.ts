@@ -128,9 +128,9 @@ export class ManualUploadService {
     return 'Please make sure \'to\' date is after \'from\' date';
   }
 
-  public async appendCourtId(courtName: string): Promise<object> {
+  public async appendlocationId(courtName: string): Promise<object> {
     const court = await courtService.getCourtByName(courtName);
-    return {courtName: courtName, courtId: court?.locationId};
+    return {courtName: courtName, locationId: court?.locationId};
   }
 
   public async uploadPublication(data: any, ISODateFormat: boolean): Promise<boolean> {
@@ -195,7 +195,7 @@ export class ManualUploadService {
       'x-display-from': headers['display-from'],
       'x-display-to': headers['display-to'],
       'x-list-type': headers.listType,
-      'x-court-id': headers.court.courtId,
+      'x-court-id': headers.court.locationId,
       'x-content-date': headers['content-date-from'],
       'x-issuer-email': headers.userEmail,
     };

@@ -11,7 +11,7 @@ describe('Standard List', () => {
   describe('on GET', () => {
     test('should return standard list page', async () => {
       await request(app)
-        .get('/standard-list?courtId=10')
+        .get('/standard-list?locationId=10')
         .expect((res) => expect(res.status).to.equal(200));
     });
   });

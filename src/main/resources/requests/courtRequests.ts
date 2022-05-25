@@ -4,9 +4,9 @@ import { dataManagementApi } from './utils/axiosConfig';
 const { redisClient } = require('../../cacheManager');
 
 export class CourtRequests {
-  public async getCourt(courtId: number): Promise<Court> {
+  public async getCourt(locationId: number): Promise<Court> {
     try {
-      const response = await dataManagementApi.get(`/locations/${courtId}`);
+      const response = await dataManagementApi.get(`/locations/${locationId}`);
       return response.data;
     } catch (error) {
       if (error.response) {

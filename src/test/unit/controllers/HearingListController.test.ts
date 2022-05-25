@@ -25,7 +25,7 @@ describe('Hearing list Controller', () => {
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {courtId: '1'};
+    request.query = {locationId: '1'};
 
     const responseMock = sinon.mock(response);
 
@@ -50,7 +50,7 @@ describe('Hearing list Controller', () => {
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
 
-    request.query = {courtId: '1400'};
+    request.query = {locationId: '1400'};
 
     const responseMock = sinon.mock(response);
 

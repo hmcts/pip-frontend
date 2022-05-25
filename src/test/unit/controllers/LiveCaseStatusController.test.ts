@@ -24,7 +24,7 @@ describe('Live Status Controller', () => {
 
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {courtId: '1'};
+    request.query = {locationId: '1'};
 
     const expectedData = {
       ...i18n['live-case-status'],
@@ -33,7 +33,7 @@ describe('Live Status Controller', () => {
       updateTime: moment(Date.parse(liveCases.results[0].lastUpdated)).format('h:mma'),
       liveCases: liveCases.results[0].courtUpdates,
       refreshTimer: 15000,
-      courtId: '1',
+      locationId: '1',
     };
 
     const responseMock = sinon.mock(response);
@@ -48,7 +48,7 @@ describe('Live Status Controller', () => {
 
     const response = { redirect: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {courtId: '777'};
+    request.query = {locationId: '777'};
 
     const responseMock = sinon.mock(response);
     responseMock.expects('redirect').once().withArgs('not-found');

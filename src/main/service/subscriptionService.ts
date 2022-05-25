@@ -73,7 +73,7 @@ export class SubscriptionService {
     const selectionList = Object.keys(pendingSubscription);
     for (const selectionName of selectionList) {
       let hearingIdsList = [];
-      let courtIdsList = [];
+      let locationIdsList = [];
       let caseDetailsList: object[];
       let courtDetailsList: object[];
       let urnHearing;
@@ -97,9 +97,9 @@ export class SubscriptionService {
           break;
         case 'court-selections[]':
           Array.isArray(pendingSubscription[`${selectionName}`]) ?
-            courtIdsList = pendingSubscription[`${selectionName}`] :
-            courtIdsList.push(pendingSubscription[`${selectionName}`]);
-          courtDetailsList = await this.getCourtDetails(courtIdsList);
+            locationIdsList = pendingSubscription[`${selectionName}`] :
+            locationIdsList.push(pendingSubscription[`${selectionName}`]);
+          courtDetailsList = await this.getCourtDetails(locationIdsList);
           // set results into cache
           await this.setPendingSubscriptions(courtDetailsList, 'courts', user.oid);
           break;
@@ -120,8 +120,8 @@ export class SubscriptionService {
 
   public async getCourtDetails(courts): Promise<Court[]> {
     const courtsList = [];
-    for (const courtId of courts) {
-      const courtDetails = await courtService.getCourtById(courtId);
+    for (const locationId of courts) {
+      const courtDetails = await courtService.getCourtById(locationId);
       if (courtDetails) {
         courtsList.push(courtDetails);
       }
@@ -152,7 +152,7 @@ export class SubscriptionService {
     if (cachedCourtSubs) {
       for (const cachedCourt of cachedCourtSubs) {
         const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCourt, courtsType, userId));
-        response ? await this.removeFromCache({court: cachedCourt.courtId}, userId) : subscribed = response;
+        response ? await this.removeFromCache({court: cachedCourt.locationId}, userId) : subscribed = response;
       }
     }
     return subscribed;
@@ -165,7 +165,7 @@ export class SubscriptionService {
         payload = {
           channel: 'EMAIL',
           searchType: 'COURT_ID',
-          searchValue: pendingSubscription.courtId,
+          searchValue: pendingSubscription.locationId,
           courtName: pendingSubscription.name,
           userId,
         };

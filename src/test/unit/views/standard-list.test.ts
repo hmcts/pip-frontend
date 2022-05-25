@@ -6,7 +6,7 @@ import {expect} from 'chai';
 import sinon from 'sinon';
 import {CourtService} from '../../../main/service/courtService';
 
-const PAGE_URL = '/standard-list?courtId=10';
+const PAGE_URL = '/standard-list?locationId=10';
 
 let htmlRes: Document;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');

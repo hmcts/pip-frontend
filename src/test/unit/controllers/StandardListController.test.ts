@@ -12,7 +12,7 @@ describe('Standard list controller', () => {
   it('should render the standard list page', async () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {courtId: '10'};
+    request.query = {locationId: '10'};
 
     const responseMock = sinon.mock(response);
 

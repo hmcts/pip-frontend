@@ -11,12 +11,12 @@ const manualUploadService = new ManualUploadService();
 
 export default class RemoveListSearchResultsController {
   public async get(req: PipRequest, res: Response): Promise<void> {
-    const courtId = parseInt(req.query?.courtId as string);
-    courtId ?
+    const locationId = parseInt(req.query?.locationId as string);
+    locationId ?
       res.render('remove-list-search-results', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search-results']),
-        court: await courtService.getCourtById(courtId),
-        removalList: manualUploadService.formatListRemovalValues(await publicationService.getPublications(courtId, !!req.user, true)),
+        court: await courtService.getCourtById(locationId),
+        removalList: manualUploadService.formatListRemovalValues(await publicationService.getPublications(locationId, !!req.user, true)),
       }) :
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
   }

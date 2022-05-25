@@ -20,7 +20,7 @@ export default class SearchController {
     const autocompleteList = await courtService.fetchAllCourts();
     const court = await courtService.getCourtByName(searchInput);
     (court && searchInput) ?
-      res.redirect(`summary-of-publications?courtId=${court.locationId}`) :
+      res.redirect(`summary-of-publications?locationId=${court.locationId}`) :
       res.render('search', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng).search),
         autocompleteList: autocompleteList,

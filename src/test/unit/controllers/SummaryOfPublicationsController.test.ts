@@ -33,7 +33,7 @@ describe('Get publications', () => {
     } as unknown as Response;
 
     const request = mockRequest(i18n);
-    request.query = {courtId: '1'};
+    request.query = {locationId: '1'};
     request.user = {id: 1};
 
     const responseMock = sinon.mock(response);
@@ -59,7 +59,7 @@ describe('Get publications', () => {
     } as unknown as Response;
 
     const request = mockRequest(i18n);
-    request.query = {courtId: '0'};
+    request.query = {locationId: '0'};
     request.user = {id: 1};
 
     const responseMock = sinon.mock(response);
@@ -98,7 +98,7 @@ describe('Get individual publication and act appropriately', () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {courtId: '0'};
+    request.query = {locationId: '0'};
     request.user = {id: 1};
     SoPStub.withArgs(0).resolves(onePub);
     CourtStub.withArgs('0').resolves(JSON.parse('{"name":"Single Justice Procedure"}'));
@@ -116,7 +116,7 @@ describe('Get individual publication and act appropriately', () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {courtId: '2'};
+    request.query = {locationId: '2'};
     request.user = {id: 1};
     onePub[0]['isFlatFile'] = false;
     SoPStub.withArgs(2).resolves(onePub);
