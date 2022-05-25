@@ -4,7 +4,7 @@ import path from 'path';
 import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { CourtRequests } from '../../../main/resources/requests/courtRequests';
+import { LocationRequests } from '../../../main/resources/requests/locationRequests';
 import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/court-name-search';
@@ -14,7 +14,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearin
 const courtData = JSON.parse(rawData);
 const checkboxesCount = 12;
 
-sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(courtData);
+sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 
 describe('Court Name Search Page', () => {
   beforeAll(async () => {

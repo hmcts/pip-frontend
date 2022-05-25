@@ -3,9 +3,9 @@
 import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {cloneDeep} from 'lodash';
-import {CourtService} from '../service/courtService';
+import {LocationService} from '../service/locationService';
 
-const courtService = new CourtService();
+const courtService = new LocationService();
 
 export default class StandardListController {
   public async get(req: PipRequest, res: Response): Promise<void> {

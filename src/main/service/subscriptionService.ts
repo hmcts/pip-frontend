@@ -3,18 +3,18 @@ import { SubscriptionRequests } from '../resources/requests/subscriptionRequests
 import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendingSubscriptionsFromCache';
 import { UserSubscriptions } from '../models/UserSubscriptions';
 import {PublicationService} from './publicationService';
-import {CourtService} from './courtService';
-import {Court} from '../models/court';
+import {LocationService} from './locationService';
+import {Location} from '../models/location';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
 const publicationService = new PublicationService();
-const courtService = new CourtService();
+const courtService = new LocationService();
 
 export class SubscriptionService {
   async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
     const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
-    return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], courtSubscriptions: []};
+    return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], locationSubscriptions: []};
   }
 
   async generateCaseTableRows(subscriptionDataCases): Promise<any[]> {
@@ -44,13 +44,13 @@ export class SubscriptionService {
     return caseRows;
   }
 
-  async generateCourtTableRows(subscriptionDataCourts): Promise<any[]> {
+  async generateLocationTableRows(subscriptionDataCourts): Promise<any[]> {
     const courtRows = [];
     if (subscriptionDataCourts.length) {
       subscriptionDataCourts.forEach((subscription) => {
         courtRows.push([
           {
-            text: subscription.courtName,
+            text: subscription.locationName,
           },
           {
             text: moment(subscription.dateAdded).format('MMM Do YYYY'),
@@ -118,7 +118,7 @@ export class SubscriptionService {
     return casesList;
   }
 
-  public async getCourtDetails(courts): Promise<Court[]> {
+  public async getCourtDetails(courts): Promise<Location[]> {
     const courtsList = [];
     for (const locationId of courts) {
       const courtDetails = await courtService.getCourtById(locationId);
@@ -164,7 +164,7 @@ export class SubscriptionService {
       case 'courts':
         payload = {
           channel: 'EMAIL',
-          searchType: 'COURT_ID',
+          searchType: 'LOCATION_ID',
           searchValue: pendingSubscription.locationId,
           courtName: pendingSubscription.name,
           userId,

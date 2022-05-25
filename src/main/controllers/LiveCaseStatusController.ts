@@ -17,10 +17,10 @@ export default class LiveCaseStatusController {
         liveCase = liveCase[0];
         res.render('live-case-status', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['live-case-status']),
-          courtName: liveCase.courtName,
+          locationName: liveCase.locationName,
           updateDate: moment(Date.parse(liveCase.lastUpdated)).format('DD MMMM YYYY'),
           updateTime: moment(Date.parse(liveCase.lastUpdated)).format('h:mma'),
-          liveCases: liveCase.courtUpdates,
+          liveCases: liveCase.locationUpdates,
           refreshTimer: process.env.REFRESH_TIMER_MILLISECONDS || 15000,
           locationId: locationId,
         });

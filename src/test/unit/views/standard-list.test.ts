@@ -4,14 +4,14 @@ import fs from 'fs';
 import path from 'path';
 import {expect} from 'chai';
 import sinon from 'sinon';
-import {CourtService} from '../../../main/service/courtService';
+import {LocationService} from '../../../main/service/locationService';
 
 const PAGE_URL = '/standard-list?locationId=10';
 
 let htmlRes: Document;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawData);
-sinon.stub(CourtService.prototype, 'getCourtById').resolves(courtData[0]);
+sinon.stub(LocationService.prototype, 'getCourtById').resolves(courtData[0]);
 
 describe('Standard list page', () => {
   beforeAll(async () => {

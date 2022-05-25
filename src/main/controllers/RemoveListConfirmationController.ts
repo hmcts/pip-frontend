@@ -1,12 +1,12 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { CourtService } from '../service/courtService';
+import { LocationService } from '../service/locationService';
 import { PublicationService } from '../service/publicationService';
 import { ManualUploadService } from '../service/manualUploadService';
 
 const publicationService = new PublicationService();
-const courtService = new CourtService();
+const courtService = new LocationService();
 const manualUploadService = new ManualUploadService();
 
 export default class RemoveListConfirmationController {

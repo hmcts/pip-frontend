@@ -1,11 +1,11 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { CourtService } from '../service/courtService';
+import { LocationService } from '../service/locationService';
 import { SummaryOfPublicationsService } from '../service/summaryOfPublicationsService';
 import { ManualUploadService } from '../service/manualUploadService';
 
-const courtService = new CourtService();
+const courtService = new LocationService();
 const publicationService = new SummaryOfPublicationsService();
 const manualUploadService = new ManualUploadService();
 

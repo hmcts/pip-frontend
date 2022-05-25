@@ -1,10 +1,10 @@
 import { Response } from 'express';
-import {CourtService} from '../service/courtService';
+import {LocationService} from '../service/locationService';
 import moment from 'moment';
 import {cloneDeep} from 'lodash';
 import {PipRequest} from '../models/request/PipRequest';
 
-const courtService = new CourtService();
+const courtService = new LocationService();
 
 export default class HearingListController {
 

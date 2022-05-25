@@ -7,7 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
 
-import { CourtRequests } from '../../main/resources/requests/courtRequests';
+import { LocationRequests } from '../../main/resources/requests/locationRequests';
 import { LiveCaseRequests } from '../../main/resources/requests/liveCaseRequests';
 import { CaseEventGlossaryRequests } from '../../main/resources/requests/caseEventGlossaryRequests';
 import { SjpRequests } from '../../main/resources/requests/sjpRequests';
@@ -40,12 +40,12 @@ const liveCaseData = JSON.parse(rawDataLive).results;
 const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
 const sjpCases = JSON.parse(rawSJPData).results;
 
-sinon.stub(CourtRequests.prototype, 'getCourt').returns(courtData);
-sinon.stub(CourtRequests.prototype, 'getCourtByName').returns(courtData);
-sinon.stub(CourtRequests.prototype, 'getFilteredCourts').returns(allCourtData);
+sinon.stub(LocationRequests.prototype, 'getLocation').returns(courtData);
+sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(courtData);
+sinon.stub(LocationRequests.prototype, 'getFilteredCourts').returns(allCourtData);
 sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').returns(rawPublicationData);
 sinon.stub(PublicationRequests.prototype, 'getIndividualPublicationJson').returns(rawPublicationData);
-sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(allCourtData);
+sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(allCourtData);
 sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
 sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').returns(caseEventGlossaryData);
 sinon.stub(SjpRequests.prototype, 'getSJPCases').returns(sjpCases);

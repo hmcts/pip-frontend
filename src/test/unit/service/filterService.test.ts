@@ -1,7 +1,7 @@
 import {FilterService} from '../../../main/service/filterService';
 import fs from 'fs';
 import path from 'path';
-import {CourtService} from '../../../main/service/courtService';
+import {LocationService} from '../../../main/service/locationService';
 import sinon from 'sinon';
 
 const filterService = new FilterService();
@@ -9,20 +9,20 @@ const filterService = new FilterService();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 
-sinon.stub(CourtService.prototype, 'generateAlphabetisedAllCourtList').resolves(listData);
-sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList').resolves([listData[0]]);
-sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves(listData);
+sinon.stub(LocationService.prototype, 'generateAlphabetisedAllCourtList').resolves(listData);
+sinon.stub(LocationService.prototype, 'generateFilteredAlphabetisedCourtList').resolves([listData[0]]);
+sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(listData);
 
-const magsCourt = 'Magistrates\' Court';
-const crownCourt = 'Crown Court';
-const royalCourt = 'Royal Court';
+const magsCourt = 'Magistrates';
+const crownCourt = 'Crown';
+const royalCourt = 'Royal';
 const bedfordRegion = 'Bedford';
 const londonRegion = 'London';
 const manchesterRegion = 'Manchester';
 const jurisdiction = 'Jurisdiction';
 const region = 'Region';
-const requestFilters = {'Jurisdiction': 'Crown Court', Region: 'Bedford'};
-const requestFiltersNoRegion = {'Jurisdiction': ['Crown Court', 'Tribunal']};
+const requestFilters = {'Jurisdiction': 'Crown', Region: 'Bedford'};
+const requestFiltersNoRegion = {'Jurisdiction': ['Crown', 'Tribunal']};
 const requestFiltersNoJurisdiction = {Region: 'Bedford'};
 const filterNames = ['Jurisdiction', 'Region'];
 const allFilterOptions = {'Jurisdiction': {Tribunal:{value:'Tribunal'}}, Region: {Wales:{value:'Wales'}}};
@@ -49,7 +49,7 @@ describe('Filter Service', () => {
   });
 
   it('should build filters options for checkboxes with checked true', () => {
-    const data = filterService.buildFilterValueOptions(listData, ['Crown Court']);
+    const data = filterService.buildFilterValueOptions(listData, ['Crown']);
     expect(data[jurisdiction][crownCourt]['checked']).toBe(true);
   });
 

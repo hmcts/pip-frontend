@@ -1,14 +1,14 @@
 import {PipRequest} from '../models/request/PipRequest';
 import { Response } from 'express';
 import {cloneDeep} from 'lodash';
-import {CourtService} from '../service/courtService';
+import {LocationService} from '../service/locationService';
 import {SummaryOfPublicationsService} from '../service/summaryOfPublicationsService';
 import fs from 'fs';
 import path from 'path';
 
 const urlLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname,'../modules/nunjucks/listUrlLookup.json'), 'utf-8'));
 const summaryOfPublicationsService = new SummaryOfPublicationsService();
-const courtService = new CourtService();
+const courtService = new LocationService();
 
 export default class SummaryOfPublicationsController {
 

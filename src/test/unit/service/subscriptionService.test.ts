@@ -1,4 +1,4 @@
-import { CourtService } from '../../../main/service/courtService';
+import { LocationService } from '../../../main/service/locationService';
 import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
 import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 import { SubscriptionService } from '../../../main/service/subscriptionService';
@@ -28,7 +28,7 @@ const mockCase = {
 };
 const courtSubscriptionPayload = {
   channel: 'EMAIL',
-  searchType: 'COURT_ID',
+  searchType: 'LOCATION_ID',
   searchValue: 643,
   courtName: 'Aberdeen Tribunal Hearing Centre',
   userId: '1',
@@ -63,7 +63,7 @@ const cacheGetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPen
 const removeStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'removeFromCache');
 const publicationStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
 sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(mockCase);
-const courtStub = sinon.stub(CourtService.prototype, 'getCourtById');
+const courtStub = sinon.stub(LocationService.prototype, 'getCourtById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
 const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
 subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);

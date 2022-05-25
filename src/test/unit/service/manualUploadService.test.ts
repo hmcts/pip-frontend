@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 import {ManualUploadService} from '../../../main/service/manualUploadService';
-import {CourtService} from '../../../main/service/courtService';
+import {LocationService} from '../../../main/service/locationService';
 import { DataManagementRequests } from '../../../main/resources/requests/dataManagementRequests';
 import fs from 'fs';
 import path from 'path';
@@ -21,7 +21,7 @@ const headers = {
   listType: 'type',
   court: {
     locationId: '1',
-    courtName: 'Court',
+    locationName: 'Court',
   },
   'content-date-from': '',
 };
@@ -38,7 +38,7 @@ const expectedHeaders = {
   'x-content-date': headers['content-date-from'],
   'x-issuer-email': 'test@email.com',
 };
-const courtService = sinon.stub(CourtService.prototype, 'getCourtByName');
+const courtService = sinon.stub(LocationService.prototype, 'getLocationByName');
 courtService.withArgs('validCourt').resolves(courtData[0]);
 
 const validFile = multerFile('testFile.pdf', 1000);
@@ -61,7 +61,7 @@ const expectedRemoveList = [
   },
 ];
 
-sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves(courtData);
+sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtData);
 sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(true);
 sinon.stub(DataManagementRequests.prototype, 'uploadJSONPublication').resolves(true);
 sinon.stub(fs, 'unlinkSync');
@@ -147,7 +147,7 @@ describe('Manual upload service', () => {
     it('should return character minimum error message', async () => {
       formValues['input-autocomplete'] = 'ab';
       const errors = await manualUploadService.validateFormFields(formValues);
-      expect(errors['courtError']).to.equal('Court name must be three characters or more');
+      expect(errors['courtError']).to.equal('Location name must be three characters or more');
     });
 
     it('should return error when invalid content date from is passed', async () => {

@@ -1,10 +1,10 @@
-import { Court } from '../../models/court';
+import { Location } from '../../models/location';
 import { dataManagementApi } from './utils/axiosConfig';
 
 const { redisClient } = require('../../cacheManager');
 
-export class CourtRequests {
-  public async getCourt(locationId: number): Promise<Court> {
+export class LocationRequests {
+  public async getLocation(locationId: number): Promise<Location> {
     try {
       const response = await dataManagementApi.get(`/locations/${locationId}`);
       return response.data;
@@ -20,7 +20,7 @@ export class CourtRequests {
     return null;
   }
 
-  public async getCourtByName(courtName: string): Promise<Court> {
+  public async getLocationByName(courtName: string): Promise<Location> {
     try {
       const response = await dataManagementApi.get(`/locations/name/${courtName}`);
       return response.data;
@@ -36,7 +36,7 @@ export class CourtRequests {
     return null;
   }
 
-  public async getFilteredCourts(regions: string, jurisdictions: string): Promise<Array<Court>> {
+  public async getFilteredCourts(regions: string, jurisdictions: string): Promise<Array<Location>> {
     try {
       const response = await dataManagementApi.get('/locations/filter', {
         params: {
@@ -57,7 +57,7 @@ export class CourtRequests {
     return null;
   }
 
-  public async getAllCourts(): Promise<Array<Court>> {
+  public async getAllLocations(): Promise<Array<Location>> {
     let allCachedCourts;
     if (redisClient.status === 'ready') {
       allCachedCourts = await redisClient.get('allCourts');

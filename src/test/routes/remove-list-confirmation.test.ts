@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import { app } from '../../main/app';
 import { expect } from 'chai';
 import { PublicationService } from '../../main/service/publicationService';
-import { CourtService } from '../../main/service/courtService';
+import { LocationService } from '../../main/service/locationService';
 
 const URL = '/remove-list-confirmation';
 
@@ -18,7 +18,7 @@ const mockArtefact = {
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
-sinon.stub(CourtService.prototype, 'getCourtById').resolves({locationId: '1', name: 'Mock Court'});
+sinon.stub(LocationService.prototype, 'getCourtById').resolves({locationId: '1', name: 'Mock Court'});
 removePublicationStub.withArgs('valid-artefact', 'joe@bloggs.com').resolves(true);
 removePublicationStub.withArgs('invalid-artefact', 'joe@bloggs.com').resolves(false);
 metadataStub.withArgs('valid-artefact', true).resolves(mockArtefact);

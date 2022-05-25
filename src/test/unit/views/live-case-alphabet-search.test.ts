@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {CourtRequests} from '../../../main/resources/requests/courtRequests';
+import {LocationRequests} from '../../../main/resources/requests/locationRequests';
 
 const PAGE_URL = '/live-case-alphabet-search';
 const expectedHeader = 'Live hearing updates - select a court';
@@ -15,7 +15,7 @@ let htmlRes: Document;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const hearingsData = JSON.parse(rawData);
 
-sinon.stub(CourtRequests.prototype, 'getFilteredCourts').returns(hearingsData);
+sinon.stub(LocationRequests.prototype, 'getFilteredCourts').returns(hearingsData);
 
 describe('Alphabetical Search page', () => {
   beforeAll(async () => {

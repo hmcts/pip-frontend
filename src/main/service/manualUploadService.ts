@@ -1,10 +1,10 @@
-import { CourtService } from './courtService';
+import { LocationService } from './locationService';
 import { allowedFileTypes } from '../models/consts';
 import { DataManagementRequests } from '../resources/requests/dataManagementRequests';
 import moment from 'moment';
 import fs from 'fs';
 
-const courtService = new CourtService();
+const courtService = new LocationService();
 const dataManagementRequests = new DataManagementRequests();
 const listSubTypes = [
   {text:'SJP Public List', value: 'SJP_PUBLIC_LIST'},
@@ -21,7 +21,7 @@ const listSubTypes = [
 export class ManualUploadService {
   public async buildFormData(): Promise<object> {
     return {
-      courtList: await courtService.fetchAllCourts(),
+      courtList: await courtService.fetchAllLocations(),
       listSubtypes: this.getListSubtypes(),
       judgementsOutcomesSubtypes: this.getJudgementOutcomesSubtypes(),
     };
@@ -92,7 +92,7 @@ export class ManualUploadService {
       }
       return 'Please enter and select a valid court';
     }
-    return 'Court name must be three characters or more';
+    return 'Location name must be three characters or more';
   }
 
   public buildDate(body: object, fieldsetPrefix: string): string {

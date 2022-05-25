@@ -1,4 +1,4 @@
-import { CourtService } from '../../../main/service/courtService';
+import { LocationService } from '../../../main/service/locationService';
 import { SummaryOfPublicationsService } from '../../../main/service/summaryOfPublicationsService';
 import { ManualUploadService } from '../../../main/service/manualUploadService';
 import { request as expressRequest } from 'express';
@@ -33,7 +33,7 @@ const mockPublications = [
   },
 ];
 const tableHeaders = ['List type', 'Court', 'Date', 'Actions'];
-sinon.stub(CourtService.prototype, 'getCourtById').resolves(mockCourt);
+sinon.stub(LocationService.prototype, 'getCourtById').resolves(mockCourt);
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs('5', true, true).resolves(mockPublications);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns(mockPublications);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);

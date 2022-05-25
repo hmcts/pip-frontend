@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { CourtService } from '../../../main/service/courtService';
+import { LocationService } from '../../../main/service/locationService';
 import { SummaryOfPublicationsService } from '../../../main/service/summaryOfPublicationsService';
 import { ManualUploadService } from '../../../main/service/manualUploadService';
 import { Response } from 'express';
@@ -14,7 +14,7 @@ const mockCourt = {
   locationId: '5',
   name: 'The court',
 };
-sinon.stub(CourtService.prototype, 'getCourtById').resolves(mockCourt);
+sinon.stub(LocationService.prototype, 'getCourtById').resolves(mockCourt);
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs('5', true, true).resolves([]);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns([]);
 const removeListSearchResultsController = new RemoveListSearchResultsController();

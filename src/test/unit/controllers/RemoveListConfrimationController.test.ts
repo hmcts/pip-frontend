@@ -3,7 +3,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import RemoveListConfirmationController from '../../../main/controllers/RemoveListConfirmationController';
 import { PublicationService } from '../../../main/service/publicationService';
-import { CourtService } from '../../../main/service/courtService';
+import { LocationService } from '../../../main/service/locationService';
 
 const i18n = {
   'remove-list-confirmation': {},
@@ -23,7 +23,7 @@ const mockArtefact = {
 const mockCourt = {locationId: '5', name: 'Mock Court'};
 const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
-sinon.stub(CourtService.prototype, 'getCourtById').resolves(mockCourt);
+sinon.stub(LocationService.prototype, 'getCourtById').resolves(mockCourt);
 removePublicationStub.withArgs('valid-artefact', 'joe@bloggs.com').resolves(true);
 removePublicationStub.withArgs('foo', 'joe@bloggs.com').resolves(false);
 metadataStub.withArgs('valid-artefact', true).resolves(mockArtefact);

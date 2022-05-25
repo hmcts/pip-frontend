@@ -2,11 +2,11 @@ import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import sinon from 'sinon';
 import StandardListController from '../../../main/controllers/StandardListController';
-import {CourtService} from '../../../main/service/courtService';
+import {LocationService} from '../../../main/service/locationService';
 
 const standardListController = new StandardListController();
 const i18n = {};
-sinon.stub(CourtService.prototype, 'getCourtById').resolves([]);
+sinon.stub(LocationService.prototype, 'getCourtById').resolves([]);
 
 describe('Standard list controller', () => {
   it('should render the standard list page', async () => {

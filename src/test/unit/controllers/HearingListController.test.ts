@@ -3,12 +3,12 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import {CourtService} from '../../../main/service/courtService';
+import {LocationService} from '../../../main/service/locationService';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
 
 const hearingListController = new HearingListController();
-const stub = sinon.stub(CourtService.prototype, 'getCourtById');
+const stub = sinon.stub(LocationService.prototype, 'getCourtById');
 
 let i18n = {};
 

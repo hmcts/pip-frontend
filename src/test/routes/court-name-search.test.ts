@@ -6,15 +6,15 @@ import { request as expressRequest } from 'express';
 
 import fs from 'fs';
 import path from 'path';
-import {CourtService} from '../../main/service/courtService';
+import {LocationService} from '../../main/service/locationService';
 
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawData);
-sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves(courtList);
-sinon.stub(CourtService.prototype, 'generateFilteredAlphabetisedCourtList').resolves(courtList);
+sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtList);
+sinon.stub(LocationService.prototype, 'generateFilteredAlphabetisedCourtList').resolves(courtList);
 
-describe('Court Name Search', () => {
+describe('Location Name Search', () => {
   describe('on GET', () => {
     test('should return court name search page', async () => {
       await request(app)

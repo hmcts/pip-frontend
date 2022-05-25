@@ -4,7 +4,7 @@ import {mockRequest} from '../mocks/mockRequest';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {CourtService} from '../../../main/service/courtService';
+import {LocationService} from '../../../main/service/locationService';
 import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
 
 const publicationController = new SummaryOfPublicationsController();
@@ -15,7 +15,7 @@ const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPC
 const sjpCases = JSON.parse(rawSJPData).results;
 const onePubData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublication.json'), 'utf-8');
 const onePub = JSON.parse(onePubData);
-const CourtStub = sinon.stub(CourtService.prototype, 'getCourtById');
+const CourtStub = sinon.stub(LocationService.prototype, 'getCourtById');
 const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
 
 describe('Get publications', () => {
@@ -40,7 +40,7 @@ describe('Get publications', () => {
 
     const expectedData = {
       ...i18n['summary-of-publications'],
-      courtName: 'New Court',
+      locationName: 'New Court',
       publications: sjpCases,
     };
 

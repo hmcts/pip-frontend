@@ -1,16 +1,16 @@
-import {Court} from '../models/court';
-import {CourtService} from './courtService';
+import {Location} from '../models/location';
+import {LocationService} from './locationService';
 
 const filterNames = ['Jurisdiction', 'Region'];
 
-const courtService = new CourtService();
+const locationService = new LocationService();
 
 export class FilterService {
-  private getFilterValueOptions(filterName: string, list: Array<Court>): string[] {
+  private getFilterValueOptions(filterName: string, list: Array<Location>): string[] {
     return [...new Set(list.map(court => court[filterName.toLowerCase()]))];
   }
 
-  public buildFilterValueOptions(list: Array<Court>, selectedFilters: string[]): object {
+  public buildFilterValueOptions(list: Array<Location>, selectedFilters: string[]): object {
     const filterValueOptions = {};
     let finalFilterValueOptions = [];
     filterNames.forEach(filter => {
@@ -111,15 +111,15 @@ export class FilterService {
       filterValues = this.handleFilterClear(filterValues, clearQuery);
     }
 
-    const filterOptions = this.buildFilterValueOptions(await courtService.fetchAllCourts(), filterValues);
+    const filterOptions = this.buildFilterValueOptions(await locationService.fetchAllLocations(), filterValues);
 
     let filters ={};
     if(filterValues.length > 0) {
       filters = this.findAndSplitFilters(filterValues, filterOptions);
     }
 
-    const alphabetisedList = filterValues.length == 0 ? await courtService.generateAlphabetisedAllCourtList() :
-      await courtService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']);
+    const alphabetisedList = filterValues.length == 0 ? await locationService.generateAlphabetisedAllCourtList() :
+      await locationService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']);
 
     return {
       alphabetisedList: alphabetisedList,

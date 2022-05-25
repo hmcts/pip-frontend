@@ -49,7 +49,7 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
   it('should return user subscription object', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
     expect(userSubscriptions.caseSubscriptions.length).toEqual(2);
-    expect(userSubscriptions.courtSubscriptions.length).toEqual(3);
+    expect(userSubscriptions.locationSubscriptions.length).toEqual(3);
   });
 
   it('should have mocked object in the case subscriptions list', async () => {
@@ -59,7 +59,7 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
 
   it('should have mocked object in the court subscriptions list', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-    expect(userSubscriptions.courtSubscriptions[0].courtName).toBe(mockedCourtSubscription.name);
+    expect(userSubscriptions.locationSubscriptions[0].courtName).toBe(mockedCourtSubscription.name);
   });
 });
 

@@ -5,7 +5,7 @@ import {request as expressRequest} from 'express';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {CourtRequests} from '../../../main/resources/requests/courtRequests';
+import {LocationRequests} from '../../../main/resources/requests/locationRequests';
 
 const PAGE_URL = '/manual-upload';
 const headingClass = 'govuk-heading-xl';
@@ -49,7 +49,7 @@ const mockBodyData = {
   'display-date-to-year': '',
 };
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(courtData);
+sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 
 describe('Manual upload page', () => {
   describe('on GET', () => {

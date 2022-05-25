@@ -3,14 +3,14 @@ import sinon from 'sinon';
 import {  Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import {CourtService} from '../../../main/service/courtService';
+import {LocationService} from '../../../main/service/locationService';
 import {mockRequest} from '../mocks/mockRequest';
 
 const searchController = new SearchController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawData);
-sinon.stub(CourtService.prototype, 'fetchAllCourts').returns(courtList);
-const stubCourt = sinon.stub(CourtService.prototype, 'getCourtByName');
+sinon.stub(LocationService.prototype, 'fetchAllLocations').returns(courtList);
+const stubCourt = sinon.stub(LocationService.prototype, 'getLocationByName');
 
 describe('Search Controller', () => {
   const i18n = {search: {}};

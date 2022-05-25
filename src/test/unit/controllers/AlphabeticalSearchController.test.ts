@@ -90,7 +90,7 @@ describe('Alphabetical Search Controller', () => {
   });
 });
 
-describe('Court Name Search Controller', () => {
+describe('Location Name Search Controller', () => {
   const i18n = {
     'alphabetical-search': {},
   };
