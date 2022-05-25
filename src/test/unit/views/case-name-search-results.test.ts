@@ -6,6 +6,7 @@ import { request as expressRequest } from 'express';
 import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
 
 const PAGE_URL = '/case-name-search-results?search=Meedo';
+const pageTitleValue = 'Search result';
 let htmlRes: Document;
 
 const data = [{
@@ -30,6 +31,11 @@ describe('Case name search results page', () => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
     });
+  });
+
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
   });
 
   it('should display header', () => {

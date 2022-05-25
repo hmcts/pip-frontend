@@ -1,6 +1,5 @@
 {
-  "title": "Create Account",
-  "header": "Create a Court and tribunal hearings account",
+  "title": "Create a Court and tribunal hearings account",
   "retainHint": "We will retain the personal information you enter here to manage your user account and our service.",
   "nameLabel": "Full name",
   "emailLabel": "Email address",
