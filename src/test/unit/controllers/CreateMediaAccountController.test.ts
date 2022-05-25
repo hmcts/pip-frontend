@@ -3,19 +3,19 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import CreateMediaAccountController from '../../../main/controllers/CreateMediaAccountController';
 import { CreateAccountService } from '../../../main/service/createAccountService';
+import { multerFile } from '../mocks/multerFile';
+import { FileHandlingService } from '../../../main/service/fileHandlingService';
 
 const createMediaAccountController = new CreateMediaAccountController();
 const validBody = {
   fullName: 'foo',
   emailAddress: 'bar',
   employer: 'baz',
-  'file-upload': 'blah',
 };
 const invalidBody = {
   fullName: '',
   emailAddress: 'bar',
   employer: 'baz',
-  'file-upload': 'blah',
 };
 const responseErrors = {
   nameError: {
@@ -54,9 +54,17 @@ const responseNoErrors = {
     href: '#file-upload',
   },
 };
-const formStub = sinon.stub(CreateAccountService.prototype, 'validateFormFields');
-formStub.withArgs(validBody).returns(responseNoErrors);
-formStub.withArgs(invalidBody).returns(responseErrors);
+
+const validFile = multerFile('testImage.png', 1000);
+const invalidFileType = multerFile('testImage.wrong', 1000);
+
+const validateFormFieldsStub = sinon.stub(CreateAccountService.prototype, 'validateFormFields');
+validateFormFieldsStub.withArgs(validBody, validFile).returns(responseNoErrors);
+validateFormFieldsStub.withArgs(invalidBody, invalidFileType).returns(responseErrors);
+
+const createMediaAccountStub = sinon.stub(CreateAccountService.prototype, 'createMediaApplication');
+
+sinon.stub(FileHandlingService.prototype, 'removeFile').returns('');
 
 describe('Create Media Account Controller', () => {
   const i18n = {'create-media-account': {}};
@@ -76,6 +84,7 @@ describe('Create Media Account Controller', () => {
   describe('post requests', () => {
     it('should render create media account page', async () => {
       request.body = invalidBody;
+      request.file = invalidFileType;
       const responseMock = sinon.mock(response);
       const expectedOptions = {
         ...i18n['create-media-account'],
@@ -88,15 +97,39 @@ describe('Create Media Account Controller', () => {
       responseMock.verify();
     });
 
-    it('should redirect to confirmation page', async () => {
+    it('should render same page if errors are present', async () => {
+      const response = { render: () => {return '';}} as unknown as Response;
+      const responseMock = sinon.mock(response);
+      request.body = invalidBody;
+      request.file = invalidFileType;
+
+      responseMock.expects('render').once().withArgs('create-media-account');
+    });
+
+    it('should render same page if the response is not true', async () => {
+      const response = { render: () => {return '';}} as unknown as Response;
+      const responseMock = sinon.mock(response);
+      request.body = validBody;
+      request.file = validFile;
+
+      createMediaAccountStub.withArgs(validBody, validFile).returns(false);
+
+      responseMock.expects('render').once().withArgs('create-media-account');
+      await createMediaAccountController.post(request, response);
+      await responseMock.verify();
+    });
+
+    it('should redirect to the request submitted page if successful', async () => {
       const response = { redirect: () => {return '';}} as unknown as Response;
       const responseMock = sinon.mock(response);
       request.body = validBody;
+      request.file = validFile;
+
+      createMediaAccountStub.withArgs(validBody, validFile).returns(true);
 
       responseMock.expects('redirect').once().withArgs('account-request-submitted');
-
       await createMediaAccountController.post(request, response);
-      responseMock.verify();
+      await responseMock.verify();
     });
   });
 });

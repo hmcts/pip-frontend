@@ -48,7 +48,7 @@ describe('Create Media Account page', () => {
       expect(emailLabel.innerHTML).contains('Email address', 'Could not find email label');
       expect(hint.innerHTML).contains('We\'ll only use this to contact you about your account and this service.', 'Could not find email hint');
       expect(input.getAttribute('name')).equals('emailAddress', 'Could not find emailAddress input');
-      expect(input.getAttribute('type')).equals('email', 'Could not correct input type');
+      expect(input.getAttribute('type')).equals('text', 'Could not correct input type');
     });
 
     it('should display employer input', () => {
@@ -60,8 +60,9 @@ describe('Create Media Account page', () => {
 
     it('should contain image upload', () => {
       const imageUpload = htmlRes.getElementById('file-upload');
+      const imageUploadLabel = htmlRes.getElementsByClassName('govuk-hint')[3];
       expect(imageUpload.getAttribute('type')).equals('file', 'Could not find image upload');
-      expect(htmlRes.getElementsByClassName('govuk-label')[3].innerHTML).contains('Must be a jpg, pdf, png, or tiff file', 'Could not find image upload label');
+      expect(imageUploadLabel.innerHTML).contains('Must be a jpg, pdf or png', 'Could not find image upload label');
     });
 
     it('should display clear photo paragraph', () => {
@@ -99,36 +100,44 @@ describe('Create Media Account page', () => {
       const list = htmlRes.getElementsByClassName(' govuk-error-summary__list')[0];
       const listItems = list.getElementsByTagName('a');
       expect(listItems.length).to.equal(4, 'Could not find all error messages');
-      expect(listItems[0].innerHTML).contains('Enter your full name', 'Could not find name error');
-      expect(listItems[1].innerHTML).contains('Enter your email address', 'Could not find email error');
-      expect(listItems[2].innerHTML).contains('Enter your employer', 'Could not find employer error');
-      expect(listItems[3].innerHTML).contains('Select a file to upload', 'Could not find file error');
+      expect(listItems[0].innerHTML).contains('There is a problem - Full name field must be populated',
+        'Could not find name error');
+      expect(listItems[1].innerHTML).contains('There is a problem - Email address field must be populated',
+        'Could not find email error');
+      expect(listItems[2].innerHTML).contains('There is a problem - Your employers name will be needed to support ' +
+        'your application for an account', 'Could not find employer error');
+      expect(listItems[3].innerHTML).contains('There is a problem - We will need ID evidence to support ' +
+        'your application for an account', 'Could not find file error');
     });
 
     it('should display name error message', () => {
       const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
       const nameInput = htmlRes.getElementById('fullName');
-      expect(errorMessage[0].innerHTML).contains('Enter your full name', 'Could not find name error message');
+      expect(errorMessage[0].innerHTML).contains('There is a problem - Full name field must ' +
+        'be populated', 'Could not find name error message');
       expect(nameInput.classList.contains(errorClassList)).to.be.true;
     });
 
     it('should display email error message', () => {
       const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
       const nameInput = htmlRes.getElementById('emailAddress');
-      expect(errorMessage[1].innerHTML).contains('Enter your email address', 'Could not find email error message');
+      expect(errorMessage[1].innerHTML).contains('There is a problem - ' +
+        'Email address field must be populated', 'Could not find email error message');
       expect(nameInput.classList.contains(errorClassList)).to.be.true;
     });
 
     it('should display employer error message', () => {
       const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
       const nameInput = htmlRes.getElementById('employer');
-      expect(errorMessage[2].innerHTML).contains('Enter your employer', 'Could not find employer error message');
+      expect(errorMessage[2].innerHTML).contains('There is a problem - Your employers name will be needed to support ' +
+        'your application for an account', 'Could not find employer error message');
       expect(nameInput.classList.contains(errorClassList)).to.be.true;
     });
 
     it('should display image upload error message', () => {
       const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
-      expect(errorMessage[3].innerHTML).contains('Select a file to upload', 'Could not find image upload error message');
+      expect(errorMessage[3].innerHTML).contains('There is a problem - We will need ID evidence to support ' +
+        'your application for an account', 'Could not find image upload error message');
     });
   });
 });

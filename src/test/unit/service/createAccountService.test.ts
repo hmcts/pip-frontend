@@ -1,19 +1,22 @@
 import { CreateAccountService } from '../../../main/service/createAccountService';
 import sinon from 'sinon';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { multerFile } from '../mocks/multerFile';
 
 const createAccountService = new CreateAccountService();
+
+const validImage = multerFile('testImage.png', 1000);
+const invalidFileType = multerFile('testImage.wrong', 1000);
+
 const validBody = {
-  fullName: 'foo',
+  fullName: 'foo bar',
   emailAddress: 'bar@mail.com',
   employer: 'baz',
-  'file-upload': 'blah.png',
 };
 const invalidBody = {
   fullName: '',
   emailAddress: 'bar',
-  employer: 'baz',
-  'file-upload': 'blah',
+  employer: '',
 };
 const validAdminBody = {
   emailAddress: 'bar@mail.com',
@@ -29,19 +32,19 @@ const invalidAdminBody = {
 };
 const responseErrors = {
   nameError: {
-    message:  'Enter your full name',
+    message:  'There is a problem - Full name field must be populated',
     href: '#fullName',
   },
   emailError: {
-    message: 'Enter an email address in the correct format, like name@example.com',
+    message: 'There is a problem - Enter an email address in the correct format, like name@example.com',
     href: '#emailAddress',
   },
   employerError: {
-    message: null,
+    message: 'There is a problem - Your employers name will be needed to support your application for an account',
     href: '#employer',
   },
   fileUploadError: {
-    message: 'The selected file must be a JPG, PNG, TIF or PDF',
+    message: 'There is a problem - ID evidence must be a JPG, PDF or PNG',
     href: '#file-upload',
   },
 };
@@ -99,18 +102,32 @@ const adminResponseErrors = {
     href: '#user-role',
   },
 };
-const validPayload = {
+
+const validAdminPayload = {
   emailAddress: 'emailAddress',
   firstName: 'firstName',
+  lastName: 'lastName',
+  userRoleObject: { mapping: 'userRoleObject'},
+};
+
+const validAdminConvertedPayload = [{
+  email: 'emailAddress',
+  firstName: 'firstName',
   surname: 'lastName',
-  userRoleObject: { mapping: 'userRoleObject'},
+  role: 'userRoleObject',
+}];
+
+const validMediaPayload = {
+  emailAddress: 'a@b.com',
+  fullName: 'This is a full name',
 };
-const invalidPayload = {
-  emailAddress: '',
-  firstName: '',
-  surname: '',
-  userRoleObject: { mapping: 'userRoleObject'},
-};
+
+const validMediaConvertedPayload = [{
+  email: 'a@b.com',
+  firstName: 'This is a full name',
+  role: 'VERIFIED',
+}];
+
 const azureResponse = {'CREATED_ACCOUNTS': [
   {
     email: 'email',
@@ -119,34 +136,11 @@ const azureResponse = {'CREATED_ACCOUNTS': [
   },
 ]};
 const validEmail = 'joe@bloggs.com';
-const createAdminAccStub = sinon.stub(AccountManagementRequests.prototype, 'createAzureAccount');
+const createAzureAccountStub = sinon.stub(AccountManagementRequests.prototype, 'createAzureAccount');
 const createPIAccStub = sinon.stub(AccountManagementRequests.prototype, 'createPIAccount');
+const createMediaAccStub = sinon.stub(AccountManagementRequests.prototype, 'createMediaAccount');
 
 describe('Create Account Service', () => {
-  describe('isValidImageType', () => {
-    it('should return true for valid image type', () => {
-      expect(createAccountService.isValidImageType('foo.jpg')).toBe(true);
-    });
-
-    it('should return false for invalid image type', () => {
-      expect(createAccountService.isValidImageType('bar.gif')).toBe(false);
-    });
-  });
-
-  describe('validateImage', () => {
-    it('should return null if valid image is provided', () => {
-      expect(createAccountService.validateImage('foo.jpg')).toBe(null);
-    });
-
-    it('should return error message is image is not provided', () => {
-      expect(createAccountService.validateImage('')).toBe('Select a file to upload');
-    });
-
-    it('should return error message is unsupported format image is provided', () => {
-      expect(createAccountService.validateImage('bar.gif')).toBe('The selected file must be a JPG, PNG, TIF or PDF');
-    });
-  });
-
   describe('isValidEmail', () => {
     it('should return false if invalid email format is provided', () => {
       expect(createAccountService.isValidEmail('joe.bloggs@mail')).toBe(false);
@@ -163,11 +157,13 @@ describe('Create Account Service', () => {
     });
 
     it('should return error message if invalid email is provided', () => {
-      expect(createAccountService.validateEmail('joe.bloggs@mail')).toBe('Enter an email address in the correct format, like name@example.com');
+      expect(createAccountService.validateEmail('joe.bloggs@mail'))
+        .toBe('There is a problem - Enter an email address in the correct format, like name@example.com');
     });
 
     it('should return error message if email is not provided', () => {
-      expect(createAccountService.validateEmail('')).toBe('Enter your email address');
+      expect(createAccountService.validateEmail(''))
+        .toBe('There is a problem - Email address field must be populated');
     });
   });
 
@@ -186,13 +182,71 @@ describe('Create Account Service', () => {
     });
   });
 
-  describe('validateFormFields', () => {
-    it('should return valid response if all data is provided', () => {
-      expect(createAccountService.validateFormFields(validBody)).toStrictEqual(responseNoErrors);
+  describe('validateMediaFullName', () => {
+    it('should return null if no errors', () => {
+      expect(createAccountService.validateMediaFullName('test user')).toBeNull();
     });
 
-    it('should return response with errors if invalid data is provided', () => {
-      expect(createAccountService.validateFormFields(invalidBody)).toStrictEqual(responseErrors);
+    it('should return error if name is not populated', () => {
+      expect(createAccountService.validateMediaFullName(''))
+        .toEqual('There is a problem - Full name field must be populated');
+    });
+
+    it('should return error if name starts with a space', () => {
+      expect(createAccountService.validateMediaFullName(' test user'))
+        .toEqual('There is a problem - Full name field must not start with a space');
+    });
+
+    it('should return error if name contains double space', () => {
+      expect(createAccountService.validateMediaFullName('test  user'))
+        .toEqual('There is a problem - Full name field must not contain double spaces');
+    });
+
+    it('should return error if name does not contain at least 1 space', () => {
+      expect(createAccountService.validateMediaFullName('testuser'))
+        .toEqual('There is a problem - Your full name will be needed to support your application for an account');
+    });
+  });
+
+  describe('validateMediaEmailAddress', () => {
+    it('should return null if no errors', () => {
+      expect(createAccountService.validateMediaEmailAddress('test@email.com')).toBeNull();
+    });
+
+    it('should return error if email starts with a space', () => {
+      expect(createAccountService.validateMediaEmailAddress(' test@email.com'))
+        .toEqual('There is a problem - Email address field cannot start with a space');
+    });
+
+    it('should return error if email contains double space', () => {
+      expect(createAccountService.validateMediaEmailAddress('test@email.com  '))
+        .toEqual('There is a problem - Email address field cannot contain double spaces');
+    });
+  });
+
+  describe('validateMediaEmployer', () => {
+    it('should return null if no errors', () => {
+      expect(createAccountService.validateMediaEmployer('Test Employer')).toBeNull();
+    });
+
+    it('should return error if employer starts with a space', () => {
+      expect(createAccountService.validateMediaEmployer(' Test Employer'))
+        .toEqual('There is a problem - Employer field cannot start with a space');
+    });
+
+    it('should return error if employer contains double space', () => {
+      expect(createAccountService.validateMediaEmployer('Test  Employer'))
+        .toEqual('There is a problem - Employer field cannot contain double spaces');
+    });
+  });
+
+  describe('validateFormFields', () => {
+    it('should return valid response if all data is provided', () => {
+      expect(createAccountService.validateFormFields(validBody, validImage)).toStrictEqual(responseNoErrors);
+    });
+
+    it('should return response with errors if invalid data and file', () => {
+      expect(createAccountService.validateFormFields(invalidBody, invalidFileType)).toStrictEqual(responseErrors);
     });
   });
 
@@ -208,21 +262,56 @@ describe('Create Account Service', () => {
 
   describe('createAdminAccount', () => {
     it('should return true if valid data is provided', async () => {
-      createAdminAccStub.resolves(azureResponse);
+      createAzureAccountStub.withArgs(validAdminConvertedPayload, validEmail).resolves(azureResponse);
       createPIAccStub.resolves(true);
-      const res = await createAccountService.createAdminAccount(validPayload, validEmail);
+      const res = await createAccountService.createAdminAccount(validAdminPayload, validEmail);
       expect(res).toEqual(true);
     });
 
     it('should return false if create azure account request fails', async () => {
-      createAdminAccStub.resolves(null);
-      expect(await createAccountService.createAdminAccount(invalidPayload, validEmail)).toEqual(false);
+      createAzureAccountStub.withArgs(validAdminConvertedPayload, validEmail).resolves(null);
+      expect(await createAccountService.createAdminAccount(validAdminPayload, validEmail)).toEqual(false);
     });
 
     it('should return false if create P&I account request fails', async () => {
-      createAdminAccStub.resolves(azureResponse);
+      createAzureAccountStub.withArgs(validAdminConvertedPayload, validEmail).resolves(azureResponse);
       createPIAccStub.resolves(false);
-      expect(await createAccountService.createAdminAccount(invalidPayload, validEmail)).toEqual(false);
+      expect(await createAccountService.createAdminAccount(validAdminPayload, validEmail)).toEqual(false);
     });
   });
+
+  describe('createMediaAccount', () => {
+    it('should return true if valid data is provided', async () => {
+      createAzureAccountStub.withArgs(validMediaConvertedPayload, validEmail).resolves(azureResponse);
+      createPIAccStub.resolves(true);
+      const res = await createAccountService.createMediaAccount(validMediaPayload, validEmail);
+      expect(res).toEqual(true);
+    });
+
+    it('should return false if create azure account request fails', async () => {
+      createAzureAccountStub.withArgs(validMediaConvertedPayload, validEmail).resolves(null);
+      expect(await createAccountService.createMediaAccount(validMediaPayload, validEmail)).toEqual(false);
+    });
+
+    it('should return false if create P&I account request fails', async () => {
+      createAzureAccountStub.withArgs(validMediaConvertedPayload, validEmail).resolves(azureResponse);
+      createPIAccStub.resolves(false);
+      expect(await createAccountService.createMediaAccount(validMediaPayload, validEmail)).toEqual(false);
+    });
+  });
+
+  describe('createMediaApplication', () => {
+    it('should return true if valid data is provided', async () => {
+      createMediaAccStub.resolves(true);
+      const res = await createAccountService.createMediaApplication(validBody, validImage);
+      expect(res).toEqual(true);
+    });
+
+    it('should return false if invalid data is provided', async () => {
+      createMediaAccStub.resolves(false);
+      const res = await createAccountService.createMediaApplication(invalidBody, validImage);
+      expect(res).toEqual(false);
+    });
+  });
+
 });

@@ -99,7 +99,7 @@ export default function(app: Application): void {
   app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
   app.get('/cookie-policy', app.locals.container.cradle.cookiePolicyPageController.get);
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
-  app.post('/create-media-account', app.locals.container.cradle.createMediaAccountController.post);
+  app.post('/create-media-account', multer({storage: storage, limits: {fileSize: 2000000}}).single('file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.createMediaAccountController.post);
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
@@ -164,6 +164,12 @@ export default function(app: Application): void {
   app.post('/manual-upload-summary', ensureAdminAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
   app.get('/media-applications', ensureAdminAuthenticated, app.locals.container.cradle.mediaApplicationsController.get);
   app.get('/upload-confirmation', ensureAdminAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
+  app.get('/media-account-review', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.get);
+  app.get('/media-account-review/image', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.getImage);
+  app.post('/media-account-review/approve', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.approve);
+  app.post('/media-account-review/reject', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.reject);
+  app.get('/media-account-approval', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountApprovalController.get);
+  app.post('/media-account-approval', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountApprovalController.post);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
