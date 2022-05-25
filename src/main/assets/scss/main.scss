@@ -9,17 +9,17 @@ $underline-colour: #2e3133;
 $min-width: 52em;
 $callout-bg: #f0f4f5;
 
-//Styling for the Header
+// Styling for the Header
 
-//This allows the subscription drop down to not overlap
+// This allows the subscription drop down to not overlap
 @media (min-width: $min-width) {
   .govuk-header__navigation--end {
     padding-top: 1px;
   }
 }
 
-//The below styling makes sure the subscription text doesn't overlap with the heading as the screen is made smaller
-//by increasing the minimum width
+// The below styling makes sure the subscription text doesn't overlap with the heading as the screen is made smaller
+// by increasing the minimum width
 @media (max-width: $min-width) {
   .js-enabled {
     .govuk-header__menu-button {
@@ -46,7 +46,6 @@ $callout-bg: #f0f4f5;
     display: block;
     margin-right: 0;
     padding: 10px 0;
-
   }
 }
 
@@ -77,9 +76,9 @@ $callout-bg: #f0f4f5;
   }
 }
 
-//End of header styling
+// End of header styling
 
-//Styling for the Alphabetical View page
+// Styling for the Alphabetical View page
 .floating-back-to-top {
   bottom: -3vh;
   left: 0;
@@ -96,9 +95,9 @@ $callout-bg: #f0f4f5;
   }
 }
 
-
 .offset-parent-box {
   @extend .parent-box;
+
   left: 0;
 
   a {
@@ -214,7 +213,7 @@ $callout-bg: #f0f4f5;
   }
 
   .alphabetical-box {
-    .layout-width-two-fifths  {
+    .layout-width-two-fifths {
       width: 0;
     }
 
@@ -248,7 +247,7 @@ $callout-bg: #f0f4f5;
   }
 }
 
-//Styling for the Hearings List page
+// Styling for the Hearings List page
 .number_hearings {
   text-align: right;
 }
@@ -265,9 +264,10 @@ $callout-bg: #f0f4f5;
   text-align: center;
 }
 
-//Styling for Search Results page
+// Styling for Search Results page
 .govuk-table__cell--no-line {
   @extend .govuk-table__cell;
+
   border-style: hidden;
   font-weight: inherit;
 }
@@ -317,7 +317,7 @@ tbody {
   vertical-align: bottom;
 }
 
-//Styling changes for the Azure OTP Logon Page
+// Styling changes for the Azure OTP Logon Page
 
 .intro {
   @extend .govuk-body;
@@ -346,6 +346,7 @@ div {
 
 .error {
   @extend .govuk-body;
+
   color: $govuk-error-colour;
 }
 
@@ -374,7 +375,7 @@ div {
   @extend .govuk-\!-margin-top-4;
 
   &[aria-hidden='false'] {
-    //Important is required due to an inline style being applied
+    // Important is required due to an inline style being applied
     display: block !important; // sass-lint:disable-line no-important
   }
 }
@@ -511,7 +512,7 @@ div {
   overflow-x: auto;
 }
 
-//Admin css
+// Admin css
 .admin-form-offset {
   margin-right: 1em;
   margin-top: 1.8em;
@@ -544,7 +545,7 @@ nav {
 }
 
 .site-address {
-  margin-block-end: .5em;
+  margin-block-end: 0.5em;
 }
 
 .no-margin-bottom {
