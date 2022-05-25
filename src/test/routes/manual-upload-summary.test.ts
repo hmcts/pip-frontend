@@ -3,13 +3,14 @@ import { app } from '../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
 import { ManualUploadService } from '../../main/service/manualUploadService';
+import { FileHandlingService } from '../../main/service/fileHandlingService';
 import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/manual-upload-summary';
 const mockCookie = {'foo': 'blah', listType: ''};
 const uploadStub = sinon.stub(ManualUploadService.prototype, 'uploadPublication');
-sinon.stub(ManualUploadService.prototype, 'readFile').returns('');
-sinon.stub(ManualUploadService.prototype, 'removeFile').returns(true);
+sinon.stub(FileHandlingService.prototype, 'readFile').returns('');
+sinon.stub(FileHandlingService.prototype, 'removeFile').returns(true);
 sinon.stub(ManualUploadService.prototype, 'getListItemName').returns('');
 uploadStub.withArgs({  ...mockCookie,  listTypeName: '', file: '', userEmail: 'test@email.com' }, true).resolves(true);
 uploadStub.withArgs({ ...mockCookie,  listTypeName: '', file: '', userEmail: '2@email.com' }, true).resolves(false);

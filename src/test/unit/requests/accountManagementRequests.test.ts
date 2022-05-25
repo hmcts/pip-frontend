@@ -13,6 +13,7 @@ const errorResponse = {
 const errorRequest = {
   request: 'test error',
 };
+
 const errorMessage = {
   message: 'test',
 };
@@ -30,12 +31,28 @@ const mockValidPIBody = {
   userProvenance: 'PI_ADD',
 };
 
+const mockValidMediaBody = {
+  fullName: 'Test employee',
+  email: 'test.employer@employer.com',
+  employer: 'Test employer',
+  status: 'PENDING',
+  file: {
+    body: 'body',
+    name: 'filename.png',
+  },
+};
+
 const azureEndpoint = '/account/add/azure';
 const piEndpoint = '/account/add/pi';
 const applicationGetEndpoint = '/application/';
 const imageGetEndpoint = '/application/image/';
+
+const status = 'APPROVED';
+const statusEndpoint = '/' + status;
 const postStub = sinon.stub(accountManagementApi, 'post');
-const getStub = sinon.stub(accountManagementApi, 'get');
+let putStub = sinon.stub(accountManagementApi, 'put');
+let getStub = sinon.stub(accountManagementApi, 'get');
+const superagent = require('superagent');
 
 describe('Account Management Requests', () => {
   describe('Create Azure Account', () => {
@@ -90,6 +107,85 @@ describe('Account Management Requests', () => {
     });
   });
 
+  describe('Create Media Account', () => {
+    beforeEach(() => {
+      sinon.restore();
+      const axiosConfig = require('../../../main/resources/requests/utils/axiosConfig');
+      sinon.stub(axiosConfig, 'getAccountManagementCredentials').returns(() => {return '';});
+    });
+
+    it('should return true on success', async () => {
+      // chain call for superagent post.set.set.attach.field.field.field.field
+      sinon.stub(superagent, 'post').callsFake(() => {
+        return {
+          set(): any {
+            return { set(): any {
+              return { attach(): any {
+                return {
+                  field(): any {
+                    return {
+                      field(): any {
+                        return {
+                          field(): any {
+                            return { field: sinon.stub().returns(true) };
+                          } };
+                      } };
+                  } };
+              } };
+            } };
+          } };
+      });
+
+      expect(await accountManagementRequests.createMediaAccount(mockValidMediaBody)).toBe(true);
+    });
+
+    it('should return error response', async () => {
+      sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorResponse);
+      expect(await accountManagementRequests.createMediaAccount(mockValidMediaBody)).toBe(false);
+    });
+
+    it('should return error request', async () => {
+      sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorRequest);
+      expect(await accountManagementRequests.createMediaAccount(mockValidMediaBody)).toBe(false);
+    });
+
+    it('should return error message', async () => {
+      sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorMessage);
+      expect(await accountManagementRequests.createMediaAccount(mockValidMediaBody)).toBe(false);
+    });
+  });
+
+  describe('Get media applications', () => {
+
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/mediaApplications.json'), 'utf-8');
+    const mediaApplications = JSON.parse(rawData);
+
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
+
+    it('should return media applications', async () => {
+      getStub.withArgs('/application/status/PENDING').resolves({data: mediaApplications});
+      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual(mediaApplications);
+    });
+
+    it('should return empty array and an error response if get fails', async () => {
+      getStub.withArgs('/application/status/PENDING').rejects(errorResponse);
+      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
+    });
+
+    it('should return empty array and an error response if request fails', async () => {
+      getStub.withArgs('/application/status/PENDING').rejects(errorRequest);
+      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
+    });
+
+    it('should return empty array and an error response if request fails', async () => {
+      getStub.withArgs('/application/status/PENDING').rejects(errorMessage);
+      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
+    });
+  });
+
   describe('Get Media Application By ID', () => {
 
     const applicationID = '1234';
@@ -105,6 +201,11 @@ describe('Account Management Requests', () => {
       'status': 'PENDING',
       'statusDate': '2022-05-09T00:00:01',
     };
+
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
 
     it('should return dummy application on success', async () => {
       getStub.withArgs(applicationGetEndpoint + applicationID).resolves({status: 201, data: dummyApplication });
@@ -132,6 +233,11 @@ describe('Account Management Requests', () => {
   });
 
   describe('Get Media Application Image By ID', () => {
+
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
 
     const imageID = '1234';
     const dummyImage = new Blob(['testJPEG']);
@@ -161,28 +267,50 @@ describe('Account Management Requests', () => {
     });
   });
 
-  describe('Get media applications', () => {
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/mediaApplications.json'), 'utf-8');
-    const mediaApplications = JSON.parse(rawData);
+  describe('Update Media Application Status by ID', () => {
 
-    it('should return media applications', async () => {
-      getStub.withArgs('/application/status/PENDING').resolves({data: mediaApplications});
-      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual(mediaApplications);
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+      putStub = sinon.stub(accountManagementApi, 'put');
     });
 
-    it('should return empty array and an error response if get fails', async () => {
-      getStub.withArgs('/application/status/PENDING').rejects(errorResponse);
-      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
+    const applicationID = '1234';
+
+    const dummyApplication = {
+      'id': '1234',
+      'fullName': 'Test Name',
+      'email': 'a@b.com',
+      'employer': 'Employer',
+      'image': '12345',
+      'imageName': 'ImageName',
+      'requestDate': '2022-05-09T00:00:01',
+      'status': 'APPROVED',
+      'statusDate': '2022-05-09T00:00:01',
+    };
+
+    it('should return dummy application on success', async () => {
+      putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).resolves({status: 201, data: dummyApplication });
+      const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
+      expect(response).toBe(dummyApplication);
     });
 
-    it('should return empty array and an error response if request fails', async () => {
-      getStub.withArgs('/application/status/PENDING').rejects(errorRequest);
-      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
+    it('should return null on error request', async () => {
+      putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).rejects(errorRequest);
+      const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
+      expect(response).toBe(null);
     });
 
-    it('should return empty array and an error response if request fails', async () => {
-      getStub.withArgs('/application/status/PENDING').rejects(errorMessage);
-      expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
+    it('should return false on error response', async () => {
+      putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).rejects(errorResponse);
+      const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error message', async () => {
+      putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).rejects(errorMessage);
+      const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
+      expect(response).toBe(null);
     });
   });
 });

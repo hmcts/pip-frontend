@@ -42,7 +42,6 @@
         classes: "govuk-!-width-one-half",
         id: "emailAddress",
         name: "emailAddress",
-        type: 'email',
         autocomplete: 'email',
         spellcheck: false,
         errorMessage: {
@@ -58,14 +57,13 @@
         classes: "govuk-!-width-one-half",
         id: "emailAddress",
         name: "emailAddress",
-        type: 'email',
         autocomplete: 'email',
         spellcheck: false
     }) %}
 
     {% set employerInput = govukInput({
         label: {
-            text: nameLabel
+            text: employerLabel
         },
         classes: 'govuk-!-width-one-half',
         id: "employer",
@@ -85,17 +83,17 @@
     {% set fileInput = govukFileUpload({
         id: "file-upload",
         name: "file-upload",
-        label: {
-            text: photoType
-        },
         errorMessage: {
             text: formErrors.fileUploadError.message
+        },
+        attributes: {
+          'aria-labelledby': 'photoType'
         }
     }) if formErrors.fileUploadError.message else govukFileUpload({
         id: "file-upload",
         name: "file-upload",
-        label: {
-            text: photoType
+        attributes: {
+          'aria-label': ariaFileLabel
         }
     }) %}
 
@@ -118,12 +116,13 @@
     {% endif %}
     <h1 class="govuk-heading-l">{{ header }}</h1>
     <p class="govuk-hint govuk-!-margin-bottom-7">{{ retainHint }}</p>
-    <form method="post" novalidate>
+    <form method="post" enctype="multipart/form-data" novalidate>
         {{ nameInput }}
         {{ emailInput }}
         {{ employerInput }}
-        <p class="govuk-body">{{ photoMessage }}</p>
-        <p class="govuk-hint">{{ photoSubMessage }}</p>
+        <p class="govuk-body" tabindex="0">{{ photoMessage }}</p>
+        <p class="govuk-hint" tabindex="0">{{ photoSubMessage }}</p>
+        <p class="govuk-hint" id="photoType" tabindex="0">{{ photoType }}</p>
         {{ fileInput }}
         {{ submitButton(continueButton) }}
     </form>
