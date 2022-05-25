@@ -16,10 +16,10 @@
     <p class="govuk-body govuk-!-font-weight-bold">{{ searchResults | length }} {{ resultsCount }}</p>
     <form action="pending-subscriptions" method="post" autocomplete="off">
         <table class="govuk-table govuk-!-width-two-thirds" data-module="moj-multi-select"
-               data-multi-select-checkbox="#select-all">
+               >
             <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th class="govuk-table__header vertical-center-table-header" scope="col" id="select-all"></th>
+                <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column0Header }}</th>
                 <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column1Header }}</th>
                 <th class="govuk-table__header vertical-center-table-header govuk-table__header--numeric" scope="col">{{ table.column2Header }}</th>
             </tr>
