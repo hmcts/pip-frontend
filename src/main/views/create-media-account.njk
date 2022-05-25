@@ -98,6 +98,17 @@
         }
     }) %}
 
+    {%  set checkBox = govukCheckboxes({
+      id: "tcbox",
+      name: "tcbox",
+      errorMessage: {text: formErrors.checkBoxError.message},
+      items: [{value: "tcbox", text: TandCCheckbox}]
+    }) if formErrors.checkBoxError.message else govukCheckboxes({
+      id: "tcbox",
+      name: "tcbox",
+      items: [{value: "tcbox", text: TandCCheckbox}]
+    }) %}
+
     {% if formErrors %}
         {% set listErrors = [] %}
         {% for key, option in formErrors %}
@@ -129,16 +140,7 @@
       <p class="govuk-heading-l">{{ TandCHeading }}</p>
       <p class="govuk-body">{{ TandC1 }}</p>
       <p class="govuk-body">{{ TandC2 }}</p>
-      {{ govukCheckboxes({
-        idPrefix: "txbox",
-        name: "tcbox",
-        items: [
-          {
-            value: "tcbox",
-            text: TandCCheckbox
-          }
-        ]
-      }) }}
+      {{ checkBox }}
 
         {{ submitButton(continueButton) }}
     </form>
