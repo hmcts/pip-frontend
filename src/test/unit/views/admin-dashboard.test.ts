@@ -5,6 +5,7 @@ import sinon from 'sinon';
 import { AdminAuthentication } from '../../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/admin-dashboard';
+const pageTitleValue = 'Staff dashboard';
 const cards = [
   {
     title: 'Upload',
@@ -19,7 +20,7 @@ const cards = [
   {
     title: 'Manage media account request',
     description: 'CTSC assess new media account applications.',
-    link: 'manage-media-accounts',
+    link: 'media-applications',
   },
   {
     title: 'Create new account',
@@ -35,6 +36,11 @@ describe('Admin Dashboard page', () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
+  });
+
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
   });
 
   it('should display header', () => {
