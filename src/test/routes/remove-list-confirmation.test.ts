@@ -5,6 +5,7 @@ import { app } from '../../main/app';
 import { expect } from 'chai';
 import { PublicationService } from '../../main/service/publicationService';
 import { CourtService } from '../../main/service/courtService';
+import {UserService} from '../../main/service/userService';
 
 const URL = '/remove-list-confirmation';
 
@@ -21,8 +22,9 @@ const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPubl
 sinon.stub(CourtService.prototype, 'getCourtById').resolves({courtId: '1', name: 'Mock Court'});
 removePublicationStub.withArgs('valid-artefact', 'joe@bloggs.com').resolves(true);
 removePublicationStub.withArgs('invalid-artefact', 'joe@bloggs.com').resolves(false);
-metadataStub.withArgs('valid-artefact', true).resolves(mockArtefact);
-metadataStub.withArgs('invalid-artefact', true).resolves({...mockArtefact, artefactId: 'invalid-artefact'});
+metadataStub.withArgs('valid-artefact', '123').resolves(mockArtefact);
+metadataStub.withArgs('invalid-artefact', '123').resolves({...mockArtefact, artefactId: 'invalid-artefact'});
+sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 
 describe('Remove List Confirmation', () => {
   app.request['user'] = {emails: ['joe@bloggs.com']};

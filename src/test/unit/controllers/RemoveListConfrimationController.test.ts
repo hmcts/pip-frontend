@@ -4,6 +4,7 @@ import sinon from 'sinon';
 import RemoveListConfirmationController from '../../../main/controllers/RemoveListConfirmationController';
 import { PublicationService } from '../../../main/service/publicationService';
 import { CourtService } from '../../../main/service/courtService';
+import {UserService} from '../../../main/service/userService';
 
 const i18n = {
   'remove-list-confirmation': {},
@@ -26,8 +27,9 @@ const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPubl
 sinon.stub(CourtService.prototype, 'getCourtById').resolves(mockCourt);
 removePublicationStub.withArgs('valid-artefact', 'joe@bloggs.com').resolves(true);
 removePublicationStub.withArgs('foo', 'joe@bloggs.com').resolves(false);
-metadataStub.withArgs('valid-artefact', true).resolves(mockArtefact);
-metadataStub.withArgs('invalid-artefact', true).resolves({...mockArtefact, artefactId: 'invalid-artefact'});
+metadataStub.withArgs('valid-artefact', '123').resolves(mockArtefact);
+metadataStub.withArgs('invalid-artefact', '123').resolves({...mockArtefact, artefactId: 'invalid-artefact'});
+sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 
 describe('Remove List Confirmation Controller', () => {
   it('should render remove list confirmation page', async () => {

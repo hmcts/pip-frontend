@@ -4,16 +4,19 @@ import { cloneDeep } from 'lodash';
 import { CourtService } from '../service/courtService';
 import { PublicationService } from '../service/publicationService';
 import { ManualUploadService } from '../service/manualUploadService';
+import {UserService} from '../service/userService';
 
 const publicationService = new PublicationService();
 const courtService = new CourtService();
 const manualUploadService = new ManualUploadService();
+const userService = new UserService();
 
 export default class RemoveListConfirmationController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query.artefact;
     if (artefactId) {
-      const artefact = await publicationService.getIndividualPublicationMetadata(artefactId, true, true);
+      const userId = await userService.getPandIUserId('PI_AAD', req.user);
+      const artefact = await publicationService.getIndividualPublicationMetadata(artefactId, userId, true);
       artefact.listTypeName = manualUploadService.getListItemName(artefact.listType);
       res.render('remove-list-confirmation', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-confirmation']),
@@ -28,7 +31,8 @@ export default class RemoveListConfirmationController {
 
   public async post(req: PipRequest, res: Response): Promise<void> {
     const formData = req.body;
-    const artefact = await publicationService.getIndividualPublicationMetadata(formData.artefactId, true, true);
+    const userId = await userService.getPandIUserId('PI_AAD', req.user);
+    const artefact = await publicationService.getIndividualPublicationMetadata(formData.artefactId, userId, true);
     switch (formData['remove-choice']) {
       case 'yes': {
         const response = await publicationService.removePublication(formData.artefactId, req.user['emails'][0]);

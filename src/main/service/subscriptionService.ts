@@ -5,11 +5,14 @@ import { UserSubscriptions } from '../models/UserSubscriptions';
 import {PublicationService} from './publicationService';
 import {CourtService} from './courtService';
 import {Court} from '../models/court';
+import {UserService} from './userService';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
 const publicationService = new PublicationService();
 const courtService = new CourtService();
+
+const userService = new UserService();
 
 export class SubscriptionService {
   async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
@@ -77,6 +80,7 @@ export class SubscriptionService {
       let caseDetailsList: object[];
       let courtDetailsList: object[];
       let urnHearing;
+      const userId = await userService.getPandIUserId('PI_AAD', user);
       switch (selectionName) {
         case 'case-number':
         case 'hearing-selections[]':
@@ -84,12 +88,12 @@ export class SubscriptionService {
           Array.isArray(pendingSubscription[`${selectionName}`]) ?
             hearingIdsList = pendingSubscription[`${selectionName}`] :
             hearingIdsList.push(pendingSubscription[`${selectionName}`]);
-          caseDetailsList = await this.getCaseDetails(hearingIdsList);
+          caseDetailsList = await this.getCaseDetails(hearingIdsList, user);
           // set results into cache
           await this.setPendingSubscriptions(caseDetailsList, 'cases', user.oid);
           break;
         case 'urn':
-          urnHearing = await publicationService.getCaseByCaseUrn(pendingSubscription[`${selectionName}`], true);
+          urnHearing = await publicationService.getCaseByCaseUrn(pendingSubscription[`${selectionName}`], userId);
           if (urnHearing) {
             urnHearing.urnSearch = true;
             await this.setPendingSubscriptions([urnHearing], 'cases', user.oid);
@@ -107,10 +111,11 @@ export class SubscriptionService {
     }
   }
 
-  public async getCaseDetails(cases): Promise<object[]> {
+  public async getCaseDetails(cases, user): Promise<object[]> {
+    const userId = await userService.getPandIUserId('PI_AAD', user);
     const casesList = [];
     for (const caseNumber of cases) {
-      const caseDetails = await publicationService.getCaseByCaseNumber(caseNumber, true);
+      const caseDetails = await publicationService.getCaseByCaseNumber(caseNumber, userId);
       if (caseDetails) {
         casesList.push(caseDetails);
       }
