@@ -170,6 +170,8 @@ export default function(app: Application): void {
   app.post('/media-account-review/reject', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.reject);
   app.get('/media-account-approval', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountApprovalController.get);
   app.post('/media-account-approval', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountApprovalController.post);
+  app.get('/media-account-rejection', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.get);
+  app.post('/media-account-rejection', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.post);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {

@@ -194,7 +194,6 @@ describe('Account Management Requests', () => {
   });
 
   describe('Get media applications', () => {
-
     const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/mediaApplications.json'), 'utf-8');
     const mediaApplications = JSON.parse(rawData);
 

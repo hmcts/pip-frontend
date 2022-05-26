@@ -1,23 +1,25 @@
-{% from "./macros/common-components.njk" import goBack %}
-{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+  {% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-  {{ title }}
+ Media Account Rejection
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <div class="govuk-panel govuk-panel--confirmation">
-    <div class="govuk-panel__body">
-        {{ panelTitle }}
-    </div>
-  </div>
+
+  {{ govukPanel({
+    titleText: panelHeading
+  }) }}
+
   <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        {{ name }}
+        {{ tableHeaders[0] }}
       </dt>
       <dd class="govuk-summary-list__value">
         {{ applicantData.fullName }}
@@ -25,15 +27,15 @@
     </div>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        {{ email }}
+        {{ tableHeaders[1] }}
       </dt>
       <dd class="govuk-summary-list__value">
-        {{ applicantData.email }}
+        <a href=mailto:{{ applicantData.email }}?subject={{ emailSubjectLine }}>{{ applicantData.email }}</a>
       </dd>
     </div>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        {{ employer }}
+        {{ tableHeaders[2] }}
       </dt>
       <dd class="govuk-summary-list__value">
         {{ applicantData.employer }}
@@ -41,7 +43,7 @@
     </div>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        {{ dateApplied }}
+        {{ tableHeaders[3] }}
       </dt>
       <dd class="govuk-summary-list__value">
         {{ applicantData.requestDate }}
@@ -49,18 +51,27 @@
     </div>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        {{ proofOfId }}
+        {{ tableHeaders[4] }}
       </dt>
       <dd class="govuk-summary-list__value">
         {{ applicantData.imageName }} ({{opensInWindowText}})
       </dd>
       <dd class="govuk-summary-list__actions">
         <a class="govuk-link" href="/media-account-review/image?imageId={{ applicantData.image }}&applicantId={{ applicantData.id }}" target="_blank">
-          {{ viewText }}
+        {{ viewText }}
         </a>
       </dd>
     </div>
   </dl>
-  <h2 class="govuk-heading-m">{{ bottomHeader }}</h2>
-  <p class="govuk-body">{{ bottomSummary }}</p>
+
+  <h1 class="govuk-heading-m">{{ whatHappensNextHeader }}</h1>
+  <p class="govuk-body">{{ whatHappensNext1 }} <a href=mailto:{{ applicantData.email }}?subject={{ emailSubjectLine }}>{{ applicantData.email }}</a> {{ whatHappensNext2 }}</p>
+
+  <h1 class = "govuk-heading-m">{{ emailTemplateHeader }}</h1>
+
+  {{ govukInsetText ({
+    html: emailTemplateContent
+  }) }}
+
+
 {% endblock %}
