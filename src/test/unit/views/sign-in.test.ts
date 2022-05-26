@@ -4,6 +4,7 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 
 const PAGE_URL = '/sign-in';
+const pageTitleValue = 'How do you want to sign in?';
 const headingClass = 'govuk-fieldset__heading';
 const buttonClass = 'govuk-button';
 const errorSummaryClass = 'govuk-error-summary';
@@ -21,6 +22,11 @@ describe('Sign In option Page', () => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
         htmlRes.getElementsByTagName('div')[0].remove();
       });
+    });
+
+    it('should have correct page title', () => {
+      const pageTitle = htmlRes.title;
+      expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
     });
 
     it('should display header',  () => {

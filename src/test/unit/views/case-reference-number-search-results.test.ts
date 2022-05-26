@@ -20,6 +20,8 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefa
 const subscriptionsData = JSON.parse(rawData)[0].search.cases[0];
 sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').returns(subscriptionsData);
 
+const pageTitleValue = 'Search result';
+
 describe('Case Reference Search Results Page', () => {
   beforeAll(async () => {
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
@@ -27,6 +29,11 @@ describe('Case Reference Search Results Page', () => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
     });
+  });
+
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
   });
 
   it('should display back button', () => {
