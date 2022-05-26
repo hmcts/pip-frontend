@@ -11,15 +11,11 @@ export default class SjpPublicListController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query['artefactId'];
-    const fileData = await publicationService.getIndividualPublicationJson(artefactId, (!!req.user));
-    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, (!!req.user));
+    const userId = await userService.getPandIUserId('PI_AAD', req.user);
+    const fileData = await publicationService.getIndividualPublicationJson(artefactId, userId);
+    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, userId);
 
     if (fileData && metaData) {
-
-      if(!await userService.isAuthorisedToViewListByAzureUserId(req.user, metaData.listType)) {
-        res.render('error',
-          req.i18n.getDataByLanguage(req.lng).error);
-      }
 
       const data = fileData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'];
       const length = data.length;

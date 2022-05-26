@@ -3,9 +3,11 @@ import {Response} from 'express';
 import {PublicationService} from '../../../main/service/publicationService';
 import FlatFileController from '../../../main/controllers/FlatFileController';
 import {mockRequest} from '../mocks/mockRequest';
+import {UserService} from '../../../main/service/userService';
 
 const metaStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 const fileStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationFile');
+sinon.stub(UserService.prototype, 'getPandIUserId');
 const mockFile = new Blob(['testFile']);
 const i18n = {};
 const response = {

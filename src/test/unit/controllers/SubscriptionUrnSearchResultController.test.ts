@@ -5,6 +5,7 @@ import path from 'path';
 import SubscriptionUrnSearchResultController from '../../../main/controllers/SubscriptionUrnSearchResultController';
 import { mockRequest } from '../mocks/mockRequest';
 import {PublicationService} from '../../../main/service/publicationService';
+import {UserService} from '../../../main/service/userService';
 
 const subscriptionSearchUrnResultController = new SubscriptionUrnSearchResultController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
@@ -12,6 +13,10 @@ const subscriptionsData = JSON.parse(rawData)[0].search.cases[0];
 const caseStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn');
 caseStub.withArgs('123456789').returns(subscriptionsData);
 caseStub.withArgs('foo').returns(null);
+
+const usStub = sinon.stub(UserService.prototype, 'getPandIUserId');
+const profile = {oid: '1234', profile: 'test-profile'};
+usStub.withArgs('PI_AAD', profile).returns('123');
 
 describe('Subscriptions Urn Search Result Controller', () => {
   let i18n = {};

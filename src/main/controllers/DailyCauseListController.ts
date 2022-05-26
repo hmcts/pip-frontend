@@ -14,15 +14,11 @@ export default class DailyCauseListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const listToLoad = req.path.slice(1, req.path.length);
     const artefactId = req.query.artefactId as string;
-    const searchResults = await publicationService.getIndividualPublicationJson(artefactId, (!!req.user));
-    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, (!!req.user));
+    const userId = await userService.getPandIUserId('PI_AAD', req.user);
+    const searchResults = await publicationService.getIndividualPublicationJson(artefactId, userId);
+    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, userId);
 
     if (searchResults && metaData) {
-
-      if(!await userService.isAuthorisedToViewListByAzureUserId(req.user, metaData.listType)) {
-        res.render('error',
-          req.i18n.getDataByLanguage(req.lng).error);
-      }
 
       const manipulatedData = publicationService.manipulatedDailyListData(JSON.stringify(searchResults));
 

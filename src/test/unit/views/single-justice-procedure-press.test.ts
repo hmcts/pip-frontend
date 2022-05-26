@@ -34,7 +34,7 @@ const metaData = JSON.parse(rawMetaData)[0];
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(sjpList);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
-sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
+sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Single Justice Procedure List page', () => {

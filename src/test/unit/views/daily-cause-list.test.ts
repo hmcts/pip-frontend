@@ -33,7 +33,7 @@ const courtData = JSON.parse(rawDataCourt);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(dailyCauseListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 sinon.stub(CourtService.prototype, 'getCourtById').resolves(courtData[0]);
-sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
+sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Daily Cause List page', () => {

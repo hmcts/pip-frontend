@@ -48,7 +48,7 @@ describe('Daily Cause List Controller', () => {
   });
 
   it('should render the daily cause list page', async () =>  {
-    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
+    sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 
     request.query = {artefactId: artefactId};
 
@@ -71,7 +71,7 @@ describe('Daily Cause List Controller', () => {
   });
 
   it('should render error page is query param is empty', async () => {
-    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
+    sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 
     request.query = {};
 
@@ -85,7 +85,7 @@ describe('Daily Cause List Controller', () => {
 
   it('should render error page if list is not allowed to view by the user', async () => {
 
-    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(false);
+    sinon.stub(UserService.prototype, 'getPandIUserId').resolves(null);
 
     request.query = {artefactId: artefactId};
 

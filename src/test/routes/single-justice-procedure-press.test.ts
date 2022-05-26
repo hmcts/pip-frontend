@@ -13,7 +13,7 @@ const sjpPressData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(sjpPressData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(sjpPressData);
 sinon.stub(PublicationService.prototype, 'formatSJPPressList').resolves(sjpPressData);
-sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
+sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 
 describe('Single Justice Procedure Press Page', () => {
   describe('on GET', () => {

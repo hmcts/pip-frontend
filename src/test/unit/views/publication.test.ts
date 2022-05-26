@@ -15,7 +15,7 @@ let htmlRes: Document;
 
 sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(pubs);
 sinon.stub(CourtService.prototype, 'getCourtById').resolves({'name': 'Court Name'});
-sinon.stub(UserService.prototype, 'getAuthorisedPublications').withArgs(pubs).resolves(pubs);
+sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 
 describe('Publication Page', () => {
   beforeAll(async () => {

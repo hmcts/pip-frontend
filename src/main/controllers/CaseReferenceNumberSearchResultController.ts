@@ -2,14 +2,17 @@ import { Response } from 'express';
 import {PipRequest} from '../models/request/PipRequest';
 import {cloneDeep} from 'lodash';
 import {PublicationService} from '../service/publicationService';
+import {UserService} from '../service/userService';
 
 const publicationService = new PublicationService();
+const userService = new UserService();
 
 export default class CaseReferenceNumberSearchResultController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.query['search-input'] as string;
-    const searchResults = await publicationService.getCaseByCaseNumber(searchInput, !!req.user);
+    const userId = await userService.getPandIUserId('PI_AAD', req.user);
+    const searchResults = await publicationService.getCaseByCaseNumber(searchInput, userId);
 
     if (searchResults) {
       res.render('case-reference-number-search-results', {

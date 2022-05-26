@@ -13,7 +13,7 @@ const dailyReferenceData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(dailyReferenceData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(dailyReferenceData);
 sinon.stub(PublicationService.prototype, 'manipulatedDailyListData').resolves(dailyReferenceData);
-sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
+sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 
 describe('Daily Cause List Page', () => {
   describe('on GET', () => {

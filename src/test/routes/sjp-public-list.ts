@@ -12,7 +12,7 @@ const mockSJPPublic = fs.readFileSync(path.resolve('src/test/unit/mocks/SJPMockP
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationFile').resolves(mockJSON);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockJSON);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(JSON.parse(mockSJPPublic));
-sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
+sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 
 describe('Single Justice Procedure Public List', () => {
   describe('on GET', () => {

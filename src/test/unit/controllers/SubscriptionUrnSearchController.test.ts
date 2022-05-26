@@ -5,12 +5,17 @@ import path from 'path';
 import SubscriptionUrnSearchController from '../../../main/controllers/SubscriptionUrnSearchController';
 import { mockRequest } from '../mocks/mockRequest';
 import {PublicationService} from '../../../main/service/publicationService';
+import {UserService} from '../../../main/service/userService';
 
 const subscriptionUrnSearchController = new SubscriptionUrnSearchController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/subscriptionListResult.json'), 'utf-8');
 const subscriptionResult = JSON.parse(rawData);
 const stub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn');
 const i18n = {'subscription-urn-search': {}};
+
+const usStub = sinon.stub(UserService.prototype, 'getPandIUserId');
+const profile = {oid: '1234', profile: 'test-profile'};
+usStub.withArgs('PI_AAD', profile).returns('123');
 
 describe('Subscriptions Urn Search Controller', () => {
   const response = { render: function() {return '';}} as unknown as Response;

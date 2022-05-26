@@ -39,7 +39,7 @@ describe('SJP Press List Controller', () => {
   });
 
   it('should render the SJP press list page', async () =>  {
-    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
+    sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
     const request = mockRequest(i18n);
 
     request.query = {artefactId: artefactId};
@@ -61,7 +61,7 @@ describe('SJP Press List Controller', () => {
   });
 
   it('should render error page is query param is empty', async () => {
-    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
+    sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
     const request = mockRequest(i18n);
     request.query = {};
 
@@ -74,7 +74,7 @@ describe('SJP Press List Controller', () => {
   });
 
   it('should render error page if list is not allowed to view by the user', async () => {
-    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(false);
+    sinon.stub(UserService.prototype, 'getPandIUserId').resolves(null);
     const request = mockRequest(i18n);
     request.query = {};
 

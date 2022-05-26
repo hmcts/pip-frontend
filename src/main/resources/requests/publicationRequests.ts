@@ -3,9 +3,9 @@ import {Artefact} from '../../models/Artefact';
 
 export class PublicationRequests {
 
-  public async getIndividualPublicationMetadata(artefactId, verification, admin): Promise<string> {
+  public async getIndividualPublicationMetadata(artefactId, userId, admin): Promise<string> {
     try{
-      const response = await dataManagementApi.get(`/publication/${artefactId}`, {headers: {verification, 'x-admin': admin}});
+      const response = await dataManagementApi.get(`/publication/${artefactId}`, {headers: {'x-user-id' :userId, 'x-admin': admin}});
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -19,10 +19,10 @@ export class PublicationRequests {
     return null;
   }
 
-  public async getPublicationByCaseValue(searchQuery: string, searchValue: string, verified: boolean): Promise<Artefact[]> {
+  public async getPublicationByCaseValue(searchQuery: string, searchValue: string, userId: string): Promise<Artefact[]> {
     try {
       const response = await dataManagementApi.get(`/publication/search/${searchQuery}/${searchValue}`,
-        {headers: {verification: verified}});
+        {headers: {'x-user-id': userId}});
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -36,10 +36,10 @@ export class PublicationRequests {
     return [];
   }
 
-  public async getIndividualPublicationJson(artefactId, verification): Promise<JSON> {
+  public async getIndividualPublicationJson(artefactId, userId): Promise<JSON> {
     try {
       const response = await dataManagementApi.get('/publication/' + artefactId + '/payload',
-        {headers: {'verification': `${verification}`}});
+        {headers: {'x-user-id': `${userId}`}});
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -53,9 +53,10 @@ export class PublicationRequests {
     return null;
   }
 
-  public async getIndividualPublicationFile(artefactId, verification): Promise<Blob> {
+  public async getIndividualPublicationFile(artefactId, userId): Promise<Blob> {
     try{
-      const response = await dataManagementApi.get(`/publication/${artefactId}/file`, {headers: {'verification': `${verification}`}, responseType: 'arraybuffer'});
+      const response = await dataManagementApi.get(`/publication/${artefactId}/file`,
+        {headers: {'x-user-id': `${userId}`}, responseType: 'arraybuffer'});
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -69,10 +70,10 @@ export class PublicationRequests {
     return null;
   }
 
-  public async getPublicationsByCourt(courtId: string, verified: boolean, admin: boolean): Promise<Artefact[]> {
+  public async getPublicationsByCourt(courtId: string, userId: string, admin: boolean): Promise<Artefact[]> {
     try {
       const response = await dataManagementApi.get(`/publication/courtId/${courtId}`,
-        {headers: {verification: verified, 'x-admin': admin}});
+        {headers: {'x-user-id': userId, 'x-admin': admin}});
       return response.data;
     } catch (error) {
       if (error.response) {

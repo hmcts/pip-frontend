@@ -19,14 +19,13 @@ const onePubData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublicat
 const onePub = JSON.parse(onePubData);
 const CourtStub = sinon.stub(CourtService.prototype, 'getCourtById');
 const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
-const usStub = sinon.stub(UserService.prototype, 'getAuthorisedPublications');
+sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 
 describe('Get publications', () => {
   CourtStub.withArgs(0).resolves(JSON.parse('{"name":"Single Justice Procedure"}'));
   CourtStub.withArgs(1).resolves(JSON.parse('{"name":"New Court"}'));
   SoPStub.withArgs(0).resolves(sjpCases);
   SoPStub.withArgs(1).resolves(sjpCases);
-  usStub.withArgs(sjpCases).resolves(sjpCases);
 
   it('should render the Summary of Publications page', async () => {
 
@@ -94,7 +93,6 @@ describe('Get publications', () => {
 });
 
 describe('Get individual publication and act appropriately', () => {
-  usStub.withArgs(onePub).resolves(onePub);
   it('should open the file directly if only one pub is returned from publicationService', async () => {
     const response = {
       redirect: function () {

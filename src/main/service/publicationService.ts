@@ -7,35 +7,35 @@ const publicationRequests = new PublicationRequests();
 
 export class PublicationService {
 
-  public async getIndividualPublicationMetadata(artefactId, verification: boolean, admin = false): Promise<any> {
-    return publicationRequests.getIndividualPublicationMetadata(artefactId, verification, admin);
+  public async getIndividualPublicationMetadata(artefactId, userId: string, admin = false): Promise<any> {
+    return publicationRequests.getIndividualPublicationMetadata(artefactId, userId, admin);
   }
 
-  public async getIndividualPublicationFile(artefactId, verification: boolean): Promise<Blob> {
-    return publicationRequests.getIndividualPublicationFile(artefactId, verification);
+  public async getIndividualPublicationFile(artefactId, userId: string): Promise<Blob> {
+    return publicationRequests.getIndividualPublicationFile(artefactId, userId);
   }
 
-  public async getIndividualPublicationJson(artefactId, verification: boolean): Promise<JSON> {
-    return publicationRequests.getIndividualPublicationJson(artefactId, verification);
+  public async getIndividualPublicationJson(artefactId, userId: string): Promise<JSON> {
+    return publicationRequests.getIndividualPublicationJson(artefactId, userId);
   }
 
-  public async getCasesByCaseName(caseName: string, verified: boolean): Promise<SearchObject[]> {
-    const artefacts = await publicationRequests.getPublicationByCaseValue('CASE_NAME', caseName, verified);
+  public async getCasesByCaseName(caseName: string, userId: string): Promise<SearchObject[]> {
+    const artefacts = await publicationRequests.getPublicationByCaseValue('CASE_NAME', caseName, userId);
     return this.getFuzzyCasesFromArtefact(artefacts, caseName);
   }
 
-  public async getCaseByCaseNumber(caseNumber: string, verified: boolean): Promise<SearchObject> | null {
-    const artefact = await publicationRequests.getPublicationByCaseValue('CASE_ID', caseNumber, verified);
+  public async getCaseByCaseNumber(caseNumber: string, userId: string): Promise<SearchObject> | null {
+    const artefact = await publicationRequests.getPublicationByCaseValue('CASE_ID', caseNumber, userId);
     return this.getCaseFromArtefact(artefact[0], 'caseNumber', caseNumber);
   }
 
-  public async getCaseByCaseUrn(urn: string, verified: boolean): Promise<SearchObject> | null{
-    const artefact = await publicationRequests.getPublicationByCaseValue('CASE_URN', urn, verified);
+  public async getCaseByCaseUrn(urn: string, userId: string): Promise<SearchObject> | null{
+    const artefact = await publicationRequests.getPublicationByCaseValue('CASE_URN', urn, userId);
     return this.getCaseFromArtefact(artefact[0], 'caseUrn', urn);
   }
 
-  public async getPublicationsByCourt(courtId: string, verified: boolean): Promise<Artefact[]> {
-    return await publicationRequests.getPublicationsByCourt(courtId, verified, false);
+  public async getPublicationsByCourt(courtId: string, userId: string): Promise<Artefact[]> {
+    return await publicationRequests.getPublicationsByCourt(courtId, userId, false);
   }
 
   public manipulatedDailyListData(dailyCauseList: string): object {

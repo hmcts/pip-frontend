@@ -12,15 +12,11 @@ export default class SjpPressListController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query.artefactId as string;
-    const sjpData = await publicationService.getIndividualPublicationJson(artefactId, (!!req.user));
-    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, (!!req.user));
+    const userId = await userService.getPandIUserId('PI_AAD', req.user);
+    const sjpData = await publicationService.getIndividualPublicationJson(artefactId, userId);
+    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, userId);
 
     if (sjpData && metaData) {
-
-      if(!await userService.isAuthorisedToViewListByAzureUserId(req.user, metaData.listType)) {
-        res.render('error',
-          req.i18n.getDataByLanguage(req.lng).error);
-      }
 
       const publishedDateTime = Date.parse(sjpData['document']['publicationDate']);
 

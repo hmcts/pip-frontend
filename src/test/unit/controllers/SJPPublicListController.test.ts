@@ -20,7 +20,7 @@ const metaData = JSON.parse(rawMetaData)[0];
 
 const i18n = {};
 const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
-jsonStub.withArgs(artefactId, true).resolves(JsonifiedData);
+jsonStub.withArgs(artefactId, '123').resolves(JsonifiedData);
 
 const sjpPublicListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
@@ -34,7 +34,7 @@ describe('SJP Public List Type Controller', () => {
   });
 
   it('should render the SJP public list page', async () =>  {
-    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
+    sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
     const request = mockRequest(i18n);
 
     request.query = {artefactId: artefactId};
@@ -55,7 +55,7 @@ describe('SJP Public List Type Controller', () => {
   });
 
   it('should render error page is query param is empty', async () => {
-    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(true);
+    sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
     const request = mockRequest(i18n);
     request.query = {};
 
@@ -68,7 +68,7 @@ describe('SJP Public List Type Controller', () => {
   });
 
   it('should render error page if list is not allowed to view by the user', async () => {
-    sinon.stub(UserService.prototype, 'isAuthorisedToViewListByAzureUserId').resolves(false);
+    sinon.stub(UserService.prototype, 'getPandIUserId').resolves(null);
     const request = mockRequest(i18n);
     request.query = {};
 

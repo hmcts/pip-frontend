@@ -10,7 +10,7 @@ const mockJSON = '{"data":"false"}';
 const mockArray = '[{"data":"false"}]';
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(mockJSON);
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(mockArray);
-sinon.stub(UserService.prototype, 'getAuthorisedPublications').resolves(mockArray);
+sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 
 describe('Summary of Publications', () => {
   describe('on GET', () => {

@@ -39,32 +39,7 @@ export class AccountManagementRequests {
     }
   }
 
-  public async isAuthorisedToViewList(userId: string, listType: string): Promise<boolean> {
-    try {
-      let requestUrl = null;
-      if(userId) {
-        requestUrl = `/account/isAuthorised/${userId}/${listType}`;
-      } else {
-        requestUrl = `/account/isAuthorised/${listType}`;
-      }
-
-      const response = await accountManagementApi.get(requestUrl);
-      logger.info('Authorised user account', response);
-      return response.data;
-    }
-    catch (error) {
-      if (error.response) {
-        logger.error('failed to get user authorisation for list on response', error.response.data);
-      } else if (error.request) {
-        logger.error('failed to get user authorisation for list on response', error.request);
-      } else {
-        logger.error('failed to get user authorisation for list on response', error.message);
-      }
-      return false;
-    }
-  }
-
-  public async  getUserInfo(userProvenance: string, provenanceUserId: string): Promise<object> {
+  public async getUserInfo(userProvenance: string, provenanceUserId: string): Promise<object> {
     try {
       const response = await accountManagementApi.get(`/account/provenance/${userProvenance}/${provenanceUserId}`);
       logger.info('Get user information from P&I database', response);

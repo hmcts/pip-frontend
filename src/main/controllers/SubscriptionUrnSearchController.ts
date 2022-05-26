@@ -2,8 +2,10 @@ import { Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 import {PublicationService} from '../service/publicationService';
+import {UserService} from '../service/userService';
 
 const publicationService = new PublicationService();
+const userService = new UserService();
 
 export default class SubscriptionUrnSearchController {
   public get(req: PipRequest, res: Response): void {
@@ -14,7 +16,8 @@ export default class SubscriptionUrnSearchController {
     const searchInput = req.body['search-input'];
 
     if (searchInput && searchInput.length) {
-      const searchResults = await publicationService.getCaseByCaseUrn(searchInput, !!req.user);
+      const userId = await userService.getPandIUserId('PI_AAD', req.user);
+      const searchResults = await publicationService.getCaseByCaseUrn(searchInput, userId);
 
       (searchResults) ?
         res.redirect(`subscription-urn-search-results?search-input=${searchInput}`) :

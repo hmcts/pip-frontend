@@ -20,8 +20,9 @@ export default class SummaryOfPublicationsController {
     if (courtId) {
       const court = await courtService.getCourtById(parseInt(courtId.toString()));
       const courtName = (court == null ? 'Missing Court' : court.name);
-      let publications = await summaryOfPublicationsService.getPublications(parseInt(courtId.toString()), (!!req.user));
-      publications = await userService.getAuthorisedPublications(publications, req.user);
+
+      const userId = await userService.getPandIUserId('PI_AAD', req.user);
+      const publications = await summaryOfPublicationsService.getPublications(parseInt(courtId.toString()), userId);
 
       if (publications.length === 1){
         if (publications[0].isFlatFile){

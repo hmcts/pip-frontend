@@ -3,12 +3,17 @@ import { Response } from 'express';
 import CaseNameSearchController from '../../../main/controllers/CaseNameSearchController';
 import { mockRequest } from '../mocks/mockRequest';
 import {PublicationService} from '../../../main/service/publicationService';
+import {UserService} from '../../../main/service/userService';
 
 const caseNameSearchController = new CaseNameSearchController();
 const publicationServiceStub = sinon.stub(PublicationService.prototype, 'getCasesByCaseName');
 publicationServiceStub.withArgs('').returns([]);
 publicationServiceStub.withArgs('meedoo').returns([{}]);
 publicationServiceStub.withArgs('bob').returns([]);
+
+const usStub = sinon.stub(UserService.prototype, 'getPandIUserId');
+const profile = {oid: '1234', profile: 'test-profile'};
+usStub.withArgs('PI_AAD', profile).returns('123');
 
 describe('Case name search controller', () => {
   const i18n = {
