@@ -87,7 +87,7 @@ describe('Alphabetical Search page', () => {
 
   it('should display filter options value', () => {
     const fieldsets = htmlRes.getElementsByClassName('govuk-fieldset');
-    expect(fieldsets[0].innerHTML).contains('CrownLocation');
+    expect(fieldsets[0].innerHTML).contains('Crown');
     expect(fieldsets[1].innerHTML).contains('London');
   });
 });

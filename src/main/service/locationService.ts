@@ -24,11 +24,11 @@ export class LocationService {
     return await locationRequest.getAllLocations();
   }
 
-  public async getCourtById(locationId: number): Promise<Location> {
+  public async getLocationById(locationId: number): Promise<Location> {
     return await locationRequest.getLocation(locationId);
   }
 
-  public async getCourtByName(courtName: string): Promise<Location> {
+  public async getLocationByName(courtName: string): Promise<Location> {
     return await locationRequest.getLocationByName(courtName);
   }
 

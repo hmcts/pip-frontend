@@ -2,8 +2,10 @@ import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {ManualUploadService} from '../service/manualUploadService';
 import {cloneDeep} from 'lodash';
+import { FileHandlingService } from '../service/fileHandlingService';
 
 const manualUploadService = new ManualUploadService();
+const fileHandlingService = new FileHandlingService();
 let formCookie;
 
 export default class ManualUploadController {
@@ -26,7 +28,7 @@ export default class ManualUploadController {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     } else {
       const errors = {
-        fileErrors: manualUploadService.validateFileUpload(req.file),
+        fileErrors: fileHandlingService.validateFileUpload(req.file),
         formErrors: await manualUploadService.validateFormFields(req.body),
       };
 

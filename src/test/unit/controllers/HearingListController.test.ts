@@ -8,7 +8,7 @@ import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
 
 const hearingListController = new HearingListController();
-const stub = sinon.stub(LocationService.prototype, 'getCourtById');
+const stub = sinon.stub(LocationService.prototype, 'getLocationById');
 
 let i18n = {};
 

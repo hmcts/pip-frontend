@@ -3,6 +3,7 @@ import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import {ManualUploadService} from '../../../main/service/manualUploadService';
 import ManualUploadController from '../../../main/controllers/ManualUploadController';
+import {FileHandlingService} from '../../../main/service/fileHandlingService';
 
 const manualUploadController = new ManualUploadController();
 describe('Manual Upload Controller', () => {
@@ -31,7 +32,7 @@ describe('Manual Upload Controller', () => {
     });
   });
   describe('POST', () => {
-    const fileValidationStub = sinon.stub(ManualUploadService.prototype, 'validateFileUpload');
+    const fileValidationStub = sinon.stub(FileHandlingService.prototype, 'validateFileUpload');
     const formValidationStub = sinon.stub(ManualUploadService.prototype, 'validateFormFields');
     sinon.stub(ManualUploadService.prototype, 'appendlocationId').resolves({courtName: 'name', id: '1'});
     fileValidationStub.returns('error');

@@ -4,7 +4,7 @@
       "locationId": 1,
       "locationName": "Mutsu Court",
       "lastUpdated": "2021-10-12T16:16:28.63072",
-      "courtUpdates": [
+      "locationUpdates": [
         {
           "courtRoom": 1,
           "caseNumber": "T20217099",
@@ -55,7 +55,7 @@
       "locationId": 35,
       "locationName": "Baizhu Court",
       "lastUpdated": "2021-10-12T16:16:28.63072",
-      "courtUpdates": [
+      "locationUpdates": [
         {
           "courtRoom": 1,
           "caseNumber": "T20217001",
@@ -106,7 +106,7 @@
       "locationId": 26,
       "locationName": "Albertville Court",
       "lastUpdated": "2021-10-12T16:16:28.63072",
-      "courtUpdates": [
+      "locationUpdates": [
         {
           "courtRoom": 1,
           "caseNumber": "T20218002",
@@ -157,7 +157,7 @@
       "locationId": 49,
       "locationName": "Zaton Court",
       "lastUpdated": "2021-10-12T16:16:28.63072",
-      "courtUpdates": [
+      "locationUpdates": [
         {
           "courtRoom": 1,
           "caseNumber": "T20218012",
@@ -208,7 +208,7 @@
       "locationId": 34,
       "locationName": "Aylesbury Crown Court",
       "lastUpdated": "2021-10-12T16:16:28.63072",
-      "courtUpdates": [
+      "locationUpdates": [
         {
           "courtRoom": 1,
           "caseNumber": "T20218022",
@@ -259,7 +259,7 @@
       "locationId": 88,
       "locationName": "Ailibugai Court",
       "lastUpdated": "2021-10-12T16:16:28.63072",
-      "courtUpdates": [
+      "locationUpdates": [
         {
           "courtRoom": 1,
           "caseNumber": "T20217099",

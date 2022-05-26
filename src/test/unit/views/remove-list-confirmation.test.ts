@@ -1,10 +1,10 @@
-import { request as expressRequest } from 'express';
 import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { PublicationService } from '../../../main/service/publicationService';
 import { expect } from 'chai';
 import { LocationService } from '../../../main/service/locationService';
+import {AdminAuthentication} from '../../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/remove-list-confirmation?artefact=18dec6ee-3a30-47bb-9fb3-6a343d6b9efb';
 
@@ -18,8 +18,8 @@ const mockArtefact = {
 const keyValues = ['Court or tribunal name', 'Publication', 'Publication date'];
 const content = ['Mock Court', 'Civil Daily Cause List', '24 March 2022'];
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
-sinon.stub(LocationService.prototype, 'getCourtById').resolves({locationId: '5', name: 'Mock Court'});
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({locationId: '5', name: 'Mock Court'});
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 sinon.stub(PublicationService.prototype, 'removePublication').withArgs('foo').resolves(false);
 
 let htmlRes: Document;

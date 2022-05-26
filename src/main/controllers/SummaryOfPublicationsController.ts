@@ -16,8 +16,8 @@ export default class SummaryOfPublicationsController {
     //TODO we should link this up to the reference data endpoint when it's passed
     const locationId = req.query['locationId'];
     if (locationId) {
-      const court = await courtService.getCourtById(parseInt(locationId.toString()));
-      const courtName = (court == null ? 'Missing Court' : court.name);
+      const court = await courtService.getLocationById(parseInt(locationId.toString()));
+      const locationName = (court == null ? 'Missing Court' : court.name);
       const publications = await summaryOfPublicationsService.getPublications(parseInt(locationId.toString()), (!!req.user));
       if (publications.length === 1){
         if (publications[0].isFlatFile){
@@ -31,7 +31,7 @@ export default class SummaryOfPublicationsController {
         res.render('summary-of-publications', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
           publications,
-          courtName,
+          locationName,
         });
       }
     } else {

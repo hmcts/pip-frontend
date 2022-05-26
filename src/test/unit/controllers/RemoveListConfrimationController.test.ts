@@ -23,7 +23,7 @@ const mockArtefact = {
 const mockCourt = {locationId: '5', name: 'Mock Court'};
 const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
-sinon.stub(LocationService.prototype, 'getCourtById').resolves(mockCourt);
+sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
 removePublicationStub.withArgs('valid-artefact', 'joe@bloggs.com').resolves(true);
 removePublicationStub.withArgs('foo', 'joe@bloggs.com').resolves(false);
 metadataStub.withArgs('valid-artefact', true).resolves(mockArtefact);

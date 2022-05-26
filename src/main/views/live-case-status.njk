@@ -3,7 +3,7 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-    {{ courtName + " Live Cases Updates" | safe }}
+    {{ locationName + " Live Cases Updates" | safe }}
 {% endblock %}
 
 {% block beforeContent %}
@@ -14,7 +14,7 @@
 {% block content %}
   <div class="parent-box">
     <h2 class="govuk-heading-l">{{ heading }}</h2>
-    <h3 class="govuk-heading-m">{{ courtName }}</h3>
+    <h3 class="govuk-heading-m">{{ locationName }}</h3>
     <p class=" govuk-body-lead">{{ updateDate }}</p>
     <p class=" govuk-body-lead">{{ lastUpdatedText }}{{ updateTime }}</p>
     <p class="govuk-body">{{ StatusHearingText }}</p>

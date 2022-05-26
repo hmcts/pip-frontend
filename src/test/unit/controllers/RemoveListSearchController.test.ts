@@ -15,7 +15,7 @@ sinon.stub(LocationService.prototype, 'fetchAllLocations').returns(courtList);
 courtStub.withArgs('aa').resolves(null);
 courtStub.withArgs('test').resolves(null);
 courtStub.withArgs('Mut').resolves(null);
-courtStub.withArgs('Valid Court').resolves(court);
+courtStub.withArgs('Valid Location').resolves(court);
 
 const i18n = {'remove-list-search': {}};
 

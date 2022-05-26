@@ -18,19 +18,19 @@ describe('Location Name Search', () => {
   describe('on GET', () => {
     test('should return court name search page', async () => {
       await request(app)
-        .get('/court-name-search')
+        .get('/location-name-search')
         .expect((res) => expect(res.status).to.equal(200));
     });
 
     test('should return court name search page with unchecked checkboxes', async () => {
       await request(app)
-        .get('/court-name-search?clear=all')
+        .get('/location-name-search?clear=all')
         .expect((res) => expect(res.status).to.equal(200));
     });
 
     test('should return court name search page with unchecked filter', async () => {
       await request(app)
-        .get('/court-name-search?clear=Crown%20Court')
+        .get('/location-name-search?clear=Crown')
         .expect((res) => expect(res.status).to.equal(200));
     });
   });
@@ -38,7 +38,7 @@ describe('Location Name Search', () => {
   describe('on POST', () => {
     test('should return court name search page applied filter', async () => {
       await request(app)
-        .post('/court-name-search')
+        .post('/location-name-search')
         .send({jurisdiction: 'crown'})
         .expect((res) => expect(res.status).to.equal(302));
     });

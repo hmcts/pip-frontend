@@ -14,7 +14,7 @@ export default class HearingListController {
     //If no court ID has been supplied, then return the error page
     if (locationId) {
 
-      const court = await courtService.getCourtById(locationId);
+      const court = await courtService.getLocationById(locationId);
 
       //Returns the error page if the court list is empty
       if (court) {

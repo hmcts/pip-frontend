@@ -13,7 +13,7 @@ const pubs = JSON.parse(rawData);
 let htmlRes: Document;
 
 sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(pubs);
-sinon.stub(LocationService.prototype, 'getCourtById').resolves({'name': 'Court Name'});
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({'name': 'Court Name'});
 
 describe('Publication Page', () => {
   beforeAll(async () => {

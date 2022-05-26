@@ -121,7 +121,7 @@ export class SubscriptionService {
   public async getCourtDetails(courts): Promise<Location[]> {
     const courtsList = [];
     for (const locationId of courts) {
-      const courtDetails = await courtService.getCourtById(locationId);
+      const courtDetails = await courtService.getLocationById(locationId);
       if (courtDetails) {
         courtsList.push(courtDetails);
       }

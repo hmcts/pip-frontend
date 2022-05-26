@@ -22,7 +22,7 @@ export default class DailyCauseListController {
       const publishedDateTime = Date.parse(searchResults['document']['publicationDate']);
       const publishedTime = publicationService.publicationTime(searchResults['document']['publicationDate']);
 
-      const court = await courtService.getCourtById(metaData['locationId']);
+      const court = await courtService.getLocationById(metaData['locationId']);
 
       res.render(listToLoad, {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listToLoad]),

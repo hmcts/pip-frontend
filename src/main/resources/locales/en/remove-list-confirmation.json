@@ -8,7 +8,7 @@
     "text": "Please select an option"
   },
   "summaryListHeaders": {
-    "locationName": "Court or tribunal name",
+    "courtName": "Court or tribunal name",
     "publication": "Publication",
     "date": "Publication date"
   }

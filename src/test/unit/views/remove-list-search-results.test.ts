@@ -1,11 +1,11 @@
 import { LocationService } from '../../../main/service/locationService';
 import { SummaryOfPublicationsService } from '../../../main/service/summaryOfPublicationsService';
 import { ManualUploadService } from '../../../main/service/manualUploadService';
-import { request as expressRequest } from 'express';
 import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
+import {AdminAuthentication} from '../../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/remove-list-search-results?locationId=5';
 const mockCourt = {
@@ -33,10 +33,10 @@ const mockPublications = [
   },
 ];
 const tableHeaders = ['List type', 'Court', 'Date', 'Actions'];
-sinon.stub(LocationService.prototype, 'getCourtById').resolves(mockCourt);
+sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs('5', true, true).resolves(mockPublications);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns(mockPublications);
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 
 let htmlRes: Document;
 

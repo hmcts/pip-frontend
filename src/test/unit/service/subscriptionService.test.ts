@@ -63,7 +63,7 @@ const cacheGetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPen
 const removeStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'removeFromCache');
 const publicationStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
 sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(mockCase);
-const courtStub = sinon.stub(LocationService.prototype, 'getCourtById');
+const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
 const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
 subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);

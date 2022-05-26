@@ -1,10 +1,10 @@
-import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../main/app';
 import { expect } from 'chai';
 import { PublicationService } from '../../main/service/publicationService';
 import { LocationService } from '../../main/service/locationService';
+import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
 const URL = '/remove-list-confirmation';
 
@@ -15,10 +15,10 @@ const mockArtefact = {
   locationId: '1',
   artefactId: 'valid-artefact',
 };
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
-sinon.stub(LocationService.prototype, 'getCourtById').resolves({locationId: '1', name: 'Mock Court'});
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({locationId: '1', name: 'Mock Court'});
 removePublicationStub.withArgs('valid-artefact', 'joe@bloggs.com').resolves(true);
 removePublicationStub.withArgs('invalid-artefact', 'joe@bloggs.com').resolves(false);
 metadataStub.withArgs('valid-artefact', true).resolves(mockArtefact);

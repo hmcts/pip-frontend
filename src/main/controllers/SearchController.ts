@@ -18,7 +18,7 @@ export default class SearchController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['input-autocomplete'];
     const autocompleteList = await courtService.fetchAllLocations();
-    const court = await courtService.getCourtByName(searchInput);
+    const court = await courtService.getLocationByName(searchInput);
     (court && searchInput) ?
       res.redirect(`summary-of-publications?locationId=${court.locationId}`) :
       res.render('search', {

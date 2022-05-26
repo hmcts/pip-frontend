@@ -15,7 +15,7 @@ export default class RemoveListSearchResultsController {
     locationId ?
       res.render('remove-list-search-results', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search-results']),
-        court: await courtService.getCourtById(locationId),
+        court: await courtService.getLocationById(locationId),
         removalList: manualUploadService.formatListRemovalValues(await publicationService.getPublications(locationId, !!req.user, true)),
       }) :
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);

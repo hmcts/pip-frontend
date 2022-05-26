@@ -15,7 +15,7 @@ const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPC
 const sjpCases = JSON.parse(rawSJPData).results;
 const onePubData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublication.json'), 'utf-8');
 const onePub = JSON.parse(onePubData);
-const CourtStub = sinon.stub(LocationService.prototype, 'getCourtById');
+const CourtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
 
 describe('Get publications', () => {
@@ -66,7 +66,7 @@ describe('Get publications', () => {
 
     const expectedData = {
       ...i18n['summary-of-publications'],
-      courtName: 'Single Justice Procedure',
+      locationName: 'Single Justice Procedure',
       publications: sjpCases,
     };
 

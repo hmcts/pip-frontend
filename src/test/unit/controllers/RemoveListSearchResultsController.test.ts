@@ -14,7 +14,7 @@ const mockCourt = {
   locationId: '5',
   name: 'The court',
 };
-sinon.stub(LocationService.prototype, 'getCourtById').resolves(mockCourt);
+sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs('5', true, true).resolves([]);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns([]);
 const removeListSearchResultsController = new RemoveListSearchResultsController();

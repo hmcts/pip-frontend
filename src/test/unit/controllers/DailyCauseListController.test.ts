@@ -21,7 +21,7 @@ const dailyCauseListController = new DailyCauseListController();
 
 const dailyCauseListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const dailyCauseListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
-sinon.stub(LocationService.prototype, 'getCourtById').resolves(courtData[0]);
+sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 sinon.stub(PublicationService.prototype, 'manipulatedDailyListData').returns(listData);
 
 const artefactId = 'abc';

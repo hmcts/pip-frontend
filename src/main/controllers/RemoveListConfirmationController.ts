@@ -18,7 +18,7 @@ export default class RemoveListConfirmationController {
       res.render('remove-list-confirmation', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-confirmation']),
         artefact,
-        court: await courtService.getCourtById(artefact.locationId),
+        court: await courtService.getLocationById(artefact.locationId),
         displayError: false,
       });
     } else {
@@ -46,7 +46,7 @@ export default class RemoveListConfirmationController {
         res.render('remove-list-confirmation', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-confirmation']),
           artefact,
-          court: await courtService.getCourtById(formData.locationId),
+          court: await courtService.getLocationById(formData.locationId),
           displayError: true,
         });
     }

@@ -74,7 +74,7 @@ describe('Filter Service', () => {
   });
 
   it('should return only Jurisdiction', () => {
-    expect(filterService.splitFilters(filterNames, requestFiltersNoRegion)).toStrictEqual({'Jurisdiction': 'Crown Court,Tribunal', Region: ''});
+    expect(filterService.splitFilters(filterNames, requestFiltersNoRegion)).toStrictEqual({'Jurisdiction': 'Crown,Tribunal', Region: ''});
   });
 
   it('should find and return both Jurisdiction and Region', () => {

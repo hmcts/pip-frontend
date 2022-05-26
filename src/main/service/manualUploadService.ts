@@ -1,8 +1,7 @@
 import { LocationService } from './locationService';
-import { allowedFileTypes } from '../models/consts';
 import { DataManagementRequests } from '../resources/requests/dataManagementRequests';
 import moment from 'moment';
-import fs from 'fs';
+import { FileHandlingService } from './fileHandlingService';
 
 const courtService = new LocationService();
 const dataManagementRequests = new DataManagementRequests();
@@ -17,6 +16,8 @@ const listSubTypes = [
   {text: 'Magistrates Public List', value: 'MAGS_PUBLIC_LIST'},
   {text: 'Magistrates Standard List', value: 'MAGS_STANDARD_LIST'},
 ];
+
+const fileHandlingService = new FileHandlingService();
 
 export class ManualUploadService {
   public async buildFormData(): Promise<object> {
@@ -50,28 +51,6 @@ export class ManualUploadService {
     return [{text: 'SJP Media Register', value: 'SJP_MEDIA_REGISTER'}];
   }
 
-  public validateFileUpload(file: File): string {
-    if (file) {
-      if (this.isValidFileType(file['originalname'])) {
-        if (this.isFileCorrectSize(file.size)) {
-          return null;
-        }
-        return 'File too large, please upload file smaller than 2MB';
-      }
-      return 'Please upload a valid file format';
-    }
-    return 'Please provide a file';
-  }
-
-  private isValidFileType(fileName: string): boolean {
-    const fileType = fileName.split('.')[1];
-    return allowedFileTypes.includes(fileType?.toLowerCase());
-  }
-
-  private isFileCorrectSize(fileSize: number): boolean {
-    return fileSize <= 2000000;
-  }
-
   public async validateFormFields(formValues: object): Promise<object> {
     const fields = {
       courtError: await this.validateCourt(formValues['input-autocomplete']),
@@ -86,13 +65,13 @@ export class ManualUploadService {
 
   private async validateCourt(courtName: string): Promise<string> {
     if (courtName?.length >= 3) {
-      const validCourt = await courtService.getCourtByName(courtName);
+      const validCourt = await courtService.getLocationByName(courtName);
       if (validCourt) {
         return null;
       }
       return 'Please enter and select a valid court';
     }
-    return 'Location name must be three characters or more';
+    return 'Court name must be three characters or more';
   }
 
   public buildDate(body: object, fieldsetPrefix: string): string {
@@ -129,12 +108,12 @@ export class ManualUploadService {
   }
 
   public async appendlocationId(courtName: string): Promise<object> {
-    const court = await courtService.getCourtByName(courtName);
+    const court = await courtService.getLocationByName(courtName);
     return {courtName: courtName, locationId: court?.locationId};
   }
 
   public async uploadPublication(data: any, ISODateFormat: boolean): Promise<boolean> {
-    if (this.getFileExtension(data.fileName) === 'json') {
+    if (fileHandlingService.getFileExtension(data.fileName) === 'json') {
       return await dataManagementRequests.uploadJSONPublication(
         data,
         this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
@@ -144,29 +123,6 @@ export class ManualUploadService {
         data,
         this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
       );
-    }
-  }
-
-  public removeFile(file): void {
-    const filePath = `./manualUpload/tmp/${file}`;
-    try {
-      fs.unlinkSync(filePath);
-    } catch (err) {
-      console.error(`Error while deleting ${file}.`);
-    }
-  }
-
-  public readFile(fileName): object {
-    try {
-      if (this.getFileExtension(fileName) === 'json') {
-        const rawData = fs.readFileSync(`./manualUpload/tmp/${fileName}`, 'utf-8');
-        return JSON.parse(rawData);
-      } else {
-        return fs.readFileSync(`./manualUpload/tmp/${fileName}`);
-      }
-    } catch (err) {
-      console.error(`Error while reading the file ${err}.`);
-      return null;
     }
   }
 
@@ -199,10 +155,5 @@ export class ManualUploadService {
       'x-content-date': headers['content-date-from'],
       'x-issuer-email': headers.userEmail,
     };
-  }
-
-  public getFileExtension(fileName: string): string {
-    const regex = /(?:\.([^.]+))?$/;
-    return regex.exec(fileName)[1];
   }
 }

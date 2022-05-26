@@ -59,7 +59,7 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
 
   it('should have mocked object in the court subscriptions list', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-    expect(userSubscriptions.locationSubscriptions[0].courtName).toBe(mockedCourtSubscription.name);
+    expect(userSubscriptions.locationSubscriptions[0].locationName).toBe(mockedCourtSubscription.name);
   });
 });
 
