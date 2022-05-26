@@ -7,19 +7,20 @@ import {AdminAuthentication} from '../../../main/authentication/adminAuthenticat
 
 let htmlRes: Document;
 
-describe('Media Account Confirmation Page', () => {
+describe('Media Account Submission Page', () => {
 
   const applicationId = '1234';
 
-  const PAGE_URL = '/media-account-approval?applicantId=' + applicationId;
-  const panelClass = 'govuk-panel__body';
+  const PAGE_URL = '/media-account-rejection?applicantId=' + applicationId;
+  const panelClass = 'govuk-panel__title';
   const summaryHeader = 'govuk-summary-list__key';
   const summaryCell = 'govuk-summary-list__value';
   const summaryActions = 'govuk-summary-list__actions';
   const bottomHeaderClass = 'govuk-heading-m';
-  const bottomContentClass = 'govuk-body';
+  const bottomSummaryClass = 'govuk-body';
+  const bottomContentClass = 'govuk-inset-text';
 
-  const expectedPanel = 'Application has been approved';
+  const expectedPanel = 'Account has been rejected.';
   const nameHeader = 'Name';
   const nameValue = 'Test Name';
   const emailHeader = 'Email';
@@ -33,7 +34,7 @@ describe('Media Account Confirmation Page', () => {
   const proofOfIdView = 'View';
   const proofOfIdViewLink = '/media-account-review/image?imageId=12345&applicantId=1234';
   const bottomHeader = 'What happens next';
-  const bottomContent = 'This account will be created and the applicant will be notified to set up their account. If an account already exists the applicant will be asked to sign in, or choose forgot password.';
+  const bottomContent = 'Your request for a court and tribunals hearings account has been rejected for the following reason(s)';
 
   const dummyApplication = {
     'id': '1234',
@@ -43,16 +44,15 @@ describe('Media Account Confirmation Page', () => {
     'image': '12345',
     'imageName': 'ImageName.jpg',
     'requestDate': '09 May 2022',
-    'status': 'PENDING',
+    'status': 'REJECTED',
     'statusDate': '2022-05-09T00:00:01',
   };
-
+  sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
   sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').returns(dummyApplication);
-  sinon.stub(MediaAccountApplicationService.prototype, 'createAccountFromApplication').returns(dummyApplication);
+  sinon.stub(MediaAccountApplicationService.prototype, 'rejectApplication').returns(dummyApplication);
 
   beforeAll(async () => {
-    sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
-    await request(app).post(PAGE_URL).send({'approved': 'Yes'}).then(res => {
+    await request(app).post(PAGE_URL).send({'reject-confirmation': 'Yes'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
     });
@@ -78,9 +78,16 @@ describe('Media Account Confirmation Page', () => {
     expect(header[1].innerHTML).contains(emailHeader, 'Could not find the email header');
   });
 
-  it('should display email value', () => {
+  it('should display the summary email value', () => {
     const value = htmlRes.getElementsByClassName(summaryCell);
-    expect(value[1].innerHTML).contains(emailValue, 'Could not find the email value');
+    const anchorTag = value[1].getElementsByTagName('a');
+    expect(anchorTag[0].innerHTML).contains(emailValue, 'Could not find the email value');
+  });
+
+  it('should display the summary email mail to', () => {
+    const value = htmlRes.getElementsByClassName(summaryCell);
+    const anchorTag = value[1].getElementsByTagName('a');
+    expect(anchorTag[0].getAttribute('href')).contains('mailto:a@b.com?subject=Your%20request%20for%20a%20Court%20and%20tribunal%20hearings%20account.', 'Could not find the mail to');
   });
 
   it('should display employer header', () => {
@@ -130,9 +137,21 @@ describe('Media Account Confirmation Page', () => {
     expect(header[0].innerHTML).contains(bottomHeader, 'Could not find the bottom header');
   });
 
-  it('should display the bottom content', () => {
-    const header = htmlRes.getElementsByClassName(bottomContentClass);
-    expect(header[0].innerHTML).contains(bottomContent, 'Could not find the bottom content');
+  it('should display the bottom mail to', () => {
+    const bottomSummary = htmlRes.getElementsByClassName(bottomSummaryClass);
+    const bottomEmail = bottomSummary[0].getElementsByTagName('a');
+    expect(bottomEmail[0].getAttribute('href')).contains('mailto:a@b.com?subject=Your%20request%20for%20a%20Court%20and%20tribunal%20hearings%20account.', 'Could not find the mail to');
+  });
+
+  it('should display the bottom content reason title', () => {
+    const bottomElement = htmlRes.getElementsByClassName(bottomContentClass);
+    expect(bottomElement[0].innerHTML).contains(bottomContent, 'Could not find the bottom content');
+  });
+
+  it('should display link back to the create media account page', () => {
+    const bottomElement = htmlRes.getElementsByClassName(bottomContentClass);
+    const header = bottomElement[0].getElementsByTagName('a');
+    expect(header[0].getAttribute('href')).contains('/create-media-account', 'Could not find the link back to create media account');
   });
 
 });

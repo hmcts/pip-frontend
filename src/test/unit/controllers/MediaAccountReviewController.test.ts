@@ -41,7 +41,6 @@ describe('Media Account Review Controller Test', () => {
   };
 
   const dummyImage = new Blob(['testJPEG']);
-
   const mediaAccountReviewController = new MediaAccountReviewController();
   const response = { redirect: () => {return '';}, render: () => {return '';}, send: () => {return '';}, set: () => {return '';}} as unknown as Response;
 
@@ -188,5 +187,4 @@ describe('Media Account Review Controller Test', () => {
     responseMock.verify();
 
   });
-
 });
