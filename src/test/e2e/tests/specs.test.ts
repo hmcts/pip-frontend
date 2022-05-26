@@ -38,6 +38,10 @@ import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
 import {MediaAccountRequestsPage} from '../PageObjects/MediaAccountRequests.page';
+import {MediaAccountReviewPage} from '../PageObjects/MediaAccountReview.page';
+import {MediaAccountApprovalPage} from '../PageObjects/MediaAccountApproval.page';
+import {MediaAccountRejectionPage} from '../PageObjects/MediaAccountRejection.page';
+import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccountRejectionConfirmation.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -79,6 +83,10 @@ let searchPublicationResultsPage: RemoveListSearchResultsPage;
 let publicationConfirmationPage: RemoveListConfirmationPage;
 let removePublicationSuccessPage: RemoveListSuccessPage;
 let mediaAccountRequestsPage: MediaAccountRequestsPage;
+let mediaAccountReviewPage: MediaAccountReviewPage;
+let mediaAccountApprovalPage: MediaAccountApprovalPage;
+let mediaAccountRejectionPage: MediaAccountRejectionPage;
+let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -582,6 +590,33 @@ describe('Admin level journeys', () => {
     it('should start the manage media account request journey', async () => {
       mediaAccountRequestsPage = await adminDashboard.clickManageMedia();
       expect(await mediaAccountRequestsPage.getPageTitle()).toEqual('Select application to assess');
+    });
+
+    it('should select view application', async () => {
+      mediaAccountReviewPage = await mediaAccountRequestsPage.clickViewApplication();
+      expect(await mediaAccountReviewPage.getPageTitle()).toEqual('Applicant\'s details');
+    });
+
+    it('should click approve application', async () => {
+      mediaAccountApprovalPage = await mediaAccountReviewPage.clickApproveApplication();
+      expect(await mediaAccountApprovalPage.getPageTitle()).toEqual('Are you sure you want to approve this application?');
+    });
+
+    it('should select no to approve application', async () => {
+      await mediaAccountApprovalPage.selectNo();
+      mediaAccountReviewPage = await mediaAccountApprovalPage.clickContinue();
+      expect(await mediaAccountReviewPage.getPageTitle()).toEqual('Applicant\'s details');
+    });
+
+    it('should select reject application', async () => {
+      mediaAccountRejectionPage = await mediaAccountReviewPage.clickRejectApplication();
+      expect(await mediaAccountRejectionPage.getPageTitle()).toEqual('Are you sure you want to reject this application?');
+    });
+
+    it('should select yes to reject application', async () => {
+      await mediaAccountRejectionPage.selectYes();
+      mediaAccountRejectionConfirmationPage = await mediaAccountRejectionPage.clickContinue();
+      expect(await mediaAccountRejectionConfirmationPage.getPanelTitle()).toEqual('Account has been rejected.');
     });
   });
 

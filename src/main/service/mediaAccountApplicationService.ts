@@ -55,4 +55,8 @@ export class MediaAccountApplicationService {
     return null;
   }
 
+  public async rejectApplication(applicationId): Promise<object | null> {
+    return accountManagementRequests.updateMediaApplicationStatus(applicationId, 'REJECTED');
+  }
+
 }
