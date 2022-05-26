@@ -66,7 +66,25 @@ export class AccountManagementRequests {
       return false;
     }
   }
-  
+
+  public async getUserInfo(userProvenance: string, provenanceUserId: string): Promise<object> {
+    try {
+      const response = await accountManagementApi.get(`/account/provenance/${userProvenance}/${provenanceUserId}`);
+      logger.info('Get user information from P&I database', response);
+      return response.data;
+    }
+    catch (error) {
+      if (error.response) {
+        logger.error('failed to get user information from P&I database on response', error.response.data);
+      } else if (error.request) {
+        logger.error('failed to get user information from P&I database on response', error.request);
+      } else {
+        logger.error('failed to get user information from P&I database on response', error.message);
+      }
+      return null;
+    }
+  }
+
   public async getMediaApplicationById(applicationId): Promise<MediaAccountApplication | null> {
     try {
       const response = await accountManagementApi.get('/application/' + applicationId);
