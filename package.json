@@ -137,6 +137,5 @@
     "serialize-javascript": ">=2.1.1",
     "trim-newlines": "^4.0.2",
     "async": "^3.2.3",
-    "busboy": "^1.6.0"
   }
 }
