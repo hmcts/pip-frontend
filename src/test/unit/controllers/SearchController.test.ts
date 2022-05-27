@@ -87,7 +87,7 @@ describe('Search Controller', () => {
 
   it('should redirect to hearing list page with input as query if court name input is valid', () => {
     const court = {
-      courtId: 1,
+      locationId: 1,
     };
     stubCourt.returns(court);
     const response = { redirect: function() {return '';}} as unknown as Response;

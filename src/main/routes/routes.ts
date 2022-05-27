@@ -170,6 +170,8 @@ export default function(app: Application): void {
   app.post('/media-account-review/reject', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.reject);
   app.get('/media-account-approval', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountApprovalController.get);
   app.post('/media-account-approval', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountApprovalController.post);
+  app.get('/media-account-rejection', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.get);
+  app.post('/media-account-rejection', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.post);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
@@ -192,10 +194,6 @@ export default function(app: Application): void {
   /* istanbul ignore next */
   app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
     (_req, res) => {res.redirect('/subscription-management');});
-
-  //TODO: To be deleted/modified post UAT with suitable solution
-  app.get('/warned-list', app.locals.container.cradle.warnedListController.get);
-  app.get('/standard-list', ensureAuthenticated, app.locals.container.cradle.standardListController.get);
 
   const healthCheckConfig = {
     checks: {

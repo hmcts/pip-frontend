@@ -37,7 +37,7 @@ export class PendingSubscriptionsFromCache {
         redisClient.set(`pending-cases-subscriptions-${userId}`, JSON.stringify(filteredCases));
       }
 
-      // as SJP courtId = 0 removeObject.court = 0 is evaluated as false, hence or (||) check
+      // as SJP locationId = 0 removeObject.court = 0 is evaluated as false, hence or (||) check
       if (removeObject.court || removeObject.court === 0) {
         const cachedCourts = await this.getPendingSubscriptions(userId, 'courts');
         const filteredCourts = cachedCourts.filter((court) => court.courtId !== parseInt(removeObject.court));
