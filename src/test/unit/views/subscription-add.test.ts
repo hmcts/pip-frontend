@@ -94,7 +94,10 @@ describe('Subscriptions add Page initial load', () => {
 
 describe('Subscriptions add page no selection entered', () => {
   beforeAll(async () => {
+    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+
     await request(app).post(PAGE_URL).send({selectionError: true}).then(res => {
+
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
     });
@@ -102,7 +105,7 @@ describe('Subscriptions add page no selection entered', () => {
 
   it('should display the error summary when no selection is entered', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryClass);
-    expect(errorSummary[0].innerHTML).contains(0, 'Please tell us how you would like to add a subscription');
+    expect(errorSummary[0].innerHTML).contains( 'Please tell us how you would like to add a subscription');
   });
 
   it('should not display the error message when no selection is entered', () => {
