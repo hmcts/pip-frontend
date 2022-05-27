@@ -145,7 +145,7 @@ describe('getCourtDetails function', () => {
     expect(courtDetailsList).toStrictEqual([mockCourt]);
   });
 
-  it('should return empty court list if invalid courtId is provided', async () => {
+  it('should return empty court list if invalid locationId is provided', async () => {
     const courtList = await subscriptionService.getCourtDetails(['']);
     expect(courtList).toEqual([]);
   });

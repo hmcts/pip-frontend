@@ -38,11 +38,11 @@ const valid = 'valid';
 const invalid = 'invalid';
 const dataManagementStub = sinon.stub(dataManagementApi, 'get');
 const dataMngmntDeleteStub = sinon.stub(dataManagementApi, 'delete');
-dataManagementStub.withArgs('/publication/courtId/valid').resolves(successResponse);
+dataManagementStub.withArgs('/publication/locationId/valid').resolves(successResponse);
 
 const publicationRequests = new PublicationRequests();
 
-dataManagementStub.withArgs('/publication/courtId/valid').resolves(successResponse);
+dataManagementStub.withArgs('/publication/locationId/valid').resolves(successResponse);
 
 dataManagementStub.withArgs('/publication/abc1/payload').rejects(errorResponse);
 dataManagementStub.withArgs('/publication/abc2/payload').rejects(errorRequest);

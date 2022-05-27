@@ -124,37 +124,6 @@
           </nav>
         </div>
         <table class="govuk-table">
-          <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header" colspan="3">{{ sjpTableHeader }}</th>
-          </tr>
-          </thead>
-          <tbody class="govuk-table__body">
-          <tr class="govuk-table__row sjp-row">
-            <th scope="row" class="govuk-table__header">
-            </th>
-            <td class="govuk-table__cell">
-              <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
-                <input type="checkbox" class="govuk-checkboxes__input"
-                       id="0"
-                       value="0" name="court-selections[]"
-                       onclick="calculateChecked()">
-                <label class="govuk-label govuk-checkboxes__label"
-                       for="0">
-                  <span class="govuk-visually-hidden">Select {{ sjpSubscription }}</span>
-                </label>
-              </div>
-            </td>
-            <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ sjpSubscription }}</td>
-          </tr>
-          </tbody>
-        </table>
-        <table class="govuk-table">
-          <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header" colspan="3" id="courtHeader">{{ courtTableHeader }}</th>
-          </tr>
-          </thead>
           <tbody class="govuk-table__body">
           {% set first = '' %}
           {% for key, value in courtList %}
@@ -267,5 +236,10 @@
       let href = currentPath ? currentPath[0].replace(deleteVal, '') + filterToClear.replace('?', '&') : filterToClear
       return href.replace(',,', ',');
     }
+
+    //Add aria label to filter heading
+    document.getElementsByClassName("moj-filter__header-title")[0]
+      .getElementsByTagName("h2")[0]
+      .setAttribute("aria-label", "{{ aria.filterLabel }}");
   </script>
 {% endblock %}

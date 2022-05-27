@@ -13,7 +13,7 @@ sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 const courtStub = sinon.stub(CourtService.prototype, 'getCourtByName');
 const rawCourts = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawCourts);
-const court = { courtId: 2 };
+const court = { locationId: 2 };
 sinon.stub(CourtService.prototype, 'fetchAllCourts').returns(courtList);
 courtStub.withArgs('').resolves(null);
 courtStub.withArgs('foo').resolves(null);

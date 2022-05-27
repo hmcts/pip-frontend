@@ -53,7 +53,7 @@ export class CourtService {
     sortedCourtsList.forEach(item => {
       const courtName = item.name;
       alphabetisedCourtList[courtName.charAt(0).toUpperCase()][courtName] = {
-        id: item.courtId,
+        id: item.locationId,
       };
     });
     return alphabetisedCourtList;
