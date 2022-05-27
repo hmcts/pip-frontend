@@ -625,8 +625,8 @@ describe('Admin level journeys', () => {
       await adminDashboard.open('admin-dashboard');
     });
     it('should sign out and open view-option page', async () => {
-      viewOptionPage = await adminDashboard.clickSignOut();
-      expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+      signInPage = await adminDashboard.clickSignOut();
+      expect(await signInPage.getAdminPageTitle()).toEqual('Sign in with your email address');
     });
   });
 });
