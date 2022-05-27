@@ -73,9 +73,14 @@ export default function(app: Application): void {
 
     const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
     const encodedSignOutRedirect = encodeURIComponent(`${FRONTEND_URL}/view-option`);
+    const encodedAdminSignOutRedirect = encodeURIComponent(`${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY);
     logger.info('B2C_URL', B2C_URL);
     logger.info('encodedSignOutRedirect', encodedSignOutRedirect);
-    res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
+    if(_req.user.isAdmin) {
+      res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedAdminSignOutRedirect}`);
+    } else {
+      res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
+    }
   }
 
   function regenerateSession(req, res): void {
