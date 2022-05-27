@@ -1,4 +1,4 @@
-export interface Court {
+export interface Location {
   locationId: number;
   name: string;
   jurisdiction: string;

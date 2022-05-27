@@ -1,9 +1,9 @@
-import { CourtService } from './courtService';
+import { LocationService } from './locationService';
 import { DataManagementRequests } from '../resources/requests/dataManagementRequests';
 import moment from 'moment';
 import { FileHandlingService } from './fileHandlingService';
 
-const courtService = new CourtService();
+const courtService = new LocationService();
 const dataManagementRequests = new DataManagementRequests();
 const listSubTypes = [
   {text:'SJP Public List', value: 'SJP_PUBLIC_LIST'},
@@ -22,7 +22,7 @@ const fileHandlingService = new FileHandlingService();
 export class ManualUploadService {
   public async buildFormData(): Promise<object> {
     return {
-      courtList: await courtService.fetchAllCourts(),
+      courtList: await courtService.fetchAllLocations(),
       listSubtypes: this.getListSubtypes(),
       judgementsOutcomesSubtypes: this.getJudgementOutcomesSubtypes(),
     };
@@ -65,7 +65,7 @@ export class ManualUploadService {
 
   private async validateCourt(courtName: string): Promise<string> {
     if (courtName?.length >= 3) {
-      const validCourt = await courtService.getCourtByName(courtName);
+      const validCourt = await courtService.getLocationByName(courtName);
       if (validCourt) {
         return null;
       }
@@ -107,9 +107,9 @@ export class ManualUploadService {
     return 'Please make sure \'to\' date is after \'from\' date';
   }
 
-  public async appendCourtId(courtName: string): Promise<object> {
-    const court = await courtService.getCourtByName(courtName);
-    return {courtName: courtName, courtId: court?.locationId};
+  public async appendlocationId(courtName: string): Promise<object> {
+    const court = await courtService.getLocationByName(courtName);
+    return {courtName: courtName, locationId: court?.locationId};
   }
 
   public async uploadPublication(data: any, ISODateFormat: boolean): Promise<boolean> {
@@ -151,7 +151,7 @@ export class ManualUploadService {
       'x-display-from': headers['display-from'],
       'x-display-to': headers['display-to'],
       'x-list-type': headers.listType,
-      'x-court-id': headers.court.courtId,
+      'x-court-id': headers.court.locationId,
       'x-content-date': headers['content-date-from'],
       'x-issuer-email': headers.userEmail,
     };

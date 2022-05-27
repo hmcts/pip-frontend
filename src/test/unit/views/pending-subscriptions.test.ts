@@ -7,7 +7,7 @@ import sinon from 'sinon';
 
 const mockCase = {
   hearingId: 1,
-  courtId: 50,
+  locationId: 50,
   courtNumber: 1,
   date: '15/11/2021 10:00:00',
   judge: 'His Honour Judge A Morley QC',
@@ -17,7 +17,7 @@ const mockCase = {
   caseUrn: 'N363N6R4OG',
 };
 const mockCourt = {
-  courtId: 643,
+  locationId: 643,
   name: 'Aberdeen Tribunal Hearing Centre',
   jurisdiction: 'Tribunal',
   location: 'Scotland',
@@ -94,7 +94,7 @@ describe('Pending Subscriptions Page', () => {
       expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
       expect(cells[0].innerHTML).contains(mockCourt.name, 'First cell does not contain correct value');
       expect(cells[1].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
-      expect(cells[1].querySelector('a').getAttribute('href')).equal(`/remove-subscription?court=${mockCourt.courtId}`);
+      expect(cells[1].querySelector('a').getAttribute('href')).equal(`/remove-subscription?court=${mockCourt.locationId}`);
     });
 
     it('should contain confirm subscriptions button', () => {

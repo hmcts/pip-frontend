@@ -1,21 +1,21 @@
 import { Response } from 'express';
-import { CourtService } from '../../../main/service/courtService';
+import { LocationService } from '../../../main/service/locationService';
 import { mockRequest } from '../mocks/mockRequest';
 import RemoveListSearchController from '../../../main/controllers/RemoveListSearchController';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
 
-const courtStub = sinon.stub(CourtService.prototype, 'getCourtByName');
+const courtStub = sinon.stub(LocationService.prototype, 'getLocationByName');
 const removeListSearchController = new RemoveListSearchController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawData);
 const court = {locationId: 1};
-sinon.stub(CourtService.prototype, 'fetchAllCourts').returns(courtList);
+sinon.stub(LocationService.prototype, 'fetchAllLocations').returns(courtList);
 courtStub.withArgs('aa').resolves(null);
 courtStub.withArgs('test').resolves(null);
 courtStub.withArgs('Mut').resolves(null);
-courtStub.withArgs('Valid Court').resolves(court);
+courtStub.withArgs('Valid Location').resolves(court);
 
 const i18n = {'remove-list-search': {}};
 
@@ -94,10 +94,10 @@ describe('Remove List Search Controller', () => {
   it('should redirect to removal confirmation page with input as query if court name input is valid', () => {
     const response = { redirect: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
-    request.body = {'input-autocomplete': 'Valid Court'};
+    request.body = {'input-autocomplete': 'Valid Location'};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('remove-list-search-results?courtId=1');
+    responseMock.expects('redirect').once().withArgs('remove-list-search-results?locationId=1');
     return removeListSearchController.post(request, response).then(() => {
       responseMock.verify();
     });

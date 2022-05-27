@@ -10,8 +10,8 @@ export default class SubscriptionManagementController {
     if (req.user) {
       const subscriptionData = await subscriptionService.getSubscriptionsByUser(req.user['oid']);
       const caseTableData = await subscriptionService.generateCaseTableRows(subscriptionData.caseSubscriptions);
-      const courtTableData = await subscriptionService.generateCourtTableRows(subscriptionData.courtSubscriptions);
-      let activeAllTab = false, activeCaseTab = false, activeCourtTab = false;
+      const locationTableData = await subscriptionService.generateLocationTableRows(subscriptionData.locationSubscriptions);
+      let activeAllTab = false, activeCaseTab = false, activeLocationTab = false;
       switch (Object.keys(req.query)[0]) {
         case 'all':
           activeAllTab = true;
@@ -19,8 +19,8 @@ export default class SubscriptionManagementController {
         case 'case':
           activeCaseTab = true;
           break;
-        case 'court':
-          activeCourtTab = true;
+        case 'location':
+          activeLocationTab = true;
           break;
         default:
           activeAllTab = true;
@@ -29,10 +29,10 @@ export default class SubscriptionManagementController {
       res.render('subscription-management', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-management']),
         caseTableData,
-        courtTableData,
+        locationTableData,
         activeAllTab,
         activeCaseTab,
-        activeCourtTab,
+        activeLocationTab,
       });
     } else {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);

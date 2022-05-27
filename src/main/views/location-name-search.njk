@@ -64,7 +64,7 @@
         {% endfor %}
       {% endset %}
 
-      <form method="post" action="court-name-search" class="moj-filter-layout__filter layout-width-four-fifths"
+      <form method="post" action="location-name-search" class="moj-filter-layout__filter layout-width-four-fifths"
             autocomplete="off">
         {{ mojFilter({
           heading: {
@@ -104,7 +104,7 @@
         <div class="govuk-!-margin-bottom-6 govuk-!-margin-top-6">
           <nav aria-label="Alphabetical links to courts and tribunals">
           <div class="govuk-grid-row">
-            {% for key, value in courtList %}
+            {% for key, value in locationList %}
             {% if key == 'N' %}
           </div>
           <div class="govuk-grid-row">
@@ -126,7 +126,7 @@
         <table class="govuk-table">
           <tbody class="govuk-table__body">
           {% set first = '' %}
-          {% for key, value in courtList %}
+          {% for key, value in locationList %}
             {% if value | length > 0 %}
               {% for courtName, courtDetails in value %}
                 {% if courtDetails.id > 0 %}

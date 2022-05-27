@@ -2,7 +2,7 @@
   {
     "locationId": 1,
     "name": "Abergavenny Magistrates' Court",
-    "jurisdiction": "Magistrates' Court",
+    "jurisdiction": "Magistrates",
     "region": "Bedford",
     "hearings": 3,
     "hearingList": [
@@ -41,7 +41,7 @@
   {
     "locationId": 2,
     "name": "Accrington County Court",
-    "jurisdiction": "Crown Court",
+    "jurisdiction": "Crown",
     "region": "London",
     "hearings": 2,
     "hearingList": [
@@ -70,7 +70,7 @@
   {
     "locationId": 3,
     "name": "Accrington Magistrates' Court",
-    "jurisdiction": "Crown Court",
+    "jurisdiction": "Crown",
     "region": "Manchester",
     "hearings": 5,
     "hearingList": [
@@ -109,7 +109,7 @@
   {
     "locationId": 4,
     "name": "Aldershot and Farnham County Court and Family Court",
-    "jurisdiction": "Crown Court",
+    "jurisdiction": "Crown",
     "region": "Manchester",
     "hearings": 7,
     "hearingList": [
@@ -188,7 +188,7 @@
   {
     "locationId": 5,
     "name": "Aldershot Magistrates' Court",
-    "jurisdiction": "Royal Court",
+    "jurisdiction": "Royal",
     "region": "Manchester",
     "hearings": 3,
     "hearingList": [
@@ -227,7 +227,7 @@
   {
     "locationId": 6,
     "name": "Alton Magistrates' Court",
-    "jurisdiction": "Royal Court",
+    "jurisdiction": "Royal",
     "region": "London",
     "hearings": 2,
     "hearingList": [
@@ -256,7 +256,7 @@
   {
     "locationId": 7,
     "name": "Altrincham County Court and Family Court",
-    "jurisdiction": "Crown Court",
+    "jurisdiction": "Crown",
     "region": "Manchester",
     "hearings": 1,
     "hearingList": [
@@ -275,7 +275,7 @@
   {
     "locationId": 8,
     "name": "Andover Magistrates' Court",
-    "jurisdiction": "Royal Court",
+    "jurisdiction": "Royal",
     "region": "Bedford",
     "hearings": 3,
     "hearingList": [
@@ -314,7 +314,7 @@
   {
     "locationId": 9,
     "name": "Tameside Magistrates' Court",
-    "jurisdiction": "Royal Court",
+    "jurisdiction": "Royal",
     "region": "Manchester",
     "hearings": 2,
     "hearingList": [
@@ -333,7 +333,7 @@
   {
     "locationId": 10,
     "name": "Aylesbury County Court and Family Court",
-    "jurisdiction": "Royal Court",
+    "jurisdiction": "Royal",
     "region": "Manchester",
     "hearings": 1,
     "hearingList": [
@@ -352,7 +352,7 @@
   {
     "locationId": 543,
     "name": "Wakefield Social Security and Child Support Tribunal",
-    "jurisdiction": "Crown Court",
+    "jurisdiction": "Crown",
     "region": "London",
     "hearings": 2,
     "hearingList": [
@@ -381,7 +381,7 @@
   {
     "locationId": 542,
     "name": "West London Court no hearings",
-    "jurisdiction": "Crown Court",
+    "jurisdiction": "Crown",
     "region": "London",
     "hearings": 0,
     "hearingList": []
