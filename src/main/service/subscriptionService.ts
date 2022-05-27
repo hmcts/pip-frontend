@@ -166,7 +166,7 @@ export class SubscriptionService {
           channel: 'EMAIL',
           searchType: 'LOCATION_ID',
           searchValue: pendingSubscription.locationId,
-          courtName: pendingSubscription.name,
+          locationName: pendingSubscription.name,
           userId,
         };
         break;
