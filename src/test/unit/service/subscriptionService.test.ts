@@ -30,7 +30,7 @@ const courtSubscriptionPayload = {
   channel: 'EMAIL',
   searchType: 'LOCATION_ID',
   searchValue: 643,
-  courtName: 'Aberdeen Tribunal Hearing Centre',
+  locationName: 'Aberdeen Tribunal Hearing Centre',
   userId: '1',
 };
 const caseSubscriptionPayload = {
