@@ -7,7 +7,7 @@ import {AdminAuthentication} from '../../../main/authentication/adminAuthenticat
 
 const applicationId = '1234';
 
-const PAGE_URL = '/media-account-approval?applicantId=' + applicationId;
+const PAGE_URL = '/media-account-rejection?applicantId=' + applicationId;
 const headingClass = 'govuk-heading-l';
 const tableCaptionClass = 'govuk-heading-m';
 const summaryHeader = 'govuk-summary-list__key';
@@ -18,7 +18,7 @@ const buttonTag = 'button';
 const errorSummaryClass = 'govuk-error-summary__title';
 const errorMessageClass = 'govuk-error-summary__body';
 
-const expectedHeader = 'Are you sure you want to approve this application?';
+const expectedHeader = 'Are you sure you want to reject this application?';
 const expectedTableCaption = 'Applicant\'s Details';
 const nameHeader = 'Name';
 const nameValue = 'Test Name';
@@ -37,7 +37,6 @@ const noRadio = 'No';
 const continueButtonText = 'Continue';
 const errorSummary = 'There is a problem';
 const errorMessageNoSelection = 'An option must be selected';
-const errorMessageAzureError = 'There has been a problem creating the users account. Please try again, or if the problem persists contact [DTS service desk email].';
 
 let htmlRes: Document;
 
@@ -54,9 +53,9 @@ const dummyApplication = {
 };
 
 sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
-sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').resolves(dummyApplication);
+sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').returns(dummyApplication);
 
-describe('Media Account Approval Page', () => {
+describe('Media Account Rejection Page', () => {
 
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
@@ -157,7 +156,7 @@ describe('Media Account Approval Page', () => {
 describe('Media Account Approval No Selection', () => {
 
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'applicationId': applicationId}).then(res => {
+    await request(app).post(PAGE_URL).send({}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
     });
@@ -179,7 +178,7 @@ describe('Media Account Approval Page Errored', () => {
   sinon.stub(MediaAccountApplicationService.prototype, 'createAccountFromApplication').returns(null);
 
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'approved': 'Yes', 'applicationId': applicationId}).then(res => {
+    await request(app).post(PAGE_URL).send({'approved': 'Yes'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
     });
@@ -188,11 +187,6 @@ describe('Media Account Approval Page Errored', () => {
   it('should display the error title when no selection is entered', () => {
     const errorSummaryResult = htmlRes.getElementsByClassName(errorSummaryClass);
     expect(errorSummaryResult[0].innerHTML).contains(errorSummary, 'Error summary not found');
-  });
-
-  it('should display the error message when no selection is entered', () => {
-    const errorMessage = htmlRes.getElementsByClassName(errorMessageClass);
-    expect(errorMessage[0].innerHTML).contains(errorMessageAzureError, 'Error message not found');
   });
 
 });
