@@ -94,8 +94,6 @@ describe('Subscriptions add Page initial load', () => {
 
 describe('Subscriptions add page no selection entered', () => {
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-
     await request(app).post(PAGE_URL).send({selectionError: true}).then(res => {
 
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
