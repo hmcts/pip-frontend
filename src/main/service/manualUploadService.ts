@@ -109,7 +109,7 @@ export class ManualUploadService {
 
   public async appendCourtId(courtName: string): Promise<object> {
     const court = await courtService.getCourtByName(courtName);
-    return {courtName: courtName, courtId: court?.courtId};
+    return {courtName: courtName, courtId: court?.locationId};
   }
 
   public async uploadPublication(data: any, ISODateFormat: boolean): Promise<boolean> {

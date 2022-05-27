@@ -10,7 +10,7 @@ const courtStub = sinon.stub(CourtService.prototype, 'getCourtByName');
 const removeListSearchController = new RemoveListSearchController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawData);
-const court = {courtId: 1};
+const court = {locationId: 1};
 sinon.stub(CourtService.prototype, 'fetchAllCourts').returns(courtList);
 courtStub.withArgs('aa').resolves(null);
 courtStub.withArgs('test').resolves(null);
