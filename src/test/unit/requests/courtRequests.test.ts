@@ -37,23 +37,23 @@ const test = 'test';
 describe('Court get requests', () => {
 
   beforeEach(() => {
-    stub.withArgs('/courts/1').resolves({data: courtList[0]});
-    stub.withArgs('/courts/2').rejects(errorResponse);
-    stub.withArgs('/courts/3').rejects(errorRequest);
-    stub.withArgs('/courts/4').rejects(errorMessage);
-    stub.withArgs('/courts/5').resolves({data: courtList[4]});
+    stub.withArgs('/locations/1').resolves({data: courtList[0]});
+    stub.withArgs('/locations/2').rejects(errorResponse);
+    stub.withArgs('/locations/3').rejects(errorRequest);
+    stub.withArgs('/locations/4').rejects(errorMessage);
+    stub.withArgs('/locations/5').resolves({data: courtList[4]});
 
-    stub.withArgs(`/courts/name/${courtNameSearch}`).resolves({data: courtList[0]});
-    stub.withArgs('/courts/name/test').rejects(errorResponse);
-    stub.withArgs('/courts/name/testReq').rejects(errorRequest);
-    stub.withArgs('/courts/name/testMes').rejects(errorMessage);
+    stub.withArgs(`/locations/name/${courtNameSearch}`).resolves({data: courtList[0]});
+    stub.withArgs('/locations/name/test').rejects(errorResponse);
+    stub.withArgs('/locations/name/testReq').rejects(errorRequest);
+    stub.withArgs('/locations/name/testMes').rejects(errorMessage);
 
-    stub.withArgs('/courts/filter', {params: {regions: regions, jurisdictions: jurisdictions}}).resolves({data: courtList});
-    stub.withArgs('/courts/filter', {params: {regions: test, jurisdictions: test}}).rejects(errorResponse);
-    stub.withArgs('/courts/filter', {params: {regions: test, jurisdictions: 'error'}}).rejects(errorMessage);
-    stub.withArgs('/courts/filter', {params: {regions: test, jurisdictions: 'foo'}}).rejects(errorRequest);
+    stub.withArgs('/locations/filter', {params: {regions: regions, jurisdictions: jurisdictions}}).resolves({data: courtList});
+    stub.withArgs('/locations/filter', {params: {regions: test, jurisdictions: test}}).rejects(errorResponse);
+    stub.withArgs('/locations/filter', {params: {regions: test, jurisdictions: 'error'}}).rejects(errorMessage);
+    stub.withArgs('/locations/filter', {params: {regions: test, jurisdictions: 'foo'}}).rejects(errorRequest);
 
-    stub.withArgs('/courts').resolves({data: courtList});
+    stub.withArgs('/locations').resolves({data: courtList});
   });
 
   it('should return court by court id from cache', async () => {
@@ -120,29 +120,29 @@ describe('Court get requests', () => {
   });
 
   it('should return null list of courts for error response', async () => {
-    stub.withArgs('/courts').rejects(errorResponse);
+    stub.withArgs('/locations').rejects(errorResponse);
     expect(await courtRequests.getFilteredCourts(test, test)).toBe(null);
   });
 
   it('should return null list of courts for error request', async () => {
-    stub.withArgs('/courts').rejects(errorRequest);
+    stub.withArgs('/locations').rejects(errorRequest);
     expect(await courtRequests.getFilteredCourts(test, 'foo')).toBe(null);
   });
 
   it('should return null list of courts for error request', async () => {
-    stub.withArgs('/courts').rejects(errorRequest);
+    stub.withArgs('/locations').rejects(errorRequest);
     stubCacheGet.withArgs('allCourts').resolves(null);
     expect(await courtRequests.getAllCourts()).toBe(null);
   });
 
   it('should return null list of courts for errored call', async () => {
-    stub.withArgs('/courts').rejects(errorMessage);
+    stub.withArgs('/locations').rejects(errorMessage);
     stubCacheGet.withArgs('allCourts').resolves(null);
     expect(await courtRequests.getAllCourts()).toBe(null);
   });
 
   it('should return null list of courts for errored response', async () => {
-    stub.withArgs('/courts').rejects(errorResponse);
+    stub.withArgs('/locations').rejects(errorResponse);
     stubCacheGet.withArgs('allCourts').resolves(null);
     expect(await courtRequests.getAllCourts()).toBe(null);
   });

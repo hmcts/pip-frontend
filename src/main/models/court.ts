@@ -1,5 +1,5 @@
 export interface Court {
-  courtId: number;
+  locationId: number;
   name: string;
   jurisdiction: string;
   location: string;
