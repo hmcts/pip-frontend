@@ -15,7 +15,7 @@ const errorSummaryBodyClass = 'govuk-error-summary__body';
 const formErrorClass = 'govuk-form-group--error';
 const expectedHeader = 'What is the unique reference number (URN)?';
 const expectedButtonText = 'Continue';
-const expectedErrorMessage = 'URN not found, please try again or search under a Case Name or subscribe to a whole court';
+const expectedErrorMessage = 'There is nothing matching your criteria';
 const expectedErrorTitle = 'There is a problem';
 
 let htmlRes: Document;

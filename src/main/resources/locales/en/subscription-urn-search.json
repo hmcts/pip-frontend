@@ -5,6 +5,9 @@
   "error": {
     "title": "There is a problem",
     "header": "There are no matching results.",
-    "notfound": "URN not found, please try again or search under a Case Name or subscribe to a whole court."
+    "notfound": "There is nothing matching your criteria",
+    "line1": "You can:",
+    "liText1": "Double check your spelling",
+    "liText2": "Add subscription by an alternative type"
   }
 }
