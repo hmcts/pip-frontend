@@ -1,6 +1,6 @@
 export interface Hearing {
   hearingId: number;
-  courtId: number;
+  locationId: number;
   courtNumber: number;
   date: string;
   judge: string;

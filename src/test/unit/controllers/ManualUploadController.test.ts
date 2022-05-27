@@ -34,7 +34,7 @@ describe('Manual Upload Controller', () => {
   describe('POST', () => {
     const fileValidationStub = sinon.stub(FileHandlingService.prototype, 'validateFileUpload');
     const formValidationStub = sinon.stub(ManualUploadService.prototype, 'validateFormFields');
-    sinon.stub(ManualUploadService.prototype, 'appendCourtId').resolves({courtName: 'name', id: '1'});
+    sinon.stub(ManualUploadService.prototype, 'appendlocationId').resolves({courtName: 'name', id: '1'});
     fileValidationStub.returns('error');
     formValidationStub.resolves('error');
     fileValidationStub.withArgs(testFile).returns();

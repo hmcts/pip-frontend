@@ -1,20 +1,20 @@
 import { Response } from 'express';
-import {CourtService} from '../service/courtService';
+import {LocationService} from '../service/locationService';
 import moment from 'moment';
 import {cloneDeep} from 'lodash';
 import {PipRequest} from '../models/request/PipRequest';
 
-const courtService = new CourtService();
+const courtService = new LocationService();
 
 export default class HearingListController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
-    const courtId = parseInt(req.query.courtId as string);
+    const locationId = parseInt(req.query.locationId as string);
 
     //If no court ID has been supplied, then return the error page
-    if (courtId) {
+    if (locationId) {
 
-      const court = await courtService.getCourtById(courtId);
+      const court = await courtService.getLocationById(locationId);
 
       //Returns the error page if the court list is empty
       if (court) {

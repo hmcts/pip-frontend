@@ -97,7 +97,7 @@
         </div>
       </div>
       <nav class="govuk-grid-row govuk-!-margin-bottom-8" aria-label="{{ aria.labelNavHeader }}">
-        {% for key, value in courtList %}
+        {% for key, value in locationList %}
           {% if value| length == 0 %}
             <div class="govuk-grid-column width-column govuk-!-font-size-19">
               <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline" aria-label="{{ aria.labelNav}} {{ key }}">{{ key }}</a>
@@ -111,7 +111,7 @@
       </nav>
       <table class="govuk-table">
         <tbody class="govuk-table__body">
-        {% for key, value in courtList %}
+        {% for key, value in locationList %}
           {% if value | length > 0 %}
             {% for courtName, courtDetails in value %}
               {% if courtDetails.id > 0 %}
@@ -126,7 +126,7 @@
                     </th>
                   {% endif %}
                   <td class="govuk-table__cell">
-                    <a href="/summary-of-publications?courtId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a>
+                    <a href="/summary-of-publications?locationId={{ courtDetails.id }}" class="govuk-link">{{ courtName }}</a>
                   </td>
                 </tr>
               {% endif %}

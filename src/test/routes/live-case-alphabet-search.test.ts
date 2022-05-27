@@ -3,9 +3,9 @@ import request from 'supertest';
 import sinon from 'sinon';
 
 import { app } from '../../main/app';
-import {CourtService} from '../../main/service/courtService';
+import {LocationService} from '../../main/service/locationService';
 
-sinon.stub(CourtService.prototype, 'generateAlphabetisedCrownCourtList').returns([]);
+sinon.stub(LocationService.prototype, 'generateAlphabetisedCrownCourtList').returns([]);
 
 describe('Search option', () => {
   describe('on GET', () => {

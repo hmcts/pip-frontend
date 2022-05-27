@@ -14,7 +14,7 @@ describe('Summary of Publications', () => {
   describe('on GET', () => {
     test('should return summary of publications page', async () => {
       await request(app)
-        .get('/summary-of-publications?courtId=0')
+        .get('/summary-of-publications?locationId=0')
         .expect((res) => expect(res.status).to.equal(200));
     });
   });

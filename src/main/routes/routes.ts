@@ -130,17 +130,11 @@ export default function(app: Application): void {
   app.get('/case-reference-number-search', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchController.get);
   app.post('/case-reference-number-search', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchController.post);
   app.get('/case-reference-number-search-results', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
-  app.get('/court-name-search', ensureAuthenticated, app.locals.container.cradle.alphabeticalSearchController.get);
-  app.post('/court-name-search', ensureAuthenticated, app.locals.container.cradle.alphabeticalSearchController.post);
+  app.get('/location-name-search', ensureAuthenticated, app.locals.container.cradle.alphabeticalSearchController.get);
+  app.post('/location-name-search', ensureAuthenticated, app.locals.container.cradle.alphabeticalSearchController.post);
   app.get('/delete-subscription', ensureAuthenticated, app.locals.container.cradle.deleteSubscriptionController.get);
   app.get('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.get);
   app.post('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.post);
-  app.get('/remove-list-confirmation', ensureAuthenticated, app.locals.container.cradle.removeListConfirmationController.get);
-  app.post('/remove-list-confirmation', ensureAuthenticated, app.locals.container.cradle.removeListConfirmationController.post);
-  app.get('/remove-list-search', ensureAuthenticated, app.locals.container.cradle.removeListSearchController.get);
-  app.post('/remove-list-search', ensureAuthenticated, app.locals.container.cradle.removeListSearchController.post);
-  app.get('/remove-list-search-results', ensureAuthenticated, app.locals.container.cradle.removeListSearchResultsController.get);
-  app.get('/remove-list-success', ensureAuthenticated, app.locals.container.cradle.removeListSuccessController.get);
   app.get('/remove-subscription', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.removeSubscription);
   app.get('/sjp-press-list', ensureAuthenticated, app.locals.container.cradle.sjpPressListController.get);
   app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
@@ -172,6 +166,12 @@ export default function(app: Application): void {
   app.post('/media-account-approval', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountApprovalController.post);
   app.get('/media-account-rejection', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.get);
   app.post('/media-account-rejection', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.post);
+  app.get('/remove-list-confirmation', ensureAdminAuthenticated, app.locals.container.cradle.removeListConfirmationController.get);
+  app.post('/remove-list-confirmation', ensureAdminAuthenticated, app.locals.container.cradle.removeListConfirmationController.post);
+  app.get('/remove-list-search', ensureAdminAuthenticated, app.locals.container.cradle.removeListSearchController.get);
+  app.post('/remove-list-search', ensureAdminAuthenticated, app.locals.container.cradle.removeListSearchController.post);
+  app.get('/remove-list-search-results', ensureAdminAuthenticated, app.locals.container.cradle.removeListSearchResultsController.get);
+  app.get('/remove-list-success', ensureAdminAuthenticated, app.locals.container.cradle.removeListSuccessController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
