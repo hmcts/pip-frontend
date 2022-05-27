@@ -5,7 +5,7 @@ $autocomplete-hover-colour: #1d70b8;
 $autocomplete-no-results-colour: #646b6f;
 $autocomplete-outline-colour: #fd0;
 $autocomplete-white-colour: #fff;
-$autocomplete-box-shadow: rgba(0, 0, 0, 25.7%);
+$autocomplete-box-shadow: rgba(0, 0, 0, 25.7%); /* stylelint-disable-line */
 
 .autocomplete__wrapper {
   font-family: 'GDS Transport', arial, sans-serif;
@@ -14,12 +14,10 @@ $autocomplete-box-shadow: rgba(0, 0, 0, 25.7%);
 
 .autocomplete__hint,
 .autocomplete__input {
-  -moz-box-sizing: border-box;
-  -webkit-appearance: none;
-  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  appearance: none;
   border: 2px solid $autocomplete-border-colour;
   border-radius: 0;
-  box-sizing: border-box;
   margin-bottom: 0;
   width: 100%;
 }

@@ -1,5 +1,5 @@
 @import '~govuk-frontend';
-@import 'accessible-autocomplete.min';
+@import 'accessible-autocomplete.min';  /* stylelint-disable-line */
 @import 'node_modules/@ministryofjustice/frontend/moj/all';
 
 $line-colour: #1d70b8;
@@ -95,8 +95,12 @@ $callout-bg: #f0f4f5;
   }
 }
 
+.moj-sub-navigation__item > a {
+  font-weight: bold;
+}
+
 .offset-parent-box {
-  @extend .parent-box;
+  @extend %parent-box !optional;
 
   left: 0;
 
@@ -173,6 +177,12 @@ $callout-bg: #f0f4f5;
 
 .moj-button-menu {
   display: none;
+}
+
+.filter-back-to-top-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
 }
 
 .alphabetical-box {
@@ -266,39 +276,45 @@ $callout-bg: #f0f4f5;
 
 // Styling for Search Results page
 .govuk-table__cell--no-line {
-  @extend .govuk-table__cell;
+  @extend %govuk-table__cell !optional;
 
   border-style: hidden;
   font-weight: inherit;
 }
 
 tbody {
-  tr {
-    &:first-child {
-      th {
-        &.govuk-table__cell--no-line {
-          border-style: inherit;
+  .sjp-row {
+    th {
+      &:first-child {
+        width: 33px;
+      }
+    }
+
+    tr {
+      &:last-child {
+        th {
+          &.govuk-table__cell--no-line {
+            border-bottom-style: solid;
+          }
         }
       }
 
-      td {
-        &.govuk-table__cell--no-line {
-          border-top: 1px solid $govuk-border-colour;
+      &:first-child {
+        th {
+          &.govuk-table__cell--no-line {
+            border-style: inherit;
+          }
         }
       }
     }
 
-    &:last-child {
-      th {
-        &.govuk-table__cell--no-line {
-          border-bottom-style: solid;
-        }
+    td {
+      &.govuk-table__cell--no-line {
+        border-top: 1px solid $govuk-border-colour;
       }
 
-      td {
-        &.govuk-table__cell--no-line {
-          border-bottom-style: solid;
-        }
+      &:nth-child(2) {
+        width: 16px;
       }
     }
   }
@@ -320,13 +336,34 @@ tbody {
 // Styling changes for the Azure OTP Logon Page
 
 .intro {
-  @extend .govuk-body;
+  @extend %govuk-body !optional;
 }
 
 div {
+  .cards-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+
+    > div {
+      flex: 33.33%;
+      max-width: 33.33%;
+    }
+  }
+
+  .verify {
+    label {
+      @extend %govuk-\!-margin-right-4 !optional;
+    }
+  }
+
   .attrEntry {
+    label {
+      @extend %govuk-body !optional;
+      @extend %govuk-\!-font-weight-bold !optional;
+    }
+
     div {
-      @extend .govuk-body;
+      @extend %govuk-body !optional;
 
       &.error {
         color: $govuk-error-colour;
@@ -336,16 +373,16 @@ div {
 }
 
 .buttons {
-  @extend .govuk-\!-margin-top-4;
+  @extend %govuk-\!-margin-top-4 !optional;
 
   button {
-    @extend .govuk-button;
-    @extend .govuk-\!-margin-right-4;
+    @extend %govuk-button !optional;
+    @extend %govuk-\!-margin-right-4 !optional;
   }
 }
 
 .error {
-  @extend .govuk-body;
+  @extend %govuk-body !optional;
 
   color: $govuk-error-colour;
 }
@@ -354,25 +391,11 @@ div {
   display: none;
 }
 
-.attrEntry {
-  label {
-    @extend .govuk-body;
-    @extend .govuk-\!-font-weight-bold;
-
-  }
-}
-
-.verify {
-  label {
-    @extend .govuk-\!-margin-right-4;
-  }
-}
-
 .verifyInput {
-  @extend .govuk-input;
-  @extend .govuk-\!-width-one-half;
-  @extend .govuk-\!-margin-right-4;
-  @extend .govuk-\!-margin-top-4;
+  @extend %govuk-input !optional;
+  @extend %govuk-\!-width-one-half !optional;
+  @extend %govuk-\!-margin-right-4 !optional;
+  @extend %govuk-\!-margin-top-4 !optional;
 
   &[aria-hidden='false'] {
     // Important is required due to an inline style being applied
@@ -381,34 +404,24 @@ div {
 }
 
 .verifyButton {
-  @extend .govuk-\!-margin-top-4;
+  @extend %govuk-\!-margin-top-4 !optional;
 }
 
 .sendButton {
-  @extend .govuk-\!-margin-top-4;
+  @extend %govuk-\!-margin-top-4 !optional;
 }
 
 .textInput {
-  @extend .govuk-input;
-  @extend .govuk-\!-width-one-half;
+  @extend %govuk-input !optional;
+  @extend %govuk-\!-width-one-half !optional;
 }
 
 .helpLink {
   display: none;
 }
 
-.moj-sub-navigation__item > a {
-  font-weight: bold;
-}
-
 .selection-counter-box {
   background-color: govuk-colour('light-grey');
-}
-
-.filter-back-to-top-wrapper {
-  display: flex;
-  flex-direction: row-reverse;
-  width: 100%;
 }
 
 .vertical-center-table-header {
@@ -446,53 +459,28 @@ div {
   }
 }
 
-.cards-wrapper {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-
-  > div {
-    flex: 33.33%;
-    max-width: 33.33%;
-  }
-
-  .admin-card {
-    flex: 50%;
-    max-width: 50%;
-
-    @media (max-width: 640px) {
-      flex: 100%;
-      max-width: 100%;
-    }
-  }
+.admin-card {
+  flex: 50%;
+  max-width: 50%;
 
   @media (max-width: 640px) {
-    > div {
-      flex: 100%;
-      max-width: 100%;
-    }
-  }
-
-  .account-card {
-    background-color: govuk-colour('light-grey');
-    border: solid 1px govuk-colour('mid-grey');
-    height: 100%;
-    padding: 0 1em;
+    flex: 100%;
+    max-width: 100%;
   }
 }
 
-.sjp-row {
-  th {
-    &:first-child {
-      width: 33px;
-    }
+@media (max-width: 640px) {
+  > div {
+    flex: 100%;
+    max-width: 100%;
   }
+}
 
-  td {
-    &:nth-child(2) {
-      width: 16px;
-    }
-  }
+.account-card {
+  background-color: govuk-colour('light-grey');
+  border: solid 1px govuk-colour('mid-grey');
+  height: 100%;
+  padding: 0 1em;
 }
 
 .search-input-name {
