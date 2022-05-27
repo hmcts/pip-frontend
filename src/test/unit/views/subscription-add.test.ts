@@ -98,20 +98,21 @@ describe('Subscriptions add page no selection entered', () => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
     });
+  });
 
-    it('should display the error summary when no selection is entered', () => {
-      const errorSummary = htmlRes.getElementsByClassName(errorSummaryClass);
-      expect(errorSummary[0].innerHTML).contains(0, 'Please tell us how you would like to add a subscription');
-    });
+  it('should display the error summary when no selection is entered', () => {
+    const errorSummary = htmlRes.getElementsByClassName(errorSummaryClass);
+    expect(errorSummary[0].innerHTML).contains(0, 'Please tell us how you would like to add a subscription');
+  });
 
-    it('should not display the error message when no selection is entered', () => {
-      const errorMessage = htmlRes.getElementById(errorMessageId);
-      expect(errorMessage.innerHTML).contains('Please tell us how you would like to add a subscription');
-    });
+  it('should not display the error message when no selection is entered', () => {
+    const errorMessage = htmlRes.getElementById(errorMessageId);
+    expect(errorMessage.innerHTML).contains('Please tell us how you would like to add a subscription');
+  });
 
-    it('should not display the radio error highlighting when no selection is entered', () => {
-      const subscriptionChoice = htmlRes.getElementById(subscriptionChoiceId);
-      expect(subscriptionChoice.getAttribute('class')).contains('govuk-form-group--error');
-    });
+  it('should not display the radio error highlighting when no selection is entered', () => {
+    const subscriptionChoice = htmlRes.getElementById(subscriptionChoiceId);
+    expect(subscriptionChoice.getAttribute('class')).contains('govuk-form-group--error');
   });
 });
+
