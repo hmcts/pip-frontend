@@ -6,7 +6,7 @@ import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
 import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
 import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
 import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
-import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
+import { LocationNameSearchPage } from '../PageObjects/LocationNameSearchPage';
 import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
 import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
 import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
@@ -59,7 +59,7 @@ let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
 let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
 let caseReferenceNumberSearchPage: CaseReferenceNumberSearchPage;
 let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
-let courtNameSearchPage: CourtNameSearchPage;
+let locationNameSearchPage: LocationNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
@@ -370,22 +370,22 @@ describe('Verified user', () => {
 
       it('should open court or tribunal name search page', async () => {
         await subscriptionAddPage.selectOption('SubscriptionAddByCourtOrTribunal');
-        courtNameSearchPage = await subscriptionAddPage.clickContinueForCourtOrTribunal();
-        expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
+        locationNameSearchPage = await subscriptionAddPage.clickContinueForCourtOrTribunal();
+        expect(await locationNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
       });
 
       it('should select first jurisdiction filter', async () => {
-        await courtNameSearchPage.selectOption('JurisdictionFilter1');
-        expect(await courtNameSearchPage.jurisdictionChecked()).toBeTruthy();
+        await locationNameSearchPage.selectOption('JurisdictionFilter1');
+        expect(await locationNameSearchPage.jurisdictionChecked()).toBeTruthy();
       });
 
       it('should click on the apply filters button', async () => {
-        courtNameSearchPage = await courtNameSearchPage.clickApplyFiltersButton();
-        expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
+        locationNameSearchPage = await locationNameSearchPage.clickApplyFiltersButton();
+        expect(await locationNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
       });
 
       it('should click continue to create subscription', async () => {
-        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
+        pendingSubscriptionsPage = await locationNameSearchPage.clickContinue();
         expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
       });
     });
@@ -505,7 +505,6 @@ describe('Admin level journeys', () => {
     await signInPage.enterText(process.env.B2C_ADMIN_USERNAME, 'EmailField');
     await signInPage.enterText(process.env.B2C_ADMIN_PASSWORD, 'PasswordField');
     adminDashboard = await signInPage.clickAdminSignIn();
-    await browser.pause(20000);
   });
   it('should open admin dashboard page on successful sign in', async () => {
     expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');

@@ -43,7 +43,7 @@ export default class ManualUploadController {
       if (errors.fileErrors || errors.formErrors) {
         res.render('manual-upload', formValues);
       } else {
-        req.body['court'] = await manualUploadService.appendCourtId(req.body['input-autocomplete']);
+        req.body['court'] = await manualUploadService.appendlocationId(req.body['input-autocomplete']);
         req.body['artefactType'] = 'LIST'; //Agreed on defaulting to only option available until more types become ready
         req.body['fileName'] = req.file['originalname'];
         req.body['display-from'] = manualUploadService.buildDate(req.body, 'display-date-from');

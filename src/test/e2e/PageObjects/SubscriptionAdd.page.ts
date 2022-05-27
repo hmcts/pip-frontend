@@ -1,6 +1,6 @@
 import { SubscriptionUrnSearchPage } from './SubscriptionUrnSearch.page';
 import { CaseNameSearchPage } from './CaseNameSearch.page';
-import { CourtNameSearchPage } from './CourtNameSearch.page';
+import { LocationNameSearchPage } from './LocationNameSearchPage';
 import { CaseReferenceNumberSearchPage } from './CaseReferenceNumberSearch.page';
 import { CommonPage } from './Common.page';
 
@@ -41,13 +41,13 @@ export class SubscriptionAddPage extends CommonPage {
     await $(helpers[optionName]).click();
   }
 
-  async clickContinueForCourtOrTribunal(): Promise<CourtNameSearchPage> {
+  async clickContinueForCourtOrTribunal(): Promise<LocationNameSearchPage> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
 
     await $(helpers.ContinueButton).click();
-    return new CourtNameSearchPage();
+    return new LocationNameSearchPage();
   }
 
   async clickContinueForUrnSearch(): Promise<SubscriptionUrnSearchPage> {

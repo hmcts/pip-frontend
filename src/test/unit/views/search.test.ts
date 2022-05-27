@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {CourtRequests} from '../../../main/resources/requests/courtRequests';
+import {LocationRequests} from '../../../main/resources/requests/locationRequests';
 
 const PAGE_URL = '/search';
 const headingClass = 'govuk-label-wrapper';
@@ -23,8 +23,8 @@ let htmlRes: Document;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawData);
 
-sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(courtData);
-sinon.stub(CourtRequests.prototype, 'getCourtByName').returns(null);
+sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
+sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(null);
 
 describe('Search Page', () => {
   beforeAll(async () => {

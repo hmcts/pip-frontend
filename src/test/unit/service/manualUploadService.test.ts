@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 import {ManualUploadService} from '../../../main/service/manualUploadService';
-import {CourtService} from '../../../main/service/courtService';
+import {LocationService} from '../../../main/service/locationService';
 import { DataManagementRequests } from '../../../main/resources/requests/dataManagementRequests';
 import fs from 'fs';
 import path from 'path';
@@ -19,8 +19,8 @@ const headers = {
   'display-to': '',
   listType: 'type',
   court: {
-    courtId: '1',
-    courtName: 'Court',
+    locationId: '1',
+    locationName: 'Court',
   },
   'content-date-from': '',
 };
@@ -33,11 +33,11 @@ const expectedHeaders = {
   'x-display-from': headers['display-from'],
   'x-display-to': headers['display-to'],
   'x-list-type': headers.listType,
-  'x-court-id': headers.court.courtId,
+  'x-court-id': headers.court.locationId,
   'x-content-date': headers['content-date-from'],
   'x-issuer-email': 'test@email.com',
 };
-const courtService = sinon.stub(CourtService.prototype, 'getCourtByName');
+const courtService = sinon.stub(LocationService.prototype, 'getLocationByName');
 courtService.withArgs('validCourt').resolves(courtData[0]);
 
 const validRemoveListInput = [{
@@ -55,7 +55,7 @@ const expectedRemoveList = [
   },
 ];
 
-sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves(courtData);
+sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtData);
 sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(true);
 sinon.stub(DataManagementRequests.prototype, 'uploadJSONPublication').resolves(true);
 
@@ -171,7 +171,7 @@ describe('Manual upload service', () => {
   });
 
   it('should return court id and name as object', async () => {
-    expect(await manualUploadService.appendCourtId('validCourt')).to.deep.equal({courtName: 'validCourt', courtId: 1});
+    expect(await manualUploadService.appendlocationId('validCourt')).to.deep.equal({courtName: 'validCourt', locationId: 1});
   });
 
   describe('formatting list removal', () => {

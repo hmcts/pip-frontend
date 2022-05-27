@@ -1,16 +1,16 @@
 import { app } from '../../main/app';
 import { expect } from 'chai';
-import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
-import { CourtService } from '../../main/service/courtService';
+import { LocationService } from '../../main/service/locationService';
 import { SummaryOfPublicationsService } from '../../main/service/summaryOfPublicationsService';
 import { ManualUploadService } from '../../main/service/manualUploadService';
+import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
 const URL = '/remove-list-search';
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-const courtServiceStub = sinon.stub(CourtService.prototype, 'getCourtById');
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
+const courtServiceStub = sinon.stub(LocationService.prototype, 'getLocationById');
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs('2', true, true).resolves([]);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').withArgs([]).returns([]);
 courtServiceStub.withArgs('2').resolves(true);
@@ -19,13 +19,13 @@ courtServiceStub.withArgs('888').resolves(false);
 describe('Remove list summary page', () => {
   test('should return remove list summary page page', async () => {
     await request(app)
-      .get(URL+ '?courtId=2')
+      .get(URL+ '?locationId=2')
       .expect((res) => expect(res.status).to.equal(200));
   });
 
   test('should return error page', async () => {
     await request(app)
-      .get(URL+ '?courtId=888')
+      .get(URL+ '?locationId=888')
       .expect((res) => expect(res.status).to.equal(200));
   });
 });
