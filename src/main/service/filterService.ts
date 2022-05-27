@@ -21,7 +21,7 @@ export class FilterService {
         if(Array.isArray(value)) {
           const array = [...value];
           array.forEach(value => {
-            if(!finalFilterValueOptions.includes(value)) {
+            if(!finalFilterValueOptions.includes(value) && value !== '') {
               finalFilterValueOptions.push(value);
             }
           });

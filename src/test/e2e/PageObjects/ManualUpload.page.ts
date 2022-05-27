@@ -37,7 +37,7 @@ export class ManualUploadPage extends CommonPage {
       console.log(`${helpers.SearchInput} not found`);
     });
 
-    await $(helpers.SearchInput).addValue('Oxford Combined Location Centre');
+    await $(helpers.SearchInput).addValue('Oxford Combined Court Centre');
     await browser.keys('Escape');
   }
 
