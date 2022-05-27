@@ -94,7 +94,7 @@ describe('Subscriptions Add Controller', () => {
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('/court-name-search');
+    responseMock.expects('redirect').once().withArgs('/location-name-search');
 
     subscriptionAddController.post(request, response);
 

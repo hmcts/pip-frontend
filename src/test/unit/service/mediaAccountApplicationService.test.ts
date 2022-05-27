@@ -94,7 +94,6 @@ describe('Summary Of Publications Service', () => {
 
   it('should return null image ID', async () => {
     mediaApplicationByImageStub.withArgs(imageId).resolves(dummyImage);
-
     const applicationImage = await accountApplicationService.getImageById(null);
     expect(applicationImage).toBe(null);
   });
