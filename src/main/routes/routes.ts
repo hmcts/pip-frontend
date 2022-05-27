@@ -76,7 +76,8 @@ export default function(app: Application): void {
     const encodedAdminSignOutRedirect = encodeURIComponent(`${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY);
     logger.info('B2C_URL', B2C_URL);
     logger.info('encodedSignOutRedirect', encodedSignOutRedirect);
-    if(_req?.user?.isAdmin) {
+    const adminRole = adminAuthentication.isAdminUser(_req);
+    if(adminRole) {
       res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedAdminSignOutRedirect}`);
     } else {
       res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
