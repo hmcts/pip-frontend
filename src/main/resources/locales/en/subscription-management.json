@@ -1,12 +1,12 @@
 {
-  "title": "Your subscriptions",
-  "newButton": "Add new subscription",
+  "title": "Your email subscriptions",
+  "newButton": "Add email subscription",
   "subNavigation": {
     "header1": "All subscriptions (",
     "header2": "Subscriptions by case (",
     "header3": "Subscriptions by court or tribunal ("
   },
-  "noSubs": "You currently have no subscriptions",
+  "noSubs": "You do not have any active subscriptions",
   "noSubsCase": "You currently have no subscriptions by case",
   "noSubsCourt": "You currently have no subscriptions by court or tribunal",
   "table": {

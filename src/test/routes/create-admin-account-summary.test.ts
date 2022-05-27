@@ -1,11 +1,11 @@
 import { app } from '../../main/app';
-import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import { CreateAccountService } from '../../main/service/createAccountService';
+import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 const createAccountStub = sinon.stub(CreateAccountService.prototype, 'createAdminAccount');
 const mockData = {
   firstName: 'Joe',

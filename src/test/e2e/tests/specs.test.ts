@@ -37,6 +37,11 @@ import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrn
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
+import {MediaAccountRequestsPage} from '../PageObjects/MediaAccountRequests.page';
+import {MediaAccountReviewPage} from '../PageObjects/MediaAccountReview.page';
+import {MediaAccountApprovalPage} from '../PageObjects/MediaAccountApproval.page';
+import {MediaAccountRejectionPage} from '../PageObjects/MediaAccountRejection.page';
+import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccountRejectionConfirmation.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -77,6 +82,11 @@ let searchPublicationPage: RemoveListSearchPage;
 let searchPublicationResultsPage: RemoveListSearchResultsPage;
 let publicationConfirmationPage: RemoveListConfirmationPage;
 let removePublicationSuccessPage: RemoveListSuccessPage;
+let mediaAccountRequestsPage: MediaAccountRequestsPage;
+let mediaAccountReviewPage: MediaAccountReviewPage;
+let mediaAccountApprovalPage: MediaAccountApprovalPage;
+let mediaAccountRejectionPage: MediaAccountRejectionPage;
+let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -243,7 +253,7 @@ describe('Unverified user', () => {
 
     it('should click on the create account link', async () => {
       createMediaAccountPage = await signInPage.clickCreateAccount();
-      expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a Court and tribunal hearing account');
+      expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a Court and tribunal hearings account');
     });
 
     it('should complete form and continue to confirmation page', async () => {
@@ -285,7 +295,7 @@ describe('Verified user', () => {
   describe('add subscription', async () => {
     it('should click on Email Subscriptions and navigate to subscription management page', async () => {
       subscriptionManagementPage = await accountHomePage.clickSubscriptionsCard();
-      expect(await subscriptionManagementPage.getPageTitle()).toBe('Your subscriptions');
+      expect(await subscriptionManagementPage.getPageTitle()).toBe('Your email subscriptions');
     });
 
     it('should navigate to add subscription page on button click', async () => {
@@ -412,7 +422,7 @@ describe('Verified user', () => {
 
       it('should subscribe', async () => {
         subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
-        expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription confirmed');
+        expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription(s) confirmed');
       });
     });
 
@@ -434,90 +444,6 @@ describe('Verified user', () => {
     });
   });
 
-  describe('Admin level journeys', () => {
-    it('should open admin dashboard page', async () => {
-      await adminDashboard.open('/admin-dashboard');
-      expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
-    });
-
-    describe('Manual Upload', () => {
-      it('should open manual upload page', async () => {
-        manualUploadPage = await adminDashboard.clickUploadFileCard();
-        expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
-      });
-
-      it('should complete form and open summary page', async () => {
-        await manualUploadPage.completeForm();
-        manualUploadSummaryPage = await manualUploadPage.clickContinue();
-        expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
-      });
-
-      it('should open upload confirmation page', async () => {
-        fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
-        expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
-      });
-    });
-
-    describe('Create new account', () => {
-      it('should open admin dashboard page', async () => {
-        await adminDashboard.open('/admin-dashboard');
-        expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
-      });
-
-      it('should click on the create new account card', async () => {
-        createAdminAccountPage = await adminDashboard.clickCreateNewAccountCard();
-        expect(await createAdminAccountPage.getPageTitle()).toEqual('Create admin account');
-      });
-
-      it('should complete form and open summary page', async () => {
-        await createAdminAccountPage.completeForm();
-        createAdminAccountSummaryPage = await createAdminAccountPage.clickContinue();
-        expect(await createAdminAccountSummaryPage.getPageTitle()).toEqual('Check account details');
-      });
-
-      //TODO: enable once PUB-1098 is merged into staging
-      if (process.env.EXCLUDE_E2E === 'true') {
-        it('should click confirm and create user account', async () => {
-          createAdminAccountSummaryPage = await createAdminAccountSummaryPage.clickConfirm();
-          expect(await createAdminAccountSummaryPage.getPanelTitle()).toEqual('Account has been created');
-        });
-      }
-    });
-
-    describe('Manual Removal', () => {
-      it('should open remove publication search page', async () => {
-        await adminDashboard.open('/admin-dashboard');
-        searchPublicationPage = await adminDashboard.clickRemoveCard();
-        expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
-      });
-
-      it('should enter valid court in the search field, click continue and open search results page', async () => {
-        const searchTerm = 'Milton Keynes County Court and Family Court';
-        await searchPublicationPage.enterText(searchTerm);
-        searchPublicationResultsPage = await searchPublicationPage.clickContinue();
-        expect(await searchPublicationResultsPage.getPageTitle()).toEqual('Select content to remove');
-      });
-
-      //TODO: enable once get publication metadata endpoint accepts x-admin header
-      if (process.env.EXCLUDE_E2E === 'true') {
-        it('should click on the first result and open confirmation page', async () => {
-          publicationConfirmationPage = await searchPublicationResultsPage.clickRemoveOnFirstRecord();
-          expect(await publicationConfirmationPage.getPageTitle()).toEqual('Are you sure you want to remove this publication?');
-        });
-
-        it('should select yes option and remove publication', async () => {
-          await publicationConfirmationPage.selectOption('remove-choice');
-          expect(await removePublicationSuccessPage.getPanelTitle()).toEqual('Success');
-        });
-
-        it('should click on the home link and open admin dashboard page', async () => {
-          adminDashboard = await removePublicationSuccessPage.clickHome();
-          expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
-        });
-      }
-    });
-  });
-
   describe('banner navigation', () => {
     before(async () => {
       await accountHomePage.open('account-home');
@@ -525,7 +451,7 @@ describe('Verified user', () => {
 
     it('should click on the Email subscriptions navigation link and take user to subscription management page', async () => {
       subscriptionManagementPage = await accountHomePage.clickEmailSubscriptionsNavLink();
-      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your subscriptions');
+      expect(await subscriptionManagementPage.getPageTitle()).toEqual('Your email subscriptions');
     });
 
     it('should click on the Find a court or tribunal navigation link and take user to the search page', async () => {
@@ -567,6 +493,139 @@ describe('Verified user', () => {
 
     it('should sign out and open view-option page', async () => {
       viewOptionPage = await accountHomePage.clickSignOut();
+      expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+    });
+  });
+});
+
+describe('Admin level journeys', () => {
+  it('should open Admin Login page', async () => {
+    await signInPage.open('/login?p=B2C_1_SignInAdminUserFlow');
+    console.log('B2C_ADMIN_USERNAME', process.env.B2C_ADMIN_USERNAME);
+    await signInPage.enterText(process.env.B2C_ADMIN_USERNAME, 'EmailField');
+    await signInPage.enterText(process.env.B2C_ADMIN_PASSWORD, 'PasswordField');
+    adminDashboard = await signInPage.clickAdminSignIn();
+    await browser.pause(20000);
+  });
+  it('should open admin dashboard page on successful sign in', async () => {
+    expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+  });
+  it('should open admin dashboard page', async () => {
+    await adminDashboard.open('/admin-dashboard');
+    expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+  });
+
+  describe('Manual Upload', () => {
+    it('should open manual upload page', async () => {
+      manualUploadPage = await adminDashboard.clickUploadFileCard();
+      expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
+    });
+    it('should complete form and open summary page', async () => {
+      await manualUploadPage.completeForm();
+      manualUploadSummaryPage = await manualUploadPage.clickContinue();
+      expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+    });
+    it('should open upload confirmation page', async () => {
+      fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
+      expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
+    });
+  });
+
+  describe('Create new account', () => {
+    it('should open admin dashboard page', async () => {
+      await adminDashboard.open('/admin-dashboard');
+      expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+    });
+    it('should click on the create new account card', async () => {
+      createAdminAccountPage = await adminDashboard.clickCreateNewAccountCard();
+      expect(await createAdminAccountPage.getPageTitle()).toEqual('Create admin account');
+    });
+    it('should complete form and open summary page', async () => {
+      await createAdminAccountPage.completeForm();
+      createAdminAccountSummaryPage = await createAdminAccountPage.clickContinue();
+      expect(await createAdminAccountSummaryPage.getPageTitle()).toEqual('Check account details');
+    });
+    //TODO: enable once PUB-1098 is merged into staging
+    if (process.env.EXCLUDE_E2E === 'true') {
+      it('should click confirm and create user account', async () => {
+        createAdminAccountSummaryPage = await createAdminAccountSummaryPage.clickConfirm();
+        expect(await createAdminAccountSummaryPage.getPanelTitle()).toEqual('Account has been created');
+      });
+    }
+  });
+
+  describe('Manual Removal', () => {
+    it('should open remove publication search page', async () => {
+      await adminDashboard.open('/admin-dashboard');
+      searchPublicationPage = await adminDashboard.clickRemoveCard();
+      expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
+    });
+    it('should enter valid court in the search field, click continue and open search results page', async () => {
+      const searchTerm = 'Milton Keynes County Court and Family Court';
+      await searchPublicationPage.enterText(searchTerm);
+      searchPublicationResultsPage = await searchPublicationPage.clickContinue();
+      expect(await searchPublicationResultsPage.getPageTitle()).toEqual('Select content to remove');
+    });
+    //TODO: enable once get publication metadata endpoint accepts x-admin header
+    if (process.env.EXCLUDE_E2E === 'true') {
+      it('should click on the first result and open confirmation page', async () => {
+        publicationConfirmationPage = await searchPublicationResultsPage.clickRemoveOnFirstRecord();
+        expect(await publicationConfirmationPage.getPageTitle()).toEqual('Are you sure you want to remove this publication?');
+      });
+      it('should select yes option and remove publication', async () => {
+        await publicationConfirmationPage.selectOption('remove-choice');
+        expect(await removePublicationSuccessPage.getPanelTitle()).toEqual('Success');
+      });
+      it('should click on the home link and open admin dashboard page', async () => {
+        adminDashboard = await removePublicationSuccessPage.clickHome();
+        expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+      });
+    }
+  });
+
+  describe('Manage media account requests journey', () => {
+    before(async () => {
+      await adminDashboard.open('/admin-dashboard');
+    });
+    it('should start the manage media account request journey', async () => {
+      mediaAccountRequestsPage = await adminDashboard.clickManageMedia();
+      expect(await mediaAccountRequestsPage.getPageTitle()).toEqual('Select application to assess');
+    });
+
+    it('should select view application', async () => {
+      mediaAccountReviewPage = await mediaAccountRequestsPage.clickViewApplication();
+      expect(await mediaAccountReviewPage.getPageTitle()).toEqual('Applicant\'s details');
+    });
+
+    it('should click approve application', async () => {
+      mediaAccountApprovalPage = await mediaAccountReviewPage.clickApproveApplication();
+      expect(await mediaAccountApprovalPage.getPageTitle()).toEqual('Are you sure you want to approve this application?');
+    });
+
+    it('should select no to approve application', async () => {
+      await mediaAccountApprovalPage.selectNo();
+      mediaAccountReviewPage = await mediaAccountApprovalPage.clickContinue();
+      expect(await mediaAccountReviewPage.getPageTitle()).toEqual('Applicant\'s details');
+    });
+
+    it('should select reject application', async () => {
+      mediaAccountRejectionPage = await mediaAccountReviewPage.clickRejectApplication();
+      expect(await mediaAccountRejectionPage.getPageTitle()).toEqual('Are you sure you want to reject this application?');
+    });
+
+    it('should select yes to reject application', async () => {
+      await mediaAccountRejectionPage.selectYes();
+      mediaAccountRejectionConfirmationPage = await mediaAccountRejectionPage.clickContinue();
+      expect(await mediaAccountRejectionConfirmationPage.getPanelTitle()).toEqual('Account has been rejected.');
+    });
+  });
+
+  describe('sign out admin dashboard', () => {
+    before(async () => {
+      await adminDashboard.open('admin-dashboard');
+    });
+    it('should sign out and open view-option page', async () => {
+      viewOptionPage = await adminDashboard.clickSignOut();
       expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
     });
   });

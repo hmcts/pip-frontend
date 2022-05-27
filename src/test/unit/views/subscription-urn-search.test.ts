@@ -25,12 +25,19 @@ stub.withArgs('12345').returns(null);
 stub.withArgs('').returns(null);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
+const pageTitleValue = 'Subscribe by unique reference number (URN)';
+
 describe('URN Search Page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
     });
+  });
+
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
   });
 
   it('should display the header',  () => {
