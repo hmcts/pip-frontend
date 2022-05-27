@@ -3,8 +3,7 @@ import { ManualUploadPage } from './ManualUpload.page';
 import { CreateAdminAccountPage } from './CreateAdminAccount.page';
 import { RemoveListSearchPage } from './RemoveListSearch.page';
 import {MediaAccountRequestsPage} from './MediaAccountRequests.page';
-import {ViewOptionPage} from './ViewOption.page';
-import {SignInPage} from "./SignIn.page";
+import {SignInPage} from './SignIn.page';
 
 const helpers = require('../Helpers/Selectors');
 
