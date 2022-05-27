@@ -22,7 +22,7 @@
     href: 'subscription-add'
   }) }}
 
-  {% set allSubscriptions = caseTableData | length +  courtTableData | length %}
+  {% set allSubscriptions = caseTableData | length +  locationTableData | length %}
   {% if allSubscriptions > 0 %}
     {{ mojSubNavigation({
       label: 'Sub navigation',
@@ -35,18 +35,18 @@
         href: '?case',
         active: activeCaseTab
       }, {
-        text: subNavigation.header3 + courtTableData | length + ')',
-        href: '?court',
-        active: activeCourtTab
+        text: subNavigation.header3 + locationTableData | length + ')',
+        href: '?location',
+        active: activelocationTab
       }]
     }) }}
 
-    {% if caseTableData | length == 0 and courtTableData | length == 0 %}
+    {% if caseTableData | length == 0 and locationTableData | length == 0 %}
       {% if activeAllTab == true %}
         <p class="govuk-body">{{ noSubs }}</p>
       {% elseif activeCaseTab == true %}
         <p class="govuk-body">{{ noSubsCase }}</p>
-      {% elseif activeCourtTab == true %}
+      {% elseif activelocationTab == true %}
         <p class="govuk-body">{{ noSubsCourt }}</p>
       {% endif %}
     {% else %}
@@ -83,11 +83,11 @@
           rows: caseTableData
         }) }}
       {% endif %}
-      {% if activeAllTab == true or activeCourtTab == true %}
-        {# Court Subscriptions Table #}
+      {% if activeAllTab == true or activelocationTab == true %}
+        {# location Subscriptions Table #}
         {{ govukTable({
           attributes: {
-            'id': 'courts-table'
+            'id': 'locations-table'
           },
           head: [
             {
@@ -105,7 +105,7 @@
               format: "numeric"
             }
           ],
-          rows: courtTableData
+          rows: locationTableData
         }) }}
       {% endif %}
     {% endif %}

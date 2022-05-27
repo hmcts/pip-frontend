@@ -12,7 +12,6 @@ export interface PipRequest extends Request {
       'case-reference-number-search': {};
       'case-reference-number-search-results': {};
       'cookie-policy': {};
-      'court-name-search': {};
       'create-admin-account': {};
       'create-admin-account-summary': {};
       'create-media-account': {};
@@ -25,6 +24,7 @@ export interface PipRequest extends Request {
       'interstitial': {};
       'live-case-alphabet-search': {};
       'live-case-status': {};
+      'location-name-search': {};
       'manual-upload': {};
       'manual-upload-summary': {};
       'media-applications': {};
