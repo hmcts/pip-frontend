@@ -1,12 +1,12 @@
-import config from 'config';
+import process from 'process';
 
 const appInsights = require('applicationinsights');
 
 export class AppInsights {
 
   enable(): void {
-    if (config.get('appInsights.instrumentationKey')) {
-      appInsights.setup(config.get('appInsights.instrumentationKey'))
+    if (process.env.INSTRUMENTATION_KEY) {
+      appInsights.setup(process.env.INSTRUMENTATION_KEY)
         .setSendLiveMetrics(true)
         .start();
 
