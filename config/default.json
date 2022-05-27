@@ -3,9 +3,6 @@
   "security": {
     "referrerPolicy": "origin"
   },
-  "appInsights": {
-    "instrumentationKey": false
-  },
   "secrets": {
     "pip-ss-kv": {
       "B2C_URL": "https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/",
@@ -22,7 +19,8 @@
       "TENANT_ID": "",
       "DATA_MANAGEMENT_AZ_API": "",
       "SUBSCRIPTION_MANAGEMENT_AZ_API": "",
-      "ACCOUNT_MANAGEMENT_AZ_API": ""
+      "ACCOUNT_MANAGEMENT_AZ_API": "",
+      "INSTRUMENTATION_KEY": "00000000-0000-0000-0000-000000000000"
     }
   }
 }
