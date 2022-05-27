@@ -1,12 +1,12 @@
-import process from 'process';
+import config from 'config';
 
 const appInsights = require('applicationinsights');
 
 export class AppInsights {
 
   enable(): void {
-    if (process.env.INSTRUMENTATION_KEY) {
-      appInsights.setup(process.env.INSTRUMENTATION_KEY)
+    if (config.get('secrets.pip-ss-kv.INSTRUMENTATION_KEY')) {
+      appInsights.setup(config.get('secrets.pip-ss-kv.INSTRUMENTATION_KEY'))
         .setSendLiveMetrics(true)
         .start();
 
