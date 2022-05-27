@@ -6,10 +6,15 @@ const appInsights = require('applicationinsights');
 export class AppInsights {
 
   enable(): void {
+    let appInsightsKey;
     if(process.env.INSTRUMENTATION_KEY) {
-      console.log('Do not start app insights');
-    } else {
-      appInsights.setup(config.get('secrets.pip-ss-kv.INSTRUMENTATION_KEY'))
+      appInsightsKey = process.env.INSTRUMENTATION_KEY;
+    } else if(config.get('secrets.pip-ss-kv.INSTRUMENTATION_KEY')) {
+      appInsightsKey = config.get('secrets.pip-ss-kv.INSTRUMENTATION_KEY') as string;
+    }
+
+    if(appInsightsKey) {
+      appInsights.setup(appInsightsKey)
         .setSendLiveMetrics(true)
         .start();
 
