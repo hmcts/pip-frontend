@@ -11,7 +11,7 @@ describe('Logout', () => {
   });
 
   test('should redirect to the admin login page', async () => {
-    sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
+    sinon.stub(AdminAuthentication.prototype, 'isAdminUser').withArgs(request).returns(true);
     await request(app)
       .get('/logout')
       .expect((res) => expect(res.redirect).toBeTruthy);
