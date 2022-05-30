@@ -1,9 +1,9 @@
 import {  Response } from 'express';
-import {CourtService} from '../service/courtService';
+import {LocationService} from '../service/locationService';
 import {PipRequest} from '../models/request/PipRequest';
 import {cloneDeep} from 'lodash';
 
-const courtService = new CourtService();
+const courtService = new LocationService();
 
 export default class LiveCaseCourtSearchController {
 

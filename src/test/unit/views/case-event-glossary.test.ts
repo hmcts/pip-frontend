@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
 import {CaseEventGlossaryRequests} from '../../../main/resources/requests/caseEventGlossaryRequests';
-const PAGE_URL = '/case-event-glossary?courtId=1#1';
+const PAGE_URL = '/case-event-glossary?locationId=1#1';
 
 let htmlRes: Document;
 
@@ -24,7 +24,7 @@ describe('Case Event Glossary page', () => {
   it('should display a back button with the correct value', () => {
     const backLink = htmlRes.getElementsByClassName('govuk-back-link');
     expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backLink[0].getAttribute('href')).equal('/live-case-status?courtId=1', 'Back value does not contain correct link');
+    expect(backLink[0].getAttribute('href')).equal('/live-case-status?locationId=1', 'Back value does not contain correct link');
   });
 
   it('should contain the glossary of terms', () => {

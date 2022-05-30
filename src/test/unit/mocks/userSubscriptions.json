@@ -16,20 +16,20 @@
         "dateAdded": "2022-01-14T11:42:01.611085"
       }
     ],
-    "courtSubscriptions": [
+    "locationSubscriptions": [
       {
         "subscriptionId": "f038b7ea-2972-4be4-a5ff-70abb4f78686",
-        "courtName": "Court 1",
+        "locationName": "Court 1",
         "dateAdded": "2022-01-14T11:42:57.847708"
       },
       {
         "subscriptionId": "d5b65f6f-4c43-45f7-a52d-d2c5cf8ac0e6",
-        "courtName": "Court 2",
+        "locationName": "Court 2",
         "dateAdded": "2022-01-14T13:33:25.398361"
       },
       {
         "subscriptionId": "fffe29f8-52f4-4e7c-9eff-753d3b82244f",
-        "courtName": "Barkingside Magistrates' Court",
+        "locationName": "Barkingside Magistrates' Court",
         "dateAdded": "2022-01-14T13:39:02.708126"
       }
     ]

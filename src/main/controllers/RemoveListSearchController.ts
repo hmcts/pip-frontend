@@ -1,13 +1,13 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { CourtService } from '../service/courtService';
+import { LocationService } from '../service/locationService';
 import { cloneDeep } from 'lodash';
 
-const courtService = new CourtService();
+const locationService = new LocationService();
 
 export default class RemoveListSearchController {
   public async get(req: PipRequest, res: Response): Promise<void> {
-    const autocompleteList = await courtService.fetchAllCourts();
+    const autocompleteList = await locationService.fetchAllLocations();
     res.render('remove-list-search', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search']),
       autocompleteList,
@@ -18,11 +18,11 @@ export default class RemoveListSearchController {
 
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['input-autocomplete'];
-    const autocompleteList = await courtService.fetchAllCourts();
+    const autocompleteList = await locationService.fetchAllLocations();
     if (searchInput && searchInput.length >= 3) {
-      const court = await courtService.getCourtByName(searchInput);
+      const court = await locationService.getLocationByName(searchInput);
       (court) ?
-        res.redirect(`remove-list-search-results?courtId=${court.courtId}`) :
+        res.redirect(`remove-list-search-results?locationId=${court.locationId}`) :
         res.render('remove-list-search', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search']),
           autocompleteList,
