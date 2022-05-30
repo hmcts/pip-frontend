@@ -78,14 +78,14 @@ describe('Summary Of Publications Service', () => {
   it('should return the expected image', async () => {
     mediaApplicationByImageStub.withArgs(imageId).resolves(dummyImage);
 
-    const applicationImage = await accountApplicationService.getApplicationImageById(imageId);
+    const applicationImage = await accountApplicationService.getImageById(imageId);
     expect(applicationImage).toBe(dummyImage);
   });
 
   it('should return null image ID', async () => {
     mediaApplicationByImageStub.withArgs(imageId).resolves(dummyImage);
 
-    const applicationImage = await accountApplicationService.getApplicationImageById(null);
+    const applicationImage = await accountApplicationService.getImageById(null);
     expect(applicationImage).toBe(null);
   });
 

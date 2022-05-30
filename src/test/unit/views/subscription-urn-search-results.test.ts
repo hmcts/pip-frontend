@@ -21,11 +21,18 @@ let htmlRes: Document;
 sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').returns(subscriptionsData);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
+const pageTitleValue = 'Search result';
+
 describe('Search Results Page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
+  });
+
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
   });
 
   it('should display back button', () => {

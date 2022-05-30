@@ -17,7 +17,7 @@ export default class CreateMediaAccountController {
     const isValidForm = Object.values(formValidation).every(o => o.message === null);
 
     if (isValidForm) {
-      const response = await createAccountService.createMediaAccount(req.body, req.file);
+      const response = await createAccountService.createMediaApplication(req.body, req.file);
       fileHandlingService.removeFile(req.file['originalname']);
       if (response) {
         res.redirect('account-request-submitted');

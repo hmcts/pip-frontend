@@ -9,6 +9,8 @@ const PAGE_URL = '/unsubscribe-confirmation';
 const validBody = {'unsubscribe-confirm': 'yes', subscription: '123'};
 let htmlRes: Document;
 
+const pageTitleValue = 'Subscription removed';
+
 describe('Unsubscribe Confirmation Page', () => {
   beforeAll(async () => {
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);
@@ -18,6 +20,11 @@ describe('Unsubscribe Confirmation Page', () => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
     });
+  });
+
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
   });
 
   it('should display confirmation panel component', () => {

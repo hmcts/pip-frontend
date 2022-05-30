@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import request from 'supertest';
 
 const PAGE_URL = '/account-request-submitted';
+const pageTitleValue = 'Account request submitted';
 let htmlRes: Document;
 
 describe('Account request submitted page', () => {
@@ -11,6 +12,11 @@ describe('Account request submitted page', () => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
     });
+  });
+
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
   });
 
   it('should display panel title', () => {

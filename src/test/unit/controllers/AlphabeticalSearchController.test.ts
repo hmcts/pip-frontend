@@ -28,7 +28,7 @@ describe('Alphabetical Search Controller', () => {
 
       const expectedData = {
         ...i18n['alphabetical-search'],
-        courtList: {},
+        locationList: {},
         filterOptions: {},
       };
 
@@ -49,7 +49,7 @@ describe('Alphabetical Search Controller', () => {
 
       const expectedData = {
         ...i18n['alphabetical-search'],
-        courtList: {},
+        locationList: {},
         filterOptions: {},
       };
 
@@ -90,16 +90,16 @@ describe('Alphabetical Search Controller', () => {
   });
 });
 
-describe('Court Name Search Controller', () => {
+describe('Location Name Search Controller', () => {
   const i18n = {
     'alphabetical-search': {},
   };
   const request = mockRequest(i18n);
-  request.path = '/court-name-search';
+  request.path = '/location-name-search';
   const expectedData = {
-    ...i18n['court-name-search'],
+    ...i18n['location-name-search'],
     filterOptions: {},
-    courtList: {},
+    locationList: {},
   };
 
   describe('GET requests', () => {
@@ -109,7 +109,7 @@ describe('Court Name Search Controller', () => {
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+      responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
       return alphabeticalSearchController.get(request, response).then(() => {
         responseMock.verify();
@@ -121,7 +121,7 @@ describe('Court Name Search Controller', () => {
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+      responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
       return alphabeticalSearchController.get(request, response).then(() => {
         responseMock.verify();
@@ -133,7 +133,7 @@ describe('Court Name Search Controller', () => {
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+      responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
       return alphabeticalSearchController.get(request, response).then(() => {
         responseMock.verify();
@@ -145,7 +145,7 @@ describe('Court Name Search Controller', () => {
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+      responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
       return alphabeticalSearchController.get(request, response).then(() => {
         responseMock.verify();
@@ -157,7 +157,7 @@ describe('Court Name Search Controller', () => {
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+      responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
       return alphabeticalSearchController.get(request, response).then(() => {
         responseMock.verify();
@@ -168,7 +168,7 @@ describe('Court Name Search Controller', () => {
       request.query = {clear: 'crown', filterValues: 'crown'};
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+      responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
       await alphabeticalSearchController.get(request, response);
       responseMock.verify();
@@ -178,7 +178,7 @@ describe('Court Name Search Controller', () => {
       request.query = {clear: 'london', filerValues: 'london'};
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+      responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
       await alphabeticalSearchController.get(request, response);
       responseMock.verify();
@@ -188,7 +188,7 @@ describe('Court Name Search Controller', () => {
       request.query = {clear: 'crown court', filterValues: 'crown,crown court'};
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('render').once().withArgs('court-name-search', expectedData);
+      responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
       await alphabeticalSearchController.get(request, response);
       responseMock.verify();
@@ -202,7 +202,7 @@ describe('Court Name Search Controller', () => {
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=');
+      responseMock.expects('redirect').once().withArgs('location-name-search?filterValues=');
 
       return alphabeticalSearchController.post(request, response).then(() => {
         responseMock.verify();
@@ -214,7 +214,7 @@ describe('Court Name Search Controller', () => {
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=crown,london');
+      responseMock.expects('redirect').once().withArgs('location-name-search?filterValues=crown,london');
 
       return alphabeticalSearchController.post(request, response).then(() => {
         responseMock.verify();
@@ -226,7 +226,7 @@ describe('Court Name Search Controller', () => {
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=crown');
+      responseMock.expects('redirect').once().withArgs('location-name-search?filterValues=crown');
 
       return alphabeticalSearchController.post(request, response).then(() => {
         responseMock.verify();
@@ -238,7 +238,7 @@ describe('Court Name Search Controller', () => {
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=london');
+      responseMock.expects('redirect').once().withArgs('location-name-search?filterValues=london');
 
       return alphabeticalSearchController.post(request, response).then(() => {
         responseMock.verify();
@@ -250,7 +250,7 @@ describe('Court Name Search Controller', () => {
 
       const responseMock = sinon.mock(response);
 
-      responseMock.expects('redirect').once().withArgs('court-name-search?filterValues=');
+      responseMock.expects('redirect').once().withArgs('location-name-search?filterValues=');
 
       return alphabeticalSearchController.post(request, response).then(() => {
         responseMock.verify();

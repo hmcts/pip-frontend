@@ -4,7 +4,7 @@ const liveCaseStatusRequest = new LiveCaseRequests();
 
 export class LiveCaseService {
 
-  public async getLiveCases(courtId: number): Promise<any> {
-    return await liveCaseStatusRequest.getLiveCases(courtId);
+  public async getLiveCases(locationId: number): Promise<any> {
+    return await liveCaseStatusRequest.getLiveCases(locationId);
   }
 }

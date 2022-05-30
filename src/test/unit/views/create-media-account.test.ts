@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import request from 'supertest';
 
 const PAGE_URL = '/create-media-account';
+const pageTitleValue = 'Create a Court and tribunal hearings account';
 const errorClassList = 'govuk-input--error';
 let htmlRes: Document;
 
@@ -13,6 +14,11 @@ describe('Create Media Account page', () => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
         htmlRes.getElementsByTagName('div')[0].remove();
       });
+    });
+
+    it('should have correct page title', () => {
+      const pageTitle = htmlRes.title;
+      expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
     });
 
     it('should display correct title', () => {

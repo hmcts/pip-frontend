@@ -1,10 +1,10 @@
-import {request as expressRequest} from 'express';
 import sinon from 'sinon';
 import request from 'supertest';
 import {app} from '../../main/app';
 import {expect} from 'chai';
+import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 
 describe('Media applications', () =>{
   describe('GET', () => {
