@@ -4,7 +4,7 @@ import {mockRequest} from '../mocks/mockRequest';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {CourtService} from '../../../main/service/courtService';
+import {LocationService} from '../../../main/service/locationService';
 import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
 import {UserService} from '../../../main/service/userService';
 
@@ -17,7 +17,7 @@ const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPC
 const sjpCases = JSON.parse(rawSJPData).results;
 const onePubData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublication.json'), 'utf-8');
 const onePub = JSON.parse(onePubData);
-const CourtStub = sinon.stub(CourtService.prototype, 'getCourtById');
+const CourtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
 sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 
@@ -36,14 +36,14 @@ describe('Get publications', () => {
     } as unknown as Response;
 
     const request = mockRequest(i18n);
-    request.query = {courtId: '1'};
+    request.query = {locationId: '1'};
     request.user = {id: 1};
 
     const responseMock = sinon.mock(response);
 
     const expectedData = {
       ...i18n['summary-of-publications'],
-      courtName: 'New Court',
+      locationName: 'New Court',
       publications: sjpCases,
     };
 
@@ -62,14 +62,14 @@ describe('Get publications', () => {
     } as unknown as Response;
 
     const request = mockRequest(i18n);
-    request.query = {courtId: '0'};
+    request.query = {locationId: '0'};
     request.user = {id: 1};
 
     const responseMock = sinon.mock(response);
 
     const expectedData = {
       ...i18n['summary-of-publications'],
-      courtName: 'Single Justice Procedure',
+      locationName: 'Single Justice Procedure',
       publications: sjpCases,
     };
 
@@ -100,7 +100,7 @@ describe('Get individual publication and act appropriately', () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {courtId: '0'};
+    request.query = {locationId: '0'};
     request.user = {id: 1};
     SoPStub.withArgs(0).resolves(onePub);
     CourtStub.withArgs('0').resolves(JSON.parse('{"name":"Single Justice Procedure"}'));
@@ -118,7 +118,7 @@ describe('Get individual publication and act appropriately', () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {courtId: '2'};
+    request.query = {locationId: '2'};
     request.user = {id: 1};
     onePub[0]['isFlatFile'] = false;
     SoPStub.withArgs(2).resolves(onePub);

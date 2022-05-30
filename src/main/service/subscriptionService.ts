@@ -3,21 +3,21 @@ import { SubscriptionRequests } from '../resources/requests/subscriptionRequests
 import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendingSubscriptionsFromCache';
 import { UserSubscriptions } from '../models/UserSubscriptions';
 import {PublicationService} from './publicationService';
-import {CourtService} from './courtService';
-import {Court} from '../models/court';
 import {UserService} from './userService';
+import {LocationService} from './locationService';
+import {Location} from '../models/location';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
 const publicationService = new PublicationService();
-const courtService = new CourtService();
+const courtService = new LocationService();
 
 const userService = new UserService();
 
 export class SubscriptionService {
   async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
     const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
-    return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], courtSubscriptions: []};
+    return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], locationSubscriptions: []};
   }
 
   async generateCaseTableRows(subscriptionDataCases): Promise<any[]> {
@@ -47,13 +47,13 @@ export class SubscriptionService {
     return caseRows;
   }
 
-  async generateCourtTableRows(subscriptionDataCourts): Promise<any[]> {
+  async generateLocationTableRows(subscriptionDataCourts): Promise<any[]> {
     const courtRows = [];
     if (subscriptionDataCourts.length) {
       subscriptionDataCourts.forEach((subscription) => {
         courtRows.push([
           {
-            text: subscription.courtName,
+            text: subscription.locationName,
           },
           {
             text: moment(subscription.dateAdded).format('MMM Do YYYY'),
@@ -76,7 +76,7 @@ export class SubscriptionService {
     const selectionList = Object.keys(pendingSubscription);
     for (const selectionName of selectionList) {
       let hearingIdsList = [];
-      let courtIdsList = [];
+      let locationIdsList = [];
       let caseDetailsList: object[];
       let courtDetailsList: object[];
       let urnHearing;
@@ -101,9 +101,9 @@ export class SubscriptionService {
           break;
         case 'court-selections[]':
           Array.isArray(pendingSubscription[`${selectionName}`]) ?
-            courtIdsList = pendingSubscription[`${selectionName}`] :
-            courtIdsList.push(pendingSubscription[`${selectionName}`]);
-          courtDetailsList = await this.getCourtDetails(courtIdsList);
+            locationIdsList = pendingSubscription[`${selectionName}`] :
+            locationIdsList.push(pendingSubscription[`${selectionName}`]);
+          courtDetailsList = await this.getCourtDetails(locationIdsList);
           // set results into cache
           await this.setPendingSubscriptions(courtDetailsList, 'courts', user.oid);
           break;
@@ -123,10 +123,10 @@ export class SubscriptionService {
     return casesList;
   }
 
-  public async getCourtDetails(courts): Promise<Court[]> {
+  public async getCourtDetails(courts): Promise<Location[]> {
     const courtsList = [];
-    for (const courtId of courts) {
-      const courtDetails = await courtService.getCourtById(courtId);
+    for (const locationId of courts) {
+      const courtDetails = await courtService.getLocationById(locationId);
       if (courtDetails) {
         courtsList.push(courtDetails);
       }
@@ -157,7 +157,7 @@ export class SubscriptionService {
     if (cachedCourtSubs) {
       for (const cachedCourt of cachedCourtSubs) {
         const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCourt, courtsType, userId));
-        response ? await this.removeFromCache({court: cachedCourt.courtId}, userId) : subscribed = response;
+        response ? await this.removeFromCache({court: cachedCourt.locationId}, userId) : subscribed = response;
       }
     }
     return subscribed;
@@ -169,9 +169,9 @@ export class SubscriptionService {
       case 'courts':
         payload = {
           channel: 'EMAIL',
-          searchType: 'COURT_ID',
-          searchValue: pendingSubscription.courtId,
-          courtName: pendingSubscription.name,
+          searchType: 'LOCATION_ID',
+          searchValue: pendingSubscription.locationId,
+          locationName: pendingSubscription.name,
           userId,
         };
         break;

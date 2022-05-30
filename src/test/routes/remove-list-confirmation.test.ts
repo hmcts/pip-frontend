@@ -1,11 +1,11 @@
-import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../main/app';
 import { expect } from 'chai';
 import { PublicationService } from '../../main/service/publicationService';
-import { CourtService } from '../../main/service/courtService';
 import {UserService} from '../../main/service/userService';
+import { LocationService } from '../../main/service/locationService';
+import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
 const URL = '/remove-list-confirmation';
 
@@ -13,13 +13,13 @@ const mockArtefact = {
   listType: 'CIVIL_DAILY_CAUSE_LIST',
   listTypeName: 'Civil Daily Cause List',
   contentDate: '2022-03-24T07:36:35',
-  courtId: '1',
+  locationId: '1',
   artefactId: 'valid-artefact',
 };
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
-sinon.stub(CourtService.prototype, 'getCourtById').resolves({courtId: '1', name: 'Mock Court'});
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({locationId: '1', name: 'Mock Court'});
 removePublicationStub.withArgs('valid-artefact', 'joe@bloggs.com').resolves(true);
 removePublicationStub.withArgs('invalid-artefact', 'joe@bloggs.com').resolves(false);
 metadataStub.withArgs('valid-artefact', '123').resolves(mockArtefact);
@@ -70,11 +70,11 @@ describe('Remove List Confirmation', () => {
         .post(URL).send({
           'remove-choice': 'no',
           'artefactId': 'valid-artefact',
-          'courtId': '1',
+          'locationId': '1',
         })
         .expect((res) => {
           expect(res.status).to.equal(302);
-          expect(res.header['location']).to.equal('/remove-list-search-results?courtId=1');
+          expect(res.header['location']).to.equal('/remove-list-search-results?locationId=1');
         });
     });
 
@@ -82,7 +82,7 @@ describe('Remove List Confirmation', () => {
       await request(app)
         .post(URL).send({
           'artefactId': 'valid-artefact',
-          'courtId': '1',
+          'locationId': '1',
         })
         .expect((res) => expect(res.status).to.equal(200));
     });

@@ -3,8 +3,8 @@ import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import RemoveListConfirmationController from '../../../main/controllers/RemoveListConfirmationController';
 import { PublicationService } from '../../../main/service/publicationService';
-import { CourtService } from '../../../main/service/courtService';
 import {UserService} from '../../../main/service/userService';
+import { LocationService } from '../../../main/service/locationService';
 
 const i18n = {
   'remove-list-confirmation': {},
@@ -18,13 +18,13 @@ const mockArtefact = {
   listType: 'CIVIL_DAILY_CAUSE_LIST',
   listTypeName: 'Civil Daily Cause List',
   contentDate: '2022-03-24T07:36:35',
-  courtId: '5',
+  locationId: '5',
   artefactId: 'valid-artefact',
 };
-const mockCourt = {courtId: '5', name: 'Mock Court'};
+const mockCourt = {locationId: '5', name: 'Mock Court'};
 const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
-sinon.stub(CourtService.prototype, 'getCourtById').resolves(mockCourt);
+sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
 removePublicationStub.withArgs('valid-artefact', 'joe@bloggs.com').resolves(true);
 removePublicationStub.withArgs('foo', 'joe@bloggs.com').resolves(false);
 metadataStub.withArgs('valid-artefact', '123').resolves(mockArtefact);
@@ -90,10 +90,10 @@ describe('Remove List Confirmation Controller', () => {
     const responseMock = sinon.mock(response);
     request.body = {
       'remove-choice': 'no',
-      courtId: '5',
+      locationId: '5',
     };
 
-    responseMock.expects('redirect').once().withArgs('/remove-list-search-results?courtId=5');
+    responseMock.expects('redirect').once().withArgs('/remove-list-search-results?locationId=5');
     await removeListConfirmationController.post(request, response);
     await responseMock.verify();
   });
@@ -103,7 +103,7 @@ describe('Remove List Confirmation Controller', () => {
     const responseMock = sinon.mock(response);
     request.user = {emails: ['joe@bloggs.com']};
     request.body = {
-      courtId: '5',
+      locationId: '5',
       artefactId: 'valid-artefact',
     };
     const expectedOptions = {

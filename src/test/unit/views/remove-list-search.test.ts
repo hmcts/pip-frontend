@@ -1,18 +1,18 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { CourtRequests } from '../../../main/resources/requests/courtRequests';
+import { LocationRequests } from '../../../main/resources/requests/locationRequests';
 import fs from 'fs';
 import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
-import { request as expressRequest } from 'express';
+import {AdminAuthentication} from '../../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/remove-list-search';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawData);
-sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(courtData);
-sinon.stub(CourtRequests.prototype, 'getCourtByName').returns(null);
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
+sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(null);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 
 let htmlRes: Document;
 

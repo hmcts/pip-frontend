@@ -145,10 +145,10 @@ describe('Get by case value', () => {
 });
 
 describe('Get publication by court id', () => {
-  dataManagementStub.withArgs('/publication/courtId/valid').resolves(successResponse);
-  dataManagementStub.withArgs('/publication/courtId/invalid').rejects(errorResponse);
-  dataManagementStub.withArgs('/publication/courtId/test').rejects(errorRequest);
-  dataManagementStub.withArgs('/publication/courtId/error').rejects(errorMessage);
+  dataManagementStub.withArgs('/publication/locationId/valid').resolves(successResponse);
+  dataManagementStub.withArgs('/publication/locationId/invalid').rejects(errorResponse);
+  dataManagementStub.withArgs('/publication/locationId/test').rejects(errorRequest);
+  dataManagementStub.withArgs('/publication/locationId/error').rejects(errorMessage);
 
   it('should return data on successful get', async () => {
     expect(await pubRequests.getPublicationsByCourt(valid, userId, false)).toBe(successResponse.data);

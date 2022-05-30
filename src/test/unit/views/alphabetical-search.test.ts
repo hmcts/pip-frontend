@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {CourtRequests} from '../../../main/resources/requests/courtRequests';
+import {LocationRequests} from '../../../main/resources/requests/locationRequests';
 
 const PAGE_URL = '/alphabetical-search';
 
@@ -13,7 +13,7 @@ let htmlRes: Document;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawData);
 
-sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(courtData);
+sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 
 describe('Alphabetical Search page', () => {
   beforeAll(async () => {
@@ -87,7 +87,7 @@ describe('Alphabetical Search page', () => {
 
   it('should display filter options value', () => {
     const fieldsets = htmlRes.getElementsByClassName('govuk-fieldset');
-    expect(fieldsets[0].innerHTML).contains('Crown Court');
+    expect(fieldsets[0].innerHTML).contains('Crown');
     expect(fieldsets[1].innerHTML).contains('London');
   });
 });

@@ -1,4 +1,4 @@
-import { CourtService } from '../../../main/service/courtService';
+import { LocationService } from '../../../main/service/locationService';
 import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
 import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 import { SubscriptionService } from '../../../main/service/subscriptionService';
@@ -8,7 +8,7 @@ import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
 
 const mockCourt = {
-  courtId: 643,
+  locationId: 643,
   name: 'Aberdeen Tribunal Hearing Centre',
   jurisdiction: 'Tribunal',
   location: 'Scotland',
@@ -17,7 +17,7 @@ const mockCourt = {
 };
 const mockCase = {
   hearingId: 5,
-  courtId: 50,
+  locationId: 50,
   courtNumber: 1,
   date: '15/11/2021 10:00:00',
   judge: 'His Honour Judge A Morley QC',
@@ -28,9 +28,9 @@ const mockCase = {
 };
 const courtSubscriptionPayload = {
   channel: 'EMAIL',
-  searchType: 'COURT_ID',
+  searchType: 'LOCATION_ID',
   searchValue: 643,
-  courtName: 'Aberdeen Tribunal Hearing Centre',
+  locationName: 'Aberdeen Tribunal Hearing Centre',
   userId: '1',
 };
 const caseSubscriptionPayload = {
@@ -65,7 +65,7 @@ const cacheGetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPen
 const removeStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'removeFromCache');
 const publicationStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
 sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(mockCase);
-const courtStub = sinon.stub(CourtService.prototype, 'getCourtById');
+const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
 const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
 subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);

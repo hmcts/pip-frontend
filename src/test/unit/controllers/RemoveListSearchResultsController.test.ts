@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { CourtService } from '../../../main/service/courtService';
+import { LocationService } from '../../../main/service/locationService';
 import { SummaryOfPublicationsService } from '../../../main/service/summaryOfPublicationsService';
 import { ManualUploadService } from '../../../main/service/manualUploadService';
 import { Response } from 'express';
@@ -11,10 +11,10 @@ const i18n = {
   'error': {},
 };
 const mockCourt = {
-  courtId: '5',
+  locationId: '5',
   name: 'The court',
 };
-sinon.stub(CourtService.prototype, 'getCourtById').resolves(mockCourt);
+sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs('5', true, true).resolves([]);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns([]);
 const removeListSearchResultsController = new RemoveListSearchResultsController();
@@ -24,7 +24,7 @@ describe('Remove List Summary Controller', () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const responseMock = sinon.mock(response);
     const request = mockRequest(i18n);
-    request.query = {courtId: '5'};
+    request.query = {locationId: '5'};
     const expectedOptions = {
       ...i18n['remove-list-search-results'],
       court: mockCourt,

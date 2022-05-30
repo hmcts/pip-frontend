@@ -30,7 +30,7 @@ describe('Manual upload', () => {
       app.request['file'] = multerFile('testFile', 1000);
       sinon.stub(FileHandlingService.prototype, 'validateFileUpload').returns(null);
       sinon.stub(ManualUploadService.prototype, 'validateFormFields').resolves(null);
-      sinon.stub(ManualUploadService.prototype, 'appendCourtId').resolves({});
+      sinon.stub(ManualUploadService.prototype, 'appendlocationId').resolves({});
       await request(app)
         .post('/manual-upload')
         .expect(res => {

@@ -4,18 +4,18 @@ import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
 import {app} from '../../../main/app';
-import {CourtService} from '../../../main/service/courtService';
+import {LocationService} from '../../../main/service/locationService';
 import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
 import {UserService} from '../../../main/service/userService';
 
-const PAGE_URL = '/summary-of-publications?courtId=0';
+const PAGE_URL = '/summary-of-publications?locationId=0';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/summaryOfPublications.json'), 'utf-8');
 const pubs = JSON.parse(rawData);
 let htmlRes: Document;
 
 sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(pubs);
-sinon.stub(CourtService.prototype, 'getCourtById').resolves({'name': 'Court Name'});
 sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({'name': 'Court Name'});
 
 describe('Publication Page', () => {
   beforeAll(async () => {

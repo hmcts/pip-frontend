@@ -4,7 +4,7 @@ import {expect} from 'chai';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {CourtRequests} from '../../../main/resources/requests/courtRequests';
+import {LocationRequests} from '../../../main/resources/requests/locationRequests';
 import { AdminAuthentication } from '../../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/manual-upload';
@@ -49,8 +49,8 @@ const mockBodyData = {
   'display-date-to-year': '',
 };
 
+sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
-sinon.stub(CourtRequests.prototype, 'getAllCourts').returns(courtData);
 
 describe('Manual upload page', () => {
   describe('on GET', () => {

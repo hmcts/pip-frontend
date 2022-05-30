@@ -34,8 +34,8 @@ export class PublicationService {
     return this.getCaseFromArtefact(artefact[0], 'caseUrn', urn);
   }
 
-  public async getPublicationsByCourt(courtId: string, userId: string): Promise<Artefact[]> {
-    return await publicationRequests.getPublicationsByCourt(courtId, userId, false);
+  public async getPublicationsByCourt(locationId: string, userId: string): Promise<Artefact[]> {
+    return await publicationRequests.getPublicationsByCourt(locationId, userId, false);
   }
 
   public manipulatedDailyListData(dailyCauseList: string): object {
@@ -102,7 +102,7 @@ export class PublicationService {
   private findAndManipulateJudiciary(session: object): void {
     let judiciaries = '';
     let foundPresiding = false;
-    session['judiciary'].forEach(judiciary => {
+    session['judiciary']?.forEach(judiciary => {
       if(judiciary?.isPresiding ===  true) {
         judiciaries = this.writeStringIfValid(judiciary?.johTitle) + ' ' + judiciary.johNameSurname;
         foundPresiding = true;

@@ -3,12 +3,12 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import {CourtService} from '../../../main/service/courtService';
+import {LocationService} from '../../../main/service/locationService';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
 
 const hearingListController = new HearingListController();
-const stub = sinon.stub(CourtService.prototype, 'getCourtById');
+const stub = sinon.stub(LocationService.prototype, 'getLocationById');
 
 let i18n = {};
 
@@ -25,7 +25,7 @@ describe('Hearing list Controller', () => {
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {courtId: '1'};
+    request.query = {locationId: '1'};
 
     const responseMock = sinon.mock(response);
 
@@ -50,7 +50,7 @@ describe('Hearing list Controller', () => {
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
 
-    request.query = {courtId: '1400'};
+    request.query = {locationId: '1400'};
 
     const responseMock = sinon.mock(response);
 

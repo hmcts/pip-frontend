@@ -70,9 +70,9 @@ export class PublicationRequests {
     return null;
   }
 
-  public async getPublicationsByCourt(courtId: string, userId: string, admin: boolean): Promise<Artefact[]> {
+  public async getPublicationsByCourt(locationId: string, userId: string, admin: boolean): Promise<Artefact[]> {
     try {
-      const response = await dataManagementApi.get(`/publication/courtId/${courtId}`,
+      const response = await dataManagementApi.get(`/publication/locationId/${locationId}`,
         {headers: {'x-user-id': userId, 'x-admin': admin}});
       return response.data;
     } catch (error) {

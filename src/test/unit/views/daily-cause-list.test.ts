@@ -6,8 +6,8 @@ import path from 'path';
 import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
 import {request as expressRequest} from 'express';
-import {CourtService} from '../../../main/service/courtService';
 import {UserService} from '../../../main/service/userService';
+import {LocationService} from '../../../main/service/locationService';
 
 const PAGE_URL = '/daily-cause-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -32,8 +32,9 @@ const courtData = JSON.parse(rawDataCourt);
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(dailyCauseListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
-sinon.stub(CourtService.prototype, 'getCourtById').resolves(courtData[0]);
 sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
+sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
+
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Daily Cause List page', () => {
