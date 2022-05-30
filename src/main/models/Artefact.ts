@@ -11,7 +11,7 @@ export interface Artefact {
   displayFrom: string;
   displayTo: string;
   listType: string;
-  courtId: string;
+  locationId: string;
   contentDate: string;
   isFlatFile: boolean;
   payload: object;

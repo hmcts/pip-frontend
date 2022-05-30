@@ -14,7 +14,7 @@
     "displayFrom": "2022-02-02T12:52:01.907",
     "displayTo": "2022-05-02T12:52:01.907",
     "listType": "SJP_PRESS_LIST",
-    "courtId": "0",
+    "locationId": "0",
     "contentDate": "2022-02-02T12:52:01.907",
     "isFlatFile": "true",
     "payload": "ia"
@@ -30,7 +30,7 @@
     "displayFrom": "2022-02-02T12:59:09.908",
     "displayTo": "2022-06-02T12:59:09.908",
     "listType": "SJP_PUBLIC_LIST",
-    "courtId": "0",
+    "locationId": "0",
     "contentDate": "2022-02-02T12:59:09.908",
     "isFlatFile": "false",
     "payload": "uzh"
@@ -46,7 +46,7 @@
     "displayFrom": "2022-01-28T18:29:18.297",
     "displayTo": "2022-03-28T18:29:18.297",
     "listType": "SJP_PUBLIC_LIST",
-    "courtId": "0",
+    "locationId": "0",
     "contentDate": "2022-01-28T18:29:18.297",
     "isFlatFile": "false",
     "payload": "bleh"

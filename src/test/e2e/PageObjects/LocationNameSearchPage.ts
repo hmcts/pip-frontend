@@ -3,7 +3,7 @@ import { PendingSubscriptionsPage } from './PendingSubscriptions.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class CourtNameSearchPage extends CommonPage{
+export class LocationNameSearchPage extends CommonPage{
   async getResults(): Promise<number> {
     $(helpers.CourtTableResults).catch(() => {
       console.log(`${helpers.CourtTableResults} not found`);
@@ -21,13 +21,13 @@ export class CourtNameSearchPage extends CommonPage{
     return element.isSelected();
   }
 
-  async clickApplyFiltersButton(): Promise<CourtNameSearchPage> {
+  async clickApplyFiltersButton(): Promise<LocationNameSearchPage> {
     await $(helpers.ApplyFiltersButton).catch(() => {
       console.log(`${helpers.ApplyFiltersButton} not found`);
     });
 
     await $(helpers.ApplyFiltersButton).click();
-    return new CourtNameSearchPage();
+    return new LocationNameSearchPage();
   }
 
   async tickCourtCheckbox(): Promise<boolean> {

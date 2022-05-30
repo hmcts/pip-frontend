@@ -2,11 +2,11 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { request as expressRequest } from 'express';
+import {AdminAuthentication} from '../../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/remove-list-success';
 let htmlRes: Document;
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 
 describe('Remove List Success Page', () => {
   beforeAll(async () => {

@@ -1,10 +1,10 @@
 import sinon from 'sinon';
 import {dataManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
-import {CourtRequests} from '../../../main/resources/requests/courtRequests';
+import {LocationRequests} from '../../../main/resources/requests/locationRequests';
 import fs from 'fs';
 import path from 'path';
 
-const courtRequests = new CourtRequests();
+const courtRequests = new LocationRequests();
 const { redisClient } = require('../../../main/cacheManager');
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawData);
@@ -31,71 +31,71 @@ const stubCacheGet = sinon.stub(redisClient, 'get');
 sinon.stub(redisClient, 'set').withArgs('court-4').returns(JSON.stringify(courtList[0]));
 
 const regions = 'london';
-const jurisdictions = 'Crown Court';
+const jurisdictions = 'Crown';
 const test = 'test';
 
-describe('Court get requests', () => {
+describe('Location get requests', () => {
 
   beforeEach(() => {
-    stub.withArgs('/courts/1').resolves({data: courtList[0]});
-    stub.withArgs('/courts/2').rejects(errorResponse);
-    stub.withArgs('/courts/3').rejects(errorRequest);
-    stub.withArgs('/courts/4').rejects(errorMessage);
-    stub.withArgs('/courts/5').resolves({data: courtList[4]});
+    stub.withArgs('/locations/1').resolves({data: courtList[0]});
+    stub.withArgs('/locations/2').rejects(errorResponse);
+    stub.withArgs('/locations/3').rejects(errorRequest);
+    stub.withArgs('/locations/4').rejects(errorMessage);
+    stub.withArgs('/locations/5').resolves({data: courtList[4]});
 
-    stub.withArgs(`/courts/name/${courtNameSearch}`).resolves({data: courtList[0]});
-    stub.withArgs('/courts/name/test').rejects(errorResponse);
-    stub.withArgs('/courts/name/testReq').rejects(errorRequest);
-    stub.withArgs('/courts/name/testMes').rejects(errorMessage);
+    stub.withArgs(`/locations/name/${courtNameSearch}`).resolves({data: courtList[0]});
+    stub.withArgs('/locations/name/test').rejects(errorResponse);
+    stub.withArgs('/locations/name/testReq').rejects(errorRequest);
+    stub.withArgs('/locations/name/testMes').rejects(errorMessage);
 
-    stub.withArgs('/courts/filter', {params: {regions: regions, jurisdictions: jurisdictions}}).resolves({data: courtList});
-    stub.withArgs('/courts/filter', {params: {regions: test, jurisdictions: test}}).rejects(errorResponse);
-    stub.withArgs('/courts/filter', {params: {regions: test, jurisdictions: 'error'}}).rejects(errorMessage);
-    stub.withArgs('/courts/filter', {params: {regions: test, jurisdictions: 'foo'}}).rejects(errorRequest);
+    stub.withArgs('/locations/filter', {params: {regions: regions, jurisdictions: jurisdictions}}).resolves({data: courtList});
+    stub.withArgs('/locations/filter', {params: {regions: test, jurisdictions: test}}).rejects(errorResponse);
+    stub.withArgs('/locations/filter', {params: {regions: test, jurisdictions: 'error'}}).rejects(errorMessage);
+    stub.withArgs('/locations/filter', {params: {regions: test, jurisdictions: 'foo'}}).rejects(errorRequest);
 
-    stub.withArgs('/courts').resolves({data: courtList});
+    stub.withArgs('/locations').resolves({data: courtList});
   });
 
   it('should return court by court id from cache', async () => {
     stubCacheGet.withArgs('court-1').resolves(JSON.stringify(courtList[0]));
-    expect(await courtRequests.getCourt(1)).toStrictEqual(courtList[0]);
+    expect(await courtRequests.getLocation(1)).toStrictEqual(courtList[0]);
   });
 
   it('should return court by court id without cache', async () => {
     stub.withArgs('court-1').resolves(null);
-    expect(await courtRequests.getCourt(1)).toStrictEqual(courtList[0]);
+    expect(await courtRequests.getLocation(1)).toStrictEqual(courtList[0]);
   });
 
   it('should set court in the cache after response returns data', async () => {
-    expect(await courtRequests.getCourt(5)).toStrictEqual(courtList[4]);
+    expect(await courtRequests.getLocation(5)).toStrictEqual(courtList[4]);
   });
 
   it('should return null if response fails ', async () => {
-    expect(await courtRequests.getCourt(2)).toBe(null);
+    expect(await courtRequests.getLocation(2)).toBe(null);
   });
 
   it('should return null if request fails', async () => {
-    expect(await courtRequests.getCourt(3)).toBe(null);
+    expect(await courtRequests.getLocation(3)).toBe(null);
   });
 
   it('should return null if call fails', async () => {
-    expect(await courtRequests.getCourt(4)).toBe(null);
+    expect(await courtRequests.getLocation(4)).toBe(null);
   });
 
   it('should return court by name', async () => {
-    expect(await courtRequests.getCourtByName(courtNameSearch)).toBe(courtList[0]);
+    expect(await courtRequests.getLocationByName(courtNameSearch)).toBe(courtList[0]);
   });
 
   it('should return null if response fails', async () => {
-    expect(await courtRequests.getCourtByName('test')).toBe(null);
+    expect(await courtRequests.getLocationByName('test')).toBe(null);
   });
 
   it('should return null if request fails', async () => {
-    expect(await courtRequests.getCourtByName('testReq')).toBe(null);
+    expect(await courtRequests.getLocationByName('testReq')).toBe(null);
   });
 
   it('should return null if call fails', async () => {
-    expect(await courtRequests.getCourtByName('testMes')).toBe(null);
+    expect(await courtRequests.getLocationByName('testMes')).toBe(null);
   });
 
   it('should return list of courts based on search filter', async () => {
@@ -111,39 +111,39 @@ describe('Court get requests', () => {
   });
 
   it('should return list of courts', async () => {
-    expect(await courtRequests.getAllCourts()).toBe(courtList);
+    expect(await courtRequests.getAllLocations()).toBe(courtList);
   });
 
   it('should return list of courts if cache is set', async () => {
     stubCacheGet.withArgs('allCourts').resolves(JSON.stringify(courtList));
-    expect(await courtRequests.getAllCourts()).toStrictEqual(courtList);
+    expect(await courtRequests.getAllLocations()).toStrictEqual(courtList);
   });
 
   it('should return null list of courts for error response', async () => {
-    stub.withArgs('/courts').rejects(errorResponse);
+    stub.withArgs('/locations').rejects(errorResponse);
     expect(await courtRequests.getFilteredCourts(test, test)).toBe(null);
   });
 
   it('should return null list of courts for error request', async () => {
-    stub.withArgs('/courts').rejects(errorRequest);
+    stub.withArgs('/locations').rejects(errorRequest);
     expect(await courtRequests.getFilteredCourts(test, 'foo')).toBe(null);
   });
 
   it('should return null list of courts for error request', async () => {
-    stub.withArgs('/courts').rejects(errorRequest);
+    stub.withArgs('/locations').rejects(errorRequest);
     stubCacheGet.withArgs('allCourts').resolves(null);
-    expect(await courtRequests.getAllCourts()).toBe(null);
+    expect(await courtRequests.getAllLocations()).toBe(null);
   });
 
   it('should return null list of courts for errored call', async () => {
-    stub.withArgs('/courts').rejects(errorMessage);
+    stub.withArgs('/locations').rejects(errorMessage);
     stubCacheGet.withArgs('allCourts').resolves(null);
-    expect(await courtRequests.getAllCourts()).toBe(null);
+    expect(await courtRequests.getAllLocations()).toBe(null);
   });
 
   it('should return null list of courts for errored response', async () => {
-    stub.withArgs('/courts').rejects(errorResponse);
+    stub.withArgs('/locations').rejects(errorResponse);
     stubCacheGet.withArgs('allCourts').resolves(null);
-    expect(await courtRequests.getAllCourts()).toBe(null);
+    expect(await courtRequests.getAllLocations()).toBe(null);
   });
 });

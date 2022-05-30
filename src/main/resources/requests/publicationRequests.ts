@@ -69,9 +69,9 @@ export class PublicationRequests {
     return null;
   }
 
-  public async getPublicationsByCourt(courtId: string, verified: boolean, admin: boolean): Promise<Artefact[]> {
+  public async getPublicationsByCourt(locationId: string, verified: boolean, admin: boolean): Promise<Artefact[]> {
     try {
-      const response = await dataManagementApi.get(`/publication/courtId/${courtId}`,
+      const response = await dataManagementApi.get(`/publication/locationId/${locationId}`,
         {headers: {verification: verified, 'x-admin': admin}});
       return response.data;
     } catch (error) {

@@ -8,7 +8,7 @@ describe('List option', () => {
     it('should return search option page', () => {
       app['user'] = {id:1};
       request(app)
-        .get('/list-option?courtId=1')
+        .get('/list-option?locationId=1')
         .expect((res) => expect(res.status).to.equal(200));
     });
   });

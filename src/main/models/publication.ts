@@ -7,7 +7,7 @@ export interface Publication {
   displayFrom: string;
   displayTo: string;
   listType: string;
-  courtId: number;
+  locationId: number;
   contentDate: string;
   isFlatFile: boolean;
   payload: string;

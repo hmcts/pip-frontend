@@ -13,7 +13,7 @@ export default class AlphabeticalSearchController {
 
     res.render(screenToRender, {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[screenToRender]),
-      courtList: initialisedFilter['alphabetisedList'],
+      locationList: initialisedFilter['alphabetisedList'],
       filterOptions: initialisedFilter['filterOptions'],
     });
   }
