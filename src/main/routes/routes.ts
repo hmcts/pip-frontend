@@ -67,26 +67,15 @@ export default function(app: Application): void {
     next();
   }
 
-  function logOut(_req, res): void{
+  function logOut(_req, res, redirectUrl): void{
     res.clearCookie('session');
     logger.info('logout FE URL', FRONTEND_URL);
 
     const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
-    const encodedSignOutRedirect = encodeURIComponent(`${FRONTEND_URL}/view-option`);
+    const encodedSignOutRedirect = encodeURIComponent(redirectUrl);
     logger.info('B2C_URL', B2C_URL);
     logger.info('encodedSignOutRedirect', encodedSignOutRedirect);
     res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
-  }
-
-  function adminLogOut(_req, res): void{
-    res.clearCookie('session');
-    logger.info('logout FE URL', FRONTEND_URL);
-
-    const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
-    const encodedAdminSignOutRedirect = encodeURIComponent(`${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY);
-    logger.info('B2C_URL', B2C_URL);
-    logger.info('encodedAdminSignOutRedirect', encodedAdminSignOutRedirect);
-    res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedAdminSignOutRedirect}`);
   }
 
   function regenerateSession(req, res): void {
@@ -118,7 +107,8 @@ export default function(app: Application): void {
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
   app.post('/login/return', passport.authenticate(authType, { failureRedirect: '/view-option'}),
     (_req, res) => {adminAuthentication.isAdminUser(_req) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
-  app.get('/logout', (_req, res) => {adminAuthentication.isAdminUser(_req) ? adminLogOut(_req, res) : logOut(_req, res);});
+  app.get('/logout', (_req, res) => {adminAuthentication.isAdminUser(_req) ?
+    logOut(_req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY) : logOut(_req, res, `${FRONTEND_URL}/view-option`);});
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
