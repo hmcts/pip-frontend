@@ -5,7 +5,16 @@ export class PublicationRequests {
 
   public async getIndividualPublicationMetadata(artefactId, userId, admin): Promise<string> {
     try{
-      const response = await dataManagementApi.get(`/publication/${artefactId}`, {headers: {'x-user-id' :userId, 'x-admin': admin}});
+
+      let header;
+      if(userId) {
+        header = {headers: {'x-user-id':userId, 'x-admin': admin}};
+      } else {
+        header = {headers: {'x-admin': admin}};
+      }
+
+      const response = await dataManagementApi.get(`/publication/${artefactId}`,
+        header);
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -21,8 +30,14 @@ export class PublicationRequests {
 
   public async getPublicationByCaseValue(searchQuery: string, searchValue: string, userId: string): Promise<Artefact[]> {
     try {
+
+      let header;
+      if(userId) {
+        header = {headers: {'x-user-id':userId}};
+      }
+
       const response = await dataManagementApi.get(`/publication/search/${searchQuery}/${searchValue}`,
-        {headers: {'x-user-id': userId}});
+        header);
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -38,8 +53,14 @@ export class PublicationRequests {
 
   public async getIndividualPublicationJson(artefactId, userId): Promise<JSON> {
     try {
+
+      let header;
+      if(userId) {
+        header = {headers: {'x-user-id':userId}};
+      }
+
       const response = await dataManagementApi.get('/publication/' + artefactId + '/payload',
-        {headers: {'x-user-id': `${userId}`}});
+        header);
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -55,8 +76,14 @@ export class PublicationRequests {
 
   public async getIndividualPublicationFile(artefactId, userId): Promise<Blob> {
     try{
+      let header;
+      if(userId) {
+        header = {headers: {'x-user-id':userId}, responseType: 'arraybuffer'};
+      } else {
+        header = {responseType: 'arraybuffer'};
+      }
       const response = await dataManagementApi.get(`/publication/${artefactId}/file`,
-        {headers: {'x-user-id': `${userId}`}, responseType: 'arraybuffer'});
+        header);
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -72,8 +99,16 @@ export class PublicationRequests {
 
   public async getPublicationsByCourt(locationId: string, userId: string, admin: boolean): Promise<Artefact[]> {
     try {
+
+      let header;
+      if(userId) {
+        header = {headers: {'x-user-id':userId, 'x-admin': admin}};
+      } else {
+        header = {headers: {'x-admin': admin}};
+      }
+
       const response = await dataManagementApi.get(`/publication/locationId/${locationId}`,
-        {headers: {'x-user-id': userId, 'x-admin': admin}});
+        header);
       return response.data;
     } catch (error) {
       if (error.response) {
