@@ -30,7 +30,7 @@ export default class SubscriptionAddController {
         break;
       }
       case 'court-or-tribunal':
-        res.redirect('/court-name-search');
+        res.redirect('/location-name-search');
         break;
       default:
         res.redirect('/subscription-add?error=true');

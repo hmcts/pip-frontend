@@ -6,7 +6,7 @@ import { HearingRequests } from '../../../main/resources/requests/hearingRequest
 const data = [{caseName: 'my hearing', caseNumber: '11223344'}];
 const caseNumberData = {
   hearingId: 1,
-  courtId: 50,
+  locationId: 50,
   courtNumber: 1,
   date: '15/11/2021 10:00:00',
   judge: 'His Honour Judge A Morley QC',
