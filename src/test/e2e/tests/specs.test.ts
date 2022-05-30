@@ -623,7 +623,7 @@ describe('Admin level journeys', () => {
     before(async () => {
       await adminDashboard.open('admin-dashboard');
     });
-    it('should sign out and open view-option page', async () => {
+    it('should sign out and open admin login page', async () => {
       signInPage = await adminDashboard.clickSignOut();
       expect(await signInPage.getAdminPageTitle()).toEqual('Sign in with your email address');
     });
