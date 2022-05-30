@@ -30,7 +30,7 @@ const pageHeader = 'Your email subscriptions';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
 const userSubscriptionsStub = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
-userSubscriptionsStub.withArgs('2').returns({caseSubscriptions:[], courtSubscriptions:[]});
+userSubscriptionsStub.withArgs('2').returns({caseSubscriptions:[], locationSubscriptions:[]});
 userSubscriptionsStub.withArgs('1').returns(subscriptionsData.data);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
@@ -122,7 +122,7 @@ describe('Subscriptions Management Page', () => {
     expect(subscriptionsTabs[2].innerHTML)
       .contains(expectedCourtSubsTitle, 'Could not find court subscriptions tab');
     expect(subscriptionsTabs[2].getAttribute('href'))
-      .equal('?court', 'Tab does not contain proper link');
+      .equal('?location', 'Tab does not contain proper link');
   });
 
   it('should display first tab as active', () => {
@@ -148,13 +148,13 @@ describe('Subscriptions Management Page', () => {
   });
 
   it('should display court subscriptions table with 3 columns', () => {
-    const courtHeaders = htmlRes.getElementById('courts-table')
+    const courtHeaders = htmlRes.getElementById('locations-table')
       .getElementsByClassName('govuk-table__header');
     expect(courtHeaders.length).equal(3);
   });
 
   it('should have correct columns in the courts table', () => {
-    const courtHeaders = htmlRes.getElementById('courts-table')
+    const courtHeaders = htmlRes.getElementById('locations-table')
       .getElementsByClassName('govuk-table__header');
     expect(courtHeaders[0].innerHTML).contains(courtNameColumn, 'Court name header is not present');
     expect(courtHeaders[1].innerHTML).contains(dateAddedColumn, 'Date added header is not present');

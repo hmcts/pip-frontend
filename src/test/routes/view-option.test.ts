@@ -43,7 +43,7 @@ describe('Search option', () => {
         .send({'view-choice': 'sjp'})
         .expect((res) => {
           expect(res.status).to.equal(302);
-          expect(res.header['location']).to.equal('summary-of-publications?courtId=0');
+          expect(res.header['location']).to.equal('summary-of-publications?locationId=0');
         });
     });
   });
