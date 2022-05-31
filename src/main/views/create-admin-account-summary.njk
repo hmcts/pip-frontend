@@ -16,7 +16,7 @@
             titleText: error.title,
             errorList: [
                 {
-                    text: error.message,
+                    html: '<p>' + error.message + ' <a href="/login?p=B2C_1_SignInAdminUserFlow">'+ error.link  + '</a></p>',
                     href: "#"
                 }
             ]
