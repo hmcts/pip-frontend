@@ -10,8 +10,6 @@ const authenticationConfig = require('./authentication-config.json');
 const CustomStrategy = passportCustom.Strategy;
 const logger = Logger.getLogger('authentication');
 
-const accountRequests = new AccountManagementRequests();
-
 /**
  * This sets up the OIDC version of authentication, integrating with Azure.
  */
@@ -44,6 +42,7 @@ function oidcSetup(): void {
   const users = [];
 
   const findByOid = async function(oid, fn): Promise<Function> {
+    const accountRequests = new AccountManagementRequests();
     for (let i = 0, len = users.length; i < len; i++) {
       const user = users[i];
       if (user.oid === oid) {
