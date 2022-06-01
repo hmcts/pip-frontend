@@ -58,8 +58,8 @@ function oidcSetup(): void {
     done(null, user.oid);
   });
 
-  passport.deserializeUser(function(oid, done) {
-    findByOid(oid, function (user) {
+  passport.deserializeUser(async function(oid, done) {
+    await findByOid(oid, function (user) {
       done(null, user);
     });
   });
@@ -75,8 +75,8 @@ function oidcSetup(): void {
     clientSecret: clientSecret,
     isB2C: true,
   },
-  function(iss, sub, profile, accessToken, refreshToken, done) {
-    findByOid(profile.oid, function(user) {
+  async function(iss, sub, profile, accessToken, refreshToken, done) {
+    await findByOid(profile.oid, function(user) {
       if (!user) {
         // "Auto-registration"
         users.push(profile);
