@@ -316,6 +316,7 @@ describe('Account Management Requests', () => {
 
   describe('Get pi user by oid', () => {
     const idtoUse = '123';
+
     beforeEach(() => {
       sinon.restore();
       getStub = sinon.stub(accountManagementApi, 'get');
@@ -328,19 +329,19 @@ describe('Account Management Requests', () => {
     });
 
     it('should return null on error response', async () => {
-      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).resolves(errorResponse);
+      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).rejects(errorResponse);
       const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
       expect(response).toBe(null);
     });
 
     it('should return null on error request', async () => {
-      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).resolves(errorRequest);
+      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).rejects(errorRequest);
       const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
       expect(response).toBe(null);
     });
 
     it('should return null on error message', async () => {
-      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).resolves(errorMessage);
+      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).rejects(errorMessage);
       const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
       expect(response).toBe(null);
     });
