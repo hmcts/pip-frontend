@@ -46,6 +46,7 @@ const azureEndpoint = '/account/add/azure';
 const piEndpoint = '/account/add/pi';
 const applicationGetEndpoint = '/application/';
 const imageGetEndpoint = '/application/image/';
+const piUserEndpoint = '/account/provenance/PI_AAD/';
 
 const status = 'APPROVED';
 const statusEndpoint = '/' + status;
@@ -309,6 +310,38 @@ describe('Account Management Requests', () => {
     it('should return false on error message', async () => {
       putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).rejects(errorMessage);
       const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Get pi user by oid', () => {
+    const idtoUse = '123';
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
+
+    it('should return pi user id on success', async () => {
+      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).resolves({status: 200, data: {userId: '321'}});
+      const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
+      expect(response).toBe('321');
+    });
+
+    it('should return null on error response', async () => {
+      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).resolves(errorResponse);
+      const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error request', async () => {
+      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).resolves(errorRequest);
+      const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error message', async () => {
+      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).resolves(errorMessage);
+      const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
       expect(response).toBe(null);
     });
   });
