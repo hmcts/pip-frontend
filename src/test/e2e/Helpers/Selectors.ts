@@ -143,6 +143,7 @@ module.exports = {
   NameInput: '#fullName',
   EmailInput: '#emailAddress',
   EmployerInput: '#employer',
+  CheckBox: '#tcbox',
 
   // AccountHome selectors
   EmailSubscriptionLink: '#card-subscription-management',

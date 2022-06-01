@@ -1,6 +1,6 @@
-import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
 import fs from 'fs';
-import { FileHandlingService } from './fileHandlingService';
+import {FileHandlingService} from './fileHandlingService';
 
 const adminRolesList = [
   {
@@ -50,7 +50,12 @@ export class CreateAccountService {
         message: fileHandlingService.validateImage(file),
         href: '#file-upload',
       },
+      checkBoxError: {
+        message: this.validateCheckbox(formValues['tcbox']),
+        href: '#tcbox',
+      },
     };
+
   }
 
   public validateAdminFormFields(formValues: object): object {
@@ -111,22 +116,22 @@ export class CreateAccountService {
   }
 
   validateMediaFullName(input): string {
-    if(!this.isNotBlank(input)) {
+    if (!this.isNotBlank(input)) {
       return 'There is a problem - Full name field must be populated';
-    } else if(this.isStartingWithSpace(input)) {
+    } else if (this.isStartingWithSpace(input)) {
       return 'There is a problem - Full name field must not start with a space';
-    } else if(this.isDoubleSpaced(input)) {
+    } else if (this.isDoubleSpaced(input)) {
       return 'There is a problem - Full name field must not contain double spaces';
-    } else if((input.split(' ').length - 1) < 1) {
+    } else if ((input.split(' ').length - 1) < 1) {
       return 'There is a problem - Your full name will be needed to support your application for an account';
     }
     return null;
   }
 
   validateMediaEmailAddress(input): string {
-    if(this.isStartingWithSpace(input)) {
+    if (this.isStartingWithSpace(input)) {
       return 'There is a problem - Email address field cannot start with a space';
-    } else if(this.isDoubleSpaced(input)) {
+    } else if (this.isDoubleSpaced(input)) {
       return 'There is a problem - Email address field cannot contain double spaces';
     } else {
       return this.validateEmail(input);
@@ -134,11 +139,11 @@ export class CreateAccountService {
   }
 
   validateMediaEmployer(input): string {
-    if(!this.isNotBlank(input)) {
+    if (!this.isNotBlank(input)) {
       return 'There is a problem - Your employers name will be needed to support your application for an account';
-    } else if(this.isStartingWithSpace(input)) {
+    } else if (this.isStartingWithSpace(input)) {
       return 'There is a problem - Employer field cannot start with a space';
-    } else if(this.isDoubleSpaced(input)) {
+    } else if (this.isDoubleSpaced(input)) {
       return 'There is a problem - Employer field cannot contain double spaces';
     }
     return null;
@@ -154,6 +159,14 @@ export class CreateAccountService {
       message = isAdmin ? 'Enter email address' : 'There is a problem - Email address field must be populated';
     }
     return message;
+  }
+
+  validateCheckbox(input): string {
+    if (input) {
+      return null;
+    } else {
+      return 'There is a problem - You must check the box to confirm you agree to the terms and conditions.';
+    }
   }
 
   formatCreateAdminAccountPayload(accountObject): any[] {
