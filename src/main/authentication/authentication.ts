@@ -43,10 +43,11 @@ function oidcSetup(): void {
   const AUTH_RETURN_URL = process.env.AUTH_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/login/return';
   const users = [];
 
-  const findByOid = function(oid, fn): Function {
+  const findByOid = async function(oid, fn): Promise<Function> {
     for (let i = 0, len = users.length; i < len; i++) {
       const user = users[i];
       if (user.oid === oid) {
+        user['piUserId'] = await accountRequests.getPiUserByAzureOid(oid);
         return fn(user);
       }
     }
@@ -75,10 +76,9 @@ function oidcSetup(): void {
     isB2C: true,
   },
   function(iss, sub, profile, accessToken, refreshToken, done) {
-    findByOid(profile.oid, async function(user) {
+    findByOid(profile.oid, function(user) {
       if (!user) {
         // "Auto-registration"
-        profile['piUserId'] = await accountRequests.getPiUserByAzureOid(profile.oid);
         users.push(profile);
         return done(null, profile);
       }

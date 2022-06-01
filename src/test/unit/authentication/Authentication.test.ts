@@ -125,7 +125,7 @@ describe('Authentication', () => {
 
     const serializers = passport._serializers;
     const firstSerializer = serializers[0];
-    const profile = {piUserId: '1234', profile: 'test-profile'};
+    const profile = {oid: '1234', profile: 'test-profile'};
     const mockCallback = jest.fn();
 
     firstSerializer(profile, mockCallback);
