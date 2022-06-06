@@ -40,7 +40,7 @@ sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 describe('Pending Subscriptions Page', () => {
   describe('user with subscriptions', () => {
     beforeAll(async () => {
-      app.request['user'] = {oid: '1'};
+      app.request['user'] = {piUserId: '1'};
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
         htmlRes.getElementsByTagName('div')[0].remove();
@@ -114,7 +114,7 @@ describe('Pending Subscriptions Page', () => {
 
   describe('user without subscriptions', () => {
     beforeAll(async () => {
-      app.request['user'] = {oid: '2'};
+      app.request['user'] = {piUserId: '2'};
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
         htmlRes.getElementsByTagName('div')[0].remove();
@@ -141,7 +141,7 @@ describe('Pending Subscriptions Page', () => {
 
   describe('user without subscriptions error screen', () => {
     beforeAll(async () => {
-      app.request['user'] = {oid: '2'};
+      app.request['user'] = {piUserId: '2'};
       await request(app).get(`${PAGE_URL}?no-subscriptions=true`).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
         htmlRes.getElementsByTagName('div')[0].remove();
