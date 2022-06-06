@@ -2,6 +2,7 @@ import process from 'process';
 import passportCustom from 'passport-custom';
 import { Logger } from '@hmcts/nodejs-logging';
 import config = require('config');
+import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
 
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
@@ -44,6 +45,7 @@ function oidcSetup(): void {
     for (let i = 0, len = users.length; i < len; i++) {
       const user = users[i];
       if (user.oid === oid) {
+
         return fn(user);
       }
     }
@@ -72,9 +74,10 @@ function oidcSetup(): void {
     isB2C: true,
   },
   function(iss, sub, profile, accessToken, refreshToken, done) {
-    findByOid(profile.oid, function(user) {
+    findByOid(profile.oid, async function(user) {
       if (!user) {
         // "Auto-registration"
+        profile['piUserId'] = await AccountManagementRequests.prototype.getPiUserByAzureOid(profile.oid);
         users.push(profile);
         return done(null, profile);
       }
