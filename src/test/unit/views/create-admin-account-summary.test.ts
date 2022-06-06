@@ -85,7 +85,7 @@ describe('Create Admin Account Summary page', () => {
         const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list')[0];
         expect(errorDialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML)
           .contains('There is a problem', 'Could not find error dialog title');
-        expect(errorSummaryList.innerHTML).contains('This email already exists. The user should try signing in using this email address or reset their password following this');
+        expect(errorSummaryList.innerHTML).contains('This email already exists. The user should try signing in using this email or reset their password.');
       });
     });
 

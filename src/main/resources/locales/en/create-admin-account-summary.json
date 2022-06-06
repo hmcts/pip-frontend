@@ -12,7 +12,6 @@
   "whatNextMessage": "This account will be created and the applicant will be notified to set up their account.",
   "error": {
     "title": "There is a problem",
-    "message": "This email already exists. The user should try signing in using this email address or reset their password following this",
-    "link": "link"
+    "message": "This email already exists. The user should try signing in using this email or reset their password."
   }
 }
