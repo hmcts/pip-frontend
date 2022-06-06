@@ -2,6 +2,7 @@ import process from 'process';
 import passportCustom from 'passport-custom';
 import { Logger } from '@hmcts/nodejs-logging';
 import config = require('config');
+import {accountManagementApi} from '../resources/requests/utils/axiosConfig';
 
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
@@ -76,9 +77,19 @@ function oidcSetup(): void {
     findByOid(profile.oid, async function(user) {
       if (!user) {
         // "Auto-registration"
-        await setTimeout(() => {
-          console.log('test');
-        }, 4000);
+        try {
+          const response = await accountManagementApi.get(`/account/provenance/PI_AAD/${profile.oid}`);
+          profile['piUserId'] = response.data.userId;
+        } catch (error) {
+          if (error.response) {
+            logger.error('Failed to GET PI user request', error.response.data);
+          } else if (error.request) {
+            logger.error('Request failed for Pi user', error.request);
+          } else {
+            logger.error('Something went wrong trying to get the pi user from the oid', error.message);
+          }
+          return null;
+        }
         users.push(profile);
         return done(null, profile);
       }
