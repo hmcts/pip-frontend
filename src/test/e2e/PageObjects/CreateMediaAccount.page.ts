@@ -10,6 +10,7 @@ export class CreateMediaAccountPage extends CommonPage {
     await this.inputName();
     await this.inputEmailAddress();
     await this.inputEmployer();
+    await this.checkBox();
   }
 
   async uploadImage(): Promise<void> {
@@ -47,6 +48,10 @@ export class CreateMediaAccountPage extends CommonPage {
 
     await $(helpers.EmployerInput).addValue('Media Agency UK');
     await browser.keys('Escape');
+  }
+
+  async checkBox(): Promise<void> {
+    await $(helpers.CheckBox).click();
   }
 
   async clickContinue(): Promise<MediaAccountRequestSubmittedPage> {

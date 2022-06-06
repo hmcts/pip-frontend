@@ -1,12 +1,20 @@
 import config from 'config';
+import process from 'process';
 
 const appInsights = require('applicationinsights');
 
 export class AppInsights {
 
   enable(): void {
-    if (config.get('appInsights.instrumentationKey')) {
-      appInsights.setup(config.get('appInsights.instrumentationKey'))
+    let appInsightsKey;
+    if(process.env.INSTRUMENTATION_KEY) {
+      appInsightsKey = process.env.INSTRUMENTATION_KEY;
+    } else if(config.get('secrets.pip-ss-kv.INSTRUMENTATION_KEY')) {
+      appInsightsKey = config.get('secrets.pip-ss-kv.INSTRUMENTATION_KEY') as string;
+    }
+
+    if(appInsightsKey) {
+      appInsights.setup(appInsightsKey)
         .setSendLiveMetrics(true)
         .start();
 
@@ -14,5 +22,4 @@ export class AppInsights {
       appInsights.defaultClient.trackTrace({message: 'App insights activated'});
     }
   }
-
 }

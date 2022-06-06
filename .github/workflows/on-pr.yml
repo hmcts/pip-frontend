@@ -51,6 +51,8 @@ jobs:
 
           if [[ "${replyUrls}" =~ "${newUrl}" ]]; then
               echo "Reply URLs contains $newUrl"
+          elif [ -z $replyUrls ]; then
+              echo "Not Reply URLs Found. ISSUE!!"
           else
               echo "Reply URLs DOES NOT contains $newUrl"
               echo "Adding domain $newUrl"
