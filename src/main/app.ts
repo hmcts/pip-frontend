@@ -14,7 +14,6 @@ import { HTTPError } from 'HttpError';
 import {Nunjucks} from './modules/nunjucks';
 import * as propertiesVolume from '@hmcts/properties-volume';
 import {AppInsights} from './modules/appinsights';
-import authentication from './authentication/authentication';
 
 const passport = require('passport');
 const cookieSession = require('cookie-session');
@@ -87,5 +86,5 @@ app.use((err: HTTPError, req: PipRequest, res: express.Response) => {
   res.status(err.status || 500);
   res.render('error', req.i18n.getDataByLanguage(req.lng).error);
 });
-
+import authentication from './authentication/authentication';
 authentication(process.env.OIDC);
