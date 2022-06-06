@@ -42,11 +42,10 @@ function oidcSetup(): void {
   const users = [];
 
   const findByOid = async function(oid, fn): Promise<Function> {
-    const accountRequests = new AccountManagementRequests();
     for (let i = 0, len = users.length; i < len; i++) {
       const user = users[i];
       if (user.oid === oid) {
-        user['piUserId'] = await accountRequests.getPiUserByAzureOid(oid);
+        user['piUserId'] = await AccountManagementRequests.prototype.getPiUserByAzureOid(oid);
         return fn(user);
       }
     }
