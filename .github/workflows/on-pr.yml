@@ -39,12 +39,13 @@ jobs:
           echo "Login to $azureTenant with $azureClientId"
           az login --service-principal --username $azureClientId -p=$azureClientSecret --tenant $azureTenant --allow-no-subscriptions
 
-
+          az ad app list --all --filter "displayname eq '${targetAppName}'"
           appId=$(az ad app list --all --filter "displayname eq '${targetAppName}'" --query "[0].appId" -o tsv --only-show-errors )
           appId=${appId//[$'\t\r\n']/}
           echo "App ID $appId"
 
-          replyUrls=$(az ad app show --id "$appId" --query "replyUrls" -o json --only-show-errors)
+          az ad app show --id "$appId"
+          replyUrls=$(az ad app show --id "$appId" --query "web.redirectUris" -o json --only-show-errors)
 
           echo "Found Reply URLs"
           echo $replyUrls
@@ -67,7 +68,7 @@ jobs:
               done
               echo "reply String: $replayUrlsStr"
 
-              objectId=$(az ad app list --all --filter "displayname eq '${targetAppName}'" --query "[0].objectId" -o tsv --only-show-errors)
+              objectId=$(az ad app list --all --filter "displayname eq '${targetAppName}'" --query "[0].id" -o tsv --only-show-errors)
               objectId=${objectId//[$'\t\r\n']/}
               echo "Object ID $objectId"
 
