@@ -1,9 +1,9 @@
 import request from 'supertest';
 import { app } from '../../../main/app';
-import { request as expressRequest } from 'express';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import { CreateAccountService } from '../../../main/service/createAccountService';
+import { AdminAuthentication } from '../../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/create-admin-account-summary';
 const cookie = {
@@ -20,7 +20,7 @@ const cookie = {
 const summaryKeys = ['First name', 'Last name', 'Email address', 'User role'];
 const changeValues = ['firstName', 'lastName', 'emailAddress', 'user-role'];
 let htmlRes: Document;
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 const createAccountStub = sinon.stub(CreateAccountService.prototype, 'createAdminAccount');
 
 describe('Create Admin Account Summary page', () => {
@@ -85,7 +85,7 @@ describe('Create Admin Account Summary page', () => {
         const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list')[0];
         expect(errorDialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML)
           .contains('There is a problem', 'Could not find error dialog title');
-        expect(errorSummaryList.innerHTML).contains('Unable to create admin account, please verify that provided fields are correct');
+        expect(errorSummaryList.innerHTML).contains('This email already exists. The user should try signing in using this email or reset their password.');
       });
     });
 

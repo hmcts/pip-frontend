@@ -1,11 +1,10 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 import {ManualUploadService} from '../../../main/service/manualUploadService';
-import {CourtService} from '../../../main/service/courtService';
+import {LocationService} from '../../../main/service/locationService';
 import { DataManagementRequests } from '../../../main/resources/requests/dataManagementRequests';
 import fs from 'fs';
 import path from 'path';
-import {multerFile} from '../mocks/multerFile';
 
 const manualUploadService = new ManualUploadService();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
@@ -20,8 +19,8 @@ const headers = {
   'display-to': '',
   listType: 'type',
   court: {
-    courtId: '1',
-    courtName: 'Court',
+    locationId: '1',
+    locationName: 'Court',
   },
   'content-date-from': '',
 };
@@ -34,18 +33,13 @@ const expectedHeaders = {
   'x-display-from': headers['display-from'],
   'x-display-to': headers['display-to'],
   'x-list-type': headers.listType,
-  'x-court-id': headers.court.courtId,
+  'x-court-id': headers.court.locationId,
   'x-content-date': headers['content-date-from'],
   'x-issuer-email': 'test@email.com',
 };
-const courtService = sinon.stub(CourtService.prototype, 'getCourtByName');
+const courtService = sinon.stub(LocationService.prototype, 'getLocationByName');
 courtService.withArgs('validCourt').resolves(courtData[0]);
 
-const validFile = multerFile('testFile.pdf', 1000);
-const validFileCase = multerFile('testFile.HtMl', 1000);
-const largeFile = multerFile('testFile.pdf', 3000000);
-const invalidFileType = multerFile('testFile.xyz', 1000);
-const nofileType = multerFile('testFile', 1000);
 const validRemoveListInput = [{
   listType: 'SJP_PUBLIC_LIST',
   displayFrom: '2022-02-08T12:26:42.908',
@@ -61,10 +55,9 @@ const expectedRemoveList = [
   },
 ];
 
-sinon.stub(CourtService.prototype, 'fetchAllCourts').resolves(courtData);
+sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtData);
 sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(true);
 sinon.stub(DataManagementRequests.prototype, 'uploadJSONPublication').resolves(true);
-sinon.stub(fs, 'unlinkSync');
 
 describe('Manual upload service', () => {
   describe('building form data', () => {
@@ -83,32 +76,6 @@ describe('Manual upload service', () => {
       const data = await manualUploadService.buildFormData();
       expect(data['judgementsOutcomesSubtypes'].length).to.equal(1);
       expect(data['judgementsOutcomesSubtypes'][0]).to.deep.equal({text: 'SJP Media Register', value: 'SJP_MEDIA_REGISTER'});
-    });
-  });
-
-  describe('File validation', () => {
-    it('should return null when checking a valid file', () => {
-      expect(manualUploadService.validateFileUpload(validFile)).to.be.null;
-    });
-
-    it('should return null when checking file type in different case sensitivity', () => {
-      expect(manualUploadService.validateFileUpload(validFileCase)).to.be.null;
-    });
-
-    it('should return error message if file greater than 2MB', () => {
-      expect(manualUploadService.validateFileUpload(largeFile)).to.equal('File too large, please upload file smaller than 2MB');
-    });
-
-    it('should return error message if invalid file type', () => {
-      expect(manualUploadService.validateFileUpload(invalidFileType)).to.equal('Please upload a valid file format');
-    });
-
-    it('should return error message if missing file type', () => {
-      expect(manualUploadService.validateFileUpload(nofileType)).to.equal('Please upload a valid file format');
-    });
-
-    it('should return error message if no file passed', () => {
-      expect(manualUploadService.validateFileUpload(null)).to.equal('Please provide a file');
     });
   });
 
@@ -186,33 +153,9 @@ describe('Manual upload service', () => {
     });
   });
 
-  it('should return file type', () => {
-    const fileType = manualUploadService.getFileExtension('demo.pdf');
-    expect(fileType).to.equal('pdf');
-  });
-
   it('should generate headers object', () => {
     const builtHeaders = manualUploadService.generatePublicationUploadHeaders(headers);
     expect(builtHeaders).to.deep.equal(expectedHeaders);
-  });
-
-  it('should read a pdf file successfully', () => {
-    const file = manualUploadService.readFile('validationFile.pdf');
-    expect(file).to.be.instanceof(Buffer);
-  });
-
-  it('should read a json file successfully', () => {
-    const file = manualUploadService.readFile('validationJson.json');
-    expect(file).to.deep.equal({'name': 'this is valid json file'});
-  });
-
-  it('should return null if there is an error in reading a file', () => {
-    const file = manualUploadService.readFile('foo.pdf');
-    expect(file).to.be.null;
-  });
-
-  it('should remove a file', () => {
-    expect(manualUploadService.removeFile('foo.pdf')).to.equal(void 0);
   });
 
   it('should upload a publication', async () => {
@@ -228,7 +171,7 @@ describe('Manual upload service', () => {
   });
 
   it('should return court id and name as object', async () => {
-    expect(await manualUploadService.appendCourtId('validCourt')).to.deep.equal({courtName: 'validCourt', courtId: 1});
+    expect(await manualUploadService.appendlocationId('validCourt')).to.deep.equal({courtName: 'validCourt', locationId: 1});
   });
 
   describe('formatting list removal', () => {

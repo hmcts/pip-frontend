@@ -6,7 +6,7 @@ import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
-import {CourtService} from '../../../main/service/courtService';
+import {LocationService} from '../../../main/service/locationService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -21,7 +21,7 @@ const dailyCauseListController = new DailyCauseListController();
 
 const dailyCauseListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const dailyCauseListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
-sinon.stub(CourtService.prototype, 'getCourtById').resolves(courtData[0]);
+sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 sinon.stub(PublicationService.prototype, 'manipulatedDailyListData').returns(listData);
 
 const artefactId = 'abc';

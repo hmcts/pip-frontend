@@ -12,7 +12,7 @@ const PAGE_URL = '/subscription-management';
 const expectedAllSubsTitle = 'All subscriptions (5)';
 const expectedCaseSubsTitle = 'Subscriptions by case (2)';
 const expectedCourtSubsTitle = 'Subscriptions by court or tribunal (3)';
-const expectedAddSubscriptionButton = 'Add new subscription';
+const expectedAddSubscriptionButton = 'Add email subscription';
 const tabsClass = 'moj-sub-navigation__link';
 const caseNameColumn = 'Case name';
 const caseReferenceColumn = 'Case reference number';
@@ -26,11 +26,11 @@ const expectedRowCourtName = 'Court 1';
 const expectedCaseRowsCount = 2;
 const expectedCourtRowsCount = 3;
 const expectedUnsubscribeLink = 'delete-subscription?subscription=5a45699f-47e3-4283-904a-581afe624155';
-const pageHeader = 'Your subscriptions';
+const pageHeader = 'Your email subscriptions';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
 const userSubscriptionsStub = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
-userSubscriptionsStub.withArgs('2').returns({caseSubscriptions:[], courtSubscriptions:[]});
+userSubscriptionsStub.withArgs('2').returns({caseSubscriptions:[], locationSubscriptions:[]});
 userSubscriptionsStub.withArgs('1').returns(subscriptionsData.data);
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
@@ -38,7 +38,7 @@ let htmlRes: Document;
 
 describe('Subscriptions Management Page No UserSubscriptions', () => {
   beforeAll(async () => {
-    app.request['user'] = {oid: '2'};
+    app.request['user'] = {piUserId: '2'};
   });
 
   it('should display no subscription message ', async () => {
@@ -47,7 +47,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
       htmlRes.getElementsByTagName('div')[0].remove();
       const message = htmlRes.getElementsByClassName('govuk-body');
       expect(message[0].innerHTML)
-        .contains('You currently have no subscriptions', 'Could not find correct message');
+        .contains('You do not have any active subscriptions', 'Could not find correct message');
     });
   });
 
@@ -57,7 +57,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
       htmlRes.getElementsByTagName('div')[0].remove();
       const message = htmlRes.getElementsByClassName('govuk-body');
       expect(message[0].innerHTML)
-        .contains('You currently have no subscriptions by case', 'Could not find correct message');
+        .contains('You do not have any active subscriptions', 'Could not find correct message');
     });
   });
 
@@ -67,14 +67,14 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
       htmlRes.getElementsByTagName('div')[0].remove();
       const message = htmlRes.getElementsByClassName('govuk-body');
       expect(message[0].innerHTML)
-        .contains('You currently have no subscriptions by court or tribunal', 'Could not find correct message');
+        .contains('You do not have any active subscriptions', 'Could not find correct message');
     });
   });
 });
 
 describe('Subscriptions Management Page', () => {
   beforeAll(async () => {
-    app.request['user'] = {oid: '1'};
+    app.request['user'] = {piUserId: '1'};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
@@ -122,7 +122,7 @@ describe('Subscriptions Management Page', () => {
     expect(subscriptionsTabs[2].innerHTML)
       .contains(expectedCourtSubsTitle, 'Could not find court subscriptions tab');
     expect(subscriptionsTabs[2].getAttribute('href'))
-      .equal('?court', 'Tab does not contain proper link');
+      .equal('?location', 'Tab does not contain proper link');
   });
 
   it('should display first tab as active', () => {
@@ -148,13 +148,13 @@ describe('Subscriptions Management Page', () => {
   });
 
   it('should display court subscriptions table with 3 columns', () => {
-    const courtHeaders = htmlRes.getElementById('courts-table')
+    const courtHeaders = htmlRes.getElementById('locations-table')
       .getElementsByClassName('govuk-table__header');
     expect(courtHeaders.length).equal(3);
   });
 
   it('should have correct columns in the courts table', () => {
-    const courtHeaders = htmlRes.getElementById('courts-table')
+    const courtHeaders = htmlRes.getElementById('locations-table')
       .getElementsByClassName('govuk-table__header');
     expect(courtHeaders[0].innerHTML).contains(courtNameColumn, 'Court name header is not present');
     expect(courtHeaders[1].innerHTML).contains(dateAddedColumn, 'Date added header is not present');

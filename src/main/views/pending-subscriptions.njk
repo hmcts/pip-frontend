@@ -76,7 +76,7 @@
           <tr class="govuk-table__row">
             <td class="govuk-table__cell">{{ court.name }}</td>
             <td class="govuk-table__cell govuk-!-text-align-right">
-              <a href="/remove-subscription?court={{ court.courtId }}">{{ removeText }}</a>
+              <a href="/remove-subscription?court={{ court.locationId }}">{{ removeText }}</a>
             </td>
           </tr>
         {% endfor %}
@@ -86,10 +86,8 @@
         <p class="govuk-body govuk-!-margin-bottom-8">No pending court subscriptions</p>
       {% endif %}
 
-      <div class="govuk-!-text-align-left">
-        {{ submitButton(label=buttonText) }}
-        <span class="govuk-!-text-align-centre"><a class="govuk-link" href="{{ addOther_link }}">{{ addOther_text }}</a></span>
-      </div>
+      <p class="govuk-body"><a class="govuk-link" href="{{ addOther_link }}">{{ addOther_text }}</a></p>
+      {{ submitButton(label=buttonText) }}
     </form>
   {% endif %}
   {{ super() }}

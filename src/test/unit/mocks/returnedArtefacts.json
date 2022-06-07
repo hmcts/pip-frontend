@@ -18,7 +18,7 @@
     "displayFrom": "2022-02-14T14:14:59.73967",
     "displayTo":  "2052-02-14T14:14:59.73967",
     "listType": "CROWN_WARNED_LIST",
-    "courtId":  "123",
+    "locationId":  "123",
     "contentDate": "2022-02-14T14:14:59.73967",
     "isFlatFile":  false,
     "payload": "http://test.com"
@@ -42,7 +42,7 @@
     "displayFrom": "2022-02-14T14:14:59.73967",
     "displayTo":  "2052-02-14T14:14:59.73967",
     "listType": "SJP_PUBLIC_LIST",
-    "courtId":  "123",
+    "locationId":  "123",
     "contentDate": "2022-02-14T14:14:59.73967",
     "isFlatFile":  false,
     "payload": "http://test.com"
