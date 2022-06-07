@@ -42,14 +42,6 @@ const mockValidMediaBody = {
   },
 };
 
-const mockUserInfo = {
-  userId: '2fb3967b-4699-47a5-9daf-f0fa9f0b8427',
-  userProvenance: 'PI_AAD',
-  provenanceUserId: '4e2d0498-69ec-4f62-be5c-89701f492280',
-  email: 'test@test.com',
-  roles: 'INTERNAL_ADMIN_CTSC',
-};
-
 const azureEndpoint = '/account/add/azure';
 const piEndpoint = '/account/add/pi';
 const applicationGetEndpoint = '/application/';
@@ -113,36 +105,6 @@ describe('Account Management Requests', () => {
       postStub.withArgs(piEndpoint).resolves(Promise.reject(errorMessage));
       const response = await accountManagementRequests.createPIAccount({bar: 'baz'}, mockHeaders);
       expect(response).toBe(false);
-    });
-  });
-
-  describe('Get User information from P&I database', () => {
-
-    beforeEach(() => {
-      getStub.withArgs('/account/provenance/PI_AAD/testAzureId').resolves({data: mockUserInfo});
-      getStub.withArgs('/account/provenance/test').rejects(errorResponse);
-      getStub.withArgs('/account/provenance/testReq').rejects(errorRequest);
-      getStub.withArgs('/account/provenance/testMes').rejects(errorMessage);
-    });
-
-    it('should return user information on success', async () => {
-      const response = await accountManagementRequests.getUserInfo('PI_AAD', 'testAzureId');
-      expect(response).toEqual(mockUserInfo);
-    });
-
-    it('should return false on error request', async () => {
-      const response = await accountManagementRequests.getUserInfo('test', null);
-      expect(response).toBe(null);
-    });
-
-    it('should return null if request fails', async () => {
-      const response = await accountManagementRequests.getUserInfo('testReq', null);
-      expect(response).toBe(null);
-    });
-
-    it('should return null if call fails', async () => {
-      const response = await accountManagementRequests.getUserInfo('testMes', null);
-      expect(response).toBe(null);
     });
   });
 

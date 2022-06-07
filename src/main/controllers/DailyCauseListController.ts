@@ -3,20 +3,17 @@ import {PipRequest} from '../models/request/PipRequest';
 import {cloneDeep} from 'lodash';
 import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
-import {UserService} from '../service/userService';
 import { LocationService } from '../service/locationService';
 
 const publicationService = new PublicationService();
-const userService = new UserService();
 const courtService = new LocationService();
 
 export default class DailyCauseListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const listToLoad = req.path.slice(1, req.path.length);
     const artefactId = req.query.artefactId as string;
-    const userId = await userService.getPandIUserId('PI_AAD', req.user);
-    const searchResults = await publicationService.getIndividualPublicationJson(artefactId, userId);
-    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, userId);
+    const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);
+    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (searchResults && metaData) {
 

@@ -6,7 +6,6 @@ import fs from 'fs';
 import path from 'path';
 import {LocationService} from '../../../main/service/locationService';
 import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
-import {UserService} from '../../../main/service/userService';
 
 const publicationController = new SummaryOfPublicationsController();
 const i18n = {
@@ -19,7 +18,6 @@ const onePubData = fs.readFileSync(path.resolve(__dirname, '../mocks/onePublicat
 const onePub = JSON.parse(onePubData);
 const CourtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
-sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 
 describe('Get publications', () => {
   CourtStub.withArgs(0).resolves(JSON.parse('{"name":"Single Justice Procedure"}'));

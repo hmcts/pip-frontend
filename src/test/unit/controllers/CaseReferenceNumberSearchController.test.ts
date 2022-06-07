@@ -5,7 +5,6 @@ import fs from 'fs';
 import path from 'path';
 import {mockRequest} from '../mocks/mockRequest';
 import {PublicationService} from '../../../main/service/publicationService';
-import {UserService} from '../../../main/service/userService';
 
 const caseReferenceNumberSearchController = new CaseReferenceNumberSearchController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
@@ -13,10 +12,6 @@ const subscriptionCaseResult = JSON.parse(rawData)[0].hearingList[0];
 const stub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
 
 const validCaseNo = '56-181-2097';
-
-const usStub = sinon.stub(UserService.prototype, 'getPandIUserId');
-const profile = {oid: '1234', profile: 'test-profile'};
-usStub.withArgs('PI_AAD', profile).returns('123');
 
 describe('Case Reference Number Search Controller', () => {
   let i18n = {};
@@ -32,7 +27,7 @@ describe('Case Reference Number Search Controller', () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-
+    request.user = {piUserId: '1'};
     const responseMock = sinon.mock(response);
 
     const expectedData = {
@@ -52,6 +47,7 @@ describe('Case Reference Number Search Controller', () => {
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
+    request.user = {piUserId: '1'};
     request.body = { 'search-input': validCaseNo};
 
     const responseMock = sinon.mock(response);
@@ -67,6 +63,7 @@ describe('Case Reference Number Search Controller', () => {
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
+    request.user = {piUserId: '1'};
     request.body = { 'search-input': '12'};
 
     const responseMock = sinon.mock(response);
@@ -84,6 +81,7 @@ describe('Case Reference Number Search Controller', () => {
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
+    request.user = {piUserId: '1'};
     request.body = { 'search-input': '1234'};
 
     const responseMock = sinon.mock(response);
@@ -101,6 +99,7 @@ describe('Case Reference Number Search Controller', () => {
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
+    request.user = {piUserId: '1'};
     request.body = { 'search-input': ''};
     const responseMock = sinon.mock(response);
 
@@ -119,7 +118,7 @@ describe('Case Reference Number Search Controller', () => {
     } as unknown as Response;
 
     const request = mockRequest(i18n);
-
+    request.user = {piUserId: '1'};
     request.body = { 'search-input': validCaseNo};
 
     const responseMock = sinon.mock(response);

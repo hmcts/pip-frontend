@@ -3,13 +3,11 @@ import { Response } from 'express';
 import {cloneDeep} from 'lodash';
 import {LocationService} from '../service/locationService';
 import {SummaryOfPublicationsService} from '../service/summaryOfPublicationsService';
-import {UserService} from '../service/userService';
 import fs from 'fs';
 import path from 'path';
 
 const urlLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname,'../modules/nunjucks/listUrlLookup.json'), 'utf-8'));
 const summaryOfPublicationsService = new SummaryOfPublicationsService();
-const userService = new UserService();
 const courtService = new LocationService();
 
 export default class SummaryOfPublicationsController {
@@ -20,8 +18,7 @@ export default class SummaryOfPublicationsController {
     if (locationId) {
       const court = await courtService.getLocationById(parseInt(locationId.toString()));
       const locationName = (court == null ? 'Missing Court' : court.name);
-      const userId = await userService.getPandIUserId('PI_AAD', req.user);
-      const publications = await summaryOfPublicationsService.getPublications(parseInt(locationId.toString()), userId);
+      const publications = await summaryOfPublicationsService.getPublications(parseInt(locationId.toString()), req.user?.['piUserId']);
       if (publications.length === 1){
         if (publications[0].isFlatFile){
           res.redirect(`file-publication?artefactId=${publications[0].artefactId}`);

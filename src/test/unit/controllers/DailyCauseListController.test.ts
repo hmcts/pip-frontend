@@ -6,7 +6,6 @@ import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
-import {UserService} from '../../../main/service/userService';
 import {LocationService} from '../../../main/service/locationService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
@@ -48,9 +47,8 @@ describe('Daily Cause List Controller', () => {
   });
 
   it('should render the daily cause list page', async () =>  {
-    sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
-
     request.query = {artefactId: artefactId};
+    request.user = {piUserId: '1'};
 
     const responseMock = sinon.mock(response);
 
@@ -71,10 +69,9 @@ describe('Daily Cause List Controller', () => {
   });
 
   it('should render error page is query param is empty', async () => {
-    sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 
     request.query = {};
-
+    request.user = {piUserId: '1'};
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
@@ -85,10 +82,7 @@ describe('Daily Cause List Controller', () => {
 
   it('should render error page if list is not allowed to view by the user', async () => {
 
-    sinon.stub(UserService.prototype, 'getPandIUserId').resolves(null);
-
     request.query = {artefactId: artefactId};
-
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);

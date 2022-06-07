@@ -6,7 +6,6 @@ import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
-import {UserService} from '../../../main/service/userService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
 const sjpData = JSON.parse(rawData);
@@ -34,13 +33,9 @@ const i18n = {
 describe('SJP Press List Controller', () => {
   const response = { render: () => {return '';}} as unknown as Response;
 
-  afterEach(() => {
-    sinon.restore();
-  });
-
   it('should render the SJP press list page', async () =>  {
-    sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
     const request = mockRequest(i18n);
+    request.user = {piUserId: '1'};
 
     request.query = {artefactId: artefactId};
 
@@ -61,9 +56,9 @@ describe('SJP Press List Controller', () => {
   });
 
   it('should render error page is query param is empty', async () => {
-    sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
     const request = mockRequest(i18n);
     request.query = {};
+    request.user = {piUserId: '1'};
 
     const responseMock = sinon.mock(response);
 
@@ -74,7 +69,6 @@ describe('SJP Press List Controller', () => {
   });
 
   it('should render error page if list is not allowed to view by the user', async () => {
-    sinon.stub(UserService.prototype, 'getPandIUserId').resolves(null);
     const request = mockRequest(i18n);
     request.query = {};
 

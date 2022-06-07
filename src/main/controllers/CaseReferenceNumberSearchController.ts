@@ -2,10 +2,8 @@ import { Response } from 'express';
 import {cloneDeep} from 'lodash';
 import {PipRequest} from '../models/request/PipRequest';
 import {PublicationService} from '../service/publicationService';
-import {UserService} from '../service/userService';
 
 const publicationService = new PublicationService();
-const userService = new UserService();
 
 export default class CaseReferenceNumberSearchController {
 
@@ -17,8 +15,7 @@ export default class CaseReferenceNumberSearchController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['search-input'] as string;
     if (searchInput) {
-      const userId = await userService.getPandIUserId('PI_AAD', req.user);
-      const searchResults = await publicationService.getCaseByCaseNumber(searchInput, userId);
+      const searchResults = await publicationService.getCaseByCaseNumber(searchInput, req.user?.['piUserId']);
       (searchResults) ?
         res.redirect(`case-reference-number-search-results?search-input=${searchInput}`) :
         res.render('case-reference-number-search', {

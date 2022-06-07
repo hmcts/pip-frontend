@@ -3,7 +3,6 @@ import { SubscriptionRequests } from '../resources/requests/subscriptionRequests
 import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendingSubscriptionsFromCache';
 import { UserSubscriptions } from '../models/UserSubscriptions';
 import {PublicationService} from './publicationService';
-import {UserService} from './userService';
 import {LocationService} from './locationService';
 import {Location} from '../models/location';
 
@@ -11,8 +10,6 @@ const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
 const publicationService = new PublicationService();
 const courtService = new LocationService();
-
-const userService = new UserService();
 
 export class SubscriptionService {
   async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
@@ -80,7 +77,6 @@ export class SubscriptionService {
       let caseDetailsList: object[];
       let courtDetailsList: object[];
       let urnHearing;
-      const userId = await userService.getPandIUserId('PI_AAD', user);
       switch (selectionName) {
         case 'case-number':
         case 'hearing-selections[]':
@@ -93,7 +89,7 @@ export class SubscriptionService {
           await this.setPendingSubscriptions(caseDetailsList, 'cases', user.piUserId);
           break;
         case 'urn':
-          urnHearing = await publicationService.getCaseByCaseUrn(pendingSubscription[`${selectionName}`], userId);
+          urnHearing = await publicationService.getCaseByCaseUrn(pendingSubscription[`${selectionName}`], user.piUserId);
           if (urnHearing) {
             urnHearing.urnSearch = true;
             await this.setPendingSubscriptions([urnHearing], 'cases', user.piUserId);
@@ -112,10 +108,9 @@ export class SubscriptionService {
   }
 
   public async getCaseDetails(cases, user): Promise<object[]> {
-    const userId = await userService.getPandIUserId('PI_AAD', user);
     const casesList = [];
     for (const caseNumber of cases) {
-      const caseDetails = await publicationService.getCaseByCaseNumber(caseNumber, userId);
+      const caseDetails = await publicationService.getCaseByCaseNumber(caseNumber, user.piUserId);
       if (caseDetails) {
         casesList.push(caseDetails);
       }

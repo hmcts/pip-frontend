@@ -3,18 +3,15 @@ import {Response} from 'express';
 import {cloneDeep} from 'lodash';
 import moment from 'moment';
 import {PublicationService} from '../service/publicationService';
-import {UserService} from '../service/userService';
 
 const publicationService = new PublicationService();
-const userService = new UserService();
 
 export default class SjpPressListController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query.artefactId as string;
-    const userId = await userService.getPandIUserId('PI_AAD', req.user);
-    const sjpData = await publicationService.getIndividualPublicationJson(artefactId, userId);
-    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, userId);
+    const sjpData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);
+    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (sjpData && metaData) {
 

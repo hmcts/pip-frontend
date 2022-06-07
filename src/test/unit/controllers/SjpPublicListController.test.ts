@@ -4,7 +4,6 @@ import {PublicationService} from '../../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
 import {mockRequest} from '../mocks/mockRequest';
-import {UserService} from '../../../main/service/userService';
 import SjpPublicListController from '../../../main/controllers/SjpPublicListController';
 
 const sjpPublicListController = new SjpPublicListController();
@@ -29,13 +28,10 @@ sjpPublicListMetaDataStub.withArgs('').resolves([]);
 
 describe('SJP Public List Type Controller', () => {
   const response = { render: () => {return '';}} as unknown as Response;
-  afterEach(() => {
-    sinon.restore();
-  });
 
   it('should render the SJP public list page', async () =>  {
-    sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
     const request = mockRequest(i18n);
+    request.user = {piUserId: '123'};
 
     request.query = {artefactId: artefactId};
 
@@ -55,9 +51,9 @@ describe('SJP Public List Type Controller', () => {
   });
 
   it('should render error page is query param is empty', async () => {
-    sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
     const request = mockRequest(i18n);
     request.query = {};
+    request.user = {piUserId: '1'};
 
     const responseMock = sinon.mock(response);
 
@@ -68,7 +64,6 @@ describe('SJP Public List Type Controller', () => {
   });
 
   it('should render error page if list is not allowed to view by the user', async () => {
-    sinon.stub(UserService.prototype, 'getPandIUserId').resolves(null);
     const request = mockRequest(i18n);
     request.query = {};
 

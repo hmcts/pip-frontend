@@ -3,7 +3,6 @@ import sinon from 'sinon';
 import { app } from '../../main/app';
 import { expect } from 'chai';
 import { PublicationService } from '../../main/service/publicationService';
-import {UserService} from '../../main/service/userService';
 import { LocationService } from '../../main/service/locationService';
 import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
@@ -24,11 +23,9 @@ removePublicationStub.withArgs('valid-artefact', 'joe@bloggs.com').resolves(true
 removePublicationStub.withArgs('invalid-artefact', 'joe@bloggs.com').resolves(false);
 metadataStub.withArgs('valid-artefact', '123').resolves(mockArtefact);
 metadataStub.withArgs('invalid-artefact', '123').resolves({...mockArtefact, artefactId: 'invalid-artefact'});
-sinon.stub(UserService.prototype, 'getPandIUserId').resolves('123');
 
 describe('Remove List Confirmation', () => {
-  app.request['user'] = {emails: ['joe@bloggs.com']};
-
+  app.request['user'] = {emails: ['joe@bloggs.com'], piUserId: '123'};
   describe('on GET', () => {
     test('should return remove list confirmation page', async () => {
       await request(app)
