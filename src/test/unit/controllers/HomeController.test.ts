@@ -56,4 +56,38 @@ describe('Home Controller', () => {
     await homeController.get(request, response);
     responseMock.verify();
   });
+
+  it('should render a page as english if blank param supplied', async () => {
+    const response = { render: () => {return '';}} as unknown as Response;
+    const request = mockRequest(i18n);
+    const responseMock = sinon.mock(response);
+    request['lng'] = '';
+    request.query = {lng: ''};
+    const expectedOptions = {
+      ...i18n.home,
+      currentLanguage: 'en',
+    };
+
+    responseMock.expects('render').once().withArgs('home', expectedOptions);
+
+    await homeController.get(request, response);
+    responseMock.verify();
+  });
+
+  it('should render a page as english if incorrect param supplied', async () => {
+    const response = { render: () => {return '';}} as unknown as Response;
+    const request = mockRequest(i18n);
+    const responseMock = sinon.mock(response);
+    request['lng'] = '';
+    request.query = {lng: 'de'};
+    const expectedOptions = {
+      ...i18n.home,
+      currentLanguage: 'en',
+    };
+
+    responseMock.expects('render').once().withArgs('home', expectedOptions);
+
+    await homeController.get(request, response);
+    responseMock.verify();
+  });
 });
