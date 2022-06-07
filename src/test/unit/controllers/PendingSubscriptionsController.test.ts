@@ -6,7 +6,7 @@ import PendingSubscriptionsController from '../../../main/controllers/PendingSub
 
 const mockCase = {
   hearingId: 1,
-  courtId: 50,
+  locationId: 50,
   courtNumber: 1,
   date: '15/11/2021 10:00:00',
   judge: 'His Honour Judge A Morley QC',
@@ -16,7 +16,7 @@ const mockCase = {
   urn: 'N363N6R4OG',
 };
 const mockCourt = {
-  courtId: 643,
+  locationId: 643,
   name: 'Aberdeen Tribunal Hearing Centre',
   jurisdiction: 'Tribunal',
   location: 'Scotland',
@@ -46,7 +46,7 @@ describe('Pending Subscriptions Controller', () => {
   describe('GET view', () => {
     it('should render the pending subscription page without subscriptions', () => {
       const request = mockRequest(i18n);
-      request.user = {oid: userWithoutSubscriptions};
+      request.user = {piUserId: userWithoutSubscriptions};
       const expectedData = {
         ...i18n['pending-subscriptions'],
         pendingSubscriptions: {
@@ -65,7 +65,7 @@ describe('Pending Subscriptions Controller', () => {
 
     it('should render pending subscription page with error summary', () => {
       const request = mockRequest(i18n);
-      request.user = {oid: userWithoutSubscriptions};
+      request.user = {piUserId: userWithoutSubscriptions};
       request.query = {'no-subscriptions': 'true'};
       const expectedData = {
         ...i18n['pending-subscriptions'],
@@ -85,7 +85,7 @@ describe('Pending Subscriptions Controller', () => {
 
     it('should render pending subscriptions page with set subscriptions', () => {
       const request = mockRequest(i18n);
-      request.user = {oid: userWithSubscriptions};
+      request.user = {piUserId: userWithSubscriptions};
       const expectedData = {
         ...i18n['pending-subscriptions'],
         pendingSubscriptions: {
@@ -106,7 +106,7 @@ describe('Pending Subscriptions Controller', () => {
   describe('POST view', () => {
     it('should render pending subscriptions page if post data is provided', () => {
       const request = mockRequest(i18n);
-      request.user = {oid: '3'};
+      request.user = {piUserId: '3'};
       request.body = postData;
       const expectedData = {
         ...i18n['pending-subscriptions'],
@@ -127,7 +127,7 @@ describe('Pending Subscriptions Controller', () => {
   describe('removeSubscription view', () => {
     it('should render pending subscriptions page on removeSubscription call', () => {
       const request = mockRequest(i18n);
-      request.user = {oid: '3'};
+      request.user = {piUserId: '3'};
       request.query = queryParams;
       const expectedData = {
         ...i18n['pending-subscriptions'],

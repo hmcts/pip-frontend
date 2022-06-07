@@ -67,12 +67,12 @@ export default function(app: Application): void {
     next();
   }
 
-  function logOut(_req, res): void{
+  function logOut(_req, res, redirectUrl): void{
     res.clearCookie('session');
     logger.info('logout FE URL', FRONTEND_URL);
 
     const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
-    const encodedSignOutRedirect = encodeURIComponent(`${FRONTEND_URL}/view-option`);
+    const encodedSignOutRedirect = encodeURIComponent(redirectUrl);
     logger.info('B2C_URL', B2C_URL);
     logger.info('encodedSignOutRedirect', encodedSignOutRedirect);
     res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
@@ -107,7 +107,8 @@ export default function(app: Application): void {
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
   app.post('/login/return', passport.authenticate(authType, { failureRedirect: '/view-option'}),
     (_req, res) => {adminAuthentication.isAdminUser(_req) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
-  app.get('/logout', logOut);
+  app.get('/logout', (_req, res) => {adminAuthentication.isAdminUser(_req) ?
+    logOut(_req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY) : logOut(_req, res, `${FRONTEND_URL}/view-option`);});
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
@@ -130,17 +131,11 @@ export default function(app: Application): void {
   app.get('/case-reference-number-search', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchController.get);
   app.post('/case-reference-number-search', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchController.post);
   app.get('/case-reference-number-search-results', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
-  app.get('/court-name-search', ensureAuthenticated, app.locals.container.cradle.alphabeticalSearchController.get);
-  app.post('/court-name-search', ensureAuthenticated, app.locals.container.cradle.alphabeticalSearchController.post);
+  app.get('/location-name-search', ensureAuthenticated, app.locals.container.cradle.alphabeticalSearchController.get);
+  app.post('/location-name-search', ensureAuthenticated, app.locals.container.cradle.alphabeticalSearchController.post);
   app.get('/delete-subscription', ensureAuthenticated, app.locals.container.cradle.deleteSubscriptionController.get);
   app.get('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.get);
   app.post('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.post);
-  app.get('/remove-list-confirmation', ensureAuthenticated, app.locals.container.cradle.removeListConfirmationController.get);
-  app.post('/remove-list-confirmation', ensureAuthenticated, app.locals.container.cradle.removeListConfirmationController.post);
-  app.get('/remove-list-search', ensureAuthenticated, app.locals.container.cradle.removeListSearchController.get);
-  app.post('/remove-list-search', ensureAuthenticated, app.locals.container.cradle.removeListSearchController.post);
-  app.get('/remove-list-search-results', ensureAuthenticated, app.locals.container.cradle.removeListSearchResultsController.get);
-  app.get('/remove-list-success', ensureAuthenticated, app.locals.container.cradle.removeListSuccessController.get);
   app.get('/remove-subscription', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.removeSubscription);
   app.get('/sjp-press-list', ensureAuthenticated, app.locals.container.cradle.sjpPressListController.get);
   app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
@@ -170,6 +165,14 @@ export default function(app: Application): void {
   app.post('/media-account-review/reject', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.reject);
   app.get('/media-account-approval', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountApprovalController.get);
   app.post('/media-account-approval', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountApprovalController.post);
+  app.get('/media-account-rejection', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.get);
+  app.post('/media-account-rejection', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.post);
+  app.get('/remove-list-confirmation', ensureAdminAuthenticated, app.locals.container.cradle.removeListConfirmationController.get);
+  app.post('/remove-list-confirmation', ensureAdminAuthenticated, app.locals.container.cradle.removeListConfirmationController.post);
+  app.get('/remove-list-search', ensureAdminAuthenticated, app.locals.container.cradle.removeListSearchController.get);
+  app.post('/remove-list-search', ensureAdminAuthenticated, app.locals.container.cradle.removeListSearchController.post);
+  app.get('/remove-list-search-results', ensureAdminAuthenticated, app.locals.container.cradle.removeListSearchResultsController.get);
+  app.get('/remove-list-success', ensureAdminAuthenticated, app.locals.container.cradle.removeListSuccessController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {

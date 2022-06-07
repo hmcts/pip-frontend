@@ -10,7 +10,7 @@ const subscriptionManagementController = new SubscriptionManagementController();
 describe('Subscriptions Management Controller', () => {
 
   sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns({cases:[]});
-  sinon.stub(SubscriptionService.prototype, 'generateCourtTableRows').returns({courts:[]});
+  sinon.stub(SubscriptionService.prototype, 'generateLocationTableRows').returns({courts:[]});
 
   const response = { render: () => {return '';}} as unknown as Response;
   let responseMock;
@@ -121,7 +121,7 @@ describe('Subscriptions Management Controller', () => {
   it('should render error page if data is null', () => {
     sinon.restore();
     sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns(null);
-    sinon.stub(SubscriptionService.prototype, 'generateCourtTableRows').returns(null);
+    sinon.stub(SubscriptionService.prototype, 'generateLocationTableRows').returns(null);
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
     subscriptionManagementController.get(request, response).then(() => {

@@ -4,7 +4,7 @@ import {mockRequest} from '../mocks/mockRequest';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {CourtService} from '../../../main/service/courtService';
+import {LocationService} from '../../../main/service/locationService';
 import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
 
 const publicationController = new SummaryOfPublicationsController();
@@ -13,7 +13,7 @@ const i18n = {
 };
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawSJPData).results;
-const CourtStub = sinon.stub(CourtService.prototype, 'getCourtById');
+const CourtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
 
 describe('Get publications', () => {
@@ -31,14 +31,14 @@ describe('Get publications', () => {
     } as unknown as Response;
 
     const request = mockRequest(i18n);
-    request.query = {courtId: '1'};
+    request.query = {locationId: '1'};
     request.user = {id: 1};
 
     const responseMock = sinon.mock(response);
 
     const expectedData = {
       ...i18n['summary-of-publications'],
-      courtName: 'New Court',
+      locationName: 'New Court',
       publications: sjpCases,
     };
 
@@ -48,7 +48,7 @@ describe('Get publications', () => {
     responseMock.verify();
   });
 
-  it('should render the SJP if courtId = 0', async () => {
+  it('should render the SJP if locationId = 0', async () => {
 
     const response = {
       render: () => {
@@ -57,14 +57,14 @@ describe('Get publications', () => {
     } as unknown as Response;
 
     const request = mockRequest(i18n);
-    request.query = {courtId: '0'};
+    request.query = {locationId: '0'};
     request.user = {id: 1};
 
     const responseMock = sinon.mock(response);
 
     const expectedData = {
       ...i18n['summary-of-publications'],
-      courtName: 'Single Justice Procedure',
+      locationName: 'Single Justice Procedure',
       publications: sjpCases,
     };
 
@@ -74,7 +74,7 @@ describe('Get publications', () => {
     responseMock.verify();
   });
 
-  it('should render the error screen if there is no courtId passed as a param', async () => {
+  it('should render the error screen if there is no locationId passed as a param', async () => {
     const response = {
       render: () => {
         return '';

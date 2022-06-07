@@ -24,14 +24,14 @@ describe('Case Event Glossary Controller', () => {
     } as unknown as Response;
     const request = mockRequest(i18n);
 
-    request.query = {courtId: '1'};
+    request.query = {locationId: '1'};
 
     const responseMock = sinon.mock(response);
 
     const expectedData = {
       ...i18n['case-event-glossary'],
       statusList: caseEventGlossaryData,
-      courtId: '1',
+      locationId: '1',
     };
 
     responseMock.expects('render').once().withArgs('case-event-glossary', expectedData);

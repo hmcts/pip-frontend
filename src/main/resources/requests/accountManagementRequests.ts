@@ -66,7 +66,7 @@ export class AccountManagementRequests {
       return false;
     }
   }
-  
+
   public async getMediaApplicationById(applicationId): Promise<MediaAccountApplication | null> {
     try {
       const response = await accountManagementApi.get('/application/' + applicationId);
@@ -92,11 +92,11 @@ export class AccountManagementRequests {
       return response.data;
     } catch (error) {
       if (error.response) {
-        logger.error('failed to retrieve media application image', error.response.data);
+        logger.error('failed to retrieve media application image - response', error.response.data);
       } else if (error.request) {
-        logger.error('failed to retrieve media application image', error.request);
+        logger.error('failed to retrieve media application image - request', error.request);
       } else {
-        logger.error('failed to retrieve media application image', error.message);
+        logger.error('failed to retrieve media application image - message', error.message);
       }
     }
     return null;
@@ -132,6 +132,22 @@ export class AccountManagementRequests {
         logger.error('Something went wrong trying to get media applications', error.message);
       }
       return [];
+    }
+  }
+
+  public async getPiUserByAzureOid(oid: string): Promise<string> {
+    try {
+      const response = await accountManagementApi.get(`/account/provenance/PI_AAD/${oid}`);
+      return response.data.userId;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET PI user request', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for Pi user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get the pi user from the oid', error.message);
+      }
+      return null;
     }
   }
 }

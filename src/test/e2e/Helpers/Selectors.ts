@@ -54,7 +54,7 @@ module.exports = {
   LastItemResult: 'tbody > tr.govuk-table__row:last-child > td > a',
   SJPLink: '#sjp-link',
   JurisdictionFilter1: '#Jurisdiction',
-  RegionFilter1: '#Region',
+  RegionFilter1: '#Region-5',
   RegionFilter2: '#Region-2',
 
   // ViewOption page selectors
@@ -143,6 +143,7 @@ module.exports = {
   NameInput: '#fullName',
   EmailInput: '#emailAddress',
   EmployerInput: '#employer',
+  CheckBox: '#tcbox',
 
   // AccountHome selectors
   EmailSubscriptionLink: '#card-subscription-management',
@@ -169,5 +170,27 @@ module.exports = {
   LastNameInput: '#lastName',
   UserRoleRadio: '#user-role',
 
+  //Admin SignIn Page Title
+  AdminPageTitle: 'h2',
+
   // RemoveListSearch selectors
+
+  //MediaAccountRequests selectors
+  MediaAccountView: 'a.govuk-table__cell:nth-last-child(1)',
+
+  //MediaAccountReviewPage
+  MediaAccountReviewApprove: '#approve',
+  MediaAccountReviewReject: '#reject',
+
+  //MediaAccountApprovalPage
+  MediaAccountApprovalNo: '#no',
+  MediaAccountApprovalSubmitButton: '.govuk-button',
+
+  //MediaAccountRejectionPage
+  MediaAccountRejectionYes: '#yes',
+  MediaAccountRejectionSubmitButton: '.govuk-button',
+
+  //MediaAccountRejectionConfirmationPage
+  MediaAccountRejectionConfirmationPanelTitle: '.govuk-panel__title',
+
 };

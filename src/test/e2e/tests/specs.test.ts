@@ -6,7 +6,7 @@ import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
 import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
 import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
 import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
-import { CourtNameSearchPage } from '../PageObjects/CourtNameSearch.page';
+import { LocationNameSearchPage } from '../PageObjects/LocationNameSearchPage';
 import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
 import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
 import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
@@ -38,6 +38,10 @@ import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
 import {MediaAccountRequestsPage} from '../PageObjects/MediaAccountRequests.page';
+import {MediaAccountReviewPage} from '../PageObjects/MediaAccountReview.page';
+import {MediaAccountApprovalPage} from '../PageObjects/MediaAccountApproval.page';
+import {MediaAccountRejectionPage} from '../PageObjects/MediaAccountRejection.page';
+import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccountRejectionConfirmation.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -55,7 +59,7 @@ let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
 let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
 let caseReferenceNumberSearchPage: CaseReferenceNumberSearchPage;
 let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
-let courtNameSearchPage: CourtNameSearchPage;
+let locationNameSearchPage: LocationNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 let deleteSubscriptionPage: DeleteSubscriptionPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
@@ -79,6 +83,10 @@ let searchPublicationResultsPage: RemoveListSearchResultsPage;
 let publicationConfirmationPage: RemoveListConfirmationPage;
 let removePublicationSuccessPage: RemoveListSuccessPage;
 let mediaAccountRequestsPage: MediaAccountRequestsPage;
+let mediaAccountReviewPage: MediaAccountReviewPage;
+let mediaAccountApprovalPage: MediaAccountApprovalPage;
+let mediaAccountRejectionPage: MediaAccountRejectionPage;
+let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -362,22 +370,22 @@ describe('Verified user', () => {
 
       it('should open court or tribunal name search page', async () => {
         await subscriptionAddPage.selectOption('SubscriptionAddByCourtOrTribunal');
-        courtNameSearchPage = await subscriptionAddPage.clickContinueForCourtOrTribunal();
-        expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
+        locationNameSearchPage = await subscriptionAddPage.clickContinueForCourtOrTribunal();
+        expect(await locationNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
       });
 
       it('should select first jurisdiction filter', async () => {
-        await courtNameSearchPage.selectOption('JurisdictionFilter1');
-        expect(await courtNameSearchPage.jurisdictionChecked()).toBeTruthy();
+        await locationNameSearchPage.selectOption('JurisdictionFilter1');
+        expect(await locationNameSearchPage.jurisdictionChecked()).toBeTruthy();
       });
 
       it('should click on the apply filters button', async () => {
-        courtNameSearchPage = await courtNameSearchPage.clickApplyFiltersButton();
-        expect(await courtNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
+        locationNameSearchPage = await locationNameSearchPage.clickApplyFiltersButton();
+        expect(await locationNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
       });
 
       it('should click continue to create subscription', async () => {
-        pendingSubscriptionsPage = await courtNameSearchPage.clickContinue();
+        pendingSubscriptionsPage = await locationNameSearchPage.clickContinue();
         expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
       });
     });
@@ -497,7 +505,6 @@ describe('Admin level journeys', () => {
     await signInPage.enterText(process.env.B2C_ADMIN_USERNAME, 'EmailField');
     await signInPage.enterText(process.env.B2C_ADMIN_PASSWORD, 'PasswordField');
     adminDashboard = await signInPage.clickAdminSignIn();
-    await browser.pause(20000);
   });
   it('should open admin dashboard page on successful sign in', async () => {
     expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
@@ -583,15 +590,42 @@ describe('Admin level journeys', () => {
       mediaAccountRequestsPage = await adminDashboard.clickManageMedia();
       expect(await mediaAccountRequestsPage.getPageTitle()).toEqual('Select application to assess');
     });
+
+    it('should select view application', async () => {
+      mediaAccountReviewPage = await mediaAccountRequestsPage.clickViewApplication();
+      expect(await mediaAccountReviewPage.getPageTitle()).toEqual('Applicant\'s details');
+    });
+
+    it('should click approve application', async () => {
+      mediaAccountApprovalPage = await mediaAccountReviewPage.clickApproveApplication();
+      expect(await mediaAccountApprovalPage.getPageTitle()).toEqual('Are you sure you want to approve this application?');
+    });
+
+    it('should select no to approve application', async () => {
+      await mediaAccountApprovalPage.selectNo();
+      mediaAccountReviewPage = await mediaAccountApprovalPage.clickContinue();
+      expect(await mediaAccountReviewPage.getPageTitle()).toEqual('Applicant\'s details');
+    });
+
+    it('should select reject application', async () => {
+      mediaAccountRejectionPage = await mediaAccountReviewPage.clickRejectApplication();
+      expect(await mediaAccountRejectionPage.getPageTitle()).toEqual('Are you sure you want to reject this application?');
+    });
+
+    it('should select yes to reject application', async () => {
+      await mediaAccountRejectionPage.selectYes();
+      mediaAccountRejectionConfirmationPage = await mediaAccountRejectionPage.clickContinue();
+      expect(await mediaAccountRejectionConfirmationPage.getPanelTitle()).toEqual('Account has been rejected.');
+    });
   });
 
   describe('sign out admin dashboard', () => {
     before(async () => {
       await adminDashboard.open('admin-dashboard');
     });
-    it('should sign out and open view-option page', async () => {
-      viewOptionPage = await adminDashboard.clickSignOut();
-      expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+    it('should sign out and open admin login page', async () => {
+      signInPage = await adminDashboard.clickSignOut();
+      expect(await signInPage.getAdminPageTitle()).toEqual('Sign in with your email address');
     });
   });
 });
