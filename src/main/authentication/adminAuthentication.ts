@@ -6,6 +6,7 @@ export class AdminAuthentication {
       const userInfo = req.user['_json'];
       if (userInfo?.extension_UserRole) {
         if (adminRolesList.includes(userInfo?.extension_UserRole)) {
+          req.user.isAdmin = true;
           return true;
         }
       }
