@@ -1,18 +1,30 @@
 {
-  "title": "Start Page",
-  "header": "See publications and information from a court or tribunal",
-  "p1": "You can use this service to find and view information on hearings in courts and tribunals in England and Wales, and some non-devolved tribunals in Scotland.",
-  "p2": "This service allows you to view:",
-  "bullets1": ["Information from a court or tribunal", "live hearing updates - Crown Court only", "SJP – Single Justice Procedures Cases"],
-  "startButton": "Start now",
-  "p3": "This service is also available in ",
-  "language": "Welsh (Cymraeg)",
-  "p4": "You cannot use this service if you live in Northern Ireland. Contact the ",
-  "a1": "Northern Ireland Courts and Tribunals",
-  "p5": " for help.",
-  "p6": "This service is limited in Scotland to:",
-  "bullets2": ["immigration appeals", "benefit appeals", "employment claims appeals"],
-  "p7": "Contact the ",
-  "a2": "Scottish Courts and Tribunals",
-  "p8": " for other services."
+  "title": "Court and tribunal hearings",
+  "message": "You can use this service to get information about:",
+  "betaHeading": "This is a new service – your <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/ET_Feedback/?pageurl=/\">feedback</a> will help us to improve it.",
+  "bullets": [
+    "Hearings in Civil and Family Courts in Milton Keynes, Oxford, and Reading",
+    "Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding"
+  ],
+  "moreMessage": "More courts and tribunals will become available over time.",
+  "legalMessage": "Legal and media professionals can",
+  "signInLink": "sign in",
+  "welshMessage": "This service is also available in",
+  "languageLink": "Welsh (Cymraeg)",
+  "continue": "Continue",
+  "beforeMessage": "Before you start",
+  "scoAndNI": "If you're in Scotland or Northern Ireland",
+  "contactMessage": "Contact the:",
+  "bulletOptions": [
+    {
+      "linkMessage": "Scottish Courts website",
+      "message": "for courts and some tribunals in Scotland",
+      "link": "https://www.scotcourts.gov.uk/"
+    },
+    {
+      "linkMessage": "Northern Ireland Courts and Tribunals Service",
+      "message": "for courts and tribunals in Northern Ireland",
+      "link": "https://www.courtsni.gov.uk/en-GB/ContactDetails/Pages/default.aspx"
+    }
+  ]
 }

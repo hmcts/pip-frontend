@@ -14,7 +14,6 @@ import { DailyCauseListPage } from '../PageObjects/DailyCauseList.page';
 import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { HomePage } from '../PageObjects/Home.page';
-import { InterstitialPage } from '../PageObjects/Interstitial.page';
 import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
 import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
 import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
@@ -71,7 +70,6 @@ let manualUploadPage: ManualUploadPage;
 let adminDashboard = new AdminDashboardPage;
 let createMediaAccountPage: CreateMediaAccountPage;
 let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
-let interstitialPage: InterstitialPage;
 let accountHomePage: AccountHomePage;
 let dailyCauseListPage: DailyCauseListPage;
 let sjpPublicListPage: SJPPublicListPage;
@@ -91,22 +89,17 @@ let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
     await homePage.open('');
-    expect(await homePage.getPageTitle()).toEqual('HMCTS hearing lists');
-  });
-
-  it('should click on the \'Courts and tribunal hearings\' link and navigate to Interstitial page', async () => {
-    interstitialPage = await homePage.clickLinkToService();
-    expect(await interstitialPage.getPageTitle()).toEqual('Court and tribunal hearings');
+    expect(await homePage.getPageTitle()).toEqual('Court and tribunal hearings');
   });
 
   it('should click accept cookies', async () => {
-    expect(await interstitialPage.cookieHeader()).toEqual('Cookies on Court and tribunal hearings');
-    await interstitialPage.clickAcceptCookies();
-    await interstitialPage.clickHideMessage();
+    expect(await homePage.cookieHeader()).toEqual('Cookies on Court and tribunal hearings');
+    await homePage.clickAcceptCookies();
+    await homePage.clickHideMessage();
   });
 
   it('should click on the continue and navigate to View Options page', async () => {
-    viewOptionPage = await interstitialPage.clickContinue();
+    viewOptionPage = await homePage.clickContinue();
     expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
   });
 

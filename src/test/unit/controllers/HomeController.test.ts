@@ -1,25 +1,25 @@
 import { mockRequest } from '../mocks/mockRequest';
 import { Response } from 'express';
-import InterstitialController from '../../../main/controllers/InterstitialController';
 import sinon from 'sinon';
+import HomeController from '../../../main/controllers/HomeController';
 
-const i18n = {interstitial: {} };
-const interstitialController = new InterstitialController();
+const i18n = {home: {} };
+const homeController = new HomeController();
 
-describe('Interstitial Controller', () => {
+describe('Home Controller', () => {
   it('should render a page', async () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     const responseMock = sinon.mock(response);
     request['lng'] = 'en';
     const expectedOptions = {
-      ...i18n.interstitial,
+      ...i18n.home,
       currentLanguage: 'en',
     };
 
-    responseMock.expects('render').once().withArgs('interstitial', expectedOptions);
+    responseMock.expects('render').once().withArgs('home', expectedOptions);
 
-    await interstitialController.get(request, response);
+    await homeController.get(request, response);
     responseMock.verify();
   });
 
@@ -30,13 +30,13 @@ describe('Interstitial Controller', () => {
     request['lng'] = 'en';
     request.query = {lng: 'en'};
     const expectedOptions = {
-      ...i18n.interstitial,
+      ...i18n.home,
       currentLanguage: 'en',
     };
 
-    responseMock.expects('render').once().withArgs('interstitial', expectedOptions);
+    responseMock.expects('render').once().withArgs('home', expectedOptions);
 
-    await interstitialController.get(request, response);
+    await homeController.get(request, response);
     responseMock.verify();
   });
 
@@ -47,13 +47,13 @@ describe('Interstitial Controller', () => {
     request['lng'] = 'cy';
     request.query = {lng: 'cy'};
     const expectedOptions = {
-      ...i18n.interstitial,
+      ...i18n.home,
       currentLanguage: 'cy',
     };
 
-    responseMock.expects('render').once().withArgs('interstitial', expectedOptions);
+    responseMock.expects('render').once().withArgs('home', expectedOptions);
 
-    await interstitialController.get(request, response);
+    await homeController.get(request, response);
     responseMock.verify();
   });
 });
