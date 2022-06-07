@@ -1,5 +1,5 @@
 import {PipRequest} from '../models/request/PipRequest';
-import { Response } from 'express';
+import {Response} from 'express';
 import {cloneDeep} from 'lodash';
 import {LocationService} from '../service/locationService';
 import {SummaryOfPublicationsService} from '../service/summaryOfPublicationsService';
@@ -17,11 +17,11 @@ export default class SummaryOfPublicationsController {
       const locationName = (court == null ? 'Missing Court' : court.name);
       const publications = await summaryOfPublicationsService.getPublications(parseInt(locationId.toString()), (!!req.user));
 
-        res.render('summary-of-publications', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
-          publications,
-          locationName,
-        });
+      res.render('summary-of-publications', {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
+        publications,
+        locationName,
+      });
     } else {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
