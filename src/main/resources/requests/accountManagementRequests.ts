@@ -152,4 +152,20 @@ export class AccountManagementRequests {
       return [];
     }
   }
+
+  public async getPiUserByAzureOid(oid: string): Promise<string> {
+    try {
+      const response = await accountManagementApi.get(`/account/provenance/PI_AAD/${oid}`);
+      return response.data.userId;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET PI user request', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for Pi user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get the pi user from the oid', error.message);
+      }
+      return null;
+    }
+  }
 }

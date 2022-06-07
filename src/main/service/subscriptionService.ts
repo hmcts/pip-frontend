@@ -90,13 +90,13 @@ export class SubscriptionService {
             hearingIdsList.push(pendingSubscription[`${selectionName}`]);
           caseDetailsList = await this.getCaseDetails(hearingIdsList, user);
           // set results into cache
-          await this.setPendingSubscriptions(caseDetailsList, 'cases', user.oid);
+          await this.setPendingSubscriptions(caseDetailsList, 'cases', user.piUserId);
           break;
         case 'urn':
           urnHearing = await publicationService.getCaseByCaseUrn(pendingSubscription[`${selectionName}`], userId);
           if (urnHearing) {
             urnHearing.urnSearch = true;
-            await this.setPendingSubscriptions([urnHearing], 'cases', user.oid);
+            await this.setPendingSubscriptions([urnHearing], 'cases', user.piUserId);
           }
           break;
         case 'court-selections[]':
@@ -105,7 +105,7 @@ export class SubscriptionService {
             locationIdsList.push(pendingSubscription[`${selectionName}`]);
           courtDetailsList = await this.getCourtDetails(locationIdsList);
           // set results into cache
-          await this.setPendingSubscriptions(courtDetailsList, 'courts', user.oid);
+          await this.setPendingSubscriptions(courtDetailsList, 'courts', user.piUserId);
           break;
       }
     }
