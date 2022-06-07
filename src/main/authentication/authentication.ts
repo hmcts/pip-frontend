@@ -2,6 +2,7 @@ import process from 'process';
 import passportCustom from 'passport-custom';
 import { Logger } from '@hmcts/nodejs-logging';
 import config = require('config');
+import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
 
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
@@ -40,10 +41,11 @@ function oidcSetup(): void {
   const AUTH_RETURN_URL = process.env.AUTH_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/login/return';
   const users = [];
 
-  const findByOid = function(oid, fn): Function {
+  const findByOid = async function(oid, fn): Promise<Function> {
     for (let i = 0, len = users.length; i < len; i++) {
       const user = users[i];
       if (user.oid === oid) {
+        user['piUserId'] = await AccountManagementRequests.prototype.getPiUserByAzureOid(oid);
         return fn(user);
       }
     }
@@ -54,8 +56,8 @@ function oidcSetup(): void {
     done(null, user.oid);
   });
 
-  passport.deserializeUser(function(oid, done) {
-    findByOid(oid, function (user) {
+  passport.deserializeUser(async function(oid, done) {
+    await findByOid(oid, function (user) {
       done(null, user);
     });
   });
@@ -71,8 +73,8 @@ function oidcSetup(): void {
     clientSecret: clientSecret,
     isB2C: true,
   },
-  function(iss, sub, profile, accessToken, refreshToken, done) {
-    findByOid(profile.oid, function(user) {
+  async function(iss, sub, profile, accessToken, refreshToken, done) {
+    await findByOid(profile.oid, function(user) {
       if (!user) {
         // "Auto-registration"
         users.push(profile);

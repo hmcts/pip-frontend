@@ -170,6 +170,9 @@ module.exports = {
   LastNameInput: '#lastName',
   UserRoleRadio: '#user-role',
 
+  //Admin SignIn Page Title
+  AdminPageTitle: 'h2',
+
   // RemoveListSearch selectors
 
   //MediaAccountRequests selectors
