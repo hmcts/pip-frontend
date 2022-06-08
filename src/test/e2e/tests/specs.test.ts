@@ -343,7 +343,7 @@ describe('Verified user', () => {
       it('should open case name search path', async () => {
         await subscriptionAddPage.selectOption('SubscriptionAddByCaseName');
         caseNameSearchPage = await subscriptionAddPage.clickContinueForCaseName();
-        expect(await caseNameSearchPage.getPageTitle()).toBe('What is the name of party or parties involved?');
+        expect(await caseNameSearchPage.getPageTitle()).toBe('What is the name of the party or parties involved?');
       });
 
       it('should search for a valid case name and navigate to results page', async () => {
@@ -623,9 +623,9 @@ describe('Admin level journeys', () => {
     before(async () => {
       await adminDashboard.open('admin-dashboard');
     });
-    it('should sign out and open view-option page', async () => {
-      viewOptionPage = await adminDashboard.clickSignOut();
-      expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+    it('should sign out and open admin login page', async () => {
+      signInPage = await adminDashboard.clickSignOut();
+      expect(await signInPage.getAdminPageTitle()).toEqual('Sign in with your email address');
     });
   });
 });

@@ -82,4 +82,12 @@ export class SignInPage extends CommonPage {
 
     return new AdminDashboardPage();
   }
+
+  async getAdminPageTitle(): Promise<string> {
+    $(helpers.AdminPageTitle).catch(() => {
+      console.log(`${helpers.AdminPageTitle} not found`);
+    });
+
+    return $(helpers.AdminPageTitle).getText();
+  }
 }
