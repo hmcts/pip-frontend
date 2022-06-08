@@ -3,7 +3,7 @@ import { ManualUploadPage } from './ManualUpload.page';
 import { CreateAdminAccountPage } from './CreateAdminAccount.page';
 import { RemoveListSearchPage } from './RemoveListSearch.page';
 import {MediaAccountRequestsPage} from './MediaAccountRequests.page';
-import {ViewOptionPage} from './ViewOption.page';
+import {SignInPage} from './SignIn.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -44,12 +44,12 @@ export class AdminDashboardPage extends CommonPage {
     return new MediaAccountRequestsPage();
   }
 
-  async clickSignOut(): Promise<ViewOptionPage> {
+  async clickSignOut(): Promise<SignInPage> {
     await $(helpers.SignedInBannerSignOut).catch(() => {
       console.log(`${helpers.SignedInBannerSignOut} not found`);
     });
 
     await $(helpers.SignedInBannerSignOut).click();
-    return new ViewOptionPage();
+    return new SignInPage();
   }
 }

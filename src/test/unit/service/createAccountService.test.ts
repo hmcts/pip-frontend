@@ -12,11 +12,13 @@ const validBody = {
   fullName: 'foo bar',
   emailAddress: 'bar@mail.com',
   employer: 'baz',
+  tcbox: 'checked',
 };
 const invalidBody = {
   fullName: '',
   emailAddress: 'bar',
   employer: '',
+  tcbox: null,
 };
 const validAdminBody = {
   emailAddress: 'bar@mail.com',
@@ -47,6 +49,10 @@ const responseErrors = {
     message: 'There is a problem - ID evidence must be a JPG, PDF or PNG',
     href: '#file-upload',
   },
+  checkBoxError: {
+    message: 'There is a problem - You must check the box to confirm you agree to the terms and conditions.',
+    href: '#tcbox',
+  },
 };
 const responseNoErrors = {
   nameError: {
@@ -64,6 +70,10 @@ const responseNoErrors = {
   fileUploadError: {
     message: null,
     href: '#file-upload',
+  },
+  checkBoxError: {
+    message: null,
+    href: '#tcbox',
   },
 };
 const adminResponseNoErrors = {
