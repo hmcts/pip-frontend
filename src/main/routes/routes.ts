@@ -69,7 +69,7 @@ export default function(app: Application): void {
 
   function logOut(_req, res, redirectUrl): void{
     res.clearCookie('session');
-    logger.info('logout FE URL', FRONTEND_URL);
+    logger.info('logout FE URL', FRONTEND_URL); 
 
     const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
     const encodedSignOutRedirect = encodeURIComponent(redirectUrl);

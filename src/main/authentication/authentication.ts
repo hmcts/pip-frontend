@@ -41,7 +41,7 @@ function oidcSetup(): void {
   const AUTH_RETURN_URL = process.env.AUTH_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/login/return';
   const users = [];
 
-  const findByOid = async function(oid, fn): Promise<Function> {
+  const findByOid = async function(oid, fn): Promise<any> {
     for (let i = 0, len = users.length; i < len; i++) {
       const user = users[i];
       if (user.oid === oid) {
@@ -90,7 +90,7 @@ function oidcSetup(): void {
  * This sets up the local version of authentication, which uses a mock instead.
  */
 function mockSetup(): void {
-  const findUser = function(user, fn): Function {
+  const findUser = function(user, fn): () => any {
     return (user['id'] && user['username']) ? fn(user) : fn(null);
   };
 
