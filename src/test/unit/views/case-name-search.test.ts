@@ -6,7 +6,7 @@ import { request as expressRequest } from 'express';
 import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
 
 const PAGE_URL = '/case-name-search';
-const pageTitleValue = 'Subscribe by name of party or parties involved';
+const pageTitleValue = 'Subscribe by name of the party or parties involved';
 let htmlRes: Document;
 
 sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue').returns([]);
@@ -28,7 +28,7 @@ describe('Case name search page', () => {
 
   it('should display header', () => {
     const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(pageHeading[0].innerHTML).contains('What is the name of party or parties involved?', 'Page heading does not exist');
+    expect(pageHeading[0].innerHTML).contains('What is the name of the party or parties involved?', 'Page heading does not exist');
   });
 
   it('should display continue button',  () => {
@@ -43,7 +43,7 @@ describe('Case name search page', () => {
 
   it('should display appropriate label for input field', () => {
     const inputLabel = htmlRes.getElementsByTagName('label');
-    expect(inputLabel[0].innerHTML).contains('For example, Toyota v John Smith.');
+    expect(inputLabel[0].innerHTML).contains('For example, Smith.');
   });
 
   it('should not display error summary on the initial load', () => {
@@ -75,7 +75,7 @@ describe('Case name search page with invalid input', () => {
     const improveResultsMessage = htmlRes.getElementsByClassName('govuk-body');
     expect(additionalMessage[0].innerHTML).contains('There are no matching results.', 'Could not find additional message');
     expect(improveResultsMessage[0].innerHTML).contains(
-      'You can improve your results by double checking your spelling.',
+      'You can:',
       'Could not find improve results message');
   });
 
