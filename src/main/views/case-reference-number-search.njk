@@ -62,9 +62,12 @@
         <div class="no_padding govuk-grid-column-full">
           <h2 class="govuk-heading-s">{{ error.line1 }}</h2>
           <p class="govuk-body">{{ error.line2 }}</p>
+          <ul>
+            <li class="govuk-body">{{ error.liText1 }}</li>
+            <li class="govuk-body"><a href="/subscription-add">{{ error.liText2 }}</a></li>
+          </ul>
         </div>
       </div>
-    </div>
   {% endif %}
   </form>
   {{ super() }}

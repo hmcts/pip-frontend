@@ -43,7 +43,7 @@ export class FileHandlingService {
   }
 
   isValidFileType(fileName: string, image: boolean): boolean {
-    const fileType = fileName.split('.')[1]?.toLocaleLowerCase();
+    const fileType = fileName.slice((fileName.lastIndexOf('.') - 1 >>> 0) + 2).toLocaleLowerCase();
     return image ? allowedImageTypes.includes(fileType) : allowedFileTypes.includes(fileType);
   }
 

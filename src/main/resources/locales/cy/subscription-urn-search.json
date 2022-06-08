@@ -1,0 +1,13 @@
+{
+  "title": "",
+  "header": "",
+  "hint": "",
+  "error": {
+    "title": "Mae yna broblem",
+    "header": "Does yna ddim canlyniadau sy'n cyfateb.",
+    "notfound": "Does yna ddim yn cyfateb i'r meini prawf",
+    "line1": "Gallwch:",
+    "liText1": "",
+    "liText2": ""
+  }
+}
