@@ -18,11 +18,13 @@ export default class SjpPressListController {
       const publishedDateTime = Date.parse(sjpData['document']['publicationDate']);
 
       const manipulatedData = publicationService.formatSJPPressList(JSON.stringify(sjpData));
+      const publishedTime = publicationService.publicationTime(sjpData['document']['publicationDate']);
 
       res.render('single-justice-procedure-press', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['single-justice-procedure-press']),
         sjpData: manipulatedData,
-        publishedDateTime: moment(publishedDateTime).format('D MMMM YYYY [at] h:mm a'),
+        publishedDateTime: moment(publishedDateTime).format('DD MMMM YYYY'),
+        publishedTime: publishedTime,
         contactDate: moment(Date.parse(metaData['contentDate'])).format('D MMMM YYYY'),
       });
     } else {

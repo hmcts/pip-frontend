@@ -44,7 +44,8 @@ describe('SJP Press List Controller', () => {
     const expectedData = {
       ...i18n['single-justice-procedure-press'],
       sjpData: sjpData,
-      publishedDateTime: moment(Date.parse(sjpData['document']['publicationDate'])).format('D MMMM YYYY [at] h:mm a'),
+      publishedDateTime: moment(Date.parse(sjpData['document']['publicationDate'])).format('DD MMMM YYYY'),
+      publishedTime: '11.30pm',
       contactDate: moment(Date.parse(metaData['contentDate'])).format('D MMMM YYYY'),
     };
 

@@ -31,7 +31,7 @@ export class SubscriptionService {
               text: subscription.caseNumber,
             },
             {
-              text: moment(subscription.dateAdded).format('MMM Do YYYY'),
+              text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
             },
             {
               html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>Unsubscribe</a>`,
@@ -53,7 +53,7 @@ export class SubscriptionService {
             text: subscription.locationName,
           },
           {
-            text: moment(subscription.dateAdded).format('MMM Do YYYY'),
+            text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
           },
           {
             html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>Unsubscribe</a>`,
