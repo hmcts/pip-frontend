@@ -3,7 +3,6 @@
   "section1": {
     "text1": "This accessibility statement applies to content published on ",
     "text2": "The Court and Tribunal Hearings Service provides a publishing platform to enable information, such as hearing lists, provided by HMCTS to be shared, displayed and updated as appropriate. It will enable information to be displayed to court users, consistent with jurisdictional procedures and business rules. The service supports HMCTS’ commitment to open justice and the provision of transparent and consistent court and tribunal information across jurisdictions",
-    "text3": " It is based on an accessibility audit for carried out by the Digital Accessibility Centre (DAC) user / technical team on 1 March 2022.",
     "text4": "This website is run by HM Courts and Tribunals. We want as many people as possible to be able to use this website, so we have designed it to be accessible. For example, that means you should be able to:",
     "text5": "We’ve also made the website text as simple as possible to understand.",
     "text6": "(opens in a new window) has advice on making your device easier to use if you have a disability.",
@@ -53,7 +52,8 @@
     "heading": "Contacting us by phone or visiting us in person",
     "text": [
       "We provide a text relay service for people who are D/deaf, hearing impaired or have a speech impediment.",
-      "Our courts and tribunals have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter."
+      "Our courts and tribunals have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.",
+      "Find out how to contact us by using the contact details above."
     ]
   },
   "section7": {
@@ -98,7 +98,6 @@
     "text2": "This website was tested internally at all stages of its build and subjected to ",
     "text3": " testing throughout April 2021 to March 2022.",
     "text4": "This is an excerpt from the DAC report explaining their methodology:",
-    "text5": "This accessibility statement applies to content published on ",
     "text6": "This website was last tested by the Digital Accessibility Centre (DAC) on 1 March 2022 against WCAG 2.1 standards.",
     "text8": "“The service is tested by a team of experienced auditors and analysts, many of who are disabled individuals and users of adaptive technology. The combination of subjective pan-disability user feedback and comprehensive technical auditing allows us to measure how the service performs technically and practically, thereby offering an essential added dimension to our test results that other methods of testing cannot provide.”",
     "text9": "“Manual accessibility checking was conducted by a team of disabled individuals, using a range of adaptive technologies (hardware and software designed to facilitate the use of computers by people with disabilities).”",

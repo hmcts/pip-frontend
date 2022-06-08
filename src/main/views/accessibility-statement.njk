@@ -14,7 +14,7 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
 
   <div id="section1">
-    <p class="govuk-body">{{ section1.text1 }} <a href="{{ section1.links[0].link }}">{{ section1.links[0].text }}.</a></p>
+    <p class="govuk-body">{{ section1.text1 }} <a href="{{ section1.links[0].link }}">{{ section1.links[0].text }}</a></p>
     <p class="govuk-body">{{ section1.text2 }}  {{ section1.text3 }}</p>
     <p class="govuk-body">{{ section1.text4 }}</p>
     <ul class="govuk-list govuk-list--bullet">
@@ -33,6 +33,7 @@
     {% for item in section2.text %}
       <li>{{ item }}</li>
     {% endfor %}
+    </ul>
   </div>
 
   <div id="section3">
@@ -78,9 +79,11 @@
   <div id="section9">
     <p class="govuk-body">{{ section9.preamble }}</p>
     <h2 class="govuk-heading-s">{{ section9.subHeading }}</h2>
+    <ul class="govuk-list govuk-list--bullet">
     {% for item in section9.text %}
-      <p class="govuk-body">{{ item }}</p>
+      <li>{{ item }}</li>
     {% endfor %}
+    </ul>
   </div>
 
   <div id="section10">
