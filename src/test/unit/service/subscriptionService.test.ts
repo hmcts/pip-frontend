@@ -49,6 +49,8 @@ const blankPayload = {
   userId: '5',
 };
 
+const user = {oid: '1234'};
+
 const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';
 const subscriptionService = new SubscriptionService();
@@ -122,17 +124,17 @@ describe('handleNewSubscription function', () => {
 
 describe('getCaseDetails function', () => {
   it('should return case details list', async () => {
-    const caseDetailsList = await subscriptionService.getCaseDetails(['T485914']);
+    const caseDetailsList = await subscriptionService.getCaseDetails(['T485914'], user);
     expect(caseDetailsList).toStrictEqual([mockCase]);
   });
 
   it('should return empty case list if invalid case number is provided', async () => {
-    const caseList = await subscriptionService.getCaseDetails(['']);
+    const caseList = await subscriptionService.getCaseDetails([''], user);
     expect(caseList).toEqual([]);
   });
 
   it('should return empty case list if no cases are provided', async () => {
-    const caseList = await subscriptionService.getCaseDetails([]);
+    const caseList = await subscriptionService.getCaseDetails([], user);
     expect(caseList).toEqual([]);
   });
 });

@@ -11,6 +11,7 @@ const publicationController = new SummaryOfPublicationsController();
 const i18n = {
   'list-option': {},
 };
+
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawSJPData).results;
 const CourtStub = sinon.stub(LocationService.prototype, 'getLocationById');

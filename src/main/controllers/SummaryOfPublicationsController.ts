@@ -15,7 +15,7 @@ export default class SummaryOfPublicationsController {
     if (locationId) {
       const court = await courtService.getLocationById(parseInt(locationId.toString()));
       const locationName = (court == null ? 'Missing Court' : court.name);
-      const publications = await summaryOfPublicationsService.getPublications(parseInt(locationId.toString()), (!!req.user));
+      const publications = await summaryOfPublicationsService.getPublications(parseInt(locationId.toString()), req.user?.['piUserId']);
 
       res.render('summary-of-publications', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),

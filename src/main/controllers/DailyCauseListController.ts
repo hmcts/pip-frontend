@@ -12,8 +12,8 @@ export default class DailyCauseListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const listToLoad = req.path.slice(1, req.path.length);
     const artefactId = req.query.artefactId as string;
-    const searchResults = await publicationService.getIndividualPublicationJson(artefactId, (!!req.user));
-    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, (!!req.user));
+    const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);
+    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (searchResults && metaData) {
 
