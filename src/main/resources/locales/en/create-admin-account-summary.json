@@ -12,6 +12,6 @@
   "whatNextMessage": "This account will be created and the applicant will be notified to set up their account.",
   "error": {
     "title": "There is a problem",
-    "message": "Unable to create admin account, please verify that provided fields are correct"
+    "message": "This email already exists. The user should try signing in using this email or reset their password."
   }
 }
