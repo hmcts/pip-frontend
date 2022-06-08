@@ -5,6 +5,7 @@ import SjpPublicListController from '../../../main/controllers/SjpPublicListCont
 import fs from 'fs';
 import path from 'path';
 import {mockRequest} from '../mocks/mockRequest';
+import moment from "moment";
 
 const responseRender = {render: () => {return '';}} as unknown as Response;
 const mockSJPPublic = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
@@ -26,7 +27,8 @@ describe('List Type Controller', () => {
     const expectedData = {
       casesList: JSON.parse(mockSJPPublic).courtLists[0].courtHouse.courtRoom[0].session[0].sittings,
       length: data.length,
-      date: JsonifiedData['document'].publicationDate,
+      publishedDateTime: moment(Date.parse(JsonifiedData['document']['publicationDate'])).format('DD MMMM YYYY'),
+      publishedTime: '11.30pm',
       ...i18n['single-justice-procedure'],
     };
     const responseMock = sinon.mock(responseRender);
