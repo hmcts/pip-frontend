@@ -41,7 +41,7 @@ function oidcSetup(): void {
   const AUTH_RETURN_URL = process.env.AUTH_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/login/return';
   const users = [];
 
-  const findByOid = async function(oid, fn): Promise<Function> {
+  const findByOid = async function(oid, fn): Promise<any> {
     for (let i = 0, len = users.length; i < len; i++) {
       const user = users[i];
       if (user.oid === oid) {
