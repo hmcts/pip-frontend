@@ -12,11 +12,10 @@ export default class SjpPublicListController {
     const artefactId = req.query['artefactId'];
     const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
-    const publishedDateTime = Date.parse(fileData['document']['publicationDate']);
-    const publishedTime = publicationService.publicationTime(fileData['document']['publicationDate']);
 
     if (fileData && metaData) {
-
+      const publishedDateTime = Date.parse(fileData['document']['publicationDate']);
+      const publishedTime = publicationService.publicationTime(fileData['document']['publicationDate']);
       const data = fileData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'];
       const length = data.length;
       res.render('single-justice-procedure', {
