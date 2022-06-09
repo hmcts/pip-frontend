@@ -248,7 +248,7 @@ export class PublicationService {
     if (min === 0) {
       publishedTime = moment.utc(publicationDatetime).format('ha');
     } else {
-      publishedTime = moment.utc(publicationDatetime).format('h.mma');
+      publishedTime = moment.utc(publicationDatetime).format('h:mma');
     }
     return publishedTime;
   }

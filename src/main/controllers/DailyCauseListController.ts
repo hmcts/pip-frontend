@@ -27,7 +27,7 @@ export default class DailyCauseListController {
       res.render(listToLoad, {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listToLoad]),
         listData: manipulatedData,
-        contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: moment(publishedDateTime).format('DD MMMM YYYY'),
         publishedTime: publishedTime,
         provenance: metaData['provenance'],

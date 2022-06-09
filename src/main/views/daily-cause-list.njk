@@ -18,7 +18,7 @@
     {% endfor %}
     {{ listData['venue']['venueAddress']['postCode'] }}
   </p>
-  <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ publishedDate }}</p>
+  <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contentDate }}</p>
   <p class="govuk-body">{{ listUpdated | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
   <details class="govuk-details" data-module="govuk-details" open>
     <summary class="govuk-details__summary">
@@ -73,7 +73,12 @@
               <div class="govuk-accordion__section-header">
                 <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ sessionCount }}">
-                  {{ courtRoom['courtRoomName'] }} : {{ judiciaryJudges }}
+                  {% if judiciaryJudges | length %}
+                    {{ courtRoom['courtRoomName'] }}: {{ judiciaryJudges }}
+                  {% else %}
+                    {{ courtRoom['courtRoomName'] }}
+                  {% endif %}
+
                 </span>
                 </h2>
               </div>
@@ -154,12 +159,19 @@
         {% endfor %}
     </div>
   {% endfor %}
-  <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: [{{ provenance }}]</p>
+  <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
   {{ super() }}
 </div>
 {% endblock %}
 {% block bodyEnd %}
   <script>
+    window.onload = function() {
+      var hideAllSectionText = document.getElementsByClassName("govuk-accordion__show-all-text");
+      var hideAllSectionIcon = document.getElementsByClassName("govuk-accordion-nav__chevron");
+      hideAllSectionText[0].classList.toggle("accordion-show-all-hide");
+      hideAllSectionIcon[0].classList.toggle("accordion-show-all-hide");
+    };
+
     if ( window.history.replaceState ) {
       window.history.replaceState( null, null, window.location.href );
     }

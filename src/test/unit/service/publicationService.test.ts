@@ -201,7 +201,7 @@ describe('Publication service', () => {
   describe('publicationTime Publication Service', () => {
     it('should return Publication Time List', async () => {
       const data = await publicationService.publicationTime(dailyCauseListData['document']['publicationDate']);
-      expect(data).to.equal('11.30pm');
+      expect(data).to.equal('11:30pm');
     });
   });
 });
