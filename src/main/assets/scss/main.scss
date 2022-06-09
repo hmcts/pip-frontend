@@ -518,10 +518,6 @@ div {
   display: none;
 }
 
-.accordion-show-all-hide {
-  display: none !important; // sass-lint:disable-line no-important
-}
-
 nav {
   .moj-sub-navigation__item {
     &:last-child {

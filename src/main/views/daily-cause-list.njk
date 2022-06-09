@@ -166,10 +166,16 @@
 {% block bodyEnd %}
   <script>
     window.onload = function() {
-      var hideAllSectionText = document.getElementsByClassName("govuk-accordion__show-all-text");
-      var hideAllSectionIcon = document.getElementsByClassName("govuk-accordion-nav__chevron");
-      hideAllSectionText[0].classList.toggle("accordion-show-all-hide");
-      hideAllSectionIcon[0].classList.toggle("accordion-show-all-hide");
+      let hideAllSection = document.querySelectorAll('button[class="govuk-accordion__show-all"]');
+      Array.from(hideAllSection).forEach((element, index) => {
+        element.querySelectorAll('.govuk-accordion__show-all-text').forEach(function(el) {
+          el.style.display = 'none';
+        });
+
+        element.querySelectorAll('.govuk-accordion-nav__chevron').forEach(function(el) {
+          el.style.display = 'none';
+        });
+      });
     };
 
     if ( window.history.replaceState ) {
