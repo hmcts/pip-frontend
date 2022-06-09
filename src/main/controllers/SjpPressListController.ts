@@ -10,8 +10,8 @@ export default class SjpPressListController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query.artefactId as string;
-    const sjpData = await publicationService.getIndividualPublicationJson(artefactId, (!!req.user));
-    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, (!!req.user));
+    const sjpData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);
+    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (sjpData && metaData) {
 

@@ -6,6 +6,7 @@ import {mockRequest} from '../mocks/mockRequest';
 
 const metaStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 const fileStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationFile');
+
 const mockFile = new Blob(['testFile']);
 const i18n = {};
 const response = {
@@ -25,6 +26,7 @@ describe('Flat File Controller', () => {
     fileStub.withArgs('0').resolves(mockFile);
     const request = mockRequest(i18n);
     request.query = {'artefactId':'0'};
+    request.user = {piUserId: '1'};
     const responseMock = sinon.mock(response);
     responseMock.expects('send').once().withArgs(mockFile);
     return flatFileController.get(request, response).then(() => {
@@ -36,6 +38,7 @@ describe('Flat File Controller', () => {
     fileStub.withArgs('1').resolves(mockFile);
     const request = mockRequest(i18n);
     request.query = {'artefactId':'1'};
+    request.user = {piUserId: '1'};
     const responseMock = sinon.mock(response);
     responseMock.expects('send').once().withArgs(mockFile);
     return flatFileController.get(request, response).then(() => {
@@ -47,6 +50,7 @@ describe('Flat File Controller', () => {
     fileStub.withArgs('2').resolves(mockFile);
     const request = mockRequest(i18n);
     request.query = {'artefactId':'2'};
+    request.user = {piUserId: '1'};
     const responseMock = sinon.mock(response);
     responseMock.expects('send').once().withArgs(mockFile);
     return flatFileController.get(request, response).then(() => {
