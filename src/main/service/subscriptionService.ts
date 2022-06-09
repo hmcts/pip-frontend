@@ -174,10 +174,10 @@ export class SubscriptionService {
         payload = {
           channel: 'EMAIL',
           searchType: pendingSubscription.urnSearch ? 'CASE_URN' : 'CASE_ID',
-          searchValue: pendingSubscription.urnSearch ? pendingSubscription.urn : pendingSubscription.caseNumber,
+          searchValue: pendingSubscription.urnSearch ? pendingSubscription.caseUrn : pendingSubscription.caseNumber,
           caseNumber: pendingSubscription.caseNumber,
           caseName: pendingSubscription.caseName,
-          urn: pendingSubscription.urn,
+          urn: pendingSubscription.caseUrn,
           userId,
         };
         break;
