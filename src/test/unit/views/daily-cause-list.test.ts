@@ -32,6 +32,7 @@ const courtData = JSON.parse(rawDataCourt);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(dailyCauseListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
+
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Daily Cause List page', () => {
