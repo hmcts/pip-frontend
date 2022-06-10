@@ -143,6 +143,7 @@ module.exports = {
   NameInput: '#fullName',
   EmailInput: '#emailAddress',
   EmployerInput: '#employer',
+  CheckBox: '#tcbox',
 
   // AccountHome selectors
   EmailSubscriptionLink: '#card-subscription-management',
@@ -169,7 +170,11 @@ module.exports = {
   LastNameInput: '#lastName',
   UserRoleRadio: '#user-role',
 
+  //Admin SignIn Page Title
+  AdminPageTitle: 'h2',
+
   // RemoveListSearch selectors
+  'remove-choice': '#remove-choice',
 
   //MediaAccountRequests selectors
   MediaAccountView: 'a.govuk-table__cell:nth-last-child(1)',

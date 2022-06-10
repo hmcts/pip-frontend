@@ -24,7 +24,7 @@ const mockCase = {
   platform: 'In person',
   caseNumber: 'T485914',
   caseName: 'Ashely Barnes',
-  urn: 'IBRANE1BVW',
+  caseUrn: 'IBRANE1BVW',
 };
 const courtSubscriptionPayload = {
   channel: 'EMAIL',
@@ -48,6 +48,8 @@ const blankPayload = {
   searchValue: '',
   userId: '5',
 };
+
+const user = {oid: '1234'};
 
 const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';
@@ -101,7 +103,7 @@ describe('handleNewSubscription function', () => {
   });
 
   it('should add new case subscription for urn search', async () => {
-    const pendingSubscription = {urn: 'ValidURN'};
+    const pendingSubscription = {caseUrn: 'ValidURN'};
     await subscriptionService.handleNewSubscription(pendingSubscription, '99');
   });
 
@@ -122,17 +124,17 @@ describe('handleNewSubscription function', () => {
 
 describe('getCaseDetails function', () => {
   it('should return case details list', async () => {
-    const caseDetailsList = await subscriptionService.getCaseDetails(['T485914']);
+    const caseDetailsList = await subscriptionService.getCaseDetails(['T485914'], user);
     expect(caseDetailsList).toStrictEqual([mockCase]);
   });
 
   it('should return empty case list if invalid case number is provided', async () => {
-    const caseList = await subscriptionService.getCaseDetails(['']);
+    const caseList = await subscriptionService.getCaseDetails([''], user);
     expect(caseList).toEqual([]);
   });
 
   it('should return empty case list if no cases are provided', async () => {
-    const caseList = await subscriptionService.getCaseDetails([]);
+    const caseList = await subscriptionService.getCaseDetails([], user);
     expect(caseList).toEqual([]);
   });
 });
@@ -224,6 +226,7 @@ describe('createSubscriptionPayload function', () => {
   });
 
   it('should create case subscription payload', async () => {
+    mockCase['urnSearch'] = true;
     const payload = subscriptionService.createSubscriptionPayload(mockCase, 'cases', '1');
     expect(payload).toStrictEqual(caseSubscriptionPayload);
   });

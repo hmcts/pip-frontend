@@ -26,7 +26,7 @@ const i18n = {
 describe('Subscriptions Confirmed Controller', () => {
   it('should render confirmed page if subscribed successfully', () => {
     const request = mockRequest(i18n);
-    request.user = {oid: '1'};
+    request.user = {piUserId: '1'};
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('subscription-confirmed', {...i18n['subscription-confirmed']});
@@ -38,7 +38,7 @@ describe('Subscriptions Confirmed Controller', () => {
 
   it('should render error page if subscription failed', () => {
     const request = mockRequest(i18n);
-    request.user = {oid: '2'};
+    request.user = {piUserId: '2'};
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', {...i18n.error});
@@ -49,7 +49,7 @@ describe('Subscriptions Confirmed Controller', () => {
 
   it('should redirect to pending subscriptions if there are no cached subscriptions', () => {
     const request = mockRequest(i18n);
-    request.user = {oid: '3'};
+    request.user = {piUserId: '3'};
     const response = {render: () => {return '';}, redirect: () => {return '';}} as unknown as Response;
     const responseMock = sinon.mock(response);
 

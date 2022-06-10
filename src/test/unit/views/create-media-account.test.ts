@@ -60,9 +60,14 @@ describe('Create Media Account page', () => {
 
     it('should contain image upload', () => {
       const imageUpload = htmlRes.getElementById('file-upload');
-      const imageUploadLabel = htmlRes.getElementsByClassName('govuk-hint')[3];
+      const imageUploadLabel = htmlRes.getElementsByClassName('govuk-hint')[4];
       expect(imageUpload.getAttribute('type')).equals('file', 'Could not find image upload');
       expect(imageUploadLabel.innerHTML).contains('Must be a jpg, pdf or png', 'Could not find image upload label');
+    });
+
+    it('should contain consent text', () => {
+      const consentLabel = htmlRes.getElementsByClassName('govuk-hint')[3];
+      expect(consentLabel.innerHTML).contains('By uploading your document,', 'Could not find image upload consent text');
     });
 
     it('should display clear photo paragraph', () => {
@@ -74,6 +79,23 @@ describe('Create Media Account page', () => {
       const message = htmlRes.getElementsByClassName('govuk-hint')[2];
       expect(message.innerHTML).contains('We will only use this to confirm your identity for this service, ' +
         'and will delete upon approval or rejection of your request', 'Could not find clear photo message');
+    });
+
+    it('should display t&c paragraph 1', () => {
+      const message = htmlRes.getElementsByClassName('govuk-body')[1];
+      expect(message.innerHTML).contains('A court and tribunal hearing account is granted based on you having ' +
+        'legitimate', 'Could not find this paragraph');
+    });
+
+    it('should display t&c paragraph 2', () => {
+      const message = htmlRes.getElementsByClassName('govuk-body')[2];
+      expect(message.innerHTML).contains('If your circumstances change and you no longer have legitimate reasons',
+        'Could not find this paragraph');
+    });
+
+    it('should display consent checkbox', () => {
+      const checkbox = htmlRes.getElementById('tcbox');
+      expect (checkbox.getAttribute('name')).equals('tcbox');
     });
 
     it('should display continue button', () => {
@@ -99,7 +121,7 @@ describe('Create Media Account page', () => {
     it('should display error messages in th the dialog', () => {
       const list = htmlRes.getElementsByClassName(' govuk-error-summary__list')[0];
       const listItems = list.getElementsByTagName('a');
-      expect(listItems.length).to.equal(4, 'Could not find all error messages');
+      expect(listItems.length).to.equal(5, 'Could not find all error messages');
       expect(listItems[0].innerHTML).contains('There is a problem - Full name field must be populated',
         'Could not find name error');
       expect(listItems[1].innerHTML).contains('There is a problem - Email address field must be populated',
@@ -108,6 +130,8 @@ describe('Create Media Account page', () => {
         'your application for an account', 'Could not find employer error');
       expect(listItems[3].innerHTML).contains('There is a problem - We will need ID evidence to support ' +
         'your application for an account', 'Could not find file error');
+      expect(listItems[4].innerHTML).contains('There is a problem - You must check the box to confirm you ' +
+        'agree to the terms and conditions.', 'Could not find checked box error');
     });
 
     it('should display name error message', () => {

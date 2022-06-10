@@ -19,14 +19,14 @@ subscribeStub.withArgs('2').resolves(false);
 describe('Subscriptions Confirmed', () => {
   describe('on POST', () => {
     test('should return subscription confirmation page', async () => {
-      app.request['user'] = {oid: '1'};
+      app.request['user'] = {piUserId: '1'};
       await request(app)
         .post('/subscription-confirmed')
         .expect((res) => expect(res.status).to.equal(200));
     });
 
     test('should redirect to pending subscriptions page', async () => {
-      app.request['user'] = {oid: '2'};
+      app.request['user'] = {piUserId: '2'};
       await request(app)
         .post('/subscription-confirmed')
         .expect((res) => {

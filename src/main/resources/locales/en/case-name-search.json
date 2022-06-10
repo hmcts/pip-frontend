@@ -1,13 +1,15 @@
 {
-  "title": "Subscribe by name of party or parties involved",
-  "heading": "What is the name of party or parties involved?",
+  "title": "Subscribe by name of the party or parties involved",
+  "heading": "What is the name of the party or parties involved?",
   "backButton": "Back",
-  "inputLabel": "For example, Toyota v John Smith.",
+  "inputLabel": "For example, Smith.",
   "error": {
-    "notFound": "Case name not found. Please try again or search by case reference number, unique reference number, or by a whole court",
+    "notFound": "There is nothing matching your criteria",
     "title": "There is a problem",
     "input": "Please provide a correct case name",
     "line1": "There are no matching results.",
-    "line2": "You can improve your results by double checking your spelling."
+    "line2": "You can:",
+    "liText1": "Double check your spelling",
+    "liText2": "Add subscription by an alternative type"
   }
 }

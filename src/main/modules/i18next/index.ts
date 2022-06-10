@@ -22,7 +22,7 @@ export class I18next {
   public enableFor(app: express.Express): void {
     app.use(i18nextMiddleware.handle(i18next));
     app.use((req: PipRequest, res: Response, next: NextFunction) => {
-      Object.assign(res.locals, req.i18n.getDataByLanguage(req.lng).template);
+      Object.assign(res.locals, req, req.i18n.getDataByLanguage(req.lng).template);
       next();
     });
   }

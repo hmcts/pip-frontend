@@ -1,0 +1,15 @@
+{
+  "title": "",
+  "heading": "",
+  "backButton": "",
+  "inputLabel": "",
+  "error": {
+    "notFound": "Does yna ddim yn cyfateb i'r meini prawf",
+    "title": "Mae yna broblem",
+    "input": "",
+    "line1": "Does yna ddim canlyniadau sy'n cyfateb.",
+    "line2": "Gallwch:",
+    "liText1": "",
+    "liText2": ""
+  }
+}

@@ -21,7 +21,7 @@ export default class CaseNameSearchController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['case-name'];
     if (searchInput) {
-      const searchResults = await publicationService.getCasesByCaseName(searchInput.toLowerCase(), !!req.user);
+      const searchResults = await publicationService.getCasesByCaseName(searchInput.toLowerCase(), req.user?.['piUserId']);
       if (searchResults.length) {
         res.redirect('case-name-search-results?search=' + searchInput);
       } else {
