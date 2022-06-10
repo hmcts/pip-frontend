@@ -243,8 +243,8 @@
     <h2 class="govuk-heading-m">{{ heading2 }}</h2>
 
     {% set allowCookiesRadio1 = govukRadios({
-      idPrefix: "user-role",
-      name: "user-role",
+      idPrefix: "allow-cookies-1",
+      name: "allow-cookies-1",
       fieldset: {
         legend: {
           text: subHeading7
@@ -254,8 +254,8 @@
     }) %}
 
     {% set allowCookiesRadio2 = govukRadios({
-      idPrefix: "user-role",
-      name: "user-role",
+      idPrefix: "allow-cookies-2",
+      name: "allow-cookies-2",
       fieldset: {
         legend: {
           text: subHeading8
@@ -270,15 +270,10 @@
       {{ submitButton(saveText) }}
     </form>
 
-
     {{ govukDetails({
       summaryText: summaryText,
       html: html
     }) }}
-
-
-
-
   {{ super() }}
   </div>
 {% endblock %}
