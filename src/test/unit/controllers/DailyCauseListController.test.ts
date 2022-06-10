@@ -42,9 +42,13 @@ describe('Daily Cause List Controller', () => {
   const request = mockRequest(i18n);
   request.path = '/daily-cause-list';
 
-  it('should render the daily cause list page', async () =>  {
+  afterEach(() => {
+    sinon.restore();
+  });
 
+  it('should render the daily cause list page', async () =>  {
     request.query = {artefactId: artefactId};
+    request.user = {piUserId: '1'};
 
     const responseMock = sinon.mock(response);
 
@@ -65,8 +69,20 @@ describe('Daily Cause List Controller', () => {
   });
 
   it('should render error page is query param is empty', async () => {
-    request.query = {};
 
+    request.query = {};
+    request.user = {piUserId: '1'};
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+    await dailyCauseListController.get(request, response);
+    return responseMock.verify();
+  });
+
+  it('should render error page if list is not allowed to view by the user', async () => {
+
+    request.query = {artefactId: artefactId};
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
