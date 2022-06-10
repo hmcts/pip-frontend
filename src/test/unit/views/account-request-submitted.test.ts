@@ -25,12 +25,6 @@ describe('Account request submitted page', () => {
       .contains('Details submitted', 'Could not find correct value in panel title');
   });
 
-  it('should display panel message', () => {
-    const message = htmlRes.getElementsByClassName('govuk-panel__body');
-    expect(message[0].innerHTML)
-      .contains('Your reference number', 'Could not find correct value in the panel body');
-  });
-
   it('should display valid confirmation message', () => {
     const message = htmlRes.getElementsByClassName('govuk-body');
     expect(message[0].innerHTML)

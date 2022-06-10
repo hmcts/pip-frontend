@@ -16,7 +16,7 @@ cacheStub.withArgs('1', 'courts').resolves(['court']);
 
 describe('Subscriptions Confirmed Page', () => {
   beforeAll(async () => {
-    app.request['user'] = {oid: '1'};
+    app.request['user'] = {piUserId: '1'};
     await request(app).post(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
@@ -70,6 +70,8 @@ describe('Subscriptions Confirmed Page', () => {
   it('should display unordered list with find a court or tribunal', () => {
     const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0]
       .getElementsByTagName('li');
-    expect(listElements[2].innerHTML).to.equal('find a court or tribunal');
+    const anchor = listElements[2].getElementsByTagName('a')[0];
+    expect(anchor.getAttribute('href')).to.equal('/search');
+    expect(anchor.innerHTML).to.equal('find a court or tribunal');
   });
 });

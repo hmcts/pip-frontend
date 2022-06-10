@@ -80,7 +80,7 @@ describe('Case Reference Search Page Blank Input', () => {
 
   it('should display minimum input error message', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
-    expect(errorSummary[0].innerHTML).contains('Case reference number not found. Please try again or search by case name, by unique reference number, or by a whole court', 'Could not find error message');
+    expect(errorSummary[0].innerHTML).contains('There is nothing matching your criteria', 'Could not find error message');
   });
 
   it('should display error message', () => {
@@ -105,7 +105,7 @@ describe('Case Reference Search Page Invalid Input', () => {
 
   it('should display minimum input error message', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
-    expect(errorSummary[0].innerHTML).contains('Case reference number not found. Please try again or search by case name, by unique reference number, or by a whole court', 'Could not find error message');
+    expect(errorSummary[0].innerHTML).contains('There is nothing matching your criteria', 'Could not find error message');
   });
 
   it('should display error message when search invalid case reference no', () => {

@@ -38,7 +38,7 @@ let htmlRes: Document;
 
 describe('Subscriptions Management Page No UserSubscriptions', () => {
   beforeAll(async () => {
-    app.request['user'] = {oid: '2'};
+    app.request['user'] = {piUserId: '2'};
   });
 
   it('should display no subscription message ', async () => {
@@ -74,7 +74,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
 
 describe('Subscriptions Management Page', () => {
   beforeAll(async () => {
-    app.request['user'] = {oid: '1'};
+    app.request['user'] = {piUserId: '1'};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();

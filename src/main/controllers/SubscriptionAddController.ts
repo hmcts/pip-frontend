@@ -33,7 +33,9 @@ export default class SubscriptionAddController {
         res.redirect('/location-name-search');
         break;
       default:
-        res.redirect('/subscription-add?error=true');
+        res.render('subscription-add', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-add']),
+          selectionError: true});
     }
   }
 }

@@ -1,0 +1,19 @@
+{
+  "title": "",
+  "retainHint": "",
+  "nameLabel": "",
+  "emailLabel": "",
+  "emailHint": "",
+  "employerLabel": "",
+  "photoMessage": "",
+  "photoSubMessage": "",
+  "uploadConsent": "Trwy lwytho eich dogfen, rydych yn cadarnhau eich bod yn cydsynio i’ch data gael ei brosesu",
+  "TandCHeading": "Telerau ac Amodau",
+  "TandC1": "Caniateir ichi gael cyfrif ar gyfer gwrandawiadau llys a thribiwnlys ar yr amod bod gennych resymau cyfreithiol dros gael mynediad at wybodaeth nad yw ar gael i’r cyhoedd e.e. rydych yn aelod o sefydliad cyfryngau ac angen gwybodaeth ychwanegol i riportio ar wrandawiadau.",
+  "TandC2": "Os bydd eich amgylchiadau’n newid ac nid oes gennych mwyach resymau cyfreithiol dros gael cyfrif ar gyfer gwrandawiadau llys a thribiwnlys e.e. rydych yn gadael eich cyflogwr a enwyd uchod, eich cyfrifoldeb chi yw hysbysu GLlTEM am hyn fel y gellir dadactifadu eich cyfrif.",
+  "TandCCheckbox": "Ticiwch y blwch hwn, os gwelwch yn dda i gytuno i’r telerau ac amodau uchod",
+  "photoType": "",
+  "errorTitle": "",
+  "ariaFileLabel": "",
+  "ariaCheckboxLabel": ""
+}
