@@ -9,6 +9,7 @@ const largeFile = multerFile('testFile.docx', 3000000);
 const validFile = multerFile('testFile.pdf', 1000);
 const validImage = multerFile('testImage.png', 1000);
 const largeImage = multerFile('testFile.png', 3000000);
+const dotSeparatedFile = multerFile('t.e.s.t.f.i.l.e.png', 1000);
 const invalidFileType = multerFile('testFile.xyz', 1000);
 const noFileType = multerFile('testFile', 1000);
 
@@ -18,6 +19,10 @@ describe('File handling service', () => {
   describe('validateImage', () => {
     it('should return null if valid image is provided', () => {
       expect(fileHandlingService.validateImage(validImage)).toBe(null);
+    });
+
+    it('should return null if a dot-separated image is provided', () => {
+      expect(fileHandlingService.validateImage(dotSeparatedFile)).toBe(null);
     });
 
     it('should return error message if image is not provided', () => {
@@ -103,6 +108,10 @@ describe('File handling service', () => {
     it('should return false for no file type', () => {
       expect(fileHandlingService.isValidFileType('pop', false)).toBe(false);
     });
+
+    it('should return true for dot separated image file', () => {
+      expect(fileHandlingService.isValidFileType('f.i.l.e.png', true));
+    });
   });
 
   describe('isFileCorrectSize', () => {
@@ -134,6 +143,11 @@ describe('File handling service', () => {
     it('should return file type', () => {
       const fileType = fileHandlingService.getFileExtension('demo.pdf');
       expect(fileType).toEqual('pdf');
+    });
+
+    it('should return file type even if dot-separated filename', () => {
+      const fileType = fileHandlingService.getFileExtension('f.i.l.e.n.a.m.e.png');
+      expect(fileType).toEqual('png');
     });
   });
 });

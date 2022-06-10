@@ -60,11 +60,15 @@
       {{ govukInput(inputProperties) }}
     </div>
     {{ submitButton(continueButton) }}
-    {% if noResultsError %}
+    {% if noResultsError or invalidInputError %}
       <div class="govuk-grid-row">
         <div class="no_padding govuk-grid-column-full">
           <h2 class="govuk-heading-s">{{ error.header }}</h2>
-          <p class="govuk-body">{{ error.notfound }}</p>
+          <p class="govuk-body">{{ error.line1 }}</p>
+          <ul>
+            <li class="govuk-body">{{ error.liText1 }}</li>
+            <li class="govuk-body"><a href="/subscription-add">{{ error.liText2 }}</a></li>
+          </ul>
         </div>
       </div>
     {% endif %}

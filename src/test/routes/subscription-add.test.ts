@@ -55,16 +55,5 @@ describe('Subscriptions Add', () => {
           expect(res.header['location']).to.equal('/location-name-search');
         });
     });
-
-    test('should return subscription-add page when no selection is made', async () => {
-      await request(app)
-        .post('/subscription-add')
-        .send({'subscription-choice': ''})
-        .expect((res) => {
-          expect(res.status).to.equal(302);
-          expect(res.header['location']).to.equal('/subscription-add?error=true');
-        });
-    });
   });
-
 });
