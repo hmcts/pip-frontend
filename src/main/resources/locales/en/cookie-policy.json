@@ -72,11 +72,11 @@
     {"name": "rxVisitor", "purpose": "Visitor ID to correlate sessions", "expires": "1 year"},
     {"name": "rxvt", "purpose": "Session timeout", "expires": "Session end"}
   ],
-  "allowCookiesOption1": [
+  "analyticsCookieOptions": [
     {"value": true, "text": "Use cookies that measure my website use"},
     {"value": false, "text": "Do not use cookies that measure my website use"}
   ],
-  "allowCookiesOption2": [
+  "performanceCookieOptions": [
     {"value": true, "text": "Use cookies that measure website application performance monitoring"},
     {"value": false, "text": "Do not cookies that measure website application performance monitoring"}
   ],

@@ -72,11 +72,11 @@
     {"name": "rxVisitor", "purpose": "Rhif adnabod ymwelydd i gyd-berthnasu sesiynau", "expires": "1 blwyddyn"},
     {"name": "rxvt", "purpose": "Terfyn amser y sesiwn", "expires": "Diwedd y sesiwn"}
   ],
-  "allowCookiesOption1": [
+  "analyticsCookieOptions": [
     {"value": true, "text": "Defnyddio cwcis sy’n mesur fy nefnydd o'r wefan"},
     {"value": false, "text": "Peidio â defnyddio cwcis sy'n mesur fy nefnydd o'r wefan"}
   ],
-  "allowCookiesOption2": [
+  "performanceCookieOptions": [
     {"value": true, "text": "Defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau"},
     {"value": false, "text": "Peidio â defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau"}
   ],
