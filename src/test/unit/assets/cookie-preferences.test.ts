@@ -89,4 +89,31 @@ describe('Cookie policy', () => {
     await import('../../../main/assets/js/cookie-preferences');
     expect(cookieBanner.hidden).toBeTruthy();
   });
+
+  it('should be able to update cookies from the radio buttons', async () => {
+    await import('../../../main/assets/js/cookie-preferences');
+
+    Object.defineProperty(document, 'cookie', {
+      writable: true,
+      value: 'cookiePolicy={"essential":true,"analytics":false,"performance":true}',
+    });
+    analyticsCookiesRadioButton.checked = true;
+    performanceCookiesRadioButton.checked = false;
+    await cookiePolicyPageButton.click();
+
+    expect(document.cookie).toContain('"analytics":true');
+    expect(document.cookie).toContain('"performance":false');
+  });
+
+  it('should delete an analytics cooke when analytics is disabled', async () => {
+    // Register 2 cookies, the second should be deleted
+    document.cookie = 'cookiePolicy={"essential":true,"analytics":false,"performance":true}';
+    document.cookie = '_ga=1234';
+
+    // Import the cookie preferences which should delete the _ga=1234 cookie as analytics is false
+    await import('../../../main/assets/js/cookie-preferences');
+
+    // Expect _ga=1234 not to be in the cookies as it should have been removed
+    expect(document.cookie).not.toContain('_ga=1234');
+  });
 });

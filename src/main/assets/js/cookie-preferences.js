@@ -118,12 +118,10 @@ function removeAnalyticsNonEssentialCookies() {
   ['_ga', '_gat', '_gid'].forEach(cookie => {
     setCookie(cookie, '', true);
   });
-  updateCookiePolicy('analytics', false);
 }
 
 function removePerformanceNonEssentialCookies() {
   ['dtCookie', 'dtLatC', 'dtPC', 'dtSa', 'rxVisitor', 'rxvt'].forEach(cookie => {
     setCookie(cookie, '', true);
   });
-  updateCookiePolicy('performance', false);
 }
