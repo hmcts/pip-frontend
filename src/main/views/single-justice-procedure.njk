@@ -11,7 +11,7 @@
 {% endblock %}
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
-  <p class="govuk-body">{{ listDetail | replace("CASES_COUNT", length) | replace("PUBLICATION_DATE", date)}}</p>
+  <p class="govuk-body">{{ listDetail | replace("CASES_COUNT", length) }} {{ publishedDateTime }} {{ publishedAt }} {{ publishedTime }}</p>
   <div class="parent-box">
     <div class="overflow-table">
     {% set sjpCase = [] %}
