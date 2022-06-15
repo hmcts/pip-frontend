@@ -39,6 +39,11 @@ stub.withArgs('analytics-cookies-options').returns(analyticsCookiesRadioButton);
 stub.withArgs('performance-cookies-options').returns(performanceCookiesRadioButton);
 
 describe('Cookie policy', () => {
+
+  afterEach(() => {
+    jest.resetModules();
+  });
+
   it('should display cookie banner if no cookie is set', async () => {
     cookieBanner.hidden = true;
     await import('../../../main/assets/js/cookie-preferences');
@@ -105,15 +110,34 @@ describe('Cookie policy', () => {
     expect(document.cookie).toContain('"performance":false');
   });
 
-  it('should delete an analytics cooke when analytics is disabled', async () => {
-    // Register 2 cookies, the second should be deleted
-    document.cookie = 'cookiePolicy={"essential":true,"analytics":false,"performance":true}';
-    document.cookie = '_ga=1234';
-
-    // Import the cookie preferences which should delete the _ga=1234 cookie as analytics is false
+  it('should delete an analytics and performance cookie when analytics and performance is disabled', async () => {
+    Object.defineProperty(document, 'cookie', {
+      writable: true,
+      value: 'cookiePolicy={"essential":true,"analytics":false,"performance":false}; _ga=1234; dtCookie=1234',
+    });
     await import('../../../main/assets/js/cookie-preferences');
 
-    // Expect _ga=1234 not to be in the cookies as it should have been removed
     expect(document.cookie).not.toContain('_ga=1234');
+    expect(document.cookie).not.toContain('dtCookie=1234');
+  });
+
+  it('should delete an analytics cookie when analytics is disabled', async () => {
+    Object.defineProperty(document, 'cookie', {
+      writable: true,
+      value: 'cookiePolicy={"essential":true,"analytics":false,"performance":true}; _ga=1234',
+    });
+    await import('../../../main/assets/js/cookie-preferences');
+
+    expect(document.cookie).not.toContain('_ga=1234');
+  });
+
+  it('should delete a performance cookie when performance is disabled', async () => {
+    Object.defineProperty(document, 'cookie', {
+      writable: true,
+      value: 'cookiePolicy={"essential":true,"analytics":true,"performance":false}; dtCookie=1234',
+    });
+    await import('../../../main/assets/js/cookie-preferences');
+
+    expect(document.cookie).not.toContain('dtCookie=1234');
   });
 });
