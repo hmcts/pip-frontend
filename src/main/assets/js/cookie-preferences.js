@@ -48,7 +48,7 @@ function setCookie(cname, cvalue, removeCookie) {
     d.setTime(d.getTime() + (expiryDays * 24 * 60 * 60 * 1000));
   }
   const expires = `expires=${d.toUTCString()}`;
-  document.cookie = `${cname}=${cvalue};${expires};path=/;Secure=true`;
+  document.cookie = `${cname}=${cvalue};${expires};path=/;Secure=true;domain=.hmcts.net`;
 }
 
 function getCookie(cname) {
