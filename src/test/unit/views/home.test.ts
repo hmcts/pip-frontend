@@ -63,7 +63,7 @@ describe('Home page', () => {
     it('should display beta header', () => {
       const betaHeader = htmlRes.getElementsByClassName('govuk-phase-banner');
       expect(betaHeader[0].innerHTML).contains('beta', 'Could not find beta header');
-      expect(betaHeader[0].innerHTML).contains('https://www.smartsurvey.co.uk/s/ET_Feedback/?pageurl=/', 'link is broken in the beta heading.');
+      expect(betaHeader[0].innerHTML).contains('https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=/', 'link is broken in the beta heading.');
     });
 
     it('should display continue button',  () => {
