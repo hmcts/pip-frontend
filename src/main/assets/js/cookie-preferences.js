@@ -37,35 +37,6 @@ cookiePolicyPageButton.onclick = () => {
   updateCookiePolicy('performance', performanceCookiesRadioButton.checked);
 };
 
-function setCookie(cname, cvalue, removeCookie) {
-  const expiryDays = 365;
-  let d = '';
-
-  if(removeCookie) {
-    d = new Date(null);
-  } else {
-    d = new Date();
-    d.setTime(d.getTime() + (expiryDays * 24 * 60 * 60 * 1000));
-  }
-  const expires = `expires=${d.toUTCString()}`;
-  document.cookie = `${cname}=${cvalue};${expires};path=/;Secure=true;domain=.hmcts.net`;
-}
-
-function getCookie(cname) {
-  let name = cname + '=';
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for(let item of ca) {
-    while (item.charAt(0) == ' ') {
-      item = item.substring(1);
-    }
-    if (item.indexOf(name) == 0) {
-      return item.substring(name.length, item.length);
-    }
-  }
-  return '';
-}
-
 function setInitialCookiePolicy(value) {
   let cookieValue = JSON.stringify({
     essential: true,
@@ -73,7 +44,7 @@ function setInitialCookiePolicy(value) {
     performance: value,
   });
 
-  setCookie(cookieName, cookieValue, false);
+  Cookies.set(cookieName, cookieValue, { expires: 365, path: '/', secure: true});
   cookieBannerMessage.hidden = true;
 
   if(value) {
@@ -84,23 +55,24 @@ function setInitialCookiePolicy(value) {
 }
 
 function updateCookiePolicy(field, value) {
-  let cookieValues = JSON.parse(getCookie(cookieName));
+  let cookieValues = JSON.parse(Cookies.get(cookieName));
+
   if(field === 'performance') {
     cookieValues.performance = value;
   } else if (field === 'analytics') {
     cookieValues.analytics = value;
   }
-  setCookie(cookieName, JSON.stringify(cookieValues), false);
+  Cookies.set(cookieName, JSON.stringify(cookieValues), { expires: 365, path: '/', secure: true});
 }
 
 function checkCookie() {
-  const cookiePolicy = getCookie(cookieName);
+  const cookiePolicy = Cookies.get(cookieName);
   let cookieValues = '';
-  if(cookiePolicy.length > 1) {
+  if(cookiePolicy !== undefined) {
     cookieValues = JSON.parse(cookiePolicy);
   }
 
-  if (cookiePolicy === '') {
+  if (cookiePolicy === undefined) {
     cookieBanner.hidden = false;
   } else {
     if(cookieValues.analytics === false && cookieValues.performance === false) {
@@ -116,12 +88,12 @@ function checkCookie() {
 
 function removeAnalyticsNonEssentialCookies() {
   ['_ga', '_gat', '_gid'].forEach(cookie => {
-    setCookie(cookie, '', true);
+    Cookies.remove(cookie);
   });
 }
 
 function removePerformanceNonEssentialCookies() {
   ['dtCookie', 'dtLatC', 'dtPC', 'dtSa', 'rxVisitor', 'rxvt'].forEach(cookie => {
-    setCookie(cookie, '', true);
+    Cookies.remove(cookie);
   });
 }

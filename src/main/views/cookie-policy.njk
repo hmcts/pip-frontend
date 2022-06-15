@@ -286,7 +286,7 @@
 {% block bodyEnd %}
   {{ super() }}
   <script>
-    const cookiePolicy = getCookie(cookieName)
+    const cookiePolicy = Cookies.get(cookieName)
     cookieValues = JSON.parse(cookiePolicy);
     document.getElementById('analytics-cookies-options').checked = cookieValues.analytics;
     document.getElementById('analytics-cookies-options-2').checked = cookieValues.analytics === false;
