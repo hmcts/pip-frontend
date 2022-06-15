@@ -210,13 +210,10 @@ describe('Unverified user', () => {
         expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure?');
       });
 
-      //TODO: enable once staging has valid SJP publication
-      if (process.env.EXCLUDE_E2E === 'true') {
-        it('should select first list item', async () => {
-          sjpPublicListPage = await singleJusticeProcedurePage.clickSOPListItem();
-          expect(await sjpPublicListPage.getPageTitle()).toEqual('Single Justice Procedure cases that are ready for hearing');
-        });
-      }
+      it('should select first list item', async () => {
+        sjpPublicListPage = await singleJusticeProcedurePage.clickSOPListItem();
+        expect(await sjpPublicListPage.getPageTitle()).toEqual('Single Justice Procedure cases that are ready for hearing');
+      });
     });
   });
 
@@ -303,34 +300,31 @@ describe('Verified user', () => {
       expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add an email subscription?');
     });
 
-    //TODO: excluded URN as there are no any at the moment
-    if (process.env.EXCLUDE_E2E === 'true') {
-      describe('following the URN path', async () => {
-        const validSearchTerm = 'N363N6R4OG';
-        const expectedNumOfResults = 1;
+    describe('following the URN path', async () => {
+      const validSearchTerm = 'N363N6R4OG';
+      const expectedNumOfResults = 1;
 
-        it('should select \'By unique reference number\' option and navigate to search urn page', async () => {
-          await subscriptionAddPage.selectOption('SubscriptionAddByUniqueRefNumber');
-          subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
-          expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('Enter a unique reference number (URN)');
-        });
-
-        it('should enter text and click continue', async () => {
-          await subscriptionUrnSearchPage.enterText(validSearchTerm);
-          subscriptionUrnSearchResultsPage = await subscriptionUrnSearchPage.clickContinue();
-          expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
-        });
-
-        it(`should display ${expectedNumOfResults} results`, async () => {
-          expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
-        });
-
-        it('should click continue to create subscription', async () => {
-          pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
-          expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
-        });
+      it('should select \'By unique reference number\' option and navigate to search urn page', async () => {
+        await subscriptionAddPage.selectOption('SubscriptionAddByUniqueRefNumber');
+        subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
+        expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('What is the unique reference number (URN)?');
       });
-    }
+
+      it('should enter text and click continue', async () => {
+        await subscriptionUrnSearchPage.enterText(validSearchTerm);
+        subscriptionUrnSearchResultsPage = await subscriptionUrnSearchPage.clickContinue();
+        expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
+      });
+
+      it(`should display ${expectedNumOfResults} results`, async () => {
+        expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
+      });
+
+      it('should click continue to create subscription', async () => {
+        pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
+        expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
+      });
+    });
 
     describe('following the case name path', async () => {
       const validCaseName = 'Anderson-v-Smith';
@@ -385,6 +379,7 @@ describe('Verified user', () => {
       });
 
       it('should click continue to create subscription', async () => {
+        await locationNameSearchPage.tickCourtCheckbox();
         pendingSubscriptionsPage = await locationNameSearchPage.clickContinue();
         expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
       });
@@ -544,7 +539,7 @@ describe('Admin level journeys', () => {
       createAdminAccountSummaryPage = await createAdminAccountPage.clickContinue();
       expect(await createAdminAccountSummaryPage.getPageTitle()).toEqual('Check account details');
     });
-    //TODO: enable once PUB-1098 is merged into staging
+    //TODO: enable once ability to remove admin accounts comes in to prevent clogging of admin accounts as fails to create account that already exists
     if (process.env.EXCLUDE_E2E === 'true') {
       it('should click confirm and create user account', async () => {
         createAdminAccountSummaryPage = await createAdminAccountSummaryPage.clickConfirm();
@@ -560,26 +555,24 @@ describe('Admin level journeys', () => {
       expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
     });
     it('should enter valid court in the search field, click continue and open search results page', async () => {
-      const searchTerm = 'Milton Keynes County Court and Family Court';
+      const searchTerm = 'Oxford Combined Court Centre';
       await searchPublicationPage.enterText(searchTerm);
       searchPublicationResultsPage = await searchPublicationPage.clickContinue();
       expect(await searchPublicationResultsPage.getPageTitle()).toEqual('Select content to remove');
     });
-    //TODO: enable once get publication metadata endpoint accepts x-admin header
-    if (process.env.EXCLUDE_E2E === 'true') {
-      it('should click on the first result and open confirmation page', async () => {
-        publicationConfirmationPage = await searchPublicationResultsPage.clickRemoveOnFirstRecord();
-        expect(await publicationConfirmationPage.getPageTitle()).toEqual('Are you sure you want to remove this publication?');
-      });
-      it('should select yes option and remove publication', async () => {
-        await publicationConfirmationPage.selectOption('remove-choice');
-        expect(await removePublicationSuccessPage.getPanelTitle()).toEqual('Success');
-      });
-      it('should click on the home link and open admin dashboard page', async () => {
-        adminDashboard = await removePublicationSuccessPage.clickHome();
-        expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
-      });
-    }
+    it('should click on the first result and open confirmation page', async () => {
+      publicationConfirmationPage = await searchPublicationResultsPage.clickRemoveOnFirstRecord();
+      expect(await publicationConfirmationPage.getPageTitle()).toEqual('Are you sure you want to remove this publication?');
+    });
+    it('should select yes option and remove publication', async () => {
+      await publicationConfirmationPage.selectOption('remove-choice');
+      removePublicationSuccessPage= await publicationConfirmationPage.clickContinueToRemovePublication();
+      expect(await removePublicationSuccessPage.getPanelTitle()).toEqual('Success');
+    });
+    it('should click on the home link and open admin dashboard page', async () => {
+      adminDashboard = await removePublicationSuccessPage.clickHome();
+      expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+    });
   });
 
   describe('Manage media account requests journey', () => {

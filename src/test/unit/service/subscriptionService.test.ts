@@ -24,7 +24,7 @@ const mockCase = {
   platform: 'In person',
   caseNumber: 'T485914',
   caseName: 'Ashely Barnes',
-  urn: 'IBRANE1BVW',
+  caseUrn: 'IBRANE1BVW',
 };
 const courtSubscriptionPayload = {
   channel: 'EMAIL',
@@ -103,7 +103,7 @@ describe('handleNewSubscription function', () => {
   });
 
   it('should add new case subscription for urn search', async () => {
-    const pendingSubscription = {urn: 'ValidURN'};
+    const pendingSubscription = {caseUrn: 'ValidURN'};
     await subscriptionService.handleNewSubscription(pendingSubscription, '99');
   });
 
@@ -226,6 +226,7 @@ describe('createSubscriptionPayload function', () => {
   });
 
   it('should create case subscription payload', async () => {
+    mockCase['urnSearch'] = true;
     const payload = subscriptionService.createSubscriptionPayload(mockCase, 'cases', '1');
     expect(payload).toStrictEqual(caseSubscriptionPayload);
   });
