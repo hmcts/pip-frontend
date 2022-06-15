@@ -22,7 +22,7 @@
   </details>
   <div class="parent-box">
     <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contactDate }}</p>
-    <p class="govuk-body">{{ published }} {{ publishedDateTime }}</p>
+    <p class="govuk-body">{{ published }} {{ publishedDateTime }} {{ publishedAt }} {{ publishedTime }}</p>
     <div class="overflow-table govuk-body">
       {% set hearingCount = 0 %}
       {% for courtList in sjpData['courtLists'] %}
