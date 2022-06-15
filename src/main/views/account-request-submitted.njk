@@ -9,10 +9,8 @@
 {% endblock %}
 {% block content %}
     <div class="govuk-!-width-two-thirds parent-box">
-        {% set panelContent = panelMessage +'<br><strong>ABC123</strong>' %}
         {{ govukPanel({
-            titleText: panelTitle,
-            html: panelContent
+            titleText: panelTitle
         }) }}
         <p class="govuk-body">{{ confirmationSent }}</p>
         <h2 class="govuk-heading-m">{{ nextMessage }}</h2>

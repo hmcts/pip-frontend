@@ -1,19 +1,16 @@
 import { CommonPage } from './Common.page';
-import { InterstitialPage } from './Interstitial.page';
+import { ViewOptionPage } from './ViewOption.page';
 
 const helpers = require('../Helpers/Selectors');
 
 export class HomePage extends CommonPage {
-  async getPageTitle(): Promise<string> {
-    $(helpers.MainHeader).catch(() => {
-      console.log(`${helpers.MainHeader} not found`);
+  async clickContinue(): Promise<ViewOptionPage> {
+    $(helpers.ContinueButton).catch(() => {
+      console.log(`${helpers.ContinueButton} not found`);
     });
 
-    return $(helpers.MainHeader).getText();
-  }
-
-  async clickLinkToService(): Promise<InterstitialPage> {
-    await $(helpers.ServiceLink).click();
-    return new InterstitialPage();
+    const button = await $(helpers.ContinueButton);
+    await button.click();
+    return new ViewOptionPage();
   }
 }

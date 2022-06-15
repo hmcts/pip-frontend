@@ -27,6 +27,7 @@ describe('Case Reference Number Search Result Controller', () => {
 
     const request = mockRequest(i18n);
     request.query = { 'search-input': validCaseNo};
+    request.user = {piUserId: '1'};
     const responseMock = sinon.mock(response);
 
     const expectedData = {
@@ -46,6 +47,7 @@ describe('Case Reference Number Search Result Controller', () => {
 
     const request = mockRequest(i18n);
     request.query = {};
+    request.user = {piUserId: '1'};
 
     const responseMock = sinon.mock(response);
 

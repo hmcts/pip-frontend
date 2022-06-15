@@ -21,12 +21,11 @@ const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPubl
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({locationId: '1', name: 'Mock Court'});
 removePublicationStub.withArgs('valid-artefact', 'joe@bloggs.com').resolves(true);
 removePublicationStub.withArgs('invalid-artefact', 'joe@bloggs.com').resolves(false);
-metadataStub.withArgs('valid-artefact', true).resolves(mockArtefact);
-metadataStub.withArgs('invalid-artefact', true).resolves({...mockArtefact, artefactId: 'invalid-artefact'});
+metadataStub.withArgs('valid-artefact', '123').resolves(mockArtefact);
+metadataStub.withArgs('invalid-artefact', '123').resolves({...mockArtefact, artefactId: 'invalid-artefact'});
 
 describe('Remove List Confirmation', () => {
-  app.request['user'] = {emails: ['joe@bloggs.com']};
-
+  app.request['user'] = {emails: ['joe@bloggs.com'], piUserId: '123'};
   describe('on GET', () => {
     test('should return remove list confirmation page', async () => {
       await request(app)

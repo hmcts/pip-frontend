@@ -15,7 +15,7 @@ const sjpTableData = 'govuk-table__body';
 
 const expectedHeader = 'Single Justice Procedure cases that are ready for hearing';
 const summaryHeadingText = 'List containing';
-const listDate = '25th March 2022';
+const listDate = '25 March 2022';
 const offenderName = 'CFake';
 const offenderPostcode = 'BD17';
 const offenderProsecutor = 'Driver and Vehicle Licensing Agency';

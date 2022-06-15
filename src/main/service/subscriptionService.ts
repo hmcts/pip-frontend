@@ -31,7 +31,7 @@ export class SubscriptionService {
               text: subscription.caseNumber,
             },
             {
-              text: moment(subscription.dateAdded).format('MMM Do YYYY'),
+              text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
             },
             {
               html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>Unsubscribe</a>`,
@@ -53,7 +53,7 @@ export class SubscriptionService {
             text: subscription.locationName,
           },
           {
-            text: moment(subscription.dateAdded).format('MMM Do YYYY'),
+            text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
           },
           {
             html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>Unsubscribe</a>`,
@@ -84,12 +84,12 @@ export class SubscriptionService {
           Array.isArray(pendingSubscription[`${selectionName}`]) ?
             hearingIdsList = pendingSubscription[`${selectionName}`] :
             hearingIdsList.push(pendingSubscription[`${selectionName}`]);
-          caseDetailsList = await this.getCaseDetails(hearingIdsList);
+          caseDetailsList = await this.getCaseDetails(hearingIdsList, user);
           // set results into cache
           await this.setPendingSubscriptions(caseDetailsList, 'cases', user.piUserId);
           break;
         case 'urn':
-          urnHearing = await publicationService.getCaseByCaseUrn(pendingSubscription[`${selectionName}`], true);
+          urnHearing = await publicationService.getCaseByCaseUrn(pendingSubscription[`${selectionName}`], user.piUserId);
           if (urnHearing) {
             urnHearing.urnSearch = true;
             await this.setPendingSubscriptions([urnHearing], 'cases', user.piUserId);
@@ -107,10 +107,10 @@ export class SubscriptionService {
     }
   }
 
-  public async getCaseDetails(cases): Promise<object[]> {
+  public async getCaseDetails(cases, user): Promise<object[]> {
     const casesList = [];
     for (const caseNumber of cases) {
-      const caseDetails = await publicationService.getCaseByCaseNumber(caseNumber, true);
+      const caseDetails = await publicationService.getCaseByCaseNumber(caseNumber, user.piUserId);
       if (caseDetails) {
         casesList.push(caseDetails);
       }
@@ -174,10 +174,10 @@ export class SubscriptionService {
         payload = {
           channel: 'EMAIL',
           searchType: pendingSubscription.urnSearch ? 'CASE_URN' : 'CASE_ID',
-          searchValue: pendingSubscription.urnSearch ? pendingSubscription.urn : pendingSubscription.caseNumber,
+          searchValue: pendingSubscription.urnSearch ? pendingSubscription.caseUrn : pendingSubscription.caseNumber,
           caseNumber: pendingSubscription.caseNumber,
           caseName: pendingSubscription.caseName,
-          urn: pendingSubscription.urn,
+          urn: pendingSubscription.caseUrn,
           userId,
         };
         break;

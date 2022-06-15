@@ -29,7 +29,7 @@ export const dataManagementApi = axios.create({baseURL: (process.env.DATA_MANAGE
 export const subscriptionManagementApi = axios.create({baseURL: (process.env.SUBSCRIPTION_MANAGEMENT_URL || 'https://pip-subscription-management.staging.platform.hmcts.net'), timeout: 10000});
 export const accountManagementApi = axios.create({baseURL: accountManagementApiUrl, timeout: 10000});
 
-function createCredentials (url): Function {
+function createCredentials (url): () => any {
 
   if (!process.env.INSECURE) {
     return oauth.client(axios.create(), {
