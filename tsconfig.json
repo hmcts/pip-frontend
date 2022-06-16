@@ -1,7 +1,6 @@
 {
   "exclude": ["src/test/e2e/**/*.ts"],
   "compilerOptions": {
-    "allowJs": true,
     "outDir": "./dist/",
     "module": "commonjs",
     "esModuleInterop": true,
