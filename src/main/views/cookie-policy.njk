@@ -243,28 +243,32 @@
     <h2 class="govuk-heading-m">{{ heading2 }}</h2>
 
     {% set analyticsCookieRadio = govukRadios({
-      idPrefix: "analytics-cookies-options",
-      name: "analytics-cookies-options",
+      classes: 'govuk-radios',
+      idPrefix: "analytics",
+      name: "analytics",
       fieldset: {
         legend: {
-          text: subHeading7
+          text: subHeading7,
+          classes: "govuk-fieldset__legend--s"
         }
       },
       items: analyticsCookieOptions
     }) %}
 
     {% set performanceCookieRadio = govukRadios({
-      idPrefix: "performance-cookies-options",
-      name: "performance-cookies-options",
+      classes: 'govuk-radios',
+      idPrefix: "apm",
+      name: "apm",
       fieldset: {
         legend: {
-          text: subHeading8
+          text: subHeading8,
+          classes: "govuk-fieldset__legend--s"
         }
       },
       items: performanceCookieOptions
     }) %}
 
-    <form novalidate>
+    <form class="cookie-preferences-form">
       {{ analyticsCookieRadio }}
       {{ performanceCookieRadio }}
       {{ govukButton({
@@ -284,16 +288,4 @@
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
-  <script src="assets/js/js-cookie.min.js"></script>
-  <script>
-    const cookiePolicy = Cookies.get('cookiePolicy');
-    if(cookiePolicy !== undefined) {
-      const cookieValues = JSON.parse(cookiePolicy);
-      document.getElementById('analytics-cookies-options').checked = cookieValues.analytics;
-      document.getElementById('analytics-cookies-options-2').checked = cookieValues.analytics === false;
-
-      document.getElementById('performance-cookies-options').checked = cookieValues.performance;
-      document.getElementById('performance-cookies-options-2').checked = cookieValues.performance === false;
-    }
-  </script>
 {% endblock %}

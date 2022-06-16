@@ -73,12 +73,12 @@
     {"name": "rxvt", "purpose": "Session timeout", "expires": "Session end"}
   ],
   "analyticsCookieOptions": [
-    {"value": true, "text": "Use cookies that measure my website use"},
-    {"value": false, "text": "Do not use cookies that measure my website use"}
+    {"value": "on", "text": "Use cookies that measure my website use"},
+    {"value": "off", "text": "Do not use cookies that measure my website use"}
   ],
   "performanceCookieOptions": [
-    {"value": true, "text": "Use cookies that measure website application performance monitoring"},
-    {"value": false, "text": "Do not cookies that measure website application performance monitoring"}
+    {"value": "on", "text": "Use cookies that measure website application performance monitoring"},
+    {"value": "off", "text": "Do not cookies that measure website application performance monitoring"}
   ],
   "saveText": "Save",
   "summaryText": "Contact us for help",

@@ -1,87 +1,62 @@
-import Cookies from 'js-cookie';
-import { CookiePolicy } from '../models/CookiePolicy';
-import {analyticsCookies, cookiePolicyName, performanceCookies} from '../models/consts';
+// @ts-nocheck
+import cookieManager from '@hmcts/cookie-manager';
 
-const cookieBanner = document.getElementById('cookie-banner');
-const cookieBannerMessage = document.getElementById('cookie-banner-message');
-const acceptButton = document.getElementById('cookie-accept-analytics');
-const acceptedMessage = document.getElementById('accept-message');
-const rejectedButton = document.getElementById('cookie-reject-analytics');
-const rejectedMessage = document.getElementById('reject-message');
-const hideAcceptMessage = document.getElementById('hide-message-accept');
-const hideRejectMessage = document.getElementById('hide-message-reject');
-const cookiePolicyPageButton = document.getElementById('cookie-save-button');
+cookieManager.on('UserPreferencesLoaded', (preferences) => {
+  console.log('We made it here');
+  const dataLayer = window.dataLayer || [];
+  dataLayer.push({'event': 'Cookie Preferences', 'cookiePreferences': preferences});
+});
 
-const analyticsCookiesRadioButton = document.getElementById('analytics-cookies-options') as HTMLInputElement;
-const performanceCookiesRadioButton = document.getElementById('performance-cookies-options') as HTMLInputElement;
+cookieManager.on('UserPreferencesSaved', (preferences) => {
+  console.log('We made it here 2');
+  const dataLayer = window.dataLayer || [];
+  const dtrum = window.dtrum;
 
-(function () {
-  checkCookie();
-}).call(this);
+  dataLayer.push({'event': 'Cookie Preferences', 'cookiePreferences': preferences});
 
-acceptButton.onclick = () => {
-  setInitialCookiePolicy(true);
-};
-
-rejectedButton.onclick = () => {
-  setInitialCookiePolicy(false);
-};
-
-hideAcceptMessage.onclick = () => {
-  cookieBanner.hidden = true;
-};
-
-hideRejectMessage.onclick = () => {
-  cookieBanner.hidden = true;
-};
-
-cookiePolicyPageButton.onclick = () => {
-  updateCookiePolicy('analytics', analyticsCookiesRadioButton.checked);
-  updateCookiePolicy('performance', performanceCookiesRadioButton.checked);
-};
-
-function setInitialCookiePolicy(value) {
-  Cookies.set(cookiePolicyName, JSON.stringify(new CookiePolicy(value, value)), { expires: 365, path: '/', secure: true});
-  cookieBannerMessage.hidden = true;
-
-  if(value) {
-    acceptedMessage.hidden = false;
-  } else {
-    rejectedMessage.hidden = false;
-  }
-}
-
-function updateCookiePolicy(field, value) {
-  const cookieValues = JSON.parse(Cookies.get(cookiePolicyName));
-
-  if(field === 'performance') {
-    cookieValues.performance = value;
-  } else if (field === 'analytics') {
-    cookieValues.analytics = value;
-  }
-  Cookies.set(cookiePolicyName, JSON.stringify(cookieValues), { expires: 365, path: '/', secure: true});
-}
-
-function checkCookie() {
-  const cookiePolicy = Cookies.get(cookiePolicyName);
-
-  if (cookiePolicy === undefined) {
-    cookieBanner.hidden = false;
-  } else {
-    const cookieValues = JSON.parse(cookiePolicy) as CookiePolicy;
-
-    if(cookieValues.analytics === false) {
-      removeCookies(analyticsCookies);
-    }
-
-    if(cookieValues.performance === false) {
-      removeCookies(performanceCookies);
+  if(dtrum !== undefined) {
+    if(preferences.apm === 'on') {
+      dtrum.enable();
+      dtrum.enableSessionReplay();
+    } else {
+      dtrum.disableSessionReplay();
+      dtrum.disable();
     }
   }
-}
+});
 
-function removeCookies(cookies: string[]) {
-  cookies.forEach(cookie => {
-    Cookies.remove(cookie);
-  });
-}
+const config = {
+  userPreferences: {
+    cookieName: 'service-name-cookie-preferences',
+  },
+  cookieManifest: [
+    {
+      categoryName: 'essential',
+      optional: false,
+      cookies: [
+        'i18next'
+      ]
+    },
+    {
+      categoryName: 'analytics',
+      cookies: [
+        '_ga',
+        '_gid',
+        '_gat_UA-'
+      ]
+    },
+    {
+      categoryName: 'apm',
+      cookies: [
+        'dtCookie',
+        'dtLatC',
+        'dtPC',
+        'dtSa',
+        'rxVisitor',
+        'rxvt'
+      ]
+    }
+  ]
+};
+
+cookieManager.init(config);
