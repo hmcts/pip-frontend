@@ -188,8 +188,7 @@
 
 {% block bodyEnd %}
   <script src="alphabetical-dev.js"></script>
-  <script src="assets/js/js-cookie.min.js"></script>
-  <script src="assets/js/cookie-preferences.js"></script>
+  <script src="cookies-dev.js"></script>
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   {% include "webpack/js.njk" %}
 {% endblock %}

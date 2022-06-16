@@ -282,16 +282,18 @@
   {{ super() }}
   </div>
 {% endblock %}
-
 {% block bodyEnd %}
   {{ super() }}
+  <script src="assets/js/js-cookie.min.js"></script>
   <script>
-    const cookiePolicy = Cookies.get(cookieName)
-    cookieValues = JSON.parse(cookiePolicy);
-    document.getElementById('analytics-cookies-options').checked = cookieValues.analytics;
-    document.getElementById('analytics-cookies-options-2').checked = cookieValues.analytics === false;
+    const cookiePolicy = Cookies.get('cookiePolicy');
+    if(cookiePolicy !== undefined) {
+      const cookieValues = JSON.parse(cookiePolicy);
+      document.getElementById('analytics-cookies-options').checked = cookieValues.analytics;
+      document.getElementById('analytics-cookies-options-2').checked = cookieValues.analytics === false;
 
-    document.getElementById('performance-cookies-options').checked = cookieValues.performance;
-    document.getElementById('performance-cookies-options-2').checked = cookieValues.performance === false;
+      document.getElementById('performance-cookies-options').checked = cookieValues.performance;
+      document.getElementById('performance-cookies-options-2').checked = cookieValues.performance === false;
+    }
   </script>
 {% endblock %}

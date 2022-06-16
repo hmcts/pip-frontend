@@ -1,3 +1,7 @@
+import Cookies from 'js-cookie';
+import { CookiePolicy } from '../models/CookiePolicy';
+import {analyticsCookies, cookiePolicyName, performanceCookies} from '../models/consts';
+
 const cookieBanner = document.getElementById('cookie-banner');
 const cookieBannerMessage = document.getElementById('cookie-banner-message');
 const acceptButton = document.getElementById('cookie-accept-analytics');
@@ -7,10 +11,9 @@ const rejectedMessage = document.getElementById('reject-message');
 const hideAcceptMessage = document.getElementById('hide-message-accept');
 const hideRejectMessage = document.getElementById('hide-message-reject');
 const cookiePolicyPageButton = document.getElementById('cookie-save-button');
-const analyticsCookiesRadioButton = document.getElementById('analytics-cookies-options');
-const performanceCookiesRadioButton = document.getElementById('performance-cookies-options');
 
-const cookieName = 'cookiePolicy';
+const analyticsCookiesRadioButton = document.getElementById('analytics-cookies-options') as HTMLInputElement;
+const performanceCookiesRadioButton = document.getElementById('performance-cookies-options') as HTMLInputElement;
 
 (function () {
   checkCookie();
@@ -38,13 +41,7 @@ cookiePolicyPageButton.onclick = () => {
 };
 
 function setInitialCookiePolicy(value) {
-  let cookieValue = JSON.stringify({
-    essential: true,
-    analytics: value,
-    performance: value,
-  });
-
-  Cookies.set(cookieName, cookieValue, { expires: 365, path: '/', secure: true});
+  Cookies.set(cookiePolicyName, JSON.stringify(new CookiePolicy(value, value)), { expires: 365, path: '/', secure: true});
   cookieBannerMessage.hidden = true;
 
   if(value) {
@@ -55,45 +52,36 @@ function setInitialCookiePolicy(value) {
 }
 
 function updateCookiePolicy(field, value) {
-  let cookieValues = JSON.parse(Cookies.get(cookieName));
+  const cookieValues = JSON.parse(Cookies.get(cookiePolicyName));
 
   if(field === 'performance') {
     cookieValues.performance = value;
   } else if (field === 'analytics') {
     cookieValues.analytics = value;
   }
-  Cookies.set(cookieName, JSON.stringify(cookieValues), { expires: 365, path: '/', secure: true});
+  Cookies.set(cookiePolicyName, JSON.stringify(cookieValues), { expires: 365, path: '/', secure: true});
 }
 
 function checkCookie() {
-  const cookiePolicy = Cookies.get(cookieName);
-  let cookieValues = '';
-  if(cookiePolicy !== undefined) {
-    cookieValues = JSON.parse(cookiePolicy);
-  }
+  const cookiePolicy = Cookies.get(cookiePolicyName);
 
   if (cookiePolicy === undefined) {
     cookieBanner.hidden = false;
   } else {
-    if(cookieValues.analytics === false && cookieValues.performance === false) {
-      removeAnalyticsNonEssentialCookies();
-      removePerformanceNonEssentialCookies();
-    } else if (cookieValues.analytics === false) {
-      removeAnalyticsNonEssentialCookies();
-    } else if (cookieValues.performance === false) {
-      removePerformanceNonEssentialCookies();
+    const cookieValues = JSON.parse(cookiePolicy) as CookiePolicy;
+
+    if(cookieValues.analytics === false) {
+      removeCookies(analyticsCookies);
+    }
+
+    if(cookieValues.performance === false) {
+      removeCookies(performanceCookies);
     }
   }
 }
 
-function removeAnalyticsNonEssentialCookies() {
-  ['_ga', '_gat', '_gid'].forEach(cookie => {
-    Cookies.remove(cookie);
-  });
-}
-
-function removePerformanceNonEssentialCookies() {
-  ['dtCookie', 'dtLatC', 'dtPC', 'dtSa', 'rxVisitor', 'rxvt'].forEach(cookie => {
+function removeCookies(cookies: string[]) {
+  cookies.forEach(cookie => {
     Cookies.remove(cookie);
   });
 }

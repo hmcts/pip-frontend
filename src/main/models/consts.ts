@@ -21,3 +21,20 @@ export const allowedImageTypeMappings = {
   'png': 'image/png',
   'pdf': 'application/pdf',
 };
+
+export const analyticsCookies = [
+  '_ga',
+  '_gat',
+  '_gid',
+];
+
+export const performanceCookies = [
+  'dtCookie',
+  'dtLatC',
+  'dtPC',
+  'dtSa',
+  'rxVisitor',
+  'rxvt',
+];
+
+export const cookiePolicyName = 'cookiePolicy';
