@@ -185,23 +185,23 @@ describe('Cookie banner display', () => {
   });
 
   it('should display cookie banner on empty cookie policy cookie', () => {
-    const cookieBanner = htmlRes.getElementById('cookie-banner-message');
+    const cookieBanner = htmlRes.getElementsByClassName('cookie-banner-message')[0];
     expect(cookieBanner.innerHTML).contains('Cookies on Court and tribunal hearings', 'Could not find cookie header');
   });
 
   it('should display cookie body', () => {
-    const cookieBanner = htmlRes.getElementById('cookie-banner-message');
+    const cookieBanner = htmlRes.getElementsByClassName('cookie-banner-message')[0];
     expect(cookieBanner.innerHTML).contains(cookieBody1, 'Could not find cookie body');
     expect(cookieBanner.innerHTML).contains(cookieBody2, 'Could not find cookie body');
   });
 
   it('should display accept cookie button', () => {
-    const acceptButton = htmlRes.getElementById('cookie-accept-analytics');
+    const acceptButton = htmlRes.getElementsByClassName('cookie-banner-accept-button')[0];
     expect(acceptButton.innerHTML).contains('Accept analytics cookies');
   });
 
   it('should display reject cookie button', () => {
-    const rejectButton = htmlRes.getElementById('cookie-reject-analytics');
+    const rejectButton = htmlRes.getElementsByClassName('cookie-banner-reject-button')[0];
     expect(rejectButton.innerHTML).contains('Reject analytics cookies');
   });
 
@@ -211,7 +211,7 @@ describe('Cookie banner display', () => {
   });
 
   it('should show post button click message', () => {
-    const acceptedMessage = htmlRes.getElementById('accept-message');
+    const acceptedMessage = htmlRes.getElementsByClassName('cookie-banner-accept-message')[0];
     expect(acceptedMessage.innerHTML).contains('You’ve accepted analytics cookies');
   });
 });
