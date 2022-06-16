@@ -38,15 +38,13 @@
 // // stub.withArgs('analytics-cookies-options').returns(analyticsCookiesRadioButton);
 // // stub.withArgs('performance-cookies-options').returns(performanceCookiesRadioButton);
 //
-// describe('Cookie policy', () => {
-//
-//   afterEach(() => {
-//     jest.resetModules();
-//   });
-//
-//   it('should display cookie banner if no cookie is set', async () => {
-//     cookieBanner.hidden = true;
-//
-//     expect(cookieBanner.hidden).toBeTruthy();
-//   });
-// });
+describe('Cookie policy', () => {
+
+  afterEach(() => {
+    jest.resetModules();
+  });
+
+  it('should display cookie banner if no cookie is set', async () => {
+    await import('../../../main/bundles/alphabetical');
+  });
+});
