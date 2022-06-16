@@ -8,7 +8,6 @@
 
 
 {% block head %}
-    <!-- Google Tag Manager -->     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({‘gtm.start’:     new Date().getTime(),event:‘gtm.js’});var f=d.getElementsByTagName(s)[0],     j=d.createElement(s),dl=l!=‘dataLayer’?‘&l=‘+l:‘’;j.async=true;j.src=     ’https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);     })(window,document,‘script’,‘dataLayer’,‘GTM-N5R698M’);</script>    <!-- End Google Tag Manager -->
     <meta name="robots" content="noindex">
     {% include "webpack/css.njk" %}
 {% endblock %}
@@ -107,7 +106,6 @@
 {% endblock %}
 
 {% block bodyStart %}
-  <!-- Google Tag Manager (noscript) -->     <noscript><iframe src=“https://www.googletagmanager.com/ns.html?id=GTM-N5R698M”     height=“0" width=“0” style=“display:none;visibility:hidden”></iframe></noscript>    <!-- End Google Tag Manager (noscript) -->
   {% set html %}
     <p class="govuk-body">We use some essential cookies to make this service work.</p>
     <p class="govuk-body">We’d also like to use analytics cookies so we can understand how you use the service and make improvements.</p>
@@ -136,7 +134,7 @@
           text: "Accept analytics cookies",
           type: "button",
           attributes: {
-            id: 'cookie'
+            id: 'cookie-banner-accept-button'
           }
         },
         {
@@ -158,7 +156,10 @@
         actions: [
         {
           classes: 'cookie-banner-hide-button',
-          text: "Hide this message"
+          text: "Hide this message",
+          attributes: {
+            id: 'cookie-banner-hide-button'
+          }
         }
       ]
       },

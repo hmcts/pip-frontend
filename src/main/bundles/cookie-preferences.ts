@@ -32,6 +32,10 @@ const config = {
       optional: false,
       cookies: [
         'i18next',
+        'formCookie',
+        'createAdminAccount',
+        'session.sig',
+        'session',
       ],
     },
     {
@@ -40,6 +44,7 @@ const config = {
         '_ga',
         '_gid',
         '_gat_UA-',
+        '_gat',
       ],
     },
     {
