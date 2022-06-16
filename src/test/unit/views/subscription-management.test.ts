@@ -42,19 +42,19 @@ userSubscriptionsStub.withArgs('1').returns(subscriptionsData.data);
 
 userSubscriptionsStub.withArgs('3').returns(
   {caseSubscriptions:[{
-    subscriptionId: "5a45699f-47e3-4283-904a-581afe624155",
-    caseName: "Tom Clancy",
-    caseNumber: "T485913",
-    urn: "N363N6R4OG",
-    dateAdded: "2022-01-14T11:30:12.357299"
+    subscriptionId: '5a45699f-47e3-4283-904a-581afe624155',
+    caseName: 'Tom Clancy',
+    caseNumber: 'T485913',
+    urn: 'N363N6R4OG',
+    dateAdded: '2022-01-14T11:30:12.357299',
   }], locationSubscriptions:[]});
 
 userSubscriptionsStub.withArgs('4').returns(
   {caseSubscriptions:[], locationSubscriptions:[{
-      subscriptionId: "f038b7ea-2972-4be4-a5ff-70abb4f78686",
-      locationName: "Court 1",
-      dateAdded: "2022-01-14T11:42:57.847708"
-    }]});
+    subscriptionId: 'f038b7ea-2972-4be4-a5ff-70abb4f78686',
+    locationName: 'Court 1',
+    dateAdded: '2022-01-14T11:42:57.847708',
+  }]});
 
 sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
