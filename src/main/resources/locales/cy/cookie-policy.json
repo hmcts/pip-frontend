@@ -73,12 +73,12 @@
     {"name": "rxvt", "purpose": "Terfyn amser y sesiwn", "expires": "Diwedd y sesiwn"}
   ],
   "analyticsCookieOptions": [
-    {"value": true, "text": "Defnyddio cwcis sy’n mesur fy nefnydd o'r wefan"},
-    {"value": false, "text": "Peidio â defnyddio cwcis sy'n mesur fy nefnydd o'r wefan"}
+    {"value": "on", "text": "Defnyddio cwcis sy’n mesur fy nefnydd o'r wefan"},
+    {"value": "off", "text": "Peidio â defnyddio cwcis sy'n mesur fy nefnydd o'r wefan"}
   ],
   "performanceCookieOptions": [
-    {"value": true, "text": "Defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau"},
-    {"value": false, "text": "Peidio â defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau"}
+    {"value": "on", "text": "Defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau"},
+    {"value": "off", "text": "Peidio â defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau"}
   ],
   "saveText": "Cadw",
   "summaryText": "Cysylltwch â ni am help",

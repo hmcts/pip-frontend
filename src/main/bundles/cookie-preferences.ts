@@ -2,13 +2,11 @@
 import cookieManager from '@hmcts/cookie-manager';
 
 cookieManager.on('UserPreferencesLoaded', (preferences) => {
-  console.log('We made it here');
   const dataLayer = window.dataLayer || [];
   dataLayer.push({'event': 'Cookie Preferences', 'cookiePreferences': preferences});
 });
 
 cookieManager.on('UserPreferencesSaved', (preferences) => {
-  console.log('We made it here 2');
   const dataLayer = window.dataLayer || [];
   const dtrum = window.dtrum;
 
@@ -27,23 +25,23 @@ cookieManager.on('UserPreferencesSaved', (preferences) => {
 
 const config = {
   userPreferences: {
-    cookieName: 'service-name-cookie-preferences',
+    cookieName: 'court-and-tribunal-hearings-cookie-preferences',
   },
   cookieManifest: [
     {
       categoryName: 'essential',
       optional: false,
       cookies: [
-        'i18next'
-      ]
+        'i18next',
+      ],
     },
     {
       categoryName: 'analytics',
       cookies: [
         '_ga',
         '_gid',
-        '_gat_UA-'
-      ]
+        '_gat_UA-',
+      ],
     },
     {
       categoryName: 'apm',
@@ -53,10 +51,10 @@ const config = {
         'dtPC',
         'dtSa',
         'rxVisitor',
-        'rxvt'
-      ]
-    }
-  ]
+        'rxvt',
+      ],
+    },
+  ],
 };
 
 cookieManager.init(config);

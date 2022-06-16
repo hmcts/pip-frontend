@@ -8,9 +8,6 @@
 
 
 {% block head %}
-    <script>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);     })(window,document,'script','dataLayer','GTM-N5R698M');
-    </script>    <!-- End Google Tag Manager -->
     <meta name="robots" content="noindex">
     {% include "webpack/css.njk" %}
 {% endblock %}
@@ -109,28 +106,27 @@
 {% endblock %}
 
 {% block bodyStart %}
-  <!-- Google Tag Manager (noscript) -->     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N5R698M"     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>    <!-- End Google Tag Manager (noscript) -->
   {% set html %}
     <p class="govuk-body">We use some essential cookies to make this service work.</p>
     <p class="govuk-body">We’d also like to use analytics cookies so we can understand how you use the service and make improvements.</p>
   {% endset %}
 
   {% set acceptHtml %}
-    <p class="govuk-body">You’ve accepted analytics cookies. You can <a class="govuk-link" href="#">change your cookie settings</a> at any time.</p>
+    <p class="govuk-body">You’ve accepted analytics cookies. You can <a class="govuk-link" href="/cookie-policy">change your cookie settings</a> at any time.</p>
   {% endset %}
 
   {% set rejectHtml %}
-    <p class="govuk-body">You’ve rejected analytics cookies. You can <a class="govuk-link" href="#">change your cookie settings</a> at any time.</p>
+    <p class="govuk-body">You’ve rejected analytics cookies. You can <a class="govuk-link" href="/cookie-policy">change your cookie settings</a> at any time.</p>
   {% endset %}
 
   {{ govukCookieBanner({
     classes: 'cookie-banner',
-    ariaLabel: "Cookies on [name of service]",
+    ariaLabel: "Cookies on " + serviceNameText,
     hidden: true,
     messages: [
       {
         classes: 'cookie-banner-message',
-        headingText: "Cookies on [name of service]",
+        headingText: "Cookies on " + serviceNameText,
         html: html,
         actions: [
         {
@@ -145,7 +141,7 @@
         },
         {
           text: "View cookies",
-          href: "#"
+          href: "/cookie-policy"
         }
       ]
       },
