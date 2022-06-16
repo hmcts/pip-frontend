@@ -1,4 +1,3 @@
-// @ts-nocheck
 import cookieManager from '@hmcts/cookie-manager';
 
 cookieManager.on('UserPreferencesLoaded', (preferences) => {
