@@ -30,7 +30,7 @@ export class Helmet {
           fontSrc: [self, 'data:'],
           imgSrc: [self],
           objectSrc: [self],
-          scriptSrc: [self, "'unsafe-inline'", "'unsafe-eval'"],
+          scriptSrc: [self, "'unsafe-inline'", "'unsafe-eval'", "'https://www.googletagmanager.com/ns.html?id=GTM-N5R698M'"],
           styleSrc: [self, 'https://pip-frontend.staging.platform.hmcts.net'],
         },
       }),
