@@ -66,7 +66,11 @@
 
             {% set judiciaryJudges = '' %}
             {% for judge in session['judiciary'] %}
-              {% set judiciaryJudges = judiciaryJudges + ', ' + judge['johTitle'] + ' ' + judge['johNameSurname'] %}
+              {% if judge['johTitle'] | length %}
+                {% set judiciaryJudges = judiciaryJudges + ', ' + judge['johTitle'] + ' ' + judge['johNameSurname'] %}
+              {% else %}
+                {% set judiciaryJudges = judiciaryJudges + ', ' + judge['johNameSurname'] %}
+              {% endif %}
             {% endfor %}
             {% set judiciaryJudges = judiciaryJudges.slice(1) %}
             <div class="govuk-accordion__section govuk-accordion__section--expanded">

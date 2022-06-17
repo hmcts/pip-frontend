@@ -43,6 +43,9 @@
                   {
                     "johTitle": "Mr",
                     "johNameSurname": "Firstname1 Surname1"
+                  },
+                  {
+                    "johNameSurname": "Firstname2 Surname2"
                   }
                 ],
                 "sittings": [
