@@ -9,6 +9,7 @@ import {PublicationService} from '../../../main/service/publicationService';
 const caseNameValue = 'test';
 const caseNumberValue = '123';
 const caseUrnValue = '456';
+const userId = '123';
 
 const returnedArtefact = [{
   artefactId: '123',
@@ -48,46 +49,46 @@ const stubMetaData = sinon.stub(publicationRequests, 'getIndividualPublicationMe
 stubMetaData.returns(metaData);
 
 const stubCourtPubs = sinon.stub(publicationRequests, 'getPublicationsByCourt');
-stubCourtPubs.withArgs('1', true, false).resolves(returnedArtefact);
-stubCourtPubs.withArgs('2', true, false).resolves([]);
+stubCourtPubs.withArgs('1', userId, false).resolves(returnedArtefact);
+stubCourtPubs.withArgs('2', userId, false).resolves([]);
 
 const validCourtName = 'PRESTON';
 const invalidCourtName = 'TEST';
 
 describe('Publication service', () => {
   it('should return array of Search Objects based on partial case name', async () => {
-    const results = await publicationService.getCasesByCaseName(caseNameValue, true);
+    const results = await publicationService.getCasesByCaseName(caseNameValue, userId);
     expect(results.length).to.equal(2);
     expect(results).not.contain(returnedArtefact[0].search.cases[2]);
   });
 
   it('should return Search Object matching case number', async () => {
-    expect(await publicationService.getCaseByCaseNumber(caseNumberValue, true)).to.equal(returnedArtefact[0].search.cases[0]);
+    expect(await publicationService.getCaseByCaseNumber(caseNumberValue, userId)).to.equal(returnedArtefact[0].search.cases[0]);
   });
 
   it('should return Search Object matching case urn', async () => {
-    expect(await publicationService.getCaseByCaseUrn(caseUrnValue, true)).to.equal(returnedArtefact[0].search.cases[1]);
+    expect(await publicationService.getCaseByCaseUrn(caseUrnValue, userId)).to.equal(returnedArtefact[0].search.cases[1]);
   });
 
   it('should return null processing failed request', async () => {
-    expect(await publicationService.getCaseByCaseUrn('invalid', true)).is.equal(null);
+    expect(await publicationService.getCaseByCaseUrn('invalid', userId)).is.equal(null);
   });
 
   describe('getIndivPubJson Service', () => {
     it('should return publication json', () => {
-      return publicationService.getIndividualPublicationJson('', true).then((data) => {
+      return publicationService.getIndividualPublicationJson('', userId).then((data) => {
         expect(data['courtLists'].length).to.equal(2);
       });
     });
 
     it('should have valid court name in the venue object', () => {
-      return publicationService.getIndividualPublicationJson('', true).then((data) => {
+      return publicationService.getIndividualPublicationJson('', userId).then((data) => {
         expect(data['venue']['venueName']).to.equal(validCourtName);
       });
     });
 
     it('should have valid court name in the venue object', () => {
-      return publicationService.getIndividualPublicationJson('', true).then((data) => {
+      return publicationService.getIndividualPublicationJson('', userId).then((data) => {
         expect(data['venue']['venueName']).not.equal(invalidCourtName);
       });
     });
@@ -157,7 +158,7 @@ describe('Publication service', () => {
 
   describe('getIndivPubMetadata Publication Service', () => {
     it('should return publication meta object', () => {
-      return publicationService.getIndividualPublicationMetadata('', true).then((data) => {
+      return publicationService.getIndividualPublicationMetadata('', userId).then((data) => {
         expect(data['contentDate']).to.equal('2022-02-14T14:14:59.73967');
       });
     });
@@ -187,11 +188,11 @@ describe('Publication service', () => {
 
   describe('getPublicationsByCourt Publication Service', () => {
     it('should return artefact for a valid call', async () => {
-      const data = await publicationService.getPublicationsByCourt('1', true);
+      const data = await publicationService.getPublicationsByCourt('1', userId);
       expect(data).to.deep.equal(returnedArtefact);
     });
     it('should return empty list for a invalid call', async () => {
-      const data = await publicationService.getPublicationsByCourt('2', true);
+      const data = await publicationService.getPublicationsByCourt('2', userId);
       expect(data).to.deep.equal([]);
     });
 

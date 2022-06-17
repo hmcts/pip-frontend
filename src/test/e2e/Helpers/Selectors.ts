@@ -174,6 +174,7 @@ module.exports = {
   AdminPageTitle: 'h2',
 
   // RemoveListSearch selectors
+  'remove-choice': '#remove-choice',
 
   //MediaAccountRequests selectors
   MediaAccountView: 'a.govuk-table__cell:nth-last-child(1)',

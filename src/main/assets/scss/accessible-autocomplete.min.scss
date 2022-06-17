@@ -5,7 +5,7 @@ $autocomplete-hover-colour: #1d70b8;
 $autocomplete-no-results-colour: #646b6f;
 $autocomplete-outline-colour: #fd0;
 $autocomplete-white-colour: #fff;
-$autocomplete-box-shadow: rgba(0, 0, 0, .256863);
+$autocomplete-box-shadow: rgba(0, 0, 0, 25.7%); /* stylelint-disable-line */
 
 .autocomplete__wrapper {
   font-family: 'GDS Transport', arial, sans-serif;
@@ -14,12 +14,10 @@ $autocomplete-box-shadow: rgba(0, 0, 0, .256863);
 
 .autocomplete__hint,
 .autocomplete__input {
-  -moz-box-sizing: border-box;
-  -webkit-appearance: none;
-  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  appearance: none;
   border: 2px solid $autocomplete-border-colour;
   border-radius: 0;
-  box-sizing: border-box;
   margin-bottom: 0;
   width: 100%;
 }
@@ -91,28 +89,20 @@ $autocomplete-box-shadow: rgba(0, 0, 0, .256863);
   position: relative;
 }
 
+.autocomplete__hint,
+.autocomplete__input,
 .autocomplete__option {
-  border-bottom: solid $autocomplete-hint-colour;
-  border-width: 1px 0;
-  cursor: pointer;
-  display: block;
-  position: relative;
-
-  &:first-of-type {
-    border-top-width: 0;
-  }
-
-  &:last-of-type {
-    border-bottom-width: 0;
-  }
+  font-size: 16px;
+  line-height: 1.25;
 }
 
 .autocomplete__option > * {
   pointer-events: none;
 }
 
-.autocomplete__option--odd {
-  background-color: $autocomplete-background-colour;
+.autocomplete__hint,
+.autocomplete__option {
+  padding: 5px;
 }
 
 .autocomplete__option--focused,
@@ -125,22 +115,14 @@ $autocomplete-box-shadow: rgba(0, 0, 0, .256863);
   }
 }
 
+.autocomplete__option--odd {
+  background-color: $autocomplete-background-colour;
+}
+
 .autocomplete__option--no-results {
   background-color: $autocomplete-background-colour;
   color: $autocomplete-no-results-colour;
   cursor: not-allowed;
-}
-
-.autocomplete__hint,
-.autocomplete__input,
-.autocomplete__option {
-  font-size: 16px;
-  line-height: 1.25;
-}
-
-.autocomplete__hint,
-.autocomplete__option {
-  padding: 5px;
 }
 
 @media (min-width: 641px) {
@@ -148,7 +130,6 @@ $autocomplete-box-shadow: rgba(0, 0, 0, .256863);
   .autocomplete__input,
   .autocomplete__option {
     font-size: 19px;
-    line-height: 1.31579;
+    line-height: 1.3158;
   }
 }
-

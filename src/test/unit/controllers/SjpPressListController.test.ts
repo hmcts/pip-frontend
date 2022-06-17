@@ -34,8 +34,8 @@ describe('SJP Press List Controller', () => {
   const response = { render: () => {return '';}} as unknown as Response;
 
   it('should render the SJP press list page', async () =>  {
-
     const request = mockRequest(i18n);
+    request.user = {piUserId: '1'};
 
     request.query = {artefactId: artefactId};
 
@@ -44,7 +44,8 @@ describe('SJP Press List Controller', () => {
     const expectedData = {
       ...i18n['single-justice-procedure-press'],
       sjpData: sjpData,
-      publishedDateTime: moment(Date.parse(sjpData['document']['publicationDate'])).format('D MMMM YYYY [at] h:mm a'),
+      publishedDateTime: moment(Date.parse(sjpData['document']['publicationDate'])).format('DD MMMM YYYY'),
+      publishedTime: '11.30pm',
       contactDate: moment(Date.parse(metaData['contentDate'])).format('D MMMM YYYY'),
     };
 
@@ -56,6 +57,19 @@ describe('SJP Press List Controller', () => {
   });
 
   it('should render error page is query param is empty', async () => {
+    const request = mockRequest(i18n);
+    request.query = {};
+    request.user = {piUserId: '1'};
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+    await sjpPressListController.get(request, response);
+    return responseMock.verify();
+  });
+
+  it('should render error page if list is not allowed to view by the user', async () => {
     const request = mockRequest(i18n);
     request.query = {};
 

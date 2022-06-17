@@ -8,8 +8,8 @@ export default class FlatFileController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query['artefactId'];
-    const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, (!!req.user));
-    const fileData = await publicationService.getIndividualPublicationFile(artefactId, (!!req.user));
+    const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
+    const fileData = await publicationService.getIndividualPublicationFile(artefactId, req.user?.['piUserId']);
     res.set('Content-Disposition', 'inline;filename=' + metadata.sourceArtefactId);
     if (metadata.sourceArtefactId.endsWith('.pdf')) {
       res.set('Content-Type', 'application/pdf');

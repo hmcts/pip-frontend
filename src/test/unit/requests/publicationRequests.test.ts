@@ -14,6 +14,7 @@ const dailyCauseListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 const artefactId = 'abc';
+const userId = '123';
 
 const successResponse = {
   data: 'success',
@@ -61,62 +62,62 @@ dataMngmntDeleteStub.withArgs('/publication/abc').resolves(true);
 describe('getIndividualPubJson()', () => {
 
   it('should return publication json', async () => {
-    expect(await publicationRequests.getIndividualPublicationJson(artefactId, true)).toBe(dailyCauseListData);
+    expect(await publicationRequests.getIndividualPublicationJson(artefactId, userId)).toBe(dailyCauseListData);
   });
 
   it('should return court PRESTON', async () => {
-    return await publicationRequests.getIndividualPublicationJson(artefactId, true).then(data => {
+    return await publicationRequests.getIndividualPublicationJson(artefactId, userId).then(data => {
       expect(data['venue']['venueName']).toEqual('PRESTON');
     });
   });
 
   it('should return judge title Mr', async () => {
-    return await publicationRequests.getIndividualPublicationJson(artefactId, true).then(data => {
+    return await publicationRequests.getIndividualPublicationJson(artefactId, userId).then(data => {
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['judiciary'][0]['johTitle']).toEqual('Mr');
     });
   });
 
   it('should have two hearings', async () => {
-    return await publicationRequests.getIndividualPublicationJson(artefactId, true).then(data => {
+    return await publicationRequests.getIndividualPublicationJson(artefactId, userId).then(data => {
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'].length).toEqual(2);
     });
   });
 
   it('should return empty list if request fails', async () => {
-    expect(await publicationRequests.getIndividualPublicationJson('abc1', true)).toBe(null);
+    expect(await publicationRequests.getIndividualPublicationJson('abc1', userId)).toBe(null);
   });
 
   it('should return empty list if request fails', async () => {
-    expect(await publicationRequests.getIndividualPublicationJson('abc2', true)).toBe(null);
+    expect(await publicationRequests.getIndividualPublicationJson('abc2', userId)).toBe(null);
   });
 
   it('should return empty list if message error', async () => {
-    expect(await publicationRequests.getIndividualPublicationJson('abc3', true)).toBe(null);
+    expect(await publicationRequests.getIndividualPublicationJson('abc3', userId)).toBe(null);
   });
 });
 
 describe('getIndividualPubMetadata()', () => {
 
   it('should return publication meta data', async () => {
-    expect(await publicationRequests.getIndividualPublicationMetadata(artefactId, true, false)).toBe(metaData);
+    expect(await publicationRequests.getIndividualPublicationMetadata(artefactId, userId, false)).toBe(metaData);
   });
 
   it('should return content datetime', async () => {
-    return await publicationRequests.getIndividualPublicationMetadata(artefactId, true, false).then(data => {
+    return await publicationRequests.getIndividualPublicationMetadata(artefactId, userId, false).then(data => {
       expect(data['contentDate']).toEqual('2022-02-14T14:14:59.73967');
     });
   });
 
   it('should return empty list if request fails', async () => {
-    expect(await publicationRequests.getIndividualPublicationMetadata('abc1', true, false)).toBe(null);
+    expect(await publicationRequests.getIndividualPublicationMetadata('abc1', userId, false)).toBe(null);
   });
 
   it('should return empty list if request fails', async () => {
-    expect(await publicationRequests.getIndividualPublicationMetadata('abc2', true, false)).toBe(null);
+    expect(await publicationRequests.getIndividualPublicationMetadata('abc2', userId, false)).toBe(null);
   });
 
   it('should return empty list if message error', async () => {
-    expect(await publicationRequests.getIndividualPublicationMetadata('abc3', true, false)).toBe(null);
+    expect(await publicationRequests.getIndividualPublicationMetadata('abc3', userId, false)).toBe(null);
   });
 });
 
@@ -127,19 +128,19 @@ describe('Get by case value', () => {
   dataManagementStub.withArgs('/publication/search/invalid/invalid').rejects(errorMessage);
 
   it('should return data on successful get', async () => {
-    expect(await pubRequests.getPublicationByCaseValue(valid, valid, true)).toBe(successResponse.data);
+    expect(await pubRequests.getPublicationByCaseValue(valid, valid, userId)).toBe(successResponse.data);
   });
 
   it('should handle error response from returned service returning empty array', async () => {
-    expect(await pubRequests.getPublicationByCaseValue(valid, invalid, true)).toStrictEqual([]);
+    expect(await pubRequests.getPublicationByCaseValue(valid, invalid, userId)).toStrictEqual([]);
   });
 
   it('should handle error request from returned service returning empty array', async () => {
-    expect(await pubRequests.getPublicationByCaseValue(invalid, valid, true)).toStrictEqual([]);
+    expect(await pubRequests.getPublicationByCaseValue(invalid, valid, userId)).toStrictEqual([]);
   });
 
   it('should handle error request from returned service returning empty array', async () => {
-    expect(await pubRequests.getPublicationByCaseValue(invalid, invalid, true)).toStrictEqual([]);
+    expect(await pubRequests.getPublicationByCaseValue(invalid, invalid, userId)).toStrictEqual([]);
   });
 });
 
@@ -150,94 +151,94 @@ describe('Get publication by court id', () => {
   dataManagementStub.withArgs('/publication/locationId/error').rejects(errorMessage);
 
   it('should return data on successful get', async () => {
-    expect(await pubRequests.getPublicationsByCourt(valid, true, false)).toBe(successResponse.data);
+    expect(await pubRequests.getPublicationsByCourt(valid, userId, false)).toBe(successResponse.data);
   });
 
   it('should handle error response from returned service returning empty array', async () => {
-    expect(await pubRequests.getPublicationsByCourt(invalid, true, false)).toStrictEqual([]);
+    expect(await pubRequests.getPublicationsByCourt(invalid, userId, false)).toStrictEqual([]);
   });
 
   it('should handle error request from returned service returning empty array', async () => {
-    expect(await pubRequests.getPublicationsByCourt('test', true, false)).toStrictEqual([]);
+    expect(await pubRequests.getPublicationsByCourt('test', userId, false)).toStrictEqual([]);
   });
 
   it('should handle error request from returned service returning empty array', async () => {
-    expect(await pubRequests.getPublicationsByCourt('error', true, false)).toStrictEqual([]);
+    expect(await pubRequests.getPublicationsByCourt('error', userId, false)).toStrictEqual([]);
   });
 });
 
 describe('get individual publication metadata', () => {
   it('should return metadata for a given publication', async () => {
     dataManagementStub.withArgs('/publication/fakeArtefactId').resolves({data: pubs});
-    const message = await pubRequests.getIndividualPublicationMetadata('fakeArtefactId', true, false);
+    const message = await pubRequests.getIndividualPublicationMetadata('fakeArtefactId', userId, false);
     expect(message.length).toBe(totalCases);
   });
 
   it('should send an error request to the log if error request exists', async () => {
     dataManagementStub.withArgs('/publication/promiseBreakingData').rejects(errorRequest);
-    expect(await pubRequests.getIndividualPublicationMetadata('promiseBreakingData', true, false)).toBe(null);
+    expect(await pubRequests.getIndividualPublicationMetadata('promiseBreakingData', userId, false)).toBe(null);
   });
 
   it('should send an error to the log if error response exists', async () => {
     dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse').rejects(errorResponse);
-    const response = await pubRequests.getIndividualPublicationMetadata('brokenPromiseWithErrorResponse', true, false);
+    const response = await pubRequests.getIndividualPublicationMetadata('brokenPromiseWithErrorResponse', userId, false);
     expect(response).toBe(null);
   });
 
   it('should send an error to the log if error message exists and error request does not exist', async () => {
     dataManagementStub.withArgs('/publication/noErrRequest').rejects(errorMessage);
-    const message = await pubRequests.getIndividualPublicationMetadata('noErrRequest', true, false);
+    const message = await pubRequests.getIndividualPublicationMetadata('noErrRequest', userId, false);
     expect(message).toBe(null);
   });
 
   describe('get individual publication file', () => {
     it('should return file for a given publication', async () => {
       dataManagementStub.withArgs('/publication/fakeArtefactId/file', {
-        headers: {'verification': 'true'},
+        headers: {'x-user-id': '123'},
         responseType: 'arraybuffer'}).resolves(indivPubJsonObject);
-      const message = await pubRequests.getIndividualPublicationFile('fakeArtefactId', true);
+      const message = await pubRequests.getIndividualPublicationFile('fakeArtefactId', userId);
       expect(message).toBe(indivPubJsonObject.data);
     });
 
     it('should send an error request to the log if error request exists', async () => {
       dataManagementStub.withArgs('/publication/promiseBreakingData/file').rejects(errorRequest);
-      expect(await pubRequests.getIndividualPublicationFile('promiseBreakingData', true)).toBe(null);
+      expect(await pubRequests.getIndividualPublicationFile('promiseBreakingData', userId)).toBe(null);
     });
 
     it('should send an error to the log if error response exists', async () => {
       dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/file').rejects(errorResponse);
-      const response = await pubRequests.getIndividualPublicationFile('brokenPromiseWithErrorResponse', true);
+      const response = await pubRequests.getIndividualPublicationFile('brokenPromiseWithErrorResponse', userId);
       expect(response).toBe(null);
     });
 
     it('should send an error to the log if error message exists and error request does not exist', async () => {
       dataManagementStub.withArgs('/publication/search/y').rejects(errorMessage);
-      const message = await publicationRequests.getPublicationsByCourt('y', true, false);
+      const message = await publicationRequests.getPublicationsByCourt('y', userId, false);
       expect(message).toStrictEqual([]);
     });
   });
 
   describe('get individual publication json', () => {
     it('should return json for a given publication', async () => {
-      dataManagementStub.withArgs('/publication/fakeArtefactId/payload', {headers: {'verification': 'true'}}).resolves(mockJson);
-      const message = await pubRequests.getIndividualPublicationJson('fakeArtefactId', true);
+      dataManagementStub.withArgs('/publication/fakeArtefactId/payload', {headers: {'x-user-id': '123'}}).resolves(mockJson);
+      const message = await pubRequests.getIndividualPublicationJson('fakeArtefactId', userId);
       expect(message).toBe(mockJson.data);
     });
 
     it('should send an error request to the log if error request exists', async () => {
       dataManagementStub.withArgs('/publication/promiseBreakingData/payload').rejects(errorRequest);
-      expect(await pubRequests.getIndividualPublicationJson('promiseBreakingData', true)).toBe(null);
+      expect(await pubRequests.getIndividualPublicationJson('promiseBreakingData', userId)).toBe(null);
     });
 
     it('should send an error to the log if error response exists', async () => {
       dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/payload').rejects(errorResponse);
-      const response = await pubRequests.getIndividualPublicationJson('brokenPromiseWithErrorResponse', true);
+      const response = await pubRequests.getIndividualPublicationJson('brokenPromiseWithErrorResponse', userId);
       expect(response).toBe(null);
     });
 
     it('should send an error to the log if error message exists and error request does not exist', async () => {
       dataManagementStub.withArgs('/publication/noErrRequest/payload').rejects(errorMessage);
-      const message = await pubRequests.getIndividualPublicationJson('y', true);
+      const message = await pubRequests.getIndividualPublicationJson('y', userId);
       expect(message).toBe(null);
     });
   });
