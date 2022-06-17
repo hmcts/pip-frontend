@@ -21,7 +21,6 @@ export interface PipRequest extends Request {
       'hearing-list': {};
       'home': {};
       'list-option': {};
-      'interstitial': {};
       'live-case-alphabet-search': {};
       'live-case-status': {};
       'location-name-search': {};
