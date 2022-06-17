@@ -31,7 +31,7 @@ export class SubscriptionService {
               text: subscription.caseNumber,
             },
             {
-              text: moment(subscription.dateAdded).format('MMM Do YYYY'),
+              text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
             },
             {
               html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>Unsubscribe</a>`,
@@ -53,7 +53,7 @@ export class SubscriptionService {
             text: subscription.locationName,
           },
           {
-            text: moment(subscription.dateAdded).format('MMM Do YYYY'),
+            text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
           },
           {
             html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>Unsubscribe</a>`,
@@ -174,10 +174,10 @@ export class SubscriptionService {
         payload = {
           channel: 'EMAIL',
           searchType: pendingSubscription.urnSearch ? 'CASE_URN' : 'CASE_ID',
-          searchValue: pendingSubscription.urnSearch ? pendingSubscription.urn : pendingSubscription.caseNumber,
+          searchValue: pendingSubscription.urnSearch ? pendingSubscription.caseUrn : pendingSubscription.caseNumber,
           caseNumber: pendingSubscription.caseNumber,
           caseName: pendingSubscription.caseName,
-          urn: pendingSubscription.urn,
+          urn: pendingSubscription.caseUrn,
           userId,
         };
         break;
