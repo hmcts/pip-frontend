@@ -10,7 +10,7 @@
     "link5": "Dod o hyd i lys neu dribiwnlys",
     "link6": "Achosion Gweithdrefn Un Ynad"
   },
-"betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/ET_Feedback/?pageurl=\">adborth</a> yn ein helpu i’w wella",
+"betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">adborth</a> yn ein helpu i’w wella",
   "footerLinks": [
     {
       "text": "Gymorth",
@@ -26,7 +26,7 @@
     },
     {
       "text": "Datganiad hygyrchedd",
-      "href": "https://www.gov.uk/help/accessibility-statement"
+      "href": "/accessibility-statement"
     },
     {
       "text": "Cysylltwch",
