@@ -2,9 +2,11 @@ import {AccountManagementRequests} from '../resources/requests/accountManagement
 import {CreateAccountService} from '../service/createAccountService';
 import {MediaAccount} from '../models/mediaAccount';
 import moment from 'moment';
+import {Logger} from '@hmcts/nodejs-logging';
 
 const accountManagementRequests = new AccountManagementRequests();
 const createAccountService = new CreateAccountService();
+const logger = Logger.getLogger('applications');
 
 export class MediaAccountApplicationService {
 
@@ -47,6 +49,8 @@ export class MediaAccountApplicationService {
       mediaAccount['emailAddress'] = mediaApplication.email;
       mediaAccount['fullName'] = mediaApplication.fullName;
 
+      logger.info('Admin ' + adminEmail + ' has approved media account ' + mediaApplication.id);
+
       await createAccountService.createMediaAccount(mediaAccount, adminEmail);
 
       return accountManagementRequests.updateMediaApplicationStatus(applicationId, 'APPROVED');
@@ -55,7 +59,9 @@ export class MediaAccountApplicationService {
     return null;
   }
 
-  public async rejectApplication(applicationId): Promise<object | null> {
+  public async rejectApplication(applicationId, adminEmail): Promise<object | null> {
+    logger.info('Admin ' + adminEmail + ' has rejected media account ' + applicationId);
+
     return accountManagementRequests.updateMediaApplicationStatus(applicationId, 'REJECTED');
   }
 
