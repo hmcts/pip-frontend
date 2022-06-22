@@ -25,7 +25,7 @@ describe('accessibility-statement', () => {
   it('should display the heading in section 2', () => {
     const div = htmlRes.getElementById('section2');
 
-    expect(div.textContent).contains('How accessible is this website?', 'Could not find section 2 heading');
+    expect(div.textContent).contains('How accessible this website is', 'Could not find section 2 heading');
   });
 
   it('should display the heading in section 3', () => {
@@ -65,15 +65,20 @@ describe('accessibility-statement', () => {
     expect(div.textContent).contains('Non-accessible content', 'Could not find section 8 small heading');
   });
 
-  it('should display the heading in section 9', () => {
+  it('should display the subHeading in section 8', () => {
     const div = htmlRes.getElementById('section9');
-
-    expect(div.textContent).contains('What we’re doing to improve accessibility', 'Could not find section 9 heading');
+    expect(div.textContent).contains('Non-compliance with the accessibility regulations');
   });
 
   it('should display the heading in section 10', () => {
     const div = htmlRes.getElementById('section10');
 
-    expect(div.textContent).contains('Preparation of this accessibility statement', 'Could not find section 10 heading');
+    expect(div.textContent).contains('What we’re doing to improve accessibility', 'Could not find section 9 heading');
+  });
+
+  it('should display the heading in section 11', () => {
+    const div = htmlRes.getElementById('section11');
+
+    expect(div.textContent).contains('Preparation of this accessibility statement', 'Could not find section 11 heading');
   });
 });
