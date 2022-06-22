@@ -64,20 +64,11 @@
 
             {% set sessionChannel = sessionChannel.slice(1) %}
 
-            {% set judiciaryJudges = '' %}
-            {% for judge in session['judiciary'] %}
-              {% if judge['johTitle'] | length %}
-                {% set judiciaryJudges = judiciaryJudges + ', ' + judge['johTitle'] + ' ' + judge['johNameSurname'] %}
-              {% else %}
-                {% set judiciaryJudges = judiciaryJudges + ', ' + judge['johNameSurname'] %}
-              {% endif %}
-            {% endfor %}
-            {% set judiciaryJudges = judiciaryJudges.slice(1) %}
             <div class="govuk-accordion__section govuk-accordion__section--expanded">
               <div class="govuk-accordion__section-header">
                 <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ sessionCount }}">
-                  {{ courtRoom['courtRoomName'] }} : {{ judiciaryJudges }}
+                  {{ courtRoom['courtRoomName'] }} : {{ session['formattedJudiciaries'] }}
                 </span>
                 </h2>
               </div>
