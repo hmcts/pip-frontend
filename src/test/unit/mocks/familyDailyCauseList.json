@@ -42,11 +42,11 @@
                 "judiciary": [
                   {
                     "johTitle": "Mr",
-                    "johNameSurname": "Firstname1 Surname1"
+                    "johKnownAs": "Firstname1 Surname1"
                   },
                   {
                     "johTitle": "Mr",
-                    "johNameSurname": "Presiding",
+                    "johKnownAs": "Presiding",
                     "isPresiding": true
                   }
                 ],
