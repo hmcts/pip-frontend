@@ -7,6 +7,7 @@
   },
   "header": "Select content to remove",
   "resultsMessage": "Showing RESULTS_COUNT result(s)",
-  "tableHeaders": ["List type", "Court", "Date", "Actions"],
-  "rowAction": "Remove"
+  "tableHeaders": ["List type", "Court", "Date", "Language", "Actions"],
+  "rowAction": "Remove",
+  "languageItems": ["English", "Welsh", "Bilingual"]
 }
