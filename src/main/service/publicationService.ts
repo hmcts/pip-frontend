@@ -1,11 +1,13 @@
 import {PublicationRequests} from '../resources/requests/publicationRequests';
 import {Artefact} from '../models/Artefact';
 import {SearchObject} from '../models/searchObject';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 const publicationRequests = new PublicationRequests();
 
 export class PublicationService {
+
+  public timeZone = 'Europe/London';
 
   public async getIndividualPublicationMetadata(artefactId, userId: string, admin = false): Promise<any> {
     return publicationRequests.getIndividualPublicationMetadata(artefactId, userId, admin);
@@ -79,12 +81,12 @@ export class PublicationService {
 
       sitting['durationAsHours'] = durationAsHours;
       sitting['durationAsMinutes'] = durationAsMinutes;
-      sitting['time'] = moment(sittingStart).format('HH:mm');
+      sitting['time'] = moment(sittingStart).tz(this.timeZone).format('HH:mm');
       const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
       if (min === 0) {
-        sitting['startTime'] = moment(sitting['sittingStart']).format('ha');
+        sitting['startTime'] = moment(sitting['sittingStart']).tz(this.timeZone).format('ha');
       } else {
-        sitting['startTime'] = moment(sitting['sittingStart']).format('h.mma');
+        sitting['startTime'] = moment(sitting['sittingStart']).tz(this.timeZone).format('h.mma');
       }
     }
   }
@@ -243,12 +245,12 @@ export class PublicationService {
   }
 
   public publicationTime(publicationDatetime: string): string {
-    const min = moment.utc(publicationDatetime, 'HH:mm').minutes();
+    const min = moment.utc(publicationDatetime, 'HH:mm').tz(this.timeZone).minutes();
     let publishedTime = '';
     if (min === 0) {
-      publishedTime = moment.utc(publicationDatetime).format('ha');
+      publishedTime = moment.utc(publicationDatetime).tz(this.timeZone).format('ha');
     } else {
-      publishedTime = moment.utc(publicationDatetime).format('h.mma');
+      publishedTime = moment.utc(publicationDatetime).tz(this.timeZone).format('h.mma');
     }
     return publishedTime;
   }
