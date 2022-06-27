@@ -8,8 +8,11 @@
   },
   "scripts": {
     "start": "USE_PROTOTYPE=true NODE_ENV=production ./node_modules/.bin/ts-node -r tsconfig-paths/register src/main/server.ts",
-    "start:dev": "nodemon --config nodemon.json",
+
+    "start:dev": "export REDIS_LOCAL=true && nodemon --config nodemon.json",
+    "start:dev-windows": "set REDIS_LOCAL=true && nodemon --config nodemon.json",
     "lint": "stylelint **/*.scss && eslint . --ext .js,.jsx,.ts,.tsx",
+
     "build": "yarn webpack --config webpack.config.js",
     "build:prod": "NODE_ENV=production yarn webpack --mode production --config webpack.config.js",
     "test": "jest",
@@ -66,7 +69,7 @@
     "jquery": "^3.5.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
-    "multer": "^1.4.4",
+    "multer": "^1.4.5-lts.1",
     "node-blob": "^0.0.2",
     "nunjucks": "^3.2.2",
     "nunjucks-date-filter": "^0.1.1",
