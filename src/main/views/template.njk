@@ -110,6 +110,7 @@
     <p class="govuk-body">We use some essential cookies to make this service work.</p>
     <p class="govuk-body">We’d also like to use analytics cookies so we can understand how you use the service and make improvements.</p>
   {% endset %}
+
   {% set acceptHtml %}
     <p class="govuk-body">You’ve accepted analytics cookies. You can <a class="govuk-link" href="/cookie-policy">change your cookie settings</a> at any time.</p>
   {% endset %}
@@ -119,67 +120,64 @@
   {% endset %}
 
   {{ govukCookieBanner({
+    classes: 'cookie-banner',
     ariaLabel: "Cookies on " + serviceNameText,
     hidden: true,
     messages: [
       {
+        classes: 'cookie-banner-message',
         headingText: "Cookies on " + serviceNameText,
         html: html,
         actions: [
         {
+          classes: 'cookie-banner-accept-button',
           text: "Accept analytics cookies",
+          type: "button",
           attributes: {
-            id: 'cookie-accept-analytics'
-        }
+            id: 'cookie-banner-accept-button'
+          }
         },
         {
+          classes: 'cookie-banner-reject-button',
           text: "Reject analytics cookies",
-          attributes: {
-            id: 'cookie-reject-analytics'
-        }
+          type: "button"
         },
         {
           text: "View cookies",
           href: "/cookie-policy"
         }
-      ],
-        attributes: {
-        id: 'cookie-banner-message'
-      }
+      ]
       },
       {
+        classes: 'cookie-banner-accept-message',
         html: acceptHtml,
         role: 'alert',
         hidden: true,
-        actions: [{
+        actions: [
+        {
+          classes: 'cookie-banner-hide-button',
           text: 'Hide this message',
           attributes: {
-            id: 'hide-message-accept'
+            id: 'cookie-banner-hide-button'
+          }
         }
-      }],
-        attributes: {
-        id: 'accept-message'
-      }
+      ]
       },
       {
+        classes: 'cookie-banner-reject-message',
         html: rejectHtml,
         role: 'alert',
         hidden: true,
-        actions: [{
-          text: 'Hide this message',
-          attributes: {
-            id: 'hide-message-reject'
+        actions: [
+        {
+          classes: 'cookie-banner-hide-button',
+          text: 'Hide this message'
         }
-      }],
-        attributes: {
-          id: 'reject-message'
+      ]
       }
-      }
-    ],
-    attributes: {
-      id: 'cookie-banner'
-    }
+    ]
   }) }}
+
 {% endblock %}
 
 {%  block content %}
@@ -188,7 +186,6 @@
 
 {% block bodyEnd %}
   <script src="alphabetical-dev.js"></script>
-  <script src="assets/js/cookie-preferences.js"></script>
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   {% include "webpack/js.njk" %}
 {% endblock %}
