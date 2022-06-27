@@ -1,5 +1,8 @@
 {% extends "template.njk" %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block pageTitle %}
     {{ title }}
@@ -11,49 +14,278 @@
 
 {% block content %}
   <div class="parent-box alphabetical-box">
-<h1 class="govuk-heading-l">{{ title }}</h1>
-<p class="govuk-body">{{ cookiesExplanation1 }}</p>
-<p class="govuk-body">{{ cookiesExplanation2 }}</p>
-<p class="govuk-body">{{ cookiesExplanation3 }}</p>
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+    <p class="govuk-body">{{ cookiesExplanation1 }}</p>
+    <p class="govuk-body">{{ cookiesExplanation2 }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      {% for item in bulletList1 %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+    <p class="govuk-body">{{ cookiesExplanation3 }}<a href="{{ link1.href }}">{{ link1.text }}</a></p>
 
-  {% set tableRows = [] %}
-{% for row in cookieTableData %}
+    <h2 class="govuk-heading-m">{{ heading1 }}</h2>
+    <h3 class="govuk-heading-s">{{ subHeading1 }}</h3>
+    <p class="govuk-body">{{ cookiesExplanation4 }}</p>
+    <p class="govuk-body">{{ cookiesExplanation5 }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      {% for item in bulletList2 %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+
+    <p class="govuk-body">{{ cookiesExplanation6 }}<a href="{{ link2.href }}">{{ link2.text }}</a></p>
+    <p class="govuk-body">{{ cookiesExplanation7 }}<a href="{{ link3.href }}">{{ link3.text }}</a>{{ cookiesExplanation8 }}</p>
+
+    <p class="govuk-body">{{ cookiesExplanation9 }}</p>
+
+    {% set tableRows = [] %}
+    {% for row in tableData1 %}
       {% set _ = tableRows.push([
-      {
-        text: row[0]
-      },
-      {
-        text: row[1]
-      },
-      {
-        text: row[2]
-      }
+        {
+          text: row.name
+        },
+        {
+          text: row.purpose
+        },
+        {
+          text: row.expires
+        }
       ]) %}
-  {% endfor %}
+    {% endfor %}
 
-{{ govukTable({
-  caption: tableCaption,
-  captionClasses: "govuk-table__caption--m",
-  head: [
-    {
-      text: tableHeaders[0]
-    },
-    {
-      text: tableHeaders[1]
-    },
-    {
-      text: tableHeaders[2]
-    }
-  ],
-  rows: tableRows
+    {{ govukTable({
+      head: [
+        {
+          text: tableHeaders[0]
+        },
+        {
+          text: tableHeaders[1]
+        },
+        {
+          text: tableHeaders[2]
+        }
+      ],
+      rows: tableRows
+    }) }}
 
-}) }}
-    <h1 class="govuk-heading-m">{{ heading2 }}</h1>
-    <p class="govuk-body">{{ analyticsExplanation }}</p>
+    <h3 class="govuk-heading-s">{{ subHeading2 }}</h3>
+    <p class="govuk-body">{{ cookiesExplanation10 }}</p>
+
+    {% set tableRows = [] %}
+    {% for row in tableData2 %}
+      {% set _ = tableRows.push([
+        {
+          text: row.name
+        },
+        {
+          text: row.purpose
+        },
+        {
+          text: row.expires
+        }
+      ]) %}
+    {% endfor %}
+
+    {{ govukTable({
+      head: [
+        {
+          text: tableHeaders[0]
+        },
+        {
+          text: tableHeaders[1]
+        },
+        {
+          text: tableHeaders[2]
+        }
+      ],
+      rows: tableRows
+    }) }}
+
+    <h3 class="govuk-heading-s">{{ subHeading3 }}</h3>
+    <p class="govuk-body">{{ cookiesExplanation11 }}</p>
+
+    {% set tableRows = [] %}
+    {% for row in tableData3 %}
+      {% set _ = tableRows.push([
+        {
+          text: row.name
+        },
+        {
+          text: row.purpose
+        },
+        {
+          text: row.expires
+        }
+      ]) %}
+    {% endfor %}
+
+    {{ govukTable({
+      head: [
+        {
+          text: tableHeaders[0]
+        },
+        {
+          text: tableHeaders[1]
+        },
+        {
+          text: tableHeaders[2]
+        }
+      ],
+      rows: tableRows
+    }) }}
+
+    <h3 class="govuk-heading-s">{{ subHeading4 }}</h3>
+    <p class="govuk-body">{{ cookiesExplanation12 }}</p>
+
+    {% set tableRows = [] %}
+    {% for row in tableData4 %}
+      {% set _ = tableRows.push([
+        {
+          text: row.name
+        },
+        {
+          text: row.purpose
+        },
+        {
+          text: row.expires
+        }
+      ]) %}
+    {% endfor %}
+
+    {{ govukTable({
+      head: [
+        {
+          text: tableHeaders[0]
+        },
+        {
+          text: tableHeaders[1]
+        },
+        {
+          text: tableHeaders[2]
+        }
+      ],
+      rows: tableRows
+    }) }}
+
+    <h3 class="govuk-heading-s">{{ subHeading5 }}</h3>
+    <p class="govuk-body">{{ cookiesExplanation13 }}</p>
+
+    {% set tableRows = [] %}
+    {% for row in tableData5 %}
+      {% set _ = tableRows.push([
+        {
+          text: row.name
+        },
+        {
+          text: row.purpose
+        },
+        {
+          text: row.expires
+        }
+      ]) %}
+    {% endfor %}
+
+    {{ govukTable({
+      head: [
+        {
+          text: tableHeaders[0]
+        },
+        {
+          text: tableHeaders[1]
+        },
+        {
+          text: tableHeaders[2]
+        }
+      ],
+      rows: tableRows
+    }) }}
+
+    <h3 class="govuk-heading-s">{{ subHeading6 }}</h3>
+    <p class="govuk-body">{{ cookiesExplanation14 }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      {% for item in bulletList3 %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+    <p class="govuk-body">{{ cookiesExplanation15 }}</p>
+
+    {% set tableRows = [] %}
+    {% for row in tableData6 %}
+      {% set _ = tableRows.push([
+        {
+          text: row.name
+        },
+        {
+          text: row.purpose
+        },
+        {
+          text: row.expires
+        }
+      ]) %}
+    {% endfor %}
+
+    {{ govukTable({
+      head: [
+        {
+          text: tableHeaders[0]
+        },
+        {
+          text: tableHeaders[1]
+        },
+        {
+          text: tableHeaders[2]
+        }
+      ],
+      rows: tableRows
+    }) }}
+
+    <h2 class="govuk-heading-m">{{ heading2 }}</h2>
+
+    {% set analyticsCookieRadio = govukRadios({
+      classes: 'govuk-radios',
+      idPrefix: "analytics",
+      name: "analytics",
+      fieldset: {
+        legend: {
+          text: subHeading7,
+          classes: "govuk-fieldset__legend--s"
+        }
+      },
+      items: analyticsCookieOptions
+    }) %}
+
+    {% set performanceCookieRadio = govukRadios({
+      classes: 'govuk-radios',
+      idPrefix: "apm",
+      name: "apm",
+      fieldset: {
+        legend: {
+          text: subHeading8,
+          classes: "govuk-fieldset__legend--s"
+        }
+      },
+      items: performanceCookieOptions
+    }) %}
+
+    <form class="cookie-preferences-form">
+      {{ analyticsCookieRadio }}
+      {{ performanceCookieRadio }}
+      {{ govukButton({
+        attributes: {
+          id: 'cookie-save-button'
+        },
+        text: saveText
+      })}}
+    </form>
+
+    {{ govukDetails({
+      summaryText: summaryText,
+      html: html
+    }) }}
   {{ super() }}
   </div>
 {% endblock %}
-
 {% block bodyEnd %}
   {{ super() }}
 {% endblock %}
