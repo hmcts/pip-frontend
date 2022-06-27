@@ -165,19 +165,6 @@
 {% endblock %}
 {% block bodyEnd %}
   <script>
-    window.onload = function() {
-      let hideAllSection = document.querySelectorAll('button[class="govuk-accordion__show-all"]');
-      Array.from(hideAllSection).forEach((element, index) => {
-        element.querySelectorAll('.govuk-accordion__show-all-text').forEach(function(el) {
-          el.style.display = 'none';
-        });
-
-        element.querySelectorAll('.govuk-accordion-nav__chevron').forEach(function(el) {
-          el.style.display = 'none';
-        });
-      });
-    };
-
     if ( window.history.replaceState ) {
       window.history.replaceState( null, null, window.location.href );
     }
