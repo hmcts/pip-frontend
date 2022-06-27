@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import {mockRequest} from '../mocks/mockRequest';
 import SjpPublicListController from '../../../main/controllers/SjpPublicListController';
+import moment from 'moment';
 
 const sjpPublicListController = new SjpPublicListController();
 
@@ -40,7 +41,8 @@ describe('SJP Public List Type Controller', () => {
     const expectedData = {
       casesList: JSON.parse(mockSJPPublic).courtLists[0].courtHouse.courtRoom[0].session[0].sittings,
       length: data.length,
-      date: JsonifiedData['document'].publicationDate,
+      publishedDateTime: moment(Date.parse(JsonifiedData['document']['publicationDate'])).format('DD MMMM YYYY'),
+      publishedTime: '11.30pm',
       ...i18n['single-justice-procedure'],
     };
 
@@ -53,7 +55,7 @@ describe('SJP Public List Type Controller', () => {
   it('should render error page is query param is empty', async () => {
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '1'};
+    request.user = {piUserId: '123'};
 
     const responseMock = sinon.mock(response);
 

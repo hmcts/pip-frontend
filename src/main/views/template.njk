@@ -121,6 +121,7 @@
     <p class="govuk-body">We use some essential cookies to make this service work.</p>
     <p class="govuk-body">We’d also like to use analytics cookies so we can understand how you use the service and make improvements.</p>
   {% endset %}
+
   {% set acceptHtml %}
     <p class="govuk-body">You’ve accepted analytics cookies. You can <a class="govuk-link" href="/cookie-policy">change your cookie settings</a> at any time.</p>
   {% endset %}
@@ -130,67 +131,64 @@
   {% endset %}
 
   {{ govukCookieBanner({
+    classes: 'cookie-banner',
     ariaLabel: "Cookies on " + serviceNameText,
     hidden: true,
     messages: [
       {
+        classes: 'cookie-banner-message',
         headingText: "Cookies on " + serviceNameText,
         html: html,
         actions: [
         {
+          classes: 'cookie-banner-accept-button',
           text: "Accept analytics cookies",
+          type: "button",
           attributes: {
-            id: 'cookie-accept-analytics'
-        }
+            id: 'cookie-banner-accept-button'
+          }
         },
         {
+          classes: 'cookie-banner-reject-button',
           text: "Reject analytics cookies",
-          attributes: {
-            id: 'cookie-reject-analytics'
-        }
+          type: "button"
         },
         {
           text: "View cookies",
           href: "/cookie-policy"
         }
-      ],
-        attributes: {
-        id: 'cookie-banner-message'
-      }
+      ]
       },
       {
+        classes: 'cookie-banner-accept-message',
         html: acceptHtml,
         role: 'alert',
         hidden: true,
-        actions: [{
+        actions: [
+        {
+          classes: 'cookie-banner-hide-button',
           text: 'Hide this message',
           attributes: {
-            id: 'hide-message-accept'
+            id: 'cookie-banner-hide-button'
+          }
         }
-      }],
-        attributes: {
-        id: 'accept-message'
-      }
+      ]
       },
       {
+        classes: 'cookie-banner-reject-message',
         html: rejectHtml,
         role: 'alert',
         hidden: true,
-        actions: [{
-          text: 'Hide this message',
-          attributes: {
-            id: 'hide-message-reject'
+        actions: [
+        {
+          classes: 'cookie-banner-hide-button',
+          text: 'Hide this message'
         }
-      }],
-        attributes: {
-          id: 'reject-message'
+      ]
       }
-      }
-    ],
-    attributes: {
-      id: 'cookie-banner'
-    }
+    ]
   }) }}
+
 {% endblock %}
 
 {%  block content %}
@@ -199,15 +197,55 @@
 
 {% block bodyEnd %}
   <script src="alphabetical-dev.js"></script>
-  <script src="assets/js/cookie-preferences.js"></script>
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   {% include "webpack/js.njk" %}
 {% endblock %}
 
 {% block footer %}
-{{ govukFooter({
-  meta: {
-    items: footerLinks
-  }
-}) }}
+  <footer class="govuk-footer " role="contentinfo">
+    <div class="govuk-width-container ">
+      <div class="govuk-footer__meta">
+        <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+          <h2 class="govuk-visually-hidden">Support links</h2>
+          <ul class="govuk-footer__inline-list">
+            {% for link in footerLinks %}
+              <li class="govuk-footer__inline-list-item">
+                <a class="govuk-footer__link" href="{{ link.href }}">{{ link.text }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+          <svg aria-hidden="true" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg"
+               viewBox="0 0 483.2 195.7" height="17" width="41">
+            <path fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12
+              0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1
+              0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0
+              68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26
+              0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145" />
+          </svg>
+          <span class="govuk-footer__licence-description">All content is available under the
+            <a class="govuk-footer__link"
+               href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+               rel="license">Open Government Licence v3.0</a>, except where otherwise stated
+          </span>
+          <p class="govuk-footer__licence-description">When you use this information under the OGL,
+            you should include the following attribution: Contains public sector information licensed under the
+            <a class="govuk-footer__link"
+               href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+               rel="license">Open Government Licence v3.0</a>
+          </p>
+          <p class="govuk-footer__licence-description govuk-!-margin-0">The
+            <a class="govuk-footer__link"
+               href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+               rel="license">Open Government Licence v3.0</a> does not cover use of any personal data in the
+               court and tribunal hearings service. Personal data is subject to applicable data protection laws.
+          </p>
+        </div>
+        <div class="govuk-footer__meta-item">
+          <a class="govuk-footer__link govuk-footer__copyright-logo"
+             href="https://www.nationalarchives.gov.uk/information-management
+             /re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">© Crown copyright</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 {% endblock %}
