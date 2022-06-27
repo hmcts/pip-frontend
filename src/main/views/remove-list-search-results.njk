@@ -21,7 +21,8 @@
                     <th scope="col" class="govuk-table__header" aria-sort="none">{{ tableHeaders[0] }}</th>
                     <th scope="col" class="govuk-table__header" aria-sort="none">{{ tableHeaders[1] }}</th>
                     <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[2] }}</th>
-                    <th scope="col" class="govuk-table__header govuk-table__header--numeric">{{ tableHeaders[3] }}</th>
+                    <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[3] }}</th>
+                    <th scope="col" class="govuk-table__header govuk-table__header--numeric">{{ tableHeaders[4] }}</th>
                 </tr>
                 </thead>
                 <tbody class="govuk-table__body">
@@ -30,8 +31,15 @@
                         <td class="govuk-table__cell">{{ item.listTypeName }}</td>
                         <td class="govuk-table__cell">{{ court.name }}</td>
                         <td class="govuk-table__cell">{{ item.dateRange }}</td>
+                        {% if (item.language == 'ENGLISH') %}
+                          <td class="govuk-table__cell">{{ languageItems[0] }}</td>
+                        {% elif (item.language == 'WELSH') %}
+                          <td class="govuk-table__cell">{{ languageItems[1] }}</td>
+                        {% elif (item.language == 'BI_LINGUAL') %}
+                          <td class="govuk-table__cell">{{ languageItems[2] }}</td>
+                        {% endif %}
                         <td class="govuk-table__cell govuk-table__cell--numeric">
-                            <a class='unsubscribe-action' href='remove-list-confirmation?artefact={{ item.artefactId }}'>Remove</a>
+                          <a class='unsubscribe-action' href='remove-list-confirmation?artefact={{ item.artefactId }}'>Remove</a>
                         </td>
                     </tr>
                 {% endfor %}
