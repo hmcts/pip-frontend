@@ -22,13 +22,6 @@ export const allowedImageTypeMappings = {
   'pdf': 'application/pdf',
 };
 
-export const partyRoles = [
-  'APPLICANT_PETITIONER',
-  'APPLICANT_PETITIONER_REPRESENTATIVE',
-  'RESPONDENT',
-  'RESPONDENT_REPRESENTATIVE',
-];
-
 export const partyRoleMappings = {
   'APPLICANT_PETITIONER': ['APL', 'APP', 'CLP20', 'CRED', 'OTH', 'PET'],
   'APPLICANT_PETITIONER_REPRESENTATIVE': ['CREP', 'CREP20'],

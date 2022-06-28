@@ -2,7 +2,7 @@ import {PublicationRequests} from '../resources/requests/publicationRequests';
 import {Artefact} from '../models/Artefact';
 import {SearchObject} from '../models/searchObject';
 import moment from 'moment';
-import {partyRoleMappings, partyRoles} from '../models/consts';
+import { partyRoleMappings } from '../models/consts';
 
 const publicationRequests = new PublicationRequests();
 
@@ -256,13 +256,13 @@ export class PublicationService {
   }
 
   private static convertPartyRole(nonConvertedPartyRole: string): string {
-    if(partyRoles.includes(nonConvertedPartyRole)) {
-      return nonConvertedPartyRole;
-    } else {
-      for (const [mappedPartyRole, unMappedRoles] of Object.entries(partyRoleMappings)) {
-        if (unMappedRoles.includes(nonConvertedPartyRole)) {
-          return mappedPartyRole;
-        }
+    for (const [mappedPartyRole, unMappedRoles] of Object.entries(partyRoleMappings)) {
+      if (mappedPartyRole === nonConvertedPartyRole) {
+        return mappedPartyRole;
+      }
+
+      if (unMappedRoles.includes(nonConvertedPartyRole)) {
+        return mappedPartyRole;
       }
     }
   }
