@@ -22,9 +22,16 @@ export const allowedImageTypeMappings = {
   'pdf': 'application/pdf',
 };
 
+export const partyRoles = [
+  'APPLICANT_PETITIONER',
+  'APPLICANT_PETITIONER_REPRESENTATIVE',
+  'RESPONDENT',
+  'RESPONDENT_REPRESENTATIVE',
+];
+
 export const partyRoleMappings = {
-  'APPLICANT_PETITIONER': ['Appellant', 'Applicant', 'Claimant (Part 20)', 'Creditor', 'Claimant', 'Petitioner'],
-  'APPLICANT_PETITIONER_REPRESENTATIVE': ["Claimant's Representative", "Claimant's Representative (Part 20)"],
-  'RESPONDENT': ['Debtor', 'Defendant', 'Defendant (Part 20)', 'Respondent'],
-  'RESPONDENT_REPRESENTATIVE': ["Defendant's Representative", "Defendant's Representative (Part 20)", "Respondent's Representative"],
+  'APPLICANT_PETITIONER': ['APL', 'APP', 'CLP20', 'CRED', 'OTH', 'PET'],
+  'APPLICANT_PETITIONER_REPRESENTATIVE': ['CREP', 'CREP20'],
+  'RESPONDENT': ['DEBT', 'DEF', 'DEF20', 'RES'],
+  'RESPONDENT_REPRESENTATIVE': ['DREP', 'DREP20', 'RREP'],
 };

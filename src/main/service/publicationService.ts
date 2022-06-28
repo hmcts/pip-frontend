@@ -2,7 +2,7 @@ import {PublicationRequests} from '../resources/requests/publicationRequests';
 import {Artefact} from '../models/Artefact';
 import {SearchObject} from '../models/searchObject';
 import moment from 'moment';
-import {partyRoleMappings} from '../models/consts';
+import {partyRoleMappings, partyRoles} from '../models/consts';
 
 const publicationRequests = new PublicationRequests();
 
@@ -126,7 +126,7 @@ export class PublicationService {
     if(hearing?.party) {
       hearing.party.forEach(party => {
 
-        switch(PublicationService.convertPartyRoleType(party.partyRole)) {
+        switch(PublicationService.convertPartyRole(party.partyRole)) {
           case 'APPLICANT_PETITIONER':
           {
             applicant = this.createIndividualDetails(party.individualDetails);
@@ -255,10 +255,14 @@ export class PublicationService {
     return publishedTime;
   }
 
-  private static convertPartyRoleType(nonConvertedPartyRole: string): string {
-    for (const [mappedPartyRole, unMappedRoles] of Object.entries(partyRoleMappings)) {
-      if(unMappedRoles.includes(nonConvertedPartyRole)) {
-        return mappedPartyRole;
+  private static convertPartyRole(nonConvertedPartyRole: string): string {
+    if(partyRoles.includes(nonConvertedPartyRole)) {
+      return nonConvertedPartyRole;
+    } else {
+      for (const [mappedPartyRole, unMappedRoles] of Object.entries(partyRoleMappings)) {
+        if (unMappedRoles.includes(nonConvertedPartyRole)) {
+          return mappedPartyRole;
+        }
       }
     }
   }
