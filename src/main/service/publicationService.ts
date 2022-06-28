@@ -104,10 +104,10 @@ export class PublicationService {
     let foundPresiding = false;
     session['judiciary']?.forEach(judiciary => {
       if(judiciary?.isPresiding ===  true) {
-        judiciaries = this.writeStringIfValid(judiciary?.johTitle) + ' ' + judiciary.johNameSurname;
+        judiciaries = this.writeStringIfValid(judiciary?.johKnownAs);
         foundPresiding = true;
       } else if (!foundPresiding){
-        judiciaries += this.writeStringIfValid(judiciary?.johTitle) + ' ' + judiciary.johNameSurname + ', ';
+        judiciaries += this.writeStringIfValid(judiciary?.johKnownAs) + ', ';
       }
     });
 

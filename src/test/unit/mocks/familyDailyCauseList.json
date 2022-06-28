@@ -42,11 +42,11 @@
                 "judiciary": [
                   {
                     "johTitle": "Mr",
-                    "johNameSurname": "Firstname1 Surname1"
+                    "johKnownAs": "Firstname1 Surname1"
                   },
                   {
                     "johTitle": "Mr",
-                    "johNameSurname": "Presiding",
+                    "johKnownAs": "Presiding",
                     "isPresiding": true
                   }
                 ],
@@ -61,7 +61,7 @@
                           {
                             "caseName": "A1 Vs B1",
                             "caseNumber": "12345678",
-                            "caseJurisdictionET": "type"
+                            "caseType": "type"
                           }
                         ],
                         "party": [
@@ -202,7 +202,7 @@
                           {
                             "caseName": "A1 Vs B1",
                             "caseNumber": "12345678",
-                            "caseJurisdictionET": "type"
+                            "caseType": "type"
                           }
                         ],
                         "party": [
