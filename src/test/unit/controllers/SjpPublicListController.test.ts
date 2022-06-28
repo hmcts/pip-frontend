@@ -42,7 +42,7 @@ describe('SJP Public List Type Controller', () => {
       casesList: JSON.parse(mockSJPPublic).courtLists[0].courtHouse.courtRoom[0].session[0].sittings,
       length: data.length,
       publishedDateTime: moment(Date.parse(JsonifiedData['document']['publicationDate'])).format('DD MMMM YYYY'),
-      publishedTime: '11.30pm',
+      publishedTime: '11:30pm',
       ...i18n['single-justice-procedure'],
     };
 
