@@ -2,6 +2,7 @@ import {PublicationRequests} from '../resources/requests/publicationRequests';
 import {Artefact} from '../models/Artefact';
 import {SearchObject} from '../models/searchObject';
 import moment from 'moment';
+import {partyRoleMappings} from "../models/consts";
 
 const publicationRequests = new PublicationRequests();
 
@@ -124,7 +125,8 @@ export class PublicationService {
 
     if(hearing?.party) {
       hearing.party.forEach(party => {
-        switch(party.partyRole) {
+
+        switch(PublicationService.convertPartyRoleType(party.partyRole)) {
           case 'APPLICANT_PETITIONER':
           {
             applicant = this.createIndividualDetails(party.individualDetails);
@@ -251,5 +253,13 @@ export class PublicationService {
       publishedTime = moment.utc(publicationDatetime).format('h.mma');
     }
     return publishedTime;
+  }
+
+  private static convertPartyRoleType(nonConvertedPartyRole: string): string {
+    for (const [mappedPartyRole, unMappedRoles] of Object.entries(partyRoleMappings)) {
+      if(unMappedRoles.includes(nonConvertedPartyRole)) {
+        return mappedPartyRole;
+      }
+    }
   }
 }
