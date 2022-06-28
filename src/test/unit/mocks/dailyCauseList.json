@@ -42,7 +42,10 @@
                 "judiciary": [
                   {
                     "johTitle": "Mr",
-                    "johNameSurname": "Firstname1 Surname1"
+                    "johKnownAs": "Firstname1 Surname1"
+                  },
+                  {
+                    "johKnownAs": "Firstname2 Surname2"
                   }
                 ],
                 "sittings": [
@@ -135,7 +138,7 @@
                 "judiciary": [
                   {
                     "johTitle": "Mr",
-                    "johNameSurname": "Firstname1 Surname1"
+                    "johKnownAs": "Firstname1 Surname1"
                   }
                 ],
                 "sittings": [

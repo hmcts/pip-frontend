@@ -21,7 +21,7 @@ const returnedArtefact = [{
   },
 }];
 
-const nonPresidingJudiciary = 'Mr Firstname1 Surname1, Mr Presiding';
+const nonPresidingJudiciary = 'Firstname1 Surname1, Presiding';
 const expectedApplicant = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
 const expectedRespondent = expectedApplicant;
 
@@ -140,7 +140,7 @@ describe('Publication service', () => {
 
     it('should set judiciary to presiding judiciary over other judiciaries', async () => {
       const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCauseData);
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciaries']).to.equal('Mr Presiding');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciaries']).to.equal('Presiding');
     });
 
     it('should concat judiciaries with no presiding', async () => {
