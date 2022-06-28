@@ -5,11 +5,13 @@ import path from 'path';
 
 import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
 import {PublicationService} from '../../../main/service/publicationService';
+import moment from "moment-timezone";
 
 const caseNameValue = 'test';
 const caseNumberValue = '123';
 const caseUrnValue = '456';
 const userId = '123';
+const timeZone = 'Europe/London';
 
 const returnedArtefact = [{
   artefactId: '123',
@@ -198,10 +200,22 @@ describe('Publication service', () => {
 
   });
 
-  describe('publicationTime Publication Service', () => {
-    it('should return Publication Time List', async () => {
-      const data = await publicationService.publicationTime(dailyCauseListData['document']['publicationDate']);
-      expect(data).to.equal('11.30pm');
+  describe('Publication Date and Time Publication Service', () => {
+    it('should return Publication Time accounting for BST', async () => {
+      const data = await publicationService.publicationTimeInBst(dailyCauseListData['document']['publicationDate']);
+
+      let expectedValue = moment.utc(dailyCauseListData['document']['publicationDate']).tz(timeZone).format('h.mma')
+
+      expect(data).to.equal(expectedValue);
     });
+
+    it('should return Publication Date accounting for BST', async () => {
+      const data = await publicationService.publicationDateInBst(dailyCauseListData['document']['publicationDate']);
+
+      let expectedValue = moment.utc(dailyCauseListData['document']['publicationDate']).tz(timeZone).format('DD MMMM YYYY')
+
+      expect(data).to.equal(expectedValue);
+    });
+
   });
 });
