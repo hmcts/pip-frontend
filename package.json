@@ -26,6 +26,7 @@
     "cichecks": "yarn && yarn build && yarn lint  && yarn test && yarn test:routes &&  yarn test:a11y"
   },
   "dependencies": {
+    "@hmcts/cookie-manager": "^1.0.0",
     "@hmcts/info-provider": "^1.0.0",
     "@hmcts/nodejs-healthcheck": "^1.7.0",
     "@hmcts/nodejs-logging": "^3.0.4",
@@ -69,7 +70,7 @@
     "jquery": "^3.5.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
-    "multer": "^1.4.4",
+    "multer": "^1.4.5-lts.1",
     "node-blob": "^0.0.2",
     "nunjucks": "^3.2.2",
     "nunjucks-date-filter": "^0.1.1",
