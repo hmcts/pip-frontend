@@ -2,7 +2,7 @@ import {PublicationRequests} from '../resources/requests/publicationRequests';
 import {Artefact} from '../models/Artefact';
 import {SearchObject} from '../models/searchObject';
 import moment from 'moment';
-import {partyRoleMappings} from "../models/consts";
+import {partyRoleMappings} from '../models/consts';
 
 const publicationRequests = new PublicationRequests();
 
