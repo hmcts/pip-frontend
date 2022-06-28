@@ -111,7 +111,7 @@ describe('Family Daily Cause List page', () => {
 
   it('should display case time',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[0].innerHTML).contains('09:00');
+    expect(cell[0].innerHTML).contains('10:40');
   });
 
   it('should display Case Id',  () => {

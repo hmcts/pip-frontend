@@ -202,13 +202,13 @@ describe('Publication service', () => {
     it('should return Publication Time accounting for BST', async () => {
       const data = await publicationService.publicationTimeInBst(dailyCauseListData['document']['publicationDate']);
 
-      expect(data).to.equal("12.30am");
+      expect(data).to.equal('12.30am');
     });
 
     it('should return Publication Date accounting for BST', async () => {
       const data = await publicationService.publicationDateInBst(dailyCauseListData['document']['publicationDate']);
 
-      expect(data).to.equal("14 September 2020");
+      expect(data).to.equal('14 September 2020');
     });
 
   });
