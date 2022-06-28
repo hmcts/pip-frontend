@@ -21,6 +21,7 @@ const mockPublications = [
     listTypeName: 'SJP Public List',
     locationId: '5',
     artefactId: 'valid-artefact',
+    language: 'ENGLISH',
   },
   {
     listItem: 'SJP_PUBLIC_LIST',
@@ -30,9 +31,21 @@ const mockPublications = [
     listTypeName: 'SJP Public List',
     locationId: '5',
     artefactId: 'valid-artefact-777',
+    language: 'WELSH',
+  },
+  {
+    listItem: 'SJP_PUBLIC_LIST',
+    displayFrom: '2022-02-16T12:26:42.908',
+    displayTo: '2024-02-08T12:26:42.908',
+    dateRange: '8 Feb 2022 to 8 Feb 2024',
+    listTypeName: 'SJP Public List',
+    locationId: '5',
+    artefactId: 'valid-artefact-777',
+    language: 'BI_LINGUAL',
   },
 ];
-const tableHeaders = ['List type', 'Court', 'Date', 'Actions'];
+const tableHeaders = ['List type', 'Court', 'Date', 'Language', 'Actions'];
+const languageRowValues = ['English', 'Welsh', 'Bilingual'];
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs('5', true, true).resolves(mockPublications);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns(mockPublications);
@@ -55,7 +68,7 @@ describe('Remove List Summary Page', () => {
 
   it('should display results count', () => {
     const resultsCount = htmlRes.getElementsByClassName('govuk-body')[0];
-    expect(resultsCount.innerHTML).contains('Showing 2 result(s)', 'Could not find results paragraph');
+    expect(resultsCount.innerHTML).contains('Showing 3 result(s)', 'Could not find results paragraph');
   });
 
   it('should display correct table headers', () => {
@@ -67,14 +80,15 @@ describe('Remove List Summary Page', () => {
 
   it('should display correct row values', () => {
     const tableRows = htmlRes.getElementsByClassName('govuk-table__body')[0].getElementsByClassName('govuk-table__row');
-    expect(tableRows.length).equal(2, 'Incorrect table rows count');
+    expect(tableRows.length).equal(3, 'Incorrect table rows count');
     for(let i = 0; i < tableRows.length; i++) {
       const rowCells = tableRows[i].getElementsByClassName('govuk-table__cell');
       const removeActionHref = htmlRes.getElementsByClassName('unsubscribe-action')[i].getAttribute('href').valueOf();
       expect(rowCells[0].innerHTML).contains(mockPublications[i].listTypeName, 'Could not find valid list type name');
       expect(rowCells[1].innerHTML).contains(mockCourt.name, 'Could not find valid court name');
       expect(rowCells[2].innerHTML).contains(mockPublications[i].dateRange, 'Could not find valid list date range');
-      expect(rowCells[3].innerHTML).contains('Remove', 'Could not find valid action');
+      expect(rowCells[3].innerHTML).contains(languageRowValues[i], 'Could not find valid language');
+      expect(rowCells[4].innerHTML).contains('Remove', 'Could not find valid action');
       expect(removeActionHref).contains(`remove-list-confirmation?artefact=${mockPublications[i].artefactId}`,
         'Could not find valid action href');
     }
