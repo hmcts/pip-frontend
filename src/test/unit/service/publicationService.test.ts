@@ -36,6 +36,9 @@ const rawDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/dail
 const rawFamilyDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
 const dailyCauseListData = JSON.parse(rawDailyCauseData);
 
+const rawFamilyDailyCausePartyMappingData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseListPartyMapping.json'),
+  'utf-8');
+
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
@@ -151,6 +154,12 @@ describe('Publication service', () => {
 
     it('should build the applicants and the respondents of the party', async () => {
       const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCauseData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant']).to.equal(expectedApplicant);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent']).to.equal(expectedRespondent);
+    });
+
+    it('should build the applicants and the respondents of the party with data that requires mapping', async () => {
+      const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCausePartyMappingData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant']).to.equal(expectedApplicant);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent']).to.equal(expectedRespondent);
     });

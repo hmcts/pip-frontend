@@ -257,13 +257,10 @@ export class PublicationService {
 
   private static convertPartyRole(nonConvertedPartyRole: string): string {
     for (const [mappedPartyRole, unMappedRoles] of Object.entries(partyRoleMappings)) {
-      if (mappedPartyRole === nonConvertedPartyRole) {
-        return mappedPartyRole;
-      }
-
-      if (unMappedRoles.includes(nonConvertedPartyRole)) {
+      if (unMappedRoles.includes(nonConvertedPartyRole) || mappedPartyRole === nonConvertedPartyRole) {
         return mappedPartyRole;
       }
     }
   }
 }
+
