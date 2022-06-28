@@ -61,7 +61,7 @@
                           {
                             "caseName": "A1 Vs B1",
                             "caseNumber": "12345678",
-                            "caseJurisdictionET": "type"
+                            "caseType": "type"
                           }
                         ],
                         "party": [
@@ -202,7 +202,7 @@
                           {
                             "caseName": "A1 Vs B1",
                             "caseNumber": "12345678",
-                            "caseJurisdictionET": "type"
+                            "caseType": "type"
                           }
                         ],
                         "party": [
