@@ -69,8 +69,8 @@ export class PublicationService {
     sitting['duration'] = '';
     sitting['startTime'] = '';
     if (sitting['sittingStart'] !== '' && sitting['sittingEnd'] !== '') {
-      const sittingStart = moment(sitting['sittingStart']);
-      const sittingEnd = moment(sitting['sittingEnd']);
+      const sittingStart = moment.utc(sitting['sittingStart']);
+      const sittingEnd = moment.utc(sitting['sittingEnd']);
 
       let durationAsHours = 0;
       let durationAsMinutes = moment.duration(sittingEnd.startOf('minutes').diff(sittingStart.startOf('minutes'))).asMinutes();
@@ -81,12 +81,12 @@ export class PublicationService {
 
       sitting['durationAsHours'] = durationAsHours;
       sitting['durationAsMinutes'] = durationAsMinutes;
-      sitting['time'] = moment(sittingStart).tz(this.timeZone).format('HH:mm');
+      sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('HH:mm');
       const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
       if (min === 0) {
-        sitting['startTime'] = moment(sitting['sittingStart']).tz(this.timeZone).format('ha');
+        sitting['startTime'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('ha');
       } else {
-        sitting['startTime'] = moment(sitting['sittingStart']).tz(this.timeZone).format('h.mma');
+        sitting['startTime'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('h.mma');
       }
     }
   }
