@@ -15,17 +15,17 @@ export default class SjpPressListController {
 
     if (sjpData && metaData) {
 
-      const publishedDateTime = Date.parse(sjpData['document']['publicationDate']);
-
       const manipulatedData = publicationService.formatSJPPressList(JSON.stringify(sjpData));
-      const publishedTime = publicationService.publicationTime(sjpData['document']['publicationDate']);
+
+      const publishedTime = publicationService.publicationTimeInBst(sjpData['document']['publicationDate']);
+      const publishedDate = publicationService.publicationDateInBst(sjpData['document']['publicationDate']);
 
       res.render('single-justice-procedure-press', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['single-justice-procedure-press']),
         sjpData: manipulatedData,
-        publishedDateTime: moment(publishedDateTime).format('DD MMMM YYYY'),
+        publishedDateTime: publishedDate,
         publishedTime: publishedTime,
-        contactDate: moment(Date.parse(metaData['contentDate'])).format('D MMMM YYYY'),
+        contactDate: moment.utc(Date.parse(metaData['contentDate'])).format('D MMMM YYYY'),
       });
     } else {
       res.render('error',

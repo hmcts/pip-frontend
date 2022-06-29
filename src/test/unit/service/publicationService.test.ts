@@ -120,7 +120,7 @@ describe('Publication service', () => {
 
     it('should calculate start time of Hearing in cause list object', async () => {
       const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal('9.40am');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal('10.40am');
     });
 
     it('should set caseHearingChannel to sitting channel', async () => {
@@ -207,10 +207,18 @@ describe('Publication service', () => {
 
   });
 
-  describe('publicationTime Publication Service', () => {
-    it('should return Publication Time List', async () => {
-      const data = await publicationService.publicationTime(dailyCauseListData['document']['publicationDate']);
-      expect(data).to.equal('11.30pm');
+  describe('Publication Date and Time Publication Service', () => {
+    it('should return Publication Time accounting for BST', async () => {
+      const data = await publicationService.publicationTimeInBst(dailyCauseListData['document']['publicationDate']);
+
+      expect(data).to.equal('12.30am');
     });
+
+    it('should return Publication Date accounting for BST', async () => {
+      const data = await publicationService.publicationDateInBst(dailyCauseListData['document']['publicationDate']);
+
+      expect(data).to.equal('14 September 2020');
+    });
+
   });
 });
