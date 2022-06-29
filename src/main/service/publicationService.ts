@@ -256,7 +256,7 @@ export class PublicationService {
     if (min === 0) {
       publishedTime = moment.utc(publicationDatetime).tz(this.timeZone).format('ha');
     } else {
-      publishedTime = moment.utc(publicationDatetime).tz(this.timeZone).format('h.mma');
+      publishedTime = moment.utc(publicationDatetime).tz(this.timeZone).format('h:mma');
     }
     return publishedTime;
   }
