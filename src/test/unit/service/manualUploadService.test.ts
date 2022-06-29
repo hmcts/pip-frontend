@@ -68,7 +68,7 @@ describe('Manual upload service', () => {
 
     it('should build form data list subtypes', async () => {
       const data = await manualUploadService.buildFormData();
-      expect(data['listSubtypes'].length).to.equal(9);
+      expect(data['listSubtypes'].length).to.equal(10);
       expect(data['listSubtypes'][0]).to.deep.equal({text:'SJP Public List', value: 'SJP_PUBLIC_LIST'});
     });
 
