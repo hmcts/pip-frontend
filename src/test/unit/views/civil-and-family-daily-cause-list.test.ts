@@ -16,7 +16,7 @@ const accordionClass='govuk-accordion__section-button';
 const siteAddressClass = 'site-address';
 
 const courtName = 'Abergavenny Magistrates\' Court';
-const expectedHeader = 'Family Daily Cause List:<br>In the ' + courtName;
+const expectedHeader = 'Civil and Family Daily Cause List:<br>In the ' + courtName;
 const summaryHeadingText = 'Important information';
 const accordionHeading = '1, Before: Presiding';
 const applicantRespondent = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
