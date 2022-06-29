@@ -58,7 +58,7 @@ describe('Daily Cause List Controller', () => {
       contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
       publishedDate: '14 September 2020',
       courtName: 'Abergavenny Magistrates\' Court',
-      publishedTime: '12.30am',
+      publishedTime: '12:30am',
       provenance: 'prov1',
     };
 

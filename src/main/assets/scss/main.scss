@@ -477,6 +477,10 @@ div {
   }
 }
 
+.govuk-accordion__show-all {
+  margin-top: 25px !important;
+}
+
 @media (max-width: 640px) {
   > div {
     flex: 100%;
