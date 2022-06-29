@@ -1,11 +1,13 @@
 import {PublicationRequests} from '../resources/requests/publicationRequests';
 import {Artefact} from '../models/Artefact';
 import {SearchObject} from '../models/searchObject';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 const publicationRequests = new PublicationRequests();
 
 export class PublicationService {
+
+  public timeZone = 'Europe/London';
 
   public async getIndividualPublicationMetadata(artefactId, userId: string, admin = false): Promise<any> {
     return publicationRequests.getIndividualPublicationMetadata(artefactId, userId, admin);
@@ -67,8 +69,8 @@ export class PublicationService {
     sitting['duration'] = '';
     sitting['startTime'] = '';
     if (sitting['sittingStart'] !== '' && sitting['sittingEnd'] !== '') {
-      const sittingStart = moment(sitting['sittingStart']);
-      const sittingEnd = moment(sitting['sittingEnd']);
+      const sittingStart = moment.utc(sitting['sittingStart']);
+      const sittingEnd = moment.utc(sitting['sittingEnd']);
 
       let durationAsHours = 0;
       let durationAsMinutes = moment.duration(sittingEnd.startOf('minutes').diff(sittingStart.startOf('minutes'))).asMinutes();
@@ -79,12 +81,12 @@ export class PublicationService {
 
       sitting['durationAsHours'] = durationAsHours;
       sitting['durationAsMinutes'] = durationAsMinutes;
-      sitting['time'] = moment(sittingStart).format('HH:mm');
+      sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('HH:mm');
       const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
       if (min === 0) {
-        sitting['startTime'] = moment(sitting['sittingStart']).format('ha');
+        sitting['startTime'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('ha');
       } else {
-        sitting['startTime'] = moment(sitting['sittingStart']).format('h.mma');
+        sitting['startTime'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('h.mma');
       }
     }
   }
@@ -242,14 +244,27 @@ export class PublicationService {
     return publicationRequests.deletePublication(artefactId, email);
   }
 
-  public publicationTime(publicationDatetime: string): string {
-    const min = moment.utc(publicationDatetime, 'HH:mm').minutes();
+  /**
+   * Function which extracts the time from a UTC Date Time in BST format.
+   * @param publicationDatetime The publication date time to convert in UTC.
+   */
+  public publicationTimeInBst(publicationDatetime: string): string {
+    const min = moment.utc(publicationDatetime, 'HH:mm').tz(this.timeZone).minutes();
     let publishedTime = '';
     if (min === 0) {
-      publishedTime = moment.utc(publicationDatetime).format('ha');
+      publishedTime = moment.utc(publicationDatetime).tz(this.timeZone).format('ha');
     } else {
-      publishedTime = moment.utc(publicationDatetime).format('h.mma');
+      publishedTime = moment.utc(publicationDatetime).tz(this.timeZone).format('h.mma');
     }
     return publishedTime;
   }
+
+  /**
+   * Function which extracts the date from a UTC Date Time in BST format.
+   * @param publicationDatetime The publication date time to convert in UTC.
+   */
+  public publicationDateInBst(publicationDatetime: string): string {
+    return moment.utc(publicationDatetime).tz(this.timeZone).format('DD MMMM YYYY');
+  }
+
 }
