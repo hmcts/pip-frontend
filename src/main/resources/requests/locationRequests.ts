@@ -57,8 +57,8 @@ export class LocationRequests {
 
   public async getAllLocations(): Promise<Array<Location>> {
     try {
-        const response = await dataManagementApi.get('/locations');
-        return response.data;
+      const response = await dataManagementApi.get('/locations');
+      return response.data;
     } catch (error) {
       if (error.response) {
         console.log(error.response.data);
