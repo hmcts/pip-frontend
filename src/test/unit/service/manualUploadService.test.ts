@@ -196,8 +196,8 @@ describe('Manual upload service', () => {
 
   it('should formatted date-from and date-to correctly', async () => {
     const data = await manualUploadService.formatPublicationDates(headers, true);
-    expect(data['display-from']).to.equal('2022-07-01T00:00:01+01:00');
-    expect(data['display-to']).to.equal('2022-07-01T23:59:59+01:00');
+    expect(data['display-from']).to.contains('2022-07-01T00:00:01');
+    expect(data['display-to']).to.contains('2022-07-01T23:59:59');
   });
 
   it('should return court id and name as object', async () => {
