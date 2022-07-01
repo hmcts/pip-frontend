@@ -5,7 +5,6 @@ import fs from 'fs';
 import path from 'path';
 import {mockRequest} from '../mocks/mockRequest';
 import SjpPublicListController from '../../../main/controllers/SjpPublicListController';
-import moment from 'moment';
 
 const sjpPublicListController = new SjpPublicListController();
 
@@ -41,8 +40,8 @@ describe('SJP Public List Type Controller', () => {
     const expectedData = {
       casesList: JSON.parse(mockSJPPublic).courtLists[0].courtHouse.courtRoom[0].session[0].sittings,
       length: data.length,
-      publishedDateTime: moment(Date.parse(JsonifiedData['document']['publicationDate'])).format('DD MMMM YYYY'),
-      publishedTime: '11.30pm',
+      publishedDateTime: '14 September 2016',
+      publishedTime: '12:30am',
       ...i18n['single-justice-procedure'],
     };
 

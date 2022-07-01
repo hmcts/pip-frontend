@@ -55,10 +55,10 @@ describe('Daily Cause List Controller', () => {
     const expectedData = {
       ...i18n['daily-cause-list'],
       listData,
-      contactDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
-      publishedDate: moment(Date.parse(listData['document']['publicationDate'])).format('DD MMMM YYYY'),
+      contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+      publishedDate: '14 September 2020',
       courtName: 'Abergavenny Magistrates\' Court',
-      publishedTime: '11.30pm',
+      publishedTime: '12:30am',
       provenance: 'prov1',
     };
 
