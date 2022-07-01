@@ -157,7 +157,7 @@ describe('Manual upload service', () => {
       formValues['display-date-from-month'] = '7';
       formValues['display-date-from-year'] = '2022';
       const data = await manualUploadService.buildDate(formValues, 'display-date-from');
-      expect(data).to.equal("1/7/2022 00:00:01");
+      expect(data).to.equal('1/7/2022 00:00:01');
     });
 
     it('should formatted date-to date correctly', async () => {
@@ -165,7 +165,7 @@ describe('Manual upload service', () => {
       formValues['display-date-to-month'] = '7';
       formValues['display-date-to-year'] = '2022';
       const data = await manualUploadService.buildDate(formValues, 'display-date-to');
-      expect(data).to.equal("1/7/2022 23:59:59");
+      expect(data).to.equal('1/7/2022 23:59:59');
     });
 
     it('should formatted content date correctly', async () => {
@@ -173,7 +173,7 @@ describe('Manual upload service', () => {
       formValues['content-date-from-month'] = '7';
       formValues['content-date-from-year'] = '2022';
       const data = await manualUploadService.buildDate(formValues, 'content-date-from');
-      expect(data).to.equal("1/7/2022 00:00:00");
+      expect(data).to.equal('1/7/2022 00:00:00');
     });
   });
 
@@ -196,8 +196,8 @@ describe('Manual upload service', () => {
 
   it('should formatted date-from and date-to correctly', async () => {
     const data = await manualUploadService.formatPublicationDates(headers, true);
-    expect(data['display-from']).to.equal("2022-07-01T00:00:01+01:00");
-    expect(data['display-to']).to.equal("2022-07-01T23:59:59+01:00");
+    expect(data['display-from']).to.equal('2022-07-01T00:00:01+01:00');
+    expect(data['display-to']).to.equal('2022-07-01T23:59:59+01:00');
   });
 
   it('should return court id and name as object', async () => {
