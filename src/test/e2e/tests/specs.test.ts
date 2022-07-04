@@ -216,12 +216,12 @@ describe('Unverified user', () => {
     });
 
     it('should click on the Home navigation link and take user to the home/interstitial page', async () => {
-      viewOptionPage = await alphabeticalSearchPage.clickNavHome();
-      expect(await viewOptionPage.getPageTitle()).toEqual('Court and tribunal hearings');
+      const homePageLink = await alphabeticalSearchPage.clickNavHome();
+      expect(await homePageLink.getPageTitle()).toEqual('Court and tribunal hearings');
     });
 
     it('should click on the Find a court or tribunal navigation link and take user to search page', async () => {
-      viewOptionPage.open('/view-option');
+      await viewOptionPage.open('/view-option');
       searchPage = await viewOptionPage.clickFindACourtBannerLink();
       expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
     });
