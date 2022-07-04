@@ -215,9 +215,9 @@ describe('Unverified user', () => {
       await alphabeticalSearchPage.open('/alphabetical-search');
     });
 
-    it('should click on the Home navigation link and take user to view option page', async () => {
+    it('should click on the Home navigation link and take user to the home/interstitial page', async () => {
       viewOptionPage = await alphabeticalSearchPage.clickNavHome();
-      expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+      expect(await viewOptionPage.getPageTitle()).toEqual('Court and tribunal hearings');
     });
 
     it('should click on the Find a court or tribunal navigation link and take user to search page', async () => {
