@@ -216,8 +216,8 @@ describe('Unverified user', () => {
     });
 
     it('should click on the Home navigation link and take user to the home/interstitial page', async () => {
-      const homePageLink = await alphabeticalSearchPage.clickNavHome();
-      expect(await homePageLink.getPageTitle()).toEqual('Court and tribunal hearings');
+      await alphabeticalSearchPage.clickNavHome();
+      expect(await homePage.getPageTitle()).toEqual('Court and tribunal hearings');
     });
 
     it('should click on the Find a court or tribunal navigation link and take user to search page', async () => {
