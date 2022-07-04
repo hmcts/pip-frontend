@@ -69,7 +69,7 @@ export default function(app: Application): void {
 
   function logOut(_req, res, redirectUrl): void{
     res.clearCookie('session');
-    logger.info('logout FE URL', FRONTEND_URL); 
+    logger.info('logout FE URL', FRONTEND_URL);
 
     const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
     const encodedSignOutRedirect = encodeURIComponent(redirectUrl);
@@ -100,6 +100,7 @@ export default function(app: Application): void {
   app.get('/cookie-policy', app.locals.container.cradle.cookiePolicyPageController.get);
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
   app.post('/create-media-account', multer({storage: storage, limits: {fileSize: 2000000}}).single('file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.createMediaAccountController.post);
+  app.get('/civil-and-family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
