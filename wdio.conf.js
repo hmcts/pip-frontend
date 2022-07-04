@@ -1,6 +1,6 @@
 const drivers = {
   chromiumedge: {version: 'latest'},
-  chrome: {version: '96.0.4664.45'},
+  chrome: {version: '103.0.5060.53'},
   firefox: {version: 'latest'},
 };
 exports.config = {
