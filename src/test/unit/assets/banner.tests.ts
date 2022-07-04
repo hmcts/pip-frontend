@@ -5,7 +5,7 @@ import request from 'supertest';
 const PAGE_URL = '/view-option';
 let htmlRes;
 const NON_SIGNED_IN_LINKS = {
-  Home: 'view-option',
+  Home: '/',
   'Find a court or tribunal': 'search',
   'Single Justice Procedure cases': 'summary-of-publications?locationId=9',
   'Sign in': 'sign-in',
