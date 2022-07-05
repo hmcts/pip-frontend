@@ -1,0 +1,13 @@
+{
+  "title": "Dileu’r crynodeb o’r rhestr",
+  "error": {
+    "noResults": "Nid oes unrhyw ganlyniad sy’n cyd-fynd â’r gofynion chwilio",
+    "invalidInput": "Rhaid i enw’r llys neu dribiwnlys fod yn 3 nod neu fwy",
+    "summaryTitleText": "Mae yna broblem"
+  },
+  "header": "Dewis cynnwys i’w ddileu",
+  "resultsMessage": "Dangos RESULTS_COUNT result(s)",
+  "tableHeaders": ["Math o restr", "Llys", "Dyddiad", "", "Camau gweithredu"],
+  "rowAction": "Dileu",
+  "languageItems": ["", "", ""]
+}

@@ -1,12 +1,12 @@
 {
   "title": "",
   "heading": "",
-  "backButton": "",
+  "backButton": "Yn ôl",
   "inputLabel": "",
   "error": {
     "notFound": "Does yna ddim yn cyfateb i'r meini prawf",
     "title": "Mae yna broblem",
-    "input": "",
+    "input": "Darparwch enw cywir ar gyfer yr achos",
     "line1": "Does yna ddim canlyniadau sy'n cyfateb.",
     "line2": "Gallwch:",
     "liText1": "",

@@ -1,0 +1,18 @@
+{
+  "title": "Cadarnhewch eich tanysgrifiadau e-bost",
+  "removeText": "Dileu",
+  "table": {
+    "header1": "Cyfeirnod unigryw (URN)",
+    "header2": "Cyfeirnod yr achos neu rif adnabod yr achos",
+    "header3": "Enw'r achos",
+    "header4": "Camau gweithredu"
+  },
+  "buttonText": "Cadarnhau tanysgrifiadau",
+  "addOther_link": "/subscription-add",
+  "addOther_text": "",
+  "buttonAddText": "Ychwanegu tanysgrifiadau",
+  "error": {
+    "title": "Mae yna broblem",
+    "message": "Mae angen o leiaf un tanysgrifiad."
+  }
+}
