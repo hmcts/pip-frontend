@@ -55,6 +55,8 @@ const expectedRemoveList = [
   },
 ];
 
+const language = 'eng';
+
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtData);
 sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(true);
 sinon.stub(DataManagementRequests.prototype, 'uploadJSONPublication').resolves(true);
@@ -62,18 +64,18 @@ sinon.stub(DataManagementRequests.prototype, 'uploadJSONPublication').resolves(t
 describe('Manual upload service', () => {
   describe('building form data', () => {
     it('should build form data court list', async () => {
-      const data = await manualUploadService.buildFormData();
+      const data = await manualUploadService.buildFormData(language);
       expect(data['courtList']).to.equal(courtData);
     });
 
     it('should build form data list subtypes', async () => {
-      const data = await manualUploadService.buildFormData();
+      const data = await manualUploadService.buildFormData(language);
       expect(data['listSubtypes'].length).to.equal(9);
       expect(data['listSubtypes'][0]).to.deep.equal({text:'SJP Public List', value: 'SJP_PUBLIC_LIST'});
     });
 
     it('should build form data judgements and outcomes subtypes', async () => {
-      const data = await manualUploadService.buildFormData();
+      const data = await manualUploadService.buildFormData(language);
       expect(data['judgementsOutcomesSubtypes'].length).to.equal(1);
       expect(data['judgementsOutcomesSubtypes'][0]).to.deep.equal({text: 'SJP Media Register', value: 'SJP_MEDIA_REGISTER'});
     });

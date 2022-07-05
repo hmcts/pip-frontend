@@ -23,6 +23,7 @@ const alphabet = [
   'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
 ];
 const validCourt = 'Abergavenny Magistrates\' Court';
+const language = 'eng';
 
 stubCourtsFilter.withArgs('', 'Crown').returns(hearingsData);
 stubCourt.withArgs(1).returns(hearingsData[0]);
@@ -30,7 +31,22 @@ stubCourtByName.withArgs(validCourt).returns(hearingsData[0]);
 
 describe('Court Service', () => {
   it('should return all courts', async () => {
-    expect(await courtService.fetchAllLocations()).to.equal(hearingsData);
+    expect(await courtService.fetchAllLocations(language)).to.equal(hearingsData);
+  });
+
+  it('should return welsh courts name', async () => {
+    const data = await courtService.fetchAllLocations('cy');
+    expect(data[0].name).to.equal(hearingsData[0]['welshName']);
+  });
+
+  it('should return welsh courts region', async () => {
+    const data = await courtService.fetchAllLocations('cy');
+    expect(data[0].region).to.equal(hearingsData[0]['welshRegion']);
+  });
+
+  it('should return welsh courts jurisdiction', async () => {
+    const data = await courtService.fetchAllLocations('cy');
+    expect(data[0].jurisdiction).to.equal(hearingsData[0]['welshJurisdiction']);
   });
 
   it('should return found court for id', async () => {
@@ -52,17 +68,17 @@ describe('Court Service', () => {
   });
 
   it(`should return object with ${validKeysCount} keys`, async () => {
-    const data = await courtService.generateAlphabetisedAllCourtList();
+    const data = await courtService.generateAlphabetisedAllCourtList(language);
     expect(Object.keys(data).length).to.equal(validKeysCount);
   });
 
   it('should have have all letters of the alphabet as keys', async () => {
-    const data = await courtService.generateAlphabetisedAllCourtList();
+    const data = await courtService.generateAlphabetisedAllCourtList(language);
     expect(Object.keys(data)).to.deep.equal(alphabet);
   });
 
   it('should have keys with courts alphabetically assigned to them', async () => {
-    const data = await courtService.generateAlphabetisedAllCourtList();
+    const data = await courtService.generateAlphabetisedAllCourtList(language);
     expect(validCourt in data['A']).to.be.true;
   });
 

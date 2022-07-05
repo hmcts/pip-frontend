@@ -31,9 +31,14 @@ export class LocationService {
       case "cy": {
         locations.forEach(value => {
           let locationInfo: Location;
-          locationInfo = {locationId: value['locationId'], name:  value['welshName'],
-            jurisdiction: value['welshJurisdiction'], region: value['welshRegion'],
-            hearingList: Array<any>(), hearings: null, location: ''}
+          locationInfo = {
+            locationId: (value['locationId'] != null ? value['locationId'] : value.locationId),
+            name:  (value['welshName'] != null ? value['welshName'] : value.name),
+            jurisdiction: (value['welshJurisdiction'] != null ? value['welshJurisdiction'] : value.jurisdiction),
+            region: (value['welshRegion'] != null ? value['welshRegion'] : value.region),
+            hearingList: value.hearingList,
+            hearings: value.hearings,
+            location: value.location}
 
           locationsBaseOnLanguage.push(locationInfo);
         });
