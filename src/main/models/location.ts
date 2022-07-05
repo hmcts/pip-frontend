@@ -5,4 +5,5 @@ export interface Location {
   location: string;
   hearingList: Array<any>;
   hearings: number;
+  region: string;
 }

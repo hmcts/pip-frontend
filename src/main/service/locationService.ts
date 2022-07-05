@@ -21,7 +21,22 @@ export class LocationService {
   }
 
   public async fetchAllLocations(): Promise<Array<Location>> {
-    return await locationRequest.getAllLocations();
+    return this.initalizeLocationsForALanguage(await locationRequest.getAllLocations());
+  }
+
+  private initalizeLocationsForALanguage(locations: Array<Location>): Array<Location> {
+    let locationsBaseOnLanguage= [];
+
+    locations.forEach(value => {
+      let locationInfo: Location;
+      locationInfo = {locationId: value['locationId'], name:  value['welshName'],
+        jurisdiction: value['welshJurisdiction'], region: value['welshRegion'],
+        hearingList: Array<any>(), hearings: null, location: ''}
+
+      locationsBaseOnLanguage.push(locationInfo);
+    });
+
+    return locationsBaseOnLanguage;
   }
 
   public async getLocationById(locationId: number): Promise<Location> {
