@@ -105,20 +105,20 @@ export class FilterService {
     return currentFilters ? currentFilters.split(',') : [];
   }
 
-  public async handleFilterInitialisation(clearQuery: string, filterValuesQuery: string): Promise<object> {
+  public async handleFilterInitialisation(clearQuery: string, filterValuesQuery: string, language: string): Promise<object> {
     let filterValues = this.stripFilters(filterValuesQuery);
     if (clearQuery) {
       filterValues = this.handleFilterClear(filterValues, clearQuery);
     }
 
-    const filterOptions = this.buildFilterValueOptions(await locationService.fetchAllLocations(), filterValues);
+    const filterOptions = this.buildFilterValueOptions(await locationService.fetchAllLocations(language), filterValues);
 
     let filters ={};
     if(filterValues.length > 0) {
       filters = this.findAndSplitFilters(filterValues, filterOptions);
     }
 
-    const alphabetisedList = filterValues.length == 0 ? await locationService.generateAlphabetisedAllCourtList() :
+    const alphabetisedList = filterValues.length == 0 ? await locationService.generateAlphabetisedAllCourtList(language) :
       await locationService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']);
 
     return {

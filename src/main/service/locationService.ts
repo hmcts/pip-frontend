@@ -20,21 +20,32 @@ export class LocationService {
     return courtsList.sort((a, b) => (a.name > b.name) ? 1 : -1);
   }
 
-  public async fetchAllLocations(): Promise<Array<Location>> {
-    return this.initalizeLocationsForALanguage(await locationRequest.getAllLocations());
+  public async fetchAllLocations(language: String): Promise<Array<Location>> {
+    return this.initalizeLocationsForLanguage(await locationRequest.getAllLocations(), language);
   }
 
-  private initalizeLocationsForALanguage(locations: Array<Location>): Array<Location> {
+  private initalizeLocationsForLanguage(locations: Array<Location>, language: String): Array<Location> {
     let locationsBaseOnLanguage= [];
 
-    locations.forEach(value => {
-      let locationInfo: Location;
-      locationInfo = {locationId: value['locationId'], name:  value['welshName'],
-        jurisdiction: value['welshJurisdiction'], region: value['welshRegion'],
-        hearingList: Array<any>(), hearings: null, location: ''}
+    switch(language) {
+      case "cy": {
+        locations.forEach(value => {
+          let locationInfo: Location;
+          locationInfo = {locationId: value['locationId'], name:  value['welshName'],
+            jurisdiction: value['welshJurisdiction'], region: value['welshRegion'],
+            hearingList: Array<any>(), hearings: null, location: ''}
 
-      locationsBaseOnLanguage.push(locationInfo);
-    });
+          locationsBaseOnLanguage.push(locationInfo);
+        });
+        break;
+      }
+
+      default: {
+        locationsBaseOnLanguage = locations;
+        break;
+      }
+    }
+
 
     return locationsBaseOnLanguage;
   }
@@ -47,8 +58,8 @@ export class LocationService {
     return await locationRequest.getLocationByName(courtName);
   }
 
-  public async generateAlphabetisedAllCourtList(): Promise<object> {
-    return this.generateAlphabetisedCourtList(await this.fetchAllLocations());
+  public async generateAlphabetisedAllCourtList(language: string): Promise<object> {
+    return this.generateAlphabetisedCourtList(await this.fetchAllLocations(language));
   }
 
   public async generateAlphabetisedCrownCourtList(): Promise<object> {

@@ -20,9 +20,9 @@ const listSubTypes = [
 const fileHandlingService = new FileHandlingService();
 
 export class ManualUploadService {
-  public async buildFormData(): Promise<object> {
+  public async buildFormData(language: string): Promise<object> {
     return {
-      courtList: await courtService.fetchAllLocations(),
+      courtList: await courtService.fetchAllLocations(language),
       listSubtypes: this.getListSubtypes(),
       judgementsOutcomesSubtypes: this.getJudgementOutcomesSubtypes(),
     };

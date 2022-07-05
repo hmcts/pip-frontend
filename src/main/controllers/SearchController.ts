@@ -8,7 +8,7 @@ const courtService = new LocationService();
 export default class SearchController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
-    const autocompleteList = await courtService.fetchAllLocations();
+    const autocompleteList = await courtService.fetchAllLocations(req.lng as string);
     res.render('search', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng).search),
       autocompleteList: autocompleteList,
@@ -17,7 +17,7 @@ export default class SearchController {
 
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['input-autocomplete'];
-    const autocompleteList = await courtService.fetchAllLocations();
+    const autocompleteList = await courtService.fetchAllLocations(req.lng as string);
     const court = await courtService.getLocationByName(searchInput);
     (court && searchInput) ?
       res.redirect(`summary-of-publications?locationId=${court.locationId}`) :

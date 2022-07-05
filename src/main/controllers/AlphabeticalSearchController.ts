@@ -9,7 +9,9 @@ export default class AlphabeticalSearchController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const screenToRender = req.path.slice(1, req.path.length);
-    const initialisedFilter = await filterService.handleFilterInitialisation(req.query?.clear as string, req.query?.filterValues as string);
+    const initialisedFilter = await filterService.handleFilterInitialisation(req.query?.clear as string,
+      req.query?.filterValues as string,
+      req.lng as string);
 
     res.render(screenToRender, {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[screenToRender]),

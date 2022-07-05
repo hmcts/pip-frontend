@@ -7,7 +7,7 @@ const locationService = new LocationService();
 
 export default class RemoveListSearchController {
   public async get(req: PipRequest, res: Response): Promise<void> {
-    const autocompleteList = await locationService.fetchAllLocations();
+    const autocompleteList = await locationService.fetchAllLocations(req.lng as string);
     res.render('remove-list-search', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search']),
       autocompleteList,
@@ -18,7 +18,7 @@ export default class RemoveListSearchController {
 
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['input-autocomplete'];
-    const autocompleteList = await locationService.fetchAllLocations();
+    const autocompleteList = await locationService.fetchAllLocations(req.lng as string);
     if (searchInput && searchInput.length >= 3) {
       const court = await locationService.getLocationByName(searchInput);
       (court) ?
