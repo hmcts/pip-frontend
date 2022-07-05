@@ -1,8 +1,6 @@
 import { Location } from '../../models/location';
 import { dataManagementApi } from './utils/axiosConfig';
 
-const { redisClient } = require('../../cacheManager');
-
 export class LocationRequests {
   public async getLocation(locationId: number): Promise<Location> {
     try {
@@ -58,31 +56,18 @@ export class LocationRequests {
   }
 
   public async getAllLocations(): Promise<Array<Location>> {
-    let allCachedCourts;
-    if (redisClient.status === 'ready') {
-      allCachedCourts = await redisClient.get('allCourts');
-    }
-
-    if (allCachedCourts) {
-      return JSON.parse(allCachedCourts);
-    } else {
-      try {
-        const response = await dataManagementApi.get('/locations');
-        if (redisClient.status === 'ready') {
-          redisClient.set('allCourts', JSON.stringify(response.data));
-        }
-        return response.data;
-      } catch (error) {
-        if (error.response) {
-          console.log(error.response.data);
-        } else if (error.request) {
-          console.log(`Request failed. ${error.request}`);
-        } else {
-          console.log(`ERROR: ${error.message}`);
-        }
+    try {
+      const response = await dataManagementApi.get('/locations');
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
       }
-      return null;
     }
+    return null;
   }
-
 }
