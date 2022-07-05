@@ -27,4 +27,4 @@ export const partyRoleMappings = {
   'APPLICANT_PETITIONER_REPRESENTATIVE': ['CREP', 'CREP20'],
   'RESPONDENT': ['DEBT', 'DEF', 'DEF20', 'RES'],
   'RESPONDENT_REPRESENTATIVE': ['DREP', 'DREP20', 'RREP'],
-};
+}
