@@ -14,6 +14,7 @@ describe('Media Account Rejection Controller', () => {
 
   const applicantId = '1234';
   const status = 'PENDING';
+  const email = 'a@b.com';
   const dummyApplication = {
     'id': '1234',
     'fullName': 'Test Name',
@@ -69,9 +70,10 @@ describe('Media Account Rejection Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'reject-confirmation': 'Yes', 'applicantId': applicantId};
+    request['user'] = {'emails': [email] };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
-    mediaAccountRejectionStub.withArgs(applicantId).resolves(dummyApplication);
+    mediaAccountRejectionStub.withArgs(applicantId, email).resolves(dummyApplication);
     responseMock.expects('render').once().withArgs('media-account-rejection-confirmation',
       {
         ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-rejection-confirmation']),
@@ -135,9 +137,10 @@ describe('Media Account Rejection Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'reject-confirmation': 'Yes', 'applicantId': applicantId};
+    request['user'] = {'emails': [email] };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
-    mediaAccountRejectionStub.withArgs(applicantId).resolves(null);
+    mediaAccountRejectionStub.withArgs(applicantId, email).resolves(null);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
 
