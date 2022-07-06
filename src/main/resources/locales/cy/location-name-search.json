@@ -13,8 +13,8 @@
   "hide" : "Cuddio’r ffiltrau",
   "show": "Dangos y ffiltrau",
   "ariaLabelNav": "",
-  "jurisdiction": "",
-  "region": "",
+  "jurisdiction": "Math o lys neu dribiwnlys",
+  "region": "Rhanbarth",
   "aria": {
     "filterLabel": ""
   }

@@ -13,7 +13,7 @@
   "TandC2": "Os bydd eich amgylchiadau’n newid ac nid oes gennych mwyach resymau cyfreithiol dros gael cyfrif ar gyfer gwrandawiadau llys a thribiwnlys e.e. rydych yn gadael eich cyflogwr a enwyd uchod, eich cyfrifoldeb chi yw hysbysu GLlTEM am hyn fel y gellir dadactifadu eich cyfrif.",
   "TandCCheckbox": "Ticiwch y blwch hwn, os gwelwch yn dda i gytuno i’r telerau ac amodau uchod",
   "photoType": "Rhaid iddi fod yn ffeil jpg, pdf neu png.",
-  "errorTitle": "",
-  "ariaFileLabel": "",
+  "errorTitle": "Mae yna broblem",
+  "ariaFileLabel": "Llwytho ffeil",
   "ariaCheckboxLabel": ""
 }

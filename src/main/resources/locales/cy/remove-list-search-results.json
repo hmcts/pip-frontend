@@ -6,8 +6,8 @@
     "summaryTitleText": "Mae yna broblem"
   },
   "header": "Dewis cynnwys i’w ddileu",
-  "resultsMessage": "Dangos RESULTS_COUNT result(s)",
+  "resultsMessage": "Dangos RESULTS_COUNT ganlyniad(au)",
   "tableHeaders": ["Math o restr", "Llys", "Dyddiad", "", "Camau gweithredu"],
   "rowAction": "Dileu",
-  "languageItems": ["", "", ""]
+  "languageItems": ["Saesneg", "Cymraeg", ""]
 }
