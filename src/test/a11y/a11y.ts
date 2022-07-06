@@ -14,7 +14,6 @@ import { SjpRequests } from '../../main/resources/requests/sjpRequests';
 import { ManualUploadService } from '../../main/service/manualUploadService';
 import { PublicationRequests } from '../../main/resources/requests/publicationRequests';
 import {AccountManagementRequests} from '../../main/resources/requests/accountManagementRequests';
-import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
 const agent = supertest.agent(app);
 const routesNotTested = [
@@ -28,6 +27,26 @@ const routesNotTested = [
   '/logout',
   '/robots.txt',
   '/file-publication',
+];
+
+const adminRoutes = [
+  '/admin-dashboard',
+  '/create-admin-account',
+  '/create-admin-account-summary',
+  '/manual-upload',
+  '/manual-upload-summary',
+  '/media-applications',
+  '/upload-confirmation',
+  '/media-account-review',
+  '/media-account-review/image',
+  '/media-account-review/approve',
+  '/media-account-review/reject',
+  '/media-account-approval',
+  '/media-account-rejection',
+  '/remove-list-confirmation',
+  '/remove-list-search',
+  '/remove-list-search-results',
+  '/remove-list-success'
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
@@ -123,6 +142,17 @@ function readRoutes(): string[] {
 function testAccessibility(url: string): void {
   describe(`Page ${url}`, () => {
     test('should have no accessibility errors', done => {
+
+      if (adminRoutes.includes(url)) {
+        app.request['user'] = {piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
+            'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC'
+          }};
+      } else {
+        app.request['user'] = {piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
+            'extension_UserRole': 'VERIFIED'
+          }};
+      }
+
       ensurePageCallWillSucceed(url)
         .then(() => runPally(agent.get(url).url))
         .then((result: Pa11yResult) => {
@@ -135,8 +165,6 @@ function testAccessibility(url: string): void {
 }
 
 describe('Accessibility',  () => {
-  sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
-  app.request['user'] = {piUserId: '1', emails: ['joe@bloggs.com']};
   app.request['cookies'] = {
     'formCookie': JSON.stringify({'foo': 'blah', listType: '', listTypeName: ''}),
     'createAdminAccount': JSON.stringify({

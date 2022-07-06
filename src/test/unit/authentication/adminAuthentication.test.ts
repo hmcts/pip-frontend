@@ -1,7 +1,4 @@
 import {expect} from 'chai';
-import {AdminAuthentication} from '../../../main/authentication/adminAuthentication';
-
-const adminAuthentication = new AdminAuthentication;
 
 const returnedAminUserRequest = {
   user: {
