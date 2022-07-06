@@ -13,7 +13,7 @@
         <h1 class="govuk-heading-l">{{ heading }}</h1>
     </div>
     <div class="cards-wrapper">
-      {% if displayUpload %}
+      {% if user.isAdmin %}
       <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
         <div class="account-card govuk-!-margin-left-2 govuk-!-margin-right-2">
           <p>
@@ -26,7 +26,7 @@
         </div>
       </div>
       {% endif %}
-      {% if displayRemove %}
+      {% if user.isAdmin %}
       <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
         <div class="account-card govuk-!-margin-left-2 govuk-!-margin-right-2">
           <p>
@@ -39,7 +39,7 @@
         </div>
       </div>
       {% endif %}
-      {% if displayMedia %}
+      {% if user.role == 'INTERNAL_SUPER_ADMIN_CTSC' or user.role == 'INTERNAL_ADMIN_CTSC' %}
       <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
         <div class="account-card govuk-!-margin-left-2 govuk-!-margin-right-2">
           <p>
@@ -52,7 +52,7 @@
         </div>
       </div>
       {% endif %}
-      {% if displayCreateAdmin %}
+      {% if user.role == 'SYSTEM_ADMIN' or user.role == 'INTERNAL_SUPER_ADMIN_LOCAL' or user.role == 'INTERNAL_SUPER_ADMIN_CTSC'  %}
       <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
         <div class="account-card govuk-!-margin-left-2 govuk-!-margin-right-2">
           <p>

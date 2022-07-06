@@ -1,3 +1,6 @@
+const authenticationConfig = require('../authentication/authentication-config.json');
+import {verifiedRoles} from '../authentication/mediaAuthentication';
+
 export const adminAccountCreationRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL'];
 export const manualUploadRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_CTSC', 'INTERNAL_ADMIN_LOCAL'];
 export const mediaAccountCreationRoles = ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'];
@@ -36,7 +39,12 @@ export function checkAuthenticated(req: any, res, next, roles: string[]): boolea
   if (checkRoles(req, roles)) {
     req.user.isAdmin = true;
     return next();
-  } else {
+  } else if (checkRoles(req, allAdminRoles)) {
     res.redirect('/admin-dashboard');
+  } else if (checkRoles(req, verifiedRoles)) {
+    req.user.isAdmin = false;
+    res.redirect('/account-home');
+  } else {
+    res.redirect('/login?p=' + authenticationConfig.ADMIN_POLICY);
   }
 }
