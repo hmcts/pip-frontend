@@ -267,4 +267,21 @@ export class PublicationService {
     return moment.utc(publicationDatetime).tz(this.timeZone).format('DD MMMM YYYY');
   }
 
+  /**
+   * Function which takes in the list and users language.
+   * Returns what language the page should be rendered in.
+   *
+   * @param list A string of the lists language
+   * @param user A string of the users language
+   * @return Returns the language to render the page in options are: en, cy, bill
+   */
+  public languageToLoadPageIn(list: string, user: string): string {
+    if ((list === 'BI_LINGUAL') ||
+       (list === 'ENGLISH' && user !== 'en') ||
+       (list === 'WELSH' && user !== 'cy')) {
+      return 'bill';
+    } else {
+      return user;
+    }
+  }
 }

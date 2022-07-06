@@ -25,7 +25,8 @@ export default class DailyCauseListController {
       const court = await courtService.getLocationById(metaData['locationId']);
 
       res.render(listToLoad, {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listToLoad]),
+        ...cloneDeep(req.i18n.getDataByLanguage(publicationService.languageToLoadPageIn(metaData.language,
+          req.lng))[listToLoad]),
         listData: manipulatedData,
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: publishedDate,
