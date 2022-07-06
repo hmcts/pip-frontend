@@ -5,7 +5,6 @@ import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
 import {LocationRequests} from '../../../main/resources/requests/locationRequests';
-import { AdminAuthentication } from '../../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/manual-upload';
 const headingClass = 'govuk-heading-xl';
@@ -50,7 +49,6 @@ const mockBodyData = {
 };
 
 sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
-sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 
 describe('Manual upload page', () => {
   describe('on GET', () => {

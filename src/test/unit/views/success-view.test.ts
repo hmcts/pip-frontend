@@ -1,15 +1,17 @@
 import request from 'supertest';
-import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { AdminAuthentication } from '../../../main/authentication/adminAuthentication';
+import {request as expressRequest} from "express";
 
 const PAGE_URL = '/upload-confirmation';
 let htmlRes: Document;
 
+expressRequest['user'] = {'_json': {
+    'extension_UserRole': 'SYSTEM_ADMIN'
+  }}
+
 describe('File Upload Confirmation Page', () => {
   beforeAll(async () => {
-    sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

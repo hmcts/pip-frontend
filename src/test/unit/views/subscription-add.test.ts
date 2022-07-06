@@ -1,8 +1,6 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import sinon from 'sinon';
 import { app } from '../../../main/app';
-import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/subscription-add';
 const backButtonClass = 'govuk-back-link';
@@ -19,10 +17,13 @@ const expectedRadioLabel2 = 'By unique reference number (URN)';
 const expectedRadioLabel3 = 'By name of party or parties involved';
 const expectedRadioLabel4 = 'By court or tribunal name';
 
+app.request['user'] = { _json: {
+    'extension_UserRole': 'VERIFIED'
+  }};
+
 let htmlRes: Document;
 describe('Subscriptions add Page initial load', () => {
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

@@ -5,7 +5,6 @@ import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
-import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/sjp-press-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -33,7 +32,6 @@ const metaData = JSON.parse(rawMetaData)[0];
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(sjpList);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Single Justice Procedure List page', () => {
   beforeAll(async () => {

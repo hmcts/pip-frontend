@@ -1,8 +1,7 @@
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import sinon from 'sinon';
-import { AdminAuthentication } from '../../../main/authentication/adminAuthentication';
+import {request as expressRequest} from "express";
 
 const PAGE_URL = '/create-admin-account';
 const radioLabels = [
@@ -19,7 +18,12 @@ const radioHints = [
 ];
 const errors = ['Enter first name', 'Enter last name', 'Enter email address', 'Select a role'];
 let htmlRes: Document;
-sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
+
+
+expressRequest['user'] = {'_json': {
+    'extension_UserRole': 'SYSTEM_ADMIN'
+  }}
+
 
 describe('Create Admin Account Page', () => {
   describe('on GET', () => {

@@ -3,7 +3,7 @@ import request from 'supertest';
 import {expect} from 'chai';
 import sinon from 'sinon';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
-import {AdminAuthentication} from '../../../main/authentication/adminAuthentication';
+import {request as expressRequest} from "express";
 
 let htmlRes: Document;
 
@@ -47,7 +47,11 @@ describe('Media Account Submission Page', () => {
     'status': 'REJECTED',
     'statusDate': '2022-05-09T00:00:01',
   };
-  sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
+
+  expressRequest['user'] = {'_json': {
+      'extension_UserRole': 'INTERNAL_ADMIN_CTSC'
+    }}
+
   sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').returns(dummyApplication);
   sinon.stub(MediaAccountApplicationService.prototype, 'rejectApplication').returns(dummyApplication);
 

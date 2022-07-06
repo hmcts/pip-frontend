@@ -5,7 +5,6 @@ import sinon from 'sinon';
 import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
-import { request as expressRequest } from 'express';
 import {PublicationService} from '../../../main/service/publicationService';
 
 const PAGE_URL = '/case-reference-number-search';
@@ -26,7 +25,11 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefa
 const subscriptionsData = JSON.parse(rawData)[0].search.cases[0];
 const stub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
 stub.resolves(subscriptionsData);
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+
+app.request['user'] = { _json: {
+    'extension_UserRole': 'VERIFIED'
+  }};
+
 
 const pageTitleValue = 'Subscribe by case reference number or case ID';
 

@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import request from 'supertest';
 import {expect} from 'chai';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
-import {AdminAuthentication} from '../../../main/authentication/adminAuthentication';
+import {request as expressRequest} from "express";
 
 const applicationId = '1234';
 
@@ -41,6 +41,10 @@ const errorMessageAzureError = 'There has been a problem creating the users acco
 
 let htmlRes: Document;
 
+expressRequest['user'] = {'_json': {
+    'extension_UserRole': 'INTERNAL_ADMIN_CTSC'
+}}
+
 const dummyApplication = {
   'id': '1234',
   'fullName': 'Test Name',
@@ -53,7 +57,6 @@ const dummyApplication = {
   'statusDate': '2022-05-09T00:00:01',
 };
 
-sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').resolves(dummyApplication);
 
 describe('Media Account Approval Page', () => {

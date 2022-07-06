@@ -3,9 +3,13 @@ import request from 'supertest';
 import {expect} from 'chai';
 import sinon from 'sinon';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
-import {AdminAuthentication} from '../../../main/authentication/adminAuthentication';
+import {request as expressRequest} from "express";
 
 let htmlRes: Document;
+
+expressRequest['user'] = {'_json': {
+    'extension_UserRole': 'INTERNAL_ADMIN_CTSC'
+}}
 
 describe('Media Account Confirmation Page', () => {
 
@@ -51,7 +55,6 @@ describe('Media Account Confirmation Page', () => {
   sinon.stub(MediaAccountApplicationService.prototype, 'createAccountFromApplication').returns(dummyApplication);
 
   beforeAll(async () => {
-    sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
     await request(app).post(PAGE_URL).send({'approved': 'Yes'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();

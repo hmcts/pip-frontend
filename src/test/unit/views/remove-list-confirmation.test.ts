@@ -20,8 +20,7 @@ const content = ['Mock Court', 'Civil Daily Cause List', '24 March 2022'];
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({locationId: '5', name: 'Mock Court'});
 
-// @ts-ignore
-expressRequest.user = {'_json': {
+expressRequest['user'] = {'_json': {
   'extension_UserRole': 'SYSTEM_ADMIN'
 }}
 
