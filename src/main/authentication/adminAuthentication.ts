@@ -7,6 +7,7 @@ export function checkRoles(req, roles): boolean {
   if(req.user) {
     const userInfo = req.user['_json'];
     if (userInfo?.extension_UserRole) {
+      req.user.role = userInfo?.extension_UserRole;
       if (roles.includes(userInfo?.extension_UserRole)) {
         return true;
       }
