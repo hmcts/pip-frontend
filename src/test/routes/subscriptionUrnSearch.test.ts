@@ -5,7 +5,10 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { PublicationService } from '../../main/service/publicationService';
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+expressRequest['user'] = {'_json': {
+    'extension_UserRole': 'VERIFIED'
+}}
+
 sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').withArgs('123456789', true).resolves(true);
 
 describe('subscription URN Search', () => {

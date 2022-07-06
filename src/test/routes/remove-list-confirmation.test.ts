@@ -4,7 +4,6 @@ import { app } from '../../main/app';
 import { expect } from 'chai';
 import { PublicationService } from '../../main/service/publicationService';
 import { LocationService } from '../../main/service/locationService';
-import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
 const URL = '/remove-list-confirmation';
 
@@ -15,7 +14,7 @@ const mockArtefact = {
   locationId: '1',
   artefactId: 'valid-artefact',
 };
-sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
+
 const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({locationId: '1', name: 'Mock Court'});
@@ -25,7 +24,9 @@ metadataStub.withArgs('valid-artefact', '123').resolves(mockArtefact);
 metadataStub.withArgs('invalid-artefact', '123').resolves({...mockArtefact, artefactId: 'invalid-artefact'});
 
 describe('Remove List Confirmation', () => {
-  app.request['user'] = {emails: ['joe@bloggs.com'], piUserId: '123'};
+  app.request['user'] = {emails: ['joe@bloggs.com'], piUserId: '123', '_json': {
+      'extension_UserRole': 'SYSTEM_ADMIN'
+    }};
   describe('on GET', () => {
     test('should return remove list confirmation page', async () => {
       await request(app)
