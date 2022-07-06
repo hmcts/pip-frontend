@@ -163,6 +163,24 @@ describe('Publication service', () => {
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant']).to.equal(expectedApplicant);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent']).to.equal(expectedRespondent);
     });
+
+    it('should build only the applicants and the respondents representative of the party', async () => {
+      const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCausePartyMappingData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['applicant']).to.equal('Legal Advisor: Individual Surname');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['respondent']).to.equal('Legal Advisor: Individual Surname');
+    });
+
+    it('should build only the applicants and the respondents of the party', async () => {
+      const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCausePartyMappingData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2]['applicant']).to.equal('Individual Surname');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2]['respondent']).to.equal('Individual Surname');
+    });
+
+    it('when there is no party information provided', async () => {
+      const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCausePartyMappingData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][3]['applicant']).to.equal(undefined);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][3]['respondent']).to.equal(undefined);
+    });
   });
 
   describe('getIndivPubMetadata Publication Service', () => {
