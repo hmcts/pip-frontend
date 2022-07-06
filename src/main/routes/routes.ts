@@ -88,6 +88,17 @@ export default function(app: Application): void {
     });
   }
 
+  function forgotPasswordRedirect(req, res, next): void {
+    console.log('hey');
+    const body = JSON.stringify(req.body);
+    console.log(body);
+    if (body.includes('AADB2C90118')) {
+      res.redirect(`https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1A_DEMO_PASSWORDRESET_ACCOUNTEXISTS&client_id=cae650ba-431b-4fc8-be14-22d476ebd31b&nonce=defaultNonce&redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Flogin%2Freturn&scope=openid&response_type=id_token&prompt=login`)
+      return;
+    }
+    return next();
+  }
+
   // Public paths
   app.get('/*', globalAuthGiver);
   app.post('/*', globalAuthGiver);
@@ -104,8 +115,10 @@ export default function(app: Application): void {
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
+  // app.post('/login/return#error=access_denied&error_description=AADB2C90118', function(req,res){res.redirect('https://www.google.com');});
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
-  app.post('/login/return', passport.authenticate(authType, { failureRedirect: '/view-option'}),
+  // app.post('/login/return', forgotPasswordRedirect);
+  app.post('/login/return', forgotPasswordRedirect, passport.authenticate(authType, { failureRedirect: '/view-option'}),
     (_req, res) => {adminAuthentication.isAdminUser(_req) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
   app.get('/logout', (_req, res) => {adminAuthentication.isAdminUser(_req) ?
     logOut(_req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY) : logOut(_req, res, `${FRONTEND_URL}/view-option`);});
