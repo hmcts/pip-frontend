@@ -137,9 +137,10 @@ export class PublicationService {
           }
           case 'APPLICANT_PETITIONER_REPRESENTATIVE':
           {
-            applicant += this.writeStringIfValid(party?.friendlyRoleName);
-            applicant += this.stringDelimiter(this.writeStringIfValid(party?.friendlyRoleName).length, ':');
-            applicant += this.createIndividualDetails(party.individualDetails).trim();
+            const applicantPetitionerDetails = this.createIndividualDetails(party.individualDetails).trim();
+            if(applicantPetitionerDetails) {
+              applicant += 'LEGALADVISOR: ' + applicantPetitionerDetails;
+            }
             break;
           }
           case 'RESPONDENT':
@@ -150,9 +151,10 @@ export class PublicationService {
           }
           case 'RESPONDENT_REPRESENTATIVE':
           {
-            respondent += this.writeStringIfValid(party?.friendlyRoleName);
-            respondent += this.stringDelimiter(this.writeStringIfValid(party?.friendlyRoleName).length, ':');
-            respondent += this.createIndividualDetails(party.individualDetails).trim();
+            const respondentDetails = this.createIndividualDetails(party.individualDetails).trim();
+            if(respondentDetails) {
+              respondent += 'LEGALADVISOR: ' + respondentDetails;
+            }
             break;
           }
 

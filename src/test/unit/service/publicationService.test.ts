@@ -22,7 +22,7 @@ const returnedArtefact = [{
 }];
 
 const nonPresidingJudiciary = 'Firstname1 Surname1, Presiding';
-const expectedApplicant = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
+const expectedApplicant = 'Surname, LEGALADVISOR: Mr Individual Forenames Individual Middlename Individual Surname';
 const expectedRespondent = expectedApplicant;
 
 const publicationService = new PublicationService;
@@ -166,8 +166,8 @@ describe('Publication service', () => {
 
     it('should build only the applicants and the respondents representative of the party', async () => {
       const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCausePartyMappingData);
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['applicant']).to.equal('Legal Advisor: Individual Surname');
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['respondent']).to.equal('Legal Advisor: Individual Surname');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['applicant']).to.equal('LEGALADVISOR: Individual Surname');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['respondent']).to.equal('LEGALADVISOR: Individual Surname');
     });
 
     it('should build only the applicants and the respondents of the party', async () => {

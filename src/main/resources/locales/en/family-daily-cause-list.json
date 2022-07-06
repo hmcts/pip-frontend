@@ -22,5 +22,6 @@
   "duration": "Duration",
   "applicant": "Applicant/Petitioner",
   "respondent": "Respondent",
-  "dataSource": "Data Source"
+  "dataSource": "Data Source",
+  "legalAdvisor": "Legal Advisor"
 }
