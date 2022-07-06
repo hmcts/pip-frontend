@@ -9,6 +9,7 @@ const listSubTypes = [
   {text:'SJP Public List', value: 'SJP_PUBLIC_LIST'},
   {text: 'SJP Press List', value: 'SJP_PRESS_LIST'},
   {text: 'Civil Daily Cause List', value: 'CIVIL_DAILY_CAUSE_LIST'},
+  {text: 'Civil And Family Daily Cause List', value: 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'},
   {text: 'Family Daily Cause List', value: 'FAMILY_DAILY_CAUSE_LIST'},
   {text: 'Crown Daily List', value: 'CROWN_DAILY_LIST'},
   {text: 'Crown Firm List', value: 'CROWN_FIRM_LIST'},
