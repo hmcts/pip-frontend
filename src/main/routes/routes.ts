@@ -6,15 +6,14 @@ import os from 'os';
 import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 import {
-  isPermittedAccountCreation,
-  isPermittedMediaAccount,
-  isPermittedManualUpload,
-  isPermittedAdmin,
   allAdminRoles,
+  isPermittedAdmin,
+  isPermittedMedia,
+  isPermittedMediaAccount,
+  isPermittedAccountCreation,
+  isPermittedManualUpload,
   checkRoles
-} from '../authentication/adminAuthentication';
-
-import {isPermittedMedia} from '../authentication/mediaAuthentication';
+} from '../authentication/authenticationHandler';
 
 import config from 'config';
 
