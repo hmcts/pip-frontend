@@ -5,7 +5,6 @@ import fs from 'fs';
 import path from 'path';
 
 const courtRequests = new LocationRequests();
-const { redisClient } = require('../../../main/cacheManager');
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawData);
 
@@ -26,9 +25,6 @@ const errorMessage = {
 const courtNameSearch = 'Abergavenny Magistrates\' Court';
 
 const stub = sinon.stub(dataManagementApi, 'get');
-sinon.stub(redisClient, 'status').value('ready');
-const stubCacheGet = sinon.stub(redisClient, 'get');
-sinon.stub(redisClient, 'set').withArgs('court-4').returns(JSON.stringify(courtList[0]));
 
 const regions = 'london';
 const jurisdictions = 'Crown';
@@ -56,17 +52,12 @@ describe('Location get requests', () => {
     stub.withArgs('/locations').resolves({data: courtList});
   });
 
-  it('should return court by court id from cache', async () => {
-    stubCacheGet.withArgs('court-1').resolves(JSON.stringify(courtList[0]));
-    expect(await courtRequests.getLocation(1)).toStrictEqual(courtList[0]);
-  });
-
-  it('should return court by court id without cache', async () => {
+  it('should return court by court id', async () => {
     stub.withArgs('court-1').resolves(null);
     expect(await courtRequests.getLocation(1)).toStrictEqual(courtList[0]);
   });
 
-  it('should set court in the cache after response returns data', async () => {
+  it('should set court after response returns data', async () => {
     expect(await courtRequests.getLocation(5)).toStrictEqual(courtList[4]);
   });
 
@@ -114,11 +105,6 @@ describe('Location get requests', () => {
     expect(await courtRequests.getAllLocations()).toBe(courtList);
   });
 
-  it('should return list of courts if cache is set', async () => {
-    stubCacheGet.withArgs('allCourts').resolves(JSON.stringify(courtList));
-    expect(await courtRequests.getAllLocations()).toStrictEqual(courtList);
-  });
-
   it('should return null list of courts for error response', async () => {
     stub.withArgs('/locations').rejects(errorResponse);
     expect(await courtRequests.getFilteredCourts(test, test)).toBe(null);
@@ -131,19 +117,19 @@ describe('Location get requests', () => {
 
   it('should return null list of courts for error request', async () => {
     stub.withArgs('/locations').rejects(errorRequest);
-    stubCacheGet.withArgs('allCourts').resolves(null);
+    stub.withArgs('allCourts').resolves(null);
     expect(await courtRequests.getAllLocations()).toBe(null);
   });
 
   it('should return null list of courts for errored call', async () => {
     stub.withArgs('/locations').rejects(errorMessage);
-    stubCacheGet.withArgs('allCourts').resolves(null);
+    stub.withArgs('allCourts').resolves(null);
     expect(await courtRequests.getAllLocations()).toBe(null);
   });
 
   it('should return null list of courts for errored response', async () => {
     stub.withArgs('/locations').rejects(errorResponse);
-    stubCacheGet.withArgs('allCourts').resolves(null);
+    stub.withArgs('allCourts').resolves(null);
     expect(await courtRequests.getAllLocations()).toBe(null);
   });
 });
