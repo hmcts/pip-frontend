@@ -1,8 +1,6 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import request from 'supertest';
-import sinon from 'sinon';
-import { AdminAuthentication } from '../../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/admin-dashboard';
 const pageTitleValue = 'Staff dashboard';
@@ -32,7 +30,9 @@ let htmlRes: Document;
 
 describe('Admin Dashboard page', () => {
   beforeAll(async () => {
-    sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
+    app.request['user'] = {piUserId: '1', _json: {
+        'extension_UserRole': 'INTERNAL_ADMIN_CTSC'
+      }};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });

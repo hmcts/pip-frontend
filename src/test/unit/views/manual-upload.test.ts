@@ -5,6 +5,7 @@ import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
 import {LocationRequests} from '../../../main/resources/requests/locationRequests';
+import {request as expressRequest} from "express";
 
 const PAGE_URL = '/manual-upload';
 const headingClass = 'govuk-heading-xl';
@@ -47,6 +48,10 @@ const mockBodyData = {
   'display-date-to-month': '',
   'display-date-to-year': '',
 };
+
+expressRequest['user'] = {'_json': {
+    'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC'
+  }}
 
 sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 
