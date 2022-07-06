@@ -18,8 +18,8 @@ describe('Subscriptions Confirmed', () => {
   describe('on POST', () => {
     test('should return subscription confirmation page', async () => {
       app.request['user'] = {piUserId: '1', '_json': {
-          'extension_UserRole': 'VERIFIED'
-        }};
+        'extension_UserRole': 'VERIFIED',
+      }};
       await request(app)
         .post('/subscription-confirmed')
         .expect((res) => expect(res.status).to.equal(200));
@@ -27,8 +27,8 @@ describe('Subscriptions Confirmed', () => {
 
     test('should redirect to pending subscriptions page', async () => {
       app.request['user'] = {piUserId: '2','_json': {
-          'extension_UserRole': 'VERIFIED'
-        }};
+        'extension_UserRole': 'VERIFIED',
+      }};
       await request(app)
         .post('/subscription-confirmed')
         .expect((res) => {

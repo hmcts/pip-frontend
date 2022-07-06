@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
-import {request as expressRequest} from "express";
+import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/remove-list-search';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
@@ -14,8 +14,8 @@ sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(null);
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'SYSTEM_ADMIN'
-  }}
+  'extension_UserRole': 'SYSTEM_ADMIN',
+}};
 
 let htmlRes: Document;
 

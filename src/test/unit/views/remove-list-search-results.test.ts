@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import {request as expressRequest} from "express";
+import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/remove-list-search-results?locationId=5';
 const mockCourt = {
@@ -51,8 +51,8 @@ sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs('
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns(mockPublications);
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'SYSTEM_ADMIN'
-  }}
+  'extension_UserRole': 'SYSTEM_ADMIN',
+}};
 
 let htmlRes: Document;
 

@@ -43,8 +43,8 @@ describe('Pending Subscriptions Page', () => {
   describe('user with subscriptions', () => {
     beforeAll(async () => {
       app.request['user'] = {piUserId: '1', _json: {
-          'extension_UserRole': 'VERIFIED'
-        }};
+        'extension_UserRole': 'VERIFIED',
+      }};
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
         htmlRes.getElementsByTagName('div')[0].remove();
@@ -119,8 +119,8 @@ describe('Pending Subscriptions Page', () => {
   describe('user with court subscription but without case subscriptions', () => {
     beforeAll(async () => {
       app.request['user'] = {piUserId: '4', _json: {
-          'extension_UserRole': 'VERIFIED'
-        }};
+        'extension_UserRole': 'VERIFIED',
+      }};
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
         htmlRes.getElementsByTagName('div')[0].remove();
@@ -176,8 +176,8 @@ describe('Pending Subscriptions Page', () => {
   describe('user with case subscription but without court subscriptions', () => {
     beforeAll(async () => {
       app.request['user'] = {piUserId: '3', _json: {
-          'extension_UserRole': 'VERIFIED'
-        }};
+        'extension_UserRole': 'VERIFIED',
+      }};
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
         htmlRes.getElementsByTagName('div')[0].remove();
@@ -246,8 +246,8 @@ describe('Pending Subscriptions Page', () => {
   describe('user without subscriptions', () => {
     beforeAll(async () => {
       app.request['user'] = {piUserId: '2', _json: {
-          'extension_UserRole': 'VERIFIED'
-        }};
+        'extension_UserRole': 'VERIFIED',
+      }};
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
         htmlRes.getElementsByTagName('div')[0].remove();
@@ -275,8 +275,8 @@ describe('Pending Subscriptions Page', () => {
   describe('user without subscriptions error screen', () => {
     beforeAll(async () => {
       app.request['user'] = {piUserId: '2', _json: {
-          'extension_UserRole': 'VERIFIED'
-        }};
+        'extension_UserRole': 'VERIFIED',
+      }};
       await request(app).get(`${PAGE_URL}?no-subscriptions=true`).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
         htmlRes.getElementsByTagName('div')[0].remove();

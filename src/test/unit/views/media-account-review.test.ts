@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import request from 'supertest';
 import {app} from '../../../main/app';
 import {expect} from 'chai';
-import {request as expressRequest} from "express";
+import {request as expressRequest} from 'express';
 
 describe('Media Account Review Test', () => {
 
@@ -53,8 +53,8 @@ describe('Media Account Review Test', () => {
     beforeAll(async () => {
 
       expressRequest['user'] = {'_json': {
-          'extension_UserRole': 'INTERNAL_ADMIN_CTSC'
-      }}
+        'extension_UserRole': 'INTERNAL_ADMIN_CTSC',
+      }};
 
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

@@ -5,7 +5,7 @@ import {MediaApplicationService} from '../../../main/service/mediaApplicationSer
 import request from 'supertest';
 import {app} from '../../../main/app';
 import {expect} from 'chai';
-import {request as expressRequest} from "express";
+import {request as expressRequest} from 'express';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/mediaApplications.json'), 'utf-8');
 const mediaApplications = JSON.parse(rawData);
@@ -20,8 +20,8 @@ const tableClass = 'govuk-table';
 const expectedHeader = 'Select application to assess';
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'INTERNAL_ADMIN_CTSC'
-  }}
+  'extension_UserRole': 'INTERNAL_ADMIN_CTSC',
+}};
 
 describe('Media applications page', () => {
   beforeEach(async () => {

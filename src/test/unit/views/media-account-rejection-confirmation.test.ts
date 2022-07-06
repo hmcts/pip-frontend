@@ -48,8 +48,8 @@ describe('Media Account Submission Page', () => {
   };
 
   app.request['user'] = {'emails': ['emailA'], _json: {
-      'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC'
-    }};
+    'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
+  }};
 
   sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').returns(dummyApplication);
   sinon.stub(MediaAccountApplicationService.prototype, 'rejectApplication').returns(dummyApplication);

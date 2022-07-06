@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import request from 'supertest';
 import {expect} from 'chai';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
-import {request as expressRequest} from "express";
+import {request as expressRequest} from 'express';
 
 const applicationId = '1234';
 
@@ -55,8 +55,8 @@ const dummyApplication = {
 sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').returns(dummyApplication);
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'INTERNAL_ADMIN_CTSC'
-}}
+  'extension_UserRole': 'INTERNAL_ADMIN_CTSC',
+}};
 
 describe('Media Account Rejection Page', () => {
 

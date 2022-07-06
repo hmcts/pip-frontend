@@ -21,8 +21,8 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').res
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({locationId: '5', name: 'Mock Court'});
 
 expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN'
-}}
+  'extension_UserRole': 'SYSTEM_ADMIN',
+}};
 
 sinon.stub(PublicationService.prototype, 'removePublication').withArgs('foo').resolves(false);
 let htmlRes: Document;

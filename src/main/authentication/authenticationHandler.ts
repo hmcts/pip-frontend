@@ -62,5 +62,3 @@ export function checkAuthenticatedMedia(req: any, res, next, roles: string[]): b
     res.redirect('/login?p=' + authenticationConfig.POLICY);
   }
 }
-
-

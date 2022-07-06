@@ -4,8 +4,8 @@ import { expect } from 'chai';
 import { request as expressRequest } from 'express';
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'VERIFIED'
-}}
+  'extension_UserRole': 'VERIFIED',
+}};
 
 describe('Delete Subscription', () => {
   describe('on GET', () => {

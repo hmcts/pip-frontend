@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { LocationService } from '../../main/service/locationService';
 import { SummaryOfPublicationsService } from '../../main/service/summaryOfPublicationsService';
 import { ManualUploadService } from '../../main/service/manualUploadService';
-import {request as expressRequest} from "express";
+import {request as expressRequest} from 'express';
 
 const URL = '/remove-list-search';
 
@@ -16,8 +16,8 @@ courtServiceStub.withArgs('2').resolves(true);
 courtServiceStub.withArgs('888').resolves(false);
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC'
-}}
+  'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
+}};
 
 describe('Remove list summary page', () => {
   test('should return remove list summary page page', async () => {

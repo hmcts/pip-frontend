@@ -24,8 +24,8 @@ stub.withArgs('12345').returns(null);
 stub.withArgs('').returns(null);
 
 app.request['user'] = { _json: {
-    'extension_UserRole': 'VERIFIED'
-  }};
+  'extension_UserRole': 'VERIFIED',
+}};
 
 const pageTitleValue = 'Subscribe by unique reference number (URN)';
 

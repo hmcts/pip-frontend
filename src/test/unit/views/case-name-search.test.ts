@@ -11,9 +11,8 @@ let htmlRes: Document;
 sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue').returns([]);
 
 app.request['user'] = { _json: {
-    'extension_UserRole': 'VERIFIED'
-  }};
-
+  'extension_UserRole': 'VERIFIED',
+}};
 
 describe('Case name search page', () => {
   beforeAll(async () => {

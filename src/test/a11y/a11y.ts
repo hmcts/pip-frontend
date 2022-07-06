@@ -46,7 +46,7 @@ const adminRoutes = [
   '/remove-list-confirmation',
   '/remove-list-search',
   '/remove-list-search-results',
-  '/remove-list-success'
+  '/remove-list-success',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
@@ -145,12 +145,12 @@ function testAccessibility(url: string): void {
 
       if (adminRoutes.includes(url)) {
         app.request['user'] = {piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
-            'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC'
-          }};
+          'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
+        }};
       } else {
         app.request['user'] = {piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
-            'extension_UserRole': 'VERIFIED'
-          }};
+          'extension_UserRole': 'VERIFIED',
+        }};
       }
 
       ensurePageCallWillSucceed(url)

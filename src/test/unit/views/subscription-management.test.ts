@@ -55,15 +55,13 @@ userSubscriptionsStub.withArgs('4').returns(
     dateAdded: '2022-01-14T11:42:57.847708',
   }]});
 
-
-
 let htmlRes: Document;
 
 describe('Subscriptions Management Page No UserSubscriptions', () => {
   beforeAll(async () => {
     app.request['user'] = {piUserId: '2', _json: {
-        'extension_UserRole': 'VERIFIED'
-      }};
+      'extension_UserRole': 'VERIFIED',
+    }};
   });
 
   it('should display no subscription message ', async () => {
@@ -100,8 +98,8 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
 describe('Subscriptions Management Page', () => {
   beforeAll(async () => {
     app.request['user'] = {piUserId: '1',_json: {
-        'extension_UserRole': 'VERIFIED'
-      }};
+      'extension_UserRole': 'VERIFIED',
+    }};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
@@ -226,8 +224,8 @@ describe('Subscriptions Management Page', () => {
 describe('Subscriptions Management Page with case subscription but without location', () => {
   beforeAll(async () => {
     app.request['user'] = {piUserId: '3',_json: {
-        'extension_UserRole': 'VERIFIED'
-      }};
+      'extension_UserRole': 'VERIFIED',
+    }};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
@@ -331,8 +329,8 @@ describe('Subscriptions Management Page with case subscription but without locat
 describe('Subscriptions Management Page with location subscription but without case', () => {
   beforeAll(async () => {
     app.request['user'] = {piUserId: '4',_json: {
-        'extension_UserRole': 'VERIFIED'
-      }};
+      'extension_UserRole': 'VERIFIED',
+    }};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();

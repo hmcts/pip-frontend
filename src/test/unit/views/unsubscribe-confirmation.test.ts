@@ -11,9 +11,8 @@ let htmlRes: Document;
 const pageTitleValue = 'Subscription removed';
 
 app.request['user'] = { _json: {
-    'extension_UserRole': 'VERIFIED'
-  }};
-
+  'extension_UserRole': 'VERIFIED',
+}};
 
 describe('Unsubscribe Confirmation Page', () => {
   beforeAll(async () => {

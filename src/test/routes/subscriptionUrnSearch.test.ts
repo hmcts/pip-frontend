@@ -6,8 +6,8 @@ import sinon from 'sinon';
 import { PublicationService } from '../../main/service/publicationService';
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'VERIFIED'
-}}
+  'extension_UserRole': 'VERIFIED',
+}};
 
 sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').withArgs('123456789', true).resolves(true);
 

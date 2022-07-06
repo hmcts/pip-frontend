@@ -3,7 +3,7 @@ import { app } from '../../../main/app';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import { CreateAccountService } from '../../../main/service/createAccountService';
-import {request as expressRequest} from "express";
+import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/create-admin-account-summary';
 const cookie = {
@@ -23,8 +23,8 @@ let htmlRes: Document;
 const createAccountStub = sinon.stub(CreateAccountService.prototype, 'createAdminAccount');
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'SYSTEM_ADMIN'
-  }}
+  'extension_UserRole': 'SYSTEM_ADMIN',
+}};
 
 describe('Create Admin Account Summary page', () => {
   describe('on GET', () => {
@@ -77,8 +77,8 @@ describe('Create Admin Account Summary page', () => {
         app.request['user'] = {
           emails: ['joe@bloggs.com'],
           '_json': {
-            'extension_UserRole': 'SYSTEM_ADMIN'
-          }
+            'extension_UserRole': 'SYSTEM_ADMIN',
+          },
         };
         await request(app).post(PAGE_URL).then(res => {
           htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
@@ -100,8 +100,8 @@ describe('Create Admin Account Summary page', () => {
         app.request['user'] = {
           emails: ['joe@bloggs.com'],
           '_json': {
-            'extension_UserRole': 'SYSTEM_ADMIN'
-          }
+            'extension_UserRole': 'SYSTEM_ADMIN',
+          },
         };
         createAccountStub.resolves(true);
         app.request['cookies'] = {

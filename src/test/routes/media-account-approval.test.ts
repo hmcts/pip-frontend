@@ -3,11 +3,11 @@ import {app} from '../../main/app';
 import {expect} from 'chai';
 import { MediaAccountApplicationService } from '../../main/service/mediaAccountApplicationService';
 import sinon from 'sinon';
-import {request as expressRequest} from "express";
+import {request as expressRequest} from 'express';
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC'
-}}
+  'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
+}};
 
 describe('Media Account Approval', () => {
 

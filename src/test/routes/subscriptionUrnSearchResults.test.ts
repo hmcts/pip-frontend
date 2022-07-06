@@ -4,8 +4,8 @@ import { request as expressRequest } from 'express';
 import request from 'supertest';
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'VERIFIED'
-}}
+  'extension_UserRole': 'VERIFIED',
+}};
 
 describe('subscription URN Search result', () => {
   describe('on GET', () => {

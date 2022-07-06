@@ -20,9 +20,8 @@ let htmlRes: Document;
 sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').returns(subscriptionsData);
 
 app.request['user'] = { _json: {
-    'extension_UserRole': 'VERIFIED'
-  }};
-
+  'extension_UserRole': 'VERIFIED',
+}};
 
 const pageTitleValue = 'Search result';
 

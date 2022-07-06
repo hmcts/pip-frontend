@@ -50,7 +50,7 @@ describe('Media Account Confirmation Page', () => {
   sinon.stub(MediaAccountApplicationService.prototype, 'createAccountFromApplication').returns(dummyApplication);
 
   app.request['user'] = {'emails': ['emailA'], _json: {
-      'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC'
+    'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
   }};
 
   beforeAll(async () => {

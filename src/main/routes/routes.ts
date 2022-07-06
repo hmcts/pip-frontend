@@ -12,7 +12,7 @@ import {
   isPermittedMediaAccount,
   isPermittedAccountCreation,
   isPermittedManualUpload,
-  checkRoles
+  checkRoles,
 } from '../authentication/authenticationHandler';
 
 import config from 'config';

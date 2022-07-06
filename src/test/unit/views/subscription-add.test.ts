@@ -18,8 +18,8 @@ const expectedRadioLabel3 = 'By name of party or parties involved';
 const expectedRadioLabel4 = 'By court or tribunal name';
 
 app.request['user'] = { _json: {
-    'extension_UserRole': 'VERIFIED'
-  }};
+  'extension_UserRole': 'VERIFIED',
+}};
 
 let htmlRes: Document;
 describe('Subscriptions add Page initial load', () => {

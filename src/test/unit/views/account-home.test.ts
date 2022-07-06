@@ -25,8 +25,8 @@ const cards = [
 let htmlRes: Document;
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'VERIFIED'
-}}
+  'extension_UserRole': 'VERIFIED',
+}};
 
 describe('Your Account page', () => {
   beforeAll(async () => {

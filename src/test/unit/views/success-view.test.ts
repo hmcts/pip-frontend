@@ -1,14 +1,14 @@
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import {request as expressRequest} from "express";
+import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/upload-confirmation';
 let htmlRes: Document;
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'SYSTEM_ADMIN'
-  }}
+  'extension_UserRole': 'SYSTEM_ADMIN',
+}};
 
 describe('File Upload Confirmation Page', () => {
   beforeAll(async () => {

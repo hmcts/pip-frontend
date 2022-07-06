@@ -4,7 +4,7 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { ManualUploadService } from '../../main/service/manualUploadService';
 import { FileHandlingService } from '../../main/service/fileHandlingService';
-import {request as expressRequest} from "express";
+import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/manual-upload-summary';
 const mockCookie = {'foo': 'blah', listType: ''};
@@ -16,14 +16,14 @@ uploadStub.withArgs({  ...mockCookie,  listTypeName: '', file: '', userEmail: 't
 uploadStub.withArgs({ ...mockCookie,  listTypeName: '', file: '', userEmail: '2@email.com' }, true).resolves(false);
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'SYSTEM_ADMIN'
-}}
+  'extension_UserRole': 'SYSTEM_ADMIN',
+}};
 
 describe('Manual upload summary', () => {
   beforeEach(() => {
     app.request['user'] = {id: '1', emails: ['test@email.com'],'_json': {
-        'extension_UserRole': 'SYSTEM_ADMIN'
-      }};
+      'extension_UserRole': 'SYSTEM_ADMIN',
+    }};
     app.request['cookies'] = {'formCookie': JSON.stringify(mockCookie)};
   });
 
@@ -50,8 +50,8 @@ describe('Manual upload summary', () => {
 
     test('should return summary page if upload fails', async () => {
       app.request['user'] = {emails: ['2@email.com'],'_json': {
-          'extension_UserRole': 'SYSTEM_ADMIN'
-        }};
+        'extension_UserRole': 'SYSTEM_ADMIN',
+      }};
       await request(app).post(PAGE_URL)
         .send({data: 'invalid'})
         .expect((res) => expect(res.status).to.equal(200));
