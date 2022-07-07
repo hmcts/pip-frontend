@@ -215,12 +215,13 @@ describe('Unverified user', () => {
       await alphabeticalSearchPage.open('/alphabetical-search');
     });
 
-    it('should click on the Home navigation link and take user to view option page', async () => {
-      viewOptionPage = await alphabeticalSearchPage.clickNavHome();
-      expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+    it('should click on the Home navigation link and take user to the home/interstitial page', async () => {
+      await alphabeticalSearchPage.clickNavHome();
+      expect(await homePage.getPageTitle()).toEqual('Court and tribunal hearings');
     });
 
     it('should click on the Find a court or tribunal navigation link and take user to search page', async () => {
+      await viewOptionPage.open('/view-option');
       searchPage = await viewOptionPage.clickFindACourtBannerLink();
       expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
     });
