@@ -15,8 +15,8 @@ const headers = {
   artefactType: 'type',
   classification: 'public',
   language: 'english',
-  'display-from': '',
-  'display-to': '',
+  'display-from': '01/07/2022 00:00:01',
+  'display-to': '01/07/2022 23:59:59',
   listType: 'type',
   court: {
     locationId: '1',
@@ -151,6 +151,30 @@ describe('Manual upload service', () => {
       const errors = await manualUploadService.validateFormFields(formValues);
       expect(errors['displayDateError']['range']).to.equal('Please make sure \'to\' date is after \'from\' date');
     });
+
+    it('should formatted date-from date correctly', async () => {
+      formValues['display-date-from-day'] = '1';
+      formValues['display-date-from-month'] = '7';
+      formValues['display-date-from-year'] = '2022';
+      const data = await manualUploadService.buildDate(formValues, 'display-date-from');
+      expect(data).to.equal('1/7/2022 00:00:01');
+    });
+
+    it('should formatted date-to date correctly', async () => {
+      formValues['display-date-to-day'] = '1';
+      formValues['display-date-to-month'] = '7';
+      formValues['display-date-to-year'] = '2022';
+      const data = await manualUploadService.buildDate(formValues, 'display-date-to');
+      expect(data).to.equal('1/7/2022 23:59:59');
+    });
+
+    it('should formatted content date correctly', async () => {
+      formValues['content-date-from-day'] = '1';
+      formValues['content-date-from-month'] = '7';
+      formValues['content-date-from-year'] = '2022';
+      const data = await manualUploadService.buildDate(formValues, 'content-date-from');
+      expect(data).to.equal('1/7/2022 00:00:00');
+    });
   });
 
   it('should generate headers object', () => {
@@ -168,6 +192,12 @@ describe('Manual upload service', () => {
     data.fileName = 'test.json';
     const fileUpload = await manualUploadService.uploadPublication(data, true);
     expect(fileUpload).to.be.true;
+  });
+
+  it('should formatted date-from and date-to correctly', async () => {
+    const data = await manualUploadService.formatPublicationDates(headers, true);
+    expect(data['display-from']).to.contains('2022-07-01T00:00:01');
+    expect(data['display-to']).to.contains('2022-07-01T23:59:59');
   });
 
   it('should return court id and name as object', async () => {
