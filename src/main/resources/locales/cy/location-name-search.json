@@ -12,11 +12,11 @@
   "sjpSubscription": "Achosion Gweithdrefn Un Ynad",
   "hide" : "Cuddio’r ffiltrau",
   "show": "Dangos y ffiltrau",
-  "ariaLabelNav": "",
+  "ariaLabelNav": "Nid oes llys/tribiwnlys ar gael ar gyfer y llythyr",
   "jurisdiction": "Math o lys neu dribiwnlys",
   "region": "Rhanbarth",
   "aria": {
-    "filterLabel": ""
+    "filterLabel": "Hidlo yn ôl awdurdodaeth neu ranbarth"
   }
 }
 

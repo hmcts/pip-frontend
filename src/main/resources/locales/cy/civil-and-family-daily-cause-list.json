@@ -1,6 +1,7 @@
 {
   "title": "Rhestr Achosion Dyddiol Sifil a Theuluol",
-  "header": "Rhestr Achosion Dyddiol Sifil a Theuluol:",
+  "headerPart1": "Rhestr Achosion Dyddiol Sifil a Theuluol:",
+  "headerPart2": "yn y ",
   "listDate": "Rhestr ar gyfer:",
   "listUpdated": "Diweddarwyd diwethaf DATE yn ",
   "importantInformationHeading": "Gwybodaeth Bwysig",

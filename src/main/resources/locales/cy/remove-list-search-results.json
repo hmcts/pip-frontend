@@ -7,7 +7,7 @@
   },
   "header": "Dewis cynnwys i’w ddileu",
   "resultsMessage": "Dangos RESULTS_COUNT ganlyniad(au)",
-  "tableHeaders": ["Math o restr", "Llys", "Dyddiad", "", "Camau gweithredu"],
+  "tableHeaders": ["Math o restr", "Llys", "Dyddiad", "Language", "Camau gweithredu"],
   "rowAction": "Dileu",
-  "languageItems": ["Saesneg", "Cymraeg", ""]
+  "languageItems": ["Saesneg", "Cymraeg", "Dwyieithog"]
 }

@@ -1,6 +1,7 @@
 {
   "title": "Rhestr Ddyddiol o Achosion Teulu",
-  "header": "Rhestr Ddyddiol o Achosion Teulu:",
+  "headerPart1": "Rhestr Ddyddiol o Achosion Teulu:",
+  "headerPart2": "yn y ",
   "listDate": "Rhestr ar gyfer",
   "listUpdated": "Diweddarwyd diwethaf DATE yn ",
   "importantInformationHeading": "Gwybodaeth Bwysig",
