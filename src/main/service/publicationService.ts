@@ -139,7 +139,7 @@ export class PublicationService {
           {
             const applicantPetitionerDetails = this.createIndividualDetails(party.individualDetails).trim();
             if(applicantPetitionerDetails) {
-              applicant += 'LEGALADVISOR: ' + applicantPetitionerDetails;
+              applicant += 'LEGALADVISOR: ' + applicantPetitionerDetails + ', ';
             }
             break;
           }
@@ -153,7 +153,7 @@ export class PublicationService {
           {
             const respondentDetails = this.createIndividualDetails(party.individualDetails).trim();
             if(respondentDetails) {
-              respondent += 'LEGALADVISOR: ' + respondentDetails;
+              respondent += 'LEGALADVISOR: ' + respondentDetails + ', ';
             }
             break;
           }
