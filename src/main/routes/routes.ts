@@ -92,11 +92,15 @@ export default function(app: Application): void {
     const body = JSON.stringify(req.body);
     if (body.includes('AADB2C90118')) {
       const CLIENT_ID = config.get('secrets.pip-ss-kv.CLIENT_ID');
-      const REDIRECT_URL = 'https://localhost:8080/login/return';
       const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
+      const REDIRECT_URL = `${FRONTEND_URL}/password-change-confirmation`;
+      console.log(`${B2C_URL}/oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
+        `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${REDIRECT_URL}` +
+        '&scope=openid&response_type=id_token&prompt=login');
+
       res.redirect(`${B2C_URL}/oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
-      `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${REDIRECT_URL}` +
-      '&scope=openid&response_type=id_token&prompt=login');
+        `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${REDIRECT_URL}` +
+        '&scope=openid&response_type=id_token&prompt=login');
       return;
     }
     return next();
@@ -118,6 +122,7 @@ export default function(app: Application): void {
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
+  app.get('/password-change-confirmation', app.locals.container.cradle.passwordChangeController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
   app.post('/login/return', forgotPasswordRedirect, passport.authenticate(authType, { failureRedirect: '/view-option'}),
     (_req, res) => {adminAuthentication.isAdminUser(_req) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
