@@ -67,14 +67,14 @@ export class LocationService {
     return this.generateAlphabetisedCourtList(await this.fetchAllLocations(language));
   }
 
-  public async generateAlphabetisedCrownCourtList(): Promise<object> {
+  public async generateAlphabetisedCrownCourtList(language: string): Promise<object> {
     const regions = '';
     const jurisdictions = 'Crown';
-    return this.generateFilteredAlphabetisedCourtList(regions, jurisdictions);
+    return this.generateFilteredAlphabetisedCourtList(regions, jurisdictions, language);
   }
 
-  public async generateFilteredAlphabetisedCourtList(regions: string, jurisdictions: string): Promise<object> {
-    return this.generateAlphabetisedCourtList(await locationRequest.getFilteredCourts(regions, jurisdictions));
+  public async generateFilteredAlphabetisedCourtList(regions: string, jurisdictions: string, language: string): Promise<object> {
+    return this.generateAlphabetisedCourtList(await locationRequest.getFilteredCourts(regions, jurisdictions, language));
   }
 
   private generateAlphabetisedCourtList(listToAlphabetise: Array<Location>): object {

@@ -27,7 +27,9 @@ const requestFiltersNoJurisdiction = {Region: 'Bedford'};
 const filterNames = ['Jurisdiction', 'Region'];
 const allFilterOptions = {'Jurisdiction': {Tribunal:{value:'Tribunal'}}, Region: {Wales:{value:'Wales'}}};
 const filterValues = ['Tribunal','Wales'];
-const language = 'eng';
+
+const englishLanguage = 'eng';
+const welshLanguage = 'eng';
 
 describe('Filter Service', () => {
   it('should build filter header options for checkboxes', () => {
@@ -99,15 +101,28 @@ describe('Filter Service', () => {
   });
 
   it('should return object for rendering with no clear or filters selected', async () => {
-    expect(await filterService.handleFilterInitialisation(null, null, language)).toStrictEqual({alphabetisedList: listData, filterOptions: {...filterService.buildFilterValueOptions(listData, [])}});
+    expect(await filterService.handleFilterInitialisation(null, null, englishLanguage)).toStrictEqual({alphabetisedList: listData, filterOptions: {...filterService.buildFilterValueOptions(listData, [])}});
   });
 
   it('should return all courts when clear all has been passed', async () => {
-    expect(await filterService.handleFilterInitialisation('all', null, language)).toStrictEqual({alphabetisedList: listData, filterOptions: {...filterService.buildFilterValueOptions(listData, [])}});
+    expect(await filterService.handleFilterInitialisation('all', null, englishLanguage)).toStrictEqual({alphabetisedList: listData, filterOptions: {...filterService.buildFilterValueOptions(listData, [])}});
   });
 
   it('should return filtered courts if filters have been selected', async () => {
-    const result = await filterService.handleFilterInitialisation(null, 'Manchester', language);
+    const result = await filterService.handleFilterInitialisation(null, 'Manchester', englishLanguage);
+    expect(result['alphabetisedList']).toStrictEqual([listData[0]]);
+  });
+
+  it('should return object for rendering with no clear or filters selected for welsh', async () => {
+    expect(await filterService.handleFilterInitialisation(null, null, welshLanguage)).toStrictEqual({alphabetisedList: listData, filterOptions: {...filterService.buildFilterValueOptions(listData, [])}});
+  });
+
+  it('should return all courts when clear all has been passed for welsh', async () => {
+    expect(await filterService.handleFilterInitialisation('all', null, welshLanguage)).toStrictEqual({alphabetisedList: listData, filterOptions: {...filterService.buildFilterValueOptions(listData, [])}});
+  });
+
+  it('should return filtered courts if filters have been selected for welsh', async () => {
+    const result = await filterService.handleFilterInitialisation(null, 'Bedford', welshLanguage);
     expect(result['alphabetisedList']).toStrictEqual([listData[0]]);
   });
 

@@ -119,7 +119,7 @@ export class FilterService {
     }
 
     const alphabetisedList = filterValues.length == 0 ? await locationService.generateAlphabetisedAllCourtList(language) :
-      await locationService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction']);
+      await locationService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction'], language);
 
     return {
       alphabetisedList: alphabetisedList,

@@ -20,7 +20,7 @@ export class LocationRequests {
 
   public async getLocationByName(courtName: string): Promise<Location> {
     try {
-      const response = await dataManagementApi.get(`/locations/name/${courtName}`);
+      const response = await dataManagementApi.get(`/locations/name/${courtName}/language/eng`);
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -34,12 +34,13 @@ export class LocationRequests {
     return null;
   }
 
-  public async getFilteredCourts(regions: string, jurisdictions: string): Promise<Array<Location>> {
+  public async getFilteredCourts(regions: string, jurisdictions: string, language: string): Promise<Array<Location>> {
     try {
       const response = await dataManagementApi.get('/locations/filter', {
         params: {
           regions: regions,
           jurisdictions: jurisdictions,
+          language: language,
         },
       });
       return response.data;

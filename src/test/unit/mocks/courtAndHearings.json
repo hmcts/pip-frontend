@@ -75,6 +75,7 @@
     "name": "Accrington Magistrates' Court",
     "jurisdiction": "Crown",
     "region": "Manchester",
+    "welshRegion": "Manceinion",
     "hearings": 5,
     "hearingList": [
       {
