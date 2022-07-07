@@ -20,25 +20,25 @@ export class LocationService {
     return courtsList.sort((a, b) => (a.name > b.name) ? 1 : -1);
   }
 
-  public async fetchAllLocations(language: String): Promise<Array<Location>> {
+  public async fetchAllLocations(language: string): Promise<Array<Location>> {
     return this.initalizeLocationsForLanguage(await locationRequest.getAllLocations(), language);
   }
 
-  private initalizeLocationsForLanguage(locations: Array<Location>, language: String): Array<Location> {
+  private initalizeLocationsForLanguage(locations: Array<Location>, language: string): Array<Location> {
     let locationsBaseOnLanguage= [];
 
     switch(language) {
-      case "cy": {
+      case 'cy': {
         locations.forEach(value => {
-          let locationInfo: Location;
-          locationInfo = {
+          const locationInfo = {
             locationId: (value['locationId'] != null ? value['locationId'] : value.locationId),
             name:  (value['welshName'] != null ? value['welshName'] : value.name),
             jurisdiction: (value['welshJurisdiction'] != null ? value['welshJurisdiction'] : value.jurisdiction),
             region: (value['welshRegion'] != null ? value['welshRegion'] : value.region),
             hearingList: value.hearingList,
             hearings: value.hearings,
-            location: value.location}
+            location: value.location,
+          };
 
           locationsBaseOnLanguage.push(locationInfo);
         });
@@ -50,7 +50,6 @@ export class LocationService {
         break;
       }
     }
-
 
     return locationsBaseOnLanguage;
   }
