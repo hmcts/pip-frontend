@@ -2,6 +2,7 @@ import {PublicationRequests} from '../resources/requests/publicationRequests';
 import {Artefact} from '../models/Artefact';
 import {SearchObject} from '../models/searchObject';
 import moment from 'moment-timezone';
+import { partyRoleMappings } from '../models/consts';
 
 const publicationRequests = new PublicationRequests();
 
@@ -126,7 +127,8 @@ export class PublicationService {
 
     if(hearing?.party) {
       hearing.party.forEach(party => {
-        switch(party.partyRole) {
+
+        switch(PublicationService.convertPartyRole(party.partyRole)) {
           case 'APPLICANT_PETITIONER':
           {
             applicant = this.createIndividualDetails(party.individualDetails);
@@ -259,6 +261,14 @@ export class PublicationService {
     return publishedTime;
   }
 
+  private static convertPartyRole(nonConvertedPartyRole: string): string {
+    for (const [mappedPartyRole, unMappedRoles] of Object.entries(partyRoleMappings)) {
+      if (unMappedRoles.includes(nonConvertedPartyRole) || mappedPartyRole === nonConvertedPartyRole) {
+        return mappedPartyRole;
+      }
+    }
+  }
+  
   /**
    * Function which extracts the date from a UTC Date Time in BST format.
    * @param publicationDatetime The publication date time to convert in UTC.
@@ -285,3 +295,4 @@ export class PublicationService {
     }
   }
 }
+

@@ -21,3 +21,10 @@ export const allowedImageTypeMappings = {
   'png': 'image/png',
   'pdf': 'application/pdf',
 };
+
+export const partyRoleMappings = {
+  'APPLICANT_PETITIONER': ['APL', 'APP', 'CLP20', 'CRED', 'OTH', 'PET'],
+  'APPLICANT_PETITIONER_REPRESENTATIVE': ['CREP', 'CREP20'],
+  'RESPONDENT': ['DEBT', 'DEF', 'DEF20', 'RES'],
+  'RESPONDENT_REPRESENTATIVE': ['DREP', 'DREP20', 'RREP'],
+};
