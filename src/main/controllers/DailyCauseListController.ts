@@ -24,15 +24,17 @@ export default class DailyCauseListController {
 
       const court = await courtService.getLocationById(metaData['locationId']);
 
+      const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
+
       res.render(listToLoad, {
-        ...cloneDeep(req.i18n.getDataByLanguage(publicationService.languageToLoadPageIn(metaData.language,
-          req.lng))[listToLoad]),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
         listData: manipulatedData,
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         provenance: metaData['provenance'],
         courtName: court.name,
+        bill: pageLanguage === 'bill',
       });
     } else {
       res.render('error',

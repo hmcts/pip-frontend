@@ -1,6 +1,7 @@
 {
   "title": "Achosion Gweithdrefn Un Ynad sy'n barod ar gyfer gwrandawiad",
-  "listDetail": "List containing CASES_COUNT case(s) generated on PUBLICATION_DATE",
+  "listDetail": "List containing CASES_COUNT case(s) generated on",
+  "publishedAt": "yn",
   "column1": "Enw",
   "column2": "Cod post",
   "column3": "Trosedd",

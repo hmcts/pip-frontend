@@ -30,6 +30,11 @@
         <p>{{ importantInformationP1 }}</p>
         <p>{{ importantInformationP2 | replace("NAME", courtName) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone'])}}</p>
         <p>{{ importantInformationP3 }}</p>
+        {% if bill %}
+          <P>{{ importantInformationP4 }}</P>
+          <P>{{ importantInformationP5 | replace("NAME", courtName) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone'])}}</P>
+          <P>{{ importantInformationP6 }}</P>
+        {% endif %}
       </div>
     </details>
     {% for courtList in listData['courtLists'] %}
