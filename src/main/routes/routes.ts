@@ -89,16 +89,11 @@ export default function(app: Application): void {
   }
 
   function forgotPasswordRedirect(req, res, next): void {
-    console.log('hey');
     const body = JSON.stringify(req.body);
-    console.log(body);
     if (body.includes('AADB2C90118')) {
       const CLIENT_ID = config.get('secrets.pip-ss-kv.CLIENT_ID');
-      const REDIRECT_URL = adminAuthentication.isAdminUser(req) ?
-        `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY :
-        `${FRONTEND_URL}/login?p=`+ authenticationConfig.POLICY;
+      const REDIRECT_URL = 'https://localhost:8080/login/return';
       const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
-      console.log(REDIRECT_URL);
       res.redirect(`${B2C_URL}/oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
       `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${REDIRECT_URL}` +
       '&scope=openid&response_type=id_token&prompt=login');
