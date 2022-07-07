@@ -76,7 +76,13 @@ export class ManualUploadService {
   }
 
   public buildDate(body: object, fieldsetPrefix: string): string {
-    return body[`${fieldsetPrefix}-day`]?.concat('/', body[`${fieldsetPrefix}-month`],'/', body[`${fieldsetPrefix}-year`]);
+    if(fieldsetPrefix === 'display-date-to') {
+      return body[`${fieldsetPrefix}-day`]?.concat('/', body[`${fieldsetPrefix}-month`], '/', body[`${fieldsetPrefix}-year`], ' 23:59:59');
+    } else if(fieldsetPrefix === 'display-date-from') {
+      return body[`${fieldsetPrefix}-day`]?.concat('/', body[`${fieldsetPrefix}-month`],'/', body[`${fieldsetPrefix}-year`], ' 00:00:01');
+    } else {
+      return body[`${fieldsetPrefix}-day`]?.concat('/', body[`${fieldsetPrefix}-month`],'/', body[`${fieldsetPrefix}-year`], ' 00:00:00');
+    }
   }
 
   private validateDates(dateFrom: string, dateTo: string): object {
@@ -92,7 +98,7 @@ export class ManualUploadService {
   }
 
   private validateDate(date: string): string {
-    const dateformat = moment(date, 'DD/MM/YYYY', true);
+    const dateformat = moment(date, 'DD/MM/YYYY HH:mm:ss', true);
     if (dateformat.isValid()) {
       return null;
     }
@@ -100,8 +106,8 @@ export class ManualUploadService {
   }
 
   private validateDateRange(dateFrom: string, dateTo: string): string | null {
-    const firstDate = moment(dateFrom, 'DD/MM/YYYY', true);
-    const secondDate = moment(dateTo, 'DD/MM/YYYY', true);
+    const firstDate = moment(dateFrom, 'DD/MM/YYYY HH:mm:ss', true);
+    const secondDate = moment(dateTo, 'DD/MM/YYYY HH:mm:ss', true);
     if (firstDate.isSameOrBefore(secondDate)) {
       return null;
     }
@@ -131,10 +137,10 @@ export class ManualUploadService {
     return {
       ...formData,
       'display-from': defaultFormat ?
-        moment(formData['display-from'], 'DD/MM/YYYY').format() :
+        moment(formData['display-from'], 'DD/MM/YYYY HH:mm:ss').format() :
         moment(formData['display-from'], 'DD/MM/YYYY').format('D MMM YYYY'),
       'display-to': defaultFormat ?
-        moment(formData['display-to'], 'DD/MM/YYYY').format() :
+        moment(formData['display-to'], 'DD/MM/YYYY HH:mm:ss').format() :
         moment(formData['display-to'], 'DD/MM/YYYY').format('D MMM YYYY'),
       'content-date-from': defaultFormat ?
         moment(formData['content-date-from'], 'DD/MM/YYYY').format() :
