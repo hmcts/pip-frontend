@@ -23,6 +23,7 @@ const errorMessage = {
 };
 
 const courtNameSearch = 'Abergavenny Magistrates\' Court';
+const courtWelshNameSearch = 'Llys Ynadon y Fenni';
 
 const stub = sinon.stub(dataManagementApi, 'get');
 
@@ -45,10 +46,15 @@ describe('Location get requests', () => {
     stub.withArgs('/locations/4').rejects(errorMessage);
     stub.withArgs('/locations/5').resolves({data: courtList[4]});
 
-    stub.withArgs(`/locations/name/${courtNameSearch}`).resolves({data: courtList[0]});
-    stub.withArgs('/locations/name/test').rejects(errorResponse);
-    stub.withArgs('/locations/name/testReq').rejects(errorRequest);
-    stub.withArgs('/locations/name/testMes').rejects(errorMessage);
+    stub.withArgs(`/locations/name/${courtNameSearch}/language/${englishLanguage}`).resolves({data: courtList[0]});
+    stub.withArgs('/locations/name/test/eng').rejects(errorResponse);
+    stub.withArgs('/locations/name/testReq/eng').rejects(errorRequest);
+    stub.withArgs('/locations/name/testMes/eng').rejects(errorMessage);
+
+    stub.withArgs(`/locations/name/${courtWelshNameSearch}/language/${welshLanguage}`).resolves({data: courtList[0]});
+    stub.withArgs('/locations/name/test/cy').rejects(errorResponse);
+    stub.withArgs('/locations/name/testReq/cy').rejects(errorRequest);
+    stub.withArgs('/locations/name/testMes/cy').rejects(errorMessage);
 
     stub.withArgs('/locations/filter', {params: {regions: regions, jurisdictions: jurisdictions, language: englishLanguage}}).resolves({data: courtList});
     stub.withArgs('/locations/filter', {params: {regions: test, jurisdictions: test, language: englishLanguage}}).rejects(errorResponse);
@@ -85,19 +91,35 @@ describe('Location get requests', () => {
   });
 
   it('should return court by name', async () => {
-    expect(await courtRequests.getLocationByName(courtNameSearch)).toBe(courtList[0]);
+    expect(await courtRequests.getLocationByName(courtNameSearch, englishLanguage)).toBe(courtList[0]);
   });
 
   it('should return null if response fails', async () => {
-    expect(await courtRequests.getLocationByName('test')).toBe(null);
+    expect(await courtRequests.getLocationByName('test', englishLanguage)).toBe(null);
   });
 
   it('should return null if request fails', async () => {
-    expect(await courtRequests.getLocationByName('testReq')).toBe(null);
+    expect(await courtRequests.getLocationByName('testReq', englishLanguage)).toBe(null);
   });
 
   it('should return null if call fails', async () => {
-    expect(await courtRequests.getLocationByName('testMes')).toBe(null);
+    expect(await courtRequests.getLocationByName('testMes', englishLanguage)).toBe(null);
+  });
+
+  it('should return Welsh court by name', async () => {
+    expect(await courtRequests.getLocationByName(courtWelshNameSearch, welshLanguage)).toBe(courtList[0]);
+  });
+
+  it('should return null for Welsh search if response fails', async () => {
+    expect(await courtRequests.getLocationByName('test', welshLanguage)).toBe(null);
+  });
+
+  it('should return nul for Welsh search if request fails', async () => {
+    expect(await courtRequests.getLocationByName('testReq', welshLanguage)).toBe(null);
+  });
+
+  it('should return null for Welsh search if call fails', async () => {
+    expect(await courtRequests.getLocationByName('testMes', welshLanguage)).toBe(null);
   });
 
   it('should return list of courts based on search filter', async () => {

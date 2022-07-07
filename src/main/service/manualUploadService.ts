@@ -66,7 +66,7 @@ export class ManualUploadService {
 
   private async validateCourt(courtName: string): Promise<string> {
     if (courtName?.length >= 3) {
-      const validCourt = await courtService.getLocationByName(courtName);
+      const validCourt = await courtService.getLocationByName(courtName, 'eng');
       if (validCourt) {
         return null;
       }
@@ -115,7 +115,7 @@ export class ManualUploadService {
   }
 
   public async appendlocationId(courtName: string): Promise<object> {
-    const court = await courtService.getLocationByName(courtName);
+    const court = await courtService.getLocationByName(courtName, 'eng');
     return {courtName: courtName, locationId: court?.locationId};
   }
 

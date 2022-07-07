@@ -18,9 +18,9 @@ export class LocationRequests {
     return null;
   }
 
-  public async getLocationByName(courtName: string): Promise<Location> {
+  public async getLocationByName(courtName: string, language: string): Promise<Location> {
     try {
-      const response = await dataManagementApi.get(`/locations/name/${courtName}/language/eng`);
+      const response = await dataManagementApi.get(`/locations/name/${courtName}/language/${language}`);
       return response.data;
     } catch (error) {
       if (error.response) {

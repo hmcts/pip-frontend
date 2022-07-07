@@ -23,15 +23,18 @@ const alphabet = [
   'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
 ];
 const validCourt = 'Abergavenny Magistrates\' Court';
-const language = 'eng';
+const validWelshCourt = 'Llys Ynadon y Fenni';
+const englishLanguage = 'eng';
+const welshLanguage = 'eng';
 
 stubCourtsFilter.withArgs('', 'Crown', 'eng').returns(hearingsData);
 stubCourt.withArgs(1).returns(hearingsData[0]);
 stubCourtByName.withArgs(validCourt).returns(hearingsData[0]);
+stubCourtByName.withArgs(validWelshCourt).returns(hearingsData[0]);
 
 describe('Court Service', () => {
   it('should return all courts', async () => {
-    expect(await courtService.fetchAllLocations(language)).to.equal(hearingsData);
+    expect(await courtService.fetchAllLocations(englishLanguage)).to.equal(hearingsData);
   });
 
   it('should return welsh courts name', async () => {
@@ -59,26 +62,35 @@ describe('Court Service', () => {
   });
 
   it('should return found court for court name match', async () => {
-    expect(await courtService.getLocationByName(validCourt)).to.equal(hearingsData[0]);
+    expect(await courtService.getLocationByName(validCourt, englishLanguage)).to.equal(hearingsData[0]);
+  });
+
+  it('should return found court for welsh court name match', async () => {
+    expect(await courtService.getLocationByName(validWelshCourt, welshLanguage)).to.equal(hearingsData[0]);
   });
 
   it('should return null for no name match', async () => {
-    stubCourtByName.withArgs('test').returns(null);
-    expect(await courtService.getLocationByName('test')).to.equal(null);
+    stubCourtByName.withArgs('test', englishLanguage).returns(null);
+    expect(await courtService.getLocationByName('test', englishLanguage)).to.equal(null);
+  });
+
+  it('should return null for no name match', async () => {
+    stubCourtByName.withArgs('test', welshLanguage).returns(null);
+    expect(await courtService.getLocationByName('test', welshLanguage)).to.equal(null);
   });
 
   it(`should return object with ${validKeysCount} keys`, async () => {
-    const data = await courtService.generateAlphabetisedAllCourtList(language);
+    const data = await courtService.generateAlphabetisedAllCourtList(englishLanguage);
     expect(Object.keys(data).length).to.equal(validKeysCount);
   });
 
   it('should have have all letters of the alphabet as keys', async () => {
-    const data = await courtService.generateAlphabetisedAllCourtList(language);
+    const data = await courtService.generateAlphabetisedAllCourtList(englishLanguage);
     expect(Object.keys(data)).to.deep.equal(alphabet);
   });
 
   it('should have keys with courts alphabetically assigned to them', async () => {
-    const data = await courtService.generateAlphabetisedAllCourtList(language);
+    const data = await courtService.generateAlphabetisedAllCourtList(englishLanguage);
     expect(validCourt in data['A']).to.be.true;
   });
 

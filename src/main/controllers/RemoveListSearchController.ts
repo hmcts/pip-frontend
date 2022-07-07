@@ -20,7 +20,7 @@ export default class RemoveListSearchController {
     const searchInput = req.body['input-autocomplete'];
     const autocompleteList = await locationService.fetchAllLocations(req.lng as string);
     if (searchInput && searchInput.length >= 3) {
-      const court = await locationService.getLocationByName(searchInput);
+      const court = await locationService.getLocationByName(searchInput, req.lng as string);
       (court) ?
         res.redirect(`remove-list-search-results?locationId=${court.locationId}`) :
         res.render('remove-list-search', {
