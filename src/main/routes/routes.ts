@@ -93,7 +93,7 @@ export default function(app: Application): void {
     const body = JSON.stringify(req.body);
     console.log(body);
     if (body.includes('AADB2C90118')) {
-      const CLIENT_ID = config.get('secrets.pip-ss-kv.CLIENT_ID')
+      const CLIENT_ID = config.get('secrets.pip-ss-kv.CLIENT_ID');
       const REDIRECT_URL = adminAuthentication.isAdminUser(req) ?
         `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY :
         `${FRONTEND_URL}/login?p=`+ authenticationConfig.POLICY;
