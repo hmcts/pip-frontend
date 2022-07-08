@@ -22,7 +22,7 @@ describe('password-change-confirmation', () => {
 
   it('should display the body text', () => {
     const bodyText = htmlRes.getElementsByClassName('govuk-body');
-    expect(bodyText[4].innerHTML).contains('You can now sign in using your new credentials using the button below.',
+    expect(bodyText[4].innerHTML).contains('You can now sign in with your new credentials using the button below.',
       'Could not find body text');
   });
 
