@@ -268,7 +268,7 @@ export class PublicationService {
       }
     }
   }
-  
+
   /**
    * Function which extracts the date from a UTC Date Time in BST format.
    * @param publicationDatetime The publication date time to convert in UTC.
@@ -281,17 +281,17 @@ export class PublicationService {
    * Function which takes in the list and users language.
    * Returns what language the page should be rendered in.
    *
-   * @param list A string of the lists language
-   * @param user A string of the users language
+   * @param listLanguage A string of the lists language
+   * @param userLanguage A string of the users language
    * @return Returns the language to render the page in options are: en, cy, bill
    */
-  public languageToLoadPageIn(list: string, user: string): string {
-    if ((list === 'BI_LINGUAL') ||
-       (list === 'ENGLISH' && user !== 'en') ||
-       (list === 'WELSH' && user !== 'cy')) {
+  public languageToLoadPageIn(listLanguage: string, userLanguage: string): string {
+    if ((listLanguage === 'BI_LINGUAL') ||
+       (listLanguage === 'ENGLISH' && userLanguage !== 'en') ||
+       (listLanguage === 'WELSH' && userLanguage !== 'cy')) {
       return 'bill';
     } else {
-      return user;
+      return userLanguage;
     }
   }
 }
