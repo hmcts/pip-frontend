@@ -28,6 +28,7 @@ export class AdminAuthentication {
       const POLICY_URL = `${B2C_URL}oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
         `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${REDIRECT_URL}` +
         '&scope=openid&response_type=id_token&prompt=login';
+      res.redirect(POLICY_URL);
       return;
     }
     return next();
