@@ -25,9 +25,9 @@ const alphabet = [
 const validCourt = 'Abergavenny Magistrates\' Court';
 const validWelshCourt = 'Llys Ynadon y Fenni';
 const englishLanguage = 'eng';
-const welshLanguage = 'eng';
+const welshLanguage = 'cy';
 
-stubCourtsFilter.withArgs('', 'Crown', 'eng').returns(hearingsData);
+stubCourtsFilter.withArgs('', 'Crown', englishLanguage).returns(hearingsData);
 stubCourt.withArgs(1).returns(hearingsData[0]);
 stubCourtByName.withArgs(validCourt).returns(hearingsData[0]);
 stubCourtByName.withArgs(validWelshCourt).returns(hearingsData[0]);
@@ -95,22 +95,22 @@ describe('Court Service', () => {
   });
 
   it(`should have ${validCourt} key`, async () => {
-    const data = await courtService.generateAlphabetisedCrownCourtList('eng');
+    const data = await courtService.generateAlphabetisedCrownCourtList(englishLanguage);
     expect(validCourt in data['A']).to.be.true;
   });
 
   it(`should return object with ${validKeysCount} keys Crown court`, async () => {
-    const data = await courtService.generateAlphabetisedCrownCourtList('eng');
+    const data = await courtService.generateAlphabetisedCrownCourtList(englishLanguage);
     expect(Object.keys(data).length).to.equal(validKeysCount);
   });
 
   it(`should have filtered a ${validCourt} key`, async () => {
-    const data = await courtService.generateFilteredAlphabetisedCourtList('', 'Crown', 'eng');
+    const data = await courtService.generateFilteredAlphabetisedCourtList('', 'Crown', englishLanguage);
     expect(validCourt in data['A']).to.be.true;
   });
 
   it(`should return object with ${validKeysCount} keys filtered`, async () => {
-    const data = await courtService.generateFilteredAlphabetisedCourtList('', 'Crown', 'eng');
+    const data = await courtService.generateFilteredAlphabetisedCourtList('', 'Crown', englishLanguage);
     expect(Object.keys(data).length).to.equal(validKeysCount);
   });
 
