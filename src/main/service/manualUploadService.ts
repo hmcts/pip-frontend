@@ -52,11 +52,12 @@ export class ManualUploadService {
     return [{text: 'SJP Media Register', value: 'SJP_MEDIA_REGISTER'}];
   }
 
-  public async validateFormFields(formValues: object): Promise<object> {
+  public async validateFormFields(formValues: object, language: string): Promise<object> {
     const fields = {
-      courtError: await this.validateCourt(formValues['input-autocomplete']),
-      contentDateError: this.validateDate(this.buildDate(formValues,'content-date-from')),
-      displayDateError: this.validateDates(this.buildDate(formValues, 'display-date-from'), this.buildDate(formValues, 'display-date-to')),
+      courtError: await this.validateCourt(formValues['input-autocomplete'], language),
+      contentDateError: this.validateDate(this.buildDate(formValues,'content-date-from'), language),
+      displayDateError: this.validateDates(this.buildDate(formValues, 'display-date-from'),
+        this.buildDate(formValues, 'display-date-to'), language),
     };
     if (!fields.courtError && !fields.contentDateError && !fields.displayDateError) {
       return null;
@@ -64,15 +65,24 @@ export class ManualUploadService {
     return fields;
   }
 
-  private async validateCourt(courtName: string): Promise<string> {
+  private async validateCourt(courtName: string, language: string): Promise<string> {
     if (courtName?.length >= 3) {
-      const validCourt = await courtService.getLocationByName(courtName, 'eng');
+      const validCourt = await courtService.getLocationByName(courtName, language);
       if (validCourt) {
         return null;
       }
-      return 'Please enter and select a valid court';
+
+      if (language == 'cy') {
+        return 'Nodwch a dewiswch lys dilys';
+      } else {
+        return 'Please enter and select a valid court';
+      }
     }
-    return 'Court name must be three characters or more';
+    if (language == 'cy') {
+      return 'Rhaid i enw llys fod yn dri nod neu fwy';
+    } else {
+      return 'Court name must be three characters or more';
+    }
   }
 
   public buildDate(body: object, fieldsetPrefix: string): string {
@@ -85,11 +95,11 @@ export class ManualUploadService {
     }
   }
 
-  private validateDates(dateFrom: string, dateTo: string): object {
+  private validateDates(dateFrom: string, dateTo: string, language: string): object {
     const dates = {
-      from: this.validateDate(dateFrom),
-      to: this.validateDate(dateTo),
-      range: this.validateDateRange(dateFrom, dateTo),
+      from: this.validateDate(dateFrom, language),
+      to: this.validateDate(dateTo, language),
+      range: this.validateDateRange(dateFrom, dateTo, language),
     };
     if (!dates.from && !dates.to && !dates.range) {
       return null;
@@ -97,25 +107,35 @@ export class ManualUploadService {
     return dates;
   }
 
-  private validateDate(date: string): string {
+  private validateDate(date: string, language: string): string {
     const dateformat = moment(date, 'DD/MM/YYYY HH:mm:ss', true);
     if (dateformat.isValid()) {
       return null;
     }
-    return 'Please enter a valid date';
+
+    if (language == 'cy') {
+      return 'Rhowch ddyddiad dilys';
+    } else {
+      return 'Please enter a valid date';
+    }
   }
 
-  private validateDateRange(dateFrom: string, dateTo: string): string | null {
+  private validateDateRange(dateFrom: string, dateTo: string, language: string): string | null {
     const firstDate = moment(dateFrom, 'DD/MM/YYYY HH:mm:ss', true);
     const secondDate = moment(dateTo, 'DD/MM/YYYY HH:mm:ss', true);
     if (firstDate.isSameOrBefore(secondDate)) {
       return null;
     }
-    return 'Please make sure \'to\' date is after \'from\' date';
+
+    if (language == 'cy') {
+      return 'Gwnewch yn siŵr bod y dyddiad \'hyd\' ar ôl y dyddiad \'o\'';
+    } else {
+      return 'Please make sure \'to\' date is after \'from\' date';
+    }
   }
 
-  public async appendlocationId(courtName: string): Promise<object> {
-    const court = await courtService.getLocationByName(courtName, 'eng');
+  public async appendlocationId(courtName: string, language: string): Promise<object> {
+    const court = await courtService.getLocationByName(courtName, language);
     return {courtName: courtName, locationId: court?.locationId};
   }
 

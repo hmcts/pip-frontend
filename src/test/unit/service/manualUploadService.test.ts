@@ -55,7 +55,8 @@ const expectedRemoveList = [
   },
 ];
 
-const language = 'eng';
+const englishLanguage = 'eng';
+const welshLanguage = 'cy';
 
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtData);
 sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(true);
@@ -64,18 +65,23 @@ sinon.stub(DataManagementRequests.prototype, 'uploadJSONPublication').resolves(t
 describe('Manual upload service', () => {
   describe('building form data', () => {
     it('should build form data court list', async () => {
-      const data = await manualUploadService.buildFormData(language);
+      const data = await manualUploadService.buildFormData(englishLanguage);
+      expect(data['courtList']).to.equal(courtData);
+    });
+
+    it('should build form data for Welsh court list', async () => {
+      const data = await manualUploadService.buildFormData(welshLanguage);
       expect(data['courtList']).to.equal(courtData);
     });
 
     it('should build form data list subtypes', async () => {
-      const data = await manualUploadService.buildFormData(language);
+      const data = await manualUploadService.buildFormData(englishLanguage);
       expect(data['listSubtypes'].length).to.equal(10);
       expect(data['listSubtypes'][0]).to.deep.equal({text:'SJP Public List', value: 'SJP_PUBLIC_LIST'});
     });
 
     it('should build form data judgements and outcomes subtypes', async () => {
-      const data = await manualUploadService.buildFormData(language);
+      const data = await manualUploadService.buildFormData(englishLanguage);
       expect(data['judgementsOutcomesSubtypes'].length).to.equal(1);
       expect(data['judgementsOutcomesSubtypes'][0]).to.deep.equal({text: 'SJP Media Register', value: 'SJP_MEDIA_REGISTER'});
     });
@@ -104,43 +110,83 @@ describe('Manual upload service', () => {
     });
 
     it('should return null if all validated fields pass', async () => {
-      expect(await manualUploadService.validateFormFields(formValues)).to.be.null;
+      expect(await manualUploadService.validateFormFields(formValues, englishLanguage)).to.be.null;
+    });
+
+    it('should return null if all validated fields pass', async () => {
+      expect(await manualUploadService.validateFormFields(formValues, welshLanguage)).to.be.null;
     });
 
     it('should return invalid court error message', async () => {
       formValues['input-autocomplete'] = 'invalidCourt';
-      const errors = await manualUploadService.validateFormFields(formValues);
+      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage);
       expect(errors['courtError']).to.equal('Please enter and select a valid court');
+    });
+
+    it('should return invalid court error message', async () => {
+      formValues['input-autocomplete'] = 'invalidCourt';
+      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage);
+      expect(errors['courtError']).to.equal('Nodwch a dewiswch lys dilys');
     });
 
     it('should return character minimum error message', async () => {
       formValues['input-autocomplete'] = 'ab';
-      const errors = await manualUploadService.validateFormFields(formValues);
+      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage);
       expect(errors['courtError']).to.equal('Court name must be three characters or more');
+    });
+
+    it('should return character minimum error message', async () => {
+      formValues['input-autocomplete'] = 'ab';
+      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage);
+      expect(errors['courtError']).to.equal('Rhaid i enw llys fod yn dri nod neu fwy');
     });
 
     it('should return error when invalid content date from is passed', async () => {
       formValues['content-date-from-day'] = '1';
       formValues['content-date-from-month'] = '1';
       formValues['content-date-from-year'] = '1';
-      const errors = await manualUploadService.validateFormFields(formValues);
+      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage);
       expect(errors['contentDateError']).to.equal('Please enter a valid date');
+    });
+
+    it('should return error when invalid content date from is passed', async () => {
+      formValues['content-date-from-day'] = '1';
+      formValues['content-date-from-month'] = '1';
+      formValues['content-date-from-year'] = '1';
+      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage);
+      expect(errors['contentDateError']).to.equal('Rhowch ddyddiad dilys');
     });
 
     it('should return error when invalid display date from is passed', async () => {
       formValues['display-date-from-day'] = '1';
       formValues['display-date-from-month'] = '1';
       formValues['display-date-from-year'] = '1';
-      const errors = await manualUploadService.validateFormFields(formValues);
+      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage);
       expect(errors['displayDateError']['from']).to.equal('Please enter a valid date');
+    });
+
+    it('should return error when invalid display date from is passed', async () => {
+      formValues['display-date-from-day'] = '1';
+      formValues['display-date-from-month'] = '1';
+      formValues['display-date-from-year'] = '1';
+      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage);
+      expect(errors['displayDateError']['from']).to.equal('Rhowch ddyddiad dilys');
     });
 
     it('should return error when invalid display date to is passed', async () => {
       formValues['display-date-to-day'] = '1';
       formValues['display-date-to-month'] = '1';
       formValues['display-date-to-year'] = '1';
-      const errors = await manualUploadService.validateFormFields(formValues);
+      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage);
       expect(errors['displayDateError']['to']).to.equal('Please enter a valid date');
+    });
+
+    it('should return error when invalid display date to is passed', async () => {
+      formValues['display-date-to-day'] = '1';
+      formValues['display-date-to-month'] = '1';
+      formValues['display-date-to-year'] = '1';
+      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage);
+      expect(errors['displayDateError']['to']).to.equal('Rhowch ddyddiad dilys');
     });
 
     it('should return error when invalid date range is passed', async () => {
@@ -150,8 +196,19 @@ describe('Manual upload service', () => {
       formValues['display-date-to-day'] = '01';
       formValues['display-date-to-month'] = '01';
       formValues['display-date-to-year'] = '2022';
-      const errors = await manualUploadService.validateFormFields(formValues);
+      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage);
       expect(errors['displayDateError']['range']).to.equal('Please make sure \'to\' date is after \'from\' date');
+    });
+
+    it('should return error when invalid date range is passed', async () => {
+      formValues['display-date-from-day'] = '02';
+      formValues['display-date-from-month'] = '01';
+      formValues['display-date-from-year'] = '2022';
+      formValues['display-date-to-day'] = '01';
+      formValues['display-date-to-month'] = '01';
+      formValues['display-date-to-year'] = '2022';
+      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage);
+      expect(errors['displayDateError']['range']).to.equal('Gwnewch yn siŵr bod y dyddiad \'hyd\' ar ôl y dyddiad \'o\'');
     });
 
     it('should formatted date-from date correctly', async () => {
@@ -203,7 +260,7 @@ describe('Manual upload service', () => {
   });
 
   it('should return court id and name as object', async () => {
-    expect(await manualUploadService.appendlocationId('validCourt')).to.deep.equal({courtName: 'validCourt', locationId: 1});
+    expect(await manualUploadService.appendlocationId('validCourt', englishLanguage)).to.deep.equal({courtName: 'validCourt', locationId: 1});
   });
 
   describe('formatting list removal', () => {

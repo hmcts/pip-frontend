@@ -29,7 +29,7 @@ export default class ManualUploadController {
     } else {
       const errors = {
         fileErrors: fileHandlingService.validateFileUpload(req.file),
-        formErrors: await manualUploadService.validateFormFields(req.body),
+        formErrors: await manualUploadService.validateFormFields(req.body, req.lng as string),
       };
 
       const listItems = await manualUploadService.buildFormData(req.lng as string);
@@ -43,7 +43,7 @@ export default class ManualUploadController {
       if (errors.fileErrors || errors.formErrors) {
         res.render('manual-upload', formValues);
       } else {
-        req.body['court'] = await manualUploadService.appendlocationId(req.body['input-autocomplete']);
+        req.body['court'] = await manualUploadService.appendlocationId(req.body['input-autocomplete'], req.lng as string);
         req.body['artefactType'] = 'LIST'; //Agreed on defaulting to only option available until more types become ready
         req.body['fileName'] = req.file['originalname'];
         req.body['display-from'] = manualUploadService.buildDate(req.body, 'display-date-from');
