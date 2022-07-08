@@ -13,11 +13,4 @@ describe('Login', () => {
       .post('/login/return')
       .expect((res) => expect(res.redirect).toBeTruthy());
   });
-
-  test('should redirect to azure again if password reset error is returned from the B2C', async() => {
-    await request(app)
-      .post('/login/return')
-      .send({'error':'access_denied', 'error_description':'AADB2C90118'})
-      .expect((res) => expect(res.redirect).toBeTruthy());
-  });
 });
