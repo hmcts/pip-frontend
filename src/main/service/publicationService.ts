@@ -76,7 +76,7 @@ export class PublicationService {
       let durationAsHours = 0;
       let durationAsMinutes = moment.duration(sittingEnd.startOf('minutes').diff(sittingStart.startOf('minutes'))).asMinutes();
       if (durationAsMinutes >= 60) {
-        durationAsHours = moment.duration(sittingEnd.startOf('hours').diff(sittingStart.startOf('hours'))).asHours();
+        durationAsHours = Math.floor(durationAsMinutes / 60);
         durationAsMinutes = durationAsMinutes - (durationAsHours * 60);
       }
 
@@ -268,7 +268,7 @@ export class PublicationService {
       }
     }
   }
-  
+
   /**
    * Function which extracts the date from a UTC Date Time in BST format.
    * @param publicationDatetime The publication date time to convert in UTC.
