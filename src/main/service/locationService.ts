@@ -73,7 +73,8 @@ export class LocationService {
   }
 
   public async generateFilteredAlphabetisedCourtList(regions: string, jurisdictions: string, language: string): Promise<object> {
-    return this.generateAlphabetisedCourtList(await locationRequest.getFilteredCourts(regions, jurisdictions, language));
+    const locations = this.initalizeLocationsForLanguage(await locationRequest.getFilteredCourts(regions, jurisdictions, language), language);
+    return this.generateAlphabetisedCourtList(locations);
   }
 
   private generateAlphabetisedCourtList(listToAlphabetise: Array<Location>): object {
