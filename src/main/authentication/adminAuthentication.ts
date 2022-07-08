@@ -25,10 +25,11 @@ export class AdminAuthentication {
       const CLIENT_ID = config.get('secrets.pip-ss-kv.CLIENT_ID');
       const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
       const REDIRECT_URL = `${FRONTEND_URL}/password-change-confirmation`;
-      const POLICY_URL = `${B2C_URL}/oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
+      const POLICY_URL = `${B2C_URL}oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
         `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${REDIRECT_URL}` +
         '&scope=openid&response_type=id_token&prompt=login';
       res.redirect(POLICY_URL);
+      console.log(POLICY_URL);
       return;
     }
     return next();
