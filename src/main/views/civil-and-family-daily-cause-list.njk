@@ -126,8 +126,8 @@
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['hearingType'] }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ duration }} </td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['applicant'] }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['respondent'] }}</td>
+                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['applicant'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
+                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['respondent'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
                           </tr>
                           {% set hearingCount = hearingCount + 1 %}
                         {% endfor %}
