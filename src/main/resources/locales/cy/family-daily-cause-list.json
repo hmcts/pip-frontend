@@ -22,5 +22,6 @@
   "duration": "Hyd",
   "applicant": "Ceisydd/Deisebydd",
   "respondent": "Atebydd",
-  "dataSource": "Ffynhonnell y Data"
+  "dataSource": "Ffynhonnell y Data",
+  "legalAdvisor": "Cynghorydd Cyfreithiol"
 }

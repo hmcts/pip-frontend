@@ -42,8 +42,10 @@ export class Nunjucks {
     const fs = require ('fs');
     const listTypeLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'listTypeLookup.json')));
     const listUrlLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'listUrlLookup.json')));
+    const languageLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'languageLookup.json')));
     env.addFilter('listType', function(x){return listTypeLookup[x];});
     env.addFilter('listUrl', function(x){return listUrlLookup[x];});
+    env.addFilter('language', function(x){return languageLookup[x];});
 
     app.use((req, res, next) => {
       res.locals.pagePath = req.path;
