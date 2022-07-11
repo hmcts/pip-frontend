@@ -1,10 +1,11 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import sinon from 'sinon';
 import { app } from '../../main/app';
 import { request as expressRequest } from 'express';
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+expressRequest['user'] = {'_json': {
+  'extension_UserRole': 'VERIFIED',
+}};
 
 describe('Case name search', () => {
   describe('on GET', () => {

@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { app } from '../../../main/app';
-import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
@@ -23,7 +22,10 @@ let htmlRes: Document;
 const stub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn');
 stub.withArgs('12345').returns(null);
 stub.withArgs('').returns(null);
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+
+app.request['user'] = { _json: {
+  'extension_UserRole': 'VERIFIED',
+}};
 
 const pageTitleValue = 'Subscribe by unique reference number (URN)';
 

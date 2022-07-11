@@ -1,8 +1,6 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import request from 'supertest';
-import sinon from 'sinon';
-import { AdminAuthentication } from '../../../main/authentication/adminAuthentication';
 
 const PAGE_URL = '/admin-dashboard';
 const pageTitleValue = 'Staff dashboard';
@@ -30,9 +28,11 @@ const cards = [
 ];
 let htmlRes: Document;
 
-describe('Admin Dashboard page', () => {
+describe('Admin Dashboard page all cards', () => {
   beforeAll(async () => {
-    sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
+    app.request['user'] = {piUserId: '1', _json: {
+      'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
+    }};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -49,7 +49,7 @@ describe('Admin Dashboard page', () => {
       .contains('Admin Dashboard', 'Could not find correct value in header');
   });
 
-  it('should display 3 card options', () => {
+  it('should display 4 card options', () => {
     const cardComponents = htmlRes.getElementsByClassName('account-card');
     expect(cardComponents.length).equal(cards.length);
   });
@@ -63,5 +63,69 @@ describe('Admin Dashboard page', () => {
       expect(link.getAttribute('href')).contains(cards[i].link);
       expect(description.innerHTML).contains(cards[i].description);
     }
+  });
+});
+
+describe('Admin Dashboard page  - INTERNAL_SUPER_ADMIN_LOCAL', () => {
+  beforeAll(async () => {
+    app.request['user'] = {piUserId: '1', _json: {
+      'extension_UserRole': 'INTERNAL_SUPER_ADMIN_LOCAL',
+    }};
+    await request(app).get(PAGE_URL).then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+    });
+  });
+
+  it('should display 3 card options', () => {
+    const cardComponents = htmlRes.getElementsByClassName('account-card');
+    expect(cardComponents.length).equal(3);
+  });
+});
+
+describe('Admin Dashboard page  - INTERNAL_ADMIN_CTSC', () => {
+  beforeAll(async () => {
+    app.request['user'] = {piUserId: '1', _json: {
+      'extension_UserRole': 'INTERNAL_ADMIN_CTSC',
+    }};
+    await request(app).get(PAGE_URL).then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+    });
+  });
+
+  it('should display 3 card options', () => {
+    const cardComponents = htmlRes.getElementsByClassName('account-card');
+    expect(cardComponents.length).equal(3);
+  });
+});
+
+describe('Admin Dashboard page  - INTERNAL_ADMIN_LOCAL', () => {
+  beforeAll(async () => {
+    app.request['user'] = {piUserId: '1', _json: {
+      'extension_UserRole': 'INTERNAL_ADMIN_LOCAL',
+    }};
+    await request(app).get(PAGE_URL).then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+    });
+  });
+
+  it('should display 2 card options', () => {
+    const cardComponents = htmlRes.getElementsByClassName('account-card');
+    expect(cardComponents.length).equal(2);
+  });
+});
+
+describe('Admin Dashboard page  - SYSTEM_ADMIN', () => {
+  beforeAll(async () => {
+    app.request['user'] = {piUserId: '1', _json: {
+      'extension_UserRole': 'SYSTEM_ADMIN',
+    }};
+    await request(app).get(PAGE_URL).then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+    });
+  });
+
+  it('should display 3 card options', () => {
+    const cardComponents = htmlRes.getElementsByClassName('account-card');
+    expect(cardComponents.length).equal(3);
   });
 });

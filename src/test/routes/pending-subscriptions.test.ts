@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import { app } from '../../main/app';
-import { request as expressRequest } from 'express';
-import request from 'supertest';
-import sinon from 'sinon';
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
-app.request['user'] = {id: '1'};
+import request from 'supertest';
+
+app.request['user'] = {id: '1', '_json': {
+  'extension_UserRole': 'VERIFIED',
+}};
 
 describe('subscription Confirmation', () => {
   describe('on GET', () => {

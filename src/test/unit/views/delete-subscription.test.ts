@@ -13,6 +13,10 @@ const radioClass = 'govuk-radios__item';
 const expectedRadioLabel1 = 'Yes';
 const expectedRadioLabel2 = 'No';
 
+app.request['user'] = { _json: {
+  'extension_UserRole': 'VERIFIED',
+}};
+
 describe('Delete Subscription page', () => {
   beforeAll(async () => {
     sinon.stub(expressRequest, 'isAuthenticated').returns(true);

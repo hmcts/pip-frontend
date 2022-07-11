@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { LocationRequests } from '../../../main/resources/requests/locationRequests';
-import { request as expressRequest } from 'express';
+import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/location-name-search';
 let htmlRes: Document;
@@ -16,9 +16,12 @@ const checkboxesCount = 12;
 
 sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 
+expressRequest['user'] = {'_json': {
+  'extension_UserRole': 'VERIFIED',
+}};
+
 describe('Court Name Search Page', () => {
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

@@ -4,7 +4,6 @@ import sinon from 'sinon';
 import {app} from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
-import {request as expressRequest} from 'express';
 import {PublicationService} from '../../../main/service/publicationService';
 
 const searchTerm = '56-181-2097';
@@ -22,9 +21,12 @@ sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').returns(subscrip
 
 const pageTitleValue = 'Search result';
 
+app.request['user'] = { _json: {
+  'extension_UserRole': 'VERIFIED',
+}};
+
 describe('Case Reference Search Results Page', () => {
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();

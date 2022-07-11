@@ -1,9 +1,7 @@
 import request from 'supertest';
-import sinon from 'sinon';
 import moment from 'moment';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { AdminAuthentication } from '../../../main/authentication/adminAuthentication';
 
 let htmlRes: Document;
 const PAGE_URL = '/manual-upload-summary';
@@ -28,8 +26,9 @@ const mockData = {
 
 describe('File Upload Summary Page', () => {
   beforeAll(async () => {
-    sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
-    app.request['user'] = {id: '1'};
+    app.request['user'] = {id: '1', '_json': {
+      'extension_UserRole': 'SYSTEM_ADMIN',
+    }};
     app.request['cookies'] = {'formCookie': JSON.stringify(mockData)};
 
     await request(app).get(PAGE_URL).then(res => {

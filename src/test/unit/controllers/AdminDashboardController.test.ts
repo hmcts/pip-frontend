@@ -7,11 +7,22 @@ const adminDashboardController = new AdminDashboardController();
 
 describe('Admin Dashboard controller', () => {
   it('should render admin dashboard page', () => {
+
+    const i18n = {
+      'admin-dashboard': {},
+    };
+
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest({'admin-dashboard': {}});
+    request['user'] = {'email': 'a@b.com'};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('admin-dashboard', request.i18n.getDataByLanguage(request.lng)['admin-dashboard']);
+    const expectedData = {
+      ...i18n['admin-dashboard'],
+      user: request['user'],
+    };
+
+    responseMock.expects('render').once().withArgs('admin-dashboard', expectedData);
     adminDashboardController.get(request, response);
     responseMock.verify();
   });

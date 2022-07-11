@@ -8,11 +8,14 @@ import fs from 'fs';
 import path from 'path';
 import {LocationService} from '../../main/service/locationService';
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawData);
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtList);
 sinon.stub(LocationService.prototype, 'generateFilteredAlphabetisedCourtList').resolves(courtList);
+
+expressRequest['user'] = {'_json': {
+  'extension_UserRole': 'VERIFIED',
+}};
 
 describe('Location Name Search', () => {
   describe('on GET', () => {
