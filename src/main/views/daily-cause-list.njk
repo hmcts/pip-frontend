@@ -78,7 +78,11 @@
               <div class="govuk-accordion__section-header">
                 <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ sessionCount }}">
-                  {{ courtRoom['courtRoomName'] }} : {{ session['formattedJudiciaries'] }}
+                  {% if session['formattedJudiciaries'] | length %}
+                    {{ courtRoom['courtRoomName'] }}: {{ session['formattedJudiciaries'] }}
+                  {% else %}
+                    {{ courtRoom['courtRoomName'] }}
+                  {% endif %}
                 </span>
                 </h2>
               </div>
