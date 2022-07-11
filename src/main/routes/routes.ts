@@ -13,6 +13,7 @@ import {
   isPermittedAccountCreation,
   isPermittedManualUpload,
   checkRoles,
+  forgotPasswordRedirect,
 } from '../authentication/authenticationHandler';
 
 import config from 'config';
@@ -94,8 +95,9 @@ export default function(app: Application): void {
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
+  app.get('/password-change-confirmation', app.locals.container.cradle.passwordChangeController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
-  app.post('/login/return', passport.authenticate(authType, { failureRedirect: '/view-option'}),
+  app.post('/login/return', forgotPasswordRedirect, passport.authenticate(authType, { failureRedirect: '/view-option'}),
     (_req, res) => {checkRoles(_req, allAdminRoles) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
   app.get('/logout', (_req, res) => {checkRoles(_req, allAdminRoles) ?
     logOut(_req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY) : logOut(_req, res, `${FRONTEND_URL}/view-option`);});

@@ -18,5 +18,6 @@
   "hearingType": "Hearing type",
   "hearingPlatform": "Location",
   "duration": "Duration",
-  "dataSource": "Data Source"
+  "dataSource": "Data Source",
+  "backButton": "Back"
 }

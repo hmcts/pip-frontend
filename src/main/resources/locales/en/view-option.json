@@ -8,5 +8,6 @@
   "error": {
     "title": "There is a problem",
     "text": "An option must be selected"
-  }
+  },
+  "backButton": "Back"
 }

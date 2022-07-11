@@ -11,5 +11,6 @@
   },
   "inputHint": "For example, Single Justice Procedure",
   "allCourtAndTribunalsText": "Want to see all courts and tribunals?",
-  "allCourtAndTribunalsLinkText": "Select from an A-Z list of courts and tribunals"
+  "allCourtAndTribunalsLinkText": "Select from an A-Z list of courts and tribunals",
+  "backButton": "Back"
 }

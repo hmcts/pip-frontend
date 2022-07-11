@@ -22,7 +22,7 @@ const returnedArtefact = [{
 }];
 
 const nonPresidingJudiciary = 'Firstname1 Surname1, Presiding';
-const expectedApplicant = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
+const expectedApplicant = 'Surname, LEGALADVISOR: Mr Individual Forenames Individual Middlename Individual Surname';
 const expectedRespondent = expectedApplicant;
 
 const publicationService = new PublicationService;
@@ -80,7 +80,7 @@ describe('Publication service', () => {
   describe('getIndivPubJson Service', () => {
     it('should return publication json', () => {
       return publicationService.getIndividualPublicationJson('', userId).then((data) => {
-        expect(data['courtLists'].length).to.equal(2);
+        expect(data['courtLists'].length).to.equal(4);
       });
     });
 
@@ -105,21 +105,40 @@ describe('Publication service', () => {
 
     it('should return daily cause list object', async () => {
       const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
-      expect(data['courtLists'].length).to.equal(2);
+      expect(data['courtLists'].length).to.equal(4);
     });
 
     it('should calculate totalHearings in cause list object', async () => {
-      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
+      const data = await publicationService.manipulatedDailyListData(rawDailyCauseData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['totalHearing']).to.equal(4);
     });
 
     it('should calculate duration of Hearing in cause list object', async () => {
-      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
+      const data = await publicationService.manipulatedDailyListData(rawDailyCauseData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']).to.equal(1);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsMinutes']).to.equal(5);
+    });
+
+    it('should calculate duration more than one hour of Hearing in cause list object', async () => {
+      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
+      expect(data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']).to.equal(1);
+      expect(data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsMinutes']).to.equal(30);
+    });
+
+    it('should calculate duration is one hour of Hearing in cause list object', async () => {
+      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
+      expect(data['courtLists'][2]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']).to.equal(1);
+      expect(data['courtLists'][2]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsMinutes']).to.equal(0);
+    });
+
+    it('should calculate duration less than a hour of Hearing in cause list object', async () => {
+      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
+      expect(data['courtLists'][3]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']).to.equal(0);
+      expect(data['courtLists'][3]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsMinutes']).to.equal(30);
     });
 
     it('should calculate start time of Hearing in cause list object', async () => {
-      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
+      const data = await publicationService.manipulatedDailyListData(rawDailyCauseData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal('10.40am');
     });
 
@@ -162,6 +181,24 @@ describe('Publication service', () => {
       const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCausePartyMappingData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant']).to.equal(expectedApplicant);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent']).to.equal(expectedRespondent);
+    });
+
+    it('should build only the applicants and the respondents representative of the party', async () => {
+      const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCausePartyMappingData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['applicant']).to.equal('LEGALADVISOR: Individual Surname');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['respondent']).to.equal('LEGALADVISOR: Individual Surname');
+    });
+
+    it('should build only the applicants and the respondents of the party', async () => {
+      const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCausePartyMappingData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2]['applicant']).to.equal('Individual Surname');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2]['respondent']).to.equal('Individual Surname');
+    });
+
+    it('when there is no party information provided', async () => {
+      const data = await publicationService.manipulatedDailyListData(rawFamilyDailyCausePartyMappingData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][3]['applicant']).to.equal(undefined);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][3]['respondent']).to.equal(undefined);
     });
   });
 
@@ -218,6 +255,31 @@ describe('Publication service', () => {
 
       expect(data).to.equal('14 September 2020');
     });
+  });
 
+  describe('Language to load the page in', () => {
+    it('should return english if the user is english and the list is english', () => {
+      expect(publicationService.languageToLoadPageIn('ENGLISH', 'en')).to.equal('en');
+    });
+
+    it('should return bilingual if the user is english and the list is welsh', () => {
+      expect(publicationService.languageToLoadPageIn('WELSH', 'en')).to.equal('bill');
+    });
+
+    it('should return bilingual if the user is english and the list is bilingual', () => {
+      expect(publicationService.languageToLoadPageIn('BI_LINGUAL', 'en')).to.equal('bill');
+    });
+
+    it('should return welsh if the user is welsh and the list is welsh', () => {
+      expect(publicationService.languageToLoadPageIn('WELSH', 'cy')).to.equal('cy');
+    });
+
+    it('should return bilingual if the user is welsh and the list is english', () => {
+      expect(publicationService.languageToLoadPageIn('ENGLISH', 'cy')).to.equal('bill');
+    });
+
+    it('should return bilingual if the user is welsh and the list is bilingual', () => {
+      expect(publicationService.languageToLoadPageIn('BI_LINGUAL', 'cy')).to.equal('bill');
+    });
   });
 });

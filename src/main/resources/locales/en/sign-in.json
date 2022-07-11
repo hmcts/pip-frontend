@@ -10,5 +10,6 @@
   "error": {
     "title": "There is a problem",
     "noSelection": "Please select an option"
-  }
+  },
+  "backButton": "Back"
 }

@@ -11,6 +11,9 @@ import {
 }
   from '../../../main/authentication/authenticationHandler';
 
+import request from 'supertest';
+import {app} from '../../../main/app';
+
 describe('Test checking user roles', () => {
 
   it('check that check roles returns true when matched', () => {
@@ -214,6 +217,14 @@ describe('Test IsPermittedMediaAccount', () => {
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/admin-dashboard');
   });
+});
 
+describe('forgot password reset', () => {
+  test('should redirect to azure again if password reset error is returned from the B2C', async () => {
+    await request(app)
+      .post('/login/return')
+      .send({'error': 'access_denied', 'error_description': 'AADB2C90118'})
+      .expect((res) => expect(res.redirect).to.be.true);
+  });
 });
 
