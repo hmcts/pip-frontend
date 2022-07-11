@@ -19,7 +19,8 @@ export default class SjpPublicListController {
       const data = fileData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'];
       const length = data.length;
       res.render('single-justice-procedure', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['single-justice-procedure']),
+        ...cloneDeep(req.i18n.getDataByLanguage(publicationService.languageToLoadPageIn(metaData.language,
+          req.lng))['single-justice-procedure']),
         casesList: data,
         length: length,
         publishedDateTime: publishedDate,

@@ -16,5 +16,6 @@
       "description": "Get emails about hearings from different courts and tribunals and manage your subscriptions.",
       "link": "subscription-management"
     }
-  ]
+  ],
+  "backButton": "Back"
 }

@@ -8,5 +8,6 @@
   "error": {
     "title": "Mae problem",
     "text": "An option must be selected"
-  }
+  },
+  "backButton": "Yn ôl"
 }

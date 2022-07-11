@@ -10,5 +10,6 @@
     "line2": "You can:",
     "liText1": "Double check your spelling",
     "liText2": "Add subscription by an alternative type"
-  }
+  },
+  "backButton": "Back"
 }

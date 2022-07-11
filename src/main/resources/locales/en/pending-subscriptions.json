@@ -14,5 +14,8 @@
   "error": {
     "title": "There is a problem",
     "message": "At least 1 subscription is needed."
-  }
+  },
+  "backButton": "Back",
+  "noPendingCaseSubs": "No Pending case subscriptions",
+  "courtTribunalName": "Court or tribunal name"
 }
