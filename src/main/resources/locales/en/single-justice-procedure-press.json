@@ -10,5 +10,6 @@
   "dateOfBirth": "Date of birth",
   "reference": "Reference",
   "address": "Address",
-  "reportingRestriction": "Reporting Restriction"
+  "reportingRestriction": "Reporting Restriction",
+  "backButton": "Back"
 }

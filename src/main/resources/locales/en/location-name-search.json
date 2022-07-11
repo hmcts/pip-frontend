@@ -17,6 +17,8 @@
   "region": "Region",
   "aria": {
     "filterLabel": "Filter by Jurisdiction or region"
-  }
+  },
+  "backButton": "Back",
+  "applyFiltersButton": "Apply filters"
 }
 

@@ -6,7 +6,7 @@
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack() }}
+  {{ goBack(text = backButton) }}
 {% endblock %}
 {% block content %}
   <h2 id='page-heading' class="govuk-heading-l">{{ header }}</h2>
