@@ -1,6 +1,5 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { request as expressRequest } from 'express';
 import fs from 'fs';
 import path from 'path';
 import request from 'supertest';
@@ -19,7 +18,10 @@ const subscriptionsData = JSON.parse(rawData)[0].search.cases[0];
 let htmlRes: Document;
 
 sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').returns(subscriptionsData);
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+
+app.request['user'] = { _json: {
+  'extension_UserRole': 'VERIFIED',
+}};
 
 const pageTitleValue = 'Search result';
 

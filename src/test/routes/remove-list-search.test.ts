@@ -5,11 +5,10 @@ import sinon from 'sinon';
 import { LocationService } from '../../main/service/locationService';
 import fs from 'fs';
 import path from 'path';
-import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
+import {request as expressRequest} from 'express';
 
 const URL = '/remove-list-search';
 
-sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationByName');
 const rawCourts = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawCourts);
@@ -18,6 +17,10 @@ sinon.stub(LocationService.prototype, 'fetchAllLocations').returns(courtList);
 courtStub.withArgs('').resolves(null);
 courtStub.withArgs('foo').resolves(null);
 courtStub.withArgs('Accrington County Location').resolves(court);
+
+expressRequest['user'] = {'_json': {
+  'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
+}};
 
 describe('Remove List Search', () => {
   describe('on GET', () => {

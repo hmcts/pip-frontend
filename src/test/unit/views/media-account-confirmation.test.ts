@@ -3,7 +3,6 @@ import request from 'supertest';
 import {expect} from 'chai';
 import sinon from 'sinon';
 import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
-import {AdminAuthentication} from '../../../main/authentication/adminAuthentication';
 
 let htmlRes: Document;
 
@@ -50,8 +49,11 @@ describe('Media Account Confirmation Page', () => {
   sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').returns(dummyApplication);
   sinon.stub(MediaAccountApplicationService.prototype, 'createAccountFromApplication').returns(dummyApplication);
 
+  app.request['user'] = {'emails': ['emailA'], _json: {
+    'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
+  }};
+
   beforeAll(async () => {
-    sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
     await request(app).post(PAGE_URL).send({'approved': 'Yes'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();

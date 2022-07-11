@@ -5,7 +5,6 @@ import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
-import {request as expressRequest} from 'express';
 import {LocationService} from '../../../main/service/locationService';
 
 const PAGE_URL = '/civil-and-family-daily-cause-list?artefactId=abc';
@@ -33,8 +32,6 @@ const courtData = JSON.parse(rawDataCourt);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(civilAndFamilyDailyCauseListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
 describe('Civil And Family Daily Cause List page', () => {
   beforeAll(async () => {

@@ -5,7 +5,10 @@ import { app } from '../../main/app';
 import { request as expressRequest } from 'express';
 import { PublicationService } from '../../main/service/publicationService';
 
-sinon.stub(expressRequest, 'isAuthenticated').returns(true);
+expressRequest['user'] = {'_json': {
+  'extension_UserRole': 'VERIFIED',
+}};
+
 sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').withArgs('56-181-2097', true).resolves(true);
 
 describe('Case reference number search', () => {

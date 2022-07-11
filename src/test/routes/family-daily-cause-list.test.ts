@@ -16,7 +16,6 @@ sinon.stub(PublicationService.prototype, 'manipulatedDailyListData').resolves(da
 describe('Daily Cause List Page', () => {
   describe('on GET', () => {
     test('should return daily cause list page', () => {
-      app.request['user'] = {piUserId: '2'};
       request(app)
         .get('/family-daily-cause-list?artefactId=test')
         .expect((res) => expect(res.status).to.equal(200));

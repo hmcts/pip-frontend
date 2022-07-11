@@ -6,7 +6,6 @@
 {% from "govuk/components/cookie-banner/macro.njk" import govukCookieBanner %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
-
 {% block head %}
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -38,7 +37,26 @@
     var link = document.getElementById("betalink")
     link.href= link.href + window.location.pathname.substring(1)
   </script>
-  {% if user.isAdmin %}
+  {% if user.role == 'SYSTEM_ADMIN' or user.role == 'INTERNAL_SUPER_ADMIN_LOCAL' %}
+    {% set listItems = [
+      {
+        text: navLinks.link1,
+        href: '/admin-dashboard'
+      },
+      {
+        text: navLinks.link7,
+        href: '/manual-upload'
+      },
+      {
+        text: navLinks.link9,
+        href: '/remove-list-search'
+      },
+      {
+        text: navLinks.link3,
+        href: '/logout'
+      }
+    ]%}
+  {% elif user.role == 'INTERNAL_SUPER_ADMIN_CTSC' or user.role == 'INTERNAL_ADMIN_CTSC' %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -55,6 +73,21 @@
       {
         text: navLinks.link9,
         href: '/remove-list-search'
+      },
+      {
+        text: navLinks.link3,
+        href: '/logout'
+      }
+    ]%}
+  {% elif user.role == 'INTERNAL_ADMIN_LOCAL' %}
+    {% set listItems = [
+      {
+        text: navLinks.link1,
+        href: '/admin-dashboard'
+      },
+      {
+        text: navLinks.link7,
+        href: '/manual-upload'
       },
       {
         text: navLinks.link3,
