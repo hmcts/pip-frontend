@@ -91,7 +91,7 @@ export class LocationService {
   }
 
   public findCourtName(location: Location, language: string): string {
-    let courtName = ''
+    let courtName = '';
     if(location == null) {
       switch(language) {
         case 'cy': {
