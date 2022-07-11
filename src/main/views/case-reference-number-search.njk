@@ -8,7 +8,7 @@
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack() }}
+  {{ goBack(text = backButton) }}
 {% endblock %}
 {% block content %}
   <div class="parent-box">

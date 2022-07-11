@@ -1,12 +1,12 @@
 {
   "serviceNameText": "Gwrandawiadau llys a thribiwnlys",
   "signInText": "Mewngofnodi",
-  "signOutText": "Sign out",
+  "signOutText": "Allgofnodi",
   "navLinks": {
     "link1": "Hafan",
     "link2": "Mewngofnodi",
-    "link3": "Sign out",
-    "link4": "Email subscriptions",
+    "link3": "Allgofnodi",
+    "link4": "Tanysgrifiad e-bost",
     "link5": "Dod o hyd i lys neu dribiwnlys",
     "link6": "Achosion Gweithdrefn Un Ynad"
   },
@@ -37,8 +37,8 @@
       "href": "https://www.gov.uk/help/terms-conditions"
     },
     {
-      "text": "Saesneg",
-      "href": "https://www.gov.uk/english"
+      "text": "Cymraeg",
+      "href": "https://www.gov.uk/cymraeg"
     },
     {
       "text": "Gwasanaeth Digidol y Llywodraeth",

@@ -7,11 +7,16 @@
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack() }}
+  {{ goBack(text = backButton) }}
 {% endblock %}
 {% block content %}
   <div class="parent-box">
-    <h2 id='page-heading' class="govuk-heading-l">{{ headerPart1 }}<br />{{ headerPart2 }}{{ courtName }}</h2>
+    <h2 id='page-heading' class="govuk-heading-l">
+      {{ headerPart1 }}<br />{{ headerPart2 }}{{ courtName }}
+      {% if bill %}
+        <br />/{{ headerPart3 }}<br />{{ headerPart4 }}{{ courtName }}
+      {% endif %}
+    </h2>
     <p class="govuk-body">
       {% for line in listData['venue']['venueAddress']['line'] %}
         {{ line }}<br />
@@ -30,6 +35,11 @@
         <p>{{ importantInformationP1 }}</p>
         <p>{{ importantInformationP2 | replace("NAME", courtName) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone'])}}</p>
         <p>{{ importantInformationP3 }}</p>
+        {% if bill %}
+          <P>{{ importantInformationP4 }}</P>
+          <P>{{ importantInformationP5 | replace("NAME", courtName) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone'])}}</P>
+          <P>{{ importantInformationP6 }}</P>
+        {% endif %}
       </div>
     </details>
     {% for courtList in listData['courtLists'] %}

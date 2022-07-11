@@ -4,5 +4,6 @@
   "table": {
     "header1": "Case reference number",
     "header2": "Case name"
-  }
+  },
+  "backButton": "Back"
 }

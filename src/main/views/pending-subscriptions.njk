@@ -8,7 +8,7 @@
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack() }}
+  {{ goBack(text = backButton) }}
 {% endblock %}
 
 {% block content %}
@@ -63,14 +63,14 @@
         </table>
       {% endif %}
       {% if pendingSubscriptions.cases | length == 0 %}
-        <p class="govuk-body">No pending case subscriptions</p>
+        <p class="govuk-body">{{ noPendingCaseSubs }}</p>
       {% endif %}
 
       {% if pendingSubscriptions.courts | length != 0 %}
         <table class="govuk-table">
           <thead class="govuk-table__head">
           <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header">Court or tribunal name</th>
+            <th scope="col" class="govuk-table__header">{{ courtTribunalName }}</th>
             <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header4 }}</th>
           </tr>
           </thead>

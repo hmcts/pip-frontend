@@ -1,6 +1,5 @@
 {
   "title": "Hearings List",
-  "text": "Back",
   "heading": "hearing list",
   "tableCaption": "List for ",
   "tableHeader1": "Court Number",
@@ -11,5 +10,6 @@
   "tableHeader6": "Hearing platform",
   "relatedContent": "Related Content",
   "a1": "See another court or tribunal",
-  "backToTop": "Back to top"
+  "backToTop": "Back to top",
+  "backButton": "Back"
 }

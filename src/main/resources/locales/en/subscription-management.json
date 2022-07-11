@@ -17,5 +17,6 @@
   },
   "courtTable": {
     "header1": "Court or tribunal name"
-  }
+  },
+  "backButton": "Back"
 }
