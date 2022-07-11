@@ -89,4 +89,33 @@ export class LocationService {
     });
     return alphabetisedCourtList;
   }
+
+  public findCourtName(location: Location, language: string): string {
+    let courtName = ''
+    if(location == null) {
+      switch(language) {
+        case 'cy': {
+          return 'Llys ar Goll';
+        }
+
+        default: {
+          return 'Missing Court';
+        }
+      }
+    }
+
+    switch(language) {
+      case 'cy': {
+        courtName = (location['welshName'] != null ? location['welshName'] : location.name);
+        break;
+      }
+
+      default: {
+        courtName = location.name;
+        break;
+      }
+    }
+
+    return courtName;
+  }
 }

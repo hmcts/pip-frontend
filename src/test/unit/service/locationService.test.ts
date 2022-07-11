@@ -79,6 +79,22 @@ describe('Court Service', () => {
     expect(await courtService.getLocationByName('test', welshLanguage)).to.equal(null);
   });
 
+  it('should return found court name in for english', async () => {
+    expect(await courtService.findCourtName(hearingsData[0], englishLanguage)).to.equal('Abergavenny Magistrates\' Court');
+  });
+
+  it('should return found court name in for welsh', async () => {
+    expect(await courtService.findCourtName(hearingsData[0], welshLanguage)).to.equal('Llys Ynadon y Fenni');
+  });
+
+  it('should return missing court for english if court is not found', async () => {
+    expect(await courtService.findCourtName(null, englishLanguage)).to.equal('Missing Court');
+  });
+
+  it('should return missing court for welsh if court is not found', async () => {
+    expect(await courtService.findCourtName(null, welshLanguage)).to.equal('Llys ar Goll');
+  });
+
   it(`should return object with ${validKeysCount} keys`, async () => {
     const data = await courtService.generateAlphabetisedAllCourtList(englishLanguage);
     expect(Object.keys(data).length).to.equal(validKeysCount);
