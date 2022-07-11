@@ -9,7 +9,8 @@
     "li1Text": "Wirio eich sillafu",
     "li2Text": "Dod o hyd i lys neu dribiwnlys gan ddefnyddio A - Y"
   },
-  "inputHint": "Er enghraifft, Llys Cyfun Rhydychen",
+  "inputHint": "Er enghraifft, Oxford Combined Court",
   "allCourtAndTribunalsText": "Eisiau gweld pob llys a thribiwnlys?",
-  "allCourtAndTribunalsLinkText": "Dewis o restr A-Y o lysoedd a thribiwnlysoedd"
+  "allCourtAndTribunalsLinkText": "Dewis o restr A-Y o lysoedd a thribiwnlysoedd",
+  "backButton": "Yn ôl"
 }

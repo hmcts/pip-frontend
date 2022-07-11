@@ -27,5 +27,6 @@
   "duration": "Duration/Hyd",
   "applicant": "Applicant/Petitioner/Ceisydd/Deisebydd",
   "respondent": "Respondent/Atebydd",
-  "dataSource": "Data Source/Ffynhonnell y Data"
+  "dataSource": "Data Source/Ffynhonnell y Data",
+  "backButton": "Back/Yn ôl"
 }

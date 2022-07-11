@@ -23,5 +23,6 @@
   "hearingType": "Hearing type/Math o wrandawiad",
   "hearingPlatform": "Location/Lleoliad",
   "duration": "Duration/Hyd",
-  "dataSource": "Data Source/Ffynhonnell y Data"
+  "dataSource": "Data Source/Ffynhonnell y Data",
+  "backButton": "Back/Yn ôl"
 }

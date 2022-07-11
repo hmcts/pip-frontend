@@ -15,5 +15,6 @@
   "photoType": "Rhaid iddi fod yn ffeil jpg, pdf neu png.",
   "errorTitle": "Mae yna broblem",
   "ariaFileLabel": "Llwytho ffeil",
-  "ariaCheckboxLabel": "Cytuno i delerau ac amodau?"
+  "ariaCheckboxLabel": "Cytuno i delerau ac amodau?",
+  "backButton": "Yn ôl"
 }

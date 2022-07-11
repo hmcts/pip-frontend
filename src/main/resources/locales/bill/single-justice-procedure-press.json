@@ -10,5 +10,6 @@
   "dateOfBirth": "Date of birth/Dyddiad geni",
   "reference": "Reference/Cyfeirnod",
   "address": "Address/Cyfeiriad",
-  "reportingRestriction": "Reporting Restriction/Cyfyngiad adrodd"
+  "reportingRestriction": "Reporting Restriction/Cyfyngiad adrodd",
+  "backButton": "Back/Yn ôl"
 }

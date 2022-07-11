@@ -11,5 +11,6 @@
   "column7": "Type",
   "backToTop": "Back to top",
   "newWindow": "(opens in a new window)",
-  "noLists": "Sorry, no lists found for this court"
+  "noLists": "Sorry, no lists found for this court",
+  "backButton": "Back"
 }

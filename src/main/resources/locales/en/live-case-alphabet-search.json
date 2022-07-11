@@ -3,5 +3,6 @@
   "backToTop": "Back to top",
   "heading": "Live hearing updates - select a court",
   "p1": "Select a court to see live updates of each hearing within that court",
-  "tableHeader": "Crown courts in England and Wales"
+  "tableHeader": "Crown courts in England and Wales",
+  "backButton": "Back"
 }

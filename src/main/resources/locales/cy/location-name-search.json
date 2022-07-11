@@ -17,6 +17,8 @@
   "region": "Rhanbarth",
   "aria": {
     "filterLabel": "Hidlo yn ôl awdurdodaeth neu ranbarth"
-  }
+  },
+  "backButton": "Yn ôl",
+  "applyFiltersButton": "Ffiltro"
 }
 
