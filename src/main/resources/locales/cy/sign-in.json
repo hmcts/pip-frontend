@@ -1,0 +1,15 @@
+{
+  "title": "Sut hoffech chi fewngofnodi?",
+  "header": "Sut hoffech chi fewngofnodi?",
+  "radio1": "Gyda My HMCTS cyfrif",
+  "radio2": "Gyda Common Platform  cyfrif",
+  "radio3": "Gyda a cyfrif gwrandawiadau Llys a Thribiwnlys",
+  "accountInfo": "And oed gennych gyfrif?",
+  "accountInfo_link_text": "Creu cyfrif gwrandawiadau Llys a Thribiwnlys",
+  "accountInfo_link": "create-media-account",
+  "error": {
+    "title": "Mae yna broblem",
+    "noSelection": "Rhaid dewis opsiwn"
+  },
+  "backButton": "Yn ôl"
+}

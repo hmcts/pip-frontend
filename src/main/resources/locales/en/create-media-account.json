@@ -15,5 +15,6 @@
   "photoType": "Must be a jpg, pdf or png",
   "errorTitle": "There is a problem",
   "ariaFileLabel": "Upload a file",
-  "ariaCheckboxLabel": "Agree to terms and conditions?"
+  "ariaCheckboxLabel": "Agree to terms and conditions?",
+  "backButton": "Back"
 }

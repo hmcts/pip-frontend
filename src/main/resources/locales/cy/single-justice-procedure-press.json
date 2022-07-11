@@ -1,13 +1,15 @@
 {
-  "title": "Single Justice Procedure cases - Press view",
-  "header": "Single Justice Procedure cases - Press view",
-  "whatIsSJP": " What are Single Justice Procedure cases?",
-  "sjpDescription": "Cases ready to be decided by a magistrate without a hearing. Includes TV licensing and minor traffic offences such as speeding.",
+  "title": "Achosion Gweithdrefn Un Ynad - Golwg i’r Wasg",
+  "header": "Achosion Gweithdrefn Un Ynad - Golwg i’r Wasg",
+  "whatIsSJP": " Beth yw achosion Gweithdrefn Un Ynad?",
+  "sjpDescription": "Achosion sy’n barod i’w penderfynu gan ynad heb gynnal gwrandawiad. Mae’n cynnwys troseddau trwyddedu teledu a mân droseddau traffig fel goryrru.",
   "listDate": "Rhestr ar gyfer",
   "published": "Cyhoeddwyd",
+  "publishedAt": "yn",
   "name": "Enw",
-  "dateOfBirth": "Date of birth",
-  "reference": "Reference",
-  "address": "Address",
-  "reportingRestriction": "Reporting Restriction"
+  "dateOfBirth": "Dyddiad geni",
+  "reference": "Cyfeirnod",
+  "address": "Cyfeiriad",
+  "reportingRestriction": "Cyfyngiad adrodd",
+  "backButton": "Yn ôl"
 }

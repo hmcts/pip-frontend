@@ -1,15 +1,15 @@
 {
-  "title": "",
-  "heading": "",
-  "backButton": "",
-  "inputLabel": "",
+  "title": "Tanysgrifo gan ddefnyddio enw'r parti neu'r partïon sydd ynglŷn â'r achos ",
+  "heading": "Beth yw enw(au)’r parti neu bartïon sy’n rhan o’r achos?",
+  "backButton": "Yn ôl",
+  "inputLabel": "Er enghraifft, Smith.",
   "error": {
     "notFound": "Does yna ddim yn cyfateb i'r meini prawf",
     "title": "Mae yna broblem",
-    "input": "",
-    "line1": "Does yna ddim canlyniadau sy'n cyfateb.",
+    "input": "Darparwch enw cywir ar gyfer yr achos",
+    "line1": "Nid oes unrhyw ganlyniadau sy’n cyd-fynd â’r gofynion chwilio.",
     "line2": "Gallwch:",
-    "liText1": "",
-    "liText2": ""
+    "liText1": "Gwiriwch eich sillafu",
+    "liText2": "Ychwanegu tanysgrifiad yn ôl math gwahanol"
   }
 }

@@ -109,12 +109,12 @@ describe('Publication service', () => {
     });
 
     it('should calculate totalHearings in cause list object', async () => {
-      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
+      const data = await publicationService.manipulatedDailyListData(rawDailyCauseData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['totalHearing']).to.equal(4);
     });
 
     it('should calculate duration of Hearing in cause list object', async () => {
-      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
+      const data = await publicationService.manipulatedDailyListData(rawDailyCauseData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']).to.equal(1);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsMinutes']).to.equal(5);
     });
@@ -138,7 +138,7 @@ describe('Publication service', () => {
     });
 
     it('should calculate start time of Hearing in cause list object', async () => {
-      const data = await  publicationService.manipulatedDailyListData(rawDailyCauseData);
+      const data = await publicationService.manipulatedDailyListData(rawDailyCauseData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal('10.40am');
     });
 
@@ -255,6 +255,31 @@ describe('Publication service', () => {
 
       expect(data).to.equal('14 September 2020');
     });
+  });
 
+  describe('Language to load the page in', () => {
+    it('should return english if the user is english and the list is english', () => {
+      expect(publicationService.languageToLoadPageIn('ENGLISH', 'en')).to.equal('en');
+    });
+
+    it('should return bilingual if the user is english and the list is welsh', () => {
+      expect(publicationService.languageToLoadPageIn('WELSH', 'en')).to.equal('bill');
+    });
+
+    it('should return bilingual if the user is english and the list is bilingual', () => {
+      expect(publicationService.languageToLoadPageIn('BI_LINGUAL', 'en')).to.equal('bill');
+    });
+
+    it('should return welsh if the user is welsh and the list is welsh', () => {
+      expect(publicationService.languageToLoadPageIn('WELSH', 'cy')).to.equal('cy');
+    });
+
+    it('should return bilingual if the user is welsh and the list is english', () => {
+      expect(publicationService.languageToLoadPageIn('ENGLISH', 'cy')).to.equal('bill');
+    });
+
+    it('should return bilingual if the user is welsh and the list is bilingual', () => {
+      expect(publicationService.languageToLoadPageIn('BI_LINGUAL', 'cy')).to.equal('bill');
+    });
   });
 });

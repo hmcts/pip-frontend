@@ -23,5 +23,6 @@
   "applicant": "Applicant/Petitioner",
   "respondent": "Respondent",
   "dataSource": "Data Source",
+  "backButton": "Back",
   "legalAdvisor": "Legal Advisor"
 }
