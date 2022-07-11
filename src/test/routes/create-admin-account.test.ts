@@ -1,10 +1,12 @@
 import { app } from '../../main/app';
 import request from 'supertest';
-import sinon from 'sinon';
 import { expect } from 'chai';
-import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
+import {request as expressRequest} from 'express';
 
-sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
+expressRequest['user'] = {'_json': {
+  'extension_UserRole': 'SYSTEM_ADMIN',
+}};
+
 const mockData = {
   firstName: 'Joe',
   lastName: 'Bloggs',

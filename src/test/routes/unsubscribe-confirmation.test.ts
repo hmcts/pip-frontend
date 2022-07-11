@@ -3,9 +3,7 @@ import sinon from 'sinon';
 import { app } from '../../main/app';
 import { expect } from 'chai';
 import { SubscriptionService } from '../../main/service/subscriptionService';
-import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
 
-sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
 const stub = sinon.stub(SubscriptionService.prototype, 'unsubscribe');
 const PAGE_URL = '/unsubscribe-confirmation';
 const validBody = {'unsubscribe-confirm': 'yes', subscription: 'valid subscription'};
@@ -15,7 +13,9 @@ describe('Unsubscribe Confirmation', () => {
   beforeEach(() => {
     stub.withArgs({...validBody, userId: '1'}).resolves(true);
     stub.withArgs({...invalidBody, userId: '1'}).resolves(undefined);
-    app.request['user'] = {id: '1'};
+    app.request['user'] = {id: '1', '_json': {
+      'extension_UserRole': 'VERIFIED',
+    }};
   });
 
   describe('on POST', () => {

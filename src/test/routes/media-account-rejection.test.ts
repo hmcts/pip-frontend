@@ -3,9 +3,11 @@ import {app} from '../../main/app';
 import {expect} from 'chai';
 import { MediaAccountApplicationService } from '../../main/service/mediaAccountApplicationService';
 import sinon from 'sinon';
-import {AdminAuthentication} from '../../main/authentication/adminAuthentication';
+import {request as expressRequest} from 'express';
 
-sinon.stub(AdminAuthentication.prototype, 'isAdminUser').returns(true);
+expressRequest['user'] = {'_json': {
+  'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
+}};
 
 describe('Media Account Rejection', () => {
 

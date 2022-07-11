@@ -2,7 +2,6 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { request as expressRequest } from 'express';
 import { SubscriptionService } from '../../../main/service/subscriptionService';
 
 const PAGE_URL = '/unsubscribe-confirmation';
@@ -11,9 +10,12 @@ let htmlRes: Document;
 
 const pageTitleValue = 'Subscription removed';
 
+app.request['user'] = { _json: {
+  'extension_UserRole': 'VERIFIED',
+}};
+
 describe('Unsubscribe Confirmation Page', () => {
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
     sinon.stub(SubscriptionService.prototype, 'unsubscribe').resolves(true);
 
     await request(app).post(PAGE_URL).send(validBody).then(res => {

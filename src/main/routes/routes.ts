@@ -1,11 +1,21 @@
-import { Application, NextFunction } from 'express';
+import { Application } from 'express';
 import { infoRequestHandler } from '@hmcts/info-provider';
 import { Logger } from '@hmcts/nodejs-logging';
 import cors  from 'cors';
 import os from 'os';
 import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
-import { AdminAuthentication } from '../authentication/adminAuthentication';
+import {
+  allAdminRoles,
+  isPermittedAdmin,
+  isPermittedMedia,
+  isPermittedMediaAccount,
+  isPermittedAccountCreation,
+  isPermittedManualUpload,
+  checkRoles,
+  forgotPasswordRedirect,
+} from '../authentication/authenticationHandler';
+
 import config from 'config';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
@@ -13,8 +23,6 @@ const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const multer = require('multer');
 const logger = Logger.getLogger('routes');
-const adminAuthentication = new AdminAuthentication();
-
 export default function(app: Application): void {
   // TODO: use this to toggle between different auth identities
   const authType = (process.env.OIDC === 'true') ? 'azuread-openidconnect' : 'mockaroo';
@@ -43,23 +51,6 @@ export default function(app: Application): void {
     exposedHeaders: '*',
     optionsSuccessStatus: 200,
   };
-
-  function ensureAuthenticated(req, res, next): NextFunction | void {
-    if (req.isAuthenticated()) {
-      return next();
-    }
-    res.redirect('/login?p=' + authenticationConfig.POLICY);
-  }
-
-  function ensureAdminAuthenticated(req, res, next): void {
-    const adminRole = adminAuthentication.isAdminUser(req);
-
-    if(adminRole) {
-      return next();
-    } else {
-      res.redirect('/login?p=' + authenticationConfig.ADMIN_POLICY);
-    }
-  }
 
   function globalAuthGiver(req, res, next): void{
     //this function allows us to share authentication status across all views
@@ -106,9 +97,9 @@ export default function(app: Application): void {
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/password-change-confirmation', app.locals.container.cradle.passwordChangeController.get);
   app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
-  app.post('/login/return', adminAuthentication.forgotPasswordRedirect, passport.authenticate(authType, { failureRedirect: '/view-option'}),
-    (_req, res) => {adminAuthentication.isAdminUser(_req) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
-  app.get('/logout', (_req, res) => {adminAuthentication.isAdminUser(_req) ?
+  app.post('/login/return', forgotPasswordRedirect, passport.authenticate(authType, { failureRedirect: '/view-option'}),
+    (_req, res) => {checkRoles(_req, allAdminRoles) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
+  app.get('/logout', (_req, res) => {checkRoles(_req, allAdminRoles) ?
     logOut(_req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY) : logOut(_req, res, `${FRONTEND_URL}/view-option`);});
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
@@ -123,57 +114,57 @@ export default function(app: Application): void {
   app.get('/summary-of-publications', app.locals.container.cradle.summaryOfPublicationsController.get);
   app.get('/file-publication', app.locals.container.cradle.flatFileController.get);
   app.get('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.get);
+  app.get('/sjp-press-list', app.locals.container.cradle.sjpPressListController.get);
 
   // Restricted paths
-  app.get('/account-home', ensureAuthenticated, app.locals.container.cradle.accountHomeController.get);
-  app.get('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.get);
-  app.post('/case-name-search', ensureAuthenticated, app.locals.container.cradle.caseNameSearchController.post);
-  app.get('/case-name-search-results', ensureAuthenticated, app.locals.container.cradle.caseNameSearchResultsController.get);
-  app.get('/case-reference-number-search', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchController.get);
-  app.post('/case-reference-number-search', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchController.post);
-  app.get('/case-reference-number-search-results', ensureAuthenticated, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
-  app.get('/location-name-search', ensureAuthenticated, app.locals.container.cradle.alphabeticalSearchController.get);
-  app.post('/location-name-search', ensureAuthenticated, app.locals.container.cradle.alphabeticalSearchController.post);
-  app.get('/delete-subscription', ensureAuthenticated, app.locals.container.cradle.deleteSubscriptionController.get);
-  app.get('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.get);
-  app.post('/pending-subscriptions', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.post);
-  app.get('/remove-subscription', ensureAuthenticated, app.locals.container.cradle.pendingSubscriptionsController.removeSubscription);
-  app.get('/sjp-press-list', ensureAuthenticated, app.locals.container.cradle.sjpPressListController.get);
-  app.get('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.get);
-  app.post('/subscription-add', ensureAuthenticated, app.locals.container.cradle.subscriptionAddController.post);
-  app.post('/subscription-confirmed', ensureAuthenticated, app.locals.container.cradle.subscriptionConfirmedController.post);
-  app.get('/subscription-management', ensureAuthenticated, app.locals.container.cradle.subscriptionManagementController.get);
-  app.get('/subscription-urn-search', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchController.get);
-  app.post('/subscription-urn-search', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchController.post);
-  app.get('/subscription-urn-search-results', ensureAuthenticated, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
-  app.post('/unsubscribe-confirmation', ensureAuthenticated, app.locals.container.cradle.unsubscribeConfirmationController.post);
+  app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
+  app.get('/case-name-search', isPermittedMedia, app.locals.container.cradle.caseNameSearchController.get);
+  app.post('/case-name-search', isPermittedMedia, app.locals.container.cradle.caseNameSearchController.post);
+  app.get('/case-name-search-results', isPermittedMedia, app.locals.container.cradle.caseNameSearchResultsController.get);
+  app.get('/case-reference-number-search', isPermittedMedia, app.locals.container.cradle.caseReferenceNumberSearchController.get);
+  app.post('/case-reference-number-search', isPermittedMedia, app.locals.container.cradle.caseReferenceNumberSearchController.post);
+  app.get('/case-reference-number-search-results', isPermittedMedia, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
+  app.get('/location-name-search', isPermittedMedia, app.locals.container.cradle.alphabeticalSearchController.get);
+  app.post('/location-name-search', isPermittedMedia, app.locals.container.cradle.alphabeticalSearchController.post);
+  app.get('/delete-subscription', isPermittedMedia, app.locals.container.cradle.deleteSubscriptionController.get);
+  app.get('/pending-subscriptions', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.get);
+  app.post('/pending-subscriptions', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.post);
+  app.get('/remove-subscription', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.removeSubscription);
+  app.get('/subscription-add', isPermittedMedia, app.locals.container.cradle.subscriptionAddController.get);
+  app.post('/subscription-add', isPermittedMedia, app.locals.container.cradle.subscriptionAddController.post);
+  app.post('/subscription-confirmed', isPermittedMedia, app.locals.container.cradle.subscriptionConfirmedController.post);
+  app.get('/subscription-management', isPermittedMedia, app.locals.container.cradle.subscriptionManagementController.get);
+  app.get('/subscription-urn-search', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchController.get);
+  app.post('/subscription-urn-search', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchController.post);
+  app.get('/subscription-urn-search-results', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
+  app.post('/unsubscribe-confirmation', isPermittedMedia, app.locals.container.cradle.unsubscribeConfirmationController.post);
 
   // restricted admin paths
-  app.get('/admin-dashboard', ensureAdminAuthenticated, app.locals.container.cradle.adminDashboardController.get);
-  app.get('/create-admin-account', ensureAdminAuthenticated, app.locals.container.cradle.createAdminAccountController.get);
-  app.post('/create-admin-account', ensureAdminAuthenticated, app.locals.container.cradle.createAdminAccountController.post);
-  app.get('/create-admin-account-summary', ensureAdminAuthenticated, app.locals.container.cradle.createAdminAccountSummaryController.get);
-  app.post('/create-admin-account-summary', ensureAdminAuthenticated, app.locals.container.cradle.createAdminAccountSummaryController.post);
-  app.get('/manual-upload', ensureAdminAuthenticated, app.locals.container.cradle.manualUploadController.get);
-  app.post('/manual-upload', ensureAdminAuthenticated, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualUploadController.post);
-  app.get('/manual-upload-summary', ensureAdminAuthenticated, app.locals.container.cradle.manualUploadSummaryController.get);
-  app.post('/manual-upload-summary', ensureAdminAuthenticated, app.locals.container.cradle.manualUploadSummaryController.post);
-  app.get('/media-applications', ensureAdminAuthenticated, app.locals.container.cradle.mediaApplicationsController.get);
-  app.get('/upload-confirmation', ensureAdminAuthenticated, app.locals.container.cradle.fileUploadConfirmationController.get);
-  app.get('/media-account-review', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.get);
-  app.get('/media-account-review/image', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.getImage);
-  app.post('/media-account-review/approve', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.approve);
-  app.post('/media-account-review/reject', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountReviewController.reject);
-  app.get('/media-account-approval', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountApprovalController.get);
-  app.post('/media-account-approval', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountApprovalController.post);
-  app.get('/media-account-rejection', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.get);
-  app.post('/media-account-rejection', ensureAdminAuthenticated, app.locals.container.cradle.mediaAccountRejectionController.post);
-  app.get('/remove-list-confirmation', ensureAdminAuthenticated, app.locals.container.cradle.removeListConfirmationController.get);
-  app.post('/remove-list-confirmation', ensureAdminAuthenticated, app.locals.container.cradle.removeListConfirmationController.post);
-  app.get('/remove-list-search', ensureAdminAuthenticated, app.locals.container.cradle.removeListSearchController.get);
-  app.post('/remove-list-search', ensureAdminAuthenticated, app.locals.container.cradle.removeListSearchController.post);
-  app.get('/remove-list-search-results', ensureAdminAuthenticated, app.locals.container.cradle.removeListSearchResultsController.get);
-  app.get('/remove-list-success', ensureAdminAuthenticated, app.locals.container.cradle.removeListSuccessController.get);
+  app.get('/admin-dashboard', isPermittedAdmin, app.locals.container.cradle.adminDashboardController.get);
+  app.get('/create-admin-account', isPermittedAccountCreation, app.locals.container.cradle.createAdminAccountController.get);
+  app.post('/create-admin-account', isPermittedAccountCreation, app.locals.container.cradle.createAdminAccountController.post);
+  app.get('/create-admin-account-summary', isPermittedAccountCreation, app.locals.container.cradle.createAdminAccountSummaryController.get);
+  app.post('/create-admin-account-summary', isPermittedAccountCreation, app.locals.container.cradle.createAdminAccountSummaryController.post);
+  app.get('/manual-upload', isPermittedManualUpload, app.locals.container.cradle.manualUploadController.get);
+  app.post('/manual-upload', isPermittedManualUpload, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualUploadController.post);
+  app.get('/manual-upload-summary', isPermittedManualUpload, app.locals.container.cradle.manualUploadSummaryController.get);
+  app.post('/manual-upload-summary', isPermittedManualUpload, app.locals.container.cradle.manualUploadSummaryController.post);
+  app.get('/media-applications', isPermittedMediaAccount, app.locals.container.cradle.mediaApplicationsController.get);
+  app.get('/upload-confirmation', isPermittedManualUpload, app.locals.container.cradle.fileUploadConfirmationController.get);
+  app.get('/media-account-review', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountReviewController.get);
+  app.get('/media-account-review/image', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountReviewController.getImage);
+  app.post('/media-account-review/approve', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountReviewController.approve);
+  app.post('/media-account-review/reject', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountReviewController.reject);
+  app.get('/media-account-approval', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountApprovalController.get);
+  app.post('/media-account-approval', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountApprovalController.post);
+  app.get('/media-account-rejection', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountRejectionController.get);
+  app.post('/media-account-rejection', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountRejectionController.post);
+  app.get('/remove-list-confirmation', isPermittedManualUpload, app.locals.container.cradle.removeListConfirmationController.get);
+  app.post('/remove-list-confirmation', isPermittedManualUpload, app.locals.container.cradle.removeListConfirmationController.post);
+  app.get('/remove-list-search', isPermittedManualUpload, app.locals.container.cradle.removeListSearchController.get);
+  app.post('/remove-list-search', isPermittedManualUpload, app.locals.container.cradle.removeListSearchController.post);
+  app.get('/remove-list-search-results', isPermittedManualUpload, app.locals.container.cradle.removeListSearchResultsController.get);
+  app.get('/remove-list-success', isPermittedManualUpload, app.locals.container.cradle.removeListSuccessController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {

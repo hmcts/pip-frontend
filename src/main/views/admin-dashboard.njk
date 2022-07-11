@@ -13,19 +13,56 @@
         <h1 class="govuk-heading-l">{{ heading }}</h1>
     </div>
     <div class="cards-wrapper">
-        {% for card in cards %}
-            <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
-                <div class="account-card govuk-!-margin-left-2 govuk-!-margin-right-2">
-                    <p>
-                        <a href="{{ card.link }}"
-                           class="govuk-link govuk-body govuk-!-font-weight-bold"
-                           id="card-{{ card.link }}"
-                        >{{ card.title }}</a>
-                    </p>
-                    <p class="govuk-body">{{ card.description }}</p>
-                </div>
-            </div>
-        {% endfor %}
+      {% if user.isAdmin %}
+      <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
+        <div class="account-card govuk-!-margin-left-2 govuk-!-margin-right-2">
+          <p>
+            <a href="{{ uploadCard.link }}"
+               class="govuk-link govuk-body govuk-!-font-weight-bold"
+               id="card-{{ uploadCard.link }}"
+            >{{ uploadCard.title }}</a>
+          </p>
+          <p class="govuk-body">{{ uploadCard.description }}</p>
+        </div>
+      </div>
+      <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
+        <div class="account-card govuk-!-margin-left-2 govuk-!-margin-right-2">
+          <p>
+            <a href="{{ removeCard.link }}"
+               class="govuk-link govuk-body govuk-!-font-weight-bold"
+               id="card-{{ removeCard.link }}"
+            >{{ removeCard.title }}</a>
+          </p>
+          <p class="govuk-body">{{ removeCard.description }}</p>
+        </div>
+      </div>
+      {% endif %}
+      {% if user.role == 'INTERNAL_SUPER_ADMIN_CTSC' or user.role == 'INTERNAL_ADMIN_CTSC' %}
+      <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
+        <div class="account-card govuk-!-margin-left-2 govuk-!-margin-right-2">
+          <p>
+            <a href="{{ mediaCard.link }}"
+               class="govuk-link govuk-body govuk-!-font-weight-bold"
+               id="card-{{ mediaCard.link }}"
+            >{{ mediaCard.title }}</a>
+          </p>
+          <p class="govuk-body">{{ mediaCard.description }}</p>
+        </div>
+      </div>
+      {% endif %}
+      {% if user.role == 'SYSTEM_ADMIN' or user.role == 'INTERNAL_SUPER_ADMIN_LOCAL' or user.role == 'INTERNAL_SUPER_ADMIN_CTSC'  %}
+      <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
+        <div class="account-card govuk-!-margin-left-2 govuk-!-margin-right-2">
+          <p>
+            <a href="{{ newAccountCard.link }}"
+               class="govuk-link govuk-body govuk-!-font-weight-bold"
+               id="card-{{ newAccountCard.link }}"
+            >{{ newAccountCard.title }}</a>
+          </p>
+          <p class="govuk-body">{{ newAccountCard.description }}</p>
+        </div>
+      </div>
+      {% endif %}
       {{ super() }}
     </div>
 {% endblock %}
