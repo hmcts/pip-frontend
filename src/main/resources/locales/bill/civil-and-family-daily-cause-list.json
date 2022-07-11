@@ -27,5 +27,6 @@
   "applicant": "Applicant/Petitioner/Ceisydd/Deisebydd",
   "respondent": "Respondent/Atebydd",
   "dataSource": "Data Source/Ffynhonnell y Data",
-  "backButton": "Back/Yn ôl"
+  "backButton": "Back/Yn ôl",
+  "legalAdvisor": "Legal Advisor/Cynghorydd Cyfreithiol"
 }
