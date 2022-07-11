@@ -76,7 +76,7 @@ export class PublicationService {
       let durationAsHours = 0;
       let durationAsMinutes = moment.duration(sittingEnd.startOf('minutes').diff(sittingStart.startOf('minutes'))).asMinutes();
       if (durationAsMinutes >= 60) {
-        durationAsHours = moment.duration(sittingEnd.startOf('hours').diff(sittingStart.startOf('hours'))).asHours();
+        durationAsHours = Math.floor(durationAsMinutes / 60);
         durationAsMinutes = durationAsMinutes - (durationAsHours * 60);
       }
 
@@ -122,8 +122,8 @@ export class PublicationService {
   }
 
   private findAndManipulatePartyInformation(hearing: any): void {
-    let applicant;
-    let respondent;
+    let applicant = '';
+    let respondent = '';
 
     if(hearing?.party) {
       hearing.party.forEach(party => {
@@ -131,35 +131,37 @@ export class PublicationService {
         switch(PublicationService.convertPartyRole(party.partyRole)) {
           case 'APPLICANT_PETITIONER':
           {
-            applicant = this.createIndividualDetails(party.individualDetails);
+            applicant = this.createIndividualDetails(party.individualDetails).trim();
             applicant += this.stringDelimiter(applicant?.length, ',');
             break;
           }
           case 'APPLICANT_PETITIONER_REPRESENTATIVE':
           {
-            applicant += party?.friendlyRoleName;
-            applicant += this.stringDelimiter(party?.friendlyRoleName.length, ':');
-            applicant += this.createIndividualDetails(party.individualDetails);
+            const applicantPetitionerDetails = this.createIndividualDetails(party.individualDetails).trim();
+            if(applicantPetitionerDetails) {
+              applicant += 'LEGALADVISOR: ' + applicantPetitionerDetails + ', ';
+            }
             break;
           }
           case 'RESPONDENT':
           {
-            respondent = this.createIndividualDetails(party.individualDetails);
+            respondent = this.createIndividualDetails(party.individualDetails).trim();
             respondent += this.stringDelimiter(respondent?.length, ',');
             break;
           }
           case 'RESPONDENT_REPRESENTATIVE':
           {
-            respondent += party?.friendlyRoleName;
-            respondent += this.stringDelimiter(party?.friendlyRoleName.length, ':');
-            respondent += this.createIndividualDetails(party.individualDetails);
+            const respondentDetails = this.createIndividualDetails(party.individualDetails).trim();
+            if(respondentDetails) {
+              respondent += 'LEGALADVISOR: ' + respondentDetails + ', ';
+            }
             break;
           }
 
         }
       });
-      hearing['applicant'] = applicant?.trim();
-      hearing['respondent'] = respondent?.trim();
+      hearing['applicant'] = applicant?.replace(/,\s*$/, '').trim();
+      hearing['respondent'] = respondent?.replace(/,\s*$/, '').trim();
     }
   }
 
@@ -268,7 +270,7 @@ export class PublicationService {
       }
     }
   }
-  
+
   /**
    * Function which extracts the date from a UTC Date Time in BST format.
    * @param publicationDatetime The publication date time to convert in UTC.
