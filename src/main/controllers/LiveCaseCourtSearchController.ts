@@ -8,7 +8,7 @@ const courtService = new LocationService();
 export default class LiveCaseCourtSearchController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
-    const crownCourts = await courtService.generateAlphabetisedCrownCourtList();
+    const crownCourts = await courtService.generateAlphabetisedCrownCourtList(req.lng as string);
     res.render('live-case-alphabet-search', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['live-case-alphabet-search']),
       courtList: crownCourts,
