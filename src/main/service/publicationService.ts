@@ -110,7 +110,9 @@ export class PublicationService {
         judiciaries = this.writeStringIfValid(judiciary?.johKnownAs);
         foundPresiding = true;
       } else if (!foundPresiding){
-        judiciaries += this.writeStringIfValid(judiciary?.johKnownAs) + ', ';
+        if(this.writeStringIfValid(judiciary?.johKnownAs) !== '') {
+          judiciaries += this.writeStringIfValid(judiciary?.johKnownAs) + ', ';
+        }
       }
     });
 
