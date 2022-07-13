@@ -131,6 +131,12 @@ describe('Civil And Family Daily Cause List page', () => {
     expect(cell[2].innerHTML).equal('A1 Vs B1 [2 of 3]');
   });
 
+  it('should display Case Name without Case Sequence Indicator',  () => {
+    const rows = htmlRes.getElementsByClassName('govuk-table__row');
+    const cell = rows.item(2).children;
+    expect(cell[2].innerHTML).equals('A2 Vs B2');
+  });
+
   it('should display Hearing Type',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
     expect(cell[3].innerHTML).contains('FMPO');

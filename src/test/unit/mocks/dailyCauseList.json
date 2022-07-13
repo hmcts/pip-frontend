@@ -60,6 +60,10 @@
                             "caseName": "A1 Vs B1",
                             "caseNumber": "12345678",
                             "caseSequenceIndicator": "2 of 3"
+                          },
+                          {
+                            "caseName": "A2 Vs B2",
+                            "caseNumber": "112233445"
                           }
                         ]
                       },
