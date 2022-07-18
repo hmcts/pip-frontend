@@ -4,7 +4,6 @@ import {mockRequest} from '../mocks/mockRequest';
 import {ManualUploadService} from '../../../main/service/manualUploadService';
 import ManualUploadController from '../../../main/controllers/ManualUploadController';
 import {FileHandlingService} from '../../../main/service/fileHandlingService';
-import assert from "assert";
 
 const manualUploadController = new ManualUploadController();
 describe('Manual Upload Controller', () => {
@@ -85,7 +84,7 @@ describe('Manual Upload Controller', () => {
 
       await manualUploadController.post(request, response);
       responseMock.verify();
-      assert(fileUploadStub.called);
+      sinon.assert.called(fileUploadStub);
     });
   });
 });
