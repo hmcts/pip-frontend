@@ -125,6 +125,41 @@ export class DataManipulationService {
   }
 
   /**
+   * Manipulate the copDailyCauseList json data for writing out on screen.
+   * @param copDailyCauseList The cop daily cause list to manipulate
+   */
+  public manipulateCopDailyCauseList(copDailyCauseList: string): object {
+    const copDailyCauseListData = JSON.parse(copDailyCauseList);
+    let hearingCount = 0;
+
+    copDailyCauseListData['courtLists'].forEach(courtList => {
+      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+        courtRoom['session'].forEach(session => {
+          let judiciaryFormatted = '';
+          session['judiciary'].forEach(judiciary => {
+            if(judiciaryFormatted.length > 0) {
+              judiciaryFormatted += ', ' + judiciary['johTitle'] + ' ' + judiciary['johNameSurname'];
+            } else {
+              judiciaryFormatted += judiciary['johTitle'] + ' ' + judiciary['johNameSurname'];
+            }
+          });
+          delete session['judiciary'];
+          session['formattedJudiciary'] = judiciaryFormatted;
+          session['sittings'].forEach(sitting => {
+            hearingCount = hearingCount + sitting['hearing'].length;
+            sitting['sittingStartFormatted'] = this.publicationTimeInBst(sitting['sittingStart']);
+            this.calculateDuration(sitting);
+            this.findAndConcatenateHearingPlatform(sitting, session);
+          });
+        });
+        courtRoom['totalHearing'] = hearingCount;
+        hearingCount = 0;
+      });
+    });
+    return copDailyCauseListData;
+  }
+
+  /**
    * Manipulate the party information data for writing out on screen.
    * @param hearing
    */
@@ -310,5 +345,30 @@ export class DataManipulationService {
    */
   public publicationDateInBst(publicationDatetime: string): string {
     return moment.utc(publicationDatetime).tz(this.timeZone).format('DD MMMM YYYY');
+  }
+
+  /**
+   * Get the region name from the supplied location details
+   * Return either an empty string or the region name
+   * @param locationDetails The object to get the region name from
+   */
+  public getRegionNameFromLocationDetails(locationDetails: object): string {
+    return this.writeStringIfValid(locationDetails['region'].name);
+  }
+
+  /**
+   * Get the regional JoH from the supplied location details
+   * Return either an empty string or a formatted JoH
+   * @param locationDetails The object to get the regional JoH from
+   */
+  public getRegionalJohFromLocationDetails(locationDetails: object): string {
+    let formattedJoh = '';
+    locationDetails['region']['regionalJOH'].forEach(joh => {
+      if(formattedJoh.length > 0) {
+        formattedJoh += ', ';
+      }
+      formattedJoh += joh.johKnownAs + ' ' + joh.johNameSurname;
+    });
+    return formattedJoh;
   }
 }

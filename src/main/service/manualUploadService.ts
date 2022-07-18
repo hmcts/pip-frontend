@@ -17,6 +17,7 @@ const listSubTypes = [
   {text: 'Magistrates Public List', value: 'MAGS_PUBLIC_LIST'},
   {text: 'Magistrates Standard List', value: 'MAGS_STANDARD_LIST'},
   {text: 'SSCS Daily List', value: 'SSCS_DAILY_LIST'},
+  {text: 'COP Daily cause List', value: 'COP_DAILY_CAUSE_LIST'},
 ];
 
 const fileHandlingService = new FileHandlingService();
