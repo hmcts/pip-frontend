@@ -24,7 +24,7 @@ export default class SscsDailyListController {
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);
 
-      const court = await courtService.getLocationById(metaData['locationId']);
+      const court = courtService.findCourtName(metaData['locationId'], req.lng as string);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
       res.render('sscs-daily-list', {
@@ -33,7 +33,7 @@ export default class SscsDailyListController {
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
-        courtName: court.name,
+        courtName: court,
         provenance: metaData['provenance'],
         bill: pageLanguage === 'bill',
       });
