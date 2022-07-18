@@ -56,10 +56,10 @@ export class FileHandlingService {
     try {
       if (this.getFileExtension(fileName) === 'json') {
         const rawData = fs.readFileSync(`./manualUpload/tmp/${fileName}`, 'utf-8');
-        await redisClient.set(userId + "-" + fileName, JSON.stringify(JSON.parse(rawData)),
+        await redisClient.set(userId + '-' + fileName, JSON.stringify(JSON.parse(rawData)),
           this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
       } else {
-        await redisClient.set(userId + "-" + fileName, fs.readFileSync(`./manualUpload/tmp/${fileName}`,
+        await redisClient.set(userId + '-' + fileName, fs.readFileSync(`./manualUpload/tmp/${fileName}`,
           {encoding: 'base64'}), this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
       }
     } catch (err) {
@@ -75,7 +75,7 @@ export class FileHandlingService {
    * @param fileName The filename of the file to store.
    */
   async readFileFromRedis(userId, fileName) {
-    const fileData = await redisClient.get(userId + "-" + fileName);
+    const fileData = await redisClient.get(userId + '-' + fileName);
 
     if (this.getFileExtension(fileName) === 'json') {
       return JSON.parse(fileData);
@@ -90,7 +90,7 @@ export class FileHandlingService {
    * @param fileName The filename of the file uploaded.
    */
   removeFileFromRedis(userId, fileName) {
-    redisClient.del(userId + "-" + fileName);
+    redisClient.del(userId + '-' + fileName);
   }
 
   isValidFileType(fileName: string, image: boolean): boolean {
