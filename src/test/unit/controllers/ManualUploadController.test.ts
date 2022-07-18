@@ -4,6 +4,7 @@ import {mockRequest} from '../mocks/mockRequest';
 import {ManualUploadService} from '../../../main/service/manualUploadService';
 import ManualUploadController from '../../../main/controllers/ManualUploadController';
 import {FileHandlingService} from '../../../main/service/fileHandlingService';
+import assert from "assert";
 
 const manualUploadController = new ManualUploadController();
 describe('Manual Upload Controller', () => {
@@ -34,6 +35,7 @@ describe('Manual Upload Controller', () => {
   describe('POST', () => {
     const fileValidationStub = sinon.stub(FileHandlingService.prototype, 'validateFileUpload');
     const formValidationStub = sinon.stub(ManualUploadService.prototype, 'validateFormFields');
+
     sinon.stub(ManualUploadService.prototype, 'appendlocationId').resolves({courtName: 'name', id: '1'});
     fileValidationStub.returns('error');
     formValidationStub.resolves('error');
@@ -69,15 +71,21 @@ describe('Manual Upload Controller', () => {
     });
 
     it('should redirect page if no errors present', async () => {
+
+      const fileUploadStub = sinon.stub(FileHandlingService.prototype, 'storeFileIntoRedis');
+      fileUploadStub.withArgs('1234', 'test').returns();
+
       const response = { redirect: () => {return '';}, cookie: () => {return '';}} as unknown as Response;
       const responseMock = sinon.mock(response);
       request.body = {data: 'valid'};
       request.file = testFile;
+      request.user = {oid: '1234'};
 
       responseMock.expects('redirect').once().withArgs('/manual-upload-summary?check=true');
 
       await manualUploadController.post(request, response);
       responseMock.verify();
+      assert(fileUploadStub.called);
     });
   });
 });
