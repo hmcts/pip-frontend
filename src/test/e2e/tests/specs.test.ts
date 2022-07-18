@@ -549,7 +549,7 @@ describe('Admin level journeys', () => {
       expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
     });
     it('should enter valid court in the search field, click continue and open search results page', async () => {
-      const searchTerm = 'Oxford Combined Court Centre';
+      const searchTerm = 'Milton Keynes County Court and Family Court';
       await searchPublicationPage.enterText(searchTerm);
       searchPublicationResultsPage = await searchPublicationPage.clickContinue();
       expect(await searchPublicationResultsPage.getPageTitle()).toEqual('Select content to remove');
