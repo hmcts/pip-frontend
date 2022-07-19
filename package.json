@@ -133,7 +133,6 @@
     "webpack-node-externals": "^3.0.0"
   },
   "resolutions": {
-    "glob-parent": "^5.1.2",
     "json-schema": ">=0.4.0",
     "minimist": "^1.2.6",
     "merge": "^2.1.1",
