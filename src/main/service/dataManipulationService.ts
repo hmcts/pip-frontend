@@ -80,16 +80,8 @@ export class DataManipulationService {
     sscsDailyListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
-          let judiciaryFormatted = '';
-          session['judiciary'].forEach(judiciary => {
-            if(judiciaryFormatted.length > 0) {
-              judiciaryFormatted += ', ' + judiciary['johTitle'] + ' ' + judiciary['johNameSurname'];
-            } else {
-              judiciaryFormatted += judiciary['johTitle'] + ' ' + judiciary['johNameSurname'];
-            }
-          });
+          session['formattedJudiciary'] = this.getJudiciaryNameSurname(session);
           delete session['judiciary'];
-          session['formattedJudiciary'] = judiciaryFormatted;
 
           session['sittings'].forEach(sitting => {
             hearingCount = hearingCount + sitting['hearing'].length;
@@ -135,16 +127,8 @@ export class DataManipulationService {
     copDailyCauseListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
-          let judiciaryFormatted = '';
-          session['judiciary'].forEach(judiciary => {
-            if(judiciaryFormatted.length > 0) {
-              judiciaryFormatted += ', ' + judiciary['johTitle'] + ' ' + judiciary['johNameSurname'];
-            } else {
-              judiciaryFormatted += judiciary['johTitle'] + ' ' + judiciary['johNameSurname'];
-            }
-          });
+          session['formattedJudiciary'] = this.getJudiciaryNameSurname(session);
           delete session['judiciary'];
-          session['formattedJudiciary'] = judiciaryFormatted;
           session['sittings'].forEach(sitting => {
             hearingCount = hearingCount + sitting['hearing'].length;
             sitting['sittingStartFormatted'] = this.publicationTimeInBst(sitting['sittingStart']);
@@ -361,5 +345,21 @@ export class DataManipulationService {
       formattedJoh += joh.johKnownAs + ' ' + joh.johNameSurname;
     });
     return formattedJoh;
+  }
+
+  /**
+   * Take in the session and return the formatted judiciary with their title and nameSurname
+   * @param session The session to get the judiciary from
+   */
+  public getJudiciaryNameSurname(session: object): string {
+    let judiciaryFormatted = '';
+    session['judiciary'].forEach(judiciary => {
+      if(judiciaryFormatted.length > 0) {
+        judiciaryFormatted += ', ' + judiciary['johTitle'] + ' ' + judiciary['johNameSurname'];
+      } else {
+        judiciaryFormatted += judiciary['johTitle'] + ' ' + judiciary['johNameSurname'];
+      }
+    });
+    return judiciaryFormatted;
   }
 }
