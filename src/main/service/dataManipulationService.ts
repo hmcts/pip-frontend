@@ -348,15 +348,6 @@ export class DataManipulationService {
   }
 
   /**
-   * Get the region name from the supplied location details
-   * Return either an empty string or the region name
-   * @param locationDetails The object to get the region name from
-   */
-  public getRegionNameFromLocationDetails(locationDetails: object): string {
-    return this.writeStringIfValid(locationDetails['region'].name);
-  }
-
-  /**
    * Get the regional JoH from the supplied location details
    * Return either an empty string or a formatted JoH
    * @param locationDetails The object to get the regional JoH from

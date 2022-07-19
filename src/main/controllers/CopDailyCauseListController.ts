@@ -28,7 +28,6 @@ export default class CopDailyCauseListController {
       const courtName = courtService.findCourtName(returnedCourt, req.lng as string);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
-      const regionName = dataManipulationService.getRegionNameFromLocationDetails(searchResults['locationDetails']);
       const regionalJoh = dataManipulationService.getRegionalJohFromLocationDetails(searchResults['locationDetails']);
 
       res.render('cop-daily-cause-list', {
@@ -38,7 +37,6 @@ export default class CopDailyCauseListController {
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         courtName: courtName,
-        regionName: regionName,
         regionalJoh: regionalJoh,
         provenance: metaData['provenance'],
         bill: pageLanguage === 'bill',

@@ -24,7 +24,6 @@ const copDailyCauseListJsonStub = sinon.stub(PublicationService.prototype, 'getI
 const copDailyCauseListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 sinon.stub(DataManipulationService.prototype, 'manipulateCopDailyCauseList').returns(listData);
-sinon.stub(DataManipulationService.prototype, 'getRegionNameFromLocationDetails').returns('Test region');
 sinon.stub(DataManipulationService.prototype, 'getRegionalJohFromLocationDetails').returns('Test JoH');
 
 const artefactId = 'abc';
@@ -61,7 +60,6 @@ describe('Cop Daily Cause List Controller', () => {
       publishedDate: '13 February 2022',
       publishedTime: '9:30am',
       courtName: 'Abergavenny Magistrates\' Court',
-      regionName: 'Test region',
       regionalJoh: 'Test JoH',
       provenance: 'prov1',
       bill: true,
