@@ -24,10 +24,6 @@ const healthcheck = require('@hmcts/nodejs-healthcheck');
 const multer = require('multer');
 const logger = Logger.getLogger('routes');
 export default function(app: Application): void {
-  // TODO: use this to toggle between different auth identities
-  const authType = (process.env.OIDC === 'true') ? 'azuread-openidconnect' : 'mockaroo';
-  // const authType = 'mockaroo';
-  logger.info('authType', authType);
   const storage = multer.diskStorage({
     destination: 'manualUpload/tmp/',
     filename: function (_req, file, callback) {
@@ -96,8 +92,9 @@ export default function(app: Application): void {
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/password-change-confirmation', app.locals.container.cradle.passwordChangeController.get);
-  app.get('/login', passport.authenticate(authType, { failureRedirect: '/'}), regenerateSession);
-  app.post('/login/return', forgotPasswordRedirect, passport.authenticate(authType, { failureRedirect: '/view-option'}),
+  app.get('/login', passport.authenticate('login', { failureRedirect: '/'}), regenerateSession);
+  app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/'}), regenerateSession);
+  app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}),
     (_req, res) => {checkRoles(_req, allAdminRoles) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
   app.get('/logout', (_req, res) => {checkRoles(_req, allAdminRoles) ?
     logOut(_req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY) : logOut(_req, res, `${FRONTEND_URL}/view-option`);});
@@ -182,12 +179,6 @@ export default function(app: Application): void {
     res.type('text/plain');
     res.send('User-agent: *\nDisallow: /');
   });
-
-  // TODO: expose route only if not on the production environment
-  app.get('/mock-session', app.locals.container.cradle.mockSessionController.get);
-  /* istanbul ignore next */
-  app.post('/mock-login', passport.authenticate(authType, { failureRedirect: '/not-found'}),
-    (_req, res) => {res.redirect('/subscription-management');});
 
   const healthCheckConfig = {
     checks: {
