@@ -115,6 +115,7 @@ export default function(app: Application): void {
   app.get('/file-publication', app.locals.container.cradle.flatFileController.get);
   app.get('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.get);
   app.get('/sjp-press-list', app.locals.container.cradle.sjpPressListController.get);
+  app.get('/sscs-daily-list', app.locals.container.cradle.sscsDailyListController.get);
 
   // Restricted paths
   app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);

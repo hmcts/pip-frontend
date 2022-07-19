@@ -6,12 +6,13 @@ import { app } from '../../main/app';
 import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
+import { DataManipulationService } from '../../main/service/dataManipulationService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/civilAndFamilyDailyCauseList.json'), 'utf-8');
 const civilAndFamilyDailyReferenceData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(civilAndFamilyDailyReferenceData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(civilAndFamilyDailyReferenceData);
-sinon.stub(PublicationService.prototype, 'manipulatedDailyListData').resolves(civilAndFamilyDailyReferenceData);
+sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').resolves(civilAndFamilyDailyReferenceData);
 
 describe('Civil and Family Daily Cause List Page', () => {
   describe('on GET', () => {
