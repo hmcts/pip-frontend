@@ -79,29 +79,29 @@ function oidcSetup(): void {
   });
 
   passport.use('login', new OIDCStrategy({
-      identityMetadata:  identityMetadata,
-      clientID: clientId,
-      responseType: authenticationConfig.RESPONSE_TYPE,
-      responseMode: authenticationConfig.RESPONSE_MODE,
-      redirectUrl: AUTH_RETURN_URL,
-      allowHttpForRedirectUrl: true,
-      clientSecret: clientSecret,
-      isB2C: true
-    },
-    passportStrategyFn
+    identityMetadata:  identityMetadata,
+    clientID: clientId,
+    responseType: authenticationConfig.RESPONSE_TYPE,
+    responseMode: authenticationConfig.RESPONSE_MODE,
+    redirectUrl: AUTH_RETURN_URL,
+    allowHttpForRedirectUrl: true,
+    clientSecret: clientSecret,
+    isB2C: true,
+  },
+  passportStrategyFn,
   ));
 
   passport.use('admin-login', new OIDCStrategy({
-      identityMetadata:  adminIdentityMetadata,
-      clientID: clientId,
-      responseType: authenticationConfig.RESPONSE_TYPE,
-      responseMode: authenticationConfig.RESPONSE_MODE,
-      redirectUrl: AUTH_RETURN_URL,
-      allowHttpForRedirectUrl: true,
-      clientSecret: clientSecret,
-      isB2C: true
-    },
-    passportStrategyFn
+    identityMetadata:  adminIdentityMetadata,
+    clientID: clientId,
+    responseType: authenticationConfig.RESPONSE_TYPE,
+    responseMode: authenticationConfig.RESPONSE_MODE,
+    redirectUrl: AUTH_RETURN_URL,
+    allowHttpForRedirectUrl: true,
+    clientSecret: clientSecret,
+    isB2C: true,
+  },
+  passportStrategyFn,
   ));
 }
 
