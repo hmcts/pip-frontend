@@ -1,0 +1,19 @@
+{
+  "title": "SSCS Daily List",
+  "hearingsFor": " gwrandawiadau ar gyfer ",
+  "listUpdated": "Diweddarwyd diwethaf DATE yn ",
+  "listDate": "Rhestr ar gyfer",
+  "importantInformationHeading": "Gwybodaeth Bwysig",
+  "importantInformationP1": "Mae mynediad at gyfiawnder yn egwyddor hanfodol yn system y llysoedd a’r tribiwnlysoedd, a bydd hyn yn parhau wrth i ni ddatblygu technoleg sain a fideo.",
+  "importantInformationP2": "Dylid cyfeirio ceisiadau gan y cyfryngau ac eraill i arsylwi gwrandawiad o bell yn NAME at: EMAIL neu drwy ffonio TELNO. Yna fe wneir trefniadau i’ch galluogi i fynychu.",
+  "importantInformationP3": "Wrth ystyried a ddylid defnyddio technoleg ffôn a fideo, bydd y farnwriaeth yn ystyried yr egwyddor mynediad at gyfiawnder. Efallai y bydd barnwyr yn penderfynu y dylid cynnal gwrandawiad yn breifat os yw hyn yn angenrheidiol i sicrhau y gweinyddir cyfiawnder yn briodol.",
+  "dataSource": "Fynhonnell Data",
+  "backButton": "Yn ôl",
+  "hearingTime": "Amser y Gwrandawiad",
+  "appRefNumber": "Cyfeirnod Apêl",
+  "tribunalType": "Math o Dribiwnlys",
+  "appellant": "Apelydd",
+  "respondent": "FTA/Atebydd",
+  "panel": "Panel",
+  "legalAdvisor": "Cynghorydd Cyfreithiol"
+}
