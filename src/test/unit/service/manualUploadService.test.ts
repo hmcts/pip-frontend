@@ -13,7 +13,7 @@ const headers = {
   userEmail: 'test@email.com',
   fileName: 'file.pdf',
   artefactType: 'type',
-  classification: 'public',
+  classification: 'classified',
   language: 'english',
   'display-from': '01/07/2022 00:00:01',
   'display-to': '01/07/2022 23:59:59',
