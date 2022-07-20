@@ -342,8 +342,15 @@ export class DataManipulationService {
       if(formattedJoh.length > 0) {
         formattedJoh += ', ';
       }
-      if(this.writeStringIfValid(joh?.johKnownAs) !== '' && this.writeStringIfValid(joh?.johNameSurname) !== '') {
-        formattedJoh += this.writeStringIfValid(joh?.johKnownAs) + ' ' + this.writeStringIfValid(joh?.johNameSurname);
+      if(this.writeStringIfValid(joh?.johKnownAs) !== '') {
+        formattedJoh += this.writeStringIfValid(joh?.johKnownAs);
+      }
+
+      if(this.writeStringIfValid(joh?.johNameSurname) !== '') {
+        if(this.writeStringIfValid(joh?.johKnownAs) !== '') {
+          formattedJoh += ' ';
+        }
+        formattedJoh += this.writeStringIfValid(joh?.johNameSurname);
       }
     });
     return formattedJoh;
@@ -359,10 +366,16 @@ export class DataManipulationService {
       if(judiciaryFormatted.length > 0) {
         judiciaryFormatted += ', ';
       }
-      if(this.writeStringIfValid(judiciary?.johTitle) !== '' &&
-        this.writeStringIfValid(judiciary?.johNameSurname) !== '') {
-        judiciaryFormatted += this.writeStringIfValid(judiciary?.johTitle) + ' ' +
-          this.writeStringIfValid(judiciary?.johNameSurname);
+
+      if(this.writeStringIfValid(judiciary?.johTitle) !== '') {
+        judiciaryFormatted += this.writeStringIfValid(judiciary?.johTitle);
+      }
+
+      if(this.writeStringIfValid(judiciary?.johNameSurname) !== '') {
+        if(this.writeStringIfValid(judiciary?.johTitle) !== '') {
+          judiciaryFormatted += ' ';
+        }
+        judiciaryFormatted += this.writeStringIfValid(judiciary?.johNameSurname);
       }
     });
     return judiciaryFormatted;
