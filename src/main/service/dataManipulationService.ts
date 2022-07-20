@@ -338,11 +338,13 @@ export class DataManipulationService {
    */
   public getRegionalJohFromLocationDetails(locationDetails: object): string {
     let formattedJoh = '';
-    locationDetails['region']['regionalJOH'].forEach(joh => {
+    locationDetails['region']['regionalJOH']?.forEach(joh => {
       if(formattedJoh.length > 0) {
         formattedJoh += ', ';
       }
-      formattedJoh += joh.johKnownAs + ' ' + joh.johNameSurname;
+      if(this.writeStringIfValid(joh?.johKnownAs) !== '' && this.writeStringIfValid(joh?.johNameSurname) !== '') {
+        formattedJoh += this.writeStringIfValid(joh?.johKnownAs) + ' ' + this.writeStringIfValid(joh?.johNameSurname);
+      }
     });
     return formattedJoh;
   }
@@ -353,11 +355,14 @@ export class DataManipulationService {
    */
   public getJudiciaryNameSurname(session: object): string {
     let judiciaryFormatted = '';
-    session['judiciary'].forEach(judiciary => {
+    session['judiciary']?.forEach(judiciary => {
       if(judiciaryFormatted.length > 0) {
-        judiciaryFormatted += ', ' + judiciary['johTitle'] + ' ' + judiciary['johNameSurname'];
-      } else {
-        judiciaryFormatted += judiciary['johTitle'] + ' ' + judiciary['johNameSurname'];
+        judiciaryFormatted += ', ';
+      }
+      if(this.writeStringIfValid(judiciary?.johTitle) !== '' &&
+        this.writeStringIfValid(judiciary?.johNameSurname) !== '') {
+        judiciaryFormatted += this.writeStringIfValid(judiciary?.johTitle) + ' ' +
+          this.writeStringIfValid(judiciary?.johNameSurname);
       }
     });
     return judiciaryFormatted;
