@@ -2,8 +2,10 @@ import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {cloneDeep} from 'lodash';
 import {PublicationService} from '../service/publicationService';
+import { DataManipulationService } from '../service/dataManipulationService';
 
 const publicationService = new PublicationService();
+const dataManipulationService = new DataManipulationService();
 
 export default class SjpPublicListController {
 
@@ -13,8 +15,8 @@ export default class SjpPublicListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (fileData && metaData) {
-      const publishedTime = publicationService.publicationTimeInBst(fileData['document']['publicationDate']);
-      const publishedDate = publicationService.publicationDateInBst(fileData['document']['publicationDate']);
+      const publishedTime = dataManipulationService.publicationTimeInBst(fileData['document']['publicationDate']);
+      const publishedDate = dataManipulationService.publicationDateInBst(fileData['document']['publicationDate']);
 
       const data = fileData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'];
       const length = data.length;

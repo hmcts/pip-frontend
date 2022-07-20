@@ -16,6 +16,7 @@ const listSubTypes = [
   {text: 'Crown Warned List', value: 'CROWN_WARNED_LIST'},
   {text: 'Magistrates Public List', value: 'MAGS_PUBLIC_LIST'},
   {text: 'Magistrates Standard List', value: 'MAGS_STANDARD_LIST'},
+  {text: 'SSCS Daily List', value: 'SSCS_DAILY_LIST'},
 ];
 
 const fileHandlingService = new FileHandlingService();
