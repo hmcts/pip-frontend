@@ -602,7 +602,7 @@ describe('Admin level journeys', () => {
     it('should select yes to reject application', async () => {
       await mediaAccountRejectionPage.selectYes();
       mediaAccountRejectionConfirmationPage = await mediaAccountRejectionPage.clickContinue();
-      expect(await mediaAccountRejectionConfirmationPage.getPanelTitle()).toEqual('Account has been rejected.');
+      expect(await mediaAccountRejectionConfirmationPage.getPanelTitle()).toEqual('Account has been rejected');
     });
   });
 
