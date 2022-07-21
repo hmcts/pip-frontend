@@ -4,10 +4,10 @@ const helpers = require('../Helpers/Selectors');
 
 const path = require('path');
 
-const randomDay = Math.floor((Math.random() * 25) + 1).toString();
-const randomMonth = Math.floor((Math.random() * 12) + 1).toString();
-
 export class ManualUploadPage extends CommonPage {
+
+  randomDay = Math.floor((Math.random() * 25) + 1).toString();
+  randomMonth = Math.floor((Math.random() * 12) + 1).toString();
 
   async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitleXl).catch(() => {
@@ -55,8 +55,8 @@ export class ManualUploadPage extends CommonPage {
       console.log(`${helpers.contentDateFromYear} not found`);
     });
 
-    await $(helpers.contentDateFromDay).addValue(randomDay);
-    await $(helpers.contentDateFromMonth).addValue(randomMonth);
+    await $(helpers.contentDateFromDay).addValue(this.randomDay);
+    await $(helpers.contentDateFromMonth).addValue(this.randomMonth);
     await $(helpers.contentDateFromYear).addValue('2021');
   }
 
