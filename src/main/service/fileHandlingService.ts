@@ -33,6 +33,22 @@ export class FileHandlingService {
     return 'Please provide a file';
   }
 
+  /**
+   * Sanatises the filename of the file being uploaded before being sent to the backend.
+   * @param fileName The filename of the file being uploaded.
+   */
+  sanitiseFileName(fileName: string): string {
+    let sanatizedFileName = '';
+
+    [...fileName].forEach(char => {
+      if (char.charCodeAt(0) <= 127) {
+        sanatizedFileName += char;
+      }
+    });
+
+    return sanatizedFileName;
+  }
+
   readFile(fileName): object {
     try {
       if (this.getFileExtension(fileName) === 'json') {
@@ -50,23 +66,24 @@ export class FileHandlingService {
   /**
    * Stores an upload file into redis with an ID of the filename. It also removes the file from disk.
    * @param userId The user ID of the user uploading the file.
-   * @param fileName The filename of the file to store.
+   * @param originalFilename The filename before being sanatised.
+   * @param sanatisedFileName The filename of the file to store.
    */
-  async storeFileIntoRedis(userId, fileName) {
+  async storeFileIntoRedis(userId, originalFilename, sanatisedFileName) {
     try {
-      if (this.getFileExtension(fileName) === 'json') {
-        const rawData = fs.readFileSync(`./manualUpload/tmp/${fileName}`, 'utf-8');
-        await redisClient.set(userId + '-' + fileName, JSON.stringify(JSON.parse(rawData)),
+      if (this.getFileExtension(sanatisedFileName) === 'json') {
+        const rawData = fs.readFileSync(`./manualUpload/tmp/${originalFilename}`, 'utf-8');
+        await redisClient.set(userId + '-' + sanatisedFileName, JSON.stringify(JSON.parse(rawData)),
           this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
       } else {
-        await redisClient.set(userId + '-' + fileName, fs.readFileSync(`./manualUpload/tmp/${fileName}`,
+        await redisClient.set(userId + '-' + sanatisedFileName, fs.readFileSync(`./manualUpload/tmp/${originalFilename}`,
           {encoding: 'base64'}), this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
       }
     } catch (err) {
       console.error(`Error while reading / storing the file in redis ${err}.`);
     }
 
-    this.removeFile(fileName);
+    this.removeFile(originalFilename);
   }
 
   /**
