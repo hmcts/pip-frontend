@@ -6,6 +6,9 @@ const path = require('path');
 
 export class ManualUploadPage extends CommonPage {
 
+  randomDay = Math.floor((Math.random() * 25) + 1);
+  randomMonth = Math.floor((Math.random() * 12) + 1);
+
   async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitleXl).catch(() => {
       console.log(`${helpers.CommonPageTitleXl} not found`);
@@ -37,7 +40,7 @@ export class ManualUploadPage extends CommonPage {
       console.log(`${helpers.SearchInput} not found`);
     });
 
-    await $(helpers.SearchInput).addValue('Milton Keynes County Court and Family Court');
+    await $(helpers.SearchInput).addValue('Slough County Court and Family Court');
     await browser.keys('Escape');
   }
 
@@ -52,9 +55,9 @@ export class ManualUploadPage extends CommonPage {
       console.log(`${helpers.contentDateFromYear} not found`);
     });
 
-    await $(helpers.contentDateFromDay).addValue('01');
-    await $(helpers.contentDateFromMonth).addValue('01');
-    await $(helpers.contentDateFromYear).addValue('2022');
+    await $(helpers.contentDateFromDay).addValue(this.randomDay);
+    await $(helpers.contentDateFromMonth).addValue(this.randomMonth);
+    await $(helpers.contentDateFromYear).addValue('2021');
   }
 
   async inputDisplayDateFrom(): Promise<void> {
