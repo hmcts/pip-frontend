@@ -55,6 +55,9 @@ export default class ManualUploadController {
         if (req.body?.classification) {
           req.body['classificationName'] = formValues['form'].classification.find(item => item.value === req.body.classification).text;
         }
+
+        await fileHandlingService.storeFileIntoRedis(req.user['oid'], req.file['originalname']);
+
         res.cookie('formCookie', JSON.stringify(req.body));
         res.redirect('/manual-upload-summary?check=true');
       }
