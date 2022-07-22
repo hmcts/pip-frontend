@@ -115,7 +115,7 @@ describe('Unverified user', () => {
     });
 
     describe('following the search court path', async () => {
-      const searchTerm = 'Milton Keynes County Court and Family Court';
+      const searchTerm = 'High Wycombe County Court and Family Court';
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
@@ -134,7 +134,7 @@ describe('Unverified user', () => {
         await searchPage.open('/search');
       });
 
-      const searchTerm = 'Milton Keynes County Court and Family Court';
+      const searchTerm = 'High Wycombe County Court and Family Court';
       it('should click on \'Select from an A-Z list of courts and tribunals\' link ', async () => {
         alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
@@ -549,7 +549,7 @@ describe('Admin level journeys', () => {
       expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
     });
     it('should enter valid court in the search field, click continue and open search results page', async () => {
-      const searchTerm = 'Oxford Combined Court Centre';
+      const searchTerm = 'Slough County Court and Family Court';
       await searchPublicationPage.enterText(searchTerm);
       searchPublicationResultsPage = await searchPublicationPage.clickContinue();
       expect(await searchPublicationResultsPage.getPageTitle()).toEqual('Select content to remove');

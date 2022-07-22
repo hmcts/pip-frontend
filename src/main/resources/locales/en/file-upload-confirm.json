@@ -2,7 +2,7 @@
   "title": "File Upload Successful",
   "panelTitle": "Success",
   "panelBodyMessage": "Your file has been uploaded",
-  "nextMessage": "What happens next",
+  "nextMessage": "What do you want to do next?",
   "uploadFile": "Upload another file",
   "removeFile": "Remove file",
   "homeLinkName": "Home"

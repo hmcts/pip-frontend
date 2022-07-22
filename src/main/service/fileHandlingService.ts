@@ -1,7 +1,12 @@
 import {allowedFileTypes, allowedImageTypes} from '../models/consts';
 import fs from 'fs';
+const { redisClient } = require('../cacheManager');
 
 export class FileHandlingService {
+
+  REDIS_EXPIRY_KEY = 'EX';
+  REDIS_EXPIRY_TIME = 60 * 10;
+
   validateImage(file: File): string {
     if (file) {
       if (this.isValidFileType(file['originalname'], true)) {
@@ -40,6 +45,52 @@ export class FileHandlingService {
       console.error(`Error while reading the file ${err}.`);
       return null;
     }
+  }
+
+  /**
+   * Stores an upload file into redis with an ID of the filename. It also removes the file from disk.
+   * @param userId The user ID of the user uploading the file.
+   * @param fileName The filename of the file to store.
+   */
+  async storeFileIntoRedis(userId, fileName) {
+    try {
+      if (this.getFileExtension(fileName) === 'json') {
+        const rawData = fs.readFileSync(`./manualUpload/tmp/${fileName}`, 'utf-8');
+        await redisClient.set(userId + '-' + fileName, JSON.stringify(JSON.parse(rawData)),
+          this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
+      } else {
+        await redisClient.set(userId + '-' + fileName, fs.readFileSync(`./manualUpload/tmp/${fileName}`,
+          {encoding: 'base64'}), this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
+      }
+    } catch (err) {
+      console.error(`Error while reading / storing the file in redis ${err}.`);
+    }
+
+    this.removeFile(fileName);
+  }
+
+  /**
+   * Reads the file from redis.
+   * @param userId The user that is reading the file.
+   * @param fileName The filename of the file to store.
+   */
+  async readFileFromRedis(userId, fileName) {
+    const fileData = await redisClient.get(userId + '-' + fileName);
+
+    if (this.getFileExtension(fileName) === 'json') {
+      return JSON.parse(fileData);
+    } else {
+      return Buffer.from(fileData, 'base64');
+    }
+  }
+
+  /**
+   * Removes a file from redis.
+   * @param userId The user ID of the user who uploaded the file.
+   * @param fileName The filename of the file uploaded.
+   */
+  removeFileFromRedis(userId, fileName) {
+    redisClient.del(userId + '-' + fileName);
   }
 
   isValidFileType(fileName: string, image: boolean): boolean {
