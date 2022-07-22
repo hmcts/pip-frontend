@@ -6,12 +6,17 @@ import ManualUploadSummaryController from '../../../main/controllers/ManualUploa
 import { ManualUploadService } from '../../../main/service/manualUploadService';
 import { FileHandlingService } from '../../../main/service/fileHandlingService';
 
-const mockData = {foo: 'blah', listType: 'SJP_PUBLIC_LIST', listTypeName: 'SJP Public List', language: 'English', languageName: 'English'};
+const mockData = {fileName: 'fileName', foo: 'blah', listType: 'SJP_PUBLIC_LIST', listTypeName: 'SJP Public List', language: 'English', languageName: 'English'};
 const manualUploadSummaryController = new ManualUploadSummaryController();
 const uploadStub = sinon.stub(ManualUploadService.prototype, 'uploadPublication');
 sinon.stub(ManualUploadService.prototype, 'formatPublicationDates').returns(mockData);
-sinon.stub(FileHandlingService.prototype, 'readFile').returns('');
-sinon.stub(FileHandlingService.prototype, 'removeFile').returns('');
+
+const readFileStub = sinon.stub(FileHandlingService.prototype, 'readFileFromRedis');
+readFileStub.resolves('');
+
+const removeFileStub = sinon.stub(FileHandlingService.prototype, 'removeFileFromRedis').resolves('');
+removeFileStub.resolves('');
+
 uploadStub.withArgs({ ...mockData, file: '', userId: '1'}, true).resolves(false);
 
 describe('Manual upload summary controller', () => {
@@ -53,7 +58,7 @@ describe('Manual upload summary controller', () => {
 
   describe('POST view' , () => {
     it('should render manual upload summary page with error', async () => {
-      request.user = {emails: ['1']};
+      request.user = {emails: ['1'], oid: '1234'};
       const options = {
         ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['file-upload-summary']),
         fileUploadData: mockData,
@@ -64,6 +69,8 @@ describe('Manual upload summary controller', () => {
 
       await manualUploadSummaryController.post(request, response);
       responseMock.verify();
+      sinon.assert.calledWith(readFileStub, '1234', 'fileName');
+      sinon.assert.calledWith(removeFileStub, '1234', 'fileName');
     });
 
     it('should render manual upload summary page with query params', async () => {
@@ -93,6 +100,8 @@ describe('Manual upload summary controller', () => {
 
       await manualUploadSummaryController.post(req, res);
       responseMock.verify();
+      sinon.assert.calledWith(readFileStub, '1234', 'fileName');
+      sinon.assert.calledWith(removeFileStub, '1234', 'fileName');
     });
   });
 });

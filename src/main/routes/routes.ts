@@ -62,7 +62,7 @@ export default function(app: Application): void {
     const encodedSignOutRedirect = encodeURIComponent(redirectUrl);
     logger.info('B2C_URL', B2C_URL);
     logger.info('encodedSignOutRedirect', encodedSignOutRedirect);
-    res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
+    res.redirect(`${B2C_URL}/${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
   }
 
   function regenerateSession(req, res): void {
