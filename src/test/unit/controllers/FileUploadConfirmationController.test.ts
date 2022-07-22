@@ -12,7 +12,7 @@ describe('File Upload Confirmation Controller', () => {
     const request = mockRequest(i18n);
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('success-view', {...i18n['file-upload-confirm']});
+    responseMock.expects('render').once().withArgs('file-upload-confirm', {...i18n['file-upload-confirm']});
 
     await fileUploadConfirmationController.get(request, response);
     responseMock.verify();
