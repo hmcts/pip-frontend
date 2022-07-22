@@ -2,6 +2,7 @@ import sinon from 'sinon';
 import fs from 'fs';
 import { multerFile } from '../mocks/multerFile';
 import { FileHandlingService } from '../../../main/service/fileHandlingService';
+const { redisClient } = require('../../../main/cacheManager');
 
 const fileHandlingService = new FileHandlingService();
 const validFileCase = multerFile('testFile.HtMl', 1000);
@@ -12,6 +13,9 @@ const largeImage = multerFile('testFile.png', 3000000);
 const dotSeparatedFile = multerFile('t.e.s.t.f.i.l.e.png', 1000);
 const invalidFileType = multerFile('testFile.xyz', 1000);
 const noFileType = multerFile('testFile', 1000);
+const userId = '1234';
+const base64FileContent = 'VGhpcyBpcyBiYXNlIDY0';
+const jsonContent = '{"TestContent": "TestValue"}';
 
 const stub = sinon.stub(fs, 'unlinkSync');
 
@@ -81,6 +85,55 @@ describe('File handling service', () => {
     it('should return null if there is an error in reading a file', () => {
       const file = fileHandlingService.readFile('foo.pdf');
       expect(file).toEqual(null);
+    });
+  });
+
+  describe('readFile from redis', () => {
+    const getStub = sinon.stub(redisClient, 'get');
+    it('should read a pdf file successfully', async () => {
+      getStub.withArgs('1234-validationFile.pdf').resolves(base64FileContent);
+
+      const fileBuffer = await fileHandlingService.readFileFromRedis(userId, 'validationFile.pdf');
+
+      expect(fileBuffer.toString()).toEqual('This is base 64');
+    });
+
+    it('should read a json file successfully', async () => {
+      getStub.withArgs('1234-validationJson.json').resolves(jsonContent);
+
+      const file = await fileHandlingService.readFileFromRedis(userId, 'validationJson.json');
+      expect(file).toEqual(JSON.parse(jsonContent));
+    });
+  });
+
+  describe('storeFile in redis', () => {
+    const setStub = sinon.stub(redisClient, 'set');
+    it('should store a pdf file succesfully in reid', async () => {
+      setStub.resolves('');
+
+      await fileHandlingService.storeFileIntoRedis(userId, 'validationFile.pdf');
+
+      sinon.assert.calledWith(setStub, '1234-validationFile.pdf', sinon.match.any, 'EX', sinon.match.any);
+    });
+
+    it('should store a JSON file succesfully', async () => {
+      setStub.resolves('');
+
+      await fileHandlingService.storeFileIntoRedis(userId, 'validationJson.json');
+
+      sinon.assert.calledWith(setStub, '1234-validationFile.pdf', sinon.match.any, 'EX', sinon.match.any);
+    });
+  });
+
+  describe('removeFile from redis', () => {
+    it('should remove a file successfully', async () => {
+
+      const deleteStub = sinon.stub(redisClient, 'del');
+      deleteStub.withArgs('1234-validationFile.pdf').returns();
+
+      await fileHandlingService.removeFileFromRedis(userId, 'validationFile.pdf');
+
+      sinon.assert.calledWith(deleteStub, '1234-validationFile.pdf');
     });
   });
 

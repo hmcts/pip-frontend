@@ -14,9 +14,7 @@
     "classification": [
       {"text": "Public", "value": "PUBLIC"},
       {"text": "Private - All verified users", "value": "PRIVATE"},
-      {"text": "Classified - verified CFT", "value": "CLASSIFIED_CFT"},
-      {"text": "Classified - verified Crime", "value": "CLASSIFIED_CRIME"},
-      {"text": "Classified - Media ", "value": "CLASSIFIED_MEDIA"}
+      {"text": "Classified", "value": "CLASSIFIED"}
     ],
     "languageText": "Language",
     "language": [
@@ -35,9 +33,7 @@
     {"heading": "Available to", "text": "You need to indicate which user group your document should be available to:"},
     {"heading": "Public", "text": "Publication available to all users."},
     {"heading": "Private", "text": "Publication available to all verified users e.g. Legal professionals and media."},
-    {"heading": "Classified - verified CFT", "text": "Publication only available to verified users who sign in using a MyHMCTS account."},
-    {"heading": "Classified - verified Crime", "text": "Publication only available to verified users who sign in using a Common Platform account."},
-    {"heading": "Classified - verified Media", "text": "Publication only available to media users who sign in using a courts and tribunals hearings account."},
+    {"heading": "Classified", "text": "Publication only available to verified users who are in a group eligible to view that list e.g. SJP press list available to Media"},
     {"heading": "Display from", "text": "This will be the date the publication is available from, if today's date is used it will be displayed immediately. If a date in the future is used, it will display from 00:01 of that date."},
     {"heading": "Display to", "text": "This will be the last date the publication is available. It will be displayed until 23:59 of that date."}
   ],

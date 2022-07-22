@@ -45,4 +45,6 @@ nodejs:
           alias: ACCOUNT_MANAGEMENT_AZ_API
         - name: app-insights-nodejs-instrumentation-key
           alias: INSTRUMENTATION_KEY
+        - name: b2c-url
+          alias: B2C_URL
   aadIdentityName: pip
