@@ -20,12 +20,9 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ message }} </p>
   <ul class="govuk-body govuk-!-padding-left-4 govuk-!-width-two-thirds">
-{#    todo: the below code should be uncommented when we want to show the first bullet. #}
-{#    {% for bullet in bullets %}#}
-{#      <li >{{ bullet }}</li>#}
-{#    {% endfor %}#}
-{#    todo: and the line below should be removed. #}
-    <li>{{ bullets[1] }}</li>
+    {% for bullet in bullets %}
+      <li>{{ bullet }}</li>
+    {% endfor %}
   </ul>
   <p class="govuk-body">{{ moreMessage }}</p>
   <p class="govuk-body">{{ legalMessage }} <a href="sign-in">{{ signInLink }}</a>.</p>
