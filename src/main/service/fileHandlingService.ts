@@ -34,7 +34,7 @@ export class FileHandlingService {
   }
 
   /**
-   * Sanatises the filename of the file being uploaded before being sent to the backend.
+   * Sanitises the filename of the file being uploaded before being sent to the backend.
    * @param fileName The filename of the file being uploaded.
    */
   sanitiseFileName(fileName: string): string {
@@ -69,14 +69,14 @@ export class FileHandlingService {
    * @param originalFilename The filename before being sanatised.
    * @param sanatisedFileName The filename of the file to store.
    */
-  async storeFileIntoRedis(userId, originalFilename, sanatisedFileName) {
+  async storeFileIntoRedis(userId, originalFilename, sanitisedFileName) {
     try {
-      if (this.getFileExtension(sanatisedFileName) === 'json') {
+      if (this.getFileExtension(sanitisedFileName) === 'json') {
         const rawData = fs.readFileSync(`./manualUpload/tmp/${originalFilename}`, 'utf-8');
-        await redisClient.set(userId + '-' + sanatisedFileName, JSON.stringify(JSON.parse(rawData)),
+        await redisClient.set(userId + '-' + sanitisedFileName, JSON.stringify(JSON.parse(rawData)),
           this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
       } else {
-        await redisClient.set(userId + '-' + sanatisedFileName, fs.readFileSync(`./manualUpload/tmp/${originalFilename}`,
+        await redisClient.set(userId + '-' + sanitisedFileName, fs.readFileSync(`./manualUpload/tmp/${originalFilename}`,
           {encoding: 'base64'}), this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
       }
     } catch (err) {
