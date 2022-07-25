@@ -496,11 +496,11 @@ describe('Admin level journeys', () => {
     adminDashboard = await signInPage.clickAdminSignIn();
   });
   it('should open admin dashboard page on successful sign in', async () => {
-    expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+    expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
   });
   it('should open admin dashboard page', async () => {
     await adminDashboard.open('/admin-dashboard');
-    expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+    expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
   });
 
   describe('Manual Upload', () => {
@@ -522,7 +522,7 @@ describe('Admin level journeys', () => {
   describe('Create new account', () => {
     it('should open admin dashboard page', async () => {
       await adminDashboard.open('/admin-dashboard');
-      expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+      expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
     });
     it('should click on the create new account card', async () => {
       createAdminAccountPage = await adminDashboard.clickCreateNewAccountCard();
@@ -565,7 +565,7 @@ describe('Admin level journeys', () => {
     });
     it('should click on the home link and open admin dashboard page', async () => {
       adminDashboard = await removePublicationSuccessPage.clickHome();
-      expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+      expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
     });
   });
 
