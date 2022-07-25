@@ -140,28 +140,18 @@ describe('Manual upload page', () => {
       expect(heading.innerHTML).contains('Private', 'Could not find private heading');
     });
 
-    it('should display the classified - verified CFT heading', () => {
+    it('should display the classified - heading', () => {
       const heading = htmlRes.getElementsByTagName('h3')[4];
-      expect(heading.innerHTML).contains('Classified - verified CFT', 'Could not find classified - verified CFT heading');
-    });
-
-    it('should display the classified - verified crime heading', () => {
-      const heading = htmlRes.getElementsByTagName('h3')[5];
-      expect(heading.innerHTML).contains('Classified - verified Crime', 'Could not find classified - verified crime heading');
-    });
-
-    it('should display the classified - verified media heading', () => {
-      const heading = htmlRes.getElementsByTagName('h3')[6];
-      expect(heading.innerHTML).contains('Classified - verified Media', 'Could not find classified - verified media heading');
+      expect(heading.innerHTML).contains('Classified', 'Could not find classified heading');
     });
 
     it('should display the display from heading', () => {
-      const heading = htmlRes.getElementsByTagName('h3')[7];
+      const heading = htmlRes.getElementsByTagName('h3')[5];
       expect(heading.innerHTML).contains('Display from', 'Could not find display from heading');
     });
 
     it('should display the display to heading', () => {
-      const heading = htmlRes.getElementsByTagName('h3')[8];
+      const heading = htmlRes.getElementsByTagName('h3')[6];
       expect(heading.innerHTML).contains('Display to', 'Could not find display to heading');
     });
 
