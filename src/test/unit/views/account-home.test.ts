@@ -42,7 +42,7 @@ describe('Your Account page', () => {
 
   it('should display header', () => {
     const header = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(header[0].innerHTML)
+    expect(header[0].innerHTML
       .contains(pageHeader, 'Could not find correct value in header');
   });
 
