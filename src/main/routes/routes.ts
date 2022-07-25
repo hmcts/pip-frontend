@@ -66,7 +66,7 @@ export default function(app: Application): void {
     const encodedSignOutRedirect = encodeURIComponent(redirectUrl);
     logger.info('B2C_URL', B2C_URL);
     logger.info('encodedSignOutRedirect', encodedSignOutRedirect);
-    res.redirect(`${B2C_URL}${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
+    res.redirect(`${B2C_URL}/${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
   }
 
   function regenerateSession(req, res): void {
@@ -115,6 +115,8 @@ export default function(app: Application): void {
   app.get('/file-publication', app.locals.container.cradle.flatFileController.get);
   app.get('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.get);
   app.get('/sjp-press-list', app.locals.container.cradle.sjpPressListController.get);
+  app.get('/sscs-daily-list', app.locals.container.cradle.sscsDailyListController.get);
+  app.get('/cop-daily-cause-list', app.locals.container.cradle.copDailyCauseListController.get);
 
   // Restricted paths
   app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);

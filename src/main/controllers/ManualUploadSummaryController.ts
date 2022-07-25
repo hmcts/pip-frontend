@@ -27,7 +27,9 @@ export default class ManualUploadSummaryController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     const userEmail = req.user['emails'][0];
     const formData = (req.cookies?.formCookie) ? JSON.parse(req.cookies['formCookie']) : {};
-    formData.file = fileHandlingService.readFile(formData.fileName);
+
+    formData.file = await fileHandlingService.readFileFromRedis(req.user['oid'], formData.fileName);
+
     formData.listTypeName = manualUploadService.getListItemName(formData.listType);
 
     if (req.query?.check === 'true') {
@@ -38,7 +40,9 @@ export default class ManualUploadSummaryController {
       });
     } else {
       const response = await manualUploadService.uploadPublication({...formData, userEmail: userEmail}, true);
-      fileHandlingService.removeFile(formData.fileName);
+
+      fileHandlingService.removeFileFromRedis(req.user['oid'], formData.fileName);
+
       if (response) {
         res.clearCookie('formCookie');
         res.redirect('upload-confirmation');
