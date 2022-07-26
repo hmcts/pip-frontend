@@ -78,10 +78,9 @@ describe('Home page', () => {
 
     it('should display bullets', () => {
       const bullets = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByTagName('li');
-      // TODO: the commented out code can be brought back later on, this change is temporary.
-      // expect(bullets[0].innerHTML).contains('Hearings in Civil and Family Courts in Milton Keynes, Oxford, Reading, High Wycombe and Slough',
-      //   'Could not find first bullet');
-      expect(bullets[0].innerHTML).contains('Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
+      expect(bullets[0].innerHTML).contains('Hearings in Civil and Family Courts in Milton Keynes, Oxford, Reading, High Wycombe and Slough',
+        'Could not find first bullet');
+      expect(bullets[1].innerHTML).contains('Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
         'Could not find second bullet');
     });
 
