@@ -14,7 +14,7 @@ describe('Media Account Approval Controller', () => {
 
   const applicantId = '1234';
   const status = 'PENDING';
-  const email = 'a@b.com';
+  const adminAccountId = '1234-1234-1234-1234';
 
   const mediaAccountApprovalController = new MediaAccountApprovalController();
   const response = { redirect: () => {return '';}, render: () => {return '';}, send: () => {return '';}, set: () => {return '';}} as unknown as Response;
@@ -56,10 +56,10 @@ describe('Media Account Approval Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'approved': 'Yes', 'applicantId': applicantId};
-    request['user'] = {'emails': [email] };
+    request['user'] = {'piUserId': adminAccountId };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
-    mediaAccountCreationStub.withArgs(applicantId, email).resolves(true);
+    mediaAccountCreationStub.withArgs(applicantId, adminAccountId).resolves(true);
 
     responseMock.expects('render').once().withArgs('media-account-approval-confirmation',
       {...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-approval-confirmation']),
@@ -75,7 +75,7 @@ describe('Media Account Approval Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'approved': 'Yes', 'applicantId': '1234'};
-    request['user'] = {'emails': [email] };
+    request['user'] = {'piUserId': adminAccountId };
 
     mediaAccountApplicationStub.withArgs('1234', status).resolves(null);
 
@@ -91,7 +91,7 @@ describe('Media Account Approval Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'applicantId': applicantId};
-    request['user'] = {'emails': [email] };
+    request['user'] = {'piUserId': adminAccountId };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
 
@@ -110,7 +110,7 @@ describe('Media Account Approval Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'approved': 'No', 'applicantId': applicantId};
-    request['user'] = {'emails': [email] };
+    request['user'] = {'piUserId': adminAccountId };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
 
@@ -126,10 +126,10 @@ describe('Media Account Approval Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'approved': 'Yes', 'applicantId': applicantId};
-    request['user'] = {'emails': [email] };
+    request['user'] = {'piUserId': adminAccountId };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
-    mediaAccountCreationStub.withArgs(applicantId, email).resolves(false);
+    mediaAccountCreationStub.withArgs(applicantId, adminAccountId).resolves(false);
 
     responseMock.expects('render').once().withArgs('media-account-approval',
       {...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-approval']),

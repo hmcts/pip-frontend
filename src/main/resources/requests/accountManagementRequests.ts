@@ -7,9 +7,14 @@ const logger = Logger.getLogger('requests');
 
 export class AccountManagementRequests {
 
+  /**
+   * Request to account management that creates the azure account.
+   * @param payload The payload containing the azure accounts to request.
+   * @param requester The user ID of the person requesting this.
+   */
   public async createAzureAccount(payload, requester): Promise<object | null> {
     try {
-      const response = await accountManagementApi.post('/account/add/azure', payload, {headers: {'x-issuer-email': requester}});
+      const response = await accountManagementApi.post('/account/add/azure', payload, {headers: {'x-issuer-id': requester}});
       logger.info('azure account created', response);
       return response.data;
     }
@@ -25,9 +30,14 @@ export class AccountManagementRequests {
     }
   }
 
+  /**
+   * Request to account management that creates a PI account.
+   * @param payload The payload containing the azure accounts to request.
+   * @param requester The user ID of the person requesting this.
+   */
   public async createPIAccount(payload, requester): Promise<boolean> {
     try {
-      const response = await accountManagementApi.post('/account/add/pi', payload, {headers: {'x-issuer-email': requester}});
+      const response = await accountManagementApi.post('/account/add/pi', payload, {headers: {'x-issuer-id': requester}});
       logger.info('P&I account created', response);
       return response.status === 201;
     }
