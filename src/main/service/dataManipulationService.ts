@@ -80,16 +80,8 @@ export class DataManipulationService {
     sscsDailyListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
-          let judiciaryFormatted = '';
-          session['judiciary'].forEach(judiciary => {
-            if(judiciaryFormatted.length > 0) {
-              judiciaryFormatted += ', ' + judiciary['johTitle'] + ' ' + judiciary['johNameSurname'];
-            } else {
-              judiciaryFormatted += judiciary['johTitle'] + ' ' + judiciary['johNameSurname'];
-            }
-          });
+          session['formattedJudiciary'] = this.getJudiciaryNameSurname(session);
           delete session['judiciary'];
-          session['formattedJudiciary'] = judiciaryFormatted;
 
           session['sittings'].forEach(sitting => {
             hearingCount = hearingCount + sitting['hearing'].length;
@@ -122,6 +114,33 @@ export class DataManipulationService {
       });
     });
     return sscsDailyListData;
+  }
+
+  /**
+   * Manipulate the copDailyCauseList json data for writing out on screen.
+   * @param copDailyCauseList The cop daily cause list to manipulate
+   */
+  public manipulateCopDailyCauseList(copDailyCauseList: string): object {
+    const copDailyCauseListData = JSON.parse(copDailyCauseList);
+    let hearingCount = 0;
+
+    copDailyCauseListData['courtLists'].forEach(courtList => {
+      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+        courtRoom['session'].forEach(session => {
+          session['formattedJudiciary'] = this.getJudiciaryNameSurname(session);
+          delete session['judiciary'];
+          session['sittings'].forEach(sitting => {
+            hearingCount = hearingCount + sitting['hearing'].length;
+            sitting['sittingStartFormatted'] = this.publicationTimeInBst(sitting['sittingStart']);
+            this.calculateDuration(sitting);
+            this.findAndConcatenateHearingPlatform(sitting, session);
+          });
+        });
+        courtRoom['totalHearing'] = hearingCount;
+        hearingCount = 0;
+      });
+    });
+    return copDailyCauseListData;
   }
 
   /**
@@ -310,5 +329,55 @@ export class DataManipulationService {
    */
   public publicationDateInBst(publicationDatetime: string): string {
     return moment.utc(publicationDatetime).tz(this.timeZone).format('DD MMMM YYYY');
+  }
+
+  /**
+   * Get the regional JoH from the supplied location details
+   * Return either an empty string or a formatted JoH
+   * @param locationDetails The object to get the regional JoH from
+   */
+  public getRegionalJohFromLocationDetails(locationDetails: object): string {
+    let formattedJoh = '';
+    locationDetails['region']['regionalJOH']?.forEach(joh => {
+      if(formattedJoh.length > 0) {
+        formattedJoh += ', ';
+      }
+      if(this.writeStringIfValid(joh?.johKnownAs) !== '') {
+        formattedJoh += this.writeStringIfValid(joh?.johKnownAs);
+      }
+
+      if(this.writeStringIfValid(joh?.johNameSurname) !== '') {
+        if(this.writeStringIfValid(joh?.johKnownAs) !== '') {
+          formattedJoh += ' ';
+        }
+        formattedJoh += this.writeStringIfValid(joh?.johNameSurname);
+      }
+    });
+    return formattedJoh;
+  }
+
+  /**
+   * Take in the session and return the formatted judiciary with their title and nameSurname
+   * @param session The session to get the judiciary from
+   */
+  public getJudiciaryNameSurname(session: object): string {
+    let judiciaryFormatted = '';
+    session['judiciary']?.forEach(judiciary => {
+      if(judiciaryFormatted.length > 0) {
+        judiciaryFormatted += ', ';
+      }
+
+      if(this.writeStringIfValid(judiciary?.johTitle) !== '') {
+        judiciaryFormatted += this.writeStringIfValid(judiciary?.johTitle);
+      }
+
+      if(this.writeStringIfValid(judiciary?.johNameSurname) !== '') {
+        if(this.writeStringIfValid(judiciary?.johTitle) !== '') {
+          judiciaryFormatted += ' ';
+        }
+        judiciaryFormatted += this.writeStringIfValid(judiciary?.johNameSurname);
+      }
+    });
+    return judiciaryFormatted;
   }
 }

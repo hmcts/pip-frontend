@@ -11,7 +11,7 @@ const errorSummaryClass = 'govuk-error-summary';
 const radioClass = 'govuk-radios__item';
 const expectedHeader = 'How do you want to sign in?';
 const expectedButtonText = 'Continue';
-const expectedRadioLabel = ['With My HMCTS account','With Common Platform account','With a Court and tribunal hearings account'];
+const expectedRadioLabel = ['With a MyHMCTS account','With a Common Platform account','With a Court and tribunal hearings account'];
 
 let htmlRes: Document;
 
