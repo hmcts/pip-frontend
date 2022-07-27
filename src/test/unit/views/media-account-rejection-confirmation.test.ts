@@ -19,7 +19,7 @@ describe('Media Account Submission Page', () => {
   const bottomSummaryClass = 'govuk-body';
   const bottomContentClass = 'govuk-inset-text';
 
-  const expectedPanel = 'Account has been rejected.';
+  const expectedPanel = 'Account has been rejected';
   const nameHeader = 'Name';
   const nameValue = 'Test Name';
   const emailHeader = 'Email';
@@ -33,7 +33,7 @@ describe('Media Account Submission Page', () => {
   const proofOfIdView = 'View';
   const proofOfIdViewLink = '/media-account-review/image?imageId=12345&applicantId=1234';
   const bottomHeader = 'What happens next';
-  const bottomContent = 'Your request for a court and tribunals hearings account has been rejected for the following reason(s)';
+  const bottomContent = 'Your request for a court and tribunal hearings account has been rejected for the following reason(s)';
 
   const dummyApplication = {
     'id': '1234',
