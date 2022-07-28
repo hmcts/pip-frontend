@@ -51,7 +51,7 @@ export function checkAuthenticatedAdmin(req: any, res, next, roles: string[]): b
     req.user.isAdmin = false;
     res.redirect('/account-home');
   } else {
-    res.redirect('/login?p=' + authenticationConfig.ADMIN_POLICY);
+    res.redirect('/admin-login?p=' + authenticationConfig.ADMIN_POLICY);
   }
 }
 
