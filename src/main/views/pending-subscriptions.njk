@@ -62,9 +62,6 @@
           </tbody>
         </table>
       {% endif %}
-      {% if pendingSubscriptions.cases | length == 0 %}
-        <p class="govuk-body">{{ noPendingCaseSubs }}</p>
-      {% endif %}
 
       {% if pendingSubscriptions.courts | length != 0 %}
         <table class="govuk-table">
@@ -85,9 +82,6 @@
           {% endfor %}
           </tbody>
         </table>
-      {% endif %}
-      {% if pendingSubscriptions.courts | length == 0 %}
-        <p class="govuk-body govuk-!-margin-bottom-8">No pending court subscriptions</p>
       {% endif %}
 
       <p class="govuk-body"><a class="govuk-link" href="{{ addOther_link }}">{{ addOther_text }}</a></p>
