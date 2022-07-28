@@ -4,7 +4,7 @@ import { CreateAccountService } from '../../../main/service/createAccountService
 import CreateAdminAccountSummaryController from '../../../main/controllers/CreateAdminAccountSummaryController';
 import sinon from 'sinon';
 
-const validMockEmail = 'joe.bloggs@mail.com';
+const validUserId = '1234-1234-1234-1234';
 const mockData = {
   firstName: 'joe',
   lastName: 'bloggs',
@@ -26,8 +26,8 @@ const invalidMockData = {
 };
 const createAdminAccountSummaryController = new CreateAdminAccountSummaryController();
 const createAccountStub = sinon.stub(CreateAccountService.prototype, 'createAdminAccount');
-createAccountStub.withArgs(invalidMockData, validMockEmail).resolves(false);
-createAccountStub.withArgs(mockData, validMockEmail).resolves(true);
+createAccountStub.withArgs(invalidMockData, validUserId).resolves(false);
+createAccountStub.withArgs(mockData, validUserId).resolves(true);
 
 describe('Create Admin Account Summary Controller', () => {
   const i18n = {'create-admin-account-summary': {}};
@@ -53,7 +53,7 @@ describe('Create Admin Account Summary Controller', () => {
 
   describe('on post', () => {
     it('should render create admin account summary page with success message', async () => {
-      request.user = {emails: [validMockEmail]};
+      request.user = {piUserId: validUserId};
       const responseMock = sinon.mock(response);
       const expectedOptions = {
         formData: mockData,
@@ -69,7 +69,7 @@ describe('Create Admin Account Summary Controller', () => {
 
     it('should render create admin account summary page with errors', async () => {
       request['cookies'] = {'createAdminAccount': JSON.stringify(invalidMockData)};
-      request.user = {emails: [validMockEmail]};
+      request.user = {piUserId: validUserId};
       const responseMock = sinon.mock(response);
       const expectedOptions = {
         formData: invalidMockData,

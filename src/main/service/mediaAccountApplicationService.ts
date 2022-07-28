@@ -40,7 +40,7 @@ export class MediaAccountApplicationService {
     return null;
   }
 
-  public async createAccountFromApplication(applicationId, adminEmail): Promise<MediaAccount> {
+  public async createAccountFromApplication(applicationId, adminId): Promise<MediaAccount> {
 
     const mediaApplication = await this.getApplicationByIdAndStatus(applicationId, 'PENDING');
 
@@ -49,9 +49,9 @@ export class MediaAccountApplicationService {
       mediaAccount['emailAddress'] = mediaApplication.email;
       mediaAccount['fullName'] = mediaApplication.fullName;
 
-      logHelper.writeLog(adminEmail, 'APPROVED_MEDIA_ACCOUNT', mediaApplication.id);
+      logHelper.writeLog(adminId, 'APPROVED_MEDIA_ACCOUNT', mediaApplication.id);
 
-      await createAccountService.createMediaAccount(mediaAccount, adminEmail);
+      await createAccountService.createMediaAccount(mediaAccount, adminId);
 
       return accountManagementRequests.updateMediaApplicationStatus(applicationId, 'APPROVED');
     }
@@ -59,9 +59,9 @@ export class MediaAccountApplicationService {
     return null;
   }
 
-  public async rejectApplication(applicationId, adminEmail): Promise<object | null> {
+  public async rejectApplication(applicationId, adminId): Promise<object | null> {
 
-    logHelper.writeLog(adminEmail, 'REJECT_MEDIA_ACCOUNT', applicationId);
+    logHelper.writeLog(adminId, 'REJECT_MEDIA_ACCOUNT', applicationId);
 
     return accountManagementRequests.updateMediaApplicationStatus(applicationId, 'REJECTED');
   }

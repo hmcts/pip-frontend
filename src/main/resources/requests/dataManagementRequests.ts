@@ -17,11 +17,11 @@ export class DataManagementRequests {
     }
     catch (error) {
       if (error.response) {
-        console.log(error.response.data);
+        console.log('Failed to upload publication');
       } else if (error.request) {
-        console.log(`Request failed. ${error.request}`);
+        console.log('Request failed.');
       } else {
-        console.log(`ERROR: ${error.message}`);
+        console.log('Unknown error when attempting to upload publication');
       }
     }
     return false;
@@ -34,11 +34,11 @@ export class DataManagementRequests {
     }
     catch (error) {
       if (error.response) {
-        console.log(error.response.data);
+        console.log('Failed to upload publication');
       } else if (error.request) {
-        console.log(`Request failed. ${error.request}`);
+        console.log('Request failed.');
       } else {
-        console.log(`ERROR: ${error.message}`);
+        console.log('Unknown error when attempting to upload publication');
       }
     }
     return false;
