@@ -11,7 +11,7 @@ describe('Media Account Confirmation Page', () => {
   const applicationId = '1234';
 
   const PAGE_URL = '/media-account-approval?applicantId=' + applicationId;
-  const panelClass = 'govuk-panel__body';
+  const panelClass = 'govuk-panel__title';
   const summaryHeader = 'govuk-summary-list__key';
   const summaryCell = 'govuk-summary-list__value';
   const summaryActions = 'govuk-summary-list__actions';
