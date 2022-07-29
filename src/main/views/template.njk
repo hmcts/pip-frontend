@@ -37,7 +37,7 @@
     var link = document.getElementById("betalink")
     link.href= link.href + window.location.pathname.substring(1)
   </script>
-  {% if user.role == 'SYSTEM_ADMIN' or user.role == 'INTERNAL_SUPER_ADMIN_LOCAL' %}
+  {% if user.role == 'SYSTEM_ADMIN' or user.role == 'INTERNAL_SUPER_ADMIN_LOCAL' or user.role == 'INTERNAL_ADMIN_LOCAL' %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -73,21 +73,6 @@
       {
         text: navLinks.link9,
         href: '/remove-list-search'
-      },
-      {
-        text: navLinks.link3,
-        href: '/logout'
-      }
-    ]%}
-  {% elif user.role == 'INTERNAL_ADMIN_LOCAL' %}
-    {% set listItems = [
-      {
-        text: navLinks.link1,
-        href: '/admin-dashboard'
-      },
-      {
-        text: navLinks.link7,
-        href: '/manual-upload'
       },
       {
         text: navLinks.link3,
