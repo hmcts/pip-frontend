@@ -108,20 +108,21 @@ describe('File handling service', () => {
 
   describe('storeFile in redis', () => {
     const setStub = sinon.stub(redisClient, 'set');
-    it('should store a pdf file succesfully in reid', async () => {
+    it('should store a pdf file succesfully in redis', async () => {
       setStub.resolves('');
 
-      await fileHandlingService.storeFileIntoRedis(userId, 'validationFile.pdf');
+      await fileHandlingService.storeFileIntoRedis(userId, 'validationFile.pdf', 'validation.pdf');
 
-      sinon.assert.calledWith(setStub, '1234-validationFile.pdf', sinon.match.any, 'EX', sinon.match.any);
+      sinon.assert.calledWith(setStub, '1234-validation.pdf', sinon.match.any, 'EX', sinon.match.any);
+
     });
 
     it('should store a JSON file succesfully', async () => {
       setStub.resolves('');
 
-      await fileHandlingService.storeFileIntoRedis(userId, 'validationJson.json');
+      await fileHandlingService.storeFileIntoRedis(userId, 'validationJson.json', 'validation.json');
 
-      sinon.assert.calledWith(setStub, '1234-validationFile.pdf', sinon.match.any, 'EX', sinon.match.any);
+      sinon.assert.calledWith(setStub, '1234-validation.json', sinon.match.any, 'EX', sinon.match.any);
     });
   });
 
@@ -203,4 +204,12 @@ describe('File handling service', () => {
       expect(fileType).toEqual('png');
     });
   });
+
+  describe('Test sanitise file name', () => {
+    it('should santise the filename', () => {
+      const fileName = fileHandlingService.sanitiseFileName('ThisIs—AFile');
+      expect(fileName).toEqual('ThisIsAFile');
+    });
+  });
+
 });

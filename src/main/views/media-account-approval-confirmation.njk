@@ -9,11 +9,9 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <div class="govuk-panel govuk-panel--confirmation">
-    <div class="govuk-panel__body">
-        {{ panelTitle }}
-    </div>
-  </div>
+  {{ govukPanel({
+    titleText: panelTitle
+  }) }}
   <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">

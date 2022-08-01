@@ -150,7 +150,8 @@ export class DataManipulationService {
   private findAndManipulatePartyInformation(hearing: any): void {
     let applicant = '';
     let respondent = '';
-
+    let respondentRepresentative = '';
+    let applicantRepresentative = '';
     if(hearing?.party) {
       hearing.party.forEach(party => {
 
@@ -165,7 +166,7 @@ export class DataManipulationService {
           {
             const applicantPetitionerDetails = this.createIndividualDetails(party.individualDetails).trim();
             if(applicantPetitionerDetails) {
-              applicant += 'LEGALADVISOR: ' + applicantPetitionerDetails + ', ';
+              applicantRepresentative += 'LEGALADVISOR: ' + applicantPetitionerDetails + ', ';
             }
             break;
           }
@@ -179,13 +180,15 @@ export class DataManipulationService {
           {
             const respondentDetails = this.createIndividualDetails(party.individualDetails).trim();
             if(respondentDetails) {
-              respondent += 'LEGALADVISOR: ' + respondentDetails + ', ';
+              respondentRepresentative += 'LEGALADVISOR: ' + respondentDetails + ', ';
+
             }
             break;
           }
-
         }
       });
+      applicant += applicantRepresentative;
+      respondent += respondentRepresentative;
       hearing['applicant'] = applicant?.replace(/,\s*$/, '').trim();
       hearing['respondent'] = respondent?.replace(/,\s*$/, '').trim();
     }

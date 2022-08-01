@@ -43,9 +43,12 @@ export default class ManualUploadController {
       if (errors.fileErrors || errors.formErrors) {
         res.render('manual-upload', formValues);
       } else {
+        const originalFileName = req.file['originalname'];
+        const sanitisedFileName = fileHandlingService.sanitiseFileName(originalFileName);
+
         req.body['court'] = await manualUploadService.appendlocationId(req.body['input-autocomplete'], req.lng as string);
         req.body['artefactType'] = 'LIST'; //Agreed on defaulting to only option available until more types become ready
-        req.body['fileName'] = req.file['originalname'];
+        req.body['fileName'] = sanitisedFileName;
         req.body['display-from'] = manualUploadService.buildDate(req.body, 'display-date-from');
         req.body['display-to'] = manualUploadService.buildDate(req.body, 'display-date-to');
         req.body['content-date-from'] = manualUploadService.buildDate(req.body, 'content-date-from');
@@ -56,7 +59,7 @@ export default class ManualUploadController {
           req.body['classificationName'] = formValues['form'].classification.find(item => item.value === req.body.classification).text;
         }
 
-        await fileHandlingService.storeFileIntoRedis(req.user['oid'], req.file['originalname']);
+        await fileHandlingService.storeFileIntoRedis(req.user['oid'], originalFileName, sanitisedFileName);
 
         res.cookie('formCookie', JSON.stringify(req.body));
         res.redirect('/manual-upload-summary?check=true');
