@@ -26,7 +26,7 @@ const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
 
 export const app = express();
-app.set('trust proxy', 1);
+app.enable('trust proxy');
 app.locals.ENV = env;
 app.locals.POLICY = process.env.POLICY;
 
@@ -59,6 +59,7 @@ logger.info('SESSION Secret', config.get('secrets.pip-ss-kv.SESSION_SECRET'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {
+  req['sessionCookies'].secure = true;
   res.setHeader(
     'Cache-Control',
     'no-cache, max-age=0, must-revalidate, no-store',
