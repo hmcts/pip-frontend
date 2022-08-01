@@ -18,13 +18,13 @@ const mockArtefact = {
 const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({locationId: '1', name: 'Mock Court'});
-removePublicationStub.withArgs('valid-artefact', 'joe@bloggs.com').resolves(true);
-removePublicationStub.withArgs('invalid-artefact', 'joe@bloggs.com').resolves(false);
-metadataStub.withArgs('valid-artefact', '123').resolves(mockArtefact);
-metadataStub.withArgs('invalid-artefact', '123').resolves({...mockArtefact, artefactId: 'invalid-artefact'});
+removePublicationStub.withArgs('valid-artefact', '1234-1234-1234-1234').resolves(true);
+removePublicationStub.withArgs('invalid-artefact', '1234-1234-1234-1234').resolves(false);
+metadataStub.withArgs('valid-artefact', '1234-1234-1234-1234').resolves(mockArtefact);
+metadataStub.withArgs('invalid-artefact', '1234-1234-1234-1234').resolves({...mockArtefact, artefactId: 'invalid-artefact'});
 
 describe('Remove List Confirmation', () => {
-  app.request['user'] = {emails: ['joe@bloggs.com'], piUserId: '123', '_json': {
+  app.request['user'] = {piUserId: '1234-1234-1234-1234', '_json': {
     'extension_UserRole': 'SYSTEM_ADMIN',
   }};
   describe('on GET', () => {

@@ -41,11 +41,11 @@ export class SubscriptionRequests {
       return true;
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data);
+        console.log('Failed to create subscription');
       } else if (error.request) {
-        console.log(`Request failed. ${error.request}`);
+        console.log('Request failed.');
       } else {
-        console.log(`ERROR: ${error.message}`);
+        console.log('Unknown error while creating a subscription');
       }
     }
     return false;

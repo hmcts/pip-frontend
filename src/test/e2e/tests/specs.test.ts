@@ -489,7 +489,7 @@ describe('Verified user', () => {
 
 describe('Admin level journeys', () => {
   it('should open Admin Login page', async () => {
-    await signInPage.open('/login?p=B2C_1_SignInAdminUserFlow');
+    await signInPage.open('/admin-login?p=B2C_1_SignInAdminUserFlow');
     console.log('B2C_ADMIN_USERNAME', process.env.B2C_ADMIN_USERNAME);
     await signInPage.enterText(process.env.B2C_ADMIN_USERNAME, 'EmailField');
     await signInPage.enterText(process.env.B2C_ADMIN_PASSWORD, 'PasswordField');
