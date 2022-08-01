@@ -102,7 +102,7 @@ export class PublicationRequests {
 
       let header;
       if(userId) {
-        header = {headers: {'x-user-id':userId, 'x-admin': admin}};
+        header = {headers: {'x-user-id': userId, 'x-admin': admin}};
       } else {
         header = {headers: {'x-admin': admin}};
       }
@@ -122,9 +122,9 @@ export class PublicationRequests {
     return [];
   }
 
-  public async deletePublication(artefactId: string, email: string): Promise<boolean> {
+  public async deletePublication(artefactId: string, id: string): Promise<boolean> {
     try {
-      await dataManagementApi.delete(`/publication/${artefactId}`, {headers: {'x-issuer-email': email}});
+      await dataManagementApi.delete(`/publication/${artefactId}`, {headers: {'x-issuer-id': id}});
       return true;
     } catch (error) {
       if (error.response) {

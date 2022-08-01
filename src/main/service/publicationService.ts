@@ -64,8 +64,13 @@ export class PublicationService {
     return matches;
   }
 
-  public async removePublication(artefactId: string, email: string): Promise<boolean> {
-    return publicationRequests.deletePublication(artefactId, email);
+  /**
+   * Service method to remove a publication.
+   * @param artefactId The artefact ID to remove.
+   * @param id The ID of the user.
+   */
+  public async removePublication(artefactId: string, id: string): Promise<boolean> {
+    return publicationRequests.deletePublication(artefactId, id);
   }
 
   /**
