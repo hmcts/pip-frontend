@@ -27,7 +27,6 @@ const developmentMode = env === 'development';
 
 export const app = express();
 app.set('trust proxy', 1);
-app.enable('trust proxy');
 app.locals.ENV = env;
 app.locals.POLICY = process.env.POLICY;
 
