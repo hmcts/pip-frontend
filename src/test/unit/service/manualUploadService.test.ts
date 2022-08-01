@@ -13,7 +13,7 @@ const headers = {
   userEmail: 'test@email.com',
   fileName: 'file.pdf',
   artefactType: 'type',
-  classification: 'public',
+  classification: 'classified',
   language: 'english',
   'display-from': '01/07/2022 00:00:01',
   'display-to': '01/07/2022 23:59:59',
@@ -76,7 +76,7 @@ describe('Manual upload service', () => {
 
     it('should build form data list subtypes', async () => {
       const data = await manualUploadService.buildFormData(englishLanguage);
-      expect(data['listSubtypes'].length).to.equal(10);
+      expect(data['listSubtypes'].length).to.equal(12);
       expect(data['listSubtypes'][0]).to.deep.equal({text:'SJP Public List', value: 'SJP_PUBLIC_LIST'});
     });
 

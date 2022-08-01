@@ -80,7 +80,7 @@ $callout-bg: #f0f4f5;
 
 // Styling for the Alphabetical View page
 .floating-back-to-top {
-  bottom: -3vh;
+  bottom: -4vh;
   left: 0;
   position: absolute;
 
@@ -244,7 +244,7 @@ $callout-bg: #f0f4f5;
 @media (max-height: 720px) {
   .parent-box {
     .floating-back-to-top {
-      bottom: -5vh;
+      bottom: -7vh;
     }
   }
 }

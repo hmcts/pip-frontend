@@ -26,7 +26,7 @@ describe('Remove List Success Page', () => {
 
   it('should display what happens next paragraph', () => {
     const message = htmlRes.getElementsByClassName('govuk-body')[4];
-    expect(message.innerHTML).to.equal('What happens next');
+    expect(message.innerHTML).to.equal('What do you want to do next?');
   });
 
   it('should display links to other actions with correct paths', () => {

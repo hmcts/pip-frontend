@@ -19,6 +19,8 @@ nodejs:
           alias: CLIENT_SECRET
         - name: b2c-config-endpoint
           alias: CONFIG_ENDPOINT
+        - name: b2c-config-admin-endpoint
+          alias: CONFIG_ADMIN_ENDPOINT
         - name: b2c-tenant-id
           alias: TENANT_GUID
         - name: shared-storageaccount-connection-string
@@ -45,4 +47,6 @@ nodejs:
           alias: ACCOUNT_MANAGEMENT_AZ_API
         - name: app-insights-nodejs-instrumentation-key
           alias: INSTRUMENTATION_KEY
+        - name: b2c-url
+          alias: B2C_URL
   aadIdentityName: pip

@@ -4,9 +4,11 @@ import {cloneDeep} from 'lodash';
 import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
+import { DataManipulationService } from '../service/dataManipulationService';
 
 const publicationService = new PublicationService();
 const courtService = new LocationService();
+const dataManipulationService = new DataManipulationService();
 
 export default class DailyCauseListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -17,10 +19,10 @@ export default class DailyCauseListController {
 
     if (searchResults && metaData) {
 
-      const manipulatedData = publicationService.manipulatedDailyListData(JSON.stringify(searchResults));
+      const manipulatedData = dataManipulationService.manipulatedDailyListData(JSON.stringify(searchResults));
 
-      const publishedTime = publicationService.publicationTimeInBst(searchResults['document']['publicationDate']);
-      const publishedDate = publicationService.publicationDateInBst(searchResults['document']['publicationDate']);
+      const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
+      const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);
 
       const court = await courtService.getLocationById(metaData['locationId']);
 

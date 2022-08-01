@@ -16,6 +16,8 @@ const listSubTypes = [
   {text: 'Crown Warned List', value: 'CROWN_WARNED_LIST'},
   {text: 'Magistrates Public List', value: 'MAGS_PUBLIC_LIST'},
   {text: 'Magistrates Standard List', value: 'MAGS_STANDARD_LIST'},
+  {text: 'SSCS Daily List', value: 'SSCS_DAILY_LIST'},
+  {text: 'COP Daily cause List', value: 'COP_DAILY_CAUSE_LIST'},
 ];
 
 const fileHandlingService = new FileHandlingService();
@@ -173,7 +175,7 @@ export class ManualUploadService {
       'x-provenance': 'MANUAL_UPLOAD',
       'x-source-artefact-id': headers.fileName,
       'x-type': headers.artefactType,
-      'x-sensitivity': (headers.classification.includes('CLASSIFIED')) ? 'CLASSIFIED' : headers.classification,
+      'x-sensitivity': headers.classification,
       'x-language': headers.language,
       'x-display-from': headers['display-from'],
       'x-display-to': headers['display-to'],

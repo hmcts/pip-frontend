@@ -115,7 +115,7 @@ describe('Unverified user', () => {
     });
 
     describe('following the search court path', async () => {
-      const searchTerm = 'Milton Keynes County Court and Family Court';
+      const searchTerm = 'High Wycombe County Court and Family Court';
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
@@ -134,7 +134,7 @@ describe('Unverified user', () => {
         await searchPage.open('/search');
       });
 
-      const searchTerm = 'Milton Keynes County Court and Family Court';
+      const searchTerm = 'High Wycombe County Court and Family Court';
       it('should click on \'Select from an A-Z list of courts and tribunals\' link ', async () => {
         alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
@@ -489,18 +489,18 @@ describe('Verified user', () => {
 
 describe('Admin level journeys', () => {
   it('should open Admin Login page', async () => {
-    await signInPage.open('/login?p=B2C_1_SignInAdminUserFlow');
+    await signInPage.open('/admin-login?p=B2C_1_SignInAdminUserFlow');
     console.log('B2C_ADMIN_USERNAME', process.env.B2C_ADMIN_USERNAME);
     await signInPage.enterText(process.env.B2C_ADMIN_USERNAME, 'EmailField');
     await signInPage.enterText(process.env.B2C_ADMIN_PASSWORD, 'PasswordField');
     adminDashboard = await signInPage.clickAdminSignIn();
   });
   it('should open admin dashboard page on successful sign in', async () => {
-    expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+    expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
   });
   it('should open admin dashboard page', async () => {
     await adminDashboard.open('/admin-dashboard');
-    expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+    expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
   });
 
   describe('Manual Upload', () => {
@@ -522,7 +522,7 @@ describe('Admin level journeys', () => {
   describe('Create new account', () => {
     it('should open admin dashboard page', async () => {
       await adminDashboard.open('/admin-dashboard');
-      expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+      expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
     });
     it('should click on the create new account card', async () => {
       createAdminAccountPage = await adminDashboard.clickCreateNewAccountCard();
@@ -549,7 +549,7 @@ describe('Admin level journeys', () => {
       expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
     });
     it('should enter valid court in the search field, click continue and open search results page', async () => {
-      const searchTerm = 'Oxford Combined Court Centre';
+      const searchTerm = 'Slough County Court and Family Court';
       await searchPublicationPage.enterText(searchTerm);
       searchPublicationResultsPage = await searchPublicationPage.clickContinue();
       expect(await searchPublicationResultsPage.getPageTitle()).toEqual('Select content to remove');
@@ -565,7 +565,7 @@ describe('Admin level journeys', () => {
     });
     it('should click on the home link and open admin dashboard page', async () => {
       adminDashboard = await removePublicationSuccessPage.clickHome();
-      expect(await adminDashboard.getPageTitle()).toEqual('Admin Dashboard');
+      expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
     });
   });
 
@@ -602,7 +602,7 @@ describe('Admin level journeys', () => {
     it('should select yes to reject application', async () => {
       await mediaAccountRejectionPage.selectYes();
       mediaAccountRejectionConfirmationPage = await mediaAccountRejectionPage.clickContinue();
-      expect(await mediaAccountRejectionConfirmationPage.getPanelTitle()).toEqual('Account has been rejected.');
+      expect(await mediaAccountRejectionConfirmationPage.getPanelTitle()).toEqual('Account has been rejected');
     });
   });
 

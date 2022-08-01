@@ -33,12 +33,15 @@ describe('Manual Upload Controller', () => {
   });
   describe('POST', () => {
     const fileValidationStub = sinon.stub(FileHandlingService.prototype, 'validateFileUpload');
+    const sanatliseFileNameStub = sinon.stub(FileHandlingService.prototype, 'sanitiseFileName');
     const formValidationStub = sinon.stub(ManualUploadService.prototype, 'validateFormFields');
+
     sinon.stub(ManualUploadService.prototype, 'appendlocationId').resolves({courtName: 'name', id: '1'});
     fileValidationStub.returns('error');
     formValidationStub.resolves('error');
     fileValidationStub.withArgs(testFile).returns();
     formValidationStub.withArgs({data: 'valid'}).resolves();
+    sanatliseFileNameStub.returns('filename');
 
     it('should render error page if uncaught multer error occurs', async () => {
       const req = mockRequest(i18n);
@@ -69,15 +72,21 @@ describe('Manual Upload Controller', () => {
     });
 
     it('should redirect page if no errors present', async () => {
+
+      const fileUploadStub = sinon.stub(FileHandlingService.prototype, 'storeFileIntoRedis');
+      fileUploadStub.withArgs('1234', 'test').returns();
+
       const response = { redirect: () => {return '';}, cookie: () => {return '';}} as unknown as Response;
       const responseMock = sinon.mock(response);
       request.body = {data: 'valid'};
       request.file = testFile;
+      request.user = {oid: '1234'};
 
       responseMock.expects('redirect').once().withArgs('/manual-upload-summary?check=true');
 
       await manualUploadController.post(request, response);
       responseMock.verify();
+      sinon.assert.called(fileUploadStub);
     });
   });
 });
