@@ -22,16 +22,16 @@ describe('Media Account Review Pages', () => {
   getImageByIdStub.withArgs(imageID).resolves('1234.jpg');
 
   describe('on GET', () => {
-    test('should return the media account review page', () => {
-      request(app)
+    test('should return the media account review page', async () => {
+      await request(app)
         .get('/media-account-review?applicantId=' + applicationID)
         .expect((res) => expect(res.status).to.equal(200));
     });
   });
 
   describe('on Approve', () => {
-    test('should return the admin-media-account-approval page', () => {
-      request(app)
+    test('should return the admin-media-account-approval page', async () => {
+     await request(app)
         .post('/media-account-review/approve')
         .send({'applicantId': applicationID})
         .expect((res) => expect(res.status).to.equal(404));
@@ -39,8 +39,8 @@ describe('Media Account Review Pages', () => {
   });
 
   describe('on Reject', () => {
-    test('should return the admin-media-account-rejection page', () => {
-      request(app)
+    test('should return the admin-media-account-rejection page', async () => {
+      await request(app)
         .post('/media-account-review/reject')
         .send({'applicantId': applicationID})
         .expect((res) => expect(res.status).to.equal(404));
@@ -48,8 +48,8 @@ describe('Media Account Review Pages', () => {
   });
 
   describe('on View Image', () => {
-    test('should return the image page', () => {
-      request(app)
+    test('should return the image page', async () => {
+      await request(app)
         .get('/media-account-review/image?imageId=' + imageID)
         .expect((res) => expect(res.status).to.equal(200));
     });

@@ -16,9 +16,9 @@ sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').resolv
 
 describe('Civil and Family Daily Cause List Page', () => {
   describe('on GET', () => {
-    test('should return civil and family daily cause list page', () => {
+    test('should return civil and family daily cause list page', async () => {
       app.request['user'] = {piUserId: '2'};
-      request(app)
+      await request(app)
         .get('/civil-and-family-daily-cause-list?artefactId=test')
         .expect((res) => expect(res.status).to.equal(200));
     });

@@ -16,8 +16,8 @@ sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').resolv
 
 describe('Daily Cause List Page', () => {
   describe('on GET', () => {
-    test('should return daily cause list page', () => {
-      request(app)
+    test('should return daily cause list page', async () => {
+      await request(app)
         .get('/family-daily-cause-list?artefactId=test')
         .expect((res) => expect(res.status).to.equal(200));
     });

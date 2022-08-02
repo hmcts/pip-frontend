@@ -122,20 +122,27 @@ $ yarn lint --fix
 
 ### Running the tests
 
-This template app uses [Jest](https://jestjs.io//) as the test engine. You can run unit tests by executing
-the following command:
+This template app uses [Jest](https://jestjs.io//) as the test engine.
+
+You can run unit & route tests by executing the following command:
 
 ```bash
 $ yarn test
 ```
 
-Here's how to run functional tests (the template contains just one sample test):
+You can run unit tests by executing the following command:
+
+```bash
+$ yarn test:unit
+```
+
+You can run route tests by executing the following command:
 
 ```bash
 $ yarn test:routes
 ```
 
-Running accessibility tests:
+You can run accessibility tests by executing the following command:
 
 ```bash
 $ yarn test:a11y
