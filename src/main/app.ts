@@ -88,4 +88,4 @@ app.use((err: HTTPError, req: PipRequest, res: express.Response) => {
 });
 
 import authentication from './authentication/authentication';
-authentication(process.env.OIDC);
+authentication();
