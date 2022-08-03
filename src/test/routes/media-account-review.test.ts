@@ -31,10 +31,10 @@ describe('Media Account Review Pages', () => {
 
   describe('on Approve', () => {
     test('should return the admin-media-account-approval page', async () => {
-     await request(app)
+      await request(app)
         .post('/media-account-review/approve')
         .send({'applicantId': applicationID})
-        .expect((res) => expect(res.status).to.equal(404));
+        .expect((res) => expect(res.status).to.equal(302));
     });
   });
 
@@ -43,7 +43,7 @@ describe('Media Account Review Pages', () => {
       await request(app)
         .post('/media-account-review/reject')
         .send({'applicantId': applicationID})
-        .expect((res) => expect(res.status).to.equal(404));
+        .expect((res) => expect(res.status).to.equal(302));
     });
   });
 
