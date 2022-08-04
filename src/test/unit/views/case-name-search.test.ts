@@ -59,7 +59,7 @@ describe('Case name search page', () => {
   });
 });
 
-describe('Case name search page with invalid input', () => {
+describe('Case name search page with no matching results', () => {
   beforeAll(async () => {
     await request(app).post(PAGE_URL).send({'case-name': 'bob'}).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
@@ -72,6 +72,11 @@ describe('Case name search page with invalid input', () => {
     expect(errorTitle[0].innerHTML).contains('There is a problem', 'Could not find error summary');
   });
 
+  it('should display error summary body', () => {
+    const errorBody = htmlRes.getElementsByClassName('govuk-error-summary__body');
+    expect(errorBody[0].innerHTML).contains('There is nothing matching your criteria', 'Could not find error summary');
+  });
+
   it('should display additional messages', () => {
     const additionalMessage = htmlRes.getElementsByClassName('govuk-heading-s');
     const improveResultsMessage = htmlRes.getElementsByClassName('govuk-body');
@@ -79,6 +84,35 @@ describe('Case name search page with invalid input', () => {
     expect(improveResultsMessage[0].innerHTML).contains(
       'You can:',
       'Could not find improve results message');
+  });
+
+  it('should display input with error classes', () => {
+    const inputError = htmlRes.getElementsByClassName('govuk-input--error');
+    expect(inputError.length).equal(1, 'Input should have error classes');
+  });
+
+  it('should display input error message', () => {
+    const inputError = htmlRes.getElementById('case-name-error');
+    expect(inputError.innerHTML).contains('Please provide a correct case name', 'Input should have error classes');
+  });
+});
+
+describe('Case name search page with search of less than 3 characters', () => {
+  beforeAll(async () => {
+    await request(app).post(PAGE_URL).send({'case-name': 'bo'}).then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
+    });
+  });
+
+  it('should display error summary', () => {
+    const errorTitle = htmlRes.getElementsByClassName('govuk-error-summary');
+    expect(errorTitle[0].innerHTML).contains('There is a problem', 'Could not find error summary');
+  });
+
+  it('should display error summary body', () => {
+    const errorBody = htmlRes.getElementsByClassName('govuk-error-summary__body');
+    expect(errorBody[0].innerHTML).contains('Please enter a minimum of 3 characters when searching by case name', 'Could not find error summary');
   });
 
   it('should display input with error classes', () => {

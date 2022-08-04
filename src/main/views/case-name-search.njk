@@ -27,6 +27,21 @@
             </div>
         </div>
     {% endif %}
+    {% if minimumCharacterError %}
+      <div class="govuk-grid-row">
+        <div class="no_padding govuk-grid-column-full">
+          {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+              {
+                text: error.minimumCharacterError,
+                href: "#case-name"
+              }
+            ]
+          }) }}
+        </div>
+      </div>
+    {% endif %}
     {% set inputClasses = 'govuk-!-width-two-thirds govuk-input--error'
         if noResultsError else 'govuk-!-width-two-thirds' %}
     {% set formGroupError = 'govuk-form-group--error'
@@ -41,7 +56,7 @@
         label: {
             text: inputLabel
         }
-    } if noResultsError else {
+    } if noResultsError or minimumCharacterError else {
         id: "case-name",
         name: "case-name",
         classes: 'govuk-!-width-one-half',
