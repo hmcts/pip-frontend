@@ -18,29 +18,31 @@ const base64FileContent = 'VGhpcyBpcyBiYXNlIDY0';
 const jsonContent = '{"TestContent": "TestValue"}';
 
 const stub = sinon.stub(fs, 'unlinkSync');
+const englishLanguage = 'en';
+const createMediaAccountLanguageFile = 'create-media-account';
 
 describe('File handling service', () => {
   describe('validateImage', () => {
     it('should return null if valid image is provided', () => {
-      expect(fileHandlingService.validateImage(validImage)).toBe(null);
+      expect(fileHandlingService.validateImage(validImage, englishLanguage, createMediaAccountLanguageFile)).toBe(null);
     });
 
     it('should return null if a dot-separated image is provided', () => {
-      expect(fileHandlingService.validateImage(dotSeparatedFile)).toBe(null);
+      expect(fileHandlingService.validateImage(dotSeparatedFile, englishLanguage, createMediaAccountLanguageFile)).toBe(null);
     });
 
     it('should return error message if image is not provided', () => {
-      expect(fileHandlingService.validateImage(null))
+      expect(fileHandlingService.validateImage(null, englishLanguage, createMediaAccountLanguageFile))
         .toBe('There is a problem - We will need ID evidence to support your application for an account');
     });
 
     it('should return error message if unsupported format image is provided', () => {
-      expect(fileHandlingService.validateImage(invalidFileType))
+      expect(fileHandlingService.validateImage(invalidFileType, englishLanguage, createMediaAccountLanguageFile))
         .toBe('There is a problem - ID evidence must be a JPG, PDF or PNG');
     });
 
     it('should return error message if image is over 2MB', () => {
-      expect(fileHandlingService.validateImage(largeImage))
+      expect(fileHandlingService.validateImage(largeImage, englishLanguage, createMediaAccountLanguageFile))
         .toBe('There is a problem - ID evidence needs to be less than 2Mbs');
     });
   });

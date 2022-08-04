@@ -19,7 +19,7 @@ export class SubscriptionService {
     return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], locationSubscriptions: []};
   }
 
-  async generateCaseTableRows(subscriptionDataCases, language, jsonLanguageFile): Promise<any[]> {
+  async generateCaseTableRows(subscriptionDataCases, language, languageFile): Promise<any[]> {
     const caseRows = [];
 
     if (subscriptionDataCases.length) {
@@ -37,7 +37,7 @@ export class SubscriptionService {
             },
             {
               html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
-                languageFileParser.getText(language, jsonLanguageFile, null, 'unsubscribe') + '</a>',
+                languageFileParser.getText(language, languageFile, null, 'unsubscribe') + '</a>',
               format: 'numeric',
             },
           ],
@@ -48,7 +48,7 @@ export class SubscriptionService {
     return caseRows;
   }
 
-  async generateLocationTableRows(subscriptionDataCourts, language, jsonLanguageFile): Promise<any[]> {
+  async generateLocationTableRows(subscriptionDataCourts, language, languageFile): Promise<any[]> {
     const courtRows = [];
     if (subscriptionDataCourts.length) {
       subscriptionDataCourts.forEach((subscription) => {
@@ -61,7 +61,7 @@ export class SubscriptionService {
           },
           {
             html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
-              languageFileParser.getText(language, jsonLanguageFile, null, 'unsubscribe') + '</a>',
+              languageFileParser.getText(language, languageFile, null, 'unsubscribe') + '</a>',
             format: 'numeric',
           },
         ]);

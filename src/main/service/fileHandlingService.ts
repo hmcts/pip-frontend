@@ -1,23 +1,26 @@
 import {allowedFileTypes, allowedImageTypes} from '../models/consts';
 import fs from 'fs';
+import {LanguageFileParser} from '../helper/languageFileParser';
+
 const { redisClient } = require('../cacheManager');
+const languageFileParser = new LanguageFileParser();
 
 export class FileHandlingService {
 
   REDIS_EXPIRY_KEY = 'EX';
   REDIS_EXPIRY_TIME = 60 * 10;
 
-  validateImage(file: File): string {
+  validateImage(file: File, language: string, languageFile: string): string {
     if (file) {
       if (this.isValidFileType(file['originalname'], true)) {
         if (this.isFileCorrectSize(file.size)) {
           return null;
         }
-        return 'There is a problem - ID evidence needs to be less than 2Mbs';
+        return languageFileParser.getText(language, languageFile, 'imageUploadErrors', 'sizeError');
       }
-      return 'There is a problem - ID evidence must be a JPG, PDF or PNG';
+      return languageFileParser.getText(language, languageFile, 'imageUploadErrors', 'typeError');
     }
-    return 'There is a problem - We will need ID evidence to support your application for an account';
+    return languageFileParser.getText(language, languageFile, 'imageUploadErrors', 'blank');
   }
 
   validateFileUpload(file: File): string {

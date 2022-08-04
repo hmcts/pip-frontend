@@ -13,7 +13,7 @@ export default class CreateMediaAccountController {
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
-    const formValidation = createAccountService.validateFormFields(req.body, req.file);
+    const formValidation = createAccountService.validateFormFields(req.body, req.file, req.lng as string, 'create-media-account');
     const isValidForm = Object.values(formValidation).every(o => o.message === null);
 
     if (isValidForm) {
