@@ -5,7 +5,7 @@
   "inputLabel": "For example, Smith.",
   "error": {
     "notFound": "There is nothing matching your criteria",
-    "minimumCharacterError": "Please enter a minimum of 3 characters when searching by case name",
+    "minimumCharacterError": "Please enter a minimum of 3 characters",
     "title": "There is a problem",
     "input": "Please provide a correct case name",
     "line1": "There are no matching results.",

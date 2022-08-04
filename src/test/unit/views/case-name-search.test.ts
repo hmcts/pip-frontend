@@ -112,7 +112,7 @@ describe('Case name search page with search of less than 3 characters', () => {
 
   it('should display error summary body', () => {
     const errorBody = htmlRes.getElementsByClassName('govuk-error-summary__body');
-    expect(errorBody[0].innerHTML).contains('Please enter a minimum of 3 characters when searching by case name', 'Could not find error summary');
+    expect(errorBody[0].innerHTML).contains('Please enter a minimum of 3 characters', 'Could not find error summary');
   });
 
   it('should display input with error classes', () => {
