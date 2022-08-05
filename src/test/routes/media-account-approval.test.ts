@@ -32,23 +32,23 @@ describe('Media Account Approval', () => {
   createAccountStub.withArgs(applicationID, null).resolves(dummyApplication);
 
   describe('on view approval', () => {
-    test('should return the media account approval page', () => {
-      request(app)
+    test('should return the media account approval page', async () => {
+      await request(app)
         .get('/media-account-approval?applicantId=' + applicationID)
         .expect((res) => expect(res.status).to.equal(200));
     });
   });
 
   describe('on submit approval', () => {
-    test('should return success when approval is accept', () => {
-      request(app)
+    test('should return success when approval is accept', async () => {
+      await request(app)
         .post('/media-account-approval?applicantId=' + applicationID)
         .send({'approval': 'Yes'})
         .expect((res) => expect(res.status).to.equal(200));
     });
 
-    test('should return success when approval is reject', () => {
-      request(app)
+    test('should return success when approval is reject', async () => {
+      await request(app)
         .post('/media-account-approval?applicantId=' + applicationID)
         .send({'approval': 'No'})
         .expect((res) => expect(res.status).to.equal(200));

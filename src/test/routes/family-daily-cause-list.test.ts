@@ -4,6 +4,7 @@ import sinon from 'sinon';
 
 import { app } from '../../main/app';
 import { PublicationService } from '../../main/service/publicationService';
+import { LocationService } from '../../main/service/locationService';
 import fs from 'fs';
 import path from 'path';
 import { DataManipulationService } from '../../main/service/dataManipulationService';
@@ -13,11 +14,12 @@ const dailyReferenceData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(dailyReferenceData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(dailyReferenceData);
 sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').resolves(dailyReferenceData);
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({name: 'courtName'});
 
 describe('Daily Cause List Page', () => {
   describe('on GET', () => {
-    test('should return daily cause list page', () => {
-      request(app)
+    test('should return daily cause list page', async () => {
+      await request(app)
         .get('/family-daily-cause-list?artefactId=test')
         .expect((res) => expect(res.status).to.equal(200));
     });

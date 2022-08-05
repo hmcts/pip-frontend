@@ -7,7 +7,7 @@ import { LocationService } from '../service/locationService';
 import { DataManipulationService } from '../service/dataManipulationService';
 
 const publicationService = new PublicationService();
-const courtService = new LocationService();
+const locationService = new LocationService();
 const dataManipulationService = new DataManipulationService();
 
 export default class DailyCauseListController {
@@ -24,7 +24,7 @@ export default class DailyCauseListController {
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);
 
-      const court = await courtService.getLocationById(metaData['locationId']);
+      const location = await locationService.getLocationById(metaData['locationId']);
 
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
@@ -35,7 +35,7 @@ export default class DailyCauseListController {
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         provenance: metaData['provenance'],
-        courtName: court.name,
+        courtName: location.name,
         bill: pageLanguage === 'bill',
       });
     } else {
