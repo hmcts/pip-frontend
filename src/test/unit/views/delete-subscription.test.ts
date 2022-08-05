@@ -1,8 +1,6 @@
 import request from 'supertest';
-import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { request as expressRequest } from 'express';
 
 let htmlRes: Document;
 const PAGE_URL = '/delete-subscription?subscription=ValidSubscription';
@@ -19,7 +17,6 @@ app.request['user'] = { _json: {
 
 describe('Delete Subscription page', () => {
   beforeAll(async () => {
-    sinon.stub(expressRequest, 'isAuthenticated').returns(true);
 
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
