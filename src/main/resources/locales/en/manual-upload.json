@@ -38,5 +38,13 @@
     {"heading": "Display to", "text": "This will be the last date the publication is available. It will be displayed until 23:59 of that date."}
   ],
   "warning": "Warning",
-  "warningText": "Prior to upload you must ensure the file is suitable for publication e.g. redaction of personal data has been done during the production of this file."
+  "warningText": "Prior to upload you must ensure the file is suitable for publication e.g. redaction of personal data has been done during the production of this file.",
+  "courtSearchErrors": {
+    "notFound": "Please enter and select a valid court",
+    "minCharactersReq": "Court name must be three characters or more"
+  },
+  "dateErrors": {
+    "blank": "Please enter a valid date",
+    "dateRange": "Please make sure 'to' date is after 'from' date"
+  }
 }

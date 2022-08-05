@@ -15,5 +15,6 @@
   "appellant": "Appellant",
   "respondent": "FTA/Respondent",
   "panel": "Panel",
-  "legalAdvisor": "Legal Advisor"
+  "legalAdvisor": "Legal Advisor",
+  "missingCourt": "Missing Court"
 }

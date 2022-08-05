@@ -1,7 +1,9 @@
 import { LocationRequests } from '../resources/requests/locationRequests';
 import { Location } from '../models/location';
+import {LanguageFileParser} from '../helper/languageFileParser';
 
 const locationRequest = new LocationRequests();
+const languageFileParser = new LanguageFileParser();
 
 export class LocationService {
   public static generateAlphabetObject(): object {
@@ -90,18 +92,10 @@ export class LocationService {
     return alphabetisedCourtList;
   }
 
-  public findCourtName(location: Location, language: string): string {
+  public findCourtName(location: Location, language: string, languageFile: string): string {
     let courtName = '';
     if(location == null) {
-      switch(language) {
-        case 'cy': {
-          return 'Llys ar Goll';
-        }
-
-        default: {
-          return 'Missing Court';
-        }
-      }
+      return languageFileParser.getText(language, languageFile, null, 'missingCourt');
     }
 
     switch(language) {
