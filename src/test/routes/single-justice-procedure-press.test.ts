@@ -16,9 +16,9 @@ sinon.stub(DataManipulationService.prototype, 'formatSJPPressList').resolves(sjp
 
 describe('Single Justice Procedure Press Page', () => {
   describe('on GET', () => {
-    test('should return Single Justice Procedure Press page', () => {
+    test('should return Single Justice Procedure Press page', async () => {
       app.request['user'] = {piUserId: '2'};
-      request(app)
+      await request(app)
         .get('/sjp-press-list?artefactId=test')
         .expect((res) => expect(res.status).to.equal(200));
     });
