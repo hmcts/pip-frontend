@@ -122,6 +122,6 @@ describe('Case name search page with search of less than 3 characters', () => {
 
   it('should display input error message', () => {
     const inputError = htmlRes.getElementById('case-name-error');
-    expect(inputError.innerHTML).contains('Please provide a correct case name', 'Input should have error classes');
+    expect(inputError.innerHTML).contains('Please enter a minimum of 3 characters', 'Input should have error classes');
   });
 });

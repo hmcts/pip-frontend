@@ -56,14 +56,24 @@
         label: {
             text: inputLabel
         }
-    } if noResultsError or minimumCharacterError else {
+      } if noResultsError else ({
+        id: "case-name",
+        name: "case-name",
+        errorMessage: {
+          text: error.minimumCharacterError
+        },
+        classes: 'govuk-!-width-one-half',
+        label: {
+          text: inputLabel
+        }
+      } if minimumCharacterError else {
         id: "case-name",
         name: "case-name",
         classes: 'govuk-!-width-one-half',
         label: {
-        text: inputLabel
-    }
-        } %}
+          text: inputLabel
+        }
+    }) %}
     <form action="case-name-search" method="post">
         <div class="govuk-form-group">
             <h1 class="govuk-heading-l">{{ heading }}</h1>
