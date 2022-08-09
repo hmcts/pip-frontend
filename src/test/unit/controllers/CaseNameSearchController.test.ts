@@ -80,14 +80,32 @@ describe('Case name search controller', () => {
     });
   });
 
-  it('should render same page if there are no search results', async () => {
+  it('should render same page if no search term is entered', async () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     request.user = {piUserId: '1'};
     request.body = {};
     const expectedData = {
       ...i18n['case-name-search'],
-      noResultsError: true,
+      minimumCharacterError: true,
+    };
+
+    const responseMock = sinon.mock(response);
+
+    responseMock.expects('render').once().withArgs('case-name-search',  expectedData);
+    return caseNameSearchController.post(request, response).then(() => {
+      responseMock.verify();
+    });
+  });
+
+  it('should render same page if a search term of less than 3 characters is entered', async () => {
+    const response = { render: () => {return '';}} as unknown as Response;
+    const request = mockRequest(i18n);
+    request.user = {piUserId: '1'};
+    request.body = {'case-name': 'bo'};
+    const expectedData = {
+      ...i18n['case-name-search'],
+      minimumCharacterError: true,
     };
 
     const responseMock = sinon.mock(response);
