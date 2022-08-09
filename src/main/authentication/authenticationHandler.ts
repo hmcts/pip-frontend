@@ -14,6 +14,7 @@ export function checkRoles(req, roles): boolean {
     if (userInfo?.extension_UserRole) {
       req.user.role = userInfo?.extension_UserRole;
       if (roles.includes(userInfo?.extension_UserRole)) {
+        req.sessionOptions.maxAge = 60 * 60 * 4000; //4 hours
         return true;
       }
     }
