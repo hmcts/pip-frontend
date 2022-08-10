@@ -1,6 +1,6 @@
 import { LocationRequests } from '../resources/requests/locationRequests';
 import { Location } from '../models/location';
-import {LanguageFileParser} from '../helper/languageFileParser';
+import {LanguageFileParser} from '../helpers/languageFileParser';
 
 const locationRequest = new LocationRequests();
 const languageFileParser = new LanguageFileParser();
@@ -93,9 +93,10 @@ export class LocationService {
   }
 
   public findCourtName(location: Location, language: string, languageFile: string): string {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     let courtName = '';
     if(location == null) {
-      return languageFileParser.getText(language, languageFile, null, 'missingCourt');
+      return languageFileParser.getText(fileJson, null, 'missingCourt');
     }
 
     switch(language) {

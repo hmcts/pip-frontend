@@ -46,5 +46,10 @@
   "dateErrors": {
     "blank": "Please enter a valid date",
     "dateRange": "Please make sure 'to' date is after 'from' date"
+  },
+  "fileUploadErrors": {
+    "blank": "Please provide a file",
+    "typeError": "Please upload a valid file format",
+    "sizeError": "File too large, please upload file smaller than 2MB"
   }
 }

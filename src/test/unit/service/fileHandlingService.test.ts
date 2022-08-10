@@ -20,6 +20,7 @@ const jsonContent = '{"TestContent": "TestValue"}';
 const stub = sinon.stub(fs, 'unlinkSync');
 const englishLanguage = 'en';
 const createMediaAccountLanguageFile = 'create-media-account';
+const manualUploadLanguageFile = 'manual-upload';
 
 describe('File handling service', () => {
   describe('validateImage', () => {
@@ -49,27 +50,27 @@ describe('File handling service', () => {
 
   describe('validateFileUpload', () => {
     it('should return null when checking a valid file', () => {
-      expect(fileHandlingService.validateFileUpload(validFile)).toBe(null);
+      expect(fileHandlingService.validateFileUpload(validFile, englishLanguage, manualUploadLanguageFile)).toBe(null);
     });
 
     it('should return null when checking file type in different case sensitivity', () => {
-      expect(fileHandlingService.validateFileUpload(validFileCase)).toBe(null);
+      expect(fileHandlingService.validateFileUpload(validFileCase, englishLanguage, manualUploadLanguageFile)).toBe(null);
     });
 
     it('should return error message if file greater than 2MB', () => {
-      expect(fileHandlingService.validateFileUpload(largeFile)).toEqual('File too large, please upload file smaller than 2MB');
+      expect(fileHandlingService.validateFileUpload(largeFile, englishLanguage, manualUploadLanguageFile)).toEqual('File too large, please upload file smaller than 2MB');
     });
 
     it('should return error message if invalid file type', () => {
-      expect(fileHandlingService.validateFileUpload(invalidFileType)).toEqual('Please upload a valid file format');
+      expect(fileHandlingService.validateFileUpload(invalidFileType, englishLanguage, manualUploadLanguageFile)).toEqual('Please upload a valid file format');
     });
 
     it('should return error message if missing file type', () => {
-      expect(fileHandlingService.validateFileUpload(noFileType)).toEqual('Please upload a valid file format');
+      expect(fileHandlingService.validateFileUpload(noFileType, englishLanguage, manualUploadLanguageFile)).toEqual('Please upload a valid file format');
     });
 
     it('should return error message if no file passed', () => {
-      expect(fileHandlingService.validateFileUpload(null)).toEqual('Please provide a file');
+      expect(fileHandlingService.validateFileUpload(null, englishLanguage, manualUploadLanguageFile)).toEqual('Please provide a file');
     });
   });
 

@@ -2,7 +2,7 @@ import { LocationService } from './locationService';
 import { DataManagementRequests } from '../resources/requests/dataManagementRequests';
 import moment from 'moment';
 import { FileHandlingService } from './fileHandlingService';
-import {LanguageFileParser} from '../helper/languageFileParser';
+import {LanguageFileParser} from '../helpers/languageFileParser';
 
 const courtService = new LocationService();
 const dataManagementRequests = new DataManagementRequests();
@@ -71,16 +71,17 @@ export class ManualUploadService {
   }
 
   private async validateCourt(courtName: string, language: string, languageFile: string): Promise<string> {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (courtName?.length >= 3) {
       const validCourt = await courtService.getLocationByName(courtName, language);
       if (validCourt) {
         return null;
       }
 
-      return languageFileParser.getText(language, languageFile, 'courtSearchErrors', 'notFound');
+      return languageFileParser.getText(fileJson, 'courtSearchErrors', 'notFound');
     }
 
-    return languageFileParser.getText(language, languageFile, 'courtSearchErrors', 'minCharactersReq');
+    return languageFileParser.getText(fileJson, 'courtSearchErrors', 'minCharactersReq');
   }
 
   public buildDate(body: object, fieldsetPrefix: string): string {
@@ -110,8 +111,8 @@ export class ManualUploadService {
     if (dateformat.isValid()) {
       return null;
     }
-
-    return languageFileParser.getText(language, languageFile, 'dateErrors', 'blank');
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
+    return languageFileParser.getText(fileJson, 'dateErrors', 'blank');
   }
 
   private validateDateRange(dateFrom: string, dateTo: string, language: string, languageFile: string): string | null {
@@ -120,8 +121,8 @@ export class ManualUploadService {
     if (firstDate.isSameOrBefore(secondDate)) {
       return null;
     }
-
-    return languageFileParser.getText(language, languageFile, 'dateErrors', 'dateRange');
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
+    return languageFileParser.getText(fileJson, 'dateErrors', 'dateRange');
   }
 
   public async appendlocationId(courtName: string, language: string): Promise<object> {

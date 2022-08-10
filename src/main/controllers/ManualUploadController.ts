@@ -28,7 +28,7 @@ export default class ManualUploadController {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     } else {
       const errors = {
-        fileErrors: fileHandlingService.validateFileUpload(req.file),
+        fileErrors: fileHandlingService.validateFileUpload(req.file, req.lng as string, 'manual-upload'),
         formErrors: await manualUploadService.validateFormFields(req.body, req.lng as string, 'manual-upload'),
       };
 

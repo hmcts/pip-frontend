@@ -1,7 +1,7 @@
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
 import fs from 'fs';
 import {FileHandlingService} from './fileHandlingService';
-import {LanguageFileParser} from '../helper/languageFileParser';
+import {LanguageFileParser} from '../helpers/languageFileParser';
 
 const languageFileParser = new LanguageFileParser();
 const adminRolesList = [
@@ -63,15 +63,16 @@ export class CreateAccountService {
 
   public validateAdminFormFields(formValues: object,
     language: string, languageFile: string): object {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     return {
       firstNameError: {
         message: this.isNotBlank(formValues['firstName']) ? null :
-          languageFileParser.getText(language, languageFile, null, 'firstnameError'),
+          languageFileParser.getText(fileJson, null, 'firstnameError'),
         href: '#firstName',
       },
       lastNameError: {
         message: this.isNotBlank(formValues['lastName']) ? null :
-          languageFileParser.getText(language, languageFile, null, 'surnameError'),
+          languageFileParser.getText(fileJson, null, 'surnameError'),
         href: '#lastName',
       },
       emailError: {
@@ -80,7 +81,7 @@ export class CreateAccountService {
       },
       radioError: {
         message: formValues['user-role'] ? null :
-          languageFileParser.getText(language, languageFile, null, 'roleError'),
+          languageFileParser.getText(fileJson, null, 'roleError'),
         href: '#user-role',
       },
     };
@@ -123,56 +124,61 @@ export class CreateAccountService {
   }
 
   validateMediaFullName(input, language, languageFile): string {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (!this.isNotBlank(input)) {
-      return languageFileParser.getText(language, languageFile, 'fullNameErrors', 'blank');
+      return languageFileParser.getText(fileJson, 'fullNameErrors', 'blank');
     } else if (this.isStartingWithSpace(input)) {
-      return languageFileParser.getText(language, languageFile, 'fullNameErrors', 'whiteSpace');
+      return languageFileParser.getText(fileJson, 'fullNameErrors', 'whiteSpace');
     } else if (this.isDoubleSpaced(input)) {
-      return languageFileParser.getText(language, languageFile, 'fullNameErrors', 'doubleWhiteSpace');
+      return languageFileParser.getText(fileJson, 'fullNameErrors', 'doubleWhiteSpace');
     } else if ((input.split(' ').length - 1) < 1) {
-      return languageFileParser.getText(language, languageFile, 'fullNameErrors', 'nameWithoutWhiteSpace');
+      return languageFileParser.getText(fileJson, 'fullNameErrors', 'nameWithoutWhiteSpace');
     }
     return null;
   }
 
   validateMediaEmailAddress(input, language, languageFile): string {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (this.isStartingWithSpace(input)) {
-      return languageFileParser.getText(language, languageFile, 'emailErrors', 'startWithWhiteSpace');
+      return languageFileParser.getText(fileJson, 'emailErrors', 'startWithWhiteSpace');
     } else if (this.isDoubleSpaced(input)) {
-      return languageFileParser.getText(language, languageFile, 'emailErrors', 'doubleWhiteSpace');
+      return languageFileParser.getText(fileJson, 'emailErrors', 'doubleWhiteSpace');
     } else {
       return this.validateEmail(input, language, languageFile);
     }
   }
 
   validateMediaEmployer(input, language, languageFile): string {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (!this.isNotBlank(input)) {
-      return languageFileParser.getText(language, languageFile, 'mediaEmployeeErrors', 'blank');
+      return languageFileParser.getText(fileJson, 'mediaEmployeeErrors', 'blank');
     } else if (this.isStartingWithSpace(input)) {
-      return languageFileParser.getText(language, languageFile, 'mediaEmployeeErrors', 'whiteSpace');
+      return languageFileParser.getText(fileJson, 'mediaEmployeeErrors', 'whiteSpace');
     } else if (this.isDoubleSpaced(input)) {
-      return languageFileParser.getText(language, languageFile, 'mediaEmployeeErrors', 'doubleWhiteSpace');
+      return languageFileParser.getText(fileJson, 'mediaEmployeeErrors', 'doubleWhiteSpace');
     }
     return null;
   }
 
   validateEmail(email: string, language: string, languageFile: string): string {
     let message = null;
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (this.isNotBlank(email)) {
       if (!this.isValidEmail(email)) {
-        message =  languageFileParser.getText(language, languageFile, 'emailErrors', 'invalidEmailAddress');
+        message =  languageFileParser.getText(fileJson, 'emailErrors', 'invalidEmailAddress');
       }
     } else {
-      message = languageFileParser.getText(language, languageFile, 'emailErrors', 'blank');
+      message = languageFileParser.getText(fileJson, 'emailErrors', 'blank');
     }
     return message;
   }
 
   validateCheckbox(input, language, languageFile): string {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (input) {
       return null;
     } else {
-      return languageFileParser.getText(language, languageFile, null, 'ariaCheckboxError');
+      return languageFileParser.getText(fileJson, null, 'ariaCheckboxError');
     }
   }
 

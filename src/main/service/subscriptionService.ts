@@ -5,7 +5,7 @@ import { UserSubscriptions } from '../models/UserSubscriptions';
 import {PublicationService} from './publicationService';
 import {LocationService} from './locationService';
 import {Location} from '../models/location';
-import {LanguageFileParser} from '../helper/languageFileParser';
+import {LanguageFileParser} from '../helpers/languageFileParser';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
@@ -21,7 +21,7 @@ export class SubscriptionService {
 
   async generateCaseTableRows(subscriptionDataCases, language, languageFile): Promise<any[]> {
     const caseRows = [];
-
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCases.length) {
       subscriptionDataCases.forEach((subscription) => {
         caseRows.push(
@@ -37,7 +37,7 @@ export class SubscriptionService {
             },
             {
               html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
-                languageFileParser.getText(language, languageFile, null, 'unsubscribe') + '</a>',
+                languageFileParser.getText(fileJson, null, 'unsubscribe') + '</a>',
               format: 'numeric',
             },
           ],
@@ -50,6 +50,7 @@ export class SubscriptionService {
 
   async generateLocationTableRows(subscriptionDataCourts, language, languageFile): Promise<any[]> {
     const courtRows = [];
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCourts.length) {
       subscriptionDataCourts.forEach((subscription) => {
         courtRows.push([
@@ -61,7 +62,7 @@ export class SubscriptionService {
           },
           {
             html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
-              languageFileParser.getText(language, languageFile, null, 'unsubscribe') + '</a>',
+              languageFileParser.getText(fileJson, null, 'unsubscribe') + '</a>',
             format: 'numeric',
           },
         ]);
