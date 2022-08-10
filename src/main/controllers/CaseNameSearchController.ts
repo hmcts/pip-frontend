@@ -20,7 +20,8 @@ export default class CaseNameSearchController {
 
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['case-name'];
-    if (searchInput) {
+
+    if (searchInput && searchInput.length >= 3) {
       const searchResults = await publicationService.getCasesByCaseName(searchInput.toLowerCase(), req.user?.['piUserId']);
       if (searchResults.length) {
         res.redirect('case-name-search-results?search=' + searchInput);
@@ -33,7 +34,7 @@ export default class CaseNameSearchController {
     } else {
       res.render('case-name-search', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-name-search']),
-        noResultsError: true,
+        minimumCharacterError: true,
       });
     }
   }
