@@ -1,3 +1,5 @@
+import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
+
 const authenticationConfig = require('../authentication/authentication-config.json');
 import config from 'config';
 
@@ -78,4 +80,15 @@ export function forgotPasswordRedirect(req, res, next): void {
     return;
   }
   return next();
+}
+
+export function mediaVerificationHandling(req, res): void {
+  if(req.user) {
+    const userInfo = req.user['_json'];
+    if(verifiedRoles.includes(userInfo?.extension_UserRole)) {
+      const response = AccountManagementRequests.prototype.updateMediaAccountVerification(userInfo?.oid);
+      response.then(output => console.log(output));
+      res.redirect('/account-home?verified=true');
+    }
+  }
 }
