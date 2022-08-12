@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 const authenticationConfig = require('../authentication/authentication-config.json');
 import config from 'config';
 
@@ -8,13 +10,27 @@ export const allAdminRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTE
 export const verifiedRoles = ['VERIFIED'];
 const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
 
+export function isAdminSessionExpire(req): boolean {
+  if(checkRoles(req, allAdminRoles)) {
+    if(req.session.fake) {
+      const sessionExpiryDateTime = moment.utc(req.session.fake);
+      const currentDateTime = moment.utc(new Date(Date.now()));
+      const durationAsSeconds = moment.duration(sessionExpiryDateTime.startOf('seconds').diff(currentDateTime.startOf('seconds'))).asMinutes();
+      if(durationAsSeconds <= 0) {
+        return true;
+      }
+    }
+    req.session.fake = new Date(Date.now() + (60 * 60 * 4000)); //4 hours
+  }
+  return false;
+}
+
 export function checkRoles(req, roles): boolean {
   if(req.user) {
     const userInfo = req.user['_json'];
     if (userInfo?.extension_UserRole) {
       req.user.role = userInfo?.extension_UserRole;
       if (roles.includes(userInfo?.extension_UserRole)) {
-        req.sessionOptions.maxAge = 60 * 60 * 4000; //4 hours
         return true;
       }
     }
