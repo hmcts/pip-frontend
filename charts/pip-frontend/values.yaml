@@ -22,8 +22,6 @@ nodejs:
           alias: CONFIG_ENDPOINT
         - name: b2c-config-admin-endpoint
           alias: CONFIG_ADMIN_ENDPOINT
-        - name: b2c-config-media-verification-endpoint
-          alias: MEDIA_VERIFICATION_CONFIG_ENDPOINT
         - name: b2c-tenant-id
           alias: TENANT_GUID
         - name: shared-storageaccount-connection-string
