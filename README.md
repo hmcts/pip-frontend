@@ -203,7 +203,7 @@ to the responses. Apart from default Helmet functions, following headers are set
 * [Content-Security-Policy](https://helmetjs.github.io/docs/csp/)
 
 There is a configuration section related with those headers, where you can specify:
-* `referrerPolicy` - value of the `Referrer-Policy` header
+* `referrerPolicy` - value of the `Referrer-Policy` header.
 
 
 Here's an example setup:
