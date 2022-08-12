@@ -1,7 +1,8 @@
-const authenticationConfig = require('../authentication/authentication-config.json');
-import config from 'config';
-
+import process from 'process';
+import config = require('config');
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
+
+const authenticationConfig = require('../authentication/authentication-config.json');
 
 export const adminAccountCreationRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL'];
 export const manualUploadRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_CTSC', 'INTERNAL_ADMIN_LOCAL'];
