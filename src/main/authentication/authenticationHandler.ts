@@ -1,5 +1,5 @@
 import process from 'process';
-import * as config from 'config';
+import config from 'config';
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
