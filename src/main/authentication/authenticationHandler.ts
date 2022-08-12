@@ -82,12 +82,12 @@ export function forgotPasswordRedirect(req, res, next): void {
   return next();
 }
 
-export function mediaVerificationHandling(req, res): void {
+export async function mediaVerificationHandling(req, res): Promise<any> {
   if(req.user) {
     const userInfo = req.user['_json'];
     if(verifiedRoles.includes(userInfo?.extension_UserRole)) {
-      const response = AccountManagementRequests.prototype.updateMediaAccountVerification(userInfo?.oid);
-      response.then(output => console.log(output));
+      const response = await AccountManagementRequests.prototype.updateMediaAccountVerification(userInfo?.oid);
+      console.log(response);
       res.redirect('/account-home?verified=true');
     }
   }

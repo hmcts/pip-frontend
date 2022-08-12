@@ -163,7 +163,7 @@ export class AccountManagementRequests {
 
   public async updateMediaAccountVerification(oid: string): Promise<string> {
     try {
-      const response = await accountManagementApi.put('/account/media/verification/' + oid);
+      const response = await accountManagementApi.put('/account/verification/' + oid);
       return response.data;
     } catch (error) {
       if (error.response) {
