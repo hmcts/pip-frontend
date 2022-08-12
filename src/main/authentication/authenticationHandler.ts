@@ -20,7 +20,7 @@ export function isAdminSessionExpire(req): boolean {
         return true;
       }
     }
-    req.session.sessionExpiry = new Date(Date.now() + (5000)); //4 hours
+    req.session.sessionExpiry = new Date(Date.now() + (60 * 60 * 4000)); //4 hours
   }
   return false;
 }
