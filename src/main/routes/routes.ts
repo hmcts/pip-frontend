@@ -4,6 +4,7 @@ import { Logger } from '@hmcts/nodejs-logging';
 import cors  from 'cors';
 import os from 'os';
 import process from 'process';
+import config from 'config';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 import {
   allAdminRoles,
@@ -15,8 +16,6 @@ import {
   checkRoles,
   forgotPasswordRedirect, mediaVerificationHandling,
 } from '../authentication/authenticationHandler';
-
-import config from 'config';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
