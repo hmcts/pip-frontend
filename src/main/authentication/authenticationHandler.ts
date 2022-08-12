@@ -12,15 +12,15 @@ const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.p
 
 export function isAdminSessionExpire(req): boolean {
   if(checkRoles(req, allAdminRoles)) {
-    if(req.session.fake) {
-      const sessionExpiryDateTime = moment.utc(req.session.fake);
+    if(req.session.sessionExpiry) {
+      const sessionExpiryDateTime = moment.utc(req.session.sessionExpiry);
       const currentDateTime = moment.utc(new Date(Date.now()));
       const durationAsSeconds = moment.duration(sessionExpiryDateTime.startOf('seconds').diff(currentDateTime.startOf('seconds'))).asMinutes();
       if(durationAsSeconds <= 0) {
         return true;
       }
     }
-    req.session.fake = new Date(Date.now() + (60 * 60 * 4000)); //4 hours
+    req.session.sessionExpiry = new Date(Date.now() + (5000)); //4 hours
   }
   return false;
 }
