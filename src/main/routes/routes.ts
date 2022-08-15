@@ -13,7 +13,8 @@ import {
   isPermittedAccountCreation,
   isPermittedManualUpload,
   checkRoles,
-  forgotPasswordRedirect, mediaVerificationHandling,
+  forgotPasswordRedirect,
+  mediaVerificationHandling,
 } from '../authentication/authenticationHandler';
 
 import config from 'config';
