@@ -1,0 +1,6 @@
+{
+  "header": "Sign in rejected",
+  "bodyText1": "You have attempted to login following the wrong process.",
+  "bodyText2": "Please click the button below to sign in through the admin process.",
+  "buttonText": "Sign in"
+}

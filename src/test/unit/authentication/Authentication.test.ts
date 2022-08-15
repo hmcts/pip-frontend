@@ -38,7 +38,7 @@ describe('Authentication', () => {
       .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/return');
     expect(passport._strategies['admin-login'].name).to.eql('azuread-openidconnect');
     expect(passport._strategies['admin-login']._options.redirectUrl)
-      .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/return');
+      .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/admin/return');
   });
 
   it('Should set up passport correctly for azure authentication when FRONTEND_URL is set', () => {
@@ -55,7 +55,7 @@ describe('Authentication', () => {
       .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/return');
     expect(passport._strategies['admin-login'].name).to.eql('azuread-openidconnect');
     expect(passport._strategies['admin-login']._options.redirectUrl)
-      .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/return');
+      .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/admin/return');
   });
 
   parameters.forEach((parameter) => {

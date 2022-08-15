@@ -91,11 +91,14 @@ export default function(app: Application): void {
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
-  app.get('/password-change-confirmation', app.locals.container.cradle.passwordChangeController.get);
+  app.get('/password-change-confirmation/:isAdmin', app.locals.container.cradle.passwordChangeController.get);
+  app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
   app.get('/login', passport.authenticate('login', { failureRedirect: '/'}), regenerateSession);
   app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/'}), regenerateSession);
   app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}),
-    (_req, res) => {checkRoles(_req, allAdminRoles) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
+    (_req, res) => {checkRoles(_req, allAdminRoles) ? logOut(_req, res, `${FRONTEND_URL}/admin-rejected-login`) : res.redirect('/account-home');});
+  app.post('/login/admin/return', forgotPasswordRedirect, passport.authenticate('admin-login', { failureRedirect: '/view-option'}),
+    (_req, res) => {checkRoles(_req, allAdminRoles) ? res.redirect('/admin-dashboard') : res.redirect('/view-option');});
   app.get('/logout', (_req, res) => {checkRoles(_req, allAdminRoles) ?
     logOut(_req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY) : logOut(_req, res, `${FRONTEND_URL}/view-option`);});
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);

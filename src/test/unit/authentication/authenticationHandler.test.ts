@@ -220,11 +220,20 @@ describe('Test IsPermittedMediaAccount', () => {
 });
 
 describe('forgot password reset', () => {
-  test('should redirect to azure again if password reset error is returned from the B2C', async () => {
+  test('should redirect to azure again if password reset error is returned from the B2C with the correct media redirect url', async () => {
     await request(app)
       .post('/login/return')
       .send({'error': 'access_denied', 'error_description': 'AADB2C90118'})
-      .expect((res) => expect(res.redirect).to.be.true);
+      .expect((res) => expect(res.redirect).to.be.true)
+      .expect((res) => expect(res.header.location).to.contain('/password-change-confirmation/false'));
+  });
+
+  test('should redirect to azure again if password reset error is returned from the B2C with the correct admin redirect url', async () => {
+    await request(app)
+      .post('/login/admin/return')
+      .send({'error': 'access_denied', 'error_description': 'AADB2C90118'})
+      .expect((res) => expect(res.redirect).to.be.true)
+      .expect((res) => expect(res.header.location).to.contain('/password-change-confirmation/true'));
   });
 });
 

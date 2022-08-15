@@ -44,6 +44,7 @@ function oidcSetup(): void {
   logger.info('secret', clientSecret ? clientSecret.substring(0,5) : 'client secret not set!' );
 
   const AUTH_RETURN_URL = process.env.AUTH_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/login/return';
+  const ADMIN_AUTH_RETURN_URL = process.env.ADMIN_AUTH_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/login/admin/return';
   const users = [];
 
   const findByOid = async function(oid, fn): Promise<any> {
@@ -96,7 +97,7 @@ function oidcSetup(): void {
     clientID: clientId,
     responseType: authenticationConfig.RESPONSE_TYPE,
     responseMode: authenticationConfig.RESPONSE_MODE,
-    redirectUrl: AUTH_RETURN_URL,
+    redirectUrl: ADMIN_AUTH_RETURN_URL,
     allowHttpForRedirectUrl: true,
     clientSecret: clientSecret,
     isB2C: true,
