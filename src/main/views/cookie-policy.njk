@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="parent-box">
   <div class="parent-box alphabetical-box">
     <h1 class="govuk-heading-l">{{ title }}</h1>
     <p class="govuk-body">{{ cookiesExplanation1 }}</p>
@@ -285,6 +286,7 @@
     }) }}
   {{ super() }}
   </div>
+</div>
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
