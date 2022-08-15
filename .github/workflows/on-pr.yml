@@ -77,6 +77,7 @@ jobs:
 
               az rest --method PATCH --header "Content-Type=application/json" --uri $restUrl --body "{\"web\":{\"redirectUris\":[$replayUrlsStr]}}" #--debug
           fi
+          
         env:
           PR_NUMBER: ${{ github.event.number }}
           B2C_TENANT_ID: ${{ steps.bootstrapKv.outputs.b2c-jenkins-tenant-id }}
