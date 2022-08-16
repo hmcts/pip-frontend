@@ -196,4 +196,28 @@ export class SubscriptionService {
   public async removeFromCache(record, userId): Promise<void> {
     return await pendingSubscriptionsFromCache.removeFromCache(record, userId);
   }
+
+  /**
+   * This method generates the relevant list types for the courts that the user has configured.
+   * @param userId The user ID of the user who is configuring their list types.
+   */
+  public async generateListTypesForCourts(userId): Promise<object> {
+    const userSubscriptions = this.getSubscriptionsByUser(userId);
+
+    let courtJurisdictions = new Set();
+    for (const subscription in userSubscriptions['locationSubscriptions']) {
+      let returnedLocation = await courtService.getLocationById(subscription['locationId']);
+      returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.add(jurisdiction));
+    }
+
+    const applicableListTypes = [];
+    const listTypes = publicationService.getListTypes();
+    for (const [listName, listType] of listTypes) {
+      if (listType.jurisdictions.some(jurisdiction => courtJurisdictions.has(jurisdiction))) {
+        applicableListTypes.push({"value": listName, "text": listType.friendlyName});
+      }
+    }
+
+    return applicableListTypes;
+  }
 }
