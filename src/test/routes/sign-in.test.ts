@@ -3,7 +3,7 @@ import request from 'supertest';
 import { app } from '../../main/app';
 import { getFlowName } from '../../main/authentication/authRedirect';
 
-const pAndIRedirectUrl = '/login?p='+ getFlowName(process.env.ENV);
+const pAndIRedirectUrl = '/login?p='+ getFlowName(null);
 const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
 const urlOptions = [
   {

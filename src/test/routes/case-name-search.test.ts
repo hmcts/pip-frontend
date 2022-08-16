@@ -9,8 +9,8 @@ expressRequest['user'] = {'_json': {
 
 describe('Case name search', () => {
   describe('on GET', () => {
-    test('should return case name search page', () => {
-      request(app)
+    test('should return case name search page', async () => {
+      await request(app)
         .get('/case-name-search')
         .expect((res) => expect(res.status).to.equal(200));
     });

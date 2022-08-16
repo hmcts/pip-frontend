@@ -27,6 +27,21 @@
             </div>
         </div>
     {% endif %}
+    {% if minimumCharacterError %}
+      <div class="govuk-grid-row">
+        <div class="no_padding govuk-grid-column-full">
+          {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+              {
+                text: error.minimumCharacterError,
+                href: "#case-name"
+              }
+            ]
+          }) }}
+        </div>
+      </div>
+    {% endif %}
     {% set inputClasses = 'govuk-!-width-two-thirds govuk-input--error'
         if noResultsError else 'govuk-!-width-two-thirds' %}
     {% set formGroupError = 'govuk-form-group--error'
@@ -41,14 +56,24 @@
         label: {
             text: inputLabel
         }
-    } if noResultsError else {
+      } if noResultsError else ({
+        id: "case-name",
+        name: "case-name",
+        errorMessage: {
+          text: error.minimumCharacterError
+        },
+        classes: 'govuk-!-width-one-half',
+        label: {
+          text: inputLabel
+        }
+      } if minimumCharacterError else {
         id: "case-name",
         name: "case-name",
         classes: 'govuk-!-width-one-half',
         label: {
-        text: inputLabel
-    }
-        } %}
+          text: inputLabel
+        }
+    }) %}
     <form action="case-name-search" method="post">
         <div class="govuk-form-group">
             <h1 class="govuk-heading-l">{{ heading }}</h1>
