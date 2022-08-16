@@ -16,20 +16,20 @@ describe('Admin rejected login page', () => {
 
   it('should display the page header', () => {
     const header = htmlRes.getElementsByClassName(largeHeadingClass);
-    expect(header[0].innerHTML).contains('Sign in rejected', 'Could not find the header');
+    expect(header[0].innerHTML).contains('Sign in failed', 'Could not find the header');
   });
 
   it('should display the body text', () => {
     const bodyText = htmlRes.getElementsByClassName('govuk-body');
-    expect(bodyText[4].innerHTML).contains('You have attempted to login following the wrong process.',
+    expect(bodyText[4].innerHTML).contains('You have attempted to sign in as a member of the media.',
       'Could not find body text');
-    expect(bodyText[5].innerHTML).contains('Please click the button below to sign in through the admin process.',
+    expect(bodyText[5].innerHTML).contains('Please always sign in using the following link below to sign in as a CaTH Super Admin or Admin user',
       'Could not find body text');
   });
 
-  it('should display the button', () => {
-    const button = htmlRes.getElementsByClassName('govuk-button');
-    expect(button[4].textContent).contains('Sign in', 'Could not find button');
-    expect(button[4].outerHTML).contains('B2C_1_SignInAdminUserFlow');
+  it('should display the link', () => {
+    const link = htmlRes.getElementsByClassName('govuk-link');
+    expect(link[3].textContent).contains('/admin-dashboard', 'Could not find link');
+    expect(link[3].outerHTML).contains('/admin-dashboard', 'Could not find href in link');
   });
 });

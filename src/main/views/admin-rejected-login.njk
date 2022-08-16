@@ -16,9 +16,5 @@
   <h1 class="govuk-heading-l">{{ header }}</h1>
   <p class="govuk-body">{{ bodyText1 }}</p>
   <p class="govuk-body">{{ bodyText2 }}</p>
-  {{ govukButton({
-    id: 'buttonForSignIn',
-    text: buttonText,
-    href: '/admin-login?p=B2C_1_SignInAdminUserFlow'
-  }) }}
+  <a href="{{ link }}" class="govuk-link govuk-body">{{ frontendUrl }}{{ link }}</a>
 {% endblock %}

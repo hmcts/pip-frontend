@@ -18,6 +18,7 @@ describe('Admin rejected login controller', () => {
 
     const expectedData = {
       ...i18n['admin-rejected-login'],
+      frontendUrl: process.env.FRONTEND_URL,
     };
 
     responseMock.expects('render').once().withArgs('admin-rejected-login', expectedData);
