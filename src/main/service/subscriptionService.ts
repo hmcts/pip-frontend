@@ -4,12 +4,15 @@ import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendi
 import { UserSubscriptions } from '../models/UserSubscriptions';
 import {PublicationService} from './publicationService';
 import {LocationService} from './locationService';
+import {FilterService} from './filterService';
 import {Location} from '../models/location';
+import {ListType} from "../models/listType";
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
 const publicationService = new PublicationService();
 const courtService = new LocationService();
+const filterService = new FilterService();
 
 export class SubscriptionService {
   async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
@@ -215,10 +218,18 @@ export class SubscriptionService {
   /**
    * This method generates the relevant list types for the courts that the user has configured.
    * @param userId The user ID of the user who is configuring their list types.
+   * @param filterValuesQuery The currently selected filters.
+   * @param clearQuery The clear filter for the query.
    */
-  public async generateListTypesForCourts(userId): Promise<object> {
-    //Get filters from URL
+  public async generateListTypesForCourts(userId, filterValuesQuery, clearQuery): Promise<object> {
+    //Get filters from URL and strip them out
+    let filterValues = filterService.stripFilters(filterValuesQuery);
+    if (clearQuery) {
+      filterValues = filterService.handleFilterClear(filterValues, clearQuery);
+    }
 
+    //Create the list of filter options
+    const filterOptions = this.buildFilterValueOptions(await publicationService.getListTypes(), filterValues);
 
     const userSubscriptions = await this.getSubscriptionsByUser(userId);
 
@@ -238,7 +249,41 @@ export class SubscriptionService {
 
     return {
       listOptions: alphabetisedListTypes,
-      filterOptions: alphabetisedListTypes
+      filterOptions: filterOptions
     };
   }
+
+  public buildFilterValueOptions(list: Map<string, ListType>, selectedFilters: string[]): object {
+    const filterValueOptions = {};
+    let finalFilterValueOptions = [];
+
+    filterValueOptions["Jurisdiction"] = {};
+    finalFilterValueOptions = [];
+
+    const filteredValue = this.getAllJurisdictions(list);
+
+    filteredValue.forEach(value => {
+        finalFilterValueOptions.push(value);
+    });
+
+    [...finalFilterValueOptions].sort().forEach(value => {
+      filterValueOptions["Jurisdiction"][value] = {
+        value: value,
+        text: value,
+        checked: selectedFilters.includes(value),
+      };
+    });
+    return filterValueOptions;
+  }
+
+  private getAllJurisdictions(list: Map<String, ListType>): string[] {
+    const filterSet = new Set() as Set<string>;
+    list.forEach((value, key) => {
+      value.jurisdictions.forEach(jurisdiction => filterSet.add(jurisdiction));
+    });
+
+    return [...filterSet];
+  }
+
+
 }

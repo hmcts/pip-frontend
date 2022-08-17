@@ -8,7 +8,8 @@ const subscriptionService = new SubscriptionService();
 export default class SubscriptionConfigureListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
 
-    const listTypes = await subscriptionService.generateListTypesForCourts(req.user['piUserId']);
+    const listTypes = await subscriptionService.generateListTypesForCourts(req.user['piUserId'],
+      req.query?.filterValues as string, req.query?.clear as string);
 
     res.render('subscription-configure-list', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-configure-list']),
