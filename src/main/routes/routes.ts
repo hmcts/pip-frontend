@@ -15,6 +15,7 @@ import {
   checkRoles,
   forgotPasswordRedirect,
   mediaVerificationHandling,
+  processAccountSignIn,
 } from '../authentication/authenticationHandler';
 
 import config from 'config';
@@ -96,8 +97,7 @@ export default function(app: Application): void {
   app.get('/login', passport.authenticate('login', { failureRedirect: '/'}), regenerateSession);
   app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/'}), regenerateSession);
   app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}), regenerateSession);
-  app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}),
-    (_req, res) => {checkRoles(_req, allAdminRoles) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
+  app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}), processAccountSignIn);
   app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}),
     (_req, res) => {mediaVerificationHandling(_req, res);});
   app.get('/logout', (_req, res) => {checkRoles(_req, allAdminRoles) ?
