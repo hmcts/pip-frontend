@@ -217,10 +217,13 @@ export class SubscriptionService {
    * @param userId The user ID of the user who is configuring their list types.
    */
   public async generateListTypesForCourts(userId): Promise<object> {
+    //Get filters from URL
+
+
     const userSubscriptions = await this.getSubscriptionsByUser(userId);
 
     let courtJurisdictions = new Set();
-    for (const subscription in userSubscriptions['locationSubscriptions']) {
+    for (const subscription of userSubscriptions['locationSubscriptions']) {
       let returnedLocation = await courtService.getLocationById(subscription['locationId']);
       returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.add(jurisdiction));
     }
@@ -233,6 +236,9 @@ export class SubscriptionService {
       }
     }
 
-    return alphabetisedListTypes;
+    return {
+      listOptions: alphabetisedListTypes,
+      filterOptions: alphabetisedListTypes
+    };
   }
 }

@@ -16,73 +16,52 @@
     <p class="govuk-body">{{ descriptionText }}</p>
     <div id="grid-row" class="govuk-grid-row parent-box alphabetical-box">
       <div class="layout-width-two-fifths govuk-!-display-inline-block hide" id="filters">
-        {%- set filterOptionsHtml %}
-          {{ govukInput({
-            id: 'keywords',
-            name: 'keywords',
-            label: {
-              text: 'Keywords',
-              classes: 'govuk-label--m'
-            }
-          }) }}
-
-          {{ govukCheckboxes({
-            idPrefix: 'type',
-            name: 'type',
-            classes: "govuk-checkboxes--small",
-            fieldset: {
-              legend: {
-                text: 'Type',
-                classes: 'govuk-fieldset__legend--m'
-              }
-            },
-            items: [
-              {
-                value: '1',
-                text: 'Blue (18)',
-                checked: true
+        {% set checkedFilters = [] %}
+        {% set toBeCreated = true %}
+        {% set filterOptionsHtml %}
+          {% for key, option in filterOptions %}
+            {% set checkedFilterItems = [] %}
+            {% set items = [] %}
+            {% for value, item in option %}
+              {% set _ = items.push({
+                value: item.value,
+                text: item.text,
+                checked: item.checked
+              }) %}
+              {% if item.checked %}
+                {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
+              {% endif %}
+            {% endfor %}
+            {% set filterKey = jurisdiction if key == 'Jurisdiction' else region %}
+            {% if checkedFilterItems| length > 0 %}
+              {% set _ = checkedFilters.push({heading: {text: filterKey}, items: checkedFilterItems}) %}
+            {% endif %}
+            {% if toBeCreated %}
+              <div class="moj-button-menu filters__innerButton" id="innerButton">
+                <div class="moj-button-menu__wrapper">
+                  <a href="#" role="button" draggable="false"
+                     class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button"
+                     onclick="toggleFilters()">
+                    {{ hide }}
+                  </a>
+                </div>
+              </div>
+              {% set toBeCreated = false %}
+            {% endif %}
+            {{ govukCheckboxes({
+              idPrefix: key,
+              name: key,
+              classes: "govuk-checkboxes--small",
+              fieldset: {
+                legend: {
+                  text: filterKey,
+                  classes: 'govuk-fieldset__legend--m'
+                }
               },
-              {
-                value: '2',
-                text: 'Yellow (5)',
-                checked: true
-              },
-              {
-                value: '3',
-                text: 'Red (2)'
-              }
-            ]
-          }) }}
-
-          {{ govukCheckboxes({
-            idPrefix: 'status',
-            name: 'status',
-            classes: "govuk-checkboxes--small",
-            fieldset: {
-              legend: {
-                text: 'Status',
-                classes: 'govuk-fieldset__legend--m'
-              }
-            },
-            items: [
-              {
-                value: 'complete',
-                text: 'Completed (2)',
-                checked: true
-              },
-              {
-                value: 'incomplete',
-                text: 'Incomplete (5)'
-              },
-              {
-                value: 'inprogress',
-                text: 'In progress (3)',
-                checked: false
-              }
-            ]
-          }) }}
-        {% endset -%}
-
+              items: items
+            }) }}
+          {% endfor %}
+        {% endset %}
         <form method="post" action="location-name-search" class="moj-filter-layout__filter layout-width-four-fifths"
               autocomplete="off">
           {{ mojFilter({
@@ -182,8 +161,18 @@
                       </th>
                     {% endif %}
                     <td class="govuk-table__cell">
-                      <a href="/" class="govuk-link">{{ listFriendlyName }}</a>
+                      <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
+                        <input type="checkbox" class="govuk-checkboxes__input"
+                               id="{{ listName }}"
+                               value="{{ listName}}" name="list-selections[]"
+                               onclick="calculateChecked()">
+                        <label class="govuk-label govuk-checkboxes__label"
+                               for="{{ listName }}">
+                          <span class="govuk-visually-hidden">Select {{ listFriendlyName }}</span>
+                        </label>
+                      </div>
                     </td>
+                    <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ listFriendlyName }}</td>
                   </tr>
                 {% endfor %}
                 {% set first = '' %}
@@ -200,4 +189,10 @@
 
 {% block bodyEnd %}
   {{ super() }}
+  <script>
+    function calculateChecked() {
+      const checkedBoxes = document.querySelectorAll('input[name="list-selections[]"]:checked').length;
+      document.getElementById('selectionCount').innerText = checkedBoxes.toString();
+    }
+  </script>
 {% endblock %}

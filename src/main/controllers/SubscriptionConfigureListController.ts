@@ -9,9 +9,11 @@ export default class SubscriptionConfigureListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
 
     const listTypes = await subscriptionService.generateListTypesForCourts(req.user['piUserId']);
+
     res.render('subscription-configure-list', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-configure-list']),
-      listTypes: listTypes
+      listTypes: listTypes['listOptions'],
+      filterOptions: listTypes['filterOptions']
     });
   }
 }
