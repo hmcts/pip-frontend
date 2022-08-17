@@ -83,46 +83,49 @@
           }) }}
         {% endset -%}
 
-        {{ mojFilter({
-          heading: {
-            text: 'Filter'
-          },
-          selectedFilters: {
-
+        <form method="post" action="location-name-search" class="moj-filter-layout__filter layout-width-four-fifths"
+              autocomplete="off">
+          {{ mojFilter({
             heading: {
-              text: 'Selected filters'
+              text: 'Filter'
             },
+            selectedFilters: {
 
-            clearLink: {
-              text: 'Clear filters'
+              heading: {
+                text: 'Selected filters'
+              },
+
+              clearLink: {
+                text: 'Clear filters'
+              },
+
+              categories: [
+                {
+                  heading: {
+                  text: 'Type'
+                },
+                  items: [{
+                  href: '/path/to/remove/this',
+                  text: 'Blue'
+                }, {
+                  href: '/path/to/remove/this',
+                  text: 'Yellow'
+                }]
+                },
+                {
+                  heading: {
+                  text: 'Status'
+                },
+                  items: [{
+                  href: '/path/to/remove/this',
+                  text: 'Completed'
+                }]
+                }
+              ]
             },
-
-            categories: [
-              {
-                heading: {
-                text: 'Type'
-              },
-                items: [{
-                href: '/path/to/remove/this',
-                text: 'Blue'
-              }, {
-                href: '/path/to/remove/this',
-                text: 'Yellow'
-              }]
-              },
-              {
-                heading: {
-                text: 'Status'
-              },
-                items: [{
-                href: '/path/to/remove/this',
-                text: 'Completed'
-              }]
-              }
-            ]
-          },
-          optionsHtml: filterOptionsHtml
-        }) }}
+            optionsHtml: filterOptionsHtml
+          }) }}
+        </form>
       </div>
       <div class="layout-width-three-fifths" id="content">
         <form class="moj-action-bar" action="configure-subscription-list" method="post" autocomplete="off">
@@ -144,12 +147,12 @@
           <div class="govuk-!-margin-bottom-6 govuk-!-margin-top-6">
             <nav aria-label="Alphabetical links to courts and tribunals">
               <div class="govuk-grid-row">
-                {% for key, value in listMappings %}
+                {% for key, value in listTypes %}
                 {% if key == 'N' %}
               </div>
               <div class="govuk-grid-row">
                 {% endif %}
-                {% if value| length == 0 %}
+                {% if value | length == 0 %}
                   <div class="govuk-grid-column two-rows-alphabet govuk-!-font-size-19">
                     <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline" aria-label="{{ ariaLabelNav}} {{ key }}">{{ key }}</a>
                   </div>
@@ -166,39 +169,33 @@
           <table class="govuk-table">
             <tbody class="govuk-table__body">
             {% set first = '' %}
-            {% for key, value in locationList %}
-              {% if value | length > 0 %}
-                {% for courtName, courtDetails in value %}
-                  {% if courtDetails.id > 0 %}
-                    <tr class="govuk-table__row">
-                      {% if first != key %}
-                        {% set first = key %}
-                        <th scope="row" class="govuk-table__header">
-                          <div id="{{ key }}" class="govuk-!-font-size-36">{{ key }}</div>
-                        </th>
+            {% for item in listTypes %}
+              <tr class="govuk-table__row">
+                {% if first != key %}
+                  {% set first = key %}
+                  <th scope="row" class="govuk-table__header">
+                    <div id="{{ key }}" class="govuk-!-font-size-36">{{ key }}</div>
+                  </th>
 
-                      {% else %}
-                        <th scope="row" aria-hidden="true" class="govuk-table__header">
-                        </th>
-                      {% endif %}
-                      <td class="govuk-table__cell">
-                        <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
-                          <input type="checkbox" class="govuk-checkboxes__input"
-                                 id="{{ courtDetails.id }}"
-                                 value="{{ courtDetails.id }}" name="court-selections[]"
-                                 onclick="calculateChecked()">
-                          <label class="govuk-label govuk-checkboxes__label"
-                                 for="{{ courtDetails.id }}">
-                            <span class="govuk-visually-hidden">Select {{ courtName }}</span>
-                          </label>
-                        </div>
-                      </td>
-                      <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ courtName }}</td>
-                    </tr>
-                  {% endif %}
-                {% endfor %}
-                {% set first = '' %}
-              {% endif %}
+                {% else %}
+                  <th scope="row" aria-hidden="true" class="govuk-table__header">
+                  </th>
+                {% endif %}
+                <td class="govuk-table__cell">
+                  <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
+                    <input type="checkbox" class="govuk-checkboxes__input"
+                           id="{{ courtDetails.id }}"
+                           value="{{ courtDetails.id }}" name="court-selections[]"
+                           onclick="calculateChecked()">
+                    <label class="govuk-label govuk-checkboxes__label"
+                           for="{{ courtDetails.id }}">
+                      <span class="govuk-visually-hidden">Select {{ courtName }}</span>
+                    </label>
+                  </div>
+                </td>
+                <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ courtName }}</td>
+              </tr>
+              {% set first = '' %}
             {% endfor %}
             </tbody>
           </table>
