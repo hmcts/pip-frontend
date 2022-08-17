@@ -47,7 +47,7 @@ const piEndpoint = '/account/add/pi';
 const applicationGetEndpoint = '/application/';
 const imageGetEndpoint = '/application/image/';
 const piUserEndpoint = '/account/provenance/PI_AAD/';
-const updateAccountEndpoint = '/account/';
+const updateAccountEndpoint = '/account/provenance/PI_AAD/';
 
 const status = 'APPROVED';
 const statusEndpoint = '/' + status;

@@ -174,7 +174,7 @@ export class AccountManagementRequests {
     try {
       const map = {};
       map[field] = moment().tz('Europe/London').toISOString();
-      const response = await accountManagementApi.put('/account/' + oid, map);
+      const response = await accountManagementApi.put(`/account/provenance/PI_AAD/${oid}`, map);
       return response.data;
     } catch (error) {
       if (error.response) {
