@@ -168,34 +168,26 @@
           </div>
           <table class="govuk-table">
             <tbody class="govuk-table__body">
-            {% set first = '' %}
-            {% for item in listTypes %}
-              <tr class="govuk-table__row">
-                {% if first != key %}
-                  {% set first = key %}
-                  <th scope="row" class="govuk-table__header">
-                    <div id="{{ key }}" class="govuk-!-font-size-36">{{ key }}</div>
-                  </th>
-
-                {% else %}
-                  <th scope="row" aria-hidden="true" class="govuk-table__header">
-                  </th>
-                {% endif %}
-                <td class="govuk-table__cell">
-                  <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
-                    <input type="checkbox" class="govuk-checkboxes__input"
-                           id="{{ courtDetails.id }}"
-                           value="{{ courtDetails.id }}" name="court-selections[]"
-                           onclick="calculateChecked()">
-                    <label class="govuk-label govuk-checkboxes__label"
-                           for="{{ courtDetails.id }}">
-                      <span class="govuk-visually-hidden">Select {{ courtName }}</span>
-                    </label>
-                  </div>
-                </td>
-                <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ courtName }}</td>
-              </tr>
-              {% set first = '' %}
+            {% for key, value in listTypes %}
+              {% if value | length > 0 %}
+                {% for listName, listFriendlyName in value %}
+                  <tr class="govuk-table__row">
+                    {% if first != key %}
+                      {% set first = key %}
+                      <th scope="row" class="govuk-table__header">
+                        <div id="{{ key }}" class="govuk-!-font-size-27">{{ key }}</div>
+                      </th>
+                    {% else %}
+                      <th scope="row" aria-hidden="true" class="govuk-table__header">
+                      </th>
+                    {% endif %}
+                    <td class="govuk-table__cell">
+                      <a href="/" class="govuk-link">{{ listFriendlyName }}</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                {% set first = '' %}
+              {% endif %}
             {% endfor %}
             </tbody>
           </table>

@@ -217,7 +217,7 @@ export class SubscriptionService {
    * @param userId The user ID of the user who is configuring their list types.
    */
   public async generateListTypesForCourts(userId): Promise<object> {
-    const userSubscriptions = this.getSubscriptionsByUser(userId);
+    const userSubscriptions = await this.getSubscriptionsByUser(userId);
 
     let courtJurisdictions = new Set();
     for (const subscription in userSubscriptions['locationSubscriptions']) {
