@@ -15,7 +15,7 @@ export function isAdminSessionExpire(req): boolean {
     if(req.session.sessionExpiry) {
       const sessionExpiryDateTime = moment.utc(req.session.sessionExpiry);
       const currentDateTime = moment.utc(new Date(Date.now()));
-      const durationAsSeconds = moment.duration(sessionExpiryDateTime.startOf('seconds').diff(currentDateTime.startOf('seconds'))).asMinutes();
+      const durationAsSeconds = moment.duration(sessionExpiryDateTime.startOf('seconds').diff(currentDateTime.startOf('seconds'))).asSeconds();
       if(durationAsSeconds <= 0) {
         return true;
       }
