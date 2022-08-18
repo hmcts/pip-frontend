@@ -145,10 +145,10 @@ export class AccountManagementRequests {
     }
   }
 
-  public async getPiUserByAzureOid(oid: string): Promise<string> {
+  public async getPiUserByAzureOid(oid: string): Promise<any> {
     try {
       const response = await accountManagementApi.get(`/account/provenance/PI_AAD/${oid}`);
-      return response.data.userId;
+      return response.data;
     } catch (error) {
       if (error.response) {
         logger.error('Failed to GET PI user request', error.response.data);

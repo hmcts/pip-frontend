@@ -220,13 +220,13 @@ export class SubscriptionService {
    * @param filterValuesQuery The currently selected filters.
    * @param clearQuery The clear filter for the query.
    */
-  public async generateListTypesForCourts(userId, filterValuesQuery, clearQuery): Promise<object> {
+  public async generateListTypesForCourts(userId, userRole, filterValuesQuery, clearQuery): Promise<object> {
     let filterValues = filterService.stripFilters(filterValuesQuery);
     if (clearQuery) {
       filterValues = filterService.handleFilterClear(filterValues, clearQuery);
     }
 
-    const applicableListTypes = await this.generateAppropriateListTypes(userId);
+    const applicableListTypes = await this.generateAppropriateListTypes(userId, userRole);
 
     const filterOptions = this.buildFilterValueOptions(applicableListTypes, filterValues);
 
@@ -250,7 +250,7 @@ export class SubscriptionService {
     };
   }
 
-  private async generateAppropriateListTypes(userId): Promise<Map<string, ListType>> {
+  private async generateAppropriateListTypes(userId, userRole): Promise<Map<string, ListType>> {
     const userSubscriptions = await this.getSubscriptionsByUser(userId);
     const listTypes = await publicationService.getListTypes();
 
@@ -263,7 +263,8 @@ export class SubscriptionService {
     const sortedListTypes = new Map([...listTypes].sort());
     const applicableListTypes = new Map();
     for (const [listName, listType] of sortedListTypes) {
-      if (listType.jurisdictions.some(jurisdiction => courtJurisdictions.has(jurisdiction))) {
+      if (listType.jurisdictions.some(jurisdiction => courtJurisdictions.has(jurisdiction))
+        && (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))) {
         applicableListTypes.set(listName, listType);
       }
     }

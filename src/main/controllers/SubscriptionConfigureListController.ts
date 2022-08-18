@@ -11,6 +11,7 @@ export default class SubscriptionConfigureListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
 
     const listTypes = await subscriptionService.generateListTypesForCourts(req.user['piUserId'],
+      req.user['piUserProvenance'],
       req.query?.filterValues as string, req.query?.clear as string);
 
     res.render('subscription-configure-list', {
@@ -20,8 +21,14 @@ export default class SubscriptionConfigureListController {
     });
   }
 
-  public async post(req: PipRequest, res: Response): Promise<void> {
+  public async filterValues(req: PipRequest, res: Response): Promise<void> {
     const filterValues = filterService.generateFilterKeyValues(req.body);
     res.redirect(`subscription-configure-list?filterValues=${filterValues}`);
   }
+
+  public async submitSelections(req: PipRequest, res: Response): Promise<void> {
+    //TODO: Ticket 1512 - List selections are available in body, as list-selections[]
+    console.log(req.body);
+  }
+
 }

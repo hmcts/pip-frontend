@@ -3,4 +3,5 @@ export interface ListType {
   shortenedFriendlyName: string;
   url: string;
   jurisdictions: Array<string>;
+  restrictedProvenances: Array<string>;
 }
