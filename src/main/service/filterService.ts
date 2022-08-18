@@ -102,7 +102,10 @@ export class FilterService {
   }
 
   public stripFilters(currentFilters: string): string[] {
-    return currentFilters ? currentFilters.split(',') : [];
+    if (currentFilters && currentFilters !== ',') {
+      return currentFilters.split(',');
+    }
+    return [];
   }
 
   public async handleFilterInitialisation(clearQuery: string, filterValuesQuery: string, language: string): Promise<object> {
