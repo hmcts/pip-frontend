@@ -7,5 +7,6 @@
   "filterSelected": "Ffiltyr a ddewiswyd",
   "filterClear": "Clirio’r ffiltrau",
   "hide" : "Cuddio’r ffiltrau",
-  "filterHeader": "Type of court or tribunal"
+  "filterHeader": "Type of court or tribunal",
+  "applyFiltersButton": "Cadarnhau hidlwyr"
 }
