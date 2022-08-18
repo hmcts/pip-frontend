@@ -221,28 +221,26 @@ export class SubscriptionService {
    * @param clearQuery The clear filter for the query.
    */
   public async generateListTypesForCourts(userId, filterValuesQuery, clearQuery): Promise<object> {
-    //Get filters from URL and strip them out
     let filterValues = filterService.stripFilters(filterValuesQuery);
     if (clearQuery) {
       filterValues = filterService.handleFilterClear(filterValues, clearQuery);
     }
 
-    //Create the list of filter options
-    const filterOptions = this.buildFilterValueOptions(await publicationService.getListTypes(), filterValues);
+    const applicableListTypes = await this.generateAppropriateListTypes(userId);
 
-    const userSubscriptions = await this.getSubscriptionsByUser(userId);
-
-    let courtJurisdictions = new Set();
-    for (const subscription of userSubscriptions['locationSubscriptions']) {
-      let returnedLocation = await courtService.getLocationById(subscription['locationId']);
-      returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.add(jurisdiction));
-    }
+    const filterOptions = this.buildFilterValueOptions(applicableListTypes, filterValues);
 
     const alphabetisedListTypes = this.generateAlphabetObjectForListType();
-    const listTypes = new Map([...publicationService.getListTypes()].sort());
-    for (const [listName, listType] of listTypes) {
-      if (listType.jurisdictions.some(jurisdiction => courtJurisdictions.has(jurisdiction))) {
+
+    if (filterValues.length == 0) {
+      for (const [listName, listType] of applicableListTypes) {
         alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = listType.friendlyName;
+      }
+    } else {
+      for (const [listName, listType] of applicableListTypes) {
+        if (listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction))) {
+          alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = listType.friendlyName;
+        }
       }
     }
 
@@ -250,6 +248,27 @@ export class SubscriptionService {
       listOptions: alphabetisedListTypes,
       filterOptions: filterOptions
     };
+  }
+
+  private async generateAppropriateListTypes(userId): Promise<Map<string, ListType>> {
+    const userSubscriptions = await this.getSubscriptionsByUser(userId);
+    const listTypes = await publicationService.getListTypes();
+
+    let courtJurisdictions = new Set();
+    for (const subscription of userSubscriptions['locationSubscriptions']) {
+      let returnedLocation = await courtService.getLocationById(subscription['locationId']);
+      returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.add(jurisdiction));
+    }
+
+    const sortedListTypes = new Map([...listTypes].sort());
+    const applicableListTypes = new Map();
+    for (const [listName, listType] of sortedListTypes) {
+      if (listType.jurisdictions.some(jurisdiction => courtJurisdictions.has(jurisdiction))) {
+        applicableListTypes.set(listName, listType);
+      }
+    }
+
+    return applicableListTypes;
   }
 
   public buildFilterValueOptions(list: Map<string, ListType>, selectedFilters: string[]): object {
