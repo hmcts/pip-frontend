@@ -2,8 +2,10 @@ import { Response } from 'express';
 import {cloneDeep} from 'lodash';
 import { PipRequest } from '../models/request/PipRequest';
 import { SubscriptionService } from '../service/subscriptionService';
+import { FilterService } from '../service/filterService';
 
 const subscriptionService = new SubscriptionService();
+const filterService = new FilterService();
 
 export default class SubscriptionConfigureListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -16,5 +18,10 @@ export default class SubscriptionConfigureListController {
       listTypes: listTypes['listOptions'],
       filterOptions: listTypes['filterOptions']
     });
+  }
+
+  public async post(req: PipRequest, res: Response): Promise<void> {
+    const filterValues = filterService.generateFilterKeyValues(req.body);
+    res.redirect(`subscription-configure-list?filterValues=${filterValues}`);
   }
 }

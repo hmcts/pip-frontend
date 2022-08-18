@@ -214,7 +214,6 @@ export class SubscriptionService {
     return alphabetOptions;
   }
 
-
   /**
    * This method generates the relevant list types for the courts that the user has configured.
    * @param userId The user ID of the user who is configuring their list types.
