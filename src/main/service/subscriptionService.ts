@@ -140,7 +140,7 @@ export class SubscriptionService {
     return await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, subscriptionType);
   }
 
-  public async subscribe(userId): Promise<boolean> {
+  public async subscribe(userId, userRole): Promise<boolean> {
     let subscribed = true;
     const casesType = 'cases';
     const courtsType = 'courts';
@@ -154,6 +154,7 @@ export class SubscriptionService {
     }
     if (cachedCourtSubs) {
       for (const cachedCourt of cachedCourtSubs) {
+        cachedCourt['listType'] = this.generateAppropriateListTypesForLocation(cachedCourt, userRole);
         const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCourt, courtsType, userId));
         response ? await this.removeFromCache({court: cachedCourt.locationId}, userId) : subscribed = response;
       }
@@ -170,6 +171,7 @@ export class SubscriptionService {
           searchType: 'LOCATION_ID',
           searchValue: pendingSubscription.locationId,
           locationName: pendingSubscription.name,
+          listType: pendingSubscription.listType,
           userId,
         };
         break;
@@ -234,12 +236,18 @@ export class SubscriptionService {
 
     if (filterValues.length == 0) {
       for (const [listName, listType] of applicableListTypes) {
-        alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = listType.friendlyName;
+        alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
+          listFriendlyName: listType.friendlyName,
+          checked: listType.checked
+        };
       }
     } else {
       for (const [listName, listType] of applicableListTypes) {
         if (listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction))) {
-          alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = listType.friendlyName;
+          alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
+            listFriendlyName: listType.friendlyName,
+            checked: listType.checked
+          };
         }
       }
     }
@@ -254,6 +262,11 @@ export class SubscriptionService {
     const userSubscriptions = await this.getSubscriptionsByUser(userId);
     const listTypes = await publicationService.getListTypes();
 
+    let selectedListTypes = [];
+    if (userSubscriptions['locationSubscriptions'].length > 0) {
+      selectedListTypes = userSubscriptions['locationSubscriptions'][0]['listType'];
+    }
+
     let courtJurisdictions = new Set();
     for (const subscription of userSubscriptions['locationSubscriptions']) {
       let returnedLocation = await courtService.getLocationById(subscription['locationId']);
@@ -265,11 +278,32 @@ export class SubscriptionService {
     for (const [listName, listType] of sortedListTypes) {
       if (listType.jurisdictions.some(jurisdiction => courtJurisdictions.has(jurisdiction))
         && (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))) {
+        (selectedListTypes != null && selectedListTypes.includes(listName)) ? listType.checked = true : listType.checked = false
         applicableListTypes.set(listName, listType);
       }
     }
 
     return applicableListTypes;
+  }
+
+  /**
+   * Generates the appropriate list types for a location
+   * @param location The location to get the list types for
+   * @param userRole The role of the user.
+   * @private
+   */
+  private generateAppropriateListTypesForLocation(location, userRole): Array<string> {
+    const listTypes = publicationService.getListTypes();
+
+    const appropriateListTypes = [];
+    for (const [listName, listType] of listTypes) {
+      if (listType.jurisdictions.some(jurisdiction => location.jurisdiction.includes(jurisdiction))
+        && (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))) {
+        appropriateListTypes.push(listName)
+      }
+    }
+
+    return appropriateListTypes;
   }
 
   public buildFilterValueOptions(list: Map<string, ListType>, selectedFilters: string[]): object {

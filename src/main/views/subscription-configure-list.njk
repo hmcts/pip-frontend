@@ -124,7 +124,7 @@
             <tbody class="govuk-table__body">
             {% for key, value in listTypes %}
               {% if value | length > 0 %}
-                {% for listName, listFriendlyName in value %}
+                {% for listName, listConfig in value %}
                   <tr class="govuk-table__row">
                     {% if first != key %}
                       {% set first = key %}
@@ -140,14 +140,17 @@
                         <input type="checkbox" class="govuk-checkboxes__input"
                                id="{{ listName }}"
                                value="{{ listName}}" name="list-selections[]"
+                               {% if listConfig.checked %}
+                                checked
+                               {% endif %}
                                onclick="calculateChecked()">
                         <label class="govuk-label govuk-checkboxes__label"
                                for="{{ listName }}">
-                          <span class="govuk-visually-hidden">Select {{ listFriendlyName }}</span>
+                          <span class="govuk-visually-hidden">Select {{ listConfig.listFriendlyName }}</span>
                         </label>
                       </div>
                     </td>
-                    <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ listFriendlyName }}</td>
+                    <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ listConfig.listFriendlyName }}</td>
                   </tr>
                 {% endfor %}
                 {% set first = '' %}

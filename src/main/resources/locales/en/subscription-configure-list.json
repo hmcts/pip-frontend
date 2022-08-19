@@ -9,5 +9,10 @@
   "hide" : "Hide Filters",
   "show": "Show Filters",
   "filterHeader": "Type of court or tribunal",
-  "applyFiltersButton": "Apply filters"
+  "applyFiltersButton": "Apply filters",
+  "ariaLabelNav": "No list types are available for the letter",
+  "aria": {
+    "filterLabel": "Filter by list type"
+  },
+  "backButton": "Back"
 }

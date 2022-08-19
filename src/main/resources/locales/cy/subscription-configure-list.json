@@ -9,6 +9,10 @@
   "hide" : "Cuddio’r ffiltrau",
   "show": "Dangos y ffiltrau",
   "filterHeader": "Type of court or tribunal",
-  "applyFiltersButton": "Cadarnhau hidlwyr"
-
+  "applyFiltersButton": "Cadarnhau hidlwyr",
+  "ariaLabelNav": "No list types are available for the letter",
+  "aria": {
+    "filterLabel": "Filter by list type"
+  },
+  "backButton": "Yn ôl"
 }
