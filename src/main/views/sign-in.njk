@@ -54,12 +54,14 @@
         ]
       }) }}
         {{ submitButton(continueButton) }}
-      <div class="govuk-grid-row govuk-!-margin-bottom-2">
-        <div class="no_padding govuk-grid-column-full">
-          <p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ accountInfo }}</p>
-          <a class="govuk-link" href="{{ accountInfo_link }}">{{ accountInfo_link_text }}</a>
-        </div>
-      </div>
+
+{#      Commented below out until we are ready to put the create account link back in #}
+{#      <div class="govuk-grid-row govuk-!-margin-bottom-2">#}
+{#        <div class="no_padding govuk-grid-column-full">#}
+{#          <p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ accountInfo }}</p>#}
+{#          <a class="govuk-link" href="{{ accountInfo_link }}">{{ accountInfo_link_text }}</a>#}
+{#        </div>#}
+{#      </div>#}
     </form>
 {% endblock %}
 {% block bodyEnd %}
