@@ -154,7 +154,7 @@ export class SubscriptionService {
     }
     if (cachedCourtSubs) {
       for (const cachedCourt of cachedCourtSubs) {
-        cachedCourt['listType'] = this.generateAppropriateListTypesForLocation(cachedCourt, userRole);
+        cachedCourt['listType'] = await this.generateListTypesForNewSubscription(userId);
         const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCourt, courtsType, userId));
         response ? await this.removeFromCache({court: cachedCourt.locationId}, userId) : subscribed = response;
       }
@@ -264,7 +264,12 @@ export class SubscriptionService {
     for (const [listName, listType] of sortedListTypes) {
       if (listType.jurisdictions.some(jurisdiction => courtJurisdictions.has(jurisdiction))
         && (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))) {
-        (selectedListTypes != null && selectedListTypes.includes(listName)) ? listType.checked = true : listType.checked = false
+
+        if (selectedListTypes == null || selectedListTypes.length == 0 || selectedListTypes.includes(listName)) {
+          listType.checked = true;
+        } else {
+          listType.checked = false
+        }
         applicableListTypes.set(listName, listType);
       }
     }
@@ -278,18 +283,13 @@ export class SubscriptionService {
    * @param userRole The role of the user.
    * @private
    */
-  private generateAppropriateListTypesForLocation(location, userRole): Array<string> {
-    const listTypes = publicationService.getListTypes();
-
-    const appropriateListTypes = [];
-    for (const [listName, listType] of listTypes) {
-      if (listType.jurisdictions.some(jurisdiction => location.jurisdiction.includes(jurisdiction))
-        && (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))) {
-        appropriateListTypes.push(listName)
-      }
+  private async generateListTypesForNewSubscription(userId): Promise<Array<string>> {
+    const userSubscriptions = await this.getSubscriptionsByUser(userId);
+    if (userSubscriptions.locationSubscriptions != null && userSubscriptions.locationSubscriptions.length > 0) {
+      return userSubscriptions.locationSubscriptions[0].listTypes
+    } else {
+      return [];
     }
-
-    return appropriateListTypes;
   }
 
   public buildFilterValueOptions(list: Map<string, ListType>, selectedFilters: string[]): object {
