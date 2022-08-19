@@ -203,20 +203,6 @@ export class SubscriptionService {
   }
 
   /**
-   * Generates the alphabetical list for the list type.
-   */
-  private generateAlphabetObjectForListType(): object {
-    const alphabetOptions = {};
-
-    for (let i = 0; i < 26; i++) {
-      const letter = String.fromCharCode(65 + i);
-      alphabetOptions[letter] = {};
-    }
-
-    return alphabetOptions;
-  }
-
-  /**
    * This method generates the relevant list types for the courts that the user has configured.
    * @param userId The user ID of the user who is configuring their list types.
    * @param filterValuesQuery The currently selected filters.
@@ -232,7 +218,7 @@ export class SubscriptionService {
 
     const filterOptions = this.buildFilterValueOptions(applicableListTypes, filterValues);
 
-    const alphabetisedListTypes = this.generateAlphabetObjectForListType();
+    const alphabetisedListTypes = FilterService.generateAlphabetObject();
 
     if (filterValues.length == 0) {
       for (const [listName, listType] of applicableListTypes) {
