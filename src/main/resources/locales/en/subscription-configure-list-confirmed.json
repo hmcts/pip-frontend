@@ -1,0 +1,12 @@
+{
+  "title": "Subscriptions updated",
+  "header": "Subscriptions updated",
+  "subheader": "Your subscription(s) have been updated successfully",
+  "p1": "To continue, you can go to ",
+  "link_text": "your account",
+  "p2": " in order to:",
+  "addEmailSubscription": "add a new email subscription",
+  "manageYourCurrentSubscriptions": "manage your current email subscriptions",
+  "manageYourListTypeSubscriptions": "Further refine the list types per court received",
+  "findCourt": "find a court or tribunal"
+}

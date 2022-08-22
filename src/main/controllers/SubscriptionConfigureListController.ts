@@ -25,10 +25,4 @@ export default class SubscriptionConfigureListController {
     const filterValues = filterService.generateFilterKeyValues(req.body);
     res.redirect(`subscription-configure-list?filterValues=${filterValues}`);
   }
-
-  public async submitSelections(req: PipRequest): Promise<void> {
-    //TODO: Ticket 1512 - List selections are available in body, as list-selections[]
-    console.log(req.body);
-  }
-
 }

@@ -198,6 +198,33 @@ export class SubscriptionService {
     return payload;
   }
 
+  public async configureListTypeForLocationSubscriptions(userId, listType): Promise<boolean> {
+    return await subscriptionRequests.configureListTypeForLocationSubscriptions(
+      this.createSubscriptionListTypePayload(userId, listType));
+  }
+
+  createSubscriptionListTypePayload(userId, listType): object {
+    let listTypeArray;
+    if(listType) {
+      if (!Array.isArray(listType)) {
+        listTypeArray = listType.split(' ');
+      } else {
+        listTypeArray = listType;
+      }
+    } else {
+      listTypeArray =[];
+    }
+
+    return {
+      channel: 'EMAIL',
+      searchType: 'LOCATION_ID',
+      searchValue: 'configure-list-type',
+      locationName: '',
+      listType: listTypeArray,
+      userId,
+    };
+  }
+
   public async removeFromCache(record, userId): Promise<void> {
     return await pendingSubscriptionsFromCache.removeFromCache(record, userId);
   }

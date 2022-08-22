@@ -135,7 +135,8 @@ export default function(app: Application): void {
   app.get('/subscription-management', isPermittedMedia, app.locals.container.cradle.subscriptionManagementController.get);
   app.get('/subscription-configure-list', isPermittedMedia, app.locals.container.cradle.subscriptionConfigureListController.get);
   app.post('/subscription-configure-list', isPermittedMedia, app.locals.container.cradle.subscriptionConfigureListController.filterValues);
-  app.post('/subscription-configure-list/submit', isPermittedMedia, app.locals.container.cradle.subscriptionConfigureListController.submitSelections);
+  app.post('/subscription-configure-list-confirmed', isPermittedMedia,
+    app.locals.container.cradle.subscriptionConfigureListConfirmedController.post);
   app.get('/subscription-urn-search', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchController.get);
   app.post('/subscription-urn-search', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchController.post);
   app.get('/subscription-urn-search-results', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
