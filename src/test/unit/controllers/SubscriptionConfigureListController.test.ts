@@ -1,23 +1,23 @@
-import {Response} from "express";
-import {mockRequest} from "../mocks/mockRequest";
-import {SubscriptionService} from "../../../main/service/subscriptionService";
+import {Response} from 'express';
+import {mockRequest} from '../mocks/mockRequest';
+import {SubscriptionService} from '../../../main/service/subscriptionService';
 import sinon from 'sinon';
-import SubscriptionConfigureListController from "../../../main/controllers/SubscriptionConfigureListController";
-import {FilterService} from "../../../main/service/filterService";
+import SubscriptionConfigureListController from '../../../main/controllers/SubscriptionConfigureListController';
+import {FilterService} from '../../../main/service/filterService';
 
 const subscriptionConfigureListController = new SubscriptionConfigureListController();
 
 describe('Subscriptions Configure List Controller', () => {
   const i18n = {
-    'subscription-configure-list': {}
+    'subscription-configure-list': {},
   };
   it('should render subscription configure list page on get request', () => {
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
 
-    request.user = {piUserId: '1234', piUserProvenance: 'userProvenance'}
-    request.query = {filterValues: 'filterValue', clear: 'Civil'}
+    request.user = {piUserId: '1234', piUserProvenance: 'userProvenance'};
+    request.query = {filterValues: 'filterValue', clear: 'Civil'};
 
     sinon.stub(SubscriptionService.prototype, 'generateListTypesForCourts')
       .withArgs('1234', 'userProvenance', 'filterValue', 'Civil')
@@ -27,7 +27,7 @@ describe('Subscriptions Configure List Controller', () => {
     responseMock.expects('render').once().withArgs('subscription-configure-list', {
       ...i18n['subscription-configure-list'],
       listTypes: {'A': {}},
-      filterOptions: {'AB': {}}
+      filterOptions: {'AB': {}},
     });
 
     return subscriptionConfigureListController.get(request, response).then(() => {
@@ -38,7 +38,7 @@ describe('Subscriptions Configure List Controller', () => {
   it('should redirect to configure list page with correct filters', () => {
     const response = { redirect: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
-    request.body = {testKey: "testBody"}
+    request.body = {testKey: 'testBody'};
 
     sinon.stub(FilterService.prototype, 'generateFilterKeyValues').withArgs(request.body)
       .returns('TestValue');
@@ -48,14 +48,14 @@ describe('Subscriptions Configure List Controller', () => {
 
     return subscriptionConfigureListController.filterValues(request, response).then(() => {
       responseMock.verify();
-    })
-  })
+    });
+  });
 
   //TODO: Will be updated once 1512 is played
   it ('should run the submit selections page', () => {
     const request = mockRequest(i18n);
 
     subscriptionConfigureListController.submitSelections(request);
-  })
+  });
 
 });
