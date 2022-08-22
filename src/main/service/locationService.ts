@@ -1,21 +1,10 @@
 import { LocationRequests } from '../resources/requests/locationRequests';
 import { Location } from '../models/location';
+import {FilterService} from './filterService';
 
 const locationRequest = new LocationRequests();
 
 export class LocationService {
-  public static generateAlphabetObject(): object {
-    // create the object for the possible alphabet options
-    const alphabetOptions = {};
-
-    for (let i = 0; i < 26; i++) {
-      const letter = String.fromCharCode(65 + i);
-      alphabetOptions[letter] = {};
-    }
-
-    return alphabetOptions;
-  }
-
   public sortCourtsAlphabetically(courtsList: Location[]): Location[] {
     return courtsList.sort((a, b) => (a.name > b.name) ? 1 : -1);
   }
@@ -78,7 +67,7 @@ export class LocationService {
   }
 
   private generateAlphabetisedCourtList(listToAlphabetise: Array<Location>): object {
-    const alphabetisedCourtList = LocationService.generateAlphabetObject();
+    const alphabetisedCourtList = FilterService.generateAlphabetObject();
     const sortedCourtsList = this.sortCourtsAlphabetically(listToAlphabetise);
 
     sortedCourtsList.forEach(item => {

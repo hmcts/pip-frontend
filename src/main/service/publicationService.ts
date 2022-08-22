@@ -1,7 +1,9 @@
 import {PublicationRequests} from '../resources/requests/publicationRequests';
 import {Artefact} from '../models/Artefact';
 import {SearchObject} from '../models/searchObject';
+import {ListType} from '../models/listType';
 
+const listData = require('../resources/listLookup.json');
 const publicationRequests = new PublicationRequests();
 
 export class PublicationService {
@@ -71,6 +73,13 @@ export class PublicationService {
    */
   public async removePublication(artefactId: string, id: string): Promise<boolean> {
     return publicationRequests.deletePublication(artefactId, id);
+  }
+
+  /**
+   * Service method which retrieves list types and their associated metadata.
+   */
+  public getListTypes(): Map<string, ListType> {
+    return new Map(Object.entries(listData));
   }
 
   /**

@@ -102,7 +102,10 @@ export class FilterService {
   }
 
   public stripFilters(currentFilters: string): string[] {
-    return currentFilters ? currentFilters.split(',') : [];
+    if (currentFilters && currentFilters !== ',') {
+      return currentFilters.split(',');
+    }
+    return [];
   }
 
   public async handleFilterInitialisation(clearQuery: string, filterValuesQuery: string, language: string): Promise<object> {
@@ -137,5 +140,17 @@ export class FilterService {
     filterValues = Array.prototype.concat.apply([], values);
 
     return filterValues;
+  }
+
+  public static generateAlphabetObject(): object {
+    // create the object for the possible alphabet options
+    const alphabetOptions = {};
+
+    for (let i = 0; i < 26; i++) {
+      const letter = String.fromCharCode(65 + i);
+      alphabetOptions[letter] = {};
+    }
+
+    return alphabetOptions;
   }
 }
