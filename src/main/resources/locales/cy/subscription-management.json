@@ -18,5 +18,6 @@
   "courtTable": {
     "header1": "Enw’r llys neu dribiwnlys"
   },
-  "backButton": "Yn ôl"
+  "backButton": "Yn ôl",
+  "configureListTypeButton": "Select which list types to receive"
 }

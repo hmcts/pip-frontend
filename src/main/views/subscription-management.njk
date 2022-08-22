@@ -85,6 +85,10 @@
       {% endif %}
       {% if (activeAllTab == true and locationTableData | length != 0) or (activeLocationTab == true and locationTableData | length != 0) %}
         {# location Subscriptions Table #}
+        {{ govukButton({
+          text: configureListTypeButton,
+          href: 'subscription-configure-list'
+        }) }}
         {{ govukTable({
           attributes: {
             'id': 'locations-table'
