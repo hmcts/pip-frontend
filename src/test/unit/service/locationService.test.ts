@@ -145,4 +145,11 @@ describe('Court Service', () => {
   it('it should return list as it is if there is only 1 court in the list', () => {
     expect(courtService.sortCourtsAlphabetically([hearingsData[0]])).to.deep.equal([hearingsData[0]]);
   });
+
+  it('should generate an alphabet object', () => {
+    const alphabetObject = LocationService.generateAlphabetObject();
+    expect(Object.keys(alphabetObject).length).to.equal(26);
+    expect(alphabetObject['A']).to.deep.equal({});
+  });
+
 });
