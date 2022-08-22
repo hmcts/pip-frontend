@@ -229,12 +229,11 @@ export class SubscriptionService {
       }
     } else {
       for (const [listName, listType] of applicableListTypes) {
-        if (listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction))) {
           alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
             listFriendlyName: listType.friendlyName,
-            checked: listType.checked
+            checked: listType.checked,
+            hidden: !listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction))
           };
-        }
       }
     }
 
@@ -294,16 +293,9 @@ export class SubscriptionService {
 
   public buildFilterValueOptions(list: Map<string, ListType>, selectedFilters: string[]): object {
     const filterValueOptions = {};
-    let finalFilterValueOptions = [];
-
     filterValueOptions["Jurisdiction"] = {};
-    finalFilterValueOptions = [];
 
-    const filteredValue = this.getAllJurisdictions(list);
-
-    filteredValue.forEach(value => {
-        finalFilterValueOptions.push(value);
-    });
+    const finalFilterValueOptions = this.getAllJurisdictions(list);
 
     [...finalFilterValueOptions].sort().forEach(value => {
       filterValueOptions["Jurisdiction"][value] = {

@@ -125,33 +125,43 @@
             {% for key, value in listTypes %}
               {% if value | length > 0 %}
                 {% for listName, listConfig in value %}
-                  <tr class="govuk-table__row">
-                    {% if first != key %}
-                      {% set first = key %}
-                      <th scope="row" class="govuk-table__header">
-                        <div id="{{ key }}" class="govuk-!-font-size-27">{{ key }}</div>
-                      </th>
-                    {% else %}
-                      <th scope="row" aria-hidden="true" class="govuk-table__header">
-                      </th>
-                    {% endif %}
-                    <td class="govuk-table__cell">
-                      <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
-                        <input type="checkbox" class="govuk-checkboxes__input"
-                               id="{{ listName }}"
-                               value="{{ listName}}" name="list-selections[]"
-                               {% if listConfig.checked %}
-                                checked
-                               {% endif %}
-                               onclick="calculateChecked()">
-                        <label class="govuk-label govuk-checkboxes__label"
-                               for="{{ listName }}">
-                          <span class="govuk-visually-hidden">Select {{ listConfig.listFriendlyName }}</span>
-                        </label>
-                      </div>
-                    </td>
-                    <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ listConfig.listFriendlyName }}</td>
-                  </tr>
+                  {% if listConfig.hidden %}
+                    <input hidden type="checkbox" class="govuk-checkboxes__input"
+                           id="{{ listName }}"
+                           value="{{ listName}}" name="list-selections[]"
+                      {% if listConfig.checked %}
+                        checked
+                      {% endif %}
+                      onclick="calculateChecked()">
+                  {% else %}
+                    <tr class="govuk-table__row">
+                      {% if first != key %}
+                        {% set first = key %}
+                        <th scope="row" class="govuk-table__header">
+                          <div id="{{ key }}" class="govuk-!-font-size-27">{{ key }}</div>
+                        </th>
+                      {% else %}
+                        <th scope="row" aria-hidden="true" class="govuk-table__header">
+                        </th>
+                      {% endif %}
+                      <td class="govuk-table__cell">
+                        <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
+                          <input type="checkbox" class="govuk-checkboxes__input"
+                                 id="{{ listName }}"
+                                 value="{{ listName}}" name="list-selections[]"
+                                 {% if listConfig.checked %}
+                                  checked
+                                 {% endif %}
+                                 onclick="calculateChecked()">
+                          <label class="govuk-label govuk-checkboxes__label"
+                                 for="{{ listName }}">
+                            <span class="govuk-visually-hidden">Select {{ listConfig.listFriendlyName }}</span>
+                          </label>
+                        </div>
+                      </td>
+                      <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ listConfig.listFriendlyName }}</td>
+                    </tr>
+                  {% endif %}
                 {% endfor %}
                 {% set first = '' %}
               {% endif %}
@@ -172,6 +182,8 @@
       const checkedBoxes = document.querySelectorAll('input[name="list-selections[]"]:checked').length;
       document.getElementById('selectionCount').innerText = checkedBoxes.toString();
     }
+
+    calculateChecked();
 
     function toggleFilters() {
       var element = document.getElementById("filters");
