@@ -1,6 +1,6 @@
 import { LocationRequests } from '../resources/requests/locationRequests';
 import { Location } from '../models/location';
-import {FilterService} from "./filterService";
+import {FilterService} from './filterService';
 
 const locationRequest = new LocationRequests();
 

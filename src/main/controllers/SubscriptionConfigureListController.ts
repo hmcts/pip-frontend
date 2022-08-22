@@ -17,7 +17,7 @@ export default class SubscriptionConfigureListController {
     res.render('subscription-configure-list', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-configure-list']),
       listTypes: listTypes['listOptions'],
-      filterOptions: listTypes['filterOptions']
+      filterOptions: listTypes['filterOptions'],
     });
   }
 
@@ -26,7 +26,7 @@ export default class SubscriptionConfigureListController {
     res.redirect(`subscription-configure-list?filterValues=${filterValues}`);
   }
 
-  public async submitSelections(req: PipRequest, res: Response): Promise<void> {
+  public async submitSelections(req: PipRequest): Promise<void> {
     //TODO: Ticket 1512 - List selections are available in body, as list-selections[]
     console.log(req.body);
   }

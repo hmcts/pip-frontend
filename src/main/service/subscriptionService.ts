@@ -6,7 +6,7 @@ import {PublicationService} from './publicationService';
 import {LocationService} from './locationService';
 import {FilterService} from './filterService';
 import {Location} from '../models/location';
-import {ListType} from "../models/listType";
+import {ListType} from '../models/listType';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
@@ -140,7 +140,7 @@ export class SubscriptionService {
     return await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, subscriptionType);
   }
 
-  public async subscribe(userId, userRole): Promise<boolean> {
+  public async subscribe(userId): Promise<boolean> {
     let subscribed = true;
     const casesType = 'cases';
     const courtsType = 'courts';
@@ -224,22 +224,22 @@ export class SubscriptionService {
       for (const [listName, listType] of applicableListTypes) {
         alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
           listFriendlyName: listType.friendlyName,
-          checked: listType.checked
+          checked: listType.checked,
         };
       }
     } else {
       for (const [listName, listType] of applicableListTypes) {
-          alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
-            listFriendlyName: listType.friendlyName,
-            checked: listType.checked,
-            hidden: !listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction))
-          };
+        alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
+          listFriendlyName: listType.friendlyName,
+          checked: listType.checked,
+          hidden: !listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction)),
+        };
       }
     }
 
     return {
       listOptions: alphabetisedListTypes,
-      filterOptions: filterOptions
+      filterOptions: filterOptions,
     };
   }
 
@@ -252,9 +252,9 @@ export class SubscriptionService {
       selectedListTypes = userSubscriptions['locationSubscriptions'][0]['listType'];
     }
 
-    let courtJurisdictions = new Set();
+    const courtJurisdictions = new Set();
     for (const subscription of userSubscriptions['locationSubscriptions']) {
-      let returnedLocation = await courtService.getLocationById(subscription['locationId']);
+      const returnedLocation = await courtService.getLocationById(subscription['locationId']);
       returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.add(jurisdiction));
     }
 
@@ -267,7 +267,7 @@ export class SubscriptionService {
         if (selectedListTypes == null || selectedListTypes.length == 0 || selectedListTypes.includes(listName)) {
           listType.checked = true;
         } else {
-          listType.checked = false
+          listType.checked = false;
         }
         applicableListTypes.set(listName, listType);
       }
@@ -285,7 +285,7 @@ export class SubscriptionService {
   private async generateListTypesForNewSubscription(userId): Promise<Array<string>> {
     const userSubscriptions = await this.getSubscriptionsByUser(userId);
     if (userSubscriptions.locationSubscriptions != null && userSubscriptions.locationSubscriptions.length > 0) {
-      return userSubscriptions.locationSubscriptions[0].listTypes
+      return userSubscriptions.locationSubscriptions[0].listTypes;
     } else {
       return [];
     }
@@ -293,12 +293,12 @@ export class SubscriptionService {
 
   public buildFilterValueOptions(list: Map<string, ListType>, selectedFilters: string[]): object {
     const filterValueOptions = {};
-    filterValueOptions["Jurisdiction"] = {};
+    filterValueOptions['Jurisdiction'] = {};
 
     const finalFilterValueOptions = this.getAllJurisdictions(list);
 
     [...finalFilterValueOptions].sort().forEach(value => {
-      filterValueOptions["Jurisdiction"][value] = {
+      filterValueOptions['Jurisdiction'][value] = {
         value: value,
         text: value,
         checked: selectedFilters.includes(value),
@@ -307,14 +307,13 @@ export class SubscriptionService {
     return filterValueOptions;
   }
 
-  private getAllJurisdictions(list: Map<String, ListType>): string[] {
+  private getAllJurisdictions(list: Map<string, ListType>): string[] {
     const filterSet = new Set() as Set<string>;
-    list.forEach((value, key) => {
+    list.forEach((value) => {
       value.jurisdictions.forEach(jurisdiction => filterSet.add(jurisdiction));
     });
 
     return [...filterSet];
   }
-
 
 }

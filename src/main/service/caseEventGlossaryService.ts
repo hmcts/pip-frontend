@@ -1,5 +1,5 @@
 import {CaseEventGlossaryRequests} from '../resources/requests/caseEventGlossaryRequests';
-import {FilterService} from "./filterService";
+import {FilterService} from './filterService';
 
 const caseEventGlossaryRequests = new CaseEventGlossaryRequests();
 

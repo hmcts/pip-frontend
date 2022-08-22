@@ -30,10 +30,10 @@ export class ManualUploadService {
   }
 
   private getListSubtypes(): Array<object> {
-    let jsonArray = [] as Array<object>;
+    const jsonArray = [] as Array<object>;
     publicationService.getListTypes().forEach((value, key) => {
-      jsonArray.push({"value": key, "text": value.shortenedFriendlyName })
-    })
+      jsonArray.push({'value': key, 'text': value.shortenedFriendlyName });
+    });
 
     return jsonArray;
   }

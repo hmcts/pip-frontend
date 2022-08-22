@@ -50,7 +50,7 @@ function oidcSetup(): void {
     for (let i = 0, len = users.length; i < len; i++) {
       const user = users[i];
       if (user.oid === oid) {
-        const returnedUser = await AccountManagementRequests.prototype.getPiUserByAzureOid(oid)
+        const returnedUser = await AccountManagementRequests.prototype.getPiUserByAzureOid(oid);
         user['piUserId'] = returnedUser.userId;
         user['piUserProvenance'] = returnedUser.userProvenance;
         return fn(user);
