@@ -1,33 +1,33 @@
-import {SubscriptionService} from "../../main/service/subscriptionService";
-import {FilterService} from "../../main/service/filterService";
+import {SubscriptionService} from '../../main/service/subscriptionService';
+import {FilterService} from '../../main/service/filterService';
 import sinon from 'sinon';
-import request from "supertest";
-import {app} from "../../main/app";
-import {expect} from "chai";
-import {request as expressRequest} from "express";
+import request from 'supertest';
+import {app} from '../../main/app';
+import {expect} from 'chai';
+import {request as expressRequest} from 'express';
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'VERIFIED',
-  }};
+  'extension_UserRole': 'VERIFIED',
+}};
 
 const listOptions = {
   'S': {
     'SJP_PUBLIC_LIST': {
-      listFriendlyName: "SJP Public List",
-      checked: false
-    }
-  }
-}
+      listFriendlyName: 'SJP Public List',
+      checked: false,
+    },
+  },
+};
 
 const filterOptions = {
   'Jurisdiction': {
     'Civil': {
-      value: "Civil",
-      text: "Civil",
-      checked: true
-    }
-  }
-}
+      value: 'Civil',
+      text: 'Civil',
+      checked: true,
+    },
+  },
+};
 
 describe('Subscriptions Configure List', () => {
   describe('on GET', () => {
@@ -38,21 +38,21 @@ describe('Subscriptions Configure List', () => {
       await request(app)
         .get('/subscription-configure-list')
         .expect((res) => expect(res.status).to.equal(200));
-    })
+    });
   });
 
   describe('on POST', () => {
     test('should redirect to the subscription configure page', async () => {
       sinon.stub(FilterService.prototype, 'generateFilterKeyValues')
         .withArgs({'Jurisdiction': 'Civil'})
-        .resolves("FilterOption");
+        .resolves('FilterOption');
 
       await request(app)
         .post('/subscription-configure-list')
         .send({'Jurisdiction': 'Civil'})
         .expect((res) => {
-          expect(res.status).to.equal(302)
-          expect(res.text).to.contain('Redirecting to subscription-configure-list')
+          expect(res.status).to.equal(302);
+          expect(res.text).to.contain('Redirecting to subscription-configure-list');
         });
     });
 
@@ -60,9 +60,9 @@ describe('Subscriptions Configure List', () => {
     test('should submit the selections to the submission', async () => {
       await request(app)
         .post('/subscription-configure-list')
-        .send({'list-selections[]': 'CIVIL_DAILY_CAUSE_LIST'})
+        .send({'list-selections[]': 'CIVIL_DAILY_CAUSE_LIST'});
     });
 
-  })
+  });
 
 });
