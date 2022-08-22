@@ -45,8 +45,8 @@ export class Nunjucks {
     const fs = require ('fs');
     const listTypes = publicationService.getListTypes();
     const languageLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'languageLookup.json')));
-    env.addFilter('listType', function(x){return listTypes.get(x).friendlyName;});
-    env.addFilter('listUrl', function(x){return listTypes.get(x).url;});
+    env.addFilter('listType', function(x){return listTypes.get(x)?.friendlyName;});
+    env.addFilter('listUrl', function(x){return listTypes.get(x)?.url;});
     env.addFilter('language', function(x){return languageLookup[x];});
 
     app.use((req, res, next) => {
