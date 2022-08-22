@@ -16,5 +16,28 @@
   "errorTitle": "There is a problem",
   "ariaFileLabel": "Upload a file",
   "ariaCheckboxLabel": "Agree to terms and conditions?",
-  "backButton": "Back"
+  "backButton": "Back",
+  "fullNameErrors": {
+    "blank": "There is a problem - Full name field must be populated",
+    "whiteSpace": "There is a problem - Full name field must not start with a space",
+    "doubleWhiteSpace": "There is a problem - Full name field must not contain double spaces",
+    "nameWithoutWhiteSpace": "There is a problem - Your full name will be needed to support your application for an account"
+  },
+  "emailErrors": {
+    "startWithWhiteSpace": "There is a problem - Email address field cannot start with a space",
+    "doubleWhiteSpace": "There is a problem - Email address field cannot contain double spaces",
+    "invalidEmailAddress": "There is a problem - Enter an email address in the correct format, like name@example.com",
+    "blank": "There is a problem - Email address field must be populated"
+  },
+  "mediaEmployeeErrors": {
+    "blank": "There is a problem - Your employers name will be needed to support your application for an account",
+    "whiteSpace": "There is a problem - Employer field cannot start with a space",
+    "doubleWhiteSpace": "There is a problem - Employer field cannot contain double spaces"
+  },
+  "imageUploadErrors": {
+    "blank": "There is a problem - We will need ID evidence to support your application for an account",
+    "sizeError": "There is a problem - ID evidence needs to be less than 2Mbs",
+    "typeError": "There is a problem - ID evidence must be a JPG, PDF or PNG"
+  },
+  "ariaCheckboxError": "There is a problem - You must check the box to confirm you agree to the terms and conditions."
 }
