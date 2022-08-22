@@ -1,0 +1,18 @@
+{
+  "title": "File Upload Summary",
+  "header": "Check upload details",
+  "actionName": "Change",
+  "fileKey": "File",
+  "courtNameKey": "Court name",
+  "documentTypeKey": "Document name",
+  "listTypeKey": "List type",
+  "hearingDatesKey": "Hearing start date",
+  "availableToKey": "Available to",
+  "languageKey": "Language",
+  "displayFileDatesKey": "Display file dates",
+  "confirmButton": "Confirm",
+  "error": {
+    "title": "There is a problem",
+    "message": "Unable to upload publication, please verify that provided fields are correct"
+  }
+}

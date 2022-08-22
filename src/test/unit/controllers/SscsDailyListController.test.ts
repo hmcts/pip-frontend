@@ -60,7 +60,7 @@ describe('Sscs Daily List Controller', () => {
       courtName: 'Abergavenny Magistrates\' Court',
       publishedTime: '12:30am',
       provenance: 'prov1',
-      bill: true,
+      bill: false,
     };
 
     responseMock.expects('render').once().withArgs('sscs-daily-list', expectedData);
