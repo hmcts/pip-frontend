@@ -7,7 +7,7 @@ import {
   checkAuthenticatedMedia,
   checkAuthenticatedAdmin,
   isPermittedMedia,
-  isPermittedAdmin, isPermittedAccountCreation, isPermittedManualUpload, isPermittedMediaAccount,
+  isPermittedAdmin, isPermittedAccountCreation, isPermittedManualUpload, isPermittedMediaAccount, isAdminSessionExpire,
 }
   from '../../../main/authentication/authenticationHandler';
 
@@ -226,5 +226,29 @@ describe('forgot password reset', () => {
       .send({'error': 'access_denied', 'error_description': 'AADB2C90118'})
       .expect((res) => expect(res.redirect).to.be.true);
   });
+});
+
+describe('Test admin session', () => {
+
+  it('check returns true when session expired', () => {
+    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpiry': new Date(Date.now() - 10000)}};
+    expect(isAdminSessionExpire(req)).to.be.true;
+  });
+
+  it('check returns false when session is not expired', () => {
+    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpiry': new Date(Date.now() + 100000)}};
+    expect(isAdminSessionExpire(req)).to.be.false;
+  });
+
+  it('check returns false when user is not admin', () => {
+    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {'sessionExpiry': new Date(Date.now())}};
+    expect(isAdminSessionExpire(req)).to.be.false;
+  });
+
+  it('check returns false when fake session is not there', () => {
+    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}};
+    expect(isAdminSessionExpire(req)).to.be.false;
+  });
+
 });
 
