@@ -232,6 +232,7 @@ describe('forgot password reset', () => {
       .send({'error': 'access_denied', 'error_description': 'AADB2C90118'})
       .expect((res) => expect(res.redirect).to.be.true);
   });
+});
 
 describe('media verification handling', () => {
   it('should redirect to account home with verified banner', async () => {
