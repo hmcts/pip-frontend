@@ -6,6 +6,7 @@ export const allowedFileTypes = [
   'docx',
   'htm',
   'html',
+  'xlsx',
 ];
 
 export const allowedImageTypes = [

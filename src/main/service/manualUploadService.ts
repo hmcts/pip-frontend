@@ -2,9 +2,12 @@ import { LocationService } from './locationService';
 import { DataManagementRequests } from '../resources/requests/dataManagementRequests';
 import moment from 'moment';
 import { FileHandlingService } from './fileHandlingService';
+import {LanguageFileParser} from '../helpers/languageFileParser';
 
 const courtService = new LocationService();
 const dataManagementRequests = new DataManagementRequests();
+const languageFileParser = new LanguageFileParser();
+
 const listSubTypes = [
   {text:'SJP Public List', value: 'SJP_PUBLIC_LIST'},
   {text: 'SJP Press List', value: 'SJP_PRESS_LIST'},
@@ -54,12 +57,12 @@ export class ManualUploadService {
     return [{text: 'SJP Media Register', value: 'SJP_MEDIA_REGISTER'}];
   }
 
-  public async validateFormFields(formValues: object, language: string): Promise<object> {
+  public async validateFormFields(formValues: object, language: string, languageFile: string): Promise<object> {
     const fields = {
-      courtError: await this.validateCourt(formValues['input-autocomplete'], language),
-      contentDateError: this.validateDate(this.buildDate(formValues,'content-date-from'), language),
+      courtError: await this.validateCourt(formValues['input-autocomplete'], language, languageFile),
+      contentDateError: this.validateDate(this.buildDate(formValues,'content-date-from'), language, languageFile),
       displayDateError: this.validateDates(this.buildDate(formValues, 'display-date-from'),
-        this.buildDate(formValues, 'display-date-to'), language),
+        this.buildDate(formValues, 'display-date-to'), language, languageFile),
     };
     if (!fields.courtError && !fields.contentDateError && !fields.displayDateError) {
       return null;
@@ -67,24 +70,18 @@ export class ManualUploadService {
     return fields;
   }
 
-  private async validateCourt(courtName: string, language: string): Promise<string> {
+  private async validateCourt(courtName: string, language: string, languageFile: string): Promise<string> {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (courtName?.length >= 3) {
       const validCourt = await courtService.getLocationByName(courtName, language);
       if (validCourt) {
         return null;
       }
 
-      if (language == 'cy') {
-        return 'Nodwch a dewiswch lys dilys';
-      } else {
-        return 'Please enter and select a valid court';
-      }
+      return languageFileParser.getText(fileJson, 'courtSearchErrors', 'notFound');
     }
-    if (language == 'cy') {
-      return 'Rhaid i enw llys fod yn dri nod neu fwy';
-    } else {
-      return 'Court name must be three characters or more';
-    }
+
+    return languageFileParser.getText(fileJson, 'courtSearchErrors', 'minCharactersReq');
   }
 
   public buildDate(body: object, fieldsetPrefix: string): string {
@@ -97,11 +94,11 @@ export class ManualUploadService {
     }
   }
 
-  private validateDates(dateFrom: string, dateTo: string, language: string): object {
+  private validateDates(dateFrom: string, dateTo: string, language: string, languageFile: string): object {
     const dates = {
-      from: this.validateDate(dateFrom, language),
-      to: this.validateDate(dateTo, language),
-      range: this.validateDateRange(dateFrom, dateTo, language),
+      from: this.validateDate(dateFrom, language, languageFile),
+      to: this.validateDate(dateTo, language, languageFile),
+      range: this.validateDateRange(dateFrom, dateTo, language, languageFile),
     };
     if (!dates.from && !dates.to && !dates.range) {
       return null;
@@ -109,31 +106,23 @@ export class ManualUploadService {
     return dates;
   }
 
-  private validateDate(date: string, language: string): string {
+  private validateDate(date: string, language: string, languageFile: string): string {
     const dateformat = moment(date, 'DD/MM/YYYY HH:mm:ss', true);
     if (dateformat.isValid()) {
       return null;
     }
-
-    if (language == 'cy') {
-      return 'Rhowch ddyddiad dilys';
-    } else {
-      return 'Please enter a valid date';
-    }
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
+    return languageFileParser.getText(fileJson, 'dateErrors', 'blank');
   }
 
-  private validateDateRange(dateFrom: string, dateTo: string, language: string): string | null {
+  private validateDateRange(dateFrom: string, dateTo: string, language: string, languageFile: string): string | null {
     const firstDate = moment(dateFrom, 'DD/MM/YYYY HH:mm:ss', true);
     const secondDate = moment(dateTo, 'DD/MM/YYYY HH:mm:ss', true);
     if (firstDate.isSameOrBefore(secondDate)) {
       return null;
     }
-
-    if (language == 'cy') {
-      return 'Gwnewch yn siŵr bod y dyddiad \'hyd\' ar ôl y dyddiad \'o\'';
-    } else {
-      return 'Please make sure \'to\' date is after \'from\' date';
-    }
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
+    return languageFileParser.getText(fileJson, 'dateErrors', 'dateRange');
   }
 
   public async appendlocationId(courtName: string, language: string): Promise<object> {
