@@ -50,12 +50,4 @@ describe('Subscriptions Configure List Controller', () => {
       responseMock.verify();
     });
   });
-
-  //TODO: Will be updated once 1512 is played
-  it ('should run the submit selections page', () => {
-    const request = mockRequest(i18n);
-
-    subscriptionConfigureListController.submitSelections(request);
-  });
-
 });

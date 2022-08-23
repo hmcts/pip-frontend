@@ -6,8 +6,8 @@ import {request as expressRequest} from 'express';
 import {SubscriptionService} from '../../main/service/subscriptionService';
 
 expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'VERIFIED',
-  }};
+  'extension_UserRole': 'VERIFIED',
+}};
 
 describe('Subscription Configure list confirmation result', () => {
   describe('on POST', () => {

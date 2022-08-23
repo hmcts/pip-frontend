@@ -3,13 +3,13 @@ import { Response } from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import SubscriptionConfigureListConfirmedController
   from '../../../main/controllers/SubscriptionConfigureListConfirmedController';
-import {SubscriptionService} from "../../../main/service/subscriptionService";
+import {SubscriptionService} from '../../../main/service/subscriptionService';
 
 const subscriptionConfigureListConfirmedController = new SubscriptionConfigureListConfirmedController();
 
 const stub = sinon.stub(SubscriptionService.prototype, 'configureListTypeForLocationSubscriptions');
 stub.withArgs('1', 'CIVIL_DAILY_CAUSE_LIST').returns(true);
-stub.withArgs(null, 'CIVIL_DAILY_CAUSE_LIST').returns(false)
+stub.withArgs(null, 'CIVIL_DAILY_CAUSE_LIST').returns(false);
 
 const response = {
   render: function () {
