@@ -1,5 +1,6 @@
 {% extends "template.njk" %}
 {% from "./macros/common-components.njk" import goBack %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% block pageTitle %}
     {{ title }}
@@ -9,7 +10,15 @@
     {{ goBack(text = backButton) }}
 {% endblock %}
 {% block content %}
-  <div class="parent-box">
+  {% if showVerifiedBanner %}
+    <div class="parent-box">
+      {% set html %}
+        <p class="govuk-notification-banner__heading">{{ bannerText }}</p>
+      {% endset %}
+      {{ govukNotificationBanner({
+        html: html
+      }) }}
+  {% endif %}
     <div class="govuk-grid-row">
         <h1 class="govuk-heading-l">{{ title }}</h1>
     </div>

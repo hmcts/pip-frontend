@@ -17,5 +17,6 @@
       "link": "subscription-management"
     }
   ],
-  "backButton": "Back"
+  "backButton": "Back",
+  "bannerText": "Your account has been verified."
 }
