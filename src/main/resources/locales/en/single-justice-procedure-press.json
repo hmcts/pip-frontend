@@ -10,6 +10,7 @@
   "dateOfBirth": "Date of birth",
   "reference": "Reference",
   "address": "Address",
+  "prosecutor": "Prosecutor",
   "reportingRestriction": "Reporting Restriction",
   "backButton": "Back"
 }

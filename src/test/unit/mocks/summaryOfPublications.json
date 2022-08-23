@@ -50,5 +50,68 @@
     "contentDate": "2022-01-28T18:29:18.297",
     "isFlatFile": "false",
     "payload": "bleh"
+  },
+  {
+    "artefactId": "cdf9b054-7ad7-4191-9b87-ddabebd437c2",
+    "provenance": "MANUAL_UPLOAD",
+    "sourceArtefactId": "Family.docx",
+    "type": "LIST",
+    "sensitivity": "PUBLIC",
+    "language": "ENGLISH",
+    "search": {
+      "location-id": [
+        "5"
+      ]
+    },
+    "displayFrom": "2022-07-04T10:40:00",
+    "displayTo": "2022-12-31T10:55:00",
+    "listType": "FAMILY_DAILY_CAUSE_LIST",
+    "locationId": "5",
+    "contentDate": "2022-07-14T00:00:00",
+    "isFlatFile": true,
+    "payload": "http://127.0.0.1:10000/devstoreaccount1/artefact/8f0ada21-abe9-4e0a-a839-eb19c65c66c5",
+    "createdDate": "2022-08-03T20:20:10.682121"
+  },
+  {
+    "artefactId": "40ef9135-4538-4753-8b10-4e4bffdd0fd1",
+    "provenance": "MANUAL_UPLOAD",
+    "sourceArtefactId": "CivilAndFamily.pdf",
+    "type": "LIST",
+    "sensitivity": "PUBLIC",
+    "language": "ENGLISH",
+    "search": {
+      "location-id": [
+        "5"
+      ]
+    },
+    "displayFrom": "2022-07-04T10:40:00",
+    "displayTo": "2022-12-31T10:55:00",
+    "listType": "CIVIL_AND_FAMILY_DAILY_CAUSE_LIST",
+    "locationId": "5",
+    "contentDate": "2022-07-14T00:00:00",
+    "isFlatFile": true,
+    "payload": "http://127.0.0.1:10000/devstoreaccount1/artefact/8f0ada21-abe9-4e0a-a839-eb19c65c66c5",
+    "createdDate": "2022-08-03T20:20:10.682121"
+  },
+  {
+    "artefactId": "9d902ddf-2b59-4390-a327-2e475c7e88b2",
+    "provenance": "MANUAL_UPLOAD",
+    "sourceArtefactId": "Civil.docx",
+    "type": "LIST",
+    "sensitivity": "PUBLIC",
+    "language": "ENGLISH",
+    "search": {
+      "location-id": [
+        "5"
+      ]
+    },
+    "displayFrom": "2022-07-04T10:40:00",
+    "displayTo": "2022-12-31T10:55:00",
+    "listType": "CIVIL_DAILY_CAUSE_LIST",
+    "locationId": "5",
+    "contentDate": "2022-07-14T00:00:00",
+    "isFlatFile": true,
+    "payload": "http://127.0.0.1:10000/devstoreaccount1/artefact/8f0ada21-abe9-4e0a-a839-eb19c65c66c5",
+    "createdDate": "2022-08-03T20:20:10.682121"
   }
 ]

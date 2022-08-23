@@ -14,6 +14,7 @@ import {
   isPermittedManualUpload,
   checkRoles,
   forgotPasswordRedirect,
+  isAdminSessionExpire,
   mediaVerificationHandling,
   processAccountSignIn,
 } from '../authentication/authenticationHandler';
@@ -51,6 +52,11 @@ export default function(app: Application): void {
   };
 
   function globalAuthGiver(req, res, next): void{
+    if(isAdminSessionExpire(req)) {
+      logOut(req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY);
+      return;
+    }
+
     //this function allows us to share authentication status across all views
     res.locals.isAuthenticated = req.isAuthenticated();
     next();
