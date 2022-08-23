@@ -12,8 +12,7 @@ const mockCourt = {
   name: 'Aberdeen Tribunal Hearing Centre',
   jurisdiction: 'Tribunal',
   location: 'Scotland',
-  hearingList: [],
-  hearings: 0,
+  listType: ['SJP_PUBLIC_LIST'],
 };
 const mockCase = {
   hearingId: 5,
@@ -25,6 +24,7 @@ const mockCase = {
   caseNumber: 'T485914',
   caseName: 'Ashely Barnes',
   caseUrn: 'IBRANE1BVW',
+  urnSearch: true,
 };
 const courtSubscriptionPayload = {
   channel: 'EMAIL',
@@ -32,6 +32,7 @@ const courtSubscriptionPayload = {
   searchValue: 643,
   locationName: 'Aberdeen Tribunal Hearing Centre',
   userId: '1',
+  listType: ['SJP_PUBLIC_LIST'],
 };
 const courtSubscriptionWithSingleListTypePayload = {
   channel: 'EMAIL',
@@ -105,6 +106,7 @@ subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', '1').resolves(true);
 subscriptionStub.withArgs(blankPayload, 'courts', '1').resolves(false);
 subscriptionStub.withArgs(blankPayload, 'cases', '1').resolves(false);
+
 courtStub.withArgs('643').resolves(mockCourt);
 courtStub.withArgs('111').resolves(mockCourt);
 courtStub.withArgs('').resolves(null);
@@ -236,10 +238,19 @@ describe('getPendingSubscriptions function', () => {
 });
 
 describe('subscribe function', () => {
-  it('should return true for successful subscription', async () => {
+  it('should return true for successful subscription when no subscriptions', async () => {
     const subscriptionRes = await subscriptionService.subscribe(userIdWithoutSubscriptions);
     expect(subscriptionRes).toBe(true);
   });
+
+  it('should return true for successful subscription when court and case subscriptions', async () => {
+    subscriptionStub.withArgs(caseSubscriptionPayload).resolves(true);
+    subscriptionStub.withArgs(courtSubscriptionPayload).resolves(true);
+
+    const subscriptionRes = await subscriptionService.subscribe(userIdWithSubscriptions);
+    expect(subscriptionRes).toBe(true);
+  });
+
 });
 
 describe('removeFromCache function', () => {
