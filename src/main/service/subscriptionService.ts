@@ -206,10 +206,10 @@ export class SubscriptionService {
 
   public async configureListTypeForLocationSubscriptions(userId, listType): Promise<boolean> {
     return await subscriptionRequests.configureListTypeForLocationSubscriptions(
-      this.createSubscriptionListTypePayload(userId, listType));
+      this.createListTypeSubscriptionPayload(userId, listType));
   }
 
-  createSubscriptionListTypePayload(userId, listType): object {
+  createListTypeSubscriptionPayload(userId, listType): object {
     let listTypeArray;
     if(listType) {
       if (!Array.isArray(listType)) {

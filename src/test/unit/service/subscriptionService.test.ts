@@ -33,6 +33,38 @@ const courtSubscriptionPayload = {
   locationName: 'Aberdeen Tribunal Hearing Centre',
   userId: '1',
 };
+const courtSubscriptionWithSingleListTypePayload = {
+  channel: 'EMAIL',
+  searchType: 'LOCATION_ID',
+  searchValue: 'configure-list-type',
+  locationName: '',
+  userId: '1',
+  listType: ['CIVIL_DAILY_CAUSE_LIST'],
+};
+const courtSubscriptionWithMultipleListTypePayload = {
+  channel: 'EMAIL',
+  searchType: 'LOCATION_ID',
+  searchValue: 'configure-list-type',
+  locationName: '',
+  userId: '1',
+  listType: ['CIVIL_DAILY_CAUSE_LIST','FAMILY_DAILY_CAUSE_LIST'],
+};
+const courtSubscriptionWithEmptyListTypePayload = {
+  channel: 'EMAIL',
+  searchType: 'LOCATION_ID',
+  searchValue: 'configure-list-type',
+  locationName: '',
+  userId: '1',
+  listType: [],
+};
+const courtSubscriptionWithEmptyListTypeAndNoUserIdPayload = {
+  channel: 'EMAIL',
+  searchType: 'LOCATION_ID',
+  searchValue: 'configure-list-type',
+  locationName: '',
+  userId: null,
+  listType: [],
+};
 const caseSubscriptionPayload = {
   caseName: 'Ashely Barnes',
   caseNumber: 'T485914',
@@ -68,6 +100,7 @@ sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(mockCase);
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
 const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
+const updateListTypeSubscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'configureListTypeForLocationSubscriptions');
 subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', '1').resolves(true);
 subscriptionStub.withArgs(blankPayload, 'courts', '1').resolves(false);
@@ -90,6 +123,8 @@ removeStub.withArgs({case: '888'}, userIdWithSubscriptions).resolves();
 removeStub.withArgs({court: '111'}, userIdWithSubscriptions).resolves();
 deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
 deleteStub.withArgs('InValidSubscriptionId').resolves(null);
+updateListTypeSubscriptionStub.withArgs(courtSubscriptionWithSingleListTypePayload).resolves(true);
+updateListTypeSubscriptionStub.withArgs(courtSubscriptionWithEmptyListTypeAndNoUserIdPayload).resolves(false);
 
 describe('handleNewSubscription function', () => {
   it('should add new case subscription', async () => {
@@ -234,6 +269,36 @@ describe('createSubscriptionPayload function', () => {
   it('should create blank payload', async () => {
     const payload = subscriptionService.createSubscriptionPayload({}, 'foo', '5');
     expect(payload).toStrictEqual(blankPayload);
+  });
+});
+
+describe('createListTypeSubscriptionPayload function', () => {
+  it('should create list type subscription payload', async () => {
+    const payload = subscriptionService.createListTypeSubscriptionPayload('1', 'CIVIL_DAILY_CAUSE_LIST');
+    expect(payload).toStrictEqual(courtSubscriptionWithSingleListTypePayload);
+  });
+
+  it('should create multi list type subscription payload', async () => {
+    const listTypeArray = 'CIVIL_DAILY_CAUSE_LIST,FAMILY_DAILY_CAUSE_LIST'.split(',');
+    const payload = subscriptionService.createListTypeSubscriptionPayload('1', listTypeArray);
+    expect(payload).toStrictEqual(courtSubscriptionWithMultipleListTypePayload);
+  });
+
+  it('should create blank payload', async () => {
+    const payload = subscriptionService.createListTypeSubscriptionPayload('1', null);
+    expect(payload).toStrictEqual(courtSubscriptionWithEmptyListTypePayload);
+  });
+});
+
+describe('configureListTypeForLocationSubscriptions', () => {
+  it('should return a message if list type subscription is updated', async () => {
+    const result = await subscriptionService.configureListTypeForLocationSubscriptions('1', 'CIVIL_DAILY_CAUSE_LIST');
+    expect(result).toEqual(true);
+  });
+
+  it('should return false if user id is not given', async () => {
+    const result = await subscriptionService.configureListTypeForLocationSubscriptions(null, null);
+    expect(result).toEqual(false);
   });
 });
 
