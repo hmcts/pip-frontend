@@ -29,36 +29,61 @@ expressRequest['user'] = {'_json': {
 }};
 
 describe('Your Account page', () => {
-  beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+  describe('Without verified param', () => {
+    beforeAll(async () => {
+      await request(app).get(PAGE_URL).then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
+    });
+
+    it('should have correct page title', () => {
+      const pageTitle = htmlRes.title;
+      expect(pageTitle).contains(pageHeader, 'Page title does not match header');
+    });
+
+    it('should display header', () => {
+      const header = htmlRes.getElementsByClassName('govuk-heading-l');
+      expect(header[0].innerHTML)
+        .contains(pageHeader, 'Could not find correct value in header');
+    });
+
+    it('should display 4 card options', () => {
+      const cards = htmlRes.getElementsByClassName('account-card');
+      expect(cards.length).equal(expectedCards);
+    });
+
+    it('cards should have correct content and links', () => {
+      for (let i = 0; i < expectedCards; i++) {
+        const accountCards = htmlRes.getElementsByClassName('account-card');
+        const link = accountCards[i].getElementsByTagName('a')[0];
+        const description = accountCards[i].getElementsByTagName('p')[1];
+        expect(link.innerHTML).contains(cards[i].title);
+        expect(link.getAttribute('href')).contains(cards[i].link);
+        expect(description.innerHTML).contains(cards[i].description);
+      }
     });
   });
 
-  it('should have correct page title', () => {
-    const pageTitle = htmlRes.title;
-    expect(pageTitle).contains(pageHeader, 'Page title does not match header');
-  });
+  describe('With verified param', () => {
+    beforeAll(async () => {
+      await request(app).get(PAGE_URL + '/?verified=true').then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
+    });
 
-  it('should display header', () => {
-    const header = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(header[0].innerHTML)
-      .contains(pageHeader, 'Could not find correct value in header');
-  });
+    it('should display the verified banner', () => {
+      const banner = htmlRes.getElementsByClassName('govuk-notification-banner');
+      expect(banner).to.exist;
+    });
 
-  it('should display 4 card options', () => {
-    const cards = htmlRes.getElementsByClassName('account-card');
-    expect(cards.length).equal(expectedCards);
-  });
+    it('should display the header inside the verified banner', () => {
+      const bannerHeader = htmlRes.getElementsByClassName('govuk-notification-banner__title')[0];
+      expect(bannerHeader.innerHTML).contains('Important');
+    });
 
-  it('cards should have correct content and links', () => {
-    for (let i = 0; i < expectedCards; i++) {
-      const accountCards = htmlRes.getElementsByClassName('account-card');
-      const link = accountCards[i].getElementsByTagName('a')[0];
-      const description = accountCards[i].getElementsByTagName('p')[1];
-      expect(link.innerHTML).contains(cards[i].title);
-      expect(link.getAttribute('href')).contains(cards[i].link);
-      expect(description.innerHTML).contains(cards[i].description);
-    }
+    it('should display the content inside the verified banner', () => {
+      const bannerContent = htmlRes.getElementsByClassName('govuk-notification-banner__heading')[0];
+      expect(bannerContent.innerHTML).equals('Your account has been verified.');
+    });
   });
 });

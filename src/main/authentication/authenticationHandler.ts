@@ -1,7 +1,10 @@
 import moment from 'moment';
 
-const authenticationConfig = require('../authentication/authentication-config.json');
+import process from 'process';
 import config from 'config';
+import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
+
+const authenticationConfig = require('../authentication/authentication-config.json');
 
 export const adminAccountCreationRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL'];
 export const manualUploadRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_CTSC', 'INTERNAL_ADMIN_LOCAL'];
@@ -95,4 +98,15 @@ export function forgotPasswordRedirect(req, res, next): void {
     return;
   }
   return next();
+}
+
+export async function mediaVerificationHandling(req, res): Promise<any> {
+  if(req.user) {
+    const userInfo = req.user['_json'];
+    if(verifiedRoles.includes(userInfo?.extension_UserRole)) {
+      const response = await AccountManagementRequests.prototype.updateMediaAccountVerification(userInfo?.oid);
+      console.log(response);
+      res.redirect('/account-home?verified=true');
+    }
+  }
 }
