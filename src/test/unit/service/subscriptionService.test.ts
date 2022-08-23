@@ -12,8 +12,7 @@ const mockCourt = {
   name: 'Aberdeen Tribunal Hearing Centre',
   jurisdiction: 'Tribunal',
   location: 'Scotland',
-  hearingList: [],
-  hearings: 0,
+  listType: ['SJP_PUBLIC_LIST']
 };
 const mockCase = {
   hearingId: 5,
@@ -32,6 +31,7 @@ const courtSubscriptionPayload = {
   searchValue: 643,
   locationName: 'Aberdeen Tribunal Hearing Centre',
   userId: '1',
+  listType: ['SJP_PUBLIC_LIST']
 };
 const caseSubscriptionPayload = {
   caseName: 'Ashely Barnes',
