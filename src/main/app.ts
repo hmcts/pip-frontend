@@ -19,7 +19,6 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const {setupDev} = require('./development');
 import {Container} from './modules/awilix';
-import routes from './routes/routes';
 import {PipRequest} from './models/request/PipRequest';
 
 const env = process.env.NODE_ENV || 'development';
@@ -35,6 +34,8 @@ const logger = Logger.getLogger('app');
 logger.info('NODE_ENV', env);
 
 propertiesVolume.addTo(config);
+
+import routes from './routes/routes';
 
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);

@@ -1,9 +1,9 @@
 {
   "title": "Sut hoffech chi fewngofnodi?",
   "header": "Sut hoffech chi fewngofnodi?",
-  "radio1": "Gyda My HMCTS cyfrif",
-  "radio2": "Gyda Common Platform  cyfrif",
-  "radio3": "Gyda a cyfrif gwrandawiadau Llys a Thribiwnlys",
+  "radio1": "Gyda chyfrif MyHMCTS",
+  "radio2": "Gyda chyfrif Common Platform",
+  "radio3": "Gyda chyfrif gwrandawiadau Llys a Thribiwnlys",
   "accountInfo": "And oed gennych gyfrif?",
   "accountInfo_link_text": "Creu cyfrif gwrandawiadau Llys a Thribiwnlys",
   "accountInfo_link": "create-media-account",
