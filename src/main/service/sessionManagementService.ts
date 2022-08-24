@@ -8,7 +8,9 @@ const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.p
 const defaultSessionExpiry = 60 * 60 * 1000; // default to 1 hour
 
 export class SessionManagementService {
-  public logOut(_req, res, redirectUrl): void{
+  public logOut(req, res, redirectUrl): void {
+    // For cookie-session, the request session needs to be destroyed by setting to null upon logout
+    req.session = null;
     res.clearCookie('session');
     const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
     const encodedSignOutRedirect = encodeURIComponent(redirectUrl);

@@ -19,6 +19,7 @@ describe('Test admin session expiry', () => {
 
     const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpires': new Date(now - 10000)}};
     expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
+    expect(req.session).to.be.null;
     responseMock.verify();
   });
 
@@ -52,6 +53,7 @@ describe('Test media user session expiry', () => {
 
     const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {'sessionExpires': new Date(now - 10000)}};
     expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
+    expect(req.session).to.be.null;
     responseMock.verify();
   });
 
