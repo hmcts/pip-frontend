@@ -36,8 +36,6 @@ const logger = Logger.getLogger('app');
 
 logger.info('NODE_ENV', env);
 
-
-
 import routes from './routes/routes';
 
 new AppInsights().enable();
