@@ -63,7 +63,7 @@ export default function(app: Application): void {
   }
 
   function getLogOutRedirectUrl(req): string {
-    const policy = checkRoles(req, verifiedRoles) ? authenticationConfig.POLICY : authenticationConfig.ADMIN_POLICY
+    const policy = checkRoles(req, verifiedRoles) ? authenticationConfig.POLICY : authenticationConfig.ADMIN_POLICY;
     return `${FRONTEND_URL}/login?p=` + policy;
   }
 
