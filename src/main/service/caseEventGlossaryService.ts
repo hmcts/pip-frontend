@@ -1,5 +1,5 @@
 import {CaseEventGlossaryRequests} from '../resources/requests/caseEventGlossaryRequests';
-import {FilterService} from './filterService';
+import {AToZHelper} from '../helpers/aToZHelper';
 
 const caseEventGlossaryRequests = new CaseEventGlossaryRequests();
 
@@ -7,7 +7,7 @@ export class CaseEventGlossaryService {
 
   public async generateCaseEventGlossaryObject(): Promise<object> {
     const courtEventGlossaryList: Array<any>= await caseEventGlossaryRequests.getCaseEventGlossaryList();
-    const alphabetOptions = FilterService.generateAlphabetObject();
+    const alphabetOptions = AToZHelper.generateAlphabetObject();
 
     //Then loop through each status, and add it to the list
     courtEventGlossaryList.forEach(item => {

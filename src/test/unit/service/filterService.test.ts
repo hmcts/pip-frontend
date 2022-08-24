@@ -140,10 +140,4 @@ describe('Filter Service', () => {
     expect(filterService.generateFilterKeyValues(body)).toStrictEqual(['test', 'val', 'newTest']);
   });
 
-  it('should generate an alphabet object', () => {
-    const alphabetObject = FilterService.generateAlphabetObject();
-    expect(Object.keys(alphabetObject).length).toBe(26);
-    expect(alphabetObject['A']).toStrictEqual({});
-  });
-
 });

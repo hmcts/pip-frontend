@@ -8,6 +8,7 @@ import {FilterService} from './filterService';
 import {Location} from '../models/location';
 import {ListType} from '../models/listType';
 import {LanguageFileParser} from '../helpers/languageFileParser';
+import {AToZHelper} from '../helpers/aToZHelper';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
@@ -224,7 +225,7 @@ export class SubscriptionService {
 
     const filterOptions = this.buildFilterValueOptions(applicableListTypes, filterValues);
 
-    const alphabetisedListTypes = FilterService.generateAlphabetObject();
+    const alphabetisedListTypes = AToZHelper.generateAlphabetObject();
 
     if (filterValues.length == 0) {
       for (const [listName, listType] of applicableListTypes) {
