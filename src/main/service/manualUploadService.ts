@@ -2,13 +2,13 @@ import { LocationService } from './locationService';
 import { DataManagementRequests } from '../resources/requests/dataManagementRequests';
 import moment from 'moment';
 import { FileHandlingService } from './fileHandlingService';
+
 import { PublicationService } from './publicationService';
-import {LanguageFileParser} from '../helpers/languageFileParser';
 
 const courtService = new LocationService();
 const dataManagementRequests = new DataManagementRequests();
+import {LanguageFileParser} from '../helpers/languageFileParser';
 const languageFileParser = new LanguageFileParser();
-
 const fileHandlingService = new FileHandlingService();
 const publicationService = new PublicationService();
 
