@@ -7,8 +7,8 @@ import {checkRoles, verifiedRoles} from '../authentication/authenticationHandler
 const logger = Logger.getLogger('session-management');
 const authenticationConfig = require('../authentication/authentication-config.json');
 const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
-//const defaultSessionExpiry = 60 * 60 * 1000; // default to 1 hour
-const defaultSessionExpiry = 5000; // default to 1 hour
+const defaultSessionExpiry = 60 * 60 * 1000; // default to 1 hour
+
 export class SessionManagementService {
   public logOut(_req, res, redirectUrl): void{
     res.clearCookie('session');
