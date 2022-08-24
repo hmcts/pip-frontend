@@ -260,8 +260,10 @@ export class SubscriptionService {
 
     const courtJurisdictions = new Set();
     for (const subscription of userSubscriptions['locationSubscriptions']) {
-      const returnedLocation = await courtService.getLocationById(subscription['locationId']);
-      returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.add(jurisdiction));
+      if ('locationId' in subscription) {
+        const returnedLocation = await courtService.getLocationById(subscription['locationId']);
+        returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.add(jurisdiction));
+      }
     }
 
     const sortedListTypes = new Map([...listTypes].sort());

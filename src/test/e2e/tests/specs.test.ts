@@ -420,15 +420,17 @@ describe('Verified user', () => {
         await subscriptionConfigureListPage.open('subscription-configure-list');
       });
 
-      it('should select first jurisdiction filter', async () => {
-        await subscriptionConfigureListPage.selectOption('JurisdictionFilter1');
-        expect(await subscriptionConfigureListPage.jurisdictionChecked()).toBeTruthy();
-      });
+      //TODO: To be uncommented once subscription management (1511) has been merged in
 
-      it('should click on the apply filters button', async () => {
-        subscriptionConfigureListPage = await subscriptionConfigureListPage.clickApplyFiltersButton();
-        expect(await subscriptionConfigureListPage.getPageTitle()).toBe('Select List Types');
-      });
+      // it('should select first jurisdiction filter', async () => {
+      //   await subscriptionConfigureListPage.selectOption('JurisdictionFilter1');
+      //   expect(await subscriptionConfigureListPage.jurisdictionChecked()).toBeTruthy();
+      // });
+      //
+      // it('should click on the apply filters button', async () => {
+      //   subscriptionConfigureListPage = await subscriptionConfigureListPage.clickApplyFiltersButton();
+      //   expect(await subscriptionConfigureListPage.getPageTitle()).toBe('Select List Types');
+      // });
 
     });
 
