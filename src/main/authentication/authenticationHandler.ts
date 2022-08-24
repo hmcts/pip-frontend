@@ -1,5 +1,10 @@
-const authenticationConfig = require('../authentication/authentication-config.json');
+import moment from 'moment';
+
+import process from 'process';
 import config from 'config';
+import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
+
+const authenticationConfig = require('../authentication/authentication-config.json');
 
 export const adminAccountCreationRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL'];
 export const manualUploadRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_CTSC', 'INTERNAL_ADMIN_LOCAL'];
@@ -7,6 +12,21 @@ export const mediaAccountCreationRoles = ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL
 export const allAdminRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_CTSC', 'INTERNAL_ADMIN_LOCAL'];
 export const verifiedRoles = ['VERIFIED'];
 const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
+
+export function isAdminSessionExpire(req): boolean {
+  if(checkRoles(req, allAdminRoles)) {
+    if(req.session.sessionExpiry) {
+      const sessionExpiryDateTime = moment.utc(req.session.sessionExpiry);
+      const currentDateTime = moment.utc(new Date(Date.now()));
+      const durationAsSeconds = moment.duration(sessionExpiryDateTime.startOf('seconds').diff(currentDateTime.startOf('seconds'))).asSeconds();
+      if(durationAsSeconds <= 0) {
+        return true;
+      }
+    }
+    req.session.sessionExpiry = new Date(Date.now() + (60 * 60 * 4000)); //4 hours
+  }
+  return false;
+}
 
 export function checkRoles(req, roles): boolean {
   if(req.user) {
@@ -78,4 +98,15 @@ export function forgotPasswordRedirect(req, res, next): void {
     return;
   }
   return next();
+}
+
+export async function mediaVerificationHandling(req, res): Promise<any> {
+  if(req.user) {
+    const userInfo = req.user['_json'];
+    if(verifiedRoles.includes(userInfo?.extension_UserRole)) {
+      const response = await AccountManagementRequests.prototype.updateMediaAccountVerification(userInfo?.oid);
+      console.log(response);
+      res.redirect('/account-home?verified=true');
+    }
+  }
 }

@@ -47,6 +47,7 @@ const piEndpoint = '/account/add/pi';
 const applicationGetEndpoint = '/application/';
 const imageGetEndpoint = '/application/image/';
 const piUserEndpoint = '/account/provenance/PI_AAD/';
+const updateMediaVerificationEndpoint = '/account/verification/';
 
 const status = 'APPROVED';
 const statusEndpoint = '/' + status;
@@ -343,6 +344,38 @@ describe('Account Management Requests', () => {
     it('should return null on error message', async () => {
       getStub.withArgs(`${piUserEndpoint}${idtoUse}`).rejects(errorMessage);
       const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Update Media Account Verification', () => {
+    beforeEach(() => {
+      sinon.restore();
+      putStub = sinon.stub(accountManagementApi, 'put');
+    });
+    const oid = '1234';
+
+    it('should return confirmation string on success', async () => {
+      putStub.withArgs(updateMediaVerificationEndpoint + oid).resolves({status: 200, data: 'Media Account verified' });
+      const response = await accountManagementRequests.updateMediaAccountVerification(oid);
+      expect(response).toBe('Media Account verified');
+    });
+
+    it('should return null on error request', async () => {
+      putStub.withArgs(updateMediaVerificationEndpoint + oid).rejects(errorRequest);
+      const response = await accountManagementRequests.updateMediaAccountVerification(oid);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error response', async () => {
+      putStub.withArgs(updateMediaVerificationEndpoint + oid).rejects(errorResponse);
+      const response = await accountManagementRequests.updateMediaAccountVerification(oid);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error message', async () => {
+      putStub.withArgs(updateMediaVerificationEndpoint + oid).rejects(errorMessage);
+      const response = await accountManagementRequests.updateMediaAccountVerification(oid);
       expect(response).toBe(null);
     });
   });

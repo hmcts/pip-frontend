@@ -10,6 +10,7 @@
   "dateOfBirth": "Dyddiad geni",
   "reference": "Cyfeirnod",
   "address": "Cyfeiriad",
+  "prosecutor": "Erlynydd",
   "reportingRestriction": "Cyfyngiad adrodd",
   "backButton": "Yn ôl"
 }
