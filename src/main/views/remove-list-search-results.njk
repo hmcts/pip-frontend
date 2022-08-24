@@ -31,13 +31,7 @@
                         <td class="govuk-table__cell">{{ item.listTypeName }}</td>
                         <td class="govuk-table__cell">{{ court.name }}</td>
                         <td class="govuk-table__cell">{{ item.dateRange }}</td>
-                        {% if (item.language == 'ENGLISH') %}
-                          <td class="govuk-table__cell">{{ languageItems[0] }}</td>
-                        {% elif (item.language == 'WELSH') %}
-                          <td class="govuk-table__cell">{{ languageItems[1] }}</td>
-                        {% elif (item.language == 'BI_LINGUAL') %}
-                          <td class="govuk-table__cell">{{ languageItems[2] }}</td>
-                        {% endif %}
+                        <td class="govuk-table__cell">{{ item.language | titleCase }}</td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">
                           <a class='unsubscribe-action' href='remove-list-confirmation?artefact={{ item.artefactId }}'>Remove</a>
                         </td>

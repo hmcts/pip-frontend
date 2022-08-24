@@ -1,6 +1,7 @@
 import * as path from 'path';
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';
+import moment from "moment/moment";
 
 export class Nunjucks {
   constructor(public developmentMode: boolean) {
@@ -46,6 +47,9 @@ export class Nunjucks {
     env.addFilter('listType', function(x){return listTypeLookup[x];});
     env.addFilter('listUrl', function(x){return listUrlLookup[x];});
     env.addFilter('language', function(x){return languageLookup[x];});
+    env.addFilter('titleCase', function(x){return (x == 'BI_LINGUAL' ? 'Bilingual' : x.charAt(0).toUpperCase() + x.slice(1).toLowerCase());});
+    env.addFilter('dateRange', function(x){return moment(x.displayFrom).format('D MMM YYYY') +
+      ' to ' + moment(x.displayTo).format('D MMM YYYY');});
 
     app.use((req, res, next) => {
       res.locals.pagePath = req.path;
