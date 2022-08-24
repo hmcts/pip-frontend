@@ -7,7 +7,11 @@ import {
   checkAuthenticatedMedia,
   checkAuthenticatedAdmin,
   isPermittedMedia,
-  isPermittedAdmin, isPermittedAccountCreation, isPermittedManualUpload, isPermittedMediaAccount, isAdminSessionExpire,
+  isPermittedAdmin,
+  isPermittedAccountCreation,
+  isPermittedManualUpload,
+  isPermittedMediaAccount,
+  isSessionExpired,
 }
   from '../../../main/authentication/authenticationHandler';
 
@@ -228,27 +232,42 @@ describe('forgot password reset', () => {
   });
 });
 
-describe('Test admin session', () => {
+describe('Test admin session expiry', () => {
+  const now = Date.now();
 
   it('check returns true when session expired', () => {
-    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpiry': new Date(Date.now() - 10000)}};
-    expect(isAdminSessionExpire(req)).to.be.true;
+    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpires': new Date(now - 10000)}};
+    expect(isSessionExpired(req)).to.be.true;
   });
 
   it('check returns false when session is not expired', () => {
-    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpiry': new Date(Date.now() + 100000)}};
-    expect(isAdminSessionExpire(req)).to.be.false;
+    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpires': new Date(now + 100000)}};
+    expect(isSessionExpired(req)).to.be.false;
   });
 
-  it('check returns false when user is not admin', () => {
-    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {'sessionExpiry': new Date(Date.now())}};
-    expect(isAdminSessionExpire(req)).to.be.false;
+  it('check returns false when the session expires value is missing', () => {
+    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {}};
+    expect(isSessionExpired(req)).to.be.false;
   });
 
-  it('check returns false when fake session is not there', () => {
-    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}};
-    expect(isAdminSessionExpire(req)).to.be.false;
+});
+
+describe('Test media user session expiry', () => {
+  const now = Date.now();
+
+  it('check returns true when session expired', () => {
+    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {'sessionExpires': new Date(now - 10000)}};
+    expect(isSessionExpired(req)).to.be.true;
   });
 
+  it('check returns false when session is not expired', () => {
+    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {'sessionExpires': new Date(now + 100000)}};
+    expect(isSessionExpired(req)).to.be.false;
+  });
+
+  it('check returns false when the session expires value is missing', () => {
+    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {}};
+    expect(isSessionExpired(req)).to.be.false;
+  });
 });
 

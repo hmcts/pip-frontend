@@ -7,13 +7,15 @@ import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 import {
   allAdminRoles,
+  verifiedRoles,
   isPermittedAdmin,
   isPermittedMedia,
   isPermittedMediaAccount,
   isPermittedAccountCreation,
   isPermittedManualUpload,
   checkRoles,
-  forgotPasswordRedirect, isAdminSessionExpire,
+  forgotPasswordRedirect,
+  isSessionExpired,
 } from '../authentication/authenticationHandler';
 
 import config from 'config';
@@ -49,14 +51,19 @@ export default function(app: Application): void {
   };
 
   function globalAuthGiver(req, res, next): void{
-    if(isAdminSessionExpire(req)) {
-      logOut(req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY);
+    if(isSessionExpired(req)) {
+      logOut(req, res, getLogOutRedirectUrl(req));
       return;
     }
 
     //this function allows us to share authentication status across all views
     res.locals.isAuthenticated = req.isAuthenticated();
     next();
+  }
+
+  function getLogOutRedirectUrl(req): string {
+    const policy = checkRoles(req, verifiedRoles) ? authenticationConfig.POLICY : authenticationConfig.ADMIN_POLICY
+    return `${FRONTEND_URL}/login?p=` + policy;
   }
 
   function logOut(_req, res, redirectUrl): void{

@@ -10,18 +10,23 @@ export const allAdminRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTE
 export const verifiedRoles = ['VERIFIED'];
 const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
 
-export function isAdminSessionExpire(req): boolean {
-  if(checkRoles(req, allAdminRoles)) {
-    if(req.session.sessionExpiry) {
-      const sessionExpiryDateTime = moment.utc(req.session.sessionExpiry);
-      const currentDateTime = moment.utc(new Date(Date.now()));
-      const durationAsSeconds = moment.duration(sessionExpiryDateTime.startOf('seconds').diff(currentDateTime.startOf('seconds'))).asSeconds();
-      if(durationAsSeconds <= 0) {
-        return true;
-      }
-    }
-    req.session.sessionExpiry = new Date(Date.now() + (60 * 60 * 4000)); //4 hours
+export function isSessionExpired(req): boolean {
+  if (req.user === undefined) {
+    return false;
   }
+
+  if(req.session.sessionExpires) {
+    const sessionExpiryDateTime = moment.utc(req.session.sessionExpires);
+    const currentDateTime = moment.utc(new Date(Date.now()));
+    const durationAsSeconds = moment.duration(sessionExpiryDateTime.startOf('seconds').diff(currentDateTime.startOf('seconds'))).asSeconds();
+    if(durationAsSeconds <= 0) {
+      return true;
+    }
+  }
+
+  const defaultSessionExpiry = 60 * 60 * 1000; // default to 1 hour
+  const sessionExpiry = checkRoles(req, verifiedRoles) ? defaultSessionExpiry : 4 * defaultSessionExpiry;
+  req.session.sessionExpires = new Date(Date.now() + sessionExpiry);
   return false;
 }
 
