@@ -1,10 +1,8 @@
 import config from 'config';
-import {Logger} from '@hmcts/nodejs-logging';
 import process from 'process';
 import moment from 'moment';
 import {checkRoles, verifiedRoles} from '../authentication/authenticationHandler';
 
-const logger = Logger.getLogger('session-management');
 const authenticationConfig = require('../authentication/authentication-config.json');
 const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
 const defaultSessionExpiry = 60 * 60 * 1000; // default to 1 hour
@@ -12,12 +10,8 @@ const defaultSessionExpiry = 60 * 60 * 1000; // default to 1 hour
 export class SessionManagementService {
   public logOut(_req, res, redirectUrl): void{
     res.clearCookie('session');
-    logger.info('logout FE URL', FRONTEND_URL);
-
     const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
     const encodedSignOutRedirect = encodeURIComponent(redirectUrl);
-    logger.info('B2C_URL', B2C_URL);
-    logger.info('encodedSignOutRedirect', encodedSignOutRedirect);
     res.redirect(`${B2C_URL}/${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
   }
 
