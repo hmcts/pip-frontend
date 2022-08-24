@@ -7,7 +7,6 @@ import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 import {
   allAdminRoles,
-  verifiedRoles,
   isPermittedAdmin,
   isPermittedMedia,
   isPermittedMediaAccount,
@@ -15,17 +14,17 @@ import {
   isPermittedManualUpload,
   checkRoles,
   forgotPasswordRedirect,
-  isSessionExpired,
   mediaVerificationHandling,
 } from '../authentication/authenticationHandler';
-
-import config from 'config';
+import {SessionManagementService} from '../service/sessionManagementService';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const multer = require('multer');
 const logger = Logger.getLogger('routes');
+const sessionManagement = new SessionManagementService();
+
 export default function(app: Application): void {
   const storage = multer.diskStorage({
     destination: 'manualUpload/tmp/',
@@ -52,30 +51,13 @@ export default function(app: Application): void {
   };
 
   function globalAuthGiver(req, res, next): void{
-    if(isSessionExpired(req)) {
-      logOut(req, res, getLogOutRedirectUrl(req));
+    if(sessionManagement.handleSessionExpiry(req, res)) {
       return;
     }
 
     //this function allows us to share authentication status across all views
     res.locals.isAuthenticated = req.isAuthenticated();
     next();
-  }
-
-  function getLogOutRedirectUrl(req): string {
-    const policy = checkRoles(req, verifiedRoles) ? authenticationConfig.POLICY : authenticationConfig.ADMIN_POLICY;
-    return `${FRONTEND_URL}/login?p=` + policy;
-  }
-
-  function logOut(_req, res, redirectUrl): void{
-    res.clearCookie('session');
-    logger.info('logout FE URL', FRONTEND_URL);
-
-    const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
-    const encodedSignOutRedirect = encodeURIComponent(redirectUrl);
-    logger.info('B2C_URL', B2C_URL);
-    logger.info('encodedSignOutRedirect', encodedSignOutRedirect);
-    res.redirect(`${B2C_URL}/${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
   }
 
   function regenerateSession(req, res): void {
@@ -113,7 +95,7 @@ export default function(app: Application): void {
   app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}),
     (_req, res) => {mediaVerificationHandling(_req, res);});
   app.get('/logout', (_req, res) => {checkRoles(_req, allAdminRoles) ?
-    logOut(_req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY) : logOut(_req, res, `${FRONTEND_URL}/view-option`);});
+    sessionManagement.logOut(_req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY) : sessionManagement.logOut(_req, res, `${FRONTEND_URL}/view-option`);});
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
