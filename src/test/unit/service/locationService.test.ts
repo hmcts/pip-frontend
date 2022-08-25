@@ -147,10 +147,4 @@ describe('Court Service', () => {
     expect(courtService.sortCourtsAlphabetically([hearingsData[0]])).to.deep.equal([hearingsData[0]]);
   });
 
-  it('should generate an alphabet object', () => {
-    const alphabetObject = LocationService.generateAlphabetObject();
-    expect(Object.keys(alphabetObject).length).to.equal(26);
-    expect(alphabetObject['A']).to.deep.equal({});
-  });
-
 });

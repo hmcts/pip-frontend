@@ -1,6 +1,7 @@
 import { LocationRequests } from '../resources/requests/locationRequests';
 import { Location } from '../models/location';
 import {LanguageFileParser} from '../helpers/languageFileParser';
+import {AToZHelper} from '../helpers/aToZHelper';
 
 const locationRequest = new LocationRequests();
 const languageFileParser = new LanguageFileParser();
@@ -68,7 +69,7 @@ export class LocationService {
   }
 
   private generateAlphabetisedCourtList(listToAlphabetise: Array<Location>): object {
-    const alphabetisedCourtList = LocationService.generateAlphabetObject();
+    const alphabetisedCourtList = AToZHelper.generateAlphabetObject();
     const sortedCourtsList = this.sortCourtsAlphabetically(listToAlphabetise);
 
     sortedCourtsList.forEach(item => {
@@ -100,18 +101,6 @@ export class LocationService {
     }
 
     return courtName;
-  }
-
-  public static generateAlphabetObject(): object {
-    // create the object for the possible alphabet options
-    const alphabetOptions = {};
-
-    for (let i = 0; i < 26; i++) {
-      const letter = String.fromCharCode(65 + i);
-      alphabetOptions[letter] = {};
-    }
-
-    return alphabetOptions;
   }
 
 }

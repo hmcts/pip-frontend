@@ -35,14 +35,14 @@
     "restrictedProvenances":  []
   },
   "MAGS_PUBLIC_LIST": {
-    "friendlyName": "Magistrate Public List",
+    "friendlyName": "Magistrates Public List",
     "shortenedFriendlyName": "Magistrates Public List",
     "url": "",
     "jurisdictions": ["Crown"],
     "restrictedProvenances":  []
   },
   "MAGS_STANDARD_LIST": {
-    "friendlyName": "Magistrate Standard List",
+    "friendlyName": "Magistrates Standard List",
     "shortenedFriendlyName": "Magistrates Standard List",
     "url": "",
     "jurisdictions": ["Crown"],
@@ -78,7 +78,7 @@
   },
   "COP_DAILY_CAUSE_LIST": {
     "friendlyName": "Court of Protection Daily Cause List",
-    "shortenedFriendlyName": "COP Daily cause List",
+    "shortenedFriendlyName": "COP Daily Cause List",
     "url": "cop-daily-cause-list",
     "jurisdictions": ["Civil"],
     "restrictedProvenances":  []
