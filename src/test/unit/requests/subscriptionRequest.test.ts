@@ -157,25 +157,25 @@ describe('unsubscribe error states', () => {
 describe('configure list type Location subscriptions for a user', () => {
   it('should return true if call is successful', async() => {
     subscriptionManagementPutStub.withArgs('/subscription/configure-list-types').resolves({});
-    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions({});
+    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions('1',{});
     expect(subscriptionUpdated).toBe(true);
   });
 
   it('should return false for failure', async() => {
-    subscriptionManagementPutStub.withArgs('/subscription/configure-list-types').rejects(errorMessage);
-    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions({});
+    subscriptionManagementPutStub.withArgs('/subscription/configure-list-types/null').rejects(errorMessage);
+    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null,{});
     expect(subscriptionUpdated).toBe(false);
   });
 
   it('should return false for error request', async() => {
-    subscriptionManagementPutStub.withArgs('/subscription/configure-list-types').rejects(errorRequest);
-    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions({});
+    subscriptionManagementPutStub.withArgs('/subscription/configure-list-types/null').rejects(errorRequest);
+    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null,{});
     expect(subscriptionUpdated).toBe(false);
   });
 
   it('should return false for error response', async() => {
-    subscriptionManagementPutStub.withArgs('/subscription/configure-list-types').rejects(errorResponse);
-    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions({});
+    subscriptionManagementPutStub.withArgs('/subscription/configure-list-types/null').rejects(errorResponse);
+    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null,{});
     expect(subscriptionUpdated).toBe(false);
   });
 });

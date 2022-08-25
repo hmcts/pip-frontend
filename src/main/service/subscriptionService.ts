@@ -205,11 +205,11 @@ export class SubscriptionService {
   }
 
   public async configureListTypeForLocationSubscriptions(userId, listType): Promise<boolean> {
-    return await subscriptionRequests.configureListTypeForLocationSubscriptions(
-      this.createListTypeSubscriptionPayload(userId, listType));
+    return await subscriptionRequests.configureListTypeForLocationSubscriptions(userId,
+      this.createListTypeSubscriptionPayload(listType));
   }
 
-  private createListTypeSubscriptionPayload(userId, listType): object {
+  private createListTypeSubscriptionPayload(listType): object {
     let listTypeArray;
     if(listType) {
       if (!Array.isArray(listType)) {
@@ -221,14 +221,7 @@ export class SubscriptionService {
       listTypeArray =[];
     }
 
-    return {
-      channel: 'EMAIL',
-      searchType: 'LOCATION_ID',
-      searchValue: 'configure-list-type',
-      locationName: '',
-      listType: listTypeArray,
-      userId,
-    };
+    return listTypeArray;
   }
 
   public async removeFromCache(record, userId): Promise<void> {

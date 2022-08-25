@@ -34,38 +34,11 @@ const courtSubscriptionPayload = {
   userId: '1',
   listType: ['SJP_PUBLIC_LIST'],
 };
-const courtSubscriptionWithSingleListTypePayload = {
-  channel: 'EMAIL',
-  searchType: 'LOCATION_ID',
-  searchValue: 'configure-list-type',
-  locationName: '',
-  userId: '1',
-  listType: ['CIVIL_DAILY_CAUSE_LIST'],
-};
-const courtSubscriptionWithMultipleListTypePayload = {
-  channel: 'EMAIL',
-  searchType: 'LOCATION_ID',
-  searchValue: 'configure-list-type',
-  locationName: '',
-  userId: '1',
-  listType: ['CIVIL_DAILY_CAUSE_LIST','FAMILY_DAILY_CAUSE_LIST'],
-};
-const courtSubscriptionWithEmptyListTypeAndUserIdPayload = {
-  channel: 'EMAIL',
-  searchType: 'LOCATION_ID',
-  searchValue: 'configure-list-type',
-  locationName: '',
-  userId: '1',
-  listType: [],
-};
-const courtSubscriptionWithEmptyListTypeAndNoUserIdPayload = {
-  channel: 'EMAIL',
-  searchType: 'LOCATION_ID',
-  searchValue: 'configure-list-type',
-  locationName: '',
-  userId: null,
-  listType: [],
-};
+const courtSubscriptionWithSingleListTypePayload =
+  ['CIVIL_DAILY_CAUSE_LIST'];
+const courtSubscriptionWithMultipleListTypePayload =
+  ['CIVIL_DAILY_CAUSE_LIST','FAMILY_DAILY_CAUSE_LIST'];
+const courtSubscriptionWithEmptyListTypePayload = [];
 
 const caseSubscriptionPayload = {
   caseName: 'Ashely Barnes',
@@ -126,10 +99,10 @@ removeStub.withArgs({case: '888'}, userIdWithSubscriptions).resolves();
 removeStub.withArgs({court: '111'}, userIdWithSubscriptions).resolves();
 deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
 deleteStub.withArgs('InValidSubscriptionId').resolves(null);
-updateListTypeSubscriptionStub.withArgs(courtSubscriptionWithSingleListTypePayload).resolves(true);
-updateListTypeSubscriptionStub.withArgs(courtSubscriptionWithMultipleListTypePayload).resolves(true);
-updateListTypeSubscriptionStub.withArgs(courtSubscriptionWithEmptyListTypeAndUserIdPayload).resolves(true);
-updateListTypeSubscriptionStub.withArgs(courtSubscriptionWithEmptyListTypeAndNoUserIdPayload).resolves(false);
+updateListTypeSubscriptionStub.withArgs('1', courtSubscriptionWithSingleListTypePayload).resolves(true);
+updateListTypeSubscriptionStub.withArgs('1', courtSubscriptionWithMultipleListTypePayload).resolves(true);
+updateListTypeSubscriptionStub.withArgs('1', courtSubscriptionWithEmptyListTypePayload).resolves(true);
+updateListTypeSubscriptionStub.withArgs(null, courtSubscriptionWithEmptyListTypePayload).resolves(false);
 
 describe('handleNewSubscription function', () => {
   it('should add new case subscription', async () => {
