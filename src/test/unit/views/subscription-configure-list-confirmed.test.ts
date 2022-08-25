@@ -21,15 +21,15 @@ describe('Subscriptions List Type Confirmed Page', () => {
 
   it('should have correct page title', () => {
     const pageTitle = htmlRes.title;
-    expect(pageTitle).contains('Subscriptions updated', 'Page title does not match');
+    expect(pageTitle).contains('Court Subscription(s) refined', 'Page title does not match');
   });
 
   it('should display confirmation panel with correct title and message', () => {
     const panel = htmlRes.getElementsByClassName('govuk-panel--confirmation')[0];
     expect(panel.getElementsByClassName('govuk-panel__title')[0].innerHTML)
-      .contains('Subscriptions updated', 'Could not find panel title or is incorrect');
+      .contains('Court Subscription(s) refined', 'Could not find panel title or is incorrect');
     expect(panel.getElementsByClassName('govuk-panel__body')[0].innerHTML)
-      .contains('Your subscription(s) have been updated successfully', 'Could not find panel message or is incorrect');
+      .contains('Your subscription(s) has been amended successfully', 'Could not find panel message or is incorrect');
   });
 
   it('should contain you account url', () => {
@@ -42,7 +42,7 @@ describe('Subscriptions List Type Confirmed Page', () => {
   it('should display an unordered list with four elements', () => {
     const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0]
       .getElementsByTagName('li');
-    expect(listElements.length).to.equal(4);
+    expect(listElements.length).to.equal(3);
   });
 
   it('should display unordered list with add a new email subscription', () => {
@@ -63,18 +63,10 @@ describe('Subscriptions List Type Confirmed Page', () => {
     expect(anchor.innerHTML).to.equal('manage your current email subscriptions');
   });
 
-  it('should display unordered list with refine list type per court', () => {
-    const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0]
-      .getElementsByTagName('li');
-    const anchor = listElements[2].getElementsByTagName('a')[0];
-    expect(anchor.getAttribute('href')).to.equal('/subscription-configure-list');
-    expect(anchor.innerHTML).to.equal('Further refine the list types per court received');
-  });
-
   it('should display unordered list with find a court or tribunal', () => {
     const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0]
       .getElementsByTagName('li');
-    const anchor = listElements[3].getElementsByTagName('a')[0];
+    const anchor = listElements[2].getElementsByTagName('a')[0];
     expect(anchor.getAttribute('href')).to.equal('/search');
     expect(anchor.innerHTML).to.equal('find a court or tribunal');
   });
