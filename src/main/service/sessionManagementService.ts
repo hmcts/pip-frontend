@@ -15,7 +15,7 @@ export class SessionManagementService {
     res.clearCookie('session');
 
     const b2cUrl = checkRoles(req, allAdminRoles) ? B2C_ADMIN_URL : config.get('secrets.pip-ss-kv.B2C_URL');
-    const b2cPolicy = checkRoles(req, allAdminRoles) ? authenticationConfig.ADMIN_POLICY : authenticationConfig.POLICY
+    const b2cPolicy = checkRoles(req, allAdminRoles) ? authenticationConfig.ADMIN_POLICY : authenticationConfig.POLICY;
     const encodedSignOutRedirect = encodeURIComponent(this.getLogOutRedirectUrl(req));
     res.redirect(`${b2cUrl}/${b2cPolicy}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
   }
