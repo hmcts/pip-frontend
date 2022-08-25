@@ -11,7 +11,7 @@ const res = {
 
 describe('Test admin session expiry', () => {
   const now = Date.now();
-  const adminLogoutUrl = 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInUserFlow/oauth2/v2.0/logout?post_logout_redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Flogin%3Fp%3DB2C_1_SignInAdminUserFlow';
+  const adminLogoutUrl = 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInAdminUserFlow/oauth2/v2.0/logout?post_logout_redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Fadmin-dashboard';
 
   it('check returns true when session expired', () => {
     const responseMock = sinon.mock(res);
@@ -45,7 +45,7 @@ describe('Test admin session expiry', () => {
 
 describe('Test media user session expiry', () => {
   const now = Date.now();
-  const mediaLogoutUrl = 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInUserFlow/oauth2/v2.0/logout?post_logout_redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Flogin%3Fp%3DB2C_1_SignInUserFlow';
+  const mediaLogoutUrl = 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInUserFlow/oauth2/v2.0/logout?post_logout_redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Fview-option';
 
   it('check returns true when session expired', () => {
     const responseMock = sinon.mock(res);

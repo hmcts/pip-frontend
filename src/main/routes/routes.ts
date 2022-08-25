@@ -18,7 +18,6 @@ import {
 } from '../authentication/authenticationHandler';
 import {SessionManagementService} from '../service/sessionManagementService';
 
-const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const multer = require('multer');
@@ -94,8 +93,7 @@ export default function(app: Application): void {
     (_req, res) => {checkRoles(_req, allAdminRoles) ? res.redirect('/admin-dashboard') : res.redirect('/account-home');});
   app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}),
     (_req, res) => {mediaVerificationHandling(_req, res);});
-  app.get('/logout', (_req, res) => {checkRoles(_req, allAdminRoles) ?
-    sessionManagement.logOut(_req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY) : sessionManagement.logOut(_req, res, `${FRONTEND_URL}/view-option`);});
+  app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res));
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
