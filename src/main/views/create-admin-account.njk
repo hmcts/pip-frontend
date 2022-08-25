@@ -126,7 +126,7 @@
         },
         items: radios
     }) %}
-
+<div class="parent-box">
     <h1 class="govuk-heading-l">{{ header }}</h1>
     <form method="post" novalidate>
         {{ firstNameInput }}
@@ -135,6 +135,8 @@
         {{ radios }}
         {{ submitButton(continueButton) }}
     </form>
+  {{ super() }}
+</div>
 {% endblock %}
 {% block bodyEnd %}
     {{ super() }}

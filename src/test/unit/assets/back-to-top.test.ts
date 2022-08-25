@@ -22,7 +22,7 @@ describe('Testing back to top button', () => {
     };
   });
 
-  it('should remove the floating-back-to-top if footer is visible, for InteractionObserver disabled browsers', async () => {
+  it('always shows floating-back-to-top if footer is visible', async () => {
 
     const mockElement = document.createElement('div');
     mockElement.classList.add('floating-back-to-top--fixed');
@@ -39,7 +39,7 @@ describe('Testing back to top button', () => {
 
     await import('../../../main/bundles/alphabetical');
 
-    expect(mockElement.classList.length).toEqual(0);
+    expect(mockElement.classList.length).toEqual(1);
   });
 
   it('should add the floating-back-to-top if footer is visible, for InteractionObserver disabled browsers', async () => {
@@ -105,7 +105,7 @@ describe('Testing back to top button', () => {
     expect(mockElement.classList.item(0)).toEqual('floating-back-to-top--fixed');
   });
 
-  it('should remove the floating back to top element if the footer is intersecting', async () => {
+  it('should not remove the floating back to top element if the footer is intersecting', async () => {
 
     const mockElement = document.createElement('div');
     mockElement.classList.add('floating-back-to-top--fixed');
@@ -127,7 +127,7 @@ describe('Testing back to top button', () => {
 
     const entries = [{target: mockFooter, isIntersecting: true}];
     returnedFunction(entries);
-    expect(mockElement.classList.length).toEqual(0);
+    expect(mockElement.classList.length).toEqual(1);
   });
 
 });
