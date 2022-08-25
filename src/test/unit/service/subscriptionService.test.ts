@@ -50,7 +50,7 @@ const courtSubscriptionWithMultipleListTypePayload = {
   userId: '1',
   listType: ['CIVIL_DAILY_CAUSE_LIST','FAMILY_DAILY_CAUSE_LIST'],
 };
-const courtSubscriptionWithEmptyListTypePayload = {
+const courtSubscriptionWithEmptyListTypeAndUserIdPayload = {
   channel: 'EMAIL',
   searchType: 'LOCATION_ID',
   searchValue: 'configure-list-type',
@@ -66,6 +66,7 @@ const courtSubscriptionWithEmptyListTypeAndNoUserIdPayload = {
   userId: null,
   listType: [],
 };
+
 const caseSubscriptionPayload = {
   caseName: 'Ashely Barnes',
   caseNumber: 'T485914',
@@ -126,6 +127,8 @@ removeStub.withArgs({court: '111'}, userIdWithSubscriptions).resolves();
 deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
 deleteStub.withArgs('InValidSubscriptionId').resolves(null);
 updateListTypeSubscriptionStub.withArgs(courtSubscriptionWithSingleListTypePayload).resolves(true);
+updateListTypeSubscriptionStub.withArgs(courtSubscriptionWithMultipleListTypePayload).resolves(true);
+updateListTypeSubscriptionStub.withArgs(courtSubscriptionWithEmptyListTypeAndUserIdPayload).resolves(true);
 updateListTypeSubscriptionStub.withArgs(courtSubscriptionWithEmptyListTypeAndNoUserIdPayload).resolves(false);
 
 describe('handleNewSubscription function', () => {
@@ -301,27 +304,20 @@ describe('createSubscriptionPayload function', () => {
   });
 });
 
-describe('createListTypeSubscriptionPayload function', () => {
-  it('should create list type subscription payload', async () => {
-    const payload = subscriptionService.createListTypeSubscriptionPayload('1', 'CIVIL_DAILY_CAUSE_LIST');
-    expect(payload).toStrictEqual(courtSubscriptionWithSingleListTypePayload);
-  });
-
-  it('should create multi list type subscription payload', async () => {
-    const listTypeArray = 'CIVIL_DAILY_CAUSE_LIST,FAMILY_DAILY_CAUSE_LIST'.split(',');
-    const payload = subscriptionService.createListTypeSubscriptionPayload('1', listTypeArray);
-    expect(payload).toStrictEqual(courtSubscriptionWithMultipleListTypePayload);
-  });
-
-  it('should create blank payload', async () => {
-    const payload = subscriptionService.createListTypeSubscriptionPayload('1', null);
-    expect(payload).toStrictEqual(courtSubscriptionWithEmptyListTypePayload);
-  });
-});
-
 describe('configureListTypeForLocationSubscriptions', () => {
   it('should return a message if list type subscription is updated', async () => {
     const result = await subscriptionService.configureListTypeForLocationSubscriptions('1', 'CIVIL_DAILY_CAUSE_LIST');
+    expect(result).toEqual(true);
+  });
+
+  it('should return a message if multiple list type subscription is updated', async () => {
+    const listTypeArray = 'CIVIL_DAILY_CAUSE_LIST,FAMILY_DAILY_CAUSE_LIST'.split(',');
+    const result = await subscriptionService.configureListTypeForLocationSubscriptions('1', listTypeArray);
+    expect(result).toEqual(true);
+  });
+
+  it('should return a message if empty list type subscription is updated', async () => {
+    const result = await subscriptionService.configureListTypeForLocationSubscriptions('1', null);
     expect(result).toEqual(true);
   });
 

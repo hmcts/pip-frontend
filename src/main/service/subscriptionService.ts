@@ -209,7 +209,7 @@ export class SubscriptionService {
       this.createListTypeSubscriptionPayload(userId, listType));
   }
 
-  createListTypeSubscriptionPayload(userId, listType): object {
+  private createListTypeSubscriptionPayload(userId, listType): object {
     let listTypeArray;
     if(listType) {
       if (!Array.isArray(listType)) {
