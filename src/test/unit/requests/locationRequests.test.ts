@@ -34,8 +34,8 @@ const test = 'test';
 const welshRegions = 'Llundain';
 const welshJurisdictions = 'Goron';
 
-const englishLanguage = 'eng';
-const welshLanguage = 'eng';
+const englishLanguage = 'en';
+const welshLanguage = 'cy';
 
 describe('Location get requests', () => {
 

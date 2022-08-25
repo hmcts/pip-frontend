@@ -28,8 +28,8 @@ const filterNames = ['Jurisdiction', 'Region'];
 const allFilterOptions = {'Jurisdiction': {Tribunal:{value:'Tribunal'}}, Region: {Wales:{value:'Wales'}}};
 const filterValues = ['Tribunal','Wales'];
 
-const englishLanguage = 'eng';
-const welshLanguage = 'eng';
+const englishLanguage = 'en';
+const welshLanguage = 'cy';
 
 describe('Filter Service', () => {
   it('should build filter header options for checkboxes', () => {

@@ -1,36 +1,41 @@
 import {allowedFileTypes, allowedImageTypes} from '../models/consts';
 import fs from 'fs';
+import {LanguageFileParser} from '../helpers/languageFileParser';
+
 const { redisClient } = require('../cacheManager');
+const languageFileParser = new LanguageFileParser();
 
 export class FileHandlingService {
 
   REDIS_EXPIRY_KEY = 'EX';
   REDIS_EXPIRY_TIME = 60 * 10;
 
-  validateImage(file: File): string {
+  validateImage(file: File, language: string, languageFile: string): string {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (file) {
       if (this.isValidFileType(file['originalname'], true)) {
         if (this.isFileCorrectSize(file.size)) {
           return null;
         }
-        return 'There is a problem - ID evidence needs to be less than 2Mbs';
+        return languageFileParser.getText(fileJson, 'imageUploadErrors', 'sizeError');
       }
-      return 'There is a problem - ID evidence must be a JPG, PDF or PNG';
+      return languageFileParser.getText(fileJson, 'imageUploadErrors', 'typeError');
     }
-    return 'There is a problem - We will need ID evidence to support your application for an account';
+    return languageFileParser.getText(fileJson, 'imageUploadErrors', 'blank');
   }
 
-  validateFileUpload(file: File): string {
+  validateFileUpload(file: File, language: string, languageFile: string): string {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (file) {
       if (this.isValidFileType(file['originalname'], false)) {
         if (this.isFileCorrectSize(file.size)) {
           return null;
         }
-        return 'File too large, please upload file smaller than 2MB';
+        return languageFileParser.getText(fileJson, 'fileUploadErrors', 'sizeError');
       }
-      return 'Please upload a valid file format';
+      return languageFileParser.getText(fileJson, 'fileUploadErrors', 'typeError');
     }
-    return 'Please provide a file';
+    return languageFileParser.getText(fileJson, 'fileUploadErrors', 'blank');
   }
 
   /**

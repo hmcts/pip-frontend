@@ -1,0 +1,12 @@
+{
+  "panelTitle": "Application has been approved",
+  "name": "Name",
+  "email": "Email",
+  "employer": "Employer",
+  "dateApplied": "Date applied",
+  "proofOfId": "Proof of ID",
+  "opensInWindowText": "opens in new tab",
+  "viewText": "View",
+  "bottomHeader": "What happens next",
+  "bottomSummary": "This account will be created and the applicant will be notified to set up their account. If an account already exists the applicant will be asked to sign in, or choose forgot password."
+}

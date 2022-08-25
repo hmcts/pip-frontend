@@ -16,5 +16,28 @@
   "errorTitle": "Mae yna broblem",
   "ariaFileLabel": "Llwytho ffeil",
   "ariaCheckboxLabel": "Cytuno i delerau ac amodau?",
-  "backButton": "Yn ôl"
+  "backButton": "Yn ôl",
+  "fullNameErrors": {
+    "blank": "Mae yna broblem - Rhaid rhoi enw llawn",
+    "whiteSpace": "Mae yna broblem - Ni allwch adael bwlch ar ddechrau’r hyn a roddir yn y blwch enw llawn",
+    "doubleWhiteSpace": "Mae yna broblem - Ni ddylai’r hyn a roddir yn y blwch enw llawn gynnwys bylchiadau dwbl",
+    "nameWithoutWhiteSpace": "Mae yna broblem - Bydd angen eich enw llawn i gefnogi eich cais am gyfrif"
+  },
+  "emailErrors": {
+    "blank": "Mae yna broblem - Rhaid rhoi cyfeiriad e-bost",
+    "startWithWhiteSpace": "Mae yna broblem - Ni allwch adael bwlch ar ddechrau’r hyn a roddir yn y blwch cyfeiriad e-bost",
+    "doubleWhiteSpace": "Mae yna broblem - Ni ddylai’r hyn a roddir yn y blwch cyfeiriad e-bost gynnwys bylchiadau dwbl",
+    "invalidEmailAddress": "Mae yna broblem - Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com"
+  },
+  "mediaEmployeeErrors": {
+    "blank": "Mae yna broblem - bydd angen enw eich cyflogwr i gefnogi eich cais am gyfrif",
+    "whiteSpace": "Mae yna broblem - Ni allwch adael bwlch ar ddechrau’r hyn a roddir yn y blwch cyflogwr",
+    "doubleWhiteSpace": "Mae yna broblem - Ni ddylai’r hyn a roddir yn y blwch cyflogwr gynnwys bylchiadau dwbl"
+  },
+  "imageUploadErrors": {
+    "blank": "Mae yna broblem - Bydd angen tystiolaeth adnabod arnom i gefnogi eich cais am gyfrif",
+    "sizeError": "Mae yna broblem - Rhaid i’r dystiolaeth i brofi hunaniaeth fod yn llai na 2Mbs",
+    "typeError": "Mae yna broblem - Rhaid i’r dystiolaeth i brofi hunaniaeth fod ar ffurf JPG, PDF neu PNG."
+  },
+  "ariaCheckboxError": "Mae yna broblem - Rhaid i chi wirio'r blwch i gadarnhau eich bod yn cytuno i'r telerau ac amodau."
 }

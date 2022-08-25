@@ -19,7 +19,6 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const {setupDev} = require('./development');
 import {Container} from './modules/awilix';
-import routes from './routes/routes';
 import {PipRequest} from './models/request/PipRequest';
 
 const env = process.env.NODE_ENV || 'development';
@@ -35,6 +34,8 @@ const logger = Logger.getLogger('app');
 logger.info('NODE_ENV', env);
 
 propertiesVolume.addTo(config);
+
+import routes from './routes/routes';
 
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
@@ -53,11 +54,13 @@ app.use(cookieSession({
   name: 'session',
   keys: [config.get('secrets.pip-ss-kv.SESSION_SECRET')],
   maxAge: 60 * 60 * 1000,
+  secure: true,
 }));
 logger.info('SESSION Secret', config.get('secrets.pip-ss-kv.SESSION_SECRET'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {
+  req['sessionCookies'].secure = true;
   res.setHeader(
     'Cache-Control',
     'no-cache, max-age=0, must-revalidate, no-store',

@@ -5,11 +5,13 @@ import { UserSubscriptions } from '../models/UserSubscriptions';
 import {PublicationService} from './publicationService';
 import {LocationService} from './locationService';
 import {Location} from '../models/location';
+import {LanguageFileParser} from '../helpers/languageFileParser';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
 const publicationService = new PublicationService();
 const courtService = new LocationService();
+const languageFileParser = new LanguageFileParser();
 
 export class SubscriptionService {
   async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
@@ -17,9 +19,9 @@ export class SubscriptionService {
     return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], locationSubscriptions: []};
   }
 
-  async generateCaseTableRows(subscriptionDataCases): Promise<any[]> {
+  async generateCaseTableRows(subscriptionDataCases, language, languageFile): Promise<any[]> {
     const caseRows = [];
-
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCases.length) {
       subscriptionDataCases.forEach((subscription) => {
         caseRows.push(
@@ -34,18 +36,21 @@ export class SubscriptionService {
               text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
             },
             {
-              html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>Unsubscribe</a>`,
+              html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
+                languageFileParser.getText(fileJson, null, 'unsubscribe') + '</a>',
               format: 'numeric',
             },
           ],
         );
       });
     }
+
     return caseRows;
   }
 
-  async generateLocationTableRows(subscriptionDataCourts): Promise<any[]> {
+  async generateLocationTableRows(subscriptionDataCourts, language, languageFile): Promise<any[]> {
     const courtRows = [];
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCourts.length) {
       subscriptionDataCourts.forEach((subscription) => {
         courtRows.push([
@@ -56,7 +61,8 @@ export class SubscriptionService {
             text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
           },
           {
-            html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>Unsubscribe</a>`,
+            html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
+              languageFileParser.getText(fileJson, null, 'unsubscribe') + '</a>',
             format: 'numeric',
           },
         ]);

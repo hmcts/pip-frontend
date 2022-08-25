@@ -160,4 +160,20 @@ export class AccountManagementRequests {
       return null;
     }
   }
+
+  public async updateMediaAccountVerification(oid: string): Promise<string> {
+    try {
+      const response = await accountManagementApi.put('/account/verification/' + oid);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to verify media account', error.response.data);
+      } else if (error.request) {
+        logger.error('Failed to verify media account', error.request);
+      } else {
+        logger.error('Failed to verify media account', error.message);
+      }
+      return null;
+    }
+  }
 }

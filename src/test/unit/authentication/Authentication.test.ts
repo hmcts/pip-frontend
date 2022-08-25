@@ -24,6 +24,7 @@ describe('Authentication', () => {
   const parameters = [
     { strategy: 'login' },
     { strategy: 'admin-login' },
+    { strategy: 'media-verification' },
   ];
 
   it('Should set up passport correctly for azure authentication', () => {
@@ -32,6 +33,7 @@ describe('Authentication', () => {
     expect(passport._serializers).length(1);
     expect(passport._strategies).to.have.property('login');
     expect(passport._strategies).to.have.property('admin-login');
+    expect(passport._strategies).to.have.property('media-verification');
 
     expect(passport._strategies['login'].name).to.eql('azuread-openidconnect');
     expect(passport._strategies['login']._options.redirectUrl)
@@ -39,6 +41,9 @@ describe('Authentication', () => {
     expect(passport._strategies['admin-login'].name).to.eql('azuread-openidconnect');
     expect(passport._strategies['admin-login']._options.redirectUrl)
       .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/return');
+    expect(passport._strategies['media-verification'].name).to.eql('azuread-openidconnect');
+    expect(passport._strategies['media-verification']._options.redirectUrl)
+      .to.eql('https://pip-frontend.staging.platform.hmcts.net/media-verification/return');
   });
 
   it('Should set up passport correctly for azure authentication when FRONTEND_URL is set', () => {
@@ -49,6 +54,7 @@ describe('Authentication', () => {
     expect(passport._deserializers).length(1);
     expect(passport._strategies).to.have.property('login');
     expect(passport._strategies).to.have.property('admin-login');
+    expect(passport._strategies).to.have.property('media-verification');
 
     expect(passport._strategies['login'].name).to.eql('azuread-openidconnect');
     expect(passport._strategies['login']._options.redirectUrl)
@@ -56,6 +62,9 @@ describe('Authentication', () => {
     expect(passport._strategies['admin-login'].name).to.eql('azuread-openidconnect');
     expect(passport._strategies['admin-login']._options.redirectUrl)
       .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/return');
+    expect(passport._strategies['media-verification'].name).to.eql('azuread-openidconnect');
+    expect(passport._strategies['media-verification']._options.redirectUrl)
+      .to.eql('https://pip-frontend.staging.platform.hmcts.net/media-verification/return');
   });
 
   parameters.forEach((parameter) => {
@@ -139,6 +148,7 @@ describe('Authentication', () => {
       process.env.CLIENT_SECRET = 'client_secret';
       process.env.CONFIG_ENDPOINT = 'https://localhost:8080';
       process.env.CONFIG_ADMIN_ENDPOINT = 'https://localhost:8080';
+      process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT = 'https://localhost:8080';
 
       authentication();
       expect(passport._strategies[parameter.strategy]._options.identityMetadata)

@@ -115,7 +115,7 @@ describe('Unverified user', () => {
     });
 
     describe('following the search court path', async () => {
-      const searchTerm = 'High Wycombe County Court and Family Court';
+      const searchTerm = 'High Wycombe Magistrates and County Court';
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
@@ -134,7 +134,7 @@ describe('Unverified user', () => {
         await searchPage.open('/search');
       });
 
-      const searchTerm = 'High Wycombe County Court and Family Court';
+      const searchTerm = 'High Wycombe Magistrates and County Court';
       it('should click on \'Select from an A-Z list of courts and tribunals\' link ', async () => {
         alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
@@ -237,22 +237,23 @@ describe('Unverified user', () => {
     });
   });
 
-  describe('request an account', () => {
-    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
-      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
-    });
+  // Commented out until request an account link goes back in
+  // describe('request an account', () => {
+  //   it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+  //     expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+  //   });
 
-    it('should click on the create account link', async () => {
-      createMediaAccountPage = await signInPage.clickCreateAccount();
-      expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a Court and tribunal hearings account');
-    });
+  //   it('should click on the create account link', async () => {
+  //     createMediaAccountPage = await signInPage.clickCreateAccount();
+  //     expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a Court and tribunal hearings account');
+  //   });
 
-    it('should complete form and continue to confirmation page', async () => {
-      await createMediaAccountPage.completeForm();
-      mediaAccountRequestSubmittedPage = await createMediaAccountPage.clickContinue();
-      expect(await mediaAccountRequestSubmittedPage.getPanelTitle()).toEqual('Details submitted');
-    });
-  });
+  //   it('should complete form and continue to confirmation page', async () => {
+  //     await createMediaAccountPage.completeForm();
+  //     mediaAccountRequestSubmittedPage = await createMediaAccountPage.clickContinue();
+  //     expect(await mediaAccountRequestSubmittedPage.getPanelTitle()).toEqual('Details submitted');
+  //   });
+  // });
 });
 
 describe('Verified user', () => {

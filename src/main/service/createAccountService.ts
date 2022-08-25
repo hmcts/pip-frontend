@@ -1,7 +1,9 @@
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
 import fs from 'fs';
 import {FileHandlingService} from './fileHandlingService';
+import {LanguageFileParser} from '../helpers/languageFileParser';
 
+const languageFileParser = new LanguageFileParser();
 const adminRolesList = [
   {
     key: 'super-admin-ctsc',
@@ -32,48 +34,54 @@ const accountManagementRequests = new AccountManagementRequests();
 const fileHandlingService = new FileHandlingService();
 
 export class CreateAccountService {
-  public validateFormFields(formValues: object, file: File): object {
+  public validateFormFields(formValues: object, file: File,
+    language: string, languageFile: string): object {
     return {
       nameError: {
-        message: this.validateMediaFullName(formValues['fullName']),
+        message: this.validateMediaFullName(formValues['fullName'], language, languageFile),
         href: '#fullName',
       },
       emailError: {
-        message: this.validateMediaEmailAddress(formValues['emailAddress']),
+        message: this.validateMediaEmailAddress(formValues['emailAddress'], language, languageFile),
         href: '#emailAddress',
       },
       employerError: {
-        message: this.validateMediaEmployer(formValues['employer']),
+        message: this.validateMediaEmployer(formValues['employer'], language, languageFile),
         href: '#employer',
       },
       fileUploadError: {
-        message: fileHandlingService.validateImage(file),
+        message: fileHandlingService.validateImage(file, language, languageFile),
         href: '#file-upload',
       },
       checkBoxError: {
-        message: this.validateCheckbox(formValues['tcbox']),
+        message: this.validateCheckbox(formValues['tcbox'], language, languageFile),
         href: '#tcbox',
       },
     };
 
   }
 
-  public validateAdminFormFields(formValues: object): object {
+  public validateAdminFormFields(formValues: object,
+    language: string, languageFile: string): object {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     return {
       firstNameError: {
-        message: this.isNotBlank(formValues['firstName']) ? null : 'Enter first name',
+        message: this.isNotBlank(formValues['firstName']) ? null :
+          languageFileParser.getText(fileJson, null, 'firstnameError'),
         href: '#firstName',
       },
       lastNameError: {
-        message: this.isNotBlank(formValues['lastName']) ? null : 'Enter last name',
+        message: this.isNotBlank(formValues['lastName']) ? null :
+          languageFileParser.getText(fileJson, null, 'surnameError'),
         href: '#lastName',
       },
       emailError: {
-        message: this.validateEmail(formValues['emailAddress'], true),
+        message: this.validateEmail(formValues['emailAddress'], language, languageFile),
         href: '#emailAddress',
       },
       radioError: {
-        message: formValues['user-role'] ? null : 'Select a role',
+        message: formValues['user-role'] ? null :
+          languageFileParser.getText(fileJson, null, 'roleError'),
         href: '#user-role',
       },
     };
@@ -115,57 +123,62 @@ export class CreateAccountService {
     return emailRegex.test(email);
   }
 
-  validateMediaFullName(input): string {
+  validateMediaFullName(input, language, languageFile): string {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (!this.isNotBlank(input)) {
-      return 'There is a problem - Full name field must be populated';
+      return languageFileParser.getText(fileJson, 'fullNameErrors', 'blank');
     } else if (this.isStartingWithSpace(input)) {
-      return 'There is a problem - Full name field must not start with a space';
+      return languageFileParser.getText(fileJson, 'fullNameErrors', 'whiteSpace');
     } else if (this.isDoubleSpaced(input)) {
-      return 'There is a problem - Full name field must not contain double spaces';
+      return languageFileParser.getText(fileJson, 'fullNameErrors', 'doubleWhiteSpace');
     } else if ((input.split(' ').length - 1) < 1) {
-      return 'There is a problem - Your full name will be needed to support your application for an account';
+      return languageFileParser.getText(fileJson, 'fullNameErrors', 'nameWithoutWhiteSpace');
     }
     return null;
   }
 
-  validateMediaEmailAddress(input): string {
+  validateMediaEmailAddress(input, language, languageFile): string {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (this.isStartingWithSpace(input)) {
-      return 'There is a problem - Email address field cannot start with a space';
+      return languageFileParser.getText(fileJson, 'emailErrors', 'startWithWhiteSpace');
     } else if (this.isDoubleSpaced(input)) {
-      return 'There is a problem - Email address field cannot contain double spaces';
+      return languageFileParser.getText(fileJson, 'emailErrors', 'doubleWhiteSpace');
     } else {
-      return this.validateEmail(input);
+      return this.validateEmail(input, language, languageFile);
     }
   }
 
-  validateMediaEmployer(input): string {
+  validateMediaEmployer(input, language, languageFile): string {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (!this.isNotBlank(input)) {
-      return 'There is a problem - Your employers name will be needed to support your application for an account';
+      return languageFileParser.getText(fileJson, 'mediaEmployeeErrors', 'blank');
     } else if (this.isStartingWithSpace(input)) {
-      return 'There is a problem - Employer field cannot start with a space';
+      return languageFileParser.getText(fileJson, 'mediaEmployeeErrors', 'whiteSpace');
     } else if (this.isDoubleSpaced(input)) {
-      return 'There is a problem - Employer field cannot contain double spaces';
+      return languageFileParser.getText(fileJson, 'mediaEmployeeErrors', 'doubleWhiteSpace');
     }
     return null;
   }
 
-  validateEmail(email: string, isAdmin = false): string {
+  validateEmail(email: string, language: string, languageFile: string): string {
     let message = null;
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (this.isNotBlank(email)) {
       if (!this.isValidEmail(email)) {
-        message = 'There is a problem - Enter an email address in the correct format, like name@example.com';
+        message =  languageFileParser.getText(fileJson, 'emailErrors', 'invalidEmailAddress');
       }
     } else {
-      message = isAdmin ? 'Enter email address' : 'There is a problem - Email address field must be populated';
+      message = languageFileParser.getText(fileJson, 'emailErrors', 'blank');
     }
     return message;
   }
 
-  validateCheckbox(input): string {
+  validateCheckbox(input, language, languageFile): string {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (input) {
       return null;
     } else {
-      return 'There is a problem - You must check the box to confirm you agree to the terms and conditions.';
+      return languageFileParser.getText(fileJson, null, 'ariaCheckboxError');
     }
   }
 

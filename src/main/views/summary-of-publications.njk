@@ -19,7 +19,7 @@
     <div class="parent-box">
     {% set pubs = [] %}
     <ul class="no-bullets-list">
-      {% for item in publications |sort(reverse= true, attribute="contentDate") %}
+      {% for item in publications | sort(attribute="listType") | sort(reverse= true, attribute="contentDate") %}
         <li class="govuk-body govuk-!-font-size-16">
           {% if item.isFlatFile %}
             <a class=das-search-results__link target=”_blank” href="file-publication?artefactId={{ item.artefactId }}">

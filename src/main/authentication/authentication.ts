@@ -16,6 +16,7 @@ function oidcSetup(): void {
   let clientId;
   let identityMetadata;
   let adminIdentityMetadata;
+  let mediaVerificationIdentityMetadata;
 
   if(process.env.CLIENT_SECRET) {
     clientSecret = process.env.CLIENT_SECRET;
@@ -41,9 +42,16 @@ function oidcSetup(): void {
     adminIdentityMetadata = config.get('secrets.pip-ss-kv.CONFIG_ADMIN_ENDPOINT') as string;
   }
 
+  if(process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT) {
+    mediaVerificationIdentityMetadata = process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT;
+  } else {
+    mediaVerificationIdentityMetadata = config.get('secrets.pip-ss-kv.MEDIA_VERIFICATION_CONFIG_ENDPOINT') as string;
+  }
+
   logger.info('secret', clientSecret ? clientSecret.substring(0,5) : 'client secret not set!' );
 
   const AUTH_RETURN_URL = process.env.AUTH_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/login/return';
+  const MEDIA_VERIFICATION_RETURN_URL = process.env.MEDIA_VERIFICATION_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/media-verification/return';
   const users = [];
 
   const findByOid = async function(oid, fn): Promise<any> {
@@ -97,6 +105,19 @@ function oidcSetup(): void {
     responseType: authenticationConfig.RESPONSE_TYPE,
     responseMode: authenticationConfig.RESPONSE_MODE,
     redirectUrl: AUTH_RETURN_URL,
+    allowHttpForRedirectUrl: true,
+    clientSecret: clientSecret,
+    isB2C: true,
+  },
+  passportStrategyFn,
+  ));
+
+  passport.use('media-verification', new OIDCStrategy({
+    identityMetadata:  mediaVerificationIdentityMetadata,
+    clientID: clientId,
+    responseType: authenticationConfig.RESPONSE_TYPE,
+    responseMode: authenticationConfig.RESPONSE_MODE,
+    redirectUrl: MEDIA_VERIFICATION_RETURN_URL,
     allowHttpForRedirectUrl: true,
     clientSecret: clientSecret,
     isB2C: true,

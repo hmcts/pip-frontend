@@ -27,19 +27,23 @@ describe('Publication Page', () => {
     expect(header[0].innerHTML).contains('What do you want to view from', 'Could not find correct value in header');
   });
 
-  it('should display paragraph', () => {
+  it('should sort publications by content date followed by list type', () => {
     const items = htmlRes.getElementsByClassName('das-search-results__link');
-    expect(items[0].innerHTML).contains('Single Justice Procedure Public List');
-  });
+    const innerHTMLs = [];
+    for ( let i = 0; i < items.length; i++) {
+      innerHTMLs.push(items[i].innerHTML.replace('\n', '').trim());
+    }
 
-  it('should display list date', () => {
-    const items = htmlRes.getElementsByClassName('das-search-results__link');
-    expect(items[0].innerHTML).contains('02 February 2022');
-  });
-
-  it('should return three items', () => {
-    const items = htmlRes.getElementsByClassName('das-search-results__link').length;
-    expect(items).equal(3);
+    expect(innerHTMLs)
+      .to.have.lengthOf(6)
+      .to.have.ordered.members([
+        'Civil and Family Daily Cause List 14 July 2022 - English (Saesneg)',
+        'Civil Daily Cause List 14 July 2022 - English (Saesneg)',
+        'Family Daily Cause List 14 July 2022 - English (Saesneg)',
+        'Single Justice Procedure Public List 02 February 2022 - English (Saesneg)',
+        'Single Justice Procedure Press List 02 February 2022 - English (Saesneg)',
+        'Single Justice Procedure Public List 28 January 2022 - English (Saesneg)',
+      ]);
   });
 
   it('should display a back button with the correct value', () => {

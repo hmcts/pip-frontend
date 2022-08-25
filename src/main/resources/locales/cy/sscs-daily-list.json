@@ -15,5 +15,6 @@
   "appellant": "Apelydd",
   "respondent": "FTA/Atebydd",
   "panel": "Panel",
-  "legalAdvisor": "Cynghorydd Cyfreithiol"
+  "legalAdvisor": "Cynghorydd Cyfreithiol",
+  "missingCourt": "Llys ar Goll"
 }
