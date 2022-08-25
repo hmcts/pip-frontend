@@ -24,8 +24,8 @@ export default class BackToTop {
       }.bind(this));
 
     } else {
-      const observer = new window.IntersectionObserver(function (entries): void {
-          this.module.classList.add('floating-back-to-top--fixed');
+      const observer = new window.IntersectionObserver(function (): void {
+        this.module.classList.add('floating-back-to-top--fixed');
       }.bind(this));
 
       observer.observe($footer);
