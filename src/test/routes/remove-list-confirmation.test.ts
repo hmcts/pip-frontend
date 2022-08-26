@@ -13,6 +13,7 @@ const mockArtefact = {
   contentDate: '2022-03-24T07:36:35',
   locationId: '1',
   artefactId: 'valid-artefact',
+  sensitivity: 'CLASSIFIED',
 };
 
 const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
