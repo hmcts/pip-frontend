@@ -78,17 +78,6 @@ $callout-bg: #f0f4f5;
 
 // End of header styling
 
-// Styling for the Alphabetical View page
-.floating-back-to-top {
-  bottom: -4vh;
-  left: 0;
-  position: absolute;
-
-  :hover {
-    text-decoration: none;
-  }
-}
-
 @media (min-width: $min-width) {
   .offset-parent-box {
     left: -10%;
@@ -156,6 +145,7 @@ $callout-bg: #f0f4f5;
     position: fixed;
     top: calc(100% - 30px);
     width: 100%;
+    left: 0;
   }
 }
 
@@ -231,28 +221,6 @@ $callout-bg: #f0f4f5;
       left: 10%;
       position: absolute;
       width: 16%;
-    }
-  }
-
-  .parent-box {
-    .floating-back-to-top {
-      bottom: -2vh;
-    }
-  }
-}
-
-@media (max-height: 720px) {
-  .parent-box {
-    .floating-back-to-top {
-      bottom: -7vh;
-    }
-  }
-}
-
-@media (max-width: 640px) {
-  .parent-box {
-    .floating-back-to-top {
-      bottom: -3vh;
     }
   }
 }
