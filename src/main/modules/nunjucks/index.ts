@@ -46,6 +46,7 @@ export class Nunjucks {
     env.addFilter('listType', function(x){return listTypeLookup[x];});
     env.addFilter('listUrl', function(x){return listUrlLookup[x];});
     env.addFilter('language', function(x){return languageLookup[x];});
+    env.addFilter('titleCase', function(x){return (x == 'BI_LINGUAL' ? 'Bilingual' : x.charAt(0).toUpperCase() + x.slice(1).toLowerCase());});
 
     app.use((req, res, next) => {
       res.locals.pagePath = req.path;
