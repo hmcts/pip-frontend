@@ -1,11 +1,8 @@
-import config from 'config';
-import process from 'process';
 import moment from 'moment';
 import {allAdminRoles, checkRoles} from '../authentication/authenticationHandler';
+import {B2C_ADMIN_URL, B2C_URL, FRONTEND_URL} from '../helpers/envUrls';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
-const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
-const B2C_ADMIN_URL = process.env.B2C_ADMIN_URL || 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com';
 const defaultSessionExpiry = 60 * 60 * 1000; // default to 1 hour
 
 export class SessionManagementService {
@@ -14,7 +11,7 @@ export class SessionManagementService {
     req.session = null;
     res.clearCookie('session');
 
-    const b2cUrl = checkRoles(req, allAdminRoles) ? B2C_ADMIN_URL : config.get('secrets.pip-ss-kv.B2C_URL');
+    const b2cUrl = checkRoles(req, allAdminRoles) ? B2C_ADMIN_URL : B2C_URL;
     const b2cPolicy = checkRoles(req, allAdminRoles) ? authenticationConfig.ADMIN_POLICY : authenticationConfig.POLICY;
     const encodedSignOutRedirect = encodeURIComponent(this.getLogOutRedirectUrl(req));
     res.redirect(`${b2cUrl}/${b2cPolicy}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
