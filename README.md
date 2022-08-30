@@ -8,7 +8,6 @@ The Publishing & Information Hub will be responsible for the following:
 * Provide functionality to display information in court and tribunals buildings on the relevant hardware
 * Comply with Open Justice procedures and business rules.
 
-
 ## Getting Started
 
 ### Prerequisites
