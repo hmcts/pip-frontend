@@ -237,23 +237,22 @@ describe('Unverified user', () => {
     });
   });
 
-  // Commented out until request an account link goes back in
-  // describe('request an account', () => {
-  //   it('should open sign-in page with \'How do you want to sign in\' title', async () => {
-  //     expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
-  //   });
+  describe('request an account', () => {
+    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+    });
 
-  //   it('should click on the create account link', async () => {
-  //     createMediaAccountPage = await signInPage.clickCreateAccount();
-  //     expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a Court and tribunal hearings account');
-  //   });
+    it('should click on the create account link', async () => {
+      createMediaAccountPage = await signInPage.clickCreateAccount();
+      expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a Court and tribunal hearings account');
+    });
 
-  //   it('should complete form and continue to confirmation page', async () => {
-  //     await createMediaAccountPage.completeForm();
-  //     mediaAccountRequestSubmittedPage = await createMediaAccountPage.clickContinue();
-  //     expect(await mediaAccountRequestSubmittedPage.getPanelTitle()).toEqual('Details submitted');
-  //   });
-  // });
+    it('should complete form and continue to confirmation page', async () => {
+      await createMediaAccountPage.completeForm();
+      mediaAccountRequestSubmittedPage = await createMediaAccountPage.clickContinue();
+      expect(await mediaAccountRequestSubmittedPage.getPanelTitle()).toEqual('Details submitted');
+    });
+  });
 });
 
 describe('Verified user', () => {
