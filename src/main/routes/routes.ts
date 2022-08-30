@@ -58,7 +58,7 @@ export default function(app: Application): void {
     logger.info('logout FE URL', FRONTEND_URL);
 
     const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
-    const encodedSignOutRedirect = encodeURIComponent(redirectUrl);
+    const encodedSignOutRedirect = encodeURIComponent(redirectUrl + '?lng=' + _req.lng);
     logger.info('B2C_URL', B2C_URL);
     logger.info('encodedSignOutRedirect', encodedSignOutRedirect);
     res.redirect(`${B2C_URL}/${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
