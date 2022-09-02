@@ -9,6 +9,7 @@ import {PublicationService} from '../../../main/service/publicationService';
 const caseNameValue = 'test';
 const caseNumberValue = '123';
 const caseUrnValue = '456';
+const caseName = 'test name 1';
 const userId = '123';
 
 const returnedArtefact = [{
@@ -55,6 +56,12 @@ describe('Publication service', () => {
     expect(results).not.contain(returnedArtefact[0].search.cases[2]);
   });
 
+  it('should return one case if it exists in multiple artefacts', async () => {
+    const results = await publicationService.getCasesByCaseName(caseName, userId);
+    expect(results.length).to.equal(1);
+    expect(results).to.contain(returnedArtefact[0].search.cases[0]);
+  });
+
   it('should return Search Object matching case number', async () => {
     expect(await publicationService.getCaseByCaseNumber(caseNumberValue, userId)).to.equal(returnedArtefact[0].search.cases[0]);
   });
@@ -65,6 +72,18 @@ describe('Publication service', () => {
 
   it('should return null processing failed request', async () => {
     expect(await publicationService.getCaseByCaseUrn('invalid', userId)).is.equal(null);
+  });
+
+  it('should return list types', () => {
+    const listTypes = publicationService.getListTypes();
+    expect(listTypes.size).to.equal(13);
+
+    const sjpResult = listTypes.get('SJP_PUBLIC_LIST');
+    expect(sjpResult['friendlyName']).to.equal('Single Justice Procedure Public List');
+    expect(sjpResult['shortenedFriendlyName']).to.equal('SJP Public List');
+    expect(sjpResult['url']).to.equal('sjp-public-list');
+    expect(sjpResult['jurisdictions']).to.deep.equal(['Single Justice Procedure']);
+    expect(sjpResult['restrictedProvenances']).to.deep.equal([]);
   });
 
   describe('getIndivPubJson Service', () => {

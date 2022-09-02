@@ -2,28 +2,16 @@ import { LocationService } from './locationService';
 import { DataManagementRequests } from '../resources/requests/dataManagementRequests';
 import moment from 'moment';
 import { FileHandlingService } from './fileHandlingService';
-import {LanguageFileParser} from '../helpers/languageFileParser';
+import { PublicationService } from './publicationService';
 
 const courtService = new LocationService();
 const dataManagementRequests = new DataManagementRequests();
+
+import {LanguageFileParser} from '../helpers/languageFileParser';
+
 const languageFileParser = new LanguageFileParser();
-
-const listSubTypes = [
-  {text:'SJP Public List', value: 'SJP_PUBLIC_LIST'},
-  {text: 'SJP Press List', value: 'SJP_PRESS_LIST'},
-  {text: 'Civil Daily Cause List', value: 'CIVIL_DAILY_CAUSE_LIST'},
-  {text: 'Civil And Family Daily Cause List', value: 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'},
-  {text: 'Family Daily Cause List', value: 'FAMILY_DAILY_CAUSE_LIST'},
-  {text: 'Crown Daily List', value: 'CROWN_DAILY_LIST'},
-  {text: 'Crown Firm List', value: 'CROWN_FIRM_LIST'},
-  {text: 'Crown Warned List', value: 'CROWN_WARNED_LIST'},
-  {text: 'Magistrates Public List', value: 'MAGS_PUBLIC_LIST'},
-  {text: 'Magistrates Standard List', value: 'MAGS_STANDARD_LIST'},
-  {text: 'SSCS Daily List', value: 'SSCS_DAILY_LIST'},
-  {text: 'COP Daily cause List', value: 'COP_DAILY_CAUSE_LIST'},
-];
-
 const fileHandlingService = new FileHandlingService();
+const publicationService = new PublicationService();
 
 export class ManualUploadService {
   public async buildFormData(language: string): Promise<object> {
@@ -46,11 +34,16 @@ export class ManualUploadService {
   }
 
   private getListSubtypes(): Array<object> {
-    return listSubTypes;
+    const jsonArray = [] as Array<object>;
+    publicationService.getListTypes().forEach((value, key) => {
+      jsonArray.push({'value': key, 'text': value.shortenedFriendlyName });
+    });
+
+    return jsonArray;
   }
 
   public getListItemName(itemValue: string): string {
-    return listSubTypes.find(item => item.value === itemValue).text;
+    return publicationService.getListTypes().get(itemValue).shortenedFriendlyName;
   }
 
   private getJudgementOutcomesSubtypes(): Array<object> {

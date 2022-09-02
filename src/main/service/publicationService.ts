@@ -1,7 +1,9 @@
 import {PublicationRequests} from '../resources/requests/publicationRequests';
 import {Artefact} from '../models/Artefact';
 import {SearchObject} from '../models/searchObject';
+import {ListType} from '../models/listType';
 
+const listData = require('../resources/listLookup.json');
 const publicationRequests = new PublicationRequests();
 
 export class PublicationService {
@@ -53,8 +55,8 @@ export class PublicationService {
       artefact.search.cases.forEach(singleCase => {
         if (singleCase.caseName.toLowerCase().includes(value.toLowerCase())) {
           const alreadyExists = matches.find(m => m.caseName === singleCase.caseName
-          && m.caseUrn === singleCase.caseUrn
-          && m.caseNumber === singleCase.caseNumber);
+            && m.caseUrn === singleCase.caseUrn
+            && m.caseNumber === singleCase.caseNumber);
           if(!alreadyExists) {
             matches.push(singleCase);
           }
@@ -74,6 +76,13 @@ export class PublicationService {
   }
 
   /**
+   * Service method which retrieves list types and their associated metadata.
+   */
+  public getListTypes(): Map<string, ListType> {
+    return new Map(Object.entries(listData));
+  }
+
+  /**
    * Function which takes in the list and users language.
    * Returns what language the page should be rendered in.
    *
@@ -83,12 +92,11 @@ export class PublicationService {
    */
   public languageToLoadPageIn(listLanguage: string, userLanguage: string): string {
     if ((listLanguage === 'BI_LINGUAL') ||
-       (listLanguage === 'ENGLISH' && userLanguage !== 'en') ||
-       (listLanguage === 'WELSH' && userLanguage !== 'cy')) {
+      (listLanguage === 'ENGLISH' && userLanguage !== 'en') ||
+      (listLanguage === 'WELSH' && userLanguage !== 'cy')) {
       return 'bill';
     } else {
       return userLanguage;
     }
   }
 }
-
