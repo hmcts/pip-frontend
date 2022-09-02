@@ -58,7 +58,7 @@ export default function(app: Application): void {
     logger.info('logout FE URL', FRONTEND_URL);
 
     const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
-    const encodedSignOutRedirect = encodeURIComponent(redirectUrl + '?lng=' + _req.lng);
+    const encodedSignOutRedirect = encodeURIComponent(redirectUrl);
     logger.info('B2C_URL', B2C_URL);
     logger.info('encodedSignOutRedirect', encodedSignOutRedirect);
     res.redirect(`${B2C_URL}/${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
@@ -99,7 +99,8 @@ export default function(app: Application): void {
   app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}),
     (_req, res) => {mediaVerificationHandling(_req, res);});
   app.get('/logout', (_req, res) => {checkRoles(_req, allAdminRoles) ?
-    logOut(_req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY) : logOut(_req, res, `${FRONTEND_URL}/view-option`);});
+    logOut(_req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY  + '&lng=' + _req['lng']) :
+    logOut(_req, res, `${FRONTEND_URL}/view-option` + '?lng=' + _req['lng']);});
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
