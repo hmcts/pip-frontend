@@ -1,10 +1,13 @@
 import * as process from 'process';
 import {I18next} from './modules/i18next';
 
-const {Logger} = require('@hmcts/nodejs-logging');
-
-import * as bodyParser from 'body-parser';
+import * as propertiesVolume from '@hmcts/properties-volume';
 import config = require('config');
+propertiesVolume.addTo(config);
+
+const {Logger} = require('@hmcts/nodejs-logging');
+import * as bodyParser from 'body-parser';
+
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import {Helmet} from './modules/helmet';
@@ -12,7 +15,7 @@ import * as path from 'path';
 import favicon from 'serve-favicon';
 import { HTTPError } from 'HttpError';
 import {Nunjucks} from './modules/nunjucks';
-import * as propertiesVolume from '@hmcts/properties-volume';
+
 import {AppInsights} from './modules/appinsights';
 
 const passport = require('passport');
@@ -32,8 +35,6 @@ app.locals.POLICY = process.env.POLICY;
 const logger = Logger.getLogger('app');
 
 logger.info('NODE_ENV', env);
-
-propertiesVolume.addTo(config);
 
 import routes from './routes/routes';
 
