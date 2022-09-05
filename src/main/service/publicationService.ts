@@ -92,8 +92,8 @@ export class PublicationService {
    */
   public languageToLoadPageIn(listLanguage: string, userLanguage: string): string {
     if ((listLanguage === 'BI_LINGUAL') ||
-      (listLanguage === 'ENGLISH' && userLanguage !== 'en') ||
-      (listLanguage === 'WELSH' && userLanguage !== 'cy')) {
+        (listLanguage === 'ENGLISH' && userLanguage !== 'en') ||
+        (listLanguage === 'WELSH' && userLanguage !== 'cy')) {
       return 'bill';
     } else {
       return userLanguage;
