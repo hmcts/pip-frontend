@@ -1,0 +1,18 @@
+{
+  "title": "Select List Types",
+  "descriptionText": "Configure the lists you will receive for your selected courts and tribunals. This will not affect any specific cases you may have subscribed to. Also don't forget to come back regularly to see new list types as we add more.",
+  "userSelections": "Your selection(s)",
+  "selected": "selected",
+  "filter": "Ffiltro",
+  "filterSelected": "Ffiltyr a ddewiswyd",
+  "filterClear": "Clirio’r ffiltrau",
+  "hide" : "Cuddio’r ffiltrau",
+  "show": "Dangos y ffiltrau",
+  "filterHeader": "Type of court or tribunal",
+  "applyFiltersButton": "Cadarnhau hidlwyr",
+  "ariaLabelNav": "No list types are available for the letter",
+  "aria": {
+    "filterLabel": "Filter by list type"
+  },
+  "backButton": "Yn ôl"
+}
