@@ -9,7 +9,6 @@ import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferen
 import { LocationNameSearchPage } from '../PageObjects/LocationNameSearchPage';
 import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
 import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
-import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
 import { DailyCauseListPage } from '../PageObjects/DailyCauseList.page';
 import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
@@ -18,7 +17,6 @@ import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtS
 import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
 import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
 import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
-import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { RemoveListConfirmationPage } from '../PageObjects/RemoveListConfirmation.page';
 import { RemoveListSearchPage } from '../PageObjects/RemoveListSearch.page';
@@ -68,8 +66,6 @@ let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 let manualUploadPage: ManualUploadPage;
 let adminDashboard = new AdminDashboardPage;
-let createMediaAccountPage: CreateMediaAccountPage;
-let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let accountHomePage: AccountHomePage;
 let dailyCauseListPage: DailyCauseListPage;
 let sjpPublicListPage: SJPPublicListPage;
