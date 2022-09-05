@@ -6,9 +6,7 @@ import { PublicationService } from './publicationService';
 
 const courtService = new LocationService();
 const dataManagementRequests = new DataManagementRequests();
-
 import {LanguageFileParser} from '../helpers/languageFileParser';
-
 const languageFileParser = new LanguageFileParser();
 const fileHandlingService = new FileHandlingService();
 const publicationService = new PublicationService();

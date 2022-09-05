@@ -324,9 +324,9 @@ describe('Account Management Requests', () => {
     });
 
     it('should return pi user id on success', async () => {
-      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).resolves({status: 200, data: {userId: '321'}});
+      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).resolves({status: 200, data: {userId: '321', userProvenance: 'userProvenance'}});
       const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
-      expect(response).toBe('321');
+      expect(response).toStrictEqual({userId: '321', userProvenance: 'userProvenance'});
     });
 
     it('should return null on error response', async () => {
