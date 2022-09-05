@@ -40,6 +40,8 @@ import {MediaAccountReviewPage} from '../PageObjects/MediaAccountReview.page';
 import {MediaAccountApprovalPage} from '../PageObjects/MediaAccountApproval.page';
 import {MediaAccountRejectionPage} from '../PageObjects/MediaAccountRejection.page';
 import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccountRejectionConfirmation.page';
+import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
+import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -67,6 +69,8 @@ let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 let manualUploadPage: ManualUploadPage;
 let adminDashboard = new AdminDashboardPage;
+let createMediaAccountPage: CreateMediaAccountPage;
+let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let accountHomePage: AccountHomePage;
 let dailyCauseListPage: DailyCauseListPage;
 let sjpPublicListPage: SJPPublicListPage;
