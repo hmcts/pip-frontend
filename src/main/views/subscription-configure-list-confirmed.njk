@@ -1,0 +1,30 @@
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import successPanel %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+  {{ successPanel(header, subheader) }}
+  <div class="parent-box">
+    <p class="govuk-body">{{ p1 }}<a href="/account-home">{{ link_text }}</a>{{ p2 }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li><a href="/subscription-add" class="govuk-link">{{ addEmailSubscription }}</a></li>
+      <li><a href="/subscription-management" class="govuk-link">{{ manageYourCurrentSubscriptions }}</a></li>
+      <li><a href="/search" class="govuk-link">{{ findCourt }}</a></li>
+    </ul>
+    {{ super() }}
+  </div>
+{% endblock %}
+{% block bodyEnd %}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  {{ super() }}
+{% endblock %}
