@@ -27,6 +27,7 @@ import { SignInPage } from '../PageObjects/SignIn.page';
 import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
 import { SJPPublicListPage } from '../PageObjects/SJPPublicList.page';
 import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
+import { SubscriptionConfigureListPage } from '../PageObjects/SubscriptionConfigureList.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
 import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
 import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
@@ -81,6 +82,7 @@ let mediaAccountReviewPage: MediaAccountReviewPage;
 let mediaAccountApprovalPage: MediaAccountApprovalPage;
 let mediaAccountRejectionPage: MediaAccountRejectionPage;
 let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
+let subscriptionConfigureListPage: SubscriptionConfigureListPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -410,6 +412,26 @@ describe('Verified user', () => {
         subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
         expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription(s) confirmed');
       });
+    });
+
+    //TODO: To be expanded on as the E2E tests are created for the configure list flow
+    describe('configure list subscriptions', async () => {
+      before(async () => {
+        await subscriptionConfigureListPage.open('subscription-configure-list');
+      });
+
+      //TODO: To be uncommented once subscription management (1511) has been merged in
+
+      // it('should select first jurisdiction filter', async () => {
+      //   await subscriptionConfigureListPage.selectOption('JurisdictionFilter1');
+      //   expect(await subscriptionConfigureListPage.jurisdictionChecked()).toBeTruthy();
+      // });
+      //
+      // it('should click on the apply filters button', async () => {
+      //   subscriptionConfigureListPage = await subscriptionConfigureListPage.clickApplyFiltersButton();
+      //   expect(await subscriptionConfigureListPage.getPageTitle()).toBe('Select List Types');
+      // });
+
     });
 
     describe('remove subscription', async () => {
