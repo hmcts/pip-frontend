@@ -50,4 +50,20 @@ export class SubscriptionRequests {
     }
     return false;
   }
+
+  public async configureListTypeForLocationSubscriptions(userId, payload): Promise<boolean> {
+    try {
+      await subscriptionManagementApi.put(`/subscription/configure-list-types/${userId}`, payload);
+      return true;
+    } catch (error) {
+      if (error.response) {
+        console.log('Failed to configure list type for location subscription');
+      } else if (error.request) {
+        console.log('Request failed.');
+      } else {
+        console.log('Unknown error while configuring list type for location subscription');
+      }
+    }
+    return false;
+  }
 }

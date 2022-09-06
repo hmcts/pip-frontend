@@ -41,6 +41,7 @@ const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/moc
 const subscriptionsData2 = JSON.parse(rawData2);
 const stub = sinon.stub(subscriptionManagementApi, 'get');
 const subscriptionManagementStub = sinon.stub(subscriptionManagementApi, 'post');
+const subscriptionManagementPutStub = sinon.stub(subscriptionManagementApi, 'put');
 const deleteStub = sinon.stub(subscriptionManagementApi, 'delete');
 
 describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, () => {
@@ -150,6 +151,32 @@ describe('unsubscribe error states', () => {
       const unsubscribe = await subscriptionActions.unsubscribe(errorBodyData.baz);
       expect(unsubscribe).toBe(null);
     });
+  });
+});
+
+describe('configure list type Location subscriptions for a user', () => {
+  it('should return true if call is successful', async() => {
+    subscriptionManagementPutStub.withArgs('/subscription/configure-list-types').resolves({});
+    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions('1',{});
+    expect(subscriptionUpdated).toBe(true);
+  });
+
+  it('should return false for failure', async() => {
+    subscriptionManagementPutStub.withArgs('/subscription/configure-list-types/null').rejects(errorMessage);
+    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null,{});
+    expect(subscriptionUpdated).toBe(false);
+  });
+
+  it('should return false for error request', async() => {
+    subscriptionManagementPutStub.withArgs('/subscription/configure-list-types/null').rejects(errorRequest);
+    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null,{});
+    expect(subscriptionUpdated).toBe(false);
+  });
+
+  it('should return false for error response', async() => {
+    subscriptionManagementPutStub.withArgs('/subscription/configure-list-types/null').rejects(errorResponse);
+    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null,{});
+    expect(subscriptionUpdated).toBe(false);
   });
 });
 
