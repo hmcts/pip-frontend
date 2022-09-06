@@ -12,8 +12,7 @@ const mockCourt = {
   name: 'Aberdeen Tribunal Hearing Centre',
   jurisdiction: 'Tribunal',
   location: 'Scotland',
-  hearingList: [],
-  hearings: 0,
+  listType: ['SJP_PUBLIC_LIST'],
 };
 const mockCase = {
   hearingId: 5,
@@ -25,6 +24,7 @@ const mockCase = {
   caseNumber: 'T485914',
   caseName: 'Ashely Barnes',
   caseUrn: 'IBRANE1BVW',
+  urnSearch: true,
 };
 const courtSubscriptionPayload = {
   channel: 'EMAIL',
@@ -32,7 +32,14 @@ const courtSubscriptionPayload = {
   searchValue: 643,
   locationName: 'Aberdeen Tribunal Hearing Centre',
   userId: '1',
+  listType: ['SJP_PUBLIC_LIST'],
 };
+const courtSubscriptionWithSingleListTypePayload =
+  ['CIVIL_DAILY_CAUSE_LIST'];
+const courtSubscriptionWithMultipleListTypePayload =
+  ['CIVIL_DAILY_CAUSE_LIST','FAMILY_DAILY_CAUSE_LIST'];
+const courtSubscriptionWithEmptyListTypePayload = [];
+
 const caseSubscriptionPayload = {
   caseName: 'Ashely Barnes',
   caseNumber: 'T485914',
@@ -68,10 +75,12 @@ sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(mockCase);
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
 const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
+const updateListTypeSubscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'configureListTypeForLocationSubscriptions');
 subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', '1').resolves(true);
 subscriptionStub.withArgs(blankPayload, 'courts', '1').resolves(false);
 subscriptionStub.withArgs(blankPayload, 'cases', '1').resolves(false);
+
 courtStub.withArgs('643').resolves(mockCourt);
 courtStub.withArgs('111').resolves(mockCourt);
 courtStub.withArgs('').resolves(null);
@@ -90,6 +99,10 @@ removeStub.withArgs({case: '888'}, userIdWithSubscriptions).resolves();
 removeStub.withArgs({court: '111'}, userIdWithSubscriptions).resolves();
 deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
 deleteStub.withArgs('InValidSubscriptionId').resolves(null);
+updateListTypeSubscriptionStub.withArgs('1', courtSubscriptionWithSingleListTypePayload).resolves(true);
+updateListTypeSubscriptionStub.withArgs('1', courtSubscriptionWithMultipleListTypePayload).resolves(true);
+updateListTypeSubscriptionStub.withArgs('1', courtSubscriptionWithEmptyListTypePayload).resolves(true);
+updateListTypeSubscriptionStub.withArgs(null, courtSubscriptionWithEmptyListTypePayload).resolves(false);
 
 describe('handleNewSubscription function', () => {
   it('should add new case subscription', async () => {
@@ -201,10 +214,37 @@ describe('getPendingSubscriptions function', () => {
 });
 
 describe('subscribe function', () => {
-  it('should return true for successful subscription', async () => {
+  it('should return true for successful subscription when no subscriptions', async () => {
     const subscriptionRes = await subscriptionService.subscribe(userIdWithoutSubscriptions);
     expect(subscriptionRes).toBe(true);
   });
+
+  it('should return true for successful subscription when court and case subscriptions', async () => {
+    subscriptionStub.withArgs(caseSubscriptionPayload).resolves(true);
+    subscriptionStub.withArgs(courtSubscriptionPayload).resolves(true);
+
+    const subscriptionRes = await subscriptionService.subscribe(userIdWithSubscriptions);
+    expect(subscriptionRes).toBe(true);
+  });
+
+  it('should return true for successful subscription where no existing subs', async () => {
+    cacheGetStub.withArgs('3', 'courts').resolves([mockCourt]);
+
+    const courtWithoutExistingListType = {
+      channel: 'EMAIL',
+      searchType: 'LOCATION_ID',
+      searchValue: 643,
+      locationName: 'Aberdeen Tribunal Hearing Centre',
+      userId: '1',
+      listType: [],
+    };
+
+    subscriptionStub.withArgs(courtWithoutExistingListType).resolves(true);
+
+    const subscriptionRes = await subscriptionService.subscribe(userIdWithoutSubscriptions);
+    expect(subscriptionRes).toBe(true);
+  });
+
 });
 
 describe('removeFromCache function', () => {
@@ -237,6 +277,29 @@ describe('createSubscriptionPayload function', () => {
   });
 });
 
+describe('configureListTypeForLocationSubscriptions', () => {
+  it('should return a message if list type subscription is updated', async () => {
+    const result = await subscriptionService.configureListTypeForLocationSubscriptions('1', 'CIVIL_DAILY_CAUSE_LIST');
+    expect(result).toEqual(true);
+  });
+
+  it('should return a message if multiple list type subscription is updated', async () => {
+    const listTypeArray = 'CIVIL_DAILY_CAUSE_LIST,FAMILY_DAILY_CAUSE_LIST'.split(',');
+    const result = await subscriptionService.configureListTypeForLocationSubscriptions('1', listTypeArray);
+    expect(result).toEqual(true);
+  });
+
+  it('should return a message if empty list type subscription is updated', async () => {
+    const result = await subscriptionService.configureListTypeForLocationSubscriptions('1', null);
+    expect(result).toEqual(true);
+  });
+
+  it('should return false if user id is not given', async () => {
+    const result = await subscriptionService.configureListTypeForLocationSubscriptions(null, null);
+    expect(result).toEqual(false);
+  });
+});
+
 describe('unsubscribing', () => {
   it('should return a message if subscription is deleted', async () => {
     const payload = await subscriptionService.unsubscribe('ValidSubscriptionId');
@@ -247,4 +310,130 @@ describe('unsubscribing', () => {
     const payload = await subscriptionService.unsubscribe('InValidSubscriptionId');
     expect(payload).toEqual(null);
   });
+});
+
+describe('generateListTypesForCourts', () => {
+
+  const userId = 1234;
+  const subscriptionData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/listTypeSubscriptions/listTypeSubscriptions.json'), 'utf-8');
+  const returnedSubscriptions = JSON.parse(subscriptionData);
+
+  stubUserSubscription.withArgs(userId).returns(returnedSubscriptions.data);
+
+  it('generate list types with no filters with no selected', async () => {
+    courtStub.withArgs(1).resolves({jurisdiction: ['Civil']});
+
+    const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', '', '');
+
+    expect(result['listOptions']).toBeDefined();
+    expect(result['filterOptions']).toBeDefined();
+
+    const listOptions = result['listOptions'];
+    expect(listOptions['C']).toBeDefined();
+
+    const listTypes = listOptions['C'];
+    expect(listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST']).toBeDefined();
+    expect(listTypes['CIVIL_DAILY_CAUSE_LIST']).toBeDefined();
+    expect(listTypes['COP_DAILY_CAUSE_LIST']).toBeDefined();
+
+    const civilAndFamilyCauseList = listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'];
+    expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Civil and Family Daily Cause List');
+    expect(civilAndFamilyCauseList['checked']).toBeTruthy();
+
+    const civilDailyCauseList = listTypes['CIVIL_DAILY_CAUSE_LIST'];
+    expect(civilDailyCauseList['checked']).toBeFalsy();
+
+    const filterOptions = result['filterOptions'];
+    expect(filterOptions['Jurisdiction']).toBeDefined();
+
+    const jurisdictionFilter = filterOptions['Jurisdiction'];
+    expect(jurisdictionFilter['Civil']).toBeDefined();
+    expect(jurisdictionFilter['Family']).toBeDefined();
+
+    const civilFilter = jurisdictionFilter['Civil'];
+    expect(civilFilter['value']).toEqual('Civil');
+    expect(civilFilter['text']).toEqual('Civil');
+    expect(civilFilter['checked']).toBeFalsy();
+  });
+
+  it('generate list types with filters selected', async () => {
+    courtStub.withArgs(1).resolves({jurisdiction: ['Civil']});
+
+    const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'Family', '');
+
+    expect(result['listOptions']).toBeDefined();
+    expect(result['filterOptions']).toBeDefined();
+
+    const listOptions = result['listOptions'];
+    expect(listOptions['C']).toBeDefined();
+
+    const listTypes = listOptions['C'];
+    expect(listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST']).toBeDefined();
+    expect(listTypes['CIVIL_DAILY_CAUSE_LIST']).toBeDefined();
+    expect(listTypes['COP_DAILY_CAUSE_LIST']).toBeDefined();
+
+    const civilAndFamilyCauseList = listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'];
+    expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Civil and Family Daily Cause List');
+    expect(civilAndFamilyCauseList['checked']).toBeTruthy();
+    expect(civilAndFamilyCauseList['hidden']).toBeFalsy();
+
+    const civilDailyCauseList = listTypes['CIVIL_DAILY_CAUSE_LIST'];
+    expect(civilDailyCauseList['checked']).toBeFalsy();
+    expect(civilDailyCauseList['hidden']).toBeTruthy();
+
+    const filterOptions = result['filterOptions'];
+    expect(filterOptions['Jurisdiction']).toBeDefined();
+
+    const jurisdictionFilter = filterOptions['Jurisdiction'];
+    expect(jurisdictionFilter['Civil']).toBeDefined();
+    expect(jurisdictionFilter['Family']).toBeDefined();
+
+    const civilFilter = jurisdictionFilter['Civil'];
+    expect(civilFilter['checked']).toBeFalsy();
+
+    const familyFilter = jurisdictionFilter['Family'];
+    expect(familyFilter['value']).toEqual('Family');
+    expect(familyFilter['text']).toEqual('Family');
+    expect(familyFilter['checked']).toBeTruthy();
+  });
+
+  it('generate list types with filters and clear', async () => {
+    courtStub.withArgs(1).resolves({jurisdiction: ['Civil']});
+
+    const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'Family', 'Family');
+
+    expect(result['listOptions']).toBeDefined();
+    expect(result['filterOptions']).toBeDefined();
+
+    const listOptions = result['listOptions'];
+    expect(listOptions['C']).toBeDefined();
+
+    const listTypes = listOptions['C'];
+    expect(listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST']).toBeDefined();
+    expect(listTypes['CIVIL_DAILY_CAUSE_LIST']).toBeDefined();
+    expect(listTypes['COP_DAILY_CAUSE_LIST']).toBeDefined();
+
+    const civilAndFamilyCauseList = listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'];
+    expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Civil and Family Daily Cause List');
+    expect(civilAndFamilyCauseList['checked']).toBeTruthy();
+    expect(civilAndFamilyCauseList['hidden']).toBeFalsy();
+
+    const civilDailyCauseList = listTypes['CIVIL_DAILY_CAUSE_LIST'];
+    expect(civilDailyCauseList['checked']).toBeFalsy();
+    expect(civilDailyCauseList['hidden']).toBeFalsy();
+
+    const filterOptions = result['filterOptions'];
+    expect(filterOptions['Jurisdiction']).toBeDefined();
+
+    const jurisdictionFilter = filterOptions['Jurisdiction'];
+    expect(jurisdictionFilter['Civil']).toBeDefined();
+    expect(jurisdictionFilter['Family']).toBeDefined();
+
+    const civilFilter = jurisdictionFilter['Civil'];
+    expect(civilFilter['checked']).toBeFalsy();
+
+    const familyFilter = jurisdictionFilter['Family'];
+    expect(familyFilter['checked']).toBeFalsy();
+  });
+
 });

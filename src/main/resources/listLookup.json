@@ -1,0 +1,86 @@
+{
+  "SJP_PUBLIC_LIST": {
+    "friendlyName": "Single Justice Procedure Public List",
+    "shortenedFriendlyName": "SJP Public List",
+    "url": "sjp-public-list",
+    "jurisdictions": ["Single Justice Procedure"],
+    "restrictedProvenances":  []
+  },
+  "SJP_PRESS_LIST": {
+    "friendlyName": "Single Justice Procedure Press List",
+    "shortenedFriendlyName": "SJP Press List",
+    "url": "sjp-press-list",
+    "jurisdictions": ["Single Justice Procedure"],
+    "restrictedProvenances":  ["PI_AAD"]
+  },
+  "CROWN_DAILY_LIST": {
+    "friendlyName": "Crown Daily List",
+    "shortenedFriendlyName": "Crown Daily List",
+    "url": "",
+    "jurisdictions": ["Crown"],
+    "restrictedProvenances":  []
+  },
+  "CROWN_WARNED_LIST": {
+    "friendlyName": "Crown Warned List",
+    "shortenedFriendlyName": "Crown Warned List",
+    "url": "",
+    "jurisdictions": ["Crown"],
+    "restrictedProvenances":  []
+  },
+  "CROWN_FIRM_LIST": {
+    "friendlyName": "Crown Firm List",
+    "shortenedFriendlyName": "Crown Firm List",
+    "url": "",
+    "jurisdictions": ["Crown"],
+    "restrictedProvenances":  []
+  },
+  "MAGS_PUBLIC_LIST": {
+    "friendlyName": "Magistrates Public List",
+    "shortenedFriendlyName": "Magistrates Public List",
+    "url": "",
+    "jurisdictions": ["Crown"],
+    "restrictedProvenances":  []
+  },
+  "MAGS_STANDARD_LIST": {
+    "friendlyName": "Magistrates Standard List",
+    "shortenedFriendlyName": "Magistrates Standard List",
+    "url": "",
+    "jurisdictions": ["Crown"],
+    "restrictedProvenances":  []
+  },
+  "CIVIL_DAILY_CAUSE_LIST": {
+    "friendlyName": "Civil Daily Cause List",
+    "shortenedFriendlyName": "Civil Daily Cause List",
+    "url": "daily-cause-list",
+    "jurisdictions": ["Civil"],
+    "restrictedProvenances":  []
+  },
+  "FAMILY_DAILY_CAUSE_LIST": {
+    "friendlyName": "Family Daily Cause List",
+    "shortenedFriendlyName": "Family Daily Cause List",
+    "url": "family-daily-cause-list",
+    "jurisdictions": ["Family"],
+    "restrictedProvenances":  []
+  },
+  "CIVIL_AND_FAMILY_DAILY_CAUSE_LIST": {
+    "friendlyName": "Civil and Family Daily Cause List",
+    "shortenedFriendlyName": "Civil And Family Daily Cause List",
+    "url": "civil-and-family-daily-cause-list",
+    "jurisdictions": ["Civil", "Family"],
+    "restrictedProvenances":  []
+  },
+  "SSCS_DAILY_LIST": {
+    "friendlyName": "Social Security and Child Support Tribunal Daily List",
+    "shortenedFriendlyName": "SSCS Daily List",
+    "url": "sscs-daily-list",
+    "jurisdictions": ["Social Security and Child Support"],
+    "restrictedProvenances":  []
+  },
+  "COP_DAILY_CAUSE_LIST": {
+    "friendlyName": "Court of Protection Daily Cause List",
+    "shortenedFriendlyName": "COP Daily Cause List",
+    "url": "cop-daily-cause-list",
+    "jurisdictions": ["Civil"],
+    "restrictedProvenances":  []
+  }
+}

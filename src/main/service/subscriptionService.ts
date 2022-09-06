@@ -4,13 +4,17 @@ import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendi
 import { UserSubscriptions } from '../models/UserSubscriptions';
 import {PublicationService} from './publicationService';
 import {LocationService} from './locationService';
+import {FilterService} from './filterService';
 import {Location} from '../models/location';
+import {ListType} from '../models/listType';
 import {LanguageFileParser} from '../helpers/languageFileParser';
+import {AToZHelper} from '../helpers/aToZHelper';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
 const publicationService = new PublicationService();
 const courtService = new LocationService();
+const filterService = new FilterService();
 const languageFileParser = new LanguageFileParser();
 
 export class SubscriptionService {
@@ -157,6 +161,7 @@ export class SubscriptionService {
     }
     if (cachedCourtSubs) {
       for (const cachedCourt of cachedCourtSubs) {
+        cachedCourt['listType'] = await this.generateListTypesForNewSubscription(userId);
         const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCourt, courtsType, userId));
         response ? await this.removeFromCache({court: cachedCourt.locationId}, userId) : subscribed = response;
       }
@@ -173,6 +178,7 @@ export class SubscriptionService {
           searchType: 'LOCATION_ID',
           searchValue: pendingSubscription.locationId,
           locationName: pendingSubscription.name,
+          listType: pendingSubscription.listType,
           userId,
         };
         break;
@@ -199,7 +205,144 @@ export class SubscriptionService {
     return payload;
   }
 
+  public async configureListTypeForLocationSubscriptions(userId, listType): Promise<boolean> {
+    return await subscriptionRequests.configureListTypeForLocationSubscriptions(userId,
+      this.createListTypeSubscriptionPayload(listType));
+  }
+
+  private createListTypeSubscriptionPayload(listType): object {
+    let listTypeArray;
+    if(listType) {
+      if (!Array.isArray(listType)) {
+        listTypeArray = listType.split(' ');
+      } else {
+        listTypeArray = listType;
+      }
+    } else {
+      listTypeArray =[];
+    }
+
+    return listTypeArray;
+  }
+
   public async removeFromCache(record, userId): Promise<void> {
     return await pendingSubscriptionsFromCache.removeFromCache(record, userId);
   }
+
+  /**
+   * This method generates the relevant list types for the courts that the user has configured.
+   * @param userId The user ID of the user who is configuring their list types.
+   * @param filterValuesQuery The currently selected filters.
+   * @param clearQuery The clear filter for the query.
+   */
+  public async generateListTypesForCourts(userId, userRole, filterValuesQuery, clearQuery): Promise<object> {
+    let filterValues = filterService.stripFilters(filterValuesQuery);
+    if (clearQuery) {
+      filterValues = filterService.handleFilterClear(filterValues, clearQuery);
+    }
+
+    const applicableListTypes = await this.generateAppropriateListTypes(userId, userRole);
+
+    const filterOptions = this.buildFilterValueOptions(applicableListTypes, filterValues);
+
+    const alphabetisedListTypes = AToZHelper.generateAlphabetObject();
+
+    if (filterValues.length == 0) {
+      for (const [listName, listType] of applicableListTypes) {
+        alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
+          listFriendlyName: listType.friendlyName,
+          checked: listType.checked,
+        };
+      }
+    } else {
+      for (const [listName, listType] of applicableListTypes) {
+        alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
+          listFriendlyName: listType.friendlyName,
+          checked: listType.checked,
+          hidden: !listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction)),
+        };
+      }
+    }
+
+    return {
+      listOptions: alphabetisedListTypes,
+      filterOptions: filterOptions,
+    };
+  }
+
+  private async generateAppropriateListTypes(userId, userRole): Promise<Map<string, ListType>> {
+    const userSubscriptions = await this.getSubscriptionsByUser(userId);
+    const listTypes = await publicationService.getListTypes();
+
+    let selectedListTypes = [];
+    if (userSubscriptions['locationSubscriptions'].length > 0) {
+      selectedListTypes = userSubscriptions['locationSubscriptions'][0]['listType'];
+    }
+
+    const courtJurisdictions = new Set();
+    for (const subscription of userSubscriptions['locationSubscriptions']) {
+      if ('locationId' in subscription) {
+        const returnedLocation = await courtService.getLocationById(subscription['locationId']);
+        returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.add(jurisdiction));
+      }
+    }
+
+    const sortedListTypes = new Map([...listTypes].sort());
+    const applicableListTypes = new Map();
+    for (const [listName, listType] of sortedListTypes) {
+      if (listType.jurisdictions.some(jurisdiction => courtJurisdictions.has(jurisdiction))
+        && (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))) {
+
+        if (selectedListTypes == null || selectedListTypes.length == 0 || selectedListTypes.includes(listName)) {
+          listType.checked = true;
+        } else {
+          listType.checked = false;
+        }
+        applicableListTypes.set(listName, listType);
+      }
+    }
+
+    return applicableListTypes;
+  }
+
+  /**
+   * Generates the appropriate list types for a location
+   * @param location The location to get the list types for
+   * @param userRole The role of the user.
+   * @private
+   */
+  private async generateListTypesForNewSubscription(userId): Promise<Array<string>> {
+    const userSubscriptions = await this.getSubscriptionsByUser(userId);
+    if (userSubscriptions.locationSubscriptions != null && userSubscriptions.locationSubscriptions.length > 0) {
+      return userSubscriptions.locationSubscriptions[0].listTypes;
+    } else {
+      return [];
+    }
+  }
+
+  public buildFilterValueOptions(list: Map<string, ListType>, selectedFilters: string[]): object {
+    const filterValueOptions = {};
+    filterValueOptions['Jurisdiction'] = {};
+
+    const finalFilterValueOptions = this.getAllJurisdictions(list);
+
+    [...finalFilterValueOptions].sort().forEach(value => {
+      filterValueOptions['Jurisdiction'][value] = {
+        value: value,
+        text: value,
+        checked: selectedFilters.includes(value),
+      };
+    });
+    return filterValueOptions;
+  }
+
+  private getAllJurisdictions(list: Map<string, ListType>): string[] {
+    const filterSet = new Set() as Set<string>;
+    list.forEach((value) => {
+      value.jurisdictions.forEach(jurisdiction => filterSet.add(jurisdiction));
+    });
+
+    return [...filterSet];
+  }
+
 }
