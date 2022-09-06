@@ -1,7 +1,6 @@
 import { Application } from 'express';
 import { infoRequestHandler } from '@hmcts/info-provider';
 import { Logger } from '@hmcts/nodejs-logging';
-import cors  from 'cors';
 import os from 'os';
 import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
@@ -13,7 +12,7 @@ import {
   isPermittedAccountCreation,
   isPermittedManualUpload,
   checkRoles,
-  forgotPasswordRedirect, 
+  forgotPasswordRedirect,
   isAdminSessionExpire,
   mediaVerificationHandling,
 } from '../authentication/authenticationHandler';
@@ -42,13 +41,6 @@ export default function(app: Application): void {
 
   const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
   logger.info('FRONTEND_URL', FRONTEND_URL);
-  const corsOptions = {
-    origin: 'https://pib2csbox.b2clogin.com',
-    methods: ['GET', 'OPTIONS'],
-    allowedHeaders: '*',
-    exposedHeaders: '*',
-    optionsSuccessStatus: 200,
-  };
 
   function globalAuthGiver(req, res, next): void{
     if(isAdminSessionExpire(req)) {
@@ -111,7 +103,6 @@ export default function(app: Application): void {
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
-  app.get('/otp-template', cors(corsOptions), app.locals.container.cradle.otpTemplateController.get);
   app.get('/search', app.locals.container.cradle.searchController.get);
   app.post('/search', app.locals.container.cradle.searchController.post);
   app.get('/sign-in', app.locals.container.cradle.signInController.get);
@@ -143,6 +134,10 @@ export default function(app: Application): void {
   app.post('/subscription-add', isPermittedMedia, app.locals.container.cradle.subscriptionAddController.post);
   app.post('/subscription-confirmed', isPermittedMedia, app.locals.container.cradle.subscriptionConfirmedController.post);
   app.get('/subscription-management', isPermittedMedia, app.locals.container.cradle.subscriptionManagementController.get);
+  app.get('/subscription-configure-list', isPermittedMedia, app.locals.container.cradle.subscriptionConfigureListController.get);
+  app.post('/subscription-configure-list', isPermittedMedia, app.locals.container.cradle.subscriptionConfigureListController.filterValues);
+  app.post('/subscription-configure-list-confirmed', isPermittedMedia,
+    app.locals.container.cradle.subscriptionConfigureListConfirmedController.post);
   app.get('/subscription-urn-search', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchController.get);
   app.post('/subscription-urn-search', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchController.post);
   app.get('/subscription-urn-search-results', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchResultController.get);

@@ -96,6 +96,10 @@ describe('Filter Service', () => {
     expect(filterService.stripFilters('test,filter').length).toEqual(2);
   });
 
+  it('should return empty array if all filters have been removed', () => {
+    expect(filterService.stripFilters(',')).toStrictEqual([]);
+  });
+
   it('should return empty array if current filters are yet defined', () => {
     expect(filterService.stripFilters(null)).toStrictEqual([]);
   });
@@ -135,4 +139,5 @@ describe('Filter Service', () => {
     const body = {jurisdiction: ['test', 'val'], region: ['newTest']} as unknown as string;
     expect(filterService.generateFilterKeyValues(body)).toStrictEqual(['test', 'val', 'newTest']);
   });
+
 });

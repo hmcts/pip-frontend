@@ -1,8 +1,5 @@
-import sinon from 'sinon';
-import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
+const piUserId = {piUserId: '1234', piUserProvenance: 'PI_AAD'};
 
-const piUserId = '1234';
-sinon.stub(AccountManagementRequests.prototype, 'getPiUserByAzureOid').resolves(piUserId);
 describe('Authentication', () => {
   let authentication;
   let passport;
@@ -86,9 +83,13 @@ describe('Authentication', () => {
 
   parameters.forEach((parameter) => {
     it(`Test that if an existing user is found, then that user is returned for azure ${parameter.strategy} authentication`, async () => {
+      const sinon = await import('sinon');
+      const AccountManagementRequests = await import('../../../main/resources/requests/accountManagementRequests');
+      const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByAzureOid');
+      stub.resolves(piUserId);
       authentication();
 
-      const strategy = passport._strategies[parameter.strategy];
+      const strategy = passport._strategies['login'];
       const verifyFunction = strategy._verify;
       const firstProfile = {oid: '1234', profile: 'test-profile'};
       const mockCallback = jest.fn();
@@ -123,6 +124,11 @@ describe('Authentication', () => {
 
   parameters.forEach((parameter) => {
     it(`Test that deserialising a user returns the original profile object for azure ${parameter.strategy} authentication`, async () => {
+      const sinon = await import('sinon');
+      const AccountManagementRequests = await import('../../../main/resources/requests/accountManagementRequests');
+      const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByAzureOid');
+      stub.resolves(piUserId);
+
       authentication();
 
       const strategy = passport._strategies[parameter.strategy];
