@@ -1,9 +1,9 @@
 export interface Location {
   locationId: number;
   name: string;
-  jurisdiction: string;
+  jurisdiction: Array<string>;
   location: string;
   hearingList: Array<any>;
   hearings: number;
-  region: string;
+  region: Array<string>;
 }
