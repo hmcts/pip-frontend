@@ -7,99 +7,107 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-    {{ header }}
+  {{ header }}
 {% endblock %}
 
 {% block beforeContent %}
-    {{ super() }}
-    {{ goBack() }}
+  {{ super() }}
+  {{ goBack() }}
 {% endblock %}
 
 {% block content %}
-    {% if displayError %}
-        {{ govukErrorSummary({
-            titleText: error.title,
-            errorList: [
-                {
-                    text: error.text,
-                    href: "#remove-choice"
-                }
-            ]
-        }) }}
-    {% endif %}
-    <div class="parent-box">
-        {{ govukWarningText({
-            text: warning,
-            iconFallbackText: "Warning"
-        }) }}
-        {{ govukSummaryList({
-            rows: [
-                {
-                    key: {
-                        text: summaryListHeaders.courtName
-                    },
-                    value: {
-                        text: court.name
-                    }
-                },
-                {
-                    key: {
-                        text: summaryListHeaders.publication
-                    },
-                    value: {
-                        text: artefact.listTypeName
-                    }
-                },
-                {
-                    key: {
-                        text: summaryListHeaders.date
-                    },
-                    value: {
-                        text: artefact.contentDate | date("DD MMMM YYYY")
-                    }
-                }
-            ]
-        }) }}
-        <h2 class="govuk-heading-l">{{ header }}</h2>
-        <form action="remove-list-confirmation" method="post">
-            {{ govukInput({
-                id: "artefactId",
-                name: "artefactId",
-                type: "hidden",
-                value: artefact.artefactId
-            }) }}
-            {{ govukInput({
-                id: "locationId",
-                name: "locationId",
-                type: "hidden",
-                value: court.locationId
-            }) }}
-            {{ govukRadios({
-                classes: "govuk-radios--inline",
-                idPrefix: "remove-choice",
-                name: "remove-choice",
-                items: [
-                    {
-                        value: "yes",
-                        text: optionYes
-                    },
-                    {
-                        value: "no",
-                        text: optionNo
-                    }
-                ]
-            }) }}
-            {{ submitButton(continueButton) }}
-        </form>
-        {{ super() }}
-    </div>
+  {% if displayError %}
+    {{ govukErrorSummary({
+      titleText: error.title,
+      errorList: [
+        {
+          text: error.text,
+          href: "#remove-choice"
+        }
+      ]
+    }) }}
+  {% endif %}
+  <div class="parent-box">
+    {{ govukWarningText({
+      text: warning,
+      iconFallbackText: "Warning"
+    }) }}
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: {
+          text: summaryListHeaders.courtName
+        },
+          value: {
+          text: court.name
+        }
+        },
+        {
+          key: {
+          text: summaryListHeaders.publication
+        },
+          value: {
+          text: artefact.listTypeName
+        }
+        },
+        {
+          key: {
+          text: summaryListHeaders.date
+        },
+          value: {
+          text: artefact.contentDate | date("DD MMMM YYYY")
+        }
+        },
+        {
+          key: {
+          text: summaryListHeaders.sensitivity
+        },
+          value: {
+          text: artefact.sensitivity | titleCase
+        }
+        }
+      ]
+    }) }}
+    <h2 class="govuk-heading-l">{{ header }}</h2>
+    <form action="remove-list-confirmation" method="post">
+      {{ govukInput({
+        id: "artefactId",
+        name: "artefactId",
+        type: "hidden",
+        value: artefact.artefactId
+      }) }}
+      {{ govukInput({
+        id: "locationId",
+        name: "locationId",
+        type: "hidden",
+        value: court.locationId
+      }) }}
+      {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "remove-choice",
+        name: "remove-choice",
+        items: [
+          {
+            value: "yes",
+            text: optionYes
+          },
+          {
+            value: "no",
+            text: optionNo
+          }
+        ]
+      }) }}
+      {{ submitButton(continueButton) }}
+    </form>
+    {{ super() }}
+  </div>
 {% endblock %}
 {% block bodyEnd %}
-    {{ super() }}
-    <script>
-      if ( window.history.replaceState ) {
-        window.history.replaceState( null, null, window.location.href );
-      }
-    </script>
+  {{ super() }}
+  <script>
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
 {% endblock %}
 
