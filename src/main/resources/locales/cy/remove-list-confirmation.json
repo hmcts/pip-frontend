@@ -10,6 +10,7 @@
   "summaryListHeaders": {
     "courtName": "Court or tribunal name",
     "publication": "Publication",
-    "date": "Publication date"
+    "date": "Publication date",
+    "sensitivity": "Sensitivity"
   }
 }
