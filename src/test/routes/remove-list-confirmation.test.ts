@@ -13,6 +13,9 @@ const mockArtefact = {
   contentDate: '2022-03-24T07:36:35',
   locationId: '1',
   artefactId: 'valid-artefact',
+  language: 'ENGLISH',
+  displayFrom: '2022-03-23T07:36:35',
+  displayTo: '2022-03-28T07:36:35',
   sensitivity: 'CLASSIFIED',
 };
 
@@ -70,6 +73,10 @@ describe('Remove List Confirmation', () => {
           'remove-choice': 'no',
           'artefactId': 'valid-artefact',
           'locationId': '1',
+          'language': 'ENGLISH',
+          'displayFrom': '2022-03-23T07:36:35',
+          'displayTo': '2022-03-28T07:36:35',
+          'sensitivity': 'CLASSIFIED',
         })
         .expect((res) => {
           expect(res.status).to.equal(302);
@@ -82,6 +89,10 @@ describe('Remove List Confirmation', () => {
         .post(URL).send({
           'artefactId': 'valid-artefact',
           'locationId': '1',
+          'language': 'ENGLISH',
+          'displayFrom': '2022-03-23T07:36:35',
+          'displayTo': '2022-03-28T07:36:35',
+          'sensitivity': 'CLASSIFIED',
         })
         .expect((res) => expect(res.status).to.equal(200));
     });

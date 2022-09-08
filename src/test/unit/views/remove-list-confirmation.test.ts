@@ -13,11 +13,14 @@ const mockArtefact = {
   listTypeName: 'Civil Daily Cause List',
   contentDate: '2022-03-24T07:36:35',
   locationId: '5',
+  language: 'ENGLISH',
   artefactId: 'valid-artefact',
+  displayFrom: '2022-03-23T07:36:35',
+  displayTo: '2022-03-28T07:36:35',
   sensitivity: 'CLASSIFIED',
 };
-const keyValues = ['Court or tribunal name', 'Publication', 'Publication date', 'Sensitivity'];
-const content = ['Mock Court', 'Civil Daily Cause List', '24 March 2022', 'Classified'];
+const keyValues = ['List Type', 'Court or Tribunal name', 'Display Dates', 'Language', 'Sensitivity'];
+const content = ['Civil Daily Cause List', 'Mock Court','23 Mar 2022 to 28 Mar 2022', 'English', 'Classified'];
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({locationId: '5', name: 'Mock Court'});
 
