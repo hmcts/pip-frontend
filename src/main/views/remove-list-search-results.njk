@@ -4,11 +4,11 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
 {% block pageTitle %}
-    {{ title }}
+  {{ title }}
 {% endblock %}
 {% block beforeContent %}
-    {{ super() }}
-    {{ goBack() }}
+  {{ super() }}
+  {{ goBack() }}
 {% endblock %}
 {% block content %}
     <div class="parent-box">
@@ -32,6 +32,7 @@
                         <td class="govuk-table__cell">{{ court.name }}</td>
                         <td class="govuk-table__cell">{{ item.dateRange }}</td>
                         <td class="govuk-table__cell">{{ item.language | titleCase }}</td>
+                        <td class="govuk-table__cell">{{ item.sensitivity | titleCase }}</td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">
                           <a class='unsubscribe-action' href='remove-list-confirmation?artefact={{ item.artefactId }}'>Remove</a>
                         </td>
@@ -44,12 +45,12 @@
     </div>
 {% endblock %}
 {% block bodyEnd %}
-    <script>
-      if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-      }
-    </script>
-    {{ super() }}
-    <script type="text/javascript" src="/assets/js/jquery.js"></script>
-    <script type="text/javascript" src="/assets/js/mojAll.js"></script>
+  <script>
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
+  {{ super() }}
+  <script type="text/javascript" src="/assets/js/jquery.js"></script>
+  <script type="text/javascript" src="/assets/js/mojAll.js"></script>
 {% endblock %}

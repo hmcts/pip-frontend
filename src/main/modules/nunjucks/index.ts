@@ -1,7 +1,6 @@
 import * as path from 'path';
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';
-import moment from 'moment/moment';
 import { PublicationService } from '../../service/publicationService';
 
 const publicationService = new PublicationService();

@@ -16,6 +16,7 @@ const mockArtefact = {
   language: 'ENGLISH',
   displayFrom: '2022-03-23T07:36:35',
   displayTo: '2022-03-28T07:36:35',
+  sensitivity: 'CLASSIFIED',
 };
 
 const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');

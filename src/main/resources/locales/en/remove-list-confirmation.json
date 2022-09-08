@@ -11,6 +11,7 @@
     "courtName": "Court or Tribunal name",
     "publication": "List Type",
     "date": "Display Dates",
-    "language": "Language"
+    "language": "Language",
+    "sensitivity": "Sensitivity"
   }
 }
