@@ -76,6 +76,7 @@ describe('Remove List Confirmation', () => {
           'language': 'ENGLISH',
           'displayFrom': '2022-03-23T07:36:35',
           'displayTo': '2022-03-28T07:36:35',
+          'sensitivity': 'CLASSIFIED',
         })
         .expect((res) => {
           expect(res.status).to.equal(302);
@@ -91,6 +92,7 @@ describe('Remove List Confirmation', () => {
           'language': 'ENGLISH',
           'displayFrom': '2022-03-23T07:36:35',
           'displayTo': '2022-03-28T07:36:35',
+          'sensitivity': 'CLASSIFIED',
         })
         .expect((res) => expect(res.status).to.equal(200));
     });
