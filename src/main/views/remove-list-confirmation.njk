@@ -36,28 +36,40 @@
       rows: [
         {
           key: {
-          text: summaryListHeaders.courtName
-        },
-          value: {
-          text: court.name
-        }
-        },
-        {
-          key: {
           text: summaryListHeaders.publication
         },
           value: {
           text: artefact.listTypeName
         }
         },
+
+        {
+          key: {
+          text: summaryListHeaders.courtName
+        },
+          value: {
+          text: court.name
+        }
+        },
+
         {
           key: {
           text: summaryListHeaders.date
         },
           value: {
-          text: artefact.contentDate | date("DD MMMM YYYY")
+          text: artefact | dateRange
         }
         },
+
+        {
+          key: {
+          text: summaryListHeaders.language
+        },
+          value: {
+          text: artefact.language | titleCase
+        }
+        },
+
         {
           key: {
           text: summaryListHeaders.sensitivity
