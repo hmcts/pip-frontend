@@ -158,7 +158,7 @@ export class DataManipulationService {
         switch(DataManipulationService.convertPartyRole(party.partyRole)) {
           case 'APPLICANT_PETITIONER':
           {
-            applicant = this.createIndividualDetails(party.individualDetails).trim();
+            applicant += this.createIndividualDetails(party.individualDetails).trim();
             applicant += this.stringDelimiter(applicant?.length, ',');
             break;
           }
@@ -172,7 +172,7 @@ export class DataManipulationService {
           }
           case 'RESPONDENT':
           {
-            respondent = this.createIndividualDetails(party.individualDetails).trim();
+            respondent += this.createIndividualDetails(party.individualDetails).trim();
             respondent += this.stringDelimiter(respondent?.length, ',');
             break;
           }
