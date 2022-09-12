@@ -46,6 +46,6 @@ export class SessionManagementService {
 
   private getLogOutRedirectUrl(req): string {
     const path = checkRoles(req, allAdminRoles) ? 'admin-dashboard' : 'view-option';
-    return `${FRONTEND_URL}/${path}`;
+    return `${FRONTEND_URL}/${path}` + '?lng=' + req['lng'];
   }
 }
