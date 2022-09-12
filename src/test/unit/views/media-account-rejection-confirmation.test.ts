@@ -125,13 +125,13 @@ describe('Media Account Submission Page', () => {
 
   it('should display proof of id view text', () => {
     const value = htmlRes.getElementsByClassName(summaryActions);
-    const anchor = value[0].getElementsByTagName('a')[0];
+    const anchor = value[4].getElementsByTagName('a')[0];
     expect(anchor.innerHTML).contains(proofOfIdView, 'Could not find the proof of id view text');
   });
 
   it('should display proof of id view link', () => {
     const value = htmlRes.getElementsByClassName(summaryActions);
-    const anchor = value[0].getElementsByTagName('a')[0];
+    const anchor = value[4].getElementsByTagName('a')[0];
     expect(anchor.getAttribute('href')).contains(proofOfIdViewLink, 'Could not find the proof of id view text');
   });
 
