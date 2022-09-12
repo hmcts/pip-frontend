@@ -11,7 +11,7 @@ export class I18next {
 
   constructor() {
     const options = {preload: ['en', 'cy'], resources, fallbackLng: 'en', supportedLngs:['en','cy'],
-      detection: {order: ['querystring', 'cookie'],  caches: ['cookie'],
+      detection: {order: ['querystring', 'session', 'cookie'],  caches: ['session', 'cookie'],
       }};
 
     i18next
