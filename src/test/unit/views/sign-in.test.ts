@@ -56,17 +56,16 @@ describe('Sign In option Page', () => {
       }
     });
 
-    // Commented out until we are ready to put the link back in
-    // it('should display request account message', () => {
-    //   const message = htmlRes.getElementsByClassName('govuk-body-s');
-    //   expect(message[0].innerHTML).contains('Don\'t have an account?', 'Could not find request account message');
-    // });
-    //
-    // it('should display request account link', () => {
-    //   const requestAccLink = htmlRes.getElementsByClassName('govuk-link');
-    //   expect(requestAccLink[1].innerHTML).contains('Create a Court and tribunal hearings account', 'Could not find request account link');
-    //   expect(requestAccLink[1].getAttribute('href')).contains('create-media-account', 'Link does not contain correct url');
-    // });
+    it('should display request account message', () => {
+      const message = htmlRes.getElementsByClassName('govuk-body-s');
+      expect(message[0].innerHTML).contains('Don\'t have an account?', 'Could not find request account message');
+    });
+
+    it('should display request account link', () => {
+      const requestAccLink = htmlRes.getElementsByClassName('govuk-link');
+      expect(requestAccLink[1].innerHTML).contains('Create a Court and tribunal hearings account', 'Could not find request account link');
+      expect(requestAccLink[1].getAttribute('href')).contains('create-media-account', 'Link does not contain correct url');
+    });
   });
 
   describe('with error state', () => {
