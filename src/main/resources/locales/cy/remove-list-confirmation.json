@@ -8,8 +8,10 @@
     "text": "Please select an option"
   },
   "summaryListHeaders": {
-    "courtName": "Court or tribunal name",
-    "publication": "Publication",
-    "date": "Publication date"
+    "courtName": "Court or Tribunal name",
+    "publication": "List Type",
+    "date": "Display Dates",
+    "language": "Language",
+    "sensitivity": "Sensitivity"
   }
 }
