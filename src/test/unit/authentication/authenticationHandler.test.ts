@@ -10,8 +10,7 @@ import {
   isPermittedAdmin,
   isPermittedAccountCreation,
   isPermittedManualUpload,
-  isPermittedMediaAccount, 
-  isAdminSessionExpire,
+  isPermittedMediaAccount,
   mediaVerificationHandling,
 }
   from '../../../main/authentication/authenticationHandler';
@@ -231,62 +230,37 @@ describe('forgot password reset', () => {
       .send({'error': 'access_denied', 'error_description': 'AADB2C90118'})
       .expect((res) => expect(res.redirect).to.be.true);
   });
-
-  describe('media verification handling', () => {
-    it('should redirect to account home with verified banner', async () => {
-      const mockRedirectFunction = jest.fn((argument) => argument);
-      const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}};
-      const res = {'redirect': mockRedirectFunction};
-
-      await mediaVerificationHandling(req, res);
-
-      expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-      expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home?verified=true');
-    });
-
-    it('should not redirect to account home if user role is not verified', async () => {
-      const mockRedirectFunction = jest.fn((argument) => argument);
-      const req = {'user': {'_json': {'extension_UserRole': 'INTERNAL_SUPER_ADMIN_LOCAL'}}};
-      const res = {'redirect': mockRedirectFunction};
-
-      await mediaVerificationHandling(req, res);
-
-      expect(mockRedirectFunction.mock.calls.length).to.equal(0);
-    });
-
-    it('should not redirect to account home if no user was provided', async () => {
-      const mockRedirectFunction = jest.fn((argument) => argument);
-      const req = {};
-      const res = {'redirect': mockRedirectFunction};
-
-      await mediaVerificationHandling(req, res);
-
-      expect(mockRedirectFunction.mock.calls.length).to.equal(0);
-    });
-  });
 });
 
-describe('Test admin session', () => {
-
-  it('check returns true when session expired', () => {
-    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpiry': new Date(Date.now() - 10000)}};
-    expect(isAdminSessionExpire(req)).to.be.true;
-  });
-
-  it('check returns false when session is not expired', () => {
-    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpiry': new Date(Date.now() + 100000)}};
-    expect(isAdminSessionExpire(req)).to.be.false;
-  });
-
-  it('check returns false when user is not admin', () => {
-    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {'sessionExpiry': new Date(Date.now())}};
-    expect(isAdminSessionExpire(req)).to.be.false;
-  });
-
-  it('check returns false when fake session is not there', () => {
+describe('media verification handling', () => {
+  it('should redirect to account home with verified banner', async () => {
+    const mockRedirectFunction = jest.fn((argument) => argument);
     const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}};
-    expect(isAdminSessionExpire(req)).to.be.false;
+    const res = {'redirect': mockRedirectFunction};
+
+    await mediaVerificationHandling(req, res);
+
+    expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+    expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home?verified=true');
   });
 
-});
+  it('should not redirect to account home if user role is not verified', async () => {
+    const mockRedirectFunction = jest.fn((argument) => argument);
+    const req = {'user': {'_json': {'extension_UserRole': 'INTERNAL_SUPER_ADMIN_LOCAL'}}};
+    const res = {'redirect': mockRedirectFunction};
 
+    await mediaVerificationHandling(req, res);
+
+    expect(mockRedirectFunction.mock.calls.length).to.equal(0);
+  });
+
+  it('should not redirect to account home if no user was provided', async () => {
+    const mockRedirectFunction = jest.fn((argument) => argument);
+    const req = {};
+    const res = {'redirect': mockRedirectFunction};
+
+    await mediaVerificationHandling(req, res);
+
+    expect(mockRedirectFunction.mock.calls.length).to.equal(0);
+  });
+});
