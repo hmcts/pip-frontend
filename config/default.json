@@ -5,7 +5,6 @@
   },
   "secrets": {
     "pip-ss-kv": {
-      "B2C_URL": "https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com",
       "CLIENT_SECRET": "client-secret",
       "SESSION_SECRET": "super-session-secret",
       "REDIS_HOST": "127.0.0.1",
