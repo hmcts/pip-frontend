@@ -12,6 +12,7 @@ import {
   isPermittedManualUpload,
   isPermittedMediaAccount,
   mediaVerificationHandling,
+  processAccountSignIn,
 }
   from '../../../main/authentication/authenticationHandler';
 
@@ -262,5 +263,29 @@ describe('media verification handling', () => {
     await mediaVerificationHandling(req, res);
 
     expect(mockRedirectFunction.mock.calls.length).to.equal(0);
+  });
+});
+
+describe('process account sign-in', () => {
+  it('should redirect to admin dashboard for an admin user', async () => {
+    const mockRedirectFunction = jest.fn((argument) => argument);
+    const req = {'user': {'_json': {'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC'}}};
+    const res = {'redirect': mockRedirectFunction};
+
+    await processAccountSignIn(req, res);
+
+    expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+    expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/admin-dashboard');
+  });
+
+  it('should redirect to account home for a media user', async () => {
+    const mockRedirectFunction = jest.fn((argument) => argument);
+    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}};
+    const res = {'redirect': mockRedirectFunction};
+
+    await processAccountSignIn(req, res);
+
+    expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+    expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
   });
 });

@@ -91,3 +91,14 @@ export async function mediaVerificationHandling(req, res): Promise<any> {
     }
   }
 }
+
+export async function processAccountSignIn(req, res): Promise<any> {
+  if(checkRoles(req, allAdminRoles)) {
+    const userInfo = req.user['_json'];
+    const response = await AccountManagementRequests.prototype.updateAccountLastSignedInDate(userInfo.oid);
+    console.log(response);
+    res.redirect('/admin-dashboard');
+  } else {
+    res.redirect('/account-home');
+  }
+}
