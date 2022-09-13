@@ -47,7 +47,7 @@ const piEndpoint = '/account/add/pi';
 const applicationGetEndpoint = '/application/';
 const imageGetEndpoint = '/application/image/';
 const piUserEndpoint = '/account/provenance/PI_AAD/';
-const updateMediaVerificationEndpoint = '/account/verification/';
+const updateAccountEndpoint = '/account/provenance/PI_AAD/';
 
 const status = 'APPROVED';
 const statusEndpoint = '/' + status;
@@ -356,26 +356,58 @@ describe('Account Management Requests', () => {
     const oid = '1234';
 
     it('should return confirmation string on success', async () => {
-      putStub.withArgs(updateMediaVerificationEndpoint + oid).resolves({status: 200, data: 'Media Account verified' });
+      putStub.withArgs(updateAccountEndpoint + oid).resolves({status: 200, data: 'Media Account verified' });
       const response = await accountManagementRequests.updateMediaAccountVerification(oid);
       expect(response).toBe('Media Account verified');
     });
 
     it('should return null on error request', async () => {
-      putStub.withArgs(updateMediaVerificationEndpoint + oid).rejects(errorRequest);
+      putStub.withArgs(updateAccountEndpoint + oid).rejects(errorRequest);
       const response = await accountManagementRequests.updateMediaAccountVerification(oid);
       expect(response).toBe(null);
     });
 
     it('should return false on error response', async () => {
-      putStub.withArgs(updateMediaVerificationEndpoint + oid).rejects(errorResponse);
+      putStub.withArgs(updateAccountEndpoint + oid).rejects(errorResponse);
       const response = await accountManagementRequests.updateMediaAccountVerification(oid);
       expect(response).toBe(null);
     });
 
     it('should return false on error message', async () => {
-      putStub.withArgs(updateMediaVerificationEndpoint + oid).rejects(errorMessage);
+      putStub.withArgs(updateAccountEndpoint + oid).rejects(errorMessage);
       const response = await accountManagementRequests.updateMediaAccountVerification(oid);
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Update account last signed in date', () => {
+    beforeEach(() => {
+      sinon.restore();
+      putStub = sinon.stub(accountManagementApi, 'put');
+    });
+    const oid = '1234';
+
+    it('should return confirmation string on success', async () => {
+      putStub.withArgs(updateAccountEndpoint + oid).resolves({status: 200, data: 'Account updated' });
+      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      expect(response).toBe('Account updated');
+    });
+
+    it('should return null on error request', async () => {
+      putStub.withArgs(updateAccountEndpoint + oid).rejects(errorRequest);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error response', async () => {
+      putStub.withArgs(updateAccountEndpoint + oid).rejects(errorResponse);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error message', async () => {
+      putStub.withArgs(updateAccountEndpoint + oid).rejects(errorMessage);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
       expect(response).toBe(null);
     });
   });
