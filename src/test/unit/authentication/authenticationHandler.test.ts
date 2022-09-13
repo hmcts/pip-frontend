@@ -11,7 +11,6 @@ import {
   isPermittedAccountCreation,
   isPermittedManualUpload,
   isPermittedMediaAccount,
-  isAdminSessionExpire,
   mediaVerificationHandling,
   processAccountSignIn,
 }
@@ -289,28 +288,4 @@ describe('process account sign-in', () => {
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
   });
-});
-
-describe('Test admin session', () => {
-
-  it('check returns true when session expired', () => {
-    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpiry': new Date(Date.now() - 10000)}};
-    expect(isAdminSessionExpire(req)).to.be.true;
-  });
-
-  it('check returns false when session is not expired', () => {
-    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpiry': new Date(Date.now() + 100000)}};
-    expect(isAdminSessionExpire(req)).to.be.false;
-  });
-
-  it('check returns false when user is not admin', () => {
-    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {'sessionExpiry': new Date(Date.now())}};
-    expect(isAdminSessionExpire(req)).to.be.false;
-  });
-
-  it('check returns false when fake session is not there', () => {
-    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}};
-    expect(isAdminSessionExpire(req)).to.be.false;
-  });
-
 });
