@@ -55,8 +55,8 @@ export class PublicationService {
       artefact.search.cases.forEach(singleCase => {
         if (singleCase.caseName.toLowerCase().includes(value.toLowerCase())) {
           const alreadyExists = matches.find(m => m.caseName === singleCase.caseName
-          && m.caseUrn === singleCase.caseUrn
-          && m.caseNumber === singleCase.caseNumber);
+            && m.caseUrn === singleCase.caseUrn
+            && m.caseNumber === singleCase.caseNumber);
           if(!alreadyExists) {
             matches.push(singleCase);
           }
@@ -92,12 +92,11 @@ export class PublicationService {
    */
   public languageToLoadPageIn(listLanguage: string, userLanguage: string): string {
     if ((listLanguage === 'BI_LINGUAL') ||
-       (listLanguage === 'ENGLISH' && userLanguage !== 'en') ||
-       (listLanguage === 'WELSH' && userLanguage !== 'cy')) {
+        (listLanguage === 'ENGLISH' && userLanguage !== 'en') ||
+        (listLanguage === 'WELSH' && userLanguage !== 'cy')) {
       return 'bill';
     } else {
       return userLanguage;
     }
   }
 }
-

@@ -1,6 +1,7 @@
 import {accountManagementApi, accountManagementApiUrl, getAccountManagementCredentials} from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
 import {MediaAccountApplication} from '../../models/MediaAccountApplication';
+import moment from 'moment-timezone';
 
 const superagent = require('superagent');
 const logger = Logger.getLogger('requests');
@@ -162,16 +163,26 @@ export class AccountManagementRequests {
   }
 
   public async updateMediaAccountVerification(oid: string): Promise<string> {
+    return this.updateAccountDate(oid, 'lastVerifiedDate', 'Failed to verify media account');
+  }
+
+  public async updateAccountLastSignedInDate(oid: string): Promise<string> {
+    return this.updateAccountDate(oid, 'lastSignedInDate', 'Failed to update account last signed in date');
+  }
+
+  private async updateAccountDate(oid: string, field: string, errorMessage: string): Promise<string> {
     try {
-      const response = await accountManagementApi.put('/account/verification/' + oid);
+      const map = {};
+      map[field] = moment().tz('Europe/London').toISOString();
+      const response = await accountManagementApi.put(`/account/provenance/PI_AAD/${oid}`, map);
       return response.data;
     } catch (error) {
       if (error.response) {
-        logger.error('Failed to verify media account', error.response.data);
+        logger.error(errorMessage, error.response.data);
       } else if (error.request) {
-        logger.error('Failed to verify media account', error.request);
+        logger.error(errorMessage, error.request);
       } else {
-        logger.error('Failed to verify media account', error.message);
+        logger.error(errorMessage, error.message);
       }
       return null;
     }

@@ -54,7 +54,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieSession({
   name: 'session',
   keys: [config.get('secrets.pip-ss-kv.SESSION_SECRET')],
-  maxAge: 60 * 60 * 1000,
   secure: true,
 }));
 logger.info('SESSION Secret', config.get('secrets.pip-ss-kv.SESSION_SECRET'));
