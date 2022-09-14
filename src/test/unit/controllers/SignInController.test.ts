@@ -4,7 +4,8 @@ import { mockRequest } from '../mocks/mockRequest';
 import SignInController from '../../../main/controllers/SignInController';
 
 const signInController = new SignInController();
-const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
+const CFTAccountUrl = '/cft-login';
+const CrimeAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
 const piUrl = '/login?p=B2C_1_SignInUserFlow';
 
 describe('Sign In Option Controller', () => {
@@ -45,7 +46,7 @@ describe('Sign In Option Controller', () => {
     request.body = { 'sign-in': 'hmcts'};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs(HMCTSAccountUrl);
+    responseMock.expects('redirect').once().withArgs(CFTAccountUrl);
     signInController.post(request, response);
     responseMock.verify();
   });
@@ -56,7 +57,7 @@ describe('Sign In Option Controller', () => {
     request.body = { 'sign-in': 'common'};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs(HMCTSAccountUrl);
+    responseMock.expects('redirect').once().withArgs(CrimeAccountUrl);
     signInController.post(request, response);
     responseMock.verify();
   });
