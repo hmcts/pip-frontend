@@ -1,6 +1,7 @@
 import {accountManagementApi, accountManagementApiUrl, getAccountManagementCredentials} from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
 import {MediaAccountApplication} from '../../models/MediaAccountApplication';
+import moment from 'moment-timezone';
 
 const superagent = require('superagent');
 const logger = Logger.getLogger('requests');
@@ -145,10 +146,10 @@ export class AccountManagementRequests {
     }
   }
 
-  public async getPiUserByAzureOid(oid: string): Promise<string> {
+  public async getPiUserByAzureOid(oid: string): Promise<any> {
     try {
       const response = await accountManagementApi.get(`/account/provenance/PI_AAD/${oid}`);
-      return response.data.userId;
+      return response.data;
     } catch (error) {
       if (error.response) {
         logger.error('Failed to GET PI user request', error.response.data);
@@ -156,6 +157,32 @@ export class AccountManagementRequests {
         logger.error('Request failed for Pi user', error.request);
       } else {
         logger.error('Something went wrong trying to get the pi user from the oid', error.message);
+      }
+      return null;
+    }
+  }
+
+  public async updateMediaAccountVerification(oid: string): Promise<string> {
+    return this.updateAccountDate(oid, 'lastVerifiedDate', 'Failed to verify media account');
+  }
+
+  public async updateAccountLastSignedInDate(oid: string): Promise<string> {
+    return this.updateAccountDate(oid, 'lastSignedInDate', 'Failed to update account last signed in date');
+  }
+
+  private async updateAccountDate(oid: string, field: string, errorMessage: string): Promise<string> {
+    try {
+      const map = {};
+      map[field] = moment().tz('Europe/London').toISOString();
+      const response = await accountManagementApi.put(`/account/provenance/PI_AAD/${oid}`, map);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error(errorMessage, error.response.data);
+      } else if (error.request) {
+        logger.error(errorMessage, error.request);
+      } else {
+        logger.error(errorMessage, error.message);
       }
       return null;
     }

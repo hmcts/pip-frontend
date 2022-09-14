@@ -22,6 +22,7 @@ const mockPublications = [
     locationId: '5',
     artefactId: 'valid-artefact',
     language: 'ENGLISH',
+    sensitivity: 'PUBLIC',
   },
   {
     listItem: 'SJP_PUBLIC_LIST',
@@ -32,6 +33,7 @@ const mockPublications = [
     locationId: '5',
     artefactId: 'valid-artefact-777',
     language: 'WELSH',
+    sensitivity: 'CLASSIFIED',
   },
   {
     listItem: 'SJP_PUBLIC_LIST',
@@ -42,10 +44,12 @@ const mockPublications = [
     locationId: '5',
     artefactId: 'valid-artefact-777',
     language: 'BI_LINGUAL',
+    sensitivity: 'CLASSIFIED',
   },
 ];
-const tableHeaders = ['List type', 'Court', 'Date', 'Language', 'Actions'];
+const tableHeaders = ['List type', 'Court', 'Date', 'Language', 'Sensitivity', 'Actions'];
 const languageRowValues = ['English', 'Welsh', 'Bilingual'];
+const sensitivityValues = ['Public', 'Classified', 'Classified'];
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs('5', true, true).resolves(mockPublications);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns(mockPublications);
@@ -91,7 +95,8 @@ describe('Remove List Summary Page', () => {
       expect(rowCells[1].innerHTML).contains(mockCourt.name, 'Could not find valid court name');
       expect(rowCells[2].innerHTML).contains(mockPublications[i].dateRange, 'Could not find valid list date range');
       expect(rowCells[3].innerHTML).contains(languageRowValues[i], 'Could not find valid language');
-      expect(rowCells[4].innerHTML).contains('Remove', 'Could not find valid action');
+      expect(rowCells[4].innerHTML).contains(sensitivityValues[i], 'Could not find valid sensitivity');
+      expect(rowCells[5].innerHTML).contains('Remove', 'Could not find valid action');
       expect(removeActionHref).contains(`remove-list-confirmation?artefact=${mockPublications[i].artefactId}`,
         'Could not find valid action href');
     }

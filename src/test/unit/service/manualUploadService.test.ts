@@ -55,8 +55,9 @@ const expectedRemoveList = [
   },
 ];
 
-const englishLanguage = 'eng';
+const englishLanguage = 'en';
 const welshLanguage = 'cy';
+const languageFile = 'manual-upload';
 
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtData);
 sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(true);
@@ -110,83 +111,83 @@ describe('Manual upload service', () => {
     });
 
     it('should return null if all validated fields pass', async () => {
-      expect(await manualUploadService.validateFormFields(formValues, englishLanguage)).to.be.null;
+      expect(await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile)).to.be.null;
     });
 
     it('should return null if all validated fields pass', async () => {
-      expect(await manualUploadService.validateFormFields(formValues, welshLanguage)).to.be.null;
+      expect(await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile)).to.be.null;
     });
 
     it('should return invalid court error message', async () => {
       formValues['input-autocomplete'] = 'invalidCourt';
-      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage);
+      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
       expect(errors['courtError']).to.equal('Please enter and select a valid court');
     });
 
     it('should return invalid court error message', async () => {
       formValues['input-autocomplete'] = 'invalidCourt';
-      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage);
-      expect(errors['courtError']).to.equal('Nodwch a dewiswch lys dilys');
+      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
+      expect(errors['courtError']).to.equal('Please enter and select a valid court');
     });
 
     it('should return character minimum error message', async () => {
       formValues['input-autocomplete'] = 'ab';
-      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage);
+      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
       expect(errors['courtError']).to.equal('Court name must be three characters or more');
     });
 
     it('should return character minimum error message', async () => {
       formValues['input-autocomplete'] = 'ab';
-      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage);
-      expect(errors['courtError']).to.equal('Rhaid i enw llys fod yn dri nod neu fwy');
+      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
+      expect(errors['courtError']).to.equal('Court name must be three characters or more');
     });
 
     it('should return error when invalid content date from is passed', async () => {
       formValues['content-date-from-day'] = '1';
       formValues['content-date-from-month'] = '1';
       formValues['content-date-from-year'] = '1';
-      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage);
+      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
       expect(errors['contentDateError']).to.equal('Please enter a valid date');
     });
 
-    it('should return error when invalid content date from is passed', async () => {
+    it('should return error when invalid content date from is passed for Welsh language', async () => {
       formValues['content-date-from-day'] = '1';
       formValues['content-date-from-month'] = '1';
       formValues['content-date-from-year'] = '1';
-      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage);
-      expect(errors['contentDateError']).to.equal('Rhowch ddyddiad dilys');
+      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
+      expect(errors['contentDateError']).to.equal('Please enter a valid date');
     });
 
     it('should return error when invalid display date from is passed', async () => {
       formValues['display-date-from-day'] = '1';
       formValues['display-date-from-month'] = '1';
       formValues['display-date-from-year'] = '1';
-      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage);
+      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
       expect(errors['displayDateError']['from']).to.equal('Please enter a valid date');
     });
 
-    it('should return error when invalid display date from is passed', async () => {
+    it('should return error when invalid display date from is passed for Welsh language', async () => {
       formValues['display-date-from-day'] = '1';
       formValues['display-date-from-month'] = '1';
       formValues['display-date-from-year'] = '1';
-      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage);
-      expect(errors['displayDateError']['from']).to.equal('Rhowch ddyddiad dilys');
+      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
+      expect(errors['displayDateError']['from']).to.equal('Please enter a valid date');
     });
 
     it('should return error when invalid display date to is passed', async () => {
       formValues['display-date-to-day'] = '1';
       formValues['display-date-to-month'] = '1';
       formValues['display-date-to-year'] = '1';
-      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage);
+      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
       expect(errors['displayDateError']['to']).to.equal('Please enter a valid date');
     });
 
-    it('should return error when invalid display date to is passed', async () => {
+    it('should return error when invalid display date to is passed for Welsh language', async () => {
       formValues['display-date-to-day'] = '1';
       formValues['display-date-to-month'] = '1';
       formValues['display-date-to-year'] = '1';
-      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage);
-      expect(errors['displayDateError']['to']).to.equal('Rhowch ddyddiad dilys');
+      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
+      expect(errors['displayDateError']['to']).to.equal('Please enter a valid date');
     });
 
     it('should return error when invalid date range is passed', async () => {
@@ -196,19 +197,19 @@ describe('Manual upload service', () => {
       formValues['display-date-to-day'] = '01';
       formValues['display-date-to-month'] = '01';
       formValues['display-date-to-year'] = '2022';
-      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage);
+      const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
       expect(errors['displayDateError']['range']).to.equal('Please make sure \'to\' date is after \'from\' date');
     });
 
-    it('should return error when invalid date range is passed', async () => {
+    it('should return error when invalid date range is passed for Welsh language', async () => {
       formValues['display-date-from-day'] = '02';
       formValues['display-date-from-month'] = '01';
       formValues['display-date-from-year'] = '2022';
       formValues['display-date-to-day'] = '01';
       formValues['display-date-to-month'] = '01';
       formValues['display-date-to-year'] = '2022';
-      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage);
-      expect(errors['displayDateError']['range']).to.equal('Gwnewch yn siŵr bod y dyddiad \'hyd\' ar ôl y dyddiad \'o\'');
+      const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
+      expect(errors['displayDateError']['range']).to.equal('Please make sure \'to\' date is after \'from\' date');
     });
 
     it('should formatted date-from date correctly', async () => {

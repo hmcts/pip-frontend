@@ -9,7 +9,6 @@ import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferen
 import { LocationNameSearchPage } from '../PageObjects/LocationNameSearchPage';
 import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
 import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
-import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
 import { DailyCauseListPage } from '../PageObjects/DailyCauseList.page';
 import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
@@ -18,7 +17,6 @@ import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtS
 import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
 import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
 import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
-import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
 import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { RemoveListConfirmationPage } from '../PageObjects/RemoveListConfirmation.page';
 import { RemoveListSearchPage } from '../PageObjects/RemoveListSearch.page';
@@ -29,6 +27,7 @@ import { SignInPage } from '../PageObjects/SignIn.page';
 import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
 import { SJPPublicListPage } from '../PageObjects/SJPPublicList.page';
 import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
+import { SubscriptionConfigureListPage } from '../PageObjects/SubscriptionConfigureList.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
 import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
 import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
@@ -41,6 +40,8 @@ import {MediaAccountReviewPage} from '../PageObjects/MediaAccountReview.page';
 import {MediaAccountApprovalPage} from '../PageObjects/MediaAccountApproval.page';
 import {MediaAccountRejectionPage} from '../PageObjects/MediaAccountRejection.page';
 import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccountRejectionConfirmation.page';
+import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
+import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -85,6 +86,7 @@ let mediaAccountReviewPage: MediaAccountReviewPage;
 let mediaAccountApprovalPage: MediaAccountApprovalPage;
 let mediaAccountRejectionPage: MediaAccountRejectionPage;
 let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
+let subscriptionConfigureListPage: SubscriptionConfigureListPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -115,7 +117,7 @@ describe('Unverified user', () => {
     });
 
     describe('following the search court path', async () => {
-      const searchTerm = 'High Wycombe County Court and Family Court';
+      const searchTerm = 'High Wycombe Magistrates and County Court';
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
@@ -134,7 +136,7 @@ describe('Unverified user', () => {
         await searchPage.open('/search');
       });
 
-      const searchTerm = 'High Wycombe County Court and Family Court';
+      const searchTerm = 'High Wycombe Magistrates and County Court';
       it('should click on \'Select from an A-Z list of courts and tribunals\' link ', async () => {
         alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
@@ -413,6 +415,26 @@ describe('Verified user', () => {
         subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
         expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription(s) confirmed');
       });
+    });
+
+    //TODO: To be expanded on as the E2E tests are created for the configure list flow
+    describe('configure list subscriptions', async () => {
+      before(async () => {
+        await subscriptionConfigureListPage.open('subscription-configure-list');
+      });
+
+      //TODO: To be uncommented once subscription management (1511) has been merged in
+
+      // it('should select first jurisdiction filter', async () => {
+      //   await subscriptionConfigureListPage.selectOption('JurisdictionFilter1');
+      //   expect(await subscriptionConfigureListPage.jurisdictionChecked()).toBeTruthy();
+      // });
+      //
+      // it('should click on the apply filters button', async () => {
+      //   subscriptionConfigureListPage = await subscriptionConfigureListPage.clickApplyFiltersButton();
+      //   expect(await subscriptionConfigureListPage.getPageTitle()).toBe('Select List Types');
+      // });
+
     });
 
     describe('remove subscription', async () => {

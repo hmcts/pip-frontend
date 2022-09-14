@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="parent-box">
   <h1 class="govuk-heading-l">{{ title }}</h1>
 
   <div id="section1">
@@ -105,4 +106,6 @@
     <h3 class="govuk-heading-s">{{ section11.smallHeading3 }}</h3>
     <p class="govuk-body">{{ section11.text10 }}</p>
   </div>
+  {{ super() }}
+</div>
 {% endblock %}

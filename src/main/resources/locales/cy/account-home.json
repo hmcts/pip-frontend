@@ -1,0 +1,21 @@
+{
+  "title": "eich cyfrif",
+  "cards": [
+    {
+      "title": "Gwrandawiadau llys a thribiwnlys",
+      "description": "Gweld amser, lleoliad. Math o wrandawiad a mwy.",
+      "link": "search"
+    },
+    {
+      "title": "Achosion Gweithdrefn Un Ynad",
+      "description": "Achosion sy’n barod i’w penderfynu gan ynad heb gynnal gwrandawiad. Mae’n cynnwys troseddau trwyddedu teledu a mân droseddau traffig fel goryrru.",
+      "link": "summary-of-publications?locationId=9"
+    },
+    {
+      "title": "Tanysgrifiadau e-bost",
+      "description": "Cael e-byst am wrandawiadau gan wahanol lysoedd a thribiwnlysoedd a rheoli eich tanysgrifiadau.",
+      "link": "subscription-management"
+    }
+  ],
+  "backButton": "Yn ôl"
+}

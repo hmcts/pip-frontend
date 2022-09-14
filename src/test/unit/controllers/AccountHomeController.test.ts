@@ -11,7 +11,18 @@ describe('Account home controller', () => {
     const request = mockRequest({'account-home': {}});
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('account-home', request.i18n.getDataByLanguage(request.lng)['account-home']);
+    const i18n = {
+      'account-home': {},
+    };
+
+    request.query = {verified: 'false'};
+
+    const expectedData = {
+      ...i18n['account-home'],
+      showVerifiedBanner: 'false',
+    };
+
+    responseMock.expects('render').once().withArgs('account-home', expectedData);
     accountHomeController.get(request, response);
     responseMock.verify();
   });

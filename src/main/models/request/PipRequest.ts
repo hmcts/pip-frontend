@@ -28,7 +28,6 @@ export interface PipRequest extends Request {
       'manual-upload-summary': {};
       'media-applications': {};
       'not-found': {};
-      'otp-template': {};
       'remove-list-confirmation': {};
       'remove-list-search': {};
       'remove-list-search-results': {};
@@ -40,6 +39,7 @@ export interface PipRequest extends Request {
       'single-justice-procedure': {};
       'standard-list': {};
       'subscription-add': {};
+      'subscription-configure-list': {};
       'subscription-management': {};
       'subscription-urn-search': {};
       'subscription-urn-search-result': {};

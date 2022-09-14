@@ -1,21 +1,12 @@
 import { LocationRequests } from '../resources/requests/locationRequests';
 import { Location } from '../models/location';
+import {LanguageFileParser} from '../helpers/languageFileParser';
+import {AToZHelper} from '../helpers/aToZHelper';
 
 const locationRequest = new LocationRequests();
+const languageFileParser = new LanguageFileParser();
 
 export class LocationService {
-  public static generateAlphabetObject(): object {
-    // create the object for the possible alphabet options
-    const alphabetOptions = {};
-
-    for (let i = 0; i < 26; i++) {
-      const letter = String.fromCharCode(65 + i);
-      alphabetOptions[letter] = {};
-    }
-
-    return alphabetOptions;
-  }
-
   public sortCourtsAlphabetically(courtsList: Location[]): Location[] {
     return courtsList.sort((a, b) => (a.name > b.name) ? 1 : -1);
   }
@@ -78,7 +69,7 @@ export class LocationService {
   }
 
   private generateAlphabetisedCourtList(listToAlphabetise: Array<Location>): object {
-    const alphabetisedCourtList = LocationService.generateAlphabetObject();
+    const alphabetisedCourtList = AToZHelper.generateAlphabetObject();
     const sortedCourtsList = this.sortCourtsAlphabetically(listToAlphabetise);
 
     sortedCourtsList.forEach(item => {
@@ -90,18 +81,11 @@ export class LocationService {
     return alphabetisedCourtList;
   }
 
-  public findCourtName(location: Location, language: string): string {
+  public findCourtName(location: Location, language: string, languageFile: string): string {
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     let courtName = '';
     if(location == null) {
-      switch(language) {
-        case 'cy': {
-          return 'Llys ar Goll';
-        }
-
-        default: {
-          return 'Missing Court';
-        }
-      }
+      return languageFileParser.getText(fileJson, null, 'missingCourt');
     }
 
     switch(language) {
@@ -118,4 +102,5 @@ export class LocationService {
 
     return courtName;
   }
+
 }

@@ -7,7 +7,7 @@ import {dataManagementApi} from '../../../main/resources/requests/utils/axiosCon
 const Blob = require('node-blob');
 const rawDataPubs = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/summaryOfPublications.json'), 'utf-8');
 const pubs = JSON.parse(rawDataPubs);
-const totalCases = 3;
+const totalCases = 6;
 const pubRequests = new PublicationRequests();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
 const dailyCauseListData = JSON.parse(rawData);

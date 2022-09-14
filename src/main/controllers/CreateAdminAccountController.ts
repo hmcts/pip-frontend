@@ -19,7 +19,7 @@ export default class CreateAdminAccountController {
 
   public post(req: PipRequest, res: Response): void {
     const formData = req.body;
-    const formValidation = createAccountService.validateAdminFormFields(formData);
+    const formValidation = createAccountService.validateAdminFormFields(formData, req.lng as string, 'create-admin-account');
     const isValidForm = Object.values(formValidation).every(o => o.message === null);
     if (isValidForm) {
       formData.userRoleObject = createAccountService.getRoleByKey(formData['user-role']);

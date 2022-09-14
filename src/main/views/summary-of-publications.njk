@@ -10,6 +10,7 @@
   {{ goBack(text = backButton) }}
 {% endblock %}
 {% block content %}
+<div class="parent-box">
   <h1 class="govuk-heading-l">{{ title }} {{ locationName }}?</h1>
   {% if publications.length === 0 %}
     <p class="govuk-body govuk-!-font-size-16">{{ noLists }}</p>
@@ -18,7 +19,7 @@
     <div class="parent-box">
     {% set pubs = [] %}
     <ul class="no-bullets-list">
-      {% for item in publications |sort(reverse= true, attribute="contentDate") %}
+      {% for item in publications | sort(attribute="listType") | sort(reverse= true, attribute="contentDate") %}
         <li class="govuk-body govuk-!-font-size-16">
           {% if item.isFlatFile %}
             <a class=das-search-results__link target=”_blank” href="file-publication?artefactId={{ item.artefactId }}">
@@ -37,6 +38,7 @@
   <br/>
   {{ super() }}
   </div>
+</div>
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}

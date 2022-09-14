@@ -1,28 +1,28 @@
 import { Application } from 'express';
 import { infoRequestHandler } from '@hmcts/info-provider';
 import { Logger } from '@hmcts/nodejs-logging';
-import cors  from 'cors';
 import os from 'os';
 import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 import {
-  allAdminRoles,
   isPermittedAdmin,
   isPermittedMedia,
   isPermittedMediaAccount,
   isPermittedAccountCreation,
   isPermittedManualUpload,
-  checkRoles,
   forgotPasswordRedirect,
+  mediaVerificationHandling,
+  processAdminAccountSignIn,
+  processMediaAccountSignIn,
 } from '../authentication/authenticationHandler';
+import {SessionManagementService} from '../service/sessionManagementService';
 
-import config from 'config';
-
-const authenticationConfig = require('../authentication/authentication-config.json');
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const multer = require('multer');
 const logger = Logger.getLogger('routes');
+const sessionManagement = new SessionManagementService();
+
 export default function(app: Application): void {
   const storage = multer.diskStorage({
     destination: 'manualUpload/tmp/',
@@ -38,31 +38,14 @@ export default function(app: Application): void {
     fileErrorHandlerMiddleware(err, req, res, next);
   };
 
-  const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
-  logger.info('FRONTEND_URL', FRONTEND_URL);
-  const corsOptions = {
-    origin: 'https://pib2csbox.b2clogin.com',
-    methods: ['GET', 'OPTIONS'],
-    allowedHeaders: '*',
-    exposedHeaders: '*',
-    optionsSuccessStatus: 200,
-  };
-
   function globalAuthGiver(req, res, next): void{
+    if(sessionManagement.handleSessionExpiry(req, res)) {
+      return;
+    }
+
     //this function allows us to share authentication status across all views
     res.locals.isAuthenticated = req.isAuthenticated();
     next();
-  }
-
-  function logOut(_req, res, redirectUrl): void{
-    res.clearCookie('session');
-    logger.info('logout FE URL', FRONTEND_URL);
-
-    const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
-    const encodedSignOutRedirect = encodeURIComponent(redirectUrl);
-    logger.info('B2C_URL', B2C_URL);
-    logger.info('encodedSignOutRedirect', encodedSignOutRedirect);
-    res.redirect(`${B2C_URL}/${authenticationConfig.POLICY}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
   }
 
   function regenerateSession(req, res): void {
@@ -93,18 +76,16 @@ export default function(app: Application): void {
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/password-change-confirmation/:isAdmin', app.locals.container.cradle.passwordChangeController.get);
   app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
+  app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}), regenerateSession);
   app.get('/login', passport.authenticate('login', { failureRedirect: '/'}), regenerateSession);
   app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/'}), regenerateSession);
-  app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}),
-    (_req, res) => {checkRoles(_req, allAdminRoles) ? logOut(_req, res, `${FRONTEND_URL}/admin-rejected-login`) : res.redirect('/account-home');});
-  app.post('/login/admin/return', forgotPasswordRedirect, passport.authenticate('admin-login', { failureRedirect: '/view-option'}),
-    (_req, res) => {checkRoles(_req, allAdminRoles) ? res.redirect('/admin-dashboard') : res.redirect('/view-option');});
-  app.get('/logout', (_req, res) => {checkRoles(_req, allAdminRoles) ?
-    logOut(_req, res, `${FRONTEND_URL}/login?p=`+ authenticationConfig.ADMIN_POLICY) : logOut(_req, res, `${FRONTEND_URL}/view-option`);});
+  app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res, false));
+  app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}), processMediaAccountSignIn);
+  app.post('/login/admin/return', forgotPasswordRedirect, passport.authenticate('admin-login', { failureRedirect: '/view-option'}), processAdminAccountSignIn);
+  app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}), mediaVerificationHandling);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
-  app.get('/otp-template', cors(corsOptions), app.locals.container.cradle.otpTemplateController.get);
   app.get('/search', app.locals.container.cradle.searchController.get);
   app.post('/search', app.locals.container.cradle.searchController.post);
   app.get('/sign-in', app.locals.container.cradle.signInController.get);
@@ -136,6 +117,10 @@ export default function(app: Application): void {
   app.post('/subscription-add', isPermittedMedia, app.locals.container.cradle.subscriptionAddController.post);
   app.post('/subscription-confirmed', isPermittedMedia, app.locals.container.cradle.subscriptionConfirmedController.post);
   app.get('/subscription-management', isPermittedMedia, app.locals.container.cradle.subscriptionManagementController.get);
+  app.get('/subscription-configure-list', isPermittedMedia, app.locals.container.cradle.subscriptionConfigureListController.get);
+  app.post('/subscription-configure-list', isPermittedMedia, app.locals.container.cradle.subscriptionConfigureListController.filterValues);
+  app.post('/subscription-configure-list-confirmed', isPermittedMedia,
+    app.locals.container.cradle.subscriptionConfigureListConfirmedController.post);
   app.get('/subscription-urn-search', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchController.get);
   app.post('/subscription-urn-search', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchController.post);
   app.get('/subscription-urn-search-results', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchResultController.get);

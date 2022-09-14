@@ -12,5 +12,6 @@
   "backToTop": "Back to top",
   "newWindow": "(opens in a new window)",
   "noLists": "Sorry, no lists found for this court",
-  "backButton": "Back"
+  "backButton": "Back",
+  "missingCourt": "Missing Court"
 }

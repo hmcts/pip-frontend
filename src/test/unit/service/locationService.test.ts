@@ -24,8 +24,9 @@ const alphabet = [
 ];
 const validCourt = 'Abergavenny Magistrates\' Court';
 const validWelshCourt = 'Llys Ynadon y Fenni';
-const englishLanguage = 'eng';
+const englishLanguage = 'en';
 const welshLanguage = 'cy';
+const englishLanguageFile = 'sscs-daily-list';
 
 stubCourtsFilter.withArgs('', 'Crown', englishLanguage).returns(hearingsData);
 stubCourt.withArgs(1).returns(hearingsData[0]);
@@ -80,19 +81,19 @@ describe('Court Service', () => {
   });
 
   it('should return found court name in for english', async () => {
-    expect(await courtService.findCourtName(hearingsData[0], englishLanguage)).to.equal('Abergavenny Magistrates\' Court');
+    expect(await courtService.findCourtName(hearingsData[0], englishLanguage, englishLanguageFile)).to.equal('Abergavenny Magistrates\' Court');
   });
 
   it('should return found court name in for welsh', async () => {
-    expect(await courtService.findCourtName(hearingsData[0], welshLanguage)).to.equal('Llys Ynadon y Fenni');
+    expect(await courtService.findCourtName(hearingsData[0], welshLanguage, englishLanguageFile)).to.equal('Llys Ynadon y Fenni');
   });
 
   it('should return missing court for english if court is not found', async () => {
-    expect(await courtService.findCourtName(null, englishLanguage)).to.equal('Missing Court');
+    expect(await courtService.findCourtName(null, englishLanguage, englishLanguageFile)).to.equal('Missing Court');
   });
 
   it('should return missing court for welsh if court is not found', async () => {
-    expect(await courtService.findCourtName(null, welshLanguage)).to.equal('Llys ar Goll');
+    expect(await courtService.findCourtName(null, welshLanguage, englishLanguageFile)).to.equal('Llys ar Goll');
   });
 
   it(`should return object with ${validKeysCount} keys`, async () => {
@@ -145,4 +146,5 @@ describe('Court Service', () => {
   it('it should return list as it is if there is only 1 court in the list', () => {
     expect(courtService.sortCourtsAlphabetically([hearingsData[0]])).to.deep.equal([hearingsData[0]]);
   });
+
 });

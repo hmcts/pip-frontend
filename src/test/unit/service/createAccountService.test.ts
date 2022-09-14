@@ -150,6 +150,10 @@ const createAzureAccountStub = sinon.stub(AccountManagementRequests.prototype, '
 const createPIAccStub = sinon.stub(AccountManagementRequests.prototype, 'createPIAccount');
 const createMediaAccStub = sinon.stub(AccountManagementRequests.prototype, 'createMediaAccount');
 
+const englishLanguage = 'en';
+const createMediaAccountLanguageFile = 'create-media-account';
+const createAdminAccountLanguageFile = 'create-admin-account';
+
 describe('Create Account Service', () => {
   describe('isValidEmail', () => {
     it('should return false if invalid email format is provided', () => {
@@ -163,16 +167,17 @@ describe('Create Account Service', () => {
 
   describe('validateEmail', () => {
     it('should return null if valid email is provided', () => {
-      expect(createAccountService.validateEmail('joe.bloggs@hotmail.com')).toBe(null);
+      expect(createAccountService.validateEmail('joe.bloggs@hotmail.com', englishLanguage, createMediaAccountLanguageFile))
+        .toBe(null);
     });
 
     it('should return error message if invalid email is provided', () => {
-      expect(createAccountService.validateEmail('joe.bloggs@mail'))
+      expect(createAccountService.validateEmail('joe.bloggs@mail', englishLanguage, createMediaAccountLanguageFile))
         .toBe('There is a problem - Enter an email address in the correct format, like name@example.com');
     });
 
     it('should return error message if email is not provided', () => {
-      expect(createAccountService.validateEmail(''))
+      expect(createAccountService.validateEmail('', englishLanguage, createMediaAccountLanguageFile))
         .toBe('There is a problem - Email address field must be populated');
     });
   });
@@ -194,79 +199,79 @@ describe('Create Account Service', () => {
 
   describe('validateMediaFullName', () => {
     it('should return null if no errors', () => {
-      expect(createAccountService.validateMediaFullName('test user')).toBeNull();
+      expect(createAccountService.validateMediaFullName('test user', englishLanguage, createMediaAccountLanguageFile)).toBeNull();
     });
 
     it('should return error if name is not populated', () => {
-      expect(createAccountService.validateMediaFullName(''))
+      expect(createAccountService.validateMediaFullName('', englishLanguage, createMediaAccountLanguageFile))
         .toEqual('There is a problem - Full name field must be populated');
     });
 
     it('should return error if name starts with a space', () => {
-      expect(createAccountService.validateMediaFullName(' test user'))
+      expect(createAccountService.validateMediaFullName(' test user', englishLanguage, createMediaAccountLanguageFile))
         .toEqual('There is a problem - Full name field must not start with a space');
     });
 
     it('should return error if name contains double space', () => {
-      expect(createAccountService.validateMediaFullName('test  user'))
+      expect(createAccountService.validateMediaFullName('test  user', englishLanguage, createMediaAccountLanguageFile))
         .toEqual('There is a problem - Full name field must not contain double spaces');
     });
 
     it('should return error if name does not contain at least 1 space', () => {
-      expect(createAccountService.validateMediaFullName('testuser'))
+      expect(createAccountService.validateMediaFullName('testuser', englishLanguage, createMediaAccountLanguageFile))
         .toEqual('There is a problem - Your full name will be needed to support your application for an account');
     });
   });
 
   describe('validateMediaEmailAddress', () => {
     it('should return null if no errors', () => {
-      expect(createAccountService.validateMediaEmailAddress('test@email.com')).toBeNull();
+      expect(createAccountService.validateMediaEmailAddress('test@email.com', englishLanguage, createMediaAccountLanguageFile)).toBeNull();
     });
 
     it('should return error if email starts with a space', () => {
-      expect(createAccountService.validateMediaEmailAddress(' test@email.com'))
+      expect(createAccountService.validateMediaEmailAddress(' test@email.com', englishLanguage, createMediaAccountLanguageFile))
         .toEqual('There is a problem - Email address field cannot start with a space');
     });
 
     it('should return error if email contains double space', () => {
-      expect(createAccountService.validateMediaEmailAddress('test@email.com  '))
+      expect(createAccountService.validateMediaEmailAddress('test@email.com  ', englishLanguage, createMediaAccountLanguageFile))
         .toEqual('There is a problem - Email address field cannot contain double spaces');
     });
   });
 
   describe('validateMediaEmployer', () => {
     it('should return null if no errors', () => {
-      expect(createAccountService.validateMediaEmployer('Test Employer')).toBeNull();
+      expect(createAccountService.validateMediaEmployer('Test Employer', englishLanguage, createMediaAccountLanguageFile)).toBeNull();
     });
 
     it('should return error if employer starts with a space', () => {
-      expect(createAccountService.validateMediaEmployer(' Test Employer'))
+      expect(createAccountService.validateMediaEmployer(' Test Employer', englishLanguage, createMediaAccountLanguageFile))
         .toEqual('There is a problem - Employer field cannot start with a space');
     });
 
     it('should return error if employer contains double space', () => {
-      expect(createAccountService.validateMediaEmployer('Test  Employer'))
+      expect(createAccountService.validateMediaEmployer('Test  Employer', englishLanguage, createMediaAccountLanguageFile))
         .toEqual('There is a problem - Employer field cannot contain double spaces');
     });
   });
 
   describe('validateFormFields', () => {
     it('should return valid response if all data is provided', () => {
-      expect(createAccountService.validateFormFields(validBody, validImage)).toStrictEqual(responseNoErrors);
+      expect(createAccountService.validateFormFields(validBody, validImage, englishLanguage, createMediaAccountLanguageFile)).toStrictEqual(responseNoErrors);
     });
 
     it('should return response with errors if invalid data and file', () => {
-      expect(createAccountService.validateFormFields(invalidBody, invalidFileType)).toStrictEqual(responseErrors);
+      expect(createAccountService.validateFormFields(invalidBody, invalidFileType, englishLanguage, createMediaAccountLanguageFile)).toStrictEqual(responseErrors);
     });
   });
 
   describe('validateAdminFormFields', () => {
     it('should return valid response if all data is provided', () => {
-      expect(createAccountService.validateAdminFormFields(validAdminBody)).toStrictEqual(adminResponseNoErrors);
+      expect(createAccountService.validateAdminFormFields(validAdminBody, englishLanguage, createAdminAccountLanguageFile)).toStrictEqual(adminResponseNoErrors);
     });
 
     it('should return response with errors if invalid data is provided', () => {
-      expect(createAccountService.validateAdminFormFields(invalidAdminBody)).toStrictEqual(adminResponseErrors);
+      expect(createAccountService.validateAdminFormFields(invalidAdminBody, englishLanguage, createAdminAccountLanguageFile)).toStrictEqual(adminResponseErrors);
     });
   });
 

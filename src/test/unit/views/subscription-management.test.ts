@@ -15,6 +15,7 @@ const expectedAllSubsTitleWithSingleSubs = 'All subscriptions (1)';
 const expectedCaseSubsTitleWithNoLocationSubs = 'Subscriptions by case (1)';
 const expectedCaseSubsTitleWithNoCaseSubs = 'Subscriptions by court or tribunal (1)';
 const expectedAddSubscriptionButton = 'Add email subscription';
+const expectedListTypesToSendButton = 'Select which list types to receive';
 const tabsClass = 'moj-sub-navigation__link';
 const caseNameColumn = 'Case name';
 const caseReferenceColumn = 'Case reference number';
@@ -420,5 +421,13 @@ describe('Subscriptions Management Page with location subscription but without c
       .getElementsByClassName('govuk-table__cell');
     expect(subscriptionLocationRowCells[0].innerHTML).contains(expectedRowCourtName);
     expect(subscriptionLocationRowCells[1].innerHTML).contains(expectedRowDateAdded);
+  });
+
+  it('should show the list types to receive button', () => {
+    const listTypesToReceiveButton = htmlRes.getElementsByClassName('govuk-button');
+    expect(listTypesToReceiveButton[1].innerHTML)
+      .contains(expectedListTypesToSendButton, 'Could not find list types to receive button');
+    expect(listTypesToReceiveButton[1].outerHTML).contains('<a href="subscription-configure-list"',
+      'href link not found inside the button');
   });
 });

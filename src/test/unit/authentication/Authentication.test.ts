@@ -1,8 +1,5 @@
-import sinon from 'sinon';
-import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
+const piUserId = {piUserId: '1234', piUserProvenance: 'PI_AAD'};
 
-const piUserId = '1234';
-sinon.stub(AccountManagementRequests.prototype, 'getPiUserByAzureOid').resolves(piUserId);
 describe('Authentication', () => {
   let authentication;
   let passport;
@@ -24,6 +21,7 @@ describe('Authentication', () => {
   const parameters = [
     { strategy: 'login' },
     { strategy: 'admin-login' },
+    { strategy: 'media-verification' },
   ];
 
   it('Should set up passport correctly for azure authentication', () => {
@@ -32,6 +30,7 @@ describe('Authentication', () => {
     expect(passport._serializers).length(1);
     expect(passport._strategies).to.have.property('login');
     expect(passport._strategies).to.have.property('admin-login');
+    expect(passport._strategies).to.have.property('media-verification');
 
     expect(passport._strategies['login'].name).to.eql('azuread-openidconnect');
     expect(passport._strategies['login']._options.redirectUrl)
@@ -39,6 +38,9 @@ describe('Authentication', () => {
     expect(passport._strategies['admin-login'].name).to.eql('azuread-openidconnect');
     expect(passport._strategies['admin-login']._options.redirectUrl)
       .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/admin/return');
+    expect(passport._strategies['media-verification'].name).to.eql('azuread-openidconnect');
+    expect(passport._strategies['media-verification']._options.redirectUrl)
+      .to.eql('https://pip-frontend.staging.platform.hmcts.net/media-verification/return');
   });
 
   it('Should set up passport correctly for azure authentication when FRONTEND_URL is set', () => {
@@ -49,6 +51,7 @@ describe('Authentication', () => {
     expect(passport._deserializers).length(1);
     expect(passport._strategies).to.have.property('login');
     expect(passport._strategies).to.have.property('admin-login');
+    expect(passport._strategies).to.have.property('media-verification');
 
     expect(passport._strategies['login'].name).to.eql('azuread-openidconnect');
     expect(passport._strategies['login']._options.redirectUrl)
@@ -56,6 +59,9 @@ describe('Authentication', () => {
     expect(passport._strategies['admin-login'].name).to.eql('azuread-openidconnect');
     expect(passport._strategies['admin-login']._options.redirectUrl)
       .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/admin/return');
+    expect(passport._strategies['media-verification'].name).to.eql('azuread-openidconnect');
+    expect(passport._strategies['media-verification']._options.redirectUrl)
+      .to.eql('https://pip-frontend.staging.platform.hmcts.net/media-verification/return');
   });
 
   parameters.forEach((parameter) => {
@@ -77,9 +83,13 @@ describe('Authentication', () => {
 
   parameters.forEach((parameter) => {
     it(`Test that if an existing user is found, then that user is returned for azure ${parameter.strategy} authentication`, async () => {
+      const sinon = await import('sinon');
+      const AccountManagementRequests = await import('../../../main/resources/requests/accountManagementRequests');
+      const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByAzureOid');
+      stub.resolves(piUserId);
       authentication();
 
-      const strategy = passport._strategies[parameter.strategy];
+      const strategy = passport._strategies['login'];
       const verifyFunction = strategy._verify;
       const firstProfile = {oid: '1234', profile: 'test-profile'};
       const mockCallback = jest.fn();
@@ -114,6 +124,11 @@ describe('Authentication', () => {
 
   parameters.forEach((parameter) => {
     it(`Test that deserialising a user returns the original profile object for azure ${parameter.strategy} authentication`, async () => {
+      const sinon = await import('sinon');
+      const AccountManagementRequests = await import('../../../main/resources/requests/accountManagementRequests');
+      const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByAzureOid');
+      stub.resolves(piUserId);
+
       authentication();
 
       const strategy = passport._strategies[parameter.strategy];
@@ -139,6 +154,7 @@ describe('Authentication', () => {
       process.env.CLIENT_SECRET = 'client_secret';
       process.env.CONFIG_ENDPOINT = 'https://localhost:8080';
       process.env.CONFIG_ADMIN_ENDPOINT = 'https://localhost:8080';
+      process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT = 'https://localhost:8080';
 
       authentication();
       expect(passport._strategies[parameter.strategy]._options.identityMetadata)

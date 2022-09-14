@@ -18,5 +18,7 @@
   "courtTable": {
     "header1": "Court or tribunal name"
   },
-  "backButton": "Back"
+  "unsubscribe": "Unsubscribe",
+  "backButton": "Back",
+  "configureListTypeButton": "Select which list types to receive"
 }

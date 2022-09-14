@@ -29,6 +29,8 @@ const routesNotTested = [
   '/logout',
   '/robots.txt',
   '/file-publication',
+  '/media-verification',
+  '/media-verification/return',
 ];
 
 const adminRoutes = [
