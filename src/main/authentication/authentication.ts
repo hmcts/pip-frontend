@@ -2,9 +2,10 @@ import process from 'process';
 import { Logger } from '@hmcts/nodejs-logging';
 import config = require('config');
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
-import {AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL} from '../helpers/envUrls';
+import {AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL, CFT_IDAM_URL, FRONTEND_URL} from '../helpers/envUrls';
 
-const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
+const AzureOIDCStrategy = require('passport-azure-ad').OIDCStrategy;
+const OIDCStrategy = require('passport-openidconnect');
 const passport = require('passport');
 const authenticationConfig = require('./authentication-config.json');
 const logger = Logger.getLogger('authentication');
@@ -18,6 +19,7 @@ function oidcSetup(): void {
   let identityMetadata;
   let adminIdentityMetadata;
   let mediaVerificationIdentityMetadata;
+  let cftIdamClientSecret;
 
   if(process.env.CLIENT_SECRET) {
     clientSecret = process.env.CLIENT_SECRET;
@@ -47,6 +49,12 @@ function oidcSetup(): void {
     mediaVerificationIdentityMetadata = process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT;
   } else {
     mediaVerificationIdentityMetadata = config.get('secrets.pip-ss-kv.MEDIA_VERIFICATION_CONFIG_ENDPOINT') as string;
+  }
+
+  if(process.env.CFT_IDAM_CLIENT_SECRET) {
+    cftIdamClientSecret = process.env.CFT_IDAM_CLIENT_SECRET;
+  } else {
+    cftIdamClientSecret = config.get('secrets.pip-ss-kv.CFT_IDAM_CLIENT_SECRET') as string;
   }
 
   logger.info('secret', clientSecret ? clientSecret.substring(0,5) : 'client secret not set!' );
@@ -87,7 +95,7 @@ function oidcSetup(): void {
     });
   });
 
-  passport.use('login', new OIDCStrategy({
+  passport.use('login', new AzureOIDCStrategy({
     identityMetadata:  identityMetadata,
     clientID: clientId,
     responseType: authenticationConfig.RESPONSE_TYPE,
@@ -100,7 +108,7 @@ function oidcSetup(): void {
   passportStrategyFn,
   ));
 
-  passport.use('admin-login', new OIDCStrategy({
+  passport.use('admin-login', new AzureOIDCStrategy({
     identityMetadata:  adminIdentityMetadata,
     clientID: clientId,
     responseType: authenticationConfig.RESPONSE_TYPE,
@@ -113,7 +121,8 @@ function oidcSetup(): void {
   passportStrategyFn,
   ));
 
-  passport.use('media-verification', new OIDCStrategy({
+
+  passport.use('media-verification', new AzureOIDCStrategy({
     identityMetadata:  mediaVerificationIdentityMetadata,
     clientID: clientId,
     responseType: authenticationConfig.RESPONSE_TYPE,
@@ -124,6 +133,18 @@ function oidcSetup(): void {
     isB2C: true,
   },
   passportStrategyFn,
+  ));
+
+  passport.use('cft-login', new OIDCStrategy({
+      issuer: CFT_IDAM_URL + '/o',
+      authorizationURL: CFT_IDAM_URL + '/o/authorize',
+      tokenURL: CFT_IDAM_URL + '/o/token',
+      userInfoURL: CFT_IDAM_URL + '/o/userinfo',
+      clientID: 'app-pip-frontend',
+      clientSecret: cftIdamClientSecret,
+      callbackURL: FRONTEND_URL + '/login-cft/return'
+    },
+    passportStrategyFn,
   ));
 }
 

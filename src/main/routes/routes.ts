@@ -75,6 +75,7 @@ export default function(app: Application): void {
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/password-change-confirmation', app.locals.container.cradle.passwordChangeController.get);
   app.get('/login', passport.authenticate('login', { failureRedirect: '/'}), regenerateSession);
+  app.get('/cft-login', passport.authenticate('cft-login', { failureRedirect: '/'}), regenerateSession);
   app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/'}), regenerateSession);
   app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}), regenerateSession);
   app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}), processAccountSignIn);

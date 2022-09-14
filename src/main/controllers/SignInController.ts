@@ -16,7 +16,7 @@ export default class SignInController {
   public post(req: Request, res: Response): void {
     switch(req.body['sign-in']) {
       case 'hmcts': {
-        res.redirect('https://hmcts-sjp.herokuapp.com/sign-in-idam.html');
+        res.redirect('/cft-login');
         break;
       }
       case 'common': {
