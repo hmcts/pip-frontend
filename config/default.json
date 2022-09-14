@@ -6,6 +6,7 @@
   "secrets": {
     "pip-ss-kv": {
       "CLIENT_SECRET": "client-secret",
+      "CFT_IDAM_CLIENT_SECRET": "client-secret",
       "SESSION_SECRET": "super-session-secret",
       "REDIS_HOST": "127.0.0.1",
       "REDIS_PORT": "6379",
@@ -21,7 +22,8 @@
       "DATA_MANAGEMENT_AZ_API": "",
       "SUBSCRIPTION_MANAGEMENT_AZ_API": "",
       "ACCOUNT_MANAGEMENT_AZ_API": "",
-      "INSTRUMENTATION_KEY": ""
+      "INSTRUMENTATION_KEY": "",
+
     }
   }
 }
