@@ -2,7 +2,6 @@ import { LocationService } from './locationService';
 import { DataManagementRequests } from '../resources/requests/dataManagementRequests';
 import moment from 'moment';
 import { FileHandlingService } from './fileHandlingService';
-
 import { PublicationService } from './publicationService';
 
 const courtService = new LocationService();
