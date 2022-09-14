@@ -2,6 +2,7 @@ import process from 'process';
 import { Logger } from '@hmcts/nodejs-logging';
 import config = require('config');
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
+import {AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL} from '../helpers/envUrls';
 
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
@@ -50,8 +51,6 @@ function oidcSetup(): void {
 
   logger.info('secret', clientSecret ? clientSecret.substring(0,5) : 'client secret not set!' );
 
-  const AUTH_RETURN_URL = process.env.AUTH_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/login/return';
-  const MEDIA_VERIFICATION_RETURN_URL = process.env.MEDIA_VERIFICATION_RETURN_URL || 'https://pip-frontend.staging.platform.hmcts.net/media-verification/return';
   const users = [];
 
   const findByOid = async function(oid, fn): Promise<any> {

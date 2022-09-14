@@ -1,8 +1,6 @@
-import moment from 'moment';
-
-import process from 'process';
 import config from 'config';
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
+import {B2C_URL, FRONTEND_URL} from '../helpers/envUrls';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 
@@ -11,22 +9,6 @@ export const manualUploadRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', '
 export const mediaAccountCreationRoles = ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'];
 export const allAdminRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_CTSC', 'INTERNAL_ADMIN_LOCAL'];
 export const verifiedRoles = ['VERIFIED'];
-const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
-
-export function isAdminSessionExpire(req): boolean {
-  if(checkRoles(req, allAdminRoles)) {
-    if(req.session.sessionExpiry) {
-      const sessionExpiryDateTime = moment.utc(req.session.sessionExpiry);
-      const currentDateTime = moment.utc(new Date(Date.now()));
-      const durationAsSeconds = moment.duration(sessionExpiryDateTime.startOf('seconds').diff(currentDateTime.startOf('seconds'))).asSeconds();
-      if(durationAsSeconds <= 0) {
-        return true;
-      }
-    }
-    req.session.sessionExpiry = new Date(Date.now() + (60 * 60 * 4000)); //4 hours
-  }
-  return false;
-}
 
 export function checkRoles(req, roles): boolean {
   if(req.user) {
@@ -89,7 +71,6 @@ export function forgotPasswordRedirect(req, res, next): void {
   const body = JSON.stringify(req.body);
   if (body.includes('AADB2C90118')) {
     const CLIENT_ID = config.get('secrets.pip-ss-kv.CLIENT_ID');
-    const B2C_URL = config.get('secrets.pip-ss-kv.B2C_URL');
     const REDIRECT_URL = `${FRONTEND_URL}/password-change-confirmation`;
     const POLICY_URL = `${B2C_URL}/oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
     `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${REDIRECT_URL}` +
@@ -108,5 +89,16 @@ export async function mediaVerificationHandling(req, res): Promise<any> {
       console.log(response);
       res.redirect('/account-home?verified=true');
     }
+  }
+}
+
+export async function processAccountSignIn(req, res): Promise<any> {
+  if(checkRoles(req, allAdminRoles)) {
+    const userInfo = req.user['_json'];
+    const response = await AccountManagementRequests.prototype.updateAccountLastSignedInDate(userInfo.oid);
+    console.log(response);
+    res.redirect('/admin-dashboard');
+  } else {
+    res.redirect('/account-home');
   }
 }
