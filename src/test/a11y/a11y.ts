@@ -22,6 +22,7 @@ const routesNotTested = [
   '/health/readiness',
   '/info',
   '/login',
+  '/cft-login',
   '/admin-login',
   '/login/return',
   '/mock-login',
