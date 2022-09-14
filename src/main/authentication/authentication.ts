@@ -121,7 +121,6 @@ function oidcSetup(): void {
   passportStrategyFn,
   ));
 
-
   passport.use('media-verification', new AzureOIDCStrategy({
     identityMetadata:  mediaVerificationIdentityMetadata,
     clientID: clientId,
@@ -136,15 +135,15 @@ function oidcSetup(): void {
   ));
 
   passport.use('cft-login', new OIDCStrategy({
-      issuer: CFT_IDAM_URL + '/o',
-      authorizationURL: CFT_IDAM_URL + '/o/authorize',
-      tokenURL: CFT_IDAM_URL + '/o/token',
-      userInfoURL: CFT_IDAM_URL + '/o/userinfo',
-      clientID: 'app-pip-frontend',
-      clientSecret: cftIdamClientSecret,
-      callbackURL: FRONTEND_URL + '/cft-login/return'
-    },
-    passportStrategyFn,
+    issuer: CFT_IDAM_URL + '/o',
+    authorizationURL: CFT_IDAM_URL + '/o/authorize',
+    tokenURL: CFT_IDAM_URL + '/o/token',
+    userInfoURL: CFT_IDAM_URL + '/o/userinfo',
+    clientID: 'app-pip-frontend',
+    clientSecret: cftIdamClientSecret,
+    callbackURL: FRONTEND_URL + '/cft-login/return',
+  },
+  passportStrategyFn,
   ));
 }
 

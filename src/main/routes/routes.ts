@@ -79,6 +79,7 @@ export default function(app: Application): void {
   app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/'}), regenerateSession);
   app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}), regenerateSession);
   app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}), processAccountSignIn);
+  app.post('/cft-login/return', passport.authenticate('cft-login', { failureRedirect: '/view-option'}), processAccountSignIn);
   app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}),
     (_req, res) => {mediaVerificationHandling(_req, res);});
   app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res));
