@@ -10,3 +10,9 @@ nodejs:
     MEDIA_VERIFICATION_RETURN_URL: https://${SERVICE_FQDN}/media-verification/return
     FRONTEND_URL: https://${SERVICE_FQDN}
     EXCLUDE_E2E: true
+
+idam-pr:
+  enabled: true
+  redirect_uris:
+    pip:
+      - https://${SERVICE_FQDN}/cft-login/return

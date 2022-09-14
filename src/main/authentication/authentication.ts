@@ -142,7 +142,7 @@ function oidcSetup(): void {
       userInfoURL: CFT_IDAM_URL + '/o/userinfo',
       clientID: 'app-pip-frontend',
       clientSecret: cftIdamClientSecret,
-      callbackURL: FRONTEND_URL + '/login-cft/return'
+      callbackURL: FRONTEND_URL + '/cft-login/return'
     },
     passportStrategyFn,
   ));
