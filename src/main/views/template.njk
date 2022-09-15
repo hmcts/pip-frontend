@@ -79,7 +79,7 @@
         href: '/logout'
       }
     ]%}
-  {% elif isAuthenticated %}
+  {% elif user.role == 'VERIFIED' %}
     {% set listItems = [
       {
         text: navLinks.link1,

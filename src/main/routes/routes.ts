@@ -1,8 +1,8 @@
 import { Application } from 'express';
 import { infoRequestHandler } from '@hmcts/info-provider';
-import { Logger } from '@hmcts/nodejs-logging';
 import os from 'os';
 import process from 'process';
+import config = require('config');
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 import {
   isPermittedAdmin,
@@ -15,12 +15,22 @@ import {
   processAccountSignIn,
 } from '../authentication/authenticationHandler';
 import {SessionManagementService} from '../service/sessionManagementService';
+import {CFT_IDAM_URL, FRONTEND_URL} from "../helpers/envUrls";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+var querystring = require('querystring');
 
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const multer = require('multer');
-const logger = Logger.getLogger('routes');
 const sessionManagement = new SessionManagementService();
+
+let cftIdamClientSecret;
+if(process.env.CFT_IDAM_CLIENT_SECRET) {
+  cftIdamClientSecret = process.env.CFT_IDAM_CLIENT_SECRET;
+} else {
+  cftIdamClientSecret = config.get('secrets.pip-ss-kv.CFT_IDAM_CLIENT_SECRET') as string;
+}
 
 export default function(app: Application): void {
   const storage = multer.diskStorage({
@@ -44,17 +54,22 @@ export default function(app: Application): void {
 
     //this function allows us to share authentication status across all views
     res.locals.isAuthenticated = req.isAuthenticated();
+
+    if (!res.locals.user && req.session.user) {
+      res.locals.user = req.session.user;
+    }
+
     next();
   }
 
   function regenerateSession(req, res): void {
-    const prevSession = req.session;
-    logger.info('regenerateSession', prevSession);
-    req.session.regenerate(() => {  // Compliant
-      logger.info('regenerateSession new session', req.session);
-      Object.assign(req.session, prevSession);
+    // const prevSession = req.session;
+    // logger.info('regenerateSession', prevSession);
+    // req.session.regenerate(() => {  // Compliant
+    //   logger.info('regenerateSession new session', req.session);
+    //   Object.assign(req.session, prevSession);
       res.redirect('/subscription-management');
-    });
+    // });
   }
 
   // Public paths
@@ -75,11 +90,41 @@ export default function(app: Application): void {
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/password-change-confirmation', app.locals.container.cradle.passwordChangeController.get);
   app.get('/login', passport.authenticate('login', { failureRedirect: '/'}), regenerateSession);
-  app.get('/cft-login', passport.authenticate('cft-login', { failureRedirect: '/'}), regenerateSession);
+  app.get('/cft-login', app.locals.container.cradle.cftLoginController.get);
   app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/'}), regenerateSession);
   app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}), regenerateSession);
   app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}), processAccountSignIn);
-  app.post('/cft-login/return', passport.authenticate('cft-login', { failureRedirect: '/view-option'}), processAccountSignIn);
+  app.get('/cft-login/return', async (req, res, next) => {
+
+    const params = {
+      client_id: 'app-pip-frontend',
+      client_secret: cftIdamClientSecret,
+      grant_type: 'authorization_code',
+      redirect_uri: FRONTEND_URL + '/cft-login/return',
+      code: req.query.code as string,
+    };
+
+    const tokenRequest = axios.create({baseURL: CFT_IDAM_URL, timeout: 10000});
+
+    try {
+      const response = await tokenRequest.post('/o/token', querystring.stringify(params), {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      });
+
+      const data = response.data;
+      const jwtToken = jwt_decode(data.id_token);
+
+      // @ts-ignore
+      req.session.user = jwtToken;
+    } catch (e) {
+      console.log(e);
+    }
+    next();
+  }, regenerateSession);
+
   app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}),
     (_req, res) => {mediaVerificationHandling(_req, res);});
   app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res));
