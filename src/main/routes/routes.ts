@@ -15,7 +15,6 @@ import {
   processMediaAccountSignIn,
 } from '../authentication/authenticationHandler';
 import {SessionManagementService} from '../service/sessionManagementService';
-import {processCftLogin, processCftAccount} from "../authentication/cft-authentication";
 
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
@@ -44,10 +43,6 @@ export default function(app: Application): void {
 
     //this function allows us to share authentication status across all views
     res.locals.isAuthenticated = req.isAuthenticated();
-
-    if (!res.locals.user && req.session.user) {
-      res.locals.user = req.session.user;
-    }
 
     next();
   }
@@ -88,7 +83,7 @@ export default function(app: Application): void {
   app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}), processMediaAccountSignIn);
   app.post('/login/admin/return', forgotPasswordRedirect, passport.authenticate('admin-login', { failureRedirect: '/view-option'}), processAdminAccountSignIn);
   app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}), mediaVerificationHandling);
-  app.get('/cft-login/return', processCftLogin, processCftAccount, regenerateSession);
+  app.get('/cft-login/return', passport.authenticate('cft-idam', { failureRedirect: '/view-option'}), regenerateSession);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);

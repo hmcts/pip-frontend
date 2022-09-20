@@ -13,30 +13,11 @@ export const verifiedRoles = ['VERIFIED'];
 
 export function checkRoles(req, roles): boolean {
   if(req.user) {
-    const userInfo = req.user['_json'];
-
-    //For P&I IDAM
-    if (userInfo?.extension_UserRole) {
-      req.user.role = userInfo?.extension_UserRole;
-      if (roles.includes(userInfo?.extension_UserRole)) {
-        return true;
-      }
-    }
-
-    //For CFT IDAM
-    if (req.user.azp === 'app-pip-frontend') {
-      req.user.role = 'VERIFIED'
+    if (roles.includes(req.user['roles'])) {
       return true;
     }
   }
-
   return false;
-}
-
-export function setUser(req) {
-  if (!req.user && req.session.user) {
-    req.user = req.session.user;
-  }
 }
 
 export function isPermittedMedia(req: any, res, next) {
@@ -74,7 +55,6 @@ export function checkAuthenticatedAdmin(req: any, res, next, roles: string[]): b
 }
 
 export function checkAuthenticatedMedia(req: any, res, next, roles: string[]): boolean {
-  setUser(req);
   if (checkRoles(req, roles)) {
     return next();
   } else if (checkRoles(req, allAdminRoles)) {

@@ -37,7 +37,7 @@
     var link = document.getElementById("betalink")
     link.href= link.href + window.location.pathname.substring(1)
   </script>
-  {% if user.role == 'SYSTEM_ADMIN' or user.role == 'INTERNAL_SUPER_ADMIN_LOCAL' or user.role == 'INTERNAL_ADMIN_LOCAL' %}
+  {% if user.roles == 'SYSTEM_ADMIN' or user.roles == 'INTERNAL_SUPER_ADMIN_LOCAL' or user.roles == 'INTERNAL_ADMIN_LOCAL' %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -56,7 +56,7 @@
         href: '/logout'
       }
     ]%}
-  {% elif user.role == 'INTERNAL_SUPER_ADMIN_CTSC' or user.role == 'INTERNAL_ADMIN_CTSC' %}
+  {% elif user.roles == 'INTERNAL_SUPER_ADMIN_CTSC' or user.role == 'INTERNAL_ADMIN_CTSC' %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -79,7 +79,7 @@
         href: '/logout'
       }
     ]%}
-  {% elif user.role == 'VERIFIED' %}
+  {% elif user.roles == 'VERIFIED' %}
     {% set listItems = [
       {
         text: navLinks.link1,
