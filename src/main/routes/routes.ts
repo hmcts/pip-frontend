@@ -14,7 +14,7 @@ import {
   processAccountSignIn,
 } from '../authentication/authenticationHandler';
 import {SessionManagementService} from '../service/sessionManagementService';
-import {processCftLogin} from "../authentication/cft-authentication";
+import {processCftLogin, processCftAccount} from "../authentication/cft-authentication";
 
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');

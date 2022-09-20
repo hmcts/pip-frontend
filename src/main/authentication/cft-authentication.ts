@@ -41,18 +41,28 @@ export async function processCftLogin(req, res, next) {
   } catch (e) {
     console.log(e);
   }
+
   next();
 }
 
 export async function processCftAccount(req, res, next) {
 
-  //Check if Account already exists in DB
-  const user = await accountManagementRequests.getPiUserByCftID(req.session.user.uid);
+  let user = await accountManagementRequests.getPiUserByCftID(req.session.user.uid);
 
-  //If not, added them in
   if (!user) {
 
+     const piAccount = [{
+       "userProvenance": "CFT_IDAM",
+       "email": req.session.user.sub,
+       "roles": "VERIFIED",
+       "provenanceUserId": req.session.user.uid
+     }]
+
+    user = await accountManagementRequests.createPIAccount(piAccount, "");
   }
 
-  //Then set the expected fields
+  req.session.user['piUserId'] = user.userId;
+  req.session.user['piUserProvenance'] = user.userProvenance;
+
+  next();
 }
