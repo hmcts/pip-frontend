@@ -9,7 +9,7 @@ on:
 permissions:
       id-token: write
       contents: read
-     
+
 jobs:
   deployment:
     runs-on: ubuntu-latest
@@ -20,16 +20,17 @@ jobs:
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID_STG }} 
-          
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID_STG }}
+
       - uses: Azure/get-keyvault-secrets@v1
-        with: 
+        with:
           keyvault: "pip-bootstrap-stg-kv"
           secrets: 'b2c-jenkins-tenant-id, b2c-jenkins-client-id, b2c-jenkins-client-secret'
         id: bootstrapKv
 
       - run: |
-          newUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/login/return"
+          mediaSignInUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/login/return"
+          adminSignInUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/login/admin/return"
           targetAppName="pip-frontend-stg"
 
           azureClientId="${B2C_CLIENT_ID}"
@@ -50,32 +51,36 @@ jobs:
           echo "Found Reply URLs"
           echo $replyUrls
 
-          if [[ "${replyUrls}" =~ "${newUrl}" ]]; then
-              echo "Reply URLs contains $newUrl"
+          if [[ "${replyUrls}" =~ "${mediaSignInUrl}" && "${replyUrls}" =~ "${adminSignInUrl}" ]]; then
+            echo "Reply URLs contain $mediaSignInUrl and $adminSignInUrl"
           elif [ -z $replyUrls ]; then
-              echo "Not Reply URLs Found. ISSUE!!"
+            echo "No Reply URLs Found. ISSUE!!"
           else
-              echo "Reply URLs DOES NOT contains $newUrl"
-              echo "Adding domain $newUrl"
-              replayUrlsStr="\"$newUrl\""
+            readarray -t my_array < <(echo "$replyUrls" | jq -c '.[]')
+            for item in "${my_array[@]}"; do
+              echo "Url: $item"
+              replyUrlString+="$item,"
+            done
+    
+            if [[ ! "${replyUrls}" =~ "${mediaSignInUrl}" ]]; then
+              replyUrlString+="\"$mediaSignInUrl\""
+            fi
 
-              readarray -t my_array < <(echo "$replyUrls" | jq -c '.[]')
+            if [[ ! "${replyUrls}" =~ "${adminSignInUrl}" ]]; then
+              if [[ ! ${replyUrlString: -1} == "," ]]; then
+                replyUrlString+=","
+              fi
+              replyUrlString+="\"$adminSignInUrl\""
+            fi
 
-              # iterate through the Bash array
-              for item in "${my_array[@]}"; do
-                  echo "Url: $item"
-                  replayUrlsStr="$replayUrlsStr, $item"
-              done
-              echo "reply String: $replayUrlsStr"
+            echo "reply String: $replyUrlString"
 
-              objectId=$(az ad app list --all --filter "displayname eq '${targetAppName}'" --query "[0].id" -o tsv --only-show-errors)
-              objectId=${objectId//[$'\t\r\n']/}
-              echo "Object ID $objectId"
-
-              restUrl="https://graph.microsoft.com/v1.0/applications/${objectId//[$'\t\r\n']/}"
-              echo "Calling: $restUrl"
-
-              az rest --method PATCH --header "Content-Type=application/json" --uri $restUrl --body "{\"web\":{\"redirectUris\":[$replayUrlsStr]}}" #--debug
+            objectId=$(az ad app list --all --filter "displayname eq '${targetAppName}'" --query "[0].id" -o tsv --only-show-errors)
+            objectId=${objectId//[$'\t\r\n']/}
+            echo "Object ID $objectId"
+            restUrl="https://graph.microsoft.com/v1.0/applications/${objectId//[$'\t\r\n']/}"
+            echo "Calling: $restUrl"
+            az rest --method PATCH --header "Content-Type=application/json" --uri $restUrl --body "{\"web\":{\"redirectUris\":[$replyUrlString]}}" #--debug
           fi
 
         env:

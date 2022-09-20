@@ -37,7 +37,7 @@ describe('Authentication', () => {
       .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/return');
     expect(passport._strategies['admin-login'].name).to.eql('azuread-openidconnect');
     expect(passport._strategies['admin-login']._options.redirectUrl)
-      .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/return');
+      .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/admin/return');
     expect(passport._strategies['media-verification'].name).to.eql('azuread-openidconnect');
     expect(passport._strategies['media-verification']._options.redirectUrl)
       .to.eql('https://pip-frontend.staging.platform.hmcts.net/media-verification/return');
@@ -58,7 +58,7 @@ describe('Authentication', () => {
       .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/return');
     expect(passport._strategies['admin-login'].name).to.eql('azuread-openidconnect');
     expect(passport._strategies['admin-login']._options.redirectUrl)
-      .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/return');
+      .to.eql('https://pip-frontend.staging.platform.hmcts.net/login/admin/return');
     expect(passport._strategies['media-verification'].name).to.eql('azuread-openidconnect');
     expect(passport._strategies['media-verification']._options.redirectUrl)
       .to.eql('https://pip-frontend.staging.platform.hmcts.net/media-verification/return');
