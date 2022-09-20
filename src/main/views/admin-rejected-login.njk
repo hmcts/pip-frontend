@@ -14,16 +14,7 @@
 {% endblock %}
 {% block content %}
   <h1 class="govuk-heading-l">{{ header }}</h1>
-  <p class="govuk-body">{{ bodyText }}</p>
-  {% if isAdmin %}
-    {% set flow = "/admin-login?p=B2C_1_SignInAdminUserFlow" %}
-  {% else %}
-    {% set flow = "/login?p=B2C_1_SignInUserFlow" %}
-  {% endif %}
-
-  {{ govukButton({
-    id: 'buttonForSignIn',
-    text: buttonText,
-    href: flow
-  }) }}
+  <p class="govuk-body">{{ bodyText1 }}</p>
+  <p class="govuk-body">{{ bodyText2 }}</p>
+  <a href="{{ link }}" class="govuk-link govuk-body">{{ frontendUrl }}{{ link }}</a>
 {% endblock %}

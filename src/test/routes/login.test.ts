@@ -13,4 +13,10 @@ describe('Login', () => {
       .post('/login/return')
       .expect((res) => expect(res.redirect).toBeTruthy());
   });
+
+  test('should redirect to the admin dashboard page on return', async() => {
+    await request(app)
+      .post('/login/admin/return')
+      .expect((res) => expect(res.redirect).toBeTruthy());
+  });
 });
