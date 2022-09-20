@@ -56,7 +56,7 @@
         href: '/logout'
       }
     ]%}
-  {% elif user.roles == 'INTERNAL_SUPER_ADMIN_CTSC' or user.role == 'INTERNAL_ADMIN_CTSC' %}
+  {% elif user.roles == 'INTERNAL_SUPER_ADMIN_CTSC' or user.roles == 'INTERNAL_ADMIN_CTSC' %}
     {% set listItems = [
       {
         text: navLinks.link1,

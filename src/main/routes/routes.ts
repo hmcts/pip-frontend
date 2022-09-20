@@ -48,14 +48,9 @@ export default function(app: Application): void {
   }
 
   function regenerateSession(req, res): void {
-    // const prevSession = req.session;
-    // logger.info('regenerateSession', prevSession);
-    // req.session.regenerate(() => {  // Compliant
-    //   logger.info('regenerateSession new session', req.session);
-    //   Object.assign(req.session, prevSession);
-      res.redirect('/subscription-management');
-    // });
+      res.redirect('/account-home');
   }
+
 
   // Public paths
   app.get('/*', globalAuthGiver);

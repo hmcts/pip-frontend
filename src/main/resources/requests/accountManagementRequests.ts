@@ -146,6 +146,7 @@ export class AccountManagementRequests {
     }
   }
 
+
   public async getPiUserByAzureOid(oid: string): Promise<any> {
     try {
       const response = await accountManagementApi.get(`/account/provenance/PI_AAD/${oid}`);
