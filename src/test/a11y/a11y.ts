@@ -25,6 +25,7 @@ const routesNotTested = [
   '/cft-login',
   '/admin-login',
   '/login/return',
+  '/login/admin/return',
   '/mock-login',
   '/logout',
   '/robots.txt',

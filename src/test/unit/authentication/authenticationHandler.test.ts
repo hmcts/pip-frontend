@@ -11,8 +11,9 @@ import {
   isPermittedAccountCreation,
   isPermittedManualUpload,
   isPermittedMediaAccount,
-  mediaVerificationHandling,
-  processAccountSignIn,
+  mediaVerificationHandling, 
+  processMediaAccountSignIn, 
+  processAdminAccountSignIn,
 }
   from '../../../main/authentication/authenticationHandler';
 
@@ -225,11 +226,20 @@ describe('Test IsPermittedMediaAccount', () => {
 });
 
 describe('forgot password reset', () => {
-  test('should redirect to azure again if password reset error is returned from the B2C', async () => {
+  test('should redirect to azure again if password reset error is returned from the B2C with the correct media redirect url', async () => {
     await request(app)
       .post('/login/return')
       .send({'error': 'access_denied', 'error_description': 'AADB2C90118'})
-      .expect((res) => expect(res.redirect).to.be.true);
+      .expect((res) => expect(res.redirect).to.be.true)
+      .expect((res) => expect(res.header.location).to.contain('/password-change-confirmation/false'));
+  });
+
+  test('should redirect to azure again if password reset error is returned from the B2C with the correct admin redirect url', async () => {
+    await request(app)
+      .post('/login/admin/return')
+      .send({'error': 'access_denied', 'error_description': 'AADB2C90118'})
+      .expect((res) => expect(res.redirect).to.be.true)
+      .expect((res) => expect(res.header.location).to.contain('/password-change-confirmation/true'));
   });
 });
 
@@ -272,7 +282,7 @@ describe('process account sign-in', () => {
     const req = {'user': {'_json': {'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC'}}};
     const res = {'redirect': mockRedirectFunction};
 
-    await processAccountSignIn(req, res);
+    await processAdminAccountSignIn(req, res);
 
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/admin-dashboard');
@@ -283,7 +293,7 @@ describe('process account sign-in', () => {
     const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}};
     const res = {'redirect': mockRedirectFunction};
 
-    await processAccountSignIn(req, res);
+    await processMediaAccountSignIn(req, res);
 
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');

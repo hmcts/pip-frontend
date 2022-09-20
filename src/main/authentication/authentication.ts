@@ -2,7 +2,7 @@ import process from 'process';
 import { Logger } from '@hmcts/nodejs-logging';
 import config = require('config');
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
-import {AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL} from '../helpers/envUrls';
+import {AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL, ADMIN_AUTH_RETURN_URL} from '../helpers/envUrls';
 
 const AzureOIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
@@ -109,7 +109,7 @@ function oidcSetup(): void {
     clientID: clientId,
     responseType: authenticationConfig.RESPONSE_TYPE,
     responseMode: authenticationConfig.RESPONSE_MODE,
-    redirectUrl: AUTH_RETURN_URL,
+    redirectUrl: ADMIN_AUTH_RETURN_URL,
     allowHttpForRedirectUrl: true,
     clientSecret: clientSecret,
     isB2C: true,

@@ -11,7 +11,8 @@ import {
   isPermittedManualUpload,
   forgotPasswordRedirect,
   mediaVerificationHandling,
-  processAccountSignIn,
+  processAdminAccountSignIn,
+  processMediaAccountSignIn,
 } from '../authentication/authenticationHandler';
 import {SessionManagementService} from '../service/sessionManagementService';
 import {processCftLogin, processCftAccount} from "../authentication/cft-authentication";
@@ -77,17 +78,17 @@ export default function(app: Application): void {
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
-  app.get('/password-change-confirmation', app.locals.container.cradle.passwordChangeController.get);
+  app.get('/password-change-confirmation/:isAdmin', app.locals.container.cradle.passwordChangeController.get);
+  app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
+  app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}), regenerateSession);
   app.get('/login', passport.authenticate('login', { failureRedirect: '/'}), regenerateSession);
   app.get('/cft-login', app.locals.container.cradle.cftLoginController.get);
   app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/'}), regenerateSession);
-  app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}), regenerateSession);
-  app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}), processAccountSignIn);
+  app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res, false));
+  app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}), processMediaAccountSignIn);
+  app.post('/login/admin/return', forgotPasswordRedirect, passport.authenticate('admin-login', { failureRedirect: '/view-option'}), processAdminAccountSignIn);
+  app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}), mediaVerificationHandling);
   app.get('/cft-login/return', processCftLogin, processCftAccount, regenerateSession);
-
-  app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}),
-    (_req, res) => {mediaVerificationHandling(_req, res);});
-  app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res));
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
