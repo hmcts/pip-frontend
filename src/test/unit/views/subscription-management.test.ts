@@ -96,7 +96,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
 
 describe('Subscriptions Management Page', () => {
   beforeAll(async () => {
-    app.request['user'] = {userID: '1', 'roles': 'VERIFIED'};
+    app.request['user'] = {userId: '1', 'roles': 'VERIFIED'};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();

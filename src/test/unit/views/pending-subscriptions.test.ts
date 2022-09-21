@@ -43,6 +43,8 @@ describe('Pending Subscriptions Page', () => {
   describe('user with subscriptions', () => {
     beforeAll(async () => {
       app.request['user'] = {userId: '1', 'roles': 'VERIFIED'};
+      app.response['locals'] = {user: app.request['user']};
+
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
         htmlRes.getElementsByTagName('div')[0].remove();
