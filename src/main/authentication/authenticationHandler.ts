@@ -1,6 +1,7 @@
 import config from 'config';
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
-import {B2C_URL, FRONTEND_URL} from '../helpers/envUrls';
+import {B2C_URL, FRONTEND_URL, B2C_ADMIN_URL} from '../helpers/envUrls';
+import {SessionManagementService} from '../service/sessionManagementService';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 
@@ -71,10 +72,20 @@ export function forgotPasswordRedirect(req, res, next): void {
   const body = JSON.stringify(req.body);
   if (body.includes('AADB2C90118')) {
     const CLIENT_ID = config.get('secrets.pip-ss-kv.CLIENT_ID');
-    const REDIRECT_URL = `${FRONTEND_URL}/password-change-confirmation`;
-    const POLICY_URL = `${B2C_URL}/oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
-    `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${REDIRECT_URL}` +
-    '&scope=openid&response_type=id_token&prompt=login';
+    let redirectUrl = `${FRONTEND_URL}/password-change-confirmation`;
+    let b2cUrl = '';
+
+    if(req.originalUrl === '/login/admin/return') {
+      redirectUrl += '/true';
+      b2cUrl = B2C_ADMIN_URL;
+    } else {
+      redirectUrl += '/false';
+      b2cUrl = B2C_URL;
+    }
+    const POLICY_URL = `${b2cUrl}/oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
+      `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${redirectUrl}` +
+      '&scope=openid&response_type=id_token&prompt=login';
+
     res.redirect(POLICY_URL);
     return;
   }
@@ -92,12 +103,21 @@ export async function mediaVerificationHandling(req, res): Promise<any> {
   }
 }
 
-export async function processAccountSignIn(req, res): Promise<any> {
+export async function processAdminAccountSignIn(req, res): Promise<any> {
   if(checkRoles(req, allAdminRoles)) {
     const userInfo = req.user['_json'];
     const response = await AccountManagementRequests.prototype.updateAccountLastSignedInDate(userInfo.oid);
     console.log(response);
     res.redirect('/admin-dashboard');
+  } else {
+    res.redirect('/account-home');
+  }
+}
+
+export async function processMediaAccountSignIn(req, res): Promise<any> {
+  const sessionManagement = new SessionManagementService();
+  if(checkRoles(req, allAdminRoles)) {
+    sessionManagement.logOut(req, res, true);
   } else {
     res.redirect('/account-home');
   }

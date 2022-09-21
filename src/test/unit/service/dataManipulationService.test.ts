@@ -7,6 +7,8 @@ const dataManipulationService = new DataManipulationService();
 
 const nonPresidingJudiciary = 'Firstname1 Surname1, Presiding';
 const expectedApplicant = 'Surname, LEGALADVISOR: Mr Individual Forenames Individual Middlename Individual Surname';
+const expectedMultipleApplicant = 'Applicant Surname1, Surname2, LEGALADVISOR: Mr Individual Forenames Individual Middlename Individual Surname';
+const expectedMultipleRespondent = 'Respondent Surname1, Surname2, LEGALADVISOR: Mr Individual Forenames Individual Middlename Individual Surname';
 const expectedRespondent = expectedApplicant;
 
 const rawDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');
@@ -98,6 +100,12 @@ describe('Data manipulation service', () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawFamilyDailyCauseData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant']).to.equal(expectedApplicant);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent']).to.equal(expectedRespondent);
+    });
+
+    it('should build when we have multiple applicants and the respondents of the party', async () => {
+      const data = await dataManipulationService.manipulatedDailyListData(rawFamilyDailyCauseData);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][1]['hearing'][0]['applicant']).to.equal(expectedMultipleApplicant);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][1]['hearing'][0]['respondent']).to.equal(expectedMultipleRespondent);
     });
 
     it('should build the applicants and the respondents of the party with data that requires mapping', async () => {

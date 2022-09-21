@@ -13,6 +13,13 @@
     "jurisdictions": ["Single Justice Procedure"],
     "restrictedProvenances":  ["PI_AAD"]
   },
+  "SJP_PRESS_REGISTER": {
+    "friendlyName": "Single Justice Procedure Press Register",
+    "shortenedFriendlyName": "SJP Press Register",
+    "url": "",
+    "jurisdictions": ["Single Justice Procedure"],
+    "restrictedProvenances": ["PI_AAD"]
+  },
   "CROWN_DAILY_LIST": {
     "friendlyName": "Crown Daily List",
     "shortenedFriendlyName": "Crown Daily List",

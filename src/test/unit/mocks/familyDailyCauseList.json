@@ -155,6 +155,123 @@
                     "startTime": "9.40am",
                     "durationAsHours": 1,
                     "durationAsMinutes": 5
+                  },
+                  {
+                    "sittingStart": "2022-07-27T09:40:17.496185",
+                    "sittingEnd": "2022-07-27T10:45:17.496185",
+                    "hearing": [
+                      {
+                        "hearingType": "FMPO",
+                        "case": [
+                          {
+                            "caseName": "A1 Vs B1",
+                            "caseNumber": "12345678",
+                            "caseType": "type",
+                            "caseSequenceIndicator": "2 of 3"
+                          },
+                          {
+                            "caseName": "A2 Vs B2",
+                            "caseNumber": "112233445"
+                          }
+                        ],
+                        "party": [
+                          {
+                            "partyRole": "APPLICANT_PETITIONER",
+                            "individualDetails": {
+                              "individualSurname": "Applicant Surname1"
+                            }
+                          },
+                          {
+                            "partyRole": "RESPONDENT",
+                            "individualDetails": {
+                              "individualSurname": "Respondent Surname1"
+                            }
+                          },
+                          {
+                            "partyRole": "APPLICANT_PETITIONER",
+                            "individualDetails": {
+                              "individualSurname": "Surname2"
+                            }
+                          },
+                          {
+                            "partyRole": "RESPONDENT",
+                            "individualDetails": {
+                              "individualSurname": "Surname2"
+                            }
+                          },
+                          {
+                            "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                            "friendlyRoleName": "Legal Advisor",
+                            "individualDetails": {
+                              "individualForenames": "Individual Forenames",
+                              "individualMiddleName": "Individual Middlename",
+                              "individualSurname": "Individual Surname",
+                              "title": "Mr"
+                            }
+                          },
+                          {
+                            "partyRole": "RESPONDENT_REPRESENTATIVE",
+                            "friendlyRoleName": "Legal Advisor",
+                            "individualDetails": {
+                              "individualForenames": "Individual Forenames",
+                              "individualMiddleName": "Individual Middlename",
+                              "individualSurname": "Individual Surname",
+                              "title": "Mr"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                        "case": [
+                          {
+                            "caseName": "A2 Vs B2",
+                            "caseNumber": "112233445"
+                          }
+                        ],
+                        "party": [
+                          {
+                            "partyRole": "APPLICANT_PETITIONER",
+                            "individualDetails": {
+                              "individualSurname": "Surname"
+                            }
+                          },
+                          {
+                            "partyRole": "RESPONDENT",
+                            "individualDetails": {
+                              "individualSurname": "Surname"
+                            }
+                          },
+                          {
+                            "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                            "friendlyRoleName": "Legal Advisor",
+                            "individualDetails": {
+                              "individualForenames": "Individual Forenames",
+                              "individualMiddleName": "Individual Middlename",
+                              "individualSurname": "Individual Surname",
+                              "title": "Mr"
+                            }
+                          },
+                          {
+                            "partyRole": "RESPONDENT_REPRESENTATIVE",
+                            "friendlyRoleName": "Legal Advisor",
+                            "individualDetails": {
+                              "individualForenames": "Individual Forenames",
+                              "individualMiddleName": "Individual Middlename",
+                              "individualSurname": "Individual Surname",
+                              "title": "Mr"
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      "testSittingChannel"
+                    ],
+                    "duration": "",
+                    "startTime": "9.40am",
+                    "durationAsHours": 1,
+                    "durationAsMinutes": 5
                   }
                 ]
               }
