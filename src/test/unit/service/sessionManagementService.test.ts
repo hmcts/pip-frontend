@@ -17,7 +17,7 @@ describe('Test admin session expiry', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').once().withArgs(adminLogoutUrl);
 
-    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpires': new Date(now - 10000)}, 'lng': 'en'};
+    const req = {'user': {'roles': 'SYSTEM_ADMIN'}, 'session': {'sessionExpires': new Date(now - 10000)}, 'lng': 'en'};
     expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
     expect(req.session).to.be.null;
     responseMock.verify();
@@ -27,7 +27,7 @@ describe('Test admin session expiry', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').never();
 
-    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpires': new Date(now + 100000)}, 'lng': 'en'};
+    const req = {'user': {'roles': 'SYSTEM_ADMIN'}, 'session': {'sessionExpires': new Date(now + 100000)}, 'lng': 'en'};
     expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
     responseMock.verify();
   });
@@ -36,7 +36,7 @@ describe('Test admin session expiry', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').never();
 
-    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {}, 'lng': 'en'};
+    const req = {'user': {'roles': 'SYSTEM_ADMIN'}, 'session': {}, 'lng': 'en'};
     expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
     responseMock.verify();
   });
@@ -51,7 +51,7 @@ describe('Test media user session expiry', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').once().withArgs(mediaLogoutUrl);
 
-    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {'sessionExpires': new Date(now - 10000)}, 'lng': 'en'};
+    const req = {'user': {'roles': 'VERIFIED'}, 'session': {'sessionExpires': new Date(now - 10000)}, 'lng': 'en'};
     expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
     expect(req.session).to.be.null;
     responseMock.verify();
@@ -61,7 +61,7 @@ describe('Test media user session expiry', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').never();
 
-    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {'sessionExpires': new Date(now + 100000)}, 'lng': 'en'};
+    const req = {'user': {'roles': 'VERIFIED'}, 'session': {'sessionExpires': new Date(now + 100000)}, 'lng': 'en'};
     expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
     responseMock.verify();
   });
@@ -70,7 +70,7 @@ describe('Test media user session expiry', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').never();
 
-    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {}, 'lng': 'en'};
+    const req = {'user': {'roles': 'VERIFIED'}, 'session': {}, 'lng': 'en'};
     expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
     responseMock.verify();
   });

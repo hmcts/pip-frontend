@@ -19,9 +19,7 @@ const tableClass = 'govuk-table';
 
 const expectedHeader = 'Select application to assess';
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'INTERNAL_ADMIN_CTSC',
-}};
+expressRequest['user'] = {'roles': 'INTERNAL_ADMIN_CTSC'};
 
 describe('Media applications page', () => {
   beforeEach(async () => {

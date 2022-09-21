@@ -18,7 +18,7 @@ export default class CreateAdminAccountSummaryController {
 
   public async post(req: PipRequest, res: Response): Promise<void> {
     const formData = (req.cookies?.createAdminAccount) ? JSON.parse(req.cookies['createAdminAccount']) : {};
-    const response = await createAccountService.createAdminAccount(formData, req.user?.['piUserId']);
+    const response = await createAccountService.createAdminAccount(formData, req.user?.['userId']);
     response ?
       res.render('create-admin-account-summary', {
         formData,

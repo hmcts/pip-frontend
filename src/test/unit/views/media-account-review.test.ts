@@ -52,9 +52,7 @@ describe('Media Account Review Test', () => {
 
     beforeAll(async () => {
 
-      expressRequest['user'] = {'_json': {
-        'extension_UserRole': 'INTERNAL_ADMIN_CTSC',
-      }};
+      expressRequest['user'] = {'roles': 'INTERNAL_ADMIN_CTSC'};
 
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

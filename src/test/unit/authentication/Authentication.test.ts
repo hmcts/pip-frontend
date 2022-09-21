@@ -1,4 +1,4 @@
-const piUserId = {piUserId: '1234', piUserProvenance: 'PI_AAD'};
+const userId = {userId: '1234', userProvenance: 'PI_AAD'};
 
 describe('Authentication', () => {
   let authentication;
@@ -86,7 +86,7 @@ describe('Authentication', () => {
       const sinon = await import('sinon');
       const AccountManagementRequests = await import('../../../main/resources/requests/accountManagementRequests');
       const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByAzureOid');
-      stub.resolves(piUserId);
+      stub.resolves(userId);
       authentication();
 
       const strategy = passport._strategies['login'];
@@ -127,7 +127,7 @@ describe('Authentication', () => {
       const sinon = await import('sinon');
       const AccountManagementRequests = await import('../../../main/resources/requests/accountManagementRequests');
       const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByAzureOid');
-      stub.resolves(piUserId);
+      stub.resolves(userId);
 
       authentication();
 

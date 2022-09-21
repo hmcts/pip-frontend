@@ -56,7 +56,7 @@ export default class MediaAccountRejectionController {
    * This handles the pages that render if the user has selected 'Reject' on the screen.
    */
   private static async rejectionFlow(req, res, applicantId, applicantData): Promise<void> {
-    if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['piUserId'])) {
+    if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'])) {
       return res.render('media-account-rejection-confirmation', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection-confirmation']),
         applicantData: applicantData,

@@ -41,9 +41,7 @@ const errorMessageAzureError = 'There has been a problem creating the users acco
 
 let htmlRes: Document;
 
-expressRequest['user'] = {'emails': ['emailA'], '_json': {
-  'extension_UserRole': 'INTERNAL_ADMIN_CTSC',
-}};
+expressRequest['user'] = {'email': 'emailA', 'roles': 'INTERNAL_ADMIN_CTSC'};
 
 const dummyApplication = {
   'id': '1234',

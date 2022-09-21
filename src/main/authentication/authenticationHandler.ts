@@ -89,11 +89,9 @@ export function forgotPasswordRedirect(req, res, next): void {
 }
 
 export async function mediaVerificationHandling(req, res): Promise<any> {
-  if(req.user) {
-    const userInfo = req.user['_json'];
-    if(verifiedRoles.includes(userInfo?.extension_UserRole)) {
-      const response = await AccountManagementRequests.prototype.updateMediaAccountVerification(userInfo?.oid);
-      console.log(response);
+  if(req.user && req.user.userProvenance == 'PI_AAD') {
+    if(verifiedRoles.includes(req.user.roles)) {
+      await AccountManagementRequests.prototype.updateMediaAccountVerification(req.user.provenanceUserId);
       res.redirect('/account-home?verified=true');
     }
   }
@@ -101,9 +99,7 @@ export async function mediaVerificationHandling(req, res): Promise<any> {
 
 export async function processAdminAccountSignIn(req, res): Promise<any> {
   if(checkRoles(req, allAdminRoles)) {
-    const userInfo = req.user['_json'];
-    const response = await AccountManagementRequests.prototype.updateAccountLastSignedInDate(userInfo.oid);
-    console.log(response);
+    await AccountManagementRequests.prototype.updateAccountLastSignedInDate(req.user.provenanceUserId);
     res.redirect('/admin-dashboard');
   } else {
     res.redirect('/account-home');

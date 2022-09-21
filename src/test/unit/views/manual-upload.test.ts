@@ -49,9 +49,7 @@ const mockBodyData = {
   'display-date-to-year': '',
 };
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-}};
+expressRequest['user'] = {'roles': 'INTERNAL_SUPER_ADMIN_CTSC'};
 
 sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 

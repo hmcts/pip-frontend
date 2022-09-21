@@ -56,7 +56,7 @@ describe('Media Account Approval Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'approved': 'Yes', 'applicantId': applicantId};
-    request['user'] = {'piUserId': adminAccountId };
+    request['user'] = {'userId': adminAccountId };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
     mediaAccountCreationStub.withArgs(applicantId, adminAccountId).resolves(true);
@@ -75,7 +75,7 @@ describe('Media Account Approval Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'approved': 'Yes', 'applicantId': '1234'};
-    request['user'] = {'piUserId': adminAccountId };
+    request['user'] = {'userId': adminAccountId };
 
     mediaAccountApplicationStub.withArgs('1234', status).resolves(null);
 
@@ -91,7 +91,7 @@ describe('Media Account Approval Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'applicantId': applicantId};
-    request['user'] = {'piUserId': adminAccountId };
+    request['user'] = {'userId': adminAccountId };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
 
@@ -110,7 +110,7 @@ describe('Media Account Approval Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'approved': 'No', 'applicantId': applicantId};
-    request['user'] = {'piUserId': adminAccountId };
+    request['user'] = {'userId': adminAccountId };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
 
@@ -126,7 +126,7 @@ describe('Media Account Approval Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'approved': 'Yes', 'applicantId': applicantId};
-    request['user'] = {'piUserId': adminAccountId };
+    request['user'] = {'userId': adminAccountId };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
     mediaAccountCreationStub.withArgs(applicantId, adminAccountId).resolves(false);

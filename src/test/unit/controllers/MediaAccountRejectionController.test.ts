@@ -70,7 +70,7 @@ describe('Media Account Rejection Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'reject-confirmation': 'Yes', 'applicantId': applicantId};
-    request['user'] = {'piUserId': adminUserId };
+    request['user'] = {'userId': adminUserId };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
     mediaAccountRejectionStub.withArgs(applicantId, adminUserId).resolves(dummyApplication);
@@ -137,7 +137,7 @@ describe('Media Account Rejection Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'reject-confirmation': 'Yes', 'applicantId': applicantId};
-    request['user'] = {'piUserId': adminUserId };
+    request['user'] = {'userId': adminUserId };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
     mediaAccountRejectionStub.withArgs(applicantId, adminUserId).resolves(null);

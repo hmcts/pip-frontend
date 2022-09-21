@@ -13,9 +13,7 @@ describe('Unsubscribe Confirmation', () => {
   beforeEach(() => {
     stub.withArgs({...validBody, userId: '1'}).resolves(true);
     stub.withArgs({...invalidBody, userId: '1'}).resolves(undefined);
-    app.request['user'] = {id: '1', '_json': {
-      'extension_UserRole': 'VERIFIED',
-    }};
+    app.request['user'] = {'roles': 'VERIFIED'};
   });
 
   describe('on POST', () => {

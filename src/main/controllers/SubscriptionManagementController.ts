@@ -8,7 +8,7 @@ const subscriptionService = new SubscriptionService();
 export default class SubscriptionManagementController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     if (req.user) {
-      const subscriptionData = await subscriptionService.getSubscriptionsByUser(req.user['piUserId']);
+      const subscriptionData = await subscriptionService.getSubscriptionsByUser(req.user['userId']);
       const caseTableData = await subscriptionService.generateCaseTableRows(subscriptionData.caseSubscriptions,
         req.lng as string, 'subscription-management');
       const locationTableData = await subscriptionService.generateLocationTableRows(subscriptionData.locationSubscriptions,

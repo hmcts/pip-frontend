@@ -54,9 +54,7 @@ const dummyApplication = {
 
 sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').returns(dummyApplication);
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'INTERNAL_ADMIN_CTSC',
-}};
+expressRequest['user'] = {'roles': 'INTERNAL_ADMIN_CTSC'};
 
 describe('Media Account Rejection Page', () => {
 

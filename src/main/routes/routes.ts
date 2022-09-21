@@ -48,9 +48,8 @@ export default function(app: Application): void {
   }
 
   function regenerateSession(req, res): void {
-      res.redirect('/account-home');
+    res.redirect('/account-home');
   }
-
 
   // Public paths
   app.get('/*', globalAuthGiver);

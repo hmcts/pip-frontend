@@ -31,7 +31,7 @@ describe('SJP Public List Type Controller', () => {
 
   it('should render the SJP public list page', async () =>  {
     const request = mockRequest(i18n);
-    request.user = {piUserId: '123'};
+    request.user = {userId: '123'};
 
     request.query = {artefactId: artefactId};
 
@@ -54,7 +54,7 @@ describe('SJP Public List Type Controller', () => {
   it('should render error page is query param is empty', async () => {
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '123'};
+    request.user = {userId: '123'};
 
     const responseMock = sinon.mock(response);
 

@@ -33,7 +33,7 @@ describe('Get publications', () => {
 
     const request = mockRequest(i18n);
     request.query = {locationId: '1'};
-    request.user = {id: 1};
+    request.user = {};
 
     const responseMock = sinon.mock(response);
 
@@ -59,7 +59,7 @@ describe('Get publications', () => {
 
     const request = mockRequest(i18n);
     request.query = {locationId: '0'};
-    request.user = {id: 1};
+    request.user = {};
 
     const responseMock = sinon.mock(response);
 
@@ -82,7 +82,7 @@ describe('Get publications', () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.user = {id: 1};
+    request.user = {userId: 1};
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('error');
   });

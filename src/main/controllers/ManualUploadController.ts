@@ -59,7 +59,7 @@ export default class ManualUploadController {
           req.body['classificationName'] = formValues['form'].classification.find(item => item.value === req.body.classification).text;
         }
 
-        await fileHandlingService.storeFileIntoRedis(req.user['oid'], originalFileName, sanitisedFileName);
+        await fileHandlingService.storeFileIntoRedis(req.user['userId'], originalFileName, sanitisedFileName);
 
         res.cookie('formCookie', JSON.stringify(req.body));
         res.redirect('/manual-upload-summary?check=true');

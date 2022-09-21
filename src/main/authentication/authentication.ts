@@ -8,11 +8,10 @@ import {
   MEDIA_VERIFICATION_RETURN_URL,
   ADMIN_AUTH_RETURN_URL,
   FRONTEND_URL,
-  CFT_IDAM_URL
+  CFT_IDAM_URL,
 } from '../helpers/envUrls';
-import axios from "axios";
-import jwt_decode from "jwt-decode";
-
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 const AzureOIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
@@ -71,7 +70,7 @@ function oidcSetup(): void {
 
   logger.info('secret', clientSecret ? clientSecret.substring(0,5) : 'client secret not set!' );
 
-  const pAndIVerifyFunction = async function(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
+  const piAadVerifyFunction = async function(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
     const returnedUser = await AccountManagementRequests.prototype.getPiUserByAzureOid(profile['oid']);
 
     if (returnedUser) {
@@ -83,17 +82,17 @@ function oidcSetup(): void {
 
   passport.serializeUser(async function(foundUser, done) {
     if(foundUser['flow'] === 'CFT') {
-      let user = await accountManagementRequests.getPiUserByCftID(foundUser['uid']);
+      const user = await accountManagementRequests.getPiUserByCftID(foundUser['uid']);
 
       if (!user) {
         const piAccount = [{
-          "userProvenance": "CFT_IDAM",
-          "email": foundUser['sub'],
-          "roles": "VERIFIED",
-          "provenanceUserId": foundUser['uid']
-        }]
+          'userProvenance': 'CFT_IDAM',
+          'email': foundUser['sub'],
+          'roles': 'VERIFIED',
+          'provenanceUserId': foundUser['uid'],
+        }];
 
-        await accountManagementRequests.createPIAccount(piAccount, "");
+        await accountManagementRequests.createPIAccount(piAccount, '');
       }
       done(null, {'uid': foundUser.uid, 'flow': 'CFT'});
     } else {
@@ -109,10 +108,7 @@ function oidcSetup(): void {
       user = await accountManagementRequests.getPiUserByAzureOid(userDetails['oid']);
     }
 
-    user['piUserId'] = user.userId;
-    user['piUserProvenance'] = user.userProvenance;
     return done(null, user);
-
   });
 
   passport.use('login', new AzureOIDCStrategy({
@@ -125,7 +121,7 @@ function oidcSetup(): void {
     clientSecret: clientSecret,
     isB2C: true,
   },
-  pAndIVerifyFunction,
+  piAadVerifyFunction,
   ));
 
   passport.use('admin-login', new AzureOIDCStrategy({
@@ -138,7 +134,7 @@ function oidcSetup(): void {
     clientSecret: clientSecret,
     isB2C: true,
   },
-  pAndIVerifyFunction,
+  piAadVerifyFunction,
   ));
 
   passport.use('media-verification', new AzureOIDCStrategy({
@@ -151,9 +147,8 @@ function oidcSetup(): void {
     clientSecret: clientSecret,
     isB2C: true,
   },
-  pAndIVerifyFunction,
+  piAadVerifyFunction,
   ));
-
 
   passport.use('cft-idam', new CustomStrategy(
     async function(req, callback) {
@@ -172,8 +167,8 @@ function oidcSetup(): void {
         const response = await tokenRequest.post('/o/token', querystring.stringify(params), {
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
         });
 
         const data = response.data;
@@ -185,7 +180,7 @@ function oidcSetup(): void {
       } catch (e) {
         console.log(e);
       }
-    }
+    },
   ));
 
 }

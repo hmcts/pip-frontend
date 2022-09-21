@@ -1,5 +1,5 @@
-import {PipRequest} from "../models/request/PipRequest";
-import {Response} from "express";
+import {PipRequest} from '../models/request/PipRequest';
+import {Response} from 'express';
 import {CFT_IDAM_URL, FRONTEND_URL} from '../helpers/envUrls';
 
 export default class CftLoginController {

@@ -56,7 +56,7 @@ const blankPayload = {
   userId: '5',
 };
 
-const user = {oid: '1234'};
+const user = {};
 
 const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';

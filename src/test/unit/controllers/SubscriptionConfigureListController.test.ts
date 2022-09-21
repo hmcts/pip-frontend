@@ -16,7 +16,7 @@ describe('Subscriptions Configure List Controller', () => {
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
 
-    request.user = {piUserId: '1234', piUserProvenance: 'userProvenance'};
+    request.user = {userId: '1234', userProvenance: 'userProvenance'};
     request.query = {filterValues: 'filterValue', clear: 'Civil'};
 
     sinon.stub(SubscriptionService.prototype, 'generateListTypesForCourts')

@@ -101,14 +101,10 @@ beforeAll((done /* call it or remove it*/) => {
 export function ensurePageCallWillSucceed(url: string): Promise<void> {
   if (adminRoutes.includes(url)) {
     app.request['user'] = {
-      piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
-        'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-      }};
+      userId: '1', email: 'joe@bloggs.com', 'roles': 'INTERNAL_ADMIN_CTSC'};
   } else {
     app.request['user'] = {
-      piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
-        'extension_UserRole': 'VERIFIED',
-      }};
+      userId: '1', email: 'joe@bloggs.com', 'roles': 'VERIFIED'};
   }
 
   return agent.get(url).then((res: supertest.Response) => {

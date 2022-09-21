@@ -4,9 +4,7 @@ import request from 'supertest';
 import { app } from '../../main/app';
 import {request as expressRequest} from 'express';
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {'roles': 'VERIFIED'};
 
 describe('Case name search', () => {
   describe('on GET', () => {
