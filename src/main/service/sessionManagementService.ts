@@ -7,21 +7,27 @@ const defaultSessionExpiry = 60 * 60 * 1000; // default to 1 hour
 
 export class SessionManagementService {
   public logOut(req, res, adminWrongFlow): void {
-    // For cookie-session, the request session needs to be destroyed by setting to null upon logout
-    req.session = null;
-    res.clearCookie('session');
-    let b2cUrl;
-    let b2cPolicy;
-    if (adminWrongFlow) {
-      b2cUrl = B2C_URL;
-      b2cPolicy = authenticationConfig.POLICY;
-    } else {
-      b2cUrl = checkRoles(req, allAdminRoles) ? B2C_ADMIN_URL : B2C_URL;
-      b2cPolicy = checkRoles(req, allAdminRoles) ? authenticationConfig.ADMIN_POLICY : authenticationConfig.POLICY;
-    }
+    if (req.user['userProvenance'] == 'PI_AAD') {
+      // For cookie-session, the request session needs to be destroyed by setting to null upon logout
+      req.session = null;
+      res.clearCookie('session');
+      let b2cUrl;
+      let b2cPolicy;
+      if (adminWrongFlow) {
+        b2cUrl = B2C_URL;
+        b2cPolicy = authenticationConfig.POLICY;
+      } else {
+        b2cUrl = checkRoles(req, allAdminRoles) ? B2C_ADMIN_URL : B2C_URL;
+        b2cPolicy = checkRoles(req, allAdminRoles) ? authenticationConfig.ADMIN_POLICY : authenticationConfig.POLICY;
+      }
 
-    const encodedSignOutRedirect = encodeURIComponent(this.getLogOutRedirectUrl(req, adminWrongFlow));
-    res.redirect(`${b2cUrl}/${b2cPolicy}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
+      const encodedSignOutRedirect = encodeURIComponent(this.getLogOutRedirectUrl(req, adminWrongFlow));
+      res.redirect(`${b2cUrl}/${b2cPolicy}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
+    } else {
+      req.session = null;
+      res.clearCookie('session');
+      res.redirect('/view-option');
+    }
   }
 
   public handleSessionExpiry(req, res): boolean {

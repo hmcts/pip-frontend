@@ -114,3 +114,7 @@ export async function processMediaAccountSignIn(req, res): Promise<any> {
     res.redirect('/account-home');
   }
 }
+
+export async function processCftIdamSignIn(req, res): Promise<any> {
+  res.redirect('/account-home');
+}
