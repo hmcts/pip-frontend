@@ -71,30 +71,14 @@ function oidcSetup(): void {
 
   logger.info('secret', clientSecret ? clientSecret.substring(0,5) : 'client secret not set!' );
 
-  const users = [];
+  const pAndIVerifyFunction = async function(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
+    const returnedUser = await AccountManagementRequests.prototype.getPiUserByAzureOid(profile['oid']);
 
-  const findByOid = async function(oid, fn): Promise<any> {
-    for (let i = 0, len = users.length; i < len; i++) {
-      const user = users[i];
-      if (user.oid === oid) {
-        const returnedUser = await AccountManagementRequests.prototype.getPiUserByAzureOid(oid);
-        user['piUserId'] = returnedUser.userId;
-        user['piUserProvenance'] = returnedUser.userProvenance;
-        return fn(user);
-      }
+    if (returnedUser) {
+      return done(null, profile);
+    } else {
+      return done(null, null);
     }
-    return fn(null);
-  };
-
-  const passportStrategyFn = async function(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
-    await findByOid(profile.oid, function(user) {
-      if (!user) {
-        // "Auto-registration"
-        users.push(profile);
-        return done(null, profile);
-      }
-      return done(null, user);
-    });
   };
 
   passport.serializeUser(async function(foundUser, done) {
@@ -141,7 +125,7 @@ function oidcSetup(): void {
     clientSecret: clientSecret,
     isB2C: true,
   },
-  passportStrategyFn,
+  pAndIVerifyFunction,
   ));
 
   passport.use('admin-login', new AzureOIDCStrategy({
@@ -154,7 +138,7 @@ function oidcSetup(): void {
     clientSecret: clientSecret,
     isB2C: true,
   },
-  passportStrategyFn,
+  pAndIVerifyFunction,
   ));
 
   passport.use('media-verification', new AzureOIDCStrategy({
@@ -167,7 +151,7 @@ function oidcSetup(): void {
     clientSecret: clientSecret,
     isB2C: true,
   },
-  passportStrategyFn,
+  pAndIVerifyFunction,
   ));
 
 
