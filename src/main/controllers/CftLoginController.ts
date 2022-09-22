@@ -9,7 +9,7 @@ export default class CftLoginController {
     const params = new URLSearchParams({
       'client_id': 'app-pip-frontend',
       'response_type': 'code',
-      'redirect_uri': FRONTEND_URL + '/cft-login/return'
+      'redirect_uri': FRONTEND_URL + '/cft-login/return',
     });
 
     res.redirect(CFT_IDAM_URL + '?' + params.toString());

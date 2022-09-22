@@ -89,11 +89,12 @@ export function forgotPasswordRedirect(req, res, next): void {
 }
 
 export async function mediaVerificationHandling(req, res): Promise<any> {
-  if(req.user && req.user.userProvenance == 'PI_AAD') {
-    if(verifiedRoles.includes(req.user.roles)) {
+  if(req.user && verifiedRoles.includes(req.user.roles)) {
+    if(req.user.userProvenance == 'PI_AAD') {
       await AccountManagementRequests.prototype.updateMediaAccountVerification(req.user.provenanceUserId);
-      res.redirect('/account-home?verified=true');
     }
+
+    res.redirect('/account-home?verified=true');
   }
 }
 

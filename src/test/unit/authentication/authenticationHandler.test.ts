@@ -246,7 +246,7 @@ describe('forgot password reset', () => {
 describe('media verification handling', () => {
   it('should redirect to account home with verified banner', async () => {
     const mockRedirectFunction = jest.fn((argument) => argument);
-    const req = {'user': {'roles': 'VERIFIED'}};
+    const req = {'user': {'roles': 'VERIFIED', 'userProvenance': 'PI_AAD'}};
     const res = {'redirect': mockRedirectFunction};
 
     await mediaVerificationHandling(req, res);

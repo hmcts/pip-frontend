@@ -8,7 +8,7 @@ import {
   MEDIA_VERIFICATION_RETURN_URL,
   ADMIN_AUTH_RETURN_URL,
 } from '../helpers/envUrls';
-import {cftIdamAuthentication} from "./cftIdamAuthentication";
+import {cftIdamAuthentication} from './cftIdamAuthentication';
 
 const AzureOIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
@@ -60,7 +60,7 @@ function oidcSetup(): void {
   logger.info('secret', clientSecret ? clientSecret.substring(0,5) : 'client secret not set!' );
 
   const piAadVerifyFunction = async function(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
-    const returnedUser = await AccountManagementRequests.prototype.getPiUserByAzureOid(profile['oid']);
+    const returnedUser = await accountManagementRequests.getPiUserByAzureOid(profile['oid']);
 
     if (returnedUser) {
       return done(null, profile);

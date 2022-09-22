@@ -10,6 +10,7 @@ const res = {
 } as unknown as Response;
 
 describe('Test admin session expiry', () => {
+
   const now = Date.now();
   const adminLogoutUrl = 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInAdminUserFlow/oauth2/v2.0/logout?post_logout_redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Fadmin-dashboard%3Flng%3Den';
 
@@ -17,7 +18,7 @@ describe('Test admin session expiry', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').once().withArgs(adminLogoutUrl);
 
-    const req = {'user': {'roles': 'SYSTEM_ADMIN'}, 'session': {'sessionExpires': new Date(now - 10000)}, 'lng': 'en'};
+    const req = {'user': {'roles': 'SYSTEM_ADMIN', 'userProvenance': 'PI_AAD'}, 'session': {'sessionExpires': new Date(now - 10000)}, 'lng': 'en'};
     expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
     expect(req.session).to.be.null;
     responseMock.verify();
@@ -27,7 +28,7 @@ describe('Test admin session expiry', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').never();
 
-    const req = {'user': {'roles': 'SYSTEM_ADMIN'}, 'session': {'sessionExpires': new Date(now + 100000)}, 'lng': 'en'};
+    const req = {'user': {'roles': 'SYSTEM_ADMIN', 'userProvenance': 'PI_AAD'}, 'session': {'sessionExpires': new Date(now + 100000)}, 'lng': 'en'};
     expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
     responseMock.verify();
   });
@@ -36,7 +37,7 @@ describe('Test admin session expiry', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').never();
 
-    const req = {'user': {'roles': 'SYSTEM_ADMIN'}, 'session': {}, 'lng': 'en'};
+    const req = {'user': {'roles': 'SYSTEM_ADMIN', 'userProvenance': 'PI_AAD'}, 'session': {}, 'lng': 'en'};
     expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
     responseMock.verify();
   });
@@ -51,7 +52,7 @@ describe('Test media user session expiry', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').once().withArgs(mediaLogoutUrl);
 
-    const req = {'user': {'roles': 'VERIFIED'}, 'session': {'sessionExpires': new Date(now - 10000)}, 'lng': 'en'};
+    const req = {'user': {'roles': 'VERIFIED', 'userProvenance': 'PI_AAD'}, 'session': {'sessionExpires': new Date(now - 10000)}, 'lng': 'en'};
     expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
     expect(req.session).to.be.null;
     responseMock.verify();
@@ -61,7 +62,7 @@ describe('Test media user session expiry', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').never();
 
-    const req = {'user': {'roles': 'VERIFIED'}, 'session': {'sessionExpires': new Date(now + 100000)}, 'lng': 'en'};
+    const req = {'user': {'roles': 'VERIFIED', 'userProvenance': 'PI_AAD'}, 'session': {'sessionExpires': new Date(now + 100000)}, 'lng': 'en'};
     expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
     responseMock.verify();
   });
@@ -70,7 +71,7 @@ describe('Test media user session expiry', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').never();
 
-    const req = {'user': {'roles': 'VERIFIED'}, 'session': {}, 'lng': 'en'};
+    const req = {'user': {'roles': 'VERIFIED', 'userProvenance': 'PI_AAD'}, 'session': {}, 'lng': 'en'};
     expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
     responseMock.verify();
   });

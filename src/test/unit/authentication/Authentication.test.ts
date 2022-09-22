@@ -66,6 +66,11 @@ describe('Authentication', () => {
 
   parameters.forEach((parameter) => {
     it(`Test that a new user is added for azure ${parameter.strategy} authentication`, async () => {
+      const sinon = await import('sinon');
+      const AccountManagementRequests = await import('../../../main/resources/requests/accountManagementRequests');
+      const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByAzureOid');
+      stub.resolves(userId);
+
       authentication();
 
       const strategy = passport._strategies[parameter.strategy];
@@ -101,8 +106,9 @@ describe('Authentication', () => {
       await verifyFunction(null, null, secondProfile, null, null, mockCallback);
 
       expect(mockCallback.mock.calls.length).to.eql(2);
-      expect(mockCallback.mock.calls[1][0]).to.eql(null);
-      expect(mockCallback.mock.calls[1][1]).to.eql(firstProfile);
+      expect(mockCallback.mock.calls[0][0]).to.eql(null);
+      expect(mockCallback.mock.calls[0][1]).to.eql(firstProfile);
+      expect(mockCallback.mock.calls[1][1]).to.eql(secondProfile);
     });
   });
 
@@ -119,7 +125,7 @@ describe('Authentication', () => {
 
     expect(mockCallback.mock.calls.length).to.eql(1);
     expect(mockCallback.mock.calls[0][0]).to.eql(null);
-    expect(mockCallback.mock.calls[0][1]).to.eql('1234');
+    expect(mockCallback.mock.calls[0][1]).to.eql({oid: '1234', 'flow': 'AAD'});
   });
 
   parameters.forEach((parameter) => {
@@ -140,11 +146,11 @@ describe('Authentication', () => {
       const firstDeserializer = passport._deserializers[0];
       const serializeMockCallback = jest.fn();
 
-      await firstDeserializer('1234', serializeMockCallback);
+      await firstDeserializer({oid: '1234', flow: 'AAD'}, serializeMockCallback);
 
       expect(serializeMockCallback.mock.calls.length).to.eql(1);
       expect(serializeMockCallback.mock.calls[0][0]).to.eql(null);
-      expect(serializeMockCallback.mock.calls[0][1]).to.eql(profile);
+      expect(serializeMockCallback.mock.calls[0][1]).to.eql(userId);
     });
   });
 

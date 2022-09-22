@@ -1,8 +1,8 @@
-import {CFT_IDAM_URL, FRONTEND_URL} from "../helpers/envUrls";
-import axios from "axios";
-import jwt_decode from "jwt-decode";
+import {CFT_IDAM_URL, FRONTEND_URL} from '../helpers/envUrls';
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 import config = require('config');
-import process from "process";
+import process from 'process';
 
 const querystring = require('querystring');
 
