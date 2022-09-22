@@ -162,9 +162,9 @@ export class AccountManagementRequests {
     }
   }
 
-  public async getPiUserByCftID(oid: string): Promise<any> {
+  public async getPiUserByCftID(uid: string): Promise<any> {
     try {
-      const response = await accountManagementApi.get(`/account/provenance/CFT_IDAM/${oid}`);
+      const response = await accountManagementApi.get(`/account/provenance/CFT_IDAM/${uid}`);
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -172,7 +172,7 @@ export class AccountManagementRequests {
       } else if (error.request) {
         logger.error('Request failed for Pi user', error.request);
       } else {
-        logger.error('Something went wrong trying to get the pi user from the oid', error.message);
+        logger.error('Something went wrong trying to get the pi user from the uid', error.message);
       }
       return null;
     }
