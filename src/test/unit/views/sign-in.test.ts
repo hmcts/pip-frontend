@@ -49,6 +49,21 @@ describe('Sign In option Page', () => {
       expect(radioButtons.length).equal(3, '3 radio buttons not found');
     });
 
+    it('CFT IDAM radio button should be enabled', () => {
+      const radioButtons = htmlRes.getElementsByClassName(radioClass)[0];
+      expect(radioButtons.innerHTML).not.includes('disabled');
+    });
+
+    it('Crime IDAM radio button should be disabled', () => {
+      const radioButtons = htmlRes.getElementsByClassName(radioClass)[1];
+      expect(radioButtons.innerHTML).includes('disabled');
+    });
+
+    it('P&I IDAM radio button should be enabled', () => {
+      const radioButtons = htmlRes.getElementsByClassName(radioClass)[2];
+      expect(radioButtons.innerHTML).not.includes('disabled');
+    });
+
     it('should display radio button content',  () => {
       const radioButtons = htmlRes.getElementsByClassName(radioClass);
       for(let i = 0; i < 3; i++) {
