@@ -1,3 +1,5 @@
+import * as querystring from 'querystring';
+
 jest.mock('jwt-decode', () => () => ({'roles': 'VERIFIED'}));
 
 import sinon from 'sinon';
@@ -12,10 +14,19 @@ describe('CFT IDAM Authentication', () => {
     const request = {'query': {'code': '1234'}};
     postStub.resolves({'data': {}});
 
+    const params = {
+      client_id: 'app-pip-frontend',
+      client_secret: 'client-secret',
+      grant_type: 'authorization_code',
+      redirect_uri: 'https://localhost:8080/cft-login/return',
+      code: '1234',
+    };
+
     await cftIdamAuthentication(request, mockFunction);
 
     const cftIdamTokenCall = postStub.getCall(0).args;
     expect(cftIdamTokenCall[0]).toEqual('/o/token');
+    expect(cftIdamTokenCall[1]).toEqual(querystring.stringify(params));
     expect(cftIdamTokenCall[2]).toEqual({
       headers: {
         'Accept': 'application/json',
