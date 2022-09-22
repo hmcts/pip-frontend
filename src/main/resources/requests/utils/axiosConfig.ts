@@ -2,6 +2,7 @@ import axios from 'axios';
 import oauth from 'axios-oauth-client';
 import tokenProvider from 'axios-token-interceptor';
 import config from 'config';
+import {CFT_IDAM_URL} from '../../../helpers/envUrls';
 
 const tenantId = process.env.TENANT_ID ? process.env.TENANT_ID : config.get('secrets.pip-ss-kv.TENANT_ID');
 const tokenUrl = 'https://login.microsoftonline.com/' + tenantId + '/oauth2/v2.0/token';
@@ -28,6 +29,7 @@ export const accountManagementApiUrl = process.env.ACCOUNT_MANAGEMENT_URL || 'ht
 export const dataManagementApi = axios.create({baseURL: (process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net'), timeout: 10000});
 export const subscriptionManagementApi = axios.create({baseURL: (process.env.SUBSCRIPTION_MANAGEMENT_URL || 'https://pip-subscription-management.staging.platform.hmcts.net'), timeout: 10000});
 export const accountManagementApi = axios.create({baseURL: accountManagementApiUrl, timeout: 10000});
+export const cftIdamTokenApi = axios.create({baseURL: CFT_IDAM_URL, timeout: 10000});
 
 function createCredentials (url): () => any {
 

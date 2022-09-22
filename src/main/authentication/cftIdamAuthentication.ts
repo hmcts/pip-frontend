@@ -1,8 +1,8 @@
-import {CFT_IDAM_URL, FRONTEND_URL} from '../helpers/envUrls';
-import axios from 'axios';
+import {FRONTEND_URL} from '../helpers/envUrls';
 import jwt_decode from 'jwt-decode';
 import config = require('config');
 import process from 'process';
+import {cftIdamTokenApi} from '../resources/requests/utils/axiosConfig';
 
 const querystring = require('querystring');
 
@@ -31,10 +31,8 @@ export async function cftIdamAuthentication(req, callback) {
     code: req.query.code as string,
   };
 
-  const tokenRequest = axios.create({baseURL: CFT_IDAM_URL, timeout: 10000});
-
   try {
-    const response = await tokenRequest.post('/o/token', querystring.stringify(params), {
+    const response = await cftIdamTokenApi.post('/o/token', querystring.stringify(params), {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
