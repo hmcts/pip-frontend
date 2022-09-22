@@ -1,4 +1,5 @@
 import {expect} from 'chai';
+import sinon from 'sinon';
 import {
   checkRoles,
   manualUploadRoles,
@@ -13,12 +14,19 @@ import {
   isPermittedMediaAccount,
   mediaVerificationHandling,
   processMediaAccountSignIn,
-  processAdminAccountSignIn,
+  processAdminAccountSignIn, processCftIdamSignIn,
 }
   from '../../../main/authentication/authenticationHandler';
 
 import request from 'supertest';
 import {app} from '../../../main/app';
+import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+
+const updateMediaAccountVerification = sinon.stub(AccountManagementRequests.prototype, 'updateMediaAccountVerification');
+updateMediaAccountVerification.resolves({});
+
+const updateAdminAccountLastSignedInDate = sinon.stub(AccountManagementRequests.prototype, 'updateAccountLastSignedInDate');
+updateAdminAccountLastSignedInDate.resolves({});
 
 describe('Test checking user roles', () => {
 
@@ -36,7 +44,7 @@ describe('Test checking user roles', () => {
     expect(checkRoles({}, mediaAccountCreationRoles)).to.be.false;
   });
 
-  it('check that roles returns false when no json', () => {
+  it('check that roles returns false when no roles', () => {
     expect(checkRoles({'user': {}}, mediaAccountCreationRoles)).to.be.false;
   });
 });
@@ -246,13 +254,25 @@ describe('forgot password reset', () => {
 describe('media verification handling', () => {
   it('should redirect to account home with verified banner', async () => {
     const mockRedirectFunction = jest.fn((argument) => argument);
-    const req = {'user': {'roles': 'VERIFIED', 'userProvenance': 'PI_AAD'}};
+    const req = {'user': {'roles': 'VERIFIED', 'userProvenance': 'PI_AAD', 'provenanceUserId': '1234'}};
     const res = {'redirect': mockRedirectFunction};
 
     await mediaVerificationHandling(req, res);
 
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+    expect(updateMediaAccountVerification.calledWith('1234')).to.be.true;
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home?verified=true');
+  });
+
+  it('should not redirect to account home if user is not PI_AAD', async () => {
+    const mockRedirectFunction = jest.fn((argument) => argument);
+    const req = {'user': {'roles': 'VERIFIED', 'userProvenance': 'CFT_IDAM', 'provenanceUserId': '12345'}};
+    const res = {'redirect': mockRedirectFunction};
+
+    await mediaVerificationHandling(req, res);
+
+    expect(updateMediaAccountVerification.calledWith('12345')).to.be.false;
+    expect(mockRedirectFunction.mock.calls.length).to.equal(0);
   });
 
   it('should not redirect to account home if user role is not verified', async () => {
@@ -279,13 +299,26 @@ describe('media verification handling', () => {
 describe('process account sign-in', () => {
   it('should redirect to admin dashboard for an admin user', async () => {
     const mockRedirectFunction = jest.fn((argument) => argument);
-    const req = {'user': {'roles': 'INTERNAL_SUPER_ADMIN_CTSC'}};
+    const req = {'user': {'roles': 'INTERNAL_SUPER_ADMIN_CTSC', provenanceUserId: '1234'}};
     const res = {'redirect': mockRedirectFunction};
 
     await processAdminAccountSignIn(req, res);
 
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+    expect(updateAdminAccountLastSignedInDate.calledWith('1234')).to.be.true;
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/admin-dashboard');
+  });
+
+  it('should redirect to account home for an media user trying to sign in as an admin', async () => {
+    const mockRedirectFunction = jest.fn((argument) => argument);
+    const req = {'user': {'roles': 'VERIFIED', provenanceUserId: '12345'}};
+    const res = {'redirect': mockRedirectFunction};
+
+    await processAdminAccountSignIn(req, res);
+
+    expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+    expect(updateAdminAccountLastSignedInDate.calledWith('12345')).to.be.false;
+    expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
   });
 
   it('should redirect to account home for a media user', async () => {
@@ -298,4 +331,19 @@ describe('process account sign-in', () => {
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
   });
+});
+
+describe('process cft sign in', () => {
+
+  it('should redirect to account home when signing in via cft idam', async () => {
+    const mockRedirectFunction = jest.fn((argument) => argument);
+    const req = {'user': {'roles': 'VERIFIED', userProvenance: 'CFT_IDAM', provenanceUserId: '12345'}};
+    const res = {'redirect': mockRedirectFunction};
+
+    await processCftIdamSignIn(req, res);
+
+    expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+    expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
+  });
+
 });
