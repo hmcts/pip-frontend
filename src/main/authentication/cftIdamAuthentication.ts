@@ -45,7 +45,7 @@ export async function cftIdamAuthentication(req, callback) {
 
     callback(null, jwtToken);
 
-  } catch (e) {
-    console.log(e);
+  } catch (cftIdamException) {
+    callback(null, null);
   }
 }
