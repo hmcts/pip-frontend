@@ -2,7 +2,7 @@
   "serviceNameText": "Court and tribunal hearings",
   "signInText": "Sign in",
   "signOutText": "Sign out",
-  "betaHeading": "This is a new service – your <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">feedback</a> will help us to improve it.",
+  "betaHeading": "This is a new service – your <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">feedback</a> will help us to improve it. <a class=\"languageHeader\" href=\"?lng=cy\">Cymraeg</a>",
   "navLinks": {
     "link1": "Home",
     "link2": "Sign in",
@@ -12,7 +12,9 @@
     "link6": "Single Justice Procedure cases",
     "link7": "Upload",
     "link8": "Review apps",
-    "link9": "Remove"
+    "link9": "Remove",
+    "link10": "Cymraeg",
+    "link11": "English"
   },
   "footerLinks": [
     {

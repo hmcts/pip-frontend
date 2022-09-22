@@ -11,9 +11,11 @@
     "link6": "Achosion Gweithdrefn Un Ynad",
     "link7": "Upload",
     "link8": "Review apps",
-    "link9": "Remove"
+    "link9": "Remove",
+    "link10": "Cymraeg",
+    "link11": "English"
   },
-"betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">adborth</a> yn ein helpu i’w wella",
+"betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">adborth</a> yn ein helpu i’w wella <a class=\"languageHeader\" href=\"?lng=en\">English</a>",
   "footerLinks": [
     {
       "text": "Gymorth",
