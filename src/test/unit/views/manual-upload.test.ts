@@ -118,9 +118,9 @@ describe('Manual upload page', () => {
       expect(heading.innerHTML).contains('Page Help', 'Could not find page help heading');
     });
 
-    it('should display the hearing lists heading', () => {
+    it('should display the lists heading', () => {
       const heading = htmlRes.getElementsByTagName('h3')[0];
-      expect(heading.innerHTML).contains('Hearing lists', 'Could not find hearing lists heading');
+      expect(heading.innerHTML).contains('Lists', 'Could not find lists heading');
     });
 
     it('should display the available to heading', () => {
