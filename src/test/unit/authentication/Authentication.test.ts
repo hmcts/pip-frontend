@@ -163,6 +163,8 @@ describe('Authentication', () => {
       'email': 'test@user.com',
       'roles': 'VERIFIED',
       'provenanceUserId': '1234',
+      'forenames': 'FirstName',
+      'surname': 'Surname',
     }];
 
     authentication();
@@ -172,7 +174,7 @@ describe('Authentication', () => {
 
     const mockCallback = jest.fn();
 
-    const profile = {uid: '1234', 'flow': 'CFT', 'sub': 'test@user.com'};
+    const profile = {uid: '1234', 'flow': 'CFT', 'sub': 'test@user.com', 'given_name': 'FirstName', 'family_name': 'Surname'};
     await firstSerializer(profile, mockCallback);
 
     expect(mockCallback.mock.calls.length).to.eql(1);

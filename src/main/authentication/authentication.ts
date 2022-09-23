@@ -80,6 +80,8 @@ function oidcSetup(): void {
           'email': foundUser['sub'],
           'roles': 'VERIFIED',
           'provenanceUserId': foundUser['uid'],
+          'forenames': foundUser['given_name'],
+          'surname': foundUser['family_name'],
         }];
 
         await accountManagementRequests.createPIAccount(piAccount, '');
