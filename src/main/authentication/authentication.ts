@@ -63,6 +63,7 @@ function oidcSetup(): void {
     const returnedUser = await accountManagementRequests.getPiUserByAzureOid(profile['oid']);
 
     if (returnedUser) {
+      profile['roles'] = returnedUser['roles'];
       return done(null, profile);
     } else {
       return done(null, null);

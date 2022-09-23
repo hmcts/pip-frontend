@@ -254,7 +254,7 @@ describe('forgot password reset', () => {
 describe('media verification handling', () => {
   it('should redirect to account home with verified banner', async () => {
     const mockRedirectFunction = jest.fn((argument) => argument);
-    const req = {'user': {'roles': 'VERIFIED', 'userProvenance': 'PI_AAD', 'provenanceUserId': '1234'}};
+    const req = {'user': {'roles': 'VERIFIED', 'oid': '1234'}};
     const res = {'redirect': mockRedirectFunction};
 
     await mediaVerificationHandling(req, res);
@@ -262,17 +262,6 @@ describe('media verification handling', () => {
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
     expect(updateMediaAccountVerification.calledWith('1234')).to.be.true;
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home?verified=true');
-  });
-
-  it('should not redirect to account home if user is not PI_AAD', async () => {
-    const mockRedirectFunction = jest.fn((argument) => argument);
-    const req = {'user': {'roles': 'VERIFIED', 'userProvenance': 'CFT_IDAM', 'provenanceUserId': '12345'}};
-    const res = {'redirect': mockRedirectFunction};
-
-    await mediaVerificationHandling(req, res);
-
-    expect(updateMediaAccountVerification.calledWith('12345')).to.be.false;
-    expect(mockRedirectFunction.mock.calls.length).to.equal(0);
   });
 
   it('should not redirect to account home if user role is not verified', async () => {
@@ -299,13 +288,13 @@ describe('media verification handling', () => {
 describe('process account sign-in', () => {
   it('should redirect to admin dashboard for an admin user', async () => {
     const mockRedirectFunction = jest.fn((argument) => argument);
-    const req = {'user': {'roles': 'INTERNAL_SUPER_ADMIN_CTSC', provenanceUserId: '1234'}};
+    const req = {'user': {'roles': 'INTERNAL_SUPER_ADMIN_CTSC', oid: '1234'}};
     const res = {'redirect': mockRedirectFunction};
 
     await processAdminAccountSignIn(req, res);
 
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-    expect(updateAdminAccountLastSignedInDate.calledWith('1234')).to.be.true;
+    expect(updateAdminAccountLastSignedInDate.calledWith('PI_AAD', '1234')).to.be.true;
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/admin-dashboard');
   });
 
@@ -317,7 +306,7 @@ describe('process account sign-in', () => {
     await processAdminAccountSignIn(req, res);
 
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-    expect(updateAdminAccountLastSignedInDate.calledWith('12345')).to.be.false;
+    expect(updateAdminAccountLastSignedInDate.calledWith('PI_AAD', '12345')).to.be.false;
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
   });
 

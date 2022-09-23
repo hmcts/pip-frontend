@@ -179,18 +179,18 @@ export class AccountManagementRequests {
   }
 
   public async updateMediaAccountVerification(oid: string): Promise<string> {
-    return this.updateAccountDate(oid, 'lastVerifiedDate', 'Failed to verify media account');
+    return this.updateAccountDate('PI_AAD', oid, 'lastVerifiedDate', 'Failed to verify media account');
   }
 
-  public async updateAccountLastSignedInDate(oid: string): Promise<string> {
-    return this.updateAccountDate(oid, 'lastSignedInDate', 'Failed to update account last signed in date');
+  public async updateAccountLastSignedInDate(userProvenance: string, oid: string): Promise<string> {
+    return this.updateAccountDate(userProvenance, oid, 'lastSignedInDate', 'Failed to update account last signed in date');
   }
 
-  private async updateAccountDate(oid: string, field: string, errorMessage: string): Promise<string> {
+  private async updateAccountDate(userProvenance: string, oid: string, field: string, errorMessage: string): Promise<string> {
     try {
       const map = {};
       map[field] = moment().tz('Europe/London').toISOString();
-      const response = await accountManagementApi.put(`/account/provenance/PI_AAD/${oid}`, map);
+      const response = await accountManagementApi.put(`/account/provenance/${userProvenance}/${oid}`, map);
       return response.data;
     } catch (error) {
       if (error.response) {

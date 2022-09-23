@@ -89,17 +89,15 @@ export function forgotPasswordRedirect(req, res, next): void {
 }
 
 export async function mediaVerificationHandling(req, res): Promise<any> {
-  if(req.user && verifiedRoles.includes(req.user.roles) && req.user.userProvenance == 'PI_AAD') {
-
-    await AccountManagementRequests.prototype.updateMediaAccountVerification(req.user.provenanceUserId);
+  if(req.user && verifiedRoles.includes(req.user.roles)) {
+    await AccountManagementRequests.prototype.updateMediaAccountVerification(req.user['oid']);
     res.redirect('/account-home?verified=true');
-
   }
 }
 
 export async function processAdminAccountSignIn(req, res): Promise<any> {
   if(checkRoles(req, allAdminRoles)) {
-    await AccountManagementRequests.prototype.updateAccountLastSignedInDate(req.user.provenanceUserId);
+    await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
     res.redirect('/admin-dashboard');
   } else {
     res.redirect('/account-home');
@@ -116,5 +114,6 @@ export async function processMediaAccountSignIn(req, res): Promise<any> {
 }
 
 export async function processCftIdamSignIn(req, res): Promise<any> {
+  await AccountManagementRequests.prototype.updateAccountLastSignedInDate('CFT_IDAM', req.user['uid']);
   res.redirect('/account-home');
 }

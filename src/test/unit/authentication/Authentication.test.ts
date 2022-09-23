@@ -1,4 +1,4 @@
-const userId = {userId: '1234', userProvenance: 'PI_AAD'};
+const userId = {userId: '1234', userProvenance: 'PI_AAD', 'roles': 'VERIFIED'};
 
 describe('Authentication', () => {
   let authentication;

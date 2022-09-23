@@ -423,25 +423,25 @@ describe('Account Management Requests', () => {
 
     it('should return confirmation string on success', async () => {
       putStub.withArgs(updateAccountEndpoint + oid).resolves({status: 200, data: 'Account updated' });
-      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', oid);
       expect(response).toBe('Account updated');
     });
 
     it('should return null on error request', async () => {
       putStub.withArgs(updateAccountEndpoint + oid).rejects(errorRequest);
-      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', oid);
       expect(response).toBe(null);
     });
 
     it('should return false on error response', async () => {
       putStub.withArgs(updateAccountEndpoint + oid).rejects(errorResponse);
-      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', oid);
       expect(response).toBe(null);
     });
 
     it('should return false on error message', async () => {
       putStub.withArgs(updateAccountEndpoint + oid).rejects(errorMessage);
-      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', oid);
       expect(response).toBe(null);
     });
   });
