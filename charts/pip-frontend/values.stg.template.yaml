@@ -8,6 +8,3 @@ nodejs:
     MEDIA_VERIFICATION_RETURN_URL: https://${SERVICE_FQDN}/media-verification/return
     ADMIN_AUTH_RETURN_URL: https://${SERVICE_FQDN}/login/admin/return
     FRONTEND_URL: https://${SERVICE_FQDN}
-
-idam-pr:
-  enabled: false

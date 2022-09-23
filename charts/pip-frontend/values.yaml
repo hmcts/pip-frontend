@@ -54,6 +54,3 @@ nodejs:
         - name: cft-idam-client-secret
           alias: CFT_IDAM_CLIENT_SECRET
   aadIdentityName: pip
-
-idam-pr:
-  enabled: false
