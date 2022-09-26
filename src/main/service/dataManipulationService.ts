@@ -143,15 +143,42 @@ export class DataManipulationService {
     return copDailyCauseListData;
   }
 
+  public manipulateIacDailyListData(iacDailyList: string): object {
+    const iacDailyListData = JSON.parse(iacDailyList);
+    let caseCount = 0;
+
+    iacDailyListData['courtLists'].forEach(courtList => {
+      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+        courtRoom['session'].forEach(session => {
+          session['formattedJudiciary'] = this.getJudiciaryNameSurname(session);
+          session['sittings'].forEach(sitting => {
+            sitting['sittingStartFormatted'] = this.publicationTimeInBst(sitting['sittingStart']);
+            this.findAndConcatenateHearingPlatform(sitting, session);
+            sitting['hearing'].forEach(hearing => {
+              caseCount += hearing['case'].length;
+              this.findAndManipulatePartyInformation(hearing);
+              this.findAndManipulateLinkedCases(hearing);
+            });
+          });
+        });
+        courtRoom['totalCases'] = caseCount;
+        caseCount = 0;
+      });
+    });
+    return iacDailyListData;
+  }
+
   /**
    * Manipulate the party information data for writing out on screen.
    * @param hearing
    */
   private findAndManipulatePartyInformation(hearing: any): void {
     let applicant = '';
+    let appellant = '';
     let respondent = '';
     let respondentRepresentative = '';
     let applicantRepresentative = '';
+    let appellantRepresentative = '';
     if(hearing?.party) {
       hearing.party.forEach(party => {
 
@@ -168,6 +195,18 @@ export class DataManipulationService {
             if(applicantPetitionerDetails) {
               applicantRepresentative += 'LEGALADVISOR: ' + applicantPetitionerDetails + ', ';
             }
+            break;
+          }
+          case 'CLAIMANT_PETITIONER':
+          {
+            appellant += this.createIndividualDetails(party.individualDetails).trim();
+            appellant += this.stringDelimiter(appellant?.length, ',');
+            break;
+          }
+          case 'CLAIMANT_PETITIONER_REPRESENTATIVE':
+          {
+            appellantRepresentative += this.createIndividualDetails(party.individualDetails).trim();
+            appellantRepresentative += this.stringDelimiter(appellantRepresentative?.length, ',');
             break;
           }
           case 'RESPONDENT':
@@ -187,6 +226,10 @@ export class DataManipulationService {
           }
         }
       });
+      hearing['appellant'] = appellant?.replace(/,\s*$/, '').trim();
+      hearing['appellantRepresentative'] = appellantRepresentative?.replace(/,\s*$/, '').trim();
+      hearing['prosecutingAuthority'] = respondent?.replace(/,\s*$/, '').trim();
+
       applicant += applicantRepresentative;
       respondent += respondentRepresentative;
       hearing['applicant'] = applicant?.replace(/,\s*$/, '').trim();
@@ -199,10 +242,15 @@ export class DataManipulationService {
    * @param individualDetails
    */
   private createIndividualDetails(individualDetails: any): string {
-    return this.writeStringIfValid(individualDetails?.title) + ' '
-      + this.writeStringIfValid(individualDetails?.individualForenames) + ' '
-      + this.writeStringIfValid(individualDetails?.individualMiddleName) + ' '
-      + this.writeStringIfValid(individualDetails?.individualSurname);
+    const title = this.writeStringIfValid(individualDetails?.title);
+    const forenames = this.writeStringIfValid(individualDetails?.individualForenames);
+    const middleName = this.writeStringIfValid(individualDetails?.individualMiddleName);
+    const surname = this.writeStringIfValid(individualDetails?.individualSurname);
+
+    return title + (title.length > 0 ? ' ' : '')
+      + forenames + (forenames.length > 0 ? ' ' : '')
+      + middleName + (middleName.length > 0 ? ' ' : '')
+      + surname;
   }
 
   /**
@@ -234,11 +282,13 @@ export class DataManipulationService {
    * @param nonConvertedPartyRole
    */
   private static convertPartyRole(nonConvertedPartyRole: string): string {
+    let partyRole = nonConvertedPartyRole;
     for (const [mappedPartyRole, unMappedRoles] of Object.entries(partyRoleMappings)) {
-      if (unMappedRoles.includes(nonConvertedPartyRole) || mappedPartyRole === nonConvertedPartyRole) {
-        return mappedPartyRole;
+      if (unMappedRoles.includes(nonConvertedPartyRole)) {
+        partyRole = mappedPartyRole;
       }
     }
+    return partyRole;
   }
 
   /**
@@ -279,6 +329,24 @@ export class DataManipulationService {
     }
 
     session['formattedJudiciaries'] = judiciaries;
+  }
+
+  /**
+   * Format linked cases by joining individual case ID with delimiter
+   * @param hearing
+   */
+  private findAndManipulateLinkedCases(hearing: object): void {
+    hearing['case'].forEach(hearingCase => {
+      let linkedCases = '';
+      let counter = 1;
+      hearingCase['caseLinked'].forEach(linkedCase => {
+        linkedCases += (counter == hearingCase['caseLinked'].length)
+          ? linkedCase['caseId']
+          : linkedCase['caseId'] + ', ';
+        counter++;
+      });
+      hearingCase['formattedLinkedCases'] = linkedCases;
+    });
   }
 
   /**

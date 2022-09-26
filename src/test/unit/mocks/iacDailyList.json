@@ -1,0 +1,258 @@
+{
+  "document": {
+    "publicationDate": "2022-08-31T10:00:00.001Z"
+  },
+  "venue": {
+    "venueName": "This is the venue name"
+  },
+  "locationDetails": {
+    "jurisdiction": "Tribunal"
+  },
+  "courtLists": [
+    {
+      "courtListName": "First list",
+      "courtHouse": {
+        "courtHouseName": "This is the site name",
+        "courtHouseContact": {
+          "venueTelephone": "01234 123 123",
+          "venueEmail": "a@b.com"
+        },
+        "courtRoom": [
+          {
+            "courtRoomName": "1",
+            "session": [
+              {
+                "judiciary": [
+                  {
+                    "johTitle": "Judge",
+                    "johNameSurname": "Jacobs",
+                    "isPresiding": true
+                  },
+                  {
+                    "johTitle": "Magistrate",
+                    "johNameSurname": "Patel",
+                    "isPresiding": false
+                  }
+                ],
+                "sittings": [
+                  {
+                    "sittingStart": "2022-08-31T10:30:00.001Z",
+                    "sittingEnd": "2022-10-31T20:00:00.001Z",
+                    "hearing": [
+                      {
+                        "hearingType": "Directions",
+                        "case": [
+                          {
+                            "caseNumber": "12341234",
+                            "caseSequenceIndicator": "1 of 2",
+                            "caseType": "case type",
+                            "caseLinked": [
+                              {
+                                "caseId": "1234",
+                                "name": "A Vs B"
+                              }
+                            ],
+                            "language": "French"
+                          },
+                          {
+                            "caseNumber": "12341234",
+                            "caseSequenceIndicator": "2 of 2",
+                            "caseType": "case type",
+                            "caseLinked": [
+                              {
+                                "caseId": "1234",
+                                "name": "A Vs B"
+                              }
+                            ],
+                            "language": "English"
+                          }
+                        ],
+                        "party": [
+                          {
+                            "partyRole": "CLAIMANT_PETITIONER",
+                            "individualDetails": {
+                              "individualForenames": "Steve",
+                              "individualMiddleName": "M",
+                              "individualSurname": "Taylor",
+                              "title": "Mr"
+                            }
+                          },
+                          {
+                            "partyRole": "RESPONDENT",
+                            "individualDetails": {
+                              "individualSurname": "Entry Clearance Officer"
+                            }
+                          },
+                          {
+                            "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
+                            "individualDetails": {
+                              "individualSurname": "JCT Law Centre"
+                            }
+                          },
+                          {
+                            "partyRole": "RESPONDENT_REPRESENTATIVE",
+                            "friendlyRoleName": "Legal Advisor",
+                            "individualDetails": {
+                              "individualForenames": "Individual Forenames",
+                              "individualMiddleName": "Individual Middlename",
+                              "individualSurname": "Individual Surname",
+                              "title": "Mr"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "hearingType": "Directions",
+                        "case": [
+                          {
+                            "caseNumber": "12341234",
+                            "caseSequenceIndicator": "[2 of 3]",
+                            "caseType": "case type",
+                            "caseLinked": [
+                              {
+                                "caseId": "123",
+                                "name": "A Vs B"
+                              },
+                              {
+                                "caseId": "456",
+                                "name": "A Vs B"
+                              },
+                              {
+                                "caseId": "999",
+                                "name": "A Vs B"
+                              }
+                            ],
+                            "language": "French"
+                          }
+                        ],
+                        "party": [
+                          {
+                            "partyRole": "CLAIMANT_PETITIONER",
+                            "individualDetails": {
+                              "individualForenames": "Steve",
+                              "individualMiddleName": "M",
+                              "individualSurname": "Taylor",
+                              "title": "Mr"
+                            }
+                          },
+                          {
+                            "partyRole": "RESPONDENT",
+                            "individualDetails": {
+                              "individualSurname": "Entry Clearance Officer"
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      "Teams",
+                      "Attended"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "courtListName": "Second list",
+      "courtHouse": {
+        "courtHouseName": "This is the site name",
+        "courtHouseContact": {
+          "venueTelephone": "01234 123 123",
+          "venueEmail": "a@b.com"
+        },
+        "courtRoom": [
+          {
+            "courtRoomName": "1",
+            "session": [
+              {
+                "sessionChannel": [
+                  "Video Hearing",
+                  "Attended"
+                ],
+                "judiciary": [
+                  {
+                    "johTitle": "Judge",
+                    "johNameSurname": "Test Name",
+                    "isPresiding": true
+                  },
+                  {
+                    "johTitle": "Magistrate",
+                    "johNameSurname": "Test Name",
+                    "isPresiding": false
+                  }
+                ],
+                "sittings": [
+                  {
+                    "sittingStart": "2022-08-31T20:00:00.001Z",
+                    "sittingEnd": "2022-10-31T20:00:00.001Z",
+                    "hearing": [
+                      {
+                        "hearingType": "Directions",
+                        "case": [
+                          {
+                            "caseNumber": "12341234",
+                            "caseSequenceIndicator": "[2 of 3]",
+                            "caseType": "case type",
+                            "caseLinked": [
+                              {
+                                "caseId": "1234",
+                                "name": "A Vs B"
+                              }
+                            ],
+                            "language": "French"
+                          }
+                        ],
+                        "party": [
+                          {
+                            "partyRole": "CLAIMANT_PETITIONER",
+                            "individualDetails": {
+                              "individualForenames": "Steve",
+                              "individualMiddleName": "M",
+                              "individualSurname": "Taylor",
+                              "title": "Mr"
+                            }
+                          },
+                          {
+                            "partyRole": "CLAIMANT_PETITIONER",
+                            "individualDetails": {
+                              "individualForenames": "Rose",
+                              "individualMiddleName": "",
+                              "individualSurname": "Taylor",
+                              "title": "Mrs"
+                            }
+                          },
+                          {
+                            "partyRole": "RESPONDENT",
+                            "individualDetails": {
+                              "individualSurname": "Entry Clearance Officer"
+                            }
+                          },
+                          {
+                            "partyRole": "RESPONDENT",
+                            "individualDetails": {
+                              "individualSurname": "Secretary of State"
+                            }
+                          },
+                          {
+                            "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
+                            "individualDetails": {
+                              "individualSurname": "JCT Law Centre"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
