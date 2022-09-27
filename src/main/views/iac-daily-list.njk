@@ -54,8 +54,8 @@
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ courtRoomCount }}">
                   {% if "bail list" == courtList['courtListName'] | lower %}
-                    {% if courtRoom['session'][0]['formattedJudiciary'] | length %}
-                      {{ courtRoom['courtRoomName'] }}, {{ beforeJudge }} {{ courtRoom['session'][0]['formattedJudiciary'] }}
+                    {% if courtRoom['formattedJudiciary'] | length %}
+                      {{ courtRoom['courtRoomName'] }}, {{ beforeJudge }} {{ courtRoom['formattedJudiciary'] }}
                     {% else %}
                       {{ courtRoom['courtRoomName'] }}
                     {% endif %}

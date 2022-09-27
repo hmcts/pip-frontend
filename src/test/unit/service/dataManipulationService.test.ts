@@ -149,7 +149,7 @@ describe('Data manipulation service', () => {
 
     it('should calculate total cases in a court room', async () => {
       const data = await dataManipulationService.manipulateIacDailyListData(rawIacDailyListData);
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['totalCases']).to.equal(3);
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['totalCases']).to.equal(6);
     });
 
     it('should format start time of Hearing', async () => {
@@ -157,9 +157,14 @@ describe('Data manipulation service', () => {
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['sittingStartFormatted']).to.equal('11:30am');
     });
 
-    it('should get concatenated judiciary', async () => {
+    it('should concatenate unique judiciaries', async () => {
       const data = await dataManipulationService.manipulateIacDailyListData(rawIacDailyListData);
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciary']).to.equal('Judge Jacobs, Magistrate Patel');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['formattedJudiciary']).to.equal('Judge Jacobs, Magistrate Patel');
+    });
+
+    it('should concatenate and deduplicate judiciary', async () => {
+      const data = await dataManipulationService.manipulateIacDailyListData(rawIacDailyListData);
+      expect(data['courtLists'][1]['courtHouse']['courtRoom'][0]['formattedJudiciary']).to.equal('Judge Jacobs, Magistrate Jones, Magistrate Patel');
     });
 
     it('should use sitting channel for hearing case', async () => {

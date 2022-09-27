@@ -149,8 +149,8 @@ export class DataManipulationService {
 
     iacDailyListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+        courtRoom['formattedJudiciary'] = this.getDeduplicatedJudiciaryNameSurname(courtRoom);
         courtRoom['session'].forEach(session => {
-          session['formattedJudiciary'] = this.getJudiciaryNameSurname(session);
           session['sittings'].forEach(sitting => {
             sitting['sittingStartFormatted'] = this.publicationTimeInBst(sitting['sittingStart']);
             this.findAndConcatenateHearingPlatform(sitting, session);
@@ -450,5 +450,29 @@ export class DataManipulationService {
       }
     });
     return judiciaryFormatted;
+  }
+
+  public getDeduplicatedJudiciaryNameSurname(courtRoom: object): string {
+    const judiciaries = [];
+    courtRoom['session'].forEach(session => {
+      session['judiciary']?.forEach(judiciary => {
+        let currentJudiciary = '';
+        if (this.writeStringIfValid(judiciary?.johTitle) !== '') {
+          currentJudiciary = this.writeStringIfValid(judiciary?.johTitle);
+        }
+
+        if (this.writeStringIfValid(judiciary?.johNameSurname) !== '') {
+          if (this.writeStringIfValid(judiciary?.johTitle) !== '') {
+            currentJudiciary += ' ';
+          }
+          currentJudiciary += this.writeStringIfValid(judiciary?.johNameSurname);
+        }
+
+        if (!judiciaries.includes(currentJudiciary)) {
+          judiciaries.push(currentJudiciary);
+        }
+      });
+    });
+    return judiciaries.join(', ');
   }
 }
