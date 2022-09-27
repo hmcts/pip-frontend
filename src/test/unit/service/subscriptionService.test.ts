@@ -10,6 +10,7 @@ import {PublicationService} from '../../../main/service/publicationService';
 const mockCourt = {
   locationId: 643,
   name: 'Aberdeen Tribunal Hearing Centre',
+  welshName: 'Welsh court name test',
   jurisdiction: 'Tribunal',
   location: 'Scotland',
   listType: ['SJP_PUBLIC_LIST'],
@@ -72,7 +73,7 @@ const cacheGetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPen
 const removeStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'removeFromCache');
 const publicationStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
 sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(mockCase);
-const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
+const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
 const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
 const updateListTypeSubscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'configureListTypeForLocationSubscriptions');
@@ -81,9 +82,9 @@ subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', '1').resolves(true)
 subscriptionStub.withArgs(blankPayload, 'courts', '1').resolves(false);
 subscriptionStub.withArgs(blankPayload, 'cases', '1').resolves(false);
 
-courtStub.withArgs('643').resolves(mockCourt);
-courtStub.withArgs('111').resolves(mockCourt);
-courtStub.withArgs('').resolves(null);
+locationStub.withArgs('643').resolves(mockCourt);
+locationStub.withArgs('111').resolves(mockCourt);
+locationStub.withArgs('').resolves(null);
 publicationStub.withArgs('T485914').resolves(mockCase);
 publicationStub.withArgs('T485912').resolves(mockCase);
 publicationStub.withArgs('').resolves(null);
@@ -321,7 +322,7 @@ describe('generateListTypesForCourts', () => {
   stubUserSubscription.withArgs(userId).returns(returnedSubscriptions.data);
 
   it('generate list types with no filters with no selected', async () => {
-    courtStub.withArgs(1).resolves({jurisdiction: ['Civil']});
+    locationStub.withArgs(1).resolves({jurisdiction: ['Civil']});
 
     const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', '', '');
 
@@ -357,7 +358,7 @@ describe('generateListTypesForCourts', () => {
   });
 
   it('generate list types with filters selected', async () => {
-    courtStub.withArgs(1).resolves({jurisdiction: ['Civil']});
+    locationStub.withArgs(1).resolves({jurisdiction: ['Civil']});
 
     const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'Family', '');
 
@@ -398,7 +399,7 @@ describe('generateListTypesForCourts', () => {
   });
 
   it('generate list types with filters and clear', async () => {
-    courtStub.withArgs(1).resolves({jurisdiction: ['Civil']});
+    locationStub.withArgs(1).resolves({jurisdiction: ['Civil']});
 
     const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'Family', 'Family');
 
@@ -434,5 +435,23 @@ describe('generateListTypesForCourts', () => {
 
     const familyFilter = jurisdictionFilter['Family'];
     expect(familyFilter['checked']).toBeFalsy();
+  });
+
+  it('should generate location table rows when language is English', async () => {
+    const mockSubscriptionData = [{locationId: '643'}];
+    const result = await subscriptionService.generateLocationTableRows(mockSubscriptionData, 'en',
+      'subscription-management');
+
+    expect(result[0][0].text).toEqual('Aberdeen Tribunal Hearing Centre');
+    expect(result[0][2].html).toContain('Unsubscribe');
+  });
+
+  it('should generate location table rows when language is Welsh', async () => {
+    const mockSubscriptionData = [{locationId: '643'}];
+    const result = await subscriptionService.generateLocationTableRows(mockSubscriptionData, 'cy',
+      'subscription-management');
+
+    expect(result[0][0].text).toEqual('Welsh court name test');
+    expect(result[0][2].html).toContain('dad-danysgrifio');
   });
 });
