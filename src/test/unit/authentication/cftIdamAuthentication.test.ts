@@ -17,7 +17,7 @@ describe('CFT IDAM Authentication', () => {
   });
 
   it('should call the callback when successful', async () => {
-    jest.mock('jwt-decode', () => () => ({'roles': ['INTERNAL_ADMIN']}));
+    jest.mock('jwt-decode', () => () => ({'roles': ['IDAM_ADMIN_USER']}));
     const cftIdamAuthentication = require('../../../main/authentication/cftIdamAuthentication');
     cftIdamAuthenticationInstance = cftIdamAuthentication.cftIdamAuthentication;
 
@@ -47,7 +47,7 @@ describe('CFT IDAM Authentication', () => {
 
     expect(mockFunction.mock.calls.length).toBe(1);
     expect(mockFunction.mock.calls[0][0]).toBe(null);
-    expect(mockFunction.mock.calls[0][1]).toEqual({'roles': ['INTERNAL_ADMIN'], 'flow': 'CFT'});
+    expect(mockFunction.mock.calls[0][1]).toEqual({'roles': ['IDAM_ADMIN_USER'], 'flow': 'CFT'});
   });
 
   it('Should call the callback with null when throwing an error', async () => {
