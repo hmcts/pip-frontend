@@ -2,6 +2,7 @@ import { CommonPage } from './Common.page';
 import { AccountHomePage } from './AccountHome.page';
 import { CreateMediaAccountPage } from './CreateMediaAccount.page';
 import {AdminDashboardPage} from './AdminDashboard.page';
+import {ViewOptionPage} from './ViewOption.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -14,14 +15,12 @@ export class SignInPage extends CommonPage {
     return $(helpers.SearchOptionsTitle).getText();
   }
 
-  async clickContinueForRadio1(): Promise<string> {
+  async clickContinueForRadio1(): Promise<void> {
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
     const continueButton = await $(helpers.ContinueButton);
     continueButton.click();
-
-    return 'https://google.com';
   }
 
   async clickContinueForRadio2(): Promise<string> {
@@ -61,7 +60,7 @@ export class SignInPage extends CommonPage {
     return new CreateMediaAccountPage();
   }
 
-  async clickSignIn(): Promise<AccountHomePage> {
+  async clickSignInAad(): Promise<AccountHomePage> {
     $(helpers.UserLoginContinue).catch(() => {
       console.log(`${helpers.UserLoginContinue} not found`);
     });
@@ -70,6 +69,28 @@ export class SignInPage extends CommonPage {
     continueButton.click();
 
     return new AccountHomePage();
+  }
+
+  async clickSignInCft(): Promise<AccountHomePage> {
+    $(helpers.CftSignInButton).catch(() => {
+      console.log(`${helpers.CftSignInButton} not found`);
+    });
+
+    const continueButton = await $(helpers.CftSignInButton);
+    continueButton.click();
+
+    return new AccountHomePage();
+  }
+
+  async clickSignInCftUnsuccessful(): Promise<ViewOptionPage> {
+    $(helpers.CftSignInButton).catch(() => {
+      console.log(`${helpers.CftSignInButton} not found`);
+    });
+
+    const continueButton = await $(helpers.CftSignInButton);
+    continueButton.click();
+
+    return new ViewOptionPage();
   }
 
   async clickAdminSignIn(): Promise<AdminDashboardPage> {

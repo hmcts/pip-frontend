@@ -257,6 +257,61 @@ describe('Unverified user', () => {
   });
 });
 
+describe('CFT IDAM user login', () => {
+  describe('Sign in using a valid account', () => {
+    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+      await signInPage.open('/sign-in');
+      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+    });
+
+    it('should see 3 radio buttons', async () => {
+      expect(await signInPage.radioButtons).toBe(3);
+    });
+
+    it('should select \'With a MyHMCTS account\' option, navigate to the login page, and sign in', async () => {
+      await signInPage.open('/sign-in');
+      await signInPage.selectOption('SignInRadio1');
+      await signInPage.clickContinueForRadio1();
+      await signInPage.enterText(process.env.CFT_VALID_USERNAME, 'CftEmailField');
+      await signInPage.enterText(process.env.CFT_VALID_PASSWORD, 'CftPasswordField');
+      accountHomePage = await signInPage.clickSignInCft();
+    });
+
+    it('should open account home page on successful sign in', async () => {
+      expect(await accountHomePage.getPageTitle()).toBe('Your account');
+    });
+
+    it('should sign out and open view-option page', async () => {
+      viewOptionPage = await accountHomePage.clickSignOut();
+      expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+    });
+  });
+
+  describe('Sign in using an invalid account', () => {
+    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+      await signInPage.open('/sign-in');
+      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+    });
+
+    it('should see 3 radio buttons', async () => {
+      expect(await signInPage.radioButtons).toBe(3);
+    });
+
+    it('should select \'With a MyHMCTS account\' option, navigate to the login page, and sign in', async () => {
+      await signInPage.open('/sign-in');
+      await signInPage.selectOption('SignInRadio1');
+      await signInPage.clickContinueForRadio1();
+      await signInPage.enterText(process.env.CFT_INVALID_USERNAME, 'CftEmailField');
+      await signInPage.enterText(process.env.CFT_INVALID_PASSWORD, 'CftPasswordField');
+      viewOptionPage = await signInPage.clickSignInCftUnsuccessful();
+    });
+
+    it('should open account home page on successful sign in', async () => {
+      expect(await viewOptionPage.getPageTitle()).toBe('What do you want to do?');
+    });
+  });
+});
+
 describe('Verified user', () => {
   describe('Sign In Page', () => {
     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
@@ -269,14 +324,14 @@ describe('Verified user', () => {
     });
 
     describe('sign in process and page routing', async () => {
-      it('should select \'Sign in with my P&I details\' option, navigate to the login page, and sign in', async () => {
+      it('should select \'Sign in With a Court and tribunal hearings account\' option, navigate to the login page, and sign in', async () => {
         await signInPage.open('/sign-in');
         await signInPage.selectOption('SignInRadio3');
         await signInPage.clickContinueForRadio3();
         console.log('B2C_USERNAME', process.env.B2C_USERNAME);
         await signInPage.enterText(process.env.B2C_USERNAME, 'EmailField');
         await signInPage.enterText(process.env.B2C_PASSWORD, 'PasswordField');
-        accountHomePage = await signInPage.clickSignIn();
+        accountHomePage = await signInPage.clickSignInAad();
       });
 
       it('should open account home page on successful sign in', async () => {

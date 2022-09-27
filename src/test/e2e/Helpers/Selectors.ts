@@ -28,7 +28,10 @@ module.exports = {
   SignInRadio3: '#sign-in-3',
   EmailField: '#email',
   PasswordField: '#password',
+  CftEmailField: '#username',
+  CftPasswordField: '#password',
   UserLoginContinue: '#next',
+  CftSignInButton: '.button',
 
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
