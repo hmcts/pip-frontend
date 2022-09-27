@@ -34,6 +34,13 @@
   }) }}
 {% endblock %}
 {% block beforeContent %}
+  <script>
+    function changeLang(lng){
+      const searchParams = new URLSearchParams(window.location.search);
+      searchParams.set('lng', lng)
+      window.location.search = searchParams.toString();
+
+  }</script>
   {% if user.role and 'ADMIN' in user.role %}
     {% set betaDisplay = betaHeadingAdmin %}
   {% else %}
