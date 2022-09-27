@@ -29,7 +29,7 @@
   },
   "pageHelpHeading": "Page Help",
   "pageHelp": [
-    {"heading": "Hearing lists", "text": "You must ensure that you only upload one file that contains all hearings for the Court or Tribunal name and List type. This should include all judges and court rooms in one document."},
+    {"heading": "Lists", "text": "You must ensure that you only upload one file that contains all hearings for the Court or Tribunal name and List type. This should include all judges and court rooms in one document."},
     {"heading": "Available to", "text": "You need to indicate which user group your document should be available to:"},
     {"heading": "Public", "text": "Publication available to all users."},
     {"heading": "Private", "text": "Publication available to all verified users e.g. Legal professionals and media."},
