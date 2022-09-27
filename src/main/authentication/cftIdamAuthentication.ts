@@ -3,6 +3,7 @@ import jwt_decode from 'jwt-decode';
 import config = require('config');
 import process from 'process';
 import {cftIdamTokenApi} from '../resources/requests/utils/axiosConfig';
+import {Logger} from '@hmcts/nodejs-logging';
 
 const querystring = require('querystring');
 
@@ -15,6 +16,10 @@ if(process.env.CFT_IDAM_CLIENT_SECRET) {
 } else {
   cftIdamClientSecret = config.get('secrets.pip-ss-kv.CFT_IDAM_CLIENT_SECRET') as string;
 }
+
+//Added logging temporarily to check if it is being picked up
+const logger = Logger.getLogger('cftIdamAuthentication');
+logger.info(cftIdamClientSecret.substring(0,2));
 
 /**
  * This function authenticates with CFT IDAM, and returns the user in a decoded JWT token, that can then be parsed
