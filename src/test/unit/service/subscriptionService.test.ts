@@ -116,7 +116,7 @@ describe('handleNewSubscription function', () => {
   });
 
   it('should add new case subscription for urn search', async () => {
-    const pendingSubscription = {caseUrn: 'ValidURN'};
+    const pendingSubscription = {urn: 'ValidURN'};
     await subscriptionService.handleNewSubscription(pendingSubscription, '99');
   });
 
@@ -435,5 +435,4 @@ describe('generateListTypesForCourts', () => {
     const familyFilter = jurisdictionFilter['Family'];
     expect(familyFilter['checked']).toBeFalsy();
   });
-
 });
