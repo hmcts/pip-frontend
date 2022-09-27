@@ -56,6 +56,8 @@ export async function cftIdamAuthentication(req, callback) {
       callback(null, null);
     }
   } catch (cftIdamException) {
+    //Temporarily logging exception
+    logger.info(cftIdamException);
     callback(null, null);
   }
 }
