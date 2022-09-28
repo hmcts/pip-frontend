@@ -3,7 +3,11 @@
     "publicationDate": "2022-08-31T10:00:00.001Z"
   },
   "venue": {
-    "venueName": "This is the venue name"
+    "venueName": "This is the venue name",
+    "venueContact": {
+      "venueTelephone": "01234 123 123",
+      "venueEmail": "a@b.com"
+    }
   },
   "locationDetails": {
     "jurisdiction": "Tribunal"
@@ -12,14 +16,9 @@
     {
       "courtListName": "Bail list",
       "courtHouse": {
-        "courtHouseName": "This is the site name",
-        "courtHouseContact": {
-          "venueTelephone": "01234 123 123",
-          "venueEmail": "a@b.com"
-        },
         "courtRoom": [
           {
-            "courtRoomName": "1",
+            "courtRoomName": "Room 1",
             "session": [
               {
                 "judiciary": [
@@ -274,7 +273,7 @@
             ]
           },
           {
-            "courtRoomName": "2",
+            "courtRoomName": "Room 2",
             "session": [
               {
                 "judiciary": [
@@ -525,16 +524,11 @@
       }
     },
     {
-      "courtListName": "Second list",
+      "courtListName": "Float list",
       "courtHouse": {
-        "courtHouseName": "This is the site name",
-        "courtHouseContact": {
-          "venueTelephone": "01234 123 123",
-          "venueEmail": "a@b.com"
-        },
         "courtRoom": [
           {
-            "courtRoomName": "1",
+            "courtRoomName": "Room 3",
             "session": [
               {
                 "sessionChannel": [
