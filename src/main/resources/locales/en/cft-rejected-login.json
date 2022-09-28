@@ -1,0 +1,9 @@
+{
+  "home": "Home",
+  "header": "Authentication failed",
+  "paragraph1": "You have successfully signed into your MyHMCTS account.",
+  "paragraph2": "Unfortunately, your account role does not allow you to access the verified user part of the Court and Tribunal Hearings service. Solicitors and other legal professionals are the only users allowed to sign in with a MyHMCTS account. For more information about MyHMCTS the link below:",
+  "link": "https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals",
+  "linkText": "MyHMCTS: online case management for legal professionals",
+  "paragraph3": "Alternatively, please click Home to return to the public version of the Court and Tribunals Hearings Service."
+}

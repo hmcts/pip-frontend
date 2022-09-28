@@ -179,15 +179,10 @@ exports.config = {
    * @param {Object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-  onPrepare: function () {
-
-    const axios = require('axios');
-    axios.patch('https://idam-api.aat.platform.hmcts.net/testing-support/services/pip', [{
-      'operation': 'add',
-      'field': 'redirect_uri',
-      'value': process.env.TEST_URL + '/cft-login/return',
-    }]);
-  },
+  // onPrepare: function () {
+  //
+  //
+  // },
   /**
    * Gets executed before a worker process is spawned and can be used to initialise specific service
    * for that worker as well as modify runtime environments in an async fashion.
@@ -215,8 +210,14 @@ exports.config = {
    * @param {Array.<String>} specs        List of spec file paths that are to be run
    * @param {Object}         browser      instance of created browser/device session
    */
-  // before: function (capabilities, specs) {
-  // },
+  before: function () {
+    const axios = require('axios');
+    axios.patch('https://idam-api.aat.platform.hmcts.net/testing-support/services/pip', [{
+      'operation': 'add',
+      'field': 'redirect_uri',
+      'value': process.env.TEST_URL + '/cft-login/return',
+    }]);
+  },
   /**
    * Runs before a WebdriverIO command gets executed.
    * @param {String} commandName hook command name

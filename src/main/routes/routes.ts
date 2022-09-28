@@ -71,7 +71,7 @@ export default function(app: Application): void {
   app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}), processMediaAccountSignIn);
   app.post('/login/admin/return', forgotPasswordRedirect, passport.authenticate('admin-login', { failureRedirect: '/view-option'}), processAdminAccountSignIn);
   app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}), mediaVerificationHandling);
-  app.get('/cft-login/return', passport.authenticate('cft-idam', { failureRedirect: '/view-option'}), processCftIdamSignIn);
+  app.get('/cft-login/return', passport.authenticate('cft-idam', { failureRedirect: '/cft-rejected-login'}), processCftIdamSignIn);
   app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
@@ -87,6 +87,7 @@ export default function(app: Application): void {
   app.get('/sjp-press-list', app.locals.container.cradle.sjpPressListController.get);
   app.get('/sscs-daily-list', app.locals.container.cradle.sscsDailyListController.get);
   app.get('/cop-daily-cause-list', app.locals.container.cradle.copDailyCauseListController.get);
+  app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
 
   // Restricted paths
   app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
