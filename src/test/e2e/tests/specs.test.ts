@@ -42,6 +42,7 @@ import {MediaAccountRejectionPage} from '../PageObjects/MediaAccountRejection.pa
 import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccountRejectionConfirmation.page';
 import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
 import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
+import {CftAuthenticationFailedPage} from '../PageObjects/CftAuthenticationFailed.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -87,6 +88,7 @@ let mediaAccountApprovalPage: MediaAccountApprovalPage;
 let mediaAccountRejectionPage: MediaAccountRejectionPage;
 let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
 let subscriptionConfigureListPage: SubscriptionConfigureListPage;
+let cftAuthenticationFailedPage: CftAuthenticationFailedPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -303,11 +305,11 @@ describe('CFT IDAM user login', () => {
       await signInPage.clickContinueForRadio1();
       await signInPage.enterText(process.env.CFT_INVALID_USERNAME, 'CftEmailField');
       await signInPage.enterText(process.env.CFT_INVALID_PASSWORD, 'CftPasswordField');
-      viewOptionPage = await signInPage.clickSignInCftUnsuccessful();
+      cftAuthenticationFailedPage = await signInPage.clickSignInCftUnsuccessful();
     });
 
-    it('should open account home page on successful sign in', async () => {
-      expect(await viewOptionPage.getPageTitle()).toBe('What do you want to do?');
+    it('should open Authentication failed page', async () => {
+      expect(await cftAuthenticationFailedPage.getPageTitle()).toBe('Authentication failed');
     });
   });
 });

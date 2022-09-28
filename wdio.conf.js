@@ -210,13 +210,15 @@ exports.config = {
    * @param {Array.<String>} specs        List of spec file paths that are to be run
    * @param {Object}         browser      instance of created browser/device session
    */
-  before: function () {
+  before: async function () {
     const axios = require('axios');
-    axios.patch('https://idam-api.aat.platform.hmcts.net/testing-support/services/pip', [{
+    console.log(process.env.TEST_URL);
+    let response = await axios.patch('https://idam-api.aat.platform.hmcts.net/testing-support/services/pip', [{
       'operation': 'add',
       'field': 'redirect_uri',
       'value': process.env.TEST_URL + '/cft-login/return',
     }]);
+    console.log(response.status);
   },
   /**
    * Runs before a WebdriverIO command gets executed.

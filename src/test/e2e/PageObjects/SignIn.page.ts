@@ -2,7 +2,7 @@ import { CommonPage } from './Common.page';
 import { AccountHomePage } from './AccountHome.page';
 import { CreateMediaAccountPage } from './CreateMediaAccount.page';
 import {AdminDashboardPage} from './AdminDashboard.page';
-import {ViewOptionPage} from './ViewOption.page';
+import {CftAuthenticationFailedPage} from './CftAuthenticationFailed.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -82,7 +82,7 @@ export class SignInPage extends CommonPage {
     return new AccountHomePage();
   }
 
-  async clickSignInCftUnsuccessful(): Promise<ViewOptionPage> {
+  async clickSignInCftUnsuccessful(): Promise<CftAuthenticationFailedPage> {
     $(helpers.CftSignInButton).catch(() => {
       console.log(`${helpers.CftSignInButton} not found`);
     });
@@ -90,7 +90,7 @@ export class SignInPage extends CommonPage {
     const continueButton = await $(helpers.CftSignInButton);
     continueButton.click();
 
-    return new ViewOptionPage();
+    return new CftAuthenticationFailedPage();
   }
 
   async clickAdminSignIn(): Promise<AdminDashboardPage> {
