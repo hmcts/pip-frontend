@@ -179,9 +179,7 @@ exports.config = {
    * @param {Object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-  // onPrepare: function () {
-  //
-  //
+  // onPrepare: function (config.ts, capabilities) {
   // },
   /**
    * Gets executed before a worker process is spawned and can be used to initialise specific service
@@ -210,16 +208,8 @@ exports.config = {
    * @param {Array.<String>} specs        List of spec file paths that are to be run
    * @param {Object}         browser      instance of created browser/device session
    */
-  before: async function () {
-    const axios = require('axios');
-    console.log(process.env.TEST_URL);
-    let response = await axios.patch('https://idam-api.aat.platform.hmcts.net/testing-support/services/pip', [{
-      'operation': 'add',
-      'field': 'redirect_uri',
-      'value': process.env.TEST_URL + '/cft-login/return',
-    }]);
-    console.log(response.status);
-  },
+  // before: function (capabilities, specs) {
+  // },
   /**
    * Runs before a WebdriverIO command gets executed.
    * @param {String} commandName hook command name
@@ -277,14 +267,16 @@ exports.config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {Array.<String>} specs List of spec file paths that ran
    */
-  after: async function () {
-    const axios = require('axios');
-    await axios.patch('https://idam-api.aat.platform.hmcts.net/testing-support/services/pip', [{
-      'operation': 'remove',
-      'field': 'redirect_uri',
-      'value': process.env.TEST_URL + '/cft-login/return',
-    }]);
-  },
+  // after: function (result, capabilities, specs) {
+  // },
+  /**
+   * Gets executed right after terminating the webdriver session.
+   * @param {Object} config wdio configuration object
+   * @param {Array.<Object>} capabilities list of capabilities details
+   * @param {Array.<String>} specs List of spec file paths that ran
+   */
+  // afterSession: function (config.ts, capabilities, specs) {
+  // },
   /**
    * Gets executed after all workers got shut down and the process is about to exit. An error
    * thrown in the onComplete hook will result in the test run failing.
