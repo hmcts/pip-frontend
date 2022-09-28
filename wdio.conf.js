@@ -179,8 +179,15 @@ exports.config = {
    * @param {Object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-  // onPrepare: function (config.ts, capabilities) {
-  // },
+    onPrepare: function (config, capabilities) {
+
+      const axios = require('axios');
+      axios.patch('https://idam-api.aat.platform.hmcts.net/testing-support/services/pip', [{
+        "operation": "add",
+        "field": "redirect_uri",
+        "value": process.env.TEST_URL + "/cft-login/return"
+      }])
+    },
   /**
    * Gets executed before a worker process is spawned and can be used to initialise specific service
    * for that worker as well as modify runtime environments in an async fashion.
@@ -267,16 +274,14 @@ exports.config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {Array.<String>} specs List of spec file paths that ran
    */
-  // after: function (result, capabilities, specs) {
-  // },
-  /**
-   * Gets executed right after terminating the webdriver session.
-   * @param {Object} config wdio configuration object
-   * @param {Array.<Object>} capabilities list of capabilities details
-   * @param {Array.<String>} specs List of spec file paths that ran
-   */
-  // afterSession: function (config.ts, capabilities, specs) {
-  // },
+  after: async function (result, capabilities, specs) {
+    const axios = require('axios');
+    await axios.patch('https://idam-api.aat.platform.hmcts.net/testing-support/services/pip', [{
+      "operation": "remove",
+      "field": "redirect_uri",
+      "value": process.env.TEST_URL + "/cft-login/return"
+    }])
+  },
   /**
    * Gets executed after all workers got shut down and the process is about to exit. An error
    * thrown in the onComplete hook will result in the test run failing.

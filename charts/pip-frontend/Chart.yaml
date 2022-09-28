@@ -10,7 +10,3 @@ dependencies:
   - name: nodejs
     version: 2.4.6
     repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
-  - name: idam-pr
-    version: 2.2.7
-    repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
-    condition: idam-pr.enabled
