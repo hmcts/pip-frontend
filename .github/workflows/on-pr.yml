@@ -31,6 +31,17 @@ jobs:
       - run: |
           mediaSignInUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/login/return"
           adminSignInUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/login/admin/return"
+          cftSignInUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/cft-login/return"
+
+          curl --location --request PATCH 'https://idam-api.aat.platform.hmcts.net/testing-support/services/pip' \
+          --header 'Accept: application/json' \
+          --header 'Content-Type: application/json' \
+          --data-raw '[{
+                "operation": "remove",
+                "field": "redirect_uri",
+                "value": "${cftSignInUrl}"
+          }]'
+
           targetAppName="pip-frontend-stg"
 
           azureClientId="${B2C_CLIENT_ID}"
@@ -61,7 +72,7 @@ jobs:
               echo "Url: $item"
               replyUrlString+="$item,"
             done
-    
+
             if [[ ! "${replyUrls}" =~ "${mediaSignInUrl}" ]]; then
               replyUrlString+="\"$mediaSignInUrl\""
             fi
