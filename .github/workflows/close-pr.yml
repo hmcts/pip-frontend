@@ -29,17 +29,7 @@ jobs:
       - run: |
           mediaSignInUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/login/return"
           adminSignInUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/login/admin/return"
-#          cftSignInUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/cft-login/return"
           targetAppName="pip-frontend-stg"
-
-#          curl --location --request PATCH 'https://idam-api.aat.platform.hmcts.net/testing-support/services/pip' \
-#          --header 'Accept: application/json' \
-#          --header 'Content-Type: application/json' \
-#          --data-raw '[{
-#                "operation": "remove",
-#                "field": "redirect_uri",
-#                "value": "${cftSignInUrl}"
-#          }]'
 
           azureClientId="${B2C_CLIENT_ID}"
           azureClientSecret="${B2C_CLIENT_PWD}"
