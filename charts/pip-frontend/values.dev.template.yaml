@@ -13,7 +13,6 @@ nodejs:
     EXCLUDE_E2E: true
     CFT_IDAM_URL: https://idam-web-public.aat.platform.hmcts.net
 
-
 idam-pr:
   enabled: true
   redirect_uris:
