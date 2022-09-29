@@ -117,6 +117,31 @@ export class DataManipulationService {
   }
 
   /**
+   * Reshaping etDailyList json data into formatted niceness.
+   */
+  public reshapeEtDailyListData(etDailyList: string): object {
+    const etDailyListData = JSON.parse(etDailyList);
+    let hearingCount = 0;
+    etDailyListData['courtLists'].forEach(courtList => {
+      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+        courtRoom['session'].forEach(session => {
+          session['formattedJudiciary'] = this.getJudiciaryNameSurname(session);
+          delete session['judiciary'];
+          session['sittings'].forEach(sitting => {
+            hearingCount = hearingCount + sitting['hearing'].length;
+            sitting['sittingStartFormatted'] = this.publicationTimeInBst(sitting['sittingStart']);
+            this.calculateDuration(sitting);
+            this.findAndConcatenateHearingPlatform(sitting, session);
+          });
+        });
+        courtRoom['totalHearing'] = hearingCount;
+        hearingCount = 0;
+      });
+    });
+    return etDailyListData;
+  }
+
+  /**
    * Manipulate the copDailyCauseList json data for writing out on screen.
    * @param copDailyCauseList The cop daily cause list to manipulate
    */

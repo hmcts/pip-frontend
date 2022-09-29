@@ -89,5 +89,12 @@
     "url": "cop-daily-cause-list",
     "jurisdictions": ["Civil"],
     "restrictedProvenances":  []
+  },
+  "ET_DAILY_LIST": {
+    "friendlyName": "Employment Tribunals Daily Cause List",
+    "shortenedFriendlyName": "ET Daily List",
+    "url": "et-daily-list",
+    "jurisdictions": ["Tribunal"],
+    "restrictedProvenances": []
   }
 }
