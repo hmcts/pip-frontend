@@ -99,8 +99,8 @@
                             class="govuk-table__cell {{ noBorder }}">{{ hearing['applicant'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
                           <td
                             class="govuk-table__cell {{ noBorder }}">{{ hearing['prosecutionAuthorityRefFormatted'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ session['formattedJudiciary'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseType'] }}</td>
 
                           <td class="govuk-table__cell {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
                         </tr>
