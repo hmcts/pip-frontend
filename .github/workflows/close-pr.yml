@@ -7,7 +7,7 @@ on:
 permissions:
       id-token: write
       contents: read
-
+     
 jobs:
   deployment:
     runs-on: ubuntu-latest
@@ -18,10 +18,10 @@ jobs:
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID_STG }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID_STG }} 
 
       - uses: Azure/get-keyvault-secrets@v1
-        with:
+        with: 
           keyvault: "pip-bootstrap-stg-kv"
           secrets: 'b2c-jenkins-tenant-id, b2c-jenkins-client-id, b2c-jenkins-client-secret'
         id: bootstrapKv
