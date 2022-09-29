@@ -4,6 +4,11 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
   startupPeriod: 30
   startupFailureThreshold: 10
+  idam-pr:
+    enabled: true
+    redirect_uris:
+      pip:
+        - https://${SERVICE_FQDN}/cft-login/return
   environment:
     OIDC: true
     AUTH_RETURN_URL: https://${SERVICE_FQDN}/login/return
