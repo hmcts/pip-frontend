@@ -6,6 +6,7 @@ import moment from 'moment';
 import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
+import {LocationService} from '../../../main/service/locationService';
 
 const PAGE_URL = '/subscription-management';
 const expectedAllSubsTitle = 'All subscriptions (5)';
@@ -25,7 +26,7 @@ const courtNameColumn = 'Court or tribunal name';
 const expectedRowCaseName = 'Tom Clancy';
 const expectedRowCaseReference = 'T485913';
 const expectedRowDateAdded = moment('2022-01-14T11:30:12.357299').format('DD MMMM YYYY');
-const expectedRowCourtName = 'Court 1';
+const expectedRowCourtName = 'Test court 1';
 const expectedCaseRowsCount = 2;
 const expectedCaseRowsCountWithoutLocation = 1;
 const expectedCourtRowsCount = 3;
@@ -36,9 +37,15 @@ const pageHeader = 'Your email subscriptions';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
 const userSubscriptionsStub = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
+const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
 
 userSubscriptionsStub.withArgs('2').returns({caseSubscriptions:[], locationSubscriptions:[]});
 userSubscriptionsStub.withArgs('1').returns(subscriptionsData.data);
+locationStub.withArgs(1).resolves({
+  locationId: 1,
+  name: 'Test court 1',
+  welshName: 'Welsh Test Court 1',
+});
 
 userSubscriptionsStub.withArgs('3').returns(
   {caseSubscriptions:[{
@@ -54,6 +61,7 @@ userSubscriptionsStub.withArgs('4').returns(
     subscriptionId: 'f038b7ea-2972-4be4-a5ff-70abb4f78686',
     locationName: 'Court 1',
     dateAdded: '2022-01-14T11:42:57.847708',
+    locationId: 1,
   }]});
 
 let htmlRes: Document;

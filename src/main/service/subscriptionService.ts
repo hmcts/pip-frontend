@@ -13,9 +13,9 @@ import {AToZHelper} from '../helpers/aToZHelper';
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
 const publicationService = new PublicationService();
-const courtService = new LocationService();
 const filterService = new FilterService();
 const languageFileParser = new LanguageFileParser();
+const locationService = new LocationService();
 
 export class SubscriptionService {
   async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
@@ -56,10 +56,17 @@ export class SubscriptionService {
     const courtRows = [];
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCourts.length) {
-      subscriptionDataCourts.forEach((subscription) => {
+
+      for (const subscription of subscriptionDataCourts) {
+        const location  = await locationService.getLocationById(subscription.locationId);
+        let locationName = location.name;
+        if(language === 'cy') {
+          locationName = location.welshName;
+        }
+
         courtRows.push([
           {
-            text: subscription.locationName,
+            text: locationName,
           },
           {
             text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
@@ -70,7 +77,7 @@ export class SubscriptionService {
             format: 'numeric',
           },
         ]);
-      });
+      }
     }
     return courtRows;
   }
@@ -131,7 +138,7 @@ export class SubscriptionService {
   public async getCourtDetails(courts): Promise<Location[]> {
     const courtsList = [];
     for (const locationId of courts) {
-      const courtDetails = await courtService.getLocationById(locationId);
+      const courtDetails = await locationService.getLocationById(locationId);
       if (courtDetails) {
         courtsList.push(courtDetails);
       }
@@ -282,7 +289,7 @@ export class SubscriptionService {
     const courtJurisdictions = new Set();
     for (const subscription of userSubscriptions['locationSubscriptions']) {
       if ('locationId' in subscription) {
-        const returnedLocation = await courtService.getLocationById(subscription['locationId']);
+        const returnedLocation = await locationService.getLocationById(subscription['locationId']);
         returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.add(jurisdiction));
       }
     }
