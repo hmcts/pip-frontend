@@ -1,4 +1,3 @@
-import { HearingListPage } from './HearingList.page';
 import { CommonPage } from './Common.page';
 import { SummaryOfPublicationsPage } from './SummaryOfPublications.page';
 import { ViewOptionPage } from './ViewOption.page';
@@ -39,15 +38,6 @@ export class AlphabeticalSearchPage extends CommonPage {
 
     await $(helpers.LastItemResult).click();
     return new SummaryOfPublicationsPage();
-  }
-
-  async selectSecondListResult(): Promise<HearingListPage> {
-    await $(helpers.SecondItemResult).catch(() => {
-      console.log(`${helpers.SecondItemResult} not found`);
-    });
-
-    await $(helpers.SecondItemResult).click();
-    return new HearingListPage();
   }
 
   async selectSJPLink(): Promise<SummaryOfPublicationsPage> {

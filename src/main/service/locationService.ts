@@ -26,8 +26,6 @@ export class LocationService {
             name:  (value['welshName'] != null ? value['welshName'] : value.name),
             jurisdiction: (value['welshJurisdiction'] != null ? value['welshJurisdiction'] : value.jurisdiction),
             region: (value['welshRegion'] != null ? value['welshRegion'] : value.region),
-            hearingList: value.hearingList,
-            hearings: value.hearings,
             location: value.location,
           };
 

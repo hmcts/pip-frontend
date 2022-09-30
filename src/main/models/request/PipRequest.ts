@@ -18,7 +18,6 @@ export interface PipRequest extends Request {
       'delete-subscription': {};
       'error': {};
       'file-upload-confirm': {};
-      'hearing-list': {};
       'home': {};
       'list-option': {};
       'live-case-alphabet-search': {};
