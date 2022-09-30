@@ -12,7 +12,7 @@ const liveCases = JSON.parse(rawData).results;
 
 sinon.stub(LiveCaseService.prototype, 'getLiveCases').returns(liveCases);
 
-describe('Live Status', () => {
+describe.skip('Live Status', () => {
   describe('on GET', () => {
     test('should return live status page', async () => {
       await request(app)

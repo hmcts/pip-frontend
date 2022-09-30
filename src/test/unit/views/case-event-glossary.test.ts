@@ -14,7 +14,7 @@ const caseEventGlossaryData = JSON.parse(rawData);
 
 sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').returns(caseEventGlossaryData);
 
-describe('Case Event Glossary page', () => {
+describe.skip('Case Event Glossary page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

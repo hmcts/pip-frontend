@@ -175,7 +175,8 @@ describe('Home page', () => {
 });
 describe('Cookie banner display', () => {
   const cookieBody1 = 'We use some essential cookies to make this service work.';
-  const cookieBody2 = 'We’d also like to use analytics cookies so we can understand how you use the service and make improvements.';
+  const cookieBody2 = 'We’d also like to use analytics cookies so we can understand how you use the service and make\n' +
+    '      improvements.';
 
   beforeAll(async () => {
     app.request['lng'] = 'en';

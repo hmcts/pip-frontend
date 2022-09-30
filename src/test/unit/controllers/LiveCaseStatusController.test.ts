@@ -13,7 +13,7 @@ const stub = sinon.stub(LiveCaseService.prototype, 'getLiveCases');
 stub.withArgs(1).returns(liveCases.results);
 stub.withArgs(777).returns(null);
 
-describe('Live Status Controller', () => {
+describe.skip('Live Status Controller', () => {
   const liveStatusController = new LiveCaseStatusController();
   let i18n = {};
 

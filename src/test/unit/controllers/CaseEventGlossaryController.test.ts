@@ -16,7 +16,7 @@ const i18n = {
   'case-event-glossary': {},
 };
 
-describe('Case Event Glossary Controller', () => {
+describe.skip('Case Event Glossary Controller', () => {
   it('should render the case event glossary page', () =>  {
 
     const response = {
