@@ -2,7 +2,7 @@
   "serviceNameText": "Court and tribunal hearings",
   "signInText": "Sign in",
   "signOutText": "Sign out",
-  "betaHeading": "This is a new service – your <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">feedback</a> will help us to improve it. <a class=\"languageHeader\" href=\"javascript:void(0)\" onclick=\"changeLang('cy')\">Cymraeg</a>",
+  "betaHeading": "This is a new service – your <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">feedback</a> will help us to improve it. <a class=\"languageHeader govuk-link\" href=\"javascript:void(0)\" onclick=\"changeLang('cy')\">Cymraeg</a>",
   "betaHeadingAdmin": "This is a new service – your <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">feedback</a> will help us to improve it.",
   "navLinks": {
     "link1": "Home",
