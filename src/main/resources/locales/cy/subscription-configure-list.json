@@ -1,14 +1,15 @@
 {
   "title": "Select List Types",
   "descriptionText": "Configure the lists you will receive for your selected courts and tribunals. This will not affect any specific cases you may have subscribed to. Also don't forget to come back regularly to see new list types as we add more.",
-  "userSelections": "Your selection(s)",
-  "selected": "selected",
+  "explanationText": "If you un-select all hearing lists on this screen we will revert your subscriptions to default and you will receive all list types. If you want to stop receiving all lists or stop receiving lists from a particular court/tribunal please remove the subscriptions on the previous screen.",
+  "userSelections": "Eich dewisiadau",
+  "selected": "Wedi’i ddewis",
   "filter": "Ffiltro",
   "filterSelected": "Ffiltyr a ddewiswyd",
   "filterClear": "Clirio’r ffiltrau",
   "hide" : "Cuddio’r ffiltrau",
   "show": "Dangos y ffiltrau",
-  "filterHeader": "Type of court or tribunal",
+  "filterHeader": "Math o lys neu dribiwnlys",
   "applyFiltersButton": "Cadarnhau hidlwyr",
   "ariaLabelNav": "No list types are available for the letter",
   "aria": {

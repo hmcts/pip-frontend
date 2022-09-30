@@ -17,6 +17,8 @@ const filterService = new FilterService();
 const languageFileParser = new LanguageFileParser();
 const locationService = new LocationService();
 
+const jurisdictions = require('../resources/welshJurisdictionLookup.json');
+
 export class SubscriptionService {
   async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
     const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
@@ -242,7 +244,7 @@ export class SubscriptionService {
    * @param filterValuesQuery The currently selected filters.
    * @param clearQuery The clear filter for the query.
    */
-  public async generateListTypesForCourts(userId, userRole, filterValuesQuery, clearQuery): Promise<object> {
+  public async generateListTypesForCourts(userId, userRole, filterValuesQuery, clearQuery, language): Promise<object> {
     let filterValues = filterService.stripFilters(filterValuesQuery);
     if (clearQuery) {
       filterValues = filterService.handleFilterClear(filterValues, clearQuery);
@@ -250,7 +252,7 @@ export class SubscriptionService {
 
     const applicableListTypes = await this.generateAppropriateListTypes(userId, userRole);
 
-    const filterOptions = this.buildFilterValueOptions(applicableListTypes, filterValues);
+    const filterOptions = this.buildFilterValueOptions(applicableListTypes, filterValues, language);
 
     const alphabetisedListTypes = AToZHelper.generateAlphabetObject();
 
@@ -327,11 +329,11 @@ export class SubscriptionService {
     }
   }
 
-  public buildFilterValueOptions(list: Map<string, ListType>, selectedFilters: string[]): object {
+  private buildFilterValueOptions(list: Map<string, ListType>, selectedFilters: string[], language): object {
     const filterValueOptions = {};
     filterValueOptions['Jurisdiction'] = {};
 
-    const finalFilterValueOptions = this.getAllJurisdictions(list);
+    const finalFilterValueOptions = this.getAllJurisdictions(list, language);
 
     [...finalFilterValueOptions].sort().forEach(value => {
       filterValueOptions['Jurisdiction'][value] = {
@@ -343,13 +345,20 @@ export class SubscriptionService {
     return filterValueOptions;
   }
 
-  private getAllJurisdictions(list: Map<string, ListType>): string[] {
+  private getAllJurisdictions(list: Map<string, ListType>, language: string): string[] {
     const filterSet = new Set() as Set<string>;
     list.forEach((value) => {
-      value.jurisdictions.forEach(jurisdiction => filterSet.add(jurisdiction));
+      value.jurisdictions.forEach(value => {
+        const map = this.getWelshJurisdictions();
+        const jurisdiction = (language === 'cy' && map.has(value)) ? map.get(value) : value;
+        filterSet.add(jurisdiction);
+      });
     });
 
     return [...filterSet];
   }
 
+  private getWelshJurisdictions(): Map<string, string> {
+    return new Map(Object.entries(jurisdictions));
+  }
 }
