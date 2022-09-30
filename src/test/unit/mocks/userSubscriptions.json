@@ -21,19 +21,22 @@
         "subscriptionId": "f038b7ea-2972-4be4-a5ff-70abb4f78686",
         "locationName": "Court 1",
         "dateAdded": "2022-01-14T11:42:57.847708",
-        "listTypes": ["SJP_PUBLIC_LIST"]
+        "listTypes": ["SJP_PUBLIC_LIST"],
+        "locationId": 1
       },
       {
         "subscriptionId": "d5b65f6f-4c43-45f7-a52d-d2c5cf8ac0e6",
         "locationName": "Court 2",
         "dateAdded": "2022-01-14T13:33:25.398361",
-        "listTypes": ["SJP_PUBLIC_LIST"]
+        "listTypes": ["SJP_PUBLIC_LIST"],
+        "locationId": 1
       },
       {
         "subscriptionId": "fffe29f8-52f4-4e7c-9eff-753d3b82244f",
         "locationName": "Barkingside Magistrates' Court",
         "dateAdded": "2022-01-14T13:39:02.708126",
-        "listTypes": ["SJP_PUBLIC_LIST"]
+        "listTypes": ["SJP_PUBLIC_LIST"],
+        "locationId": 1
       }
     ]
   }
