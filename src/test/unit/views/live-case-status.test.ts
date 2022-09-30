@@ -16,7 +16,7 @@ const liveCaseData = JSON.parse(rawData).results;
 
 sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
 
-describe('Live Status page', () => {
+describe.skip('Live Status page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
@@ -76,8 +76,8 @@ describe('Live Status page', () => {
   it('should display the link to go back to live case alphabet list', () => {
     const link = htmlRes.getElementsByClassName('govuk-link');
 
-    expect(link.item(5).innerHTML).contains('See another court or tribunal', 'Link text is not present');
-    expect(link.item(5).getAttribute('href')).equal('/live-case-alphabet-search', 'Link value is not correct');
+    expect(link.item(6).innerHTML).contains('See another court or tribunal', 'Link text is not present');
+    expect(link.item(6).getAttribute('href')).equal('/live-case-alphabet-search', 'Link value is not correct');
   });
 });
 

@@ -13,7 +13,8 @@
     "link8": "Review apps",
     "link9": "Remove"
   },
-"betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">adborth</a> yn ein helpu i’w wella",
+  "betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">adborth</a> yn ein helpu i’w wella <a class=\"languageHeader govuk-link\" href=\"javascript:void(0)\" onclick=\"changeLang('en')\">English</a>",
+  "betaHeadingAdmin": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">adborth</a> yn ein helpu i’w wella",
   "footerLinks": [
     {
       "text": "Gymorth",

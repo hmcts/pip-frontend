@@ -8,36 +8,55 @@
 
 {% block head %}
   <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-N5R698M');</script>
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-N5R698M');</script>
   <!-- End Google Tag Manager -->
-    <meta name="robots" content="noindex">
-    {% include "webpack/css.njk" %}
+  <meta name="robots" content="noindex">
+  {% include "webpack/css.njk" %}
 {% endblock %}
 
 {% block header %}
-    {{ govukHeader({
-        homepageUrl: "https://www.gov.uk/",
-        serviceName: serviceNameText,
-        serviceUrl: "/"
-    }) }}
+  {{ govukHeader({
+    homepageUrl: "https://www.gov.uk/",
+    serviceName: serviceNameText,
+    serviceUrl: "/"
+  }) }}
 {% endblock %}
-
 {% block beforeContent %}
+  <script>
+    function changeLang(lng){
+      const searchParams = new URLSearchParams(window.location.search);
+      searchParams.set('lng', lng)
+      window.location.search = searchParams.toString();
+
+  }</script>
+  {% if user.role and 'ADMIN' in user.role %}
+    {% set betaDisplay = betaHeadingAdmin %}
+  {% else %}
+    {% set betaDisplay = betaHeading %}
+  {% endif %}
   {{ govukPhaseBanner({
     tag: {
       text: "beta"
     },
-    html: betaHeading
+    html: betaDisplay
   }) }}
   <script>
     var link = document.getElementById("betalink")
-    link.href= link.href + window.location.pathname.substring(1)
+    link.href = link.href + window.location.pathname.substring(1)
   </script>
-  {% if user.role == 'SYSTEM_ADMIN' or user.role == 'INTERNAL_SUPER_ADMIN_LOCAL' or user.role == 'INTERNAL_ADMIN_LOCAL' %}
+  {% if user.role in ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_LOCAL'] %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -55,8 +74,8 @@
         text: navLinks.link3,
         href: '/logout'
       }
-    ]%}
-  {% elif user.role == 'INTERNAL_SUPER_ADMIN_CTSC' or user.role == 'INTERNAL_ADMIN_CTSC' %}
+    ] %}
+    {% elif user.role in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -78,8 +97,9 @@
         text: navLinks.link3,
         href: '/logout'
       }
-    ]%}
-  {% elif isAuthenticated %}
+
+    ] %}
+    {% elif isAuthenticated %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -101,51 +121,56 @@
         text: navLinks.link3,
         href: '/logout'
       }
-    ]%}
+    ] %}
   {% else %}
-  {% set listItems =
-    [
-      {
-        text: navLinks.link1,
-        href: '/'
-      },
-      {
-        text: navLinks.link5,
-        href: '/search'
-      },
-      {
-        text: navLinks.link6,
-        href: '/summary-of-publications?locationId=9'
-      },
-      {
-        text: navLinks.link2,
-        href: '/sign-in'
-      }
-    ]%}
+    {% set listItems =
+      [
+        {
+          text: navLinks.link1,
+          href: '/'
+        },
+        {
+          text: navLinks.link5,
+          href: '/search'
+        },
+        {
+          text: navLinks.link6,
+          href: '/summary-of-publications?locationId=9'
+        },
+        {
+          text: navLinks.link2,
+          href: '/sign-in'
+        }
+      ] %}
   {% endif %}
   {{ mojSubNavigation({
-      label: 'Primary navigation',
-      classes: 'pub-navigation govuk-!-margin-bottom-0',
-      items: listItems
+    label: 'Primary navigation',
+    classes: 'pub-navigation govuk-!-margin-bottom-0',
+    items: listItems
   }) }}
 {% endblock %}
 
 {% block bodyStart %}
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N5R698M"
-                    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N5R698M"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
   <!-- End Google Tag Manager (noscript) -->
   {% set html %}
     <p class="govuk-body">We use some essential cookies to make this service work.</p>
-    <p class="govuk-body">We’d also like to use analytics cookies so we can understand how you use the service and make improvements.</p>
+    <p class="govuk-body">We’d also like to use analytics cookies so we can understand how you use the service and make
+      improvements.</p>
   {% endset %}
 
   {% set acceptHtml %}
-    <p class="govuk-body">You’ve accepted analytics cookies. You can <a class="govuk-link" href="/cookie-policy">change your cookie settings</a> at any time.</p>
+    <p class="govuk-body">You’ve accepted analytics cookies. You can <a class="govuk-link" href="/cookie-policy">change
+        your cookie settings</a> at any time.</p>
   {% endset %}
 
   {% set rejectHtml %}
-    <p class="govuk-body">You’ve rejected analytics cookies. You can <a class="govuk-link" href="/cookie-policy">change your cookie settings</a> at any time.</p>
+    <p class="govuk-body">You’ve rejected analytics cookies. You can <a class="govuk-link" href="/cookie-policy">change
+        your cookie settings</a> at any time.</p>
   {% endset %}
 
   {{ govukCookieBanner({
@@ -163,8 +188,8 @@
           text: "Accept analytics cookies",
           type: "button",
           attributes: {
-            id: 'cookie-banner-accept-button'
-          }
+          id: 'cookie-banner-accept-button'
+        }
         },
         {
           classes: 'cookie-banner-reject-button',
@@ -187,8 +212,8 @@
           classes: 'cookie-banner-hide-button',
           text: 'Hide this message',
           attributes: {
-            id: 'cookie-banner-hide-button'
-          }
+          id: 'cookie-banner-hide-button'
+        }
         }
       ]
       },
@@ -209,7 +234,7 @@
 
 {% endblock %}
 
-{%  block content %}
+{% block content %}
   {{ backToTopButton(backToTop) }}
 {% endblock %}
 
@@ -232,13 +257,14 @@
               </li>
             {% endfor %}
           </ul>
-          <svg aria-hidden="true" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg"
+          <svg aria-hidden="true" focusable="false" class="govuk-footer__licence-logo"
+               xmlns="http://www.w3.org/2000/svg"
                viewBox="0 0 483.2 195.7" height="17" width="41">
             <path fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12
               0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1
               0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0
               68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26
-              0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145" />
+              0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145"/>
           </svg>
           <span class="govuk-footer__licence-description">All content is available under the
             <a class="govuk-footer__link"
@@ -255,12 +281,13 @@
             <a class="govuk-footer__link"
                href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
                rel="license">Open Government Licence v3.0</a> does not cover use of any personal data in the
-               court and tribunal hearings service. Personal data is subject to applicable data protection laws.
+            court and tribunal hearings service. Personal data is subject to applicable data protection laws.
           </p>
         </div>
         <div class="govuk-footer__meta-item">
           <a class="govuk-footer__link govuk-footer__copyright-logo"
-             href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">© Crown copyright</a>
+             href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">©
+            Crown copyright</a>
         </div>
       </div>
     </div>

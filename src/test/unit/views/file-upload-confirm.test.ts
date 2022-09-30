@@ -33,11 +33,11 @@ describe('File Upload Confirmation Page', () => {
 
   it('should display links to other actions with correct paths', () => {
     const links = htmlRes.getElementsByClassName('govuk-link ');
-    expect(links[1].innerHTML).to.equal('Upload another file');
-    expect(links[1].getAttribute('href')).contains('manual-upload');
-    expect(links[2].innerHTML).to.equal('Remove file');
-    expect(links[2].getAttribute('href')).contains('remove-list-search');
-    expect(links[3].innerHTML).to.equal('Home');
-    expect(links[3].getAttribute('href')).contains('admin-dashboard');
+    expect(links[2].innerHTML).to.equal('Upload another file');
+    expect(links[2].getAttribute('href')).contains('manual-upload');
+    expect(links[3].innerHTML).to.equal('Remove file');
+    expect(links[3].getAttribute('href')).contains('remove-list-search');
+    expect(links[4].innerHTML).to.equal('Home');
+    expect(links[4].getAttribute('href')).contains('admin-dashboard');
   });
 });
