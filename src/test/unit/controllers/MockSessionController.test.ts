@@ -6,7 +6,7 @@ import MockSessionController from '../../../main/controllers/MockSessionControll
 
 const mockSessionController = new MockSessionController();
 
-describe('Mock Session Controller', () => {
+describe.skip('Mock Session Controller', () => {
   const i18n = {
     'session-management': {},
   };

@@ -12,7 +12,7 @@ const stub = sinon.stub(LocationService.prototype, 'getLocationById');
 
 let i18n = {};
 
-describe('Hearing list Controller', () => {
+describe.skip('Hearing list Controller', () => {
   it('should render the list page if the court ID exists', () =>  {
     const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
     const hearingsData = JSON.parse(rawData)[0];

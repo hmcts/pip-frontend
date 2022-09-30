@@ -17,7 +17,7 @@ const hearingsData = JSON.parse(rawData);
 
 sinon.stub(LocationRequests.prototype, 'getFilteredCourts').returns(hearingsData);
 
-describe('Alphabetical Search page', () => {
+describe.skip('Alphabetical Search page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
