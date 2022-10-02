@@ -23,18 +23,14 @@ export default class EtDailyListController {
       const publishedTime = dataManipulationService.publicationTimeInBst(fileData['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(fileData['document']['publicationDate']);
       const returnedCourt = await locationService.getLocationById(metaData['locationId']);
-      const courtName = locationService.findCourtName(returnedCourt, req.lng as string, 'sscs-daily-list');
-      const data = fileData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'];
-      const length = data.length;
+      const courtName = locationService.findCourtName(returnedCourt, req.lng as string, 'et-daily-list');
       res.render('et-daily-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(publicationService.languageToLoadPageIn(metaData.language,
           req.lng))['et-daily-list']),
-        casesList: data,
         listData,
-        length: length,
         courtName,
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
-        location: returnedCourt,
+        region: returnedCourt.region,
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         provenance: metaData['provenance'],
