@@ -26,7 +26,7 @@
       <p>{{ openJustice2 }}</p>
       <p>{{ openJustice3 }}</p>
       <p>{{ openJustice4 }}</p>
-      <p>{{ medReqs | replace("REGADM", "Danny") }}</p>
+      <p>{{ medReqs | replace("REGADM", listData['venue']['venueName']) | replace("EMAIL", listData['venue']['venueContact']['venueEmail']) |replace("PHONE", listData['venue']['venueContact']['venueTelephone']) }}</p>
       <p>{{ openJustice5 }}</p>
       <p>{{ openJustice6 }}</p>
     </div>
@@ -35,6 +35,19 @@
     {% set courtHouse = courtList['courtHouse'] %}
     <div class="site-header" tabindex="0" aria-label="Court Details">
       <h1 class="govuk-heading-l site-address" tabindex="0">{{ courtHouse['courtHouseName'] }}</h1>
+      {% set courtHouseAddress = courtHouse['courtHouseAddress'] %}
+      {% for line in courtHouseAddress['line'] %}
+        <p class="govuk-body site-address" tabindex="0">{{ line }}</p>
+      {% endfor %}
+      {% if courtHouseAddress['town'] | length %}
+        <p class="govuk-body site-address" tabindex="0">{{ courtHouseAddress['town'] }}</p>
+      {% endif %}
+      {% if courtHouseAddress['county'] | length %}
+        <p class="govuk-body site-address" tabindex="0">{{ courtHouseAddress['county'] }}</p>
+      {% endif %}
+      {% if courtHouseAddress['postCode'] | length %}
+        <p class="govuk-body site-address" tabindex="0">{{ courtHouseAddress['postCode'] }}</p>
+      {% endif %}
     </div>
 
     <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
@@ -49,6 +62,7 @@
               {{ courtRoom['courtRoomName'] }}
             </span>
             </h2>
+
           </div>
           <div id="accordion-default-content-{{ courtRoomCount }}" class="govuk-accordion__section-content"
                aria-labelledby="accordion-default-heading-{{ courtRoomCount }}">
@@ -91,14 +105,15 @@
                         {% if courtRoom['totalHearing'] === hearingCount %}
                           {% set noBorder = 'no-border-bottom' %}
                         {% endif %}
+                        {% set caseIndicator = case['caseSequenceIndicator'] %}
                         <tr class="govuk-table__row">
                           <td class="govuk-table__cell {{ noBorder }}">{{ sitting['sittingStartFormatted'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ duration }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ duration }} {{ caseIndicator }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
                           <td
-                            class="govuk-table__cell {{ noBorder }}">{{ hearing['applicant'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
+                            class="govuk-table__cell {{ noBorder }}">{{ hearing['claimant'] }}</td>
                           <td
-                            class="govuk-table__cell {{ noBorder }}">{{ hearing['prosecutionAuthorityRefFormatted'] }}</td>
+                            class="govuk-table__cell {{ noBorder }}">{{ hearing['respondent'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ case['caseType'] }}</td>
 

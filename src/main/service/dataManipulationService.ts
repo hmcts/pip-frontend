@@ -132,6 +132,9 @@ export class DataManipulationService {
             sitting['sittingStartFormatted'] = this.publicationTimeInBst(sitting['sittingStart']);
             this.calculateDuration(sitting);
             this.findAndConcatenateHearingPlatform(sitting, session);
+            sitting['hearing'].forEach(hearing => {
+              this.findAndManipulateClaimantsForEtLists(hearing);
+            });
           });
         });
         courtRoom['totalHearing'] = hearingCount;
@@ -139,6 +142,47 @@ export class DataManipulationService {
       });
     });
     return etDailyListData;
+  }
+
+  private findAndManipulateClaimantsForEtLists(hearing: any): void {
+    let claimant = '';
+    let respondent = '';
+    let claimantRepresentative = '';
+    let respondentRepresentative = '';
+    if (hearing?.party) {
+      hearing.party.forEach(party => {
+        switch (DataManipulationService.convertPartyRole(party.partyRole)) {
+          case 'CLAIMANT_PETITIONER': {
+            claimant += this.createIndividualDetailsWithInitials(party.individualDetails).trim();
+            claimant += this.stringDelimiter(claimant?.length, ',');
+            break;
+          }
+          case 'CLAIMANT_PETITIONER_REPRESENTATIVE': {
+            const claimantPetitionerDetails = this.createIndividualDetailsWithInitials(party.individualDetails).trim();
+            if (claimantPetitionerDetails) {
+              claimantRepresentative += 'Rep: ' + claimantPetitionerDetails + ', ';
+            }
+            break;
+          }
+          case 'RESPONDENT': {
+            respondent += this.createIndividualDetailsWithInitials(party.individualDetails).trim();
+            respondent += this.stringDelimiter(respondent?.length, ',');
+            break;
+          }
+          case 'RESPONDENT_REPRESENTATIVE': {
+            const respondentDetails = this.createIndividualDetailsWithInitials(party.individualDetails).trim();
+            if (respondentDetails) {
+              respondentRepresentative += 'Rep: ' + respondentDetails + ', ';
+            }
+            break;
+          }
+        }
+      });
+      claimant += claimantRepresentative;
+      respondent += respondentRepresentative;
+      hearing['claimant'] = claimant?.replace(/,\s*$/, '').trim();
+      hearing['respondent'] = respondent?.replace(/,\s*$/, '').trim();
+    }
   }
 
   /**
@@ -231,6 +275,15 @@ export class DataManipulationService {
   }
 
   /**
+   * Format an individual's details with forename initial and surname
+   */
+  private createIndividualDetailsWithInitials(individualDetails: any): string {
+    return this.writeStringIfValid(individualDetails?.title) + ' ' +
+      this.writeStringIfValid(individualDetails?.individualForenames.charAt(0)) + '. ' +
+      this.writeStringIfValid(individualDetails?.individualSurname);
+  }
+
+  /**
    * Helper function for strings.
    * @param stringToCheck
    */
@@ -267,16 +320,19 @@ export class DataManipulationService {
   }
 
   /**
-   * Manipulate hearing platform data for writing out to screen.
+   * Manipulate hearing platform data for writing out to screen. Needed to be amended to include optional hearing
+   * channel for PUB-1319.
    * @param sitting
    * @param session
    */
   private findAndConcatenateHearingPlatform(sitting: object, session: object): void {
     let caseHearingChannel = '';
-    if(sitting['channel']?.length > 0) {
-      caseHearingChannel = sitting['channel'].join(', ');
-    } else if(session['sessionChannel'].length > 0) {
-      caseHearingChannel = session['sessionChannel'].join(', ');
+    if(sitting['channel'] || session['sessionChannel']) {
+      if (sitting['channel']?.length > 0) {
+        caseHearingChannel = sitting['channel'].join(', ');
+      } else if (session['sessionChannel'].length > 0) {
+        caseHearingChannel = session['sessionChannel'].join(', ');
+      }
     }
     sitting['caseHearingChannel'] = caseHearingChannel;
   }
