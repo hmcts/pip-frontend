@@ -4,7 +4,7 @@ import {cloneDeep} from 'lodash';
 import {PublicationService} from '../service/publicationService';
 import { DataManipulationService } from '../service/dataManipulationService';
 import {LocationService} from '../service/locationService';
-import moment from "moment/moment";
+import moment from 'moment/moment';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
