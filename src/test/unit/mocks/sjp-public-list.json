@@ -223,6 +223,70 @@
                     ]
                   }
                 ]
+              },
+              {
+                "sittings": [
+                  {
+                    "hearing": [
+                      {
+                        "party": [
+                          {
+                            "partyRole": "PROSECUTOR",
+                            "organisationDetails": {
+                              "organisationName": "TV Licensing",
+                              "individualSurname": "test"
+                            }
+                          },
+                          {
+                            "partyRole": "ACCUSED",
+                            "individualDetails": {
+                              "individualForenames": "Z",
+                              "individualSurname": "CDFake",
+                              "address": {
+                                "postCode": "BD17"
+                              }
+                            }
+                          }
+                        ],
+                        "offence": [
+                          {
+                            "offenceTitle": "Use / install a television set without a licence"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "hearing": [
+                      {
+                        "party": [
+                          {
+                            "partyRole": "PROSECUTOR",
+                            "organisationDetails": {
+                              "organisationName": "Driver and Vehicle Licensing Agency",
+                              "individualSurname": "test"
+                            }
+                          },
+                          {
+                            "partyRole": "ACCUSED",
+                            "individualDetails": {
+                              "individualForenames": "Z",
+                              "individualSurname": "CFake",
+                              "address": {
+                                "postCode": "BD17"
+                              }
+                            }
+                          }
+                        ],
+                        "offence": [
+                          {
+                            "offenceTitle": "Keep a vehicle without a valid vehicle licence"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
