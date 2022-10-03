@@ -22,7 +22,7 @@ const alphabet = [
 const validCaseEventGlossary = 'Adjourned';
 const invalidCaseEventGlossary = 'Bench continue hearing';
 
-describe('Case Event Glossary Service', () => {
+describe.skip('Case Event Glossary Service', () => {
   it(`should return object with ${validStatusDescriptionKeysCount} status description keys`, () => {
     return caseEventGlossaryService.generateCaseEventGlossaryObject().then((data) => {
       expect(Object.keys(data).length).to.equal(validStatusDescriptionKeysCount);
