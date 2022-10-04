@@ -212,42 +212,52 @@ export class DataManipulationService {
     return copDailyCauseListData;
   }
 
-  /**
-   * Manipulate the party information data for writing out on screen.
-   * @param hearing
-   */
-  private findAndManipulatePartyInformation(hearing: any): void {
+  private findAndManipulatePartyInformation(hearing: any, initialised= false): void {
     let applicant = '';
+    let appellant = '';
     let respondent = '';
     let respondentRepresentative = '';
     let applicantRepresentative = '';
+    let appellantRepresentative = '';
     if(hearing?.party) {
       hearing.party.forEach(party => {
 
         switch(DataManipulationService.convertPartyRole(party.partyRole)) {
           case 'APPLICANT_PETITIONER':
           {
-            applicant += this.createIndividualDetails(party.individualDetails).trim();
+            applicant += this.createIndividualDetails(party.individualDetails, initialised).trim();
             applicant += this.stringDelimiter(applicant?.length, ',');
             break;
           }
           case 'APPLICANT_PETITIONER_REPRESENTATIVE':
           {
-            const applicantPetitionerDetails = this.createIndividualDetails(party.individualDetails).trim();
+            const applicantPetitionerDetails = this.createIndividualDetails(party.individualDetails, initialised).trim();
             if(applicantPetitionerDetails) {
               applicantRepresentative += 'LEGALADVISOR: ' + applicantPetitionerDetails + ', ';
             }
             break;
           }
+          case 'CLAIMANT_PETITIONER':
+          {
+            appellant += this.createIndividualDetails(party.individualDetails, initialised).trim();
+            appellant += this.stringDelimiter(appellant?.length, ',');
+            break;
+          }
+          case 'CLAIMANT_PETITIONER_REPRESENTATIVE':
+          {
+            appellantRepresentative += this.createIndividualDetails(party.individualDetails, initialised).trim();
+            appellantRepresentative += this.stringDelimiter(appellantRepresentative?.length, ',');
+            break;
+          }
           case 'RESPONDENT':
           {
-            respondent += this.createIndividualDetails(party.individualDetails).trim();
+            respondent += this.createIndividualDetails(party.individualDetails, initialised).trim();
             respondent += this.stringDelimiter(respondent?.length, ',');
             break;
           }
           case 'RESPONDENT_REPRESENTATIVE':
           {
-            const respondentDetails = this.createIndividualDetails(party.individualDetails).trim();
+            const respondentDetails = this.createIndividualDetails(party.individualDetails, initialised).trim();
             if(respondentDetails) {
               respondentRepresentative += 'LEGALADVISOR: ' + respondentDetails + ', ';
 
@@ -256,6 +266,10 @@ export class DataManipulationService {
           }
         }
       });
+      hearing['appellant'] = appellant?.replace(/,\s*$/, '').trim();
+      hearing['appellantRepresentative'] = appellantRepresentative?.replace(/,\s*$/, '').trim();
+      hearing['prosecutingAuthority'] = respondent?.replace(/,\s*$/, '').trim();
+
       applicant += applicantRepresentative;
       respondent += respondentRepresentative;
       hearing['applicant'] = applicant?.replace(/,\s*$/, '').trim();
@@ -266,12 +280,26 @@ export class DataManipulationService {
   /**
    * Format a set of individuals details.
    * @param individualDetails
+   * @param initialised
    */
-  private createIndividualDetails(individualDetails: any): string {
-    return this.writeStringIfValid(individualDetails?.title) + ' '
-      + this.writeStringIfValid(individualDetails?.individualForenames) + ' '
-      + this.writeStringIfValid(individualDetails?.individualMiddleName) + ' '
-      + this.writeStringIfValid(individualDetails?.individualSurname);
+  private createIndividualDetails(individualDetails: any, initialised = false): string {
+    const title = this.writeStringIfValid(individualDetails?.title);
+    const forenames = this.writeStringIfValid(individualDetails?.individualForenames);
+    const forenameInitial = forenames.charAt(0);
+    const middleName = this.writeStringIfValid(individualDetails?.individualMiddleName);
+    const surname = this.writeStringIfValid(individualDetails?.individualSurname);
+    if(initialised) {
+      return title + (title.length > 0 ? ' ' : '')
+        + forenameInitial + (forenameInitial.length > 0 ? '. ' : '')
+        + surname;
+    }
+    else {
+      return title + (title.length > 0 ? ' ' : '')
+        + forenames + (forenames.length > 0 ? ' ' : '')
+        + middleName + (middleName.length > 0 ? ' ' : '')
+        + surname;
+    }
+
   }
 
   /**

@@ -52,6 +52,7 @@ export class Nunjucks {
     env.addFilter('titleCase', function(x){return (x == 'BI_LINGUAL' ? 'Bilingual' : x.charAt(0).toUpperCase() + x.slice(1).toLowerCase());});
     env.addFilter('dateRange', function(x){return moment(x.displayFrom).format('D MMM YYYY') +
       ' to ' + moment(x.displayTo).format('D MMM YYYY');});
+    env.addFilter('govukLink', function(x){ return '<a class=govuk-link href="' + x + '">x</a>';});
 
     app.use((req, res, next) => {
       res.locals.pagePath = req.path;

@@ -33,7 +33,7 @@ etDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 etDailyListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
-  'cop-daily-cause-list': {},
+  'et-daily-cause-list': {},
 };
 
 describe('Et Daily List Controller', () => {

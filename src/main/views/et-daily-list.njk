@@ -27,7 +27,7 @@
       <p>{{ openJustice2 }}</p>
       <p>{{ openJustice3 }}</p>
       <p>{{ openJustice4 }}</p>
-      <p>{{ medReqs | replace("REGADM", listData['venue']['venueName']) | replace("EMAIL", venueEmail) |replace("PHONE", listData['venue']['venueContact']['venueTelephone']) | urlize | safe }}</p>
+      <p>{{ listData['venue']['venueName'] }}  {{ venueEmail | govUkLink }} {{ listData['venue']['venueContact']['venueTelephone'] }}</p>
       <p>{{ openJustice5 }}</p>
       <p>{{ openJustice6 }}</p>
     </div>
@@ -82,23 +82,23 @@
                     {% set durationAsHours = 0 %}
                     {% if sitting['durationAsHours'] > 1 %}
                       {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHours %}
-                      {% elif sitting['durationAsHours'] === 1 %}
+                    {% elif sitting['durationAsHours'] === 1 %}
                       {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHour %}
                     {% endif %}
                     {% set durationAsMinutes = 0 %}
                     {% if sitting['durationAsMinutes'] > 1 %}
                       {% set durationAsMinutes = sitting['durationAsMinutes'] + ' ' + hearingDurationMinutes %}
-                      {% elif sitting['durationAsMinutes'] === 1 %}
+                    {% elif sitting['durationAsMinutes'] === 1 %}
                       {% set durationAsMinutes = sitting['durationAsMinutes'] + ' ' + hearingDurationMinute %}
                     {% endif %}
                     {% set duration = '' %}
                     {% if durationAsHours === 0 and durationAsMinutes === 0 %}
                       {% set duration = '' %}
-                      {% elif durationAsHours !== 0 and durationAsMinutes !== 0 %}
+                    {% elif durationAsHours !== 0 and durationAsMinutes !== 0 %}
                       {% set duration = durationAsHours + ' ' + durationAsMinutes %}
-                      {% elif durationAsHours === 0 %}
+                    {% elif durationAsHours === 0 %}
                       {% set duration = durationAsMinutes %}
-                      {% elif durationAsMinutes === 0 %}
+                    {% elif durationAsMinutes === 0 %}
                       {% set duration = durationAsHours %}
                     {% endif %}
                     {% for hearing in sitting['hearing'] %}
@@ -111,10 +111,8 @@
                           <td class="govuk-table__cell {{ noBorder }}">{{ sitting['sittingStartFormatted'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ duration }} {{ caseIndicator }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
-                          <td
-                            class="govuk-table__cell {{ noBorder }}">{{ hearing['claimant'] }}</td>
-                          <td
-                            class="govuk-table__cell {{ noBorder }}">{{ hearing['respondent'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ hearing['claimant'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ hearing['respondent'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ case['caseType'] }}</td>
 
