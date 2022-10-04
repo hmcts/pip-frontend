@@ -57,7 +57,7 @@ export class Nunjucks {
     // for calculating date ranges
     env.addFilter('dateRange', function(x){return moment(x.displayFrom).format('D MMM YYYY') +
       ' to ' + moment(x.displayTo).format('D MMM YYYY');});
-    // for govuk links
+    // for emails to appear as govuk links
     env.addFilter('emailLink', function(x){ return this.env.filters.safe('<a class=govuk-link href="mailto:' + x + '">'+ x +'</a>');});
     // for phone numbers to display as links
     env.addFilter('phoneLink', function(x){return this.env.filters.safe('<a class=govuk-link href="tel:' + x + '">' + x + '</a>');});

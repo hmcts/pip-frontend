@@ -144,47 +144,6 @@ export class DataManipulationService {
     return etDailyListData;
   }
 
-  // private findAndManipulateClaimantsForEtLists(hearing: any): void {
-  //   let claimant = '';
-  //   let respondent = '';
-  //   let claimantRepresentative = '';
-  //   let respondentRepresentative = '';
-  //   if (hearing?.party) {
-  //     hearing.party.forEach(party => {
-  //       switch (DataManipulationService.convertPartyRole(party.partyRole)) {
-  //         case 'CLAIMANT_PETITIONER': {
-  //           claimant += this.createIndividualDetailsWithInitials(party.individualDetails).trim();
-  //           claimant += this.stringDelimiter(claimant?.length, ',');
-  //           break;
-  //         }
-  //         case 'CLAIMANT_PETITIONER_REPRESENTATIVE': {
-  //           const claimantPetitionerDetails = this.createIndividualDetailsWithInitials(party.individualDetails).trim();
-  //           if (claimantPetitionerDetails) {
-  //             claimantRepresentative += 'Rep: ' + claimantPetitionerDetails + ', ';
-  //           }
-  //           break;
-  //         }
-  //         case 'RESPONDENT': {
-  //           respondent += this.createIndividualDetailsWithInitials(party.individualDetails).trim();
-  //           respondent += this.stringDelimiter(respondent?.length, ',');
-  //           break;
-  //         }
-  //         case 'RESPONDENT_REPRESENTATIVE': {
-  //           const respondentDetails = this.createIndividualDetailsWithInitials(party.individualDetails).trim();
-  //           if (respondentDetails) {
-  //             respondentRepresentative += 'Rep: ' + respondentDetails + ', ';
-  //           }
-  //           break;
-  //         }
-  //       }
-  //     });
-  //     claimant += claimantRepresentative;
-  //     respondent += respondentRepresentative;
-  //     hearing['claimant'] = claimant?.replace(/,\s*$/, '').trim();
-  //     hearing['respondent'] = respondent?.replace(/,\s*$/, '').trim();
-  //   }
-  // }
-
   /**
    * Manipulate the copDailyCauseList json data for writing out on screen.
    * @param copDailyCauseList The cop daily cause list to manipulate
