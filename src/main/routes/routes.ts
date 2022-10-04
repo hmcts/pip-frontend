@@ -66,13 +66,14 @@ export default function(app: Application): void {
   app.get('/account-request-submitted', app.locals.container.cradle.mediaAccountRequestSubmittedController.get);
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
-  app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
+  // app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
   app.get('/cookie-policy', app.locals.container.cradle.cookiePolicyPageController.get);
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
   app.post('/create-media-account', multer({storage: storage, limits: {fileSize: 2000000}}).single('file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.createMediaAccountController.post);
   app.get('/civil-and-family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
+  // app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/password-change-confirmation/:isAdmin', app.locals.container.cradle.passwordChangeController.get);
   app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
   app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}), regenerateSession);
@@ -82,8 +83,8 @@ export default function(app: Application): void {
   app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}), processMediaAccountSignIn);
   app.post('/login/admin/return', forgotPasswordRedirect, passport.authenticate('admin-login', { failureRedirect: '/view-option'}), processAdminAccountSignIn);
   app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}), mediaVerificationHandling);
-  app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
-  app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
+  // app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
+  // app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
   app.get('/search', app.locals.container.cradle.searchController.get);
   app.post('/search', app.locals.container.cradle.searchController.post);
@@ -97,6 +98,7 @@ export default function(app: Application): void {
   app.get('/sjp-press-list', app.locals.container.cradle.sjpPressListController.get);
   app.get('/sscs-daily-list', app.locals.container.cradle.sscsDailyListController.get);
   app.get('/cop-daily-cause-list', app.locals.container.cradle.copDailyCauseListController.get);
+  app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
 
   // Restricted paths
   app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);

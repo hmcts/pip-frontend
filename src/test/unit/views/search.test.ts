@@ -50,12 +50,12 @@ describe('Search Page', () => {
   });
 
   it('should use accessible autocomplete in script', () => {
-    const script = htmlRes.getElementsByTagName('script')[4];
+    const script = htmlRes.getElementsByTagName('script')[5];
     expect(script.innerHTML).contains('accessibleAutocomplete');
   });
 
   it('should fill source with court names', () => {
-    const script = htmlRes.getElementsByTagName('script')[4];
+    const script = htmlRes.getElementsByTagName('script')[5];
     expect(script.innerHTML).contains('Abergavenny Magistrates\' Court', 'Could not find input field');
   });
 
