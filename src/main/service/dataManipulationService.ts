@@ -212,6 +212,36 @@ export class DataManipulationService {
     return copDailyCauseListData;
   }
 
+  public manipulateIacDailyListData(iacDailyList: string): object {
+    const iacDailyListData = JSON.parse(iacDailyList);
+    let caseCount = 0;
+
+    iacDailyListData['courtLists'].forEach(courtList => {
+      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+        courtRoom['formattedJudiciary'] = this.getDeduplicatedJudiciaryNameSurname(courtRoom);
+        courtRoom['session'].forEach(session => {
+          session['sittings'].forEach(sitting => {
+            sitting['sittingStartFormatted'] = this.publicationTimeInBst(sitting['sittingStart']);
+            this.findAndConcatenateHearingPlatform(sitting, session);
+            sitting['hearing'].forEach(hearing => {
+              caseCount += hearing['case'].length;
+              this.findAndManipulatePartyInformation(hearing);
+              this.findAndManipulateLinkedCases(hearing);
+            });
+          });
+        });
+        courtRoom['totalCases'] = caseCount;
+        caseCount = 0;
+      });
+    });
+    return iacDailyListData;
+  }
+
+  /**
+   * Manipulate the party information data for writing out on screen.
+   * @param hearing
+   * @param initialised
+   */
   private findAndManipulatePartyInformation(hearing: any, initialised= false): void {
     let applicant = '';
     let appellant = '';
@@ -382,6 +412,24 @@ export class DataManipulationService {
   }
 
   /**
+   * Format linked cases by joining individual case ID with delimiter
+   * @param hearing
+   */
+  private findAndManipulateLinkedCases(hearing: object): void {
+    hearing['case'].forEach(hearingCase => {
+      let linkedCases = '';
+      let counter = 1;
+      hearingCase['caseLinked'].forEach(linkedCase => {
+        linkedCases += (counter == hearingCase['caseLinked'].length)
+          ? linkedCase['caseId']
+          : linkedCase['caseId'] + ', ';
+        counter++;
+      });
+      hearingCase['formattedLinkedCases'] = linkedCases;
+    });
+  }
+
+  /**
    * Calculate the duration of a sitting.
    * @param sitting
    */
@@ -482,5 +530,29 @@ export class DataManipulationService {
       }
     });
     return judiciaryFormatted;
+  }
+
+  public getDeduplicatedJudiciaryNameSurname(courtRoom: object): string {
+    const judiciaries = [];
+    courtRoom['session'].forEach(session => {
+      session['judiciary']?.forEach(judiciary => {
+        let currentJudiciary = '';
+        if (this.writeStringIfValid(judiciary?.johTitle) !== '') {
+          currentJudiciary = this.writeStringIfValid(judiciary?.johTitle);
+        }
+
+        if (this.writeStringIfValid(judiciary?.johNameSurname) !== '') {
+          if (this.writeStringIfValid(judiciary?.johTitle) !== '') {
+            currentJudiciary += ' ';
+          }
+          currentJudiciary += this.writeStringIfValid(judiciary?.johNameSurname);
+        }
+
+        if (!judiciaries.includes(currentJudiciary)) {
+          judiciaries.push(currentJudiciary);
+        }
+      });
+    });
+    return judiciaries.join(', ');
   }
 }

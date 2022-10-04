@@ -94,7 +94,16 @@
     "friendlyName": "Employment Tribunals Daily Cause List",
     "shortenedFriendlyName": "ET Daily List",
     "url": "et-daily-list",
-    "jurisdictions": ["Tribunal"],
+    "jurisdictions": [
+      "Tribunal"
+    ],
     "restrictedProvenances": []
+  },
+  "IAC_DAILY_LIST": {
+    "friendlyName": "Immigration and Asylum Chamber Daily List",
+    "shortenedFriendlyName": "IAC Daily List",
+    "url": "iac-daily-list",
+    "jurisdictions": ["Tribunal"],
+    "restrictedProvenances":  []
   }
 }
