@@ -133,7 +133,7 @@ export class DataManipulationService {
             this.calculateDuration(sitting);
             this.findAndConcatenateHearingPlatform(sitting, session);
             sitting['hearing'].forEach(hearing => {
-              this.findAndManipulateClaimantsForEtLists(hearing);
+              this.findAndManipulatePartyInformation(hearing, true);
             });
           });
         });
@@ -144,46 +144,46 @@ export class DataManipulationService {
     return etDailyListData;
   }
 
-  private findAndManipulateClaimantsForEtLists(hearing: any): void {
-    let claimant = '';
-    let respondent = '';
-    let claimantRepresentative = '';
-    let respondentRepresentative = '';
-    if (hearing?.party) {
-      hearing.party.forEach(party => {
-        switch (DataManipulationService.convertPartyRole(party.partyRole)) {
-          case 'CLAIMANT_PETITIONER': {
-            claimant += this.createIndividualDetailsWithInitials(party.individualDetails).trim();
-            claimant += this.stringDelimiter(claimant?.length, ',');
-            break;
-          }
-          case 'CLAIMANT_PETITIONER_REPRESENTATIVE': {
-            const claimantPetitionerDetails = this.createIndividualDetailsWithInitials(party.individualDetails).trim();
-            if (claimantPetitionerDetails) {
-              claimantRepresentative += 'Rep: ' + claimantPetitionerDetails + ', ';
-            }
-            break;
-          }
-          case 'RESPONDENT': {
-            respondent += this.createIndividualDetailsWithInitials(party.individualDetails).trim();
-            respondent += this.stringDelimiter(respondent?.length, ',');
-            break;
-          }
-          case 'RESPONDENT_REPRESENTATIVE': {
-            const respondentDetails = this.createIndividualDetailsWithInitials(party.individualDetails).trim();
-            if (respondentDetails) {
-              respondentRepresentative += 'Rep: ' + respondentDetails + ', ';
-            }
-            break;
-          }
-        }
-      });
-      claimant += claimantRepresentative;
-      respondent += respondentRepresentative;
-      hearing['claimant'] = claimant?.replace(/,\s*$/, '').trim();
-      hearing['respondent'] = respondent?.replace(/,\s*$/, '').trim();
-    }
-  }
+  // private findAndManipulateClaimantsForEtLists(hearing: any): void {
+  //   let claimant = '';
+  //   let respondent = '';
+  //   let claimantRepresentative = '';
+  //   let respondentRepresentative = '';
+  //   if (hearing?.party) {
+  //     hearing.party.forEach(party => {
+  //       switch (DataManipulationService.convertPartyRole(party.partyRole)) {
+  //         case 'CLAIMANT_PETITIONER': {
+  //           claimant += this.createIndividualDetailsWithInitials(party.individualDetails).trim();
+  //           claimant += this.stringDelimiter(claimant?.length, ',');
+  //           break;
+  //         }
+  //         case 'CLAIMANT_PETITIONER_REPRESENTATIVE': {
+  //           const claimantPetitionerDetails = this.createIndividualDetailsWithInitials(party.individualDetails).trim();
+  //           if (claimantPetitionerDetails) {
+  //             claimantRepresentative += 'Rep: ' + claimantPetitionerDetails + ', ';
+  //           }
+  //           break;
+  //         }
+  //         case 'RESPONDENT': {
+  //           respondent += this.createIndividualDetailsWithInitials(party.individualDetails).trim();
+  //           respondent += this.stringDelimiter(respondent?.length, ',');
+  //           break;
+  //         }
+  //         case 'RESPONDENT_REPRESENTATIVE': {
+  //           const respondentDetails = this.createIndividualDetailsWithInitials(party.individualDetails).trim();
+  //           if (respondentDetails) {
+  //             respondentRepresentative += 'Rep: ' + respondentDetails + ', ';
+  //           }
+  //           break;
+  //         }
+  //       }
+  //     });
+  //     claimant += claimantRepresentative;
+  //     respondent += respondentRepresentative;
+  //     hearing['claimant'] = claimant?.replace(/,\s*$/, '').trim();
+  //     hearing['respondent'] = respondent?.replace(/,\s*$/, '').trim();
+  //   }
+  // }
 
   /**
    * Manipulate the copDailyCauseList json data for writing out on screen.
@@ -278,7 +278,7 @@ export class DataManipulationService {
   }
 
   /**
-   * Format a set of individuals details.
+   * Format a set of individuals details. If the first letter of forename should be initialised, pass in true.
    * @param individualDetails
    * @param initialised
    */
@@ -299,16 +299,6 @@ export class DataManipulationService {
         + middleName + (middleName.length > 0 ? ' ' : '')
         + surname;
     }
-
-  }
-
-  /**
-   * Format an individual's details with forename initial and surname
-   */
-  private createIndividualDetailsWithInitials(individualDetails: any): string {
-    return this.writeStringIfValid(individualDetails?.title) + ' ' +
-      this.writeStringIfValid(individualDetails?.individualForenames.charAt(0)) + '. ' +
-      this.writeStringIfValid(individualDetails?.individualSurname);
   }
 
   /**

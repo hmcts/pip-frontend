@@ -19,6 +19,8 @@
   "hearingDurationMinute": "min",
   "hearingDurationHours": "hours",
   "hearingDurationMinutes": "mins",
+  "rep": "Rep",
+  "noRep": "No Representative",
   "tableHeaders": [
     "Start Time",
     "Duration",

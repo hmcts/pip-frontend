@@ -126,7 +126,9 @@ describe('ET Daily List page', () => {
 
   it('should display Case Name without Case Sequence Indicator',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[9].innerHTML).equals('3 mins ');
+    const x = 9;
+    console.log(cell[x]);
+    expect(cell[x].innerHTML).equals('3 mins ');
   });
 
   it('should display Hearing Type',  () => {

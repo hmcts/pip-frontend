@@ -27,7 +27,7 @@
       <p>{{ openJustice2 }}</p>
       <p>{{ openJustice3 }}</p>
       <p>{{ openJustice4 }}</p>
-      <p>{{ listData['venue']['venueName'] }}  {{ venueEmail | govUkLink }} {{ listData['venue']['venueContact']['venueTelephone'] }}</p>
+      <p>{{ listData['venue']['venueName'] }},  {{ venueEmail | govUkLink }}, {{ listData['venue']['venueContact']['venueTelephone'] | callableLink }}</p>
       <p>{{ openJustice5 }}</p>
       <p>{{ openJustice6 }}</p>
     </div>
@@ -111,11 +111,14 @@
                           <td class="govuk-table__cell {{ noBorder }}">{{ sitting['sittingStartFormatted'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ duration }} {{ caseIndicator }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ hearing['claimant'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ hearing['respondent'] }}</td>
+                          {% if hearing['appellantRepresentative'] | length %}
+                            <td class="govuk-table__cell {{ noBorder }}">{{ hearing['appellant'] }}<br />{{ rep }}: {{ hearing['appellantRepresentative'] }}</td>
+                          {% else %}
+                            <td class="govuk-table__cell {{ noBorder }}">{{ hearing['appellant'] }}<br />{{ rep }}: {{ noRep }}</td>
+                          {% endif %}
+                          <td class="govuk-table__cell {{ noBorder }}">{{ hearing['respondent'] | replace('LEGALADVISOR', 'Rep') }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ case['caseType'] }}</td>
-
                           <td class="govuk-table__cell {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
                         </tr>
                       {% endfor %}
