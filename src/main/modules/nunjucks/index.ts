@@ -58,9 +58,9 @@ export class Nunjucks {
     env.addFilter('dateRange', function(x){return moment(x.displayFrom).format('D MMM YYYY') +
       ' to ' + moment(x.displayTo).format('D MMM YYYY');});
     // for govuk links
-    env.addFilter('govUkLink', function(x){ return this.env.filters.safe('<a class=govuk-link href="' + x + '">'+ x +'</a>');});
+    env.addFilter('emailLink', function(x){ return this.env.filters.safe('<a class=govuk-link href="mailto:' + x + '">'+ x +'</a>');});
     // for phone numbers to display as links
-    env.addFilter('callableLink', function(x){return this.env.filters.safe('<a class=govuk-link href="tel:' + x + '">' + x + '</a>');});
+    env.addFilter('phoneLink', function(x){return this.env.filters.safe('<a class=govuk-link href="tel:' + x + '">' + x + '</a>');});
 
     app.use((req, res, next) => {
       res.locals.pagePath = req.path;

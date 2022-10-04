@@ -60,6 +60,7 @@ describe('Et Daily List Controller', () => {
       publishedTime: '9:30am',
       courtName: "Abergavenny Magistrates' Court",
       provenance: 'prov1',
+      bill:false,
     };
 
     responseMock.expects('render').once().withArgs('et-daily-list', expectedData);

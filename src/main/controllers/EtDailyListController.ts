@@ -23,10 +23,10 @@ export default class EtDailyListController {
       const publishedTime = dataManipulationService.publicationTimeInBst(fileData['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(fileData['document']['publicationDate']);
       const returnedCourt = await locationService.getLocationById(metaData['locationId']);
+      const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
       const courtName = locationService.findCourtName(returnedCourt, req.lng as string, 'et-daily-list');
       res.render('et-daily-list', {
-        ...cloneDeep(req.i18n.getDataByLanguage(publicationService.languageToLoadPageIn(metaData.language,
-          req.lng))['et-daily-list']),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['et-daily-list']),
         listData,
         courtName,
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
@@ -34,6 +34,7 @@ export default class EtDailyListController {
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         provenance: metaData['provenance'],
+        bill: pageLanguage === 'bill',
       });
     } else {
       res.render('error',
