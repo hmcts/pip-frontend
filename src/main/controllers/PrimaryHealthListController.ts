@@ -3,10 +3,12 @@ import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { DataManipulationService } from '../service/dataManipulationService';
+import { PrimaryHealthListService } from '../service/listManipulation/primaryHealthListService';
 import moment from 'moment';
 
 const publicationService = new PublicationService();
 const dataManipulationService = new DataManipulationService();
+const primaryHealthListService = new PrimaryHealthListService();
 
 export default class PrimaryHealthListController {
 
@@ -17,9 +19,7 @@ export default class PrimaryHealthListController {
 
     if (searchResults && metaData) {
 
-      // const manipulatedData = dataManipulationService.manipulatePrimaryHealthList(JSON.stringify(searchResults));
-
-      dataManipulationService.manipulatePrimaryHealthList(JSON.stringify(searchResults));
+      const manipulatedData = primaryHealthListService.manipulateData(JSON.stringify(searchResults));
 
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);
@@ -29,10 +29,12 @@ export default class PrimaryHealthListController {
       res.render('primary-health-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['primary-health-list']),
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        listData : manipulatedData,
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         provenance: metaData['provenance'],
         bill: pageLanguage === 'bill',
+        venueEmail: searchResults['venue']['venueContact']['venueEmail'],
       });
     } else {
       res.render('error',

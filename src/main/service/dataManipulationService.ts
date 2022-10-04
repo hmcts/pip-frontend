@@ -144,73 +144,6 @@ export class DataManipulationService {
   }
 
   /**
-   * Manipulate the primary health list json data for writing out on screen.
-   * @param primaryHealthList The cop daily cause list to manipulate
-   */
-  public manipulatePrimaryHealthList(primaryHealthList: string): void {
-    // const primaryHealthListData = JSON.parse(primaryHealthList);
-    //
-    // primaryHealthListData['courtLists'].forEach(courtList => {
-    //   // Get the address from here
-    //   const courtHouse = courtList['courtHouse'];
-    //   const address = courtHouse.courtHouseName;
-    //   courtHouse['courtRoom']['session']['sittings'].forEach(sitting => {
-    //
-    //     const sittingStart = sitting.sittingStart;
-    //     const sittingEnd = sitting.sittingEnd;
-    //
-    //
-    //     sitting['hearing'].forEach(hearing => {
-    //
-    //       const hearingType = hearing.hearingType;
-    //
-    //       hearing['case'].forEach(courtCase => {
-    //         const caseName = courtCase.caseName;
-    //       });
-    //
-    //
-    //       // {
-    //       //   "hearingType": "mda",
-    //       //   "case": [
-    //       //   {
-    //       //     "caseName": "A Vs B",
-    //       //     "caseNumber": "45684548",
-    //       //     "caseSequenceIndicator": "[2 of 3]"
-    //       //   }
-    //       // ]
-    //       // }
-    //
-    //     });
-    //   });
-    // });
-
-    const primaryHealthListData = JSON.parse(primaryHealthList);
-    primaryHealthListData['courtLists'].forEach(courtList => {
-      this.manipulateCourtListForPrimaryHealthList(JSON.stringify(courtList));
-    });
-  }
-
-  public manipulateCourtListForPrimaryHealthList(courtList: string): void {
-    const jsonCourtList = JSON.parse(courtList);
-    console.log(jsonCourtList);
-    const formattedAddress = jsonCourtList['courtHouse']['courtHouseName'];
-    const address = jsonCourtList['courtHouse']['courtHouseAddress']['postCode'];
-    let formatLine = '';
-    jsonCourtList['courtHouse']['courtHouseAddress']['line'].forEach(line => {
-      formatLine += line;
-    });
-
-    console.log(formattedAddress);
-    console.log(address);
-    console.log(formatLine);
-    //
-    // jsonCourtList['courtHouse']['courtRoom']['session']['sittings'].forEach(sitting => {
-    //   console.log(sitting);
-    // });
-
-  }
-
-  /**
    * Manipulate the party information data for writing out on screen.
    * @param hearing
    */
@@ -352,7 +285,7 @@ export class DataManipulationService {
    * Calculate the duration of a sitting.
    * @param sitting
    */
-  private calculateDuration(sitting: object): void {
+  public calculateDuration(sitting: object): void {
     sitting['duration'] = '';
     sitting['startTime'] = '';
     if (sitting['sittingStart'] !== '' && sitting['sittingEnd'] !== '') {
