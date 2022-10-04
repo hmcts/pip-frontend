@@ -336,17 +336,18 @@ export class DataManipulationService {
   }
 
   /**
-   * Map the supplied party role to one of our party roles.
+   * Map the supplied party role to one of our party roles if necessary.
    * @param nonConvertedPartyRole
    */
   private static convertPartyRole(nonConvertedPartyRole: string): string {
+    let partyRole = nonConvertedPartyRole;
     for (const [mappedPartyRole, unMappedRoles] of Object.entries(partyRoleMappings)) {
-      if (unMappedRoles.includes(nonConvertedPartyRole) || mappedPartyRole === nonConvertedPartyRole) {
-        return mappedPartyRole;
+      if (unMappedRoles.includes(nonConvertedPartyRole)) {
+        partyRole = mappedPartyRole;
       }
     }
+    return partyRole;
   }
-
   /**
    * Manipulate hearing platform data for writing out to screen. Needed to be amended to include optional hearing
    * channel for PUB-1319.
