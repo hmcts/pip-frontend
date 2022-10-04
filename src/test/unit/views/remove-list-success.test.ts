@@ -31,11 +31,11 @@ describe('Remove List Success Page', () => {
 
   it('should display links to other actions with correct paths', () => {
     const links = htmlRes.getElementsByClassName('govuk-link ');
-    expect(links[4].innerHTML).to.equal('Remove another file');
-    expect(links[4].getAttribute('href')).contains('remove-list-search');
-    expect(links[5].innerHTML).to.equal('Upload a file');
-    expect(links[5].getAttribute('href')).contains('manual-upload');
-    expect(links[6].innerHTML).to.equal('Home');
-    expect(links[6].getAttribute('href')).contains('admin-dashboard');
+    expect(links[5].innerHTML).to.equal('Remove another file');
+    expect(links[5].getAttribute('href')).contains('remove-list-search');
+    expect(links[6].innerHTML).to.equal('Upload a file');
+    expect(links[6].getAttribute('href')).contains('manual-upload');
+    expect(links[7].innerHTML).to.equal('Home');
+    expect(links[7].getAttribute('href')).contains('admin-dashboard');
   });
 });
