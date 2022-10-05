@@ -6,7 +6,8 @@ import {cftIdamTokenApi} from '../resources/requests/utils/axiosConfig';
 
 const querystring = require('querystring');
 
-const acceptedRoles = ['IDAM_ADMIN_USER'];
+const rejectedRolesRegex =
+  process.env.REJECTED_ROLES_REGEX ? process.env.CFT_REJECTED_ROLES_REGEX : '^citizen(-.*)?$|^letter-holder$';
 
 let cftIdamClientSecret;
 
@@ -45,10 +46,10 @@ export async function cftIdamAuthentication(req, callback) {
     const jwtToken = jwt_decode(data.id_token);
     jwtToken['flow'] = 'CFT';
 
-    if (jwtToken['roles'].some(role => acceptedRoles.includes(role))) {
-      callback(null, jwtToken);
-    } else {
+    if (jwtToken['roles'].some(role => role.match(rejectedRolesRegex))) {
       callback(null, null);
+    } else {
+      callback(null, jwtToken);
     }
   } catch (cftIdamException) {
     callback(null, null);
