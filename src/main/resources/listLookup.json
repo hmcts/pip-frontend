@@ -23,7 +23,7 @@
   "CROWN_DAILY_LIST": {
     "friendlyName": "Crown Daily List",
     "shortenedFriendlyName": "Crown Daily List",
-    "url": "",
+    "url": "crown-daily-list",
     "jurisdictions": ["Crown"],
     "restrictedProvenances":  []
   },

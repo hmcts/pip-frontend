@@ -17,6 +17,7 @@ const rawFamilyDailyCausePartyMappingData = fs.readFileSync(path.resolve(__dirna
   'utf-8');
 const rawFamilyDailyCauseWithReorderedPartyMappings = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseListWithReorderedPartyMappings.json'), 'utf-8');
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
+const rawCrownDailyData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownDailyList.json'), 'utf-8');
 
 const dailyCauseListData = JSON.parse(rawDailyCauseData);
 
@@ -24,8 +25,10 @@ describe('Data manipulation service', () => {
 
   describe('manipulatedDailyListData', () => {
     let familyDailyCause;
+    let crownDailyCause;
     beforeEach(() => {
       familyDailyCause = JSON.parse(rawFamilyDailyCauseData);
+      crownDailyCause = JSON.parse(rawCrownDailyData);
     });
 
     it('should return daily cause list object', async () => {
@@ -136,6 +139,30 @@ describe('Data manipulation service', () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawFamilyDailyCauseWithReorderedPartyMappings);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant']).to.equal('Surname, LEGALADVISOR: Mr Forenames Middlename SurnameApplicant');
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent']).to.equal('Surname, LEGALADVISOR: Mr Forenames Middlename SurnameRespondent');
+    });
+
+    it('should formatted the case time in 12 hours format', async () => {
+      const data = await dataManipulationService.manipulatedCrownDailyListData(JSON.stringify(crownDailyCause));
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['time']).to.equal('10:40am');
+    });
+
+    it('should be able to find linked cases for a particular case', async () => {
+      const data = await dataManipulationService.manipulatedCrownDailyListData(JSON.stringify(crownDailyCause));
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['case'][0]['linkedCases']).to.equal('caseid111, caseid222');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['case'][1]['linkedCases']).to.equal('');
+    });
+
+    it('should be able to find listing notes for a particular hearing', async () => {
+      const data = await dataManipulationService.manipulatedCrownDailyListData(JSON.stringify(crownDailyCause));
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['listingNotes']).to.equal('Listing details text');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['listingNotes']).to.equal('');
+    });
+
+    it('should append the unallocated cases at the bottom of the courtList', async () => {
+      const data = await dataManipulationService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(crownDailyCause));
+      expect(data['courtLists'].length).to.equal(5);
+      expect(data['courtLists'][4]['unallocatedCases']).to.equal(true);
+      expect(data['courtLists'][4]['courtHouse']['courtRoom'][0]['courtRoomName']).to.equal('to be allocated');
     });
   });
 
