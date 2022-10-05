@@ -51,6 +51,7 @@ describe('View Option Page', () => {
       const betaHeader = htmlRes.getElementsByClassName('govuk-phase-banner');
       expect(betaHeader[0].innerHTML).contains('beta', 'Could not locate beta heading.');
       expect(betaHeader[0].innerHTML).contains('https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl', 'link is broken in the beta heading.');
+      expect(betaHeader[0].innerHTML).contains('Cymraeg', 'Welsh toggle is not working!');
     });
 
     it('should display radio buttons with valid text',  () => {

@@ -38,7 +38,7 @@
         </div>
       </div>
       {% endif %}
-      {% if user.roles == 'INTERNAL_SUPER_ADMIN_CTSC' or user.roles == 'INTERNAL_ADMIN_CTSC' %}
+      {% if user.roles in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
       <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
         <div class="account-card govuk-!-margin-left-2 govuk-!-margin-right-2">
           <p>
@@ -51,7 +51,7 @@
         </div>
       </div>
       {% endif %}
-      {% if user.roles == 'SYSTEM_ADMIN' or user.roles == 'INTERNAL_SUPER_ADMIN_LOCAL' or user.roles == 'INTERNAL_SUPER_ADMIN_CTSC'  %}
+      {% if user.roles in ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_SUPER_ADMIN_CTSC']  %}
       <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
         <div class="account-card govuk-!-margin-left-2 govuk-!-margin-right-2">
           <p>
