@@ -89,5 +89,12 @@
     "url": "cop-daily-cause-list",
     "jurisdictions": ["Civil"],
     "restrictedProvenances":  []
+  },
+  "IAC_DAILY_LIST": {
+    "friendlyName": "Immigration and Asylum Chamber Daily List",
+    "shortenedFriendlyName": "IAC Daily List",
+    "url": "iac-daily-list",
+    "jurisdictions": ["Tribunal"],
+    "restrictedProvenances":  []
   }
 }
