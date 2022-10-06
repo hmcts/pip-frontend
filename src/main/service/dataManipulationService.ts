@@ -67,7 +67,9 @@ export class DataManipulationService {
       courtListForUnallocatedCases = JSON.parse(JSON.stringify(courtList));
     });
 
-    this.formatUnallocatedCourtList(unallocatedCasesCrownListData, courtListForUnallocatedCases, unallocatedCases);
+    if(unallocatedCases.length > 0) {
+      this.formatUnallocatedCourtList(unallocatedCasesCrownListData, courtListForUnallocatedCases, unallocatedCases);
+    }
     return unallocatedCasesCrownListData;
   }
 
