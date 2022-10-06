@@ -1,7 +1,7 @@
 {
-  "title": "Select List Types",
-  "descriptionText": "Configure the lists you will receive for your selected courts and tribunals. This will not affect any specific cases you may have subscribed to. Also don't forget to come back regularly to see new list types as we add more.",
-  "explanationText": "If you un-select all hearing lists on this screen we will revert your subscriptions to default and you will receive all list types. If you want to stop receiving all lists or stop receiving lists from a particular court/tribunal please remove the subscriptions on the previous screen.",
+  "title": "Dewis Mathau o Restri",
+  "descriptionText": "Dewiswch y rhestri y byddwch yn eu cael ar gyfer y llysoedd a’r tribiwnlysoedd yr ydych wedi’u dethol. Ni fydd hyn yn effeithio ar unrhyw achosion penodol yr ydych efallai wedi tanysgrifio iddynt. Hefyd, peidiwch ag anghofio dychwelyd yn rheolaidd i weld mathau newydd o restri wrth i ni ychwanegu mwy.",
+  "explanationText": "Os byddwch yn dad-ddewis yr holl restri gwrandawiad ar y sgrin hon, bydd eich tanysgrifiadau yn dychwelyd i fod yn ddiofyn, a byddwch yn cael yr holl restri. Os nad ydych eisiau cael yr holl restri neu restri o lys/tribiwnlys penodol, dilëwch y tanysgrifiadau ar y sgrin flaenorol.",
   "userSelections": "Eich dewisiadau",
   "selected": "Wedi’i ddewis",
   "filter": "Ffiltro",
