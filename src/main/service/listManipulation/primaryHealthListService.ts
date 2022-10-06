@@ -85,7 +85,9 @@ export class PrimaryHealthListService {
       courtHouseAddress['line'].forEach(line => {
         formattedVenueAddress += '\n' + line;
       });
-      formattedVenueAddress += '\n' + courtHouseAddress['postCode'];
+      formattedVenueAddress += courtHouseAddress['town'] ? '\n' + courtHouseAddress['town'] : '';
+      formattedVenueAddress += courtHouseAddress['county'] ? '\n' + courtHouseAddress['county'] : '';
+      formattedVenueAddress += courtHouseAddress['postCode'] ? '\n' + courtHouseAddress['postCode'] : '';
     }
     return formattedVenueAddress;
   }

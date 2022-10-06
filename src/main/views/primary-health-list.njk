@@ -38,7 +38,7 @@
         <tr class="govuk-table__row">
           <th scope="col" class="govuk-table__header">{{ hearingDate }}</th>
           <th scope="col" class="govuk-table__header">{{ caseName }}</th>
-          <th scope="col" class="govuk-table__header">{{ duration }}</th>
+          <th scope="col" class="govuk-table__header">{{ duration }} </th>
           <th scope="col" class="govuk-table__header">{{ hearingType }}</th>
           <th scope="col" class="govuk-table__header">{{ venue }}</th>
         </tr>
@@ -83,7 +83,7 @@
             <td class="govuk-table__cell">{{ courtCase['hearingDate'] }}</td>
             <td class="govuk-table__cell">{{ courtCase['caseName'] }}</td>
             <td class="govuk-table__cell">{{ duration }}</td>
-            <td class="govuk-table__cell">{{ courtCase['hearingType'] }}</td>
+            <td class="govuk-table__cell">{{ courtCase['hearingType'] }} [{{ courtCase['caseSequenceIndicator'] }}]</td>
             <td class="govuk-table__cell">{{ courtCase['venue'] | striptags(true) | escape | nl2br }} </td>
           </tr>
         {% endfor %}
