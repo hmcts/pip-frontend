@@ -78,6 +78,12 @@
                             }
                           },
                           {
+                            "partyRole": "PROSECUTING_AUTHORITY",
+                            "individualDetails": {
+                              "individualSurname": "Entry Clearance Officer"
+                            }
+                          },
+                          {
                             "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
                             "individualDetails": {
                               "individualSurname": "JCT Law Centre"
@@ -131,6 +137,12 @@
                           },
                           {
                             "partyRole": "RESPONDENT",
+                            "individualDetails": {
+                              "individualSurname": "Entry Clearance Officer"
+                            }
+                          },
+                          {
+                            "partyRole": "PROSECUTING_AUTHORITY",
                             "individualDetails": {
                               "individualSurname": "Entry Clearance Officer"
                             }
@@ -600,6 +612,18 @@
                           },
                           {
                             "partyRole": "RESPONDENT",
+                            "individualDetails": {
+                              "individualSurname": "Secretary of State"
+                            }
+                          },
+                          {
+                            "partyRole": "PROSECUTING_AUTHORITY",
+                            "individualDetails": {
+                              "individualSurname": "Entry Clearance Officer"
+                            }
+                          },
+                          {
+                            "partyRole": "PROSECUTING_AUTHORITY",
                             "individualDetails": {
                               "individualSurname": "Secretary of State"
                             }

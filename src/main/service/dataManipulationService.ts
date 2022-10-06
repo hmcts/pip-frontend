@@ -293,7 +293,6 @@ export class DataManipulationService {
       });
       hearing['appellant'] = appellant?.replace(/,\s*$/, '').trim();
       hearing['appellantRepresentative'] = appellantRepresentative?.replace(/,\s*$/, '').trim();
-      hearing['prosecutingAuthority'] = respondent?.replace(/,\s*$/, '').trim();
 
       applicant += applicantRepresentative;
       respondent += respondentRepresentative;
