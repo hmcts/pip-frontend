@@ -75,7 +75,7 @@
         href: '/logout'
       }
     ] %}
-    {% elif user.role in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
+  {% elif user.role in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -99,7 +99,7 @@
       }
 
     ] %}
-    {% elif isAuthenticated %}
+  {% elif isAuthenticated %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -240,6 +240,30 @@
 
 {% block bodyEnd %}
   <script src="alphabetical-dev.js"></script>
+  {% if isAuthenticated %}
+    {% if user.role and 'ADMIN' in user.role %}
+      {% set idleDurationInSeconds = 8 %}
+    {% else %}
+      {% set idleDurationInSeconds = 8 %}
+    {% endif %}
+    <script>
+      (function() {
+        let idleTimeout
+        const redirectUrl = '/session-expiring?currentPath=' + location.pathname + location.search
+
+        const resetIdleTimeout = function () {
+          if (idleTimeout) clearTimeout(idleTimeout)
+          idleTimeout = setTimeout(() => location.href = redirectUrl, {{ idleDurationInSeconds }} * 1000)
+        };
+        resetIdleTimeout()
+
+        window.addEventListener('load', resetIdleTimeout, true);
+        ['click', 'mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(evt =>
+          document.addEventListener(evt, resetIdleTimeout, true)
+        );
+      })();
+    </script>
+  {% endif %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   {% include "webpack/js.njk" %}
 {% endblock %}

@@ -1,0 +1,40 @@
+{% extends "template.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body">{{ continueMessage }}</p>
+  {{ govukButton({
+    text: continue,
+    href: gotoPage
+  }) }}
+{% endblock %}
+
+{% block bodyEnd %}
+  {% if isAuthenticated %}
+    <script>
+      (function() {
+        let idleTimeout
+
+        const resetIdleTimeout = function () {
+          if (idleTimeout) clearTimeout(idleTimeout)
+          idleTimeout = setTimeout(() => location.href = '/session-expired-logout', 8 * 1000)
+        }
+        resetIdleTimeout()
+
+        window.addEventListener('load', resetIdleTimeout, true);
+        ['click', 'mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(evt =>
+          document.addEventListener(evt, resetIdleTimeout)
+        );
+      })();
+    </script>
+  {% endif %}
+{% endblock %}
