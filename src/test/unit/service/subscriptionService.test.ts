@@ -357,7 +357,7 @@ describe('generateListTypesForCourts', () => {
     expect(civilFilter['checked']).toBeFalsy();
   });
 
-  it('generate list types in Welsh', async () => {
+  it('generate list types with no filters with no selected in Welsh', async () => {
     locationStub.withArgs(1).resolves({jurisdiction: ['Civil']});
 
     const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', '', '', 'cy');
@@ -431,6 +431,47 @@ describe('generateListTypesForCourts', () => {
     const familyFilter = jurisdictionFilter['Family'];
     expect(familyFilter['value']).toEqual('Family');
     expect(familyFilter['text']).toEqual('Family');
+    expect(familyFilter['checked']).toBeTruthy();
+  });
+
+  it('generate list types with filters selected in Welsh', async () => {
+    locationStub.withArgs(1).resolves({jurisdiction: ['Civil']});
+
+    const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'Llys Teulu', '', 'cy');
+
+    expect(result['listOptions']).toBeDefined();
+    expect(result['filterOptions']).toBeDefined();
+
+    const listOptions = result['listOptions'];
+    expect(listOptions['C']).toBeDefined();
+
+    const listTypes = listOptions['C'];
+    expect(listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST']).toBeDefined();
+    expect(listTypes['CIVIL_DAILY_CAUSE_LIST']).toBeDefined();
+    expect(listTypes['COP_DAILY_CAUSE_LIST']).toBeDefined();
+
+    const civilAndFamilyCauseList = listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'];
+    expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Civil and Family Daily Cause List');
+    expect(civilAndFamilyCauseList['checked']).toBeTruthy();
+    expect(civilAndFamilyCauseList['hidden']).toBeFalsy();
+
+    const civilDailyCauseList = listTypes['CIVIL_DAILY_CAUSE_LIST'];
+    expect(civilDailyCauseList['checked']).toBeFalsy();
+    expect(civilDailyCauseList['hidden']).toBeTruthy();
+
+    const filterOptions = result['filterOptions'];
+    expect(filterOptions['Jurisdiction']).toBeDefined();
+
+    const jurisdictionFilter = filterOptions['Jurisdiction'];
+    expect(jurisdictionFilter['Llys Sifil']).toBeDefined();
+    expect(jurisdictionFilter['Llys Teulu']).toBeDefined();
+
+    const civilFilter = jurisdictionFilter['Llys Sifil'];
+    expect(civilFilter['checked']).toBeFalsy();
+
+    const familyFilter = jurisdictionFilter['Llys Teulu'];
+    expect(familyFilter['value']).toEqual('Llys Teulu');
+    expect(familyFilter['text']).toEqual('Llys Teulu');
     expect(familyFilter['checked']).toBeTruthy();
   });
 

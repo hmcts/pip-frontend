@@ -17,8 +17,6 @@ const filterService = new FilterService();
 const languageFileParser = new LanguageFileParser();
 const locationService = new LocationService();
 
-const jurisdictions = require('../resources/welshJurisdictionLookup.json');
-
 export class SubscriptionService {
   async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
     const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
@@ -265,10 +263,14 @@ export class SubscriptionService {
       }
     } else {
       for (const [listName, listType] of applicableListTypes) {
+        const hidden = (language === 'en')
+          ? !listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction))
+          : !listType.welshJurisdictions.some(jurisdiction => filterValues.includes(jurisdiction));
+
         alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
           listFriendlyName: listType.friendlyName,
           checked: listType.checked,
-          hidden: !listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction)),
+          hidden: hidden,
         };
       }
     }
@@ -348,17 +350,13 @@ export class SubscriptionService {
   private getAllJurisdictions(list: Map<string, ListType>, language: string): string[] {
     const filterSet = new Set() as Set<string>;
     list.forEach((value) => {
-      value.jurisdictions.forEach(value => {
-        const map = this.getWelshJurisdictions();
-        const jurisdiction = (language === 'cy' && map.has(value)) ? map.get(value) : value;
-        filterSet.add(jurisdiction);
-      });
+      if (language == 'en') {
+        value.jurisdictions.forEach(jurisdiction => filterSet.add(jurisdiction));
+      } else {
+        value.welshJurisdictions.forEach(jurisdiction => filterSet.add(jurisdiction));
+      }
     });
 
     return [...filterSet];
-  }
-
-  private getWelshJurisdictions(): Map<string, string> {
-    return new Map(Object.entries(jurisdictions));
   }
 }
