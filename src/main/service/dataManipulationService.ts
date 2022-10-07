@@ -34,59 +34,6 @@ export class DataManipulationService {
     return dailyCauseListData;
   }
 
-  public manipulatedCrownDailyListData(dailyCauseList: string): object {
-    const crownDailyListData = JSON.parse(dailyCauseList);
-    crownDailyListData['courtLists'].forEach(courtList => {
-      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-        courtRoom['session'].forEach(session => {
-          session['sittings'].forEach(sitting => {
-            this.formatCaseTime(sitting, 'hh:mma');
-            sitting['hearing'].forEach(hearing => {
-              this.findLinkedCasesInformation(hearing);
-            });
-          });
-        });
-      });
-    });
-
-    return crownDailyListData;
-  }
-
-  public findUnallocatedCasesInCrownDailyListData(dailyCauseList: string): Array<object> {
-    const unallocatedCasesCrownListData = JSON.parse(dailyCauseList);
-    const unallocatedCases = [];
-    let courtListForUnallocatedCases;
-    unallocatedCasesCrownListData['courtLists'].forEach(courtList => {
-      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-        if (courtRoom.courtRoomName.includes('to be allocated')) {
-          const courtRoomCopy = JSON.parse(JSON.stringify(courtRoom));
-          unallocatedCases.push(courtRoomCopy);
-          courtRoom['exclude'] = true;
-        }
-      });
-      courtListForUnallocatedCases = JSON.parse(JSON.stringify(courtList));
-    });
-
-    if(unallocatedCases.length > 0) {
-      this.formatUnallocatedCourtList(unallocatedCasesCrownListData, courtListForUnallocatedCases, unallocatedCases);
-    }
-    return unallocatedCasesCrownListData;
-  }
-
-  private formatUnallocatedCourtList(unallocatedCasesCrownListData: object, courtListForUnallocatedCases: object, unallocatedCase: any[]): void {
-    courtListForUnallocatedCases['courtHouse']['courtHouseName'] = '';
-    courtListForUnallocatedCases['courtHouse']['courtHouseAddress'] = null;
-    courtListForUnallocatedCases['unallocatedCases'] = true;
-    courtListForUnallocatedCases['courtHouse']['courtRoom'] = unallocatedCase;
-    unallocatedCasesCrownListData['courtLists'].push(courtListForUnallocatedCases);
-  }
-
-  private formatCaseTime(sitting: object, format: string): void {
-    if (sitting['sittingStart'] !== '') {
-      sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format(format);
-    }
-  }
-
   /**
    * Manipulate the sjpPressList json data for writing out on screen.
    * @param sjpPressListJson
@@ -338,7 +285,7 @@ export class DataManipulationService {
    * @param stringSize
    * @param delimiter
    */
-  private stringDelimiter(stringSize: number, delimiter: string): string {
+  public stringDelimiter(stringSize: number, delimiter: string): string {
     if (stringSize > 0) {
       return `${delimiter} `;
     }
@@ -518,31 +465,6 @@ export class DataManipulationService {
       }
     });
     return judiciaryFormatted;
-  }
-
-  private findLinkedCasesInformation(hearing: any): void {
-    let linkedCases = '';
-    let listingNotes = '';
-
-    if (hearing?.case) {
-      hearing.case.forEach(cases => {
-        linkedCases = '';
-        if (cases?.caseLinked) {
-          cases.caseLinked.forEach(caseLinked => {
-            linkedCases += caseLinked.caseId.trim();
-            linkedCases += this.stringDelimiter(linkedCases?.length, ',');
-          });
-        }
-        cases['linkedCases'] = linkedCases?.replace(/,\s*$/, '').trim();
-      });
-    }
-
-    if (hearing?.listingDetails) {
-      listingNotes += hearing.listingDetails.listingRepDeadline.trim();
-      listingNotes += this.stringDelimiter(listingNotes?.length, ',');
-    }
-
-    hearing['listingNotes'] = listingNotes?.replace(/,\s*$/, '').trim();
   }
 
   public getDeduplicatedJudiciaryNameSurname(courtRoom: object): string {

@@ -8,14 +8,15 @@ import { LocationService } from '../../main/service/locationService';
 import fs from 'fs';
 import path from 'path';
 import { DataManipulationService } from '../../main/service/dataManipulationService';
+import {CrownListDataManipulationService} from '../../main/service/crownListDataManipulationService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/crownDailyList.json'), 'utf-8');
 const crownDailyData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(crownDailyData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(crownDailyData);
 sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').resolves(crownDailyData);
-sinon.stub(DataManipulationService.prototype, 'manipulatedCrownDailyListData').resolves(crownDailyData);
-sinon.stub(DataManipulationService.prototype, 'findUnallocatedCasesInCrownDailyListData').resolves(crownDailyData);
+sinon.stub(CrownListDataManipulationService.prototype, 'manipulatedCrownDailyListData').resolves(crownDailyData);
+sinon.stub(CrownListDataManipulationService.prototype, 'findUnallocatedCasesInCrownDailyListData').resolves(crownDailyData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({name: 'courtName'});
 
 describe('Crown Daily List Page', () => {
