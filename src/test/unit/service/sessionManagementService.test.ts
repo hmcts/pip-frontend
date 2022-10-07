@@ -10,11 +10,17 @@ const res = {
 } as unknown as Response;
 
 describe('Test logout', () => {
-  const mediaLogOutUrl = 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInUserFlow/oauth2/v2.0/logout?post_logout_redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Fsession-logged-out%3Flng%3Den';
-  const adminLogOutUrl = 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInAdminUserFlow/oauth2/v2.0/logout?post_logout_redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Fsession-logged-out%3Flng%3Den';
-  const mediaSessionExpiredUrl = 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInUserFlow/oauth2/v2.0/logout?post_logout_redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Fsession-expired%3Flng%3Den%26admin%3Dfalse'
-  const adminSessionExpiredUrl = 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInAdminUserFlow/oauth2/v2.0/logout?post_logout_redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Fsession-expired%3Flng%3Dcy%26admin%3Dtrue';
-  const adminRejectedLoginUrl = 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInUserFlow/oauth2/v2.0/logout?post_logout_redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Fadmin-rejected-login%3Flng%3Den';
+  const mediaLogOutPath = 'https://sign-in.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net/B2C_1_SignInUserFlow/oauth2/v2.0/logout'
+  const adminLogOutPath = 'https://staff.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net/B2C_1_SignInAdminUserFlow/oauth2/v2.0/logout'
+  const encodedAppUrl = 'https%3A%2F%2Flocalhost%3A8080%2F'
+
+  const mediaLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
+  const mediaWelshLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
+  const adminLogOutUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
+  const adminWelshLogOutUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
+  const mediaSessionExpiredUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3Dsign-in`
+  const adminSessionExpiredUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3Dadmin-dashboard`;
+  const adminRejectedLoginUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}admin-rejected-login%3Flng%3Den`;
 
   it('should redirect for media user', () => {
     const responseMock = sinon.mock(res);
@@ -26,11 +32,31 @@ describe('Test logout', () => {
     responseMock.verify();
   });
 
+  it('should redirect for media user in Welsh', () => {
+    const responseMock = sinon.mock(res);
+    responseMock.expects('redirect').once().withArgs(mediaWelshLogOutUrl);
+
+    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'lng': 'cy', 'session': {}};
+    sessionManagementService.logOut(req, res, false, false);
+    expect(req.session).to.be.null;
+    responseMock.verify();
+  });
+
   it('should redirect for admin user', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').once().withArgs(adminLogOutUrl);
 
     const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'lng': 'en', 'session': {}};
+    sessionManagementService.logOut(req, res, false, false);
+    expect(req.session).to.be.null;
+    responseMock.verify();
+  });
+
+  it('should redirect for admin user in Welsh', () => {
+    const responseMock = sinon.mock(res);
+    responseMock.expects('redirect').once().withArgs(adminWelshLogOutUrl);
+
+    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'lng': 'cy', 'session': {}};
     sessionManagementService.logOut(req, res, false, false);
     expect(req.session).to.be.null;
     responseMock.verify();
@@ -50,7 +76,7 @@ describe('Test logout', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').once().withArgs(adminSessionExpiredUrl);
 
-    const req = {'user': {'_json': {'extension_UserRole': 'INTERNAL_SUPER_ADMIN_LOCAL'}}, 'lng': 'cy', 'session': {}};
+    const req = {'user': {'_json': {'extension_UserRole': 'INTERNAL_SUPER_ADMIN_LOCAL'}}, 'lng': 'en', 'session': {}};
     sessionManagementService.logOut(req, res, false, true);
     expect(req.session).to.be.null;
     responseMock.verify();
