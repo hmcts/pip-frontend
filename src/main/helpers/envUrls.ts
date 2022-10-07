@@ -24,7 +24,7 @@ export const logOutUrl = (isAdmin: boolean, adminWrongFlow: boolean, isSessionEx
 };
 
 function logOutRedirectUrl(isAdmin: boolean, adminWrongFlow: boolean, isSessionExpired: boolean, language: string): string {
-  const url = new URL(`${FRONTEND_URL}/${getRedirectionPath(isAdmin, adminWrongFlow, isSessionExpired)}`);
+  const url = new URL(`${FRONTEND_URL}/${getRedirectionPath(adminWrongFlow, isSessionExpired)}`);
   url.searchParams.append('lng', language);
 
   if (isSessionExpired) {
@@ -33,7 +33,7 @@ function logOutRedirectUrl(isAdmin: boolean, adminWrongFlow: boolean, isSessionE
   return url.toString();
 }
 
-function getRedirectionPath(isAdmin: boolean, adminWrongFlow: boolean, isSessionExpired: boolean): string {
+function getRedirectionPath(adminWrongFlow: boolean, isSessionExpired: boolean): string {
   if (adminWrongFlow) {
     return 'admin-rejected-login';
   } else if (isSessionExpired) {
