@@ -6,7 +6,7 @@ import {SessionManagementService} from '../../../main/service/sessionManagementS
 
 const sessionExpiredController = new SessionExpiredController();
 const i18n =  {
-  'session-expired': {}
+  'session-expired': {},
 };
 const mediaSignInUrl = '/login?p=B2C_1_SignInUserFlow';
 const adminSignInUrl = '/admin-login?p=B2C_1_SignInAdminUserFlow';

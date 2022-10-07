@@ -10,15 +10,15 @@ const res = {
 } as unknown as Response;
 
 describe('Test logout', () => {
-  const mediaLogOutPath = 'https://sign-in.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net/B2C_1_SignInUserFlow/oauth2/v2.0/logout'
-  const adminLogOutPath = 'https://staff.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net/B2C_1_SignInAdminUserFlow/oauth2/v2.0/logout'
-  const encodedAppUrl = 'https%3A%2F%2Flocalhost%3A8080%2F'
+  const mediaLogOutPath = 'https://sign-in.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net/B2C_1_SignInUserFlow/oauth2/v2.0/logout';
+  const adminLogOutPath = 'https://staff.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net/B2C_1_SignInAdminUserFlow/oauth2/v2.0/logout';
+  const encodedAppUrl = 'https%3A%2F%2Flocalhost%3A8080%2F';
 
   const mediaLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
   const mediaWelshLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
   const adminLogOutUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
   const adminWelshLogOutUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
-  const mediaSessionExpiredUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3Dsign-in`
+  const mediaSessionExpiredUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3Dsign-in`;
   const adminSessionExpiredUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3Dadmin-dashboard`;
   const adminRejectedLoginUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}admin-rejected-login%3Flng%3Den`;
 

@@ -31,13 +31,13 @@ function logOutRedirectUrl(isAdmin: boolean, adminWrongFlow: boolean, isSessionE
     url.searchParams.append('reSignInUrl', isAdmin ? 'admin-dashboard' : 'sign-in');
   }
   return url.toString();
-};
+}
 
 function getRedirectionPath(isAdmin: boolean, adminWrongFlow: boolean, isSessionExpired: boolean): string {
   if (adminWrongFlow) {
     return 'admin-rejected-login';
   } else if (isSessionExpired) {
-    return 'session-expired'
+    return 'session-expired';
   } else {
     return 'session-logged-out';
   }

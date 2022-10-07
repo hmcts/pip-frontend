@@ -5,7 +5,7 @@ import SessionLoggedOutController from '../../../main/controllers/SessionLoggedO
 
 const sessionLoggedOutController = new SessionLoggedOutController();
 const i18n =  {
-  'session-logged-out': {}
+  'session-logged-out': {},
 };
 
 describe('Session Expiring Controller', () => {

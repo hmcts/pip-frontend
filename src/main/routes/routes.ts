@@ -81,8 +81,8 @@ export default function(app: Application): void {
   app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}), mediaVerificationHandling);
   app.get('/session-expiring', app.locals.container.cradle.sessionExpiringController.get);
   app.get('/session-expired', app.locals.container.cradle.sessionExpiredController.get);
-  app.get('/session-expired-logout', (_req, res) => sessionManagement.logOut(_req, res, false, true))
-  app.get('/session-logged-out', app.locals.container.cradle.sessionLoggedOutController.get)
+  app.get('/session-expired-logout', (_req, res) => sessionManagement.logOut(_req, res, false, true));
+  app.get('/session-logged-out', app.locals.container.cradle.sessionLoggedOutController.get);
   // app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   // app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);

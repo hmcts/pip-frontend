@@ -5,7 +5,7 @@ import SessionExpiringController from '../../../main/controllers/SessionExpiring
 
 const sessionExpiringController = new SessionExpiringController();
 const i18n =  {
-  'session-expiring': {}
+  'session-expiring': {},
 };
 const expectedPath = '/view-option';
 
@@ -14,7 +14,7 @@ describe('Session Expiring Controller', () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const responseMock = sinon.mock(response);
     const request = mockRequest(i18n);
-    request.query = {currentPath : expectedPath}
+    request.query = {currentPath : expectedPath};
 
     const expectedOptions = {
       ...i18n['session-expiring'],
