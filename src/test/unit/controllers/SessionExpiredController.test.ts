@@ -8,8 +8,8 @@ const sessionExpiredController = new SessionExpiredController();
 const i18n =  {
   'session-expired': {},
 };
-const mediaSignInUrl = '/login?p=B2C_1_SignInUserFlow';
-const adminSignInUrl = '/admin-login?p=B2C_1_SignInAdminUserFlow';
+const mediaSignInUrl = 'sign-in';
+const adminSignInUrl = 'admin-dashboard';
 
 sinon.stub(SessionManagementService.prototype, 'logOut');
 
@@ -18,7 +18,7 @@ describe('Session Expired Controller', () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const responseMock = sinon.mock(response);
     const request = mockRequest(i18n);
-    request.query = {admin: 'false'};
+    request.query = {reSignInUrl: mediaSignInUrl};
 
     const expectedOptions = {
       ...i18n['session-expired'],
@@ -34,7 +34,7 @@ describe('Session Expired Controller', () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const responseMock = sinon.mock(response);
     const request = mockRequest(i18n);
-    request.query = {admin: 'true'};
+    request.query = {reSignInUrl: adminSignInUrl};
 
     const expectedOptions = {
       ...i18n['session-expired'],

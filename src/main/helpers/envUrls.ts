@@ -11,6 +11,7 @@ export const MEDIA_VERIFICATION_RETURN_URL = process.env.MEDIA_VERIFICATION_RETU
 export const logOutUrl = (isAdmin: boolean, adminWrongFlow: boolean, isSessionExpired: boolean, language: string): string => {
   let b2cUrl;
   let b2cPolicy;
+
   if (adminWrongFlow) {
     b2cUrl = B2C_URL;
     b2cPolicy = authenticationConfig.POLICY;
