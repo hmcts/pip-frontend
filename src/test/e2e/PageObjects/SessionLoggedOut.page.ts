@@ -4,10 +4,10 @@ const helpers = require('../Helpers/Selectors');
 
 export class SessionLoggedOutPage extends CommonPage {
   async getPageTitle(): Promise<string> {
-    $(helpers.CommonPageTitle).catch(() => {
-      console.log(`${helpers.CommonPageTitle} not found`);
+    $(helpers.SessionLoggedOutTitle).catch(() => {
+      console.log(`${helpers.SessionLoggedOutTitle} not found`);
     });
 
-    return $(helpers.CommonPageTitle).getText();
+    return $(helpers.SessionLoggedOutTitle).getText();
   }
 }

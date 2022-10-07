@@ -242,9 +242,9 @@
   <script src="alphabetical-dev.js"></script>
   {% if isAuthenticated %}
     {% if user.role and 'ADMIN' in user.role %}
-      {% set idleDurationInSeconds = 8 %}
+      {% set idleDurationInSeconds = 40 * 60 %}
     {% else %}
-      {% set idleDurationInSeconds = 8 %}
+      {% set idleDurationInSeconds = 40 * 60 %}
     {% endif %}
     <script>
       (function() {
