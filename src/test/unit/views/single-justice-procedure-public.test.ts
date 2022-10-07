@@ -13,7 +13,7 @@ const tableHeadings = 'govuk-table__header';
 const sjpTableData = 'govuk-table__body';
 
 const expectedHeader = 'Single Justice Procedure cases that are ready for hearing';
-const summaryHeadingText = 'List containing';
+const summaryHeadingText = 'List containing 9 case(s)';
 const listDate = '25 March 2022';
 const offenderName = 'CFake';
 const offenderPostcode = 'BD17';
