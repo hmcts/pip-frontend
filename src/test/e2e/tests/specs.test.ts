@@ -42,6 +42,7 @@ import {MediaAccountRejectionPage} from '../PageObjects/MediaAccountRejection.pa
 import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccountRejectionConfirmation.page';
 import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
 import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
+import {SessionLoggedOutPage} from '../PageObjects/SessionLoggedOut.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -87,6 +88,7 @@ let mediaAccountApprovalPage: MediaAccountApprovalPage;
 let mediaAccountRejectionPage: MediaAccountRejectionPage;
 let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
 let subscriptionConfigureListPage: SubscriptionConfigureListPage;
+let sessionLoggedOutPage: SessionLoggedOutPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -503,8 +505,8 @@ describe('Verified user', () => {
     });
 
     it('should sign out and open session-logged-out page', async () => {
-      viewOptionPage = await accountHomePage.clickSignOut();
-      expect(await viewOptionPage.getPageTitle()).toEqual('You have been signed out');
+      sessionLoggedOutPage = await accountHomePage.clickSignOut();
+      expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
     });
   });
 });
@@ -633,8 +635,8 @@ describe('Admin level journeys', () => {
       await adminDashboard.open('admin-dashboard');
     });
     it('should sign out and open session-logged-out page', async () => {
-      signInPage = await adminDashboard.clickSignOut();
-      expect(await signInPage.getAdminPageTitle()).toEqual('You have been signed out');
+      sessionLoggedOutPage = await adminDashboard.clickSignOut();
+      expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
     });
   });
 });

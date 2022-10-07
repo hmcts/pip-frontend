@@ -193,5 +193,4 @@ module.exports = {
 
   //MediaAccountRejectionConfirmationPage
   MediaAccountRejectionConfirmationPanelTitle: '.govuk-panel__title',
-
 };
