@@ -23,17 +23,29 @@
     <script>
       (function() {
         let idleTimeout
+        let idleDurationInSeconds = 8
 
-        const resetIdleTimeout = function () {
-          if (idleTimeout) clearTimeout(idleTimeout)
-          idleTimeout = setTimeout(() => location.href = '/session-expired-logout', 8 * 1000)
+        function handleRedirection() {
+          const expiry = new Date(localStorage.getItem('idleExpiry'))
+          const diff = (expiry.getTime() + idleDurationInSeconds * 1000) - new Date().getTime()
+          if (diff <= 0) {
+            location.href = '/session-expired-logout'
+          } else {
+            clearTimeout(idleTimeout)
+            idleTimeout = setTimeout(handleRedirection, diff)
+          }
         }
-        resetIdleTimeout()
 
-        window.addEventListener('load', resetIdleTimeout, true);
-        ['click', 'mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(evt =>
-          document.addEventListener(evt, resetIdleTimeout)
-        );
+        function resetIdleTimeout() {
+          clearTimeout(idleTimeout)
+          idleTimeout = setTimeout(handleRedirection, idleDurationInSeconds * 1000)
+        }
+
+        resetIdleTimeout()
+        // window.addEventListener('load', resetIdleTimeout, true);
+        // ['click', 'mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(evt =>
+        //   document.addEventListener(evt, resetIdleTimeout)
+        // );
       })();
     </script>
   {% endif %}

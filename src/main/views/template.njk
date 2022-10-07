@@ -249,14 +249,29 @@
     <script>
       (function() {
         let idleTimeout
-        const redirectUrl = '/session-expiring?currentPath=' + location.pathname + location.search
 
-        const resetIdleTimeout = function () {
-          if (idleTimeout) clearTimeout(idleTimeout)
-          idleTimeout = setTimeout(() => location.href = redirectUrl, {{ idleDurationInSeconds }} * 1000)
-        };
+        function handleRedirection() {
+          const expiry = new Date(localStorage.getItem('idleExpiry'))
+          const diff = expiry.getTime() - new Date().getTime()
+          if (diff <= 0) {
+            sessionStorage.setItem('originalPage', location.pathname + location.search)
+            location.href = '/session-expiring?currentPath=' + location.pathname + location.search
+          } else {
+            clearTimeout(idleTimeout)
+            idleTimeout = setTimeout(handleRedirection, diff)
+          }
+        }
+
+        function resetIdleTimeout() {
+          clearTimeout(idleTimeout)
+          idleTimeout = setTimeout(handleRedirection, {{ idleDurationInSeconds }} * 1000)
+
+          const current = new Date();
+          current.setSeconds(current.getSeconds() + {{ idleDurationInSeconds }})
+          localStorage.setItem('idleExpiry', current.toISOString())
+        }
+
         resetIdleTimeout()
-
         window.addEventListener('load', resetIdleTimeout, true);
         ['click', 'mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(evt =>
           document.addEventListener(evt, resetIdleTimeout, true)
