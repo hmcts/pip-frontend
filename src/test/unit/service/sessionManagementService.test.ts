@@ -10,8 +10,8 @@ const res = {
 } as unknown as Response;
 
 describe('Test logout', () => {
-  const mediaLogOutPath = 'https://sign-in.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net/B2C_1_SignInUserFlow/oauth2/v2.0/logout';
-  const adminLogOutPath = 'https://staff.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net/B2C_1_SignInAdminUserFlow/oauth2/v2.0/logout';
+  const mediaLogOutPath = 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInUserFlow/oauth2/v2.0/logout';
+  const adminLogOutPath = 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInAdminUserFlow/oauth2/v2.0/logout';
   const encodedAppUrl = 'https%3A%2F%2Flocalhost%3A8080%2F';
 
   const mediaLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
