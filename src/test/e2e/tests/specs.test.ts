@@ -505,6 +505,9 @@ describe('Verified user', () => {
 
       const page = await accountHomePage.printUrl();
       console.log('Account home page is ' + page);
+
+      const page2 = await signInPage.printUrl();
+      console.log('Sign in page before logout is ' + page2);
     });
 
     it('should sign out and open session-logged-out page', async () => {
@@ -522,7 +525,7 @@ describe('Verified user', () => {
 
 describe('Admin level journeys', () => {
   it('should open Admin Login page', async () => {
-    await signInPage.open('/admin-login?p=B2C_1_SignInAdminUserFlow');
+    await sessionLoggedOutPage.open('/admin-login?p=B2C_1_SignInAdminUserFlow');
     console.log('B2C_ADMIN_USERNAME', process.env.B2C_ADMIN_USERNAME);
     const page = await signInPage.printUrl();
     console.log('Sign in page is ' + page);
