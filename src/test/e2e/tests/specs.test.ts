@@ -1,80 +1,80 @@
-import { AccountHomePage } from '../PageObjects/AccountHome.page';
+// import { AccountHomePage } from '../PageObjects/AccountHome.page';
 import { AdminDashboardPage } from '../PageObjects/AdminDashboard.page';
-import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
-import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
-import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
-import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
-import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
-import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
-import { LocationNameSearchPage } from '../PageObjects/LocationNameSearchPage';
+// import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
+// import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
+// import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
+// import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
+// import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
+// import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
+// import { LocationNameSearchPage } from '../PageObjects/LocationNameSearchPage';
 import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
 import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
-import { DailyCauseListPage } from '../PageObjects/DailyCauseList.page';
-import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
+// import { DailyCauseListPage } from '../PageObjects/DailyCauseList.page';
+// import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
-import { HomePage } from '../PageObjects/Home.page';
-import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
-import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
+// import { HomePage } from '../PageObjects/Home.page';
+// import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
+// import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
 import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
 import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
-import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
+// import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { RemoveListConfirmationPage } from '../PageObjects/RemoveListConfirmation.page';
 import { RemoveListSearchPage } from '../PageObjects/RemoveListSearch.page';
 import { RemoveListSearchResultsPage } from '../PageObjects/RemoveListSearchResults.page';
 import { RemoveListSuccessPage } from '../PageObjects/RemoveListSuccess.page';
-import { SearchPage } from '../PageObjects/Search.page';
+// import { SearchPage } from '../PageObjects/Search.page';
 import { SignInPage } from '../PageObjects/SignIn.page';
-import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
-import { SJPPublicListPage } from '../PageObjects/SJPPublicList.page';
-import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
-import { SubscriptionConfigureListPage } from '../PageObjects/SubscriptionConfigureList.page';
-import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
-import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
-import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
-import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
-import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
-import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
-import { ViewOptionPage } from '../PageObjects/ViewOption.page';
+// import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
+// import { SJPPublicListPage } from '../PageObjects/SJPPublicList.page';
+// import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
+// import { SubscriptionConfigureListPage } from '../PageObjects/SubscriptionConfigureList.page';
+// import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
+// import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
+// import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
+// import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
+// import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
+// import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
+// import { ViewOptionPage } from '../PageObjects/ViewOption.page';
 import {MediaAccountRequestsPage} from '../PageObjects/MediaAccountRequests.page';
 import {MediaAccountReviewPage} from '../PageObjects/MediaAccountReview.page';
 import {MediaAccountApprovalPage} from '../PageObjects/MediaAccountApproval.page';
 import {MediaAccountRejectionPage} from '../PageObjects/MediaAccountRejection.page';
 import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccountRejectionConfirmation.page';
-import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
-import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
+// import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
+// import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
 import {SessionLoggedOutPage} from '../PageObjects/SessionLoggedOut.page';
 
-const homePage = new HomePage;
-let subscriptionAddPage = new SubscriptionAddPage();
-let subscriptionManagementPage: SubscriptionManagementPage;
-const liveCaseCourtSearchControllerPage = new LiveCaseCourtSearchControllerPage();
-let viewOptionPage: ViewOptionPage;
-let summaryOfPublicationsPage: SummaryOfPublicationsPage;
-let alphabeticalSearchPage: AlphabeticalSearchPage;
-let searchPage: SearchPage;
-let liveCaseStatusPage: LiveCaseStatusPage;
-let singleJusticeProcedurePage: SingleJusticeProcedurePage;
-let caseNameSearchPage: CaseNameSearchPage;
-let caseNameSearchResultsPage: CaseNameSearchResultsPage;
-let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
-let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
-let caseReferenceNumberSearchPage: CaseReferenceNumberSearchPage;
-let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
-let locationNameSearchPage: LocationNameSearchPage;
-let caseEventGlossaryPage: CaseEventGlossaryPage;
-let deleteSubscriptionPage: DeleteSubscriptionPage;
-let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
+// const homePage = new HomePage;
+// let subscriptionAddPage = new SubscriptionAddPage();
+// let subscriptionManagementPage: SubscriptionManagementPage;
+// const liveCaseCourtSearchControllerPage = new LiveCaseCourtSearchControllerPage();
+// let viewOptionPage: ViewOptionPage;
+// let summaryOfPublicationsPage: SummaryOfPublicationsPage;
+// let alphabeticalSearchPage: AlphabeticalSearchPage;
+// let searchPage: SearchPage;
+// let liveCaseStatusPage: LiveCaseStatusPage;
+// let singleJusticeProcedurePage: SingleJusticeProcedurePage;
+// let caseNameSearchPage: CaseNameSearchPage;
+// let caseNameSearchResultsPage: CaseNameSearchResultsPage;
+// let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
+// let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
+// let caseReferenceNumberSearchPage: CaseReferenceNumberSearchPage;
+// let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
+// let locationNameSearchPage: LocationNameSearchPage;
+// let caseEventGlossaryPage: CaseEventGlossaryPage;
+// let deleteSubscriptionPage: DeleteSubscriptionPage;
+// let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 let manualUploadSummaryPage: ManualUploadSummaryPage;
 let fileUploadConfirmationPage: FileUploadConfirmationPage;
-let pendingSubscriptionsPage: PendingSubscriptionsPage;
-let subscriptionConfirmedPage: SubscriptionConfirmedPage;
+// let pendingSubscriptionsPage: PendingSubscriptionsPage;
+// let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 let manualUploadPage: ManualUploadPage;
 let adminDashboard = new AdminDashboardPage;
-let createMediaAccountPage: CreateMediaAccountPage;
-let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
-let accountHomePage: AccountHomePage;
-let dailyCauseListPage: DailyCauseListPage;
-let sjpPublicListPage: SJPPublicListPage;
+// let createMediaAccountPage: CreateMediaAccountPage;
+// let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
+// let accountHomePage: AccountHomePage;
+// let dailyCauseListPage: DailyCauseListPage;
+// let sjpPublicListPage: SJPPublicListPage;
 let signInPage: SignInPage;
 let createAdminAccountPage: CreateAdminAccountPage;
 let createAdminAccountSummaryPage: CreateAdminAccountSummaryPage;
@@ -87,10 +87,10 @@ let mediaAccountReviewPage: MediaAccountReviewPage;
 let mediaAccountApprovalPage: MediaAccountApprovalPage;
 let mediaAccountRejectionPage: MediaAccountRejectionPage;
 let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
-let subscriptionConfigureListPage: SubscriptionConfigureListPage;
+// let subscriptionConfigureListPage: SubscriptionConfigureListPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
 
-describe('Unverified user', () => {
+// describe('Unverified user', () => {
 //   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
 //     await homePage.open('');
 //     expect(await homePage.getPageTitle()).toEqual('Court and tribunal hearings');
@@ -258,7 +258,7 @@ describe('Unverified user', () => {
 //     });
 //   });
 // });
-//
+
 // describe('Verified user', () => {
 //   describe('Sign In Page', () => {
 //     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
@@ -504,10 +504,10 @@ describe('Unverified user', () => {
 //       await accountHomePage.open('account-home');
 //     });
 //
-//     it('should sign out and open session-logged-out page', async () => {
-//       sessionLoggedOutPage = await accountHomePage.clickSignOut();
-//       expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
-//     });
+//     // it('should sign out and open session-logged-out page', async () => {
+//     //   sessionLoggedOutPage = await accountHomePage.clickSignOut();
+//     //   expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
+//     // });
 //   });
 // });
 
@@ -639,5 +639,4 @@ describe('Admin level journeys', () => {
       expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
     });
   });
-});
 });
