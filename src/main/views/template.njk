@@ -244,7 +244,7 @@
     {% if user.role and 'ADMIN' in user.role %}
       {% set idleDurationInSeconds = 40 * 60 %}
     {% else %}
-      {% set idleDurationInSeconds = 40 * 60 %}
+      {% set idleDurationInSeconds = 3 * 3600 + (40 * 60) %}
     {% endif %}
     <script>
       (function() {
@@ -254,7 +254,6 @@
           const expiry = new Date(localStorage.getItem('idleExpiry'))
           const diff = expiry.getTime() - new Date().getTime()
           if (diff <= 0) {
-            sessionStorage.setItem('originalPage', location.pathname + location.search)
             location.href = '/session-expiring?currentPath=' + location.pathname + location.search
           } else {
             clearTimeout(idleTimeout)
