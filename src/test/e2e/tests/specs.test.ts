@@ -525,7 +525,9 @@ describe('Verified user', () => {
 
 describe('Admin level journeys', () => {
   it('should open Admin Login page', async () => {
-    await sessionLoggedOutPage.open('/admin-login?p=B2C_1_SignInAdminUserFlow');
+    const page0 = await signInPage.printUrl();
+    console.log('Sign in page just before admin journey is ' + page0);
+    await signInPage.open('/admin-login?p=B2C_1_SignInAdminUserFlow');
     console.log('B2C_ADMIN_USERNAME', process.env.B2C_ADMIN_USERNAME);
     const page = await signInPage.printUrl();
     console.log('Sign in page is ' + page);
