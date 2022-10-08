@@ -504,7 +504,7 @@ describe('Verified user', () => {
       await accountHomePage.open('account-home');
 
       const page = await accountHomePage.printUrl();
-      console.log('Account home page is ' + page)
+      console.log('Account home page is ' + page);
     });
 
     it('should sign out and open session-logged-out page', async () => {
@@ -512,10 +512,10 @@ describe('Verified user', () => {
       expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
 
       const page = await sessionLoggedOutPage.printUrl();
-      console.log('Session logout page is ' + page)
+      console.log('Session logout page is ' + page);
 
       const page2 = await signInPage.printUrl();
-      console.log('Sign in page before admin journey is ' + page2)
+      console.log('Sign in page before admin journey is ' + page2);
     });
   });
 });
@@ -525,12 +525,12 @@ describe('Admin level journeys', () => {
     await signInPage.open('/admin-login?p=B2C_1_SignInAdminUserFlow');
     console.log('B2C_ADMIN_USERNAME', process.env.B2C_ADMIN_USERNAME);
     const page = await signInPage.printUrl();
-    console.log('Sign in page is ' + page)
+    console.log('Sign in page is ' + page);
     await signInPage.enterText(process.env.B2C_ADMIN_USERNAME, 'EmailField');
     await signInPage.enterText(process.env.B2C_ADMIN_PASSWORD, 'PasswordField');
     adminDashboard = await signInPage.clickAdminSignIn();
     const page2 = await adminDashboard.printUrl();
-    console.log('Admin dashboard page is ' + page2)
+    console.log('Admin dashboard page is ' + page2);
   });
   it('should open admin dashboard page on successful sign in', async () => {
     expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
