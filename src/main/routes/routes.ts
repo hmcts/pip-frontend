@@ -88,7 +88,9 @@ export default function(app: Application): void {
   app.get('/sscs-daily-list', app.locals.container.cradle.sscsDailyListController.get);
   app.get('/cop-daily-cause-list', app.locals.container.cradle.copDailyCauseListController.get);
   app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
+  app.get('/et-daily-list', app.locals.container.cradle.etDailyListController.get);
   app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
+  app.get('/primary-health-list', app.locals.container.cradle.primaryHealthListController.get);
 
   // Restricted paths
   app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);

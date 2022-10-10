@@ -117,6 +117,34 @@ export class DataManipulationService {
   }
 
   /**
+   * Reshaping etDailyList json data into formatted niceness.
+   */
+  public reshapeEtDailyListData(etDailyList: string): object {
+    const etDailyListData = JSON.parse(etDailyList);
+    let hearingCount = 0;
+    etDailyListData['courtLists'].forEach(courtList => {
+      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+        courtRoom['session'].forEach(session => {
+          session['formattedJudiciary'] = this.getJudiciaryNameSurname(session);
+          delete session['judiciary'];
+          session['sittings'].forEach(sitting => {
+            hearingCount = hearingCount + sitting['hearing'].length;
+            sitting['sittingStartFormatted'] = this.publicationTimeInBst(sitting['sittingStart']);
+            this.calculateDuration(sitting);
+            this.findAndConcatenateHearingPlatform(sitting, session);
+            sitting['hearing'].forEach(hearing => {
+              this.findAndManipulatePartyInformation(hearing, true);
+            });
+          });
+        });
+        courtRoom['totalHearing'] = hearingCount;
+        hearingCount = 0;
+      });
+    });
+    return etDailyListData;
+  }
+
+  /**
    * Manipulate the copDailyCauseList json data for writing out on screen.
    * @param copDailyCauseList The cop daily cause list to manipulate
    */
@@ -171,8 +199,9 @@ export class DataManipulationService {
   /**
    * Manipulate the party information data for writing out on screen.
    * @param hearing
+   * @param initialised
    */
-  private findAndManipulatePartyInformation(hearing: any): void {
+  private findAndManipulatePartyInformation(hearing: any, initialised= false): void {
     let applicant = '';
     let appellant = '';
     let respondent = '';
@@ -185,13 +214,13 @@ export class DataManipulationService {
         switch(DataManipulationService.convertPartyRole(party.partyRole)) {
           case 'APPLICANT_PETITIONER':
           {
-            applicant += this.createIndividualDetails(party.individualDetails).trim();
+            applicant += this.createIndividualDetails(party.individualDetails, initialised).trim();
             applicant += this.stringDelimiter(applicant?.length, ',');
             break;
           }
           case 'APPLICANT_PETITIONER_REPRESENTATIVE':
           {
-            const applicantPetitionerDetails = this.createIndividualDetails(party.individualDetails).trim();
+            const applicantPetitionerDetails = this.createIndividualDetails(party.individualDetails, initialised).trim();
             if(applicantPetitionerDetails) {
               applicantRepresentative += 'LEGALADVISOR: ' + applicantPetitionerDetails + ', ';
             }
@@ -199,25 +228,25 @@ export class DataManipulationService {
           }
           case 'CLAIMANT_PETITIONER':
           {
-            appellant += this.createIndividualDetails(party.individualDetails).trim();
+            appellant += this.createIndividualDetails(party.individualDetails, initialised).trim();
             appellant += this.stringDelimiter(appellant?.length, ',');
             break;
           }
           case 'CLAIMANT_PETITIONER_REPRESENTATIVE':
           {
-            appellantRepresentative += this.createIndividualDetails(party.individualDetails).trim();
+            appellantRepresentative += this.createIndividualDetails(party.individualDetails, initialised).trim();
             appellantRepresentative += this.stringDelimiter(appellantRepresentative?.length, ',');
             break;
           }
           case 'RESPONDENT':
           {
-            respondent += this.createIndividualDetails(party.individualDetails).trim();
+            respondent += this.createIndividualDetails(party.individualDetails, initialised).trim();
             respondent += this.stringDelimiter(respondent?.length, ',');
             break;
           }
           case 'RESPONDENT_REPRESENTATIVE':
           {
-            const respondentDetails = this.createIndividualDetails(party.individualDetails).trim();
+            const respondentDetails = this.createIndividualDetails(party.individualDetails, initialised).trim();
             if(respondentDetails) {
               respondentRepresentative += 'LEGALADVISOR: ' + respondentDetails + ', ';
 
@@ -238,19 +267,27 @@ export class DataManipulationService {
   }
 
   /**
-   * Format a set of individuals details.
+   * Format a set of individuals details. If the first letter of forename should be initialised, pass in true.
    * @param individualDetails
+   * @param initialised
    */
-  private createIndividualDetails(individualDetails: any): string {
+  private createIndividualDetails(individualDetails: any, initialised = false): string {
     const title = this.writeStringIfValid(individualDetails?.title);
     const forenames = this.writeStringIfValid(individualDetails?.individualForenames);
+    const forenameInitial = forenames.charAt(0);
     const middleName = this.writeStringIfValid(individualDetails?.individualMiddleName);
     const surname = this.writeStringIfValid(individualDetails?.individualSurname);
-
-    return title + (title.length > 0 ? ' ' : '')
-      + forenames + (forenames.length > 0 ? ' ' : '')
-      + middleName + (middleName.length > 0 ? ' ' : '')
-      + surname;
+    if(initialised) {
+      return title + (title.length > 0 ? ' ' : '')
+        + forenameInitial + (forenameInitial.length > 0 ? '. ' : '')
+        + surname;
+    }
+    else {
+      return title + (title.length > 0 ? ' ' : '')
+        + forenames + (forenames.length > 0 ? ' ' : '')
+        + middleName + (middleName.length > 0 ? ' ' : '')
+        + surname;
+    }
   }
 
   /**
@@ -278,7 +315,7 @@ export class DataManipulationService {
   }
 
   /**
-   * Map the supplied party role to one of our party roles.
+   * Map the supplied party role to one of our party roles if necessary.
    * @param nonConvertedPartyRole
    */
   private static convertPartyRole(nonConvertedPartyRole: string): string {
@@ -290,18 +327,20 @@ export class DataManipulationService {
     }
     return partyRole;
   }
-
   /**
-   * Manipulate hearing platform data for writing out to screen.
+   * Manipulate hearing platform data for writing out to screen. Needed to be amended to include optional hearing
+   * channel for PUB-1319.
    * @param sitting
    * @param session
    */
   private findAndConcatenateHearingPlatform(sitting: object, session: object): void {
     let caseHearingChannel = '';
-    if(sitting['channel']?.length > 0) {
-      caseHearingChannel = sitting['channel'].join(', ');
-    } else if(session['sessionChannel'].length > 0) {
-      caseHearingChannel = session['sessionChannel'].join(', ');
+    if(sitting['channel'] || session['sessionChannel']) {
+      if (sitting['channel']?.length > 0) {
+        caseHearingChannel = sitting['channel'].join(', ');
+      } else if (session['sessionChannel'].length > 0) {
+        caseHearingChannel = session['sessionChannel'].join(', ');
+      }
     }
     sitting['caseHearingChannel'] = caseHearingChannel;
   }
@@ -353,7 +392,7 @@ export class DataManipulationService {
    * Calculate the duration of a sitting.
    * @param sitting
    */
-  private calculateDuration(sitting: object): void {
+  public calculateDuration(sitting: object): void {
     sitting['duration'] = '';
     sitting['startTime'] = '';
     if (sitting['sittingStart'] !== '' && sitting['sittingEnd'] !== '') {

@@ -11,15 +11,14 @@ const sjpPublicListController = new SjpPublicListController();
 const artefactId = '1';
 
 const mockSJPPublic = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
-const JsonifiedData = JSON.parse(mockSJPPublic);
-const data = JsonifiedData.courtLists[0].courtHouse.courtRoom[0].session[0].sittings;
+const data = JSON.parse(mockSJPPublic);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
 const i18n = {};
 const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
-jsonStub.withArgs(artefactId, '123').resolves(JsonifiedData);
+jsonStub.withArgs(artefactId, '123').resolves(data);
 
 const sjpPublicListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
@@ -38,8 +37,8 @@ describe('SJP Public List Type Controller', () => {
     const responseMock = sinon.mock(response);
 
     const expectedData = {
-      casesList: JSON.parse(mockSJPPublic).courtLists[0].courtHouse.courtRoom[0].session[0].sittings,
-      length: data.length,
+      sjpData: data,
+      length: 2,
       publishedDateTime: '14 September 2016',
       publishedTime: '12:30am',
       ...i18n['single-justice-procedure'],
