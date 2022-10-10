@@ -141,7 +141,10 @@
                       {% endif %}
                       {% for hearing in sitting['hearing'] %}
                         {% for case in hearing['case'] %}
-                          {% if courtRoom['totalHearing'] === hearingCount %}
+                          {% if case['linkedCases'] | length !== 0 or (hearing['listingNotes'] | length !== 0) %}
+                            {% set noBorder = 'no-border-bottom' %}
+                          {% endif %}
+                          {% if courtRoom['totalHearing'] === hearingCount%}
                             {% set noBorder = 'no-border-bottom' %}
                           {% endif %}
                           <tr class="govuk-table__row">
@@ -153,13 +156,20 @@
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['prosecutingAuthority'] }}</td>
                           </tr>
                           {% if case['linkedCases'] | length %}
+                            {% if hearing['listingNotes'] | length !== 0 %}
+                              {% set noBorderLinkedCases = 'no-border-bottom' %}
+                            {% endif %}
                             <tr class="govuk-table__row">
-                              <td class="govuk-table__cell no-border-bottom" colspan="6"><strong>{{ linkedCases }}:</strong> {{ case['linkedCases'] }}</td>
+                              <td class="govuk-table__cell {{ noBorderLinkedCases }}" colspan="6"><span class="linked-cases-heading">{{ linkedCases }}:</span> {{ case['linkedCases'] }}</td>
                             </tr>
                           {% endif %}
                           {% if hearing['listingNotes'] | length %}
+                              {% set noBorder = '' %}
+                              {% if courtRoom['totalHearing'] === hearingCount%}
+                                {% set noBorder = 'no-border-bottom' %}
+                              {% endif %}
                             <tr class="govuk-table__row">
-                              <td class="govuk-table__cell {{ noBorder }}" colspan="6"><strong>{{ listingNotes }}:</strong> {{ hearing['listingNotes'] }}</td>
+                              <td class="govuk-table__cell {{ noBorder }}" colspan="6"><span class="linked-cases-heading">{{ listingNotes }}:</span> {{ hearing['listingNotes'] }}</td>
                             </tr>
                           {% endif %}
                           {% set hearingCount = hearingCount + 1 %}
