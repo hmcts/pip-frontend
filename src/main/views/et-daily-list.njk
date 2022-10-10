@@ -1,0 +1,157 @@
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+{% from "./macros/common-components.njk" import goBack %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+{% block content %}
+  <div class="parent-box">
+    <h2 id="page-heading" class="govuk-heading-l">
+      {{ title1 }}: {{ region }}<br/>
+      {{ title2 }}
+    </h2>
+    <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listFor }} {{ contentDate }}</p>
+    <p class="govuk-body">{{ listUpdated | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
+  </div>
+  <details class="govuk-details" data-module="govuk-details" open>
+    <summary class="govuk-details__summary"><span class="govuk-details__summary-text">{{ importantInformation }}</span>
+    </summary>
+    {% set venueEmail = listData['venue']['venueContact']['venueEmail'] %}
+    <div class="govuk-details__text">
+      <p>{{ openJustice1 }}</p>
+      <p>{{ openJustice2 }}</p>
+      <p>{{ openJustice3 }}</p>
+      <p>{{ openJustice4 }}</p>
+      <p>{{ listData['venue']['venueName'] }},  {{ venueEmail }}, {{ listData['venue']['venueContact']['venueTelephone'] }}</p>
+      <p>{{ openJustice5 }}</p>
+      <p>{{ openJustice6 }}</p>
+      {% if bill %}
+        <hr style="border-color: #b1b4b6; background-color: #b1b4b6">
+        <p>{{ openJustice7 }}</p>
+        <p>{{ openJustice8 }}</p>
+        <p>{{ openJustice9 }}</p>
+        <p>{{ openJustice10 }}</p>
+        <p>{{ listData['venue']['venueName'] }},  {{ venueEmail }}, {{ listData['venue']['venueContact']['venueTelephone'] }}</p>
+        <p>{{ openJustice11 }}</p>
+        <p>{{ openJustice12 }}</p>
+      {%  endif %}
+    </div>
+  </details>
+  {% for courtList in listData['courtLists'] %}
+    {% set courtHouse = courtList['courtHouse'] %}
+    <div class="site-header" tabindex="0" aria-label="Court Details">
+      <h1 class="govuk-heading-l site-address" tabindex="0">{{ venue }}{{ courtHouse['courtHouseName'] }}</h1>
+      {% set courtHouseAddress = courtHouse['courtHouseAddress'] %}
+      {% for line in courtHouseAddress['line'] %}
+        <p class="govuk-body site-address" tabindex="0">{{ line }}</p>
+      {% endfor %}
+      {% if courtHouseAddress['town'] | length %}
+        <p class="govuk-body site-address" tabindex="0">{{ courtHouseAddress['town'] }}</p>
+      {% endif %}
+      {% if courtHouseAddress['county'] | length %}
+        <p class="govuk-body site-address" tabindex="0">{{ courtHouseAddress['county'] }}</p>
+      {% endif %}
+      {% if courtHouseAddress['postCode'] | length %}
+        <p class="govuk-body site-address" tabindex="0">{{ courtHouseAddress['postCode'] }}</p>
+      {% endif %}
+    </div>
+
+    <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+      {% set courtRoomCount = 0 %}
+      {% for courtRoom in courtHouse['courtRoom'] %}
+        {% set hearingCount = 1 %}
+        {% set courtRoomCount = courtRoomCount + 1 %}
+        <div class="govuk-accordion__section govuk-accordion__section--expanded">
+          <div class="govuk-accordion__section-header">
+            <h2 class="govuk-accordion__section-heading">
+            <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ courtRoomCount }}">
+              {{ courtRoom['courtRoomName'] }}
+            </span>
+            </h2>
+
+          </div>
+          <div id="accordion-default-content-{{ courtRoomCount }}" class="govuk-accordion__section-content"
+               aria-labelledby="accordion-default-heading-{{ courtRoomCount }}">
+            <div class="parent-box overflow-table">
+              <table class="govuk-table">
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                  {% for header in tableHeaders %}
+                    <th scope="col" class="govuk-table__header">{{ header }}</th>
+                  {% endfor %}
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                {% for session in courtRoom['session'] %}
+                  {% for sitting in session['sittings'] %}
+                    {% set durationAsHours = 0 %}
+                    {% if sitting['durationAsHours'] > 1 %}
+                      {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHours %}
+                    {% elif sitting['durationAsHours'] === 1 %}
+                      {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHour %}
+                    {% endif %}
+                    {% set durationAsMinutes = 0 %}
+                    {% if sitting['durationAsMinutes'] > 1 %}
+                      {% set durationAsMinutes = sitting['durationAsMinutes'] + ' ' + hearingDurationMinutes %}
+                    {% elif sitting['durationAsMinutes'] === 1 %}
+                      {% set durationAsMinutes = sitting['durationAsMinutes'] + ' ' + hearingDurationMinute %}
+                    {% endif %}
+                    {% set duration = '' %}
+                    {% if durationAsHours === 0 and durationAsMinutes === 0 %}
+                      {% set duration = '' %}
+                    {% elif durationAsHours !== 0 and durationAsMinutes !== 0 %}
+                      {% set duration = durationAsHours + ' ' + durationAsMinutes %}
+                    {% elif durationAsHours === 0 %}
+                      {% set duration = durationAsMinutes %}
+                    {% elif durationAsMinutes === 0 %}
+                      {% set duration = durationAsHours %}
+                    {% endif %}
+                    {% for hearing in sitting['hearing'] %}
+                      {% for case in hearing['case'] %}
+                        {% if courtRoom['totalHearing'] === hearingCount %}
+                          {% set noBorder = 'no-border-bottom' %}
+                        {% endif %}
+                        {% set caseIndicator = case['caseSequenceIndicator'] %}
+                        <tr class="govuk-table__row">
+                          <td class="govuk-table__cell {{ noBorder }}">{{ sitting['sittingStartFormatted'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ duration }} {{ caseIndicator }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
+                          {% if hearing['appellantRepresentative'] | length %}
+                            <td class="govuk-table__cell {{ noBorder }}">{{ hearing['appellant'] }}<br />{{ rep }}: {{ hearing['appellantRepresentative'] }}</td>
+                          {% else %}
+                            <td class="govuk-table__cell {{ noBorder }}">{{ hearing['appellant'] }}<br />{{ rep }}: {{ noRep }}</td>
+                          {% endif %}
+                          <td class="govuk-table__cell {{ noBorder }}">{{ hearing['respondent'] | replace('LEGALADVISOR', 'Rep') }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseType'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
+                        </tr>
+                      {% endfor %}
+                    {% endfor %}
+                  {% endfor %}
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+  <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
+  {{ super() }}
+  </div>
+{% endblock %}
+{% block bodyEnd %}
+  <script>
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
+  {{ super() }}
+{% endblock %}
