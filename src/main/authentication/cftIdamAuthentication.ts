@@ -46,12 +46,14 @@ export async function cftIdamAuthentication(req, callback) {
     const jwtToken = jwt_decode(data.id_token);
     jwtToken['flow'] = 'CFT';
 
+    console.log('roles are ' + jwtToken['roles']);
     if (jwtToken['roles'].some(role => role.match(rejectedRolesRegex))) {
       callback(null, null);
     } else {
       callback(null, jwtToken);
     }
   } catch (cftIdamException) {
+    console.log('This is an exception', JSON.stringify(cftIdamException));
     callback(null, null);
   }
 }
