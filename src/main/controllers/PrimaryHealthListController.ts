@@ -13,6 +13,7 @@ const primaryHealthListService = new PrimaryHealthListService();
 export default class PrimaryHealthListController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
+    const listToLoad = req.path.slice(1, req.path.length);
     const artefactId = req.query.artefactId as string;
     const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
@@ -26,8 +27,8 @@ export default class PrimaryHealthListController {
 
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
-      res.render('primary-health-list', {
-        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['primary-health-list']),
+      res.render(listToLoad, {
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         listData : manipulatedData,
         publishedDate: publishedDate,

@@ -73,6 +73,7 @@ describe('Primary Health List Controller', () => {
     const request = mockRequest(i18n);
     request.query = {};
     request.user = {piUserId: '123'};
+    request.path = '/primary-health-list';
 
     const responseMock = sinon.mock(response);
 
