@@ -20,7 +20,7 @@ describe('Subscriptions Configure List Controller', () => {
     request.query = {filterValues: 'filterValue', clear: 'Civil'};
 
     sinon.stub(SubscriptionService.prototype, 'generateListTypesForCourts')
-      .withArgs('1234', 'userProvenance', 'filterValue', 'Civil')
+      .withArgs('1234', 'userProvenance', 'filterValue', 'Civil', 'en')
       .resolves({listOptions: {'A': {}}, filterOptions: {'AB': {}}});
 
     const responseMock = sinon.mock(response);
