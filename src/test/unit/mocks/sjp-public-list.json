@@ -29,6 +29,8 @@
                               "individualForenames": "Z",
                               "individualSurname": "CDFake",
                               "address": {
+                                "town": "Bradford",
+                                "county": "Yorkshire",
                                 "postCode": "BD17"
                               }
                             }
@@ -59,6 +61,8 @@
                               "individualForenames": "Z",
                               "individualSurname": "CFake",
                               "address": {
+                                "town": "Bradford",
+                                "county": "Yorkshire",
                                 "postCode": "BD17"
                               }
                             }
@@ -89,6 +93,8 @@
                               "individualForenames": "Z",
                               "individualSurname": "ECFake",
                               "address": {
+                                "town": "Bradford",
+                                "county": "Yorkshire",
                                 "postCode": "BD17"
                               }
                             }
@@ -119,6 +125,8 @@
                               "individualForenames": "Z",
                               "individualSurname": "HFake",
                               "address": {
+                                "town": "Bradford",
+                                "county": "Yorkshire",
                                 "postCode": "BD17"
                               }
                             }
@@ -149,6 +157,8 @@
                               "individualForenames": "Z",
                               "individualSurname": "KFake",
                               "address": {
+                                "town": "Bradford",
+                                "county": "Yorkshire",
                                 "postCode": "BD17"
                               }
                             }
@@ -179,6 +189,8 @@
                               "individualForenames": "Z",
                               "individualSurname": "PFake",
                               "address": {
+                                "town": "Bradford",
+                                "county": "Yorkshire",
                                 "postCode": "BD17"
                               }
                             }
@@ -209,6 +221,8 @@
                               "individualForenames": "Z",
                               "individualSurname": "ZFake",
                               "address": {
+                                "town": "Bradford",
+                                "county": "Yorkshire",
                                 "postCode": "BD17"
                               }
                             }
@@ -217,6 +231,74 @@
                         "offence": [
                           {
                             "offenceTitle": "Enter a compulsory ticket area on the Transport for London regional railway network without a valid ticket"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "sittings": [
+                  {
+                    "hearing": [
+                      {
+                        "party": [
+                          {
+                            "partyRole": "PROSECUTOR",
+                            "organisationDetails": {
+                              "organisationName": "TV Licensing",
+                              "individualSurname": "test"
+                            }
+                          },
+                          {
+                            "partyRole": "ACCUSED",
+                            "individualDetails": {
+                              "individualForenames": "Z",
+                              "individualSurname": "CDFake",
+                              "address": {
+                                "town": "Bradford",
+                                "county": "Yorkshire",
+                                "postCode": "BD17"
+                              }
+                            }
+                          }
+                        ],
+                        "offence": [
+                          {
+                            "offenceTitle": "Use / install a television set without a licence"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "hearing": [
+                      {
+                        "party": [
+                          {
+                            "partyRole": "PROSECUTOR",
+                            "organisationDetails": {
+                              "organisationName": "Driver and Vehicle Licensing Agency",
+                              "individualSurname": "test"
+                            }
+                          },
+                          {
+                            "partyRole": "ACCUSED",
+                            "individualDetails": {
+                              "individualForenames": "Z",
+                              "individualSurname": "CFake",
+                              "address": {
+                                "town": "Bradford",
+                                "county": "Yorkshire",
+                                "postCode": "BD17"
+                              }
+                            }
+                          }
+                        ],
+                        "offence": [
+                          {
+                            "offenceTitle": "Keep a vehicle without a valid vehicle licence"
                           }
                         ]
                       }
