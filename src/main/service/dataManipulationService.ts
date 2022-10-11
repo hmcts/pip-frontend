@@ -145,6 +145,43 @@ export class DataManipulationService {
   }
 
   /**
+   * Reshaping etFortnightlyList json data into formatted niceness.
+   */
+  public reshapeEtFortnightlyListData(etDailyList: string): object {
+    const etFortnightlyListData = JSON.parse(etDailyList);
+    let hearingCount = 0;
+    etFortnightlyListData['courtLists'].forEach(courtList => {
+      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+        courtRoom['session'].forEach(session => {
+          session['formattedJudiciary'] = this.getJudiciaryNameSurname(session);
+          delete session['judiciary'];
+          session['sittings'].forEach(sitting => {
+            hearingCount = hearingCount + sitting['hearing'].length;
+            sitting['sittingStartFormatted'] = this.publicationTimeInBst(sitting['sittingStart']);
+            this.calculateDuration(sitting);
+            this.findAndConcatenateHearingPlatform(sitting, session);
+            console.log(this.etFortnightlyDaySplitter(sitting));
+            sitting['hearing'].forEach(hearing => {
+              this.findAndManipulatePartyInformation(hearing, true);
+            });
+          });
+        });
+        courtRoom['totalHearing'] = hearingCount;
+        hearingCount = 0;
+      });
+    });
+    return etFortnightlyListData;
+  }
+
+  private etFortnightlyDaySplitter(etDailyList: any): any {
+    const uniqueDays = new Array<string>;
+    etDailyList.forEach(sitting => {
+      uniqueDays.push(this.publicationDateInBst(sitting['sittingStart']));
+      return uniqueDays;
+    });
+  }
+
+  /**
    * Manipulate the copDailyCauseList json data for writing out on screen.
    * @param copDailyCauseList The cop daily cause list to manipulate
    */

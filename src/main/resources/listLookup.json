@@ -91,9 +91,18 @@
     "restrictedProvenances":  []
   },
   "ET_DAILY_LIST": {
-    "friendlyName": "Employment Tribunals Daily Cause List",
+    "friendlyName": "Employment Tribunals Daily List",
     "shortenedFriendlyName": "ET Daily List",
     "url": "et-daily-list",
+    "jurisdictions": [
+      "Tribunal"
+    ],
+    "restrictedProvenances": []
+  },
+  "ET_FORTNIGHTLY_PRESS_LIST": {
+    "friendlyName": "Employment Tribunals Fortnightly Press List",
+    "shortenedFriendlyName": "ET Daily List",
+    "url": "et-fortnightly-list",
     "jurisdictions": [
       "Tribunal"
     ],
