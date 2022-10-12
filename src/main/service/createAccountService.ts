@@ -6,6 +6,12 @@ import {LanguageFileParser} from '../helpers/languageFileParser';
 const languageFileParser = new LanguageFileParser();
 const adminRolesList = [
   {
+    key: 'system-admin',
+    text: 'Internal - System Administrator',
+    mapping: 'SYSTEM_ADMIN',
+    hint: 'Developer only role to manage the service',
+  },
+  {
     key: 'super-admin-ctsc',
     text: 'Internal - Super Administrator - CTSC',
     mapping: 'INTERNAL_SUPER_ADMIN_CTSC',
