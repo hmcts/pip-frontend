@@ -158,9 +158,9 @@ export default function(app: Application): void {
   app.get('/remove-list-success', isPermittedManualUpload, app.locals.container.cradle.removeListSuccessController.get);
   //app.get('/system-admin-dashboard', isPermittedSystemAdmin, app.locals.container.cradle.systemAdminDashboardController.get);
   app.get('/system-admin-dashboard', app.locals.container.cradle.systemAdminDashboardController.get);
-
-
-
+  app.get('/third-party-search', app.locals.container.cradle.thirdPartySearchController.get);
+  app.get('/third-party-edit', app.locals.container.cradle.thirdPartyEditController.get);
+  app.post('/third-party-edit', app.locals.container.cradle.thirdPartyEditController.post);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
