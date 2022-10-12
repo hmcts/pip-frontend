@@ -156,9 +156,9 @@ export default function(app: Application): void {
   app.post('/remove-list-search', isPermittedManualUpload, app.locals.container.cradle.removeListSearchController.post);
   app.get('/remove-list-search-results', isPermittedManualUpload, app.locals.container.cradle.removeListSearchResultsController.get);
   app.get('/remove-list-success', isPermittedManualUpload, app.locals.container.cradle.removeListSuccessController.get);
-  app.get('/blob-view-locations', isPermittedAccountCreation, app.locals.container.cradle.blobViewLocationController.get);
-  app.get('/blob-view-publications', isPermittedAccountCreation, app.locals.container.cradle.blobViewPublicationsController.get);
-  app.get('/blob-view-json', isPermittedAccountCreation, app.locals.container.cradle.blobViewJsonController.get);
+  app.get('/blob-view-locations', app.locals.container.cradle.blobViewLocationController.get);
+  app.get('/blob-view-publications', app.locals.container.cradle.blobViewPublicationsController.get);
+  app.get('/blob-view-json', app.locals.container.cradle.blobViewJsonController.get);
   //app.get('/system-admin-dashboard', isPermittedSystemAdmin, app.locals.container.cradle.systemAdminDashboardController.get);
   app.get('/system-admin-dashboard', app.locals.container.cradle.systemAdminDashboardController.get);
 

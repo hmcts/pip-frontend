@@ -1,5 +1,6 @@
 {% extends "template.njk" %}
 {% from "macros/common-components.njk" import goBack %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% block pageTitle %}
   {{ title }}
@@ -15,17 +16,21 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
 
   <div id="section1">
-    <h2 class="govuk-heading-l">Choose a location to see all publications.</h2>
-    <table class="govuk-table">
-      <tr>
-        <thead class="govuk-table__header"><th>Location</th><th>Number of Publications</th></thead>
-      </tr>
-      {% for locName, locData in dic_of_locs %}
-      <tr>
-        <td><a href="blob-view-publications?locationId={{ locData[0] }}">{{ locName }}</a></td><td>{{ locData[1] }}</td>
-      </tr>
-      {% endfor %}
-    </table>
+    {% set headers = [] %}
+    {% for tableHeader in tableHeaders %}
+      {% set _ = headers.push({text:tableHeader}) %}
+    {% endfor %}
+    {% set rows = [] %}
+    {% for locName, locData in dic_of_locs %}
+    {% set _ = rows.push([{html: '<a class="govuk-link--no-underline" href=blob-view-publications?locationId='+locData[0]+'>'+locName+'</a>'}, {text: locData[1]}]) %}
+    {% endfor %}
+    {{ govukTable({
+      caption: subHeading,
+      captionClasses: "govuk-table__caption--m",
+      firstCellIsHeader: true,
+      head: headers,
+      rows: rows
+    }) }}
   </div>
 
   {{ super() }}

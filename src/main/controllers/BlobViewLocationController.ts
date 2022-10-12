@@ -12,7 +12,10 @@ export default class BlobViewLocationController {
     const list_of_locs = await locationService.fetchAllLocations(req.lng);
     const dic_of_locs = new Map();
     for (const loc of list_of_locs) {
-      dic_of_locs.set(loc.name, [loc.locationId, (await summaryOfPubsService.getPublications(parseInt(loc.locationId.toString()), req.user?.['piUserId'])).length]);
+      dic_of_locs.set(
+        loc.name,
+        [loc.locationId, (await summaryOfPubsService.getPublications(parseInt(loc.locationId.toString()), req.user?.['piUserId'])).length],
+      );
     }
     res.render('blob-view-locations', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-locations']),

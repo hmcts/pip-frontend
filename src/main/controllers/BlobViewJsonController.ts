@@ -16,7 +16,7 @@ export default class BlobViewJsonController {
     const data = await publicationService.getIndividualPublicationJson(req.query['artefactId'], req.user?.['piUserId']);
     const jsonData: string = prettyPrintJson.toHtml(data, options);
     const metadata = await publicationService.getIndividualPublicationMetadata(req.query['artefactId'], req.user?.['piUserId']);
-    const courtName = await locationService.getLocationById(parseInt(metadata.locationId.toString()));
+    const courtName = (await locationService.getLocationById(parseInt(metadata.locationId.toString()))).name;
 
     const listUrl = process.env.FRONTEND_URL + '/' + listTypes.get(metadata.listType)?.url + '?artefactId=' + artefactId;
     res.render('blob-view-json', {
