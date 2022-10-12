@@ -61,7 +61,6 @@ export class Nunjucks {
     env.addFilter('emailLink', function(x){ return this.env.filters.safe('<a class=govuk-link href="mailto:' + x + '">'+ x +'</a>');});
     // for phone numbers to display as links
     env.addFilter('phoneLink', function(x){return this.env.filters.safe('<a class=govuk-link href="tel:' + x + '">' + x + '</a>');});
-
     app.use((req, res, next) => {
       res.locals.pagePath = req.path;
       res.locals.lng = req['lng'];

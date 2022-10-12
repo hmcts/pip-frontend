@@ -1,0 +1,33 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+<div class="parent-box">
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+
+  <div id="section1">
+    <h2 class="govuk-heading-l">Another section here</h2>
+    <table class="govuk-table">
+      <tr>
+        <thead class="govuk-table__header"><th>Artefact Id</th><th>List Type</th></thead>
+      </tr>
+      {% for pub in list_of_pubs %}
+      <tr>
+        <td><a href="blob-view-json?artefactId={{ pub.artefactId }}">{{ pub.artefactId }}</td></td><td>{{ pub.listType }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  {{ super() }}
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+<div class="parent-box">
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+
+  <div id="section1">
+    <h2 class="govuk-heading-l">Choose a location to see all publications.</h2>
+    <table class="govuk-table">
+      <tr>
+        <thead class="govuk-table__header"><th>Location</th><th>Number of Publications</th></thead>
+      </tr>
+      {% for locName, locData in dic_of_locs %}
+      <tr>
+        <td><a href="blob-view-publications?locationId={{ locData[0] }}">{{ locName }}</a></td><td>{{ locData[1] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  {{ super() }}
+</div>
+{% endblock %}
