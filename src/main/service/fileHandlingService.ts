@@ -74,7 +74,7 @@ export class FileHandlingService {
    * @param originalFilename The filename before being sanatised.
    * @param sanatisedFileName The filename of the file to store.
    */
-  async storeFileIntoRedis(userId, originalFilename, sanitisedFileName) {
+  async storeFileIntoRedis(userId, originalFilename, sanitisedFileName, fileFormat = 'base64') {
     try {
       if (this.getFileExtension(sanitisedFileName) === 'json') {
         const rawData = fs.readFileSync(`./manualUpload/tmp/${originalFilename}`, 'utf-8');
@@ -82,7 +82,7 @@ export class FileHandlingService {
           this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
       } else {
         await redisClient.set(userId + '-' + sanitisedFileName, fs.readFileSync(`./manualUpload/tmp/${originalFilename}`,
-          {encoding: 'base64'}), this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
+          {encoding: fileFormat}), this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
       }
     } catch (err) {
       console.error(`Error while reading / storing the file in redis ${err}.`);
@@ -104,6 +104,11 @@ export class FileHandlingService {
     } else {
       return Buffer.from(fileData, 'base64');
     }
+  }
+
+  async readFileContentFromRedis(userId, fileName) {
+    const fileData = await redisClient.get(userId + '-' + fileName);
+    return fileData;
   }
 
   /**
