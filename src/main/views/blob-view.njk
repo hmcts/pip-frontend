@@ -1,0 +1,111 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+<div class="parent-box">
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+
+  <div id="section1">
+    <p class="govuk-body">{{ section1.text1 }} <a href="{{ section1.links[0].link }}">{{ section1.links[0].text }}</a></p>
+    <p class="govuk-body">{{ section1.text2 }}  {{ section1.text3 }}</p>
+    <p class="govuk-body">{{ section1.text4 }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      {% for item in section1.list %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+    <p class="govuk-body">{{ section1.text5 }}</p>
+    <p class="govuk-body"><a href="{{section1.links[1].link}}" target="_blank">{{section1.links[1].text}}</a> {{section1.text6}}</p>
+  </div>
+
+  <div id="section2">
+    <h2 class="govuk-heading-l">{{ section2.heading }}</h2>
+    <p class="govuk-body">{{ section2.upperText }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+    {% for item in section2.text %}
+      <li>{{ item }}</li>
+    {% endfor %}
+    </ul>
+  </div>
+
+  <div id="section3">
+    <h2 class="govuk-heading-m">{{ section3.heading }}</h2>
+    <p class="govuk-body">{{ section3.text1 }}</p>
+    <h3 class="govuk-heading-s">{{ ctscData.heading }}</h3>
+    <p class="govuk-body">{{ ctscData.phone }}</p>
+    <p class="govuk-body">{{ ctscData.openingHours }}</p>
+    <p class="govuk-body">{{ section3.text2 }}</p>
+  </div>
+
+  <div id="section4">
+    <h2 class="govuk-heading-m">{{ section4.heading }}</h2>
+    <p class="govuk-body">{{ section4.text1 }}</p>
+    <h3 class="govuk-heading-s">{{ ctscData.heading }}</h3>
+    <p class="govuk-body">{{ ctscData.phone }}</p>
+    <p class="govuk-body">{{ ctscData.openingHours }}</p>
+  </div>
+
+  <div id="section5">
+    <h2 class="govuk-heading-m">{{ section5.heading }}</h2>
+    <p class="govuk-body">{{ section5.text1 }} <a href="{{ section5.links[0].link }}" target="_blank">{{ section5.links[0].text }}</a> </p>
+  </div>
+
+  <div id="section6">
+    <h2 class="govuk-heading-m">{{ section6.heading }}</h2>
+    {% for item in section6.text %}
+      <p class="govuk-body">{{ item }}</p>
+    {% endfor %}
+  </div>
+
+  <div id="section7">
+    <h2 class="govuk-heading-m">{{ section7.heading }}</h2>
+    <p class="govuk-body">{{ section7.text1 }}</p>
+  </div>
+
+  <div id="section8">
+    <h2 class="govuk-heading-m">{{ section8.heading }}</h2>
+    <p class="govuk-body">{{ section8.text1 }} <a href="{{ section8.links[0].link }}">{{ section8.links[0].text }}</a> {{ section8.text2 }}</p>
+    <h2 class="govuk-heading-m">{{ section8.heading2 }}</h2>
+  </div>
+
+  <div id="section9">
+    <p class="govuk-body">{{ section9.preamble }}</p>
+    <h2 class="govuk-heading-s">{{ section9.subHeading }}</h2>
+    <ul class="govuk-list govuk-list--bullet">
+    {% for item in section9.text %}
+      <li>{{ item }}</li>
+    {% endfor %}
+    </ul>
+  </div>
+
+  <div id="section10">
+    <h2 class="govuk-heading-m">{{ section10.heading }}</h2>
+    {% for item in section10.text %}
+      <p class="govuk-body">{{ item }}</p>
+    {% endfor %}
+  </div>
+
+  <div id="section11">
+    <h2 class="govuk-heading-m">{{ section11.heading }}</h2>
+    <p class="govuk-body">{{ section11.text1 }}</p>
+    <p class="govuk-body">{{ section11.text2 }} <a href="{{ section11.links[0].link }}">{{ section11.links[0].text }}</a>{{ section11.text3 }} {{ section11.text6 }}</p>
+    <p class="govuk-body">{{ section11.text4 }}</p>
+    <h3 class="govuk-heading-s">{{ section11.smallHeading1 }}</h3>
+    <p class="govuk-body">{{ section11.text8 }}</p>
+    <h3 class="govuk-heading-s">{{ section11.smallHeading2 }}</h3>
+    <p class="govuk-body">{{ section11.text9 }}</p>
+    <h3 class="govuk-heading-s">{{ section11.smallHeading3 }}</h3>
+    <p class="govuk-body">{{ section11.text10 }}</p>
+  </div>
+  {{ super() }}
+</div>
+{% endblock %}

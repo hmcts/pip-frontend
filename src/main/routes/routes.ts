@@ -155,7 +155,7 @@ export default function(app: Application): void {
   app.post('/remove-list-search', isPermittedManualUpload, app.locals.container.cradle.removeListSearchController.post);
   app.get('/remove-list-search-results', isPermittedManualUpload, app.locals.container.cradle.removeListSearchResultsController.get);
   app.get('/remove-list-success', isPermittedManualUpload, app.locals.container.cradle.removeListSuccessController.get);
-
+  app.get('/blob-view', isPermittedSystemAdmin, app.locals.container.cradle.blobViewController.get);
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
       host: os.hostname(),
