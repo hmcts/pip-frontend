@@ -167,6 +167,22 @@ export class AccountManagementRequests {
     }
   }
 
+  public async getThirdPartyAccounts(): Promise<any> {
+    try {
+      const response = await accountManagementApi.get(`/account/third-party`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET third party users', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed to get third party user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get third party users', error.message);
+      }
+      return null;
+    }
+  }
+
   public async getPiUserByAzureOid(oid: string): Promise<any> {
     try {
       const response = await accountManagementApi.get(`/account/provenance/PI_AAD/${oid}`);

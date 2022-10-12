@@ -20,7 +20,8 @@ const locationService = new LocationService();
 export class SubscriptionService {
   async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
     const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
-    return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], locationSubscriptions: []};
+    return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], listTypeSubscriptions: [],
+      locationSubscriptions: []};
   }
 
   async generateCaseTableRows(subscriptionDataCases, language, languageFile): Promise<any[]> {
@@ -210,6 +211,15 @@ export class SubscriptionService {
         break;
     }
     return payload;
+  }
+
+  createThirdPartySubscription(listType, channel, userId): object {
+    return {
+      channel: channel,
+      searchType: 'LIST_TYPE',
+      searchValue: listType,
+      userId,
+    };
   }
 
   public async configureListTypeForLocationSubscriptions(userId, listType): Promise<boolean> {
