@@ -1,0 +1,52 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
+
+  {% if displayError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: error,
+          href: "#"
+        }
+      ]
+    }) }}
+  {% endif %}
+
+  <form method="post" enctype="multipart/form-data">
+    {% set fileErrorMessage = {text: errors.fileErrors} if errors.fileErrors else false %}
+    <p class="govuk-body" tabindex="0">{{ fileUploadText }}</p>
+    <p class="govuk-hint" tabindex="0">{{ recordDescription }}</p>
+    <p class="govuk-hint" tabindex="0">{{ headerDescription }}</p>
+    {{ govukFileUpload({
+      id: "bulk-account-upload",
+      name: "bulk-account-upload",
+      accept: ".csv",
+      errorMessage: {text: error}
+    }) }}
+    {{ submitButton(continueButton) }}
+  </form>
+{% endblock %}
+
+{% block bodyEnd %}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  {{ super() }}
+{% endblock %}

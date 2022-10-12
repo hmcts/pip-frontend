@@ -162,6 +162,12 @@ export default function(app: Application): void {
 
 
 
+  app.get('/bulk-create-media-account', app.locals.container.cradle.bulkCreateMediaAccountController.get);
+  app.post('/bulk-create-media-account', multer({storage: storage, limits: {fileSize: 2000000}}).single('bulk-account-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.bulkCreateMediaAccountController.post);
+  app.get('/bulk-create-media-account-confirmation', app.locals.container.cradle.bulkCreateMediaAccountConfirmationController.get);
+  app.post('/bulk-create-media-account-confirmation', app.locals.container.cradle.bulkCreateMediaAccountConfirmationController.post);
+  app.get('/bulk-create-media-account-confirmed', app.locals.container.cradle.bulkCreateMediaAccountConfirmedController.get);
+
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
       host: os.hostname(),

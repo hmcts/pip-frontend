@@ -1,0 +1,7 @@
+{
+  "title": "Are you sure you want to create these media accounts?",
+  "fileName": "File name",
+  "radioAnswers": ["Yes", "No"],
+  "noOptionError": "An option must be selected",
+  "accountCreationError": "Error creating the media accounts"
+}
