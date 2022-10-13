@@ -20,7 +20,7 @@ export default class PrimaryHealthListController {
 
     if (searchResults && metaData) {
 
-      const manipulatedData = primaryHealthListService.manipulateData(JSON.stringify(searchResults));
+      const manipulatedData = primaryHealthListService.manipulateData(JSON.stringify(searchResults), req.lng as string, listToLoad);
 
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);

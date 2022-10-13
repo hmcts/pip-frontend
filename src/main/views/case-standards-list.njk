@@ -82,7 +82,7 @@
           <tr class="govuk-table__row">
             <td class="govuk-table__cell">{{ courtCase['hearingDate'] }}</td>
             <td class="govuk-table__cell">{{ courtCase['caseName'] }}</td>
-            <td class="govuk-table__cell">{{ duration }} {{ courtCase['caseSequenceIndicator'] }}</td>
+            <td class="govuk-table__cell">{{ courtCase['formattedDuration'] }} {{ courtCase['caseSequenceIndicator'] }}</td>
             <td class="govuk-table__cell">{{ courtCase['hearingType'] }}</td>
             <td class="govuk-table__cell">{{ courtCase['venue'] | striptags(true) | escape | nl2br }} </td>
           </tr>

@@ -1,7 +1,9 @@
 import { DataManipulationService } from '../dataManipulationService';
 import moment from 'moment-timezone';
+import {DateTimeHelper} from '../../helpers/dateTimeHelper';
 
 const dataManipulationService = new DataManipulationService();
+const dateTimeHelper = new DateTimeHelper();
 
 /**
  * Service to manipulate the primary health list nunjucks template.
@@ -11,7 +13,7 @@ export class PrimaryHealthListService {
   /**
    * Method to manipulate the data and return an object of the formatted data.
    */
-  public manipulateData(stringList: string): object {
+  public manipulateData(stringList: string, language: string, languageFile: string): object {
     const listData = JSON.parse(stringList);
     const allData = [];
 
@@ -41,7 +43,7 @@ export class PrimaryHealthListService {
                 const caseSequenceIndicator = courtCase.caseSequenceIndicator;
 
                 allData.push(this.formatCase(hearingDate, caseName, durationAsDays, durationAsHours,
-                  durationAsMinutes, caseSequenceIndicator, hearingType, venueAddress));
+                  durationAsMinutes, caseSequenceIndicator, hearingType, venueAddress, language, languageFile));
               });
             });
           });
@@ -55,13 +57,15 @@ export class PrimaryHealthListService {
    * Format the data into an object, then pass back for further processing.
    */
   private formatCase(hearingDate, caseName, durationAsDays, durationAsHours, durationAsMinutes,
-    caseSequenceIndicator, hearingType, venue) {
+    caseSequenceIndicator, hearingType, venue, language, languageFile) {
     return {
       hearingDate: hearingDate,
       caseName: caseName,
       durationAsDays: durationAsDays,
       durationAsHours: durationAsHours,
       durationAsMinutes: durationAsMinutes,
+      formattedDuration: dateTimeHelper.formatDuration(durationAsDays as number,
+        durationAsHours as number, durationAsMinutes as number, language, languageFile),
       caseSequenceIndicator: caseSequenceIndicator,
       hearingType: hearingType,
       venue: venue,
