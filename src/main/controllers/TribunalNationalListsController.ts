@@ -3,14 +3,14 @@ import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { DataManipulationService } from '../service/dataManipulationService';
-import { PrimaryHealthListService } from '../service/listManipulation/primaryHealthListService';
+import { TribunalNationalListsService } from '../service/listManipulation/tribunalNationalListsService';
 import moment from 'moment';
 
 const publicationService = new PublicationService();
 const dataManipulationService = new DataManipulationService();
-const primaryHealthListService = new PrimaryHealthListService();
+const tribunalNationalListsService = new TribunalNationalListsService();
 
-export default class PrimaryHealthListController {
+export default class TribunalNationalListsController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const listToLoad = req.path.slice(1, req.path.length);
@@ -20,7 +20,7 @@ export default class PrimaryHealthListController {
 
     if (searchResults && metaData) {
 
-      const manipulatedData = primaryHealthListService.manipulateData(JSON.stringify(searchResults), req.lng as string, listToLoad);
+      const manipulatedData = tribunalNationalListsService.manipulateData(JSON.stringify(searchResults), req.lng as string, listToLoad);
 
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);

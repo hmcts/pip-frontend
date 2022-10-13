@@ -6,13 +6,13 @@ import { app } from '../../main/app';
 import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
-import { PrimaryHealthListService } from '../../main/service/listManipulation/primaryHealthListService';
+import { TribunalNationalListsService } from '../../main/service/listManipulation/tribunalNationalListsService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/careStandardsList.json'), 'utf-8');
 const careStandardsListData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(careStandardsListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(careStandardsListData);
-sinon.stub(PrimaryHealthListService.prototype, 'manipulateData').resolves(careStandardsListData);
+sinon.stub(TribunalNationalListsService.prototype, 'manipulateData').resolves(careStandardsListData);
 
 describe('Care Standards List List Page', () => {
   describe('on GET', () => {

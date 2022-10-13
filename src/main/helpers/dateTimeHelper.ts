@@ -7,8 +7,7 @@ export class DateTimeHelper {
   public formatDuration(days: number, hours: number, minutes: number, language: string, languageFile: string): string {
     if (days > 0) {
       return this.formatDurationTime(days, 'hearingDurationDay', language, languageFile);
-    }
-    else if (hours > 0 && minutes > 0) {
+    } else if (hours > 0 && minutes > 0) {
       return this.formatDurationTime(hours, 'hearingDurationHour', language, languageFile)
         + ' ' + this.formatDurationTime(minutes, 'hearingDurationMinute', language, languageFile);
     } else if (hours > 0 && minutes == 0) {

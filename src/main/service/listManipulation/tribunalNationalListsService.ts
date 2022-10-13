@@ -8,7 +8,7 @@ const dateTimeHelper = new DateTimeHelper();
 /**
  * Service to manipulate the primary health list nunjucks template.
  */
-export class PrimaryHealthListService {
+export class TribunalNationalListsService {
 
   /**
    * Method to manipulate the data and return an object of the formatted data.
