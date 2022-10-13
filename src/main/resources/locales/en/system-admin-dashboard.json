@@ -5,7 +5,7 @@
     {
       "title": "Reference Upload",
       "description": "Upload a CSV reference data file for locations",
-      "link": "reference-data-upload"
+      "link": "location-data-manual-upload"
     },
     {
       "title": "Bulk Media Upload",
