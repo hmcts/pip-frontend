@@ -4,6 +4,7 @@
     "shortenedFriendlyName": "SJP Public List",
     "url": "sjp-public-list",
     "jurisdictions": ["Single Justice Procedure"],
+    "welshJurisdictions": ["Gweithdrefn Un Ynad"],
     "restrictedProvenances":  []
   },
   "SJP_PRESS_LIST": {
@@ -11,6 +12,7 @@
     "shortenedFriendlyName": "SJP Press List",
     "url": "sjp-press-list",
     "jurisdictions": ["Single Justice Procedure"],
+    "welshJurisdictions": ["Gweithdrefn Un Ynad"],
     "restrictedProvenances":  ["PI_AAD"]
   },
   "SJP_PRESS_REGISTER": {
@@ -18,6 +20,7 @@
     "shortenedFriendlyName": "SJP Press Register",
     "url": "",
     "jurisdictions": ["Single Justice Procedure"],
+    "welshJurisdictions": ["Gweithdrefn Un Ynad"],
     "restrictedProvenances": ["PI_AAD"]
   },
   "CROWN_DAILY_LIST": {
@@ -25,6 +28,7 @@
     "shortenedFriendlyName": "Crown Daily List",
     "url": "crown-daily-list",
     "jurisdictions": ["Crown"],
+    "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
   },
   "CROWN_WARNED_LIST": {
@@ -32,6 +36,7 @@
     "shortenedFriendlyName": "Crown Warned List",
     "url": "",
     "jurisdictions": ["Crown"],
+    "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
   },
   "CROWN_FIRM_LIST": {
@@ -39,6 +44,7 @@
     "shortenedFriendlyName": "Crown Firm List",
     "url": "",
     "jurisdictions": ["Crown"],
+    "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
   },
   "MAGS_PUBLIC_LIST": {
@@ -46,6 +52,7 @@
     "shortenedFriendlyName": "Magistrates Public List",
     "url": "",
     "jurisdictions": ["Crown"],
+    "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
   },
   "MAGS_STANDARD_LIST": {
@@ -53,6 +60,7 @@
     "shortenedFriendlyName": "Magistrates Standard List",
     "url": "",
     "jurisdictions": ["Crown"],
+    "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
   },
   "CIVIL_DAILY_CAUSE_LIST": {
@@ -60,6 +68,7 @@
     "shortenedFriendlyName": "Civil Daily Cause List",
     "url": "daily-cause-list",
     "jurisdictions": ["Civil"],
+    "welshJurisdictions": ["Llys Sifil"],
     "restrictedProvenances":  []
   },
   "FAMILY_DAILY_CAUSE_LIST": {
@@ -67,6 +76,7 @@
     "shortenedFriendlyName": "Family Daily Cause List",
     "url": "family-daily-cause-list",
     "jurisdictions": ["Family"],
+    "welshJurisdictions": ["Llys Teulu"],
     "restrictedProvenances":  []
   },
   "CIVIL_AND_FAMILY_DAILY_CAUSE_LIST": {
@@ -74,6 +84,7 @@
     "shortenedFriendlyName": "Civil And Family Daily Cause List",
     "url": "civil-and-family-daily-cause-list",
     "jurisdictions": ["Civil", "Family"],
+    "welshJurisdictions": ["Llys Sifil", "Llys Teulu"],
     "restrictedProvenances":  []
   },
   "SSCS_DAILY_LIST": {
@@ -81,6 +92,7 @@
     "shortenedFriendlyName": "SSCS Daily List",
     "url": "sscs-daily-list",
     "jurisdictions": ["Social Security and Child Support"],
+    "welshJurisdictions": ["Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant"],
     "restrictedProvenances":  []
   },
   "COP_DAILY_CAUSE_LIST": {
@@ -88,6 +100,7 @@
     "shortenedFriendlyName": "COP Daily Cause List",
     "url": "cop-daily-cause-list",
     "jurisdictions": ["Civil"],
+    "welshJurisdictions": ["Llys Sifil"],
     "restrictedProvenances":  []
   },
   "ET_DAILY_LIST": {
@@ -103,6 +116,14 @@
     "friendlyName": "Immigration and Asylum Chamber Daily List",
     "shortenedFriendlyName": "IAC Daily List",
     "url": "iac-daily-list",
+    "jurisdictions": ["Tribunal"],
+    "welshJurisdictions": ["Tribiwnlys"],
+    "restrictedProvenances":  []
+  },
+  "PRIMARY_HEALTH_LIST": {
+    "friendlyName": "Primary Health Tribunal Hearing List",
+    "shortenedFriendlyName": "Primary Health Tribunal Hearing List",
+    "url": "primary-health-list",
     "jurisdictions": ["Tribunal"],
     "restrictedProvenances":  []
   }

@@ -56,7 +56,9 @@ describe('Subscription Configure List', () => {
   it('should contain body text', () => {
     const pageBodyText = htmlRes.getElementsByClassName('govuk-body');
     expect(pageBodyText[0].innerHTML)
-      .contains('Configure the lists you will receive for your selected courts and tribunals. This will not affect any specific cases you may have subscribed to. Also don\'t forget to come back regularly to see new list types as we add more.', 'Page body text does not exist');
+      .contains('Configure the lists you will receive for your selected courts and tribunals. This will not affect any specific cases you may have subscribed to. Also don\'t forget to come back regularly to see new list types as we add more.', 'Page first description text does not exist');
+    expect(pageBodyText[1].innerHTML)
+      .contains('If you un-select all hearing lists on this screen we will revert your subscriptions to default and you will receive all list types. If you want to stop receiving all lists or stop receiving lists from a particular court/tribunal please remove the subscriptions on the previous screen.', 'Page second description text does not exist');
   });
 
   it('should contain filter component', () => {
@@ -119,7 +121,7 @@ describe('Subscription Configure List', () => {
   it('should contain selections counter', () => {
     const selectionText = htmlRes.getElementsByClassName('govuk-body');
     const counter = htmlRes.getElementById('selectionCount');
-    expect(selectionText[1].innerHTML).contains('selected', 'Selection text does not exist');
+    expect(selectionText[2].innerHTML).contains('selected', 'Selection text does not exist');
     expect(counter.innerHTML).contains(0, 'Could not find counter value');
   });
 
