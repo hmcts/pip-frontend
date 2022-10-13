@@ -62,6 +62,7 @@ const languageFile = 'manual-upload';
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtData);
 sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(true);
 sinon.stub(DataManagementRequests.prototype, 'uploadJSONPublication').resolves(true);
+sinon.stub(DataManagementRequests.prototype, 'uploadLocationFile').resolves(true);
 
 describe('Manual upload service', () => {
   describe('building form data', () => {
@@ -244,6 +245,11 @@ describe('Manual upload service', () => {
 
   it('should upload a publication', async () => {
     const fileUpload = await manualUploadService.uploadPublication(headers, true);
+    expect(fileUpload).to.be.true;
+  });
+
+  it('should upload a location data file', async () => {
+    const fileUpload = await manualUploadService.uploadLocationDataPublication(headers);
     expect(fileUpload).to.be.true;
   });
 

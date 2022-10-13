@@ -5,12 +5,12 @@
     {
       "title": "Reference Upload",
       "description": "Upload a CSV reference data file for locations",
-      "link": "location-data-manual-upload"
+      "link": "reference-data-upload"
     },
     {
       "title": "Bulk Media Upload",
       "description": "Upload a CSV file for the upload of media users",
-      "link": "bulk-create-media-account"
+      "link": "bulk-media-upload"
     },
     {
       "title": "Extract Artefact Data",
@@ -23,9 +23,9 @@
       "link": "third-party-search"
     },
     {
-      "title": "Manage users",
-      "description": "View and manage user accounts",
-      "link": "manage-users"
+      "title": "Edit Accounts",
+      "description": "View and management accounts within the PI user table",
+      "link": "edit-accounts"
     }
   ]
 }

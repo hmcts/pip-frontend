@@ -1,4 +1,4 @@
-import {allowedFileTypes, allowedImageTypes} from '../models/consts';
+import {allowedFileTypes, allowedImageTypes, allowedLocationUploadFileTypes, uploadType} from '../models/consts';
 import fs from 'fs';
 import {LanguageFileParser} from '../helpers/languageFileParser';
 
@@ -13,7 +13,7 @@ export class FileHandlingService {
   validateImage(file: File, language: string, languageFile: string): string {
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (file) {
-      if (this.isValidFileType(file['originalname'], true)) {
+      if (this.isValidFileType(file['originalname'], uploadType.IMAGE)) {
         if (this.isFileCorrectSize(file.size)) {
           return null;
         }
@@ -24,10 +24,10 @@ export class FileHandlingService {
     return languageFileParser.getText(fileJson, 'imageUploadErrors', 'blank');
   }
 
-  validateFileUpload(file: File, language: string, languageFile: string): string {
+  validateFileUpload(file: File, language: string, languageFile: string, fileType: uploadType): string {
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (file) {
-      if (this.isValidFileType(file['originalname'], false)) {
+      if (this.isValidFileType(file['originalname'], fileType)) {
         if (this.isFileCorrectSize(file.size)) {
           return null;
         }
@@ -74,7 +74,7 @@ export class FileHandlingService {
    * @param originalFilename The filename before being sanatised.
    * @param sanatisedFileName The filename of the file to store.
    */
-  async storeFileIntoRedis(userId, originalFilename, sanitisedFileName) {
+  async storeFileIntoRedis(userId, originalFilename, sanitisedFileName, storeUtf8 = false) {
     try {
       if (this.getFileExtension(sanitisedFileName) === 'json') {
         const rawData = fs.readFileSync(`./manualUpload/tmp/${originalFilename}`, 'utf-8');
@@ -83,6 +83,11 @@ export class FileHandlingService {
       } else {
         await redisClient.set(userId + '-' + sanitisedFileName, fs.readFileSync(`./manualUpload/tmp/${originalFilename}`,
           {encoding: 'base64'}), this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
+
+        if (storeUtf8) {
+          redisClient.set(userId + '-' + sanitisedFileName + '-utf8', fs.readFileSync(`./manualUpload/tmp/${originalFilename}`,
+            {encoding: 'utf-8'}), this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
+        }
       }
     } catch (err) {
       console.error(`Error while reading / storing the file in redis ${err}.`);
@@ -106,6 +111,11 @@ export class FileHandlingService {
     }
   }
 
+  async readFileContentFromRedis(userId, fileName) {
+    const fileData = await redisClient.get(userId + '-' + fileName);
+    return fileData;
+  }
+
   /**
    * Removes a file from redis.
    * @param userId The user ID of the user who uploaded the file.
@@ -115,9 +125,26 @@ export class FileHandlingService {
     redisClient.del(userId + '-' + fileName);
   }
 
-  isValidFileType(fileName: string, image: boolean): boolean {
+  isValidFileType(fileName: string, type: uploadType): boolean {
     const fileType = fileName.slice((fileName.lastIndexOf('.') - 1 >>> 0) + 2).toLocaleLowerCase();
-    return image ? allowedImageTypes.includes(fileType) : allowedFileTypes.includes(fileType);
+
+    switch(type) {
+      case uploadType.IMAGE: {
+        return allowedImageTypes.includes(fileType);
+        break;
+      }
+      case uploadType.FILE: {
+        return allowedFileTypes.includes(fileType);
+        break;
+      }
+      case uploadType.LOCATION: {
+        return allowedLocationUploadFileTypes.includes(fileType);
+        break;
+      }
+      default:
+        return false;
+        break;
+    }
   }
 
   isFileCorrectSize(fileSize: number): boolean {
