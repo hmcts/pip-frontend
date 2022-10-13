@@ -2,6 +2,7 @@ import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {FileHandlingService} from '../service/fileHandlingService';
 import {cloneDeep} from 'lodash';
+import {uploadType} from "../models/consts";
 
 const fileHandlingService = new FileHandlingService();
 let formCookie;
@@ -19,7 +20,7 @@ export default class BulkCreateMediaAccountController {
 
   public async post(req: PipRequest, res: Response): Promise<void> {
     const formData = req.body;
-    const error = fileHandlingService.validateFileUpload(req.file, req.lng as string, 'bulk-create-media-account');
+    const error = fileHandlingService.validateFileUpload(req.file, req.lng as string, 'bulk-create-media-account', uploadType.FILE);
     if (error === null) {
       const originalFileName = req.file['originalname'];
       const sanitisedFileName = fileHandlingService.sanitiseFileName(originalFileName);
