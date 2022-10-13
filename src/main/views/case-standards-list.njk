@@ -45,40 +45,6 @@
         </thead>
         <tbody class="govuk-table__body">
         {% for courtCase in listData %}
-          {% set duration = '' %}
-          {% if courtCase['durationAsDays'] !== 0 %}
-            {% if courtCase['durationAsDays']  > 1 %}
-              {% set duration = courtCase['durationAsDays'] + ' ' + days %}
-            {% else %}
-              {% set duration = courtCase['durationAsDays'] + ' ' + day %}
-            {% endif %}
-          {% else %}
-            {% set durationAsHours = 0 %}
-            {% if courtCase['durationAsHours'] !== 0 %}
-              {% if courtCase['durationAsHours'] > 1 %}
-                {% set durationAsHours = courtCase['durationAsHours'] + ' ' + hours %}
-                {% elif courtCase['durationAsHours'] === 1 %}
-                {% set durationAsHours = courtCase['durationAsHours'] + ' ' + hour %}
-              {% endif %}
-            {% endif %}
-            {% set durationAsMinutes = 0 %}
-            {% if courtCase['durationAsMinutes'] !== 0 %}
-              {% if courtCase['durationAsMinutes'] > 1 %}
-                {% set durationAsMinutes = courtCase['durationAsMinutes'] + ' ' + mins %}
-                {% elif courtCase['durationAsMinutes'] === 1 %}
-                {% set durationAsMinutes = courtCase['durationAsMinutes'] + ' ' + min %}
-              {% endif %}
-            {% endif %}
-            {% if durationAsHours === 0 and durationAsMinutes === 0 %}
-              {% set duration = '' %}
-              {% elif durationAsHours !== 0 and durationAsMinutes !== 0 %}
-              {% set duration = durationAsHours + ' ' + durationAsMinutes %}
-              {% elif durationAsHours === 0 %}
-              {% set duration = durationAsMinutes %}
-              {% elif durationAsMinutes === 0 %}
-              {% set duration = durationAsHours %}
-            {% endif %}
-          {% endif %}
           <tr class="govuk-table__row">
             <td class="govuk-table__cell">{{ courtCase['hearingDate'] }}</td>
             <td class="govuk-table__cell">{{ courtCase['caseName'] }}</td>
