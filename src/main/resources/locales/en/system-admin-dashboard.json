@@ -1,0 +1,31 @@
+{
+  "title": "System Admin dashboard",
+  "heading": "System Dashboard",
+  "tiles": [
+    {
+      "title": "Reference Upload",
+      "description": "Upload a CSV reference data file for locations",
+      "link": "reference-data-upload"
+    },
+    {
+      "title": "Bulk Media Upload",
+      "description": "Upload a CSV file for the upload of media users",
+      "link": "bulk-media-upload"
+    },
+    {
+      "title": "Extract Artefact Data",
+      "description": "Extract data about an artefact",
+      "link": "extract-artefact"
+    },
+    {
+      "title": "Edit third party subscriptions",
+      "description": "Edit what third party subscribers are subscribed to",
+      "link": "third-party-search"
+    },
+    {
+      "title": "Edit Accounts",
+      "description": "View and management accounts within the PI user table",
+      "link": "edit-accounts"
+    }
+  ]
+}

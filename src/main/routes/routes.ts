@@ -10,6 +10,7 @@ import {
   isPermittedMediaAccount,
   isPermittedAccountCreation,
   isPermittedManualUpload,
+  //isPermittedSystemAdmin,
   forgotPasswordRedirect,
   mediaVerificationHandling,
   processAdminAccountSignIn,
@@ -161,6 +162,11 @@ export default function(app: Application): void {
   app.post('/remove-list-search', isPermittedManualUpload, app.locals.container.cradle.removeListSearchController.post);
   app.get('/remove-list-search-results', isPermittedManualUpload, app.locals.container.cradle.removeListSearchResultsController.get);
   app.get('/remove-list-success', isPermittedManualUpload, app.locals.container.cradle.removeListSuccessController.get);
+  //app.get('/system-admin-dashboard', isPermittedSystemAdmin, app.locals.container.cradle.systemAdminDashboardController.get);
+  app.get('/system-admin-dashboard', app.locals.container.cradle.systemAdminDashboardController.get);
+  app.get('/third-party-search', app.locals.container.cradle.thirdPartySearchController.get);
+  app.get('/third-party-edit', app.locals.container.cradle.thirdPartyEditController.get);
+  app.post('/third-party-edit', app.locals.container.cradle.thirdPartyEditController.post);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
