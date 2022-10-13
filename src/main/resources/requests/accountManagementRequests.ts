@@ -1,4 +1,8 @@
-import {accountManagementApi, accountManagementApiUrl, getAccountManagementCredentials} from './utils/axiosConfig';
+import {
+  accountManagementApi,
+  accountManagementApiUrl,
+  getAccountManagementCredentials,
+} from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
 import {MediaAccountApplication} from '../../models/MediaAccountApplication';
 import moment from 'moment-timezone';
@@ -49,6 +53,27 @@ export class AccountManagementRequests {
         logger.error('Failed to create admin P&I on request');
       } else {
         logger.error('Failed to create admin P&I with message');
+      }
+      return false;
+    }
+  }
+
+  public async bulkCreateMediaAccounts(file, filename, requester): Promise<boolean> {
+    try {
+      const token = await getAccountManagementCredentials();
+      await superagent.post(`${accountManagementApiUrl}/account/media-bulk-upload`)
+        .set('enctype', 'multipart/form-data')
+        .set({'Authorization': 'Bearer ' + token.access_token})
+        .set('x-issuer-id', requester)
+        .attach('mediaList', file, filename);
+      return true;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to bulk create media account on response');
+      } else if (error.request) {
+        logger.error('Failed to bulk create media account on request');
+      } else {
+        logger.error('Failed to bulk create media account with message');
       }
       return false;
     }
@@ -146,6 +171,22 @@ export class AccountManagementRequests {
     }
   }
 
+  public async getThirdPartyAccounts(): Promise<any> {
+    try {
+      const response = await accountManagementApi.get(`/account/third-party`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET third party users', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed to get third party user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get third party users', error.message);
+      }
+      return null;
+    }
+  }
+
   public async getPiUserByAzureOid(oid: string): Promise<any> {
     try {
       const response = await accountManagementApi.get(`/account/provenance/PI_AAD/${oid}`);
@@ -157,6 +198,38 @@ export class AccountManagementRequests {
         logger.error('Request failed for Pi user', error.request);
       } else {
         logger.error('Something went wrong trying to get the pi user from the oid', error.message);
+      }
+      return null;
+    }
+  }
+
+  public async getUserByRole(role: string): Promise<any> {
+    try {
+      const response = await accountManagementApi.get(`/account/role/${role}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET PI user request', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for Pi user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get the pi user from the oid', error.message);
+      }
+      return null;
+    }
+  }
+
+  public async getUserByUserId(userId: string): Promise<any> {
+    try {
+      const response = await accountManagementApi.get(`/account/${userId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET PI user request', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for Pi user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get the pi user from the user id', error.message);
       }
       return null;
     }
@@ -183,6 +256,22 @@ export class AccountManagementRequests {
         logger.error(errorMessage, error.request);
       } else {
         logger.error(errorMessage, error.message);
+      }
+      return null;
+    }
+  }
+
+  public async deleteUser(userId: string): Promise<object> {
+    try {
+      const response = await accountManagementApi.delete(`/account/delete/${userId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
       }
       return null;
     }

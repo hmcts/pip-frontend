@@ -227,6 +227,13 @@ export class CreateAccountService {
     };
   }
 
+  formatBulkCreateMediaAccounts(file): any {
+    return {
+      body: fs.readFileSync(file.path),
+      name: file.originalname,
+    }
+  }
+
   public async createAdminAccount(payload: object, requester: string): Promise<boolean> {
     const azureResponse = await accountManagementRequests.createAzureAccount(
       this.formatCreateAdminAccountPayload(payload), requester);
@@ -249,5 +256,9 @@ export class CreateAccountService {
 
   public async createMediaApplication(payload: object, file: File): Promise<boolean> {
     return await accountManagementRequests.createMediaAccount(this.formatCreateMediaAccount(payload, file));
+  }
+
+  public async bulkCreateMediaAccounts(file: any, filename: string, id: string):Promise<boolean> {
+    return await accountManagementRequests.bulkCreateMediaAccounts(file, filename, id);
   }
 }

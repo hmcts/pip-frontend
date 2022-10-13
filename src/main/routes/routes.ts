@@ -10,11 +10,11 @@ import {
   isPermittedMediaAccount,
   isPermittedAccountCreation,
   isPermittedManualUpload,
-  // isPermittedSystemAdmin,
   forgotPasswordRedirect,
   mediaVerificationHandling,
   processAdminAccountSignIn,
   processMediaAccountSignIn,
+  isPermittedSystemAdmin,
 } from '../authentication/authenticationHandler';
 import {SessionManagementService} from '../service/sessionManagementService';
 
@@ -103,6 +103,12 @@ export default function(app: Application): void {
   app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
   app.get('/primary-health-list', app.locals.container.cradle.primaryHealthListController.get);
 
+  app.get('/location-data-manual-upload', app.locals.container.cradle.locationDataManualUploadController.get);
+  app.post('/location-data-manual-upload', multer({storage: storage, limits: {fileSize: 2000000}}).single('location-data-manual-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.locationDataManualUploadController.post);
+  app.get('/location-data-manual-upload-summary', app.locals.container.cradle.locationDataManualUploadSummaryController.get);
+  app.post('/location-data-manual-upload-summary', app.locals.container.cradle.locationDataManualUploadSummaryController.post);
+  app.get('/location-data-upload-confirmation', app.locals.container.cradle.locationDataManualUploadConfirmationController.get);
+
   // Restricted paths
   app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
   app.get('/case-name-search', isPermittedMedia, app.locals.container.cradle.caseNameSearchController.get);
@@ -156,11 +162,24 @@ export default function(app: Application): void {
   app.post('/remove-list-search', isPermittedManualUpload, app.locals.container.cradle.removeListSearchController.post);
   app.get('/remove-list-search-results', isPermittedManualUpload, app.locals.container.cradle.removeListSearchResultsController.get);
   app.get('/remove-list-success', isPermittedManualUpload, app.locals.container.cradle.removeListSuccessController.get);
-  app.get('/blob-view-locations', app.locals.container.cradle.blobViewLocationController.get);
-  app.get('/blob-view-publications', app.locals.container.cradle.blobViewPublicationsController.get);
-  app.get('/blob-view-json', app.locals.container.cradle.blobViewJsonController.get);
-  //app.get('/system-admin-dashboard', isPermittedSystemAdmin, app.locals.container.cradle.systemAdminDashboardController.get);
-  app.get('/system-admin-dashboard', app.locals.container.cradle.systemAdminDashboardController.get);
+
+  // restricted system admin path
+  app.get('/system-admin-dashboard', isPermittedSystemAdmin, app.locals.container.cradle.systemAdminDashboardController.get);
+  app.get('/third-party-search', isPermittedSystemAdmin, app.locals.container.cradle.thirdPartySearchController.get);
+  app.get('/third-party-edit', isPermittedSystemAdmin, app.locals.container.cradle.thirdPartyEditController.get);
+  app.post('/third-party-edit', isPermittedSystemAdmin, app.locals.container.cradle.thirdPartyEditController.post);
+  app.get('/manage-users', isPermittedSystemAdmin, app.locals.container.cradle.manageUsersController.get);
+  app.get('/manage-user', isPermittedSystemAdmin, app.locals.container.cradle.manageUserController.get);
+  app.get('/delete-user', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserController.get);
+  app.post('/delete-user-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserConfirmationController.post);
+  app.get('/bulk-create-media-account', isPermittedSystemAdmin, app.locals.container.cradle.bulkCreateMediaAccountController.get);
+  app.post('/bulk-create-media-account', isPermittedSystemAdmin, multer({storage: storage, limits: {fileSize: 2000000}}).single('bulk-account-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.bulkCreateMediaAccountController.post);
+  app.get('/bulk-create-media-account-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.bulkCreateMediaAccountConfirmationController.get);
+  app.post('/bulk-create-media-account-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.bulkCreateMediaAccountConfirmationController.post);
+  app.get('/bulk-create-media-account-confirmed', isPermittedSystemAdmin, app.locals.container.cradle.bulkCreateMediaAccountConfirmedController.get);
+  app.get('/blob-view-locations', isPermittedSystemAdmin, app.locals.container.cradle.blobViewLocationController.get);
+  app.get('/blob-view-publications', isPermittedSystemAdmin, app.locals.container.cradle.blobViewPublicationsController.get);
+  app.get('/blob-view-json', isPermittedSystemAdmin, app.locals.container.cradle.blobViewJsonController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
