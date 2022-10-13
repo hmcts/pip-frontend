@@ -1,4 +1,8 @@
-import {accountManagementApi, accountManagementApiUrl, getAccountManagementCredentials} from './utils/axiosConfig';
+import {
+  accountManagementApi,
+  accountManagementApiUrl,
+  getAccountManagementCredentials,
+} from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
 import {MediaAccountApplication} from '../../models/MediaAccountApplication';
 import moment from 'moment-timezone';
@@ -162,6 +166,38 @@ export class AccountManagementRequests {
     }
   }
 
+  public async getUserByRole(role: string): Promise<any> {
+    try {
+      const response = await accountManagementApi.get(`/account/role/${role}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET PI user request', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for Pi user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get the pi user from the oid', error.message);
+      }
+      return null;
+    }
+  }
+
+  public async getUserByUserId(userId: string): Promise<any> {
+    try {
+      const response = await accountManagementApi.get(`/account/${userId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET PI user request', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for Pi user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get the pi user from the user id', error.message);
+      }
+      return null;
+    }
+  }
+
   public async updateMediaAccountVerification(oid: string): Promise<string> {
     return this.updateAccountDate(oid, 'lastVerifiedDate', 'Failed to verify media account');
   }
@@ -183,6 +219,22 @@ export class AccountManagementRequests {
         logger.error(errorMessage, error.request);
       } else {
         logger.error(errorMessage, error.message);
+      }
+      return null;
+    }
+  }
+
+  public async deleteUser(userId: string): Promise<object> {
+    try {
+      const response = await accountManagementApi.delete(`/account/delete/${userId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
       }
       return null;
     }

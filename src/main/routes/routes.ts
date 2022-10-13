@@ -10,7 +10,7 @@ import {
   isPermittedMediaAccount,
   isPermittedAccountCreation,
   isPermittedManualUpload,
-  //isPermittedSystemAdmin,
+  isPermittedSystemAdmin,
   forgotPasswordRedirect,
   mediaVerificationHandling,
   processAdminAccountSignIn,
@@ -156,11 +156,13 @@ export default function(app: Application): void {
   app.post('/remove-list-search', isPermittedManualUpload, app.locals.container.cradle.removeListSearchController.post);
   app.get('/remove-list-search-results', isPermittedManualUpload, app.locals.container.cradle.removeListSearchResultsController.get);
   app.get('/remove-list-success', isPermittedManualUpload, app.locals.container.cradle.removeListSuccessController.get);
-  //app.get('/system-admin-dashboard', isPermittedSystemAdmin, app.locals.container.cradle.systemAdminDashboardController.get);
-  app.get('/system-admin-dashboard', app.locals.container.cradle.systemAdminDashboardController.get);
+  app.get('/system-admin-dashboard', isPermittedSystemAdmin, app.locals.container.cradle.systemAdminDashboardController.get);
 
-
-
+  // New user manage endpoints for system admins
+  app.get('/manage-users', isPermittedSystemAdmin, app.locals.container.cradle.manageUsersController.get);
+  app.get('/manage-user', isPermittedSystemAdmin, app.locals.container.cradle.manageUserController.get);
+  app.get('/delete-user', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserController.get);
+  app.post('/delete-user-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserConfirmationController.post);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {

@@ -115,7 +115,7 @@ export async function processAdminAccountSignIn(req, res): Promise<any> {
     console.log(response);
 
     if (checkRoles(req, systemAdminRoles)) {
-      res.redirect('/system-admin-dashboard')
+      res.redirect('/system-admin-dashboard');
     } else {
       res.redirect('/admin-dashboard');
     }
