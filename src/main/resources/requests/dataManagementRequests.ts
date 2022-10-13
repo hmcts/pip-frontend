@@ -12,7 +12,7 @@ export class DataManagementRequests {
       await superagent.post(`${this.dataManagementAPI}/publication`)
         .set('enctype', 'multipart/form-data')
         .set({...headers, 'Authorization':  'Bearer ' + token.access_token})
-        .attach('file', body.file, body.fileName);
+        .attach('mediaList', body.file, body.fileName);
       return true;
     }
     catch (error) {

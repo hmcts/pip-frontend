@@ -10,7 +10,7 @@
     {
       "title": "Bulk Media Upload",
       "description": "Upload a CSV file for the upload of media users",
-      "link": "bulk-media-upload"
+      "link": "bulk-create-media-account"
     },
     {
       "title": "Extract Artefact Data",

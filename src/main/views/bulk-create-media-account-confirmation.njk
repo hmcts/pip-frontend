@@ -1,0 +1,105 @@
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+
+{% block content %}
+  {% if displayNoOptionError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: noOptionError,
+          href: "#"
+        }
+      ]
+
+    }) }}
+  {% endif %}
+  {% if displayAccountCreationError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: accountCreationError,
+          href: "#"
+        }
+      ]
+    }) }}
+  {% endif %}
+  <div class="parent-box">
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+    {% set tableRows = [] %}
+    {% for account in accounts %}
+      {% if account | length %}
+        {% set values = account.split(',') %}
+        {% set _ = tableRows.push([
+          { text: values[0] },
+          { text: values[1] },
+          { text: values[2] }
+        ]) %}
+      {% endif %}
+    {% endfor %}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        {{ govukTable({
+          head: [
+            { text: email },
+            { text: firstName },
+            { text: surname },
+            {
+              attributes: {
+                'aria-hidden': 'true'
+              }
+            }
+          ],
+          rows: tableRows
+        }) }}
+      </div>
+    </div>
+
+    <form method="post">
+      {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "confirmed",
+        name: "confirmed",
+        fieldset: {
+        },
+        items: [
+          {
+            id: 'yes',
+            value: radioAnswers[0],
+            text: radioAnswers[0]
+          },
+          {
+            id: 'no',
+            value: radioAnswers[1],
+            text: radioAnswers[1]
+          }
+        ]
+      }) }}
+      {{ submitButton(continueButton) }}
+    </form>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+{% endblock %}

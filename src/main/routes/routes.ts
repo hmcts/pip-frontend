@@ -10,11 +10,11 @@ import {
   isPermittedMediaAccount,
   isPermittedAccountCreation,
   isPermittedManualUpload,
-  //isPermittedSystemAdmin,
   forgotPasswordRedirect,
   mediaVerificationHandling,
   processAdminAccountSignIn,
   processMediaAccountSignIn,
+  isPermittedSystemAdmin,
 } from '../authentication/authenticationHandler';
 import {SessionManagementService} from '../service/sessionManagementService';
 
@@ -162,11 +162,19 @@ export default function(app: Application): void {
   app.post('/remove-list-search', isPermittedManualUpload, app.locals.container.cradle.removeListSearchController.post);
   app.get('/remove-list-search-results', isPermittedManualUpload, app.locals.container.cradle.removeListSearchResultsController.get);
   app.get('/remove-list-success', isPermittedManualUpload, app.locals.container.cradle.removeListSuccessController.get);
+
+  // restricted system admin path
   //app.get('/system-admin-dashboard', isPermittedSystemAdmin, app.locals.container.cradle.systemAdminDashboardController.get);
   app.get('/system-admin-dashboard', app.locals.container.cradle.systemAdminDashboardController.get);
   app.get('/third-party-search', app.locals.container.cradle.thirdPartySearchController.get);
   app.get('/third-party-edit', app.locals.container.cradle.thirdPartyEditController.get);
   app.post('/third-party-edit', app.locals.container.cradle.thirdPartyEditController.post);
+
+  app.get('/bulk-create-media-account', isPermittedSystemAdmin, app.locals.container.cradle.bulkCreateMediaAccountController.get);
+  app.post('/bulk-create-media-account', isPermittedSystemAdmin, multer({storage: storage, limits: {fileSize: 2000000}}).single('bulk-account-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.bulkCreateMediaAccountController.post);
+  app.get('/bulk-create-media-account-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.bulkCreateMediaAccountConfirmationController.get);
+  app.post('/bulk-create-media-account-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.bulkCreateMediaAccountConfirmationController.post);
+  app.get('/bulk-create-media-account-confirmed', isPermittedSystemAdmin, app.locals.container.cradle.bulkCreateMediaAccountConfirmedController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
