@@ -10,7 +10,7 @@ const fileHandlingService = new FileHandlingService();
 export default class BulkCreateMediaAccountConfirmationController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const formData = (req.cookies?.formCookie) ? JSON.parse(req.cookies['formCookie']) : {};
-    const filename = formData['uploadFileName'];
+    const filename = formData['uploadFileName'] + '-utf8';
     const fileContent = await fileHandlingService.readFileContentFromRedis(req.user['oid'], filename);
     const accounts = fileContent.split(/\r?\n/).slice(1);
 
@@ -24,7 +24,7 @@ export default class BulkCreateMediaAccountConfirmationController {
     const confirmed = req.body['confirmed'];
     const formData = (req.cookies?.formCookie) ? JSON.parse(req.cookies['formCookie']) : {};
     const filename = formData.uploadFileName;
-    const fileContent = await fileHandlingService.readFileContentFromRedis(req.user['oid'], filename);
+    const fileContent = await fileHandlingService.readFileContentFromRedis(req.user['oid'], filename + '-utf8');
     const accounts = fileContent.split(/\r?\n/).slice(1);
 
     if (!confirmed) {
