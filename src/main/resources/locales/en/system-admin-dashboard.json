@@ -3,23 +3,23 @@
   "heading": "System Dashboard",
   "tiles": [
     {
-      "title": "Reference Upload",
-      "description": "Upload a CSV reference data file for locations",
+      "title": "Upload Reference Data",
+      "description": "Upload CSV location reference data",
       "link": "location-data-manual-upload"
     },
     {
-      "title": "Bulk Media Upload",
-      "description": "Upload a CSV file for the upload of media users",
+      "title": "Bulk Create Media Accounts",
+      "description": "Upload a CSV file for bulk creation of media accounts",
       "link": "bulk-create-media-account"
     },
     {
-      "title": "Extract Artefact Data",
-      "description": "Extract data about an artefact",
-      "link": "extract-artefact"
+      "title": "Blob Explorer",
+      "description": "Investigate Blob Issues",
+      "link": "blob-view-locations"
     },
     {
-      "title": "Edit third party subscriptions",
-      "description": "Edit what third party subscribers are subscribed to",
+      "title": "Manage Third-Party Subscriptions",
+      "description": "View and edit third-party subscription attributes",
       "link": "third-party-search"
     },
     {
