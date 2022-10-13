@@ -12,7 +12,9 @@ export default class SubscriptionConfigureListController {
 
     const listTypes = await subscriptionService.generateListTypesForCourts(req.user['piUserId'],
       req.user['piUserProvenance'],
-      req.query?.filterValues as string, req.query?.clear as string);
+      req.query?.filterValues as string,
+      req.query?.clear as string,
+      req.lng as string);
 
     res.render('subscription-configure-list', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-configure-list']),
