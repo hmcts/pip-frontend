@@ -9,6 +9,10 @@ export const allowedFileTypes = [
   'xlsx',
 ];
 
+export const allowedLocationUploadFileTypes = [
+  'csv',
+];
+
 export const allowedImageTypes = [
   'jpg',
   'jpeg',
@@ -29,3 +33,9 @@ export const partyRoleMappings = {
   'RESPONDENT': ['DEBT', 'DEF', 'DEF20', 'RES'],
   'RESPONDENT_REPRESENTATIVE': ['DREP', 'DREP20', 'RREP'],
 };
+
+export enum uploadType {
+  IMAGE,
+  FILE ,
+  LOCATION,
+}

@@ -102,6 +102,12 @@ export default function(app: Application): void {
   app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
   app.get('/primary-health-list', app.locals.container.cradle.primaryHealthListController.get);
 
+  app.get('/location-data-manual-upload', app.locals.container.cradle.locationDataManualUploadController.get);
+  app.post('/location-data-manual-upload', multer({storage: storage, limits: {fileSize: 2000000}}).single('location-data-manual-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.locationDataManualUploadController.post);
+  app.get('/location-data-manual-upload-summary', app.locals.container.cradle.locationDataManualUploadSummaryController.get);
+  app.post('/location-data-manual-upload-summary', app.locals.container.cradle.locationDataManualUploadSummaryController.post);
+  app.get('/location-data-upload-confirmation', app.locals.container.cradle.locationDataManualUploadConfirmationController.get);
+
   // Restricted paths
   app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
   app.get('/case-name-search', isPermittedMedia, app.locals.container.cradle.caseNameSearchController.get);

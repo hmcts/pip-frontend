@@ -1,0 +1,12 @@
+{
+  "title": "Location Data Manual Upload Summary",
+  "header": "Check upload details",
+  "actionName": "Change",
+  "fileKey": "File",
+  "documentTypeKey": "Document name",
+  "confirmButton": "Confirm",
+  "error": {
+    "title": "There is a problem",
+    "message": "Unable to upload location data file, please verify that provided fields are correct"
+  }
+}
