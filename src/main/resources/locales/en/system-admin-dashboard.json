@@ -26,6 +26,11 @@
       "title": "Manage users",
       "description": "View and manage user accounts",
       "link": "manage-users"
+    },
+    {
+      "title": "Create Admin Accounts",
+      "description": "Create new admin accounts",
+      "link": "create-admin-account"
     }
   ]
 }
