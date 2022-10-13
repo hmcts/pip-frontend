@@ -18,10 +18,18 @@ export class LocationRequests {
     return null;
   }
 
-  public async getPubsPerLocation(): Promise<string> {
+  public async getPubsPerLocation(): Promise<Map<number, number>> {
     try {
-      const response = await dataManagementApi.get('/count/artefact-by-location');
-      return response.data;
+      const response = await dataManagementApi.get('/publication/count/artefact-by-location');
+      const splitresp = response.data.split('\n').slice(1, -1);
+      const map = new Map();
+      splitresp.forEach(line => {
+        const commasep = line.split(',');
+        map.set(parseInt(commasep[0]), parseInt(commasep[1]));
+      });
+      return map;
+
+      // return response.data;
     } catch (error) {
       if (error.response) {
         console.log(error.response.data);

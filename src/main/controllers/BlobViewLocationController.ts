@@ -2,22 +2,20 @@ import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {cloneDeep} from 'lodash';
 import {LocationService} from '../service/locationService';
-import {SummaryOfPublicationsService} from '../service/summaryOfPublicationsService';
 
-const summaryOfPubsService = new SummaryOfPublicationsService();
 const locationService = new LocationService();
 export default class BlobViewLocationController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const list_of_locs = await locationService.fetchAllLocations(req.lng);
     const counts = await locationService.getCountsOfPubsPerLocation();
-    console.log(counts)
+    console.log(counts);
     const dic_of_locs = new Map();
     for (const loc of list_of_locs) {
       dic_of_locs.set(
         loc.name,
-        // [loc.locationId, ]
-        [loc.locationId, (await summaryOfPubsService.getPublications(parseInt(loc.locationId.toString()), req.user?.['piUserId'])).length],
+        [loc.locationId, counts.get(loc.locationId)],
+        // [loc.locationId, (await summaryOfPubsService.getPublications(parseInt(loc.locationId.toString()), req.user?.['piUserId'])).length],
       );
     }
     res.render('blob-view-locations', {

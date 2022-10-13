@@ -11,7 +11,7 @@ export class LocationService {
     return courtsList.sort((a, b) => (a.name > b.name) ? 1 : -1);
   }
 
-  public async getCountsOfPubsPerLocation(): Promise<string> {
+  public async getCountsOfPubsPerLocation(): Promise<Map<number, number>> {
     return locationRequest.getPubsPerLocation();
   }
 
