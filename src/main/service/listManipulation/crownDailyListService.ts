@@ -27,7 +27,7 @@ export class CrownDailyListService {
     return crownDailyListData;
   }
 
-  private findAndManipulatePartyInformation(hearing: any, initialised= false): void {
+  private findAndManipulatePartyInformation(hearing: any): void {
     let prosecutingAuthority = '';
     let defendant = '';
     if(hearing?.party) {
@@ -53,7 +53,7 @@ export class CrownDailyListService {
   }
 
   /**
-   * Format a set of individuals details. If the first letter of forename should be initialised, pass in true.
+   * Format a set of individuals details.
    * @param individualDetails
    * @param initialised
    */
@@ -63,10 +63,10 @@ export class CrownDailyListService {
     const middleName = dataManipulationService.writeStringIfValid(individualDetails?.individualMiddleName);
     const surname = dataManipulationService.writeStringIfValid(individualDetails?.individualSurname).toUpperCase();
 
-     return title + (title.length > 0 ? ' ' : '')
-       + surname + ((forenames.length > 0 || middleName.length > 0) ? ', ' : '')
-       + forenames + (forenames.length > 0 ? ' ' : '')
-       + middleName;
+    return title + (title.length > 0 ? ' ' : '')
+      + surname + ((forenames.length > 0 || middleName.length > 0) ? ', ' : '')
+      + forenames + (forenames.length > 0 ? ' ' : '')
+      + middleName;
   }
 
   private formatCaseTime(sitting: object, format: string): void {

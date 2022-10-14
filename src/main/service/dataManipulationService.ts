@@ -288,7 +288,6 @@ export class DataManipulationService {
    */
   private createIndividualDetails(individualDetails: any, initialised = false): string {
 
-
     const title = this.writeStringIfValid(individualDetails?.title);
     const forenames = this.writeStringIfValid(individualDetails?.individualForenames);
     const forenameInitial = forenames.charAt(0);
@@ -296,15 +295,15 @@ export class DataManipulationService {
     const surname = this.writeStringIfValid(individualDetails?.individualSurname);
 
     if(initialised) {
-        return title + (title.length > 0 ? ' ' : '')
-          + forenameInitial + (forenameInitial.length > 0 ? '. ' : '')
-          + surname;
+      return title + (title.length > 0 ? ' ' : '')
+        + forenameInitial + (forenameInitial.length > 0 ? '. ' : '')
+        + surname;
     }
     else {
-        return title + (title.length > 0 ? ' ' : '')
-          + forenames + (forenames.length > 0 ? ' ' : '')
-          + middleName + (middleName.length > 0 ? ' ' : '')
-          + surname;
+      return title + (title.length > 0 ? ' ' : '')
+        + forenames + (forenames.length > 0 ? ' ' : '')
+        + middleName + (middleName.length > 0 ? ' ' : '')
+        + surname;
     }
   }
 
