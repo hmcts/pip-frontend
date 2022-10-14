@@ -39,6 +39,10 @@ export default function(app: Application): void {
   };
 
   function globalAuthGiver(req, res, next): void{
+    if(sessionManagement.handleSessionExpiry(req, res)) {
+      return;
+    }
+
     //this function allows us to share authentication status across all views
     res.locals.isAuthenticated = req.isAuthenticated();
     next();

@@ -91,4 +91,78 @@ describe('Test logout', () => {
     expect(req.session).to.be.null;
     responseMock.verify();
   });
+
+  describe('Test admin session expiry', () => {
+    const now = Date.now();
+
+    it('check returns true when session expired', () => {
+      const responseMock = sinon.mock(res);
+      responseMock.expects('redirect').once().withArgs(adminLogOutUrl);
+
+      const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpires': new Date(now - 10000)}, 'lng': 'en'};
+      expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
+      expect(req.session).to.be.null;
+      responseMock.verify();
+    });
+
+    it('check returns false when session is not expired', () => {
+      const responseMock = sinon.mock(res);
+      responseMock.expects('redirect').never();
+
+      const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpires': new Date(now + 100000)}, 'lng': 'en'};
+      expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
+      responseMock.verify();
+    });
+
+    it('check returns false when the session expires value is missing', () => {
+      const responseMock = sinon.mock(res);
+      responseMock.expects('redirect').never();
+
+      const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {}, 'lng': 'en'};
+      expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
+      responseMock.verify();
+    });
+
+  });
+
+  describe('Test media user session expiry', () => {
+    const now = Date.now();
+
+    it('check returns true when session expired', () => {
+      const responseMock = sinon.mock(res);
+      responseMock.expects('redirect').once().withArgs(mediaLogOutUrl);
+
+      const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {'sessionExpires': new Date(now - 10000)}, 'lng': 'en'};
+      expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
+      expect(req.session).to.be.null;
+      responseMock.verify();
+    });
+
+    it('check returns false when session is not expired', () => {
+      const responseMock = sinon.mock(res);
+      responseMock.expects('redirect').never();
+
+      const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {'sessionExpires': new Date(now + 100000)}, 'lng': 'en'};
+      expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
+      responseMock.verify();
+    });
+
+    it('check returns false when the session expires value is missing', () => {
+      const responseMock = sinon.mock(res);
+      responseMock.expects('redirect').never();
+
+      const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {}, 'lng': 'en'};
+      expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
+      responseMock.verify();
+    });
+
+    it('check returns false when no user details', () => {
+      const responseMock = sinon.mock(res);
+      responseMock.expects('redirect').never();
+
+      const req = {'session': {'sessionExpires': new Date(now - 10000)}, 'lng': 'en'};
+      expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
+      responseMock.verify();
+    });
+  });
 });

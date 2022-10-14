@@ -1,7 +1,9 @@
+import moment from 'moment';
 import {allAdminRoles, checkRoles} from '../authentication/authenticationHandler';
 import {B2C_ADMIN_URL, B2C_URL, FRONTEND_URL} from '../helpers/envUrls';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
+const defaultSessionExpiry = 60 * 60 * 1000;
 
 export class SessionManagementService {
   public logOut(req, res, adminWrongFlow, isSessionExpired = false): void {
@@ -9,6 +11,33 @@ export class SessionManagementService {
     req.session = null;
     res.clearCookie('session');
     res.redirect(this.logOutUrl(checkRoles(req, allAdminRoles), adminWrongFlow, isSessionExpired, req.lng));
+  }
+
+  public handleSessionExpiry(req, res): boolean {
+    if(this.isSessionExpired(req)) {
+      this.logOut(req, res, false);
+      return true;
+    }
+    return false;
+  }
+
+  private isSessionExpired(req): boolean {
+    if (req.user === undefined) {
+      return false;
+    }
+
+    if(req.session.sessionExpires) {
+      const sessionExpiryDateTime = moment.utc(req.session.sessionExpires);
+      const currentDateTime = moment.utc(new Date(Date.now()));
+      const durationAsSeconds = moment.duration(sessionExpiryDateTime.startOf('seconds').diff(currentDateTime.startOf('seconds'))).asSeconds();
+      if(durationAsSeconds <= 0) {
+        return true;
+      }
+    }
+
+    const sessionExpiry = checkRoles(req, allAdminRoles) ? 4 * defaultSessionExpiry : defaultSessionExpiry;
+    req.session.sessionExpires = new Date(Date.now() + sessionExpiry);
+    return false;
   }
 
   private logOutUrl(isAdmin: boolean, adminWrongFlow: boolean, isSessionExpired: boolean, language: string): string {
