@@ -1,4 +1,4 @@
-import {partyRoleMappings} from '../models/consts';
+import {partyRoleMappings, toUpperCase} from '../models/consts';
 import moment from 'moment-timezone';
 
 export class DataManipulationService {
@@ -201,7 +201,9 @@ export class DataManipulationService {
    * @param hearing
    * @param initialised
    */
-  private findAndManipulatePartyInformation(hearing: any, initialised= false): void {
+  public findAndManipulatePartyInformation(hearing: any, initialised= false,
+                                           orderBySurnameThenFirstname = false,
+                                           changeStringCase = toUpperCase.NONE): void {
     let applicant = '';
     let appellant = '';
     let respondent = '';
@@ -257,13 +259,13 @@ export class DataManipulationService {
           }
           case 'PROSECUTING_AUTHORITY':
           {
-            prosecutingAuthority += this.createIndividualDetails(party.individualDetails).trim();
+            prosecutingAuthority += this.createIndividualDetails(party.individualDetails, initialised, orderBySurnameThenFirstname, changeStringCase).trim();
             prosecutingAuthority += this.stringDelimiter(prosecutingAuthority?.length, ',');
             break;
           }
           case 'DEFENDANT':
           {
-            defendant += this.createIndividualDetails(party.individualDetails).trim();
+            defendant += this.createIndividualDetails(party.individualDetails, initialised, orderBySurnameThenFirstname, changeStringCase).trim();
             defendant += this.stringDelimiter(defendant?.length, ',');
             break;
           }
@@ -286,22 +288,43 @@ export class DataManipulationService {
    * @param individualDetails
    * @param initialised
    */
-  private createIndividualDetails(individualDetails: any, initialised = false): string {
-    const title = this.writeStringIfValid(individualDetails?.title);
-    const forenames = this.writeStringIfValid(individualDetails?.individualForenames);
-    const forenameInitial = forenames.charAt(0);
-    const middleName = this.writeStringIfValid(individualDetails?.individualMiddleName);
-    const surname = this.writeStringIfValid(individualDetails?.individualSurname);
+  private createIndividualDetails(individualDetails: any, initialised = false,
+                                  orderBySurnameThenFirstname = false,
+                                  changeStringCase = toUpperCase.NONE): string {
+    const title = (changeStringCase === toUpperCase.TITLE ? this.writeStringIfValid(individualDetails?.title).toUpperCase()
+      : this.writeStringIfValid(individualDetails?.title));
+    const forenames = (changeStringCase === toUpperCase.FIRSTNAME ? this.writeStringIfValid(individualDetails?.individualForenames).toUpperCase()
+      : this.writeStringIfValid(individualDetails?.individualForenames));
+    const forenameInitial = (changeStringCase === toUpperCase.FIRSTNAME ? forenames.charAt(0).toUpperCase()
+      : forenames.charAt(0));
+    const middleName = (changeStringCase === toUpperCase.MIDDLENAME ? this.writeStringIfValid(individualDetails?.individualMiddleName).toUpperCase()
+      : this.writeStringIfValid(individualDetails?.individualMiddleName));
+    const surname = (changeStringCase === toUpperCase.SURNAME ? this.writeStringIfValid(individualDetails?.individualSurname).toUpperCase()
+      : this.writeStringIfValid(individualDetails?.individualSurname));
+
     if(initialised) {
-      return title + (title.length > 0 ? ' ' : '')
-        + forenameInitial + (forenameInitial.length > 0 ? '. ' : '')
-        + surname;
+      if(!orderBySurnameThenFirstname) {
+        return title + (title.length > 0 ? ' ' : '')
+          + forenameInitial + (forenameInitial.length > 0 ? '. ' : '')
+          + surname;
+      } else {
+        return title + (title.length > 0 ? ' ' : '')
+          + surname + (surname.length > 0 ? '. ' : '')
+          + forenameInitial;
+      }
     }
     else {
-      return title + (title.length > 0 ? ' ' : '')
-        + forenames + (forenames.length > 0 ? ' ' : '')
-        + middleName + (middleName.length > 0 ? ' ' : '')
-        + surname;
+      if(!orderBySurnameThenFirstname) {
+        return title + (title.length > 0 ? ' ' : '')
+          + forenames + (forenames.length > 0 ? ' ' : '')
+          + middleName + (middleName.length > 0 ? ' ' : '')
+          + surname;
+      } else {
+        return title + (title.length > 0 ? ' ' : '')
+          + surname + (surname.length > 0 ? ' ' : '')
+          + forenames + (forenames.length > 0 ? ' ' : '')
+          + middleName;
+      }
     }
   }
 

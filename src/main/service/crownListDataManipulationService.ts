@@ -1,6 +1,7 @@
 import moment from 'moment-timezone';
 import {DataManipulationService} from './dataManipulationService';
 import {DateTimeHelper} from '../helpers/dateTimeHelper';
+import {toUpperCase} from "../models/consts";
 
 const dataManipulationService = new DataManipulationService();
 const dateTimeHelper = new DateTimeHelper();
@@ -16,6 +17,7 @@ export class CrownListDataManipulationService {
             sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsHours'] as number,
                                       sitting['durationAsMinutes'] as number, language, languageFile);
             sitting['hearing'].forEach(hearing => {
+              dataManipulationService.findAndManipulatePartyInformation(hearing, false, true, toUpperCase.SURNAME);
               this.findLinkedCasesInformation(hearing);
             });
           });
