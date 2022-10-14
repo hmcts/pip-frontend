@@ -1,12 +1,11 @@
 import moment from 'moment-timezone';
-import {DataManipulationService} from './dataManipulationService';
-import {DateTimeHelper} from '../helpers/dateTimeHelper';
-import {toUpperCase} from "../models/consts";
+import {DataManipulationService} from '../dataManipulationService';
+import {DateTimeHelper} from '../../helpers/dateTimeHelper';
 
 const dataManipulationService = new DataManipulationService();
 const dateTimeHelper = new DateTimeHelper();
 
-export class CrownListDataManipulationService {
+export class CrownDailyListService {
   public manipulatedCrownDailyListData(dailyCauseList: string, language: string, languageFile: string): object {
     const crownDailyListData = JSON.parse(dailyCauseList);
     crownDailyListData['courtLists'].forEach(courtList => {
@@ -17,7 +16,7 @@ export class CrownListDataManipulationService {
             sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsHours'] as number,
                                       sitting['durationAsMinutes'] as number, language, languageFile);
             sitting['hearing'].forEach(hearing => {
-              dataManipulationService.findAndManipulatePartyInformation(hearing, false, true, toUpperCase.SURNAME);
+              this.findAndManipulatePartyInformation(hearing);
               this.findLinkedCasesInformation(hearing);
             });
           });
@@ -26,6 +25,48 @@ export class CrownListDataManipulationService {
     });
 
     return crownDailyListData;
+  }
+
+  private findAndManipulatePartyInformation(hearing: any, initialised= false): void {
+    let prosecutingAuthority = '';
+    let defendant = '';
+    if(hearing?.party) {
+      hearing.party.forEach(party => {
+        switch(DataManipulationService.convertPartyRole(party.partyRole)) {
+          case 'PROSECUTING_AUTHORITY':
+          {
+            prosecutingAuthority += this.createIndividualDetails(party.individualDetails).trim();
+            prosecutingAuthority += dataManipulationService.stringDelimiter(prosecutingAuthority?.length, ',');
+            break;
+          }
+          case 'DEFENDANT':
+          {
+            defendant += this.createIndividualDetails(party.individualDetails).trim();
+            defendant += dataManipulationService.stringDelimiter(defendant?.length, ',');
+            break;
+          }
+        }
+      });
+      hearing['prosecutingAuthority'] = prosecutingAuthority?.replace(/,\s*$/, '').trim();
+      hearing['defendant'] = defendant?.replace(/,\s*$/, '').trim();
+    }
+  }
+
+  /**
+   * Format a set of individuals details. If the first letter of forename should be initialised, pass in true.
+   * @param individualDetails
+   * @param initialised
+   */
+  private createIndividualDetails(individualDetails: any): string {
+    const title = dataManipulationService.writeStringIfValid(individualDetails?.title);
+    const forenames = dataManipulationService.writeStringIfValid(individualDetails?.individualForenames);
+    const middleName = dataManipulationService.writeStringIfValid(individualDetails?.individualMiddleName);
+    const surname = dataManipulationService.writeStringIfValid(individualDetails?.individualSurname).toUpperCase();
+
+     return title + (title.length > 0 ? ' ' : '')
+       + surname + ((forenames.length > 0 || middleName.length > 0) ? ', ' : '')
+       + forenames + (forenames.length > 0 ? ' ' : '')
+       + middleName;
   }
 
   private formatCaseTime(sitting: object, format: string): void {

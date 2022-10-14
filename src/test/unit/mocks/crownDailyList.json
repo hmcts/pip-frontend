@@ -80,13 +80,15 @@
                           {
                             "partyRole":"PROSECUTING_AUTHORITY",
                             "individualDetails":{
-                              "individualSurname":"PROSECUTING_AUTHORITY"
+                              "individualForenames":"Pro_Auth_FN",
+                              "individualSurname":"Pro_Auth_SN"
                             }
                           },
                           {
                             "partyRole":"DEFENDANT",
                             "individualDetails":{
-                              "individualSurname":"DEFENDANT"
+                              "individualForenames":"Defendant_FN",
+                              "individualSurname":"Defendant_SN"
                             }
                           }
                         ],

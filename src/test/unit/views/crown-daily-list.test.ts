@@ -106,7 +106,7 @@ describe('Crown daily List page', () => {
 
   it('should display Prosecuting Authority',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[5].innerHTML).contains('PROSECUTING_AUTHORITY');
+    expect(cell[5].innerHTML).contains('PRO_AUTH_SN, Pro_Auth_FN');
   });
 
   it('should display the to be allocated for unallocated case section',  () => {

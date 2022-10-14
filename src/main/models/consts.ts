@@ -31,11 +31,3 @@ export const partyRoleMappings = {
   'PROSECUTING_AUTHORITY': [],
   'DEFENDANT': [],
 };
-
-export enum toUpperCase {
-  NONE,
-  TITLE,
-  FIRSTNAME,
-  MIDDLENAME ,
-  SURNAME,
-}
