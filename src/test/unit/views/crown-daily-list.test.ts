@@ -80,7 +80,7 @@ describe('Crown daily List page', () => {
 
   it('should display Defendant Name',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[2].innerHTML).contains('DEFENDANT');
+    expect(cell[2].innerHTML).contains('Defendant_SN, Defendant_FN');
   });
 
   it('should display Hearing Type',  () => {
@@ -106,7 +106,7 @@ describe('Crown daily List page', () => {
 
   it('should display Prosecuting Authority',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[5].innerHTML).contains('PRO_AUTH_SN, Pro_Auth_FN');
+    expect(cell[5].innerHTML).contains('Pro_Auth_SN, Pro_Auth_FN');
   });
 
   it('should display the to be allocated for unallocated case section',  () => {

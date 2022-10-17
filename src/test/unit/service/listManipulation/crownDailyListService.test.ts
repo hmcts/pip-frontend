@@ -25,8 +25,8 @@ describe('Crown Data manipulation service', () => {
 
     it('should formatted the party information correctly for prosecution authority and defendant', async () => {
       const data = await crownDailyListService.manipulatedCrownDailyListData(JSON.stringify(crownDailyCause), lng, languageFile);
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['defendant']).to.equal('DEFENDANT_SN, Defendant_FN');
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['prosecutingAuthority']).to.equal('PRO_AUTH_SN, Pro_Auth_FN');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['defendant']).to.equal('Defendant_SN, Defendant_FN');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['prosecutingAuthority']).to.equal('Pro_Auth_SN, Pro_Auth_FN');
     });
 
     it('should be able to find linked cases for a particular case', async () => {

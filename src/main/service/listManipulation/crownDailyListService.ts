@@ -61,7 +61,7 @@ export class CrownDailyListService {
     const title = dataManipulationService.writeStringIfValid(individualDetails?.title);
     const forenames = dataManipulationService.writeStringIfValid(individualDetails?.individualForenames);
     const middleName = dataManipulationService.writeStringIfValid(individualDetails?.individualMiddleName);
-    const surname = dataManipulationService.writeStringIfValid(individualDetails?.individualSurname).toUpperCase();
+    const surname = dataManipulationService.writeStringIfValid(individualDetails?.individualSurname);
 
     return title + (title.length > 0 ? ' ' : '')
       + surname + ((forenames.length > 0 || middleName.length > 0) ? ', ' : '')
