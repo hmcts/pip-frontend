@@ -144,8 +144,10 @@ export class DataManipulationService {
     return etDailyListData;
   }
 
+
   /**
-   * Reshaping etFortnightlyList json data into formatted niceness.
+   * Reshaping etDailyList json data into formatted niceness. It first loops through to populate fields in a nice way,
+   * then loops through again to split data into days. Not O(1) but I think the world is just gonna have to deal.
    */
   public reshapeEtFortnightlyListData(etFortList: string): object {
     const etFortnightlyListData = JSON.parse(etFortList);
