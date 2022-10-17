@@ -3,6 +3,7 @@ import { accountManagementApi } from '../../../main/resources/requests/utils/axi
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 import fs from 'fs';
 import path from 'path';
+import moment from 'moment-timezone';
 
 const accountManagementRequests = new AccountManagementRequests();
 const errorResponse = {
@@ -391,6 +392,17 @@ describe('Account Management Requests', () => {
       putStub.withArgs(updateAccountEndpoint + oid).resolves({status: 200, data: 'Account updated' });
       const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
       expect(response).toBe('Account updated');
+    });
+
+    it('should set the correct time', async () => {
+      const putStubForDateChecking = putStub.withArgs(updateAccountEndpoint + '1234-1234');
+      putStubForDateChecking.resolves({status: 200, data: 'Account updated' });
+      await accountManagementRequests.updateAccountLastSignedInDate('1234-1234');
+
+      const args = putStubForDateChecking.getCall(0).args;
+      expect(moment.utc(args[1]['lastSignedInDate'])
+        .isBetween(moment().utc().subtract(5, 'minutes'), moment().utc().add(5, 'minutes')))
+        .toBeTruthy();
     });
 
     it('should return null on error request', async () => {

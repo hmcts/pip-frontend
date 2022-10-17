@@ -101,6 +101,7 @@ export default function(app: Application): void {
   app.get('/et-daily-list', app.locals.container.cradle.etDailyListController.get);
   app.get('/et-fortnightly-list', app.locals.container.cradle.etFortnightlyListController.get);
   app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
+  app.get('/primary-health-list', app.locals.container.cradle.primaryHealthListController.get);
 
   // Restricted paths
   app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
