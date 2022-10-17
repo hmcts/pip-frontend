@@ -242,7 +242,7 @@ export class SubscriptionService {
    * @param filterValuesQuery The currently selected filters.
    * @param clearQuery The clear filter for the query.
    */
-  public async generateListTypesForCourts(userId, userRole, filterValuesQuery, clearQuery): Promise<object> {
+  public async generateListTypesForCourts(userId, userRole, filterValuesQuery, clearQuery, language): Promise<object> {
     let filterValues = filterService.stripFilters(filterValuesQuery);
     if (clearQuery) {
       filterValues = filterService.handleFilterClear(filterValues, clearQuery);
@@ -250,7 +250,7 @@ export class SubscriptionService {
 
     const applicableListTypes = await this.generateAppropriateListTypes(userId, userRole);
 
-    const filterOptions = this.buildFilterValueOptions(applicableListTypes, filterValues);
+    const filterOptions = this.buildFilterValueOptions(applicableListTypes, filterValues, language);
 
     const alphabetisedListTypes = AToZHelper.generateAlphabetObject();
 
@@ -263,10 +263,14 @@ export class SubscriptionService {
       }
     } else {
       for (const [listName, listType] of applicableListTypes) {
+        const hidden = (language === 'en')
+          ? !listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction))
+          : !listType.welshJurisdictions.some(jurisdiction => filterValues.includes(jurisdiction));
+
         alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
           listFriendlyName: listType.friendlyName,
           checked: listType.checked,
-          hidden: !listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction)),
+          hidden: hidden,
         };
       }
     }
@@ -327,11 +331,11 @@ export class SubscriptionService {
     }
   }
 
-  public buildFilterValueOptions(list: Map<string, ListType>, selectedFilters: string[]): object {
+  private buildFilterValueOptions(list: Map<string, ListType>, selectedFilters: string[], language): object {
     const filterValueOptions = {};
     filterValueOptions['Jurisdiction'] = {};
 
-    const finalFilterValueOptions = this.getAllJurisdictions(list);
+    const finalFilterValueOptions = this.getAllJurisdictions(list, language);
 
     [...finalFilterValueOptions].sort().forEach(value => {
       filterValueOptions['Jurisdiction'][value] = {
@@ -343,13 +347,16 @@ export class SubscriptionService {
     return filterValueOptions;
   }
 
-  private getAllJurisdictions(list: Map<string, ListType>): string[] {
+  private getAllJurisdictions(list: Map<string, ListType>, language: string): string[] {
     const filterSet = new Set() as Set<string>;
     list.forEach((value) => {
-      value.jurisdictions.forEach(jurisdiction => filterSet.add(jurisdiction));
+      if (language == 'en') {
+        value.jurisdictions.forEach(jurisdiction => filterSet.add(jurisdiction));
+      } else {
+        value.welshJurisdictions.forEach(jurisdiction => filterSet.add(jurisdiction));
+      }
     });
 
     return [...filterSet];
   }
-
 }

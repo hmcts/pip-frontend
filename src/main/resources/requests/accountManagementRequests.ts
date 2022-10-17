@@ -173,7 +173,7 @@ export class AccountManagementRequests {
   private async updateAccountDate(oid: string, field: string, errorMessage: string): Promise<string> {
     try {
       const map = {};
-      map[field] = moment().tz('Europe/London').toISOString();
+      map[field] = moment().toISOString();
       const response = await accountManagementApi.put(`/account/provenance/PI_AAD/${oid}`, map);
       return response.data;
     } catch (error) {

@@ -494,7 +494,7 @@ export class DataManipulationService {
    * Calculate the duration of a sitting.
    * @param sitting
    */
-  private calculateDuration(sitting: object): void {
+  public calculateDuration(sitting: object): void {
     sitting['duration'] = '';
     sitting['startTime'] = '';
     if (sitting['sittingStart'] !== '' && sitting['sittingEnd'] !== '') {
