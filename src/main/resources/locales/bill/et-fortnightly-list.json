@@ -27,6 +27,7 @@
   "rep": "Representative / Cynrychiolydd",
   "noRep": "No Representative / Dim Cynrychiolydd",
   "tableHeaders": [
+    "Courtroom / Ystafell llys",
     "Start Time / Amser Cychwyn",
     "Duration / Hyd",
     "Case Number / Cyfeirnod yr Achos",
