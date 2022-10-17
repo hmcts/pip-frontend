@@ -240,22 +240,15 @@ export class DataManipulationService {
     return courts;
   }
 
+  /**
+   * returns all unique vals for given attribute in array of objs
+   * @param data array of obs
+   * @param thisAttribute attrib to be checked
+   * @private
+   */
   private uniquesInArrayByAttrib(data: any, thisAttribute: string) {
     return [...new Set(data.map(item => item[thisAttribute]))];
   }
-
-  // private DateCreator(inputList: any, dateInfo: Map<string, any>): any {
-  //   for (const [key, value] of dateInfo.entries()) {
-  //     inputList['courtLists'].forEach(courtHouse => {
-  //       const courtHouseName = courtHouse['courtHouse']['courtHouseName'];
-  //       if (courtHouseName == key) {
-  //         value.forEach(date => {
-  //           courtHouse[date] = {};
-  //         });
-  //       }
-  //     });
-  //   }
-  // }
 
   /**
    * Manipulate the copDailyCauseList json data for writing out on screen.
