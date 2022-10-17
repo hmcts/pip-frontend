@@ -21,6 +21,7 @@
   "rep": "Rep",
   "noRep": "No Representative",
   "tableHeaders": [
+    "Courtroom",
     "Start Time",
     "Duration",
     "Case Number",
