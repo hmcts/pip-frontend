@@ -113,7 +113,6 @@
                   {% elif durationAsMinutes === 0 %}
                   {% set duration = durationAsHours %}
                 {% endif %}
-                {% set noBorder = 'no-border-bottom' %}
                 <tr class="govuk-table__row">
                   <td class="govuk-table__cell {{ noBorder }}">{{ record.courtRoom }}</td>
                   <td class="govuk-table__cell {{ noBorder }}">{{ record.sittingTime }}</td>
