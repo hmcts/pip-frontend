@@ -17,6 +17,8 @@
         <br />/{{ headerPart3 }}<br />{{ headerPart4 }}{{ courtName }}
       {% endif %}
     </h2>
+
+    <p class="govuk-body-l"><a class="govuk-link" href="{{ factLink }}">{{ courtName }} - view details</a></p>
   <p class="govuk-body">
     {% for line in listData['venue']['venueAddress']['line'] %}
       {{ line }}<br />

@@ -17,6 +17,7 @@
       /{{ courtName }}{{ hearingsForBill }}{{ contentDate }}
     {% endif %}
   </h2>
+  <p class="govuk-body-l"><a class="govuk-link" href="{{ factLink }}">{{ courtName }} - view details</a></p>
   <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contentDate }}</p>
   <p class="govuk-body">{{ listUpdated | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
   <details class="govuk-details" data-module="govuk-details" open>

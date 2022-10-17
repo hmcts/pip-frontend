@@ -1,5 +1,6 @@
-import { Location } from '../../models/location';
-import { dataManagementApi } from './utils/axiosConfig';
+import {Location} from '../../models/location';
+import {dataManagementApi} from './utils/axiosConfig';
+import axios from 'axios';
 
 export class LocationRequests {
   public async getLocation(locationId: number): Promise<Location> {
@@ -32,6 +33,20 @@ export class LocationRequests {
       }
     }
     return null;
+  }
+
+  public async getFaCTLink(courtName: string): Promise<string> {
+    // try {
+    const sepCourtName = courtName.toLowerCase().split(' ').join('-');
+    const requestLink = 'https://www.find-court-tribunal.service.gov.uk/courts/' + sepCourtName;
+    try {
+      await axios.get(requestLink);
+      console.log('successfully found fact link for courtName');
+      return requestLink;
+    } catch (error) {
+      console.log(error);
+      return 'https://www.find-court-tribunal.service.gov.uk/courts?search=' + encodeURI(courtName);
+    }
   }
 
   public async getFilteredCourts(regions: string, jurisdictions: string, language: string): Promise<Array<Location>> {

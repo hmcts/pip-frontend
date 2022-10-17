@@ -15,6 +15,10 @@ export class LocationService {
     return this.initalizeLocationsForLanguage(await locationRequest.getAllLocations(), language);
   }
 
+  public async getFactLink(courtName: string): Promise<string> {
+    return locationRequest.getFaCTLink(courtName);
+  }
+
   private initalizeLocationsForLanguage(locations: Array<Location>, language: string): Array<Location> {
     let locationsBaseOnLanguage= [];
 

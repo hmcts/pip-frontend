@@ -27,10 +27,12 @@ export default class SscsDailyListController {
       const returnedCourt = await courtService.getLocationById(metaData['locationId']);
       const courtName = courtService.findCourtName(returnedCourt, req.lng as string, 'sscs-daily-list');
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
+      const factLink = await courtService.getFactLink(courtName);
 
       res.render('sscs-daily-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['sscs-daily-list']),
         listData: manipulatedData,
+        factLink,
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: publishedDate,
         publishedTime: publishedTime,

@@ -26,11 +26,13 @@ export default class DailyCauseListController {
 
       const location = await locationService.getLocationById(metaData['locationId']);
 
+      const factLink = await locationService.getFactLink(location.name);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
       res.render(listToLoad, {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
         listData: manipulatedData,
+        factLink,
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
