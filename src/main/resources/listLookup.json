@@ -126,5 +126,12 @@
     "url": "primary-health-list",
     "jurisdictions": ["Tribunal"],
     "restrictedProvenances":  []
+  },
+  "CARE_STANDARDS_LIST": {
+    "friendlyName": "Care Standards Tribunal Hearing List",
+    "shortenedFriendlyName": "Care Standards Tribunal Hearing List",
+    "url": "case-standards-list",
+    "jurisdictions": ["Tribunal"],
+    "restrictedProvenances":  []
   }
 }

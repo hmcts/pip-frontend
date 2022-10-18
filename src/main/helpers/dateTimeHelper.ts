@@ -4,8 +4,10 @@ const ONE = 1;
 const languageFileParser = new LanguageFileParser();
 export class DateTimeHelper {
 
-  public formatDuration(hours: number, minutes: number, language: string, languageFile: string): string {
-    if (hours > 0 && minutes > 0) {
+  public formatDuration(days: number, hours: number, minutes: number, language: string, languageFile: string): string {
+    if (days > 0) {
+      return this.formatDurationTime(days, 'hearingDurationDay', language, languageFile);
+    } else if (hours > 0 && minutes > 0) {
       return this.formatDurationTime(hours, 'hearingDurationHour', language, languageFile)
         + ' ' + this.formatDurationTime(minutes, 'hearingDurationMinute', language, languageFile);
     } else if (hours > 0 && minutes == 0) {
