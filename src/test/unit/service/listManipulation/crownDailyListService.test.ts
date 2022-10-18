@@ -20,7 +20,7 @@ describe('Crown Data manipulation service', () => {
     it('should formatted the case time in 12 hours format', async () => {
       const data = await crownDailyListService.manipulatedCrownDailyListData(JSON.stringify(crownDailyCause), lng, languageFile);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['time']).to.equal('10:40am');
-      expect(data['courtLists'][2]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['time']).to.equal('01:00pm');
+      expect(data['courtLists'][2]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['time']).to.equal('1:00pm');
     });
 
     it('should formatted the party information correctly for prosecution authority and defendant', async () => {
