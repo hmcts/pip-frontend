@@ -207,6 +207,8 @@ export class DataManipulationService {
     let respondent = '';
     let respondentRepresentative = '';
     let applicantRepresentative = '';
+    let prosecutingAuthority = '';
+    let defendant = '';
     let appellantRepresentative = '';
     if(hearing?.party) {
       hearing.party.forEach(party => {
@@ -253,16 +255,29 @@ export class DataManipulationService {
             }
             break;
           }
+          case 'PROSECUTING_AUTHORITY':
+          {
+            prosecutingAuthority += this.createIndividualDetails(party.individualDetails, initialised).trim();
+            prosecutingAuthority += this.stringDelimiter(prosecutingAuthority?.length, ',');
+            break;
+          }
+          case 'DEFENDANT':
+          {
+            defendant += this.createIndividualDetails(party.individualDetails, initialised).trim();
+            defendant += this.stringDelimiter(defendant?.length, ',');
+            break;
+          }
         }
       });
       hearing['appellant'] = appellant?.replace(/,\s*$/, '').trim();
       hearing['appellantRepresentative'] = appellantRepresentative?.replace(/,\s*$/, '').trim();
-      hearing['prosecutingAuthority'] = respondent?.replace(/,\s*$/, '').trim();
 
       applicant += applicantRepresentative;
       respondent += respondentRepresentative;
       hearing['applicant'] = applicant?.replace(/,\s*$/, '').trim();
       hearing['respondent'] = respondent?.replace(/,\s*$/, '').trim();
+      hearing['prosecutingAuthority'] = prosecutingAuthority?.replace(/,\s*$/, '').trim();
+      hearing['defendant'] = defendant?.replace(/,\s*$/, '').trim();
     }
   }
 
@@ -272,11 +287,13 @@ export class DataManipulationService {
    * @param initialised
    */
   private createIndividualDetails(individualDetails: any, initialised = false): string {
+
     const title = this.writeStringIfValid(individualDetails?.title);
     const forenames = this.writeStringIfValid(individualDetails?.individualForenames);
     const forenameInitial = forenames.charAt(0);
     const middleName = this.writeStringIfValid(individualDetails?.individualMiddleName);
     const surname = this.writeStringIfValid(individualDetails?.individualSurname);
+
     if(initialised) {
       return title + (title.length > 0 ? ' ' : '')
         + forenameInitial + (forenameInitial.length > 0 ? '. ' : '')
@@ -294,7 +311,7 @@ export class DataManipulationService {
    * Helper function for strings.
    * @param stringToCheck
    */
-  private writeStringIfValid(stringToCheck): string {
+  public writeStringIfValid(stringToCheck): string {
     if (stringToCheck) {
       return stringToCheck;
     } else {
@@ -307,7 +324,7 @@ export class DataManipulationService {
    * @param stringSize
    * @param delimiter
    */
-  private stringDelimiter(stringSize: number, delimiter: string): string {
+  public stringDelimiter(stringSize: number, delimiter: string): string {
     if (stringSize > 0) {
       return `${delimiter} `;
     }
@@ -318,7 +335,7 @@ export class DataManipulationService {
    * Map the supplied party role to one of our party roles if necessary.
    * @param nonConvertedPartyRole
    */
-  private static convertPartyRole(nonConvertedPartyRole: string): string {
+  public static convertPartyRole(nonConvertedPartyRole: string): string {
     let partyRole = nonConvertedPartyRole;
     for (const [mappedPartyRole, unMappedRoles] of Object.entries(partyRoleMappings)) {
       if (unMappedRoles.includes(nonConvertedPartyRole)) {
@@ -406,8 +423,15 @@ export class DataManipulationService {
         durationAsMinutes = durationAsMinutes - (durationAsHours * 60);
       }
 
+      let durationAsDays = 0;
+      if(durationAsHours >= 24) {
+        durationAsDays = Math.floor(durationAsHours / 24);
+      }
+
       sitting['durationAsHours'] = durationAsHours;
       sitting['durationAsMinutes'] = durationAsMinutes;
+      sitting['durationAsDays'] = durationAsDays;
+
       sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('HH:mm');
       const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
       if (min === 0) {
