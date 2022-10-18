@@ -423,8 +423,15 @@ export class DataManipulationService {
         durationAsMinutes = durationAsMinutes - (durationAsHours * 60);
       }
 
+      let durationAsDays = 0;
+      if(durationAsHours >= 24) {
+        durationAsDays = Math.floor(durationAsHours / 24);
+      }
+
       sitting['durationAsHours'] = durationAsHours;
       sitting['durationAsMinutes'] = durationAsMinutes;
+      sitting['durationAsDays'] = durationAsDays;
+
       sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('HH:mm');
       const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
       if (min === 0) {

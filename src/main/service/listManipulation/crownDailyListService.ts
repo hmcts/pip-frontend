@@ -13,7 +13,7 @@ export class CrownDailyListService {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
             this.formatCaseTime(sitting, 'h:mma');
-            sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsHours'] as number,
+            sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
                                       sitting['durationAsMinutes'] as number, language, languageFile);
             sitting['hearing'].forEach(hearing => {
               this.findAndManipulatePartyInformation(hearing);
