@@ -75,7 +75,7 @@
         href: '/logout'
       }
     ] %}
-    {% elif user.role in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
+  {% elif user.role in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -99,7 +99,7 @@
       }
 
     ] %}
-    {% elif isAuthenticated %}
+  {% elif isAuthenticated %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -240,6 +240,44 @@
 
 {% block bodyEnd %}
   <script src="alphabetical-dev.js"></script>
+  {% if isAuthenticated %}
+    {% if user.role and 'ADMIN' in user.role %}
+      {% set idleDurationInSeconds = 3 * 3600 + (40 * 60) %}
+    {% else %}
+      {% set idleDurationInSeconds = 40 * 60 %}
+    {% endif %}
+    <script>
+      (function() {
+        let idleTimeout
+
+        function handleRedirection() {
+          const expiry = new Date(localStorage.getItem('idleExpiry'))
+          const diff = expiry.getTime() - new Date().getTime()
+          if (diff <= 0) {
+            location.href = '/session-expiring?currentPath=' + location.pathname + location.search
+          } else {
+            clearTimeout(idleTimeout)
+            idleTimeout = setTimeout(handleRedirection, diff)
+          }
+        }
+
+        function resetIdleTimeout() {
+          clearTimeout(idleTimeout)
+          idleTimeout = setTimeout(handleRedirection, {{ idleDurationInSeconds }} * 1000)
+
+          const current = new Date();
+          current.setSeconds(current.getSeconds() + {{ idleDurationInSeconds }})
+          localStorage.setItem('idleExpiry', current.toISOString())
+        }
+
+        resetIdleTimeout()
+        window.addEventListener('load', resetIdleTimeout, true);
+        ['click', 'mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(evt =>
+          document.addEventListener(evt, resetIdleTimeout, true)
+        );
+      })();
+    </script>
+  {% endif %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   {% include "webpack/js.njk" %}
 {% endblock %}

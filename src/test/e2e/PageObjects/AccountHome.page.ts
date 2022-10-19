@@ -2,7 +2,7 @@ import { CommonPage } from './Common.page';
 import { SubscriptionManagementPage } from './SubscriptionManagement.page';
 import { SearchPage } from './Search.page';
 import { SummaryOfPublicationsPage } from './SummaryOfPublications.page';
-import { ViewOptionPage } from './ViewOption.page';
+import {SessionLoggedOutPage} from './SessionLoggedOut.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -43,12 +43,12 @@ export class AccountHomePage extends CommonPage {
     return new SummaryOfPublicationsPage();
   }
 
-  async clickSignOut(): Promise<ViewOptionPage> {
+  async clickSignOut(): Promise<SessionLoggedOutPage> {
     await $(helpers.SignedInBannerSignOut).catch(() => {
       console.log(`${helpers.SignedInBannerSignOut} not found`);
     });
 
     await $(helpers.SignedInBannerSignOut).click();
-    return new ViewOptionPage();
+    return new SessionLoggedOutPage();
   }
 }
