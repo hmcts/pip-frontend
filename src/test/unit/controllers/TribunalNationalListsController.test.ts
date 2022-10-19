@@ -1,13 +1,13 @@
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import PrimaryHealthListController from '../../../main/controllers/PrimaryHealthListController';
+import TribunalNationalListsController from '../../../main/controllers/TribunalNationalListsController';
 import {PublicationService} from '../../../main/service/publicationService';
 import {LocationService} from '../../../main/service/locationService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
-import {PrimaryHealthListService} from '../../../main/service/listManipulation/primaryHealthListService';
+import {TribunalNationalListsService} from '../../../main/service/listManipulation/tribunalNationalListsService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/primaryHealthList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -18,12 +18,12 @@ const metaData = JSON.parse(rawMetaData)[0];
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
-const primaryHealthListController = new PrimaryHealthListController();
+const tribunalNationalListsController = new TribunalNationalListsController();
 
 const primaryHealthListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const primaryHealthListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(PrimaryHealthListService.prototype, 'manipulateData').returns(listData);
+sinon.stub(TribunalNationalListsService.prototype, 'manipulateData').returns(listData);
 
 const artefactId = 'abc';
 
@@ -65,7 +65,7 @@ describe('Primary Health List Controller', () => {
 
     responseMock.expects('render').once().withArgs('primary-health-list', expectedData);
 
-    await primaryHealthListController.get(request, response);
+    await tribunalNationalListsController.get(request, response);
     return responseMock.verify();
   });
 
@@ -73,12 +73,13 @@ describe('Primary Health List Controller', () => {
     const request = mockRequest(i18n);
     request.query = {};
     request.user = {piUserId: '123'};
+    request.path = '/primary-health-list';
 
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-    await primaryHealthListController.get(request, response);
+    await tribunalNationalListsController.get(request, response);
     return responseMock.verify();
   });
 });

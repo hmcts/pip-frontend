@@ -1,4 +1,6 @@
 {
-  "header": "Byddwch yn cael eich allgofnodi’n fuan, o ganlyniad i wneud dim",
-  "sign-in-message": "I atal hyn rhag digwydd, cliciwch isod"
+  "title": "Byddwch yn cael eich allgofnodi’n fuan, o ganlyniad i wneud dim",
+  "continueMessage": "I atal hyn rhag digwydd, cliciwch isod",
+  "continue": "Parhau",
+  "backButton": "Yn ôl"
 }
