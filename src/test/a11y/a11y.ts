@@ -27,6 +27,7 @@ const routesNotTested = [
   '/login/admin/return',
   '/mock-login',
   '/logout',
+  '/session-expired-logout',
   '/robots.txt',
   '/file-publication',
   '/media-verification',

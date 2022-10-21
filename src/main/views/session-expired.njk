@@ -1,0 +1,24 @@
+{% extends "template.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body">{{ detail }}</p>
+  <p class="govuk-body">{{ signInMessage }}</p>
+  {{ govukButton({
+    text: signIn,
+    href: signInUrl
+  }) }}
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+{% endblock %}

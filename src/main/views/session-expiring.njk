@@ -1,0 +1,50 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body">{{ continueMessage }}</p>
+  {{ govukButton({
+    text: continue,
+    href: gotoPage
+  }) }}
+{% endblock %}
+
+{% block bodyEnd %}
+  {% if isAuthenticated %}
+    <script>
+      (function() {
+        let idleTimeout
+        let idleDurationInSeconds = 20 * 60
+
+        function handleRedirection() {
+          const expiry = new Date(localStorage.getItem('idleExpiry'))
+          const diff = (expiry.getTime() + idleDurationInSeconds * 1000) - new Date().getTime()
+          if (diff <= 0) {
+            location.href = '/session-expired-logout'
+          } else {
+            clearTimeout(idleTimeout)
+            idleTimeout = setTimeout(handleRedirection, diff)
+          }
+        }
+
+        function resetIdleTimeout() {
+          clearTimeout(idleTimeout)
+          idleTimeout = setTimeout(handleRedirection, idleDurationInSeconds * 1000)
+        }
+
+        resetIdleTimeout()
+      })();
+    </script>
+  {% endif %}
+{% endblock %}
