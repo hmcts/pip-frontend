@@ -67,10 +67,12 @@ export default function(app: Application): void {
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
   // app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
+  app.get('/case-standards-list', app.locals.container.cradle.tribunalNationalListsController.get);
   app.get('/cookie-policy', app.locals.container.cradle.cookiePolicyPageController.get);
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
   app.post('/create-media-account', multer({storage: storage, limits: {fileSize: 2000000}}).single('file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.createMediaAccountController.post);
   app.get('/civil-and-family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
+  app.get('/crown-daily-list', app.locals.container.cradle.crownDailyListController.get);
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   // app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
@@ -83,6 +85,10 @@ export default function(app: Application): void {
   app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}), processMediaAccountSignIn);
   app.post('/login/admin/return', forgotPasswordRedirect, passport.authenticate('admin-login', { failureRedirect: '/view-option'}), processAdminAccountSignIn);
   app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}), mediaVerificationHandling);
+  app.get('/session-expiring', app.locals.container.cradle.sessionExpiringController.get);
+  app.get('/session-expired', app.locals.container.cradle.sessionExpiredController.get);
+  app.get('/session-expired-logout', (_req, res) => sessionManagement.logOut(_req, res, false, true));
+  app.get('/session-logged-out', app.locals.container.cradle.sessionLoggedOutController.get);
   // app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
   // app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
   app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
@@ -101,7 +107,7 @@ export default function(app: Application): void {
   app.get('/et-daily-list', app.locals.container.cradle.etDailyListController.get);
   app.get('/et-fortnightly-list', app.locals.container.cradle.etFortnightlyListController.get);
   app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
-  app.get('/primary-health-list', app.locals.container.cradle.primaryHealthListController.get);
+  app.get('/primary-health-list', app.locals.container.cradle.tribunalNationalListsController.get);
 
   // Restricted paths
   app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);

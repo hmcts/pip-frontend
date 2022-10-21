@@ -26,7 +26,7 @@
   "CROWN_DAILY_LIST": {
     "friendlyName": "Crown Daily List",
     "shortenedFriendlyName": "Crown Daily List",
-    "url": "",
+    "url": "crown-daily-list",
     "jurisdictions": ["Crown"],
     "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
@@ -133,6 +133,13 @@
     "friendlyName": "Primary Health Tribunal Hearing List",
     "shortenedFriendlyName": "Primary Health Tribunal Hearing List",
     "url": "primary-health-list",
+    "jurisdictions": ["Tribunal"],
+    "restrictedProvenances":  []
+  },
+  "CARE_STANDARDS_LIST": {
+    "friendlyName": "Care Standards Tribunal Hearing List",
+    "shortenedFriendlyName": "Care Standards Tribunal Hearing List",
+    "url": "case-standards-list",
     "jurisdictions": ["Tribunal"],
     "restrictedProvenances":  []
   }

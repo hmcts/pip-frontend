@@ -43,6 +43,9 @@ module.exports = {
   BackToTopButton: '#back-to-top-button',
   SingleJusticeProcedureLink: '#sjp-link',
 
+  //SessionLoggedOut selectors
+  SessionLoggedOutTitle: 'h1.govuk-heading-l',
+
   KeySelector: (letter): string => {
     return '#' + letter + '-selector';
   },
@@ -193,5 +196,4 @@ module.exports = {
 
   //MediaAccountRejectionConfirmationPage
   MediaAccountRejectionConfirmationPanelTitle: '.govuk-panel__title',
-
 };
