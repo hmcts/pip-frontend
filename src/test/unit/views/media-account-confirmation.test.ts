@@ -28,7 +28,7 @@ describe('Media Account Confirmation Page', () => {
   const appliedHeader = 'Date applied';
   const appliedValue = '09 May 2022';
   const proofOfIdHeader = 'Proof of ID';
-  const proofOfIdValue = 'ImageName.jpg (opens in new tab)';
+  const proofOfIdValue = 'ImageName.jpg (opens in a new window)';
   const proofOfIdView = 'View';
   const proofOfIdViewLink = '/media-account-review/image?imageId=12345&applicantId=1234';
   const bottomHeader = 'What happens next';
