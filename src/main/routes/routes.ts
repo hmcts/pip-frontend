@@ -166,7 +166,6 @@ export default function(app: Application): void {
   //system-admin-restricted-paths
   app.get('/system-admin-dashboard', isPermittedSystemAdmin, app.locals.container.cradle.systemAdminDashboardController.get);
 
-
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
       host: os.hostname(),

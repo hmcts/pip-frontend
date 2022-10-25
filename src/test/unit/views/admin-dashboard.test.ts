@@ -166,14 +166,15 @@ describe('Admin Dashboard page  - SYSTEM_ADMIN', () => {
     });
   });
 
-  it('should display 4 links in banner', () => {
+  it('should display 5 links in banner', () => {
     const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-    expect(bannerComponents.length).equal(4);
+    expect(bannerComponents.length).equal(5);
 
     expect(bannerComponents[0].innerHTML).equal('Home');
-    expect(bannerComponents[1].innerHTML).equal('Upload');
-    expect(bannerComponents[2].innerHTML).equal('Remove');
-    expect(bannerComponents[3].innerHTML).equal('Sign out');
+    expect(bannerComponents[1].innerHTML).equal('Admin Dashboard');
+    expect(bannerComponents[2].innerHTML).equal('Upload');
+    expect(bannerComponents[3].innerHTML).equal('Remove');
+    expect(bannerComponents[4].innerHTML).equal('Sign out');
   });
 
   it('should display 3 card options', () => {
