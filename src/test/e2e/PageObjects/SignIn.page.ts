@@ -2,6 +2,7 @@ import { CommonPage } from './Common.page';
 import { AccountHomePage } from './AccountHome.page';
 import { CreateMediaAccountPage } from './CreateMediaAccount.page';
 import {AdminDashboardPage} from './AdminDashboard.page';
+import {SystemAdminDashboardPage} from './SystemAdminDashboard.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -81,6 +82,17 @@ export class SignInPage extends CommonPage {
     continueButton.click();
 
     return new AdminDashboardPage();
+  }
+
+  async clickSystemAdminSignIn(): Promise<SystemAdminDashboardPage> {
+    $(helpers.UserLoginContinue).catch(() => {
+      console.log(`${helpers.UserLoginContinue} not found`);
+    });
+
+    const continueButton = await $(helpers.UserLoginContinue);
+    continueButton.click();
+
+    return new SystemAdminDashboardPage();
   }
 
   async getAdminPageTitle(): Promise<string> {

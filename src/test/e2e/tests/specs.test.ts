@@ -1,5 +1,6 @@
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
 import { AdminDashboardPage } from '../PageObjects/AdminDashboard.page';
+import { SystemAdminDashboardPage } from '../PageObjects/SystemAdminDashboard.page';
 import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
 import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
 import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
@@ -9,6 +10,8 @@ import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferen
 import { LocationNameSearchPage } from '../PageObjects/LocationNameSearchPage';
 import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
 import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
+import { CreateSystemAdminAccountPage } from '../PageObjects/CreateSystemAdminAccount.page';
+import { CreateSystemAdminAccountSummaryPage } from '../PageObjects/CreateSystemAdminAccountSummary.page';
 import { DailyCauseListPage } from '../PageObjects/DailyCauseList.page';
 import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
@@ -70,6 +73,7 @@ let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 let manualUploadPage: ManualUploadPage;
 let adminDashboard = new AdminDashboardPage;
+let systemAdminDashboard = new SystemAdminDashboardPage;
 let createMediaAccountPage: CreateMediaAccountPage;
 let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let accountHomePage: AccountHomePage;
@@ -78,6 +82,8 @@ let sjpPublicListPage: SJPPublicListPage;
 let signInPage: SignInPage;
 let createAdminAccountPage: CreateAdminAccountPage;
 let createAdminAccountSummaryPage: CreateAdminAccountSummaryPage;
+let createSystemAdminAccountPage: CreateSystemAdminAccountPage;
+let createSystemAdminAccountSummaryPage: CreateSystemAdminAccountSummaryPage;
 let searchPublicationPage: RemoveListSearchPage;
 let searchPublicationResultsPage: RemoveListSearchResultsPage;
 let publicationConfirmationPage: RemoveListConfirmationPage;
@@ -636,6 +642,43 @@ describe('Admin level journeys', () => {
     });
     it('should sign out and open session-logged-out page', async () => {
       sessionLoggedOutPage = await adminDashboard.clickSignOut();
+      expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
+    });
+  });
+});
+
+describe('System Admin level journeys', () => {
+  it('should open Admin Login page', async () => {
+    await signInPage.open('/admin-login?p=B2C_1_SignInAdminUserFlow');
+    await signInPage.enterText(process.env.B2C_SYSTEM_ADMIN_USERNAME, 'EmailField');
+    await signInPage.enterText(process.env.B2C_SYSTEM_ADMIN_PASSWORD, 'PasswordField');
+    systemAdminDashboard = await signInPage.clickSystemAdminSignIn();
+  });
+
+  it('should open admin dashboard page on successful sign in', async () => {
+    expect(await systemAdminDashboard.getPageTitle()).toEqual('System Dashboard');
+  });
+
+  describe('Create new system admin account', () => {
+
+    it('should click on the create new account card', async () => {
+      createSystemAdminAccountPage = await systemAdminDashboard.clickCreateNewAccountCard();
+      expect(await createSystemAdminAccountPage.getPageTitle()).toEqual('Create system admin account');
+    });
+
+    it('should complete form and open summary page', async () => {
+      await createSystemAdminAccountPage.completeForm();
+      createSystemAdminAccountSummaryPage = await createSystemAdminAccountPage.clickContinue();
+      expect(await createSystemAdminAccountSummaryPage.getPageTitle()).toEqual('Check account details');
+    });
+  });
+
+  describe('sign out system admin dashboard', () => {
+    before(async () => {
+      await systemAdminDashboard.open('system-admin-dashboard');
+    });
+    it('should sign out and open session-logged-out page', async () => {
+      sessionLoggedOutPage = await systemAdminDashboard.clickSignOut();
       expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
     });
   });
