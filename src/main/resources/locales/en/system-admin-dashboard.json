@@ -3,9 +3,9 @@
   "heading": "System Dashboard",
   "tiles": [
     {
-      "title": "Upload Reference Data",
-      "description": "Upload CSV location reference data",
-      "link": "location-data-manual-upload"
+      "title": "Create System Admin",
+      "description": "Create a new system admin user",
+      "link": "create-system-admin-account"
     }
   ]
 }

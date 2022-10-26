@@ -42,4 +42,19 @@ describe('System Admin Dashboard page', () => {
     expect(bannerComponents[4].innerHTML).equal('Sign out');
   });
 
+  it('should display 1 card option', () => {
+    const cardComponents = htmlRes.getElementsByClassName('account-card');
+    expect(cardComponents.length).equal(1);
+  });
+
+  it('card should have correct content and links', () => {
+    const adminCards = htmlRes.getElementsByClassName('account-card');
+    const link = adminCards[0].getElementsByTagName('a')[0];
+    const description = adminCards[0].getElementsByTagName('p')[1];
+    expect(link.innerHTML).contains('Create System Admin');
+    expect(link.getAttribute('href')).contains('create-system-admin-account');
+    expect(description.innerHTML).contains('Create a new system admin user');
+
+  });
+
 });

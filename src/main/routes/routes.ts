@@ -165,6 +165,10 @@ export default function(app: Application): void {
 
   //system-admin-restricted-paths
   app.get('/system-admin-dashboard', isPermittedSystemAdmin, app.locals.container.cradle.systemAdminDashboardController.get);
+  app.get('/create-system-admin-account', isPermittedSystemAdmin, app.locals.container.cradle.createSystemAdminAccountController.get);
+  app.post('/create-system-admin-account', isPermittedSystemAdmin, app.locals.container.cradle.createSystemAdminAccountController.post);
+  app.get('/create-system-admin-account-summary', isPermittedSystemAdmin, app.locals.container.cradle.createSystemAdminAccountSummaryController.get);
+  app.post('/create-system-admin-account-summary', isPermittedSystemAdmin, app.locals.container.cradle.createSystemAdminAccountSummaryController.post);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
