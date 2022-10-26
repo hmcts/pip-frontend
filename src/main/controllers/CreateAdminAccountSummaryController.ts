@@ -26,8 +26,8 @@ export default class CreateAdminAccountSummaryController {
 
     res.render('create-admin-account-summary', {
       formData,
-      accountCreated: response != null,
-      displayError: response == null,
+      accountCreated: response,
+      displayError: !response,
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-admin-account-summary']),
     });
 

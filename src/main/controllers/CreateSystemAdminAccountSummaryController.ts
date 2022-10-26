@@ -28,8 +28,8 @@ export default class CreateSystemAdminAccountSummaryController {
 
     res.render('create-system-admin-account-summary', {
       formData,
-      accountCreated: response != null,
-      displayError: response == null,
+      accountCreated: response,
+      displayError: !response,
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-system-admin-account-summary']),
     });
 
