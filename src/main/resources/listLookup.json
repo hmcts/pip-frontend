@@ -114,7 +114,7 @@
   },
   "ET_FORTNIGHTLY_PRESS_LIST": {
     "friendlyName": "Employment Tribunals Fortnightly Press List",
-    "shortenedFriendlyName": "ET Daily List",
+    "shortenedFriendlyName": "ET Fortnightly List",
     "url": "et-fortnightly-list",
     "jurisdictions": [
       "Tribunal"
