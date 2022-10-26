@@ -19,27 +19,19 @@ export default class CreateSystemAdminAccountSummaryController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     const formData = (req.cookies?.createAdminAccount) ? JSON.parse(req.cookies['createAdminAccount']) : {};
 
-    formData['userRoleObject'] = {
-      mapping: 'SYSTEM_ADMIN',
-    };
+    formData['userRoleObject'] = {mapping: 'SYSTEM_ADMIN'};
 
     const response = await createAccountService.createAdminAccount(formData, req.user?.['piUserId']);
-
     if (response) {
       res.cookie('createAdminAccount', '');
-      res.render('create-system-admin-account-summary', {
-        formData,
-        accountCreated: true,
-        displayError: false,
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-system-admin-account-summary']),
-      });
-    } else {
-      res.render('create-system-admin-account-summary', {
-        formData,
-        accountCreated: false,
-        displayError: true,
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-system-admin-account-summary']),
-      });
     }
+
+    res.render('create-system-admin-account-summary', {
+      formData,
+      accountCreated: response != null,
+      displayError: response == null,
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-system-admin-account-summary']),
+    });
+
   }
 }

@@ -22,19 +22,14 @@ export default class CreateAdminAccountSummaryController {
 
     if (response) {
       res.cookie('createAdminAccount', '');
-      res.render('create-admin-account-summary', {
-        formData,
-        accountCreated: true,
-        displayError: false,
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-admin-account-summary']),
-      });
-    } else {
-      res.render('create-admin-account-summary', {
-        formData,
-        accountCreated: false,
-        displayError: true,
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-admin-account-summary']),
-      });
     }
+
+    res.render('create-admin-account-summary', {
+      formData,
+      accountCreated: response != null,
+      displayError: response == null,
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-admin-account-summary']),
+    });
+
   }
 }
