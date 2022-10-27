@@ -185,7 +185,7 @@ export class DataManipulationService {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
-            const sittingDate = this.publicationDateInBst(sitting['sittingStart']);
+            const sittingDate = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('dddd DD MMMM YYYY');
             sitting['hearing'].forEach(hearing => {
               hearing['case'].forEach(thisCase => {
                 const row = {

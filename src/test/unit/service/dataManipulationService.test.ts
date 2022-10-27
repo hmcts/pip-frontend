@@ -237,7 +237,7 @@ describe('Data manipulation service', () => {
   describe('Reshaped ET Fortnightly List - splitting data from a courtroom format to a day by day view.', () => {
     it('should return ET Fortnightly List', async () => {
       const data = await dataManipulationService.reshapeEtFortnightlyListData(etDailyListData);
-      expect(JSON.stringify(data).length).to.equal(2767);
+      expect(JSON.stringify(data).length).to.equal(2803);
     });
 
     it('should match the completed mock', async () => {
@@ -265,7 +265,7 @@ describe('Data manipulation service', () => {
 
     it('should be parsing and separating dates correctly', async () => {
       const data = JSON.stringify(await dataManipulationService.reshapeEtFortnightlyListData(etDailyListData));
-      const list_of_dates = ['13 February 2022', '15 February 2022', '14 February 2022'];
+      const list_of_dates = ['Sunday 13 February 2022', 'Tuesday 15 February 2022', 'Monday 14 February 2022'];
       list_of_dates.forEach(value => {
         expect(data).to.contain(value);
       });
