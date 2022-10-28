@@ -232,8 +232,17 @@ export class DataManipulationService {
       const courtData = data.filter(row => row.courtName === court);
       courts.push({'courtName': court, days: []});
       const uniqueDays = this.uniquesInArrayByAttrib(courtData, 'sittingDate');
-      uniqueDays.forEach(day => {
-        const record = courtData.filter(row => row.sittingDate === day);
+      const uniqueDaysArr = [];
+      Array.from(uniqueDays).forEach(day => {
+        const encDay = moment.utc(day, 'dddd DD MMMM YYYY').tz(this.timeZone);
+        uniqueDaysArr.push(encDay);
+      });
+      uniqueDaysArr.sort(function(a, b) {
+        return a - b;
+      });
+      uniqueDaysArr.forEach(day => {
+        const formattedDay = moment.utc(day).tz(this.timeZone).format('dddd DD MMMM YYYY');
+        const record = courtData.filter(row => row.sittingDate === formattedDay);
         courts[courtCounter]['days'].push(record);
       });
       courtCounter += 1;
