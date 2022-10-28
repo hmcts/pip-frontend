@@ -28,7 +28,7 @@ describe('System Admin Dashboard page', () => {
   it('should display header', () => {
     const header = htmlRes.getElementsByClassName('govuk-heading-l');
     expect(header[0].innerHTML)
-      .contains('System Dashboard', 'Could not find correct value in header');
+      .contains('System Admin Dashboard', 'Could not find correct value in header');
   });
 
   it('should display 5 links in banner', () => {
