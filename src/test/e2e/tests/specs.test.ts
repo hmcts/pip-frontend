@@ -656,7 +656,7 @@ describe('System Admin level journeys', () => {
   });
 
   it('should open admin dashboard page on successful sign in', async () => {
-    expect(await systemAdminDashboard.getPageTitle()).toEqual('System Dashboard');
+    expect(await systemAdminDashboard.getPageTitle()).toEqual('System Admin Dashboard');
   });
 
   describe('Create new system admin account', () => {

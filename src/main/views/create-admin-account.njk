@@ -35,97 +35,71 @@
         ]
     }) }}
     {% endif %}
+
+    {% set firstNameErrorMessage = {text: formErrors.firstNameError.message}
+      if formErrors.firstNameError.message else false %}
+
     {% set firstNameInput = govukInput({
         label: {
-            text: fNameLabel
+          text: fNameLabel
         },
         classes: 'govuk-!-width-one-third',
         id: "firstName",
         value: formData.firstName,
         name: "firstName",
-        errorMessage: {
-            text: formErrors.firstNameError.message
-        }
-    }) if formErrors.firstNameError.message else govukInput({
-        label: {
-            text: fNameLabel
-        },
-        classes: 'govuk-!-width-one-third',
-        id: "firstName",
-        value: formData.firstName,
-        name: "firstName"
-    }) %}
+        errorMessage: firstNameErrorMessage
+      })
+    %}
+
+    {% set lastNameErrorMessage = {text: formErrors.lastNameError.message}
+      if formErrors.lastNameError.message else false %}
 
     {% set lastNameInput = govukInput({
         label: {
-            text: lNameLabel
+          text: lNameLabel
         },
         classes: 'govuk-!-width-one-third',
         id: "lastName",
         value: formData.lastName,
         name: "lastName",
-        errorMessage: {
-            text: formErrors.lastNameError.message
-        }
-    }) if formErrors.lastNameError.message else govukInput({
-        label: {
-            text: lNameLabel
-        },
-        classes: 'govuk-!-width-one-third',
-        id: "lastName",
-        value: formData.lastName,
-        name: "lastName"
-    }) %}
+        errorMessage: lastNameErrorMessage
+      })
+    %}
+
+    {% set emailErrorMessage = {text: formErrors.emailError.message}
+      if formErrors.emailError.message else false %}
 
     {% set emailInput = govukInput({
         label: {
-            text: emailLabel
+          text: emailLabel
         },
         classes: "govuk-!-width-two-thirds",
         id: "emailAddress",
+        value: formData.emailAddress,
         name: "emailAddress",
         type: 'email',
-        value: formData.emailAddress,
         autocomplete: 'email',
         spellcheck: false,
-        errorMessage: {
-            text: formErrors.emailError.message
-        }
-    }) if formErrors.emailError.message else govukInput({
-        label: {
-            text: emailLabel
-        },
-        classes: "govuk-!-width-two-thirds",
-        id: "emailAddress",
-        name: "emailAddress",
-        type: 'email',
-        value: formData.emailAddress,
-        autocomplete: 'email',
-        spellcheck: false
-    }) %}
+        errorMessage: emailErrorMessage
+      })
+    %}
+
+    {% set radiosErrorMessage = {text: formErrors.radioError.message}
+      if formErrors.radioError.message else false %}
 
     {% set radios = govukRadios({
         idPrefix: "user-role",
         name: "user-role",
         fieldset: {
-            legend: {
-                text: userRoleLabel
-            }
+          legend: {
+            text: userRoleLabel
+          }
         },
         items: radios,
-        errorMessage: {
-            text: formErrors.radioError.message
-        }
-    }) if formErrors.radioError.message else govukRadios({
-        idPrefix: "user-role",
-        name: "user-role",
-        fieldset: {
-            legend: {
-                text: userRoleLabel
-            }
-        },
-        items: radios
-    }) %}
+        errorMessage: radiosErrorMessage
+      })
+    %}
+
     <h1 class="govuk-heading-l">{{ header }}</h1>
     <form method="post" novalidate>
         {{ firstNameInput }}
