@@ -1,0 +1,9 @@
+{
+  "title": "Blob Explorer - Publications",
+  "subHeading": "Choose a publication to explore:",
+  "tableHeaders": [
+    "Artefact Id",
+    "List Type",
+    "Display Date Range"
+  ]
+}

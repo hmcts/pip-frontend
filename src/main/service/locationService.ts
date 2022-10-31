@@ -11,6 +11,10 @@ export class LocationService {
     return courtsList.sort((a, b) => (a.name > b.name) ? 1 : -1);
   }
 
+  public async getCountsOfPubsPerLocation(): Promise<Map<number, number>> {
+    return locationRequest.getPubsPerLocation();
+  }
+
   public async fetchAllLocations(language: string): Promise<Array<Location>> {
     return this.initalizeLocationsForLanguage(await locationRequest.getAllLocations(), language);
   }
