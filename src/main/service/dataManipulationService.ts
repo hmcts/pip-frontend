@@ -93,8 +93,8 @@ export class DataManipulationService {
             sitting['hearing'].forEach(hearing => {
               this.findAndManipulatePartyInformation(hearing);
 
-              hearing['informant'].forEach(informant => {
-                let prosecutionAuthorityRefFormatted = '';
+              let prosecutionAuthorityRefFormatted = '';
+              hearing['informant']?.forEach(informant => {
                 informant['prosecutionAuthorityRef'].forEach(proscAuthRef => {
                   if (prosecutionAuthorityRefFormatted.length > 0) {
                     prosecutionAuthorityRefFormatted += ', ' + proscAuthRef;
@@ -102,8 +102,9 @@ export class DataManipulationService {
                     prosecutionAuthorityRefFormatted += proscAuthRef;
                   }
                 });
-                hearing['prosecutionAuthorityRefFormatted'] = prosecutionAuthorityRefFormatted;
               });
+              hearing['prosecutionAuthorityRefFormatted'] = prosecutionAuthorityRefFormatted;
+
               delete hearing['informant'];
               delete hearing['party'];
             });
