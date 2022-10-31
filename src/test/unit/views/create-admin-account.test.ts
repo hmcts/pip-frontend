@@ -5,12 +5,14 @@ import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/create-admin-account';
 const radioLabels = [
+  'Internal - System Administrator',
   'Internal - Super Administrator - CTSC',
   'Internal - Super Administrator - Local',
   'Internal - Administrator - CTSC',
   'Internal - Administrator - Local',
 ];
 const radioHints = [
+  'Developer only role to manage the service',
   'Upload, Remove, Create new accounts, Assess new media requests',
   'Upload, Remove, Create new account',
   'Upload, Remove, Assess new media request',
@@ -59,13 +61,13 @@ describe('Create Admin Account Page', () => {
       expect(input.getAttribute('type')).equals('email', 'Could not correct input type');
     });
 
-    it('should display 4 radio buttons with valid values and hints', () => {
+    it('should display 5 radio buttons with valid values and hints', () => {
       const radioButtons = htmlRes.getElementsByClassName('govuk-radios__item');
       const radioHeader = htmlRes.getElementsByClassName('govuk-fieldset__legend')[0];
 
       const radiosCount = radioButtons.length;
       expect(radioHeader.innerHTML).contains('User role', 'Could not find radio header');
-      expect(radiosCount).equal(4, '4 radio buttons not found');
+      expect(radiosCount).equal(5, '5 radio buttons not found');
       for(let i = 0; i < radiosCount; i++) {
         const radio = htmlRes.getElementsByClassName('govuk-radios__label')[i];
         const radioHint = htmlRes.getElementsByClassName('govuk-radios__hint')[i];
