@@ -4,7 +4,7 @@
   "panelHeading": "Account has been rejected",
   "tableHeaders": ["Name", "Email", "Employer", "Date applied", "Proof of ID"],
   "radioAnswers": ["Yes", "No"],
-  "opensInWindowText": "opens in new tab",
+  "opensInWindowText": "opens in a new window",
   "viewText": "View",
   "whatHappensNextHeader": "What happens next",
   "whatHappensNext1": "You now need to email the applicant [",
