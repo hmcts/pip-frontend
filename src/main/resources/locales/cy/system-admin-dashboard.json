@@ -23,9 +23,9 @@
       "link": "third-party-subscriptions"
     },
     {
-      "title": "Manage users",
-      "description": "View and manage user accounts",
-      "link": "manage-users"
+      "title": "Edit Accounts",
+      "description": "View and management accounts within the PI user table",
+      "link": "edit-accounts"
     }
   ]
 }

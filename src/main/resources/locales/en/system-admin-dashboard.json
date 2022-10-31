@@ -3,34 +3,29 @@
   "heading": "System Dashboard",
   "tiles": [
     {
-      "title": "Upload Reference Data",
-      "description": "Upload CSV location reference data",
+      "title": "Reference Upload",
+      "description": "Upload a CSV reference data file for locations",
       "link": "location-data-manual-upload"
     },
     {
-      "title": "Bulk Create Media Accounts",
-      "description": "Upload a CSV file for bulk creation of media accounts",
+      "title": "Bulk Media Upload",
+      "description": "Upload a CSV file for the upload of media users",
       "link": "bulk-create-media-account"
     },
     {
-      "title": "Blob Explorer",
-      "description": "Investigate artefact data",
-      "link": "blob-view-locations"
+      "title": "Extract Artefact Data",
+      "description": "Extract data about an artefact",
+      "link": "extract-artefact"
     },
     {
-      "title": "Manage Third-Party Subscriptions",
-      "description": "View and edit third-party subscription attributes",
+      "title": "Edit third party subscriptions",
+      "description": "Edit what third party subscribers are subscribed to",
       "link": "third-party-search"
     },
     {
-      "title": "Manage users",
-      "description": "View and manage user accounts",
-      "link": "manage-users"
-    },
-    {
-      "title": "Create Admin Accounts",
-      "description": "Create new admin accounts",
-      "link": "create-admin-account"
+      "title": "Edit Accounts",
+      "description": "View and management accounts within the PI user table",
+      "link": "edit-accounts"
     }
   ]
 }

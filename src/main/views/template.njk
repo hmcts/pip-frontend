@@ -56,9 +56,7 @@
     var link = document.getElementById("betalink")
     link.href = link.href + window.location.pathname.substring(1)
   </script>
-{% if user.role == 'SYSTEM_ADMIN' %}
-  {% set listItems = [] %}
-  {% elif user.role in ['INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_LOCAL'] %}
+  {% if user.role in ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_LOCAL'] %}
     {% set listItems = [
       {
         text: navLinks.link1,
