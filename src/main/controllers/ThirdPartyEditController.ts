@@ -1,10 +1,10 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import {cloneDeep} from 'lodash';
-import {PublicationService} from "../service/publicationService";
-import {SubscriptionService} from "../service/subscriptionService";
-import {SubscriptionRequests} from "../resources/requests/subscriptionRequests";
-import {AToZHelper} from "../helpers/aToZHelper";
+import {PublicationService} from '../service/publicationService';
+import {SubscriptionService} from '../service/subscriptionService';
+import {SubscriptionRequests} from '../resources/requests/subscriptionRequests';
+import {AToZHelper} from '../helpers/aToZHelper';
 
 const publicationService = new PublicationService();
 const subscriptionService = new SubscriptionService();
@@ -13,16 +13,16 @@ const subscriptionRequests = new SubscriptionRequests();
 export default class ThirdPartySearchController {
   public async get(req: PipRequest, res: Response): Promise<void> {
 
-    let listTypes = await publicationService.getListTypes();
+    const listTypes = await publicationService.getListTypes();
 
-    let subscriptions = await subscriptionService.getSubscriptionsByUser(req.query['userId'] as string);
+    const subscriptions = await subscriptionService.getSubscriptionsByUser(req.query['userId'] as string);
 
     const alphabetisedListTypes = AToZHelper.generateAlphabetObject();
 
     for (const [listName, listDetails] of listTypes) {
       alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
         listFriendlyName: listDetails.friendlyName,
-        checked: subscriptions.listTypeSubscriptions.filter(listType => listType['listType'] === listName).length > 0
+        checked: subscriptions.listTypeSubscriptions.filter(listType => listType['listType'] === listName).length > 0,
       };
     }
 
@@ -35,7 +35,7 @@ export default class ThirdPartySearchController {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['third-party-edit']),
       listTypes: alphabetisedListTypes,
       userId: req.query['userId'],
-      channelName: channelName
+      channelName: channelName,
     });
   }
 
@@ -46,14 +46,14 @@ export default class ThirdPartySearchController {
       listTypes = [listTypes];
     }
 
-    let subscriptions = await subscriptionService.getSubscriptionsByUser(req.body['userId'] as string);
+    const subscriptions = await subscriptionService.getSubscriptionsByUser(req.body['userId'] as string);
 
     for (const listType of listTypes) {
       if (subscriptions.listTypeSubscriptions.filter(
         listTypeSubscription => listTypeSubscription['listType'] == listType).length === 0) {
 
         await subscriptionRequests.subscribe(subscriptionService.createThirdPartySubscription(listType,
-          req.body['channelName'], req.body['userId']))
+          req.body['channelName'], req.body['userId']));
       }
     }
 
@@ -63,7 +63,7 @@ export default class ThirdPartySearchController {
       }
     }
 
-    res.redirect('/third-party-search')
+    res.redirect('/third-party-search');
   }
 
 }

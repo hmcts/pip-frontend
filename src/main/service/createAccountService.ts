@@ -231,7 +231,7 @@ export class CreateAccountService {
     return {
       body: fs.readFileSync(file.path),
       name: file.originalname,
-    }
+    };
   }
 
   public async createAdminAccount(payload: object, requester: string): Promise<boolean> {

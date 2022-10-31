@@ -17,6 +17,14 @@ const mockData = {
 };
 const radios = [
   {
+    value: 'system-admin',
+    text: 'Internal - System Administrator',
+    checked: false,
+    hint: {
+      text: 'Developer only role to manage the service',
+    },
+  },
+  {
     value: 'super-admin-ctsc',
     text: 'Internal - Super Administrator - CTSC',
     checked: false,
@@ -77,7 +85,7 @@ describe('Create Admin Account Controller', () => {
 
     it('should render create admin account page without cookie', async () => {
       const uncheckedRadios = radios;
-      uncheckedRadios[2].checked = false;
+      uncheckedRadios[3].checked = false;
       request['cookies'] = {};
       const responseMock = sinon.mock(response);
       const expectedOptions = {

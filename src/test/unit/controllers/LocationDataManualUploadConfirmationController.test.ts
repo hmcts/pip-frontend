@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import LocationDataManualUploadConfirmationController
-  from "../../../main/controllers/LocationDataManualUploadConfirmationController";
+  from '../../../main/controllers/LocationDataManualUploadConfirmationController';
 
 const locationDataManualUploadConfirmationController = new LocationDataManualUploadConfirmationController();
 
