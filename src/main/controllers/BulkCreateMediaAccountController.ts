@@ -2,7 +2,7 @@ import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {FileHandlingService} from '../service/fileHandlingService';
 import {cloneDeep} from 'lodash';
-import {uploadType} from "../models/consts";
+import {uploadType} from '../models/consts';
 
 const fileHandlingService = new FileHandlingService();
 let formCookie;
@@ -14,7 +14,7 @@ export default class BulkCreateMediaAccountController {
     res.render('bulk-create-media-account', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['bulk-create-media-account']),
       displayError: false,
-      formData
+      formData,
     });
   }
 

@@ -21,7 +21,7 @@ const radios = [
     text: 'Internal - System Administrator',
     checked: false,
     hint: {
-      text: 'Developer only role to manage the service'
+      text: 'Developer only role to manage the service',
     },
   },
   {

@@ -169,7 +169,7 @@ export class AccountManagementRequests {
 
   public async getThirdPartyAccounts(): Promise<any> {
     try {
-      const response = await accountManagementApi.get(`/account/third-party`);
+      const response = await accountManagementApi.get('/account/third-party');
       return response.data;
     } catch (error) {
       if (error.response) {

@@ -3,7 +3,7 @@ import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import {ManualUploadService} from '../../../main/service/manualUploadService';
 import {FileHandlingService} from '../../../main/service/fileHandlingService';
-import LocationDataManualUploadController from "../../../main/controllers/LocationDataManualUploadController";
+import LocationDataManualUploadController from '../../../main/controllers/LocationDataManualUploadController';
 
 const locationDataManualUploadController = new LocationDataManualUploadController();
 describe('Location Data Manual Upload Controller', () => {
