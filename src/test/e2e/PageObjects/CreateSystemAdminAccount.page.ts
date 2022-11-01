@@ -16,7 +16,7 @@ export class CreateSystemAdminAccountPage extends CommonPage {
       console.log(`${helpers.FirstNameInput} not found`);
     });
 
-    await $(helpers.FirstNameInput).addValue('Test');
+    await $(helpers.FirstNameInput).setValue('Test');
     await browser.keys('Escape');
   }
 
@@ -25,7 +25,7 @@ export class CreateSystemAdminAccountPage extends CommonPage {
       console.log(`${helpers.LastNameInput} not found`);
     });
 
-    await $(helpers.LastNameInput).addValue('Name');
+    await $(helpers.LastNameInput).setValue('Name');
     await browser.keys('Escape');
   }
 
@@ -34,7 +34,7 @@ export class CreateSystemAdminAccountPage extends CommonPage {
       console.log(`${helpers.EmailInput} not found`);
     });
 
-    await $(helpers.EmailInput).addValue('ThisIsADummyAccount@justice.gov.uk');
+    await $(helpers.EmailInput).setValue('ThisIsADummyAccount@justice.gov.uk');
     await browser.keys('Escape');
   }
 
