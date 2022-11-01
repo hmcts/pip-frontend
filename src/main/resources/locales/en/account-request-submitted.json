@@ -1,7 +1,6 @@
 {
   "title": "Account request submitted",
   "panelTitle": "Details submitted",
-  "panelMessage": "Your reference number",
   "nextMessage": "What happens next",
   "reviewMessage": "HMCTS will review your details.",
   "moreInformationMessage": "We'll email you if we need more information or to confirm that your account has been created.",
