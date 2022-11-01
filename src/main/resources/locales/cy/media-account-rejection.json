@@ -9,7 +9,7 @@
   "employer": "Employer",
   "dateApplied": "Date applied",
   "proofOfId": "Proof of ID",
-  "opensInWindowText": "opens in new tab",
+  "opensInWindowText": "opens in a new window",
   "viewText": "View",
   "error": {
     "title": "There is a problem",
