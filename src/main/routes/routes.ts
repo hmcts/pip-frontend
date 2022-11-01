@@ -105,6 +105,7 @@ export default function(app: Application): void {
   app.get('/sscs-daily-list', app.locals.container.cradle.sscsDailyListController.get);
   app.get('/cop-daily-cause-list', app.locals.container.cradle.copDailyCauseListController.get);
   app.get('/et-daily-list', app.locals.container.cradle.etDailyListController.get);
+  app.get('/et-fortnightly-list', app.locals.container.cradle.etFortnightlyListController.get);
   app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
   app.get('/primary-health-list', app.locals.container.cradle.tribunalNationalListsController.get);
 
