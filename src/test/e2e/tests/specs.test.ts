@@ -648,6 +648,7 @@ describe('Admin level journeys', () => {
 });
 
 describe('System Admin level journeys', () => {
+
   it('should open Admin Login page', async () => {
     await signInPage.open('/admin-login?p=B2C_1_SignInAdminUserFlow');
     await signInPage.enterText(process.env.B2C_SYSTEM_ADMIN_USERNAME, 'EmailField');
