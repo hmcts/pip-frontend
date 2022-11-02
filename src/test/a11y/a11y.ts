@@ -54,6 +54,12 @@ const adminRoutes = [
   '/remove-list-success',
 ];
 
+const systemAdminRoutes = [
+  '/system-admin-dashboard',
+  '/create-system-admin-account',
+  '/create-system-admin-account-summary',
+];
+
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
 const rawDataLive = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/liveCaseStatusUpdates.json'), 'utf-8');
 const rawDataCaseEventGlossary = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/CaseEventGlossary.json'), 'utf-8');
@@ -103,7 +109,14 @@ export function ensurePageCallWillSucceed(url: string): Promise<void> {
     app.request['user'] = {
       piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
         'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-      }};
+      },
+    };
+  } else if (systemAdminRoutes.includes(url)) {
+    app.request['user'] = {
+      piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
+        'extension_UserRole': 'SYSTEM_ADMIN',
+      },
+    };
   } else {
     app.request['user'] = {
       piUserId: '1', emails: ['joe@bloggs.com'], '_json': {

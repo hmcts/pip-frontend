@@ -6,30 +6,27 @@ import { Response } from 'express';
 const createAccountService = new CreateAccountService();
 let formCookie;
 
-export default class CreateAdminAccountController {
+export default class CreateSystemAdminAccountController {
   public get(req: PipRequest, res: Response): void {
     formCookie = req.cookies['createAdminAccount'];
     const formData = formCookie ? JSON.parse(formCookie) : null;
-    res.render('create-admin-account', {
+    res.render('create-system-admin-account', {
       formData,
-      radios: createAccountService.buildRadiosList(formData?.['user-role']),
-      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-admin-account']),
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-system-admin-account']),
     });
   }
 
   public post(req: PipRequest, res: Response): void {
     const formData = req.body;
-    const formValidation = createAccountService.validateAdminFormFieldsWithRole(formData, req.lng as string, 'create-admin-account');
+    const formValidation = createAccountService.validateAdminFormFields(formData, req.lng as string, 'create-system-admin-account');
     const isValidForm = Object.values(formValidation).every(o => o.message === null);
     if (isValidForm) {
-      formData.userRoleObject = createAccountService.getRoleByKey(formData['user-role']);
       res.cookie('createAdminAccount', JSON.stringify(formData));
-      res.redirect('create-admin-account-summary');
+      res.redirect('create-system-admin-account-summary');
     } else {
-      res.render('create-admin-account', {
+      res.render('create-system-admin-account', {
         formData,
-        radios: createAccountService.buildRadiosList(formData?.['user-role']),
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-admin-account']),
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-system-admin-account']),
         formErrors: formValidation,
       });
     }
