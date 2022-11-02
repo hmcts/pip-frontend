@@ -1,0 +1,11 @@
+{
+  "title": "System Admin dashboard",
+  "heading": "System Admin Dashboard",
+  "tiles": [
+    {
+      "title": "Create System Admin",
+      "description": "Create a new system admin user",
+      "link": "create-system-admin-account"
+    }
+  ]
+}

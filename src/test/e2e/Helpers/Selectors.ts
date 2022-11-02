@@ -196,4 +196,7 @@ module.exports = {
 
   //MediaAccountRejectionConfirmationPage
   MediaAccountRejectionConfirmationPanelTitle: '.govuk-panel__title',
+
+  //CreateSystemAdminAccount selectors
+  CreateSystemAdminAccount: '#card-create-system-admin-account',
 };
