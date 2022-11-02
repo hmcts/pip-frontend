@@ -1,0 +1,37 @@
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import goBack %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+{% block content %}
+  <div class="parent-box">
+    <div class="govuk-grid-row parent-box">
+      <h1 class="govuk-heading-l">{{ heading }}</h1>
+    </div>
+    <div class="cards-wrapper">
+      {% for tile in tiles %}
+        <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
+          <div class="account-card govuk-!-margin-left-2 govuk-!-margin-right-2">
+            <p>
+              <a href="{{ tile.link }}"
+                 class="govuk-link govuk-body govuk-!-font-weight-bold"
+                 id="card-{{ tile.link }}"
+              >{{ tile.title }}</a>
+            </p>
+            <p class="govuk-body">{{ tile.description }}</p>
+          </div>
+        </div>
+      {% endfor %}
+      {{ super() }}
+    </div>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+{% endblock %}

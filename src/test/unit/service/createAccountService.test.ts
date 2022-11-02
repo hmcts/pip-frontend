@@ -32,6 +32,7 @@ const invalidAdminBody = {
   lastName: '',
   'user-role': 'admin-ctsc',
 };
+
 const responseErrors = {
   nameError: {
     message:  'There is a problem - Full name field must be populated',
@@ -265,13 +266,51 @@ describe('Create Account Service', () => {
     });
   });
 
-  describe('validateAdminFormFields', () => {
+  describe('validateAdminFormFieldsWithRole', () => {
     it('should return valid response if all data is provided', () => {
-      expect(createAccountService.validateAdminFormFields(validAdminBody, englishLanguage, createAdminAccountLanguageFile)).toStrictEqual(adminResponseNoErrors);
+      expect(createAccountService.validateAdminFormFieldsWithRole(validAdminBody, englishLanguage, createAdminAccountLanguageFile)).toStrictEqual(adminResponseNoErrors);
     });
 
     it('should return response with errors if invalid data is provided', () => {
-      expect(createAccountService.validateAdminFormFields(invalidAdminBody, englishLanguage, createAdminAccountLanguageFile)).toStrictEqual(adminResponseErrors);
+      expect(createAccountService.validateAdminFormFieldsWithRole(invalidAdminBody, englishLanguage, createAdminAccountLanguageFile)).toStrictEqual(adminResponseErrors);
+    });
+  });
+
+  describe('validateAdminFormFields', () => {
+    it('should return valid response if all data is provided', () => {
+      const adminResponseNoErrorsNoRole = {
+        firstNameError: {
+          message:  null,
+          href: '#firstName',
+        },
+        emailError: {
+          message: null,
+          href: '#emailAddress',
+        },
+        lastNameError: {
+          message: null,
+          href: '#lastName',
+        },
+      };
+      expect(createAccountService.validateAdminFormFields(validAdminBody, englishLanguage, createAdminAccountLanguageFile)).toStrictEqual(adminResponseNoErrorsNoRole);
+    });
+
+    it('should return response with errors if invalid data is provided', () => {
+      const adminResponseErrorsNoRole = {
+        firstNameError: {
+          message: 'Enter first name',
+          href: '#firstName',
+        },
+        emailError: {
+          message: 'Enter email address',
+          href: '#emailAddress',
+        },
+        lastNameError: {
+          message: 'Enter last name',
+          href: '#lastName',
+        },
+      };
+      expect(createAccountService.validateAdminFormFields(invalidAdminBody, englishLanguage, createAdminAccountLanguageFile)).toStrictEqual(adminResponseErrorsNoRole);
     });
   });
 

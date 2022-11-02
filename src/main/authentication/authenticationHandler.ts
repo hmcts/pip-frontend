@@ -8,6 +8,7 @@ const authenticationConfig = require('../authentication/authentication-config.js
 export const adminAccountCreationRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL'];
 export const manualUploadRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_CTSC', 'INTERNAL_ADMIN_LOCAL'];
 export const mediaAccountCreationRoles = ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'];
+export const systemAdminRoles = ['SYSTEM_ADMIN'];
 export const allAdminRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_CTSC', 'INTERNAL_ADMIN_LOCAL'];
 export const verifiedRoles = ['VERIFIED'];
 
@@ -26,6 +27,10 @@ export function checkRoles(req, roles): boolean {
 
 export function isPermittedMedia(req: any, res, next) {
   return checkAuthenticatedMedia(req, res, next, verifiedRoles);
+}
+
+export function isPermittedSystemAdmin(req: any, res ,next) {
+  return checkAuthenticatedAdmin(req, res, next, systemAdminRoles);
 }
 
 export function isPermittedAdmin(req: any, res, next) {
@@ -106,9 +111,14 @@ export async function mediaVerificationHandling(req, res): Promise<any> {
 export async function processAdminAccountSignIn(req, res): Promise<any> {
   if(checkRoles(req, allAdminRoles)) {
     const userInfo = req.user['_json'];
-    const response = await AccountManagementRequests.prototype.updateAccountLastSignedInDate(userInfo.oid);
-    console.log(response);
-    res.redirect('/admin-dashboard');
+    await AccountManagementRequests.prototype.updateAccountLastSignedInDate(userInfo.oid);
+
+    if (checkRoles(req, systemAdminRoles)) {
+      res.redirect('/system-admin-dashboard');
+    } else {
+      res.redirect('/admin-dashboard');
+    }
+
   } else {
     res.redirect('/account-home');
   }

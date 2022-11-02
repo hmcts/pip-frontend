@@ -2,7 +2,6 @@
 {% from "macros/common-components.njk" import goBack, submitButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% block pageTitle %}
     {{ title }}
@@ -27,10 +26,6 @@
             {
                 text: formErrors.emailError.message,
                 href: "#emailAddress"
-            },
-            {
-                text: formErrors.radioError.message,
-                href: "#user-role"
             }
         ]
     }) }}
@@ -48,7 +43,7 @@
         value: formData.firstName,
         name: "firstName",
         errorMessage: firstNameErrorMessage
-      })
+     })
     %}
 
     {% set lastNameErrorMessage = {text: formErrors.lastNameError.message}
@@ -84,28 +79,11 @@
       })
     %}
 
-    {% set radiosErrorMessage = {text: formErrors.radioError.message}
-      if formErrors.radioError.message else false %}
-
-    {% set radios = govukRadios({
-        idPrefix: "user-role",
-        name: "user-role",
-        fieldset: {
-          legend: {
-            text: userRoleLabel
-          }
-        },
-        items: radios,
-        errorMessage: radiosErrorMessage
-      })
-    %}
-
     <h1 class="govuk-heading-l">{{ header }}</h1>
     <form method="post" novalidate>
         {{ firstNameInput }}
         {{ lastNameInput }}
         {{ emailInput }}
-        {{ radios }}
         {{ submitButton(continueButton) }}
     </form>
 {% endblock %}
