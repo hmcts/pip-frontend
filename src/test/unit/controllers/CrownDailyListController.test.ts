@@ -8,7 +8,7 @@ import moment from 'moment';
 import {LocationService} from '../../../main/service/locationService';
 import {DataManipulationService} from '../../../main/service/dataManipulationService';
 import CrownDailyListController from '../../../main/controllers/CrownDailyListController';
-import {CrownDailyListService} from '../../../main/service/listManipulation/crownDailyListService';
+import {CrimeListsService} from '../../../main/service/listManipulation/CrimeListsService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -25,8 +25,8 @@ const crownDailyListJsonStub = sinon.stub(PublicationService.prototype, 'getIndi
 const crownDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').returns(listData);
-sinon.stub(CrownDailyListService.prototype, 'manipulatedCrownDailyListData').returns(listData);
-sinon.stub(CrownDailyListService.prototype, 'findUnallocatedCasesInCrownDailyListData').returns(listData);
+sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').returns(listData);
+sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').returns(listData);
 
 const artefactId = 'abc';
 

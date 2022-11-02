@@ -5,8 +5,13 @@ import {DateTimeHelper} from '../../helpers/dateTimeHelper';
 const dataManipulationService = new DataManipulationService();
 const dateTimeHelper = new DateTimeHelper();
 
-export class CrownDailyListService {
-  public manipulatedCrownDailyListData(dailyCauseList: string, language: string, languageFile: string): object {
+/**
+ * Service class provides reusable methods for crime list templates:
+ *   Crown Daily List
+ *   Magistrates Public List
+ */
+export class CrimeListsService {
+  public manipulatedCrimeListData(dailyCauseList: string, language: string, languageFile: string): object {
     const crownDailyListData = JSON.parse(dailyCauseList);
     crownDailyListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {

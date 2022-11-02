@@ -5,12 +5,12 @@ import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { DataManipulationService } from '../service/dataManipulationService';
-import {CrownDailyListService} from '../service/listManipulation/crownDailyListService';
+import {CrimeListsService} from '../service/listManipulation/CrimeListsService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const dataManipulationService = new DataManipulationService();
-const crownDailyListService = new CrownDailyListService();
+const crimeListsService = new CrimeListsService();
 
 export default class CrownDailyListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -21,9 +21,9 @@ export default class CrownDailyListController {
     if (searchResults && metaData) {
 
       let manipulatedData = dataManipulationService.manipulatedDailyListData(JSON.stringify(searchResults));
-      manipulatedData = crownDailyListService.manipulatedCrownDailyListData(JSON.stringify(manipulatedData),
+      manipulatedData = crimeListsService.manipulatedCrimeListData(JSON.stringify(manipulatedData),
         req.lng as string, 'crown-daily-list');
-      manipulatedData = crownDailyListService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(manipulatedData));
+      manipulatedData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(manipulatedData));
 
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);
