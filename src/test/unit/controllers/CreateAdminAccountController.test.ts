@@ -51,7 +51,7 @@ const radios = [
 ];
 const validationErrors = {foo: {message: 'error'}};
 const createAdminAccountController = new CreateAdminAccountController();
-const validationStub = sinon.stub(CreateAccountService.prototype, 'validateAdminFormFields');
+const validationStub = sinon.stub(CreateAccountService.prototype, 'validateAdminFormFieldsWithRole');
 validationStub.withArgs(mockData).returns({foo: {message: null}});
 validationStub.withArgs({}).returns(validationErrors);
 
