@@ -75,8 +75,7 @@ describe('Crown Warned List Controller', () => {
 
     const expectedData = {
       ...i18n['crown-warned-list'],
-      listData: listDataWithAllocatedData,
-      toBeAllocatedData: [toBeAllocatedData],
+      listData: listData,
       venue: rawDataObj['venue'],
       contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
       publishedDate: '13 September 2022',

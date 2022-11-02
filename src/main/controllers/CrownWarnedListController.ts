@@ -10,6 +10,7 @@ const dataManipulationService = new DataManipulationService();
 const crownWarnedListService = new CrownWarnedListService();
 
 const listUrl = 'crown-warned-list';
+const toBeAllocated = 'To be allocated';
 
 export default class CrownWarnedListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -26,16 +27,19 @@ export default class CrownWarnedListController {
       const toBeAllocatedData = [];
       // Pull out 'to be allocated' data from the list data so it can be placed in a different section in teh templating engine
       listData.forEach((value, key) => {
-        if (key.toLowerCase() === 'to be allocated') {
+        if (key.toLowerCase() === toBeAllocated.toLowerCase()) {
           toBeAllocatedData.push(...value);
           listData.delete(key);
         }
       });
 
+      if (toBeAllocatedData.length > 0) {
+        listData.set(toBeAllocated, toBeAllocatedData);
+      }
+
       res.render(listUrl, {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listUrl]),
         listData: listData,
-        toBeAllocatedData: toBeAllocatedData,
         venue: searchResults['venue'],
         contentDate: crownWarnedListService.formatContentDate(metaData.contentDate),
         publishedDate: publishedDate,
