@@ -92,14 +92,14 @@ describe('Data Management requests', () => {
       sinon.stub(superagent, 'post').callsFake(() => {
         return {
           set(): any {
-            return { set(): any {
-                return { attach: sinon.stub().returns(true) };
-              } };
+            return {
+              attach: sinon.stub().returns(true),
+            };
           },
         };
       });
 
-      expect(await fileUploadAPI.uploadLocationFile(mockUploadFileBody)).toBe(false);
+      expect(await fileUploadAPI.uploadLocationFile(mockUploadFileBody)).toBe(true);
     });
 
     it('should return error response', async () => {
