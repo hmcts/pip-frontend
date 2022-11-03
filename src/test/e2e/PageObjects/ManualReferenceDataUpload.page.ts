@@ -23,7 +23,7 @@ export class ManualReferenceDataUploadPage extends CommonPage {
       console.log(`${helpers.referenceDataFileUpload} not found`);
     });
 
-    const filePath = path.join(__dirname, '../../unit/mocks/testFile.pdf');
+    const filePath = path.join(__dirname, '../../unit/mocks/testReferenceData.csv');
 
     await $(helpers.referenceDataFileUpload).setValue(filePath);
   }
