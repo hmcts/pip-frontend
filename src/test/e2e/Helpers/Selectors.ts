@@ -199,4 +199,6 @@ module.exports = {
 
   //CreateSystemAdminAccount selectors
   CreateSystemAdminAccount: '#card-create-system-admin-account',
+  ReferenceDataUploadFile: '#card-manual-reference-data-upload',
+  referenceDataFileUpload: '#manual-reference-data-upload',
 };

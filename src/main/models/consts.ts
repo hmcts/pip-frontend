@@ -31,3 +31,13 @@ export const partyRoleMappings = {
   'PROSECUTING_AUTHORITY': [],
   'DEFENDANT': [],
 };
+
+export const allowedLocationUploadFileTypes = [
+  'csv',
+];
+
+export enum uploadType {
+  IMAGE,
+  FILE ,
+  REFERENCE_DATE,
+}
