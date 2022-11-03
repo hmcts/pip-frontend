@@ -679,6 +679,10 @@ describe('System Admin level journeys', () => {
   });
 
   describe('Reference Manual Upload', () => {
+    before(async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard');
+    });
+
     it('should open reference manual upload page', async () => {
       manualReferenceDataUploadPage = await systemAdminDashboard.clickReferenceDataUploadFileCard();
       expect(await manualReferenceDataUploadPage.getPageTitle()).toEqual('Reference manual data upload');

@@ -121,19 +121,15 @@ export class FileHandlingService {
     switch(type) {
       case uploadType.IMAGE: {
         return allowedImageTypes.includes(fileType);
-        break;
       }
       case uploadType.FILE: {
         return allowedFileTypes.includes(fileType);
-        break;
       }
       case uploadType.REFERENCE_DATE: {
         return allowedLocationUploadFileTypes.includes(fileType);
-        break;
       }
       default:
         return false;
-        break;
     }
   }
 
