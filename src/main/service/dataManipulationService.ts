@@ -15,7 +15,7 @@ export class DataManipulationService {
     dailyCauseListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
-          this.findAndManipulateJudiciary(session);
+          session['formattedJudiciaries'] = this.findAndManipulateJudiciary(session);
           session['sittings'].forEach(sitting => {
             this.calculateDuration(sitting);
             hearingCount = hearingCount + sitting['hearing'].length;
@@ -477,7 +477,7 @@ export class DataManipulationService {
    * Manipulate judicary data for writing out to screen.
    * @param session
    */
-  private findAndManipulateJudiciary(session: object): void {
+  public findAndManipulateJudiciary(session: object): string {
     let judiciaries = '';
     let foundPresiding = false;
     session['judiciary']?.forEach(judiciary => {
@@ -495,7 +495,7 @@ export class DataManipulationService {
       judiciaries = judiciaries.slice(0, -2);
     }
 
-    session['formattedJudiciaries'] = judiciaries;
+    return judiciaries;
   }
 
   /**

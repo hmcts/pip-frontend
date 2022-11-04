@@ -55,10 +55,10 @@
     "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
   },
-  "MAGS_STANDARD_LIST": {
+  "MAGISTRATES_STANDARD_LIST": {
     "friendlyName": "Magistrates Standard List",
     "shortenedFriendlyName": "Magistrates Standard List",
-    "url": "",
+    "url": "mags-daily-list",
     "jurisdictions": ["Crown"],
     "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
