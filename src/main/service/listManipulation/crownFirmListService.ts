@@ -1,8 +1,10 @@
 import moment from 'moment-timezone';
 import {DataManipulationService} from '../dataManipulationService';
 import {DateTimeHelper} from '../../helpers/dateTimeHelper';
+import {CrownDailyListService} from './crownDailyListService';
 
 const dataManipulationService = new DataManipulationService();
+const dailyListService = new CrownDailyListService();
 const dateTimeHelper = new DateTimeHelper();
 
 export class CrownFirmListService {
@@ -20,21 +22,27 @@ export class CrownFirmListService {
             sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
               sitting['durationAsMinutes'] as number, language, languageFile);
             sitting['hearing'].forEach(hearing => {
+              dailyListService.findLinkedCasesInformation(hearing);
               hearing['case'].forEach(thisCase => {
+                const formattedName = hearing['defendant'].split(/\s+/);
                 const row = {
                   courtName: courtName,
                   sittingDate: sittingDate,
                   sittingTime: dataManipulationService.publicationTimeInBst(sitting['sittingStart']),
                   courtRoom: courtRoom['courtRoomName'],
+                  joh: session['formattedJudiciaries'],
                   durationAsHours: sitting['durationAsHours'],
                   durationAsMinutes: sitting['durationAsMinutes'],
+                  formattedDuration: sitting['formattedDuration'],
                   caseNumber: thisCase['caseNumber'],
                   caseSeparator: thisCase['caseSequenceIndicator'],
-                  defendant: hearing['defendant'],
+                  linkedCases: thisCase['linkedCases'],
+                  hearingNotes: hearing['listingNotes'],
+                  defendant: formattedName[1].toUpperCase() + ', ' + formattedName[0],
                   defendantRepresentative: hearing['defendantRepresentative'],
                   prosecutingAuthority: hearing['prosecutingAuthority'],
-                  linkedCases: thisCase[0],
-                  // hearingType: hearing['hearingType'],
+                  // linkedCases: thisCase[0],
+                  hearingType: hearing['hearingType'],
                   jurisdiction: thisCase['caseType'],
                   hearingPlatform: sitting['caseHearingChannel'],
                 };
@@ -51,10 +59,6 @@ export class CrownFirmListService {
 
   private splitByCourtAndDateAndAllocation(data: any) {
     const courts = [];
-    const unallocated = data.filter(row => row.courtRoom.toLowerCase().includes('to be allocated'));
-    const allocated = data.filter(row => !unallocated.includes(row));
-    console.log(allocated.length);
-    console.log(unallocated.length);
     data.filter(row => row.courtRoom.toLowerCase().includes('to be allocated')).forEach(row => row.courtName = 'unallocated');
     const uniqueCourts = dataManipulationService.uniquesInArrayByAttrib(data, 'courtName');
     let courtCounter = 0;
@@ -71,9 +75,15 @@ export class CrownFirmListService {
         return a - b;
       });
       uniqueDaysArr.forEach(day => {
+        const thisDayCourts = [];
         const formattedDay = moment.utc(day).tz(this.timeZone).format('dddd DD MMMM YYYY');
         const record = courtData.filter(row => row.sittingDate === formattedDay);
-        courts[courtCounter]['days'].push(record);
+        const uniqueCourtRooms = dataManipulationService.uniquesInArrayByAttrib(record, 'courtRoom');
+        Array.from(uniqueCourtRooms).forEach(courtRoom => {
+          const room = record.filter(row => row.courtRoom === courtRoom);
+          thisDayCourts.push({'courtRoom': courtRoom, data: room});
+        });
+        courts[courtCounter]['days'].push(thisDayCourts);
       });
       courtCounter += 1;
     });

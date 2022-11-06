@@ -19,8 +19,10 @@ export default class CrownFirmListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (jsonData && metaData) {
-      let outputData = dataManipulationService.manipulatedDailyListData(JSON.stringify(jsonData));
-      outputData = firmListService.splitOutFirmListData(JSON.stringify(outputData), req.lng, 'crown-firm-list');
+      const outputData = dataManipulationService.manipulatedDailyListData(JSON.stringify(jsonData));
+      const outputArray = firmListService.splitOutFirmListData(JSON.stringify(outputData), req.lng, 'crown-firm-list');
+      const unallocated = outputArray.shift().days;
+      const allocated = outputArray;
       const publishedTime = dataManipulationService.publicationTimeInBst(jsonData['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(jsonData['document']['publicationDate']);
       const location = await locationService.getLocationById(metaData['locationId']);
@@ -29,9 +31,11 @@ export default class CrownFirmListController {
       res.render('crown-firm-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-firm-list']),
         listData: outputData,
+        allocated,
+        unallocated,
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
-        publishedDate: publishedDate,
-        publishedTime: publishedTime,
+        publishedDate,
+        publishedTime,
         provenance: metaData['provenance'],
         version: jsonData['document']['version'],
         courtName: location.name,
