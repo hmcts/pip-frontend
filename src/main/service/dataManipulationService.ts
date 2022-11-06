@@ -257,7 +257,7 @@ export class DataManipulationService {
    * @param thisAttribute attrib to be checked
    * @private
    */
-  private uniquesInArrayByAttrib(data: any, thisAttribute: string) {
+  public uniquesInArrayByAttrib(data: any, thisAttribute: string) {
     return [...new Set(data.map(item => item[thisAttribute]))];
   }
 
@@ -326,6 +326,7 @@ export class DataManipulationService {
     let applicantRepresentative = '';
     let prosecutingAuthority = '';
     let defendant = '';
+    let defendantRep = '';
     let appellantRepresentative = '';
     if (hearing?.party) {
       hearing.party.forEach(party => {
@@ -362,7 +363,6 @@ export class DataManipulationService {
             const respondentDetails = this.createIndividualDetails(party.individualDetails, initialised).trim();
             if (respondentDetails) {
               respondentRepresentative += 'LEGALADVISOR: ' + respondentDetails + ', ';
-
             }
             break;
           }
@@ -378,6 +378,12 @@ export class DataManipulationService {
             defendant += this.stringDelimiter(defendant?.length, ',');
             break;
           }
+          case 'DEFENDANT_REPRESENTATIVE':
+          {
+            defendantRep += this.createIndividualDetails(party.individualDetails, initialised).trim();
+            defendantRep += this.stringDelimiter(defendant?.length, ',');
+
+          }
         }
       });
       hearing['appellant'] = appellant?.replace(/,\s*$/, '').trim();
@@ -389,6 +395,7 @@ export class DataManipulationService {
       hearing['respondent'] = respondent?.replace(/,\s*$/, '').trim();
       hearing['prosecutingAuthority'] = prosecutingAuthority?.replace(/,\s*$/, '').trim();
       hearing['defendant'] = defendant?.replace(/,\s*$/, '').trim();
+      hearing['defendantRepresentative'] = defendantRep?.replace(/,\s*$/, '').trim();
     }
   }
 

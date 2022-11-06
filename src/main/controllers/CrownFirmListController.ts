@@ -5,10 +5,12 @@ import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { DataManipulationService } from '../service/dataManipulationService';
+import {CrownFirmListService} from '../service/listManipulation/crownFirmListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const dataManipulationService = new DataManipulationService();
+const firmListService = new CrownFirmListService();
 
 export default class CrownFirmListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -17,7 +19,8 @@ export default class CrownFirmListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (jsonData && metaData) {
-      const outputData = dataManipulationService.manipulatedDailyListData(JSON.stringify(jsonData));
+      let outputData = dataManipulationService.manipulatedDailyListData(JSON.stringify(jsonData));
+      outputData = firmListService.splitOutFirmListData(JSON.stringify(outputData), req.lng, 'crown-firm-list');
       const publishedTime = dataManipulationService.publicationTimeInBst(jsonData['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(jsonData['document']['publicationDate']);
       const location = await locationService.getLocationById(metaData['locationId']);
