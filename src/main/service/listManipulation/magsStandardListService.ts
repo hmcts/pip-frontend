@@ -12,6 +12,7 @@ export class MagsStandardListService {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
+            const allHearings = [];
             if (session?.formattedJudiciaries.length === 0) {
               session['formattedJudiciaries'] = dataManipulationService.findAndManipulateJudiciary(sitting);
             }
@@ -22,16 +23,20 @@ export class MagsStandardListService {
                 sitting['durationAsHours'] as number,
                 sitting['durationAsMinutes'] as number,
                 language, languageFile);
-                hearing.party.forEach(party => {
-                  if (hearing?.party) {
-                    this.manipulatePartyInformation(hearing, party);
-                    hearing['case'].forEach(thisCase => {
-                      thisCase['formattedConvictionDate'] = dateTimeHelper.formatDate(thisCase['convictionDate']);
-                      thisCase['formattedAdjournedDate'] = dateTimeHelper.formatDate(thisCase['adjournedDate']);
-                    });
-                  }
-                });
+              hearing.party.forEach(party => {
+                const hearingString = JSON.stringify(hearing);
+                const hearingObject = JSON.parse(hearingString);
+                if (hearingObject?.party) {
+                  this.manipulatePartyInformation(hearingObject, party);
+                  hearingObject['case'].forEach(thisCase => {
+                    thisCase['formattedConvictionDate'] = dateTimeHelper.formatDate(thisCase['convictionDate']);
+                    thisCase['formattedAdjournedDate'] = dateTimeHelper.formatDate(thisCase['adjournedDate']);
+                  });
+                  allHearings.push(hearingObject);
+                }
+              });
             });
+            sitting['hearing'] = allHearings;
           });
         });
         courtRoom['totalHearing'] = hearingCount;
@@ -53,17 +58,17 @@ export class MagsStandardListService {
     switch (DataManipulationService.convertPartyRole(party.partyRole)) {
       case 'DEFENDANT':
       {
-        defendant += this.createIndividualDetails(party.individualDetails).trim();
+        defendant = this.createIndividualDetails(party.individualDetails).trim();
         defendant += dataManipulationService.stringDelimiter(defendant?.length, ',');
         break;
       }
     }
     hearing['defendantHeading'] = defendant?.replace(/,\s*$/, '').trim();
-    hearing['defendantDateOfBirth'] = party?.dateOfBirth;
-    hearing['defendantAddress'] = this.formatDefendantAddress(party.address);
-    hearing['age'] = party?.age;
-    hearing['gender'] = party?.gender;
-    hearing['plea'] = party?.plea;
+    hearing['defendantDateOfBirth'] = party?.individualDetails?.dateOfBirth;
+    hearing['defendantAddress'] = this.formatDefendantAddress(party.individualDetails?.address);
+    hearing['age'] = party?.individualDetails?.age;
+    hearing['gender'] = party?.individualDetails?.gender;
+    hearing['plea'] = party?.individualDetails?.plea;
   }
 
 
@@ -80,7 +85,7 @@ export class MagsStandardListService {
     let formattedAddress = '';
     if (defendantAddress !== null) {
       defendantAddress['line'].forEach(line => {
-        formattedAddress += ', ' + line;
+        formattedAddress += formattedAddress.length > 0 ? ', ' + line : line;
       });
       formattedAddress += defendantAddress['town'] ? ', ' + defendantAddress['town'] : '';
       formattedAddress += defendantAddress['county'] ? ', ' + defendantAddress['county'] : '';

@@ -96,16 +96,20 @@
             <h1 class="govuk-heading-l site-address" tabindex="0">{{ courtRoom['courtRoomName'] }}</h1>
           {% endif %}
         </div>
+        <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
         {% for sitting in session['sittings'] %}
           {% for hearing in sitting['hearing'] %}
             {% if hearing['defendantHeading'] | length %}
               {% for case in hearing['case'] %}
-                <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
                   <div class="govuk-accordion__section govuk-accordion__section--expanded">
                     <div class="govuk-accordion__section-header">
                       <h2 class="govuk-accordion__section-heading">
                       <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ sessionCount }}">
-                        {{ defendantNameHeading }} {{ hearing['defendantHeading'] }}
+                        {% if hearing['gender'] | length %}
+                          {{ defendantNameHeading }} {{ hearing['defendantHeading'] }} ({{ hearing['gender'] }})
+                        {% else %}
+                          {{ defendantNameHeading }} {{ hearing['defendantHeading'] }}
+                        {% endif %}
                       </span>
                       </h2>
                     </div>
@@ -113,59 +117,95 @@
                       <div class="parent-box overflow-table">
                         <div class="govuk-grid-row">
                           <div class="govuk-grid-column-two-thirds no_padding">
-                            <p class="govuk-body"><span class="linked-cases-heading">{{ sittingAt }} {{ sitting['time'] }}
-                              {{ sittingFor }} {{ sitting['formattedDuration'] }}</span></p> <br />
-                            <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span></p>
-                            <p class="govuk-body"><span class="linked-cases-heading">{{ defendantAddress }}</span></p>
-                            <p class="govuk-body"><span class="linked-cases-heading">{{ prosecutingAuthority }}</span></p>
-                            <p class="govuk-body"><span class="linked-cases-heading">{{ attendanceMethod }}</span></p>
+                            {% if sitting['formattedDuration'] | length %}
+                              <p class="govuk-body"><span class="linked-cases-heading">{{ sittingAt }} {{ sitting['time'] }}
+                                {{ sittingFor }} {{ sitting['formattedDuration'] }}</span></p> <br />
+                            {% endif %}
+                            {% if hearing['defendantDateOfBirth'] | length %}
+                              <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ hearing['defendantDateOfBirth'] }}
+                            {% elseif hearing['age'] > 0 %}
+                              <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span>
+                            {% endif %}
+                            {% if hearing['age'] > 0 %}
+                              {{ age }} {{ hearing['age'] }}</p>
+                            {% endif %}
+                            {% if hearing['defendantAddress'] | length %}
+                              <p class="govuk-body"><span class="linked-cases-heading">{{ defendantAddress }}</span>{{ hearing['defendantAddress'] }}</p>
+                            {% endif %}
+                            {% if case['informant']['prosecutionAuthorityCode'] | length %}
+                              <p class="govuk-body"><span class="linked-cases-heading">{{ prosecutingAuthority }}</span>{{ case['informant']['prosecutionAuthorityCode'] }}</p>
+                            {% endif %}
+                            {% if case['hearingNumber'] | length %}
+                              <p class="govuk-body"><span class="linked-cases-heading">{{ hearingNumber }}</span>{{ case['hearingNumber'] }}</p>
+                            {% endif %}
+                            {% if hearing['hearingType'] | length %}
+                              <p class="govuk-body"><span class="linked-cases-heading">{{ attendanceMethod }}</span>{{ hearing['hearingType'] }}</p>
+                            {% endif %}
                           </div>
 
                           <div class="govuk-grid-column-one-third">
-                            <p class="govuk-body"><span class="linked-cases-heading">{{ caseReference }}</span></p>
-                            <p class="govuk-body"><span class="linked-cases-heading">{{ asn }}</span></p>
-                            <p class="govuk-body"><span class="linked-cases-heading">{{ hearingType }}</span></p>
-                            <p class="govuk-body"><span class="linked-cases-heading">{{ panel }}</span></p>
+                            {% if case['caseNumber'] | length %}
+                              <p class="govuk-body"><span class="linked-cases-heading">{{ caseReference }}</span>{{ case['caseNumber'] }}</p>
+                            {% endif %}
+                            <p class="govuk-body"><span class="linked-cases-heading">{{ asn }}</span>Need to confirm</p>
+                            {% if hearing['hearingType'] | length %}
+                              <p class="govuk-body"><span class="linked-cases-heading">{{ hearingType }}</span>{{ hearing['hearingType'] }}</p>
+                            {% endif %}
+                            {% if case['panel'] | length %}
+                              <p class="govuk-body"><span class="linked-cases-heading">{{ panel }}</span>{{ case['panel'] }}</p>
+                            {% endif %}
                           </div>
                         </div>
-                        <div class="moj-timeline__description">
-                          <details class="govuk-details" data-module="govuk-details">
-                            <summary class="govuk-details__summary">
-                              <span class="govuk-details__summary-text">View Changes</span>
-                            </summary>
-                            <div class="govuk-details__text">
-                              <table class="govuk-table">
-                                <tbody class="govuk-table__body">
-                                  <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell no-border-bottom"><span class="linked-cases-heading">{{ plea }}</span></td>
-                                    <td class="govuk-table__cell no-border-bottom">Not guilty</td>
-                                  </tr>
-                                  <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell no-border-bottom"><span class="linked-cases-heading">{{ dateOfPlea }}</span></td>
-                                    <td class="govuk-table__cell no-border-bottom">Not guilty</td>
-                                  </tr>
-                                  <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell no-border-bottom"><span class="linked-cases-heading">{{ convictedOn }}</span></td>
-                                    <td class="govuk-table__cell no-border-bottom">Not guilty</td>
-                                  </tr>
-                                  <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell no-border-bottom"><span class="linked-cases-heading">{{ adjournedFrom }}</span></td>
-                                    <td class="govuk-table__cell no-border-bottom">Not guilty</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                              <p class="govuk-body">{{ panel }}</p>
-                            </div>
+                        {% for offence in hearing['offence'] %}
+                          <div class="moj-timeline__description">
+                            <details class="govuk-details" data-module="govuk-details">
+                              {% if offence['offenceTitle'] | length %}
+                                <summary class="govuk-details__summary">
+                                  <span class="govuk-details__summary-text">{{ offence['offenceTitle'] }}</span>
+                                </summary>
+                              {% endif %}
+                              <div class="govuk-details__text">
+                                <table class="govuk-table">
+                                  <tbody class="govuk-table__body">
+                                  {% if hearing['plea'] | length %}
+                                    <tr class="govuk-table__row">
+                                      <td class="govuk-table__cell no-border-bottom"><span class="linked-cases-heading">{{ plea }}</span></td>
+                                      <td class="govuk-table__cell no-border-bottom">{{ hearing['plea'] }}</td>
+                                    </tr>
+                                  {% endif %}
+                                  {% if dateOfPlea | length %}
+                                    <tr class="govuk-table__row">
+                                      <td class="govuk-table__cell no-border-bottom"><span class="linked-cases-heading">{{ dateOfPlea }}</span></td>
+                                      <td class="govuk-table__cell no-border-bottom">Need to confirm</td>
+                                    </tr>
+                                  {% endif %}
+                                  {% if case['formattedConvictionDate'] | length %}
+                                    <tr class="govuk-table__row">
+                                      <td class="govuk-table__cell no-border-bottom"><span class="linked-cases-heading">{{ convictedOn }}</span></td>
+                                      <td class="govuk-table__cell no-border-bottom">{{ case['formattedConvictionDate'] }}</td>
+                                    </tr>
+                                  {% endif %}
+                                  {% if case['formattedAdjournedDate'] | length %}
+                                    <tr class="govuk-table__row">
+                                      <td class="govuk-table__cell no-border-bottom"><span class="linked-cases-heading">{{ adjournedFrom }}</span></td>
+                                      <td class="govuk-table__cell no-border-bottom">{{ case['formattedAdjournedDate'] }} - {{ adjournedText }}</td>
+                                    </tr>
+                                  {% endif %}
+                                  </tbody>
+                                </table>
+                                <p class="govuk-body">{{ offence['offenceWording'] }}</p>
+                              </div>
                           </details>
-                        </div>
+                          </div>
+                        {% endfor %}
                       </div>
                     </div>
                   </div>
-                </div>
               {% endfor %}
             {% endif %}
           {% endfor %}
         {% endfor %}
+        </div>
       {% endfor %}
     {% endfor %}
   {% endfor %}

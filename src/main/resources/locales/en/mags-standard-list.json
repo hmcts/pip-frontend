@@ -2,7 +2,7 @@
   "title": "Magistrates Standard List",
   "headerPart1": "Standard Court list for",
   "listDate": "List for",
-  "listUpdated": "Last Updated DATE at ",
+  "listUpdated": "Last Updated: DATE at ",
   "draft": "Draft:",
   "versionText": "Version",
   "restrictionInformationHeading": "Restrictions on publishing or writing about these cases",
@@ -26,9 +26,10 @@
   "sittingFor": "for ",
   "caseReference": "Case Ref: ",
   "dobAndAge": "DOB and Age: ",
+  "age": "Age:",
   "asn": "ASN: ",
   "defendantAddress": "Defendant Address: ",
-  "hearingType": "Hearing Type: ",
+  "hearingType": "Hearing of Type: ",
   "prosecutingAuthority": "Prosecuting Authority: ",
   "panel": "Panel: ",
   "hearingNumber": "Hearing Number: ",
@@ -37,6 +38,7 @@
   "dateOfPlea": "Date of Plea",
   "convictedOn": "Convicted on",
   "adjournedFrom": "Adjourned from",
+  "adjournedText": "For the trial",
   "dataSource": "Data Source",
   "backButton": "Back"
 }
