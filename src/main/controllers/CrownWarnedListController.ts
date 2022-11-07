@@ -11,6 +11,7 @@ const crownWarnedListService = new CrownWarnedListService();
 
 const listUrl = 'crown-warned-list';
 const toBeAllocated = 'To be allocated';
+const toBeAllocatedLowerCase = toBeAllocated.toLowerCase();
 
 export default class CrownWarnedListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -24,22 +25,16 @@ export default class CrownWarnedListController {
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
       const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults));
-      const toBeAllocatedData = [];
-      // Pull out 'to be allocated' data from the list data so it can be placed in a different section in teh templating engine
-      listData.forEach((value, key) => {
-        if (key.toLowerCase() === toBeAllocated.toLowerCase()) {
-          toBeAllocatedData.push(...value);
-          listData.delete(key);
-        }
-      });
 
-      if (toBeAllocatedData.length > 0) {
-        listData.set(toBeAllocated, toBeAllocatedData);
-      }
+      // Sort unallocated list entry to the end of the map so it appears last on the template
+      const sortedListData = new Map([...listData].sort(([a], [b]) =>
+        toBeAllocatedLowerCase === a.toLowerCase() ? 1
+          : toBeAllocatedLowerCase === b.toLowerCase() ? -1
+          : 0));
 
       res.render(listUrl, {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listUrl]),
-        listData: listData,
+        listData: sortedListData,
         venue: searchResults['venue'],
         contentDate: crownWarnedListService.formatContentDate(metaData.contentDate),
         publishedDate: publishedDate,
