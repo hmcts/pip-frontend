@@ -108,7 +108,6 @@ export default function(app: Application): void {
   app.get('/et-daily-list', app.locals.container.cradle.etDailyListController.get);
   app.get('/et-fortnightly-list', app.locals.container.cradle.etFortnightlyListController.get);
   app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
-  app.get('/mags-daily-list', app.locals.container.cradle.magsStandardListController.get);
   app.get('/primary-health-list', app.locals.container.cradle.tribunalNationalListsController.get);
 
   // Restricted paths
@@ -119,9 +118,10 @@ export default function(app: Application): void {
   app.get('/case-reference-number-search', isPermittedMedia, app.locals.container.cradle.caseReferenceNumberSearchController.get);
   app.post('/case-reference-number-search', isPermittedMedia, app.locals.container.cradle.caseReferenceNumberSearchController.post);
   app.get('/case-reference-number-search-results', isPermittedMedia, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
+  app.get('/delete-subscription', isPermittedMedia, app.locals.container.cradle.deleteSubscriptionController.get);
   app.get('/location-name-search', isPermittedMedia, app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/location-name-search', isPermittedMedia, app.locals.container.cradle.alphabeticalSearchController.post);
-  app.get('/delete-subscription', isPermittedMedia, app.locals.container.cradle.deleteSubscriptionController.get);
+  app.get('/mags-standard-list', isPermittedMedia, app.locals.container.cradle.magsStandardListController.get);
   app.get('/pending-subscriptions', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.get);
   app.post('/pending-subscriptions', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.post);
   app.get('/remove-subscription', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.removeSubscription);

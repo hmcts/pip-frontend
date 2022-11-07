@@ -1,5 +1,5 @@
 import {LanguageFileParser} from './languageFileParser';
-import moment from "moment-timezone";
+import moment from 'moment-timezone';
 
 const ONE = 1;
 const languageFileParser = new LanguageFileParser();
@@ -28,9 +28,9 @@ export class DateTimeHelper {
     return duration +' ' + languageFileParser.getText(fileJson, null, format);
   }
 
-  public formatDate(dateTime: string): string {
+  public formatDate(dateTime: string, format: string): string {
     if(/\S/.test(dateTime) && dateTime !== null) {
-      return moment.utc(dateTime).tz(timeZone).format('DD/MM/YYYY');
+      return moment.utc(dateTime).tz(timeZone).format(format);
     }
   }
 }

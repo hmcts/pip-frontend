@@ -82,13 +82,6 @@
     {% for courtRoom in courtHouse['courtRoom'] %}
       {% for session in courtRoom['session'] %}
         {% set sessionCount = sessionCount + 1 %}
-        {% set sessionChannel = '' %}
-
-        {% for channel in session['sessionChannel'] %}
-          {% set sessionChannel = sessionChannel + ', ' + channel %}
-        {% endfor %}
-
-        {% set sessionChannel = sessionChannel.slice(1) %}
         <div class="site-header" tabindex="0" aria-label="Court Details">
           {% if session['formattedJudiciaries'] | length %}
             <h1 class="govuk-heading-l site-address" tabindex="0">{{ courtRoom['courtRoomName'] }}: {{ session['formattedJudiciaries'] }}</h1>
@@ -138,8 +131,8 @@
                             {% if case['hearingNumber'] | length %}
                               <p class="govuk-body"><span class="linked-cases-heading">{{ hearingNumber }}</span>{{ case['hearingNumber'] }}</p>
                             {% endif %}
-                            {% if hearing['hearingType'] | length %}
-                              <p class="govuk-body"><span class="linked-cases-heading">{{ attendanceMethod }}</span>{{ hearing['hearingType'] }}</p>
+                            {% if sitting['caseHearingChannel'] | length %}
+                              <p class="govuk-body"><span class="linked-cases-heading">{{ attendanceMethod }}</span>{{ sitting['caseHearingChannel'] }}</p>
                             {% endif %}
                           </div>
 

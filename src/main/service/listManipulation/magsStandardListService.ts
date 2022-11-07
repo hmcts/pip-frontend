@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import {DataManipulationService} from '../dataManipulationService';
-import {DateTimeHelper} from "../../helpers/dateTimeHelper";
+import {DateTimeHelper} from '../../helpers/dateTimeHelper';
 
 const dataManipulationService = new DataManipulationService();
 const dateTimeHelper = new DateTimeHelper();
@@ -13,24 +13,20 @@ export class MagsStandardListService {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
             const allHearings = [];
-            if (session?.formattedJudiciaries.length === 0) {
-              session['formattedJudiciaries'] = dataManipulationService.findAndManipulateJudiciary(sitting);
-            }
+            session['formattedJudiciaries'] = dataManipulationService.findAndManipulateJudiciary(sitting);
             this.formatCaseTime(sitting, 'h:mma');
             hearingCount = hearingCount + sitting['hearing'].length;
             sitting['hearing'].forEach(hearing => {
               sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsDays'] as number,
-                sitting['durationAsHours'] as number,
-                sitting['durationAsMinutes'] as number,
-                language, languageFile);
+                sitting['durationAsHours'] as number, sitting['durationAsMinutes'] as number, language, languageFile);
               hearing.party.forEach(party => {
                 const hearingString = JSON.stringify(hearing);
                 const hearingObject = JSON.parse(hearingString);
                 if (hearingObject?.party) {
                   this.manipulatePartyInformation(hearingObject, party);
                   hearingObject['case'].forEach(thisCase => {
-                    thisCase['formattedConvictionDate'] = dateTimeHelper.formatDate(thisCase['convictionDate']);
-                    thisCase['formattedAdjournedDate'] = dateTimeHelper.formatDate(thisCase['adjournedDate']);
+                    thisCase['formattedConvictionDate'] = dateTimeHelper.formatDate(thisCase['convictionDate'], 'DD/MM/YYYY');
+                    thisCase['formattedAdjournedDate'] = dateTimeHelper.formatDate(thisCase['adjournedDate'], 'DD/MM/YYYY');
                   });
                   allHearings.push(hearingObject);
                 }
@@ -70,7 +66,6 @@ export class MagsStandardListService {
     hearing['gender'] = party?.individualDetails?.gender;
     hearing['plea'] = party?.individualDetails?.plea;
   }
-
 
   private createIndividualDetails(individualDetails: any): string {
 
