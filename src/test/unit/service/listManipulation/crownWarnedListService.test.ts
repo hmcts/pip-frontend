@@ -45,13 +45,13 @@ describe('Crown Warned List service', () => {
     it('should return defendant representative from organisation details', async () => {
       const data: Map<string, object[]> = await crownWarnedListService.manipulateData(input);
       const cases = data.get('Trial');
-      expect(cases[0]['defendantRepresentative']).is.equal('FirstGroup LLP');
+      expect(cases[0]['defendantRepresentative']).is.equal('Defendant rep 1');
     });
 
     it('should return prosecuting authority from organisation details', async () => {
       const data: Map<string, object[]> = await crownWarnedListService.manipulateData(input);
       const cases = data.get('Trial');
-      expect(cases[0]['prosecutingAuthority']).is.equal('CPS');
+      expect(cases[0]['prosecutingAuthority']).is.equal('Prosecutor');
     });
 
     it('should format linked cases if exists', async () => {
