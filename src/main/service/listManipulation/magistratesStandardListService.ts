@@ -5,9 +5,8 @@ import {DateTimeHelper} from '../../helpers/dateTimeHelper';
 const dataManipulationService = new DataManipulationService();
 const dateTimeHelper = new DateTimeHelper();
 
-export class MagsStandardListService {
+export class MagistratesStandardListService {
   public manipulatedMagsStandardListData(magsStandardListData: object, language: string, languageFile: string): object {
-    let hearingCount = 0;
     magsStandardListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
@@ -17,7 +16,6 @@ export class MagsStandardListService {
             this.formatCaseTime(sitting, 'h:mma');
             sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsDays'] as number,
               sitting['durationAsHours'] as number, sitting['durationAsMinutes'] as number, language, languageFile);
-            hearingCount = hearingCount + sitting['hearing'].length;
             sitting['hearing'].forEach(hearing => {
               if (hearing?.party) {
                 hearing.party.forEach(party => {
@@ -35,8 +33,6 @@ export class MagsStandardListService {
             sitting['hearing'] = allHearings;
           });
         });
-        courtRoom['totalHearing'] = hearingCount;
-        hearingCount = 0;
       });
     });
 

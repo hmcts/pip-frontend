@@ -7,7 +7,7 @@ import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
 import {LocationService} from '../../../main/service/locationService';
 
-const PAGE_URL = '/mags-standard-list?artefactId=abc';
+const PAGE_URL = '/magistrates-standard-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const restrictionHeading = 'govuk-grid restriction-list-section';
 const accordionClass='govuk-accordion__section-button';

@@ -5,14 +5,14 @@ import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { DataManipulationService } from '../service/dataManipulationService';
-import { MagsStandardListService } from '../service/listManipulation/magsStandardListService';
+import { MagistratesStandardListService } from '../service/listManipulation/magistratesStandardListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const dataManipulationService = new DataManipulationService();
-const magsStandardListService = new MagsStandardListService();
+const magsStandardListService = new MagistratesStandardListService();
 
-export default class MagsStandardListController {
+export default class MagistratesStandardListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query.artefactId as string;
     const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);
@@ -21,14 +21,14 @@ export default class MagsStandardListController {
     if (searchResults && metaData) {
 
       let manipulatedData = dataManipulationService.manipulatedDailyListData(JSON.stringify(searchResults));
-      manipulatedData = magsStandardListService.manipulatedMagsStandardListData(manipulatedData, req.lng as string, 'mags-standard-list');
+      manipulatedData = magsStandardListService.manipulatedMagsStandardListData(manipulatedData, req.lng as string, 'magistrates-standard-list');
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);
       const location = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
-      res.render('mags-standard-list', {
-        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['mags-standard-list']),
+      res.render('magistrates-standard-list', {
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['magistrates-standard-list']),
         listData: manipulatedData,
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: publishedDate,

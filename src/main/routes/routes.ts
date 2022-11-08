@@ -79,7 +79,7 @@ export default function(app: Application): void {
   // app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/password-change-confirmation/:isAdmin', app.locals.container.cradle.passwordChangeController.get);
   app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
-  app.get('/mags-standard-list', app.locals.container.cradle.magsStandardListController.get);
+  app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
   app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}), regenerateSession);
   app.get('/login', passport.authenticate('login', { failureRedirect: '/'}), regenerateSession);
   app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/'}), regenerateSession);

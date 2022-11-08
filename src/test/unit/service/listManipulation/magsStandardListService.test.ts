@@ -1,13 +1,13 @@
 import {expect} from 'chai';
 import fs from 'fs';
 import path from 'path';
-import {MagsStandardListService} from '../../../../main/service/listManipulation/magsStandardListService';
+import {MagistratesStandardListService} from '../../../../main/service/listManipulation/magistratesStandardListService';
 
-const magsStandardListService = new MagsStandardListService();
+const magsStandardListService = new MagistratesStandardListService();
 const rawMagistrateStandardListData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magsStandardList.json'), 'utf-8');
 
 const lng = 'en';
-const languageFile = 'mags-standard-list';
+const languageFile = 'magistrates-standard-list';
 
 describe('Magistrate Standard List Data manipulation service', () => {
 
