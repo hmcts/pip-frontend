@@ -109,6 +109,7 @@ export default function(app: Application): void {
   app.get('/et-fortnightly-list', app.locals.container.cradle.etFortnightlyListController.get);
   app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
   app.get('/primary-health-list', app.locals.container.cradle.tribunalNationalListsController.get);
+  app.get('/magistrates-public-list', app.locals.container.cradle.magistratesPublicListController.get);
 
   // Restricted paths
   app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
@@ -170,6 +171,12 @@ export default function(app: Application): void {
   app.post('/create-system-admin-account', isPermittedSystemAdmin, app.locals.container.cradle.createSystemAdminAccountController.post);
   app.get('/create-system-admin-account-summary', isPermittedSystemAdmin, app.locals.container.cradle.createSystemAdminAccountSummaryController.get);
   app.post('/create-system-admin-account-summary', isPermittedSystemAdmin, app.locals.container.cradle.createSystemAdminAccountSummaryController.post);
+
+  app.get('/manual-reference-data-upload', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadController.get);
+  app.post('/manual-reference-data-upload', isPermittedSystemAdmin, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-reference-data-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualReferenceDataUploadController.post);
+  app.get('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.get);
+  app.post('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.post);
+  app.get('/manual-reference-data-upload-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadConfirmationController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {

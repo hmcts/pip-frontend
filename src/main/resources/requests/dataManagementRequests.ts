@@ -43,4 +43,23 @@ export class DataManagementRequests {
     }
     return false;
   }
+
+  public async uploadLocationFile(body: any): Promise<boolean> {
+    try {
+      await superagent.post(`${this.dataManagementAPI}/locations/upload`)
+        .set('enctype', 'multipart/form-data')
+        .attach('locationList', body.file, body.fileName);
+      return true;
+    }
+    catch (error) {
+      if (error.response) {
+        console.log('Failed to upload location data file');
+      } else if (error.request) {
+        console.log('Request failed.');
+      } else {
+        console.log('Unknown error when attempting to upload location data file');
+      }
+    }
+    return false;
+  }
 }
