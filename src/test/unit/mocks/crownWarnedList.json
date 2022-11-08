@@ -303,16 +303,6 @@
     },
     {
       "courtHouse": {
-        "courtHouseName": "Court B",
-        "courtHouseAddress": {
-          "line": [
-            "Address Line 1",
-            "Address Line 2"
-          ],
-          "town": "Town B",
-          "county": "County B",
-          "postCode": "BB1 BB1"
-        },
         "courtRoom": [
           {
             "courtRoomName": "1",
@@ -351,13 +341,13 @@
                           {
                             "partyRole": "DEFENDANT_REPRESENTATIVE",
                             "organisationDetails": {
-                              "organisationName": "Anderson LLP"
+                              "organisationName": "Defendant rep 4"
                             }
                           },
                           {
                             "partyRole": "PROSECUTING_AUTHORITY",
                             "organisationDetails": {
-                              "organisationName": "CPS"
+                              "organisationName": "Prosecutor"
                             }
                           },
                           {
