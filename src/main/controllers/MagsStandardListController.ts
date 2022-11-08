@@ -5,7 +5,7 @@ import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { DataManipulationService } from '../service/dataManipulationService';
-import {MagsStandardListService} from '../service/listManipulation/magsStandardListService';
+import { MagsStandardListService } from '../service/listManipulation/magsStandardListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();

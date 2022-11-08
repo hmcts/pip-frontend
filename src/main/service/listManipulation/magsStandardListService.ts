@@ -15,22 +15,22 @@ export class MagsStandardListService {
             const allHearings = [];
             session['formattedJudiciaries'] = dataManipulationService.findAndManipulateJudiciary(sitting);
             this.formatCaseTime(sitting, 'h:mma');
+            sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsDays'] as number,
+              sitting['durationAsHours'] as number, sitting['durationAsMinutes'] as number, language, languageFile);
             hearingCount = hearingCount + sitting['hearing'].length;
             sitting['hearing'].forEach(hearing => {
-              sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsDays'] as number,
-                sitting['durationAsHours'] as number, sitting['durationAsMinutes'] as number, language, languageFile);
-              hearing.party.forEach(party => {
-                const hearingString = JSON.stringify(hearing);
-                const hearingObject = JSON.parse(hearingString);
-                if (hearingObject?.party) {
+              if (hearing?.party) {
+                hearing.party.forEach(party => {
+                  const hearingString = JSON.stringify(hearing);
+                  const hearingObject = JSON.parse(hearingString);
                   this.manipulatePartyInformation(hearingObject, party);
                   hearingObject['case'].forEach(thisCase => {
                     thisCase['formattedConvictionDate'] = dateTimeHelper.formatDate(thisCase['convictionDate'], 'DD/MM/YYYY');
                     thisCase['formattedAdjournedDate'] = dateTimeHelper.formatDate(thisCase['adjournedDate'], 'DD/MM/YYYY');
                   });
                   allHearings.push(hearingObject);
-                }
-              });
+                });
+              }
             });
             sitting['hearing'] = allHearings;
           });
@@ -51,14 +51,12 @@ export class MagsStandardListService {
 
   private manipulatePartyInformation(hearing: any, party: any): void {
     let defendant = '';
-    switch (DataManipulationService.convertPartyRole(party.partyRole)) {
-      case 'DEFENDANT':
-      {
-        defendant = this.createIndividualDetails(party.individualDetails).trim();
-        defendant += dataManipulationService.stringDelimiter(defendant?.length, ',');
-        break;
-      }
+
+    if (DataManipulationService.convertPartyRole(party.partyRole) === 'DEFENDANT') {
+      defendant = this.createIndividualDetails(party.individualDetails).trim();
+      defendant += dataManipulationService.stringDelimiter(defendant?.length, ',');
     }
+
     hearing['defendantHeading'] = defendant?.replace(/,\s*$/, '').trim();
     hearing['defendantDateOfBirth'] = party?.individualDetails?.dateOfBirth;
     hearing['defendantAddress'] = this.formatDefendantAddress(party.individualDetails?.address);
