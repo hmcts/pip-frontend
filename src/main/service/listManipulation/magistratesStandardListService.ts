@@ -12,7 +12,10 @@ export class MagistratesStandardListService {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
             const allHearings = [];
-            session['formattedJudiciaries'] = dataManipulationService.findAndManipulateJudiciary(sitting);
+            const judiciary = dataManipulationService.findAndManipulateJudiciary(sitting);
+            if (judiciary !== '') {
+              session['formattedJudiciaries'] = judiciary;
+            }
             this.formatCaseTime(sitting, 'h:mma');
             sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsDays'] as number,
               sitting['durationAsHours'] as number, sitting['durationAsMinutes'] as number, language, languageFile);
