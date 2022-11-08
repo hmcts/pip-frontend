@@ -135,6 +135,10 @@ export class ManualUploadService {
     }
   }
 
+  public async uploadLocationDataPublication(data: any): Promise<boolean> {
+    return await dataManagementRequests.uploadLocationFile(data);
+  }
+
   public formatPublicationDates(formData: any, defaultFormat: boolean): object {
     return {
       ...formData,

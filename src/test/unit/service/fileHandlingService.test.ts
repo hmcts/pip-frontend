@@ -2,6 +2,7 @@ import sinon from 'sinon';
 import fs from 'fs';
 import { multerFile } from '../mocks/multerFile';
 import { FileHandlingService } from '../../../main/service/fileHandlingService';
+import {uploadType} from '../../../main/models/consts';
 const { redisClient } = require('../../../main/cacheManager');
 
 const fileHandlingService = new FileHandlingService();
@@ -50,27 +51,27 @@ describe('File handling service', () => {
 
   describe('validateFileUpload', () => {
     it('should return null when checking a valid file', () => {
-      expect(fileHandlingService.validateFileUpload(validFile, englishLanguage, manualUploadLanguageFile)).toBe(null);
+      expect(fileHandlingService.validateFileUpload(validFile, englishLanguage, manualUploadLanguageFile, uploadType.FILE)).toBe(null);
     });
 
     it('should return null when checking file type in different case sensitivity', () => {
-      expect(fileHandlingService.validateFileUpload(validFileCase, englishLanguage, manualUploadLanguageFile)).toBe(null);
+      expect(fileHandlingService.validateFileUpload(validFileCase, englishLanguage, manualUploadLanguageFile, uploadType.FILE)).toBe(null);
     });
 
     it('should return error message if file greater than 2MB', () => {
-      expect(fileHandlingService.validateFileUpload(largeFile, englishLanguage, manualUploadLanguageFile)).toEqual('File too large, please upload file smaller than 2MB');
+      expect(fileHandlingService.validateFileUpload(largeFile, englishLanguage, manualUploadLanguageFile, uploadType.FILE)).toEqual('File too large, please upload file smaller than 2MB');
     });
 
     it('should return error message if invalid file type', () => {
-      expect(fileHandlingService.validateFileUpload(invalidFileType, englishLanguage, manualUploadLanguageFile)).toEqual('Please upload a valid file format');
+      expect(fileHandlingService.validateFileUpload(invalidFileType, englishLanguage, manualUploadLanguageFile, uploadType.FILE)).toEqual('Please upload a valid file format');
     });
 
     it('should return error message if missing file type', () => {
-      expect(fileHandlingService.validateFileUpload(noFileType, englishLanguage, manualUploadLanguageFile)).toEqual('Please upload a valid file format');
+      expect(fileHandlingService.validateFileUpload(noFileType, englishLanguage, manualUploadLanguageFile, uploadType.FILE)).toEqual('Please upload a valid file format');
     });
 
     it('should return error message if no file passed', () => {
-      expect(fileHandlingService.validateFileUpload(null, englishLanguage, manualUploadLanguageFile)).toEqual('Please provide a file');
+      expect(fileHandlingService.validateFileUpload(null, englishLanguage, manualUploadLanguageFile, uploadType.FILE)).toEqual('Please provide a file');
     });
   });
 
@@ -143,31 +144,31 @@ describe('File handling service', () => {
 
   describe('isValidFileType', () => {
     it('should return true for valid image type', () => {
-      expect(fileHandlingService.isValidFileType('foo.jpg', true)).toBe(true);
+      expect(fileHandlingService.isValidFileType('foo.jpg', uploadType.IMAGE)).toBe(true);
     });
 
     it('should return false for invalid image type', () => {
-      expect(fileHandlingService.isValidFileType('bar.gif', true)).toBe(false);
+      expect(fileHandlingService.isValidFileType('bar.gif', uploadType.IMAGE)).toBe(false);
     });
 
     it('should return false for no image type', () => {
-      expect(fileHandlingService.isValidFileType('buzz', true)).toBe(false);
+      expect(fileHandlingService.isValidFileType('buzz', uploadType.IMAGE)).toBe(false);
     });
 
     it('should return true for valid file type', () => {
-      expect(fileHandlingService.isValidFileType('foo.pdf', false)).toBe(true);
+      expect(fileHandlingService.isValidFileType('foo.pdf', uploadType.FILE)).toBe(true);
     });
 
     it('should return false for invalid image type', () => {
-      expect(fileHandlingService.isValidFileType('bar.gif', false)).toBe(false);
+      expect(fileHandlingService.isValidFileType('bar.gif', uploadType.IMAGE)).toBe(false);
     });
 
     it('should return false for no file type', () => {
-      expect(fileHandlingService.isValidFileType('pop', false)).toBe(false);
+      expect(fileHandlingService.isValidFileType('pop', uploadType.FILE)).toBe(false);
     });
 
     it('should return true for dot separated image file', () => {
-      expect(fileHandlingService.isValidFileType('f.i.l.e.png', true));
+      expect(fileHandlingService.isValidFileType('f.i.l.e.png', uploadType.FILE));
     });
   });
 

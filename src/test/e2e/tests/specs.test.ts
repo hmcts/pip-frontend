@@ -46,6 +46,8 @@ import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccount
 import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
 import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
 import {SessionLoggedOutPage} from '../PageObjects/SessionLoggedOut.page';
+import {ManualReferenceDataUploadPage} from '../PageObjects/ManualReferenceDataUpload.page';
+import {ManualReferenceDataUploadSummaryPage} from '../PageObjects/ManualReferenceDataUploadSummary.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -95,6 +97,8 @@ let mediaAccountRejectionPage: MediaAccountRejectionPage;
 let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
 let subscriptionConfigureListPage: SubscriptionConfigureListPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
+let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
+let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -671,6 +675,26 @@ describe('System Admin level journeys', () => {
       await createSystemAdminAccountPage.completeForm();
       createSystemAdminAccountSummaryPage = await createSystemAdminAccountPage.clickContinue();
       expect(await createSystemAdminAccountSummaryPage.getPageTitle()).toEqual('Check account details');
+    });
+  });
+
+  describe('Reference Manual Upload', () => {
+    before(async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard');
+    });
+
+    it('should open reference manual upload page', async () => {
+      manualReferenceDataUploadPage = await systemAdminDashboard.clickReferenceDataUploadFileCard();
+      expect(await manualReferenceDataUploadPage.getPageTitle()).toEqual('Reference manual data upload');
+    });
+    it('should complete form and open summary page', async () => {
+      await manualReferenceDataUploadPage.completeForm();
+      manualReferenceDataUploadSummaryPage = await manualReferenceDataUploadPage.clickContinue();
+      expect(await manualReferenceDataUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+    });
+    it('should open upload confirmation page', async () => {
+      fileUploadConfirmationPage = await manualReferenceDataUploadSummaryPage.clickContinue();
+      expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
     });
   });
 
