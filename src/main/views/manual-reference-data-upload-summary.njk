@@ -1,0 +1,52 @@
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+{% block content %}
+  {% if displayError %}
+    {{ govukErrorSummary({
+      titleText: error.title,
+      errorList: [
+        {
+          text: error.message,
+          href: "#"
+        }
+      ]
+    }) }}
+  {% endif %}
+  <div class="parent-box">
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <form enctype="multipart/form-data" method="post" class="govuk-!-width-two-thirds" action="manual-reference-data-upload-summary">
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+            text: fileKey
+          },
+            value: {
+            text: fileUploadData.fileName
+          },
+            actions: {
+            items: [
+              {
+                href: "manual-reference-data-upload#manual-reference-data-upload",
+                text: actionName,
+                visuallyHiddenText: fileKey
+              }
+            ]
+          }
+          }
+        ]
+      }) }}
+      {{ submitButton(confirmButton) }}
+    </form>
+  </div>
+{% endblock %}
