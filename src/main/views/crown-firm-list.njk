@@ -77,7 +77,7 @@
         {% endif %}
       </div>
     </div>
-{% for court in allocated %}
+  {% for court in allocated %}
   {% set courtHouse = court.courtName %}
   {% for day in court.days %}
 
@@ -88,8 +88,8 @@
 
 
     {% for room in day %}
-
-      <h2 class="govuk-heading-l site-address" tabindex="0">{{ room.courtRoom }}</h2>
+<br/>
+      <h3 class="govuk-heading-m site-address" tabindex="0">{{ room.courtRoom }} : {{ room.data[0].joh }}</h3>
 
       <table class="govuk-table">
                     <thead class="govuk-table__head">
@@ -105,12 +105,15 @@
                     </thead>
                     <tbody class="govuk-table__body">
                     {% for row in room.data %}
+                    {% if (row.linkedCases | length !== 0) or (row.hearingNotes | length !== 0) %}
+                      {% set noBorder = 'no-border-bottom' %}
+                      {% endif %}
                           <tr class="govuk-table__row">
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ row.sittingTime }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ row.caseNumber }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ row.defendant }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ row.hearingType }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ row.formattedDuration }} {{ room.caseSeparator }}</td>
+                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ row.formattedDuration }} {{ row.caseSeparator }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ row.defendantRepresentative }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ row.prosecutingAuthority }}</td>
                           </tr>
@@ -123,17 +126,20 @@
                         </tr>
                       {% endif %}
                       {% if row.hearingNotes | length %}
+                        {% set noBorderLinkedCases = '' %}
                         {% set noBorder = '' %}
                         <tr class="govuk-table__row">
                           <td class="govuk-table__cell {{ noBorder }}" colspan="7"><span class="linked-cases-heading">{{ listingNotes }}:</span> {{ row.hearingNotes }}</td>
                         </tr>
                       {% endif %}
-                    {% endfor %}
+    {% endfor %}
                     </tbody>
     </table>
     {% endfor %}
+  {% endfor %}
 {% endfor %}
-{% endfor %}
+
+<br/>
 
     <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
     {{ super() }}

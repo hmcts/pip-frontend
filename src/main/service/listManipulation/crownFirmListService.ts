@@ -41,7 +41,6 @@ export class CrownFirmListService {
                   defendant: formattedName[1].toUpperCase() + ', ' + formattedName[0],
                   defendantRepresentative: hearing['defendantRepresentative'],
                   prosecutingAuthority: hearing['prosecutingAuthority'],
-                  // linkedCases: thisCase[0],
                   hearingType: hearing['hearingType'],
                   jurisdiction: thisCase['caseType'],
                   hearingPlatform: sitting['caseHearingChannel'],
@@ -59,9 +58,10 @@ export class CrownFirmListService {
 
   private splitByCourtAndDateAndAllocation(data: any) {
     const courts = [];
-    data.filter(row => row.courtRoom.toLowerCase().includes('to be allocated')).forEach(row => row.courtName = 'unallocated');
     const uniqueCourts = dataManipulationService.uniquesInArrayByAttrib(data, 'courtName');
     let courtCounter = 0;
+    function compare (a, b) {
+      if (a.courtRoom.toLowerCase().includes('to be allocated')){return 1;} return -1;}
     uniqueCourts.forEach(court => {
       const courtData = data.filter(row => row.courtName === court);
       courts.push({'courtName': court, days: []});
@@ -83,6 +83,7 @@ export class CrownFirmListService {
           const room = record.filter(row => row.courtRoom === courtRoom);
           thisDayCourts.push({'courtRoom': courtRoom, data: room});
         });
+        thisDayCourts.sort(compare);
         courts[courtCounter]['days'].push(thisDayCourts);
       });
       courtCounter += 1;
