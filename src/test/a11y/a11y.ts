@@ -58,6 +58,9 @@ const systemAdminRoutes = [
   '/system-admin-dashboard',
   '/create-system-admin-account',
   '/create-system-admin-account-summary',
+  '/manual-reference-data-upload',
+  '/manual-reference-data-upload-summary',
+  '/manual-reference-data-upload-confirmation',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');

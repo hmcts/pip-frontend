@@ -74,6 +74,7 @@ export default function(app: Application): void {
   app.post('/create-media-account', multer({storage: storage, limits: {fileSize: 2000000}}).single('file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.createMediaAccountController.post);
   app.get('/civil-and-family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/crown-daily-list', app.locals.container.cradle.crownDailyListController.get);
+  app.get('/crown-warned-list', app.locals.container.cradle.crownWarnedListController.get);
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   // app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
@@ -172,6 +173,12 @@ export default function(app: Application): void {
   app.post('/create-system-admin-account', isPermittedSystemAdmin, app.locals.container.cradle.createSystemAdminAccountController.post);
   app.get('/create-system-admin-account-summary', isPermittedSystemAdmin, app.locals.container.cradle.createSystemAdminAccountSummaryController.get);
   app.post('/create-system-admin-account-summary', isPermittedSystemAdmin, app.locals.container.cradle.createSystemAdminAccountSummaryController.post);
+
+  app.get('/manual-reference-data-upload', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadController.get);
+  app.post('/manual-reference-data-upload', isPermittedSystemAdmin, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-reference-data-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualReferenceDataUploadController.post);
+  app.get('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.get);
+  app.post('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.post);
+  app.get('/manual-reference-data-upload-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadConfirmationController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
