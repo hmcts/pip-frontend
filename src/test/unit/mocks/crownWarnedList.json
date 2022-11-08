@@ -4,14 +4,13 @@
     "publicationDate":"2022-09-13T11:30:52.123Z"
   },
   "venue": {
-    "venueName": "Manchester Crown Court",
+    "venueName": "Manchester Court",
     "venueAddress": {
       "line": [
-        "Crown Square",
-        "Barcroft Street"
+        "Princess Square"
       ],
       "town": "Manchester",
-      "postCode": "M3 3EB"
+      "postCode": "M1 1AA"
     }
   },
   "@schemaLocation": "",
@@ -26,8 +25,8 @@
                 "sessionStartTime": "",
                 "sittings": [
                   {
-                    "sittingStart": "2022-07-27T09:40:17.496185",
-                    "sittingEnd": "2022-07-27T10:45:17.496185",
+                    "sittingStart": "2022-07-27T09:40:17.496Z",
+                    "sittingEnd": "2022-07-27T10:45:17.496Z",
                     "hearing": [
                       {
                         "hearingType": "Trial",
@@ -59,13 +58,13 @@
                           {
                             "partyRole": "DEFENDANT_REPRESENTATIVE",
                             "organisationDetails": {
-                              "organisationName": "FirstGroup LLP"
+                              "organisationName": "Defendant rep 1"
                             }
                           },
                           {
                             "partyRole": "PROSECUTING_AUTHORITY",
                             "organisationDetails": {
-                              "organisationName": "CPS"
+                              "organisationName": "Prosecutor"
                             }
                           }
                         ]
@@ -95,13 +94,13 @@
                           {
                             "partyRole": "DEFENDANT_REPRESENTATIVE",
                             "organisationDetails": {
-                              "organisationName": "JLP LLP"
+                              "organisationName": "Defendant rep 2"
                             }
                           },
                           {
                             "partyRole": "PROSECUTING_AUTHORITY",
                             "organisationDetails": {
-                              "organisationName": "CPS"
+                              "organisationName": "Prosecutor"
                             }
                           }
                         ]
@@ -109,8 +108,8 @@
                     ]
                   },
                   {
-                    "sittingStart": "2022-01-27T08:05:17.496185",
-                    "sittingEnd": "2022-01-27T10:45:17.496185",
+                    "sittingStart": "2022-01-27T08:05:17.496Z",
+                    "sittingEnd": "2022-01-27T10:45:17.496Z",
                     "hearing": [
                       {
                         "hearingType": "Appeal",
@@ -131,13 +130,13 @@
                           {
                             "partyRole": "DEFENDANT_REPRESENTATIVE",
                             "organisationDetails": {
-                              "organisationName": "FirstGroup LLP"
+                              "organisationName": "Defendant rep 3"
                             }
                           },
                           {
                             "partyRole": "PROSECUTING_AUTHORITY",
                             "organisationDetails": {
-                              "organisationName": "CPS"
+                              "organisationName": "Prosecutor"
                             }
                           }
                         ]
@@ -168,7 +167,7 @@
                           {
                             "partyRole": "PROSECUTING_AUTHORITY",
                             "organisationDetails": {
-                              "organisationName": "CPS"
+                              "organisationName": "Prosecutor"
                             }
                           }
                         ]
@@ -186,8 +185,8 @@
                 "sessionStartTime": "",
                 "sittings": [
                   {
-                    "sittingStart": "2022-07-27T09:40:17.496185",
-                    "sittingEnd": "2022-07-27T10:45:17.496185",
+                    "sittingStart": "2022-07-27T09:40:17.496Z",
+                    "sittingEnd": "2022-07-27T10:45:17.496Z",
                     "hearing": [
                       {
                         "hearingType": "Sentence",
@@ -226,7 +225,7 @@
                           {
                             "partyRole": "PROSECUTING_AUTHORITY",
                             "organisationDetails": {
-                              "organisationName": "CPS"
+                              "organisationName": "Prosecutor"
                             }
                           }
                         ]
@@ -288,7 +287,7 @@
                           {
                             "partyRole": "PROSECUTING_AUTHORITY",
                             "organisationDetails": {
-                              "organisationName": "CPS"
+                              "organisationName": "Prosecutor"
                             }
                           }
                         ]
@@ -322,8 +321,8 @@
                 "sessionStartTime": "",
                 "sittings": [
                   {
-                    "sittingStart": "2022-01-27T09:00:17.496185",
-                    "sittingEnd": "2022-01-27T10:30:17.496185",
+                    "sittingStart": "2022-01-27T09:00:17.496Z",
+                    "sittingEnd": "2022-01-27T10:30:17.496Z",
                     "hearing": [
                       {
                         "hearingType": "Appeal",

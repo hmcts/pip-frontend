@@ -16,7 +16,7 @@
   <div class="parent-box">
     <h2 id="page-heading" class="govuk-heading-l">{{ venue.venueName }}: {{ listName }}</h2>
     <p class="govuk-body publication-date">{{ listUpdated | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
-    <p class="govuk-body version">{{ final }}: {{ versionText }} {{ version }}</p>
+    <p class="govuk-body version">{{ draft }}: {{ versionText }} {{ version }}</p>
     <p class="govuk-body venue-address">
       {% set address = venue.venueAddress %}
       {% for line in address.line %}

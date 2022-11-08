@@ -37,7 +37,7 @@ describe('Crown Warned List page', () => {
 
   it('should display header with venue name and list type',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
-    expect(header[0].innerHTML).equal('Manchester Crown Court: Warned List', 'Could not find the header');
+    expect(header[0].innerHTML).equal('Manchester Court: Warned List', 'Could not find the header');
   });
 
   it('should display publication date',  () => {
@@ -47,12 +47,12 @@ describe('Crown Warned List page', () => {
 
   it('should display version information',  () => {
     const version = htmlRes.getElementsByClassName(versionClass);
-    expect(version[0].innerHTML).contains('Final: Version 1.0', 'Could not find the version information');
+    expect(version[0].innerHTML).contains('Draft: Version 1.0', 'Could not find the version information');
   });
 
   it('should display venue address postcode',  () => {
     const address = htmlRes.getElementsByClassName(venueAddressClass);
-    expect(address[0].innerHTML).contains('M3 3EB', 'Could not find the venue address');
+    expect(address[0].innerHTML).contains('M1 1AA', 'Could not find the venue address');
   });
 
   it('should display the list information text',  () => {
@@ -101,12 +101,12 @@ describe('Crown Warned List page', () => {
 
   it('should display defendant representative',  () => {
     const cell = htmlRes.getElementsByClassName(tableCellClass);
-    expect(cell[3].innerHTML).to.equal('FirstGroup LLP', 'Could not find defendant representative table cell');
+    expect(cell[3].innerHTML).to.equal('Defendant rep 1', 'Could not find defendant representative table cell');
   });
 
   it('should display prosecuting authority',  () => {
     const cell = htmlRes.getElementsByClassName(tableCellClass);
-    expect(cell[4].innerHTML).to.equal('CPS', 'Could not find prosecuting authority table cell');
+    expect(cell[4].innerHTML).to.equal('Prosecutor', 'Could not find prosecuting authority table cell');
   });
 
   it('should display linked cases',  () => {
