@@ -42,7 +42,6 @@ export class CrownFirmListService {
                   defendantRepresentative: hearing['defendantRepresentative'],
                   prosecutingAuthority: hearing['prosecutingAuthority'],
                   hearingType: hearing['hearingType'],
-                  jurisdiction: thisCase['caseType'],
                   hearingPlatform: sitting['caseHearingChannel'],
                 };
                 console.log(row);
