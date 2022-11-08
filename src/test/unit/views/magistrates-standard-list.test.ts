@@ -68,6 +68,7 @@ describe('Magistrate Standard List page', () => {
     const items1 = div1.item(0).children;
     expect(items1[0].innerHTML).contains('2:30pm');
     expect(items1[0].innerHTML).contains('2 hours 30 mins');
+    expect(items1[0].innerHTML).contains('[2 of 3]');
     expect(items1[2].innerHTML).contains('39');
     expect(items1[3].innerHTML).contains('Address Line 1, Address Line 2, Month A, County A, AA1 AA1');
     expect(items1[4].innerHTML).contains('Test1234');

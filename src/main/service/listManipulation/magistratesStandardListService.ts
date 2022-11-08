@@ -50,7 +50,6 @@ export class MagistratesStandardListService {
 
     if (DataManipulationService.convertPartyRole(party.partyRole) === 'DEFENDANT') {
       defendant = this.createIndividualDetails(party.individualDetails).trim();
-      defendant += dataManipulationService.stringDelimiter(defendant?.length, ',');
     }
 
     hearing['defendantHeading'] = defendant?.replace(/,\s*$/, '').trim();
