@@ -59,6 +59,9 @@ export class MagistratesStandardListService {
     hearing['age'] = party?.individualDetails?.age;
     hearing['gender'] = party?.individualDetails?.gender;
     hearing['plea'] = party?.individualDetails?.plea;
+    if (party?.individualDetails?.inCustody) {
+      hearing['inCustody'] = party.individualDetails?.inCustody === true ? '*' : '';
+    }
   }
 
   private createIndividualDetails(individualDetails: any): string {

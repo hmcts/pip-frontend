@@ -99,7 +99,7 @@
                       <h2 class="govuk-accordion__section-heading">
                       <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ sessionCount }}">
                         {% if hearing['gender'] | length %}
-                          {{ defendantNameHeading }} {{ hearing['defendantHeading'] }} ({{ hearing['gender'] }})
+                          {{ defendantNameHeading }} {{ hearing['defendantHeading'] }} ({{ hearing['gender'] }}) {{ hearing['inCustody'] }}
                         {% else %}
                           {{ defendantNameHeading }} {{ hearing['defendantHeading'] }}
                         {% endif %}
