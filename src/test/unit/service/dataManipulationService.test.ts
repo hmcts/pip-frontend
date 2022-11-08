@@ -284,4 +284,41 @@ describe('Data manipulation service', () => {
       expect(data).to.equal('14 September 2020');
     });
   });
+
+  describe('findAndManipulateLinkedCases', () => {
+    it('should format hearing case with multiple linked case', async () => {
+      const hearing = {
+        case: [
+          {
+            caseNumber: '999',
+            caseLinked: [
+              {
+                caseId: '123',
+              },
+              {
+                caseId: '456',
+              },
+              {
+                caseId: '789',
+              },
+            ],
+          },
+        ],
+      };
+      await dataManipulationService.findAndManipulateLinkedCases(hearing);
+      expect(hearing['case'][0]['formattedLinkedCases']).to.equal('123, 456, 789');
+    });
+
+    it('should return empty string for hearing case with no linked cases', async () => {
+      const hearing = {
+        case: [
+          {
+            caseNumber: '999',
+          },
+        ],
+      };
+      await dataManipulationService.findAndManipulateLinkedCases(hearing);
+      expect(hearing['case'][0]['formattedLinkedCases']).to.equal('');
+    });
+  });
 });

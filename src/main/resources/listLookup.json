@@ -34,7 +34,7 @@
   "CROWN_WARNED_LIST": {
     "friendlyName": "Crown Warned List",
     "shortenedFriendlyName": "Crown Warned List",
-    "url": "",
+    "url": "crown-warned-list",
     "jurisdictions": ["Crown"],
     "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
