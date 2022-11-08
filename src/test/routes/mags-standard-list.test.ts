@@ -20,7 +20,7 @@ sinon.stub(MagsStandardListService.prototype, 'manipulatedMagsStandardListData')
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({name: 'courtName'});
 
 expressRequest['user'] = {'_json': {
-  'piUserId': '2'
+  'piUserId': '2',
 }};
 
 describe('Magistrate Standard List Page', () => {
