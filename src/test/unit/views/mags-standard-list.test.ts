@@ -27,10 +27,6 @@ const metaData = JSON.parse(rawMetaData)[0];
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
-app.request['user'] = { _json: {
-  'extension_UserRole': 'VERIFIED',
-}};
-
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(magistrateStandardListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
