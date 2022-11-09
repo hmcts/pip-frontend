@@ -1,10 +1,10 @@
 import moment from 'moment-timezone';
 import {DataManipulationService} from '../dataManipulationService';
 import {DateTimeHelper} from '../../helpers/dateTimeHelper';
-import {CrownDailyListService} from './crownDailyListService';
+import {CrimeListsService} from './CrimeListsService';
 
 const dataManipulationService = new DataManipulationService();
-const dailyListService = new CrownDailyListService();
+const dailyListService = new CrimeListsService();
 const dateTimeHelper = new DateTimeHelper();
 
 export class CrownFirmListService {
