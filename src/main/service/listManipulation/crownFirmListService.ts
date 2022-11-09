@@ -54,12 +54,21 @@ export class CrownFirmListService {
     return this.splitByCourtAndDateAndAllocation(rows);
   }
 
+  /**
+   * Splits the formatted list from above into three different dimensions:
+   * 1) First the cases are split by courtHouse
+   * 2) Then, the data within each courthouse is split by day
+   * 3) Then the data for each day/courtHouse pair is split by courtRoom.
+   * After the splitting, the method ensures that all unallocated cases always fall at the end of the cases in the
+   * current courtHouse/day/courtRoom using some array shuffling magic.
+   * @param data
+   * @private
+   */
   private splitByCourtAndDateAndAllocation(data: any) {
     const courts = [];
     const uniqueCourts = dataManipulationService.uniquesInArrayByAttrib(data, 'courtName');
     let courtCounter = 0;
-    function compare (a, b) {
-      if (a.courtRoom.toLowerCase().includes('to be allocated')){return 1;} return -1;}
+
     uniqueCourts.forEach(court => {
       const courtData = data.filter(row => row.courtName === court);
       courts.push({'courtName': court, days: []});
@@ -81,6 +90,12 @@ export class CrownFirmListService {
           const room = record.filter(row => row.courtRoom === courtRoom);
           thisDayCourts.push({'courtRoom': courtRoom, data: room});
         });
+        // custom sort def - basically if it's got the string, move to end. Needed to be suppressed because eslint
+        // does not understand that a compare function needs two vars.
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        function compare (a, b) {
+          if (a.courtRoom.toLowerCase().includes('to be allocated')){return 1;} return -1;}
+        // custom sort usage below
         thisDayCourts.sort(compare);
         courts[courtCounter]['days'].push(thisDayCourts);
       });
