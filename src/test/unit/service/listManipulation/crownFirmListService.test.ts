@@ -8,7 +8,7 @@ const rawCrownFirmData = fs.readFileSync(path.resolve(__dirname, '../../mocks/cr
 const row = JSON.parse( `{"caseNumber": "I4Y416QE", "caseSeparator": "[7 of 9]",
 "courtName": "Glasgow Social Security and Child Support",
 "courtRoom": "to be allocated [Glasgow Social Security and Child Support]",
-"defendant": "SAUSAGE, Nigel", "defendantRepresentative": "Daniel Furnivall", "durationAsHours": 2,
+"defendant": "SAUSAGE, Nigel", "defendantRepresentative": "Daniel Forrester", "durationAsHours": 2,
 "durationAsMinutes": 23, "formattedDuration": "2 hours 23 mins", "hearingNotes": "",
 "hearingPlatform": "Teams, Attended", "hearingType": "Deposition", "joh": "",
 "linkedCases": "YRYCTRR3, YRYCTRR4, YRYCTRR5", "prosecutingAuthority": "The Queen",

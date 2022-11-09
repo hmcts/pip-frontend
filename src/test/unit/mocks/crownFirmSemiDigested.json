@@ -76,7 +76,7 @@
                           {
                             "partyRole": "DEFENDANT_REPRESENTATIVE",
                             "individualDetails": {
-                              "individualSurname": "Furnivall",
+                              "individualSurname": "Forrester",
                               "individualForenames": "Daniel"
                             }
                           }
@@ -87,7 +87,7 @@
                         "respondent": "",
                         "prosecutingAuthority": "HMCTS",
                         "defendant": "Pat Butcher",
-                        "defendantRepresentative": "Daniel Furnivall"
+                        "defendantRepresentative": "Daniel Forrester"
                       }
                     ],
                     "duration": "",
@@ -209,7 +209,7 @@
                           {
                             "partyRole": "DEFENDANT_REPRESENTATIVE",
                             "individualDetails": {
-                              "individualSurname": "Furnivall",
+                              "individualSurname": "Forrester",
                               "individualForenames": "Daniel"
                             }
                           }
@@ -220,7 +220,7 @@
                         "respondent": "",
                         "prosecutingAuthority": "Queen",
                         "defendant": "Sarah Alexander",
-                        "defendantRepresentative": "Daniel Furnivall"
+                        "defendantRepresentative": "Daniel Forrester"
                       }
                     ],
                     "duration": "",
@@ -303,7 +303,7 @@
                           {
                             "partyRole": "DEFENDANT_REPRESENTATIVE",
                             "individualDetails": {
-                              "individualSurname": "Furnivall",
+                              "individualSurname": "Forrester",
                               "individualForenames": "Daniel"
                             }
                           }
@@ -314,7 +314,7 @@
                         "respondent": "",
                         "prosecutingAuthority": "The Queen",
                         "defendant": "Nigel Sausage",
-                        "defendantRepresentative": "Daniel Furnivall"
+                        "defendantRepresentative": "Daniel Forrester"
                       }
                     ],
                     "duration": "",
@@ -341,11 +341,11 @@
                 "judiciary": [
                   {
                     "johTitle": "Hon",
-                    "johKnownAs": "Daniel Furnivall"
+                    "johKnownAs": "Daniel Forrester"
                   },
                   {
                     "johTitle": "Sir",
-                    "johKnownAs": "Gordon Furnivall"
+                    "johKnownAs": "Gordon Forrester"
                   }
                 ],
                 "sittings": [
@@ -440,7 +440,7 @@
                           {
                             "partyRole": "DEFENDANT_REPRESENTATIVE",
                             "individualDetails": {
-                              "individualSurname": "Furnivall",
+                              "individualSurname": "Forrester",
                               "individualForenames": "Daniel"
                             }
                           }
@@ -451,7 +451,7 @@
                         "respondent": "",
                         "prosecutingAuthority": "Queen",
                         "defendant": "Nigel Sausage",
-                        "defendantRepresentative": "Daniel Furnivall"
+                        "defendantRepresentative": "Daniel Forrester"
                       }
                     ],
                     "duration": "",
@@ -576,7 +576,7 @@
                     "caseHearingChannel": "Teams, Attended"
                   }
                 ],
-                "formattedJudiciaries": "Daniel Furnivall, Gordon Furnivall"
+                "formattedJudiciaries": "Daniel Forrester, Gordon Forrester"
               }
             ],
             "totalHearing": 4
@@ -591,11 +591,11 @@
                 "judiciary": [
                   {
                     "johTitle": "Hon",
-                    "johKnownAs": "Daniel Furnivall"
+                    "johKnownAs": "Daniel Forrester"
                   },
                   {
                     "johTitle": "Sir",
-                    "johKnownAs": "Gordon Furnivall"
+                    "johKnownAs": "Gordon Forrester"
                   }
                 ],
                 "sittings": [
@@ -686,7 +686,7 @@
                           {
                             "partyRole": "DEFENDANT_REPRESENTATIVE",
                             "individualDetails": {
-                              "individualSurname": "Furnivall",
+                              "individualSurname": "Forrester",
                               "individualForenames": "Daniel"
                             }
                           }
@@ -697,7 +697,7 @@
                         "respondent": "",
                         "prosecutingAuthority": "Queen",
                         "defendant": "Janine Mitchell",
-                        "defendantRepresentative": "Daniel Furnivall"
+                        "defendantRepresentative": "Daniel Forrester"
                       }
                     ],
                     "duration": "",
@@ -709,7 +709,7 @@
                     "caseHearingChannel": "Teams, Attended"
                   }
                 ],
-                "formattedJudiciaries": "Daniel Furnivall, Gordon Furnivall"
+                "formattedJudiciaries": "Daniel Forrester, Gordon Forrester"
               }
             ],
             "totalHearing": 2

@@ -44,7 +44,6 @@ export class CrownFirmListService {
                   hearingType: hearing['hearingType'],
                   hearingPlatform: sitting['caseHearingChannel'],
                 };
-                console.log(row);
                 rows.push(row);
               });
             });
