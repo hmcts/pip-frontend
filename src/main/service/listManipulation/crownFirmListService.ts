@@ -10,6 +10,13 @@ const dateTimeHelper = new DateTimeHelper();
 export class CrownFirmListService {
   public timeZone = 'Europe/London';
 
+  /**
+   * Builds list of courthouses, does general formatting to make it appear nice, then is passed to second function which
+   * deals with the splitting it by various dimensions (i.e. courthouse -> day -> courtRoom -> allocated/unallocated.
+   * @param firmList
+   * @param language
+   * @param languageFile
+   */
   public splitOutFirmListData(firmList: string, language: string, languageFile: string) {
     const rows = [];
     const firmListData = JSON.parse(firmList);
