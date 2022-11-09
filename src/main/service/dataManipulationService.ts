@@ -508,11 +508,11 @@ export class DataManipulationService {
    * Format linked cases by joining individual case ID with delimiter
    * @param hearing
    */
-  private findAndManipulateLinkedCases(hearing: object): void {
+  public findAndManipulateLinkedCases(hearing: object): void {
     hearing['case'].forEach(hearingCase => {
       let linkedCases = '';
       let counter = 1;
-      hearingCase['caseLinked'].forEach(linkedCase => {
+      hearingCase['caseLinked']?.forEach(linkedCase => {
         linkedCases += (counter == hearingCase['caseLinked'].length)
           ? linkedCase['caseId']
           : linkedCase['caseId'] + ', ';
