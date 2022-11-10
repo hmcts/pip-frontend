@@ -74,6 +74,7 @@ export default function(app: Application): void {
   app.post('/create-media-account', multer({storage: storage, limits: {fileSize: 2000000}}).single('file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.createMediaAccountController.post);
   app.get('/civil-and-family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/crown-daily-list', app.locals.container.cradle.crownDailyListController.get);
+  app.get('/crown-warned-list', app.locals.container.cradle.crownWarnedListController.get);
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   // app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
