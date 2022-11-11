@@ -43,7 +43,7 @@ export class MagistratesStandardListService {
               }
             });
           });
-          session['defendants'] = this.combineDefendantSittings(allDefendants);;
+          session['defendants'] = this.combineDefendantSittings(allDefendants);
         });
       });
     });
@@ -109,7 +109,7 @@ export class MagistratesStandardListService {
     };
   }
 
-  private formatDefendantHeading(name, gender, inCustody): String{
+  private formatDefendantHeading(name, gender, inCustody): string{
     let defendantHeading = name;
     if (gender?.length > 0) {
       defendantHeading += ' (' + gender + ')';
