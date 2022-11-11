@@ -183,6 +183,10 @@
   white-space: nowrap;
 }
 
-td input[type="checkbox"] {
-  zoom: 1.5;
+.bulk-delete-row {
+  padding-top: 8px;
+}
+
+.bulk-delete-checkbox {
+  margin-right: 8px;
 }
