@@ -292,8 +292,8 @@ describe('Verified user', () => {
         await signInPage.selectOption('SignInRadio3');
         await signInPage.clickContinueForRadio3();
         console.log('B2C_USERNAME', process.env.B2C_USERNAME);
-        await signInPage.enterText('ktkwa@hotmail.com', 'EmailField');
-        await signInPage.enterText('Qenigman122', 'PasswordField');
+        await signInPage.enterText(process.env.B2C_USERNAME, 'EmailField');
+        await signInPage.enterText(process.env.B2C_PASSWORD, 'PasswordField');
         accountHomePage = await signInPage.clickSignIn();
       });
 
@@ -383,7 +383,7 @@ describe('Verified user', () => {
       });
 
       it('should select first jurisdiction filter', async () => {
-        await locationNameSearchPage.selectOption('courtSubscription1');
+        await locationNameSearchPage.selectOption('JurisdictionFilter1');
         expect(await locationNameSearchPage.jurisdictionChecked()).toBeTruthy();
       });
 
