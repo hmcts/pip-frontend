@@ -123,7 +123,7 @@ module.exports = {
 
   // BulkDeleteSubscriptions selectors
   CourtSubscriptionCheckbox1: '#courtSubscription',
-  BulkDeleteSubscriptionButton: '.govuk-button',
+  BulkDeleteSubscriptionButton: '#bulk-delete-button',
   BulkDeleteRadioYes: '#bulk-delete-choice',
 
   // Admin selectors

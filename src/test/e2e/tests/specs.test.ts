@@ -483,7 +483,7 @@ describe('Verified user', () => {
       });
 
       it('should select first court subscription', async () => {
-        await bulkDeleteSubscriptionsPage.selectOption('courtSubscriptionCheckbox1');
+        await bulkDeleteSubscriptionsPage.selectOption('CourtSubscriptionCheckbox1');
         expect(await bulkDeleteSubscriptionsPage.courtSubscriptionChecked()).toBeTruthy();
       });
 

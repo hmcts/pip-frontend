@@ -4,10 +4,13 @@
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
-{% macro submitButton(label = 'Continue', id = '', ariaLabel = 'Continue Button', disable = false) %}
+{% macro submitButton(label = 'Continue', id = 'button', ariaLabel = 'Continue Button', disable = false) %}
     {{ govukButton({
         text: label,
-        disabled: disable
+        disabled: disable,
+        attributes: {
+          id: id
+        }
     })}}
 {% endmacro %}
 

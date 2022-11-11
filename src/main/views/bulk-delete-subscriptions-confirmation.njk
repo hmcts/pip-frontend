@@ -27,6 +27,7 @@
         ]
       }) }}
     {% endif %}
+    <h2 class="govuk-heading-l">{{ title }}</h2>
     <form method="post" action="bulk-delete-subscriptions-confirmation">
       {{ govukInput({
         id: "subscriptions",
@@ -37,13 +38,6 @@
       {{ govukRadios({
         idPrefix: "bulk-delete-choice",
         name: "bulk-delete-choice",
-        fieldset: {
-          legend: {
-            text: title,
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--l"
-          }
-        },
         items: [
           {
             value: "yes",
