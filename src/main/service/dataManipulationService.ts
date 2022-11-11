@@ -257,7 +257,7 @@ export class DataManipulationService {
    * @param thisAttribute attrib to be checked
    * @private
    */
-  private uniquesInArrayByAttrib(data: any, thisAttribute: string) {
+  public uniquesInArrayByAttrib(data: any, thisAttribute: string) {
     return [...new Set(data.map(item => item[thisAttribute]))];
   }
 

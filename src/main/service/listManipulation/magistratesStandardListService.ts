@@ -9,8 +9,8 @@ export class MagistratesStandardListService {
   public manipulatedMagsStandardListData(magsStandardListData: object, language: string, languageFile: string): object {
     magsStandardListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-        const allDefendants = [];
         courtRoom['session'].forEach(session => {
+          const allDefendants = [];
           session['sittings'].forEach(sitting => {
             const judiciary = dataManipulationService.findAndManipulateJudiciary(sitting);
             if (judiciary !== '') {
@@ -22,24 +22,19 @@ export class MagistratesStandardListService {
             sitting['hearing'].forEach(hearing => {
               if (hearing?.party) {
                 hearing.party.forEach(party => {
-                  let partyCounter = 0;
                   const allOffences = [];
                   const hearingString = JSON.stringify(hearing);
                   const hearingObject = JSON.parse(hearingString);
 
                   this.manipulateHearingObject(hearingObject, party);
                   if (hearingObject['defendantHeading'] !== '') {
-                    partyCounter++;
-
-                    hearingObject['sittingSequence'] = partyCounter;
-
                     hearingObject['offence'].forEach(offence => {
                       allOffences.push(this.formatOffence(offence['offenceTitle'], hearingObject['plea'], 'Need to confirm',
                         hearingObject['formattedConvictionDate'], hearingObject['formattedAdjournedDate'], offence['offenceWording']));
                     });
 
                     allDefendants.push(this.formatDefendant(hearingObject['defendantHeading'], hearingObject['gender'], hearingObject['inCustody'],
-                      partyCounter, sitting['time'], sitting['formattedDuration'], hearingObject['caseSequenceIndicator'],
+                      sitting['time'], sitting['formattedDuration'], hearingObject['caseSequenceIndicator'],
                       hearingObject['defendantDateOfBirth'], hearingObject['age'],
                       hearingObject['defendantAddress'], hearingObject['prosecutionAuthorityCode'], hearingObject['hearingNumber'],
                       sitting['caseHearingChannel'], hearingObject['caseNumber'], hearingObject['hearingType'], hearingObject['panel'], allOffences));
@@ -48,12 +43,22 @@ export class MagistratesStandardListService {
               }
             });
           });
-          session['defendants'] = allDefendants;
+          session['defendants'] = this.combineDefendantSittings(allDefendants);;
         });
       });
     });
 
     return magsStandardListData;
+  }
+
+  private combineDefendantSittings(allDefendants): object {
+    const defendantsPerSessions = [];
+    const uniqueDefendantNames = dataManipulationService.uniquesInArrayByAttrib(allDefendants, 'defendantHeading');
+    uniqueDefendantNames.forEach(defendantNames => {
+      const defendant = allDefendants.filter(row => row.defendantHeading === defendantNames);
+      defendantsPerSessions.push({'defendantHeading': defendantNames, defendantInfo: defendant});
+    });
+    return defendantsPerSessions;
   }
 
   private manipulateHearingObject(hearingObject, party) {
@@ -80,15 +85,14 @@ export class MagistratesStandardListService {
     };
   }
 
-  private formatDefendant(defendantHeading, gender, inCustody, sittingSequence, time,
+  private formatDefendant(defendantHeading, gender, inCustody, time,
     formattedDuration, caseSequenceIndicator, defendantDateOfBirth, age, defendantAddress,
     prosecutionAuthorityCode, hearingNumber, caseHearingChannel, caseNumber,
     hearingType, panel, allOffences) {
     return {
-      defendantHeading: defendantHeading,
+      defendantHeading: this.formatDefendantHeading(defendantHeading, gender, inCustody),
       gender: gender,
       inCustody: inCustody,
-      sittingSequence: sittingSequence,
       time: time,
       formattedDuration: formattedDuration,
       caseSequenceIndicator: caseSequenceIndicator,
@@ -103,6 +107,18 @@ export class MagistratesStandardListService {
       panel: panel,
       allOffences: allOffences,
     };
+  }
+
+  private formatDefendantHeading(name, gender, inCustody): String{
+    let defendantHeading = name;
+    if (gender?.length > 0) {
+      defendantHeading += ' (' + gender + ')';
+    }
+
+    if (inCustody?.length > 0) {
+      defendantHeading += inCustody;
+    }
+    return defendantHeading;
   }
 
   private formatCaseTime(sitting: object, format: string): void {
