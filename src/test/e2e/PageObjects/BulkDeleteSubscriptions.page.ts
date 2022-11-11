@@ -8,7 +8,7 @@ export class BulkDeleteSubscriptionsPage extends CommonPage {
     $(helpers.BulkDeleteSubscriptionButton).catch(() => {
       console.log(`${helpers.BulkDeleteSubscriptionButton} not found`);
     });
-
+    await $(helpers.BulkDeleteSubscriptionButton).scrollIntoView();
     await $(helpers.BulkDeleteSubscriptionButton).click();
     return new BulkDeleteSubscriptionsConfirmationPage();
   }
