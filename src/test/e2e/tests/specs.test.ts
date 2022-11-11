@@ -495,6 +495,8 @@ describe('Verified user', () => {
       it('should select yes option to delete the subscription', async () => {
         await bulkDeleteSubscriptionsConfirmationPage.selectOption('BulkDeleteRadioYes');
         bulkDeleteSubscriptionsConfirmedPage = await bulkDeleteSubscriptionsConfirmationPage.clickContinueForYes();
+        // TODO: This will fail at the moment until Subscription-management PR has gone in. The endpoint is not there
+        // yet. Once it has gone in, we need to uncomment the following line.
         expect(await bulkDeleteSubscriptionsConfirmedPage.getPanelTitle()).toEqual('Subscription(s) removed');
       });
     });
@@ -538,9 +540,7 @@ describe('Verified user', () => {
 
     it('should click on the SJP card and take user to the sjp list', async () => {
       summaryOfPublicationsPage = await accountHomePage.clickSJPCard();
-      // TODO: This will fail at the moment until Subscription-management PR has gone in. The endpoint is not there
-      // yet. Once it has gone in, we need to uncomment the following line.
-      // expect(await summaryOfPublicationsPage.getPageTitle()).toContain('What do you want to view');
+      expect(await summaryOfPublicationsPage.getPageTitle()).toContain('What do you want to view');
     });
   });
 
