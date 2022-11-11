@@ -2,16 +2,7 @@
 
 @Library("Infrastructure") _
 
-class newYarnBuilder extends uk.gov.hmcts.contino.YarnBuilder {
-  @Override
-  def test() {
-    yarn("test")
-    runYarn("test:coverage")
-    runYarn("test:a11y")
-  }
-}
-
-def newYarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 def type = "nodejs"
 def product = "pip"
