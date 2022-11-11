@@ -77,13 +77,13 @@ export class MagistratesStandardListService {
       formattedConvictionDate: formattedConvictionDate,
       formattedAdjournedDate: formattedAdjournedDate,
       offenceWording: offenceWording,
-    }
+    };
   }
 
   private formatDefendant(defendantHeading, gender, inCustody, sittingSequence, time,
-                          formattedDuration, caseSequenceIndicator, defendantDateOfBirth, age, defendantAddress,
-                          prosecutionAuthorityCode, hearingNumber, caseHearingChannel, caseNumber,
-                          hearingType, panel, allOffences) {
+    formattedDuration, caseSequenceIndicator, defendantDateOfBirth, age, defendantAddress,
+    prosecutionAuthorityCode, hearingNumber, caseHearingChannel, caseNumber,
+    hearingType, panel, allOffences) {
     return {
       defendantHeading: defendantHeading,
       gender: gender,
@@ -101,7 +101,7 @@ export class MagistratesStandardListService {
       caseNumber: caseNumber,
       hearingType: hearingType,
       panel: panel,
-      allOffences: allOffences
+      allOffences: allOffences,
     };
   }
 
