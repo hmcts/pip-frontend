@@ -18,16 +18,46 @@ const languageFileParser = new LanguageFileParser();
 const locationService = new LocationService();
 
 export class SubscriptionService {
+  public async getSubscriptionDataForView(userId: string, language: string, tab: string, bulkDelete = false): Promise<object> {
+    const subscriptionData = await this.getSubscriptionsByUser(userId);
+    const caseTableData = await this.generateCaseTableRows(subscriptionData.caseSubscriptions,
+      language, 'subscription-management', bulkDelete);
+    const locationTableData = await this.generateLocationTableRows(subscriptionData.locationSubscriptions,
+      language, 'subscription-management', bulkDelete);
+    let activeAllTab = false, activeCaseTab = false, activeLocationTab = false;
+    switch (tab) {
+      case 'all':
+        activeAllTab = true;
+        break;
+      case 'case':
+        activeCaseTab = true;
+        break;
+      case 'location':
+        activeLocationTab = true;
+        break;
+      default:
+        activeAllTab = true;
+        break;
+    }
+
+    return { caseTableData, locationTableData, activeAllTab, activeCaseTab, activeLocationTab };
+  }
+
   async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
     const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
     return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], locationSubscriptions: []};
   }
 
-  async generateCaseTableRows(subscriptionDataCases, language, languageFile): Promise<any[]> {
+  async generateCaseTableRows(subscriptionDataCases, language, languageFile, bulkDelete = false): Promise<any[]> {
     const caseRows = [];
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCases.length) {
       subscriptionDataCases.forEach((subscription) => {
+        const lastCellValue = bulkDelete
+          ? `<input type="checkbox" name="caseSubscription" id="caseSubscription" value=${subscription.subscriptionId} />`
+          : `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>`
+            + languageFileParser.getText(fileJson, null, 'unsubscribe') + '</a>';
+
         caseRows.push(
           [
             {
@@ -38,10 +68,10 @@ export class SubscriptionService {
             },
             {
               text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
+              classes: 'no-wrap',
             },
             {
-              html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
-                languageFileParser.getText(fileJson, null, 'unsubscribe') + '</a>',
+              html: lastCellValue,
               format: 'numeric',
             },
           ],
@@ -52,17 +82,20 @@ export class SubscriptionService {
     return caseRows;
   }
 
-  async generateLocationTableRows(subscriptionDataCourts, language, languageFile): Promise<any[]> {
+  async generateLocationTableRows(subscriptionDataCourts, language, languageFile, bulkDelete = false): Promise<any[]> {
     const courtRows = [];
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCourts.length) {
-
       for (const subscription of subscriptionDataCourts) {
         const location  = await locationService.getLocationById(subscription.locationId);
         let locationName = location.name;
         if(language === 'cy') {
           locationName = location.welshName;
         }
+        const lastCellValue = bulkDelete
+          ? `<input type="checkbox" name="courtSubscription" id="courtSubscription" value=${subscription.subscriptionId} />`
+          : `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>`
+          + languageFileParser.getText(fileJson, null, 'unsubscribe') + '</a>';
 
         courtRows.push([
           {
@@ -70,10 +103,10 @@ export class SubscriptionService {
           },
           {
             text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
+            classes: 'no-wrap',
           },
           {
-            html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
-              languageFileParser.getText(fileJson, null, 'unsubscribe') + '</a>',
+            html: lastCellValue,
             format: 'numeric',
           },
         ]);
@@ -84,6 +117,10 @@ export class SubscriptionService {
 
   public async unsubscribe(subscriptionId: string): Promise<object> {
     return subscriptionRequests.unsubscribe(subscriptionId);
+  }
+
+  public async bulkDeleteSubscriptions(subscriptionIds: string[]): Promise<object> {
+    return subscriptionRequests.bulkDeleteSubscriptions(subscriptionIds);
   }
 
   public async handleNewSubscription(pendingSubscription, user): Promise<void> {

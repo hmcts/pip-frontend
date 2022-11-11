@@ -1,0 +1,28 @@
+{
+  "title": "Dileu swmp o danysgrifiadau",
+  "subNavigation": {
+    "header1": "Pob tanysgrifiad (",
+    "header2": "Tanysgrifiadau yn ôl achos (",
+    "header3": "Tanysgrifiadau yn ôl llys neu dribiwnlys ("
+  },
+  "noSubs": "Nid oes gennych unrhyw danysgrifiadau gweithredol",
+  "noSubsCase": "Nid oes gennych unrhyw danysgrifiadau yn ôl achos",
+  "noSubsCourt": "Nid oes gennych unrhyw danysgrifiadau yn ôl llys neu dribiwnlys",
+  "caseTable": {
+    "caseName": "Enw'r achos",
+    "caseRef": "Cyfeirnod yr achos",
+    "date": "Dyddiad wedi’i ychwanegu",
+    "deletion": "Ei farcio ar gyfer ei ddileu"
+  },
+  "courtTable": {
+    "courtName": "Enw’r llys neu’r tribiwnlys",
+    "date": "Dyddiad wedi’i ychwanegu",
+    "deletion": " Ei farcio ar gyfer ei ddileu"
+  },
+  "error": {
+    "title": "Mae yna broblem",
+    "text": "At least one subscription must be selected"
+  },
+  "deleteButton": "Dileu swmp o danysgrifiadau",
+  "backButton": "Yn ôl"
+}

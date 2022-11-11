@@ -51,6 +51,22 @@ export class SubscriptionRequests {
     return false;
   }
 
+  public async bulkDeleteSubscriptions(subscriptionIds: string[]): Promise<object> {
+    try {
+      const response = await subscriptionManagementApi.delete('/subscription/bulk', {data: subscriptionIds});
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log('Failed to bulk delete subscriptions');
+      } else if (error.request) {
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
+      }
+      return null;
+    }
+  }
+
   public async configureListTypeForLocationSubscriptions(userId, payload): Promise<boolean> {
     try {
       await subscriptionManagementApi.put(`/subscription/configure-list-types/${userId}`, payload);

@@ -1,0 +1,77 @@
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "template.njk" %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+  <div class="parent-box">
+    {% if noOptionSelectedError %}
+      {{ govukErrorSummary({
+        titleText: error.title,
+        errorList: [
+          {
+            text: error.text,
+            href: "#bulk-delete-choice"
+          }
+        ]
+      }) }}
+    {% endif %}
+    <form method="post" action="bulk-delete-subscriptions-confirmation">
+      {{ govukInput({
+        id: "subscriptions",
+        name: "subscriptions",
+        type: "hidden",
+        value: subscriptions
+      }) }}
+      {{ govukRadios({
+        idPrefix: "bulk-delete-choice",
+        name: "bulk-delete-choice",
+        fieldset: {
+          legend: {
+            text: title,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: yes
+          },
+          {
+            value: "no",
+            text: no
+          }
+        ]
+      }) }}
+      {{ submitButton(continueButton) }}
+    </form>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script>
+    const button = document.getElementsByClassName('govuk-button')[0];
+    button.addEventListener('click', (e) => {
+      const checkedRadios = document.querySelectorAll('input[type="radio"]:checked');
+      if (!checkedRadios.length) {
+        e.preventDefault();
+      }
+    });
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+{% endblock %}

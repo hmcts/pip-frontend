@@ -1,6 +1,7 @@
 {
   "title": "Your email subscriptions",
   "newButton": "Add email subscription",
+  "bulkDeleteButton": "Bulk delete subscriptions",
   "subNavigation": {
     "header1": "All subscriptions (",
     "header2": "Subscriptions by case (",
