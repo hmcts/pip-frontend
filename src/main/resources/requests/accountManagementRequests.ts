@@ -187,4 +187,21 @@ export class AccountManagementRequests {
       return null;
     }
   }
+
+  public async getAllAccountsExceptThirdParty(pageNumber: number, pageSize: number): Promise<any> {
+    try {
+      const response = await accountManagementApi.get('/account/all', {params: {pageNumber: pageNumber,
+        pageSize: pageSize}});
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to get all accounts', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for getting all accounts', error.request);
+      } else {
+        logger.error('Something went wrong trying to get all accounts', error.message);
+      }
+      return [];
+    }
+  }
 }
