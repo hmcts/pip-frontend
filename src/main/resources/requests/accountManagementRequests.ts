@@ -188,10 +188,9 @@ export class AccountManagementRequests {
     }
   }
 
-  public async getAllAccountsExceptThirdParty(pageNumber: number, pageSize: number): Promise<any> {
+  public async getAllAccountsExceptThirdParty(params: object): Promise<any> {
     try {
-      const response = await accountManagementApi.get('/account/all', {params: {pageNumber: pageNumber,
-        pageSize: pageSize}});
+      const response = await accountManagementApi.get('/account/all', params);
       return response.data;
     } catch (error) {
       if (error.response) {

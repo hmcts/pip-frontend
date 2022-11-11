@@ -16,7 +16,10 @@ export class UserManagementService {
    */
   public async getFormattedData(pageNumber: number, email: string, userId: string, userProvenanceId: string, roles: string,
     provenances: string) {
-    const rawData = await accountManagementRequests.getAllAccountsExceptThirdParty((pageNumber - 1), 25);
+
+    const requestParams = this.buildRequestParams(email, userId, userProvenanceId, roles, provenances, pageNumber);
+    const rawData = await accountManagementRequests.getAllAccountsExceptThirdParty(requestParams);
+
     const builtFilters = this.buildFilters(email, userId, userProvenanceId, roles, provenances);
     return {
       paginationData: this.formatPaginationData(rawData?.number, rawData?.totalPages, rawData?.first, rawData?.last),
@@ -258,6 +261,22 @@ export class UserManagementService {
       userProvenanceIdField,
       provenancesField,
       rolesField,
+    };
+  }
+
+  private buildRequestParams(email: string, userId: string, userProvenanceId: string, roles: string,
+    provenances: string, pageNumber: number): object {
+
+    return {
+      params: {
+        pageSize: 25,
+        pageNumber: (pageNumber - 1),
+        email: email,
+        userProvenanceId: userProvenanceId,
+        provenances: provenances,
+        roles: roles,
+        userId: userId,
+      },
     };
   }
 }
