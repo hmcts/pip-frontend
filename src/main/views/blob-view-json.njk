@@ -1,0 +1,68 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-print-json@1.3/dist/pretty-print-json.dark-mode.css">
+{% endblock %}
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+  <div class="parent-box">
+    <h1 class="govuk-heading-l">
+      {{ title }}
+      {% if metadata.isFlatFile %}
+        Flat File
+      {% else %}
+        JSON File
+      {% endif %}</h1>
+
+    <div id="section1">
+      <h2 class="govuk-heading-m">Metadata</h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {key: {text: "Artefact Id"}, value: { text: metadata.artefactId} },
+          {key: {text: "Language"}, value: { text: metadata.language | titleCase} },
+          {key: {text: "Location Id"}, value: { text: metadata.locationId} },
+          {key: {text: "Location Name"}, value: { text: courtName } },
+          {key: {text: "List Type"}, value: { text: metadata.listType | listType} },
+          {key: {text: "Provenance"}, value: { text: metadata.provenance} },
+          {key: {text: "Publication Type"}, value: { text: metadata.type | titleCase} },
+          {key: {text: "Sensitivity"}, value: { text: metadata.sensitivity | titleCase} },
+          {key: {text: "Content Date"}, value: { text: metadata.contentDate | date('Do MMMM YYYY [at] hh:mm a')} },
+          {key: {text: "Display From"}, value: { text: metadata.displayFrom | date('Do MMMM YYYY [at] hh:mm a')} },
+          {key: {text: "Display To"}, value: { text: metadata.displayTo | date('Do MMMM YYYY [at] hh:mm a')} }
+        ]
+      }) }}
+    </div>
+  </div>
+  <p class="govuk-body-l"><a class="govuk-link" href="{{ listUrl }}">{{ viewLink }}</a></p>
+
+  {% if not metadata.isFlatFile %}
+    <details class="govuk-details" data-module="govuk-details">
+      <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      {{ viewJson }}
+    </span>
+      </summary>
+      <div class="json-container">
+        {{ jsonData | safe }}
+      </div>
+    </details>
+  {% endif %}
+
+  {{ super() }}
+
+  <script src=https://cdn.jsdelivr.net/npm/pretty-print-json@1.3/dist/pretty-print-json.min.js></script>
+{% endblock %}

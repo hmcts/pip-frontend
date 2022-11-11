@@ -2987,7 +2987,7 @@ brace-expansion@^2.0.1:
   integrity sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==
   dependencies:
     balanced-match "^1.0.0"
-    
+
 braces@^3.0.2, braces@~3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/braces/-/braces-3.0.2.tgz#3454e1a462ee8d599e236df336cd9ea4f8afe107"
@@ -7824,6 +7824,11 @@ pretty-ms@^7.0.0:
   integrity sha512-973driJZvxiGOQ5ONsFhOF/DtzPMOMtgC11kCpUrPGMTgqp2q/1gwzCquocrN33is0VZ5GFHXZYMM9l6h67v2Q==
   dependencies:
     parse-ms "^2.1.0"
+
+pretty-print-json@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/pretty-print-json/-/pretty-print-json-1.3.1.tgz#d6ebe48e47b5c966fcd98b28b42d901b4d4477d4"
+  integrity sha512-bYSEF7uY8t3AP4LlCN78cloK6o8oIbplQrVDX/X9QzVnjoTsxM371JH7TPqOZd9FO0EvKO4/GE+TmlhvJY8+vQ==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
