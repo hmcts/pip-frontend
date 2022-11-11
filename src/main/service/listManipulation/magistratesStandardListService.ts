@@ -9,9 +9,9 @@ export class MagistratesStandardListService {
   public manipulatedMagsStandardListData(magsStandardListData: object, language: string, languageFile: string): object {
     magsStandardListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+        const allDefendants = [];
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
-            const allHearings = [];
             const judiciary = dataManipulationService.findAndManipulateJudiciary(sitting);
             if (judiciary !== '') {
               session['formattedJudiciaries'] = judiciary;
@@ -22,24 +22,87 @@ export class MagistratesStandardListService {
             sitting['hearing'].forEach(hearing => {
               if (hearing?.party) {
                 hearing.party.forEach(party => {
+                  let partyCounter = 0;
+                  const allOffences = [];
                   const hearingString = JSON.stringify(hearing);
                   const hearingObject = JSON.parse(hearingString);
-                  this.manipulatePartyInformation(hearingObject, party);
-                  hearingObject['case'].forEach(thisCase => {
-                    thisCase['formattedConvictionDate'] = dateTimeHelper.formatDate(thisCase['convictionDate'], 'DD/MM/YYYY');
-                    thisCase['formattedAdjournedDate'] = dateTimeHelper.formatDate(thisCase['adjournedDate'], 'DD/MM/YYYY');
-                  });
-                  allHearings.push(hearingObject);
+
+                  this.manipulateHearingObject(hearingObject, party);
+                  if (hearingObject['defendantHeading'] !== '') {
+                    partyCounter++;
+
+                    hearingObject['sittingSequence'] = partyCounter;
+
+                    hearingObject['offence'].forEach(offence => {
+                      allOffences.push(this.formatOffence(offence['offenceTitle'], hearingObject['plea'], 'Need to confirm',
+                        hearingObject['formattedConvictionDate'], hearingObject['formattedAdjournedDate'], offence['offenceWording']));
+                    });
+
+                    allDefendants.push(this.formatDefendant(hearingObject['defendantHeading'], hearingObject['gender'], hearingObject['inCustody'],
+                      partyCounter, sitting['time'], sitting['formattedDuration'], hearingObject['caseSequenceIndicator'],
+                      hearingObject['defendantDateOfBirth'], hearingObject['age'],
+                      hearingObject['defendantAddress'], hearingObject['prosecutionAuthorityCode'], hearingObject['hearingNumber'],
+                      sitting['caseHearingChannel'], hearingObject['caseNumber'], hearingObject['hearingType'], hearingObject['panel'], allOffences));
+                  }
                 });
               }
             });
-            sitting['hearing'] = allHearings;
           });
+          session['defendants'] = allDefendants;
         });
       });
     });
 
     return magsStandardListData;
+  }
+
+  private manipulateHearingObject(hearingObject, party) {
+    this.manipulatePartyInformation(hearingObject, party);
+    hearingObject['case'].forEach(thisCase => {
+      hearingObject['formattedConvictionDate'] = dateTimeHelper.formatDate(thisCase['convictionDate'], 'DD/MM/YYYY');
+      hearingObject['formattedAdjournedDate'] = dateTimeHelper.formatDate(thisCase['adjournedDate'], 'DD/MM/YYYY');
+      hearingObject['caseSequenceIndicator'] = thisCase['caseSequenceIndicator'];
+      hearingObject['hearingNumber'] = thisCase['hearingNumber'];
+      hearingObject['prosecutionAuthorityCode'] = thisCase['informant']['prosecutionAuthorityCode'];
+      hearingObject['caseNumber'] = thisCase['caseNumber'];
+      hearingObject['panel'] = thisCase['panel'];
+    });
+  }
+
+  private formatOffence(offenceTitle, plea, dateOfPlea, formattedConvictionDate, formattedAdjournedDate, offenceWording) {
+    return {
+      offenceTitle: offenceTitle,
+      plea: plea,
+      dateOfPlea: dateOfPlea,
+      formattedConvictionDate: formattedConvictionDate,
+      formattedAdjournedDate: formattedAdjournedDate,
+      offenceWording: offenceWording,
+    }
+  }
+
+  private formatDefendant(defendantHeading, gender, inCustody, sittingSequence, time,
+                          formattedDuration, caseSequenceIndicator, defendantDateOfBirth, age, defendantAddress,
+                          prosecutionAuthorityCode, hearingNumber, caseHearingChannel, caseNumber,
+                          hearingType, panel, allOffences) {
+    return {
+      defendantHeading: defendantHeading,
+      gender: gender,
+      inCustody: inCustody,
+      sittingSequence: sittingSequence,
+      time: time,
+      formattedDuration: formattedDuration,
+      caseSequenceIndicator: caseSequenceIndicator,
+      defendantDateOfBirth: defendantDateOfBirth,
+      age: age,
+      defendantAddress: defendantAddress,
+      prosecutionAuthorityCode: prosecutionAuthorityCode,
+      hearingNumber: hearingNumber,
+      caseHearingChannel: caseHearingChannel,
+      caseNumber: caseNumber,
+      hearingType: hearingType,
+      panel: panel,
+      allOffences: allOffences
+    };
   }
 
   private formatCaseTime(sitting: object, format: string): void {
