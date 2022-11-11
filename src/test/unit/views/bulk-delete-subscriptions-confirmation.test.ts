@@ -25,7 +25,7 @@ describe('Bulk Delete Subscriptions Confirmation Page', () => {
     });
 
     it('should have correct header', () => {
-      const heading = htmlRes.getElementsByClassName('govuk-fieldset__heading');
+      const heading = htmlRes.getElementsByClassName('govuk-heading-l');
       expect(heading[0].innerHTML).contains('Are you sure you want to remove these subscriptions?',
         'Header does not match');
     });
