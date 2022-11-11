@@ -522,7 +522,6 @@ nav {
   top: 2em;
 }
 
-
 .json-container {
   background-color: black;
   border: 1px dashed yellow;
@@ -574,7 +573,7 @@ ol.json-lines > li::marker {
 }
 
 ol.json-lines > li:nth-child(odd) {
-  background-color: #222222;
+  background-color: #222;
 }
 
 ol.json-lines > li:nth-child(even) {
