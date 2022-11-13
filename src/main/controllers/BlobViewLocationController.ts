@@ -5,7 +5,6 @@ import {LocationService} from '../service/locationService';
 
 const locationService = new LocationService();
 export default class BlobViewLocationController {
-
   public async get(req: PipRequest, res: Response): Promise<void> {
     const list_of_locs = await locationService.fetchAllLocations(req.lng);
     const counts = await locationService.getCountsOfPubsPerLocation();

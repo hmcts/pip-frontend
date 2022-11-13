@@ -6,12 +6,13 @@ import {SummaryOfPublicationsService} from '../service/summaryOfPublicationsServ
 
 const summaryOfPublicationsService = new SummaryOfPublicationsService();
 const locationService = new LocationService();
-export default class BlobViewLocationController {
+export default class BlobViewPublicationsController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const locationId = req.query['locationId'];
     if (locationId) {
       const court = await locationService.getLocationById(parseInt(locationId.toString()));
+      // reusing summary-of-pubs language file and service as this is essentially the same kind of page.
       const locationName = locationService.findCourtName(court, req.lng as string, 'summary-of-publications');
       const list_of_pubs = await summaryOfPublicationsService.getPublications(parseInt(locationId.toString()), req.user?.['piUserId']);
 
