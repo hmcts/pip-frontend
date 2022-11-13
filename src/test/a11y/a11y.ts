@@ -61,6 +61,9 @@ const systemAdminRoutes = [
   '/manual-reference-data-upload',
   '/manual-reference-data-upload-summary',
   '/manual-reference-data-upload-confirmation',
+  '/blob-view-json',
+  '/blob-view-publications',
+  '/blob-view-locations',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
