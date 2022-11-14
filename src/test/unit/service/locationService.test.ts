@@ -13,10 +13,10 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearin
 const hearingsData = JSON.parse(rawData);
 
 sinon.stub(courtRequest, 'getAllLocations').returns(hearingsData);
+sinon.stub(courtRequest, 'getPubsPerLocation').returns('location,count\n1,2\n3,1\n');
 const stubCourt = sinon.stub(courtRequest, 'getLocation');
 const stubCourtByName = sinon.stub(courtRequest, 'getLocationByName');
 const stubCourtsFilter = sinon.stub(courtRequest, 'getFilteredCourts');
-
 const validKeysCount = 26;
 const alphabet = [
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -129,6 +129,14 @@ describe('Court Service', () => {
   it(`should return object with ${validKeysCount} keys filtered`, async () => {
     const data = await courtService.generateFilteredAlphabetisedCourtList('', 'Crown', englishLanguage);
     expect(Object.keys(data).length).to.equal(validKeysCount);
+  });
+
+  it('should return a list of locationIds alongside the relevant number of publications', async() => {
+    const data = await courtService.getCountsOfPubsPerLocation();
+    const expectedMap = new Map();
+    expectedMap.set(1, 2);
+    expectedMap.set(3, 1);
+    expect(data).to.deep.equal(expectedMap);
   });
 
   it('should return sorted courts list', () => {

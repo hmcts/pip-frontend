@@ -14,7 +14,7 @@ const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicat
 const metaStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 const CourtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const meta = {
-  'artefactId': '2f3b5c80-1f1d-47da-b6bd-3e2032c56a7d',
+  'artefactId': '1234',
   'displayFrom': '2022-06-29T14:45:18.836',
   'locationId': '1',
   'name': 'hi',
@@ -25,7 +25,6 @@ describe('Get publication json', () => {
 
   it('should correctly render if location is passed and ref data exists',
     async () => {
-
       CourtStub.withArgs(1).resolves(JSON.parse('{"name":"Single Justice Procedure"}'));
       jsonStub.withArgs('1234').resolves(artefactJson);
       metaStub.withArgs('1234', 10).resolves(meta);
