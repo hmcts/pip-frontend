@@ -5,3 +5,9 @@ src/main/public/main*.js
 .pnp.*
 src/main/views/govuk
 .yarn/
+.coverage/*
+public/*
+coverage/*
+node_modules/*
+.idea/*
+
