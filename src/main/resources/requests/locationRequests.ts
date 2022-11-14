@@ -18,23 +18,6 @@ export class LocationRequests {
     return null;
   }
 
-  public async getPubsPerLocation(): Promise<string> {
-    try {
-      const response = await dataManagementApi.get('/publication/count-by-location');
-      return response.data;
-      // return response.data;
-    } catch (error) {
-      if (error.response) {
-        console.log(error.response.data);
-      } else if (error.request) {
-        console.log(`Request failed. ${error.request}`);
-      } else {
-        console.log(`ERROR: ${error.message}`);
-      }
-    }
-    return null;
-  }
-
   public async getLocationByName(courtName: string, language: string): Promise<Location> {
     try {
       const response = await dataManagementApi.get(`/locations/name/${courtName}/language/${language}`);

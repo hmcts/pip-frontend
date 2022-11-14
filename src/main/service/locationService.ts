@@ -79,17 +79,6 @@ export class LocationService {
     return alphabetisedCourtList;
   }
 
-  public async getCountsOfPubsPerLocation(): Promise<Map<number, number>> {
-    const response = await locationRequest.getPubsPerLocation();
-    const splitresp = response.split('\n').slice(1, -1);
-    const map = new Map();
-    splitresp.forEach(line => {
-      const commasep = line.split(',');
-      map.set(parseInt(commasep[0]), parseInt(commasep[1]));
-    });
-    return map;
-  }
-
   public findCourtName(location: Location, language: string, languageFile: string): string {
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     let courtName = '';

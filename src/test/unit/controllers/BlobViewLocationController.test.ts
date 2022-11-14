@@ -3,6 +3,7 @@ import {mockRequest} from '../mocks/mockRequest';
 import sinon from 'sinon';
 import {LocationService} from '../../../main/service/locationService';
 import BlobViewLocationController from '../../../main/controllers/BlobViewLocationController';
+import {PublicationService} from '../../../main/service/publicationService';
 
 const blobViewController = new BlobViewLocationController();
 const i18n = {
@@ -11,7 +12,7 @@ const i18n = {
 
 const map = new Map<number, number>([[9, 1], [1, 1]]);
 const locStub = sinon.stub(LocationService.prototype, 'fetchAllLocations');
-const countStub = sinon.stub(LocationService.prototype, 'getCountsOfPubsPerLocation');
+const countStub = sinon.stub(PublicationService.prototype, 'getCountsOfPubsPerLocation');
 
 describe('Get publications', () => {
 
