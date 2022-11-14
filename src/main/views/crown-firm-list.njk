@@ -82,8 +82,6 @@
   </div>
   {% for court in allocated %}
     {% for day in court.days %}
-
-
       {% set tableHeaders = '<table class="govuk-table"><thead class="govuk-table__head"><tr class="govuk-table__row">
                       <th scope="col" class="govuk-table__header no-wrap">' + sittingAt  + '</th>
                       <th scope="col" class="govuk-table__header no-wrap">' + caseReference +'</th>
@@ -94,15 +92,12 @@
                       <th scope="col" class="govuk-table__header no-wrap">' + prosecutingAuthority + '</th>
                     </tr></thead><tbody class="govuk-table__body">' %}
       {% set closing = '</tbody></table>' %}
-
       {% set currentTable = [] %}
-
       {% set courtHouse = court.courtName %}
       <div class="site-header" tabindex="0" aria-label="Court Details">
         <h1 class="govuk-heading-l site-address" tabindex="0">{{ sittingAtCourt }} {{ courtHouse }}</h1>
         <h2 class="govuk-heading-l"> {{ day[0].data[0].sittingDate }}</h2>
       </div>
-
       <br/>
       {% for room in day %}
         {% set roomHeading = room.courtRoom + ":  " + room.data[0].joh %}
@@ -138,23 +133,19 @@
               + noBorder + '" colspan="7"><span class="linked-cases-heading">' + listingNotes + ':</span> '
               + row.hearingNotes + '</td></tr>' %}
           {% endif %}
-
           {% for x in [thisRow, theseLinkedCases, hearingNotes] %}
             {% set _ = tableRows.push(x) %}
           {% endfor %}
-
         {% endfor %}
         {% set tableRows = tableRows | join %}
         {% set _ = currentTable.push(
           { heading: {text: roomHeading},
             content: {html: tableRows + closing}
           }) %}
-
       {% endfor %}
-
-        {{ govukAccordion({
-          id: "accordion-default-firmList"+loop.index,
-          items: currentTable}) }}
+      {{ govukAccordion({
+        id: "accordion-default-firmList"+loop.index,
+        items: currentTable}) }}
     {% endfor %}
   {% endfor %}
   <br/>

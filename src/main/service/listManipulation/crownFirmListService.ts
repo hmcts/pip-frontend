@@ -45,7 +45,7 @@ export class CrownFirmListService {
                   caseSeparator: thisCase['caseSequenceIndicator'],
                   linkedCases: thisCase['linkedCases'],
                   hearingNotes: hearing['listingNotes'],
-                  defendant: formattedName[1].toUpperCase() + ', ' + formattedName[0],
+                  defendant: (formattedName.length > 1) ? formattedName[1].toUpperCase() + ', ' + formattedName[0] : formattedName,
                   defendantRepresentative: hearing['defendantRepresentative'],
                   prosecutingAuthority: hearing['prosecutingAuthority'],
                   hearingType: hearing['hearingType'],
@@ -101,7 +101,9 @@ export class CrownFirmListService {
         // does not understand that a compare function needs two vars.
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         function compare (a, b) {
-          if (a.courtRoom.toLowerCase().includes('to be allocated')){return 1;} return -1;}
+          if (a.courtRoom.toLowerCase().includes('to be allocated')){return 1;}
+          else if (b.courtRoom.toLowerCase().includes('to be allocated')){return -1;}
+          else {return 0;}}
         // custom sort usage below
         thisDayCourts.sort(compare);
         courts[courtCounter]['days'].push(thisDayCourts);
