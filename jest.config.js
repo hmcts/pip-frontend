@@ -7,7 +7,7 @@ module.exports = {
   ],
   modulePathIgnorePatterns: ["<rootDir>/src/test/unit/mocks"],
   "testEnvironment": "jsdom",
-  "testTimeout": 10000,
+  "testTimeout": 30000,
   transform: {
     '^.+\\.ts?$': 'ts-jest',
   },
