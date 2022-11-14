@@ -26,10 +26,7 @@
       "postCode": "AA1 AA1",
       "county": "Lancashire",
       "town": "Town",
-      "line": [
-        "Address Line 1",
-        "Address Line 2"
-      ]
+      "line": ["Address Line 1", "Address Line 2"]
     }
   },
   "courtLists": [
@@ -98,14 +95,10 @@
                         "hearingType": "This is a hearing type"
                       }
                     ],
-                    "channel": [
-                      "This is a sitting channel"
-                    ]
+                    "channel": ["This is a sitting channel"]
                   }
                 ],
-                "sessionChannel": [
-                  "This is a session channel"
-                ]
+                "sessionChannel": ["This is a session channel"]
               }
             ]
           }
@@ -113,9 +106,7 @@
         "courtHouseAddress": {
           "town": "Leicester",
           "postCode": "L5 4UU",
-          "line": [
-            "5-7 Hill Street"
-          ],
+          "line": ["5-7 Hill Street"],
           "county": ""
         }
       }
@@ -128,7 +119,8 @@
           "venueTelephone": "+44 1234 1234 1234"
         },
         "courtRoom": [
-          {	"courtRoomName": "Dynatrace Suite 2",
+          {
+            "courtRoomName": "Dynatrace Suite 2",
             "session": [
               {
                 "sittings": [
@@ -383,9 +375,7 @@
         "courtHouseAddress": {
           "town": "Nottingham",
           "postCode": "NG1 2FP",
-          "line": [
-            "1 Crown Road"
-          ],
+          "line": ["1 Crown Road"],
           "county": ""
         }
       }

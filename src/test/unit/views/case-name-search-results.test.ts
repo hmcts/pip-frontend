@@ -2,37 +2,42 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
+import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
 
 const PAGE_URL = '/case-name-search-results?search=Meedo';
 const pageTitleValue = 'Search result';
 let htmlRes: Document;
 
-const data = [{
-  search: {
-    cases: [
-      {caseName: "Meedoo's hearings", caseNumber: '123'},
-      {caseName: "Meedoo's hearings", caseNumber: '321'},
-      {caseName: "Meedoo's hearings", caseNumber: '234'},
-      {caseName: "Meedoo's hearings", caseNumber: '534'},
-      {caseName: "Meedoo's hearings", caseNumber: '674'},
-    ],
+const data = [
+  {
+    search: {
+      cases: [
+        { caseName: "Meedoo's hearings", caseNumber: '123' },
+        { caseName: "Meedoo's hearings", caseNumber: '321' },
+        { caseName: "Meedoo's hearings", caseNumber: '234' },
+        { caseName: "Meedoo's hearings", caseNumber: '534' },
+        { caseName: "Meedoo's hearings", caseNumber: '674' },
+      ],
+    },
   },
-}];
+];
 
 sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue').returns(data);
 
-app.request['user'] = { _json: {
-  'extension_UserRole': 'VERIFIED',
-}};
+app.request['user'] = {
+  _json: {
+    extension_UserRole: 'VERIFIED',
+  },
+};
 
 describe('Case name search results page', () => {
   beforeAll(async () => {
-
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should have correct page title', () => {

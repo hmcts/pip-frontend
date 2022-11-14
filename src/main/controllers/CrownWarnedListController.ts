@@ -1,9 +1,9 @@
-import {PipRequest} from '../models/request/PipRequest';
-import {Response} from 'express';
-import {cloneDeep} from 'lodash';
-import {PublicationService} from '../service/publicationService';
-import {DataManipulationService} from '../service/dataManipulationService';
-import {CrownWarnedListService} from '../service/listManipulation/crownWarnedListService';
+import { PipRequest } from '../models/request/PipRequest';
+import { Response } from 'express';
+import { cloneDeep } from 'lodash';
+import { PublicationService } from '../service/publicationService';
+import { DataManipulationService } from '../service/dataManipulationService';
+import { CrownWarnedListService } from '../service/listManipulation/crownWarnedListService';
 
 const publicationService = new PublicationService();
 const dataManipulationService = new DataManipulationService();
@@ -27,9 +27,11 @@ export default class CrownWarnedListController {
       const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults));
 
       // Sort unallocated list entry to the end of the map so it appears last on the template
-      const sortedListData = new Map([...listData].sort(([a], [b]) =>
-        toBeAllocatedLowerCase === a.toLowerCase() ? 1
-          : toBeAllocatedLowerCase === b.toLowerCase() ? -1 : 0));
+      const sortedListData = new Map(
+        [...listData].sort(([a], [b]) =>
+          toBeAllocatedLowerCase === a.toLowerCase() ? 1 : toBeAllocatedLowerCase === b.toLowerCase() ? -1 : 0
+        )
+      );
 
       res.render(listUrl, {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listUrl]),

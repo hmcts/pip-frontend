@@ -1,8 +1,7 @@
-import {partyRoleMappings} from '../models/consts';
+import { partyRoleMappings } from '../models/consts';
 import moment from 'moment-timezone';
 
 export class DataManipulationService {
-
   public timeZone = 'Europe/London';
 
   /**
@@ -49,14 +48,16 @@ export class DataManipulationService {
               hearingCount++;
               hearing['party'].forEach(party => {
                 if (party['individualDetails']) {
-                  party['individualDetails']['formattedDateOfBirth'] = moment(party['individualDetails']['dateOfBirth'].split('/').reverse().join('-')).format('D MMMM YYYY');
+                  party['individualDetails']['formattedDateOfBirth'] = moment(
+                    party['individualDetails']['dateOfBirth'].split('/').reverse().join('-')
+                  ).format('D MMMM YYYY');
                 }
               });
 
               hearing['offence'].forEach(offence => {
                 const reportingRestriction = offence['reportingRestriction'].toString();
-                offence['formattedReportingRestriction'] = reportingRestriction.charAt(0).toUpperCase() +
-                  reportingRestriction.slice(1);
+                offence['formattedReportingRestriction'] =
+                  reportingRestriction.charAt(0).toUpperCase() + reportingRestriction.slice(1);
               });
             });
           });
@@ -231,14 +232,14 @@ export class DataManipulationService {
     let courtCounter = 0;
     uniqueCourts.forEach(court => {
       const courtData = data.filter(row => row.courtName === court);
-      courts.push({'courtName': court, days: []});
+      courts.push({ courtName: court, days: [] });
       const uniqueDays = this.uniquesInArrayByAttrib(courtData, 'sittingDate');
       const uniqueDaysArr = [];
       Array.from(uniqueDays).forEach(day => {
         const encDay = moment.utc(day, 'dddd DD MMMM YYYY').tz(this.timeZone);
         uniqueDaysArr.push(encDay);
       });
-      uniqueDaysArr.sort(function(a, b) {
+      uniqueDaysArr.sort(function (a, b) {
         return a - b;
       });
       uniqueDaysArr.forEach(day => {
@@ -329,7 +330,6 @@ export class DataManipulationService {
     let appellantRepresentative = '';
     if (hearing?.party) {
       hearing.party.forEach(party => {
-
         switch (DataManipulationService.convertPartyRole(party.partyRole)) {
           case 'APPLICANT_PETITIONER': {
             applicant += this.createIndividualDetails(party.individualDetails, initialised).trim();
@@ -337,7 +337,10 @@ export class DataManipulationService {
             break;
           }
           case 'APPLICANT_PETITIONER_REPRESENTATIVE': {
-            const applicantPetitionerDetails = this.createIndividualDetails(party.individualDetails, initialised).trim();
+            const applicantPetitionerDetails = this.createIndividualDetails(
+              party.individualDetails,
+              initialised
+            ).trim();
             if (applicantPetitionerDetails) {
               applicantRepresentative += 'LEGALADVISOR: ' + applicantPetitionerDetails + ', ';
             }
@@ -362,18 +365,15 @@ export class DataManipulationService {
             const respondentDetails = this.createIndividualDetails(party.individualDetails, initialised).trim();
             if (respondentDetails) {
               respondentRepresentative += 'LEGALADVISOR: ' + respondentDetails + ', ';
-
             }
             break;
           }
-          case 'PROSECUTING_AUTHORITY':
-          {
+          case 'PROSECUTING_AUTHORITY': {
             prosecutingAuthority += this.createIndividualDetails(party.individualDetails, initialised).trim();
             prosecutingAuthority += this.stringDelimiter(prosecutingAuthority?.length, ',');
             break;
           }
-          case 'DEFENDANT':
-          {
+          case 'DEFENDANT': {
             defendant += this.createIndividualDetails(party.individualDetails, initialised).trim();
             defendant += this.stringDelimiter(defendant?.length, ',');
             break;
@@ -398,22 +398,25 @@ export class DataManipulationService {
    * @param initialised
    */
   private createIndividualDetails(individualDetails: any, initialised = false): string {
-
     const title = this.writeStringIfValid(individualDetails?.title);
     const forenames = this.writeStringIfValid(individualDetails?.individualForenames);
     const forenameInitial = forenames.charAt(0);
     const middleName = this.writeStringIfValid(individualDetails?.individualMiddleName);
     const surname = this.writeStringIfValid(individualDetails?.individualSurname);
     if (initialised) {
-
-      return title + (title.length > 0 ? ' ' : '')
-        + forenameInitial + (forenameInitial.length > 0 ? '. ' : '')
-        + surname;
+      return (
+        title + (title.length > 0 ? ' ' : '') + forenameInitial + (forenameInitial.length > 0 ? '. ' : '') + surname
+      );
     } else {
-      return title + (title.length > 0 ? ' ' : '')
-        + forenames + (forenames.length > 0 ? ' ' : '')
-        + middleName + (middleName.length > 0 ? ' ' : '')
-        + surname;
+      return (
+        title +
+        (title.length > 0 ? ' ' : '') +
+        forenames +
+        (forenames.length > 0 ? ' ' : '') +
+        middleName +
+        (middleName.length > 0 ? ' ' : '') +
+        surname
+      );
     }
   }
 
@@ -507,9 +510,7 @@ export class DataManipulationService {
       let linkedCases = '';
       let counter = 1;
       hearingCase['caseLinked']?.forEach(linkedCase => {
-        linkedCases += (counter == hearingCase['caseLinked'].length)
-          ? linkedCase['caseId']
-          : linkedCase['caseId'] + ', ';
+        linkedCases += counter == hearingCase['caseLinked'].length ? linkedCase['caseId'] : linkedCase['caseId'] + ', ';
         counter++;
       });
       hearingCase['formattedLinkedCases'] = linkedCases;
@@ -528,14 +529,16 @@ export class DataManipulationService {
       const sittingEnd = moment.utc(sitting['sittingEnd']);
 
       let durationAsHours = 0;
-      let durationAsMinutes = moment.duration(sittingEnd.startOf('minutes').diff(sittingStart.startOf('minutes'))).asMinutes();
+      let durationAsMinutes = moment
+        .duration(sittingEnd.startOf('minutes').diff(sittingStart.startOf('minutes')))
+        .asMinutes();
       if (durationAsMinutes >= 60) {
         durationAsHours = Math.floor(durationAsMinutes / 60);
-        durationAsMinutes = durationAsMinutes - (durationAsHours * 60);
+        durationAsMinutes = durationAsMinutes - durationAsHours * 60;
       }
 
       let durationAsDays = 0;
-      if(durationAsHours >= 24) {
+      if (durationAsHours >= 24) {
         durationAsDays = Math.floor(durationAsHours / 24);
       }
 

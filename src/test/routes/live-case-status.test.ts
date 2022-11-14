@@ -3,7 +3,7 @@ import request from 'supertest';
 import sinon from 'sinon';
 
 import { app } from '../../main/app';
-import {LiveCaseService} from '../../main/service/liveCaseService';
+import { LiveCaseService } from '../../main/service/liveCaseService';
 import fs from 'fs';
 import path from 'path';
 
@@ -17,7 +17,7 @@ describe.skip('Live Status', () => {
     test('should return live status page', async () => {
       await request(app)
         .get('/live-case-status?locationId=26')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });

@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
-import {PublicationService} from '../service/publicationService';
+import { PublicationService } from '../service/publicationService';
 
 const publicationService = new PublicationService();
 
@@ -16,13 +16,13 @@ export default class SubscriptionUrnSearchController {
     if (searchInput && searchInput.length) {
       const searchResults = await publicationService.getCaseByCaseUrn(searchInput, req.user?.['piUserId']);
 
-      (searchResults) ?
-        res.redirect(`subscription-urn-search-results?search-input=${searchInput}`) :
-        res.render('subscription-urn-search', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search']),
-          invalidInputError: false,
-          noResultsError: true,
-        });
+      searchResults
+        ? res.redirect(`subscription-urn-search-results?search-input=${searchInput}`)
+        : res.render('subscription-urn-search', {
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search']),
+            invalidInputError: false,
+            noResultsError: true,
+          });
     } else {
       res.render('subscription-urn-search', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search']),

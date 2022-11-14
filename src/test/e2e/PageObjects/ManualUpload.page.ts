@@ -5,9 +5,8 @@ const helpers = require('../Helpers/Selectors');
 const path = require('path');
 
 export class ManualUploadPage extends CommonPage {
-
-  randomDay = ('0' + Math.floor((Math.random() * 25) + 1)).slice(-2).toString();
-  randomMonth = ('0' + Math.floor((Math.random() * 12) + 1)).slice(-2).toString();
+  randomDay = ('0' + Math.floor(Math.random() * 25 + 1)).slice(-2).toString();
+  randomMonth = ('0' + Math.floor(Math.random() * 12 + 1)).slice(-2).toString();
 
   async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitleXl).catch(() => {

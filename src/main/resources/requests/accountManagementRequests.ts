@@ -1,13 +1,12 @@
-import {accountManagementApi, accountManagementApiUrl, getAccountManagementCredentials} from './utils/axiosConfig';
+import { accountManagementApi, accountManagementApiUrl, getAccountManagementCredentials } from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
-import {MediaAccountApplication} from '../../models/MediaAccountApplication';
+import { MediaAccountApplication } from '../../models/MediaAccountApplication';
 import moment from 'moment-timezone';
 
 const superagent = require('superagent');
 const logger = Logger.getLogger('requests');
 
 export class AccountManagementRequests {
-
   /**
    * Request to account management that creates the azure account.
    * @param payload The payload containing the azure accounts to request.
@@ -15,11 +14,12 @@ export class AccountManagementRequests {
    */
   public async createAzureAccount(payload, requester): Promise<object | null> {
     try {
-      const response = await accountManagementApi.post('/account/add/azure', payload, {headers: {'x-issuer-id': requester}});
+      const response = await accountManagementApi.post('/account/add/azure', payload, {
+        headers: { 'x-issuer-id': requester },
+      });
       logger.info('Azure account created');
       return response.data;
-    }
-    catch (error) {
+    } catch (error) {
       if (error.response) {
         logger.error('Failed to create azure account on response');
       } else if (error.request) {
@@ -38,11 +38,12 @@ export class AccountManagementRequests {
    */
   public async createPIAccount(payload, requester): Promise<boolean> {
     try {
-      const response = await accountManagementApi.post('/account/add/pi', payload, {headers: {'x-issuer-id': requester}});
+      const response = await accountManagementApi.post('/account/add/pi', payload, {
+        headers: { 'x-issuer-id': requester },
+      });
       logger.info('P&I account created');
       return response.status === 201;
-    }
-    catch (error) {
+    } catch (error) {
       if (error.response) {
         logger.error('Failed to create admin P&I on response');
       } else if (error.request) {
@@ -57,9 +58,10 @@ export class AccountManagementRequests {
   public async createMediaAccount(form): Promise<boolean> {
     try {
       const token = await getAccountManagementCredentials();
-      await superagent.post(`${accountManagementApiUrl}/application`)
+      await superagent
+        .post(`${accountManagementApiUrl}/application`)
         .set('enctype', 'multipart/form-data')
-        .set({'Authorization': 'Bearer ' + token.access_token})
+        .set({ Authorization: 'Bearer ' + token.access_token })
         .attach('file', form.file.body, form.file.name)
         .field('fullName', form.fullName)
         .field('email', form.email)
@@ -83,8 +85,7 @@ export class AccountManagementRequests {
       const response = await accountManagementApi.get('/application/' + applicationId);
       logger.info('Media Application accessed - ' + applicationId);
       return response.data;
-    }
-    catch (error) {
+    } catch (error) {
       if (error.response) {
         logger.error('Failed to retrieve media application', error.response.data);
       } else if (error.request) {
@@ -97,8 +98,8 @@ export class AccountManagementRequests {
   }
 
   public async getMediaApplicationImageById(imageId): Promise<Blob> {
-    try{
-      const response = await accountManagementApi.get('/application/image/' + imageId, {responseType: 'arraybuffer'});
+    try {
+      const response = await accountManagementApi.get('/application/image/' + imageId, { responseType: 'arraybuffer' });
       logger.info('Media Application image access with ID - ' + imageId);
       return response.data;
     } catch (error) {
@@ -117,8 +118,8 @@ export class AccountManagementRequests {
     try {
       const response = await accountManagementApi.put('/application/' + applicantId + '/' + status);
       logger.info('Media Application updated - ' + applicantId);
-      return response.data;}
-    catch (error) {
+      return response.data;
+    } catch (error) {
       if (error.response) {
         logger.error('Failed to update media application', error.response.data);
       } else if (error.request) {

@@ -1,22 +1,21 @@
 import { Response } from 'express';
-import {PipRequest} from '../models/request/PipRequest';
-import {cloneDeep} from 'lodash';
+import { PipRequest } from '../models/request/PipRequest';
+import { cloneDeep } from 'lodash';
 
 export default class SubscriptionAddController {
   public get(req: PipRequest, res: Response): void {
-
     if (req.query.error === 'true') {
       res.render('subscription-add', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-add']),
-        selectionError: true});
+        selectionError: true,
+      });
     } else {
       res.render('subscription-add', req.i18n.getDataByLanguage(req.lng)['subscription-add']);
     }
-
   }
 
   public post(req: PipRequest, res: Response): void {
-    switch(req.body['subscription-choice']) {
+    switch (req.body['subscription-choice']) {
       case 'case-reference': {
         res.redirect('/case-reference-number-search');
         break;
@@ -35,7 +34,8 @@ export default class SubscriptionAddController {
       default:
         res.render('subscription-add', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-add']),
-          selectionError: true});
+          selectionError: true,
+        });
     }
   }
 }

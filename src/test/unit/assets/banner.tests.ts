@@ -21,9 +21,11 @@ const SIGNED_IN_LINKS = {
 describe('Navigation banner tests on the view-option page', () => {
   describe('Non signed in user', () => {
     beforeAll(async () => {
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      });
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        });
     });
 
     it('should display navigation banner with 4 links', () => {
@@ -44,10 +46,12 @@ describe('Navigation banner tests on the view-option page', () => {
 
   describe('Signed in user', () => {
     beforeAll(async () => {
-      app.request['user'] = {id: '1'};
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      });
+      app.request['user'] = { id: '1' };
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        });
     });
 
     it('should display navigation banner with 5 links', () => {

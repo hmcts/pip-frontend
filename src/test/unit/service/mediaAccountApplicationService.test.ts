@@ -1,50 +1,52 @@
 import sinon from 'sinon';
-import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
-import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
-import {CreateAccountService} from '../../../main/service/createAccountService';
-import {dummyApplication} from '../../helpers/testConsts';
+import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { MediaAccountApplicationService } from '../../../main/service/mediaAccountApplicationService';
+import { CreateAccountService } from '../../../main/service/createAccountService';
+import { dummyApplication } from '../../helpers/testConsts';
 
 describe('Summary Of Publications Service', () => {
-
   const applicationId = '1234';
   const imageId = '12345';
   const adminEmail = 'a@b.com';
   const accountApplicationService = new MediaAccountApplicationService();
 
   const dummyAccount = {
-    'emailAddress': 'a@b.com',
-    'fullName': 'Test Name',
+    emailAddress: 'a@b.com',
+    fullName: 'Test Name',
   };
 
   const approvedApplication = {
-    'id': '1234',
-    'fullName': 'Test Name',
-    'email': 'a@b.com',
-    'employer': 'Employer',
-    'image': '12345',
-    'imageName': 'ImageName.jpg',
-    'requestDate': '2022-05-09T00:00:01',
-    'status': 'APPROVED',
-    'statusDate': '2022-05-09T00:00:01',
+    id: '1234',
+    fullName: 'Test Name',
+    email: 'a@b.com',
+    employer: 'Employer',
+    image: '12345',
+    imageName: 'ImageName.jpg',
+    requestDate: '2022-05-09T00:00:01',
+    status: 'APPROVED',
+    statusDate: '2022-05-09T00:00:01',
   };
 
   const formattedApplication = {
-    'id': '1234',
-    'fullName': 'Test Name',
-    'email': 'a@b.com',
-    'employer': 'Employer',
-    'image': '12345',
-    'imageName': 'ImageName.jpg',
-    'requestDate': '09 May 2022',
-    'status': 'PENDING',
-    'statusDate': '2022-05-09T00:00:01',
+    id: '1234',
+    fullName: 'Test Name',
+    email: 'a@b.com',
+    employer: 'Employer',
+    image: '12345',
+    imageName: 'ImageName.jpg',
+    requestDate: '09 May 2022',
+    status: 'PENDING',
+    statusDate: '2022-05-09T00:00:01',
   };
 
   const dummyImage = new Blob(['testJPEG']);
 
   const mediaApplicationByIdStub = sinon.stub(AccountManagementRequests.prototype, 'getMediaApplicationById');
   const mediaApplicationByImageStub = sinon.stub(AccountManagementRequests.prototype, 'getMediaApplicationImageById');
-  const mediaApplicationUpdateStatusStub = sinon.stub(AccountManagementRequests.prototype, 'updateMediaApplicationStatus');
+  const mediaApplicationUpdateStatusStub = sinon.stub(
+    AccountManagementRequests.prototype,
+    'updateMediaApplicationStatus'
+  );
   const createAccountServiceStub = sinon.stub(CreateAccountService.prototype, 'createMediaAccount');
 
   it('should return the expected application by id', async () => {
@@ -124,5 +126,4 @@ describe('Summary Of Publications Service', () => {
     expect(application).toBe(null);
     sinon.assert.calledWith(createAccountServiceStub, dummyAccount, adminEmail);
   });
-
 });

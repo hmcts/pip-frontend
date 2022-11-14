@@ -1,8 +1,8 @@
-import {PipRequest} from '../models/request/PipRequest';
-import {Response} from 'express';
-import {cloneDeep} from 'lodash';
-import {PublicationService} from '../service/publicationService';
-import {DataManipulationService} from '../service/dataManipulationService';
+import { PipRequest } from '../models/request/PipRequest';
+import { Response } from 'express';
+import { cloneDeep } from 'lodash';
+import { PublicationService } from '../service/publicationService';
+import { DataManipulationService } from '../service/dataManipulationService';
 
 const publicationService = new PublicationService();
 const dataManipulationService = new DataManipulationService();
@@ -19,16 +19,18 @@ export default class SjpPublicListController {
       const casesCount = SjpPublicListController.getCasesCount(fileData);
 
       res.render('single-justice-procedure', {
-        ...cloneDeep(req.i18n.getDataByLanguage(publicationService.languageToLoadPageIn(metaData.language,
-          req.lng))['single-justice-procedure']),
+        ...cloneDeep(
+          req.i18n.getDataByLanguage(publicationService.languageToLoadPageIn(metaData.language, req.lng))[
+            'single-justice-procedure'
+          ]
+        ),
         sjpData: fileData,
         length: casesCount,
         publishedDateTime: publishedDate,
         publishedTime: publishedTime,
       });
     } else {
-      res.render('error',
-        req.i18n.getDataByLanguage(req.lng).error);
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
   }
 

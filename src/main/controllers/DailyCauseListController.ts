@@ -1,6 +1,6 @@
-import {Response} from 'express';
-import {PipRequest} from '../models/request/PipRequest';
-import {cloneDeep} from 'lodash';
+import { Response } from 'express';
+import { PipRequest } from '../models/request/PipRequest';
+import { cloneDeep } from 'lodash';
 import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
@@ -18,7 +18,6 @@ export default class DailyCauseListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (searchResults && metaData) {
-
       const manipulatedData = dataManipulationService.manipulatedDailyListData(JSON.stringify(searchResults));
 
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
@@ -39,8 +38,7 @@ export default class DailyCauseListController {
         bill: pageLanguage === 'bill',
       });
     } else {
-      res.render('error',
-        req.i18n.getDataByLanguage(req.lng).error);
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
   }
 }

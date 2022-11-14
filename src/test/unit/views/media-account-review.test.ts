@@ -1,12 +1,11 @@
-import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 import sinon from 'sinon';
 import request from 'supertest';
-import {app} from '../../../main/app';
-import {expect} from 'chai';
-import {request as expressRequest} from 'express';
+import { app } from '../../../main/app';
+import { expect } from 'chai';
+import { request as expressRequest } from 'express';
 
 describe('Media Account Review Test', () => {
-
   const applicationId = '1234';
 
   const PAGE_URL = '/media-account-review?applicantId=' + applicationId;
@@ -16,7 +15,7 @@ describe('Media Account Review Test', () => {
   const summaryActions = 'govuk-summary-list__actions';
   const buttonTag = 'button';
 
-  const expectedHeader = 'Applicant\'s details';
+  const expectedHeader = "Applicant's details";
   const nameHeader = 'Name';
   const nameValue = 'Test Name';
   const emailHeader = 'Email';
@@ -33,15 +32,15 @@ describe('Media Account Review Test', () => {
   const rejectButtonText = 'Reject application';
 
   const dummyApplication = {
-    'id': '1234',
-    'fullName': 'Test Name',
-    'email': 'a@b.com',
-    'employer': 'employer',
-    'image': '12345',
-    'imageName': 'ImageName.jpg',
-    'requestDate': '2022-05-09T00:00:01',
-    'status': 'PENDING',
-    'statusDate': '2022-05-09T00:00:01',
+    id: '1234',
+    fullName: 'Test Name',
+    email: 'a@b.com',
+    employer: 'employer',
+    image: '12345',
+    imageName: 'ImageName.jpg',
+    requestDate: '2022-05-09T00:00:01',
+    status: 'PENDING',
+    statusDate: '2022-05-09T00:00:01',
   };
 
   sinon.stub(AccountManagementRequests.prototype, 'getMediaApplicationById').returns(dummyApplication);
@@ -49,17 +48,19 @@ describe('Media Account Review Test', () => {
   let htmlRes: Document;
 
   describe('Media Account Review Page', () => {
-
     beforeAll(async () => {
+      expressRequest['user'] = {
+        _json: {
+          extension_UserRole: 'INTERNAL_ADMIN_CTSC',
+        },
+      };
 
-      expressRequest['user'] = {'_json': {
-        'extension_UserRole': 'INTERNAL_ADMIN_CTSC',
-      }};
-
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should display header', () => {
@@ -138,6 +139,5 @@ describe('Media Account Review Test', () => {
       const button = htmlRes.getElementsByTagName(buttonTag);
       expect(button[1].innerHTML).contains(rejectButtonText, 'Could not find the reject button text');
     });
-
   });
 });

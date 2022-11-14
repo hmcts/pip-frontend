@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { LocationRequests } from '../../../main/resources/requests/locationRequests';
-import {request as expressRequest} from 'express';
+import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/location-name-search';
 let htmlRes: Document;
@@ -16,31 +16,31 @@ const checkboxesCount = 12;
 
 sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'VERIFIED',
+  },
+};
 
 describe('Court Name Search Page', () => {
   beforeAll(async () => {
-
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display a back button with the correct value', () => {
     const backLink = htmlRes.getElementsByClassName('govuk-back-link');
-    expect(backLink[0].innerHTML)
-      .contains('Back', 'Back button does not contain correct text');
-    expect(backLink[0].getAttribute('href'))
-      .equal('#', 'Back value does not contain correct link');
+    expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
+    expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
   });
 
   it('should contain the heading', () => {
     const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(pageHeading[0].innerHTML)
-      .contains(pageHeader, 'Page heading does not exist');
+    expect(pageHeading[0].innerHTML).contains(pageHeader, 'Page heading does not exist');
   });
 
   it('should have correct page title', () => {
@@ -50,8 +50,10 @@ describe('Court Name Search Page', () => {
 
   it('should contain body text', () => {
     const pageBodyText = htmlRes.getElementsByClassName('govuk-body');
-    expect(pageBodyText[0].innerHTML)
-      .contains('Subscribe to receive hearings list by court or tribunal', 'Page body text does not exist');
+    expect(pageBodyText[0].innerHTML).contains(
+      'Subscribe to receive hearings list by court or tribunal',
+      'Page body text does not exist'
+    );
   });
 
   it('should contain filter component', () => {
@@ -76,13 +78,15 @@ describe('Court Name Search Page', () => {
 
   it('should contain jurisdiction filter', () => {
     const jurisdictionLegend = htmlRes.getElementsByTagName('legend');
-    expect(jurisdictionLegend[0].innerHTML).contains('Type of court or tribunal',
-      'Type of court or tribunal filter doesn\'t exist');
+    expect(jurisdictionLegend[0].innerHTML).contains(
+      'Type of court or tribunal',
+      "Type of court or tribunal filter doesn't exist"
+    );
   });
 
   it('should contain region filter', () => {
     const regionLegend = htmlRes.getElementsByTagName('legend');
-    expect(regionLegend[1].innerHTML).contains('Region', 'Region filter doesn\'t exist');
+    expect(regionLegend[1].innerHTML).contains('Region', "Region filter doesn't exist");
   });
 
   it('should contain 3 jurisdiction checkboxes', () => {
@@ -127,8 +131,7 @@ describe('Court Name Search Page', () => {
 
   it('should contain court table rows', () => {
     const elementsCount = 12;
-    const tableRows = htmlRes.getElementsByClassName('govuk-table__body')[0]
-      .getElementsByClassName('govuk-table__row');
+    const tableRows = htmlRes.getElementsByClassName('govuk-table__body')[0].getElementsByClassName('govuk-table__row');
     expect(tableRows.length).equal(elementsCount, 'Could not find all table rows');
   });
 

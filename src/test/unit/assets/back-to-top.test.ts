@@ -1,7 +1,6 @@
 import sinon from 'sinon';
 
 describe('Testing back to top button', () => {
-
   afterEach(() => {
     jest.resetModules();
     sinon.restore();
@@ -11,7 +10,6 @@ describe('Testing back to top button', () => {
 
   beforeAll(() => {
     interactionObserver = class IntersectionObserver {
-
       constructor() {
         return null;
       }
@@ -23,7 +21,6 @@ describe('Testing back to top button', () => {
   });
 
   it('always shows floating-back-to-top--fixed if footer is visible', async () => {
-
     const mockElement = document.createElement('div');
     mockElement.classList.add('floating-back-to-top--fixed');
 
@@ -35,7 +32,7 @@ describe('Testing back to top button', () => {
     stub.withArgs('.govuk-footer').returns(mockFooter);
 
     sinon.stub(window, 'innerHeight').value(400);
-    sinon.stub(mockFooter, 'getBoundingClientRect').returns({top: '200'});
+    sinon.stub(mockFooter, 'getBoundingClientRect').returns({ top: '200' });
 
     await import('../../../main/bundles/alphabetical');
 
@@ -43,7 +40,6 @@ describe('Testing back to top button', () => {
   });
 
   it('should add the floating-back-to-top--fixed if footer is visible, for InteractionObserver disabled browsers', async () => {
-
     const mockElement = document.createElement('div');
 
     const mockFooter = document.createElement('footer');
@@ -54,7 +50,7 @@ describe('Testing back to top button', () => {
     stub.withArgs('.govuk-footer').returns(mockFooter);
 
     sinon.stub(window, 'innerHeight').value(0);
-    sinon.stub(mockFooter, 'getBoundingClientRect').returns({top: '200'});
+    sinon.stub(mockFooter, 'getBoundingClientRect').returns({ top: '200' });
 
     await import('../../../main/bundles/alphabetical');
 
@@ -81,7 +77,6 @@ describe('Testing back to top button', () => {
   });
 
   it('should add the floating back to top element if the footer is not intersecting', async () => {
-
     const mockElement = document.createElement('div');
 
     const mockFooter = document.createElement('footer');
@@ -99,14 +94,13 @@ describe('Testing back to top button', () => {
 
     const returnedFunction = constructorSpy.getCall(0).args[0];
 
-    const entries = [{target: mockFooter, isIntersecting: false}];
+    const entries = [{ target: mockFooter, isIntersecting: false }];
     returnedFunction(entries);
     expect(mockElement.classList.length).toEqual(1);
     expect(mockElement.classList.item(0)).toEqual('floating-back-to-top--fixed');
   });
 
   it('should not remove the floating back to top element if the footer is intersecting', async () => {
-
     const mockElement = document.createElement('div');
     mockElement.classList.add('floating-back-to-top--fixed');
 
@@ -125,9 +119,8 @@ describe('Testing back to top button', () => {
 
     const returnedFunction = constructorSpy.getCall(0).args[0];
 
-    const entries = [{target: mockFooter, isIntersecting: true}];
+    const entries = [{ target: mockFooter, isIntersecting: true }];
     returnedFunction(entries);
     expect(mockElement.classList.length).toEqual(1);
   });
-
 });

@@ -90,14 +90,16 @@ module.exports = {
   CaseNameSearchErrorSummaryTitle: '.govuk-error-summary__title',
 
   // CaseNameSearchResults selectors
-  CaseNameSearchResultsCheckbox: 'tbody > tr.govuk-table__row > td > .govuk-checkboxes__item > .govuk-checkboxes__input',
+  CaseNameSearchResultsCheckbox:
+    'tbody > tr.govuk-table__row > td > .govuk-checkboxes__item > .govuk-checkboxes__input',
   CaseNameSearchResultsHeaderCheckbox: 'thead > tr.govuk-table__row > th > .govuk-checkboxes__input',
 
   // CourtNameSearch selectors
   ApplyFiltersButton: '.moj-filter__options > .govuk-button',
   ClearFiltersLink: '.moj-filter__heading-action > p > a',
   CourtNameSearchContinueButton: '.moj-action-bar > .govuk-button',
-  TribunalCourtCheckbox: '.govuk-table__body > tr > .govuk-table__cell > .govuk-checkboxes__item > .govuk-checkboxes__input',
+  TribunalCourtCheckbox:
+    '.govuk-table__body > tr > .govuk-table__cell > .govuk-checkboxes__item > .govuk-checkboxes__input',
   CourtTableResults: 'tbody:nth-child(2) > tr.govuk-table__row',
 
   // MockSession selectors

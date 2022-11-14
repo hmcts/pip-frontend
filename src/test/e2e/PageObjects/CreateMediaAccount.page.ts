@@ -63,5 +63,4 @@ export class CreateMediaAccountPage extends CommonPage {
     await $(helpers.ContinueButton).click();
     return new MediaAccountRequestSubmittedPage();
   }
-
 }

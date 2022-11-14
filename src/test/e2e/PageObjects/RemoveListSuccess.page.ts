@@ -18,6 +18,6 @@ export class RemoveListSuccessPage extends CommonPage {
     });
 
     await $(helpers.panelHome).click();
-    return new AdminDashboardPage;
+    return new AdminDashboardPage();
   }
 }

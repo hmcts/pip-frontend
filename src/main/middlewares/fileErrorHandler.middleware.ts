@@ -10,7 +10,7 @@ const fileErrorHandlerMiddleware = (error, request, response: Response, next: Ne
       };
       next();
     } else {
-      request.query = {showerror: 'true'};
+      request.query = { showerror: 'true' };
       next();
     }
   } else {

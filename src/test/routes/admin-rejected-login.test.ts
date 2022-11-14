@@ -8,7 +8,7 @@ describe('Admin rejected login page', () => {
     test('should return admin-rejected-login page', async () => {
       await request(app)
         .get('/admin-rejected-login')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });

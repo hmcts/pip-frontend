@@ -1,10 +1,10 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
-import {app} from '../../../main/app';
+import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/publicationService';
 
 const searchTerm = '56-181-2097';
 const numOfResults = '1';
@@ -21,16 +21,20 @@ sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').returns(subscrip
 
 const pageTitleValue = 'Search result';
 
-app.request['user'] = { _json: {
-  'extension_UserRole': 'VERIFIED',
-}};
+app.request['user'] = {
+  _json: {
+    extension_UserRole: 'VERIFIED',
+  },
+};
 
 describe('Case Reference Search Results Page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should have correct page title', () => {

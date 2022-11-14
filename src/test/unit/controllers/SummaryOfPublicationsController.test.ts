@@ -1,11 +1,11 @@
 import SummaryOfPublicationsController from '../../../main/controllers/SummaryOfPublicationsController';
-import {Response} from 'express';
-import {mockRequest} from '../mocks/mockRequest';
+import { Response } from 'express';
+import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {LocationService} from '../../../main/service/locationService';
-import {SummaryOfPublicationsService} from '../../../main/service/summaryOfPublicationsService';
+import { LocationService } from '../../../main/service/locationService';
+import { SummaryOfPublicationsService } from '../../../main/service/summaryOfPublicationsService';
 
 const publicationController = new SummaryOfPublicationsController();
 const i18n = {
@@ -24,7 +24,6 @@ describe('Get publications', () => {
   SoPStub.withArgs(1).resolves(sjpCases);
 
   it('should render the Summary of Publications page', async () => {
-
     const response = {
       render: () => {
         return '';
@@ -32,8 +31,8 @@ describe('Get publications', () => {
     } as unknown as Response;
 
     const request = mockRequest(i18n);
-    request.query = {locationId: '1'};
-    request.user = {id: 1};
+    request.query = { locationId: '1' };
+    request.user = { id: 1 };
 
     const responseMock = sinon.mock(response);
 
@@ -50,7 +49,6 @@ describe('Get publications', () => {
   });
 
   it('should render the SJP if locationId = 0', async () => {
-
     const response = {
       render: () => {
         return '';
@@ -58,8 +56,8 @@ describe('Get publications', () => {
     } as unknown as Response;
 
     const request = mockRequest(i18n);
-    request.query = {locationId: '0'};
-    request.user = {id: 1};
+    request.query = { locationId: '0' };
+    request.user = { id: 1 };
 
     const responseMock = sinon.mock(response);
 
@@ -82,7 +80,7 @@ describe('Get publications', () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.user = {id: 1};
+    request.user = { id: 1 };
     const responseMock = sinon.mock(response);
     responseMock.expects('render').once().withArgs('error');
   });

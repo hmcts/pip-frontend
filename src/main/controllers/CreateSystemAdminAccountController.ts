@@ -18,7 +18,11 @@ export default class CreateSystemAdminAccountController {
 
   public post(req: PipRequest, res: Response): void {
     const formData = req.body;
-    const formValidation = createAccountService.validateAdminFormFields(formData, req.lng as string, 'create-system-admin-account');
+    const formValidation = createAccountService.validateAdminFormFields(
+      formData,
+      req.lng as string,
+      'create-system-admin-account'
+    );
     const isValidForm = Object.values(formValidation).every(o => o.message === null);
     if (isValidForm) {
       res.cookie('createAdminAccount', JSON.stringify(formData));

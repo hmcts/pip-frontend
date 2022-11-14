@@ -10,7 +10,7 @@
   "courtTableHeader": "Courts and tribunals in England and Wales",
   "sjpTableHeader": "National lists",
   "sjpSubscription": "Single Justice Procedure cases",
-  "hide" : "Hide Filters",
+  "hide": "Hide Filters",
   "show": "Show Filters",
   "ariaLabelNav": "No courts/tribunals are available for the letter",
   "jurisdiction": "Type of court or tribunal",
@@ -21,4 +21,3 @@
   "backButton": "Back",
   "applyFiltersButton": "Apply filters"
 }
-

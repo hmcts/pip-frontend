@@ -1,4 +1,3 @@
 import { CommonPage } from './Common.page';
 
-export class SJPPublicListPage extends CommonPage {
-}
+export class SJPPublicListPage extends CommonPage {}

@@ -2,10 +2,10 @@ import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
 import IacDailyListController from '../../../main/controllers/IacDailyListController';
-import {PublicationService} from '../../../main/service/publicationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
-import {Response} from 'express';
-import {mockRequest} from '../mocks/mockRequest';
+import { PublicationService } from '../../../main/service/publicationService';
+import { DataManipulationService } from '../../../main/service/dataManipulationService';
+import { Response } from 'express';
+import { mockRequest } from '../mocks/mockRequest';
 import moment from 'moment';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/iacDailyList.json'), 'utf-8');
@@ -33,8 +33,11 @@ const i18n = {
 };
 
 describe('IAC Daily List Controller', () => {
-
-  const response = { render: () => {return '';}} as unknown as Response;
+  const response = {
+    render: () => {
+      return '';
+    },
+  } as unknown as Response;
   const request = mockRequest(i18n);
   request.path = '/iac-daily-list';
 
@@ -43,8 +46,8 @@ describe('IAC Daily List Controller', () => {
   });
 
   it('should render the IAC daily list page', async () => {
-    request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+    request.query = { artefactId: artefactId };
+    request.user = { piUserId: '1' };
 
     const responseMock = sinon.mock(response);
     const expectedData = {
@@ -66,7 +69,7 @@ describe('IAC Daily List Controller', () => {
   it('should render error page if query param is empty', async () => {
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '123'};
+    request.user = { piUserId: '123' };
 
     const responseMock = sinon.mock(response);
 

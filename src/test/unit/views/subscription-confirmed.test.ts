@@ -14,13 +14,18 @@ cacheStub.withArgs('1', 'courts').resolves(['court']);
 
 describe('Subscriptions Confirmed Page', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'VERIFIED',
-    }};
-    await request(app).post(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    app.request['user'] = {
+      piUserId: '1',
+      _json: {
+        extension_UserRole: 'VERIFIED',
+      },
+    };
+    await request(app)
+      .post(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should have correct page title', () => {
@@ -30,28 +35,29 @@ describe('Subscriptions Confirmed Page', () => {
 
   it('should display confirmation panel with correct title and message', () => {
     const panel = htmlRes.getElementsByClassName('govuk-panel--confirmation')[0];
-    expect(panel.getElementsByClassName('govuk-panel__title')[0].innerHTML)
-      .contains('Subscription(s) confirmed', 'Could not find panel title or is incorrect');
-    expect(panel.getElementsByClassName('govuk-panel__body')[0].innerHTML)
-      .contains('Your subscription(s) has been added successfully', 'Could not find panel message or is incorrect');
+    expect(panel.getElementsByClassName('govuk-panel__title')[0].innerHTML).contains(
+      'Subscription(s) confirmed',
+      'Could not find panel title or is incorrect'
+    );
+    expect(panel.getElementsByClassName('govuk-panel__body')[0].innerHTML).contains(
+      'Your subscription(s) has been added successfully',
+      'Could not find panel message or is incorrect'
+    );
   });
 
   it('should contain you account url', () => {
-    const youAccountLink = htmlRes.getElementsByClassName('govuk-body')[0]
-      .getElementsByTagName('a')[0];
+    const youAccountLink = htmlRes.getElementsByClassName('govuk-body')[0].getElementsByTagName('a')[0];
     expect(youAccountLink.innerHTML).to.equal('your account');
     expect(youAccountLink.getAttribute('href')).to.equal('/account-home');
   });
 
   it('should display an unordered list with three elements', () => {
-    const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0]
-      .getElementsByTagName('li');
+    const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
     expect(listElements.length).to.equal(3);
   });
 
   it('should display unordered list with add a new email subscription', () => {
-    const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0]
-      .getElementsByTagName('li');
+    const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
 
     const anchor = listElements[0].getElementsByTagName('a')[0];
     expect(anchor.getAttribute('href')).to.equal('/subscription-add');
@@ -59,8 +65,7 @@ describe('Subscriptions Confirmed Page', () => {
   });
 
   it('should display unordered list with manage your email subscriptions', () => {
-    const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0]
-      .getElementsByTagName('li');
+    const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
 
     const anchor = listElements[1].getElementsByTagName('a')[0];
     expect(anchor.getAttribute('href')).to.equal('/subscription-management');
@@ -68,8 +73,7 @@ describe('Subscriptions Confirmed Page', () => {
   });
 
   it('should display unordered list with find a court or tribunal', () => {
-    const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0]
-      .getElementsByTagName('li');
+    const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
     const anchor = listElements[2].getElementsByTagName('a')[0];
     expect(anchor.getAttribute('href')).to.equal('/search');
     expect(anchor.innerHTML).to.equal('find a court or tribunal');

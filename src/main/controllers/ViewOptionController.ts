@@ -13,14 +13,11 @@ export default class ViewOptionController {
   public post(req: PipRequest, res: Response): void {
     if (req.body['view-choice'] === 'search') {
       res.redirect('search');
-    }
-    else if (req.body['view-choice'] === 'live') {
+    } else if (req.body['view-choice'] === 'live') {
       res.redirect('live-case-alphabet-search');
-    }
-    else if (req.body['view-choice'] === 'sjp') {
+    } else if (req.body['view-choice'] === 'sjp') {
       res.redirect('summary-of-publications?locationId=9');
-    }
-    else {
+    } else {
       res.render('view-option', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['view-option']),
         showError: true,

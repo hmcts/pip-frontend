@@ -5,8 +5,24 @@ import { expect } from 'chai';
 
 let htmlRes: Document;
 const PAGE_URL = '/manual-upload-summary';
-const summaryKeys = ['Court name', 'File', 'List type', 'Hearing start date', 'Available to', 'Language', 'Display file dates'];
-const manualUploadLinks = ['#search-input', '#manual-file-upload', '#listType', '#content-date-from-day', '#classification', '#language', '#display-date-from-day'];
+const summaryKeys = [
+  'Court name',
+  'File',
+  'List type',
+  'Hearing start date',
+  'Available to',
+  'Language',
+  'Display file dates',
+];
+const manualUploadLinks = [
+  '#search-input',
+  '#manual-file-upload',
+  '#listType',
+  '#content-date-from-day',
+  '#classification',
+  '#language',
+  '#display-date-from-day',
+];
 const mockData = {
   artefactType: 'List',
   classification: 'CLASSIFIED_CRIME',
@@ -26,15 +42,20 @@ const mockData = {
 
 describe('File Upload Summary Page', () => {
   beforeAll(async () => {
-    app.request['user'] = {id: '1', '_json': {
-      'extension_UserRole': 'SYSTEM_ADMIN',
-    }};
-    app.request['cookies'] = {'formCookie': JSON.stringify(mockData)};
+    app.request['user'] = {
+      id: '1',
+      _json: {
+        extension_UserRole: 'SYSTEM_ADMIN',
+      },
+    };
+    app.request['cookies'] = { formCookie: JSON.stringify(mockData) };
 
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display correct title', async () => {
@@ -53,8 +74,9 @@ describe('File Upload Summary Page', () => {
     for (let i = 0; i < summaryKeys.length; i++) {
       expect(keys[i].innerHTML).to.contain(summaryKeys[i], `Unable to find ${summaryKeys[i]} summary key`);
       expect(actions[i].getElementsByClassName('govuk-link')[0].innerHTML).to.contain('Change');
-      expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href'))
-        .to.equal('manual-upload'+ manualUploadLinks[i]);
+      expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href')).to.equal(
+        'manual-upload' + manualUploadLinks[i]
+      );
     }
   });
 
@@ -69,6 +91,9 @@ describe('File Upload Summary Page', () => {
     expect(values[3].innerHTML).to.contain(formatContentDate, 'Hearing start date value not found');
     expect(values[4].innerHTML).to.contain(mockData.classificationName, 'Classification values not found');
     expect(values[5].innerHTML).to.contain(mockData.languageName, 'Language value not found');
-    expect(values[6].innerHTML).to.contain(`${formatDisplayFromDate} to ${formatDisplayToDate}`, 'Display dates values not found');
+    expect(values[6].innerHTML).to.contain(
+      `${formatDisplayFromDate} to ${formatDisplayToDate}`,
+      'Display dates values not found'
+    );
   });
 });

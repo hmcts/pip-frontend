@@ -3,16 +3,18 @@ import request from 'supertest';
 import { request as expressRequest } from 'express';
 import { app } from '../../main/app';
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'VERIFIED',
+  },
+};
 
 describe('Subscriptions Add', () => {
   describe('on GET', () => {
     test('should return subscription-add page', async () => {
       await request(app)
         .get('/subscription-add')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 
@@ -20,8 +22,8 @@ describe('Subscriptions Add', () => {
     test('should return home page when selection is case-reference', async () => {
       await request(app)
         .post('/subscription-add')
-        .send({'subscription-choice': 'case-reference'})
-        .expect((res) => {
+        .send({ 'subscription-choice': 'case-reference' })
+        .expect(res => {
           expect(res.status).to.equal(302);
           expect(res.header['location']).to.equal('/case-reference-number-search');
         });
@@ -30,8 +32,8 @@ describe('Subscriptions Add', () => {
     test('should return home page when selection is urn', async () => {
       await request(app)
         .post('/subscription-add')
-        .send({'subscription-choice': 'urn'})
-        .expect((res) => {
+        .send({ 'subscription-choice': 'urn' })
+        .expect(res => {
           expect(res.status).to.equal(302);
           expect(res.header['location']).to.equal('/subscription-urn-search');
         });
@@ -40,8 +42,8 @@ describe('Subscriptions Add', () => {
     test('should return home page when selection is name', async () => {
       await request(app)
         .post('/subscription-add')
-        .send({'subscription-choice': 'name'})
-        .expect((res) => {
+        .send({ 'subscription-choice': 'name' })
+        .expect(res => {
           expect(res.status).to.equal(302);
           expect(res.header['location']).to.equal('/case-name-search');
         });
@@ -50,8 +52,8 @@ describe('Subscriptions Add', () => {
     test('should return home page when selection is court-or-tribunal', async () => {
       await request(app)
         .post('/subscription-add')
-        .send({'subscription-choice': 'court-or-tribunal'})
-        .expect((res) => {
+        .send({ 'subscription-choice': 'court-or-tribunal' })
+        .expect(res => {
           expect(res.status).to.equal(302);
           expect(res.header['location']).to.equal('/location-name-search');
         });

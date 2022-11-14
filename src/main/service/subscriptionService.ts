@@ -2,13 +2,13 @@ import moment from 'moment';
 import { SubscriptionRequests } from '../resources/requests/subscriptionRequests';
 import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendingSubscriptionsFromCache';
 import { UserSubscriptions } from '../models/UserSubscriptions';
-import {PublicationService} from './publicationService';
-import {LocationService} from './locationService';
-import {FilterService} from './filterService';
-import {Location} from '../models/location';
-import {ListType} from '../models/listType';
-import {LanguageFileParser} from '../helpers/languageFileParser';
-import {AToZHelper} from '../helpers/aToZHelper';
+import { PublicationService } from './publicationService';
+import { LocationService } from './locationService';
+import { FilterService } from './filterService';
+import { Location } from '../models/location';
+import { ListType } from '../models/listType';
+import { LanguageFileParser } from '../helpers/languageFileParser';
+import { AToZHelper } from '../helpers/aToZHelper';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
@@ -20,32 +20,32 @@ const locationService = new LocationService();
 export class SubscriptionService {
   async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
     const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
-    return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], locationSubscriptions: []};
+    return subscriptionData ? subscriptionData : { caseSubscriptions: [], locationSubscriptions: [] };
   }
 
   async generateCaseTableRows(subscriptionDataCases, language, languageFile): Promise<any[]> {
     const caseRows = [];
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCases.length) {
-      subscriptionDataCases.forEach((subscription) => {
-        caseRows.push(
-          [
-            {
-              text: subscription.caseName,
-            },
-            {
-              text: subscription.caseNumber,
-            },
-            {
-              text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
-            },
-            {
-              html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
-                languageFileParser.getText(fileJson, null, 'unsubscribe') + '</a>',
-              format: 'numeric',
-            },
-          ],
-        );
+      subscriptionDataCases.forEach(subscription => {
+        caseRows.push([
+          {
+            text: subscription.caseName,
+          },
+          {
+            text: subscription.caseNumber,
+          },
+          {
+            text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
+          },
+          {
+            html:
+              `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
+              languageFileParser.getText(fileJson, null, 'unsubscribe') +
+              '</a>',
+            format: 'numeric',
+          },
+        ]);
       });
     }
 
@@ -56,11 +56,10 @@ export class SubscriptionService {
     const courtRows = [];
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCourts.length) {
-
       for (const subscription of subscriptionDataCourts) {
-        const location  = await locationService.getLocationById(subscription.locationId);
+        const location = await locationService.getLocationById(subscription.locationId);
         let locationName = location.name;
-        if(language === 'cy') {
+        if (language === 'cy') {
           locationName = location.welshName;
         }
 
@@ -72,8 +71,10 @@ export class SubscriptionService {
             text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
           },
           {
-            html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
-              languageFileParser.getText(fileJson, null, 'unsubscribe') + '</a>',
+            html:
+              `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
+              languageFileParser.getText(fileJson, null, 'unsubscribe') +
+              '</a>',
             format: 'numeric',
           },
         ]);
@@ -98,24 +99,27 @@ export class SubscriptionService {
         case 'case-number':
         case 'hearing-selections[]':
           // pendingSubscription.selectionName gives undefined
-          Array.isArray(pendingSubscription[`${selectionName}`]) ?
-            hearingIdsList = pendingSubscription[`${selectionName}`] :
-            hearingIdsList.push(pendingSubscription[`${selectionName}`]);
+          Array.isArray(pendingSubscription[`${selectionName}`])
+            ? (hearingIdsList = pendingSubscription[`${selectionName}`])
+            : hearingIdsList.push(pendingSubscription[`${selectionName}`]);
           caseDetailsList = await this.getCaseDetails(hearingIdsList, user);
           // set results into cache
           await this.setPendingSubscriptions(caseDetailsList, 'cases', user.piUserId);
           break;
         case 'urn':
-          urnHearing = await publicationService.getCaseByCaseUrn(pendingSubscription[`${selectionName}`], user.piUserId);
+          urnHearing = await publicationService.getCaseByCaseUrn(
+            pendingSubscription[`${selectionName}`],
+            user.piUserId
+          );
           if (urnHearing) {
             urnHearing.urnSearch = true;
             await this.setPendingSubscriptions([urnHearing], 'cases', user.piUserId);
           }
           break;
         case 'court-selections[]':
-          Array.isArray(pendingSubscription[`${selectionName}`]) ?
-            locationIdsList = pendingSubscription[`${selectionName}`] :
-            locationIdsList.push(pendingSubscription[`${selectionName}`]);
+          Array.isArray(pendingSubscription[`${selectionName}`])
+            ? (locationIdsList = pendingSubscription[`${selectionName}`])
+            : locationIdsList.push(pendingSubscription[`${selectionName}`]);
           courtDetailsList = await this.getCourtDetails(locationIdsList);
           // set results into cache
           await this.setPendingSubscriptions(courtDetailsList, 'courts', user.piUserId);
@@ -162,15 +166,19 @@ export class SubscriptionService {
     const cachedCourtSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, courtsType);
     if (cachedCaseSubs) {
       for (const cachedCase of cachedCaseSubs) {
-        const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCase, casesType, userId));
-        response ? await this.removeFromCache({'case': cachedCase.caseNumber}, userId) : subscribed = response;
+        const response = await subscriptionRequests.subscribe(
+          this.createSubscriptionPayload(cachedCase, casesType, userId)
+        );
+        response ? await this.removeFromCache({ case: cachedCase.caseNumber }, userId) : (subscribed = response);
       }
     }
     if (cachedCourtSubs) {
       for (const cachedCourt of cachedCourtSubs) {
         cachedCourt['listType'] = await this.generateListTypesForNewSubscription(userId);
-        const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCourt, courtsType, userId));
-        response ? await this.removeFromCache({court: cachedCourt.locationId}, userId) : subscribed = response;
+        const response = await subscriptionRequests.subscribe(
+          this.createSubscriptionPayload(cachedCourt, courtsType, userId)
+        );
+        response ? await this.removeFromCache({ court: cachedCourt.locationId }, userId) : (subscribed = response);
       }
     }
     return subscribed;
@@ -213,20 +221,22 @@ export class SubscriptionService {
   }
 
   public async configureListTypeForLocationSubscriptions(userId, listType): Promise<boolean> {
-    return await subscriptionRequests.configureListTypeForLocationSubscriptions(userId,
-      this.createListTypeSubscriptionPayload(listType));
+    return await subscriptionRequests.configureListTypeForLocationSubscriptions(
+      userId,
+      this.createListTypeSubscriptionPayload(listType)
+    );
   }
 
   private createListTypeSubscriptionPayload(listType): object {
     let listTypeArray;
-    if(listType) {
+    if (listType) {
       if (!Array.isArray(listType)) {
         listTypeArray = listType.split(' ');
       } else {
         listTypeArray = listType;
       }
     } else {
-      listTypeArray =[];
+      listTypeArray = [];
     }
 
     return listTypeArray;
@@ -263,9 +273,10 @@ export class SubscriptionService {
       }
     } else {
       for (const [listName, listType] of applicableListTypes) {
-        const hidden = (language === 'en')
-          ? !listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction))
-          : !listType.welshJurisdictions.some(jurisdiction => filterValues.includes(jurisdiction));
+        const hidden =
+          language === 'en'
+            ? !listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction))
+            : !listType.welshJurisdictions.some(jurisdiction => filterValues.includes(jurisdiction));
 
         alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
           listFriendlyName: listType.friendlyName,
@@ -301,9 +312,10 @@ export class SubscriptionService {
     const sortedListTypes = new Map([...listTypes].sort());
     const applicableListTypes = new Map();
     for (const [listName, listType] of sortedListTypes) {
-      if (listType.jurisdictions.some(jurisdiction => courtJurisdictions.has(jurisdiction))
-        && (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))) {
-
+      if (
+        listType.jurisdictions.some(jurisdiction => courtJurisdictions.has(jurisdiction)) &&
+        (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))
+      ) {
         if (selectedListTypes == null || selectedListTypes.length == 0 || selectedListTypes.includes(listName)) {
           listType.checked = true;
         } else {
@@ -349,7 +361,7 @@ export class SubscriptionService {
 
   private getAllJurisdictions(list: Map<string, ListType>, language: string): string[] {
     const filterSet = new Set() as Set<string>;
-    list.forEach((value) => {
+    list.forEach(value => {
       if (language == 'en') {
         value.jurisdictions.forEach(jurisdiction => filterSet.add(jurisdiction));
       } else {

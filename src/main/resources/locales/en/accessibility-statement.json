@@ -8,7 +8,10 @@
     "text5": "We’ve also made the website text as simple as possible to understand.",
     "text6": "(opens in a new window) has advice on making your device easier to use if you have a disability.",
     "links": [
-      { "link": "https://www.court-tribunal-hearings.service.gov.uk", "text": "www.court-tribunal-hearings.service.gov.uk." },
+      {
+        "link": "https://www.court-tribunal-hearings.service.gov.uk",
+        "text": "www.court-tribunal-hearings.service.gov.uk."
+      },
       { "link": "https://mcmw.abilitynet.org.uk/", "text": "AbilityNet " }
     ],
     "list": [
@@ -46,7 +49,10 @@
     "heading": "Enforcement procedure",
     "text1": "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, ",
     "links": [
-      { "link": "https://www.equalityadvisoryservice.com/", "text": "contact the Equality Advisory and Support Service (EASS) (opens in a new window)." }
+      {
+        "link": "https://www.equalityadvisoryservice.com/",
+        "text": "contact the Equality Advisory and Support Service (EASS) (opens in a new window)."
+      }
     ]
   },
   "section6": {
@@ -66,9 +72,7 @@
     "heading2": "Non-accessible content",
     "text1": "This website is partially compliant with the",
     "text2": "AA standard, due to the non-compliances listed below.",
-    "links": [
-      { "link": "https://www.w3.org/TR/WCAG21/", "text": " Web Content Accessibility Guidelines version 2.1 " }
-    ]
+    "links": [{ "link": "https://www.w3.org/TR/WCAG21/", "text": " Web Content Accessibility Guidelines version 2.1 " }]
   },
   "section9": {
     "preamble": "The content listed below is non-accessible for the following reasons.",
@@ -105,7 +109,10 @@
     "text10": "“Technical auditing involves the experienced application of a number of technical auditing and standards compliance assessment tools. This combined with an extensive knowledge of WCAG, its application and wider global practice provides the DAC website with further credibility and quality.”",
     "links": [
       { "link": "https://pa11y.org/", "text": "Pa11y" },
-      { "link": "https://www.court-tribunal-hearings.service.gov.uk", "text": "www.court-tribunal-hearings.service.gov.uk." }
+      {
+        "link": "https://www.court-tribunal-hearings.service.gov.uk",
+        "text": "www.court-tribunal-hearings.service.gov.uk."
+      }
     ]
   }
 }

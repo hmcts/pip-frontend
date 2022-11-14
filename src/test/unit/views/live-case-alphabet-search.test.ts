@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {LocationRequests} from '../../../main/resources/requests/locationRequests';
+import { LocationRequests } from '../../../main/resources/requests/locationRequests';
 
 const PAGE_URL = '/live-case-alphabet-search';
 const expectedHeader = 'Live hearing updates - select a court';
@@ -19,9 +19,11 @@ sinon.stub(LocationRequests.prototype, 'getFilteredCourts').returns(hearingsData
 
 describe.skip('Alphabetical Search page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
   });
 
   it('should display a back button with the correct value', () => {
@@ -62,9 +64,9 @@ describe.skip('Alphabetical Search page', () => {
     }
   });
 
-  it('should have the first cell containing Abergavenny Magistrates\' Court', () => {
+  it("should have the first cell containing Abergavenny Magistrates' Court", () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[0].innerHTML).contains('Abergavenny Magistrates\' Court');
+    expect(cell[0].innerHTML).contains("Abergavenny Magistrates' Court");
   });
 
   it('should contain a back to top link, that links back up to the top', () => {

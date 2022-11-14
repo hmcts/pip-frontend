@@ -11,14 +11,12 @@ const courtService = new LocationService();
 const dataManipulationService = new DataManipulationService();
 
 export default class SscsDailyListController {
-
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query.artefactId as string;
     const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (searchResults && metaData) {
-
       const manipulatedData = dataManipulationService.manipulateSscsDailyListData(JSON.stringify(searchResults));
 
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
@@ -39,8 +37,7 @@ export default class SscsDailyListController {
         bill: pageLanguage === 'bill',
       });
     } else {
-      res.render('error',
-        req.i18n.getDataByLanguage(req.lng).error);
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
   }
 }

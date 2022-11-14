@@ -1,7 +1,7 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import {TribunalNationalListsService} from '../../../../main/service/listManipulation/tribunalNationalListsService';
+import { TribunalNationalListsService } from '../../../../main/service/listManipulation/tribunalNationalListsService';
 
 const tribunalNationalListsService = new TribunalNationalListsService();
 
@@ -11,7 +11,6 @@ const lng = 'en';
 const languageFile = 'case-standards-list';
 
 describe('Tribunal National Lists Service', () => {
-
   it('Should have added Hearing Date to the formatted response', () => {
     const data = tribunalNationalListsService.manipulateData(testData, lng, languageFile);
     expect(data[0].hearingDate).to.contain('04 October');
@@ -49,8 +48,6 @@ describe('Tribunal National Lists Service', () => {
 
   it('Should have added venue to the formatted response', () => {
     const data = tribunalNationalListsService.manipulateData(testData, lng, languageFile);
-    expect(data[0].venue).to.equal('PRESTON\n' +
-      'Address Line 1\n' +
-      'AA1 AA1');
+    expect(data[0].venue).to.equal('PRESTON\n' + 'Address Line 1\n' + 'AA1 AA1');
   });
 });

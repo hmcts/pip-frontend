@@ -17,10 +17,10 @@ sinon.stub(DataManipulationService.prototype, 'manipulateIacDailyListData').reso
 describe('IAC Daily List Page', () => {
   describe('on GET', () => {
     test('should return IAC daily list page', async () => {
-      app.request['user'] = {piUserId: '2'};
+      app.request['user'] = { piUserId: '2' };
       await request(app)
         .get('/iac-daily-list?artefactId=test')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });

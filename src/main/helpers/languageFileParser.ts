@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 
 export class LanguageFileParser {
-
   public getLanguageFileJson(fileName, language): string {
     const localesPath = '../resources/locales/' + language;
     const filePath = path.resolve(__dirname, localesPath, fileName + '.json');
@@ -11,7 +10,7 @@ export class LanguageFileParser {
   }
 
   public getText(fileJson, parentNode, subNode): string {
-    if(!parentNode) {
+    if (!parentNode) {
       return fileJson[subNode];
     } else {
       return fileJson[parentNode][subNode];

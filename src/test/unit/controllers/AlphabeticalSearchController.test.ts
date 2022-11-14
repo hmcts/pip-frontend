@@ -1,13 +1,13 @@
 import sinon from 'sinon';
-import {Response} from 'express';
+import { Response } from 'express';
 import AlphabeticalSearchController from '../../../main/controllers/AlphabeticalSearchController';
 
-import {mockRequest} from '../mocks/mockRequest';
-import {FilterService} from '../../../main/service/filterService';
+import { mockRequest } from '../mocks/mockRequest';
+import { FilterService } from '../../../main/service/filterService';
 
 const alphabeticalSearchController = new AlphabeticalSearchController();
 
-sinon.stub(FilterService.prototype, 'handleFilterInitialisation').resolves({alphabetisedList: {}, filterOptions: {}});
+sinon.stub(FilterService.prototype, 'handleFilterInitialisation').resolves({ alphabetisedList: {}, filterOptions: {} });
 
 describe('Alphabetical Search Controller', () => {
   const i18n = {
@@ -19,7 +19,9 @@ describe('Alphabetical Search Controller', () => {
   describe('get', () => {
     it('should render the alphabetical search page', () => {
       const response = {
-        render: function() {return '';},
+        render: function () {
+          return '';
+        },
       } as unknown as Response;
 
       request.query = {};
@@ -41,9 +43,11 @@ describe('Alphabetical Search Controller', () => {
 
     it('should render the alphabetical search page with a query param', () => {
       const response = {
-        render: function() {return '';},
+        render: function () {
+          return '';
+        },
       } as unknown as Response;
-      request.query = {clear: 'all'};
+      request.query = { clear: 'all' };
 
       const responseMock = sinon.mock(response);
 
@@ -62,10 +66,13 @@ describe('Alphabetical Search Controller', () => {
   });
   describe('post', () => {
     const response = {
-      redirect: function() {return '';}} as unknown as Response;
+      redirect: function () {
+        return '';
+      },
+    } as unknown as Response;
 
     it('should render page with body', () => {
-      request.body = {Jurisdiction: 'Manchester'};
+      request.body = { Jurisdiction: 'Manchester' };
 
       const responseMock = sinon.mock(response);
 
@@ -77,7 +84,7 @@ describe('Alphabetical Search Controller', () => {
     });
 
     it('should render page after switching Region for Location', () => {
-      request.body = {Region: 'Crown'};
+      request.body = { Region: 'Crown' };
 
       const responseMock = sinon.mock(response);
 
@@ -103,7 +110,11 @@ describe('Location Name Search Controller', () => {
   };
 
   describe('GET requests', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
+    const response = {
+      render: () => {
+        return '';
+      },
+    } as unknown as Response;
     it('should render court name search page', () => {
       request.query = {};
 
@@ -117,7 +128,7 @@ describe('Location Name Search Controller', () => {
     });
 
     it('should render court name search page if invalid query param is provided', () => {
-      request.query = {foo: 'blah'};
+      request.query = { foo: 'blah' };
 
       const responseMock = sinon.mock(response);
 
@@ -129,7 +140,7 @@ describe('Location Name Search Controller', () => {
     });
 
     it('should render court name search page if reset all filters is applied', () => {
-      request.query = {clear: 'all'};
+      request.query = { clear: 'all' };
 
       const responseMock = sinon.mock(response);
 
@@ -141,7 +152,7 @@ describe('Location Name Search Controller', () => {
     });
 
     it('should render court name search page if reset crown jurisdiction filter is applied', () => {
-      request.query = {clear: 'crown'};
+      request.query = { clear: 'crown' };
 
       const responseMock = sinon.mock(response);
 
@@ -153,7 +164,7 @@ describe('Location Name Search Controller', () => {
     });
 
     it('should render court name search page if reset london location filter is applied', () => {
-      request.query = {clear: 'london'};
+      request.query = { clear: 'london' };
 
       const responseMock = sinon.mock(response);
 
@@ -165,7 +176,7 @@ describe('Location Name Search Controller', () => {
     });
 
     it('should render court name search page when jurisdiction element is removed', async () => {
-      request.query = {clear: 'crown', filterValues: 'crown'};
+      request.query = { clear: 'crown', filterValues: 'crown' };
       const responseMock = sinon.mock(response);
 
       responseMock.expects('render').once().withArgs('location-name-search', expectedData);
@@ -175,7 +186,7 @@ describe('Location Name Search Controller', () => {
     });
 
     it('should render court name search page when region element is removed', async () => {
-      request.query = {clear: 'london', filerValues: 'london'};
+      request.query = { clear: 'london', filerValues: 'london' };
       const responseMock = sinon.mock(response);
 
       responseMock.expects('render').once().withArgs('location-name-search', expectedData);
@@ -185,7 +196,7 @@ describe('Location Name Search Controller', () => {
     });
 
     it('should render court name search page when one jurisdiction is removed and there are still other jurisdiction filters', async () => {
-      request.query = {clear: 'crown court', filterValues: 'crown,crown court'};
+      request.query = { clear: 'crown court', filterValues: 'crown,crown court' };
       const responseMock = sinon.mock(response);
 
       responseMock.expects('render').once().withArgs('location-name-search', expectedData);
@@ -196,9 +207,13 @@ describe('Location Name Search Controller', () => {
   });
 
   describe('POST requests', () => {
-    const response = { redirect: () => {return '';}} as unknown as Response;
+    const response = {
+      redirect: () => {
+        return '';
+      },
+    } as unknown as Response;
     it('should render court name search page if filters are applied', () => {
-      request.body = { jurisdiction: [], region: []};
+      request.body = { jurisdiction: [], region: [] };
 
       const responseMock = sinon.mock(response);
 
@@ -210,7 +225,7 @@ describe('Location Name Search Controller', () => {
     });
 
     it('should render court name search page if more than 2 filters are applied', () => {
-      request.body = { jurisdiction: ['crown'], region: ['london']};
+      request.body = { jurisdiction: ['crown'], region: ['london'] };
 
       const responseMock = sinon.mock(response);
 
@@ -222,7 +237,7 @@ describe('Location Name Search Controller', () => {
     });
 
     it('should render court name search page if only jurisdiction filter is applied', () => {
-      request.body = { jurisdiction: ['crown']};
+      request.body = { jurisdiction: ['crown'] };
 
       const responseMock = sinon.mock(response);
 
@@ -234,7 +249,7 @@ describe('Location Name Search Controller', () => {
     });
 
     it('should render court name search page if only region filter is applied', () => {
-      request.body = { region: ['london']};
+      request.body = { region: ['london'] };
 
       const responseMock = sinon.mock(response);
 

@@ -1,15 +1,14 @@
-import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
-import {CreateAccountService} from '../service/createAccountService';
-import {MediaAccount} from '../models/mediaAccount';
+import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import { CreateAccountService } from '../service/createAccountService';
+import { MediaAccount } from '../models/mediaAccount';
 import moment from 'moment';
-import {LogHelper} from '../resources/logging/logHelper';
+import { LogHelper } from '../resources/logging/logHelper';
 
 const accountManagementRequests = new AccountManagementRequests();
 const createAccountService = new CreateAccountService();
 const logHelper = new LogHelper();
 
 export class MediaAccountApplicationService {
-
   public async getApplicationById(applicationId): Promise<MediaAccount | null> {
     if (applicationId) {
       const mediaAccount = await accountManagementRequests.getMediaApplicationById(applicationId);
@@ -41,7 +40,6 @@ export class MediaAccountApplicationService {
   }
 
   public async createAccountFromApplication(applicationId, adminId): Promise<MediaAccount> {
-
     const mediaApplication = await this.getApplicationByIdAndStatus(applicationId, 'PENDING');
 
     if (mediaApplication) {
@@ -60,10 +58,8 @@ export class MediaAccountApplicationService {
   }
 
   public async rejectApplication(applicationId, adminId): Promise<object | null> {
-
     logHelper.writeLog(adminId, 'REJECT_MEDIA_ACCOUNT', applicationId);
 
     return accountManagementRequests.updateMediaApplicationStatus(applicationId, 'REJECTED');
   }
-
 }

@@ -3,7 +3,7 @@ import { app } from '../../../main/app';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import { CreateAccountService } from '../../../main/service/createAccountService';
-import {request as expressRequest} from 'express';
+import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/create-system-admin-account-summary';
 const cookie = {
@@ -19,9 +19,11 @@ const changeValues = ['firstName', 'lastName', 'emailAddress'];
 let htmlRes: Document;
 const createAccountStub = sinon.stub(CreateAccountService.prototype, 'createAdminAccount');
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'SYSTEM_ADMIN',
+  },
+};
 
 describe('Create System Admin Account Summary page', () => {
   describe('on GET', () => {
@@ -29,10 +31,12 @@ describe('Create System Admin Account Summary page', () => {
       app.request['cookies'] = {
         createAdminAccount: JSON.stringify(cookie),
       };
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should display a header', () => {
@@ -46,7 +50,9 @@ describe('Create System Admin Account Summary page', () => {
       for (let i = 0; i < summaryKeys.length; i++) {
         expect(listKeys[i].innerHTML).to.contain(summaryKeys[i], `Unable to find ${summaryKeys[i]} summary key`);
         expect(actions[i].getElementsByClassName('govuk-link')[0].innerHTML).to.contain('Change');
-        expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href')).to.equal(`create-system-admin-account#${changeValues[i]}`);
+        expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href')).to.equal(
+          `create-system-admin-account#${changeValues[i]}`
+        );
       }
     });
 
@@ -72,22 +78,28 @@ describe('Create System Admin Account Summary page', () => {
         };
         app.request['user'] = {
           emails: ['joe@bloggs.com'],
-          '_json': {
-            'extension_UserRole': 'SYSTEM_ADMIN',
+          _json: {
+            extension_UserRole: 'SYSTEM_ADMIN',
           },
         };
-        await request(app).post(PAGE_URL).then(res => {
-          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-          htmlRes.getElementsByTagName('div')[0].remove();
-        });
+        await request(app)
+          .post(PAGE_URL)
+          .then(res => {
+            htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+            htmlRes.getElementsByTagName('div')[0].remove();
+          });
       });
 
       it('should display error dialog', () => {
         const errorDialog = htmlRes.getElementsByClassName('govuk-error-summary');
         const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list')[0];
-        expect(errorDialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML)
-          .contains('There is a problem', 'Could not find error dialog title');
-        expect(errorSummaryList.innerHTML).contains('This email already exists. The user should try signing in using this email or reset their password.');
+        expect(errorDialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML).contains(
+          'There is a problem',
+          'Could not find error dialog title'
+        );
+        expect(errorSummaryList.innerHTML).contains(
+          'This email already exists. The user should try signing in using this email or reset their password.'
+        );
       });
     });
 
@@ -95,18 +107,20 @@ describe('Create System Admin Account Summary page', () => {
       beforeAll(async () => {
         app.request['user'] = {
           emails: ['joe@bloggs.com'],
-          '_json': {
-            'extension_UserRole': 'SYSTEM_ADMIN',
+          _json: {
+            extension_UserRole: 'SYSTEM_ADMIN',
           },
         };
         createAccountStub.resolves(true);
         app.request['cookies'] = {
           createAdminAccount: JSON.stringify(cookie),
         };
-        await request(app).post(PAGE_URL).then(res => {
-          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-          htmlRes.getElementsByTagName('div')[0].remove();
-        });
+        await request(app)
+          .post(PAGE_URL)
+          .then(res => {
+            htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+            htmlRes.getElementsByTagName('div')[0].remove();
+          });
       });
 
       it('should not display confirm button', () => {
@@ -123,9 +137,10 @@ describe('Create System Admin Account Summary page', () => {
         const whatNextTitle = htmlRes.getElementsByClassName('govuk-heading-m')[0];
         const whatNextMessage = htmlRes.getElementsByClassName('govuk-body')[0];
         expect(whatNextTitle.innerHTML).contains('What happens next', 'Could not find title');
-        expect(whatNextMessage.innerHTML)
-          .contains('This account will be created and the applicant will be notified to set up their account.',
-            'Could not find a message');
+        expect(whatNextMessage.innerHTML).contains(
+          'This account will be created and the applicant will be notified to set up their account.',
+          'Could not find a message'
+        );
       });
     });
   });

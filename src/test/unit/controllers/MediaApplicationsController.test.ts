@@ -1,14 +1,18 @@
 import sinon from 'sinon';
-import {MediaApplicationService} from '../../../main/service/mediaApplicationService';
-import {Response} from 'express';
-import {mockRequest} from '../mocks/mockRequest';
+import { MediaApplicationService } from '../../../main/service/mediaApplicationService';
+import { Response } from 'express';
+import { mockRequest } from '../mocks/mockRequest';
 import MediaApplicationsController from '../../../main/controllers/MediaApplicationsController';
 
 sinon.stub(MediaApplicationService.prototype, 'getDateOrderedMediaApplications').resolves([]);
 const mediaApplications = new MediaApplicationsController();
 describe('Media application assessment controller', () => {
-  const i18n = {'media-applications': {}};
-  const response = { render: () => {return '';}} as unknown as Response;
+  const i18n = { 'media-applications': {} };
+  const response = {
+    render: () => {
+      return '';
+    },
+  } as unknown as Response;
   const request = mockRequest(i18n);
 
   it('should render with media applications', async () => {

@@ -3,7 +3,7 @@ import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 
-export class CaseNameSearchPage extends CommonPage{
+export class CaseNameSearchPage extends CommonPage {
   async enterText(text: string): Promise<void> {
     $(helpers.CaseNameInput).catch(() => {
       console.log(`${helpers.CaseNameInput} not found`);

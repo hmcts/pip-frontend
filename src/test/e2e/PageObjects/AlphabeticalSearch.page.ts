@@ -56,5 +56,4 @@ export class AlphabeticalSearchPage extends CommonPage {
     await $(helpers.BannerHome).click();
     return new ViewOptionPage();
   }
-
 }

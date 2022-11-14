@@ -17,11 +17,10 @@ sinon.stub(DataManipulationService.prototype, 'manipulateCopDailyCauseList').res
 describe('Cop Daily Cause List Page', () => {
   describe('on GET', () => {
     test('should return cop daily cause list page', async () => {
-      app.request['user'] = {piUserId: '2'};
+      app.request['user'] = { piUserId: '2' };
       await request(app)
         .get('/cop-daily-cause-list?artefactId=test')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });
-

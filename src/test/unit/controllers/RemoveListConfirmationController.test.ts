@@ -10,7 +10,14 @@ const i18n = {
   error: {},
 };
 const removeListConfirmationController = new RemoveListConfirmationController();
-const response = { render: () => {return '';}, redirect: () => {return '';}} as unknown as Response;
+const response = {
+  render: () => {
+    return '';
+  },
+  redirect: () => {
+    return '';
+  },
+} as unknown as Response;
 const request = mockRequest(i18n);
 const adminUserId = '1234-1234-1234-1234';
 
@@ -21,19 +28,19 @@ const mockArtefact = {
   locationId: '5',
   artefactId: 'valid-artefact',
 };
-const mockCourt = {locationId: '5', name: 'Mock Court'};
+const mockCourt = { locationId: '5', name: 'Mock Court' };
 const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
 removePublicationStub.withArgs('valid-artefact', adminUserId).resolves(true);
 removePublicationStub.withArgs('foo', adminUserId).resolves(false);
 metadataStub.withArgs('valid-artefact', adminUserId).resolves(mockArtefact);
-metadataStub.withArgs('invalid-artefact', adminUserId).resolves({...mockArtefact, artefactId: 'invalid-artefact'});
+metadataStub.withArgs('invalid-artefact', adminUserId).resolves({ ...mockArtefact, artefactId: 'invalid-artefact' });
 
 describe('Remove List Confirmation Controller', () => {
   it('should render remove list confirmation page', async () => {
-    request.query = {artefact: 'valid-artefact', court: '5'};
-    request.user = {piUserId: adminUserId};
+    request.query = { artefact: 'valid-artefact', court: '5' };
+    request.user = { piUserId: adminUserId };
 
     const responseMock = sinon.mock(response);
     const expectedOptions = {
@@ -49,10 +56,13 @@ describe('Remove List Confirmation Controller', () => {
   });
 
   it('should render error page if artefact query param is not provided', async () => {
-    request.query = {court: '5'};
+    request.query = { court: '5' };
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('error', {...i18n.error});
+    responseMock
+      .expects('render')
+      .once()
+      .withArgs('error', { ...i18n.error });
     await removeListConfirmationController.get(request, response);
     await responseMock.verify();
   });
@@ -60,7 +70,7 @@ describe('Remove List Confirmation Controller', () => {
   it('should redirect to remove list success page if remove choice is yes', async () => {
     const request = mockRequest(i18n);
     const responseMock = sinon.mock(response);
-    request.user = {piUserId: adminUserId};
+    request.user = { piUserId: adminUserId };
     request.body = {
       'remove-choice': 'yes',
       artefactId: 'valid-artefact',
@@ -74,13 +84,16 @@ describe('Remove List Confirmation Controller', () => {
   it('should render error if remove choice is yes and request fails', async () => {
     const request = mockRequest(i18n);
     const responseMock = sinon.mock(response);
-    request.user = {piUserId: adminUserId};
+    request.user = { piUserId: adminUserId };
     request.body = {
       'remove-choice': 'yes',
       artefactId: 'foo',
     };
 
-    responseMock.expects('render').once().withArgs('error', {...i18n.error});
+    responseMock
+      .expects('render')
+      .once()
+      .withArgs('error', { ...i18n.error });
     await removeListConfirmationController.post(request, response);
     await responseMock.verify();
   });
@@ -101,7 +114,7 @@ describe('Remove List Confirmation Controller', () => {
   it('should render remove list confirmation with error if there is no choice', async () => {
     const request = mockRequest(i18n);
     const responseMock = sinon.mock(response);
-    request.user = {piUserId: adminUserId};
+    request.user = { piUserId: adminUserId };
     request.body = {
       locationId: '5',
       artefactId: 'valid-artefact',

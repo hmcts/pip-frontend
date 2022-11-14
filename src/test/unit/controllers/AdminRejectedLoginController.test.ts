@@ -6,8 +6,12 @@ import AdminRejectedLoginController from '../../../main/controllers/AdminRejecte
 const adminRejectedLoginController = new AdminRejectedLoginController();
 
 describe('Admin rejected login controller', () => {
-  const response = { render: () => {return '';}} as unknown as Response;
-  const request = mockRequest({'admin-rejected-login': {}});
+  const response = {
+    render: () => {
+      return '';
+    },
+  } as unknown as Response;
+  const request = mockRequest({ 'admin-rejected-login': {} });
 
   it('should render admin-rejected-login', async () => {
     const responseMock = sinon.mock(response);

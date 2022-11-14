@@ -1,11 +1,11 @@
 import request from 'supertest';
-import {app} from '../../../main/app';
-import {expect} from 'chai';
+import { app } from '../../../main/app';
+import { expect } from 'chai';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {LocationRequests} from '../../../main/resources/requests/locationRequests';
-import {request as expressRequest} from 'express';
+import { LocationRequests } from '../../../main/resources/requests/locationRequests';
+import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/manual-upload';
 const headingClass = 'govuk-heading-xl';
@@ -49,20 +49,24 @@ const mockBodyData = {
   'display-date-to-year': '',
 };
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'INTERNAL_SUPER_ADMIN_CTSC',
+  },
+};
 
 sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 
 describe('Manual upload page', () => {
   describe('on GET', () => {
     beforeAll(async () => {
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-        formElements = htmlRes.getElementById('form-wrapper');
-      });
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+          formElements = htmlRes.getElementById('form-wrapper');
+        });
     });
 
     it('should display header', () => {
@@ -73,7 +77,10 @@ describe('Manual upload page', () => {
     it('should contain file upload question inset', () => {
       const insetFileUpload = htmlRes.getElementsByClassName(insetTextClass);
       expect(insetFileUpload[0].innerHTML).contains(expectedFileQuestion, 'Could not find file upload');
-      expect(insetFileUpload[0].getElementsByTagName('input')[0].getAttribute('type')).equal(expectedFileInputType, 'Could not find file upload type');
+      expect(insetFileUpload[0].getElementsByTagName('input')[0].getAttribute('type')).equal(
+        expectedFileInputType,
+        'Could not find file upload type'
+      );
     });
 
     it('should display court name input', () => {
@@ -88,7 +95,9 @@ describe('Manual upload page', () => {
     });
 
     it('should display content date question', () => {
-      const contentDate = formElements.getElementsByClassName(insetTextClass)[0].getElementsByClassName(fieldSetClass)[0];
+      const contentDate = formElements
+        .getElementsByClassName(insetTextClass)[0]
+        .getElementsByClassName(fieldSetClass)[0];
       expect(contentDate.innerHTML).contains(expectedHearingDates, 'Could not find inset content date question');
       expect(contentDate.getElementsByClassName(dateInputClass).length).equals(1, 'Could not find inset content date');
     });
@@ -162,8 +171,11 @@ describe('Manual upload page', () => {
 
       expect(banner).to.exist;
       expect(warningHeader.innerHTML).contains('Warning', 'Could not find warning header');
-      expect(warningText.innerHTML).contains('Prior to upload you must ensure the file is suitable for publication ' +
-        'e.g. redaction of personal data has been done during the production of this file.', 'Could not find warning text');
+      expect(warningText.innerHTML).contains(
+        'Prior to upload you must ensure the file is suitable for publication ' +
+          'e.g. redaction of personal data has been done during the production of this file.',
+        'Could not find warning text'
+      );
     });
   });
 
@@ -173,21 +185,30 @@ describe('Manual upload page', () => {
         size: 2000001,
         originalname: 'too_large_file.pdf',
       };
-      await request(app).post(PAGE_URL).send(mockBodyData).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-        formElements = htmlRes.getElementById('form-wrapper');
-      });
+      await request(app)
+        .post(PAGE_URL)
+        .send(mockBodyData)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+          formElements = htmlRes.getElementById('form-wrapper');
+        });
     });
 
     it('should display file too large error', () => {
       const fileError = htmlRes.getElementById('manual-file-upload-error');
-      expect(fileError.innerHTML).contains('File too large, please upload file smaller than 2MB', 'Could not find file error');
+      expect(fileError.innerHTML).contains(
+        'File too large, please upload file smaller than 2MB',
+        'Could not find file error'
+      );
     });
 
     it('should display court error', () => {
       const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
-      expect(errorMessage[1].innerHTML).contains('Court name must be three characters or more', 'Could not find court error');
+      expect(errorMessage[1].innerHTML).contains(
+        'Court name must be three characters or more',
+        'Could not find court error'
+      );
     });
 
     it('should display hearing date error', () => {

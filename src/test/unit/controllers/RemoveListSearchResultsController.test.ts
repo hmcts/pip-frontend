@@ -8,7 +8,7 @@ import RemoveListSearchResultsController from '../../../main/controllers/RemoveL
 
 const i18n = {
   'remove-list-search-results': {},
-  'error': {},
+  error: {},
 };
 const mockCourt = {
   locationId: '5',
@@ -21,10 +21,14 @@ const removeListSearchResultsController = new RemoveListSearchResultsController(
 
 describe('Remove List Summary Controller', () => {
   it('should render remove list summary page', async () => {
-    const response = { render: () => {return '';}} as unknown as Response;
+    const response = {
+      render: () => {
+        return '';
+      },
+    } as unknown as Response;
     const responseMock = sinon.mock(response);
     const request = mockRequest(i18n);
-    request.query = {locationId: '5'};
+    request.query = { locationId: '5' };
     const expectedOptions = {
       ...i18n['remove-list-search-results'],
       court: mockCourt,
@@ -38,12 +42,18 @@ describe('Remove List Summary Controller', () => {
 
   it('should render error page', async () => {
     const request = mockRequest(i18n);
-    const response = { render: () => {return '';}} as unknown as Response;
+    const response = {
+      render: () => {
+        return '';
+      },
+    } as unknown as Response;
     const responseMock = sinon.mock(response);
     request.query = {};
-    responseMock.expects('render').once().withArgs('error', {...i18n.error});
+    responseMock
+      .expects('render')
+      .once()
+      .withArgs('error', { ...i18n.error });
     await removeListSearchResultsController.get(request, response);
     await responseMock.verify();
   });
 });
-

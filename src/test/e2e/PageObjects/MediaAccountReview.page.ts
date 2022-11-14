@@ -1,11 +1,10 @@
-import {CommonPage} from './Common.page';
-import {MediaAccountApprovalPage} from './MediaAccountApproval.page';
-import {MediaAccountRejectionPage} from './MediaAccountRejection.page';
+import { CommonPage } from './Common.page';
+import { MediaAccountApprovalPage } from './MediaAccountApproval.page';
+import { MediaAccountRejectionPage } from './MediaAccountRejection.page';
 
 const helpers = require('../Helpers/Selectors');
 
 export class MediaAccountReviewPage extends CommonPage {
-
   async clickApproveApplication(): Promise<MediaAccountApprovalPage> {
     await $(helpers.MediaAccountReviewApprove).catch(() => {
       console.log(`${helpers.MediaAccountReviewApprove} not found`);
@@ -23,5 +22,4 @@ export class MediaAccountReviewPage extends CommonPage {
     await $(helpers.MediaAccountReviewReject).click();
     return new MediaAccountRejectionPage();
   }
-
 }

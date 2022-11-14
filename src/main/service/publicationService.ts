@@ -1,13 +1,12 @@
-import {PublicationRequests} from '../resources/requests/publicationRequests';
-import {Artefact} from '../models/Artefact';
-import {SearchObject} from '../models/searchObject';
-import {ListType} from '../models/listType';
+import { PublicationRequests } from '../resources/requests/publicationRequests';
+import { Artefact } from '../models/Artefact';
+import { SearchObject } from '../models/searchObject';
+import { ListType } from '../models/listType';
 
 const listData = require('../resources/listLookup.json');
 const publicationRequests = new PublicationRequests();
 
 export class PublicationService {
-
   public async getIndividualPublicationMetadata(artefactId, userId: string, admin = false): Promise<any> {
     return publicationRequests.getIndividualPublicationMetadata(artefactId, userId, admin);
   }
@@ -30,7 +29,7 @@ export class PublicationService {
     return this.getCaseFromArtefact(artefact[0], 'caseNumber', caseNumber);
   }
 
-  public async getCaseByCaseUrn(urn: string, userId: string): Promise<SearchObject> | null{
+  public async getCaseByCaseUrn(urn: string, userId: string): Promise<SearchObject> | null {
     const artefact = await publicationRequests.getPublicationByCaseValue('CASE_URN', urn, userId);
     return this.getCaseFromArtefact(artefact[0], 'caseUrn', urn);
   }
@@ -54,10 +53,13 @@ export class PublicationService {
     artefacts.forEach(artefact => {
       artefact.search.cases.forEach(singleCase => {
         if (singleCase.caseName.toLowerCase().includes(value.toLowerCase())) {
-          const alreadyExists = matches.find(m => m.caseName === singleCase.caseName
-            && m.caseUrn === singleCase.caseUrn
-            && m.caseNumber === singleCase.caseNumber);
-          if(!alreadyExists) {
+          const alreadyExists = matches.find(
+            m =>
+              m.caseName === singleCase.caseName &&
+              m.caseUrn === singleCase.caseUrn &&
+              m.caseNumber === singleCase.caseNumber
+          );
+          if (!alreadyExists) {
             matches.push(singleCase);
           }
         }
@@ -91,9 +93,11 @@ export class PublicationService {
    * @return Returns the language to render the page in options are: en, cy, bill
    */
   public languageToLoadPageIn(listLanguage: string, userLanguage: string): string {
-    if ((listLanguage === 'BI_LINGUAL') ||
-        (listLanguage === 'ENGLISH' && userLanguage !== 'en') ||
-        (listLanguage === 'WELSH' && userLanguage !== 'cy')) {
+    if (
+      listLanguage === 'BI_LINGUAL' ||
+      (listLanguage === 'ENGLISH' && userLanguage !== 'en') ||
+      (listLanguage === 'WELSH' && userLanguage !== 'cy')
+    ) {
       return 'bill';
     } else {
       return userLanguage;

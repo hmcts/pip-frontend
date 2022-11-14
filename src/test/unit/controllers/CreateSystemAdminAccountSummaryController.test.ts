@@ -8,7 +8,7 @@ const validUserId = '1234-1234-1234-1234';
 const mockData = {
   firstName: 'joe',
   lastName: 'bloggs',
-  emailAddress:'joe.bloggs@mail.com',
+  emailAddress: 'joe.bloggs@mail.com',
   userRoleObject: {
     mapping: 'SYSTEM_ADMIN',
   },
@@ -25,10 +25,17 @@ createAccountStub.withArgs(invalidMockData, validUserId).resolves(false);
 createAccountStub.withArgs(mockData, validUserId).resolves(true);
 
 describe('Create System Admin Account Summary Controller', () => {
-  const i18n = {'create-system-admin-account-summary': {}};
-  const response = { render: () => {return '';}, cookie: (cookieName, cookieValue) => {return cookieName + cookieValue;}} as unknown as Response;
+  const i18n = { 'create-system-admin-account-summary': {} };
+  const response = {
+    render: () => {
+      return '';
+    },
+    cookie: (cookieName, cookieValue) => {
+      return cookieName + cookieValue;
+    },
+  } as unknown as Response;
   const request = mockRequest(i18n);
-  request['cookies'] = {'createAdminAccount': JSON.stringify(mockData)};
+  request['cookies'] = { createAdminAccount: JSON.stringify(mockData) };
 
   describe('on get', () => {
     it('should render create system admin account summary page', async () => {
@@ -49,7 +56,7 @@ describe('Create System Admin Account Summary Controller', () => {
 
   describe('on post', () => {
     it('should render create system admin account summary page with success message', async () => {
-      request.user = {piUserId: validUserId};
+      request.user = { piUserId: validUserId };
       const responseMock = sinon.mock(response);
       const expectedOptions = {
         formData: mockData,
@@ -65,8 +72,8 @@ describe('Create System Admin Account Summary Controller', () => {
     });
 
     it('should render create system admin account summary page with errors', async () => {
-      request['cookies'] = {'createAdminAccount': JSON.stringify(invalidMockData)};
-      request.user = {piUserId: validUserId};
+      request['cookies'] = { createAdminAccount: JSON.stringify(invalidMockData) };
+      request.user = { piUserId: validUserId };
       const responseMock = sinon.mock(response);
       const expectedOptions = {
         formData: invalidMockData,

@@ -1,12 +1,11 @@
-import {allowedFileTypes, allowedImageTypes, allowedLocationUploadFileTypes, uploadType} from '../models/consts';
+import { allowedFileTypes, allowedImageTypes, allowedLocationUploadFileTypes, uploadType } from '../models/consts';
 import fs from 'fs';
-import {LanguageFileParser} from '../helpers/languageFileParser';
+import { LanguageFileParser } from '../helpers/languageFileParser';
 
 const { redisClient } = require('../cacheManager');
 const languageFileParser = new LanguageFileParser();
 
 export class FileHandlingService {
-
   REDIS_EXPIRY_KEY = 'EX';
   REDIS_EXPIRY_TIME = 60 * 10;
 
@@ -78,11 +77,19 @@ export class FileHandlingService {
     try {
       if (this.getFileExtension(sanitisedFileName) === 'json') {
         const rawData = fs.readFileSync(`./manualUpload/tmp/${originalFilename}`, 'utf-8');
-        await redisClient.set(userId + '-' + sanitisedFileName, JSON.stringify(JSON.parse(rawData)),
-          this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
+        await redisClient.set(
+          userId + '-' + sanitisedFileName,
+          JSON.stringify(JSON.parse(rawData)),
+          this.REDIS_EXPIRY_KEY,
+          this.REDIS_EXPIRY_TIME
+        );
       } else {
-        await redisClient.set(userId + '-' + sanitisedFileName, fs.readFileSync(`./manualUpload/tmp/${originalFilename}`,
-          {encoding: 'base64'}), this.REDIS_EXPIRY_KEY, this.REDIS_EXPIRY_TIME);
+        await redisClient.set(
+          userId + '-' + sanitisedFileName,
+          fs.readFileSync(`./manualUpload/tmp/${originalFilename}`, { encoding: 'base64' }),
+          this.REDIS_EXPIRY_KEY,
+          this.REDIS_EXPIRY_TIME
+        );
       }
     } catch (err) {
       console.error(`Error while reading / storing the file in redis ${err}.`);
@@ -116,9 +123,9 @@ export class FileHandlingService {
   }
 
   isValidFileType(fileName: string, type: uploadType): boolean {
-    const fileType = fileName.slice((fileName.lastIndexOf('.') - 1 >>> 0) + 2).toLocaleLowerCase();
+    const fileType = fileName.slice(((fileName.lastIndexOf('.') - 1) >>> 0) + 2).toLocaleLowerCase();
 
-    switch(type) {
+    switch (type) {
       case uploadType.IMAGE: {
         return allowedImageTypes.includes(fileType);
       }

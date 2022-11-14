@@ -20,10 +20,12 @@ let htmlRes: Document;
 describe('View Option Page', () => {
   describe('without errors', () => {
     beforeAll(async () => {
-      await request(app).get(PAGE_URL).then(response => {
-        htmlRes = new DOMParser().parseFromString(response.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      await request(app)
+        .get(PAGE_URL)
+        .then(response => {
+          htmlRes = new DOMParser().parseFromString(response.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should have correct page title', () => {
@@ -31,12 +33,12 @@ describe('View Option Page', () => {
       expect(pageTitle).contains(expectedHeader, 'Page title does not match header');
     });
 
-    it('should display page header',  () => {
+    it('should display page header', () => {
       const header = htmlRes.getElementsByClassName(headingClass);
       expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
     });
 
-    it('should display continue button',  () => {
+    it('should display continue button', () => {
       const buttons = htmlRes.getElementsByClassName(buttonClass);
       expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
     });
@@ -50,29 +52,46 @@ describe('View Option Page', () => {
       window.location.assign('http://localhost:8080/view-option');
       const betaHeader = htmlRes.getElementsByClassName('govuk-phase-banner');
       expect(betaHeader[0].innerHTML).contains('beta', 'Could not locate beta heading.');
-      expect(betaHeader[0].innerHTML).contains('https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl', 'link is broken in the beta heading.');
+      expect(betaHeader[0].innerHTML).contains(
+        'https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl',
+        'link is broken in the beta heading.'
+      );
       expect(betaHeader[0].innerHTML).contains('Cymraeg', 'Welsh toggle is not working!');
     });
 
-    it('should display radio buttons with valid text',  () => {
+    it('should display radio buttons with valid text', () => {
       const radioButtons = htmlRes.getElementsByClassName(radioClass);
-      expect(radioButtons[0].innerHTML).contains(expectedRadioLabel1, 'Could not find the radio button with label ' + expectedRadioLabel1);
-      expect(radioButtons[1].innerHTML).contains(expectedRadioLabel2, 'Could not find the radio button with label ' + expectedRadioLabel2);
+      expect(radioButtons[0].innerHTML).contains(
+        expectedRadioLabel1,
+        'Could not find the radio button with label ' + expectedRadioLabel1
+      );
+      expect(radioButtons[1].innerHTML).contains(
+        expectedRadioLabel2,
+        'Could not find the radio button with label ' + expectedRadioLabel2
+      );
     });
 
-    it('should display radio buttons with valid hint',  () => {
+    it('should display radio buttons with valid hint', () => {
       const radioButtons = htmlRes.getElementsByClassName(radioClass);
-      expect(radioButtons[0].innerHTML).contains(expectedRadioHint1, 'Could not find the radio button with hint ' + expectedRadioHint1);
-      expect(radioButtons[1].innerHTML).contains(expectedRadioHint2, 'Could not find the radio button with hint ' + expectedRadioHint2);
+      expect(radioButtons[0].innerHTML).contains(
+        expectedRadioHint1,
+        'Could not find the radio button with hint ' + expectedRadioHint1
+      );
+      expect(radioButtons[1].innerHTML).contains(
+        expectedRadioHint2,
+        'Could not find the radio button with hint ' + expectedRadioHint2
+      );
     });
   });
 
   describe('with error', () => {
     beforeAll(async () => {
-      await request(app).post(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      await request(app)
+        .post(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should display an error title', () => {

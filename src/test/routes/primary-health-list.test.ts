@@ -17,11 +17,10 @@ sinon.stub(TribunalNationalListsService.prototype, 'manipulateData').resolves(pr
 describe('Primary Health List Page', () => {
   describe('on GET', () => {
     test('should return primary health list page', async () => {
-      app.request['user'] = {piUserId: '2'};
+      app.request['user'] = { piUserId: '2' };
       await request(app)
         .get('/primary-health-list?artefactId=test')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });
-

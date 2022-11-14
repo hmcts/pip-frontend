@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
-import {DataManipulationService} from '../dataManipulationService';
-import {DateTimeHelper} from '../../helpers/dateTimeHelper';
+import { DataManipulationService } from '../dataManipulationService';
+import { DateTimeHelper } from '../../helpers/dateTimeHelper';
 
 const dataManipulationService = new DataManipulationService();
 const dateTimeHelper = new DateTimeHelper();
@@ -18,8 +18,13 @@ export class CrimeListsService {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
             this.formatCaseTime(sitting, 'h:mma');
-            sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
-                                      sitting['durationAsMinutes'] as number, language, languageFile);
+            sitting['formattedDuration'] = dateTimeHelper.formatDuration(
+              sitting['durationAsDays'] as number,
+              sitting['durationAsHours'] as number,
+              sitting['durationAsMinutes'] as number,
+              language,
+              languageFile
+            );
             sitting['hearing'].forEach(hearing => {
               this.findAndManipulatePartyInformation(hearing);
               this.findLinkedCasesInformation(hearing);
@@ -35,17 +40,15 @@ export class CrimeListsService {
   private findAndManipulatePartyInformation(hearing: any): void {
     let prosecutingAuthority = '';
     let defendant = '';
-    if(hearing?.party) {
+    if (hearing?.party) {
       hearing.party.forEach(party => {
-        switch(DataManipulationService.convertPartyRole(party.partyRole)) {
-          case 'PROSECUTING_AUTHORITY':
-          {
+        switch (DataManipulationService.convertPartyRole(party.partyRole)) {
+          case 'PROSECUTING_AUTHORITY': {
             prosecutingAuthority += this.createIndividualDetails(party.individualDetails).trim();
             prosecutingAuthority += dataManipulationService.stringDelimiter(prosecutingAuthority?.length, ',');
             break;
           }
-          case 'DEFENDANT':
-          {
+          case 'DEFENDANT': {
             defendant += this.createIndividualDetails(party.individualDetails).trim();
             defendant += dataManipulationService.stringDelimiter(defendant?.length, ',');
             break;
@@ -68,10 +71,15 @@ export class CrimeListsService {
     const middleName = dataManipulationService.writeStringIfValid(individualDetails?.individualMiddleName);
     const surname = dataManipulationService.writeStringIfValid(individualDetails?.individualSurname);
 
-    return title + (title.length > 0 ? ' ' : '')
-      + surname + ((forenames.length > 0 || middleName.length > 0) ? ', ' : '')
-      + forenames + (forenames.length > 0 ? ' ' : '')
-      + middleName;
+    return (
+      title +
+      (title.length > 0 ? ' ' : '') +
+      surname +
+      (forenames.length > 0 || middleName.length > 0 ? ', ' : '') +
+      forenames +
+      (forenames.length > 0 ? ' ' : '') +
+      middleName
+    );
   }
 
   private formatCaseTime(sitting: object, format: string): void {
@@ -120,13 +128,17 @@ export class CrimeListsService {
       courtListForUnallocatedCases = JSON.parse(JSON.stringify(courtList));
     });
 
-    if(unallocatedCases.length > 0) {
+    if (unallocatedCases.length > 0) {
       this.formatUnallocatedCourtList(unallocatedCasesCrownListData, courtListForUnallocatedCases, unallocatedCases);
     }
     return unallocatedCasesCrownListData;
   }
 
-  private formatUnallocatedCourtList(unallocatedCasesCrownListData: object, courtListForUnallocatedCases: object, unallocatedCase: any[]): void {
+  private formatUnallocatedCourtList(
+    unallocatedCasesCrownListData: object,
+    courtListForUnallocatedCases: object,
+    unallocatedCase: any[]
+  ): void {
     courtListForUnallocatedCases['courtHouse']['courtHouseName'] = '';
     courtListForUnallocatedCases['courtHouse']['courtHouseAddress'] = null;
     courtListForUnallocatedCases['unallocatedCases'] = true;

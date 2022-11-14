@@ -16,28 +16,30 @@ let htmlRes: Document;
 
 describe('Cookies page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display title', () => {
     const header = htmlRes.getElementsByClassName(titleClass);
-    expect(header[0].innerHTML).contains('Cookies',
-      'Could not find the title');
+    expect(header[0].innerHTML).contains('Cookies', 'Could not find the title');
   });
 
   it('should display the first heading', () => {
     const header = htmlRes.getElementsByClassName(headingClass);
-    expect(header[0].innerHTML).contains('How cookies are used in the Courts and tribunal hearings service',
-      'Could not find the first header');
+    expect(header[0].innerHTML).contains(
+      'How cookies are used in the Courts and tribunal hearings service',
+      'Could not find the first header'
+    );
   });
 
   it('should display the second heading', () => {
     const header = htmlRes.getElementsByClassName(headingClass);
-    expect(header[1].innerHTML).contains('Change your cookie settings',
-      'Could not find the second header');
+    expect(header[1].innerHTML).contains('Change your cookie settings', 'Could not find the second header');
   });
 
   it('should display correct number of tables', () => {

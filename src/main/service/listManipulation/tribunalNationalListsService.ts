@@ -1,6 +1,6 @@
 import { DataManipulationService } from '../dataManipulationService';
 import moment from 'moment-timezone';
-import {DateTimeHelper} from '../../helpers/dateTimeHelper';
+import { DateTimeHelper } from '../../helpers/dateTimeHelper';
 
 const dataManipulationService = new DataManipulationService();
 const dateTimeHelper = new DateTimeHelper();
@@ -9,7 +9,6 @@ const dateTimeHelper = new DateTimeHelper();
  * Service to manipulate the primary health list nunjucks template.
  */
 export class TribunalNationalListsService {
-
   /**
    * Method to manipulate the data and return an object of the formatted data.
    */
@@ -18,8 +17,10 @@ export class TribunalNationalListsService {
     const allData = [];
 
     listData['courtLists'].forEach(courtList => {
-      const venueAddress = this.formatVenueAddress(courtList['courtHouse']['courtHouseName'],
-        courtList['courtHouse']['courtHouseAddress']);
+      const venueAddress = this.formatVenueAddress(
+        courtList['courtHouse']['courtHouseName'],
+        courtList['courtHouse']['courtHouseAddress']
+      );
 
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
@@ -31,7 +32,7 @@ export class TribunalNationalListsService {
             const durationAsMinutes = sitting['durationAsMinutes'];
             let durationAsDays = 0;
 
-            if(durationAsHours >= 24) {
+            if (durationAsHours >= 24) {
               durationAsDays = Math.floor(durationAsHours / 24);
             }
 
@@ -42,8 +43,20 @@ export class TribunalNationalListsService {
                 const caseName = courtCase.caseName;
                 const caseSequenceIndicator = courtCase.caseSequenceIndicator;
 
-                allData.push(this.formatCase(hearingDate, caseName, durationAsDays, durationAsHours,
-                  durationAsMinutes, caseSequenceIndicator, hearingType, venueAddress, language, languageFile));
+                allData.push(
+                  this.formatCase(
+                    hearingDate,
+                    caseName,
+                    durationAsDays,
+                    durationAsHours,
+                    durationAsMinutes,
+                    caseSequenceIndicator,
+                    hearingType,
+                    venueAddress,
+                    language,
+                    languageFile
+                  )
+                );
               });
             });
           });
@@ -56,16 +69,31 @@ export class TribunalNationalListsService {
   /**
    * Format the data into an object, then pass back for further processing.
    */
-  private formatCase(hearingDate, caseName, durationAsDays, durationAsHours, durationAsMinutes,
-    caseSequenceIndicator, hearingType, venue, language, languageFile) {
+  private formatCase(
+    hearingDate,
+    caseName,
+    durationAsDays,
+    durationAsHours,
+    durationAsMinutes,
+    caseSequenceIndicator,
+    hearingType,
+    venue,
+    language,
+    languageFile
+  ) {
     return {
       hearingDate: hearingDate,
       caseName: caseName,
       durationAsDays: durationAsDays,
       durationAsHours: durationAsHours,
       durationAsMinutes: durationAsMinutes,
-      formattedDuration: dateTimeHelper.formatDuration(durationAsDays as number,
-        durationAsHours as number, durationAsMinutes as number, language, languageFile),
+      formattedDuration: dateTimeHelper.formatDuration(
+        durationAsDays as number,
+        durationAsHours as number,
+        durationAsMinutes as number,
+        language,
+        languageFile
+      ),
       caseSequenceIndicator: caseSequenceIndicator,
       hearingType: hearingType,
       venue: venue,
@@ -84,7 +112,7 @@ export class TribunalNationalListsService {
    */
   private formatVenueAddress(courtHouseName: string, courtHouseAddress: object): string {
     let formattedVenueAddress = '';
-    if(/\S/.test(courtHouseName) && courtHouseName !== null) {
+    if (/\S/.test(courtHouseName) && courtHouseName !== null) {
       formattedVenueAddress = courtHouseName;
       courtHouseAddress['line'].forEach(line => {
         formattedVenueAddress += '\n' + line;

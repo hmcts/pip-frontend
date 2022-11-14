@@ -3,7 +3,7 @@ import request from 'supertest';
 import { app } from '../../main/app';
 import { getFlowName } from '../../main/authentication/authRedirect';
 
-const pAndIRedirectUrl = '/login?p='+ getFlowName(null);
+const pAndIRedirectUrl = '/login?p=' + getFlowName(null);
 const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
 const urlOptions = [
   {
@@ -25,23 +25,23 @@ describe('Sign In option', () => {
     test('should return sign-in routing page', async () => {
       await request(app)
         .get('/sign-in')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
 
     test('should return sign-in page if there is no radio selected', async () => {
       await request(app)
         .get('/sign-in?error=true')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 
   for (let i = 0; i < urlOptions.length; i++) {
     describe('on POST', () => {
-      test('should redirect to external url when '+ urlOptions[i].name +' is chosen', async () => {
+      test('should redirect to external url when ' + urlOptions[i].name + ' is chosen', async () => {
         await request(app)
           .post('/sign-in')
-          .send({'sign-in': urlOptions[i].name})
-          .expect((res) => {
+          .send({ 'sign-in': urlOptions[i].name })
+          .expect(res => {
             expect(res.status).to.equal(302);
             expect(res.header['location']).to.equal(urlOptions[i].path);
           });

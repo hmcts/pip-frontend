@@ -12,7 +12,8 @@ const cards = [
   },
   {
     title: 'Remove',
-    description: 'Search by court or tribunal and remove a publication from the external facing Court and tribunal hearings service.',
+    description:
+      'Search by court or tribunal and remove a publication from the external facing Court and tribunal hearings service.',
     link: 'remove-list-search',
   },
   {
@@ -30,12 +31,17 @@ let htmlRes: Document;
 
 describe('Admin Dashboard page all cards', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-    }};
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+    app.request['user'] = {
+      piUserId: '1',
+      _json: {
+        extension_UserRole: 'INTERNAL_SUPER_ADMIN_CTSC',
+      },
+    };
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
   });
 
   it('should have correct page title', () => {
@@ -45,8 +51,7 @@ describe('Admin Dashboard page all cards', () => {
 
   it('should display header', () => {
     const header = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(header[0].innerHTML)
-      .contains('Your Dashboard', 'Could not find correct value in header');
+    expect(header[0].innerHTML).contains('Your Dashboard', 'Could not find correct value in header');
   });
 
   it('should display 5 links in banner', () => {
@@ -66,7 +71,7 @@ describe('Admin Dashboard page all cards', () => {
   });
 
   it('cards should have correct content and links', () => {
-    for(let i = 0; i < cards.length; i++) {
+    for (let i = 0; i < cards.length; i++) {
       const adminCards = htmlRes.getElementsByClassName('account-card');
       const link = adminCards[i].getElementsByTagName('a')[0];
       const description = adminCards[i].getElementsByTagName('p')[1];
@@ -79,12 +84,17 @@ describe('Admin Dashboard page all cards', () => {
 
 describe('Admin Dashboard page  - INTERNAL_SUPER_ADMIN_LOCAL', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'INTERNAL_SUPER_ADMIN_LOCAL',
-    }};
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+    app.request['user'] = {
+      piUserId: '1',
+      _json: {
+        extension_UserRole: 'INTERNAL_SUPER_ADMIN_LOCAL',
+      },
+    };
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
   });
 
   it('should display 4 links in banner', () => {
@@ -105,12 +115,17 @@ describe('Admin Dashboard page  - INTERNAL_SUPER_ADMIN_LOCAL', () => {
 
 describe('Admin Dashboard page  - INTERNAL_ADMIN_CTSC', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'INTERNAL_ADMIN_CTSC',
-    }};
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+    app.request['user'] = {
+      piUserId: '1',
+      _json: {
+        extension_UserRole: 'INTERNAL_ADMIN_CTSC',
+      },
+    };
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
   });
 
   it('should display 5 links in banner', () => {
@@ -132,12 +147,17 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_CTSC', () => {
 
 describe('Admin Dashboard page  - INTERNAL_ADMIN_LOCAL', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'INTERNAL_ADMIN_LOCAL',
-    }};
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+    app.request['user'] = {
+      piUserId: '1',
+      _json: {
+        extension_UserRole: 'INTERNAL_ADMIN_LOCAL',
+      },
+    };
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
   });
 
   it('should display 4 links in banner', () => {
@@ -158,12 +178,17 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_LOCAL', () => {
 
 describe('Admin Dashboard page  - SYSTEM_ADMIN', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'SYSTEM_ADMIN',
-    }};
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+    app.request['user'] = {
+      piUserId: '1',
+      _json: {
+        extension_UserRole: 'SYSTEM_ADMIN',
+      },
+    };
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
   });
 
   it('should display 5 links in banner', () => {

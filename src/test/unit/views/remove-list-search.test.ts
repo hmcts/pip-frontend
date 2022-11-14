@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
-import {request as expressRequest} from 'express';
+import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/remove-list-search';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
@@ -13,26 +13,30 @@ const courtData = JSON.parse(rawData);
 sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(null);
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'SYSTEM_ADMIN',
+  },
+};
 
 let htmlRes: Document;
 
 describe('Remove List Search Page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(response => {
-      htmlRes = new DOMParser().parseFromString(response.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(response => {
+        htmlRes = new DOMParser().parseFromString(response.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
-  it('should display the header',  () => {
+  it('should display the header', () => {
     const header = htmlRes.getElementsByClassName('govuk-heading-l');
     expect(header[0].innerHTML).contains('Find content to remove', 'Could not find the header');
   });
 
-  it('should display continue button',  () => {
+  it('should display continue button', () => {
     const buttons = htmlRes.getElementsByClassName('govuk-button');
     expect(buttons[0].innerHTML).contains('Continue', 'Could not find button');
   });
@@ -44,7 +48,7 @@ describe('Remove List Search Page', () => {
 
   it('should autocomplete source with court names', () => {
     const script = htmlRes.getElementsByTagName('script')[5];
-    expect(script.innerHTML).contains('Abergavenny Magistrates\' Court', 'Could not find input field');
+    expect(script.innerHTML).contains("Abergavenny Magistrates' Court", 'Could not find input field');
   });
 
   it('should display back button', () => {
@@ -65,15 +69,21 @@ describe('Remove List Search Page', () => {
 
 describe('Remove List Blank Input', () => {
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'input-autocomplete': ''}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .post(PAGE_URL)
+      .send({ 'input-autocomplete': '' })
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display minimum input error message', () => {
     const errorSummary = htmlRes.getElementsByClassName('govuk-error-summary__body');
-    expect(errorSummary[0].innerHTML).contains('Court or tribunal name must be 3 characters or more', 'Could not find error message');
+    expect(errorSummary[0].innerHTML).contains(
+      'Court or tribunal name must be 3 characters or more',
+      'Could not find error message'
+    );
   });
 
   it('should display error message', () => {
@@ -89,10 +99,13 @@ describe('Remove List Blank Input', () => {
 
 describe('Search Page Invalid Input', () => {
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'input-autocomplete': 'foo'}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .post(PAGE_URL)
+      .send({ 'input-autocomplete': 'foo' })
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display minimum input error message', () => {
@@ -110,4 +123,3 @@ describe('Search Page Invalid Input', () => {
     expect(formError.length).equal(1, 'Could not find form errors');
   });
 });
-

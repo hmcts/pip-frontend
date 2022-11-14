@@ -1,21 +1,27 @@
 import sinon from 'sinon';
 import { Response } from 'express';
 import SubscriptionAddController from '../../../main/controllers/SubscriptionAddController';
-import {mockRequest} from '../mocks/mockRequest';
+import { mockRequest } from '../mocks/mockRequest';
 
 const subscriptionAddController = new SubscriptionAddController();
 
 describe('Subscriptions Add Controller', () => {
   const i18n = {};
   it('should render the subscription add page', () => {
-
-    const response = { render: function() {return '';}} as unknown as Response;
+    const response = {
+      render: function () {
+        return '';
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
     request.query = {};
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('subscription-add', request.i18n.getDataByLanguage(request.lng)['subscription-add']);
+    responseMock
+      .expects('render')
+      .once()
+      .withArgs('subscription-add', request.i18n.getDataByLanguage(request.lng)['subscription-add']);
 
     subscriptionAddController.get(request, response);
 
@@ -23,10 +29,13 @@ describe('Subscriptions Add Controller', () => {
   });
 
   it('should pass through error state if error query param is set', () => {
-
-    const response = { render: function() {return '';}} as unknown as Response;
+    const response = {
+      render: function () {
+        return '';
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {'error': 'true'};
+    request.query = { error: 'true' };
 
     const responseMock = sinon.mock(response);
 
@@ -42,11 +51,14 @@ describe('Subscriptions Add Controller', () => {
     responseMock.verify();
   });
 
-  it('should render home page if choice is \'case-reference\'', () => {
-
-    const response = { redirect: function() {return '';}} as unknown as Response;
+  it("should render home page if choice is 'case-reference'", () => {
+    const response = {
+      redirect: function () {
+        return '';
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.body = { 'subscription-choice': 'case-reference'};
+    request.body = { 'subscription-choice': 'case-reference' };
 
     const responseMock = sinon.mock(response);
 
@@ -57,11 +69,14 @@ describe('Subscriptions Add Controller', () => {
     responseMock.verify();
   });
 
-  it('should render home page if choice is \'urn\'', () => {
-
-    const response = { redirect: function() {return '';}} as unknown as Response;
+  it("should render home page if choice is 'urn'", () => {
+    const response = {
+      redirect: function () {
+        return '';
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.body = { 'subscription-choice': 'urn'};
+    request.body = { 'subscription-choice': 'urn' };
 
     const responseMock = sinon.mock(response);
 
@@ -72,10 +87,14 @@ describe('Subscriptions Add Controller', () => {
     responseMock.verify();
   });
 
-  it('should render case name search page if choice is \'name\'', () => {
-    const response = { redirect: function() {return '';}} as unknown as Response;
+  it("should render case name search page if choice is 'name'", () => {
+    const response = {
+      redirect: function () {
+        return '';
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.body = { 'subscription-choice': 'name'};
+    request.body = { 'subscription-choice': 'name' };
 
     const responseMock = sinon.mock(response);
 
@@ -86,11 +105,14 @@ describe('Subscriptions Add Controller', () => {
     responseMock.verify();
   });
 
-  it('should render home page if choice is \'court-or-tribunal\'', () => {
-
-    const response = { redirect: function() {return '';}} as unknown as Response;
+  it("should render home page if choice is 'court-or-tribunal'", () => {
+    const response = {
+      redirect: function () {
+        return '';
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.body = { 'subscription-choice': 'court-or-tribunal'};
+    request.body = { 'subscription-choice': 'court-or-tribunal' };
 
     const responseMock = sinon.mock(response);
 
@@ -104,9 +126,13 @@ describe('Subscriptions Add Controller', () => {
   it('should remain on page and pass error state if no option is selected', () => {
     const subscriptionAddController = new SubscriptionAddController();
 
-    const response = { render: function() {return '';}} as unknown as Response;
+    const response = {
+      render: function () {
+        return '';
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.body = { 'subscription-choice': ''};
+    request.body = { 'subscription-choice': '' };
 
     const responseMock = sinon.mock(response);
 

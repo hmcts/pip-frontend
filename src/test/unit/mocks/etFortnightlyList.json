@@ -7,9 +7,7 @@
           "courtName": "Leicester Crown Court",
           "sittingDate": "13 February 2022",
           "sittingTime": "9:30am",
-          "addressLine": [
-            "5-7 Hill Street"
-          ],
+          "addressLine": ["5-7 Hill Street"],
           "addressTown": "Leicester",
           "addressCounty": "",
           "addressPostCode": "L5 4UU",
@@ -36,9 +34,7 @@
           "courtName": "Nottingham Justice Centre",
           "sittingDate": "14 February 2022",
           "sittingTime": "9:30am",
-          "addressLine": [
-            "1 Crown Road"
-          ],
+          "addressLine": ["1 Crown Road"],
           "addressTown": "Nottingham",
           "addressCounty": "",
           "addressPostCode": "NG1 2FP",
@@ -59,9 +55,7 @@
           "courtName": "Nottingham Justice Centre",
           "sittingDate": "13 February 2022",
           "sittingTime": "3:30pm",
-          "addressLine": [
-            "1 Crown Road"
-          ],
+          "addressLine": ["1 Crown Road"],
           "addressTown": "Nottingham",
           "addressCounty": "",
           "addressPostCode": "NG1 2FP",
@@ -83,9 +77,7 @@
           "courtName": "Nottingham Justice Centre",
           "sittingDate": "15 February 2022",
           "sittingTime": "9:30am",
-          "addressLine": [
-            "1 Crown Road"
-          ],
+          "addressLine": ["1 Crown Road"],
           "addressTown": "Nottingham",
           "addressCounty": "",
           "addressPostCode": "NG1 2FP",
@@ -105,9 +97,7 @@
           "courtName": "Nottingham Justice Centre",
           "sittingDate": "15 February 2022",
           "sittingTime": "3:30pm",
-          "addressLine": [
-            "1 Crown Road"
-          ],
+          "addressLine": ["1 Crown Road"],
           "addressTown": "Nottingham",
           "addressCounty": "",
           "addressPostCode": "NG1 2FP",

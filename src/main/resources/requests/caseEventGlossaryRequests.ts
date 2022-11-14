@@ -1,7 +1,6 @@
-import {dataManagementApi} from './utils/axiosConfig';
+import { dataManagementApi } from './utils/axiosConfig';
 
 export class CaseEventGlossaryRequests {
-
   public async getCaseEventGlossaryList(): Promise<Array<any>> {
     try {
       const response = await dataManagementApi.get('/glossary');

@@ -21,14 +21,14 @@ export default class RemoveListSearchController {
     const autocompleteList = await locationService.fetchAllLocations(req.lng as string);
     if (searchInput && searchInput.length >= 3) {
       const court = await locationService.getLocationByName(searchInput, req.lng as string);
-      (court) ?
-        res.redirect(`remove-list-search-results?locationId=${court.locationId}`) :
-        res.render('remove-list-search', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search']),
-          autocompleteList,
-          invalidInputError: false,
-          noResultsError: true,
-        });
+      court
+        ? res.redirect(`remove-list-search-results?locationId=${court.locationId}`)
+        : res.render('remove-list-search', {
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search']),
+            autocompleteList,
+            invalidInputError: false,
+            noResultsError: true,
+          });
     } else {
       res.render('remove-list-search', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search']),

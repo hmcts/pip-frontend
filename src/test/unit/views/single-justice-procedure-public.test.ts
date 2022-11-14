@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {PublicationService} from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/publicationService';
 
 const PAGE_URL = '/sjp-public-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -32,10 +32,12 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').ret
 
 describe('Single Justice Procedure List page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display header', () => {
@@ -43,7 +45,7 @@ describe('Single Justice Procedure List page', () => {
     expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
   });
 
-  it('should display summary',  () => {
+  it('should display summary', () => {
     const summary = htmlRes.getElementsByClassName(summaryHeading);
     expect(summary[0].innerHTML).contains(summaryHeadingText, 'Could not find the display summary heading');
     expect(summary[0].innerHTML).contains(listDate, 'Could not find the published date');
@@ -57,24 +59,23 @@ describe('Single Justice Procedure List page', () => {
     expect(tableHeaders[3].innerHTML).contains('Prosecutor');
   });
 
-  it('should display table data correctly',  () => {
+  it('should display table data correctly', () => {
     const tableData = htmlRes.getElementsByClassName(sjpTableData);
     expect(tableData[0].innerHTML).contains(offenderName, 'Could not find the offender name');
   });
 
-  it('should have offender postcode',  () => {
+  it('should have offender postcode', () => {
     const tableData = htmlRes.getElementsByClassName(sjpTableData);
     expect(tableData[0].innerHTML).contains(offenderPostcode, 'Could not find the offender postcode');
   });
 
-  it('should have the correct prosecutor',  () => {
+  it('should have the correct prosecutor', () => {
     const tableData = htmlRes.getElementsByClassName(sjpTableData);
-    expect(tableData[0].innerHTML).contains(offenderProsecutor, 'Could not find the offender\'s prosecutor');
+    expect(tableData[0].innerHTML).contains(offenderProsecutor, "Could not find the offender's prosecutor");
   });
 
-  it('should have the offence reason',  () => {
+  it('should have the offence reason', () => {
     const tableData = htmlRes.getElementsByClassName(sjpTableData);
     expect(tableData[0].innerHTML).contains(offenderReason, 'Could not find the offence reason');
   });
-
 });

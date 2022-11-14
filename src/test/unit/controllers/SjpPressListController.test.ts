@@ -4,7 +4,7 @@ import SjpPressListController from '../../../main/controllers/SjpPressListContro
 import fs from 'fs';
 import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
-import {mockRequest} from '../mocks/mockRequest';
+import { mockRequest } from '../mocks/mockRequest';
 import moment from 'moment';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
@@ -31,13 +31,17 @@ const i18n = {
 };
 
 describe('SJP Press List Controller', () => {
-  const response = { render: () => {return '';}} as unknown as Response;
+  const response = {
+    render: () => {
+      return '';
+    },
+  } as unknown as Response;
 
-  it('should render the SJP press list page', async () =>  {
+  it('should render the SJP press list page', async () => {
     const request = mockRequest(i18n);
-    request.user = {piUserId: '1'};
+    request.user = { piUserId: '1' };
 
-    request.query = {artefactId: artefactId};
+    request.query = { artefactId: artefactId };
 
     const responseMock = sinon.mock(response);
 
@@ -53,13 +57,12 @@ describe('SJP Press List Controller', () => {
 
     await sjpPressListController.get(request, response);
     return responseMock.verify();
-
   });
 
   it('should render error page is query param is empty', async () => {
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '1'};
+    request.user = { piUserId: '1' };
 
     const responseMock = sinon.mock(response);
 
@@ -80,5 +83,4 @@ describe('SJP Press List Controller', () => {
     await sjpPressListController.get(request, response);
     return responseMock.verify();
   });
-
 });

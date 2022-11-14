@@ -1,11 +1,11 @@
-import {Response} from 'express';
-import {PipRequest} from '../models/request/PipRequest';
-import {cloneDeep} from 'lodash';
+import { Response } from 'express';
+import { PipRequest } from '../models/request/PipRequest';
+import { cloneDeep } from 'lodash';
 import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { DataManipulationService } from '../service/dataManipulationService';
-import {CrimeListsService} from '../service/listManipulation/CrimeListsService';
+import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -19,10 +19,12 @@ export default class CrownDailyListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (searchResults && metaData) {
-
       let manipulatedData = dataManipulationService.manipulatedDailyListData(JSON.stringify(searchResults));
-      manipulatedData = crimeListsService.manipulatedCrimeListData(JSON.stringify(manipulatedData),
-        req.lng as string, 'crown-daily-list');
+      manipulatedData = crimeListsService.manipulatedCrimeListData(
+        JSON.stringify(manipulatedData),
+        req.lng as string,
+        'crown-daily-list'
+      );
       manipulatedData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(manipulatedData));
 
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
@@ -42,8 +44,7 @@ export default class CrownDailyListController {
         bill: pageLanguage === 'bill',
       });
     } else {
-      res.render('error',
-        req.i18n.getDataByLanguage(req.lng).error);
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
   }
 }

@@ -1,8 +1,8 @@
-import {PipRequest} from '../models/request/PipRequest';
-import {Response} from 'express';
-import {cloneDeep} from 'lodash';
-import {FileHandlingService} from '../service/fileHandlingService';
-import {uploadType} from '../models/consts';
+import { PipRequest } from '../models/request/PipRequest';
+import { Response } from 'express';
+import { cloneDeep } from 'lodash';
+import { FileHandlingService } from '../service/fileHandlingService';
+import { uploadType } from '../models/consts';
 
 const fileHandlingService = new FileHandlingService();
 export default class ManualReferenceDataUploadController {
@@ -18,8 +18,12 @@ export default class ManualReferenceDataUploadController {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     } else {
       const errors = {
-        fileErrors: fileHandlingService.validateFileUpload(req.file, req.lng as string, 'manual-reference-data-upload',
-          uploadType.REFERENCE_DATE),
+        fileErrors: fileHandlingService.validateFileUpload(
+          req.file,
+          req.lng as string,
+          'manual-reference-data-upload',
+          uploadType.REFERENCE_DATE
+        ),
       };
 
       const formValues = {

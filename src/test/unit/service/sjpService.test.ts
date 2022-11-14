@@ -31,7 +31,7 @@ describe('Single Justice Procedure Service', () => {
 
   it('should contain an object with all attributes', async () => {
     const data = await sjpService.getSJPCases();
-    const randomCase = data[Math.floor(Math.random()*data.length)];
+    const randomCase = data[Math.floor(Math.random() * data.length)];
     expect(Object.keys(randomCase)).toStrictEqual(Object.keys(validSJPCase));
   });
 });

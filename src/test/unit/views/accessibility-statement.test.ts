@@ -10,16 +10,20 @@ let htmlRes: Document;
 
 describe('accessibility-statement', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
   });
 
   it('should display the page header', () => {
     const header = htmlRes.getElementsByClassName(largeHeadingClass);
 
-    expect(header[0].innerHTML).contains('Accessibility statement for the Court and Tribunal ' +
-      'Hearing Information Service', 'Could not find the header');
+    expect(header[0].innerHTML).contains(
+      'Accessibility statement for the Court and Tribunal ' + 'Hearing Information Service',
+      'Could not find the header'
+    );
   });
 
   it('should display the heading in section 2', () => {
@@ -37,7 +41,10 @@ describe('accessibility-statement', () => {
   it('should display the heading in section 4', () => {
     const div = htmlRes.getElementById('section4');
 
-    expect(div.textContent).contains('Reporting accessibility problems with this website', 'Could not find section 4 heading');
+    expect(div.textContent).contains(
+      'Reporting accessibility problems with this website',
+      'Could not find section 4 heading'
+    );
   });
 
   it('should display the heading in section 5', () => {
@@ -49,13 +56,19 @@ describe('accessibility-statement', () => {
   it('should display the heading in section 6', () => {
     const div = htmlRes.getElementById('section6');
 
-    expect(div.textContent).contains('Contacting us by phone or visiting us in person', 'Could not find section 6 heading');
+    expect(div.textContent).contains(
+      'Contacting us by phone or visiting us in person',
+      'Could not find section 6 heading'
+    );
   });
 
   it('should display the heading in section 7', () => {
     const div = htmlRes.getElementById('section7');
 
-    expect(div.textContent).contains('Technical information about this website’s accessibility', 'Could not find section 7 heading');
+    expect(div.textContent).contains(
+      'Technical information about this website’s accessibility',
+      'Could not find section 7 heading'
+    );
   });
 
   it('should display the headings in section 8', () => {
@@ -79,6 +92,9 @@ describe('accessibility-statement', () => {
   it('should display the heading in section 11', () => {
     const div = htmlRes.getElementById('section11');
 
-    expect(div.textContent).contains('Preparation of this accessibility statement', 'Could not find section 11 heading');
+    expect(div.textContent).contains(
+      'Preparation of this accessibility statement',
+      'Could not find section 11 heading'
+    );
   });
 });

@@ -1,9 +1,9 @@
-import {app} from '../../../main/app';
+import { app } from '../../../main/app';
 import sinon from 'sinon';
 import request from 'supertest';
-import {expect} from 'chai';
-import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
-import {request as expressRequest} from 'express';
+import { expect } from 'chai';
+import { MediaAccountApplicationService } from '../../../main/service/mediaAccountApplicationService';
+import { request as expressRequest } from 'express';
 
 const applicationId = '1234';
 
@@ -19,7 +19,7 @@ const errorSummaryClass = 'govuk-error-summary__title';
 const errorMessageClass = 'govuk-error-summary__body';
 
 const expectedHeader = 'Are you sure you want to reject this application?';
-const expectedTableCaption = 'Applicant\'s Details';
+const expectedTableCaption = "Applicant's Details";
 const nameHeader = 'Name';
 const nameValue = 'Test Name';
 const emailHeader = 'Email';
@@ -41,30 +41,33 @@ const errorMessageNoSelection = 'An option must be selected';
 let htmlRes: Document;
 
 const dummyApplication = {
-  'id': '1234',
-  'fullName': 'Test Name',
-  'email': 'a@b.com',
-  'employer': 'employer',
-  'image': '12345',
-  'imageName': 'ImageName.jpg',
-  'requestDate': '09 May 2022',
-  'status': 'PENDING',
-  'statusDate': '2022-05-09T00:00:01',
+  id: '1234',
+  fullName: 'Test Name',
+  email: 'a@b.com',
+  employer: 'employer',
+  image: '12345',
+  imageName: 'ImageName.jpg',
+  requestDate: '09 May 2022',
+  status: 'PENDING',
+  statusDate: '2022-05-09T00:00:01',
 };
 
 sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').returns(dummyApplication);
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'INTERNAL_ADMIN_CTSC',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'INTERNAL_ADMIN_CTSC',
+  },
+};
 
 describe('Media Account Rejection Page', () => {
-
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display header', () => {
@@ -153,16 +156,17 @@ describe('Media Account Rejection Page', () => {
     const button = htmlRes.getElementsByTagName(buttonTag);
     expect(button[0].innerHTML).contains(continueButtonText, 'Could not find the continue button text');
   });
-
 });
 
 describe('Media Account Approval No Selection', () => {
-
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .post(PAGE_URL)
+      .send({})
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display the error title when no selection is entered', () => {
@@ -174,22 +178,23 @@ describe('Media Account Approval No Selection', () => {
     const errorMessage = htmlRes.getElementsByClassName(errorMessageClass);
     expect(errorMessage[0].innerHTML).contains(errorMessageNoSelection, 'Error message not found');
   });
-
 });
 
 describe('Media Account Approval Page Errored', () => {
   sinon.stub(MediaAccountApplicationService.prototype, 'createAccountFromApplication').returns(null);
 
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'approved': 'Yes'}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .post(PAGE_URL)
+      .send({ approved: 'Yes' })
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display the error title when no selection is entered', () => {
     const errorSummaryResult = htmlRes.getElementsByClassName(errorSummaryClass);
     expect(errorSummaryResult[0].innerHTML).contains(errorSummary, 'Error summary not found');
   });
-
 });

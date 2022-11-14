@@ -1,22 +1,25 @@
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import {request as expressRequest} from 'express';
+import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/upload-confirmation';
 let htmlRes: Document;
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'SYSTEM_ADMIN',
+  },
+};
 
 describe('File Upload Confirmation Page', () => {
   beforeAll(async () => {
-
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display confirmation within the panel', () => {

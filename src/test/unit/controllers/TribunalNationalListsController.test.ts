@@ -2,12 +2,12 @@ import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
 import TribunalNationalListsController from '../../../main/controllers/TribunalNationalListsController';
-import {PublicationService} from '../../../main/service/publicationService';
-import {LocationService} from '../../../main/service/locationService';
-import {Response} from 'express';
-import {mockRequest} from '../mocks/mockRequest';
+import { PublicationService } from '../../../main/service/publicationService';
+import { LocationService } from '../../../main/service/locationService';
+import { Response } from 'express';
+import { mockRequest } from '../mocks/mockRequest';
 import moment from 'moment';
-import {TribunalNationalListsService} from '../../../main/service/listManipulation/tribunalNationalListsService';
+import { TribunalNationalListsService } from '../../../main/service/listManipulation/tribunalNationalListsService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/primaryHealthList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -38,8 +38,11 @@ const i18n = {
 };
 
 describe('Primary Health List Controller', () => {
-
-  const response = { render: () => {return '';}} as unknown as Response;
+  const response = {
+    render: () => {
+      return '';
+    },
+  } as unknown as Response;
   const request = mockRequest(i18n);
   request.path = '/primary-health-list';
 
@@ -48,8 +51,8 @@ describe('Primary Health List Controller', () => {
   });
 
   it('should render the primary health list list page', async () => {
-    request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+    request.query = { artefactId: artefactId };
+    request.user = { piUserId: '1' };
 
     const responseMock = sinon.mock(response);
     const expectedData = {
@@ -72,7 +75,7 @@ describe('Primary Health List Controller', () => {
   it('should render error page if query param is empty', async () => {
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '123'};
+    request.user = { piUserId: '123' };
     request.path = '/primary-health-list';
 
     const responseMock = sinon.mock(response);

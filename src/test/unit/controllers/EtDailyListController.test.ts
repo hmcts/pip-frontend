@@ -1,11 +1,11 @@
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../main/service/publicationService';
-import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
-import {Response} from 'express';
-import {mockRequest} from '../mocks/mockRequest';
+import { PublicationService } from '../../../main/service/publicationService';
+import { LocationService } from '../../../main/service/locationService';
+import { DataManipulationService } from '../../../main/service/dataManipulationService';
+import { Response } from 'express';
+import { mockRequest } from '../mocks/mockRequest';
 import EtDailyListController from '../../../main/controllers/EtDailyListController';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/etDailyList.json'), 'utf-8');
@@ -37,8 +37,11 @@ const i18n = {
 };
 
 describe('Et Daily List Controller', () => {
-
-  const response = { render: () => {return '';}} as unknown as Response;
+  const response = {
+    render: () => {
+      return '';
+    },
+  } as unknown as Response;
   const request = mockRequest(i18n);
   request.path = '/et-daily-list';
 
@@ -47,8 +50,8 @@ describe('Et Daily List Controller', () => {
   });
 
   it('should render the et daily cause list page', async () => {
-    request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+    request.query = { artefactId: artefactId };
+    request.user = { piUserId: '1' };
 
     const responseMock = sinon.mock(response);
     const expectedData = {
@@ -60,7 +63,7 @@ describe('Et Daily List Controller', () => {
       publishedTime: '9:30am',
       courtName: "Abergavenny Magistrates' Court",
       provenance: 'prov1',
-      bill:false,
+      bill: false,
     };
 
     responseMock.expects('render').once().withArgs('et-daily-list', expectedData);
@@ -72,7 +75,7 @@ describe('Et Daily List Controller', () => {
   it('should render error page if query param is empty', async () => {
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '123'};
+    request.user = { piUserId: '123' };
 
     const responseMock = sinon.mock(response);
 

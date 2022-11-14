@@ -8,7 +8,7 @@ describe('Accessibility Statement Page', () => {
     test('should return accessibility statement page', async () => {
       await request(app)
         .get('/accessibility-statement')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });

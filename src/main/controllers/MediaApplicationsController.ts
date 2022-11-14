@@ -1,7 +1,7 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import {MediaApplicationService} from '../service/mediaApplicationService';
-import {cloneDeep} from 'lodash';
+import { MediaApplicationService } from '../service/mediaApplicationService';
+import { cloneDeep } from 'lodash';
 
 const mediaApplicationService = new MediaApplicationService();
 

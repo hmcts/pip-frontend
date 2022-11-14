@@ -1,12 +1,12 @@
 import sinon from 'sinon';
-import {dataManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
-import {LiveCaseRequests} from '../../../main/resources/requests/liveCaseRequests';
+import { dataManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
+import { LiveCaseRequests } from '../../../main/resources/requests/liveCaseRequests';
 
 const liveCaseRequests = new LiveCaseRequests();
 
 const mockData = {
   data: {
-    'test': 'testData',
+    test: 'testData',
   },
 };
 
@@ -19,7 +19,7 @@ describe('Live case get requests', () => {
   });
 
   it('should return null if request fails', async () => {
-    stub.resolves(Promise.reject({response:{data: 'test error'}}));
+    stub.resolves(Promise.reject({ response: { data: 'test error' } }));
     expect(await liveCaseRequests.getLiveCases(2)).toBe(null);
   });
 });

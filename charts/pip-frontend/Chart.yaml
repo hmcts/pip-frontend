@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: "1.0"
+appVersion: '1.0'
 description: A Helm chart for pip-frontend App
 name: pip-frontend
 home: https://github.com/hmcts/pip-frontend
@@ -10,4 +10,3 @@ dependencies:
   - name: nodejs
     version: 2.4.6
     repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
-

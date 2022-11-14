@@ -7,7 +7,7 @@ describe('Session logged out', () => {
     test('should return session logged out page', async () => {
       await request(app)
         .get('/session-logged-out')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });

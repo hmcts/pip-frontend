@@ -3,8 +3,8 @@ import { Response } from 'express';
 import CaseEventGlossaryController from '../../../main/controllers/CaseEventGlossaryController';
 import fs from 'fs';
 import path from 'path';
-import {CaseEventGlossaryService} from '../../../main/service/caseEventGlossaryService';
-import {mockRequest} from '../mocks/mockRequest';
+import { CaseEventGlossaryService } from '../../../main/service/caseEventGlossaryService';
+import { mockRequest } from '../mocks/mockRequest';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/CaseEventGlossary.json'), 'utf-8');
 const caseEventGlossaryData = JSON.parse(rawData);
@@ -17,14 +17,15 @@ const i18n = {
 };
 
 describe.skip('Case Event Glossary Controller', () => {
-  it('should render the case event glossary page', () =>  {
-
+  it('should render the case event glossary page', () => {
     const response = {
-      render: function() {return '';},
+      render: function () {
+        return '';
+      },
     } as unknown as Response;
     const request = mockRequest(i18n);
 
-    request.query = {locationId: '1'};
+    request.query = { locationId: '1' };
 
     const responseMock = sinon.mock(response);
 
@@ -40,5 +41,4 @@ describe.skip('Case Event Glossary Controller', () => {
       responseMock.verify();
     });
   });
-
 });

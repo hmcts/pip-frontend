@@ -1,7 +1,7 @@
-import {FilterService} from '../../../main/service/filterService';
+import { FilterService } from '../../../main/service/filterService';
 import fs from 'fs';
 import path from 'path';
-import {LocationService} from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/locationService';
 import sinon from 'sinon';
 
 const filterService = new FilterService();
@@ -21,12 +21,12 @@ const londonRegion = 'London';
 const manchesterRegion = 'Manchester';
 const jurisdiction = 'Jurisdiction';
 const region = 'Region';
-const requestFilters = {'Jurisdiction': 'Crown', Region: 'Bedford'};
-const requestFiltersNoRegion = {'Jurisdiction': ['Crown', 'Tribunal']};
-const requestFiltersNoJurisdiction = {Region: 'Bedford'};
+const requestFilters = { Jurisdiction: 'Crown', Region: 'Bedford' };
+const requestFiltersNoRegion = { Jurisdiction: ['Crown', 'Tribunal'] };
+const requestFiltersNoJurisdiction = { Region: 'Bedford' };
 const filterNames = ['Jurisdiction', 'Region'];
-const allFilterOptions = {'Jurisdiction': {Tribunal:{value:'Tribunal'}}, Region: {Wales:{value:'Wales'}}};
-const filterValues = ['Tribunal','Wales'];
+const allFilterOptions = { Jurisdiction: { Tribunal: { value: 'Tribunal' } }, Region: { Wales: { value: 'Wales' } } };
+const filterValues = ['Tribunal', 'Wales'];
 
 const englishLanguage = 'en';
 const welshLanguage = 'cy';
@@ -73,23 +73,36 @@ describe('Filter Service', () => {
   });
 
   it('should return only Region', () => {
-    expect(filterService.splitFilters(filterNames, requestFiltersNoJurisdiction)).toStrictEqual({'Jurisdiction': '', Region: 'Bedford'});
+    expect(filterService.splitFilters(filterNames, requestFiltersNoJurisdiction)).toStrictEqual({
+      Jurisdiction: '',
+      Region: 'Bedford',
+    });
   });
 
   it('should return only Jurisdiction', () => {
-    expect(filterService.splitFilters(filterNames, requestFiltersNoRegion)).toStrictEqual({'Jurisdiction': 'Crown,Tribunal', Region: ''});
+    expect(filterService.splitFilters(filterNames, requestFiltersNoRegion)).toStrictEqual({
+      Jurisdiction: 'Crown,Tribunal',
+      Region: '',
+    });
   });
 
   it('should find and return both Jurisdiction and Region', () => {
-    expect(filterService.findAndSplitFilters(filterValues, allFilterOptions)).toStrictEqual({'Jurisdiction': 'Tribunal', Region: 'Wales'});
+    expect(filterService.findAndSplitFilters(filterValues, allFilterOptions)).toStrictEqual({
+      Jurisdiction: 'Tribunal',
+      Region: 'Wales',
+    });
   });
 
   it('should find and return only Region', () => {
-    expect(filterService.findAndSplitFilters(filterValues, {'Jurisdiction': '', Region: {Wales:{value:'Wales'}}})).toStrictEqual({'Jurisdiction': '', Region: 'Wales'});
+    expect(
+      filterService.findAndSplitFilters(filterValues, { Jurisdiction: '', Region: { Wales: { value: 'Wales' } } })
+    ).toStrictEqual({ Jurisdiction: '', Region: 'Wales' });
   });
 
   it('should find and return only Jurisdiction', () => {
-    expect(filterService.findAndSplitFilters(filterValues, {'Jurisdiction': {Tribunal:{value:'Tribunal'}}, Region: ''})).toStrictEqual({'Jurisdiction': 'Tribunal', Region: ''});
+    expect(
+      filterService.findAndSplitFilters(filterValues, { Jurisdiction: { Tribunal: { value: 'Tribunal' } }, Region: '' })
+    ).toStrictEqual({ Jurisdiction: 'Tribunal', Region: '' });
   });
 
   it('should return array from string', () => {
@@ -105,11 +118,17 @@ describe('Filter Service', () => {
   });
 
   it('should return object for rendering with no clear or filters selected', async () => {
-    expect(await filterService.handleFilterInitialisation(null, null, englishLanguage)).toStrictEqual({alphabetisedList: listData, filterOptions: {...filterService.buildFilterValueOptions(listData, [])}});
+    expect(await filterService.handleFilterInitialisation(null, null, englishLanguage)).toStrictEqual({
+      alphabetisedList: listData,
+      filterOptions: { ...filterService.buildFilterValueOptions(listData, []) },
+    });
   });
 
   it('should return all courts when clear all has been passed', async () => {
-    expect(await filterService.handleFilterInitialisation('all', null, englishLanguage)).toStrictEqual({alphabetisedList: listData, filterOptions: {...filterService.buildFilterValueOptions(listData, [])}});
+    expect(await filterService.handleFilterInitialisation('all', null, englishLanguage)).toStrictEqual({
+      alphabetisedList: listData,
+      filterOptions: { ...filterService.buildFilterValueOptions(listData, []) },
+    });
   });
 
   it('should return filtered courts if filters have been selected', async () => {
@@ -118,11 +137,17 @@ describe('Filter Service', () => {
   });
 
   it('should return object for rendering with no clear or filters selected for welsh', async () => {
-    expect(await filterService.handleFilterInitialisation(null, null, welshLanguage)).toStrictEqual({alphabetisedList: listData, filterOptions: {...filterService.buildFilterValueOptions(listData, [])}});
+    expect(await filterService.handleFilterInitialisation(null, null, welshLanguage)).toStrictEqual({
+      alphabetisedList: listData,
+      filterOptions: { ...filterService.buildFilterValueOptions(listData, []) },
+    });
   });
 
   it('should return all courts when clear all has been passed for welsh', async () => {
-    expect(await filterService.handleFilterInitialisation('all', null, welshLanguage)).toStrictEqual({alphabetisedList: listData, filterOptions: {...filterService.buildFilterValueOptions(listData, [])}});
+    expect(await filterService.handleFilterInitialisation('all', null, welshLanguage)).toStrictEqual({
+      alphabetisedList: listData,
+      filterOptions: { ...filterService.buildFilterValueOptions(listData, []) },
+    });
   });
 
   it('should return filtered courts if filters have been selected for welsh', async () => {
@@ -131,13 +156,12 @@ describe('Filter Service', () => {
   });
 
   it('should return filter values from a key', () => {
-    const body = {jurisdiction: ['test', 'val']} as unknown as string;
+    const body = { jurisdiction: ['test', 'val'] } as unknown as string;
     expect(filterService.generateFilterKeyValues(body)).toStrictEqual(['test', 'val']);
   });
 
   it('should return filter values from keys', () => {
-    const body = {jurisdiction: ['test', 'val'], region: ['newTest']} as unknown as string;
+    const body = { jurisdiction: ['test', 'val'], region: ['newTest'] } as unknown as string;
     expect(filterService.generateFilterKeyValues(body)).toStrictEqual(['test', 'val', 'newTest']);
   });
-
 });

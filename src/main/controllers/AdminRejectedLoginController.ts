@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
-import {cloneDeep} from 'lodash';
+import { cloneDeep } from 'lodash';
 
 export default class AdminRejectedLoginController {
   public get(req: PipRequest, res: Response): void {

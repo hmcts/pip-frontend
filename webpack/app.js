@@ -11,5 +11,5 @@ const copyLookAndFeelAssets = new CopyWebpackPlugin({
 
 module.exports = {
   paths: { root, sass },
-  plugins: [ copyLookAndFeelAssets ],
+  plugins: [copyLookAndFeelAssets],
 };

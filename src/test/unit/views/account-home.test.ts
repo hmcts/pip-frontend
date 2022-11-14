@@ -1,6 +1,6 @@
-import {app} from '../../../main/app';
-import {expect} from 'chai';
-import {request as expressRequest} from 'express';
+import { app } from '../../../main/app';
+import { expect } from 'chai';
+import { request as expressRequest } from 'express';
 import request from 'supertest';
 
 const PAGE_URL = '/account-home';
@@ -14,26 +14,32 @@ const cards = [
   },
   {
     title: 'Single Justice Procedure cases',
-    description: 'Cases ready to be decided by a magistrate without a hearing. Includes TV licensing, minor traffic offences such as speeding and more.',
+    description:
+      'Cases ready to be decided by a magistrate without a hearing. Includes TV licensing, minor traffic offences such as speeding and more.',
     link: 'summary-of-publications?locationId=9',
   },
   {
     title: 'Email subscriptions',
     description: 'Get emails about hearings from different courts and tribunals and manage your subscriptions.',
     link: 'subscription-management',
-  }];
+  },
+];
 let htmlRes: Document;
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'VERIFIED',
+  },
+};
 
 describe('Your Account page', () => {
   describe('Without verified param', () => {
     beforeAll(async () => {
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      });
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        });
     });
 
     it('should have correct page title', () => {
@@ -43,8 +49,7 @@ describe('Your Account page', () => {
 
     it('should display header', () => {
       const header = htmlRes.getElementsByClassName('govuk-heading-l');
-      expect(header[0].innerHTML)
-        .contains(pageHeader, 'Could not find correct value in header');
+      expect(header[0].innerHTML).contains(pageHeader, 'Could not find correct value in header');
     });
 
     it('should display 4 card options', () => {
@@ -66,9 +71,11 @@ describe('Your Account page', () => {
 
   describe('With verified param', () => {
     beforeAll(async () => {
-      await request(app).get(PAGE_URL + '/?verified=true').then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      });
+      await request(app)
+        .get(PAGE_URL + '/?verified=true')
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        });
     });
 
     it('should display the verified banner', () => {

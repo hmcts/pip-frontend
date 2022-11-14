@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {LocationRequests} from '../../../main/resources/requests/locationRequests';
+import { LocationRequests } from '../../../main/resources/requests/locationRequests';
 
 const PAGE_URL = '/search';
 const headingClass = 'govuk-label-wrapper';
@@ -28,13 +28,15 @@ sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(null);
 
 describe('Search Page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
-  it('should display header',  () => {
+  it('should display header', () => {
     const header = htmlRes.getElementsByClassName(headingClass);
     expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
   });
@@ -44,7 +46,7 @@ describe('Search Page', () => {
     expect(pageTitle).contains(expectedHeader, 'Page title does not match');
   });
 
-  it('should display continue button',  () => {
+  it('should display continue button', () => {
     const buttons = htmlRes.getElementsByClassName(buttonClass);
     expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
   });
@@ -56,7 +58,7 @@ describe('Search Page', () => {
 
   it('should fill source with court names', () => {
     const script = htmlRes.getElementsByTagName('script')[5];
-    expect(script.innerHTML).contains('Abergavenny Magistrates\' Court', 'Could not find input field');
+    expect(script.innerHTML).contains("Abergavenny Magistrates' Court", 'Could not find input field');
   });
 
   it('should display back button', () => {
@@ -76,23 +78,27 @@ describe('Search Page', () => {
 
   it('should display a h2 element for the Want to see all courts and tribunals section', () => {
     const h2Element = htmlRes.getElementsByTagName('h2');
-    expect(h2Element[0].innerHTML).contains('Want to see all courts and tribunals?',
-      'Could not find the h2 element');
+    expect(h2Element[0].innerHTML).contains('Want to see all courts and tribunals?', 'Could not find the h2 element');
   });
-
 });
 
 describe('Search Page Invalid Input', () => {
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'input-autocomplete': 'foo'}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .post(PAGE_URL)
+      .send({ 'input-autocomplete': 'foo' })
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display minimum input error message', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
-    expect(errorSummary[0].innerHTML).contains('There is nothing matching your criteria', 'Could not find error message');
+    expect(errorSummary[0].innerHTML).contains(
+      'There is nothing matching your criteria',
+      'Could not find error message'
+    );
   });
 
   it('should display error message', () => {
@@ -107,7 +113,9 @@ describe('Search Page Invalid Input', () => {
 
   it('should display additional message', () => {
     const additionalMessage = htmlRes.getElementsByClassName(additionalMessageClass);
-    expect(additionalMessage[0].innerHTML).contains('There are no matching results.', 'Could not find additional message');
+    expect(additionalMessage[0].innerHTML).contains(
+      'There are no matching results.',
+      'Could not find additional message'
+    );
   });
 });
-

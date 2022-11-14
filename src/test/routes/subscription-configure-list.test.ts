@@ -1,18 +1,20 @@
-import {SubscriptionService} from '../../main/service/subscriptionService';
-import {FilterService} from '../../main/service/filterService';
+import { SubscriptionService } from '../../main/service/subscriptionService';
+import { FilterService } from '../../main/service/filterService';
 import sinon from 'sinon';
 import request from 'supertest';
-import {app} from '../../main/app';
-import {expect} from 'chai';
-import {request as expressRequest} from 'express';
+import { app } from '../../main/app';
+import { expect } from 'chai';
+import { request as expressRequest } from 'express';
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'VERIFIED',
+  },
+};
 
 const listOptions = {
-  'S': {
-    'SJP_PUBLIC_LIST': {
+  S: {
+    SJP_PUBLIC_LIST: {
       listFriendlyName: 'SJP Public List',
       checked: false,
     },
@@ -20,8 +22,8 @@ const listOptions = {
 };
 
 const filterOptions = {
-  'Jurisdiction': {
-    'Civil': {
+  Jurisdiction: {
+    Civil: {
       value: 'Civil',
       text: 'Civil',
       checked: true,
@@ -32,25 +34,27 @@ const filterOptions = {
 describe('Subscriptions Configure List', () => {
   describe('on GET', () => {
     test('should return subscription configure list page', async () => {
-      sinon.stub(SubscriptionService.prototype, 'generateListTypesForCourts')
-        .resolves({listTypes: listOptions, filterOptions: filterOptions});
+      sinon
+        .stub(SubscriptionService.prototype, 'generateListTypesForCourts')
+        .resolves({ listTypes: listOptions, filterOptions: filterOptions });
 
       await request(app)
         .get('/subscription-configure-list')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 
   describe('on POST', () => {
     test('should redirect to the subscription configure page', async () => {
-      sinon.stub(FilterService.prototype, 'generateFilterKeyValues')
-        .withArgs({'Jurisdiction': 'Civil'})
+      sinon
+        .stub(FilterService.prototype, 'generateFilterKeyValues')
+        .withArgs({ Jurisdiction: 'Civil' })
         .resolves('FilterOption');
 
       await request(app)
         .post('/subscription-configure-list')
-        .send({'Jurisdiction': 'Civil'})
-        .expect((res) => {
+        .send({ Jurisdiction: 'Civil' })
+        .expect(res => {
           expect(res.status).to.equal(302);
           expect(res.text).to.contain('Redirecting to subscription-configure-list');
         });
@@ -58,11 +62,7 @@ describe('Subscriptions Configure List', () => {
 
     //TODO: To be expanded on once submissions screens implemented
     test('should submit the selections to the submission', async () => {
-      await request(app)
-        .post('/subscription-configure-list')
-        .send({'list-selections[]': 'CIVIL_DAILY_CAUSE_LIST'});
+      await request(app).post('/subscription-configure-list').send({ 'list-selections[]': 'CIVIL_DAILY_CAUSE_LIST' });
     });
-
   });
-
 });

@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/publicationService';
 import sinon from 'sinon';
 import request from 'supertest';
-import {app} from '../../../main/app';
-import {expect} from 'chai';
+import { app } from '../../../main/app';
+import { expect } from 'chai';
 
 const PAGE_URL = '/iac-daily-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -26,22 +26,27 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').ret
 
 describe('IAC daily cause list page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
   });
 
-  it('should display header',  () => {
+  it('should display header', () => {
     const header = htmlRes.getElementsByClassName(headingClass);
-    expect(header[0].innerHTML).contains('First-tier Tribunal: Immigration and Asylum Chamber', 'Could not find the header');
+    expect(header[0].innerHTML).contains(
+      'First-tier Tribunal: Immigration and Asylum Chamber',
+      'Could not find the header'
+    );
   });
 
-  it('should display summary heading',  () => {
+  it('should display summary heading', () => {
     const summary = htmlRes.getElementsByClassName(summaryHeading);
     expect(summary[0].innerHTML).contains('Important information', 'Could not find the display summary heading');
   });
 
-  it('should display venue contact email and phone number in summary text',  () => {
+  it('should display venue contact email and phone number in summary text', () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
     expect(summary[0].innerHTML).contains('a@b.com 01234 123 123', 'Could not find the court name in summary text');
   });

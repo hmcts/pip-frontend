@@ -9,7 +9,6 @@ const publicationService = new PublicationService();
 const dataManipulationService = new DataManipulationService();
 
 export default class IacDailyListController {
-
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query.artefactId as string;
     const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);

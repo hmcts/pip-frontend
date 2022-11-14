@@ -11,17 +11,20 @@ const radioClass = 'govuk-radios__item';
 const expectedRadioLabel1 = 'Yes';
 const expectedRadioLabel2 = 'No';
 
-app.request['user'] = { _json: {
-  'extension_UserRole': 'VERIFIED',
-}};
+app.request['user'] = {
+  _json: {
+    extension_UserRole: 'VERIFIED',
+  },
+};
 
 describe('Delete Subscription page', () => {
   beforeAll(async () => {
-
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display header', () => {
@@ -29,7 +32,7 @@ describe('Delete Subscription page', () => {
     expect(header[0].innerHTML).contains(expectedHeaderText, 'Could not find correct value in header');
   });
 
-  it('should display continue button',  () => {
+  it('should display continue button', () => {
     const buttons = htmlRes.getElementsByClassName(buttonClass);
     expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
   });
@@ -37,9 +40,13 @@ describe('Delete Subscription page', () => {
   it('should display 2 radio buttons with valid labels', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons.length).equal(2, '2 radio buttons not found');
-    expect(radioButtons[0].innerHTML).contains(expectedRadioLabel1,
-      `Could not find the radio button with label ${expectedRadioLabel1}`);
-    expect(radioButtons[1].innerHTML).contains(expectedRadioLabel2,
-      `Could not find the radio button with label ${expectedRadioLabel2}`);
+    expect(radioButtons[0].innerHTML).contains(
+      expectedRadioLabel1,
+      `Could not find the radio button with label ${expectedRadioLabel1}`
+    );
+    expect(radioButtons[1].innerHTML).contains(
+      expectedRadioLabel2,
+      `Could not find the radio button with label ${expectedRadioLabel2}`
+    );
   });
 });

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { app } from '../../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
-import {PublicationService} from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/publicationService';
 
 const PAGE_URL = '/subscription-urn-search';
 const headingClass = 'govuk-label-wrapper';
@@ -23,18 +23,22 @@ const stub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn');
 stub.withArgs('12345').returns(null);
 stub.withArgs('').returns(null);
 
-app.request['user'] = { _json: {
-  'extension_UserRole': 'VERIFIED',
-}};
+app.request['user'] = {
+  _json: {
+    extension_UserRole: 'VERIFIED',
+  },
+};
 
 const pageTitleValue = 'Subscribe by unique reference number (URN)';
 
 describe('URN Search Page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should have correct page title', () => {
@@ -42,12 +46,12 @@ describe('URN Search Page', () => {
     expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
   });
 
-  it('should display the header',  () => {
+  it('should display the header', () => {
     const header = htmlRes.getElementsByClassName(headingClass)[0].getElementsByClassName('govuk-label--l');
     expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
   });
 
-  it('should display continue button',  () => {
+  it('should display continue button', () => {
     const buttons = htmlRes.getElementsByClassName(buttonClass);
     expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
   });
@@ -70,10 +74,13 @@ describe('URN Search Page', () => {
 
 describe('URN Search Page Blank Input', () => {
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'search-input': ''}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .post(PAGE_URL)
+      .send({ 'search-input': '' })
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display minimum input error message', () => {
@@ -94,10 +101,13 @@ describe('URN Search Page Blank Input', () => {
 
 describe('URN Search Page Invalid Input', () => {
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'search-input': '12345'}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .post(PAGE_URL)
+      .send({ 'search-input': '12345' })
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display minimum input error message', () => {
@@ -115,4 +125,3 @@ describe('URN Search Page Invalid Input', () => {
     expect(formError.length).equal(1, 'Could not find form errors');
   });
 });
-

@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {CaseEventGlossaryRequests} from '../../../main/resources/requests/caseEventGlossaryRequests';
+import { CaseEventGlossaryRequests } from '../../../main/resources/requests/caseEventGlossaryRequests';
 const PAGE_URL = '/case-event-glossary?locationId=1#1';
 
 let htmlRes: Document;
@@ -16,20 +16,28 @@ sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').retu
 
 describe.skip('Case Event Glossary page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
   });
 
   it('should display a back button with the correct value', () => {
     const backLink = htmlRes.getElementsByClassName('govuk-back-link');
     expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-    expect(backLink[0].getAttribute('href')).equal('/live-case-status?locationId=1', 'Back value does not contain correct link');
+    expect(backLink[0].getAttribute('href')).equal(
+      '/live-case-status?locationId=1',
+      'Back value does not contain correct link'
+    );
   });
 
   it('should contain the glossary of terms', () => {
     const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(pageHeading[0].innerHTML).contains('Live hearing updates - glossary of terms', 'Page heading does not exist');
+    expect(pageHeading[0].innerHTML).contains(
+      'Live hearing updates - glossary of terms',
+      'Page heading does not exist'
+    );
   });
 
   it('should contain letters that link to case events glossary', () => {

@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import {LocationRequests} from '../../../main/resources/requests/locationRequests';
+import { LocationRequests } from '../../../main/resources/requests/locationRequests';
 
 const courtService = new LocationService();
 
@@ -19,10 +19,34 @@ const stubCourtsFilter = sinon.stub(courtRequest, 'getFilteredCourts');
 
 const validKeysCount = 26;
 const alphabet = [
-  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-  'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+  'H',
+  'I',
+  'J',
+  'K',
+  'L',
+  'M',
+  'N',
+  'O',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'U',
+  'V',
+  'W',
+  'X',
+  'Y',
+  'Z',
 ];
-const validCourt = 'Abergavenny Magistrates\' Court';
+const validCourt = "Abergavenny Magistrates' Court";
 const validWelshCourt = 'Llys Ynadon y Fenni';
 const englishLanguage = 'en';
 const welshLanguage = 'cy';
@@ -81,11 +105,15 @@ describe('Court Service', () => {
   });
 
   it('should return found court name in for english', async () => {
-    expect(await courtService.findCourtName(hearingsData[0], englishLanguage, englishLanguageFile)).to.equal('Abergavenny Magistrates\' Court');
+    expect(await courtService.findCourtName(hearingsData[0], englishLanguage, englishLanguageFile)).to.equal(
+      "Abergavenny Magistrates' Court"
+    );
   });
 
   it('should return found court name in for welsh', async () => {
-    expect(await courtService.findCourtName(hearingsData[0], welshLanguage, englishLanguageFile)).to.equal('Llys Ynadon y Fenni');
+    expect(await courtService.findCourtName(hearingsData[0], welshLanguage, englishLanguageFile)).to.equal(
+      'Llys Ynadon y Fenni'
+    );
   });
 
   it('should return missing court for english if court is not found', async () => {
@@ -133,9 +161,9 @@ describe('Court Service', () => {
 
   it('should return sorted courts list', () => {
     const sorted = courtService.sortCourtsAlphabetically(hearingsData);
-    expect(sorted[0].name).to.equal('Abergavenny Magistrates\' Court');
+    expect(sorted[0].name).to.equal("Abergavenny Magistrates' Court");
     expect(sorted[1].name).to.equal('Accrington County Court');
-    expect(sorted[2].name).to.equal('Accrington Magistrates\' Court');
+    expect(sorted[2].name).to.equal("Accrington Magistrates' Court");
     expect(sorted[sorted.length - 1].name).to.equal('West London Court no hearings');
   });
 
@@ -146,5 +174,4 @@ describe('Court Service', () => {
   it('it should return list as it is if there is only 1 court in the list', () => {
     expect(courtService.sortCourtsAlphabetically([hearingsData[0]])).to.deep.equal([hearingsData[0]]);
   });
-
 });

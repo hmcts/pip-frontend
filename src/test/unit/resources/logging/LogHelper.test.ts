@@ -1,16 +1,15 @@
-import {Logger} from '@hmcts/nodejs-logging';
+import { Logger } from '@hmcts/nodejs-logging';
 
 const sinon = require('sinon');
 
 describe('Write expected log statement', () => {
   it('should write expected log statement', async () => {
-
     function mockFunction() {
       console.log('This is a mock function, with a required body for linting');
     }
 
     const mockLogger = {
-      'info': mockFunction,
+      info: mockFunction,
     };
 
     const spy = sinon.spy(mockLogger, 'info');

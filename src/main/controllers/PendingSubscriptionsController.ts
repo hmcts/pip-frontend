@@ -12,17 +12,17 @@ export default class PendingSubscriptionsController {
       courts: await subscriptionService.getPendingSubscriptions(req.user['piUserId'], 'courts'),
     };
 
-    (req.query?.['no-subscriptions']) ?
-      res.render('pending-subscriptions', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['pending-subscriptions']),
-        pendingSubscriptions,
-        displayError: true,
-      }) :
-      res.render('pending-subscriptions', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['pending-subscriptions']),
-        pendingSubscriptions,
-        displayError: false,
-      });
+    req.query?.['no-subscriptions']
+      ? res.render('pending-subscriptions', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['pending-subscriptions']),
+          pendingSubscriptions,
+          displayError: true,
+        })
+      : res.render('pending-subscriptions', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['pending-subscriptions']),
+          pendingSubscriptions,
+          displayError: false,
+        });
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {

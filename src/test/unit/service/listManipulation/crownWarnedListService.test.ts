@@ -1,12 +1,11 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import {CrownWarnedListService} from '../../../../main/service/listManipulation/crownWarnedListService';
+import { CrownWarnedListService } from '../../../../main/service/listManipulation/crownWarnedListService';
 
 const crownWarnedListService = new CrownWarnedListService();
 
 describe('Crown Warned List service', () => {
-
   describe('manipulateData', () => {
     const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownWarnedList.json'), 'utf-8');
     const input = JSON.stringify(JSON.parse(rawData));

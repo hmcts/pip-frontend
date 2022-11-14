@@ -1,17 +1,23 @@
 import sinon from 'sinon';
-import {expect} from 'chai';
-import {Response} from 'express';
-import {SessionManagementService} from '../../../main/service/sessionManagementService';
+import { expect } from 'chai';
+import { Response } from 'express';
+import { SessionManagementService } from '../../../main/service/sessionManagementService';
 
 const sessionManagementService = new SessionManagementService();
 const res = {
-  redirect: function() {return '';},
-  clearCookie: function() {return '';},
+  redirect: function () {
+    return '';
+  },
+  clearCookie: function () {
+    return '';
+  },
 } as unknown as Response;
 
 describe('Test logout', () => {
-  const mediaLogOutPath = 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInUserFlow/oauth2/v2.0/logout';
-  const adminLogOutPath = 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInAdminUserFlow/oauth2/v2.0/logout';
+  const mediaLogOutPath =
+    'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInUserFlow/oauth2/v2.0/logout';
+  const adminLogOutPath =
+    'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInAdminUserFlow/oauth2/v2.0/logout';
   const encodedAppUrl = 'https%3A%2F%2Flocalhost%3A8080%2F';
 
   const mediaLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
@@ -26,7 +32,7 @@ describe('Test logout', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').once().withArgs(mediaLogOutUrl);
 
-    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'lng': 'en', 'session': {}};
+    const req = { user: { _json: { extension_UserRole: 'VERIFIED' } }, lng: 'en', session: {} };
     sessionManagementService.logOut(req, res, false, false);
     expect(req.session).to.be.null;
     responseMock.verify();
@@ -36,7 +42,7 @@ describe('Test logout', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').once().withArgs(mediaWelshLogOutUrl);
 
-    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'lng': 'cy', 'session': {}};
+    const req = { user: { _json: { extension_UserRole: 'VERIFIED' } }, lng: 'cy', session: {} };
     sessionManagementService.logOut(req, res, false, false);
     expect(req.session).to.be.null;
     responseMock.verify();
@@ -46,7 +52,7 @@ describe('Test logout', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').once().withArgs(adminLogOutUrl);
 
-    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'lng': 'en', 'session': {}};
+    const req = { user: { _json: { extension_UserRole: 'SYSTEM_ADMIN' } }, lng: 'en', session: {} };
     sessionManagementService.logOut(req, res, false, false);
     expect(req.session).to.be.null;
     responseMock.verify();
@@ -56,7 +62,7 @@ describe('Test logout', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').once().withArgs(adminWelshLogOutUrl);
 
-    const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'lng': 'cy', 'session': {}};
+    const req = { user: { _json: { extension_UserRole: 'SYSTEM_ADMIN' } }, lng: 'cy', session: {} };
     sessionManagementService.logOut(req, res, false, false);
     expect(req.session).to.be.null;
     responseMock.verify();
@@ -66,7 +72,7 @@ describe('Test logout', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').once().withArgs(mediaSessionExpiredUrl);
 
-    const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'lng': 'en', 'session': {}};
+    const req = { user: { _json: { extension_UserRole: 'VERIFIED' } }, lng: 'en', session: {} };
     sessionManagementService.logOut(req, res, false, true);
     expect(req.session).to.be.null;
     responseMock.verify();
@@ -76,7 +82,7 @@ describe('Test logout', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').once().withArgs(adminSessionExpiredUrl);
 
-    const req = {'user': {'_json': {'extension_UserRole': 'INTERNAL_SUPER_ADMIN_LOCAL'}}, 'lng': 'en', 'session': {}};
+    const req = { user: { _json: { extension_UserRole: 'INTERNAL_SUPER_ADMIN_LOCAL' } }, lng: 'en', session: {} };
     sessionManagementService.logOut(req, res, false, true);
     expect(req.session).to.be.null;
     responseMock.verify();
@@ -86,7 +92,7 @@ describe('Test logout', () => {
     const responseMock = sinon.mock(res);
     responseMock.expects('redirect').once().withArgs(adminRejectedLoginUrl);
 
-    const req = {'user': {'_json': {'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC'}}, 'lng': 'en', 'session': {}};
+    const req = { user: { _json: { extension_UserRole: 'INTERNAL_SUPER_ADMIN_CTSC' } }, lng: 'en', session: {} };
     sessionManagementService.logOut(req, res, true, false);
     expect(req.session).to.be.null;
     responseMock.verify();
@@ -99,7 +105,11 @@ describe('Test logout', () => {
       const responseMock = sinon.mock(res);
       responseMock.expects('redirect').once().withArgs(adminLogOutUrl);
 
-      const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpires': new Date(now - 10000)}, 'lng': 'en'};
+      const req = {
+        user: { _json: { extension_UserRole: 'SYSTEM_ADMIN' } },
+        session: { sessionExpires: new Date(now - 10000) },
+        lng: 'en',
+      };
       expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
       expect(req.session).to.be.null;
       responseMock.verify();
@@ -109,7 +119,11 @@ describe('Test logout', () => {
       const responseMock = sinon.mock(res);
       responseMock.expects('redirect').never();
 
-      const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {'sessionExpires': new Date(now + 100000)}, 'lng': 'en'};
+      const req = {
+        user: { _json: { extension_UserRole: 'SYSTEM_ADMIN' } },
+        session: { sessionExpires: new Date(now + 100000) },
+        lng: 'en',
+      };
       expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
       responseMock.verify();
     });
@@ -118,11 +132,10 @@ describe('Test logout', () => {
       const responseMock = sinon.mock(res);
       responseMock.expects('redirect').never();
 
-      const req = {'user': {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}}, 'session': {}, 'lng': 'en'};
+      const req = { user: { _json: { extension_UserRole: 'SYSTEM_ADMIN' } }, session: {}, lng: 'en' };
       expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
       responseMock.verify();
     });
-
   });
 
   describe('Test media user session expiry', () => {
@@ -132,7 +145,11 @@ describe('Test logout', () => {
       const responseMock = sinon.mock(res);
       responseMock.expects('redirect').once().withArgs(mediaLogOutUrl);
 
-      const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {'sessionExpires': new Date(now - 10000)}, 'lng': 'en'};
+      const req = {
+        user: { _json: { extension_UserRole: 'VERIFIED' } },
+        session: { sessionExpires: new Date(now - 10000) },
+        lng: 'en',
+      };
       expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
       expect(req.session).to.be.null;
       responseMock.verify();
@@ -142,7 +159,11 @@ describe('Test logout', () => {
       const responseMock = sinon.mock(res);
       responseMock.expects('redirect').never();
 
-      const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {'sessionExpires': new Date(now + 100000)}, 'lng': 'en'};
+      const req = {
+        user: { _json: { extension_UserRole: 'VERIFIED' } },
+        session: { sessionExpires: new Date(now + 100000) },
+        lng: 'en',
+      };
       expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
       responseMock.verify();
     });
@@ -151,7 +172,7 @@ describe('Test logout', () => {
       const responseMock = sinon.mock(res);
       responseMock.expects('redirect').never();
 
-      const req = {'user': {'_json': {'extension_UserRole': 'VERIFIED'}}, 'session': {}, 'lng': 'en'};
+      const req = { user: { _json: { extension_UserRole: 'VERIFIED' } }, session: {}, lng: 'en' };
       expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
       responseMock.verify();
     });
@@ -160,7 +181,7 @@ describe('Test logout', () => {
       const responseMock = sinon.mock(res);
       responseMock.expects('redirect').never();
 
-      const req = {'session': {'sessionExpires': new Date(now - 10000)}, 'lng': 'en'};
+      const req = { session: { sessionExpires: new Date(now - 10000) }, lng: 'en' };
       expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
       responseMock.verify();
     });

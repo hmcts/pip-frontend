@@ -14,15 +14,15 @@ const civilAndFamilyDailyReferenceData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(civilAndFamilyDailyReferenceData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(civilAndFamilyDailyReferenceData);
 sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').resolves(civilAndFamilyDailyReferenceData);
-sinon.stub(LocationService.prototype, 'getLocationById').resolves({name: 'courtName'});
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
 
 describe('Civil and Family Daily Cause List Page', () => {
   describe('on GET', () => {
     test('should return civil and family daily cause list page', async () => {
-      app.request['user'] = {piUserId: '2'};
+      app.request['user'] = { piUserId: '2' };
       await request(app)
         .get('/civil-and-family-daily-cause-list?artefactId=test')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });

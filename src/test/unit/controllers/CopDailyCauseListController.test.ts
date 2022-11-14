@@ -1,11 +1,11 @@
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../main/service/publicationService';
-import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
-import {Response} from 'express';
-import {mockRequest} from '../mocks/mockRequest';
+import { PublicationService } from '../../../main/service/publicationService';
+import { LocationService } from '../../../main/service/locationService';
+import { DataManipulationService } from '../../../main/service/dataManipulationService';
+import { Response } from 'express';
+import { mockRequest } from '../mocks/mockRequest';
 import moment from 'moment';
 import CopDailyCauseListController from '../../../main/controllers/CopDailyCauseListController';
 
@@ -39,8 +39,11 @@ const i18n = {
 };
 
 describe('Cop Daily Cause List Controller', () => {
-
-  const response = { render: () => {return '';}} as unknown as Response;
+  const response = {
+    render: () => {
+      return '';
+    },
+  } as unknown as Response;
   const request = mockRequest(i18n);
   request.path = '/cop-daily-cause-list';
 
@@ -49,8 +52,8 @@ describe('Cop Daily Cause List Controller', () => {
   });
 
   it('should render the cop daily cause list page', async () => {
-    request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+    request.query = { artefactId: artefactId };
+    request.user = { piUserId: '1' };
 
     const responseMock = sinon.mock(response);
     const expectedData = {
@@ -59,7 +62,7 @@ describe('Cop Daily Cause List Controller', () => {
       contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
       publishedDate: '13 February 2022',
       publishedTime: '9:30am',
-      courtName: 'Abergavenny Magistrates\' Court',
+      courtName: "Abergavenny Magistrates' Court",
       regionalJoh: 'Test JoH',
       provenance: 'prov1',
       bill: false,
@@ -74,7 +77,7 @@ describe('Cop Daily Cause List Controller', () => {
   it('should render error page if query param is empty', async () => {
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '123'};
+    request.user = { piUserId: '123' };
 
     const responseMock = sinon.mock(response);
 

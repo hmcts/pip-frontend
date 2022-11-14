@@ -3,22 +3,25 @@ import { app } from '../../main/app';
 
 import request from 'supertest';
 
-app.request['user'] = {id: '1', '_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+app.request['user'] = {
+  id: '1',
+  _json: {
+    extension_UserRole: 'VERIFIED',
+  },
+};
 
 describe('subscription Confirmation', () => {
   describe('on GET', () => {
     test('should return subscription confirmation page', async () => {
       await request(app)
         .get('/pending-subscriptions')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
 
     test('should return pending subscriptions page with no-subscriptions query param', async () => {
       await request(app)
         .get('/pending-subscriptions?no-subscription=true')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 
@@ -26,7 +29,7 @@ describe('subscription Confirmation', () => {
     test('should return subscription confirmation page', async () => {
       await request(app)
         .post('/pending-subscriptions')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });

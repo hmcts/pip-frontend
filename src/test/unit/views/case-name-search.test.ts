@@ -2,7 +2,7 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
+import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
 
 const PAGE_URL = '/case-name-search';
 const pageTitleValue = 'Subscribe by name of the party or parties involved';
@@ -10,17 +10,20 @@ let htmlRes: Document;
 
 sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue').returns([]);
 
-app.request['user'] = { _json: {
-  'extension_UserRole': 'VERIFIED',
-}};
+app.request['user'] = {
+  _json: {
+    extension_UserRole: 'VERIFIED',
+  },
+};
 
 describe('Case name search page', () => {
   beforeAll(async () => {
-
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should have correct page title', () => {
@@ -30,10 +33,13 @@ describe('Case name search page', () => {
 
   it('should display header', () => {
     const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(pageHeading[0].innerHTML).contains('What is the name of the party or parties involved?', 'Page heading does not exist');
+    expect(pageHeading[0].innerHTML).contains(
+      'What is the name of the party or parties involved?',
+      'Page heading does not exist'
+    );
   });
 
-  it('should display continue button',  () => {
+  it('should display continue button', () => {
     const buttons = htmlRes.getElementsByClassName('govuk-button');
     expect(buttons[0].innerHTML).contains('Continue', 'Could not find button');
   });
@@ -61,10 +67,13 @@ describe('Case name search page', () => {
 
 describe('Case name search page with no matching results', () => {
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'case-name': 'bob'}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .post(PAGE_URL)
+      .send({ 'case-name': 'bob' })
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display error summary', () => {
@@ -80,10 +89,11 @@ describe('Case name search page with no matching results', () => {
   it('should display additional messages', () => {
     const additionalMessage = htmlRes.getElementsByClassName('govuk-heading-s');
     const improveResultsMessage = htmlRes.getElementsByClassName('govuk-body');
-    expect(additionalMessage[0].innerHTML).contains('There are no matching results.', 'Could not find additional message');
-    expect(improveResultsMessage[0].innerHTML).contains(
-      'You can:',
-      'Could not find improve results message');
+    expect(additionalMessage[0].innerHTML).contains(
+      'There are no matching results.',
+      'Could not find additional message'
+    );
+    expect(improveResultsMessage[0].innerHTML).contains('You can:', 'Could not find improve results message');
   });
 
   it('should display input with error classes', () => {
@@ -99,10 +109,13 @@ describe('Case name search page with no matching results', () => {
 
 describe('Case name search page with search of less than 3 characters', () => {
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'case-name': 'bo'}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .post(PAGE_URL)
+      .send({ 'case-name': 'bo' })
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display error summary', () => {

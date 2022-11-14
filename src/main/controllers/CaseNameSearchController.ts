@@ -1,12 +1,11 @@
-import { Response} from 'express';
+import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { PipRequest } from '../models/request/PipRequest';
-import {PublicationService} from '../service/publicationService';
+import { PublicationService } from '../service/publicationService';
 
 const publicationService = new PublicationService();
 
 export default class CaseNameSearchController {
-
   public get(req: PipRequest, res: Response): void {
     if (req.query.error === 'true') {
       res.render('case-name-search', {
@@ -14,7 +13,7 @@ export default class CaseNameSearchController {
         noResultsError: true,
       });
     } else {
-      res.render('case-name-search', {...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-name-search'])});
+      res.render('case-name-search', { ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-name-search']) });
     }
   }
 
@@ -22,7 +21,10 @@ export default class CaseNameSearchController {
     const searchInput = req.body['case-name'];
 
     if (searchInput && searchInput.length >= 3) {
-      const searchResults = await publicationService.getCasesByCaseName(searchInput.toLowerCase(), req.user?.['piUserId']);
+      const searchResults = await publicationService.getCasesByCaseName(
+        searchInput.toLowerCase(),
+        req.user?.['piUserId']
+      );
       if (searchResults.length) {
         res.redirect('case-name-search-results?search=' + searchInput);
       } else {

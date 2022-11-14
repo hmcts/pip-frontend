@@ -35,8 +35,8 @@ const unsubscribeValidData = {
 const unsubscribeInvalidData = {
   subscriptionId: 'foo',
 };
-const errorBodyData = {baz: 'qux'};
-const errorRequestBodyData = {foo: 'bar'};
+const errorBodyData = { baz: 'qux' };
+const errorRequestBodyData = { foo: 'bar' };
 const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData2 = JSON.parse(rawData2);
 const stub = sinon.stub(subscriptionManagementApi, 'get');
@@ -66,8 +66,10 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
 
 describe('getUserSubscriptions error tests', () => {
   beforeEach(() => {
-    stub.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves({'data': []});
-    stub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({'data': {caseSubscriptions: [], courtSubscriptions:[]}});
+    stub.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves({ data: [] });
+    stub
+      .withArgs(`/subscription/user/${nonExistingUserId}`)
+      .resolves({ data: { caseSubscriptions: [], courtSubscriptions: [] } });
     stub.withArgs('/subscription/user/99').rejects(errorRequest);
     stub.withArgs('/subscription/user/999').rejects(errorMessage);
     stub.withArgs('/subscription/user/9999').rejects(errorResponse);
@@ -95,25 +97,25 @@ describe('getUserSubscriptions error tests', () => {
 });
 
 describe('subscribe', () => {
-  it('should return true if call is successful', async() => {
+  it('should return true if call is successful', async () => {
     subscriptionManagementStub.withArgs('/subscription').resolves({});
     const userSubscriptions = await subscriptionActions.subscribe({});
     expect(userSubscriptions).toBe(true);
   });
 
-  it('should return false for failure', async() => {
+  it('should return false for failure', async () => {
     subscriptionManagementStub.withArgs('/subscription').rejects(errorMessage);
     const userSubscriptions = await subscriptionActions.subscribe({});
     expect(userSubscriptions).toBe(false);
   });
 
-  it('should return false for error request', async() => {
+  it('should return false for error request', async () => {
     subscriptionManagementStub.withArgs('/subscription').rejects(errorRequest);
     const userSubscriptions = await subscriptionActions.subscribe({});
     expect(userSubscriptions).toBe(false);
   });
 
-  it('should return false for error response', async() => {
+  it('should return false for error response', async () => {
     subscriptionManagementStub.withArgs('/subscription').rejects(errorResponse);
     const userSubscriptions = await subscriptionActions.subscribe({});
     expect(userSubscriptions).toBe(false);
@@ -121,7 +123,7 @@ describe('subscribe', () => {
 });
 
 describe('unsubscribe with valid post data', () => {
-  deleteStub.withArgs('/subscription/123').resolves({data: 'unsubscribed successfully'});
+  deleteStub.withArgs('/subscription/123').resolves({ data: 'unsubscribed successfully' });
   it('should return true if provided data is valid', async () => {
     const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeValidData.subscriptionId);
     expect(unsubscribe).toBe('unsubscribed successfully');
@@ -146,7 +148,7 @@ describe('unsubscribe error states', () => {
   });
 
   describe('unsubscribe error', () => {
-    deleteStub.withArgs(`/subscription/${errorBodyData.baz}`).rejects({error: 'error'});
+    deleteStub.withArgs(`/subscription/${errorBodyData.baz}`).rejects({ error: 'error' });
     it('should return null', async () => {
       const unsubscribe = await subscriptionActions.unsubscribe(errorBodyData.baz);
       expect(unsubscribe).toBe(null);
@@ -155,28 +157,27 @@ describe('unsubscribe error states', () => {
 });
 
 describe('configure list type Location subscriptions for a user', () => {
-  it('should return true if call is successful', async() => {
+  it('should return true if call is successful', async () => {
     subscriptionManagementPutStub.withArgs('/subscription/configure-list-types').resolves({});
-    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions('1',{});
+    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions('1', {});
     expect(subscriptionUpdated).toBe(true);
   });
 
-  it('should return false for failure', async() => {
+  it('should return false for failure', async () => {
     subscriptionManagementPutStub.withArgs('/subscription/configure-list-types/null').rejects(errorMessage);
-    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null,{});
+    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null, {});
     expect(subscriptionUpdated).toBe(false);
   });
 
-  it('should return false for error request', async() => {
+  it('should return false for error request', async () => {
     subscriptionManagementPutStub.withArgs('/subscription/configure-list-types/null').rejects(errorRequest);
-    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null,{});
+    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null, {});
     expect(subscriptionUpdated).toBe(false);
   });
 
-  it('should return false for error response', async() => {
+  it('should return false for error response', async () => {
     subscriptionManagementPutStub.withArgs('/subscription/configure-list-types/null').rejects(errorResponse);
-    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null,{});
+    const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null, {});
     expect(subscriptionUpdated).toBe(false);
   });
 });
-

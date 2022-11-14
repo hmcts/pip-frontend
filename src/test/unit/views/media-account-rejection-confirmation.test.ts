@@ -1,13 +1,12 @@
-import {app} from '../../../main/app';
+import { app } from '../../../main/app';
 import request from 'supertest';
-import {expect} from 'chai';
+import { expect } from 'chai';
 import sinon from 'sinon';
-import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
+import { MediaAccountApplicationService } from '../../../main/service/mediaAccountApplicationService';
 
 let htmlRes: Document;
 
 describe('Media Account Submission Page', () => {
-
   const applicationId = '1234';
 
   const PAGE_URL = '/media-account-rejection?applicantId=' + applicationId;
@@ -33,32 +32,39 @@ describe('Media Account Submission Page', () => {
   const proofOfIdView = 'View';
   const proofOfIdViewLink = '/media-account-review/image?imageId=12345&applicantId=1234';
   const bottomHeader = 'What happens next';
-  const bottomContent = 'Your request for a court and tribunal hearings account has been rejected for the following reason(s)';
+  const bottomContent =
+    'Your request for a court and tribunal hearings account has been rejected for the following reason(s)';
 
   const dummyApplication = {
-    'id': '1234',
-    'fullName': 'Test Name',
-    'email': 'a@b.com',
-    'employer': 'employer',
-    'image': '12345',
-    'imageName': 'ImageName.jpg',
-    'requestDate': '09 May 2022',
-    'status': 'REJECTED',
-    'statusDate': '2022-05-09T00:00:01',
+    id: '1234',
+    fullName: 'Test Name',
+    email: 'a@b.com',
+    employer: 'employer',
+    image: '12345',
+    imageName: 'ImageName.jpg',
+    requestDate: '09 May 2022',
+    status: 'REJECTED',
+    statusDate: '2022-05-09T00:00:01',
   };
 
-  app.request['user'] = {'emails': ['emailA'], _json: {
-    'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-  }};
+  app.request['user'] = {
+    emails: ['emailA'],
+    _json: {
+      extension_UserRole: 'INTERNAL_SUPER_ADMIN_CTSC',
+    },
+  };
 
   sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').returns(dummyApplication);
   sinon.stub(MediaAccountApplicationService.prototype, 'rejectApplication').returns(dummyApplication);
 
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'reject-confirmation': 'Yes'}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .post(PAGE_URL)
+      .send({ 'reject-confirmation': 'Yes' })
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display panel', () => {
@@ -90,7 +96,10 @@ describe('Media Account Submission Page', () => {
   it('should display the summary email mail to', () => {
     const value = htmlRes.getElementsByClassName(summaryCell);
     const anchorTag = value[1].getElementsByTagName('a');
-    expect(anchorTag[0].getAttribute('href')).contains('mailto:a@b.com?subject=Your%20request%20for%20a%20Court%20and%20tribunal%20hearings%20account.', 'Could not find the mail to');
+    expect(anchorTag[0].getAttribute('href')).contains(
+      'mailto:a@b.com?subject=Your%20request%20for%20a%20Court%20and%20tribunal%20hearings%20account.',
+      'Could not find the mail to'
+    );
   });
 
   it('should display employer header', () => {
@@ -143,7 +152,10 @@ describe('Media Account Submission Page', () => {
   it('should display the bottom mail to', () => {
     const bottomSummary = htmlRes.getElementsByClassName(bottomSummaryClass);
     const bottomEmail = bottomSummary[0].getElementsByTagName('a');
-    expect(bottomEmail[0].getAttribute('href')).contains('mailto:a@b.com?subject=Your%20request%20for%20a%20Court%20and%20tribunal%20hearings%20account.', 'Could not find the mail to');
+    expect(bottomEmail[0].getAttribute('href')).contains(
+      'mailto:a@b.com?subject=Your%20request%20for%20a%20Court%20and%20tribunal%20hearings%20account.',
+      'Could not find the mail to'
+    );
   });
 
   it('should display the bottom content reason title', () => {
@@ -154,7 +166,9 @@ describe('Media Account Submission Page', () => {
   it('should display link back to the create media account page', () => {
     const bottomElement = htmlRes.getElementsByClassName(bottomContentClass);
     const header = bottomElement[0].getElementsByTagName('a');
-    expect(header[0].getAttribute('href')).contains('/create-media-account', 'Could not find the link back to create media account');
+    expect(header[0].getAttribute('href')).contains(
+      '/create-media-account',
+      'Could not find the link back to create media account'
+    );
   });
-
 });

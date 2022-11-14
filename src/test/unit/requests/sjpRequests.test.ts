@@ -13,7 +13,7 @@ const sjpRequests = new SjpRequests();
 
 describe('getSJPCases request', () => {
   const casesList = sjpRequests.getSJPCases();
-  const randomCase = casesList[Math.floor(Math.random()*casesList.length)];
+  const randomCase = casesList[Math.floor(Math.random() * casesList.length)];
 
   it('should return list of SJP cases', () => {
     expect(casesList.length).toBe(totalCases);

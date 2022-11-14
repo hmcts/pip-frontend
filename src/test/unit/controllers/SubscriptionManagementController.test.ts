@@ -3,16 +3,19 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import { SubscriptionService } from '../../../main/service/subscriptionService';
-import {cloneDeep} from 'lodash';
+import { cloneDeep } from 'lodash';
 
 const subscriptionManagementController = new SubscriptionManagementController();
 
 describe('Subscriptions Management Controller', () => {
+  sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns({ cases: [] });
+  sinon.stub(SubscriptionService.prototype, 'generateLocationTableRows').returns({ courts: [] });
 
-  sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns({cases:[]});
-  sinon.stub(SubscriptionService.prototype, 'generateLocationTableRows').returns({courts:[]});
-
-  const response = { render: () => {return '';}} as unknown as Response;
+  const response = {
+    render: () => {
+      return '';
+    },
+  } as unknown as Response;
   let responseMock;
 
   beforeEach(function () {
@@ -22,7 +25,7 @@ describe('Subscriptions Management Controller', () => {
 
   const i18n = {
     'subscription-management': {},
-    'error': {},
+    error: {},
   };
   const tableData = {
     caseTableData: [],
@@ -34,7 +37,6 @@ describe('Subscriptions Management Controller', () => {
   const stubCourt = [];
 
   it('should render the subscription management page with all as default', () => {
-
     request.query = {};
 
     const expectedData = {
@@ -54,7 +56,7 @@ describe('Subscriptions Management Controller', () => {
   });
 
   it('should render the subscription management page with all query param', () => {
-    request.query = {'all': 'true'};
+    request.query = { all: 'true' };
 
     const expectedData = {
       ...i18n['subscription-management'],
@@ -72,7 +74,7 @@ describe('Subscriptions Management Controller', () => {
   });
 
   it('should render the subscription management page with case query param', () => {
-    request.query = {'case': 'true'};
+    request.query = { case: 'true' };
 
     const expectedData = {
       ...i18n['subscription-management'],
@@ -90,7 +92,7 @@ describe('Subscriptions Management Controller', () => {
   });
 
   it('should render the subscription management page with court query param', () => {
-    request.query = {'court': 'true'};
+    request.query = { court: 'true' };
 
     const expectedData = {
       ...i18n['subscription-management'],

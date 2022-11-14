@@ -10,9 +10,7 @@ const assets = path.resolve(root, 'assets');
 const images = path.resolve(assets, 'images');
 
 const copyMojTemplateAssets = new CopyWebpackPlugin({
-  patterns: [
-    { from: images, to: 'assets/images' },
-  ],
+  patterns: [{ from: images, to: 'assets/images' }],
 });
 
 module.exports = {

@@ -3,8 +3,8 @@ import { Response } from 'express';
 import CaseReferenceNumberSearchResultController from '../../../main/controllers/CaseReferenceNumberSearchResultController';
 import fs from 'fs';
 import path from 'path';
-import {mockRequest} from '../mocks/mockRequest';
-import {PublicationService} from '../../../main/service/publicationService';
+import { mockRequest } from '../mocks/mockRequest';
+import { PublicationService } from '../../../main/service/publicationService';
 
 const caseReferenceNumberSearchResultController = new CaseReferenceNumberSearchResultController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
@@ -24,15 +24,14 @@ const response = {
 describe('Case Reference Number Search Result Controller', () => {
   const i18n = {};
   it('should render the search result page', () => {
-
     const request = mockRequest(i18n);
-    request.query = { 'search-input': validCaseNo};
-    request.user = {piUserId: '1'};
+    request.query = { 'search-input': validCaseNo };
+    request.user = { piUserId: '1' };
     const responseMock = sinon.mock(response);
 
     const expectedData = {
       ...i18n['case-reference-number-search-results'],
-      searchInput : validCaseNo,
+      searchInput: validCaseNo,
       searchResults: subscriptionsCaseData,
     };
 
@@ -44,10 +43,9 @@ describe('Case Reference Number Search Result Controller', () => {
   });
 
   it('should render an error page if search input does not return any results', () => {
-
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '1'};
+    request.user = { piUserId: '1' };
 
     const responseMock = sinon.mock(response);
 

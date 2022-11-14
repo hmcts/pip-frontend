@@ -5,7 +5,7 @@ import { SubscriptionService } from '../../../main/service/subscriptionService';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {PublicationService} from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/publicationService';
 
 const mockCourt = {
   locationId: 643,
@@ -35,10 +35,8 @@ const courtSubscriptionPayload = {
   userId: '1',
   listType: ['SJP_PUBLIC_LIST'],
 };
-const courtSubscriptionWithSingleListTypePayload =
-  ['CIVIL_DAILY_CAUSE_LIST'];
-const courtSubscriptionWithMultipleListTypePayload =
-  ['CIVIL_DAILY_CAUSE_LIST','FAMILY_DAILY_CAUSE_LIST'];
+const courtSubscriptionWithSingleListTypePayload = ['CIVIL_DAILY_CAUSE_LIST'];
+const courtSubscriptionWithMultipleListTypePayload = ['CIVIL_DAILY_CAUSE_LIST', 'FAMILY_DAILY_CAUSE_LIST'];
 const courtSubscriptionWithEmptyListTypePayload = [];
 
 const caseSubscriptionPayload = {
@@ -57,7 +55,7 @@ const blankPayload = {
   userId: '5',
 };
 
-const user = {oid: '1234'};
+const user = { oid: '1234' };
 
 const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';
@@ -76,7 +74,10 @@ sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(mockCase);
 const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
 const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
-const updateListTypeSubscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'configureListTypeForLocationSubscriptions');
+const updateListTypeSubscriptionStub = sinon.stub(
+  SubscriptionRequests.prototype,
+  'configureListTypeForLocationSubscriptions'
+);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', '1').resolves(true);
 subscriptionStub.withArgs(blankPayload, 'courts', '1').resolves(false);
@@ -96,8 +97,8 @@ cacheGetStub.withArgs(userIdWithSubscriptions, 'cases').resolves([mockCase]);
 cacheGetStub.withArgs(userIdWithSubscriptions, 'courts').resolves([mockCourt]);
 cacheGetStub.withArgs(userIdWithoutSubscriptions, 'cases').resolves([]);
 cacheGetStub.withArgs(userIdWithoutSubscriptions, 'courts').resolves([]);
-removeStub.withArgs({case: '888'}, userIdWithSubscriptions).resolves();
-removeStub.withArgs({court: '111'}, userIdWithSubscriptions).resolves();
+removeStub.withArgs({ case: '888' }, userIdWithSubscriptions).resolves();
+removeStub.withArgs({ court: '111' }, userIdWithSubscriptions).resolves();
 deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
 deleteStub.withArgs('InValidSubscriptionId').resolves(null);
 updateListTypeSubscriptionStub.withArgs('1', courtSubscriptionWithSingleListTypePayload).resolves(true);
@@ -107,27 +108,27 @@ updateListTypeSubscriptionStub.withArgs(null, courtSubscriptionWithEmptyListType
 
 describe('handleNewSubscription function', () => {
   it('should add new case subscription', async () => {
-    const pendingSubscription = {'hearing-selections[]': 'T485914'};
+    const pendingSubscription = { 'hearing-selections[]': 'T485914' };
     await subscriptionService.handleNewSubscription(pendingSubscription, '1');
   });
 
   it('should add new case subscriptions', async () => {
-    const pendingSubscription = {'hearing-selections[]': ['T485914', 'T485912']};
+    const pendingSubscription = { 'hearing-selections[]': ['T485914', 'T485912'] };
     await subscriptionService.handleNewSubscription(pendingSubscription, '1');
   });
 
   it('should add new case subscription for urn search', async () => {
-    const pendingSubscription = {urn: 'ValidURN'};
+    const pendingSubscription = { urn: 'ValidURN' };
     await subscriptionService.handleNewSubscription(pendingSubscription, '99');
   });
 
   it('should add new court subscription', async () => {
-    const pendingSubscription = {'court-selections[]': '643'};
+    const pendingSubscription = { 'court-selections[]': '643' };
     await subscriptionService.handleNewSubscription(pendingSubscription, '1');
   });
 
   it('should add new court subscriptions', async () => {
-    const pendingSubscription = {'court-selections[]': ['643', '111']};
+    const pendingSubscription = { 'court-selections[]': ['643', '111'] };
     await subscriptionService.handleNewSubscription(pendingSubscription, '1');
   });
 
@@ -204,12 +205,18 @@ describe('getPendingSubscriptions function', () => {
   });
 
   it('should return empty list of courts from the cache', async () => {
-    const cachedCourts  = await pendingSubscriptionsFromCache.getPendingSubscriptions(userIdWithoutSubscriptions, 'courts');
+    const cachedCourts = await pendingSubscriptionsFromCache.getPendingSubscriptions(
+      userIdWithoutSubscriptions,
+      'courts'
+    );
     expect(cachedCourts).toEqual([]);
   });
 
   it('should return empty list of cases from the cache', async () => {
-    const cachedCases = await pendingSubscriptionsFromCache.getPendingSubscriptions(userIdWithoutSubscriptions, 'cases');
+    const cachedCases = await pendingSubscriptionsFromCache.getPendingSubscriptions(
+      userIdWithoutSubscriptions,
+      'cases'
+    );
     expect(cachedCases).toEqual([]);
   });
 });
@@ -245,17 +252,16 @@ describe('subscribe function', () => {
     const subscriptionRes = await subscriptionService.subscribe(userIdWithoutSubscriptions);
     expect(subscriptionRes).toBe(true);
   });
-
 });
 
 describe('removeFromCache function', () => {
   it('should call a function to remove a case from the cache', async () => {
-    await pendingSubscriptionsFromCache.removeFromCache({case: '888'}, userIdWithSubscriptions);
+    await pendingSubscriptionsFromCache.removeFromCache({ case: '888' }, userIdWithSubscriptions);
     sinon.assert.called(removeStub);
   });
 
   it('should call a function to remove a court from the cache', async () => {
-    await pendingSubscriptionsFromCache.removeFromCache({court: '111'}, userIdWithSubscriptions);
+    await pendingSubscriptionsFromCache.removeFromCache({ court: '111' }, userIdWithSubscriptions);
     sinon.assert.called(removeStub);
   });
 });
@@ -314,15 +320,17 @@ describe('unsubscribing', () => {
 });
 
 describe('generateListTypesForCourts', () => {
-
   const userId = 1234;
-  const subscriptionData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/listTypeSubscriptions/listTypeSubscriptions.json'), 'utf-8');
+  const subscriptionData = fs.readFileSync(
+    path.resolve(__dirname, '../../../test/unit/mocks/listTypeSubscriptions/listTypeSubscriptions.json'),
+    'utf-8'
+  );
   const returnedSubscriptions = JSON.parse(subscriptionData);
 
   stubUserSubscription.withArgs(userId).returns(returnedSubscriptions.data);
 
   it('generate list types with no filters with no selected', async () => {
-    locationStub.withArgs(1).resolves({jurisdiction: ['Civil']});
+    locationStub.withArgs(1).resolves({ jurisdiction: ['Civil'] });
 
     const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', '', '', 'en');
 
@@ -358,7 +366,7 @@ describe('generateListTypesForCourts', () => {
   });
 
   it('generate list types with no filters with no selected in Welsh', async () => {
-    locationStub.withArgs(1).resolves({jurisdiction: ['Civil']});
+    locationStub.withArgs(1).resolves({ jurisdiction: ['Civil'] });
 
     const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', '', '', 'cy');
 
@@ -394,7 +402,7 @@ describe('generateListTypesForCourts', () => {
   });
 
   it('generate list types with filters selected', async () => {
-    locationStub.withArgs(1).resolves({jurisdiction: ['Civil']});
+    locationStub.withArgs(1).resolves({ jurisdiction: ['Civil'] });
 
     const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'Family', '', 'en');
 
@@ -435,7 +443,7 @@ describe('generateListTypesForCourts', () => {
   });
 
   it('generate list types with filters selected in Welsh', async () => {
-    locationStub.withArgs(1).resolves({jurisdiction: ['Civil']});
+    locationStub.withArgs(1).resolves({ jurisdiction: ['Civil'] });
 
     const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'Llys Teulu', '', 'cy');
 
@@ -476,7 +484,7 @@ describe('generateListTypesForCourts', () => {
   });
 
   it('generate list types with filters and clear', async () => {
-    locationStub.withArgs(1).resolves({jurisdiction: ['Civil']});
+    locationStub.withArgs(1).resolves({ jurisdiction: ['Civil'] });
 
     const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'Family', 'Family', 'en');
 
@@ -515,18 +523,24 @@ describe('generateListTypesForCourts', () => {
   });
 
   it('should generate location table rows when language is English', async () => {
-    const mockSubscriptionData = [{locationId: '643'}];
-    const result = await subscriptionService.generateLocationTableRows(mockSubscriptionData, 'en',
-      'subscription-management');
+    const mockSubscriptionData = [{ locationId: '643' }];
+    const result = await subscriptionService.generateLocationTableRows(
+      mockSubscriptionData,
+      'en',
+      'subscription-management'
+    );
 
     expect(result[0][0].text).toEqual('Aberdeen Tribunal Hearing Centre');
     expect(result[0][2].html).toContain('Unsubscribe');
   });
 
   it('should generate location table rows when language is Welsh', async () => {
-    const mockSubscriptionData = [{locationId: '643'}];
-    const result = await subscriptionService.generateLocationTableRows(mockSubscriptionData, 'cy',
-      'subscription-management');
+    const mockSubscriptionData = [{ locationId: '643' }];
+    const result = await subscriptionService.generateLocationTableRows(
+      mockSubscriptionData,
+      'cy',
+      'subscription-management'
+    );
 
     expect(result[0][0].text).toEqual('Welsh court name test');
     expect(result[0][2].html).toContain('dad-danysgrifio');

@@ -1,6 +1,6 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import {cloneDeep} from 'lodash';
+import { cloneDeep } from 'lodash';
 
 export default class SystemAdminDashboardController {
   public get(req: PipRequest, res: Response): void {

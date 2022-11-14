@@ -17,18 +17,21 @@ const expectedRadioLabel2 = 'By unique reference number (URN)';
 const expectedRadioLabel3 = 'By name of party or parties involved';
 const expectedRadioLabel4 = 'By court or tribunal name';
 
-app.request['user'] = { _json: {
-  'extension_UserRole': 'VERIFIED',
-}};
+app.request['user'] = {
+  _json: {
+    extension_UserRole: 'VERIFIED',
+  },
+};
 
 let htmlRes: Document;
 describe('Subscriptions add Page initial load', () => {
   beforeAll(async () => {
-
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should have correct page title', () => {
@@ -47,7 +50,7 @@ describe('Subscriptions add Page initial load', () => {
     expect(errorSummary.length).equals(0, 'Error summary is incorrectly displayed');
   });
 
-  it('should display header',  () => {
+  it('should display header', () => {
     const header = htmlRes.getElementsByClassName(headingClass);
     expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
   });
@@ -62,7 +65,7 @@ describe('Subscriptions add Page initial load', () => {
     expect(subscriptionChoice.getAttribute('class')).not.contains('govuk-form-group--error');
   });
 
-  it('should display continue button',  () => {
+  it('should display continue button', () => {
     const buttons = htmlRes.getElementsByClassName(buttonClass);
     expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
   });
@@ -72,39 +75,53 @@ describe('Subscriptions add Page initial load', () => {
     expect(radioButtons.length).equal(4, '4 radio buttons not found');
   });
 
-  it('should display first radio button content',  () => {
+  it('should display first radio button content', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[2].innerHTML).contains(expectedRadioLabel1, 'Could not find the radio button with label ' + expectedRadioLabel1);
+    expect(radioButtons[2].innerHTML).contains(
+      expectedRadioLabel1,
+      'Could not find the radio button with label ' + expectedRadioLabel1
+    );
   });
 
-  it('should display second radio button content',  () => {
+  it('should display second radio button content', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[1].innerHTML).contains(expectedRadioLabel2, 'Could not find the radio button with label ' + expectedRadioLabel2);
+    expect(radioButtons[1].innerHTML).contains(
+      expectedRadioLabel2,
+      'Could not find the radio button with label ' + expectedRadioLabel2
+    );
   });
 
-  it('should display third radio button content',  () => {
+  it('should display third radio button content', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[3].innerHTML).contains(expectedRadioLabel3, 'Could not find the radio button with label ' + expectedRadioLabel2);
+    expect(radioButtons[3].innerHTML).contains(
+      expectedRadioLabel3,
+      'Could not find the radio button with label ' + expectedRadioLabel2
+    );
   });
 
-  it('should display fourth radio button content',  () => {
+  it('should display fourth radio button content', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
-    expect(radioButtons[0].innerHTML).contains(expectedRadioLabel4, 'Could not find the radio button with label ' + expectedRadioLabel2);
+    expect(radioButtons[0].innerHTML).contains(
+      expectedRadioLabel4,
+      'Could not find the radio button with label ' + expectedRadioLabel2
+    );
   });
 });
 
 describe('Subscriptions add page no selection entered', () => {
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({selectionError: true}).then(res => {
-
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .post(PAGE_URL)
+      .send({ selectionError: true })
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display the error summary when no selection is entered', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryClass);
-    expect(errorSummary[0].innerHTML).contains( 'Please tell us how you would like to add a subscription');
+    expect(errorSummary[0].innerHTML).contains('Please tell us how you would like to add a subscription');
   });
 
   it('should not display the error message when no selection is entered', () => {
@@ -117,4 +134,3 @@ describe('Subscriptions add page no selection entered', () => {
     expect(subscriptionChoice.getAttribute('class')).contains('govuk-form-group--error');
   });
 });
-

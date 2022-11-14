@@ -1,7 +1,7 @@
 import { CommonPage } from './Common.page';
 import { CreateSystemAdminAccountPage } from './CreateSystemAdminAccount.page';
-import {SessionLoggedOutPage} from './SessionLoggedOut.page';
-import {ManualReferenceDataUploadPage} from './ManualReferenceDataUpload.page';
+import { SessionLoggedOutPage } from './SessionLoggedOut.page';
+import { ManualReferenceDataUploadPage } from './ManualReferenceDataUpload.page';
 
 const helpers = require('../Helpers/Selectors');
 

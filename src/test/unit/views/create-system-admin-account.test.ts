@@ -1,23 +1,27 @@
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import {request as expressRequest} from 'express';
+import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/create-system-admin-account';
 const errors = ['Enter first name', 'Enter last name', 'Enter email address'];
 let htmlRes: Document;
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'SYSTEM_ADMIN',
+  },
+};
 
 describe('Create System Admin Account Page', () => {
   describe('on GET', () => {
     beforeAll(async () => {
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should display header', () => {
@@ -47,7 +51,7 @@ describe('Create System Admin Account Page', () => {
       expect(input.getAttribute('type')).equals('email', 'Could not correct input type');
     });
 
-    it('should display continue button',  () => {
+    it('should display continue button', () => {
       const buttons = htmlRes.getElementsByClassName('govuk-button');
       expect(buttons[0].innerHTML).contains('Continue', 'Could not find button');
     });
@@ -55,21 +59,25 @@ describe('Create System Admin Account Page', () => {
 
   describe('on POST', () => {
     beforeAll(async () => {
-      await request(app).post(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      await request(app)
+        .post(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should display error dialog', () => {
       const dialog = htmlRes.getElementsByClassName('govuk-error-summary');
-      expect(dialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML)
-        .contains('There is a problem', 'Could not find error dialog title');
+      expect(dialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML).contains(
+        'There is a problem',
+        'Could not find error dialog title'
+      );
     });
 
     it('should display error summary messages', () => {
       const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
-      for(let i = 0; i < errorMessage.length; i++) {
+      for (let i = 0; i < errorMessage.length; i++) {
         expect(errorMessage[i].innerHTML).contains(errors[i], 'Could not find error for an radio');
       }
     });

@@ -1,7 +1,7 @@
-import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
 import fs from 'fs';
-import {FileHandlingService} from './fileHandlingService';
-import {LanguageFileParser} from '../helpers/languageFileParser';
+import { FileHandlingService } from './fileHandlingService';
+import { LanguageFileParser } from '../helpers/languageFileParser';
 
 const languageFileParser = new LanguageFileParser();
 const adminRolesList = [
@@ -34,8 +34,7 @@ const accountManagementRequests = new AccountManagementRequests();
 const fileHandlingService = new FileHandlingService();
 
 export class CreateAccountService {
-  public validateFormFields(formValues: object, file: File,
-    language: string, languageFile: string): object {
+  public validateFormFields(formValues: object, file: File, language: string, languageFile: string): object {
     return {
       nameError: {
         message: this.validateMediaFullName(formValues['fullName'], language, languageFile),
@@ -58,7 +57,6 @@ export class CreateAccountService {
         href: '#tcbox',
       },
     };
-
   }
 
   /**
@@ -67,18 +65,19 @@ export class CreateAccountService {
    * @param language The language to use.
    * @param languageFile The language file to use.
    */
-  public validateAdminFormFields(formValues: object,
-    language: string, languageFile: string): object {
+  public validateAdminFormFields(formValues: object, language: string, languageFile: string): object {
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     return {
       firstNameError: {
-        message: this.isNotBlank(formValues['firstName']) ? null :
-          languageFileParser.getText(fileJson, null, 'firstnameError'),
+        message: this.isNotBlank(formValues['firstName'])
+          ? null
+          : languageFileParser.getText(fileJson, null, 'firstnameError'),
         href: '#firstName',
       },
       lastNameError: {
-        message: this.isNotBlank(formValues['lastName']) ? null :
-          languageFileParser.getText(fileJson, null, 'surnameError'),
+        message: this.isNotBlank(formValues['lastName'])
+          ? null
+          : languageFileParser.getText(fileJson, null, 'surnameError'),
         href: '#lastName',
       },
       emailError: {
@@ -94,15 +93,12 @@ export class CreateAccountService {
    * @param language The language to use.
    * @param languageFile The language file to use.
    */
-  public validateAdminFormFieldsWithRole(formValues: object,
-    language: string, languageFile: string): object {
-
+  public validateAdminFormFieldsWithRole(formValues: object, language: string, languageFile: string): object {
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     const stateReturn = this.validateAdminFormFields(formValues, language, languageFile);
 
     stateReturn['radioError'] = {
-      message: formValues['user-role'] ? null :
-        languageFileParser.getText(fileJson, null, 'roleError'),
+      message: formValues['user-role'] ? null : languageFileParser.getText(fileJson, null, 'roleError'),
       href: '#user-role',
     };
 
@@ -115,7 +111,7 @@ export class CreateAccountService {
 
   public buildRadiosList(checkedRadio = ''): any[] {
     const radios = [];
-    adminRolesList.forEach((role) => {
+    adminRolesList.forEach(role => {
       radios.push({
         value: role.key,
         text: role.text,
@@ -129,7 +125,7 @@ export class CreateAccountService {
   }
 
   isNotBlank(input): boolean {
-    return !!(input);
+    return !!input;
   }
 
   isDoubleSpaced(input): boolean {
@@ -153,7 +149,7 @@ export class CreateAccountService {
       return languageFileParser.getText(fileJson, 'fullNameErrors', 'whiteSpace');
     } else if (this.isDoubleSpaced(input)) {
       return languageFileParser.getText(fileJson, 'fullNameErrors', 'doubleWhiteSpace');
-    } else if ((input.split(' ').length - 1) < 1) {
+    } else if (input.split(' ').length - 1 < 1) {
       return languageFileParser.getText(fileJson, 'fullNameErrors', 'nameWithoutWhiteSpace');
     }
     return null;
@@ -187,7 +183,7 @@ export class CreateAccountService {
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (this.isNotBlank(email)) {
       if (!this.isValidEmail(email)) {
-        message =  languageFileParser.getText(fileJson, 'emailErrors', 'invalidEmailAddress');
+        message = languageFileParser.getText(fileJson, 'emailErrors', 'invalidEmailAddress');
       }
     } else {
       message = languageFileParser.getText(fileJson, 'emailErrors', 'blank');
@@ -205,29 +201,35 @@ export class CreateAccountService {
   }
 
   formatCreateAdminAccountPayload(accountObject): any[] {
-    return [{
-      email: accountObject.emailAddress,
-      firstName: accountObject.firstName,
-      surname: accountObject.lastName,
-      role: accountObject.userRoleObject.mapping,
-    }];
+    return [
+      {
+        email: accountObject.emailAddress,
+        firstName: accountObject.firstName,
+        surname: accountObject.lastName,
+        role: accountObject.userRoleObject.mapping,
+      },
+    ];
   }
 
   formatCreateMediaAccountPayload(accountObject): any[] {
-    return [{
-      email: accountObject.emailAddress,
-      firstName: accountObject.fullName,
-      role: 'VERIFIED',
-    }];
+    return [
+      {
+        email: accountObject.emailAddress,
+        firstName: accountObject.fullName,
+        role: 'VERIFIED',
+      },
+    ];
   }
 
   formatCreateAccountPIPayload(azureAccount): any[] {
-    return [{
-      email: azureAccount.email,
-      provenanceUserId: azureAccount.azureAccountId,
-      roles: azureAccount.role,
-      userProvenance: 'PI_AAD',
-    }];
+    return [
+      {
+        email: azureAccount.email,
+        provenanceUserId: azureAccount.azureAccountId,
+        roles: azureAccount.role,
+        userProvenance: 'PI_AAD',
+      },
+    ];
   }
 
   formatCreateMediaAccount(accountObject, file): any {
@@ -245,20 +247,28 @@ export class CreateAccountService {
 
   public async createAdminAccount(payload: object, requester: string): Promise<boolean> {
     const azureResponse = await accountManagementRequests.createAzureAccount(
-      this.formatCreateAdminAccountPayload(payload), requester);
+      this.formatCreateAdminAccountPayload(payload),
+      requester
+    );
     if (azureResponse?.['CREATED_ACCOUNTS'][0]) {
       return await accountManagementRequests.createPIAccount(
-        this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]), requester);
+        this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]),
+        requester
+      );
     }
     return false;
   }
 
   public async createMediaAccount(payload: object, requester: string): Promise<boolean> {
     const azureResponse = await accountManagementRequests.createAzureAccount(
-      this.formatCreateMediaAccountPayload(payload), requester);
+      this.formatCreateMediaAccountPayload(payload),
+      requester
+    );
     if (azureResponse?.['CREATED_ACCOUNTS'][0]) {
       return await accountManagementRequests.createPIAccount(
-        this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]), requester);
+        this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]),
+        requester
+      );
     }
     return false;
   }

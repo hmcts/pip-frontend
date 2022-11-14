@@ -17,19 +17,26 @@ cacheStub.withArgs('2', 'cases').resolves(['cached case']);
 cacheStub.withArgs('2', 'courts').resolves(['cached court']);
 cacheStub.withArgs('3', 'cases').resolves([]);
 cacheStub.withArgs('3', 'courts').resolves([]);
-const response = {render: () => {return '';}} as unknown as Response;
+const response = {
+  render: () => {
+    return '';
+  },
+} as unknown as Response;
 const i18n = {
   'subscription-confirmed': {},
-  'error': {},
+  error: {},
 };
 
 describe('Subscriptions Confirmed Controller', () => {
   it('should render confirmed page if subscribed successfully', () => {
     const request = mockRequest(i18n);
-    request.user = {piUserId: '1'};
+    request.user = { piUserId: '1' };
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('subscription-confirmed', {...i18n['subscription-confirmed']});
+    responseMock
+      .expects('render')
+      .once()
+      .withArgs('subscription-confirmed', { ...i18n['subscription-confirmed'] });
 
     subscriptionConfirmedController.post(request, response).then(() => {
       responseMock.verify();
@@ -38,10 +45,13 @@ describe('Subscriptions Confirmed Controller', () => {
 
   it('should render error page if subscription failed', () => {
     const request = mockRequest(i18n);
-    request.user = {piUserId: '2'};
+    request.user = { piUserId: '2' };
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('error', {...i18n.error});
+    responseMock
+      .expects('render')
+      .once()
+      .withArgs('error', { ...i18n.error });
     subscriptionConfirmedController.post(request, response).then(() => {
       responseMock.verify();
     });
@@ -49,8 +59,15 @@ describe('Subscriptions Confirmed Controller', () => {
 
   it('should redirect to pending subscriptions if there are no cached subscriptions', () => {
     const request = mockRequest(i18n);
-    request.user = {piUserId: '3'};
-    const response = {render: () => {return '';}, redirect: () => {return '';}} as unknown as Response;
+    request.user = { piUserId: '3' };
+    const response = {
+      render: () => {
+        return '';
+      },
+      redirect: () => {
+        return '';
+      },
+    } as unknown as Response;
     const responseMock = sinon.mock(response);
 
     responseMock.expects('redirect').once().withArgs('pending-subscriptions?no-subscriptions=true');

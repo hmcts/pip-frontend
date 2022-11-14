@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {LocationRequests} from '../../../main/resources/requests/locationRequests';
+import { LocationRequests } from '../../../main/resources/requests/locationRequests';
 
 const PAGE_URL = '/alphabetical-search';
 
@@ -17,9 +17,11 @@ sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 
 describe('Alphabetical Search page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
   });
 
   it('should have correct page title', () => {
@@ -29,16 +31,13 @@ describe('Alphabetical Search page', () => {
 
   it('should display a back button with the correct value', () => {
     const backLink = htmlRes.getElementsByClassName('govuk-back-link');
-    expect(backLink[0].innerHTML)
-      .contains('Back', 'Back button does not contain correct text');
-    expect(backLink[0].getAttribute('href'))
-      .equal('#', 'Back value does not contain correct link');
+    expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
+    expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
   });
 
   it('should contain the find a court heading', () => {
     const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(pageHeading[0].innerHTML)
-      .contains('Find a court or tribunal', 'Page heading does not exist');
+    expect(pageHeading[0].innerHTML).contains('Find a court or tribunal', 'Page heading does not exist');
   });
 
   it('should contain letters that navigate to other sections of the page', () => {
@@ -63,9 +62,9 @@ describe('Alphabetical Search page', () => {
     });
   });
 
-  it('should have the first cell containing Abergavenny Magistrates\' Court', () => {
+  it("should have the first cell containing Abergavenny Magistrates' Court", () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[0].innerHTML).contains('Abergavenny Magistrates\' Court');
+    expect(cell[0].innerHTML).contains("Abergavenny Magistrates' Court");
   });
 
   it('should contain a back to top link, that links back up to the top', () => {

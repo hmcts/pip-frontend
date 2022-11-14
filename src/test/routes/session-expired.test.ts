@@ -7,7 +7,7 @@ describe('Session expired', () => {
     test('should return session expired page', async () => {
       await request(app)
         .get('/session-expired')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });

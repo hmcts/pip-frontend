@@ -1,13 +1,12 @@
-import {app} from '../../../main/app';
+import { app } from '../../../main/app';
 import request from 'supertest';
-import {expect} from 'chai';
+import { expect } from 'chai';
 import sinon from 'sinon';
-import {MediaAccountApplicationService} from '../../../main/service/mediaAccountApplicationService';
+import { MediaAccountApplicationService } from '../../../main/service/mediaAccountApplicationService';
 
 let htmlRes: Document;
 
 describe('Media Account Confirmation Page', () => {
-
   const applicationId = '1234';
 
   const PAGE_URL = '/media-account-approval?applicantId=' + applicationId;
@@ -32,32 +31,39 @@ describe('Media Account Confirmation Page', () => {
   const proofOfIdView = 'View';
   const proofOfIdViewLink = '/media-account-review/image?imageId=12345&applicantId=1234';
   const bottomHeader = 'What happens next';
-  const bottomContent = 'This account will be created and the applicant will be notified to set up their account. If an account already exists the applicant will be asked to sign in, or choose forgot password.';
+  const bottomContent =
+    'This account will be created and the applicant will be notified to set up their account. If an account already exists the applicant will be asked to sign in, or choose forgot password.';
 
   const dummyApplication = {
-    'id': '1234',
-    'fullName': 'Test Name',
-    'email': 'a@b.com',
-    'employer': 'employer',
-    'image': '12345',
-    'imageName': 'ImageName.jpg',
-    'requestDate': '09 May 2022',
-    'status': 'PENDING',
-    'statusDate': '2022-05-09T00:00:01',
+    id: '1234',
+    fullName: 'Test Name',
+    email: 'a@b.com',
+    employer: 'employer',
+    image: '12345',
+    imageName: 'ImageName.jpg',
+    requestDate: '09 May 2022',
+    status: 'PENDING',
+    statusDate: '2022-05-09T00:00:01',
   };
 
   sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').returns(dummyApplication);
   sinon.stub(MediaAccountApplicationService.prototype, 'createAccountFromApplication').returns(dummyApplication);
 
-  app.request['user'] = {'emails': ['emailA'], _json: {
-    'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-  }};
+  app.request['user'] = {
+    emails: ['emailA'],
+    _json: {
+      extension_UserRole: 'INTERNAL_SUPER_ADMIN_CTSC',
+    },
+  };
 
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'approved': 'Yes'}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .post(PAGE_URL)
+      .send({ approved: 'Yes' })
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display panel', () => {
@@ -136,5 +142,4 @@ describe('Media Account Confirmation Page', () => {
     const header = htmlRes.getElementsByClassName(bottomContentClass);
     expect(header[0].innerHTML).contains(bottomContent, 'Could not find the bottom content');
   });
-
 });

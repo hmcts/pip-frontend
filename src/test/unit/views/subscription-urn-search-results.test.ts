@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
-import {PublicationService} from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/publicationService';
 
 const searchTerm = 'N363N6R4OG';
 const numOfResults = '1';
@@ -19,17 +19,21 @@ let htmlRes: Document;
 
 sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').returns(subscriptionsData);
 
-app.request['user'] = { _json: {
-  'extension_UserRole': 'VERIFIED',
-}};
+app.request['user'] = {
+  _json: {
+    extension_UserRole: 'VERIFIED',
+  },
+};
 
 const pageTitleValue = 'Search result';
 
 describe('Search Results Page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
   });
 
   it('should have correct page title', () => {

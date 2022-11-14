@@ -1,4 +1,4 @@
-import {Cases} from './cases';
+import { Cases } from './cases';
 
 export interface Artefact {
   artefactId: string;

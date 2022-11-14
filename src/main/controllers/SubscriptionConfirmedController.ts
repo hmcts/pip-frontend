@@ -14,9 +14,9 @@ export default class SubscriptionConfirmedController {
 
     if (cachedCases?.length || cachedCourts?.length) {
       const subscribed = await subscriptionService.subscribe(userId);
-      subscribed ?
-        res.render('subscription-confirmed', req.i18n.getDataByLanguage(req.lng)['subscription-confirmed']) :
-        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+      subscribed
+        ? res.render('subscription-confirmed', req.i18n.getDataByLanguage(req.lng)['subscription-confirmed'])
+        : res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     } else {
       res.redirect('pending-subscriptions?no-subscriptions=true');
     }

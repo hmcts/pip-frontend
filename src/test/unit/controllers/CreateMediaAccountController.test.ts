@@ -19,7 +19,7 @@ const invalidBody = {
 };
 const responseErrors = {
   nameError: {
-    message:  'error',
+    message: 'error',
     href: '#fullName',
   },
   emailError: {
@@ -38,7 +38,7 @@ const responseErrors = {
 
 const responseNoErrors = {
   nameError: {
-    message:  null,
+    message: null,
     href: '#fullName',
   },
   emailError: {
@@ -67,14 +67,21 @@ const createMediaAccountStub = sinon.stub(CreateAccountService.prototype, 'creat
 sinon.stub(FileHandlingService.prototype, 'removeFile').returns('');
 
 describe('Create Media Account Controller', () => {
-  const i18n = {'create-media-account': {}};
-  const response = { render: () => {return '';}} as unknown as Response;
+  const i18n = { 'create-media-account': {} };
+  const response = {
+    render: () => {
+      return '';
+    },
+  } as unknown as Response;
   const request = mockRequest(i18n);
 
   describe('get request', () => {
     it('should render create media account page', async () => {
       const responseMock = sinon.mock(response);
-      responseMock.expects('render').once().withArgs('create-media-account', request.i18n.getDataByLanguage(request.lng)['create-media-account']);
+      responseMock
+        .expects('render')
+        .once()
+        .withArgs('create-media-account', request.i18n.getDataByLanguage(request.lng)['create-media-account']);
 
       await createMediaAccountController.get(request, response);
       responseMock.verify();
@@ -98,7 +105,11 @@ describe('Create Media Account Controller', () => {
     });
 
     it('should render same page if errors are present', async () => {
-      const response = { render: () => {return '';}} as unknown as Response;
+      const response = {
+        render: () => {
+          return '';
+        },
+      } as unknown as Response;
       const responseMock = sinon.mock(response);
       request.body = invalidBody;
       request.file = invalidFileType;
@@ -107,7 +118,11 @@ describe('Create Media Account Controller', () => {
     });
 
     it('should render same page if the response is not true', async () => {
-      const response = { render: () => {return '';}} as unknown as Response;
+      const response = {
+        render: () => {
+          return '';
+        },
+      } as unknown as Response;
       const responseMock = sinon.mock(response);
       request.body = validBody;
       request.file = validFile;
@@ -120,7 +135,11 @@ describe('Create Media Account Controller', () => {
     });
 
     it('should redirect to the request submitted page if successful', async () => {
-      const response = { redirect: () => {return '';}} as unknown as Response;
+      const response = {
+        redirect: () => {
+          return '';
+        },
+      } as unknown as Response;
       const responseMock = sinon.mock(response);
       request.body = validBody;
       request.file = validFile;

@@ -1,11 +1,11 @@
-import {app} from '../../../main/app';
+import { app } from '../../../main/app';
 import request from 'supertest';
-import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
+import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {LocationService} from '../../../main/service/locationService';
-import {expect} from 'chai';
+import { LocationService } from '../../../main/service/locationService';
+import { expect } from 'chai';
 
 const PAGE_URL = '/subscription-configure-list';
 const pageHeader = 'govuk-heading-l';
@@ -15,24 +15,31 @@ let htmlRes: Document;
 const stubGetSubscriptions = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
 
 describe('Subscription Configure List', () => {
-
-  const subscriptionData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/listTypeSubscriptions/listTypeSubscriptions.json'), 'utf-8');
+  const subscriptionData = fs.readFileSync(
+    path.resolve(__dirname, '../../../test/unit/mocks/listTypeSubscriptions/listTypeSubscriptions.json'),
+    'utf-8'
+  );
   const returnedSubscriptions = JSON.parse(subscriptionData);
 
   stubGetSubscriptions.withArgs('1').returns(returnedSubscriptions.data);
 
   const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
-  locationStub.withArgs(1).resolves({jurisdiction: ['Civil', 'Crime']});
+  locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crime'] });
 
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'VERIFIED',
-    }};
+    app.request['user'] = {
+      piUserId: '1',
+      _json: {
+        extension_UserRole: 'VERIFIED',
+      },
+    };
 
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should have correct page title', () => {
@@ -42,23 +49,25 @@ describe('Subscription Configure List', () => {
 
   it('should display a back button with the correct value', () => {
     const backLink = htmlRes.getElementsByClassName('govuk-back-link');
-    expect(backLink[0].innerHTML)
-      .contains('Back', 'Back button does not contain correct text');
-    expect(backLink[0].getAttribute('href'))
-      .equal('#', 'Back value does not contain correct link');
+    expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
+    expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
   });
 
-  it('should display the header',  () => {
+  it('should display the header', () => {
     const header = htmlRes.getElementsByClassName(pageHeader);
     expect(header[0].innerHTML).contains('Select List Types', 'Could not find the header');
   });
 
   it('should contain body text', () => {
     const pageBodyText = htmlRes.getElementsByClassName('govuk-body');
-    expect(pageBodyText[0].innerHTML)
-      .contains('Configure the lists you will receive for your selected courts and tribunals. This will not affect any specific cases you may have subscribed to. Also don\'t forget to come back regularly to see new list types as we add more.', 'Page first description text does not exist');
-    expect(pageBodyText[1].innerHTML)
-      .contains('If you un-select all hearing lists on this screen we will revert your subscriptions to default and you will receive all list types. If you want to stop receiving all lists or stop receiving lists from a particular court/tribunal please remove the subscriptions on the previous screen.', 'Page second description text does not exist');
+    expect(pageBodyText[0].innerHTML).contains(
+      "Configure the lists you will receive for your selected courts and tribunals. This will not affect any specific cases you may have subscribed to. Also don't forget to come back regularly to see new list types as we add more.",
+      'Page first description text does not exist'
+    );
+    expect(pageBodyText[1].innerHTML).contains(
+      'If you un-select all hearing lists on this screen we will revert your subscriptions to default and you will receive all list types. If you want to stop receiving all lists or stop receiving lists from a particular court/tribunal please remove the subscriptions on the previous screen.',
+      'Page second description text does not exist'
+    );
   });
 
   it('should contain filter component', () => {
@@ -83,8 +92,10 @@ describe('Subscription Configure List', () => {
 
   it('should contain jurisdiction filter', () => {
     const jurisdictionLegend = htmlRes.getElementsByTagName('legend');
-    expect(jurisdictionLegend[0].innerHTML).contains('Type of court or tribunal',
-      'Type of court or tribunal filter doesn\'t exist');
+    expect(jurisdictionLegend[0].innerHTML).contains(
+      'Type of court or tribunal',
+      "Type of court or tribunal filter doesn't exist"
+    );
   });
 
   it('should contain 2 jurisdiction checkboxes', () => {
@@ -134,8 +145,7 @@ describe('Subscription Configure List', () => {
 
   it('should contain list type rows', () => {
     const elementsCount = 3;
-    const tableRows = htmlRes.getElementsByClassName('govuk-table__body')[0]
-      .getElementsByClassName('govuk-table__row');
+    const tableRows = htmlRes.getElementsByClassName('govuk-table__body')[0].getElementsByClassName('govuk-table__row');
     expect(tableRows.length).equal(elementsCount, 'Could not find all table rows');
   });
 
@@ -143,5 +153,4 @@ describe('Subscription Configure List', () => {
     const checkboxes = htmlRes.getElementsByName('list-selections[]');
     expect(checkboxes.length).equal(3, 'Could not find all row checkboxes');
   });
-
 });

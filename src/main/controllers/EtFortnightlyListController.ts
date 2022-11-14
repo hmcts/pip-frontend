@@ -1,9 +1,9 @@
-import {PipRequest} from '../models/request/PipRequest';
-import {Response} from 'express';
-import {cloneDeep} from 'lodash';
-import {PublicationService} from '../service/publicationService';
+import { PipRequest } from '../models/request/PipRequest';
+import { Response } from 'express';
+import { cloneDeep } from 'lodash';
+import { PublicationService } from '../service/publicationService';
 import { DataManipulationService } from '../service/dataManipulationService';
-import {LocationService} from '../service/locationService';
+import { LocationService } from '../service/locationService';
 import moment from 'moment/moment';
 
 const publicationService = new PublicationService();
@@ -11,7 +11,6 @@ const locationService = new LocationService();
 const dataManipulationService = new DataManipulationService();
 
 export default class EtFortnightlyListController {
-
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query['artefactId'];
     const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);
@@ -38,8 +37,7 @@ export default class EtFortnightlyListController {
         bill: pageLanguage === 'bill',
       });
     } else {
-      res.render('error',
-        req.i18n.getDataByLanguage(req.lng).error);
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
   }
 }

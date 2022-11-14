@@ -1,9 +1,8 @@
-import {CommonPage} from './Common.page';
+import { CommonPage } from './Common.page';
 
 const helpers = require('../Helpers/Selectors');
 
 export class SubscriptionConfigureListPage extends CommonPage {
-
   async jurisdictionChecked(): Promise<boolean> {
     await $(helpers.JurisdictionFilter1).catch(() => {
       console.log(`${helpers.JurisdictionFilter1} not found`);
@@ -21,5 +20,4 @@ export class SubscriptionConfigureListPage extends CommonPage {
     await $(helpers.ApplyFiltersButton).click();
     return new SubscriptionConfigureListPage();
   }
-
 }

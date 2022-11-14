@@ -18,7 +18,7 @@ const errorRequest = {
 const errorMessage = {
   message: 'test',
 };
-const mockHeaders = {headers: {'x-issuer-email': 'joe@bloggs.com'}};
+const mockHeaders = { headers: { 'x-issuer-email': 'joe@bloggs.com' } };
 const mockValidBody = {
   email: 'joe@bloggs.com',
   firstName: 'Joe',
@@ -60,9 +60,9 @@ const superagent = require('superagent');
 describe('Account Management Requests', () => {
   describe('Create Azure Account', () => {
     it('should return true on success', async () => {
-      postStub.withArgs(azureEndpoint).resolves({data: {status: 'success'}});
+      postStub.withArgs(azureEndpoint).resolves({ data: { status: 'success' } });
       const response = await accountManagementRequests.createAzureAccount(mockValidBody, mockHeaders);
-      expect(response).toStrictEqual({status: 'success'});
+      expect(response).toStrictEqual({ status: 'success' });
     });
 
     it('should return null on error request', async () => {
@@ -73,20 +73,20 @@ describe('Account Management Requests', () => {
 
     it('should return null on error response', async () => {
       postStub.withArgs(azureEndpoint).resolves(Promise.reject(errorResponse));
-      const response = await accountManagementRequests.createAzureAccount({foo: 'blah'}, mockHeaders);
+      const response = await accountManagementRequests.createAzureAccount({ foo: 'blah' }, mockHeaders);
       expect(response).toBe(null);
     });
 
     it('should return null on error message', async () => {
       postStub.withArgs(azureEndpoint).resolves(Promise.reject(errorMessage));
-      const response = await accountManagementRequests.createAzureAccount({bar: 'baz'}, mockHeaders);
+      const response = await accountManagementRequests.createAzureAccount({ bar: 'baz' }, mockHeaders);
       expect(response).toBe(null);
     });
   });
 
   describe('Create P&I Account', () => {
     it('should return true on success', async () => {
-      postStub.withArgs(piEndpoint).resolves({status: 201});
+      postStub.withArgs(piEndpoint).resolves({ status: 201 });
       const response = await accountManagementRequests.createPIAccount(mockValidPIBody, mockHeaders);
       expect(response).toBe(true);
     });
@@ -99,13 +99,13 @@ describe('Account Management Requests', () => {
 
     it('should return false on error response', async () => {
       postStub.withArgs(piEndpoint).resolves(Promise.reject(errorResponse));
-      const response = await accountManagementRequests.createPIAccount({foo: 'blah'}, mockHeaders);
+      const response = await accountManagementRequests.createPIAccount({ foo: 'blah' }, mockHeaders);
       expect(response).toBe(false);
     });
 
     it('should return false on error message', async () => {
       postStub.withArgs(piEndpoint).resolves(Promise.reject(errorMessage));
-      const response = await accountManagementRequests.createPIAccount({bar: 'baz'}, mockHeaders);
+      const response = await accountManagementRequests.createPIAccount({ bar: 'baz' }, mockHeaders);
       expect(response).toBe(false);
     });
   });
@@ -114,7 +114,9 @@ describe('Account Management Requests', () => {
     beforeEach(() => {
       sinon.restore();
       const axiosConfig = require('../../../main/resources/requests/utils/axiosConfig');
-      sinon.stub(axiosConfig, 'getAccountManagementCredentials').returns(() => {return '';});
+      sinon.stub(axiosConfig, 'getAccountManagementCredentials').returns(() => {
+        return '';
+      });
     });
 
     it('should return true on success', async () => {
@@ -122,21 +124,29 @@ describe('Account Management Requests', () => {
       sinon.stub(superagent, 'post').callsFake(() => {
         return {
           set(): any {
-            return { set(): any {
-              return { attach(): any {
+            return {
+              set(): any {
                 return {
-                  field(): any {
+                  attach(): any {
                     return {
                       field(): any {
                         return {
                           field(): any {
-                            return { field: sinon.stub().returns(true) };
-                          } };
-                      } };
-                  } };
-              } };
-            } };
-          } };
+                            return {
+                              field(): any {
+                                return { field: sinon.stub().returns(true) };
+                              },
+                            };
+                          },
+                        };
+                      },
+                    };
+                  },
+                };
+              },
+            };
+          },
+        };
       });
 
       expect(await accountManagementRequests.createMediaAccount(mockValidMediaBody)).toBe(true);
@@ -168,7 +178,7 @@ describe('Account Management Requests', () => {
     });
 
     it('should return media applications', async () => {
-      getStub.withArgs('/application/status/PENDING').resolves({data: mediaApplications});
+      getStub.withArgs('/application/status/PENDING').resolves({ data: mediaApplications });
       expect(await accountManagementRequests.getPendingMediaApplications()).toEqual(mediaApplications);
     });
 
@@ -189,19 +199,18 @@ describe('Account Management Requests', () => {
   });
 
   describe('Get Media Application By ID', () => {
-
     const applicationID = '1234';
 
     const dummyApplication = {
-      'id': '1234',
-      'fullName': 'Test Name',
-      'email': 'a@b.com',
-      'employer': 'Employer',
-      'image': '12345',
-      'imageName': 'ImageName',
-      'requestDate': '2022-05-09T00:00:01',
-      'status': 'PENDING',
-      'statusDate': '2022-05-09T00:00:01',
+      id: '1234',
+      fullName: 'Test Name',
+      email: 'a@b.com',
+      employer: 'Employer',
+      image: '12345',
+      imageName: 'ImageName',
+      requestDate: '2022-05-09T00:00:01',
+      status: 'PENDING',
+      statusDate: '2022-05-09T00:00:01',
     };
 
     beforeEach(() => {
@@ -210,7 +219,7 @@ describe('Account Management Requests', () => {
     });
 
     it('should return dummy application on success', async () => {
-      getStub.withArgs(applicationGetEndpoint + applicationID).resolves({status: 201, data: dummyApplication });
+      getStub.withArgs(applicationGetEndpoint + applicationID).resolves({ status: 201, data: dummyApplication });
       const response = await accountManagementRequests.getMediaApplicationById(applicationID);
       expect(response).toBe(dummyApplication);
     });
@@ -235,7 +244,6 @@ describe('Account Management Requests', () => {
   });
 
   describe('Get Media Application Image By ID', () => {
-
     beforeEach(() => {
       sinon.restore();
       getStub = sinon.stub(accountManagementApi, 'get');
@@ -245,7 +253,7 @@ describe('Account Management Requests', () => {
     const dummyImage = new Blob(['testJPEG']);
 
     it('should return dummy application on success', async () => {
-      getStub.withArgs(imageGetEndpoint + imageID).resolves({status: 201, data: dummyImage });
+      getStub.withArgs(imageGetEndpoint + imageID).resolves({ status: 201, data: dummyImage });
       const response = await accountManagementRequests.getMediaApplicationImageById(imageID);
       expect(response).toBe(dummyImage);
     });
@@ -270,7 +278,6 @@ describe('Account Management Requests', () => {
   });
 
   describe('Update Media Application Status by ID', () => {
-
     beforeEach(() => {
       sinon.restore();
       getStub = sinon.stub(accountManagementApi, 'get');
@@ -280,19 +287,21 @@ describe('Account Management Requests', () => {
     const applicationID = '1234';
 
     const dummyApplication = {
-      'id': '1234',
-      'fullName': 'Test Name',
-      'email': 'a@b.com',
-      'employer': 'Employer',
-      'image': '12345',
-      'imageName': 'ImageName',
-      'requestDate': '2022-05-09T00:00:01',
-      'status': 'APPROVED',
-      'statusDate': '2022-05-09T00:00:01',
+      id: '1234',
+      fullName: 'Test Name',
+      email: 'a@b.com',
+      employer: 'Employer',
+      image: '12345',
+      imageName: 'ImageName',
+      requestDate: '2022-05-09T00:00:01',
+      status: 'APPROVED',
+      statusDate: '2022-05-09T00:00:01',
     };
 
     it('should return dummy application on success', async () => {
-      putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).resolves({status: 201, data: dummyApplication });
+      putStub
+        .withArgs(applicationGetEndpoint + applicationID + statusEndpoint)
+        .resolves({ status: 201, data: dummyApplication });
       const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
       expect(response).toBe(dummyApplication);
     });
@@ -325,26 +334,28 @@ describe('Account Management Requests', () => {
     });
 
     it('should return pi user id on success', async () => {
-      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).resolves({status: 200, data: {userId: '321', userProvenance: 'userProvenance'}});
-      const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
-      expect(response).toStrictEqual({userId: '321', userProvenance: 'userProvenance'});
+      getStub
+        .withArgs(`${piUserEndpoint}${idtoUse}`)
+        .resolves({ status: 200, data: { userId: '321', userProvenance: 'userProvenance' } });
+      const response = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
+      expect(response).toStrictEqual({ userId: '321', userProvenance: 'userProvenance' });
     });
 
     it('should return null on error response', async () => {
       getStub.withArgs(`${piUserEndpoint}${idtoUse}`).rejects(errorResponse);
-      const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
+      const response = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
       expect(response).toBe(null);
     });
 
     it('should return null on error request', async () => {
       getStub.withArgs(`${piUserEndpoint}${idtoUse}`).rejects(errorRequest);
-      const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
+      const response = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
       expect(response).toBe(null);
     });
 
     it('should return null on error message', async () => {
       getStub.withArgs(`${piUserEndpoint}${idtoUse}`).rejects(errorMessage);
-      const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
+      const response = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
       expect(response).toBe(null);
     });
   });
@@ -357,7 +368,7 @@ describe('Account Management Requests', () => {
     const oid = '1234';
 
     it('should return confirmation string on success', async () => {
-      putStub.withArgs(updateAccountEndpoint + oid).resolves({status: 200, data: 'Media Account verified' });
+      putStub.withArgs(updateAccountEndpoint + oid).resolves({ status: 200, data: 'Media Account verified' });
       const response = await accountManagementRequests.updateMediaAccountVerification(oid);
       expect(response).toBe('Media Account verified');
     });
@@ -389,20 +400,22 @@ describe('Account Management Requests', () => {
     const oid = '1234';
 
     it('should return confirmation string on success', async () => {
-      putStub.withArgs(updateAccountEndpoint + oid).resolves({status: 200, data: 'Account updated' });
+      putStub.withArgs(updateAccountEndpoint + oid).resolves({ status: 200, data: 'Account updated' });
       const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
       expect(response).toBe('Account updated');
     });
 
     it('should set the correct time', async () => {
       const putStubForDateChecking = putStub.withArgs(updateAccountEndpoint + '1234-1234');
-      putStubForDateChecking.resolves({status: 200, data: 'Account updated' });
+      putStubForDateChecking.resolves({ status: 200, data: 'Account updated' });
       await accountManagementRequests.updateAccountLastSignedInDate('1234-1234');
 
       const args = putStubForDateChecking.getCall(0).args;
-      expect(moment.utc(args[1]['lastSignedInDate'])
-        .isBetween(moment().utc().subtract(5, 'minutes'), moment().utc().add(5, 'minutes')))
-        .toBeTruthy();
+      expect(
+        moment
+          .utc(args[1]['lastSignedInDate'])
+          .isBetween(moment().utc().subtract(5, 'minutes'), moment().utc().add(5, 'minutes'))
+      ).toBeTruthy();
     });
 
     it('should return null on error request', async () => {

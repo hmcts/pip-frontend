@@ -6,7 +6,7 @@ import { PublicationService } from './publicationService';
 
 const courtService = new LocationService();
 const dataManagementRequests = new DataManagementRequests();
-import {LanguageFileParser} from '../helpers/languageFileParser';
+import { LanguageFileParser } from '../helpers/languageFileParser';
 const languageFileParser = new LanguageFileParser();
 const fileHandlingService = new FileHandlingService();
 const publicationService = new PublicationService();
@@ -22,10 +22,12 @@ export class ManualUploadService {
 
   public formatListRemovalValues(summaryList): any[] {
     const formattedList = [];
-    summaryList.forEach((value) => {
-      const listItem = {...value};
+    summaryList.forEach(value => {
+      const listItem = { ...value };
       listItem.listTypeName = this.getListItemName(value.listType);
-      listItem.dateRange = `${moment(value.displayFrom).format('D MMM YYYY')} to ${moment(value.displayTo).format('D MMM YYYY')}`;
+      listItem.dateRange = `${moment(value.displayFrom).format('D MMM YYYY')} to ${moment(value.displayTo).format(
+        'D MMM YYYY'
+      )}`;
       formattedList.push(listItem);
     });
     return formattedList;
@@ -34,7 +36,7 @@ export class ManualUploadService {
   private getListSubtypes(): Array<object> {
     const jsonArray = [] as Array<object>;
     publicationService.getListTypes().forEach((value, key) => {
-      jsonArray.push({'value': key, 'text': value.shortenedFriendlyName });
+      jsonArray.push({ value: key, text: value.shortenedFriendlyName });
     });
 
     return jsonArray;
@@ -45,15 +47,19 @@ export class ManualUploadService {
   }
 
   private getJudgementOutcomesSubtypes(): Array<object> {
-    return [{text: 'SJP Media Register', value: 'SJP_MEDIA_REGISTER'}];
+    return [{ text: 'SJP Media Register', value: 'SJP_MEDIA_REGISTER' }];
   }
 
   public async validateFormFields(formValues: object, language: string, languageFile: string): Promise<object> {
     const fields = {
       courtError: await this.validateCourt(formValues['input-autocomplete'], language, languageFile),
-      contentDateError: this.validateDate(this.buildDate(formValues,'content-date-from'), language, languageFile),
-      displayDateError: this.validateDates(this.buildDate(formValues, 'display-date-from'),
-        this.buildDate(formValues, 'display-date-to'), language, languageFile),
+      contentDateError: this.validateDate(this.buildDate(formValues, 'content-date-from'), language, languageFile),
+      displayDateError: this.validateDates(
+        this.buildDate(formValues, 'display-date-from'),
+        this.buildDate(formValues, 'display-date-to'),
+        language,
+        languageFile
+      ),
     };
     if (!fields.courtError && !fields.contentDateError && !fields.displayDateError) {
       return null;
@@ -76,12 +82,30 @@ export class ManualUploadService {
   }
 
   public buildDate(body: object, fieldsetPrefix: string): string {
-    if(fieldsetPrefix === 'display-date-to') {
-      return body[`${fieldsetPrefix}-day`]?.concat('/', body[`${fieldsetPrefix}-month`], '/', body[`${fieldsetPrefix}-year`], ' 23:59:59');
-    } else if(fieldsetPrefix === 'display-date-from') {
-      return body[`${fieldsetPrefix}-day`]?.concat('/', body[`${fieldsetPrefix}-month`],'/', body[`${fieldsetPrefix}-year`], ' 00:00:01');
+    if (fieldsetPrefix === 'display-date-to') {
+      return body[`${fieldsetPrefix}-day`]?.concat(
+        '/',
+        body[`${fieldsetPrefix}-month`],
+        '/',
+        body[`${fieldsetPrefix}-year`],
+        ' 23:59:59'
+      );
+    } else if (fieldsetPrefix === 'display-date-from') {
+      return body[`${fieldsetPrefix}-day`]?.concat(
+        '/',
+        body[`${fieldsetPrefix}-month`],
+        '/',
+        body[`${fieldsetPrefix}-year`],
+        ' 00:00:01'
+      );
     } else {
-      return body[`${fieldsetPrefix}-day`]?.concat('/', body[`${fieldsetPrefix}-month`],'/', body[`${fieldsetPrefix}-year`], ' 00:00:00');
+      return body[`${fieldsetPrefix}-day`]?.concat(
+        '/',
+        body[`${fieldsetPrefix}-month`],
+        '/',
+        body[`${fieldsetPrefix}-year`],
+        ' 00:00:00'
+      );
     }
   }
 
@@ -118,19 +142,19 @@ export class ManualUploadService {
 
   public async appendlocationId(courtName: string, language: string): Promise<object> {
     const court = await courtService.getLocationByName(courtName, language);
-    return {courtName: courtName, locationId: court?.locationId};
+    return { courtName: courtName, locationId: court?.locationId };
   }
 
   public async uploadPublication(data: any, ISODateFormat: boolean): Promise<boolean> {
     if (fileHandlingService.getFileExtension(data.fileName) === 'json') {
       return await dataManagementRequests.uploadJSONPublication(
         data,
-        this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
+        this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat))
       );
     } else {
       return await dataManagementRequests.uploadPublication(
         data,
-        this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
+        this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat))
       );
     }
   }
@@ -142,15 +166,15 @@ export class ManualUploadService {
   public formatPublicationDates(formData: any, defaultFormat: boolean): object {
     return {
       ...formData,
-      'display-from': defaultFormat ?
-        moment(formData['display-from'], 'DD/MM/YYYY HH:mm:ss').format() :
-        moment(formData['display-from'], 'DD/MM/YYYY').format('D MMM YYYY'),
-      'display-to': defaultFormat ?
-        moment(formData['display-to'], 'DD/MM/YYYY HH:mm:ss').format() :
-        moment(formData['display-to'], 'DD/MM/YYYY').format('D MMM YYYY'),
-      'content-date-from': defaultFormat ?
-        moment(formData['content-date-from'], 'DD/MM/YYYY').format() :
-        moment(formData['content-date-from'], 'DD/MM/YYYY').format('D MMM YYYY'),
+      'display-from': defaultFormat
+        ? moment(formData['display-from'], 'DD/MM/YYYY HH:mm:ss').format()
+        : moment(formData['display-from'], 'DD/MM/YYYY').format('D MMM YYYY'),
+      'display-to': defaultFormat
+        ? moment(formData['display-to'], 'DD/MM/YYYY HH:mm:ss').format()
+        : moment(formData['display-to'], 'DD/MM/YYYY').format('D MMM YYYY'),
+      'content-date-from': defaultFormat
+        ? moment(formData['content-date-from'], 'DD/MM/YYYY').format()
+        : moment(formData['content-date-from'], 'DD/MM/YYYY').format('D MMM YYYY'),
     };
   }
 

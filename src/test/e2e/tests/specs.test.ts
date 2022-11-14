@@ -38,18 +38,18 @@ import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrn
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
-import {MediaAccountRequestsPage} from '../PageObjects/MediaAccountRequests.page';
-import {MediaAccountReviewPage} from '../PageObjects/MediaAccountReview.page';
-import {MediaAccountApprovalPage} from '../PageObjects/MediaAccountApproval.page';
-import {MediaAccountRejectionPage} from '../PageObjects/MediaAccountRejection.page';
-import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccountRejectionConfirmation.page';
-import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
-import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
-import {SessionLoggedOutPage} from '../PageObjects/SessionLoggedOut.page';
-import {ManualReferenceDataUploadPage} from '../PageObjects/ManualReferenceDataUpload.page';
-import {ManualReferenceDataUploadSummaryPage} from '../PageObjects/ManualReferenceDataUploadSummary.page';
+import { MediaAccountRequestsPage } from '../PageObjects/MediaAccountRequests.page';
+import { MediaAccountReviewPage } from '../PageObjects/MediaAccountReview.page';
+import { MediaAccountApprovalPage } from '../PageObjects/MediaAccountApproval.page';
+import { MediaAccountRejectionPage } from '../PageObjects/MediaAccountRejection.page';
+import { MediaAccountRejectionConfirmationPage } from '../PageObjects/MediaAccountRejectionConfirmation.page';
+import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
+import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
+import { SessionLoggedOutPage } from '../PageObjects/SessionLoggedOut.page';
+import { ManualReferenceDataUploadPage } from '../PageObjects/ManualReferenceDataUpload.page';
+import { ManualReferenceDataUploadSummaryPage } from '../PageObjects/ManualReferenceDataUploadSummary.page';
 
-const homePage = new HomePage;
+const homePage = new HomePage();
 let subscriptionAddPage = new SubscriptionAddPage();
 let subscriptionManagementPage: SubscriptionManagementPage;
 const liveCaseCourtSearchControllerPage = new LiveCaseCourtSearchControllerPage();
@@ -74,8 +74,8 @@ let fileUploadConfirmationPage: FileUploadConfirmationPage;
 let pendingSubscriptionsPage: PendingSubscriptionsPage;
 let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 let manualUploadPage: ManualUploadPage;
-let adminDashboard = new AdminDashboardPage;
-let systemAdminDashboard = new SystemAdminDashboardPage;
+let adminDashboard = new AdminDashboardPage();
+let systemAdminDashboard = new SystemAdminDashboardPage();
 let createMediaAccountPage: CreateMediaAccountPage;
 let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let accountHomePage: AccountHomePage;
@@ -101,7 +101,7 @@ let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
 let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
 
 describe('Unverified user', () => {
-  it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
+  it("should open main page with 'See publications and information from a court or tribunal' title", async () => {
     await homePage.open('');
     expect(await homePage.getPageTitle()).toEqual('Court and tribunal hearings');
   });
@@ -122,7 +122,7 @@ describe('Unverified user', () => {
   });
 
   describe('find a court or tribunal', async () => {
-    it('should select \'Court or Tribunal hearing Publications\' option and navigate to search option page', async () => {
+    it("should select 'Court or Tribunal hearing Publications' option and navigate to search option page", async () => {
       await viewOptionPage.selectOption('CourtOrTribunalRadioButton');
       searchPage = await viewOptionPage.clickContinueForSearch();
       expect(await searchPage.getPageTitle()).toEqual('What court or tribunal are you interested in?');
@@ -134,7 +134,9 @@ describe('Unverified user', () => {
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
         summaryOfPublicationsPage = await searchPage.clickContinue();
-        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from ' + searchTerm + '?');
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual(
+          'What do you want to view from ' + searchTerm + '?'
+        );
       });
 
       it('should select the first publication', async () => {
@@ -143,13 +145,13 @@ describe('Unverified user', () => {
       });
     });
 
-    describe('following the \'Select from an A-Z list of courts and tribunals\' path', async () => {
+    describe("following the 'Select from an A-Z list of courts and tribunals' path", async () => {
       before(async () => {
         await searchPage.open('/search');
       });
 
       const searchTerm = 'High Wycombe Magistrates and County Court';
-      it('should click on \'Select from an A-Z list of courts and tribunals\' link ', async () => {
+      it("should click on 'Select from an A-Z list of courts and tribunals' link ", async () => {
         alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
       });
@@ -169,7 +171,9 @@ describe('Unverified user', () => {
 
       it('selecting first result should take you to to the summary of publications page', async () => {
         summaryOfPublicationsPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from '+ searchTerm + '?');
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual(
+          'What do you want to view from ' + searchTerm + '?'
+        );
       });
 
       it('should select the first publication', async () => {
@@ -211,15 +215,19 @@ describe('Unverified user', () => {
       before(async () => {
         await viewOptionPage.open('/view-option');
       });
-      it('should select \'Single Justice Procedure case\' option and navigate to Single Justice Procedure case page', async () => {
+      it("should select 'Single Justice Procedure case' option and navigate to Single Justice Procedure case page", async () => {
         await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
         singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
-        expect(await singleJusticeProcedurePage.getPageTitle()).toEqual('What do you want to view from Single Justice Procedure?');
+        expect(await singleJusticeProcedurePage.getPageTitle()).toEqual(
+          'What do you want to view from Single Justice Procedure?'
+        );
       });
 
       it('should select first list item', async () => {
         sjpPublicListPage = await singleJusticeProcedurePage.clickSOPListItem();
-        expect(await sjpPublicListPage.getPageTitle()).toEqual('Single Justice Procedure cases that are ready for hearing');
+        expect(await sjpPublicListPage.getPageTitle()).toEqual(
+          'Single Justice Procedure cases that are ready for hearing'
+        );
       });
     });
   });
@@ -252,7 +260,7 @@ describe('Unverified user', () => {
   });
 
   describe('request an account', () => {
-    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+    it("should open sign-in page with 'How do you want to sign in' title", async () => {
       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
     });
 
@@ -271,7 +279,7 @@ describe('Unverified user', () => {
 
 describe('Verified user', () => {
   describe('Sign In Page', () => {
-    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+    it("should open sign-in page with 'How do you want to sign in' title", async () => {
       await signInPage.open('/sign-in');
       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
     });
@@ -281,7 +289,7 @@ describe('Verified user', () => {
     });
 
     describe('sign in process and page routing', async () => {
-      it('should select \'Sign in with my P&I details\' option, navigate to the login page, and sign in', async () => {
+      it("should select 'Sign in with my P&I details' option, navigate to the login page, and sign in", async () => {
         await signInPage.open('/sign-in');
         await signInPage.selectOption('SignInRadio3');
         await signInPage.clickContinueForRadio3();
@@ -312,7 +320,7 @@ describe('Verified user', () => {
       const validSearchTerm = 'N363N6R4OG';
       const expectedNumOfResults = 1;
 
-      it('should select \'By unique reference number\' option and navigate to search urn page', async () => {
+      it("should select 'By unique reference number' option and navigate to search urn page", async () => {
         await subscriptionAddPage.selectOption('SubscriptionAddByUniqueRefNumber');
         subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
         expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual('What is the unique reference number (URN)?');
@@ -400,10 +408,12 @@ describe('Verified user', () => {
         await subscriptionAddPage.open('subscription-add');
       });
 
-      it('should select \'By case reference number\' option and navigate to search case number page', async () => {
+      it("should select 'By case reference number' option and navigate to search case number page", async () => {
         await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
         caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
-        expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual('What is the case reference number or case ID?');
+        expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual(
+          'What is the case reference number or case ID?'
+        );
       });
 
       it('should enter text and click continue', async () => {
@@ -446,7 +456,6 @@ describe('Verified user', () => {
       //   subscriptionConfigureListPage = await subscriptionConfigureListPage.clickApplyFiltersButton();
       //   expect(await subscriptionConfigureListPage.getPageTitle()).toBe('Select List Types');
       // });
-
     });
 
     describe('remove subscription', async () => {
@@ -456,7 +465,9 @@ describe('Verified user', () => {
 
       it('should click on the first unsubscribe record', async () => {
         deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
-        expect(await deleteSubscriptionPage.getPageTitle()).toEqual('Are you sure you want to remove this subscription?');
+        expect(await deleteSubscriptionPage.getPageTitle()).toEqual(
+          'Are you sure you want to remove this subscription?'
+        );
       });
 
       it('should select yes option and unsubscribe', async () => {
@@ -590,11 +601,13 @@ describe('Admin level journeys', () => {
     });
     it('should click on the first result and open confirmation page', async () => {
       publicationConfirmationPage = await searchPublicationResultsPage.clickRemoveOnFirstRecord();
-      expect(await publicationConfirmationPage.getPageTitle()).toEqual('Are you sure you want to remove this publication?');
+      expect(await publicationConfirmationPage.getPageTitle()).toEqual(
+        'Are you sure you want to remove this publication?'
+      );
     });
     it('should select yes option and remove publication', async () => {
       await publicationConfirmationPage.selectOption('remove-choice');
-      removePublicationSuccessPage= await publicationConfirmationPage.clickContinueToRemovePublication();
+      removePublicationSuccessPage = await publicationConfirmationPage.clickContinueToRemovePublication();
       expect(await removePublicationSuccessPage.getPanelTitle()).toEqual('Success');
     });
     it('should click on the home link and open admin dashboard page', async () => {
@@ -614,23 +627,27 @@ describe('Admin level journeys', () => {
 
     it('should select view application', async () => {
       mediaAccountReviewPage = await mediaAccountRequestsPage.clickViewApplication();
-      expect(await mediaAccountReviewPage.getPageTitle()).toEqual('Applicant\'s details');
+      expect(await mediaAccountReviewPage.getPageTitle()).toEqual("Applicant's details");
     });
 
     it('should click approve application', async () => {
       mediaAccountApprovalPage = await mediaAccountReviewPage.clickApproveApplication();
-      expect(await mediaAccountApprovalPage.getPageTitle()).toEqual('Are you sure you want to approve this application?');
+      expect(await mediaAccountApprovalPage.getPageTitle()).toEqual(
+        'Are you sure you want to approve this application?'
+      );
     });
 
     it('should select no to approve application', async () => {
       await mediaAccountApprovalPage.selectNo();
       mediaAccountReviewPage = await mediaAccountApprovalPage.clickContinue();
-      expect(await mediaAccountReviewPage.getPageTitle()).toEqual('Applicant\'s details');
+      expect(await mediaAccountReviewPage.getPageTitle()).toEqual("Applicant's details");
     });
 
     it('should select reject application', async () => {
       mediaAccountRejectionPage = await mediaAccountReviewPage.clickRejectApplication();
-      expect(await mediaAccountRejectionPage.getPageTitle()).toEqual('Are you sure you want to reject this application?');
+      expect(await mediaAccountRejectionPage.getPageTitle()).toEqual(
+        'Are you sure you want to reject this application?'
+      );
     });
 
     it('should select yes to reject application', async () => {
@@ -652,7 +669,6 @@ describe('Admin level journeys', () => {
 });
 
 describe('System Admin level journeys', () => {
-
   it('should open Admin Login page', async () => {
     await signInPage.open('/admin-login?p=B2C_1_SignInAdminUserFlow');
     await signInPage.enterText(process.env.B2C_SYSTEM_ADMIN_USERNAME, 'EmailField');
@@ -665,7 +681,6 @@ describe('System Admin level journeys', () => {
   });
 
   describe('Create new system admin account', () => {
-
     it('should click on the create new account card', async () => {
       createSystemAdminAccountPage = await systemAdminDashboard.clickCreateNewAccountCard();
       expect(await createSystemAdminAccountPage.getPageTitle()).toEqual('Create system admin account');

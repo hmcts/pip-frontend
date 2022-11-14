@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import fs from 'fs';
 import { multerFile } from '../mocks/multerFile';
 import { FileHandlingService } from '../../../main/service/fileHandlingService';
-import {uploadType} from '../../../main/models/consts';
+import { uploadType } from '../../../main/models/consts';
 const { redisClient } = require('../../../main/cacheManager');
 
 const fileHandlingService = new FileHandlingService();
@@ -30,48 +30,75 @@ describe('File handling service', () => {
     });
 
     it('should return null if a dot-separated image is provided', () => {
-      expect(fileHandlingService.validateImage(dotSeparatedFile, englishLanguage, createMediaAccountLanguageFile)).toBe(null);
+      expect(fileHandlingService.validateImage(dotSeparatedFile, englishLanguage, createMediaAccountLanguageFile)).toBe(
+        null
+      );
     });
 
     it('should return error message if image is not provided', () => {
-      expect(fileHandlingService.validateImage(null, englishLanguage, createMediaAccountLanguageFile))
-        .toBe('There is a problem - We will need ID evidence to support your application for an account');
+      expect(fileHandlingService.validateImage(null, englishLanguage, createMediaAccountLanguageFile)).toBe(
+        'There is a problem - We will need ID evidence to support your application for an account'
+      );
     });
 
     it('should return error message if unsupported format image is provided', () => {
-      expect(fileHandlingService.validateImage(invalidFileType, englishLanguage, createMediaAccountLanguageFile))
-        .toBe('There is a problem - ID evidence must be a JPG, PDF or PNG');
+      expect(fileHandlingService.validateImage(invalidFileType, englishLanguage, createMediaAccountLanguageFile)).toBe(
+        'There is a problem - ID evidence must be a JPG, PDF or PNG'
+      );
     });
 
     it('should return error message if image is over 2MB', () => {
-      expect(fileHandlingService.validateImage(largeImage, englishLanguage, createMediaAccountLanguageFile))
-        .toBe('There is a problem - ID evidence needs to be less than 2Mbs');
+      expect(fileHandlingService.validateImage(largeImage, englishLanguage, createMediaAccountLanguageFile)).toBe(
+        'There is a problem - ID evidence needs to be less than 2Mbs'
+      );
     });
   });
 
   describe('validateFileUpload', () => {
     it('should return null when checking a valid file', () => {
-      expect(fileHandlingService.validateFileUpload(validFile, englishLanguage, manualUploadLanguageFile, uploadType.FILE)).toBe(null);
+      expect(
+        fileHandlingService.validateFileUpload(validFile, englishLanguage, manualUploadLanguageFile, uploadType.FILE)
+      ).toBe(null);
     });
 
     it('should return null when checking file type in different case sensitivity', () => {
-      expect(fileHandlingService.validateFileUpload(validFileCase, englishLanguage, manualUploadLanguageFile, uploadType.FILE)).toBe(null);
+      expect(
+        fileHandlingService.validateFileUpload(
+          validFileCase,
+          englishLanguage,
+          manualUploadLanguageFile,
+          uploadType.FILE
+        )
+      ).toBe(null);
     });
 
     it('should return error message if file greater than 2MB', () => {
-      expect(fileHandlingService.validateFileUpload(largeFile, englishLanguage, manualUploadLanguageFile, uploadType.FILE)).toEqual('File too large, please upload file smaller than 2MB');
+      expect(
+        fileHandlingService.validateFileUpload(largeFile, englishLanguage, manualUploadLanguageFile, uploadType.FILE)
+      ).toEqual('File too large, please upload file smaller than 2MB');
     });
 
     it('should return error message if invalid file type', () => {
-      expect(fileHandlingService.validateFileUpload(invalidFileType, englishLanguage, manualUploadLanguageFile, uploadType.FILE)).toEqual('Please upload a valid file format');
+      expect(
+        fileHandlingService.validateFileUpload(
+          invalidFileType,
+          englishLanguage,
+          manualUploadLanguageFile,
+          uploadType.FILE
+        )
+      ).toEqual('Please upload a valid file format');
     });
 
     it('should return error message if missing file type', () => {
-      expect(fileHandlingService.validateFileUpload(noFileType, englishLanguage, manualUploadLanguageFile, uploadType.FILE)).toEqual('Please upload a valid file format');
+      expect(
+        fileHandlingService.validateFileUpload(noFileType, englishLanguage, manualUploadLanguageFile, uploadType.FILE)
+      ).toEqual('Please upload a valid file format');
     });
 
     it('should return error message if no file passed', () => {
-      expect(fileHandlingService.validateFileUpload(null, englishLanguage, manualUploadLanguageFile, uploadType.FILE)).toEqual('Please provide a file');
+      expect(
+        fileHandlingService.validateFileUpload(null, englishLanguage, manualUploadLanguageFile, uploadType.FILE)
+      ).toEqual('Please provide a file');
     });
   });
 
@@ -83,7 +110,7 @@ describe('File handling service', () => {
 
     it('should read a json file successfully', () => {
       const file = fileHandlingService.readFile('validationJson.json');
-      expect(file).toEqual({'name': 'this is valid json file'});
+      expect(file).toEqual({ name: 'this is valid json file' });
     });
 
     it('should return null if there is an error in reading a file', () => {
@@ -118,7 +145,6 @@ describe('File handling service', () => {
       await fileHandlingService.storeFileIntoRedis(userId, 'validationFile.pdf', 'validation.pdf');
 
       sinon.assert.calledWith(setStub, '1234-validation.pdf', sinon.match.any, 'EX', sinon.match.any);
-
     });
 
     it('should store a JSON file succesfully', async () => {
@@ -132,7 +158,6 @@ describe('File handling service', () => {
 
   describe('removeFile from redis', () => {
     it('should remove a file successfully', async () => {
-
       const deleteStub = sinon.stub(redisClient, 'del');
       deleteStub.withArgs('1234-validationFile.pdf').returns();
 
@@ -190,8 +215,9 @@ describe('File handling service', () => {
 
     it('should error when failing to delete a file', () => {
       stub.restore();
-      const consoleSpy = jest.spyOn(console, 'error')
-        .mockImplementation(() => {'';});
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {
+        ('');
+      });
       fileHandlingService.removeFile(invalidFileType);
       expect(consoleSpy).toHaveBeenCalledTimes(1);
     });
@@ -215,5 +241,4 @@ describe('File handling service', () => {
       expect(fileName).toEqual('ThisIsAFile');
     });
   });
-
 });

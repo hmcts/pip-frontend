@@ -6,8 +6,12 @@ import PasswordChangeController from '../../../main/controllers/PasswordChangeCo
 const passwordChangeController = new PasswordChangeController();
 
 describe('Password Change Confirmation controller', () => {
-  const response = { render: () => {return '';}} as unknown as Response;
-  const request = mockRequest({'password-change-confirmation': {}});
+  const response = {
+    render: () => {
+      return '';
+    },
+  } as unknown as Response;
+  const request = mockRequest({ 'password-change-confirmation': {} });
 
   it('should render password-change-confirmation for an admin', async () => {
     request.path = '/password-change-confirmation/true';

@@ -12,7 +12,11 @@ describe.skip('Mock Session Controller', () => {
   };
 
   it('should render mock session page without user data', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
+    const response = {
+      render: () => {
+        return '';
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
     request.user = undefined;
 
@@ -29,9 +33,13 @@ describe.skip('Mock Session Controller', () => {
   });
 
   it('should render mock session page with user data', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
+    const response = {
+      render: () => {
+        return '';
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    const mockUser =  {
+    const mockUser = {
       id: '1',
       username: '',
       userType: 'media',

@@ -1,13 +1,12 @@
 import { Response } from 'express';
 import moment from 'moment';
-import {LiveCaseService} from '../service/liveCaseService';
-import {cloneDeep} from 'lodash';
-import {PipRequest} from '../models/request/PipRequest';
+import { LiveCaseService } from '../service/liveCaseService';
+import { cloneDeep } from 'lodash';
+import { PipRequest } from '../models/request/PipRequest';
 
 const liveCaseStatusService = new LiveCaseService();
 
 export default class LiveCaseStatusController {
-
   public async get(req: PipRequest, res: Response): Promise<void> {
     const locationId = req.query.locationId as string;
 
@@ -27,10 +26,8 @@ export default class LiveCaseStatusController {
       } else {
         res.redirect('not-found');
       }
-    }
-    else {
+    } else {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
   }
 }
-

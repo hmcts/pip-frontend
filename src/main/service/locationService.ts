@@ -1,14 +1,14 @@
 import { LocationRequests } from '../resources/requests/locationRequests';
 import { Location } from '../models/location';
-import {LanguageFileParser} from '../helpers/languageFileParser';
-import {AToZHelper} from '../helpers/aToZHelper';
+import { LanguageFileParser } from '../helpers/languageFileParser';
+import { AToZHelper } from '../helpers/aToZHelper';
 
 const locationRequest = new LocationRequests();
 const languageFileParser = new LanguageFileParser();
 
 export class LocationService {
   public sortCourtsAlphabetically(courtsList: Location[]): Location[] {
-    return courtsList.sort((a, b) => (a.name > b.name) ? 1 : -1);
+    return courtsList.sort((a, b) => (a.name > b.name ? 1 : -1));
   }
 
   public async fetchAllLocations(language: string): Promise<Array<Location>> {
@@ -16,16 +16,16 @@ export class LocationService {
   }
 
   private initalizeLocationsForLanguage(locations: Array<Location>, language: string): Array<Location> {
-    let locationsBaseOnLanguage= [];
+    let locationsBaseOnLanguage = [];
 
-    switch(language) {
+    switch (language) {
       case 'cy': {
         locations.forEach(value => {
           const locationInfo = {
-            locationId: (value['locationId'] != null ? value['locationId'] : value.locationId),
-            name:  (value['welshName'] != null ? value['welshName'] : value.name),
-            jurisdiction: (value['welshJurisdiction'] != null ? value['welshJurisdiction'] : value.jurisdiction),
-            region: (value['welshRegion'] != null ? value['welshRegion'] : value.region),
+            locationId: value['locationId'] != null ? value['locationId'] : value.locationId,
+            name: value['welshName'] != null ? value['welshName'] : value.name,
+            jurisdiction: value['welshJurisdiction'] != null ? value['welshJurisdiction'] : value.jurisdiction,
+            region: value['welshRegion'] != null ? value['welshRegion'] : value.region,
             location: value.location,
           };
 
@@ -61,8 +61,15 @@ export class LocationService {
     return this.generateFilteredAlphabetisedCourtList(regions, jurisdictions, language);
   }
 
-  public async generateFilteredAlphabetisedCourtList(regions: string, jurisdictions: string, language: string): Promise<object> {
-    const locations = this.initalizeLocationsForLanguage(await locationRequest.getFilteredCourts(regions, jurisdictions, language), language);
+  public async generateFilteredAlphabetisedCourtList(
+    regions: string,
+    jurisdictions: string,
+    language: string
+  ): Promise<object> {
+    const locations = this.initalizeLocationsForLanguage(
+      await locationRequest.getFilteredCourts(regions, jurisdictions, language),
+      language
+    );
     return this.generateAlphabetisedCourtList(locations);
   }
 
@@ -82,13 +89,13 @@ export class LocationService {
   public findCourtName(location: Location, language: string, languageFile: string): string {
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     let courtName = '';
-    if(location == null) {
+    if (location == null) {
       return languageFileParser.getText(fileJson, null, 'missingCourt');
     }
 
-    switch(language) {
+    switch (language) {
       case 'cy': {
-        courtName = (location['welshName'] != null ? location['welshName'] : location.name);
+        courtName = location['welshName'] != null ? location['welshName'] : location.name;
         break;
       }
 
@@ -100,5 +107,4 @@ export class LocationService {
 
     return courtName;
   }
-
 }

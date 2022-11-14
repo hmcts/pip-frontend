@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import {request as expressRequest} from 'express';
+import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/create-admin-account';
 const radioLabels = [
@@ -19,17 +19,21 @@ const radioHints = [
 const errors = ['Enter first name', 'Enter last name', 'Enter email address', 'Select a role'];
 let htmlRes: Document;
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'SYSTEM_ADMIN',
+  },
+};
 
 describe('Create Admin Account Page', () => {
   describe('on GET', () => {
     beforeAll(async () => {
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should display header', () => {
@@ -66,7 +70,7 @@ describe('Create Admin Account Page', () => {
       const radiosCount = radioButtons.length;
       expect(radioHeader.innerHTML).contains('User role', 'Could not find radio header');
       expect(radiosCount).equal(4, '4 radio buttons not found');
-      for(let i = 0; i < radiosCount; i++) {
+      for (let i = 0; i < radiosCount; i++) {
         const radio = htmlRes.getElementsByClassName('govuk-radios__label')[i];
         const radioHint = htmlRes.getElementsByClassName('govuk-radios__hint')[i];
         expect(radio.innerHTML).contains(radioLabels[i], 'Could not find radio with correct label');
@@ -74,7 +78,7 @@ describe('Create Admin Account Page', () => {
       }
     });
 
-    it('should display continue button',  () => {
+    it('should display continue button', () => {
       const buttons = htmlRes.getElementsByClassName('govuk-button');
       expect(buttons[0].innerHTML).contains('Continue', 'Could not find button');
     });
@@ -82,21 +86,25 @@ describe('Create Admin Account Page', () => {
 
   describe('on POST', () => {
     beforeAll(async () => {
-      await request(app).post(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      await request(app)
+        .post(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should display error dialog', () => {
       const dialog = htmlRes.getElementsByClassName('govuk-error-summary');
-      expect(dialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML)
-        .contains('There is a problem', 'Could not find error dialog title');
+      expect(dialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML).contains(
+        'There is a problem',
+        'Could not find error dialog title'
+      );
     });
 
     it('should display error summary messages', () => {
       const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
-      for(let i = 0; i < errorMessage.length; i++) {
+      for (let i = 0; i < errorMessage.length; i++) {
         expect(errorMessage[i].innerHTML).contains(errors[i], 'Could not find error for an radio');
       }
     });

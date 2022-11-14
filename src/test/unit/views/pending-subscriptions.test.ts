@@ -42,13 +42,18 @@ getSubscriptionsStub.withArgs('4', 'courts').resolves([mockCourt]);
 describe('Pending Subscriptions Page', () => {
   describe('user with subscriptions', () => {
     beforeAll(async () => {
-      app.request['user'] = {piUserId: '1', _json: {
-        'extension_UserRole': 'VERIFIED',
-      }};
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      app.request['user'] = {
+        piUserId: '1',
+        _json: {
+          extension_UserRole: 'VERIFIED',
+        },
+      };
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should have correct page title', () => {
@@ -68,14 +73,21 @@ describe('Pending Subscriptions Page', () => {
 
     it('should display correct case table headers', () => {
       const tableHeaders = htmlRes.getElementsByClassName(tableHeaderClass);
-      expect(tableHeaders[0].innerHTML).contains('Unique reference number (URN)', 'Could not find text in first header');
-      expect(tableHeaders[1].innerHTML).contains('Case reference number or case ID', 'Could not find text in second header');
+      expect(tableHeaders[0].innerHTML).contains(
+        'Unique reference number (URN)',
+        'Could not find text in first header'
+      );
+      expect(tableHeaders[1].innerHTML).contains(
+        'Case reference number or case ID',
+        'Could not find text in second header'
+      );
       expect(tableHeaders[2].innerHTML).contains('Case name', 'Could not find text in third header');
       expect(tableHeaders[3].innerHTML).contains('Actions', 'Could not find text in fourth header');
     });
 
     it('should display correct court table headers', () => {
-      const tableHeaders = htmlRes.getElementsByClassName('govuk-table')[1]
+      const tableHeaders = htmlRes
+        .getElementsByClassName('govuk-table')[1]
         .getElementsByClassName('govuk-table__header');
       expect(tableHeaders[0].innerHTML).contains('Court or tribunal name', 'Could not find text in first header');
       expect(tableHeaders[1].innerHTML).contains('Actions', 'Could not find text in second header');
@@ -89,7 +101,9 @@ describe('Pending Subscriptions Page', () => {
       expect(cells[1].innerHTML).contains(mockCase.caseNumber, 'Second cell does not contain correct value');
       expect(cells[2].innerHTML).contains(mockCase.caseName, 'Third cell does not contain correct value');
       expect(cells[3].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
-      expect(cells[3].querySelector('a').getAttribute('href')).equal(`/remove-subscription?case=${mockCase.caseNumber}`);
+      expect(cells[3].querySelector('a').getAttribute('href')).equal(
+        `/remove-subscription?case=${mockCase.caseNumber}`
+      );
     });
 
     it('should contain 1 row in the court table with correct values', () => {
@@ -98,7 +112,9 @@ describe('Pending Subscriptions Page', () => {
       expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
       expect(cells[0].innerHTML).contains(mockCourt.name, 'First cell does not contain correct value');
       expect(cells[1].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
-      expect(cells[1].querySelector('a').getAttribute('href')).equal(`/remove-subscription?court=${mockCourt.locationId}`);
+      expect(cells[1].querySelector('a').getAttribute('href')).equal(
+        `/remove-subscription?court=${mockCourt.locationId}`
+      );
     });
 
     it('should contain confirm subscriptions button', () => {
@@ -108,23 +124,29 @@ describe('Pending Subscriptions Page', () => {
 
     it('should display add another email subscription link', () => {
       const addAnotherLink = htmlRes.getElementsByTagName('a')[13];
-      expect(addAnotherLink.innerHTML).contains('Add another email Subscription',
-        'Could not find add another email subscription link');
+      expect(addAnotherLink.innerHTML).contains(
+        'Add another email Subscription',
+        'Could not find add another email subscription link'
+      );
 
-      expect(addAnotherLink.getAttribute('href')).equal('/subscription-add',
-        'Add another link does not contain href');
+      expect(addAnotherLink.getAttribute('href')).equal('/subscription-add', 'Add another link does not contain href');
     });
   });
 
   describe('user with court subscription but without case subscriptions', () => {
     beforeAll(async () => {
-      app.request['user'] = {piUserId: '4', _json: {
-        'extension_UserRole': 'VERIFIED',
-      }};
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      app.request['user'] = {
+        piUserId: '4',
+        _json: {
+          extension_UserRole: 'VERIFIED',
+        },
+      };
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should have correct page title', () => {
@@ -143,7 +165,8 @@ describe('Pending Subscriptions Page', () => {
     });
 
     it('should display correct court table headers', () => {
-      const tableHeaders = htmlRes.getElementsByClassName('govuk-table')[0]
+      const tableHeaders = htmlRes
+        .getElementsByClassName('govuk-table')[0]
         .getElementsByClassName('govuk-table__header');
       expect(tableHeaders[0].innerHTML).contains('Court or tribunal name', 'Could not find text in first header');
       expect(tableHeaders[1].innerHTML).contains('Actions', 'Could not find text in second header');
@@ -155,7 +178,9 @@ describe('Pending Subscriptions Page', () => {
       expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
       expect(cells[0].innerHTML).contains(mockCourt.name, 'First cell does not contain correct value');
       expect(cells[1].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
-      expect(cells[1].querySelector('a').getAttribute('href')).equal(`/remove-subscription?court=${mockCourt.locationId}`);
+      expect(cells[1].querySelector('a').getAttribute('href')).equal(
+        `/remove-subscription?court=${mockCourt.locationId}`
+      );
     });
 
     it('should contain confirm subscriptions button', () => {
@@ -165,23 +190,29 @@ describe('Pending Subscriptions Page', () => {
 
     it('should display add another email subscription link', () => {
       const addAnotherLink = htmlRes.getElementsByTagName('a')[12];
-      expect(addAnotherLink.innerHTML).contains('Add another email Subscription',
-        'Could not find add another email subscription link');
+      expect(addAnotherLink.innerHTML).contains(
+        'Add another email Subscription',
+        'Could not find add another email subscription link'
+      );
 
-      expect(addAnotherLink.getAttribute('href')).equal('/subscription-add',
-        'Add another link does not contain href');
+      expect(addAnotherLink.getAttribute('href')).equal('/subscription-add', 'Add another link does not contain href');
     });
   });
 
   describe('user with case subscription but without court subscriptions', () => {
     beforeAll(async () => {
-      app.request['user'] = {piUserId: '3', _json: {
-        'extension_UserRole': 'VERIFIED',
-      }};
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      app.request['user'] = {
+        piUserId: '3',
+        _json: {
+          extension_UserRole: 'VERIFIED',
+        },
+      };
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should have correct page title', () => {
@@ -201,8 +232,14 @@ describe('Pending Subscriptions Page', () => {
 
     it('should display correct case table headers', () => {
       const tableHeaders = htmlRes.getElementsByClassName(tableHeaderClass);
-      expect(tableHeaders[0].innerHTML).contains('Unique reference number (URN)', 'Could not find text in first header');
-      expect(tableHeaders[1].innerHTML).contains('Case reference number or case ID', 'Could not find text in second header');
+      expect(tableHeaders[0].innerHTML).contains(
+        'Unique reference number (URN)',
+        'Could not find text in first header'
+      );
+      expect(tableHeaders[1].innerHTML).contains(
+        'Case reference number or case ID',
+        'Could not find text in second header'
+      );
       expect(tableHeaders[2].innerHTML).contains('Case name', 'Could not find text in third header');
       expect(tableHeaders[3].innerHTML).contains('Actions', 'Could not find text in fourth header');
     });
@@ -220,7 +257,9 @@ describe('Pending Subscriptions Page', () => {
       expect(cells[1].innerHTML).contains(mockCase.caseNumber, 'Second cell does not contain correct value');
       expect(cells[2].innerHTML).contains(mockCase.caseName, 'Third cell does not contain correct value');
       expect(cells[3].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
-      expect(cells[3].querySelector('a').getAttribute('href')).equal(`/remove-subscription?case=${mockCase.caseNumber}`);
+      expect(cells[3].querySelector('a').getAttribute('href')).equal(
+        `/remove-subscription?case=${mockCase.caseNumber}`
+      );
     });
 
     it('should not contain any row in the court table', () => {
@@ -235,23 +274,29 @@ describe('Pending Subscriptions Page', () => {
 
     it('should display add another email subscription link', () => {
       const addAnotherLink = htmlRes.getElementsByTagName('a')[12];
-      expect(addAnotherLink.innerHTML).contains('Add another email Subscription',
-        'Could not find add another email subscription link');
+      expect(addAnotherLink.innerHTML).contains(
+        'Add another email Subscription',
+        'Could not find add another email subscription link'
+      );
 
-      expect(addAnotherLink.getAttribute('href')).equal('/subscription-add',
-        'Add another link does not contain href');
+      expect(addAnotherLink.getAttribute('href')).equal('/subscription-add', 'Add another link does not contain href');
     });
   });
 
   describe('user without subscriptions', () => {
     beforeAll(async () => {
-      app.request['user'] = {piUserId: '2', _json: {
-        'extension_UserRole': 'VERIFIED',
-      }};
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      app.request['user'] = {
+        piUserId: '2',
+        _json: {
+          extension_UserRole: 'VERIFIED',
+        },
+      };
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should display add subscriptions button', () => {
@@ -274,13 +319,18 @@ describe('Pending Subscriptions Page', () => {
 
   describe('user without subscriptions error screen', () => {
     beforeAll(async () => {
-      app.request['user'] = {piUserId: '2', _json: {
-        'extension_UserRole': 'VERIFIED',
-      }};
-      await request(app).get(`${PAGE_URL}?no-subscriptions=true`).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      app.request['user'] = {
+        piUserId: '2',
+        _json: {
+          extension_UserRole: 'VERIFIED',
+        },
+      };
+      await request(app)
+        .get(`${PAGE_URL}?no-subscriptions=true`)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should display error summary if user tries to confirm 0 subscriptions', () => {

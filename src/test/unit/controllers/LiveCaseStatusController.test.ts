@@ -3,8 +3,8 @@ import { Response } from 'express';
 import LiveCaseStatusController from '../../../main/controllers/LiveCaseStatusController';
 import fs from 'fs';
 import path from 'path';
-import {LiveCaseService} from '../../../main/service/liveCaseService';
-import {mockRequest} from '../mocks/mockRequest';
+import { LiveCaseService } from '../../../main/service/liveCaseService';
+import { mockRequest } from '../mocks/mockRequest';
 import moment from 'moment';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/liveCaseStatusUpdates.json'), 'utf-8');
@@ -22,9 +22,13 @@ describe.skip('Live Status Controller', () => {
       'live-case-status': {},
     };
 
-    const response = { render: () => {return '';}} as unknown as Response;
+    const response = {
+      render: () => {
+        return '';
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {locationId: '1'};
+    request.query = { locationId: '1' };
 
     const expectedData = {
       ...i18n['live-case-status'],
@@ -45,10 +49,13 @@ describe.skip('Live Status Controller', () => {
   });
 
   it('should redirect to not found page if a court ID that does not return any results', () => {
-
-    const response = { redirect: () => {return '';}} as unknown as Response;
+    const response = {
+      redirect: () => {
+        return '';
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {locationId: '777'};
+    request.query = { locationId: '777' };
 
     const responseMock = sinon.mock(response);
     responseMock.expects('redirect').once().withArgs('not-found');
@@ -63,7 +70,11 @@ describe.skip('Live Status Controller', () => {
       error: {},
     };
 
-    const response = { render: () => {return '';}} as unknown as Response;
+    const response = {
+      render: () => {
+        return '';
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
     request.query = {};
 

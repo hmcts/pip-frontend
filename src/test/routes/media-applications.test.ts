@@ -1,28 +1,29 @@
 import request from 'supertest';
-import {app} from '../../main/app';
-import {expect} from 'chai';
-import {request as expressRequest} from 'express';
+import { app } from '../../main/app';
+import { expect } from 'chai';
+import { request as expressRequest } from 'express';
 import sinon from 'sinon';
-import {MediaApplicationService} from '../../main/service/mediaApplicationService';
-import {MediaAccountApplication} from '../../main/models/MediaAccountApplication';
+import { MediaApplicationService } from '../../main/service/mediaApplicationService';
+import { MediaAccountApplication } from '../../main/models/MediaAccountApplication';
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'INTERNAL_SUPER_ADMIN_CTSC',
+  },
+};
 
 const mediaAccount = {
   id: '1234',
 } as MediaAccountApplication;
 
-describe('Media applications', () =>{
+describe('Media applications', () => {
   describe('GET', () => {
     test('should return media applications page', async () => {
-      sinon.stub(MediaApplicationService.prototype, 'getDateOrderedMediaApplications')
-        .resolves([mediaAccount]);
+      sinon.stub(MediaApplicationService.prototype, 'getDateOrderedMediaApplications').resolves([mediaAccount]);
 
       await request(app)
         .get('/media-applications')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });

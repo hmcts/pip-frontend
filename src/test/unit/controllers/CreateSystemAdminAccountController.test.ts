@@ -7,20 +7,24 @@ import { CreateAccountService } from '../../../main/service/createAccountService
 const mockData = {
   firstName: 'joe',
   lastName: 'bloggs',
-  emailAddress:'joe.bloggs@mail.com',
+  emailAddress: 'joe.bloggs@mail.com',
 };
 
-const validationErrors = {foo: {message: 'error'}};
+const validationErrors = { foo: { message: 'error' } };
 const createSystemAdminAccountController = new CreateSystemAdminAccountController();
 const validationStub = sinon.stub(CreateAccountService.prototype, 'validateAdminFormFields');
-validationStub.withArgs(mockData).returns({foo: {message: null}});
+validationStub.withArgs(mockData).returns({ foo: { message: null } });
 validationStub.withArgs({}).returns(validationErrors);
 
 describe('Create System Admin Account Controller', () => {
-  const i18n = {'create-system-admin-account': {}};
-  const response = { render: () => {return '';}} as unknown as Response;
+  const i18n = { 'create-system-admin-account': {} };
+  const response = {
+    render: () => {
+      return '';
+    },
+  } as unknown as Response;
   const request = mockRequest(i18n);
-  request['cookies'] = {'createAdminAccount': JSON.stringify(mockData)};
+  request['cookies'] = { createAdminAccount: JSON.stringify(mockData) };
 
   describe('get requests', () => {
     it('should render create system admin account page with set cookie', async () => {
@@ -65,7 +69,14 @@ describe('Create System Admin Account Controller', () => {
     });
 
     it('should redirect to create system admin account summary page', async () => {
-      const response = { redirect: () => {return '';}, cookie: () => {return '';}} as unknown as Response;
+      const response = {
+        redirect: () => {
+          return '';
+        },
+        cookie: () => {
+          return '';
+        },
+      } as unknown as Response;
       const responseMock = sinon.mock(response);
       request.body = mockData;
 

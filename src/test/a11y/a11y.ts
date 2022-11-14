@@ -13,7 +13,7 @@ import { CaseEventGlossaryRequests } from '../../main/resources/requests/caseEve
 import { SjpRequests } from '../../main/resources/requests/sjpRequests';
 import { ManualUploadService } from '../../main/service/manualUploadService';
 import { PublicationRequests } from '../../main/resources/requests/publicationRequests';
-import {AccountManagementRequests} from '../../main/resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../../main/resources/requests/accountManagementRequests';
 
 const agent = supertest.agent(app);
 const routesNotTested = [
@@ -65,9 +65,14 @@ const systemAdminRoutes = [
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
 const rawDataLive = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/liveCaseStatusUpdates.json'), 'utf-8');
-const rawDataCaseEventGlossary = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/CaseEventGlossary.json'), 'utf-8');
+const rawDataCaseEventGlossary = fs.readFileSync(
+  path.resolve(__dirname, '../unit/mocks/CaseEventGlossary.json'),
+  'utf-8'
+);
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/trimmedSJPCases.json'), 'utf-8');
-const rawPublicationData = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../unit/mocks/SJPMockPage.json'), 'utf-8'));
+const rawPublicationData = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, '../unit/mocks/SJPMockPage.json'), 'utf-8')
+);
 const rawMediaApplications = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/mediaApplications.json'), 'utf-8');
 const allCourtData = JSON.parse(rawDataCourt);
 const courtData = allCourtData[0];
@@ -110,28 +115,33 @@ beforeAll((done /* call it or remove it*/) => {
 export function ensurePageCallWillSucceed(url: string): Promise<void> {
   if (adminRoutes.includes(url)) {
     app.request['user'] = {
-      piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
-        'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
+      piUserId: '1',
+      emails: ['joe@bloggs.com'],
+      _json: {
+        extension_UserRole: 'INTERNAL_SUPER_ADMIN_CTSC',
       },
     };
   } else if (systemAdminRoutes.includes(url)) {
     app.request['user'] = {
-      piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
-        'extension_UserRole': 'SYSTEM_ADMIN',
+      piUserId: '1',
+      emails: ['joe@bloggs.com'],
+      _json: {
+        extension_UserRole: 'SYSTEM_ADMIN',
       },
     };
   } else {
     app.request['user'] = {
-      piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
-        'extension_UserRole': 'VERIFIED',
-      }};
+      piUserId: '1',
+      emails: ['joe@bloggs.com'],
+      _json: {
+        extension_UserRole: 'VERIFIED',
+      },
+    };
   }
 
   return agent.get(url).then((res: supertest.Response) => {
     if (res.redirect) {
-      throw new Error(
-        `Call to ${url} resulted in a redirect to ${res.get('Location')}`,
-      );
+      throw new Error(`Call to ${url} resulted in a redirect to ${res.get('Location')}`);
     }
     if (res.serverError) {
       throw new Error(`Call to ${url} resulted in internal server error`);
@@ -156,7 +166,7 @@ export function expectNoErrors(messages: PallyIssue[]): void {
 
 function removeRoutes(routes): string[] {
   const routesToTest = [];
-  routes.forEach((route) => {
+  routes.forEach(route => {
     if (!routesNotTested.includes(route)) {
       routesToTest.push(route);
     }
@@ -165,9 +175,7 @@ function removeRoutes(routes): string[] {
 }
 
 function readRoutes(): string[] {
-  let appRoutes = app._router.stack
-    .filter(r => r.route)
-    .map(r => r.route.path);
+  let appRoutes = app._router.stack.filter(r => r.route).map(r => r.route.path);
   appRoutes = removeRoutes(appRoutes);
   return appRoutes;
 }
@@ -186,15 +194,15 @@ function testAccessibility(url: string): void {
   });
 }
 
-describe('Accessibility',  () => {
+describe('Accessibility', () => {
   app.request['cookies'] = {
-    'formCookie': JSON.stringify({'foo': 'blah', listType: '', listTypeName: ''}),
-    'createAdminAccount': JSON.stringify({
-      'user-role' : 'admin-ctsc',
+    formCookie: JSON.stringify({ foo: 'blah', listType: '', listTypeName: '' }),
+    createAdminAccount: JSON.stringify({
+      'user-role': 'admin-ctsc',
       userRoleObject: {
-        key:'admin-ctsc',
-        text:'Internal - Administrator - CTSC',
-        mapping:'INTERNAL_ADMIN_CTSC',
+        key: 'admin-ctsc',
+        text: 'Internal - Administrator - CTSC',
+        mapping: 'INTERNAL_ADMIN_CTSC',
       },
     }),
   };

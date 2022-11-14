@@ -3,9 +3,9 @@ import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
-import {mockRequest} from '../mocks/mockRequest';
+import { mockRequest } from '../mocks/mockRequest';
 import moment from 'moment';
-import {CrownWarnedListService} from '../../../main/service/listManipulation/crownWarnedListService';
+import { CrownWarnedListService } from '../../../main/service/listManipulation/crownWarnedListService';
 import CrownWarnedListController from '../../../main/controllers/CrownWarnedListController';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownWarnedList.json'), 'utf-8');
@@ -40,12 +40,12 @@ const toBeAllocatedData = {
   listingNotes: '9',
 };
 
-const listData = new Map<string, object[]>;
+const listData = new Map<string, object[]>();
 listData.set('Hearing type', [allocatedData]);
 listData.set('To be allocated', [toBeAllocatedData]);
 sinon.stub(CrownWarnedListService.prototype, 'manipulateData').returns(listData);
 
-const listDataWithAllocatedData = new Map<string, object[]>;
+const listDataWithAllocatedData = new Map<string, object[]>();
 listDataWithAllocatedData.set('Hearing type', [allocatedData]);
 
 crownWarnedListJsonStub.withArgs(artefactId).resolves(rawDataObj);
@@ -59,7 +59,11 @@ const i18n = {
 };
 
 describe('Crown Warned List Controller', () => {
-  const response = { render: () => {return '';}} as unknown as Response;
+  const response = {
+    render: () => {
+      return '';
+    },
+  } as unknown as Response;
   const request = mockRequest(i18n);
   request.path = '/crown-warned-list';
 
@@ -67,9 +71,9 @@ describe('Crown Warned List Controller', () => {
     sinon.restore();
   });
 
-  it('should render the crown warned list page', async () =>  {
-    request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+  it('should render the crown warned list page', async () => {
+    request.query = { artefactId: artefactId };
+    request.user = { piUserId: '1' };
 
     const responseMock = sinon.mock(response);
 
@@ -93,7 +97,7 @@ describe('Crown Warned List Controller', () => {
 
   it('should render error page is query param is empty', async () => {
     request.query = {};
-    request.user = {piUserId: '1'};
+    request.user = { piUserId: '1' };
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);

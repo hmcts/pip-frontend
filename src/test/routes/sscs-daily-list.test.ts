@@ -17,11 +17,10 @@ sinon.stub(DataManipulationService.prototype, 'manipulateSscsDailyListData').res
 describe('Sscs Daily List Page', () => {
   describe('on GET', () => {
     test('should return sscs daily list page', async () => {
-      app.request['user'] = {piUserId: '2'};
+      app.request['user'] = { piUserId: '2' };
       await request(app)
         .get('/sscs-daily-list?artefactId=test')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });
-

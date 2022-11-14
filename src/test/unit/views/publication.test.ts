@@ -1,11 +1,11 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
-import {app} from '../../../main/app';
-import {LocationService} from '../../../main/service/locationService';
-import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
+import { app } from '../../../main/app';
+import { LocationService } from '../../../main/service/locationService';
+import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
 
 const PAGE_URL = '/summary-of-publications?locationId=0';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/summaryOfPublications.json'), 'utf-8');
@@ -13,13 +13,15 @@ const pubs = JSON.parse(rawData);
 let htmlRes: Document;
 
 sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(pubs);
-sinon.stub(LocationService.prototype, 'getLocationById').resolves({'name': 'Court Name'});
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'Court Name' });
 
 describe('Publication Page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      });
   });
 
   it('should display header', () => {
@@ -30,7 +32,7 @@ describe('Publication Page', () => {
   it('should sort publications by content date followed by list type', () => {
     const items = htmlRes.getElementsByClassName('das-search-results__link');
     const innerHTMLs = [];
-    for ( let i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
       innerHTMLs.push(items[i].innerHTML.replace('\n', '').trim());
     }
 
@@ -48,9 +50,7 @@ describe('Publication Page', () => {
 
   it('should display a back button with the correct value', () => {
     const backLink = htmlRes.getElementsByClassName('govuk-back-link');
-    expect(backLink[0].innerHTML)
-      .contains('Back', 'Back button does not contain correct text');
-    expect(backLink[0].getAttribute('href'))
-      .equal('#', 'Back value does not contain correct link');
+    expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
+    expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
   });
 });

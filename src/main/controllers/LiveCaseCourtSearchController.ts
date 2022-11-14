@@ -1,12 +1,11 @@
-import {  Response } from 'express';
-import {LocationService} from '../service/locationService';
-import {PipRequest} from '../models/request/PipRequest';
-import {cloneDeep} from 'lodash';
+import { Response } from 'express';
+import { LocationService } from '../service/locationService';
+import { PipRequest } from '../models/request/PipRequest';
+import { cloneDeep } from 'lodash';
 
 const courtService = new LocationService();
 
 export default class LiveCaseCourtSearchController {
-
   public async get(req: PipRequest, res: Response): Promise<void> {
     const crownCourts = await courtService.generateAlphabetisedCrownCourtList(req.lng as string);
     res.render('live-case-alphabet-search', {

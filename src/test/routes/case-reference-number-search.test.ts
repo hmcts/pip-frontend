@@ -5,9 +5,11 @@ import { app } from '../../main/app';
 import { request as expressRequest } from 'express';
 import { PublicationService } from '../../main/service/publicationService';
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'VERIFIED',
+  },
+};
 
 sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').withArgs('56-181-2097', true).resolves(true);
 
@@ -16,7 +18,7 @@ describe('Case reference number search', () => {
     test('should return Case reference number search page', async () => {
       await request(app)
         .get('/case-reference-number-search')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 
@@ -24,8 +26,8 @@ describe('Case reference number search', () => {
     test('should return Case reference number search page', async () => {
       await request(app)
         .post('/case-reference-number-search')
-        .send({'search-input': '56-181-2097'})
-        .expect((res) => expect(res.status).to.equal(200));
+        .send({ 'search-input': '56-181-2097' })
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });

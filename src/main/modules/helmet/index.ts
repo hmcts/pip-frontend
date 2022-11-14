@@ -35,7 +35,7 @@ export class Helmet {
           scriptSrc: [self, ...tagManager, googleAnalyticsDomain, "'unsafe-inline'", "'unsafe-eval'"],
           styleSrc: [self, 'https://pip-frontend.staging.platform.hmcts.net'],
         },
-      }),
+      })
     );
   }
 

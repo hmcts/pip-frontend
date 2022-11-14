@@ -1,11 +1,14 @@
-import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
+import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {dataManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
+import { dataManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
 
 const Blob = require('node-blob');
-const rawDataPubs = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/summaryOfPublications.json'), 'utf-8');
+const rawDataPubs = fs.readFileSync(
+  path.resolve(__dirname, '../../../test/unit/mocks/summaryOfPublications.json'),
+  'utf-8'
+);
 const pubs = JSON.parse(rawDataPubs);
 const totalCases = 6;
 const pubRequests = new PublicationRequests();
@@ -31,9 +34,9 @@ const errorResponse = {
 const errorMessage = {
   message: 'test',
 };
-const mockJson = {'data': {'hello': 'hello'}};
+const mockJson = { data: { hello: 'hello' } };
 const mockPDF = new Blob(['testPDF']);
-const indivPubJsonObject = {'data': mockPDF};
+const indivPubJsonObject = { data: mockPDF };
 const valid = 'valid';
 const invalid = 'invalid';
 const dataManagementStub = sinon.stub(dataManagementApi, 'get');
@@ -47,12 +50,12 @@ dataManagementStub.withArgs('/publication/locationId/valid').resolves(successRes
 dataManagementStub.withArgs('/publication/abc1/payload').rejects(errorResponse);
 dataManagementStub.withArgs('/publication/abc2/payload').rejects(errorRequest);
 dataManagementStub.withArgs('/publication/abc3/payload').rejects(errorMessage);
-dataManagementStub.withArgs('/publication/' + artefactId + '/payload').resolves({data: dailyCauseListData});
+dataManagementStub.withArgs('/publication/' + artefactId + '/payload').resolves({ data: dailyCauseListData });
 
 dataManagementStub.withArgs('/publication/abc1').rejects(errorResponse);
 dataManagementStub.withArgs('/publication/abc2').rejects(errorRequest);
 dataManagementStub.withArgs('/publication/abc3').rejects(errorMessage);
-dataManagementStub.withArgs('/publication/' + artefactId).resolves({data: metaData});
+dataManagementStub.withArgs('/publication/' + artefactId).resolves({ data: metaData });
 
 dataMngmntDeleteStub.withArgs('/publication/abc1').rejects(errorResponse);
 dataMngmntDeleteStub.withArgs('/publication/abc2').rejects(errorRequest);
@@ -60,7 +63,6 @@ dataMngmntDeleteStub.withArgs('/publication/abc3').rejects(errorMessage);
 dataMngmntDeleteStub.withArgs('/publication/abc').resolves(true);
 
 describe('getIndividualPubJson()', () => {
-
   it('should return publication json', async () => {
     expect(await publicationRequests.getIndividualPublicationJson(artefactId, userId)).toBe(dailyCauseListData);
   });
@@ -73,13 +75,17 @@ describe('getIndividualPubJson()', () => {
 
   it('should return judge title Mr', async () => {
     return await publicationRequests.getIndividualPublicationJson(artefactId, userId).then(data => {
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['judiciary'][0]['johTitle']).toEqual('Mr');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['judiciary'][0]['johTitle']).toEqual(
+        'Mr'
+      );
     });
   });
 
   it('should have two hearings', async () => {
     return await publicationRequests.getIndividualPublicationJson(artefactId, userId).then(data => {
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'].length).toEqual(2);
+      expect(
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'].length
+      ).toEqual(2);
     });
   });
 
@@ -97,7 +103,6 @@ describe('getIndividualPubJson()', () => {
 });
 
 describe('getIndividualPubMetadata()', () => {
-
   it('should return publication meta data', async () => {
     expect(await publicationRequests.getIndividualPublicationMetadata(artefactId, userId, false)).toBe(metaData);
   });
@@ -169,7 +174,7 @@ describe('Get publication by court id', () => {
 
 describe('get individual publication metadata', () => {
   it('should return metadata for a given publication', async () => {
-    dataManagementStub.withArgs('/publication/fakeArtefactId').resolves({data: pubs});
+    dataManagementStub.withArgs('/publication/fakeArtefactId').resolves({ data: pubs });
     const message = await pubRequests.getIndividualPublicationMetadata('fakeArtefactId', userId, false);
     expect(message.length).toBe(totalCases);
   });
@@ -181,7 +186,11 @@ describe('get individual publication metadata', () => {
 
   it('should send an error to the log if error response exists', async () => {
     dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse').rejects(errorResponse);
-    const response = await pubRequests.getIndividualPublicationMetadata('brokenPromiseWithErrorResponse', userId, false);
+    const response = await pubRequests.getIndividualPublicationMetadata(
+      'brokenPromiseWithErrorResponse',
+      userId,
+      false
+    );
     expect(response).toBe(null);
   });
 
@@ -193,9 +202,12 @@ describe('get individual publication metadata', () => {
 
   describe('get individual publication file', () => {
     it('should return file for a given publication', async () => {
-      dataManagementStub.withArgs('/publication/fakeArtefactId/file', {
-        headers: {'x-user-id': '123'},
-        responseType: 'arraybuffer'}).resolves(indivPubJsonObject);
+      dataManagementStub
+        .withArgs('/publication/fakeArtefactId/file', {
+          headers: { 'x-user-id': '123' },
+          responseType: 'arraybuffer',
+        })
+        .resolves(indivPubJsonObject);
       const message = await pubRequests.getIndividualPublicationFile('fakeArtefactId', userId);
       expect(message).toBe(indivPubJsonObject.data);
     });
@@ -220,7 +232,9 @@ describe('get individual publication metadata', () => {
 
   describe('get individual publication json', () => {
     it('should return json for a given publication', async () => {
-      dataManagementStub.withArgs('/publication/fakeArtefactId/payload', {headers: {'x-user-id': '123'}}).resolves(mockJson);
+      dataManagementStub
+        .withArgs('/publication/fakeArtefactId/payload', { headers: { 'x-user-id': '123' } })
+        .resolves(mockJson);
       const message = await pubRequests.getIndividualPublicationJson('fakeArtefactId', userId);
       expect(message).toBe(mockJson.data);
     });

@@ -1,9 +1,8 @@
 import sinon from 'sinon';
 import { Response } from 'express';
-import {mockRequest} from '../mocks/mockRequest';
-import SubscriptionConfigureListConfirmedController
-  from '../../../main/controllers/SubscriptionConfigureListConfirmedController';
-import {SubscriptionService} from '../../../main/service/subscriptionService';
+import { mockRequest } from '../mocks/mockRequest';
+import SubscriptionConfigureListConfirmedController from '../../../main/controllers/SubscriptionConfigureListConfirmedController';
+import { SubscriptionService } from '../../../main/service/subscriptionService';
 
 const subscriptionConfigureListConfirmedController = new SubscriptionConfigureListConfirmedController();
 
@@ -20,10 +19,9 @@ const response = {
 describe('Subscription Configure List Type Confirmed', () => {
   const i18n = {};
   it('should render the confirmation page', () => {
-
     const request = mockRequest(i18n);
-    request.user = {piUserId: '1'};
-    request.body = {'list-selections[]': 'CIVIL_DAILY_CAUSE_LIST'};
+    request.user = { piUserId: '1' };
+    request.body = { 'list-selections[]': 'CIVIL_DAILY_CAUSE_LIST' };
     const responseMock = sinon.mock(response);
 
     const expectedData = {
@@ -38,10 +36,9 @@ describe('Subscription Configure List Type Confirmed', () => {
   });
 
   it('should render an error page if list type subscription is not updated', () => {
-
     const request = mockRequest(i18n);
-    request.user = {piUserId: null};
-    request.body = {'list-selections[]': 'CIVIL_DAILY_CAUSE_LIST'};
+    request.user = { piUserId: null };
+    request.body = { 'list-selections[]': 'CIVIL_DAILY_CAUSE_LIST' };
 
     const responseMock = sinon.mock(response);
 

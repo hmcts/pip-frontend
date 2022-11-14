@@ -1,4 +1,4 @@
-import {PipRequest} from '../../../main/models/request/PipRequest';
+import { PipRequest } from '../../../main/models/request/PipRequest';
 
 export const mockRequest = (data: any): PipRequest => {
   const req: any = {

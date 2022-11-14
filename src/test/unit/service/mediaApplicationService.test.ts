@@ -1,6 +1,6 @@
 import sinon from 'sinon';
-import {MediaApplicationService} from '../../../main/service/mediaApplicationService';
-import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
+import { MediaApplicationService } from '../../../main/service/mediaApplicationService';
+import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 import fs from 'fs';
 import path from 'path';
 

@@ -1,17 +1,18 @@
 import request from 'supertest';
-import {app} from '../../main/app';
-import {expect} from 'chai';
+import { app } from '../../main/app';
+import { expect } from 'chai';
 import { MediaAccountApplicationService } from '../../main/service/mediaAccountApplicationService';
 import sinon from 'sinon';
-import {dummyApplication} from '../helpers/testConsts';
-import {request as expressRequest} from 'express';
+import { dummyApplication } from '../helpers/testConsts';
+import { request as expressRequest } from 'express';
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'INTERNAL_SUPER_ADMIN_CTSC',
+  },
+};
 
 describe('Media Account Review Pages', () => {
-
   const applicationID = '1234';
   const imageID = '12345';
 
@@ -25,7 +26,7 @@ describe('Media Account Review Pages', () => {
     test('should return the media account review page', async () => {
       await request(app)
         .get('/media-account-review?applicantId=' + applicationID)
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 
@@ -33,8 +34,8 @@ describe('Media Account Review Pages', () => {
     test('should return the admin-media-account-approval page', async () => {
       await request(app)
         .post('/media-account-review/approve')
-        .send({'applicantId': applicationID})
-        .expect((res) => expect(res.status).to.equal(302));
+        .send({ applicantId: applicationID })
+        .expect(res => expect(res.status).to.equal(302));
     });
   });
 
@@ -42,8 +43,8 @@ describe('Media Account Review Pages', () => {
     test('should return the admin-media-account-rejection page', async () => {
       await request(app)
         .post('/media-account-review/reject')
-        .send({'applicantId': applicationID})
-        .expect((res) => expect(res.status).to.equal(302));
+        .send({ applicantId: applicationID })
+        .expect(res => expect(res.status).to.equal(302));
     });
   });
 
@@ -51,8 +52,7 @@ describe('Media Account Review Pages', () => {
     test('should return the image page', async () => {
       await request(app)
         .get('/media-account-review/image?imageId=' + imageID)
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
-
 });

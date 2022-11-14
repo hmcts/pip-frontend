@@ -14,15 +14,15 @@ const dailyReferenceData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(dailyReferenceData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(dailyReferenceData);
 sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').resolves(dailyReferenceData);
-sinon.stub(LocationService.prototype, 'getLocationById').resolves({name: 'courtName'});
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
 
 describe('Daily Cause List Page', () => {
   describe('on GET', () => {
     test('should return daily cause list page', async () => {
-      app.request['user'] = {piUserId: '2'};
+      app.request['user'] = { piUserId: '2' };
       await request(app)
         .get('/daily-cause-list?artefactId=test')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });

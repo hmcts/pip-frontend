@@ -1,11 +1,11 @@
-import {Response} from 'express';
-import {PipRequest} from '../models/request/PipRequest';
-import {cloneDeep} from 'lodash';
+import { Response } from 'express';
+import { PipRequest } from '../models/request/PipRequest';
+import { cloneDeep } from 'lodash';
 import moment from 'moment';
-import {PublicationService} from '../service/publicationService';
-import {LocationService} from '../service/locationService';
-import {DataManipulationService} from '../service/dataManipulationService';
-import {CrimeListsService} from '../service/listManipulation/CrimeListsService';
+import { PublicationService } from '../service/publicationService';
+import { LocationService } from '../service/locationService';
+import { DataManipulationService } from '../service/dataManipulationService';
+import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -20,8 +20,11 @@ export default class MagistratesPublicListController {
 
     if (searchResults && metaData) {
       let manipulatedData = dataManipulationService.manipulatedDailyListData(JSON.stringify(searchResults));
-      manipulatedData = crimeListsService.manipulatedCrimeListData(JSON.stringify(manipulatedData),
-        req.lng as string, 'magistrates-public-list');
+      manipulatedData = crimeListsService.manipulatedCrimeListData(
+        JSON.stringify(manipulatedData),
+        req.lng as string,
+        'magistrates-public-list'
+      );
 
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);
@@ -40,8 +43,7 @@ export default class MagistratesPublicListController {
         bill: pageLanguage === 'bill',
       });
     } else {
-      res.render('error',
-        req.i18n.getDataByLanguage(req.lng).error);
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
   }
 }

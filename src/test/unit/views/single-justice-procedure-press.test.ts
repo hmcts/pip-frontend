@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {PublicationService} from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/publicationService';
 
 const PAGE_URL = '/sjp-press-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -35,10 +35,12 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').ret
 
 describe('Single Justice Procedure List page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display header', () => {
@@ -46,44 +48,46 @@ describe('Single Justice Procedure List page', () => {
     expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
   });
 
-  it('should display summary',  () => {
+  it('should display summary', () => {
     const summary = htmlRes.getElementsByClassName(summaryHeading);
     expect(summary[0].innerHTML).contains(summaryHeadingText, 'Could not find the display summary heading');
   });
 
-  it('should display list date',  () => {
+  it('should display list date', () => {
     const offenderData = htmlRes.getElementsByClassName(listSummary);
     expect(offenderData[0].innerHTML).contains(listText, 'Could not find the list date information');
   });
 
-  it('should have offender name',  () => {
+  it('should have offender name', () => {
     const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
     expect(offenderData[0].innerHTML).contains(offenderName, 'Could not find the offender name');
   });
 
-  it('should have offender date of birth',  () => {
+  it('should have offender date of birth', () => {
     const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
     expect(offenderData[1].innerHTML).contains(offenderDateOfBirth, 'Could not find the offender date of birth');
   });
 
-  it('should have offender Case Reference',  () => {
+  it('should have offender Case Reference', () => {
     const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
     expect(offenderData[2].innerHTML).contains(offenderCaseNumber, 'Could not find the offender case reference');
   });
 
-  it('should have offender address',  () => {
+  it('should have offender address', () => {
     const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
     expect(offenderData[3].innerHTML).contains(offenderAddress, 'Could not find the offender address');
   });
 
-  it('should have prosecutor',  () => {
+  it('should have prosecutor', () => {
     const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
     expect(offenderData[4].innerHTML).contains(prosecutor, 'Could not find the Prosecutor');
   });
 
-  it('should have reporting restriction section',  () => {
+  it('should have reporting restriction section', () => {
     const reportingRestrictionSection = htmlRes.getElementsByClassName(reportingRestrictionClass);
-    expect(reportingRestrictionSection[4].innerHTML).contains(reportingRestriction, 'Could not find the reporting Restriction');
+    expect(reportingRestrictionSection[4].innerHTML).contains(
+      reportingRestriction,
+      'Could not find the reporting Restriction'
+    );
   });
-
 });

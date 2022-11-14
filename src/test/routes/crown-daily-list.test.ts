@@ -8,7 +8,7 @@ import { LocationService } from '../../main/service/locationService';
 import fs from 'fs';
 import path from 'path';
 import { DataManipulationService } from '../../main/service/dataManipulationService';
-import {CrimeListsService} from '../../main/service/listManipulation/CrimeListsService';
+import { CrimeListsService } from '../../main/service/listManipulation/CrimeListsService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/crownDailyList.json'), 'utf-8');
 const crownDailyData = JSON.parse(rawData);
@@ -17,15 +17,15 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').res
 sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').resolves(crownDailyData);
 sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').resolves(crownDailyData);
 sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').resolves(crownDailyData);
-sinon.stub(LocationService.prototype, 'getLocationById').resolves({name: 'courtName'});
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
 
 describe('Crown Daily List Page', () => {
   describe('on GET', () => {
     test('should return crown daily list page', async () => {
-      app.request['user'] = {piUserId: '2'};
+      app.request['user'] = { piUserId: '2' };
       await request(app)
         .get('/crown-daily-list?artefactId=test')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });

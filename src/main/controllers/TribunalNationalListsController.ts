@@ -11,7 +11,6 @@ const dataManipulationService = new DataManipulationService();
 const tribunalNationalListsService = new TribunalNationalListsService();
 
 export default class TribunalNationalListsController {
-
   public async get(req: PipRequest, res: Response): Promise<void> {
     const listToLoad = req.path.slice(1, req.path.length);
     const artefactId = req.query.artefactId as string;
@@ -19,8 +18,11 @@ export default class TribunalNationalListsController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (searchResults && metaData) {
-
-      const manipulatedData = tribunalNationalListsService.manipulateData(JSON.stringify(searchResults), req.lng as string, listToLoad);
+      const manipulatedData = tribunalNationalListsService.manipulateData(
+        JSON.stringify(searchResults),
+        req.lng as string,
+        listToLoad
+      );
 
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);
@@ -30,7 +32,7 @@ export default class TribunalNationalListsController {
       res.render(listToLoad, {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
-        listData : manipulatedData,
+        listData: manipulatedData,
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         provenance: metaData['provenance'],
@@ -38,8 +40,7 @@ export default class TribunalNationalListsController {
         venueEmail: searchResults['venue']['venueContact']['venueEmail'],
       });
     } else {
-      res.render('error',
-        req.i18n.getDataByLanguage(req.lng).error);
+      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
   }
 }

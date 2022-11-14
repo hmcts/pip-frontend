@@ -1,5 +1,5 @@
-import {expect} from 'chai';
-import {LanguageFileParser} from '../../../main/helpers/languageFileParser';
+import { expect } from 'chai';
+import { LanguageFileParser } from '../../../main/helpers/languageFileParser';
 
 const languageFileParser = new LanguageFileParser();
 
@@ -8,7 +8,6 @@ const englishLanguage = 'en';
 const welshLanguage = 'cy';
 
 describe('Test language file parser helper', () => {
-
   it('check method can read the English language file', () => {
     const fileJson = languageFileParser.getLanguageFileJson(languageFileName, englishLanguage);
     expect(fileJson).not.empty;
@@ -26,7 +25,9 @@ describe('Test language file parser helper', () => {
 
   it('check method can read error node from the English language file', () => {
     const fileJson = languageFileParser.getLanguageFileJson(languageFileName, englishLanguage);
-    expect(languageFileParser.getText(fileJson, 'fullNameErrors', 'blank')).to.equal('There is a problem - Full name field must be populated');
+    expect(languageFileParser.getText(fileJson, 'fullNameErrors', 'blank')).to.equal(
+      'There is a problem - Full name field must be populated'
+    );
   });
 
   it('check method can read node from the Welsh language file', () => {
@@ -36,7 +37,8 @@ describe('Test language file parser helper', () => {
 
   it('check method can read error node from Welsh English language file', () => {
     const fileJson = languageFileParser.getLanguageFileJson(languageFileName, welshLanguage);
-    expect(languageFileParser.getText(fileJson, 'fullNameErrors', 'blank')).to.equal('Mae yna broblem - Rhaid rhoi enw llawn');
+    expect(languageFileParser.getText(fileJson, 'fullNameErrors', 'blank')).to.equal(
+      'Mae yna broblem - Rhaid rhoi enw llawn'
+    );
   });
-
 });

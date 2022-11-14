@@ -1,5 +1,5 @@
-import {Location} from '../models/location';
-import {LocationService} from './locationService';
+import { Location } from '../models/location';
+import { LocationService } from './locationService';
 
 const filterNames = ['Jurisdiction', 'Region'];
 
@@ -18,10 +18,10 @@ export class FilterService {
       finalFilterValueOptions = [];
       const filteredValue = this.getFilterValueOptions(filter, list);
       filteredValue.forEach(value => {
-        if(Array.isArray(value)) {
+        if (Array.isArray(value)) {
           const array = [...value];
           array.forEach(value => {
-            if(!finalFilterValueOptions.includes(value) && value !== '') {
+            if (!finalFilterValueOptions.includes(value) && value !== '') {
               finalFilterValueOptions.push(value);
             }
           });
@@ -54,12 +54,12 @@ export class FilterService {
     }
   }
 
-  public splitFilters(filterNames: string[], body: object): object{
+  public splitFilters(filterNames: string[], body: object): object {
     const filterValueOptions = {};
     let jurisdictionFilter = '';
     let regionFilter = '';
     filterNames.forEach(filter => {
-      if(body[filter]) {
+      if (body[filter]) {
         if (filter === 'Jurisdiction') {
           jurisdictionFilter = body[filter].toString();
         } else {
@@ -73,13 +73,13 @@ export class FilterService {
     return filterValueOptions;
   }
 
-  public findAndSplitFilters(filterValues: any[], filterOptions: object): object{
+  public findAndSplitFilters(filterValues: any[], filterOptions: object): object {
     const filterValueOptions = {};
 
     const jurisdictionFilter = [];
     const regionFilter = [];
 
-    if(filterValues.length > 0) {
+    if (filterValues.length > 0) {
       filterNames.forEach(filter => {
         filterValues.forEach(value => {
           Object.keys(filterOptions[filter]).forEach(filterValue => {
@@ -108,7 +108,11 @@ export class FilterService {
     return [];
   }
 
-  public async handleFilterInitialisation(clearQuery: string, filterValuesQuery: string, language: string): Promise<object> {
+  public async handleFilterInitialisation(
+    clearQuery: string,
+    filterValuesQuery: string,
+    language: string
+  ): Promise<object> {
     let filterValues = this.stripFilters(filterValuesQuery);
     if (clearQuery) {
       filterValues = this.handleFilterClear(filterValues, clearQuery);
@@ -116,13 +120,19 @@ export class FilterService {
 
     const filterOptions = this.buildFilterValueOptions(await locationService.fetchAllLocations(language), filterValues);
 
-    let filters ={};
-    if(filterValues.length > 0) {
+    let filters = {};
+    if (filterValues.length > 0) {
       filters = this.findAndSplitFilters(filterValues, filterOptions);
     }
 
-    const alphabetisedList = filterValues.length == 0 ? await locationService.generateAlphabetisedAllCourtList(language) :
-      await locationService.generateFilteredAlphabetisedCourtList(filters['Region'], filters['Jurisdiction'], language);
+    const alphabetisedList =
+      filterValues.length == 0
+        ? await locationService.generateAlphabetisedAllCourtList(language)
+        : await locationService.generateFilteredAlphabetisedCourtList(
+            filters['Region'],
+            filters['Jurisdiction'],
+            language
+          );
 
     return {
       alphabetisedList: alphabetisedList,

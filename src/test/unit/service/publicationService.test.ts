@@ -3,8 +3,8 @@ import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
 
-import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
-import {PublicationService} from '../../../main/service/publicationService';
+import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
+import { PublicationService } from '../../../main/service/publicationService';
 
 const caseNameValue = 'test';
 const caseNumberValue = '123';
@@ -12,17 +12,20 @@ const caseUrnValue = '456';
 const caseName = 'test name 1';
 const userId = '123';
 
-const returnedArtefact = [{
-  artefactId: '123',
-  search: {
-    cases: [
-      {caseNumber: '123', caseName: 'test name 1', caseUrn: '321'},
-      {caseNumber: '321', caseName: 'NaMe TesT', caseUrn: '456'},
-      {caseNumber: '432', caseName: 'not in', caseUrn: '867'}],
+const returnedArtefact = [
+  {
+    artefactId: '123',
+    search: {
+      cases: [
+        { caseNumber: '123', caseName: 'test name 1', caseUrn: '321' },
+        { caseNumber: '321', caseName: 'NaMe TesT', caseUrn: '456' },
+        { caseNumber: '432', caseName: 'not in', caseUrn: '867' },
+      ],
+    },
   },
-}];
+];
 
-const publicationService = new PublicationService;
+const publicationService = new PublicationService();
 const publicationRequestStub = sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue');
 publicationRequestStub.resolves(returnedArtefact);
 
@@ -63,11 +66,15 @@ describe('Publication service', () => {
   });
 
   it('should return Search Object matching case number', async () => {
-    expect(await publicationService.getCaseByCaseNumber(caseNumberValue, userId)).to.equal(returnedArtefact[0].search.cases[0]);
+    expect(await publicationService.getCaseByCaseNumber(caseNumberValue, userId)).to.equal(
+      returnedArtefact[0].search.cases[0]
+    );
   });
 
   it('should return Search Object matching case urn', async () => {
-    expect(await publicationService.getCaseByCaseUrn(caseUrnValue, userId)).to.equal(returnedArtefact[0].search.cases[1]);
+    expect(await publicationService.getCaseByCaseUrn(caseUrnValue, userId)).to.equal(
+      returnedArtefact[0].search.cases[1]
+    );
   });
 
   it('should return null processing failed request', async () => {
@@ -88,19 +95,19 @@ describe('Publication service', () => {
 
   describe('getIndivPubJson Service', () => {
     it('should return publication json', () => {
-      return publicationService.getIndividualPublicationJson('', userId).then((data) => {
+      return publicationService.getIndividualPublicationJson('', userId).then(data => {
         expect(data['courtLists'].length).to.equal(4);
       });
     });
 
     it('should have valid court name in the venue object', () => {
-      return publicationService.getIndividualPublicationJson('', userId).then((data) => {
+      return publicationService.getIndividualPublicationJson('', userId).then(data => {
         expect(data['venue']['venueName']).to.equal(validCourtName);
       });
     });
 
     it('should have valid court name in the venue object', () => {
-      return publicationService.getIndividualPublicationJson('', userId).then((data) => {
+      return publicationService.getIndividualPublicationJson('', userId).then(data => {
         expect(data['venue']['venueName']).not.equal(invalidCourtName);
       });
     });
@@ -108,7 +115,7 @@ describe('Publication service', () => {
 
   describe('getIndivPubMetadata Publication Service', () => {
     it('should return publication meta object', () => {
-      return publicationService.getIndividualPublicationMetadata('', userId).then((data) => {
+      return publicationService.getIndividualPublicationMetadata('', userId).then(data => {
         expect(data['contentDate']).to.equal('2022-02-14T14:14:59.73967');
       });
     });
@@ -123,7 +130,6 @@ describe('Publication service', () => {
       const data = await publicationService.getPublicationsByCourt('2', userId);
       expect(data).to.deep.equal([]);
     });
-
   });
 
   describe('Language to load the page in', () => {

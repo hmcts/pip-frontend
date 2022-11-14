@@ -19,13 +19,7 @@
   "draft": "Draft",
   "versionText": "Version",
   "for": "For",
-  "tableHeaders": [
-    "Case Reference",
-    "Defendant Name(s)",
-    "Fixed For",
-    "Represented By",
-    "Prosecuting Authority"
-  ],
+  "tableHeaders": ["Case Reference", "Defendant Name(s)", "Fixed For", "Represented By", "Prosecuting Authority"],
   "linkedCases": "Linked Cases",
   "listingNotes": "Listing Notes",
   "toBeAllocatedText": "To be allocated",

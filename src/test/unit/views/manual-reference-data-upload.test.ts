@@ -1,11 +1,11 @@
 import request from 'supertest';
-import {app} from '../../../main/app';
-import {expect} from 'chai';
+import { app } from '../../../main/app';
+import { expect } from 'chai';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {LocationRequests} from '../../../main/resources/requests/locationRequests';
-import {request as expressRequest} from 'express';
+import { LocationRequests } from '../../../main/resources/requests/locationRequests';
+import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/manual-reference-data-upload';
 const headingClass = 'govuk-heading-xl';
@@ -24,19 +24,23 @@ const mockBodyData = {
   'input-autocomplete': '',
 };
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'SYSTEM_ADMIN',
+  },
+};
 
 sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 
 describe('Reference Data Manual upload page', () => {
   describe('on GET', () => {
     beforeAll(async () => {
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
     it('should display header', () => {
       const header = htmlRes.getElementsByClassName(headingClass);
@@ -46,7 +50,10 @@ describe('Reference Data Manual upload page', () => {
     it('should contain file upload question inset', () => {
       const insetFileUpload = htmlRes.getElementsByClassName(insetTextClass);
       expect(insetFileUpload[0].innerHTML).contains(expectedFileQuestion, 'Could not find file upload');
-      expect(insetFileUpload[0].getElementsByTagName('input')[0].getAttribute('type')).equal(expectedFileInputType, 'Could not find file upload type');
+      expect(insetFileUpload[0].getElementsByTagName('input')[0].getAttribute('type')).equal(
+        expectedFileInputType,
+        'Could not find file upload type'
+      );
     });
 
     it('should display continue button', () => {
@@ -61,7 +68,10 @@ describe('Reference Data Manual upload page', () => {
 
       expect(banner).to.exist;
       expect(warningHeader.innerHTML).contains('Warning', 'Could not find warning header');
-      expect(warningText.innerHTML).contains('Prior to upload you must ensure the file is suitable for location data upload e.g. file should be in correct formats.', 'Could not find warning text');
+      expect(warningText.innerHTML).contains(
+        'Prior to upload you must ensure the file is suitable for location data upload e.g. file should be in correct formats.',
+        'Could not find warning text'
+      );
     });
   });
 
@@ -71,16 +81,21 @@ describe('Reference Data Manual upload page', () => {
         size: 2000001,
         originalname: 'too_large_file.csv',
       };
-      await request(app).post(PAGE_URL).send(mockBodyData).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      await request(app)
+        .post(PAGE_URL)
+        .send(mockBodyData)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should display file too large error', () => {
       const fileError = htmlRes.getElementById('manual-reference-data-upload-error');
-      expect(fileError.innerHTML).contains('File too large, please upload file smaller than 2MB', 'Could not find file error');
+      expect(fileError.innerHTML).contains(
+        'File too large, please upload file smaller than 2MB',
+        'Could not find file error'
+      );
     });
-
   });
 });

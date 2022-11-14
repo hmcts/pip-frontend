@@ -1,4 +1,4 @@
-import {DataManipulationService} from '../dataManipulationService';
+import { DataManipulationService } from '../dataManipulationService';
 import moment from 'moment';
 
 const dataManipulationService = new DataManipulationService();
@@ -6,7 +6,7 @@ const separator = ', ';
 
 export class CrownWarnedListService {
   public manipulateData(warnedListData: string): Map<string, object[]> {
-    const listData = new Map<string, object[]>;
+    const listData = new Map<string, object[]>();
     JSON.parse(warnedListData).courtLists.forEach(courtList => {
       courtList.courtHouse.courtRoom.forEach(courtRoom => {
         courtRoom.session.forEach(session => {
@@ -48,7 +48,7 @@ export class CrownWarnedListService {
   public formatContentDate(contentDate: string) {
     const date = new Date(contentDate);
     // Move the date to the past Monday if it is not on a Monday
-    date.setDate(date.getDate() - (date.getDay() + 6) % 7);
+    date.setDate(date.getDate() - ((date.getDay() + 6) % 7));
     return moment.utc(Date.parse(date.toUTCString())).format('DD MMMM YYYY');
   }
 
@@ -90,14 +90,12 @@ export class CrownWarnedListService {
   }
 
   private createIndividualDetails(individualDetails: any): string {
-    const forenames = individualDetails?.individualForenames ? individualDetails.individualForenames: '';
+    const forenames = individualDetails?.individualForenames ? individualDetails.individualForenames : '';
     const surname = individualDetails?.individualSurname ? individualDetails.individualSurname : '';
-    return surname
-      + (surname.length > 0 && forenames.length > 0 ? ', ' : '')
-      + forenames;
+    return surname + (surname.length > 0 && forenames.length > 0 ? ', ' : '') + forenames;
   }
 
   private createOrganisationDetails(organisationDetails: any) {
-    return organisationDetails?.organisationName ? organisationDetails.organisationName: '';
+    return organisationDetails?.organisationName ? organisationDetails.organisationName : '';
   }
 }

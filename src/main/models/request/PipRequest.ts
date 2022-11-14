@@ -16,9 +16,9 @@ export interface PipRequest extends Request {
       'create-admin-account-summary': {};
       'create-media-account': {};
       'delete-subscription': {};
-      'error': {};
+      error: {};
       'file-upload-confirm': {};
-      'home': {};
+      home: {};
       'list-option': {};
       'live-case-alphabet-search': {};
       'live-case-status': {};
@@ -31,7 +31,7 @@ export interface PipRequest extends Request {
       'remove-list-search': {};
       'remove-list-search-results': {};
       'remove-list-success': {};
-      'search': {};
+      search: {};
       'search-results': {};
       'session-management': {};
       'sign-in': {};
@@ -43,7 +43,7 @@ export interface PipRequest extends Request {
       'subscription-urn-search': {};
       'subscription-urn-search-result': {};
       'system-admin-dashboard': {};
-      'template': {};
+      template: {};
       'unsubscribe-confirmation': {};
       'view-option': {};
       'warned-list': {};

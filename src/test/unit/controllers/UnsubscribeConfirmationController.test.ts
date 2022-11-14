@@ -5,9 +5,9 @@ import sinon from 'sinon';
 import UnsubscribeConfirmationController from '../../../main/controllers/UnsubscribeConfirmationController';
 
 const stub = sinon.stub(SubscriptionService.prototype, 'unsubscribe');
-const validBody = {'unsubscribe-confirm': 'yes', subscription: '123'};
-const invalidBody = {'unsubscribe-confirm': 'yes', subscription: 'foo'};
-const redirectBody = {'unsubscribe-confirm': 'no'};
+const validBody = { 'unsubscribe-confirm': 'yes', subscription: '123' };
+const invalidBody = { 'unsubscribe-confirm': 'yes', subscription: 'foo' };
+const redirectBody = { 'unsubscribe-confirm': 'no' };
 const unsubscribeConfirmationController = new UnsubscribeConfirmationController();
 
 describe('Unsubscribe Confirmation Controller', () => {
@@ -20,14 +20,24 @@ describe('Unsubscribe Confirmation Controller', () => {
     'unsubscribe-confirmation': {},
     error: {},
   };
-  const response = { render: () => {return '';}, redirect: () => {return '';}} as unknown as Response;
+  const response = {
+    render: () => {
+      return '';
+    },
+    redirect: () => {
+      return '';
+    },
+  } as unknown as Response;
   const request = mockRequest(i18n);
 
   it('should render unsubscribe confirmation page if valid body data is provided', () => {
     request.body = validBody;
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('unsubscribe-confirmation', {...i18n['unsubscribe-confirmation']});
+    responseMock
+      .expects('render')
+      .once()
+      .withArgs('unsubscribe-confirmation', { ...i18n['unsubscribe-confirmation'] });
 
     return unsubscribeConfirmationController.post(request, response).then(() => {
       responseMock.verify();
@@ -38,7 +48,10 @@ describe('Unsubscribe Confirmation Controller', () => {
     request.body = invalidBody;
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('error', {...i18n.error});
+    responseMock
+      .expects('render')
+      .once()
+      .withArgs('error', { ...i18n.error });
 
     return unsubscribeConfirmationController.post(request, response).then(() => {
       responseMock.verify();

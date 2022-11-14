@@ -1,13 +1,13 @@
 import sinon from 'sinon';
-import {Response} from 'express';
+import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../main/service/publicationService';
-import {mockRequest} from '../mocks/mockRequest';
+import { PublicationService } from '../../../main/service/publicationService';
+import { mockRequest } from '../mocks/mockRequest';
 import moment from 'moment';
-import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
-import {CrimeListsService} from '../../../main/service/listManipulation/CrimeListsService';
+import { LocationService } from '../../../main/service/locationService';
+import { DataManipulationService } from '../../../main/service/dataManipulationService';
+import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
 import MagistratesPublicListController from '../../../main/controllers/MagistratesPublicListController';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magistratesPublicList.json'), 'utf-8');
@@ -40,8 +40,11 @@ const i18n = {
 };
 
 describe('Magistrates Public List Controller', () => {
-
-  const response = { render: () => {return '';}} as unknown as Response;
+  const response = {
+    render: () => {
+      return '';
+    },
+  } as unknown as Response;
   const request = mockRequest(i18n);
   request.path = '/magistrates-public-list';
 
@@ -49,9 +52,9 @@ describe('Magistrates Public List Controller', () => {
     sinon.restore();
   });
 
-  it('should render the magistrates public list page', async () =>  {
-    request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+  it('should render the magistrates public list page', async () => {
+    request.query = { artefactId: artefactId };
+    request.user = { piUserId: '1' };
 
     const responseMock = sinon.mock(response);
 
@@ -60,10 +63,10 @@ describe('Magistrates Public List Controller', () => {
       listData,
       contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
       publishedDate: '14 September 2020',
-      courtName: 'Abergavenny Magistrates\' Court',
+      courtName: "Abergavenny Magistrates' Court",
       publishedTime: '12:30am',
       provenance: 'prov1',
-      version:'',
+      version: '',
       bill: false,
     };
 
@@ -74,9 +77,8 @@ describe('Magistrates Public List Controller', () => {
   });
 
   it('should render error page is query param is empty', async () => {
-
     request.query = {};
-    request.user = {piUserId: '1'};
+    request.user = { piUserId: '1' };
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
@@ -86,8 +88,7 @@ describe('Magistrates Public List Controller', () => {
   });
 
   it('should render error page if list is not allowed to view by the user', async () => {
-
-    request.query = {artefactId: artefactId};
+    request.query = { artefactId: artefactId };
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
@@ -95,5 +96,4 @@ describe('Magistrates Public List Controller', () => {
     await magistratesPublicListController.get(request, response);
     return responseMock.verify();
   });
-
 });

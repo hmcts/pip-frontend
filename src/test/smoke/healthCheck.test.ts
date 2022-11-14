@@ -6,12 +6,12 @@ describe('P&I frontend health check', () => {
   it('should return a 200 status', async () => {
     await request(frontend)
       .get('/health')
-      .expect((res) => expect(res.status).toBe(200));
+      .expect(res => expect(res.status).toBe(200));
   });
 
   it('should return status UP', async () => {
     await request(frontend)
       .get('/health')
-      .expect((res) => expect(res.body.status).toBe('UP'));
+      .expect(res => expect(res.body.status).toBe('UP'));
   });
 });

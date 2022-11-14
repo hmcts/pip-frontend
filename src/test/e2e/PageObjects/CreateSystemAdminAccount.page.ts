@@ -4,7 +4,6 @@ import { CreateSystemAdminAccountSummaryPage } from './CreateSystemAdminAccountS
 const helpers = require('../Helpers/Selectors');
 
 export class CreateSystemAdminAccountPage extends CommonPage {
-
   async completeForm(): Promise<void> {
     await this.inputFirstName();
     await this.inputLastName();

@@ -1,8 +1,8 @@
 import { CommonPage } from './Common.page';
 import { AccountHomePage } from './AccountHome.page';
 import { CreateMediaAccountPage } from './CreateMediaAccount.page';
-import {AdminDashboardPage} from './AdminDashboard.page';
-import {SystemAdminDashboardPage} from './SystemAdminDashboard.page';
+import { AdminDashboardPage } from './AdminDashboard.page';
+import { SystemAdminDashboardPage } from './SystemAdminDashboard.page';
 
 const helpers = require('../Helpers/Selectors');
 

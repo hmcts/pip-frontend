@@ -1,12 +1,11 @@
-import {PipRequest} from '../models/request/PipRequest';
-import {Response} from 'express';
+import { PipRequest } from '../models/request/PipRequest';
+import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import {MediaAccountApplicationService} from '../service/mediaAccountApplicationService';
+import { MediaAccountApplicationService } from '../service/mediaAccountApplicationService';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 
 export default class MediaAccountApprovalController {
-
   public async get(req: PipRequest, res: Response): Promise<void> {
     const applicantId = req.query['applicantId'];
     const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
@@ -69,5 +68,4 @@ export default class MediaAccountApprovalController {
       });
     }
   }
-
 }

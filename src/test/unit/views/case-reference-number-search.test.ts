@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/publicationService';
 
 const PAGE_URL = '/case-reference-number-search';
 const headingClass = 'govuk-heading-l';
@@ -26,18 +26,22 @@ const subscriptionsData = JSON.parse(rawData)[0].search.cases[0];
 const stub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
 stub.resolves(subscriptionsData);
 
-app.request['user'] = { _json: {
-  'extension_UserRole': 'VERIFIED',
-}};
+app.request['user'] = {
+  _json: {
+    extension_UserRole: 'VERIFIED',
+  },
+};
 
 const pageTitleValue = 'Subscribe by case reference number or case ID';
 
 describe('Case Reference Search Page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should have correct page title', () => {
@@ -45,12 +49,12 @@ describe('Case Reference Search Page', () => {
     expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
   });
 
-  it('should display header',  () => {
+  it('should display header', () => {
     const header = htmlRes.getElementsByClassName(headingClass);
     expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
   });
 
-  it('should display continue button',  () => {
+  it('should display continue button', () => {
     const buttons = htmlRes.getElementsByClassName(buttonClass);
     expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
   });
@@ -74,15 +78,21 @@ describe('Case Reference Search Page', () => {
 
 describe('Case Reference Search Page Blank Input', () => {
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'search-input': ''}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .post(PAGE_URL)
+      .send({ 'search-input': '' })
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display minimum input error message', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
-    expect(errorSummary[0].innerHTML).contains('There is nothing matching your criteria', 'Could not find error message');
+    expect(errorSummary[0].innerHTML).contains(
+      'There is nothing matching your criteria',
+      'Could not find error message'
+    );
   });
 
   it('should display error message', () => {
@@ -99,15 +109,21 @@ describe('Case Reference Search Page Blank Input', () => {
 describe('Case Reference Search Page Invalid Input', () => {
   beforeAll(async () => {
     stub.resolves(null);
-    await request(app).post(PAGE_URL).send({'search-input': '12345'}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .post(PAGE_URL)
+      .send({ 'search-input': '12345' })
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display minimum input error message', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
-    expect(errorSummary[0].innerHTML).contains('There is nothing matching your criteria', 'Could not find error message');
+    expect(errorSummary[0].innerHTML).contains(
+      'There is nothing matching your criteria',
+      'Could not find error message'
+    );
   });
 
   it('should display error message when search invalid case reference no', () => {
@@ -119,5 +135,4 @@ describe('Case Reference Search Page Invalid Input', () => {
     const formError = htmlRes.getElementsByClassName(formErrorClass);
     expect(formError.length).equal(1, 'Could not find form errors');
   });
-
 });

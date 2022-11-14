@@ -1,18 +1,20 @@
 import { app } from '../../main/app';
 import { expect } from 'chai';
 import request from 'supertest';
-import {request as expressRequest} from 'express';
+import { request as expressRequest } from 'express';
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'SYSTEM_ADMIN',
+  },
+};
 
 describe('Admin Dashboard Home', () => {
   describe('on GET', () => {
     test('should return admin dashboard page', async () => {
       await request(app)
         .get('/admin-dashboard')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });

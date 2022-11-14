@@ -1,28 +1,28 @@
 import * as process from 'process';
-import {I18next} from './modules/i18next';
+import { I18next } from './modules/i18next';
 
 import * as propertiesVolume from '@hmcts/properties-volume';
 import config = require('config');
 propertiesVolume.addTo(config);
 
-const {Logger} = require('@hmcts/nodejs-logging');
+const { Logger } = require('@hmcts/nodejs-logging');
 import * as bodyParser from 'body-parser';
 
 import cookieParser from 'cookie-parser';
 import express from 'express';
-import {Helmet} from './modules/helmet';
+import { Helmet } from './modules/helmet';
 import * as path from 'path';
 import favicon from 'serve-favicon';
 import { HTTPError } from 'HttpError';
-import {Nunjucks} from './modules/nunjucks';
+import { Nunjucks } from './modules/nunjucks';
 
-import {AppInsights} from './modules/appinsights';
+import { AppInsights } from './modules/appinsights';
 
 const passport = require('passport');
 const cookieSession = require('cookie-session');
-const {setupDev} = require('./development');
-import {Container} from './modules/awilix';
-import {PipRequest} from './models/request/PipRequest';
+const { setupDev } = require('./development');
+import { Container } from './modules/awilix';
+import { PipRequest } from './models/request/PipRequest';
 
 const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
@@ -48,23 +48,22 @@ logger.info('policy', process.env.POLICY);
 
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cookieSession({
-  name: 'session',
-  keys: [config.get('secrets.pip-ss-kv.SESSION_SECRET')],
-  secure: true,
-}));
+app.use(
+  cookieSession({
+    name: 'session',
+    keys: [config.get('secrets.pip-ss-kv.SESSION_SECRET')],
+    secure: true,
+  })
+);
 logger.info('SESSION Secret', config.get('secrets.pip-ss-kv.SESSION_SECRET'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {
   req['sessionCookies'].secure = true;
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, max-age=0, must-revalidate, no-store',
-  );
+  res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
 });
 new I18next().enableFor(app);

@@ -5,22 +5,24 @@ const agent = supertest.agent(app);
 
 const URL = '/case-reference-number-search';
 
-describe('Accessibility Case Reference Number Search Page Error States',  () => {
+describe('Accessibility Case Reference Number Search Page Error States', () => {
   test('should have no accessibility errors for no input data', done => {
     ensurePageCallWillSucceed(URL)
-      .then(() => runPally(agent.post(URL).send({'search-input': ''}).url))
+      .then(() => runPally(agent.post(URL).send({ 'search-input': '' }).url))
       .then((result: Pa11yResult) => {
         expectNoErrors(result.issues);
         done();
-      }).catch((err: Error) => done(err));
+      })
+      .catch((err: Error) => done(err));
   });
 
   test('should have no accessibility errors for invalid input data', done => {
     ensurePageCallWillSucceed(URL)
-      .then(() => runPally(agent.post(URL).send({'search-input': '123'}).url))
+      .then(() => runPally(agent.post(URL).send({ 'search-input': '123' }).url))
       .then((result: Pa11yResult) => {
         expectNoErrors(result.issues);
         done();
-      }).catch((err: Error) => done(err));
+      })
+      .catch((err: Error) => done(err));
   });
 });

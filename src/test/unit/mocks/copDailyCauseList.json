@@ -26,10 +26,7 @@
       "postCode": "AA1 AA1",
       "county": "Lancashire",
       "town": "Town",
-      "line": [
-        "Address Line 1",
-        "Address Line 2"
-      ]
+      "line": ["Address Line 1", "Address Line 2"]
     }
   },
   "courtLists": [
@@ -60,10 +57,7 @@
                         "hearingType": "Criminal"
                       }
                     ],
-                    "channel": [
-                      "Teams",
-                      "In-Person"
-                    ]
+                    "channel": ["Teams", "In-Person"]
                   }
                 ],
                 "judiciary": [
@@ -82,10 +76,7 @@
           "town": "Address Town",
           "county": "Lancashire",
           "postCode": "AA1 AA1",
-          "line": [
-            "Address Line 1",
-            "Address Line 2"
-          ]
+          "line": ["Address Line 1", "Address Line 2"]
         }
       }
     }

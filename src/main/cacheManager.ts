@@ -1,4 +1,4 @@
-import {Logger} from '@hmcts/nodejs-logging';
+import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 
 export function setRedisCredentials(): any {
@@ -15,15 +15,14 @@ const logger = Logger.getLogger('app');
 const ioRedis = require('ioredis');
 
 let connectionString = '';
-if(process.env.REDIS_LOCAL) {
+if (process.env.REDIS_LOCAL) {
   // for running local dev environment (i.e. 'start:dev' profile)
   connectionString = `redis://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
-}
-else{
+} else {
   // double s is required when using TLS connection (i.e. 'start' profile)
-  connectionString =`rediss://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
+  connectionString = `rediss://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
 }
-const redisClient = new ioRedis(connectionString, {connectTimeout: 10000});
+const redisClient = new ioRedis(connectionString, { connectTimeout: 10000 });
 
 logger.info('redis env var', redisCredentials.host);
 logger.info('redis env port', redisCredentials.port);

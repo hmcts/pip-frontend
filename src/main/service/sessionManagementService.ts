@@ -1,6 +1,6 @@
 import moment from 'moment';
-import {allAdminRoles, checkRoles} from '../authentication/authenticationHandler';
-import {B2C_ADMIN_URL, B2C_URL, FRONTEND_URL} from '../helpers/envUrls';
+import { allAdminRoles, checkRoles } from '../authentication/authenticationHandler';
+import { B2C_ADMIN_URL, B2C_URL, FRONTEND_URL } from '../helpers/envUrls';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 const defaultSessionExpiry = 60 * 60 * 1000;
@@ -14,7 +14,7 @@ export class SessionManagementService {
   }
 
   public handleSessionExpiry(req, res): boolean {
-    if(this.isSessionExpired(req)) {
+    if (this.isSessionExpired(req)) {
       this.logOut(req, res, false);
       return true;
     }
@@ -26,11 +26,13 @@ export class SessionManagementService {
       return false;
     }
 
-    if(req.session.sessionExpires) {
+    if (req.session.sessionExpires) {
       const sessionExpiryDateTime = moment.utc(req.session.sessionExpires);
       const currentDateTime = moment.utc(new Date(Date.now()));
-      const durationAsSeconds = moment.duration(sessionExpiryDateTime.startOf('seconds').diff(currentDateTime.startOf('seconds'))).asSeconds();
-      if(durationAsSeconds <= 0) {
+      const durationAsSeconds = moment
+        .duration(sessionExpiryDateTime.startOf('seconds').diff(currentDateTime.startOf('seconds')))
+        .asSeconds();
+      if (durationAsSeconds <= 0) {
         return true;
       }
     }
@@ -52,11 +54,18 @@ export class SessionManagementService {
       b2cPolicy = isAdmin ? authenticationConfig.ADMIN_POLICY : authenticationConfig.POLICY;
     }
 
-    const encodedSignOutRedirect = encodeURIComponent(this.logOutRedirectUrl(isAdmin, adminWrongFlow, isSessionExpired, language));
+    const encodedSignOutRedirect = encodeURIComponent(
+      this.logOutRedirectUrl(isAdmin, adminWrongFlow, isSessionExpired, language)
+    );
     return `${b2cUrl}/${b2cPolicy}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`;
   }
 
-  private logOutRedirectUrl(isAdmin: boolean, adminWrongFlow: boolean, isSessionExpired: boolean, language: string): string {
+  private logOutRedirectUrl(
+    isAdmin: boolean,
+    adminWrongFlow: boolean,
+    isSessionExpired: boolean,
+    language: string
+  ): string {
     const url = new URL(`${FRONTEND_URL}/${this.getRedirectionPath(adminWrongFlow, isSessionExpired)}`);
     url.searchParams.append('lng', language);
 

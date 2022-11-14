@@ -2,11 +2,11 @@ import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
 import SscsDailyListController from '../../../main/controllers/SscsDailyListController';
-import {PublicationService} from '../../../main/service/publicationService';
-import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
-import {Response} from 'express';
-import {mockRequest} from '../mocks/mockRequest';
+import { PublicationService } from '../../../main/service/publicationService';
+import { LocationService } from '../../../main/service/locationService';
+import { DataManipulationService } from '../../../main/service/dataManipulationService';
+import { Response } from 'express';
+import { mockRequest } from '../mocks/mockRequest';
 import moment from 'moment';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sscsDailyList.json'), 'utf-8');
@@ -38,8 +38,11 @@ const i18n = {
 };
 
 describe('Sscs Daily List Controller', () => {
-
-  const response = { render: () => {return '';}} as unknown as Response;
+  const response = {
+    render: () => {
+      return '';
+    },
+  } as unknown as Response;
   const request = mockRequest(i18n);
   request.path = '/sscs-daily-list';
 
@@ -48,8 +51,8 @@ describe('Sscs Daily List Controller', () => {
   });
 
   it('should render the sscs daily list page', async () => {
-    request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+    request.query = { artefactId: artefactId };
+    request.user = { piUserId: '1' };
 
     const responseMock = sinon.mock(response);
     const expectedData = {
@@ -57,7 +60,7 @@ describe('Sscs Daily List Controller', () => {
       listData,
       contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
       publishedDate: '14 September 2020',
-      courtName: 'Abergavenny Magistrates\' Court',
+      courtName: "Abergavenny Magistrates' Court",
       publishedTime: '12:30am',
       provenance: 'prov1',
       bill: false,
@@ -72,7 +75,7 @@ describe('Sscs Daily List Controller', () => {
   it('should render error page if query param is empty', async () => {
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '123'};
+    request.user = { piUserId: '123' };
 
     const responseMock = sinon.mock(response);
 

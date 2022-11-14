@@ -1,10 +1,9 @@
-import {CommonPage} from './Common.page';
-import {MediaAccountReviewPage} from './MediaAccountReview.page';
+import { CommonPage } from './Common.page';
+import { MediaAccountReviewPage } from './MediaAccountReview.page';
 
 const helpers = require('../Helpers/Selectors');
 
 export class MediaAccountApprovalPage extends CommonPage {
-
   async selectNo(): Promise<void> {
     $(helpers.MediaAccountApprovalNo).catch(() => {
       console.log(`${helpers.MediaAccountApprovalNo} not found`);
@@ -21,5 +20,4 @@ export class MediaAccountApprovalPage extends CommonPage {
     await $(helpers.ContinueButton).click();
     return new MediaAccountReviewPage();
   }
-
 }

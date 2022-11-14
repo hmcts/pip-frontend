@@ -1,18 +1,20 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 const PAGE_URL = '/session-logged-out';
 import request from 'supertest';
-import {app} from '../../../main/app';
+import { app } from '../../../main/app';
 
 const expectedHeader = 'You have been signed out';
 let htmlRes: Document;
 
 describe('Session Logged out Page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(response => {
-      htmlRes = new DOMParser().parseFromString(response.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(response => {
+        htmlRes = new DOMParser().parseFromString(response.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should have correct page title', () => {
@@ -20,7 +22,7 @@ describe('Session Logged out Page', () => {
     expect(pageTitle).contains(expectedHeader, 'Page title does not match');
   });
 
-  it('should display page header',  () => {
+  it('should display page header', () => {
     const header = htmlRes.getElementsByClassName('govuk-heading-l');
     expect(header[0].innerHTML).contains(expectedHeader, 'Page header does not match');
   });

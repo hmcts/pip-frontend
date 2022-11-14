@@ -7,13 +7,14 @@ const largeHeadingClass = 'govuk-heading-l';
 let htmlRes: Document;
 
 describe('password-change-confirmation', () => {
-
   describe('Admin user', () => {
     beforeAll(async () => {
       const PAGE_URL = '/password-change-confirmation/true';
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      });
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        });
     });
 
     it('should display the page header', () => {
@@ -23,8 +24,10 @@ describe('password-change-confirmation', () => {
 
     it('should display the body text', () => {
       const bodyText = htmlRes.getElementsByClassName('govuk-body');
-      expect(bodyText[4].innerHTML).contains('You can now sign in with your new credentials using the button below.',
-        'Could not find body text');
+      expect(bodyText[4].innerHTML).contains(
+        'You can now sign in with your new credentials using the button below.',
+        'Could not find body text'
+      );
     });
 
     it('should display the button', () => {
@@ -37,9 +40,11 @@ describe('password-change-confirmation', () => {
   describe('Media user', () => {
     beforeAll(async () => {
       const PAGE_URL = '/password-change-confirmation/false';
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      });
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        });
     });
 
     it('should display the button', () => {

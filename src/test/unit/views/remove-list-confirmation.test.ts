@@ -20,13 +20,15 @@ const mockArtefact = {
   sensitivity: 'CLASSIFIED',
 };
 const keyValues = ['List Type', 'Court or Tribunal name', 'Display Dates', 'Language', 'Sensitivity'];
-const content = ['Civil Daily Cause List', 'Mock Court','23 Mar 2022 to 28 Mar 2022', 'English', 'Classified'];
+const content = ['Civil Daily Cause List', 'Mock Court', '23 Mar 2022 to 28 Mar 2022', 'English', 'Classified'];
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
-sinon.stub(LocationService.prototype, 'getLocationById').resolves({locationId: '5', name: 'Mock Court'});
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({ locationId: '5', name: 'Mock Court' });
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {
+  _json: {
+    extension_UserRole: 'SYSTEM_ADMIN',
+  },
+};
 
 sinon.stub(PublicationService.prototype, 'removePublication').withArgs('foo').resolves(false);
 let htmlRes: Document;
@@ -34,31 +36,42 @@ let htmlRes: Document;
 describe('Remove List Confirmation Page', () => {
   describe('without error', () => {
     beforeAll(async () => {
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      await request(app)
+        .get(PAGE_URL)
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
     });
 
     it('should have correct page title', () => {
       const pageTitle = htmlRes.title;
-      expect(pageTitle).contains('Are you sure you want to remove this publication?', 'Page title does not match header');
+      expect(pageTitle).contains(
+        'Are you sure you want to remove this publication?',
+        'Page title does not match header'
+      );
     });
 
     it('should display header', () => {
       const header = htmlRes.getElementsByClassName('govuk-heading-l');
-      expect(header[0].innerHTML).contains('Are you sure you want to remove this publication?', 'Could not find correct value in header');
+      expect(header[0].innerHTML).contains(
+        'Are you sure you want to remove this publication?',
+        'Could not find correct value in header'
+      );
     });
 
     it('should display warning message', () => {
       const warning = htmlRes.getElementsByClassName('govuk-warning-text__text')[0];
-      expect(warning.innerHTML).contains('You are about to remove the following publication:', 'Could not find correct warning message');
+      expect(warning.innerHTML).contains(
+        'You are about to remove the following publication:',
+        'Could not find correct warning message'
+      );
     });
 
     it('should display summary table', () => {
       const summaryKeys = htmlRes.getElementsByClassName('govuk-summary-list__key');
       const summaryValues = htmlRes.getElementsByClassName('govuk-summary-list__value');
-      for(let i = 0; i < summaryKeys.length; i++) {
+      for (let i = 0; i < summaryKeys.length; i++) {
         expect(summaryKeys[i].innerHTML).contains(keyValues[i], 'Could not find valid summary key');
         expect(summaryValues[i].innerHTML).contains(content[i], 'Could not find valid summary value');
       }
@@ -71,7 +84,7 @@ describe('Remove List Confirmation Page', () => {
       expect(radios[1].getAttribute('value')).equals('no', 'Could not find valid radio value');
     });
 
-    it('should display continue button',  () => {
+    it('should display continue button', () => {
       const buttons = htmlRes.getElementsByClassName('govuk-button');
       expect(buttons[0].innerHTML).contains('Continue', 'Could not find button');
     });
@@ -79,15 +92,20 @@ describe('Remove List Confirmation Page', () => {
 
   describe('with error', () => {
     beforeAll(async () => {
-      await request(app).post(PAGE_URL).send({locationId: '5', artefactId: 'foo'}).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      });
+      await request(app)
+        .post(PAGE_URL)
+        .send({ locationId: '5', artefactId: 'foo' })
+        .then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        });
     });
 
     it('should display error summary', () => {
       const dialog = htmlRes.getElementsByClassName('govuk-error-summary');
-      expect(dialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML)
-        .contains('There is a problem', 'Could not find error dialog title');
+      expect(dialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML).contains(
+        'There is a problem',
+        'Could not find error dialog title'
+      );
     });
 
     it('should display error messages in the summary', () => {

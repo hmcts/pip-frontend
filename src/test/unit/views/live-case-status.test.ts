@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {LiveCaseRequests} from '../../../main/resources/requests/liveCaseRequests';
+import { LiveCaseRequests } from '../../../main/resources/requests/liveCaseRequests';
 
 const PAGE_URL = '/live-case-status?locationId=1';
 const expectedHeader = 'Live hearing updates';
@@ -18,10 +18,12 @@ sinon.stub(LiveCaseRequests.prototype, 'getLiveCases').returns(liveCaseData);
 
 describe.skip('Live Status page', () => {
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app)
+      .get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display a back button', () => {
@@ -55,11 +57,12 @@ describe.skip('Live Status page', () => {
   it('should contain a row with the correct values', () => {
     const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
     const items = tableRows.item(1).children;
-    const statusColumnValue = 'Committal for Sentence - <br><a class="govuk-link" id="status-1" href="case-event-glossary?locationId=1#2">Appeal Interpreter Sworn</a> - 12:25';
+    const statusColumnValue =
+      'Committal for Sentence - <br><a class="govuk-link" id="status-1" href="case-event-glossary?locationId=1#2">Appeal Interpreter Sworn</a> - 12:25';
 
     expect(items.item(0).innerHTML).contains('1', 'Court Number not found / correct');
     expect(items.item(1).innerHTML).contains('T20217099', 'Case number not found / correct');
-    expect(items.item(2).innerHTML).contains('Mills LLC\'s Hearing', 'Case name not found / correct');
+    expect(items.item(2).innerHTML).contains("Mills LLC's Hearing", 'Case name not found / correct');
     expect(items.item(3).innerHTML).contains(statusColumnValue, 'Status not found / correct');
   });
 
@@ -80,4 +83,3 @@ describe.skip('Live Status page', () => {
     expect(link.item(6).getAttribute('href')).equal('/live-case-alphabet-search', 'Link value is not correct');
   });
 });
-

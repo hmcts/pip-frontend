@@ -2,8 +2,8 @@ import { CommonPage } from './Common.page';
 import { ManualUploadPage } from './ManualUpload.page';
 import { CreateAdminAccountPage } from './CreateAdminAccount.page';
 import { RemoveListSearchPage } from './RemoveListSearch.page';
-import {MediaAccountRequestsPage} from './MediaAccountRequests.page';
-import {SessionLoggedOutPage} from './SessionLoggedOut.page';
+import { MediaAccountRequestsPage } from './MediaAccountRequests.page';
+import { SessionLoggedOutPage } from './SessionLoggedOut.page';
 
 const helpers = require('../Helpers/Selectors');
 

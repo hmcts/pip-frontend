@@ -8,7 +8,7 @@ describe.skip('Case Event Glossary search', () => {
     test('should return case event glossary page', async () => {
       await request(app)
         .get('/case-event-glossary')
-        .expect((res) => expect(res.status).to.equal(200));
+        .expect(res => expect(res.status).to.equal(200));
     });
   });
 });

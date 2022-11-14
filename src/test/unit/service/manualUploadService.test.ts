@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
-import {ManualUploadService} from '../../../main/service/manualUploadService';
-import {LocationService} from '../../../main/service/locationService';
+import { ManualUploadService } from '../../../main/service/manualUploadService';
+import { LocationService } from '../../../main/service/locationService';
 import { DataManagementRequests } from '../../../main/resources/requests/dataManagementRequests';
 import fs from 'fs';
 import path from 'path';
@@ -40,11 +40,13 @@ const expectedHeaders = {
 const courtService = sinon.stub(LocationService.prototype, 'getLocationByName');
 courtService.withArgs('validCourt').resolves(courtData[0]);
 
-const validRemoveListInput = [{
-  listType: 'SJP_PUBLIC_LIST',
-  displayFrom: '2022-02-08T12:26:42.908',
-  displayTo: '2024-02-08T12:26:42.908',
-}];
+const validRemoveListInput = [
+  {
+    listType: 'SJP_PUBLIC_LIST',
+    displayFrom: '2022-02-08T12:26:42.908',
+    displayTo: '2024-02-08T12:26:42.908',
+  },
+];
 const expectedRemoveList = [
   {
     listType: 'SJP_PUBLIC_LIST',
@@ -79,13 +81,16 @@ describe('Manual upload service', () => {
     it('should build form data list subtypes', async () => {
       const data = await manualUploadService.buildFormData(englishLanguage);
       expect(data['listSubtypes'].length).to.equal(18);
-      expect(data['listSubtypes'][0]).to.deep.equal({text:'SJP Public List', value: 'SJP_PUBLIC_LIST'});
+      expect(data['listSubtypes'][0]).to.deep.equal({ text: 'SJP Public List', value: 'SJP_PUBLIC_LIST' });
     });
 
     it('should build form data judgements and outcomes subtypes', async () => {
       const data = await manualUploadService.buildFormData(englishLanguage);
       expect(data['judgementsOutcomesSubtypes'].length).to.equal(1);
-      expect(data['judgementsOutcomesSubtypes'][0]).to.deep.equal({text: 'SJP Media Register', value: 'SJP_MEDIA_REGISTER'});
+      expect(data['judgementsOutcomesSubtypes'][0]).to.deep.equal({
+        text: 'SJP Media Register',
+        value: 'SJP_MEDIA_REGISTER',
+      });
     });
   });
 
@@ -199,7 +204,7 @@ describe('Manual upload service', () => {
       formValues['display-date-to-month'] = '01';
       formValues['display-date-to-year'] = '2022';
       const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
-      expect(errors['displayDateError']['range']).to.equal('Please make sure \'to\' date is after \'from\' date');
+      expect(errors['displayDateError']['range']).to.equal("Please make sure 'to' date is after 'from' date");
     });
 
     it('should return error when invalid date range is passed for Welsh language', async () => {
@@ -210,7 +215,7 @@ describe('Manual upload service', () => {
       formValues['display-date-to-month'] = '01';
       formValues['display-date-to-year'] = '2022';
       const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
-      expect(errors['displayDateError']['range']).to.equal('Please make sure \'to\' date is after \'from\' date');
+      expect(errors['displayDateError']['range']).to.equal("Please make sure 'to' date is after 'from' date");
     });
 
     it('should formatted date-from date correctly', async () => {
@@ -267,7 +272,10 @@ describe('Manual upload service', () => {
   });
 
   it('should return court id and name as object', async () => {
-    expect(await manualUploadService.appendlocationId('validCourt', englishLanguage)).to.deep.equal({courtName: 'validCourt', locationId: 1});
+    expect(await manualUploadService.appendlocationId('validCourt', englishLanguage)).to.deep.equal({
+      courtName: 'validCourt',
+      locationId: 1,
+    });
   });
 
   describe('formatting list removal', () => {
