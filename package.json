@@ -23,8 +23,8 @@
     "test:functional": "USE_PROTOTYPE=true USE_HEADLESS=true npx wdio run wdio.conf.js",
     "test:functional-dev": "npx wdio run wdio.conf.js",
     "cichecks": "yarn && yarn build && yarn lint  && yarn test && yarn test:routes &&  yarn test:a11y",
-    "prepare": "yarn husky install",
-    "postinstall": "yarn husky install",
+    "prepare": "npm install husky --save-dev",
+    "postinstall": "husky install",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable"
   },
