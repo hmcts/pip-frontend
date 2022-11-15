@@ -24,7 +24,7 @@
     "test:functional-dev": "npx wdio run wdio.conf.js",
     "cichecks": "yarn && yarn build && yarn lint  && yarn test && yarn test:routes &&  yarn test:a11y",
     "prepare": "npm install husky --save-dev",
-    "postinstall": "husky install",
+    "postinstall": "npm install husky --save-dev",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable"
   },
