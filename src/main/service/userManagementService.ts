@@ -1,7 +1,9 @@
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
+import {formattedProvenances, formattedRoles} from '../models/consts';
 
 const accountManagementRequests = new AccountManagementRequests();
 export class UserManagementService {
+
   /**
    * Returns the headers for the user management table.
    */
@@ -11,119 +13,34 @@ export class UserManagementService {
   }
 
   /**
-   * Return all the formatted data the user management screen requires
-   * @param pageNumber The page number to get the users from.
+   * Returns all the formatted data the user management screen requires. Treat this like a parent method
+   * for the entire service.
    */
   public async getFormattedData(pageNumber: number, email: string, userId: string, userProvenanceId: string, roles: string,
-    provenances: string) {
+    provenances: string, queryUrl: string) {
 
-    const requestParams = this.buildRequestParams(email, userId, userProvenanceId, roles, provenances, pageNumber);
-    const rawData = await accountManagementRequests.getAllAccountsExceptThirdParty(requestParams);
+    const rawData = await accountManagementRequests.getAllAccountsExceptThirdParty(this.buildRequestParams(email,
+      userId, userProvenanceId, roles, provenances, pageNumber));
 
-    const builtFilters = this.buildFilters(email, userId, userProvenanceId, roles, provenances);
     return {
-      paginationData: this.formatPaginationData(rawData?.number, rawData?.totalPages, rawData?.first, rawData?.last),
+      paginationData: this.formatPaginationData(rawData?.number, rawData?.totalPages, rawData?.first,
+        rawData?.last, queryUrl),
       userData: this.formatPageData(rawData?.content),
-      emailFieldData: builtFilters['emailField'],
-      userIdFieldData: builtFilters['userIdField'],
-      userProvenanceIdFieldData: builtFilters['userProvenanceIdField'],
-      provenancesFieldData: builtFilters['provenancesField'],
-      rolesFieldData: builtFilters['rolesField'],
+      emailFieldData: this.buildInputFieldObject('email', 'Email', email, false),
+      userIdFieldData: this.buildInputFieldObject('userId', 'User ID', userId, true),
+      userProvenanceIdFieldData: this.buildInputFieldObject('userProvenanceId', 'User Provenance ID',
+        userProvenanceId, true),
+      rolesFieldData: this.buildCheckboxesFieldObject('roles', 'Role', formattedRoles, roles),
+      provenancesFieldData: this.buildCheckboxesFieldObject('provenances', 'Provenance',
+        formattedProvenances, provenances),
+      categories: this.getCategories(email, userId, userProvenanceId, roles, provenances, queryUrl),
     };
   }
 
   /**
-   * Formats the returned user data into the correct format for the frontend table.
-   * @param rawData The raw user data.
+   * Generates the filter KV for the query param url.
    */
-  private formatPageData(rawData: any) {
-    const allUserArray = [];
-    if (rawData.length > 0) {
-      rawData.forEach(user => {
-        const userArray = [];
-        userArray.push({text: user.email});
-        userArray.push({text: this.formatRoles(user.roles)});
-        userArray.push({text: this.formatProvenance(user.userProvenance)});
-        userArray.push({html: `<a class="govuk-link" href="manage-user?id=${user.userId}">Manage</a>`});
-        allUserArray.push(userArray);
-      });
-    }
-    return allUserArray;
-  }
-
-  /**
-   * Formats the object required for the pagination component in the frontend.
-   * @param currentPage This is one less than the frontend displays as index starts from 0 on the API rather than 1.
-   * @param finalPage The final page number.
-   * @param first This is a boolean for if the current page is the first page.
-   * @param last This is a boolean for if the current page is the last page.
-   */
-  private formatPaginationData(currentPage: number, finalPage: number, first: boolean, last: boolean) {
-    const paginationObject = {
-      previous: null,
-      next: null,
-    };
-
-    if(!first) {
-      paginationObject.previous = {
-        labelText: (currentPage) + ' of ' + finalPage,
-        href: '?page=' + (currentPage),
-      };
-    }
-
-    if (!last) {
-      paginationObject.next = {
-        labelText: (currentPage + 2) + ' of ' + finalPage,
-        href: '?page=' + (currentPage + 2),
-      };
-    }
-
-    return paginationObject;
-  }
-
-  /**
-   * Takes in a raw role and formats it. TODO TIDY UP
-   * @param rawRole
-   * @private
-   */
-  private formatRoles(rawRole: string): string {
-    switch(rawRole) {
-      case 'VERIFIED':
-        return 'Media';
-      case 'INTERNAL_SUPER_ADMIN_CTSC':
-        return 'CTSC Super Admin';
-      case 'SYSTEM_ADMIN':
-        return 'System Admin';
-      case 'INTERNAL_ADMIN_LOCAL':
-        return 'Local Admin';
-      case 'INTERNAL_SUPER_ADMIN_LOCAL':
-        return 'Local Super Admin';
-      case 'INTERNAL_ADMIN_CTSC':
-        return 'CTSC Admin';
-      default:
-        return rawRole;
-    }
-  }
-
-  /**
-   * TIDY UP>>>>> TODO
-   * @param rawProvenance
-   * @private
-   */
-  private formatProvenance(rawProvenance) {
-    switch(rawProvenance) {
-      case 'PI_AAD':
-        return 'B2C';
-      case 'CRIME_IDAM':
-        return 'Crime IdAM';
-      case 'CFT_IDAM':
-        return 'CFT IdAM';
-      default:
-        return rawProvenance;
-    }
-  }
-
-  public generateFilterKeyValues(body: string) {
+  public generateFilterKeyValues(body: string): string {
     const filterValues = [];
     Object.keys(body).forEach(key => {
       if(body[key].length > 0) {
@@ -134,139 +51,14 @@ export class UserManagementService {
         filterValues.push(separator + key + '=' + body[key]);
       }
     });
-
     return filterValues.join('');
   }
 
-  private buildFilters(email: string, userId: string, userProvenanceId: string, roles: string,
-    provenances: string) {
-
-    // Build the email input field
-    const emailField = {
-      id: 'email',
-      name: 'email',
-      label: {
-        text: 'Email',
-        classes: 'govuk-label--m',
-      },
-      value: email,
-    };
-
-    // Build the user id input field
-    const userIdField = {
-      id: 'userId',
-      name: 'userId',
-      label: {
-        text: 'User ID',
-        classes: 'govuk-label--m',
-      },
-      hint: {
-        text: 'Must be an exact match',
-      },
-      value: userId,
-    };
-
-    // Build the user provenance id input field
-    const userProvenanceIdField = {
-      id: 'userProvenanceId',
-      name: 'userProvenanceId',
-      label: {
-        text: 'User Provenance ID',
-        classes: 'govuk-label--m',
-      },
-      hint: {
-        text: 'Must be an exact match',
-      },
-      value: userProvenanceId,
-    };
-
-    // Build the provenance checkbox selection field
-    const provenancesField = {
-      idPrefix: 'provenances',
-      name: 'provenances',
-      classes: 'govuk-checkboxes--small',
-      fieldSet: {
-        legend: {
-          text: 'Provenance',
-          classes: 'govuk-label--m',
-        },
-      },
-      items: [
-        {
-          value: 'PI_AAD',
-          text: 'B2C',
-          checked: provenances.includes('PI_AAD'),
-        },
-        {
-          value: 'CFT_IDAM',
-          text: 'CFT IdAM',
-          checked: provenances.includes('CFT_IDAM'),
-        },
-        {
-          value: 'CRIME_IDAM',
-          text: 'Crime IdAM',
-          checked: provenances.includes('CRIME_IDAM'),
-        },
-      ],
-    };
-
-    // Build the roles checkbox selection field
-    const rolesField = {
-      idPrefix: 'roles',
-      name: 'roles',
-      classes: 'govuk-checkboxes--small',
-      fieldSet: {
-        legend: {
-          text: 'Role',
-          classes: 'govuk-label--m',
-        },
-      },
-      items: [
-        {
-          value: 'VERIFIED',
-          text: 'Media',
-          checked: roles.includes('VERIFIED'),
-        },
-        {
-          value: 'INTERNAL_ADMIN_LOCAL',
-          text: 'Local Admin',
-          checked: roles.includes('INTERNAL_ADMIN_LOCAL'),
-        },
-        {
-          value: 'INTERNAL_ADMIN_CTSC',
-          text: 'CTSC Admin',
-          checked: roles.includes('INTERNAL_ADMIN_CTSC'),
-        },
-        {
-          value: 'INTERNAL_SUPER_ADMIN_LOCAL',
-          text: 'Local Super Admin',
-          checked: roles.includes('INTERNAL_SUPER_ADMIN_LOCAL'),
-        },
-        {
-          value: 'INTERNAL_SUPER_ADMIN_CTSC',
-          text: 'CTSC Super Admin',
-          checked: roles.includes('INTERNAL_SUPER_ADMIN_CTSC'),
-        },
-        {
-          value: 'SYSTEM_ADMIN',
-          text: 'System Admin',
-          checked: roles.includes('SYSTEM_ADMIN'),
-        },
-      ],
-    };
-
-    return {
-      emailField,
-      userIdField,
-      userProvenanceIdField,
-      provenancesField,
-      rolesField,
-    };
-  }
-
+  /**
+   * Builds the request with the supplied filters to filter the API results.
+   */
   private buildRequestParams(email: string, userId: string, userProvenanceId: string, roles: string,
     provenances: string, pageNumber: number): object {
-
     return {
       params: {
         pageSize: 25,
@@ -279,5 +71,186 @@ export class UserManagementService {
       },
     };
   }
-}
 
+  /**
+   * Formats the returned user data into the correct format for the frontend table.
+   */
+  private formatPageData(rawData: any) {
+    const allUserArray = [];
+    if (rawData.length > 0) {
+      rawData.forEach(user => {
+        const userArray = [];
+        userArray.push({text: user.email});
+        userArray.push({text: formattedRoles[user.roles]});
+        userArray.push({text: formattedProvenances[user.userProvenance]});
+        userArray.push({html: `<a class="govuk-link" href="manage-user?id=${user.userId}">Manage</a>`});
+        allUserArray.push(userArray);
+      });
+    }
+    return allUserArray;
+  }
+
+  /**
+   * Formats the object required for the pagination component in the frontend.
+   */
+  private formatPaginationData(currentPage: number, finalPage: number, first: boolean, last: boolean, queryUrl: string) {
+    const queryParams = new URLSearchParams(queryUrl);
+    const paginationObject = {
+      previous: null,
+      next: null,
+    };
+    if(!first) {
+      queryParams.set('page', String(currentPage));
+      paginationObject.previous = {
+        labelText: (currentPage) + ' of ' + finalPage,
+        href: '?' + queryParams.toString(),
+      };
+    }
+
+    if (!last) {
+      queryParams.set('page', String((currentPage + 2)));
+      paginationObject.next = {
+        labelText: (currentPage + 2) + ' of ' + finalPage,
+        href: '?' + queryParams.toString(),
+      };
+    }
+    return paginationObject;
+  }
+
+  /**
+   * Builds the input fields object for the filter.
+   */
+  private buildInputFieldObject(fieldId: string, fieldText: string, fieldValue: string, hint: boolean): object {
+    const inputFieldObject = {
+      id: fieldId,
+      name: fieldId,
+      label : {
+        text: fieldText,
+        classes: 'govuk-label--m',
+      },
+      value: fieldValue,
+    };
+
+    if(hint) {
+      inputFieldObject['hint'] = {
+        text: 'Must be an exact match',
+      };
+    }
+    return inputFieldObject;
+  }
+
+  /**
+   * Builds the checkbox fields object for the filter.
+   */
+  private buildCheckboxesFieldObject(fieldId: string, fieldText: string, constItems: any, itemValues: string): object {
+    const checkboxesFieldObject = {
+      idPrefix: fieldId,
+      name: fieldId,
+      classes: 'govuk-checkboxes--small',
+      fieldset: {
+        legend: {
+          text: fieldText,
+          classes: 'govuk-label--m',
+        },
+      },
+    };
+
+    const itemsArray = [];
+    for (const [k, v] of Object.entries(constItems)) {
+      itemsArray.push({
+        value: k,
+        text: v,
+        checked: itemValues.includes(k),
+      });
+    }
+    checkboxesFieldObject['items'] = itemsArray;
+    return checkboxesFieldObject;
+  }
+
+  /**
+   * Builds the category array with category objects.
+   */
+  private getCategories(email: string, userId: string, userProvenanceId: string, roles: string,
+    provenances: string, queryUrl: string) {
+
+    const categoriesArray = [];
+
+    categoriesArray.push(this.buildCategoryObject('Email', email, queryUrl,
+      'email=', false));
+    categoriesArray.push(this.buildCategoryObject('User ID', userId, queryUrl,
+      'userId=', false));
+    categoriesArray.push(this.buildCategoryObject('User Provenance ID', userProvenanceId, queryUrl,
+      'userProvenanceId=', false));
+    categoriesArray.push(this.buildCategoryObject('Role', roles, queryUrl,
+      'roles=', true, formattedRoles));
+    categoriesArray.push(this.buildCategoryObject('Provenance', provenances, queryUrl,
+      'provenances=', true, formattedProvenances));
+
+    return categoriesArray;
+  }
+
+  /**
+   * Builds a category object used to show what is selected in the filter.
+   */
+  private buildCategoryObject(heading: string, itemValues: string, queryUrl: string, urlParam: string,
+    checkboxes: boolean, constValue: any = '') {
+
+    let categoryObject = {};
+    if(itemValues.length) {
+      categoryObject = {
+        heading: {
+          text: heading,
+        },
+      };
+
+      const itemsArray = [];
+      if(checkboxes) {
+        const itemValuesArray = itemValues.split(',');
+        itemValuesArray.forEach(item => {
+          itemsArray.push({
+            href: queryUrl + '&clear=' + urlParam + item,
+            text: constValue[item],
+          });
+        });
+      } else {
+        itemsArray.push({
+          href: queryUrl + '&clear=' + urlParam + itemValues,
+          text: itemValues,
+        });
+      }
+      categoryObject['items'] = itemsArray;
+    }
+    return categoryObject;
+  }
+
+  /**
+   * Handles removing filters based off what is in the clear object.
+   */
+  public handleFilterClearing(body: any) {
+    if (body.clear === 'all') {
+      body = {};
+    } else {
+      const clearBody = body.clear.split('=');
+      switch (clearBody[0]) {
+        case 'email':
+          delete body.email;
+          break;
+        case 'userId':
+          delete body.userId;
+          break;
+        case 'userProvenanceId':
+          delete body.userProvenanceId;
+          break;
+        case 'roles':
+          body.roles = body.roles.split(',').filter(f => f !== clearBody[1]);
+          break;
+        case 'provenances':
+          body.provenances = body.provenances.split(',').filter(f => f !== clearBody[1]);
+          break;
+      }
+      delete body.clear;
+      delete body.page;
+    }
+    return body;
+  }
+}
