@@ -121,7 +121,7 @@
           <p class="govuk-body">{{ noSubs }}</p>
         {% endif %}
       </div>
-      {{ submitButton(label=deleteButton, id="bulk-delete-button") }}
+      {{ submitButton(label=deleteButton, id="bulk-delete-button", disable=(allSubscriptions == 0)) }}
     </form>
     {{ super() }}
   </div>
