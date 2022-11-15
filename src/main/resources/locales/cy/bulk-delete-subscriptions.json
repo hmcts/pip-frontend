@@ -21,7 +21,7 @@
   },
   "error": {
     "title": "Mae yna broblem",
-    "text": "At least one subscription must be selected"
+    "text": "Mae angen o leiaf un tanysgrifiad"
   },
   "deleteButton": "Dileu swmp o danysgrifiadau",
   "backButton": "Yn ôl"

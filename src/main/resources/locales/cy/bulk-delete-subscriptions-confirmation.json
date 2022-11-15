@@ -4,7 +4,7 @@
   "no": "Nac ydw",
   "error": {
     "title": "Mae yna broblem",
-    "text": "An option must be selected"
+    "text": "Rhaid dewis opsiwn"
   },
   "continueButton": "Parhau",
   "backButton": "Yn ôl"

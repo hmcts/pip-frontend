@@ -22,15 +22,25 @@
     href: 'subscription-add'
   }) }}
 
-  {{ govukButton({
-    attributes: {
-      id: 'bulk-delete-button'
-    },
-    text: bulkDeleteButton,
-    href: 'bulk-delete-subscriptions'
-  }) }}
-
   {% set allSubscriptions = caseTableData | length +  locationTableData | length %}
+  {% if allSubscriptions > 0 %}
+    {{ govukButton({
+      attributes: {
+        id: 'bulk-delete-button'
+      },
+      text: bulkDeleteButton,
+      href: 'bulk-delete-subscriptions'
+    }) }}
+  {% else %}
+    {{ govukButton({
+      attributes: {
+        id: 'bulk-delete-button'
+      },
+      text: bulkDeleteButton,
+      disabled: true
+    }) }}
+  {% endif %}
+
   {% if allSubscriptions > 0 %}
     {{ mojSubNavigation({
       label: 'Sub navigation',
@@ -45,7 +55,7 @@
       }, {
         text: subNavigation.header3 + locationTableData | length + ')',
         href: '?location',
-        active: activelocationTab
+        active: activeLocationTab
       }]
     }) }}
 
