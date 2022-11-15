@@ -35,7 +35,7 @@ describe('Account request submitted page', () => {
     const message = htmlRes.getElementsByClassName('govuk-body');
     expect(message[0].innerHTML).contains(
       'HMCTS will review your details.',
-      'Could not find correct value in the review message'
+      'Could not find correct value in the review message',
     );
   });
 
@@ -43,14 +43,14 @@ describe('Account request submitted page', () => {
     const message = htmlRes.getElementsByClassName('govuk-body');
     expect(message[1].innerHTML).contains(
       "We'll email you if we need more information or to confirm that your account has been created.",
-      'Could not find correct value in the more information message'
+      'Could not find correct value in the more information message',
     );
   });
   it('should display valid service center message', () => {
     const message = htmlRes.getElementsByClassName('govuk-body');
     expect(message[2].innerHTML).contains(
       'If you do not get an email from us within 5 days, call our court and tribunals service center on 0300 303 0656.',
-      'Could not find correct value in the more service message'
+      'Could not find correct value in the more service message',
     );
   });
 });

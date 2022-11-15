@@ -22,7 +22,7 @@ describe('accessibility-statement', () => {
 
     expect(header[0].innerHTML).contains(
       'Accessibility statement for the Court and Tribunal ' + 'Hearing Information Service',
-      'Could not find the header'
+      'Could not find the header',
     );
   });
 
@@ -43,7 +43,7 @@ describe('accessibility-statement', () => {
 
     expect(div.textContent).contains(
       'Reporting accessibility problems with this website',
-      'Could not find section 4 heading'
+      'Could not find section 4 heading',
     );
   });
 
@@ -58,7 +58,7 @@ describe('accessibility-statement', () => {
 
     expect(div.textContent).contains(
       'Contacting us by phone or visiting us in person',
-      'Could not find section 6 heading'
+      'Could not find section 6 heading',
     );
   });
 
@@ -67,7 +67,7 @@ describe('accessibility-statement', () => {
 
     expect(div.textContent).contains(
       'Technical information about this website’s accessibility',
-      'Could not find section 7 heading'
+      'Could not find section 7 heading',
     );
   });
 
@@ -94,7 +94,7 @@ describe('accessibility-statement', () => {
 
     expect(div.textContent).contains(
       'Preparation of this accessibility statement',
-      'Could not find section 11 heading'
+      'Could not find section 11 heading',
     );
   });
 });

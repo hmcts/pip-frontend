@@ -49,7 +49,7 @@ export class DataManipulationService {
               hearing['party'].forEach(party => {
                 if (party['individualDetails']) {
                   party['individualDetails']['formattedDateOfBirth'] = moment(
-                    party['individualDetails']['dateOfBirth'].split('/').reverse().join('-')
+                    party['individualDetails']['dateOfBirth'].split('/').reverse().join('-'),
                   ).format('D MMMM YYYY');
                 }
               });
@@ -339,7 +339,7 @@ export class DataManipulationService {
           case 'APPLICANT_PETITIONER_REPRESENTATIVE': {
             const applicantPetitionerDetails = this.createIndividualDetails(
               party.individualDetails,
-              initialised
+              initialised,
             ).trim();
             if (applicantPetitionerDetails) {
               applicantRepresentative += 'LEGALADVISOR: ' + applicantPetitionerDetails + ', ';

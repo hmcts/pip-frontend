@@ -248,12 +248,12 @@ export class CreateAccountService {
   public async createAdminAccount(payload: object, requester: string): Promise<boolean> {
     const azureResponse = await accountManagementRequests.createAzureAccount(
       this.formatCreateAdminAccountPayload(payload),
-      requester
+      requester,
     );
     if (azureResponse?.['CREATED_ACCOUNTS'][0]) {
       return await accountManagementRequests.createPIAccount(
         this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]),
-        requester
+        requester,
       );
     }
     return false;
@@ -262,12 +262,12 @@ export class CreateAccountService {
   public async createMediaAccount(payload: object, requester: string): Promise<boolean> {
     const azureResponse = await accountManagementRequests.createAzureAccount(
       this.formatCreateMediaAccountPayload(payload),
-      requester
+      requester,
     );
     if (azureResponse?.['CREATED_ACCOUNTS'][0]) {
       return await accountManagementRequests.createPIAccount(
         this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]),
-        requester
+        requester,
       );
     }
     return false;

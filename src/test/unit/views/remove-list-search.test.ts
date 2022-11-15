@@ -82,7 +82,7 @@ describe('Remove List Blank Input', () => {
     const errorSummary = htmlRes.getElementsByClassName('govuk-error-summary__body');
     expect(errorSummary[0].innerHTML).contains(
       'Court or tribunal name must be 3 characters or more',
-      'Could not find error message'
+      'Could not find error message',
     );
   });
 

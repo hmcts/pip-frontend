@@ -35,7 +35,7 @@ describe('Case name search page', () => {
     const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
     expect(pageHeading[0].innerHTML).contains(
       'What is the name of the party or parties involved?',
-      'Page heading does not exist'
+      'Page heading does not exist',
     );
   });
 
@@ -91,7 +91,7 @@ describe('Case name search page with no matching results', () => {
     const improveResultsMessage = htmlRes.getElementsByClassName('govuk-body');
     expect(additionalMessage[0].innerHTML).contains(
       'There are no matching results.',
-      'Could not find additional message'
+      'Could not find additional message',
     );
     expect(improveResultsMessage[0].innerHTML).contains('You can:', 'Could not find improve results message');
   });

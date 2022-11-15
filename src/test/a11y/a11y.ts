@@ -67,11 +67,11 @@ const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/cour
 const rawDataLive = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/liveCaseStatusUpdates.json'), 'utf-8');
 const rawDataCaseEventGlossary = fs.readFileSync(
   path.resolve(__dirname, '../unit/mocks/CaseEventGlossary.json'),
-  'utf-8'
+  'utf-8',
 );
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/trimmedSJPCases.json'), 'utf-8');
 const rawPublicationData = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, '../unit/mocks/SJPMockPage.json'), 'utf-8')
+  fs.readFileSync(path.resolve(__dirname, '../unit/mocks/SJPMockPage.json'), 'utf-8'),
 );
 const rawMediaApplications = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/mediaApplications.json'), 'utf-8');
 const allCourtData = JSON.parse(rawDataCourt);

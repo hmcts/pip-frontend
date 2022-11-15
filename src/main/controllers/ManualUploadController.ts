@@ -32,7 +32,7 @@ export default class ManualUploadController {
           req.file,
           req.lng as string,
           'manual-upload',
-          uploadType.FILE
+          uploadType.FILE,
         ),
         formErrors: await manualUploadService.validateFormFields(req.body, req.lng as string, 'manual-upload'),
       };
@@ -53,7 +53,7 @@ export default class ManualUploadController {
 
         req.body['court'] = await manualUploadService.appendlocationId(
           req.body['input-autocomplete'],
-          req.lng as string
+          req.lng as string,
         );
         req.body['artefactType'] = 'LIST'; //Agreed on defaulting to only option available until more types become ready
         req.body['fileName'] = sanitisedFileName;
@@ -65,7 +65,7 @@ export default class ManualUploadController {
         }
         if (req.body?.classification) {
           req.body['classificationName'] = formValues['form'].classification.find(
-            item => item.value === req.body.classification
+            item => item.value === req.body.classification,
           ).text;
         }
 

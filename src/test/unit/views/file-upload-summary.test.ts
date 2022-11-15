@@ -75,7 +75,7 @@ describe('File Upload Summary Page', () => {
       expect(keys[i].innerHTML).to.contain(summaryKeys[i], `Unable to find ${summaryKeys[i]} summary key`);
       expect(actions[i].getElementsByClassName('govuk-link')[0].innerHTML).to.contain('Change');
       expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href')).to.equal(
-        'manual-upload' + manualUploadLinks[i]
+        'manual-upload' + manualUploadLinks[i],
       );
     }
   });
@@ -93,7 +93,7 @@ describe('File Upload Summary Page', () => {
     expect(values[5].innerHTML).to.contain(mockData.languageName, 'Language value not found');
     expect(values[6].innerHTML).to.contain(
       `${formatDisplayFromDate} to ${formatDisplayToDate}`,
-      'Display dates values not found'
+      'Display dates values not found',
     );
   });
 });

@@ -52,7 +52,7 @@ describe('Court Name Search Page', () => {
     const pageBodyText = htmlRes.getElementsByClassName('govuk-body');
     expect(pageBodyText[0].innerHTML).contains(
       'Subscribe to receive hearings list by court or tribunal',
-      'Page body text does not exist'
+      'Page body text does not exist',
     );
   });
 
@@ -80,7 +80,7 @@ describe('Court Name Search Page', () => {
     const jurisdictionLegend = htmlRes.getElementsByTagName('legend');
     expect(jurisdictionLegend[0].innerHTML).contains(
       'Type of court or tribunal',
-      "Type of court or tribunal filter doesn't exist"
+      "Type of court or tribunal filter doesn't exist",
     );
   });
 

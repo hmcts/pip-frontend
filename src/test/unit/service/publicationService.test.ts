@@ -67,13 +67,13 @@ describe('Publication service', () => {
 
   it('should return Search Object matching case number', async () => {
     expect(await publicationService.getCaseByCaseNumber(caseNumberValue, userId)).to.equal(
-      returnedArtefact[0].search.cases[0]
+      returnedArtefact[0].search.cases[0],
     );
   });
 
   it('should return Search Object matching case urn', async () => {
     expect(await publicationService.getCaseByCaseUrn(caseUrnValue, userId)).to.equal(
-      returnedArtefact[0].search.cases[1]
+      returnedArtefact[0].search.cases[1],
     );
   });
 

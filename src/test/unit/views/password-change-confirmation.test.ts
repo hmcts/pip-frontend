@@ -26,7 +26,7 @@ describe('password-change-confirmation', () => {
       const bodyText = htmlRes.getElementsByClassName('govuk-body');
       expect(bodyText[4].innerHTML).contains(
         'You can now sign in with your new credentials using the button below.',
-        'Could not find body text'
+        'Could not find body text',
       );
     });
 

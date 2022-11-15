@@ -45,7 +45,7 @@ describe('Summary Of Publications Service', () => {
   const mediaApplicationByImageStub = sinon.stub(AccountManagementRequests.prototype, 'getMediaApplicationImageById');
   const mediaApplicationUpdateStatusStub = sinon.stub(
     AccountManagementRequests.prototype,
-    'updateMediaApplicationStatus'
+    'updateMediaApplicationStatus',
   );
   const createAccountServiceStub = sinon.stub(CreateAccountService.prototype, 'createMediaAccount');
 

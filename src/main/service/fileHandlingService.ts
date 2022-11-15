@@ -81,14 +81,14 @@ export class FileHandlingService {
           userId + '-' + sanitisedFileName,
           JSON.stringify(JSON.parse(rawData)),
           this.REDIS_EXPIRY_KEY,
-          this.REDIS_EXPIRY_TIME
+          this.REDIS_EXPIRY_TIME,
         );
       } else {
         await redisClient.set(
           userId + '-' + sanitisedFileName,
           fs.readFileSync(`./manualUpload/tmp/${originalFilename}`, { encoding: 'base64' }),
           this.REDIS_EXPIRY_KEY,
-          this.REDIS_EXPIRY_TIME
+          this.REDIS_EXPIRY_TIME,
         );
       }
     } catch (err) {

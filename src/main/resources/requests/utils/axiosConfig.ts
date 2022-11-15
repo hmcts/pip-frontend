@@ -61,7 +61,7 @@ if (!process.env.INSECURE) {
   dataManagementApi.interceptors.request.use(oauth.interceptor(tokenProvider, getDataManagementCredentials));
 
   subscriptionManagementApi.interceptors.request.use(
-    oauth.interceptor(tokenProvider, getSubscriptionManagementCredentials)
+    oauth.interceptor(tokenProvider, getSubscriptionManagementCredentials),
   );
 
   accountManagementApi.interceptors.request.use(oauth.interceptor(tokenProvider, getAccountManagementCredentials));

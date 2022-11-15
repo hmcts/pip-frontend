@@ -52,7 +52,7 @@ describe('Reference Data Manual upload page', () => {
       expect(insetFileUpload[0].innerHTML).contains(expectedFileQuestion, 'Could not find file upload');
       expect(insetFileUpload[0].getElementsByTagName('input')[0].getAttribute('type')).equal(
         expectedFileInputType,
-        'Could not find file upload type'
+        'Could not find file upload type',
       );
     });
 
@@ -70,7 +70,7 @@ describe('Reference Data Manual upload page', () => {
       expect(warningHeader.innerHTML).contains('Warning', 'Could not find warning header');
       expect(warningText.innerHTML).contains(
         'Prior to upload you must ensure the file is suitable for location data upload e.g. file should be in correct formats.',
-        'Could not find warning text'
+        'Could not find warning text',
       );
     });
   });
@@ -94,7 +94,7 @@ describe('Reference Data Manual upload page', () => {
       const fileError = htmlRes.getElementById('manual-reference-data-upload-error');
       expect(fileError.innerHTML).contains(
         'File too large, please upload file smaller than 2MB',
-        'Could not find file error'
+        'Could not find file error',
       );
     });
   });

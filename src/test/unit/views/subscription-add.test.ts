@@ -79,7 +79,7 @@ describe('Subscriptions add Page initial load', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons[2].innerHTML).contains(
       expectedRadioLabel1,
-      'Could not find the radio button with label ' + expectedRadioLabel1
+      'Could not find the radio button with label ' + expectedRadioLabel1,
     );
   });
 
@@ -87,7 +87,7 @@ describe('Subscriptions add Page initial load', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons[1].innerHTML).contains(
       expectedRadioLabel2,
-      'Could not find the radio button with label ' + expectedRadioLabel2
+      'Could not find the radio button with label ' + expectedRadioLabel2,
     );
   });
 
@@ -95,7 +95,7 @@ describe('Subscriptions add Page initial load', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons[3].innerHTML).contains(
       expectedRadioLabel3,
-      'Could not find the radio button with label ' + expectedRadioLabel2
+      'Could not find the radio button with label ' + expectedRadioLabel2,
     );
   });
 
@@ -103,7 +103,7 @@ describe('Subscriptions add Page initial load', () => {
     const radioButtons = htmlRes.getElementsByClassName(radioClass);
     expect(radioButtons[0].innerHTML).contains(
       expectedRadioLabel4,
-      'Could not find the radio button with label ' + expectedRadioLabel2
+      'Could not find the radio button with label ' + expectedRadioLabel2,
     );
   });
 });

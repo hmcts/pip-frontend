@@ -55,7 +55,7 @@ export class SessionManagementService {
     }
 
     const encodedSignOutRedirect = encodeURIComponent(
-      this.logOutRedirectUrl(isAdmin, adminWrongFlow, isSessionExpired, language)
+      this.logOutRedirectUrl(isAdmin, adminWrongFlow, isSessionExpired, language),
     );
     return `${b2cUrl}/${b2cPolicy}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`;
   }
@@ -64,7 +64,7 @@ export class SessionManagementService {
     isAdmin: boolean,
     adminWrongFlow: boolean,
     isSessionExpired: boolean,
-    language: string
+    language: string,
   ): string {
     const url = new URL(`${FRONTEND_URL}/${this.getRedirectionPath(adminWrongFlow, isSessionExpired)}`);
     url.searchParams.append('lng', language);

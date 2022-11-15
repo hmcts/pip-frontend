@@ -17,11 +17,11 @@ const rawDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/dail
 const rawFamilyDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
 const rawFamilyDailyCausePartyMappingData = fs.readFileSync(
   path.resolve(__dirname, '../mocks/familyDailyCauseListPartyMapping.json'),
-  'utf-8'
+  'utf-8',
 );
 const rawFamilyDailyCauseWithReorderedPartyMappings = fs.readFileSync(
   path.resolve(__dirname, '../mocks/familyDailyCauseListWithReorderedPartyMappings.json'),
-  'utf-8'
+  'utf-8',
 );
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
 const etDailyListData = fs.readFileSync(path.resolve(__dirname, '../mocks/etDailyList-withdates.json'), 'utf-8');
@@ -47,54 +47,54 @@ describe('Data manipulation service', () => {
     it('should calculate duration of Hearing in cause list object', async () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawDailyCauseData);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours'],
       ).to.equal(1);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsMinutes']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsMinutes'],
       ).to.equal(5);
     });
 
     it('should calculate duration more than one hour of Hearing in cause list object', async () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawDailyCauseData);
       expect(
-        data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']
+        data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours'],
       ).to.equal(1);
       expect(
-        data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsMinutes']
+        data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsMinutes'],
       ).to.equal(30);
     });
 
     it('should calculate duration is one hour of Hearing in cause list object', async () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawDailyCauseData);
       expect(
-        data['courtLists'][2]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']
+        data['courtLists'][2]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours'],
       ).to.equal(1);
       expect(
-        data['courtLists'][2]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsMinutes']
+        data['courtLists'][2]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsMinutes'],
       ).to.equal(0);
     });
 
     it('should calculate duration less than a hour of Hearing in cause list object', async () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawDailyCauseData);
       expect(
-        data['courtLists'][3]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']
+        data['courtLists'][3]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours'],
       ).to.equal(0);
       expect(
-        data['courtLists'][3]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsMinutes']
+        data['courtLists'][3]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsMinutes'],
       ).to.equal(30);
     });
 
     it('should calculate start time of Hearing in cause list object', async () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawDailyCauseData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal(
-        '10.40am'
+        '10.40am',
       );
     });
 
     it('should set caseHearingChannel to sitting channel', async () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawFamilyDailyCauseData);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel'],
       ).to.equal('testSittingChannel');
     });
 
@@ -102,7 +102,7 @@ describe('Data manipulation service', () => {
       familyDailyCause['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['channel'] = [];
       const data = await dataManipulationService.manipulatedDailyListData(JSON.stringify(familyDailyCause));
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel'],
       ).to.equal('VIDEO HEARING');
     });
 
@@ -111,14 +111,14 @@ describe('Data manipulation service', () => {
       familyDailyCause['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sessionChannel'] = [];
       const data = await dataManipulationService.manipulatedDailyListData(JSON.stringify(familyDailyCause));
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel'],
       ).to.equal('');
     });
 
     it('should set judiciary to presiding judiciary over other judiciaries', async () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawFamilyDailyCauseData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciaries']).to.equal(
-        'Presiding'
+        'Presiding',
       );
     });
 
@@ -127,79 +127,79 @@ describe('Data manipulation service', () => {
         false;
       const data = await dataManipulationService.manipulatedDailyListData(JSON.stringify(familyDailyCause));
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciaries']).to.equal(
-        nonPresidingJudiciary
+        nonPresidingJudiciary,
       );
     });
 
     it('should build the applicants and the respondents of the party', async () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawFamilyDailyCauseData);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant'],
       ).to.equal(expectedApplicant);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent'],
       ).to.equal(expectedRespondent);
     });
 
     it('should build when we have multiple applicants and the respondents of the party', async () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawFamilyDailyCauseData);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][1]['hearing'][0]['applicant']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][1]['hearing'][0]['applicant'],
       ).to.equal(expectedMultipleApplicant);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][1]['hearing'][0]['respondent']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][1]['hearing'][0]['respondent'],
       ).to.equal(expectedMultipleRespondent);
     });
 
     it('should build the applicants and the respondents of the party with data that requires mapping', async () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawFamilyDailyCausePartyMappingData);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant'],
       ).to.equal(expectedApplicant);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent'],
       ).to.equal(expectedRespondent);
     });
 
     it('should build only the applicants and the respondents representative of the party', async () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawFamilyDailyCausePartyMappingData);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['applicant']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['applicant'],
       ).to.equal('LEGALADVISOR: Individual Surname');
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['respondent']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['respondent'],
       ).to.equal('LEGALADVISOR: Individual Surname');
     });
 
     it('should build only the applicants and the respondents of the party', async () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawFamilyDailyCausePartyMappingData);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2]['applicant']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2]['applicant'],
       ).to.equal('Individual Surname');
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2]['respondent']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2]['respondent'],
       ).to.equal('Individual Surname');
     });
 
     it('when there is no party information provided', async () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawFamilyDailyCausePartyMappingData);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][3]['applicant']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][3]['applicant'],
       ).to.equal(undefined);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][3]['respondent']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][3]['respondent'],
       ).to.equal(undefined);
     });
 
     it('when there is reordered party mappings in the array, it still provides the correct mappings', async () => {
       const data = await dataManipulationService.manipulatedDailyListData(
-        rawFamilyDailyCauseWithReorderedPartyMappings
+        rawFamilyDailyCauseWithReorderedPartyMappings,
       );
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant'],
       ).to.equal('Surname, LEGALADVISOR: Mr Forenames Middlename SurnameApplicant');
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent'],
       ).to.equal('Surname, LEGALADVISOR: Mr Forenames Middlename SurnameRespondent');
     });
   });
@@ -220,35 +220,35 @@ describe('Data manipulation service', () => {
     it('should format start time of Hearing', async () => {
       const data = await dataManipulationService.manipulateIacDailyListData(rawIacDailyListData);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['sittingStartFormatted']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['sittingStartFormatted'],
       ).to.equal('11:30am');
     });
 
     it('should concatenate unique judiciaries', async () => {
       const data = await dataManipulationService.manipulateIacDailyListData(rawIacDailyListData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['formattedJudiciary']).to.equal(
-        'Judge Jacobs, Magistrate Patel'
+        'Judge Jacobs, Magistrate Patel',
       );
     });
 
     it('should concatenate and deduplicate judiciary', async () => {
       const data = await dataManipulationService.manipulateIacDailyListData(rawIacDailyListData);
       expect(data['courtLists'][1]['courtHouse']['courtRoom'][0]['formattedJudiciary']).to.equal(
-        'Judge Jacobs, Magistrate Jones, Magistrate Patel'
+        'Judge Jacobs, Magistrate Jones, Magistrate Patel',
       );
     });
 
     it('should use sitting channel for hearing case', async () => {
       const data = await dataManipulationService.manipulateIacDailyListData(rawIacDailyListData);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel'],
       ).to.equal('Teams, Attended');
     });
 
     it('should use session channel for hearing case', async () => {
       const data = await dataManipulationService.manipulateIacDailyListData(rawIacDailyListData);
       expect(
-        data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']
+        data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel'],
       ).to.equal('Video Hearing, Attended');
     });
 
@@ -281,7 +281,7 @@ describe('Data manipulation service', () => {
       expect(
         data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['case'][0][
           'formattedLinkedCases'
-        ]
+        ],
       ).to.equal('1234');
     });
 
@@ -290,7 +290,7 @@ describe('Data manipulation service', () => {
       expect(
         data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['case'][0][
           'formattedLinkedCases'
-        ]
+        ],
       ).to.equal('123, 456, 999');
     });
   });
@@ -306,7 +306,7 @@ describe('Data manipulation service', () => {
       expect(
         data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['party'][0][
           'individualDetails'
-        ]['formattedDateOfBirth']
+        ]['formattedDateOfBirth'],
       ).to.equal('25 July 1985');
     });
 
@@ -315,7 +315,7 @@ describe('Data manipulation service', () => {
       expect(
         data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['offence'][0][
           'formattedReportingRestriction'
-        ]
+        ],
       ).to.equal('True');
     });
 
@@ -366,14 +366,14 @@ describe('Data manipulation service', () => {
   describe('Publication Date and Time', () => {
     it('should return Publication Time accounting for BST', async () => {
       const data = await dataManipulationService.publicationTimeInBst(
-        dailyCauseListData['document']['publicationDate']
+        dailyCauseListData['document']['publicationDate'],
       );
       expect(data).to.equal('12:30am');
     });
 
     it('should return Publication Date accounting for BST', async () => {
       const data = await dataManipulationService.publicationDateInBst(
-        dailyCauseListData['document']['publicationDate']
+        dailyCauseListData['document']['publicationDate'],
       );
 
       expect(data).to.equal('14 September 2020');

@@ -109,7 +109,7 @@ export class SubscriptionService {
         case 'urn':
           urnHearing = await publicationService.getCaseByCaseUrn(
             pendingSubscription[`${selectionName}`],
-            user.piUserId
+            user.piUserId,
           );
           if (urnHearing) {
             urnHearing.urnSearch = true;
@@ -167,7 +167,7 @@ export class SubscriptionService {
     if (cachedCaseSubs) {
       for (const cachedCase of cachedCaseSubs) {
         const response = await subscriptionRequests.subscribe(
-          this.createSubscriptionPayload(cachedCase, casesType, userId)
+          this.createSubscriptionPayload(cachedCase, casesType, userId),
         );
         response ? await this.removeFromCache({ case: cachedCase.caseNumber }, userId) : (subscribed = response);
       }
@@ -176,7 +176,7 @@ export class SubscriptionService {
       for (const cachedCourt of cachedCourtSubs) {
         cachedCourt['listType'] = await this.generateListTypesForNewSubscription(userId);
         const response = await subscriptionRequests.subscribe(
-          this.createSubscriptionPayload(cachedCourt, courtsType, userId)
+          this.createSubscriptionPayload(cachedCourt, courtsType, userId),
         );
         response ? await this.removeFromCache({ court: cachedCourt.locationId }, userId) : (subscribed = response);
       }
@@ -223,7 +223,7 @@ export class SubscriptionService {
   public async configureListTypeForLocationSubscriptions(userId, listType): Promise<boolean> {
     return await subscriptionRequests.configureListTypeForLocationSubscriptions(
       userId,
-      this.createListTypeSubscriptionPayload(listType)
+      this.createListTypeSubscriptionPayload(listType),
     );
   }
 

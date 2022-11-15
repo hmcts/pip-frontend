@@ -19,22 +19,22 @@ describe('Crime Data manipulation service', () => {
     it('should formatted the case time in 12 hours format', async () => {
       const data = await crimeListsService.manipulatedCrimeListData(JSON.stringify(crownDailyCause), lng, languageFile);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['time']).to.equal(
-        '10:40am'
+        '10:40am',
       );
       expect(data['courtLists'][2]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['time']).to.equal(
-        '1:00pm'
+        '1:00pm',
       );
     });
 
     it('should formatted the party information correctly for prosecution authority and defendant', async () => {
       const data = await crimeListsService.manipulatedCrimeListData(JSON.stringify(crownDailyCause), lng, languageFile);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['defendant']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['defendant'],
       ).to.equal('Defendant_SN, Defendant_FN');
       expect(
         data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
           'prosecutingAuthority'
-        ]
+        ],
       ).to.equal('Pro_Auth_SN, Pro_Auth_FN');
     });
 
@@ -43,22 +43,22 @@ describe('Crime Data manipulation service', () => {
       expect(
         data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['case'][0][
           'linkedCases'
-        ]
+        ],
       ).to.equal('caseid111, caseid222');
       expect(
         data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['case'][1][
           'linkedCases'
-        ]
+        ],
       ).to.equal('');
     });
 
     it('should be able to find listing notes for a particular hearing', async () => {
       const data = await crimeListsService.manipulatedCrimeListData(JSON.stringify(crownDailyCause), lng, languageFile);
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['listingNotes']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['listingNotes'],
       ).to.equal('Listing details text');
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['listingNotes']
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['listingNotes'],
       ).to.equal('');
     });
 

@@ -28,7 +28,7 @@ export class PublicationRequests {
   public async getPublicationByCaseValue(
     searchQuery: string,
     searchValue: string,
-    userId: string
+    userId: string,
   ): Promise<Artefact[]> {
     try {
       let header;

@@ -24,11 +24,11 @@ export default class RemoveListSearchController {
       court
         ? res.redirect(`remove-list-search-results?locationId=${court.locationId}`)
         : res.render('remove-list-search', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search']),
-            autocompleteList,
-            invalidInputError: false,
-            noResultsError: true,
-          });
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search']),
+          autocompleteList,
+          invalidInputError: false,
+          noResultsError: true,
+        });
     } else {
       res.render('remove-list-search', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search']),

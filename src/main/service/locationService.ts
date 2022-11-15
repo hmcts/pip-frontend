@@ -64,11 +64,11 @@ export class LocationService {
   public async generateFilteredAlphabetisedCourtList(
     regions: string,
     jurisdictions: string,
-    language: string
+    language: string,
   ): Promise<object> {
     const locations = this.initalizeLocationsForLanguage(
       await locationRequest.getFilteredCourts(regions, jurisdictions, language),
-      language
+      language,
     );
     return this.generateAlphabetisedCourtList(locations);
   }

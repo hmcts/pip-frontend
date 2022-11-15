@@ -22,7 +22,7 @@ export default class ManualReferenceDataUploadController {
           req.file,
           req.lng as string,
           'manual-reference-data-upload',
-          uploadType.REFERENCE_DATE
+          uploadType.REFERENCE_DATE,
         ),
       };
 

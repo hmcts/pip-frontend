@@ -23,7 +23,7 @@ export default class CrownDailyListController {
       manipulatedData = crimeListsService.manipulatedCrimeListData(
         JSON.stringify(manipulatedData),
         req.lng as string,
-        'crown-daily-list'
+        'crown-daily-list',
       );
       manipulatedData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(manipulatedData));
 

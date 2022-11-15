@@ -29,8 +29,8 @@ export default class CrownWarnedListController {
       // Sort unallocated list entry to the end of the map so it appears last on the template
       const sortedListData = new Map(
         [...listData].sort(([a], [b]) =>
-          toBeAllocatedLowerCase === a.toLowerCase() ? 1 : toBeAllocatedLowerCase === b.toLowerCase() ? -1 : 0
-        )
+          toBeAllocatedLowerCase === a.toLowerCase() ? 1 : toBeAllocatedLowerCase === b.toLowerCase() ? -1 : 0,
+        ),
       );
 
       res.render(listUrl, {

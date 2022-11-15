@@ -75,11 +75,11 @@ describe('Pending Subscriptions Page', () => {
       const tableHeaders = htmlRes.getElementsByClassName(tableHeaderClass);
       expect(tableHeaders[0].innerHTML).contains(
         'Unique reference number (URN)',
-        'Could not find text in first header'
+        'Could not find text in first header',
       );
       expect(tableHeaders[1].innerHTML).contains(
         'Case reference number or case ID',
-        'Could not find text in second header'
+        'Could not find text in second header',
       );
       expect(tableHeaders[2].innerHTML).contains('Case name', 'Could not find text in third header');
       expect(tableHeaders[3].innerHTML).contains('Actions', 'Could not find text in fourth header');
@@ -102,7 +102,7 @@ describe('Pending Subscriptions Page', () => {
       expect(cells[2].innerHTML).contains(mockCase.caseName, 'Third cell does not contain correct value');
       expect(cells[3].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
       expect(cells[3].querySelector('a').getAttribute('href')).equal(
-        `/remove-subscription?case=${mockCase.caseNumber}`
+        `/remove-subscription?case=${mockCase.caseNumber}`,
       );
     });
 
@@ -113,7 +113,7 @@ describe('Pending Subscriptions Page', () => {
       expect(cells[0].innerHTML).contains(mockCourt.name, 'First cell does not contain correct value');
       expect(cells[1].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
       expect(cells[1].querySelector('a').getAttribute('href')).equal(
-        `/remove-subscription?court=${mockCourt.locationId}`
+        `/remove-subscription?court=${mockCourt.locationId}`,
       );
     });
 
@@ -126,7 +126,7 @@ describe('Pending Subscriptions Page', () => {
       const addAnotherLink = htmlRes.getElementsByTagName('a')[13];
       expect(addAnotherLink.innerHTML).contains(
         'Add another email Subscription',
-        'Could not find add another email subscription link'
+        'Could not find add another email subscription link',
       );
 
       expect(addAnotherLink.getAttribute('href')).equal('/subscription-add', 'Add another link does not contain href');
@@ -179,7 +179,7 @@ describe('Pending Subscriptions Page', () => {
       expect(cells[0].innerHTML).contains(mockCourt.name, 'First cell does not contain correct value');
       expect(cells[1].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
       expect(cells[1].querySelector('a').getAttribute('href')).equal(
-        `/remove-subscription?court=${mockCourt.locationId}`
+        `/remove-subscription?court=${mockCourt.locationId}`,
       );
     });
 
@@ -192,7 +192,7 @@ describe('Pending Subscriptions Page', () => {
       const addAnotherLink = htmlRes.getElementsByTagName('a')[12];
       expect(addAnotherLink.innerHTML).contains(
         'Add another email Subscription',
-        'Could not find add another email subscription link'
+        'Could not find add another email subscription link',
       );
 
       expect(addAnotherLink.getAttribute('href')).equal('/subscription-add', 'Add another link does not contain href');
@@ -234,11 +234,11 @@ describe('Pending Subscriptions Page', () => {
       const tableHeaders = htmlRes.getElementsByClassName(tableHeaderClass);
       expect(tableHeaders[0].innerHTML).contains(
         'Unique reference number (URN)',
-        'Could not find text in first header'
+        'Could not find text in first header',
       );
       expect(tableHeaders[1].innerHTML).contains(
         'Case reference number or case ID',
-        'Could not find text in second header'
+        'Could not find text in second header',
       );
       expect(tableHeaders[2].innerHTML).contains('Case name', 'Could not find text in third header');
       expect(tableHeaders[3].innerHTML).contains('Actions', 'Could not find text in fourth header');
@@ -258,7 +258,7 @@ describe('Pending Subscriptions Page', () => {
       expect(cells[2].innerHTML).contains(mockCase.caseName, 'Third cell does not contain correct value');
       expect(cells[3].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
       expect(cells[3].querySelector('a').getAttribute('href')).equal(
-        `/remove-subscription?case=${mockCase.caseNumber}`
+        `/remove-subscription?case=${mockCase.caseNumber}`,
       );
     });
 
@@ -276,7 +276,7 @@ describe('Pending Subscriptions Page', () => {
       const addAnotherLink = htmlRes.getElementsByTagName('a')[12];
       expect(addAnotherLink.innerHTML).contains(
         'Add another email Subscription',
-        'Could not find add another email subscription link'
+        'Could not find add another email subscription link',
       );
 
       expect(addAnotherLink.getAttribute('href')).equal('/subscription-add', 'Add another link does not contain href');

@@ -67,7 +67,7 @@ describe('Home page', () => {
       expect(betaHeader[0].innerHTML).contains('beta', 'Could not find beta header');
       expect(betaHeader[0].innerHTML).contains(
         'https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=/',
-        'link is broken in the beta heading.'
+        'link is broken in the beta heading.',
       );
     });
 
@@ -80,7 +80,7 @@ describe('Home page', () => {
       const message = htmlRes.getElementsByClassName('govuk-body');
       expect(message[0].innerHTML).contains(
         'You can use this service to get information about:',
-        'Could not find a message'
+        'Could not find a message',
       );
     });
 
@@ -88,11 +88,11 @@ describe('Home page', () => {
       const bullets = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByTagName('li');
       expect(bullets[0].innerHTML).contains(
         'Hearings in Civil and Family Courts in Milton Keynes, Oxford, Reading, High Wycombe and Slough',
-        'Could not find first bullet'
+        'Could not find first bullet',
       );
       expect(bullets[1].innerHTML).contains(
         'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
-        'Could not find second bullet'
+        'Could not find second bullet',
       );
     });
 
@@ -100,7 +100,7 @@ describe('Home page', () => {
       const message = htmlRes.getElementsByClassName('govuk-body');
       expect(message[2].innerHTML).contains(
         'More courts and tribunals will become available over time.',
-        'Could not find courts message'
+        'Could not find courts message',
       );
     });
 
@@ -108,7 +108,7 @@ describe('Home page', () => {
       const signInMessage = htmlRes.getElementsByClassName('govuk-body');
       expect(signInMessage[3].innerHTML).contains(
         'Legal and media professionals can',
-        'Could not find sign in message'
+        'Could not find sign in message',
       );
     });
 
@@ -126,7 +126,7 @@ describe('Home page', () => {
       const message = htmlRes.getElementsByClassName('govuk-body');
       expect(message[5].innerHTML).contains(
         "If you're in Scotland or Northern Ireland",
-        'Could not find Sco and NI message'
+        'Could not find Sco and NI message',
       );
     });
 
@@ -140,17 +140,17 @@ describe('Home page', () => {
       expect(bullets[0].innerHTML).contains('for courts and some tribunals in Scotland', 'Could not find first bullet');
       expect(bullets[1].innerHTML).contains(
         'for courts and tribunals in Northern Ireland',
-        'Could not find second bullet'
+        'Could not find second bullet',
       );
       expect(bullets[0].getElementsByClassName('govuk-link')[0].getAttribute('href').valueOf()).contains(
-        'https://www.scotcourts.gov.uk/'
+        'https://www.scotcourts.gov.uk/',
       );
       expect(bullets[0].getElementsByClassName('govuk-link')[0].innerHTML).contains('Scottish Courts website');
       expect(bullets[1].getElementsByClassName('govuk-link')[0].getAttribute('href').valueOf()).contains(
-        'https://www.courtsni.gov.uk/en-GB/ContactDetails/Pages/default.aspx'
+        'https://www.courtsni.gov.uk/en-GB/ContactDetails/Pages/default.aspx',
       );
       expect(bullets[1].getElementsByClassName('govuk-link')[0].innerHTML).contains(
-        'Northern Ireland Courts and Tribunals Service'
+        'Northern Ireland Courts and Tribunals Service',
       );
     });
 
@@ -161,7 +161,7 @@ describe('Home page', () => {
           expect(link[i].innerHTML).contain(footerLinks[i].text, `link ${footerLinks[i].text} has incorrect name`);
           expect(link[i].getAttribute('href')).contain(
             footerLinks[i].href,
-            `link ${footerLinks[i].text} has incorrect path`
+            `link ${footerLinks[i].text} has incorrect path`,
           );
         }
       });
@@ -183,7 +183,7 @@ describe('Home page', () => {
       const header = htmlRes.getElementsByClassName('govuk-heading-l');
       expect(header[0].innerHTML).contains(
         'Gwrandawiadau llys a thribiwnlys',
-        'Could not find correct value in header'
+        'Could not find correct value in header',
       );
     });
 

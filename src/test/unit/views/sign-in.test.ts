@@ -60,7 +60,7 @@ describe('Sign In option Page', () => {
       for (let i = 0; i < 3; i++) {
         expect(radioButtons[i].innerHTML).contains(
           expectedRadioLabel[i],
-          'Could not find the radio button with label ' + expectedRadioLabel[i]
+          'Could not find the radio button with label ' + expectedRadioLabel[i],
         );
       }
     });
@@ -74,11 +74,11 @@ describe('Sign In option Page', () => {
       const requestAccLink = htmlRes.getElementsByClassName('govuk-link');
       expect(requestAccLink[2].innerHTML).contains(
         'Create a Court and tribunal hearings account',
-        'Could not find request account link'
+        'Could not find request account link',
       );
       expect(requestAccLink[2].getAttribute('href')).contains(
         'create-media-account',
-        'Link does not contain correct url'
+        'Link does not contain correct url',
       );
     });
   });
@@ -97,11 +97,11 @@ describe('Sign In option Page', () => {
       const errorSummary = htmlRes.getElementsByClassName(errorSummaryClass);
       expect(errorSummary[0].getElementsByTagName('h2')[0].innerHTML).contains(
         'There is a problem',
-        'Could not find error summary title'
+        'Could not find error summary title',
       );
       expect(errorSummary[0].getElementsByTagName('li')[0].innerHTML).contains(
         'Please select an option',
-        'Could not find error message'
+        'Could not find error message',
       );
     });
   });

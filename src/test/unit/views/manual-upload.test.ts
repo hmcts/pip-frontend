@@ -79,7 +79,7 @@ describe('Manual upload page', () => {
       expect(insetFileUpload[0].innerHTML).contains(expectedFileQuestion, 'Could not find file upload');
       expect(insetFileUpload[0].getElementsByTagName('input')[0].getAttribute('type')).equal(
         expectedFileInputType,
-        'Could not find file upload type'
+        'Could not find file upload type',
       );
     });
 
@@ -174,7 +174,7 @@ describe('Manual upload page', () => {
       expect(warningText.innerHTML).contains(
         'Prior to upload you must ensure the file is suitable for publication ' +
           'e.g. redaction of personal data has been done during the production of this file.',
-        'Could not find warning text'
+        'Could not find warning text',
       );
     });
   });
@@ -199,7 +199,7 @@ describe('Manual upload page', () => {
       const fileError = htmlRes.getElementById('manual-file-upload-error');
       expect(fileError.innerHTML).contains(
         'File too large, please upload file smaller than 2MB',
-        'Could not find file error'
+        'Could not find file error',
       );
     });
 
@@ -207,7 +207,7 @@ describe('Manual upload page', () => {
       const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
       expect(errorMessage[1].innerHTML).contains(
         'Court name must be three characters or more',
-        'Could not find court error'
+        'Could not find court error',
       );
     });
 

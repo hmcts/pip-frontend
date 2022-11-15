@@ -19,10 +19,10 @@ export default class SubscriptionUrnSearchController {
       searchResults
         ? res.redirect(`subscription-urn-search-results?search-input=${searchInput}`)
         : res.render('subscription-urn-search', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search']),
-            invalidInputError: false,
-            noResultsError: true,
-          });
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search']),
+          invalidInputError: false,
+          noResultsError: true,
+        });
     } else {
       res.render('subscription-urn-search', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search']),

@@ -100,8 +100,8 @@ function oidcSetup(): void {
         clientSecret: clientSecret,
         isB2C: true,
       },
-      passportStrategyFn
-    )
+      passportStrategyFn,
+    ),
   );
 
   passport.use(
@@ -117,8 +117,8 @@ function oidcSetup(): void {
         clientSecret: clientSecret,
         isB2C: true,
       },
-      passportStrategyFn
-    )
+      passportStrategyFn,
+    ),
   );
 
   passport.use(
@@ -134,8 +134,8 @@ function oidcSetup(): void {
         clientSecret: clientSecret,
         isB2C: true,
       },
-      passportStrategyFn
-    )
+      passportStrategyFn,
+    ),
   );
 }
 

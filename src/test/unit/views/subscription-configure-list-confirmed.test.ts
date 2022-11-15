@@ -33,11 +33,11 @@ describe('Subscriptions List Type Confirmed Page', () => {
     const panel = htmlRes.getElementsByClassName('govuk-panel--confirmation')[0];
     expect(panel.getElementsByClassName('govuk-panel__title')[0].innerHTML).contains(
       'Court Subscription(s) refined',
-      'Could not find panel title or is incorrect'
+      'Could not find panel title or is incorrect',
     );
     expect(panel.getElementsByClassName('govuk-panel__body')[0].innerHTML).contains(
       'Your subscription(s) has been amended successfully',
-      'Could not find panel message or is incorrect'
+      'Could not find panel message or is incorrect',
     );
   });
 

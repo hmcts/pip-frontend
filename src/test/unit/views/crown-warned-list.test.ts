@@ -46,7 +46,7 @@ describe('Crown Warned List page', () => {
     const date = htmlRes.getElementsByClassName(publicationDateClass);
     expect(date[0].innerHTML).contains(
       'Last Updated 13 September 2022 at 12:30pm',
-      'Could not find the publication date'
+      'Could not find the publication date',
     );
   });
 
@@ -69,7 +69,7 @@ describe('Crown Warned List page', () => {
     const restriction = htmlRes.getElementsByClassName(restrictionHeadingClass);
     expect(restriction[0].innerHTML).contains(
       'Restrictions on publishing or writing about these cases',
-      'Could not find the display restriction heading'
+      'Could not find the display restriction heading',
     );
   });
 

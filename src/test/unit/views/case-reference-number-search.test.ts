@@ -91,7 +91,7 @@ describe('Case Reference Search Page Blank Input', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
     expect(errorSummary[0].innerHTML).contains(
       'There is nothing matching your criteria',
-      'Could not find error message'
+      'Could not find error message',
     );
   });
 
@@ -122,7 +122,7 @@ describe('Case Reference Search Page Invalid Input', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
     expect(errorSummary[0].innerHTML).contains(
       'There is nothing matching your criteria',
-      'Could not find error message'
+      'Could not find error message',
     );
   });
 

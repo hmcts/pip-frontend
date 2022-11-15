@@ -17,7 +17,7 @@ const stubGetSubscriptions = sinon.stub(SubscriptionRequests.prototype, 'getUser
 describe('Subscription Configure List', () => {
   const subscriptionData = fs.readFileSync(
     path.resolve(__dirname, '../../../test/unit/mocks/listTypeSubscriptions/listTypeSubscriptions.json'),
-    'utf-8'
+    'utf-8',
   );
   const returnedSubscriptions = JSON.parse(subscriptionData);
 
@@ -62,11 +62,11 @@ describe('Subscription Configure List', () => {
     const pageBodyText = htmlRes.getElementsByClassName('govuk-body');
     expect(pageBodyText[0].innerHTML).contains(
       "Configure the lists you will receive for your selected courts and tribunals. This will not affect any specific cases you may have subscribed to. Also don't forget to come back regularly to see new list types as we add more.",
-      'Page first description text does not exist'
+      'Page first description text does not exist',
     );
     expect(pageBodyText[1].innerHTML).contains(
       'If you un-select all hearing lists on this screen we will revert your subscriptions to default and you will receive all list types. If you want to stop receiving all lists or stop receiving lists from a particular court/tribunal please remove the subscriptions on the previous screen.',
-      'Page second description text does not exist'
+      'Page second description text does not exist',
     );
   });
 
@@ -94,7 +94,7 @@ describe('Subscription Configure List', () => {
     const jurisdictionLegend = htmlRes.getElementsByTagName('legend');
     expect(jurisdictionLegend[0].innerHTML).contains(
       'Type of court or tribunal',
-      "Type of court or tribunal filter doesn't exist"
+      "Type of court or tribunal filter doesn't exist",
     );
   });
 

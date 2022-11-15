@@ -67,7 +67,7 @@ describe('ET Fortnightly List page', () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
     expect(summary[0].innerHTML).contains(
       '+44 1234 1234 1234',
-      'Could not find the court telephone no in summary text'
+      'Could not find the court telephone no in summary text',
     );
   });
 

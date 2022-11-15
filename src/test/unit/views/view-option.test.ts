@@ -54,7 +54,7 @@ describe('View Option Page', () => {
       expect(betaHeader[0].innerHTML).contains('beta', 'Could not locate beta heading.');
       expect(betaHeader[0].innerHTML).contains(
         'https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl',
-        'link is broken in the beta heading.'
+        'link is broken in the beta heading.',
       );
       expect(betaHeader[0].innerHTML).contains('Cymraeg', 'Welsh toggle is not working!');
     });
@@ -63,11 +63,11 @@ describe('View Option Page', () => {
       const radioButtons = htmlRes.getElementsByClassName(radioClass);
       expect(radioButtons[0].innerHTML).contains(
         expectedRadioLabel1,
-        'Could not find the radio button with label ' + expectedRadioLabel1
+        'Could not find the radio button with label ' + expectedRadioLabel1,
       );
       expect(radioButtons[1].innerHTML).contains(
         expectedRadioLabel2,
-        'Could not find the radio button with label ' + expectedRadioLabel2
+        'Could not find the radio button with label ' + expectedRadioLabel2,
       );
     });
 
@@ -75,11 +75,11 @@ describe('View Option Page', () => {
       const radioButtons = htmlRes.getElementsByClassName(radioClass);
       expect(radioButtons[0].innerHTML).contains(
         expectedRadioHint1,
-        'Could not find the radio button with hint ' + expectedRadioHint1
+        'Could not find the radio button with hint ' + expectedRadioHint1,
       );
       expect(radioButtons[1].innerHTML).contains(
         expectedRadioHint2,
-        'Could not find the radio button with hint ' + expectedRadioHint2
+        'Could not find the radio button with hint ' + expectedRadioHint2,
       );
     });
   });

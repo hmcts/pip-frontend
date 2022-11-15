@@ -26,7 +26,7 @@ export class ManualUploadService {
       const listItem = { ...value };
       listItem.listTypeName = this.getListItemName(value.listType);
       listItem.dateRange = `${moment(value.displayFrom).format('D MMM YYYY')} to ${moment(value.displayTo).format(
-        'D MMM YYYY'
+        'D MMM YYYY',
       )}`;
       formattedList.push(listItem);
     });
@@ -58,7 +58,7 @@ export class ManualUploadService {
         this.buildDate(formValues, 'display-date-from'),
         this.buildDate(formValues, 'display-date-to'),
         language,
-        languageFile
+        languageFile,
       ),
     };
     if (!fields.courtError && !fields.contentDateError && !fields.displayDateError) {
@@ -88,7 +88,7 @@ export class ManualUploadService {
         body[`${fieldsetPrefix}-month`],
         '/',
         body[`${fieldsetPrefix}-year`],
-        ' 23:59:59'
+        ' 23:59:59',
       );
     } else if (fieldsetPrefix === 'display-date-from') {
       return body[`${fieldsetPrefix}-day`]?.concat(
@@ -96,7 +96,7 @@ export class ManualUploadService {
         body[`${fieldsetPrefix}-month`],
         '/',
         body[`${fieldsetPrefix}-year`],
-        ' 00:00:01'
+        ' 00:00:01',
       );
     } else {
       return body[`${fieldsetPrefix}-day`]?.concat(
@@ -104,7 +104,7 @@ export class ManualUploadService {
         body[`${fieldsetPrefix}-month`],
         '/',
         body[`${fieldsetPrefix}-year`],
-        ' 00:00:00'
+        ' 00:00:00',
       );
     }
   }
@@ -149,12 +149,12 @@ export class ManualUploadService {
     if (fileHandlingService.getFileExtension(data.fileName) === 'json') {
       return await dataManagementRequests.uploadJSONPublication(
         data,
-        this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat))
+        this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
       );
     } else {
       return await dataManagementRequests.uploadPublication(
         data,
-        this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat))
+        this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
       );
     }
   }

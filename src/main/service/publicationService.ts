@@ -57,7 +57,7 @@ export class PublicationService {
             m =>
               m.caseName === singleCase.caseName &&
               m.caseUrn === singleCase.caseUrn &&
-              m.caseNumber === singleCase.caseNumber
+              m.caseNumber === singleCase.caseNumber,
           );
           if (!alreadyExists) {
             matches.push(singleCase);

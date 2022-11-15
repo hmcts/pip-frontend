@@ -22,7 +22,7 @@ export default class CreateAdminAccountController {
     const formValidation = createAccountService.validateAdminFormFieldsWithRole(
       formData,
       req.lng as string,
-      'create-admin-account'
+      'create-admin-account',
     );
     const isValidForm = Object.values(formValidation).every(o => o.message === null);
     if (isValidForm) {

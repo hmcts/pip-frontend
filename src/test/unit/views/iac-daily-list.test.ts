@@ -37,7 +37,7 @@ describe('IAC daily cause list page', () => {
     const header = htmlRes.getElementsByClassName(headingClass);
     expect(header[0].innerHTML).contains(
       'First-tier Tribunal: Immigration and Asylum Chamber',
-      'Could not find the header'
+      'Could not find the header',
     );
   });
 

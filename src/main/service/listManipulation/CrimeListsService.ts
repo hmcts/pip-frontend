@@ -23,7 +23,7 @@ export class CrimeListsService {
               sitting['durationAsHours'] as number,
               sitting['durationAsMinutes'] as number,
               language,
-              languageFile
+              languageFile,
             );
             sitting['hearing'].forEach(hearing => {
               this.findAndManipulatePartyInformation(hearing);
@@ -137,7 +137,7 @@ export class CrimeListsService {
   private formatUnallocatedCourtList(
     unallocatedCasesCrownListData: object,
     courtListForUnallocatedCases: object,
-    unallocatedCase: any[]
+    unallocatedCase: any[],
   ): void {
     courtListForUnallocatedCases['courtHouse']['courtHouseName'] = '';
     courtListForUnallocatedCases['courtHouse']['courtHouseAddress'] = null;

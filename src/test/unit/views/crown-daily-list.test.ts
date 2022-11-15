@@ -59,7 +59,7 @@ describe('Crown daily List page', () => {
     const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
     expect(siteAddress[1].innerHTML).contains(
       'Sitting at Court B',
-      'Could not find the Court name with Sitting at text'
+      'Could not find the Court name with Sitting at text',
     );
   });
 
@@ -118,7 +118,7 @@ describe('Crown daily List page', () => {
     const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
     expect(siteAddress[4].innerHTML).contains(
       'The following cases may be taken in any court',
-      'Could not find the unallocated case section'
+      'Could not find the unallocated case section',
     );
     expect(siteAddress[5].innerHTML).contains('To be allocated:', 'Could not find the to be allocated section');
   });

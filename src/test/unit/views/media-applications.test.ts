@@ -54,7 +54,7 @@ describe('Media applications page', () => {
     const viewButton = htmlRes.getElementsByClassName(tableClass)[0].getElementsByTagName('a')[0];
     expect(viewButton.getAttribute('href')).equal(
       '/media-account-review?applicantId=234',
-      'href did not match expected'
+      'href did not match expected',
     );
   });
 });

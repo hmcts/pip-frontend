@@ -95,13 +95,13 @@ describe('Filter Service', () => {
 
   it('should find and return only Region', () => {
     expect(
-      filterService.findAndSplitFilters(filterValues, { Jurisdiction: '', Region: { Wales: { value: 'Wales' } } })
+      filterService.findAndSplitFilters(filterValues, { Jurisdiction: '', Region: { Wales: { value: 'Wales' } } }),
     ).toStrictEqual({ Jurisdiction: '', Region: 'Wales' });
   });
 
   it('should find and return only Jurisdiction', () => {
     expect(
-      filterService.findAndSplitFilters(filterValues, { Jurisdiction: { Tribunal: { value: 'Tribunal' } }, Region: '' })
+      filterService.findAndSplitFilters(filterValues, { Jurisdiction: { Tribunal: { value: 'Tribunal' } }, Region: '' }),
     ).toStrictEqual({ Jurisdiction: 'Tribunal', Region: '' });
   });
 

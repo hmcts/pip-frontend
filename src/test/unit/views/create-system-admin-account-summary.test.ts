@@ -51,7 +51,7 @@ describe('Create System Admin Account Summary page', () => {
         expect(listKeys[i].innerHTML).to.contain(summaryKeys[i], `Unable to find ${summaryKeys[i]} summary key`);
         expect(actions[i].getElementsByClassName('govuk-link')[0].innerHTML).to.contain('Change');
         expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href')).to.equal(
-          `create-system-admin-account#${changeValues[i]}`
+          `create-system-admin-account#${changeValues[i]}`,
         );
       }
     });
@@ -95,10 +95,10 @@ describe('Create System Admin Account Summary page', () => {
         const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list')[0];
         expect(errorDialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML).contains(
           'There is a problem',
-          'Could not find error dialog title'
+          'Could not find error dialog title',
         );
         expect(errorSummaryList.innerHTML).contains(
-          'This email already exists. The user should try signing in using this email or reset their password.'
+          'This email already exists. The user should try signing in using this email or reset their password.',
         );
       });
     });
@@ -139,7 +139,7 @@ describe('Create System Admin Account Summary page', () => {
         expect(whatNextTitle.innerHTML).contains('What happens next', 'Could not find title');
         expect(whatNextMessage.innerHTML).contains(
           'This account will be created and the applicant will be notified to set up their account.',
-          'Could not find a message'
+          'Could not find a message',
         );
       });
     });

@@ -42,11 +42,11 @@ describe('Delete Subscription page', () => {
     expect(radioButtons.length).equal(2, '2 radio buttons not found');
     expect(radioButtons[0].innerHTML).contains(
       expectedRadioLabel1,
-      `Could not find the radio button with label ${expectedRadioLabel1}`
+      `Could not find the radio button with label ${expectedRadioLabel1}`,
     );
     expect(radioButtons[1].innerHTML).contains(
       expectedRadioLabel2,
-      `Could not find the radio button with label ${expectedRadioLabel2}`
+      `Could not find the radio button with label ${expectedRadioLabel2}`,
     );
   });
 });

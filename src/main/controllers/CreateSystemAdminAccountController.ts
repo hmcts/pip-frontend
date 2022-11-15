@@ -21,7 +21,7 @@ export default class CreateSystemAdminAccountController {
     const formValidation = createAccountService.validateAdminFormFields(
       formData,
       req.lng as string,
-      'create-system-admin-account'
+      'create-system-admin-account',
     );
     const isValidForm = Object.values(formValidation).every(o => o.message === null);
     if (isValidForm) {

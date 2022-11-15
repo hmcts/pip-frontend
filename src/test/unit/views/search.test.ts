@@ -97,7 +97,7 @@ describe('Search Page Invalid Input', () => {
     const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
     expect(errorSummary[0].innerHTML).contains(
       'There is nothing matching your criteria',
-      'Could not find error message'
+      'Could not find error message',
     );
   });
 
@@ -115,7 +115,7 @@ describe('Search Page Invalid Input', () => {
     const additionalMessage = htmlRes.getElementsByClassName(additionalMessageClass);
     expect(additionalMessage[0].innerHTML).contains(
       'There are no matching results.',
-      'Could not find additional message'
+      'Could not find additional message',
     );
   });
 });

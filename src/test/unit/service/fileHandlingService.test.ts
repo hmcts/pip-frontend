@@ -31,25 +31,25 @@ describe('File handling service', () => {
 
     it('should return null if a dot-separated image is provided', () => {
       expect(fileHandlingService.validateImage(dotSeparatedFile, englishLanguage, createMediaAccountLanguageFile)).toBe(
-        null
+        null,
       );
     });
 
     it('should return error message if image is not provided', () => {
       expect(fileHandlingService.validateImage(null, englishLanguage, createMediaAccountLanguageFile)).toBe(
-        'There is a problem - We will need ID evidence to support your application for an account'
+        'There is a problem - We will need ID evidence to support your application for an account',
       );
     });
 
     it('should return error message if unsupported format image is provided', () => {
       expect(fileHandlingService.validateImage(invalidFileType, englishLanguage, createMediaAccountLanguageFile)).toBe(
-        'There is a problem - ID evidence must be a JPG, PDF or PNG'
+        'There is a problem - ID evidence must be a JPG, PDF or PNG',
       );
     });
 
     it('should return error message if image is over 2MB', () => {
       expect(fileHandlingService.validateImage(largeImage, englishLanguage, createMediaAccountLanguageFile)).toBe(
-        'There is a problem - ID evidence needs to be less than 2Mbs'
+        'There is a problem - ID evidence needs to be less than 2Mbs',
       );
     });
   });
@@ -57,7 +57,7 @@ describe('File handling service', () => {
   describe('validateFileUpload', () => {
     it('should return null when checking a valid file', () => {
       expect(
-        fileHandlingService.validateFileUpload(validFile, englishLanguage, manualUploadLanguageFile, uploadType.FILE)
+        fileHandlingService.validateFileUpload(validFile, englishLanguage, manualUploadLanguageFile, uploadType.FILE),
       ).toBe(null);
     });
 
@@ -67,14 +67,14 @@ describe('File handling service', () => {
           validFileCase,
           englishLanguage,
           manualUploadLanguageFile,
-          uploadType.FILE
-        )
+          uploadType.FILE,
+        ),
       ).toBe(null);
     });
 
     it('should return error message if file greater than 2MB', () => {
       expect(
-        fileHandlingService.validateFileUpload(largeFile, englishLanguage, manualUploadLanguageFile, uploadType.FILE)
+        fileHandlingService.validateFileUpload(largeFile, englishLanguage, manualUploadLanguageFile, uploadType.FILE),
       ).toEqual('File too large, please upload file smaller than 2MB');
     });
 
@@ -84,20 +84,20 @@ describe('File handling service', () => {
           invalidFileType,
           englishLanguage,
           manualUploadLanguageFile,
-          uploadType.FILE
-        )
+          uploadType.FILE,
+        ),
       ).toEqual('Please upload a valid file format');
     });
 
     it('should return error message if missing file type', () => {
       expect(
-        fileHandlingService.validateFileUpload(noFileType, englishLanguage, manualUploadLanguageFile, uploadType.FILE)
+        fileHandlingService.validateFileUpload(noFileType, englishLanguage, manualUploadLanguageFile, uploadType.FILE),
       ).toEqual('Please upload a valid file format');
     });
 
     it('should return error message if no file passed', () => {
       expect(
-        fileHandlingService.validateFileUpload(null, englishLanguage, manualUploadLanguageFile, uploadType.FILE)
+        fileHandlingService.validateFileUpload(null, englishLanguage, manualUploadLanguageFile, uploadType.FILE),
       ).toEqual('Please provide a file');
     });
   });

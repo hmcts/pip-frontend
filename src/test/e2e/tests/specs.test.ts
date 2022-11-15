@@ -135,7 +135,7 @@ describe('Unverified user', () => {
         await searchPage.enterText(searchTerm);
         summaryOfPublicationsPage = await searchPage.clickContinue();
         expect(await summaryOfPublicationsPage.getPageTitle()).toEqual(
-          'What do you want to view from ' + searchTerm + '?'
+          'What do you want to view from ' + searchTerm + '?',
         );
       });
 
@@ -172,7 +172,7 @@ describe('Unverified user', () => {
       it('selecting first result should take you to to the summary of publications page', async () => {
         summaryOfPublicationsPage = await alphabeticalSearchPage.selectFirstListResult();
         expect(await summaryOfPublicationsPage.getPageTitle()).toEqual(
-          'What do you want to view from ' + searchTerm + '?'
+          'What do you want to view from ' + searchTerm + '?',
         );
       });
 
@@ -219,14 +219,14 @@ describe('Unverified user', () => {
         await viewOptionPage.selectOption('SingleJusticeProcedureRadioButton');
         singleJusticeProcedurePage = await viewOptionPage.clickContinueSingleJusticeProcedure();
         expect(await singleJusticeProcedurePage.getPageTitle()).toEqual(
-          'What do you want to view from Single Justice Procedure?'
+          'What do you want to view from Single Justice Procedure?',
         );
       });
 
       it('should select first list item', async () => {
         sjpPublicListPage = await singleJusticeProcedurePage.clickSOPListItem();
         expect(await sjpPublicListPage.getPageTitle()).toEqual(
-          'Single Justice Procedure cases that are ready for hearing'
+          'Single Justice Procedure cases that are ready for hearing',
         );
       });
     });
@@ -412,7 +412,7 @@ describe('Verified user', () => {
         await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
         caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
         expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual(
-          'What is the case reference number or case ID?'
+          'What is the case reference number or case ID?',
         );
       });
 
@@ -466,7 +466,7 @@ describe('Verified user', () => {
       it('should click on the first unsubscribe record', async () => {
         deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
         expect(await deleteSubscriptionPage.getPageTitle()).toEqual(
-          'Are you sure you want to remove this subscription?'
+          'Are you sure you want to remove this subscription?',
         );
       });
 
@@ -602,7 +602,7 @@ describe('Admin level journeys', () => {
     it('should click on the first result and open confirmation page', async () => {
       publicationConfirmationPage = await searchPublicationResultsPage.clickRemoveOnFirstRecord();
       expect(await publicationConfirmationPage.getPageTitle()).toEqual(
-        'Are you sure you want to remove this publication?'
+        'Are you sure you want to remove this publication?',
       );
     });
     it('should select yes option and remove publication', async () => {
@@ -633,7 +633,7 @@ describe('Admin level journeys', () => {
     it('should click approve application', async () => {
       mediaAccountApprovalPage = await mediaAccountReviewPage.clickApproveApplication();
       expect(await mediaAccountApprovalPage.getPageTitle()).toEqual(
-        'Are you sure you want to approve this application?'
+        'Are you sure you want to approve this application?',
       );
     });
 
@@ -646,7 +646,7 @@ describe('Admin level journeys', () => {
     it('should select reject application', async () => {
       mediaAccountRejectionPage = await mediaAccountReviewPage.clickRejectApplication();
       expect(await mediaAccountRejectionPage.getPageTitle()).toEqual(
-        'Are you sure you want to reject this application?'
+        'Are you sure you want to reject this application?',
       );
     });
 

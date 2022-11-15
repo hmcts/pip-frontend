@@ -93,7 +93,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
         const message = htmlRes.getElementsByClassName('govuk-body');
         expect(message[0].innerHTML).contains(
           'You do not have any active subscriptions',
-          'Could not find correct message'
+          'Could not find correct message',
         );
       });
   });
@@ -107,7 +107,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
         const message = htmlRes.getElementsByClassName('govuk-body');
         expect(message[0].innerHTML).contains(
           'You do not have any active subscriptions',
-          'Could not find correct message'
+          'Could not find correct message',
         );
       });
   });
@@ -121,7 +121,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
         const message = htmlRes.getElementsByClassName('govuk-body');
         expect(message[0].innerHTML).contains(
           'You do not have any active subscriptions',
-          'Could not find correct message'
+          'Could not find correct message',
         );
       });
   });
@@ -157,7 +157,7 @@ describe('Subscriptions Management Page', () => {
     const newSubsButton = htmlRes.getElementsByClassName('govuk-button');
     expect(newSubsButton[0].innerHTML).contains(
       expectedAddSubscriptionButton,
-      'Could not find new subscription button'
+      'Could not find new subscription button',
     );
   });
 
@@ -183,7 +183,7 @@ describe('Subscriptions Management Page', () => {
     const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1].getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[0].getAttribute('aria-current')).equal(
       'page',
-      'All subscriptions tab does not have active attribute'
+      'All subscriptions tab does not have active attribute',
     );
   });
 
@@ -282,7 +282,7 @@ describe('Subscriptions Management Page with case subscription but without locat
     const newSubsButton = htmlRes.getElementsByClassName('govuk-button');
     expect(newSubsButton[0].innerHTML).contains(
       expectedAddSubscriptionButton,
-      'Could not find new subscription button'
+      'Could not find new subscription button',
     );
   });
 
@@ -290,7 +290,7 @@ describe('Subscriptions Management Page with case subscription but without locat
     const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1].getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[0].innerHTML).contains(
       expectedAllSubsTitleWithSingleSubs,
-      'Could not find all subscriptions tab'
+      'Could not find all subscriptions tab',
     );
     expect(subscriptionsTabs[0].getAttribute('href')).equal('?all', 'Tab does not contain proper link');
   });
@@ -299,7 +299,7 @@ describe('Subscriptions Management Page with case subscription but without locat
     const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1].getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[1].innerHTML).contains(
       expectedCaseSubsTitleWithNoLocationSubs,
-      'Could not find case subscriptions tab'
+      'Could not find case subscriptions tab',
     );
     expect(subscriptionsTabs[1].getAttribute('href')).equal('?case', 'Tab does not contain proper link');
   });
@@ -308,7 +308,7 @@ describe('Subscriptions Management Page with case subscription but without locat
     const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1].getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[0].getAttribute('aria-current')).equal(
       'page',
-      'All subscriptions tab does not have active attribute'
+      'All subscriptions tab does not have active attribute',
     );
   });
 
@@ -395,7 +395,7 @@ describe('Subscriptions Management Page with location subscription but without c
     const newSubsButton = htmlRes.getElementsByClassName('govuk-button');
     expect(newSubsButton[0].innerHTML).contains(
       expectedAddSubscriptionButton,
-      'Could not find new subscription button'
+      'Could not find new subscription button',
     );
   });
 
@@ -403,7 +403,7 @@ describe('Subscriptions Management Page with location subscription but without c
     const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1].getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[0].innerHTML).contains(
       expectedAllSubsTitleWithSingleSubs,
-      'Could not find all subscriptions tab'
+      'Could not find all subscriptions tab',
     );
     expect(subscriptionsTabs[0].getAttribute('href')).equal('?all', 'Tab does not contain proper link');
   });
@@ -412,7 +412,7 @@ describe('Subscriptions Management Page with location subscription but without c
     const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1].getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[2].innerHTML).contains(
       expectedCaseSubsTitleWithNoCaseSubs,
-      'Could not find court subscriptions tab'
+      'Could not find court subscriptions tab',
     );
     expect(subscriptionsTabs[2].getAttribute('href')).equal('?location', 'Tab does not contain proper link');
   });
@@ -421,7 +421,7 @@ describe('Subscriptions Management Page with location subscription but without c
     const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1].getElementsByClassName(tabsClass);
     expect(subscriptionsTabs[0].getAttribute('aria-current')).equal(
       'page',
-      'All subscriptions tab does not have active attribute'
+      'All subscriptions tab does not have active attribute',
     );
   });
 
@@ -473,11 +473,11 @@ describe('Subscriptions Management Page with location subscription but without c
     const listTypesToReceiveButton = htmlRes.getElementsByClassName('govuk-button');
     expect(listTypesToReceiveButton[1].innerHTML).contains(
       expectedListTypesToSendButton,
-      'Could not find list types to receive button'
+      'Could not find list types to receive button',
     );
     expect(listTypesToReceiveButton[1].outerHTML).contains(
       '<a href="subscription-configure-list"',
-      'href link not found inside the button'
+      'href link not found inside the button',
     );
   });
 });

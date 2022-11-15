@@ -23,7 +23,7 @@ export default class MagistratesPublicListController {
       manipulatedData = crimeListsService.manipulatedCrimeListData(
         JSON.stringify(manipulatedData),
         req.lng as string,
-        'magistrates-public-list'
+        'magistrates-public-list',
       );
 
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);

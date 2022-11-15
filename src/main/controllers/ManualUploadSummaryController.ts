@@ -13,15 +13,15 @@ export default class ManualUploadSummaryController {
     formData.listTypeName = manualUploadService.getListItemName(formData.listType);
     req.query?.error === 'true'
       ? res.render('file-upload-summary', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['file-upload-summary']),
-          fileUploadData: { ...manualUploadService.formatPublicationDates(formData, false) },
-          displayError: true,
-        })
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['file-upload-summary']),
+        fileUploadData: { ...manualUploadService.formatPublicationDates(formData, false) },
+        displayError: true,
+      })
       : res.render('file-upload-summary', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['file-upload-summary']),
-          displayError: false,
-          fileUploadData: { ...manualUploadService.formatPublicationDates(formData, false) },
-        });
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['file-upload-summary']),
+        displayError: false,
+        fileUploadData: { ...manualUploadService.formatPublicationDates(formData, false) },
+      });
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {

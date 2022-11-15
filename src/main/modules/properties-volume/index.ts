@@ -10,7 +10,7 @@ export class PropertiesVolume {
 
       this.setSecret(
         'secrets.Publishing-information-project.AppInsightsInstrumentationKey',
-        'appInsights.instrumentationKey'
+        'appInsights.instrumentationKey',
       );
     }
   }

@@ -12,12 +12,12 @@ export default class SubscriptionManagementController {
       const caseTableData = await subscriptionService.generateCaseTableRows(
         subscriptionData.caseSubscriptions,
         req.lng as string,
-        'subscription-management'
+        'subscription-management',
       );
       const locationTableData = await subscriptionService.generateLocationTableRows(
         subscriptionData.locationSubscriptions,
         req.lng as string,
-        'subscription-management'
+        'subscription-management',
       );
       let activeAllTab = false,
         activeCaseTab = false,

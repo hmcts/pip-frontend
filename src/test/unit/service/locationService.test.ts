@@ -106,13 +106,13 @@ describe('Court Service', () => {
 
   it('should return found court name in for english', async () => {
     expect(await courtService.findCourtName(hearingsData[0], englishLanguage, englishLanguageFile)).to.equal(
-      "Abergavenny Magistrates' Court"
+      "Abergavenny Magistrates' Court",
     );
   });
 
   it('should return found court name in for welsh', async () => {
     expect(await courtService.findCourtName(hearingsData[0], welshLanguage, englishLanguageFile)).to.equal(
-      'Llys Ynadon y Fenni'
+      'Llys Ynadon y Fenni',
     );
   });
 

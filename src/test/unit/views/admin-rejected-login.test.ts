@@ -25,11 +25,11 @@ describe('Admin rejected login page', () => {
     const bodyText = htmlRes.getElementsByClassName('govuk-body');
     expect(bodyText[4].innerHTML).contains(
       'You have attempted to sign in as a member of the media.',
-      'Could not find body text'
+      'Could not find body text',
     );
     expect(bodyText[5].innerHTML).contains(
       'Please always sign in using the following link below to sign in as a CaTH Super Admin or Admin user',
-      'Could not find body text'
+      'Could not find body text',
     );
   });
 

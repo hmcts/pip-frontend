@@ -24,7 +24,7 @@ export default class SjpPressListController {
         ...cloneDeep(
           req.i18n.getDataByLanguage(publicationService.languageToLoadPageIn(metaData.language, req.lng))[
             'single-justice-procedure-press'
-          ]
+          ],
         ),
         sjpData: manipulatedData,
         publishedDateTime: publishedDate,

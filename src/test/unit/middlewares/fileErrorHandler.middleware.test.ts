@@ -24,7 +24,7 @@ describe('File Error Handler Middleware', () => {
       { code: 'LIMIT_FILE_SIZE' },
       fileRequest,
       mockResponse as unknown as Response,
-      nextFunction
+      nextFunction,
     );
     expect(fileRequest).toStrictEqual(expectedFileLimitRequest);
     expect(nextFunction).toBeCalledTimes(1);

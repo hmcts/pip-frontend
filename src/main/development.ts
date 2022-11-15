@@ -9,7 +9,7 @@ const setupDev = (app: express.Express, developmentMode: boolean): void => {
     app.use(
       webpackDev(compiler, {
         publicPath: '/',
-      })
+      }),
     );
   }
 };

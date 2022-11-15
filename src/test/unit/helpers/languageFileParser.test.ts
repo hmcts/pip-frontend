@@ -26,7 +26,7 @@ describe('Test language file parser helper', () => {
   it('check method can read error node from the English language file', () => {
     const fileJson = languageFileParser.getLanguageFileJson(languageFileName, englishLanguage);
     expect(languageFileParser.getText(fileJson, 'fullNameErrors', 'blank')).to.equal(
-      'There is a problem - Full name field must be populated'
+      'There is a problem - Full name field must be populated',
     );
   });
 
@@ -38,7 +38,7 @@ describe('Test language file parser helper', () => {
   it('check method can read error node from Welsh English language file', () => {
     const fileJson = languageFileParser.getLanguageFileJson(languageFileName, welshLanguage);
     expect(languageFileParser.getText(fileJson, 'fullNameErrors', 'blank')).to.equal(
-      'Mae yna broblem - Rhaid rhoi enw llawn'
+      'Mae yna broblem - Rhaid rhoi enw llawn',
     );
   });
 });

@@ -87,7 +87,7 @@ describe('Single Justice Procedure List page', () => {
     const reportingRestrictionSection = htmlRes.getElementsByClassName(reportingRestrictionClass);
     expect(reportingRestrictionSection[4].innerHTML).contains(
       reportingRestriction,
-      'Could not find the reporting Restriction'
+      'Could not find the reporting Restriction',
     );
   });
 });

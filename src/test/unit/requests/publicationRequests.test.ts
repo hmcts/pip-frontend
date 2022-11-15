@@ -7,7 +7,7 @@ import { dataManagementApi } from '../../../main/resources/requests/utils/axiosC
 const Blob = require('node-blob');
 const rawDataPubs = fs.readFileSync(
   path.resolve(__dirname, '../../../test/unit/mocks/summaryOfPublications.json'),
-  'utf-8'
+  'utf-8',
 );
 const pubs = JSON.parse(rawDataPubs);
 const totalCases = 6;
@@ -76,7 +76,7 @@ describe('getIndividualPubJson()', () => {
   it('should return judge title Mr', async () => {
     return await publicationRequests.getIndividualPublicationJson(artefactId, userId).then(data => {
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['judiciary'][0]['johTitle']).toEqual(
-        'Mr'
+        'Mr',
       );
     });
   });
@@ -84,7 +84,7 @@ describe('getIndividualPubJson()', () => {
   it('should have two hearings', async () => {
     return await publicationRequests.getIndividualPublicationJson(artefactId, userId).then(data => {
       expect(
-        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'].length
+        data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'].length,
       ).toEqual(2);
     });
   });
@@ -189,7 +189,7 @@ describe('get individual publication metadata', () => {
     const response = await pubRequests.getIndividualPublicationMetadata(
       'brokenPromiseWithErrorResponse',
       userId,
-      false
+      false,
     );
     expect(response).toBe(null);
   });

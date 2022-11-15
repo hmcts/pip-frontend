@@ -16,7 +16,7 @@ export default class RemoveListConfirmationController {
       const artefact = await publicationService.getIndividualPublicationMetadata(
         artefactId,
         req.user?.['piUserId'],
-        true
+        true,
       );
       artefact.listTypeName = manualUploadService.getListItemName(artefact.listType);
       res.render('remove-list-confirmation', {
@@ -35,7 +35,7 @@ export default class RemoveListConfirmationController {
     const artefact = await publicationService.getIndividualPublicationMetadata(
       formData.artefactId,
       req.user?.['piUserId'],
-      true
+      true,
     );
     switch (formData['remove-choice']) {
       case 'yes': {

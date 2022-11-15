@@ -33,7 +33,7 @@ describe('Cookies page', () => {
     const header = htmlRes.getElementsByClassName(headingClass);
     expect(header[0].innerHTML).contains(
       'How cookies are used in the Courts and tribunal hearings service',
-      'Could not find the first header'
+      'Could not find the first header',
     );
   });
 

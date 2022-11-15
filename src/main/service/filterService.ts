@@ -111,7 +111,7 @@ export class FilterService {
   public async handleFilterInitialisation(
     clearQuery: string,
     filterValuesQuery: string,
-    language: string
+    language: string,
   ): Promise<object> {
     let filterValues = this.stripFilters(filterValuesQuery);
     if (clearQuery) {
@@ -129,10 +129,10 @@ export class FilterService {
       filterValues.length == 0
         ? await locationService.generateAlphabetisedAllCourtList(language)
         : await locationService.generateFilteredAlphabetisedCourtList(
-            filters['Region'],
-            filters['Jurisdiction'],
-            language
-          );
+          filters['Region'],
+          filters['Jurisdiction'],
+          language,
+        );
 
     return {
       alphabetisedList: alphabetisedList,

@@ -14,15 +14,15 @@ export default class PendingSubscriptionsController {
 
     req.query?.['no-subscriptions']
       ? res.render('pending-subscriptions', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['pending-subscriptions']),
-          pendingSubscriptions,
-          displayError: true,
-        })
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['pending-subscriptions']),
+        pendingSubscriptions,
+        displayError: true,
+      })
       : res.render('pending-subscriptions', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['pending-subscriptions']),
-          pendingSubscriptions,
-          displayError: false,
-        });
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['pending-subscriptions']),
+        pendingSubscriptions,
+        displayError: false,
+      });
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {

@@ -98,7 +98,7 @@ describe('Create Admin Account Page', () => {
       const dialog = htmlRes.getElementsByClassName('govuk-error-summary');
       expect(dialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML).contains(
         'There is a problem',
-        'Could not find error dialog title'
+        'Could not find error dialog title',
       );
     });
 

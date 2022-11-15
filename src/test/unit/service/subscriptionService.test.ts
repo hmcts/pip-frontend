@@ -76,7 +76,7 @@ const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe')
 const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
 const updateListTypeSubscriptionStub = sinon.stub(
   SubscriptionRequests.prototype,
-  'configureListTypeForLocationSubscriptions'
+  'configureListTypeForLocationSubscriptions',
 );
 subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', '1').resolves(true);
@@ -207,7 +207,7 @@ describe('getPendingSubscriptions function', () => {
   it('should return empty list of courts from the cache', async () => {
     const cachedCourts = await pendingSubscriptionsFromCache.getPendingSubscriptions(
       userIdWithoutSubscriptions,
-      'courts'
+      'courts',
     );
     expect(cachedCourts).toEqual([]);
   });
@@ -215,7 +215,7 @@ describe('getPendingSubscriptions function', () => {
   it('should return empty list of cases from the cache', async () => {
     const cachedCases = await pendingSubscriptionsFromCache.getPendingSubscriptions(
       userIdWithoutSubscriptions,
-      'cases'
+      'cases',
     );
     expect(cachedCases).toEqual([]);
   });
@@ -323,7 +323,7 @@ describe('generateListTypesForCourts', () => {
   const userId = 1234;
   const subscriptionData = fs.readFileSync(
     path.resolve(__dirname, '../../../test/unit/mocks/listTypeSubscriptions/listTypeSubscriptions.json'),
-    'utf-8'
+    'utf-8',
   );
   const returnedSubscriptions = JSON.parse(subscriptionData);
 
@@ -527,7 +527,7 @@ describe('generateListTypesForCourts', () => {
     const result = await subscriptionService.generateLocationTableRows(
       mockSubscriptionData,
       'en',
-      'subscription-management'
+      'subscription-management',
     );
 
     expect(result[0][0].text).toEqual('Aberdeen Tribunal Hearing Centre');
@@ -539,7 +539,7 @@ describe('generateListTypesForCourts', () => {
     const result = await subscriptionService.generateLocationTableRows(
       mockSubscriptionData,
       'cy',
-      'subscription-management'
+      'subscription-management',
     );
 
     expect(result[0][0].text).toEqual('Welsh court name test');

@@ -22,7 +22,7 @@ export default class SjpPublicListController {
         ...cloneDeep(
           req.i18n.getDataByLanguage(publicationService.languageToLoadPageIn(metaData.language, req.lng))[
             'single-justice-procedure'
-          ]
+          ],
         ),
         sjpData: fileData,
         length: casesCount,

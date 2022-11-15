@@ -106,7 +106,7 @@ describe('Remove List Summary Page', () => {
       expect(rowCells[5].innerHTML).contains('Remove', 'Could not find valid action');
       expect(removeActionHref).contains(
         `remove-list-confirmation?artefact=${mockPublications[i].artefactId}`,
-        'Could not find valid action href'
+        'Could not find valid action href',
       );
     }
   });

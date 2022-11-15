@@ -17,10 +17,10 @@ export default class CaseReferenceNumberSearchController {
       searchResults
         ? res.redirect(`case-reference-number-search-results?search-input=${searchInput}`)
         : res.render('case-reference-number-search', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-reference-number-search']),
-            invalidInputError: false,
-            noResultsError: true,
-          });
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-reference-number-search']),
+          invalidInputError: false,
+          noResultsError: true,
+        });
     } else {
       res.render('case-reference-number-search', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-reference-number-search']),

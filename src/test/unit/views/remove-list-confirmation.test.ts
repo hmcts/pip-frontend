@@ -48,7 +48,7 @@ describe('Remove List Confirmation Page', () => {
       const pageTitle = htmlRes.title;
       expect(pageTitle).contains(
         'Are you sure you want to remove this publication?',
-        'Page title does not match header'
+        'Page title does not match header',
       );
     });
 
@@ -56,7 +56,7 @@ describe('Remove List Confirmation Page', () => {
       const header = htmlRes.getElementsByClassName('govuk-heading-l');
       expect(header[0].innerHTML).contains(
         'Are you sure you want to remove this publication?',
-        'Could not find correct value in header'
+        'Could not find correct value in header',
       );
     });
 
@@ -64,7 +64,7 @@ describe('Remove List Confirmation Page', () => {
       const warning = htmlRes.getElementsByClassName('govuk-warning-text__text')[0];
       expect(warning.innerHTML).contains(
         'You are about to remove the following publication:',
-        'Could not find correct warning message'
+        'Could not find correct warning message',
       );
     });
 
@@ -104,7 +104,7 @@ describe('Remove List Confirmation Page', () => {
       const dialog = htmlRes.getElementsByClassName('govuk-error-summary');
       expect(dialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML).contains(
         'There is a problem',
-        'Could not find error dialog title'
+        'Could not find error dialog title',
       );
     });
 

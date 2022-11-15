@@ -12,15 +12,15 @@ export default class ManualReferenceDataUploadSummaryController {
     const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
     req.query?.error === 'true'
       ? res.render('manual-reference-data-upload-summary', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-reference-data-upload-summary']),
-          displayError: true,
-          fileUploadData: formData,
-        })
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-reference-data-upload-summary']),
+        displayError: true,
+        fileUploadData: formData,
+      })
       : res.render('manual-reference-data-upload-summary', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-reference-data-upload-summary']),
-          displayError: false,
-          fileUploadData: formData,
-        });
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-reference-data-upload-summary']),
+        displayError: false,
+        fileUploadData: formData,
+      });
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {

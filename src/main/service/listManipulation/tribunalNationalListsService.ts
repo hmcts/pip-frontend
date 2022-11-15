@@ -19,7 +19,7 @@ export class TribunalNationalListsService {
     listData['courtLists'].forEach(courtList => {
       const venueAddress = this.formatVenueAddress(
         courtList['courtHouse']['courtHouseName'],
-        courtList['courtHouse']['courtHouseAddress']
+        courtList['courtHouse']['courtHouseAddress'],
       );
 
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
@@ -54,8 +54,8 @@ export class TribunalNationalListsService {
                     hearingType,
                     venueAddress,
                     language,
-                    languageFile
-                  )
+                    languageFile,
+                  ),
                 );
               });
             });
@@ -79,7 +79,7 @@ export class TribunalNationalListsService {
     hearingType,
     venue,
     language,
-    languageFile
+    languageFile,
   ) {
     return {
       hearingDate: hearingDate,
@@ -92,7 +92,7 @@ export class TribunalNationalListsService {
         durationAsHours as number,
         durationAsMinutes as number,
         language,
-        languageFile
+        languageFile,
       ),
       caseSequenceIndicator: caseSequenceIndicator,
       hearingType: hearingType,

@@ -59,7 +59,7 @@ describe('Magistrates public List page', () => {
     const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
     expect(siteAddress[1].innerHTML).contains(
       'Sitting at Court B',
-      'Could not find the Court name with Sitting at text'
+      'Could not find the Court name with Sitting at text',
     );
   });
 

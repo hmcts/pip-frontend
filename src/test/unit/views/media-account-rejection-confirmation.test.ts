@@ -98,7 +98,7 @@ describe('Media Account Submission Page', () => {
     const anchorTag = value[1].getElementsByTagName('a');
     expect(anchorTag[0].getAttribute('href')).contains(
       'mailto:a@b.com?subject=Your%20request%20for%20a%20Court%20and%20tribunal%20hearings%20account.',
-      'Could not find the mail to'
+      'Could not find the mail to',
     );
   });
 
@@ -154,7 +154,7 @@ describe('Media Account Submission Page', () => {
     const bottomEmail = bottomSummary[0].getElementsByTagName('a');
     expect(bottomEmail[0].getAttribute('href')).contains(
       'mailto:a@b.com?subject=Your%20request%20for%20a%20Court%20and%20tribunal%20hearings%20account.',
-      'Could not find the mail to'
+      'Could not find the mail to',
     );
   });
 
@@ -168,7 +168,7 @@ describe('Media Account Submission Page', () => {
     const header = bottomElement[0].getElementsByTagName('a');
     expect(header[0].getAttribute('href')).contains(
       '/create-media-account',
-      'Could not find the link back to create media account'
+      'Could not find the link back to create media account',
     );
   });
 });

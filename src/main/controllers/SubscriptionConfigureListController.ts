@@ -14,7 +14,7 @@ export default class SubscriptionConfigureListController {
       req.user['piUserProvenance'],
       req.query?.filterValues as string,
       req.query?.clear as string,
-      req.lng as string
+      req.lng as string,
     );
 
     res.render('subscription-configure-list', {

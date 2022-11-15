@@ -28,7 +28,7 @@ describe.skip('Case Event Glossary page', () => {
     expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
     expect(backLink[0].getAttribute('href')).equal(
       '/live-case-status?locationId=1',
-      'Back value does not contain correct link'
+      'Back value does not contain correct link',
     );
   });
 
@@ -36,7 +36,7 @@ describe.skip('Case Event Glossary page', () => {
     const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
     expect(pageHeading[0].innerHTML).contains(
       'Live hearing updates - glossary of terms',
-      'Page heading does not exist'
+      'Page heading does not exist',
     );
   });
 

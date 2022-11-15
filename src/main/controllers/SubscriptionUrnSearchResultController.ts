@@ -13,9 +13,9 @@ export default class SubscriptionUrnSearchResultController {
       const searchResults = await publicationService.getCaseByCaseUrn(searchInput.toString(), req.user?.['piUserId']);
       searchResults
         ? res.render('subscription-urn-search-results', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search-results']),
-            searchResults,
-          })
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search-results']),
+          searchResults,
+        })
         : res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     } else {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);

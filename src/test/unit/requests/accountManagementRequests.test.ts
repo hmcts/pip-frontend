@@ -414,7 +414,7 @@ describe('Account Management Requests', () => {
       expect(
         moment
           .utc(args[1]['lastSignedInDate'])
-          .isBetween(moment().utc().subtract(5, 'minutes'), moment().utc().add(5, 'minutes'))
+          .isBetween(moment().utc().subtract(5, 'minutes'), moment().utc().add(5, 'minutes')),
       ).toBeTruthy();
     });
 

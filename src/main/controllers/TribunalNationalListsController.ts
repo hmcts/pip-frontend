@@ -21,7 +21,7 @@ export default class TribunalNationalListsController {
       const manipulatedData = tribunalNationalListsService.manipulateData(
         JSON.stringify(searchResults),
         req.lng as string,
-        listToLoad
+        listToLoad,
       );
 
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);

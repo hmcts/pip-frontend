@@ -27,7 +27,7 @@ describe('Create Media Account page', () => {
       const header = htmlRes.getElementsByClassName('govuk-heading-l');
       expect(header[0].innerHTML).contains(
         'Create a Court and tribunal hearings account',
-        'Could not find correct value in the title'
+        'Could not find correct value in the title',
       );
     });
 
@@ -35,7 +35,7 @@ describe('Create Media Account page', () => {
       const hint = htmlRes.getElementsByClassName('govuk-hint')[0];
       expect(hint.innerHTML).contains(
         'We will retain the personal information you enter here to manage your user account and our service.',
-        'Could not find correct value in the hint'
+        'Could not find correct value in the hint',
       );
     });
 
@@ -53,7 +53,7 @@ describe('Create Media Account page', () => {
       expect(emailLabel.innerHTML).contains('Email address', 'Could not find email label');
       expect(hint.innerHTML).contains(
         "We'll only use this to contact you about your account and this service.",
-        'Could not find email hint'
+        'Could not find email hint',
       );
       expect(input.getAttribute('name')).equals('emailAddress', 'Could not find emailAddress input');
       expect(input.getAttribute('type')).equals('text', 'Could not correct input type');
@@ -77,7 +77,7 @@ describe('Create Media Account page', () => {
       const consentLabel = htmlRes.getElementsByClassName('govuk-hint')[3];
       expect(consentLabel.innerHTML).contains(
         'By uploading your document,',
-        'Could not find image upload consent text'
+        'Could not find image upload consent text',
       );
     });
 
@@ -85,7 +85,7 @@ describe('Create Media Account page', () => {
       const message = htmlRes.getElementsByClassName('govuk-body')[0];
       expect(message.innerHTML).contains(
         'Upload a clear photo of your UK Press Card or work ID',
-        'Could not find clear photo message'
+        'Could not find clear photo message',
       );
     });
 
@@ -94,7 +94,7 @@ describe('Create Media Account page', () => {
       expect(message.innerHTML).contains(
         'We will only use this to confirm your identity for this service, ' +
           'and will delete upon approval or rejection of your request',
-        'Could not find clear photo message'
+        'Could not find clear photo message',
       );
     });
 
@@ -102,7 +102,7 @@ describe('Create Media Account page', () => {
       const message = htmlRes.getElementsByClassName('govuk-body')[1];
       expect(message.innerHTML).contains(
         'A court and tribunal hearing account is granted based on you having ' + 'legitimate',
-        'Could not find this paragraph'
+        'Could not find this paragraph',
       );
     });
 
@@ -110,7 +110,7 @@ describe('Create Media Account page', () => {
       const message = htmlRes.getElementsByClassName('govuk-body')[2];
       expect(message.innerHTML).contains(
         'If your circumstances change and you no longer have legitimate reasons',
-        'Could not find this paragraph'
+        'Could not find this paragraph',
       );
     });
 
@@ -140,7 +140,7 @@ describe('Create Media Account page', () => {
       const dialog = htmlRes.getElementsByClassName('govuk-error-summary');
       expect(dialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML).contains(
         'There is a problem',
-        'Could not find error dialog title'
+        'Could not find error dialog title',
       );
     });
 
@@ -150,23 +150,23 @@ describe('Create Media Account page', () => {
       expect(listItems.length).to.equal(5, 'Could not find all error messages');
       expect(listItems[0].innerHTML).contains(
         'There is a problem - Full name field must be populated',
-        'Could not find name error'
+        'Could not find name error',
       );
       expect(listItems[1].innerHTML).contains(
         'There is a problem - Email address field must be populated',
-        'Could not find email error'
+        'Could not find email error',
       );
       expect(listItems[2].innerHTML).contains(
         'There is a problem - Your employers name will be needed to support ' + 'your application for an account',
-        'Could not find employer error'
+        'Could not find employer error',
       );
       expect(listItems[3].innerHTML).contains(
         'There is a problem - We will need ID evidence to support ' + 'your application for an account',
-        'Could not find file error'
+        'Could not find file error',
       );
       expect(listItems[4].innerHTML).contains(
         'There is a problem - You must check the box to confirm you ' + 'agree to the terms and conditions.',
-        'Could not find checked box error'
+        'Could not find checked box error',
       );
     });
 
@@ -175,7 +175,7 @@ describe('Create Media Account page', () => {
       const nameInput = htmlRes.getElementById('fullName');
       expect(errorMessage[0].innerHTML).contains(
         'There is a problem - Full name field must ' + 'be populated',
-        'Could not find name error message'
+        'Could not find name error message',
       );
       expect(nameInput.classList.contains(errorClassList)).to.be.true;
     });
@@ -185,7 +185,7 @@ describe('Create Media Account page', () => {
       const nameInput = htmlRes.getElementById('emailAddress');
       expect(errorMessage[1].innerHTML).contains(
         'There is a problem - ' + 'Email address field must be populated',
-        'Could not find email error message'
+        'Could not find email error message',
       );
       expect(nameInput.classList.contains(errorClassList)).to.be.true;
     });
@@ -195,7 +195,7 @@ describe('Create Media Account page', () => {
       const nameInput = htmlRes.getElementById('employer');
       expect(errorMessage[2].innerHTML).contains(
         'There is a problem - Your employers name will be needed to support ' + 'your application for an account',
-        'Could not find employer error message'
+        'Could not find employer error message',
       );
       expect(nameInput.classList.contains(errorClassList)).to.be.true;
     });
@@ -204,7 +204,7 @@ describe('Create Media Account page', () => {
       const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
       expect(errorMessage[3].innerHTML).contains(
         'There is a problem - We will need ID evidence to support ' + 'your application for an account',
-        'Could not find image upload error message'
+        'Could not find image upload error message',
       );
     });
   });
