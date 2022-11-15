@@ -156,11 +156,12 @@ export class UserManagementService {
     };
 
     const itemsArray = [];
-    for (const [k, v] of Object.entries(constItems)) {
+    // KV pair of the value used in the api and a formatted value for the UI.
+    for (const [apiValue, formattedValue] of Object.entries(constItems)) {
       itemsArray.push({
-        value: k,
-        text: v,
-        checked: itemValues.includes(k),
+        value: apiValue,
+        text: formattedValue,
+        checked: itemValues.includes(apiValue),
       });
     }
     checkboxesFieldObject['items'] = itemsArray;
