@@ -1,0 +1,59 @@
+{% from "./macros/common-components.njk" import goBack %}
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+{% block content %}
+  <div class="parent-box">
+    <div class="govuk-grid-row parent-box">
+      <h1 class="govuk-heading-l">{{ heading }}</h1>
+    </div>
+
+    {% set tableRows = [] %}
+    {% for account in thirdPartyAccounts %}
+      {% set viewButton %}
+        <a class="govuk-table__cell govuk-link" href="/third-party-edit?userId={{ account.userId }}">{{ view }}</a>
+      {% endset %}
+      {% set _ = tableRows.push([
+        {text: account.provenanceUserId},
+        {text: account.roles},
+        {text: account.createdDate},
+        {
+          html: viewButton
+        }
+      ]) %}
+    {% endfor %}
+
+    {{ govukTable({
+      head: [
+        {
+          text: thirdPartyName
+        },
+        {
+          text: role
+        },
+        {
+          text: createdDate
+        },
+        {
+          attributes: {
+          'aria-hidden': 'true'
+        }
+        }
+      ],
+      rows: tableRows
+    }) }}
+  </div>
+{% endblock %}
+{% block bodyEnd %}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  {{ super() }}
+{% endblock %}

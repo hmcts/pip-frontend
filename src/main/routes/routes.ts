@@ -172,12 +172,12 @@ export default function(app: Application): void {
   app.post('/create-system-admin-account', isPermittedSystemAdmin, app.locals.container.cradle.createSystemAdminAccountController.post);
   app.get('/create-system-admin-account-summary', isPermittedSystemAdmin, app.locals.container.cradle.createSystemAdminAccountSummaryController.get);
   app.post('/create-system-admin-account-summary', isPermittedSystemAdmin, app.locals.container.cradle.createSystemAdminAccountSummaryController.post);
-
   app.get('/manual-reference-data-upload', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadController.get);
   app.post('/manual-reference-data-upload', isPermittedSystemAdmin, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-reference-data-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualReferenceDataUploadController.post);
   app.get('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.get);
   app.post('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.post);
   app.get('/manual-reference-data-upload-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadConfirmationController.get);
+  app.get('/manage-third-party-users', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {

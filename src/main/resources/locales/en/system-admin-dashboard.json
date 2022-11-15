@@ -11,6 +11,11 @@
       "title": "Upload Reference Data",
       "description": "Upload CSV location reference data",
       "link": "manual-reference-data-upload"
+    },
+    {
+      "title": "Manage Third-Party Users",
+      "description": "View and edit third-party users and subscriptions",
+      "link": "manage-third-party-users"
     }
   ]
 }
