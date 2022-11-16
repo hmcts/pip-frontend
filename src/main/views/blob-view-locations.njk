@@ -21,7 +21,7 @@
         {% set _ = headers.push({text:tableHeader}) %}
       {% endfor %}
       {% set rows = [] %}
-      {% for locName, locData in dic_of_locs %}
+      {% for locName, locData in dictionaryOfLocations %}
         {% set _ = rows.push([{html: '<a class="govuk-link--no-underline" href=blob-view-publications?locationId='+locData[0]+'>'+locName+'</a>'}, {text: locData[1] | default(0, true)}]) %}
       {% endfor %}
       {{ govukTable({

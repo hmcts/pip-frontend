@@ -17,11 +17,11 @@ export class PublicationService {
 
   public async getCountsOfPubsPerLocation(): Promise<Map<number, number>> {
     const response = await publicationRequests.getPubsPerLocation();
-    const splitresp = response.split('\n').slice(1, -1);
+    const splitResponse = response.split('\n').slice(1, -1);
     const map = new Map();
-    splitresp.forEach(line => {
-      const commasep = line.split(',');
-      map.set(parseInt(commasep[0]), parseInt(commasep[1]));
+    splitResponse.forEach(line => {
+      const commaSeparatedLine = line.split(',');
+      map.set(parseInt(commaSeparatedLine[0]), parseInt(commaSeparatedLine[1]));
     });
     return map;
   }

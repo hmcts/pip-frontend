@@ -35,7 +35,7 @@ describe('Get publications', () => {
     expectedDictionary.set('Single Justice Procedure', [9,1]);
     const expectedData = {
       ...i18n['blob-view-locations'],
-      dic_of_locs: expectedDictionary,
+      dictionaryOfLocations: expectedDictionary,
     };
 
     responseMock.expects('render').once().withArgs('blob-view-locations', expectedData);

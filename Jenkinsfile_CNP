@@ -2,7 +2,7 @@
 
 @Library("Infrastructure") _
 
-yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 def type = "nodejs"
 def product = "pip"

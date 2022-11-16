@@ -14,11 +14,11 @@ export default class BlobViewPublicationsController {
       const court = await locationService.getLocationById(parseInt(locationId.toString()));
       // reusing summary-of-pubs language file and service as this is essentially the same kind of page.
       const locationName = locationService.findCourtName(court, req.lng as string, 'summary-of-publications');
-      const list_of_pubs = await summaryOfPublicationsService.getPublications(parseInt(locationId.toString()), req.user?.['piUserId']);
+      const listOfPublications = await summaryOfPublicationsService.getPublications(parseInt(locationId.toString()), req.user?.['piUserId']);
 
       res.render('blob-view-publications', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-publications']),
-        list_of_pubs,
+        list_of_pubs: listOfPublications,
         locationName,
       });
     } else {
