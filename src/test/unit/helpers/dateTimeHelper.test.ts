@@ -88,5 +88,10 @@ describe('DateTime helper class', () => {
       const result = dateTimeHelper.formatDuration(3,0, 0, welshLanguage, languageFile);
       expect(result).to.equal('3 Dydd');
     });
+
+    it('should formatted date in DD/MM/YYYY format', () => {
+      const result = dateTimeHelper.formatDate('2016-09-13T13:30:52.123Z', 'DD/MM/YYYY');
+      expect(result).to.equal('13/09/2016');
+    });
   });
 });
