@@ -37,14 +37,17 @@ const responseErrors = {
   nameError: {
     message:  'There is a problem - Full name field must be populated',
     href: '#fullName',
+    value: '',
   },
   emailError: {
     message: 'There is a problem - Enter an email address in the correct format, like name@example.com',
     href: '#emailAddress',
+    value: 'bar',
   },
   employerError: {
     message: 'There is a problem - Your employers name will be needed to support your application for an account',
     href: '#employer',
+    value: '',
   },
   fileUploadError: {
     message: 'There is a problem - ID evidence must be a JPG, PDF or PNG',
@@ -53,20 +56,24 @@ const responseErrors = {
   checkBoxError: {
     message: 'There is a problem - You must check the box to confirm you agree to the terms and conditions.',
     href: '#tcbox',
+    value: true,
   },
 };
 const responseNoErrors = {
   nameError: {
     message:  null,
     href: '#fullName',
+    value: 'foo bar',
   },
   emailError: {
     message: null,
     href: '#emailAddress',
+    value: 'bar@mail.com',
   },
   employerError: {
     message: null,
     href: '#employer',
+    value: 'baz',
   },
   fileUploadError: {
     message: null,
@@ -75,6 +82,7 @@ const responseNoErrors = {
   checkBoxError: {
     message: null,
     href: '#tcbox',
+    value: true,
   },
 };
 const adminResponseNoErrors = {
