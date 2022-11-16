@@ -1,9 +1,9 @@
 import moment from 'moment-timezone';
 import {DataManipulationService} from '../dataManipulationService';
-import {DateTimeHelper} from '../../helpers/dateTimeHelper';
+import {formatDuration} from '../../helpers/dateTimeHelper';
 
 const dataManipulationService = new DataManipulationService();
-const dateTimeHelper = new DateTimeHelper();
+const separator = ', ';
 
 /**
  * Service class provides reusable methods for crime list templates:
@@ -11,17 +11,17 @@ const dateTimeHelper = new DateTimeHelper();
  *   Magistrates Public List
  */
 export class CrimeListsService {
-  public manipulatedCrimeListData(dailyCauseList: string, language: string, languageFile: string): object {
-    const crownDailyListData = JSON.parse(dailyCauseList);
+  public manipulatedCrimeListData(crimeListData: string, language: string, languageFile: string): object {
+    const crownDailyListData = JSON.parse(crimeListData);
     crownDailyListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
             this.formatCaseTime(sitting, 'h:mma');
-            sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
+            sitting['formattedDuration'] = formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
                                       sitting['durationAsMinutes'] as number, language, languageFile);
             sitting['hearing'].forEach(hearing => {
-              this.findAndManipulatePartyInformation(hearing);
+              this.manipulateParty(hearing);
               this.findLinkedCasesInformation(hearing);
             });
           });
@@ -32,49 +32,56 @@ export class CrimeListsService {
     return crownDailyListData;
   }
 
-  private findAndManipulatePartyInformation(hearing: any): void {
-    let prosecutingAuthority = '';
-    let defendant = '';
-    if(hearing?.party) {
+  public manipulateParty(hearing: any): void {
+    const defendants = [];
+    const defendantRepresentatives = [];
+    const prosecutingAuthorities = [];
+
+    if (hearing?.party) {
       hearing.party.forEach(party => {
-        switch(DataManipulationService.convertPartyRole(party.partyRole)) {
-          case 'PROSECUTING_AUTHORITY':
-          {
-            prosecutingAuthority += this.createIndividualDetails(party.individualDetails).trim();
-            prosecutingAuthority += dataManipulationService.stringDelimiter(prosecutingAuthority?.length, ',');
+        switch (party.partyRole) {
+          case 'DEFENDANT': {
+            const defendant = this.createIndividualDetails(party.individualDetails);
+            if (defendant.length > 0) {
+              defendants.push(defendant);
+            }
             break;
           }
-          case 'DEFENDANT':
-          {
-            defendant += this.createIndividualDetails(party.individualDetails).trim();
-            defendant += dataManipulationService.stringDelimiter(defendant?.length, ',');
+          case 'DEFENDANT_REPRESENTATIVE': {
+            const defendantRepresentative = this.createOrganisationDetails(party.organisationDetails);
+            if (defendantRepresentative.length > 0) {
+              defendantRepresentatives.push(defendantRepresentative);
+            }
+            break;
+          }
+          case 'PROSECUTING_AUTHORITY': {
+            const prosecutingAuthority = this.createOrganisationDetails(party.organisationDetails);
+            if (prosecutingAuthority.length > 0) {
+              prosecutingAuthorities.push(prosecutingAuthority);
+            }
             break;
           }
         }
       });
-      hearing['prosecutingAuthority'] = prosecutingAuthority?.replace(/,\s*$/, '').trim();
-      hearing['defendant'] = defendant?.replace(/,\s*$/, '').trim();
+      hearing.defendant = defendants.join(separator);
+      hearing.defendantRepresentative = defendantRepresentatives.join(separator);
+      hearing.prosecutingAuthority = prosecutingAuthorities.join(separator);
     }
   }
 
-  /**
-   * Format a set of individuals details.
-   * @param individualDetails
-   * @param initialised
-   */
-  private createIndividualDetails(individualDetails: any): string {
-    const title = dataManipulationService.writeStringIfValid(individualDetails?.title);
+  public createIndividualDetails(individualDetails: any): string {
     const forenames = dataManipulationService.writeStringIfValid(individualDetails?.individualForenames);
-    const middleName = dataManipulationService.writeStringIfValid(individualDetails?.individualMiddleName);
     const surname = dataManipulationService.writeStringIfValid(individualDetails?.individualSurname);
-
-    return title + (title.length > 0 ? ' ' : '')
-      + surname + ((forenames.length > 0 || middleName.length > 0) ? ', ' : '')
-      + forenames + (forenames.length > 0 ? ' ' : '')
-      + middleName;
+    return surname
+      + (surname.length > 0 && forenames.length > 0 ? ', ' : '')
+      + forenames;
   }
 
-  private formatCaseTime(sitting: object, format: string): void {
+  private createOrganisationDetails(organisationDetails: any) {
+    return dataManipulationService.writeStringIfValid(organisationDetails?.organisationName);
+  }
+
+  public formatCaseTime(sitting: object, format: string): void {
     if (sitting['sittingStart'] !== '') {
       sitting['time'] = moment.utc(sitting['sittingStart']).tz(dataManipulationService.timeZone).format(format);
     }
@@ -105,8 +112,8 @@ export class CrimeListsService {
     hearing['listingNotes'] = listingNotes?.replace(/,\s*$/, '').trim();
   }
 
-  public findUnallocatedCasesInCrownDailyListData(dailyCauseList: string): Array<object> {
-    const unallocatedCasesCrownListData = JSON.parse(dailyCauseList);
+  public findUnallocatedCasesInCrownDailyListData(crimeListData: string): Array<object> {
+    const unallocatedCasesCrownListData = JSON.parse(crimeListData);
     const unallocatedCases = [];
     let courtListForUnallocatedCases;
     unallocatedCasesCrownListData['courtLists'].forEach(courtList => {

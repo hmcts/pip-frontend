@@ -90,7 +90,7 @@ describe('Magistrates public List page', () => {
 
   it('should display Prosecuting Authority',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[4].innerHTML).contains('Pro_Auth_SN, Pro_Auth_FN');
+    expect(cell[4].innerHTML).contains('Pro_Auth');
   });
 
   it('should display Case Sequence Indicator if it is there',  () => {

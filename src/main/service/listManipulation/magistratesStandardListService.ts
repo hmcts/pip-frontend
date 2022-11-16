@@ -1,9 +1,9 @@
-import moment from 'moment-timezone';
 import {DataManipulationService} from '../dataManipulationService';
-import {DateTimeHelper} from '../../helpers/dateTimeHelper';
+import {formatDate, formatDuration} from '../../helpers/dateTimeHelper';
+import {CrimeListsService} from './CrimeListsService';
 
 const dataManipulationService = new DataManipulationService();
-const dateTimeHelper = new DateTimeHelper();
+const crimeListsService = new CrimeListsService();
 
 export class MagistratesStandardListService {
   public manipulatedMagsStandardListData(magsStandardListData: object, language: string, languageFile: string): object {
@@ -16,8 +16,8 @@ export class MagistratesStandardListService {
             if (judiciary !== '') {
               session['formattedJudiciaries'] = judiciary;
             }
-            this.formatCaseTime(sitting, 'h:mma');
-            sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsDays'] as number,
+            crimeListsService.formatCaseTime(sitting, 'h:mma');
+            sitting['formattedDuration'] = formatDuration(sitting['durationAsDays'] as number,
               sitting['durationAsHours'] as number, sitting['durationAsMinutes'] as number, language, languageFile);
             sitting['hearing'].forEach(hearing => {
               if (hearing?.party) {
@@ -64,8 +64,8 @@ export class MagistratesStandardListService {
   private manipulateHearingObject(hearingObject, party) {
     this.manipulatePartyInformation(hearingObject, party);
     hearingObject['case'].forEach(thisCase => {
-      hearingObject['formattedConvictionDate'] = dateTimeHelper.formatDate(thisCase['convictionDate'], 'DD/MM/YYYY');
-      hearingObject['formattedAdjournedDate'] = dateTimeHelper.formatDate(thisCase['adjournedDate'], 'DD/MM/YYYY');
+      hearingObject['formattedConvictionDate'] = formatDate(thisCase['convictionDate'], 'DD/MM/YYYY');
+      hearingObject['formattedAdjournedDate'] = formatDate(thisCase['adjournedDate'], 'DD/MM/YYYY');
       hearingObject['caseSequenceIndicator'] = thisCase['caseSequenceIndicator'];
       hearingObject['hearingNumber'] = thisCase['hearingNumber'];
       hearingObject['prosecutionAuthorityCode'] = thisCase['informant']['prosecutionAuthorityCode'];
@@ -121,17 +121,11 @@ export class MagistratesStandardListService {
     return defendantHeading;
   }
 
-  private formatCaseTime(sitting: object, format: string): void {
-    if (sitting['sittingStart'] !== '') {
-      sitting['time'] = moment.utc(sitting['sittingStart']).tz(dataManipulationService.timeZone).format(format);
-    }
-  }
-
   private manipulatePartyInformation(hearing: any, party: any): void {
     let defendant = '';
 
     if (DataManipulationService.convertPartyRole(party.partyRole) === 'DEFENDANT') {
-      defendant = this.createIndividualDetails(party.individualDetails).trim();
+      defendant = crimeListsService.createIndividualDetails(party.individualDetails).trim();
     }
 
     hearing['defendantHeading'] = defendant?.replace(/,\s*$/, '').trim();
@@ -143,15 +137,6 @@ export class MagistratesStandardListService {
     if (party?.individualDetails?.inCustody) {
       hearing['inCustody'] = party.individualDetails?.inCustody === true ? '*' : '';
     }
-  }
-
-  private createIndividualDetails(individualDetails: any): string {
-
-    const forenames = dataManipulationService.writeStringIfValid(individualDetails?.individualForenames);
-    const surname = dataManipulationService.writeStringIfValid(individualDetails?.individualSurname);
-
-    return surname + (surname.length > 0 ? ', ' : '')
-      + forenames;
   }
 
   private formatDefendantAddress(defendantAddress: object): string {
