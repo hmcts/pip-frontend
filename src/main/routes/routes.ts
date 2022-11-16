@@ -115,6 +115,11 @@ export default function(app: Application): void {
 
   // Restricted paths
   app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
+  app.get('/bulk-delete-subscriptions', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsController.get);
+  app.post('/bulk-delete-subscriptions', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsController.post);
+  app.get('/bulk-delete-subscriptions-confirmation', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsConfirmationController.get);
+  app.post('/bulk-delete-subscriptions-confirmation', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsConfirmationController.post);
+  app.get('/bulk-delete-subscriptions-confirmed', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsConfirmedController.get);
   app.get('/case-name-search', isPermittedMedia, app.locals.container.cradle.caseNameSearchController.get);
   app.post('/case-name-search', isPermittedMedia, app.locals.container.cradle.caseNameSearchController.post);
   app.get('/case-name-search-results', isPermittedMedia, app.locals.container.cradle.caseNameSearchResultsController.get);
