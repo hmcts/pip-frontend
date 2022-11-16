@@ -179,8 +179,13 @@ export default function(app: Application): void {
   app.post('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.post);
   app.get('/manual-reference-data-upload-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadConfirmationController.get);
 
-  app.get('/user-management', app.locals.container.cradle.userManagementController.get);
-  app.post('/user-management', app.locals.container.cradle.userManagementController.post);
+  app.get('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.get);
+  app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
+  app.get('/manage-user', isPermittedSystemAdmin, app.locals.container.cradle.manageUserController.get);
+  app.get('/update-user', isPermittedSystemAdmin, app.locals.container.cradle.updateUserController.get);
+  app.get('/delete-user', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserController.get);
+  app.post('/delete-user-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserConfirmationController.post);
+  app.post('/update-user-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.updateUserConfirmationController.post);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {

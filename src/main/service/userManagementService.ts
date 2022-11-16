@@ -1,5 +1,6 @@
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
 import {formattedProvenances, formattedRoles} from '../models/consts';
+import moment from 'moment';
 
 const accountManagementRequests = new AccountManagementRequests();
 export class UserManagementService {
@@ -253,5 +254,75 @@ export class UserManagementService {
       delete body.page;
     }
     return body;
+  }
+
+  /**
+   * Build the summary list for the manage user screen.
+   */
+  public buildManageUserSummaryList(rawData: any): object {
+    const rows = [];
+    rows.push(this.buildRowItem('User ID', rawData.userId));
+    rows.push(this.buildRowItem('Email', rawData.email));
+    rows.push(this.buildRowItem('Role', formattedRoles[rawData.roles],
+      '/update-user?id=' + rawData.userId));
+    rows.push(this.buildRowItem('Provenance', formattedProvenances[rawData.userProvenance]));
+    rows.push(this.buildRowItem('Provenance ID', rawData.provenanceUserId));
+    rows.push(this.buildRowItem('Creation Date', this.formatDate(rawData.createdDate)));
+
+    if (rawData.roles != 'VERIFIED') {
+      rows.push(this.buildRowItem('Last Sign In', this.formatDate(rawData.lastSignedInDate)));
+    } else {
+      rows.push(this.buildRowItem('Last Verified', this.formatDate(rawData.lastVerifiedDate)));
+    }
+
+    return {rows};
+  }
+
+  /**
+   * Build the row item for the manage user summary list.
+   */
+  private buildRowItem(headingText: string, rowValue: string, actions: any = false) {
+    const rowObject = {
+      key: {
+        text: headingText,
+      },
+      value: {
+        text: rowValue,
+      },
+    };
+
+    if(actions && rowValue != 'Media') {
+      const items = [];
+      items.push({
+        href: actions,
+        text: 'Change',
+      });
+      rowObject['actions'] = {items};
+    }
+    return rowObject;
+  }
+
+  /**
+   * Format and return the date with the correct format.
+   */
+  private formatDate(rawDate: any) {
+    return moment(rawDate).format('DD/MM/YYYY HH:mm:ss');
+  }
+
+  /**
+   * Builds the user update role select box.
+   */
+  public buildUserUpdateSelectBox(currentRole: string) {
+    const items = [];
+
+    for (const [apiValue, formattedValue] of Object.entries(formattedRoles)) {
+      items.push({
+        value: apiValue,
+        text: formattedValue,
+        selected: currentRole.includes(apiValue),
+      });
+    }
+
+    return items;
   }
 }
