@@ -7,7 +7,8 @@ const accountManagementRequests = new AccountManagementRequests();
 export default class DeleteUserConfirmationController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     if (req.body?.['delete-user-confirm'] === 'yes') {
-      const deleteUserResponse = await accountManagementRequests.deleteUser(req.body.user as string);
+      const deleteUserResponse = await accountManagementRequests.deleteUser(req.body.user as string,
+        req.user['piUserId']);
       deleteUserResponse ?
         res.render('delete-user-confirmation',
           req.i18n.getDataByLanguage(req.lng)['delete-user-confirmation']) :

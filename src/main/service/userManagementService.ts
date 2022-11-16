@@ -18,10 +18,10 @@ export class UserManagementService {
    * for the entire service.
    */
   public async getFormattedData(pageNumber: number, email: string, userId: string, userProvenanceId: string, roles: string,
-    provenances: string, queryUrl: string) {
+    provenances: string, queryUrl: string, adminUserId: string) {
 
     const rawData = await accountManagementRequests.getAllAccountsExceptThirdParty(this.buildRequestParams(email,
-      userId, userProvenanceId, roles, provenances, pageNumber));
+      userId, userProvenanceId, roles, provenances, pageNumber), adminUserId);
 
     return {
       paginationData: this.formatPaginationData(rawData?.number, rawData?.totalPages, rawData?.first,

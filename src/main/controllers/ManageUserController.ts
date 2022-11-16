@@ -10,7 +10,7 @@ export default class ManageUserController {
   public async get(req: PipRequest, res: Response): Promise<void> {
 
     const userData = await accountManagementRequests
-      .getUserByUserId(req.query.id as string);
+      .getUserByUserId(req.query.id as string, req.user['piUserId']);
 
     const formattedData = userManagementService.buildManageUserSummaryList(userData);
     const hrefDeletion = '/delete-user?id=' + userData['userId'];

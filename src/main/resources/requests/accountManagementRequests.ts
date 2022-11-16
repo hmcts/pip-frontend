@@ -188,8 +188,9 @@ export class AccountManagementRequests {
     }
   }
 
-  public async getAllAccountsExceptThirdParty(params: object): Promise<any> {
+  public async getAllAccountsExceptThirdParty(params: object, adminUserId: string): Promise<any> {
     try {
+      logger.info('All user data requested by Admin with ID: ' + adminUserId);
       const response = await accountManagementApi.get('/account/all', params);
       return response.data;
     } catch (error) {
@@ -204,8 +205,9 @@ export class AccountManagementRequests {
     }
   }
 
-  public async getUserByUserId(userId: string): Promise<any> {
+  public async getUserByUserId(userId: string, adminUserId: string): Promise<any> {
     try {
+      logger.info('User with ID: ' + userId + ' data requested by Admin with ID: ' + adminUserId);
       const response = await accountManagementApi.get(`/account/${userId}`);
       return response.data;
     } catch (error) {
@@ -220,8 +222,9 @@ export class AccountManagementRequests {
     }
   }
 
-  public async deleteUser(userId: string): Promise<object> {
+  public async deleteUser(userId: string, adminUserId: string): Promise<object> {
     try {
+      logger.info('User with ID: ' + userId + ' deleted by Admin with ID: ' + adminUserId);
       const response = await accountManagementApi.delete(`/account/delete/${userId}`);
       return response.data;
     } catch (error) {
@@ -237,8 +240,9 @@ export class AccountManagementRequests {
     }
   }
 
-  public async updateUser(userId: string, role: string): Promise<object> {
+  public async updateUser(userId: string, role: string, adminUserId: string): Promise<object> {
     try {
+      logger.info('User with ID: ' + userId + ' role updated to ' + role + ' by Admin with ID: ' + adminUserId);
       const response = await accountManagementApi.put(`/account/update/${userId}/${role}`);
       return response.data;
     } catch (error) {
