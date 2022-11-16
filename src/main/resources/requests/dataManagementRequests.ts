@@ -45,9 +45,12 @@ export class DataManagementRequests {
   }
 
   public async uploadLocationFile(body: any): Promise<boolean> {
+    const token = await getDataManagementCredentials();
+
     try {
       await superagent.post(`${this.dataManagementAPI}/locations/upload`)
         .set('enctype', 'multipart/form-data')
+        .set({'Authorization':  'Bearer ' + token.access_token})
         .attach('locationList', body.file, body.fileName);
       return true;
     }
