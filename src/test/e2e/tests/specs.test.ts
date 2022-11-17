@@ -49,6 +49,9 @@ import {SessionLoggedOutPage} from '../PageObjects/SessionLoggedOut.page';
 import {ManualReferenceDataUploadPage} from '../PageObjects/ManualReferenceDataUpload.page';
 import {ManualReferenceDataUploadSummaryPage} from '../PageObjects/ManualReferenceDataUploadSummary.page';
 import { BlobViewLocationsPage } from '../pageobjects/BlobViewLocationsPage';
+import {BulkDeleteSubscriptionsPage} from '../PageObjects/BulkDeleteSubscriptions.page';
+import {BulkDeleteSubscriptionsConfirmationPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmation.page';
+import {BulkDeleteSubscriptionsConfirmedPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmed.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -69,6 +72,9 @@ let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
 let locationNameSearchPage: LocationNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 let deleteSubscriptionPage: DeleteSubscriptionPage;
+let bulkDeleteSubscriptionsPage: BulkDeleteSubscriptionsPage;
+let bulkDeleteSubscriptionsConfirmationPage: BulkDeleteSubscriptionsConfirmationPage;
+let bulkDeleteSubscriptionsConfirmedPage: BulkDeleteSubscriptionsConfirmedPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 let manualUploadSummaryPage: ManualUploadSummaryPage;
 let fileUploadConfirmationPage: FileUploadConfirmationPage;
@@ -465,6 +471,33 @@ describe('Verified user', () => {
         await deleteSubscriptionPage.selectOption('yesRadioButton');
         unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
         expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
+      });
+    });
+
+    describe('bulk delete subscriptions', async () => {
+      before(async () => {
+        await subscriptionManagementPage.open('subscription-management');
+      });
+
+      it('should navigate to bulk delete subscriptions page on button click', async () => {
+        bulkDeleteSubscriptionsPage = await subscriptionManagementPage.clickBulkDeleteSubscriptionsButton();
+        expect(await bulkDeleteSubscriptionsPage.getPageTitle()).toBe('Bulk delete subscriptions');
+      });
+
+      it('should select first court subscription', async () => {
+        await bulkDeleteSubscriptionsPage.selectOption('CourtSubscriptionCheckbox1');
+        expect(await bulkDeleteSubscriptionsPage.courtSubscriptionChecked()).toBeTruthy();
+      });
+
+      it('should click on the bulk delete subscriptions button', async () => {
+        bulkDeleteSubscriptionsConfirmationPage = await bulkDeleteSubscriptionsPage.clickBulkDeleteSubscriptionsButton();
+        expect(await bulkDeleteSubscriptionsConfirmationPage.getPageTitle()).toBe('Are you sure you want to remove these subscriptions?');
+      });
+
+      it('should select yes option to delete the subscription', async () => {
+        await bulkDeleteSubscriptionsConfirmationPage.selectOption('BulkDeleteRadioYes');
+        bulkDeleteSubscriptionsConfirmedPage = await bulkDeleteSubscriptionsConfirmationPage.clickContinueForYes();
+        expect(await bulkDeleteSubscriptionsConfirmedPage.getPanelTitle()).toEqual('Subscription(s) removed');
       });
     });
   });
