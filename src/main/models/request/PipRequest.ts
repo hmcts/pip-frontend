@@ -23,6 +23,7 @@ export interface PipRequest extends Request {
       'live-case-alphabet-search': {};
       'live-case-status': {};
       'location-name-search': {};
+      'manage-third-party-users': {};
       'manual-upload': {};
       'manual-upload-summary': {};
       'media-applications': {};
