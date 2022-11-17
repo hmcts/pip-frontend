@@ -32,6 +32,12 @@ const routesNotTested = [
   '/file-publication',
   '/media-verification',
   '/media-verification/return',
+  '/user-management',
+  '/manage-user',
+  '/update-user',
+  '/delete-user',
+  '/delete-user-confirmation',
+  '/update-user-confirmation',
 ];
 
 const adminRoutes = [
@@ -61,12 +67,6 @@ const systemAdminRoutes = [
   '/manual-reference-data-upload',
   '/manual-reference-data-upload-summary',
   '/manual-reference-data-upload-confirmation',
-  '/user-management',
-  '/manage-user',
-  '/update-user',
-  '/delete-user',
-  '/delete-user-confirmation',
-  '/update-user-confirmation',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
