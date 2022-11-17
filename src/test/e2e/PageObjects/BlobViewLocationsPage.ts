@@ -14,14 +14,4 @@ export class BlobViewLocationsPage extends CommonPage {
 
     return $(helpers.CommonPageTitleXl).getText();
   }
-
-  async clickContinue(): Promise<ManualReferenceDataUploadSummaryPage> {
-    await this.removeOverlay();
-    $(helpers.ContinueButton).catch(() => {
-      console.log(`${helpers.ContinueButton} not found`);
-    });
-
-    await $(helpers.ContinueButton).click();
-    return new ManualReferenceDataUploadSummaryPage();
-  }
 }
