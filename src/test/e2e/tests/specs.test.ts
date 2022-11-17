@@ -48,6 +48,7 @@ import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountReque
 import {SessionLoggedOutPage} from '../PageObjects/SessionLoggedOut.page';
 import {ManualReferenceDataUploadPage} from '../PageObjects/ManualReferenceDataUpload.page';
 import {ManualReferenceDataUploadSummaryPage} from '../PageObjects/ManualReferenceDataUploadSummary.page';
+import { BlobViewLocationsPage } from '../pageobjects/BlobViewLocationsPage';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -99,6 +100,7 @@ let subscriptionConfigureListPage: SubscriptionConfigureListPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
 let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
 let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
+let blobViewLocationsPage: BlobViewLocationsPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -695,6 +697,15 @@ describe('System Admin level journeys', () => {
     it('should open upload confirmation page', async () => {
       fileUploadConfirmationPage = await manualReferenceDataUploadSummaryPage.clickContinue();
       expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
+    });
+  });
+
+  describe('should open blob view locations page', async () => {
+    before(async () => {
+      await systemAdminDashboard.open('blob-view-locations');
+    });
+    it('should load the blob view locations page', async () => {
+      expect(blobViewLocationsPage.getPageTitle()).toEqual('Blob Explorer - Locations');
     });
   });
 
