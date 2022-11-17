@@ -180,7 +180,7 @@ export class AccountManagementRequests {
 
   public async getThirdPartyAccounts(): Promise<any> {
     try {
-      const response = await accountManagementApi.get(`/account/all/third-party`);
+      const response = await accountManagementApi.get('/account/all/third-party');
       return response.data;
     } catch (error) {
       if (error.response) {

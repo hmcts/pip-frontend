@@ -365,8 +365,8 @@ export class SubscriptionService {
       channel: channel,
       searchType: 'LIST_TYPE',
       searchValue: listType,
-      userId
-    }
+      userId,
+    };
 
     subscriptionRequests.subscribe(subscription);
   }

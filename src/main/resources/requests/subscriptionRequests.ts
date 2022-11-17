@@ -69,7 +69,7 @@ export class SubscriptionRequests {
 
   public async retrieveSubscriptionChannels(): Promise<string[]> {
     try {
-      const channelResponse = await subscriptionManagementApi.get(`/meta/channels`);
+      const channelResponse = await subscriptionManagementApi.get('/meta/channels');
       return channelResponse.data;
     } catch (error) {
       if (error.response) {
