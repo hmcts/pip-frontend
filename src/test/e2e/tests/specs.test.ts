@@ -740,6 +740,8 @@ describe('System Admin level journeys', () => {
     it('should load the blob view locations page', async () => {
       expect(blobViewLocationsPage.getPageTitle()).toEqual('Blob Explorer - Locations');
     });
+    // it('should choose Milton Keynes', async() => {
+    // })
   });
 
   describe('sign out system admin dashboard', () => {

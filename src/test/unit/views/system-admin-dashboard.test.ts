@@ -44,7 +44,7 @@ describe('System Admin Dashboard page', () => {
 
   it('should display 1 card option', () => {
     const cardComponents = htmlRes.getElementsByClassName('account-card');
-    expect(cardComponents.length).equal(2);
+    expect(cardComponents.length).equal(3);
   });
 
   it('card should have correct content and links', () => {
