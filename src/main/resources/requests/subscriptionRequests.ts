@@ -66,4 +66,21 @@ export class SubscriptionRequests {
     }
     return false;
   }
+
+  public async retrieveSubscriptionChannels(): Promise<string[]> {
+    try {
+      const channelResponse = await subscriptionManagementApi.get(`/meta/channels`);
+      return channelResponse.data;
+    } catch (error) {
+      if (error.response) {
+        console.log('Failed to retrieve the list of channels');
+      } else if (error.request) {
+        console.log('Request failed.');
+      } else {
+        console.log('Unknown error while attempting to retrieve the list of channels');
+      }
+    }
+    return [];
+  }
+
 }

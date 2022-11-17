@@ -19,4 +19,13 @@ export class AccountService {
     return returnedAccounts;
   }
 
+  /**
+   * Method which retrieves a user by their pi user ID
+   */
+  public async getUserById(userId): Promise<any> {
+    const account = await accountManagementRequests.getUserById(userId);
+    account['createdDate'] = moment.utc(Date.parse(account['createdDate'])).format('DD MMMM YYYY');
+    return account;
+  }
+
 }
