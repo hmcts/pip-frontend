@@ -1,7 +1,7 @@
-import { PublicationRequests } from '../resources/requests/publicationRequests';
-import { Artefact } from '../models/Artefact';
-import { SearchObject } from '../models/searchObject';
-import { ListType } from '../models/listType';
+import {PublicationRequests} from '../resources/requests/publicationRequests';
+import {Artefact} from '../models/Artefact';
+import {SearchObject} from '../models/searchObject';
+import {ListType} from '../models/listType';
 
 const listData = require('../resources/listLookup.json');
 const publicationRequests = new PublicationRequests();

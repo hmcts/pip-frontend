@@ -45,7 +45,7 @@ stubMetaData.returns(metaData);
 const stubCourtPubs = sinon.stub(publicationRequests, 'getPublicationsByCourt');
 stubCourtPubs.withArgs('1', userId, false).resolves(returnedArtefact);
 stubCourtPubs.withArgs('2', userId, false).resolves([]);
-
+sinon.stub(publicationRequests, 'getPubsPerLocation').returns('location,count\n1,2\n3,1\n');
 const validCourtName = 'PRESTON';
 const invalidCourtName = 'TEST';
 

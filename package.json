@@ -22,6 +22,7 @@
     "test:smoke": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && jest -c jest.smoke.config.js",
     "test:functional": "USE_PROTOTYPE=true USE_HEADLESS=true npx wdio run wdio.conf.js",
     "test:functional-dev": "npx wdio run wdio.conf.js",
+    "test:functional-dev-headless": "USE_HEADLESS=true npx wdio run wdio.conf.js",
     "cichecks": "yarn && yarn build && yarn lint  && yarn test && yarn test:routes &&  yarn test:a11y"
   },
   "dependencies": {
