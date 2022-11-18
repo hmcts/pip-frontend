@@ -5,7 +5,39 @@ import sinon from 'sinon';
 
 const thirdPartyService = new ThirdPartyService();
 
-describe('Account Service tests', () => {
+describe('Third Party Service tests', () => {
+
+  describe('generateListTypes', () => {
+
+    const listTypes = new Map([
+      ['LIST_A', {
+        friendlyName: 'List A',
+      }],
+      ['LIST_B', {
+        friendlyName: 'List B',
+      }],
+    ]);
+
+    const subscriptions = {
+      listTypeSubscriptions: [{
+        listType: 'LIST_B',
+      }],
+    };
+
+    const generatedListTypes = thirdPartyService.generateListTypes(listTypes, subscriptions);
+
+    expect(Object.keys(generatedListTypes).length).equals(2,
+      'Number of list types does not match expected types');
+
+    expect(generatedListTypes['LIST_A'].listFriendlyName).equals('List A',
+      'List Friendly Name is not as expected');
+
+    expect(generatedListTypes['LIST_A'].checked).equals(false,
+      'Checked property not as expected');
+
+    expect(generatedListTypes['LIST_B'].checked).equals(true,
+      'Checked property not as expected');
+  });
 
   describe('getThirdPartyAccounts', () => {
 
