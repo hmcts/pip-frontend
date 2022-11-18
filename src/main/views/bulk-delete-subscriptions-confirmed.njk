@@ -1,0 +1,37 @@
+{% from "macros/common-components.njk" import goBack, successPanel %}
+
+{% extends "template.njk" %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+  {{ successPanel(title, message) }}
+  <div class="parent-box">
+    <p class="govuk-body">
+      {{ pStart }}
+      <a class="govuk-link" href="account-home">{{ yourAccount }}</a>
+      {{ pEnd }}
+    </p>
+    <ul class="govuk-list govuk-list--bullet">
+      {% for item in listItems %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+    {{ super() }}
+  </div>
+{% endblock %}
+{% block bodyEnd %}
+  {{ super() }}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+{% endblock %}
