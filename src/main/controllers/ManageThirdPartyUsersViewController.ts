@@ -11,18 +11,21 @@ export default class ManageThirdPartyUsersViewController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     if (req.query['userId']) {
 
-      const user = await accountService.getUserById(req.query['userId']);
-      const subscriptions = await subscriptionsService.getSubscriptionsByUser(user.userId);
+      const user = await accountService.getThirdPartyUserById(req.query['userId']);
+      if (user) {
+        const subscriptions = await subscriptionsService.getSubscriptionsByUser(user.userId);
 
-      res.render('manage-third-party-users-view', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-users-view']),
-        userDetails: user,
-        numberOfSubscriptions: subscriptions.listTypeSubscriptions.length,
-        subscriptionsChannel: subscriptions.listTypeSubscriptions.length > 0 ? subscriptions.listTypeSubscriptions[0].channel : '',
-      });
-    } else {
-      //Need to do something if userId is not supplied
+        res.render('manage-third-party-users-view', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-users-view']),
+          userDetails: user,
+          numberOfSubscriptions: subscriptions.listTypeSubscriptions.length,
+          subscriptionsChannel: subscriptions.listTypeSubscriptions.length > 0 ? subscriptions.listTypeSubscriptions[0].channel : '',
+        });
+
+        return;
+      }
     }
 
+    res.render('error', req.i18n.getDataByLanguage(req.lng).error);
   }
 }

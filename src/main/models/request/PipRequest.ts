@@ -24,6 +24,7 @@ export interface PipRequest extends Request {
       'live-case-status': {};
       'location-name-search': {};
       'manage-third-party-users': {};
+      'manage-third-party-users-view': {};
       'manual-upload': {};
       'manual-upload-summary': {};
       'media-applications': {};

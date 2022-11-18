@@ -13,7 +13,7 @@ export default class ManageThirdPartyUsersSubscriptionsController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     if (req.query['userId']) {
 
-      const user = await accountService.getUserById(req.query['userId']);
+      const user = await accountService.getThirdPartyUserById(req.query['userId']);
       const subscriptions = await subscriptionsService.getSubscriptionsByUser(user.userId);
       let listTypes = await publicationService.getListTypes();
 
