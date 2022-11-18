@@ -23,14 +23,16 @@
       name: "fullName",
       errorMessage: {
         text: formErrors.nameError.message
-      }
+      },
+      value: formErrors.nameError.value
     }) if formErrors.nameError.message else govukInput({
       label: {
         text: nameLabel
       },
       classes: 'govuk-!-width-one-half',
       id: "fullName",
-      name: "fullName"
+      name: "fullName",
+      value: formErrors.nameError.value
     }) %}
 
     {% set emailInput = govukInput({
@@ -47,7 +49,8 @@
       spellcheck: false,
       errorMessage: {
         text: formErrors.emailError.message
-      }
+      },
+      value: formErrors.emailError.value
     }) if formErrors.emailError.message else govukInput({
       label: {
         text: emailLabel
@@ -59,7 +62,8 @@
       id: "emailAddress",
       name: "emailAddress",
       autocomplete: 'email',
-      spellcheck: false
+      spellcheck: false,
+      value: formErrors.emailError.value
     }) %}
 
     {% set employerInput = govukInput({
@@ -71,14 +75,16 @@
       name: "employer",
       errorMessage: {
         text: formErrors.employerError.message
-      }
+      },
+      value: formErrors.employerError.value
     }) if formErrors.employerError.message else govukInput({
       label: {
         text: employerLabel
       },
       classes: "govuk-!-width-one-half",
       id: "employer",
-      name: "employer"
+      name: "employer",
+      value: formErrors.employerError.value
     }) %}
 
     {% set fileInput = govukFileUpload({
@@ -102,11 +108,11 @@
       id: "tcbox",
       name: "tcbox",
       errorMessage: {text: formErrors.checkBoxError.message},
-      items: [{value: "tcbox", text: TandCCheckbox}]
+      items: [{value: "tcbox", text: TandCCheckbox, checked: formErrors.checkBoxError.value}]
     }) if formErrors.checkBoxError.message else govukCheckboxes({
       id: "tcbox",
       name: "tcbox",
-      items: [{value: "tcbox", text: TandCCheckbox}]
+      items: [{value: "tcbox", text: TandCCheckbox, checked: formErrors.checkBoxError.value}]
     }) %}
 
     {% if formErrors %}
