@@ -40,14 +40,17 @@ export class CreateAccountService {
       nameError: {
         message: this.validateMediaFullName(formValues['fullName'], language, languageFile),
         href: '#fullName',
+        value: formValues['fullName'],
       },
       emailError: {
         message: this.validateMediaEmailAddress(formValues['emailAddress'], language, languageFile),
         href: '#emailAddress',
+        value: formValues['emailAddress'],
       },
       employerError: {
         message: this.validateMediaEmployer(formValues['employer'], language, languageFile),
         href: '#employer',
+        value: formValues['employer'],
       },
       fileUploadError: {
         message: fileHandlingService.validateImage(file, language, languageFile),
@@ -56,6 +59,7 @@ export class CreateAccountService {
       checkBoxError: {
         message: this.validateCheckbox(formValues['tcbox'], language, languageFile),
         href: '#tcbox',
+        value: formValues['tcbox'] !== undefined,
       },
     };
 
