@@ -38,15 +38,24 @@ export class ThirdPartyService {
    */
   public generateAvailableChannels(subscriptionChannels, subscriptions) {
     const items = [];
+    let hasBeenChecked = false;
+
     subscriptionChannels.forEach(channel => {
+      if (subscriptions.listTypeSubscriptions.length > 0
+        && subscriptions.listTypeSubscriptions[0].channel === channel) {
+        hasBeenChecked = true;
+      }
       items.push({
         'value': channel,
         'text': channel,
-        'checked': subscriptionChannels.length == 1
-          || subscriptions.listTypeSubscriptions.length == 0
-          || subscriptions.listTypeSubscriptions[0].channel === channel,
+        'checked': subscriptions.listTypeSubscriptions.length > 0
+          && subscriptions.listTypeSubscriptions[0].channel === channel,
       });
     });
+
+    if (!hasBeenChecked && items.length > 0) {
+      items[0]['checked'] = true;
+    }
 
     return items;
   }
@@ -90,7 +99,7 @@ export class ThirdPartyService {
       channel: channel,
       searchType: 'LIST_TYPE',
       searchValue: listType,
-      userId,
+      userId: userId,
     };
 
     this.subscriptionRequests.subscribe(subscription);

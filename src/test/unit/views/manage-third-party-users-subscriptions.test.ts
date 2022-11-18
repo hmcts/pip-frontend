@@ -7,7 +7,7 @@ import sinon from 'sinon';
 import {PublicationService} from '../../../main/service/publicationService';
 import {SubscriptionService} from '../../../main/service/subscriptionService';
 
-describe('Manage third party users', () => {
+describe('Manage third party subscription', () => {
 
   const PAGE_URL = '/manage-third-party-users/subscriptions';
   let htmlRes: Document;

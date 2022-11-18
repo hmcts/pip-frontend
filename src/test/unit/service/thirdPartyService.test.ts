@@ -2,6 +2,7 @@ import {expect} from 'chai';
 import {ThirdPartyService} from '../../../main/service/thirdPartyService';
 import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
 import sinon from 'sinon';
+import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
 
 const thirdPartyService = new ThirdPartyService();
 
@@ -77,6 +78,67 @@ describe('Third Party Service tests', () => {
       expect(firstAccount['createdDate']).to.equal('20 November 2022',
         'Created date does not match expected date');
     });
+  });
+
+  describe('generateAvailableChannels', () => {
+
+    it('should return correct checked options when existing subscription', () => {
+      const subscriptionChannels = ['CHANNEL_A', 'CHANNEL_B'];
+      const subscriptions = {listTypeSubscriptions: [{'channel': 'CHANNEL_A'}]};
+
+      const channels = thirdPartyService.generateAvailableChannels(subscriptionChannels, subscriptions);
+
+      expect(channels.length).to.equal(2, 'Unexpected number of channels returned');
+      expect(channels[0].value).to.equal('CHANNEL_A', 'Unexpected channel value returned');
+      expect(channels[0].text).to.equal('CHANNEL_A', 'Unexpected channel text returned');
+      expect(channels[0].checked).to.equal(true, 'Unexpected checked value returned');
+      expect(channels[1].checked).to.equal(false, 'Unexpected checked value returned');
+    });
+
+    it('should return correct checked options when only one channel', () => {
+      const subscriptionChannels = ['CHANNEL_A'];
+      const subscriptions = {listTypeSubscriptions: []};
+
+      const channels = thirdPartyService.generateAvailableChannels(subscriptionChannels, subscriptions);
+
+      expect(channels.length).to.equal(1, 'Unexpected number of channels returned');
+      expect(channels[0].checked).to.equal(true, 'Unexpected checked value returned');
+    });
+
+    it('should return correct checked options when no existing subscriptions', () => {
+      const subscriptionChannels = ['CHANNEL_A', 'CHANNEL_B'];
+      const subscriptions = {listTypeSubscriptions: []};
+
+      const channels = thirdPartyService.generateAvailableChannels(subscriptionChannels, subscriptions);
+
+      expect(channels.length).to.equal(2, 'Unexpected number of channels returned');
+      expect(channels[0].checked).to.equal(true, 'Unexpected checked value returned');
+      expect(channels[1].checked).to.equal(false, 'Unexpected checked value returned');
+
+    });
+  });
+
+  describe('create third party subscription', () => {
+
+    const subscribeStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
+    subscribeStub.resolves();
+
+    it('check a subscription is created', () => {
+
+      const userId = '1234-1234';
+      const listType = 'LIST_TYPE';
+      const channel = 'CHANNEL_A';
+
+      thirdPartyService.createdThirdPartySubscription(userId, listType, channel);
+
+      expect(subscribeStub.calledOnceWith({
+        channel: channel,
+        searchType: 'LIST_TYPE',
+        searchValue: listType,
+        userId: userId,
+      })).to.equal(true, 'Subscribe not called with expected arguments');
+    });
+
   });
 
 });
