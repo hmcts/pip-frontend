@@ -1,9 +1,9 @@
 import {expect} from 'chai';
-import {AccountService} from '../../../main/service/accountService';
+import {ThirdPartyService} from '../../../main/service/thirdPartyService';
 import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
 import sinon from 'sinon';
 
-const accountService = new AccountService();
+const thirdPartyService = new ThirdPartyService();
 
 describe('Account Service tests', () => {
 
@@ -28,12 +28,12 @@ describe('Account Service tests', () => {
     getThirdPartyAccountsStub.resolves(thirdPartyAccounts);
 
     it('should return correct number of third party objects', async () => {
-      const data = await accountService.getThirdPartyAccounts();
+      const data = await thirdPartyService.getThirdPartyAccounts();
       expect(data.length).to.equal(2, 'Number of accounts returned does not match expected length');
     });
 
     it('should return correct details in of third party objects', async () => {
-      const data = await accountService.getThirdPartyAccounts();
+      const data = await thirdPartyService.getThirdPartyAccounts();
 
       const firstAccount = data[0];
 

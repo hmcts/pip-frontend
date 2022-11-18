@@ -1,7 +1,7 @@
 import {mockRequest} from '../mocks/mockRequest';
 import sinon from 'sinon';
 import {Response} from 'express';
-import {AccountService} from '../../../main/service/accountService';
+import {ThirdPartyService} from '../../../main/service/thirdPartyService';
 import {SubscriptionService} from '../../../main/service/subscriptionService';
 import {cloneDeep} from 'lodash';
 import ManageThirdPartyUsersViewController from '../../../main/controllers/ManageThirdPartyUsersViewController';
@@ -14,7 +14,7 @@ describe('Manage third party users view Controller', () => {
   const request = mockRequest(i18n);
   const response = { render: () => {return '';}} as unknown as Response;
 
-  const getThirdPartyByUserIdStub = sinon.stub(AccountService.prototype, 'getThirdPartyUserById');
+  const getThirdPartyByUserIdStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartyUserById');
   const getSubscriptionsByUserStub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
 
   const userId = '1234-1234';

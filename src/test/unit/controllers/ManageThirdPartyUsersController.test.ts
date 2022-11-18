@@ -1,7 +1,7 @@
 import {cloneDeep} from 'lodash';
 import {mockRequest} from '../mocks/mockRequest';
 import sinon from 'sinon';
-import {AccountService} from '../../../main/service/accountService';
+import {ThirdPartyService} from '../../../main/service/thirdPartyService';
 import {Response} from 'express';
 import ManageThirdPartyUsersController from '../../../main/controllers/ManageThirdPartyUsersController';
 
@@ -21,7 +21,7 @@ describe('Manage third party users Controller', () => {
       'createdDate': '17th Nov 2022',
     }];
 
-    const getThirdPartyAccountsStub = sinon.stub(AccountService.prototype, 'getThirdPartyAccounts');
+    const getThirdPartyAccountsStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartyAccounts');
     getThirdPartyAccountsStub.resolves(thirdPartyData);
 
     const options = {

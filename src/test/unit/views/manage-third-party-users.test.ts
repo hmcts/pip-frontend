@@ -2,7 +2,7 @@ import request from 'supertest';
 import {app} from '../../../main/app';
 import {request as expressRequest} from 'express';
 import {expect} from 'chai';
-import {AccountService} from '../../../main/service/accountService';
+import {ThirdPartyService} from '../../../main/service/thirdPartyService';
 import sinon from 'sinon';
 
 describe('Manage third party users', () => {
@@ -19,7 +19,7 @@ describe('Manage third party users', () => {
     'extension_UserRole': 'SYSTEM_ADMIN',
   }};
 
-  sinon.stub(AccountService.prototype, 'getThirdPartyAccounts').resolves([
+  sinon.stub(ThirdPartyService.prototype, 'getThirdPartyAccounts').resolves([
     {
       userId: '1234-1234',
       provenanceUserId: 'ThisIsAName',

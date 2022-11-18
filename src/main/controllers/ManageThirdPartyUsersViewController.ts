@@ -1,17 +1,17 @@
 import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {cloneDeep} from 'lodash';
-import {AccountService} from '../service/accountService';
 import {SubscriptionService} from '../service/subscriptionService';
+import {ThirdPartyService} from '../service/thirdPartyService';
 
-const accountService = new AccountService();
+const thirdPartyService = new ThirdPartyService();
 const subscriptionsService = new SubscriptionService();
 
 export default class ManageThirdPartyUsersViewController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     if (req.query['userId']) {
 
-      const user = await accountService.getThirdPartyUserById(req.query['userId']);
+      const user = await thirdPartyService.getThirdPartyUserById(req.query['userId']);
       if (user) {
         const subscriptions = await subscriptionsService.getSubscriptionsByUser(user.userId);
 

@@ -2,7 +2,7 @@ import request from 'supertest';
 import {app} from '../../../main/app';
 import {request as expressRequest} from 'express';
 import {expect} from 'chai';
-import {AccountService} from '../../../main/service/accountService';
+import {ThirdPartyService} from '../../../main/service/thirdPartyService';
 import sinon from 'sinon';
 import {SubscriptionService} from '../../../main/service/subscriptionService';
 
@@ -22,7 +22,7 @@ describe('Manage third party users - view', () => {
 
   const userId = '1234-1234';
 
-  const getThirdPartyUserStub = sinon.stub(AccountService.prototype, 'getThirdPartyUserById');
+  const getThirdPartyUserStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartyUserById');
   const getSubscriptionsByUser = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
 
   getThirdPartyUserStub.withArgs(userId).resolves({

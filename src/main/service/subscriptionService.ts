@@ -360,17 +360,6 @@ export class SubscriptionService {
     return [...filterSet];
   }
 
-  public createdThirdPartySubscription(userId, listType, channel) {
-    const subscription = {
-      channel: channel,
-      searchType: 'LIST_TYPE',
-      searchValue: listType,
-      userId,
-    };
-
-    subscriptionRequests.subscribe(subscription);
-  }
-
   public async retrieveChannels(): Promise<string[]> {
     return await subscriptionRequests.retrieveSubscriptionChannels();
   }
