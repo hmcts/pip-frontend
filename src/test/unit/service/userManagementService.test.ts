@@ -6,7 +6,7 @@ import {AccountManagementRequests} from '../../../main/resources/requests/accoun
 const userManagementService = new UserManagementService();
 
 const testReqBody = {
-  email: 'josh',
+  email: 'test',
   userId: '',
   userProvenanceId: '',
   roles: ['VERIFIED', 'INTERNAL_ADMIN_CTSC'],
@@ -124,19 +124,19 @@ describe('User management service', () => {
   it('should build user update select box', () => {
     const response = userManagementService.buildUserUpdateSelectBox('SYSTEM_ADMIN');
 
-    expect(response[0].value).to.equal('VERIFIED');
-    expect(response[0].text).to.equal('Media');
+    expect(response[0].value).to.equal('INTERNAL_ADMIN_CTSC');
+    expect(response[0].text).to.equal('CTSC Admin');
     expect(response[0].selected).to.equal(false);
-    expect(response[5].value).to.equal('SYSTEM_ADMIN');
-    expect(response[5].text).to.equal('System Admin');
-    expect(response[5].selected).to.equal(true);
+    expect(response[4].value).to.equal('SYSTEM_ADMIN');
+    expect(response[4].text).to.equal('System Admin');
+    expect(response[4].selected).to.equal(true);
   });
 
   it('should generate the filter key values', () => {
     // Have to parse JSON in this way to fully replicate req.body
     const response = userManagementService.generateFilterKeyValues(JSON.parse(JSON.stringify(testReqBody)));
 
-    expect(response).to.contain('email=josh');
+    expect(response).to.contain('email=test');
     expect(response).to.contain('&roles=VERIFIED,INTERNAL_ADMIN_CTSC');
     expect(response).to.contain('&provenances=PI_AAD');
   });
@@ -263,7 +263,7 @@ describe('User management service', () => {
     expect(response['userData'][0][0].text).to.equal('test1@email.com');
     expect(response['userData'][0][1].text).to.equal('Media');
     expect(response['userData'][0][2].text).to.equal('B2C');
-    expect(response['userData'][0][3].html).to.equal('<a class="govuk-link" ' +
+    expect(response['userData'][0][3].html).to.equal('<a class="govuk-link" id="manage-link" ' +
       'href="manage-user?id=158f4249-a763-4a4a-866c-8e0dd5b3bdaf">Manage</a>');
 
     // Check field data exists

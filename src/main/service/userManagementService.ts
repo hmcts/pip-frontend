@@ -84,7 +84,7 @@ export class UserManagementService {
         userArray.push({text: user.email});
         userArray.push({text: formattedRoles[user.roles]});
         userArray.push({text: formattedProvenances[user.userProvenance]});
-        userArray.push({html: `<a class="govuk-link" href="manage-user?id=${user.userId}">Manage</a>`});
+        userArray.push({html: `<a class="govuk-link" id="manage-link" href="manage-user?id=${user.userId}">Manage</a>`});
         allUserArray.push(userArray);
       });
     }
@@ -316,11 +316,13 @@ export class UserManagementService {
     const items = [];
 
     for (const [apiValue, formattedValue] of Object.entries(formattedRoles)) {
-      items.push({
-        value: apiValue,
-        text: formattedValue,
-        selected: currentRole.includes(apiValue),
-      });
+      if(apiValue !== 'VERIFIED') {
+        items.push({
+          value: apiValue,
+          text: formattedValue,
+          selected: currentRole.includes(apiValue),
+        });
+      }
     }
 
     return items;

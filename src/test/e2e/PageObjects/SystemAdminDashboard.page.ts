@@ -2,6 +2,7 @@ import { CommonPage } from './Common.page';
 import { CreateSystemAdminAccountPage } from './CreateSystemAdminAccount.page';
 import {SessionLoggedOutPage} from './SessionLoggedOut.page';
 import {ManualReferenceDataUploadPage} from './ManualReferenceDataUpload.page';
+import {UserManagementPage} from './UserManagement.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -24,6 +25,15 @@ export class SystemAdminDashboardPage extends CommonPage {
     return new ManualReferenceDataUploadPage();
   }
 
+  async clickUserManagementCard(): Promise<UserManagementPage> {
+    await $(helpers.userManagement).catch(() => {
+      console.log(`${helpers.userManagement} not found`);
+    });
+
+    await $(helpers.userManagement).click();
+    return new UserManagementPage();
+  }
+
   async clickSignOut(): Promise<SessionLoggedOutPage> {
     await $(helpers.SignedInBannerSignOut).catch(() => {
       console.log(`${helpers.SignedInBannerSignOut} not found`);
@@ -31,5 +41,13 @@ export class SystemAdminDashboardPage extends CommonPage {
 
     await $(helpers.SignedInBannerSignOut).click();
     return new SessionLoggedOutPage();
+  }
+
+  async getPageTitle(): Promise<string> {
+    $(helpers.CommonPageTitle).catch(() => {
+      console.log(`${helpers.CommonPageTitle} not found`);
+    });
+
+    return $(helpers.CommonPageTitle).getText();
   }
 }
