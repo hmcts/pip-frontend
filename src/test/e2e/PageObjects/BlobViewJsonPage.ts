@@ -1,5 +1,4 @@
 import { CommonPage } from './Common.page';
-import { BlobViewPublicationsPage } from './BlobViewPublicationsPage';
 
 const helpers = require('../Helpers/Selectors');
 
