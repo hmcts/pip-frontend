@@ -53,7 +53,6 @@ import {BulkDeleteSubscriptionsPage} from '../PageObjects/BulkDeleteSubscription
 import {BulkDeleteSubscriptionsConfirmationPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmation.page';
 import {BulkDeleteSubscriptionsConfirmedPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmed.page';
 import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPage';
-import { BlobViewJsonPage } from '../pageobjects/BlobViewJsonPage';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -110,7 +109,6 @@ let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
 let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
 let blobViewLocationsPage: BlobViewLocationsPage;
 let blobViewPublicationsPage: BlobViewPublicationsPage;
-let blobViewJsonPage: BlobViewJsonPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
