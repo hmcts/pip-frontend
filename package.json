@@ -21,9 +21,9 @@
     "sonar-scan": "sonar-scanner",
     "test:smoke": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && jest -c jest.smoke.config.js",
     "test:functional": "USE_PROTOTYPE=true USE_HEADLESS=true npx wdio run wdio.conf.js",
-    "test:functional-dev": "npx wdio run wdio.conf.js",
+    "test:functional-dev": "npx wdio run wdio.conf.js; echo -en \"\\007\"",
     "test:functional-dev-headless": "USE_HEADLESS=true npx wdio run wdio.conf.js",
-    "cichecks": "yarn && yarn build && yarn lint  && yarn test && yarn test:routes &&  yarn test:a11y"
+    "cichecks": "yarn && yarn build && yarn lint && yarn test && yarn test:routes &&  yarn test:a11y"
   },
   "dependencies": {
     "@hmcts/cookie-manager": "^1.0.0",
@@ -106,6 +106,7 @@
     "@wdio/mocha-framework": "^7.16.14",
     "@wdio/selenium-standalone-service": "^7.16.14",
     "@wdio/spec-reporter": "^7.10.1",
+    "wdio-timeline-reporter": "^5.1.4",
     "babel-loader": "^8.2.4",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",

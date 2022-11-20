@@ -64,7 +64,7 @@ describe('Get publications (no stubs)', () => {
       const expectedData = {
         ...i18n['blob-view-publications'],
         locationName: 'New Court',
-        list_of_pubs: sjpCases,
+        listOfPublications: sjpCases,
       };
       responseMock.expects('render').once().withArgs('blob-view-publications', expectedData);
       await blobViewController.get(request, response);

@@ -1,14 +1,17 @@
 import { CommonPage } from './Common.page';
+import { BlobViewPublicationsPage } from './BlobViewPublicationsPage';
 
 const helpers = require('../Helpers/Selectors');
 
 export class BlobViewLocationsPage extends CommonPage {
 
-  async getPageTitle(): Promise<string> {
-    $(helpers.CommonPageTitleXl).catch(() => {
-      console.log(`${helpers.CommonPageTitleXl} not found`);
+  async selectFirstListResult(): Promise<BlobViewPublicationsPage> {
+    await $(helpers.locationSelector).catch(() => {
+      console.log(`${helpers.locationSelector} not found`);
     });
 
-    return $(helpers.CommonPageTitleXl).getText();
+    await $(helpers.locationSelector).click();
+    return new BlobViewPublicationsPage();
   }
+
 }

@@ -52,6 +52,8 @@ import { BlobViewLocationsPage } from '../pageobjects/BlobViewLocationsPage';
 import {BulkDeleteSubscriptionsPage} from '../PageObjects/BulkDeleteSubscriptions.page';
 import {BulkDeleteSubscriptionsConfirmationPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmation.page';
 import {BulkDeleteSubscriptionsConfirmedPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmed.page';
+import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPage';
+import { BlobViewJsonPage } from '../pageobjects/BlobViewJsonPage';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -107,6 +109,8 @@ let sessionLoggedOutPage: SessionLoggedOutPage;
 let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
 let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
 let blobViewLocationsPage: BlobViewLocationsPage;
+let blobViewPublicationsPage: BlobViewPublicationsPage;
+let blobViewJsonPage: BlobViewJsonPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -735,13 +739,16 @@ describe('System Admin level journeys', () => {
 
   describe('should open blob view locations page', async () => {
     before(async () => {
-      await systemAdminDashboard.open('blob-view-locations');
+      await systemAdminDashboard.open('/system-admin-dashboard?lng=en');
     });
     it('should load the blob view locations page', async () => {
-      expect(blobViewLocationsPage.getPageTitle()).toEqual('Blob Explorer - Locations');
+      blobViewLocationsPage = await systemAdminDashboard.clickBlobExplorerLocationsCard();
+      expect(await blobViewLocationsPage.getPageTitle()).toEqual('Blob Explorer - Locations');
     });
-    // it('should choose Milton Keynes', async() => {
-    // })
+    it('should choose the first result', async() => {
+      blobViewPublicationsPage = await blobViewLocationsPage.selectFirstListResult();
+      expect(await blobViewPublicationsPage.getPageTitle()).toEqual('Blob Explorer - Publications');
+    });
   });
 
   describe('sign out system admin dashboard', () => {

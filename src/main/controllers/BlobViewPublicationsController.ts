@@ -18,7 +18,7 @@ export default class BlobViewPublicationsController {
 
       res.render('blob-view-publications', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-publications']),
-        list_of_pubs: listOfPublications,
+        listOfPublications: listOfPublications,
         locationName,
       });
     } else {
