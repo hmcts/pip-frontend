@@ -90,6 +90,7 @@ sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').retu
 sinon.stub(SjpRequests.prototype, 'getSJPCases').returns(sjpCases);
 sinon.stub(ManualUploadService.prototype, 'getListItemName').returns('');
 sinon.stub(AccountManagementRequests.prototype, 'getPendingMediaApplications').resolves(mediaApplications);
+sinon.stub(AccountManagementRequests.prototype, 'getThirdPartyAccounts').resolves([]);
 
 export class Pa11yResult {
   documentTitle: string;
