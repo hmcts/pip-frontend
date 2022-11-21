@@ -3,7 +3,7 @@ import request from 'supertest';
 
 import { app } from '../../main/app';
 
-describe('Admin rejected login page', () => {
+describe('Blob view JSON page', () => {
   describe('on GET', () => {
     test('should return blob-view-json page', async () => {
       app.request['user'] = {
