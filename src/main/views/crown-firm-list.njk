@@ -19,7 +19,7 @@
         <br/>/{{ courtName }}: {{ headerPart2 }}
       {% endif %}
     </h2>
-    <p class="govuk-body govuk-!-font-weight-bold">{{ listDate }} {{ contentDate }}</p>
+    <p class="govuk-body govuk-!-font-weight-bold">{{ listDate }} {{ startDate }} - {{ endDate }}</p>
     <p class="govuk-body">{{ listUpdated | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
     <p class="govuk-body">{{ draft }} {{ versionText }} {{ version }}</p><br/>
     <p class="govuk-body">
@@ -82,7 +82,7 @@
   </div>
   {% for court in allocated %}
     {% for day in court.days %}
-      {% set tableHeaders = '<table class="govuk-table"><thead class="govuk-table__head"><tr class="govuk-table__row">
+      {% set tableHeaders = '<div class="parent-box overflow-table"><table class="govuk-table"><thead class="govuk-table__head"><tr class="govuk-table__row">
                       <th scope="col" class="govuk-table__header no-wrap">' + sittingAt  + '</th>
                       <th scope="col" class="govuk-table__header no-wrap">' + caseReference +'</th>
                       <th scope="col" class="govuk-table__header no-wrap">' + defendantName +'</th>
@@ -91,7 +91,7 @@
                       <th scope="col" class="govuk-table__header no-wrap">' + defendantRep + '</th>
                       <th scope="col" class="govuk-table__header no-wrap">' + prosecutingAuthority + '</th>
                     </tr></thead><tbody class="govuk-table__body">' %}
-      {% set closing = '</tbody></table>' %}
+      {% set closing = '</tbody></table></div>' %}
       {% set currentTable = [] %}
       {% set courtHouse = court.courtName %}
       <div class="site-header" tabindex="0" aria-label="Court Details">

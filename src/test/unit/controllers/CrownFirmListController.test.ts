@@ -70,6 +70,8 @@ describe('Crown Firm List Controller', () => {
       allocated: JSON.parse(fullyProcessedData),
       contentDate: '14 February 2022',
       publishedDate: '03 March 2023',
+      startDate: 'Wednesday 12 April 2023',
+      endDate: 'Saturday 15 April 2023',
       publishedTime: '2:07pm',
       provenance: 'prov1',
       version: '3.4',

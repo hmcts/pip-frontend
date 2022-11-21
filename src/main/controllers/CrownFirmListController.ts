@@ -25,10 +25,15 @@ export default class CrownFirmListController {
       const publishedDate = dataManipulationService.publicationDateInBst(jsonData['document']['publicationDate']);
       const location = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
+      const dates = firmListService.getSittingDates(outputArray);
+      const startDate = moment.utc(dates[0]).tz('Europe/London').format('dddd DD MMMM YYYY');
+      const endDate = moment.utc(dates[dates.length -1]).tz('Europe/London').format('dddd DD MMMM YYYY');
 
       res.render('crown-firm-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-firm-list']),
         listData: outputData,
+        startDate,
+        endDate,
         allocated: outputArray,
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate,

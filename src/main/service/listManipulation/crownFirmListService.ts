@@ -1,7 +1,7 @@
 import moment from 'moment-timezone';
-import {DataManipulationService} from '../dataManipulationService';
-import {DateTimeHelper} from '../../helpers/dateTimeHelper';
-import {CrimeListsService} from './CrimeListsService';
+import { DataManipulationService } from '../dataManipulationService';
+import { DateTimeHelper } from '../../helpers/dateTimeHelper';
+import { CrimeListsService } from './CrimeListsService';
 
 const dataManipulationService = new DataManipulationService();
 const dailyListService = new CrimeListsService();
@@ -25,6 +25,10 @@ export class CrownFirmListService {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
+            const judiciary = dataManipulationService.findAndManipulateJudiciary(sitting);
+            if (judiciary !== '') {
+              session['formattedJudiciaries'] = judiciary;
+            }
             const sittingDate = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('dddd DD MMMM YYYY');
             sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
               sitting['durationAsMinutes'] as number, language, languageFile);
@@ -62,6 +66,20 @@ export class CrownFirmListService {
   }
 
   /**
+   * Gets the maximum list date from a given firm list
+   */
+  public getSittingDates(s: any) {
+    const dates = [];
+    s.forEach(court => {
+      court.days.forEach(setOfDays => {
+        dates.push(setOfDays[0].data[0].sittingDate);
+      });
+    });
+    const newDates = dates.map(e => {return moment.utc(e, 'dddd DD MMMM YYYY').tz(this.timeZone); });
+    return newDates.sort((a, b) => a.diff(b));
+  }
+
+  /**
    * Splits the formatted list from above into three different dimensions:
    * 1) First the cases are split by courtHouse
    * 2) Then, the data within each courthouse is split by day
@@ -78,7 +96,7 @@ export class CrownFirmListService {
 
     uniqueCourts.forEach(court => {
       const courtData = data.filter(row => row.courtName === court);
-      courts.push({'courtName': court, days: []});
+      courts.push({ 'courtName': court, days: [] });
       const uniqueDays = dataManipulationService.uniquesInArrayByAttrib(courtData, 'sittingDate');
       const uniqueDaysArr = [];
       Array.from(uniqueDays).forEach(day => {
@@ -95,15 +113,21 @@ export class CrownFirmListService {
         const uniqueCourtRooms = dataManipulationService.uniquesInArrayByAttrib(record, 'courtRoom');
         Array.from(uniqueCourtRooms).forEach(courtRoom => {
           const room = record.filter(row => row.courtRoom === courtRoom);
-          thisDayCourts.push({'courtRoom': courtRoom, data: room});
+          thisDayCourts.push({ 'courtRoom': courtRoom, data: room });
         });
         // custom sort def - basically if it's got the string, move to end. Needed to be suppressed because eslint
         // does not understand that a compare function needs two vars.
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        function compare (a, b) {
-          if (a.courtRoom.toLowerCase().includes('to be allocated')){return 1;}
-          else if (b.courtRoom.toLowerCase().includes('to be allocated')){return -1;}
-          else {return 0;}}
+        function compare(a, b) {
+          if (a.courtRoom.toLowerCase().includes('to be allocated')) {
+            return 1;
+          } else if (b.courtRoom.toLowerCase().includes('to be allocated')) {
+            return -1;
+          } else {
+            return 0;
+          }
+        }
+
         // custom sort usage below
         thisDayCourts.sort(compare);
         courts[courtCounter]['days'].push(thisDayCourts);
