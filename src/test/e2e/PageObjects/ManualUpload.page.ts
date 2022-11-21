@@ -40,7 +40,7 @@ export class ManualUploadPage extends CommonPage {
       console.log(`${helpers.SearchInput} not found`);
     });
 
-    await $(helpers.SearchInput).addValue('Slough County Court and Family Court');
+    await $(helpers.SearchInput).addValue('E2E TEST COURT - DO NOT REMOVE');
     await browser.keys('Escape');
   }
 
@@ -89,7 +89,7 @@ export class ManualUploadPage extends CommonPage {
 
     await $(helpers.displayDateToDay).addValue('01');
     await $(helpers.displayDateToMonth).addValue('01');
-    await $(helpers.displayDateToYear).addValue('2022');
+    await $(helpers.displayDateToYear).addValue('2024');
   }
 
   async clickContinue(): Promise<ManualUploadSummaryPage> {
