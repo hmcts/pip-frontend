@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import {expect} from 'chai';
 import {ChannelManagementRequests} from '../../../main/resources/requests/channelManagementRequests';
-import {ListDownloadService} from '../../../main/service/ListDownloadService';
+import {ListDownloadService} from '../../../main/service/listDownloadService';
 import fs from 'fs';
 
 const listDownloadService = new ListDownloadService();
