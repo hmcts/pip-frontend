@@ -63,7 +63,7 @@ const systemAdminRoutes = [
   '/manual-reference-data-upload-confirmation',
   '/manage-third-party-users',
   '/manage-third-party-users/view',
-  '/manage-third-party-users/subscriptions'
+  '/manage-third-party-users/subscriptions',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
