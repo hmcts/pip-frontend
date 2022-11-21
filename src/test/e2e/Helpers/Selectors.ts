@@ -56,8 +56,8 @@ module.exports = {
   SecondItemResult: 'tr.govuk-table__row:nth-child(2) > td:nth-child(2) > a:nth-child(1)',
   LastItemResult: 'tbody > tr.govuk-table__row:last-child > td > a',
   SJPLink: '#sjp-link',
-  JurisdictionFilter1: '#Jurisdiction',
-  RegionFilter1: '#Region-7',
+  JurisdictionFilter1: '#Jurisdiction-3',
+  RegionFilter1: '#Region-8',
   RegionFilter2: '#Region-2',
 
   // ViewOption page selectors
