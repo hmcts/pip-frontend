@@ -40,7 +40,6 @@ export default class ListDownloadFilesController {
 
         const filestream = fs.createReadStream(file);
         filestream.pipe(res);
-        //fs.unlinkSync(file);
       } else {
         res.render('error', req.i18n.getDataByLanguage(req.lng).error);
       }
