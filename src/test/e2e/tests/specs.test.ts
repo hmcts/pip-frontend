@@ -51,7 +51,6 @@ import {ManualReferenceDataUploadSummaryPage} from '../PageObjects/ManualReferen
 import {BulkDeleteSubscriptionsPage} from '../PageObjects/BulkDeleteSubscriptions.page';
 import {BulkDeleteSubscriptionsConfirmationPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmation.page';
 import {BulkDeleteSubscriptionsConfirmedPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmed.page';
-import {ManageThirdPartyUsersPage} from '../PageObjects/ManageThirdPartyUsers.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -106,7 +105,6 @@ let subscriptionConfigureListPage: SubscriptionConfigureListPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
 let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
 let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
-let manageThirdPartyUsersPage: ManageThirdPartyUsersPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -733,18 +731,19 @@ describe('System Admin level journeys', () => {
     });
   });
 
-  describe('manage third party users dashboard', () => {
-
-    before(async () => {
-      await systemAdminDashboard.open('/system-admin-dashboard');
-    });
-
-    it('should open third party users page', async () => {
-      manageThirdPartyUsersPage = await systemAdminDashboard.clickManageThirdPartyUsersCard();
-      expect(await manageThirdPartyUsersPage.getPageTitle()).toEqual('Manage Third Party Users');
-    });
-
-  });
+  //TODO: To be uncommented once backend is merged in
+  // describe('manage third party users dashboard', () => {
+  //
+  //   before(async () => {
+  //     await systemAdminDashboard.open('/system-admin-dashboard');
+  //   });
+  //
+  //   it('should open third party users page', async () => {
+  //     manageThirdPartyUsersPage = await systemAdminDashboard.clickManageThirdPartyUsersCard();
+  //     expect(await manageThirdPartyUsersPage.getPageTitle()).toEqual('Manage Third Party Users');
+  //   });
+  //
+  // });
 
   describe('sign out system admin dashboard', () => {
     before(async () => {
