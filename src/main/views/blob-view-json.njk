@@ -22,9 +22,9 @@
     <h1 class="govuk-heading-l">
       {{ title }}
       {% if metadata.isFlatFile %}
-        Flat File
+        {{ flatFile }}
       {% else %}
-        JSON File
+        {{ jsonFile }}
       {% endif %}</h1>
 
     <div id="section1">

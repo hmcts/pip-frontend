@@ -32,7 +32,6 @@ export class PublicationRequests {
     try {
       const response = await dataManagementApi.get('/publication/count-by-location');
       return response.data;
-      // return response.data;
     } catch (error) {
       if (error.response) {
         console.log(error.response.data);
