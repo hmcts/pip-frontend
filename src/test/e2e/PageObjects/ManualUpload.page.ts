@@ -89,7 +89,7 @@ export class ManualUploadPage extends CommonPage {
 
     await $(helpers.displayDateToDay).addValue('01');
     await $(helpers.displayDateToMonth).addValue('01');
-    await $(helpers.displayDateToYear).addValue('2022');
+    await $(helpers.displayDateToYear).addValue('2024');
   }
 
   async clickContinue(): Promise<ManualUploadSummaryPage> {
