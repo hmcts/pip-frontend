@@ -56,8 +56,8 @@ module.exports = {
   SecondItemResult: 'tr.govuk-table__row:nth-child(2) > td:nth-child(2) > a:nth-child(1)',
   LastItemResult: 'tbody > tr.govuk-table__row:last-child > td > a',
   SJPLink: '#sjp-link',
-  JurisdictionFilter1: '#Jurisdiction',
-  RegionFilter1: '#Region-7',
+  JurisdictionFilter1: '#Jurisdiction-3',
+  RegionFilter1: '#Region-8',
   RegionFilter2: '#Region-2',
 
   // ViewOption page selectors
@@ -111,6 +111,7 @@ module.exports = {
 
   // SubscriptionManagement selectors
   SubscriptionManagementTableFirstResultUrl: '>>>.unsubscribe-action',
+  SubscriptionManagementBulkDeleteSubscriptionsButton: '#bulk-delete-button',
 
   // DeleteSubscription selectors
   yesRadioButton: '#unsubscribe-confirm',
@@ -119,6 +120,11 @@ module.exports = {
   // UnsubscribeConfirmation selectors
   panelTitle: '.govuk-panel__title',
   panelHome: '.govuk-link=Home',
+
+  // BulkDeleteSubscriptions selectors
+  CourtSubscriptionCheckbox1: '#courtSubscription',
+  BulkDeleteSubscriptionButton: '#bulk-delete-button',
+  BulkDeleteRadioYes: '#bulk-delete-choice',
 
   // Admin selectors
   fileUpload: '#manual-file-upload',
