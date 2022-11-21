@@ -306,7 +306,7 @@ export class UserManagementService {
    * Format and return the date with the correct format.
    */
   private formatDate(rawDate: any) {
-    return moment(rawDate).format('DD/MM/YYYY HH:mm:ss');
+    return moment.utc(rawDate).tz('europe/london').format('DD/MM/YYYY HH:mm:ss');
   }
 
   /**
