@@ -231,7 +231,7 @@ export class AccountManagementRequests {
       if (error.response) {
         console.log(error.response.data);
       } else if (error.request) {
-        console.log(JSON.stringify(error.request));
+        console.log(error.request);
         console.log(`Request failed. ${error.request}`);
       } else {
         console.log(`ERROR: ${error.message}`);
@@ -249,7 +249,7 @@ export class AccountManagementRequests {
       if (error.response) {
         console.log(error.response.data);
       } else if (error.request) {
-        console.log(JSON.stringify(error.request));
+        console.log(error.request);
         console.log(`Request failed. ${error.request}`);
       } else {
         console.log(`ERROR: ${error.message}`);
