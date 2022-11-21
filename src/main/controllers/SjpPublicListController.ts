@@ -25,6 +25,7 @@ export default class SjpPublicListController {
         length: casesCount,
         publishedDateTime: publishedDate,
         publishedTime: publishedTime,
+        artefactId: artefactId,
       });
     } else {
       res.render('error',

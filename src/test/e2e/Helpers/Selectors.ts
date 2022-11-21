@@ -162,6 +162,12 @@ module.exports = {
   // SummaryOfPublications selectors
   SOPListItem: '.das-search-results__link',
 
+  // SJP public selector
+  DownloadACopyButton: '#download-button',
+
+  // List download selector
+  AgreeCheckBox: '#disclaimer-agreement',
+
   // Banner navigation selectors
   BannerHome: '.moj-sub-navigation__item:first-child',
   BannerFindCourt: '.moj-sub-navigation__item:nth-child(2)',

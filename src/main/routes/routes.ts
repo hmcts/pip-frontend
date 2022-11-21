@@ -127,6 +127,9 @@ export default function(app: Application): void {
   app.post('/case-reference-number-search', isPermittedMedia, app.locals.container.cradle.caseReferenceNumberSearchController.post);
   app.get('/case-reference-number-search-results', isPermittedMedia, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
   app.get('/delete-subscription', isPermittedMedia, app.locals.container.cradle.deleteSubscriptionController.get);
+  app.get('/list-download-disclaimer', isPermittedMedia, app.locals.container.cradle.listDownloadDisclaimerController.get);
+  app.post('/list-download-disclaimer', isPermittedMedia, app.locals.container.cradle.listDownloadDisclaimerController.post);
+  app.get('/list-download-files', isPermittedMedia, app.locals.container.cradle.listDownloadFilesController.get);
   app.get('/location-name-search', isPermittedMedia, app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/location-name-search', isPermittedMedia, app.locals.container.cradle.alphabeticalSearchController.post);
   app.get('/pending-subscriptions', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.get);
