@@ -531,4 +531,15 @@ describe('generateListTypesForCourts', () => {
     expect(result[0][0].text).toEqual('Welsh court name test');
     expect(result[0][2].html).toContain('dad-danysgrifio');
   });
+
+  it('retrieve subscription channels', async () => {
+
+    const subscriptionChannelStub = sinon.stub(SubscriptionRequests.prototype, 'retrieveSubscriptionChannels');
+    subscriptionChannelStub.resolves(['CHANNEL_A', 'CHANNEL_B']);
+
+    const retrievedChannels = await subscriptionService.retrieveChannels();
+
+    expect(retrievedChannels).toStrictEqual(['CHANNEL_A', 'CHANNEL_B']);
+  });
+
 });
