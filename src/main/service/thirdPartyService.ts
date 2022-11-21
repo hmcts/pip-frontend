@@ -124,7 +124,7 @@ export class ThirdPartyService {
    */
   public async getThirdPartyUserById(userId): Promise<any> {
     const account = await this.accountManagementRequests.getUserById(userId);
-    if (account && account.roles.includes('THIRD')) {
+    if (account && account.userProvenance === 'THIRD_PARTY') {
       account['createdDate'] = moment.utc(Date.parse(account['createdDate'])).format('DD MMMM YYYY');
       return account;
     }

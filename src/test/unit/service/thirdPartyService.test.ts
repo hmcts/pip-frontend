@@ -149,13 +149,13 @@ describe('Third Party Service tests', () => {
     const getUserStub = sinon.stub(AccountManagementRequests.prototype, 'getUserById');
 
     it('check user is returned', async () => {
-      getUserStub.resolves({'userId': userId, 'createdDate': '2022-11-18T14:00:00Z', roles: 'GENERAL_THIRD_PARTY'});
+      getUserStub.resolves({'userId': userId, 'createdDate': '2022-11-18T14:00:00Z', userProvenance: 'THIRD_PARTY'});
 
       const returnedUser = await thirdPartyService.getThirdPartyUserById(userId);
 
       expect(returnedUser['userId']).to.equal(userId, 'User ID not as expected');
       expect(returnedUser['createdDate']).to.equal('18 November 2022', 'Formatted date not as expected');
-      expect(returnedUser['roles']).to.equal('GENERAL_THIRD_PARTY', 'Role not as expected');
+      expect(returnedUser['userProvenance']).to.equal('THIRD_PARTY', 'User provenance not as expected');
     });
 
     it('check user returned is null if no user found', async () => {
@@ -167,7 +167,7 @@ describe('Third Party Service tests', () => {
     });
 
     it('check user returned is null if not third party ', async () => {
-      getUserStub.resolves({'userId': userId, 'createdDate': '2022-11-18T14:00:00Z', roles: 'VERIFIED'});
+      getUserStub.resolves({'userId': userId, 'createdDate': '2022-11-18T14:00:00Z', userProvenance: 'PI_AAD'});
 
       const returnedUser = await thirdPartyService.getThirdPartyUserById(userId);
 
