@@ -135,7 +135,7 @@ describe('Unverified user', () => {
     });
 
     describe('following the search court path', async () => {
-      const searchTerm = 'High Wycombe Magistrates and County Court';
+      const searchTerm = 'E2E TEST COURT - DO NOT REMOVE';
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
@@ -154,7 +154,7 @@ describe('Unverified user', () => {
         await searchPage.open('/search');
       });
 
-      const searchTerm = 'High Wycombe Magistrates and County Court';
+      const searchTerm = 'E2E TEST COURT - DO NOT REMOVE';
       it('should click on \'Select from an A-Z list of courts and tribunals\' link ', async () => {
         alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
@@ -616,7 +616,7 @@ describe('Admin level journeys', () => {
       expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
     });
     it('should enter valid court in the search field, click continue and open search results page', async () => {
-      const searchTerm = 'Slough County Court and Family Court';
+      const searchTerm = 'E2E TEST COURT - DO NOT REMOVE';
       await searchPublicationPage.enterText(searchTerm);
       searchPublicationResultsPage = await searchPublicationPage.clickContinue();
       expect(await searchPublicationResultsPage.getPageTitle()).toEqual('Select content to remove');
