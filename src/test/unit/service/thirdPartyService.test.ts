@@ -3,10 +3,14 @@ import {ThirdPartyService} from '../../../main/service/thirdPartyService';
 import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
 import sinon from 'sinon';
 import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
+import {SubscriptionService} from '../../../main/service/subscriptionService';
 
 const thirdPartyService = new ThirdPartyService();
 
 describe('Third Party Service tests', () => {
+
+  const subscribeStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
+  const getSubscriptionsStub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
 
   describe('generateListTypes', () => {
 
@@ -119,8 +123,6 @@ describe('Third Party Service tests', () => {
   });
 
   describe('create third party subscription', () => {
-
-    const subscribeStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
     subscribeStub.resolves();
 
     it('check a subscription is created', () => {
@@ -137,6 +139,103 @@ describe('Third Party Service tests', () => {
         searchValue: listType,
         userId: userId,
       })).to.equal(true, 'Subscribe not called with expected arguments');
+    });
+
+  });
+
+  describe('get third party by user ID', () => {
+
+    const userId = '1234-1234';
+    const getUserStub = sinon.stub(AccountManagementRequests.prototype, 'getUserById');
+
+    it('check user is returned', async () => {
+      getUserStub.resolves({'userId': userId, 'createdDate': '2022-11-18T14:00:00Z', roles: 'GENERAL_THIRD_PARTY'});
+
+      const returnedUser = await thirdPartyService.getThirdPartyUserById(userId);
+
+      expect(returnedUser['userId']).to.equal(userId, 'User ID not as expected');
+      expect(returnedUser['createdDate']).to.equal('18 November 2022', 'Formatted date not as expected');
+      expect(returnedUser['roles']).to.equal('GENERAL_THIRD_PARTY', 'Role not as expected');
+    });
+
+    it('check user returned is null if no user found', async () => {
+      getUserStub.resolves(null);
+
+      const returnedUser = await thirdPartyService.getThirdPartyUserById(userId);
+
+      expect(returnedUser).to.equal(null, 'User returned should be null');
+    });
+
+    it('check user returned is null if not third party ', async () => {
+      getUserStub.resolves({'userId': userId, 'createdDate': '2022-11-18T14:00:00Z', roles: 'VERIFIED'});
+
+      const returnedUser = await thirdPartyService.getThirdPartyUserById(userId);
+
+      expect(returnedUser).to.equal(null, 'User returned should be null');
+    });
+
+  });
+
+  describe('handle third party subscription update', () => {
+
+    const userId = '1234-1234';
+
+    it('check that subscribe is called for a brand new subscription', async () => {
+
+      const selectedUser = userId;
+      const selectedListTypes = ['LIST_A'];
+      const selectedChannel = 'CHANNEL_A';
+
+      getSubscriptionsStub.withArgs(userId).resolves({listTypeSubscriptions: []});
+
+      const subscribeArgs = {
+        channel: 'CHANNEL_A',
+        searchType: 'LIST_TYPE',
+        searchValue: 'LIST_A',
+        userId: userId,
+      };
+
+      await thirdPartyService.handleThirdPartySubscriptionUpdate(selectedUser, selectedListTypes, selectedChannel);
+
+      expect(subscribeStub.calledWith(subscribeArgs)).to.equal(true);
+
+    });
+
+    it('check that subscribe is called if channel differs', async () => {
+
+      const selectedUser = userId;
+      const selectedListTypes = ['LIST_A'];
+      const selectedChannel = 'CHANNEL_D';
+
+      getSubscriptionsStub.withArgs(userId).resolves({
+        listTypeSubscriptions: [{listType: 'LIST_A', channel: 'CHANNEL_B'}]});
+
+      const subscribeArgs = {
+        channel: 'CHANNEL_D',
+        searchType: 'LIST_TYPE',
+        searchValue: 'LIST_A',
+        userId: userId,
+      };
+
+      await thirdPartyService.handleThirdPartySubscriptionUpdate(selectedUser, selectedListTypes, selectedChannel);
+
+      expect(subscribeStub.calledWith(subscribeArgs)).to.equal(true);
+    });
+
+    it('check that unsubscribe is called if no longer selected', async () => {
+
+      const selectedUser = userId;
+      const selectedListTypes = ['LIST_B'];
+      const selectedChannel = 'CHANNEL_D';
+
+      getSubscriptionsStub.withArgs(userId).resolves({
+        listTypeSubscriptions: [{listType: 'LIST_A', channel: 'CHANNEL_B', subscriptionId: '2345'}]});
+
+      const unsubscribeStub = sinon.stub(SubscriptionService.prototype, 'unsubscribe');
+
+      await thirdPartyService.handleThirdPartySubscriptionUpdate(selectedUser, selectedListTypes, selectedChannel);
+
+      expect(unsubscribeStub.calledWith('2345')).to.equal(true);
     });
 
   });

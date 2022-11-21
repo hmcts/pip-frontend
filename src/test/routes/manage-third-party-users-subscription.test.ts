@@ -38,4 +38,22 @@ describe('Manage third party users subscription', () => {
     });
   });
 
+  describe('on POST', () => {
+
+    const updateThirdPartySubsStub = sinon.stub(ThirdPartyService.prototype, 'handleThirdPartySubscriptionUpdate');
+    updateThirdPartySubsStub.withArgs(userId, 'CHANNEL_A', ['LIST_SELECTION']).resolves();
+    getThirdPartyUserByIdStub.withArgs(userId).resolves({'userId': userId});
+
+    test('should return manage third party users confirmation page', async () => {
+      await request(app)
+        .post('/manage-third-party-users/subscriptions')
+        .send({
+          userId: userId,
+          channel: 'CHANNEL_A',
+          'list-selections[]': ['LIST_SELECTION'],
+        })
+        .expect((res) => expect(res.status).to.equal(200));
+    });
+  });
+
 });
