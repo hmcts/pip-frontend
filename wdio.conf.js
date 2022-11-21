@@ -291,7 +291,8 @@ exports.config = {
    * @param {Object} results object containing test results
    */
   onComplete: function() {
-    'open $(cd \'$(dirname--\'$1\')\' >/dev/null; pwd -P)/$(basename -- \'$1\')e2e-results/timeline-report.html';
+    'echo "e2e tests complete. HTML report available at :"';
+    'echo $( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )/e2e-results/timeline-report.html';
   },
 
   /**
