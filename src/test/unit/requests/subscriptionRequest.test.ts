@@ -154,6 +154,33 @@ describe('unsubscribe error states', () => {
   });
 });
 
+describe('bulkDeleteSubscriptions', () => {
+  const subscriptions = ['123'];
+  it('should return success message if call is successful', async() => {
+    deleteStub.withArgs('/subscription/bulk').resolves({data: 'unsubscribed successfully'});
+    const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions);
+    expect(response).toBe('unsubscribed successfully');
+  });
+
+  it('should return nothing for error response', async() => {
+    deleteStub.withArgs('/subscription/bulk').rejects(errorResponse);
+    const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions);
+    expect(response).toBe(null);
+  });
+
+  it('should return nothing for error request', async() => {
+    deleteStub.withArgs('/subscription/bulk').rejects(errorRequest);
+    const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions);
+    expect(response).toBe(null);
+  });
+
+  it('should return nothing for other error', async() => {
+    deleteStub.withArgs('/subscription/bulk').rejects(errorMessage);
+    const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions);
+    expect(response).toBe(null);
+  });
+});
+
 describe('configure list type Location subscriptions for a user', () => {
   it('should return true if call is successful', async() => {
     subscriptionManagementPutStub.withArgs('/subscription/configure-list-types').resolves({});

@@ -80,6 +80,7 @@ export default function(app: Application): void {
   // app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/password-change-confirmation/:isAdmin', app.locals.container.cradle.passwordChangeController.get);
   app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
+  app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
   app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}), regenerateSession);
   app.get('/login', passport.authenticate('login', { failureRedirect: '/'}), regenerateSession);
   app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/'}), regenerateSession);
@@ -114,15 +115,20 @@ export default function(app: Application): void {
 
   // Restricted paths
   app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
+  app.get('/bulk-delete-subscriptions', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsController.get);
+  app.post('/bulk-delete-subscriptions', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsController.post);
+  app.get('/bulk-delete-subscriptions-confirmation', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsConfirmationController.get);
+  app.post('/bulk-delete-subscriptions-confirmation', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsConfirmationController.post);
+  app.get('/bulk-delete-subscriptions-confirmed', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsConfirmedController.get);
   app.get('/case-name-search', isPermittedMedia, app.locals.container.cradle.caseNameSearchController.get);
   app.post('/case-name-search', isPermittedMedia, app.locals.container.cradle.caseNameSearchController.post);
   app.get('/case-name-search-results', isPermittedMedia, app.locals.container.cradle.caseNameSearchResultsController.get);
   app.get('/case-reference-number-search', isPermittedMedia, app.locals.container.cradle.caseReferenceNumberSearchController.get);
   app.post('/case-reference-number-search', isPermittedMedia, app.locals.container.cradle.caseReferenceNumberSearchController.post);
   app.get('/case-reference-number-search-results', isPermittedMedia, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
+  app.get('/delete-subscription', isPermittedMedia, app.locals.container.cradle.deleteSubscriptionController.get);
   app.get('/location-name-search', isPermittedMedia, app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/location-name-search', isPermittedMedia, app.locals.container.cradle.alphabeticalSearchController.post);
-  app.get('/delete-subscription', isPermittedMedia, app.locals.container.cradle.deleteSubscriptionController.get);
   app.get('/pending-subscriptions', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.get);
   app.post('/pending-subscriptions', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.post);
   app.get('/remove-subscription', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.removeSubscription);

@@ -111,6 +111,7 @@ module.exports = {
 
   // SubscriptionManagement selectors
   SubscriptionManagementTableFirstResultUrl: '>>>.unsubscribe-action',
+  SubscriptionManagementBulkDeleteSubscriptionsButton: '#bulk-delete-button',
 
   // DeleteSubscription selectors
   yesRadioButton: '#unsubscribe-confirm',
@@ -119,6 +120,11 @@ module.exports = {
   // UnsubscribeConfirmation selectors
   panelTitle: '.govuk-panel__title',
   panelHome: '.govuk-link=Home',
+
+  // BulkDeleteSubscriptions selectors
+  CourtSubscriptionCheckbox1: '#courtSubscription',
+  BulkDeleteSubscriptionButton: '#bulk-delete-button',
+  BulkDeleteRadioYes: '#bulk-delete-choice',
 
   // Admin selectors
   fileUpload: '#manual-file-upload',
