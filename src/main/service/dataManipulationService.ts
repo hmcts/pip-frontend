@@ -288,37 +288,12 @@ export class DataManipulationService {
     return copDailyCauseListData;
   }
 
-  public manipulateIacDailyListData(iacDailyList: string): object {
-    const iacDailyListData = JSON.parse(iacDailyList);
-    let caseCount = 0;
-
-    iacDailyListData['courtLists'].forEach(courtList => {
-      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-        courtRoom['formattedJudiciary'] = this.getDeduplicatedJudiciaryNameSurname(courtRoom);
-        courtRoom['session'].forEach(session => {
-          session['sittings'].forEach(sitting => {
-            sitting['sittingStartFormatted'] = this.publicationTimeInBst(sitting['sittingStart']);
-            this.findAndConcatenateHearingPlatform(sitting, session);
-            sitting['hearing'].forEach(hearing => {
-              caseCount += hearing['case'].length;
-              this.findAndManipulatePartyInformation(hearing);
-              this.findAndManipulateLinkedCases(hearing);
-            });
-          });
-        });
-        courtRoom['totalCases'] = caseCount;
-        caseCount = 0;
-      });
-    });
-    return iacDailyListData;
-  }
-
   /**
    * Manipulate the party information data for writing out on screen.
    * @param hearing
    * @param initialised
    */
-  private findAndManipulatePartyInformation(hearing: any, initialised = false): void {
+  findAndManipulatePartyInformation(hearing: any, initialised = false): void {
     let applicant = '';
     let appellant = '';
     let respondent = '';
@@ -461,7 +436,7 @@ export class DataManipulationService {
    * @param sitting
    * @param session
    */
-  private findAndConcatenateHearingPlatform(sitting: object, session: object): void {
+  findAndConcatenateHearingPlatform(sitting: object, session: object): void {
     let caseHearingChannel = '';
     if (sitting['channel'] || session['sessionChannel']) {
       if (sitting['channel']?.length > 0) {

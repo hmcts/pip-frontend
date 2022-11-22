@@ -6,13 +6,13 @@ import { app } from '../../main/app';
 import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
-import { DataManipulationService } from '../../main/service/dataManipulationService';
+import { IacDailyListService } from '../../main/service/listManipulation/IacDailyListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/iacDailyList.json'), 'utf-8');
 const iacData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(iacData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(iacData);
-sinon.stub(DataManipulationService.prototype, 'manipulateIacDailyListData').resolves(iacData);
+sinon.stub(IacDailyListService.prototype, 'manipulateIacDailyListData').resolves(iacData);
 
 describe('IAC Daily List Page', () => {
   describe('on GET', () => {
