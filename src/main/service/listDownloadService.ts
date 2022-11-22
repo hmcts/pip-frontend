@@ -50,7 +50,7 @@ export class ListDownloadService {
       do {
         fileSizeInBytes /= 1000;
         i++;
-      } while (fileSizeInBytes > 1000 && i <= byteUnits.length);
+      } while (fileSizeInBytes >= 1000 && i <= byteUnits.length);
 
       return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i - 1];
     }
