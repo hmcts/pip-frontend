@@ -16,7 +16,6 @@ const rawFamilyDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mock
 const rawFamilyDailyCausePartyMappingData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseListPartyMapping.json'),
   'utf-8');
 const rawFamilyDailyCauseWithReorderedPartyMappings = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseListWithReorderedPartyMappings.json'), 'utf-8');
-const etDailyListData = fs.readFileSync(path.resolve(__dirname, '../mocks/etDailyList-withdates.json'), 'utf-8');
 const dailyCauseListData = JSON.parse(rawDailyCauseData);
 
 describe('Data manipulation service', () => {
@@ -135,44 +134,6 @@ describe('Data manipulation service', () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawFamilyDailyCauseWithReorderedPartyMappings);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant']).to.equal('Surname, LEGALADVISOR: Mr Forenames Middlename SurnameApplicant');
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent']).to.equal('Surname, LEGALADVISOR: Mr Forenames Middlename SurnameRespondent');
-    });
-  });
-
-  describe('Reshaped ET Fortnightly List - splitting data from a courtroom format to a day by day view.', () => {
-    it('should return ET Fortnightly List', async () => {
-      const data = await dataManipulationService.reshapeEtFortnightlyListData(etDailyListData);
-      expect(JSON.stringify(data).length).to.equal(2803);
-    });
-
-    it('should match the completed mock', async () => {
-      const data = await dataManipulationService.reshapeEtFortnightlyListData(etDailyListData);
-      expect(JSON.stringify(data)).to.contain('Lord H. Bouffant, LEGALADVISOR: Dame H. Wiggins');
-    });
-
-    it('should have data for two courthouses', async () => {
-      const data = JSON.stringify(await dataManipulationService.reshapeEtFortnightlyListData(etDailyListData));
-      expect(data).to.contain('Leicester Crown Court');
-      expect(data).to.contain('Nottingham Justice Centre');
-    });
-
-    it('should have exactly one record for Leicester', async () => {
-      const data = await dataManipulationService.reshapeEtFortnightlyListData(etDailyListData);
-      expect(data[0]['courtName']).to.equal('Leicester Crown Court');
-      expect(JSON.stringify(data).match('Leicester Crown Court').length).to.equal(1);
-    });
-
-    it('should have exactly four records for Nottingham', async () => {
-      const data = JSON.stringify(await dataManipulationService.reshapeEtFortnightlyListData(etDailyListData));
-      // the reason this is equal to 5 initially is the parent object also includes the court name as a descriptor
-      expect(data.match(new RegExp('Nottingham Justice Centre', 'g')).length -1).to.equal(4);
-    });
-
-    it('should be parsing and separating dates correctly', async () => {
-      const data = JSON.stringify(await dataManipulationService.reshapeEtFortnightlyListData(etDailyListData));
-      const list_of_dates = ['Sunday 13 February 2022', 'Tuesday 15 February 2022', 'Monday 14 February 2022'];
-      list_of_dates.forEach(value => {
-        expect(data).to.contain(value);
-      });
     });
   });
 

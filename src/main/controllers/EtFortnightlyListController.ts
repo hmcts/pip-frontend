@@ -3,12 +3,14 @@ import {Response} from 'express';
 import {cloneDeep} from 'lodash';
 import {PublicationService} from '../service/publicationService';
 import { DataManipulationService } from '../service/dataManipulationService';
+import { EtListsService } from '../service/listManipulation/EtListsService';
 import {LocationService} from '../service/locationService';
 import moment from 'moment/moment';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const dataManipulationService = new DataManipulationService();
+const etListsService = new EtListsService();
 
 export default class EtFortnightlyListController {
 
@@ -18,8 +20,8 @@ export default class EtFortnightlyListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (fileData && metaData) {
-      const tableData = dataManipulationService.reshapeEtFortnightlyListData(JSON.stringify(fileData));
-      const listData = dataManipulationService.reshapeEtDailyListData(JSON.stringify(fileData));
+      const tableData = etListsService.reshapeEtFortnightlyListData(JSON.stringify(fileData));
+      const listData = etListsService.reshapeEtDailyListData(JSON.stringify(fileData));
       const publishedTime = dataManipulationService.publicationTimeInBst(fileData['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(fileData['document']['publicationDate']);
       const returnedCourt = await locationService.getLocationById(metaData['locationId']);

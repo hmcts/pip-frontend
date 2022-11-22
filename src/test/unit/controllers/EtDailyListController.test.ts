@@ -3,10 +3,10 @@ import fs from 'fs';
 import path from 'path';
 import {PublicationService} from '../../../main/service/publicationService';
 import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import EtDailyListController from '../../../main/controllers/EtDailyListController';
+import { EtListsService } from '../../../main/service/listManipulation/EtListsService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/etDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -22,7 +22,7 @@ const etDailyListController = new EtDailyListController();
 const etDailyListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const etDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(DataManipulationService.prototype, 'reshapeEtDailyListData').returns(listData);
+sinon.stub(EtListsService.prototype, 'reshapeEtDailyListData').returns(listData);
 
 const artefactId = 'abc';
 

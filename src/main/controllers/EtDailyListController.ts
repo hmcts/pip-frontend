@@ -5,11 +5,12 @@ import {PublicationService} from '../service/publicationService';
 import { DataManipulationService } from '../service/dataManipulationService';
 import {LocationService} from '../service/locationService';
 import moment from 'moment/moment';
+import { EtListsService } from '../service/listManipulation/EtListsService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const dataManipulationService = new DataManipulationService();
-
+const etDailyListService = new EtListsService();
 export default class EtDailyListController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -18,7 +19,7 @@ export default class EtDailyListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (fileData && metaData) {
-      const listData = dataManipulationService.reshapeEtDailyListData(JSON.stringify(fileData));
+      const listData = etDailyListService.reshapeEtDailyListData(JSON.stringify(fileData));
 
       const publishedTime = dataManipulationService.publicationTimeInBst(fileData['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(fileData['document']['publicationDate']);
