@@ -68,7 +68,7 @@ export default function(app: Application): void {
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
   // app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
-  app.get('/case-standards-list', app.locals.container.cradle.tribunalNationalListsController.get);
+  app.get('/care-standards-list', app.locals.container.cradle.tribunalNationalListsController.get);
   app.get('/cookie-policy', app.locals.container.cradle.cookiePolicyPageController.get);
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
   app.post('/create-media-account', multer({storage: storage, limits: {fileSize: 2000000}}).single('file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.createMediaAccountController.post);

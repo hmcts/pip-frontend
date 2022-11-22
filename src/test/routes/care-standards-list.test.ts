@@ -19,7 +19,7 @@ describe('Care Standards List List Page', () => {
     test('should return case standards list page', async () => {
       app.request['user'] = {piUserId: '2'};
       await request(app)
-        .get('/case-standards-list?artefactId=test')
+        .get('/care-standards-list?artefactId=test')
         .expect((res) => expect(res.status).to.equal(200));
     });
   });

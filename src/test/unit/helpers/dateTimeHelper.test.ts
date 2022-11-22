@@ -5,7 +5,7 @@ const dateTimeHelper = new DateTimeHelper();
 
 const englishLanguage = 'en';
 const welshLanguage = 'cy';
-const languageFile = 'case-standards-list';
+const languageFile = 'care-standards-list';
 
 describe('DateTime helper class', () => {
   describe('DateTimeHelper', () => {
