@@ -134,8 +134,8 @@ export async function processMediaAccountSignIn(req, res): Promise<any> {
 }
 
 /**
- * This function checks the state of a password reset. If the session has not been generated, that means the password
- * reset has been cancelled and therefore should re-direct them to the appropriate page.
+ * This function checks the state of a password reset. If the error indicates a cancelled action, the user is re-directed
+ * to the appropriate page.
  * @param req The request to check.
  * @param res The response to redirect.
  * @param next The next function
