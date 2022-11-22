@@ -78,10 +78,9 @@
                         ],
                         "party":[
                           {
-                            "partyRole":"PROSECUTING_AUTHORITY",
-                            "individualDetails":{
-                              "individualForenames":"Pro_Auth_FN",
-                              "individualSurname":"Pro_Auth_SN"
+                            "partyRole": "PROSECUTING_AUTHORITY",
+                            "organisationDetails": {
+                              "organisationName": "Pro_Auth"
                             }
                           },
                           {
@@ -191,9 +190,9 @@
                         ],
                         "party":[
                           {
-                            "partyRole":"PROSECUTING_AUTHORITY",
-                            "individualDetails":{
-                              "individualSurname":"PROSECUTING_AUTHORITY"
+                            "partyRole": "PROSECUTING_AUTHORITY",
+                            "organisationDetails": {
+                              "organisationName": "PROSECUTING_AUTHORITY"
                             }
                           },
                           {
