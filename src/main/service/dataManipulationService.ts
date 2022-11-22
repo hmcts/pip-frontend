@@ -375,11 +375,11 @@ export class DataManipulationService {
    */
   private createIndividualDetails(individualDetails: any, initialised = false): string {
 
-    const title = this.writeStringIfValid(individualDetails?.title);
-    const forenames = this.writeStringIfValid(individualDetails?.individualForenames);
+    const title = DataManipulationService.writeStringIfValid(individualDetails?.title);
+    const forenames = DataManipulationService.writeStringIfValid(individualDetails?.individualForenames);
     const forenameInitial = forenames.charAt(0);
-    const middleName = this.writeStringIfValid(individualDetails?.individualMiddleName);
-    const surname = this.writeStringIfValid(individualDetails?.individualSurname);
+    const middleName = DataManipulationService.writeStringIfValid(individualDetails?.individualMiddleName);
+    const surname = DataManipulationService.writeStringIfValid(individualDetails?.individualSurname);
     if (initialised) {
 
       return title + (title.length > 0 ? ' ' : '')
@@ -397,7 +397,7 @@ export class DataManipulationService {
    * Helper function for strings.
    * @param stringToCheck
    */
-  public writeStringIfValid(stringToCheck): string {
+  public static writeStringIfValid(stringToCheck): string {
     if (stringToCheck) {
       return stringToCheck;
     } else {
@@ -458,11 +458,11 @@ export class DataManipulationService {
     let foundPresiding = false;
     session['judiciary']?.forEach(judiciary => {
       if (judiciary?.isPresiding === true) {
-        judiciaries = this.writeStringIfValid(judiciary?.johKnownAs);
+        judiciaries = DataManipulationService.writeStringIfValid(judiciary?.johKnownAs);
         foundPresiding = true;
       } else if (!foundPresiding) {
-        if (this.writeStringIfValid(judiciary?.johKnownAs) !== '') {
-          judiciaries += this.writeStringIfValid(judiciary?.johKnownAs) + ', ';
+        if (DataManipulationService.writeStringIfValid(judiciary?.johKnownAs) !== '') {
+          judiciaries += DataManipulationService.writeStringIfValid(judiciary?.johKnownAs) + ', ';
         }
       }
     });
@@ -563,15 +563,15 @@ export class DataManipulationService {
       if (formattedJoh.length > 0) {
         formattedJoh += ', ';
       }
-      if (this.writeStringIfValid(joh?.johKnownAs) !== '') {
-        formattedJoh += this.writeStringIfValid(joh?.johKnownAs);
+      if (DataManipulationService.writeStringIfValid(joh?.johKnownAs) !== '') {
+        formattedJoh += DataManipulationService.writeStringIfValid(joh?.johKnownAs);
       }
 
-      if (this.writeStringIfValid(joh?.johNameSurname) !== '') {
-        if (this.writeStringIfValid(joh?.johKnownAs) !== '') {
+      if (DataManipulationService.writeStringIfValid(joh?.johNameSurname) !== '') {
+        if (DataManipulationService.writeStringIfValid(joh?.johKnownAs) !== '') {
           formattedJoh += ' ';
         }
-        formattedJoh += this.writeStringIfValid(joh?.johNameSurname);
+        formattedJoh += DataManipulationService.writeStringIfValid(joh?.johNameSurname);
       }
     });
     return formattedJoh;
@@ -588,39 +588,18 @@ export class DataManipulationService {
         judiciaryFormatted += ', ';
       }
 
-      if (this.writeStringIfValid(judiciary?.johTitle) !== '') {
-        judiciaryFormatted += this.writeStringIfValid(judiciary?.johTitle);
+      if (DataManipulationService.writeStringIfValid(judiciary?.johTitle) !== '') {
+        judiciaryFormatted += DataManipulationService.writeStringIfValid(judiciary?.johTitle);
       }
 
-      if (this.writeStringIfValid(judiciary?.johNameSurname) !== '') {
-        if (this.writeStringIfValid(judiciary?.johTitle) !== '') {
+      if (DataManipulationService.writeStringIfValid(judiciary?.johNameSurname) !== '') {
+        if (DataManipulationService.writeStringIfValid(judiciary?.johTitle) !== '') {
           judiciaryFormatted += ' ';
         }
-        judiciaryFormatted += this.writeStringIfValid(judiciary?.johNameSurname);
+        judiciaryFormatted += DataManipulationService.writeStringIfValid(judiciary?.johNameSurname);
       }
     });
     return judiciaryFormatted;
   }
 
-  private getDeduplicatedJudiciaryNameSurname(session: object): string {
-    const judiciaries = [];
-    session['judiciary']?.forEach(judiciary => {
-      let currentJudiciary = '';
-      if (this.writeStringIfValid(judiciary?.johTitle) !== '') {
-        currentJudiciary = this.writeStringIfValid(judiciary?.johTitle);
-      }
-
-      if (this.writeStringIfValid(judiciary?.johNameSurname) !== '') {
-        if (this.writeStringIfValid(judiciary?.johTitle) !== '') {
-          currentJudiciary += ' ';
-        }
-        currentJudiciary += this.writeStringIfValid(judiciary?.johNameSurname);
-      }
-
-      if (!judiciaries.includes(currentJudiciary)) {
-        judiciaries.push(currentJudiciary);
-      }
-    });
-    return judiciaries.join(', ');
-  }
 }
