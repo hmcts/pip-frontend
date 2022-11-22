@@ -4,9 +4,11 @@ import {cloneDeep} from 'lodash';
 import moment from 'moment';
 import {PublicationService} from '../service/publicationService';
 import { DataManipulationService } from '../service/dataManipulationService';
+import { SjpPressListService} from '../service/listManipulation/sjpPressListService';
 
 const publicationService = new PublicationService();
 const dataManipulationService = new DataManipulationService();
+const sjpPressListService = new SjpPressListService();
 
 export default class SjpPressListController {
 
@@ -17,7 +19,7 @@ export default class SjpPressListController {
 
     if (sjpData && metaData) {
 
-      const manipulatedData = dataManipulationService.formatSJPPressList(JSON.stringify(sjpData));
+      const manipulatedData = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
 
       const publishedTime = dataManipulationService.publicationTimeInBst(sjpData['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(sjpData['document']['publicationDate']);

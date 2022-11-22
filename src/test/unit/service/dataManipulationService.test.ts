@@ -16,7 +16,6 @@ const rawFamilyDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mock
 const rawFamilyDailyCausePartyMappingData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseListPartyMapping.json'),
   'utf-8');
 const rawFamilyDailyCauseWithReorderedPartyMappings = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseListWithReorderedPartyMappings.json'), 'utf-8');
-const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
 const etDailyListData = fs.readFileSync(path.resolve(__dirname, '../mocks/etDailyList-withdates.json'), 'utf-8');
 const dailyCauseListData = JSON.parse(rawDailyCauseData);
 
@@ -136,28 +135,6 @@ describe('Data manipulation service', () => {
       const data = await dataManipulationService.manipulatedDailyListData(rawFamilyDailyCauseWithReorderedPartyMappings);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant']).to.equal('Surname, LEGALADVISOR: Mr Forenames Middlename SurnameApplicant');
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['respondent']).to.equal('Surname, LEGALADVISOR: Mr Forenames Middlename SurnameRespondent');
-    });
-  });
-
-  describe('formatSJPPressList', () => {
-    it('should return SJP Press List', async () => {
-      const data = await dataManipulationService.formatSJPPressList(rawSJPData);
-      expect(data['courtLists'].length).to.equal(1);
-    });
-
-    it('should formatted date of birth in correct format', async () => {
-      const data = await dataManipulationService.formatSJPPressList(rawSJPData);
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['party'][0]['individualDetails']['formattedDateOfBirth']).to.equal('25 July 1985');
-    });
-
-    it('should formatted Reporting Restriction in correct format', async () => {
-      const data = await dataManipulationService.formatSJPPressList(rawSJPData);
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['offence'][0]['formattedReportingRestriction']).to.equal('True');
-    });
-
-    it('should count total no of hearings', async () => {
-      const data = await dataManipulationService.formatSJPPressList(rawSJPData);
-      expect(data['hearingCount']).to.equal(2);
     });
   });
 

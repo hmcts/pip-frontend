@@ -6,13 +6,13 @@ import { app } from '../../main/app';
 import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
-import { DataManipulationService } from '../../main/service/dataManipulationService';
+import { SjpPressListService} from '../../main/service/listManipulation/sjpPressListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/SJPMockPage.json'), 'utf-8');
 const sjpPressData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(sjpPressData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(sjpPressData);
-sinon.stub(DataManipulationService.prototype, 'formatSJPPressList').resolves(sjpPressData);
+sinon.stub(SjpPressListService.prototype, 'formatSJPPressList').resolves(sjpPressData);
 
 describe('Single Justice Procedure Press Page', () => {
   describe('on GET', () => {
