@@ -82,7 +82,7 @@ describe('Crown firm List page', () => {
 
   it('should display Defendant Name',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-    expect(cell[2].innerHTML).equal('CORA, Mckinley');
+    expect(cell[2].innerHTML).equal('Cora, Mckinley');
   });
 
   it('should display Hearing Type',  () => {

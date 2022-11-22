@@ -19,7 +19,7 @@
         <br/>/{{ courtName }}: {{ headerPart2 }}
       {% endif %}
     </h2>
-    <p class="govuk-body govuk-!-font-weight-bold">{{ listDate }} {{ startDate }} - {{ endDate }}</p>
+    <p class="govuk-body govuk-!-font-weight-bold">{{ listDate }} {{ startDate }} {{ to }} {{ endDate }}</p>
     <p class="govuk-body">{{ listUpdated | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
     <p class="govuk-body">{{ draft }} {{ versionText }} {{ version }}</p><br/>
     <p class="govuk-body">

@@ -138,8 +138,8 @@
                         "party": [
                           {
                             "partyRole": "PROSECUTING_AUTHORITY",
-                            "individualDetails": {
-                              "individualSurname": "Queen"
+                            "organisationDetails": {
+                              "organisationName": "Queen"
                             }
                           },
                           {

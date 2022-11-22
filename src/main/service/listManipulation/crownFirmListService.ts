@@ -1,11 +1,10 @@
 import moment from 'moment-timezone';
 import { DataManipulationService } from '../dataManipulationService';
-import { DateTimeHelper } from '../../helpers/dateTimeHelper';
+import {formatDuration} from '../../helpers/dateTimeHelper';
 import { CrimeListsService } from './CrimeListsService';
 
 const dataManipulationService = new DataManipulationService();
 const dailyListService = new CrimeListsService();
-const dateTimeHelper = new DateTimeHelper();
 
 export class CrownFirmListService {
   public timeZone = 'Europe/London';
@@ -30,12 +29,12 @@ export class CrownFirmListService {
               session['formattedJudiciaries'] = judiciary;
             }
             const sittingDate = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('dddd DD MMMM YYYY');
-            sitting['formattedDuration'] = dateTimeHelper.formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
+            sitting['formattedDuration'] = formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
               sitting['durationAsMinutes'] as number, language, languageFile);
             sitting['hearing'].forEach(hearing => {
               dailyListService.findLinkedCasesInformation(hearing);
+              dailyListService.manipulateParty(hearing);
               hearing['case'].forEach(thisCase => {
-                const formattedName = hearing['defendant'].split(/\s+/);
                 const row = {
                   courtName: courtName,
                   sittingDate: sittingDate,
@@ -49,7 +48,7 @@ export class CrownFirmListService {
                   caseSeparator: thisCase['caseSequenceIndicator'],
                   linkedCases: thisCase['linkedCases'],
                   hearingNotes: hearing['listingNotes'],
-                  defendant: (formattedName.length > 1) ? formattedName[1].toUpperCase() + ', ' + formattedName[0] : formattedName,
+                  defendant: hearing['defendant'],
                   defendantRepresentative: hearing['defendantRepresentative'],
                   prosecutingAuthority: hearing['prosecutingAuthority'],
                   hearingType: hearing['hearingType'],

@@ -26,8 +26,8 @@ export default class CrownFirmListController {
       const location = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
       const dates = firmListService.getSittingDates(outputArray);
-      const startDate = moment.utc(dates[0]).tz('Europe/London').format('dddd DD MMMM YYYY');
-      const endDate = moment.utc(dates[dates.length -1]).tz('Europe/London').format('dddd DD MMMM YYYY');
+      const startDate = moment.utc(dates[0]).tz('Europe/London').format('DD MMMM YYYY');
+      const endDate = moment.utc(dates[dates.length -1]).tz('Europe/London').format('DD MMMM YYYY');
 
       res.render('crown-firm-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-firm-list']),
