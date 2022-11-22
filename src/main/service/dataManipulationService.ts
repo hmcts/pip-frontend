@@ -35,54 +35,6 @@ export class DataManipulationService {
   }
 
   /**
-   * Manipulate the sscsDailyList json data for writing out on screen.
-   * @param sscsDailyList
-   */
-  public manipulateSscsDailyListData(sscsDailyList: string): object {
-    const sscsDailyListData = JSON.parse(sscsDailyList);
-    let hearingCount = 0;
-
-    sscsDailyListData['courtLists'].forEach(courtList => {
-      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-        courtRoom['session'].forEach(session => {
-          session['formattedJudiciary'] = this.getJudiciaryNameSurname(session);
-          delete session['judiciary'];
-
-          session['sittings'].forEach(sitting => {
-            hearingCount = hearingCount + sitting['hearing'].length;
-            sitting['sittingStartFormatted'] = this.publicationTimeInBst(sitting['sittingStart']);
-            delete sitting['sittingStart'];
-            this.findAndConcatenateHearingPlatform(sitting, session);
-            delete sitting['channel'];
-            delete session['sessionChannel'];
-            sitting['hearing'].forEach(hearing => {
-              this.findAndManipulatePartyInformation(hearing);
-
-              hearing['informant'].forEach(informant => {
-                let prosecutionAuthorityRefFormatted = '';
-                informant['prosecutionAuthorityRef'].forEach(proscAuthRef => {
-                  if (prosecutionAuthorityRefFormatted.length > 0) {
-                    prosecutionAuthorityRefFormatted += ', ' + proscAuthRef;
-                  } else {
-                    prosecutionAuthorityRefFormatted += proscAuthRef;
-                  }
-                });
-                hearing['prosecutionAuthorityRefFormatted'] = prosecutionAuthorityRefFormatted;
-              });
-
-              delete hearing['informant'];
-              delete hearing['party'];
-            });
-          });
-        });
-        courtRoom['totalHearing'] = hearingCount;
-        hearingCount = 0;
-      });
-    });
-    return sscsDailyListData;
-  }
-
-  /**
    * returns all unique vals for given attribute in array of objs
    * @param data array of obs
    * @param thisAttribute attrib to be checked
@@ -253,7 +205,7 @@ export class DataManipulationService {
   }
 
   /**
-   * Manipulate judicary data for writing out to screen.
+   * Manipulate judiciary data for writing out to screen.
    * @param session
    */
   public findAndManipulateJudiciary(session: object): string {
@@ -305,7 +257,6 @@ export class DataManipulationService {
     if (sitting['sittingStart'] !== '' && sitting['sittingEnd'] !== '') {
       const sittingStart = moment.utc(sitting['sittingStart']);
       const sittingEnd = moment.utc(sitting['sittingEnd']);
-
       let durationAsHours = 0;
       let durationAsMinutes = moment.duration(sittingEnd.startOf('minutes').diff(sittingStart.startOf('minutes'))).asMinutes();
       if (durationAsMinutes >= 60) {

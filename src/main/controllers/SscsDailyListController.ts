@@ -5,10 +5,12 @@ import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import moment from 'moment';
 import { DataManipulationService } from '../service/dataManipulationService';
+import { SscsDailyListService } from '../service/listManipulation/sscsDailyListService';
 
 const publicationService = new PublicationService();
 const courtService = new LocationService();
 const dataManipulationService = new DataManipulationService();
+const sscsListService = new SscsDailyListService();
 
 export default class SscsDailyListController {
 
@@ -19,7 +21,7 @@ export default class SscsDailyListController {
 
     if (searchResults && metaData) {
 
-      const manipulatedData = dataManipulationService.manipulateSscsDailyListData(JSON.stringify(searchResults));
+      const manipulatedData = sscsListService.manipulateSscsDailyListData(JSON.stringify(searchResults));
 
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);

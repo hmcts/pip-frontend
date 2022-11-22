@@ -4,10 +4,10 @@ import path from 'path';
 import SscsDailyListController from '../../../main/controllers/SscsDailyListController';
 import {PublicationService} from '../../../main/service/publicationService';
 import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
+import { SscsDailyListService } from '../../../main/service/listManipulation/sscsDailyListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sscsDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -23,7 +23,7 @@ const sscsDailyListController = new SscsDailyListController();
 const sscsDailyListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const sscsDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(DataManipulationService.prototype, 'manipulateSscsDailyListData').returns(listData);
+sinon.stub(SscsDailyListService.prototype, 'manipulateSscsDailyListData').returns(listData);
 
 const artefactId = 'abc';
 
