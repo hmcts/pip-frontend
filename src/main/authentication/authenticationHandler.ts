@@ -89,7 +89,7 @@ export function forgotPasswordRedirect(req, res, next): void {
     }
     const POLICY_URL = `${b2cUrl}/oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
       `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${redirectUrl}` +
-      '&scope=openid&response_type=id_token&prompt=login';
+      '&scope=openid&response_type=code&prompt=login&response_mode=form_post';
 
     res.redirect(POLICY_URL);
     return;
@@ -131,4 +131,20 @@ export async function processMediaAccountSignIn(req, res): Promise<any> {
   } else {
     res.redirect('/account-home');
   }
+}
+
+/**
+ * This function checks the state of a password reset. If the session has not been generated, that means the password
+ * reset has been cancelled and therefore should re-direct them to the appropriate page.
+ * @param req The request to check.
+ * @param res The response to redirect.
+ * @param next The next function
+ */
+export function checkPasswordReset(req, res, next) {
+  if (req.body['error_description']?.includes('AADB2C90091')){
+    res.redirect('/cancelled-password-reset/' + req.params['isAdmin'])
+  } else {
+    next();
+  }
+
 }
