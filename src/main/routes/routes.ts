@@ -184,6 +184,7 @@ export default function(app: Application): void {
   app.get('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.get);
   app.post('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.post);
   app.get('/manual-reference-data-upload-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadConfirmationController.get);
+  app.get('/manual-reference-data-download', isPermittedSystemAdmin, app.locals.container.cradle.referenceDataDownloadController.get);
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {
