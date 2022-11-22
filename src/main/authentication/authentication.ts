@@ -58,8 +58,13 @@ function oidcSetup(): void {
       const user = users[i];
       if (user.oid === oid) {
         const returnedUser = await AccountManagementRequests.prototype.getPiUserByAzureOid(oid);
-        user['piUserId'] = returnedUser.userId;
-        user['piUserProvenance'] = returnedUser.userProvenance;
+
+        // Only add to the user if a result was returned from the database
+        if(returnedUser !== null) {
+          user['piUserId'] = returnedUser?.userId;
+          user['piUserProvenance'] = returnedUser?.userProvenance;
+        }
+
         return fn(user);
       }
     }
