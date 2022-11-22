@@ -70,15 +70,15 @@ export class CrimeListsService {
   }
 
   public createIndividualDetails(individualDetails: any): string {
-    const forenames = dataManipulationService.writeStringIfValid(individualDetails?.individualForenames);
-    const surname = dataManipulationService.writeStringIfValid(individualDetails?.individualSurname);
+    const forenames = DataManipulationService.writeStringIfValid(individualDetails?.individualForenames);
+    const surname = DataManipulationService.writeStringIfValid(individualDetails?.individualSurname);
     return surname
       + (surname.length > 0 && forenames.length > 0 ? ', ' : '')
       + forenames;
   }
 
   private createOrganisationDetails(organisationDetails: any) {
-    return dataManipulationService.writeStringIfValid(organisationDetails?.organisationName);
+    return DataManipulationService.writeStringIfValid(organisationDetails?.organisationName);
   }
 
   public formatCaseTime(sitting: object, format: string): void {
