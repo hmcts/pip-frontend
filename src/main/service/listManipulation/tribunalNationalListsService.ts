@@ -1,9 +1,7 @@
 import { DataManipulationService } from '../dataManipulationService';
-import moment from 'moment-timezone';
-import {DateTimeHelper} from '../../helpers/dateTimeHelper';
+import {formatDate, formatDuration} from '../../helpers/dateTimeHelper';
 
 const dataManipulationService = new DataManipulationService();
-const dateTimeHelper = new DateTimeHelper();
 
 /**
  * Service to manipulate the primary health list nunjucks template.
@@ -23,8 +21,7 @@ export class TribunalNationalListsService {
 
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
-          const hearingDate = this.formatSessionStart(session['sessionStartTime']);
-
+          const hearingDate = formatDate(session['sessionStartTime'], 'DD MMMM');
           session['sittings'].forEach(sitting => {
             dataManipulationService.calculateDuration(sitting);
             const durationAsHours = sitting['durationAsHours'];
@@ -64,19 +61,12 @@ export class TribunalNationalListsService {
       durationAsDays: durationAsDays,
       durationAsHours: durationAsHours,
       durationAsMinutes: durationAsMinutes,
-      formattedDuration: dateTimeHelper.formatDuration(durationAsDays as number,
+      formattedDuration: formatDuration(durationAsDays as number,
         durationAsHours as number, durationAsMinutes as number, language, languageFile),
       caseSequenceIndicator: caseSequenceIndicator,
       hearingType: hearingType,
       venue: venue,
     };
-  }
-
-  /**
-   * Format the session start date (hearing date) into the correct format.
-   */
-  private formatSessionStart(sessionStart: string): string {
-    return moment.utc(sessionStart).tz(dataManipulationService.timeZone).format('DD MMMM');
   }
 
   /**
