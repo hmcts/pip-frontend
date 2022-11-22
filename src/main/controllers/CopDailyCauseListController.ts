@@ -5,11 +5,12 @@ import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import moment from 'moment';
 import { DataManipulationService } from '../service/dataManipulationService';
+import { CopDailyListService } from '../service/listManipulation/copDailyListService';
 
 const publicationService = new PublicationService();
 const courtService = new LocationService();
 const dataManipulationService = new DataManipulationService();
-
+const copDailyListService = new CopDailyListService();
 export default class CopDailyCauseListController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -19,7 +20,7 @@ export default class CopDailyCauseListController {
 
     if (searchResults && metaData) {
 
-      const manipulatedData = dataManipulationService.manipulateCopDailyCauseList(JSON.stringify(searchResults));
+      const manipulatedData = copDailyListService.manipulateCopDailyCauseList(JSON.stringify(searchResults));
 
       const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
       const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);

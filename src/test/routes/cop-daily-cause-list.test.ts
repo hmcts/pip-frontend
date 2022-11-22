@@ -6,13 +6,13 @@ import { app } from '../../main/app';
 import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
-import { DataManipulationService } from '../../main/service/dataManipulationService';
+import { CopDailyListService } from '../../main/service/listManipulation/copDailyListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/copDailyCauseList.json'), 'utf-8');
 const copData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(copData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(copData);
-sinon.stub(DataManipulationService.prototype, 'manipulateCopDailyCauseList').resolves(copData);
+sinon.stub(CopDailyListService.prototype, 'manipulateCopDailyCauseList').resolves(copData);
 
 describe('Cop Daily Cause List Page', () => {
   describe('on GET', () => {

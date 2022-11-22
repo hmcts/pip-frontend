@@ -8,6 +8,7 @@ import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
 import CopDailyCauseListController from '../../../main/controllers/CopDailyCauseListController';
+import { CopDailyListService } from '../../../main/service/listManipulation/copDailyListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/copDailyCauseList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -23,7 +24,7 @@ const copDailyCauseListController = new CopDailyCauseListController();
 const copDailyCauseListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const copDailyCauseListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(DataManipulationService.prototype, 'manipulateCopDailyCauseList').returns(listData);
+sinon.stub(CopDailyListService.prototype, 'manipulateCopDailyCauseList').returns(listData);
 sinon.stub(DataManipulationService.prototype, 'getRegionalJohFromLocationDetails').returns('Test JoH');
 
 const artefactId = 'abc';
