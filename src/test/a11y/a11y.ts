@@ -32,6 +32,7 @@ const routesNotTested = [
   '/file-publication',
   '/media-verification',
   '/media-verification/return',
+  '/manual-reference-data-download'
 ];
 
 const adminRoutes = [
