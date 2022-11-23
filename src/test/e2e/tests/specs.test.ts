@@ -48,9 +48,11 @@ import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountReque
 import {SessionLoggedOutPage} from '../PageObjects/SessionLoggedOut.page';
 import {ManualReferenceDataUploadPage} from '../PageObjects/ManualReferenceDataUpload.page';
 import {ManualReferenceDataUploadSummaryPage} from '../PageObjects/ManualReferenceDataUploadSummary.page';
+import { BlobViewLocationsPage } from '../pageobjects/BlobViewLocationsPage';
 import {BulkDeleteSubscriptionsPage} from '../PageObjects/BulkDeleteSubscriptions.page';
 import {BulkDeleteSubscriptionsConfirmationPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmation.page';
 import {BulkDeleteSubscriptionsConfirmedPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmed.page';
+import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPage';
 import {ListDownloadDisclaimerPage} from '../PageObjects/ListDownloadDisclaimer.page';
 import {ListDownloadFilesPage} from '../PageObjects/ListDownloadFiles.page';
 
@@ -109,6 +111,8 @@ let subscriptionConfigureListPage: SubscriptionConfigureListPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
 let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
 let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
+let blobViewLocationsPage: BlobViewLocationsPage;
+let blobViewPublicationsPage: BlobViewPublicationsPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -759,6 +763,20 @@ describe('System Admin level journeys', () => {
     it('should open upload confirmation page', async () => {
       fileUploadConfirmationPage = await manualReferenceDataUploadSummaryPage.clickContinue();
       expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
+    });
+  });
+
+  describe('should open blob view locations page', async () => {
+    before(async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard?lng=en');
+    });
+    it('should load the blob view locations page', async () => {
+      blobViewLocationsPage = await systemAdminDashboard.clickBlobExplorerLocationsCard();
+      expect(await blobViewLocationsPage.getPageTitle()).toEqual('Blob Explorer - Locations');
+    });
+    it('should choose the first result', async() => {
+      blobViewPublicationsPage = await blobViewLocationsPage.selectFirstListResult();
+      expect(await blobViewPublicationsPage.getPageTitle()).toEqual('Blob Explorer - Publications');
     });
   });
 

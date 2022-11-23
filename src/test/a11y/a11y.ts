@@ -61,6 +61,9 @@ const systemAdminRoutes = [
   '/manual-reference-data-upload',
   '/manual-reference-data-upload-summary',
   '/manual-reference-data-upload-confirmation',
+  '/blob-view-json',
+  '/blob-view-publications',
+  '/blob-view-locations',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
@@ -76,6 +79,7 @@ const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
 const sjpCases = JSON.parse(rawSJPData).results;
 const mediaApplications = JSON.parse(rawMediaApplications);
 
+sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns('location,count\n1,2\n3,1\n');
 sinon.stub(LocationRequests.prototype, 'getLocation').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getFilteredCourts').returns(allCourtData);
