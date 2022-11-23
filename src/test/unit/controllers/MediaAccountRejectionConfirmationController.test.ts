@@ -9,7 +9,10 @@ const mediaAccountRejectionConfirmationController = new MediaAccountRejectionCon
 describe('Media Account Rejection Confirmation Controller', () => {
   describe('GET request', () => {
     const url = 'media-account-rejection-confirmation';
-    const i18n = {url: {}};
+    const i18n = {
+      url: {},
+      error: {},
+    };
 
     const applicantId = '123-456';
     const applicantData = {
@@ -34,6 +37,20 @@ describe('Media Account Rejection Confirmation Controller', () => {
       };
 
       responseMock.expects('render').once().withArgs(url, expectedData);
+      mediaAccountRejectionConfirmationController.get(request, response).then(() => {
+        responseMock.verify();
+      });
+    });
+
+    it('should render the error page if no applicant ID', () => {
+      getApplicationStub.withArgs(applicantId).resolves(applicantData);
+
+      const response = { render: () => {return '';}} as unknown as Response;
+      const responseMock = sinon.mock(response);
+
+      const request = mockRequest(i18n);
+
+      responseMock.expects('render').once().withArgs('error', i18n.error);
       mediaAccountRejectionConfirmationController.get(request, response).then(() => {
         responseMock.verify();
       });

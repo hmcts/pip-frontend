@@ -3,7 +3,7 @@ import {app} from '../../main/app';
 import {expect} from 'chai';
 import {request as expressRequest} from 'express';
 
-const PAGE_URL = '/media-account-rejection-confirmation';
+const PAGE_URL = '/media-account-rejection-confirmation?applicantId=123';
 expressRequest['user'] = {'_json': {'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC'}};
 
 describe('Media account rejection confirmation', () => {
