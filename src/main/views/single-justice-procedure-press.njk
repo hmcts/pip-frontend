@@ -25,7 +25,7 @@
     <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contactDate }}</p>
     <p class="govuk-body">{{ published }} {{ publishedDateTime }} {{ publishedAt }} {{ publishedTime }}</p>
 
-    {% if isAuthenticated and user.role and 'ADMIN' not in user.role %}
+    {% if user.role and user.role in ['VERIFIED'] %}
       {{ govukButton({
         attributes: {
           id: 'download-button'

@@ -26,6 +26,7 @@ export default class SjpPublicListController {
         publishedDateTime: publishedDate,
         publishedTime: publishedTime,
         artefactId: artefactId,
+        user: req.user,
       });
     } else {
       res.render('error',
