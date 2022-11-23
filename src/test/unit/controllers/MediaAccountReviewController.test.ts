@@ -28,6 +28,30 @@ describe('Media Account Review Controller Test', () => {
     'statusDate': '2022-05-09T00:00:01',
   };
 
+  const dummyApplicationAllCapsFileType = {
+    'id': '1234',
+    'fullName': 'Test Name',
+    'email': 'a@b.com',
+    'employer': 'Employer',
+    'image': '12345',
+    'imageName': 'ImageName.JPG',
+    'requestDate': '2022-05-09T00:00:01',
+    'status': 'PENDING',
+    'statusDate': '2022-05-09T00:00:01',
+  };
+
+  const dummyApplicationMixedCapsFileType = {
+    'id': '1234',
+    'fullName': 'Test Name',
+    'email': 'a@b.com',
+    'employer': 'Employer',
+    'image': '12345',
+    'imageName': 'ImageName.JpG',
+    'requestDate': '2022-05-09T00:00:01',
+    'status': 'PENDING',
+    'statusDate': '2022-05-09T00:00:01',
+  };
+
   const dummyApplicationWithUnknownImageType = {
     'id': '1234',
     'fullName': 'Test Name',
@@ -55,6 +79,40 @@ describe('Media Account Review Controller Test', () => {
     responseMock.expects('render').once().withArgs('media-account-review',
       {...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-review']),
         applicantData: dummyApplication });
+
+    await mediaAccountReviewController.get(request, response);
+
+    responseMock.verify();
+  });
+
+  it('should render media account review page when image type is in all caps', async () => {
+    const responseMock = sinon.mock(response);
+
+    const request = mockRequest(i18n);
+    request['query'] = {'applicantId': applicantId};
+
+    mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplicationAllCapsFileType);
+
+    responseMock.expects('render').once().withArgs('media-account-review',
+      {...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-review']),
+        applicantData: dummyApplicationAllCapsFileType });
+
+    await mediaAccountReviewController.get(request, response);
+
+    responseMock.verify();
+  });
+
+  it('should render media account review page when image type is in mixed caps', async () => {
+    const responseMock = sinon.mock(response);
+
+    const request = mockRequest(i18n);
+    request['query'] = {'applicantId': applicantId};
+
+    mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplicationMixedCapsFileType);
+
+    responseMock.expects('render').once().withArgs('media-account-review',
+      {...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-review']),
+        applicantData: dummyApplicationMixedCapsFileType });
 
     await mediaAccountReviewController.get(request, response);
 
