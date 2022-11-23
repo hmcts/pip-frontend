@@ -15,7 +15,7 @@ import {
   mediaVerificationHandling,
   processAdminAccountSignIn,
   processMediaAccountSignIn,
-  checkPasswordReset
+  checkPasswordReset,
 } from '../authentication/authenticationHandler';
 import {SessionManagementService} from '../service/sessionManagementService';
 

@@ -142,7 +142,7 @@ export async function processMediaAccountSignIn(req, res): Promise<any> {
  */
 export function checkPasswordReset(req, res, next) {
   if (req.body['error_description']?.includes('AADB2C90091')){
-    res.redirect('/cancelled-password-reset/' + req.params['isAdmin'])
+    res.redirect('/cancelled-password-reset/' + req.params['isAdmin']);
   } else {
     next();
   }
