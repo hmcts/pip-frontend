@@ -5,6 +5,7 @@ import {CrimeListsService} from '../../../../main/service/listManipulation/Crime
 
 const crimeListsService = new CrimeListsService();
 const rawCrownDailyData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownDailyList.json'), 'utf-8');
+const rawCrimePartyData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crimeListParty.json'), 'utf-8');
 
 const lng = 'en';
 const languageFile = 'crown-daily-list';
@@ -26,7 +27,7 @@ describe('Crime Data manipulation service', () => {
     it('should formatted the party information correctly for prosecution authority and defendant', async () => {
       const data = await crimeListsService.manipulatedCrimeListData(JSON.stringify(crownDailyCause), lng, languageFile);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['defendant']).to.equal('Defendant_SN, Defendant_FN');
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['prosecutingAuthority']).to.equal('Pro_Auth_SN, Pro_Auth_FN');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['prosecutingAuthority']).to.equal('Pro_Auth');
     });
 
     it('should be able to find linked cases for a particular case', async () => {
@@ -46,6 +47,29 @@ describe('Crime Data manipulation service', () => {
       expect(data['courtLists'].length).to.equal(5);
       expect(data['courtLists'][4]['unallocatedCases']).to.equal(true);
       expect(data['courtLists'][4]['courtHouse']['courtRoom'][0]['courtRoomName']).to.equal('to be allocated');
+    });
+  });
+
+  describe('manipulateParty', () => {
+    let partyData;
+    beforeEach(() => {
+      partyData = JSON.parse(rawCrimePartyData);
+    });
+
+    it('should format single defendant and prosecuting authority', async () => {
+      const hearing = partyData.hearing[0];
+      crimeListsService.manipulateParty(hearing);
+      expect(hearing.defendant).to.equal('Surname, Forenames');
+      expect(hearing.defendantRepresentative).to.equal('Defendant rep name');
+      expect(hearing.prosecutingAuthority).to.equal('Prosecuting authority name');
+    });
+
+    it('should format multiple defendants and prosecuting authorities', async () => {
+      const hearing = partyData.hearing[1];
+      crimeListsService.manipulateParty(hearing);
+      expect(hearing.defendant).to.equal('SurnameA, ForenamesA, SurnameB, ForenamesB');
+      expect(hearing.defendantRepresentative).to.equal('Defendant rep nameA, Defendant rep nameB');
+      expect(hearing.prosecutingAuthority).to.equal('Prosecuting authority nameA, Prosecuting authority nameB');
     });
   });
 });
