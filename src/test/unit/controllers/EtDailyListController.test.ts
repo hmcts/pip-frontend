@@ -22,7 +22,7 @@ const etDailyListController = new EtDailyListController();
 const etDailyListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const etDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(EtListsService.prototype, 'reshapeEtDailyListData').returns(listData);
+sinon.stub(EtListsService.prototype, 'reshapeEtLists').returns(listData);
 
 const artefactId = 'abc';
 

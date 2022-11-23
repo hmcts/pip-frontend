@@ -6,12 +6,12 @@ export class EtListsService {
   public dataManipulationService = new DataManipulationService();
 
   /**
-   * Reshaping etDailyList json data into formatted niceness.
+   * Reshaping et List json data into formatted niceness.
    */
-  public reshapeEtDailyListData(etDailyList: string): object {
-    const etDailyListData = JSON.parse(etDailyList);
+  public reshapeEtLists(listData: string): object {
+    const jsonData = JSON.parse(listData);
     let hearingCount = 0;
-    etDailyListData['courtLists'].forEach(courtList => {
+    jsonData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['formattedJudiciary'] = this.dataManipulationService.getJudiciaryNameSurname(session);
@@ -30,7 +30,7 @@ export class EtListsService {
         hearingCount = 0;
       });
     });
-    return etDailyListData;
+    return jsonData;
   }
 
   /**
@@ -38,28 +38,7 @@ export class EtListsService {
    * then loops through again to split data into days. Not O(1) but I think the world is just gonna have to deal.
    */
   public reshapeEtFortnightlyListData(etFortList: string): object {
-    const etFortnightlyListData = JSON.parse(etFortList);
-    let hearingCount = 0;
-    etFortnightlyListData['courtLists'].forEach(courtList => {
-      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-        courtRoom['session'].forEach(session => {
-          session['formattedJudiciary'] =this.dataManipulationService.getJudiciaryNameSurname(session);
-          delete session['judiciary'];
-          session['sittings'].forEach(sitting => {
-            hearingCount = hearingCount + sitting['hearing'].length;
-            sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma');
-            this.dataManipulationService.calculateDuration(sitting);
-            this.dataManipulationService.findAndConcatenateHearingPlatform(sitting, session);
-            sitting['hearing'].forEach(hearing => {
-              this.dataManipulationService.findAndManipulatePartyInformation(hearing, true);
-            });
-          });
-        });
-        courtRoom['totalHearing'] = hearingCount;
-        hearingCount = 0;
-      });
-    });
-    return this.dataSplitterEtList(etFortnightlyListData);
+    return this.dataSplitterEtList(this.reshapeEtLists(etFortList));
   }
 
   /**
