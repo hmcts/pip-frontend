@@ -1,8 +1,10 @@
 const drivers = {
-  chromiumedge: {version: 'latest'},
-  chrome: {version: '106.0.5249.61'},
-  firefox: {version: 'latest'},
+  chromiumedge: { version: 'latest' },
+  chrome: { version: '106.0.5249.61' },
+  firefox: { version: 'latest' },
 };
+
+const { TimelineService } = require('wdio-timeline-reporter/timeline-service');
 
 exports.config = {
   // ====================
@@ -135,9 +137,11 @@ exports.config = {
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
   services: [['selenium-standalone', {
-    installArgs: {drivers},
-    args: {drivers},
-  }]],
+    installArgs: { drivers },
+    args: { drivers },
+  }],
+  [TimelineService],
+  ],
 
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
@@ -159,7 +163,7 @@ exports.config = {
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
-  reporters: ['spec'],
+  reporters: ['spec', ['timeline', { outputDir: './e2e-results' }]],
   //
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
@@ -286,8 +290,11 @@ exports.config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {Object} results object containing test results
    */
-  // onComplete: function(exitCode, config.ts, capabilities, results) {
-  // },
+  onComplete: function() {
+    'echo "e2e tests complete. HTML report available at :"';
+    'echo $( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )/e2e-results/timeline-report.html';
+  },
+
   /**
    * Gets executed when a refresh happens.
    * @param {String} oldSessionId session ID of the old session
@@ -300,11 +307,15 @@ exports.config = {
     autoCompile: true,
     // see https://github.com/TypeStrong/ts-node#cli-and-programmatic-options
     // for all available options
-    tsNodeOpts: {
-      transpileOnly: true,
-      project: 'tsconfig.e2e.json',
-    },
+    tsNodeOpts:
+      {
+        transpileOnly: true,
+        project: 'tsconfig.e2e.json',
+      }
+    ,
     // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
     // do please make sure "tsconfig-paths" is installed as dependency
-  },
-};
+  }
+  ,
+}
+;
