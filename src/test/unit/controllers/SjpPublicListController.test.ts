@@ -43,6 +43,7 @@ describe('SJP Public List Type Controller', () => {
       publishedTime: '12:30am',
       ...i18n['single-justice-procedure'],
       artefactId: '1',
+      user: request.user,
     };
 
     responseMock.expects('render').once().withArgs('single-justice-procedure', expectedData);
