@@ -1,6 +1,6 @@
 name: Check PR title and project linting
 on:
-  pull_request:
+  pull_request_target:
     types:
       - opened
       - reopened
