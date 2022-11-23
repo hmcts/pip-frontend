@@ -210,7 +210,6 @@ export class DataManipulationService {
                   jurisdiction: thisCase['caseType'],
                   hearingPlatform: sitting['caseHearingChannel'],
                 };
-                console.log(row);
                 rows.push(row);
               });
             });
