@@ -32,6 +32,12 @@ const routesNotTested = [
   '/file-publication',
   '/media-verification',
   '/media-verification/return',
+  '/user-management',
+  '/manage-user',
+  '/update-user',
+  '/delete-user',
+  '/delete-user-confirmation',
+  '/update-user-confirmation',
 ];
 
 const adminRoutes = [
