@@ -46,7 +46,7 @@ describe('Update User Page', () => {
 
   it('should display the update role select box', () => {
     const selectBox = htmlRes.getElementsByClassName(roleSelectBoxClass);
-    expect(selectBox[0].innerHTML).contains('System Admin', 'Could not find select box text');
+    expect(selectBox[0].innerHTML).contains('CTSC Super Admin', 'Could not find select box text');
   });
 
   it('should display the continue button', () => {

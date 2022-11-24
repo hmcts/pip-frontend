@@ -42,9 +42,9 @@ describe('System Admin Dashboard page', () => {
     expect(bannerComponents[4].innerHTML).equal('Sign out');
   });
 
-  it('should display 3 card options', () => {
+  it('should display 4 card options', () => {
     const cardComponents = htmlRes.getElementsByClassName('account-card');
-    expect(cardComponents.length).equal(3);
+    expect(cardComponents.length).equal(4);
   });
 
   it('card should have correct content and links', () => {
