@@ -127,9 +127,6 @@ describe('User management service', () => {
     expect(response[0].value).to.equal('INTERNAL_ADMIN_CTSC');
     expect(response[0].text).to.equal('CTSC Admin');
     expect(response[0].selected).to.equal(false);
-    expect(response[4].value).to.equal('SYSTEM_ADMIN');
-    expect(response[4].text).to.equal('System Admin');
-    expect(response[4].selected).to.equal(true);
   });
 
   it('should generate the filter key values', () => {

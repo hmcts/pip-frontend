@@ -316,7 +316,7 @@ export class UserManagementService {
     const items = [];
 
     for (const [apiValue, formattedValue] of Object.entries(formattedRoles)) {
-      if(apiValue !== 'VERIFIED') {
+      if(apiValue !== 'VERIFIED' && apiValue !== 'SYSTEM_ADMIN') {
         items.push({
           value: apiValue,
           text: formattedValue,
