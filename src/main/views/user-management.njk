@@ -1,0 +1,73 @@
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import goBack %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+{% from "moj/components/filter/macro.njk" import mojFilter %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+{% block content %}
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-1 govuk-!-padding-left-3">{{ heading }}</h1>
+  <span class="govuk-caption-l govuk-!-padding-left-3">{{ subHeading }}</span>
+  <main class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        {%- set filterOptions %}
+          {{ govukInput(emailFieldData) }}
+          {{ govukInput(userIdFieldData) }}
+          {{ govukInput(userProvenanceIdFieldData) }}
+          {{ govukCheckboxes(rolesFieldData) }}
+          {{ govukCheckboxes(provenancesFieldData) }}
+        {% endset -%}
+        <form method="post" action="user-management" autocomplete="off">
+          {{ mojFilter({
+            heading: {
+              text: filter
+            },
+            selectedFilters: {
+              clearLink: {
+                text: clearFilters,
+                href: clearHref
+              },
+              heading: {
+                text: selectedFilters
+              },
+              categories: categories
+            },
+            optionsHtml: filterOptions
+          }) }}
+        </form>
+      </div>
+      <div class="govuk-grid-column-three-quarters">
+        {% if userData | length %}
+          {{ govukTable({
+            head: header,
+            rows: userData
+          }) }}
+        {% else %}
+          {{ govukErrorSummary({
+            titleText: problemHeading,
+            errorList: [{text: problemText}]
+          }) }}
+        {% endif %}
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third"></div>
+      <div class="govuk-grid-column-two-thirds">
+        {{ govukPagination(paginationData) }}
+      </div>
+    </div>
+  </main>
+{% endblock %}
+{% block bodyEnd %}
+  {{ super() }}
+{% endblock %}
