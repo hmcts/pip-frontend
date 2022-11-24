@@ -13,7 +13,11 @@
 <div class="parent-box">
   <h1 class="govuk-heading-l">{{ title }} {{ locationName }}?</h1>
   {% if publications.length === 0 %}
-    <p class="govuk-body govuk-!-font-size-16">{{ noLists }}</p>
+    {% if isSjp %}
+      <p class="govuk-body govuk-!-font-size-16">{{ sjpMessage }}</p>
+    {% else %}
+      <p class="govuk-body govuk-!-font-size-16">{{ noLists }}</p>
+     {% endif %}
   {% else %}
     <p class="govuk-body">{{ p1 }}</p>
     <div class="parent-box">
@@ -28,7 +32,6 @@
           {% else %}
             <a class=das-search-results__link
                href="{{ item.listType | listUrl }}?artefactId={{ item.artefactId }}">{{ item.listType | listType }} {{ item.contentDate | date("DD MMMM YYYY") }} - {{ item.language | language }}</a>
-            {# TODO add list types here as the templates are built for them #}
           {% endif %}
         </li>
       {% endfor %}
