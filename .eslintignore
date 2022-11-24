@@ -12,3 +12,4 @@ jest.*config.js
 *.min.js
 /src/main/assets/js/jquery.js
 /src/main/assets/js/mojAll.js
+/src/main/views/govuk
