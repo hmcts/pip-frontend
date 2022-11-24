@@ -8286,10 +8286,10 @@ pascal-case@^3.1.2:
     no-case "^3.0.4"
     tslib "^2.0.3"
 
-passport-azure-ad@4.3.4:
-  version "4.3.4"
-  resolved "https://registry.yarnpkg.com/passport-azure-ad/-/passport-azure-ad-4.3.4.tgz#2f1c3f64003df974b60390ece70d106336336f46"
-  integrity sha512-veG3IT/ovfFaMK3IREcVGLYa8nx/91s10eeMcfJmvofHG7Uv6FVElrnDA2E1CgQdE6hdWzG28UV8ITw6Qhocxg==
+passport-azure-ad@4.3.3:
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/passport-azure-ad/-/passport-azure-ad-4.3.3.tgz#4b293a6a474b776b4c530698f650194b441904ce"
+  integrity sha512-tx1zOXw+ve23Bp4/2LoopcXfh+DoI53hRe7v/ly8Jw82jqul5E9/gLLG1VYQl/A1a6oqul9hyJIpodeLkBMVcA==
   dependencies:
     async "^3.2.3"
     base64url "^3.0.0"
@@ -8300,7 +8300,7 @@ passport-azure-ad@4.3.4:
     lodash "^4.11.2"
     node-jose "^2.0.0"
     oauth "0.9.15"
-    passport "^0.6.0"
+    passport "^0.4.1"
     valid-url "^1.0.6"
 
 passport-custom@^1.1.1:
@@ -8315,14 +8315,13 @@ passport-strategy@1.x.x:
   resolved "https://registry.yarnpkg.com/passport-strategy/-/passport-strategy-1.0.0.tgz#b5539aa8fc225a3d1ad179476ddf236b440f52e4"
   integrity sha512-CB97UUvDKJde2V0KDWWB3lyf6PC3FaZP7YxZ2G8OAtn9p4HI9j9JLP9qjOGZFvyl8uwNT8qM+hGnz/n16NI7oA==
 
-passport@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/passport/-/passport-0.6.0.tgz#e869579fab465b5c0b291e841e6cc95c005fac9d"
-  integrity sha512-0fe+p3ZnrWRW74fe8+SvCyf4a3Pb2/h7gFkQ8yTJpAO50gDzlfjZUZTO1k5Eg9kUct22OxHLqDZoKUWRHOh9ug==
+passport@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/passport/-/passport-0.4.1.tgz#941446a21cb92fc688d97a0861c38ce9f738f270"
+  integrity sha512-IxXgZZs8d7uFSt3eqNjM9NQ3g3uQCW5avD8mRNoXV99Yig50vjuaez6dQK2qC0kVWPRTujxY0dWgGfT09adjYg==
   dependencies:
     passport-strategy "1.x.x"
     pause "0.0.1"
-    utils-merge "^1.0.1"
 
 path-exists@^2.0.0:
   version "2.1.0"
@@ -10412,7 +10411,7 @@ utila@~0.4:
   resolved "https://registry.yarnpkg.com/utila/-/utila-0.4.0.tgz#8a16a05d445657a3aea5eecc5b12a4fa5379772c"
   integrity sha512-Z0DbgELS9/L/75wZbro8xAnT50pBVFQZ+hUEueGDU5FN51YSCYM+jdxsfCiHjwNP/4LCDD0i/graKpeBnOXKRA==
 
-utils-merge@1.0.1, utils-merge@^1.0.1:
+utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==
