@@ -542,12 +542,12 @@ export class DataManipulationService {
       sitting['durationAsHours'] = durationAsHours;
       sitting['durationAsMinutes'] = durationAsMinutes;
       sitting['durationAsDays'] = durationAsDays;
-
-      sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('HH:mm');
       const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
       if (min === 0) {
+        sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('ha');
         sitting['startTime'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('ha');
       } else {
+        sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('h:mma');
         sitting['startTime'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('h.mma');
       }
     }
