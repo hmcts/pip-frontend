@@ -813,8 +813,8 @@ describe('System Admin level journeys', () => {
       expect(await deleteUserConfirmationPage.getPageTitle()).toEqual('User Deleted');
       expect(await deleteUserConfirmationPage.getPanelBody()).toEqual('All data relating to the user has been deleted,' +
         ' including subscriptions for media users.');
-      });
     });
+  });
     
   describe('should open blob view locations page', async () => {
     before(async () => {
