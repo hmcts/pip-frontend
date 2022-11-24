@@ -190,75 +190,102 @@ describe('get individual publication metadata', () => {
     const message = await pubRequests.getIndividualPublicationMetadata('noErrRequest', userId, false);
     expect(message).toBe(null);
   });
+});
 
-  describe('get individual publication file', () => {
-    it('should return file for a given publication', async () => {
-      dataManagementStub.withArgs('/publication/fakeArtefactId/file', {
-        headers: {'x-user-id': '123'},
-        responseType: 'arraybuffer'}).resolves(indivPubJsonObject);
-      const message = await pubRequests.getIndividualPublicationFile('fakeArtefactId', userId);
-      expect(message).toBe(indivPubJsonObject.data);
-    });
-
-    it('should send an error request to the log if error request exists', async () => {
-      dataManagementStub.withArgs('/publication/promiseBreakingData/file').rejects(errorRequest);
-      expect(await pubRequests.getIndividualPublicationFile('promiseBreakingData', userId)).toBe(null);
-    });
-
-    it('should send an error to the log if error response exists', async () => {
-      dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/file').rejects(errorResponse);
-      const response = await pubRequests.getIndividualPublicationFile('brokenPromiseWithErrorResponse', userId);
-      expect(response).toBe(null);
-    });
-
-    it('should send an error to the log if error message exists and error request does not exist', async () => {
-      dataManagementStub.withArgs('/publication/search/y').rejects(errorMessage);
-      const message = await publicationRequests.getPublicationsByCourt('y', userId, false);
-      expect(message).toStrictEqual([]);
-    });
+describe('get count of pubs for each court', () => {
+  it('should return the text as a string if successful', async () => {
+    dataManagementStub.withArgs('/publication/count-by-location').resolves(successResponse);
+    const message = (await pubRequests.getPubsPerLocation());
+    expect(message).toBe(successResponse.data);
   });
 
-  describe('get individual publication json', () => {
-    it('should return json for a given publication', async () => {
-      dataManagementStub.withArgs('/publication/fakeArtefactId/payload', {headers: {'x-user-id': '123'}}).resolves(mockJson);
-      const message = await pubRequests.getIndividualPublicationJson('fakeArtefactId', userId);
-      expect(message).toBe(mockJson.data);
-    });
-
-    it('should send an error request to the log if error request exists', async () => {
-      dataManagementStub.withArgs('/publication/promiseBreakingData/payload').rejects(errorRequest);
-      expect(await pubRequests.getIndividualPublicationJson('promiseBreakingData', userId)).toBe(null);
-    });
-
-    it('should send an error to the log if error response exists', async () => {
-      dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/payload').rejects(errorResponse);
-      const response = await pubRequests.getIndividualPublicationJson('brokenPromiseWithErrorResponse', userId);
-      expect(response).toBe(null);
-    });
-
-    it('should send an error to the log if error message exists and error request does not exist', async () => {
-      dataManagementStub.withArgs('/publication/noErrRequest/payload').rejects(errorMessage);
-      const message = await pubRequests.getIndividualPublicationJson('y', userId);
-      expect(message).toBe(null);
-    });
+  it('should send an error request to logs if error request exists', async () => {
+    dataManagementStub.withArgs('/publication/count-by-location').rejects(errorRequest);
+    expect(await pubRequests.getPubsPerLocation()).toBe(null);
   });
 
-  describe('delete publication', () => {
-    it('should return true if valid data is provided', async () => {
-      const response = await pubRequests.deletePublication('abc', 'joe@bloggs.com');
-      expect(response).toBe(true);
-    });
+  it('should send an error response to logs if error response exists', async () => {
+    dataManagementStub.withArgs('/publication/count-by-location').rejects(errorResponse);
+    const response = await pubRequests.getPubsPerLocation();
+    expect(response).toBe(null);
+  });
 
-    it('should handle error response', async () => {
-      expect(await pubRequests.deletePublication('abc1', 'joe@bloggs.com')).toBe(false);
-    });
+  it('should send an error to the log if error message exists and error request does not exist', async () => {
+    dataManagementStub.withArgs('/publication/count-by-location').rejects(errorMessage);
+    const message = await publicationRequests.getPubsPerLocation();
+    expect(message).toStrictEqual(null);
+  });
 
-    it('should handle error request', async () => {
-      expect(await pubRequests.deletePublication('abc2', 'joe@bloggs.com')).toBe(false);
-    });
+});
 
-    it('should handle error message', async () => {
-      expect(await pubRequests.deletePublication('abc3', 'joe@bloggs.com')).toBe(false);
-    });
+describe('get individual publication file', () => {
+  it('should return file for a given publication', async () => {
+    dataManagementStub.withArgs('/publication/fakeArtefactId/file', {
+      headers: {'x-user-id': '123'},
+      responseType: 'arraybuffer',
+    }).resolves(indivPubJsonObject);
+    const message = await pubRequests.getIndividualPublicationFile('fakeArtefactId', userId);
+    expect(message).toBe(indivPubJsonObject.data);
+  });
+
+  it('should send an error request to the log if error request exists', async () => {
+    dataManagementStub.withArgs('/publication/promiseBreakingData/file').rejects(errorRequest);
+    expect(await pubRequests.getIndividualPublicationFile('promiseBreakingData', userId)).toBe(null);
+  });
+
+  it('should send an error to the log if error response exists', async () => {
+    dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/file').rejects(errorResponse);
+    const response = await pubRequests.getIndividualPublicationFile('brokenPromiseWithErrorResponse', userId);
+    expect(response).toBe(null);
+  });
+
+  it('should send an error to the log if error message exists and error request does not exist', async () => {
+    dataManagementStub.withArgs('/publication/search/y').rejects(errorMessage);
+    const message = await publicationRequests.getPublicationsByCourt('y', userId, false);
+    expect(message).toStrictEqual([]);
+  });
+});
+
+describe('get individual publication json', () => {
+  it('should return json for a given publication', async () => {
+    dataManagementStub.withArgs('/publication/fakeArtefactId/payload', {headers: {'x-user-id': '123'}}).resolves(mockJson);
+    const message = await pubRequests.getIndividualPublicationJson('fakeArtefactId', userId);
+    expect(message).toBe(mockJson.data);
+  });
+
+  it('should send an error request to the log if error request exists', async () => {
+    dataManagementStub.withArgs('/publication/promiseBreakingData/payload').rejects(errorRequest);
+    expect(await pubRequests.getIndividualPublicationJson('promiseBreakingData', userId)).toBe(null);
+  });
+
+  it('should send an error to the log if error response exists', async () => {
+    dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/payload').rejects(errorResponse);
+    const response = await pubRequests.getIndividualPublicationJson('brokenPromiseWithErrorResponse', userId);
+    expect(response).toBe(null);
+  });
+
+  it('should send an error to the log if error message exists and error request does not exist', async () => {
+    dataManagementStub.withArgs('/publication/noErrRequest/payload').rejects(errorMessage);
+    const message = await pubRequests.getIndividualPublicationJson('y', userId);
+    expect(message).toBe(null);
+  });
+});
+
+describe('delete publication', () => {
+  it('should return true if valid data is provided', async () => {
+    const response = await pubRequests.deletePublication('abc', 'joe@bloggs.com');
+    expect(response).toBe(true);
+  });
+
+  it('should handle error response', async () => {
+    expect(await pubRequests.deletePublication('abc1', 'joe@bloggs.com')).toBe(false);
+  });
+
+  it('should handle error request', async () => {
+    expect(await pubRequests.deletePublication('abc2', 'joe@bloggs.com')).toBe(false);
+  });
+
+  it('should handle error message', async () => {
+    expect(await pubRequests.deletePublication('abc3', 'joe@bloggs.com')).toBe(false);
   });
 });

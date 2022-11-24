@@ -146,6 +146,7 @@ module.exports = {
   RemoveContent: '#card-remove-list-search',
   ManageMediaAccounts: '#card-media-applications',
   CreateAdminAccount: '#card-create-admin-account',
+  BlobExplorerLocations: '#card-blob-view-locations',
 
   // CreateMediaAccount selectors
   UploadImage: '#file-upload',
@@ -161,6 +162,9 @@ module.exports = {
 
   // SummaryOfPublications selectors
   SOPListItem: '.das-search-results__link',
+
+  // Blob Explorer Location Selector
+  locationSelector: '.govuk-table__body > tr:nth-child(1) > th:nth-child(1) > a:nth-child(1)',
 
   // Banner navigation selectors
   BannerHome: '.moj-sub-navigation__item:first-child',

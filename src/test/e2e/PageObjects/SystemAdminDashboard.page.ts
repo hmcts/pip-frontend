@@ -3,6 +3,7 @@ import { CreateSystemAdminAccountPage } from './CreateSystemAdminAccount.page';
 import {SessionLoggedOutPage} from './SessionLoggedOut.page';
 import {ManualReferenceDataUploadPage} from './ManualReferenceDataUpload.page';
 import {UserManagementPage} from './UserManagement.page';
+import { BlobViewLocationsPage } from './BlobViewLocationsPage';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -32,6 +33,15 @@ export class SystemAdminDashboardPage extends CommonPage {
 
     await $(helpers.userManagement).click();
     return new UserManagementPage();
+  }
+  
+  async clickBlobExplorerLocationsCard(): Promise<BlobViewLocationsPage> {
+    await $(helpers.BlobExplorerLocations).catch(() => {
+      console.log(`${helpers.BlobExplorerLocations} not found`);
+    });
+
+    await $(helpers.BlobExplorerLocations).click();
+    return new BlobViewLocationsPage();
   }
 
   async clickSignOut(): Promise<SessionLoggedOutPage> {

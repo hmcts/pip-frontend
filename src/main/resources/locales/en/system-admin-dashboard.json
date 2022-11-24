@@ -16,6 +16,11 @@
       "title": "User Management",
       "description": "Search, update and delete users",
       "link": "user-management"
+    },
+    {
+      "title": "Blob Explorer",
+      "description": "Discover content uploaded to all locations.",
+      "link": "blob-view-locations"
     }
   ]
 }
