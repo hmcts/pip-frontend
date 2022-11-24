@@ -1,0 +1,8 @@
+{
+  "title": "Blob Explorer - Locations",
+  "subHeading": "Choose a location to see all publications associated with it.",
+  "tableHeaders": [
+    "Location",
+    "Number of Publications"
+  ]
+}

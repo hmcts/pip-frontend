@@ -12,6 +12,17 @@ export class PublicationService {
     return publicationRequests.getIndividualPublicationMetadata(artefactId, userId, admin);
   }
 
+  public async getCountsOfPubsPerLocation(): Promise<Map<number, number>> {
+    const response = await publicationRequests.getPubsPerLocation();
+    const splitResponse = response.split('\n').slice(1, -1);
+    const map = new Map();
+    splitResponse.forEach(line => {
+      const commaSeparatedLine = line.split(',');
+      map.set(parseInt(commaSeparatedLine[0]), parseInt(commaSeparatedLine[1]));
+    });
+    return map;
+  }
+
   public async getIndividualPublicationFile(artefactId, userId: string): Promise<Blob> {
     return publicationRequests.getIndividualPublicationFile(artefactId, userId);
   }
@@ -30,7 +41,7 @@ export class PublicationService {
     return this.getCaseFromArtefact(artefact[0], 'caseNumber', caseNumber);
   }
 
-  public async getCaseByCaseUrn(urn: string, userId: string): Promise<SearchObject> | null{
+  public async getCaseByCaseUrn(urn: string, userId: string): Promise<SearchObject> | null {
     const artefact = await publicationRequests.getPublicationByCaseValue('CASE_URN', urn, userId);
     return this.getCaseFromArtefact(artefact[0], 'caseUrn', urn);
   }
@@ -57,7 +68,7 @@ export class PublicationService {
           const alreadyExists = matches.find(m => m.caseName === singleCase.caseName
             && m.caseUrn === singleCase.caseUrn
             && m.caseNumber === singleCase.caseNumber);
-          if(!alreadyExists) {
+          if (!alreadyExists) {
             matches.push(singleCase);
           }
         }
@@ -92,8 +103,8 @@ export class PublicationService {
    */
   public languageToLoadPageIn(listLanguage: string, userLanguage: string): string {
     if ((listLanguage === 'BI_LINGUAL') ||
-        (listLanguage === 'ENGLISH' && userLanguage !== 'en') ||
-        (listLanguage === 'WELSH' && userLanguage !== 'cy')) {
+      (listLanguage === 'ENGLISH' && userLanguage !== 'en') ||
+      (listLanguage === 'WELSH' && userLanguage !== 'cy')) {
       return 'bill';
     } else {
       return userLanguage;
