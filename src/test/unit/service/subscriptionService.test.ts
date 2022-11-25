@@ -428,12 +428,12 @@ describe('configureListTypeForLocationSubscriptions', () => {
 
 describe('unsubscribing', () => {
   it('should return a message if subscription is deleted', async () => {
-    const payload = await subscriptionService.unsubscribe('ValidSubscriptionId');
+    const payload = await subscriptionService.unsubscribe('ValidSubscriptionId', '2345-2345');
     expect(payload).toEqual('Subscription was deleted');
   });
 
   it('should return null if subscription delete failed', async () => {
-    const payload = await subscriptionService.unsubscribe('InValidSubscriptionId');
+    const payload = await subscriptionService.unsubscribe('InValidSubscriptionId', '2345-2345');
     expect(payload).toEqual(null);
   });
 });
@@ -668,4 +668,15 @@ describe('generateListTypesForCourts', () => {
     expect(result[0][0].text).toEqual('Welsh court name test');
     expect(result[0][2].html).toContain('dad-danysgrifio');
   });
+
+  it('retrieve subscription channels', async () => {
+
+    const subscriptionChannelStub = sinon.stub(SubscriptionRequests.prototype, 'retrieveSubscriptionChannels');
+    subscriptionChannelStub.resolves(['CHANNEL_A', 'CHANNEL_B']);
+
+    const retrievedChannels = await subscriptionService.retrieveChannels();
+
+    expect(retrievedChannels).toStrictEqual(['CHANNEL_A', 'CHANNEL_B']);
+  });
+
 });
