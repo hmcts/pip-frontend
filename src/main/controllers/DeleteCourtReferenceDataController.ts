@@ -9,6 +9,7 @@ export default class DeleteCourtReferenceDataController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const courtList = await locationService.fetchAllLocations(req.lng as string);
+    courtList.sort((a, b) => (a.locationId < b.locationId ? -1 : 1));
     res.render('delete-court-reference-data', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data']),
       courtList: locationService.formatCourtRemovalValues(courtList)});

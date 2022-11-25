@@ -2,6 +2,7 @@ import { CommonPage } from './Common.page';
 import { CreateSystemAdminAccountPage } from './CreateSystemAdminAccount.page';
 import {SessionLoggedOutPage} from './SessionLoggedOut.page';
 import {ManualReferenceDataUploadPage} from './ManualReferenceDataUpload.page';
+import {DeleteCourtReferenceDataPage} from './DeleteCourtReferenceData.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -22,6 +23,15 @@ export class SystemAdminDashboardPage extends CommonPage {
 
     await $(helpers.ReferenceDataUploadFile).click();
     return new ManualReferenceDataUploadPage();
+  }
+
+  async clickDeleteCourtCard(): Promise<DeleteCourtReferenceDataPage> {
+    await $(helpers.DeleteCourt).catch(() => {
+      console.log(`${helpers.DeleteCourt} not found`);
+    });
+
+    await $(helpers.DeleteCourt).click();
+    return new DeleteCourtReferenceDataPage();
   }
 
   async clickSignOut(): Promise<SessionLoggedOutPage> {

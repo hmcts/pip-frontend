@@ -51,6 +51,9 @@ import {ManualReferenceDataUploadSummaryPage} from '../PageObjects/ManualReferen
 import {BulkDeleteSubscriptionsPage} from '../PageObjects/BulkDeleteSubscriptions.page';
 import {BulkDeleteSubscriptionsConfirmationPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmation.page';
 import {BulkDeleteSubscriptionsConfirmedPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmed.page';
+import {DeleteCourtReferenceDataPage} from '../PageObjects/DeleteCourtReferenceData.page';
+import {DeleteCourtReferenceConfirmationPage} from '../PageObjects/DeleteCourtReferenceConfirmation.page';
+import {DeleteCourtReferenceSuccessPage} from '../PageObjects/DeleteCourtReferenceSuccess.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -105,6 +108,9 @@ let subscriptionConfigureListPage: SubscriptionConfigureListPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
 let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
 let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
+let deleteCourtReferenceDataPage: DeleteCourtReferenceDataPage;
+let deleteCourtReferenceConfirmationPage: DeleteCourtReferenceConfirmationPage;
+let deleteCourtReferenceSuccessPage: DeleteCourtReferenceSuccessPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -729,6 +735,49 @@ describe('System Admin level journeys', () => {
       fileUploadConfirmationPage = await manualReferenceDataUploadSummaryPage.clickContinue();
       expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
     });
+  });
+
+  describe('Delete Court In Reference Upload', () => {
+    before(async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard');
+    });
+
+    it('should open reference manual upload page', async () => {
+      manualReferenceDataUploadPage = await systemAdminDashboard.clickReferenceDataUploadFileCard();
+      expect(await manualReferenceDataUploadPage.getPageTitle()).toEqual('Reference manual data upload');
+    });
+    it('should complete form and open summary page', async () => {
+      await manualReferenceDataUploadPage.completeForm();
+      manualReferenceDataUploadSummaryPage = await manualReferenceDataUploadPage.clickContinue();
+      expect(await manualReferenceDataUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+    });
+    it('should open upload confirmation page', async () => {
+      fileUploadConfirmationPage = await manualReferenceDataUploadSummaryPage.clickContinue();
+      expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
+    });
+
+    it('should open delete reference data page', async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard');
+      deleteCourtReferenceDataPage = await systemAdminDashboard.clickDeleteCourtCard();
+      expect(await deleteCourtReferenceDataPage.getPageTitle()).toEqual('Select a court to remove');
+    });
+
+    it('should click on the first result and open confirmation page', async () => {
+      deleteCourtReferenceConfirmationPage= await deleteCourtReferenceDataPage.clickDeleteCourtLink();
+      expect(await deleteCourtReferenceConfirmationPage.getPageTitle()).toEqual('Are you sure you want to delete this court?');
+    });
+
+    it('should select the radio button and open success page', async () => {
+      await deleteCourtReferenceConfirmationPage.selectOption('delete-choice');
+      deleteCourtReferenceSuccessPage = await deleteCourtReferenceConfirmationPage.clickContinueToDeleteCourt();
+      expect(await deleteCourtReferenceSuccessPage.getPageTitle()).toEqual('Success');
+    });
+
+    it('should click on the home link and open admin dashboard page', async () => {
+      systemAdminDashboard = await deleteCourtReferenceSuccessPage.clickHome();
+      expect(await systemAdminDashboard.getPageTitle()).toEqual('System Admin Dashboard');
+    });
+
   });
 
   describe('sign out system admin dashboard', () => {
