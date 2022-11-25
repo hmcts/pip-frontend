@@ -2,11 +2,14 @@ import {SubscriptionService} from './subscriptionService';
 import {SubscriptionRequests} from '../resources/requests/subscriptionRequests';
 import moment from 'moment/moment';
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
+import {Logger} from '@hmcts/nodejs-logging';
 
 /**
  * This service class handles support methods for dealing with third parties
  */
 export class ThirdPartyService {
+
+  logger = Logger.getLogger('thirdPartyService');
 
   subscriptionService = new SubscriptionService();
   subscriptionRequests = new SubscriptionRequests();
@@ -62,21 +65,27 @@ export class ThirdPartyService {
 
   /**
    * This method handles the update of third party subscriptions.
+   * @oaram adminUserID The admin who is performing the action
    * @param selectedUser The user ID of the user to update.
    * @param selectedListTypes The list types that have been selected.
    * @param selectedChannel The channel that has been selected.
    */
-  public async handleThirdPartySubscriptionUpdate(selectedUser, selectedListTypes, selectedChannel) {
+  public async handleThirdPartySubscriptionUpdate(adminUserId, selectedUser, selectedListTypes, selectedChannel) {
     selectedListTypes = selectedListTypes ? selectedListTypes : [];
     selectedListTypes = Array.isArray(selectedListTypes) ? selectedListTypes : Array.of(selectedListTypes);
 
     const currentSubscriptions = await this.subscriptionService.getSubscriptionsByUser(selectedUser);
     currentSubscriptions.listTypeSubscriptions.forEach((sub) => {
       if (!selectedListTypes.includes(sub.listType)) {
-        this.subscriptionService.unsubscribe(sub.subscriptionId);
+        this.logger.info('Unsubscribing ' + selectedUser + ' for list type '
+          + sub.listType + ' by admin ' + adminUserId);
+
+        this.subscriptionService.unsubscribe(sub.subscriptionId, adminUserId);
       } else {
         if (sub.channel !== selectedChannel) {
-          this.createdThirdPartySubscription(selectedUser, sub.listType, selectedChannel);
+          this.logger.info('Updating subscription for ' + selectedUser + ' for list type '
+            + sub.listType + ' by admin ' + adminUserId);
+          this.createdThirdPartySubscription(selectedUser, sub.listType, selectedChannel, adminUserId);
         }
 
         selectedListTypes.filter(item => item !== sub.listType);
@@ -84,17 +93,20 @@ export class ThirdPartyService {
     });
 
     selectedListTypes.forEach(listType => {
-      this.createdThirdPartySubscription(selectedUser, listType, selectedChannel);
+      this.logger.info('Creating subscription for ' + selectedUser + ' for list type '
+        + listType + ' by admin ' + adminUserId);
+      this.createdThirdPartySubscription(adminUserId, selectedUser, listType, selectedChannel);
     });
   }
 
   /**
    * Handles creation of new subscriptions for third parties.
+   * @param adminId The admin who is making the request.
    * @param userId The user ID to add a subscription for.
    * @param listType The list type to subscribe to.
    * @param channel The channel for the subscription.
    */
-  public createdThirdPartySubscription(userId, listType, channel) {
+  public createdThirdPartySubscription(adminId, userId, listType, channel) {
     const subscription = {
       channel: channel,
       searchType: 'LIST_TYPE',
@@ -102,14 +114,14 @@ export class ThirdPartyService {
       userId: userId,
     };
 
-    this.subscriptionRequests.subscribe(subscription);
+    this.subscriptionRequests.subscribe(subscription, adminId);
   }
 
   /**
    * Service which gets third party accounts from the backend.
    */
-  public async getThirdPartyAccounts(): Promise<any> {
-    const returnedAccounts = await this.accountManagementRequests.getThirdPartyAccounts();
+  public async getThirdPartyAccounts(adminUserId): Promise<any> {
+    const returnedAccounts = await this.accountManagementRequests.getThirdPartyAccounts(adminUserId);
     for (const account of returnedAccounts) {
       account['createdDate'] = moment.utc(Date.parse(account['createdDate'])).format('DD MMMM YYYY');
     }

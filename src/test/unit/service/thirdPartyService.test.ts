@@ -67,12 +67,12 @@ describe('Third Party Service tests', () => {
     getThirdPartyAccountsStub.resolves(thirdPartyAccounts);
 
     it('should return correct number of third party objects', async () => {
-      const data = await thirdPartyService.getThirdPartyAccounts();
+      const data = await thirdPartyService.getThirdPartyAccounts(adminUserId);
       expect(data.length).to.equal(2, 'Number of accounts returned does not match expected length');
     });
 
     it('should return correct details in of third party objects', async () => {
-      const data = await thirdPartyService.getThirdPartyAccounts();
+      const data = await thirdPartyService.getThirdPartyAccounts(adminUserId);
 
       const firstAccount = data[0];
 
@@ -133,7 +133,7 @@ describe('Third Party Service tests', () => {
       const listType = 'LIST_TYPE';
       const channel = 'CHANNEL_A';
 
-      thirdPartyService.createdThirdPartySubscription(userId, listType, channel);
+      thirdPartyService.createdThirdPartySubscription(adminUserId, userId, listType, channel);
 
       expect(subscribeStub.calledOnceWith({
         channel: channel,
@@ -197,7 +197,8 @@ describe('Third Party Service tests', () => {
         userId: userId,
       };
 
-      await thirdPartyService.handleThirdPartySubscriptionUpdate(selectedUser, selectedListTypes, selectedChannel);
+      await thirdPartyService.handleThirdPartySubscriptionUpdate(adminUserId, selectedUser,
+        selectedListTypes, selectedChannel);
 
       expect(subscribeStub.calledWith(subscribeArgs)).to.equal(true);
 
@@ -219,7 +220,8 @@ describe('Third Party Service tests', () => {
         userId: userId,
       };
 
-      await thirdPartyService.handleThirdPartySubscriptionUpdate(selectedUser, selectedListTypes, selectedChannel);
+      await thirdPartyService.handleThirdPartySubscriptionUpdate(adminUserId, selectedUser,
+        selectedListTypes, selectedChannel);
 
       expect(subscribeStub.calledWith(subscribeArgs)).to.equal(true);
     });
@@ -235,7 +237,8 @@ describe('Third Party Service tests', () => {
 
       const unsubscribeStub = sinon.stub(SubscriptionService.prototype, 'unsubscribe');
 
-      await thirdPartyService.handleThirdPartySubscriptionUpdate(selectedUser, selectedListTypes, selectedChannel);
+      await thirdPartyService.handleThirdPartySubscriptionUpdate(adminUserId, selectedUser,
+        selectedListTypes, selectedChannel);
 
       expect(unsubscribeStub.calledWith('2345')).to.equal(true);
     });

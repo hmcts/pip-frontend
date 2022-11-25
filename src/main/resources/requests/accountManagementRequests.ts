@@ -162,8 +162,9 @@ export class AccountManagementRequests {
     }
   }
 
-  public async getThirdPartyAccounts(): Promise<any> {
+  public async getThirdPartyAccounts(adminUserId): Promise<any> {
     try {
+      logger.info('Third party account data requested by Admin with ID: ' + adminUserId);
       const response = await accountManagementApi.get('/account/all/third-party');
       return response.data;
     } catch (error) {

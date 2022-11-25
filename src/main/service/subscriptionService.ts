@@ -157,8 +157,8 @@ export class SubscriptionService {
     ];
   }
 
-  public async unsubscribe(subscriptionId: string): Promise<object> {
-    return subscriptionRequests.unsubscribe(subscriptionId);
+  public async unsubscribe(subscriptionId: string, userId: string): Promise<object> {
+    return subscriptionRequests.unsubscribe(subscriptionId, userId);
   }
 
   public async bulkDeleteSubscriptions(subscriptionIds: string[]): Promise<object> {
@@ -241,14 +241,14 @@ export class SubscriptionService {
     const cachedCourtSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, courtsType);
     if (cachedCaseSubs) {
       for (const cachedCase of cachedCaseSubs) {
-        const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCase, casesType, userId));
+        const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCase, casesType, userId), userId);
         response ? await this.removeFromCache({'case': cachedCase.caseNumber}, userId) : subscribed = response;
       }
     }
     if (cachedCourtSubs) {
       for (const cachedCourt of cachedCourtSubs) {
         cachedCourt['listType'] = await this.generateListTypesForNewSubscription(userId);
-        const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCourt, courtsType, userId));
+        const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCourt, courtsType, userId), userId);
         response ? await this.removeFromCache({court: cachedCourt.locationId}, userId) : subscribed = response;
       }
     }

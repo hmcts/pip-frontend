@@ -19,9 +19,10 @@ export class SubscriptionRequests {
     return null;
   }
 
-  public async unsubscribe(subscriptionId: string): Promise<object> {
+  public async unsubscribe(subscriptionId: string, userId: string): Promise<object> {
     try {
-      const response = await subscriptionManagementApi.delete(`/subscription/${subscriptionId}`);
+      const response = await subscriptionManagementApi.delete(`/subscription/${subscriptionId}`,
+        {headers: {'x-user-id': userId}});
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -35,9 +36,9 @@ export class SubscriptionRequests {
     }
   }
 
-  public async subscribe(payload): Promise<boolean> {
+  public async subscribe(payload, userId: string): Promise<boolean> {
     try {
-      await subscriptionManagementApi.post('/subscription', payload);
+      await subscriptionManagementApi.post('/subscription', payload, {headers: {'x-user-id': userId}});
       return true;
     } catch (error) {
       if (error.response) {

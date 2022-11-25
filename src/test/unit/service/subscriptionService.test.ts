@@ -428,12 +428,12 @@ describe('configureListTypeForLocationSubscriptions', () => {
 
 describe('unsubscribing', () => {
   it('should return a message if subscription is deleted', async () => {
-    const payload = await subscriptionService.unsubscribe('ValidSubscriptionId');
+    const payload = await subscriptionService.unsubscribe('ValidSubscriptionId', '2345-2345');
     expect(payload).toEqual('Subscription was deleted');
   });
 
   it('should return null if subscription delete failed', async () => {
-    const payload = await subscriptionService.unsubscribe('InValidSubscriptionId');
+    const payload = await subscriptionService.unsubscribe('InValidSubscriptionId', '2345-2345');
     expect(payload).toEqual(null);
   });
 });

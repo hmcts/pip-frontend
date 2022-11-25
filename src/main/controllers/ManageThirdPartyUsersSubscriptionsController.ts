@@ -42,7 +42,8 @@ export default class ManageThirdPartyUsersSubscriptionsController {
     const selectedListTypes = req.body['list-selections[]'];
 
     if (selectedChannel && selectedUser && await thirdPartyService.getThirdPartyUserById(selectedUser, req.user['piUserId'])) {
-      await thirdPartyService.handleThirdPartySubscriptionUpdate(selectedUser, selectedListTypes, selectedChannel);
+      await thirdPartyService.handleThirdPartySubscriptionUpdate(req.user['piUserId'], selectedUser,
+        selectedListTypes, selectedChannel);
 
       res.render('manage-third-party-users-subscriptions-confirm',
         req.i18n.getDataByLanguage(req.lng)['manage-third-party-users-subscriptions-confirm']);
