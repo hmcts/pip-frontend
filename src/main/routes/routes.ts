@@ -198,6 +198,10 @@ export default function(app: Application): void {
   app.get('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.get);
   app.post('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.post);
   app.get('/manual-reference-data-upload-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadConfirmationController.get);
+  app.get('/manage-third-party-users', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersController.get);
+  app.get('/manage-third-party-users/view', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersViewController.get);
+  app.get('/manage-third-party-users/subscriptions', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersSubscriptionsController.get);
+  app.post('/manage-third-party-users/subscriptions', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersSubscriptionsController.post);
 
   app.get('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.get);
   app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
