@@ -583,4 +583,42 @@ describe('Account Management Requests', () => {
       expect(response).toBe(null);
     });
   });
+
+  describe('Get third party accounts', () => {
+
+    const adminUserId = '1234-1234';
+
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
+
+    it('should return third party accounts', async () => {
+      const thirdPartyAccounts = [{userId: '1234-1234'},{userId: '2345-2345'}];
+
+      getStub.withArgs('/account/all/third-party').resolves({status: 200, data: thirdPartyAccounts});
+
+      const response = await accountManagementRequests.getThirdPartyAccounts(adminUserId);
+      expect(response).toBe(thirdPartyAccounts);
+    });
+
+    it('should return null on error request', async () => {
+      getStub.withArgs('/account/all/third-party').rejects(errorRequest);
+      const response = await accountManagementRequests.getThirdPartyAccounts(adminUserId);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error response', async () => {
+      getStub.withArgs('/account/all/third-party').rejects(errorResponse);
+      const response = await accountManagementRequests.getThirdPartyAccounts(adminUserId);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error message', async () => {
+      getStub.withArgs('/account/all/third-party').rejects(errorMessage);
+      const response = await accountManagementRequests.getThirdPartyAccounts(adminUserId);
+      expect(response).toBe(null);
+    });
+  });
+
 });

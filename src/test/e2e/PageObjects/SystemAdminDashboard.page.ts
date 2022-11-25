@@ -2,6 +2,7 @@ import { CommonPage } from './Common.page';
 import { CreateSystemAdminAccountPage } from './CreateSystemAdminAccount.page';
 import {SessionLoggedOutPage} from './SessionLoggedOut.page';
 import {ManualReferenceDataUploadPage} from './ManualReferenceDataUpload.page';
+import {ManageThirdPartyUsersPage} from './ManageThirdPartyUsers.page';
 import {UserManagementPage} from './UserManagement.page';
 import { BlobViewLocationsPage } from './BlobViewLocationsPage';
 
@@ -26,6 +27,15 @@ export class SystemAdminDashboardPage extends CommonPage {
     return new ManualReferenceDataUploadPage();
   }
 
+  async clickManageThirdPartyUsersCard(): Promise<ManageThirdPartyUsersPage> {
+    await $(helpers.ManageThirdPartyUsers).catch(() => {
+      console.log(`${helpers.ManageThirdPartyUsers} not found`);
+    });
+
+    await $(helpers.ManageThirdPartyUsers).click();
+    return new ManageThirdPartyUsersPage();
+  }
+
   async clickUserManagementCard(): Promise<UserManagementPage> {
     await $(helpers.userManagement).catch(() => {
       console.log(`${helpers.userManagement} not found`);
@@ -34,7 +44,7 @@ export class SystemAdminDashboardPage extends CommonPage {
     await $(helpers.userManagement).click();
     return new UserManagementPage();
   }
-  
+
   async clickBlobExplorerLocationsCard(): Promise<BlobViewLocationsPage> {
     await $(helpers.BlobExplorerLocations).catch(() => {
       console.log(`${helpers.BlobExplorerLocations} not found`);
