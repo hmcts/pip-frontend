@@ -1,0 +1,7 @@
+{
+  "title": "Delete Court Reference data",
+  "header": "Select a court to remove",
+  "resultsMessage": "Showing RESULTS_COUNT result(s)",
+  "tableHeaders": ["Court or Tribunal Name", "Location Type", "Jurisdiction", "Region", "Actions"],
+  "rowAction": "Delete"
+}

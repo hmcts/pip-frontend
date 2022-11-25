@@ -101,4 +101,26 @@ export class LocationService {
     return courtName;
   }
 
+  public formatCourtRemovalValues(courtList): any[] {
+    const formattedCourtList = [];
+    courtList.forEach((value) => {
+      const listItem = {...value};
+      listItem.jurisdiction = value.jurisdiction.toString();
+      listItem.region = value.region.toString();
+      formattedCourtList.push(listItem);
+    });
+    return formattedCourtList;
+  }
+
+  public formatCourtValue(court): any {
+    const courtItem = {...court};
+    courtItem.jurisdiction = court.jurisdiction.toString();
+    courtItem.region = court.region.toString();
+    return courtItem;
+  }
+
+  public async deleteLocationById(locationId: number): Promise<object> {
+    return await locationRequest.deleteCourt(locationId);
+  }
+
 }

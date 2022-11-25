@@ -16,6 +16,7 @@ sinon.stub(courtRequest, 'getAllLocations').returns(hearingsData);
 const stubCourt = sinon.stub(courtRequest, 'getLocation');
 const stubCourtByName = sinon.stub(courtRequest, 'getLocationByName');
 const stubCourtsFilter = sinon.stub(courtRequest, 'getFilteredCourts');
+const stubCourtDeletion = sinon.stub(courtRequest, 'deleteCourt');
 
 const validKeysCount = 26;
 const alphabet = [
@@ -27,11 +28,15 @@ const validWelshCourt = 'Llys Ynadon y Fenni';
 const englishLanguage = 'en';
 const welshLanguage = 'cy';
 const englishLanguageFile = 'sscs-daily-list';
+const deletionResponse = {isExists: true, errorMessage: 'test'};
 
 stubCourtsFilter.withArgs('', 'Crown', englishLanguage).returns(hearingsData);
 stubCourt.withArgs(1).returns(hearingsData[0]);
 stubCourtByName.withArgs(validCourt).returns(hearingsData[0]);
 stubCourtByName.withArgs(validWelshCourt).returns(hearingsData[0]);
+stubCourtDeletion.withArgs(1).returns(deletionResponse);
+stubCourtDeletion.withArgs(2).returns(null);
+stubCourtDeletion.withArgs(3).returns({isExists: false, errorMessage: ''});
 
 describe('Court Service', () => {
   it('should return all courts', async () => {
@@ -147,4 +152,28 @@ describe('Court Service', () => {
     expect(courtService.sortCourtsAlphabetically([hearingsData[0]])).to.deep.equal([hearingsData[0]]);
   });
 
+  it('should format court list values', () => {
+    const data = courtService.formatCourtRemovalValues(hearingsData);
+    expect(data[0].jurisdiction).to.equal('Magistrates');
+    expect(data[0].region).to.equal('Bedford');
+  });
+
+  it('should format court object', () => {
+    const data = courtService.formatCourtValue(hearingsData[0]);
+    expect(data.jurisdiction).to.equal('Magistrates');
+    expect(data.region).to.equal('Bedford');
+  });
+
+  it('should return deletion court response if active artefact or subscription is available', async () => {
+    expect(await courtService.deleteLocationById(1)).to.equal(deletionResponse);
+  });
+
+  it('should return null if there is any issue with api call', async () => {
+    expect(await courtService.deleteLocationById(2)).to.equal(null);
+  });
+
+  it('should return deletion court response isExists false if court has been deleted', async () => {
+    const data = await courtService.deleteLocationById(3);
+    expect(data['isExists']).to.equal(false);
+  });
 });

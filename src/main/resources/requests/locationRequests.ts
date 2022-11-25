@@ -1,5 +1,5 @@
 import { Location } from '../../models/location';
-import { dataManagementApi } from './utils/axiosConfig';
+import {dataManagementApi} from './utils/axiosConfig';
 
 export class LocationRequests {
   public async getLocation(locationId: number): Promise<Location> {
@@ -70,5 +70,21 @@ export class LocationRequests {
       }
     }
     return null;
+  }
+
+  public async deleteCourt(locationId: number): Promise<object> {
+    try {
+      const response = await dataManagementApi.delete(`/locations/${locationId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
+      }
+      return null;
+    }
   }
 }

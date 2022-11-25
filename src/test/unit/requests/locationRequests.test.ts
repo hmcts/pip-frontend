@@ -26,6 +26,7 @@ const courtNameSearch = 'Abergavenny Magistrates\' Court';
 const courtWelshNameSearch = 'Llys Ynadon y Fenni';
 
 const stub = sinon.stub(dataManagementApi, 'get');
+const courtDeleteStub = sinon.stub(dataManagementApi, 'delete');
 
 const regions = 'london';
 const jurisdictions = 'Crown';
@@ -36,6 +37,8 @@ const welshJurisdictions = 'Goron';
 
 const englishLanguage = 'en';
 const welshLanguage = 'cy';
+
+const deletionResponse = {isExists: true, errorMessage: 'test'};
 
 describe('Location get requests', () => {
 
@@ -67,6 +70,12 @@ describe('Location get requests', () => {
     stub.withArgs('/locations/filter', {params: {regions: test, jurisdictions: 'foo', language: welshLanguage}}).rejects(errorRequest);
 
     stub.withArgs('/locations').resolves({data: courtList});
+
+    courtDeleteStub.withArgs('/locations/1').resolves({data: {isExists: true, errorMessage: 'test'}});
+    courtDeleteStub.withArgs('/locations/2').rejects(errorResponse);
+    courtDeleteStub.withArgs('/locations/3').rejects(errorRequest);
+    courtDeleteStub.withArgs('/locations/4').rejects(errorMessage);
+    courtDeleteStub.withArgs('/locations/5').resolves({data: {isExists: false, errorMessage: ''}});
   });
 
   it('should return court by court id', async () => {
@@ -176,5 +185,26 @@ describe('Location get requests', () => {
     stub.withArgs('/locations').rejects(errorResponse);
     stub.withArgs('allCourts').resolves(null);
     expect(await courtRequests.getAllLocations()).toBe(null);
+  });
+
+  it('should not delete the court if active artefact or subscription exists', async () => {
+    expect(await courtRequests.deleteCourt(1)).toStrictEqual(deletionResponse);
+  });
+
+  it('should return null if response fails ', async () => {
+    expect(await courtRequests.deleteCourt(2)).toBe(null);
+  });
+
+  it('should return null if request fails', async () => {
+    expect(await courtRequests.deleteCourt(3)).toBe(null);
+  });
+
+  it('should return null if request fails', async () => {
+    expect(await courtRequests.deleteCourt(4)).toBe(null);
+  });
+
+  it('should return isExists false if court is deleted', async () => {
+    const data = await courtRequests.deleteCourt(5);
+    expect(data['isExists']).toStrictEqual(false);
   });
 });
