@@ -1,5 +1,5 @@
-import { LocationRequests } from '../resources/requests/locationRequests';
-import { Location } from '../models/location';
+import {LocationRequests} from '../resources/requests/locationRequests';
+import {Location} from '../models/location';
 import {LanguageFileParser} from '../helpers/languageFileParser';
 import {AToZHelper} from '../helpers/aToZHelper';
 
@@ -16,14 +16,14 @@ export class LocationService {
   }
 
   private initalizeLocationsForLanguage(locations: Array<Location>, language: string): Array<Location> {
-    let locationsBaseOnLanguage= [];
+    let locationsBaseOnLanguage = [];
 
-    switch(language) {
+    switch (language) {
       case 'cy': {
         locations.forEach(value => {
           const locationInfo = {
             locationId: (value['locationId'] != null ? value['locationId'] : value.locationId),
-            name:  (value['welshName'] != null ? value['welshName'] : value.name),
+            name: (value['welshName'] != null ? value['welshName'] : value.name),
             jurisdiction: (value['welshJurisdiction'] != null ? value['welshJurisdiction'] : value.jurisdiction),
             region: (value['welshRegion'] != null ? value['welshRegion'] : value.region),
             location: value.location,
@@ -82,11 +82,11 @@ export class LocationService {
   public findCourtName(location: Location, language: string, languageFile: string): string {
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     let courtName = '';
-    if(location == null) {
+    if (location == null) {
       return languageFileParser.getText(fileJson, null, 'missingCourt');
     }
 
-    switch(language) {
+    switch (language) {
       case 'cy': {
         courtName = (location['welshName'] != null ? location['welshName'] : location.name);
         break;

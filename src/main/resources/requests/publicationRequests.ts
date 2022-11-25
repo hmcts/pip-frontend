@@ -28,6 +28,22 @@ export class PublicationRequests {
     return null;
   }
 
+  public async getPubsPerLocation(): Promise<string> {
+    try {
+      const response = await dataManagementApi.get('/publication/count-by-location');
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
+      }
+    }
+    return null;
+  }
+
   public async getPublicationByCaseValue(searchQuery: string, searchValue: string, userId: string): Promise<Artefact[]> {
     try {
 

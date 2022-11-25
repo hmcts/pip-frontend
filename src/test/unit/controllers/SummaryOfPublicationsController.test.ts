@@ -18,9 +18,9 @@ const CourtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
 
 describe('Get publications', () => {
-  CourtStub.withArgs(0).resolves(JSON.parse('{"name":"Single Justice Procedure"}'));
+  CourtStub.withArgs(9).resolves(JSON.parse('{"name":"Single Justice Procedure"}'));
   CourtStub.withArgs(1).resolves(JSON.parse('{"name":"New Court"}'));
-  SoPStub.withArgs(0).resolves(sjpCases);
+  SoPStub.withArgs(9).resolves(sjpCases);
   SoPStub.withArgs(1).resolves(sjpCases);
 
   it('should render the Summary of Publications page', async () => {
@@ -41,6 +41,7 @@ describe('Get publications', () => {
       ...i18n['summary-of-publications'],
       locationName: 'New Court',
       publications: sjpCases,
+      isSjp: false,
     };
 
     responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
@@ -49,7 +50,7 @@ describe('Get publications', () => {
     responseMock.verify();
   });
 
-  it('should render the SJP if locationId = 0', async () => {
+  it('should render the SJP if locationId = 9', async () => {
 
     const response = {
       render: () => {
@@ -58,7 +59,7 @@ describe('Get publications', () => {
     } as unknown as Response;
 
     const request = mockRequest(i18n);
-    request.query = {locationId: '0'};
+    request.query = {locationId: '9'};
     request.user = {id: 1};
 
     const responseMock = sinon.mock(response);
@@ -67,6 +68,7 @@ describe('Get publications', () => {
       ...i18n['summary-of-publications'],
       locationName: 'Single Justice Procedure',
       publications: sjpCases,
+      isSjp: true,
     };
 
     responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);

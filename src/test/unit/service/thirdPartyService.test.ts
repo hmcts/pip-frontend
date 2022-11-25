@@ -12,6 +12,8 @@ describe('Third Party Service tests', () => {
   const subscribeStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
   const getSubscriptionsStub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
 
+  const adminUserId = '1234-1234';
+
   describe('generateListTypes', () => {
 
     const listTypes = new Map([
@@ -146,12 +148,12 @@ describe('Third Party Service tests', () => {
   describe('get third party by user ID', () => {
 
     const userId = '1234-1234';
-    const getUserStub = sinon.stub(AccountManagementRequests.prototype, 'getUserById');
+    const getUserStub = sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId');
 
     it('check user is returned', async () => {
       getUserStub.resolves({'userId': userId, 'createdDate': '2022-11-18T14:00:00Z', userProvenance: 'THIRD_PARTY'});
 
-      const returnedUser = await thirdPartyService.getThirdPartyUserById(userId);
+      const returnedUser = await thirdPartyService.getThirdPartyUserById(userId, '1234-1234');
 
       expect(returnedUser['userId']).to.equal(userId, 'User ID not as expected');
       expect(returnedUser['createdDate']).to.equal('18 November 2022', 'Formatted date not as expected');
@@ -161,7 +163,7 @@ describe('Third Party Service tests', () => {
     it('check user returned is null if no user found', async () => {
       getUserStub.resolves(null);
 
-      const returnedUser = await thirdPartyService.getThirdPartyUserById(userId);
+      const returnedUser = await thirdPartyService.getThirdPartyUserById(userId, adminUserId);
 
       expect(returnedUser).to.equal(null, 'User returned should be null');
     });
@@ -169,7 +171,7 @@ describe('Third Party Service tests', () => {
     it('check user returned is null if not third party ', async () => {
       getUserStub.resolves({'userId': userId, 'createdDate': '2022-11-18T14:00:00Z', userProvenance: 'PI_AAD'});
 
-      const returnedUser = await thirdPartyService.getThirdPartyUserById(userId);
+      const returnedUser = await thirdPartyService.getThirdPartyUserById(userId, adminUserId);
 
       expect(returnedUser).to.equal(null, 'User returned should be null');
     });

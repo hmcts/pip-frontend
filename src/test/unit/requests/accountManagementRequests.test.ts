@@ -49,12 +49,17 @@ const applicationGetEndpoint = '/application/';
 const imageGetEndpoint = '/application/image/';
 const piUserEndpoint = '/account/provenance/PI_AAD/';
 const updateAccountEndpoint = '/account/provenance/PI_AAD/';
+const getAllAccountsEndpoint = '/account/all';
+const getUserByUserIdEndpoint = '/account/';
+const deleteUserByUserIdEndpoint = '/account/delete/';
+const updateUserByUserIdEndpoint = '/account/update/';
 
 const status = 'APPROVED';
 const statusEndpoint = '/' + status;
 const postStub = sinon.stub(accountManagementApi, 'post');
 let putStub = sinon.stub(accountManagementApi, 'put');
 let getStub = sinon.stub(accountManagementApi, 'get');
+let deleteStub = sinon.stub(accountManagementApi, 'delete');
 const superagent = require('superagent');
 
 describe('Account Management Requests', () => {
@@ -424,38 +429,157 @@ describe('Account Management Requests', () => {
     });
   });
 
-  describe('Get user by ID', () => {
+  describe('Get all accounts except third party', () => {
     beforeEach(() => {
       sinon.restore();
       getStub = sinon.stub(accountManagementApi, 'get');
     });
 
-    const userId = '1234';
+    it('should return data on success', async () => {
+      getStub.withArgs(getAllAccountsEndpoint, {params: {pageSize: 25}}).resolves(
+        {status: 200, data: {userId: '321', userProvenance: 'userProvenance'}});
+      const response = await accountManagementRequests.getAllAccountsExceptThirdParty(
+        {
+          params: {
+            pageSize: 25,
+          },
+        },'1234');
+      expect(response).toStrictEqual({userId: '321', userProvenance: 'userProvenance'});
+    });
 
-    it('should return user from their ID', async () => {
-      const user = {userId: '1234-1234'};
+    it('should return empty array on error response', async () => {
+      getStub.withArgs(getAllAccountsEndpoint, {params: {pageSize: 25}}).rejects(errorResponse);
+      const response = await accountManagementRequests.getAllAccountsExceptThirdParty(
+        {
+          params: {
+            pageSize: 25,
+          },
+        },'1234');
+      expect(response).toStrictEqual([]);
+    });
 
-      getStub.withArgs('/account/1234').resolves({status: 200, data: user});
+    it('should return empty array on error request', async () => {
+      getStub.withArgs(getAllAccountsEndpoint, {params: {pageSize: 25}}).rejects(errorRequest);
+      const response = await accountManagementRequests.getAllAccountsExceptThirdParty(
+        {
+          params: {
+            pageSize: 25,
+          },
+        },'1234');
+      expect(response).toStrictEqual([]);
+    });
 
-      const response = await accountManagementRequests.getUserById(userId);
-      expect(response).toBe(user);
+    it('should return empty array on error message', async () => {
+      getStub.withArgs({params: {pageSize: 25}}).rejects(errorMessage);
+      const response = await accountManagementRequests.getAllAccountsExceptThirdParty(
+        {
+          params: {
+            pageSize: 25,
+          },
+        },'1234');
+      expect(response).toStrictEqual([]);
+    });
+  });
+
+  describe('Get user by user id', () => {
+    const idtoUse = '123';
+
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
+
+    it('should return pi user on success', async () => {
+      getStub.withArgs(`${getUserByUserIdEndpoint}${idtoUse}`).resolves({status: 200, data: {userId: '321',
+        userProvenance: 'userProvenance'}});
+      const response  = await accountManagementRequests.getUserByUserId(idtoUse, '1234');
+      expect(response).toStrictEqual({userId: '321', userProvenance: 'userProvenance'});
+    });
+
+    it('should return null on error response', async () => {
+      getStub.withArgs(`${getUserByUserIdEndpoint}${idtoUse}`).rejects(errorResponse);
+      const response  = await accountManagementRequests.getUserByUserId(idtoUse, '1234');
+      expect(response).toBe(null);
     });
 
     it('should return null on error request', async () => {
-      getStub.withArgs('/account/1234').rejects(errorRequest);
-      const response = await accountManagementRequests.getUserById(userId);
+      getStub.withArgs(`${getUserByUserIdEndpoint}${idtoUse}`).rejects(errorRequest);
+      const response  = await accountManagementRequests.getUserByUserId(idtoUse, '1234');
       expect(response).toBe(null);
     });
 
-    it('should return false on error response', async () => {
-      getStub.withArgs('/account/1234').rejects(errorResponse);
-      const response = await accountManagementRequests.getUserById(userId);
+    it('should return null on error message', async () => {
+      getStub.withArgs(`${getUserByUserIdEndpoint}${idtoUse}`).rejects(errorMessage);
+      const response  = await accountManagementRequests.getUserByUserId(idtoUse, '1234');
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Delete user by user id', () => {
+    const idtoUse = '123';
+
+    beforeEach(() => {
+      sinon.restore();
+      deleteStub = sinon.stub(accountManagementApi, 'delete');
+    });
+
+    it('should return string on deletion success', async () => {
+      deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).resolves({status: 200, data: 'Deleted'});
+      const response  = await accountManagementRequests.deleteUser(idtoUse, '1234');
+      expect(response).toStrictEqual('Deleted');
+    });
+
+    it('should return null on error response', async () => {
+      deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).rejects(errorResponse);
+      const response  = await accountManagementRequests.deleteUser(idtoUse, '1234');
       expect(response).toBe(null);
     });
 
-    it('should return false on error message', async () => {
-      getStub.withArgs('/account/1234').rejects(errorMessage);
-      const response = await accountManagementRequests.getUserById(userId);
+    it('should return null on error request', async () => {
+      deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).rejects(errorRequest);
+      const response  = await accountManagementRequests.deleteUser(idtoUse, '1234');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error message', async () => {
+      deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).rejects(errorMessage);
+      const response  = await accountManagementRequests.deleteUser(idtoUse, '1234');
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Update user by user id', () => {
+    const idtoUse = '123';
+    const role = 'SYSTEM_ADMIN';
+
+    beforeEach(() => {
+      sinon.restore();
+      putStub = sinon.stub(accountManagementApi, 'put');
+    });
+
+    it('should return updated user on success', async () => {
+      putStub.withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`).resolves(
+        {status: 200, data: {userId: '321', userProvenance: 'userProvenance'}});
+      const response  = await accountManagementRequests.updateUser(idtoUse, role, '1234');
+      expect(response).toStrictEqual({userId: '321',
+        userProvenance: 'userProvenance'});
+    });
+
+    it('should return null on error response', async () => {
+      putStub.withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`).rejects(errorResponse);
+      const response  = await accountManagementRequests.updateUser(idtoUse, role, '1234');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error request', async () => {
+      putStub.withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`).rejects(errorRequest);
+      const response  = await accountManagementRequests.updateUser(idtoUse, role, '1234');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error message', async () => {
+      putStub.withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`).rejects(errorMessage);
+      const response  = await accountManagementRequests.updateUser(idtoUse, role, '1234');
       expect(response).toBe(null);
     });
   });

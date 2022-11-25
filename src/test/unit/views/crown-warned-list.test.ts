@@ -111,12 +111,12 @@ describe('Crown Warned List page', () => {
 
   it('should display linked cases',  () => {
     const cell = htmlRes.getElementsByClassName(tableCellClass);
-    expect(cell[5].innerHTML).to.equal('Linked Cases: 123456, 123457', 'Could not find linked cases table cell');
+    expect(cell[5].innerHTML).to.contain('123456, 123457', 'Could not find linked cases table cell');
   });
 
   it('should display listing notes',  () => {
     const cell = htmlRes.getElementsByClassName(tableCellClass);
-    expect(cell[6].innerHTML).to.equal('Listing Notes: Note 1', 'Could not find listing notes table cell');
+    expect(cell[6].innerHTML).to.contain('Note 1', 'Could not find listing notes table cell');
   });
 
   it('should display data source',  () => {

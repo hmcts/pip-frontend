@@ -162,22 +162,6 @@ export class AccountManagementRequests {
     }
   }
 
-  public async getUserById(userId: string): Promise<any> {
-    try {
-      const response = await accountManagementApi.get(`/account/${userId}`);
-      return response.data;
-    } catch (error) {
-      if (error.response) {
-        logger.error('Failed to GET PI user request', error.response.data);
-      } else if (error.request) {
-        logger.error('Request failed for Pi user', error.request);
-      } else {
-        logger.error('Something went wrong trying to get the pi user from their ID', error.message);
-      }
-      return null;
-    }
-  }
-
   public async getThirdPartyAccounts(): Promise<any> {
     try {
       const response = await accountManagementApi.get('/account/all/third-party');
@@ -215,6 +199,76 @@ export class AccountManagementRequests {
         logger.error(errorMessage, error.request);
       } else {
         logger.error(errorMessage, error.message);
+      }
+      return null;
+    }
+  }
+
+  public async getAllAccountsExceptThirdParty(params: object, adminUserId: string): Promise<any> {
+    try {
+      logger.info('All user data requested by Admin with ID: ' + adminUserId);
+      const response = await accountManagementApi.get('/account/all', params);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to get all accounts', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for getting all accounts', error.request);
+      } else {
+        logger.error('Something went wrong trying to get all accounts', error.message);
+      }
+      return [];
+    }
+  }
+
+  public async getUserByUserId(userId: string, adminUserId: string): Promise<any> {
+    try {
+      logger.info('User with ID: ' + userId + ' data requested by Admin with ID: ' + adminUserId);
+      const response = await accountManagementApi.get(`/account/${userId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET PI user request', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for Pi user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get the pi user from the user id', error.message);
+      }
+      return null;
+    }
+  }
+
+  public async deleteUser(userId: string, adminUserId: string): Promise<object> {
+    try {
+      logger.info('User with ID: ' + userId + ' deleted by Admin with ID: ' + adminUserId);
+      const response = await accountManagementApi.delete(`/account/delete/${userId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(error.request);
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
+      }
+      return null;
+    }
+  }
+
+  public async updateUser(userId: string, role: string, adminUserId: string): Promise<object> {
+    try {
+      logger.info('User with ID: ' + userId + ' role updated to ' + role + ' by Admin with ID: ' + adminUserId);
+      const response = await accountManagementApi.put(`/account/update/${userId}/${role}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(error.request);
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
       }
       return null;
     }
