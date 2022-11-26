@@ -162,6 +162,23 @@ export class AccountManagementRequests {
     }
   }
 
+  public async getThirdPartyAccounts(adminUserId): Promise<any> {
+    try {
+      logger.info('Third party account data requested by Admin with ID: ' + adminUserId);
+      const response = await accountManagementApi.get('/account/all/third-party');
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET third party users', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed to get third party user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get third party users', error.message);
+      }
+      return null;
+    }
+  }
+
   public async updateMediaAccountVerification(oid: string): Promise<string> {
     return this.updateAccountDate(oid, 'lastVerifiedDate', 'Failed to verify media account');
   }

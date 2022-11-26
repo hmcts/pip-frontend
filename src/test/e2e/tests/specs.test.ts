@@ -57,6 +57,7 @@ import {ManageUserPage} from '../PageObjects/ManageUser.page';
 import {UpdateUserPage} from '../PageObjects/UpdateUser.page';
 import {DeleteUserPage} from '../PageObjects/DeleteUser.page';
 import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPage';
+import {ManageThirdPartyUsersPage} from '../PageObjects/ManageThirdPartyUsers.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -117,6 +118,7 @@ let updateUserPage: UpdateUserPage;
 let deleteUserPage: DeleteUserPage;
 let blobViewLocationsPage: BlobViewLocationsPage;
 let blobViewPublicationsPage: BlobViewPublicationsPage;
+let manageThirdPartyUsersPage: ManageThirdPartyUsersPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -740,6 +742,19 @@ describe('System Admin level journeys', () => {
     });
   });
 
+  describe('manage third party users dashboard', () => {
+
+    before(async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard');
+    });
+
+    it('should open third party users page', async () => {
+      manageThirdPartyUsersPage = await systemAdminDashboard.clickManageThirdPartyUsersCard();
+      expect(await manageThirdPartyUsersPage.getPageTitle()).toEqual('Manage Third Party Users');
+    });
+
+  });
+
   describe('User management journey', () => {
     before(async () => {
       await systemAdminDashboard.open('/system-admin-dashboard');
@@ -815,7 +830,7 @@ describe('System Admin level journeys', () => {
         ' including subscriptions for media users.');
     });
   });
-    
+
   describe('should open blob view locations page', async () => {
     before(async () => {
       await systemAdminDashboard.open('/system-admin-dashboard?lng=en');

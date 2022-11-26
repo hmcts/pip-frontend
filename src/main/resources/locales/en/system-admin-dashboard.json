@@ -13,6 +13,11 @@
       "link": "manual-reference-data-upload"
     },
     {
+      "title": "Manage Third-Party Users",
+      "description": "View and edit third-party users and subscriptions",
+      "link": "manage-third-party-users"
+    },
+    {
       "title": "User Management",
       "description": "Search, update and delete users",
       "link": "user-management"
