@@ -91,7 +91,6 @@
               </thead>
               <tbody class="govuk-table__body">
               {% for record in day %}
-                <h1>{{ record.durationAsHours | getDuration(record.durationAsMinutes, lng) }}</h1>
                 {% set duration = [record.durationAsHours | getDuration(record.durationAsMinutes, lng), record.caseSeparator] | join(" ") | trim %}
                 <tr class="govuk-table__row">
                   <td class="govuk-table__cell {{ noBorder }}">{{ record.courtRoom }}</td>
