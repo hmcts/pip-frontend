@@ -4,12 +4,12 @@ import {cloneDeep} from 'lodash';
 import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
-import { DataManipulationService } from '../service/dataManipulationService';
+import { ListParseHelperService } from '../service/listParseHelperService';
 import { MagistratesStandardListService } from '../service/listManipulation/magistratesStandardListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
 const magsStandardListService = new MagistratesStandardListService();
 
 export default class MagistratesStandardListController {
@@ -20,10 +20,10 @@ export default class MagistratesStandardListController {
 
     if (searchResults && metaData) {
 
-      let manipulatedData = dataManipulationService.manipulatedDailyListData(JSON.stringify(searchResults));
+      let manipulatedData = helperService.manipulatedDailyListData(JSON.stringify(searchResults));
       manipulatedData = magsStandardListService.manipulatedMagsStandardListData(manipulatedData, req.lng as string, 'magistrates-standard-list');
-      const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
-      const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInBst(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInBst(searchResults['document']['publicationDate']);
       const location = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 

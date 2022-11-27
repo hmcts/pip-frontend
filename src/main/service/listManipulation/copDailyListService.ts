@@ -1,6 +1,6 @@
-import { DataManipulationService } from '../dataManipulationService';
+import { ListParseHelperService } from '../listParseHelperService';
 
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
 
 export class CopDailyListService {
 
@@ -15,13 +15,13 @@ export class CopDailyListService {
     copDailyCauseListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
-          session['formattedJudiciary'] = dataManipulationService.getJudiciaryNameSurname(session);
+          session['formattedJudiciary'] = helperService.getJudiciaryNameSurname(session);
           delete session['judiciary'];
           session['sittings'].forEach(sitting => {
             hearingCount = hearingCount + sitting['hearing'].length;
-            sitting['sittingStartFormatted'] = dataManipulationService.publicationTimeInBst(sitting['sittingStart']);
-            dataManipulationService.calculateDuration(sitting);
-            dataManipulationService.findAndConcatenateHearingPlatform(sitting, session);
+            sitting['sittingStartFormatted'] = helperService.publicationTimeInBst(sitting['sittingStart']);
+            helperService.calculateDuration(sitting);
+            helperService.findAndConcatenateHearingPlatform(sitting, session);
           });
         });
         courtRoom['totalHearing'] = hearingCount;

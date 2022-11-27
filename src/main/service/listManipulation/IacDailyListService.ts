@@ -1,9 +1,9 @@
-import { DataManipulationService } from '../dataManipulationService';
+import { ListParseHelperService } from '../listParseHelperService';
 import { formatDate } from '../../helpers/dateTimeHelper';
 
 export class IacDailyListService {
 
-  dataManipulationService = new DataManipulationService();
+  helperService = new ListParseHelperService();
   public manipulateIacDailyListData(iacDailyList: string): object {
     const iacDailyListData = JSON.parse(iacDailyList);
     let caseCount = 0;
@@ -14,11 +14,11 @@ export class IacDailyListService {
           session['formattedJudiciary'] = this.getDeduplicatedJudiciaryNameSurname(session);
           session['sittings'].forEach(sitting => {
             sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma');
-            this.dataManipulationService.findAndConcatenateHearingPlatform(sitting, session);
+            this.helperService.findAndConcatenateHearingPlatform(sitting, session);
             sitting['hearing'].forEach(hearing => {
               caseCount += hearing['case'].length;
-              this.dataManipulationService.findAndManipulatePartyInformation(hearing);
-              this.dataManipulationService.findAndManipulateLinkedCases(hearing);
+              this.helperService.findAndManipulatePartyInformation(hearing);
+              this.helperService.findAndManipulateLinkedCases(hearing);
             });
           });
           session['totalCases'] = caseCount;
@@ -33,15 +33,15 @@ export class IacDailyListService {
     const judiciaries = [];
     session['judiciary']?.forEach(judiciary => {
       let currentJudiciary = '';
-      if (DataManipulationService.writeStringIfValid(judiciary?.johTitle) !== '') {
-        currentJudiciary = DataManipulationService.writeStringIfValid(judiciary?.johTitle);
+      if (ListParseHelperService.writeStringIfValid(judiciary?.johTitle) !== '') {
+        currentJudiciary = ListParseHelperService.writeStringIfValid(judiciary?.johTitle);
       }
 
-      if (DataManipulationService.writeStringIfValid(judiciary?.johNameSurname) !== '') {
-        if (DataManipulationService.writeStringIfValid(judiciary?.johTitle) !== '') {
+      if (ListParseHelperService.writeStringIfValid(judiciary?.johNameSurname) !== '') {
+        if (ListParseHelperService.writeStringIfValid(judiciary?.johTitle) !== '') {
           currentJudiciary += ' ';
         }
-        currentJudiciary += DataManipulationService.writeStringIfValid(judiciary?.johNameSurname);
+        currentJudiciary += ListParseHelperService.writeStringIfValid(judiciary?.johNameSurname);
       }
 
       if (!judiciaries.includes(currentJudiciary)) {

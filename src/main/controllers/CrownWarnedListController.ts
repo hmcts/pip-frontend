@@ -2,11 +2,11 @@ import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {cloneDeep} from 'lodash';
 import {PublicationService} from '../service/publicationService';
-import {DataManipulationService} from '../service/dataManipulationService';
+import {ListParseHelperService} from '../service/listParseHelperService';
 import {CrownWarnedListService} from '../service/listManipulation/crownWarnedListService';
 
 const publicationService = new PublicationService();
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
 const crownWarnedListService = new CrownWarnedListService();
 
 const listUrl = 'crown-warned-list';
@@ -20,8 +20,8 @@ export default class CrownWarnedListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (searchResults && metaData) {
-      const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
-      const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInBst(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInBst(searchResults['document']['publicationDate']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
       const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults));

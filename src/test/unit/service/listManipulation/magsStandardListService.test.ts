@@ -17,12 +17,12 @@ describe('Magistrate Standard List Data manipulation service', () => {
       magistrateStandardList = JSON.parse(rawMagistrateStandardListData);
     });
 
-    it('should formatted the case time in 12 hours format', async () => {
+    it('should format the case time in 12 hour format', async () => {
       const data = await magsStandardListService.manipulatedMagsStandardListData(magistrateStandardList, lng, languageFile);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['time']).to.equal('2:30pm');
     });
 
-    it('should formatted the party information correctly', async () => {
+    it('should format the party information correctly', async () => {
       const data = await magsStandardListService.manipulatedMagsStandardListData(magistrateStandardList, lng, languageFile);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['defendants'][0]['defendantHeading']).to.equal('Surname1, John Smith1 (male)*');
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['defendants'][0]['defendantInfo'][0]['defendantDateOfBirth']).to.equal('01/01/1983');
@@ -32,7 +32,7 @@ describe('Magistrate Standard List Data manipulation service', () => {
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['defendants'][0]['defendantInfo'][0]['allOffences'][0]['plea']).to.equal('NOT_GUILTY');
     });
 
-    it('should formatted conviction and adjournedDate date correctly', async () => {
+    it('should format conviction and adjournedDate date correctly', async () => {
       const data = await magsStandardListService.manipulatedMagsStandardListData(magistrateStandardList, lng, languageFile);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['defendants'][0]['defendantInfo'][0]['allOffences'][0]['formattedConvictionDate']).to.equal('14/09/2016');
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['defendants'][0]['defendantInfo'][0]['allOffences'][0]['formattedAdjournedDate']).to.equal('14/09/2016');

@@ -1,8 +1,8 @@
 import moment from 'moment-timezone';
-import {DataManipulationService} from '../dataManipulationService';
+import {ListParseHelperService} from '../listParseHelperService';
 import {formatDuration} from '../../helpers/dateTimeHelper';
 
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
 const separator = ', ';
 
 /**
@@ -70,20 +70,20 @@ export class CrimeListsService {
   }
 
   public createIndividualDetails(individualDetails: any): string {
-    const forenames = DataManipulationService.writeStringIfValid(individualDetails?.individualForenames);
-    const surname = DataManipulationService.writeStringIfValid(individualDetails?.individualSurname);
+    const forenames = ListParseHelperService.writeStringIfValid(individualDetails?.individualForenames);
+    const surname = ListParseHelperService.writeStringIfValid(individualDetails?.individualSurname);
     return surname
       + (surname.length > 0 && forenames.length > 0 ? ', ' : '')
       + forenames;
   }
 
   private createOrganisationDetails(organisationDetails: any) {
-    return DataManipulationService.writeStringIfValid(organisationDetails?.organisationName);
+    return ListParseHelperService.writeStringIfValid(organisationDetails?.organisationName);
   }
 
   public formatCaseTime(sitting: object, format: string): void {
     if (sitting['sittingStart'] !== '') {
-      sitting['time'] = moment.utc(sitting['sittingStart']).tz(dataManipulationService.timeZone).format(format);
+      sitting['time'] = moment.utc(sitting['sittingStart']).tz(helperService.timeZone).format(format);
     }
   }
 
@@ -97,7 +97,7 @@ export class CrimeListsService {
         if (cases?.caseLinked) {
           cases.caseLinked.forEach(caseLinked => {
             linkedCases += caseLinked.caseId.trim();
-            linkedCases += dataManipulationService.stringDelimiter(linkedCases?.length, ',');
+            linkedCases += helperService.stringDelimiter(linkedCases?.length, ',');
           });
         }
         cases['linkedCases'] = linkedCases?.replace(/,\s*$/, '').trim();
@@ -106,7 +106,7 @@ export class CrimeListsService {
 
     if (hearing?.listingDetails) {
       listingNotes += hearing.listingDetails.listingRepDeadline.trim();
-      listingNotes += dataManipulationService.stringDelimiter(listingNotes?.length, ',');
+      listingNotes += helperService.stringDelimiter(listingNotes?.length, ',');
     }
 
     hearing['listingNotes'] = listingNotes?.replace(/,\s*$/, '').trim();

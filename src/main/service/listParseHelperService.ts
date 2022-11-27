@@ -1,7 +1,7 @@
 import {partyRoleMappings} from '../models/consts';
 import moment from 'moment-timezone';
 
-export class DataManipulationService {
+export class ListParseHelperService {
 
   public timeZone = 'Europe/London';
 
@@ -61,7 +61,7 @@ export class DataManipulationService {
     if (hearing?.party) {
       hearing.party.forEach(party => {
 
-        switch (DataManipulationService.convertPartyRole(party.partyRole)) {
+        switch (ListParseHelperService.convertPartyRole(party.partyRole)) {
           case 'APPLICANT_PETITIONER': {
             applicant += this.createIndividualDetails(party.individualDetails, initialised).trim();
             applicant += this.stringDelimiter(applicant?.length, ',');
@@ -130,11 +130,11 @@ export class DataManipulationService {
    */
   private createIndividualDetails(individualDetails: any, initialised = false): string {
 
-    const title = DataManipulationService.writeStringIfValid(individualDetails?.title);
-    const forenames = DataManipulationService.writeStringIfValid(individualDetails?.individualForenames);
+    const title = ListParseHelperService.writeStringIfValid(individualDetails?.title);
+    const forenames = ListParseHelperService.writeStringIfValid(individualDetails?.individualForenames);
     const forenameInitial = forenames.charAt(0);
-    const middleName = DataManipulationService.writeStringIfValid(individualDetails?.individualMiddleName);
-    const surname = DataManipulationService.writeStringIfValid(individualDetails?.individualSurname);
+    const middleName = ListParseHelperService.writeStringIfValid(individualDetails?.individualMiddleName);
+    const surname = ListParseHelperService.writeStringIfValid(individualDetails?.individualSurname);
     if (initialised) {
 
       return title + (title.length > 0 ? ' ' : '')
@@ -213,11 +213,11 @@ export class DataManipulationService {
     let foundPresiding = false;
     session['judiciary']?.forEach(judiciary => {
       if (judiciary?.isPresiding === true) {
-        judiciaries = DataManipulationService.writeStringIfValid(judiciary?.johKnownAs);
+        judiciaries = ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs);
         foundPresiding = true;
       } else if (!foundPresiding) {
-        if (DataManipulationService.writeStringIfValid(judiciary?.johKnownAs) !== '') {
-          judiciaries += DataManipulationService.writeStringIfValid(judiciary?.johKnownAs) + ', ';
+        if (ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs) !== '') {
+          judiciaries += ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs) + ', ';
         }
       }
     });
@@ -317,15 +317,15 @@ export class DataManipulationService {
       if (formattedJoh.length > 0) {
         formattedJoh += ', ';
       }
-      if (DataManipulationService.writeStringIfValid(joh?.johKnownAs) !== '') {
-        formattedJoh += DataManipulationService.writeStringIfValid(joh?.johKnownAs);
+      if (ListParseHelperService.writeStringIfValid(joh?.johKnownAs) !== '') {
+        formattedJoh += ListParseHelperService.writeStringIfValid(joh?.johKnownAs);
       }
 
-      if (DataManipulationService.writeStringIfValid(joh?.johNameSurname) !== '') {
-        if (DataManipulationService.writeStringIfValid(joh?.johKnownAs) !== '') {
+      if (ListParseHelperService.writeStringIfValid(joh?.johNameSurname) !== '') {
+        if (ListParseHelperService.writeStringIfValid(joh?.johKnownAs) !== '') {
           formattedJoh += ' ';
         }
-        formattedJoh += DataManipulationService.writeStringIfValid(joh?.johNameSurname);
+        formattedJoh += ListParseHelperService.writeStringIfValid(joh?.johNameSurname);
       }
     });
     return formattedJoh;
@@ -342,15 +342,15 @@ export class DataManipulationService {
         judiciaryFormatted += ', ';
       }
 
-      if (DataManipulationService.writeStringIfValid(judiciary?.johTitle) !== '') {
-        judiciaryFormatted += DataManipulationService.writeStringIfValid(judiciary?.johTitle);
+      if (ListParseHelperService.writeStringIfValid(judiciary?.johTitle) !== '') {
+        judiciaryFormatted += ListParseHelperService.writeStringIfValid(judiciary?.johTitle);
       }
 
-      if (DataManipulationService.writeStringIfValid(judiciary?.johNameSurname) !== '') {
-        if (DataManipulationService.writeStringIfValid(judiciary?.johTitle) !== '') {
+      if (ListParseHelperService.writeStringIfValid(judiciary?.johNameSurname) !== '') {
+        if (ListParseHelperService.writeStringIfValid(judiciary?.johTitle) !== '') {
           judiciaryFormatted += ' ';
         }
-        judiciaryFormatted += DataManipulationService.writeStringIfValid(judiciary?.johNameSurname);
+        judiciaryFormatted += ListParseHelperService.writeStringIfValid(judiciary?.johNameSurname);
       }
     });
     return judiciaryFormatted;

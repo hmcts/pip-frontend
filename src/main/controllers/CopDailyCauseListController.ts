@@ -4,12 +4,12 @@ import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import moment from 'moment';
-import { DataManipulationService } from '../service/dataManipulationService';
+import { ListParseHelperService } from '../service/listParseHelperService';
 import { CopDailyListService } from '../service/listManipulation/copDailyListService';
 
 const publicationService = new PublicationService();
 const courtService = new LocationService();
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
 const copDailyListService = new CopDailyListService();
 export default class CopDailyCauseListController {
 
@@ -22,14 +22,14 @@ export default class CopDailyCauseListController {
 
       const manipulatedData = copDailyListService.manipulateCopDailyCauseList(JSON.stringify(searchResults));
 
-      const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
-      const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInBst(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInBst(searchResults['document']['publicationDate']);
 
       const returnedCourt = await courtService.getLocationById(metaData['locationId']);
       const courtName = courtService.findCourtName(returnedCourt, req.lng as string, 'cop-daily-cause-list');
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
-      const regionalJoh = dataManipulationService.getRegionalJohFromLocationDetails(searchResults['locationDetails']);
+      const regionalJoh = helperService.getRegionalJohFromLocationDetails(searchResults['locationDetails']);
 
       res.render('cop-daily-cause-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['cop-daily-cause-list']),

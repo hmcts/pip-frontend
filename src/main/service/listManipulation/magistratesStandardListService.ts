@@ -1,8 +1,8 @@
-import {DataManipulationService} from '../dataManipulationService';
+import {ListParseHelperService} from '../listParseHelperService';
 import {formatDate, formatDuration} from '../../helpers/dateTimeHelper';
 import {CrimeListsService} from './CrimeListsService';
 
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
 
 export class MagistratesStandardListService {
@@ -12,7 +12,7 @@ export class MagistratesStandardListService {
         courtRoom['session'].forEach(session => {
           const allDefendants = [];
           session['sittings'].forEach(sitting => {
-            const judiciary = dataManipulationService.findAndManipulateJudiciary(sitting);
+            const judiciary = helperService.findAndManipulateJudiciary(sitting);
             if (judiciary !== '') {
               session['formattedJudiciaries'] = judiciary;
             }
@@ -53,7 +53,7 @@ export class MagistratesStandardListService {
 
   private combineDefendantSittings(allDefendants): object {
     const defendantsPerSessions = [];
-    const uniqueDefendantNames = dataManipulationService.uniquesInArrayByAttrib(allDefendants, 'defendantHeading');
+    const uniqueDefendantNames = helperService.uniquesInArrayByAttrib(allDefendants, 'defendantHeading');
     uniqueDefendantNames.forEach(defendantNames => {
       const defendant = allDefendants.filter(row => row.defendantHeading === defendantNames);
       defendantsPerSessions.push({'defendantHeading': defendantNames, defendantInfo: defendant});
@@ -124,7 +124,7 @@ export class MagistratesStandardListService {
   private manipulatePartyInformation(hearing: any, party: any): void {
     let defendant = '';
 
-    if (DataManipulationService.convertPartyRole(party.partyRole) === 'DEFENDANT') {
+    if (ListParseHelperService.convertPartyRole(party.partyRole) === 'DEFENDANT') {
       defendant = crimeListsService.createIndividualDetails(party.individualDetails).trim();
     }
 

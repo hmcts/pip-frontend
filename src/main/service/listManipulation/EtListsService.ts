@@ -1,9 +1,9 @@
 import { formatDate } from '../../helpers/dateTimeHelper';
-import { DataManipulationService } from '../dataManipulationService';
+import { ListParseHelperService } from '../listParseHelperService';
 import moment from 'moment-timezone';
 
 export class EtListsService {
-  public dataManipulationService = new DataManipulationService();
+  public helperService = new ListParseHelperService();
 
   /**
    * Reshaping et List json data into formatted niceness.
@@ -14,15 +14,15 @@ export class EtListsService {
     jsonData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
-          session['formattedJudiciary'] = this.dataManipulationService.getJudiciaryNameSurname(session);
+          session['formattedJudiciary'] = this.helperService.getJudiciaryNameSurname(session);
           delete session['judiciary'];
           session['sittings'].forEach(sitting => {
             hearingCount = hearingCount + sitting['hearing'].length;
             sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma');
-            this.dataManipulationService.calculateDuration(sitting);
-            this.dataManipulationService.findAndConcatenateHearingPlatform(sitting, session);
+            this.helperService.calculateDuration(sitting);
+            this.helperService.findAndConcatenateHearingPlatform(sitting, session);
             sitting['hearing'].forEach(hearing => {
-              this.dataManipulationService.findAndManipulatePartyInformation(hearing, true);
+              this.helperService.findAndManipulatePartyInformation(hearing, true);
             });
           });
         });
@@ -94,12 +94,12 @@ export class EtListsService {
    */
   private splitByCourtAndDate(data: any) {
     const courts = [];
-    const uniqueCourts =this.dataManipulationService.uniquesInArrayByAttrib(data, 'courtName');
+    const uniqueCourts =this.helperService.uniquesInArrayByAttrib(data, 'courtName');
     let courtCounter = 0;
     uniqueCourts.forEach(court => {
       const courtData = data.filter(row => row.courtName === court);
       courts.push({'courtName': court, days: []});
-      const uniqueDays =this.dataManipulationService.uniquesInArrayByAttrib(courtData, 'sittingDate');
+      const uniqueDays =this.helperService.uniquesInArrayByAttrib(courtData, 'sittingDate');
       const uniqueDaysArr = [];
       Array.from(uniqueDays).forEach(day => {
         const encDay = moment.utc(day, 'dddd DD MMMM YYYY').tz('Europe/London');

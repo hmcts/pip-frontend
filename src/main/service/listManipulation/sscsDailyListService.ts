@@ -1,6 +1,6 @@
-import { DataManipulationService } from '../dataManipulationService';
+import { ListParseHelperService } from '../listParseHelperService';
 
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
 export class SscsDailyListService {
   /**
    * Manipulate the sscsDailyList json data for writing out on screen.
@@ -13,18 +13,18 @@ export class SscsDailyListService {
     sscsDailyListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
-          session['formattedJudiciary'] = dataManipulationService.getJudiciaryNameSurname(session);
+          session['formattedJudiciary'] = helperService.getJudiciaryNameSurname(session);
           delete session['judiciary'];
 
           session['sittings'].forEach(sitting => {
             hearingCount = hearingCount + sitting['hearing'].length;
-            sitting['sittingStartFormatted'] = dataManipulationService.publicationTimeInBst(sitting['sittingStart']);
+            sitting['sittingStartFormatted'] = helperService.publicationTimeInBst(sitting['sittingStart']);
             delete sitting['sittingStart'];
-            dataManipulationService.findAndConcatenateHearingPlatform(sitting, session);
+            helperService.findAndConcatenateHearingPlatform(sitting, session);
             delete sitting['channel'];
             delete session['sessionChannel'];
             sitting['hearing'].forEach(hearing => {
-              dataManipulationService.findAndManipulatePartyInformation(hearing);
+              helperService.findAndManipulatePartyInformation(hearing);
 
               hearing['informant'].forEach(informant => {
                 let prosecutionAuthorityRefFormatted = '';

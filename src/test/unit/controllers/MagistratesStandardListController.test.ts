@@ -6,7 +6,7 @@ import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
 import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
+import {ListParseHelperService} from '../../../main/service/listParseHelperService';
 import MagistratesStandardListController from '../../../main/controllers/MagistratesStandardListController';
 import {MagistratesStandardListService} from '../../../main/service/listManipulation/magistratesStandardListService';
 
@@ -24,7 +24,7 @@ const magsStandardListController = new MagistratesStandardListController();
 const magsStandardListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const magsStandardListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').returns(listData);
+sinon.stub(ListParseHelperService.prototype, 'manipulatedDailyListData').returns(listData);
 sinon.stub(MagistratesStandardListService.prototype, 'manipulatedMagsStandardListData').returns(listData);
 
 const artefactId = 'abc';

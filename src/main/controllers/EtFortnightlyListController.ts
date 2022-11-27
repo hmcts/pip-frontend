@@ -2,14 +2,14 @@ import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {cloneDeep} from 'lodash';
 import {PublicationService} from '../service/publicationService';
-import { DataManipulationService } from '../service/dataManipulationService';
+import { ListParseHelperService } from '../service/listParseHelperService';
 import { EtListsService } from '../service/listManipulation/EtListsService';
 import {LocationService} from '../service/locationService';
 import moment from 'moment/moment';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
 const etListsService = new EtListsService();
 
 export default class EtFortnightlyListController {
@@ -22,8 +22,8 @@ export default class EtFortnightlyListController {
     if (fileData && metaData) {
       const tableData = etListsService.reshapeEtFortnightlyListData(JSON.stringify(fileData));
       const listData = etListsService.reshapeEtLists(JSON.stringify(fileData));
-      const publishedTime = dataManipulationService.publicationTimeInBst(fileData['document']['publicationDate']);
-      const publishedDate = dataManipulationService.publicationDateInBst(fileData['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInBst(fileData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInBst(fileData['document']['publicationDate']);
       const returnedCourt = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
       const courtName = locationService.findCourtName(returnedCourt, req.lng as string, 'et-fortnightly-list');

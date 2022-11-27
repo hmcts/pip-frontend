@@ -6,7 +6,7 @@ import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
 import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
+import {ListParseHelperService} from '../../../main/service/listParseHelperService';
 import CrownDailyListController from '../../../main/controllers/CrownDailyListController';
 import {CrimeListsService} from '../../../main/service/listManipulation/CrimeListsService';
 
@@ -24,7 +24,7 @@ const crownDailyListController = new CrownDailyListController();
 const crownDailyListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const crownDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').returns(listData);
+sinon.stub(ListParseHelperService.prototype, 'manipulatedDailyListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').returns(listData);
 

@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import {PublicationService} from '../../../main/service/publicationService';
 import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
+import {ListParseHelperService} from '../../../main/service/listParseHelperService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
@@ -25,7 +25,7 @@ const copDailyCauseListJsonStub = sinon.stub(PublicationService.prototype, 'getI
 const copDailyCauseListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 sinon.stub(CopDailyListService.prototype, 'manipulateCopDailyCauseList').returns(listData);
-sinon.stub(DataManipulationService.prototype, 'getRegionalJohFromLocationDetails').returns('Test JoH');
+sinon.stub(ListParseHelperService.prototype, 'getRegionalJohFromLocationDetails').returns('Test JoH');
 
 const artefactId = 'abc';
 
