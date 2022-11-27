@@ -41,6 +41,24 @@ export class Nunjucks {
       },
     );
 
+    function printableDuration(val, unit, language) {
+      if (language == 'cy') {
+        unit = new Map([['hour', 'awr'], ['min', 'munud']]).get(unit);
+      }
+      switch (val) {
+        case 0:
+          return '';
+        case 1:
+          return `1 ${unit}`;
+        default:
+          if (language == 'en') {
+            return `${val} ${unit}s`;
+          } else {
+            return `${val} ${unit}`;
+          }
+      }
+    }
+
     const dateFilter = require('nunjucks-date-filter');
     env.addFilter('date', dateFilter);
     const fs = require ('fs');
@@ -61,6 +79,7 @@ export class Nunjucks {
     env.addFilter('emailLink', function(x){ return this.env.filters.safe('<a class=govuk-link href="mailto:' + x + '">'+ x +'</a>');});
     // for phone numbers to display as links
     env.addFilter('phoneLink', function(x){return this.env.filters.safe('<a class=govuk-link href="tel:' + x + '">' + x + '</a>');});
+    env.addFilter('getDuration', function(hours, mins, language){return [printableDuration(hours, 'hour', language), printableDuration(mins, 'min', language)].join(' ').trim();});
 
     app.use((req, res, next) => {
       res.locals.pagePath = req.path;

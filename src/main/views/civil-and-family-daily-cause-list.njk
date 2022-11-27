@@ -97,32 +97,7 @@
 
                     <tbody class="govuk-table__body">
                     {% for sitting in session['sittings'] %}
-                      {% set durationAsHours = 0 %}
-                      {% if sitting['durationAsHours'] !== 0 %}
-                        {% if sitting['durationAsHours'] > 1 %}
-                          {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHours %}
-                          {% elif sitting['durationAsHours'] === 1 %}
-                          {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHour %}
-                        {% endif %}
-                      {% endif %}
-                      {% set durationAsMinutes = 0 %}
-                      {% if sitting['durationAsMinutes'] !== 0 %}
-                        {% if sitting['durationAsMinutes'] > 1 %}
-                          {% set durationAsMinutes = sitting['durationAsMinutes'] + ' ' + hearingDurationMinutes %}
-                          {% elif sitting['durationAsMinutes'] === 1 %}
-                          {% set durationAsMinutes = sitting['durationAsMinutes'] + ' ' + hearingDurationMinute %}
-                        {% endif %}
-                      {% endif %}
-                      {% set duration = '' %}
-                      {% if durationAsHours === 0 and durationAsMinutes === 0 %}
-                        {% set duration = '' %}
-                        {% elif durationAsHours !== 0 and durationAsMinutes !== 0 %}
-                        {% set duration = durationAsHours + ' ' + durationAsMinutes %}
-                        {% elif durationAsHours === 0 %}
-                        {% set duration = durationAsMinutes %}
-                        {% elif durationAsMinutes === 0 %}
-                        {% set duration = durationAsHours %}
-                      {% endif %}
+                      {% set duration = sitting.durationAsHours | getDuration(sitting.durationAsMinutes, lng) %}
 
                       {% for hearing in sitting['hearing'] %}
                         {% for case in hearing['case'] %}

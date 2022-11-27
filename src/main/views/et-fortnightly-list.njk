@@ -76,6 +76,7 @@
             </span>
           </h2>
 
+
         </div>
         <div id="accordion-default-content-{{ courtRoomCount }}" class="govuk-accordion__section-content"
              aria-labelledby="accordion-default-heading-{{ courtRoomCount }}">
@@ -90,32 +91,12 @@
               </thead>
               <tbody class="govuk-table__body">
               {% for record in day %}
-                {% set durationAsHours = 0 %}
-                {% if record['durationAsHours'] > 1 %}
-                  {% set durationAsHours = record['durationAsHours'] + ' ' + hearingDurationHours %}
-                  {% elif record['durationAsHours'] === 1 %}
-                  {% set durationAsHours = record['durationAsHours'] + ' ' + hearingDurationHour %}
-                {% endif %}
-                {% set durationAsMinutes = 0 %}
-                {% if record['durationAsMinutes'] > 1 %}
-                  {% set durationAsMinutes = record['durationAsMinutes'] + ' ' + hearingDurationMinutes %}
-                  {% elif record['durationAsMinutes'] === 1 %}
-                  {% set durationAsMinutes = record['durationAsMinutes'] + ' ' + hearingDurationMinute %}
-                {% endif %}
-                {% set duration = '' %}
-                {% if durationAsHours === 0 and durationAsMinutes === 0 %}
-                  {% set duration = '' %}
-                  {% elif durationAsHours !== 0 and durationAsMinutes !== 0 %}
-                  {% set duration = durationAsHours + ' ' + durationAsMinutes %}
-                  {% elif durationAsHours === 0 %}
-                  {% set duration = durationAsMinutes %}
-                  {% elif durationAsMinutes === 0 %}
-                  {% set duration = durationAsHours %}
-                {% endif %}
+                <h1>{{ record.durationAsHours | getDuration(record.durationAsMinutes, lng) }}</h1>
+                {% set duration = [record.durationAsHours | getDuration(record.durationAsMinutes, lng), record.caseSeparator] | join(" ") | trim %}
                 <tr class="govuk-table__row">
                   <td class="govuk-table__cell {{ noBorder }}">{{ record.courtRoom }}</td>
                   <td class="govuk-table__cell {{ noBorder }}">{{ record.sittingTime }}</td>
-                  <td class="govuk-table__cell {{ noBorder }}">{{ duration }} {{ record.caseSeparator }}</td>
+                  <td class="govuk-table__cell {{ noBorder }}">{{ duration }}</td>
                   <td class="govuk-table__cell {{ noBorder }}">{{ record.caseNumber }}</td>
                   {% if record.claimantRep | length %}
                     <td class="govuk-table__cell {{ noBorder }}">{{ record.claimant }}<br/>{{ rep }}
