@@ -18,7 +18,7 @@ export default class BulkCreateMediaAccountsConfirmationController {
 
     const accountsToCreate =
       fileName === undefined ? []
-      : await BulkCreateMediaAccountsConfirmationController.getAccountsToCreate(req.user['oid'], fileName);
+        : await BulkCreateMediaAccountsConfirmationController.getAccountsToCreate(req.user['oid'], fileName);
 
     res.render(bulkCreateAccountsConfirmationUrl, {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkCreateAccountsConfirmationUrl]),
