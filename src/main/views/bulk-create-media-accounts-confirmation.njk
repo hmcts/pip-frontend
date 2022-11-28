@@ -23,7 +23,6 @@
           href: "#"
         }
       ]
-
     }) }}
   {% endif %}
   {% if displayAccountCreationError %}
@@ -67,23 +66,6 @@
         {% endfor %}
         </tbody>
       </table>
-
-
-{#      <div class="govuk-grid-column-three-quarters">#}
-{#        {{ govukTable({#}
-{#          head: [#}
-{#            { text: email },#}
-{#            { text: firstName },#}
-{#            { text: surname },#}
-{#            {#}
-{#              attributes: {#}
-{#              'aria-hidden': 'true'#}
-{#            }#}
-{#            }#}
-{#          ],#}
-{#          rows: tableRows#}
-{#        }) }}#}
-{#      </div>#}
     </div>
 
     <form method="post">
@@ -91,8 +73,6 @@
         classes: "govuk-radios--inline",
         idPrefix: "confirmed",
         name: "confirmed",
-        fieldset: {
-        },
         items: [
           {
             id: 'yes',
