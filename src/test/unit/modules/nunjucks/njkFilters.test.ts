@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import * as nunjucks from 'nunjucks';
 
 const env = new nunjucks.Environment();
-const addFilters = require('../../../main/modules/nunjucks/njkFilters');
+const addFilters = require('../../../../main/modules/nunjucks/njkFilters');
 addFilters(env);
 describe('Nunjucks Custom Filter Tests', function() {
   describe('getDuration Filter', function() {
