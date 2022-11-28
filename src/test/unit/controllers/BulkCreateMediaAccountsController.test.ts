@@ -19,10 +19,7 @@ const response = {
 const fileName = 'fileName';
 const file = 'file';
 const error = 'error';
-
-const mockData = {fileName: fileName, file: ''};
 const request = mockRequest(i18n);
-request['cookies'] = {'formCookie': JSON.stringify(mockData)};
 
 sinon.stub(FileHandlingService.prototype, 'sanitiseFileName').returns(fileName);
 sinon.stub(FileHandlingService.prototype, 'storeFileIntoRedis').resolves({});
@@ -39,7 +36,6 @@ describe('Bulk Create Media Accounts Controller', () => {
       const expectedData = {
         ...i18n[bulkCreateAccountsUrl],
         displayError: false,
-        formData: mockData,
       };
       responseMock.expects('render').once().withArgs(bulkCreateAccountsUrl, expectedData);
 
@@ -71,7 +67,6 @@ describe('Bulk Create Media Accounts Controller', () => {
 
       const expectedData = {
         ...i18n[bulkCreateAccountsUrl],
-        formData: request.body,
         displayError: true,
         error,
       };
@@ -90,7 +85,6 @@ describe('Bulk Create Media Accounts Controller', () => {
 
       const expectedData = {
         ...i18n[bulkCreateAccountsUrl],
-        formData: request.body,
         displayError: true,
         error,
       };
