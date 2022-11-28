@@ -38,6 +38,8 @@ const routesNotTested = [
   '/delete-user',
   '/delete-user-confirmation',
   '/update-user-confirmation',
+  '/bulk-create-user-accounts-confirmation',
+  '/bulk-create-user-accounts-confirmed',
 ];
 
 const adminRoutes = [
@@ -73,6 +75,9 @@ const systemAdminRoutes = [
   '/blob-view-json',
   '/blob-view-publications',
   '/blob-view-locations',
+  '/bulk-create-user-accounts',
+  '/bulk-create-user-accounts-confirmation',
+  '/bulk-create-user-accounts-confirmed',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');

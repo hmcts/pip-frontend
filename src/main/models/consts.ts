@@ -32,14 +32,14 @@ export const partyRoleMappings = {
   'DEFENDANT': [],
 };
 
-export const allowedLocationUploadFileTypes = [
+export const allowedCsvFileTypes = [
   'csv',
 ];
 
 export enum uploadType {
   IMAGE,
   FILE ,
-  REFERENCE_DATE,
+  CSV,
 }
 
 export const formattedRoles = {

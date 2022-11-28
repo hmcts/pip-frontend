@@ -1,0 +1,56 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+  <div class="parent-box">
+    {% if displayError %}
+      {{ govukErrorSummary({
+        titleText: errorTitle,
+        errorList: [{
+          text: error,
+          href: "#bulk-account-upload"
+        }]
+      }) }}
+    {% endif %}
+
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+
+    <form method="post" enctype="multipart/form-data">
+      {% set errorMessage = {text: error} if displayError else false %}
+      <p class="govuk-body" tabindex="0">{{ fileUploadText }}</p>
+      {% set inset = '<p class="govuk-body">' + recordDescription + '<br/>'+ fileHeaderDescription + '</p>' %}
+      {{ govukInsetText({
+        html: inset
+      }) }}
+      {% set errorMessage = {text: error} if displayError else false %}
+      {{ govukFileUpload({
+        id: "bulk-account-upload",
+        name: "bulk-account-upload",
+        accept: ".csv",
+        errorMessage: errorMessage
+      }) }}
+      {{ submitButton(continueButton) }}
+    </form>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  {{ super() }}
+{% endblock %}

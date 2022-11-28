@@ -213,6 +213,7 @@ module.exports = {
   ManageThirdPartyUsers: '#card-manage-third-party-users',
   referenceDataFileUpload: '#manual-reference-data-upload',
   userManagement: '#card-user-management',
+  BulkCreateMediaAccounts: '#bulk-create-media-accounts',
 
   //UserManagement screens selectors
   manageLink: '#manage-link',

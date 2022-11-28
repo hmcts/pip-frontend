@@ -19,7 +19,7 @@ export default class ManualReferenceDataUploadController {
     } else {
       const errors = {
         fileErrors: fileHandlingService.validateFileUpload(req.file, req.lng as string, 'manual-reference-data-upload',
-          uploadType.REFERENCE_DATE),
+          uploadType.CSV),
       };
 
       const formValues = {

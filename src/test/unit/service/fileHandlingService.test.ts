@@ -92,6 +92,18 @@ describe('File handling service', () => {
     });
   });
 
+  describe('readCsvToArray', () => {
+    it('should read a csv file successfully', () => {
+      const file = fs.readFileSync('./manualUpload/tmp/validationFile.csv', 'utf-8');
+      const rows = fileHandlingService.readCsvToArray(file);
+      expect(rows).toHaveLength(4);
+
+      const header = rows[0];
+      expect(header).toHaveLength(3);
+      expect(header).toStrictEqual(['column1', 'column2', 'column3']);
+    });
+  });
+
   describe('readFile from redis', () => {
     const getStub = sinon.stub(redisClient, 'get');
     it('should read a pdf file successfully', async () => {

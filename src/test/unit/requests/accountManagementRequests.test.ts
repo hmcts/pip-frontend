@@ -163,6 +163,50 @@ describe('Account Management Requests', () => {
     });
   });
 
+  describe('Bulk Create Media Accounts', () => {
+    const file = 'file';
+    const fileName = 'fileName';
+    const requester = '123';
+
+    beforeEach(() => {
+      sinon.restore();
+      const axiosConfig = require('../../../main/resources/requests/utils/axiosConfig');
+      sinon.stub(axiosConfig, 'getAccountManagementCredentials').returns(() => {return '';});
+    });
+
+    it('should return true on success', async () => {
+      // chain call for superagent post.set.set.set.attach
+      sinon.stub(superagent, 'post').callsFake(() => {
+        return {
+          set(): any {
+            return { set(): any {
+              return { set(): any {
+                return { attach: sinon.stub().returns(true) };
+              } };
+            } };
+          },
+        };
+      });
+
+      expect(await accountManagementRequests.bulkCreateMediaAccounts(file, fileName, requester)).toBe(true);
+    });
+
+    it('should return error response', async () => {
+      sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorResponse);
+      expect(await accountManagementRequests.bulkCreateMediaAccounts(file, fileName, requester)).toBe(false);
+    });
+
+    it('should return error request', async () => {
+      sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorRequest);
+      expect(await accountManagementRequests.bulkCreateMediaAccounts(file, fileName, requester)).toBe(false);
+    });
+
+    it('should return error message', async () => {
+      sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorMessage);
+      expect(await accountManagementRequests.bulkCreateMediaAccounts(file, fileName, requester)).toBe(false);
+    });
+  });
+
   describe('Get media applications', () => {
     const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/mediaApplications.json'), 'utf-8');
     const mediaApplications = JSON.parse(rawData);

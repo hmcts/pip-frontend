@@ -1,0 +1,52 @@
+import {PipRequest} from '../models/request/PipRequest';
+import {Response} from 'express';
+import {FileHandlingService} from '../service/fileHandlingService';
+import {cloneDeep} from 'lodash';
+import {uploadType} from '../models/consts';
+import {CreateAccountService} from '../service/createAccountService';
+
+const fileHandlingService = new FileHandlingService();
+const createAccountService = new CreateAccountService();
+
+const bulkCreateAccountsUrl = 'bulk-create-media-accounts';
+const bulkCreateAccountsConfirmationUrl = 'bulk-create-media-accounts-confirmation';
+let formCookie;
+
+export default class BulkCreateMediaAccountsController {
+  public async get(req: PipRequest, res: Response): Promise<void> {
+    formCookie = req.cookies?.formCookie;
+    const formData = formCookie ? JSON.parse(formCookie) : {};
+    res.render(bulkCreateAccountsUrl, {
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkCreateAccountsUrl]),
+      displayError: false,
+      formData,
+    });
+  }
+
+  public async post(req: PipRequest, res: Response): Promise<void> {
+    const formData = req.body;
+    const originalFileName = req.file['originalname'];
+    let error = fileHandlingService.validateFileUpload(req.file, req.lng as string, bulkCreateAccountsUrl, uploadType.CSV);
+    if (error === null) {
+      const file = fileHandlingService.readFile(originalFileName);
+      error = createAccountService.validateCsvFileContent(file, 3, ['email', 'firstName', 'surname'],
+        req.lng as string, 'bulk-create-media-accounts');
+    }
+
+    if (error === null) {
+      const sanitisedFileName = fileHandlingService.sanitiseFileName(originalFileName);
+      await fileHandlingService.storeFileIntoRedis(req.user['oid'], originalFileName, sanitisedFileName);
+
+      formData.uploadFileName = originalFileName;
+      res.cookie('formCookie', JSON.stringify(formData));
+      res.redirect(bulkCreateAccountsConfirmationUrl);
+    } else {
+      res.render(bulkCreateAccountsUrl, {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkCreateAccountsUrl]),
+        formData,
+        displayError: true,
+        error,
+      });
+    }
+  }
+}
