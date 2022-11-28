@@ -215,6 +215,9 @@ module.exports = {
   userManagement: '#card-user-management',
   BulkCreateMediaAccounts: '#card-bulk-create-media-accounts',
 
+  //BulkCreateMediaAccounts page
+  BulkMediaAccountsFileUpload: 'bulk-account-upload',
+
   //UserManagement screens selectors
   manageLink: '#manage-link',
   applyFiltersButton: '.moj-filter__options > .govuk-button',

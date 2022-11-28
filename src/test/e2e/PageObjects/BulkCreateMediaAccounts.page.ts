@@ -6,12 +6,12 @@ const path = require('path');
 
 export class BulkCreateMediaAccountsPage extends CommonPage {
   async uploadFile(): Promise<void> {
-    $(helpers.BulkCreateMediaAccounts).catch(() => {
-      console.log(`${helpers.BulkCreateMediaAccounts} not found`);
+    $(helpers.BulkMediaAccountsFileUpload).catch(() => {
+      console.log(`${helpers.BulkMediaAccountsFileUpload} not found`);
     });
 
     const filePath = path.join(__dirname, '../../unit/mocks/testBulkMediaUpload.csv');
-    await $(helpers.BulkCreateMediaAccounts).setValue(filePath);
+    await $(helpers.BulkMediaAccountsFileUpload).setValue(filePath);
   }
 
   async clickContinue(): Promise<BulkCreateMediaAccountsConfirmationPage> {
