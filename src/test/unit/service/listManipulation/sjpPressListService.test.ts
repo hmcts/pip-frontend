@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { SjpPressListService} from '../../../../main/service/listManipulation/sjpPressListService';
+import { SjpPressListService} from '../../../../main/service/listManipulation/SjpPressListService';
 import fs from 'fs';
 import path from 'path';
 

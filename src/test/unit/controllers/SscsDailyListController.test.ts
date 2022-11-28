@@ -7,7 +7,7 @@ import {LocationService} from '../../../main/service/locationService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
-import { SscsDailyListService } from '../../../main/service/listManipulation/sscsDailyListService';
+import { SscsDailyListService } from '../../../main/service/listManipulation/SscsDailyListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sscsDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);

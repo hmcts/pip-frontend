@@ -6,7 +6,7 @@ import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
-import { civilFamilyAndMixedListService } from '../service/listManipulation/civilFamilyAndMixedListService';
+import { civilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -22,19 +22,20 @@ export default class CrownDailyListController {
 
     if (searchResults && metaData) {
 
-      let manipulatedData = civFamMixedService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
-      manipulatedData = crimeListsService.manipulatedCrimeListData(JSON.stringify(manipulatedData),
+      // initial cleaning of data using mixed list service
+      let outputData = civFamMixedService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
+      outputData = crimeListsService.manipulatedCrimeListData(JSON.stringify(outputData),
         req.lng as string, 'crown-daily-list');
-      manipulatedData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(manipulatedData));
+      outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
 
-      const publishedTime = helperService.publicationTimeInBst(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInBst(searchResults['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
       const location = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
       res.render('crown-daily-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-daily-list']),
-        listData: manipulatedData,
+        listData: outputData,
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: publishedDate,
         publishedTime: publishedTime,

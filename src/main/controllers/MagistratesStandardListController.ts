@@ -5,8 +5,8 @@ import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
-import { MagistratesStandardListService } from '../service/listManipulation/magistratesStandardListService';
-import { civilFamilyAndMixedListService } from '../service/listManipulation/civilFamilyAndMixedListService';
+import { MagistratesStandardListService } from '../service/listManipulation/MagistratesStandardListService';
+import { civilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -21,11 +21,11 @@ export default class MagistratesStandardListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (searchResults && metaData) {
-
+      // initial cleaning of data using the mixed list service
       let manipulatedData = civService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
       manipulatedData = magsStandardListService.manipulatedMagsStandardListData(manipulatedData, req.lng as string, 'magistrates-standard-list');
-      const publishedTime = helperService.publicationTimeInBst(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInBst(searchResults['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
       const location = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 

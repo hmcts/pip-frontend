@@ -5,7 +5,7 @@ import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import moment from 'moment';
 import { ListParseHelperService } from '../service/listParseHelperService';
-import { CopDailyListService } from '../service/listManipulation/copDailyListService';
+import { CopDailyListService } from '../service/listManipulation/CopDailyListService';
 
 const publicationService = new PublicationService();
 const courtService = new LocationService();
@@ -22,8 +22,8 @@ export default class CopDailyCauseListController {
 
       const manipulatedData = copDailyListService.manipulateCopDailyCauseList(JSON.stringify(searchResults));
 
-      const publishedTime = helperService.publicationTimeInBst(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInBst(searchResults['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
 
       const returnedCourt = await courtService.getLocationById(metaData['locationId']);
       const courtName = courtService.findCourtName(returnedCourt, req.lng as string, 'cop-daily-cause-list');

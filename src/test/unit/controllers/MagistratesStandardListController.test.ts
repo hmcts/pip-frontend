@@ -7,8 +7,8 @@ import { mockRequest } from '../mocks/mockRequest';
 import moment from 'moment';
 import { LocationService } from '../../../main/service/locationService';
 import MagistratesStandardListController from '../../../main/controllers/MagistratesStandardListController';
-import { MagistratesStandardListService } from '../../../main/service/listManipulation/magistratesStandardListService';
-import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/civilFamilyAndMixedListService';
+import { MagistratesStandardListService } from '../../../main/service/listManipulation/MagistratesStandardListService';
+import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magsStandardList.json'), 'utf-8');
 const listData = JSON.parse(rawData);

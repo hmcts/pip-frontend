@@ -8,7 +8,7 @@ import { LocationService } from '../../main/service/locationService';
 import fs from 'fs';
 import path from 'path';
 import { CrimeListsService } from '../../main/service/listManipulation/CrimeListsService';
-import { civilFamilyAndMixedListService } from '../../main/service/listManipulation/civilFamilyAndMixedListService';
+import { civilFamilyAndMixedListService } from '../../main/service/listManipulation/CivilFamilyAndMixedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/crownDailyList.json'), 'utf-8');
 const crownDailyData = JSON.parse(rawData);

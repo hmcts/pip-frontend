@@ -6,7 +6,7 @@ import { app } from '../../main/app';
 import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
-import { SscsDailyListService } from '../../main/service/listManipulation/sscsDailyListService';
+import { SscsDailyListService } from '../../main/service/listManipulation/SscsDailyListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/sscsDailyList.json'), 'utf-8');
 const sscsData = JSON.parse(rawData);

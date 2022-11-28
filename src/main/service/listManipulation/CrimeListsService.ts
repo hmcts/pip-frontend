@@ -28,7 +28,6 @@ export class CrimeListsService {
         });
       });
     });
-
     return crownDailyListData;
   }
 

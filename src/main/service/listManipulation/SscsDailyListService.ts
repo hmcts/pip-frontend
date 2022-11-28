@@ -18,7 +18,7 @@ export class SscsDailyListService {
 
           session['sittings'].forEach(sitting => {
             hearingCount = hearingCount + sitting['hearing'].length;
-            sitting['sittingStartFormatted'] = helperService.publicationTimeInBst(sitting['sittingStart']);
+            sitting['sittingStartFormatted'] = helperService.publicationTimeInUkTime(sitting['sittingStart']);
             delete sitting['sittingStart'];
             helperService.findAndConcatenateHearingPlatform(sitting, session);
             delete sitting['channel'];

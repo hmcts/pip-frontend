@@ -14,8 +14,8 @@ export default class SjpPublicListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (fileData && metaData) {
-      const publishedTime = helperService.publicationTimeInBst(fileData['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInBst(fileData['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(fileData['document']['publicationDate']);
       const casesCount = SjpPublicListController.getCasesCount(fileData);
 
       res.render('single-justice-procedure', {

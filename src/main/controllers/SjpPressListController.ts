@@ -4,7 +4,7 @@ import {cloneDeep} from 'lodash';
 import moment from 'moment';
 import {PublicationService} from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
-import { SjpPressListService} from '../service/listManipulation/sjpPressListService';
+import { SjpPressListService} from '../service/listManipulation/SjpPressListService';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -21,8 +21,8 @@ export default class SjpPressListController {
 
       const manipulatedData = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
 
-      const publishedTime = helperService.publicationTimeInBst(sjpData['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInBst(sjpData['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(sjpData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(sjpData['document']['publicationDate']);
 
       res.render('single-justice-procedure-press', {
         ...cloneDeep(req.i18n.getDataByLanguage(publicationService.languageToLoadPageIn(metaData.language,

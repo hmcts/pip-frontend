@@ -8,7 +8,7 @@ import moment from 'moment';
 import { LocationService } from '../../../main/service/locationService';
 import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
 import MagistratesPublicListController from '../../../main/controllers/MagistratesPublicListController';
-import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/civilFamilyAndMixedListService';
+import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magistratesPublicList.json'), 'utf-8');
 const listData = JSON.parse(rawData);

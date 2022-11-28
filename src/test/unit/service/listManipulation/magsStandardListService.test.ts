@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import fs from 'fs';
 import path from 'path';
-import {MagistratesStandardListService} from '../../../../main/service/listManipulation/magistratesStandardListService';
+import {MagistratesStandardListService} from '../../../../main/service/listManipulation/MagistratesStandardListService';
 
 const magsStandardListService = new MagistratesStandardListService();
 const rawMagistrateStandardListData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magsStandardList.json'), 'utf-8');

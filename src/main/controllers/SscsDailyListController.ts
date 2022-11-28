@@ -5,7 +5,7 @@ import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import moment from 'moment';
 import { ListParseHelperService } from '../service/listParseHelperService';
-import { SscsDailyListService } from '../service/listManipulation/sscsDailyListService';
+import { SscsDailyListService } from '../service/listManipulation/SscsDailyListService';
 
 const publicationService = new PublicationService();
 const courtService = new LocationService();
@@ -23,8 +23,8 @@ export default class SscsDailyListController {
 
       const manipulatedData = sscsListService.manipulateSscsDailyListData(JSON.stringify(searchResults));
 
-      const publishedTime = helperService.publicationTimeInBst(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInBst(searchResults['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
 
       const returnedCourt = await courtService.getLocationById(metaData['locationId']);
       const courtName = courtService.findCourtName(returnedCourt, req.lng as string, 'sscs-daily-list');

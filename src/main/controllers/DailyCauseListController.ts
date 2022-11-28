@@ -5,7 +5,7 @@ import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
-import { civilFamilyAndMixedListService } from '../service/listManipulation/civilFamilyAndMixedListService';
+import { civilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -23,8 +23,8 @@ export default class DailyCauseListController {
 
       const manipulatedData = civFamMixedListService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
 
-      const publishedTime = helperService.publicationTimeInBst(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInBst(searchResults['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
 
       const location = await locationService.getLocationById(metaData['locationId']);
 

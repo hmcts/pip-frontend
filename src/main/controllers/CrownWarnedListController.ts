@@ -3,7 +3,7 @@ import {Response} from 'express';
 import {cloneDeep} from 'lodash';
 import {PublicationService} from '../service/publicationService';
 import {ListParseHelperService} from '../service/listParseHelperService';
-import {CrownWarnedListService} from '../service/listManipulation/crownWarnedListService';
+import {CrownWarnedListService} from '../service/listManipulation/CrownWarnedListService';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -20,8 +20,8 @@ export default class CrownWarnedListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (searchResults && metaData) {
-      const publishedTime = helperService.publicationTimeInBst(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInBst(searchResults['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
       const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults));

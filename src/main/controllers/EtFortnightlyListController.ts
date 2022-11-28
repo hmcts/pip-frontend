@@ -22,8 +22,8 @@ export default class EtFortnightlyListController {
     if (fileData && metaData) {
       const tableData = etListsService.reshapeEtFortnightlyListData(JSON.stringify(fileData));
       const listData = etListsService.reshapeEtLists(JSON.stringify(fileData));
-      const publishedTime = helperService.publicationTimeInBst(fileData['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInBst(fileData['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(fileData['document']['publicationDate']);
       const returnedCourt = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
       const courtName = locationService.findCourtName(returnedCourt, req.lng as string, 'et-fortnightly-list');

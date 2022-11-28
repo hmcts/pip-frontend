@@ -6,7 +6,7 @@ import { app } from '../../main/app';
 import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
-import { TribunalNationalListsService } from '../../main/service/listManipulation/tribunalNationalListsService';
+import { TribunalNationalListsService } from '../../main/service/listManipulation/TribunalNationalListsService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/primaryHealthList.json'), 'utf-8');
 const primaryHealthListData = JSON.parse(rawData);

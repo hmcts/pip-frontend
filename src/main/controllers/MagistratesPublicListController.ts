@@ -6,7 +6,7 @@ import {PublicationService} from '../service/publicationService';
 import {LocationService} from '../service/locationService';
 import {ListParseHelperService} from '../service/listParseHelperService';
 import {CrimeListsService} from '../service/listManipulation/CrimeListsService';
-import { civilFamilyAndMixedListService } from '../service/listManipulation/civilFamilyAndMixedListService';
+import { civilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -21,12 +21,13 @@ export default class MagistratesPublicListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (searchResults && metaData) {
+      // initial cleaning of data using mixed list service
       let manipulatedData = civListsService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
       manipulatedData = crimeListsService.manipulatedCrimeListData(JSON.stringify(manipulatedData),
         req.lng as string, 'magistrates-public-list');
 
-      const publishedTime = helperService.publicationTimeInBst(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInBst(searchResults['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
       const location = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 

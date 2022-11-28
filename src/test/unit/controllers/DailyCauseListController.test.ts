@@ -7,7 +7,7 @@ import { PublicationService } from '../../../main/service/publicationService';
 import { mockRequest } from '../mocks/mockRequest';
 import moment from 'moment';
 import { LocationService } from '../../../main/service/locationService';
-import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/civilFamilyAndMixedListService';
+import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
 const listData = JSON.parse(rawData);

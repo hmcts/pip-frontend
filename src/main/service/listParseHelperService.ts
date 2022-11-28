@@ -258,7 +258,7 @@ export class ListParseHelperService {
    * Function which extracts the time from a UTC Date Time in BST format.
    * @param publicationDatetime The publication date time to convert in UTC.
    */
-  public publicationTimeInBst(publicationDatetime: string): string {
+  public publicationTimeInUkTime(publicationDatetime: string): string {
     const min = moment.utc(publicationDatetime, 'HH:mm').tz(this.timeZone).minutes();
     let publishedTime = '';
     if (min === 0) {
@@ -273,7 +273,7 @@ export class ListParseHelperService {
    * Function which extracts the date from a UTC Date Time in BST format.
    * @param publicationDatetime The publication date time to convert in UTC.
    */
-  public publicationDateInBst(publicationDatetime: string): string {
+  public publicationDateInUkTime(publicationDatetime: string): string {
     return moment.utc(publicationDatetime).tz(this.timeZone).format('DD MMMM YYYY');
   }
 
