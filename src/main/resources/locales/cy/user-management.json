@@ -1,0 +1,11 @@
+{
+  "title": "User Management",
+  "heading": "User Management",
+  "subHeading": "Use this page to find, update and delete a user",
+  "filter": "Filter",
+  "clearFilters": "Clear filters",
+  "clearHref": "?clear=all",
+  "selectedFilters": "Selected filters",
+  "problemHeading": "There is a problem",
+  "problemText": "No users could be found matching your search criteria. Try adjusting or clearing the filters."
+}
