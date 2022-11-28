@@ -7,13 +7,13 @@ import { PublicationService } from '../../main/service/publicationService';
 import { LocationService } from '../../main/service/locationService';
 import fs from 'fs';
 import path from 'path';
-import { ListParseHelperService } from '../../main/service/listParseHelperService';
+import { civilFamilyAndMixedListService } from '../../main/service/listManipulation/civilFamilyAndMixedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/civilAndFamilyDailyCauseList.json'), 'utf-8');
 const civilAndFamilyDailyReferenceData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(civilAndFamilyDailyReferenceData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(civilAndFamilyDailyReferenceData);
-sinon.stub(ListParseHelperService.prototype, 'manipulatedDailyListData').resolves(civilAndFamilyDailyReferenceData);
+sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilFamilyMixedListData').resolves(civilAndFamilyDailyReferenceData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({name: 'courtName'});
 
 describe('Civil and Family Daily Cause List Page', () => {

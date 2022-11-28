@@ -6,35 +6,6 @@ export class ListParseHelperService {
   public timeZone = 'Europe/London';
 
   /**
-   * Manipulate the daily cause list json data for writing out on screen.
-   * @param dailyCauseList
-   */
-  public manipulatedDailyListData(dailyCauseList: string): object {
-    const dailyCauseListData = JSON.parse(dailyCauseList);
-    let hearingCount = 0;
-    dailyCauseListData['courtLists'].forEach(courtList => {
-      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-        courtRoom['session'].forEach(session => {
-          session['formattedJudiciaries'] = this.findAndManipulateJudiciary(session);
-          session['sittings'].forEach(sitting => {
-            this.calculateDuration(sitting);
-            hearingCount = hearingCount + sitting['hearing'].length;
-            this.findAndConcatenateHearingPlatform(sitting, session);
-
-            sitting['hearing'].forEach(hearing => {
-              this.findAndManipulatePartyInformation(hearing);
-            });
-          });
-        });
-        courtRoom['totalHearing'] = hearingCount;
-        hearingCount = 0;
-      });
-    });
-
-    return dailyCauseListData;
-  }
-
-  /**
    * returns all unique vals for given attribute in array of objs
    * @param data array of obs
    * @param thisAttribute attrib to be checked

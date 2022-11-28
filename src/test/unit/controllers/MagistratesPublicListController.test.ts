@@ -1,14 +1,14 @@
 import sinon from 'sinon';
-import {Response} from 'express';
+import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../main/service/publicationService';
-import {mockRequest} from '../mocks/mockRequest';
+import { PublicationService } from '../../../main/service/publicationService';
+import { mockRequest } from '../mocks/mockRequest';
 import moment from 'moment';
-import {LocationService} from '../../../main/service/locationService';
-import {ListParseHelperService} from '../../../main/service/listParseHelperService';
-import {CrimeListsService} from '../../../main/service/listManipulation/CrimeListsService';
+import { LocationService } from '../../../main/service/locationService';
+import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
 import MagistratesPublicListController from '../../../main/controllers/MagistratesPublicListController';
+import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/civilFamilyAndMixedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magistratesPublicList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -24,7 +24,7 @@ const magistratesPublicListController = new MagistratesPublicListController();
 const magistratesPublicListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const magistratesPublicListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(ListParseHelperService.prototype, 'manipulatedDailyListData').returns(listData);
+sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilFamilyMixedListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').returns(listData);
 
 const artefactId = 'abc';

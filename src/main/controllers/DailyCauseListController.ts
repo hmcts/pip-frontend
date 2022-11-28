@@ -1,14 +1,16 @@
-import {Response} from 'express';
-import {PipRequest} from '../models/request/PipRequest';
-import {cloneDeep} from 'lodash';
+import { Response } from 'express';
+import { PipRequest } from '../models/request/PipRequest';
+import { cloneDeep } from 'lodash';
 import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
+import { civilFamilyAndMixedListService } from '../service/listManipulation/civilFamilyAndMixedListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const helperService = new ListParseHelperService();
+const civFamMixedListService = new civilFamilyAndMixedListService();
 
 export default class DailyCauseListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -19,7 +21,7 @@ export default class DailyCauseListController {
 
     if (searchResults && metaData) {
 
-      const manipulatedData = helperService.manipulatedDailyListData(JSON.stringify(searchResults));
+      const manipulatedData = civFamMixedListService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
 
       const publishedTime = helperService.publicationTimeInBst(searchResults['document']['publicationDate']);
       const publishedDate = helperService.publicationDateInBst(searchResults['document']['publicationDate']);

@@ -1,15 +1,17 @@
-import {Response} from 'express';
-import {PipRequest} from '../models/request/PipRequest';
-import {cloneDeep} from 'lodash';
+import { Response } from 'express';
+import { PipRequest } from '../models/request/PipRequest';
+import { cloneDeep } from 'lodash';
 import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
-import {CrimeListsService} from '../service/listManipulation/CrimeListsService';
+import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
+import { civilFamilyAndMixedListService } from '../service/listManipulation/civilFamilyAndMixedListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const helperService = new ListParseHelperService();
+const civFamMixedService = new civilFamilyAndMixedListService();
 const crimeListsService = new CrimeListsService();
 
 export default class CrownDailyListController {
@@ -20,7 +22,7 @@ export default class CrownDailyListController {
 
     if (searchResults && metaData) {
 
-      let manipulatedData = helperService.manipulatedDailyListData(JSON.stringify(searchResults));
+      let manipulatedData = civFamMixedService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
       manipulatedData = crimeListsService.manipulatedCrimeListData(JSON.stringify(manipulatedData),
         req.lng as string, 'crown-daily-list');
       manipulatedData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(manipulatedData));

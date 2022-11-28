@@ -6,11 +6,13 @@ import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { MagistratesStandardListService } from '../service/listManipulation/magistratesStandardListService';
+import { civilFamilyAndMixedListService } from '../service/listManipulation/civilFamilyAndMixedListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const magsStandardListService = new MagistratesStandardListService();
+const civService = new civilFamilyAndMixedListService();
 
 export default class MagistratesStandardListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -20,7 +22,7 @@ export default class MagistratesStandardListController {
 
     if (searchResults && metaData) {
 
-      let manipulatedData = helperService.manipulatedDailyListData(JSON.stringify(searchResults));
+      let manipulatedData = civService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
       manipulatedData = magsStandardListService.manipulatedMagsStandardListData(manipulatedData, req.lng as string, 'magistrates-standard-list');
       const publishedTime = helperService.publicationTimeInBst(searchResults['document']['publicationDate']);
       const publishedDate = helperService.publicationDateInBst(searchResults['document']['publicationDate']);

@@ -7,14 +7,14 @@ import { PublicationService } from '../../main/service/publicationService';
 import { LocationService } from '../../main/service/locationService';
 import fs from 'fs';
 import path from 'path';
-import { ListParseHelperService } from '../../main/service/listParseHelperService';
-import {CrimeListsService} from '../../main/service/listManipulation/CrimeListsService';
+import { CrimeListsService } from '../../main/service/listManipulation/CrimeListsService';
+import { civilFamilyAndMixedListService } from '../../main/service/listManipulation/civilFamilyAndMixedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/crownDailyList.json'), 'utf-8');
 const crownDailyData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(crownDailyData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(crownDailyData);
-sinon.stub(ListParseHelperService.prototype, 'manipulatedDailyListData').resolves(crownDailyData);
+sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilFamilyMixedListData').resolves(crownDailyData);
 sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').resolves(crownDailyData);
 sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').resolves(crownDailyData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({name: 'courtName'});

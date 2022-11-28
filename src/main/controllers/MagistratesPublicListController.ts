@@ -6,11 +6,13 @@ import {PublicationService} from '../service/publicationService';
 import {LocationService} from '../service/locationService';
 import {ListParseHelperService} from '../service/listParseHelperService';
 import {CrimeListsService} from '../service/listManipulation/CrimeListsService';
+import { civilFamilyAndMixedListService } from '../service/listManipulation/civilFamilyAndMixedListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
+const civListsService = new civilFamilyAndMixedListService();
 
 export default class MagistratesPublicListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -19,7 +21,7 @@ export default class MagistratesPublicListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
 
     if (searchResults && metaData) {
-      let manipulatedData = helperService.manipulatedDailyListData(JSON.stringify(searchResults));
+      let manipulatedData = civListsService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
       manipulatedData = crimeListsService.manipulatedCrimeListData(JSON.stringify(manipulatedData),
         req.lng as string, 'magistrates-public-list');
 
