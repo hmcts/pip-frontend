@@ -11,16 +11,15 @@ const PAGE_URL = '/delete-court-reference-data';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawData);
 sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
-
-const tableHeaders = ['Court or Tribunal Name', 'Location Type', 'Jurisdiction', 'Region', 'Actions'];
+sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(null);
 
 expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+    'extension_UserRole': 'SYSTEM_ADMIN',
+  }};
 
 let htmlRes: Document;
 
-describe('Delete Court Reference Page', () => {
+describe('Delete Court List Search Page', () => {
   beforeAll(async () => {
     await request(app).get(PAGE_URL).then(response => {
       htmlRes = new DOMParser().parseFromString(response.text, 'text/html');
@@ -30,31 +29,85 @@ describe('Delete Court Reference Page', () => {
 
   it('should display the header',  () => {
     const header = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(header[0].innerHTML).contains('Select a court to remove', 'Could not find the header');
+    expect(header[0].innerHTML).contains('Find the court to remove', 'Could not find the header');
   });
 
-  it('should display results count', () => {
-    const resultsCount = htmlRes.getElementsByClassName('govuk-body')[0];
-    expect(resultsCount.innerHTML).contains('Showing 12 result(s)', 'Could not find results paragraph');
+  it('should display continue button',  () => {
+    const buttons = htmlRes.getElementsByClassName('govuk-button');
+    expect(buttons[0].innerHTML).contains('Continue', 'Could not find button');
   });
 
-  it('should display correct table headers', () => {
-    const headerNames = htmlRes.getElementsByClassName('govuk-table__header');
-    for (let i=0; i < tableHeaders.length; i++) {
-      expect(headerNames[i].innerHTML).contains(tableHeaders[i], `Could not find correct header (${tableHeaders[i]})`);
-    }
+  it('should use accessible autocomplete in the script block', () => {
+    const script = htmlRes.getElementsByTagName('script')[5];
+    expect(script.innerHTML).contains('accessibleAutocomplete');
   });
 
-  it('should display correct row values', () => {
-    const tableRows = htmlRes.getElementsByClassName('govuk-table__body')[0].getElementsByClassName('govuk-table__row');
-    expect(tableRows.length).equal(12, 'Incorrect table rows count');
-    const rowCells = tableRows[0].getElementsByClassName('govuk-table__cell');
-    const removeActionHref = htmlRes.getElementsByClassName('unsubscribe-action')[0].getAttribute('href').valueOf();
-    expect(rowCells[0].innerHTML).equal('Abergavenny Magistrates\' Court', 'Could not find court name');
-    expect(rowCells[1].innerHTML).equal('VENUE', 'Could not list type');
-    expect(rowCells[2].innerHTML).equal('Magistrates', 'Could not find jurisdiction');
-    expect(rowCells[3].innerHTML).equal('Bedford', 'Could not find region');
-    expect(removeActionHref).contains('delete-court-reference-data-confirmation?locationId=1',
-      'Could not find valid action href');
+  it('should autocomplete source with court names', () => {
+    const script = htmlRes.getElementsByTagName('script')[5];
+    expect(script.innerHTML).contains('Abergavenny Magistrates\' Court', 'Could not find input field');
+  });
+
+  it('should display back button', () => {
+    const backButton = htmlRes.getElementsByClassName('govuk-back-link');
+    expect(backButton[0].innerHTML).contains('Back', 'Back does not contain correct text');
+  });
+
+  it('should not display error summary on the initial load', () => {
+    const errorBox = htmlRes.getElementsByClassName('govuk-error-summary');
+    expect(errorBox.length).equal(0, 'Error summary should not be displayed');
+  });
+
+  it('should not display input with error classes', () => {
+    const inputError = htmlRes.getElementsByClassName('govuk-input--error');
+    expect(inputError.length).equal(0, 'Input should not have error classes');
   });
 });
+
+describe('Delete Court Blank Input', () => {
+  beforeAll(async () => {
+    await request(app).post(PAGE_URL).send({'input-autocomplete': ''}).then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
+    });
+  });
+
+  it('should display minimum input error message', () => {
+    const errorSummary = htmlRes.getElementsByClassName('govuk-error-summary__body');
+    expect(errorSummary[0].innerHTML).contains('Court or tribunal name must be 3 characters or more', 'Could not find error message');
+  });
+
+  it('should display error message', () => {
+    const errorTitle = htmlRes.getElementsByClassName('govuk-error-summary__title');
+    expect(errorTitle[0].innerHTML).contains('There is a problem', 'Could not find title');
+  });
+
+  it('should display input errors', () => {
+    const formError = htmlRes.getElementsByClassName('govuk-form-group--error');
+    expect(formError.length).equal(1, 'Could not find form errors');
+  });
+});
+
+describe('Search Page Invalid Input', () => {
+  beforeAll(async () => {
+    await request(app).post(PAGE_URL).send({'input-autocomplete': 'foo'}).then(res => {
+      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+      htmlRes.getElementsByTagName('div')[0].remove();
+    });
+  });
+
+  it('should display minimum input error message', () => {
+    const errorSummary = htmlRes.getElementsByClassName('govuk-error-summary__body');
+    expect(errorSummary[0].innerHTML).contains('There are no matching results', 'Could not find error message');
+  });
+
+  it('should display error message', () => {
+    const errorTitle = htmlRes.getElementsByClassName('govuk-error-summary__title');
+    expect(errorTitle[0].innerHTML).contains('There is a problem', 'Could not find error title');
+  });
+
+  it('should display input errors', () => {
+    const formError = htmlRes.getElementsByClassName('govuk-form-group--error');
+    expect(formError.length).equal(1, 'Could not find form errors');
+  });
+});
+

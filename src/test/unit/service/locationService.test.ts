@@ -152,12 +152,6 @@ describe('Court Service', () => {
     expect(courtService.sortCourtsAlphabetically([hearingsData[0]])).to.deep.equal([hearingsData[0]]);
   });
 
-  it('should format court list values', () => {
-    const data = courtService.formatCourtRemovalValues(hearingsData);
-    expect(data[0].jurisdiction).to.equal('Magistrates');
-    expect(data[0].region).to.equal('Bedford');
-  });
-
   it('should format court object', () => {
     const data = courtService.formatCourtValue(hearingsData[0]);
     expect(data.jurisdiction).to.equal('Magistrates');

@@ -186,6 +186,7 @@ export default function(app: Application): void {
   app.get('/manual-reference-data-upload-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadConfirmationController.get);
 
   app.get('/delete-court-reference-data', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataController.get);
+  app.post('/delete-court-reference-data', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataController.post);
   app.get('/delete-court-reference-data-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get);
   app.post('/delete-court-reference-data-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.post);
   app.get('/delete-court-reference-data-success', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataSuccessController.get);

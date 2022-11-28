@@ -1,6 +1,6 @@
-{% from "macros/common-components.njk" import goBack, submitButton %}
 {% extends "template.njk" %}
-{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% block pageTitle %}
   {{ title }}
@@ -10,44 +10,67 @@
   {{ super() }}
   {{ goBack() }}
 {% endblock %}
+
 {% block content %}
-  <div class="parent-box">
+  {% if noResultsError or invalidInputError %}
+    {% set errorMessage = error.noResults if noResultsError else error.invalidInput %}
+    <div class="govuk-grid-row">
+      <div class="no_padding govuk-grid-column-three-quarters">
+        {{ govukErrorSummary({
+          titleText: error.summaryTitleText,
+          errorList: [
+            {
+              text: errorMessage,
+              href: "#search-input"
+            }
+          ]
+        }) }}
+      </div>
+    </div>
+  {% endif %}
+  {% set inputClasses = 'govuk-!-width-two-thirds govuk-input--error'
+    if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
+  {% set formGroupError = 'govuk-form-group--error'
+    if noResultsError or invalidInputError else 'govuk-form-group' %}
+  <form action="delete-court-reference-data" method="post">
     <h1 class="govuk-heading-l">{{ header }}</h1>
-    <p class="govuk-body">{{ resultsMessage | replace("RESULTS_COUNT", courtList | length ) }}</p>
-    {% if courtList | length > 0 %}
-      <table class="govuk-table" data-module="moj-sortable-table">
-        <thead class="govuk-table__head">
-        <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header" aria-sort="none">{{ tableHeaders[0] }}</th>
-          <th scope="col" class="govuk-table__header" aria-sort="none">{{ tableHeaders[1] }}</th>
-          <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[2] }}</th>
-          <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[3] }}</th>
-          <th scope="col" class="govuk-table__header govuk-table__header--numeric">{{ tableHeaders[4] }}</th>
-        </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-        {% for item in courtList %}
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell">{{ item.name }}</td>
-            <td class="govuk-table__cell">{{ item.locationType }}</td>
-            <td class="govuk-table__cell">{{ item.jurisdiction }}</td>
-            <td class="govuk-table__cell">{{ item.region }}</td>
-            <td class="govuk-table__cell govuk-table__cell--numeric">
-              <a class='unsubscribe-action' href='delete-court-reference-data-confirmation?locationId={{ item.locationId }}'>{{ rowAction }}</a>
-            </td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-    {% endif %}
-    {{ super() }}
-  </div>
+    <div class="govuk-form-group govuk-!-width-one-half">
+      <h2 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--m" for="search-input">
+          {{ inputMessage }}
+        </label>
+      </h2>
+      <div class="{{ formGroupError }}">
+        <div id="search-input-hint" class="govuk-hint">
+          {{ inputHint }}
+        </div>
+        <div class="{{ inputClasses }} search-input-name" id="search-input-container"></div>
+      </div>
+    </div>
+    {{ submitButton(continueButton) }}
+  </form>
 {% endblock %}
 {% block bodyEnd %}
-  {{ super() }}
+  {% set optionList = [] %}
+  {% for item in autocompleteList %}
+    {% set _ = optionList.push(
+      item.name
+    ) %}
+  {% endfor %}
+
+  <script src="/assets/js/accessible-autocomplete.min.js"></script>
   <script>
+    const element = document.querySelector('#search-input-container');
+    const source = {{ optionList | dump |safe }}
+      accessibleAutocomplete({
+        element: element,
+        id: 'search-input',
+        source: source,
+        displayMenu: 'overlay'
+      });
     if (window.history.replaceState) {
-      window.history.replaceState(null, null, window.location.href);
+      window.history.replaceState( null, null, window.location.href );
     }
   </script>
+  {{ super() }}
 {% endblock %}
