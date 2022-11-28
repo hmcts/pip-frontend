@@ -12,13 +12,22 @@ export class DeleteCourtReferenceDataPage extends CommonPage {
     return $(helpers.CommonPageTitle).getText();
   }
 
-  async clickDeleteCourtLink(): Promise<DeleteCourtReferenceConfirmationPage> {
-    await this.removeOverlay();
-    $(helpers.DeleteCourtLink).catch(() => {
-      console.log(`${helpers.DeleteCourtLink} not found`);
+  async enterText(text: string): Promise<void> {
+    $(helpers.SearchInput).catch(() => {
+      console.log(`${helpers.SearchInput} not found`);
     });
 
-    await $(helpers.DeleteCourtLink).click();
+    const searchInput = await $(helpers.SearchInput);
+    await searchInput.addValue(text);
+    await browser.keys('Escape');
+  }
+
+  async clickContinue(): Promise<DeleteCourtReferenceConfirmationPage> {
+    $(helpers.ContinueButton).catch(() => {
+      console.log(`${helpers.ContinueButton} not found`);
+    });
+
+    await $(helpers.ContinueButton).click();
     return new DeleteCourtReferenceConfirmationPage();
   }
 }
