@@ -522,7 +522,6 @@ export class DataManipulationService {
    */
   public calculateDuration(sitting: object): void {
     sitting['duration'] = '';
-    sitting['startTime'] = '';
     if (sitting['sittingStart'] !== '' && sitting['sittingEnd'] !== '') {
       const sittingStart = moment.utc(sitting['sittingStart']);
       const sittingEnd = moment.utc(sitting['sittingEnd']);
@@ -545,10 +544,8 @@ export class DataManipulationService {
       const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
       if (min === 0) {
         sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('ha');
-        sitting['startTime'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('ha');
       } else {
         sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('h:mma');
-        sitting['startTime'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('h.mma');
       }
     }
   }
