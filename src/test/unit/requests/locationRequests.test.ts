@@ -39,6 +39,7 @@ const englishLanguage = 'en';
 const welshLanguage = 'cy';
 
 const deletionResponse = {isExists: true, errorMessage: 'test'};
+const requesterName = 'Test';
 
 describe('Location get requests', () => {
 
@@ -71,11 +72,11 @@ describe('Location get requests', () => {
 
     stub.withArgs('/locations').resolves({data: courtList});
 
-    courtDeleteStub.withArgs('/locations/1').resolves({data: {isExists: true, errorMessage: 'test'}});
-    courtDeleteStub.withArgs('/locations/2').rejects(errorResponse);
-    courtDeleteStub.withArgs('/locations/3').rejects(errorRequest);
-    courtDeleteStub.withArgs('/locations/4').rejects(errorMessage);
-    courtDeleteStub.withArgs('/locations/5').resolves({data: {isExists: false, errorMessage: ''}});
+    courtDeleteStub.withArgs('/locations/1/' + requesterName).resolves({data: {isExists: true, errorMessage: 'test'}});
+    courtDeleteStub.withArgs('/locations/2/' + requesterName).rejects(errorResponse);
+    courtDeleteStub.withArgs('/locations/3/' + requesterName).rejects(errorRequest);
+    courtDeleteStub.withArgs('/locations/4/' + requesterName).rejects(errorMessage);
+    courtDeleteStub.withArgs('/locations/5/' + requesterName).resolves({data: {isExists: false, errorMessage: ''}});
   });
 
   it('should return court by court id', async () => {
@@ -188,23 +189,23 @@ describe('Location get requests', () => {
   });
 
   it('should not delete the court if active artefact or subscription exists', async () => {
-    expect(await courtRequests.deleteCourt(1)).toStrictEqual(deletionResponse);
+    expect(await courtRequests.deleteCourt(1, requesterName)).toStrictEqual(deletionResponse);
   });
 
   it('should return null if response fails ', async () => {
-    expect(await courtRequests.deleteCourt(2)).toBe(null);
+    expect(await courtRequests.deleteCourt(2, requesterName)).toBe(null);
   });
 
   it('should return null if request fails', async () => {
-    expect(await courtRequests.deleteCourt(3)).toBe(null);
+    expect(await courtRequests.deleteCourt(3, requesterName)).toBe(null);
   });
 
   it('should return null if request fails', async () => {
-    expect(await courtRequests.deleteCourt(4)).toBe(null);
+    expect(await courtRequests.deleteCourt(4, requesterName)).toBe(null);
   });
 
   it('should return isExists false if court is deleted', async () => {
-    const data = await courtRequests.deleteCourt(5);
+    const data = await courtRequests.deleteCourt(5, requesterName);
     expect(data['isExists']).toStrictEqual(false);
   });
 });
