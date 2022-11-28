@@ -88,7 +88,8 @@ export class EtListsService {
   }
 
   /**
-   * Nasty wee function that builds a horrible data structure that gets parsed by the template.
+   * Splits the already courtHouse/Date paired data and transforms it into courthouse/Date/courtRoom/allocation,
+   * with the allocated cases presented at the bottom of the given courtHouse.
    * @param data - the ingested et fortnightly list
    * @private cos it's for local
    */

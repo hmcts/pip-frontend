@@ -86,7 +86,7 @@ export class CrimeListsService {
     }
   }
 
-  private findLinkedCasesInformation(hearing: any): void {
+  public findLinkedCasesInformation(hearing: any): void {
     let linkedCases = '';
     let listingNotes = '';
 

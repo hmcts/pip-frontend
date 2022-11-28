@@ -30,6 +30,7 @@ export const partyRoleMappings = {
   'RESPONDENT_REPRESENTATIVE': ['DREP', 'DREP20', 'RREP'],
   'PROSECUTING_AUTHORITY': [],
   'DEFENDANT': [],
+  'DEFENDANT_REPRESENTATIVE': [],
 };
 
 export const allowedLocationUploadFileTypes = [

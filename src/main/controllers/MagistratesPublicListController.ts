@@ -25,7 +25,6 @@ export default class MagistratesPublicListController {
       let manipulatedData = civListsService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
       manipulatedData = crimeListsService.manipulatedCrimeListData(JSON.stringify(manipulatedData),
         req.lng as string, 'magistrates-public-list');
-
       const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
       const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
       const location = await locationService.getLocationById(metaData['locationId']);
