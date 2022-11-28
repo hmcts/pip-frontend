@@ -1,0 +1,9 @@
+{
+  "title": "User Updated",
+  "message": "This user has been updated to a ROLE. They will need to sign in again for this to take effect",
+  "pStart": "To continue, you can go to the",
+  "pEnd": "in order to:",
+  "yourAccount": "system admin dashboard",
+  "listItems": ["upload reference data", "upload bulk media users", "extract artefact data", "edit third party subscriptions", "manage users"],
+  "backButton": "Back"
+}

@@ -42,7 +42,7 @@
   "CROWN_FIRM_LIST": {
     "friendlyName": "Crown Firm List",
     "shortenedFriendlyName": "Crown Firm List",
-    "url": "",
+    "url": "crown-firm-list",
     "jurisdictions": ["Crown"],
     "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
