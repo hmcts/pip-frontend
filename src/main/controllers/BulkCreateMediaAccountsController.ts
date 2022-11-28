@@ -10,16 +10,12 @@ const createAccountService = new CreateAccountService();
 
 const bulkCreateAccountsUrl = 'bulk-create-media-accounts';
 const bulkCreateAccountsConfirmationUrl = 'bulk-create-media-accounts-confirmation';
-// let formCookie;
 
 export default class BulkCreateMediaAccountsController {
   public async get(req: PipRequest, res: Response): Promise<void> {
-    // formCookie = req.cookies?.formCookie;
-    // const formData = formCookie ? JSON.parse(formCookie) : {};
     res.render(bulkCreateAccountsUrl, {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkCreateAccountsUrl]),
       displayError: false,
-      // formData,
     });
   }
 
@@ -43,7 +39,6 @@ export default class BulkCreateMediaAccountsController {
     } else {
       res.render(bulkCreateAccountsUrl, {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkCreateAccountsUrl]),
-        // formData,
         displayError: true,
         error,
       });
