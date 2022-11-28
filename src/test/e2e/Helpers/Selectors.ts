@@ -216,5 +216,20 @@ module.exports = {
   //CreateSystemAdminAccount selectors
   CreateSystemAdminAccount: '#card-create-system-admin-account',
   ReferenceDataUploadFile: '#card-manual-reference-data-upload',
+  ManageThirdPartyUsers: '#card-manage-third-party-users',
   referenceDataFileUpload: '#manual-reference-data-upload',
+  userManagement: '#card-user-management',
+
+  //UserManagement screens selectors
+  manageLink: '#manage-link',
+  applyFiltersButton: '.moj-filter__options > .govuk-button',
+  changeLink: '//*[@id="main-content"]/div/dl/div[3]/dd[2]/a',
+  roleUpdateButton: '#button',
+  roleUpdateSelectBox: '#updatedRole',
+  userManagementPanelTitle: '.govuk-panel__title',
+  userManagementPanelBody: '.govuk-panel__body',
+  redirectToDashboardLink: '#main-content > div.parent-box > p > a',
+  deleteUserButton: '//*[@id="main-content"]/div/a',
+  deleteUserConfirmRadioButton: '#delete-user-confirm',
+  continueButton: '#button',
 };

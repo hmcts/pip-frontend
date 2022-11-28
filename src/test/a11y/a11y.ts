@@ -32,6 +32,12 @@ const routesNotTested = [
   '/file-publication',
   '/media-verification',
   '/media-verification/return',
+  '/user-management',
+  '/manage-user',
+  '/update-user',
+  '/delete-user',
+  '/delete-user-confirmation',
+  '/update-user-confirmation',
 ];
 
 const adminRoutes = [
@@ -61,6 +67,9 @@ const systemAdminRoutes = [
   '/manual-reference-data-upload',
   '/manual-reference-data-upload-summary',
   '/manual-reference-data-upload-confirmation',
+  '/manage-third-party-users',
+  '/manage-third-party-users/view',
+  '/manage-third-party-users/subscriptions',
   '/blob-view-json',
   '/blob-view-publications',
   '/blob-view-locations',
@@ -91,6 +100,7 @@ sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').retu
 sinon.stub(SjpRequests.prototype, 'getSJPCases').returns(sjpCases);
 sinon.stub(ManualUploadService.prototype, 'getListItemName').returns('');
 sinon.stub(AccountManagementRequests.prototype, 'getPendingMediaApplications').resolves(mediaApplications);
+sinon.stub(AccountManagementRequests.prototype, 'getThirdPartyAccounts').resolves([]);
 
 export class Pa11yResult {
   documentTitle: string;
