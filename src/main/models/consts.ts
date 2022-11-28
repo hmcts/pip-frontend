@@ -42,3 +42,18 @@ export enum uploadType {
   FILE ,
   REFERENCE_DATE,
 }
+
+export const formattedRoles = {
+  'VERIFIED': 'Media',
+  'INTERNAL_ADMIN_CTSC': 'CTSC Admin',
+  'INTERNAL_ADMIN_LOCAL': 'Local Admin',
+  'INTERNAL_SUPER_ADMIN_CTSC': 'CTSC Super Admin',
+  'INTERNAL_SUPER_ADMIN_LOCAL': 'Local Super Admin',
+  'SYSTEM_ADMIN': 'System Admin',
+};
+
+export const formattedProvenances = {
+  'PI_AAD': 'B2C',
+  'CFT_IDAM': 'CFT IdAM',
+  'CRIME_IDAM': 'Crime IdAM',
+};
