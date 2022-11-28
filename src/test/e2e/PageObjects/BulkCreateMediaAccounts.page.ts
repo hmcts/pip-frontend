@@ -15,7 +15,6 @@ export class BulkCreateMediaAccountsPage extends CommonPage {
   }
 
   async clickContinue(): Promise<BulkCreateMediaAccountsConfirmationPage> {
-    await this.removeOverlay();
     $(helpers.ContinueButton).catch(() => {
       console.log(`${helpers.ContinueButton} not found`);
     });
