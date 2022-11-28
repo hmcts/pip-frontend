@@ -216,7 +216,7 @@ module.exports = {
   BulkCreateMediaAccounts: '#card-bulk-create-media-accounts',
 
   //BulkCreateMediaAccounts page
-  BulkMediaAccountsFileUpload: 'bulk-account-upload',
+  BulkMediaAccountsFileUpload: '#bulk-account-upload',
 
   //UserManagement screens selectors
   manageLink: '#manage-link',
