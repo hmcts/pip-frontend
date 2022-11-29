@@ -33,7 +33,7 @@ export default class MediaAccountReviewController {
       const imageName = applicant.imageName;
       const extension = imageName.substring(imageName.lastIndexOf('.') + 1, imageName.length);
 
-      const contentType = allowedImageTypeMappings[extension];
+      const contentType = allowedImageTypeMappings[extension.toLowerCase()];
       if (contentType) {
         res.set('Content-Disposition', 'inline;filename=' + imageName);
         res.set('Content-Type', contentType);
