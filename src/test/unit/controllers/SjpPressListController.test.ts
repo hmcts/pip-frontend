@@ -47,6 +47,8 @@ describe('SJP Press List Controller', () => {
       publishedDateTime: '14 September 2016',
       publishedTime: '12:30am',
       contactDate: moment(Date.parse(metaData['contentDate'])).format('D MMMM YYYY'),
+      artefactId: 'abc',
+      user: request.user,
     };
 
     responseMock.expects('render').once().withArgs('single-justice-procedure-press', expectedData);
