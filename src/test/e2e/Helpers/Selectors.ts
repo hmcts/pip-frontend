@@ -163,6 +163,12 @@ module.exports = {
   // SummaryOfPublications selectors
   SOPListItem: '.das-search-results__link',
 
+  // SJP public selector
+  DownloadACopyButton: '#download-button',
+
+  // List download selector
+  AgreeCheckBox: '#disclaimer-agreement',
+
   // Blob Explorer Location Selector
   locationSelector: '.govuk-table__body > tr:nth-child(1) > th:nth-child(1) > a:nth-child(1)',
 
