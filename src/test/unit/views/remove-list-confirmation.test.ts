@@ -19,8 +19,8 @@ const mockArtefact = {
   displayTo: '2022-03-28T07:36:35',
   sensitivity: 'CLASSIFIED',
 };
-const keyValues = ['List Type', 'Court or Tribunal name', 'Display Dates', 'Language', 'Sensitivity'];
-const content = ['Civil Daily Cause List', 'Mock Court','23 Mar 2022 to 28 Mar 2022', 'English', 'Classified'];
+const keyValues = ['List Type', 'Court or Tribunal name', 'Content Date', 'Display Dates', 'Language', 'Sensitivity'];
+const content = ['Civil Daily Cause List', 'Mock Court','24 March 2022', '23 Mar 2022 to 28 Mar 2022', 'English', 'Classified'];
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({locationId: '5', name: 'Mock Court'});
 

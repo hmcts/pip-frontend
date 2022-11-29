@@ -16,6 +16,7 @@ const mockPublications = [
   {
     listItem: 'SJP_PUBLIC_LIST',
     displayFrom: '2022-02-08T12:26:42.908',
+    contDate: '2022-02-08T12:26:42.908',
     displayTo: '2024-02-08T12:26:42.908',
     dateRange: '8 Feb 2022 to 8 Feb 2024',
     listTypeName: 'SJP Public List',
@@ -28,6 +29,7 @@ const mockPublications = [
     listItem: 'SJP_PUBLIC_LIST',
     displayFrom: '2022-02-16T12:26:42.908',
     displayTo: '2024-02-08T12:26:42.908',
+    contDate: '2022-02-08T12:26:42.908',
     dateRange: '8 Feb 2022 to 8 Feb 2024',
     listTypeName: 'SJP Public List',
     locationId: '5',
@@ -39,6 +41,7 @@ const mockPublications = [
     listItem: 'SJP_PUBLIC_LIST',
     displayFrom: '2022-02-16T12:26:42.908',
     displayTo: '2024-02-08T12:26:42.908',
+    contDate: '2022-02-08T12:26:42.908',
     dateRange: '8 Feb 2022 to 8 Feb 2024',
     listTypeName: 'SJP Public List',
     locationId: '5',
@@ -47,7 +50,7 @@ const mockPublications = [
     sensitivity: 'CLASSIFIED',
   },
 ];
-const tableHeaders = ['List type', 'Court', 'Date', 'Language', 'Sensitivity', 'Actions'];
+const tableHeaders = ['List type', 'Court', 'Content Date', 'Date', 'Language', 'Sensitivity', 'Actions'];
 const languageRowValues = ['English', 'Welsh', 'Bilingual'];
 const sensitivityValues = ['Public', 'Classified', 'Classified'];
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
@@ -93,10 +96,11 @@ describe('Remove List Summary Page', () => {
       const removeActionHref = htmlRes.getElementsByClassName('unsubscribe-action')[i].getAttribute('href').valueOf();
       expect(rowCells[0].innerHTML).contains(mockPublications[i].listTypeName, 'Could not find valid list type name');
       expect(rowCells[1].innerHTML).contains(mockCourt.name, 'Could not find valid court name');
-      expect(rowCells[2].innerHTML).contains(mockPublications[i].dateRange, 'Could not find valid list date range');
-      expect(rowCells[3].innerHTML).contains(languageRowValues[i], 'Could not find valid language');
-      expect(rowCells[4].innerHTML).contains(sensitivityValues[i], 'Could not find valid sensitivity');
-      expect(rowCells[5].innerHTML).contains('Remove', 'Could not find valid action');
+      expect(rowCells[2].innerHTML).contains(mockPublications[i].contDate, 'Could not find valid contentDate');
+      expect(rowCells[3].innerHTML).contains(mockPublications[i].dateRange, 'Could not find valid list date range');
+      expect(rowCells[4].innerHTML).contains(languageRowValues[i], 'Could not find valid language');
+      expect(rowCells[5].innerHTML).contains(sensitivityValues[i], 'Could not find valid sensitivity');
+      expect(rowCells[6].innerHTML).contains('Remove', 'Could not find valid action');
       expect(removeActionHref).contains(`remove-list-confirmation?artefact=${mockPublications[i].artefactId}`,
         'Could not find valid action href');
     }
