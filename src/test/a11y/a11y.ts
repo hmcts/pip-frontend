@@ -32,6 +32,12 @@ const routesNotTested = [
   '/file-publication',
   '/media-verification',
   '/media-verification/return',
+  '/user-management',
+  '/manage-user',
+  '/update-user',
+  '/delete-user',
+  '/delete-user-confirmation',
+  '/update-user-confirmation',
 ];
 
 const adminRoutes = [
@@ -47,7 +53,9 @@ const adminRoutes = [
   '/media-account-review/approve',
   '/media-account-review/reject',
   '/media-account-approval',
+  '/media-account-approval-confirmation',
   '/media-account-rejection',
+  '/media-account-rejection-confirmation',
   '/remove-list-confirmation',
   '/remove-list-search',
   '/remove-list-search-results',
@@ -61,6 +69,12 @@ const systemAdminRoutes = [
   '/manual-reference-data-upload',
   '/manual-reference-data-upload-summary',
   '/manual-reference-data-upload-confirmation',
+  '/manage-third-party-users',
+  '/manage-third-party-users/view',
+  '/manage-third-party-users/subscriptions',
+  '/blob-view-json',
+  '/blob-view-publications',
+  '/blob-view-locations',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
@@ -76,6 +90,7 @@ const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
 const sjpCases = JSON.parse(rawSJPData).results;
 const mediaApplications = JSON.parse(rawMediaApplications);
 
+sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns('location,count\n1,2\n3,1\n');
 sinon.stub(LocationRequests.prototype, 'getLocation').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getFilteredCourts').returns(allCourtData);
@@ -87,6 +102,7 @@ sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').retu
 sinon.stub(SjpRequests.prototype, 'getSJPCases').returns(sjpCases);
 sinon.stub(ManualUploadService.prototype, 'getListItemName').returns('');
 sinon.stub(AccountManagementRequests.prototype, 'getPendingMediaApplications').resolves(mediaApplications);
+sinon.stub(AccountManagementRequests.prototype, 'getThirdPartyAccounts').resolves([]);
 
 export class Pa11yResult {
   documentTitle: string;
