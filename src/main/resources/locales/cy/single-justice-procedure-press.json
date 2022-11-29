@@ -12,5 +12,6 @@
   "address": "Cyfeiriad",
   "prosecutor": "Erlynydd",
   "reportingRestriction": "Cyfyngiad adrodd",
-  "backButton": "Yn ôl"
+  "backButton": "Yn ôl",
+  "downloadButton": "Download a copy"
 }
