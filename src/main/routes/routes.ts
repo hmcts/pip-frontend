@@ -72,11 +72,6 @@ export default function(app: Application): void {
   app.get('/cookie-policy', app.locals.container.cradle.cookiePolicyPageController.get);
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
   app.post('/create-media-account', multer({storage: storage, limits: {fileSize: 2000000}}).single('file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.createMediaAccountController.post);
-  app.get('/civil-and-family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
-  app.get('/crown-daily-list', app.locals.container.cradle.crownDailyListController.get);
-  app.get('/crown-warned-list', app.locals.container.cradle.crownWarnedListController.get);
-  app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
-  app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   // app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
   app.get('/password-change-confirmation/:isAdmin', app.locals.container.cradle.passwordChangeController.get);
   app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
@@ -103,8 +98,16 @@ export default function(app: Application): void {
   app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
   app.get('/summary-of-publications', app.locals.container.cradle.summaryOfPublicationsController.get);
   app.get('/file-publication', app.locals.container.cradle.flatFileController.get);
+
+  // List Templates
   app.get('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.get);
   app.get('/sjp-press-list', app.locals.container.cradle.sjpPressListController.get);
+  app.get('/civil-and-family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
+  app.get('/crown-daily-list', app.locals.container.cradle.crownDailyListController.get);
+  app.get('/crown-firm-list', app.locals.container.cradle.crownFirmListController.get);
+  app.get('/crown-warned-list', app.locals.container.cradle.crownWarnedListController.get);
+  app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
+  app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/sscs-daily-list', app.locals.container.cradle.sscsDailyListController.get);
   app.get('/cop-daily-cause-list', app.locals.container.cradle.copDailyCauseListController.get);
   app.get('/et-daily-list', app.locals.container.cradle.etDailyListController.get);
