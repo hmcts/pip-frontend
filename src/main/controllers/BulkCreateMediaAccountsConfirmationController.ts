@@ -14,11 +14,12 @@ const bulkCreateAccountsConfirmedUrl = 'bulk-create-media-accounts-confirmed';
 export default class BulkCreateMediaAccountsConfirmationController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const formData = (req.cookies?.formCookie) ? JSON.parse(req.cookies['formCookie']) : {};
-    const fileName = formData['uploadFileName'];
+    const fileName = formData.uploadFileName;
 
-    const accountsToCreate =
-      fileName === undefined ? []
-        : await BulkCreateMediaAccountsConfirmationController.getAccountsToCreate(req.user['oid'], fileName);
+    if (fileName === undefined) {
+      return res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+    }
+    const accountsToCreate = await BulkCreateMediaAccountsConfirmationController.getAccountsToCreate(req.user['oid'], fileName);
 
     res.render(bulkCreateAccountsConfirmationUrl, {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkCreateAccountsConfirmationUrl]),
@@ -30,6 +31,10 @@ export default class BulkCreateMediaAccountsConfirmationController {
     const confirmed = req.body['confirmed'];
     const formData = (req.cookies?.formCookie) ? JSON.parse(req.cookies['formCookie']) : {};
     const fileName = formData.uploadFileName;
+
+    if (fileName == undefined) {
+      return res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+    }
     const accountsToCreate = await BulkCreateMediaAccountsConfirmationController.getAccountsToCreate(req.user['oid'], fileName);
 
     if (!confirmed) {

@@ -89,11 +89,11 @@ export class AccountManagementRequests {
       return true;
     } catch (error) {
       if (error.response) {
-        logger.error('Failed to bulk create media account on response');
+        logger.error(`Failed to bulk create media account on response. ${error.esponse.data}`);
       } else if (error.request) {
-        logger.error('Failed to bulk create media account on request');
+        logger.error(`Failed to bulk create media account on request. ${error.request}`);
       } else {
-        logger.error('Failed to bulk create media account with message');
+        logger.error(`Failed to bulk create media account with message. ${error.message}`);
       }
       return false;
     }
