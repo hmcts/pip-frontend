@@ -10,7 +10,7 @@ describe('Media Account Submission Page', () => {
 
   const applicationId = '1234';
 
-  const PAGE_URL = '/media-account-rejection?applicantId=' + applicationId;
+  const PAGE_URL = '/media-account-rejection-confirmation?applicantId=' + applicationId;
   const panelClass = 'govuk-panel__title';
   const summaryHeader = 'govuk-summary-list__key';
   const summaryCell = 'govuk-summary-list__value';
@@ -51,14 +51,14 @@ describe('Media Account Submission Page', () => {
     'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
   }};
 
-  sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus').returns(dummyApplication);
-  sinon.stub(MediaAccountApplicationService.prototype, 'rejectApplication').returns(dummyApplication);
+  sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationById').returns(dummyApplication);
 
   beforeAll(async () => {
-    await request(app).post(PAGE_URL).send({'reject-confirmation': 'Yes'}).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-      htmlRes.getElementsByTagName('div')[0].remove();
-    });
+    await request(app).get(PAGE_URL)
+      .then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
   });
 
   it('should display panel', () => {
