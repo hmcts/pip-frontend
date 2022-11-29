@@ -537,12 +537,11 @@ describe('Verified user', () => {
       expect(await listDownloadDisclaimerPage.getPageTitle()).toBe('Terms and conditions');
     });
 
-    // TODO: uncomment this test once the backend and flux config has gone in
-    // it('should agree to the terms and conditions and continue', async () => {
-    //   await listDownloadDisclaimerPage.tickAgreeCheckbox();
-    //   listDownloadFilesPage = await listDownloadDisclaimerPage.clickContinue();
-    //   expect(await listDownloadFilesPage.getPageTitle()).toEqual('Download your file');
-    // });
+    it('should agree to the terms and conditions and continue', async () => {
+      await listDownloadDisclaimerPage.tickAgreeCheckbox();
+      listDownloadFilesPage = await listDownloadDisclaimerPage.clickContinue();
+      expect(await listDownloadFilesPage.getPageTitle()).toEqual('Download your file');
+    });
   });
 
   describe('banner navigation', () => {
