@@ -274,4 +274,34 @@ export class AccountManagementRequests {
       return null;
     }
   }
+
+  /**
+   * Request method that attempts to create a system admin account.
+   * @param systemAdminAccount The System Admin account to create.
+   * @param adminUserId The System Admin who is creating the account.
+   */
+  public async createSystemAdminUser(systemAdminAccount, adminUserId: string): Promise<object> {
+    try {
+      logger.info('A system admin user is being created with ID: ' + adminUserId);
+      const response = await accountManagementApi.post(`/account/add/system-admin`,
+        systemAdminAccount,
+        {headers: {'x-issuer-id': adminUserId}});
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status == 400) {
+          return error.response.data;
+        } else {
+          console.log("Request to create a system admin has failed with error code: " + error.response.status)
+        }
+      } else if (error.request) {
+        console.log(error.request);
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
+      }
+      return null;
+    }
+  }
+
 }
