@@ -16,22 +16,24 @@ courtStub.withArgs('aa').resolves(null);
 courtStub.withArgs('test').resolves(null);
 courtStub.withArgs('Mut').resolves(null);
 courtStub.withArgs('Valid Location').resolves(court);
+const pageName = 'remove-list-search';
 
-const i18n = {'remove-list-search': {}};
+const i18n = {pageName: {}};
 
 describe('Remove List Search Controller', () => {
   it('should render the remove list search page', () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
+    request.path = '/' + pageName;
     const responseMock = sinon.mock(response);
     const expectedData = {
-      ...i18n['remove-list-search'],
+      ...i18n[pageName],
       autocompleteList: courtList,
       invalidInputError: false,
       noResultsError: false,
     };
 
-    responseMock.expects('render').once().withArgs('remove-list-search', expectedData);
+    responseMock.expects('render').once().withArgs(pageName, expectedData);
     return removeListSearchController.get(request, response).then(() => {
       responseMock.verify();
     });
@@ -40,16 +42,17 @@ describe('Remove List Search Controller', () => {
   it('should render remove list search page if input is less than three characters long', () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
+    request.path = '/' + pageName;
     request.body = {'input-autocomplete': 'aa'};
     const responseMock = sinon.mock(response);
     const expectedData = {
-      ...i18n['remove-list-search'],
+      ...i18n[pageName],
       autocompleteList: courtList,
       invalidInputError: true,
       noResultsError: false,
     };
 
-    responseMock.expects('render').once().withArgs('remove-list-search', expectedData);
+    responseMock.expects('render').once().withArgs(pageName, expectedData);
     return removeListSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
@@ -58,16 +61,17 @@ describe('Remove List Search Controller', () => {
   it('should render remove list search page if there are no matching results', () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
+    request.path = '/' + pageName;
     request.body = {'input-autocomplete': 'test'};
     const responseMock = sinon.mock(response);
     const expectedData = {
-      ...i18n['remove-list-search'],
+      ...i18n[pageName],
       autocompleteList: courtList,
       invalidInputError: false,
       noResultsError: true,
     };
 
-    responseMock.expects('render').once().withArgs('remove-list-search', expectedData);
+    responseMock.expects('render').once().withArgs(pageName, expectedData);
     return removeListSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
@@ -76,16 +80,17 @@ describe('Remove List Search Controller', () => {
   it('should render remove list search page if input is three characters long and partially correct as noResultsError', () => {
     const response = { render: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
+    request.path = '/' + pageName;
     request.body = {'input-autocomplete': 'Mut'};
     const responseMock = sinon.mock(response);
     const expectedData = {
-      ...i18n['remove-list-search'],
+      ...i18n[pageName],
       autocompleteList: courtList,
       invalidInputError: false,
       noResultsError: true,
     };
 
-    responseMock.expects('render').once().withArgs('remove-list-search', expectedData);
+    responseMock.expects('render').once().withArgs(pageName, expectedData);
     return removeListSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
@@ -94,6 +99,7 @@ describe('Remove List Search Controller', () => {
   it('should redirect to removal confirmation page with input as query if court name input is valid', () => {
     const response = { redirect: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
+    request.path = '/' + pageName;
     request.body = {'input-autocomplete': 'Valid Location'};
     const responseMock = sinon.mock(response);
 

@@ -217,8 +217,8 @@ export default function(app: Application): void {
   app.post('/delete-user-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserConfirmationController.post);
   app.post('/update-user-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.updateUserConfirmationController.post);
 
-  app.get('/delete-court-reference-data', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataController.get);
-  app.post('/delete-court-reference-data', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataController.post);
+  app.get('/delete-court-reference-data', isPermittedSystemAdmin, app.locals.container.cradle.removeListSearchController.get);
+  app.post('/delete-court-reference-data', isPermittedSystemAdmin, app.locals.container.cradle.removeListSearchController.post);
   app.get('/delete-court-reference-data-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get);
   app.post('/delete-court-reference-data-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.post);
   app.get('/delete-court-reference-data-success', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataSuccessController.get);
