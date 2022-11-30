@@ -204,6 +204,7 @@ export default function(app: Application): void {
   app.get('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.get);
   app.post('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.post);
   app.get('/manual-reference-data-upload-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadConfirmationController.get);
+  app.get('/manual-reference-data-download', isPermittedSystemAdmin, app.locals.container.cradle.referenceDataDownloadController.get);
   app.get('/manage-third-party-users', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersController.get);
   app.get('/manage-third-party-users/view', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersViewController.get);
   app.get('/manage-third-party-users/subscriptions', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersSubscriptionsController.get);
