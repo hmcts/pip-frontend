@@ -1,5 +1,5 @@
 {
-  "exclude": ["src/test/e2e/**/*.ts"],
+//  "exclude": ["src/test/e2e/**/*.ts"],
   "compilerOptions": {
     "outDir": "./dist/",
     "module": "commonjs",

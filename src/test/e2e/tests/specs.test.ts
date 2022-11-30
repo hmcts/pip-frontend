@@ -38,28 +38,29 @@ import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrn
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
-import {MediaAccountRequestsPage} from '../PageObjects/MediaAccountRequests.page';
-import {MediaAccountReviewPage} from '../PageObjects/MediaAccountReview.page';
-import {MediaAccountApprovalPage} from '../PageObjects/MediaAccountApproval.page';
-import {MediaAccountRejectionPage} from '../PageObjects/MediaAccountRejection.page';
-import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccountRejectionConfirmation.page';
-import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
-import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
-import {SessionLoggedOutPage} from '../PageObjects/SessionLoggedOut.page';
-import {ManualReferenceDataUploadPage} from '../PageObjects/ManualReferenceDataUpload.page';
-import {ManualReferenceDataUploadSummaryPage} from '../PageObjects/ManualReferenceDataUploadSummary.page';
+import { MediaAccountRequestsPage } from '../PageObjects/MediaAccountRequests.page';
+import { MediaAccountReviewPage } from '../PageObjects/MediaAccountReview.page';
+import { MediaAccountApprovalPage } from '../PageObjects/MediaAccountApproval.page';
+import { MediaAccountRejectionPage } from '../PageObjects/MediaAccountRejection.page';
+import { MediaAccountRejectionConfirmationPage } from '../PageObjects/MediaAccountRejectionConfirmation.page';
+import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
+import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
+import { SessionLoggedOutPage } from '../PageObjects/SessionLoggedOut.page';
+import { ManualReferenceDataUploadPage } from '../PageObjects/ManualReferenceDataUpload.page';
+import { ManualReferenceDataUploadSummaryPage } from '../PageObjects/ManualReferenceDataUploadSummary.page';
 import { BlobViewLocationsPage } from '../pageobjects/BlobViewLocationsPage';
-import {BulkDeleteSubscriptionsPage} from '../PageObjects/BulkDeleteSubscriptions.page';
-import {BulkDeleteSubscriptionsConfirmationPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmation.page';
-import {BulkDeleteSubscriptionsConfirmedPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmed.page';
-import {UserManagementPage} from '../PageObjects/UserManagement.page';
-import {ManageUserPage} from '../PageObjects/ManageUser.page';
-import {UpdateUserPage} from '../PageObjects/UpdateUser.page';
-import {DeleteUserPage} from '../PageObjects/DeleteUser.page';
+import { BulkDeleteSubscriptionsPage } from '../PageObjects/BulkDeleteSubscriptions.page';
+import { BulkDeleteSubscriptionsConfirmationPage } from '../PageObjects/BulkDeleteSubscriptionsConfirmation.page';
+import { BulkDeleteSubscriptionsConfirmedPage } from '../PageObjects/BulkDeleteSubscriptionsConfirmed.page';
+import { UserManagementPage } from '../PageObjects/UserManagement.page';
+import { ManageUserPage } from '../PageObjects/ManageUser.page';
+import { UpdateUserPage } from '../PageObjects/UpdateUser.page';
+import { DeleteUserPage } from '../PageObjects/DeleteUser.page';
 import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPage';
-import {ManageThirdPartyUsersPage} from '../PageObjects/ManageThirdPartyUsers.page';
-import {ListDownloadDisclaimerPage} from '../PageObjects/ListDownloadDisclaimer.page';
-import {ListDownloadFilesPage} from '../PageObjects/ListDownloadFiles.page';
+import { ManageThirdPartyUsersPage } from '../PageObjects/ManageThirdPartyUsers.page';
+import { ListDownloadDisclaimerPage } from '../PageObjects/ListDownloadDisclaimer.page';
+import { ListDownloadFilesPage } from '../PageObjects/ListDownloadFiles.page';
+import { CommonPage } from '../pageobjects/Common.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -193,7 +194,7 @@ describe('Unverified user', () => {
 
       it('selecting first result should take you to to the summary of publications page', async () => {
         summaryOfPublicationsPage = await alphabeticalSearchPage.selectFirstListResult();
-        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from '+ searchTerm + '?');
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from ' + searchTerm + '?');
       });
 
       it('should select the first publication', async () => {
@@ -518,7 +519,7 @@ describe('Verified user', () => {
     });
   });
 
-  describe('SJP list download navigation',() => {
+  describe('SJP list download navigation', () => {
     before(async () => {
       await accountHomePage.open('account-home');
     });
@@ -526,8 +527,11 @@ describe('Verified user', () => {
     it('should navigate to the SJP list page', async () => {
       summaryOfPublicationsPage = await searchPage.clickNavSJP(true);
       expect(await summaryOfPublicationsPage.getPageTitle()).toBe('What do you want to view from Single Justice Procedure?');
+    });
 
-      sjpPublicListPage = await singleJusticeProcedurePage.clickSOPListItem();
+    it('should open the SJP list', async () => {
+      const x = await summaryOfPublicationsPage.selectFirstMatchingText('Single Justice Procedure Public');
+      sjpPublicListPage = x[0].click();
       const pageTitle = await sjpPublicListPage.getPageTitle();
       expect(pageTitle.startsWith('Single Justice Procedure cases')).toBeTruthy();
     });
@@ -668,7 +672,7 @@ describe('Admin level journeys', () => {
     });
     it('should select yes option and remove publication', async () => {
       await publicationConfirmationPage.selectOption('remove-choice');
-      removePublicationSuccessPage= await publicationConfirmationPage.clickContinueToRemovePublication();
+      removePublicationSuccessPage = await publicationConfirmationPage.clickContinueToRemovePublication();
       expect(await removePublicationSuccessPage.getPanelTitle()).toEqual('Success');
     });
     it('should click on the home link and open admin dashboard page', async () => {
@@ -795,29 +799,29 @@ describe('System Admin level journeys', () => {
       expect(await userManagementPage.getPageTitle()).toEqual('User Management');
     });
 
-    it('should input email into the filter', async() => {
+    it('should input email into the filter', async () => {
       await userManagementPage.inputEmail();
     });
 
-    it('should click the apply filter button', async() => {
+    it('should click the apply filter button', async () => {
       await userManagementPage.clickFilterButton();
     });
 
-    it('should click the manage link and be taken to the manage user page', async() => {
+    it('should click the manage link and be taken to the manage user page', async () => {
       manageUserPage = await userManagementPage.clickManageLink();
       expect(await manageUserPage.getPageTitle()).toEqual('Manage pip-auto-test-admin@hmcts.net');
     });
 
-    it('should click the change link and load the update user page', async() => {
+    it('should click the change link and load the update user page', async () => {
       updateUserPage = await manageUserPage.clickChangeLink();
       expect(await updateUserPage.getPageTitle()).toEqual('What role would you like pip-auto-test-admin@hmcts.net to have?');
     });
 
-    it('should be able to update the users role', async() => {
+    it('should be able to update the users role', async () => {
       await updateUserPage.selectUserRole();
     });
 
-    it('should open the update users role confirmation page and click to go back to the dashboard', async() => {
+    it('should open the update users role confirmation page and click to go back to the dashboard', async () => {
       const updateUserConfirmationPage = await updateUserPage.clickContinueButton();
       expect(await updateUserConfirmationPage.getPageTitle()).toEqual('User Updated');
       expect(await updateUserConfirmationPage.getPanelBody()).toEqual('This user has been updated to a Local Admin. ' +
@@ -831,15 +835,15 @@ describe('System Admin level journeys', () => {
       expect(await userManagementPage.getPageTitle()).toEqual('User Management');
     });
 
-    it('should input email into the filter again', async() => {
+    it('should input email into the filter again', async () => {
       await userManagementPage.inputEmail();
     });
 
-    it('should click the apply filter button again', async() => {
+    it('should click the apply filter button again', async () => {
       await userManagementPage.clickFilterButton();
     });
 
-    it('should click the manage link and be taken to the manage user page again', async() => {
+    it('should click the manage link and be taken to the manage user page again', async () => {
       manageUserPage = await userManagementPage.clickManageLink();
       expect(await manageUserPage.getPageTitle()).toEqual('Manage pip-auto-test-admin@hmcts.net');
     });
@@ -869,7 +873,7 @@ describe('System Admin level journeys', () => {
       blobViewLocationsPage = await systemAdminDashboard.clickBlobExplorerLocationsCard();
       expect(await blobViewLocationsPage.getPageTitle()).toEqual('Blob Explorer - Locations');
     });
-    it('should choose the first result', async() => {
+    it('should choose the first result', async () => {
       blobViewPublicationsPage = await blobViewLocationsPage.selectFirstListResult();
       expect(await blobViewPublicationsPage.getPageTitle()).toEqual('Blob Explorer - Publications');
     });

@@ -25,6 +25,13 @@ export class CommonPage {
     await $(helpers[optionName]).click();
   }
 
+  async selectFirstMatchingText(text: string): Promise<any> {
+    await browser.execute(() => {
+      Array.from(document.getElementsByTagName('a'))
+        .filter(link => link.innerHTML.indexOf(text) > -1);
+    });
+  }
+
   get radioButtons(): Promise<number> {
     const radioButtons = $$(helpers.RadioButton);
     return radioButtons.length;

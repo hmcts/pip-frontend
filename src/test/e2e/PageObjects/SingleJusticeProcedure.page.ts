@@ -12,4 +12,5 @@ export class SingleJusticeProcedurePage extends CommonPage {
     await $(helpers.SOPListItem).click();
     return new SJPPublicListPage();
   }
+
 }
