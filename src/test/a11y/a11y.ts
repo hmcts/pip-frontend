@@ -38,6 +38,7 @@ const routesNotTested = [
   '/delete-user',
   '/delete-user-confirmation',
   '/update-user-confirmation',
+  '/manual-reference-data-download',
 ];
 
 const adminRoutes = [
