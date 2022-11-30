@@ -26,7 +26,7 @@ export class CommonPage {
   }
 
   async selectFirstMatchingText(text: string): Promise<any> {
-    await browser.execute(() => {
+    return await browser.execute(() => {
       Array.from(document.getElementsByTagName('a'))
         .filter(link => link.innerHTML.indexOf(text) > -1);
     });
