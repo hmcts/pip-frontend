@@ -6,8 +6,8 @@
   "userRoleKey": "User role",
   "panelTitle": "Account has been created",
   "errorPanelTitle": "Account has been rejected",
-  "errorPanelSummaryIsDuplicate": "Account has been rejected due to this user already having an account",
-  "errorPanelSummaryIsAboveMax": "Account has been rejected due to already being at the maximum number of accounts",
+  "errorPanelSummaryIsDuplicate": "This user already has an account. If the user requires a system admin account, their previous account will need to be deleted first before one can be created.",
+  "errorPanelSummaryIsAboveMax": "The maximum number of System Admin accounts has been reached",
   "whatNextTitle": "What happens next",
   "whatNextMessage": "This account will be created and the applicant will be notified to set up their account.",
   "whatNextMessageRejected": "The users account has not been created, and no welcome email has been sent."
