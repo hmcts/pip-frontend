@@ -12,5 +12,6 @@
   "address": "Address",
   "prosecutor": "Prosecutor",
   "reportingRestriction": "Reporting Restriction",
-  "backButton": "Back"
+  "backButton": "Back",
+  "downloadButton": "Download a copy"
 }
