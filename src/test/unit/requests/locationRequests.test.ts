@@ -212,28 +212,24 @@ describe('Location get requests', () => {
 });
 
 describe('Get locations csv', () => {
-      it('should return locations csv on success', async () => {
-        stub.withArgs('/locations/download/csv').resolves({status: 200, data: dummyFile });
-
-        const response = await courtRequests.getLocationsCsv('1234');
-        expect(response).toBe(dummyFile);
-      });
-
-      it('should return null on error request', async () => {
-        stub.withArgs('/locations/download/csv').rejects(errorRequest);
-        const response = await courtRequests.getLocationsCsv('1234');
-        expect(response).toBe(null);
-      });
-
-      it('should return false on error response', async () => {
-        stub.withArgs('/locations/download/csv').rejects(errorResponse);
-        const response = await courtRequests.getLocationsCsv('1234');
-        expect(response).toBe(null);
-      });
-
-      it('should return false on error message', async () => {
-        stub.withArgs('/locations/download/csv').rejects(errorMessage);
-        const response = await courtRequests.getLocationsCsv('1234');
-        expect(response).toBe(null);
-      });
-    });
+  it('should return locations csv on success', async () => {
+    stub.withArgs('/locations/download/csv').resolves({status: 200, data: dummyFile });
+    const response = await courtRequests.getLocationsCsv('1234');
+    expect(response).toBe(dummyFile);
+  });
+  it('should return null on error request', async () => {
+    stub.withArgs('/locations/download/csv').rejects(errorRequest);
+    const response = await courtRequests.getLocationsCsv('1234');
+    expect(response).toBe(null);
+  });
+  it('should return false on error response', async () => {
+    stub.withArgs('/locations/download/csv').rejects(errorResponse);
+    const response = await courtRequests.getLocationsCsv('1234');
+    expect(response).toBe(null);
+  });
+  it('should return false on error message', async () => {
+    stub.withArgs('/locations/download/csv').rejects(errorMessage);
+    const response = await courtRequests.getLocationsCsv('1234');
+    expect(response).toBe(null);
+  });
+});
