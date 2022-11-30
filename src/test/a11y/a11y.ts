@@ -75,6 +75,9 @@ const systemAdminRoutes = [
   '/blob-view-json',
   '/blob-view-publications',
   '/blob-view-locations',
+  '/delete-court-reference-data',
+  '/delete-court-reference-data-confirmation',
+  '/delete-court-reference-data-success',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
