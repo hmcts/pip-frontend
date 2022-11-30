@@ -23,15 +23,23 @@ export default class CreateSystemAdminAccountSummaryController {
 
     const response = await createAccountService.createSystemAdminAccount(formData, req.user?.['piUserId']);
     if (response) {
-      res.cookie('createAdminAccount', '');
+      if (response['error'] === true && !response['duplicate'] && !response['aboveMaxSystemAdmin']) {
+        res.render('create-system-admin-account-summary', {
+          formData,
+          displayError: true,
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-system-admin-account-summary']),
+        });
+      } else {
+        res.cookie('createAdminAccount', '');
+        res.render('create-system-admin-account-confirm', {
+          formData,
+          accountCreated: !response['error'],
+          isDuplicateError: response['duplicate'],
+          isAboveMaxError: response['aboveMaxSystemAdmin'],
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-system-admin-account-confirm']),
+        });
+      }
     }
-
-    res.render('create-system-admin-account-summary', {
-      formData,
-      accountCreated: response,
-      displayError: !response,
-      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-system-admin-account-summary']),
-    });
 
   }
 }

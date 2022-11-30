@@ -270,12 +270,12 @@ export class CreateAccountService {
    * @param payload The system admin account to create.
    * @param requester The ID of the system admin who requested the account.
    */
-  public async createSystemAdminAccount(payload: object, requester: string): Promise<boolean> {
+  public async createSystemAdminAccount(payload: object, requester: string): Promise<any> {
     const creationResponse = accountManagementRequests.createSystemAdminUser(this.formatCreateSystemAdminAccountPayload(payload), requester);
     if (creationResponse) {
-      return true;
+      return creationResponse;
     }
-    return false;
+    return null;
   }
 
   public async createMediaAccount(payload: object, requester: string): Promise<boolean> {

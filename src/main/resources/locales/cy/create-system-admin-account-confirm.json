@@ -1,0 +1,14 @@
+{
+  "title": "Create System Admin Account Summary",
+  "firstNameKey": "First name",
+  "lastNameKey": "Last name",
+  "emailAddressKey": "Email address",
+  "userRoleKey": "User role",
+  "panelTitle": "Account has been created",
+  "errorPanelTitle": "Account has been rejected",
+  "errorPanelSummaryIsDuplicate": "Account has been rejected due to this user already having an account",
+  "errorPanelSummaryIsAboveMax": "Account has been rejected due to already being at the maximum number of accounts",
+  "whatNextTitle": "What happens next",
+  "whatNextMessage": "This account will be created and the applicant will be notified to set up their account.",
+  "whatNextMessageRejected": "The users account has not been created, and no welcome email has been sent."
+}

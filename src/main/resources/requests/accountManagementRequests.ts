@@ -290,6 +290,7 @@ export class AccountManagementRequests {
     } catch (error) {
       if (error.response) {
         if (error.response.status == 400) {
+          error.response.data['error'] = true;
           return error.response.data;
         } else {
           console.log("Request to create a system admin has failed with error code: " + error.response.status)
