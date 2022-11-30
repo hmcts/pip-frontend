@@ -60,7 +60,6 @@ import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPag
 import { ManageThirdPartyUsersPage } from '../PageObjects/ManageThirdPartyUsers.page';
 import { ListDownloadDisclaimerPage } from '../PageObjects/ListDownloadDisclaimer.page';
 import { ListDownloadFilesPage } from '../PageObjects/ListDownloadFiles.page';
-import { CommonPage } from '../pageobjects/Common.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
