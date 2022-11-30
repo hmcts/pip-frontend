@@ -283,7 +283,7 @@ export class AccountManagementRequests {
   public async createSystemAdminUser(systemAdminAccount, adminUserId: string): Promise<object> {
     try {
       logger.info('A system admin user is being created with ID: ' + adminUserId);
-      const response = await accountManagementApi.post(`/account/add/system-admin`,
+      const response = await accountManagementApi.post('/account/add/system-admin',
         systemAdminAccount,
         {headers: {'x-issuer-id': adminUserId}});
       return response.data;
@@ -293,7 +293,7 @@ export class AccountManagementRequests {
           error.response.data['error'] = true;
           return error.response.data;
         } else {
-          console.log("Request to create a system admin has failed with error code: " + error.response.status)
+          console.log('Request to create a system admin has failed with error code: ' + error.response.status);
         }
       } else if (error.request) {
         console.log(error.request);

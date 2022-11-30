@@ -221,7 +221,7 @@ export class CreateAccountService {
     return {
       email: accountObject.emailAddress,
       firstName: accountObject.firstName,
-      surname: accountObject.lastName
+      surname: accountObject.lastName,
     };
   }
 
