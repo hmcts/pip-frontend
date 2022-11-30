@@ -16,7 +16,7 @@ export class CreateAdminAccountPage extends CommonPage {
       console.log(`${helpers.FirstNameInput} not found`);
     });
 
-    await $(helpers.FirstNameInput).addValue('Joe');
+    await $(helpers.FirstNameInput).addValue('Test');
     await browser.keys('Escape');
   }
 
@@ -25,7 +25,7 @@ export class CreateAdminAccountPage extends CommonPage {
       console.log(`${helpers.LastNameInput} not found`);
     });
 
-    await $(helpers.LastNameInput).addValue('Bloggs');
+    await $(helpers.LastNameInput).addValue('Admin');
     await browser.keys('Escape');
   }
 
@@ -34,7 +34,7 @@ export class CreateAdminAccountPage extends CommonPage {
       console.log(`${helpers.EmailInput} not found`);
     });
 
-    await $(helpers.EmailInput).addValue('Joe.Bloggs@email.co.uk');
+    await $(helpers.EmailInput).addValue('pip-auto-test-admin@hmcts.net');
     await browser.keys('Escape');
   }
 
