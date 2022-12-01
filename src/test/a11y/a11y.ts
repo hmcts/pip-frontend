@@ -38,6 +38,7 @@ const routesNotTested = [
   '/delete-user',
   '/delete-user-confirmation',
   '/update-user-confirmation',
+  '/manual-reference-data-download',
 ];
 
 const adminRoutes = [
@@ -53,7 +54,9 @@ const adminRoutes = [
   '/media-account-review/approve',
   '/media-account-review/reject',
   '/media-account-approval',
+  '/media-account-approval-confirmation',
   '/media-account-rejection',
+  '/media-account-rejection-confirmation',
   '/remove-list-confirmation',
   '/remove-list-search',
   '/remove-list-search-results',
