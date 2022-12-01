@@ -24,6 +24,7 @@ const routesNotTested = [
   '/login',
   '/cft-login',
   '/cft-login/return',
+  '/cft-rejected-login',
   '/admin-login',
   '/login/return',
   '/login/admin/return',

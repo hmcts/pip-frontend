@@ -64,6 +64,7 @@ function oidcSetup(): void {
 
     if (returnedUser) {
       profile['roles'] = returnedUser['roles'];
+      profile['userProvenance'] = returnedUser['userProvenance'];
       return done(null, profile);
     } else {
       return done(null, null);
