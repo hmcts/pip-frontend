@@ -6,24 +6,24 @@ const largeHeadingClass = 'govuk-heading-l';
 
 let htmlRes: Document;
 
-describe('password-change-confirmation', () => {
+describe('Cancelled Password Reset', () => {
 
   describe('Admin user', () => {
     beforeAll(async () => {
-      const PAGE_URL = '/password-change-confirmation/true';
-      await request(app).post(PAGE_URL).then(res => {
+      const PAGE_URL = '/cancelled-password-reset/true';
+      await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       });
     });
 
     it('should display the page header', () => {
       const header = htmlRes.getElementsByClassName(largeHeadingClass);
-      expect(header[0].innerHTML).contains('Password changed successfully', 'Could not find the header');
+      expect(header[0].innerHTML).contains('Password unchanged', 'Could not find the header');
     });
 
     it('should display the body text', () => {
       const bodyText = htmlRes.getElementsByClassName('govuk-body');
-      expect(bodyText[4].innerHTML).contains('You can now sign in with your new credentials using the button below.',
+      expect(bodyText[4].innerHTML).contains('Your credentials have not been changed. You can still sign-in using the button below and your existing credentials.',
         'Could not find body text');
     });
 
@@ -36,8 +36,8 @@ describe('password-change-confirmation', () => {
 
   describe('Media user', () => {
     beforeAll(async () => {
-      const PAGE_URL = '/password-change-confirmation/false';
-      await request(app).post(PAGE_URL).then(res => {
+      const PAGE_URL = '/cancelled-password-reset/false';
+      await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       });
     });
