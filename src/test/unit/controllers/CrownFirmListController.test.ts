@@ -60,7 +60,7 @@ describe('Crown Firm List Controller', () => {
 
   it('should render the crown firm list page', async () => {
     request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
 
     const responseMock = sinon.mock(response);
 
@@ -88,7 +88,7 @@ describe('Crown Firm List Controller', () => {
   it('should render error page is query param is empty', async () => {
 
     request.query = {};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);

@@ -18,7 +18,7 @@ subscribeStub.withArgs('2').resolves(false);
 describe('Subscriptions Confirmed', () => {
   describe('on GET', () => {
     test('should render subscription confirmation page', async () => {
-      app.request['user'] = {piUserId: '1', 'roles': 'VERIFIED'};
+      app.request['user'] = {userId: '1', 'roles': 'VERIFIED'};
 
       await request(app).get(PAGE_URL)
         .expect((res) => {
