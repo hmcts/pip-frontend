@@ -43,15 +43,15 @@ export class FileHandlingService {
    * @param fileName The filename of the file being uploaded.
    */
   sanitiseFileName(fileName: string): string {
-    let sanatizedFileName = '';
+    let sanitisedFileName = '';
 
     [...fileName].forEach(char => {
       if (char.charCodeAt(0) <= 127) {
-        sanatizedFileName += char;
+        sanitisedFileName += char;
       }
     });
 
-    return sanatizedFileName;
+    return sanitisedFileName;
   }
 
   readFile(fileName): object {
