@@ -46,7 +46,7 @@
     "@types/serve-favicon": "^2.5.1",
     "@wdio/cli": "^7.20.9",
     "accessible-autocomplete": "^2.0.3",
-    "applicationinsights": "^1.8.8",
+    "applicationinsights": "^2.3.6",
     "awilix": "^5.0.0",
     "axios": "^0.21.4",
     "axios-oauth-client": "^1.4.4",
