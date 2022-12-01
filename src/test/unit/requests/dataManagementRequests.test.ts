@@ -82,4 +82,42 @@ describe('Data Management requests', () => {
       expect(await fileUploadAPI.uploadJSONPublication({file: 'baz'}, {headers: {}})).toBe(false);
     });
   });
+
+  describe('upload reference data', () => {
+    beforeEach(() => {
+      sinon.restore();
+      const axiosConfig = require('../../../main/resources/requests/utils/axiosConfig');
+      sinon.stub(axiosConfig, 'getDataManagementCredentials').returns(() => {return '';});
+    });
+
+    it('should return true on success', async () => {
+      sinon.stub(superagent, 'post').callsFake(() => {
+        return {
+          set(): any {
+            return { set(): any {
+              return { attach: sinon.stub().returns(true) };
+            } };
+          },
+        };
+      });
+
+      expect(await fileUploadAPI.uploadLocationFile(mockUploadFileBody)).toBe(true);
+    });
+
+    it('should return error response', async () => {
+      sinon.stub(superagent, 'post').withArgs({file: '', fileName: 'foo'}, mockUploadFileHeaders).rejects(errorResponse);
+      expect(await fileUploadAPI.uploadLocationFile({file: '', fileName: 'foo'})).toBe(false);
+    });
+
+    it('should return error request', async () => {
+      sinon.stub(superagent, 'post').withArgs({file: '', fileName: 'bar'}, mockUploadFileHeaders).rejects(errorRequest);
+      expect(await fileUploadAPI.uploadLocationFile({file: '', fileName: 'bar'})).toBe(false);
+    });
+
+    it('should return error message', async () => {
+      sinon.stub(superagent, 'post').withArgs({file: '', fileName: 'baz'}, mockUploadFileHeaders).rejects(errorMessage);
+      expect(await fileUploadAPI.uploadLocationFile({file: '', fileName: 'baz'})).toBe(false);
+    });
+  });
+
 });

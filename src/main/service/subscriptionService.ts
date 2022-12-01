@@ -18,72 +18,151 @@ const languageFileParser = new LanguageFileParser();
 const locationService = new LocationService();
 
 export class SubscriptionService {
-  async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
-    const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
-    return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], locationSubscriptions: []};
+  public async getSubscriptionDataForView(userId: string, language: string, tab: string, bulkDelete = false): Promise<object> {
+    const subscriptionData = await this.getSubscriptionsByUser(userId);
+    const caseTableData = await this.generateCaseTableRows(subscriptionData.caseSubscriptions,
+      language, 'subscription-management', bulkDelete);
+    const locationTableData = await this.generateLocationTableRows(subscriptionData.locationSubscriptions,
+      language, 'subscription-management', bulkDelete);
+    let activeAllTab = false, activeCaseTab = false, activeLocationTab = false;
+    switch (tab) {
+      case 'all':
+        activeAllTab = true;
+        break;
+      case 'case':
+        activeCaseTab = true;
+        break;
+      case 'location':
+        activeLocationTab = true;
+        break;
+      default:
+        activeAllTab = true;
+        break;
+    }
+
+    return { caseTableData, locationTableData, activeAllTab, activeCaseTab, activeLocationTab };
   }
 
-  async generateCaseTableRows(subscriptionDataCases, language, languageFile): Promise<any[]> {
+  async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
+    const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
+    return (subscriptionData) ? subscriptionData : {caseSubscriptions: [], listTypeSubscriptions: [], locationSubscriptions: []};
+  }
+
+  async generateCaseTableRows(subscriptionDataCases, language, languageFile, bulkDelete = false): Promise<any[]> {
     const caseRows = [];
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCases.length) {
-      subscriptionDataCases.forEach((subscription) => {
-        caseRows.push(
-          [
-            {
-              text: subscription.caseName,
-            },
-            {
-              text: subscription.caseNumber,
-            },
-            {
-              text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
-            },
-            {
-              html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
-                languageFileParser.getText(fileJson, null, 'unsubscribe') + '</a>',
-              format: 'numeric',
-            },
-          ],
-        );
+      subscriptionDataCases.forEach(subscription => {
+        caseRows.push(bulkDelete
+          ? this.generateCaseTableRowForBulkDelete(subscription)
+          : this.generateCaseTableRow(subscription, fileJson));
       });
     }
 
     return caseRows;
   }
 
-  async generateLocationTableRows(subscriptionDataCourts, language, languageFile): Promise<any[]> {
+  async generateLocationTableRows(subscriptionDataCourts, language, languageFile, bulkDelete = false): Promise<any[]> {
     const courtRows = [];
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCourts.length) {
-
       for (const subscription of subscriptionDataCourts) {
         const location  = await locationService.getLocationById(subscription.locationId);
-        let locationName = location.name;
-        if(language === 'cy') {
-          locationName = location.welshName;
-        }
+        const locationName = language === 'cy' ? location.welshName : location.name;
 
-        courtRows.push([
-          {
-            text: locationName,
-          },
-          {
-            text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
-          },
-          {
-            html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
-              languageFileParser.getText(fileJson, null, 'unsubscribe') + '</a>',
-            format: 'numeric',
-          },
-        ]);
+        courtRows.push(bulkDelete
+          ? this.generateLocationTableRowForBulkDelete(locationName, subscription)
+          : this.generateLocationTableRow(locationName, subscription, fileJson));
       }
     }
     return courtRows;
   }
 
-  public async unsubscribe(subscriptionId: string): Promise<object> {
-    return subscriptionRequests.unsubscribe(subscriptionId);
+  private generateCaseTableRow(subscription, fileJson): any {
+    return [
+      {
+        text: subscription.caseName,
+      },
+      {
+        text: subscription.caseNumber,
+      },
+      {
+        text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
+        classes: 'no-wrap',
+      },
+      {
+        html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>`
+          + languageFileParser.getText(fileJson, null, 'unsubscribe') + '</a>',
+        format: 'numeric',
+      },
+    ];
+  }
+
+  private generateCaseTableRowForBulkDelete(subscription): any {
+    const caseName = (subscription.caseName === null) ? '' : subscription.caseName;
+    const caseNumber = (subscription.caseNumber === null) ? '' : subscription.caseNumber;
+
+    return [
+      {
+        html: `<p class="govuk-body bulk-delete-row">${caseName}</p>`,
+      },
+      {
+        html: `<p class="govuk-body bulk-delete-row">${caseNumber}</p>`,
+      },
+      {
+        html: '<p class="govuk-body bulk-delete-row no-wrap">' + moment(subscription.dateAdded).format('DD MMMM YYYY') + '</p>',
+      },
+      {
+        html: '<div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">'
+          + '<input type="checkbox" class="govuk-checkboxes__input" name="caseSubscription" id="caseSubscription" '
+          + `value=${subscription.subscriptionId}>`
+          + '<label class="govuk-label govuk-checkboxes__label" for="caseSubscription"> </label></div>',
+        format: 'numeric',
+      },
+    ];
+  }
+
+  private generateLocationTableRow(locationName, subscription, fileJson): any {
+    return [
+      {
+        text: locationName,
+      },
+      {
+        text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
+        classes: 'no-wrap',
+      },
+      {
+        html: `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>`
+          + languageFileParser.getText(fileJson, null, 'unsubscribe') + '</a>',
+        format: 'numeric',
+      },
+    ];
+  }
+
+  private generateLocationTableRowForBulkDelete(locationName, subscription): any {
+    return [
+      {
+        html: `<p class="govuk-body bulk-delete-row">${locationName}</p>`,
+      },
+      {
+        html: '<p class="govuk-body bulk-delete-row no-wrap">' + moment(subscription.dateAdded).format('DD MMMM YYYY') + '</p>',
+      },
+      {
+        html: '<div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">'
+          + '<input type="checkbox" class="govuk-checkboxes__input" name="courtSubscription" id="courtSubscription" '
+          + `value=${subscription.subscriptionId}>`
+          + '<label class="govuk-label govuk-checkboxes__label" for="courtSubscription"> </label></div>',
+        format: 'numeric',
+      },
+    ];
+  }
+
+  public async unsubscribe(subscriptionId: string, userId: string): Promise<object> {
+    return subscriptionRequests.unsubscribe(subscriptionId, userId);
+  }
+
+  public async bulkDeleteSubscriptions(subscriptionIds: string[]): Promise<object> {
+    return subscriptionRequests.bulkDeleteSubscriptions(subscriptionIds);
   }
 
   public async handleNewSubscription(pendingSubscription, user): Promise<void> {
@@ -162,14 +241,14 @@ export class SubscriptionService {
     const cachedCourtSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, courtsType);
     if (cachedCaseSubs) {
       for (const cachedCase of cachedCaseSubs) {
-        const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCase, casesType, userId));
+        const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCase, casesType, userId), userId);
         response ? await this.removeFromCache({'case': cachedCase.caseNumber}, userId) : subscribed = response;
       }
     }
     if (cachedCourtSubs) {
       for (const cachedCourt of cachedCourtSubs) {
         cachedCourt['listType'] = await this.generateListTypesForNewSubscription(userId);
-        const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCourt, courtsType, userId));
+        const response = await subscriptionRequests.subscribe(this.createSubscriptionPayload(cachedCourt, courtsType, userId), userId);
         response ? await this.removeFromCache({court: cachedCourt.locationId}, userId) : subscribed = response;
       }
     }
@@ -359,4 +438,9 @@ export class SubscriptionService {
 
     return [...filterSet];
   }
+
+  public async retrieveChannels(): Promise<string[]> {
+    return await subscriptionRequests.retrieveSubscriptionChannels();
+  }
+
 }

@@ -1,6 +1,7 @@
 {
   "title": "Eich tanysgrifiadau e-bost",
   "newButton": "Ychwanegu tanysgrifiad e-bost",
+  "bulkDeleteButton": "Dileu swmp o danysgrifiadau",
   "subNavigation": {
     "header1": "Pob tanysgrifiad (",
     "header2": "Tanysgrifiadau yn ôl achos (",

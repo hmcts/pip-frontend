@@ -3,6 +3,7 @@ import {Response} from 'express';
 import {ManualUploadService} from '../service/manualUploadService';
 import {cloneDeep} from 'lodash';
 import { FileHandlingService } from '../service/fileHandlingService';
+import {uploadType} from '../models/consts';
 
 const manualUploadService = new ManualUploadService();
 const fileHandlingService = new FileHandlingService();
@@ -28,7 +29,7 @@ export default class ManualUploadController {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     } else {
       const errors = {
-        fileErrors: fileHandlingService.validateFileUpload(req.file, req.lng as string, 'manual-upload'),
+        fileErrors: fileHandlingService.validateFileUpload(req.file, req.lng as string, 'manual-upload', uploadType.FILE),
         formErrors: await manualUploadService.validateFormFields(req.body, req.lng as string, 'manual-upload'),
       };
 

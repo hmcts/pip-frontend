@@ -1,6 +1,6 @@
-import { LocationService } from '../../../main/service/locationService';
+import {LocationService} from '../../../main/service/locationService';
 import sinon from 'sinon';
-import { expect } from 'chai';
+import {expect} from 'chai';
 import fs from 'fs';
 import path from 'path';
 import {LocationRequests} from '../../../main/resources/requests/locationRequests';
@@ -13,10 +13,10 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearin
 const hearingsData = JSON.parse(rawData);
 
 sinon.stub(courtRequest, 'getAllLocations').returns(hearingsData);
+
 const stubCourt = sinon.stub(courtRequest, 'getLocation');
 const stubCourtByName = sinon.stub(courtRequest, 'getLocationByName');
 const stubCourtsFilter = sinon.stub(courtRequest, 'getFilteredCourts');
-
 const validKeysCount = 26;
 const alphabet = [
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',

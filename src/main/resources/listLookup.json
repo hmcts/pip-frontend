@@ -26,7 +26,7 @@
   "CROWN_DAILY_LIST": {
     "friendlyName": "Crown Daily List",
     "shortenedFriendlyName": "Crown Daily List",
-    "url": "",
+    "url": "crown-daily-list",
     "jurisdictions": ["Crown"],
     "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
@@ -34,7 +34,7 @@
   "CROWN_WARNED_LIST": {
     "friendlyName": "Crown Warned List",
     "shortenedFriendlyName": "Crown Warned List",
-    "url": "",
+    "url": "crown-warned-list",
     "jurisdictions": ["Crown"],
     "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
@@ -42,23 +42,23 @@
   "CROWN_FIRM_LIST": {
     "friendlyName": "Crown Firm List",
     "shortenedFriendlyName": "Crown Firm List",
-    "url": "",
+    "url": "crown-firm-list",
     "jurisdictions": ["Crown"],
     "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
   },
-  "MAGS_PUBLIC_LIST": {
+  "MAGISTRATES_PUBLIC_LIST": {
     "friendlyName": "Magistrates Public List",
     "shortenedFriendlyName": "Magistrates Public List",
-    "url": "",
+    "url": "magistrates-public-list",
     "jurisdictions": ["Crown"],
     "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
   },
-  "MAGS_STANDARD_LIST": {
+  "MAGISTRATES_STANDARD_LIST": {
     "friendlyName": "Magistrates Standard List",
     "shortenedFriendlyName": "Magistrates Standard List",
-    "url": "",
+    "url": "magistrates-standard-list",
     "jurisdictions": ["Crown"],
     "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
@@ -104,9 +104,18 @@
     "restrictedProvenances":  []
   },
   "ET_DAILY_LIST": {
-    "friendlyName": "Employment Tribunals Daily Cause List",
+    "friendlyName": "Employment Tribunals Daily List",
     "shortenedFriendlyName": "ET Daily List",
     "url": "et-daily-list",
+    "jurisdictions": [
+      "Tribunal"
+    ],
+    "restrictedProvenances": []
+  },
+  "ET_FORTNIGHTLY_PRESS_LIST": {
+    "friendlyName": "Employment Tribunals Fortnightly Press List",
+    "shortenedFriendlyName": "ET Fortnightly List",
+    "url": "et-fortnightly-list",
     "jurisdictions": [
       "Tribunal"
     ],
@@ -124,6 +133,13 @@
     "friendlyName": "Primary Health Tribunal Hearing List",
     "shortenedFriendlyName": "Primary Health Tribunal Hearing List",
     "url": "primary-health-list",
+    "jurisdictions": ["Tribunal"],
+    "restrictedProvenances":  []
+  },
+  "CARE_STANDARDS_LIST": {
+    "friendlyName": "Care Standards Tribunal Hearing List",
+    "shortenedFriendlyName": "Care Standards Tribunal Hearing List",
+    "url": "case-standards-list",
     "jurisdictions": ["Tribunal"],
     "restrictedProvenances":  []
   }

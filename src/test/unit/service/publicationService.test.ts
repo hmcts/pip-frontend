@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { expect } from 'chai';
+import {expect} from 'chai';
 import fs from 'fs';
 import path from 'path';
 
@@ -45,7 +45,7 @@ stubMetaData.returns(metaData);
 const stubCourtPubs = sinon.stub(publicationRequests, 'getPublicationsByCourt');
 stubCourtPubs.withArgs('1', userId, false).resolves(returnedArtefact);
 stubCourtPubs.withArgs('2', userId, false).resolves([]);
-
+sinon.stub(publicationRequests, 'getPubsPerLocation').returns('location,count\n1,2\n3,1\n');
 const validCourtName = 'PRESTON';
 const invalidCourtName = 'TEST';
 
@@ -76,7 +76,7 @@ describe('Publication service', () => {
 
   it('should return list types', () => {
     const listTypes = publicationService.getListTypes();
-    expect(listTypes.size).to.equal(16);
+    expect(listTypes.size).to.equal(18);
 
     const sjpResult = listTypes.get('SJP_PUBLIC_LIST');
     expect(sjpResult['friendlyName']).to.equal('Single Justice Procedure Public List');
@@ -124,6 +124,16 @@ describe('Publication service', () => {
       expect(data).to.deep.equal([]);
     });
 
+  });
+
+  describe('Count of locationIds->pubs endpoint', () => {
+    it('should return a list of locationIds alongside the relevant number of publications', async () => {
+      const data = await publicationService.getCountsOfPubsPerLocation();
+      const expectedMap = new Map();
+      expectedMap.set(1, 2);
+      expectedMap.set(3, 1);
+      expect(data).to.deep.equal(expectedMap);
+    });
   });
 
   describe('Language to load the page in', () => {

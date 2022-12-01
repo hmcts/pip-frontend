@@ -40,14 +40,17 @@ export class CreateAccountService {
       nameError: {
         message: this.validateMediaFullName(formValues['fullName'], language, languageFile),
         href: '#fullName',
+        value: formValues['fullName'],
       },
       emailError: {
         message: this.validateMediaEmailAddress(formValues['emailAddress'], language, languageFile),
         href: '#emailAddress',
+        value: formValues['emailAddress'],
       },
       employerError: {
         message: this.validateMediaEmployer(formValues['employer'], language, languageFile),
         href: '#employer',
+        value: formValues['employer'],
       },
       fileUploadError: {
         message: fileHandlingService.validateImage(file, language, languageFile),
@@ -56,11 +59,18 @@ export class CreateAccountService {
       checkBoxError: {
         message: this.validateCheckbox(formValues['tcbox'], language, languageFile),
         href: '#tcbox',
+        value: formValues['tcbox'] !== undefined,
       },
     };
 
   }
 
+  /**
+   * This validates the form fields when submitting an admin request, but without a role.
+   * @param formValues The values to validate.
+   * @param language The language to use.
+   * @param languageFile The language file to use.
+   */
   public validateAdminFormFields(formValues: object,
     language: string, languageFile: string): object {
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
@@ -79,12 +89,28 @@ export class CreateAccountService {
         message: this.validateEmail(formValues['emailAddress'], language, languageFile),
         href: '#emailAddress',
       },
-      radioError: {
-        message: formValues['user-role'] ? null :
-          languageFileParser.getText(fileJson, null, 'roleError'),
-        href: '#user-role',
-      },
     };
+  }
+
+  /**
+   * This validates the form fields including the role.
+   * @param formValues The values to validate.
+   * @param language The language to use.
+   * @param languageFile The language file to use.
+   */
+  public validateAdminFormFieldsWithRole(formValues: object,
+    language: string, languageFile: string): object {
+
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
+    const stateReturn = this.validateAdminFormFields(formValues, language, languageFile);
+
+    stateReturn['radioError'] = {
+      message: formValues['user-role'] ? null :
+        languageFileParser.getText(fileJson, null, 'roleError'),
+      href: '#user-role',
+    };
+
+    return stateReturn;
   }
 
   public getRoleByKey(key: string): object {

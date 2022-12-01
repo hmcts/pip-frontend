@@ -1,0 +1,31 @@
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import goBack %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+{% block content %}
+  <div class="parent-box">
+    <h1 class="govuk-heading-l">{{ heading }} {{ email }}</h1>
+    {{ govukWarningText({
+      text: WarningText,
+      iconFallbackText: WarningFallbackText
+    }) }}
+    {{ govukSummaryList(formattedData)}}
+    {{ govukButton({
+      text: buttonText,
+      classes: buttonClass,
+      href: hrefDeletion
+    }) }}
+  </div>
+{% endblock %}
+{% block bodyEnd %}
+  {{ super() }}
+{% endblock %}

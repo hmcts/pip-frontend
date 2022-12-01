@@ -1,5 +1,6 @@
 import {partyRoleMappings} from '../models/consts';
 import moment from 'moment-timezone';
+import {formatDate} from '../helpers/dateTimeHelper';
 
 export class DataManipulationService {
 
@@ -15,7 +16,7 @@ export class DataManipulationService {
     dailyCauseListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
-          this.findAndManipulateJudiciary(session);
+          session['formattedJudiciaries'] = this.findAndManipulateJudiciary(session);
           session['sittings'].forEach(sitting => {
             this.calculateDuration(sitting);
             hearingCount = hearingCount + sitting['hearing'].length;
@@ -96,7 +97,7 @@ export class DataManipulationService {
               hearing['informant'].forEach(informant => {
                 let prosecutionAuthorityRefFormatted = '';
                 informant['prosecutionAuthorityRef'].forEach(proscAuthRef => {
-                  if(prosecutionAuthorityRefFormatted.length > 0) {
+                  if (prosecutionAuthorityRefFormatted.length > 0) {
                     prosecutionAuthorityRefFormatted += ', ' + proscAuthRef;
                   } else {
                     prosecutionAuthorityRefFormatted += proscAuthRef;
@@ -104,6 +105,7 @@ export class DataManipulationService {
                 });
                 hearing['prosecutionAuthorityRefFormatted'] = prosecutionAuthorityRefFormatted;
               });
+
               delete hearing['informant'];
               delete hearing['party'];
             });
@@ -129,7 +131,7 @@ export class DataManipulationService {
           delete session['judiciary'];
           session['sittings'].forEach(sitting => {
             hearingCount = hearingCount + sitting['hearing'].length;
-            sitting['sittingStartFormatted'] = this.publicationTimeInBst(sitting['sittingStart']);
+            sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma');
             this.calculateDuration(sitting);
             this.findAndConcatenateHearingPlatform(sitting, session);
             sitting['hearing'].forEach(hearing => {
@@ -142,6 +144,121 @@ export class DataManipulationService {
       });
     });
     return etDailyListData;
+  }
+
+  /**
+   * Reshaping etDailyList json data into formatted niceness. It first loops through to populate fields in a nice way,
+   * then loops through again to split data into days. Not O(1) but I think the world is just gonna have to deal.
+   */
+  public reshapeEtFortnightlyListData(etFortList: string): object {
+    const etFortnightlyListData = JSON.parse(etFortList);
+    let hearingCount = 0;
+    etFortnightlyListData['courtLists'].forEach(courtList => {
+      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+        courtRoom['session'].forEach(session => {
+          session['formattedJudiciary'] = this.getJudiciaryNameSurname(session);
+          delete session['judiciary'];
+          session['sittings'].forEach(sitting => {
+            hearingCount = hearingCount + sitting['hearing'].length;
+            sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma');
+            this.calculateDuration(sitting);
+            this.findAndConcatenateHearingPlatform(sitting, session);
+            sitting['hearing'].forEach(hearing => {
+              this.findAndManipulatePartyInformation(hearing, true);
+            });
+          });
+        });
+        courtRoom['totalHearing'] = hearingCount;
+        hearingCount = 0;
+      });
+    });
+    return this.dataSplitterEtList(etFortnightlyListData);
+  }
+
+  /**
+   * Method which runs through an et fortnightly list and splits it out into courtHouses and days.
+   * @param inputList - input et daily list json.
+   * @private - cos it's internal.
+   */
+  private dataSplitterEtList(inputList: any): any {
+    const rows = [];
+    inputList['courtLists'].forEach(courtList => {
+      const courtName = courtList['courtHouse']['courtHouseName'];
+      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+        courtRoom['session'].forEach(session => {
+          session['sittings'].forEach(sitting => {
+            const sittingDate = formatDate(sitting['sittingStart'], 'dddd DD MMMM YYYY');
+            sitting['hearing'].forEach(hearing => {
+              hearing['case'].forEach(thisCase => {
+                const row = {
+                  courtName: courtName,
+                  sittingDate: sittingDate,
+                  sittingTime: formatDate(sitting['sittingStart'], 'h:mma'),
+                  addressLine: courtList['courtHouse']['courtHouseAddress']['line'],
+                  addressTown: courtList['courtHouse']['courtHouseAddress']['town'],
+                  addressCounty: courtList['courtHouse']['courtHouseAddress']['county'],
+                  addressPostCode: courtList['courtHouse']['courtHouseAddress']['postCode'],
+                  courtRoom: courtRoom['courtRoomName'],
+                  durationAsHours: sitting['durationAsHours'],
+                  durationAsMinutes: sitting['durationAsMinutes'],
+                  caseNumber: thisCase['caseNumber'],
+                  caseSeparator: thisCase['caseSequenceIndicator'],
+                  claimant: hearing['appellant'],
+                  claimantRep: hearing['appellantRepresentative'],
+                  respondent: hearing['respondent'],
+                  hearingType: hearing['hearingType'],
+                  jurisdiction: thisCase['caseType'],
+                  hearingPlatform: sitting['caseHearingChannel'],
+                };
+                rows.push(row);
+              });
+            });
+          });
+        });
+      });
+    });
+    return this.splitByCourtAndDate(rows);
+  }
+
+  /**
+   * Nasty wee function that builds a horrible data structure that gets parsed by the template.
+   * @param data - the ingested et fortnightly list
+   * @private cos it's for local
+   */
+  private splitByCourtAndDate(data: any) {
+    const courts = [];
+    const uniqueCourts = this.uniquesInArrayByAttrib(data, 'courtName');
+    let courtCounter = 0;
+    uniqueCourts.forEach(court => {
+      const courtData = data.filter(row => row.courtName === court);
+      courts.push({'courtName': court, days: []});
+      const uniqueDays = this.uniquesInArrayByAttrib(courtData, 'sittingDate');
+      const uniqueDaysArr = [];
+      Array.from(uniqueDays).forEach(day => {
+        const encDay = moment.utc(day, 'dddd DD MMMM YYYY').tz(this.timeZone);
+        uniqueDaysArr.push(encDay);
+      });
+      uniqueDaysArr.sort(function(a, b) {
+        return a - b;
+      });
+      uniqueDaysArr.forEach(day => {
+        const formattedDay = moment.utc(day).tz(this.timeZone).format('dddd DD MMMM YYYY');
+        const record = courtData.filter(row => row.sittingDate === formattedDay);
+        courts[courtCounter]['days'].push(record);
+      });
+      courtCounter += 1;
+    });
+    return courts;
+  }
+
+  /**
+   * returns all unique vals for given attribute in array of objs
+   * @param data array of obs
+   * @param thisAttribute attrib to be checked
+   * @private
+   */
+  public uniquesInArrayByAttrib(data: any, thisAttribute: string) {
+    return [...new Set(data.map(item => item[thisAttribute]))];
   }
 
   /**
@@ -177,10 +294,10 @@ export class DataManipulationService {
 
     iacDailyListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-        courtRoom['formattedJudiciary'] = this.getDeduplicatedJudiciaryNameSurname(courtRoom);
         courtRoom['session'].forEach(session => {
+          session['formattedJudiciary'] = this.getDeduplicatedJudiciaryNameSurname(session);
           session['sittings'].forEach(sitting => {
-            sitting['sittingStartFormatted'] = this.publicationTimeInBst(sitting['sittingStart']);
+            sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma');
             this.findAndConcatenateHearingPlatform(sitting, session);
             sitting['hearing'].forEach(hearing => {
               caseCount += hearing['case'].length;
@@ -188,9 +305,9 @@ export class DataManipulationService {
               this.findAndManipulateLinkedCases(hearing);
             });
           });
+          session['totalCases'] = caseCount;
+          caseCount = 0;
         });
-        courtRoom['totalCases'] = caseCount;
-        caseCount = 0;
       });
     });
     return iacDailyListData;
@@ -201,68 +318,84 @@ export class DataManipulationService {
    * @param hearing
    * @param initialised
    */
-  private findAndManipulatePartyInformation(hearing: any, initialised= false): void {
+  private findAndManipulatePartyInformation(hearing: any, initialised = false): void {
     let applicant = '';
     let appellant = '';
     let respondent = '';
     let respondentRepresentative = '';
     let applicantRepresentative = '';
+    let prosecutingAuthority = '';
+    let defendant = '';
+    let defendantRep = '';
     let appellantRepresentative = '';
-    if(hearing?.party) {
+    if (hearing?.party) {
       hearing.party.forEach(party => {
 
-        switch(DataManipulationService.convertPartyRole(party.partyRole)) {
-          case 'APPLICANT_PETITIONER':
-          {
+        switch (DataManipulationService.convertPartyRole(party.partyRole)) {
+          case 'APPLICANT_PETITIONER': {
             applicant += this.createIndividualDetails(party.individualDetails, initialised).trim();
             applicant += this.stringDelimiter(applicant?.length, ',');
             break;
           }
-          case 'APPLICANT_PETITIONER_REPRESENTATIVE':
-          {
+          case 'APPLICANT_PETITIONER_REPRESENTATIVE': {
             const applicantPetitionerDetails = this.createIndividualDetails(party.individualDetails, initialised).trim();
-            if(applicantPetitionerDetails) {
+            if (applicantPetitionerDetails) {
               applicantRepresentative += 'LEGALADVISOR: ' + applicantPetitionerDetails + ', ';
             }
             break;
           }
-          case 'CLAIMANT_PETITIONER':
-          {
+          case 'CLAIMANT_PETITIONER': {
             appellant += this.createIndividualDetails(party.individualDetails, initialised).trim();
             appellant += this.stringDelimiter(appellant?.length, ',');
             break;
           }
-          case 'CLAIMANT_PETITIONER_REPRESENTATIVE':
-          {
+          case 'CLAIMANT_PETITIONER_REPRESENTATIVE': {
             appellantRepresentative += this.createIndividualDetails(party.individualDetails, initialised).trim();
             appellantRepresentative += this.stringDelimiter(appellantRepresentative?.length, ',');
             break;
           }
-          case 'RESPONDENT':
-          {
+          case 'RESPONDENT': {
             respondent += this.createIndividualDetails(party.individualDetails, initialised).trim();
             respondent += this.stringDelimiter(respondent?.length, ',');
             break;
           }
-          case 'RESPONDENT_REPRESENTATIVE':
-          {
+          case 'RESPONDENT_REPRESENTATIVE': {
             const respondentDetails = this.createIndividualDetails(party.individualDetails, initialised).trim();
-            if(respondentDetails) {
+            if (respondentDetails) {
               respondentRepresentative += 'LEGALADVISOR: ' + respondentDetails + ', ';
-
             }
             break;
+          }
+          case 'PROSECUTING_AUTHORITY':
+          {
+            prosecutingAuthority += this.createIndividualDetails(party.individualDetails, initialised).trim();
+            prosecutingAuthority += this.stringDelimiter(prosecutingAuthority?.length, ',');
+            break;
+          }
+          case 'DEFENDANT':
+          {
+            defendant += this.createIndividualDetails(party.individualDetails, initialised).trim();
+            defendant += this.stringDelimiter(defendant?.length, ',');
+            break;
+          }
+          case 'DEFENDANT_REPRESENTATIVE':
+          {
+            defendantRep += this.createIndividualDetails(party.individualDetails, initialised).trim();
+            defendantRep += this.stringDelimiter(defendant?.length, ',');
+
           }
         }
       });
       hearing['appellant'] = appellant?.replace(/,\s*$/, '').trim();
       hearing['appellantRepresentative'] = appellantRepresentative?.replace(/,\s*$/, '').trim();
-      hearing['prosecutingAuthority'] = respondent?.replace(/,\s*$/, '').trim();
 
       applicant += applicantRepresentative;
       respondent += respondentRepresentative;
       hearing['applicant'] = applicant?.replace(/,\s*$/, '').trim();
       hearing['respondent'] = respondent?.replace(/,\s*$/, '').trim();
+      hearing['prosecutingAuthority'] = prosecutingAuthority?.replace(/,\s*$/, '').trim();
+      hearing['defendant'] = defendant?.replace(/,\s*$/, '').trim();
+      hearing['defendantRepresentative'] = defendantRep?.replace(/,\s*$/, '').trim();
     }
   }
 
@@ -272,17 +405,18 @@ export class DataManipulationService {
    * @param initialised
    */
   private createIndividualDetails(individualDetails: any, initialised = false): string {
+
     const title = this.writeStringIfValid(individualDetails?.title);
     const forenames = this.writeStringIfValid(individualDetails?.individualForenames);
     const forenameInitial = forenames.charAt(0);
     const middleName = this.writeStringIfValid(individualDetails?.individualMiddleName);
     const surname = this.writeStringIfValid(individualDetails?.individualSurname);
-    if(initialised) {
+    if (initialised) {
+
       return title + (title.length > 0 ? ' ' : '')
         + forenameInitial + (forenameInitial.length > 0 ? '. ' : '')
         + surname;
-    }
-    else {
+    } else {
       return title + (title.length > 0 ? ' ' : '')
         + forenames + (forenames.length > 0 ? ' ' : '')
         + middleName + (middleName.length > 0 ? ' ' : '')
@@ -294,7 +428,7 @@ export class DataManipulationService {
    * Helper function for strings.
    * @param stringToCheck
    */
-  private writeStringIfValid(stringToCheck): string {
+  public writeStringIfValid(stringToCheck): string {
     if (stringToCheck) {
       return stringToCheck;
     } else {
@@ -307,7 +441,7 @@ export class DataManipulationService {
    * @param stringSize
    * @param delimiter
    */
-  private stringDelimiter(stringSize: number, delimiter: string): string {
+  public stringDelimiter(stringSize: number, delimiter: string): string {
     if (stringSize > 0) {
       return `${delimiter} `;
     }
@@ -318,7 +452,7 @@ export class DataManipulationService {
    * Map the supplied party role to one of our party roles if necessary.
    * @param nonConvertedPartyRole
    */
-  private static convertPartyRole(nonConvertedPartyRole: string): string {
+  public static convertPartyRole(nonConvertedPartyRole: string): string {
     let partyRole = nonConvertedPartyRole;
     for (const [mappedPartyRole, unMappedRoles] of Object.entries(partyRoleMappings)) {
       if (unMappedRoles.includes(nonConvertedPartyRole)) {
@@ -327,6 +461,7 @@ export class DataManipulationService {
     }
     return partyRole;
   }
+
   /**
    * Manipulate hearing platform data for writing out to screen. Needed to be amended to include optional hearing
    * channel for PUB-1319.
@@ -335,7 +470,7 @@ export class DataManipulationService {
    */
   private findAndConcatenateHearingPlatform(sitting: object, session: object): void {
     let caseHearingChannel = '';
-    if(sitting['channel'] || session['sessionChannel']) {
+    if (sitting['channel'] || session['sessionChannel']) {
       if (sitting['channel']?.length > 0) {
         caseHearingChannel = sitting['channel'].join(', ');
       } else if (session['sessionChannel'].length > 0) {
@@ -349,36 +484,36 @@ export class DataManipulationService {
    * Manipulate judicary data for writing out to screen.
    * @param session
    */
-  private findAndManipulateJudiciary(session: object): void {
+  public findAndManipulateJudiciary(session: object): string {
     let judiciaries = '';
     let foundPresiding = false;
     session['judiciary']?.forEach(judiciary => {
-      if(judiciary?.isPresiding ===  true) {
+      if (judiciary?.isPresiding === true) {
         judiciaries = this.writeStringIfValid(judiciary?.johKnownAs);
         foundPresiding = true;
-      } else if (!foundPresiding){
-        if(this.writeStringIfValid(judiciary?.johKnownAs) !== '') {
+      } else if (!foundPresiding) {
+        if (this.writeStringIfValid(judiciary?.johKnownAs) !== '') {
           judiciaries += this.writeStringIfValid(judiciary?.johKnownAs) + ', ';
         }
       }
     });
 
-    if(!foundPresiding) {
+    if (!foundPresiding) {
       judiciaries = judiciaries.slice(0, -2);
     }
 
-    session['formattedJudiciaries'] = judiciaries;
+    return judiciaries;
   }
 
   /**
    * Format linked cases by joining individual case ID with delimiter
    * @param hearing
    */
-  private findAndManipulateLinkedCases(hearing: object): void {
+  public findAndManipulateLinkedCases(hearing: object): void {
     hearing['case'].forEach(hearingCase => {
       let linkedCases = '';
       let counter = 1;
-      hearingCase['caseLinked'].forEach(linkedCase => {
+      hearingCase['caseLinked']?.forEach(linkedCase => {
         linkedCases += (counter == hearingCase['caseLinked'].length)
           ? linkedCase['caseId']
           : linkedCase['caseId'] + ', ';
@@ -406,8 +541,15 @@ export class DataManipulationService {
         durationAsMinutes = durationAsMinutes - (durationAsHours * 60);
       }
 
+      let durationAsDays = 0;
+      if(durationAsHours >= 24) {
+        durationAsDays = Math.floor(durationAsHours / 24);
+      }
+
       sitting['durationAsHours'] = durationAsHours;
       sitting['durationAsMinutes'] = durationAsMinutes;
+      sitting['durationAsDays'] = durationAsDays;
+
       sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('HH:mm');
       const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
       if (min === 0) {
@@ -449,15 +591,15 @@ export class DataManipulationService {
   public getRegionalJohFromLocationDetails(locationDetails: object): string {
     let formattedJoh = '';
     locationDetails['region']['regionalJOH']?.forEach(joh => {
-      if(formattedJoh.length > 0) {
+      if (formattedJoh.length > 0) {
         formattedJoh += ', ';
       }
-      if(this.writeStringIfValid(joh?.johKnownAs) !== '') {
+      if (this.writeStringIfValid(joh?.johKnownAs) !== '') {
         formattedJoh += this.writeStringIfValid(joh?.johKnownAs);
       }
 
-      if(this.writeStringIfValid(joh?.johNameSurname) !== '') {
-        if(this.writeStringIfValid(joh?.johKnownAs) !== '') {
+      if (this.writeStringIfValid(joh?.johNameSurname) !== '') {
+        if (this.writeStringIfValid(joh?.johKnownAs) !== '') {
           formattedJoh += ' ';
         }
         formattedJoh += this.writeStringIfValid(joh?.johNameSurname);
@@ -473,16 +615,16 @@ export class DataManipulationService {
   public getJudiciaryNameSurname(session: object): string {
     let judiciaryFormatted = '';
     session['judiciary']?.forEach(judiciary => {
-      if(judiciaryFormatted.length > 0) {
+      if (judiciaryFormatted.length > 0) {
         judiciaryFormatted += ', ';
       }
 
-      if(this.writeStringIfValid(judiciary?.johTitle) !== '') {
+      if (this.writeStringIfValid(judiciary?.johTitle) !== '') {
         judiciaryFormatted += this.writeStringIfValid(judiciary?.johTitle);
       }
 
-      if(this.writeStringIfValid(judiciary?.johNameSurname) !== '') {
-        if(this.writeStringIfValid(judiciary?.johTitle) !== '') {
+      if (this.writeStringIfValid(judiciary?.johNameSurname) !== '') {
+        if (this.writeStringIfValid(judiciary?.johTitle) !== '') {
           judiciaryFormatted += ' ';
         }
         judiciaryFormatted += this.writeStringIfValid(judiciary?.johNameSurname);
@@ -491,26 +633,24 @@ export class DataManipulationService {
     return judiciaryFormatted;
   }
 
-  public getDeduplicatedJudiciaryNameSurname(courtRoom: object): string {
+  private getDeduplicatedJudiciaryNameSurname(session: object): string {
     const judiciaries = [];
-    courtRoom['session'].forEach(session => {
-      session['judiciary']?.forEach(judiciary => {
-        let currentJudiciary = '';
+    session['judiciary']?.forEach(judiciary => {
+      let currentJudiciary = '';
+      if (this.writeStringIfValid(judiciary?.johTitle) !== '') {
+        currentJudiciary = this.writeStringIfValid(judiciary?.johTitle);
+      }
+
+      if (this.writeStringIfValid(judiciary?.johNameSurname) !== '') {
         if (this.writeStringIfValid(judiciary?.johTitle) !== '') {
-          currentJudiciary = this.writeStringIfValid(judiciary?.johTitle);
+          currentJudiciary += ' ';
         }
+        currentJudiciary += this.writeStringIfValid(judiciary?.johNameSurname);
+      }
 
-        if (this.writeStringIfValid(judiciary?.johNameSurname) !== '') {
-          if (this.writeStringIfValid(judiciary?.johTitle) !== '') {
-            currentJudiciary += ' ';
-          }
-          currentJudiciary += this.writeStringIfValid(judiciary?.johNameSurname);
-        }
-
-        if (!judiciaries.includes(currentJudiciary)) {
-          judiciaries.push(currentJudiciary);
-        }
-      });
+      if (!judiciaries.includes(currentJudiciary)) {
+        judiciaries.push(currentJudiciary);
+      }
     });
     return judiciaries.join(', ');
   }

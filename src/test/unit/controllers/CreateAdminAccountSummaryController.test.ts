@@ -31,7 +31,7 @@ createAccountStub.withArgs(mockData, validUserId).resolves(true);
 
 describe('Create Admin Account Summary Controller', () => {
   const i18n = {'create-admin-account-summary': {}};
-  const response = { render: () => {return '';}} as unknown as Response;
+  const response = { render: () => {return '';}, cookie: (cookieName, cookieValue) => {return cookieName + cookieValue;}} as unknown as Response;
   const request = mockRequest(i18n);
   request['cookies'] = {'createAdminAccount': JSON.stringify(mockData)};
 
@@ -46,6 +46,7 @@ describe('Create Admin Account Summary Controller', () => {
       };
 
       responseMock.expects('render').once().withArgs('create-admin-account-summary', expectedOptions);
+
       await createAdminAccountSummaryController.get(request, response);
       await responseMock.verify();
     });
@@ -63,6 +64,7 @@ describe('Create Admin Account Summary Controller', () => {
       };
 
       responseMock.expects('render').once().withArgs('create-admin-account-summary', expectedOptions);
+      responseMock.expects('cookie').once().withArgs('createAdminAccount', '');
       await createAdminAccountSummaryController.post(request, response);
       await responseMock.verify();
     });

@@ -1,0 +1,97 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+{% block content %}
+    {% if formErrors %}
+    {{ govukErrorSummary({
+        titleText: errorTitle,
+        errorList: [
+            {
+                text: formErrors.firstNameError.message,
+                href: "#firstName"
+            },
+            {
+                text: formErrors.lastNameError.message,
+                href: "#lastName"
+            },
+            {
+                text: formErrors.emailError.message,
+                href: "#emailAddress"
+            }
+        ]
+    }) }}
+    {% endif %}
+
+    {% set firstNameErrorMessage = {text: formErrors.firstNameError.message}
+      if formErrors.firstNameError.message else false %}
+
+    {% set firstNameInput = govukInput({
+        label: {
+          text: fNameLabel
+        },
+        classes: 'govuk-!-width-one-third',
+        id: "firstName",
+        value: formData.firstName,
+        name: "firstName",
+        errorMessage: firstNameErrorMessage
+     })
+    %}
+
+    {% set lastNameErrorMessage = {text: formErrors.lastNameError.message}
+      if formErrors.lastNameError.message else false %}
+
+    {% set lastNameInput = govukInput({
+        label: {
+          text: lNameLabel
+        },
+        classes: 'govuk-!-width-one-third',
+        id: "lastName",
+        value: formData.lastName,
+        name: "lastName",
+        errorMessage: lastNameErrorMessage
+      })
+    %}
+
+    {% set emailErrorMessage = {text: formErrors.emailError.message}
+      if formErrors.emailError.message else false %}
+
+    {% set emailInput = govukInput({
+        label: {
+          text: emailLabel
+        },
+        classes: "govuk-!-width-two-thirds",
+        id: "emailAddress",
+        value: formData.emailAddress,
+        name: "emailAddress",
+        type: 'email',
+        autocomplete: 'email',
+        spellcheck: false,
+        errorMessage: emailErrorMessage
+      })
+    %}
+
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <form method="post" novalidate>
+        {{ firstNameInput }}
+        {{ lastNameInput }}
+        {{ emailInput }}
+        {{ submitButton(continueButton) }}
+    </form>
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+    </script>
+{% endblock %}

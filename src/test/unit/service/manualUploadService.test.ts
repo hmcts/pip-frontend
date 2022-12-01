@@ -62,6 +62,7 @@ const languageFile = 'manual-upload';
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtData);
 sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(true);
 sinon.stub(DataManagementRequests.prototype, 'uploadJSONPublication').resolves(true);
+sinon.stub(DataManagementRequests.prototype, 'uploadLocationFile').resolves(true);
 
 describe('Manual upload service', () => {
   describe('building form data', () => {
@@ -77,7 +78,7 @@ describe('Manual upload service', () => {
 
     it('should build form data list subtypes', async () => {
       const data = await manualUploadService.buildFormData(englishLanguage);
-      expect(data['listSubtypes'].length).to.equal(16);
+      expect(data['listSubtypes'].length).to.equal(18);
       expect(data['listSubtypes'][0]).to.deep.equal({text:'SJP Public List', value: 'SJP_PUBLIC_LIST'});
     });
 
@@ -244,6 +245,11 @@ describe('Manual upload service', () => {
 
   it('should upload a publication', async () => {
     const fileUpload = await manualUploadService.uploadPublication(headers, true);
+    expect(fileUpload).to.be.true;
+  });
+
+  it('should upload a reference data file', async () => {
+    const fileUpload = await manualUploadService.uploadLocationDataPublication(headers);
     expect(fileUpload).to.be.true;
   });
 

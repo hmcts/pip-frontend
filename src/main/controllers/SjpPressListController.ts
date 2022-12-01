@@ -29,6 +29,8 @@ export default class SjpPressListController {
         publishedDateTime: publishedDate,
         publishedTime: publishedTime,
         contactDate: moment.utc(Date.parse(metaData['contentDate'])).format('D MMMM YYYY'),
+        artefactId: artefactId,
+        user: req.user,
       });
     } else {
       res.render('error',

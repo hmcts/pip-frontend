@@ -76,6 +76,7 @@ sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(mockCase);
 const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
 const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
+const bulkDeleteStub = sinon.stub(SubscriptionRequests.prototype, 'bulkDeleteSubscriptions');
 const updateListTypeSubscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'configureListTypeForLocationSubscriptions');
 subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', '1').resolves(true);
@@ -100,10 +101,134 @@ removeStub.withArgs({case: '888'}, userIdWithSubscriptions).resolves();
 removeStub.withArgs({court: '111'}, userIdWithSubscriptions).resolves();
 deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
 deleteStub.withArgs('InValidSubscriptionId').resolves(null);
+bulkDeleteStub.withArgs(['ValidSubscriptionId']).resolves('Subscription was deleted');
+bulkDeleteStub.withArgs(['InValidSubscriptionId']).resolves(null);
 updateListTypeSubscriptionStub.withArgs('1', courtSubscriptionWithSingleListTypePayload).resolves(true);
 updateListTypeSubscriptionStub.withArgs('1', courtSubscriptionWithMultipleListTypePayload).resolves(true);
 updateListTypeSubscriptionStub.withArgs('1', courtSubscriptionWithEmptyListTypePayload).resolves(true);
 updateListTypeSubscriptionStub.withArgs(null, courtSubscriptionWithEmptyListTypePayload).resolves(false);
+
+describe('getSubscriptionDataForView function', () => {
+  locationStub.withArgs(1).resolves(mockCourt);
+
+  describe('for Subscription Management page', () => {
+    it('should return subscription data for \'all\' tab', async () => {
+      const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'all');
+      const subscriptionData = JSON.parse(JSON.stringify(result));
+
+      expect(subscriptionData.caseTableData).toHaveLength(2);
+      const caseDataRow = subscriptionData.caseTableData[0];
+      expect(caseDataRow).toHaveLength(4);
+      expect(caseDataRow[3].html).toContain('Unsubscribe');
+
+      expect(subscriptionData.locationTableData).toHaveLength(3);
+      const locationDataRow = subscriptionData.locationTableData[0];
+      expect(locationDataRow).toHaveLength(3);
+      expect(locationDataRow[2].html).toContain('Unsubscribe');
+
+      expect(subscriptionData.activeAllTab).toBeTruthy();
+      expect(subscriptionData.activeCaseTab).toBeFalsy();
+      expect(subscriptionData.activeLocationTab).toBeFalsy();
+    });
+
+    it('should return subscription data for \'case\' tab', async () => {
+      const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'case');
+      const subscriptionData = JSON.parse(JSON.stringify(result));
+
+      expect(subscriptionData.caseTableData).toHaveLength(2);
+      const caseDataRow = subscriptionData.caseTableData[0];
+      expect(caseDataRow).toHaveLength(4);
+      expect(caseDataRow[3].html).toContain('Unsubscribe');
+
+      expect(subscriptionData.locationTableData).toHaveLength(3);
+      const locationDataRow = subscriptionData.locationTableData[0];
+      expect(locationDataRow).toHaveLength(3);
+      expect(locationDataRow[2].html).toContain('Unsubscribe');
+
+      expect(subscriptionData.activeAllTab).toBeFalsy();
+      expect(subscriptionData.activeCaseTab).toBeTruthy();
+      expect(subscriptionData.activeLocationTab).toBeFalsy();
+    });
+
+    it('should return subscription data for \'location\' tab', async () => {
+      const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'location');
+      const subscriptionData = JSON.parse(JSON.stringify(result));
+
+      expect(subscriptionData.caseTableData).toHaveLength(2);
+      const caseDataRow = subscriptionData.caseTableData[0];
+      expect(caseDataRow).toHaveLength(4);
+      expect(caseDataRow[3].html).toContain('Unsubscribe');
+
+      expect(subscriptionData.locationTableData).toHaveLength(3);
+      const locationDataRow = subscriptionData.locationTableData[0];
+      expect(locationDataRow).toHaveLength(3);
+      expect(locationDataRow[2].html).toContain('Unsubscribe');
+
+      expect(subscriptionData.activeAllTab).toBeFalsy();
+      expect(subscriptionData.activeCaseTab).toBeFalsy();
+      expect(subscriptionData.activeLocationTab).toBeTruthy();
+    });
+  });
+
+  describe('for Bulk Delete Subscriptions page', () => {
+    it('should return subscription data for \'all\' tab', async () => {
+      const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'all', true);
+      const subscriptionData = JSON.parse(JSON.stringify(result));
+
+      expect(subscriptionData.caseTableData).toHaveLength(2);
+      const caseDataRow = subscriptionData.caseTableData[0];
+      expect(caseDataRow).toHaveLength(4);
+      expect(caseDataRow[3].html).toContain('type="checkbox"');
+
+      expect(subscriptionData.locationTableData).toHaveLength(3);
+      const locationDataRow = subscriptionData.locationTableData[0];
+      expect(locationDataRow).toHaveLength(3);
+      expect(locationDataRow[2].html).toContain('type="checkbox"');
+
+      expect(subscriptionData.activeAllTab).toBeTruthy();
+      expect(subscriptionData.activeCaseTab).toBeFalsy();
+      expect(subscriptionData.activeLocationTab).toBeFalsy();
+    });
+
+    it('should return subscription data for \'case\' tab', async () => {
+      const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'case', true);
+      const subscriptionData = JSON.parse(JSON.stringify(result));
+
+      expect(subscriptionData.caseTableData).toHaveLength(2);
+      const caseDataRow = subscriptionData.caseTableData[0];
+      expect(caseDataRow).toHaveLength(4);
+      expect(caseDataRow[3].html).toContain('type="checkbox"');
+
+      expect(subscriptionData.locationTableData).toHaveLength(3);
+      const locationDataRow = subscriptionData.locationTableData[0];
+      expect(locationDataRow).toHaveLength(3);
+      expect(locationDataRow[2].html).toContain('type="checkbox"');
+
+      expect(subscriptionData.activeAllTab).toBeFalsy();
+      expect(subscriptionData.activeCaseTab).toBeTruthy();
+      expect(subscriptionData.activeLocationTab).toBeFalsy();
+    });
+
+    it('should return subscription data for \'location\' tab', async () => {
+      const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'location', true);
+      const subscriptionData = JSON.parse(JSON.stringify(result));
+
+      expect(subscriptionData.caseTableData).toHaveLength(2);
+      const caseDataRow = subscriptionData.caseTableData[0];
+      expect(caseDataRow).toHaveLength(4);
+      expect(caseDataRow[3].html).toContain('type="checkbox"');
+
+      expect(subscriptionData.locationTableData).toHaveLength(3);
+      const locationDataRow = subscriptionData.locationTableData[0];
+      expect(locationDataRow).toHaveLength(3);
+      expect(locationDataRow[2].html).toContain('type="checkbox"');
+
+      expect(subscriptionData.activeAllTab).toBeFalsy();
+      expect(subscriptionData.activeCaseTab).toBeFalsy();
+      expect(subscriptionData.activeLocationTab).toBeTruthy();
+    });
+  });
+});
 
 describe('handleNewSubscription function', () => {
   it('should add new case subscription', async () => {
@@ -303,12 +428,24 @@ describe('configureListTypeForLocationSubscriptions', () => {
 
 describe('unsubscribing', () => {
   it('should return a message if subscription is deleted', async () => {
-    const payload = await subscriptionService.unsubscribe('ValidSubscriptionId');
+    const payload = await subscriptionService.unsubscribe('ValidSubscriptionId', '2345-2345');
     expect(payload).toEqual('Subscription was deleted');
   });
 
   it('should return null if subscription delete failed', async () => {
-    const payload = await subscriptionService.unsubscribe('InValidSubscriptionId');
+    const payload = await subscriptionService.unsubscribe('InValidSubscriptionId', '2345-2345');
+    expect(payload).toEqual(null);
+  });
+});
+
+describe('bulkDeleteSubscriptions', () => {
+  it('should return a message if subscription is deleted', async () => {
+    const payload = await subscriptionService.bulkDeleteSubscriptions(['ValidSubscriptionId']);
+    expect(payload).toEqual('Subscription was deleted');
+  });
+
+  it('should return null if subscription delete failed', async () => {
+    const payload = await subscriptionService.bulkDeleteSubscriptions(['InValidSubscriptionId']);
     expect(payload).toEqual(null);
   });
 });
@@ -531,4 +668,15 @@ describe('generateListTypesForCourts', () => {
     expect(result[0][0].text).toEqual('Welsh court name test');
     expect(result[0][2].html).toContain('dad-danysgrifio');
   });
+
+  it('retrieve subscription channels', async () => {
+
+    const subscriptionChannelStub = sinon.stub(SubscriptionRequests.prototype, 'retrieveSubscriptionChannels');
+    subscriptionChannelStub.resolves(['CHANNEL_A', 'CHANNEL_B']);
+
+    const retrievedChannels = await subscriptionService.retrieveChannels();
+
+    expect(retrievedChannels).toStrictEqual(['CHANNEL_A', 'CHANNEL_B']);
+  });
+
 });

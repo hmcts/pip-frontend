@@ -23,6 +23,8 @@ export interface PipRequest extends Request {
       'live-case-alphabet-search': {};
       'live-case-status': {};
       'location-name-search': {};
+      'manage-third-party-users': {};
+      'manage-third-party-users-view': {};
       'manual-upload': {};
       'manual-upload-summary': {};
       'media-applications': {};
@@ -42,6 +44,7 @@ export interface PipRequest extends Request {
       'subscription-management': {};
       'subscription-urn-search': {};
       'subscription-urn-search-result': {};
+      'system-admin-dashboard': {};
       'template': {};
       'unsubscribe-confirmation': {};
       'view-option': {};

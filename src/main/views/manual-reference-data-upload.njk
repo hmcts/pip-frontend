@@ -1,0 +1,52 @@
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% extends "template.njk" %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+{% block content %}
+  <div class="parent-box">
+    <div class="govuk-callout" tabindex="0">
+      <h1 class="govuk-heading-m">{{ warning }}</h1>
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon govuk-!-margin-1" aria-hidden="true">!</span>
+        <p class="govuk-warning-text__text govuk-!-bold govuk-!-margin-0">
+          {{ warningText }}
+        </p>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid">
+        <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">{{ title }}</h1>
+        <a class="govuk-link govuk-body" href="/manual-reference-data-download">{{ downloadReferenceData }}</a>
+        <form method="post" enctype="multipart/form-data">
+          {% set fileErrorMessage = {text: errors.fileErrors} if errors.fileErrors else false %}
+          <div class="govuk-inset-text">
+            {{ govukFileUpload({
+              id: "manual-reference-data-upload",
+              name: "manual-reference-data-upload",
+              accept: ".csv",
+              label: {
+                text: fileUploadText
+              },
+              errorMessage: fileErrorMessage
+            }) }}
+          </div>
+          {{ submitButton(continueButton) }}
+        </form>
+      </div>
+    </div>
+    {{ super() }}
+  </div>
+{% endblock %}
+{% block bodyEnd %}
+  {{ super() }}
+  <script>
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
+{% endblock %}

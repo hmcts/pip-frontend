@@ -16,6 +16,7 @@ const expectedAllSubsTitleWithSingleSubs = 'All subscriptions (1)';
 const expectedCaseSubsTitleWithNoLocationSubs = 'Subscriptions by case (1)';
 const expectedCaseSubsTitleWithNoCaseSubs = 'Subscriptions by court or tribunal (1)';
 const expectedAddSubscriptionButton = 'Add email subscription';
+const expectedBulkDeleteSubscriptionsButton = 'Bulk delete subscriptions';
 const expectedListTypesToSendButton = 'Select which list types to receive';
 const tabsClass = 'moj-sub-navigation__link';
 const caseNameColumn = 'Case name';
@@ -126,6 +127,12 @@ describe('Subscriptions Management Page', () => {
     const newSubsButton = htmlRes.getElementsByClassName('govuk-button');
     expect(newSubsButton[0].innerHTML)
       .contains(expectedAddSubscriptionButton, 'Could not find new subscription button');
+  });
+
+  it('should display bulk delete subscriptions button', () => {
+    const button = htmlRes.getElementsByClassName('govuk-button');
+    expect(button[1].innerHTML)
+      .contains(expectedBulkDeleteSubscriptionsButton, 'Could not find bulk delete subscriptions button');
   });
 
   it('should display all subscriptions tab with proper link', () => {
@@ -252,6 +259,12 @@ describe('Subscriptions Management Page with case subscription but without locat
       .contains(expectedAddSubscriptionButton, 'Could not find new subscription button');
   });
 
+  it('should display bulk delete subscriptions button', () => {
+    const button = htmlRes.getElementsByClassName('govuk-button');
+    expect(button[1].innerHTML)
+      .contains(expectedBulkDeleteSubscriptionsButton, 'Could not find bulk delete subscriptions button');
+  });
+
   it('should display all subscriptions tab with proper link', () => {
     const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1]
       .getElementsByClassName(tabsClass);
@@ -355,6 +368,12 @@ describe('Subscriptions Management Page with location subscription but without c
       .contains(expectedAddSubscriptionButton, 'Could not find new subscription button');
   });
 
+  it('should display bulk delete subscriptions button', () => {
+    const button = htmlRes.getElementsByClassName('govuk-button');
+    expect(button[1].innerHTML)
+      .contains(expectedBulkDeleteSubscriptionsButton, 'Could not find bulk delete subscriptions button');
+  });
+
   it('should display all subscriptions tab with proper link', () => {
     const subscriptionsTabs = htmlRes.getElementsByClassName('moj-sub-navigation')[1]
       .getElementsByClassName(tabsClass);
@@ -425,9 +444,9 @@ describe('Subscriptions Management Page with location subscription but without c
 
   it('should show the list types to receive button', () => {
     const listTypesToReceiveButton = htmlRes.getElementsByClassName('govuk-button');
-    expect(listTypesToReceiveButton[1].innerHTML)
+    expect(listTypesToReceiveButton[2].innerHTML)
       .contains(expectedListTypesToSendButton, 'Could not find list types to receive button');
-    expect(listTypesToReceiveButton[1].outerHTML).contains('<a href="subscription-configure-list"',
+    expect(listTypesToReceiveButton[2].outerHTML).contains('<a href="subscription-configure-list"',
       'href link not found inside the button');
   });
 });

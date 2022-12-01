@@ -3,31 +3,22 @@ import {allAdminRoles, checkRoles} from '../authentication/authenticationHandler
 import {B2C_ADMIN_URL, B2C_URL, FRONTEND_URL} from '../helpers/envUrls';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
-const defaultSessionExpiry = 60 * 60 * 1000; // default to 1 hour
+const defaultSessionExpiry = 60 * 60 * 1000;
 
 export class SessionManagementService {
-  public logOut(req, res, adminWrongFlow): void {
-    if (req.user['userProvenance'] == 'PI_AAD') {
-      // For cookie-session, the request session needs to be destroyed by setting to null upon logout
-      req.session = null;
-      res.clearCookie('session');
-      let b2cUrl;
-      let b2cPolicy;
-      if (adminWrongFlow) {
-        b2cUrl = B2C_URL;
-        b2cPolicy = authenticationConfig.POLICY;
-      } else {
-        b2cUrl = checkRoles(req, allAdminRoles) ? B2C_ADMIN_URL : B2C_URL;
-        b2cPolicy = checkRoles(req, allAdminRoles) ? authenticationConfig.ADMIN_POLICY : authenticationConfig.POLICY;
-      }
 
-      const encodedSignOutRedirect = encodeURIComponent(this.getLogOutRedirectUrl(req, adminWrongFlow));
-      res.redirect(`${b2cUrl}/${b2cPolicy}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`);
+  public logOut(req, res, adminWrongFlow, isSessionExpired = false): void {
+    // For cookie-session, the request session needs to be destroyed by setting to null upon logout
+    req.session = null;
+
+    if (req.user['userProvenance'] == 'PI_AAD') {
+      res.clearCookie('session');
+      res.redirect(this.logOutUrl(checkRoles(req, allAdminRoles), adminWrongFlow, isSessionExpired, req.lng));
     } else {
-      req.session = null;
       res.clearCookie('session');
       res.redirect('/view-option');
     }
+
   }
 
   public handleSessionExpiry(req, res): boolean {
@@ -57,13 +48,39 @@ export class SessionManagementService {
     return false;
   }
 
-  private getLogOutRedirectUrl(req, adminWrongFlow): string {
-    let path = '';
-    if(adminWrongFlow) {
-      path = 'admin-rejected-login';
+  private logOutUrl(isAdmin: boolean, adminWrongFlow: boolean, isSessionExpired: boolean, language: string): string {
+    let b2cUrl;
+    let b2cPolicy;
+
+    if (adminWrongFlow) {
+      b2cUrl = B2C_URL;
+      b2cPolicy = authenticationConfig.POLICY;
     } else {
-      path = checkRoles(req, allAdminRoles) ? 'admin-dashboard' : 'view-option';
+      b2cUrl = isAdmin ? B2C_ADMIN_URL : B2C_URL;
+      b2cPolicy = isAdmin ? authenticationConfig.ADMIN_POLICY : authenticationConfig.POLICY;
     }
-    return `${FRONTEND_URL}/${path}` + '?lng=' + req['lng'];
+
+    const encodedSignOutRedirect = encodeURIComponent(this.logOutRedirectUrl(isAdmin, adminWrongFlow, isSessionExpired, language));
+    return `${b2cUrl}/${b2cPolicy}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`;
+  }
+
+  private logOutRedirectUrl(isAdmin: boolean, adminWrongFlow: boolean, isSessionExpired: boolean, language: string): string {
+    const url = new URL(`${FRONTEND_URL}/${this.getRedirectionPath(adminWrongFlow, isSessionExpired)}`);
+    url.searchParams.append('lng', language);
+
+    if (isSessionExpired) {
+      url.searchParams.append('reSignInUrl', isAdmin ? 'admin-dashboard' : 'sign-in');
+    }
+    return url.toString();
+  }
+
+  private getRedirectionPath(adminWrongFlow: boolean, isSessionExpired: boolean): string {
+    if (adminWrongFlow) {
+      return 'admin-rejected-login';
+    } else if (isSessionExpired) {
+      return 'session-expired';
+    } else {
+      return 'session-logged-out';
+    }
   }
 }

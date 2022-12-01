@@ -8,6 +8,7 @@ const authenticationConfig = require('../authentication/authentication-config.js
 export const adminAccountCreationRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL'];
 export const manualUploadRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_CTSC', 'INTERNAL_ADMIN_LOCAL'];
 export const mediaAccountCreationRoles = ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'];
+export const systemAdminRoles = ['SYSTEM_ADMIN'];
 export const allAdminRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_CTSC', 'INTERNAL_ADMIN_LOCAL'];
 export const verifiedRoles = ['VERIFIED'];
 
@@ -22,6 +23,10 @@ export function checkRoles(req, roles): boolean {
 
 export function isPermittedMedia(req: any, res, next) {
   return checkAuthenticatedMedia(req, res, next, verifiedRoles);
+}
+
+export function isPermittedSystemAdmin(req: any, res ,next) {
+  return checkAuthenticatedAdmin(req, res, next, systemAdminRoles);
 }
 
 export function isPermittedAdmin(req: any, res, next) {
@@ -80,7 +85,7 @@ export function forgotPasswordRedirect(req, res, next): void {
     }
     const POLICY_URL = `${b2cUrl}/oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
       `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${redirectUrl}` +
-      '&scope=openid&response_type=id_token&prompt=login';
+      '&scope=openid&response_type=code&prompt=login&response_mode=form_post';
 
     res.redirect(POLICY_URL);
     return;
@@ -98,7 +103,11 @@ export async function mediaVerificationHandling(req, res): Promise<any> {
 export async function processAdminAccountSignIn(req, res): Promise<any> {
   if(checkRoles(req, allAdminRoles)) {
     await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
-    res.redirect('/admin-dashboard');
+    if (checkRoles(req, systemAdminRoles)) {
+      res.redirect('/system-admin-dashboard');
+    } else {
+      res.redirect('/admin-dashboard');
+    }
   } else {
     res.redirect('/account-home');
   }
@@ -116,4 +125,19 @@ export async function processMediaAccountSignIn(req, res): Promise<any> {
 export async function processCftIdamSignIn(req, res): Promise<any> {
   await AccountManagementRequests.prototype.updateAccountLastSignedInDate('CFT_IDAM', req.user['uid']);
   res.redirect('/account-home');
+}
+
+/**
+ * This function checks the state of a password reset. If the error indicates a cancelled action, the user is re-directed
+ * to the appropriate page.
+ * @param req The request to check.
+ * @param res The response to redirect.
+ * @param next The next function
+ */
+export function checkPasswordReset(req, res, next) {
+  if (req.body['error_description']?.includes('AADB2C90091')){
+    res.redirect('/cancelled-password-reset/' + req.params['isAdmin']);
+  } else {
+    next();
+  }
 }
