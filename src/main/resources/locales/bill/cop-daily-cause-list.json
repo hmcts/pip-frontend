@@ -14,6 +14,8 @@
   "hearingDurationMinute": "min/munud",
   "hearingDurationHours": "hours/awr",
   "hearingDurationMinutes": "mins/munud",
+  "regionalLeadJudge": "Regional Lead Judge/Barnwr Arweiniol Rhanbarthol",
+  "sittingAt": "Sitting at/Yn eistedd yn",
   "listFor": "List for/Rhestr ar gyfer",
   "beforeHon": "Before",
   "startTime": "Start Time/Amser dechrau",
@@ -22,5 +24,5 @@
   "hearingType": "Hearing Type/Math o wrandawiad",
   "timeEstimate": "Time Estimate/Amcangyfrif o'r amser",
   "hearingChannel": "Hearing Channel/Sianel y Gwrandawiad",
-  "inCop": "In the Court of Protection for/Yn y Llys Gwarchod gyfer"
+  "inCop": "In the Court of Protection/Yn y Llys Gwarchod"
 }

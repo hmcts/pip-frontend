@@ -12,7 +12,11 @@
 {% block content %}
   <div class="parent-box">
     {% set regionName = listData['locationDetails']['region']['name'] %}
-    <h2 id="page-heading" class="govuk-heading-l">{{ inCop }} {{ courtName }}</h2>
+    <h2 id="page-heading" class="govuk-heading-l">{{ inCop }}{% if regionName %}: {{ regionName }}{% endif %}</h2>
+    {% if regionalJoh %}<h2 id="page-heading2" class="govuk-heading-l">{{ regionalLeadJudge }}
+      {{ regionalJoh }}</h2>{% endif %}
+    <br>
+    <h2 id="page-heading3" class="govuk-heading-l">{{ sittingAt }} {{ courtName }}</h2>
     <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listFor }} {{ contentDate }}</p>
     <p class="govuk-body">{{ listUpdated | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
     <details class="govuk-details" data-module="govuk-details" open>
