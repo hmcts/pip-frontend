@@ -14,7 +14,7 @@ const summaryText = 'govuk-details__text';
 const paragraphClass = 'govuk-body';
 const courtNameClass = 'site-address';
 
-const expectedHeader = 'In the Court of Protection';
+const expectedHeader = 'In the Court of Protection for Abergavenny Magistrates\' Court';
 const summaryHeadingText = 'Important information';
 let htmlRes: Document;
 
@@ -39,7 +39,7 @@ describe('Cop daily cause list page', () => {
 
   it('should display header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
-    expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+    expect(header[0].innerHTML).equals(expectedHeader, 'Could not find the header');
   });
 
   it('should display summary',  () => {
@@ -64,7 +64,7 @@ describe('Cop daily cause list page', () => {
 
   it('should display last updated text', () => {
     const listUpdatedText = htmlRes.getElementsByClassName(paragraphClass)[5];
-    expect(listUpdatedText.innerHTML).contains('Last Updated');
+    expect(listUpdatedText.innerHTML).contains('Last updated');
   });
 
   it('should display the court name on the page', () => {
