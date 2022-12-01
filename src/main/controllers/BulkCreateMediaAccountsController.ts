@@ -21,15 +21,15 @@ export default class BulkCreateMediaAccountsController {
 
   public async post(req: PipRequest, res: Response): Promise<void> {
     const formData = req.body;
-    const originalFileName = req.file['originalname'];
     let error = fileHandlingService.validateFileUpload(req.file, req.lng as string, bulkCreateAccountsUrl, uploadType.CSV);
     if (error === null) {
-      const file = fileHandlingService.readFile(originalFileName);
+      const file = fileHandlingService.readFile(req.file['originalname']);
       error = createAccountService.validateCsvFileContent(file, 3, ['email', 'firstName', 'surname'],
         req.lng as string, 'bulk-create-media-accounts');
     }
 
     if (error === null) {
+      const originalFileName = req.file['originalname'];
       const sanitisedFileName = fileHandlingService.sanitiseFileName(originalFileName);
       await fileHandlingService.storeFileIntoRedis(req.user['oid'], originalFileName, sanitisedFileName);
 
