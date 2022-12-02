@@ -296,7 +296,6 @@ export class AccountManagementRequests {
           console.log('Request to create a system admin has failed with error code: ' + error.response.status);
         }
       } else if (error.request) {
-        console.log(error.request);
         console.log(`Request failed. ${error.request}`);
       } else {
         console.log(`ERROR: ${error.message}`);

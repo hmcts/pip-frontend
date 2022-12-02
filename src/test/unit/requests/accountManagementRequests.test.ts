@@ -56,7 +56,7 @@ const updateUserByUserIdEndpoint = '/account/update/';
 
 const status = 'APPROVED';
 const statusEndpoint = '/' + status;
-const postStub = sinon.stub(accountManagementApi, 'post');
+let postStub = sinon.stub(accountManagementApi, 'post');
 let putStub = sinon.stub(accountManagementApi, 'put');
 let getStub = sinon.stub(accountManagementApi, 'get');
 let deleteStub = sinon.stub(accountManagementApi, 'delete');
@@ -619,6 +619,72 @@ describe('Account Management Requests', () => {
       const response = await accountManagementRequests.getThirdPartyAccounts(adminUserId);
       expect(response).toBe(null);
     });
+  });
+
+  describe('Create System Admin user', () => {
+
+    beforeEach(() => {
+      sinon.restore();
+      postStub = sinon.stub(accountManagementApi, 'post');
+    });
+
+    const systemAdminAccount = {
+      firstName: 'First Name',
+      surname: 'Surname',
+      email: 'test-email',
+    };
+
+    const mockResponseData = {
+      data: {
+        userId: '2345-2345',
+      },
+    };
+
+    const issuerId = '1234-1234';
+
+    it('should return system admin account', async () => {
+      postStub.withArgs('/account/add/system-admin', systemAdminAccount, {headers: {'x-issuer-id': issuerId}})
+        .resolves(mockResponseData);
+
+      const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
+      expect(response).toStrictEqual({
+        userId: '2345-2345',
+      });
+    });
+
+    it('should return errored system admin account if response is 400', async () => {
+      postStub.withArgs('/account/add/system-admin', systemAdminAccount, {headers: {'x-issuer-id': issuerId}})
+        .rejects({response: {status: 400, data: {userId: '2345-2345'}}});
+
+      const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
+      expect(response).toStrictEqual({
+        userId: '2345-2345',
+        error: true,
+      });
+    });
+
+    it('should return null if errored response is not 400', async () => {
+      postStub.withArgs('/account/add/system-admin', systemAdminAccount, {headers: {'x-issuer-id': issuerId}})
+        .rejects({response: {status: 402, data: {userId: '2345-2345'}}});
+
+      const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error request', async () => {
+      postStub.withArgs('/account/add/system-admin', systemAdminAccount, {headers: {'x-issuer-id': issuerId}})
+        .rejects(errorRequest);
+      const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error message', async () => {
+      postStub.withArgs('/account/add/system-admin', systemAdminAccount, {headers: {'x-issuer-id': issuerId}})
+        .rejects(errorMessage);
+      const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
+      expect(response).toBe(null);
+    });
+
   });
 
 });
