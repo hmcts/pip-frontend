@@ -14,7 +14,7 @@ import {
   isPermittedMediaAccount,
   mediaVerificationHandling,
   processMediaAccountSignIn,
-  processAdminAccountSignIn, isPermittedSystemAdmin,
+  processAdminAccountSignIn, isPermittedSystemAdmin, checkPasswordReset,
 }
   from '../../../main/authentication/authenticationHandler';
 
@@ -254,6 +254,8 @@ describe('forgot password reset', () => {
       .post('/login/return')
       .send({'error': 'access_denied', 'error_description': 'AADB2C90118'})
       .expect((res) => expect(res.redirect).to.be.true)
+      .expect((res) => expect(res.header.location).to.contain('response_type=code'))
+      .expect((res) => expect(res.header.location).to.contain('response_mode=form_post'))
       .expect((res) => expect(res.header.location).to.contain('/password-change-confirmation/false'));
   });
 
@@ -347,4 +349,33 @@ describe('process account sign-in', () => {
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
   });
+
+});
+
+describe('process account password change confirmation', () => {
+
+  it('should continue to next middleware when no error returned', async () => {
+    const mockFunction = jest.fn((argument) => argument);
+    const req = {body: {}};
+    const res = {};
+    const next = mockFunction;
+
+    checkPasswordReset(req, res, next);
+
+    expect(mockFunction.mock.calls.length).to.equal(1);
+  });
+
+  it('should redirect to cancelled password reset when error is confirmed', async () => {
+    const isAdmin = true;
+    const mockFunction = jest.fn((argument) => argument);
+    const req = {body: {error_description: 'AADB2C90091'}, params: {isAdmin: isAdmin}};
+    const res = {redirect: mockFunction};
+    const next = null;
+
+    checkPasswordReset(req, res, next);
+
+    expect(mockFunction.mock.calls.length).to.equal(1);
+    expect(mockFunction.mock.calls[0][0]).to.equal('/cancelled-password-reset/' + isAdmin);
+  });
+
 });

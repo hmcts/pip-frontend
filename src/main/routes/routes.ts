@@ -15,6 +15,7 @@ import {
   mediaVerificationHandling,
   processAdminAccountSignIn,
   processMediaAccountSignIn,
+  checkPasswordReset,
 } from '../authentication/authenticationHandler';
 import {SessionManagementService} from '../service/sessionManagementService';
 import {urlPath} from '../helpers/envUrls';
@@ -80,7 +81,8 @@ export default function(app: Application): void {
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
   app.post('/create-media-account', multer({storage: storage, limits: {fileSize: 2000000}}).single('file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.createMediaAccountController.post);
   // app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
-  app.get('/password-change-confirmation/:isAdmin', app.locals.container.cradle.passwordChangeController.get);
+  app.post('/password-change-confirmation/:isAdmin', checkPasswordReset, app.locals.container.cradle.passwordChangeController.post);
+  app.get('/cancelled-password-reset/:isAdmin', app.locals.container.cradle.cancelledPasswordResetController.get);
   app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
   app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
   app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}), regenerateSession);
@@ -204,6 +206,7 @@ export default function(app: Application): void {
   app.get('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.get);
   app.post('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.post);
   app.get('/manual-reference-data-upload-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadConfirmationController.get);
+  app.get('/manual-reference-data-download', isPermittedSystemAdmin, app.locals.container.cradle.referenceDataDownloadController.get);
   app.get('/manage-third-party-users', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersController.get);
   app.get('/manage-third-party-users/view', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersViewController.get);
   app.get('/manage-third-party-users/subscriptions', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersSubscriptionsController.get);
