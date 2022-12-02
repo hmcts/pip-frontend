@@ -10,6 +10,7 @@ import {request as expressRequest} from 'express';
 const PAGE_URL = '/manual-reference-data-upload';
 const headingClass = 'govuk-heading-xl';
 const insetTextClass = 'govuk-inset-text';
+const linkClass = 'govuk-link';
 
 const expectedHeader = 'Reference manual data upload';
 const expectedFileQuestion = 'Manually upload a csv file (saved as Comma-separated Values .csv), max size 2MB';
@@ -62,6 +63,13 @@ describe('Reference Data Manual upload page', () => {
       expect(banner).to.exist;
       expect(warningHeader.innerHTML).contains('Warning', 'Could not find warning header');
       expect(warningText.innerHTML).contains('Prior to upload you must ensure the file is suitable for location data upload e.g. file should be in correct formats.', 'Could not find warning text');
+    });
+
+    it('should display the download current reference data link', () => {
+      const link = htmlRes.getElementsByClassName(linkClass);
+
+      expect(link[2].innerHTML).to.equal('Download current reference data', 'Could not find download link');
+      expect(link[2].outerHTML).contains( 'href="/manual-reference-data-download"', 'href not found');
     });
   });
 
