@@ -74,7 +74,9 @@ export class LocationRequests {
 
   public async deleteCourt(locationId: number, requesterName: string): Promise<object> {
     try {
-      const response = await dataManagementApi.delete(`/locations/${locationId}/${requesterName}`);
+      const header = {headers: {'x-requester-name': requesterName}};
+
+      const response = await dataManagementApi.delete(`/locations/${locationId}`, header);
       return response.data;
     } catch (error) {
       if (error.response) {
