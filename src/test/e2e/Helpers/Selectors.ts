@@ -162,6 +162,7 @@ module.exports = {
 
   // SummaryOfPublications selectors
   SOPListItem: '.das-search-results__link',
+  SjpPublicListItem: '*=Single Justice Procedure Public List',
 
   // SJP public selector
   DownloadACopyButton: '#download-button',
