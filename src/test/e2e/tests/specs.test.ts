@@ -295,60 +295,63 @@ describe('Unverified user', () => {
   });
 });
 
-describe('CFT IDAM user login', () => {
-  describe('Sign in using a valid account', () => {
-    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
-      await signInPage.open('/sign-in');
-      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+//TODO: Once CFT IDAM is fully enabled in all environments, this should be removed
+if (process.env.ENVIRONMENT_NAME != 'stg') {
+  describe('CFT IDAM user login', () => {
+    describe('Sign in using a valid account', () => {
+      it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+        await signInPage.open('/sign-in');
+        expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+      });
+
+      it('should see 3 radio buttons', async () => {
+        expect(await signInPage.radioButtons).toBe(3);
+      });
+
+      it('should select \'With a MyHMCTS account\' option, navigate to the login page, and sign in', async () => {
+        await signInPage.open('/sign-in');
+        await signInPage.selectOption('SignInRadio1');
+        await signInPage.clickContinueForRadio1();
+        await signInPage.enterText(process.env.CFT_VALID_USERNAME, 'CftEmailField');
+        await signInPage.enterText(process.env.CFT_VALID_PASSWORD, 'CftPasswordField');
+        accountHomePage = await signInPage.clickSignInCft();
+      });
+
+      it('should open account home page on successful sign in', async () => {
+        expect(await accountHomePage.getPageTitle()).toBe('Your account');
+      });
+
+      it('should sign out and open view-option page', async () => {
+        viewOptionPage = await accountHomePage.clickSignOut();
+        expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+      });
     });
 
-    it('should see 3 radio buttons', async () => {
-      expect(await signInPage.radioButtons).toBe(3);
-    });
+    describe('Sign in using an invalid account', () => {
+      it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+        await signInPage.open('/sign-in');
+        expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+      });
 
-    it('should select \'With a MyHMCTS account\' option, navigate to the login page, and sign in', async () => {
-      await signInPage.open('/sign-in');
-      await signInPage.selectOption('SignInRadio1');
-      await signInPage.clickContinueForRadio1();
-      await signInPage.enterText(process.env.CFT_VALID_USERNAME, 'CftEmailField');
-      await signInPage.enterText(process.env.CFT_VALID_PASSWORD, 'CftPasswordField');
-      accountHomePage = await signInPage.clickSignInCft();
-    });
+      it('should see 3 radio buttons', async () => {
+        expect(await signInPage.radioButtons).toBe(3);
+      });
 
-    it('should open account home page on successful sign in', async () => {
-      expect(await accountHomePage.getPageTitle()).toBe('Your account');
-    });
+      it('should select \'With a MyHMCTS account\' option, navigate to the login page, and sign in', async () => {
+        await signInPage.open('/sign-in');
+        await signInPage.selectOption('SignInRadio1');
+        await signInPage.clickContinueForRadio1();
+        await signInPage.enterText(process.env.CFT_INVALID_USERNAME, 'CftEmailField');
+        await signInPage.enterText(process.env.CFT_INVALID_PASSWORD, 'CftPasswordField');
+        cftAuthenticationFailedPage = await signInPage.clickSignInCftUnsuccessful();
+      });
 
-    it('should sign out and open view-option page', async () => {
-      viewOptionPage = await accountHomePage.clickSignOut();
-      expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+      it('should open Authentication failed page', async () => {
+        expect(await cftAuthenticationFailedPage.getPageTitle()).toBe('Authentication failed');
+      });
     });
   });
-
-  describe('Sign in using an invalid account', () => {
-    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
-      await signInPage.open('/sign-in');
-      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
-    });
-
-    it('should see 3 radio buttons', async () => {
-      expect(await signInPage.radioButtons).toBe(3);
-    });
-
-    it('should select \'With a MyHMCTS account\' option, navigate to the login page, and sign in', async () => {
-      await signInPage.open('/sign-in');
-      await signInPage.selectOption('SignInRadio1');
-      await signInPage.clickContinueForRadio1();
-      await signInPage.enterText(process.env.CFT_INVALID_USERNAME, 'CftEmailField');
-      await signInPage.enterText(process.env.CFT_INVALID_PASSWORD, 'CftPasswordField');
-      cftAuthenticationFailedPage = await signInPage.clickSignInCftUnsuccessful();
-    });
-
-    it('should open Authentication failed page', async () => {
-      expect(await cftAuthenticationFailedPage.getPageTitle()).toBe('Authentication failed');
-    });
-  });
-});
+}
 
 describe('Verified user', () => {
   describe('Sign In Page', () => {

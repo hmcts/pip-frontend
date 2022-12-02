@@ -9,6 +9,7 @@ const CrimeAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
 const piUrl = '/login?p=B2C_1_SignInUserFlow';
 
 describe('Sign In Option Controller', () => {
+
   const i18n = {'sign-in': {}};
 
   it('should render Sign in page', () => {
@@ -16,6 +17,7 @@ describe('Sign In Option Controller', () => {
     const request = mockRequest(i18n);
     const responseMock = sinon.mock(response);
     const options = {
+      enableCft: 'true',
       ...i18n['sign-in'],
       displayError: false,
     };
@@ -31,6 +33,7 @@ describe('Sign In Option Controller', () => {
     const responseMock = sinon.mock(response);
     request.query = {error: 'true'};
     const options = {
+      enableCft: 'true',
       ...i18n['sign-in'],
       displayError: true,
     };

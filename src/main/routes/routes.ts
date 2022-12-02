@@ -73,14 +73,12 @@ export default function(app: Application): void {
   app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
   app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}));
   app.get('/login', passport.authenticate('login', { failureRedirect: '/'}));
-  app.get('/cft-login', app.locals.container.cradle.cftLoginController.get);
   app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/'}));
   app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
   app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res, false));
   app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}), processMediaAccountSignIn);
   app.post('/login/admin/return', forgotPasswordRedirect, passport.authenticate('admin-login', { failureRedirect: '/view-option'}), processAdminAccountSignIn);
   app.post('/media-verification/return', forgotPasswordRedirect, passport.authenticate('media-verification', { failureRedirect: '/view-option'}), mediaVerificationHandling);
-  app.get('/cft-login/return', passport.authenticate('cft-idam', { failureRedirect: '/cft-rejected-login'}), processCftIdamSignIn);
   app.get('/session-expiring', app.locals.container.cradle.sessionExpiringController.get);
   app.get('/session-expired', app.locals.container.cradle.sessionExpiredController.get);
   app.get('/session-expired-logout', (_req, res) => sessionManagement.logOut(_req, res, false, true));
@@ -108,7 +106,6 @@ export default function(app: Application): void {
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/sscs-daily-list', app.locals.container.cradle.sscsDailyListController.get);
   app.get('/cop-daily-cause-list', app.locals.container.cradle.copDailyCauseListController.get);
-  app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
   app.get('/et-daily-list', app.locals.container.cradle.etDailyListController.get);
   app.get('/et-fortnightly-list', app.locals.container.cradle.etFortnightlyListController.get);
   app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
@@ -208,6 +205,13 @@ export default function(app: Application): void {
   app.get('/delete-user', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserController.get);
   app.post('/delete-user-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserConfirmationController.post);
   app.post('/update-user-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.updateUserConfirmationController.post);
+
+  //CFT Routes
+  if (process.env.ENABLE_CFT === 'true') {
+    app.get('/cft-login', app.locals.container.cradle.cftLoginController.get);
+    app.get('/cft-login/return', passport.authenticate('cft-idam', { failureRedirect: '/cft-rejected-login'}), processCftIdamSignIn);
+    app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
+  }
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {

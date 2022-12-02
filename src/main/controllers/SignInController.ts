@@ -9,8 +9,8 @@ const logger = Logger.getLogger('sign-in-page');
 export default class SignInController {
   public get(req: PipRequest, res: Response): void {
     (req.query?.error === 'true') ?
-      res.render('sign-in', {...cloneDeep(req.i18n.getDataByLanguage(req.lng)['sign-in']), displayError: true}) :
-      res.render('sign-in', {...cloneDeep(req.i18n.getDataByLanguage(req.lng)['sign-in']), displayError: false});
+      res.render('sign-in', {enableCft: process.env.ENABLE_CFT, ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['sign-in']), displayError: true}) :
+      res.render('sign-in', {enableCft: process.env.ENABLE_CFT, ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['sign-in']), displayError: false});
   }
 
   public post(req: Request, res: Response): void {

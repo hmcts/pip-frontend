@@ -24,6 +24,11 @@
             ]
         }) }}
     {% endif %}
+    {% if enableCft and enableCft == 'true' %}
+      {% set enableCftRadio = false %}
+    {% else %}
+      {% set enableCftRadio = true %}
+    {% endif %}
     <form action="sign-in" method="post">
       {{ govukRadios({
         idPrefix: "sign-in",
@@ -38,7 +43,8 @@
         items: [
           {
             value: "hmcts",
-            text: radio1
+            text: radio1,
+            disabled: enableCftRadio
           },
           {
             value: "common",

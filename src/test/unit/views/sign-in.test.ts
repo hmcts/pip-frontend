@@ -99,4 +99,24 @@ describe('Sign In option Page', () => {
         .contains('Please select an option', 'Could not find error message');
     });
   });
+
+  describe('with cft disabled', () => {
+    beforeAll(async () => {
+      process.env.ENABLE_CFT = 'false';
+      await request(app).get(`${PAGE_URL}?error=true`).then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
+    });
+
+    afterAll(() => {
+      process.env.ENABLE_CFT = 'true';
+    });
+
+    it('CFT IDAM radio button should be disabled', () => {
+      const radioButtons = htmlRes.getElementsByClassName(radioClass)[0];
+      expect(radioButtons.innerHTML).includes('disabled');
+    });
+
+  });
 });
