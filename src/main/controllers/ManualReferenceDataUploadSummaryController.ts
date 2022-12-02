@@ -24,7 +24,6 @@ export default class ManualReferenceDataUploadSummaryController {
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
-    const userEmail = req.user['emails'][0];
     const formData = (req.cookies?.formCookie) ? JSON.parse(req.cookies['formCookie']) : {};
 
     formData.file = await fileHandlingService.readFileFromRedis(req.user['userId'], formData.fileName);
@@ -36,9 +35,9 @@ export default class ManualReferenceDataUploadSummaryController {
         fileUploadData: formData,
       });
     } else {
-      const response = await manualUploadService.uploadLocationDataPublication({...formData, userEmail: userEmail});
+      const response = await manualUploadService.uploadLocationDataPublication({...formData});
 
-      fileHandlingService.removeFileFromRedis('test23', formData.fileName);
+      fileHandlingService.removeFileFromRedis(req.user['userId'], formData.fileName);
 
       if (response) {
         res.clearCookie('formCookie');
