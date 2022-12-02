@@ -41,7 +41,7 @@
       window.location.search = searchParams.toString();
 
   }</script>
-  {% if user.role and 'ADMIN' in user.role %}
+  {% if user.roles and 'ADMIN' in user.roles %}
     {% set betaDisplay = betaHeadingAdmin %}
   {% else %}
     {% set betaDisplay = betaHeading %}
@@ -262,8 +262,8 @@
 
 {% block bodyEnd %}
   <script src="alphabetical-dev.js"></script>
-  {% if isAuthenticated %}
-    {% if user.role and 'ADMIN' in user.role %}
+  {% if user.roles %}
+    {% if user.roles and 'ADMIN' in user.roles %}
       {% set idleDurationInSeconds = 3 * 3600 + (40 * 60) %}
     {% else %}
       {% set idleDurationInSeconds = 40 * 60 %}
