@@ -322,7 +322,7 @@ if (process.env.ENVIRONMENT_NAME != 'stg') {
       });
 
       it('should sign out and open view-option page', async () => {
-        viewOptionPage = await accountHomePage.clickSignOut();
+        viewOptionPage = await accountHomePage.clickSignOutForCftAccount();
         expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
       });
     });
@@ -347,7 +347,8 @@ if (process.env.ENVIRONMENT_NAME != 'stg') {
       });
 
       it('should open Authentication failed page', async () => {
-        expect(await cftAuthenticationFailedPage.getPageTitle()).toBe('Authentication failed');
+        expect(await cftAuthenticationFailedPage.getParagraphText()).toBe('You have successfully signed into your MyHMCTS account.' +
+          ' Unfortunately, your account role does not allow you to access the verified user part of the Court and tribunal hearings service');
       });
     });
   });
