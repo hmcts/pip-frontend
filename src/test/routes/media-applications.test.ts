@@ -6,9 +6,7 @@ import sinon from 'sinon';
 import {MediaApplicationService} from '../../main/service/mediaApplicationService';
 import {MediaAccountApplication} from '../../main/models/MediaAccountApplication';
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-}};
+expressRequest['user'] = {'roles': 'INTERNAL_SUPER_ADMIN_CTSC'};
 
 const mediaAccount = {
   id: '1234',

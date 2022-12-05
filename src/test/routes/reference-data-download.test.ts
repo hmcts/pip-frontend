@@ -13,7 +13,7 @@ describe('Download reference data download', () => {
   describe('on GET', () => {
     test('should return csv file', async () => {
       fileStub.withArgs('1234').resolves(mockCsv);
-      app.request['user'] = {piUserId: '1234'};
+      app.request['user'] = {userId: '1234'};
       await request(app)
         .get('/manual-reference-data-download')
         .expect((res) => expect(res.status).to.equal(302));

@@ -162,6 +162,22 @@ export class AccountManagementRequests {
     }
   }
 
+  public async getPiUserByCftID(uid: string): Promise<any> {
+    try {
+      const response = await accountManagementApi.get(`/account/provenance/CFT_IDAM/${uid}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET PI user request', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for Pi user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get the pi user from the uid', error.message);
+      }
+      return null;
+    }
+  }
+
   public async getThirdPartyAccounts(adminUserId): Promise<any> {
     try {
       logger.info('Third party account data requested by Admin with ID: ' + adminUserId);
@@ -180,18 +196,18 @@ export class AccountManagementRequests {
   }
 
   public async updateMediaAccountVerification(oid: string): Promise<string> {
-    return this.updateAccountDate(oid, 'lastVerifiedDate', 'Failed to verify media account');
+    return this.updateAccountDate('PI_AAD', oid, 'lastVerifiedDate', 'Failed to verify media account');
   }
 
-  public async updateAccountLastSignedInDate(oid: string): Promise<string> {
-    return this.updateAccountDate(oid, 'lastSignedInDate', 'Failed to update account last signed in date');
+  public async updateAccountLastSignedInDate(userProvenance: string, oid: string): Promise<string> {
+    return this.updateAccountDate(userProvenance, oid, 'lastSignedInDate', 'Failed to update account last signed in date');
   }
 
-  private async updateAccountDate(oid: string, field: string, errorMessage: string): Promise<string> {
+  private async updateAccountDate(userProvenance: string, oid: string, field: string, errorMessage: string): Promise<string> {
     try {
       const map = {};
       map[field] = moment().toISOString();
-      const response = await accountManagementApi.put(`/account/provenance/PI_AAD/${oid}`, map);
+      const response = await accountManagementApi.put(`/account/provenance/${userProvenance}/${oid}`, map);
       return response.data;
     } catch (error) {
       if (error.response) {

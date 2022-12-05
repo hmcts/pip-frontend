@@ -35,7 +35,7 @@ describe('SJP Press List Controller', () => {
 
   it('should render the SJP press list page', async () =>  {
     const request = mockRequest(i18n);
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
 
     request.query = {artefactId: artefactId};
 
@@ -61,7 +61,7 @@ describe('SJP Press List Controller', () => {
   it('should render error page is query param is empty', async () => {
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
 
     const responseMock = sinon.mock(response);
 

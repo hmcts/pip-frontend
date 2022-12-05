@@ -3,6 +3,7 @@ import request from 'supertest';
 import {app} from '../../../main/app';
 import {expect} from 'chai';
 import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
+import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/update-user?id=1234';
 const headingClass = 'govuk-heading-l';
@@ -23,9 +24,7 @@ sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves({
 
 describe('Update User Page', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'SYSTEM_ADMIN',
-    }};
+    expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

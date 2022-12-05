@@ -6,9 +6,7 @@ import {request as expressRequest} from 'express';
 import {ListDownloadService} from '../../main/service/listDownloadService';
 
 const PAGE_URL = '/list-download-files?artefactId=123';
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {'roles': 'VERIFIED'};
 
 describe('List download files', () => {
   sinon.stub(ListDownloadService.prototype, 'generateFiles').resolves({});

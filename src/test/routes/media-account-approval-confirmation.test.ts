@@ -4,7 +4,7 @@ import {expect} from 'chai';
 import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/media-account-approval-confirmation?applicantId=123';
-expressRequest['user'] = {'_json': {'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC'}};
+expressRequest['user'] = {'roles': 'INTERNAL_SUPER_ADMIN_CTSC'};
 
 describe('Media account approval confirmation', () => {
   describe('on GET', () => {

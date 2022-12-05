@@ -15,8 +15,8 @@ const firmListService = new CrownFirmListService();
 export default class CrownFirmListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query.artefactId as string;
-    const jsonData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);
-    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
+    const jsonData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
+    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
     if (jsonData && metaData) {
       const outputData = dataManipulationService.manipulatedDailyListData(JSON.stringify(jsonData));

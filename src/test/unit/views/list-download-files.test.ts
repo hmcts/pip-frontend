@@ -13,9 +13,7 @@ const getFileSizeStub = sinon.stub(ListDownloadService.prototype, 'getFileSize')
 getFileSizeStub.withArgs('abc', 'pdf').returns('1.1MB');
 getFileSizeStub.withArgs('abc', 'excel').returns('25.2KB');
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {'roles': 'VERIFIED'};
 
 describe('List Download Files Page', () => {
   beforeAll(async () => {
