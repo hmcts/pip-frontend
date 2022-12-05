@@ -13,7 +13,7 @@ sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(m
 describe('Summary of Publications', () => {
   describe('on GET', () => {
     test('should return summary of publications page', async () => {
-      app.request['user'] = {piUserId: '2'};
+      app.request['user'] = {userId: '2'};
       await request(app)
         .get('/summary-of-publications?locationId=0')
         .expect((res) => expect(res.status).to.equal(200));
