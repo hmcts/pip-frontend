@@ -6,6 +6,7 @@ import {DeleteCourtReferenceDataPage} from './DeleteCourtReferenceData.page';
 import {ManageThirdPartyUsersPage} from './ManageThirdPartyUsers.page';
 import {UserManagementPage} from './UserManagement.page';
 import { BlobViewLocationsPage } from './BlobViewLocationsPage';
+import {BulkCreateMediaAccountsPage} from './BulkCreateMediaAccounts.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -62,6 +63,15 @@ export class SystemAdminDashboardPage extends CommonPage {
 
     await $(helpers.BlobExplorerLocations).click();
     return new BlobViewLocationsPage();
+  }
+
+  async clickBulkCreateMediaAccountsCard(): Promise<BulkCreateMediaAccountsPage> {
+    await $(helpers.BulkCreateMediaAccounts).catch(() => {
+      console.log(`${helpers.BulkCreateMediaAccounts} not found`);
+    });
+
+    await $(helpers.BulkCreateMediaAccounts).click();
+    return new BulkCreateMediaAccountsPage();
   }
 
   async clickSignOut(): Promise<SessionLoggedOutPage> {
