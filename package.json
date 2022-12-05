@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "engines": {
-    "node": ">=12.20.0"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "start": "USE_PROTOTYPE=true NODE_ENV=production ./node_modules/.bin/ts-node -r tsconfig-paths/register src/main/server.ts",
@@ -117,7 +117,7 @@
     "jest-environment-jsdom": "^27.5.1",
     "mini-css-extract-plugin": "^2.7.1",
     "nock": "^13.0.4",
-    "node-sass": "7.0.1",
+    "node-sass": "8.0.0",
     "nodemon": "^2.0.20",
     "pa11y": "6.2.3",
     "request": "^2.88.0",
