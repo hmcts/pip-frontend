@@ -30,7 +30,7 @@ describe('SJP Public List Type Controller', () => {
 
   it('should render the SJP public list page', async () =>  {
     const request = mockRequest(i18n);
-    request.user = {piUserId: '123'};
+    request.user = {userId: '123'};
 
     request.query = {artefactId: artefactId};
 
@@ -42,6 +42,8 @@ describe('SJP Public List Type Controller', () => {
       publishedDateTime: '14 September 2016',
       publishedTime: '12:30am',
       ...i18n['single-justice-procedure'],
+      artefactId: '1',
+      user: request.user,
     };
 
     responseMock.expects('render').once().withArgs('single-justice-procedure', expectedData);
@@ -53,7 +55,7 @@ describe('SJP Public List Type Controller', () => {
   it('should render error page is query param is empty', async () => {
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '123'};
+    request.user = {userId: '123'};
 
     const responseMock = sinon.mock(response);
 

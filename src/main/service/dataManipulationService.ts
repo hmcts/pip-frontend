@@ -529,7 +529,6 @@ export class DataManipulationService {
    */
   public calculateDuration(sitting: object): void {
     sitting['duration'] = '';
-    sitting['startTime'] = '';
     if (sitting['sittingStart'] !== '' && sitting['sittingEnd'] !== '') {
       const sittingStart = moment.utc(sitting['sittingStart']);
       const sittingEnd = moment.utc(sitting['sittingEnd']);
@@ -550,12 +549,11 @@ export class DataManipulationService {
       sitting['durationAsMinutes'] = durationAsMinutes;
       sitting['durationAsDays'] = durationAsDays;
 
-      sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('HH:mm');
       const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
       if (min === 0) {
-        sitting['startTime'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('ha');
+        sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('ha');
       } else {
-        sitting['startTime'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('h.mma');
+        sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('h:mma');
       }
     }
   }

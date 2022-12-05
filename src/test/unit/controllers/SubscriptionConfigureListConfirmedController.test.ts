@@ -22,7 +22,7 @@ describe('Subscription Configure List Type Confirmed', () => {
   it('should render the confirmation page', () => {
 
     const request = mockRequest(i18n);
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
     request.body = {'list-selections[]': 'CIVIL_DAILY_CAUSE_LIST'};
     const responseMock = sinon.mock(response);
 
@@ -40,7 +40,7 @@ describe('Subscription Configure List Type Confirmed', () => {
   it('should render an error page if list type subscription is not updated', () => {
 
     const request = mockRequest(i18n);
-    request.user = {piUserId: null};
+    request.user = {userId: null};
     request.body = {'list-selections[]': 'CIVIL_DAILY_CAUSE_LIST'};
 
     const responseMock = sinon.mock(response);

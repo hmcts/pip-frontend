@@ -9,6 +9,7 @@ nodejs:
     AUTH_RETURN_URL: https://127.0.0.1/login/return
     MEDIA_VERIFICATION_RETURN_URL: https://127.0.0.1/media-verification/return
     ADMIN_AUTH_RETURN_URL: https://127.0.0.1/login/admin/return
+    ENABLE_CFT: false
   keyVaults:
     pip-ss-kv:
       resourceGroup: pip-ss-{{ .Values.global.environment }}-rg
@@ -47,6 +48,8 @@ nodejs:
           alias: SUBSCRIPTION_MANAGEMENT_AZ_API
         - name: app-pip-account-management-scope
           alias: ACCOUNT_MANAGEMENT_AZ_API
+        - name: app-pip-channel-management-scope
+          alias: CHANNEL_MANAGEMENT_AZ_API
         - name: app-insights-nodejs-instrumentation-key
           alias: INSTRUMENTATION_KEY
         - name: b2c-url

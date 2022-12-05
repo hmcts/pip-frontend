@@ -14,12 +14,8 @@ export const verifiedRoles = ['VERIFIED'];
 
 export function checkRoles(req, roles): boolean {
   if(req.user) {
-    const userInfo = req.user['_json'];
-    if (userInfo?.extension_UserRole) {
-      req.user.role = userInfo?.extension_UserRole;
-      if (roles.includes(userInfo?.extension_UserRole)) {
-        return true;
-      }
+    if (roles.includes(req.user['roles'])) {
+      return true;
     }
   }
   return false;
@@ -89,7 +85,7 @@ export function forgotPasswordRedirect(req, res, next): void {
     }
     const POLICY_URL = `${b2cUrl}/oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
       `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${redirectUrl}` +
-      '&scope=openid&response_type=id_token&prompt=login';
+      '&scope=openid&response_type=code&prompt=login&response_mode=form_post';
 
     res.redirect(POLICY_URL);
     return;
@@ -98,27 +94,20 @@ export function forgotPasswordRedirect(req, res, next): void {
 }
 
 export async function mediaVerificationHandling(req, res): Promise<any> {
-  if(req.user) {
-    const userInfo = req.user['_json'];
-    if(verifiedRoles.includes(userInfo?.extension_UserRole)) {
-      const response = await AccountManagementRequests.prototype.updateMediaAccountVerification(userInfo?.oid);
-      console.log(response);
-      res.redirect('/account-home?verified=true');
-    }
+  if(req.user && verifiedRoles.includes(req.user.roles)) {
+    await AccountManagementRequests.prototype.updateMediaAccountVerification(req.user['oid']);
+    res.redirect('/account-home?verified=true');
   }
 }
 
 export async function processAdminAccountSignIn(req, res): Promise<any> {
   if(checkRoles(req, allAdminRoles)) {
-    const userInfo = req.user['_json'];
-    await AccountManagementRequests.prototype.updateAccountLastSignedInDate(userInfo.oid);
-
+    await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
     if (checkRoles(req, systemAdminRoles)) {
       res.redirect('/system-admin-dashboard');
     } else {
       res.redirect('/admin-dashboard');
     }
-
   } else {
     res.redirect('/account-home');
   }
@@ -130,5 +119,25 @@ export async function processMediaAccountSignIn(req, res): Promise<any> {
     sessionManagement.logOut(req, res, true);
   } else {
     res.redirect('/account-home');
+  }
+}
+
+export async function processCftIdamSignIn(req, res): Promise<any> {
+  await AccountManagementRequests.prototype.updateAccountLastSignedInDate('CFT_IDAM', req.user['uid']);
+  res.redirect('/account-home');
+}
+
+/**
+ * This function checks the state of a password reset. If the error indicates a cancelled action, the user is re-directed
+ * to the appropriate page.
+ * @param req The request to check.
+ * @param res The response to redirect.
+ * @param next The next function
+ */
+export function checkPasswordReset(req, res, next) {
+  if (req.body['error_description']?.includes('AADB2C90091')){
+    res.redirect('/cancelled-password-reset/' + req.params['isAdmin']);
+  } else {
+    next();
   }
 }

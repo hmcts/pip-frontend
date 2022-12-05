@@ -54,7 +54,7 @@ describe('Create Admin Account Summary Controller', () => {
 
   describe('on post', () => {
     it('should render create admin account summary page with success message', async () => {
-      request.user = {piUserId: validUserId};
+      request.user = {userId: validUserId};
       const responseMock = sinon.mock(response);
       const expectedOptions = {
         formData: mockData,
@@ -71,7 +71,7 @@ describe('Create Admin Account Summary Controller', () => {
 
     it('should render create admin account summary page with errors', async () => {
       request['cookies'] = {'createAdminAccount': JSON.stringify(invalidMockData)};
-      request.user = {piUserId: validUserId};
+      request.user = {userId: validUserId};
       const responseMock = sinon.mock(response);
       const expectedOptions = {
         formData: invalidMockData,
