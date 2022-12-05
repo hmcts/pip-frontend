@@ -27,9 +27,7 @@ describe('Create admin account summary page', () => {
   describe('on GET', () => {
     test('should render admin account form', async () => {
       app.request['cookies'] = {'createAdminAccount': JSON.stringify(mockData)};
-      app.request['user'] = { '_json': {
-        'extension_UserRole': 'SYSTEM_ADMIN',
-      }};
+      app.request['user'] = {'roles': 'SYSTEM_ADMIN'};
       await request(app).get('/create-admin-account-summary').expect((res) => expect(res.status).to.equal(200));
     });
   });
@@ -37,17 +35,13 @@ describe('Create admin account summary page', () => {
   describe('on POST', () => {
     test('should render admin account summary with error message', async () => {
       app.request['cookies'] = {'createAdminAccount': JSON.stringify(invalidMockData)};
-      app.request['user'] = {emails: ['joe@bloggs.com'], '_json': {
-        'extension_UserRole': 'SYSTEM_ADMIN',
-      }};
+      app.request['user'] = {email: 'joe@bloggs.com', 'roles': 'SYSTEM_ADMIN'};
       await request(app).post('/create-admin-account-summary').send().expect((res) => expect(res.status).to.equal(200));
     });
 
     test('should render admin account summary with success dialog', async () => {
       app.request['cookies'] = {'createAdminAccount': JSON.stringify(mockData)};
-      app.request['user'] = {emails: ['joe@bloggs.com'], '_json': {
-        'extension_UserRole': 'SYSTEM_ADMIN',
-      }};
+      app.request['user'] = {email: 'joe@bloggs.com', 'roles': 'SYSTEM_ADMIN'};
       await request(app).post('/create-admin-account-summary').send().expect((res) => expect(res.status).to.equal(200));
     });
   });

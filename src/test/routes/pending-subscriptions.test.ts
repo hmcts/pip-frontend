@@ -3,9 +3,7 @@ import { app } from '../../main/app';
 
 import request from 'supertest';
 
-app.request['user'] = {id: '1', '_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+app.request['user'] = {'roles': 'VERIFIED'};
 
 describe('subscription Confirmation', () => {
   describe('on GET', () => {

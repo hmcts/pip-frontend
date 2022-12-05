@@ -25,9 +25,7 @@ const mockBodyData = {
   'input-autocomplete': '',
 };
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
 sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 

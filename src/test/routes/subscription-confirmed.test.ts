@@ -18,9 +18,7 @@ subscribeStub.withArgs('2').resolves(false);
 describe('Subscriptions Confirmed', () => {
   describe('on GET', () => {
     test('should render subscription confirmation page', async () => {
-      app.request['user'] = {piUserId: '1', '_json': {
-        'extension_UserRole': 'VERIFIED',
-      }};
+      app.request['user'] = {userId: '1', 'roles': 'VERIFIED'};
 
       await request(app).get(PAGE_URL)
         .expect((res) => {
@@ -31,18 +29,14 @@ describe('Subscriptions Confirmed', () => {
 
   describe('on POST', () => {
     test('should return subscription confirmation page', async () => {
-      app.request['user'] = {piUserId: '1', '_json': {
-        'extension_UserRole': 'VERIFIED',
-      }};
+      app.request['user'] = {userId: '1', 'roles': 'VERIFIED'};
       await request(app)
         .post(PAGE_URL)
         .expect((res) => expect(res.status).to.equal(200));
     });
 
     test('should redirect to pending subscriptions page', async () => {
-      app.request['user'] = {piUserId: '2','_json': {
-        'extension_UserRole': 'VERIFIED',
-      }};
+      app.request['user'] = {userId: '2','roles': 'VERIFIED'};
       await request(app)
         .post(PAGE_URL)
         .expect((res) => {

@@ -16,9 +16,7 @@ sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves(user
 describe('Delete User', () => {
   describe('on GET', () => {
     test('should return delete user page', async () => {
-      app.request['user'] = {id: '1', '_json': {
-        'extension_UserRole': 'SYSTEM_ADMIN',
-      }};
+      app.request['user'] = {id: '1', 'roles': 'SYSTEM_ADMIN'};
       await request(app).get(PAGE_URL).expect((res) => expect(res.status).to.equal(200));
     });
   });

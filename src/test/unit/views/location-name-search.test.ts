@@ -16,9 +16,7 @@ const checkboxesCount = 12;
 
 sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {'roles': 'VERIFIED'};
 
 describe('Court Name Search Page', () => {
   beforeAll(async () => {

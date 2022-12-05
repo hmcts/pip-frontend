@@ -6,9 +6,7 @@ const PAGE_URL = '/upload-confirmation';
 describe('Upload confirmation', () => {
   describe('on GET', () => {
     test('should return upload confirmation page', async () => {
-      app.request['user'] = {id: '1', '_json': {
-        'extension_UserRole': 'SYSTEM_ADMIN',
-      }};
+      app.request['user'] = {'roles': 'SYSTEM_ADMIN'};
       await request(app).get(PAGE_URL).expect((res) => expect(res.status).to.equal(200));
     });
   });
