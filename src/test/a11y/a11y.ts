@@ -22,6 +22,9 @@ const routesNotTested = [
   '/health/readiness',
   '/info',
   '/login',
+  '/cft-login',
+  '/cft-login/return',
+  '/cft-rejected-login',
   '/admin-login',
   '/login/return',
   '/login/admin/return',
@@ -38,6 +41,7 @@ const routesNotTested = [
   '/delete-user',
   '/delete-user-confirmation',
   '/update-user-confirmation',
+  '/manual-reference-data-download',
 ];
 
 const adminRoutes = [
@@ -126,21 +130,15 @@ beforeAll((done /* call it or remove it*/) => {
 export function ensurePageCallWillSucceed(url: string): Promise<void> {
   if (adminRoutes.includes(url)) {
     app.request['user'] = {
-      piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
-        'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-      },
+      userId: '1', email: 'joe@bloggs.com', 'roles': 'INTERNAL_SUPER_ADMIN_CTSC', 'userProvenance': 'PI_AAD',
     };
   } else if (systemAdminRoutes.includes(url)) {
     app.request['user'] = {
-      piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
-        'extension_UserRole': 'SYSTEM_ADMIN',
-      },
+      userId: '1', emails: ['joe@bloggs.com'], 'roles': 'SYSTEM_ADMIN',
     };
   } else {
     app.request['user'] = {
-      piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
-        'extension_UserRole': 'VERIFIED',
-      }};
+      userId: '1', email: 'joe@bloggs.com', 'roles': 'VERIFIED', 'userProvenance': 'PI_AAD'};
   }
 
   return agent.get(url).then((res: supertest.Response) => {

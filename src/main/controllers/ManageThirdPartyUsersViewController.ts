@@ -11,7 +11,7 @@ export default class ManageThirdPartyUsersViewController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     if (req.query['userId']) {
 
-      const user = await thirdPartyService.getThirdPartyUserById(req.query['userId'], req.user['piUserId']);
+      const user = await thirdPartyService.getThirdPartyUserById(req.query['userId'], req.user['userId']);
       if (user) {
         const subscriptions = await subscriptionsService.getSubscriptionsByUser(user.userId);
 

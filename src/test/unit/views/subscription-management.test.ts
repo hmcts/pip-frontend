@@ -69,9 +69,7 @@ let htmlRes: Document;
 
 describe('Subscriptions Management Page No UserSubscriptions', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '2', _json: {
-      'extension_UserRole': 'VERIFIED',
-    }};
+    app.request['user'] = {userId: '2', 'roles': 'VERIFIED'};
   });
 
   it('should display no subscription message ', async () => {
@@ -107,9 +105,7 @@ describe('Subscriptions Management Page No UserSubscriptions', () => {
 
 describe('Subscriptions Management Page', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1',_json: {
-      'extension_UserRole': 'VERIFIED',
-    }};
+    app.request['user'] = {userId: '1', 'roles': 'VERIFIED'};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
@@ -239,9 +235,7 @@ describe('Subscriptions Management Page', () => {
 
 describe('Subscriptions Management Page with case subscription but without location', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '3',_json: {
-      'extension_UserRole': 'VERIFIED',
-    }};
+    app.request['user'] = {userId: '3', 'roles': 'VERIFIED'};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();
@@ -350,9 +344,7 @@ describe('Subscriptions Management Page with case subscription but without locat
 
 describe('Subscriptions Management Page with location subscription but without case', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '4',_json: {
-      'extension_UserRole': 'VERIFIED',
-    }};
+    app.request['user'] = {userId: '4','roles': 'VERIFIED'};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();

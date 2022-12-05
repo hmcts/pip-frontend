@@ -17,7 +17,7 @@ describe('Case name search results controller', () => {
 
   it('should render case name search results page if query param is valid', async () => {
     const request = mockRequest(i18n);
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
     request.query = {search: 'Meedoo'};
     const expectedData = {
       ...i18n['case-name-search'],
@@ -34,7 +34,7 @@ describe('Case name search results controller', () => {
 
   it('should render error page is query param is invalid', async () => {
     const request = mockRequest(i18n);
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
     request.query = {};
 
     const responseMock = sinon.mock(response);

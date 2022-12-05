@@ -1,0 +1,54 @@
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% extends "template.njk" %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+  {% if noAgreementError %}
+    {{ govukErrorSummary({
+      titleText: error.title,
+      errorList: [
+        {
+          text: error.text,
+          href: "#disclaimer-agreement"
+        }
+      ]
+    }) }}
+  {% endif %}
+  <h2 class="govuk-heading-l">{{ title }}</h2>
+  <p class="govuk-body">{{ disclaimerLine1 }}</p>
+  <p class="govuk-body">{{ disclaimerLine2 }}</p>
+
+  <form method="post" action="list-download-disclaimer?artefactId={{ artefactId }}">
+    {{ govukCheckboxes({
+      id: "disclaimer-agreement",
+      name: "disclaimer-agreement",
+      items: [
+        {
+          value: "agree",
+          text: disclaimerAgreement
+        }
+      ]
+    }) }}
+    {{ submitButton(continueButton) }}
+  </form>
+{% endblock %}
+
+{% block bodyEnd %}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  {{ super() }}
+{% endblock %}

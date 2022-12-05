@@ -28,7 +28,10 @@ module.exports = {
   SignInRadio3: '#sign-in-3',
   EmailField: '#email',
   PasswordField: '#password',
+  CftEmailField: '#username',
+  CftPasswordField: '#password',
   UserLoginContinue: '#next',
+  CftSignInButton: '.button',
 
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
@@ -163,6 +166,12 @@ module.exports = {
   // SummaryOfPublications selectors
   SOPListItem: '.das-search-results__link',
 
+  // SJP public selector
+  DownloadACopyButton: '#download-button',
+
+  // List download selector
+  AgreeCheckBox: '#disclaimer-agreement',
+
   // Blob Explorer Location Selector
   locationSelector: '.govuk-table__body > tr:nth-child(1) > th:nth-child(1) > a:nth-child(1)',
 
@@ -226,4 +235,7 @@ module.exports = {
   deleteUserButton: '//*[@id="main-content"]/div/a',
   deleteUserConfirmRadioButton: '#delete-user-confirm',
   continueButton: '#button',
+
+  // CFT Rejected login page selectors
+  firstParagraphCftRejected: '/html/body/div[2]/main/p[1]',
 };

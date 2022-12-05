@@ -15,7 +15,7 @@ export default class CaseReferenceNumberSearchController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['search-input'] as string;
     if (searchInput) {
-      const searchResults = await publicationService.getCaseByCaseNumber(searchInput, req.user?.['piUserId']);
+      const searchResults = await publicationService.getCaseByCaseNumber(searchInput, req.user?.['userId']);
       (searchResults) ?
         res.redirect(`case-reference-number-search-results?search-input=${searchInput}`) :
         res.render('case-reference-number-search', {

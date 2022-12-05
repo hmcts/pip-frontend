@@ -22,9 +22,7 @@ sinon.stub(UserManagementService.prototype, 'getTableHeaders').returns('testHead
 describe('User Management', () => {
   describe('on GET', () => {
     test('should return user management page', async () => {
-      app.request['user'] = {id: '1', '_json': {
-        'extension_UserRole': 'SYSTEM_ADMIN',
-      }};
+      app.request['user'] = {id: '1', 'roles': 'SYSTEM_ADMIN'};
       await request(app).get(PAGE_URL).expect((res) => expect(res.status).to.equal(200));
     });
   });

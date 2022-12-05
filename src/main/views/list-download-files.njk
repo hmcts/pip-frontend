@@ -1,0 +1,38 @@
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "template.njk" %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+  <div class="parent-box">
+    <h2 class="govuk-heading-l">{{ title }}</h2>
+    <p class="govuk-body">{{ heading }}</p>
+    <p class="govuk-body download-link">
+      <a class='govuk-link' href="list-download-files?type=pdf&artefactId={{ artefactId }}">{{ pdfDownloadText | replace("SIZE", pdfFileSize) }}</a>
+    </p>
+    <p class="govuk-body downlink-link">
+      <a class='govuk-link' href="list-download-files?type=excel&artefactId={{ artefactId }}">{{ excelDownloadText | replace("SIZE", excelFileSize) }}</a>
+    </p>
+    <p class="govuk-body">{{ contactText }}</p>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  {{ super() }}
+{% endblock %}

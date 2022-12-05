@@ -15,9 +15,7 @@ sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').withArgs([]
 courtServiceStub.withArgs('2').resolves(true);
 courtServiceStub.withArgs('888').resolves(false);
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-}};
+expressRequest['user'] = {'roles': 'INTERNAL_SUPER_ADMIN_CTSC'};
 
 describe('Remove list summary page', () => {
   test('should return remove list summary page page', async () => {

@@ -1,5 +1,6 @@
 {% from "./macros/common-components.njk" import goBack, backToTopButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
@@ -12,6 +13,17 @@
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ listDetail | replace("CASES_COUNT", length) }} {{ publishedDateTime }} {{ publishedAt }} {{ publishedTime }}</p>
+
+  {% if user.roles and user.roles in ['VERIFIED'] %}
+    {{ govukButton({
+      attributes: {
+        id: 'download-button'
+      },
+      text: downloadButton,
+      href: 'list-download-disclaimer?artefactId=' + artefactId
+    }) }}
+  {% endif %}
+
   <div class="parent-box">
     <div class="overflow-table">
       {% set sjpCase = [] %}

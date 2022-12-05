@@ -23,9 +23,7 @@ const stub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn');
 stub.withArgs('12345').returns(null);
 stub.withArgs('').returns(null);
 
-app.request['user'] = { _json: {
-  'extension_UserRole': 'VERIFIED',
-}};
+app.request['user'] = {'roles': 'VERIFIED'};
 
 const pageTitleValue = 'Subscribe by unique reference number (URN)';
 
