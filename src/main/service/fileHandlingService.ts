@@ -83,8 +83,8 @@ export class FileHandlingService {
   /**
    * Stores an upload file into redis with an ID of the filename. It also removes the file from disk.
    * @param userId The user ID of the user uploading the file.
-   * @param originalFilename The filename before being sanatised.
-   * @param sanatisedFileName The filename of the file to store.
+   * @param originalFilename The filename before being sanitised.
+   * @param sanitisedFileName The filename of the file to store.
    */
   async storeFileIntoRedis(userId, originalFilename, sanitisedFileName) {
     try {
