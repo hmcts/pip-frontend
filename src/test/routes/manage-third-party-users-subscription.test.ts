@@ -11,9 +11,7 @@ describe('Manage third party users subscription', () => {
 
   const userId = '1234-1234';
 
-  expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'SYSTEM_ADMIN',
-  }};
+  expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
   const getThirdPartyUserByIdStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartyUserById');
   const getListTypesStub = sinon.stub(PublicationService.prototype, 'getListTypes');

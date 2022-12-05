@@ -6,7 +6,7 @@ const PAGE_URL = '/bulk-delete-subscriptions-confirmed';
 let htmlRes: Document;
 
 describe('Bulk Delete Subscriptions Confirmed Page', () => {
-  app.request['user'] = { _json: {'extension_UserRole': 'VERIFIED'}};
+  app.request['user'] = {'roles': 'VERIFIED'};
 
   beforeAll(async () => {
     await request(app)

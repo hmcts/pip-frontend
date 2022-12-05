@@ -1,6 +1,5 @@
 import { Application } from 'express';
 import { infoRequestHandler } from '@hmcts/info-provider';
-import { Logger } from '@hmcts/nodejs-logging';
 import os from 'os';
 import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
@@ -15,6 +14,7 @@ import {
   mediaVerificationHandling,
   processAdminAccountSignIn,
   processMediaAccountSignIn,
+  processCftIdamSignIn,
   checkPasswordReset,
 } from '../authentication/authenticationHandler';
 import {SessionManagementService} from '../service/sessionManagementService';
@@ -23,7 +23,6 @@ import {urlPath} from '../helpers/envUrls';
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const multer = require('multer');
-const logger = Logger.getLogger('routes');
 const sessionManagement = new SessionManagementService();
 
 export default function(app: Application): void {
@@ -46,19 +45,7 @@ export default function(app: Application): void {
       return;
     }
 
-    //this function allows us to share authentication status across all views
-    res.locals.isAuthenticated = req.isAuthenticated();
     next();
-  }
-
-  function regenerateSession(req, res): void {
-    const prevSession = req.session;
-    logger.info('regenerateSession', prevSession);
-    req.session.regenerate(() => {  // Compliant
-      logger.info('regenerateSession new session', req.session);
-      Object.assign(req.session, prevSession);
-      res.redirect('/subscription-management');
-    });
   }
 
   function reRenderView(req, res): void {
@@ -84,10 +71,10 @@ export default function(app: Application): void {
   app.post('/password-change-confirmation/:isAdmin', checkPasswordReset, app.locals.container.cradle.passwordChangeController.post);
   app.get('/cancelled-password-reset/:isAdmin', app.locals.container.cradle.cancelledPasswordResetController.get);
   app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
+  app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}));
+  app.get('/login', passport.authenticate('login', { failureRedirect: '/'}));
+  app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/'}));
   app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
-  app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}), regenerateSession);
-  app.get('/login', passport.authenticate('login', { failureRedirect: '/'}), regenerateSession);
-  app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/'}), regenerateSession);
   app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res, false));
   app.post('/login/return', forgotPasswordRedirect, passport.authenticate('login', { failureRedirect: '/view-option'}), processMediaAccountSignIn);
   app.post('/login/admin/return', forgotPasswordRedirect, passport.authenticate('admin-login', { failureRedirect: '/view-option'}), processAdminAccountSignIn);
@@ -211,7 +198,6 @@ export default function(app: Application): void {
   app.get('/manage-third-party-users/view', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersViewController.get);
   app.get('/manage-third-party-users/subscriptions', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersSubscriptionsController.get);
   app.post('/manage-third-party-users/subscriptions', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersSubscriptionsController.post);
-
   app.get('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.get);
   app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
   app.get('/manage-user', isPermittedSystemAdmin, app.locals.container.cradle.manageUserController.get);
@@ -219,6 +205,13 @@ export default function(app: Application): void {
   app.get('/delete-user', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserController.get);
   app.post('/delete-user-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserConfirmationController.post);
   app.post('/update-user-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.updateUserConfirmationController.post);
+
+  //CFT Routes
+  if (process.env.ENABLE_CFT === 'true') {
+    app.get('/cft-login', app.locals.container.cradle.cftLoginController.get);
+    app.get('/cft-login/return', passport.authenticate('cft-idam', { failureRedirect: '/cft-rejected-login'}), processCftIdamSignIn);
+    app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
+  }
 
   app.get('/info', infoRequestHandler({
     extraBuildInfo: {

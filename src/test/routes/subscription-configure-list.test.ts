@@ -6,9 +6,7 @@ import {app} from '../../main/app';
 import {expect} from 'chai';
 import {request as expressRequest} from 'express';
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {'roles': 'VERIFIED'};
 
 const listOptions = {
   'S': {

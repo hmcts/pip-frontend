@@ -26,9 +26,7 @@ const subscriptionsData = JSON.parse(rawData)[0].search.cases[0];
 const stub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
 stub.resolves(subscriptionsData);
 
-app.request['user'] = { _json: {
-  'extension_UserRole': 'VERIFIED',
-}};
+app.request['user'] = {'roles': 'VERIFIED'};
 
 const pageTitleValue = 'Subscribe by case reference number or case ID';
 

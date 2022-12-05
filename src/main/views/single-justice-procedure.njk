@@ -14,7 +14,7 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ listDetail | replace("CASES_COUNT", length) }} {{ publishedDateTime }} {{ publishedAt }} {{ publishedTime }}</p>
 
-  {% if user.role and user.role in ['VERIFIED'] %}
+  {% if user.roles and user.roles in ['VERIFIED'] %}
     {{ govukButton({
       attributes: {
         id: 'download-button'

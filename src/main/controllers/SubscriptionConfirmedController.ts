@@ -7,7 +7,7 @@ const subscriptionService = new SubscriptionService();
 
 export default class SubscriptionConfirmedController {
   public async post(req: PipRequest, res: Response): Promise<void> {
-    const userId = req.user['piUserId'];
+    const userId = req.user['userId'];
     const cacheService = new PendingSubscriptionsFromCache();
     const cachedCourts = await cacheService.getPendingSubscriptions(userId, 'courts');
     const cachedCases = await cacheService.getPendingSubscriptions(userId, 'cases');

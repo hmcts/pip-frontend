@@ -14,9 +14,7 @@ describe('Update User Confirmation', () => {
   beforeEach(() => {
     stub.withArgs('1234', 'SYSTEM_ADMIN').resolves(true);
     stub.withArgs('1', 'WRONG_ROLE').resolves(undefined);
-    app.request['user'] = {id: '1', '_json': {
-      'extension_UserRole': 'SYSTEM_ADMIN',
-    }};
+    app.request['user'] = {id: '1', 'roles': 'SYSTEM_ADMIN'};
   });
 
   describe('on POST', () => {

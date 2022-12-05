@@ -49,6 +49,21 @@ describe('Sign In option Page', () => {
       expect(radioButtons.length).equal(3, '3 radio buttons not found');
     });
 
+    it('CFT IDAM radio button should be enabled', () => {
+      const radioButtons = htmlRes.getElementsByClassName(radioClass)[0];
+      expect(radioButtons.innerHTML).not.includes('disabled');
+    });
+
+    it('Crime IDAM radio button should be disabled', () => {
+      const radioButtons = htmlRes.getElementsByClassName(radioClass)[1];
+      expect(radioButtons.innerHTML).includes('disabled');
+    });
+
+    it('P&I IDAM radio button should be enabled', () => {
+      const radioButtons = htmlRes.getElementsByClassName(radioClass)[2];
+      expect(radioButtons.innerHTML).not.includes('disabled');
+    });
+
     it('should display radio button content',  () => {
       const radioButtons = htmlRes.getElementsByClassName(radioClass);
       for(let i = 0; i < 3; i++) {
@@ -83,5 +98,25 @@ describe('Sign In option Page', () => {
       expect(errorSummary[0].getElementsByTagName('li')[0].innerHTML)
         .contains('Please select an option', 'Could not find error message');
     });
+  });
+
+  describe('with cft disabled', () => {
+    beforeAll(async () => {
+      process.env.ENABLE_CFT = 'false';
+      await request(app).get(`${PAGE_URL}?error=true`).then(res => {
+        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+        htmlRes.getElementsByTagName('div')[0].remove();
+      });
+    });
+
+    afterAll(() => {
+      process.env.ENABLE_CFT = 'true';
+    });
+
+    it('CFT IDAM radio button should be disabled', () => {
+      const radioButtons = htmlRes.getElementsByClassName(radioClass)[0];
+      expect(radioButtons.innerHTML).includes('disabled');
+    });
+
   });
 });

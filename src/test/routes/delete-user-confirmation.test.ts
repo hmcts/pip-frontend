@@ -15,9 +15,7 @@ describe('Delete User Confirmation', () => {
   beforeEach(() => {
     stub.withArgs('123').resolves(true);
     stub.withArgs('foo').resolves(undefined);
-    app.request['user'] = {id: '1', '_json': {
-      'extension_UserRole': 'SYSTEM_ADMIN',
-    }};
+    app.request['user'] = {id: '1', 'roles': 'SYSTEM_ADMIN'};
   });
 
   describe('on POST', () => {

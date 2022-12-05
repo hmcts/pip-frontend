@@ -4,15 +4,16 @@ import { app } from '../../main/app';
 import { getFlowName } from '../../main/authentication/authRedirect';
 
 const pAndIRedirectUrl = '/login?p='+ getFlowName(null);
-const HMCTSAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
+const CftAccountUrl = '/cft-login';
+const CrimeAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
 const urlOptions = [
   {
     name: 'hmcts',
-    path: HMCTSAccountUrl,
+    path: CftAccountUrl,
   },
   {
     name: 'common',
-    path: HMCTSAccountUrl,
+    path: CrimeAccountUrl,
   },
   {
     name: 'pi',

@@ -17,7 +17,7 @@ sinon.stub(TribunalNationalListsService.prototype, 'manipulateData').resolves(ca
 describe('Care Standards List List Page', () => {
   describe('on GET', () => {
     test('should return case standards list page', async () => {
-      app.request['user'] = {piUserId: '2'};
+      app.request['user'] = {userId: '2'};
       await request(app)
         .get('/case-standards-list?artefactId=test')
         .expect((res) => expect(res.status).to.equal(200));
