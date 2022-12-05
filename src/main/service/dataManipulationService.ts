@@ -547,6 +547,7 @@ export class DataManipulationService {
       sitting['durationAsHours'] = durationAsHours;
       sitting['durationAsMinutes'] = durationAsMinutes;
       sitting['durationAsDays'] = durationAsDays;
+
       const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
       if (min === 0) {
         sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('ha');
