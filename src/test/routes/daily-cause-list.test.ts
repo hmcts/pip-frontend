@@ -19,7 +19,7 @@ sinon.stub(LocationService.prototype, 'getLocationById').resolves({name: 'courtN
 describe('Daily Cause List Page', () => {
   describe('on GET', () => {
     test('should return daily cause list page', async () => {
-      app.request['user'] = {piUserId: '2'};
+      app.request['user'] = {userId: '2'};
       await request(app)
         .get('/daily-cause-list?artefactId=test')
         .expect((res) => expect(res.status).to.equal(200));

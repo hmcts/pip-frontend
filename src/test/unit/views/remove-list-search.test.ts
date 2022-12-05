@@ -13,9 +13,7 @@ const courtData = JSON.parse(rawData);
 sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(null);
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
 let htmlRes: Document;
 

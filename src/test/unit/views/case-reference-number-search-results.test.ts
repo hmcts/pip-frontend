@@ -21,9 +21,7 @@ sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').returns(subscrip
 
 const pageTitleValue = 'Search result';
 
-app.request['user'] = { _json: {
-  'extension_UserRole': 'VERIFIED',
-}};
+app.request['user'] = {'roles': 'VERIFIED'};
 
 describe('Case Reference Search Results Page', () => {
   beforeAll(async () => {

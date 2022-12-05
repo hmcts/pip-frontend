@@ -28,9 +28,7 @@ metadataStub.withArgs('valid-artefact', '1234-1234-1234-1234').resolves(mockArte
 metadataStub.withArgs('invalid-artefact', '1234-1234-1234-1234').resolves({...mockArtefact, artefactId: 'invalid-artefact'});
 
 describe('Remove List Confirmation', () => {
-  app.request['user'] = {piUserId: '1234-1234-1234-1234', '_json': {
-    'extension_UserRole': 'SYSTEM_ADMIN',
-  }};
+  app.request['user'] = {userId: '1234-1234-1234-1234', 'roles': 'SYSTEM_ADMIN'};
   describe('on GET', () => {
     test('should return remove list confirmation page', async () => {
       await request(app)

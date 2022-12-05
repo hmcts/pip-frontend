@@ -14,8 +14,8 @@ export default class EtDailyListController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query['artefactId'];
-    const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);
-    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
+    const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
+    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
     if (fileData && metaData) {
       const listData = dataManipulationService.reshapeEtDailyListData(JSON.stringify(fileData));

@@ -11,10 +11,8 @@ const PAGE_URL = '/blob-view-json?artefactId=1234';
 let htmlRes: Document;
 
 expressRequest['user'] = {
-  'piUserId': '10',
-  '_json': {
-    'extension_UserRole': 'SYSTEM_ADMIN',
-  }};
+  'userId': '10',
+  'roles': 'SYSTEM_ADMIN'};
 
 const artefactJson = '{"danny":true}';
 const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');

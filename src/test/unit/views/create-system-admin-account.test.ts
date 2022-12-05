@@ -7,9 +7,7 @@ const PAGE_URL = '/create-system-admin-account';
 const errors = ['Enter first name', 'Enter last name', 'Enter email address'];
 let htmlRes: Document;
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
 describe('Create System Admin Account Page', () => {
   describe('on GET', () => {

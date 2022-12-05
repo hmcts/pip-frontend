@@ -35,7 +35,7 @@ describe('Get publication json', () => {
       } as unknown as Response;
       const request = mockRequest(i18n);
       request.query = {artefactId: '1234'};
-      request.user = {id: 1, piUserId: 10};
+      request.user = {id: 1, userId: 10};
 
       const responseMock = sinon.mock(response);
 

@@ -1,6 +1,7 @@
 import {app} from '../../../main/app';
 import request from 'supertest';
 import {expect} from 'chai';
+import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/system-admin-dashboard';
 
@@ -11,9 +12,7 @@ let htmlRes: Document;
 describe('System Admin Dashboard page', () => {
 
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'SYSTEM_ADMIN',
-    }};
+    expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

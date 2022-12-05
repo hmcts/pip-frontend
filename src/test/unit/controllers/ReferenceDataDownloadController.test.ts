@@ -24,7 +24,7 @@ describe('Reference Data Download Controller', () => {
     fileStub.withArgs('1234').resolves(mockFile);
     const request = mockRequest(i18n);
 
-    request.user = {piUserId: '1234'};
+    request.user = {userId: '1234'};
     const responseMock = sinon.mock(response);
 
     responseMock.expects('set').once().withArgs('Content-Disposition', 'inline;filename=referenceData.csv');

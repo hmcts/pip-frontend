@@ -24,9 +24,7 @@ const cards = [
   }];
 let htmlRes: Document;
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {'roles': 'VERIFIED'};
 
 describe('Your Account page', () => {
   describe('Without verified param', () => {
