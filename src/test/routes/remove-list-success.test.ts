@@ -5,9 +5,7 @@ import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/remove-list-success';
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-}};
+expressRequest['user'] = {'roles': 'INTERNAL_SUPER_ADMIN_CTSC'};
 
 describe('Remove list success', () => {
   test('should return remove list success page', async () => {

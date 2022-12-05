@@ -12,7 +12,7 @@ export default class UpdateUserController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const userId = req.query.id as string;
     const userData = await accountManagementRequests
-      .getUserByUserId(userId, req.user['piUserId']);
+      .getUserByUserId(userId, req.user['userId']);
     const selectBoxData = userManagementService.buildUserUpdateSelectBox(userData.roles);
 
     res.render('update-user', {

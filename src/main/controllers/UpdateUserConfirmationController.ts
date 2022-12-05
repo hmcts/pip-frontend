@@ -9,7 +9,7 @@ const accountManagementRequests = new AccountManagementRequests();
 export default class UpdateUserConfirmationController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     const updateUserResponse = await accountManagementRequests.updateUser(req.body.userId as string,
-      req.body.updatedRole as string, req.user['piUserId']);
+      req.body.updatedRole as string, req.user['userId']);
     updateUserResponse ? res.render('update-user-confirmation', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['update-user-confirmation']),
       updatedRole: formattedRoles[req.body.updatedRole],

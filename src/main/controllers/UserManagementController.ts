@@ -22,7 +22,7 @@ export default class UserManagementController {
         req.query?.roles as string || '',
         req.query?.provenances as string || '',
         req.url.split('/user-management')[1],
-        req.user['piUserId'],
+        req.user['userId'],
       );
 
       res.render('user-management', {

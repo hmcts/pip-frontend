@@ -26,9 +26,7 @@ const mockData = {
 
 describe('File Upload Summary Page', () => {
   beforeAll(async () => {
-    app.request['user'] = {id: '1', '_json': {
-      'extension_UserRole': 'SYSTEM_ADMIN',
-    }};
+    app.request['user'] = {'roles': 'SYSTEM_ADMIN'};
     app.request['cookies'] = {'formCookie': JSON.stringify(mockData)};
 
     await request(app).get(PAGE_URL).then(res => {

@@ -1,6 +1,8 @@
 import request from 'supertest';
 import {app} from '../../main/app';
 
+app.request['user'] = {'userProvenance': 'PI_AAD'};
+
 describe('Logout', () => {
   test('should redirect to the homepage', async () => {
     await request(app)

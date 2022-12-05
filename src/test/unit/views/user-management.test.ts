@@ -3,6 +3,7 @@ import request from 'supertest';
 import {app} from '../../../main/app';
 import {expect} from 'chai';
 import {UserManagementService} from '../../../main/service/userManagementService';
+import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/user-management';
 const headingClass = 'govuk-heading-l';
@@ -26,9 +27,7 @@ sinon.stub(UserManagementService.prototype, 'getFormattedData').returns({
 
 describe('User Management Page', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'SYSTEM_ADMIN',
-    }};
+    expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

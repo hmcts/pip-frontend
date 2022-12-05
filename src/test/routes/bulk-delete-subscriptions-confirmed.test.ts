@@ -4,7 +4,7 @@ import {expect} from 'chai';
 import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/bulk-delete-subscriptions-confirmed';
-expressRequest['user'] = {'_json': {'extension_UserRole': 'VERIFIED'}};
+expressRequest['user'] = {'roles': 'VERIFIED'};
 
 describe('Bulk delete subscriptions confirmed', () => {
   describe('on GET', () => {

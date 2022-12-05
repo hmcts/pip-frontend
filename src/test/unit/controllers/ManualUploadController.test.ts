@@ -80,7 +80,7 @@ describe('Manual Upload Controller', () => {
       const responseMock = sinon.mock(response);
       request.body = {data: 'valid'};
       request.file = testFile;
-      request.user = {oid: '1234'};
+      request.user = {userId: '1234'};
 
       responseMock.expects('redirect').once().withArgs('/manual-upload-summary?check=true');
 
