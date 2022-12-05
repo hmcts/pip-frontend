@@ -3,9 +3,7 @@ import { expect } from 'chai';
 import request from 'supertest';
 import {request as expressRequest} from 'express';
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
 describe('Admin Dashboard Home', () => {
   describe('on GET', () => {

@@ -87,7 +87,7 @@ describe('Single Justice Procedure List page', () => {
 
   describe('signed in as media user', () => {
     beforeAll(async () => {
-      app.request['user'] = {_json: {'extension_UserRole': 'VERIFIED'}};
+      app.request['user'] = {'roles': 'VERIFIED'};
 
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
@@ -103,7 +103,7 @@ describe('Single Justice Procedure List page', () => {
 
   describe('signed in as admin user', () => {
     beforeAll(async () => {
-      app.request['user'] = {_json: {'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC'}};
+      app.request['user'] = {'roles': 'INTERNAL_SUPER_ADMIN_CTSC'};
 
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

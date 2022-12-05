@@ -9,9 +9,7 @@ import { FileHandlingService } from '../../main/service/fileHandlingService';
 describe('Reference Data Manual upload', () => {
   describe('on GET', () => {
     test('should return reference data manual upload page', async () => {
-      app.request['user'] = {'_json': {
-        'extension_UserRole': 'SYSTEM_ADMIN',
-      }};
+      app.request['user'] = {'roles': 'SYSTEM_ADMIN'};
       await request(app)
         .get('/manual-reference-data-upload')
         .expect((res) => expect(res.status).to.equal(200));
@@ -19,9 +17,7 @@ describe('Reference Data Manual upload', () => {
   });
   describe('on POST', () => {
     beforeEach(() => {
-      app.request['user'] = {emails: ['test@email.com'], '_json': {
-        'extension_UserRole': 'SYSTEM_ADMIN',
-      }};
+      app.request['user'] = {emails: ['test@email.com'], 'roles': 'SYSTEM_ADMIN'};
     });
     test('should render reference data manual upload page if errors present', async () => {
       await request(app)

@@ -22,7 +22,7 @@ sinon.stub(LocationService.prototype, 'getLocationById').resolves({name: 'courtN
 describe('Magistrates Public List Page', () => {
   describe('on GET', () => {
     test('should return magistrates public list page', async () => {
-      app.request['user'] = {piUserId: '2'};
+      app.request['user'] = {userId: '2'};
       await request(app)
         .get('/magistrates-public-list?artefactId=test')
         .expect((res) => expect(res.status).to.equal(200));

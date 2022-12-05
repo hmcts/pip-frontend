@@ -15,9 +15,7 @@ describe('Manage third party users', () => {
   const rowClass = 'govuk-table__row';
   const cellClass = 'govuk-table__cell';
 
-  expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'SYSTEM_ADMIN',
-  }};
+  expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
   sinon.stub(ThirdPartyService.prototype, 'getThirdPartyAccounts').resolves([
     {

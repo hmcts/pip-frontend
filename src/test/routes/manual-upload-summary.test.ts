@@ -15,15 +15,11 @@ sinon.stub(ManualUploadService.prototype, 'getListItemName').returns('');
 uploadStub.withArgs({  ...mockCookie,  listTypeName: '', file: '', userEmail: 'test@email.com' }, true).resolves(true);
 uploadStub.withArgs({ ...mockCookie,  listTypeName: '', file: '', userEmail: '2@email.com' }, true).resolves(false);
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
 describe('Manual upload summary', () => {
   beforeEach(() => {
-    app.request['user'] = {id: '1', emails: ['test@email.com'],'_json': {
-      'extension_UserRole': 'SYSTEM_ADMIN',
-    }};
+    app.request['user'] = {email: 'test@email.com','roles': 'SYSTEM_ADMIN'};
     app.request['cookies'] = {'formCookie': JSON.stringify(mockCookie)};
   });
 
@@ -49,9 +45,7 @@ describe('Manual upload summary', () => {
     });
 
     test('should return summary page if upload fails', async () => {
-      app.request['user'] = {emails: ['2@email.com'],'_json': {
-        'extension_UserRole': 'SYSTEM_ADMIN',
-      }};
+      app.request['user'] = {email: '2@email.com','roles': 'SYSTEM_ADMIN'};
       await request(app).post(PAGE_URL)
         .send({data: 'invalid'})
         .expect((res) => expect(res.status).to.equal(200));
