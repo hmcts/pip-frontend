@@ -15,8 +15,10 @@ import {
   mediaVerificationHandling,
   processAdminAccountSignIn,
   processMediaAccountSignIn,
+  checkPasswordReset,
 } from '../authentication/authenticationHandler';
 import {SessionManagementService} from '../service/sessionManagementService';
+import {urlPath} from '../helpers/envUrls';
 
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
@@ -59,6 +61,12 @@ export default function(app: Application): void {
     });
   }
 
+  function reRenderView(req, res): void {
+    return req.url
+      ? res.render(urlPath(req.url), req.i18n.getDataByLanguage(req.lng)[urlPath(req.url)])
+      : res.redirect('/not-found');
+  }
+
   // Public paths
   app.get('/*', globalAuthGiver);
   app.post('/*', globalAuthGiver);
@@ -73,7 +81,8 @@ export default function(app: Application): void {
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
   app.post('/create-media-account', multer({storage: storage, limits: {fileSize: 2000000}}).single('file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.createMediaAccountController.post);
   // app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
-  app.get('/password-change-confirmation/:isAdmin', app.locals.container.cradle.passwordChangeController.get);
+  app.post('/password-change-confirmation/:isAdmin', checkPasswordReset, app.locals.container.cradle.passwordChangeController.post);
+  app.get('/cancelled-password-reset/:isAdmin', app.locals.container.cradle.cancelledPasswordResetController.get);
   app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
   app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
   app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/'}), regenerateSession);
@@ -130,6 +139,9 @@ export default function(app: Application): void {
   app.post('/case-reference-number-search', isPermittedMedia, app.locals.container.cradle.caseReferenceNumberSearchController.post);
   app.get('/case-reference-number-search-results', isPermittedMedia, app.locals.container.cradle.caseReferenceNumberSearchResultController.get);
   app.get('/delete-subscription', isPermittedMedia, app.locals.container.cradle.deleteSubscriptionController.get);
+  app.get('/list-download-disclaimer', isPermittedMedia, app.locals.container.cradle.listDownloadDisclaimerController.get);
+  app.post('/list-download-disclaimer', isPermittedMedia, app.locals.container.cradle.listDownloadDisclaimerController.post);
+  app.get('/list-download-files', isPermittedMedia, app.locals.container.cradle.listDownloadFilesController.get);
   app.get('/location-name-search', isPermittedMedia, app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/location-name-search', isPermittedMedia, app.locals.container.cradle.alphabeticalSearchController.post);
   app.get('/pending-subscriptions', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.get);
@@ -137,15 +149,18 @@ export default function(app: Application): void {
   app.get('/remove-subscription', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.removeSubscription);
   app.get('/subscription-add', isPermittedMedia, app.locals.container.cradle.subscriptionAddController.get);
   app.post('/subscription-add', isPermittedMedia, app.locals.container.cradle.subscriptionAddController.post);
+  app.get('/subscription-confirmed', isPermittedMedia, reRenderView);
   app.post('/subscription-confirmed', isPermittedMedia, app.locals.container.cradle.subscriptionConfirmedController.post);
   app.get('/subscription-management', isPermittedMedia, app.locals.container.cradle.subscriptionManagementController.get);
   app.get('/subscription-configure-list', isPermittedMedia, app.locals.container.cradle.subscriptionConfigureListController.get);
   app.post('/subscription-configure-list', isPermittedMedia, app.locals.container.cradle.subscriptionConfigureListController.filterValues);
+  app.get('/subscription-configure-list-confirmed', reRenderView);
   app.post('/subscription-configure-list-confirmed', isPermittedMedia,
     app.locals.container.cradle.subscriptionConfigureListConfirmedController.post);
   app.get('/subscription-urn-search', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchController.get);
   app.post('/subscription-urn-search', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchController.post);
   app.get('/subscription-urn-search-results', isPermittedMedia, app.locals.container.cradle.subscriptionUrnSearchResultController.get);
+  app.get('/unsubscribe-confirmation', isPermittedMedia, reRenderView);
   app.post('/unsubscribe-confirmation', isPermittedMedia, app.locals.container.cradle.unsubscribeConfirmationController.post);
 
   // restricted admin paths
@@ -166,8 +181,10 @@ export default function(app: Application): void {
   app.post('/media-account-review/reject', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountReviewController.reject);
   app.get('/media-account-approval', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountApprovalController.get);
   app.post('/media-account-approval', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountApprovalController.post);
+  app.get('/media-account-approval-confirmation', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountApprovalConfirmationController.get);
   app.get('/media-account-rejection', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountRejectionController.get);
   app.post('/media-account-rejection', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountRejectionController.post);
+  app.get('/media-account-rejection-confirmation', isPermittedMediaAccount, app.locals.container.cradle.mediaAccountRejectionConfirmationController.get);
   app.get('/remove-list-confirmation', isPermittedManualUpload, app.locals.container.cradle.removeListConfirmationController.get);
   app.post('/remove-list-confirmation', isPermittedManualUpload, app.locals.container.cradle.removeListConfirmationController.post);
   app.get('/remove-list-search', isPermittedManualUpload, app.locals.container.cradle.removeListSearchController.get);
@@ -189,6 +206,7 @@ export default function(app: Application): void {
   app.get('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.get);
   app.post('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.post);
   app.get('/manual-reference-data-upload-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadConfirmationController.get);
+  app.get('/manual-reference-data-download', isPermittedSystemAdmin, app.locals.container.cradle.referenceDataDownloadController.get);
   app.get('/manage-third-party-users', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersController.get);
   app.get('/manage-third-party-users/view', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersViewController.get);
   app.get('/manage-third-party-users/subscriptions', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersSubscriptionsController.get);

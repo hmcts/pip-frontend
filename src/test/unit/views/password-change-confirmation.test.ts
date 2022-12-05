@@ -11,7 +11,7 @@ describe('password-change-confirmation', () => {
   describe('Admin user', () => {
     beforeAll(async () => {
       const PAGE_URL = '/password-change-confirmation/true';
-      await request(app).get(PAGE_URL).then(res => {
+      await request(app).post(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       });
     });
@@ -37,7 +37,7 @@ describe('password-change-confirmation', () => {
   describe('Media user', () => {
     beforeAll(async () => {
       const PAGE_URL = '/password-change-confirmation/false';
-      await request(app).get(PAGE_URL).then(res => {
+      await request(app).post(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       });
     });

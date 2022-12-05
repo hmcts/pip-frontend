@@ -58,6 +58,8 @@ import {UpdateUserPage} from '../PageObjects/UpdateUser.page';
 import {DeleteUserPage} from '../PageObjects/DeleteUser.page';
 import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPage';
 import {ManageThirdPartyUsersPage} from '../PageObjects/ManageThirdPartyUsers.page';
+import {ListDownloadDisclaimerPage} from '../PageObjects/ListDownloadDisclaimer.page';
+import {ListDownloadFilesPage} from '../PageObjects/ListDownloadFiles.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -94,6 +96,8 @@ let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let accountHomePage: AccountHomePage;
 let dailyCauseListPage: DailyCauseListPage;
 let sjpPublicListPage: SJPPublicListPage;
+let listDownloadDisclaimerPage: ListDownloadDisclaimerPage;
+let listDownloadFilesPage: ListDownloadFilesPage;
 let signInPage: SignInPage;
 let createAdminAccountPage: CreateAdminAccountPage;
 let createAdminAccountSummaryPage: CreateAdminAccountSummaryPage;
@@ -511,6 +515,32 @@ describe('Verified user', () => {
         bulkDeleteSubscriptionsConfirmedPage = await bulkDeleteSubscriptionsConfirmationPage.clickContinueForYes();
         expect(await bulkDeleteSubscriptionsConfirmedPage.getPanelTitle()).toEqual('Subscription(s) removed');
       });
+    });
+  });
+
+  describe('SJP list download navigation',() => {
+    before(async () => {
+      await accountHomePage.open('account-home');
+    });
+
+    it('should navigate to the SJP list page', async () => {
+      summaryOfPublicationsPage = await searchPage.clickNavSJP(true);
+      expect(await summaryOfPublicationsPage.getPageTitle()).toBe('What do you want to view from Single Justice Procedure?');
+
+      sjpPublicListPage = await singleJusticeProcedurePage.clickSOPListItem();
+      const pageTitle = await sjpPublicListPage.getPageTitle();
+      expect(pageTitle.startsWith('Single Justice Procedure cases')).toBeTruthy();
+    });
+
+    it('should navigate to list download disclaimer page on download button click', async () => {
+      listDownloadDisclaimerPage = await sjpPublicListPage.clickDownloadACopyButton();
+      expect(await listDownloadDisclaimerPage.getPageTitle()).toBe('Terms and conditions');
+    });
+
+    it('should agree to the terms and conditions and continue', async () => {
+      await listDownloadDisclaimerPage.tickAgreeCheckbox();
+      listDownloadFilesPage = await listDownloadDisclaimerPage.clickContinue();
+      expect(await listDownloadFilesPage.getPageTitle()).toEqual('Download your file');
     });
   });
 
