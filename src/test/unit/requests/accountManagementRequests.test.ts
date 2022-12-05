@@ -47,7 +47,8 @@ const azureEndpoint = '/account/add/azure';
 const piEndpoint = '/account/add/pi';
 const applicationGetEndpoint = '/application/';
 const imageGetEndpoint = '/application/image/';
-const piUserEndpoint = '/account/provenance/PI_AAD/';
+const piAadUserEndpoint = '/account/provenance/PI_AAD/';
+const cftIdamUserEndpoint = '/account/provenance/CFT_IDAM/';
 const updateAccountEndpoint = '/account/provenance/PI_AAD/';
 const getAllAccountsEndpoint = '/account/all';
 const getUserByUserIdEndpoint = '/account/';
@@ -365,7 +366,7 @@ describe('Account Management Requests', () => {
     });
   });
 
-  describe('Get pi user by oid', () => {
+  describe('Get PI AAD user by oid', () => {
     const idtoUse = '123';
 
     beforeEach(() => {
@@ -374,26 +375,59 @@ describe('Account Management Requests', () => {
     });
 
     it('should return pi user id on success', async () => {
-      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).resolves({status: 200, data: {userId: '321', userProvenance: 'userProvenance'}});
+      getStub.withArgs(`${piAadUserEndpoint}${idtoUse}`).resolves({status: 200, data: {userId: '321', userProvenance: 'userProvenance'}});
       const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
       expect(response).toStrictEqual({userId: '321', userProvenance: 'userProvenance'});
     });
 
     it('should return null on error response', async () => {
-      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).rejects(errorResponse);
+      getStub.withArgs(`${piAadUserEndpoint}${idtoUse}`).rejects(errorResponse);
       const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
       expect(response).toBe(null);
     });
 
     it('should return null on error request', async () => {
-      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).rejects(errorRequest);
+      getStub.withArgs(`${piAadUserEndpoint}${idtoUse}`).rejects(errorRequest);
       const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
       expect(response).toBe(null);
     });
 
     it('should return null on error message', async () => {
-      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).rejects(errorMessage);
+      getStub.withArgs(`${piAadUserEndpoint}${idtoUse}`).rejects(errorMessage);
       const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Get CFT IDAM user by uid', () => {
+    const idtoUse = '123';
+
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
+
+    it('should return pi user id on success', async () => {
+      getStub.withArgs(`${cftIdamUserEndpoint}${idtoUse}`).resolves({status: 200, data: {userId: '321', userProvenance: 'userProvenance'}});
+      const response  = await accountManagementRequests.getPiUserByCftID(idtoUse);
+      expect(response).toStrictEqual({userId: '321', userProvenance: 'userProvenance'});
+    });
+
+    it('should return null on error response', async () => {
+      getStub.withArgs(`${cftIdamUserEndpoint}${idtoUse}`).rejects(errorResponse);
+      const response  = await accountManagementRequests.getPiUserByCftID(idtoUse);
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error request', async () => {
+      getStub.withArgs(`${cftIdamUserEndpoint}${idtoUse}`).rejects(errorRequest);
+      const response  = await accountManagementRequests.getPiUserByCftID(idtoUse);
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error message', async () => {
+      getStub.withArgs(`${cftIdamUserEndpoint}${idtoUse}`).rejects(errorMessage);
+      const response  = await accountManagementRequests.getPiUserByCftID(idtoUse);
       expect(response).toBe(null);
     });
   });
@@ -439,14 +473,14 @@ describe('Account Management Requests', () => {
 
     it('should return confirmation string on success', async () => {
       putStub.withArgs(updateAccountEndpoint + oid).resolves({status: 200, data: 'Account updated' });
-      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', oid);
       expect(response).toBe('Account updated');
     });
 
     it('should set the correct time', async () => {
       const putStubForDateChecking = putStub.withArgs(updateAccountEndpoint + '1234-1234');
       putStubForDateChecking.resolves({status: 200, data: 'Account updated' });
-      await accountManagementRequests.updateAccountLastSignedInDate('1234-1234');
+      await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', '1234-1234');
 
       const args = putStubForDateChecking.getCall(0).args;
       expect(moment.utc(args[1]['lastSignedInDate'])
@@ -456,19 +490,19 @@ describe('Account Management Requests', () => {
 
     it('should return null on error request', async () => {
       putStub.withArgs(updateAccountEndpoint + oid).rejects(errorRequest);
-      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', oid);
       expect(response).toBe(null);
     });
 
     it('should return false on error response', async () => {
       putStub.withArgs(updateAccountEndpoint + oid).rejects(errorResponse);
-      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', oid);
       expect(response).toBe(null);
     });
 
     it('should return false on error message', async () => {
       putStub.withArgs(updateAccountEndpoint + oid).rejects(errorMessage);
-      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', oid);
       expect(response).toBe(null);
     });
   });

@@ -58,7 +58,7 @@ describe('Manual upload summary controller', () => {
 
   describe('POST view' , () => {
     it('should render manual upload summary page with error', async () => {
-      request.user = {emails: ['1'], oid: '1234'};
+      request.user = {email: '1', userId: '1234'};
       const options = {
         ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['file-upload-summary']),
         fileUploadData: mockData,
@@ -90,7 +90,7 @@ describe('Manual upload summary controller', () => {
     it('should redirect to success page', async () => {
       const req = mockRequest(i18n);
       const res = { render: () => {return '';}, redirect: () => '', clearCookie: () => {return '';}} as unknown as Response;
-      req.user = {emails: ['2']};
+      req.user = {email: '2'};
       req['cookies'] = {'formCookie': JSON.stringify(mockData)};
       const responseMock = sinon.mock(res);
 

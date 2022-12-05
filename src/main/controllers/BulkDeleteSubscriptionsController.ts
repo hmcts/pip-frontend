@@ -10,7 +10,7 @@ const subscriptionService = new SubscriptionService();
 export default class BulkDeleteSubscriptionsController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     if (req.user) {
-      const subscriptionData = await subscriptionService.getSubscriptionDataForView(req.user['piUserId'], req.lng as string,
+      const subscriptionData = await subscriptionService.getSubscriptionDataForView(req.user['userId'], req.lng as string,
         Object.keys(req.query)[0], true);
       res.render(bulkDeleteSubscriptionsUrl, {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkDeleteSubscriptionsUrl]),
@@ -25,7 +25,7 @@ export default class BulkDeleteSubscriptionsController {
     const subscriptionsToDelete = BulkDeleteSubscriptionsController.getSelectedSubscriptions(req.body);
     if (req.user) {
       if (subscriptionsToDelete.length == 0) {
-        const subscriptionData = await subscriptionService.getSubscriptionDataForView(req.user['piUserId'], req.lng as string,
+        const subscriptionData = await subscriptionService.getSubscriptionDataForView(req.user['userId'], req.lng as string,
           Object.keys(req.query)[0], true);
 
         res.render(bulkDeleteSubscriptionsUrl, {

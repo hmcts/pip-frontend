@@ -5,6 +5,9 @@ import {expect} from 'chai';
 const PAGE_URL = '/logout';
 
 describe('Log out from page', () => {
+
+  app.request['user'] = {'userProvenance': 'PI_AAD'};
+
   beforeAll(async () => {
     await request(app).get(PAGE_URL);
   });

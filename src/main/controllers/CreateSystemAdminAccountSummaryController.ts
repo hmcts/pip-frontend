@@ -21,7 +21,7 @@ export default class CreateSystemAdminAccountSummaryController {
 
     formData['userRoleObject'] = {mapping: 'SYSTEM_ADMIN'};
 
-    const response = await createAccountService.createAdminAccount(formData, req.user?.['piUserId']);
+    const response = await createAccountService.createAdminAccount(formData, req.user?.['userId']);
     if (response) {
       res.cookie('createAdminAccount', '');
     }

@@ -16,9 +16,9 @@ describe('Manage third party users - view', () => {
   const summaryValue = 'govuk-summary-list__value';
   const buttonClass = 'govuk-button';
 
-  expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'SYSTEM_ADMIN',
-  }};
+  expressRequest['user'] = {
+    'roles': 'SYSTEM_ADMIN',
+  };
 
   const userId = '1234-1234';
 
