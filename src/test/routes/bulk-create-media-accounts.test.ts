@@ -12,7 +12,7 @@ const fileName2 = 'fileName2';
 const file1 = 'file1';
 const file2 = 'file2';
 
-app.request['user'] = {'_json': {'extension_UserRole': 'SYSTEM_ADMIN'}};
+app.request['user'] = {'roles': 'SYSTEM_ADMIN'};
 app.request['file'] = {'originalname': fileName1};
 app.request['lng'] = 'en';
 

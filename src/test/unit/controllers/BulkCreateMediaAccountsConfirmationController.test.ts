@@ -91,7 +91,7 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
       const responseMock = sinon.mock(response);
 
       request.body = {'confirmed': 'Yes'};
-      request.user = {'piUserId': '1'};
+      request.user = {'userId': '1'};
       responseMock.expects('redirect').once().withArgs(bulkCreateAccountsConfirmedUrl);
 
       bulkCreateMediaAccountsConfirmationController.post(request, response).then(() => {
@@ -103,7 +103,7 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
       const responseMock = sinon.mock(response);
 
       request.body = {'confirmed': 'Yes'};
-      request.user = {'piUserId': '2'};
+      request.user = {'userId': '2'};
 
       const expectedData = {
         ...i18n[bulkCreateAccountsConfirmationUrl],

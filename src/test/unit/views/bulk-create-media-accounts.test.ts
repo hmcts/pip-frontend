@@ -3,7 +3,7 @@ import request from 'supertest';
 import {expect} from 'chai';
 
 const PAGE_URL = '/bulk-create-media-accounts';
-app.request['user'] = { _json: {'extension_UserRole': 'SYSTEM_ADMIN'}};
+app.request['user'] = {'roles': 'SYSTEM_ADMIN'};
 
 let htmlRes: Document;
 

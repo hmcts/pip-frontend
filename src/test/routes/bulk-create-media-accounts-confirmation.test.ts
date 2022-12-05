@@ -28,8 +28,8 @@ createAccountsStub.withArgs(file, fileName, '2').resolves(false);
 describe('Bulk create media accounts confirmation', () => {
   describe('on GET', () => {
     app.request['user'] = {
-      piUserId: '1',
-      _json: {'extension_UserRole': 'SYSTEM_ADMIN'},
+      userId: '1',
+      'roles': 'SYSTEM_ADMIN',
     };
     test('should render bulk create media accounts confirmation page', async () => {
       await request(app)
@@ -40,8 +40,8 @@ describe('Bulk create media accounts confirmation', () => {
 
   describe('on POST', () => {
     app.request['user'] = {
-      piUserId: '1',
-      _json: {'extension_UserRole': 'SYSTEM_ADMIN'},
+      userId: '1',
+      'roles': 'SYSTEM_ADMIN',
     };
 
     test('should redirect to bulk create media accounts page if \'Yes\' is selected', async () => {
@@ -73,8 +73,8 @@ describe('Bulk create media accounts confirmation', () => {
 
     test('should render bulk create media accounts confirmation if \'Yes\' is selected but accounts not created successfully', async () => {
       app.request['user'] = {
-        piUserId: '2',
-        _json: {'extension_UserRole': 'SYSTEM_ADMIN'},
+        userId: '2',
+        'roles': 'SYSTEM_ADMIN',
       };
 
       await request(app)

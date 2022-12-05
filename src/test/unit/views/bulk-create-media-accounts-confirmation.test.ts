@@ -11,7 +11,7 @@ const mockData = {fileName: fileName, uploadFileName: fileName, file: ''};
 app.request['cookies'] = {'formCookie': JSON.stringify(mockData)};
 app.request['user'] = {
   oid: '1',
-  _json: {'extension_UserRole': 'SYSTEM_ADMIN'},
+  'roles': 'SYSTEM_ADMIN',
 };
 
 const file = 'file';

@@ -31,7 +31,7 @@ export default class BulkCreateMediaAccountsController {
     if (error === null) {
       const originalFileName = req.file['originalname'];
       const sanitisedFileName = fileHandlingService.sanitiseFileName(originalFileName);
-      await fileHandlingService.storeFileIntoRedis(req.user['oid'], originalFileName, sanitisedFileName);
+      await fileHandlingService.storeFileIntoRedis(req.user['userId'], originalFileName, sanitisedFileName);
 
       formData.uploadFileName = originalFileName;
       res.cookie('formCookie', JSON.stringify(formData));

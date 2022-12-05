@@ -19,7 +19,7 @@ export default class BulkCreateMediaAccountsConfirmationController {
     if (fileName === undefined) {
       return res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
-    const accountsToCreate = await BulkCreateMediaAccountsConfirmationController.getAccountsToCreate(req.user['oid'], fileName);
+    const accountsToCreate = await BulkCreateMediaAccountsConfirmationController.getAccountsToCreate(req.user['userId'], fileName);
 
     res.render(bulkCreateAccountsConfirmationUrl, {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkCreateAccountsConfirmationUrl]),
@@ -35,7 +35,7 @@ export default class BulkCreateMediaAccountsConfirmationController {
     if (fileName == undefined) {
       return res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
-    const accountsToCreate = await BulkCreateMediaAccountsConfirmationController.getAccountsToCreate(req.user['oid'], fileName);
+    const accountsToCreate = await BulkCreateMediaAccountsConfirmationController.getAccountsToCreate(req.user['userId'], fileName);
 
     if (!confirmed) {
       return res.render(bulkCreateAccountsConfirmationUrl, {
@@ -46,8 +46,8 @@ export default class BulkCreateMediaAccountsConfirmationController {
     }
 
     if (confirmed === 'Yes') {
-      const file = await fileHandlingService.readFileFromRedis(req.user['oid'], fileName);
-      const success = await createAccountService.bulkCreateMediaAccounts(file, fileName, req.user?.['piUserId']);
+      const file = await fileHandlingService.readFileFromRedis(req.user['userId'], fileName);
+      const success = await createAccountService.bulkCreateMediaAccounts(file, fileName, req.user?.['userId']);
       if (success) {
         return res.redirect(bulkCreateAccountsConfirmedUrl);
       } else {
