@@ -1,4 +1,4 @@
-import {allowedFileTypes, allowedImageTypes, allowedLocationUploadFileTypes, uploadType} from '../models/consts';
+import {allowedFileTypes, allowedImageTypes, allowedCsvFileTypes, uploadType} from '../models/consts';
 import fs from 'fs';
 import {LanguageFileParser} from '../helpers/languageFileParser';
 
@@ -27,13 +27,13 @@ export class FileHandlingService {
   validateFileUpload(file: File, language: string, languageFile: string, fileType: uploadType): string {
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (file) {
-      if (this.isValidFileType(file['originalname'], fileType)) {
-        if (this.isFileCorrectSize(file.size)) {
+      if (this.isFileCorrectSize(file.size)) {
+        if (this.isValidFileType(file['originalname'], fileType)) {
           return null;
         }
-        return languageFileParser.getText(fileJson, 'fileUploadErrors', 'sizeError');
+        return languageFileParser.getText(fileJson, 'fileUploadErrors', 'typeError');
       }
-      return languageFileParser.getText(fileJson, 'fileUploadErrors', 'typeError');
+      return languageFileParser.getText(fileJson, 'fileUploadErrors', 'sizeError');
     }
     return languageFileParser.getText(fileJson, 'fileUploadErrors', 'blank');
   }
@@ -66,6 +66,18 @@ export class FileHandlingService {
       console.error(`Error while reading the file ${err}.`);
       return null;
     }
+  }
+
+  /**
+   * Read in the raw data from a CSV file and convert to an array of rows where each row contains an array of fields
+   * @param file Buffer of the raw data
+   */
+  readCsvToArray(file): string[][] {
+    return file.toString()
+      .split('\n')
+      .map(e => e.trim())
+      .filter(e => e.length > 0)
+      .map(e => e.split(',').map(e => e.trim()));
   }
 
   /**
@@ -125,8 +137,8 @@ export class FileHandlingService {
       case uploadType.FILE: {
         return allowedFileTypes.includes(fileType);
       }
-      case uploadType.REFERENCE_DATE: {
-        return allowedLocationUploadFileTypes.includes(fileType);
+      case uploadType.CSV: {
+        return allowedCsvFileTypes.includes(fileType);
       }
       default:
         return false;

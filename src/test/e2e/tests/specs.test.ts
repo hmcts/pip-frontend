@@ -61,6 +61,8 @@ import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPag
 import {ManageThirdPartyUsersPage} from '../PageObjects/ManageThirdPartyUsers.page';
 import {ListDownloadDisclaimerPage} from '../PageObjects/ListDownloadDisclaimer.page';
 import {ListDownloadFilesPage} from '../PageObjects/ListDownloadFiles.page';
+import { BulkCreateMediaAccountsPage } from '../pageobjects/BulkCreateMediaAccounts.page';
+import { BulkCreateMediaAccountsConfirmationPage } from '../pageobjects/BulkCreateMediaAccountsConfirmation.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -125,6 +127,8 @@ let deleteUserPage: DeleteUserPage;
 let blobViewLocationsPage: BlobViewLocationsPage;
 let blobViewPublicationsPage: BlobViewPublicationsPage;
 let manageThirdPartyUsersPage: ManageThirdPartyUsersPage;
+let bulkCreateMediaAccountsPage: BulkCreateMediaAccountsPage;
+let bulkCreateMediaAccountsConfirmationPage: BulkCreateMediaAccountsConfirmationPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -929,6 +933,23 @@ describe('System Admin level journeys', () => {
     it('should choose the first result', async() => {
       blobViewPublicationsPage = await blobViewLocationsPage.selectFirstListResult();
       expect(await blobViewPublicationsPage.getPageTitle()).toEqual('Blob Explorer - Publications');
+    });
+  });
+
+  describe('should open bulk create media accounts page', async () => {
+    before(async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard');
+    });
+
+    it('should load the bulk create media accounts page', async () => {
+      bulkCreateMediaAccountsPage = await systemAdminDashboard.clickBulkCreateMediaAccountsCard();
+      expect(await bulkCreateMediaAccountsPage.getPageTitle()).toEqual('Bulk create media accounts');
+    });
+
+    it('should upload file and open confirmation page', async () => {
+      await bulkCreateMediaAccountsPage.uploadFile();
+      bulkCreateMediaAccountsConfirmationPage = await bulkCreateMediaAccountsPage.clickContinue();
+      expect(await bulkCreateMediaAccountsConfirmationPage.getPageTitle()).toEqual('Are you sure you want to create these media accounts?');
     });
   });
 
