@@ -14,12 +14,8 @@ export const verifiedRoles = ['VERIFIED'];
 
 export function checkRoles(req, roles): boolean {
   if(req.user) {
-    const userInfo = req.user['_json'];
-    if (userInfo?.extension_UserRole) {
-      req.user.role = userInfo?.extension_UserRole;
-      if (roles.includes(userInfo?.extension_UserRole)) {
-        return true;
-      }
+    if (roles.includes(req.user['roles'])) {
+      return true;
     }
   }
   return false;
@@ -98,27 +94,20 @@ export function forgotPasswordRedirect(req, res, next): void {
 }
 
 export async function mediaVerificationHandling(req, res): Promise<any> {
-  if(req.user) {
-    const userInfo = req.user['_json'];
-    if(verifiedRoles.includes(userInfo?.extension_UserRole)) {
-      const response = await AccountManagementRequests.prototype.updateMediaAccountVerification(userInfo?.oid);
-      console.log(response);
-      res.redirect('/account-home?verified=true');
-    }
+  if(req.user && verifiedRoles.includes(req.user.roles)) {
+    await AccountManagementRequests.prototype.updateMediaAccountVerification(req.user['oid']);
+    res.redirect('/account-home?verified=true');
   }
 }
 
 export async function processAdminAccountSignIn(req, res): Promise<any> {
   if(checkRoles(req, allAdminRoles)) {
-    const userInfo = req.user['_json'];
-    await AccountManagementRequests.prototype.updateAccountLastSignedInDate(userInfo.oid);
-
+    await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
     if (checkRoles(req, systemAdminRoles)) {
       res.redirect('/system-admin-dashboard');
     } else {
       res.redirect('/admin-dashboard');
     }
-
   } else {
     res.redirect('/account-home');
   }
@@ -131,6 +120,11 @@ export async function processMediaAccountSignIn(req, res): Promise<any> {
   } else {
     res.redirect('/account-home');
   }
+}
+
+export async function processCftIdamSignIn(req, res): Promise<any> {
+  await AccountManagementRequests.prototype.updateAccountLastSignedInDate('CFT_IDAM', req.user['uid']);
+  res.redirect('/account-home');
 }
 
 /**
@@ -146,5 +140,4 @@ export function checkPasswordReset(req, res, next) {
   } else {
     next();
   }
-
 }

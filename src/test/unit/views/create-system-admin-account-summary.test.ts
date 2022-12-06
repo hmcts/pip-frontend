@@ -19,9 +19,7 @@ const changeValues = ['firstName', 'lastName', 'emailAddress'];
 let htmlRes: Document;
 const createAccountStub = sinon.stub(CreateAccountService.prototype, 'createSystemAdminAccount');
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
 describe('Create System Admin Account Summary page', () => {
   describe('on GET', () => {
@@ -78,12 +76,7 @@ describe('Create System Admin Account Summary page', () => {
         app.request['cookies'] = {
           createAdminAccount: JSON.stringify(cookie),
         };
-        app.request['user'] = {
-          emails: ['TestEmail'],
-          '_json': {
-            'extension_UserRole': 'SYSTEM_ADMIN',
-          },
-        };
+        app.request['user'] = {'roles': 'SYSTEM_ADMIN'};
         await request(app).post(PAGE_URL).then(res => {
           htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
           htmlRes.getElementsByTagName('div')[0].remove();
@@ -96,6 +89,41 @@ describe('Create System Admin Account Summary page', () => {
         expect(errorDialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML)
           .contains('There is a problem', 'Could not find error dialog title');
         expect(errorSummaryList.innerHTML).contains('A system error has occurred while submitting the application. Please try again');
+      });
+    });
+
+    describe('with success', () => {
+      beforeAll(async () => {
+        app.request['user'] = {
+          'roles': 'SYSTEM_ADMIN',
+        };
+        createAccountStub.resolves(true);
+        app.request['cookies'] = {
+          createAdminAccount: JSON.stringify(cookie),
+        };
+        await request(app).post(PAGE_URL).then(res => {
+          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+          htmlRes.getElementsByTagName('div')[0].remove();
+        });
+      });
+
+      it('should not display confirm button', () => {
+        const confirmButton = htmlRes.getElementsByClassName('govuk-button');
+        expect(confirmButton.length).to.equal(0, 'Confirm button is visible, while it should be hidden');
+      });
+
+      it('should display success panel', () => {
+        const panelMessage = htmlRes.getElementsByClassName('govuk-panel__title')[0];
+        expect(panelMessage.innerHTML).contains('Account has been created', 'Could not find panel message');
+      });
+
+      it('should display what happens next message and title', () => {
+        const whatNextTitle = htmlRes.getElementsByClassName('govuk-heading-m')[0];
+        const whatNextMessage = htmlRes.getElementsByClassName('govuk-body')[0];
+        expect(whatNextTitle.innerHTML).contains('What happens next', 'Could not find title');
+        expect(whatNextMessage.innerHTML)
+          .contains('This account will be created and the applicant will be notified to set up their account.',
+            'Could not find a message');
       });
     });
   });

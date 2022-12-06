@@ -4,9 +4,7 @@ import {expect} from 'chai';
 import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/list-download-disclaimer?artefactId=123';
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {'roles': 'VERIFIED'};
 
 describe('List download disclaimer', () => {
   describe('on GET', () => {

@@ -53,7 +53,7 @@ describe('Create System Admin Account Summary Controller', () => {
 
   describe('on post', () => {
     it('should render create system admin account confirm page with success message', async () => {
-      request.user = {piUserId: validUserId};
+      request.user = {userId: validUserId};
       const responseMock = sinon.mock(response);
       const expectedOptions = {
         formData: mockData,
@@ -71,7 +71,7 @@ describe('Create System Admin Account Summary Controller', () => {
 
     it('should render create system admin account summary page with general error', async () => {
       request['cookies'] = {'createAdminAccount': JSON.stringify(invalidMockData)};
-      request.user = {piUserId: validUserId};
+      request.user = {userId: validUserId};
       const responseMock = sinon.mock(response);
       const expectedOptions = {
         formData: invalidMockData,
@@ -86,7 +86,7 @@ describe('Create System Admin Account Summary Controller', () => {
 
     it('should render create system admin account confirm page with duplicate error', async () => {
       request['cookies'] = {'createAdminAccount': JSON.stringify(invalidMockDataDuplicate)};
-      request.user = {piUserId: validUserId};
+      request.user = {userId: validUserId};
       const responseMock = sinon.mock(response);
       const expectedOptions = {
         formData: invalidMockDataDuplicate,
@@ -103,7 +103,7 @@ describe('Create System Admin Account Summary Controller', () => {
 
     it('should render create system admin account confirm page with max account error', async () => {
       request['cookies'] = {'createAdminAccount': JSON.stringify(invalidMockDataMaxUsers)};
-      request.user = {piUserId: validUserId};
+      request.user = {userId: validUserId};
       const responseMock = sinon.mock(response);
       const expectedOptions = {
         formData: invalidMockDataMaxUsers,

@@ -9,7 +9,6 @@ import fs from 'fs';
 import path from 'path';
 import { DataManipulationService } from '../../main/service/dataManipulationService';
 import { MagistratesStandardListService } from '../../main/service/listManipulation/magistratesStandardListService';
-import {request as expressRequest} from 'express';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/magsStandardList.json'), 'utf-8');
 const magsStandardListData = JSON.parse(rawData);
@@ -18,10 +17,6 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').res
 sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').resolves(magsStandardListData);
 sinon.stub(MagistratesStandardListService.prototype, 'manipulatedMagsStandardListData').resolves(magsStandardListData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({name: 'courtName'});
-
-expressRequest['user'] = {'_json': {
-  'piUserId': '2',
-}};
 
 describe('Magistrate Standard List Page', () => {
   describe('on GET', () => {

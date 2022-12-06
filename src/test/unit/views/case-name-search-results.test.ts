@@ -22,9 +22,7 @@ const data = [{
 
 sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue').returns(data);
 
-app.request['user'] = { _json: {
-  'extension_UserRole': 'VERIFIED',
-}};
+app.request['user'] = {'roles': 'VERIFIED'};
 
 describe('Case name search results page', () => {
   beforeAll(async () => {

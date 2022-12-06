@@ -51,9 +51,7 @@ describe('Create System Admin Account Summary page', () => {
       };
       app.request['user'] = {
         emails: ['testadminemail'],
-        '_json': {
-          'extension_UserRole': 'SYSTEM_ADMIN',
-        },
+        roles: 'SYSTEM_ADMIN',
       };
       await request(app).post(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
@@ -99,9 +97,7 @@ describe('Create System Admin Account Summary page', () => {
       };
       app.request['user'] = {
         emails: ['testadminemail'],
-        '_json': {
-          'extension_UserRole': 'SYSTEM_ADMIN',
-        },
+        roles: 'SYSTEM_ADMIN',
       };
       await request(app).post(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
@@ -129,9 +125,7 @@ describe('Create System Admin Account Summary page', () => {
       };
       app.request['user'] = {
         emails: ['testadminemail'],
-        '_json': {
-          'extension_UserRole': 'SYSTEM_ADMIN',
-        },
+        roles: 'SYSTEM_ADMIN',
       };
       await request(app).post(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

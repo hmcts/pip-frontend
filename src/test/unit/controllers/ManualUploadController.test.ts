@@ -33,7 +33,7 @@ describe('Manual Upload Controller', () => {
   });
   describe('POST', () => {
     const fileValidationStub = sinon.stub(FileHandlingService.prototype, 'validateFileUpload');
-    const sanatliseFileNameStub = sinon.stub(FileHandlingService.prototype, 'sanitiseFileName');
+    const sanitiseFileNameStub = sinon.stub(FileHandlingService.prototype, 'sanitiseFileName');
     const formValidationStub = sinon.stub(ManualUploadService.prototype, 'validateFormFields');
 
     sinon.stub(ManualUploadService.prototype, 'appendlocationId').resolves({courtName: 'name', id: '1'});
@@ -41,7 +41,7 @@ describe('Manual Upload Controller', () => {
     formValidationStub.resolves('error');
     fileValidationStub.withArgs(testFile).returns();
     formValidationStub.withArgs({data: 'valid'}).resolves();
-    sanatliseFileNameStub.returns('filename');
+    sanitiseFileNameStub.returns('filename');
 
     it('should render error page if uncaught multer error occurs', async () => {
       const req = mockRequest(i18n);
@@ -80,7 +80,7 @@ describe('Manual Upload Controller', () => {
       const responseMock = sinon.mock(response);
       request.body = {data: 'valid'};
       request.file = testFile;
-      request.user = {oid: '1234'};
+      request.user = {userId: '1234'};
 
       responseMock.expects('redirect').once().withArgs('/manual-upload-summary?check=true');
 

@@ -6,9 +6,7 @@ const PAGE_URL = '/manual-reference-data-upload-confirmation';
 describe('Reference data Upload confirmation', () => {
   describe('on GET', () => {
     test('should return upload confirmation page', async () => {
-      app.request['user'] = {id: '1', '_json': {
-        'extension_UserRole': 'SYSTEM_ADMIN',
-      }};
+      app.request['user'] = {userId: '1', 'roles': 'SYSTEM_ADMIN'};
       await request(app).get(PAGE_URL).expect((res) => expect(res.status).to.equal(200));
     });
   });

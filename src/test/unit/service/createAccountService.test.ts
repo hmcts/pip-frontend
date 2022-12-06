@@ -2,6 +2,7 @@ import { CreateAccountService } from '../../../main/service/createAccountService
 import sinon from 'sinon';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 import { multerFile } from '../mocks/multerFile';
+import fs from 'fs';
 
 const createAccountService = new CreateAccountService();
 
@@ -158,10 +159,12 @@ const validEmail = 'joe@bloggs.com';
 const createAzureAccountStub = sinon.stub(AccountManagementRequests.prototype, 'createAzureAccount');
 const createPIAccStub = sinon.stub(AccountManagementRequests.prototype, 'createPIAccount');
 const createMediaAccStub = sinon.stub(AccountManagementRequests.prototype, 'createMediaAccount');
+const bulkCreateAccountsStub = sinon.stub(AccountManagementRequests.prototype, 'bulkCreateMediaAccounts');
 
 const englishLanguage = 'en';
 const createMediaAccountLanguageFile = 'create-media-account';
 const createAdminAccountLanguageFile = 'create-admin-account';
+const bulkCreateMediaAccountsLanguageFile = 'bulk-create-media-accounts';
 
 describe('Create Account Service', () => {
   describe('isValidEmail', () => {
@@ -322,6 +325,34 @@ describe('Create Account Service', () => {
     });
   });
 
+  describe('validateCsvFileContent', () => {
+    const file = fs.readFileSync('./manualUpload/tmp/validationFile.csv', 'utf-8');
+
+    it('should return no error if file content matches expected', async () => {
+      const error = createAccountService.validateCsvFileContent(file, 3, ['column1', 'column2', 'column3'],
+        englishLanguage, bulkCreateMediaAccountsLanguageFile);
+      expect(error).toBeNull();
+    });
+
+    it('should return no error if file header not in order', async () => {
+      const error = createAccountService.validateCsvFileContent(file, 3, ['column3', 'column1', 'column2'],
+        englishLanguage, bulkCreateMediaAccountsLanguageFile);
+      expect(error).toBeNull();
+    });
+
+    it('should return invalid file header error', async () => {
+      const error = createAccountService.validateCsvFileContent(file, 3, ['column1', 'column2', 'column4'],
+        englishLanguage, bulkCreateMediaAccountsLanguageFile);
+      expect(error).toStrictEqual('Invalid header in file');
+    });
+
+    it('should return incorrect field count error', async () => {
+      const error = createAccountService.validateCsvFileContent(file, 4, ['column1', 'column2', 'column3'],
+        englishLanguage, bulkCreateMediaAccountsLanguageFile);
+      expect(error).toStrictEqual('Incorrect number of fields in file');
+    });
+  });
+
   describe('createAdminAccount', () => {
     it('should return true if valid data is provided', async () => {
       createAzureAccountStub.withArgs(validAdminConvertedPayload, validEmail).resolves(azureResponse);
@@ -420,4 +451,17 @@ describe('Create Account Service', () => {
 
   });
 
+  describe('bulkCreateMediaAccounts', () => {
+    it('should return true if valid data is provided', async () => {
+      bulkCreateAccountsStub.resolves(true);
+      const res = await createAccountService.bulkCreateMediaAccounts('validFile', 'fileName', '123-1bc');
+      expect(res).toEqual(true);
+    });
+
+    it('should return false if invalid data is provided', async () => {
+      bulkCreateAccountsStub.resolves(false);
+      const res = await createAccountService.bulkCreateMediaAccounts('invalidFile', 'fileName', '123-1bc');
+      expect(res).toEqual(false);
+    });
+  });
 });

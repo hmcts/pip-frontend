@@ -14,7 +14,7 @@ export default class ManageThirdPartyUsersSubscriptionsController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     if (req.query['userId']) {
 
-      const user = await thirdPartyService.getThirdPartyUserById(req.query['userId'], req.user['piUserId']);
+      const user = await thirdPartyService.getThirdPartyUserById(req.query['userId'], req.user['userId']);
       const listTypes = await publicationService.getListTypes();
       let subscriptionChannels = await subscriptionsService.retrieveChannels();
 
@@ -41,8 +41,8 @@ export default class ManageThirdPartyUsersSubscriptionsController {
     const selectedChannel = req.body['channel'];
     const selectedListTypes = req.body['list-selections[]'];
 
-    if (selectedChannel && selectedUser && await thirdPartyService.getThirdPartyUserById(selectedUser, req.user['piUserId'])) {
-      await thirdPartyService.handleThirdPartySubscriptionUpdate(req.user['piUserId'], selectedUser,
+    if (selectedChannel && selectedUser && await thirdPartyService.getThirdPartyUserById(selectedUser, req.user['userId'])) {
+      await thirdPartyService.handleThirdPartySubscriptionUpdate(req.user['userId'], selectedUser,
         selectedListTypes, selectedChannel);
 
       res.render('manage-third-party-users-subscriptions-confirm',

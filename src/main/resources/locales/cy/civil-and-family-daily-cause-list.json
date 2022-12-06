@@ -1,8 +1,7 @@
 {
   "title": "Rhestr Achosion Dyddiol Sifil a Theuluol",
-  "headerPart1": "Rhestr Achosion Dyddiol Sifil a Theuluol:",
-  "headerPart2": "yn y ",
-  "listDate": "Rhestr ar gyfer:",
+  "headerPart1": "Rhestr Achosion Dyddiol Sifil a Theuluol gyfer ",
+  "listDate": "Rhestr ar gyfer",
   "listUpdated": "Diweddarwyd diwethaf DATE yn ",
   "importantInformationHeading": "Gwybodaeth Bwysig",
   "importantInformationP1": "Mae cyfiawnder agored yn egwyddor sylfaenol yn ein llysoedd a’n tribiwnlysoedd a bydd yn parhau felly wrth inni gynyddu’r defnydd o dechnoleg sain a fideo.",

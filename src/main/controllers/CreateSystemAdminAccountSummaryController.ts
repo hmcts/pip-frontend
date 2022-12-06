@@ -21,7 +21,7 @@ export default class CreateSystemAdminAccountSummaryController {
 
     formData['userRoleObject'] = {mapping: 'SYSTEM_ADMIN'};
 
-    const response = await createAccountService.createSystemAdminAccount(formData, req.user?.['piUserId']);
+    const response = await createAccountService.createSystemAdminAccount(formData, req.user?.['userId']);
     if (response) {
       if (response['error'] && !response['duplicate'] && !response['aboveMaxSystemAdmin']) {
         res.render('create-system-admin-account-summary', {

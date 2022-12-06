@@ -23,9 +23,7 @@ describe('Manage third party subscription confirm', () => {
   const thirdPartySubscriptionUpdateStub = sinon.stub(ThirdPartyService.prototype, 'handleThirdPartySubscriptionUpdate');
   thirdPartySubscriptionUpdateStub.withArgs(userId, ['LIST_A', 'LIST_B'], 'CHANNEL_A').resolves();
 
-  expressRequest['user'] = {'_json': {
-    'extension_UserRole': 'SYSTEM_ADMIN',
-  }};
+  expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
   beforeAll(async () => {
     await request(app).post(PAGE_URL).send({
