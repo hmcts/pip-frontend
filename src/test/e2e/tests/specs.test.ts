@@ -12,7 +12,7 @@ import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
 import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
 import { CreateSystemAdminAccountPage } from '../PageObjects/CreateSystemAdminAccount.page';
 import { CreateSystemAdminAccountSummaryPage } from '../PageObjects/CreateSystemAdminAccountSummary.page';
-import { DailyCauseListPage } from '../PageObjects/DailyCauseList.page';
+import { CourtListPage } from '../PageObjects/CourtList.page';
 import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { HomePage } from '../PageObjects/Home.page';
@@ -45,9 +45,24 @@ import {MediaAccountRejectionPage} from '../PageObjects/MediaAccountRejection.pa
 import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccountRejectionConfirmation.page';
 import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
 import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
+//import {CftAuthenticationFailedPage} from '../PageObjects/CftAuthenticationFailed.page';
 import {SessionLoggedOutPage} from '../PageObjects/SessionLoggedOut.page';
 import {ManualReferenceDataUploadPage} from '../PageObjects/ManualReferenceDataUpload.page';
 import {ManualReferenceDataUploadSummaryPage} from '../PageObjects/ManualReferenceDataUploadSummary.page';
+import { BlobViewLocationsPage } from '../pageobjects/BlobViewLocationsPage';
+import {BulkDeleteSubscriptionsPage} from '../PageObjects/BulkDeleteSubscriptions.page';
+import {BulkDeleteSubscriptionsConfirmationPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmation.page';
+import {BulkDeleteSubscriptionsConfirmedPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmed.page';
+import {UserManagementPage} from '../PageObjects/UserManagement.page';
+import {ManageUserPage} from '../PageObjects/ManageUser.page';
+import {UpdateUserPage} from '../PageObjects/UpdateUser.page';
+import {DeleteUserPage} from '../PageObjects/DeleteUser.page';
+import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPage';
+import {ManageThirdPartyUsersPage} from '../PageObjects/ManageThirdPartyUsers.page';
+import {ListDownloadDisclaimerPage} from '../PageObjects/ListDownloadDisclaimer.page';
+import {ListDownloadFilesPage} from '../PageObjects/ListDownloadFiles.page';
+import { BulkCreateMediaAccountsPage } from '../pageobjects/BulkCreateMediaAccounts.page';
+import { BulkCreateMediaAccountsConfirmationPage } from '../pageobjects/BulkCreateMediaAccountsConfirmation.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -68,6 +83,9 @@ let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
 let locationNameSearchPage: LocationNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 let deleteSubscriptionPage: DeleteSubscriptionPage;
+let bulkDeleteSubscriptionsPage: BulkDeleteSubscriptionsPage;
+let bulkDeleteSubscriptionsConfirmationPage: BulkDeleteSubscriptionsConfirmationPage;
+let bulkDeleteSubscriptionsConfirmedPage: BulkDeleteSubscriptionsConfirmedPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 let manualUploadSummaryPage: ManualUploadSummaryPage;
 let fileUploadConfirmationPage: FileUploadConfirmationPage;
@@ -79,8 +97,10 @@ let systemAdminDashboard = new SystemAdminDashboardPage;
 let createMediaAccountPage: CreateMediaAccountPage;
 let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let accountHomePage: AccountHomePage;
-let dailyCauseListPage: DailyCauseListPage;
+let courtListPage: CourtListPage;
 let sjpPublicListPage: SJPPublicListPage;
+let listDownloadDisclaimerPage: ListDownloadDisclaimerPage;
+let listDownloadFilesPage: ListDownloadFilesPage;
 let signInPage: SignInPage;
 let createAdminAccountPage: CreateAdminAccountPage;
 let createAdminAccountSummaryPage: CreateAdminAccountSummaryPage;
@@ -96,9 +116,19 @@ let mediaAccountApprovalPage: MediaAccountApprovalPage;
 let mediaAccountRejectionPage: MediaAccountRejectionPage;
 let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
 let subscriptionConfigureListPage: SubscriptionConfigureListPage;
+//let cftAuthenticationFailedPage: CftAuthenticationFailedPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
 let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
 let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
+let userManagementPage: UserManagementPage;
+let manageUserPage: ManageUserPage;
+let updateUserPage: UpdateUserPage;
+let deleteUserPage: DeleteUserPage;
+let blobViewLocationsPage: BlobViewLocationsPage;
+let blobViewPublicationsPage: BlobViewPublicationsPage;
+let manageThirdPartyUsersPage: ManageThirdPartyUsersPage;
+let bulkCreateMediaAccountsPage: BulkCreateMediaAccountsPage;
+let bulkCreateMediaAccountsConfirmationPage: BulkCreateMediaAccountsConfirmationPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -129,7 +159,7 @@ describe('Unverified user', () => {
     });
 
     describe('following the search court path', async () => {
-      const searchTerm = 'High Wycombe Magistrates and County Court';
+      const searchTerm = 'E2E TEST COURT - DO NOT REMOVE';
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
@@ -138,8 +168,8 @@ describe('Unverified user', () => {
       });
 
       it('should select the first publication', async () => {
-        dailyCauseListPage = await summaryOfPublicationsPage.clickSOPListItem();
-        expect(await dailyCauseListPage.getPageTitle()).toContain(searchTerm);
+        courtListPage = await summaryOfPublicationsPage.clickSOPListItem();
+        expect(await courtListPage.getPageTitle()).toContain(searchTerm);
       });
     });
 
@@ -148,7 +178,7 @@ describe('Unverified user', () => {
         await searchPage.open('/search');
       });
 
-      const searchTerm = 'High Wycombe Magistrates and County Court';
+      const searchTerm = 'E2E TEST COURT - DO NOT REMOVE';
       it('should click on \'Select from an A-Z list of courts and tribunals\' link ', async () => {
         alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
@@ -173,8 +203,8 @@ describe('Unverified user', () => {
       });
 
       it('should select the first publication', async () => {
-        dailyCauseListPage = await summaryOfPublicationsPage.clickSOPListItem();
-        expect(await dailyCauseListPage.getPageTitle()).toContain(searchTerm);
+        courtListPage = await summaryOfPublicationsPage.clickSOPListItem();
+        expect(await courtListPage.getPageTitle()).toContain(searchTerm);
       });
     });
 
@@ -218,7 +248,7 @@ describe('Unverified user', () => {
       });
 
       it('should select first list item', async () => {
-        sjpPublicListPage = await singleJusticeProcedurePage.clickSOPListItem();
+        sjpPublicListPage = await singleJusticeProcedurePage.clickSjpPublicListItem();
         expect(await sjpPublicListPage.getPageTitle()).toEqual('Single Justice Procedure cases that are ready for hearing');
       });
     });
@@ -269,6 +299,63 @@ describe('Unverified user', () => {
   });
 });
 
+//TODO: To be uncommented once CFT IDAM is enabled
+// describe('CFT IDAM user login', () => {
+//   describe('Sign in using a valid account', () => {
+//     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+//       await signInPage.open('/sign-in');
+//       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+//     });
+//
+//     it('should see 3 radio buttons', async () => {
+//       expect(await signInPage.radioButtons).toBe(3);
+//     });
+//
+//     it('should select \'With a MyHMCTS account\' option, navigate to the login page, and sign in', async () => {
+//       await signInPage.open('/sign-in');
+//       await signInPage.selectOption('SignInRadio1');
+//       await signInPage.clickContinueForRadio1();
+//       await signInPage.enterText(process.env.CFT_VALID_USERNAME, 'CftEmailField');
+//       await signInPage.enterText(process.env.CFT_VALID_PASSWORD, 'CftPasswordField');
+//       accountHomePage = await signInPage.clickSignInCft();
+//     });
+//
+//     it('should open account home page on successful sign in', async () => {
+//       expect(await accountHomePage.getPageTitle()).toBe('Your account');
+//     });
+//
+//     it('should sign out and open view-option page', async () => {
+//       viewOptionPage = await accountHomePage.clickSignOutForCftAccount();
+//       expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+//     });
+//   });
+//
+//   describe('Sign in using an invalid account', () => {
+//     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+//       await signInPage.open('/sign-in');
+//       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+//     });
+//
+//     it('should see 3 radio buttons', async () => {
+//       expect(await signInPage.radioButtons).toBe(3);
+//     });
+//
+//     it('should select \'With a MyHMCTS account\' option, navigate to the login page, and sign in', async () => {
+//       await signInPage.open('/sign-in');
+//       await signInPage.selectOption('SignInRadio1');
+//       await signInPage.clickContinueForRadio1();
+//       await signInPage.enterText(process.env.CFT_INVALID_USERNAME, 'CftEmailField');
+//       await signInPage.enterText(process.env.CFT_INVALID_PASSWORD, 'CftPasswordField');
+//       cftAuthenticationFailedPage = await signInPage.clickSignInCftUnsuccessful();
+//     });
+//
+//     it('should open Authentication failed page', async () => {
+//       expect(await cftAuthenticationFailedPage.getParagraphText()).toBe('You have successfully signed into your MyHMCTS account.' +
+//         ' Unfortunately, your account role does not allow you to access the verified user part of the Court and tribunal hearings service');
+//     });
+//   });
+// });
+
 describe('Verified user', () => {
   describe('Sign In Page', () => {
     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
@@ -281,14 +368,14 @@ describe('Verified user', () => {
     });
 
     describe('sign in process and page routing', async () => {
-      it('should select \'Sign in with my P&I details\' option, navigate to the login page, and sign in', async () => {
+      it('should select \'Sign in With a Court and tribunal hearings account\' option, navigate to the login page, and sign in', async () => {
         await signInPage.open('/sign-in');
         await signInPage.selectOption('SignInRadio3');
         await signInPage.clickContinueForRadio3();
         console.log('B2C_USERNAME', process.env.B2C_USERNAME);
         await signInPage.enterText(process.env.B2C_USERNAME, 'EmailField');
         await signInPage.enterText(process.env.B2C_PASSWORD, 'PasswordField');
-        accountHomePage = await signInPage.clickSignIn();
+        accountHomePage = await signInPage.clickSignInAad();
       });
 
       it('should open account home page on successful sign in', async () => {
@@ -435,8 +522,6 @@ describe('Verified user', () => {
         await subscriptionConfigureListPage.open('subscription-configure-list');
       });
 
-      //TODO: To be uncommented once subscription management (1511) has been merged in
-
       // it('should select first jurisdiction filter', async () => {
       //   await subscriptionConfigureListPage.selectOption('JurisdictionFilter1');
       //   expect(await subscriptionConfigureListPage.jurisdictionChecked()).toBeTruthy();
@@ -464,6 +549,58 @@ describe('Verified user', () => {
         unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
         expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
       });
+    });
+
+    describe('bulk delete subscriptions', async () => {
+      before(async () => {
+        await subscriptionManagementPage.open('subscription-management');
+      });
+
+      it('should navigate to bulk delete subscriptions page on button click', async () => {
+        bulkDeleteSubscriptionsPage = await subscriptionManagementPage.clickBulkDeleteSubscriptionsButton();
+        expect(await bulkDeleteSubscriptionsPage.getPageTitle()).toBe('Bulk delete subscriptions');
+      });
+
+      it('should select first court subscription', async () => {
+        await bulkDeleteSubscriptionsPage.selectOption('CourtSubscriptionCheckbox1');
+        expect(await bulkDeleteSubscriptionsPage.courtSubscriptionChecked()).toBeTruthy();
+      });
+
+      it('should click on the bulk delete subscriptions button', async () => {
+        bulkDeleteSubscriptionsConfirmationPage = await bulkDeleteSubscriptionsPage.clickBulkDeleteSubscriptionsButton();
+        expect(await bulkDeleteSubscriptionsConfirmationPage.getPageTitle()).toBe('Are you sure you want to remove these subscriptions?');
+      });
+
+      it('should select yes option to delete the subscription', async () => {
+        await bulkDeleteSubscriptionsConfirmationPage.selectOption('BulkDeleteRadioYes');
+        bulkDeleteSubscriptionsConfirmedPage = await bulkDeleteSubscriptionsConfirmationPage.clickContinueForYes();
+        expect(await bulkDeleteSubscriptionsConfirmedPage.getPanelTitle()).toEqual('Subscription(s) removed');
+      });
+    });
+  });
+
+  describe('SJP list download navigation',() => {
+    before(async () => {
+      await accountHomePage.open('account-home');
+    });
+
+    it('should navigate to the SJP list page', async () => {
+      summaryOfPublicationsPage = await searchPage.clickNavSJP(true);
+      expect(await summaryOfPublicationsPage.getPageTitle()).toBe('What do you want to view from Single Justice Procedure?');
+
+      sjpPublicListPage = await singleJusticeProcedurePage.clickSjpPublicListItem();
+      expect(await sjpPublicListPage.getPageTitle()).toEqual('Single Justice Procedure cases that are ready for hearing');
+    });
+
+    it('should navigate to list download disclaimer page on download button click', async () => {
+      listDownloadDisclaimerPage = await sjpPublicListPage.clickDownloadACopyButton();
+      expect(await listDownloadDisclaimerPage.getPageTitle()).toBe('Terms and conditions');
+    });
+
+    it('should agree to the terms and conditions and continue', async () => {
+      await listDownloadDisclaimerPage.tickAgreeCheckbox();
+      listDownloadFilesPage = await listDownloadDisclaimerPage.clickContinue();
+      expect(await listDownloadFilesPage.getPageTitle()).toEqual('Download your file');
     });
   });
 
@@ -567,13 +704,10 @@ describe('Admin level journeys', () => {
       createAdminAccountSummaryPage = await createAdminAccountPage.clickContinue();
       expect(await createAdminAccountSummaryPage.getPageTitle()).toEqual('Check account details');
     });
-    //TODO: enable once ability to remove admin accounts comes in to prevent clogging of admin accounts as fails to create account that already exists
-    if (process.env.EXCLUDE_E2E === 'true') {
-      it('should click confirm and create user account', async () => {
-        createAdminAccountSummaryPage = await createAdminAccountSummaryPage.clickConfirm();
-        expect(await createAdminAccountSummaryPage.getPanelTitle()).toEqual('Account has been created');
-      });
-    }
+    it('should click confirm and create user account', async () => {
+      createAdminAccountSummaryPage = await createAdminAccountSummaryPage.clickConfirm();
+      expect(await createAdminAccountSummaryPage.getPanelTitle()).toEqual('Account has been created');
+    });
   });
 
   describe('Manual Removal', () => {
@@ -583,7 +717,7 @@ describe('Admin level journeys', () => {
       expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
     });
     it('should enter valid court in the search field, click continue and open search results page', async () => {
-      const searchTerm = 'Slough County Court and Family Court';
+      const searchTerm = 'E2E TEST COURT - DO NOT REMOVE';
       await searchPublicationPage.enterText(searchTerm);
       searchPublicationResultsPage = await searchPublicationPage.clickContinue();
       expect(await searchPublicationResultsPage.getPageTitle()).toEqual('Select content to remove');
@@ -695,6 +829,126 @@ describe('System Admin level journeys', () => {
     it('should open upload confirmation page', async () => {
       fileUploadConfirmationPage = await manualReferenceDataUploadSummaryPage.clickContinue();
       expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
+    });
+  });
+
+  describe('manage third party users dashboard', () => {
+
+    before(async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard');
+    });
+
+    it('should open third party users page', async () => {
+      manageThirdPartyUsersPage = await systemAdminDashboard.clickManageThirdPartyUsersCard();
+      expect(await manageThirdPartyUsersPage.getPageTitle()).toEqual('Manage Third Party Users');
+    });
+
+  });
+
+  describe('User management journey', () => {
+    before(async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard');
+    });
+
+    it('should open user management page', async () => {
+      userManagementPage = await systemAdminDashboard.clickUserManagementCard();
+      expect(await userManagementPage.getPageTitle()).toEqual('User Management');
+    });
+
+    it('should input email into the filter', async() => {
+      await userManagementPage.inputEmail();
+    });
+
+    it('should click the apply filter button', async() => {
+      await userManagementPage.clickFilterButton();
+    });
+
+    it('should click the manage link and be taken to the manage user page', async() => {
+      manageUserPage = await userManagementPage.clickManageLink();
+      expect(await manageUserPage.getPageTitle()).toEqual('Manage pip-auto-test-admin@hmcts.net');
+    });
+
+    it('should click the change link and load the update user page', async() => {
+      updateUserPage = await manageUserPage.clickChangeLink();
+      expect(await updateUserPage.getPageTitle()).toEqual('What role would you like pip-auto-test-admin@hmcts.net to have?');
+    });
+
+    it('should be able to update the users role', async() => {
+      await updateUserPage.selectUserRole();
+    });
+
+    it('should open the update users role confirmation page and click to go back to the dashboard', async() => {
+      const updateUserConfirmationPage = await updateUserPage.clickContinueButton();
+      expect(await updateUserConfirmationPage.getPageTitle()).toEqual('User Updated');
+      expect(await updateUserConfirmationPage.getPanelBody()).toEqual('This user has been updated to a Local Admin. ' +
+        'They will need to sign in again for this to take effect');
+      const systemAdminDashboardPage = await updateUserConfirmationPage.clickDashboardLink();
+      expect(await systemAdminDashboardPage.getPageTitle()).toEqual('System Admin Dashboard');
+    });
+
+    it('should open the user management page again', async () => {
+      userManagementPage = await systemAdminDashboard.clickUserManagementCard();
+      expect(await userManagementPage.getPageTitle()).toEqual('User Management');
+    });
+
+    it('should input email into the filter again', async() => {
+      await userManagementPage.inputEmail();
+    });
+
+    it('should click the apply filter button again', async() => {
+      await userManagementPage.clickFilterButton();
+    });
+
+    it('should click the manage link and be taken to the manage user page again', async() => {
+      manageUserPage = await userManagementPage.clickManageLink();
+      expect(await manageUserPage.getPageTitle()).toEqual('Manage pip-auto-test-admin@hmcts.net');
+    });
+
+    it('should click the delete user button', async () => {
+      deleteUserPage = await manageUserPage.clickDeleteUserButton();
+      expect(await deleteUserPage.getPageTitle()).toEqual('Are you sure you want to delete pip-auto-test-admin@hmcts.net?');
+    });
+
+    it('should select the yes radio button to delete', async () => {
+      await deleteUserPage.selectOption('deleteUserConfirmRadioButton');
+    });
+
+    it('should open the delete user confirmation page', async () => {
+      const deleteUserConfirmationPage = await deleteUserPage.clickContinueButton();
+      expect(await deleteUserConfirmationPage.getPageTitle()).toEqual('User Deleted');
+      expect(await deleteUserConfirmationPage.getPanelBody()).toEqual('All data relating to the user has been deleted,' +
+        ' including subscriptions for media users.');
+    });
+  });
+
+  describe('should open blob view locations page', async () => {
+    before(async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard?lng=en');
+    });
+    it('should load the blob view locations page', async () => {
+      blobViewLocationsPage = await systemAdminDashboard.clickBlobExplorerLocationsCard();
+      expect(await blobViewLocationsPage.getPageTitle()).toEqual('Blob Explorer - Locations');
+    });
+    it('should choose the first result', async() => {
+      blobViewPublicationsPage = await blobViewLocationsPage.selectFirstListResult();
+      expect(await blobViewPublicationsPage.getPageTitle()).toEqual('Blob Explorer - Publications');
+    });
+  });
+
+  describe('should open bulk create media accounts page', async () => {
+    before(async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard');
+    });
+
+    it('should load the bulk create media accounts page', async () => {
+      bulkCreateMediaAccountsPage = await systemAdminDashboard.clickBulkCreateMediaAccountsCard();
+      expect(await bulkCreateMediaAccountsPage.getPageTitle()).toEqual('Bulk create media accounts');
+    });
+
+    it('should upload file and open confirmation page', async () => {
+      await bulkCreateMediaAccountsPage.uploadFile();
+      bulkCreateMediaAccountsConfirmationPage = await bulkCreateMediaAccountsPage.clickContinue();
+      expect(await bulkCreateMediaAccountsConfirmationPage.getPageTitle()).toEqual('Are you sure you want to create these media accounts?');
     });
   });
 

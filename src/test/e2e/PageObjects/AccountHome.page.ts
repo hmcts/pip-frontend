@@ -3,6 +3,7 @@ import { SubscriptionManagementPage } from './SubscriptionManagement.page';
 import { SearchPage } from './Search.page';
 import { SummaryOfPublicationsPage } from './SummaryOfPublications.page';
 import {SessionLoggedOutPage} from './SessionLoggedOut.page';
+import {ViewOptionPage} from './ViewOption.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -50,5 +51,14 @@ export class AccountHomePage extends CommonPage {
 
     await $(helpers.SignedInBannerSignOut).click();
     return new SessionLoggedOutPage();
+  }
+
+  async clickSignOutForCftAccount(): Promise<ViewOptionPage> {
+    await $(helpers.SignedInBannerSignOut).catch(() => {
+      console.log(`${helpers.SignedInBannerSignOut} not found`);
+    });
+
+    await $(helpers.SignedInBannerSignOut).click();
+    return new ViewOptionPage();
   }
 }

@@ -86,15 +86,17 @@ describe('Data Management requests', () => {
   describe('upload reference data', () => {
     beforeEach(() => {
       sinon.restore();
+      const axiosConfig = require('../../../main/resources/requests/utils/axiosConfig');
+      sinon.stub(axiosConfig, 'getDataManagementCredentials').returns(() => {return '';});
     });
 
     it('should return true on success', async () => {
       sinon.stub(superagent, 'post').callsFake(() => {
         return {
           set(): any {
-            return {
-              attach: sinon.stub().returns(true),
-            };
+            return { set(): any {
+              return { attach: sinon.stub().returns(true) };
+            } };
           },
         };
       });

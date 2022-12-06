@@ -11,6 +11,26 @@
       "title": "Upload Reference Data",
       "description": "Upload CSV location reference data",
       "link": "manual-reference-data-upload"
+    },
+    {
+      "title": "Manage Third-Party Users",
+      "description": "View and edit third-party users and subscriptions",
+      "link": "manage-third-party-users"
+    },
+    {
+      "title": "User Management",
+      "description": "Search, update and delete users",
+      "link": "user-management"
+    },
+    {
+      "title": "Blob Explorer",
+      "description": "Discover content uploaded to all locations.",
+      "link": "blob-view-locations"
+    },
+    {
+      "title": "Bulk Create Media Accounts",
+      "description": "Upload a CSV file for bulk creation of media accounts",
+      "link": "bulk-create-media-accounts"
     }
   ]
 }

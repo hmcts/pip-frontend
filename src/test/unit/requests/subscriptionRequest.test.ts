@@ -95,27 +95,30 @@ describe('getUserSubscriptions error tests', () => {
 });
 
 describe('subscribe', () => {
+
+  const userId = '1234-1234';
+
   it('should return true if call is successful', async() => {
     subscriptionManagementStub.withArgs('/subscription').resolves({});
-    const userSubscriptions = await subscriptionActions.subscribe({});
+    const userSubscriptions = await subscriptionActions.subscribe({}, userId);
     expect(userSubscriptions).toBe(true);
   });
 
   it('should return false for failure', async() => {
     subscriptionManagementStub.withArgs('/subscription').rejects(errorMessage);
-    const userSubscriptions = await subscriptionActions.subscribe({});
+    const userSubscriptions = await subscriptionActions.subscribe({}, userId);
     expect(userSubscriptions).toBe(false);
   });
 
   it('should return false for error request', async() => {
     subscriptionManagementStub.withArgs('/subscription').rejects(errorRequest);
-    const userSubscriptions = await subscriptionActions.subscribe({});
+    const userSubscriptions = await subscriptionActions.subscribe({}, userId);
     expect(userSubscriptions).toBe(false);
   });
 
   it('should return false for error response', async() => {
     subscriptionManagementStub.withArgs('/subscription').rejects(errorResponse);
-    const userSubscriptions = await subscriptionActions.subscribe({});
+    const userSubscriptions = await subscriptionActions.subscribe({}, userId);
     expect(userSubscriptions).toBe(false);
   });
 });
@@ -123,7 +126,7 @@ describe('subscribe', () => {
 describe('unsubscribe with valid post data', () => {
   deleteStub.withArgs('/subscription/123').resolves({data: 'unsubscribed successfully'});
   it('should return true if provided data is valid', async () => {
-    const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeValidData.subscriptionId);
+    const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeValidData.subscriptionId, '1234-1234');
     expect(unsubscribe).toBe('unsubscribed successfully');
   });
 });
@@ -132,7 +135,7 @@ describe('unsubscribe error states', () => {
   describe('unsubscribe error response', () => {
     deleteStub.withArgs(`/subscription/${unsubscribeInvalidData.subscriptionId}`).rejects(errorResponse);
     it('should return null', async () => {
-      const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeInvalidData.subscriptionId);
+      const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeInvalidData.subscriptionId,'2345-2345');
       expect(unsubscribe).toBe(null);
     });
   });
@@ -140,7 +143,7 @@ describe('unsubscribe error states', () => {
   describe('unsubscribe error request', () => {
     deleteStub.withArgs(`/subscription/${errorRequestBodyData.foo}`).rejects(errorRequest);
     it('should return null', async () => {
-      const unsubscribe = await subscriptionActions.unsubscribe(errorRequestBodyData.foo);
+      const unsubscribe = await subscriptionActions.unsubscribe(errorRequestBodyData.foo, '2345-2345');
       expect(unsubscribe).toBe(null);
     });
   });
@@ -148,9 +151,36 @@ describe('unsubscribe error states', () => {
   describe('unsubscribe error', () => {
     deleteStub.withArgs(`/subscription/${errorBodyData.baz}`).rejects({error: 'error'});
     it('should return null', async () => {
-      const unsubscribe = await subscriptionActions.unsubscribe(errorBodyData.baz);
+      const unsubscribe = await subscriptionActions.unsubscribe(errorBodyData.baz, '4567-4567');
       expect(unsubscribe).toBe(null);
     });
+  });
+});
+
+describe('bulkDeleteSubscriptions', () => {
+  const subscriptions = ['123'];
+  it('should return success message if call is successful', async() => {
+    deleteStub.withArgs('/subscription/bulk').resolves({data: 'unsubscribed successfully'});
+    const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions);
+    expect(response).toBe('unsubscribed successfully');
+  });
+
+  it('should return nothing for error response', async() => {
+    deleteStub.withArgs('/subscription/bulk').rejects(errorResponse);
+    const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions);
+    expect(response).toBe(null);
+  });
+
+  it('should return nothing for error request', async() => {
+    deleteStub.withArgs('/subscription/bulk').rejects(errorRequest);
+    const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions);
+    expect(response).toBe(null);
+  });
+
+  it('should return nothing for other error', async() => {
+    deleteStub.withArgs('/subscription/bulk').rejects(errorMessage);
+    const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions);
+    expect(response).toBe(null);
   });
 });
 
@@ -177,6 +207,32 @@ describe('configure list type Location subscriptions for a user', () => {
     subscriptionManagementPutStub.withArgs('/subscription/configure-list-types/null').rejects(errorResponse);
     const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null,{});
     expect(subscriptionUpdated).toBe(false);
+  });
+});
+
+describe('retrieve subscription channels', () => {
+  it('should return channels if call is successful', async() => {
+    stub.withArgs('/meta/channels').resolves({data: ['CHANNEL_A', 'CHANNEL_B']});
+    const channels = await subscriptionActions.retrieveSubscriptionChannels();
+    expect(channels).toStrictEqual(['CHANNEL_A', 'CHANNEL_B']);
+  });
+
+  it('should return empty array for failure', async() => {
+    stub.withArgs('/meta/channels').rejects(errorMessage);
+    const channels = await subscriptionActions.retrieveSubscriptionChannels();
+    expect(channels).toStrictEqual([]);
+  });
+
+  it('should return false for error request', async() => {
+    stub.withArgs('/meta/channels').rejects(errorRequest);
+    const channels = await subscriptionActions.retrieveSubscriptionChannels();
+    expect(channels).toStrictEqual([]);
+  });
+
+  it('should return false for error response', async() => {
+    stub.withArgs('/meta/channels').rejects(errorResponse);
+    const channels = await subscriptionActions.retrieveSubscriptionChannels();
+    expect(channels).toStrictEqual([]);
   });
 });
 

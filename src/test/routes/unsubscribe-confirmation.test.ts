@@ -13,9 +13,7 @@ describe('Unsubscribe Confirmation', () => {
   beforeEach(() => {
     stub.withArgs({...validBody, userId: '1'}).resolves(true);
     stub.withArgs({...invalidBody, userId: '1'}).resolves(undefined);
-    app.request['user'] = {id: '1', '_json': {
-      'extension_UserRole': 'VERIFIED',
-    }};
+    app.request['user'] = {'roles': 'VERIFIED'};
   });
 
   describe('on POST', () => {
@@ -49,9 +47,9 @@ describe('Unsubscribe Confirmation', () => {
   });
 
   describe('on GET', () => {
-    test('should render not found page', async () => {
+    test('should render unsubscribe confirmation page', async () => {
       await request(app).get(PAGE_URL).expect((res) => {
-        expect(res.status).to.equal(404);
+        expect(res.status).to.equal(200);
       });
     });
   });

@@ -3,9 +3,7 @@ import request from 'supertest';
 import { request as expressRequest } from 'express';
 import { app } from '../../main/app';
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {'roles': 'VERIFIED'};
 
 describe('Subscriptions Add', () => {
   describe('on GET', () => {

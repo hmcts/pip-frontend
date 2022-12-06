@@ -47,14 +47,20 @@ const azureEndpoint = '/account/add/azure';
 const piEndpoint = '/account/add/pi';
 const applicationGetEndpoint = '/application/';
 const imageGetEndpoint = '/application/image/';
-const piUserEndpoint = '/account/provenance/PI_AAD/';
+const piAadUserEndpoint = '/account/provenance/PI_AAD/';
+const cftIdamUserEndpoint = '/account/provenance/CFT_IDAM/';
 const updateAccountEndpoint = '/account/provenance/PI_AAD/';
+const getAllAccountsEndpoint = '/account/all';
+const getUserByUserIdEndpoint = '/account/';
+const deleteUserByUserIdEndpoint = '/account/delete/';
+const updateUserByUserIdEndpoint = '/account/update/';
 
 const status = 'APPROVED';
 const statusEndpoint = '/' + status;
 const postStub = sinon.stub(accountManagementApi, 'post');
 let putStub = sinon.stub(accountManagementApi, 'put');
 let getStub = sinon.stub(accountManagementApi, 'get');
+let deleteStub = sinon.stub(accountManagementApi, 'delete');
 const superagent = require('superagent');
 
 describe('Account Management Requests', () => {
@@ -155,6 +161,50 @@ describe('Account Management Requests', () => {
     it('should return error message', async () => {
       sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorMessage);
       expect(await accountManagementRequests.createMediaAccount(mockValidMediaBody)).toBe(false);
+    });
+  });
+
+  describe('Bulk Create Media Accounts', () => {
+    const file = 'file';
+    const fileName = 'fileName';
+    const requester = '123';
+
+    beforeEach(() => {
+      sinon.restore();
+      const axiosConfig = require('../../../main/resources/requests/utils/axiosConfig');
+      sinon.stub(axiosConfig, 'getAccountManagementCredentials').returns(() => {return '';});
+    });
+
+    it('should return true on success', async () => {
+      // chain call for superagent post.set.set.set.attach
+      sinon.stub(superagent, 'post').callsFake(() => {
+        return {
+          set(): any {
+            return { set(): any {
+              return { set(): any {
+                return { attach: sinon.stub().returns(true) };
+              } };
+            } };
+          },
+        };
+      });
+
+      expect(await accountManagementRequests.bulkCreateMediaAccounts(file, fileName, requester)).toBe(true);
+    });
+
+    it('should return error response', async () => {
+      sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorResponse);
+      expect(await accountManagementRequests.bulkCreateMediaAccounts(file, fileName, requester)).toBe(false);
+    });
+
+    it('should return error request', async () => {
+      sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorRequest);
+      expect(await accountManagementRequests.bulkCreateMediaAccounts(file, fileName, requester)).toBe(false);
+    });
+
+    it('should return error message', async () => {
+      sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorMessage);
+      expect(await accountManagementRequests.bulkCreateMediaAccounts(file, fileName, requester)).toBe(false);
     });
   });
 
@@ -316,7 +366,7 @@ describe('Account Management Requests', () => {
     });
   });
 
-  describe('Get pi user by oid', () => {
+  describe('Get PI AAD user by oid', () => {
     const idtoUse = '123';
 
     beforeEach(() => {
@@ -325,26 +375,59 @@ describe('Account Management Requests', () => {
     });
 
     it('should return pi user id on success', async () => {
-      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).resolves({status: 200, data: {userId: '321', userProvenance: 'userProvenance'}});
+      getStub.withArgs(`${piAadUserEndpoint}${idtoUse}`).resolves({status: 200, data: {userId: '321', userProvenance: 'userProvenance'}});
       const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
       expect(response).toStrictEqual({userId: '321', userProvenance: 'userProvenance'});
     });
 
     it('should return null on error response', async () => {
-      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).rejects(errorResponse);
+      getStub.withArgs(`${piAadUserEndpoint}${idtoUse}`).rejects(errorResponse);
       const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
       expect(response).toBe(null);
     });
 
     it('should return null on error request', async () => {
-      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).rejects(errorRequest);
+      getStub.withArgs(`${piAadUserEndpoint}${idtoUse}`).rejects(errorRequest);
       const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
       expect(response).toBe(null);
     });
 
     it('should return null on error message', async () => {
-      getStub.withArgs(`${piUserEndpoint}${idtoUse}`).rejects(errorMessage);
+      getStub.withArgs(`${piAadUserEndpoint}${idtoUse}`).rejects(errorMessage);
       const response  = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Get CFT IDAM user by uid', () => {
+    const idtoUse = '123';
+
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
+
+    it('should return pi user id on success', async () => {
+      getStub.withArgs(`${cftIdamUserEndpoint}${idtoUse}`).resolves({status: 200, data: {userId: '321', userProvenance: 'userProvenance'}});
+      const response  = await accountManagementRequests.getPiUserByCftID(idtoUse);
+      expect(response).toStrictEqual({userId: '321', userProvenance: 'userProvenance'});
+    });
+
+    it('should return null on error response', async () => {
+      getStub.withArgs(`${cftIdamUserEndpoint}${idtoUse}`).rejects(errorResponse);
+      const response  = await accountManagementRequests.getPiUserByCftID(idtoUse);
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error request', async () => {
+      getStub.withArgs(`${cftIdamUserEndpoint}${idtoUse}`).rejects(errorRequest);
+      const response  = await accountManagementRequests.getPiUserByCftID(idtoUse);
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error message', async () => {
+      getStub.withArgs(`${cftIdamUserEndpoint}${idtoUse}`).rejects(errorMessage);
+      const response  = await accountManagementRequests.getPiUserByCftID(idtoUse);
       expect(response).toBe(null);
     });
   });
@@ -390,14 +473,14 @@ describe('Account Management Requests', () => {
 
     it('should return confirmation string on success', async () => {
       putStub.withArgs(updateAccountEndpoint + oid).resolves({status: 200, data: 'Account updated' });
-      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', oid);
       expect(response).toBe('Account updated');
     });
 
     it('should set the correct time', async () => {
       const putStubForDateChecking = putStub.withArgs(updateAccountEndpoint + '1234-1234');
       putStubForDateChecking.resolves({status: 200, data: 'Account updated' });
-      await accountManagementRequests.updateAccountLastSignedInDate('1234-1234');
+      await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', '1234-1234');
 
       const args = putStubForDateChecking.getCall(0).args;
       expect(moment.utc(args[1]['lastSignedInDate'])
@@ -407,20 +490,213 @@ describe('Account Management Requests', () => {
 
     it('should return null on error request', async () => {
       putStub.withArgs(updateAccountEndpoint + oid).rejects(errorRequest);
-      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', oid);
       expect(response).toBe(null);
     });
 
     it('should return false on error response', async () => {
       putStub.withArgs(updateAccountEndpoint + oid).rejects(errorResponse);
-      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', oid);
       expect(response).toBe(null);
     });
 
     it('should return false on error message', async () => {
       putStub.withArgs(updateAccountEndpoint + oid).rejects(errorMessage);
-      const response = await accountManagementRequests.updateAccountLastSignedInDate(oid);
+      const response = await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', oid);
       expect(response).toBe(null);
     });
   });
+
+  describe('Get all accounts except third party', () => {
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
+
+    it('should return data on success', async () => {
+      getStub.withArgs(getAllAccountsEndpoint, {params: {pageSize: 25}}).resolves(
+        {status: 200, data: {userId: '321', userProvenance: 'userProvenance'}});
+      const response = await accountManagementRequests.getAllAccountsExceptThirdParty(
+        {
+          params: {
+            pageSize: 25,
+          },
+        },'1234');
+      expect(response).toStrictEqual({userId: '321', userProvenance: 'userProvenance'});
+    });
+
+    it('should return empty array on error response', async () => {
+      getStub.withArgs(getAllAccountsEndpoint, {params: {pageSize: 25}}).rejects(errorResponse);
+      const response = await accountManagementRequests.getAllAccountsExceptThirdParty(
+        {
+          params: {
+            pageSize: 25,
+          },
+        },'1234');
+      expect(response).toStrictEqual([]);
+    });
+
+    it('should return empty array on error request', async () => {
+      getStub.withArgs(getAllAccountsEndpoint, {params: {pageSize: 25}}).rejects(errorRequest);
+      const response = await accountManagementRequests.getAllAccountsExceptThirdParty(
+        {
+          params: {
+            pageSize: 25,
+          },
+        },'1234');
+      expect(response).toStrictEqual([]);
+    });
+
+    it('should return empty array on error message', async () => {
+      getStub.withArgs({params: {pageSize: 25}}).rejects(errorMessage);
+      const response = await accountManagementRequests.getAllAccountsExceptThirdParty(
+        {
+          params: {
+            pageSize: 25,
+          },
+        },'1234');
+      expect(response).toStrictEqual([]);
+    });
+  });
+
+  describe('Get user by user id', () => {
+    const idtoUse = '123';
+
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
+
+    it('should return pi user on success', async () => {
+      getStub.withArgs(`${getUserByUserIdEndpoint}${idtoUse}`).resolves({status: 200, data: {userId: '321',
+        userProvenance: 'userProvenance'}});
+      const response  = await accountManagementRequests.getUserByUserId(idtoUse, '1234');
+      expect(response).toStrictEqual({userId: '321', userProvenance: 'userProvenance'});
+    });
+
+    it('should return null on error response', async () => {
+      getStub.withArgs(`${getUserByUserIdEndpoint}${idtoUse}`).rejects(errorResponse);
+      const response  = await accountManagementRequests.getUserByUserId(idtoUse, '1234');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error request', async () => {
+      getStub.withArgs(`${getUserByUserIdEndpoint}${idtoUse}`).rejects(errorRequest);
+      const response  = await accountManagementRequests.getUserByUserId(idtoUse, '1234');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error message', async () => {
+      getStub.withArgs(`${getUserByUserIdEndpoint}${idtoUse}`).rejects(errorMessage);
+      const response  = await accountManagementRequests.getUserByUserId(idtoUse, '1234');
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Delete user by user id', () => {
+    const idtoUse = '123';
+
+    beforeEach(() => {
+      sinon.restore();
+      deleteStub = sinon.stub(accountManagementApi, 'delete');
+    });
+
+    it('should return string on deletion success', async () => {
+      deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).resolves({status: 200, data: 'Deleted'});
+      const response  = await accountManagementRequests.deleteUser(idtoUse, '1234');
+      expect(response).toStrictEqual('Deleted');
+    });
+
+    it('should return null on error response', async () => {
+      deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).rejects(errorResponse);
+      const response  = await accountManagementRequests.deleteUser(idtoUse, '1234');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error request', async () => {
+      deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).rejects(errorRequest);
+      const response  = await accountManagementRequests.deleteUser(idtoUse, '1234');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error message', async () => {
+      deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).rejects(errorMessage);
+      const response  = await accountManagementRequests.deleteUser(idtoUse, '1234');
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Update user by user id', () => {
+    const idtoUse = '123';
+    const role = 'SYSTEM_ADMIN';
+
+    beforeEach(() => {
+      sinon.restore();
+      putStub = sinon.stub(accountManagementApi, 'put');
+    });
+
+    it('should return updated user on success', async () => {
+      putStub.withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`).resolves(
+        {status: 200, data: {userId: '321', userProvenance: 'userProvenance'}});
+      const response  = await accountManagementRequests.updateUser(idtoUse, role, '1234');
+      expect(response).toStrictEqual({userId: '321',
+        userProvenance: 'userProvenance'});
+    });
+
+    it('should return null on error response', async () => {
+      putStub.withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`).rejects(errorResponse);
+      const response  = await accountManagementRequests.updateUser(idtoUse, role, '1234');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error request', async () => {
+      putStub.withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`).rejects(errorRequest);
+      const response  = await accountManagementRequests.updateUser(idtoUse, role, '1234');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error message', async () => {
+      putStub.withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`).rejects(errorMessage);
+      const response  = await accountManagementRequests.updateUser(idtoUse, role, '1234');
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Get third party accounts', () => {
+
+    const adminUserId = '1234-1234';
+
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
+
+    it('should return third party accounts', async () => {
+      const thirdPartyAccounts = [{userId: '1234-1234'},{userId: '2345-2345'}];
+
+      getStub.withArgs('/account/all/third-party').resolves({status: 200, data: thirdPartyAccounts});
+
+      const response = await accountManagementRequests.getThirdPartyAccounts(adminUserId);
+      expect(response).toBe(thirdPartyAccounts);
+    });
+
+    it('should return null on error request', async () => {
+      getStub.withArgs('/account/all/third-party').rejects(errorRequest);
+      const response = await accountManagementRequests.getThirdPartyAccounts(adminUserId);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error response', async () => {
+      getStub.withArgs('/account/all/third-party').rejects(errorResponse);
+      const response = await accountManagementRequests.getThirdPartyAccounts(adminUserId);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error message', async () => {
+      getStub.withArgs('/account/all/third-party').rejects(errorMessage);
+      const response = await accountManagementRequests.getThirdPartyAccounts(adminUserId);
+      expect(response).toBe(null);
+    });
+  });
+
 });

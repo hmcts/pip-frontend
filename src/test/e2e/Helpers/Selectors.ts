@@ -28,7 +28,10 @@ module.exports = {
   SignInRadio3: '#sign-in-3',
   EmailField: '#email',
   PasswordField: '#password',
+  CftEmailField: '#username',
+  CftPasswordField: '#password',
   UserLoginContinue: '#next',
+  CftSignInButton: '.button',
 
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
@@ -56,8 +59,8 @@ module.exports = {
   SecondItemResult: 'tr.govuk-table__row:nth-child(2) > td:nth-child(2) > a:nth-child(1)',
   LastItemResult: 'tbody > tr.govuk-table__row:last-child > td > a',
   SJPLink: '#sjp-link',
-  JurisdictionFilter1: '#Jurisdiction',
-  RegionFilter1: '#Region-7',
+  JurisdictionFilter1: '#Jurisdiction-3',
+  RegionFilter1: '#Region-8',
   RegionFilter2: '#Region-2',
 
   // ViewOption page selectors
@@ -111,6 +114,7 @@ module.exports = {
 
   // SubscriptionManagement selectors
   SubscriptionManagementTableFirstResultUrl: '>>>.unsubscribe-action',
+  SubscriptionManagementBulkDeleteSubscriptionsButton: '#bulk-delete-button',
 
   // DeleteSubscription selectors
   yesRadioButton: '#unsubscribe-confirm',
@@ -119,6 +123,11 @@ module.exports = {
   // UnsubscribeConfirmation selectors
   panelTitle: '.govuk-panel__title',
   panelHome: '.govuk-link=Home',
+
+  // BulkDeleteSubscriptions selectors
+  CourtSubscriptionCheckbox1: '#courtSubscription',
+  BulkDeleteSubscriptionButton: '#bulk-delete-button',
+  BulkDeleteRadioYes: '#bulk-delete-choice',
 
   // Admin selectors
   fileUpload: '#manual-file-upload',
@@ -140,6 +149,7 @@ module.exports = {
   RemoveContent: '#card-remove-list-search',
   ManageMediaAccounts: '#card-media-applications',
   CreateAdminAccount: '#card-create-admin-account',
+  BlobExplorerLocations: '#card-blob-view-locations',
 
   // CreateMediaAccount selectors
   UploadImage: '#file-upload',
@@ -155,6 +165,16 @@ module.exports = {
 
   // SummaryOfPublications selectors
   SOPListItem: '.das-search-results__link',
+  SjpPublicListItem: '*=Single Justice Procedure Public List',
+
+  // SJP public selector
+  DownloadACopyButton: '#download-button',
+
+  // List download selector
+  AgreeCheckBox: '#disclaimer-agreement',
+
+  // Blob Explorer Location Selector
+  locationSelector: '.govuk-table__body > tr:nth-child(1) > th:nth-child(1) > a:nth-child(1)',
 
   // Banner navigation selectors
   BannerHome: '.moj-sub-navigation__item:first-child',
@@ -200,5 +220,27 @@ module.exports = {
   //CreateSystemAdminAccount selectors
   CreateSystemAdminAccount: '#card-create-system-admin-account',
   ReferenceDataUploadFile: '#card-manual-reference-data-upload',
+  ManageThirdPartyUsers: '#card-manage-third-party-users',
   referenceDataFileUpload: '#manual-reference-data-upload',
+  userManagement: '#card-user-management',
+  BulkCreateMediaAccounts: '#card-bulk-create-media-accounts',
+
+  //BulkCreateMediaAccounts page
+  BulkMediaAccountsFileUpload: '#bulk-account-upload',
+
+  //UserManagement screens selectors
+  manageLink: '#manage-link',
+  applyFiltersButton: '.moj-filter__options > .govuk-button',
+  changeLink: '//*[@id="main-content"]/div/dl/div[3]/dd[2]/a',
+  roleUpdateButton: '#button',
+  roleUpdateSelectBox: '#updatedRole',
+  userManagementPanelTitle: '.govuk-panel__title',
+  userManagementPanelBody: '.govuk-panel__body',
+  redirectToDashboardLink: '#main-content > div.parent-box > p > a',
+  deleteUserButton: '//*[@id="main-content"]/div/a',
+  deleteUserConfirmRadioButton: '#delete-user-confirm',
+  continueButton: '#button',
+
+  // CFT Rejected login page selectors
+  firstParagraphCftRejected: '/html/body/div[2]/main/p[1]',
 };

@@ -1,0 +1,26 @@
+{
+  "title": "System Admin dashboard",
+  "heading": "System Admin Dashboard",
+  "tiles": [
+    {
+      "title": "Create System Admin",
+      "description": "Create a new system admin user",
+      "link": "create-system-admin-account"
+    },
+    {
+      "title": "Upload Reference Data",
+      "description": "Upload CSV location reference data",
+      "link": "manual-reference-data-upload"
+    },
+    {
+      "title": "User Management",
+      "description": "Search, update and delete users",
+      "link": "user-management"
+    },
+    {
+      "title": "Blob Explorer",
+      "description": "Discover content uploaded to all locations.",
+      "link": "blob-view-locations"
+    }
+  ]
+}

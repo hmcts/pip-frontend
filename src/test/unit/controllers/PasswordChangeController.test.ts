@@ -10,7 +10,7 @@ describe('Password Change Confirmation controller', () => {
   const request = mockRequest({'password-change-confirmation': {}});
 
   it('should render password-change-confirmation for an admin', async () => {
-    request.path = '/password-change-confirmation/true';
+    request.params['isAdmin'] = 'true';
     const responseMock = sinon.mock(response);
 
     const i18n = {
@@ -24,12 +24,12 @@ describe('Password Change Confirmation controller', () => {
 
     responseMock.expects('render').once().withArgs('password-change-confirmation', expectedData);
 
-    await passwordChangeController.get(request, response);
+    await passwordChangeController.post(request, response);
     await responseMock.verify();
   });
 
   it('should render password-change-confirmation for a media user', async () => {
-    request.path = '/password-change-confirmation/false';
+    request.params['isAdmin'] = 'false';
     const responseMock = sinon.mock(response);
 
     const i18n = {
@@ -43,7 +43,7 @@ describe('Password Change Confirmation controller', () => {
 
     responseMock.expects('render').once().withArgs('password-change-confirmation', expectedData);
 
-    await passwordChangeController.get(request, response);
+    await passwordChangeController.post(request, response);
     await responseMock.verify();
   });
 });

@@ -42,7 +42,7 @@
   "CROWN_FIRM_LIST": {
     "friendlyName": "Crown Firm List",
     "shortenedFriendlyName": "Crown Firm List",
-    "url": "",
+    "url": "crown-firm-list",
     "jurisdictions": ["Crown"],
     "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
@@ -55,10 +55,10 @@
     "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
   },
-  "MAGS_STANDARD_LIST": {
+  "MAGISTRATES_STANDARD_LIST": {
     "friendlyName": "Magistrates Standard List",
     "shortenedFriendlyName": "Magistrates Standard List",
-    "url": "",
+    "url": "magistrates-standard-list",
     "jurisdictions": ["Crown"],
     "welshJurisdictions": ["Llys y Goron"],
     "restrictedProvenances":  []
@@ -139,7 +139,7 @@
   "CARE_STANDARDS_LIST": {
     "friendlyName": "Care Standards Tribunal Hearing List",
     "shortenedFriendlyName": "Care Standards Tribunal Hearing List",
-    "url": "case-standards-list",
+    "url": "care-standards-list",
     "jurisdictions": ["Tribunal"],
     "restrictedProvenances":  []
   }

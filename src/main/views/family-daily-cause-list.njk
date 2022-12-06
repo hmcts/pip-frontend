@@ -12,14 +12,16 @@
 {% block content %}
   <div class="parent-box">
     <h2 id='page-heading' class="govuk-heading-l">
-      {{ headerPart1 }}<br />{{ headerPart2 }}{{ courtName }}
+      {{ headerPart1 }}{{ courtName }}
       {% if bill %}
-        <br />/{{ headerPart3 }}<br />{{ headerPart4 }}{{ courtName }}
+        <br />/{{ headerPart2 }}{{ courtName }}
       {% endif %}
     </h2>
   <p class="govuk-body">
     {% for line in listData['venue']['venueAddress']['line'] %}
-      {{ line }}<br />
+      {% if line | length %}
+        {{ line }}<br />
+      {% endif %}
     {% endfor %}
     {{ listData['venue']['venueAddress']['postCode'] }}
   </p>
@@ -48,7 +50,9 @@
     <div class="site-header" tabindex="0" aria-label="Court Details">
       <h1 class="govuk-heading-l site-address" tabindex="0">{{ courtHouse['courtHouseName'] }}</h1>
       {% for line in courtHouseAddress['line'] %}
-        <p class="govuk-body site-address" tabindex="0">{{ line }}</p>
+        {% if line | length %}
+          <p class="govuk-body site-address" tabindex="0">{{ line }}</p>
+        {% endif %}
       {% endfor %}
       {% if courtHouseAddress['town'] | length %}
         <p class="govuk-body site-address" tabindex="0">{{ courtHouseAddress['town'] }}</p>
@@ -134,7 +138,7 @@
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['time'] }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseNumber'] }}</td>
                             {% if case['caseSequenceIndicator'] | length %}
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseName'] }} [{{ case['caseSequenceIndicator'] }}]</td>
+                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseName'] }} {{ case['caseSequenceIndicator'] }}</td>
                             {% else %}
                               <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseName'] }}</td>
                             {% endif %}

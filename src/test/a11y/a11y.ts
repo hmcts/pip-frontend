@@ -22,6 +22,9 @@ const routesNotTested = [
   '/health/readiness',
   '/info',
   '/login',
+  '/cft-login',
+  '/cft-login/return',
+  '/cft-rejected-login',
   '/admin-login',
   '/login/return',
   '/login/admin/return',
@@ -32,6 +35,13 @@ const routesNotTested = [
   '/file-publication',
   '/media-verification',
   '/media-verification/return',
+  '/user-management',
+  '/manage-user',
+  '/update-user',
+  '/delete-user',
+  '/delete-user-confirmation',
+  '/update-user-confirmation',
+  '/manual-reference-data-download',
 ];
 
 const adminRoutes = [
@@ -47,7 +57,9 @@ const adminRoutes = [
   '/media-account-review/approve',
   '/media-account-review/reject',
   '/media-account-approval',
+  '/media-account-approval-confirmation',
   '/media-account-rejection',
+  '/media-account-rejection-confirmation',
   '/remove-list-confirmation',
   '/remove-list-search',
   '/remove-list-search-results',
@@ -61,6 +73,15 @@ const systemAdminRoutes = [
   '/manual-reference-data-upload',
   '/manual-reference-data-upload-summary',
   '/manual-reference-data-upload-confirmation',
+  '/manage-third-party-users',
+  '/manage-third-party-users/view',
+  '/manage-third-party-users/subscriptions',
+  '/blob-view-json',
+  '/blob-view-publications',
+  '/blob-view-locations',
+  '/bulk-create-media-accounts',
+  '/bulk-create-media-accounts-confirmation',
+  '/bulk-create-media-accounts-confirmed',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
@@ -76,6 +97,7 @@ const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
 const sjpCases = JSON.parse(rawSJPData).results;
 const mediaApplications = JSON.parse(rawMediaApplications);
 
+sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns('location,count\n1,2\n3,1\n');
 sinon.stub(LocationRequests.prototype, 'getLocation').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getFilteredCourts').returns(allCourtData);
@@ -87,6 +109,7 @@ sinon.stub(CaseEventGlossaryRequests.prototype, 'getCaseEventGlossaryList').retu
 sinon.stub(SjpRequests.prototype, 'getSJPCases').returns(sjpCases);
 sinon.stub(ManualUploadService.prototype, 'getListItemName').returns('');
 sinon.stub(AccountManagementRequests.prototype, 'getPendingMediaApplications').resolves(mediaApplications);
+sinon.stub(AccountManagementRequests.prototype, 'getThirdPartyAccounts').resolves([]);
 
 export class Pa11yResult {
   documentTitle: string;
@@ -110,21 +133,15 @@ beforeAll((done /* call it or remove it*/) => {
 export function ensurePageCallWillSucceed(url: string): Promise<void> {
   if (adminRoutes.includes(url)) {
     app.request['user'] = {
-      piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
-        'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-      },
+      userId: '1', email: 'joe@bloggs.com', 'roles': 'INTERNAL_SUPER_ADMIN_CTSC', 'userProvenance': 'PI_AAD',
     };
   } else if (systemAdminRoutes.includes(url)) {
     app.request['user'] = {
-      piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
-        'extension_UserRole': 'SYSTEM_ADMIN',
-      },
+      userId: '1', emails: ['joe@bloggs.com'], 'roles': 'SYSTEM_ADMIN',
     };
   } else {
     app.request['user'] = {
-      piUserId: '1', emails: ['joe@bloggs.com'], '_json': {
-        'extension_UserRole': 'VERIFIED',
-      }};
+      userId: '1', email: 'joe@bloggs.com', 'roles': 'VERIFIED', 'userProvenance': 'PI_AAD'};
   }
 
   return agent.get(url).then((res: supertest.Response) => {

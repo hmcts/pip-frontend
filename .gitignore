@@ -14,6 +14,7 @@ package-lock.json
 src/main/public/img/lib/*
 src/main/public/js/lib/**/*.js
 src/main/public/stylesheets/lib/*
+src/main/views/govuk
 
 node-rpm-packaging/
 mochawesome-report/
@@ -26,3 +27,4 @@ public/
 manualUpload/
 
 /coverage
+e2e-results/

@@ -1,4 +1,4 @@
-@import '~govuk-frontend';
+@import 'node_modules/govuk-frontend/govuk/all';
 @import 'accessible-autocomplete.min';  /* stylelint-disable-line */
 @import 'node_modules/@ministryofjustice/frontend/moj/all';
 
@@ -519,6 +519,68 @@ nav {
 .site-header {
   position: relative;
   top: 2em;
+}
+
+.json-container {
+  background-color: black;
+  border: 1px dashed yellow;
+  border-radius: 1em;
+}
+
+.json-key {
+  color: indianred;
+}
+
+.json-string {
+  color: darkkhaki;
+}
+
+.json-number {
+  color: deepskyblue;
+}
+
+.json-boolean {
+  color: mediumseagreen;
+}
+
+.json-null {
+  color: darkorange;
+}
+
+.json-mark {
+  color: silver;
+}
+
+a.json-link {
+  color: mediumorchid;
+}
+
+a.json-link:visited {
+  color: slategray;
+}
+
+a.json-link:hover {
+  color: violet;
+}
+
+a.json-link:active {
+  color: slategray;
+}
+
+ol.json-lines > li::marker {
+  color: silver;
+}
+
+ol.json-lines > li:nth-child(odd) {
+  background-color: #222;
+}
+
+ol.json-lines > li:nth-child(even) {
+  background-color: #161616;
+}
+
+ol.json-lines > li:hover {
+  background-color: dimgray;
 }
 
 .site-address {

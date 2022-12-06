@@ -45,53 +45,53 @@
       </div>
 
       <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-        {% set courtRoomCount = 0 %}
+        {% set sessionCount = 0 %}
         {% for courtRoom in courtHouse['courtRoom'] %}
-          {% set caseCount = 1 %}
-          {% set courtRoomCount = courtRoomCount + 1 %}
-          <div class="govuk-accordion__section govuk-accordion__section--expanded">
-            <div class="govuk-accordion__section-header">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ courtRoomCount }}">
-                  {% if "bail list" == courtList['courtListName'] | lower %}
-                    {% if courtRoom['formattedJudiciary'] | length %}
-                      {{ courtRoom['courtRoomName'] }}, {{ beforeJudge }} {{ courtRoom['formattedJudiciary'] }}
+          {% for session in courtRoom['session'] %}
+            {% set caseCount = 1 %}
+            {% set sessionCount = sessionCount + 1 %}
+            <div class="govuk-accordion__section govuk-accordion__section--expanded">
+              <div class="govuk-accordion__section-header">
+                <h2 class="govuk-accordion__section-heading">
+                  <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ sessionCount }}">
+                    {% if "bail list" == courtList['courtListName'] | lower %}
+                      {% if session['formattedJudiciary'] | length %}
+                        {{ courtRoom['courtRoomName'] }}, {{ beforeJudge }} {{ session['formattedJudiciary'] }}
+                      {% else %}
+                        {{ courtRoom['courtRoomName'] }}
+                      {% endif %}
                     {% else %}
-                      {{ courtRoom['courtRoomName'] }}
+                      {{ hearingRoom }}: {{ courtRoom['courtRoomName'] }}
                     {% endif %}
-                  {% else %}
-                    {{ hearingRoom }}: {{ courtRoom['courtRoomName'] }}
-                  {% endif %}
-                </span>
-              </h2>
-            </div>
+                  </span>
+                </h2>
+              </div>
 
-            <div id="accordion-default-content-{{ courtRoomCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ courtRoomCount }}">
-              <div class="parent-box overflow-table">
-                <table class="govuk-table">
-                  <thead class="govuk-table__head">
-                  <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header">{{ startTime }}</th>
-                    <th scope="col" class="govuk-table__header">{{ caseRef }}</th>
-                    <th scope="col" class="govuk-table__header">{{ appellant }}</th>
-                    <th scope="col" class="govuk-table__header">{{ respondent }}</th>
-                    <th scope="col" class="govuk-table__header">{{ interpreterLanguage }}</th>
-                    <th scope="col" class="govuk-table__header">{{ hearingChannel }}</th>
-                    <th scope="col" class="govuk-table__header">{{ linkCases }}</th>
-                  </tr>
-                  </thead>
-                  <tbody class="govuk-table__body">
-                  {% for session in courtRoom['session'] %}
+              <div id="accordion-default-content-{{ sessionCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ sessionCount }}">
+                <div class="parent-box overflow-table">
+                  <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                      <th scope="col" class="govuk-table__header">{{ startTime }}</th>
+                      <th scope="col" class="govuk-table__header">{{ caseRef }}</th>
+                      <th scope="col" class="govuk-table__header">{{ appellant }}</th>
+                      <th scope="col" class="govuk-table__header">{{ respondent }}</th>
+                      <th scope="col" class="govuk-table__header">{{ interpreterLanguage }}</th>
+                      <th scope="col" class="govuk-table__header">{{ hearingChannel }}</th>
+                      <th scope="col" class="govuk-table__header">{{ linkCases }}</th>
+                    </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
                     {% for sitting in session['sittings'] %}
                       {% for hearing in sitting['hearing'] %}
                         {% for case in hearing['case'] %}
-                          {% if courtRoom['totalCases'] === caseCount %}
+                          {% if session['totalCases'] === caseCount %}
                             {% set noBorder = 'no-border-bottom' %}
                           {% endif %}
                           <tr class="govuk-table__row">
                             <td class="govuk-table__cell {{ noBorder }}">{{ sitting['sittingStartFormatted'] }}</td>
                             {% if case['caseSequenceIndicator'] | length %}
-                              <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }} [{{ case['caseSequenceIndicator'] }}]</td>
+                              <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }} {{ case['caseSequenceIndicator'] }}</td>
                             {% else %}
                               <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
                             {% endif %}
@@ -109,12 +109,12 @@
                         {% endfor %}
                       {% endfor %}
                     {% endfor %}
-                  {% endfor %}
-                  </tbody>
-                </table>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-          </div>
+          {% endfor %}
         {% endfor %}
       </div>
     {% endfor %}

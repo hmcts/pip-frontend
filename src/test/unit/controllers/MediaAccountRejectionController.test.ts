@@ -28,8 +28,11 @@ describe('Media Account Rejection Controller', () => {
   };
 
   const response = {
-    redirect: () => {return '';}, render: () => {return '';},
-    send: () => {return '';}, set: () => {return ''; }  } as unknown as Response;
+    redirect: () => {return '';},
+    render: () => {return '';},
+    send: () => {return '';},
+    set: () => {return ''; },
+  } as unknown as Response;
 
   it('should render media-account-rejection page when applicant ID sent and found', async () => {
     const responseMock = sinon.mock(response);
@@ -70,15 +73,11 @@ describe('Media Account Rejection Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'reject-confirmation': 'Yes', 'applicantId': applicantId};
-    request['user'] = {'piUserId': adminUserId };
+    request['user'] = {'userId': adminUserId };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
     mediaAccountRejectionStub.withArgs(applicantId, adminUserId).resolves(dummyApplication);
-    responseMock.expects('render').once().withArgs('media-account-rejection-confirmation',
-      {
-        ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-rejection-confirmation']),
-        applicantData: dummyApplication,
-      });
+    responseMock.expects('redirect').once().withArgs('/media-account-rejection-confirmation?applicantId=' + applicantId);
 
     await mediaAccountRejectionController.post(request, response);
 
@@ -137,7 +136,7 @@ describe('Media Account Rejection Controller', () => {
 
     const request = mockRequest(i18n);
     request['body'] = {'reject-confirmation': 'Yes', 'applicantId': applicantId};
-    request['user'] = {'piUserId': adminUserId };
+    request['user'] = {'userId': adminUserId };
 
     mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
     mediaAccountRejectionStub.withArgs(applicantId, adminUserId).resolves(null);

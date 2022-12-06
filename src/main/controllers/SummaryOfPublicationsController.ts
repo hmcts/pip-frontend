@@ -15,12 +15,13 @@ export default class SummaryOfPublicationsController {
     if (locationId) {
       const court = await courtService.getLocationById(parseInt(locationId.toString()));
       const locationName = courtService.findCourtName(court, req.lng as string, 'summary-of-publications');
-      const publications = await summaryOfPublicationsService.getPublications(parseInt(locationId.toString()), req.user?.['piUserId']);
+      const publications = await summaryOfPublicationsService.getPublications(parseInt(locationId.toString()), req.user?.['userId']);
 
       res.render('summary-of-publications', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
         publications,
         locationName,
+        isSjp: locationId === '9', //TODO: To be removed when custom messages are added to reference data
       });
     } else {
       res.render('error', req.i18n.getDataByLanguage(req.lng).error);

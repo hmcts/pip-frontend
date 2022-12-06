@@ -1,4 +1,4 @@
-import {allowedFileTypes, allowedImageTypes, allowedLocationUploadFileTypes, uploadType} from '../models/consts';
+import {allowedFileTypes, allowedImageTypes, allowedCsvFileTypes, uploadType} from '../models/consts';
 import fs from 'fs';
 import {LanguageFileParser} from '../helpers/languageFileParser';
 
@@ -27,13 +27,13 @@ export class FileHandlingService {
   validateFileUpload(file: File, language: string, languageFile: string, fileType: uploadType): string {
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (file) {
-      if (this.isValidFileType(file['originalname'], fileType)) {
-        if (this.isFileCorrectSize(file.size)) {
+      if (this.isFileCorrectSize(file.size)) {
+        if (this.isValidFileType(file['originalname'], fileType)) {
           return null;
         }
-        return languageFileParser.getText(fileJson, 'fileUploadErrors', 'sizeError');
+        return languageFileParser.getText(fileJson, 'fileUploadErrors', 'typeError');
       }
-      return languageFileParser.getText(fileJson, 'fileUploadErrors', 'typeError');
+      return languageFileParser.getText(fileJson, 'fileUploadErrors', 'sizeError');
     }
     return languageFileParser.getText(fileJson, 'fileUploadErrors', 'blank');
   }
@@ -43,15 +43,15 @@ export class FileHandlingService {
    * @param fileName The filename of the file being uploaded.
    */
   sanitiseFileName(fileName: string): string {
-    let sanatizedFileName = '';
+    let sanitisedFileName = '';
 
     [...fileName].forEach(char => {
       if (char.charCodeAt(0) <= 127) {
-        sanatizedFileName += char;
+        sanitisedFileName += char;
       }
     });
 
-    return sanatizedFileName;
+    return sanitisedFileName;
   }
 
   readFile(fileName): object {
@@ -69,10 +69,22 @@ export class FileHandlingService {
   }
 
   /**
+   * Read in the raw data from a CSV file and convert to an array of rows where each row contains an array of fields
+   * @param file Buffer of the raw data
+   */
+  readCsvToArray(file): string[][] {
+    return file.toString()
+      .split('\n')
+      .map(e => e.trim())
+      .filter(e => e.length > 0)
+      .map(e => e.split(',').map(e => e.trim()));
+  }
+
+  /**
    * Stores an upload file into redis with an ID of the filename. It also removes the file from disk.
    * @param userId The user ID of the user uploading the file.
-   * @param originalFilename The filename before being sanatised.
-   * @param sanatisedFileName The filename of the file to store.
+   * @param originalFilename The filename before being sanitised.
+   * @param sanitisedFileName The filename of the file to store.
    */
   async storeFileIntoRedis(userId, originalFilename, sanitisedFileName) {
     try {
@@ -125,8 +137,8 @@ export class FileHandlingService {
       case uploadType.FILE: {
         return allowedFileTypes.includes(fileType);
       }
-      case uploadType.REFERENCE_DATE: {
-        return allowedLocationUploadFileTypes.includes(fileType);
+      case uploadType.CSV: {
+        return allowedCsvFileTypes.includes(fileType);
       }
       default:
         return false;

@@ -41,7 +41,7 @@
       window.location.search = searchParams.toString();
 
   }</script>
-  {% if user.role and 'ADMIN' in user.role %}
+  {% if user.roles and 'ADMIN' in user.roles %}
     {% set betaDisplay = betaHeadingAdmin %}
   {% else %}
     {% set betaDisplay = betaHeading %}
@@ -56,8 +56,7 @@
     var link = document.getElementById("betalink")
     link.href = link.href + window.location.pathname.substring(1)
   </script>
-
-  {% if user.role in ['SYSTEM_ADMIN'] %}
+  {% if user.roles in ['SYSTEM_ADMIN'] %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -80,7 +79,7 @@
         href: '/logout'
       }
     ] %}
-  {% elif user.role in ['INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_LOCAL'] %}
+  {% elif user.roles in ['INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_LOCAL'] %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -99,7 +98,7 @@
         href: '/logout'
       }
     ] %}
-  {% elif user.role in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
+  {% elif user.roles in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -121,9 +120,8 @@
         text: navLinks.link3,
         href: '/logout'
       }
-
-    ] %}
-  {% elif isAuthenticated %}
+    ]%}
+  {% elif user.roles == 'VERIFIED' %}
     {% set listItems = [
       {
         text: navLinks.link1,
@@ -264,8 +262,8 @@
 
 {% block bodyEnd %}
   <script src="alphabetical-dev.js"></script>
-  {% if isAuthenticated %}
-    {% if user.role and 'ADMIN' in user.role %}
+  {% if user.roles %}
+    {% if user.roles and 'ADMIN' in user.roles %}
       {% set idleDurationInSeconds = 3 * 3600 + (40 * 60) %}
     {% else %}
       {% set idleDurationInSeconds = 40 * 60 %}

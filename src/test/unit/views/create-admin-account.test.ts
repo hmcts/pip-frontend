@@ -19,9 +19,7 @@ const radioHints = [
 const errors = ['Enter first name', 'Enter last name', 'Enter email address', 'Select a role'];
 let htmlRes: Document;
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
 describe('Create Admin Account Page', () => {
   describe('on GET', () => {

@@ -78,6 +78,27 @@ export class AccountManagementRequests {
     }
   }
 
+  public async bulkCreateMediaAccounts(file, filename, requester): Promise<boolean> {
+    try {
+      const token = await getAccountManagementCredentials();
+      await superagent.post(`${accountManagementApiUrl}/account/media-bulk-upload`)
+        .set('enctype', 'multipart/form-data')
+        .set({'Authorization': 'Bearer ' + token.access_token})
+        .set('x-issuer-id', requester)
+        .attach('mediaList', file, filename);
+      return true;
+    } catch (error) {
+      if (error.response) {
+        logger.error(`Failed to bulk create media account on response. ${error.esponse.data}`);
+      } else if (error.request) {
+        logger.error(`Failed to bulk create media account on request. ${error.request}`);
+      } else {
+        logger.error(`Failed to bulk create media account with message. ${error.message}`);
+      }
+      return false;
+    }
+  }
+
   public async getMediaApplicationById(applicationId): Promise<MediaAccountApplication | null> {
     try {
       const response = await accountManagementApi.get('/application/' + applicationId);
@@ -162,19 +183,52 @@ export class AccountManagementRequests {
     }
   }
 
+  public async getPiUserByCftID(uid: string): Promise<any> {
+    try {
+      const response = await accountManagementApi.get(`/account/provenance/CFT_IDAM/${uid}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET PI user request', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for Pi user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get the pi user from the uid', error.message);
+      }
+      return null;
+    }
+  }
+
+  public async getThirdPartyAccounts(adminUserId): Promise<any> {
+    try {
+      logger.info('Third party account data requested by Admin with ID: ' + adminUserId);
+      const response = await accountManagementApi.get('/account/all/third-party');
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET third party users', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed to get third party user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get third party users', error.message);
+      }
+      return null;
+    }
+  }
+
   public async updateMediaAccountVerification(oid: string): Promise<string> {
-    return this.updateAccountDate(oid, 'lastVerifiedDate', 'Failed to verify media account');
+    return this.updateAccountDate('PI_AAD', oid, 'lastVerifiedDate', 'Failed to verify media account');
   }
 
-  public async updateAccountLastSignedInDate(oid: string): Promise<string> {
-    return this.updateAccountDate(oid, 'lastSignedInDate', 'Failed to update account last signed in date');
+  public async updateAccountLastSignedInDate(userProvenance: string, oid: string): Promise<string> {
+    return this.updateAccountDate(userProvenance, oid, 'lastSignedInDate', 'Failed to update account last signed in date');
   }
 
-  private async updateAccountDate(oid: string, field: string, errorMessage: string): Promise<string> {
+  private async updateAccountDate(userProvenance: string, oid: string, field: string, errorMessage: string): Promise<string> {
     try {
       const map = {};
       map[field] = moment().toISOString();
-      const response = await accountManagementApi.put(`/account/provenance/PI_AAD/${oid}`, map);
+      const response = await accountManagementApi.put(`/account/provenance/${userProvenance}/${oid}`, map);
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -183,6 +237,76 @@ export class AccountManagementRequests {
         logger.error(errorMessage, error.request);
       } else {
         logger.error(errorMessage, error.message);
+      }
+      return null;
+    }
+  }
+
+  public async getAllAccountsExceptThirdParty(params: object, adminUserId: string): Promise<any> {
+    try {
+      logger.info('All user data requested by Admin with ID: ' + adminUserId);
+      const response = await accountManagementApi.get('/account/all', params);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to get all accounts', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for getting all accounts', error.request);
+      } else {
+        logger.error('Something went wrong trying to get all accounts', error.message);
+      }
+      return [];
+    }
+  }
+
+  public async getUserByUserId(userId: string, adminUserId: string): Promise<any> {
+    try {
+      logger.info('User with ID: ' + userId + ' data requested by Admin with ID: ' + adminUserId);
+      const response = await accountManagementApi.get(`/account/${userId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET PI user request', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for Pi user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get the pi user from the user id', error.message);
+      }
+      return null;
+    }
+  }
+
+  public async deleteUser(userId: string, adminUserId: string): Promise<object> {
+    try {
+      logger.info('User with ID: ' + userId + ' deleted by Admin with ID: ' + adminUserId);
+      const response = await accountManagementApi.delete(`/account/delete/${userId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(error.request);
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
+      }
+      return null;
+    }
+  }
+
+  public async updateUser(userId: string, role: string, adminUserId: string): Promise<object> {
+    try {
+      logger.info('User with ID: ' + userId + ' role updated to ' + role + ' by Admin with ID: ' + adminUserId);
+      const response = await accountManagementApi.put(`/account/update/${userId}/${role}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(error.request);
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
       }
       return null;
     }
