@@ -1,9 +1,9 @@
 import moment from 'moment-timezone';
-import { DataManipulationService } from '../dataManipulationService';
 import {formatDuration} from '../../helpers/dateTimeHelper';
 import { CrimeListsService } from './CrimeListsService';
+import { ListParseHelperService } from '../listParseHelperService';
 
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
 const dailyListService = new CrimeListsService();
 
 export class CrownFirmListService {
@@ -24,7 +24,7 @@ export class CrownFirmListService {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
-            const judiciary = dataManipulationService.findAndManipulateJudiciary(sitting);
+            const judiciary = helperService.findAndManipulateJudiciary(sitting);
             if (judiciary !== '') {
               session['formattedJudiciaries'] = judiciary;
             }
@@ -38,7 +38,7 @@ export class CrownFirmListService {
                 const row = {
                   courtName: courtName,
                   sittingDate: sittingDate,
-                  sittingTime: dataManipulationService.publicationTimeInBst(sitting['sittingStart']),
+                  sittingTime: helperService.publicationTimeInUkTime(sitting['sittingStart']),
                   courtRoom: courtRoom['courtRoomName'],
                   joh: session['formattedJudiciaries'],
                   durationAsHours: sitting['durationAsHours'],
@@ -90,13 +90,13 @@ export class CrownFirmListService {
    */
   private splitByCourtAndDateAndAllocation(data: any) {
     const courts = [];
-    const uniqueCourts = dataManipulationService.uniquesInArrayByAttrib(data, 'courtName');
+    const uniqueCourts = helperService.uniquesInArrayByAttrib(data, 'courtName');
     let courtCounter = 0;
 
     uniqueCourts.forEach(court => {
       const courtData = data.filter(row => row.courtName === court);
       courts.push({ 'courtName': court, days: [] });
-      const uniqueDays = dataManipulationService.uniquesInArrayByAttrib(courtData, 'sittingDate');
+      const uniqueDays = helperService.uniquesInArrayByAttrib(courtData, 'sittingDate');
       const uniqueDaysArr = [];
       Array.from(uniqueDays).forEach(day => {
         const encDay = moment.utc(day, 'dddd DD MMMM YYYY').tz(this.timeZone);
@@ -109,7 +109,7 @@ export class CrownFirmListService {
         const thisDayCourts = [];
         const formattedDay = moment.utc(day).tz(this.timeZone).format('dddd DD MMMM YYYY');
         const record = courtData.filter(row => row.sittingDate === formattedDay);
-        const uniqueCourtRooms = dataManipulationService.uniquesInArrayByAttrib(record, 'courtRoom');
+        const uniqueCourtRooms = helperService.uniquesInArrayByAttrib(record, 'courtRoom');
         Array.from(uniqueCourtRooms).forEach(courtRoom => {
           const room = record.filter(row => row.courtRoom === courtRoom);
           thisDayCourts.push({ 'courtRoom': courtRoom, data: room });

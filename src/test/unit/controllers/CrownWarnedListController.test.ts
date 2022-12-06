@@ -5,7 +5,7 @@ import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
-import {CrownWarnedListService} from '../../../main/service/listManipulation/crownWarnedListService';
+import {CrownWarnedListService} from '../../../main/service/listManipulation/CrownWarnedListService';
 import CrownWarnedListController from '../../../main/controllers/CrownWarnedListController';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownWarnedList.json'), 'utf-8');
