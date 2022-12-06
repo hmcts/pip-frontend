@@ -12,7 +12,7 @@ import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
 import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
 import { CreateSystemAdminAccountPage } from '../PageObjects/CreateSystemAdminAccount.page';
 import { CreateSystemAdminAccountSummaryPage } from '../PageObjects/CreateSystemAdminAccountSummary.page';
-import { DailyCauseListPage } from '../PageObjects/DailyCauseList.page';
+import { CourtListPage } from '../PageObjects/CourtList.page';
 import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { HomePage } from '../PageObjects/Home.page';
@@ -100,7 +100,7 @@ let systemAdminDashboard = new SystemAdminDashboardPage;
 let createMediaAccountPage: CreateMediaAccountPage;
 let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let accountHomePage: AccountHomePage;
-let dailyCauseListPage: DailyCauseListPage;
+let courtListPage: CourtListPage;
 let sjpPublicListPage: SJPPublicListPage;
 let listDownloadDisclaimerPage: ListDownloadDisclaimerPage;
 let listDownloadFilesPage: ListDownloadFilesPage;
@@ -174,8 +174,8 @@ describe('Unverified user', () => {
       });
 
       it('should select the first publication', async () => {
-        dailyCauseListPage = await summaryOfPublicationsPage.clickSOPListItem();
-        expect(await dailyCauseListPage.getPageTitle()).toContain(searchTerm);
+        courtListPage = await summaryOfPublicationsPage.clickSOPListItem();
+        expect(await courtListPage.getPageTitle()).toContain(searchTerm);
       });
     });
 
@@ -209,8 +209,8 @@ describe('Unverified user', () => {
       });
 
       it('should select the first publication', async () => {
-        dailyCauseListPage = await summaryOfPublicationsPage.clickSOPListItem();
-        expect(await dailyCauseListPage.getPageTitle()).toContain(searchTerm);
+        courtListPage = await summaryOfPublicationsPage.clickSOPListItem();
+        expect(await courtListPage.getPageTitle()).toContain(searchTerm);
       });
     });
 
@@ -254,7 +254,7 @@ describe('Unverified user', () => {
       });
 
       it('should select first list item', async () => {
-        sjpPublicListPage = await singleJusticeProcedurePage.clickSOPListItem();
+        sjpPublicListPage = await singleJusticeProcedurePage.clickSjpPublicListItem();
         expect(await sjpPublicListPage.getPageTitle()).toEqual('Single Justice Procedure cases that are ready for hearing');
       });
     });
@@ -594,9 +594,8 @@ describe('Verified user', () => {
       summaryOfPublicationsPage = await searchPage.clickNavSJP(true);
       expect(await summaryOfPublicationsPage.getPageTitle()).toBe('What do you want to view from Single Justice Procedure?');
 
-      sjpPublicListPage = await singleJusticeProcedurePage.clickSOPListItem();
-      const pageTitle = await sjpPublicListPage.getPageTitle();
-      expect(pageTitle.startsWith('Single Justice Procedure cases')).toBeTruthy();
+      sjpPublicListPage = await singleJusticeProcedurePage.clickSjpPublicListItem();
+      expect(await sjpPublicListPage.getPageTitle()).toEqual('Single Justice Procedure cases that are ready for hearing');
     });
 
     it('should navigate to list download disclaimer page on download button click', async () => {
