@@ -6,13 +6,13 @@ import { app } from '../../main/app';
 import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
-import { DataManipulationService } from '../../main/service/dataManipulationService';
+import { SscsDailyListService } from '../../main/service/listManipulation/SscsDailyListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/sscsDailyList.json'), 'utf-8');
 const sscsData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(sscsData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(sscsData);
-sinon.stub(DataManipulationService.prototype, 'manipulateSscsDailyListData').resolves(sscsData);
+sinon.stub(SscsDailyListService.prototype, 'manipulateSscsDailyListData').resolves(sscsData);
 
 describe('Sscs Daily List Page', () => {
   describe('on GET', () => {

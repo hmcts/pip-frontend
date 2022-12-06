@@ -138,9 +138,10 @@ export class PublicationRequests {
     return [];
   }
 
-  public async deletePublication(artefactId: string, id: string): Promise<boolean> {
+  public async archivePublication(artefactId: string, id: string): Promise<boolean> {
     try {
-      await dataManagementApi.delete(`/publication/${artefactId}`, {headers: {'x-issuer-id': id}});
+      await dataManagementApi.put(`/publication/${artefactId}/archive`, {},
+        {headers: {'x-issuer-id': id}});
       return true;
     } catch (error) {
       if (error.response) {

@@ -133,7 +133,7 @@ describe('ET Fortnightly List page', () => {
   it('should display Case Name without Case Sequence Indicator',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
     const x = 11;
-    expect(cell[x].innerHTML).equals('3 mins ');
+    expect(cell[x].innerHTML).equals('3 mins');
   });
 
   it('should display Hearing Type',  () => {
