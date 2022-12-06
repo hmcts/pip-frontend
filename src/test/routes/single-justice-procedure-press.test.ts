@@ -17,7 +17,7 @@ sinon.stub(SjpPressListService.prototype, 'formatSJPPressList').resolves(sjpPres
 describe('Single Justice Procedure Press Page', () => {
   describe('on GET', () => {
     test('should return Single Justice Procedure Press page', async () => {
-      app.request['user'] = {piUserId: '2'};
+      app.request['user'] = {userId: '2'};
       await request(app)
         .get('/sjp-press-list?artefactId=test')
         .expect((res) => expect(res.status).to.equal(200));

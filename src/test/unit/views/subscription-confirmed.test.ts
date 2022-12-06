@@ -14,9 +14,7 @@ cacheStub.withArgs('1', 'courts').resolves(['court']);
 
 describe('Subscriptions Confirmed Page', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'VERIFIED',
-    }};
+    app.request['user'] = {userId: '1', 'roles': 'VERIFIED'};
     await request(app).post(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
       htmlRes.getElementsByTagName('div')[0].remove();

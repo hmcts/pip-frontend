@@ -28,6 +28,7 @@ export class ListParseHelperService {
     let applicantRepresentative = '';
     let prosecutingAuthority = '';
     let defendant = '';
+    let defendantRep = '';
     let appellantRepresentative = '';
     if (hearing?.party) {
       hearing.party.forEach(party => {
@@ -80,6 +81,11 @@ export class ListParseHelperService {
             defendant += this.stringDelimiter(defendant?.length, ',');
             break;
           }
+          case 'DEFENDANT_REPRESENTATIVE':
+          {
+            defendantRep += this.createIndividualDetails(party.individualDetails, initialised).trim();
+            defendantRep += this.stringDelimiter(defendant?.length, ',');
+          }
         }
       });
       hearing['appellant'] = appellant?.replace(/,\s*$/, '').trim();
@@ -91,6 +97,7 @@ export class ListParseHelperService {
       hearing['respondent'] = respondent?.replace(/,\s*$/, '').trim();
       hearing['prosecutingAuthority'] = prosecutingAuthority?.replace(/,\s*$/, '').trim();
       hearing['defendant'] = defendant?.replace(/,\s*$/, '').trim();
+      hearing['defendantRepresentative'] = defendantRep?.replace(/,\s*$/, '').trim();
     }
   }
 
@@ -224,7 +231,6 @@ export class ListParseHelperService {
    */
   public calculateDuration(sitting: object): void {
     sitting['duration'] = '';
-    sitting['startTime'] = '';
     if (sitting['sittingStart'] !== '' && sitting['sittingEnd'] !== '') {
       const sittingStart = moment.utc(sitting['sittingStart']);
       const sittingEnd = moment.utc(sitting['sittingEnd']);
@@ -244,12 +250,11 @@ export class ListParseHelperService {
       sitting['durationAsMinutes'] = durationAsMinutes;
       sitting['durationAsDays'] = durationAsDays;
 
-      sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('HH:mm');
       const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
       if (min === 0) {
-        sitting['startTime'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('ha');
+        sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('ha');
       } else {
-        sitting['startTime'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('h.mma');
+        sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('h:mma');
       }
     }
   }

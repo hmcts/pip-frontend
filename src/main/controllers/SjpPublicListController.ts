@@ -10,8 +10,8 @@ const helperService = new ListParseHelperService();
 export default class SjpPublicListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query['artefactId'];
-    const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);
-    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
+    const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
+    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
     if (fileData && metaData) {
       const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);

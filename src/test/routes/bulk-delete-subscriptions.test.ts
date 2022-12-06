@@ -4,7 +4,7 @@ import { app } from '../../main/app';
 import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/bulk-delete-subscriptions';
-expressRequest['user'] = {'_json': {'extension_UserRole': 'VERIFIED'}};
+expressRequest['user'] = {'roles': 'VERIFIED'};
 
 describe('Bulk delete subscriptions', () => {
   describe('on GET', () => {

@@ -57,7 +57,7 @@ describe('Tests for the civil, family and mixed lists service.', function() {
 
     it('should calculate start time of Hearing in cause list object', async () => {
       const data = await service.sculptedCivilFamilyMixedListData(rawDailyCauseData);
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['startTime']).to.equal('10.40am');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['time']).to.equal('10:40am');
     });
 
     it('should set caseHearingChannel to sitting channel', async () => {

@@ -9,7 +9,7 @@ export default class ManageThirdPartyUsersController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     res.render('manage-third-party-users', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-users']),
-      thirdPartyAccounts: await thirdPartyService.getThirdPartyAccounts(req.user['piUserId']),
+      thirdPartyAccounts: await thirdPartyService.getThirdPartyAccounts(req.user['userId']),
     });
   }
 }

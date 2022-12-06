@@ -1,0 +1,16 @@
+{
+  "title": "Bulk create media accounts",
+  "fileUploadText": "Upload a csv file containing a list of media accounts to be created.",
+  "recordDescription": "Each record must include the email, first name and surname information.",
+  "fileHeaderDescription": "The file must also have the header 'email,firstName,surname'.",
+  "errorTitle": "There is a problem",
+  "fileUploadErrors": {
+    "blank": "Please provide a file",
+    "typeError": "Please upload a valid file format",
+    "sizeError": "File too large, please upload a file smaller than 2MB",
+    "headerError": "Invalid header in file",
+    "fieldSizeError": "Incorrect number of fields in file"
+  },
+  "continueButton": "Continue",
+  "backButton": "Back"
+}

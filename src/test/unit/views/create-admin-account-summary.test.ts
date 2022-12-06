@@ -22,9 +22,7 @@ const changeValues = ['firstName', 'lastName', 'emailAddress', 'user-role'];
 let htmlRes: Document;
 const createAccountStub = sinon.stub(CreateAccountService.prototype, 'createAdminAccount');
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
 describe('Create Admin Account Summary page', () => {
   describe('on GET', () => {
@@ -75,10 +73,8 @@ describe('Create Admin Account Summary page', () => {
           createAdminAccount: JSON.stringify(cookie),
         };
         app.request['user'] = {
-          emails: ['joe@bloggs.com'],
-          '_json': {
-            'extension_UserRole': 'SYSTEM_ADMIN',
-          },
+          email: 'joe@bloggs.com',
+          roles: 'SYSTEM_ADMIN',
         };
         await request(app).post(PAGE_URL).then(res => {
           htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
@@ -98,10 +94,8 @@ describe('Create Admin Account Summary page', () => {
     describe('with success', () => {
       beforeAll(async () => {
         app.request['user'] = {
-          emails: ['joe@bloggs.com'],
-          '_json': {
-            'extension_UserRole': 'SYSTEM_ADMIN',
-          },
+          email: 'joe@bloggs.com',
+          roles: 'SYSTEM_ADMIN',
         };
         createAccountStub.resolves(true);
         app.request['cookies'] = {

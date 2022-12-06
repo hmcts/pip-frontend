@@ -3,6 +3,7 @@ import request from 'supertest';
 import {app} from '../../../main/app';
 import {expect} from 'chai';
 import {AccountManagementRequests} from '../../../main/resources/requests/accountManagementRequests';
+import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/delete-user-confirmation';
 const validBody = {'delete-user-confirm': 'yes', user: '1234'};
@@ -17,9 +18,7 @@ stub.withArgs('1234').resolves(true);
 
 describe('Delete User Confirmation Page', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'SYSTEM_ADMIN',
-    }};
+    expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
     await request(app).post(PAGE_URL).send(validBody).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

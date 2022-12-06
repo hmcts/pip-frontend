@@ -45,6 +45,7 @@ import {MediaAccountRejectionPage} from '../PageObjects/MediaAccountRejection.pa
 import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccountRejectionConfirmation.page';
 import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
 import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
+//import {CftAuthenticationFailedPage} from '../PageObjects/CftAuthenticationFailed.page';
 import {SessionLoggedOutPage} from '../PageObjects/SessionLoggedOut.page';
 import {ManualReferenceDataUploadPage} from '../PageObjects/ManualReferenceDataUpload.page';
 import {ManualReferenceDataUploadSummaryPage} from '../PageObjects/ManualReferenceDataUploadSummary.page';
@@ -60,6 +61,8 @@ import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPag
 import {ManageThirdPartyUsersPage} from '../PageObjects/ManageThirdPartyUsers.page';
 import {ListDownloadDisclaimerPage} from '../PageObjects/ListDownloadDisclaimer.page';
 import {ListDownloadFilesPage} from '../PageObjects/ListDownloadFiles.page';
+import { BulkCreateMediaAccountsPage } from '../pageobjects/BulkCreateMediaAccounts.page';
+import { BulkCreateMediaAccountsConfirmationPage } from '../pageobjects/BulkCreateMediaAccountsConfirmation.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -113,6 +116,7 @@ let mediaAccountApprovalPage: MediaAccountApprovalPage;
 let mediaAccountRejectionPage: MediaAccountRejectionPage;
 let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
 let subscriptionConfigureListPage: SubscriptionConfigureListPage;
+//let cftAuthenticationFailedPage: CftAuthenticationFailedPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
 let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
 let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
@@ -123,6 +127,8 @@ let deleteUserPage: DeleteUserPage;
 let blobViewLocationsPage: BlobViewLocationsPage;
 let blobViewPublicationsPage: BlobViewPublicationsPage;
 let manageThirdPartyUsersPage: ManageThirdPartyUsersPage;
+let bulkCreateMediaAccountsPage: BulkCreateMediaAccountsPage;
+let bulkCreateMediaAccountsConfirmationPage: BulkCreateMediaAccountsConfirmationPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -293,6 +299,63 @@ describe('Unverified user', () => {
   });
 });
 
+//TODO: To be uncommented once CFT IDAM is enabled
+// describe('CFT IDAM user login', () => {
+//   describe('Sign in using a valid account', () => {
+//     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+//       await signInPage.open('/sign-in');
+//       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+//     });
+//
+//     it('should see 3 radio buttons', async () => {
+//       expect(await signInPage.radioButtons).toBe(3);
+//     });
+//
+//     it('should select \'With a MyHMCTS account\' option, navigate to the login page, and sign in', async () => {
+//       await signInPage.open('/sign-in');
+//       await signInPage.selectOption('SignInRadio1');
+//       await signInPage.clickContinueForRadio1();
+//       await signInPage.enterText(process.env.CFT_VALID_USERNAME, 'CftEmailField');
+//       await signInPage.enterText(process.env.CFT_VALID_PASSWORD, 'CftPasswordField');
+//       accountHomePage = await signInPage.clickSignInCft();
+//     });
+//
+//     it('should open account home page on successful sign in', async () => {
+//       expect(await accountHomePage.getPageTitle()).toBe('Your account');
+//     });
+//
+//     it('should sign out and open view-option page', async () => {
+//       viewOptionPage = await accountHomePage.clickSignOutForCftAccount();
+//       expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+//     });
+//   });
+//
+//   describe('Sign in using an invalid account', () => {
+//     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+//       await signInPage.open('/sign-in');
+//       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+//     });
+//
+//     it('should see 3 radio buttons', async () => {
+//       expect(await signInPage.radioButtons).toBe(3);
+//     });
+//
+//     it('should select \'With a MyHMCTS account\' option, navigate to the login page, and sign in', async () => {
+//       await signInPage.open('/sign-in');
+//       await signInPage.selectOption('SignInRadio1');
+//       await signInPage.clickContinueForRadio1();
+//       await signInPage.enterText(process.env.CFT_INVALID_USERNAME, 'CftEmailField');
+//       await signInPage.enterText(process.env.CFT_INVALID_PASSWORD, 'CftPasswordField');
+//       cftAuthenticationFailedPage = await signInPage.clickSignInCftUnsuccessful();
+//     });
+//
+//     it('should open Authentication failed page', async () => {
+//       expect(await cftAuthenticationFailedPage.getParagraphText()).toBe('You have successfully signed into your MyHMCTS account.' +
+//         ' Unfortunately, your account role does not allow you to access the verified user part of the Court and tribunal hearings service');
+//     });
+//   });
+// });
+
 describe('Verified user', () => {
   describe('Sign In Page', () => {
     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
@@ -305,14 +368,14 @@ describe('Verified user', () => {
     });
 
     describe('sign in process and page routing', async () => {
-      it('should select \'Sign in with my P&I details\' option, navigate to the login page, and sign in', async () => {
+      it('should select \'Sign in With a Court and tribunal hearings account\' option, navigate to the login page, and sign in', async () => {
         await signInPage.open('/sign-in');
         await signInPage.selectOption('SignInRadio3');
         await signInPage.clickContinueForRadio3();
         console.log('B2C_USERNAME', process.env.B2C_USERNAME);
         await signInPage.enterText(process.env.B2C_USERNAME, 'EmailField');
         await signInPage.enterText(process.env.B2C_PASSWORD, 'PasswordField');
-        accountHomePage = await signInPage.clickSignIn();
+        accountHomePage = await signInPage.clickSignInAad();
       });
 
       it('should open account home page on successful sign in', async () => {
@@ -458,8 +521,6 @@ describe('Verified user', () => {
       before(async () => {
         await subscriptionConfigureListPage.open('subscription-configure-list');
       });
-
-      //TODO: To be uncommented once subscription management (1511) has been merged in
 
       // it('should select first jurisdiction filter', async () => {
       //   await subscriptionConfigureListPage.selectOption('JurisdictionFilter1');
@@ -872,6 +933,23 @@ describe('System Admin level journeys', () => {
     it('should choose the first result', async() => {
       blobViewPublicationsPage = await blobViewLocationsPage.selectFirstListResult();
       expect(await blobViewPublicationsPage.getPageTitle()).toEqual('Blob Explorer - Publications');
+    });
+  });
+
+  describe('should open bulk create media accounts page', async () => {
+    before(async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard');
+    });
+
+    it('should load the bulk create media accounts page', async () => {
+      bulkCreateMediaAccountsPage = await systemAdminDashboard.clickBulkCreateMediaAccountsCard();
+      expect(await bulkCreateMediaAccountsPage.getPageTitle()).toEqual('Bulk create media accounts');
+    });
+
+    it('should upload file and open confirmation page', async () => {
+      await bulkCreateMediaAccountsPage.uploadFile();
+      bulkCreateMediaAccountsConfirmationPage = await bulkCreateMediaAccountsPage.clickContinue();
+      expect(await bulkCreateMediaAccountsConfirmationPage.getPageTitle()).toEqual('Are you sure you want to create these media accounts?');
     });
   });
 

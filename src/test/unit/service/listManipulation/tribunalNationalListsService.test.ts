@@ -8,7 +8,7 @@ const tribunalNationalListsService = new TribunalNationalListsService();
 const testData = fs.readFileSync(path.resolve(__dirname, '../../mocks/primaryHealthList.json'), 'utf-8');
 
 const lng = 'en';
-const languageFile = 'case-standards-list';
+const languageFile = 'care-standards-list';
 
 describe('Tribunal National Lists Service', () => {
 

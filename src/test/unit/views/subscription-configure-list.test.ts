@@ -25,9 +25,7 @@ describe('Subscription Configure List', () => {
   locationStub.withArgs(1).resolves({jurisdiction: ['Civil', 'Crime']});
 
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'VERIFIED',
-    }};
+    app.request['user'] = {userId: '1', 'roles': 'VERIFIED'};
 
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

@@ -7,9 +7,7 @@ describe('Blob view JSON page', () => {
   describe('on GET', () => {
     test('should return blob-view-json page', async () => {
       app.request['user'] = {
-        id: '1', '_json': {
-          'extension_UserRole': 'SYSTEM_ADMIN',
-        },
+        id: '1', 'roles': 'SYSTEM_ADMIN',
       };
       await request(app)
         .get('/blob-view-json')

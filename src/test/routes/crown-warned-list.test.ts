@@ -32,7 +32,7 @@ sinon.stub(CrownWarnedListService.prototype, 'manipulateData').returns(listData)
 describe('Crown Warned List Page', () => {
   describe('on GET', () => {
     test('should return crown warned list page', async () => {
-      app.request['user'] = {piUserId: '2'};
+      app.request['user'] = {userId: '2'};
       await request(app)
         .get('/crown-warned-list?artefactId=test')
         .expect((res) => expect(res.status).to.equal(200));

@@ -51,7 +51,7 @@ describe('Cop Daily Cause List Controller', () => {
 
   it('should render the cop daily cause list page', async () => {
     request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
 
     const responseMock = sinon.mock(response);
     const expectedData = {
@@ -75,7 +75,7 @@ describe('Cop Daily Cause List Controller', () => {
   it('should render error page if query param is empty', async () => {
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '123'};
+    request.user = {userId: '123'};
 
     const responseMock = sinon.mock(response);
 
