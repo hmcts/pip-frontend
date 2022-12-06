@@ -27,6 +27,20 @@ describe('Create Media Account page', () => {
         .contains('Create a Court and tribunal hearings account', 'Could not find correct value in the title');
     });
 
+    it('should display correct text in the first paragraph', () => {
+      const hint = htmlRes.getElementsByClassName('govuk-body')[0];
+      expect(hint.innerHTML)
+        .contains('A Court and Tribunal Hearings account is for professional users who require the ability to view HMCTS information such as hearing lists, but do not have the ability to create an account using MyHMCTS or Common Platform e.g. members of the media.'
+          , 'Could not find correct text in first paragraph');
+    });
+
+    it('should display correct text in the second paragraph', () => {
+      const hint = htmlRes.getElementsByClassName('govuk-body')[1];
+      expect(hint.innerHTML)
+        .contains('An account holder, once signed in, will be able choose what information they wish to receive via email and also view online information not available to the public, along with publicly available information.'
+          , 'Could not find correct text in second paragraph');
+    });
+
     it('should display correct retention hint', () => {
       const hint = htmlRes.getElementsByClassName('govuk-hint')[0];
       expect(hint.innerHTML)
@@ -71,7 +85,7 @@ describe('Create Media Account page', () => {
     });
 
     it('should display clear photo paragraph', () => {
-      const message = htmlRes.getElementsByClassName('govuk-body')[0];
+      const message = htmlRes.getElementsByClassName('govuk-body')[2];
       expect(message.innerHTML).contains('Upload a clear photo of your UK Press Card or work ID', 'Could not find clear photo message');
     });
 
@@ -82,13 +96,13 @@ describe('Create Media Account page', () => {
     });
 
     it('should display t&c paragraph 1', () => {
-      const message = htmlRes.getElementsByClassName('govuk-body')[1];
+      const message = htmlRes.getElementsByClassName('govuk-body')[3];
       expect(message.innerHTML).contains('A court and tribunal hearing account is granted based on you having ' +
         'legitimate', 'Could not find this paragraph');
     });
 
     it('should display t&c paragraph 2', () => {
-      const message = htmlRes.getElementsByClassName('govuk-body')[2];
+      const message = htmlRes.getElementsByClassName('govuk-body')[4];
       expect(message.innerHTML).contains('If your circumstances change and you no longer have legitimate reasons',
         'Could not find this paragraph');
     });

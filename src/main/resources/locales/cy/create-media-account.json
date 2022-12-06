@@ -1,5 +1,7 @@
 {
   "title": "Creu cyfrif gwrandawiadau Llys a Thribiwnlys",
+  "paragraph1": "A Court and Tribunal Hearings account is for professional users who require the ability to view HMCTS information such as hearing lists, but do not have the ability to create an account using MyHMCTS or Common Platform e.g. members of the media.",
+  "paragraph2": "An account holder, once signed in, will be able choose what information they wish to receive via email and also view online information not available to the public, along with publicly available information.",
   "retainHint": "Byddwn yn cadw'r wybodaeth bersonol a roir gennych yma i reoli eich cyfrif defnyddiwr a'n gwasanaethau",
   "nameLabel": "Enw llawn",
   "emailLabel": "Cyfeiriad e-bost",
