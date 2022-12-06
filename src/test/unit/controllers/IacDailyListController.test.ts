@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import IacDailyListController from '../../../main/controllers/IacDailyListController';
 import {PublicationService} from '../../../main/service/publicationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
+import {IacDailyListService} from '../../../main/service/listManipulation/IacDailyListService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
@@ -18,7 +18,7 @@ const iacDailyListController = new IacDailyListController();
 
 const iacDailyListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const iacDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
-sinon.stub(DataManipulationService.prototype, 'manipulateIacDailyListData').returns(listData);
+sinon.stub(IacDailyListService.prototype, 'manipulateIacDailyListData').returns(listData);
 
 const artefactId = 'abc';
 
