@@ -78,6 +78,27 @@ export class AccountManagementRequests {
     }
   }
 
+  public async bulkCreateMediaAccounts(file, filename, requester): Promise<boolean> {
+    try {
+      const token = await getAccountManagementCredentials();
+      await superagent.post(`${accountManagementApiUrl}/account/media-bulk-upload`)
+        .set('enctype', 'multipart/form-data')
+        .set({'Authorization': 'Bearer ' + token.access_token})
+        .set('x-issuer-id', requester)
+        .attach('mediaList', file, filename);
+      return true;
+    } catch (error) {
+      if (error.response) {
+        logger.error(`Failed to bulk create media account on response. ${error.esponse.data}`);
+      } else if (error.request) {
+        logger.error(`Failed to bulk create media account on request. ${error.request}`);
+      } else {
+        logger.error(`Failed to bulk create media account with message. ${error.message}`);
+      }
+      return false;
+    }
+  }
+
   public async getMediaApplicationById(applicationId): Promise<MediaAccountApplication | null> {
     try {
       const response = await accountManagementApi.get('/application/' + applicationId);
