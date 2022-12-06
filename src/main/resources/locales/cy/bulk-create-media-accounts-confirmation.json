@@ -1,0 +1,12 @@
+{
+  "title": "Are you sure you want to create these media accounts?",
+  "fileName": "File name",
+  "email": "Email",
+  "firstName": "First Name",
+  "surname": "Surname",
+  "radioAnswers": ["Yes", "No"],
+  "noOptionError": "An option must be selected",
+  "accountCreationError": "Error creating the media accounts",
+  "continueButton": "Continue",
+  "backButton": "Back"
+}

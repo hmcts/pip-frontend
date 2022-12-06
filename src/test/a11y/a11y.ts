@@ -79,6 +79,9 @@ const systemAdminRoutes = [
   '/blob-view-json',
   '/blob-view-publications',
   '/blob-view-locations',
+  '/bulk-create-media-accounts',
+  '/bulk-create-media-accounts-confirmation',
+  '/bulk-create-media-accounts-confirmed',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');

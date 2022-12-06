@@ -208,6 +208,22 @@ export class CreateAccountService {
     }
   }
 
+  validateCsvFileContent(file, expectedFieldCount, expectedHeader, language, languageFile): string {
+    const rows = fileHandlingService.readCsvToArray(file);
+    const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
+
+    if (rows.length > 0) {
+      if (JSON.stringify(rows[0].sort()) !== JSON.stringify(expectedHeader.sort())) {
+        return languageFileParser.getText(fileJson, 'fileUploadErrors', 'headerError');
+      }
+    }
+
+    if (rows.some(row => row.length != expectedFieldCount)) {
+      return languageFileParser.getText(fileJson, 'fileUploadErrors', 'fieldSizeError');
+    }
+    return null;
+  }
+
   formatCreateAdminAccountPayload(accountObject): any[] {
     return [{
       email: accountObject.emailAddress,
@@ -269,5 +285,9 @@ export class CreateAccountService {
 
   public async createMediaApplication(payload: object, file: File): Promise<boolean> {
     return await accountManagementRequests.createMediaAccount(this.formatCreateMediaAccount(payload, file));
+  }
+
+  public async bulkCreateMediaAccounts(file: any, filename: string, id: string):Promise<boolean> {
+    return await accountManagementRequests.bulkCreateMediaAccounts(file, filename, id);
   }
 }
