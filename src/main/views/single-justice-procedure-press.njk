@@ -1,4 +1,5 @@
 {% from "./macros/common-components.njk" import goBack %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
@@ -23,6 +24,17 @@
   <div class="parent-box">
     <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contactDate }}</p>
     <p class="govuk-body">{{ published }} {{ publishedDateTime }} {{ publishedAt }} {{ publishedTime }}</p>
+
+    {% if user.roles and user.roles in ['VERIFIED'] %}
+      {{ govukButton({
+        attributes: {
+          id: 'download-button'
+        },
+        text: downloadButton,
+        href: 'list-download-disclaimer?artefactId=' + artefactId
+      }) }}
+    {% endif %}
+
     <div class="overflow-table govuk-body">
       {% set hearingCount = 0 %}
       {% for courtList in sjpData['courtLists'] %}

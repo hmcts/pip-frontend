@@ -1,0 +1,28 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack %}
+{% from "./macros/common-components.njk" import successPanel %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+  {{ successPanel(title, subheader) }}
+  <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-top-6">{{ nextMessage }}</p>
+  <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link " href="bulk-create-media-accounts">{{ uploadFile }}</a></p>
+  <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link" href="system-admin-dashboard">{{ homeLinkName }}</a></p>
+{% endblock %}
+
+{% block bodyEnd %}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  {{ super() }}
+{% endblock %}

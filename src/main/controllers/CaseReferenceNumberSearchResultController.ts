@@ -9,7 +9,7 @@ export default class CaseReferenceNumberSearchResultController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.query['search-input'] as string;
-    const searchResults = await publicationService.getCaseByCaseNumber(searchInput, req.user?.['piUserId']);
+    const searchResults = await publicationService.getCaseByCaseNumber(searchInput, req.user?.['userId']);
 
     if (searchResults) {
       res.render('case-reference-number-search-results', {

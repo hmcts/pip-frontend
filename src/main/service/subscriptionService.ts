@@ -182,13 +182,13 @@ export class SubscriptionService {
             hearingIdsList.push(pendingSubscription[`${selectionName}`]);
           caseDetailsList = await this.getCaseDetails(hearingIdsList, user);
           // set results into cache
-          await this.setPendingSubscriptions(caseDetailsList, 'cases', user.piUserId);
+          await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
           break;
         case 'urn':
-          urnHearing = await publicationService.getCaseByCaseUrn(pendingSubscription[`${selectionName}`], user.piUserId);
+          urnHearing = await publicationService.getCaseByCaseUrn(pendingSubscription[`${selectionName}`], user.userId);
           if (urnHearing) {
             urnHearing.urnSearch = true;
-            await this.setPendingSubscriptions([urnHearing], 'cases', user.piUserId);
+            await this.setPendingSubscriptions([urnHearing], 'cases', user.userId);
           }
           break;
         case 'court-selections[]':
@@ -197,7 +197,7 @@ export class SubscriptionService {
             locationIdsList.push(pendingSubscription[`${selectionName}`]);
           courtDetailsList = await this.getCourtDetails(locationIdsList);
           // set results into cache
-          await this.setPendingSubscriptions(courtDetailsList, 'courts', user.piUserId);
+          await this.setPendingSubscriptions(courtDetailsList, 'courts', user.userId);
           break;
       }
     }
@@ -206,7 +206,7 @@ export class SubscriptionService {
   public async getCaseDetails(cases, user): Promise<object[]> {
     const casesList = [];
     for (const caseNumber of cases) {
-      const caseDetails = await publicationService.getCaseByCaseNumber(caseNumber, user.piUserId);
+      const caseDetails = await publicationService.getCaseByCaseNumber(caseNumber, user.userId);
       if (caseDetails) {
         casesList.push(caseDetails);
       }

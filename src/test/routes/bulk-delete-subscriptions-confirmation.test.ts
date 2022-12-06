@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import {SubscriptionService} from '../../main/service/subscriptionService';
 
 const PAGE_URL = '/bulk-delete-subscriptions-confirmation';
-expressRequest['user'] = {'_json': {'extension_UserRole': 'VERIFIED'}};
+expressRequest['user'] = {'roles': 'VERIFIED'};
 
 describe('Bulk delete subscriptions confirmation', () => {
   describe('on GET', () => {

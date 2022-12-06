@@ -8,8 +8,8 @@ const subscriptionService = new SubscriptionService();
 export default class PendingSubscriptionsController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const pendingSubscriptions = {
-      cases: await subscriptionService.getPendingSubscriptions(req.user['piUserId'], 'cases'),
-      courts: await subscriptionService.getPendingSubscriptions(req.user['piUserId'], 'courts'),
+      cases: await subscriptionService.getPendingSubscriptions(req.user['userId'], 'cases'),
+      courts: await subscriptionService.getPendingSubscriptions(req.user['userId'], 'courts'),
     };
 
     (req.query?.['no-subscriptions']) ?
@@ -28,8 +28,8 @@ export default class PendingSubscriptionsController {
   public async post(req: PipRequest, res: Response): Promise<void> {
     await subscriptionService.handleNewSubscription(req.body, req.user);
     const pendingSubscriptions = {
-      cases: await subscriptionService.getPendingSubscriptions(req.user['piUserId'], 'cases'),
-      courts: await subscriptionService.getPendingSubscriptions(req.user['piUserId'], 'courts'),
+      cases: await subscriptionService.getPendingSubscriptions(req.user['userId'], 'cases'),
+      courts: await subscriptionService.getPendingSubscriptions(req.user['userId'], 'courts'),
     };
 
     res.render('pending-subscriptions', {
@@ -39,10 +39,10 @@ export default class PendingSubscriptionsController {
   }
 
   public async removeSubscription(req: PipRequest, res: Response): Promise<void> {
-    await subscriptionService.removeFromCache(req.query, req.user['piUserId']);
+    await subscriptionService.removeFromCache(req.query, req.user['userId']);
     const pendingSubscriptions = {
-      cases: await subscriptionService.getPendingSubscriptions(req.user['piUserId'], 'cases'),
-      courts: await subscriptionService.getPendingSubscriptions(req.user['piUserId'], 'courts'),
+      cases: await subscriptionService.getPendingSubscriptions(req.user['userId'], 'cases'),
+      courts: await subscriptionService.getPendingSubscriptions(req.user['userId'], 'courts'),
     };
 
     res.render('pending-subscriptions', {

@@ -6,11 +6,19 @@ const authenticationConfig = require('../authentication/authentication-config.js
 const defaultSessionExpiry = 60 * 60 * 1000;
 
 export class SessionManagementService {
+
   public logOut(req, res, adminWrongFlow, isSessionExpired = false): void {
     // For cookie-session, the request session needs to be destroyed by setting to null upon logout
     req.session = null;
-    res.clearCookie('session');
-    res.redirect(this.logOutUrl(checkRoles(req, allAdminRoles), adminWrongFlow, isSessionExpired, req.lng));
+
+    if (req.user['userProvenance'] == 'PI_AAD') {
+      res.clearCookie('session');
+      res.redirect(this.logOutUrl(checkRoles(req, allAdminRoles), adminWrongFlow, isSessionExpired, req.lng));
+    } else {
+      res.clearCookie('session');
+      res.redirect('/view-option');
+    }
+
   }
 
   public handleSessionExpiry(req, res): boolean {

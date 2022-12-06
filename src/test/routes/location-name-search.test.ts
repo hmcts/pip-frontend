@@ -13,9 +13,7 @@ const courtList = JSON.parse(rawData);
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtList);
 sinon.stub(LocationService.prototype, 'generateFilteredAlphabetisedCourtList').resolves(courtList);
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {'roles': 'VERIFIED'};
 
 describe('Location Name Search', () => {
   describe('on GET', () => {

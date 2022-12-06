@@ -25,9 +25,7 @@ sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves({
 
 describe('Manage User Page', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'SYSTEM_ADMIN',
-    }};
+    app.request['user'] = {userId: '1', roles: 'SYSTEM_ADMIN'};
 
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');

@@ -27,7 +27,7 @@ describe('Case Reference Number Search Controller', () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
     const responseMock = sinon.mock(response);
 
     const expectedData = {
@@ -47,7 +47,7 @@ describe('Case Reference Number Search Controller', () => {
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
     request.body = { 'search-input': validCaseNo};
 
     const responseMock = sinon.mock(response);
@@ -63,7 +63,7 @@ describe('Case Reference Number Search Controller', () => {
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
     request.body = { 'search-input': '12'};
 
     const responseMock = sinon.mock(response);
@@ -81,7 +81,7 @@ describe('Case Reference Number Search Controller', () => {
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
     request.body = { 'search-input': '1234'};
 
     const responseMock = sinon.mock(response);
@@ -99,7 +99,7 @@ describe('Case Reference Number Search Controller', () => {
 
     const response = { render: function() {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
     request.body = { 'search-input': ''};
     const responseMock = sinon.mock(response);
 
@@ -118,7 +118,7 @@ describe('Case Reference Number Search Controller', () => {
     } as unknown as Response;
 
     const request = mockRequest(i18n);
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
     request.body = { 'search-input': validCaseNo};
 
     const responseMock = sinon.mock(response);

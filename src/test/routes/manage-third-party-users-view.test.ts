@@ -15,9 +15,7 @@ describe('Manage third party users view', () => {
     const mockUser = {'userId': userId};
     const mockSubscriptions = {listTypeSubscriptions: []};
 
-    expressRequest['user'] = {'_json': {
-      'extension_UserRole': 'SYSTEM_ADMIN',
-    }};
+    expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
     const getThirdPartyByUserIdStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartyUserById');
     const getSubscriptionsByUserStub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');

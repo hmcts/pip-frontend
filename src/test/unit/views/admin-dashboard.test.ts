@@ -30,9 +30,7 @@ let htmlRes: Document;
 
 describe('Admin Dashboard page all cards', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-    }};
+    app.request['user'] = {userId: '1', 'roles': 'INTERNAL_SUPER_ADMIN_CTSC'};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -79,9 +77,7 @@ describe('Admin Dashboard page all cards', () => {
 
 describe('Admin Dashboard page  - INTERNAL_SUPER_ADMIN_LOCAL', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'INTERNAL_SUPER_ADMIN_LOCAL',
-    }};
+    app.request['user'] = {userId: '1', 'roles': 'INTERNAL_SUPER_ADMIN_LOCAL'};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -105,9 +101,7 @@ describe('Admin Dashboard page  - INTERNAL_SUPER_ADMIN_LOCAL', () => {
 
 describe('Admin Dashboard page  - INTERNAL_ADMIN_CTSC', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'INTERNAL_ADMIN_CTSC',
-    }};
+    app.request['user'] = {userId: '1', 'roles': 'INTERNAL_ADMIN_CTSC'};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -132,9 +126,7 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_CTSC', () => {
 
 describe('Admin Dashboard page  - INTERNAL_ADMIN_LOCAL', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'INTERNAL_ADMIN_LOCAL',
-    }};
+    app.request['user'] = {userId: '1', 'roles': 'INTERNAL_ADMIN_LOCAL'};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
@@ -158,9 +150,7 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_LOCAL', () => {
 
 describe('Admin Dashboard page  - SYSTEM_ADMIN', () => {
   beforeAll(async () => {
-    app.request['user'] = {piUserId: '1', _json: {
-      'extension_UserRole': 'SYSTEM_ADMIN',
-    }};
+    app.request['user'] = {userId: '1', 'roles': 'SYSTEM_ADMIN'};
     await request(app).get(PAGE_URL).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
