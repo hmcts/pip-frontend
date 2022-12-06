@@ -6,7 +6,7 @@ import request from 'supertest';
 import {app} from '../../../main/app';
 import {expect} from 'chai';
 
-const PAGE_URL = '/case-standards-list?artefactId=abc';
+const PAGE_URL = '/care-standards-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
