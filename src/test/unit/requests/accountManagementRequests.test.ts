@@ -54,6 +54,7 @@ const getAllAccountsEndpoint = '/account/all';
 const getUserByUserIdEndpoint = '/account/';
 const deleteUserByUserIdEndpoint = '/account/delete/';
 const updateUserByUserIdEndpoint = '/account/update/';
+const getAdminUserByEmailAndProvenanceEndpoint = '/account/admin/';
 
 const status = 'APPROVED';
 const statusEndpoint = '/' + status;
@@ -699,4 +700,42 @@ describe('Account Management Requests', () => {
     });
   });
 
+  describe('Get admin by email and provenance', () => {
+    const email = 'test@email.com';
+    const provenance = 'PI_AAD';
+
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
+
+    it('should return pi user on success', async () => {
+      getStub.withArgs(`${getAdminUserByEmailAndProvenanceEndpoint}${email}/${provenance}`)
+        .resolves({status: 200, data: {userId: '321', userProvenance: 'userProvenance'}});
+      const response  = await accountManagementRequests.getAdminUserByEmailAndProvenance(email, provenance,
+        '1234');
+      expect(response).toStrictEqual({userId: '321', userProvenance: 'userProvenance'});
+    });
+
+    it('should return null on error response', async () => {
+      getStub.withArgs(`${getAdminUserByEmailAndProvenanceEndpoint}${email}/${provenance}`).rejects(errorResponse);
+      const response  = await accountManagementRequests.getAdminUserByEmailAndProvenance(email, provenance,
+        '1234');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error request', async () => {
+      getStub.withArgs(`${getAdminUserByEmailAndProvenanceEndpoint}${email}/${provenance}`).rejects(errorRequest);
+      const response  = await accountManagementRequests.getAdminUserByEmailAndProvenance(email, provenance,
+        '1234');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error message', async () => {
+      getStub.withArgs(`${getAdminUserByEmailAndProvenanceEndpoint}${email}/${provenance}`).rejects(errorMessage);
+      const response  = await accountManagementRequests.getAdminUserByEmailAndProvenance(email, provenance,
+        '1234');
+      expect(response).toBe(null);
+    });
+  });
 });
