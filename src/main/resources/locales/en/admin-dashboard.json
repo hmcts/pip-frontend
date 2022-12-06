@@ -18,7 +18,12 @@
   },
   "newAccountCard": {
     "title": "Create new account",
-    "description": "Create accounts for: System Admin, CTSC Super Admin, Local Super Admin, CTSC Admin, Local Admin.",
+    "description": "Create accounts for: CTSC Super Admin, Local Super Admin, CTSC Admin, Local Admin.",
     "link": "create-admin-account"
+  },
+  "userManagementCard": {
+    "title": "User Management",
+    "description": "Update and delete admin accounts.",
+    "link": "admin-management"
   }
 }

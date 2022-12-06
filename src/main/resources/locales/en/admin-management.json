@@ -1,0 +1,9 @@
+{
+  "title": "Admin Management",
+  "header": "What is the admins email address?",
+  "hint": "You must enter an exact match.",
+  "error": {
+    "title": "There is a problem",
+    "notfound": "There is no user matching that email address."
+  }
+}

@@ -311,4 +311,21 @@ export class AccountManagementRequests {
       return null;
     }
   }
+
+  public async getAdminUserByEmailAndProvenance(email: string, provenance: string, adminUserId: string): Promise<any> {
+    try {
+      logger.info('Admin with ID: ' + adminUserId + 'requested user by email.');
+      const response = await accountManagementApi.get(`/account/admin/${email}/${provenance}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET PI user request', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for Pi user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get the pi user from the user id', error.message);
+      }
+      return null;
+    }
+  }
 }

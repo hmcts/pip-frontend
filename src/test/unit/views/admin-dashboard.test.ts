@@ -22,8 +22,13 @@ const cards = [
   },
   {
     title: 'Create new account',
-    description: 'Create accounts for: System Admin, CTSC Super Admin, Local Super Admin, CTSC Admin, Local Admin.',
+    description: 'Create accounts for: CTSC Super Admin, Local Super Admin, CTSC Admin, Local Admin.',
     link: 'create-admin-account',
+  },
+  {
+    title: 'User Management',
+    description: 'Update and delete admin accounts.',
+    link: 'admin-management',
   },
 ];
 let htmlRes: Document;
@@ -58,7 +63,7 @@ describe('Admin Dashboard page all cards', () => {
     expect(bannerComponents[4].innerHTML).equal('Sign out');
   });
 
-  it('should display 4 card options', () => {
+  it('should display 5 card options', () => {
     const cardComponents = htmlRes.getElementsByClassName('account-card');
     expect(cardComponents.length).equal(cards.length);
   });
@@ -93,9 +98,9 @@ describe('Admin Dashboard page  - INTERNAL_SUPER_ADMIN_LOCAL', () => {
     expect(bannerComponents[3].innerHTML).equal('Sign out');
   });
 
-  it('should display 3 card options', () => {
+  it('should display 4 card options', () => {
     const cardComponents = htmlRes.getElementsByClassName('account-card');
-    expect(cardComponents.length).equal(3);
+    expect(cardComponents.length).equal(4);
   });
 });
 
@@ -167,8 +172,8 @@ describe('Admin Dashboard page  - SYSTEM_ADMIN', () => {
     expect(bannerComponents[4].innerHTML).equal('Sign out');
   });
 
-  it('should display 3 card options', () => {
+  it('should display 4 card options', () => {
     const cardComponents = htmlRes.getElementsByClassName('account-card');
-    expect(cardComponents.length).equal(3);
+    expect(cardComponents.length).equal(4);
   });
 });
