@@ -2,12 +2,20 @@ import process from 'process';
 import { Logger } from '@hmcts/nodejs-logging';
 import config = require('config');
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
-import {AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL, ADMIN_AUTH_RETURN_URL} from '../helpers/envUrls';
+import passportCustom from 'passport-custom';
+import {
+  AUTH_RETURN_URL,
+  MEDIA_VERIFICATION_RETURN_URL,
+  ADMIN_AUTH_RETURN_URL,
+} from '../helpers/envUrls';
+import {cftIdamAuthentication} from './cftIdamAuthentication';
 
-const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
+const AzureOIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
 const authenticationConfig = require('./authentication-config.json');
 const logger = Logger.getLogger('authentication');
+const CustomStrategy = passportCustom.Strategy;
+const accountManagementRequests = new AccountManagementRequests();
 
 /**
  * This sets up the OIDC version of authentication, integrating with Azure.
@@ -51,48 +59,52 @@ function oidcSetup(): void {
 
   logger.info('secret', clientSecret ? clientSecret.substring(0,5) : 'client secret not set!' );
 
-  const users = [];
+  const piAadVerifyFunction = async function(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
+    const returnedUser = await accountManagementRequests.getPiUserByAzureOid(profile['oid']);
 
-  const findByOid = async function(oid, fn): Promise<any> {
-    for (let i = 0, len = users.length; i < len; i++) {
-      const user = users[i];
-      if (user.oid === oid) {
-        const returnedUser = await AccountManagementRequests.prototype.getPiUserByAzureOid(oid);
-
-        // Only add to the user if a result was returned from the database
-        if(returnedUser !== null) {
-          user['piUserId'] = returnedUser?.userId;
-          user['piUserProvenance'] = returnedUser?.userProvenance;
-        }
-
-        return fn(user);
-      }
+    if (returnedUser) {
+      profile['roles'] = returnedUser['roles'];
+      profile['userProvenance'] = returnedUser['userProvenance'];
+      return done(null, profile);
+    } else {
+      return done(null, null);
     }
-    return fn(null);
   };
 
-  const passportStrategyFn = async function(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
-    await findByOid(profile.oid, function(user) {
+  passport.serializeUser(async function(foundUser, done) {
+    if(foundUser['flow'] === 'CFT') {
+      const user = await accountManagementRequests.getPiUserByCftID(foundUser['uid']);
+
       if (!user) {
-        // "Auto-registration"
-        users.push(profile);
-        return done(null, profile);
+        const piAccount = [{
+          'userProvenance': 'CFT_IDAM',
+          'email': foundUser['sub'],
+          'roles': 'VERIFIED',
+          'provenanceUserId': foundUser['uid'],
+          'forenames': foundUser['given_name'],
+          'surname': foundUser['family_name'],
+        }];
+
+        await accountManagementRequests.createPIAccount(piAccount, '');
       }
-      return done(null, user);
-    });
-  };
-
-  passport.serializeUser(function(user, done) {
-    done(null, user.oid);
+      done(null, {'uid': foundUser.uid, 'flow': 'CFT'});
+    } else {
+      done(null, {'oid': foundUser.oid, 'flow': 'AAD'});
+    }
   });
 
-  passport.deserializeUser(async function(oid, done) {
-    await findByOid(oid, function (user) {
-      done(null, user);
-    });
+  passport.deserializeUser(async function(userDetails, done) {
+    let user;
+    if (userDetails['flow'] === 'CFT') {
+      user = await accountManagementRequests.getPiUserByCftID(userDetails['uid']);
+    } else {
+      user = await accountManagementRequests.getPiUserByAzureOid(userDetails['oid']);
+    }
+
+    return done(null, user);
   });
 
-  passport.use('login', new OIDCStrategy({
+  passport.use('login', new AzureOIDCStrategy({
     identityMetadata:  identityMetadata,
     clientID: clientId,
     responseType: authenticationConfig.RESPONSE_TYPE,
@@ -102,10 +114,10 @@ function oidcSetup(): void {
     clientSecret: clientSecret,
     isB2C: true,
   },
-  passportStrategyFn,
+  piAadVerifyFunction,
   ));
 
-  passport.use('admin-login', new OIDCStrategy({
+  passport.use('admin-login', new AzureOIDCStrategy({
     identityMetadata:  adminIdentityMetadata,
     clientID: clientId,
     responseType: authenticationConfig.RESPONSE_TYPE,
@@ -115,10 +127,10 @@ function oidcSetup(): void {
     clientSecret: clientSecret,
     isB2C: true,
   },
-  passportStrategyFn,
+  piAadVerifyFunction,
   ));
 
-  passport.use('media-verification', new OIDCStrategy({
+  passport.use('media-verification', new AzureOIDCStrategy({
     identityMetadata:  mediaVerificationIdentityMetadata,
     clientID: clientId,
     responseType: authenticationConfig.RESPONSE_TYPE,
@@ -128,8 +140,10 @@ function oidcSetup(): void {
     clientSecret: clientSecret,
     isB2C: true,
   },
-  passportStrategyFn,
+  piAadVerifyFunction,
   ));
+
+  passport.use('cft-idam', new CustomStrategy(cftIdamAuthentication));
 }
 
 /**

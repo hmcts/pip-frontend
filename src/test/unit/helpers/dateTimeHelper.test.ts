@@ -3,7 +3,7 @@ import {formatDate, formatDuration} from '../../../main/helpers/dateTimeHelper';
 
 const englishLanguage = 'en';
 const welshLanguage = 'cy';
-const languageFile = 'case-standards-list';
+const languageFile = 'care-standards-list';
 const testBstDate = '2022-10-27T09:40:17.496Z';
 const testGmtDate = '2022-11-27T09:40:17.496Z';
 

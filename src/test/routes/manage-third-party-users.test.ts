@@ -8,9 +8,7 @@ import sinon from 'sinon';
 describe('Manage third party users', () => {
   describe('on GET', () => {
 
-    expressRequest['user'] = {'_json': {
-      'extension_UserRole': 'SYSTEM_ADMIN',
-    }};
+    expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
     sinon.stub(ThirdPartyService.prototype, 'getThirdPartyAccounts').resolves([
       {

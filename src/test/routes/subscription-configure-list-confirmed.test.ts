@@ -6,9 +6,7 @@ import {request as expressRequest} from 'express';
 import {SubscriptionService} from '../../main/service/subscriptionService';
 
 const PAGE_URL = '/subscription-configure-list-confirmed';
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'VERIFIED',
-}};
+expressRequest['user'] = {'roles': 'VERIFIED'};
 
 describe('Subscription Configure list confirmation result', () => {
   describe('on GET', () => {

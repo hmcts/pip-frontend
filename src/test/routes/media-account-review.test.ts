@@ -6,9 +6,7 @@ import sinon from 'sinon';
 import {dummyApplication} from '../helpers/testConsts';
 import {request as expressRequest} from 'express';
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'INTERNAL_SUPER_ADMIN_CTSC',
-}};
+expressRequest['user'] = {'roles': 'INTERNAL_SUPER_ADMIN_CTSC'};
 
 describe('Media Account Review Pages', () => {
 

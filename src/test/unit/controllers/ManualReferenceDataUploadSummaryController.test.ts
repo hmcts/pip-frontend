@@ -88,11 +88,10 @@ describe('Reference manual manual upload summary controller', () => {
     it('should redirect to success page', async () => {
       const req = mockRequest(i18n);
       const res = { render: () => {return '';}, redirect: () => '', clearCookie: () => {return '';}} as unknown as Response;
-      req.user = {emails: ['2']};
       req['cookies'] = {'formCookie': JSON.stringify(mockData)};
       const responseMock = sinon.mock(res);
 
-      uploadStub.withArgs({ ...mockData, file: '', userEmail: '2'}).resolves(res);
+      uploadStub.withArgs({ ...mockData, file: ''}).resolves(res);
 
       responseMock.expects('redirect').once().withArgs('manual-reference-data-upload-confirmation');
 

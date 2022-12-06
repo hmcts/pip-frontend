@@ -66,7 +66,7 @@ locationStub.withArgs(1).resolves(
 describe('Bulk Delete Subscriptions Page', () => {
   describe('with both case and court subscriptions', () => {
     beforeAll(async () => {
-      app.request['user'] = {piUserId: '1',_json: {'extension_UserRole': 'VERIFIED'}};
+      app.request['user'] = {'userId': '1', 'roles': 'VERIFIED'};
       await request(app)
         .get(PAGE_URL)
         .then(res => {
@@ -193,7 +193,7 @@ describe('Bulk Delete Subscriptions Page', () => {
 
   describe('with no subscription', () => {
     beforeAll(async () => {
-      app.request['user'] = {piUserId: '2', _json: {'extension_UserRole': 'VERIFIED'}};
+      app.request['user'] = {'userId': 2, 'roles': 'VERIFIED'};
     });
 
     it('should display no subscription message ', async () => {
@@ -229,7 +229,7 @@ describe('Bulk Delete Subscriptions Page', () => {
 
   describe('with case subscriptions only', () => {
     beforeAll(async () => {
-      app.request['user'] = {piUserId: '3',_json: {'extension_UserRole': 'VERIFIED'}};
+      app.request['user'] = {'userId': '3', 'roles': 'VERIFIED'};
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
         htmlRes.getElementsByTagName('div')[0].remove();
@@ -302,7 +302,7 @@ describe('Bulk Delete Subscriptions Page', () => {
 
   describe('with court subscriptions only', () => {
     beforeAll(async () => {
-      app.request['user'] = {piUserId: '4',_json: {'extension_UserRole': 'VERIFIED'}};
+      app.request['user'] = {'userId': '4', 'roles': 'VERIFIED'};
       await request(app).get(PAGE_URL).then(res => {
         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
         htmlRes.getElementsByTagName('div')[0].remove();
@@ -373,7 +373,7 @@ describe('Bulk Delete Subscriptions Page', () => {
 
   describe('with error', () => {
     beforeAll(async () => {
-      app.request['user'] = {piUserId: '1', _json: {'extension_UserRole': 'VERIFIED'}};
+      app.request['user'] = {'userId': '1', 'roles': 'VERIFIED'};
       await request(app)
         .post(PAGE_URL)
         .send({}).then(res => {

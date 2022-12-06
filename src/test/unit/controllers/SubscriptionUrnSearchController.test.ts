@@ -15,7 +15,7 @@ const i18n = {'subscription-urn-search': {}};
 describe('Subscriptions Urn Search Controller', () => {
   const response = { render: function() {return '';}} as unknown as Response;
   const request = mockRequest(i18n);
-  request.user = {piUserId: '1'};
+  request.user = {userId: '1'};
 
   it('should render the search page', async () => {
     const responseMock = sinon.mock(response);
