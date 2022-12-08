@@ -15,7 +15,7 @@ The Publishing & Information Hub will be responsible for the following:
 
 Running the application requires the following tools to be installed in your environment:
 
-* [Node.js](https://nodejs.org/) v12.0.0 to v14.17.1
+* [Node.js](https://nodejs.org/) v16.0.0 to v16.x.x (latest v16)
   * [yarn](https://yarnpkg.com/)
   * [Docker](https://www.docker.com)
 
