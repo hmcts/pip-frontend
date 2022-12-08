@@ -4,6 +4,7 @@ import { cloneDeep } from 'lodash';
 import { LocationService } from '../service/locationService';
 import { PublicationService } from '../service/publicationService';
 import { ManualUploadService } from '../service/manualUploadService';
+import moment from 'moment-timezone';
 
 const publicationService = new PublicationService();
 const courtService = new LocationService();
@@ -15,6 +16,7 @@ export default class RemoveListConfirmationController {
     if (artefactId) {
       const artefact = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId'], true);
       artefact.listTypeName = manualUploadService.getListItemName(artefact.listType);
+      artefact.contDate = moment.utc(artefact.contentDate).tz('Europe/London').format('DD MMMM YYYY');
       res.render('remove-list-confirmation', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-confirmation']),
         artefact,

@@ -1,5 +1,5 @@
 import { CommonPage } from './Common.page';
-import { DailyCauseListPage } from './DailyCauseList.page';
+import { CourtListPage } from './CourtList.page';
 import { SignInPage } from './SignIn.page';
 import { AccountHomePage } from './AccountHome.page';
 
@@ -14,13 +14,13 @@ export class SummaryOfPublicationsPage extends CommonPage{
     return results.length;
   }
 
-  async clickSOPListItem(): Promise<DailyCauseListPage> {
+  async clickSOPListItem(): Promise<CourtListPage> {
     $(helpers.SOPListItem).catch(() => {
       console.log(`${helpers.SOPListItem} not found`);
     });
 
     await $(helpers.SOPListItem).click();
-    return new DailyCauseListPage();
+    return new CourtListPage();
   }
 
   async clickSignInBannerLink(): Promise<SignInPage> {

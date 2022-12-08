@@ -12,14 +12,16 @@
 {% block content %}
 <div class="parent-box">
   <h2 id='page-heading' class="govuk-heading-l">
-    {{ headerPart1 }}<br />{{ headerPart2 }}{{ courtName }}
+    {{ headerPart1 }}{{ courtName }}
     {% if bill %}
-      <br />/{{ headerPart3 }}<br />{{ headerPart4 }}{{ courtName }}
+      <br />/{{ headerPart2 }}{{ courtName }}
     {% endif %}
   </h2>
   <p class="govuk-body">
     {% for line in listData['venue']['venueAddress']['line'] %}
-      {{ line }}<br />
+      {% if line | length %}
+        {{ line }}<br />
+      {% endif %}
     {% endfor %}
     {{ listData['venue']['venueAddress']['postCode'] }}
   </p>
@@ -48,7 +50,9 @@
     <div class="site-header" tabindex="0" aria-label="Court Details">
       <h1 class="govuk-heading-l site-address" tabindex="0">{{ courtHouse['courtHouseName'] }}</h1>
       {% for line in courtHouseAddress['line'] %}
-        <p class="govuk-body site-address" tabindex="0">{{ line }}</p>
+        {% if line | length %}
+          <p class="govuk-body site-address" tabindex="0">{{ line }}</p>
+        {% endif %}
       {% endfor %}
       {% if courtHouseAddress['town'] | length %}
         <p class="govuk-body site-address" tabindex="0">{{ courtHouseAddress['town'] }}</p>
@@ -111,32 +115,7 @@
                         {% endfor %}
                         {% set hearingPlatform = hearingPlatform.slice(1) %}
                       {% endif %}
-                      {% set durationAsHours = 0 %}
-                      {% if sitting['durationAsHours'] !== 0 %}
-                        {% if sitting['durationAsHours'] > 1 %}
-                          {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHours %}
-                          {% elif sitting['durationAsHours'] === 1 %}
-                          {% set durationAsHours = sitting['durationAsHours'] + ' ' + hearingDurationHour %}
-                        {% endif %}
-                      {% endif %}
-                      {% set durationAsMinutes = 0 %}
-                      {% if sitting['durationAsMinutes'] !== 0 %}
-                        {% if sitting['durationAsMinutes'] > 1 %}
-                          {% set durationAsMinutes = sitting['durationAsMinutes'] + ' ' + hearingDurationMinutes %}
-                          {% elif sitting['durationAsMinutes'] === 1 %}
-                          {% set durationAsMinutes = sitting['durationAsMinutes'] + ' ' + hearingDurationMinute %}
-                        {% endif %}
-                      {% endif %}
-                      {% set duration = '' %}
-                      {% if durationAsHours === 0 and durationAsMinutes === 0 %}
-                        {% set duration = '' %}
-                        {% elif durationAsHours !== 0 and durationAsMinutes !== 0 %}
-                        {% set duration = durationAsHours + ' ' + durationAsMinutes %}
-                        {% elif durationAsHours === 0 %}
-                        {% set duration = durationAsMinutes %}
-                        {% elif durationAsMinutes === 0 %}
-                        {% set duration = durationAsHours %}
-                      {% endif %}
+                      {% set duration = sitting.durationAsHours | getDuration(sitting.durationAsMinutes, lng) %}
                       {% for hearing in sitting['hearing'] %}
                         {% for case in hearing['case'] %}
                           {% if courtRoom['totalHearing'] === hearingCount %}

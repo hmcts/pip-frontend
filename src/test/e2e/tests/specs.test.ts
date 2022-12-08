@@ -12,7 +12,7 @@ import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
 import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
 import { CreateSystemAdminAccountPage } from '../PageObjects/CreateSystemAdminAccount.page';
 import { CreateSystemAdminAccountSummaryPage } from '../PageObjects/CreateSystemAdminAccountSummary.page';
-import { DailyCauseListPage } from '../PageObjects/DailyCauseList.page';
+import { CourtListPage } from '../PageObjects/CourtList.page';
 import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { HomePage } from '../PageObjects/Home.page';
@@ -61,6 +61,8 @@ import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPag
 import {ManageThirdPartyUsersPage} from '../PageObjects/ManageThirdPartyUsers.page';
 import {ListDownloadDisclaimerPage} from '../PageObjects/ListDownloadDisclaimer.page';
 import {ListDownloadFilesPage} from '../PageObjects/ListDownloadFiles.page';
+import { BulkCreateMediaAccountsPage } from '../pageobjects/BulkCreateMediaAccounts.page';
+import { BulkCreateMediaAccountsConfirmationPage } from '../pageobjects/BulkCreateMediaAccountsConfirmation.page';
 
 const homePage = new HomePage;
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -95,7 +97,7 @@ let systemAdminDashboard = new SystemAdminDashboardPage;
 let createMediaAccountPage: CreateMediaAccountPage;
 let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let accountHomePage: AccountHomePage;
-let dailyCauseListPage: DailyCauseListPage;
+let courtListPage: CourtListPage;
 let sjpPublicListPage: SJPPublicListPage;
 let listDownloadDisclaimerPage: ListDownloadDisclaimerPage;
 let listDownloadFilesPage: ListDownloadFilesPage;
@@ -125,6 +127,8 @@ let deleteUserPage: DeleteUserPage;
 let blobViewLocationsPage: BlobViewLocationsPage;
 let blobViewPublicationsPage: BlobViewPublicationsPage;
 let manageThirdPartyUsersPage: ManageThirdPartyUsersPage;
+let bulkCreateMediaAccountsPage: BulkCreateMediaAccountsPage;
+let bulkCreateMediaAccountsConfirmationPage: BulkCreateMediaAccountsConfirmationPage;
 
 describe('Unverified user', () => {
   it('should open main page with \'See publications and information from a court or tribunal\' title', async () => {
@@ -155,7 +159,7 @@ describe('Unverified user', () => {
     });
 
     describe('following the search court path', async () => {
-      const searchTerm = 'E2E TEST COURT - DO NOT REMOVE';
+      const searchTerm = 'AA - E2E TEST COURT - DO NOT REMOVE';
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
@@ -164,8 +168,8 @@ describe('Unverified user', () => {
       });
 
       it('should select the first publication', async () => {
-        dailyCauseListPage = await summaryOfPublicationsPage.clickSOPListItem();
-        expect(await dailyCauseListPage.getPageTitle()).toContain(searchTerm);
+        courtListPage = await summaryOfPublicationsPage.clickSOPListItem();
+        expect(await courtListPage.getPageTitle()).toContain(searchTerm);
       });
     });
 
@@ -174,7 +178,7 @@ describe('Unverified user', () => {
         await searchPage.open('/search');
       });
 
-      const searchTerm = 'E2E TEST COURT - DO NOT REMOVE';
+      const searchTerm = 'AA - E2E TEST COURT - DO NOT REMOVE';
       it('should click on \'Select from an A-Z list of courts and tribunals\' link ', async () => {
         alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
         expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
@@ -199,8 +203,8 @@ describe('Unverified user', () => {
       });
 
       it('should select the first publication', async () => {
-        dailyCauseListPage = await summaryOfPublicationsPage.clickSOPListItem();
-        expect(await dailyCauseListPage.getPageTitle()).toContain(searchTerm);
+        courtListPage = await summaryOfPublicationsPage.clickSOPListItem();
+        expect(await courtListPage.getPageTitle()).toContain(searchTerm);
       });
     });
 
@@ -244,7 +248,7 @@ describe('Unverified user', () => {
       });
 
       it('should select first list item', async () => {
-        sjpPublicListPage = await singleJusticeProcedurePage.clickSOPListItem();
+        sjpPublicListPage = await singleJusticeProcedurePage.clickSjpPublicListItem();
         expect(await sjpPublicListPage.getPageTitle()).toEqual('Single Justice Procedure cases that are ready for hearing');
       });
     });
@@ -584,9 +588,8 @@ describe('Verified user', () => {
       summaryOfPublicationsPage = await searchPage.clickNavSJP(true);
       expect(await summaryOfPublicationsPage.getPageTitle()).toBe('What do you want to view from Single Justice Procedure?');
 
-      sjpPublicListPage = await singleJusticeProcedurePage.clickSOPListItem();
-      const pageTitle = await sjpPublicListPage.getPageTitle();
-      expect(pageTitle.startsWith('Single Justice Procedure cases')).toBeTruthy();
+      sjpPublicListPage = await singleJusticeProcedurePage.clickSjpPublicListItem();
+      expect(await sjpPublicListPage.getPageTitle()).toEqual('Single Justice Procedure cases that are ready for hearing');
     });
 
     it('should navigate to list download disclaimer page on download button click', async () => {
@@ -714,7 +717,7 @@ describe('Admin level journeys', () => {
       expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
     });
     it('should enter valid court in the search field, click continue and open search results page', async () => {
-      const searchTerm = 'E2E TEST COURT - DO NOT REMOVE';
+      const searchTerm = 'AA - E2E TEST COURT - DO NOT REMOVE';
       await searchPublicationPage.enterText(searchTerm);
       searchPublicationResultsPage = await searchPublicationPage.clickContinue();
       expect(await searchPublicationResultsPage.getPageTitle()).toEqual('Select content to remove');
@@ -929,6 +932,23 @@ describe('System Admin level journeys', () => {
     it('should choose the first result', async() => {
       blobViewPublicationsPage = await blobViewLocationsPage.selectFirstListResult();
       expect(await blobViewPublicationsPage.getPageTitle()).toEqual('Blob Explorer - Publications');
+    });
+  });
+
+  describe('should open bulk create media accounts page', async () => {
+    before(async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard');
+    });
+
+    it('should load the bulk create media accounts page', async () => {
+      bulkCreateMediaAccountsPage = await systemAdminDashboard.clickBulkCreateMediaAccountsCard();
+      expect(await bulkCreateMediaAccountsPage.getPageTitle()).toEqual('Bulk create media accounts');
+    });
+
+    it('should upload file and open confirmation page', async () => {
+      await bulkCreateMediaAccountsPage.uploadFile();
+      bulkCreateMediaAccountsConfirmationPage = await bulkCreateMediaAccountsPage.clickContinue();
+      expect(await bulkCreateMediaAccountsConfirmationPage.getPageTitle()).toEqual('Are you sure you want to create these media accounts?');
     });
   });
 

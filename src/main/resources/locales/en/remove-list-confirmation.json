@@ -10,6 +10,7 @@
   "summaryListHeaders": {
     "courtName": "Court or Tribunal name",
     "publication": "List Type",
+    "contentDate": "Content Date",
     "date": "Display Dates",
     "language": "Language",
     "sensitivity": "Sensitivity"

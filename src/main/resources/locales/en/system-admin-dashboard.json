@@ -26,6 +26,11 @@
       "title": "Blob Explorer",
       "description": "Discover content uploaded to all locations.",
       "link": "blob-view-locations"
+    },
+    {
+      "title": "Bulk Create Media Accounts",
+      "description": "Upload a CSV file for bulk creation of media accounts",
+      "link": "bulk-create-media-accounts"
     }
   ]
 }

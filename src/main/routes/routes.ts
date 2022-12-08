@@ -35,6 +35,7 @@ export default function(app: Application): void {
       fileSize: 2000000,
     },
   });
+  const fileUploadOptions = {storage: storage, limits: {fileSize: 2000000}};
 
   const fileSizeLimitErrorHandler = (err, req, res, next): any => {
     fileErrorHandlerMiddleware(err, req, res, next);
@@ -63,7 +64,7 @@ export default function(app: Application): void {
   app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
   app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
   // app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
-  app.get('/case-standards-list', app.locals.container.cradle.tribunalNationalListsController.get);
+  app.get('/care-standards-list', app.locals.container.cradle.tribunalNationalListsController.get);
   app.get('/cookie-policy', app.locals.container.cradle.cookiePolicyPageController.get);
   app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
   app.post('/create-media-account', multer({storage: storage, limits: {fileSize: 2000000}}).single('file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.createMediaAccountController.post);
@@ -157,7 +158,7 @@ export default function(app: Application): void {
   app.get('/create-admin-account-summary', isPermittedAccountCreation, app.locals.container.cradle.createAdminAccountSummaryController.get);
   app.post('/create-admin-account-summary', isPermittedAccountCreation, app.locals.container.cradle.createAdminAccountSummaryController.post);
   app.get('/manual-upload', isPermittedManualUpload, app.locals.container.cradle.manualUploadController.get);
-  app.post('/manual-upload', isPermittedManualUpload, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualUploadController.post);
+  app.post('/manual-upload', isPermittedManualUpload, multer(fileUploadOptions).single('manual-file-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualUploadController.post);
   app.get('/manual-upload-summary', isPermittedManualUpload, app.locals.container.cradle.manualUploadSummaryController.get);
   app.post('/manual-upload-summary', isPermittedManualUpload, app.locals.container.cradle.manualUploadSummaryController.post);
   app.get('/media-applications', isPermittedMediaAccount, app.locals.container.cradle.mediaApplicationsController.get);
@@ -188,8 +189,13 @@ export default function(app: Application): void {
   app.get('/blob-view-locations', isPermittedSystemAdmin, app.locals.container.cradle.blobViewLocationController.get);
   app.get('/blob-view-publications', isPermittedSystemAdmin, app.locals.container.cradle.blobViewPublicationsController.get);
   app.get('/blob-view-json', isPermittedSystemAdmin, app.locals.container.cradle.blobViewJsonController.get);
+  app.get('/bulk-create-media-accounts', isPermittedSystemAdmin, app.locals.container.cradle.bulkCreateMediaAccountsController.get);
+  app.post('/bulk-create-media-accounts', isPermittedSystemAdmin, multer(fileUploadOptions).single('bulk-account-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.bulkCreateMediaAccountsController.post);
+  app.get('/bulk-create-media-accounts-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.bulkCreateMediaAccountsConfirmationController.get);
+  app.post('/bulk-create-media-accounts-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.bulkCreateMediaAccountsConfirmationController.post);
+  app.get('/bulk-create-media-accounts-confirmed', isPermittedSystemAdmin, app.locals.container.cradle.bulkCreateMediaAccountsConfirmedController.get);
   app.get('/manual-reference-data-upload', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadController.get);
-  app.post('/manual-reference-data-upload', isPermittedSystemAdmin, multer({storage: storage, limits: {fileSize: 2000000}}).single('manual-reference-data-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualReferenceDataUploadController.post);
+  app.post('/manual-reference-data-upload', isPermittedSystemAdmin, multer(fileUploadOptions).single('manual-reference-data-upload'), fileSizeLimitErrorHandler, app.locals.container.cradle.manualReferenceDataUploadController.post);
   app.get('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.get);
   app.post('/manual-reference-data-upload-summary', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadSummaryController.post);
   app.get('/manual-reference-data-upload-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.manualReferenceDataUploadConfirmationController.get);

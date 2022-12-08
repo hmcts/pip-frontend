@@ -165,6 +165,7 @@ module.exports = {
 
   // SummaryOfPublications selectors
   SOPListItem: '.das-search-results__link',
+  SjpPublicListItem: '*=Single Justice Procedure Public List',
 
   // SJP public selector
   DownloadACopyButton: '#download-button',
@@ -222,6 +223,10 @@ module.exports = {
   ManageThirdPartyUsers: '#card-manage-third-party-users',
   referenceDataFileUpload: '#manual-reference-data-upload',
   userManagement: '#card-user-management',
+  BulkCreateMediaAccounts: '#card-bulk-create-media-accounts',
+
+  //BulkCreateMediaAccounts page
+  BulkMediaAccountsFileUpload: '#bulk-account-upload',
 
   //UserManagement screens selectors
   manageLink: '#manage-link',
