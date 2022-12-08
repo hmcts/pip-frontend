@@ -3,10 +3,12 @@ import {Response} from 'express';
 import {cloneDeep} from 'lodash';
 import moment from 'moment';
 import {PublicationService} from '../service/publicationService';
-import { DataManipulationService } from '../service/dataManipulationService';
+import { ListParseHelperService } from '../service/listParseHelperService';
+import { SjpPressListService} from '../service/listManipulation/SjpPressListService';
 
 const publicationService = new PublicationService();
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
+const sjpPressListService = new SjpPressListService();
 
 export default class SjpPressListController {
 
@@ -17,10 +19,10 @@ export default class SjpPressListController {
 
     if (sjpData && metaData) {
 
-      const manipulatedData = dataManipulationService.formatSJPPressList(JSON.stringify(sjpData));
+      const manipulatedData = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
 
-      const publishedTime = dataManipulationService.publicationTimeInBst(sjpData['document']['publicationDate']);
-      const publishedDate = dataManipulationService.publicationDateInBst(sjpData['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(sjpData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(sjpData['document']['publicationDate']);
 
       res.render('single-justice-procedure-press', {
         ...cloneDeep(req.i18n.getDataByLanguage(publicationService.languageToLoadPageIn(metaData.language,

@@ -3,10 +3,12 @@ import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import moment from 'moment';
-import { DataManipulationService } from '../service/dataManipulationService';
+import { ListParseHelperService } from '../service/listParseHelperService';
+import { IacDailyListService } from '../service/listManipulation/IacDailyListService';
 
 const publicationService = new PublicationService();
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
+const iacService = new IacDailyListService();
 
 export default class IacDailyListController {
 
@@ -16,9 +18,9 @@ export default class IacDailyListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
     if (searchResults && metaData) {
-      const listData = dataManipulationService.manipulateIacDailyListData(JSON.stringify(searchResults));
-      const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
-      const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);
+      const listData = iacService.manipulateIacDailyListData(JSON.stringify(searchResults));
+      const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
       res.render('iac-daily-list', {

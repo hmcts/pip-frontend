@@ -37,7 +37,7 @@ const indivPubJsonObject = {'data': mockPDF};
 const valid = 'valid';
 const invalid = 'invalid';
 const dataManagementStub = sinon.stub(dataManagementApi, 'get');
-const dataMngmntDeleteStub = sinon.stub(dataManagementApi, 'delete');
+const dataManagementArchiveStub = sinon.stub(dataManagementApi, 'put');
 dataManagementStub.withArgs('/publication/locationId/valid').resolves(successResponse);
 
 const publicationRequests = new PublicationRequests();
@@ -54,10 +54,10 @@ dataManagementStub.withArgs('/publication/abc2').rejects(errorRequest);
 dataManagementStub.withArgs('/publication/abc3').rejects(errorMessage);
 dataManagementStub.withArgs('/publication/' + artefactId).resolves({data: metaData});
 
-dataMngmntDeleteStub.withArgs('/publication/abc1').rejects(errorResponse);
-dataMngmntDeleteStub.withArgs('/publication/abc2').rejects(errorRequest);
-dataMngmntDeleteStub.withArgs('/publication/abc3').rejects(errorMessage);
-dataMngmntDeleteStub.withArgs('/publication/abc').resolves(true);
+dataManagementArchiveStub.withArgs('/publication/abc1/archive').rejects(errorResponse);
+dataManagementArchiveStub.withArgs('/publication/abc2/archive').rejects(errorRequest);
+dataManagementArchiveStub.withArgs('/publication/abc3/archive').rejects(errorMessage);
+dataManagementArchiveStub.withArgs('/publication/abc/archive').resolves(true);
 
 describe('getIndividualPubJson()', () => {
 
@@ -271,21 +271,21 @@ describe('get individual publication json', () => {
   });
 });
 
-describe('delete publication', () => {
+describe('archive publication', () => {
   it('should return true if valid data is provided', async () => {
-    const response = await pubRequests.deletePublication('abc', 'joe@bloggs.com');
+    const response = await pubRequests.archivePublication('abc', 'joe@bloggs.com');
     expect(response).toBe(true);
   });
 
   it('should handle error response', async () => {
-    expect(await pubRequests.deletePublication('abc1', 'joe@bloggs.com')).toBe(false);
+    expect(await pubRequests.archivePublication('abc1', 'joe@bloggs.com')).toBe(false);
   });
 
   it('should handle error request', async () => {
-    expect(await pubRequests.deletePublication('abc2', 'joe@bloggs.com')).toBe(false);
+    expect(await pubRequests.archivePublication('abc2', 'joe@bloggs.com')).toBe(false);
   });
 
   it('should handle error message', async () => {
-    expect(await pubRequests.deletePublication('abc3', 'joe@bloggs.com')).toBe(false);
+    expect(await pubRequests.archivePublication('abc3', 'joe@bloggs.com')).toBe(false);
   });
 });

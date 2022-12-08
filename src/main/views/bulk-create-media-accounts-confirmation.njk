@@ -1,0 +1,103 @@
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+  {% if displayNoOptionError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: noOptionError,
+          href: "#"
+        }
+      ]
+    }) }}
+  {% endif %}
+  {% if displayAccountCreationError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: accountCreationError,
+          href: "#"
+        }
+      ]
+    }) }}
+  {% endif %}
+  <div class="parent-box">
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+    {% set tableRows = [] %}
+    {% for account in accountsToCreate %}
+      {% set _ = tableRows.push([
+        { text: account[0] },
+        { text: account[1] },
+        { text: account[2] }
+      ]) %}
+    {% endfor %}
+
+    <div class="govuk-grid-row">
+      <table class="govuk-table" data-module="moj-sortable-table">
+        <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header" aria-sort="descending">{{ email }}</th>
+          <th scope="col" class="govuk-table__header" aria-sort="descending">{{ firstName }}</th>
+          <th scope="col" class="govuk-table__header" aria-sort="descending">{{ surname }}</th>
+        </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+        {% for account in accountsToCreate %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{ account[0] }}</td>
+            <td class="govuk-table__cell">{{ account[1] }}</td>
+            <td class="govuk-table__cell">{{ account[2] }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <form method="post">
+      {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "confirmed",
+        name: "confirmed",
+        items: [
+          {
+            id: 'yes',
+            value: radioAnswers[0],
+            text: radioAnswers[0]
+          },
+          {
+            id: 'no',
+            value: radioAnswers[1],
+            text: radioAnswers[1]
+          }
+        ]
+      }) }}
+      {{ submitButton(continueButton) }}
+    </form>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  <script type="text/javascript" src="/assets/js/jquery.js"></script>
+  <script type="text/javascript" src="/assets/js/mojAll.js"></script>
+{% endblock %}

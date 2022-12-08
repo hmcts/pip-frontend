@@ -4,13 +4,15 @@ import {cloneDeep} from 'lodash';
 import moment from 'moment';
 import {PublicationService} from '../service/publicationService';
 import {LocationService} from '../service/locationService';
-import {DataManipulationService} from '../service/dataManipulationService';
+import {ListParseHelperService} from '../service/listParseHelperService';
 import {CrimeListsService} from '../service/listManipulation/CrimeListsService';
+import { civilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
+const civListsService = new civilFamilyAndMixedListService();
 
 export default class MagistratesPublicListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -19,12 +21,12 @@ export default class MagistratesPublicListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
     if (searchResults && metaData) {
-      let manipulatedData = dataManipulationService.manipulatedDailyListData(JSON.stringify(searchResults));
+      // initial cleaning of data using mixed list service
+      let manipulatedData = civListsService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
       manipulatedData = crimeListsService.manipulatedCrimeListData(JSON.stringify(manipulatedData),
         req.lng as string, 'magistrates-public-list');
-
-      const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
-      const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
       const location = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
