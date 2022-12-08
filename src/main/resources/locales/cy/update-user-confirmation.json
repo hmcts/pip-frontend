@@ -8,6 +8,6 @@
   "AdminText": "Admin Dashboard",
   "AdminLink": "admin-dashboard",
   "systemAdminListItems": ["upload reference data", "upload bulk media users", "extract artefact data", "edit third party subscriptions", "manage users"],
-  "adminListItems": ["upload publications", "remove publications", "manage media account requests", "create new accounts", "manage users"],
+  "adminListItems": ["upload publications", "remove publications", "create new accounts", "manage users"],
   "backButton": "Back"
 }
