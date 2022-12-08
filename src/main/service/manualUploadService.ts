@@ -1,6 +1,7 @@
 import { LocationService } from './locationService';
 import { DataManagementRequests } from '../resources/requests/dataManagementRequests';
 import moment from 'moment';
+import 'moment-timezone';
 import { FileHandlingService } from './fileHandlingService';
 import { PublicationService } from './publicationService';
 
@@ -25,6 +26,7 @@ export class ManualUploadService {
     summaryList.forEach((value) => {
       const listItem = {...value};
       listItem.listTypeName = this.getListItemName(value.listType);
+      listItem.contDate = moment.utc(value.contentDate).tz('Europe/London').format('D MMM YYYY');
       listItem.dateRange = `${moment(value.displayFrom).format('D MMM YYYY')} to ${moment(value.displayTo).format('D MMM YYYY')}`;
       formattedList.push(listItem);
     });
