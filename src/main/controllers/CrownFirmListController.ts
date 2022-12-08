@@ -4,25 +4,27 @@ import {cloneDeep} from 'lodash';
 import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
-import { DataManipulationService } from '../service/dataManipulationService';
 import {CrownFirmListService} from '../service/listManipulation/crownFirmListService';
+import { ListParseHelperService } from '../service/listParseHelperService';
+import { civilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
 const firmListService = new CrownFirmListService();
+const civilService = new civilFamilyAndMixedListService();
 
 export default class CrownFirmListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query.artefactId as string;
-    const jsonData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);
-    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
+    const jsonData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
+    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
     if (jsonData && metaData) {
-      const outputData = dataManipulationService.manipulatedDailyListData(JSON.stringify(jsonData));
+      const outputData = civilService.sculptedCivilFamilyMixedListData(JSON.stringify(jsonData));
       const outputArray = firmListService.splitOutFirmListData(JSON.stringify(outputData), req.lng, 'crown-firm-list');
-      const publishedTime = dataManipulationService.publicationTimeInBst(jsonData['document']['publicationDate']);
-      const publishedDate = dataManipulationService.publicationDateInBst(jsonData['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(jsonData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(jsonData['document']['publicationDate']);
       const location = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
       const dates = firmListService.getSittingDates(outputArray);

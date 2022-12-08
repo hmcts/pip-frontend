@@ -28,7 +28,10 @@ module.exports = {
   SignInRadio3: '#sign-in-3',
   EmailField: '#email',
   PasswordField: '#password',
+  CftEmailField: '#username',
+  CftPasswordField: '#password',
   UserLoginContinue: '#next',
+  CftSignInButton: '.button',
 
   // Search selectors
   SearchTitle: 'h1.govuk-label-wrapper',
@@ -162,6 +165,7 @@ module.exports = {
 
   // SummaryOfPublications selectors
   SOPListItem: '.das-search-results__link',
+  SjpPublicListItem: '*=Single Justice Procedure Public List',
 
   // SJP public selector
   DownloadACopyButton: '#download-button',
@@ -219,6 +223,10 @@ module.exports = {
   ManageThirdPartyUsers: '#card-manage-third-party-users',
   referenceDataFileUpload: '#manual-reference-data-upload',
   userManagement: '#card-user-management',
+  BulkCreateMediaAccounts: '#card-bulk-create-media-accounts',
+
+  //BulkCreateMediaAccounts page
+  BulkMediaAccountsFileUpload: '#bulk-account-upload',
 
   //UserManagement screens selectors
   manageLink: '#manage-link',
@@ -232,4 +240,7 @@ module.exports = {
   deleteUserButton: '//*[@id="main-content"]/div/a',
   deleteUserConfirmRadioButton: '#delete-user-confirm',
   continueButton: '#button',
+
+  // CFT Rejected login page selectors
+  firstParagraphCftRejected: '/html/body/div[2]/main/p[1]',
 };

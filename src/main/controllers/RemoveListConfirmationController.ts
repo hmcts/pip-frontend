@@ -14,7 +14,7 @@ export default class RemoveListConfirmationController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query.artefact;
     if (artefactId) {
-      const artefact = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId'], true);
+      const artefact = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId'], true);
       artefact.listTypeName = manualUploadService.getListItemName(artefact.listType);
       artefact.contDate = moment.utc(artefact.contentDate).tz('Europe/London').format('DD MMMM YYYY');
       res.render('remove-list-confirmation', {
@@ -30,10 +30,10 @@ export default class RemoveListConfirmationController {
 
   public async post(req: PipRequest, res: Response): Promise<void> {
     const formData = req.body;
-    const artefact = await publicationService.getIndividualPublicationMetadata(formData.artefactId, req.user?.['piUserId'], true);
+    const artefact = await publicationService.getIndividualPublicationMetadata(formData.artefactId, req.user?.['userId'], true);
     switch (formData['remove-choice']) {
       case 'yes': {
-        const response = await publicationService.removePublication(formData.artefactId, req.user?.['piUserId']);
+        const response = await publicationService.removePublication(formData.artefactId, req.user?.['userId']);
         response ?
           res.redirect('/remove-list-success') :
           res.render('error', req.i18n.getDataByLanguage(req.lng).error);

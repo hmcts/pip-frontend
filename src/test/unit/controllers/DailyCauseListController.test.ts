@@ -4,10 +4,10 @@ import DailyCauseListController from '../../../main/controllers/DailyCauseListCo
 import fs from 'fs';
 import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
-import {mockRequest} from '../mocks/mockRequest';
+import { mockRequest } from '../mocks/mockRequest';
 import moment from 'moment';
-import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
+import { LocationService } from '../../../main/service/locationService';
+import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -23,7 +23,7 @@ const dailyCauseListController = new DailyCauseListController();
 const dailyCauseListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const dailyCauseListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').returns(listData);
+sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilFamilyMixedListData').returns(listData);
 
 const artefactId = 'abc';
 
@@ -49,7 +49,7 @@ describe('Daily Cause List Controller', () => {
 
   it('should render the daily cause list page', async () =>  {
     request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
 
     const responseMock = sinon.mock(response);
 
@@ -73,7 +73,7 @@ describe('Daily Cause List Controller', () => {
   it('should render error page is query param is empty', async () => {
 
     request.query = {};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);

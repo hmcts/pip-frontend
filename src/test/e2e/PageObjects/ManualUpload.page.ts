@@ -40,7 +40,7 @@ export class ManualUploadPage extends CommonPage {
       console.log(`${helpers.SearchInput} not found`);
     });
 
-    await $(helpers.SearchInput).addValue('E2E TEST COURT - DO NOT REMOVE');
+    await $(helpers.SearchInput).addValue('AA - E2E TEST COURT - DO NOT REMOVE');
     await browser.keys('Escape');
   }
 

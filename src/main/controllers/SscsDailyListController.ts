@@ -4,25 +4,27 @@ import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import moment from 'moment';
-import { DataManipulationService } from '../service/dataManipulationService';
+import { ListParseHelperService } from '../service/listParseHelperService';
+import { SscsDailyListService } from '../service/listManipulation/SscsDailyListService';
 
 const publicationService = new PublicationService();
 const courtService = new LocationService();
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
+const sscsListService = new SscsDailyListService();
 
 export default class SscsDailyListController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
     const artefactId = req.query.artefactId as string;
-    const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['piUserId']);
-    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['piUserId']);
+    const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
+    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
     if (searchResults && metaData) {
 
-      const manipulatedData = dataManipulationService.manipulateSscsDailyListData(JSON.stringify(searchResults));
+      const manipulatedData = sscsListService.manipulateSscsDailyListData(JSON.stringify(searchResults));
 
-      const publishedTime = dataManipulationService.publicationTimeInBst(searchResults['document']['publicationDate']);
-      const publishedDate = dataManipulationService.publicationDateInBst(searchResults['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
 
       const returnedCourt = await courtService.getLocationById(metaData['locationId']);
       const courtName = courtService.findCourtName(returnedCourt, req.lng as string, 'sscs-daily-list');

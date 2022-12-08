@@ -3,12 +3,12 @@ import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
-import {mockRequest} from '../mocks/mockRequest';
+import { mockRequest } from '../mocks/mockRequest';
 import moment from 'moment';
-import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
+import { LocationService } from '../../../main/service/locationService';
 import CrownDailyListController from '../../../main/controllers/CrownDailyListController';
-import {CrimeListsService} from '../../../main/service/listManipulation/CrimeListsService';
+import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
+import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -24,7 +24,7 @@ const crownDailyListController = new CrownDailyListController();
 const crownDailyListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const crownDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').returns(listData);
+sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilFamilyMixedListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').returns(listData);
 
@@ -52,7 +52,7 @@ describe('Crown Daily List Controller', () => {
 
   it('should render the crown daily list page', async () =>  {
     request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
 
     const responseMock = sinon.mock(response);
 
@@ -77,7 +77,7 @@ describe('Crown Daily List Controller', () => {
   it('should render error page is query param is empty', async () => {
 
     request.query = {};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);

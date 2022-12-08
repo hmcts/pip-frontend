@@ -61,7 +61,7 @@ jobs:
               echo "Url: $item"
               replyUrlString+="$item,"
             done
-    
+
             if [[ ! "${replyUrls}" =~ "${mediaSignInUrl}" ]]; then
               replyUrlString+="\"$mediaSignInUrl\""
             fi

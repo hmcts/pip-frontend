@@ -6,7 +6,7 @@ import { app } from '../../main/app';
 import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
-import {CrownWarnedListService} from '../../main/service/listManipulation/crownWarnedListService';
+import {CrownWarnedListService} from '../../main/service/listManipulation/CrownWarnedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/crownWarnedList.json'), 'utf-8');
 const crownWarnedData = JSON.parse(rawData);
@@ -32,7 +32,7 @@ sinon.stub(CrownWarnedListService.prototype, 'manipulateData').returns(listData)
 describe('Crown Warned List Page', () => {
   describe('on GET', () => {
     test('should return crown warned list page', async () => {
-      app.request['user'] = {piUserId: '2'};
+      app.request['user'] = {userId: '2'};
       await request(app)
         .get('/crown-warned-list?artefactId=test')
         .expect((res) => expect(res.status).to.equal(200));

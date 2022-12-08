@@ -6,7 +6,7 @@ import { app } from '../../main/app';
 import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
-import { TribunalNationalListsService } from '../../main/service/listManipulation/tribunalNationalListsService';
+import { TribunalNationalListsService } from '../../main/service/listManipulation/TribunalNationalListsService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/primaryHealthList.json'), 'utf-8');
 const primaryHealthListData = JSON.parse(rawData);
@@ -17,7 +17,6 @@ sinon.stub(TribunalNationalListsService.prototype, 'manipulateData').resolves(pr
 describe('Primary Health List Page', () => {
   describe('on GET', () => {
     test('should return primary health list page', async () => {
-      app.request['user'] = {piUserId: '2'};
       await request(app)
         .get('/primary-health-list?artefactId=test')
         .expect((res) => expect(res.status).to.equal(200));

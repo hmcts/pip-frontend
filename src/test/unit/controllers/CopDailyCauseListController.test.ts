@@ -3,11 +3,12 @@ import fs from 'fs';
 import path from 'path';
 import {PublicationService} from '../../../main/service/publicationService';
 import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
+import {ListParseHelperService} from '../../../main/service/listParseHelperService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
 import CopDailyCauseListController from '../../../main/controllers/CopDailyCauseListController';
+import { CopDailyListService } from '../../../main/service/listManipulation/CopDailyListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/copDailyCauseList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -23,8 +24,8 @@ const copDailyCauseListController = new CopDailyCauseListController();
 const copDailyCauseListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const copDailyCauseListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(DataManipulationService.prototype, 'manipulateCopDailyCauseList').returns(listData);
-sinon.stub(DataManipulationService.prototype, 'getRegionalJohFromLocationDetails').returns('Test JoH');
+sinon.stub(CopDailyListService.prototype, 'manipulateCopDailyCauseList').returns(listData);
+sinon.stub(ListParseHelperService.prototype, 'getRegionalJohFromLocationDetails').returns('Test JoH');
 
 const artefactId = 'abc';
 
@@ -50,7 +51,7 @@ describe('Cop Daily Cause List Controller', () => {
 
   it('should render the cop daily cause list page', async () => {
     request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
 
     const responseMock = sinon.mock(response);
     const expectedData = {
@@ -74,7 +75,7 @@ describe('Cop Daily Cause List Controller', () => {
   it('should render error page if query param is empty', async () => {
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '123'};
+    request.user = {userId: '123'};
 
     const responseMock = sinon.mock(response);
 

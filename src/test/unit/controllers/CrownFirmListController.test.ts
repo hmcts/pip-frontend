@@ -5,10 +5,10 @@ import path from 'path';
 import {PublicationService} from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
 import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
 import {CrimeListsService} from '../../../main/service/listManipulation/CrimeListsService';
 import CrownFirmListController from '../../../main/controllers/CrownFirmListController';
 import {CrownFirmListService} from '../../../main/service/listManipulation/crownFirmListService';
+import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 
 const fullyProcessedData = fs.readFileSync(path.resolve(__dirname, '../mocks/firmlistfullyprocessed.json'), 'utf-8');
 const listData = JSON.parse(fullyProcessedData);
@@ -27,7 +27,7 @@ const crownFirmListController = new CrownFirmListController();
 const crownFirmListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const crownFirmListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[6]);
-sinon.stub(DataManipulationService.prototype, 'manipulatedDailyListData').returns(listData);
+sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilFamilyMixedListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').returns(listData);
 sinon.stub(CrownFirmListService.prototype, 'splitOutFirmListData').returns(listData);
@@ -60,7 +60,7 @@ describe('Crown Firm List Controller', () => {
 
   it('should render the crown firm list page', async () => {
     request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
 
     const responseMock = sinon.mock(response);
 
@@ -88,7 +88,7 @@ describe('Crown Firm List Controller', () => {
   it('should render error page is query param is empty', async () => {
 
     request.query = {};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);

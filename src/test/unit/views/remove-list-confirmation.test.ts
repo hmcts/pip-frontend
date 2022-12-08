@@ -24,9 +24,7 @@ const content = ['Civil Daily Cause List', 'Mock Court','24 March 2022', '23 Mar
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({locationId: '5', name: 'Mock Court'});
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
 sinon.stub(PublicationService.prototype, 'removePublication').withArgs('foo').resolves(false);
 let htmlRes: Document;

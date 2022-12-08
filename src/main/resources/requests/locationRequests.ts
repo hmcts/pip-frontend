@@ -71,4 +71,22 @@ export class LocationRequests {
     }
     return null;
   }
+
+  public async getLocationsCsv(userId: string): Promise<Blob> {
+    try{
+      const response = await dataManagementApi.get('/locations/download/csv',
+        {responseType: 'arraybuffer'});
+      console.log('Reference data download requested by user with ID: ' + userId);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.error('Failed to retrieve reference data csv - response', error.response.data);
+      } else if (error.request) {
+        console.error('Failed to retrieve reference data csv - request', error.request);
+      } else {
+        console.error('Failed to retrieve reference data csv - message', error.message);
+      }
+    }
+    return null;
+  }
 }

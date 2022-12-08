@@ -10,8 +10,8 @@ const filterService = new FilterService();
 export default class SubscriptionConfigureListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
 
-    const listTypes = await subscriptionService.generateListTypesForCourts(req.user['piUserId'],
-      req.user['piUserProvenance'],
+    const listTypes = await subscriptionService.generateListTypesForCourts(req.user['userId'],
+      req.user['userProvenance'],
       req.query?.filterValues as string,
       req.query?.clear as string,
       req.lng as string);

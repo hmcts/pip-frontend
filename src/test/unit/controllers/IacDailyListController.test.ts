@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import IacDailyListController from '../../../main/controllers/IacDailyListController';
 import {PublicationService} from '../../../main/service/publicationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
+import {IacDailyListService} from '../../../main/service/listManipulation/IacDailyListService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
@@ -18,7 +18,7 @@ const iacDailyListController = new IacDailyListController();
 
 const iacDailyListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const iacDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
-sinon.stub(DataManipulationService.prototype, 'manipulateIacDailyListData').returns(listData);
+sinon.stub(IacDailyListService.prototype, 'manipulateIacDailyListData').returns(listData);
 
 const artefactId = 'abc';
 
@@ -44,7 +44,7 @@ describe('IAC Daily List Controller', () => {
 
   it('should render the IAC daily list page', async () => {
     request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
 
     const responseMock = sinon.mock(response);
     const expectedData = {
@@ -66,7 +66,7 @@ describe('IAC Daily List Controller', () => {
   it('should render error page if query param is empty', async () => {
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '123'};
+    request.user = {userId: '123'};
 
     const responseMock = sinon.mock(response);
 

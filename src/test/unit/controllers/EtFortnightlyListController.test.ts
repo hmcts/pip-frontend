@@ -3,10 +3,10 @@ import fs from 'fs';
 import path from 'path';
 import {PublicationService} from '../../../main/service/publicationService';
 import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import EtFortnightlyListController from '../../../main/controllers/EtFortnightlyListController';
+import { EtListsService } from '../../../main/service/listManipulation/EtListsService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/etDailyList.json'), 'utf-8');
 const rawTableData = fs.readFileSync(path.resolve(__dirname, '../mocks/etFortnightlyList.json'), 'utf-8');
@@ -24,8 +24,8 @@ const etDailyListController = new EtFortnightlyListController();
 const etDailyListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const etDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(DataManipulationService.prototype, 'reshapeEtDailyListData').returns(listData);
-sinon.stub(DataManipulationService.prototype, 'dataSplitterEtList').returns(tableData);
+sinon.stub(EtListsService.prototype, 'reshapeEtLists').returns(listData);
+sinon.stub(EtListsService.prototype, 'dataSplitterEtList').returns(tableData);
 
 const artefactId = 'abc';
 
@@ -51,7 +51,7 @@ describe('Et Fortnightly List Controller', () => {
 
   it('should render the et fortnightly cause list page', async () => {
     request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
 
     const responseMock = sinon.mock(response);
     const expectedData = {
@@ -76,7 +76,7 @@ describe('Et Fortnightly List Controller', () => {
   it('should render error page if query param is empty', async () => {
     const request = mockRequest(i18n);
     request.query = {};
-    request.user = {piUserId: '123'};
+    request.user = {userId: '123'};
 
     const responseMock = sinon.mock(response);
 

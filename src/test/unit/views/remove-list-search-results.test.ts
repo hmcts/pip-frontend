@@ -57,9 +57,7 @@ sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs('5', true, true).resolves(mockPublications);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns(mockPublications);
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
 let htmlRes: Document;
 

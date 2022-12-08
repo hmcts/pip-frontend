@@ -5,7 +5,7 @@ import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
-import {CrownWarnedListService} from '../../../main/service/listManipulation/crownWarnedListService';
+import {CrownWarnedListService} from '../../../main/service/listManipulation/CrownWarnedListService';
 import CrownWarnedListController from '../../../main/controllers/CrownWarnedListController';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownWarnedList.json'), 'utf-8');
@@ -69,7 +69,7 @@ describe('Crown Warned List Controller', () => {
 
   it('should render the crown warned list page', async () =>  {
     request.query = {artefactId: artefactId};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
 
     const responseMock = sinon.mock(response);
 
@@ -93,7 +93,7 @@ describe('Crown Warned List Controller', () => {
 
   it('should render error page is query param is empty', async () => {
     request.query = {};
-    request.user = {piUserId: '1'};
+    request.user = {userId: '1'};
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
