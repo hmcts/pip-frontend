@@ -2,10 +2,10 @@ import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {cloneDeep} from 'lodash';
 import {PublicationService} from '../service/publicationService';
-import {DataManipulationService} from '../service/dataManipulationService';
+import {ListParseHelperService} from '../service/listParseHelperService';
 
 const publicationService = new PublicationService();
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
 
 export default class SjpPublicListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -14,8 +14,8 @@ export default class SjpPublicListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
     if (fileData && metaData) {
-      const publishedTime = dataManipulationService.publicationTimeInBst(fileData['document']['publicationDate']);
-      const publishedDate = dataManipulationService.publicationDateInBst(fileData['document']['publicationDate']);
+      const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(fileData['document']['publicationDate']);
       const casesCount = SjpPublicListController.getCasesCount(fileData);
 
       res.render('single-justice-procedure', {

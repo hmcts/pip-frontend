@@ -83,7 +83,7 @@ export class PublicationService {
    * @param id The ID of the user.
    */
   public async removePublication(artefactId: string, id: string): Promise<boolean> {
-    return publicationRequests.deletePublication(artefactId, id);
+    return publicationRequests.archivePublication(artefactId, id);
   }
 
   /**
