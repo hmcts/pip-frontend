@@ -44,10 +44,13 @@ const validRemoveListInput = [{
   listType: 'SJP_PUBLIC_LIST',
   displayFrom: '2022-02-08T12:26:42.908',
   displayTo: '2024-02-08T12:26:42.908',
+  contentDate: '2022-02-08T00:00:00',
 }];
 const expectedRemoveList = [
   {
     listType: 'SJP_PUBLIC_LIST',
+    contentDate: '2022-02-08T00:00:00',
+    contDate: '8 Feb 2022',
     displayFrom: '2022-02-08T12:26:42.908',
     displayTo: '2024-02-08T12:26:42.908',
     listTypeName: 'SJP Public List',

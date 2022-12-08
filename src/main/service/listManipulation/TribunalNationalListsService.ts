@@ -1,7 +1,7 @@
-import { DataManipulationService } from '../dataManipulationService';
+import { ListParseHelperService } from '../listParseHelperService';
 import {formatDate, formatDuration} from '../../helpers/dateTimeHelper';
 
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
 
 /**
  * Service to manipulate the primary health list nunjucks template.
@@ -23,7 +23,7 @@ export class TribunalNationalListsService {
         courtRoom['session'].forEach(session => {
           const hearingDate = formatDate(session['sessionStartTime'], 'DD MMMM');
           session['sittings'].forEach(sitting => {
-            dataManipulationService.calculateDuration(sitting);
+            helperService.calculateDuration(sitting);
             const durationAsHours = sitting['durationAsHours'];
             const durationAsMinutes = sitting['durationAsMinutes'];
             let durationAsDays = 0;

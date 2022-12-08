@@ -7,7 +7,7 @@ import {LocationService} from '../../../main/service/locationService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import moment from 'moment';
-import {TribunalNationalListsService} from '../../../main/service/listManipulation/tribunalNationalListsService';
+import {TribunalNationalListsService} from '../../../main/service/listManipulation/TribunalNationalListsService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/primaryHealthList.json'), 'utf-8');
 const listData = JSON.parse(rawData);

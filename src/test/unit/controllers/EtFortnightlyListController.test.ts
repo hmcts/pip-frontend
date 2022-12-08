@@ -3,10 +3,10 @@ import fs from 'fs';
 import path from 'path';
 import {PublicationService} from '../../../main/service/publicationService';
 import {LocationService} from '../../../main/service/locationService';
-import {DataManipulationService} from '../../../main/service/dataManipulationService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import EtFortnightlyListController from '../../../main/controllers/EtFortnightlyListController';
+import { EtListsService } from '../../../main/service/listManipulation/EtListsService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/etDailyList.json'), 'utf-8');
 const rawTableData = fs.readFileSync(path.resolve(__dirname, '../mocks/etFortnightlyList.json'), 'utf-8');
@@ -24,8 +24,8 @@ const etDailyListController = new EtFortnightlyListController();
 const etDailyListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const etDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(DataManipulationService.prototype, 'reshapeEtDailyListData').returns(listData);
-sinon.stub(DataManipulationService.prototype, 'dataSplitterEtList').returns(tableData);
+sinon.stub(EtListsService.prototype, 'reshapeEtLists').returns(listData);
+sinon.stub(EtListsService.prototype, 'dataSplitterEtList').returns(tableData);
 
 const artefactId = 'abc';
 
