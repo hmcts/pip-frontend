@@ -1,9 +1,9 @@
-import {DataManipulationService} from '../dataManipulationService';
+import {ListParseHelperService} from '../listParseHelperService';
 import moment from 'moment';
 import {formatDate} from '../../helpers/dateTimeHelper';
 import {CrimeListsService} from './CrimeListsService';
 
-const dataManipulationService = new DataManipulationService();
+const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
 
 export class CrownWarnedListService {
@@ -16,7 +16,7 @@ export class CrownWarnedListService {
             sitting.sittingStartFormatted = formatDate(sitting.sittingStart, 'DD/MM/YYYY');
             sitting.hearing.forEach(hearing => {
               crimeListsService.manipulateParty(hearing);
-              dataManipulationService.findAndManipulateLinkedCases(hearing);
+              helperService.findAndManipulateLinkedCases(hearing);
               const rows = [];
 
               hearing.case.forEach(hearingCase => {
