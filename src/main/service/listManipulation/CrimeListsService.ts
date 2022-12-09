@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import {ListParseHelperService} from '../listParseHelperService';
-import {formatDuration} from '../../helpers/dateTimeHelper';
+import {calculateDurationSortValue, formatDuration} from '../../helpers/dateTimeHelper';
 
 const helperService = new ListParseHelperService();
 const separator = ', ';
@@ -20,6 +20,8 @@ export class CrimeListsService {
             this.formatCaseTime(sitting, 'h:mma');
             sitting['formattedDuration'] = formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
                                       sitting['durationAsMinutes'] as number, language, languageFile);
+            sitting['durationSortValue'] = calculateDurationSortValue(sitting['durationAsDays'] as number,
+              sitting['durationAsHours'] as number, sitting['durationAsMinutes'] as number);
             sitting['hearing'].forEach(hearing => {
               this.manipulateParty(hearing);
               this.findLinkedCasesInformation(hearing);

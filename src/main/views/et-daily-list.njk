@@ -1,7 +1,7 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
 {% from "./macros/common-components.njk" import goBack %}
 
-{% extends "template.njk" %}
+{% extends "list-template.njk" %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
@@ -78,11 +78,11 @@
           <div id="accordion-default-content-{{ courtRoomCount }}" class="govuk-accordion__section-content"
                aria-labelledby="accordion-default-heading-{{ courtRoomCount }}">
             <div class="parent-box overflow-table">
-              <table class="govuk-table">
+              <table class="govuk-table" data-module="moj-sortable-table">
                 <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                   {% for header in tableHeaders %}
-                    <th scope="col" class="govuk-table__header">{{ header }}</th>
+                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ header }}</th>
                   {% endfor %}
                 </tr>
                 </thead>
@@ -90,14 +90,15 @@
                 {% for session in courtRoom['session'] %}
                   {% for sitting in session['sittings'] %}
                     {% set duration = sitting.durationAsHours | getDuration(sitting.durationAsMinutes, lng) %}
+                    {% set durationSortValue = sitting.durationAsHours | durationToSortValue(sitting.durationAsMinutes) %}
                     {% for hearing in sitting['hearing'] %}
                       {% for case in hearing['case'] %}
                         {% if courtRoom['totalHearing'] === hearingCount %}
                           {% set noBorder = 'no-border-bottom' %}
                         {% endif %}
                         <tr class="govuk-table__row">
-                          <td class="govuk-table__cell {{ noBorder }}">{{ sitting['sittingStartFormatted'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ duration }} {{ case['caseSequenceIndicator'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ sitting['sittingStartFormatted'] | timeToSortValue }}">{{ sitting['sittingStartFormatted'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ durationSortValue }}">{{ duration }} {{ case['caseSequenceIndicator'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
                           {% if hearing['appellantRepresentative'] | length %}
                             <td class="govuk-table__cell {{ noBorder }}">{{ hearing['appellant'] }}<br />{{ rep }}: {{ hearing['appellantRepresentative'] }}</td>
@@ -124,12 +125,4 @@
   <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
   {{ super() }}
   </div>
-{% endblock %}
-{% block bodyEnd %}
-  <script>
-    if (window.history.replaceState) {
-      window.history.replaceState(null, null, window.location.href);
-    }
-  </script>
-  {{ super() }}
 {% endblock %}

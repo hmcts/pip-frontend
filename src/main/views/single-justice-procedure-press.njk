@@ -1,7 +1,7 @@
 {% from "./macros/common-components.njk" import goBack %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% extends "template.njk" %}
+{% extends "list-template.njk" %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
@@ -123,12 +123,4 @@
     </div>
     {{ super() }}
   </div>
-{% endblock %}
-{% block bodyEnd %}
-  <script>
-    if (window.history.replaceState) {
-      window.history.replaceState(null, null, window.location.href);
-    }
-  </script>
-  {{ super() }}
 {% endblock %}

@@ -2,7 +2,7 @@
 {% from "./macros/common-components.njk" import goBack %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
-{% extends "template.njk" %}
+{% extends "list-template.njk" %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
@@ -203,12 +203,4 @@
   <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
   {{ super() }}
   </div>
-{% endblock %}
-{% block bodyEnd %}
-  <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
-  </script>
-  {{ super() }}
 {% endblock %}

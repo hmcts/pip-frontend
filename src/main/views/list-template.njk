@@ -1,0 +1,12 @@
+{% extends "template.njk" %}
+
+{% block bodyEnd %}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  <script type="text/javascript" src="/assets/js/jquery.js"></script>
+  <script type="text/javascript" src="/assets/js/mojAll.js"></script>
+  {{ super() }}
+{% endblock %}

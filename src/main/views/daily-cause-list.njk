@@ -1,7 +1,7 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
 {% from "./macros/common-components.njk" import goBack %}
 
-{% extends "template.njk" %}
+{% extends "list-template.njk" %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
@@ -92,15 +92,15 @@
               </div>
               <div id="accordion-default-content-{{ sessionCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ sessionCount }}">
                 <div class="parent-box overflow-table">
-                  <table class="govuk-table">
+                  <table class="govuk-table" data-module="moj-sortable-table">
                     <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
-                      <th scope="col" class="govuk-table__header">{{ time }}</th>
-                      <th scope="col" class="govuk-table__header">{{ caseId }}</th>
-                      <th scope="col" class="govuk-table__header">{{ nameOfParty }}</th>
-                      <th scope="col" class="govuk-table__header">{{ hearingType }}</th>
-                      <th scope="col" class="govuk-table__header">{{ hearingPlatform }}</th>
-                      <th scope="col" class="govuk-table__header">{{ duration }}</th>
+                      <th scope="col" class="govuk-table__header" aria-sort="none">{{ time }}</th>
+                      <th scope="col" class="govuk-table__header" aria-sort="none">{{ caseId }}</th>
+                      <th scope="col" class="govuk-table__header" aria-sort="none">{{ nameOfParty }}</th>
+                      <th scope="col" class="govuk-table__header" aria-sort="none">{{ hearingType }}</th>
+                      <th scope="col" class="govuk-table__header" aria-sort="none">{{ hearingPlatform }}</th>
+                      <th scope="col" class="govuk-table__header" aria-sort="none">{{ duration }}</th>
                     </tr>
                     </thead>
 
@@ -116,13 +116,14 @@
                         {% set hearingPlatform = hearingPlatform.slice(1) %}
                       {% endif %}
                       {% set duration = sitting.durationAsHours | getDuration(sitting.durationAsMinutes, lng) %}
+                      {% set durationSortValue = sitting.durationAsHours | durationToSortValue(sitting.durationAsMinutes) %}
                       {% for hearing in sitting['hearing'] %}
                         {% for case in hearing['case'] %}
                           {% if courtRoom['totalHearing'] === hearingCount %}
                             {% set noBorder = 'no-border-bottom' %}
                           {% endif %}
                           <tr class="govuk-table__row">
-                            <td class="govuk-table__cell {{ noBorder }}">{{ sitting['time'] }}</td>
+                            <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ sitting['time'] | timeToSortValue }}">{{ sitting['time'] }}</td>
                             <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
                             {% if case['caseSequenceIndicator'] | length %}
                               <td class="govuk-table__cell {{ noBorder }}">{{ case['caseName'] }} {{ case['caseSequenceIndicator'] }}</td>
@@ -131,7 +132,7 @@
                             {% endif %}
                             <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>
                             <td class="govuk-table__cell {{ noBorder }}">{{ hearingPlatform }}</td>
-                            <td class="govuk-table__cell {{ noBorder }}">{{ duration }}</td>
+                            <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ durationSortValue }}">{{ duration }}</td>
                           </tr>
                           {% set hearingCount = hearingCount + 1 %}
                         {% endfor %}
@@ -149,12 +150,4 @@
   <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
   {{ super() }}
 </div>
-{% endblock %}
-{% block bodyEnd %}
-  <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
-  </script>
-  {{ super() }}
 {% endblock %}

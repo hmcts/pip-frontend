@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {formatDate, formatDuration} from '../../../main/helpers/dateTimeHelper';
+import {calculateDurationSortValue, formatDate, formatDuration} from '../../../main/helpers/dateTimeHelper';
 
 const englishLanguage = 'en';
 const welshLanguage = 'cy';
@@ -86,6 +86,28 @@ describe('formatDuration', () => {
   it('should formatted duration correctly with more than 1 day for welsh', () => {
     const result = formatDuration(3,0, 0, welshLanguage, languageFile);
     expect(result).to.equal('3 Dydd');
+  });
+});
+
+describe('calculateDurationSortValue', () => {
+  it('should calculation sort value for hours and minutes', () => {
+    const result = calculateDurationSortValue(0, 1, 30);
+    expect(result).to.equal(90);
+  });
+
+  it('should calculation sort value for hours only', () => {
+    const result = calculateDurationSortValue(0, 2, 0);
+    expect(result).to.equal(120);
+  });
+
+  it('should calculation sort value for minutes only', () => {
+    const result = calculateDurationSortValue(0, 0, 50);
+    expect(result).to.equal(50);
+  });
+
+  it('should calculation sort value for days', () => {
+    const result = calculateDurationSortValue(1, 24, 30);
+    expect(result).to.equal(1440);
   });
 });
 

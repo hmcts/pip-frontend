@@ -1,8 +1,8 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
 {% from "./macros/common-components.njk" import goBack %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
-{% extends "template.njk" %}
 
+{% extends "list-template.njk" %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
@@ -105,15 +105,15 @@
               </div>
               <div id="accordion-default-content-{{ sessionCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ sessionCount }}">
                 <div class="parent-box overflow-table">
-                  <table class="govuk-table">
+                  <table class="govuk-table" data-module="moj-sortable-table">
                     <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
-                      <th scope="col" class="govuk-table__header no-wrap">{{ sittingAt }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap">{{ caseReference }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap">{{ defendantName }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap">{{ hearingType }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap">{{ prosecutingAuthority }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap">{{ duration }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ sittingAt }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ caseReference }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ defendantName }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ hearingType }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ prosecutingAuthority }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ duration }}</th>
                     </tr>
                     </thead>
                     <tbody class="govuk-table__body">
@@ -135,13 +135,14 @@
                           {% if courtRoom['totalHearing'] === hearingCount%}
                             {% set noBorder = 'no-border-bottom' %}
                           {% endif %}
+                          {% set timeSortValue = sitting['time'] | timeToSortValue %}
                           <tr class="govuk-table__row">
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['time'] }}</td>
+                            <td class="govuk-table__cell no-wrap {{ noBorder }}" data-sort-value="{{ timeSortValue }}">{{ sitting['time'] }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseNumber'] }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['defendant'] }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['hearingType'] }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['prosecutingAuthority'] }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['formattedDuration'] }} {{ case['caseSequenceIndicator'] }}</td>
+                            <td class="govuk-table__cell no-wrap {{ noBorder }}" data-sort-value="{{ sitting['durationSortValue'] }}">{{ sitting['formattedDuration'] }} {{ case['caseSequenceIndicator'] }}</td>
                           </tr>
                           {% if hearing['listingNotes'] | length %}
                             {% set noBorder = '' %}
@@ -149,7 +150,12 @@
                               {% set noBorder = 'no-border-bottom' %}
                             {% endif %}
                             <tr class="govuk-table__row">
-                              <td class="govuk-table__cell {{ noBorder }}" colspan="6"><span class="linked-cases-heading">{{ listingNotes }}:</span> {{ hearing['listingNotes'] }}</td>
+                              <td class="govuk-table__cell {{ noBorder }}" colspan="6" data-sort-value="{{ timeSortValue }}"><span class="linked-cases-heading">{{ listingNotes }}:</span> {{ hearing['listingNotes'] }}</td>
+                              <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ case['caseNumber'] }}" />
+                              <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ hearing['defendant'] }}" />
+                              <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ hearing['hearingType'] }}" />
+                              <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ hearing['prosecutingAuthority'] }}" />
+                              <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ sitting['durationSortValue'] }}" />
                             </tr>
                           {% endif %}
                           {% set hearingCount = hearingCount + 1 %}
@@ -169,12 +175,4 @@
   <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
   {{ super() }}
   </div>
-{% endblock %}
-{% block bodyEnd %}
-  <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
-  </script>
-  {{ super() }}
 {% endblock %}
