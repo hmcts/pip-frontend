@@ -1,5 +1,5 @@
 import {partyRoleMappings} from '../models/consts';
-import moment from 'moment-timezone';
+import {DateTime} from 'luxon';
 
 export class ListParseHelperService {
 
@@ -232,10 +232,11 @@ export class ListParseHelperService {
   public calculateDuration(sitting: object): void {
     sitting['duration'] = '';
     if (sitting['sittingStart'] !== '' && sitting['sittingEnd'] !== '') {
-      const sittingStart = moment.utc(sitting['sittingStart']);
-      const sittingEnd = moment.utc(sitting['sittingEnd']);
+      const sittingStart = DateTime.fromISO(sitting['sittingStart'], {zone: 'utc'});
+      const sittingEnd = DateTime.fromISO(sitting['sittingEnd'], {zone: 'utc'});
       let durationAsHours = 0;
-      let durationAsMinutes = moment.duration(sittingEnd.startOf('minutes').diff(sittingStart.startOf('minutes'))).asMinutes();
+      let durationAsMinutes = sittingEnd.diff(sittingStart, ["minutes"]).as('minutes')
+
       if (durationAsMinutes >= 60) {
         durationAsHours = Math.floor(durationAsMinutes / 60);
         durationAsMinutes = durationAsMinutes - (durationAsHours * 60);
@@ -250,11 +251,10 @@ export class ListParseHelperService {
       sitting['durationAsMinutes'] = durationAsMinutes;
       sitting['durationAsDays'] = durationAsDays;
 
-      const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
-      if (min === 0) {
-        sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('ha');
+      if (sittingStart.minute === 0) {
+        sitting['time'] = DateTime.fromISO(sitting['sittingStart'], {zone: this.timeZone}).toFormat('ha').toLowerCase();
       } else {
-        sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('h:mma');
+        sitting['time'] = DateTime.fromISO(sitting['sittingStart'], {zone: this.timeZone}).toFormat('h:mma').toLowerCase();
       }
     }
   }
@@ -264,12 +264,12 @@ export class ListParseHelperService {
    * @param publicationDatetime The publication date time to convert in UTC.
    */
   public publicationTimeInUkTime(publicationDatetime: string): string {
-    const min = moment.utc(publicationDatetime, 'HH:mm').tz(this.timeZone).minutes();
+    const publicationZonedDateTime = DateTime.fromISO(publicationDatetime, {zone: this.timeZone});
     let publishedTime = '';
-    if (min === 0) {
-      publishedTime = moment.utc(publicationDatetime).tz(this.timeZone).format('ha');
+    if (publicationZonedDateTime.minute === 0) {
+      publishedTime = publicationZonedDateTime.toFormat('ha').toLowerCase();
     } else {
-      publishedTime = moment.utc(publicationDatetime).tz(this.timeZone).format('h:mma');
+      publishedTime = publicationZonedDateTime.toFormat('h:mma').toLowerCase();
     }
     return publishedTime;
   }
@@ -279,7 +279,11 @@ export class ListParseHelperService {
    * @param publicationDatetime The publication date time to convert in UTC.
    */
   public publicationDateInUkTime(publicationDatetime: string): string {
-    return moment.utc(publicationDatetime).tz(this.timeZone).format('DD MMMM YYYY');
+    return DateTime.fromISO(publicationDatetime, {zone: this.timeZone}).toFormat('dd MMMM yyyy');
+  }
+
+  public contentDateInUtcTime(contentDatetime: string): string {
+    return DateTime.fromISO(contentDatetime, {zone: 'utc'}).toFormat('dd MMMM yyyy');
   }
 
   /**

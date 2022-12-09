@@ -4,7 +4,6 @@ import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { TribunalNationalListsService } from '../service/listManipulation/TribunalNationalListsService';
-import moment from 'moment';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -29,7 +28,7 @@ export default class TribunalNationalListsController {
 
       res.render(listToLoad, {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
-        contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
         listData : manipulatedData,
         publishedDate: publishedDate,
         publishedTime: publishedTime,

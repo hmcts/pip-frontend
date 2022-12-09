@@ -1,4 +1,4 @@
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import {allAdminRoles, checkRoles} from '../authentication/authenticationHandler';
 import {B2C_ADMIN_URL, B2C_URL, FRONTEND_URL} from '../helpers/envUrls';
 
@@ -35,9 +35,9 @@ export class SessionManagementService {
     }
 
     if(req.session.sessionExpires) {
-      const sessionExpiryDateTime = moment.utc(req.session.sessionExpires);
-      const currentDateTime = moment.utc(new Date(Date.now()));
-      const durationAsSeconds = moment.duration(sessionExpiryDateTime.startOf('seconds').diff(currentDateTime.startOf('seconds'))).asSeconds();
+      const sessionExpiryDateTime = DateTime.fromISO(req.session.sessionExpires, {zone: 'utc'});
+      const currentDateTime = DateTime.fromISO(Date.now(), {zone: 'utc'});
+      const durationAsSeconds = sessionExpiryDateTime.diff(currentDateTime, ["seconds"]).as('seconds')
       if(durationAsSeconds <= 0) {
         return true;
       }

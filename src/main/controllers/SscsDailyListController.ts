@@ -3,7 +3,6 @@ import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
-import moment from 'moment';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { SscsDailyListService } from '../service/listManipulation/SscsDailyListService';
 
@@ -33,7 +32,7 @@ export default class SscsDailyListController {
       res.render('sscs-daily-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['sscs-daily-list']),
         listData: manipulatedData,
-        contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         courtName: courtName,

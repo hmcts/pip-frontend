@@ -2,7 +2,6 @@ import { Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
-import moment from 'moment';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { IacDailyListService } from '../service/listManipulation/IacDailyListService';
 
@@ -26,7 +25,7 @@ export default class IacDailyListController {
       res.render('iac-daily-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['iac-daily-list']),
         listData: listData,
-        contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         provenance: metaData['provenance'],

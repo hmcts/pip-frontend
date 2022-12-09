@@ -4,7 +4,6 @@ import {cloneDeep} from 'lodash';
 import {PublicationService} from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import {LocationService} from '../service/locationService';
-import moment from 'moment/moment';
 import { EtListsService } from '../service/listManipulation/EtListsService';
 
 const publicationService = new PublicationService();
@@ -30,7 +29,7 @@ export default class EtDailyListController {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['et-daily-list']),
         listData,
         courtName,
-        contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
         region: returnedCourt.region,
         publishedDate: publishedDate,
         publishedTime: publishedTime,

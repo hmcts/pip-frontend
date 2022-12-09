@@ -5,7 +5,6 @@ import {PublicationService} from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { EtListsService } from '../service/listManipulation/EtListsService';
 import {LocationService} from '../service/locationService';
-import moment from 'moment/moment';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -32,7 +31,7 @@ export default class EtFortnightlyListController {
         tableData,
         listData,
         courtName,
-        contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
         region: returnedCourt.region,
         publishedDate: publishedDate,
         publishedTime: publishedTime,

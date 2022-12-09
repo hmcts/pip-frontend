@@ -1,7 +1,6 @@
 import { Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
-import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
@@ -33,7 +32,7 @@ export default class DailyCauseListController {
       res.render(listToLoad, {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
         listData: manipulatedData,
-        contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         provenance: metaData['provenance'],

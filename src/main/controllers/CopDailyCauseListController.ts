@@ -3,7 +3,6 @@ import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
-import moment from 'moment';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CopDailyListService } from '../service/listManipulation/CopDailyListService';
 
@@ -34,7 +33,7 @@ export default class CopDailyCauseListController {
       res.render('cop-daily-cause-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['cop-daily-cause-list']),
         listData: manipulatedData,
-        contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         courtName: courtName,

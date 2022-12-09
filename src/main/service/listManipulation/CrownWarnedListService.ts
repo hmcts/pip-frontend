@@ -1,5 +1,5 @@
 import {ListParseHelperService} from '../listParseHelperService';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import {formatDate} from '../../helpers/dateTimeHelper';
 import {CrimeListsService} from './CrimeListsService';
 
@@ -51,6 +51,6 @@ export class CrownWarnedListService {
     const date = new Date(contentDate);
     // Move the date to the past Monday if it is not on a Monday
     date.setDate(date.getDate() - (date.getDay() + 6) % 7);
-    return moment.utc(Date.parse(date.toUTCString())).format('DD MMMM YYYY');
+    return DateTime.fromISO(Date.parse(date.toUTCString()), {zone: 'utc'}).toFormat('dd MMMM yyyy')
   }
 }

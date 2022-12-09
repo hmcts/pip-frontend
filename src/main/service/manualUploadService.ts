@@ -1,5 +1,6 @@
 import { LocationService } from './locationService';
 import { DataManagementRequests } from '../resources/requests/dataManagementRequests';
+import {DateTime} from 'luxon';
 import moment from 'moment';
 import { FileHandlingService } from './fileHandlingService';
 import { PublicationService } from './publicationService';
@@ -10,6 +11,8 @@ import {LanguageFileParser} from '../helpers/languageFileParser';
 const languageFileParser = new LanguageFileParser();
 const fileHandlingService = new FileHandlingService();
 const publicationService = new PublicationService();
+
+const timeZone = 'Europe/London';
 
 export class ManualUploadService {
   public async buildFormData(language: string): Promise<object> {
@@ -25,7 +28,7 @@ export class ManualUploadService {
     summaryList.forEach((value) => {
       const listItem = {...value};
       listItem.listTypeName = this.getListItemName(value.listType);
-      listItem.dateRange = `${moment(value.displayFrom).format('D MMM YYYY')} to ${moment(value.displayTo).format('D MMM YYYY')}`;
+      listItem.dateRange = `${DateTime.fromISO(value.displayFrom, {zone: timeZone}).toFormat('d MMMM yyyy')} to ${DateTime.fromISO(value.displayTo, {zone: timeZone}).toFormat('d MMMM yyyy')}`;
       formattedList.push(listItem);
     });
     return formattedList;
@@ -107,8 +110,11 @@ export class ManualUploadService {
   }
 
   private validateDateRange(dateFrom: string, dateTo: string, language: string, languageFile: string): string | null {
-    const firstDate = moment(dateFrom, 'DD/MM/YYYY HH:mm:ss', true);
-    const secondDate = moment(dateTo, 'DD/MM/YYYY HH:mm:ss', true);
+    const firstDate = DateTime.fromFormat(dateFrom, 'dd/MM/yyyy HH:mm:ss');
+    const secondDate = DateTime.fromFormat(dateTo, 'dd/MM/yyyy HH:mm:ss');
+    if (firstDate.startOf("day") <= secondDate.startOf("day")) {
+      return null
+    }
     if (firstDate.isSameOrBefore(secondDate)) {
       return null;
     }

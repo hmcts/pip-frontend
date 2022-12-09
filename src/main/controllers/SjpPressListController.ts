@@ -1,7 +1,7 @@
 import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {cloneDeep} from 'lodash';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import {PublicationService} from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { SjpPressListService} from '../service/listManipulation/SjpPressListService';
@@ -30,7 +30,7 @@ export default class SjpPressListController {
         sjpData: manipulatedData,
         publishedDateTime: publishedDate,
         publishedTime: publishedTime,
-        contactDate: moment.utc(Date.parse(metaData['contentDate'])).format('D MMMM YYYY'),
+        contactDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('d MMMM yyyy'),
         artefactId: artefactId,
         user: req.user,
       });
