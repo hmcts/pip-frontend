@@ -72,7 +72,7 @@ describe('IAC daily cause list page', () => {
   });
 
   it('should display data source text', () => {
-    const listForText = htmlRes.getElementsByClassName(paragraphClass)[6];
+    const listForText = htmlRes.getElementsByClassName(paragraphClass)[7];
     expect(listForText.innerHTML).contains('Data Source');
   });
 });
