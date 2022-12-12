@@ -23,7 +23,8 @@
                     <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[2] }}</th>
                     <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[3] }}</th>
                     <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[4] }}</th>
-                    <th scope="col" class="govuk-table__header govuk-table__header--numeric">{{ tableHeaders[5] }}</th>
+                  <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[5] }}</th>
+                    <th scope="col" class="govuk-table__header govuk-table__header--numeric">{{ tableHeaders[6] }}</th>
                 </tr>
                 </thead>
                 <tbody class="govuk-table__body">
@@ -31,6 +32,7 @@
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">{{ item.listTypeName }}</td>
                         <td class="govuk-table__cell">{{ court.name }}</td>
+                      <td class="govuk-table__cell">{{ item.contDate }}</td>
                         <td class="govuk-table__cell">{{ item.dateRange }}</td>
                         <td class="govuk-table__cell">{{ item.language | titleCase }}</td>
                         <td class="govuk-table__cell">{{ item.sensitivity | titleCase }}</td>
