@@ -23,6 +23,16 @@ export class SummaryOfPublicationsPage extends CommonPage{
     return new CourtListPage();
   }
 
+  async clickSelectedListItem(startText): Promise<CourtListPage> {
+    const item = '*=' + startText;
+    $(item).catch(() => {
+      console.log(`${item} not found`);
+    });
+
+    await $(item).click();
+    return new CourtListPage();
+  }
+
   async clickSignInBannerLink(): Promise<SignInPage> {
     $(helpers.BannerSignIn).catch(() => {
       console.log(`${helpers.BannerSignIn} not found`);
