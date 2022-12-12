@@ -29,6 +29,7 @@ export class SummaryOfPublicationsPage extends CommonPage{
       console.log(`${item} not found`);
     });
 
+    await $(item).scrollIntoView();
     await $(item).click();
     return new CourtListPage();
   }
