@@ -137,10 +137,9 @@
           {% endif %}
           {% if row.hearingNotes | length %}
             {% set noBorderLinkedCases = '' %}
-            {% set noBorder = '' %}
             {% set hearingNotes =
               '<tr class="govuk-table__row">
-                <td class="govuk-table__cell ' + noBorder + '" colspan="7" data-sort-value="' + timeSortValue + '"><span class="linked-cases-heading">' + listingNotes + ':</span> '+ row.hearingNotes + '</td>
+                <td class="govuk-table__cell" colspan="7" data-sort-value="' + timeSortValue + '"><span class="linked-cases-heading">' + listingNotes + ':</span> '+ row.hearingNotes + '</td>
                 <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.caseNumber + '" />
                 <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.defendant + '" />
                 <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.hearingType + '" />

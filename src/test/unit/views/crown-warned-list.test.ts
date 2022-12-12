@@ -116,7 +116,7 @@ describe('Crown Warned List page', () => {
 
   it('should display listing notes',  () => {
     const cell = htmlRes.getElementsByClassName(tableCellClass);
-    expect(cell[6].innerHTML).to.contain('Note 1', 'Could not find listing notes table cell');
+    expect(cell[10].innerHTML).to.contain('Note 1', 'Could not find listing notes table cell');
   });
 
   it('should display data source',  () => {

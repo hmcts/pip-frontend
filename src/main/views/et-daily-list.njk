@@ -64,7 +64,6 @@
     <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
       {% set courtRoomCount = 0 %}
       {% for courtRoom in courtHouse['courtRoom'] %}
-        {% set hearingCount = 1 %}
         {% set courtRoomCount = courtRoomCount + 1 %}
         <div class="govuk-accordion__section govuk-accordion__section--expanded">
           <div class="govuk-accordion__section-header">
@@ -93,22 +92,19 @@
                     {% set durationSortValue = sitting.durationAsHours | durationToSortValue(sitting.durationAsMinutes) %}
                     {% for hearing in sitting['hearing'] %}
                       {% for case in hearing['case'] %}
-                        {% if courtRoom['totalHearing'] === hearingCount %}
-                          {% set noBorder = 'no-border-bottom' %}
-                        {% endif %}
                         <tr class="govuk-table__row">
-                          <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ sitting['sittingStartFormatted'] | timeToSortValue }}">{{ sitting['sittingStartFormatted'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ durationSortValue }}">{{ duration }} {{ case['caseSequenceIndicator'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
+                          <td class="govuk-table__cell" data-sort-value="{{ sitting['sittingStartFormatted'] | timeToSortValue }}">{{ sitting['sittingStartFormatted'] }}</td>
+                          <td class="govuk-table__cell" data-sort-value="{{ durationSortValue }}">{{ duration }} {{ case['caseSequenceIndicator'] }}</td>
+                          <td class="govuk-table__cell">{{ case['caseNumber'] }}</td>
                           {% if hearing['appellantRepresentative'] | length %}
-                            <td class="govuk-table__cell {{ noBorder }}">{{ hearing['appellant'] }}<br />{{ rep }}: {{ hearing['appellantRepresentative'] }}</td>
+                            <td class="govuk-table__cell">{{ hearing['appellant'] }}<br />{{ rep }}: {{ hearing['appellantRepresentative'] }}</td>
                           {% else %}
-                            <td class="govuk-table__cell {{ noBorder }}">{{ hearing['appellant'] }}<br />{{ rep }}: {{ noRep }}</td>
+                            <td class="govuk-table__cell">{{ hearing['appellant'] }}<br />{{ rep }}: {{ noRep }}</td>
                           {% endif %}
-                          <td class="govuk-table__cell {{ noBorder }}">{{ hearing['respondent'] | replace('LEGALADVISOR', 'Rep') }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseType'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
+                          <td class="govuk-table__cell">{{ hearing['respondent'] | replace('LEGALADVISOR', 'Rep') }}</td>
+                          <td class="govuk-table__cell">{{ hearing['hearingType'] }}</td>
+                          <td class="govuk-table__cell">{{ case['caseType'] }}</td>
+                          <td class="govuk-table__cell">{{ sitting['caseHearingChannel'] }}</td>
                         </tr>
                       {% endfor %}
                     {% endfor %}

@@ -67,7 +67,6 @@
     <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
         {% set sessionCount = 0 %}
         {% for courtRoom in courtList['courtHouse']['courtRoom'] %}
-          {% set hearingCount = 1 %}
           {% for session in courtRoom['session'] %}
             {% set sessionCount = sessionCount + 1 %}
             {% set sessionChannel = session['sessionChannel'][0] %}
@@ -106,25 +105,21 @@
                       {% set durationSortValue = sitting.durationAsHours | durationToSortValue(sitting.durationAsMinutes) %}
                       {% for hearing in sitting['hearing'] %}
                         {% for case in hearing['case'] %}
-                          {% if courtRoom['totalHearing'] === hearingCount %}
-                            {% set noBorder = 'no-border-bottom' %}
-                          {% endif %}
                           <tr class="govuk-table__row">
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}" data-sort-value="{{ sitting['time'] | timeToSortValue }}">{{ sitting['time'] }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseNumber'] }}</td>
+                            <td class="govuk-table__cell no-wrap" data-sort-value="{{ sitting['time'] | timeToSortValue }}">{{ sitting['time'] }}</td>
+                            <td class="govuk-table__cell no-wrap">{{ case['caseNumber'] }}</td>
                             {% if case['caseSequenceIndicator'] | length %}
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseName'] }} {{ case['caseSequenceIndicator'] }}</td>
+                              <td class="govuk-table__cell no-wrap">{{ case['caseName'] }} {{ case['caseSequenceIndicator'] }}</td>
                             {% else %}
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseName'] }}</td>
+                              <td class="govuk-table__cell no-wrap">{{ case['caseName'] }}</td>
                             {% endif %}
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseType'] }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['hearingType'] }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}" data-sort-value="{{ durationSortValue }}">{{ duration }} </td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['applicant'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['respondent'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
+                            <td class="govuk-table__cell no-wrap">{{ case['caseType'] }}</td>
+                            <td class="govuk-table__cell no-wrap">{{ hearing['hearingType'] }}</td>
+                            <td class="govuk-table__cell no-wrap">{{ sitting['caseHearingChannel'] }}</td>
+                            <td class="govuk-table__cell no-wrap" data-sort-value="{{ durationSortValue }}">{{ duration }} </td>
+                            <td class="govuk-table__cell no-wrap">{{ hearing['applicant'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
+                            <td class="govuk-table__cell no-wrap">{{ hearing['respondent'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
                           </tr>
-                          {% set hearingCount = hearingCount + 1 %}
                         {% endfor %}
                       {% endfor %}
                     {% endfor %}

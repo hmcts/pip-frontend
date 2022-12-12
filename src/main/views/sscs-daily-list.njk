@@ -41,7 +41,6 @@
     <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
       {% set courtRoomCount = 0 %}
       {% for courtRoom in courtHouse['courtRoom'] %}
-        {% set hearingCount = 1 %}
         {% set courtRoomCount = courtRoomCount + 1 %}
       <div class="govuk-accordion__section govuk-accordion__section--expanded">
         <div class="govuk-accordion__section-header">
@@ -69,16 +68,13 @@
                 {% for sitting in session['sittings'] %}
                   {% for hearing in sitting['hearing'] %}
                     {% for case in hearing['case'] %}
-                      {% if courtRoom['totalHearing'] === hearingCount %}
-                        {% set noBorder = 'no-border-bottom' %}
-                      {% endif %}
                       <tr class="govuk-table__row">
-                        <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ sitting['sittingStartFormatted'] | timeToSortValue }}">{{ sitting['sittingStartFormatted'] }}</td>
-                        <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
-                        <td class="govuk-table__cell {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
-                        <td class="govuk-table__cell {{ noBorder }}">{{ hearing['applicant'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
-                        <td class="govuk-table__cell {{ noBorder }}">{{ hearing['prosecutionAuthorityRefFormatted'] }}</td>
-                        <td class="govuk-table__cell {{ noBorder }}">{{ session['formattedJudiciary'] }}</td>
+                        <td class="govuk-table__cell" data-sort-value="{{ sitting['sittingStartFormatted'] | timeToSortValue }}">{{ sitting['sittingStartFormatted'] }}</td>
+                        <td class="govuk-table__cell">{{ case['caseNumber'] }}</td>
+                        <td class="govuk-table__cell">{{ sitting['caseHearingChannel'] }}</td>
+                        <td class="govuk-table__cell">{{ hearing['applicant'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
+                        <td class="govuk-table__cell">{{ hearing['prosecutionAuthorityRefFormatted'] }}</td>
+                        <td class="govuk-table__cell">{{ session['formattedJudiciary'] }}</td>
                       </tr>
                     {% endfor %}
                   {% endfor %}

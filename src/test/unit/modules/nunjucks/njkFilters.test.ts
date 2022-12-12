@@ -88,7 +88,6 @@ describe('Nunjucks Custom Filter Tests', function() {
       expect(result).to.equal('1430');
     });
 
-
     it('should return sort value for noon', function() {
       const result = env.renderString('{{ "12pm"| timeToSortValue }}', {});
       expect(result).to.equal('1200');

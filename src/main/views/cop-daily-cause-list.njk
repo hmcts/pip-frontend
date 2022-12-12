@@ -43,7 +43,6 @@
       <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
       {% set sessionCount = 0 %}
       {% for courtRoom in courtHouse['courtRoom'] %}
-        {% set hearingCount = 1 %}
         {% set sessionCount = sessionCount + 1 %}
         {% for session in courtRoom['session'] %}
           <div class="govuk-accordion__section govuk-accordion__section--expanded">
@@ -77,22 +76,18 @@
                     {% set durationSortValue = sitting.durationAsHours | durationToSortValue(sitting.durationAsMinutes) %}
                     {% for hearing in sitting['hearing'] %}
                       {% for case in hearing['case'] %}
-                        {% if courtRoom['totalHearing'] === hearingCount %}
-                          {% set noBorder = 'no-border-bottom' %}
-                        {% endif %}
                         <tr class="govuk-table__row">
-                          <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ sitting['time'] | timeToSortValue }}">{{ sitting['time'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseSuppressionName'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>
+                          <td class="govuk-table__cell" data-sort-value="{{ sitting['time'] | timeToSortValue }}">{{ sitting['time'] }}</td>
+                          <td class="govuk-table__cell">{{ case['caseNumber'] }}</td>
+                          <td class="govuk-table__cell">{{ case['caseSuppressionName'] }}</td>
+                          <td class="govuk-table__cell">{{ hearing['hearingType'] }}</td>
                           {% if case['caseSequenceIndicator'] | length %}
-                            <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ durationSortValue }}">{{ duration }} {{ case['caseSequenceIndicator'] }}</td>
+                            <td class="govuk-table__cell" data-sort-value="{{ durationSortValue }}">{{ duration }} {{ case['caseSequenceIndicator'] }}</td>
                           {% else %}
-                            <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ durationSortValue }}">{{ duration }}</td>
+                            <td class="govuk-table__cell" data-sort-value="{{ durationSortValue }}">{{ duration }}</td>
                           {% endif %}
-                          <td class="govuk-table__cell {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
+                          <td class="govuk-table__cell">{{ sitting['caseHearingChannel'] }}</td>
                         </tr>
-                        {% set hearingCount = hearingCount + 1 %}
                       {% endfor %}
                     {% endfor %}
                   {% endfor %}

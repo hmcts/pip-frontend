@@ -62,8 +62,7 @@
       {% endif %}
     </div>
 
-
-      <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+    <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
     {% set courtRoomCount = 0 %}
     {% for day in court['days'] %}
       {% set hearingCount = 1 %}
@@ -75,7 +74,6 @@
             {{ day[0].sittingDate }}
             </span>
           </h2>
-
 
         </div>
         <div id="accordion-default-content-{{ courtRoomCount }}" class="govuk-accordion__section-content"
@@ -94,21 +92,21 @@
                 {% set duration = [record.durationAsHours | getDuration(record.durationAsMinutes, lng), record.caseSeparator] | join(" ") | trim %}
                 {% set durationSortValue = record.durationAsHours | durationToSortValue(record.durationAsMinutes) %}
                 <tr class="govuk-table__row">
-                  <td class="govuk-table__cell {{ noBorder }}">{{ record.courtRoom }}</td>
-                  <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ record.sittingTime | timeToSortValue }}">{{ record.sittingTime }}</td>
-                  <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ durationSortValue }}">{{ duration }}</td>
-                  <td class="govuk-table__cell {{ noBorder }}">{{ record.caseNumber }}</td>
+                  <td class="govuk-table__cell">{{ record.courtRoom }}</td>
+                  <td class="govuk-table__cell" data-sort-value="{{ record.sittingTime | timeToSortValue }}">{{ record.sittingTime }}</td>
+                  <td class="govuk-table__cell" data-sort-value="{{ durationSortValue }}">{{ duration }}</td>
+                  <td class="govuk-table__cell">{{ record.caseNumber }}</td>
                   {% if record.claimantRep | length %}
-                    <td class="govuk-table__cell {{ noBorder }}">{{ record.claimant }}<br/>{{ rep }}
+                    <td class="govuk-table__cell">{{ record.claimant }}<br/>{{ rep }}
                       : {{ record.claimantRep }}</td>
                   {% else %}
-                    <td class="govuk-table__cell {{ noBorder }}">{{ record.claimant }}<br/>{{ rep }}: {{ noRep }}</td>
+                    <td class="govuk-table__cell">{{ record.claimant }}<br/>{{ rep }}: {{ noRep }}</td>
                   {% endif %}
                   <td
-                    class="govuk-table__cell {{ noBorder }}">{{ record.respondent | replace('LEGALADVISOR', 'Rep') }}</td>
-                  <td class="govuk-table__cell {{ noBorder }}">{{ record.hearingType }}</td>
-                  <td class="govuk-table__cell {{ noBorder }}">{{ record.jurisdiction }}</td>
-                  <td class="govuk-table__cell {{ noBorder }}">{{ record.hearingPlatform }}</td>
+                    class="govuk-table__cell">{{ record.respondent | replace('LEGALADVISOR', 'Rep') }}</td>
+                  <td class="govuk-table__cell">{{ record.hearingType }}</td>
+                  <td class="govuk-table__cell">{{ record.jurisdiction }}</td>
+                  <td class="govuk-table__cell">{{ record.hearingPlatform }}</td>
                 </tr>
               {% endfor %}
               </tbody>

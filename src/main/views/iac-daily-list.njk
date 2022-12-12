@@ -48,7 +48,6 @@
         {% set sessionCount = 0 %}
         {% for courtRoom in courtHouse['courtRoom'] %}
           {% for session in courtRoom['session'] %}
-            {% set caseCount = 1 %}
             {% set sessionCount = sessionCount + 1 %}
             <div class="govuk-accordion__section govuk-accordion__section--expanded">
               <div class="govuk-accordion__section-header">
@@ -85,31 +84,27 @@
                     {% for sitting in session['sittings'] %}
                       {% for hearing in sitting['hearing'] %}
                         {% for case in hearing['case'] %}
-                          {% if session['totalCases'] === caseCount %}
-                            {% set noBorder = 'no-border-bottom' %}
-                          {% endif %}
                           {% set linkedCasesSortValue = 0 %}
                           {% if case['formattedLinkedCases'] | length %}
                             {% set linkedCasesSortValue = case['formattedLinkedCases'].split(',')[0] %}
                           {% endif %}
                           <tr class="govuk-table__row">
-                            <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ sitting['sittingStartFormatted'] | timeToSortValue }}">{{ sitting['sittingStartFormatted'] }}</td>
+                            <td class="govuk-table__cell" data-sort-value="{{ sitting['sittingStartFormatted'] | timeToSortValue }}">{{ sitting['sittingStartFormatted'] }}</td>
                             {% if case['caseSequenceIndicator'] | length %}
-                              <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }} {{ case['caseSequenceIndicator'] }}</td>
+                              <td class="govuk-table__cell">{{ case['caseNumber'] }} {{ case['caseSequenceIndicator'] }}</td>
                             {% else %}
-                              <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
+                              <td class="govuk-table__cell">{{ case['caseNumber'] }}</td>
                             {% endif %}
                             {% if hearing['appellantRepresentative'] | length %}
-                              <td class="govuk-table__cell {{ noBorder }}">{{ hearing['appellant'] }}<br />{{ rep }}: {{ hearing['appellantRepresentative'] }}</td>
+                              <td class="govuk-table__cell">{{ hearing['appellant'] }}<br />{{ rep }}: {{ hearing['appellantRepresentative'] }}</td>
                             {% else %}
-                              <td class="govuk-table__cell {{ noBorder }}">{{ hearing['appellant'] }}<br />{{ rep }}: {{ noRep }}</td>
+                              <td class="govuk-table__cell">{{ hearing['appellant'] }}<br />{{ rep }}: {{ noRep }}</td>
                             {% endif %}
-                            <td class="govuk-table__cell {{ noBorder }}">{{ hearing['prosecutingAuthority'] }}</td>
-                            <td class="govuk-table__cell {{ noBorder }}">{{ case['language'] }}</td>
-                            <td class="govuk-table__cell {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
-                            <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ linkedCasesSortValue }}">{{ case['formattedLinkedCases'] }}</td>
+                            <td class="govuk-table__cell">{{ hearing['prosecutingAuthority'] }}</td>
+                            <td class="govuk-table__cell">{{ case['language'] }}</td>
+                            <td class="govuk-table__cell">{{ sitting['caseHearingChannel'] }}</td>
+                            <td class="govuk-table__cell" data-sort-value="{{ linkedCasesSortValue }}">{{ case['formattedLinkedCases'] }}</td>
                           </tr>
-                          {% set caseCount = caseCount + 1 %}
                         {% endfor %}
                       {% endfor %}
                     {% endfor %}

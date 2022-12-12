@@ -8,7 +8,6 @@ export class SscsDailyListService {
    */
   public manipulateSscsDailyListData(sscsDailyList: string): object {
     const sscsDailyListData = JSON.parse(sscsDailyList);
-    let hearingCount = 0;
 
     sscsDailyListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
@@ -17,7 +16,6 @@ export class SscsDailyListService {
           delete session['judiciary'];
 
           session['sittings'].forEach(sitting => {
-            hearingCount = hearingCount + sitting['hearing'].length;
             sitting['sittingStartFormatted'] = helperService.publicationTimeInUkTime(sitting['sittingStart']);
             delete sitting['sittingStart'];
             helperService.findAndConcatenateHearingPlatform(sitting, session);
@@ -43,8 +41,6 @@ export class SscsDailyListService {
             });
           });
         });
-        courtRoom['totalHearing'] = hearingCount;
-        hearingCount = 0;
       });
     });
     return sscsDailyListData;
