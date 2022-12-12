@@ -66,6 +66,11 @@ describe('ET Fortnightly List page', () => {
     expect(summary[0].innerHTML).contains('+44 1234 1234 1234', 'Could not find the court telephone no in summary text');
   });
 
+  it('should display the search input box', () => {
+    const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+    expect(searchInput[0].innerHTML).contains('Search Cases');
+  });
+
   it('should display the site name for both sections',  () => {
     const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
     expect(siteAddress[0].innerHTML).contains('Leicester Crown Court', 'Could not find the site name in section 1');

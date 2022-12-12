@@ -60,6 +60,11 @@ describe('Primary health list page', () => {
       'Could not find the court name in summary text');
   });
 
+  it('should display the search input box', () => {
+    const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+    expect(searchInput[0].innerHTML).contains('Search Cases');
+  });
+
   it('should display Hearing Date header',  () => {
     const headerCell = htmlRes.getElementsByClassName(tableHeader);
     expect(headerCell[0].innerHTML).contains('Hearing Date');

@@ -56,6 +56,11 @@ describe('IAC daily cause list page', () => {
     expect(listUpdatedText.innerHTML).contains('Last Updated 31 August 2022 at 11am');
   });
 
+  it('should display the search input box', () => {
+    const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+    expect(searchInput[0].innerHTML).contains('Search Cases');
+  });
+
   it('should display the court list name on the page', () => {
     const courtListText = htmlRes.getElementsByClassName(courtListClass);
     expect(courtListText[0].innerHTML).contains('Bail list');
