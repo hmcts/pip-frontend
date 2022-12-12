@@ -33,6 +33,7 @@ export default class CrownFirmListController {
 
       res.render('crown-firm-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-firm-list']),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData: outputData,
         startDate,
         endDate,

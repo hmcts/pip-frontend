@@ -44,7 +44,7 @@
       {% endif %}
     </div>
   </details>
-  {{ searchInput() }}
+  {{ searchInput(text = searchCases) }}
   {% for court in tableData %}
     <div class="site-header" tabindex="0" aria-label="Court Details">
       <h1 class="govuk-heading-l site-address" tabindex="0">{{ venue }}{{ court['courtName'] }}</h1>

@@ -88,7 +88,7 @@
         </div>
       {% endif %}
     </div>
-    {{ searchInput() }}
+    {{ searchInput(text = searchCases) }}
     {% set toBeAllocated = "to be allocated" %}
     {% set hearingTypeCount = 0 %}
     {% for hearingType, rows in listData %}

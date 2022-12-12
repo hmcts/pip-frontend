@@ -76,7 +76,7 @@
         {% endif %}
       </div>
     </div>
-    {{ searchInput() }}
+    {{ searchInput(text = searchCases) }}
     {% for courtList in listData['courtLists'] %}
       {% set courtHouse = courtList['courtHouse'] %}
       {% set courtHouseAddress = courtHouse['courtHouseAddress'] %}

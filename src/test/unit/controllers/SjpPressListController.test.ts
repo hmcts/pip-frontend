@@ -28,6 +28,7 @@ sjpPressListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'single-justice-procedure-press': {},
+  'list-template': {},
 };
 
 describe('SJP Press List Controller', () => {
@@ -43,6 +44,7 @@ describe('SJP Press List Controller', () => {
 
     const expectedData = {
       ...i18n['single-justice-procedure-press'],
+      ...i18n['list-template'],
       sjpData: sjpData,
       publishedDateTime: '14 September 2016',
       publishedTime: '12:30am',

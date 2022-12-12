@@ -42,7 +42,7 @@
       {%  endif %}
     </div>
   </details>
-  {{ searchInput() }}
+  {{ searchInput(text = searchCases) }}
   {% for courtList in listData['courtLists'] %}
     {% set courtHouse = courtList['courtHouse'] %}
     <div class="site-header" tabindex="0" aria-label="Court Details">

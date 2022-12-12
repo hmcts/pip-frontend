@@ -31,6 +31,7 @@ export default class MagistratesStandardListController {
 
       res.render('magistrates-standard-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['magistrates-standard-list']),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData: manipulatedData,
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: publishedDate,
