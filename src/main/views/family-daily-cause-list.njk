@@ -1,7 +1,8 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
-{% from "./macros/common-components.njk" import goBack %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "./macros/common-components.njk" import goBack, searchInput %}
 
-{% extends "template.njk" %}
+{% extends "list-template.njk" %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
@@ -44,6 +45,7 @@
       {% endif %}
     </div>
   </details>
+  {{ searchInput() }}
   {% for courtList in listData['courtLists'] %}
     {% set courtHouse = courtList['courtHouse'] %}
     {% set courtHouseAddress = courtHouse['courtHouseAddress'] %}
@@ -141,6 +143,7 @@
 </div>
 {% endblock %}
 {% block bodyEnd %}
+  <script src="assets/js/mark.js"></script>
   <script>
     if ( window.history.replaceState ) {
       window.history.replaceState( null, null, window.location.href );

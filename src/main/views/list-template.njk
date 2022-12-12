@@ -1,0 +1,13 @@
+{% extends "template.njk" %}
+
+{% block bodyEnd %}
+   <script>
+     var instance = new Mark(document.getElementsByClassName("govuk-template__body")[0]);
+     const input = document.getElementById("search-input");
+     input.addEventListener("keyup", () => {
+       instance.unmark();
+       instance.mark(input.value, {"separateWordSearch": false});
+     });
+   </script>
+   {{ super() }}
+{% endblock %}
