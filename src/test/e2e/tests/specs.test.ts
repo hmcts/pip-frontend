@@ -255,6 +255,9 @@ describe('Unverified user', () => {
 
     describe('sorting of list table', () => {
       const searchTerm = 'AA - E2E TEST COURT - DO NOT REMOVE';
+      before(async () => {
+        await searchPage.open('/search');
+      });
 
       it('should enter text and click continue', async () => {
         await searchPage.enterText(searchTerm);
