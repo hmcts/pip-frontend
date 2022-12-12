@@ -8,7 +8,6 @@ const HtmlWebpack = require(path.resolve(__dirname,'webpack/htmlWebpack'));
 const autocomplete = require(path.resolve(__dirname,'webpack/accessible-autocomplete'));
 const markJs = require(path.resolve(__dirname,'webpack/markjs-bundle'));
 
-
 const devMode = process.env.NODE_ENV !== 'production';
 const fileNameSuffix = devMode ? '-dev' : '.[contenthash]';
 const filename = `[name]${fileNameSuffix}.js`;
@@ -20,7 +19,7 @@ module.exports = {
     ...HtmlWebpack.plugins,
     ...autocomplete.plugins,
     ...mojFrontend.plugins,
-    ...markJs.plugins
+    ...markJs.plugins,
   ],
   entry: {
     main: path.resolve(sourcePath, 'index.js'),

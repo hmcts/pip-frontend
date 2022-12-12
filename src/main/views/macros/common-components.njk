@@ -26,16 +26,14 @@
 {% endmacro %}
 
 {% macro searchInput(text = 'Search Cases') %}
-  {{ govukInput({
-    label: {
-      text: text,
-      classes: "govuk-body",
-      isPageHeading: true
-    },
-    id: "search-input",
-    classes: "govuk-input--width-20",
-    name: "search-input"
-  }) }}
+
+  <div class="govuk-form-group govuk-!-margin-bottom-0">
+    <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-body" for="search-input">
+        {{ text }}
+      </label>
+    </h1>
+    <input class="govuk-input govuk-input--width-20" id="search-input" name="search-input" type="text">
+  </div>
 {% endmacro %}
 
 {% macro successPanel(title='', text='') %}

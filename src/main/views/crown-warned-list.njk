@@ -1,8 +1,8 @@
-{% from "./macros/common-components.njk" import goBack %}
+{% from "./macros/common-components.njk" import goBack, searchInput %}
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
-{% extends "template.njk" %}
+{% extends "list-template.njk" %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
@@ -46,7 +46,7 @@
     </div>
     {% endif %}
 
-    <div class="govuk-grid restriction-list-section">
+    <div class="govuk-grid restriction-list-section govuk-!-margin-bottom-5">
       <div class="govuk-body">
         <h3>{{ restrictionInformationHeading }}</h3>
         <p class="govuk-body">{{ restrictionInformationP1 }}</p>
@@ -88,7 +88,7 @@
         </div>
       {% endif %}
     </div>
-
+    {{ searchInput() }}
     {% set toBeAllocated = "to be allocated" %}
     {% set hearingTypeCount = 0 %}
     {% for hearingType, rows in listData %}
