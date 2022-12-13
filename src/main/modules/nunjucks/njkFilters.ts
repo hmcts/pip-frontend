@@ -43,9 +43,5 @@ function createFilters (env) {
   env.addFilter('getDuration', function(hours, mins, language) {
     return [printableDuration(hours, 'hour', language), printableDuration(mins, 'min', language)].join(' ').trim();
   });
-
-  env.addFilter('replaceValue', function(html) {
-    return html.replace('This', 'TESTING');
-  });
 }
 module.exports = createFilters;
