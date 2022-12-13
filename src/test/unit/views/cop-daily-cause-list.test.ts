@@ -69,7 +69,7 @@ describe('Cop daily cause list page', () => {
 
   it('should display last updated text', () => {
     const listUpdatedText = htmlRes.getElementsByClassName(paragraphClass)[5];
-    expect(listUpdatedText.innerHTML).contains('Last Updated');
+    expect(listUpdatedText.innerHTML).contains('Last updated');
   });
 
   it('should display the court name on the page', () => {

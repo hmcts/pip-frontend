@@ -1,17 +1,19 @@
 {% from "macros/common-components.njk" import goBack, submitButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
-  {% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% extends "template.njk" %}
+
 {% block pageTitle %}
  Media Account Rejection
 {% endblock %}
+
 {% block beforeContent %}
   {{ super() }}
 {% endblock %}
-{% block content %}
 
+{% block content %}
   {{ govukPanel({
     titleText: panelHeading
   }) }}
@@ -24,7 +26,6 @@
       <dd class="govuk-summary-list__value">
         {{ applicantData.fullName }}
       </dd>
-      <dd class="govuk-summary-list__actions"></dd>
     </div>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
@@ -33,7 +34,6 @@
       <dd class="govuk-summary-list__value">
         <a href=mailto:{{ applicantData.email }}?subject={{ emailSubjectLine }}>{{ applicantData.email }}</a>
       </dd>
-      <dd class="govuk-summary-list__actions"></dd>
     </div>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
@@ -42,7 +42,6 @@
       <dd class="govuk-summary-list__value">
         {{ applicantData.employer }}
       </dd>
-      <dd class="govuk-summary-list__actions"></dd>
     </div>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
@@ -50,20 +49,6 @@
       </dt>
       <dd class="govuk-summary-list__value">
         {{ applicantData.requestDate }}
-      </dd>
-      <dd class="govuk-summary-list__actions"></dd>
-    </div>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        {{ tableHeaders[4] }}
-      </dt>
-      <dd class="govuk-summary-list__value">
-        {{ applicantData.imageName }} ({{opensInWindowText}})
-      </dd>
-      <dd class="govuk-summary-list__actions">
-        <a class="govuk-link" href="/media-account-review/image?imageId={{ applicantData.image }}&applicantId={{ applicantData.id }}" target="_blank">
-        {{ viewText }}
-        </a>
       </dd>
     </div>
   </dl>
@@ -76,6 +61,4 @@
   {{ govukInsetText ({
     html: emailTemplateContent
   }) }}
-
-
 {% endblock %}

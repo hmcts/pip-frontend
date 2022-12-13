@@ -19,7 +19,6 @@ export class CopDailyListService {
           delete session['judiciary'];
           session['sittings'].forEach(sitting => {
             hearingCount = hearingCount + sitting['hearing'].length;
-            sitting['sittingStartFormatted'] = helperService.publicationTimeInUkTime(sitting['sittingStart']);
             helperService.calculateDuration(sitting);
             helperService.findAndConcatenateHearingPlatform(sitting, session);
           });

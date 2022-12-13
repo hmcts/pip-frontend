@@ -51,7 +51,7 @@ static Map<String, Object> secret(String secretName, String envVariable) {
 withPipeline(type, product, component) {
   disableLegacyDeployment()
 
-  after('build') {
+  afterAlways('build') {
     yarnBuilder.yarn('build')
   }
 
