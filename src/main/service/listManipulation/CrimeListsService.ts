@@ -1,4 +1,4 @@
-import moment from 'moment-timezone';
+import {DateTime} from 'luxon';
 import {ListParseHelperService} from '../listParseHelperService';
 import {formatDuration} from '../../helpers/dateTimeHelper';
 
@@ -82,7 +82,10 @@ export class CrimeListsService {
 
   public formatCaseTime(sitting: object, format: string): void {
     if (sitting['sittingStart'] !== '') {
-      sitting['time'] = moment.utc(sitting['sittingStart']).tz(helperService.timeZone).format(format);
+      let zonedDateTime = DateTime.fromISO(sitting['sittingStart'], {zone: helperService.timeZone});
+      zonedDateTime = zonedDateTime.toISO();
+      let formattedDate = zonedDateTime.toFormat(zonedDateTime).toLowerCase()
+      sitting['time'] = formattedDate;
     }
   }
 

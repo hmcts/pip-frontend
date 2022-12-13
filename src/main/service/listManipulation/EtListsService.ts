@@ -1,6 +1,6 @@
 import { formatDate } from '../../helpers/dateTimeHelper';
 import { ListParseHelperService } from '../listParseHelperService';
-import moment from 'moment-timezone';
+import {DateTime} from 'luxon';
 
 export class EtListsService {
   public helperService = new ListParseHelperService();
@@ -103,14 +103,14 @@ export class EtListsService {
       const uniqueDays =this.helperService.uniquesInArrayByAttrib(courtData, 'sittingDate');
       const uniqueDaysArr = [];
       Array.from(uniqueDays).forEach(day => {
-        const encDay = moment.utc(day, 'dddd DD MMMM YYYY').tz('Europe/London');
+        const encDay = DateTime.fromISO(day, {zone: 'Europe/London'}).toFormat('EEEE dd MMMM yyyy');
         uniqueDaysArr.push(encDay);
       });
       uniqueDaysArr.sort(function(a, b) {
         return a - b;
       });
       uniqueDaysArr.forEach(day => {
-        const formattedDay = moment.utc(day).tz('Europe/London').format('dddd DD MMMM YYYY');
+        const formattedDay = DateTime.fromISO(day, {zone: 'Europe/London'}).toFormat('EEEE dd MMMM yyyy');
         const record = courtData.filter(row => row.sittingDate === formattedDay);
         courts[courtCounter]['days'].push(record);
       });

@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import { mockRequest } from '../mocks/mockRequest';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import { LocationService } from '../../../main/service/locationService';
 import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
 import MagistratesPublicListController from '../../../main/controllers/MagistratesPublicListController';
@@ -58,7 +58,7 @@ describe('Magistrates Public List Controller', () => {
     const expectedData = {
       ...i18n['magistrates-public-list'],
       listData,
-      contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+      contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
       publishedDate: '14 September 2020',
       courtName: 'Abergavenny Magistrates\' Court',
       publishedTime: '12:30am',

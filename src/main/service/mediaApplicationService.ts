@@ -1,6 +1,6 @@
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
 import {MediaAccountApplication} from '../models/MediaAccountApplication';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 
 const accountManagementRequests = new AccountManagementRequests();
 export class MediaApplicationService {
@@ -15,7 +15,7 @@ export class MediaApplicationService {
       new Date(a.requestDate).getTime() - new Date(b.requestDate).getTime(),
     );
     applications?.forEach(application => {
-      application.requestDate = moment(new Date(application.requestDate)).format('DD MMM YYYY');
+      application.requestDate = DateTime.fromISO(new Date(application.requestDate)).toFormat('dd MMM yyyy');
     });
     return applications;
   }

@@ -6,7 +6,7 @@ import {PublicationService} from '../../../main/service/publicationService';
 import {LocationService} from '../../../main/service/locationService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import {TribunalNationalListsService} from '../../../main/service/listManipulation/TribunalNationalListsService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/primaryHealthList.json'), 'utf-8');
@@ -54,7 +54,7 @@ describe('Primary Health List Controller', () => {
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n['primary-health-list'],
-      contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+      contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
       listData,
       publishedDate: '04 October 2022',
       publishedTime: '10am',

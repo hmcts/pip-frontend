@@ -6,7 +6,7 @@ import {LocationService} from '../../../main/service/locationService';
 import {ListParseHelperService} from '../../../main/service/listParseHelperService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import CopDailyCauseListController from '../../../main/controllers/CopDailyCauseListController';
 import { CopDailyListService } from '../../../main/service/listManipulation/CopDailyListService';
 
@@ -57,7 +57,7 @@ describe('Cop Daily Cause List Controller', () => {
     const expectedData = {
       ...i18n['cop-daily-cause-list'],
       listData,
-      contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+      contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
       publishedDate: '13 February 2022',
       publishedTime: '9:30am',
       courtName: 'Abergavenny Magistrates\' Court',

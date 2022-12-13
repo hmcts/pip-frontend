@@ -1,7 +1,7 @@
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
 import {CreateAccountService} from '../service/createAccountService';
 import {MediaAccount} from '../models/mediaAccount';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import {LogHelper} from '../resources/logging/logHelper';
 
 const accountManagementRequests = new AccountManagementRequests();
@@ -14,7 +14,7 @@ export class MediaAccountApplicationService {
     if (applicationId) {
       const mediaAccount = await accountManagementRequests.getMediaApplicationById(applicationId);
       if (mediaAccount) {
-        mediaAccount.requestDate = moment(Date.parse(mediaAccount.requestDate)).format('DD MMMM YYYY');
+        mediaAccount.requestDate = DateTime.fromISO(new Date(mediaAccount.requestDate)).toFormat('dd MMM yyyy');
         return mediaAccount;
       }
     }
