@@ -45,6 +45,7 @@
       </div>
     </details>
     {{ searchInput(text = searchCases) }}
+    <div class="search-area">
     {% for courtList in listData['courtLists'] %}
       {% set courtHouse = courtList['courtHouse'] %}
       {% set courtHouseAddress = courtHouse['courtHouseAddress'] %}
@@ -138,6 +139,7 @@
     {% endfor %}
     <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
     {{ super() }}
+    </div>
   </div>
 {% endblock %}
 {% block bodyEnd %}

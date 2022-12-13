@@ -78,7 +78,7 @@ describe('Cop daily cause list page', () => {
   });
 
   it('should display data source text', () => {
-    const listForText = htmlRes.getElementsByClassName(paragraphClass)[7];
+    const listForText = htmlRes.getElementsByClassName(paragraphClass)[6];
     expect(listForText.innerHTML).contains('Data Source');
   });
 });

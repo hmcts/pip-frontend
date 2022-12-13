@@ -36,6 +36,7 @@
       </div>
     </details>
     {{ searchInput(text = searchCases) }}
+    <div class="search-area">
     {% for courtList in listData['courtLists'] %}
       {% set courtHouse = courtList['courtHouse'] %}
       <div class="site-header" tabindex="0" aria-label="Court Details">
@@ -107,6 +108,7 @@
     {% endfor %}
     <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
     {{ super() }}
+    </div>
   </div>
 {% endblock %}
 {% block bodyEnd %}

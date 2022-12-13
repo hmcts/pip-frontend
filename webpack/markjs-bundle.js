@@ -4,7 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const rootExport = require.resolve('mark.js');
 const root = path.resolve(rootExport, '..');
-const javascript = path.resolve(root, 'mark.js');
+const javascript = path.resolve(root, 'mark.min.js');
 
 const copyMarkJsAssets = new CopyWebpackPlugin({
   patterns: [
