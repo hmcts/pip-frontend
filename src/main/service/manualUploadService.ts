@@ -1,7 +1,6 @@
 import { LocationService } from './locationService';
 import { DataManagementRequests } from '../resources/requests/dataManagementRequests';
 import {DateTime} from 'luxon';
-import moment from 'moment';
 import { FileHandlingService } from './fileHandlingService';
 import { PublicationService } from './publicationService';
 
@@ -101,8 +100,8 @@ export class ManualUploadService {
   }
 
   private validateDate(date: string, language: string, languageFile: string): string {
-    const dateformat = moment(date, 'DD/MM/YYYY HH:mm:ss', true);
-    if (dateformat.isValid()) {
+    const dateformat = DateTime.fromFormat(date, 'dd/MM/yyyy HH:mm:ss');
+    if (dateformat.isValid) {
       return null;
     }
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
@@ -115,9 +114,7 @@ export class ManualUploadService {
     if (firstDate.startOf("day") <= secondDate.startOf("day")) {
       return null
     }
-    if (firstDate.isSameOrBefore(secondDate)) {
-      return null;
-    }
+
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     return languageFileParser.getText(fileJson, 'dateErrors', 'dateRange');
   }
@@ -149,14 +146,14 @@ export class ManualUploadService {
     return {
       ...formData,
       'display-from': defaultFormat ?
-        moment(formData['display-from'], 'DD/MM/YYYY HH:mm:ss').format() :
-        moment(formData['display-from'], 'DD/MM/YYYY').format('D MMM YYYY'),
+        DateTime.fromFormat(formData['display-from'], 'dd/MM/yyyy HH:mm:ss').toISO() :
+        DateTime.fromFormat(formData['display-from'], 'dd/MM/yyyy HH:mm:ss').toFormat('d MMMM yyyy'),
       'display-to': defaultFormat ?
-        moment(formData['display-to'], 'DD/MM/YYYY HH:mm:ss').format() :
-        moment(formData['display-to'], 'DD/MM/YYYY').format('D MMM YYYY'),
+        DateTime.fromFormat(formData['display-to'], 'dd/MM/yyyy HH:mm:ss').toISO() :
+        DateTime.fromFormat(formData['display-to'], 'dd/MM/yyyy HH:mm:ss').toFormat('d MMMM yyyy'),
       'content-date-from': defaultFormat ?
-        moment(formData['content-date-from'], 'DD/MM/YYYY').format() :
-        moment(formData['content-date-from'], 'DD/MM/YYYY').format('D MMM YYYY'),
+        DateTime.fromFormat(formData['content-date-from'], 'dd/MM/yyyy HH:mm:ss').toISO() :
+        DateTime.fromFormat(formData['content-date-from'], 'dd/MM/yyyy HH:mm:ss').toFormat('d MMMM yyyy'),
     };
   }
 

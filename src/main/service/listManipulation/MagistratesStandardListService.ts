@@ -64,8 +64,8 @@ export class MagistratesStandardListService {
   private manipulateHearingObject(hearingObject, party) {
     this.manipulatePartyInformation(hearingObject, party);
     hearingObject['case'].forEach(thisCase => {
-      hearingObject['formattedConvictionDate'] = formatDate(thisCase['convictionDate'], 'DD/MM/YYYY');
-      hearingObject['formattedAdjournedDate'] = formatDate(thisCase['adjournedDate'], 'DD/MM/YYYY');
+      hearingObject['formattedConvictionDate'] = formatDate(thisCase['convictionDate'], 'dd/MM/yyyy');
+      hearingObject['formattedAdjournedDate'] = formatDate(thisCase['adjournedDate'], 'dd/MM/yyyy');
       hearingObject['caseSequenceIndicator'] = thisCase['caseSequenceIndicator'];
       hearingObject['hearingNumber'] = thisCase['hearingNumber'];
       hearingObject['prosecutionAuthorityCode'] = thisCase['informant']['prosecutionAuthorityCode'];

@@ -91,17 +91,17 @@ describe('formatDuration', () => {
 
 describe('formatDate', () => {
   it('should format both date and time in BST', () => {
-    const result = formatDate(testBstDate, 'dddd DD MMMM YYYY hh:mm:ss');
+    const result = formatDate(testBstDate, 'EEEE dd MMMM yyyy hh:mm:ss');
     expect(result).to.equal('Thursday 27 October 2022 10:40:17');
   });
 
   it('should format both date and time in GMT', () => {
-    const result = formatDate(testGmtDate, 'dddd DD MMMM YYYY hh:mm:ss');
+    const result = formatDate(testGmtDate, 'EEEE dd MMMM yyyy hh:mm:ss');
     expect(result).to.equal('Sunday 27 November 2022 09:40:17');
   });
 
   it('should format date only', () => {
-    const result = formatDate(testGmtDate, 'DD/MM/YYYY');
+    const result = formatDate(testGmtDate, 'dd/MM/yyyy');
     expect(result).to.equal('27/11/2022');
   });
 

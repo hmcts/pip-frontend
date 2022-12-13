@@ -13,7 +13,7 @@ export class CrownWarnedListService {
       courtList.courtHouse.courtRoom.forEach(courtRoom => {
         courtRoom.session.forEach(session => {
           session.sittings.forEach(sitting => {
-            sitting.sittingStartFormatted = formatDate(sitting.sittingStart, 'DD/MM/YYYY');
+            sitting.sittingStartFormatted = formatDate(sitting.sittingStart, 'dd/MM/yyyy');
             sitting.hearing.forEach(hearing => {
               crimeListsService.manipulateParty(hearing);
               helperService.findAndManipulateLinkedCases(hearing);

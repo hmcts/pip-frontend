@@ -1,5 +1,5 @@
 import {LanguageFileParser} from './languageFileParser';
-import moment from 'moment-timezone';
+import {DateTime} from 'luxon';
 
 const ONE = 1;
 const languageFileParser = new LanguageFileParser();
@@ -29,7 +29,8 @@ const formatDurationTime = (duration: number, format: string, language: string, 
 
 export const formatDate = (dateTime: string, format: string): string => {
   if(/\S/.test(dateTime) && dateTime !== null) {
-    return moment.utc(dateTime).tz(timeZone).format(format);
+    let formattedDate = DateTime.fromISO(dateTime, {zone: timeZone}).toFormat(format)
+    return format === 'h:mma' ? formattedDate.toLowerCase() : formattedDate;
   }
 };
 
