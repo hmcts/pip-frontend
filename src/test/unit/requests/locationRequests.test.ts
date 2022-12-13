@@ -40,7 +40,7 @@ const welshLanguage = 'cy';
 const dummyFile = new Blob(['testCsv']);
 
 const deletionResponse = {isExists: true, errorMessage: 'test'};
-const requesterName = 'Test';
+const adminUserId = 'Test';
 
 describe('Location get requests', () => {
 
@@ -73,11 +73,11 @@ describe('Location get requests', () => {
 
     stub.withArgs('/locations').resolves({data: courtList});
 
-    courtDeleteStub.withArgs('/locations/1/' + requesterName).resolves({data: {isExists: true, errorMessage: 'test'}});
-    courtDeleteStub.withArgs('/locations/2/' + requesterName).rejects(errorResponse);
-    courtDeleteStub.withArgs('/locations/3/' + requesterName).rejects(errorRequest);
-    courtDeleteStub.withArgs('/locations/4/' + requesterName).rejects(errorMessage);
-    courtDeleteStub.withArgs('/locations/5/' + requesterName).resolves({data: {isExists: false, errorMessage: ''}});
+    courtDeleteStub.withArgs('/locations/1', {headers: {'x-issuer-id': adminUserId}}).resolves({data: {isExists: true, errorMessage: 'test'}});
+    courtDeleteStub.withArgs('/locations/2', {headers: {'x-issuer-id': adminUserId}}).rejects(errorResponse);
+    courtDeleteStub.withArgs('/locations/3', {headers: {'x-issuer-id': adminUserId}}).rejects(errorRequest);
+    courtDeleteStub.withArgs('/locations/4', {headers: {'x-issuer-id': adminUserId}}).rejects(errorMessage);
+    courtDeleteStub.withArgs('/locations/5', {headers: {'x-issuer-id': adminUserId}}).resolves({data: {isExists: false, errorMessage: ''}});
   });
 
   it('should return court by court id', async () => {
@@ -190,23 +190,23 @@ describe('Location get requests', () => {
   });
 
   it('should not delete the court if active artefact or subscription exists', async () => {
-    expect(await courtRequests.deleteCourt(1, requesterName)).toStrictEqual(deletionResponse);
+    expect(await courtRequests.deleteCourt(1, adminUserId)).toStrictEqual(deletionResponse);
   });
 
   it('should return null if response fails ', async () => {
-    expect(await courtRequests.deleteCourt(2, requesterName)).toBe(null);
+    expect(await courtRequests.deleteCourt(2, adminUserId)).toBe(null);
   });
 
   it('should return null if request fails', async () => {
-    expect(await courtRequests.deleteCourt(3, requesterName)).toBe(null);
+    expect(await courtRequests.deleteCourt(3, adminUserId)).toBe(null);
   });
 
   it('should return null if request fails', async () => {
-    expect(await courtRequests.deleteCourt(4, requesterName)).toBe(null);
+    expect(await courtRequests.deleteCourt(4, adminUserId)).toBe(null);
   });
 
   it('should return isExists false if court is deleted', async () => {
-    const data = await courtRequests.deleteCourt(5, requesterName);
+    const data = await courtRequests.deleteCourt(5, adminUserId);
     expect(data['isExists']).toStrictEqual(false);
   });
 });

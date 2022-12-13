@@ -10,9 +10,7 @@ const PAGE_URL = '/delete-court-reference-data-confirmation?locationId=1';
 const court = {locationId: 1, name: 'test court', locationType: 'location', jurisdiction: 'testJ', region: 'testR'};
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(court);
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
 let htmlRes: Document;
 

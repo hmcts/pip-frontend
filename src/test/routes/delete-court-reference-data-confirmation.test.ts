@@ -16,7 +16,7 @@ courtDeleteStub.withArgs('2').resolves({isExists: false, errorMessage: ''});
 courtDeleteStub.withArgs('3').resolves({isExists: true, errorMessage: 'test'});
 
 describe('Delete Court Reference Data Confirmation', () => {
-  app.request['user'] = {piUserId: '1234-1234-1234-1234', '_json': {
+  app.request['user'] = {userId: '1234-1234-1234-1234', '_json': {
     'extension_UserRole': 'SYSTEM_ADMIN',
   }};
   describe('on GET', () => {

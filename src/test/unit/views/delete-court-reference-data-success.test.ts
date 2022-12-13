@@ -6,9 +6,7 @@ import {request as expressRequest} from 'express';
 const PAGE_URL = '/delete-court-reference-data-success';
 let htmlRes: Document;
 
-expressRequest['user'] = {'_json': {
-  'extension_UserRole': 'SYSTEM_ADMIN',
-}};
+expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
 describe('Delete Court Reference Data Success Page', () => {
   beforeAll(async () => {

@@ -30,14 +30,14 @@ const englishLanguage = 'en';
 const welshLanguage = 'cy';
 const englishLanguageFile = 'sscs-daily-list';
 const deletionResponse = {isExists: true, errorMessage: 'test'};
-const requesterName = 'Test';
+const requester = 'Test';
 stubCourtsFilter.withArgs('', 'Crown', englishLanguage).returns(hearingsData);
 stubCourt.withArgs(1).returns(hearingsData[0]);
 stubCourtByName.withArgs(validCourt).returns(hearingsData[0]);
 stubCourtByName.withArgs(validWelshCourt).returns(hearingsData[0]);
-stubCourtDeletion.withArgs(1, requesterName).returns(deletionResponse);
-stubCourtDeletion.withArgs(2, requesterName).returns(null);
-stubCourtDeletion.withArgs(3, requesterName).returns({isExists: false, errorMessage: ''});
+stubCourtDeletion.withArgs(1, requester).returns(deletionResponse);
+stubCourtDeletion.withArgs(2, requester).returns(null);
+stubCourtDeletion.withArgs(3, requester).returns({isExists: false, errorMessage: ''});
 
 describe('Court Service', () => {
   it('should return all courts', async () => {
@@ -160,15 +160,15 @@ describe('Court Service', () => {
   });
 
   it('should return deletion court response if active artefact or subscription is available', async () => {
-    expect(await courtService.deleteLocationById(1, requesterName)).to.equal(deletionResponse);
+    expect(await courtService.deleteLocationById(1, requester)).to.equal(deletionResponse);
   });
 
   it('should return null if there is any issue with api call', async () => {
-    expect(await courtService.deleteLocationById(2, requesterName)).to.equal(null);
+    expect(await courtService.deleteLocationById(2, requester)).to.equal(null);
   });
 
   it('should return deletion court response isExists false if court has been deleted', async () => {
-    const data = await courtService.deleteLocationById(3, requesterName);
+    const data = await courtService.deleteLocationById(3, requester);
     expect(data['isExists']).to.equal(false);
   });
 });

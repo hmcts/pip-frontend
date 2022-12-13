@@ -108,8 +108,8 @@ export class LocationService {
     return courtItem;
   }
 
-  public async deleteLocationById(locationId: number, requesterName: string): Promise<object> {
-    return await locationRequest.deleteCourt(locationId, requesterName);
+  public async deleteLocationById(locationId: number, requester: string): Promise<object> {
+    return await locationRequest.deleteCourt(locationId, requester);
   }
 
 }
