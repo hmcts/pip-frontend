@@ -16,7 +16,7 @@ export class MagistratesStandardListService {
             if (judiciary !== '') {
               session['formattedJudiciaries'] = judiciary;
             }
-            crimeListsService.formatCaseTime(sitting, 'h:mma');
+            helperService.formatCaseTime(sitting, 'h:mma');
             sitting['formattedDuration'] = formatDuration(sitting['durationAsDays'] as number,
               sitting['durationAsHours'] as number, sitting['durationAsMinutes'] as number, language, languageFile);
             sitting['hearing'].forEach(hearing => {

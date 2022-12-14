@@ -14,7 +14,7 @@ export class MediaAccountApplicationService {
     if (applicationId) {
       const mediaAccount = await accountManagementRequests.getMediaApplicationById(applicationId);
       if (mediaAccount) {
-        mediaAccount.requestDate = DateTime.fromISO(new Date(mediaAccount.requestDate)).toFormat('dd MMM yyyy');
+        mediaAccount.requestDate = DateTime.fromISO(mediaAccount.requestDate).toFormat('dd MMM yyyy');
         return mediaAccount;
       }
     }

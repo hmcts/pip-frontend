@@ -123,7 +123,7 @@ export class ThirdPartyService {
   public async getThirdPartyAccounts(adminUserId): Promise<any> {
     const returnedAccounts = await this.accountManagementRequests.getThirdPartyAccounts(adminUserId);
     for (const account of returnedAccounts) {
-      account['createdDate'] = DateTime.fromIS(Date.parse(account['createdDate'])).toFormat('dd MMMM yyyy');
+      account['createdDate'] = DateTime.fromISO(account['createdDate'], {zone: 'Europe/London'}).toFormat('dd MMMM yyyy');
     }
     return returnedAccounts;
   }
@@ -137,7 +137,7 @@ export class ThirdPartyService {
   public async getThirdPartyUserById(userId, adminUserId): Promise<any> {
     const account = await this.accountManagementRequests.getUserByUserId(userId, adminUserId);
     if (account && account.userProvenance === 'THIRD_PARTY') {
-      account['createdDate'] = DateTime.fromISO(Date.parse(account['createdDate'])).toFormat('dd MMMM yyyy');
+      account['createdDate'] = DateTime.fromISO(account['createdDate']).toFormat('dd MMMM yyyy');
       return account;
     }
     return null;

@@ -1,4 +1,3 @@
-import {DateTime} from 'luxon';
 import {ListParseHelperService} from '../listParseHelperService';
 import {formatDuration} from '../../helpers/dateTimeHelper';
 
@@ -17,7 +16,7 @@ export class CrimeListsService {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
-            this.formatCaseTime(sitting, 'h:mma');
+            helperService.formatCaseTime(sitting, 'h:mma');
             sitting['formattedDuration'] = formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
                                       sitting['durationAsMinutes'] as number, language, languageFile);
             sitting['hearing'].forEach(hearing => {
@@ -78,16 +77,6 @@ export class CrimeListsService {
 
   private createOrganisationDetails(organisationDetails: any) {
     return ListParseHelperService.writeStringIfValid(organisationDetails?.organisationName);
-  }
-
-  public formatCaseTime(sitting: object, format: string): void {
-    if (sitting['sittingStart'] !== '') {
-      let zonedDateTime = DateTime.fromISO(sitting['sittingStart'], {zone: helperService.timeZone});
-      //Unable to find a way to convert time to BST. Luxon always return offset (+01:00) with the time,
-      // so I think we need to add it manually
-      zonedDateTime = zonedDateTime.plus({ minutes: zonedDateTime.offset });
-      sitting['time'] = zonedDateTime.toFormat(format).toLowerCase();
-    }
   }
 
   public findLinkedCasesInformation(hearing: any): void {

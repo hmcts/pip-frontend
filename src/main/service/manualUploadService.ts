@@ -28,8 +28,8 @@ export class ManualUploadService {
     summaryList.forEach((value) => {
       const listItem = {...value};
       listItem.listTypeName = this.getListItemName(value.listType);
-      listItem.dateRange = `${DateTime.fromISO(value.displayFrom, {zone: timeZone}).toFormat('d MMMM yyyy')} to ${DateTime.fromISO(value.displayTo, {zone: timeZone}).toFormat('d MMMM yyyy')}`;
-      listItem.contDate = DateTime.fromISO(value.contentDate, {zone: timeZone}).toFormat('d MMMM yyyy');
+      listItem.dateRange = `${DateTime.fromISO(value.displayFrom, {zone: timeZone}).toFormat('d MMM yyyy')} to ${DateTime.fromISO(value.displayTo, {zone: timeZone}).toFormat('d MMM yyyy')}`;
+      listItem.contDate = DateTime.fromISO(value.contentDate, {zone: timeZone}).toFormat('d MMM yyyy');
       formattedList.push(listItem);
     });
     return formattedList;

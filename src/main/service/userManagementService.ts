@@ -306,7 +306,7 @@ export class UserManagementService {
    * Format and return the date with the correct format.
    */
   private formatDate(rawDate: any) {
-    return DateTime.fromISO(rawDate, {zone: 'europe/london'}).toFormat('dd MMMM yyyy HH:mm:ss');
+    return DateTime.fromISO(rawDate, {zone: 'europe/london'}).toFormat('dd/MM/yyyy HH:mm:ss');
   }
 
   /**

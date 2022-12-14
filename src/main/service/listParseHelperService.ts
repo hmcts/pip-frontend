@@ -252,10 +252,20 @@ export class ListParseHelperService {
       sitting['durationAsDays'] = durationAsDays;
 
       if (sittingStart.minute === 0) {
-        sitting['time'] = DateTime.fromISO(sitting['sittingStart'], {zone: this.timeZone}).toFormat('ha').toLowerCase();
+        this.formatCaseTime(sitting, 'ha');
       } else {
-        sitting['time'] = DateTime.fromISO(sitting['sittingStart'], {zone: this.timeZone}).toFormat('h:mma').toLowerCase();
+        this.formatCaseTime(sitting, 'h:mma');
       }
+    }
+  }
+
+  public formatCaseTime(sitting: object, format: string): void {
+    if (sitting['sittingStart'] !== '') {
+      let zonedDateTime = DateTime.fromISO(sitting['sittingStart'], {zone: this.timeZone});
+      //Unable to find a way to convert time to BST. Luxon always return offset (+01:00) with the time,
+      // so I think we need to add it manually
+      zonedDateTime = zonedDateTime.plus({ minutes: zonedDateTime.offset });
+      sitting['time'] = zonedDateTime.toFormat(format).toLowerCase();
     }
   }
 
