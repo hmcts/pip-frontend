@@ -14,7 +14,6 @@ describe('Media Account Confirmation Page', () => {
   const panelClass = 'govuk-panel__title';
   const summaryHeader = 'govuk-summary-list__key';
   const summaryCell = 'govuk-summary-list__value';
-  const summaryActions = 'govuk-summary-list__actions';
   const bottomHeaderClass = 'govuk-heading-m';
   const bottomContentClass = 'govuk-body';
 
@@ -27,10 +26,6 @@ describe('Media Account Confirmation Page', () => {
   const employerValue = 'employer';
   const appliedHeader = 'Date applied';
   const appliedValue = '09 May 2022';
-  const proofOfIdHeader = 'Proof of ID';
-  const proofOfIdValue = 'ImageName.jpg (opens in a new window)';
-  const proofOfIdView = 'View';
-  const proofOfIdViewLink = '/media-account-review/image?imageId=12345&applicantId=1234';
   const bottomHeader = 'What happens next';
   const bottomContent = 'This account will be created and the applicant will be notified to set up their account. If an account already exists the applicant will be asked to sign in, or choose forgot password.';
 
@@ -101,28 +96,6 @@ describe('Media Account Confirmation Page', () => {
   it('should display date applied value', () => {
     const value = htmlRes.getElementsByClassName(summaryCell);
     expect(value[3].innerHTML).contains(appliedValue, 'Could not find the date applied value');
-  });
-
-  it('should display proof of id header', () => {
-    const header = htmlRes.getElementsByClassName(summaryHeader);
-    expect(header[4].innerHTML).contains(proofOfIdHeader, 'Could not find the proof of id header');
-  });
-
-  it('should display proof of id value', () => {
-    const value = htmlRes.getElementsByClassName(summaryCell);
-    expect(value[4].innerHTML).contains(proofOfIdValue, 'Could not find the proof of id value');
-  });
-
-  it('should display proof of id view text', () => {
-    const value = htmlRes.getElementsByClassName(summaryActions);
-    const anchor = value[4].getElementsByTagName('a')[0];
-    expect(anchor.innerHTML).contains(proofOfIdView, 'Could not find the proof of id view text');
-  });
-
-  it('should display proof of id view link', () => {
-    const value = htmlRes.getElementsByClassName(summaryActions);
-    const anchor = value[4].getElementsByTagName('a')[0];
-    expect(anchor.getAttribute('href')).contains(proofOfIdViewLink, 'Could not find the proof of id view text');
   });
 
   it('should display the bottom header', () => {

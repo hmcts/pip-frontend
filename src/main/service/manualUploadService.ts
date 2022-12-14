@@ -1,6 +1,7 @@
 import { LocationService } from './locationService';
 import { DataManagementRequests } from '../resources/requests/dataManagementRequests';
 import {DateTime} from 'luxon';
+
 import { FileHandlingService } from './fileHandlingService';
 import { PublicationService } from './publicationService';
 
@@ -28,6 +29,7 @@ export class ManualUploadService {
       const listItem = {...value};
       listItem.listTypeName = this.getListItemName(value.listType);
       listItem.dateRange = `${DateTime.fromISO(value.displayFrom, {zone: timeZone}).toFormat('d MMMM yyyy')} to ${DateTime.fromISO(value.displayTo, {zone: timeZone}).toFormat('d MMMM yyyy')}`;
+      listItem.contDate = DateTime.fromISO(value.contentDate, {zone: timeZone}).toFormat('d MMMM yyyy');
       formattedList.push(listItem);
     });
     return formattedList;
