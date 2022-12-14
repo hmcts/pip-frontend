@@ -15,7 +15,7 @@ export class MediaApplicationService {
       new Date(a.requestDate).getTime() - new Date(b.requestDate).getTime(),
     );
     applications?.forEach(application => {
-      application.requestDate = DateTime.fromISO(new Date(application.requestDate)).toFormat('dd MMM yyyy');
+      application.requestDate = DateTime.fromISO(application.requestDate).toFormat('dd MMM yyyy');
     });
     return applications;
   }

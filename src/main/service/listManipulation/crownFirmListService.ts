@@ -28,7 +28,7 @@ export class CrownFirmListService {
             if (judiciary !== '') {
               session['formattedJudiciaries'] = judiciary;
             }
-            const sittingDate = DateTime.fromISO(sitting['sittingStart'], {zone: this.timeZone}).format('EEEE dd MMMM yyyy');
+            const sittingDate = DateTime.fromISO(sitting['sittingStart'], {zone: this.timeZone}).toFormat('EEEE dd MMMM yyyy');
             sitting['formattedDuration'] = formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
               sitting['durationAsMinutes'] as number, language, languageFile);
             sitting['hearing'].forEach(hearing => {
@@ -74,7 +74,7 @@ export class CrownFirmListService {
         dates.push(setOfDays[0].data[0].sittingDate);
       });
     });
-    const newDates = dates.map(e => {return DateTime.fromISO(e, {zone: this.timeZone}).format('EEEE dd MMMM yyyy'); });
+    const newDates = dates.map(e => {return DateTime.fromISO(e, {zone: this.timeZone}).toFormat('EEEE dd MMMM yyyy'); });
     return newDates.sort((a, b) => a.diff(b));
   }
 
@@ -99,16 +99,14 @@ export class CrownFirmListService {
       const uniqueDays = helperService.uniquesInArrayByAttrib(courtData, 'sittingDate');
       const uniqueDaysArr = [];
       Array.from(uniqueDays).forEach(day => {
-        const encDay = DateTime.fromISO(day, {zone: this.timeZone}).format('EEEE dd MMMM yyyy');
-        uniqueDaysArr.push(encDay);
+        uniqueDaysArr.push(day);
       });
       uniqueDaysArr.sort(function(a, b) {
         return a - b;
       });
       uniqueDaysArr.forEach(day => {
         const thisDayCourts = [];
-        const formattedDay = DateTime.fromISO(day, {zone: this.timeZone}).format('EEEE dd MMMM yyyy');
-        const record = courtData.filter(row => row.sittingDate === formattedDay);
+        const record = courtData.filter(row => row.sittingDate === day);
         const uniqueCourtRooms = helperService.uniquesInArrayByAttrib(record, 'courtRoom');
         Array.from(uniqueCourtRooms).forEach(courtRoom => {
           const room = record.filter(row => row.courtRoom === courtRoom);

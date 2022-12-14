@@ -1,6 +1,5 @@
 import { formatDate } from '../../helpers/dateTimeHelper';
 import { ListParseHelperService } from '../listParseHelperService';
-import {DateTime} from 'luxon';
 
 export class EtListsService {
   public helperService = new ListParseHelperService();
@@ -53,7 +52,7 @@ export class EtListsService {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
-            const sittingDate = formatDate(sitting['sittingStart'], 'dddd DD MMMM YYYY');
+            const sittingDate = formatDate(sitting['sittingStart'], 'EEEE dd MMMM yyyy');
             sitting['hearing'].forEach(hearing => {
               hearing['case'].forEach(thisCase => {
                 const row = {
@@ -103,15 +102,13 @@ export class EtListsService {
       const uniqueDays =this.helperService.uniquesInArrayByAttrib(courtData, 'sittingDate');
       const uniqueDaysArr = [];
       Array.from(uniqueDays).forEach(day => {
-        const encDay = DateTime.fromISO(day, {zone: 'Europe/London'}).toFormat('EEEE dd MMMM yyyy');
-        uniqueDaysArr.push(encDay);
+        uniqueDaysArr.push(day);
       });
       uniqueDaysArr.sort(function(a, b) {
         return a - b;
       });
       uniqueDaysArr.forEach(day => {
-        const formattedDay = DateTime.fromISO(day, {zone: 'Europe/London'}).toFormat('EEEE dd MMMM yyyy');
-        const record = courtData.filter(row => row.sittingDate === formattedDay);
+        const record = courtData.filter(row => row.sittingDate === day);
         courts[courtCounter]['days'].push(record);
       });
       courtCounter += 1;

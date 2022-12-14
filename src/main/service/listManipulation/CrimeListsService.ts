@@ -83,9 +83,10 @@ export class CrimeListsService {
   public formatCaseTime(sitting: object, format: string): void {
     if (sitting['sittingStart'] !== '') {
       let zonedDateTime = DateTime.fromISO(sitting['sittingStart'], {zone: helperService.timeZone});
-      zonedDateTime = zonedDateTime.toISO();
-      let formattedDate = zonedDateTime.toFormat(zonedDateTime).toLowerCase()
-      sitting['time'] = formattedDate;
+      //Unable to find a way to convert time to BST. Luxon always return offset (+01:00) with the time,
+      // so I think we need to add it manually
+      zonedDateTime = zonedDateTime.plus({ minutes: zonedDateTime.offset });
+      sitting['time'] = zonedDateTime.toFormat(format).toLowerCase();
     }
   }
 
