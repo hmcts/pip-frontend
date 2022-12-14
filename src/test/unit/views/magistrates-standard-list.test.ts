@@ -66,7 +66,7 @@ describe('Magistrate Standard List page', () => {
   it('should display defendant information correctly',  () => {
     const div1 = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding');
     const items1 = div1.item(0).children;
-    expect(items1[0].innerHTML).contains('2:30pm');
+    expect(items1[0].innerHTML).contains('3:30pm');
     expect(items1[0].innerHTML).contains('2 hours 30 mins');
     expect(items1[0].innerHTML).contains('[2 of 3]');
     expect(items1[2].innerHTML).contains('39');
