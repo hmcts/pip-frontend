@@ -12,6 +12,7 @@ const images = path.resolve(assets, 'images');
 const copyMojTemplateAssets = new CopyWebpackPlugin({
   patterns: [
     { from: images, to: 'assets/images' },
+    { from: javascript, to: 'assets/js/mojAll.js', toType: 'file' },
   ],
 });
 
