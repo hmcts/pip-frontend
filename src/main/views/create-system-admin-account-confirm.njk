@@ -1,0 +1,74 @@
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import successPanel %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    {% if accountCreated %}
+      {{ successPanel(panelTitle) }}
+    {% elseif isDuplicateError %}
+      {{ govukErrorSummary({
+        titleText: errorPanelTitle,
+        errorList: [
+          {
+            text: errorPanelSummaryIsDuplicate
+          }
+        ]
+      }) }}
+    {% else %}
+      {{ govukErrorSummary({
+        titleText: errorPanelTitle,
+        errorList: [
+          {
+            text: errorPanelSummaryIsAboveMax
+          }
+        ]
+      }) }}
+    {% endif %}
+      {{ govukSummaryList({
+          rows: [
+              {
+                  key: {
+                      text: firstNameKey
+                  },
+                  value: {
+                      text: formData.firstName
+                  }
+              },
+              {
+                  key: {
+                      text: lastNameKey
+                  },
+                  value: {
+                      text: formData.lastName
+                  }
+              },
+              {
+                  key: {
+                      text: emailAddressKey
+                  },
+                  value: {
+                      text: formData.emailAddress
+                  }
+              }
+          ]
+      }) }}
+    {% if accountCreated %}
+        <h2 class="govuk-heading-m"> {{ whatNextTitle }}</h2>
+        <p class="govuk-body"> {{ whatNextMessage }}</p>
+    {% endif %}
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    <script>
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+    </script>
+{% endblock %}
