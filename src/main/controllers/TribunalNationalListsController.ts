@@ -27,6 +27,7 @@ export default class TribunalNationalListsController {
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
       res.render(listToLoad, {
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
         listData : manipulatedData,
