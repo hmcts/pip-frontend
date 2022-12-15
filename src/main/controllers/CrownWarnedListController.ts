@@ -33,6 +33,7 @@ export default class CrownWarnedListController {
 
       res.render(listUrl, {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listUrl]),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData: sortedListData,
         venue: searchResults['venue'],
         contentDate: crownWarnedListService.formatContentDate(metaData.contentDate),

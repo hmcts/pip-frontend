@@ -35,6 +35,7 @@ primaryHealthListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'primary-health-list': {},
+  'list-template': {},
 };
 
 describe('Primary Health List Controller', () => {
@@ -54,6 +55,7 @@ describe('Primary Health List Controller', () => {
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n['primary-health-list'],
+      ...i18n['list-template'],
       contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
       listData,
       publishedDate: '04 October 2022',

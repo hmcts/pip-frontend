@@ -1,9 +1,9 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
-{% from "./macros/common-components.njk" import goBack %}
+{% from "./macros/common-components.njk" import goBack, searchInput %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
-{% extends "template.njk" %}
+{% extends "list-template.njk" %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
@@ -34,7 +34,7 @@
       {% endif %}
       {{ listData['venue']['venueAddress']['postCode'] }}
     </p>
-    <div class="govuk-grid restriction-list-section">
+    <div class="govuk-grid restriction-list-section govuk-!-margin-bottom-5">
       <div class="govuk-body">
         <h3>{{ restrictionInformationHeading }}</h3>
         <p class="govuk-body">{{ restrictionInformationP1 }}</p>
@@ -80,76 +80,79 @@
       {% endif %}
     </div>
   </div>
-  {% for court in allocated %}
-    {% for day in court.days %}
-      {% set tableHeaders = '<div class="parent-box overflow-table"><table class="govuk-table"><thead class="govuk-table__head"><tr class="govuk-table__row">
-                      <th scope="col" class="govuk-table__header no-wrap">' + sittingAt  + '</th>
-                      <th scope="col" class="govuk-table__header no-wrap">' + caseReference +'</th>
-                      <th scope="col" class="govuk-table__header no-wrap">' + defendantName +'</th>
-                      <th scope="col" class="govuk-table__header no-wrap">' + hearingType + '</th>
-                      <th scope="col" class="govuk-table__header no-wrap">' + duration +'</th>
-                      <th scope="col" class="govuk-table__header no-wrap">' + defendantRep + '</th>
-                      <th scope="col" class="govuk-table__header no-wrap">' + prosecutingAuthority + '</th>
-                    </tr></thead><tbody class="govuk-table__body">' %}
-      {% set closing = '</tbody></table></div>' %}
-      {% set currentTable = [] %}
-      {% set courtHouse = court.courtName %}
-      <div class="site-header" tabindex="0" aria-label="Court Details">
-        <h1 class="govuk-heading-l site-address" tabindex="0">{{ sittingAtCourt }} {{ courtHouse }}</h1>
-        <h2 class="govuk-heading-l"> {{ day[0].data[0].sittingDate }}</h2>
-      </div>
-      <br/>
-      {% for room in day %}
-        {% set roomHeading = room.courtRoom + ":  " + room.data[0].joh %}
-        {% set tableRows = [] %}
-        {% set _ = tableRows.push(tableHeaders) %}
-        {% for row in room.data %}
-          {% set noBorderLinkedCases, theseLinkedCases, hearingNotes, noBorder = '' %}
-          {% if (row.linkedCases | length !== 0) or (row.hearingNotes | length !== 0) %}
-            {% set noBorder = ' no-border-bottom' %}
-          {% endif %}
-          {% set thisRow =
-            '<tr class="govuk-table__row">
-                            <td class="govuk-table__cell no-wrap' + noBorder + '">'+ row.sittingTime + '</td>
-                            <td class="govuk-table__cell no-wrap' + noBorder + '">' + row.caseNumber + '</td>
-                            <td class="govuk-table__cell no-wrap' + noBorder + '">' +  row.defendant + '</td>
-                            <td class="govuk-table__cell no-wrap' + noBorder + '">' +  row.hearingType + '</td>
-                            <td class="govuk-table__cell no-wrap' + noBorder + '">' +  row.formattedDuration + ' ' + row.caseSeparator + '</td>
-                            <td class="govuk-table__cell no-wrap' + noBorder + '">' + row.defendantRepresentative + '</td>
-                            <td class="govuk-table__cell no-wrap' + noBorder + '">' + row.prosecutingAuthority + '</td>
-                          </tr>' %}
-          {% if row.linkedCases | length %}
-            {% if row.hearingNotes | length !== 0 %}
-              {% set noBorderLinkedCases = 'no-border-bottom' %}
+  {{ searchInput(text = searchCases) }}
+  <div class="search-area">
+    {% for court in allocated %}
+      {% for day in court.days %}
+        {% set tableHeaders = '<div class="parent-box overflow-table"><table class="govuk-table"><thead class="govuk-table__head"><tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header no-wrap">' + sittingAt  + '</th>
+                        <th scope="col" class="govuk-table__header no-wrap">' + caseReference +'</th>
+                        <th scope="col" class="govuk-table__header no-wrap">' + defendantName +'</th>
+                        <th scope="col" class="govuk-table__header no-wrap">' + hearingType + '</th>
+                        <th scope="col" class="govuk-table__header no-wrap">' + duration +'</th>
+                        <th scope="col" class="govuk-table__header no-wrap">' + defendantRep + '</th>
+                        <th scope="col" class="govuk-table__header no-wrap">' + prosecutingAuthority + '</th>
+                      </tr></thead><tbody class="govuk-table__body">' %}
+        {% set closing = '</tbody></table></div>' %}
+        {% set currentTable = [] %}
+        {% set courtHouse = court.courtName %}
+        <div class="site-header" tabindex="0" aria-label="Court Details">
+          <h1 class="govuk-heading-l site-address" tabindex="0">{{ sittingAtCourt }} {{ courtHouse }}</h1>
+          <h2 class="govuk-heading-l"> {{ day[0].data[0].sittingDate }}</h2>
+        </div>
+        <br/>
+        {% for room in day %}
+          {% set roomHeading = room.courtRoom + ":  " + room.data[0].joh %}
+          {% set tableRows = [] %}
+          {% set _ = tableRows.push(tableHeaders) %}
+          {% for row in room.data %}
+            {% set noBorderLinkedCases, theseLinkedCases, hearingNotes, noBorder = '' %}
+            {% if (row.linkedCases | length !== 0) or (row.hearingNotes | length !== 0) %}
+              {% set noBorder = ' no-border-bottom' %}
             {% endif %}
-            {% set theseLinkedCases = '<tr class="govuk-table__row"><td class="govuk-table__cell '
-              + noBorderLinkedCases + '" colspan="7"><span class="linked-cases-heading">'
-              + linkedCases + ':</span>' + row.linkedCases + '</td></tr>' %}
-          {% endif %}
-          {% if row.hearingNotes | length %}
-            {% set noBorderLinkedCases = '' %}
-            {% set noBorder = '' %}
-            {% set hearingNotes = '<tr class="govuk-table__row"><td class="govuk-table__cell '
-              + noBorder + '" colspan="7"><span class="linked-cases-heading">' + listingNotes + ':</span> '
-              + row.hearingNotes + '</td></tr>' %}
-          {% endif %}
-          {% for x in [thisRow, theseLinkedCases, hearingNotes] %}
-            {% set _ = tableRows.push(x) %}
+            {% set thisRow =
+              '<tr class="govuk-table__row">
+                              <td class="govuk-table__cell no-wrap' + noBorder + '">'+ row.sittingTime + '</td>
+                              <td class="govuk-table__cell no-wrap' + noBorder + '">' + row.caseNumber + '</td>
+                              <td class="govuk-table__cell no-wrap' + noBorder + '">' +  row.defendant + '</td>
+                              <td class="govuk-table__cell no-wrap' + noBorder + '">' +  row.hearingType + '</td>
+                              <td class="govuk-table__cell no-wrap' + noBorder + '">' +  row.formattedDuration + ' ' + row.caseSeparator + '</td>
+                              <td class="govuk-table__cell no-wrap' + noBorder + '">' + row.defendantRepresentative + '</td>
+                              <td class="govuk-table__cell no-wrap' + noBorder + '">' + row.prosecutingAuthority + '</td>
+                            </tr>' %}
+            {% if row.linkedCases | length %}
+              {% if row.hearingNotes | length !== 0 %}
+                {% set noBorderLinkedCases = 'no-border-bottom' %}
+              {% endif %}
+              {% set theseLinkedCases = '<tr class="govuk-table__row"><td class="govuk-table__cell '
+                + noBorderLinkedCases + '" colspan="7"><span class="linked-cases-heading">'
+                + linkedCases + ':</span>' + row.linkedCases + '</td></tr>' %}
+            {% endif %}
+            {% if row.hearingNotes | length %}
+              {% set noBorderLinkedCases = '' %}
+              {% set noBorder = '' %}
+              {% set hearingNotes = '<tr class="govuk-table__row"><td class="govuk-table__cell '
+                + noBorder + '" colspan="7"><span class="linked-cases-heading">' + listingNotes + ':</span> '
+                + row.hearingNotes + '</td></tr>' %}
+            {% endif %}
+            {% for x in [thisRow, theseLinkedCases, hearingNotes] %}
+              {% set _ = tableRows.push(x) %}
+            {% endfor %}
           {% endfor %}
+          {% set tableRows = tableRows | join %}
+          {% set _ = currentTable.push(
+            { heading: {text: roomHeading},
+              content: {html: tableRows + closing}
+            }) %}
         {% endfor %}
-        {% set tableRows = tableRows | join %}
-        {% set _ = currentTable.push(
-          { heading: {text: roomHeading},
-            content: {html: tableRows + closing}
-          }) %}
+        {{ govukAccordion({
+          id: "accordion-default-firmList"+loop.index,
+          items: currentTable}) }}
       {% endfor %}
-      {{ govukAccordion({
-        id: "accordion-default-firmList"+loop.index,
-        items: currentTable}) }}
     {% endfor %}
-  {% endfor %}
-  <br/>
-  <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
+    <br/>
+    <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
+  </div>
   {{ super() }}
 {% endblock %}
 {% block bodyEnd %}

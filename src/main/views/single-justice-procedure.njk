@@ -1,8 +1,8 @@
-{% from "./macros/common-components.njk" import goBack, backToTopButton %}
+{% from "./macros/common-components.njk" import goBack, backToTopButton, searchInput %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% extends "template.njk" %}
+{% extends "list-template.njk" %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
@@ -24,7 +24,8 @@
     }) }}
   {% endif %}
 
-  <div class="parent-box">
+  {{ searchInput(text = searchCases) }}
+  <div class="parent-box govuk-!-margin-top-5 search-area">
     <div class="overflow-table">
       {% set sjpCase = [] %}
       {% for courtList in sjpData['courtLists'] %}

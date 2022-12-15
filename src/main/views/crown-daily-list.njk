@@ -1,8 +1,8 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
-{% from "./macros/common-components.njk" import goBack %}
+{% from "./macros/common-components.njk" import goBack, searchInput %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
-{% extends "template.njk" %}
+{% extends "list-template.njk" %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
@@ -33,7 +33,7 @@
       {% endif %}
       {{ listData['venue']['venueAddress']['postCode'] }}
     </p>
-    <div class="govuk-grid restriction-list-section">
+    <div class="govuk-grid restriction-list-section govuk-!-margin-bottom-5">
         <div class="govuk-body">
           <h3>{{ restrictionInformationHeading }}</h3>
           <p class="govuk-body">{{ restrictionInformationP1 }}</p>
@@ -76,6 +76,8 @@
         {% endif %}
       </div>
     </div>
+    {{ searchInput(text = searchCases) }}
+    <div class="search-area">
     {% for courtList in listData['courtLists'] %}
       {% set courtHouse = courtList['courtHouse'] %}
       {% set courtHouseAddress = courtHouse['courtHouseAddress'] %}
@@ -188,6 +190,7 @@
     {% endfor %}
     <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
     {{ super() }}
+    </div>
   </div>
 {% endblock %}
 {% block bodyEnd %}

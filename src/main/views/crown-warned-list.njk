@@ -1,8 +1,8 @@
-{% from "./macros/common-components.njk" import goBack %}
+{% from "./macros/common-components.njk" import goBack, searchInput %}
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
-{% extends "template.njk" %}
+{% extends "list-template.njk" %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
@@ -46,7 +46,7 @@
     </div>
     {% endif %}
 
-    <div class="govuk-grid restriction-list-section">
+    <div class="govuk-grid restriction-list-section govuk-!-margin-bottom-5">
       <div class="govuk-body">
         <h3>{{ restrictionInformationHeading }}</h3>
         <p class="govuk-body">{{ restrictionInformationP1 }}</p>
@@ -88,74 +88,76 @@
         </div>
       {% endif %}
     </div>
-
-    {% set toBeAllocated = "to be allocated" %}
-    {% set hearingTypeCount = 0 %}
-    {% for hearingType, rows in listData %}
-      {% set hearingTypeCount = hearingTypeCount + 1 %}
-      {% if (hearingTypeCount == 1) or (hearingType | lower == toBeAllocated) %}
-        <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-      {% endif %}
-      <div class="govuk-accordion__section govuk-accordion__section--expanded">
-        <div class="govuk-accordion__section-header">
-          <h2 class="govuk-accordion__section-heading">
-            {% if hearingType | lower == toBeAllocated %}
-              <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ hearingTypeCount }}">{{ hearingType }}</span>
-            {% else %}
-              <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ hearingTypeCount }}">{{ for }} {{ hearingType }}</span>
-            {% endif %}
-          </h2>
-        </div>
-        <div id="accordion-default-content-{{ hearingTypeCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ hearingTypeCount }}">
-          <div class="parent-box overflow-table">
-            <table class="govuk-table">
-              <thead class="govuk-table__head">
-                <tr class="govuk-table__row">
-                  {% for header in tableHeaders %}
-                    <th scope="col" class="govuk-table__header">{{ header }}</th>
-                  {% endfor %}
-                </tr>
-              </thead>
-              <tbody class="govuk-table__body">
-                {% for row in rows %}
-                  {% set noBorder = "" %}
-                  {% if (row.linkedCases | length) or (row.listingNotes | length) %}
-                    {% set noBorder = "no-border-bottom" %}
-                  {% endif %}
+    {{ searchInput(text = searchCases) }}
+    <div class="search-area">
+      {% set toBeAllocated = "to be allocated" %}
+      {% set hearingTypeCount = 0 %}
+      {% for hearingType, rows in listData %}
+        {% set hearingTypeCount = hearingTypeCount + 1 %}
+        {% if (hearingTypeCount == 1) or (hearingType | lower == toBeAllocated) %}
+          <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+        {% endif %}
+        <div class="govuk-accordion__section govuk-accordion__section--expanded">
+          <div class="govuk-accordion__section-header">
+            <h2 class="govuk-accordion__section-heading">
+              {% if hearingType | lower == toBeAllocated %}
+                <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ hearingTypeCount }}">{{ hearingType }}</span>
+              {% else %}
+                <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ hearingTypeCount }}">{{ for }} {{ hearingType }}</span>
+              {% endif %}
+            </h2>
+          </div>
+          <div id="accordion-default-content-{{ hearingTypeCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ hearingTypeCount }}">
+            <div class="parent-box overflow-table">
+              <table class="govuk-table">
+                <thead class="govuk-table__head">
                   <tr class="govuk-table__row">
-                    <td class="govuk-table__cell {{ noBorder }}">{{ row.caseReference }}</td>
-                    <td class="govuk-table__cell {{ noBorder }}">{{ row.defendant }}</td>
-                    <td class="govuk-table__cell {{ noBorder }}">{{ row.hearingDate }}</td>
-                    <td class="govuk-table__cell {{ noBorder }}">{{ row.defendantRepresentative }}</td>
-                    <td class="govuk-table__cell {{ noBorder }}">{{ row.prosecutingAuthority }}</td>
+                    {% for header in tableHeaders %}
+                      <th scope="col" class="govuk-table__header">{{ header }}</th>
+                    {% endfor %}
                   </tr>
-                  {% if row.linkedCases | length %}
+                </thead>
+                <tbody class="govuk-table__body">
+                  {% for row in rows %}
                     {% set noBorder = "" %}
-                    {% if row.listingNotes | length %}
+                    {% if (row.linkedCases | length) or (row.listingNotes | length) %}
                       {% set noBorder = "no-border-bottom" %}
                     {% endif %}
                     <tr class="govuk-table__row">
-                      <td class="govuk-table__cell {{ noBorder }}" colspan="5"><span class="linked-cases-heading">{{ linkedCases }}:</span> {{ row.linkedCases }}</td>
+                      <td class="govuk-table__cell {{ noBorder }}">{{ row.caseReference }}</td>
+                      <td class="govuk-table__cell {{ noBorder }}">{{ row.defendant }}</td>
+                      <td class="govuk-table__cell {{ noBorder }}">{{ row.hearingDate }}</td>
+                      <td class="govuk-table__cell {{ noBorder }}">{{ row.defendantRepresentative }}</td>
+                      <td class="govuk-table__cell {{ noBorder }}">{{ row.prosecutingAuthority }}</td>
                     </tr>
-                  {% endif %}
-                  {% if row.listingNotes | length %}
-                    <tr class="govuk-table__row">
-                      <td class="govuk-table__cell" colspan="5"><span class="linked-cases-heading">{{ listingNotes }}:</span> {{ row.listingNotes }}</td>
-                    </tr>
-                  {% endif %}
-                {% endfor %}
-              </tbody>
-            </table>
+                    {% if row.linkedCases | length %}
+                      {% set noBorder = "" %}
+                      {% if row.listingNotes | length %}
+                        {% set noBorder = "no-border-bottom" %}
+                      {% endif %}
+                      <tr class="govuk-table__row">
+                        <td class="govuk-table__cell {{ noBorder }}" colspan="5"><span class="linked-cases-heading">{{ linkedCases }}:</span> {{ row.linkedCases }}</td>
+                      </tr>
+                    {% endif %}
+                    {% if row.listingNotes | length %}
+                      <tr class="govuk-table__row">
+                        <td class="govuk-table__cell" colspan="5"><span class="linked-cases-heading">{{ listingNotes }}:</span> {{ row.listingNotes }}</td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
-      {% if hearingTypeCount >= listData | length - 1 %}
-        </div>
-      {% endif %}
-    {% endfor %}
+        {% if hearingTypeCount >= listData | length - 1 %}
+          </div>
+        {% endif %}
+      {% endfor %}
 
-    <p class="govuk-body govuk-!-font-size-14 data-source">{{ dataSource }}: {{ provenance }}</p>
-    {{ super() }}
+      <p class="govuk-body govuk-!-font-size-14 data-source">{{ dataSource }}: {{ provenance }}</p>
+      {{ super() }}
+    </div>
   </div>
 {% endblock %}
 

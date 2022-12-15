@@ -65,6 +65,11 @@ describe('Civil And Family Daily Cause List page', () => {
     expect(summary[0].innerHTML).contains('01772 844700', 'Could not find the court name in summary text');
   });
 
+  it('should display the search input box', () => {
+    const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+    expect(searchInput[0].innerHTML).contains('Search Cases');
+  });
+
   it('should display the site name for both sections',  () => {
     const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
     expect(siteAddress[0].innerHTML).contains('Court A', 'Could not find the site name in section 1');
