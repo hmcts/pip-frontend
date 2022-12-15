@@ -99,14 +99,18 @@ export class CrownFirmListService {
       const uniqueDays = helperService.uniquesInArrayByAttrib(courtData, 'sittingDate');
       const uniqueDaysArr = [];
       Array.from(uniqueDays).forEach(day => {
-        uniqueDaysArr.push(day);
+        const encDay = DateTime.fromFormat(day, 'EEEE dd MMMM yyyy', {
+          zone: 'utc',
+        });
+        uniqueDaysArr.push(encDay);
       });
       uniqueDaysArr.sort(function(a, b) {
         return a - b;
       });
       uniqueDaysArr.forEach(day => {
         const thisDayCourts = [];
-        const record = courtData.filter(row => row.sittingDate === day);
+        const formattedDay = DateTime.fromISO(day, {zone: 'utc'}).toFormat('EEEE dd MMMM yyyy')
+        const record = courtData.filter(row => row.sittingDate === formattedDay);
         const uniqueCourtRooms = helperService.uniquesInArrayByAttrib(record, 'courtRoom');
         Array.from(uniqueCourtRooms).forEach(courtRoom => {
           const room = record.filter(row => row.courtRoom === courtRoom);

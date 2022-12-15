@@ -79,7 +79,7 @@ describe('Crown Warned List Controller', () => {
       ...i18n['list-template'],
       listData: listData,
       venue: rawDataObj['venue'],
-      contentDate: DateTime.fromISO(Date.parse(metaData['contentDate']), {zone: 'utc'}).toFormat('dd MMMM yyyy'),
+      contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
       publishedDate: '13 September 2022',
       publishedTime: '12:30pm',
       version: '1.0',
