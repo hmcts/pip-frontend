@@ -21,7 +21,7 @@ describe('Admin Management Page', () => {
 
   it('should have correct page title', () => {
     const pageTitle = htmlRes.title;
-    expect(pageTitle).contains('Admin Management', 'Page title does not match header');
+    expect(pageTitle).contains('User Management', 'Page title does not match header');
   });
 
   it('should display back button', () => {
@@ -31,7 +31,7 @@ describe('Admin Management Page', () => {
 
   it('should display the header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass)[0].getElementsByClassName('govuk-label--l');
-    expect(header[0].innerHTML).contains('What is the admins email address?',
+    expect(header[0].innerHTML).contains('What is the users email address?',
       'Could not find the header');
   });
 

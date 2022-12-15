@@ -27,7 +27,7 @@ const cards = [
   },
   {
     title: 'User Management',
-    description: 'Update and delete admin accounts.',
+    description: 'Update and delete users.',
     link: 'admin-management',
   },
 ];
