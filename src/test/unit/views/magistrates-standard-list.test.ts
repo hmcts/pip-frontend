@@ -48,6 +48,11 @@ describe('Magistrate Standard List page', () => {
     expect(restriction[0].innerHTML).contains(restrictionHeadingText, 'Could not find the display restriction heading');
   });
 
+  it('should display the search input box', () => {
+    const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+    expect(searchInput[0].innerHTML).contains('Search Cases');
+  });
+
   it('should display the site name for both sections',  () => {
     const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
     expect(siteAddress[0].innerHTML).contains('Courtroom 1', 'Could not find the site name in section 1');

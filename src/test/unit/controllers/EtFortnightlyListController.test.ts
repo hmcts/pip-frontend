@@ -37,6 +37,7 @@ etDailyListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'et-daily-cause-list': {},
+  'list-template': {},
 };
 
 describe('Et Fortnightly List Controller', () => {
@@ -56,6 +57,7 @@ describe('Et Fortnightly List Controller', () => {
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n['et-fortnightly-list'],
+      ...i18n['list-template'],
       tableData,
       listData,
       region: 'Bedford',

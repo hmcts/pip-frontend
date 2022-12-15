@@ -17,10 +17,11 @@ export default class SjpPublicListController {
       const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
       const publishedDate = helperService.publicationDateInUkTime(fileData['document']['publicationDate']);
       const casesCount = SjpPublicListController.getCasesCount(fileData);
+      const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
       res.render('single-justice-procedure', {
-        ...cloneDeep(req.i18n.getDataByLanguage(publicationService.languageToLoadPageIn(metaData.language,
-          req.lng))['single-justice-procedure']),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure']),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         sjpData: fileData,
         length: casesCount,
         publishedDateTime: publishedDate,

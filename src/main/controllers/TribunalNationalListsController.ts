@@ -29,6 +29,7 @@ export default class TribunalNationalListsController {
 
       res.render(listToLoad, {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         listData : manipulatedData,
         publishedDate: publishedDate,
