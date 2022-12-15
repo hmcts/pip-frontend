@@ -19,7 +19,7 @@ courtStub.withArgs('foo').resolves(null);
 courtStub.withArgs('Accrington County Location').resolves(court);
 
 expressRequest['user'] = { userId: '1',
-  'roles': 'SYSTEM_ADMIN',};
+  'roles': 'SYSTEM_ADMIN'};
 
 describe('Delete Court List Search', () => {
   describe('on GET', () => {

@@ -6,7 +6,7 @@ import {request as expressRequest} from 'express';
 const PAGE_URL = '/delete-court-reference-data-success';
 
 expressRequest['user'] = { userId: '1',
-  'roles': 'SYSTEM_ADMIN',};
+  'roles': 'SYSTEM_ADMIN'};
 
 describe('Deletion court success', () => {
   test('should return delete court success page', async () => {
