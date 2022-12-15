@@ -30,7 +30,7 @@ describe('Create Media Account page', () => {
     it('should display correct text in the first paragraph', () => {
       const hint = htmlRes.getElementsByClassName('govuk-body')[0];
       expect(hint.innerHTML)
-        .contains('A Court and Tribunal Hearings account is for professional users who require the ability to view HMCTS information such as hearing lists, but do not have the ability to create an account using MyHMCTS or Common Platform e.g. members of the media.'
+        .contains('A court and tribunal hearings account is for professional users who require the ability to view HMCTS information such as hearing lists, but do not have the ability to create an account using MyHMCTS or Common Platform e.g. members of the media.'
           , 'Could not find correct text in first paragraph');
     });
 
