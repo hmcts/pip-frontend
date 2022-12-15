@@ -151,16 +151,19 @@ export class ManualUploadService {
   public formatPublicationDates(formData: any, defaultFormat: boolean): object {
     return {
       ...formData,
-      'display-from': defaultFormat ?
-        DateTime.fromFormat(formData['display-from'], 'dd/MM/yyyy HH:mm:ss').toISO() :
-        DateTime.fromFormat(formData['display-from'], 'dd/MM/yyyy HH:mm:ss').toFormat('d MMMM yyyy'),
-      'display-to': defaultFormat ?
-        DateTime.fromFormat(formData['display-to'], 'dd/MM/yyyy HH:mm:ss').toISO() :
-        DateTime.fromFormat(formData['display-to'], 'dd/MM/yyyy HH:mm:ss').toFormat('d MMMM yyyy'),
-      'content-date-from': defaultFormat ?
-        DateTime.fromFormat(formData['content-date-from'], 'dd/MM/yyyy HH:mm:ss').toISO() :
-        DateTime.fromFormat(formData['content-date-from'], 'dd/MM/yyyy HH:mm:ss').toFormat('d MMMM yyyy'),
+      'display-from': this.checkAndFormatDates(formData['display-from'], defaultFormat),
+      'display-to': this.checkAndFormatDates(formData['display-to'], defaultFormat),
+      'content-date-from': this.checkAndFormatDates(formData['content-date-from'], defaultFormat),
     };
+  }
+
+  private checkAndFormatDates(date: any, defaultFormat: boolean): string {
+    if (date != null) {
+      return defaultFormat ?
+        DateTime.fromFormat(date, 'dd/MM/yyyy HH:mm:ss').toISO() :
+        DateTime.fromFormat(date, 'dd/MM/yyyy HH:mm:ss').toFormat('d MMMM yyyy');
+    }
+    return '';
   }
 
   public generatePublicationUploadHeaders(headers): object {

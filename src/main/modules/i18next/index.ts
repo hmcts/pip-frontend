@@ -3,7 +3,6 @@ const i18nextMiddleware = require('i18next-http-middleware');
 import express = require('express');
 import { NextFunction, Response } from 'express';
 import { PipRequest } from '../../models/request/PipRequest';
-import moment from 'moment';
 
 const requireDir = require('require-directory');
 const resources = requireDir(module, '../../resources', {include: /locales/}).locales;
@@ -24,7 +23,6 @@ export class I18next {
     app.use(i18nextMiddleware.handle(i18next));
     app.use((req: PipRequest, res: Response, next: NextFunction) => {
       Object.assign(res.locals, req, req.i18n.getDataByLanguage(req.lng).template);
-      moment.locale(req.lng);
       next();
     });
   }
