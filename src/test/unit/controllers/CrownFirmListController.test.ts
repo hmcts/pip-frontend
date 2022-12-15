@@ -42,6 +42,7 @@ crownFirmListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'crown-firm-list': {},
+  'list-template': {},
 };
 
 describe('Crown Firm List Controller', () => {
@@ -66,6 +67,7 @@ describe('Crown Firm List Controller', () => {
 
     const expectedData = {
       ...i18n['crown-firm-list'],
+      ...i18n['list-template'],
       listData,
       allocated: JSON.parse(fullyProcessedData),
       contentDate: '14 February 2022',

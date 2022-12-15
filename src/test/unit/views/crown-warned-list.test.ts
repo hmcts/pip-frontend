@@ -66,6 +66,11 @@ describe('Crown Warned List page', () => {
       'Could not find the display restriction heading');
   });
 
+  it('should display the search input box', () => {
+    const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+    expect(searchInput[0].innerHTML).contains('Search Cases');
+  });
+
   it('should display all hearing types in accordion',  () => {
     const accordion = htmlRes.getElementsByClassName(accordionClass);
     expect(accordion[0].innerHTML).to.equal('For Trial', 'Could not find first accordion heading');

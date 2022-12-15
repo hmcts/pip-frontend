@@ -35,6 +35,7 @@ export default class CrownDailyListController {
 
       res.render('crown-daily-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-daily-list']),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData: outputData,
         contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
         publishedDate: publishedDate,

@@ -1,5 +1,5 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
-{% from "./macros/common-components.njk" import goBack %}
+{% from "./macros/common-components.njk" import goBack, searchInput %}
 
 {% extends "list-template.njk" %}
 {% block pageTitle %}
@@ -44,6 +44,8 @@
         {% endif %}
       </div>
     </details>
+    {{ searchInput(text = searchCases) }}
+    <div class="search-area">
     {% for courtList in listData['courtLists'] %}
       {% set courtHouse = courtList['courtHouse'] %}
       {% set courtHouseAddress = courtHouse['courtHouseAddress'] %}
@@ -132,5 +134,6 @@
     {% endfor %}
     <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
     {{ super() }}
+    </div>
   </div>
 {% endblock %}

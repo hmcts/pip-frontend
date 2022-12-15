@@ -1,5 +1,5 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
-{% from "./macros/common-components.njk" import goBack %}
+{% from "./macros/common-components.njk" import goBack, searchInput %}
 
 {% extends "list-template.njk" %}
 {% block pageTitle %}
@@ -45,79 +45,82 @@
     </div>
   </details>
 
-  {% for court in tableData %}
-    <div class="site-header" tabindex="0" aria-label="Court Details">
-      <h1 class="govuk-heading-l site-address" tabindex="0">{{ venue }}{{ court['courtName'] }}</h1>
-      {% for line in court['days'][0][0]['addressLine'] %}
-        <p class="govuk-body site-address" tabindex="0">{{ line }}</p>
-      {% endfor %}
-      {% if court['days'][0][0]['addressTown'] | length %}
-        <p class="govuk-body site-address" tabindex="0">{{ court['days'][0][0]['addressTown'] }}</p>
-      {% endif %}
-      {% if court['days'][0][0]['addressCounty'] | length %}
-        <p class="govuk-body site-address" tabindex="0">{{ court['days'][0][0]['addressCounty'] }}</p>
-      {% endif %}
-      {% if court['days'][0][0]['addressPostCode'] | length %}
-        <p class="govuk-body site-address" tabindex="0">{{ court['days'][0][0]['addressPostCode'] }}</p>
-      {% endif %}
-    </div>
+  {{ searchInput(text = searchCases) }}
+  <div class="search-area">
+    {% for court in tableData %}
+      <div class="site-header" tabindex="0" aria-label="Court Details">
+        <h1 class="govuk-heading-l site-address" tabindex="0">{{ venue }}{{ court['courtName'] }}</h1>
+        {% for line in court['days'][0][0]['addressLine'] %}
+          <p class="govuk-body site-address" tabindex="0">{{ line }}</p>
+        {% endfor %}
+        {% if court['days'][0][0]['addressTown'] | length %}
+          <p class="govuk-body site-address" tabindex="0">{{ court['days'][0][0]['addressTown'] }}</p>
+        {% endif %}
+        {% if court['days'][0][0]['addressCounty'] | length %}
+          <p class="govuk-body site-address" tabindex="0">{{ court['days'][0][0]['addressCounty'] }}</p>
+        {% endif %}
+        {% if court['days'][0][0]['addressPostCode'] | length %}
+          <p class="govuk-body site-address" tabindex="0">{{ court['days'][0][0]['addressPostCode'] }}</p>
+        {% endif %}
+      </div>
 
-    <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-    {% set courtRoomCount = 0 %}
-    {% for day in court['days'] %}
-      {% set hearingCount = 1 %}
-      {% set courtRoomCount = courtRoomCount + 1 %}
-      <div class="govuk-accordion__section govuk-accordion__section--expanded">
-        <div class="govuk-accordion__section-header">
-          <h2 class="govuk-accordion__section-heading">
-            <span class="govuk-accordion__section-button" id="accordion-default-heading-{{courtRoomCount }}">
-            {{ day[0].sittingDate }}
-            </span>
-          </h2>
+      <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+      {% set courtRoomCount = 0 %}
+      {% for day in court['days'] %}
+        {% set hearingCount = 1 %}
+        {% set courtRoomCount = courtRoomCount + 1 %}
+        <div class="govuk-accordion__section govuk-accordion__section--expanded">
+          <div class="govuk-accordion__section-header">
+            <h2 class="govuk-accordion__section-heading">
+              <span class="govuk-accordion__section-button" id="accordion-default-heading-{{courtRoomCount }}">
+              {{ day[0].sittingDate }}
+              </span>
+            </h2>
 
-        </div>
-        <div id="accordion-default-content-{{ courtRoomCount }}" class="govuk-accordion__section-content"
-             aria-labelledby="accordion-default-heading-{{ courtRoomCount }}">
-          <div class="parent-box overflow-table">
-            <table class="govuk-table" data-module="moj-sortable-table">
-              <thead class="govuk-table__head">
-              <tr class="govuk-table__row">
-                {% for header in tableHeaders %}
-                  <th scope="col" class="govuk-table__header" aria-sort="none">{{ header }}</th>
-                {% endfor %}
-              </tr>
-              </thead>
-              <tbody class="govuk-table__body">
-              {% for record in day %}
-                {% set duration = [record.durationAsHours | getDuration(record.durationAsMinutes, lng), record.caseSeparator] | join(" ") | trim %}
-                {% set durationSortValue = record.durationAsHours | durationToSortValue(record.durationAsMinutes) %}
+          </div>
+          <div id="accordion-default-content-{{ courtRoomCount }}" class="govuk-accordion__section-content"
+               aria-labelledby="accordion-default-heading-{{ courtRoomCount }}">
+            <div class="parent-box overflow-table">
+              <table class="govuk-table" data-module="moj-sortable-table">
+                <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
-                  <td class="govuk-table__cell">{{ record.courtRoom }}</td>
-                  <td class="govuk-table__cell" data-sort-value="{{ record.sittingTime | timeToSortValue }}">{{ record.sittingTime }}</td>
-                  <td class="govuk-table__cell" data-sort-value="{{ durationSortValue }}">{{ duration }}</td>
-                  <td class="govuk-table__cell">{{ record.caseNumber }}</td>
-                  {% if record.claimantRep | length %}
-                    <td class="govuk-table__cell">{{ record.claimant }}<br/>{{ rep }}
-                      : {{ record.claimantRep }}</td>
-                  {% else %}
-                    <td class="govuk-table__cell">{{ record.claimant }}<br/>{{ rep }}: {{ noRep }}</td>
-                  {% endif %}
-                  <td
-                    class="govuk-table__cell">{{ record.respondent | replace('LEGALADVISOR', 'Rep') }}</td>
-                  <td class="govuk-table__cell">{{ record.hearingType }}</td>
-                  <td class="govuk-table__cell">{{ record.jurisdiction }}</td>
-                  <td class="govuk-table__cell">{{ record.hearingPlatform }}</td>
+                  {% for header in tableHeaders %}
+                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ header }}</th>
+                  {% endfor %}
                 </tr>
-              {% endfor %}
-              </tbody>
-            </table>
+                </thead>
+                <tbody class="govuk-table__body">
+                {% for record in day %}
+                  {% set duration = [record.durationAsHours | getDuration(record.durationAsMinutes, lng), record.caseSeparator] | join(" ") | trim %}
+                  {% set durationSortValue = record.durationAsHours | durationToSortValue(record.durationAsMinutes) %}
+                  <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">{{ record.courtRoom }}</td>
+                    <td class="govuk-table__cell" data-sort-value="{{ record.sittingTime | timeToSortValue }}">{{ record.sittingTime }}</td>
+                    <td class="govuk-table__cell" data-sort-value="{{ durationSortValue }}">{{ duration }}</td>
+                    <td class="govuk-table__cell">{{ record.caseNumber }}</td>
+                    {% if record.claimantRep | length %}
+                      <td class="govuk-table__cell">{{ record.claimant }}<br/>{{ rep }}
+                        : {{ record.claimantRep }}</td>
+                    {% else %}
+                      <td class="govuk-table__cell">{{ record.claimant }}<br/>{{ rep }}: {{ noRep }}</td>
+                    {% endif %}
+                    <td
+                      class="govuk-table__cell">{{ record.respondent | replace('LEGALADVISOR', 'Rep') }}</td>
+                    <td class="govuk-table__cell">{{ record.hearingType }}</td>
+                    <td class="govuk-table__cell">{{ record.jurisdiction }}</td>
+                    <td class="govuk-table__cell">{{ record.hearingPlatform }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
+      {% endfor %}
       </div>
     {% endfor %}
+    <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
+    {{ super() }}
     </div>
-  {% endfor %}
-  <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
-  {{ super() }}
   </div>
 {% endblock %}

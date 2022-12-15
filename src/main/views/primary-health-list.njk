@@ -1,4 +1,4 @@
-{% from "./macros/common-components.njk" import goBack %}
+{% from "./macros/common-components.njk" import goBack, searchInput %}
 
 {% extends "list-template.njk" %}
 {% block pageTitle %}
@@ -32,7 +32,8 @@
       </div>
     </details>
 
-    <div class="parent-box overflow-table">
+    {{ searchInput(text = searchCases) }}
+    <div class="parent-box overflow-table govuk-!-margin-top-5 search-area">
       <table class="govuk-table" data-module="moj-sortable-table">
         <thead class="govuk-table__head">
         <tr class="govuk-table__row">

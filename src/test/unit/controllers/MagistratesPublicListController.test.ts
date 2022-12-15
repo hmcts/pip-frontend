@@ -37,6 +37,7 @@ magistratesPublicListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'magistrates-public-list': {},
+  'list-template': {},
 };
 
 describe('Magistrates Public List Controller', () => {
@@ -57,6 +58,7 @@ describe('Magistrates Public List Controller', () => {
 
     const expectedData = {
       ...i18n['magistrates-public-list'],
+      ...i18n['list-template'],
       listData,
       contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
       publishedDate: '14 September 2020',
