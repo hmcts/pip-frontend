@@ -102,19 +102,23 @@ export class ManualUploadService {
   }
 
   private validateDate(date: string, language: string, languageFile: string): string {
-    const dateformat = DateTime.fromFormat(date, 'dd/MM/yyyy HH:mm:ss');
-    if (dateformat.isValid) {
-      return null;
+    if (date != null) {
+      const dateformat = DateTime.fromFormat(date, 'dd/MM/yyyy HH:mm:ss');
+      if (dateformat.isValid) {
+        return null;
+      }
     }
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     return languageFileParser.getText(fileJson, 'dateErrors', 'blank');
   }
 
   private validateDateRange(dateFrom: string, dateTo: string, language: string, languageFile: string): string | null {
-    const firstDate = DateTime.fromFormat(dateFrom, 'dd/MM/yyyy HH:mm:ss');
-    const secondDate = DateTime.fromFormat(dateTo, 'dd/MM/yyyy HH:mm:ss');
-    if (firstDate.startOf("day") <= secondDate.startOf("day")) {
-      return null
+    if (dateFrom != null && dateTo != null) {
+      const firstDate = DateTime.fromFormat(dateFrom, 'dd/MM/yyyy HH:mm:ss');
+      const secondDate = DateTime.fromFormat(dateTo, 'dd/MM/yyyy HH:mm:ss');
+      if (firstDate.startOf('day') <= secondDate.startOf('day')) {
+        return null;
+      }
     }
 
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);

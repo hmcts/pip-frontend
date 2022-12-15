@@ -51,6 +51,6 @@ export class CrownWarnedListService {
     const date = new Date(contentDate);
     // Move the date to the past Monday if it is not on a Monday
     date.setDate(date.getDate() - (date.getDay() + 6) % 7);
-    return DateTime.fromISO(date.toISOString(), {zone: 'utc'}).toFormat('dd MMMM yyyy')
+    return DateTime.fromISO(date.toISOString(), {zone: 'utc'}).toFormat('dd MMMM yyyy');
   }
 }

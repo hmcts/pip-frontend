@@ -74,7 +74,7 @@ export class CrownFirmListService {
         dates.push(setOfDays[0].data[0].sittingDate);
       });
     });
-    const newDates = dates.map(e => {return DateTime.fromISO(e, {zone: this.timeZone}).toFormat('EEEE dd MMMM yyyy'); });
+    const newDates = dates.map(e => {return DateTime.fromFormat(e, 'EEEE dd MMMM yyyy', { zone: 'utc' }); });
     return newDates.sort((a, b) => a.diff(b));
   }
 
@@ -109,7 +109,7 @@ export class CrownFirmListService {
       });
       uniqueDaysArr.forEach(day => {
         const thisDayCourts = [];
-        const formattedDay = DateTime.fromISO(day, {zone: 'utc'}).toFormat('EEEE dd MMMM yyyy')
+        const formattedDay = DateTime.fromISO(day, {zone: 'utc'}).toFormat('EEEE dd MMMM yyyy');
         const record = courtData.filter(row => row.sittingDate === formattedDay);
         const uniqueCourtRooms = helperService.uniquesInArrayByAttrib(record, 'courtRoom');
         Array.from(uniqueCourtRooms).forEach(courtRoom => {

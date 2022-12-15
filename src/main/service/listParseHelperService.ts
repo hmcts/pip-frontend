@@ -235,7 +235,7 @@ export class ListParseHelperService {
       const sittingStart = DateTime.fromISO(sitting['sittingStart'], {zone: 'utc'});
       const sittingEnd = DateTime.fromISO(sitting['sittingEnd'], {zone: 'utc'});
       let durationAsHours = 0;
-      let durationAsMinutes = sittingEnd.diff(sittingStart, ["minutes"]).as('minutes')
+      let durationAsMinutes = Math.round(sittingEnd.diff(sittingStart, 'minutes').minutes);
 
       if (durationAsMinutes >= 60) {
         durationAsHours = Math.floor(durationAsMinutes / 60);

@@ -17,7 +17,7 @@ const filterService = new FilterService();
 const languageFileParser = new LanguageFileParser();
 const locationService = new LocationService();
 
-const timeZone = 'Europe/London'
+const timeZone = 'Europe/London';
 
 export class SubscriptionService {
   public async getSubscriptionDataForView(userId: string, language: string, tab: string, bulkDelete = false): Promise<object> {

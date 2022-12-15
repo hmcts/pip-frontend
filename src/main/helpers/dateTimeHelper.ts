@@ -29,7 +29,7 @@ const formatDurationTime = (duration: number, format: string, language: string, 
 
 export const formatDate = (dateTime: string, format: string): string => {
   if(/\S/.test(dateTime) && dateTime !== null) {
-    let formattedDate = DateTime.fromISO(dateTime, {zone: timeZone}).toFormat(format)
+    const formattedDate = DateTime.fromISO(dateTime, {zone: timeZone}).toFormat(format);
     return format === 'h:mma' ? formattedDate.toLowerCase() : formattedDate;
   }
 };

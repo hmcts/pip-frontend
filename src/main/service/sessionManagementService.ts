@@ -37,7 +37,7 @@ export class SessionManagementService {
     if(req.session.sessionExpires) {
       const sessionExpiryDateTime = DateTime.fromJSDate(req.session.sessionExpires, {zone: 'utc'});
       const currentDateTime = DateTime.fromISO(DateTime.now(), {zone: 'utc'});
-      const durationAsSeconds = sessionExpiryDateTime.diff(currentDateTime, ["seconds"]).as('seconds')
+      const durationAsSeconds = sessionExpiryDateTime.diff(currentDateTime, ['seconds']).as('seconds');
       if(durationAsSeconds <= 0) {
         return true;
       }

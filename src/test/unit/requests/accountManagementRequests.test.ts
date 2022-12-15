@@ -483,7 +483,7 @@ describe('Account Management Requests', () => {
       await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', '1234-1234');
 
       const args = putStubForDateChecking.getCall(0).args;
-      let lastSignedInDateLuxon = DateTime.fromISO(args[1]['lastSignedInDate'], {zone: 'utc'});
+      const lastSignedInDateLuxon = DateTime.fromISO(args[1]['lastSignedInDate'], {zone: 'utc'});
       expect(lastSignedInDateLuxon
         <= DateTime.utc().plus({minutes: 5}) && DateTime.utc().minus({minutes: 5}))
         .toBeTruthy();
