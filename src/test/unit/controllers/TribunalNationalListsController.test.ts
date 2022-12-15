@@ -54,7 +54,7 @@ describe('Primary Health List Controller', () => {
 
     const responseMock = sinon.mock(response);
     const expectedData = {
-      ...i18n['primary-health-list'],
+      ...i18n['list-template'],
       contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
       listData,
       publishedDate: '04 October 2022',
