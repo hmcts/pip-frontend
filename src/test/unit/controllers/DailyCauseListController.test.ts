@@ -35,6 +35,7 @@ dailyCauseListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'daily-cause-list': {},
+  'list-template': {},
 };
 
 describe('Daily Cause List Controller', () => {
@@ -55,6 +56,7 @@ describe('Daily Cause List Controller', () => {
 
     const expectedData = {
       ...i18n['daily-cause-list'],
+      ...i18n['list-template'],
       listData,
       contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
       publishedDate: '14 September 2020',

@@ -24,6 +24,7 @@ export default class IacDailyListController {
 
       res.render('iac-daily-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['iac-daily-list']),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData: listData,
         contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
         publishedDate: publishedDate,

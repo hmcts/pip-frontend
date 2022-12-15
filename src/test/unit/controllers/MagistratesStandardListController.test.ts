@@ -38,6 +38,7 @@ magsStandardListMetaDataStub.withArgs('').resolves([]);
 const listPath = 'magistrates-standard-list';
 const i18n = {
   listPath: {},
+  'list-template': {},
 };
 
 describe('Magistrate Standard List Controller', () => {
@@ -58,6 +59,7 @@ describe('Magistrate Standard List Controller', () => {
 
     const expectedData = {
       ...i18n[listPath],
+      ...i18n['list-template'],
       listData,
       contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
       publishedDate: '14 September 2016',

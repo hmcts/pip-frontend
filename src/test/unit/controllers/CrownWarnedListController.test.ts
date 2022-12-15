@@ -56,6 +56,7 @@ crownWarnedListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'crown-warned-list': {},
+  'list-template': {},
 };
 
 describe('Crown Warned List Controller', () => {
@@ -75,6 +76,7 @@ describe('Crown Warned List Controller', () => {
 
     const expectedData = {
       ...i18n['crown-warned-list'],
+      ...i18n['list-template'],
       listData: listData,
       venue: rawDataObj['venue'],
       contentDate: DateTime.fromISO(Date.parse(metaData['contentDate']), {zone: 'utc'}).toFormat('dd MMMM yyyy'),

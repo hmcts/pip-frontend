@@ -24,9 +24,11 @@ export default class SjpPressListController {
       const publishedTime = helperService.publicationTimeInUkTime(sjpData['document']['publicationDate']);
       const publishedDate = helperService.publicationDateInUkTime(sjpData['document']['publicationDate']);
 
+      const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
+
       res.render('single-justice-procedure-press', {
-        ...cloneDeep(req.i18n.getDataByLanguage(publicationService.languageToLoadPageIn(metaData.language,
-          req.lng))['single-justice-procedure-press']),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press']),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         sjpData: manipulatedData,
         publishedDateTime: publishedDate,
         publishedTime: publishedTime,

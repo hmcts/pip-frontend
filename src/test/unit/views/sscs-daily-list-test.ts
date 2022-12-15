@@ -46,6 +46,11 @@ describe('Sscs daily list page', () => {
     expect(summary[0].innerHTML).contains(summaryHeadingText, 'Could not find the display summary heading');
   });
 
+  it('should display the search input box', () => {
+    const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+    expect(searchInput[0].innerHTML).contains('Search Cases');
+  });
+
   it('should display court name summary paragraph',  () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
     expect(summary[0].innerHTML).contains(courtName, 'Could not find the court name in summary text');

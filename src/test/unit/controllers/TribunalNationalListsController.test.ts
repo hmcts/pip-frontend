@@ -35,6 +35,7 @@ primaryHealthListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'primary-health-list': {},
+  'list-template': {},
 };
 
 describe('Primary Health List Controller', () => {

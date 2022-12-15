@@ -31,6 +31,7 @@ export default class SscsDailyListController {
 
       res.render('sscs-daily-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['sscs-daily-list']),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData: manipulatedData,
         contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
         publishedDate: publishedDate,

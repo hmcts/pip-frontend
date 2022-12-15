@@ -51,6 +51,11 @@ describe('Single Justice Procedure List page', () => {
       expect(summary[0].innerHTML).contains(listDate, 'Could not find the published date');
     });
 
+    it('should display the search input box', () => {
+      const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+      expect(searchInput[0].innerHTML).contains('Search Cases');
+    });
+
     it('should display table headers correctly', () => {
       const tableHeaders = htmlRes.getElementsByClassName(tableHeadings);
       expect(tableHeaders[0].innerHTML).contains('Name');

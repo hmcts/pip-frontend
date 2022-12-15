@@ -28,6 +28,7 @@ export default class EtFortnightlyListController {
       const courtName = locationService.findCourtName(returnedCourt, req.lng as string, 'et-fortnightly-list');
       res.render('et-fortnightly-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['et-fortnightly-list']),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         tableData,
         listData,
         courtName,

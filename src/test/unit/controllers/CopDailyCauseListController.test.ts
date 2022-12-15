@@ -37,6 +37,7 @@ copDailyCauseListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'cop-daily-cause-list': {},
+  'list-template': {},
 };
 
 describe('Cop Daily Cause List Controller', () => {
@@ -56,6 +57,7 @@ describe('Cop Daily Cause List Controller', () => {
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n['cop-daily-cause-list'],
+      ...i18n['list-template'],
       listData,
       contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
       publishedDate: '13 February 2022',

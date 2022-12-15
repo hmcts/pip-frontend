@@ -27,6 +27,7 @@ export default class EtDailyListController {
       const courtName = locationService.findCourtName(returnedCourt, req.lng as string, 'et-daily-list');
       res.render('et-daily-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['et-daily-list']),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData,
         courtName,
         contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
