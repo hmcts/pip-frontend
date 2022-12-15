@@ -27,7 +27,7 @@ describe('Update User Confirmation Controller', () => {
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('update-user-confirmation', {...i18n['update-user-confirmation'],
-      updatedRole: 'System Admin'});
+      updatedRole: 'System Admin', isSystemAdmin: false});
 
     return updateUserConfirmationController.post(request, response).then(() => {
       responseMock.verify();
