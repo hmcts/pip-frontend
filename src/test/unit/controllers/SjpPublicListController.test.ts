@@ -16,7 +16,7 @@ const data = JSON.parse(mockSJPPublic);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const i18n = {};
+const i18n = {'single-justice-procedure': {}, 'list-template': {}};
 const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 jsonStub.withArgs(artefactId, '123').resolves(data);
 
@@ -42,6 +42,7 @@ describe('SJP Public List Type Controller', () => {
       publishedDateTime: '14 September 2016',
       publishedTime: '12:30am',
       ...i18n['single-justice-procedure'],
+      ...i18n['list-template'],
       artefactId: '1',
       user: request.user,
     };

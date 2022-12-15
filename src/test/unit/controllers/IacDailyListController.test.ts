@@ -30,6 +30,7 @@ iacDailyListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'iac-daily-list': {},
+  'list-template': {},
 };
 
 describe('IAC Daily List Controller', () => {
@@ -49,6 +50,7 @@ describe('IAC Daily List Controller', () => {
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n['iac-daily-list'],
+      ...i18n['list-template'],
       listData,
       contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
       publishedDate: '31 August 2022',
