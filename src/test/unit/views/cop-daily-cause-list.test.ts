@@ -62,6 +62,11 @@ describe('Cop daily cause list page', () => {
     expect(listForText.innerHTML).contains('List for');
   });
 
+  it('should display the search input box', () => {
+    const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+    expect(searchInput[0].innerHTML).contains('Search Cases');
+  });
+
   it('should display last updated text', () => {
     const listUpdatedText = htmlRes.getElementsByClassName(paragraphClass)[5];
     expect(listUpdatedText.innerHTML).contains('Last updated');

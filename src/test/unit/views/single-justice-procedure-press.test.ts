@@ -58,6 +58,11 @@ describe('Single Justice Procedure List page', () => {
       expect(offenderData[0].innerHTML).contains(listText, 'Could not find the list date information');
     });
 
+    it('should display the search input box', () => {
+      const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+      expect(searchInput[0].innerHTML).contains('Search Cases');
+    });
+
     it('should have offender name',  () => {
       const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
       expect(offenderData[0].innerHTML).contains(offenderName, 'Could not find the offender name');

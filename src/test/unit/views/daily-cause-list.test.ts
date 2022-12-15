@@ -110,6 +110,11 @@ describe('Daily Cause List page', () => {
     expect(accordion[0].innerHTML).to.contains('Firstname2 Surname2', 'Could not find the accordion heading');
   });
 
+  it('should display the search input box', () => {
+    const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+    expect(searchInput[0].innerHTML).contains('Search Cases');
+  });
+
   it('should display Hearing time',  () => {
     const cell = htmlRes.getElementsByClassName('govuk-table__cell');
     expect(cell[0].innerHTML).contains('10:40');

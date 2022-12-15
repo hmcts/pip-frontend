@@ -34,6 +34,7 @@ etDailyListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'et-daily-cause-list': {},
+  'list-template': {},
 };
 
 describe('Et Daily List Controller', () => {
@@ -53,6 +54,7 @@ describe('Et Daily List Controller', () => {
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n['et-daily-list'],
+      ...i18n['list-template'],
       listData,
       region: 'Bedford',
       contentDate: '14 February 2022',

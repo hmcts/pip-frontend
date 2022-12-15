@@ -1,7 +1,7 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
-{% from "./macros/common-components.njk" import goBack %}
+{% from "./macros/common-components.njk" import goBack, searchInput %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
-{% extends "template.njk" %}
+{% extends "list-template.njk" %}
 
 {% block pageTitle %}
   {{ title }}
@@ -28,7 +28,7 @@
       {% endif %}
       {{ listData['venue']['venueAddress']['postCode'] }}
     </p>
-    <div class="govuk-grid restriction-list-section">
+    <div class="govuk-grid restriction-list-section govuk-!-margin-bottom-5">
       <div class="govuk-body">
         <h3>{{ restrictionInformationHeading }}</h3>
         <p class="govuk-body">{{ restrictionInformationP1 }}</p>
@@ -71,103 +71,105 @@
       {% endif %}
     </div>
   </div>
-  {% for courtList in listData['courtLists'] %}
-    {% set courtHouse = courtList['courtHouse'] %}
-    {% set courtHouseAddress = courtHouse['courtHouseAddress'] %}
-    <div class="site-header" tabindex="0" aria-label="Court Details">
-      <h1 class="govuk-heading-l site-address" tabindex="0">{{ sittingAtCourt }} {{ courtHouse['courtHouseName'] }}</h1>
-    </div>
-    <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-      {% set sessionCount = 0 %}
-      {% for courtRoom in courtHouse['courtRoom'] %}
-        {% if courtRoom['exclude'] !== true %}
-          {% set hearingCount = 1 %}
-          {% for session in courtRoom['session'] %}
-            {% set sessionCount = sessionCount + 1 %}
+  {{ searchInput(text = searchCases) }}
+  <div class="search-area">
+    {% for courtList in listData['courtLists'] %}
+      {% set courtHouse = courtList['courtHouse'] %}
+      {% set courtHouseAddress = courtHouse['courtHouseAddress'] %}
+      <div class="site-header" tabindex="0" aria-label="Court Details">
+        <h1 class="govuk-heading-l site-address" tabindex="0">{{ sittingAtCourt }} {{ courtHouse['courtHouseName'] }}</h1>
+      </div>
+      <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+        {% set sessionCount = 0 %}
+        {% for courtRoom in courtHouse['courtRoom'] %}
+          {% if courtRoom['exclude'] !== true %}
+            {% set hearingCount = 1 %}
+            {% for session in courtRoom['session'] %}
+              {% set sessionCount = sessionCount + 1 %}
 
-            {% set sessionChannel = '' %}
-            {% for channel in session['sessionChannel'] %}
-              {% set sessionChannel = sessionChannel + ', ' + channel %}
-            {% endfor %}
+              {% set sessionChannel = '' %}
+              {% for channel in session['sessionChannel'] %}
+                {% set sessionChannel = sessionChannel + ', ' + channel %}
+              {% endfor %}
 
-            {% set sessionChannel = sessionChannel.slice(1) %}
-            <div class="govuk-accordion__section govuk-accordion__section--expanded">
-              <div class="govuk-accordion__section-header">
-                <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ sessionCount }}">
-                    {% if session['formattedJudiciaries'] | length %}
-                      {{ courtRoom['courtRoomName'] }}: {{ session['formattedJudiciaries'] }}
-                    {% else %}
-                      {{ courtRoom['courtRoomName'] }}
-                    {% endif %}
-                </span>
-                </h2>
-              </div>
-              <div id="accordion-default-content-{{ sessionCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ sessionCount }}">
-                <div class="parent-box overflow-table">
-                  <table class="govuk-table">
-                    <thead class="govuk-table__head">
-                    <tr class="govuk-table__row">
-                      <th scope="col" class="govuk-table__header no-wrap">{{ sittingAt }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap">{{ caseReference }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap">{{ defendantName }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap">{{ hearingType }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap">{{ prosecutingAuthority }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap">{{ duration }}</th>
-                    </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                    {% for sitting in session['sittings'] %}
-                      {% set hearingPlatform = '' %}
-                      {% if sitting['channel'].length === 0 %}
-                        {% set hearingPlatform = sessionChannel %}
+              {% set sessionChannel = sessionChannel.slice(1) %}
+              <div class="govuk-accordion__section govuk-accordion__section--expanded">
+                <div class="govuk-accordion__section-header">
+                  <h2 class="govuk-accordion__section-heading">
+                  <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ sessionCount }}">
+                      {% if session['formattedJudiciaries'] | length %}
+                        {{ courtRoom['courtRoomName'] }}: {{ session['formattedJudiciaries'] }}
                       {% else %}
-                        {% for channel in sitting['channel'] %}
-                          {% set hearingPlatform = hearingPlatform + ', ' + channel %}
-                        {% endfor %}
-                        {% set hearingPlatform = hearingPlatform.slice(1) %}
+                        {{ courtRoom['courtRoomName'] }}
                       {% endif %}
-                      {% for hearing in sitting['hearing'] %}
-                        {% for case in hearing['case'] %}
-                          {% if hearing['listingNotes'] | length !== 0 %}
-                            {% set noBorder = 'no-border-bottom' %}
-                          {% endif %}
-                          {% if courtRoom['totalHearing'] === hearingCount%}
-                            {% set noBorder = 'no-border-bottom' %}
-                          {% endif %}
-                          <tr class="govuk-table__row">
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['time'] }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseNumber'] }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['defendant'] }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['hearingType'] }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['prosecutingAuthority'] }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['formattedDuration'] }} {{ case['caseSequenceIndicator'] }}</td>
-                          </tr>
-                          {% if hearing['listingNotes'] | length %}
-                            {% set noBorder = '' %}
+                  </span>
+                  </h2>
+                </div>
+                <div id="accordion-default-content-{{ sessionCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ sessionCount }}">
+                  <div class="parent-box overflow-table">
+                    <table class="govuk-table">
+                      <thead class="govuk-table__head">
+                      <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header no-wrap">{{ sittingAt }}</th>
+                        <th scope="col" class="govuk-table__header no-wrap">{{ caseReference }}</th>
+                        <th scope="col" class="govuk-table__header no-wrap">{{ defendantName }}</th>
+                        <th scope="col" class="govuk-table__header no-wrap">{{ hearingType }}</th>
+                        <th scope="col" class="govuk-table__header no-wrap">{{ prosecutingAuthority }}</th>
+                        <th scope="col" class="govuk-table__header no-wrap">{{ duration }}</th>
+                      </tr>
+                      </thead>
+                      <tbody class="govuk-table__body">
+                      {% for sitting in session['sittings'] %}
+                        {% set hearingPlatform = '' %}
+                        {% if sitting['channel'].length === 0 %}
+                          {% set hearingPlatform = sessionChannel %}
+                        {% else %}
+                          {% for channel in sitting['channel'] %}
+                            {% set hearingPlatform = hearingPlatform + ', ' + channel %}
+                          {% endfor %}
+                          {% set hearingPlatform = hearingPlatform.slice(1) %}
+                        {% endif %}
+                        {% for hearing in sitting['hearing'] %}
+                          {% for case in hearing['case'] %}
+                            {% if hearing['listingNotes'] | length !== 0 %}
+                              {% set noBorder = 'no-border-bottom' %}
+                            {% endif %}
                             {% if courtRoom['totalHearing'] === hearingCount%}
                               {% set noBorder = 'no-border-bottom' %}
                             {% endif %}
                             <tr class="govuk-table__row">
-                              <td class="govuk-table__cell {{ noBorder }}" colspan="6"><span class="linked-cases-heading">{{ listingNotes }}:</span> {{ hearing['listingNotes'] }}</td>
+                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['time'] }}</td>
+                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseNumber'] }}</td>
+                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['defendant'] }}</td>
+                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['hearingType'] }}</td>
+                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['prosecutingAuthority'] }}</td>
+                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['formattedDuration'] }} {{ case['caseSequenceIndicator'] }}</td>
                             </tr>
-                          {% endif %}
-                          {% set hearingCount = hearingCount + 1 %}
+                            {% if hearing['listingNotes'] | length %}
+                              {% set noBorder = '' %}
+                              {% if courtRoom['totalHearing'] === hearingCount%}
+                                {% set noBorder = 'no-border-bottom' %}
+                              {% endif %}
+                              <tr class="govuk-table__row">
+                                <td class="govuk-table__cell {{ noBorder }}" colspan="6"><span class="linked-cases-heading">{{ listingNotes }}:</span> {{ hearing['listingNotes'] }}</td>
+                              </tr>
+                            {% endif %}
+                            {% set hearingCount = hearingCount + 1 %}
+                          {% endfor %}
                         {% endfor %}
                       {% endfor %}
-                    {% endfor %}
-                    </tbody>
-                  </table>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-            </div>
-          {% endfor %}
-        {% endif %}
-      {% endfor %}
-    </div>
-  {% endfor %}
-  <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
-  {{ super() }}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+    <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
+    {{ super() }}
   </div>
 {% endblock %}
 {% block bodyEnd %}

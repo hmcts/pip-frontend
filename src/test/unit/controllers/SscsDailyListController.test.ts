@@ -35,6 +35,7 @@ sscsDailyListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'sscs-daily-list': {},
+  'list-template': {},
 };
 
 describe('Sscs Daily List Controller', () => {
@@ -54,6 +55,7 @@ describe('Sscs Daily List Controller', () => {
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n['sscs-daily-list'],
+      ...i18n['list-template'],
       listData,
       contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
       publishedDate: '14 September 2020',
