@@ -7,9 +7,9 @@ import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/create-system-admin-account-summary';
 const cookie = {
-  firstName: 'joe',
-  lastName: 'bloggs',
-  emailAddress: 'joebloggs@mail.com',
+  firstName: 'Test',
+  lastName: 'Name',
+  emailAddress: 'TestEmail',
   userRoleObject: {
     mapping: 'SYSTEM_ADMIN',
   },
@@ -17,7 +17,7 @@ const cookie = {
 const summaryKeys = ['First name', 'Last name', 'Email address'];
 const changeValues = ['firstName', 'lastName', 'emailAddress'];
 let htmlRes: Document;
-const createAccountStub = sinon.stub(CreateAccountService.prototype, 'createAdminAccount');
+const createAccountStub = sinon.stub(CreateAccountService.prototype, 'createSystemAdminAccount');
 
 expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
 
@@ -62,15 +62,21 @@ describe('Create System Admin Account Summary page', () => {
   });
 
   describe('on POST', () => {
+
+    const errorResponse = {
+      firstName: 'Test',
+      lastname: 'Name',
+      email: 'EmailAddress',
+      error: 'Error',
+    };
+
     describe('with errors', () => {
       beforeAll(async () => {
-        createAccountStub.resolves(false);
+        createAccountStub.resolves(errorResponse);
         app.request['cookies'] = {
           createAdminAccount: JSON.stringify(cookie),
         };
-        app.request['user'] = {
-          'roles': 'SYSTEM_ADMIN',
-        };
+        app.request['user'] = {'roles': 'SYSTEM_ADMIN'};
         await request(app).post(PAGE_URL).then(res => {
           htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
           htmlRes.getElementsByTagName('div')[0].remove();
@@ -82,7 +88,7 @@ describe('Create System Admin Account Summary page', () => {
         const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list')[0];
         expect(errorDialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML)
           .contains('There is a problem', 'Could not find error dialog title');
-        expect(errorSummaryList.innerHTML).contains('This email already exists. The user should try signing in using this email or reset their password.');
+        expect(errorSummaryList.innerHTML).contains('A system error has occurred while submitting the application. Please try again');
       });
     });
 
