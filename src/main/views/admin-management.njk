@@ -1,0 +1,77 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import submitButton, goBack %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+
+{% block content %}
+  <div class="parent-box">
+    {% set inputProperties = {
+      label: {
+        "text": hint
+      },
+      id: "search-input",
+      name: "search-input",
+      autocomplete: "false",
+      classes: "govuk-!-width-one-half"
+    } %}
+
+
+    {% if noResultsError %}
+      {% set inputProperties = {
+        id: "search-input",
+        name: "search-input",
+        autocomplete: "false",
+        errorMessage: {
+          text: header
+        },
+        label: {
+          text: hint
+        },
+        classes: "govuk-!-width-one-half"
+      } %}
+      <div class="govuk-grid-row">
+        <div class="no_padding govuk-grid-column-three-quarters">
+          {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+              {
+                text: error.notfound,
+                href: "#search-input"
+              }
+            ]
+          }) }}
+        </div>
+      </div>
+    {% endif %}
+    <form action="admin-management" method="post">
+      <div class="govuk-form-group">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="search-input">
+            {{ header }}
+          </label>
+        </h1>
+        {{ govukInput(inputProperties) }}
+      </div>
+      {{ submitButton(continueButton) }}
+    </form>
+    <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+    </script>
+    {{ super() }}
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+{% endblock %}
