@@ -17,11 +17,17 @@ const metaData = JSON.parse(rawMetaData)[0];
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(dailyCauseListData);
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
-sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-
 describe('Accessibility Civil Daily Cause List Page Error States',  () => {
+  beforeEach(() => {
+    sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(dailyCauseListData);
+    sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
+    sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
+  });
+
+  afterEach(() => {
+    sinon.restore();
+  });
+
   test('should have no accessibility errors for input data', done => {
     ensurePageCallWillSucceed(URL)
       .then(() => runPally(agent.get(URL).url))
