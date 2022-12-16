@@ -25,7 +25,7 @@ export default class DeleteCourtReferenceDataConfirmationController {
     const court = await locationService.getLocationById(formData.locationId  as unknown as number);
     switch (formData['delete-choice']) {
       case 'yes': {
-        const response = await locationService.deleteLocationById(formData.locationId, req.user?.['userId']);
+        const response = await locationService.deleteLocationById(formData.locationId, req.user?.['provenanceUserId']);
         if (response !== null && response['isExists']) {
           res.render('delete-court-reference-data-confirmation', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
