@@ -19,6 +19,13 @@ export const formatDuration = (days: number, hours: number, minutes: number, lan
   return '';
 };
 
+export const calculateDurationSortValue = (days: number, hours: number, minutes: number): number => {
+  if (days > 0) {
+    return days * 24 * 60;
+  }
+  return hours * 60 + minutes;
+};
+
 const formatDurationTime = (duration: number, format: string, language: string, languageFile: string): string => {
   const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
   if(duration > ONE) {

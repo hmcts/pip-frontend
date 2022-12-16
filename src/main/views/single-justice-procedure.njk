@@ -78,18 +78,33 @@
 
       {{ govukTable({
         firstCellIsHeader: false,
+        attributes: {
+          "data-module": "moj-sortable-table"
+        },
         head: [
           {
-            text: column1
+            text: column1,
+            attributes: {
+              "aria-sort": "none"
+            }
           },
           {
-            text: column2
+            text: column2,
+            attributes: {
+              "aria-sort": "none"
+            }
           },
           {
-            text: column3
+            text: column3,
+            attributes: {
+              "aria-sort": "none"
+            }
           },
           {
-            text: column4
+            text: column4,
+            attributes: {
+              "aria-sort": "none"
+            }
           }
         ],
         rows: sjpCase
@@ -98,7 +113,3 @@
     {{ super() }}
   </div>
 {% endblock %}
-{% block bodyEnd %}
-  {{ super() }}
-{% endblock %}
-

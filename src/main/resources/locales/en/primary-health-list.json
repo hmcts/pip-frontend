@@ -15,10 +15,10 @@
   "duration": "Duration",
   "hearingType": "Hearing Type",
   "venue": "Venue",
-  "day": "day",
-  "days": "days",
-  "hour": "hour",
-  "hours": "hours",
-  "min": "min",
-  "mins": "mins"
+  "hearingDurationDay": "day",
+  "hearingDurationDays": "days",
+  "hearingDurationHour": "hour",
+  "hearingDurationHours": "hours",
+  "hearingDurationMinute": "min",
+  "hearingDurationMinutes": "mins"
 }

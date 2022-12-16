@@ -1,6 +1,6 @@
 {% extends "template.njk" %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "./macros/common-components.njk" import submitButton, goBack %}
+{% from "./macros/common-components.njk" import submitButton, goBack, mojAll %}
 
 {% block pageTitle %}
   {{ title }}
@@ -41,8 +41,7 @@
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
-  <script type="text/javascript" src="/assets/js/jquery.js"></script>
-  <script type="text/javascript" src="/assets/js/mojAll.js"></script>
+  {{ mojAll() }}
   <script>
     if ( window.history.replaceState ) {
       window.history.replaceState( null, null, window.location.href );

@@ -1,5 +1,5 @@
 import { ListParseHelperService } from '../listParseHelperService';
-import {formatDate, formatDuration} from '../../helpers/dateTimeHelper';
+import {calculateDurationSortValue, formatDate, formatDuration} from '../../helpers/dateTimeHelper';
 
 const helperService = new ListParseHelperService();
 
@@ -63,6 +63,8 @@ export class TribunalNationalListsService {
       durationAsMinutes: durationAsMinutes,
       formattedDuration: formatDuration(durationAsDays as number,
         durationAsHours as number, durationAsMinutes as number, language, languageFile),
+      durationSortValue: calculateDurationSortValue(durationAsDays as number, durationAsHours as number,
+        durationAsMinutes as number),
       caseSequenceIndicator: caseSequenceIndicator,
       hearingType: hearingType,
       venue: venue,

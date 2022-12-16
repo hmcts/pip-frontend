@@ -1,4 +1,4 @@
-{% from "macros/common-components.njk" import goBack %}
+{% from "macros/common-components.njk" import goBack, mojAll %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
@@ -140,8 +140,7 @@
 
 {% block bodyEnd %}
   {{ super() }}
-  <script type="text/javascript" src="/assets/js/jquery.js"></script>
-  <script type="text/javascript" src="/assets/js/mojAll.js"></script>
+  {{ mojAll() }}
 
   <script>
     window.onload = function() {

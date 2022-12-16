@@ -70,7 +70,6 @@
       <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
           {% set sessionCount = 0 %}
           {% for courtRoom in courtList['courtHouse']['courtRoom'] %}
-            {% set hearingCount = 1 %}
             {% for session in courtRoom['session'] %}
               {% set sessionCount = sessionCount + 1 %}
               {% set sessionChannel = session['sessionChannel'][0] %}
@@ -88,45 +87,42 @@
                 </div>
                 <div id="accordion-default-content-{{ sessionCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ sessionCount }}">
                   <div class="parent-box overflow-table">
-                    <table class="govuk-table">
+                    <table class="govuk-table" data-module="moj-sortable-table">
                       <thead class="govuk-table__head">
                       <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header no-wrap">{{ time }}</th>
-                        <th scope="col" class="govuk-table__header no-wrap">{{ CaseRef }}</th>
-                        <th scope="col" class="govuk-table__header no-wrap">{{ caseName }}</th>
-                        <th scope="col" class="govuk-table__header no-wrap">{{ caseType }}</th>
-                        <th scope="col" class="govuk-table__header no-wrap">{{ hearingType }}</th>
-                        <th scope="col" class="govuk-table__header no-wrap">{{ location }}</th>
-                        <th scope="col" class="govuk-table__header no-wrap">{{ duration }}</th>
-                        <th scope="col" class="govuk-table__header no-wrap">{{ applicant }}</th>
-                        <th scope="col" class="govuk-table__header no-wrap">{{ respondent }}</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ time }}</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ CaseRef }}</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ caseName }}</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ caseType }}</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ hearingType }}</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ location }}</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ duration }}</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ applicant }}</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ respondent }}</th>
                       </tr>
                       </thead>
 
                       <tbody class="govuk-table__body">
                       {% for sitting in session['sittings'] %}
                         {% set duration = sitting.durationAsHours | getDuration(sitting.durationAsMinutes, lng) %}
+                        {% set durationSortValue = sitting.durationAsHours | durationToSortValue(sitting.durationAsMinutes) %}
                         {% for hearing in sitting['hearing'] %}
                           {% for case in hearing['case'] %}
-                            {% if courtRoom['totalHearing'] === hearingCount %}
-                              {% set noBorder = 'no-border-bottom' %}
-                            {% endif %}
                             <tr class="govuk-table__row">
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['time'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseNumber'] }}</td>
+                              <td class="govuk-table__cell no-wrap" data-sort-value="{{ sitting['time'] | timeToSortValue }}">{{ sitting['time'] }}</td>
+                              <td class="govuk-table__cell no-wrap">{{ case['caseNumber'] }}</td>
                               {% if case['caseSequenceIndicator'] | length %}
-                                <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseName'] }} {{ case['caseSequenceIndicator'] }}</td>
+                                <td class="govuk-table__cell no-wrap">{{ case['caseName'] }} {{ case['caseSequenceIndicator'] }}</td>
                               {% else %}
-                                <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseName'] }}</td>
+                                <td class="govuk-table__cell no-wrap">{{ case['caseName'] }}</td>
                               {% endif %}
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseType'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['hearingType'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ duration }} </td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['applicant'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['respondent'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
+                              <td class="govuk-table__cell no-wrap">{{ case['caseType'] }}</td>
+                              <td class="govuk-table__cell no-wrap">{{ hearing['hearingType'] }}</td>
+                              <td class="govuk-table__cell no-wrap">{{ sitting['caseHearingChannel'] }}</td>
+                              <td class="govuk-table__cell no-wrap" data-sort-value="{{ durationSortValue }}">{{ duration }} </td>
+                              <td class="govuk-table__cell no-wrap">{{ hearing['applicant'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
+                              <td class="govuk-table__cell no-wrap">{{ hearing['respondent'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
                             </tr>
-                            {% set hearingCount = hearingCount + 1 %}
                           {% endfor %}
                         {% endfor %}
                       {% endfor %}
@@ -143,12 +139,4 @@
     {{ super() }}
   </div>
 </div>
-{% endblock %}
-{% block bodyEnd %}
-  <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
-  </script>
-  {{ super() }}
 {% endblock %}
