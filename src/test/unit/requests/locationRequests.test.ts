@@ -73,11 +73,11 @@ describe('Location get requests', () => {
 
     stub.withArgs('/locations').resolves({data: courtList});
 
-    courtDeleteStub.withArgs('/locations/1', {headers: {'x-issuer-id': adminUserId}}).resolves({data: {isExists: true, errorMessage: 'test'}});
-    courtDeleteStub.withArgs('/locations/2', {headers: {'x-issuer-id': adminUserId}}).rejects(errorResponse);
-    courtDeleteStub.withArgs('/locations/3', {headers: {'x-issuer-id': adminUserId}}).rejects(errorRequest);
-    courtDeleteStub.withArgs('/locations/4', {headers: {'x-issuer-id': adminUserId}}).rejects(errorMessage);
-    courtDeleteStub.withArgs('/locations/5', {headers: {'x-issuer-id': adminUserId}}).resolves({data: {isExists: false, errorMessage: ''}});
+    courtDeleteStub.withArgs('/locations/1', {headers: {'x-provenance-user-id': adminUserId}}).resolves({data: {isExists: true, errorMessage: 'test'}});
+    courtDeleteStub.withArgs('/locations/2', {headers: {'x-provenance-user-id': adminUserId}}).rejects(errorResponse);
+    courtDeleteStub.withArgs('/locations/3', {headers: {'x-provenance-user-id': adminUserId}}).rejects(errorRequest);
+    courtDeleteStub.withArgs('/locations/4', {headers: {'x-provenance-user-id': adminUserId}}).rejects(errorMessage);
+    courtDeleteStub.withArgs('/locations/5', {headers: {'x-provenance-user-id': adminUserId}}).resolves({data: {isExists: false, errorMessage: ''}});
   });
 
   it('should return court by court id', async () => {
