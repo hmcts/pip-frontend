@@ -3,7 +3,11 @@
   "message": "All data relating to the user has been deleted, including subscriptions for media users.",
   "pStart": "To continue, you can go to the",
   "pEnd": "in order to:",
-  "yourAccount": "system admin dashboard",
-  "listItems": ["upload reference data", "upload bulk media users", "extract artefact data", "edit third party subscriptions", "manage users"],
+  "systemAdminText": "system admin dashboard",
+  "systemAdminLink": "system-admin-dashboard",
+  "adminText": "Admin Dashboard",
+  "adminLink": "admin-dashboard",
+  "systemAdminListItems": ["upload reference data", "upload bulk media users", "extract artefact data", "edit third party subscriptions", "manage users"],
+  "adminListItems": ["upload publications", "remove publications", "create new accounts", "manage users"],
   "backButton": "Back"
 }
