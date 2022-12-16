@@ -1,5 +1,7 @@
 {
   "title": "Create a Court and tribunal hearings account",
+  "paragraph1": "A court and tribunal hearings account is for professional users who require the ability to view HMCTS information such as hearing lists, but do not have the ability to create an account using MyHMCTS or Common Platform e.g. members of the media.",
+  "paragraph2": "An account holder, once signed in, will be able choose what information they wish to receive via email and also view online information not available to the public, along with publicly available information.",
   "retainHint": "We will retain the personal information you enter here to manage your user account and our service.",
   "nameLabel": "Full name",
   "emailLabel": "Email address",
