@@ -167,6 +167,11 @@ module.exports = {
   SOPListItem: '.das-search-results__link',
   SjpPublicListItem: '*=Single Justice Procedure Public List',
 
+  // Court list selectors
+  ListTableFirstHeaderButton: 'thead > tr.govuk-table__row > th:nth-child(1) > button',
+  ListTableFirstRowFirstCell: 'tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(1)',
+  ListTableLastRowFirstCell: 'tbody > tr.govuk-table__row:last-child > td:nth-child(1)',
+
   // SJP public selector
   DownloadACopyButton: '#download-button',
 

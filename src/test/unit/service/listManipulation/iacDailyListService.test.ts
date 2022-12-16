@@ -15,11 +15,6 @@ describe('IAC Daily List service', () => {
       expect(data['courtLists'].length).to.equal(2);
     });
 
-    it('should calculate total cases in a court room', async () => {
-      const data = await iacService.manipulateIacDailyListData(rawIacDailyListData);
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['totalCases']).to.equal(3);
-    });
-
     it('should format start time of Hearing', async () => {
       const data = await iacService.manipulateIacDailyListData(rawIacDailyListData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['sittingStartFormatted']).to.equal('11:30am');

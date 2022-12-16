@@ -10,14 +10,12 @@ export class EtListsService {
    */
   public reshapeEtLists(listData: string): object {
     const jsonData = JSON.parse(listData);
-    let hearingCount = 0;
     jsonData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['formattedJudiciary'] = this.helperService.getJudiciaryNameSurname(session);
           delete session['judiciary'];
           session['sittings'].forEach(sitting => {
-            hearingCount = hearingCount + sitting['hearing'].length;
             sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma');
             this.helperService.calculateDuration(sitting);
             this.helperService.findAndConcatenateHearingPlatform(sitting, session);
@@ -26,8 +24,6 @@ export class EtListsService {
             });
           });
         });
-        courtRoom['totalHearing'] = hearingCount;
-        hearingCount = 0;
       });
     });
     return jsonData;

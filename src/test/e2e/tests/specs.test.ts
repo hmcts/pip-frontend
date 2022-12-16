@@ -258,6 +258,36 @@ describe('Unverified user', () => {
         expect(await sjpPublicListPage.getPageTitle()).toEqual('Single Justice Procedure cases that are ready for hearing');
       });
     });
+
+    describe('sorting of list table', () => {
+      const searchTerm = 'AA - E2E TEST COURT - DO NOT REMOVE';
+      before(async () => {
+        await searchPage.open('/search');
+      });
+
+      it('should enter text and click continue', async () => {
+        await searchPage.enterText(searchTerm);
+        summaryOfPublicationsPage = await searchPage.clickContinue();
+        expect(await summaryOfPublicationsPage.getPageTitle()).toEqual('What do you want to view from ' + searchTerm + '?');
+      });
+
+      it('should select the publication with text', async () => {
+        courtListPage = await summaryOfPublicationsPage.clickSelectedListItem('Primary Health');
+        expect(await courtListPage.getPageTitle()).toContain('Primary Health');
+      });
+
+      it('should sort the table on ascending order', async () => {
+        await courtListPage.clickFirstTableHeaderButton();
+        expect(await courtListPage.getFirstTableRowFirstCell()).toEqual('10 May');
+        expect(await courtListPage.getLastTableRowFirstCell()).toEqual('04 October');
+      });
+
+      it('should sort the table on descending order', async () => {
+        await courtListPage.clickFirstTableHeaderButton();
+        expect(await courtListPage.getFirstTableRowFirstCell()).toEqual('04 October');
+        expect(await courtListPage.getLastTableRowFirstCell()).toEqual('10 May');
+      });
+    });
   });
 
   describe('banner navigation', () => {

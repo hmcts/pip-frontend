@@ -299,6 +299,9 @@
       })();
     </script>
   {% endif %}
+  <script>
+    window.MOJFrontend.initAll()
+  </script>
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   {% include "webpack/js.njk" %}
 {% endblock %}

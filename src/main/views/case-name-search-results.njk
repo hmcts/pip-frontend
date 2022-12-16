@@ -1,6 +1,6 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "./macros/common-components.njk" import goBack, submitButton %}
+{% from "./macros/common-components.njk" import goBack, submitButton, mojAll %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
@@ -51,11 +51,10 @@
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
-    <script type="text/javascript" src="/assets/js/jquery.js"></script>
-    <script type="text/javascript" src="/assets/js/mojAll.js"></script>
-    <script>
-      if ( window.history.replaceState ) {
-        window.history.replaceState( null, null, window.location.href );
-      }
-    </script>
+  {{ mojAll() }}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
 {% endblock %}

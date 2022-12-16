@@ -3,6 +3,7 @@ const path = require('path');
 const sourcePath = path.resolve(__dirname, 'src/main/bundles');
 const govukFrontend = require(path.resolve(__dirname, 'webpack/govukFrontend'));
 const mojFrontend = require(path.resolve(__dirname, 'webpack/ministryOfJusticeFrontend'));
+const jquery = require(path.resolve(__dirname, 'webpack/jquery'));
 const scss = require(path.resolve(__dirname,'webpack/scss'));
 const HtmlWebpack = require(path.resolve(__dirname,'webpack/htmlWebpack'));
 const autocomplete = require(path.resolve(__dirname,'webpack/accessible-autocomplete'));
@@ -19,6 +20,7 @@ module.exports = {
     ...HtmlWebpack.plugins,
     ...autocomplete.plugins,
     ...mojFrontend.plugins,
+    ...jquery.plugins,
     ...markJs.plugins,
   ],
   entry: {
