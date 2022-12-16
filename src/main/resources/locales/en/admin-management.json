@@ -1,0 +1,9 @@
+{
+  "title": "User Management",
+  "header": "What is the users email address?",
+  "hint": "You must enter an exact match.",
+  "error": {
+    "title": "There is a problem",
+    "notfound": "There is no user matching that email address."
+  }
+}
