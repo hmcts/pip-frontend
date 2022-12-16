@@ -23,7 +23,6 @@ module.exports = {
   ],
   entry: {
     main: path.resolve(sourcePath, 'index.js'),
-    alphabetical: path.resolve(sourcePath, 'alphabetical.ts' ),
     cookies: path.resolve(sourcePath, 'cookie-preferences.ts' ),
   } ,
   mode: devMode ? 'development': 'production',

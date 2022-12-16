@@ -179,6 +179,13 @@ export default function(app: Application): void {
   app.post('/remove-list-search', isPermittedManualUpload, app.locals.container.cradle.removeListSearchController.post);
   app.get('/remove-list-search-results', isPermittedManualUpload, app.locals.container.cradle.removeListSearchResultsController.get);
   app.get('/remove-list-success', isPermittedManualUpload, app.locals.container.cradle.removeListSuccessController.get);
+  app.get('/admin-management', isPermittedAccountCreation, app.locals.container.cradle.adminManagementController.get);
+  app.post('/admin-management', isPermittedAccountCreation, app.locals.container.cradle.adminManagementController.post);
+  app.get('/manage-user', isPermittedAccountCreation, app.locals.container.cradle.manageUserController.get);
+  app.get('/update-user', isPermittedAccountCreation, app.locals.container.cradle.updateUserController.get);
+  app.get('/delete-user', isPermittedAccountCreation, app.locals.container.cradle.deleteUserController.get);
+  app.post('/delete-user-confirmation', isPermittedAccountCreation, app.locals.container.cradle.deleteUserConfirmationController.post);
+  app.post('/update-user-confirmation', isPermittedAccountCreation, app.locals.container.cradle.updateUserConfirmationController.post);
 
   //system-admin-restricted-paths
   app.get('/system-admin-dashboard', isPermittedSystemAdmin, app.locals.container.cradle.systemAdminDashboardController.get);
@@ -206,11 +213,6 @@ export default function(app: Application): void {
   app.post('/manage-third-party-users/subscriptions', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersSubscriptionsController.post);
   app.get('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.get);
   app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
-  app.get('/manage-user', isPermittedSystemAdmin, app.locals.container.cradle.manageUserController.get);
-  app.get('/update-user', isPermittedSystemAdmin, app.locals.container.cradle.updateUserController.get);
-  app.get('/delete-user', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserController.get);
-  app.post('/delete-user-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserConfirmationController.post);
-  app.post('/update-user-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.updateUserConfirmationController.post);
 
   app.get('/delete-court-reference-data', isPermittedSystemAdmin, app.locals.container.cradle.removeListSearchController.get);
   app.post('/delete-court-reference-data', isPermittedSystemAdmin, app.locals.container.cradle.removeListSearchController.post);
