@@ -9,8 +9,8 @@ import sinon from 'sinon';
 import {LocationService} from '../../../main/service/locationService';
 
 const PAGE_URL = '/subscription-management';
-const expectedAllSubsTitle = 'All subscriptions (7)';
-const expectedCaseSubsTitle = 'Subscriptions by case (4)';
+const expectedAllSubsTitle = 'All subscriptions (8)';
+const expectedCaseSubsTitle = 'Subscriptions by case (5)';
 const expectedCourtSubsTitle = 'Subscriptions by court or tribunal (3)';
 const expectedAllSubsTitleWithSingleSubs = 'All subscriptions (1)';
 const expectedCaseSubsTitleWithNoLocationSubs = 'Subscriptions by case (1)';
@@ -28,7 +28,7 @@ const expectedRowCaseName = 'Ashely Barnes';
 const expectedRowCaseReference = 'T485914';
 const expectedRowDateAdded = moment('2022-01-14T11:30:12.357299').format('DD MMMM YYYY');
 const expectedRowCourtName = 'Aberdeen Tribunal Hearing Centre';
-const expectedCaseRowsCount = 4;
+const expectedCaseRowsCount = 5;
 const expectedCaseRowsCountWithoutLocation = 1;
 const expectedCourtRowsCount = 3;
 const expectedCourtRowsCountWithoutCaseSubs = 1;
@@ -247,6 +247,8 @@ describe('Subscriptions Management Page', () => {
     expect(subscriptionCaseRowCells[9].innerHTML).equal('T485913');
     expect(subscriptionCaseRowCells[12].innerHTML).equal('');
     expect(subscriptionCaseRowCells[13].innerHTML).equal('T485910');
+    expect(subscriptionCaseRowCells[16].innerHTML).equal('');
+    expect(subscriptionCaseRowCells[17].innerHTML).equal('T485912');
   });
 
   it('court table should have correct number of rows', () => {

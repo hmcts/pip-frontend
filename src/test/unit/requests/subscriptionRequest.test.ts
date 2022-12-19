@@ -49,7 +49,7 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
 
   it('should return user subscription object', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-    expect(userSubscriptions.caseSubscriptions.length).toEqual(4);
+    expect(userSubscriptions.caseSubscriptions.length).toEqual(5);
     expect(userSubscriptions.locationSubscriptions.length).toEqual(3);
   });
 

@@ -17,8 +17,14 @@ const filterService = new FilterService();
 const languageFileParser = new LanguageFileParser();
 const locationService = new LocationService();
 
-const locationSubscriptionSorter = (a, b) => a.locationName > b.locationName ? 1
-  : a.locationName < b.locationName ? -1 : 0;
+const locationSubscriptionSorter = (a, b) => {
+  if (a.locationName > b.locationName) {
+    return 1;
+  } else if (a.locationName < b.locationName) {
+    return -1;
+  }
+  return 0;
+};
 
 const caseSubscriptionSorter = (a, b) => {
   let result;

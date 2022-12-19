@@ -104,7 +104,7 @@ describe('Bulk Delete Subscriptions Page', () => {
       const subscriptionsTabs = htmlRes.getElementsByClassName(subNavigationClass)[1]
         .getElementsByClassName(tabsClass);
       expect(subscriptionsTabs[0].innerHTML)
-        .contains('All subscriptions (7)', 'Could not find all subscriptions tab');
+        .contains('All subscriptions (8)', 'Could not find all subscriptions tab');
       expect(subscriptionsTabs[0].getAttribute('href'))
         .equal('?all', 'Tab does not contain proper link');
     });
@@ -113,7 +113,7 @@ describe('Bulk Delete Subscriptions Page', () => {
       const subscriptionsTabs = htmlRes.getElementsByClassName(subNavigationClass)[1]
         .getElementsByClassName(tabsClass);
       expect(subscriptionsTabs[1].innerHTML)
-        .contains('Subscriptions by case (4)', 'Could not find case subscriptions tab');
+        .contains('Subscriptions by case (5)', 'Could not find case subscriptions tab');
       expect(subscriptionsTabs[1].getAttribute('href'))
         .equal('?case', 'Tab does not contain proper link');
     });
@@ -166,7 +166,7 @@ describe('Bulk Delete Subscriptions Page', () => {
     it('case table should have correct number of rows', () => {
       const subscriptionsCaseRows = htmlRes.getElementsByClassName('govuk-table__body')[0]
         .getElementsByClassName('govuk-table__row');
-      expect(subscriptionsCaseRows.length).equal(4);
+      expect(subscriptionsCaseRows.length).equal(5);
     });
 
     it('case table should have correct column values', () => {
@@ -192,6 +192,7 @@ describe('Bulk Delete Subscriptions Page', () => {
       expect(subscriptionCaseRowCells[8].innerHTML).contains('Tom Clancy');
       expect(subscriptionCaseRowCells[9].innerHTML).contains('T485913');
       expect(subscriptionCaseRowCells[13].innerHTML).contains('T485910');
+      expect(subscriptionCaseRowCells[17].innerHTML).contains('T485912');
     });
 
     it('court table should have correct number of rows', () => {

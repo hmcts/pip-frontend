@@ -134,7 +134,7 @@ describe('getSubscriptionDataForView function', () => {
       const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'all');
       const subscriptionData = JSON.parse(JSON.stringify(result));
 
-      expect(subscriptionData.caseTableData).toHaveLength(4);
+      expect(subscriptionData.caseTableData).toHaveLength(5);
       const caseDataRow = subscriptionData.caseTableData[0];
       expect(caseDataRow).toHaveLength(4);
       expect(caseDataRow[3].html).toContain('Unsubscribe');
@@ -153,7 +153,7 @@ describe('getSubscriptionDataForView function', () => {
       const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'case');
       const subscriptionData = JSON.parse(JSON.stringify(result));
 
-      expect(subscriptionData.caseTableData).toHaveLength(4);
+      expect(subscriptionData.caseTableData).toHaveLength(5);
       const caseDataRow = subscriptionData.caseTableData[0];
       expect(caseDataRow).toHaveLength(4);
       expect(caseDataRow[3].html).toContain('Unsubscribe');
@@ -172,7 +172,7 @@ describe('getSubscriptionDataForView function', () => {
       const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'location');
       const subscriptionData = JSON.parse(JSON.stringify(result));
 
-      expect(subscriptionData.caseTableData).toHaveLength(4);
+      expect(subscriptionData.caseTableData).toHaveLength(5);
       const caseDataRow = subscriptionData.caseTableData[0];
       expect(caseDataRow).toHaveLength(4);
       expect(caseDataRow[3].html).toContain('Unsubscribe');
@@ -205,6 +205,10 @@ describe('getSubscriptionDataForView function', () => {
       const fourthRow = subscriptionData.caseTableData[3];
       expect(fourthRow[0].text).toBeNull();
       expect(fourthRow[1].text).toEqual('T485910');
+
+      const fifthRow = subscriptionData.caseTableData[4];
+      expect(fifthRow[0].text).toBeNull();
+      expect(fifthRow[1].text).toEqual('T485912');
     });
 
     it('should sort location subscription data by court name', async () => {
@@ -222,7 +226,7 @@ describe('getSubscriptionDataForView function', () => {
       const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'all', true);
       const subscriptionData = JSON.parse(JSON.stringify(result));
 
-      expect(subscriptionData.caseTableData).toHaveLength(4);
+      expect(subscriptionData.caseTableData).toHaveLength(5);
       const caseDataRow = subscriptionData.caseTableData[0];
       expect(caseDataRow).toHaveLength(4);
       expect(caseDataRow[3].html).toContain('type="checkbox"');
@@ -241,7 +245,7 @@ describe('getSubscriptionDataForView function', () => {
       const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'case', true);
       const subscriptionData = JSON.parse(JSON.stringify(result));
 
-      expect(subscriptionData.caseTableData).toHaveLength(4);
+      expect(subscriptionData.caseTableData).toHaveLength(5);
       const caseDataRow = subscriptionData.caseTableData[0];
       expect(caseDataRow).toHaveLength(4);
       expect(caseDataRow[3].html).toContain('type="checkbox"');
@@ -260,7 +264,7 @@ describe('getSubscriptionDataForView function', () => {
       const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'location', true);
       const subscriptionData = JSON.parse(JSON.stringify(result));
 
-      expect(subscriptionData.caseTableData).toHaveLength(4);
+      expect(subscriptionData.caseTableData).toHaveLength(5);
       const caseDataRow = subscriptionData.caseTableData[0];
       expect(caseDataRow).toHaveLength(4);
       expect(caseDataRow[3].html).toContain('type="checkbox"');
@@ -293,6 +297,10 @@ describe('getSubscriptionDataForView function', () => {
       const fourthRow = subscriptionData.caseTableData[3];
       expect(fourthRow[0].text).toBeNull();
       expect(fourthRow[1].text).toEqual('T485910');
+
+      const fifthRow = subscriptionData.caseTableData[4];
+      expect(fifthRow[0].text).toBeNull();
+      expect(fifthRow[1].text).toEqual('T485912');
     });
 
     it('should sort location subscription data by court name', async () => {
