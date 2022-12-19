@@ -19,7 +19,7 @@ describe('Magistrate Standard List Data manipulation service', () => {
 
     it('should format the case time in 12 hour format', async () => {
       const data = await magsStandardListService.manipulatedMagsStandardListData(magistrateStandardList, lng, languageFile);
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['time']).to.equal('3:30pm');
+      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['time']).to.equal('2:30pm');
     });
 
     it('should format the party information correctly', async () => {

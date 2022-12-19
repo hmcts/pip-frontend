@@ -32,7 +32,7 @@ export default class SjpPressListController {
         sjpData: manipulatedData,
         publishedDateTime: publishedDate,
         publishedTime: publishedTime,
-        contactDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('d MMMM yyyy'),
+        contactDate: DateTime.fromISO(metaData['contentDate'], {zone: 'Europe/London'}).toFormat('d MMMM yyyy'),
         artefactId: artefactId,
         user: req.user,
       });

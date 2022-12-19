@@ -261,10 +261,14 @@ export class ListParseHelperService {
 
   public formatCaseTime(sitting: object, format: string): void {
     if (sitting['sittingStart'] !== '') {
-      let zonedDateTime = DateTime.fromISO(sitting['sittingStart'], {zone: this.timeZone});
-      //Unable to find a way to convert time to BST. Luxon always return offset (+01:00) with the time,
-      // so I think we need to add it manually
-      zonedDateTime = zonedDateTime.plus({ minutes: zonedDateTime.offset });
+      const sittingStart = sitting['sittingStart'];
+      let zonedDateTime = DateTime.fromISO(sittingStart, {zone: this.timeZone});
+      //If json time is zoned time, we do not need to add the offset into the time. Luxon will do automatically.
+      //But, if time does not contain zoned time. Luxon always return offset (+01:00) with the time,
+      //so we need to add the offset manually
+      if (sittingStart.substr(sittingStart.length - 1) !== 'Z') {
+        zonedDateTime = zonedDateTime.plus({ minutes: zonedDateTime.offset });
+      }
       sitting['time'] = zonedDateTime.toFormat(format).toLowerCase();
     }
   }
