@@ -19,8 +19,8 @@ export default class EtFortnightlyListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
     if (fileData && metaData) {
-      const tableData = etListsService.reshapeEtFortnightlyListData(JSON.stringify(fileData));
-      const listData = etListsService.reshapeEtLists(JSON.stringify(fileData));
+      const tableData = etListsService.reshapeEtFortnightlyListData(JSON.stringify(fileData), req.lng);
+      const listData = etListsService.reshapeEtLists(JSON.stringify(fileData), req.lng);
       const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
       const publishedDate = helperService.publicationDateInUkTime(fileData['document']['publicationDate'], req.lng);
       const returnedCourt = await locationService.getLocationById(metaData['locationId']);

@@ -7,7 +7,7 @@ export class EtListsService {
   /**
    * Reshaping et List json data into formatted niceness.
    */
-  public reshapeEtLists(listData: string): object {
+  public reshapeEtLists(listData: string, language: string): object {
     const jsonData = JSON.parse(listData);
     jsonData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
@@ -15,7 +15,7 @@ export class EtListsService {
           session['formattedJudiciary'] = this.helperService.getJudiciaryNameSurname(session);
           delete session['judiciary'];
           session['sittings'].forEach(sitting => {
-            sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma');
+            sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma', language);
             this.helperService.calculateDuration(sitting);
             this.helperService.findAndConcatenateHearingPlatform(sitting, session);
             sitting['hearing'].forEach(hearing => {
@@ -32,8 +32,8 @@ export class EtListsService {
    * Reshaping etDailyList json data into formatted niceness. It first loops through to populate fields in a nice way,
    * then loops through again to split data into days. Not O(1) but I think the world is just gonna have to deal.
    */
-  public reshapeEtFortnightlyListData(etFortList: string): object {
-    return this.dataSplitterEtList(this.reshapeEtLists(etFortList));
+  public reshapeEtFortnightlyListData(etFortList: string, language: string): object {
+    return this.dataSplitterEtList(this.reshapeEtLists(etFortList, language), language);
   }
 
   /**
@@ -41,20 +41,20 @@ export class EtListsService {
    * @param inputList - input et daily list json.
    * @private - cos it's internal.
    */
-  private dataSplitterEtList(inputList: any): any {
+  private dataSplitterEtList(inputList: any, language: string): any {
     const rows = [];
     inputList['courtLists'].forEach(courtList => {
       const courtName = courtList['courtHouse']['courtHouseName'];
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
-            const sittingDate = formatDate(sitting['sittingStart'], 'EEEE dd MMMM yyyy');
+            const sittingDate = formatDate(sitting['sittingStart'], 'EEEE dd MMMM yyyy', language);
             sitting['hearing'].forEach(hearing => {
               hearing['case'].forEach(thisCase => {
                 const row = {
                   courtName: courtName,
                   sittingDate: sittingDate,
-                  sittingTime: formatDate(sitting['sittingStart'], 'h:mma'),
+                  sittingTime: formatDate(sitting['sittingStart'], 'h:mma', language),
                   addressLine: courtList['courtHouse']['courtHouseAddress']['line'],
                   addressTown: courtList['courtHouse']['courtHouseAddress']['town'],
                   addressCounty: courtList['courtHouse']['courtHouseAddress']['county'],

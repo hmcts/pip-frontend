@@ -34,9 +34,9 @@ const formatDurationTime = (duration: number, format: string, language: string, 
   return duration + ' ' + languageFileParser.getText(fileJson, null, format);
 };
 
-export const formatDate = (dateTime: string, format: string): string => {
+export const formatDate = (dateTime: string, format: string, language: string): string => {
   if(/\S/.test(dateTime) && dateTime !== null) {
-    const formattedDate = DateTime.fromISO(dateTime, {zone: timeZone}).toFormat(format);
+    const formattedDate = DateTime.fromISO(dateTime, {zone: timeZone}).setLocale(language).toFormat(format);
     return format === 'h:mma' ? formattedDate.toLowerCase() : formattedDate;
   }
 };

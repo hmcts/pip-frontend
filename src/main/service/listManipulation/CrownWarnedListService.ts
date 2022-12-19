@@ -7,13 +7,13 @@ const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
 
 export class CrownWarnedListService {
-  public manipulateData(warnedListData: string): Map<string, object[]> {
+  public manipulateData(warnedListData: string, language: string): Map<string, object[]> {
     const listData = new Map<string, object[]>;
     JSON.parse(warnedListData).courtLists.forEach(courtList => {
       courtList.courtHouse.courtRoom.forEach(courtRoom => {
         courtRoom.session.forEach(session => {
           session.sittings.forEach(sitting => {
-            sitting.sittingStartFormatted = formatDate(sitting.sittingStart, 'dd/MM/yyyy');
+            sitting.sittingStartFormatted = formatDate(sitting.sittingStart, 'dd/MM/yyyy', language);
             sitting.hearing.forEach(hearing => {
               crimeListsService.manipulateParty(hearing);
               helperService.findAndManipulateLinkedCases(hearing);

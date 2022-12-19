@@ -26,7 +26,7 @@ export class MagistratesStandardListService {
                   const hearingString = JSON.stringify(hearing);
                   const hearingObject = JSON.parse(hearingString);
 
-                  this.manipulateHearingObject(hearingObject, party);
+                  this.manipulateHearingObject(hearingObject, party, language);
                   if (hearingObject['defendantHeading'] !== '') {
                     hearingObject['offence'].forEach(offence => {
                       allOffences.push(this.formatOffence(offence['offenceTitle'], hearingObject['plea'], 'Need to confirm',
@@ -61,11 +61,11 @@ export class MagistratesStandardListService {
     return defendantsPerSessions;
   }
 
-  private manipulateHearingObject(hearingObject, party) {
+  private manipulateHearingObject(hearingObject, party, language) {
     this.manipulatePartyInformation(hearingObject, party);
     hearingObject['case'].forEach(thisCase => {
-      hearingObject['formattedConvictionDate'] = formatDate(thisCase['convictionDate'], 'dd/MM/yyyy');
-      hearingObject['formattedAdjournedDate'] = formatDate(thisCase['adjournedDate'], 'dd/MM/yyyy');
+      hearingObject['formattedConvictionDate'] = formatDate(thisCase['convictionDate'], 'dd/MM/yyyy', language);
+      hearingObject['formattedAdjournedDate'] = formatDate(thisCase['adjournedDate'], 'dd/MM/yyyy', language);
       hearingObject['caseSequenceIndicator'] = thisCase['caseSequenceIndicator'];
       hearingObject['hearingNumber'] = thisCase['hearingNumber'];
       hearingObject['prosecutionAuthorityCode'] = thisCase['informant']['prosecutionAuthorityCode'];

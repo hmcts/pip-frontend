@@ -18,7 +18,7 @@ export default class EtDailyListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
     if (fileData && metaData) {
-      const listData = etDailyListService.reshapeEtLists(JSON.stringify(fileData));
+      const listData = etDailyListService.reshapeEtLists(JSON.stringify(fileData), req.lng);
 
       const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
       const publishedDate = helperService.publicationDateInUkTime(fileData['document']['publicationDate'], req.lng);

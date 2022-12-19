@@ -21,7 +21,7 @@ export class TribunalNationalListsService {
 
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
-          const hearingDate = formatDate(session['sessionStartTime'], 'dd MMMM');
+          const hearingDate = formatDate(session['sessionStartTime'], 'dd MMMM', language);
           session['sittings'].forEach(sitting => {
             helperService.calculateDuration(sitting);
             const durationAsHours = sitting['durationAsHours'];

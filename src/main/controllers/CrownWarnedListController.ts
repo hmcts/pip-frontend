@@ -24,7 +24,7 @@ export default class CrownWarnedListController {
       const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate'], req.lng);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
-      const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults));
+      const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults), req.lng);
 
       // Sort unallocated list entry to the end of the map so it appears last on the template
       const sortedListData = new Map([...listData].sort(([a], [b]) =>

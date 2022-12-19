@@ -17,7 +17,7 @@ export default class IacDailyListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
     if (searchResults && metaData) {
-      const listData = iacService.manipulateIacDailyListData(JSON.stringify(searchResults));
+      const listData = iacService.manipulateIacDailyListData(JSON.stringify(searchResults), req.lng);
       const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
       const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate'], req.lng);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);

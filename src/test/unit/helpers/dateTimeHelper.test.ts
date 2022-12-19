@@ -113,22 +113,22 @@ describe('calculateDurationSortValue', () => {
 
 describe('formatDate', () => {
   it('should format both date and time in BST', () => {
-    const result = formatDate(testBstDate, 'EEEE dd MMMM yyyy hh:mm:ss');
+    const result = formatDate(testBstDate, 'EEEE dd MMMM yyyy hh:mm:ss', 'en');
     expect(result).to.equal('Thursday 27 October 2022 10:40:17');
   });
 
   it('should format both date and time in GMT', () => {
-    const result = formatDate(testGmtDate, 'EEEE dd MMMM yyyy hh:mm:ss');
+    const result = formatDate(testGmtDate, 'EEEE dd MMMM yyyy hh:mm:ss', 'en');
     expect(result).to.equal('Sunday 27 November 2022 09:40:17');
   });
 
   it('should format date only', () => {
-    const result = formatDate(testGmtDate, 'dd/MM/yyyy');
-    expect(result).to.equal('27/11/2022');
+    const result = formatDate(testGmtDate, 'dd/MM/yyyy', 'en');
+    expect(result).to.equal('27/11/2022', 'en');
   });
 
   it('should format time only', () => {
-    const result = formatDate(testGmtDate, 'h:mma');
+    const result = formatDate(testGmtDate, 'h:mma', 'en');
     expect(result).to.equal('9:40am');
   });
 });
