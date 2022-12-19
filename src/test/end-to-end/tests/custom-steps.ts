@@ -1,8 +1,8 @@
 
 export = function () {
   return actor({
-    loginAs: function (username, password) {
-      this.amOnPage('https://localhost:8080/system-admin-dashboard/');
+    loginAsSystemAdmin: function (username, password) {
+      this.amOnPage('/system-admin-dashboard');
       this.see('Sign in with your email address');
       this.fillField('#email', username);
       this.fillField('#password', password);
