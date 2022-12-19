@@ -17,6 +17,35 @@ const filterService = new FilterService();
 const languageFileParser = new LanguageFileParser();
 const locationService = new LocationService();
 
+const locationSubscriptionSorter = (a, b) => a.locationName > b.locationName ? 1
+  : a.locationName < b.locationName ? -1 : 0;
+
+const caseSubscriptionSorter = (a, b) => {
+  let result;
+  if (a.caseName === b.caseName) {
+    result = 0;
+  } else if (a.caseName === null) {
+    return 1;
+  } else if (b.caseName === null) {
+    return -1;
+  }
+  if (result != 0) {
+    result = a.caseName > b.caseName ? 1 : -1;
+  }
+
+  if (result === 0) {
+    if (a.caseNumber === b.caseNumber) {
+      return 0;
+    } else if (a.caseNumber === null) {
+      return 1;
+    } else if (b.caseNumber === null) {
+      return -1;
+    }
+    return a.caseNumber > b.caseNumber ? 1 : -1;
+  }
+  return result;
+};
+
 export class SubscriptionService {
   public async getSubscriptionDataForView(userId: string, language: string, tab: string, bulkDelete = false): Promise<object> {
     const subscriptionData = await this.getSubscriptionsByUser(userId);
@@ -52,6 +81,7 @@ export class SubscriptionService {
     const caseRows = [];
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCases.length) {
+      subscriptionDataCases.sort(caseSubscriptionSorter);
       subscriptionDataCases.forEach(subscription => {
         caseRows.push(bulkDelete
           ? this.generateCaseTableRowForBulkDelete(subscription)
@@ -66,6 +96,7 @@ export class SubscriptionService {
     const courtRows = [];
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCourts.length) {
+      subscriptionDataCourts.sort(locationSubscriptionSorter);
       for (const subscription of subscriptionDataCourts) {
         const location  = await locationService.getLocationById(subscription.locationId);
         const locationName = language === 'cy' ? location.welshName : location.name;

@@ -13,7 +13,7 @@ const mockedCaseSubscription = {
   reference: 'T485913',
 };
 const mockedCourtSubscription = {
-  name: 'Court 1',
+  name: 'Manchester Crown Court',
   dateAdded: '2022-01-14T11:42:57.847708',
 };
 
@@ -49,7 +49,7 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
 
   it('should return user subscription object', async () => {
     const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-    expect(userSubscriptions.caseSubscriptions.length).toEqual(2);
+    expect(userSubscriptions.caseSubscriptions.length).toEqual(4);
     expect(userSubscriptions.locationSubscriptions.length).toEqual(3);
   });
 
