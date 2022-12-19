@@ -84,14 +84,14 @@
   <div class="search-area">
     {% for court in allocated %}
       {% for day in court.days %}
-        {% set tableHeaders = '<div class="parent-box overflow-table"><table class="govuk-table"><thead class="govuk-table__head"><tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header no-wrap">' + sittingAt  + '</th>
-                        <th scope="col" class="govuk-table__header no-wrap">' + caseReference +'</th>
-                        <th scope="col" class="govuk-table__header no-wrap">' + defendantName +'</th>
-                        <th scope="col" class="govuk-table__header no-wrap">' + hearingType + '</th>
-                        <th scope="col" class="govuk-table__header no-wrap">' + duration +'</th>
-                        <th scope="col" class="govuk-table__header no-wrap">' + defendantRep + '</th>
-                        <th scope="col" class="govuk-table__header no-wrap">' + prosecutingAuthority + '</th>
+        {% set tableHeaders = '<div class="parent-box overflow-table"><table class="govuk-table"  data-module="moj-sortable-table"><thead class="govuk-table__head"><tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">' + sittingAt  + '</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">' + caseReference +'</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">' + defendantName +'</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">' + hearingType + '</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">' + duration +'</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">' + defendantRep + '</th>
+                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">' + prosecutingAuthority + '</th>
                       </tr></thead><tbody class="govuk-table__body">' %}
         {% set closing = '</tbody></table></div>' %}
         {% set currentTable = [] %}
@@ -110,13 +110,15 @@
             {% if (row.linkedCases | length !== 0) or (row.hearingNotes | length !== 0) %}
               {% set noBorder = ' no-border-bottom' %}
             {% endif %}
+            {% set timeSortValue = row.sittingTime | timeToSortValue %}
+            {% set duration = row.formattedDuration + ' ' + row.caseSeparator %}
             {% set thisRow =
               '<tr class="govuk-table__row">
-                              <td class="govuk-table__cell no-wrap' + noBorder + '">'+ row.sittingTime + '</td>
+                              <td class="govuk-table__cell no-wrap' + noBorder + '" data-sort-value="' + timeSortValue + '">' + row.sittingTime + '</td>
                               <td class="govuk-table__cell no-wrap' + noBorder + '">' + row.caseNumber + '</td>
                               <td class="govuk-table__cell no-wrap' + noBorder + '">' +  row.defendant + '</td>
                               <td class="govuk-table__cell no-wrap' + noBorder + '">' +  row.hearingType + '</td>
-                              <td class="govuk-table__cell no-wrap' + noBorder + '">' +  row.formattedDuration + ' ' + row.caseSeparator + '</td>
+                              <td class="govuk-table__cell no-wrap' + noBorder + '" data-sort-value="' + row.durationSortValue + '">' + duration + '</td>
                               <td class="govuk-table__cell no-wrap' + noBorder + '">' + row.defendantRepresentative + '</td>
                               <td class="govuk-table__cell no-wrap' + noBorder + '">' + row.prosecutingAuthority + '</td>
                             </tr>' %}
@@ -124,16 +126,29 @@
               {% if row.hearingNotes | length !== 0 %}
                 {% set noBorderLinkedCases = 'no-border-bottom' %}
               {% endif %}
-              {% set theseLinkedCases = '<tr class="govuk-table__row"><td class="govuk-table__cell '
-                + noBorderLinkedCases + '" colspan="7"><span class="linked-cases-heading">'
-                + linkedCases + ':</span>' + row.linkedCases + '</td></tr>' %}
+              {% set theseLinkedCases =
+                '<tr class="govuk-table__row">
+                  <td class="govuk-table__cell ' + noBorderLinkedCases + '" colspan="7" data-sort-value="' + timeSortValue + '"><span class="linked-cases-heading">' + linkedCases + ':</span> ' + row.linkedCases + '</td>
+                  <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.caseNumber + '" />
+                  <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.defendant + '" />
+                  <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.hearingType + '" />
+                  <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.durationSortValue + '" />
+                  <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.defendantRepresentative + '" />
+                  <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.prosecutingAuthority + '" />
+                 </tr>' %}
             {% endif %}
             {% if row.hearingNotes | length %}
               {% set noBorderLinkedCases = '' %}
-              {% set noBorder = '' %}
-              {% set hearingNotes = '<tr class="govuk-table__row"><td class="govuk-table__cell '
-                + noBorder + '" colspan="7"><span class="linked-cases-heading">' + listingNotes + ':</span> '
-                + row.hearingNotes + '</td></tr>' %}
+              {% set hearingNotes =
+                '<tr class="govuk-table__row">
+                  <td class="govuk-table__cell" colspan="7" data-sort-value="' + timeSortValue + '"><span class="linked-cases-heading">' + listingNotes + ':</span> '+ row.hearingNotes + '</td>
+                  <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.caseNumber + '" />
+                  <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.defendant + '" />
+                  <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.hearingType + '" />
+                  <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.durationSortValue + '" />
+                  <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.defendantRepresentative + '" />
+                  <td class="govuk-table__cell no-border-bottom" data-sort-value="' + row.prosecutingAuthority + '" />
+                </tr>' %}
             {% endif %}
             {% for x in [thisRow, theseLinkedCases, hearingNotes] %}
               {% set _ = tableRows.push(x) %}
@@ -153,13 +168,5 @@
     <br/>
     <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
   </div>
-  {{ super() }}
-{% endblock %}
-{% block bodyEnd %}
-  <script>
-    if (window.history.replaceState) {
-      window.history.replaceState(null, null, window.location.href);
-    }
-  </script>
   {{ super() }}
 {% endblock %}

@@ -1,5 +1,5 @@
 import {DateTime} from 'luxon';
-import {formatDuration} from '../../helpers/dateTimeHelper';
+import {calculateDurationSortValue, formatDuration} from '../../helpers/dateTimeHelper';
 import { CrimeListsService } from './CrimeListsService';
 import { ListParseHelperService } from '../listParseHelperService';
 
@@ -31,6 +31,8 @@ export class CrownFirmListService {
             const sittingDate = DateTime.fromISO(sitting['sittingStart'], {zone: this.timeZone}).toFormat('EEEE dd MMMM yyyy');
             sitting['formattedDuration'] = formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
               sitting['durationAsMinutes'] as number, language, languageFile);
+            sitting['durationSortValue'] = calculateDurationSortValue(sitting['durationAsDays'] as number,
+              sitting['durationAsHours'] as number, sitting['durationAsMinutes'] as number);
             sitting['hearing'].forEach(hearing => {
               dailyListService.findLinkedCasesInformation(hearing);
               dailyListService.manipulateParty(hearing);
@@ -44,6 +46,7 @@ export class CrownFirmListService {
                   durationAsHours: sitting['durationAsHours'],
                   durationAsMinutes: sitting['durationAsMinutes'],
                   formattedDuration: sitting['formattedDuration'],
+                  durationSortValue: sitting['durationSortValue'],
                   caseNumber: thisCase['caseNumber'],
                   caseSeparator: thisCase['caseSequenceIndicator'],
                   linkedCases: thisCase['linkedCases'],

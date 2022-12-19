@@ -26,11 +26,6 @@ describe('Tests for the civil, family and mixed lists service.', function() {
       expect(data['courtLists'].length).to.equal(4);
     });
 
-    it('should calculate totalHearings in cause list object', async () => {
-      const data = await service.sculptedCivilFamilyMixedListData(rawDailyCauseData);
-      expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['totalHearing']).to.equal(4);
-    });
-
     it('should calculate duration of Hearing in cause list object', async () => {
       const data = await service.sculptedCivilFamilyMixedListData(rawDailyCauseData);
       expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['durationAsHours']).to.equal(1);
