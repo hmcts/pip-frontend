@@ -24,7 +24,7 @@ export default class CrownFirmListController {
       const outputData = civilService.sculptedCivilFamilyMixedListData(JSON.stringify(jsonData));
       const outputArray = firmListService.splitOutFirmListData(JSON.stringify(outputData), req.lng, 'crown-firm-list');
       const publishedTime = helperService.publicationTimeInUkTime(jsonData['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(jsonData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(jsonData['document']['publicationDate'], req.lng);
       const location = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
       const dates = firmListService.getSittingDates(outputArray);
@@ -38,7 +38,7 @@ export default class CrownFirmListController {
         startDate,
         endDate,
         allocated: outputArray,
-        contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
         publishedDate,
         publishedTime,
         provenance: metaData['provenance'],

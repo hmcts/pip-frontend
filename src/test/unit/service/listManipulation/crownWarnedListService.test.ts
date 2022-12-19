@@ -75,12 +75,12 @@ describe('Crown Warned List service', () => {
 
   describe('formatContentDate', () => {
     it('should return the past Monday if date is not Monday', async () => {
-      const result = crownWarnedListService.formatContentDate('2022-09-13T11:30:52.123Z');
+      const result = crownWarnedListService.formatContentDate('2022-09-13T11:30:52.123Z', 'en');
       expect(result).is.equal('12 September 2022');
     });
 
     it('should return the same date if date is Monday', async () => {
-      const result = crownWarnedListService.formatContentDate('2022-09-12T11:30:52.123Z');
+      const result = crownWarnedListService.formatContentDate('2022-09-12T11:30:52.123Z', 'en');
       expect(result).is.equal('12 September 2022');
     });
   });

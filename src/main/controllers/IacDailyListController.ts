@@ -19,14 +19,14 @@ export default class IacDailyListController {
     if (searchResults && metaData) {
       const listData = iacService.manipulateIacDailyListData(JSON.stringify(searchResults));
       const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate'], req.lng);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
       res.render('iac-daily-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['iac-daily-list']),
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData: listData,
-        contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         provenance: metaData['provenance'],

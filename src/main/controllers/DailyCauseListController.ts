@@ -23,7 +23,7 @@ export default class DailyCauseListController {
       const manipulatedData = civFamMixedListService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
 
       const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate'], req.lng);
 
       const location = await locationService.getLocationById(metaData['locationId']);
 
@@ -33,7 +33,7 @@ export default class DailyCauseListController {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData: manipulatedData,
-        contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         provenance: metaData['provenance'],

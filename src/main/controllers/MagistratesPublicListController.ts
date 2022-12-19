@@ -25,7 +25,7 @@ export default class MagistratesPublicListController {
       manipulatedData = crimeListsService.manipulatedCrimeListData(JSON.stringify(manipulatedData),
         req.lng as string, 'magistrates-public-list');
       const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate'], req.lng);
       const location = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
@@ -33,7 +33,7 @@ export default class MagistratesPublicListController {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['magistrates-public-list']),
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData: manipulatedData,
-        contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         provenance: metaData['provenance'],

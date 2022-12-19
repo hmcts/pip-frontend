@@ -292,12 +292,12 @@ export class ListParseHelperService {
    * Function which extracts the date from a UTC Date Time in BST format.
    * @param publicationDatetime The publication date time to convert in UTC.
    */
-  public publicationDateInUkTime(publicationDatetime: string): string {
-    return DateTime.fromISO(publicationDatetime, {zone: this.timeZone}).toFormat('dd MMMM yyyy');
+  public publicationDateInUkTime(publicationDatetime: string, language: string): string {
+    return DateTime.fromISO(publicationDatetime, {zone: this.timeZone}).setLocale(language).toFormat('dd MMMM yyyy');
   }
 
-  public contentDateInUtcTime(contentDatetime: string): string {
-    return DateTime.fromISO(contentDatetime, {zone: 'utc'}).toFormat('dd MMMM yyyy');
+  public contentDateInUtcTime(contentDatetime: string, language: string): string {
+    return DateTime.fromISO(contentDatetime, {zone: 'utc'}).setLocale(language).toFormat('dd MMMM yyyy');
   }
 
   /**

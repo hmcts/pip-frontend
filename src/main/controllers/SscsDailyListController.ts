@@ -23,7 +23,7 @@ export default class SscsDailyListController {
       const manipulatedData = sscsListService.manipulateSscsDailyListData(JSON.stringify(searchResults));
 
       const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate'], req.lng);
 
       const returnedCourt = await courtService.getLocationById(metaData['locationId']);
       const courtName = courtService.findCourtName(returnedCourt, req.lng as string, 'sscs-daily-list');
@@ -33,7 +33,7 @@ export default class SscsDailyListController {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['sscs-daily-list']),
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData: manipulatedData,
-        contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         courtName: courtName,

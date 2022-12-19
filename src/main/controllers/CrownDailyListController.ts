@@ -28,7 +28,7 @@ export default class CrownDailyListController {
       outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
 
       const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate'], req.lng);
       const location = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
@@ -36,7 +36,7 @@ export default class CrownDailyListController {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-daily-list']),
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData: outputData,
-        contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         provenance: metaData['provenance'],

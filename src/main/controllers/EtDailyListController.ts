@@ -21,7 +21,7 @@ export default class EtDailyListController {
       const listData = etDailyListService.reshapeEtLists(JSON.stringify(fileData));
 
       const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(fileData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(fileData['document']['publicationDate'], req.lng);
       const returnedCourt = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
       const courtName = locationService.findCourtName(returnedCourt, req.lng as string, 'et-daily-list');
@@ -30,7 +30,7 @@ export default class EtDailyListController {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData,
         courtName,
-        contentDate: helperService.contentDateInUtcTime(metaData['contentDate']),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
         region: returnedCourt.region,
         publishedDate: publishedDate,
         publishedTime: publishedTime,

@@ -22,7 +22,7 @@ export default class SjpPressListController {
       const manipulatedData = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
 
       const publishedTime = helperService.publicationTimeInUkTime(sjpData['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(sjpData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(sjpData['document']['publicationDate'], req.lng);
 
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
@@ -32,7 +32,7 @@ export default class SjpPressListController {
         sjpData: manipulatedData,
         publishedDateTime: publishedDate,
         publishedTime: publishedTime,
-        contactDate: DateTime.fromISO(metaData['contentDate'], {zone: 'Europe/London'}).toFormat('d MMMM yyyy'),
+        contactDate: DateTime.fromISO(metaData['contentDate'], {zone: 'Europe/London'}).setLocale(req.lng).toFormat('d MMMM yyyy'),
         artefactId: artefactId,
         user: req.user,
       });
