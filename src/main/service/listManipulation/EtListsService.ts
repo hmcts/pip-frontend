@@ -16,6 +16,7 @@ export class EtListsService {
           session['formattedJudiciary'] = this.helperService.getJudiciaryNameSurname(session);
           delete session['judiciary'];
           session['sittings'].forEach(sitting => {
+            sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma');
             this.helperService.calculateDuration(sitting);
             this.helperService.findAndConcatenateHearingPlatform(sitting, session);
             sitting['hearing'].forEach(hearing => {
