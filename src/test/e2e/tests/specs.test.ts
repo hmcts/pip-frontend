@@ -462,7 +462,7 @@ describe('Verified user', () => {
       it('should open case name search path', async () => {
         await subscriptionAddPage.selectOption('SubscriptionAddByCaseName');
         caseNameSearchPage = await subscriptionAddPage.clickContinueForCaseName();
-        expect(await caseNameSearchPage.getPageTitle()).toBe('What is the name of the party or parties involved?');
+        expect(await caseNameSearchPage.getPageTitle()).toBe('What is the name of the case?');
       });
 
       it('should search for a valid case name and navigate to results page', async () => {
