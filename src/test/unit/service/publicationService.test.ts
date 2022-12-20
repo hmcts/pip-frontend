@@ -22,6 +22,11 @@ const returnedArtefact = [{
   },
 }];
 
+const countPerLocation = {
+  '1': '2',
+  '3': '1',
+};
+
 const publicationService = new PublicationService;
 const publicationRequestStub = sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue');
 publicationRequestStub.resolves(returnedArtefact);
@@ -45,7 +50,7 @@ stubMetaData.returns(metaData);
 const stubCourtPubs = sinon.stub(publicationRequests, 'getPublicationsByCourt');
 stubCourtPubs.withArgs('1', userId, false).resolves(returnedArtefact);
 stubCourtPubs.withArgs('2', userId, false).resolves([]);
-sinon.stub(publicationRequests, 'getPubsPerLocation').returns('location,count\n1,2\n3,1\n');
+sinon.stub(publicationRequests, 'getPubsPerLocation').returns(countPerLocation);
 const validCourtName = 'PRESTON';
 const invalidCourtName = 'TEST';
 

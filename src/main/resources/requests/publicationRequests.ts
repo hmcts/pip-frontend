@@ -28,7 +28,7 @@ export class PublicationRequests {
     return null;
   }
 
-  public async getPubsPerLocation(): Promise<string> {
+  public async getPubsPerLocation(): Promise<any> {
     try {
       const response = await dataManagementApi.get('/publication/count-by-location');
       return response.data;
