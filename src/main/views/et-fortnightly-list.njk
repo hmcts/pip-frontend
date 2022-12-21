@@ -51,7 +51,9 @@
       <div class="site-header" tabindex="0" aria-label="Court Details">
         <h1 class="govuk-heading-l site-address" tabindex="0">{{ venue }}{{ court['courtName'] }}</h1>
         {% for line in court['days'][0][0]['addressLine'] %}
-          <p class="govuk-body site-address" tabindex="0">{{ line }}</p>
+          {% if line | length %}
+            <p class="govuk-body site-address" tabindex="0">{{ line }}</p>
+          {% endif %}
         {% endfor %}
         {% if court['days'][0][0]['addressTown'] | length %}
           <p class="govuk-body site-address" tabindex="0">{{ court['days'][0][0]['addressTown'] }}</p>
