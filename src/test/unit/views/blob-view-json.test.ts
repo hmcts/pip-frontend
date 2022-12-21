@@ -44,7 +44,7 @@ describe('Blob Explorer Page', () => {
 
   it('should display the sub heading', () => {
     const subHeading = htmlRes.getElementsByClassName(subHeadingClass);
-    expect(subHeading[1].innerHTML).contains('Metadata', 'Could not find the sub heading')
+    expect(subHeading[1].innerHTML).contains('Metadata', 'Could not find the sub heading');
   });
 
   it('should have a summary list of the meta data on the page', () => {
