@@ -22,10 +22,16 @@ const returnedArtefact = [{
   },
 }];
 
-const countPerLocation = {
-  '1': '2',
-  '3': '1',
-};
+const countPerLocation = [
+  {
+    'locationId': 1,
+    'totalArtefacts': 2
+  },
+  {
+    'locationId': 3,
+    'totalArtefacts': 1
+  }
+];
 
 const publicationService = new PublicationService;
 const publicationRequestStub = sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue');

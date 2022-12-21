@@ -15,8 +15,9 @@ export class PublicationService {
   public async getCountsOfPubsPerLocation(): Promise<Map<number, number>> {
     const response = await publicationRequests.getPubsPerLocation();
     const map = new Map();
-    Object.keys(response).forEach((key) => {
-      map.set(parseInt(key), parseInt(response[key]));
+    response.forEach(countPerLocation => {
+      map.set(countPerLocation.locationId,
+        countPerLocation.totalArtefacts);
     });
     return map;
   }

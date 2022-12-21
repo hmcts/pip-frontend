@@ -97,10 +97,16 @@ const liveCaseData = JSON.parse(rawDataLive).results;
 const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
 const sjpCases = JSON.parse(rawSJPData).results;
 const mediaApplications = JSON.parse(rawMediaApplications);
-const countPerLocation = {
-  '1': '2',
-  '3': '1',
-};
+const countPerLocation = [
+  {
+    'locationId': 1,
+    'totalArtefacts': 2
+  },
+  {
+    'locationId': 3,
+    'totalArtefacts': 1
+  }
+];
 
 sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns(countPerLocation);
 sinon.stub(LocationRequests.prototype, 'getLocation').returns(courtData);
