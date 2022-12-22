@@ -100,12 +100,12 @@ const mediaApplications = JSON.parse(rawMediaApplications);
 const countPerLocation = [
   {
     'locationId': 1,
-    'totalArtefacts': 2
+    'totalArtefacts': 2,
   },
   {
     'locationId': 3,
-    'totalArtefacts': 1
-  }
+    'totalArtefacts': 1,
+  },
 ];
 
 sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns(countPerLocation);

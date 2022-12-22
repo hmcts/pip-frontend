@@ -25,12 +25,12 @@ const returnedArtefact = [{
 const countPerLocation = [
   {
     'locationId': 1,
-    'totalArtefacts': 2
+    'totalArtefacts': 2,
   },
   {
     'locationId': 3,
-    'totalArtefacts': 1
-  }
+    'totalArtefacts': 1,
+  },
 ];
 
 const publicationService = new PublicationService;
