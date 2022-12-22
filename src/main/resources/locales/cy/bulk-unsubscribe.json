@@ -12,17 +12,17 @@
     "caseName": "Enw'r achos",
     "caseRef": "Cyfeirnod yr achos",
     "date": "Dyddiad wedi’i ychwanegu",
-    "deletion": "Ei farcio ar gyfer ei ddileu"
+    "deletion": "Dewis"
   },
   "courtTable": {
     "courtName": "Enw’r llys neu’r tribiwnlys",
     "date": "Dyddiad wedi’i ychwanegu",
-    "deletion": " Ei farcio ar gyfer ei ddileu"
+    "deletion": "Dewis"
   },
   "error": {
     "title": "Mae yna broblem",
     "text": "Mae angen o leiaf un tanysgrifiad"
   },
-  "deleteButton": "Dileu swmp o danysgrifiadau",
+  "unsubscribeButton": "Dileu swmp o danysgrifiadau",
   "backButton": "Yn ôl"
 }

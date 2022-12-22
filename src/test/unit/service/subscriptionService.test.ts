@@ -221,7 +221,7 @@ describe('getSubscriptionDataForView function', () => {
     });
   });
 
-  describe('for Bulk Delete Subscriptions page', () => {
+  describe('for Bulk Unsubscribe page', () => {
     it('should return subscription data for \'all\' tab', async () => {
       const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'all', true);
       const subscriptionData = JSON.parse(JSON.stringify(result));

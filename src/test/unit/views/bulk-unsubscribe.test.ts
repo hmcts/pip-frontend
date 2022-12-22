@@ -8,7 +8,7 @@ import sinon from 'sinon';
 import {SubscriptionRequests} from '../../../main/resources/requests/subscriptionRequests';
 import {LocationService} from '../../../main/service/locationService';
 
-const PAGE_URL = '/bulk-delete-subscriptions';
+const PAGE_URL = '/bulk-unsubscribe';
 let htmlRes: Document;
 
 const subNavigationClass = 'moj-sub-navigation';
@@ -16,7 +16,7 @@ const tabsClass = 'moj-sub-navigation__link';
 const caseNameColumn = 'Case name';
 const caseReferenceColumn = 'Case reference number';
 const dateAddedColumn = 'Date added';
-const markForDeletionColumn = 'Mark for deletion';
+const markForDeletionColumn = 'Select';
 const courtNameColumn = 'Court or tribunal name';
 
 const expectedRowDateAdded = moment('2022-01-14T11:30:12.357299').format('DD MMMM YYYY');
@@ -77,7 +77,7 @@ locationStub.withArgs(3).resolves(
     welshName: 'Welsh Test Court 1',
   });
 
-describe('Bulk Delete Subscriptions Page', () => {
+describe('Bulk Unsubscribe Page', () => {
   describe('with both case and court subscriptions', () => {
     beforeAll(async () => {
       app.request['user'] = {'userId': '1', 'roles': 'VERIFIED'};
@@ -91,13 +91,13 @@ describe('Bulk Delete Subscriptions Page', () => {
 
     it('should have correct page title', () => {
       const pageTitle = htmlRes.title;
-      expect(pageTitle).contains('Bulk delete subscriptions', 'Page title does not match header');
+      expect(pageTitle).contains('Bulk unsubscribe', 'Page title does not match header');
     });
 
     it('should display header', () => {
       const header = htmlRes.getElementsByClassName('govuk-heading-l')[0];
       expect(header.innerHTML)
-        .contains('Bulk delete subscriptions', 'Could not find correct value in header');
+        .contains('Bulk unsubscribe', 'Could not find correct value in header');
     });
 
     it('should display all subscriptions tab with proper link', () => {
@@ -221,10 +221,10 @@ describe('Bulk Delete Subscriptions Page', () => {
       expect(subscriptionCaseRowCells[6].innerHTML).contains('Manchester Crown Court');
     });
 
-    it('should display bulk delete subscriptions button', () => {
+    it('should display bulk unsubscribe button', () => {
       const button = htmlRes.getElementsByClassName('govuk-button');
       expect(button[0].innerHTML)
-        .contains('Bulk Delete Subscriptions', 'Could not find new subscription button');
+        .contains('Bulk unsubscribe', 'Could not find new subscription button');
     });
   });
 
