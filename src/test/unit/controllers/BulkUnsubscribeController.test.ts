@@ -1,15 +1,15 @@
-import BulkDeleteSubscriptionsController from '../../../main/controllers/BulkDeleteSubscriptionsController';
+import BulkUnsubscribeController from '../../../main/controllers/BulkUnsubscribeController';
 import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import { SubscriptionService } from '../../../main/service/subscriptionService';
 
-const bulkDeleteSubscriptionsController = new BulkDeleteSubscriptionsController();
+const bulkDeleteSubscriptionsController = new BulkUnsubscribeController();
 
-describe('Bulk Delete Subscriptions Controller', () => {
+describe('Bulk Unsubscribe Controller', () => {
   const i18n = {
-    'bulk-delete-subscriptions': {},
-    'bulk-delete-subscriptions-confirmation': {},
+    'bulk-unsubscribe': {},
+    'bulk-unsubscribe-confirmation': {},
     'error': {},
   };
 
@@ -18,8 +18,8 @@ describe('Bulk Delete Subscriptions Controller', () => {
     courtTableData: [],
   };
 
-  const bulkDeleteSubscriptionsUrl = 'bulk-delete-subscriptions';
-  const bulkDeleteConfirmationUrl = 'bulk-delete-subscriptions-confirmation';
+  const bulkDeleteSubscriptionsUrl = 'bulk-unsubscribe';
+  const bulkDeleteConfirmationUrl = 'bulk-unsubscribe-confirmation';
 
   describe('GET request', () => {
     const response = { render: () => {return '';}} as unknown as Response;
@@ -38,7 +38,7 @@ describe('Bulk Delete Subscriptions Controller', () => {
       sinon.restore();
     });
 
-    it('should render the bulk delete subscriptions page with all tab as default', () => {
+    it('should render the bulk unsubscribe page with all tab as default', () => {
       const expectedData = {
         ...i18n[bulkDeleteSubscriptionsUrl],
         stubCase,
@@ -56,7 +56,7 @@ describe('Bulk Delete Subscriptions Controller', () => {
       });
     });
 
-    it('should render the bulk delete subscriptions page with \'all\' query param', () => {
+    it('should render the bulk unsubscribe page with \'all\' query param', () => {
       const expectedData = {
         ...i18n[bulkDeleteSubscriptionsUrl],
         ...tableData,
@@ -73,7 +73,7 @@ describe('Bulk Delete Subscriptions Controller', () => {
       });
     });
 
-    it('should render the bulk delete subscriptions page with \'case\' query param', () => {
+    it('should render the bulk unsubscribe page with \'case\' query param', () => {
       const expectedData = {
         ...i18n[bulkDeleteSubscriptionsUrl],
         ...tableData,
@@ -90,7 +90,7 @@ describe('Bulk Delete Subscriptions Controller', () => {
       });
     });
 
-    it('should render the bulk delete subscriptions page with \'court\' query param', () => {
+    it('should render the bulk unsubscribe page with \'court\' query param', () => {
       const expectedData = {
         ...i18n[bulkDeleteSubscriptionsUrl],
         ...tableData,
@@ -141,7 +141,7 @@ describe('Bulk Delete Subscriptions Controller', () => {
       sinon.restore();
     });
 
-    it('should render the bulk delete subscriptions page with error if no subscriptions selected', () => {
+    it('should render the bulk unsubscribe page with error if no subscriptions selected', () => {
       const responseMock = sinon.mock(response);
 
       const expectedData = {
@@ -162,7 +162,7 @@ describe('Bulk Delete Subscriptions Controller', () => {
       });
     });
 
-    it('should render the bulk delete subscriptions confirmation page if a case subscription selected', () => {
+    it('should render the bulk unsubscribe confirmation page if a case subscription selected', () => {
       const responseMock = sinon.mock(response);
 
       const expectedData = {
@@ -179,7 +179,7 @@ describe('Bulk Delete Subscriptions Controller', () => {
       });
     });
 
-    it('should render the bulk delete subscriptions page if a court subscription selected', () => {
+    it('should render the bulk unsubscribe page if a court subscription selected', () => {
       const responseMock = sinon.mock(response);
 
       const expectedData = {
@@ -196,7 +196,7 @@ describe('Bulk Delete Subscriptions Controller', () => {
       });
     });
 
-    it('should render the bulk delete subscriptions page if both case and court subscriptions selected', () => {
+    it('should render the bulk unsubscribe page if both case and court subscriptions selected', () => {
       const responseMock = sinon.mock(response);
 
       const expectedData = {
