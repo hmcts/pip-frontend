@@ -1,6 +1,6 @@
 {
-  "title": "Subscribe by name of the party or parties involved",
-  "heading": "What is the name of the party or parties involved?",
+  "title": "Subscribe by case name",
+  "heading": "What is the name of the case?",
   "backButton": "Back",
   "inputLabel": "For example, Smith.",
   "error": {
