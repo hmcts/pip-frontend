@@ -50,9 +50,9 @@ import {SessionLoggedOutPage} from '../PageObjects/SessionLoggedOut.page';
 import {ManualReferenceDataUploadPage} from '../PageObjects/ManualReferenceDataUpload.page';
 import {ManualReferenceDataUploadSummaryPage} from '../PageObjects/ManualReferenceDataUploadSummary.page';
 import { BlobViewLocationsPage } from '../pageobjects/BlobViewLocationsPage';
-import {BulkDeleteSubscriptionsPage} from '../PageObjects/BulkDeleteSubscriptions.page';
-import {BulkDeleteSubscriptionsConfirmationPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmation.page';
-import {BulkDeleteSubscriptionsConfirmedPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmed.page';
+import {BulkUnsubscribePage} from '../PageObjects/BulkUnsubscribe.page';
+import {BulkUnsubscribeConfirmationPage} from '../PageObjects/BulkUnsubscribeConfirmation.page';
+import {BulkUnsubscribeConfirmedPage} from '../PageObjects/BulkUnsubscribeConfirmed.page';
 import {UserManagementPage} from '../PageObjects/UserManagement.page';
 import {ManageUserPage} from '../PageObjects/ManageUser.page';
 import {UpdateUserPage} from '../PageObjects/UpdateUser.page';
@@ -83,9 +83,9 @@ let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
 let locationNameSearchPage: LocationNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 let deleteSubscriptionPage: DeleteSubscriptionPage;
-let bulkDeleteSubscriptionsPage: BulkDeleteSubscriptionsPage;
-let bulkDeleteSubscriptionsConfirmationPage: BulkDeleteSubscriptionsConfirmationPage;
-let bulkDeleteSubscriptionsConfirmedPage: BulkDeleteSubscriptionsConfirmedPage;
+let bulkDeleteSubscriptionsPage: BulkUnsubscribePage;
+let bulkDeleteSubscriptionsConfirmationPage: BulkUnsubscribeConfirmationPage;
+let bulkDeleteSubscriptionsConfirmedPage: BulkUnsubscribeConfirmedPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 let manualUploadSummaryPage: ManualUploadSummaryPage;
 let fileUploadConfirmationPage: FileUploadConfirmationPage;
@@ -581,14 +581,14 @@ describe('Verified user', () => {
       });
     });
 
-    describe('bulk delete subscriptions', async () => {
+    describe('bulk unsubscribe', async () => {
       before(async () => {
         await subscriptionManagementPage.open('subscription-management');
       });
 
-      it('should navigate to bulk delete subscriptions page on button click', async () => {
-        bulkDeleteSubscriptionsPage = await subscriptionManagementPage.clickBulkDeleteSubscriptionsButton();
-        expect(await bulkDeleteSubscriptionsPage.getPageTitle()).toBe('Bulk delete subscriptions');
+      it('should navigate to bulk unsubscribe page on button click', async () => {
+        bulkDeleteSubscriptionsPage = await subscriptionManagementPage.clickBulkUnsubscribeButton();
+        expect(await bulkDeleteSubscriptionsPage.getPageTitle()).toBe('Bulk unsubscribe');
       });
 
       it('should select first court subscription', async () => {
@@ -596,13 +596,13 @@ describe('Verified user', () => {
         expect(await bulkDeleteSubscriptionsPage.courtSubscriptionChecked()).toBeTruthy();
       });
 
-      it('should click on the bulk delete subscriptions button', async () => {
-        bulkDeleteSubscriptionsConfirmationPage = await bulkDeleteSubscriptionsPage.clickBulkDeleteSubscriptionsButton();
+      it('should click on the bulk unsubscribe button', async () => {
+        bulkDeleteSubscriptionsConfirmationPage = await bulkDeleteSubscriptionsPage.clickBulkUnsubscribeButton();
         expect(await bulkDeleteSubscriptionsConfirmationPage.getPageTitle()).toBe('Are you sure you want to remove these subscriptions?');
       });
 
       it('should select yes option to delete the subscription', async () => {
-        await bulkDeleteSubscriptionsConfirmationPage.selectOption('BulkDeleteRadioYes');
+        await bulkDeleteSubscriptionsConfirmationPage.selectOption('BulkUnsubscribeRadioYes');
         bulkDeleteSubscriptionsConfirmedPage = await bulkDeleteSubscriptionsConfirmationPage.clickContinueForYes();
         expect(await bulkDeleteSubscriptionsConfirmedPage.getPanelTitle()).toEqual('Subscription(s) removed');
       });
