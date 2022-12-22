@@ -16,7 +16,7 @@ const expectedAllSubsTitleWithSingleSubs = 'All subscriptions (1)';
 const expectedCaseSubsTitleWithNoLocationSubs = 'Subscriptions by case (1)';
 const expectedCaseSubsTitleWithNoCaseSubs = 'Subscriptions by court or tribunal (1)';
 const expectedAddSubscriptionButton = 'Add email subscription';
-const expectedBulkDeleteSubscriptionsButton = 'Bulk delete subscriptions';
+const expectedBulkUnsubscribeButton = 'Bulk unsubscribe';
 const expectedListTypesToSendButton = 'Select which list types to receive';
 const tabsClass = 'moj-sub-navigation__link';
 const caseNameColumn = 'Case name';
@@ -129,10 +129,10 @@ describe('Subscriptions Management Page', () => {
       .contains(expectedAddSubscriptionButton, 'Could not find new subscription button');
   });
 
-  it('should display bulk delete subscriptions button', () => {
+  it('should display bulk unsubscribe button', () => {
     const button = htmlRes.getElementsByClassName('govuk-button');
     expect(button[1].innerHTML)
-      .contains(expectedBulkDeleteSubscriptionsButton, 'Could not find bulk delete subscriptions button');
+      .contains(expectedBulkUnsubscribeButton, 'Could not find bulk unsubscribe button');
   });
 
   it('should display all subscriptions tab with proper link', () => {
@@ -259,10 +259,10 @@ describe('Subscriptions Management Page with case subscription but without locat
       .contains(expectedAddSubscriptionButton, 'Could not find new subscription button');
   });
 
-  it('should display bulk delete subscriptions button', () => {
+  it('should display bulk unsubscribe button', () => {
     const button = htmlRes.getElementsByClassName('govuk-button');
     expect(button[1].innerHTML)
-      .contains(expectedBulkDeleteSubscriptionsButton, 'Could not find bulk delete subscriptions button');
+      .contains(expectedBulkUnsubscribeButton, 'Could not find bulk unsubscribe button');
   });
 
   it('should display all subscriptions tab with proper link', () => {
@@ -368,10 +368,10 @@ describe('Subscriptions Management Page with location subscription but without c
       .contains(expectedAddSubscriptionButton, 'Could not find new subscription button');
   });
 
-  it('should display bulk delete subscriptions button', () => {
+  it('should display bulk unsubscribe button', () => {
     const button = htmlRes.getElementsByClassName('govuk-button');
     expect(button[1].innerHTML)
-      .contains(expectedBulkDeleteSubscriptionsButton, 'Could not find bulk delete subscriptions button');
+      .contains(expectedBulkUnsubscribeButton, 'Could not find bulk unsubscribe button');
   });
 
   it('should display all subscriptions tab with proper link', () => {
