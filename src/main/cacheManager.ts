@@ -33,8 +33,8 @@ redisClient.on('connect', () => {
 });
 
 redisClient.on('error', error => {
-  redisClient.quit();
   logger.error('Failed to connect to Redis', error.message);
+  logger.info('Attempting to reconnect to Redis');
 });
 
 redisClient.on('ready', () => {

@@ -13,8 +13,7 @@
   <div class="parent-box">
 
     <h2 id="page-heading" class="govuk-heading-l">
-      {{ title1 }}: {{ region }}<br/>
-      {{ title2 }}
+      {{ title }}: {{ region }}
     </h2>
     <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listFor }} {{ contentDate }}</p>
     <p class="govuk-body">{{ listUpdated | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
@@ -51,7 +50,9 @@
       <div class="site-header" tabindex="0" aria-label="Court Details">
         <h1 class="govuk-heading-l site-address" tabindex="0">{{ venue }}{{ court['courtName'] }}</h1>
         {% for line in court['days'][0][0]['addressLine'] %}
-          <p class="govuk-body site-address" tabindex="0">{{ line }}</p>
+          {% if line | length %}
+            <p class="govuk-body site-address" tabindex="0">{{ line }}</p>
+          {% endif %}
         {% endfor %}
         {% if court['days'][0][0]['addressTown'] | length %}
           <p class="govuk-body site-address" tabindex="0">{{ court['days'][0][0]['addressTown'] }}</p>

@@ -1,16 +1,16 @@
-import BulkDeleteSubscriptionsConfirmedController from '../../../main/controllers/BulkDeleteSubscriptionsConfirmedController';
+import BulkUnsubscribeConfirmedController from '../../../main/controllers/BulkUnsubscribeConfirmedController';
 import sinon from 'sinon';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 
-const bulkDeleteSubscriptionsConfirmedController = new BulkDeleteSubscriptionsConfirmedController();
+const bulkDeleteSubscriptionsConfirmedController = new BulkUnsubscribeConfirmedController();
 
-describe('Bulk Delete Subscriptions Confirmed Controller', () => {
+describe('Bulk Unsubscribe Confirmed Controller', () => {
   describe('GET request', () => {
-    const i18n = {'bulk-delete-subscriptions-confirmed': {}};
-    const bulkDeleteConfirmedUrl = 'bulk-delete-subscriptions-confirmed';
+    const i18n = {'bulk-unsubscribe-confirmed': {}};
+    const bulkDeleteConfirmedUrl = 'bulk-unsubscribe-confirmed';
 
-    it('should render the bulk delete subscriptions confirmed page', () => {
+    it('should render the bulk unsubscribe confirmed page', () => {
       const response = { render: () => {return '';}} as unknown as Response;
       const responseMock = sinon.mock(response);
       const request = mockRequest(i18n);
