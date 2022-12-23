@@ -22,13 +22,13 @@
         errorList: [
           {
             text: error.text,
-            href: "#bulk-delete-choice"
+            href: "#bulk-unsubscribe-choice"
           }
         ]
       }) }}
     {% endif %}
     <h1 class="govuk-heading-l">{{ title }}</h1>
-    <form method="post" action="bulk-delete-subscriptions">
+    <form method="post" action="bulk-unsubscribe">
       <div class="govuk-form-group">
         {% set allSubscriptions = caseTableData | length + locationTableData | length %}
         {% if allSubscriptions > 0 %}
@@ -85,7 +85,8 @@
                   },
                   {
                     text: caseTable.deletion,
-                    classes: 'no-wrap'
+                    classes: 'no-wrap',
+                    format: "numeric"
                   }
                 ],
                 rows: caseTableData
@@ -110,7 +111,8 @@
                   },
                   {
                     text: courtTable.deletion,
-                    classes: 'no-wrap'
+                    classes: 'no-wrap',
+                    format: "numeric"
                   }
                 ],
                 rows: locationTableData
@@ -121,7 +123,7 @@
           <p class="govuk-body">{{ noSubs }}</p>
         {% endif %}
       </div>
-      {{ submitButton(label=deleteButton, id="bulk-delete-button", disable=(allSubscriptions == 0)) }}
+      {{ submitButton(label=unsubscribeButton, id="bulk-unsubscribe-button", disable=(allSubscriptions == 0)) }}
     </form>
     {{ super() }}
   </div>
