@@ -2,10 +2,10 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 
-const PAGE_URL = '/bulk-delete-subscriptions-confirmed';
+const PAGE_URL = '/bulk-unsubscribe-confirmed';
 let htmlRes: Document;
 
-describe('Bulk Delete Subscriptions Confirmed Page', () => {
+describe('Bulk Unsubscribe Confirmed Page', () => {
   app.request['user'] = {'roles': 'VERIFIED'};
 
   beforeAll(async () => {

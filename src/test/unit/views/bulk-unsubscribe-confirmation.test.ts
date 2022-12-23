@@ -3,12 +3,12 @@ import { app } from '../../../main/app';
 import { expect } from 'chai';
 import {request as expressRequest} from 'express';
 
-const PAGE_URL = '/bulk-delete-subscriptions-confirmation';
+const PAGE_URL = '/bulk-unsubscribe-confirmation';
 let htmlRes: Document;
 
 expressRequest['user'] = {'roles': 'VERIFIED'};
 
-describe('Bulk Delete Subscriptions Confirmation Page', () => {
+describe('Bulk Unsubscribe Confirmation Page', () => {
   describe('without error', () => {
     beforeAll(async () => {
       await request(app)
