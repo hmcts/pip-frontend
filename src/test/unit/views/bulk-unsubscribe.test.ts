@@ -50,16 +50,30 @@ userSubscriptionsStub.withArgs('4').returns(
     caseSubscriptions:[],
     locationSubscriptions:[{
       subscriptionId: 'f038b7ea-2972-4be4-a5ff-70abb4f78686',
-      locationName: 'Court 1',
+      locationName: 'Manchester Crown Court',
       dateAdded: '2022-01-14T11:42:57.847708',
-      locationId: 1,
+      locationId: 2,
     }],
   });
 
 locationStub.withArgs(1).resolves(
   {
     locationId: 1,
-    name: 'Test court 1',
+    name: 'Aberdeen Tribunal Hearing Centre',
+    welshName: 'Welsh Test Court 1',
+  });
+
+locationStub.withArgs(2).resolves(
+  {
+    locationId: 2,
+    name: 'Manchester Crown Court',
+    welshName: 'Welsh Test Court 1',
+  });
+
+locationStub.withArgs(3).resolves(
+  {
+    locationId: 3,
+    name: 'Barkingside Magistrates\' Court',
     welshName: 'Welsh Test Court 1',
   });
 
@@ -90,7 +104,7 @@ describe('Bulk Unsubscribe Page', () => {
       const subscriptionsTabs = htmlRes.getElementsByClassName(subNavigationClass)[1]
         .getElementsByClassName(tabsClass);
       expect(subscriptionsTabs[0].innerHTML)
-        .contains('All subscriptions (5)', 'Could not find all subscriptions tab');
+        .contains('All subscriptions (8)', 'Could not find all subscriptions tab');
       expect(subscriptionsTabs[0].getAttribute('href'))
         .equal('?all', 'Tab does not contain proper link');
     });
@@ -99,7 +113,7 @@ describe('Bulk Unsubscribe Page', () => {
       const subscriptionsTabs = htmlRes.getElementsByClassName(subNavigationClass)[1]
         .getElementsByClassName(tabsClass);
       expect(subscriptionsTabs[1].innerHTML)
-        .contains('Subscriptions by case (2)', 'Could not find case subscriptions tab');
+        .contains('Subscriptions by case (5)', 'Could not find case subscriptions tab');
       expect(subscriptionsTabs[1].getAttribute('href'))
         .equal('?case', 'Tab does not contain proper link');
     });
@@ -152,19 +166,33 @@ describe('Bulk Unsubscribe Page', () => {
     it('case table should have correct number of rows', () => {
       const subscriptionsCaseRows = htmlRes.getElementsByClassName('govuk-table__body')[0]
         .getElementsByClassName('govuk-table__row');
-      expect(subscriptionsCaseRows.length).equal(2);
+      expect(subscriptionsCaseRows.length).equal(5);
     });
 
     it('case table should have correct column values', () => {
       const subscriptionCaseRowCells = htmlRes.getElementsByClassName('govuk-table__body')[0]
         .getElementsByClassName('govuk-table__cell');
-      expect(subscriptionCaseRowCells[0].innerHTML).contains('Tom Clancy');
-      expect(subscriptionCaseRowCells[1].innerHTML).contains('T485913');
+      expect(subscriptionCaseRowCells[0].innerHTML).contains('Ashely Barnes');
+      expect(subscriptionCaseRowCells[1].innerHTML).contains('T485914');
       expect(subscriptionCaseRowCells[2].innerHTML).contains(expectedRowDateAdded);
 
       const checkboxElement = subscriptionCaseRowCells[3].querySelector('input');
       expect(checkboxElement.getAttribute('type')).equal('checkbox');
       expect(checkboxElement.getAttribute('name')).equal('caseSubscription');
+    });
+
+    it('case table should be sorted by case name then case number', () => {
+      const subscriptionCaseRowCells = htmlRes.getElementsByClassName('govuk-table__body')[0]
+        .getElementsByClassName('govuk-table__cell');
+
+      expect(subscriptionCaseRowCells[0].innerHTML).contains('Ashely Barnes');
+      expect(subscriptionCaseRowCells[1].innerHTML).contains('T485914');
+      expect(subscriptionCaseRowCells[4].innerHTML).contains('Tom Clancy');
+      expect(subscriptionCaseRowCells[5].innerHTML).contains('T485911');
+      expect(subscriptionCaseRowCells[8].innerHTML).contains('Tom Clancy');
+      expect(subscriptionCaseRowCells[9].innerHTML).contains('T485913');
+      expect(subscriptionCaseRowCells[13].innerHTML).contains('T485910');
+      expect(subscriptionCaseRowCells[17].innerHTML).contains('T485912');
     });
 
     it('court table should have correct number of rows', () => {
@@ -176,12 +204,21 @@ describe('Bulk Unsubscribe Page', () => {
     it('court table should have correct column values', () => {
       const subscriptionCaseRowCells = htmlRes.getElementsByClassName('govuk-table__body')[1]
         .getElementsByClassName('govuk-table__cell');
-      expect(subscriptionCaseRowCells[0].innerHTML).contains('Test court 1');
+      expect(subscriptionCaseRowCells[0].innerHTML).contains('Aberdeen Tribunal Hearing Centre');
       expect(subscriptionCaseRowCells[1].innerHTML).contains(expectedRowDateAdded);
 
       const checkboxElement = subscriptionCaseRowCells[2].querySelector('input');
       expect(checkboxElement.getAttribute('type')).equal('checkbox');
       expect(checkboxElement.getAttribute('name')).equal('courtSubscription');
+    });
+
+    it('court table should be sorted by court name', () => {
+      const subscriptionCaseRowCells = htmlRes.getElementsByClassName('govuk-table__body')[1]
+        .getElementsByClassName('govuk-table__cell');
+
+      expect(subscriptionCaseRowCells[0].innerHTML).contains('Aberdeen Tribunal Hearing Centre');
+      expect(subscriptionCaseRowCells[3].innerHTML).contains('Barkingside Magistrates\' Court');
+      expect(subscriptionCaseRowCells[6].innerHTML).contains('Manchester Crown Court');
     });
 
     it('should display bulk unsubscribe button', () => {
@@ -362,7 +399,7 @@ describe('Bulk Unsubscribe Page', () => {
     it('court table should have correct column values', () => {
       const subscriptionCaseRowCells = htmlRes.getElementsByClassName('govuk-table__body')[0]
         .getElementsByClassName('govuk-table__cell');
-      expect(subscriptionCaseRowCells[0].innerHTML).contains('Test court 1');
+      expect(subscriptionCaseRowCells[0].innerHTML).contains('Manchester Crown Court');
       expect(subscriptionCaseRowCells[1].innerHTML).contains(expectedRowDateAdded);
 
       const checkboxElement = subscriptionCaseRowCells[2].querySelector('input');
