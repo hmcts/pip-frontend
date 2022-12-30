@@ -1,5 +1,5 @@
 {
-  "title": "Bulk delete subscriptions",
+  "title": "Bulk unsubscribe",
   "subNavigation": {
     "header1": "All subscriptions (",
     "header2": "Subscriptions by case (",
@@ -12,17 +12,17 @@
     "caseName": "Case name",
     "caseRef": "Case reference number",
     "date": "Date added",
-    "deletion": "Mark for deletion"
+    "deletion": "Select"
   },
   "courtTable": {
     "courtName": "Court or tribunal name",
     "date": "Date added",
-    "deletion": "Mark for deletion"
+    "deletion": "Select"
   },
   "error": {
     "title": "There is a problem",
     "text": "At least one subscription must be selected"
   },
-  "deleteButton": "Bulk Delete Subscriptions",
+  "unsubscribeButton": "Bulk unsubscribe",
   "backButton": "Back"
 }

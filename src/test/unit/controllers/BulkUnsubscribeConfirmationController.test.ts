@@ -1,23 +1,23 @@
-import BulkDeleteSubscriptionsConfirmationController from '../../../main/controllers/BulkDeleteSubscriptionsConfirmationController';
+import BulkUnsubscribeConfirmationController from '../../../main/controllers/BulkUnsubscribeConfirmationController';
 import sinon from 'sinon';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
 import {SubscriptionService} from '../../../main/service/subscriptionService';
 
-const bulkDeleteSubscriptionsConfirmationController = new BulkDeleteSubscriptionsConfirmationController();
+const bulkDeleteSubscriptionsConfirmationController = new BulkUnsubscribeConfirmationController();
 
-describe('Bulk Delete Subscriptions Confirmation Controller', () => {
+describe('Bulk Unsubscribe Confirmation Controller', () => {
   const i18n = {
-    'bulk-delete-subscriptions-confirmation': {},
-    'bulk-delete-subscriptions-confirmed': {},
+    'bulk-unsubscribe-confirmation': {},
+    'bulk-unsubscribe-confirmed': {},
     'error': {},
   };
 
-  const bulkDeleteConfirmationUrl = 'bulk-delete-subscriptions-confirmation';
-  const bulkDeleteConfirmedUrl = 'bulk-delete-subscriptions-confirmed';
+  const bulkDeleteConfirmationUrl = 'bulk-unsubscribe-confirmation';
+  const bulkDeleteConfirmedUrl = 'bulk-unsubscribe-confirmed';
 
   describe('GET request', () => {
-    it('should render the bulk delete subscriptions confirmation page', () => {
+    it('should render the bulk unsubscribe confirmation page', () => {
       const response = { render: () => {return '';}} as unknown as Response;
       const responseMock = sinon.mock(response);
       const request = mockRequest(i18n);
@@ -40,10 +40,10 @@ describe('Bulk Delete Subscriptions Confirmation Controller', () => {
       stub.withArgs(['foo']).resolves(undefined);
     });
 
-    it('should render the bulk delete subscriptions confirmed page if \'Yes\' is selected', () => {
+    it('should render the bulk unsubscribe confirmed page if \'Yes\' is selected', () => {
       const responseMock = sinon.mock(response);
 
-      request.body = {'bulk-delete-choice': 'yes', subscriptions: 'aaa,bbb'};
+      request.body = {'bulk-unsubscribe-choice': 'yes', subscriptions: 'aaa,bbb'};
       responseMock.expects('redirect').once().withArgs(bulkDeleteConfirmedUrl);
 
       bulkDeleteSubscriptionsConfirmationController.post(request, response).then(() => {
@@ -51,10 +51,10 @@ describe('Bulk Delete Subscriptions Confirmation Controller', () => {
       });
     });
 
-    it('should render error page if \'Yes\' is selected and error from bulk deletion', () => {
+    it('should render error page if \'Yes\' is selected and error from Bulk unsubscribe', () => {
       const responseMock = sinon.mock(response);
 
-      request.body = {'bulk-delete-choice': 'yes', subscriptions: 'foo'};
+      request.body = {'bulk-unsubscribe-choice': 'yes', subscriptions: 'foo'};
       responseMock.expects('render').once().withArgs('error', i18n.error);
 
       bulkDeleteSubscriptionsConfirmationController.post(request, response).then(() => {
@@ -65,7 +65,7 @@ describe('Bulk Delete Subscriptions Confirmation Controller', () => {
     it('should redirect to the subscriptions management page if \'No\' is selected', () => {
       const responseMock = sinon.mock(response);
 
-      request.body = {'bulk-delete-choice': 'no'};
+      request.body = {'bulk-unsubscribe-choice': 'no'};
       responseMock.expects('redirect').once().withArgs('subscription-management');
 
       bulkDeleteSubscriptionsConfirmationController.post(request, response).then(() => {
@@ -73,7 +73,7 @@ describe('Bulk Delete Subscriptions Confirmation Controller', () => {
       });
     });
 
-    it('should render the bulk delete subscriptions confirmation page with error if no option selected', () => {
+    it('should render the bulk unsubscribe confirmation page with error if no option selected', () => {
       const responseMock = sinon.mock(response);
       const expectedData = {
         ...i18n[bulkDeleteConfirmationUrl],
