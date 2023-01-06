@@ -1,7 +1,7 @@
-
+import { config as testConfig } from '../../config';
 export = function () {
   return actor({
-    loginAsSystemAdmin: function (username, password) {
+    loginAsSystemAdmin: function (username=testConfig.SYSTEM_ADMIN_USERNAME, password=testConfig.SYSTEM_ADMIN_PASSWORD) {
       this.amOnPage('/system-admin-dashboard');
       this.see('Sign in with your email address');
       this.fillField('#email', username);
@@ -10,7 +10,8 @@ export = function () {
     },
     logout: function () {
       this.click('Sign out');
-      this.see('Sign in');
+      this.see('You have been signed out');
     },
   });
 };
+
