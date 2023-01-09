@@ -74,7 +74,7 @@
     "mark.js": "^8.11.1",
     "minimist": "^1.2.7",
     "moment": "2.29.4",
-    "moment-timezone": "^0.5.39",
+    "moment-timezone": "^0.5.40",
     "multer": "^1.4.5-lts.1",
     "node-blob": "^0.0.2",
     "node-fetch": ">=3.3.0",
