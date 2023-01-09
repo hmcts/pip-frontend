@@ -14,19 +14,40 @@
         "caseNumber": "T485914",
         "urn": "IBRANE1BVW",
         "dateAdded": "2022-01-14T11:42:01.611085"
+      },
+      {
+        "subscriptionId": "352899d6-2b05-43ec-86e0-a438d3854fa8",
+        "caseName": null,
+        "caseNumber": "T485910",
+        "urn": "IBRANE1BXX",
+        "dateAdded": "2022-01-14T11:42:01.611085"
+      },
+      {
+        "subscriptionId": "752899d6-2b05-43ec-86e0-a438d3854fa8",
+        "caseName": "Tom Clancy",
+        "caseNumber": "T485911",
+        "urn": "N363N6R4OK",
+        "dateAdded": "2022-01-14T11:42:01.611085"
+      },
+      {
+        "subscriptionId": "952899d6-2b05-43ec-86e0-a438d3854fa8",
+        "caseName": null,
+        "caseNumber": "T485912",
+        "urn": "N363N6R45K",
+        "dateAdded": "2022-01-14T11:42:01.611085"
       }
     ],
     "locationSubscriptions": [
       {
         "subscriptionId": "f038b7ea-2972-4be4-a5ff-70abb4f78686",
-        "locationName": "Court 1",
+        "locationName": "Manchester Crown Court",
         "dateAdded": "2022-01-14T11:42:57.847708",
         "listTypes": ["SJP_PUBLIC_LIST"],
-        "locationId": 1
+        "locationId": 2
       },
       {
         "subscriptionId": "d5b65f6f-4c43-45f7-a52d-d2c5cf8ac0e6",
-        "locationName": "Court 2",
+        "locationName": "Aberdeen Tribunal Hearing Centre",
         "dateAdded": "2022-01-14T13:33:25.398361",
         "listTypes": ["SJP_PUBLIC_LIST"],
         "locationId": 1
@@ -36,7 +57,7 @@
         "locationName": "Barkingside Magistrates' Court",
         "dateAdded": "2022-01-14T13:39:02.708126",
         "listTypes": ["SJP_PUBLIC_LIST"],
-        "locationId": 1
+        "locationId": 3
       }
     ]
   }
