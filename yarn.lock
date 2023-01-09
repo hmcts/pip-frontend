@@ -2084,18 +2084,6 @@
   dependencies:
     "@types/express-serve-static-core" "*"
 
-"@types/diff@^5.0.0":
-  version "5.0.2"
-  resolved "https://registry.npmjs.org/@types/diff/-/diff-5.0.2.tgz"
-  integrity sha512-uw8eYMIReOwstQ0QKF0sICefSy8cNO/v7gOTiIy9SbwuHyEecJUm7qlgueOO5S1udZ5I/irVydHVwMchgzbKTg==
-
-"@types/easy-table@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/@types/easy-table/-/easy-table-1.2.0.tgz"
-  integrity sha512-gVQkR2G/q6UK3wQT+waY9tCrbFauzMoBfJpMxHSuemHLQ8HpHdUIQ9YyRwYMfNX4CfoAoj/eJATyECGkFr65Pg==
-  dependencies:
-    easy-table "*"
-
 "@types/ejs@^3.0.5":
   version "3.1.1"
   resolved "https://registry.npmjs.org/@types/ejs/-/ejs-3.1.1.tgz"
@@ -2348,11 +2336,6 @@
   resolved "https://registry.npmjs.org/@types/nunjucks/-/nunjucks-3.2.1.tgz"
   integrity sha512-hUh5HIC7peH+0MvlYU5KM2RydWxG1mBceivHsQGwlelU9zlczLICyJmjMwgjkI3m0+N50n46GVHkw35lIim6LQ==
 
-"@types/object-inspect@^1.8.0":
-  version "1.8.1"
-  resolved "https://registry.npmjs.org/@types/object-inspect/-/object-inspect-1.8.1.tgz"
-  integrity sha512-0JTdf3CGV0oWzE6Wa40Ayv2e2GhpP3pEJMcrlM74vBSJPuuNkVwfDnl0SZxyFCXETcB4oKA/MpTVfuYSMOelBg==
-
 "@types/parse-json@^4.0.0":
   version "4.0.0"
   resolved "https://registry.npmjs.org/@types/parse-json/-/parse-json-4.0.0.tgz"
@@ -2453,11 +2436,6 @@
   dependencies:
     "@types/superagent" "*"
 
-"@types/supports-color@^8.1.0":
-  version "8.1.1"
-  resolved "https://registry.npmjs.org/@types/supports-color/-/supports-color-8.1.1.tgz"
-  integrity sha512-dPWnWsf+kzIG140B8z2w3fr5D03TLWbOAFQl45xUpI3vcizeXriNR5VYkWZ+WTMsUHqZ9Xlt3hrxGNANFyNQfw==
-
 "@types/tapable@^1":
   version "1.0.8"
   resolved "https://registry.npmjs.org/@types/tapable/-/tapable-1.0.8.tgz"
@@ -2469,11 +2447,6 @@
   integrity sha512-FvnCJljyxhPM3gkRgWmxmDZyAQSiBQQWLI0A0VFL0K7W1oRUrPJSqNO0NvTnLkBcotdlp3lKvaT0JrnyRDkzOg==
   dependencies:
     "@types/node" "*"
-
-"@types/tmp@^0.2.0":
-  version "0.2.3"
-  resolved "https://registry.npmjs.org/@types/tmp/-/tmp-0.2.3.tgz"
-  integrity sha512-dDZH/tXzwjutnuk4UacGgFRwV+JSLaXL1ikvidfJprkb7L9Nx1njcRHHmi3Dsvt7pgqqTEeucQuOrWHPFgzVHA==
 
 "@types/ua-parser-js@^0.7.33":
   version "0.7.36"
@@ -2714,6 +2687,16 @@
     loglevel-plugin-prefix "^0.8.4"
     strip-ansi "^6.0.0"
 
+"@wdio/logger@8.1.0":
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@wdio/logger/-/logger-8.1.0.tgz#aaefce7da066a477249191aec8e9caa8581aeb33"
+  integrity sha512-QRC5b7FF4JIYUCqggnVA0sZ80TwIUFN9JyBSbuGuMxaSLSLujSo7WfuSrnQXVvsRbnJ16wWwJWYigfLkxOW86Q==
+  dependencies:
+    chalk "^5.1.2"
+    loglevel "^1.6.0"
+    loglevel-plugin-prefix "^0.8.4"
+    strip-ansi "^6.0.0"
+
 "@wdio/logger@^5.8.0":
   version "5.16.10"
   resolved "https://registry.npmjs.org/@wdio/logger/-/logger-5.16.10.tgz"
@@ -2748,21 +2731,17 @@
   dependencies:
     "@wdio/utils" "7.26.0"
 
-"@wdio/reporter@7.26.0":
-  version "7.26.0"
-  resolved "https://registry.npmjs.org/@wdio/reporter/-/reporter-7.26.0.tgz"
-  integrity sha512-kEb7i1A4V4E1wJgdyvLsDbap4cEp1fPZslErGtbAbK+9HI8Lt/SlTZCiOpZbvhgzvawEqOV6UqxZT1RsL8wZWw==
+"@wdio/reporter@8.1.2":
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/@wdio/reporter/-/reporter-8.1.2.tgz#0d219e9cbfa6ce33d260b7d5a798b8d137889e8b"
+  integrity sha512-Tnq0twIMGPYr3V7IoEjMOHvMuxxslglgFbxTJJ+sUJV0sw8COIojGhZBzgDpmfgpwN7dxNACGIWkx9/g/50C5Q==
   dependencies:
-    "@types/diff" "^5.0.0"
     "@types/node" "^18.0.0"
-    "@types/object-inspect" "^1.8.0"
-    "@types/supports-color" "^8.1.0"
-    "@types/tmp" "^0.2.0"
-    "@wdio/types" "7.26.0"
+    "@wdio/logger" "8.1.0"
+    "@wdio/types" "8.1.2"
     diff "^5.0.0"
-    fs-extra "^10.0.0"
-    object-inspect "^1.10.3"
-    supports-color "8.1.1"
+    object-inspect "^1.12.0"
+    supports-color "9.3.1"
 
 "@wdio/reporter@^5.7.8":
   version "5.22.4"
@@ -2799,16 +2778,15 @@
     fs-extra "^10.0.0"
     selenium-standalone "^8.0.3"
 
-"@wdio/spec-reporter@^7.26.0":
-  version "7.26.0"
-  resolved "https://registry.npmjs.org/@wdio/spec-reporter/-/spec-reporter-7.26.0.tgz"
-  integrity sha512-oisyVWn+MRoq0We0qORoDHNk+iKr7CFG4+IE5GCRecR8cgP7dUjVXZcEbn6blgRpry4jOxsAl24frfaPDOsZVA==
+"@wdio/spec-reporter@^8.1.2":
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/@wdio/spec-reporter/-/spec-reporter-8.1.2.tgz#cfc61697eeeff6f8e5dce73a4f38ef3fd64a59d3"
+  integrity sha512-mie44tFIpJT7V5us+MROO/+w3vLLM5EVnbqJsPhQtJyWQry5/zbPFNQcHj1M9YACY0pgCmFxgUmJWgDrs0OuFQ==
   dependencies:
-    "@types/easy-table" "^1.2.0"
-    "@wdio/reporter" "7.26.0"
-    "@wdio/types" "7.26.0"
-    chalk "^4.0.0"
-    easy-table "^1.1.1"
+    "@wdio/reporter" "8.1.2"
+    "@wdio/types" "8.1.2"
+    chalk "^5.1.2"
+    easy-table "^1.2.0"
     pretty-ms "^7.0.0"
 
 "@wdio/types@7.26.0":
@@ -2818,6 +2796,13 @@
   dependencies:
     "@types/node" "^18.0.0"
     got "^11.8.1"
+
+"@wdio/types@8.1.2":
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/@wdio/types/-/types-8.1.2.tgz#6221eae9e6665a4fcced83a37f4f4fa8c9b1c254"
+  integrity sha512-k2I/u08Ljtl7i6i+ANSo7ghPRsdTdJfwl3j8jFSzO98IwOqcmVItC3ysmiuVSlSrbOUljlmo0uohIpiTZHkyKw==
+  dependencies:
+    "@types/node" "^18.0.0"
 
 "@wdio/utils@7.26.0":
   version "7.26.0"
@@ -3970,6 +3955,11 @@ chalk@^4.0.0, chalk@^4.0.2, chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
+chalk@^5.1.2:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-5.2.0.tgz#249623b7d66869c673699fb66d65723e54dfcfb3"
+  integrity sha512-ree3Gqw/nazQAPuJJEy+avdl7QfZMcUvmHIKgEZkGL+xOBzRvup5Hxo6LHuMceSxOabuJLJm5Yp/92R9eMmMvA==
+
 char-regex@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/char-regex/-/char-regex-1.0.2.tgz"
@@ -4986,9 +4976,9 @@ dtrace-provider@~0.8:
   dependencies:
     nan "^2.14.0"
 
-easy-table@*, easy-table@^1.1.1:
+easy-table@^1.2.0:
   version "1.2.0"
-  resolved "https://registry.npmjs.org/easy-table/-/easy-table-1.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/easy-table/-/easy-table-1.2.0.tgz#ba9225d7138fee307bfd4f0b5bc3c04bdc7c54eb"
   integrity sha512-OFzVOv03YpvtcWGe5AayU5G2hgybsg3iqA6drU8UaoZyB9jLGMTrz9+asnLp/E+6qPh88yEI1gvyZFZ41dmgww==
   dependencies:
     ansi-regex "^5.0.1"
@@ -8878,7 +8868,7 @@ object-assign@^4, object-assign@^4.1.1:
   resolved "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
   integrity sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==
 
-object-inspect@^1.10.3, object-inspect@^1.12.2, object-inspect@^1.9.0:
+object-inspect@^1.12.0, object-inspect@^1.12.2, object-inspect@^1.9.0:
   version "1.12.2"
   resolved "https://registry.npmjs.org/object-inspect/-/object-inspect-1.12.2.tgz"
   integrity sha512-z+cPxW0QGUp0mcqcsgQyLVRDoXFQbXOwBaqyF7VIgI4TWNQsDHrBpUQslRmIfAoYWdYzs6UlKJtB2XJpTaNSpQ==
@@ -11067,6 +11057,11 @@ supports-color@8.1.1, supports-color@^8.0.0:
   integrity sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==
   dependencies:
     has-flag "^4.0.0"
+
+supports-color@9.3.1:
+  version "9.3.1"
+  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-9.3.1.tgz#34e4ad3c71c9a39dae3254ecc46c9b74e89e15a6"
+  integrity sha512-knBY82pjmnIzK3NifMo3RxEIRD9E0kIzV4BKcyTZ9+9kWgLMxd4PrsTSMoFQUabgRBbF8KOLRDCyKgNV+iK44Q==
 
 supports-color@^2.0.0:
   version "2.0.0"
