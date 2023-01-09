@@ -2289,13 +2289,6 @@
   resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.191.tgz"
   integrity sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==
 
-"@types/memory-fs@*":
-  version "0.3.3"
-  resolved "https://registry.npmjs.org/@types/memory-fs/-/memory-fs-0.3.3.tgz"
-  integrity sha512-rLEYzl1xODshz+Lm+YX8NYws8Xw7/qcYbQInMkotl96VpLZmUvoCfYYGxfajMSiugANV02QO5Fc+R98KKeE4gQ==
-  dependencies:
-    "@types/node" "*"
-
 "@types/mime@*":
   version "3.0.1"
   resolved "https://registry.npmjs.org/@types/mime/-/mime-3.0.1.tgz"
@@ -2487,15 +2480,12 @@
   dependencies:
     source-map "^0.6.1"
 
-"@types/webpack-dev-middleware@^3.7.0":
-  version "3.7.5"
-  resolved "https://registry.npmjs.org/@types/webpack-dev-middleware/-/webpack-dev-middleware-3.7.5.tgz"
-  integrity sha512-jHcCoRc2Hh6oDozoc27ibKAqrfn8nlewheoFV704EMJqheaOe7HxZZp9Q39bPh2eUDLtEJApLNQy6l20yT/4jA==
+"@types/webpack-dev-middleware@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@types/webpack-dev-middleware/-/webpack-dev-middleware-5.3.0.tgz#4d65e1b6058e460bd6cfa3b45320e86654890c1c"
+  integrity sha512-SklLlklFBfTyIXo1iWXxzeytjlysWfj5QfIcRJrCc7MgzuCjnZOHXviQwe81iFGq9ZkCUXAg2fpbZdHhj5lSWA==
   dependencies:
-    "@types/connect" "*"
-    "@types/memory-fs" "*"
-    "@types/webpack" "^4"
-    loglevel "^1.6.2"
+    webpack-dev-middleware "*"
 
 "@types/webpack-sources@*":
   version "3.2.0"
@@ -8021,7 +8011,7 @@ loglevel-plugin-prefix@^0.8.4:
   resolved "https://registry.npmjs.org/loglevel-plugin-prefix/-/loglevel-plugin-prefix-0.8.4.tgz"
   integrity sha512-WpG9CcFAOjz/FtNht+QJeGpvVl/cdR6P0z6OcXSkr8wFJOsV2GRj2j10JLfjuA4aYkcKCNIEqRGCyTife9R8/g==
 
-loglevel@^1.6.0, loglevel@^1.6.2:
+loglevel@^1.6.0:
   version "1.8.0"
   resolved "https://registry.npmjs.org/loglevel/-/loglevel-1.8.0.tgz"
   integrity sha512-G6A/nJLRgWOuuwdNuA6koovfEV1YpqqAG4pRUlFaz3jj2QNZ8M4vBqnVA+HBTmU/AMNUtlOsMmSpF6NyOjztbA==
@@ -11853,7 +11843,7 @@ webpack-cli@^5.0.0:
     rechoir "^0.8.0"
     webpack-merge "^5.7.3"
 
-webpack-dev-middleware@^6.0.1:
+webpack-dev-middleware@*, webpack-dev-middleware@^6.0.1:
   version "6.0.1"
   resolved "https://registry.npmjs.org/webpack-dev-middleware/-/webpack-dev-middleware-6.0.1.tgz"
   integrity sha512-PZPZ6jFinmqVPJZbisfggDiC+2EeGZ1ZByyMP5sOFJcPPWSexalISz+cvm+j+oYPT7FIJyxT76esjnw9DhE5sw==
