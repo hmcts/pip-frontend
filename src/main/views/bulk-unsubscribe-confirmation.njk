@@ -22,13 +22,13 @@
         errorList: [
           {
             text: error.text,
-            href: "#bulk-delete-choice"
+            href: "#bulk-unsubscribe-choice"
           }
         ]
       }) }}
     {% endif %}
     <h2 class="govuk-heading-l">{{ title }}</h2>
-    <form method="post" action="bulk-delete-subscriptions-confirmation">
+    <form method="post" action="bulk-unsubscribe-confirmation">
       {{ govukInput({
         id: "subscriptions",
         name: "subscriptions",
@@ -36,8 +36,8 @@
         value: subscriptions
       }) }}
       {{ govukRadios({
-        idPrefix: "bulk-delete-choice",
-        name: "bulk-delete-choice",
+        idPrefix: "bulk-unsubscribe-choice",
+        name: "bulk-unsubscribe-choice",
         items: [
           {
             value: "yes",
