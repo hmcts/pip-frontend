@@ -18,6 +18,7 @@ const languageFileParser = new LanguageFileParser();
 const locationService = new LocationService();
 
 const timeZone = 'Europe/London';
+
 const locationSubscriptionSorter = (a, b) => {
   if (a.locationName > b.locationName) {
     return 1;
