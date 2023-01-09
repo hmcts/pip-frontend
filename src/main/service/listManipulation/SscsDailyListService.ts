@@ -24,19 +24,21 @@ export class SscsDailyListService {
             sitting['hearing'].forEach(hearing => {
               helperService.findAndManipulatePartyInformation(hearing);
 
-              hearing['informant'].forEach(informant => {
-                let prosecutionAuthorityRefFormatted = '';
-                informant['prosecutionAuthorityRef'].forEach(proscAuthRef => {
-                  if (prosecutionAuthorityRefFormatted.length > 0) {
-                    prosecutionAuthorityRefFormatted += ', ' + proscAuthRef;
-                  } else {
-                    prosecutionAuthorityRefFormatted += proscAuthRef;
-                  }
+              if (hearing?.informant) {
+                hearing['informant'].forEach(informant => {
+                  let prosecutionAuthorityRefFormatted = '';
+                  informant['prosecutionAuthorityRef'].forEach(proscAuthRef => {
+                    if (prosecutionAuthorityRefFormatted.length > 0) {
+                      prosecutionAuthorityRefFormatted += ', ' + proscAuthRef;
+                    } else {
+                      prosecutionAuthorityRefFormatted += proscAuthRef;
+                    }
+                  });
+                  hearing['prosecutionAuthorityRefFormatted'] = prosecutionAuthorityRefFormatted;
                 });
-                hearing['prosecutionAuthorityRefFormatted'] = prosecutionAuthorityRefFormatted;
-              });
 
-              delete hearing['informant'];
+                delete hearing['informant'];
+              }
               delete hearing['party'];
             });
           });

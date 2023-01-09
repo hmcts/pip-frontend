@@ -3,6 +3,7 @@
   "header": "How do you want to sign in?",
   "radio1": "With a MyHMCTS account",
   "radio2": "With a Common Platform account",
+  "radio2Hint": "You will be able to sign in with a Common Platform account later this year.",
   "radio3": "With a Court and tribunal hearings account",
   "accountInfo": "Don't have an account?",
   "accountInfo_link_text": "Create a Court and tribunal hearings account",
