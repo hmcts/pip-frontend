@@ -42,6 +42,7 @@
     "displayFrom": "2022-02-14T14:14:59.73967",
     "displayTo":  "2052-02-14T14:14:59.73967",
     "listType": "SJP_PUBLIC_LIST",
+    "type": "GENERAL_PUBLICATION",
     "locationId":  "123",
     "contentDate": "2022-02-14T14:14:59.73967",
     "isFlatFile":  false,
