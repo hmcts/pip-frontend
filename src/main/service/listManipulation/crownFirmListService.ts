@@ -1,5 +1,5 @@
-import moment from 'moment-timezone';
-import {formatDuration} from '../../helpers/dateTimeHelper';
+import {DateTime} from 'luxon';
+import {calculateDurationSortValue, formatDuration} from '../../helpers/dateTimeHelper';
 import { CrimeListsService } from './CrimeListsService';
 import { ListParseHelperService } from '../listParseHelperService';
 
@@ -28,9 +28,11 @@ export class CrownFirmListService {
             if (judiciary !== '') {
               session['formattedJudiciaries'] = judiciary;
             }
-            const sittingDate = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('dddd DD MMMM YYYY');
+            const sittingDate = DateTime.fromISO(sitting['sittingStart'], {zone: this.timeZone}).toFormat('EEEE dd MMMM yyyy');
             sitting['formattedDuration'] = formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
               sitting['durationAsMinutes'] as number, language, languageFile);
+            sitting['durationSortValue'] = calculateDurationSortValue(sitting['durationAsDays'] as number,
+              sitting['durationAsHours'] as number, sitting['durationAsMinutes'] as number);
             sitting['hearing'].forEach(hearing => {
               dailyListService.findLinkedCasesInformation(hearing);
               dailyListService.manipulateParty(hearing);
@@ -44,6 +46,7 @@ export class CrownFirmListService {
                   durationAsHours: sitting['durationAsHours'],
                   durationAsMinutes: sitting['durationAsMinutes'],
                   formattedDuration: sitting['formattedDuration'],
+                  durationSortValue: sitting['durationSortValue'],
                   caseNumber: thisCase['caseNumber'],
                   caseSeparator: thisCase['caseSequenceIndicator'],
                   linkedCases: thisCase['linkedCases'],
@@ -74,7 +77,7 @@ export class CrownFirmListService {
         dates.push(setOfDays[0].data[0].sittingDate);
       });
     });
-    const newDates = dates.map(e => {return moment.utc(e, 'dddd DD MMMM YYYY').tz(this.timeZone); });
+    const newDates = dates.map(e => {return DateTime.fromFormat(e, 'EEEE dd MMMM yyyy', { zone: 'utc' }); });
     return newDates.sort((a, b) => a.diff(b));
   }
 
@@ -99,7 +102,9 @@ export class CrownFirmListService {
       const uniqueDays = helperService.uniquesInArrayByAttrib(courtData, 'sittingDate');
       const uniqueDaysArr = [];
       Array.from(uniqueDays).forEach(day => {
-        const encDay = moment.utc(day, 'dddd DD MMMM YYYY').tz(this.timeZone);
+        const encDay = DateTime.fromFormat(day, 'EEEE dd MMMM yyyy', {
+          zone: 'utc',
+        });
         uniqueDaysArr.push(encDay);
       });
       uniqueDaysArr.sort(function(a, b) {
@@ -107,7 +112,7 @@ export class CrownFirmListService {
       });
       uniqueDaysArr.forEach(day => {
         const thisDayCourts = [];
-        const formattedDay = moment.utc(day).tz(this.timeZone).format('dddd DD MMMM YYYY');
+        const formattedDay = DateTime.fromISO(day, {zone: 'utc'}).toFormat('EEEE dd MMMM yyyy');
         const record = courtData.filter(row => row.sittingDate === formattedDay);
         const uniqueCourtRooms = helperService.uniquesInArrayByAttrib(record, 'courtRoom');
         Array.from(uniqueCourtRooms).forEach(courtRoom => {

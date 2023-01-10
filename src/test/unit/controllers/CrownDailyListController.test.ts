@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import { mockRequest } from '../mocks/mockRequest';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import { LocationService } from '../../../main/service/locationService';
 import CrownDailyListController from '../../../main/controllers/CrownDailyListController';
 import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
@@ -38,6 +38,7 @@ crownDailyListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'crown-daily-list': {},
+  'list-template': {},
 };
 
 describe('Crown Daily List Controller', () => {
@@ -58,8 +59,9 @@ describe('Crown Daily List Controller', () => {
 
     const expectedData = {
       ...i18n['crown-daily-list'],
+      ...i18n['list-template'],
       listData,
-      contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+      contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
       publishedDate: '14 September 2020',
       courtName: 'Abergavenny Magistrates\' Court',
       publishedTime: '12:30am',

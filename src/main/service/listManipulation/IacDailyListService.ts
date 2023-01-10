@@ -4,25 +4,21 @@ import { formatDate } from '../../helpers/dateTimeHelper';
 export class IacDailyListService {
 
   helperService = new ListParseHelperService();
-  public manipulateIacDailyListData(iacDailyList: string): object {
+  public manipulateIacDailyListData(iacDailyList: string, language: string): object {
     const iacDailyListData = JSON.parse(iacDailyList);
-    let caseCount = 0;
 
     iacDailyListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['formattedJudiciary'] = this.getDeduplicatedJudiciaryNameSurname(session);
           session['sittings'].forEach(sitting => {
-            sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma');
+            sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma', language);
             this.helperService.findAndConcatenateHearingPlatform(sitting, session);
             sitting['hearing'].forEach(hearing => {
-              caseCount += hearing['case'].length;
               this.helperService.findAndManipulatePartyInformation(hearing);
               this.helperService.findAndManipulateLinkedCases(hearing);
             });
           });
-          session['totalCases'] = caseCount;
-          caseCount = 0;
         });
       });
     });

@@ -18,10 +18,10 @@
   "duration": "Duration/Hyd",
   "hearingType": "Hearing Type/Math o Wrandawiad",
   "venue": "Venue/Lleoliad",
-  "day": "day/Dydd",
-  "days": "days/Dydd",
-  "hour": "hour/awr",
-  "hours": "hours/awr",
-  "min": "min/munud",
-  "mins": "mins/munud"
+  "hearingDurationDay": "day/Dydd",
+  "hearingDurationDays": "days/Dydd",
+  "hearingDurationHour": "hour/awr",
+  "hearingDurationHours": "hours/awr",
+  "hearingDurationMinute": "min/munud",
+  "hearingDurationMinutes": "mins/munud"
 }

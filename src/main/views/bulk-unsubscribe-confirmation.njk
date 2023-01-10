@@ -1,0 +1,71 @@
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "template.njk" %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+  <div class="parent-box">
+    {% if noOptionSelectedError %}
+      {{ govukErrorSummary({
+        titleText: error.title,
+        errorList: [
+          {
+            text: error.text,
+            href: "#bulk-unsubscribe-choice"
+          }
+        ]
+      }) }}
+    {% endif %}
+    <h2 class="govuk-heading-l">{{ title }}</h2>
+    <form method="post" action="bulk-unsubscribe-confirmation">
+      {{ govukInput({
+        id: "subscriptions",
+        name: "subscriptions",
+        type: "hidden",
+        value: subscriptions
+      }) }}
+      {{ govukRadios({
+        idPrefix: "bulk-unsubscribe-choice",
+        name: "bulk-unsubscribe-choice",
+        items: [
+          {
+            value: "yes",
+            text: yes
+          },
+          {
+            value: "no",
+            text: no
+          }
+        ]
+      }) }}
+      {{ submitButton(continueButton) }}
+    </form>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script>
+    const button = document.getElementsByClassName('govuk-button')[0];
+    button.addEventListener('click', (e) => {
+      const checkedRadios = document.querySelectorAll('input[type="radio"]:checked');
+      if (!checkedRadios.length) {
+        e.preventDefault();
+      }
+    });
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+{% endblock %}

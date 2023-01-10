@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import { mockRequest } from '../mocks/mockRequest';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import { LocationService } from '../../../main/service/locationService';
 import MagistratesStandardListController from '../../../main/controllers/MagistratesStandardListController';
 import { MagistratesStandardListService } from '../../../main/service/listManipulation/MagistratesStandardListService';
@@ -38,6 +38,7 @@ magsStandardListMetaDataStub.withArgs('').resolves([]);
 const listPath = 'magistrates-standard-list';
 const i18n = {
   listPath: {},
+  'list-template': {},
 };
 
 describe('Magistrate Standard List Controller', () => {
@@ -58,8 +59,9 @@ describe('Magistrate Standard List Controller', () => {
 
     const expectedData = {
       ...i18n[listPath],
+      ...i18n['list-template'],
       listData,
-      contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+      contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
       publishedDate: '14 September 2016',
       courtName: 'Abergavenny Magistrates\' Court',
       publishedTime: '12:30am',

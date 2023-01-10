@@ -1,0 +1,21 @@
+{% from "macros/common-components.njk" import mojAll %}
+{% extends "template.njk" %}
+
+{% block bodyEnd %}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  <script src="assets/js/mark.min.js"></script>
+  <script>
+    var instance = new Mark(document.getElementsByClassName("search-area")[0]);
+    const input = document.getElementById("search-input");
+    input.addEventListener("keyup", () => {
+      instance.unmark();
+      instance.mark(input.value, {"separateWordSearch": false});
+    });
+  </script>
+  {{ mojAll() }}
+  {{ super() }}
+{% endblock %}

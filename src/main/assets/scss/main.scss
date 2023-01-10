@@ -88,18 +88,6 @@ $callout-bg: #f0f4f5;
   font-weight: bold;
 }
 
-.offset-parent-box {
-  @extend %parent-box !optional;
-
-  left: 0;
-
-  a {
-    &:not(.floating-back-to-top--fixed) {
-      width: 125px;
-    }
-  }
-}
-
 .text_disabled {
   color: $text-disabled;
 }
@@ -169,19 +157,7 @@ $callout-bg: #f0f4f5;
   display: none;
 }
 
-.filter-back-to-top-wrapper {
-  display: flex;
-  flex-direction: row-reverse;
-  width: 100%;
-}
-
 .alphabetical-box {
-  .filter-back-to-top-wrapper {
-    left: 100%;
-    position: relative;
-    width: 14%;
-  }
-
   .layout-width-three-fifths {
     width: 100%;
   }
@@ -215,12 +191,6 @@ $callout-bg: #f0f4f5;
   .alphabetical-box {
     .layout-width-two-fifths {
       width: 0;
-    }
-
-    .filter-back-to-top-wrapper {
-      left: 10%;
-      position: absolute;
-      width: 16%;
     }
   }
 }

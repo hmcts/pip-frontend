@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {formatDate, formatDuration} from '../../../main/helpers/dateTimeHelper';
+import {calculateDurationSortValue, formatDate, formatDuration} from '../../../main/helpers/dateTimeHelper';
 
 const englishLanguage = 'en';
 const welshLanguage = 'cy';
@@ -89,24 +89,46 @@ describe('formatDuration', () => {
   });
 });
 
+describe('calculateDurationSortValue', () => {
+  it('should calculation sort value for hours and minutes', () => {
+    const result = calculateDurationSortValue(0, 1, 30);
+    expect(result).to.equal(90);
+  });
+
+  it('should calculation sort value for hours only', () => {
+    const result = calculateDurationSortValue(0, 2, 0);
+    expect(result).to.equal(120);
+  });
+
+  it('should calculation sort value for minutes only', () => {
+    const result = calculateDurationSortValue(0, 0, 50);
+    expect(result).to.equal(50);
+  });
+
+  it('should calculation sort value for days', () => {
+    const result = calculateDurationSortValue(1, 24, 30);
+    expect(result).to.equal(1440);
+  });
+});
+
 describe('formatDate', () => {
   it('should format both date and time in BST', () => {
-    const result = formatDate(testBstDate, 'dddd DD MMMM YYYY hh:mm:ss');
+    const result = formatDate(testBstDate, 'EEEE dd MMMM yyyy hh:mm:ss', 'en');
     expect(result).to.equal('Thursday 27 October 2022 10:40:17');
   });
 
   it('should format both date and time in GMT', () => {
-    const result = formatDate(testGmtDate, 'dddd DD MMMM YYYY hh:mm:ss');
+    const result = formatDate(testGmtDate, 'EEEE dd MMMM yyyy hh:mm:ss', 'en');
     expect(result).to.equal('Sunday 27 November 2022 09:40:17');
   });
 
   it('should format date only', () => {
-    const result = formatDate(testGmtDate, 'DD/MM/YYYY');
-    expect(result).to.equal('27/11/2022');
+    const result = formatDate(testGmtDate, 'dd/MM/yyyy', 'en');
+    expect(result).to.equal('27/11/2022', 'en');
   });
 
   it('should format time only', () => {
-    const result = formatDate(testGmtDate, 'h:mma');
+    const result = formatDate(testGmtDate, 'h:mma', 'en');
     expect(result).to.equal('9:40am');
   });
 });

@@ -3,7 +3,7 @@ import { accountManagementApi } from '../../../main/resources/requests/utils/axi
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 import fs from 'fs';
 import path from 'path';
-import moment from 'moment-timezone';
+import {DateTime} from 'luxon';
 
 const accountManagementRequests = new AccountManagementRequests();
 const errorResponse = {
@@ -54,10 +54,11 @@ const getAllAccountsEndpoint = '/account/all';
 const getUserByUserIdEndpoint = '/account/';
 const deleteUserByUserIdEndpoint = '/account/delete/';
 const updateUserByUserIdEndpoint = '/account/update/';
+const getAdminUserByEmailAndProvenanceEndpoint = '/account/admin/';
 
 const status = 'APPROVED';
 const statusEndpoint = '/' + status;
-const postStub = sinon.stub(accountManagementApi, 'post');
+let postStub = sinon.stub(accountManagementApi, 'post');
 let putStub = sinon.stub(accountManagementApi, 'put');
 let getStub = sinon.stub(accountManagementApi, 'get');
 let deleteStub = sinon.stub(accountManagementApi, 'delete');
@@ -483,8 +484,9 @@ describe('Account Management Requests', () => {
       await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', '1234-1234');
 
       const args = putStubForDateChecking.getCall(0).args;
-      expect(moment.utc(args[1]['lastSignedInDate'])
-        .isBetween(moment().utc().subtract(5, 'minutes'), moment().utc().add(5, 'minutes')))
+      const lastSignedInDateLuxon = DateTime.fromISO(args[1]['lastSignedInDate'], {zone: 'utc'});
+      expect(lastSignedInDateLuxon
+        <= DateTime.utc().plus({minutes: 5}) && DateTime.utc().minus({minutes: 5}))
         .toBeTruthy();
     });
 
@@ -699,4 +701,107 @@ describe('Account Management Requests', () => {
     });
   });
 
+  describe('Get admin by email and provenance', () => {
+    const email = 'test@email.com';
+    const provenance = 'PI_AAD';
+
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
+
+    it('should return pi user on success', async () => {
+      getStub.withArgs(`${getAdminUserByEmailAndProvenanceEndpoint}${email}/${provenance}`)
+        .resolves({status: 200, data: {userId: '321', userProvenance: 'userProvenance'}});
+      const response  = await accountManagementRequests.getAdminUserByEmailAndProvenance(email, provenance,
+        '1234');
+      expect(response).toStrictEqual({userId: '321', userProvenance: 'userProvenance'});
+    });
+
+    it('should return null on error response', async () => {
+      getStub.withArgs(`${getAdminUserByEmailAndProvenanceEndpoint}${email}/${provenance}`).rejects(errorResponse);
+      const response  = await accountManagementRequests.getAdminUserByEmailAndProvenance(email, provenance,
+        '1234');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error request', async () => {
+      getStub.withArgs(`${getAdminUserByEmailAndProvenanceEndpoint}${email}/${provenance}`).rejects(errorRequest);
+      const response  = await accountManagementRequests.getAdminUserByEmailAndProvenance(email, provenance,
+        '1234');
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error message', async () => {
+      getStub.withArgs(`${getAdminUserByEmailAndProvenanceEndpoint}${email}/${provenance}`).rejects(errorMessage);
+      const response  = await accountManagementRequests.getAdminUserByEmailAndProvenance(email, provenance,
+        '1234');
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Create System Admin user', () => {
+
+    beforeEach(() => {
+      sinon.restore();
+      postStub = sinon.stub(accountManagementApi, 'post');
+    });
+
+    const systemAdminAccount = {
+      firstName: 'First Name',
+      surname: 'Surname',
+      email: 'test-email',
+    };
+
+    const mockResponseData = {
+      data: {
+        userId: '2345-2345',
+      },
+    };
+
+    const issuerId = '1234-1234';
+
+    it('should return system admin account', async () => {
+      postStub.withArgs('/account/add/system-admin', systemAdminAccount, {headers: {'x-issuer-id': issuerId}})
+        .resolves(mockResponseData);
+
+      const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
+      expect(response).toStrictEqual({
+        userId: '2345-2345',
+      });
+    });
+
+    it('should return errored system admin account if response is 400', async () => {
+      postStub.withArgs('/account/add/system-admin', systemAdminAccount, {headers: {'x-issuer-id': issuerId}})
+        .rejects({response: {status: 400, data: {userId: '2345-2345'}}});
+
+      const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
+      expect(response).toStrictEqual({
+        userId: '2345-2345',
+        error: true,
+      });
+    });
+
+    it('should return null if errored response is not 400', async () => {
+      postStub.withArgs('/account/add/system-admin', systemAdminAccount, {headers: {'x-issuer-id': issuerId}})
+        .rejects({response: {status: 402, data: {userId: '2345-2345'}}});
+
+      const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error request', async () => {
+      postStub.withArgs('/account/add/system-admin', systemAdminAccount, {headers: {'x-issuer-id': issuerId}})
+        .rejects(errorRequest);
+      const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
+      expect(response).toBe(null);
+    });
+
+    it('should return false on error message', async () => {
+      postStub.withArgs('/account/add/system-admin', systemAdminAccount, {headers: {'x-issuer-id': issuerId}})
+        .rejects(errorMessage);
+      const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
+      expect(response).toBe(null);
+    });
+  });
 });

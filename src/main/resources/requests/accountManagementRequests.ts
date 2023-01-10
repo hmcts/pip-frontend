@@ -1,7 +1,7 @@
 import {accountManagementApi, accountManagementApiUrl, getAccountManagementCredentials} from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
 import {MediaAccountApplication} from '../../models/MediaAccountApplication';
-import moment from 'moment-timezone';
+import {DateTime} from 'luxon';
 
 const superagent = require('superagent');
 const logger = Logger.getLogger('requests');
@@ -227,7 +227,7 @@ export class AccountManagementRequests {
   private async updateAccountDate(userProvenance: string, oid: string, field: string, errorMessage: string): Promise<string> {
     try {
       const map = {};
-      map[field] = moment().toISOString();
+      map[field] = DateTime.now().toISO();
       const response = await accountManagementApi.put(`/account/provenance/${userProvenance}/${oid}`, map);
       return response.data;
     } catch (error) {
@@ -304,6 +304,52 @@ export class AccountManagementRequests {
         console.log(error.response.data);
       } else if (error.request) {
         console.log(error.request);
+        console.log(`Request failed. ${error.request}`);
+      } else {
+        console.log(`ERROR: ${error.message}`);
+      }
+      return null;
+    }
+  }
+
+  public async getAdminUserByEmailAndProvenance(email: string, provenance: string, adminUserId: string): Promise<any> {
+    try {
+      logger.info('Admin with ID: ' + adminUserId + 'requested user by email.');
+      const response = await accountManagementApi.get(`/account/admin/${email}/${provenance}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to GET PI user request', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for Pi user', error.request);
+      } else {
+        logger.error('Something went wrong trying to get the pi user from the user id', error.message);
+      }
+      return null;
+    }
+  }
+
+  /**
+   * Request method that attempts to create a system admin account.
+   * @param systemAdminAccount The System Admin account to create.
+   * @param adminUserId The System Admin who is creating the account.
+   */
+  public async createSystemAdminUser(systemAdminAccount, adminUserId: string): Promise<object> {
+    try {
+      logger.info('A system admin user is being created with ID: ' + adminUserId);
+      const response = await accountManagementApi.post('/account/add/system-admin',
+        systemAdminAccount,
+        {headers: {'x-issuer-id': adminUserId}});
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status == 400) {
+          error.response.data['error'] = true;
+          return error.response.data;
+        } else {
+          console.log('Request to create a system admin has failed with error code: ' + error.response.status);
+        }
+      } else if (error.request) {
         console.log(`Request failed. ${error.request}`);
       } else {
         console.log(`ERROR: ${error.message}`);

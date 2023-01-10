@@ -27,7 +27,8 @@ describe('Delete User Confirmation Controller', () => {
     request.body = validBody;
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('delete-user-confirmation', {...i18n['delete-user-confirmation']});
+    responseMock.expects('render').once().withArgs('delete-user-confirmation', {...i18n['delete-user-confirmation'],
+      isSystemAdmin: false});
 
     return deleteUserConfirmationController.post(request, response).then(() => {
       responseMock.verify();

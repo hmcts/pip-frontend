@@ -8,7 +8,6 @@ export class SscsDailyListService {
    */
   public manipulateSscsDailyListData(sscsDailyList: string): object {
     const sscsDailyListData = JSON.parse(sscsDailyList);
-    let hearingCount = 0;
 
     sscsDailyListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
@@ -17,7 +16,6 @@ export class SscsDailyListService {
           delete session['judiciary'];
 
           session['sittings'].forEach(sitting => {
-            hearingCount = hearingCount + sitting['hearing'].length;
             sitting['sittingStartFormatted'] = helperService.publicationTimeInUkTime(sitting['sittingStart']);
             delete sitting['sittingStart'];
             helperService.findAndConcatenateHearingPlatform(sitting, session);
@@ -26,25 +24,25 @@ export class SscsDailyListService {
             sitting['hearing'].forEach(hearing => {
               helperService.findAndManipulatePartyInformation(hearing);
 
-              hearing['informant'].forEach(informant => {
-                let prosecutionAuthorityRefFormatted = '';
-                informant['prosecutionAuthorityRef'].forEach(proscAuthRef => {
-                  if (prosecutionAuthorityRefFormatted.length > 0) {
-                    prosecutionAuthorityRefFormatted += ', ' + proscAuthRef;
-                  } else {
-                    prosecutionAuthorityRefFormatted += proscAuthRef;
-                  }
+              if (hearing?.informant) {
+                hearing['informant'].forEach(informant => {
+                  let prosecutionAuthorityRefFormatted = '';
+                  informant['prosecutionAuthorityRef'].forEach(proscAuthRef => {
+                    if (prosecutionAuthorityRefFormatted.length > 0) {
+                      prosecutionAuthorityRefFormatted += ', ' + proscAuthRef;
+                    } else {
+                      prosecutionAuthorityRefFormatted += proscAuthRef;
+                    }
+                  });
+                  hearing['prosecutionAuthorityRefFormatted'] = prosecutionAuthorityRefFormatted;
                 });
-                hearing['prosecutionAuthorityRefFormatted'] = prosecutionAuthorityRefFormatted;
-              });
 
-              delete hearing['informant'];
+                delete hearing['informant'];
+              }
               delete hearing['party'];
             });
           });
         });
-        courtRoom['totalHearing'] = hearingCount;
-        hearingCount = 0;
       });
     });
     return sscsDailyListData;

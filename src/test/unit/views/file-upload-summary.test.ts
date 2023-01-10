@@ -1,5 +1,5 @@
 import request from 'supertest';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 
@@ -57,9 +57,9 @@ describe('File Upload Summary Page', () => {
   });
 
   it('should display correct summary values', async () => {
-    const formatContentDate = moment(mockData['content-date-from'], 'DD/MM/YYYY').format('D MMM YYYY');
-    const formatDisplayFromDate = moment(mockData['display-from'], 'DD/MM/YYYY').format('D MMM YYYY');
-    const formatDisplayToDate = moment(mockData['display-to'], 'DD/MM/YYYY').format('D MMM YYYY');
+    const formatContentDate = DateTime.fromFormat(mockData['content-date-from'], 'dd/MM/yyyy HH:mm:ss').toFormat('d MMMM YYYY');
+    const formatDisplayFromDate = DateTime.fromFormat(mockData['display-from'], 'dd/MM/yyyy HH:mm:ss').toFormat('d MMMM YYYY');
+    const formatDisplayToDate = DateTime.fromFormat(mockData['display-to'], 'dd/MM/yyyy HH:mm:ss').toFormat('d MMMM YYYY');
     const values = htmlRes.getElementsByClassName('govuk-summary-list__value');
     expect(values[0].innerHTML).to.contain(mockData.court.courtName, 'Court value not found');
     expect(values[1].innerHTML).to.contain(mockData.fileName, 'File value not found');

@@ -3,7 +3,6 @@ import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
-import moment from 'moment';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { SscsDailyListService } from '../service/listManipulation/SscsDailyListService';
 
@@ -24,7 +23,7 @@ export default class SscsDailyListController {
       const manipulatedData = sscsListService.manipulateSscsDailyListData(JSON.stringify(searchResults));
 
       const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate'], req.lng);
 
       const returnedCourt = await courtService.getLocationById(metaData['locationId']);
       const courtName = courtService.findCourtName(returnedCourt, req.lng as string, 'sscs-daily-list');
@@ -32,8 +31,9 @@ export default class SscsDailyListController {
 
       res.render('sscs-daily-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['sscs-daily-list']),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData: manipulatedData,
-        contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         courtName: courtName,

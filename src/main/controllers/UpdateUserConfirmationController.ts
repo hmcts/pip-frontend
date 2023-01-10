@@ -13,6 +13,7 @@ export default class UpdateUserConfirmationController {
     updateUserResponse ? res.render('update-user-confirmation', {
       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['update-user-confirmation']),
       updatedRole: formattedRoles[req.body.updatedRole],
+      isSystemAdmin: req.user['roles'] === 'SYSTEM_ADMIN',
     }) : res.render('error', req.i18n.getDataByLanguage(req.lng).error);
   }
 }
