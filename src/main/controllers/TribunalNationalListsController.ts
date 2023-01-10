@@ -4,7 +4,6 @@ import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { TribunalNationalListsService } from '../service/listManipulation/TribunalNationalListsService';
-import moment from 'moment';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -23,13 +22,14 @@ export default class TribunalNationalListsController {
       const manipulatedData = tribunalNationalListsService.manipulateData(JSON.stringify(searchResults), req.lng as string, listToLoad);
 
       const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate'], req.lng);
 
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
       res.render(listToLoad, {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
-        contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
         listData : manipulatedData,
         publishedDate: publishedDate,
         publishedTime: publishedTime,

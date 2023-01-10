@@ -64,6 +64,7 @@ const adminRoutes = [
   '/remove-list-search',
   '/remove-list-search-results',
   '/remove-list-success',
+  '/admin-management',
 ];
 
 const systemAdminRoutes = [

@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import {CrownWarnedListService} from '../../../main/service/listManipulation/CrownWarnedListService';
 import CrownWarnedListController from '../../../main/controllers/CrownWarnedListController';
 
@@ -56,6 +56,7 @@ crownWarnedListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'crown-warned-list': {},
+  'list-template': {},
 };
 
 describe('Crown Warned List Controller', () => {
@@ -75,9 +76,10 @@ describe('Crown Warned List Controller', () => {
 
     const expectedData = {
       ...i18n['crown-warned-list'],
+      ...i18n['list-template'],
       listData: listData,
       venue: rawDataObj['venue'],
-      contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+      contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
       publishedDate: '13 September 2022',
       publishedTime: '12:30pm',
       version: '1.0',

@@ -9,13 +9,13 @@ const adminRolesList = [
     key: 'super-admin-ctsc',
     text: 'Internal - Super Administrator - CTSC',
     mapping: 'INTERNAL_SUPER_ADMIN_CTSC',
-    hint: 'Upload, Remove, Create new accounts, Assess new media requests',
+    hint: 'Upload, Remove, Create new accounts, Assess new media requests, User management',
   },
   {
     key: 'super-admin-local',
     text: 'Internal - Super Administrator - Local',
     mapping: 'INTERNAL_SUPER_ADMIN_LOCAL',
-    hint: 'Upload, Remove, Create new account',
+    hint: 'Upload, Remove, Create new account, User management',
   },
   {
     key: 'admin-ctsc',
@@ -233,6 +233,14 @@ export class CreateAccountService {
     }];
   }
 
+  formatCreateSystemAdminAccountPayload(accountObject): any {
+    return {
+      email: accountObject.emailAddress,
+      firstName: accountObject.firstName,
+      surname: accountObject.lastName,
+    };
+  }
+
   formatCreateMediaAccountPayload(accountObject): any[] {
     return [{
       email: accountObject.emailAddress,
@@ -271,6 +279,19 @@ export class CreateAccountService {
         this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]), requester);
     }
     return false;
+  }
+
+  /**
+   * This method takes in a system admin account request, formats it and passes it onto the request service to create.
+   * @param payload The system admin account to create.
+   * @param requester The ID of the system admin who requested the account.
+   */
+  public async createSystemAdminAccount(payload: object, requester: string): Promise<any> {
+    const creationResponse = accountManagementRequests.createSystemAdminUser(this.formatCreateSystemAdminAccountPayload(payload), requester);
+    if (creationResponse) {
+      return creationResponse;
+    }
+    return null;
   }
 
   public async createMediaAccount(payload: object, requester: string): Promise<boolean> {

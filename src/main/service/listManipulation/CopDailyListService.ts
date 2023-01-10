@@ -10,7 +10,6 @@ export class CopDailyListService {
    */
   public manipulateCopDailyCauseList(copDailyCauseList: string): object {
     const copDailyCauseListData = JSON.parse(copDailyCauseList);
-    let hearingCount = 0;
 
     copDailyCauseListData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
@@ -18,13 +17,10 @@ export class CopDailyListService {
           session['formattedJudiciary'] = helperService.getJudiciaryNameSurname(session);
           delete session['judiciary'];
           session['sittings'].forEach(sitting => {
-            hearingCount = hearingCount + sitting['hearing'].length;
             helperService.calculateDuration(sitting);
             helperService.findAndConcatenateHearingPlatform(sitting, session);
           });
         });
-        courtRoom['totalHearing'] = hearingCount;
-        hearingCount = 0;
       });
     });
     return copDailyCauseListData;

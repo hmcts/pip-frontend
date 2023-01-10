@@ -1,4 +1,4 @@
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import { SubscriptionRequests } from '../resources/requests/subscriptionRequests';
 import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendingSubscriptionsFromCache';
 import { UserSubscriptions } from '../models/UserSubscriptions';
@@ -16,6 +16,43 @@ const publicationService = new PublicationService();
 const filterService = new FilterService();
 const languageFileParser = new LanguageFileParser();
 const locationService = new LocationService();
+
+const timeZone = 'Europe/London';
+
+const locationSubscriptionSorter = (a, b) => {
+  if (a.locationName > b.locationName) {
+    return 1;
+  } else if (a.locationName < b.locationName) {
+    return -1;
+  }
+  return 0;
+};
+
+const caseSubscriptionSorter = (a, b) => {
+  let result;
+  if (a.caseName === b.caseName) {
+    result = 0;
+  } else if (a.caseName === null) {
+    return 1;
+  } else if (b.caseName === null) {
+    return -1;
+  }
+  if (result != 0) {
+    result = a.caseName > b.caseName ? 1 : -1;
+  }
+
+  if (result === 0) {
+    if (a.caseNumber === b.caseNumber) {
+      return 0;
+    } else if (a.caseNumber === null) {
+      return 1;
+    } else if (b.caseNumber === null) {
+      return -1;
+    }
+    return a.caseNumber > b.caseNumber ? 1 : -1;
+  }
+  return result;
+};
 
 export class SubscriptionService {
   public async getSubscriptionDataForView(userId: string, language: string, tab: string, bulkDelete = false): Promise<object> {
@@ -52,6 +89,7 @@ export class SubscriptionService {
     const caseRows = [];
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCases.length) {
+      subscriptionDataCases.sort(caseSubscriptionSorter);
       subscriptionDataCases.forEach(subscription => {
         caseRows.push(bulkDelete
           ? this.generateCaseTableRowForBulkDelete(subscription)
@@ -66,6 +104,7 @@ export class SubscriptionService {
     const courtRows = [];
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     if (subscriptionDataCourts.length) {
+      subscriptionDataCourts.sort(locationSubscriptionSorter);
       for (const subscription of subscriptionDataCourts) {
         const location  = await locationService.getLocationById(subscription.locationId);
         const locationName = language === 'cy' ? location.welshName : location.name;
@@ -87,7 +126,7 @@ export class SubscriptionService {
         text: subscription.caseNumber,
       },
       {
-        text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
+        text: DateTime.fromISO(subscription.dateAdded, {zone: timeZone}).toFormat('dd MMMM yyyy'),
         classes: 'no-wrap',
       },
       {
@@ -110,7 +149,7 @@ export class SubscriptionService {
         html: `<p class="govuk-body bulk-delete-row">${caseNumber}</p>`,
       },
       {
-        html: '<p class="govuk-body bulk-delete-row no-wrap">' + moment(subscription.dateAdded).format('DD MMMM YYYY') + '</p>',
+        html: '<p class="govuk-body bulk-delete-row no-wrap">' + DateTime.fromISO(subscription.dateAdded, {zone: timeZone}).toFormat('dd MMMM yyyy') + '</p>',
       },
       {
         html: '<div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">'
@@ -128,7 +167,7 @@ export class SubscriptionService {
         text: locationName,
       },
       {
-        text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
+        text: DateTime.fromISO(subscription.dateAdded, {zone: timeZone}).toFormat('dd MMMM yyyy'),
         classes: 'no-wrap',
       },
       {
@@ -145,7 +184,7 @@ export class SubscriptionService {
         html: `<p class="govuk-body bulk-delete-row">${locationName}</p>`,
       },
       {
-        html: '<p class="govuk-body bulk-delete-row no-wrap">' + moment(subscription.dateAdded).format('DD MMMM YYYY') + '</p>',
+        html: '<p class="govuk-body bulk-delete-row no-wrap">' + DateTime.fromISO(subscription.dateAdded, {zone: timeZone}).toFormat('dd MMMM yyyy') + '</p>',
       },
       {
         html: '<div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">'

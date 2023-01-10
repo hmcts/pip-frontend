@@ -57,6 +57,7 @@ describe('Summary Of Publications Service', () => {
   });
 
   it('should return the expected application by id and status', async () => {
+    dummyApplication['requestDate'] = '2022-05-09T00:00:01';
     mediaApplicationByIdStub.withArgs(applicationId).resolves(dummyApplication);
 
     const application = await accountApplicationService.getApplicationByIdAndStatus(applicationId, 'PENDING');

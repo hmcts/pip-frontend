@@ -63,6 +63,16 @@
           <p class="govuk-body">{{ newAccountCard.description }}</p>
         </div>
       </div>
+      <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
+        <div class="account-card govuk-!-margin-left-2 govuk-!-margin-right-2">
+          <p>
+            <a href="{{ userManagementCard.link }}"
+               class="govuk-link govuk-body govuk-!-font-weight-bold"
+               id="card-{{ userManagementCard.link }}">{{ userManagementCard.title }}</a>
+          </p>
+          <p class="govuk-body">{{ userManagementCard.description }}</p>
+        </div>
+      </div>
       {% endif %}
       {{ super() }}
     </div>

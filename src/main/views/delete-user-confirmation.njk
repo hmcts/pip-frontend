@@ -15,14 +15,26 @@
   <div class="parent-box">
     <p class="govuk-body">
       {{ pStart }}
-      <a class="govuk-link" href="system-admin-dashboard">{{ yourAccount }}</a>
+      {% if isSystemAdmin %}
+        <a class="govuk-link" href={{ systemAdminLink }}>{{ systemAdminText }}</a>
+      {% else %}
+        <a class="govuk-link" href={{ adminLink }}>{{ adminText }}</a>
+      {% endif %}
       {{ pEnd }}
     </p>
-    <ul class="govuk-list govuk-list--bullet">
-      {% for item in listItems %}
-        <li>{{ item }}</li>
-      {% endfor %}
-    </ul>
+    {% if isSystemAdmin %}
+      <ul class="govuk-list govuk-list--bullet">
+        {% for item in systemAdminListItems %}
+          <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <ul class="govuk-list govuk-list--bullet">
+        {% for item in adminListItems %}
+          <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
     {{ super() }}
   </div>
 {% endblock %}

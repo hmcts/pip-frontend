@@ -5,7 +5,6 @@ import {PublicationService} from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { EtListsService } from '../service/listManipulation/EtListsService';
 import {LocationService} from '../service/locationService';
-import moment from 'moment/moment';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -20,19 +19,20 @@ export default class EtFortnightlyListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
     if (fileData && metaData) {
-      const tableData = etListsService.reshapeEtFortnightlyListData(JSON.stringify(fileData));
-      const listData = etListsService.reshapeEtLists(JSON.stringify(fileData));
+      const tableData = etListsService.reshapeEtFortnightlyListData(JSON.stringify(fileData), req.lng);
+      const listData = etListsService.reshapeEtLists(JSON.stringify(fileData), req.lng);
       const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(fileData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(fileData['document']['publicationDate'], req.lng);
       const returnedCourt = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
       const courtName = locationService.findCourtName(returnedCourt, req.lng as string, 'et-fortnightly-list');
       res.render('et-fortnightly-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['et-fortnightly-list']),
+        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         tableData,
         listData,
         courtName,
-        contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
         region: returnedCourt.region,
         publishedDate: publishedDate,
         publishedTime: publishedTime,

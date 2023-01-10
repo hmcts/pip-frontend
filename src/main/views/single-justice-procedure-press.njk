@@ -1,7 +1,7 @@
-{% from "./macros/common-components.njk" import goBack %}
+{% from "./macros/common-components.njk" import goBack, searchInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% extends "template.njk" %}
+{% extends "list-template.njk" %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
@@ -21,7 +21,7 @@
       {{ sjpDescription }}
     </div>
   </details>
-  <div class="parent-box">
+  <div class="parent-box govuk-!-margin-top-5">
     <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contactDate }}</p>
     <p class="govuk-body">{{ published }} {{ publishedDateTime }} {{ publishedAt }} {{ publishedTime }}</p>
 
@@ -35,7 +35,8 @@
       }) }}
     {% endif %}
 
-    <div class="overflow-table govuk-body">
+    {{ searchInput(text = searchCases) }}
+    <div class="overflow-table govuk-body search-area">
       {% set hearingCount = 0 %}
       {% for courtList in sjpData['courtLists'] %}
         {% for courtRoom in courtList['courtHouse']['courtRoom'] %}
@@ -123,12 +124,4 @@
     </div>
     {{ super() }}
   </div>
-{% endblock %}
-{% block bodyEnd %}
-  <script>
-    if (window.history.replaceState) {
-      window.history.replaceState(null, null, window.location.href);
-    }
-  </script>
-  {{ super() }}
 {% endblock %}

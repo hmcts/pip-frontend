@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import {PublicationRequests} from '../../../main/resources/requests/publicationRequests';
 
 const PAGE_URL = '/case-name-search';
-const pageTitleValue = 'Subscribe by name of the party or parties involved';
+const pageTitleValue = 'Subscribe by case name';
 let htmlRes: Document;
 
 sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue').returns([]);
@@ -28,7 +28,7 @@ describe('Case name search page', () => {
 
   it('should display header', () => {
     const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
-    expect(pageHeading[0].innerHTML).contains('What is the name of the party or parties involved?', 'Page heading does not exist');
+    expect(pageHeading[0].innerHTML).contains('What is the name of the case?', 'Page heading does not exist');
   });
 
   it('should display continue button',  () => {

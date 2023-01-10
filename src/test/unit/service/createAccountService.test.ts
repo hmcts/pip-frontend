@@ -407,6 +407,50 @@ describe('Create Account Service', () => {
     });
   });
 
+  describe('createSystemAdminAccount', () => {
+
+    const createSystemAccStub = sinon.stub(AccountManagementRequests.prototype, 'createSystemAdminUser');
+
+    const response = {
+      userId: '1234-1234',
+    };
+
+    it('should response response when created user', async () => {
+
+      createSystemAccStub.withArgs({
+        email: validEmail,
+        firstName: 'firstName',
+        surname: 'surname',
+      }, '2345-2345').resolves(response);
+
+      const returnedResponse = await createAccountService.createSystemAdminAccount({
+        emailAddress: validEmail,
+        firstName: 'firstName',
+        lastName: 'surname',
+      }, '2345-2345');
+
+      expect(returnedResponse).toStrictEqual(response);
+    });
+
+    it('should response null when failed to create user', async () => {
+
+      createSystemAccStub.withArgs({
+        email: validEmail,
+        firstName: 'invalidUser',
+        surname: 'surname',
+      }, '2345-2345').resolves(null);
+
+      const returnedResponse = await createAccountService.createSystemAdminAccount({
+        emailAddress: validEmail,
+        firstName: 'invalidUser',
+        lastName: 'surname',
+      }, '2345-2345');
+
+      expect(returnedResponse).toBe(null);
+    });
+
+  });
+
   describe('bulkCreateMediaAccounts', () => {
     it('should return true if valid data is provided', async () => {
       bulkCreateAccountsStub.resolves(true);

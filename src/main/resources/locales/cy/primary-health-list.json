@@ -15,10 +15,10 @@
   "duration": "Hyd",
   "hearingType": "Math o Wrandawiad",
   "venue": "Lleoliad",
-  "day": "Dydd",
-  "days": "Dydd",
-  "hour": "awr",
-  "hours": "awr",
-  "min": "munud",
-  "mins": "munud"
+  "hearingDurationDay": "Dydd",
+  "hearingDurationDays": "Dydd",
+  "hearingDurationHour": "awr",
+  "hearingDurationHours": "awr",
+  "hearingDurationMinute": "munud",
+  "hearingDurationMinutes": "munud"
 }

@@ -114,7 +114,7 @@ module.exports = {
 
   // SubscriptionManagement selectors
   SubscriptionManagementTableFirstResultUrl: '>>>.unsubscribe-action',
-  SubscriptionManagementBulkDeleteSubscriptionsButton: '#bulk-delete-button',
+  SubscriptionManagementBulkUnsubscribeButton: '#bulk-unsubscribe-button',
 
   // DeleteSubscription selectors
   yesRadioButton: '#unsubscribe-confirm',
@@ -124,10 +124,10 @@ module.exports = {
   panelTitle: '.govuk-panel__title',
   panelHome: '.govuk-link=Home',
 
-  // BulkDeleteSubscriptions selectors
+  // BulkUnsubscribe selectors
   CourtSubscriptionCheckbox1: '#courtSubscription',
-  BulkDeleteSubscriptionButton: '#bulk-delete-button',
-  BulkDeleteRadioYes: '#bulk-delete-choice',
+  BulkUnsubscribeButton: '#bulk-unsubscribe-button',
+  BulkUnsubscribeRadioYes: '#bulk-unsubscribe-choice',
 
   // Admin selectors
   fileUpload: '#manual-file-upload',
@@ -166,6 +166,11 @@ module.exports = {
   // SummaryOfPublications selectors
   SOPListItem: '.das-search-results__link',
   SjpPublicListItem: '*=Single Justice Procedure Public List',
+
+  // Court list selectors
+  ListTableFirstHeaderButton: 'thead > tr.govuk-table__row > th:nth-child(1) > button',
+  ListTableFirstRowFirstCell: 'tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(1)',
+  ListTableLastRowFirstCell: 'tbody > tr.govuk-table__row:last-child > td:nth-child(1)',
 
   // SJP public selector
   DownloadACopyButton: '#download-button',

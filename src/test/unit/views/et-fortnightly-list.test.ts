@@ -14,8 +14,7 @@ const summaryText = 'govuk-details__text';
 const accordionClass='govuk-accordion__section-button';
 const siteAddressClass = 'site-address';
 const courtName = 'Regional Venue South';
-const expectedHeader1 = 'Employment Tribunals: Bedford';
-const expectedHeader2 = 'Fortnightly List';
+const expectedHeader1 = 'Employment Tribunals Fortnightly List: Bedford';
 const summaryHeadingText = 'Important information';
 
 let htmlRes: Document;
@@ -43,7 +42,6 @@ describe('ET Fortnightly List page', () => {
   it('should display header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
     expect(header[0].innerHTML).contains(expectedHeader1, 'Could not find the header');
-    expect(header[0].innerHTML).contains(expectedHeader2, 'Could not find the header');
   });
 
   it('should display summary',  () => {
@@ -64,6 +62,11 @@ describe('ET Fortnightly List page', () => {
   it('should display court contact number summary paragraph',  () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
     expect(summary[0].innerHTML).contains('+44 1234 1234 1234', 'Could not find the court telephone no in summary text');
+  });
+
+  it('should display the search input box', () => {
+    const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+    expect(searchInput[0].innerHTML).contains('Search Cases');
   });
 
   it('should display the site name for both sections',  () => {

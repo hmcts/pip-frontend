@@ -1,22 +1,22 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
+import {DateTime} from 'luxon';
 import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 import fs from 'fs';
-import moment from 'moment';
 import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
 import {LocationService} from '../../../main/service/locationService';
 
 const PAGE_URL = '/subscription-management';
-const expectedAllSubsTitle = 'All subscriptions (5)';
-const expectedCaseSubsTitle = 'Subscriptions by case (2)';
+const expectedAllSubsTitle = 'All subscriptions (8)';
+const expectedCaseSubsTitle = 'Subscriptions by case (5)';
 const expectedCourtSubsTitle = 'Subscriptions by court or tribunal (3)';
 const expectedAllSubsTitleWithSingleSubs = 'All subscriptions (1)';
 const expectedCaseSubsTitleWithNoLocationSubs = 'Subscriptions by case (1)';
 const expectedCaseSubsTitleWithNoCaseSubs = 'Subscriptions by court or tribunal (1)';
 const expectedAddSubscriptionButton = 'Add email subscription';
-const expectedBulkDeleteSubscriptionsButton = 'Bulk delete subscriptions';
+const expectedBulkUnsubscribeButton = 'Bulk unsubscribe';
 const expectedListTypesToSendButton = 'Select which list types to receive';
 const tabsClass = 'moj-sub-navigation__link';
 const caseNameColumn = 'Case name';
@@ -24,15 +24,15 @@ const caseReferenceColumn = 'Case reference number';
 const dateAddedColumn = 'Date added';
 const actionsColumn = 'Actions';
 const courtNameColumn = 'Court or tribunal name';
-const expectedRowCaseName = 'Tom Clancy';
-const expectedRowCaseReference = 'T485913';
-const expectedRowDateAdded = moment('2022-01-14T11:30:12.357299').format('DD MMMM YYYY');
-const expectedRowCourtName = 'Test court 1';
-const expectedCaseRowsCount = 2;
+const expectedRowCaseName = 'Ashely Barnes';
+const expectedRowCaseReference = 'T485914';
+const expectedRowDateAdded = DateTime.fromISO('2022-01-14T11:30:12.357299').toFormat('dd MMMM yyyy');
+const expectedRowCourtName = 'Aberdeen Tribunal Hearing Centre';
+const expectedCaseRowsCount = 5;
 const expectedCaseRowsCountWithoutLocation = 1;
 const expectedCourtRowsCount = 3;
 const expectedCourtRowsCountWithoutCaseSubs = 1;
-const expectedUnsubscribeLink = 'delete-subscription?subscription=5a45699f-47e3-4283-904a-581afe624155';
+const expectedUnsubscribeLink = 'delete-subscription?subscription=252899d6-2b05-43ec-86e0-a438d3854fa8';
 const pageHeader = 'Your email subscriptions';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
@@ -42,17 +42,12 @@ const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
 
 userSubscriptionsStub.withArgs('2').returns({caseSubscriptions:[], locationSubscriptions:[]});
 userSubscriptionsStub.withArgs('1').returns(subscriptionsData.data);
-locationStub.withArgs(1).resolves({
-  locationId: 1,
-  name: 'Test court 1',
-  welshName: 'Welsh Test Court 1',
-});
 
 userSubscriptionsStub.withArgs('3').returns(
   {caseSubscriptions:[{
-    subscriptionId: '5a45699f-47e3-4283-904a-581afe624155',
-    caseName: 'Tom Clancy',
-    caseNumber: 'T485913',
+    subscriptionId: '252899d6-2b05-43ec-86e0-a438d3854fa8',
+    caseName: 'Ashely Barnes',
+    caseNumber: 'T485914',
     urn: 'N363N6R4OG',
     dateAdded: '2022-01-14T11:30:12.357299',
   }], locationSubscriptions:[]});
@@ -64,6 +59,27 @@ userSubscriptionsStub.withArgs('4').returns(
     dateAdded: '2022-01-14T11:42:57.847708',
     locationId: 1,
   }]});
+
+locationStub.withArgs(1).resolves(
+  {
+    locationId: 1,
+    name: 'Aberdeen Tribunal Hearing Centre',
+    welshName: 'Welsh Test Court 1',
+  });
+
+locationStub.withArgs(2).resolves(
+  {
+    locationId: 2,
+    name: 'Manchester Crown Court',
+    welshName: 'Welsh Test Court 1',
+  });
+
+locationStub.withArgs(3).resolves(
+  {
+    locationId: 3,
+    name: 'Barkingside Magistrates\' Court',
+    welshName: 'Welsh Test Court 1',
+  });
 
 let htmlRes: Document;
 
@@ -129,10 +145,10 @@ describe('Subscriptions Management Page', () => {
       .contains(expectedAddSubscriptionButton, 'Could not find new subscription button');
   });
 
-  it('should display bulk delete subscriptions button', () => {
+  it('should display bulk unsubscribe button', () => {
     const button = htmlRes.getElementsByClassName('govuk-button');
     expect(button[1].innerHTML)
-      .contains(expectedBulkDeleteSubscriptionsButton, 'Could not find bulk delete subscriptions button');
+      .contains(expectedBulkUnsubscribeButton, 'Could not find bulk unsubscribe button');
   });
 
   it('should display all subscriptions tab with proper link', () => {
@@ -219,6 +235,22 @@ describe('Subscriptions Management Page', () => {
     expect(subscriptionCaseRowCells[2].innerHTML).contains(expectedRowDateAdded);
   });
 
+  it('case table should be sorted by case name then case number', () => {
+    const subscriptionCaseRowCells = htmlRes.getElementsByClassName('govuk-table__body')[0]
+      .getElementsByClassName('govuk-table__cell');
+
+    expect(subscriptionCaseRowCells[0].innerHTML).equal('Ashely Barnes');
+    expect(subscriptionCaseRowCells[1].innerHTML).equal('T485914');
+    expect(subscriptionCaseRowCells[4].innerHTML).equal('Tom Clancy');
+    expect(subscriptionCaseRowCells[5].innerHTML).equal('T485911');
+    expect(subscriptionCaseRowCells[8].innerHTML).equal('Tom Clancy');
+    expect(subscriptionCaseRowCells[9].innerHTML).equal('T485913');
+    expect(subscriptionCaseRowCells[12].innerHTML).equal('');
+    expect(subscriptionCaseRowCells[13].innerHTML).equal('T485910');
+    expect(subscriptionCaseRowCells[16].innerHTML).equal('');
+    expect(subscriptionCaseRowCells[17].innerHTML).equal('T485912');
+  });
+
   it('court table should have correct number of rows', () => {
     const subscriptionsCaseRows = htmlRes.getElementsByClassName('govuk-table__body')[1]
       .getElementsByClassName('govuk-table__row');
@@ -230,6 +262,15 @@ describe('Subscriptions Management Page', () => {
       .getElementsByClassName('govuk-table__cell');
     expect(subscriptionCaseRowCells[0].innerHTML).contains(expectedRowCourtName);
     expect(subscriptionCaseRowCells[1].innerHTML).contains(expectedRowDateAdded);
+  });
+
+  it('court table should be sorted by court name', () => {
+    const subscriptionCaseRowCells = htmlRes.getElementsByClassName('govuk-table__body')[1]
+      .getElementsByClassName('govuk-table__cell');
+
+    expect(subscriptionCaseRowCells[0].innerHTML).equal('Aberdeen Tribunal Hearing Centre');
+    expect(subscriptionCaseRowCells[3].innerHTML).equal('Barkingside Magistrates\' Court');
+    expect(subscriptionCaseRowCells[6].innerHTML).equal('Manchester Crown Court');
   });
 });
 
@@ -259,10 +300,10 @@ describe('Subscriptions Management Page with case subscription but without locat
       .contains(expectedAddSubscriptionButton, 'Could not find new subscription button');
   });
 
-  it('should display bulk delete subscriptions button', () => {
+  it('should display bulk unsubscribe button', () => {
     const button = htmlRes.getElementsByClassName('govuk-button');
     expect(button[1].innerHTML)
-      .contains(expectedBulkDeleteSubscriptionsButton, 'Could not find bulk delete subscriptions button');
+      .contains(expectedBulkUnsubscribeButton, 'Could not find bulk unsubscribe button');
   });
 
   it('should display all subscriptions tab with proper link', () => {
@@ -368,10 +409,10 @@ describe('Subscriptions Management Page with location subscription but without c
       .contains(expectedAddSubscriptionButton, 'Could not find new subscription button');
   });
 
-  it('should display bulk delete subscriptions button', () => {
+  it('should display bulk unsubscribe button', () => {
     const button = htmlRes.getElementsByClassName('govuk-button');
     expect(button[1].innerHTML)
-      .contains(expectedBulkDeleteSubscriptionsButton, 'Could not find bulk delete subscriptions button');
+      .contains(expectedBulkUnsubscribeButton, 'Could not find bulk unsubscribe button');
   });
 
   it('should display all subscriptions tab with proper link', () => {

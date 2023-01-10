@@ -1,5 +1,5 @@
 import { ListParseHelperService } from '../listParseHelperService';
-import {formatDate, formatDuration} from '../../helpers/dateTimeHelper';
+import {calculateDurationSortValue, formatDate, formatDuration} from '../../helpers/dateTimeHelper';
 
 const helperService = new ListParseHelperService();
 
@@ -21,7 +21,7 @@ export class TribunalNationalListsService {
 
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
-          const hearingDate = formatDate(session['sessionStartTime'], 'DD MMMM');
+          const hearingDate = formatDate(session['sessionStartTime'], 'dd MMMM', language);
           session['sittings'].forEach(sitting => {
             helperService.calculateDuration(sitting);
             const durationAsHours = sitting['durationAsHours'];
@@ -63,6 +63,8 @@ export class TribunalNationalListsService {
       durationAsMinutes: durationAsMinutes,
       formattedDuration: formatDuration(durationAsDays as number,
         durationAsHours as number, durationAsMinutes as number, language, languageFile),
+      durationSortValue: calculateDurationSortValue(durationAsDays as number, durationAsHours as number,
+        durationAsMinutes as number),
       caseSequenceIndicator: caseSequenceIndicator,
       hearingType: hearingType,
       venue: venue,

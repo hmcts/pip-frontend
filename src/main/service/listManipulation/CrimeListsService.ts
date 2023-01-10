@@ -1,6 +1,5 @@
-import moment from 'moment-timezone';
 import {ListParseHelperService} from '../listParseHelperService';
-import {formatDuration} from '../../helpers/dateTimeHelper';
+import {calculateDurationSortValue, formatDuration} from '../../helpers/dateTimeHelper';
 
 const helperService = new ListParseHelperService();
 const separator = ', ';
@@ -17,9 +16,11 @@ export class CrimeListsService {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
-            this.formatCaseTime(sitting, 'h:mma');
+            helperService.formatCaseTime(sitting, 'h:mma');
             sitting['formattedDuration'] = formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
                                       sitting['durationAsMinutes'] as number, language, languageFile);
+            sitting['durationSortValue'] = calculateDurationSortValue(sitting['durationAsDays'] as number,
+              sitting['durationAsHours'] as number, sitting['durationAsMinutes'] as number);
             sitting['hearing'].forEach(hearing => {
               this.manipulateParty(hearing);
               this.findLinkedCasesInformation(hearing);
@@ -78,12 +79,6 @@ export class CrimeListsService {
 
   private createOrganisationDetails(organisationDetails: any) {
     return ListParseHelperService.writeStringIfValid(organisationDetails?.organisationName);
-  }
-
-  public formatCaseTime(sitting: object, format: string): void {
-    if (sitting['sittingStart'] !== '') {
-      sitting['time'] = moment.utc(sitting['sittingStart']).tz(helperService.timeZone).format(format);
-    }
   }
 
   public findLinkedCasesInformation(hearing: any): void {

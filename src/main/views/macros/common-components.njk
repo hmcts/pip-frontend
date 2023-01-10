@@ -3,6 +3,7 @@
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
 
 {% macro submitButton(label = 'Continue', id = 'button', ariaLabel = 'Continue Button', disable = false) %}
     {{ govukButton({
@@ -22,6 +23,16 @@
       onClick: "history.back(); event.preventDefault();"
     }
   }) }}
+{% endmacro %}
+
+{% macro searchInput(text = 'Search Cases') %}
+  <div class="govuk-form-group govuk-!-margin-bottom-0">
+    <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--s" for="search-input">
+        {{ text }}
+      </label>
+    </h1>
+    <input class="govuk-input govuk-input--width-20" id="search-input" name="search-input" type="text">
+  </div>
 {% endmacro %}
 
 {% macro successPanel(title='', text='') %}
@@ -61,3 +72,13 @@
     }
   </script>
 {% endmacro %}
+
+{% macro mojAll() %}
+  <script type="text/javascript" src="/assets/js/jquery.js"></script>
+  <script type="text/javascript" src="/assets/js/mojAll.js"></script>
+  <script>
+    window.MOJFrontend.initAll()
+  </script>
+{% endmacro %}
+
+

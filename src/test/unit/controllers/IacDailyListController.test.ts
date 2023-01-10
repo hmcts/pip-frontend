@@ -6,7 +6,7 @@ import {PublicationService} from '../../../main/service/publicationService';
 import {IacDailyListService} from '../../../main/service/listManipulation/IacDailyListService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/iacDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -30,6 +30,7 @@ iacDailyListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
   'iac-daily-list': {},
+  'list-template': {},
 };
 
 describe('IAC Daily List Controller', () => {
@@ -49,8 +50,9 @@ describe('IAC Daily List Controller', () => {
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n['iac-daily-list'],
+      ...i18n['list-template'],
       listData,
-      contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+      contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
       publishedDate: '31 August 2022',
       publishedTime: '11am',
       provenance: 'prov1',

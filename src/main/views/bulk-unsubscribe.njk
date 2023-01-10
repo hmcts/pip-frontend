@@ -1,0 +1,149 @@
+{% from "macros/common-components.njk" import goBack, submitButton, mojAll %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "moj/components/sub-navigation/macro.njk" import mojSubNavigation %}
+
+{% extends "template.njk" %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+  <div class="parent-box">
+    {% if noOptionSelectedError %}
+      {{ govukErrorSummary({
+        titleText: error.title,
+        errorList: [
+          {
+            text: error.text,
+            href: "#bulk-unsubscribe-choice"
+          }
+        ]
+      }) }}
+    {% endif %}
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+    <form method="post" action="bulk-unsubscribe">
+      <div class="govuk-form-group">
+        {% set allSubscriptions = caseTableData | length + locationTableData | length %}
+        {% if allSubscriptions > 0 %}
+          {{ mojSubNavigation({
+            label: 'Sub navigation',
+            items: [{
+              text: subNavigation.header1 + allSubscriptions + ')',
+              href: '?all',
+              active: activeAllTab
+            }, {
+              text: subNavigation.header2 + caseTableData | length + ')',
+              href: '?case',
+              active: activeCaseTab
+            }, {
+              text: subNavigation.header3 + locationTableData | length + ')',
+              href: '?location',
+              active: activeLocationTab
+            }]
+          }) }}
+
+          {% if caseTableData | length == 0 and locationTableData | length == 0 %}
+            {% if activeAllTab == true %}
+              <p class="govuk-body">{{ noSubs }}</p>
+            {% elseif activeCaseTab == true %}
+              <p class="govuk-body">{{ noSubsCase }}</p>
+            {% elseif activelocationTab == true %}
+              <p class="govuk-body">{{ noSubsCourt }}</p>
+            {% endif %}
+          {% else %}
+            {% if (activeAllTab == true and caseTableData | length > 0) or (activeCaseTab == true and caseTableData | length > 0) %}
+              {# Case Subscriptions Table #}
+              {{ govukTable({
+                attributes: {
+                  'id': 'cases-table'
+                },
+                classes: 'govuk-!-margin-bottom-9',
+                head: [
+                  {
+                    text: caseTable.caseName,
+                    attributes: {
+                    "aria-sort": "none"
+                  },
+                    classes: 'govuk-!-width-one-third'
+                  },
+                  {
+                    text: caseTable.caseRef,
+                    attributes: {
+                    "aria-sort": "none"
+                  },
+                    classes: 'govuk-!-width-one-third'
+                  },
+                  {
+                    text: caseTable.date
+                  },
+                  {
+                    text: caseTable.deletion,
+                    classes: 'no-wrap',
+                    format: "numeric"
+                  }
+                ],
+                rows: caseTableData
+              }) }}
+            {% endif %}
+            {% if (activeAllTab == true and locationTableData | length > 0) or (activeLocationTab == true and locationTableData | length > 0) %}
+              {# location Subscriptions Table #}
+              {{ govukTable({
+                attributes: {
+                  'id': 'locations-table'
+                },
+                head: [
+                  {
+                    text: courtTable.courtName,
+                    attributes: {
+                    "aria-sort": "none"
+                  },
+                    classes: "govuk-!-width-two-thirds"
+                  },
+                  {
+                    text: courtTable.date
+                  },
+                  {
+                    text: courtTable.deletion,
+                    classes: 'no-wrap',
+                    format: "numeric"
+                  }
+                ],
+                rows: locationTableData
+              }) }}
+            {% endif %}
+          {% endif %}
+        {% else %}
+          <p class="govuk-body">{{ noSubs }}</p>
+        {% endif %}
+      </div>
+      {{ submitButton(label=unsubscribeButton, id="bulk-unsubscribe-button", disable=(allSubscriptions == 0)) }}
+    </form>
+    {{ super() }}
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  {{ mojAll() }}
+
+  <script>
+    window.onload = function() {
+      let nav = document.getElementsByClassName("moj-sub-navigation")[1].getElementsByTagName("ul")[0];
+      let hideAllSection = nav.querySelectorAll('li[class="moj-sub-navigation__item"]');
+      Array.from(hideAllSection).forEach((element, index) => {
+        element.querySelectorAll('.moj-sub-navigation__link').forEach(function(el) {
+          if(el.firstChild.nodeValue.indexOf('(0)') > 0) {
+            el.style.display = 'none';
+          }
+        });
+      });
+    };
+  </script>
+{% endblock %}

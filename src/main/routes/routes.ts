@@ -115,11 +115,11 @@ export default function(app: Application): void {
 
   // Restricted paths
   app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
-  app.get('/bulk-delete-subscriptions', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsController.get);
-  app.post('/bulk-delete-subscriptions', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsController.post);
-  app.get('/bulk-delete-subscriptions-confirmation', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsConfirmationController.get);
-  app.post('/bulk-delete-subscriptions-confirmation', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsConfirmationController.post);
-  app.get('/bulk-delete-subscriptions-confirmed', isPermittedMedia, app.locals.container.cradle.bulkDeleteSubscriptionsConfirmedController.get);
+  app.get('/bulk-unsubscribe', isPermittedMedia, app.locals.container.cradle.bulkUnsubscribeController.get);
+  app.post('/bulk-unsubscribe', isPermittedMedia, app.locals.container.cradle.bulkUnsubscribeController.post);
+  app.get('/bulk-unsubscribe-confirmation', isPermittedMedia, app.locals.container.cradle.bulkUnsubscribeConfirmationController.get);
+  app.post('/bulk-unsubscribe-confirmation', isPermittedMedia, app.locals.container.cradle.bulkUnsubscribeConfirmationController.post);
+  app.get('/bulk-unsubscribe-confirmed', isPermittedMedia, app.locals.container.cradle.bulkUnsubscribeConfirmedController.get);
   app.get('/case-name-search', isPermittedMedia, app.locals.container.cradle.caseNameSearchController.get);
   app.post('/case-name-search', isPermittedMedia, app.locals.container.cradle.caseNameSearchController.post);
   app.get('/case-name-search-results', isPermittedMedia, app.locals.container.cradle.caseNameSearchResultsController.get);
@@ -179,6 +179,13 @@ export default function(app: Application): void {
   app.post('/remove-list-search', isPermittedManualUpload, app.locals.container.cradle.removeListSearchController.post);
   app.get('/remove-list-search-results', isPermittedManualUpload, app.locals.container.cradle.removeListSearchResultsController.get);
   app.get('/remove-list-success', isPermittedManualUpload, app.locals.container.cradle.removeListSuccessController.get);
+  app.get('/admin-management', isPermittedAccountCreation, app.locals.container.cradle.adminManagementController.get);
+  app.post('/admin-management', isPermittedAccountCreation, app.locals.container.cradle.adminManagementController.post);
+  app.get('/manage-user', isPermittedAccountCreation, app.locals.container.cradle.manageUserController.get);
+  app.get('/update-user', isPermittedAccountCreation, app.locals.container.cradle.updateUserController.get);
+  app.get('/delete-user', isPermittedAccountCreation, app.locals.container.cradle.deleteUserController.get);
+  app.post('/delete-user-confirmation', isPermittedAccountCreation, app.locals.container.cradle.deleteUserConfirmationController.post);
+  app.post('/update-user-confirmation', isPermittedAccountCreation, app.locals.container.cradle.updateUserConfirmationController.post);
 
   //system-admin-restricted-paths
   app.get('/system-admin-dashboard', isPermittedSystemAdmin, app.locals.container.cradle.systemAdminDashboardController.get);
@@ -206,11 +213,6 @@ export default function(app: Application): void {
   app.post('/manage-third-party-users/subscriptions', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersSubscriptionsController.post);
   app.get('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.get);
   app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
-  app.get('/manage-user', isPermittedSystemAdmin, app.locals.container.cradle.manageUserController.get);
-  app.get('/update-user', isPermittedSystemAdmin, app.locals.container.cradle.updateUserController.get);
-  app.get('/delete-user', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserController.get);
-  app.post('/delete-user-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserConfirmationController.post);
-  app.post('/update-user-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.updateUserConfirmationController.post);
 
   //CFT Routes
   if (process.env.ENABLE_CFT === 'true') {

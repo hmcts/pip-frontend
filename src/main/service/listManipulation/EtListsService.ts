@@ -1,6 +1,5 @@
 import { formatDate } from '../../helpers/dateTimeHelper';
 import { ListParseHelperService } from '../listParseHelperService';
-import moment from 'moment-timezone';
 
 export class EtListsService {
   public helperService = new ListParseHelperService();
@@ -8,17 +7,15 @@ export class EtListsService {
   /**
    * Reshaping et List json data into formatted niceness.
    */
-  public reshapeEtLists(listData: string): object {
+  public reshapeEtLists(listData: string, language: string): object {
     const jsonData = JSON.parse(listData);
-    let hearingCount = 0;
     jsonData['courtLists'].forEach(courtList => {
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['formattedJudiciary'] = this.helperService.getJudiciaryNameSurname(session);
           delete session['judiciary'];
           session['sittings'].forEach(sitting => {
-            hearingCount = hearingCount + sitting['hearing'].length;
-            sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma');
+            sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma', language);
             this.helperService.calculateDuration(sitting);
             this.helperService.findAndConcatenateHearingPlatform(sitting, session);
             sitting['hearing'].forEach(hearing => {
@@ -26,8 +23,6 @@ export class EtListsService {
             });
           });
         });
-        courtRoom['totalHearing'] = hearingCount;
-        hearingCount = 0;
       });
     });
     return jsonData;
@@ -37,8 +32,8 @@ export class EtListsService {
    * Reshaping etDailyList json data into formatted niceness. It first loops through to populate fields in a nice way,
    * then loops through again to split data into days. Not O(1) but I think the world is just gonna have to deal.
    */
-  public reshapeEtFortnightlyListData(etFortList: string): object {
-    return this.dataSplitterEtList(this.reshapeEtLists(etFortList));
+  public reshapeEtFortnightlyListData(etFortList: string, language: string): object {
+    return this.dataSplitterEtList(this.reshapeEtLists(etFortList, language), language);
   }
 
   /**
@@ -46,20 +41,20 @@ export class EtListsService {
    * @param inputList - input et daily list json.
    * @private - cos it's internal.
    */
-  private dataSplitterEtList(inputList: any): any {
+  private dataSplitterEtList(inputList: any, language: string): any {
     const rows = [];
     inputList['courtLists'].forEach(courtList => {
       const courtName = courtList['courtHouse']['courtHouseName'];
       courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
         courtRoom['session'].forEach(session => {
           session['sittings'].forEach(sitting => {
-            const sittingDate = formatDate(sitting['sittingStart'], 'dddd DD MMMM YYYY');
+            const sittingDate = formatDate(sitting['sittingStart'], 'EEEE dd MMMM yyyy', language);
             sitting['hearing'].forEach(hearing => {
               hearing['case'].forEach(thisCase => {
                 const row = {
                   courtName: courtName,
                   sittingDate: sittingDate,
-                  sittingTime: formatDate(sitting['sittingStart'], 'h:mma'),
+                  sittingTime: formatDate(sitting['sittingStart'], 'h:mma', language),
                   addressLine: courtList['courtHouse']['courtHouseAddress']['line'],
                   addressTown: courtList['courtHouse']['courtHouseAddress']['town'],
                   addressCounty: courtList['courtHouse']['courtHouseAddress']['county'],
@@ -103,15 +98,13 @@ export class EtListsService {
       const uniqueDays =this.helperService.uniquesInArrayByAttrib(courtData, 'sittingDate');
       const uniqueDaysArr = [];
       Array.from(uniqueDays).forEach(day => {
-        const encDay = moment.utc(day, 'dddd DD MMMM YYYY').tz('Europe/London');
-        uniqueDaysArr.push(encDay);
+        uniqueDaysArr.push(day);
       });
       uniqueDaysArr.sort(function(a, b) {
         return a - b;
       });
       uniqueDaysArr.forEach(day => {
-        const formattedDay = moment.utc(day).tz('Europe/London').format('dddd DD MMMM YYYY');
-        const record = courtData.filter(row => row.sittingDate === formattedDay);
+        const record = courtData.filter(row => row.sittingDate === day);
         courts[courtCounter]['days'].push(record);
       });
       courtCounter += 1;
