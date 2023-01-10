@@ -1,7 +1,6 @@
 import {Response} from 'express';
 import {PipRequest} from '../models/request/PipRequest';
 import {cloneDeep} from 'lodash';
-import moment from 'moment';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
@@ -25,7 +24,7 @@ export default class MagistratesStandardListController {
       let manipulatedData = civService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
       manipulatedData = magsStandardListService.manipulatedMagsStandardListData(manipulatedData, req.lng as string, 'magistrates-standard-list');
       const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate'], req.lng);
       const location = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
@@ -33,7 +32,7 @@ export default class MagistratesStandardListController {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['magistrates-standard-list']),
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData: manipulatedData,
-        contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         provenance: metaData['provenance'],

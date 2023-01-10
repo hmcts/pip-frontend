@@ -1,7 +1,7 @@
 import {accountManagementApi, accountManagementApiUrl, getAccountManagementCredentials} from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
 import {MediaAccountApplication} from '../../models/MediaAccountApplication';
-import moment from 'moment-timezone';
+import {DateTime} from 'luxon';
 
 const superagent = require('superagent');
 const logger = Logger.getLogger('requests');
@@ -227,7 +227,7 @@ export class AccountManagementRequests {
   private async updateAccountDate(userProvenance: string, oid: string, field: string, errorMessage: string): Promise<string> {
     try {
       const map = {};
-      map[field] = moment().toISOString();
+      map[field] = DateTime.now().toISO();
       const response = await accountManagementApi.put(`/account/provenance/${userProvenance}/${oid}`, map);
       return response.data;
     } catch (error) {

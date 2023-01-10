@@ -1,7 +1,7 @@
 import {Response} from 'express';
 import {PipRequest} from '../models/request/PipRequest';
 import {cloneDeep} from 'lodash';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import {CrownFirmListService} from '../service/listManipulation/crownFirmListService';
@@ -24,12 +24,12 @@ export default class CrownFirmListController {
       const outputData = civilService.sculptedCivilFamilyMixedListData(JSON.stringify(jsonData));
       const outputArray = firmListService.splitOutFirmListData(JSON.stringify(outputData), req.lng, 'crown-firm-list');
       const publishedTime = helperService.publicationTimeInUkTime(jsonData['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(jsonData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(jsonData['document']['publicationDate'], req.lng);
       const location = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
       const dates = firmListService.getSittingDates(outputArray);
-      const startDate = moment.utc(dates[0]).tz('Europe/London').format('DD MMMM YYYY');
-      const endDate = moment.utc(dates[dates.length -1]).tz('Europe/London').format('DD MMMM YYYY');
+      const startDate = DateTime.fromISO(dates[0], {zone: 'Europe/London'}).toFormat('dd MMMM yyyy');
+      const endDate = DateTime.fromISO(dates[dates.length -1], {zone: 'Europe/London'}).toFormat('dd MMMM yyyy');
 
       res.render('crown-firm-list', {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-firm-list']),
@@ -38,7 +38,7 @@ export default class CrownFirmListController {
         startDate,
         endDate,
         allocated: outputArray,
-        contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
         publishedDate,
         publishedTime,
         provenance: metaData['provenance'],

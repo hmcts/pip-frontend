@@ -1,5 +1,5 @@
 import {partyRoleMappings} from '../models/consts';
-import moment from 'moment-timezone';
+import {DateTime} from 'luxon';
 
 export class ListParseHelperService {
 
@@ -232,10 +232,11 @@ export class ListParseHelperService {
   public calculateDuration(sitting: object): void {
     sitting['duration'] = '';
     if (sitting['sittingStart'] !== '' && sitting['sittingEnd'] !== '') {
-      const sittingStart = moment.utc(sitting['sittingStart']);
-      const sittingEnd = moment.utc(sitting['sittingEnd']);
+      const sittingStart = DateTime.fromISO(sitting['sittingStart'], {zone: 'utc'});
+      const sittingEnd = DateTime.fromISO(sitting['sittingEnd'], {zone: 'utc'});
       let durationAsHours = 0;
-      let durationAsMinutes = moment.duration(sittingEnd.startOf('minutes').diff(sittingStart.startOf('minutes'))).asMinutes();
+      let durationAsMinutes = Math.round(sittingEnd.diff(sittingStart, 'minutes').minutes);
+
       if (durationAsMinutes >= 60) {
         durationAsHours = Math.floor(durationAsMinutes / 60);
         durationAsMinutes = durationAsMinutes - (durationAsHours * 60);
@@ -250,12 +251,25 @@ export class ListParseHelperService {
       sitting['durationAsMinutes'] = durationAsMinutes;
       sitting['durationAsDays'] = durationAsDays;
 
-      const min = moment(sitting['sittingStart'], 'HH:mm').minutes();
-      if (min === 0) {
-        sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('ha');
+      if (sittingStart.minute === 0) {
+        this.formatCaseTime(sitting, 'ha');
       } else {
-        sitting['time'] = moment.utc(sitting['sittingStart']).tz(this.timeZone).format('h:mma');
+        this.formatCaseTime(sitting, 'h:mma');
       }
+    }
+  }
+
+  public formatCaseTime(sitting: object, format: string): void {
+    if (sitting['sittingStart'] !== '') {
+      const sittingStart = sitting['sittingStart'];
+      let zonedDateTime = DateTime.fromISO(sittingStart, {zone: this.timeZone});
+      //If json time is zoned time, we do not need to add the offset into the time. Luxon will do automatically.
+      //But, if time does not contain zoned time. Luxon always return offset (+01:00) with the time,
+      //so we need to add the offset manually
+      if (sittingStart.substr(sittingStart.length - 1) !== 'Z') {
+        zonedDateTime = zonedDateTime.plus({ minutes: zonedDateTime.offset });
+      }
+      sitting['time'] = zonedDateTime.toFormat(format).toLowerCase();
     }
   }
 
@@ -264,12 +278,12 @@ export class ListParseHelperService {
    * @param publicationDatetime The publication date time to convert in UTC.
    */
   public publicationTimeInUkTime(publicationDatetime: string): string {
-    const min = moment.utc(publicationDatetime, 'HH:mm').tz(this.timeZone).minutes();
+    const publicationZonedDateTime = DateTime.fromISO(publicationDatetime, {zone: this.timeZone});
     let publishedTime = '';
-    if (min === 0) {
-      publishedTime = moment.utc(publicationDatetime).tz(this.timeZone).format('ha');
+    if (publicationZonedDateTime.minute === 0) {
+      publishedTime = publicationZonedDateTime.toFormat('ha').toLowerCase();
     } else {
-      publishedTime = moment.utc(publicationDatetime).tz(this.timeZone).format('h:mma');
+      publishedTime = publicationZonedDateTime.toFormat('h:mma').toLowerCase();
     }
     return publishedTime;
   }
@@ -278,8 +292,12 @@ export class ListParseHelperService {
    * Function which extracts the date from a UTC Date Time in BST format.
    * @param publicationDatetime The publication date time to convert in UTC.
    */
-  public publicationDateInUkTime(publicationDatetime: string): string {
-    return moment.utc(publicationDatetime).tz(this.timeZone).format('DD MMMM YYYY');
+  public publicationDateInUkTime(publicationDatetime: string, language: string): string {
+    return DateTime.fromISO(publicationDatetime, {zone: this.timeZone}).setLocale(language).toFormat('dd MMMM yyyy');
+  }
+
+  public contentDateInUtcTime(contentDatetime: string, language: string): string {
+    return DateTime.fromISO(contentDatetime, {zone: 'utc'}).setLocale(language).toFormat('dd MMMM yyyy');
   }
 
   /**

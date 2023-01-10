@@ -1,7 +1,7 @@
 import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {cloneDeep} from 'lodash';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import {PublicationService} from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { SjpPressListService} from '../service/listManipulation/SjpPressListService';
@@ -22,7 +22,7 @@ export default class SjpPressListController {
       const manipulatedData = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
 
       const publishedTime = helperService.publicationTimeInUkTime(sjpData['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(sjpData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(sjpData['document']['publicationDate'], req.lng);
 
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
@@ -32,7 +32,7 @@ export default class SjpPressListController {
         sjpData: manipulatedData,
         publishedDateTime: publishedDate,
         publishedTime: publishedTime,
-        contactDate: moment.utc(Date.parse(metaData['contentDate'])).format('D MMMM YYYY'),
+        contactDate: DateTime.fromISO(metaData['contentDate'], {zone: 'Europe/London'}).setLocale(req.lng).toFormat('d MMMM yyyy'),
         artefactId: artefactId,
         user: req.user,
       });

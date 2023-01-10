@@ -66,13 +66,9 @@ describe('Third Party Service tests', () => {
     const getThirdPartyAccountsStub = sinon.stub(AccountManagementRequests.prototype, 'getThirdPartyAccounts');
     getThirdPartyAccountsStub.resolves(thirdPartyAccounts);
 
-    it('should return correct number of third party objects', async () => {
+    it('should return correct number and details of third party objects', async () => {
       const data = await thirdPartyService.getThirdPartyAccounts(adminUserId);
       expect(data.length).to.equal(2, 'Number of accounts returned does not match expected length');
-    });
-
-    it('should return correct details in of third party objects', async () => {
-      const data = await thirdPartyService.getThirdPartyAccounts(adminUserId);
 
       const firstAccount = data[0];
 

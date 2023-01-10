@@ -1,5 +1,5 @@
 import path from 'path';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import { PublicationService } from '../../service/publicationService';
 import { printableDuration } from './printableDuration';
 import {calculateDurationSortValue} from '../../helpers/dateTimeHelper';
@@ -33,8 +33,8 @@ function createFilters (env) {
 
   // for calculating date ranges
   env.addFilter('dateRange', function(x) {
-    return moment(x.displayFrom).format('D MMM YYYY') +
-      ' to ' + moment(x.displayTo).format('D MMM YYYY');
+    return DateTime.fromISO(x.displayFrom, {zone: 'Europe/London'}).toFormat('dd MMM yyyy') +
+      ' to ' + DateTime.fromISO(x.displayTo, {zone: 'Europe/London'}).toFormat('dd MMM yyyy');
   });
 
   // for emails to appear as govuk links
