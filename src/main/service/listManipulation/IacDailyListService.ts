@@ -4,7 +4,7 @@ import { formatDate } from '../../helpers/dateTimeHelper';
 export class IacDailyListService {
 
   helperService = new ListParseHelperService();
-  public manipulateIacDailyListData(iacDailyList: string): object {
+  public manipulateIacDailyListData(iacDailyList: string, language: string): object {
     const iacDailyListData = JSON.parse(iacDailyList);
 
     iacDailyListData['courtLists'].forEach(courtList => {
@@ -12,7 +12,7 @@ export class IacDailyListService {
         courtRoom['session'].forEach(session => {
           session['formattedJudiciary'] = this.getDeduplicatedJudiciaryNameSurname(session);
           session['sittings'].forEach(sitting => {
-            sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma');
+            sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma', language);
             this.helperService.findAndConcatenateHearingPlatform(sitting, session);
             sitting['hearing'].forEach(hearing => {
               this.helperService.findAndManipulatePartyInformation(hearing);

@@ -15,7 +15,7 @@ export default class SjpPublicListController {
 
     if (fileData && metaData) {
       const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(fileData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(fileData['document']['publicationDate'], req.lng);
       const casesCount = SjpPublicListController.getCasesCount(fileData);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 

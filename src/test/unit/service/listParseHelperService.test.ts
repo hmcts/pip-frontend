@@ -10,12 +10,12 @@ const dailyCauseListData = JSON.parse(rawDailyCauseData);
 describe('List Helper service', () => {
   describe('Publication Date and Time', () => {
     it('should return Publication Time accounting for BST', async () => {
-      const data = await listParseHelperService.publicationTimeInUkTime(dailyCauseListData['document']['publicationDate']);
+      const data = listParseHelperService.publicationTimeInUkTime(dailyCauseListData['document']['publicationDate']);
       expect(data).to.equal('12:30am');
     });
 
     it('should return Publication Date accounting for BST', async () => {
-      const data = await listParseHelperService.publicationDateInUkTime(dailyCauseListData['document']['publicationDate']);
+      const data = listParseHelperService.publicationDateInUkTime(dailyCauseListData['document']['publicationDate'], 'en');
 
       expect(data).to.equal('14 September 2020');
     });

@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import {LiveCaseService} from '../service/liveCaseService';
 import {cloneDeep} from 'lodash';
 import {PipRequest} from '../models/request/PipRequest';
@@ -18,8 +18,8 @@ export default class LiveCaseStatusController {
         res.render('live-case-status', {
           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['live-case-status']),
           locationName: liveCase.locationName,
-          updateDate: moment(Date.parse(liveCase.lastUpdated)).format('DD MMMM YYYY'),
-          updateTime: moment(Date.parse(liveCase.lastUpdated)).format('h:mma'),
+          updateDate: DateTime.fromISO(liveCase.lastUpdated, {zone: 'utc'}).toFormat('dd MMMM yyyy'),
+          updateTime: DateTime.fromISO(liveCase.lastUpdated, {zone: 'utc'}).toFormat('h:mma').toLowerCase(),
           liveCases: liveCase.locationUpdates,
           refreshTimer: process.env.REFRESH_TIMER_MILLISECONDS || 15000,
           locationId: locationId,

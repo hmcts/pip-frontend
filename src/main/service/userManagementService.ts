@@ -1,6 +1,6 @@
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
 import {formattedProvenances, formattedRoles} from '../models/consts';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 
 const accountManagementRequests = new AccountManagementRequests();
 export class UserManagementService {
@@ -306,7 +306,7 @@ export class UserManagementService {
    * Format and return the date with the correct format.
    */
   private formatDate(rawDate: any) {
-    return moment.utc(rawDate).tz('europe/london').format('DD/MM/YYYY HH:mm:ss');
+    return DateTime.fromISO(rawDate, {zone: 'europe/london'}).toFormat('dd/MM/yyyy HH:mm:ss');
   }
 
   /**
