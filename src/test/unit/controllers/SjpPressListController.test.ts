@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import {mockRequest} from '../mocks/mockRequest';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
 const sjpData = JSON.parse(rawData);
@@ -48,7 +48,7 @@ describe('SJP Press List Controller', () => {
       sjpData: sjpData,
       publishedDateTime: '14 September 2016',
       publishedTime: '12:30am',
-      contactDate: moment(Date.parse(metaData['contentDate'])).format('D MMMM YYYY'),
+      contactDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('d MMMM yyyy'),
       artefactId: 'abc',
       user: request.user,
     };

@@ -1,8 +1,8 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
+import {DateTime} from 'luxon';
 import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 import fs from 'fs';
-import moment from 'moment';
 import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
@@ -26,7 +26,7 @@ const actionsColumn = 'Actions';
 const courtNameColumn = 'Court or tribunal name';
 const expectedRowCaseName = 'Ashely Barnes';
 const expectedRowCaseReference = 'T485914';
-const expectedRowDateAdded = moment('2022-01-14T11:30:12.357299').format('DD MMMM YYYY');
+const expectedRowDateAdded = DateTime.fromISO('2022-01-14T11:30:12.357299').toFormat('dd MMMM yyyy');
 const expectedRowCourtName = 'Aberdeen Tribunal Hearing Centre';
 const expectedCaseRowsCount = 5;
 const expectedCaseRowsCountWithoutLocation = 1;

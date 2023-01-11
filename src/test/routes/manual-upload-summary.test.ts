@@ -7,7 +7,7 @@ import { FileHandlingService } from '../../main/service/fileHandlingService';
 import {request as expressRequest} from 'express';
 
 const PAGE_URL = '/manual-upload-summary';
-const mockCookie = {'foo': 'blah', listType: ''};
+const mockCookie = {'foo': 'blah', listType: '', 'display-from': '01/07/2022 00:00:01', 'display-to': '01/07/2022 23:59:59', 'content-date-from': '01/06/2022 10:00:00'};
 const uploadStub = sinon.stub(ManualUploadService.prototype, 'uploadPublication');
 sinon.stub(FileHandlingService.prototype, 'readFileFromRedis').resolves('');
 sinon.stub(FileHandlingService.prototype, 'removeFileFromRedis').resolves('').resolves('');

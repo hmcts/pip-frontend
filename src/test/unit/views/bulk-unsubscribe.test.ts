@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
@@ -19,7 +19,7 @@ const dateAddedColumn = 'Date added';
 const markForDeletionColumn = 'Select';
 const courtNameColumn = 'Court or tribunal name';
 
-const expectedRowDateAdded = moment('2022-01-14T11:30:12.357299').format('DD MMMM YYYY');
+const expectedRowDateAdded = DateTime.fromISO('2022-01-14T11:30:12.357299').toFormat('dd MMMM yyyy');
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);

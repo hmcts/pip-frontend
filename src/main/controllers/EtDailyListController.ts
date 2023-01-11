@@ -4,7 +4,6 @@ import {cloneDeep} from 'lodash';
 import {PublicationService} from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import {LocationService} from '../service/locationService';
-import moment from 'moment/moment';
 import { EtListsService } from '../service/listManipulation/EtListsService';
 
 const publicationService = new PublicationService();
@@ -19,10 +18,10 @@ export default class EtDailyListController {
     const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
     if (fileData && metaData) {
-      const listData = etDailyListService.reshapeEtLists(JSON.stringify(fileData));
+      const listData = etDailyListService.reshapeEtLists(JSON.stringify(fileData), req.lng);
 
       const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(fileData['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(fileData['document']['publicationDate'], req.lng);
       const returnedCourt = await locationService.getLocationById(metaData['locationId']);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
       const courtName = locationService.findCourtName(returnedCourt, req.lng as string, 'et-daily-list');
@@ -31,7 +30,7 @@ export default class EtDailyListController {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData,
         courtName,
-        contentDate: moment.utc(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
         region: returnedCourt.region,
         publishedDate: publishedDate,
         publishedTime: publishedTime,

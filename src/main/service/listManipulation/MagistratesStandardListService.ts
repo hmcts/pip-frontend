@@ -16,7 +16,7 @@ export class MagistratesStandardListService {
             if (judiciary !== '') {
               session['formattedJudiciaries'] = judiciary;
             }
-            crimeListsService.formatCaseTime(sitting, 'h:mma');
+            helperService.formatCaseTime(sitting, 'h:mma');
             sitting['formattedDuration'] = formatDuration(sitting['durationAsDays'] as number,
               sitting['durationAsHours'] as number, sitting['durationAsMinutes'] as number, language, languageFile);
             sitting['hearing'].forEach(hearing => {
@@ -26,7 +26,7 @@ export class MagistratesStandardListService {
                   const hearingString = JSON.stringify(hearing);
                   const hearingObject = JSON.parse(hearingString);
 
-                  this.manipulateHearingObject(hearingObject, party);
+                  this.manipulateHearingObject(hearingObject, party, language);
                   if (hearingObject['defendantHeading'] !== '') {
                     hearingObject['offence'].forEach(offence => {
                       allOffences.push(this.formatOffence(offence['offenceTitle'], hearingObject['plea'], 'Need to confirm',
@@ -61,11 +61,11 @@ export class MagistratesStandardListService {
     return defendantsPerSessions;
   }
 
-  private manipulateHearingObject(hearingObject, party) {
+  private manipulateHearingObject(hearingObject, party, language) {
     this.manipulatePartyInformation(hearingObject, party);
     hearingObject['case'].forEach(thisCase => {
-      hearingObject['formattedConvictionDate'] = formatDate(thisCase['convictionDate'], 'DD/MM/YYYY');
-      hearingObject['formattedAdjournedDate'] = formatDate(thisCase['adjournedDate'], 'DD/MM/YYYY');
+      hearingObject['formattedConvictionDate'] = formatDate(thisCase['convictionDate'], 'dd/MM/yyyy', language);
+      hearingObject['formattedAdjournedDate'] = formatDate(thisCase['adjournedDate'], 'dd/MM/yyyy', language);
       hearingObject['caseSequenceIndicator'] = thisCase['caseSequenceIndicator'];
       hearingObject['hearingNumber'] = thisCase['hearingNumber'];
       hearingObject['prosecutionAuthorityCode'] = thisCase['informant']['prosecutionAuthorityCode'];

@@ -1,4 +1,4 @@
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import { SubscriptionRequests } from '../resources/requests/subscriptionRequests';
 import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendingSubscriptionsFromCache';
 import { UserSubscriptions } from '../models/UserSubscriptions';
@@ -16,6 +16,8 @@ const publicationService = new PublicationService();
 const filterService = new FilterService();
 const languageFileParser = new LanguageFileParser();
 const locationService = new LocationService();
+
+const timeZone = 'Europe/London';
 
 const locationSubscriptionSorter = (a, b) => {
   if (a.locationName > b.locationName) {
@@ -124,7 +126,7 @@ export class SubscriptionService {
         text: subscription.caseNumber,
       },
       {
-        text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
+        text: DateTime.fromISO(subscription.dateAdded, {zone: timeZone}).toFormat('dd MMMM yyyy'),
         classes: 'no-wrap',
       },
       {
@@ -147,7 +149,7 @@ export class SubscriptionService {
         html: `<p class="govuk-body bulk-delete-row">${caseNumber}</p>`,
       },
       {
-        html: '<p class="govuk-body bulk-delete-row no-wrap">' + moment(subscription.dateAdded).format('DD MMMM YYYY') + '</p>',
+        html: '<p class="govuk-body bulk-delete-row no-wrap">' + DateTime.fromISO(subscription.dateAdded, {zone: timeZone}).toFormat('dd MMMM yyyy') + '</p>',
       },
       {
         html: '<div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">'
@@ -165,7 +167,7 @@ export class SubscriptionService {
         text: locationName,
       },
       {
-        text: moment(subscription.dateAdded).format('DD MMMM YYYY'),
+        text: DateTime.fromISO(subscription.dateAdded, {zone: timeZone}).toFormat('dd MMMM yyyy'),
         classes: 'no-wrap',
       },
       {
@@ -182,7 +184,7 @@ export class SubscriptionService {
         html: `<p class="govuk-body bulk-delete-row">${locationName}</p>`,
       },
       {
-        html: '<p class="govuk-body bulk-delete-row no-wrap">' + moment(subscription.dateAdded).format('DD MMMM YYYY') + '</p>',
+        html: '<p class="govuk-body bulk-delete-row no-wrap">' + DateTime.fromISO(subscription.dateAdded, {zone: timeZone}).toFormat('dd MMMM yyyy') + '</p>',
       },
       {
         html: '<div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">'
