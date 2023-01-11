@@ -1,7 +1,7 @@
 import { LocationService } from './locationService';
 import { DataManagementRequests } from '../resources/requests/dataManagementRequests';
-import moment from 'moment';
-import 'moment-timezone';
+import {DateTime} from 'luxon';
+
 import { FileHandlingService } from './fileHandlingService';
 import { PublicationService } from './publicationService';
 
@@ -11,6 +11,8 @@ import {LanguageFileParser} from '../helpers/languageFileParser';
 const languageFileParser = new LanguageFileParser();
 const fileHandlingService = new FileHandlingService();
 const publicationService = new PublicationService();
+
+const timeZone = 'Europe/London';
 
 export class ManualUploadService {
   public async buildFormData(language: string): Promise<object> {
@@ -26,8 +28,8 @@ export class ManualUploadService {
     summaryList.forEach((value) => {
       const listItem = {...value};
       listItem.listTypeName = this.getListItemName(value.listType);
-      listItem.contDate = moment.utc(value.contentDate).tz('Europe/London').format('D MMM YYYY');
-      listItem.dateRange = `${moment(value.displayFrom).format('D MMM YYYY')} to ${moment(value.displayTo).format('D MMM YYYY')}`;
+      listItem.dateRange = `${DateTime.fromISO(value.displayFrom, {zone: timeZone}).toFormat('d MMM yyyy')} to ${DateTime.fromISO(value.displayTo, {zone: timeZone}).toFormat('d MMM yyyy')}`;
+      listItem.contDate = DateTime.fromISO(value.contentDate, {zone: timeZone}).toFormat('d MMM yyyy');
       formattedList.push(listItem);
     });
     return formattedList;
@@ -100,20 +102,25 @@ export class ManualUploadService {
   }
 
   private validateDate(date: string, language: string, languageFile: string): string {
-    const dateformat = moment(date, 'DD/MM/YYYY HH:mm:ss', true);
-    if (dateformat.isValid()) {
-      return null;
+    if (date != null) {
+      const dateformat = DateTime.fromFormat(date, 'dd/MM/yyyy HH:mm:ss');
+      if (dateformat.isValid) {
+        return null;
+      }
     }
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     return languageFileParser.getText(fileJson, 'dateErrors', 'blank');
   }
 
   private validateDateRange(dateFrom: string, dateTo: string, language: string, languageFile: string): string | null {
-    const firstDate = moment(dateFrom, 'DD/MM/YYYY HH:mm:ss', true);
-    const secondDate = moment(dateTo, 'DD/MM/YYYY HH:mm:ss', true);
-    if (firstDate.isSameOrBefore(secondDate)) {
-      return null;
+    if (dateFrom != null && dateTo != null) {
+      const firstDate = DateTime.fromFormat(dateFrom, 'dd/MM/yyyy HH:mm:ss');
+      const secondDate = DateTime.fromFormat(dateTo, 'dd/MM/yyyy HH:mm:ss');
+      if (firstDate.startOf('day') <= secondDate.startOf('day')) {
+        return null;
+      }
     }
+
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
     return languageFileParser.getText(fileJson, 'dateErrors', 'dateRange');
   }
@@ -144,16 +151,19 @@ export class ManualUploadService {
   public formatPublicationDates(formData: any, defaultFormat: boolean): object {
     return {
       ...formData,
-      'display-from': defaultFormat ?
-        moment(formData['display-from'], 'DD/MM/YYYY HH:mm:ss').format() :
-        moment(formData['display-from'], 'DD/MM/YYYY').format('D MMM YYYY'),
-      'display-to': defaultFormat ?
-        moment(formData['display-to'], 'DD/MM/YYYY HH:mm:ss').format() :
-        moment(formData['display-to'], 'DD/MM/YYYY').format('D MMM YYYY'),
-      'content-date-from': defaultFormat ?
-        moment(formData['content-date-from'], 'DD/MM/YYYY').format() :
-        moment(formData['content-date-from'], 'DD/MM/YYYY').format('D MMM YYYY'),
+      'display-from': this.checkAndFormatDates(formData['display-from'], defaultFormat),
+      'display-to': this.checkAndFormatDates(formData['display-to'], defaultFormat),
+      'content-date-from': this.checkAndFormatDates(formData['content-date-from'], defaultFormat),
     };
+  }
+
+  private checkAndFormatDates(date: any, defaultFormat: boolean): string {
+    if (date != null) {
+      return defaultFormat ?
+        DateTime.fromFormat(date, 'dd/MM/yyyy HH:mm:ss').toISO() :
+        DateTime.fromFormat(date, 'dd/MM/yyyy HH:mm:ss').toFormat('d MMMM yyyy');
+    }
+    return '';
   }
 
   public generatePublicationUploadHeaders(headers): object {

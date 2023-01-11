@@ -1,5 +1,4 @@
-import moment from 'moment-timezone';
-
+import {DateTime} from 'luxon';
 export class SjpPressListService {
   /**
    * Manipulate the sjpPressList json data for writing out on screen.
@@ -16,7 +15,7 @@ export class SjpPressListService {
               hearingCount++;
               hearing['party'].forEach(party => {
                 if (party['individualDetails']) {
-                  party['individualDetails']['formattedDateOfBirth'] = moment(party['individualDetails']['dateOfBirth'].split('/').reverse().join('-')).format('D MMMM YYYY');
+                  party['individualDetails']['formattedDateOfBirth'] = DateTime.fromISO(party['individualDetails']['dateOfBirth'].split('/').reverse().join('-')).toFormat('d MMMM yyyy');
                 }
               });
 
