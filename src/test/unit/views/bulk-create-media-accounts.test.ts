@@ -36,7 +36,8 @@ describe('Bulk Create Media Accounts Page', () => {
         'Description text does not match');
       expect(body[1].innerHTML).contains('Each record must include the email, first name and surname information.',
         'Inset text does not match');
-      expect(body[2].innerHTML).contains('Note the upload process has a maximum of 30 accounts created per run. '
+      expect(body[2].innerHTML).contains('The file must also have the header \'email,firstName,surname\'.', 'Inset text does not match');
+      expect(body[3].innerHTML).contains('Note the upload process has a maximum of 30 accounts created per run. '
         + 'Please ensure the file uploaded for processing has no more than 30 cases.', 'Inset text does not match');
     });
 
