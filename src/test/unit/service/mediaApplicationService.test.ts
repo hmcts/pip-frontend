@@ -14,11 +14,7 @@ describe('Media application service', () => {
   it('should return media applications ordered by date', async () => {
     const results = await mediaApplicationService.getDateOrderedMediaApplications();
     expect(results[0].fullName).toEqual('jack jackson');
-    expect(new Date(results[0].requestDate) < new Date(results[1].requestDate)).toBeTruthy();
-  });
-
-  it('should format the dates into long format', async () => {
-    const results = await mediaApplicationService.getDateOrderedMediaApplications();
     expect(results[0].requestDate).toEqual('05 Mar 2022');
+    expect(new Date(results[0].requestDate) < new Date(results[1].requestDate)).toBeTruthy();
   });
 });
