@@ -56,7 +56,7 @@
     "codeceptjs": "^3.3.7",
     "config": "3.3.7",
     "cookie-parser": "^1.4.5",
-    "cookie-session": "^2.0.0",
+    "cookie-session": "^1.4.0",
     "core-js": "3.26.1",
     "cors": "^2.8.5",
     "csurf": "^1.11.0",
