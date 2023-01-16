@@ -8,6 +8,8 @@ process.on('unhandledRejection', reason => {
 
 export const config = {
   TEST_URL: process.env.TEST_URL || 'https://localhost:8080',
+  SYSTEM_ADMIN_USERNAME: process.env.B2C_SYSTEM_ADMIN_USERNAME,
+  SYSTEM_ADMIN_PASSWORD: process.env.B2C_SYSTEM_ADMIN_PASSWORD,
   TEST_SUITE_PREFIX: 'TEST_PIP_',
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
   TestSlowMo: 250,
