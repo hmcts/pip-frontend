@@ -20,8 +20,8 @@ module.exports = {
         { loader: 'css-loader', options:
           {
             'esModule': false,
-            'url': false
-          }
+            'url': false,
+          },
         },
         { loader: 'sass-loader' },
       ],
