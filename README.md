@@ -215,7 +215,7 @@ Here's an example setup:
     }
 ```
 
-Make sure you have those values set correctly for your application.
+Make sure you have those values set correctly for your application
 
 ### Healthcheck
 
