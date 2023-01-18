@@ -353,7 +353,7 @@ describe('CFT IDAM user login', () => {
       expect(await accountHomePage.getPageTitle()).toBe('Your account');
     });
 
-    it('should sign out and open view-option page', async () => {
+    it('should sign out and open session logged out page', async () => {
       sessionLoggedOutPage = await accountHomePage.clickSignOutForCftAccount();
       expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
     });
