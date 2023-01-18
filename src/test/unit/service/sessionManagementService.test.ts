@@ -16,6 +16,7 @@ describe('Test logout', () => {
 
   const mediaLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
   const mediaWelshLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
+  const cftIdamLogOutUrl = `/session-logged-out`;
   const adminLogOutUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
   const adminWelshLogOutUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
   const mediaSessionExpiredUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3Dsign-in`;
@@ -37,6 +38,16 @@ describe('Test logout', () => {
     responseMock.expects('redirect').once().withArgs(mediaWelshLogOutUrl);
 
     const req = {'user': {'roles': 'VERIFIED', 'userProvenance': 'PI_AAD'}, 'lng': 'cy', 'session': {}};
+    sessionManagementService.logOut(req, res, false, false);
+    expect(req.session).to.be.null;
+    responseMock.verify();
+  });
+
+  it('should redirect for CFT IDAM User', () => {
+    const responseMock = sinon.mock(res);
+    responseMock.expects('redirect').once().withArgs(cftIdamLogOutUrl);
+
+    const req = {'user': {'roles': 'VERIFIED', 'userProvenance': 'CFT_IDAM'}, 'lng': 'en', 'session': {}};
     sessionManagementService.logOut(req, res, false, false);
     expect(req.session).to.be.null;
     responseMock.verify();

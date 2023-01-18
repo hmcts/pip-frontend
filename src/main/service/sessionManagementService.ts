@@ -16,7 +16,7 @@ export class SessionManagementService {
       res.redirect(this.logOutUrl(checkRoles(req, allAdminRoles), adminWrongFlow, isSessionExpired, req.lng));
     } else {
       res.clearCookie('session');
-      res.redirect('/view-option');
+      res.redirect('/session-logged-out');
     }
 
   }
