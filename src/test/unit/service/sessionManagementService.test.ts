@@ -16,7 +16,8 @@ describe('Test logout', () => {
 
   const mediaLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
   const mediaWelshLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
-  const cftIdamLogOutUrl = `/session-logged-out`;
+  const cftIdamLogoutUrl = '/session-logged-out?lng=en';
+  const welshCftIdamLogoutUrl = '/session-logged-out?lng=cy';
   const adminLogOutUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
   const adminWelshLogOutUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
   const mediaSessionExpiredUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3Dsign-in`;
@@ -45,9 +46,19 @@ describe('Test logout', () => {
 
   it('should redirect for CFT IDAM User', () => {
     const responseMock = sinon.mock(res);
-    responseMock.expects('redirect').once().withArgs(cftIdamLogOutUrl);
+    responseMock.expects('redirect').once().withArgs(cftIdamLogoutUrl);
 
     const req = {'user': {'roles': 'VERIFIED', 'userProvenance': 'CFT_IDAM'}, 'lng': 'en', 'session': {}};
+    sessionManagementService.logOut(req, res, false, false);
+    expect(req.session).to.be.null;
+    responseMock.verify();
+  });
+
+  it('should redirect for CFT IDAM User in Welsh', () => {
+    const responseMock = sinon.mock(res);
+    responseMock.expects('redirect').once().withArgs(welshCftIdamLogoutUrl);
+
+    const req = {'user': {'roles': 'VERIFIED', 'userProvenance': 'CFT_IDAM'}, 'lng': 'cy', 'session': {}};
     sessionManagementService.logOut(req, res, false, false);
     expect(req.session).to.be.null;
     responseMock.verify();
@@ -179,7 +190,6 @@ describe('Test logout', () => {
 
   describe('Test CFT IDAM user session expiry', () => {
     const now = Date.now();
-    const cftIdamLogoutUrl = '/view-option';
 
     it('check returns true when session expired', () => {
       const responseMock = sinon.mock(res);
@@ -189,6 +199,20 @@ describe('Test logout', () => {
         'user': {'roles': 'VERIFIED', 'userProvenance': 'CFT_IDAM'},
         'session': {'sessionExpires': new Date(now - 10000)},
         'lng': 'en',
+      };
+      expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
+      expect(req.session).to.be.null;
+      responseMock.verify();
+    });
+
+    it('check returns true when session expired in welsh', () => {
+      const responseMock = sinon.mock(res);
+      responseMock.expects('redirect').once().withArgs(welshCftIdamLogoutUrl);
+
+      const req = {
+        'user': {'roles': 'VERIFIED', 'userProvenance': 'CFT_IDAM'},
+        'session': {'sessionExpires': new Date(now - 10000)},
+        'lng': 'cy',
       };
       expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
       expect(req.session).to.be.null;
