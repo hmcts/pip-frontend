@@ -19,6 +19,19 @@
   </h2>
   <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contentDate }}</p>
   <p class="govuk-body">{{ listUpdated | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
+
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text__icon align-warning-icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+      <span class="govuk-warning-text__assistive">Warning</span>
+      {% if bill %}
+        {{ warning }}<br>{{ warningForBill }}
+      {% else %}
+        {{ warning }}
+      {% endif %}
+    </strong>
+  </div>
+
   <details class="govuk-details" data-module="govuk-details" open>
     <summary class="govuk-details__summary"><span class="govuk-details__summary-text">{{ importantInformationHeading }}</span></summary>
     <div class="govuk-details__text">

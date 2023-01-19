@@ -6,11 +6,32 @@ import sinon from 'sinon';
 import request from 'supertest';
 import {app} from '../../../main/app';
 import {expect} from 'chai';
+import {request as expressRequest} from 'express';
 
-const PAGE_URL = '/sscs-daily-list?artefactId=abc';
+const userId = '1234';
+const sscDailyListUrl = '/sscs-daily-list';
+const sscDailyListAdditionalHearingsUrl = '/sscs-daily-list-additional-hearings';
+
+const artefactIdMap = new Map<string, string>([
+  [sscDailyListUrl, 'abc'],
+  [sscDailyListAdditionalHearingsUrl, 'def'],
+]);
+
+const warningTextMap = new Map<string, string>([
+  [
+    sscDailyListUrl,
+    'Please note: There may be two hearing lists available for this date, please make sure you look at both lists to see all hearings happening on this date for this location.',
+  ],
+  [
+    sscDailyListAdditionalHearingsUrl,
+    'Please note: There are two hearing lists available for this date, please make sure you look at both lists to see all hearings happening on this date for this location.',
+  ],
+]);
+
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
+const warningClass = 'govuk-warning-text__text';
 
 const courtName = 'Abergavenny Magistrates\' Court';
 const expectedHeader = courtName + ' hearings for';
@@ -20,18 +41,30 @@ let htmlRes: Document;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sscsDailyList.json'), 'utf-8');
 const sscsDailyList = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
-const metaData = JSON.parse(rawMetaData)[0];
+
+const metaDataSscs = JSON.parse(rawMetaData)[0];
+metaDataSscs.listType = 'SSCS_DAILY_LIST';
+
+const metaDataSscsAdditionalHearings = JSON.parse(rawMetaData)[0];
+metaDataSscsAdditionalHearings.listType = 'SSCS_DAILY_LIST_ADDITIONAL_HEARINGS';
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(sscsDailyList);
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 
-describe('Sscs daily list page', () => {
+const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
+metadataStub.withArgs(artefactIdMap.get(sscDailyListUrl), userId).returns(metaDataSscs);
+metadataStub.withArgs(artefactIdMap.get(sscDailyListAdditionalHearingsUrl), userId).returns(metaDataSscsAdditionalHearings);
+
+expressRequest['user'] = {'userId': userId};
+
+describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])('Sscs daily list page with path \'%s\'', url => {
+  const pageUrl = url + '?artefactId=' + artefactIdMap.get(url);
+
   beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
+    await request(app).get(pageUrl).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
   });
@@ -39,6 +72,11 @@ describe('Sscs daily list page', () => {
   it('should display header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
     expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+  });
+
+  it('should display warning',  () => {
+    const header = htmlRes.getElementsByClassName(warningClass);
+    expect(header[0].innerHTML).contains(warningTextMap.get(url), 'Could not find the warning text');
   });
 
   it('should display summary',  () => {
