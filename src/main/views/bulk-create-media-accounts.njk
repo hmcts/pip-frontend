@@ -30,7 +30,9 @@
     <form method="post" enctype="multipart/form-data">
       {% set errorMessage = {text: error} if displayError else false %}
       <p class="govuk-body" tabindex="0">{{ fileUploadText }}</p>
-      {% set insetText = '<p class="govuk-body">' + recordDescription + '<br/>'+ fileHeaderDescription + '</p>' %}
+      {% set insetText = '<p class="govuk-body">' + recordDescription + '</p>'
+        + '<p class="govuk-body">' + fileHeaderDescription + '</p>'
+        + '<p class="govuk-body">' + accountCountLimitDescription + '</p>' %}
       {% set errorMessage = {text: error} if displayError else false %}
       <div class="govuk-inset-text">
         {{ govukFileUpload({

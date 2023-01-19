@@ -978,7 +978,7 @@ describe('System Admin level journeys', () => {
     it('should upload file and open confirmation page', async () => {
       await bulkCreateMediaAccountsPage.uploadFile();
       bulkCreateMediaAccountsConfirmationPage = await bulkCreateMediaAccountsPage.clickContinue();
-      expect(await bulkCreateMediaAccountsConfirmationPage.getPageTitle()).toEqual('Are you sure you want to create these media accounts?');
+      expect(await bulkCreateMediaAccountsConfirmationPage.getPageTitle()).toEqual('Create media accounts confirmation');
     });
   });
 

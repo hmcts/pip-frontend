@@ -1,9 +1,10 @@
 {
-  "title": "Are you sure you want to create these media accounts?",
+  "title": "Create media accounts confirmation",
   "fileName": "File name",
   "email": "Email",
   "firstName": "First Name",
   "surname": "Surname",
+  "radioTitle": "Are you sure you want to create these media accounts?",
   "radioAnswers": ["Yes", "No"],
   "noOptionError": "An option must be selected",
   "accountCreationError": "Error creating the media accounts",
