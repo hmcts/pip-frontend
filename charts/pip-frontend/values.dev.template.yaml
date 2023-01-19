@@ -14,3 +14,8 @@ nodejs:
     ENABLE_CFT: true
     CFT_IDAM_URL: https://idam-web-public.aat.platform.hmcts.net
 
+idam-pr:
+  enabled: true
+  redirect_uris:
+    pip:
+      - https://${SERVICE_FQDN}/cft-login/return
