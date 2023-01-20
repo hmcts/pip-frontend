@@ -7,7 +7,7 @@ export interface HelmetConfig {
 
 const self = "'self'";
 const googleAnalyticsDomain = '*.google-analytics.com';
-const jsDeliverDomain = '*.jsdelivr.net'
+const jsDeliverDomain = '*.jsdelivr.net';
 
 /**
  * Module that enables helmet in the application
