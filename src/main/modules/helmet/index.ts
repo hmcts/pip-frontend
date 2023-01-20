@@ -7,7 +7,7 @@ export interface HelmetConfig {
 
 const self = "'self'";
 const googleAnalyticsDomain = '*.google-analytics.com';
-const tagManager = ['*.googletagmanager.com', 'https://tagmanager.google.com'];
+const jsDeliverDomain = '*.jsdelivr.net'
 
 /**
  * Module that enables helmet in the application
@@ -30,10 +30,10 @@ export class Helmet {
           connectSrc: [self, googleAnalyticsDomain],
           defaultSrc: ["'none'"],
           fontSrc: [self, 'data:'],
-          imgSrc: [self],
+          imgSrc: [self, googleAnalyticsDomain],
           objectSrc: [self],
-          scriptSrc: [self, ...tagManager, googleAnalyticsDomain, "'unsafe-inline'", "'unsafe-eval'"],
-          styleSrc: [self, 'https://pip-frontend.staging.platform.hmcts.net'],
+          scriptSrc: [self, jsDeliverDomain],
+          styleSrc: [self, process.env.FRONTEND_URL],
         },
       }),
     );
