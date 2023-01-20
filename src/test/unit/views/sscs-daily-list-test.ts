@@ -28,6 +28,17 @@ const warningTextMap = new Map<string, string>([
   ],
 ]);
 
+const titleTextMap = new Map<string, string>([
+  [
+    sscDailyListUrl,
+    'SSCS Daily List',
+  ],
+  [
+    sscDailyListAdditionalHearingsUrl,
+    'SSCS Daily List - Additional Hearings',
+  ],
+]);
+
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
@@ -67,6 +78,11 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])('Sscs daily 
     await request(app).get(pageUrl).then(res => {
       htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
     });
+  });
+
+  it('should have correct page title', () => {
+    const pageTitle = htmlRes.title;
+    expect(pageTitle).equals(titleTextMap.get(url), 'Page title does not match header');
   });
 
   it('should display header',  () => {

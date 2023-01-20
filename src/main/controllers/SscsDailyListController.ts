@@ -11,6 +11,9 @@ const courtService = new LocationService();
 const helperService = new ListParseHelperService();
 const sscsListService = new SscsDailyListService();
 
+const sscsUrl = 'sscs-daily-list';
+const sscsAdditonalHearingsUrl = 'sscs-daily-list-additional-hearings';
+
 export default class SscsDailyListController {
 
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -28,11 +31,22 @@ export default class SscsDailyListController {
       const returnedCourt = await courtService.getLocationById(metaData['locationId']);
       const courtName = courtService.findCourtName(returnedCourt, req.lng as string, 'sscs-daily-list');
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-      const languageResource = publicationService.getListTypes().get(metaData.listType).url;
+      const url = publicationService.getListTypes().get(metaData.listType).url;
 
-      res.render('sscs-daily-list', {
-        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[languageResource]),
-        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+      let languageResource = {
+        ...req.i18n.getDataByLanguage(pageLanguage)[sscsUrl],
+        ...req.i18n.getDataByLanguage(pageLanguage)['list-template'],
+      };
+
+      if (url === sscsAdditonalHearingsUrl) {
+        languageResource = {
+          ...cloneDeep(languageResource),
+          ...req.i18n.getDataByLanguage(pageLanguage)[sscsAdditonalHearingsUrl],
+        };
+      }
+
+      res.render(sscsUrl, {
+        ...cloneDeep(languageResource),
         listData: manipulatedData,
         contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
         publishedDate: publishedDate,
