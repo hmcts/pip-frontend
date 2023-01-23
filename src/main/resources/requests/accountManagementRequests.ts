@@ -319,7 +319,7 @@ export class AccountManagementRequests {
       return response.data;
     } catch (error) {
       if (error.response) {
-        logger.error('Failed to GET PI user request', error.response.data);
+        logger.warn('Failed to GET PI user request', error.response.data);
       } else if (error.request) {
         logger.error('Request failed for Pi user', error.request);
       } else {
