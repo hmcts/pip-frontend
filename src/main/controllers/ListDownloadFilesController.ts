@@ -31,7 +31,7 @@ export default class ListDownloadFilesController {
       }
     } else {
       const file = listDownloadService.getFile(artefactId, type);
-      if (file && fs.existsSync(file)) {
+      if (file) {
         const filename = path.basename(file);
         const mimetype = mime.lookup(file);
 
