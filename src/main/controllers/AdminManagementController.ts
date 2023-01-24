@@ -11,10 +11,15 @@ export default class AdminManagementController {
 
   public async post(req: PipRequest, res: Response): Promise<void> {
     const searchInput = req.body['search-input'];
+    console.log("We made it here")
 
     if (searchInput && searchInput.length) {
+      console.log("We also made it here")
       const searchResults = await accountManagementRequests.getAdminUserByEmailAndProvenance(searchInput, 'PI_AAD',
         req.user['userId']);
+
+      console.log("We then made it here");
+      console.log(searchResults);
 
       (searchResults) ?
         res.redirect(`manage-user?id=${searchResults.userId}`) :
@@ -23,6 +28,7 @@ export default class AdminManagementController {
           noResultsError: true,
         });
     } else {
+      console.log("Instead me made it here")
       res.render('admin-management', {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin-management']),
         noResultsError: true,
