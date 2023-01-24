@@ -326,7 +326,7 @@ describe('Create Account Service', () => {
   });
 
   describe('validateCsvFileContent', () => {
-    const file = fs.readFileSync('./manualUpload/tmp/validationFile.csv', 'utf-8');
+    const file = fs.readFileSync('./manualUpload/tmp/bulkMediaUploadValidationFile.csv', 'utf-8');
 
     it('should return no error if file content matches expected', async () => {
       const error = createAccountService.validateCsvFileContent(file, 3, ['column1', 'column2', 'column3'],
@@ -350,6 +350,20 @@ describe('Create Account Service', () => {
       const error = createAccountService.validateCsvFileContent(file, 4, ['column1', 'column2', 'column3'],
         englishLanguage, bulkCreateMediaAccountsLanguageFile);
       expect(error).toStrictEqual('Incorrect number of fields in file');
+    });
+
+    it('should return too many accounts error', async () => {
+      const file = fs.readFileSync('./manualUpload/tmp/bulkMediaUploadValidationFile_31Accounts.csv', 'utf-8');
+      const error = createAccountService.validateCsvFileContent(file, 3, ['column1', 'column2', 'column3'],
+        englishLanguage, bulkCreateMediaAccountsLanguageFile);
+      expect(error).toStrictEqual('Too many accounts, please upload a file with 30 accounts or less');
+    });
+
+    it('should return no error if maximum record count', async () => {
+      const file = fs.readFileSync('./manualUpload/tmp/bulkMediaUploadValidationFile_30Accounts.csv', 'utf-8');
+      const error = createAccountService.validateCsvFileContent(file, 3, ['column1', 'column2', 'column3'],
+        englishLanguage, bulkCreateMediaAccountsLanguageFile);
+      expect(error).toBeNull();
     });
   });
 

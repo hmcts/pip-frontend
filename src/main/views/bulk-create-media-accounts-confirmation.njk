@@ -51,9 +51,9 @@
       <table class="govuk-table" data-module="moj-sortable-table">
         <thead class="govuk-table__head">
         <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header" aria-sort="descending">{{ email }}</th>
-          <th scope="col" class="govuk-table__header" aria-sort="descending">{{ firstName }}</th>
-          <th scope="col" class="govuk-table__header" aria-sort="descending">{{ surname }}</th>
+          <th scope="col" class="govuk-table__header" aria-sort="none">{{ email }}</th>
+          <th scope="col" class="govuk-table__header" aria-sort="none">{{ firstName }}</th>
+          <th scope="col" class="govuk-table__header" aria-sort="none">{{ surname }}</th>
         </tr>
         </thead>
         <tbody class="govuk-table__body">
@@ -73,6 +73,12 @@
         classes: "govuk-radios--inline",
         idPrefix: "confirmed",
         name: "confirmed",
+        fieldset: {
+          legend: {
+            text: radioTitle,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
         items: [
           {
             id: 'yes',

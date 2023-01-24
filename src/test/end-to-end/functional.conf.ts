@@ -7,7 +7,10 @@ setHeadlessWhen(testConfig.TestHeadlessBrowser);
 
 export const config: CodeceptJS.MainConfig = {
   name: 'functional',
-  tests: './tests/*.ts',
+  tests: './tests/*-test.ts',
+  include: {
+    I: './tests/custom-steps.ts',
+  },
   output: join(testConfig.TestFunctionalOutputPath, 'functional/reports'),
   helpers: testConfig.helpers,
   plugins: {
