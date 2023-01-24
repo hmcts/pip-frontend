@@ -53,12 +53,12 @@ export class AccountHomePage extends CommonPage {
     return new SessionLoggedOutPage();
   }
 
-  async clickSignOutForCftAccount(): Promise<ViewOptionPage> {
+  async clickSignOutForCftAccount(): Promise<SessionLoggedOutPage> {
     await $(helpers.SignedInBannerSignOut).catch(() => {
       console.log(`${helpers.SignedInBannerSignOut} not found`);
     });
 
     await $(helpers.SignedInBannerSignOut).click();
-    return new ViewOptionPage();
+    return new SessionLoggedOutPage();
   }
 }

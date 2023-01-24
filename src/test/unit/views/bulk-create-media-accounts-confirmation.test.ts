@@ -39,13 +39,13 @@ describe('Bulk Create Media Accounts Confirmation Page', () => {
 
     it('should have correct page title', () => {
       const pageTitle = htmlRes.title;
-      expect(pageTitle).contains('Are you sure you want to create these media accounts?',
+      expect(pageTitle).contains('Create media accounts confirmation',
         'Page title does not match');
     });
 
     it('should have correct header', () => {
       const heading = htmlRes.getElementsByClassName('govuk-heading-l');
-      expect(heading[0].innerHTML).contains('Are you sure you want to create these media accounts?',
+      expect(heading[0].innerHTML).contains('Create media accounts confirmation',
         'Header does not match');
     });
 
@@ -67,6 +67,11 @@ describe('Bulk Create Media Accounts Confirmation Page', () => {
         expect(rowCells[1].innerHTML).contains(mockAccounts[i + 1][1], 'First name does not match');
         expect(rowCells[2].innerHTML).contains(mockAccounts[i + 1][2], 'Surname does not match');
       }
+    });
+
+    it('should display filter options', () => {
+      const fieldsets = htmlRes.getElementsByClassName('govuk-fieldset')[0];
+      expect(fieldsets.innerHTML).contains('Are you sure you want to create these media accounts?', 'Fieldset does not match');
     });
 
     describe('with error', () => {
