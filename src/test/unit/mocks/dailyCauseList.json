@@ -1,78 +1,71 @@
 {
   "document": {
-    "version": "",
-    "publicationDate":"2020-09-13T23:30:52.123Z"
+    "version": "V1",
+    "publicationDate": "2022-11-15T09:00:00Z",
+    "documentName": "Civil List"
   },
   "venue": {
-    "venueName": "PRESTON",
+    "venueName": "CaTh Service Assessment",
     "venueContact": {
-      "venueTelephone":"01772 844700",
-      "venueEmail": "court1@moj.gov.u"
+      "venueTelephone": "07951533410",
+      "venueEmail": "court1@moj.gov.uk"
     },
     "venueAddress": {
       "line": [
-        "THE LAW COURTS"
+        "102 Petty France",
+        ""
       ],
-      "postCode": "PR1 2LL"
+      "town": "London City",
+      "county": "London",
+      "postCode": "SW1H 9AJ"
     }
   },
-  "@schemaLocation": "",
   "courtLists": [
     {
       "courtHouse": {
-        "courtHouseName": "Court A",
+        "courtHouseName": "CaTh Service Assessment",
         "courtHouseAddress": {
           "line": [
-            "Address Line 1",
-            "Address Line 2"
+            "102 Petty France"
           ],
-          "town": "Town A",
-          "county": "County A",
-          "postCode": "AA1 AA1"
+          "town": "London",
+          "postCode": "SW1H 9AJ"
         },
         "courtRoom": [
           {
-            "courtRoomName": "1",
+            "courtRoomName": "Courtroom 1",
             "session": [
               {
-                "sessionStartTime": "",
                 "sessionChannel": [
-                  "VIDEO HEARING"
+                  "VIDEO HEARING",
+                  ""
                 ],
                 "judiciary": [
                   {
-                    "johTitle": "Mr",
-                    "johKnownAs": "Firstname1 Surname1"
+                    "johTitle": "Judge",
+                    "johNameSurname": "Chahal",
+                    "johKnownAs": "DDJ, Chahal",
+                    "isPresiding": true
                   },
                   {
-                    "johKnownAs": "Firstname2 Surname2"
+                    "johTitle": "Judge",
+                    "johNameSurname": "Judge Chahal",
+                    "johKnownAs": "Judge Chahal",
+                    "isPresiding": false
                   }
                 ],
                 "sittings": [
                   {
-                    "sittingStart": "2022-07-27T09:40:17.496Z",
-                    "sittingEnd": "2022-07-27T10:45:17.496Z",
+                    "sittingStart": "2022-01-01T09:30:00.00Z",
+                    "sittingEnd": "2022-01-01T12:15:00.00Z",
                     "hearing": [
                       {
-                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                        "hearingType": "Small Claims",
                         "case": [
                           {
-                            "caseName": "A1 Vs B1",
-                            "caseNumber": "12345678",
-                            "caseSequenceIndicator": "[2 of 3]"
-                          },
-                          {
-                            "caseName": "A2 Vs B2",
-                            "caseNumber": "112233445"
-                          }
-                        ]
-                      },
-                      {
-                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
-                        "case": [
-                          {
-                            "caseName": "A2 Vs B2",
-                            "caseNumber": "112233445"
+                            "caseName": "Fred v Ginger",
+                            "caseNumber": "OX21P00298",
+                            "caseSequenceIndicator": "2 of 3"
                           }
                         ]
                       }
@@ -83,209 +76,259 @@
                     ]
                   },
                   {
-                    "sittingStart": "2022-01-27T08:05:17.496Z",
-                    "sittingEnd": "2022-01-27T10:45:17.496Z",
+                    "sittingStart": "2022-01-27T10:30:00.496Z",
+                    "sittingEnd": "2022-01-27T10:45:00.00Z",
                     "hearing": [
                       {
-                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                        "hearingType": "Final Hearing (Public Law)",
                         "case": [
                           {
-                            "caseName": "A1 Vs B1",
-                            "caseNumber": "12345678"
-                          }
-                        ]
-                      },
-                      {
-                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
-                        "case": [
-                          {
-                            "caseName": "A2 Vs B2",
-                            "caseNumber": "112233445"
-                          }
-                        ]
-                      }
-                    ],
-                    "duration": "",
-                    "startTime": "9.40am",
-                    "durationAsHours": 1,
-                    "durationAsMinutes": 5
-                  }
-                ]
-              }
-            ],
-            "totalHearing": 2
-          }
-        ]
-      }
-    },
-    {
-      "courtHouse": {
-        "courtHouseName": "Court B",
-        "courtHouseAddress": {
-          "line": [
-            "Address Line 1",
-            "Address Line 2"
-          ],
-          "town": "Town B",
-          "county": "County B",
-          "postCode": "BB1 BB1"
-        },
-        "courtRoom": [
-          {
-            "courtRoomName": "1",
-            "session": [
-              {
-                "sessionStartTime": "",
-                "sessionChannel": [
-                  "VIDEO HEARING"
-                ],
-                "judiciary": [
-                  {
-                    "johTitle": "Mr",
-                    "johKnownAs": "Firstname1 Surname1"
-                  }
-                ],
-                "sittings": [
-                  {
-                    "sittingStart": "2022-01-27T09:00:17.496Z",
-                    "sittingEnd": "2022-01-27T10:30:17.496Z",
-                    "hearing": [
-                      {
-                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
-                        "case": [
-                          {
-                            "caseName": "A1 Vs B1",
-                            "caseNumber": "12345678",
-                            "caseSequenceIndicator": "[2 of 3]"
+                            "caseName": "Man v Machine",
+                            "caseNumber": "OX21P00236"
                           }
                         ]
                       }
                     ],
                     "channel": [
-                      "Remote",
-                      "Teams"
+                      "CVP"
                     ]
-                  }
-                ]
-              }
-            ],
-            "totalHearing": 2
-          }
-        ]
-      }
-    },
-    {
-      "courtHouse": {
-        "courtHouseName": "Court B",
-        "courtHouseAddress": {
-          "line": [
-            "Address Line 1",
-            "Address Line 2"
-          ],
-          "town": "Town B",
-          "county": "County B",
-          "postCode": "BB1 BB1"
-        },
-        "courtRoom": [
-          {
-            "courtRoomName": "1",
-            "session": [
-              {
-                "sessionStartTime": "",
-                "sessionChannel": [
-                  "VIDEO HEARING"
-                ],
-                "judiciary": [
+                  },
                   {
-                    "johTitle": "Mr",
-                    "johKnownAs": "Firstname1 Surname1"
-                  }
-                ],
-                "sittings": [
-                  {
-                    "sittingStart": "2022-01-27T13:00:17.496Z",
-                    "sittingEnd": "2022-01-27T14:00:17.496Z",
+                    "sittingStart": "2022-01-27T11:00:17.496Z",
+                    "sittingEnd": "2022-01-27T11:15:17.496Z",
                     "hearing": [
                       {
-                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                        "hearingType": "DRA (Dispute Resolution Appointment)",
                         "case": [
                           {
-                            "caseName": "A1 Vs B1",
-                            "caseNumber": "12345678",
-                            "caseSequenceIndicator": "[2 of 3]"
+                            "caseName": "Him v Her",
+                            "caseNumber": "OX21P00290"
                           }
                         ]
                       }
                     ],
                     "channel": [
-                      "Remote",
-                      "Teams"
+                      "In Person"
                     ]
-                  }
-                ]
-              }
-            ],
-            "totalHearing": 2
-          }
-        ]
-      }
-    },
-    {
-      "courtHouse": {
-        "courtHouseName": "Court B",
-        "courtHouseAddress": {
-          "line": [
-            "Address Line 1",
-            "Address Line 2"
-          ],
-          "town": "Town B",
-          "county": "County B",
-          "postCode": "BB1 BB1"
-        },
-        "courtRoom": [
-          {
-            "courtRoomName": "1",
-            "session": [
-              {
-                "sessionStartTime": "",
-                "sessionChannel": [
-                  "VIDEO HEARING"
-                ],
-                "judiciary": [
+                  },
                   {
-                    "johTitle": "Mr",
-                    "johKnownAs": "Firstname1 Surname1"
-                  }
-                ],
-                "sittings": [
-                  {
-                    "sittingStart": "2022-01-27T15:00:17.496Z",
-                    "sittingEnd": "2022-01-27T15:30:17.496Z",
+                    "sittingStart": "2022-01-27T11:15:17.496Z",
+                    "sittingEnd": "2022-01-27T12:00:17.496Z",
                     "hearing": [
                       {
-                        "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                        "hearingType": "Case Management Hearing (Civil)",
                         "case": [
                           {
-                            "caseName": "A1 Vs B1",
-                            "caseNumber": "12345678",
-                            "caseSequenceIndicator": "[2 of 3]"
+                            "caseName": "Salt v Pepper",
+                            "caseNumber": "OX21P00265"
                           }
                         ]
                       }
                     ],
                     "channel": [
-                      "Remote",
-                      "Teams"
+                      "In Person"
+                    ]
+                  },
+                  {
+                    "sittingStart": "2022-01-27T12:00:17.496Z",
+                    "sittingEnd": "2022-01-27T12:15:17.496Z",
+                    "hearing": [
+                      {
+                        "hearingType": "FR - 1st Appointment",
+                        "case": [
+                          {
+                            "caseName": "Sweet v Sour",
+                            "caseNumber": "OX21P00420"
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      "CVP"
                     ]
                   }
                 ]
               }
-            ],
-            "totalHearing": 2
+            ]
+          },
+          {
+            "courtRoomName": "Courtroom 4",
+            "session": [
+              {
+                "sessionStartTime": "",
+                "sessionChannel": [
+                  "VIDEO HEARING",
+                  ""
+                ],
+                "judiciary": [
+                  {
+                    "johNameSurname": "Carter",
+                    "johKnownAs": "Duty District Judge, Carter",
+                    "isPresiding": true
+                  },
+                  {
+                    "johNameSurname": "Judge Carter",
+                    "johKnownAs": "Judge Carter",
+                    "isPresiding": false
+                  }
+                ],
+                "sittings": [
+                  {
+                    "sittingStart": "2022-01-27T11:00:17.496Z",
+                    "sittingEnd": "2022-01-27T11:15:17.496Z",
+                    "hearing": [
+                      {
+                        "hearingType": "Application (Private Law)",
+                        "case": [
+                          {
+                            "caseName": "Mr Unhappy v Mr Cross",
+                            "caseNumber": "H1PP2381"
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      "In Person"
+                    ]
+                  },
+                  {
+                    "sittingStart": "2022-01-27T11:15:17.496Z",
+                    "sittingEnd": "2022-01-27T11:45:17.496Z",
+                    "hearing": [
+                      {
+                        "hearingType": "Application (Divorce)",
+                        "case": [
+                          {
+                            "caseName": "Mr Sad v Mrs Sad",
+                            "caseNumber": "H00OX285"
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      "CVP"
+                    ]
+                  },
+                  {
+                    "sittingStart": "2022-01-27T11:45:17.496Z",
+                    "sittingEnd": "2022-01-27T12:00:17.496Z",
+                    "hearing": [
+                      {
+                        "hearingType": "Interim Third Party Order",
+                        "case": [
+                          {
+                            "caseName": "Mrs Supplier V Miss Customer",
+                            "caseNumber": "H00OX393"
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      "In Person"
+                    ]
+                  },
+                  {
+                    "sittingStart": "2022-01-27T12:05:17.496Z",
+                    "sittingEnd": "2022-01-27T12:35:17.496Z",
+                    "hearing": [
+                      {
+                        "hearingType": "RTA Small Claim",
+                        "case": [
+                          {
+                            "caseName": "Miss Supplier v Mr Customer",
+                            "caseNumber": "H00OX335"
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      "In Person"
+                    ]
+                  },
+                  {
+                    "sittingStart": "2022-01-27T12:35:17.496Z",
+                    "sittingEnd": "2022-01-27T12:50:17.496Z",
+                    "hearing": [
+                      {
+                        "hearingType": "Fast-track",
+                        "case": [
+                          {
+                            "caseName": "Mrs Supplier v Mr Customer",
+                            "caseNumber": "H00OX346"
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      "CVP"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "courtRoomName": "Courtroom 5",
+            "session": [
+              {
+                "sessionStartTime": "",
+                "sessionChannel": [
+                  "In Person",
+                  ""
+                ],
+                "judiciary": [
+                  {
+                    "johNameSurname": "Collier",
+                    "johKnownAs": "DDJ, Collier",
+                    "isPresiding": true
+                  },
+                  {
+                    "johNameSurname": "Judge Collier",
+                    "johKnownAs": "Judge Collier",
+                    "isPresiding": false
+                  }
+                ],
+                "sittings": [
+                  {
+                    "sittingStart": "2022-01-27T10:00:17.496Z",
+                    "sittingEnd": "2022-01-27T12:30:17.496Z",
+                    "hearing": [
+                      {
+                        "hearingType": "DRA (Dispute Resolution Appointment)",
+                        "case": [
+                          {
+                            "caseName": "Pepper v Pots",
+                            "caseNumber": "OX20P00765"
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": []
+                  },
+                  {
+                    "sittingStart": "2022-01-27T11:00:17.496Z",
+                    "sittingEnd": "2022-01-27T12:30:17.496Z",
+                    "hearing": [
+                      {
+                        "hearingType": "DRA (Dispute Resolution Appointment)",
+                        "case": [
+                          {
+                            "caseName": "Lost v Found",
+                            "caseNumber": "OX21F00502"
+                          }
+                        ]
+                      }
+                    ],
+                    "channel": [
+                      "In Person"
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
     }
   ]
 }
-
