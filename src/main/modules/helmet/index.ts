@@ -6,7 +6,7 @@ export interface HelmetConfig {
 }
 
 const self = "'self'";
-const googleAnalyticsDomains = ['*.googletagmanager.com', 'https://tagmanager.google.com'];
+const googleAnalyticsDomains = ['*.googletagmanager.com', 'https://tagmanager.google.com', '*.google-analytics.com'];
 const jsdelivrDomain = '*.jsdelivr.net';
 
 /**
