@@ -27,7 +27,7 @@ export class Helmet {
     app.use(
       helmet.contentSecurityPolicy({
         directives: {
-          connectSrc: [self],
+          connectSrc: [self, ...googleAnalyticsDomains],
           defaultSrc: ["'none'"],
           fontSrc: [self, 'data:'],
           imgSrc: [self, ...googleAnalyticsDomains],
