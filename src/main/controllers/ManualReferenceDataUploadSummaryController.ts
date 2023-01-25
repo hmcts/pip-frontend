@@ -3,9 +3,11 @@ import {Response} from 'express';
 import {cloneDeep} from 'lodash';
 import {FileHandlingService} from '../service/fileHandlingService';
 import {ManualUploadService} from '../service/manualUploadService';
+import {UserManagementService} from '../service/userManagementService';
 
 const manualUploadService = new ManualUploadService();
 const fileHandlingService = new FileHandlingService();
+const userManagementService = new UserManagementService();
 
 export default class ManualReferenceDataUploadSummaryController {
   public get(req: PipRequest, res: Response): void {
@@ -36,6 +38,8 @@ export default class ManualReferenceDataUploadSummaryController {
       });
     } else {
       const response = await manualUploadService.uploadLocationDataPublication({...formData});
+      await userManagementService.auditAction(req.user['userId'], req.user['email'], 'REFERENCE_DATA_UPLOAD',
+        'Upload of the reference data requested');
 
       fileHandlingService.removeFileFromRedis(req.user['userId'], formData.fileName);
 

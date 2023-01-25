@@ -3,9 +3,11 @@ import {Response} from 'express';
 import {cloneDeep} from 'lodash';
 import {FileHandlingService} from '../service/fileHandlingService';
 import {CreateAccountService} from '../service/createAccountService';
+import {UserManagementService} from '../service/userManagementService';
 
 const createAccountService = new CreateAccountService();
 const fileHandlingService = new FileHandlingService();
+const userManagementService = new UserManagementService();
 
 const bulkCreateAccountsUrl = 'bulk-create-media-accounts';
 const bulkCreateAccountsConfirmationUrl = 'bulk-create-media-accounts-confirmation';
@@ -48,6 +50,8 @@ export default class BulkCreateMediaAccountsConfirmationController {
     if (confirmed === 'Yes') {
       const file = await fileHandlingService.readFileFromRedis(req.user['userId'], fileName);
       const success = await createAccountService.bulkCreateMediaAccounts(file, fileName, req.user?.['userId']);
+      await userManagementService.auditAction(req.user['userId'], req.user['email'], 'BULK_MEDIA_UPLOAD',
+        'User uploaded a bulk list of media accounts');
       if (success) {
         return res.redirect(bulkCreateAccountsConfirmedUrl);
       } else {
