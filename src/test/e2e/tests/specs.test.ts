@@ -353,9 +353,9 @@ describe('CFT IDAM user login', () => {
       expect(await accountHomePage.getPageTitle()).toBe('Your account');
     });
 
-    it('should sign out and open view-option page', async () => {
-      viewOptionPage = await accountHomePage.clickSignOutForCftAccount();
-      expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
+    it('should sign out and open session logged out page', async () => {
+      sessionLoggedOutPage = await accountHomePage.clickSignOutForCftAccount();
+      expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
     });
   });
 
@@ -977,7 +977,7 @@ describe('System Admin level journeys', () => {
     it('should upload file and open confirmation page', async () => {
       await bulkCreateMediaAccountsPage.uploadFile();
       bulkCreateMediaAccountsConfirmationPage = await bulkCreateMediaAccountsPage.clickContinue();
-      expect(await bulkCreateMediaAccountsConfirmationPage.getPageTitle()).toEqual('Are you sure you want to create these media accounts?');
+      expect(await bulkCreateMediaAccountsConfirmationPage.getPageTitle()).toEqual('Create media accounts confirmation');
     });
   });
 
