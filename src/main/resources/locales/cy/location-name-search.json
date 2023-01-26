@@ -10,7 +10,7 @@
   "courtTableHeader": "Llysoedd a Thribiwnlysoedd yng Nghymru a Lloegr",
   "sjpTableHeader": "Rhestrau cenedlaethol",
   "sjpSubscription": "Achosion Gweithdrefn Un Ynad",
-  "hide" : "Cuddio’r ffiltrau",
+  "hide": "Cuddio’r ffiltrau",
   "show": "Dangos y ffiltrau",
   "ariaLabelNav": "Nid oes llys/tribiwnlys ar gael ar gyfer y llythyr",
   "jurisdiction": "Math o lys neu dribiwnlys",
@@ -21,4 +21,3 @@
   "backButton": "Yn ôl",
   "applyFiltersButton": "Ffiltro"
 }
-

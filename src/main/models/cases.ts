@@ -1,4 +1,4 @@
-import {SearchObject} from './searchObject';
+import { SearchObject } from "./searchObject";
 
 export interface Cases {
   cases: SearchObject[];

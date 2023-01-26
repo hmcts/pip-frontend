@@ -1,6 +1,6 @@
-@import 'node_modules/govuk-frontend/govuk/all';
-@import 'accessible-autocomplete.min';  /* stylelint-disable-line */
-@import 'node_modules/@ministryofjustice/frontend/moj/all';
+@import "node_modules/govuk-frontend/govuk/all";
+@import "accessible-autocomplete.min"; /* stylelint-disable-line */
+@import "node_modules/@ministryofjustice/frontend/moj/all";
 
 $line-colour: #1d70b8;
 $text-disabled: #505a5f;
@@ -128,7 +128,7 @@ $callout-bg: #f0f4f5;
   position: relative;
 
   .floating-back-to-top--fixed {
-    background-color: govuk-colour('light-grey');
+    background-color: govuk-colour("light-grey");
     padding: 5px;
     position: fixed;
     top: calc(100% - 30px);
@@ -353,7 +353,7 @@ div {
   @extend %govuk-\!-margin-right-4 !optional;
   @extend %govuk-\!-margin-top-4 !optional;
 
-  &[aria-hidden='false'] {
+  &[aria-hidden="false"] {
     // Important is required due to an inline style being applied
     display: block !important; // sass-lint:disable-line no-important
   }
@@ -377,7 +377,7 @@ div {
 }
 
 .selection-counter-box {
-  background-color: govuk-colour('light-grey');
+  background-color: govuk-colour("light-grey");
 }
 
 .vertical-center-table-header {
@@ -389,7 +389,7 @@ div {
 }
 
 .with-background {
-  background-color: govuk-colour('white');
+  background-color: govuk-colour("white");
 }
 
 .pub-navigation {
@@ -435,8 +435,8 @@ div {
 }
 
 .account-card {
-  background-color: govuk-colour('light-grey');
-  border: solid 1px govuk-colour('mid-grey');
+  background-color: govuk-colour("light-grey");
+  border: solid 1px govuk-colour("mid-grey");
   height: 100%;
   padding: 0 1em;
   min-height: 150px;

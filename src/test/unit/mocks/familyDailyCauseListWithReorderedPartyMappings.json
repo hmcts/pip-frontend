@@ -7,9 +7,7 @@
   "venue": {
     "venueName": "This is the venue name",
     "venueAddress": {
-      "line": [
-        "Address Line 1"
-      ],
+      "line": ["Address Line 1"],
       "town": "Venue Town",
       "county": "Venue County",
       "postCode": "AA1 AA1"
@@ -28,9 +26,7 @@
           "venueEmail": "a@b.com"
         },
         "courtHouseAddress": {
-          "line": [
-            "Address Line 1"
-          ],
+          "line": ["Address Line 1"],
           "postCode": "AA1 AA1"
         },
         "courtRoom": [
@@ -73,7 +69,7 @@
                               "individualSurname": "SurnameApplicant",
                               "title": "Mr"
                             }
-                            },
+                          },
                           {
                             "partyRole": "APPLICANT_PETITIONER",
                             "individualDetails": {
@@ -89,10 +85,7 @@
                         ]
                       }
                     ],
-                    "channel": [
-                      "Teams",
-                      "Attended"
-                    ]
+                    "channel": ["Teams", "Attended"]
                   }
                 ],
                 "judiciary": [

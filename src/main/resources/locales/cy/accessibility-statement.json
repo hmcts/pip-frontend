@@ -8,8 +8,14 @@
     "text5": "Rydym hefyd wedi sicrhau ein bod wedi defnyddio iaith syml ar y wefan.",
     "text6": "(mae'n agor mewn ffenestr newydd) gyngor ar wneud eich dyfais yn haws i'w defnyddio os oes gennych anabledd.",
     "links": [
-      { "link": "https://www.court-tribunal-hearings.service.gov.uk", "text": "www.court-tribunal-hearings.service.gov.uk." },
-      { "link": "https://mcmw.abilitynet.org.uk/", "text": "Mae gan AbilityNet " }
+      {
+        "link": "https://www.court-tribunal-hearings.service.gov.uk",
+        "text": "www.court-tribunal-hearings.service.gov.uk."
+      },
+      {
+        "link": "https://mcmw.abilitynet.org.uk/",
+        "text": "Mae gan AbilityNet "
+      }
     ],
     "list": [
       "newid y lliwiau, y lefelau cyferbyniad a’r ffontiau",
@@ -46,7 +52,10 @@
     "heading": "Y Weithdrefn Orfodi",
     "text1": "Y Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) sy’n gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018 (y ‘rheoliadau hygyrchedd’). Os nad ydych chi’n fodlon gyda’r ffordd rydym yn ymateb i’ch cwyn, ",
     "links": [
-      { "link": "https://www.equalityadvisoryservice.com/", "text": "cysylltwch â’r Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS)." }
+      {
+        "link": "https://www.equalityadvisoryservice.com/",
+        "text": "cysylltwch â’r Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS)."
+      }
     ]
   },
   "section6": {
@@ -67,7 +76,10 @@
     "text1": "Mae’r wefan hon yn cydymffurfio’n rhannol â ",
     "text2": "a hynny oherwydd yr enghreifftiau o beidio â chydymffurfio a restrir isod.",
     "links": [
-      { "link": "https://www.w3.org/TR/WCAG21/", "text": "  safon AA Canllawiau Hygyrchedd Cynnwys Gwe fersiwn 2.1 " }
+      {
+        "link": "https://www.w3.org/TR/WCAG21/",
+        "text": "  safon AA Canllawiau Hygyrchedd Cynnwys Gwe fersiwn 2.1 "
+      }
     ]
   },
   "section9": {
@@ -105,7 +117,10 @@
     "text10": "“Mae archwilio technegol yn cynnwys cymhwyso nifer o ddulliau archwilio technegol a safonau asesu cydymffurfiaeth. Mae hyn, ynghyd â gwybodaeth helaeth am WCAG, y broses o’i roi ar waith ac ymarfer byd-eang ehangach, yn rhoi hygrededd ac ansawdd pellach i wefan DAC.”",
     "links": [
       { "link": "https://pa11y.org/", "text": "Pa11y" },
-      { "link": "https://www.court-tribunal-hearings.service.gov.uk", "text": "www.court-tribunal-hearings.service.gov.uk." }
+      {
+        "link": "https://www.court-tribunal-hearings.service.gov.uk",
+        "text": "www.court-tribunal-hearings.service.gov.uk."
+      }
     ]
   }
 }

@@ -1,8 +1,7 @@
-import { CommonPage } from './Common.page';
-const helpers = require('../Helpers/Selectors');
+import { CommonPage } from "./Common.page";
+const helpers = require("../Helpers/Selectors");
 
 export class DeleteUserConfirmationPage extends CommonPage {
-
   async getPageTitle(): Promise<string> {
     $(helpers.userManagementPanelTitle).catch(() => {
       console.log(`${helpers.userManagementPanelTitle} not found`);

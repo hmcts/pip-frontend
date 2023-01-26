@@ -1,9 +1,9 @@
-import { LiveCaseCourtSearchControllerPage } from './LiveCaseCourtSearchController.page';
-import { SearchPage } from './Search.page';
-import { SingleJusticeProcedurePage } from './SingleJusticeProcedure.page';
-import { CommonPage } from './Common.page';
+import { LiveCaseCourtSearchControllerPage } from "./LiveCaseCourtSearchController.page";
+import { SearchPage } from "./Search.page";
+import { SingleJusticeProcedurePage } from "./SingleJusticeProcedure.page";
+import { CommonPage } from "./Common.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class ViewOptionPage extends CommonPage {
   async getPageTitle(): Promise<string> {

@@ -1,7 +1,7 @@
-import { SubscriptionUrnSearchResultsPage } from './SubscriptionUrnSearchResults.page';
-import { CommonPage } from './Common.page';
+import { SubscriptionUrnSearchResultsPage } from "./SubscriptionUrnSearchResults.page";
+import { CommonPage } from "./Common.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class SubscriptionUrnSearchPage extends CommonPage {
   async getPageTitle(): Promise<string> {
@@ -19,7 +19,7 @@ export class SubscriptionUrnSearchPage extends CommonPage {
 
     const searchInput = await $(helpers.SearchInput);
     await searchInput.addValue(text);
-    await browser.keys('Escape');
+    await browser.keys("Escape");
   }
 
   async clickContinue(): Promise<SubscriptionUrnSearchResultsPage> {

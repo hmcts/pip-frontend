@@ -4,6 +4,10 @@
   "pStart": "To continue, you can go to",
   "pEnd": "in order to:",
   "yourAccount": "your account",
-  "listItems": ["add a new subscription", "manage your current subscriptions", "find a court or tribunal"],
+  "listItems": [
+    "add a new subscription",
+    "manage your current subscriptions",
+    "find a court or tribunal"
+  ],
   "backButton": "Back"
 }

@@ -1,5 +1,4 @@
 export class AToZHelper {
-
   public static generateAlphabetObject(): object {
     // create the object for the possible alphabet options
     const alphabetOptions = {};
@@ -11,6 +10,4 @@ export class AToZHelper {
 
     return alphabetOptions;
   }
-
 }
-

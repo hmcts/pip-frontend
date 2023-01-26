@@ -1,7 +1,7 @@
-import { CommonPage } from './Common.page';
-import { PendingSubscriptionsPage } from './PendingSubscriptions.page';
+import { CommonPage } from "./Common.page";
+import { PendingSubscriptionsPage } from "./PendingSubscriptions.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class SubscriptionUrnSearchResultsPage extends CommonPage {
   async getPageTitle(): Promise<string> {

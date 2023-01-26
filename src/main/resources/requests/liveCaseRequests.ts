@@ -1,7 +1,6 @@
-import {dataManagementApi} from './utils/axiosConfig';
+import { dataManagementApi } from "./utils/axiosConfig";
 
 export class LiveCaseRequests {
-
   public async getLiveCases(locationId: number): Promise<any> {
     try {
       const response = await dataManagementApi.get(`/lcsu/${locationId}`);

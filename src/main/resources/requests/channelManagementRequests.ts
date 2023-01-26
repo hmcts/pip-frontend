@@ -1,7 +1,7 @@
-import {channelManagementApi} from './utils/axiosConfig';
-import {Logger} from '@hmcts/nodejs-logging';
+import { channelManagementApi } from "./utils/axiosConfig";
+import { Logger } from "@hmcts/nodejs-logging";
 
-const logger = Logger.getLogger('requests');
+const logger = Logger.getLogger("requests");
 
 export class ChannelManagementRequests {
   /**
@@ -10,16 +10,21 @@ export class ChannelManagementRequests {
    */
   public async getStoredFiles(artefactId): Promise<object | null> {
     try {
-      const response = await channelManagementApi.get(`/publication/${artefactId}`);
+      const response = await channelManagementApi.get(
+        `/publication/${artefactId}`
+      );
       return response.data;
-    }
-    catch (error) {
+    } catch (error) {
       if (error.response) {
-        logger.error('Failed to get stored files from blob storage on response');
+        logger.error(
+          "Failed to get stored files from blob storage on response"
+        );
       } else if (error.request) {
-        logger.error('Failed to get stored files from blob storage on request');
+        logger.error("Failed to get stored files from blob storage on request");
       } else {
-        logger.error('Failed to get stored files from blob storage with message');
+        logger.error(
+          "Failed to get stored files from blob storage with message"
+        );
       }
       return null;
     }

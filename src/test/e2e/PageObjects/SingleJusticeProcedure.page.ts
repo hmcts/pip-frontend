@@ -1,7 +1,7 @@
-import { CommonPage } from './Common.page';
-import { SJPPublicListPage } from './SJPPublicList.page';
+import { CommonPage } from "./Common.page";
+import { SJPPublicListPage } from "./SJPPublicList.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class SingleJusticeProcedurePage extends CommonPage {
   async clickSjpPublicListItem(): Promise<SJPPublicListPage> {

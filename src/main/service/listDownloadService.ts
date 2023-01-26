@@ -1,15 +1,15 @@
-import {ChannelManagementRequests} from '../resources/requests/channelManagementRequests';
-import {Logger} from '@hmcts/nodejs-logging';
-import os from 'os';
-import fs from 'fs';
-import path from 'path';
+import { ChannelManagementRequests } from "../resources/requests/channelManagementRequests";
+import { Logger } from "@hmcts/nodejs-logging";
+import os from "os";
+import fs from "fs";
+import path from "path";
 
 const channelManagementRequests = new ChannelManagementRequests();
-const logger = Logger.getLogger('list-download');
+const logger = Logger.getLogger("list-download");
 
 enum FileType {
-  PDF = 'pdf',
-  EXCEL = 'xlsx',
+  PDF = "pdf",
+  EXCEL = "xlsx",
 }
 
 export class ListDownloadService {
@@ -18,14 +18,23 @@ export class ListDownloadService {
 
     if (response) {
       const artefactData = JSON.parse(JSON.stringify(response));
-      const pdfFileName = path.join(os.tmpdir(), `${artefactId}.${FileType.PDF}`);
-      const excelFileName = path.join(os.tmpdir(), `${artefactId}.${FileType.EXCEL}`);
+      const pdfFileName = path.join(
+        os.tmpdir(),
+        `${artefactId}.${FileType.PDF}`
+      );
+      const excelFileName = path.join(
+        os.tmpdir(),
+        `${artefactId}.${FileType.EXCEL}`
+      );
 
       try {
-        fs.writeFileSync(pdfFileName, Buffer.from(artefactData.PDF, 'base64'));
-        fs.writeFileSync(excelFileName, Buffer.from(artefactData.EXCEL, 'base64'));
+        fs.writeFileSync(pdfFileName, Buffer.from(artefactData.PDF, "base64"));
+        fs.writeFileSync(
+          excelFileName,
+          Buffer.from(artefactData.EXCEL, "base64")
+        );
       } catch (err) {
-        logger.error('Failed to write file to disk', err.message);
+        logger.error("Failed to write file to disk", err.message);
       }
     }
     return response;
@@ -33,13 +42,16 @@ export class ListDownloadService {
 
   public getFile(artefactId, fileType): string {
     if (artefactId && fileType) {
-      return path.join(os.tmpdir(), `${artefactId}.${FileType[fileType.toUpperCase()]}`);
+      return path.join(
+        os.tmpdir(),
+        `${artefactId}.${FileType[fileType.toUpperCase()]}`
+      );
     }
     return null;
   }
 
   public getFileSize(artefactId, fileType): string {
-    const byteUnits = ['KB', 'MB'];
+    const byteUnits = ["KB", "MB"];
     const file = this.getFile(artefactId, fileType);
 
     if (file) {

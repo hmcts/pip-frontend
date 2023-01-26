@@ -1,129 +1,187 @@
-import request from 'supertest';
-import { app } from '../../../main/app';
-import sinon from 'sinon';
-import { expect } from 'chai';
-import { CreateAccountService } from '../../../main/service/createAccountService';
-import {request as expressRequest} from 'express';
+import request from "supertest";
+import { app } from "../../../main/app";
+import sinon from "sinon";
+import { expect } from "chai";
+import { CreateAccountService } from "../../../main/service/createAccountService";
+import { request as expressRequest } from "express";
 
-const PAGE_URL = '/create-system-admin-account-summary';
+const PAGE_URL = "/create-system-admin-account-summary";
 const cookie = {
-  firstName: 'Test',
-  lastName: 'Name',
-  emailAddress: 'TestEmail',
+  firstName: "Test",
+  lastName: "Name",
+  emailAddress: "TestEmail",
   userRoleObject: {
-    mapping: 'SYSTEM_ADMIN',
+    mapping: "SYSTEM_ADMIN",
   },
 };
-const summaryKeys = ['First name', 'Last name', 'Email address'];
-const changeValues = ['firstName', 'lastName', 'emailAddress'];
+const summaryKeys = ["First name", "Last name", "Email address"];
+const changeValues = ["firstName", "lastName", "emailAddress"];
 let htmlRes: Document;
-const createAccountStub = sinon.stub(CreateAccountService.prototype, 'createSystemAdminAccount');
+const createAccountStub = sinon.stub(
+  CreateAccountService.prototype,
+  "createSystemAdminAccount"
+);
 
-expressRequest['user'] = {'roles': 'SYSTEM_ADMIN'};
+expressRequest["user"] = { roles: "SYSTEM_ADMIN" };
 
-describe('Create System Admin Account Summary page', () => {
-  describe('on GET', () => {
+describe("Create System Admin Account Summary page", () => {
+  describe("on GET", () => {
     beforeAll(async () => {
-      app.request['cookies'] = {
+      app.request["cookies"] = {
         createAdminAccount: JSON.stringify(cookie),
       };
-      await request(app).get(PAGE_URL).then(res => {
-        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-        htmlRes.getElementsByTagName('div')[0].remove();
-      });
+      await request(app)
+        .get(PAGE_URL)
+        .then((res) => {
+          htmlRes = new DOMParser().parseFromString(res.text, "text/html");
+          htmlRes.getElementsByTagName("div")[0].remove();
+        });
     });
 
-    it('should display a header', () => {
-      const header = htmlRes.getElementsByClassName('govuk-heading-l');
-      expect(header[0].innerHTML).contains('Check account details', 'Could not find the header');
+    it("should display a header", () => {
+      const header = htmlRes.getElementsByClassName("govuk-heading-l");
+      expect(header[0].innerHTML).contains(
+        "Check account details",
+        "Could not find the header"
+      );
     });
 
-    it('should display correct summary keys and actions', async () => {
-      const listKeys = htmlRes.getElementsByClassName('govuk-summary-list__key');
-      const actions = htmlRes.getElementsByClassName('govuk-summary-list__actions');
+    it("should display correct summary keys and actions", async () => {
+      const listKeys = htmlRes.getElementsByClassName(
+        "govuk-summary-list__key"
+      );
+      const actions = htmlRes.getElementsByClassName(
+        "govuk-summary-list__actions"
+      );
       for (let i = 0; i < summaryKeys.length; i++) {
-        expect(listKeys[i].innerHTML).to.contain(summaryKeys[i], `Unable to find ${summaryKeys[i]} summary key`);
-        expect(actions[i].getElementsByClassName('govuk-link')[0].innerHTML).to.contain('Change');
-        expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href')).to.equal(`create-system-admin-account#${changeValues[i]}`);
+        expect(listKeys[i].innerHTML).to.contain(
+          summaryKeys[i],
+          `Unable to find ${summaryKeys[i]} summary key`
+        );
+        expect(
+          actions[i].getElementsByClassName("govuk-link")[0].innerHTML
+        ).to.contain("Change");
+        expect(
+          actions[i]
+            .getElementsByClassName("govuk-link")[0]
+            .getAttribute("href")
+        ).to.equal(`create-system-admin-account#${changeValues[i]}`);
       }
     });
 
-    it('should display correct summary values', async () => {
-      const values = htmlRes.getElementsByClassName('govuk-summary-list__value');
-      expect(values[0].innerHTML).to.contain(cookie.firstName, 'First name value not found');
-      expect(values[1].innerHTML).to.contain(cookie.lastName, 'Last name value not found');
-      expect(values[2].innerHTML).to.contain(cookie.emailAddress, 'Email address value not found');
+    it("should display correct summary values", async () => {
+      const values = htmlRes.getElementsByClassName(
+        "govuk-summary-list__value"
+      );
+      expect(values[0].innerHTML).to.contain(
+        cookie.firstName,
+        "First name value not found"
+      );
+      expect(values[1].innerHTML).to.contain(
+        cookie.lastName,
+        "Last name value not found"
+      );
+      expect(values[2].innerHTML).to.contain(
+        cookie.emailAddress,
+        "Email address value not found"
+      );
     });
 
-    it('should display confirm button', async () => {
-      const confirmButton = htmlRes.getElementsByClassName('govuk-button')[0];
-      expect(confirmButton.innerHTML).to.contain('Confirm', 'Unable to find confirm button');
+    it("should display confirm button", async () => {
+      const confirmButton = htmlRes.getElementsByClassName("govuk-button")[0];
+      expect(confirmButton.innerHTML).to.contain(
+        "Confirm",
+        "Unable to find confirm button"
+      );
     });
   });
 
-  describe('on POST', () => {
-
+  describe("on POST", () => {
     const errorResponse = {
-      firstName: 'Test',
-      lastname: 'Name',
-      email: 'EmailAddress',
-      error: 'Error',
+      firstName: "Test",
+      lastname: "Name",
+      email: "EmailAddress",
+      error: "Error",
     };
 
-    describe('with errors', () => {
+    describe("with errors", () => {
       beforeAll(async () => {
         createAccountStub.resolves(errorResponse);
-        app.request['cookies'] = {
+        app.request["cookies"] = {
           createAdminAccount: JSON.stringify(cookie),
         };
-        app.request['user'] = {'roles': 'SYSTEM_ADMIN'};
-        await request(app).post(PAGE_URL).then(res => {
-          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-          htmlRes.getElementsByTagName('div')[0].remove();
-        });
+        app.request["user"] = { roles: "SYSTEM_ADMIN" };
+        await request(app)
+          .post(PAGE_URL)
+          .then((res) => {
+            htmlRes = new DOMParser().parseFromString(res.text, "text/html");
+            htmlRes.getElementsByTagName("div")[0].remove();
+          });
       });
 
-      it('should display error dialog', () => {
-        const errorDialog = htmlRes.getElementsByClassName('govuk-error-summary');
-        const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list')[0];
-        expect(errorDialog[0].getElementsByClassName('govuk-error-summary__title')[0].innerHTML)
-          .contains('There is a problem', 'Could not find error dialog title');
-        expect(errorSummaryList.innerHTML).contains('A system error has occurred while submitting the application. Please try again');
+      it("should display error dialog", () => {
+        const errorDialog = htmlRes.getElementsByClassName(
+          "govuk-error-summary"
+        );
+        const errorSummaryList = htmlRes.getElementsByClassName(
+          "govuk-error-summary__list"
+        )[0];
+        expect(
+          errorDialog[0].getElementsByClassName("govuk-error-summary__title")[0]
+            .innerHTML
+        ).contains("There is a problem", "Could not find error dialog title");
+        expect(errorSummaryList.innerHTML).contains(
+          "A system error has occurred while submitting the application. Please try again"
+        );
       });
     });
 
-    describe('with success', () => {
+    describe("with success", () => {
       beforeAll(async () => {
-        app.request['user'] = {
-          'roles': 'SYSTEM_ADMIN',
+        app.request["user"] = {
+          roles: "SYSTEM_ADMIN",
         };
         createAccountStub.resolves(true);
-        app.request['cookies'] = {
+        app.request["cookies"] = {
           createAdminAccount: JSON.stringify(cookie),
         };
-        await request(app).post(PAGE_URL).then(res => {
-          htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-          htmlRes.getElementsByTagName('div')[0].remove();
-        });
+        await request(app)
+          .post(PAGE_URL)
+          .then((res) => {
+            htmlRes = new DOMParser().parseFromString(res.text, "text/html");
+            htmlRes.getElementsByTagName("div")[0].remove();
+          });
       });
 
-      it('should not display confirm button', () => {
-        const confirmButton = htmlRes.getElementsByClassName('govuk-button');
-        expect(confirmButton.length).to.equal(0, 'Confirm button is visible, while it should be hidden');
+      it("should not display confirm button", () => {
+        const confirmButton = htmlRes.getElementsByClassName("govuk-button");
+        expect(confirmButton.length).to.equal(
+          0,
+          "Confirm button is visible, while it should be hidden"
+        );
       });
 
-      it('should display success panel', () => {
-        const panelMessage = htmlRes.getElementsByClassName('govuk-panel__title')[0];
-        expect(panelMessage.innerHTML).contains('Account has been created', 'Could not find panel message');
+      it("should display success panel", () => {
+        const panelMessage =
+          htmlRes.getElementsByClassName("govuk-panel__title")[0];
+        expect(panelMessage.innerHTML).contains(
+          "Account has been created",
+          "Could not find panel message"
+        );
       });
 
-      it('should display what happens next message and title', () => {
-        const whatNextTitle = htmlRes.getElementsByClassName('govuk-heading-m')[0];
-        const whatNextMessage = htmlRes.getElementsByClassName('govuk-body')[0];
-        expect(whatNextTitle.innerHTML).contains('What happens next', 'Could not find title');
-        expect(whatNextMessage.innerHTML)
-          .contains('This account will be created and the applicant will be notified to set up their account.',
-            'Could not find a message');
+      it("should display what happens next message and title", () => {
+        const whatNextTitle =
+          htmlRes.getElementsByClassName("govuk-heading-m")[0];
+        const whatNextMessage = htmlRes.getElementsByClassName("govuk-body")[0];
+        expect(whatNextTitle.innerHTML).contains(
+          "What happens next",
+          "Could not find title"
+        );
+        expect(whatNextMessage.innerHTML).contains(
+          "This account will be created and the applicant will be notified to set up their account.",
+          "Could not find a message"
+        );
       });
     });
   });

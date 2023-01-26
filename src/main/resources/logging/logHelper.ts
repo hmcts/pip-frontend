@@ -1,9 +1,8 @@
-import {Logger} from '@hmcts/nodejs-logging';
+import { Logger } from "@hmcts/nodejs-logging";
 
-const logger = Logger.getLogger('applications');
+const logger = Logger.getLogger("applications");
 
 export class LogHelper {
-
   /**
    * Method that writes the log in the standard format.
    * @param actioningUserEmail The email of the user performing the request.
@@ -12,7 +11,8 @@ export class LogHelper {
    */
   public writeLog(actioningUserEmail, userAction, actionValue) {
     const currentDateTime = new Date();
-    logger.info(`Track: ${actioningUserEmail}, ${userAction} ${actionValue}, at ${currentDateTime}`);
+    logger.info(
+      `Track: ${actioningUserEmail}, ${userAction} ${actionValue}, at ${currentDateTime}`
+    );
   }
-
 }

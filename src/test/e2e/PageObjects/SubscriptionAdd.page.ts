@@ -1,10 +1,10 @@
-import { SubscriptionUrnSearchPage } from './SubscriptionUrnSearch.page';
-import { CaseNameSearchPage } from './CaseNameSearch.page';
-import { LocationNameSearchPage } from './LocationNameSearchPage';
-import { CaseReferenceNumberSearchPage } from './CaseReferenceNumberSearch.page';
-import { CommonPage } from './Common.page';
+import { SubscriptionUrnSearchPage } from "./SubscriptionUrnSearch.page";
+import { CaseNameSearchPage } from "./CaseNameSearch.page";
+import { LocationNameSearchPage } from "./LocationNameSearchPage";
+import { CaseReferenceNumberSearchPage } from "./CaseReferenceNumberSearch.page";
+import { CommonPage } from "./Common.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class SubscriptionAddPage extends CommonPage {
   async getPageTitle(): Promise<string> {

@@ -3,11 +3,11 @@
 ## Purpose
 
 The Publishing & Information Hub will be responsible for the following:
-* Receiving data from source systems, such as Schedule & Listing, via Hearings Management Interface
-* Publish lists, outcomes, judgements and management information onto GOV.UK
-* Provide functionality to display information in court and tribunals buildings on the relevant hardware
-* Comply with Open Justice procedures and business rules
 
+- Receiving data from source systems, such as Schedule & Listing, via Hearings Management Interface
+- Publish lists, outcomes, judgements and management information onto GOV.UK
+- Provide functionality to display information in court and tribunals buildings on the relevant hardware
+- Comply with Open Justice procedures and business rules
 
 ## Getting Started
 
@@ -15,10 +15,9 @@ The Publishing & Information Hub will be responsible for the following:
 
 Running the application requires the following tools to be installed in your environment:
 
-* [Node.js](https://nodejs.org/) v16.0.0 to v16.x.x (latest v16)
-  * [yarn](https://yarnpkg.com/)
-  * [Docker](https://www.docker.com)
-
+- [Node.js](https://nodejs.org/) v16.0.0 to v16.x.x (latest v16)
+  - [yarn](https://yarnpkg.com/)
+  - [Docker](https://www.docker.com)
 
 ### Authentication
 
@@ -26,8 +25,8 @@ Some of the pages within this app are secured via authentication.
 
 There are two modes for authentication:
 
-1) OIDC.
-2) Custom Strategy.
+1. OIDC.
+2. Custom Strategy.
 
 The OIDC connect strategy integrates with Azure. When users try to access an authenticated page,
 they will be presented with the logon screen.
@@ -40,13 +39,13 @@ is done
 
 Here is a list of environment variables needed to launch the app:
 
-Name | Value
---- | ---
-CLIENT_SECRET | This is used to communicate with Azure (OIDC mode only)
-SESSION_SECRET | A random string
-OIDC | (Optional) - Set to 'true' to enable OIDC mode.
-FRONTEND_URL | (Optional) - This is the host that you are redirected back to from Azure. Default is staging.
-CFT_REJECTED_ROLES_REGEX | (Optional) - If you want to override the rejected roles regex for CFT.
+| Name                     | Value                                                                                         |
+| ------------------------ | --------------------------------------------------------------------------------------------- |
+| CLIENT_SECRET            | This is used to communicate with Azure (OIDC mode only)                                       |
+| SESSION_SECRET           | A random string                                                                               |
+| OIDC                     | (Optional) - Set to 'true' to enable OIDC mode.                                               |
+| FRONTEND_URL             | (Optional) - This is the host that you are redirected back to from Azure. Default is staging. |
+| CFT_REJECTED_ROLES_REGEX | (Optional) - If you want to override the rejected roles regex for CFT.                        |
 
 Passing these variables can be done via
 
@@ -61,9 +60,10 @@ or, in intellij you can pass them in the Run Configuration.
 
 Install dependencies by executing the following command:
 
- ```bash
+```bash
 $ yarn install
- ```
+```
+
 Bundle:
 
 ```bash
@@ -72,6 +72,7 @@ $ yarn webpack
 
 Start Redis Locally:
 To connect locally run bellow command and rename connection string from `rediss` to `redis` in [cacheManager.ts](src/main/cacheManager.ts) (line 13)
+
 ```bash
 $ docker run -d -p 6379:6379 redis
 ```
@@ -117,6 +118,7 @@ We use [ESLint](https://github.com/typescript-eslint/typescript-eslint)
 alongside [sass-lint](https://github.com/sasstools/sass-lint)
 
 Running the linting with auto fix:
+
 ```bash
 $ yarn lint --fix
 ```
@@ -160,14 +162,15 @@ If running locally, stand up the application and run the following:
 ```bash
 $ yarn test:functional-dev
 ```
+
 Make sure to have application running in developer mode first while testing locally, otherwise tests will fail. To test in development mode run: `yarn start:dev`
 
 If running against a remote instance (e.g a PR), then the following env variables need to be set:
 
-Name | Value
---- | ---
-TEST_URL | The URL where the instance you would like to test against is hosted (https://<host>:<port>)
-(Optional) USE_PROTOTYPE | If the instance uses the prototype, then this flag must be set to TRUE
+| Name                     | Value                                                                                       |
+| ------------------------ | ------------------------------------------------------------------------------------------- |
+| TEST_URL                 | The URL where the instance you would like to test against is hosted (https://<host>:<port>) |
+| (Optional) USE_PROTOTYPE | If the instance uses the prototype, then this flag must be set to TRUE                      |
 
 The following command is run by the jenkins pipeline, although can be run locally, it will run in HEADLESS mode.
 
@@ -200,12 +203,12 @@ included in this template app. Your njk file would look like this:
 This application uses [Helmet](https://helmetjs.github.io/), which adds various security-related HTTP headers
 to the responses. Apart from default Helmet functions, following headers are set:
 
-* [Referrer-Policy](https://helmetjs.github.io/docs/referrer-policy/)
-* [Content-Security-Policy](https://helmetjs.github.io/docs/csp/)
+- [Referrer-Policy](https://helmetjs.github.io/docs/referrer-policy/)
+- [Content-Security-Policy](https://helmetjs.github.io/docs/csp/)
 
 There is a configuration section related with those headers, where you can specify:
-* `referrerPolicy` - value of the `Referrer-Policy` header
 
+- `referrerPolicy` - value of the `Referrer-Policy` header
 
 Here's an example setup:
 

@@ -1,7 +1,7 @@
-import { CommonPage } from './Common.page';
-import { UnsubscribeConfirmationPage } from './UnsubscribeConfirmation.page';
+import { CommonPage } from "./Common.page";
+import { UnsubscribeConfirmationPage } from "./UnsubscribeConfirmation.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class DeleteSubscriptionPage extends CommonPage {
   async clickContinueForYes(): Promise<UnsubscribeConfirmationPage> {

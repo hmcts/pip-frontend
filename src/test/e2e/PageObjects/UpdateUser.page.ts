@@ -1,9 +1,8 @@
-import { CommonPage } from './Common.page';
-import {UpdateUserConfirmationPage} from './UpdateUserConfirmation.page';
-const helpers = require('../Helpers/Selectors');
+import { CommonPage } from "./Common.page";
+import { UpdateUserConfirmationPage } from "./UpdateUserConfirmation.page";
+const helpers = require("../Helpers/Selectors");
 
 export class UpdateUserPage extends CommonPage {
-
   async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitle).catch(() => {
       console.log(`${helpers.CommonPageTitle} not found`);

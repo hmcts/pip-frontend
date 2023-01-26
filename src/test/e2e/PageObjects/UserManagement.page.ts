@@ -1,9 +1,8 @@
-import { CommonPage } from './Common.page';
-import {ManageUserPage} from './ManageUser.page';
-const helpers = require('../Helpers/Selectors');
+import { CommonPage } from "./Common.page";
+import { ManageUserPage } from "./ManageUser.page";
+const helpers = require("../Helpers/Selectors");
 
 export class UserManagementPage extends CommonPage {
-
   async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitle).catch(() => {
       console.log(`${helpers.CommonPageTitle} not found`);
@@ -17,8 +16,8 @@ export class UserManagementPage extends CommonPage {
       console.log(`${helpers.EmailField} not found`);
     });
 
-    await $(helpers.EmailField).addValue('pip-auto-test-admin@hmcts.net');
-    await browser.keys('Escape');
+    await $(helpers.EmailField).addValue("pip-auto-test-admin@hmcts.net");
+    await browser.keys("Escape");
   }
 
   async clickFilterButton(): Promise<void> {

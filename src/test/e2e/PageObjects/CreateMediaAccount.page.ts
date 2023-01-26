@@ -1,8 +1,8 @@
-import { CommonPage } from './Common.page';
-import { MediaAccountRequestSubmittedPage } from './MediaAccountRequestSubmitted.page';
+import { CommonPage } from "./Common.page";
+import { MediaAccountRequestSubmittedPage } from "./MediaAccountRequestSubmitted.page";
 
-const path = require('path');
-const helpers = require('../Helpers/Selectors');
+const path = require("path");
+const helpers = require("../Helpers/Selectors");
 
 export class CreateMediaAccountPage extends CommonPage {
   async completeForm(): Promise<void> {
@@ -18,7 +18,7 @@ export class CreateMediaAccountPage extends CommonPage {
       console.log(`${helpers.UploadImage} not found`);
     });
 
-    const filePath = path.join(__dirname, '../../unit/mocks/testFile.pdf');
+    const filePath = path.join(__dirname, "../../unit/mocks/testFile.pdf");
 
     await $(helpers.UploadImage).setValue(filePath);
   }
@@ -28,8 +28,8 @@ export class CreateMediaAccountPage extends CommonPage {
       console.log(`${helpers.NameInput} not found`);
     });
 
-    await $(helpers.NameInput).addValue('Joe Bloggs');
-    await browser.keys('Escape');
+    await $(helpers.NameInput).addValue("Joe Bloggs");
+    await browser.keys("Escape");
   }
 
   async inputEmailAddress(): Promise<void> {
@@ -37,8 +37,8 @@ export class CreateMediaAccountPage extends CommonPage {
       console.log(`${helpers.EmailInput} not found`);
     });
 
-    await $(helpers.EmailInput).addValue('joe.bloggs@hotmail.com');
-    await browser.keys('Escape');
+    await $(helpers.EmailInput).addValue("joe.bloggs@hotmail.com");
+    await browser.keys("Escape");
   }
 
   async inputEmployer(): Promise<void> {
@@ -46,8 +46,8 @@ export class CreateMediaAccountPage extends CommonPage {
       console.log(`${helpers.EmployerInput} not found`);
     });
 
-    await $(helpers.EmployerInput).addValue('Media Agency UK');
-    await browser.keys('Escape');
+    await $(helpers.EmployerInput).addValue("Media Agency UK");
+    await browser.keys("Escape");
   }
 
   async checkBox(): Promise<void> {
@@ -63,5 +63,4 @@ export class CreateMediaAccountPage extends CommonPage {
     await $(helpers.ContinueButton).click();
     return new MediaAccountRequestSubmittedPage();
   }
-
 }

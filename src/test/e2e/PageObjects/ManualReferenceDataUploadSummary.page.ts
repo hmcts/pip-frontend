@@ -1,7 +1,7 @@
-import { CommonPage } from './Common.page';
-import { FileUploadConfirmationPage } from './FileUploadConfirmation.page';
+import { CommonPage } from "./Common.page";
+import { FileUploadConfirmationPage } from "./FileUploadConfirmation.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class ManualReferenceDataUploadSummaryPage extends CommonPage {
   async clickContinue(): Promise<FileUploadConfirmationPage> {

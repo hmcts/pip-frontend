@@ -1,13 +1,16 @@
-import {DateTime} from 'luxon';
-import {calculateDurationSortValue, formatDuration} from '../../helpers/dateTimeHelper';
-import { CrimeListsService } from './CrimeListsService';
-import { ListParseHelperService } from '../listParseHelperService';
+import { DateTime } from "luxon";
+import {
+  calculateDurationSortValue,
+  formatDuration,
+} from "../../helpers/dateTimeHelper";
+import { CrimeListsService } from "./CrimeListsService";
+import { ListParseHelperService } from "../listParseHelperService";
 
 const helperService = new ListParseHelperService();
 const dailyListService = new CrimeListsService();
 
 export class CrownFirmListService {
-  public timeZone = 'Europe/London';
+  public timeZone = "Europe/London";
 
   /**
    * Builds list of courthouses, does general formatting to make it appear nice, then is passed to second function which
@@ -16,46 +19,62 @@ export class CrownFirmListService {
    * @param language
    * @param languageFile
    */
-  public splitOutFirmListData(firmList: string, language: string, languageFile: string) {
+  public splitOutFirmListData(
+    firmList: string,
+    language: string,
+    languageFile: string
+  ) {
     const rows = [];
     const firmListData = JSON.parse(firmList);
-    firmListData['courtLists'].forEach(courtList => {
-      const courtName = courtList['courtHouse']['courtHouseName'];
-      courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-        courtRoom['session'].forEach(session => {
-          session['sittings'].forEach(sitting => {
+    firmListData["courtLists"].forEach((courtList) => {
+      const courtName = courtList["courtHouse"]["courtHouseName"];
+      courtList["courtHouse"]["courtRoom"].forEach((courtRoom) => {
+        courtRoom["session"].forEach((session) => {
+          session["sittings"].forEach((sitting) => {
             const judiciary = helperService.findAndManipulateJudiciary(sitting);
-            if (judiciary !== '') {
-              session['formattedJudiciaries'] = judiciary;
+            if (judiciary !== "") {
+              session["formattedJudiciaries"] = judiciary;
             }
-            const sittingDate = DateTime.fromISO(sitting['sittingStart'], {zone: this.timeZone}).toFormat('EEEE dd MMMM yyyy');
-            sitting['formattedDuration'] = formatDuration(sitting['durationAsDays'] as number, sitting['durationAsHours'] as number,
-              sitting['durationAsMinutes'] as number, language, languageFile);
-            sitting['durationSortValue'] = calculateDurationSortValue(sitting['durationAsDays'] as number,
-              sitting['durationAsHours'] as number, sitting['durationAsMinutes'] as number);
-            sitting['hearing'].forEach(hearing => {
+            const sittingDate = DateTime.fromISO(sitting["sittingStart"], {
+              zone: this.timeZone,
+            }).toFormat("EEEE dd MMMM yyyy");
+            sitting["formattedDuration"] = formatDuration(
+              sitting["durationAsDays"] as number,
+              sitting["durationAsHours"] as number,
+              sitting["durationAsMinutes"] as number,
+              language,
+              languageFile
+            );
+            sitting["durationSortValue"] = calculateDurationSortValue(
+              sitting["durationAsDays"] as number,
+              sitting["durationAsHours"] as number,
+              sitting["durationAsMinutes"] as number
+            );
+            sitting["hearing"].forEach((hearing) => {
               dailyListService.findLinkedCasesInformation(hearing);
               dailyListService.manipulateParty(hearing);
-              hearing['case'].forEach(thisCase => {
+              hearing["case"].forEach((thisCase) => {
                 const row = {
                   courtName: courtName,
                   sittingDate: sittingDate,
-                  sittingTime: helperService.publicationTimeInUkTime(sitting['sittingStart']),
-                  courtRoom: courtRoom['courtRoomName'],
-                  joh: session['formattedJudiciaries'],
-                  durationAsHours: sitting['durationAsHours'],
-                  durationAsMinutes: sitting['durationAsMinutes'],
-                  formattedDuration: sitting['formattedDuration'],
-                  durationSortValue: sitting['durationSortValue'],
-                  caseNumber: thisCase['caseNumber'],
-                  caseSeparator: thisCase['caseSequenceIndicator'],
-                  linkedCases: thisCase['linkedCases'],
-                  hearingNotes: hearing['listingNotes'],
-                  defendant: hearing['defendant'],
-                  defendantRepresentative: hearing['defendantRepresentative'],
-                  prosecutingAuthority: hearing['prosecutingAuthority'],
-                  hearingType: hearing['hearingType'],
-                  hearingPlatform: sitting['caseHearingChannel'],
+                  sittingTime: helperService.publicationTimeInUkTime(
+                    sitting["sittingStart"]
+                  ),
+                  courtRoom: courtRoom["courtRoomName"],
+                  joh: session["formattedJudiciaries"],
+                  durationAsHours: sitting["durationAsHours"],
+                  durationAsMinutes: sitting["durationAsMinutes"],
+                  formattedDuration: sitting["formattedDuration"],
+                  durationSortValue: sitting["durationSortValue"],
+                  caseNumber: thisCase["caseNumber"],
+                  caseSeparator: thisCase["caseSequenceIndicator"],
+                  linkedCases: thisCase["linkedCases"],
+                  hearingNotes: hearing["listingNotes"],
+                  defendant: hearing["defendant"],
+                  defendantRepresentative: hearing["defendantRepresentative"],
+                  prosecutingAuthority: hearing["prosecutingAuthority"],
+                  hearingType: hearing["hearingType"],
+                  hearingPlatform: sitting["caseHearingChannel"],
                 };
                 rows.push(row);
               });
@@ -72,12 +91,14 @@ export class CrownFirmListService {
    */
   public getSittingDates(s: any) {
     const dates = [];
-    s.forEach(court => {
-      court.days.forEach(setOfDays => {
+    s.forEach((court) => {
+      court.days.forEach((setOfDays) => {
         dates.push(setOfDays[0].data[0].sittingDate);
       });
     });
-    const newDates = dates.map(e => {return DateTime.fromFormat(e, 'EEEE dd MMMM yyyy', { zone: 'utc' }); });
+    const newDates = dates.map((e) => {
+      return DateTime.fromFormat(e, "EEEE dd MMMM yyyy", { zone: "utc" });
+    });
     return newDates.sort((a, b) => a.diff(b));
   }
 
@@ -93,39 +114,52 @@ export class CrownFirmListService {
    */
   private splitByCourtAndDateAndAllocation(data: any) {
     const courts = [];
-    const uniqueCourts = helperService.uniquesInArrayByAttrib(data, 'courtName');
+    const uniqueCourts = helperService.uniquesInArrayByAttrib(
+      data,
+      "courtName"
+    );
     let courtCounter = 0;
 
-    uniqueCourts.forEach(court => {
-      const courtData = data.filter(row => row.courtName === court);
-      courts.push({ 'courtName': court, days: [] });
-      const uniqueDays = helperService.uniquesInArrayByAttrib(courtData, 'sittingDate');
+    uniqueCourts.forEach((court) => {
+      const courtData = data.filter((row) => row.courtName === court);
+      courts.push({ courtName: court, days: [] });
+      const uniqueDays = helperService.uniquesInArrayByAttrib(
+        courtData,
+        "sittingDate"
+      );
       const uniqueDaysArr = [];
-      Array.from(uniqueDays).forEach(day => {
-        const encDay = DateTime.fromFormat(day, 'EEEE dd MMMM yyyy', {
-          zone: 'utc',
+      Array.from(uniqueDays).forEach((day) => {
+        const encDay = DateTime.fromFormat(day, "EEEE dd MMMM yyyy", {
+          zone: "utc",
         });
         uniqueDaysArr.push(encDay);
       });
-      uniqueDaysArr.sort(function(a, b) {
+      uniqueDaysArr.sort(function (a, b) {
         return a - b;
       });
-      uniqueDaysArr.forEach(day => {
+      uniqueDaysArr.forEach((day) => {
         const thisDayCourts = [];
-        const formattedDay = DateTime.fromISO(day, {zone: 'utc'}).toFormat('EEEE dd MMMM yyyy');
-        const record = courtData.filter(row => row.sittingDate === formattedDay);
-        const uniqueCourtRooms = helperService.uniquesInArrayByAttrib(record, 'courtRoom');
-        Array.from(uniqueCourtRooms).forEach(courtRoom => {
-          const room = record.filter(row => row.courtRoom === courtRoom);
-          thisDayCourts.push({ 'courtRoom': courtRoom, data: room });
+        const formattedDay = DateTime.fromISO(day, { zone: "utc" }).toFormat(
+          "EEEE dd MMMM yyyy"
+        );
+        const record = courtData.filter(
+          (row) => row.sittingDate === formattedDay
+        );
+        const uniqueCourtRooms = helperService.uniquesInArrayByAttrib(
+          record,
+          "courtRoom"
+        );
+        Array.from(uniqueCourtRooms).forEach((courtRoom) => {
+          const room = record.filter((row) => row.courtRoom === courtRoom);
+          thisDayCourts.push({ courtRoom: courtRoom, data: room });
         });
         // custom sort def - basically if it's got the string, move to end. Needed to be suppressed because eslint
         // does not understand that a compare function needs two vars.
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         function compare(a, b) {
-          if (a.courtRoom.toLowerCase().includes('to be allocated')) {
+          if (a.courtRoom.toLowerCase().includes("to be allocated")) {
             return 1;
-          } else if (b.courtRoom.toLowerCase().includes('to be allocated')) {
+          } else if (b.courtRoom.toLowerCase().includes("to be allocated")) {
             return -1;
           } else {
             return 0;
@@ -134,11 +168,10 @@ export class CrownFirmListService {
 
         // custom sort usage below
         thisDayCourts.sort(compare);
-        courts[courtCounter]['days'].push(thisDayCourts);
+        courts[courtCounter]["days"].push(thisDayCourts);
       });
       courtCounter += 1;
     });
     return courts;
   }
-
 }

@@ -1,11 +1,11 @@
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class CommonPage {
-  open (path): Promise<string> {
+  open(path): Promise<string> {
     return browser.url(path);
   }
 
-  printUrl (): Promise<string> {
+  printUrl(): Promise<string> {
     return browser.getUrl();
   }
 
@@ -56,7 +56,7 @@ export class CommonPage {
 
   async removeOverlay(): Promise<void> {
     await browser.execute(() => {
-      document.getElementById('back-to-top-button').remove();
+      document.getElementById("back-to-top-button").remove();
     });
   }
 }

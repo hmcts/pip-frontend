@@ -1,7 +1,7 @@
 nodejs:
   applicationPort: 8080
   ingressHost: pip-frontend.{{ .Values.global.environment }}.platform.hmcts.net
-  image: 'sdshmctspublic.azurecr.io/pip/frontend:latest'
+  image: "sdshmctspublic.azurecr.io/pip/frontend:latest"
   startupPeriod: 30
   startupFailureThreshold: 10
   environment:

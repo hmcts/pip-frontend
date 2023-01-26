@@ -1,11 +1,11 @@
-import { CommonPage } from './Common.page';
-import { CourtListPage } from './CourtList.page';
-import { SignInPage } from './SignIn.page';
-import { AccountHomePage } from './AccountHome.page';
+import { CommonPage } from "./Common.page";
+import { CourtListPage } from "./CourtList.page";
+import { SignInPage } from "./SignIn.page";
+import { AccountHomePage } from "./AccountHome.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
-export class SummaryOfPublicationsPage extends CommonPage{
+export class SummaryOfPublicationsPage extends CommonPage {
   async getResults(): Promise<number> {
     $(helpers.Results).catch(() => {
       console.log(`${helpers.Results} not found`);
@@ -24,7 +24,7 @@ export class SummaryOfPublicationsPage extends CommonPage{
   }
 
   async clickSelectedListItem(startText): Promise<CourtListPage> {
-    const item = '*=' + startText;
+    const item = "*=" + startText;
     $(item).catch(() => {
       console.log(`${item} not found`);
     });

@@ -9,10 +9,7 @@
       "postCode": "AA1 AA1",
       "county": "Lancashire",
       "town": "Town",
-      "line": [
-        "Address Line 1",
-        "Address Line 2"
-      ]
+      "line": ["Address Line 1", "Address Line 2"]
     }
   },
   "locationDetails": {
@@ -27,9 +24,7 @@
             "courtRoomName": "Courtroom 1",
             "session": [
               {
-                "judiciary": [
-                  {}
-                ],
+                "judiciary": [{}],
                 "sittings": [
                   {
                     "sittingStart": "2016-09-13T13:30:52.123Z",
@@ -68,10 +63,7 @@
                                 "county": "County A",
                                 "town": "Month A",
                                 "postCode": "AA1 AA1",
-                                "line": [
-                                  "Address Line 1",
-                                  "Address Line 2"
-                                ]
+                                "line": ["Address Line 1", "Address Line 2"]
                               },
                               "inCustody": true,
                               "plea": "NOT_GUILTY",
@@ -92,10 +84,7 @@
                                 "county": "County A",
                                 "town": "Month A",
                                 "postCode": "AA1 AA1",
-                                "line": [
-                                  "Address Line 1",
-                                  "Address Line 2"
-                                ]
+                                "line": ["Address Line 1", "Address Line 2"]
                               },
                               "inCustody": true,
                               "plea": "NOT_GUILTY",
@@ -116,10 +105,7 @@
                                 "county": "",
                                 "town": "Month A",
                                 "postCode": "AA1 AA1",
-                                "line": [
-                                  "Address Line 1",
-                                  "Address Line 2"
-                                ]
+                                "line": ["Address Line 1", "Address Line 2"]
                               },
                               "inCustody": true,
                               "plea": "NOT_GUILTY",
@@ -161,9 +147,7 @@
                         "isPresiding": false
                       }
                     ],
-                    "channel": [
-                      "VIDEO HEARING"
-                    ]
+                    "channel": ["VIDEO HEARING"]
                   }
                 ]
               }
@@ -173,9 +157,7 @@
             "courtRoomName": "Courtroom 2",
             "session": [
               {
-                "judiciary": [
-                  {}
-                ],
+                "judiciary": [{}],
                 "sittings": [
                   {
                     "sittingStart": "2016-09-13T13:30:52.123Z",
@@ -214,10 +196,7 @@
                                 "county": "County A",
                                 "town": "Month A",
                                 "postCode": "AA1 AA1",
-                                "line": [
-                                  "Address Line 1",
-                                  "Address Line 2"
-                                ]
+                                "line": ["Address Line 1", "Address Line 2"]
                               },
                               "inCustody": true,
                               "plea": "NOT_GUILTY",
@@ -238,10 +217,7 @@
                                 "county": "County A",
                                 "town": "Month A",
                                 "postCode": "AA1 AA1",
-                                "line": [
-                                  "Address Line 1",
-                                  "Address Line 2"
-                                ]
+                                "line": ["Address Line 1", "Address Line 2"]
                               },
                               "inCustody": true,
                               "plea": "NOT_GUILTY",
@@ -262,10 +238,7 @@
                                 "county": "",
                                 "town": "Month A",
                                 "postCode": "AA1 AA1",
-                                "line": [
-                                  "Address Line 1",
-                                  "Address Line 2"
-                                ]
+                                "line": ["Address Line 1", "Address Line 2"]
                               },
                               "inCustody": true,
                               "plea": "NOT_GUILTY",
@@ -307,9 +280,7 @@
                         "isPresiding": false
                       }
                     ],
-                    "channel": [
-                      "VIDEO HEARING"
-                    ]
+                    "channel": ["VIDEO HEARING"]
                   }
                 ]
               }
