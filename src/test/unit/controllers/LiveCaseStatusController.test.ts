@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import {LiveCaseService} from '../../../main/service/liveCaseService';
 import {mockRequest} from '../mocks/mockRequest';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/liveCaseStatusUpdates.json'), 'utf-8');
 const liveCases = JSON.parse(rawData);
@@ -29,8 +29,8 @@ describe.skip('Live Status Controller', () => {
     const expectedData = {
       ...i18n['live-case-status'],
       locationName: liveCases.results[0].locationName,
-      updateDate: moment(Date.parse(liveCases.results[0].lastUpdated)).format('DD MMMM YYYY'),
-      updateTime: moment(Date.parse(liveCases.results[0].lastUpdated)).format('h:mma'),
+      updateDate: DateTime.fromISO(liveCases.results[0].lastUpdated, {zone: 'utc'}).toFormat('dd MMMM yyyy'),
+      updateTime: DateTime.fromISO(liveCases.results[0].lastUpdated, {zone: 'utc'}).toFormat('h:mma').toLowerCase(),
       liveCases: liveCases.results[0].locationUpdates,
       refreshTimer: 15000,
       locationId: '1',

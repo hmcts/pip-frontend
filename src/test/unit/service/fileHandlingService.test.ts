@@ -94,7 +94,7 @@ describe('File handling service', () => {
 
   describe('readCsvToArray', () => {
     it('should read a csv file successfully', () => {
-      const file = fs.readFileSync('./manualUpload/tmp/validationFile.csv', 'utf-8');
+      const file = fs.readFileSync('./manualUpload/tmp/bulkMediaUploadValidationFile.csv', 'utf-8');
       const rows = fileHandlingService.readCsvToArray(file);
       expect(rows).toHaveLength(4);
 

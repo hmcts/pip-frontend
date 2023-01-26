@@ -14,8 +14,7 @@ const summaryText = 'govuk-details__text';
 const accordionClass='govuk-accordion__section-button';
 const siteAddressClass = 'site-address';
 const courtName = 'Regional Venue South';
-const expectedHeader1 = 'Employment Tribunals: Bedford';
-const expectedHeader2 = 'Daily List';
+const expectedHeader1 = 'Employment Tribunals Daily List: Bedford';
 const summaryHeadingText = 'Important information';
 
 let htmlRes: Document;
@@ -42,7 +41,6 @@ describe('ET Daily List page', () => {
   it('should display header',  () => {
     const header = htmlRes.getElementsByClassName(headingClass);
     expect(header[0].innerHTML).contains(expectedHeader1, 'Could not find the header');
-    expect(header[0].innerHTML).contains(expectedHeader2, 'Could not find the header');
   });
 
   it('should display summary',  () => {

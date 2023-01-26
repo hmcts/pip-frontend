@@ -21,10 +21,10 @@ export default class CrownWarnedListController {
 
     if (searchResults && metaData) {
       const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate']);
+      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate'], req.lng);
       const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
-      const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults));
+      const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults), req.lng);
 
       // Sort unallocated list entry to the end of the map so it appears last on the template
       const sortedListData = new Map([...listData].sort(([a], [b]) =>
@@ -36,7 +36,7 @@ export default class CrownWarnedListController {
         ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
         listData: sortedListData,
         venue: searchResults['venue'],
-        contentDate: crownWarnedListService.formatContentDate(metaData.contentDate),
+        contentDate: crownWarnedListService.formatContentDate(metaData.contentDate, req.lng),
         publishedDate: publishedDate,
         publishedTime: publishedTime,
         version: searchResults['document']['version'],

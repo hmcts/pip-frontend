@@ -3,17 +3,17 @@ import {Response} from 'express';
 import {cloneDeep} from 'lodash';
 import {SubscriptionService} from '../service/subscriptionService';
 
-const bulkDeleteSubscriptionsUrl = 'bulk-delete-subscriptions';
-const bulkDeleteConformationUrl = 'bulk-delete-subscriptions-confirmation';
+const bulkUnsubscribeUrl = 'bulk-unsubscribe';
+const bulkUnsubscribeConfirmationUrl = 'bulk-unsubscribe-confirmation';
 const subscriptionService = new SubscriptionService();
 
-export default class BulkDeleteSubscriptionsController {
+export default class BulkUnsubscribeController {
   public async get(req: PipRequest, res: Response): Promise<void> {
     if (req.user) {
       const subscriptionData = await subscriptionService.getSubscriptionDataForView(req.user['userId'], req.lng as string,
         Object.keys(req.query)[0], true);
-      res.render(bulkDeleteSubscriptionsUrl, {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkDeleteSubscriptionsUrl]),
+      res.render(bulkUnsubscribeUrl, {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkUnsubscribeUrl]),
         ...subscriptionData,
       });
     } else {
@@ -22,20 +22,20 @@ export default class BulkDeleteSubscriptionsController {
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
-    const subscriptionsToDelete = BulkDeleteSubscriptionsController.getSelectedSubscriptions(req.body);
+    const subscriptionsToDelete = BulkUnsubscribeController.getSelectedSubscriptions(req.body);
     if (req.user) {
       if (subscriptionsToDelete.length == 0) {
         const subscriptionData = await subscriptionService.getSubscriptionDataForView(req.user['userId'], req.lng as string,
           Object.keys(req.query)[0], true);
 
-        res.render(bulkDeleteSubscriptionsUrl, {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkDeleteSubscriptionsUrl]),
+        res.render(bulkUnsubscribeUrl, {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkUnsubscribeUrl]),
           ...subscriptionData,
           noOptionSelectedError: true,
         });
       } else {
-        res.render(bulkDeleteConformationUrl, {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkDeleteConformationUrl]),
+        res.render(bulkUnsubscribeConfirmationUrl, {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkUnsubscribeConfirmationUrl]),
           subscriptions: subscriptionsToDelete,
         });
       }
@@ -48,10 +48,10 @@ export default class BulkDeleteSubscriptionsController {
     const { caseSubscription, courtSubscription } = body;
     const subscriptionsToDelete = [];
     if (caseSubscription !== undefined) {
-      BulkDeleteSubscriptionsController.addToSubscriptionsForDeletion(caseSubscription, subscriptionsToDelete);
+      BulkUnsubscribeController.addToSubscriptionsForDeletion(caseSubscription, subscriptionsToDelete);
     }
     if (courtSubscription !== undefined) {
-      BulkDeleteSubscriptionsController.addToSubscriptionsForDeletion(courtSubscription, subscriptionsToDelete);
+      BulkUnsubscribeController.addToSubscriptionsForDeletion(courtSubscription, subscriptionsToDelete);
     }
     return subscriptionsToDelete;
   }

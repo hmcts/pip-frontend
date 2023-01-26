@@ -114,7 +114,7 @@ module.exports = {
 
   // SubscriptionManagement selectors
   SubscriptionManagementTableFirstResultUrl: '>>>.unsubscribe-action',
-  SubscriptionManagementBulkDeleteSubscriptionsButton: '#bulk-delete-button',
+  SubscriptionManagementBulkUnsubscribeButton: '#bulk-unsubscribe-button',
 
   // DeleteSubscription selectors
   yesRadioButton: '#unsubscribe-confirm',
@@ -124,10 +124,10 @@ module.exports = {
   panelTitle: '.govuk-panel__title',
   panelHome: '.govuk-link=Home',
 
-  // BulkDeleteSubscriptions selectors
+  // BulkUnsubscribe selectors
   CourtSubscriptionCheckbox1: '#courtSubscription',
-  BulkDeleteSubscriptionButton: '#bulk-delete-button',
-  BulkDeleteRadioYes: '#bulk-delete-choice',
+  BulkUnsubscribeButton: '#bulk-unsubscribe-button',
+  BulkUnsubscribeRadioYes: '#bulk-unsubscribe-choice',
 
   // Admin selectors
   fileUpload: '#manual-file-upload',

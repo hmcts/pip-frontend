@@ -3,7 +3,7 @@ import { accountManagementApi } from '../../../main/resources/requests/utils/axi
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 import fs from 'fs';
 import path from 'path';
-import moment from 'moment-timezone';
+import {DateTime} from 'luxon';
 
 const accountManagementRequests = new AccountManagementRequests();
 const errorResponse = {
@@ -484,8 +484,9 @@ describe('Account Management Requests', () => {
       await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', '1234-1234');
 
       const args = putStubForDateChecking.getCall(0).args;
-      expect(moment.utc(args[1]['lastSignedInDate'])
-        .isBetween(moment().utc().subtract(5, 'minutes'), moment().utc().add(5, 'minutes')))
+      const lastSignedInDateLuxon = DateTime.fromISO(args[1]['lastSignedInDate'], {zone: 'utc'});
+      expect(lastSignedInDateLuxon
+        <= DateTime.utc().plus({minutes: 5}) && DateTime.utc().minus({minutes: 5}))
         .toBeTruthy();
     });
 

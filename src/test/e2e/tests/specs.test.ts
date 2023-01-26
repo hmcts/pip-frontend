@@ -45,17 +45,17 @@ import {MediaAccountRejectionPage} from '../PageObjects/MediaAccountRejection.pa
 import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccountRejectionConfirmation.page';
 import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
 import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
-//import {CftAuthenticationFailedPage} from '../PageObjects/CftAuthenticationFailed.page';
+import {CftAuthenticationFailedPage} from '../PageObjects/CftAuthenticationFailed.page';
 import {SessionLoggedOutPage} from '../PageObjects/SessionLoggedOut.page';
 import {ManualReferenceDataUploadPage} from '../PageObjects/ManualReferenceDataUpload.page';
 import {ManualReferenceDataUploadSummaryPage} from '../PageObjects/ManualReferenceDataUploadSummary.page';
 import { BlobViewLocationsPage } from '../pageobjects/BlobViewLocationsPage';
-import {BulkDeleteSubscriptionsPage} from '../PageObjects/BulkDeleteSubscriptions.page';
-import {BulkDeleteSubscriptionsConfirmationPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmation.page';
-import {BulkDeleteSubscriptionsConfirmedPage} from '../PageObjects/BulkDeleteSubscriptionsConfirmed.page';
 import {DeleteCourtReferenceDataPage} from '../PageObjects/DeleteCourtReferenceData.page';
 import {DeleteCourtReferenceConfirmationPage} from '../PageObjects/DeleteCourtReferenceConfirmation.page';
 import {DeleteCourtReferenceSuccessPage} from '../PageObjects/DeleteCourtReferenceSuccess.page';
+import {BulkUnsubscribePage} from '../PageObjects/BulkUnsubscribe.page';
+import {BulkUnsubscribeConfirmationPage} from '../PageObjects/BulkUnsubscribeConfirmation.page';
+import {BulkUnsubscribeConfirmedPage} from '../PageObjects/BulkUnsubscribeConfirmed.page';
 import {UserManagementPage} from '../PageObjects/UserManagement.page';
 import {ManageUserPage} from '../PageObjects/ManageUser.page';
 import {UpdateUserPage} from '../PageObjects/UpdateUser.page';
@@ -86,9 +86,9 @@ let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
 let locationNameSearchPage: LocationNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
 let deleteSubscriptionPage: DeleteSubscriptionPage;
-let bulkDeleteSubscriptionsPage: BulkDeleteSubscriptionsPage;
-let bulkDeleteSubscriptionsConfirmationPage: BulkDeleteSubscriptionsConfirmationPage;
-let bulkDeleteSubscriptionsConfirmedPage: BulkDeleteSubscriptionsConfirmedPage;
+let bulkDeleteSubscriptionsPage: BulkUnsubscribePage;
+let bulkDeleteSubscriptionsConfirmationPage: BulkUnsubscribeConfirmationPage;
+let bulkDeleteSubscriptionsConfirmedPage: BulkUnsubscribeConfirmedPage;
 let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 let manualUploadSummaryPage: ManualUploadSummaryPage;
 let fileUploadConfirmationPage: FileUploadConfirmationPage;
@@ -119,7 +119,7 @@ let mediaAccountApprovalPage: MediaAccountApprovalPage;
 let mediaAccountRejectionPage: MediaAccountRejectionPage;
 let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
 let subscriptionConfigureListPage: SubscriptionConfigureListPage;
-//let cftAuthenticationFailedPage: CftAuthenticationFailedPage;
+let cftAuthenticationFailedPage: CftAuthenticationFailedPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
 let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
 let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
@@ -335,62 +335,61 @@ describe('Unverified user', () => {
   });
 });
 
-//TODO: To be uncommented once CFT IDAM is enabled
-// describe('CFT IDAM user login', () => {
-//   describe('Sign in using a valid account', () => {
-//     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
-//       await signInPage.open('/sign-in');
-//       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
-//     });
-//
-//     it('should see 3 radio buttons', async () => {
-//       expect(await signInPage.radioButtons).toBe(3);
-//     });
-//
-//     it('should select \'With a MyHMCTS account\' option, navigate to the login page, and sign in', async () => {
-//       await signInPage.open('/sign-in');
-//       await signInPage.selectOption('SignInRadio1');
-//       await signInPage.clickContinueForRadio1();
-//       await signInPage.enterText(process.env.CFT_VALID_USERNAME, 'CftEmailField');
-//       await signInPage.enterText(process.env.CFT_VALID_PASSWORD, 'CftPasswordField');
-//       accountHomePage = await signInPage.clickSignInCft();
-//     });
-//
-//     it('should open account home page on successful sign in', async () => {
-//       expect(await accountHomePage.getPageTitle()).toBe('Your account');
-//     });
-//
-//     it('should sign out and open view-option page', async () => {
-//       viewOptionPage = await accountHomePage.clickSignOutForCftAccount();
-//       expect(await viewOptionPage.getPageTitle()).toEqual('What do you want to do?');
-//     });
-//   });
-//
-//   describe('Sign in using an invalid account', () => {
-//     it('should open sign-in page with \'How do you want to sign in\' title', async () => {
-//       await signInPage.open('/sign-in');
-//       expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
-//     });
-//
-//     it('should see 3 radio buttons', async () => {
-//       expect(await signInPage.radioButtons).toBe(3);
-//     });
-//
-//     it('should select \'With a MyHMCTS account\' option, navigate to the login page, and sign in', async () => {
-//       await signInPage.open('/sign-in');
-//       await signInPage.selectOption('SignInRadio1');
-//       await signInPage.clickContinueForRadio1();
-//       await signInPage.enterText(process.env.CFT_INVALID_USERNAME, 'CftEmailField');
-//       await signInPage.enterText(process.env.CFT_INVALID_PASSWORD, 'CftPasswordField');
-//       cftAuthenticationFailedPage = await signInPage.clickSignInCftUnsuccessful();
-//     });
-//
-//     it('should open Authentication failed page', async () => {
-//       expect(await cftAuthenticationFailedPage.getParagraphText()).toBe('You have successfully signed into your MyHMCTS account.' +
-//         ' Unfortunately, your account role does not allow you to access the verified user part of the Court and tribunal hearings service');
-//     });
-//   });
-// });
+describe('CFT IDAM user login', () => {
+  describe('Sign in using a valid account', () => {
+    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+      await signInPage.open('/sign-in');
+      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+    });
+
+    it('should see 3 radio buttons', async () => {
+      expect(await signInPage.radioButtons).toBe(3);
+    });
+
+    it('should select \'With a MyHMCTS account\' option, navigate to the login page, and sign in', async () => {
+      await signInPage.open('/sign-in');
+      await signInPage.selectOption('SignInRadio1');
+      await signInPage.clickContinueForRadio1();
+      await signInPage.enterText(process.env.CFT_VALID_USERNAME, 'CftEmailField');
+      await signInPage.enterText(process.env.CFT_VALID_PASSWORD, 'CftPasswordField');
+      accountHomePage = await signInPage.clickSignInCft();
+    });
+
+    it('should open account home page on successful sign in', async () => {
+      expect(await accountHomePage.getPageTitle()).toBe('Your account');
+    });
+
+    it('should sign out and open session logged out page', async () => {
+      sessionLoggedOutPage = await accountHomePage.clickSignOutForCftAccount();
+      expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
+    });
+  });
+
+  describe('Sign in using an invalid account', () => {
+    it('should open sign-in page with \'How do you want to sign in\' title', async () => {
+      await signInPage.open('/sign-in');
+      expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
+    });
+
+    it('should see 3 radio buttons', async () => {
+      expect(await signInPage.radioButtons).toBe(3);
+    });
+
+    it('should select \'With a MyHMCTS account\' option, navigate to the login page, and sign in', async () => {
+      await signInPage.open('/sign-in');
+      await signInPage.selectOption('SignInRadio1');
+      await signInPage.clickContinueForRadio1();
+      await signInPage.enterText(process.env.CFT_INVALID_USERNAME, 'CftEmailField');
+      await signInPage.enterText(process.env.CFT_INVALID_PASSWORD, 'CftPasswordField');
+      cftAuthenticationFailedPage = await signInPage.clickSignInCftUnsuccessful();
+    });
+
+    it('should open Authentication failed page', async () => {
+      expect(await cftAuthenticationFailedPage.getParagraphText()).toBe('You have successfully signed into your MyHMCTS account.' +
+        ' Unfortunately, your account role does not allow you to access the verified user part of the Court and tribunal hearings service');
+    });
+  });
+});
 
 describe('Verified user', () => {
   describe('Sign In Page', () => {
@@ -468,7 +467,7 @@ describe('Verified user', () => {
       it('should open case name search path', async () => {
         await subscriptionAddPage.selectOption('SubscriptionAddByCaseName');
         caseNameSearchPage = await subscriptionAddPage.clickContinueForCaseName();
-        expect(await caseNameSearchPage.getPageTitle()).toBe('What is the name of the party or parties involved?');
+        expect(await caseNameSearchPage.getPageTitle()).toBe('What is the name of the case?');
       });
 
       it('should search for a valid case name and navigate to results page', async () => {
@@ -587,14 +586,14 @@ describe('Verified user', () => {
       });
     });
 
-    describe('bulk delete subscriptions', async () => {
+    describe('bulk unsubscribe', async () => {
       before(async () => {
         await subscriptionManagementPage.open('subscription-management');
       });
 
-      it('should navigate to bulk delete subscriptions page on button click', async () => {
-        bulkDeleteSubscriptionsPage = await subscriptionManagementPage.clickBulkDeleteSubscriptionsButton();
-        expect(await bulkDeleteSubscriptionsPage.getPageTitle()).toBe('Bulk delete subscriptions');
+      it('should navigate to bulk unsubscribe page on button click', async () => {
+        bulkDeleteSubscriptionsPage = await subscriptionManagementPage.clickBulkUnsubscribeButton();
+        expect(await bulkDeleteSubscriptionsPage.getPageTitle()).toBe('Bulk unsubscribe');
       });
 
       it('should select first court subscription', async () => {
@@ -602,13 +601,13 @@ describe('Verified user', () => {
         expect(await bulkDeleteSubscriptionsPage.courtSubscriptionChecked()).toBeTruthy();
       });
 
-      it('should click on the bulk delete subscriptions button', async () => {
-        bulkDeleteSubscriptionsConfirmationPage = await bulkDeleteSubscriptionsPage.clickBulkDeleteSubscriptionsButton();
+      it('should click on the bulk unsubscribe button', async () => {
+        bulkDeleteSubscriptionsConfirmationPage = await bulkDeleteSubscriptionsPage.clickBulkUnsubscribeButton();
         expect(await bulkDeleteSubscriptionsConfirmationPage.getPageTitle()).toBe('Are you sure you want to remove these subscriptions?');
       });
 
       it('should select yes option to delete the subscription', async () => {
-        await bulkDeleteSubscriptionsConfirmationPage.selectOption('BulkDeleteRadioYes');
+        await bulkDeleteSubscriptionsConfirmationPage.selectOption('BulkUnsubscribeRadioYes');
         bulkDeleteSubscriptionsConfirmedPage = await bulkDeleteSubscriptionsConfirmationPage.clickContinueForYes();
         expect(await bulkDeleteSubscriptionsConfirmedPage.getPanelTitle()).toEqual('Subscription(s) removed');
       });
@@ -1007,7 +1006,7 @@ describe('System Admin level journeys', () => {
     it('should upload file and open confirmation page', async () => {
       await bulkCreateMediaAccountsPage.uploadFile();
       bulkCreateMediaAccountsConfirmationPage = await bulkCreateMediaAccountsPage.clickContinue();
-      expect(await bulkCreateMediaAccountsConfirmationPage.getPageTitle()).toEqual('Are you sure you want to create these media accounts?');
+      expect(await bulkCreateMediaAccountsConfirmationPage.getPageTitle()).toEqual('Create media accounts confirmation');
     });
   });
 

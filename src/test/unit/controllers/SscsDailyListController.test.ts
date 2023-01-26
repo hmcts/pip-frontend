@@ -6,7 +6,7 @@ import {PublicationService} from '../../../main/service/publicationService';
 import {LocationService} from '../../../main/service/locationService';
 import {Response} from 'express';
 import {mockRequest} from '../mocks/mockRequest';
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import { SscsDailyListService } from '../../../main/service/listManipulation/SscsDailyListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sscsDailyList.json'), 'utf-8');
@@ -57,7 +57,7 @@ describe('Sscs Daily List Controller', () => {
       ...i18n['sscs-daily-list'],
       ...i18n['list-template'],
       listData,
-      contentDate: moment(Date.parse(metaData['contentDate'])).format('DD MMMM YYYY'),
+      contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
       publishedDate: '14 September 2020',
       courtName: 'Abergavenny Magistrates\' Court',
       publishedTime: '12:30am',

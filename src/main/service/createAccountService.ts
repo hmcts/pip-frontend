@@ -213,13 +213,17 @@ export class CreateAccountService {
     const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
 
     if (rows.length > 0) {
+      if (rows.length - 1 > 30) {
+        return languageFileParser.getText(fileJson, 'fileUploadErrors', 'tooManyAccountsError');
+      }
+
       if (JSON.stringify(rows[0].sort()) !== JSON.stringify(expectedHeader.sort())) {
         return languageFileParser.getText(fileJson, 'fileUploadErrors', 'headerError');
       }
-    }
 
-    if (rows.some(row => row.length != expectedFieldCount)) {
-      return languageFileParser.getText(fileJson, 'fileUploadErrors', 'fieldSizeError');
+      if (rows.some(row => row.length != expectedFieldCount)) {
+        return languageFileParser.getText(fileJson, 'fileUploadErrors', 'fieldSizeError');
+      }
     }
     return null;
   }

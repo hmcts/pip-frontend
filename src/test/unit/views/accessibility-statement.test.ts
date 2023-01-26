@@ -18,8 +18,8 @@ describe('accessibility-statement', () => {
   it('should display the page header', () => {
     const header = htmlRes.getElementsByClassName(largeHeadingClass);
 
-    expect(header[0].innerHTML).contains('Accessibility statement for the Court and Tribunal ' +
-      'Hearing Information Service', 'Could not find the header');
+    expect(header[0].innerHTML).contains('Accessibility statement for the court and tribunal ' +
+      'hearings service', 'Could not find the header');
   });
 
   it('should display the heading in section 2', () => {

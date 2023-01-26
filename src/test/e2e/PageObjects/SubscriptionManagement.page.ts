@@ -1,6 +1,6 @@
 import { SubscriptionAddPage } from './SubscriptionAdd.page';
 import { DeleteSubscriptionPage } from './DeleteSubscription.page';
-import { BulkDeleteSubscriptionsPage } from './BulkDeleteSubscriptions.page';
+import { BulkUnsubscribePage } from './BulkUnsubscribe.page';
 import { CommonPage } from './Common.page';
 import { SearchPage } from './Search.page';
 
@@ -16,13 +16,13 @@ export class SubscriptionManagementPage extends CommonPage {
     return new SubscriptionAddPage();
   }
 
-  async clickBulkDeleteSubscriptionsButton(): Promise<BulkDeleteSubscriptionsPage> {
-    $(helpers.SubscriptionManagementBulkDeleteSubscriptionsButton).catch(() => {
-      console.log(`${helpers.SubscriptionManagementBulkDeleteSubscriptionsButton} not found`);
+  async clickBulkUnsubscribeButton(): Promise<BulkUnsubscribePage> {
+    $(helpers.SubscriptionManagementBulkUnsubscribeButton).catch(() => {
+      console.log(`${helpers.SubscriptionManagementBulkUnsubscribeButton} not found`);
     });
 
-    await $(helpers.SubscriptionManagementBulkDeleteSubscriptionsButton).click();
-    return new BulkDeleteSubscriptionsPage();
+    await $(helpers.SubscriptionManagementBulkUnsubscribeButton).click();
+    return new BulkUnsubscribePage();
   }
 
   async clickUnsubscribeFromFirstRecord(): Promise<DeleteSubscriptionPage> {
