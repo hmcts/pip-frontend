@@ -43,10 +43,6 @@ new Nunjucks(developmentMode).enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new Container().enableFor(app);
 
-const SegfaultHandler = require('segfault-handler');
-
-SegfaultHandler.registerHandler('crash.log');
-
 logger.info('environment', env);
 logger.info('policy', process.env.POLICY);
 
