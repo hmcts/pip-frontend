@@ -63,15 +63,15 @@
       </div>
       {{ submitButton(continueButton) }}
     </form>
-    <script>
-      if ( window.history.replaceState ) {
-        window.history.replaceState( null, null, window.location.href );
-      }
-    </script>
     {{ super() }}
   </div>
 {% endblock %}
 
 {% block bodyEnd %}
   {{ super() }}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
 {% endblock %}
