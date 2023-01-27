@@ -6,7 +6,7 @@ import {AccountManagementRequests} from '../../../main/resources/requests/accoun
 
 const adminManagementController = new AdminManagementController();
 const stub = sinon.stub(AccountManagementRequests.prototype, 'getAdminUserByEmailAndProvenance');
-const i18n = {'admin-management': {}};
+const i18n = {'admin-management': {}, 'view-option': {}};
 
 describe('Admin Management Controller', () => {
   const response = { render: function() {return '';}} as unknown as Response;
@@ -29,11 +29,12 @@ describe('Admin Management Controller', () => {
     request.body = { 'search-input': '12345678'};
     const responseMock = sinon.mock(response);
     const expectedResults = {
-      ...i18n['admin-management'],
+      ...i18n['view-option'],
+      showError: false,
       //noResultsError: true,
     };
 
-    responseMock.expects('render').once().withArgs('admin-management', expectedResults);
+    responseMock.expects('render').once().withArgs('view-option', expectedResults);
     await adminManagementController.post(request, response);
     responseMock.verify();
   });

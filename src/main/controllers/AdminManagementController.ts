@@ -23,8 +23,9 @@ export default class AdminManagementController {
 
       (searchResults) ?
         res.redirect(`manage-user?id=${searchResults.userId}`) :
-        res.render('admin-management', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin-management']),
+        res.render('view-option', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['view-option']),
+          showError: false,
         });
     } else {
       console.log('Instead me made it here');
