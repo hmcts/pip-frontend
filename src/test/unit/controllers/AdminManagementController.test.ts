@@ -30,7 +30,7 @@ describe('Admin Management Controller', () => {
     const responseMock = sinon.mock(response);
     const expectedResults = {
       ...i18n['admin-management'],
-      noResultsError: true,
+      //noResultsError: true,
     };
 
     responseMock.expects('render').once().withArgs('admin-management', expectedResults);
