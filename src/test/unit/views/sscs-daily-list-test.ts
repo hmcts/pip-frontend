@@ -17,17 +17,6 @@ const artefactIdMap = new Map<string, string>([
   [sscDailyListAdditionalHearingsUrl, 'def'],
 ]);
 
-const warningTextMap = new Map<string, string>([
-  [
-    sscDailyListUrl,
-    'Please note: There may be two hearing lists available for this date, please make sure you look at both lists to see all hearings happening on this date for this location.',
-  ],
-  [
-    sscDailyListAdditionalHearingsUrl,
-    'Please note: There are two hearing lists available for this date, please make sure you look at both lists to see all hearings happening on this date for this location.',
-  ],
-]);
-
 const titleTextMap = new Map<string, string>([
   [
     sscDailyListUrl,
@@ -47,6 +36,7 @@ const warningClass = 'govuk-warning-text__text';
 const courtName = 'Abergavenny Magistrates\' Court';
 const expectedHeader = courtName + ' hearings for';
 const summaryHeadingText = 'Important information';
+const expectWarningText = 'Please note: There may be 2 hearing lists available for this date. Please make sure you look at both lists to see all hearings happening on this date for this location.';
 let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sscsDailyList.json'), 'utf-8');
@@ -92,7 +82,7 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])('Sscs daily 
 
   it('should display warning',  () => {
     const header = htmlRes.getElementsByClassName(warningClass);
-    expect(header[0].innerHTML).contains(warningTextMap.get(url), 'Could not find the warning text');
+    expect(header[0].innerHTML).contains(expectWarningText, 'Could not find the warning text');
   });
 
   it('should display summary',  () => {
