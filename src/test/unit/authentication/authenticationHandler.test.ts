@@ -28,8 +28,8 @@ import {AccountManagementRequests} from '../../../main/resources/requests/accoun
 const updateMediaAccountVerification = sinon.stub(AccountManagementRequests.prototype, 'updateMediaAccountVerification');
 updateMediaAccountVerification.resolves({});
 
-const updateAdminAccountLastSignedInDate = sinon.stub(AccountManagementRequests.prototype, 'updateAccountLastSignedInDate');
-updateAdminAccountLastSignedInDate.resolves({});
+const updateAccountLastSignedInDate = sinon.stub(AccountManagementRequests.prototype, 'updateAccountLastSignedInDate');
+updateAccountLastSignedInDate.resolves({});
 
 describe('Test checking user roles', () => {
 
@@ -321,41 +321,43 @@ describe('process account sign-in', () => {
     await processAdminAccountSignIn(req, res);
 
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-    expect(updateAdminAccountLastSignedInDate.calledWith('PI_AAD', '1234')).to.be.true;
+    expect(updateAccountLastSignedInDate.calledWith('PI_AAD', '1234')).to.be.true;
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/admin-dashboard');
   });
 
   it('should redirect to system dashboard for a system admin user', async () => {
     const mockRedirectFunction = jest.fn((argument) => argument);
-    const req = {'user': {'roles': 'SYSTEM_ADMIN'}};
+    const req = {'user': {'roles': 'SYSTEM_ADMIN', oid: '1235'}};
     const res = {'redirect': mockRedirectFunction};
 
     await processAdminAccountSignIn(req, res);
 
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+    expect(updateAccountLastSignedInDate.calledWith('PI_AAD', '1235')).to.be.true;
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/system-admin-dashboard');
   });
 
   it('should redirect to account home for a non admin user trying to login via admin flow', async () => {
     const mockRedirectFunction = jest.fn((argument) => argument);
-    const req = {'user': {'roles': 'VERIFIED', provenanceUserId: '12345'}};
+    const req = {'user': {'roles': 'VERIFIED', oid: '1236'}};
     const res = {'redirect': mockRedirectFunction};
 
     await processAdminAccountSignIn(req, res);
 
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-    expect(updateAdminAccountLastSignedInDate.calledWith('PI_AAD', '12345')).to.be.false;
+    expect(updateAccountLastSignedInDate.calledWith('PI_AAD', '1236')).to.be.true;
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
   });
 
   it('should redirect to account home for a media user', async () => {
     const mockRedirectFunction = jest.fn((argument) => argument);
-    const req = {'user': {'roles': 'VERIFIED'}};
+    const req = {'user': {'roles': 'VERIFIED', oid: '1236'}};
     const res = {'redirect': mockRedirectFunction};
 
     await processMediaAccountSignIn(req, res);
 
     expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+    expect(updateAccountLastSignedInDate.calledWith('PI_AAD', '1236')).to.be.true;
     expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
   });
 
