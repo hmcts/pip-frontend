@@ -41,9 +41,9 @@ describe('System Admin Dashboard page', () => {
     expect(bannerComponents[4].innerHTML).equal('Sign out');
   });
 
-  it('should display 7 card options', () => {
+  it('should display 8 card options', () => {
     const cardComponents = htmlRes.getElementsByClassName('account-card');
-    expect(cardComponents.length).equal(7);
+    expect(cardComponents.length).equal(8);
   });
 
   it('create system admin account card should have correct content and links', () => {
