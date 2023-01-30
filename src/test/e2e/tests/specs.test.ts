@@ -451,8 +451,8 @@ describe('Verified user', () => {
     });
 
     describe('following the case name path', async () => {
-      const validCaseName = 'A vs B';
-      const casesCount = 1;
+      const validCaseName = 'C vs D';
+      const casesCount = 2;
 
       before(async () => {
         await subscriptionAddPage.open('/subscription-add');
