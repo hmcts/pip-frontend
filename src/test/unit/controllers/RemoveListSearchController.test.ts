@@ -13,15 +13,15 @@ const rawData = fs.readFileSync(
   "utf-8"
 );
 const courtList = JSON.parse(rawData);
-const court = {locationId: 1};
-sinon.stub(LocationService.prototype, 'fetchAllLocations').returns(courtList);
-courtStub.withArgs('aa').resolves(null);
-courtStub.withArgs('test').resolves(null);
-courtStub.withArgs('Mut').resolves(null);
-courtStub.withArgs('Valid Location').resolves(court);
-const pageName = 'remove-list-search';
+const court = { locationId: 1 };
+sinon.stub(LocationService.prototype, "fetchAllLocations").returns(courtList);
+courtStub.withArgs("aa").resolves(null);
+courtStub.withArgs("test").resolves(null);
+courtStub.withArgs("Mut").resolves(null);
+courtStub.withArgs("Valid Location").resolves(court);
+const pageName = "remove-list-search";
 
-const i18n = {pageName: {}};
+const i18n = { pageName: {} };
 
 describe("Remove List Search Controller", () => {
   it("should render the remove list search page", () => {
@@ -31,7 +31,7 @@ describe("Remove List Search Controller", () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/' + pageName;
+    request.path = "/" + pageName;
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n[pageName],
@@ -40,7 +40,7 @@ describe("Remove List Search Controller", () => {
       noResultsError: false,
     };
 
-    responseMock.expects('render').once().withArgs(pageName, expectedData);
+    responseMock.expects("render").once().withArgs(pageName, expectedData);
     return removeListSearchController.get(request, response).then(() => {
       responseMock.verify();
     });
@@ -53,8 +53,8 @@ describe("Remove List Search Controller", () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/' + pageName;
-    request.body = {'input-autocomplete': 'aa'};
+    request.path = "/" + pageName;
+    request.body = { "input-autocomplete": "aa" };
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n[pageName],
@@ -63,7 +63,7 @@ describe("Remove List Search Controller", () => {
       noResultsError: false,
     };
 
-    responseMock.expects('render').once().withArgs(pageName, expectedData);
+    responseMock.expects("render").once().withArgs(pageName, expectedData);
     return removeListSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
@@ -76,8 +76,8 @@ describe("Remove List Search Controller", () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/' + pageName;
-    request.body = {'input-autocomplete': 'test'};
+    request.path = "/" + pageName;
+    request.body = { "input-autocomplete": "test" };
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n[pageName],
@@ -86,7 +86,7 @@ describe("Remove List Search Controller", () => {
       noResultsError: true,
     };
 
-    responseMock.expects('render').once().withArgs(pageName, expectedData);
+    responseMock.expects("render").once().withArgs(pageName, expectedData);
     return removeListSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
@@ -99,8 +99,8 @@ describe("Remove List Search Controller", () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/' + pageName;
-    request.body = {'input-autocomplete': 'Mut'};
+    request.path = "/" + pageName;
+    request.body = { "input-autocomplete": "Mut" };
     const responseMock = sinon.mock(response);
     const expectedData = {
       ...i18n[pageName],
@@ -109,7 +109,7 @@ describe("Remove List Search Controller", () => {
       noResultsError: true,
     };
 
-    responseMock.expects('render').once().withArgs(pageName, expectedData);
+    responseMock.expects("render").once().withArgs(pageName, expectedData);
     return removeListSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
@@ -122,8 +122,8 @@ describe("Remove List Search Controller", () => {
       },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/' + pageName;
-    request.body = {'input-autocomplete': 'Valid Location'};
+    request.path = "/" + pageName;
+    request.body = { "input-autocomplete": "Valid Location" };
     const responseMock = sinon.mock(response);
 
     responseMock

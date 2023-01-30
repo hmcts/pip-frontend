@@ -1,9 +1,8 @@
-import { CommonPage } from './Common.page';
-import {SystemAdminDashboardPage} from './SystemAdminDashboard.page';
-const helpers = require('../Helpers/Selectors');
+import { CommonPage } from "./Common.page";
+import { SystemAdminDashboardPage } from "./SystemAdminDashboard.page";
+const helpers = require("../Helpers/Selectors");
 
 export class DeleteCourtReferenceSuccessPage extends CommonPage {
-
   async getPageTitle(): Promise<string> {
     $(helpers.panelTitle).catch(() => {
       console.log(`${helpers.panelTitle} not found`);
@@ -18,6 +17,6 @@ export class DeleteCourtReferenceSuccessPage extends CommonPage {
     });
 
     await $(helpers.panelHome).click();
-    return new SystemAdminDashboardPage;
+    return new SystemAdminDashboardPage();
   }
 }

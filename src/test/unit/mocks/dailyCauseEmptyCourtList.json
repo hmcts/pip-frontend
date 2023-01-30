@@ -1,22 +1,19 @@
 {
   "document": {
     "version": "",
-    "publicationDate":"2020-09-13T23:30:52.123Z"
+    "publicationDate": "2020-09-13T23:30:52.123Z"
   },
   "venue": {
     "venueName": "PRESTON",
     "venueContact": {
-      "venueTelephone":"01772 844700",
+      "venueTelephone": "01772 844700",
       "venueEmail": "court1@moj.gov.u"
     },
     "venueAddress": {
-      "line": [
-        "THE LAW COURTS"
-      ],
+      "line": ["THE LAW COURTS"],
       "postCode": "PR1 2LL"
     }
   },
   "@schemaLocation": "",
   "courtLists": []
 }
-

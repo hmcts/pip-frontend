@@ -1,8 +1,8 @@
-import { CommonPage } from './Common.page';
-import { SubscriptionManagementPage } from './SubscriptionManagement.page';
-import { SearchPage } from './Search.page';
-import { SummaryOfPublicationsPage } from './SummaryOfPublications.page';
-import {SessionLoggedOutPage} from './SessionLoggedOut.page';
+import { CommonPage } from "./Common.page";
+import { SubscriptionManagementPage } from "./SubscriptionManagement.page";
+import { SearchPage } from "./Search.page";
+import { SummaryOfPublicationsPage } from "./SummaryOfPublications.page";
+import { SessionLoggedOutPage } from "./SessionLoggedOut.page";
 
 const helpers = require("../Helpers/Selectors");
 

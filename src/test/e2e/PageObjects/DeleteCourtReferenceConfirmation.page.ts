@@ -1,6 +1,6 @@
-import { CommonPage } from './Common.page';
-import {DeleteCourtReferenceSuccessPage} from './DeleteCourtReferenceSuccess.page';
-const helpers = require('../Helpers/Selectors');
+import { CommonPage } from "./Common.page";
+import { DeleteCourtReferenceSuccessPage } from "./DeleteCourtReferenceSuccess.page";
+const helpers = require("../Helpers/Selectors");
 
 export class DeleteCourtReferenceConfirmationPage extends CommonPage {
   async getPageTitle(): Promise<string> {

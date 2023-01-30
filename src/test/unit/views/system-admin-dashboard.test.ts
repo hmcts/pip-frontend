@@ -49,8 +49,8 @@ describe("System Admin Dashboard page", () => {
     expect(bannerComponents[4].innerHTML).equal("Sign out");
   });
 
-  it('should display 7 card options', () => {
-    const cardComponents = htmlRes.getElementsByClassName('account-card');
+  it("should display 7 card options", () => {
+    const cardComponents = htmlRes.getElementsByClassName("account-card");
     expect(cardComponents.length).equal(7);
   });
 
@@ -63,12 +63,14 @@ describe("System Admin Dashboard page", () => {
     expect(description.innerHTML).contains("Create a new system admin user");
   });
 
-  it('blob Explorer card should have correct content and links', () => {
-    const cards = htmlRes.getElementsByClassName('account-card');
-    const link = cards[5].getElementsByTagName('a')[0];
-    const description = cards[5].getElementsByTagName('p')[1];
-    expect(link.innerHTML).contains('Blob Explorer');
-    expect(link.getAttribute('href')).contains('blob-view-locations');
-    expect(description.innerHTML).contains('Discover content uploaded to all locations.');
+  it("blob Explorer card should have correct content and links", () => {
+    const cards = htmlRes.getElementsByClassName("account-card");
+    const link = cards[5].getElementsByTagName("a")[0];
+    const description = cards[5].getElementsByTagName("p")[1];
+    expect(link.innerHTML).contains("Blob Explorer");
+    expect(link.getAttribute("href")).contains("blob-view-locations");
+    expect(description.innerHTML).contains(
+      "Discover content uploaded to all locations."
+    );
   });
 });

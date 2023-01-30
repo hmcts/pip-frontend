@@ -1,9 +1,8 @@
-import { CommonPage } from './Common.page';
-import {DeleteCourtReferenceConfirmationPage} from './DeleteCourtReferenceConfirmation.page';
-const helpers = require('../Helpers/Selectors');
+import { CommonPage } from "./Common.page";
+import { DeleteCourtReferenceConfirmationPage } from "./DeleteCourtReferenceConfirmation.page";
+const helpers = require("../Helpers/Selectors");
 
 export class DeleteCourtReferenceDataPage extends CommonPage {
-
   async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitle).catch(() => {
       console.log(`${helpers.CommonPageTitle} not found`);
@@ -19,7 +18,7 @@ export class DeleteCourtReferenceDataPage extends CommonPage {
 
     const searchInput = await $(helpers.SearchInput);
     await searchInput.addValue(text);
-    await browser.keys('Escape');
+    await browser.keys("Escape");
   }
 
   async clickContinue(): Promise<DeleteCourtReferenceConfirmationPage> {

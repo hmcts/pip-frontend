@@ -1,73 +1,73 @@
-import { AccountHomePage } from '../PageObjects/AccountHome.page';
-import { AdminDashboardPage } from '../PageObjects/AdminDashboard.page';
-import { SystemAdminDashboardPage } from '../PageObjects/SystemAdminDashboard.page';
-import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
-import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
-import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
-import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
-import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
-import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
-import { LocationNameSearchPage } from '../PageObjects/LocationNameSearchPage';
-import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
-import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
-import { CreateSystemAdminAccountPage } from '../PageObjects/CreateSystemAdminAccount.page';
-import { CreateSystemAdminAccountSummaryPage } from '../PageObjects/CreateSystemAdminAccountSummary.page';
-import { CourtListPage } from '../PageObjects/CourtList.page';
-import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
-import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
-import { HomePage } from '../PageObjects/Home.page';
-import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
-import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
-import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
-import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
-import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
-import { RemoveListConfirmationPage } from '../PageObjects/RemoveListConfirmation.page';
-import { RemoveListSearchPage } from '../PageObjects/RemoveListSearch.page';
-import { RemoveListSearchResultsPage } from '../PageObjects/RemoveListSearchResults.page';
-import { RemoveListSuccessPage } from '../PageObjects/RemoveListSuccess.page';
-import { SearchPage } from '../PageObjects/Search.page';
-import { SignInPage } from '../PageObjects/SignIn.page';
-import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
-import { SJPPublicListPage } from '../PageObjects/SJPPublicList.page';
-import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
-import { SubscriptionConfigureListPage } from '../PageObjects/SubscriptionConfigureList.page';
-import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
-import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
-import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
-import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
-import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
-import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
-import { ViewOptionPage } from '../PageObjects/ViewOption.page';
-import {MediaAccountRequestsPage} from '../PageObjects/MediaAccountRequests.page';
-import {MediaAccountReviewPage} from '../PageObjects/MediaAccountReview.page';
-import {MediaAccountApprovalPage} from '../PageObjects/MediaAccountApproval.page';
-import {MediaAccountRejectionPage} from '../PageObjects/MediaAccountRejection.page';
-import {MediaAccountRejectionConfirmationPage} from '../PageObjects/MediaAccountRejectionConfirmation.page';
-import {CreateMediaAccountPage} from '../PageObjects/CreateMediaAccount.page';
-import {MediaAccountRequestSubmittedPage} from '../PageObjects/MediaAccountRequestSubmitted.page';
-import {CftAuthenticationFailedPage} from '../PageObjects/CftAuthenticationFailed.page';
-import {SessionLoggedOutPage} from '../PageObjects/SessionLoggedOut.page';
-import {ManualReferenceDataUploadPage} from '../PageObjects/ManualReferenceDataUpload.page';
-import {ManualReferenceDataUploadSummaryPage} from '../PageObjects/ManualReferenceDataUploadSummary.page';
-import { BlobViewLocationsPage } from '../pageobjects/BlobViewLocationsPage';
-import {DeleteCourtReferenceDataPage} from '../PageObjects/DeleteCourtReferenceData.page';
-import {DeleteCourtReferenceConfirmationPage} from '../PageObjects/DeleteCourtReferenceConfirmation.page';
-import {DeleteCourtReferenceSuccessPage} from '../PageObjects/DeleteCourtReferenceSuccess.page';
-import {BulkUnsubscribePage} from '../PageObjects/BulkUnsubscribe.page';
-import {BulkUnsubscribeConfirmationPage} from '../PageObjects/BulkUnsubscribeConfirmation.page';
-import {BulkUnsubscribeConfirmedPage} from '../PageObjects/BulkUnsubscribeConfirmed.page';
-import {UserManagementPage} from '../PageObjects/UserManagement.page';
-import {ManageUserPage} from '../PageObjects/ManageUser.page';
-import {UpdateUserPage} from '../PageObjects/UpdateUser.page';
-import {DeleteUserPage} from '../PageObjects/DeleteUser.page';
-import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPage';
-import {ManageThirdPartyUsersPage} from '../PageObjects/ManageThirdPartyUsers.page';
-import {ListDownloadDisclaimerPage} from '../PageObjects/ListDownloadDisclaimer.page';
-import {ListDownloadFilesPage} from '../PageObjects/ListDownloadFiles.page';
-import { BulkCreateMediaAccountsPage } from '../pageobjects/BulkCreateMediaAccounts.page';
-import { BulkCreateMediaAccountsConfirmationPage } from '../pageobjects/BulkCreateMediaAccountsConfirmation.page';
+import { AccountHomePage } from "../PageObjects/AccountHome.page";
+import { AdminDashboardPage } from "../PageObjects/AdminDashboard.page";
+import { SystemAdminDashboardPage } from "../PageObjects/SystemAdminDashboard.page";
+import { AlphabeticalSearchPage } from "../PageObjects/AlphabeticalSearch.page";
+import { CaseEventGlossaryPage } from "../PageObjects/CaseEventGlossary.page";
+import { CaseNameSearchPage } from "../PageObjects/CaseNameSearch.page";
+import { CaseNameSearchResultsPage } from "../PageObjects/CaseNameSearchResults.page";
+import { CaseReferenceNumberSearchPage } from "../PageObjects/CaseReferenceNumberSearch.page";
+import { CaseReferenceNumberSearchResultsPage } from "../PageObjects/CaseReferenceNumberSearchResults.page";
+import { LocationNameSearchPage } from "../PageObjects/LocationNameSearchPage";
+import { CreateAdminAccountPage } from "../PageObjects/CreateAdminAccount.page";
+import { CreateAdminAccountSummaryPage } from "../PageObjects/CreateAdminAccountSummary.page";
+import { CreateSystemAdminAccountPage } from "../PageObjects/CreateSystemAdminAccount.page";
+import { CreateSystemAdminAccountSummaryPage } from "../PageObjects/CreateSystemAdminAccountSummary.page";
+import { CourtListPage } from "../PageObjects/CourtList.page";
+import { DeleteSubscriptionPage } from "../PageObjects/DeleteSubscription.page";
+import { FileUploadConfirmationPage } from "../PageObjects/FileUploadConfirmation.page";
+import { HomePage } from "../PageObjects/Home.page";
+import { LiveCaseCourtSearchControllerPage } from "../PageObjects/LiveCaseCourtSearchController.page";
+import { LiveCaseStatusPage } from "../PageObjects/LiveCaseStatus.page";
+import { ManualUploadPage } from "../PageObjects/ManualUpload.page";
+import { ManualUploadSummaryPage } from "../PageObjects/ManualUploadSummary.page";
+import { PendingSubscriptionsPage } from "../PageObjects/PendingSubscriptions.page";
+import { RemoveListConfirmationPage } from "../PageObjects/RemoveListConfirmation.page";
+import { RemoveListSearchPage } from "../PageObjects/RemoveListSearch.page";
+import { RemoveListSearchResultsPage } from "../PageObjects/RemoveListSearchResults.page";
+import { RemoveListSuccessPage } from "../PageObjects/RemoveListSuccess.page";
+import { SearchPage } from "../PageObjects/Search.page";
+import { SignInPage } from "../PageObjects/SignIn.page";
+import { SingleJusticeProcedurePage } from "../PageObjects/SingleJusticeProcedure.page";
+import { SJPPublicListPage } from "../PageObjects/SJPPublicList.page";
+import { SubscriptionAddPage } from "../PageObjects/SubscriptionAdd.page";
+import { SubscriptionConfigureListPage } from "../PageObjects/SubscriptionConfigureList.page";
+import { SubscriptionConfirmedPage } from "../PageObjects/SubscriptionConfirmed.page";
+import { SubscriptionManagementPage } from "../PageObjects/SubscriptionManagement.page";
+import { SubscriptionUrnSearchPage } from "../PageObjects/SubscriptionUrnSearch.page";
+import { SubscriptionUrnSearchResultsPage } from "../PageObjects/SubscriptionUrnSearchResults.page";
+import { SummaryOfPublicationsPage } from "../pageobjects/SummaryOfPublications.page";
+import { UnsubscribeConfirmationPage } from "../PageObjects/UnsubscribeConfirmation.page";
+import { ViewOptionPage } from "../PageObjects/ViewOption.page";
+import { MediaAccountRequestsPage } from "../PageObjects/MediaAccountRequests.page";
+import { MediaAccountReviewPage } from "../PageObjects/MediaAccountReview.page";
+import { MediaAccountApprovalPage } from "../PageObjects/MediaAccountApproval.page";
+import { MediaAccountRejectionPage } from "../PageObjects/MediaAccountRejection.page";
+import { MediaAccountRejectionConfirmationPage } from "../PageObjects/MediaAccountRejectionConfirmation.page";
+import { CreateMediaAccountPage } from "../PageObjects/CreateMediaAccount.page";
+import { MediaAccountRequestSubmittedPage } from "../PageObjects/MediaAccountRequestSubmitted.page";
+import { CftAuthenticationFailedPage } from "../PageObjects/CftAuthenticationFailed.page";
+import { SessionLoggedOutPage } from "../PageObjects/SessionLoggedOut.page";
+import { ManualReferenceDataUploadPage } from "../PageObjects/ManualReferenceDataUpload.page";
+import { ManualReferenceDataUploadSummaryPage } from "../PageObjects/ManualReferenceDataUploadSummary.page";
+import { BlobViewLocationsPage } from "../pageobjects/BlobViewLocationsPage";
+import { DeleteCourtReferenceDataPage } from "../PageObjects/DeleteCourtReferenceData.page";
+import { DeleteCourtReferenceConfirmationPage } from "../PageObjects/DeleteCourtReferenceConfirmation.page";
+import { DeleteCourtReferenceSuccessPage } from "../PageObjects/DeleteCourtReferenceSuccess.page";
+import { BulkUnsubscribePage } from "../PageObjects/BulkUnsubscribe.page";
+import { BulkUnsubscribeConfirmationPage } from "../PageObjects/BulkUnsubscribeConfirmation.page";
+import { BulkUnsubscribeConfirmedPage } from "../PageObjects/BulkUnsubscribeConfirmed.page";
+import { UserManagementPage } from "../PageObjects/UserManagement.page";
+import { ManageUserPage } from "../PageObjects/ManageUser.page";
+import { UpdateUserPage } from "../PageObjects/UpdateUser.page";
+import { DeleteUserPage } from "../PageObjects/DeleteUser.page";
+import { BlobViewPublicationsPage } from "../pageobjects/BlobViewPublicationsPage";
+import { ManageThirdPartyUsersPage } from "../PageObjects/ManageThirdPartyUsers.page";
+import { ListDownloadDisclaimerPage } from "../PageObjects/ListDownloadDisclaimer.page";
+import { ListDownloadFilesPage } from "../PageObjects/ListDownloadFiles.page";
+import { BulkCreateMediaAccountsPage } from "../pageobjects/BulkCreateMediaAccounts.page";
+import { BulkCreateMediaAccountsConfirmationPage } from "../pageobjects/BulkCreateMediaAccountsConfirmation.page";
 
-const homePage = new HomePage;
+const homePage = new HomePage();
 let subscriptionAddPage = new SubscriptionAddPage();
 let subscriptionManagementPage: SubscriptionManagementPage;
 const liveCaseCourtSearchControllerPage =
@@ -561,8 +561,8 @@ describe("Verified user", () => {
       });
     });
 
-    describe('following the case name path', async () => {
-      const validCaseName = 'C vs D';
+    describe("following the case name path", async () => {
+      const validCaseName = "C vs D";
       const casesCount = 2;
 
       before(async () => {
@@ -638,8 +638,8 @@ describe("Verified user", () => {
       });
     });
 
-    describe('following the case reference number path', () => {
-      const validSearchTerm = '12345678';
+    describe("following the case reference number path", () => {
+      const validSearchTerm = "12345678";
 
       before(async () => {
         await subscriptionAddPage.open("subscription-add");
@@ -1095,67 +1095,98 @@ describe("System Admin level journeys", () => {
       );
     });
 
-    it('should complete form and open summary page', async () => {
-      await manualReferenceDataUploadPage.completeForm('testReferenceData.csv');
-      manualReferenceDataUploadSummaryPage = await manualReferenceDataUploadPage.clickContinue();
-      expect(await manualReferenceDataUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+    it("should complete form and open summary page", async () => {
+      await manualReferenceDataUploadPage.completeForm("testReferenceData.csv");
+      manualReferenceDataUploadSummaryPage =
+        await manualReferenceDataUploadPage.clickContinue();
+      expect(await manualReferenceDataUploadSummaryPage.getPageTitle()).toEqual(
+        "Check upload details"
+      );
     });
-    it('should open upload confirmation page', async () => {
-      fileUploadConfirmationPage = await manualReferenceDataUploadSummaryPage.clickContinue();
-      expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
+    it("should open upload confirmation page", async () => {
+      fileUploadConfirmationPage =
+        await manualReferenceDataUploadSummaryPage.clickContinue();
+      expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual(
+        "Success"
+      );
     });
   });
 
-  describe('Delete Court In Reference Upload', () => {
+  describe("Delete Court In Reference Upload", () => {
     before(async () => {
       await systemAdminDashboard.open("/system-admin-dashboard");
     });
 
-    it('should open reference manual upload page', async () => {
-      manualReferenceDataUploadPage = await systemAdminDashboard.clickReferenceDataUploadFileCard();
-      expect(await manualReferenceDataUploadPage.getPageTitle()).toEqual('Reference manual data upload');
+    it("should open reference manual upload page", async () => {
+      manualReferenceDataUploadPage =
+        await systemAdminDashboard.clickReferenceDataUploadFileCard();
+      expect(await manualReferenceDataUploadPage.getPageTitle()).toEqual(
+        "Reference manual data upload"
+      );
     });
-    it('should complete form and open summary page', async () => {
-      await manualReferenceDataUploadPage.completeForm('deleteReferenceDataCourt.csv');
-      manualReferenceDataUploadSummaryPage = await manualReferenceDataUploadPage.clickContinue();
-      expect(await manualReferenceDataUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+    it("should complete form and open summary page", async () => {
+      await manualReferenceDataUploadPage.completeForm(
+        "deleteReferenceDataCourt.csv"
+      );
+      manualReferenceDataUploadSummaryPage =
+        await manualReferenceDataUploadPage.clickContinue();
+      expect(await manualReferenceDataUploadSummaryPage.getPageTitle()).toEqual(
+        "Check upload details"
+      );
     });
-    it('should open upload confirmation page', async () => {
-      fileUploadConfirmationPage = await manualReferenceDataUploadSummaryPage.clickContinue();
-      expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
+    it("should open upload confirmation page", async () => {
+      fileUploadConfirmationPage =
+        await manualReferenceDataUploadSummaryPage.clickContinue();
+      expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual(
+        "Success"
+      );
     });
 
-    it('should open system admin dashboard page', async () => {
-      await systemAdminDashboard.open('/system-admin-dashboard');
+    it("should open system admin dashboard page", async () => {
+      await systemAdminDashboard.open("/system-admin-dashboard");
     });
-    it('should open delete reference data page', async () => {
-      deleteCourtReferenceDataPage = await systemAdminDashboard.clickDeleteCourtCard();
-      expect(await deleteCourtReferenceDataPage.getPageTitle()).toEqual('Find the court to remove');
+    it("should open delete reference data page", async () => {
+      deleteCourtReferenceDataPage =
+        await systemAdminDashboard.clickDeleteCourtCard();
+      expect(await deleteCourtReferenceDataPage.getPageTitle()).toEqual(
+        "Find the court to remove"
+      );
     });
 
-    it('should click on the first result and open confirmation page', async () => {
-      const searchTerm = 'Delete Court';
+    it("should click on the first result and open confirmation page", async () => {
+      const searchTerm = "Delete Court";
       await deleteCourtReferenceDataPage.enterText(searchTerm);
-      deleteCourtReferenceConfirmationPage = await deleteCourtReferenceDataPage.clickContinue();
-      expect(await deleteCourtReferenceConfirmationPage.getPageTitle()).toEqual('Are you sure you want to delete this court?');
+      deleteCourtReferenceConfirmationPage =
+        await deleteCourtReferenceDataPage.clickContinue();
+      expect(await deleteCourtReferenceConfirmationPage.getPageTitle()).toEqual(
+        "Are you sure you want to delete this court?"
+      );
     });
 
-    it('should select the radio button and open success page', async () => {
-      await deleteCourtReferenceConfirmationPage.selectOption('delete-choice');
-      deleteCourtReferenceSuccessPage = await deleteCourtReferenceConfirmationPage.clickContinueToDeleteCourt();
-      expect(await deleteCourtReferenceSuccessPage.getPageTitle()).toEqual('Success');
+    it("should select the radio button and open success page", async () => {
+      await deleteCourtReferenceConfirmationPage.selectOption("delete-choice");
+      deleteCourtReferenceSuccessPage =
+        await deleteCourtReferenceConfirmationPage.clickContinueToDeleteCourt();
+      expect(await deleteCourtReferenceSuccessPage.getPageTitle()).toEqual(
+        "Success"
+      );
     });
 
-    it('should click on the home link and open admin dashboard page', async () => {
+    it("should click on the home link and open admin dashboard page", async () => {
       systemAdminDashboard = await deleteCourtReferenceSuccessPage.clickHome();
-      expect(await systemAdminDashboard.getPageTitle()).toEqual('System Admin Dashboard');
+      expect(await systemAdminDashboard.getPageTitle()).toEqual(
+        "System Admin Dashboard"
+      );
     });
   });
 
-  describe('manage third party users dashboard', () => {
-    it('should open third party users page', async () => {
-      manageThirdPartyUsersPage = await systemAdminDashboard.clickManageThirdPartyUsersCard();
-      expect(await manageThirdPartyUsersPage.getPageTitle()).toEqual('Manage Third Party Users');
+  describe("manage third party users dashboard", () => {
+    it("should open third party users page", async () => {
+      manageThirdPartyUsersPage =
+        await systemAdminDashboard.clickManageThirdPartyUsersCard();
+      expect(await manageThirdPartyUsersPage.getPageTitle()).toEqual(
+        "Manage Third Party Users"
+      );
     });
   });
 

@@ -37,26 +37,34 @@ const rawDataCourt = fs.readFileSync(
 );
 const courtData = JSON.parse(rawDataCourt);
 
-const emptyCourtListData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseEmptyCourtList.json'), 'utf-8');
+const emptyCourtListData = fs.readFileSync(
+  path.resolve(__dirname, "../mocks/dailyCauseEmptyCourtList.json"),
+  "utf-8"
+);
 const dailyCauseEmptyCourtList = JSON.parse(emptyCourtListData);
 
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
-sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
+sinon
+  .stub(PublicationService.prototype, "getIndividualPublicationMetadata")
+  .returns(metaData);
+sinon.stub(LocationService.prototype, "getLocationById").resolves(courtData[0]);
 
-describe('Daily Cause List page', () => {
-
+describe("Daily Cause List page", () => {
   beforeAll(async () => {
-    sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(dailyCauseListData);
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+    sinon
+      .stub(PublicationService.prototype, "getIndividualPublicationJson")
+      .returns(dailyCauseListData);
+    await request(app)
+      .get(PAGE_URL)
+      .then((res) => {
+        htmlRes = new DOMParser().parseFromString(res.text, "text/html");
+      });
   });
 
   afterAll(() => {
     sinon.restore();
   });
 
-  it('should display header',  () => {
+  it("should display header", () => {
     const header = htmlRes.getElementsByClassName(headingClass);
     expect(header[0].innerHTML).contains(
       expectedHeader,
@@ -238,43 +246,65 @@ describe('Daily Cause List page', () => {
   });
 });
 
-describe('Daily Cause List page when court list is empty', () => {
-
+describe("Daily Cause List page when court list is empty", () => {
   beforeAll(async () => {
-    sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
-    sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-    sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(dailyCauseEmptyCourtList);
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-    });
+    sinon
+      .stub(PublicationService.prototype, "getIndividualPublicationMetadata")
+      .returns(metaData);
+    sinon
+      .stub(LocationService.prototype, "getLocationById")
+      .resolves(courtData[0]);
+    sinon
+      .stub(PublicationService.prototype, "getIndividualPublicationJson")
+      .returns(dailyCauseEmptyCourtList);
+    await request(app)
+      .get(PAGE_URL)
+      .then((res) => {
+        htmlRes = new DOMParser().parseFromString(res.text, "text/html");
+      });
   });
 
-  it('should display header',  () => {
+  it("should display header", () => {
     const header = htmlRes.getElementsByClassName(headingClass);
-    expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+    expect(header[0].innerHTML).contains(
+      expectedHeader,
+      "Could not find the header"
+    );
   });
 
-  it('should display summary',  () => {
+  it("should display summary", () => {
     const summary = htmlRes.getElementsByClassName(summaryHeading);
-    expect(summary[0].innerHTML).contains(summaryHeadingText, 'Could not find the display summary heading');
+    expect(summary[0].innerHTML).contains(
+      summaryHeadingText,
+      "Could not find the display summary heading"
+    );
   });
 
-  it('should display court name summary paragraph',  () => {
+  it("should display court name summary paragraph", () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
-    expect(summary[0].innerHTML).contains(courtName, 'Could not find the court name in summary text');
+    expect(summary[0].innerHTML).contains(
+      courtName,
+      "Could not find the court name in summary text"
+    );
   });
 
-  it('should display court email summary paragraph',  () => {
+  it("should display court email summary paragraph", () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
-    expect(summary[0].innerHTML).contains('court1@moj.gov.u', 'Could not find the court name in summary text');
+    expect(summary[0].innerHTML).contains(
+      "court1@moj.gov.u",
+      "Could not find the court name in summary text"
+    );
   });
 
-  it('should display court contact number summary paragraph',  () => {
+  it("should display court contact number summary paragraph", () => {
     const summary = htmlRes.getElementsByClassName(summaryText);
-    expect(summary[0].innerHTML).contains('01772 844700', 'Could not find the court telephone no in summary text');
+    expect(summary[0].innerHTML).contains(
+      "01772 844700",
+      "Could not find the court telephone no in summary text"
+    );
   });
 
-  it('should not display accordion open/close all',  () => {
+  it("should not display accordion open/close all", () => {
     const accordion = htmlRes.getElementsByClassName(accordionClass);
     expect(accordion[0]).is.undefined;
   });
