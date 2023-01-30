@@ -227,6 +227,13 @@ module.exports = {
   ReferenceDataUploadFile: '#card-manual-reference-data-upload',
   ManageThirdPartyUsers: '#card-manage-third-party-users',
   referenceDataFileUpload: '#manual-reference-data-upload',
+  DeleteCourt: '#card-delete-court-reference-data',
+
+  //DeleteReferenceCourt selectors
+  DeleteCourtLink: '//*[@id="main-content"]/div/table/tbody/tr[1]/td[5]/a',
+  DeletedSelectOption: '#delete-choice',
+  'delete-choice': '#delete-choice',
+
   userManagement: '#card-user-management',
   BulkCreateMediaAccounts: '#card-bulk-create-media-accounts',
 

@@ -50,6 +50,9 @@ import {SessionLoggedOutPage} from '../PageObjects/SessionLoggedOut.page';
 import {ManualReferenceDataUploadPage} from '../PageObjects/ManualReferenceDataUpload.page';
 import {ManualReferenceDataUploadSummaryPage} from '../PageObjects/ManualReferenceDataUploadSummary.page';
 import { BlobViewLocationsPage } from '../pageobjects/BlobViewLocationsPage';
+import {DeleteCourtReferenceDataPage} from '../PageObjects/DeleteCourtReferenceData.page';
+import {DeleteCourtReferenceConfirmationPage} from '../PageObjects/DeleteCourtReferenceConfirmation.page';
+import {DeleteCourtReferenceSuccessPage} from '../PageObjects/DeleteCourtReferenceSuccess.page';
 import {BulkUnsubscribePage} from '../PageObjects/BulkUnsubscribe.page';
 import {BulkUnsubscribeConfirmationPage} from '../PageObjects/BulkUnsubscribeConfirmation.page';
 import {BulkUnsubscribeConfirmedPage} from '../PageObjects/BulkUnsubscribeConfirmed.page';
@@ -120,6 +123,9 @@ let cftAuthenticationFailedPage: CftAuthenticationFailedPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
 let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
 let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
+let deleteCourtReferenceDataPage: DeleteCourtReferenceDataPage;
+let deleteCourtReferenceConfirmationPage: DeleteCourtReferenceConfirmationPage;
+let deleteCourtReferenceSuccessPage: DeleteCourtReferenceSuccessPage;
 let userManagementPage: UserManagementPage;
 let manageUserPage: ManageUserPage;
 let updateUserPage: UpdateUserPage;
@@ -851,7 +857,7 @@ describe('System Admin level journeys', () => {
       expect(await manualReferenceDataUploadPage.getPageTitle()).toEqual('Reference manual data upload');
     });
     it('should complete form and open summary page', async () => {
-      await manualReferenceDataUploadPage.completeForm();
+      await manualReferenceDataUploadPage.completeForm('testReferenceData.csv');
       manualReferenceDataUploadSummaryPage = await manualReferenceDataUploadPage.clickContinue();
       expect(await manualReferenceDataUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
     });
@@ -861,17 +867,57 @@ describe('System Admin level journeys', () => {
     });
   });
 
-  describe('manage third party users dashboard', () => {
-
+  describe('Delete Court In Reference Upload', () => {
     before(async () => {
       await systemAdminDashboard.open('/system-admin-dashboard');
     });
 
+    it('should open reference manual upload page', async () => {
+      manualReferenceDataUploadPage = await systemAdminDashboard.clickReferenceDataUploadFileCard();
+      expect(await manualReferenceDataUploadPage.getPageTitle()).toEqual('Reference manual data upload');
+    });
+    it('should complete form and open summary page', async () => {
+      await manualReferenceDataUploadPage.completeForm('deleteReferenceDataCourt.csv');
+      manualReferenceDataUploadSummaryPage = await manualReferenceDataUploadPage.clickContinue();
+      expect(await manualReferenceDataUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+    });
+    it('should open upload confirmation page', async () => {
+      fileUploadConfirmationPage = await manualReferenceDataUploadSummaryPage.clickContinue();
+      expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
+    });
+
+    it('should open system admin dashboard page', async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard');
+    });
+    it('should open delete reference data page', async () => {
+      deleteCourtReferenceDataPage = await systemAdminDashboard.clickDeleteCourtCard();
+      expect(await deleteCourtReferenceDataPage.getPageTitle()).toEqual('Find the court to remove');
+    });
+
+    it('should click on the first result and open confirmation page', async () => {
+      const searchTerm = 'Delete Court';
+      await deleteCourtReferenceDataPage.enterText(searchTerm);
+      deleteCourtReferenceConfirmationPage = await deleteCourtReferenceDataPage.clickContinue();
+      expect(await deleteCourtReferenceConfirmationPage.getPageTitle()).toEqual('Are you sure you want to delete this court?');
+    });
+
+    it('should select the radio button and open success page', async () => {
+      await deleteCourtReferenceConfirmationPage.selectOption('delete-choice');
+      deleteCourtReferenceSuccessPage = await deleteCourtReferenceConfirmationPage.clickContinueToDeleteCourt();
+      expect(await deleteCourtReferenceSuccessPage.getPageTitle()).toEqual('Success');
+    });
+
+    it('should click on the home link and open admin dashboard page', async () => {
+      systemAdminDashboard = await deleteCourtReferenceSuccessPage.clickHome();
+      expect(await systemAdminDashboard.getPageTitle()).toEqual('System Admin Dashboard');
+    });
+  });
+
+  describe('manage third party users dashboard', () => {
     it('should open third party users page', async () => {
       manageThirdPartyUsersPage = await systemAdminDashboard.clickManageThirdPartyUsersCard();
       expect(await manageThirdPartyUsersPage.getPageTitle()).toEqual('Manage Third Party Users');
     });
-
   });
 
   describe('User management journey', () => {

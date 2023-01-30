@@ -26,6 +26,7 @@ const courtNameSearch = 'Abergavenny Magistrates\' Court';
 const courtWelshNameSearch = 'Llys Ynadon y Fenni';
 
 const stub = sinon.stub(dataManagementApi, 'get');
+const courtDeleteStub = sinon.stub(dataManagementApi, 'delete');
 
 const regions = 'london';
 const jurisdictions = 'Crown';
@@ -37,6 +38,9 @@ const welshJurisdictions = 'Goron';
 const englishLanguage = 'en';
 const welshLanguage = 'cy';
 const dummyFile = new Blob(['testCsv']);
+
+const deletionResponse = {isExists: true, errorMessage: 'test'};
+const adminUserId = 'Test';
 
 describe('Location get requests', () => {
 
@@ -68,6 +72,12 @@ describe('Location get requests', () => {
     stub.withArgs('/locations/filter', {params: {regions: test, jurisdictions: 'foo', language: welshLanguage}}).rejects(errorRequest);
 
     stub.withArgs('/locations').resolves({data: courtList});
+
+    courtDeleteStub.withArgs('/locations/1', {headers: {'x-provenance-user-id': adminUserId}}).resolves({data: {isExists: true, errorMessage: 'test'}});
+    courtDeleteStub.withArgs('/locations/2', {headers: {'x-provenance-user-id': adminUserId}}).rejects(errorResponse);
+    courtDeleteStub.withArgs('/locations/3', {headers: {'x-provenance-user-id': adminUserId}}).rejects(errorRequest);
+    courtDeleteStub.withArgs('/locations/4', {headers: {'x-provenance-user-id': adminUserId}}).rejects(errorMessage);
+    courtDeleteStub.withArgs('/locations/5', {headers: {'x-provenance-user-id': adminUserId}}).resolves({data: {isExists: false, errorMessage: ''}});
   });
 
   it('should return court by court id', async () => {
@@ -179,30 +189,47 @@ describe('Location get requests', () => {
     expect(await courtRequests.getAllLocations()).toBe(null);
   });
 
-  describe('Get locations csv', () => {
-    it('should return locations csv on success', async () => {
-      stub.withArgs('/locations/download/csv').resolves({status: 200, data: dummyFile });
+  it('should not delete the court if active artefact or subscription exists', async () => {
+    expect(await courtRequests.deleteCourt(1, adminUserId)).toStrictEqual(deletionResponse);
+  });
 
-      const response = await courtRequests.getLocationsCsv('1234');
-      expect(response).toBe(dummyFile);
-    });
+  it('should return null if response fails ', async () => {
+    expect(await courtRequests.deleteCourt(2, adminUserId)).toBe(null);
+  });
 
-    it('should return null on error request', async () => {
-      stub.withArgs('/locations/download/csv').rejects(errorRequest);
-      const response = await courtRequests.getLocationsCsv('1234');
-      expect(response).toBe(null);
-    });
+  it('should return null if request fails', async () => {
+    expect(await courtRequests.deleteCourt(3, adminUserId)).toBe(null);
+  });
 
-    it('should return false on error response', async () => {
-      stub.withArgs('/locations/download/csv').rejects(errorResponse);
-      const response = await courtRequests.getLocationsCsv('1234');
-      expect(response).toBe(null);
-    });
+  it('should return null if request fails', async () => {
+    expect(await courtRequests.deleteCourt(4, adminUserId)).toBe(null);
+  });
 
-    it('should return false on error message', async () => {
-      stub.withArgs('/locations/download/csv').rejects(errorMessage);
-      const response = await courtRequests.getLocationsCsv('1234');
-      expect(response).toBe(null);
-    });
+  it('should return isExists false if court is deleted', async () => {
+    const data = await courtRequests.deleteCourt(5, adminUserId);
+    expect(data['isExists']).toStrictEqual(false);
+  });
+});
+
+describe('Get locations csv', () => {
+  it('should return locations csv on success', async () => {
+    stub.withArgs('/locations/download/csv').resolves({status: 200, data: dummyFile });
+    const response = await courtRequests.getLocationsCsv('1234');
+    expect(response).toBe(dummyFile);
+  });
+  it('should return null on error request', async () => {
+    stub.withArgs('/locations/download/csv').rejects(errorRequest);
+    const response = await courtRequests.getLocationsCsv('1234');
+    expect(response).toBe(null);
+  });
+  it('should return false on error response', async () => {
+    stub.withArgs('/locations/download/csv').rejects(errorResponse);
+    const response = await courtRequests.getLocationsCsv('1234');
+    expect(response).toBe(null);
+  });
+  it('should return false on error message', async () => {
+    stub.withArgs('/locations/download/csv').rejects(errorMessage);
+    const response = await courtRequests.getLocationsCsv('1234');
+    expect(response).toBe(null);
   });
 });
