@@ -83,6 +83,7 @@ const systemAdminRoutes = [
   '/bulk-create-media-accounts',
   '/bulk-create-media-accounts-confirmation',
   '/bulk-create-media-accounts-confirmed',
+  '/audit-log-viewer',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
