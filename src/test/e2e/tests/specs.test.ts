@@ -857,7 +857,7 @@ describe('System Admin level journeys', () => {
       expect(await manualReferenceDataUploadPage.getPageTitle()).toEqual('Reference manual data upload');
     });
     it('should complete form and open summary page', async () => {
-      await manualReferenceDataUploadPage.completeForm();
+      await manualReferenceDataUploadPage.completeForm('testReferenceData.csv');
       manualReferenceDataUploadSummaryPage = await manualReferenceDataUploadPage.clickContinue();
       expect(await manualReferenceDataUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
     });
@@ -872,13 +872,30 @@ describe('System Admin level journeys', () => {
       await systemAdminDashboard.open('/system-admin-dashboard');
     });
 
+    it('should open reference manual upload page', async () => {
+      manualReferenceDataUploadPage = await systemAdminDashboard.clickReferenceDataUploadFileCard();
+      expect(await manualReferenceDataUploadPage.getPageTitle()).toEqual('Reference manual data upload');
+    });
+    it('should complete form and open summary page', async () => {
+      await manualReferenceDataUploadPage.completeForm('deleteReferenceDataCourt.csv');
+      manualReferenceDataUploadSummaryPage = await manualReferenceDataUploadPage.clickContinue();
+      expect(await manualReferenceDataUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+    });
+    it('should open upload confirmation page', async () => {
+      fileUploadConfirmationPage = await manualReferenceDataUploadSummaryPage.clickContinue();
+      expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
+    });
+
+    it('should open system admin dashboard page', async () => {
+      await systemAdminDashboard.open('/system-admin-dashboard');
+    });
     it('should open delete reference data page', async () => {
       deleteCourtReferenceDataPage = await systemAdminDashboard.clickDeleteCourtCard();
       expect(await deleteCourtReferenceDataPage.getPageTitle()).toEqual('Find the court to remove');
     });
 
     it('should click on the first result and open confirmation page', async () => {
-      const searchTerm = 'Test Court';
+      const searchTerm = 'Delete Court';
       await deleteCourtReferenceDataPage.enterText(searchTerm);
       deleteCourtReferenceConfirmationPage = await deleteCourtReferenceDataPage.clickContinue();
       expect(await deleteCourtReferenceConfirmationPage.getPageTitle()).toEqual('Are you sure you want to delete this court?');
