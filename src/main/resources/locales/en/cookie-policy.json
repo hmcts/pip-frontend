@@ -20,7 +20,10 @@
     "Find out more about how to manage cookies."
   ],
   "cookiesExplanation3": "Find out more about",
-  "link1": {"href":  "https://www.aboutcookies.org/", "text": " how to manage cookies."},
+  "link1": {
+    "href": "https://www.aboutcookies.org/",
+    "text": " how to manage cookies."
+  },
   "cookiesExplanation4": "We use Google Analytics software to collect information about how you use this service. We do this to help make sure the service is meeting the needs of its users and to help us make improvements, for example improving site search.",
   "cookiesExplanation5": "Google Analytics stores information about:",
   "bulletList2": [
@@ -30,55 +33,115 @@
     "what you click on while you're visiting the service"
   ],
   "cookiesExplanation6": "We allow Google to use or share our analytics data. You can find out more about how Google use this information in their",
-  "link2": {"href":  "https://policies.google.com/technologies/partner-sites", "text": " Privacy Policy."},
+  "link2": {
+    "href": "https://policies.google.com/technologies/partner-sites",
+    "text": " Privacy Policy."
+  },
   "cookiesExplanation7": "You can",
-  "link3": {"href":  "https://tools.google.com/dlpage/gaoptout", "text": " opt out of Google Analytics "},
+  "link3": {
+    "href": "https://tools.google.com/dlpage/gaoptout",
+    "text": " opt out of Google Analytics "
+  },
   "cookiesExplanation8": "if you do not want Google to have access to your information.",
   "cookiesExplanation9": "List of google analytics cookies used.",
   "tableData1": [
-    {"name": "_ga", "purpose": "This helps us count how many people visit the service by tracking if you’ve visited before", "expires": "2 years"},
-    {"name": "_gat", "purpose": "Manages the rate at which page view requests are made", "expires": "10 minutes"},
-    {"name": "_gid", "purpose": "Identifies you to the service", "expires": "24 hours"}
+    {
+      "name": "_ga",
+      "purpose": "This helps us count how many people visit the service by tracking if you’ve visited before",
+      "expires": "2 years"
+    },
+    {
+      "name": "_gat",
+      "purpose": "Manages the rate at which page view requests are made",
+      "expires": "10 minutes"
+    },
+    {
+      "name": "_gid",
+      "purpose": "Identifies you to the service",
+      "expires": "24 hours"
+    }
   ],
   "cookiesExplanation10": "You may see a pop-up welcome message when you first visit the service. We’ll store a cookie so that your computer knows you’ve seen it and knows not to show it again.",
   "tableData2": [
-    {"name": "seen_cookie_message", "purpose": "Saves a message to let us know that you’ve seen our cookie message", "expires": "1 month"}
+    {
+      "name": "seen_cookie_message",
+      "purpose": "Saves a message to let us know that you’ve seen our cookie message",
+      "expires": "1 month"
+    }
   ],
   "cookiesExplanation11": "Session cookies are stored on your computer as you travel through a website, and let the website know what you’ve seen and done so far. These are temporary cookies and are automatically deleted a short while after you leave the website.",
   "tableData3": [
-    {"name": "session.sid", "purpose": "Carries details of your current session", "expires": "When you close your browser"}
+    {
+      "name": "session.sid",
+      "purpose": "Carries details of your current session",
+      "expires": "When you close your browser"
+    }
   ],
   "cookiesExplanation12": "We use authentication cookies to identify you when you return to the service.",
   "tableData4": [
-    {"name": "__auth-token", "purpose": "Identifies you to the service", "expires": "When you close your browser"}
+    {
+      "name": "__auth-token",
+      "purpose": "Identifies you to the service",
+      "expires": "When you close your browser"
+    }
   ],
   "cookiesExplanation13": "We set cookies which prevent attackers from modifying the contents of the other cookies we set. This makes the service more secure and protects your personal information.",
   "tableData5": [
-    {"name": "TSxxxxxxxx", "purpose": "Protects your session from tampering", "expires": "When you close your browser"},
-    {"name": "__state", "purpose": "Identifies you to the service and secures your authentication", "expires": "When you close your browser"}
+    {
+      "name": "TSxxxxxxxx",
+      "purpose": "Protects your session from tampering",
+      "expires": "When you close your browser"
+    },
+    {
+      "name": "__state",
+      "purpose": "Identifies you to the service and secures your authentication",
+      "expires": "When you close your browser"
+    }
   ],
   "cookiesExplanation14": "We use Dynatrace Software Intelligence Platform to provide an Application Performance Monitoring Service to collect information about how you use HMCTS services. We do this to monitor HMCTS services in order to resolve issues within our services as well as collect data on how our services can be improved. HMCTS store information about:",
-  "bulletList3": [
-    "Site performance",
-    "Website usage",
-    "User behaviour"
-  ],
+  "bulletList3": ["Site performance", "Website usage", "User behaviour"],
   "cookiesExplanation15": "Information is presented within the Application Performance Monitoring service for the purposes detailed above. We do not use or share the information for any other purpose. We do not allow Dynatrace to use or share the information for any other purposes.",
   "tableData6": [
-    {"name": "dtCookie", "purpose": "Tracks a visit across multiple request", "expires": "Session end"},
-    {"name": "dtLatC", "purpose": "Measures server latency for performance monitoring", "expires": "Session end"},
-    {"name": "dtPC", "purpose": "Required to identify proper endpoints for beacon transmission; includes session ID for correlation", "expires": "Session end"},
-    {"name": "dtSa", "purpose": "Intermediate store for page-spanning actions", "expires": "Session end"},
-    {"name": "rxVisitor", "purpose": "Visitor ID to correlate sessions", "expires": "1 year"},
-    {"name": "rxvt", "purpose": "Session timeout", "expires": "Session end"}
+    {
+      "name": "dtCookie",
+      "purpose": "Tracks a visit across multiple request",
+      "expires": "Session end"
+    },
+    {
+      "name": "dtLatC",
+      "purpose": "Measures server latency for performance monitoring",
+      "expires": "Session end"
+    },
+    {
+      "name": "dtPC",
+      "purpose": "Required to identify proper endpoints for beacon transmission; includes session ID for correlation",
+      "expires": "Session end"
+    },
+    {
+      "name": "dtSa",
+      "purpose": "Intermediate store for page-spanning actions",
+      "expires": "Session end"
+    },
+    {
+      "name": "rxVisitor",
+      "purpose": "Visitor ID to correlate sessions",
+      "expires": "1 year"
+    },
+    { "name": "rxvt", "purpose": "Session timeout", "expires": "Session end" }
   ],
   "analyticsCookieOptions": [
-    {"value": "on", "text": "Use cookies that measure my website use"},
-    {"value": "off", "text": "Do not use cookies that measure my website use"}
+    { "value": "on", "text": "Use cookies that measure my website use" },
+    { "value": "off", "text": "Do not use cookies that measure my website use" }
   ],
   "performanceCookieOptions": [
-    {"value": "on", "text": "Use cookies that measure website application performance monitoring"},
-    {"value": "off", "text": "Do not cookies that measure website application performance monitoring"}
+    {
+      "value": "on",
+      "text": "Use cookies that measure website application performance monitoring"
+    },
+    {
+      "value": "off",
+      "text": "Do not cookies that measure website application performance monitoring"
+    }
   ],
   "saveText": "Save",
   "summaryText": "Contact us for help",

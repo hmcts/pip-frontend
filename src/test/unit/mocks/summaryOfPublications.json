@@ -7,9 +7,7 @@
     "sensitivity": "PUBLIC",
     "language": "ENGLISH",
     "search": {
-      "court-id": [
-        "Array"
-      ]
+      "court-id": ["Array"]
     },
     "displayFrom": "2022-02-02T12:52:01.907",
     "displayTo": "2022-05-02T12:52:01.907",
@@ -59,9 +57,7 @@
     "sensitivity": "PUBLIC",
     "language": "ENGLISH",
     "search": {
-      "location-id": [
-        "5"
-      ]
+      "location-id": ["5"]
     },
     "displayFrom": "2022-07-04T10:40:00",
     "displayTo": "2022-12-31T10:55:00",
@@ -80,9 +76,7 @@
     "sensitivity": "PUBLIC",
     "language": "ENGLISH",
     "search": {
-      "location-id": [
-        "5"
-      ]
+      "location-id": ["5"]
     },
     "displayFrom": "2022-07-04T10:40:00",
     "displayTo": "2022-12-31T10:55:00",
@@ -101,9 +95,7 @@
     "sensitivity": "PUBLIC",
     "language": "ENGLISH",
     "search": {
-      "location-id": [
-        "5"
-      ]
+      "location-id": ["5"]
     },
     "displayFrom": "2022-07-04T10:40:00",
     "displayTo": "2022-12-31T10:55:00",

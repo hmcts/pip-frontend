@@ -1,7 +1,7 @@
-import { CommonPage } from './Common.page';
-import { AdminDashboardPage } from './AdminDashboard.page';
+import { CommonPage } from "./Common.page";
+import { AdminDashboardPage } from "./AdminDashboard.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class RemoveListSuccessPage extends CommonPage {
   async getPanelTitle(): Promise<string> {
@@ -18,6 +18,6 @@ export class RemoveListSuccessPage extends CommonPage {
     });
 
     await $(helpers.panelHome).click();
-    return new AdminDashboardPage;
+    return new AdminDashboardPage();
   }
 }

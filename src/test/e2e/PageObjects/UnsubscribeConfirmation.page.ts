@@ -1,4 +1,4 @@
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class UnsubscribeConfirmationPage {
   async getPanelTitle(): Promise<string> {

@@ -150,10 +150,7 @@
                         ]
                       }
                     ],
-                    "channel": [
-                      "Teams",
-                      "Attended"
-                    ]
+                    "channel": ["Teams", "Attended"]
                   }
                 ]
               },
@@ -275,10 +272,7 @@
                         ]
                       }
                     ],
-                    "channel": [
-                      "Teams",
-                      "Attended"
-                    ]
+                    "channel": ["Teams", "Attended"]
                   }
                 ]
               }
@@ -405,10 +399,7 @@
                         ]
                       }
                     ],
-                    "channel": [
-                      "Teams",
-                      "Attended"
-                    ]
+                    "channel": ["Teams", "Attended"]
                   }
                 ]
               },
@@ -523,10 +514,7 @@
                         ]
                       }
                     ],
-                    "channel": [
-                      "Teams",
-                      "Attended"
-                    ]
+                    "channel": ["Teams", "Attended"]
                   }
                 ]
               }
@@ -543,10 +531,7 @@
             "courtRoomName": "Room 3",
             "session": [
               {
-                "sessionChannel": [
-                  "Video Hearing",
-                  "Attended"
-                ],
+                "sessionChannel": ["Video Hearing", "Attended"],
                 "judiciary": [
                   {
                     "johTitle": "Judge",
@@ -641,10 +626,7 @@
                 ]
               },
               {
-                "sessionChannel": [
-                  "Video Hearing",
-                  "Attended"
-                ],
+                "sessionChannel": ["Video Hearing", "Attended"],
                 "judiciary": [
                   {
                     "johTitle": "Judge",

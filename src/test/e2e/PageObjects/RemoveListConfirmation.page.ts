@@ -1,7 +1,7 @@
-import { CommonPage } from './Common.page';
-import { RemoveListSuccessPage } from './RemoveListSuccess.page';
+import { CommonPage } from "./Common.page";
+import { RemoveListSuccessPage } from "./RemoveListSuccess.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class RemoveListConfirmationPage extends CommonPage {
   async clickContinueToRemovePublication(): Promise<RemoveListSuccessPage> {

@@ -1,7 +1,7 @@
-import { CommonPage } from './Common.page';
-import { SubscriptionConfirmedPage } from './SubscriptionConfirmed.page';
+import { CommonPage } from "./Common.page";
+import { SubscriptionConfirmedPage } from "./SubscriptionConfirmed.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class PendingSubscriptionsPage extends CommonPage {
   async clickContinue(): Promise<SubscriptionConfirmedPage> {

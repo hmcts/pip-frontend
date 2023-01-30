@@ -1,7 +1,7 @@
-import { CommonPage } from './Common.page';
-import { CaseEventGlossaryPage } from './CaseEventGlossary.page';
+import { CommonPage } from "./Common.page";
+import { CaseEventGlossaryPage } from "./CaseEventGlossary.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class LiveCaseStatusPage extends CommonPage {
   async getCourtTitle(): Promise<string> {

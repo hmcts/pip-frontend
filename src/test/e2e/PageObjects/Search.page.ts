@@ -1,8 +1,8 @@
-import { CommonPage } from './Common.page';
-import { AlphabeticalSearchPage } from './AlphabeticalSearch.page';
-import { SummaryOfPublicationsPage } from './SummaryOfPublications.page';
+import { CommonPage } from "./Common.page";
+import { AlphabeticalSearchPage } from "./AlphabeticalSearch.page";
+import { SummaryOfPublicationsPage } from "./SummaryOfPublications.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class SearchPage extends CommonPage {
   async getPageTitle(): Promise<string> {
@@ -20,7 +20,7 @@ export class SearchPage extends CommonPage {
 
     const searchInput = await $(helpers.SearchInput);
     await searchInput.addValue(text);
-    await browser.keys('Escape');
+    await browser.keys("Escape");
   }
 
   async clickContinue(): Promise<SummaryOfPublicationsPage> {
@@ -42,7 +42,7 @@ export class SearchPage extends CommonPage {
   }
 
   async clickNavSJP(signedIn: boolean): Promise<SummaryOfPublicationsPage> {
-    const selector = signedIn ? 'SignedInBannerSJP' : 'BannerSJP';
+    const selector = signedIn ? "SignedInBannerSJP" : "BannerSJP";
     $(helpers[selector]).catch(() => {
       console.log(`${helpers[selector]} not found`);
     });

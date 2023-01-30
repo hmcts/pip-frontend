@@ -1,10 +1,10 @@
-import { SubscriptionAddPage } from './SubscriptionAdd.page';
-import { DeleteSubscriptionPage } from './DeleteSubscription.page';
-import { BulkUnsubscribePage } from './BulkUnsubscribe.page';
-import { CommonPage } from './Common.page';
-import { SearchPage } from './Search.page';
+import { SubscriptionAddPage } from "./SubscriptionAdd.page";
+import { DeleteSubscriptionPage } from "./DeleteSubscription.page";
+import { BulkUnsubscribePage } from "./BulkUnsubscribe.page";
+import { CommonPage } from "./Common.page";
+import { SearchPage } from "./Search.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class SubscriptionManagementPage extends CommonPage {
   async clickAddNewSubscriptionButton(): Promise<SubscriptionAddPage> {
@@ -18,7 +18,9 @@ export class SubscriptionManagementPage extends CommonPage {
 
   async clickBulkUnsubscribeButton(): Promise<BulkUnsubscribePage> {
     $(helpers.SubscriptionManagementBulkUnsubscribeButton).catch(() => {
-      console.log(`${helpers.SubscriptionManagementBulkUnsubscribeButton} not found`);
+      console.log(
+        `${helpers.SubscriptionManagementBulkUnsubscribeButton} not found`
+      );
     });
 
     await $(helpers.SubscriptionManagementBulkUnsubscribeButton).click();
@@ -27,7 +29,9 @@ export class SubscriptionManagementPage extends CommonPage {
 
   async clickUnsubscribeFromFirstRecord(): Promise<DeleteSubscriptionPage> {
     $(helpers.SubscriptionManagementTableFirstResultUrl).catch(() => {
-      console.log(`${helpers.SubscriptionManagementTableFirstResultUrl} not found`);
+      console.log(
+        `${helpers.SubscriptionManagementTableFirstResultUrl} not found`
+      );
     });
 
     await $(helpers.SubscriptionManagementTableFirstResultUrl).click();

@@ -1,15 +1,14 @@
-import {SubscriptionService} from './subscriptionService';
-import {SubscriptionRequests} from '../resources/requests/subscriptionRequests';
-import {DateTime} from 'luxon';
-import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
-import {Logger} from '@hmcts/nodejs-logging';
+import { SubscriptionService } from "./subscriptionService";
+import { SubscriptionRequests } from "../resources/requests/subscriptionRequests";
+import { DateTime } from "luxon";
+import { AccountManagementRequests } from "../resources/requests/accountManagementRequests";
+import { Logger } from "@hmcts/nodejs-logging";
 
 /**
  * This service class handles support methods for dealing with third parties
  */
 export class ThirdPartyService {
-
-  logger = Logger.getLogger('thirdPartyService');
+  logger = Logger.getLogger("thirdPartyService");
 
   subscriptionService = new SubscriptionService();
   subscriptionRequests = new SubscriptionRequests();
@@ -27,7 +26,10 @@ export class ThirdPartyService {
     for (const [listName, listDetails] of listTypes) {
       formattedListTypes[listName] = {
         listFriendlyName: listDetails.friendlyName,
-        checked: subscriptions.listTypeSubscriptions.filter(listType => listType['listType'] === listName).length > 0,
+        checked:
+          subscriptions.listTypeSubscriptions.filter(
+            (listType) => listType["listType"] === listName
+          ).length > 0,
       };
     }
 
@@ -43,21 +45,24 @@ export class ThirdPartyService {
     const items = [];
     let hasBeenChecked = false;
 
-    subscriptionChannels.forEach(channel => {
-      if (subscriptions.listTypeSubscriptions.length > 0
-        && subscriptions.listTypeSubscriptions[0].channel === channel) {
+    subscriptionChannels.forEach((channel) => {
+      if (
+        subscriptions.listTypeSubscriptions.length > 0 &&
+        subscriptions.listTypeSubscriptions[0].channel === channel
+      ) {
         hasBeenChecked = true;
       }
       items.push({
-        'value': channel,
-        'text': channel,
-        'checked': subscriptions.listTypeSubscriptions.length > 0
-          && subscriptions.listTypeSubscriptions[0].channel === channel,
+        value: channel,
+        text: channel,
+        checked:
+          subscriptions.listTypeSubscriptions.length > 0 &&
+          subscriptions.listTypeSubscriptions[0].channel === channel,
       });
     });
 
     if (!hasBeenChecked && items.length > 0) {
-      items[0]['checked'] = true;
+      items[0]["checked"] = true;
     }
 
     return items;
@@ -70,32 +75,68 @@ export class ThirdPartyService {
    * @param selectedListTypes The list types that have been selected.
    * @param selectedChannel The channel that has been selected.
    */
-  public async handleThirdPartySubscriptionUpdate(adminUserId, selectedUser, selectedListTypes, selectedChannel) {
+  public async handleThirdPartySubscriptionUpdate(
+    adminUserId,
+    selectedUser,
+    selectedListTypes,
+    selectedChannel
+  ) {
     selectedListTypes = selectedListTypes ? selectedListTypes : [];
-    selectedListTypes = Array.isArray(selectedListTypes) ? selectedListTypes : Array.of(selectedListTypes);
+    selectedListTypes = Array.isArray(selectedListTypes)
+      ? selectedListTypes
+      : Array.of(selectedListTypes);
 
-    const currentSubscriptions = await this.subscriptionService.getSubscriptionsByUser(selectedUser);
+    const currentSubscriptions =
+      await this.subscriptionService.getSubscriptionsByUser(selectedUser);
     currentSubscriptions.listTypeSubscriptions.forEach((sub) => {
       if (!selectedListTypes.includes(sub.listType)) {
-        this.logger.info('Unsubscribing ' + selectedUser + ' for list type '
-          + sub.listType + ' by admin ' + adminUserId);
+        this.logger.info(
+          "Unsubscribing " +
+            selectedUser +
+            " for list type " +
+            sub.listType +
+            " by admin " +
+            adminUserId
+        );
 
         this.subscriptionService.unsubscribe(sub.subscriptionId, adminUserId);
       } else {
         if (sub.channel !== selectedChannel) {
-          this.logger.info('Updating subscription for ' + selectedUser + ' for list type '
-            + sub.listType + ' by admin ' + adminUserId);
-          this.createdThirdPartySubscription(selectedUser, sub.listType, selectedChannel, adminUserId);
+          this.logger.info(
+            "Updating subscription for " +
+              selectedUser +
+              " for list type " +
+              sub.listType +
+              " by admin " +
+              adminUserId
+          );
+          this.createdThirdPartySubscription(
+            selectedUser,
+            sub.listType,
+            selectedChannel,
+            adminUserId
+          );
         }
 
-        selectedListTypes.filter(item => item !== sub.listType);
+        selectedListTypes.filter((item) => item !== sub.listType);
       }
     });
 
-    selectedListTypes.forEach(listType => {
-      this.logger.info('Creating subscription for ' + selectedUser + ' for list type '
-        + listType + ' by admin ' + adminUserId);
-      this.createdThirdPartySubscription(adminUserId, selectedUser, listType, selectedChannel);
+    selectedListTypes.forEach((listType) => {
+      this.logger.info(
+        "Creating subscription for " +
+          selectedUser +
+          " for list type " +
+          listType +
+          " by admin " +
+          adminUserId
+      );
+      this.createdThirdPartySubscription(
+        adminUserId,
+        selectedUser,
+        listType,
+        selectedChannel
+      );
     });
   }
 
@@ -109,7 +150,7 @@ export class ThirdPartyService {
   public createdThirdPartySubscription(adminId, userId, listType, channel) {
     const subscription = {
       channel: channel,
-      searchType: 'LIST_TYPE',
+      searchType: "LIST_TYPE",
       searchValue: listType,
       userId: userId,
     };
@@ -121,9 +162,12 @@ export class ThirdPartyService {
    * Service which gets third party accounts from the backend.
    */
   public async getThirdPartyAccounts(adminUserId): Promise<any> {
-    const returnedAccounts = await this.accountManagementRequests.getThirdPartyAccounts(adminUserId);
+    const returnedAccounts =
+      await this.accountManagementRequests.getThirdPartyAccounts(adminUserId);
     for (const account of returnedAccounts) {
-      account['createdDate'] = DateTime.fromISO(account['createdDate'], {zone: 'Europe/London'}).toFormat('dd MMMM yyyy');
+      account["createdDate"] = DateTime.fromISO(account["createdDate"], {
+        zone: "Europe/London",
+      }).toFormat("dd MMMM yyyy");
     }
     return returnedAccounts;
   }
@@ -135,12 +179,16 @@ export class ThirdPartyService {
    * It also sets the created date of the user to the right format.
    */
   public async getThirdPartyUserById(userId, adminUserId): Promise<any> {
-    const account = await this.accountManagementRequests.getUserByUserId(userId, adminUserId);
-    if (account && account.userProvenance === 'THIRD_PARTY') {
-      account['createdDate'] = DateTime.fromISO(account['createdDate']).toFormat('dd MMMM yyyy');
+    const account = await this.accountManagementRequests.getUserByUserId(
+      userId,
+      adminUserId
+    );
+    if (account && account.userProvenance === "THIRD_PARTY") {
+      account["createdDate"] = DateTime.fromISO(
+        account["createdDate"]
+      ).toFormat("dd MMMM yyyy");
       return account;
     }
     return null;
   }
-
 }

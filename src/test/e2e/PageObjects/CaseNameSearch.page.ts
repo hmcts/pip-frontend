@@ -1,9 +1,9 @@
-import { CaseNameSearchResultsPage } from './CaseNameSearchResults.page';
-import { CommonPage } from './Common.page';
+import { CaseNameSearchResultsPage } from "./CaseNameSearchResults.page";
+import { CommonPage } from "./Common.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
-export class CaseNameSearchPage extends CommonPage{
+export class CaseNameSearchPage extends CommonPage {
   async enterText(text: string): Promise<void> {
     $(helpers.CaseNameInput).catch(() => {
       console.log(`${helpers.CaseNameInput} not found`);
@@ -11,7 +11,7 @@ export class CaseNameSearchPage extends CommonPage{
 
     const caseNameInput = await $(helpers.CaseNameInput);
     await caseNameInput.addValue(text);
-    await browser.keys('Escape');
+    await browser.keys("Escape");
   }
 
   async clickContinue(): Promise<CaseNameSearchResultsPage> {

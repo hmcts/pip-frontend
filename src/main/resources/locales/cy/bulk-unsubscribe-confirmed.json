@@ -4,6 +4,10 @@
   "pStart": "I barhau, gallwch fynd i’ch",
   "pEnd": "i:",
   "yourAccount": "cyfrif",
-  "listItems": ["ychwanegu tanysgrifiad newydd", "rheoli eich tanysgrifiadau presennol", "dod o hyd i lys neu dribiwnlys"],
+  "listItems": [
+    "ychwanegu tanysgrifiad newydd",
+    "rheoli eich tanysgrifiadau presennol",
+    "dod o hyd i lys neu dribiwnlys"
+  ],
   "backButton": "Yn ôl"
 }

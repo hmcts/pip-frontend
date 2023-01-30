@@ -1,7 +1,7 @@
-import { SubscriptionManagementPage } from './SubscriptionManagement.page';
-import { CommonPage } from './Common.page';
+import { SubscriptionManagementPage } from "./SubscriptionManagement.page";
+import { CommonPage } from "./Common.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class MockSessionPage extends CommonPage {
   async enterText(text: string, field: string): Promise<void> {
@@ -11,7 +11,7 @@ export class MockSessionPage extends CommonPage {
 
     const inputField = await $(helpers[field]);
     await inputField.addValue(text);
-    await browser.keys('Escape');
+    await browser.keys("Escape");
   }
 
   async clickContinue(): Promise<SubscriptionManagementPage> {

@@ -1,9 +1,5 @@
 {
   "title": "Blob Explorer - Publications",
   "subHeading": "Choose a publication from the list.",
-  "tableHeaders": [
-    "Artefact Id",
-    "List Type",
-    "Display From / To"
-  ]
+  "tableHeaders": ["Artefact Id", "List Type", "Display From / To"]
 }

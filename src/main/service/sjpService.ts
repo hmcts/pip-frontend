@@ -1,5 +1,5 @@
-import { SingleJusticeProcedureCase } from '../models/singleJusticeProcedureCase';
-import { SjpRequests } from '../resources/requests/sjpRequests';
+import { SingleJusticeProcedureCase } from "../models/singleJusticeProcedureCase";
+import { SjpRequests } from "../resources/requests/sjpRequests";
 
 const SJPRequests = new SjpRequests();
 

@@ -1,20 +1,19 @@
-import request from 'supertest';
-import {app} from '../../../main/app';
-import {expect} from 'chai';
+import request from "supertest";
+import { app } from "../../../main/app";
+import { expect } from "chai";
 
-const PAGE_URL = '/logout';
+const PAGE_URL = "/logout";
 
-describe('Log out from page', () => {
-
-  app.request['user'] = {'userProvenance': 'PI_AAD'};
+describe("Log out from page", () => {
+  app.request["user"] = { userProvenance: "PI_AAD" };
 
   beforeAll(async () => {
     await request(app).get(PAGE_URL);
   });
 
-  it('should run req.session.destroy() when the url is called', () => {
-    request(app).get(PAGE_URL, function(req, res: any){
-      expect(res.clearCookie('session').toHaveBeenCalled());
+  it("should run req.session.destroy() when the url is called", () => {
+    request(app).get(PAGE_URL, function (req, res: any) {
+      expect(res.clearCookie("session").toHaveBeenCalled());
     });
   });
 });

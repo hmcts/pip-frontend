@@ -14,10 +14,7 @@
       "postCode": "AA1 AA1",
       "county": "Lancashire",
       "town": "Town",
-      "line": [
-        "26 Diego Gardens",
-        "Address Line 2"
-      ]
+      "line": ["26 Diego Gardens", "Address Line 2"]
     }
   },
   "courtLists": [
@@ -29,17 +26,12 @@
             "courtRoomName": "to be allocated [Colchester Social Security and Child Support]",
             "session": [
               {
-                "sessionChannel": [
-                  "Bethel"
-                ],
+                "sessionChannel": ["Bethel"],
                 "sittings": [
                   {
                     "sittingStart": "2023-04-12T08:35:11.192108Z",
                     "sittingEnd": "2023-04-12T10:00:14.123184Z",
-                    "channel": [
-                      "Teams",
-                      "Attended"
-                    ],
+                    "channel": ["Teams", "Attended"],
                     "hearing": [
                       {
                         "hearingType": "Directions",
@@ -107,9 +99,7 @@
             "courtRoomName": "Courtroom 2",
             "session": [
               {
-                "sessionChannel": [
-                  "Bethel"
-                ],
+                "sessionChannel": ["Bethel"],
                 "judiciary": [
                   {
                     "johTitle": "Admiral",
@@ -124,10 +114,7 @@
                   {
                     "sittingStart": "2023-04-12T08:00:11.192108Z",
                     "sittingEnd": "2023-04-12T16:00:14.123184Z",
-                    "channel": [
-                      "Teams",
-                      "Attended"
-                    ],
+                    "channel": ["Teams", "Attended"],
                     "hearing": [
                       {
                         "listingDetails": {
@@ -246,17 +233,12 @@
             "courtRoomName": "to be allocated [Glasgow Social Security and Child Support]",
             "session": [
               {
-                "sessionChannel": [
-                  "Bethel"
-                ],
+                "sessionChannel": ["Bethel"],
                 "sittings": [
                   {
                     "sittingStart": "2023-04-15T13:41:11.192108Z",
                     "sittingEnd": "2023-04-15T16:04:14.123184Z",
-                    "channel": [
-                      "Teams",
-                      "Attended"
-                    ],
+                    "channel": ["Teams", "Attended"],
                     "hearing": [
                       {
                         "hearingType": "Deposition",
@@ -332,9 +314,7 @@
             "courtRoomName": "Elwood Room",
             "session": [
               {
-                "sessionChannel": [
-                  "Bethel"
-                ],
+                "sessionChannel": ["Bethel"],
                 "judiciary": [
                   {
                     "johTitle": "Hon",
@@ -349,10 +329,7 @@
                   {
                     "sittingStart": "2023-04-14T10:35:11.192108Z",
                     "sittingEnd": "2023-04-14T16:04:14.123184Z",
-                    "channel": [
-                      "Teams",
-                      "Attended"
-                    ],
+                    "channel": ["Teams", "Attended"],
                     "hearing": [
                       {
                         "listingDetails": {
@@ -461,10 +438,7 @@
                   {
                     "sittingStart": "2023-04-15T10:35:11.192108Z",
                     "sittingEnd": "2023-04-15T16:04:14.123184Z",
-                    "channel": [
-                      "Teams",
-                      "Attended"
-                    ],
+                    "channel": ["Teams", "Attended"],
                     "hearing": [
                       {
                         "listingDetails": {
@@ -580,9 +554,7 @@
             "courtRoomName": "Breakfast Suite",
             "session": [
               {
-                "sessionChannel": [
-                  "Bethel"
-                ],
+                "sessionChannel": ["Bethel"],
                 "judiciary": [
                   {
                     "johTitle": "Hon",
@@ -597,10 +569,7 @@
                   {
                     "sittingStart": "2023-04-15T09:20:11.192108Z",
                     "sittingEnd": "2023-04-15T16:50:14.123184Z",
-                    "channel": [
-                      "Teams",
-                      "Attended"
-                    ],
+                    "channel": ["Teams", "Attended"],
                     "hearing": [
                       {
                         "listingDetails": {

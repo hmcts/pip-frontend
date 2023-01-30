@@ -1,6 +1,6 @@
-import { CommonPage } from './Common.page';
+import { CommonPage } from "./Common.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class CourtListPage extends CommonPage {
   async clickFirstTableHeaderButton(): Promise<void> {
@@ -26,5 +26,4 @@ export class CourtListPage extends CommonPage {
 
     return await $(helpers.ListTableLastRowFirstCell).getText();
   }
-
 }

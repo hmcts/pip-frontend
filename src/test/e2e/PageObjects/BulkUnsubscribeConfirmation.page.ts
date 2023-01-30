@@ -1,7 +1,7 @@
-import {CommonPage} from './Common.page';
-import {BulkUnsubscribeConfirmedPage} from './BulkUnsubscribeConfirmed.page';
+import { CommonPage } from "./Common.page";
+import { BulkUnsubscribeConfirmedPage } from "./BulkUnsubscribeConfirmed.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class BulkUnsubscribeConfirmationPage extends CommonPage {
   async clickContinueForYes(): Promise<BulkUnsubscribeConfirmedPage> {

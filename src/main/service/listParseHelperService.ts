@@ -1,9 +1,8 @@
-import {partyRoleMappings} from '../models/consts';
-import {DateTime} from 'luxon';
+import { partyRoleMappings } from "../models/consts";
+import { DateTime } from "luxon";
 
 export class ListParseHelperService {
-
-  public timeZone = 'Europe/London';
+  public timeZone = "Europe/London";
 
   /**
    * returns all unique vals for given attribute in array of objs
@@ -12,7 +11,7 @@ export class ListParseHelperService {
    * @private
    */
   public uniquesInArrayByAttrib(data: any, thisAttribute: string) {
-    return [...new Set(data.map(item => item[thisAttribute]))];
+    return [...new Set(data.map((item) => item[thisAttribute]))];
   }
 
   /**
@@ -21,83 +20,119 @@ export class ListParseHelperService {
    * @param initialised
    */
   findAndManipulatePartyInformation(hearing: any, initialised = false): void {
-    let applicant = '';
-    let appellant = '';
-    let respondent = '';
-    let respondentRepresentative = '';
-    let applicantRepresentative = '';
-    let prosecutingAuthority = '';
-    let defendant = '';
-    let defendantRep = '';
-    let appellantRepresentative = '';
+    let applicant = "";
+    let appellant = "";
+    let respondent = "";
+    let respondentRepresentative = "";
+    let applicantRepresentative = "";
+    let prosecutingAuthority = "";
+    let defendant = "";
+    let defendantRep = "";
+    let appellantRepresentative = "";
     if (hearing?.party) {
-      hearing.party.forEach(party => {
-
+      hearing.party.forEach((party) => {
         switch (ListParseHelperService.convertPartyRole(party.partyRole)) {
-          case 'APPLICANT_PETITIONER': {
-            applicant += this.createIndividualDetails(party.individualDetails, initialised).trim();
-            applicant += this.stringDelimiter(applicant?.length, ',');
+          case "APPLICANT_PETITIONER": {
+            applicant += this.createIndividualDetails(
+              party.individualDetails,
+              initialised
+            ).trim();
+            applicant += this.stringDelimiter(applicant?.length, ",");
             break;
           }
-          case 'APPLICANT_PETITIONER_REPRESENTATIVE': {
-            const applicantPetitionerDetails = this.createIndividualDetails(party.individualDetails, initialised).trim();
+          case "APPLICANT_PETITIONER_REPRESENTATIVE": {
+            const applicantPetitionerDetails = this.createIndividualDetails(
+              party.individualDetails,
+              initialised
+            ).trim();
             if (applicantPetitionerDetails) {
-              applicantRepresentative += 'LEGALADVISOR: ' + applicantPetitionerDetails + ', ';
+              applicantRepresentative +=
+                "LEGALADVISOR: " + applicantPetitionerDetails + ", ";
             }
             break;
           }
-          case 'CLAIMANT_PETITIONER': {
-            appellant += this.createIndividualDetails(party.individualDetails, initialised).trim();
-            appellant += this.stringDelimiter(appellant?.length, ',');
+          case "CLAIMANT_PETITIONER": {
+            appellant += this.createIndividualDetails(
+              party.individualDetails,
+              initialised
+            ).trim();
+            appellant += this.stringDelimiter(appellant?.length, ",");
             break;
           }
-          case 'CLAIMANT_PETITIONER_REPRESENTATIVE': {
-            appellantRepresentative += this.createIndividualDetails(party.individualDetails, initialised).trim();
-            appellantRepresentative += this.stringDelimiter(appellantRepresentative?.length, ',');
+          case "CLAIMANT_PETITIONER_REPRESENTATIVE": {
+            appellantRepresentative += this.createIndividualDetails(
+              party.individualDetails,
+              initialised
+            ).trim();
+            appellantRepresentative += this.stringDelimiter(
+              appellantRepresentative?.length,
+              ","
+            );
             break;
           }
-          case 'RESPONDENT': {
-            respondent += this.createIndividualDetails(party.individualDetails, initialised).trim();
-            respondent += this.stringDelimiter(respondent?.length, ',');
+          case "RESPONDENT": {
+            respondent += this.createIndividualDetails(
+              party.individualDetails,
+              initialised
+            ).trim();
+            respondent += this.stringDelimiter(respondent?.length, ",");
             break;
           }
-          case 'RESPONDENT_REPRESENTATIVE': {
-            const respondentDetails = this.createIndividualDetails(party.individualDetails, initialised).trim();
+          case "RESPONDENT_REPRESENTATIVE": {
+            const respondentDetails = this.createIndividualDetails(
+              party.individualDetails,
+              initialised
+            ).trim();
             if (respondentDetails) {
-              respondentRepresentative += 'LEGALADVISOR: ' + respondentDetails + ', ';
-
+              respondentRepresentative +=
+                "LEGALADVISOR: " + respondentDetails + ", ";
             }
             break;
           }
-          case 'PROSECUTING_AUTHORITY':
-          {
-            prosecutingAuthority += this.createIndividualDetails(party.individualDetails, initialised).trim();
-            prosecutingAuthority += this.stringDelimiter(prosecutingAuthority?.length, ',');
+          case "PROSECUTING_AUTHORITY": {
+            prosecutingAuthority += this.createIndividualDetails(
+              party.individualDetails,
+              initialised
+            ).trim();
+            prosecutingAuthority += this.stringDelimiter(
+              prosecutingAuthority?.length,
+              ","
+            );
             break;
           }
-          case 'DEFENDANT':
-          {
-            defendant += this.createIndividualDetails(party.individualDetails, initialised).trim();
-            defendant += this.stringDelimiter(defendant?.length, ',');
+          case "DEFENDANT": {
+            defendant += this.createIndividualDetails(
+              party.individualDetails,
+              initialised
+            ).trim();
+            defendant += this.stringDelimiter(defendant?.length, ",");
             break;
           }
-          case 'DEFENDANT_REPRESENTATIVE':
-          {
-            defendantRep += this.createIndividualDetails(party.individualDetails, initialised).trim();
-            defendantRep += this.stringDelimiter(defendant?.length, ',');
+          case "DEFENDANT_REPRESENTATIVE": {
+            defendantRep += this.createIndividualDetails(
+              party.individualDetails,
+              initialised
+            ).trim();
+            defendantRep += this.stringDelimiter(defendant?.length, ",");
           }
         }
       });
-      hearing['appellant'] = appellant?.replace(/,\s*$/, '').trim();
-      hearing['appellantRepresentative'] = appellantRepresentative?.replace(/,\s*$/, '').trim();
+      hearing["appellant"] = appellant?.replace(/,\s*$/, "").trim();
+      hearing["appellantRepresentative"] = appellantRepresentative
+        ?.replace(/,\s*$/, "")
+        .trim();
 
       applicant += applicantRepresentative;
       respondent += respondentRepresentative;
-      hearing['applicant'] = applicant?.replace(/,\s*$/, '').trim();
-      hearing['respondent'] = respondent?.replace(/,\s*$/, '').trim();
-      hearing['prosecutingAuthority'] = prosecutingAuthority?.replace(/,\s*$/, '').trim();
-      hearing['defendant'] = defendant?.replace(/,\s*$/, '').trim();
-      hearing['defendantRepresentative'] = defendantRep?.replace(/,\s*$/, '').trim();
+      hearing["applicant"] = applicant?.replace(/,\s*$/, "").trim();
+      hearing["respondent"] = respondent?.replace(/,\s*$/, "").trim();
+      hearing["prosecutingAuthority"] = prosecutingAuthority
+        ?.replace(/,\s*$/, "")
+        .trim();
+      hearing["defendant"] = defendant?.replace(/,\s*$/, "").trim();
+      hearing["defendantRepresentative"] = defendantRep
+        ?.replace(/,\s*$/, "")
+        .trim();
     }
   }
 
@@ -106,23 +141,41 @@ export class ListParseHelperService {
    * @param individualDetails
    * @param initialised
    */
-  private createIndividualDetails(individualDetails: any, initialised = false): string {
-
-    const title = ListParseHelperService.writeStringIfValid(individualDetails?.title);
-    const forenames = ListParseHelperService.writeStringIfValid(individualDetails?.individualForenames);
+  private createIndividualDetails(
+    individualDetails: any,
+    initialised = false
+  ): string {
+    const title = ListParseHelperService.writeStringIfValid(
+      individualDetails?.title
+    );
+    const forenames = ListParseHelperService.writeStringIfValid(
+      individualDetails?.individualForenames
+    );
     const forenameInitial = forenames.charAt(0);
-    const middleName = ListParseHelperService.writeStringIfValid(individualDetails?.individualMiddleName);
-    const surname = ListParseHelperService.writeStringIfValid(individualDetails?.individualSurname);
+    const middleName = ListParseHelperService.writeStringIfValid(
+      individualDetails?.individualMiddleName
+    );
+    const surname = ListParseHelperService.writeStringIfValid(
+      individualDetails?.individualSurname
+    );
     if (initialised) {
-
-      return title + (title.length > 0 ? ' ' : '')
-        + forenameInitial + (forenameInitial.length > 0 ? '. ' : '')
-        + surname;
+      return (
+        title +
+        (title.length > 0 ? " " : "") +
+        forenameInitial +
+        (forenameInitial.length > 0 ? ". " : "") +
+        surname
+      );
     } else {
-      return title + (title.length > 0 ? ' ' : '')
-        + forenames + (forenames.length > 0 ? ' ' : '')
-        + middleName + (middleName.length > 0 ? ' ' : '')
-        + surname;
+      return (
+        title +
+        (title.length > 0 ? " " : "") +
+        forenames +
+        (forenames.length > 0 ? " " : "") +
+        middleName +
+        (middleName.length > 0 ? " " : "") +
+        surname
+      );
     }
   }
 
@@ -134,7 +187,7 @@ export class ListParseHelperService {
     if (stringToCheck) {
       return stringToCheck;
     } else {
-      return '';
+      return "";
     }
   }
 
@@ -147,7 +200,7 @@ export class ListParseHelperService {
     if (stringSize > 0) {
       return `${delimiter} `;
     }
-    return '';
+    return "";
   }
 
   /**
@@ -156,7 +209,9 @@ export class ListParseHelperService {
    */
   public static convertPartyRole(nonConvertedPartyRole: string): string {
     let partyRole = nonConvertedPartyRole;
-    for (const [mappedPartyRole, unMappedRoles] of Object.entries(partyRoleMappings)) {
+    for (const [mappedPartyRole, unMappedRoles] of Object.entries(
+      partyRoleMappings
+    )) {
       if (unMappedRoles.includes(nonConvertedPartyRole)) {
         partyRole = mappedPartyRole;
       }
@@ -171,15 +226,15 @@ export class ListParseHelperService {
    * @param session
    */
   findAndConcatenateHearingPlatform(sitting: object, session: object): void {
-    let caseHearingChannel = '';
-    if (sitting['channel'] || session['sessionChannel']) {
-      if (sitting['channel']?.length > 0) {
-        caseHearingChannel = sitting['channel'].join(', ');
-      } else if (session['sessionChannel'].length > 0) {
-        caseHearingChannel = session['sessionChannel'].join(', ');
+    let caseHearingChannel = "";
+    if (sitting["channel"] || session["sessionChannel"]) {
+      if (sitting["channel"]?.length > 0) {
+        caseHearingChannel = sitting["channel"].join(", ");
+      } else if (session["sessionChannel"].length > 0) {
+        caseHearingChannel = session["sessionChannel"].join(", ");
       }
     }
-    sitting['caseHearingChannel'] = caseHearingChannel;
+    sitting["caseHearingChannel"] = caseHearingChannel;
   }
 
   /**
@@ -187,15 +242,22 @@ export class ListParseHelperService {
    * @param session
    */
   public findAndManipulateJudiciary(session: object): string {
-    let judiciaries = '';
+    let judiciaries = "";
     let foundPresiding = false;
-    session['judiciary']?.forEach(judiciary => {
+    session["judiciary"]?.forEach((judiciary) => {
       if (judiciary?.isPresiding === true) {
-        judiciaries = ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs);
+        judiciaries = ListParseHelperService.writeStringIfValid(
+          judiciary?.johKnownAs
+        );
         foundPresiding = true;
       } else if (!foundPresiding) {
-        if (ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs) !== '') {
-          judiciaries += ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs) + ', ';
+        if (
+          ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs) !==
+          ""
+        ) {
+          judiciaries +=
+            ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs) +
+            ", ";
         }
       }
     });
@@ -212,16 +274,17 @@ export class ListParseHelperService {
    * @param hearing
    */
   public findAndManipulateLinkedCases(hearing: object): void {
-    hearing['case'].forEach(hearingCase => {
-      let linkedCases = '';
+    hearing["case"].forEach((hearingCase) => {
+      let linkedCases = "";
       let counter = 1;
-      hearingCase['caseLinked']?.forEach(linkedCase => {
-        linkedCases += (counter == hearingCase['caseLinked'].length)
-          ? linkedCase['caseId']
-          : linkedCase['caseId'] + ', ';
+      hearingCase["caseLinked"]?.forEach((linkedCase) => {
+        linkedCases +=
+          counter == hearingCase["caseLinked"].length
+            ? linkedCase["caseId"]
+            : linkedCase["caseId"] + ", ";
         counter++;
       });
-      hearingCase['formattedLinkedCases'] = linkedCases;
+      hearingCase["formattedLinkedCases"] = linkedCases;
     });
   }
 
@@ -230,46 +293,54 @@ export class ListParseHelperService {
    * @param sitting
    */
   public calculateDuration(sitting: object): void {
-    sitting['duration'] = '';
-    if (sitting['sittingStart'] !== '' && sitting['sittingEnd'] !== '') {
-      const sittingStart = DateTime.fromISO(sitting['sittingStart'], {zone: 'utc'});
-      const sittingEnd = DateTime.fromISO(sitting['sittingEnd'], {zone: 'utc'});
+    sitting["duration"] = "";
+    if (sitting["sittingStart"] !== "" && sitting["sittingEnd"] !== "") {
+      const sittingStart = DateTime.fromISO(sitting["sittingStart"], {
+        zone: "utc",
+      });
+      const sittingEnd = DateTime.fromISO(sitting["sittingEnd"], {
+        zone: "utc",
+      });
       let durationAsHours = 0;
-      let durationAsMinutes = Math.round(sittingEnd.diff(sittingStart, 'minutes').minutes);
+      let durationAsMinutes = Math.round(
+        sittingEnd.diff(sittingStart, "minutes").minutes
+      );
 
       if (durationAsMinutes >= 60) {
         durationAsHours = Math.floor(durationAsMinutes / 60);
-        durationAsMinutes = durationAsMinutes - (durationAsHours * 60);
+        durationAsMinutes = durationAsMinutes - durationAsHours * 60;
       }
 
       let durationAsDays = 0;
-      if(durationAsHours >= 24) {
+      if (durationAsHours >= 24) {
         durationAsDays = Math.floor(durationAsHours / 24);
       }
 
-      sitting['durationAsHours'] = durationAsHours;
-      sitting['durationAsMinutes'] = durationAsMinutes;
-      sitting['durationAsDays'] = durationAsDays;
+      sitting["durationAsHours"] = durationAsHours;
+      sitting["durationAsMinutes"] = durationAsMinutes;
+      sitting["durationAsDays"] = durationAsDays;
 
       if (sittingStart.minute === 0) {
-        this.formatCaseTime(sitting, 'ha');
+        this.formatCaseTime(sitting, "ha");
       } else {
-        this.formatCaseTime(sitting, 'h:mma');
+        this.formatCaseTime(sitting, "h:mma");
       }
     }
   }
 
   public formatCaseTime(sitting: object, format: string): void {
-    if (sitting['sittingStart'] !== '') {
-      const sittingStart = sitting['sittingStart'];
-      let zonedDateTime = DateTime.fromISO(sittingStart, {zone: this.timeZone});
+    if (sitting["sittingStart"] !== "") {
+      const sittingStart = sitting["sittingStart"];
+      let zonedDateTime = DateTime.fromISO(sittingStart, {
+        zone: this.timeZone,
+      });
       //If json time is zoned time, we do not need to add the offset into the time. Luxon will do automatically.
       //But, if time does not contain zoned time. Luxon always return offset (+01:00) with the time,
       //so we need to add the offset manually
-      if (sittingStart.substr(sittingStart.length - 1) !== 'Z') {
+      if (sittingStart.substr(sittingStart.length - 1) !== "Z") {
         zonedDateTime = zonedDateTime.plus({ minutes: zonedDateTime.offset });
       }
-      sitting['time'] = zonedDateTime.toFormat(format).toLowerCase();
+      sitting["time"] = zonedDateTime.toFormat(format).toLowerCase();
     }
   }
 
@@ -278,12 +349,14 @@ export class ListParseHelperService {
    * @param publicationDatetime The publication date time to convert in UTC.
    */
   public publicationTimeInUkTime(publicationDatetime: string): string {
-    const publicationZonedDateTime = DateTime.fromISO(publicationDatetime, {zone: this.timeZone});
-    let publishedTime = '';
+    const publicationZonedDateTime = DateTime.fromISO(publicationDatetime, {
+      zone: this.timeZone,
+    });
+    let publishedTime = "";
     if (publicationZonedDateTime.minute === 0) {
-      publishedTime = publicationZonedDateTime.toFormat('ha').toLowerCase();
+      publishedTime = publicationZonedDateTime.toFormat("ha").toLowerCase();
     } else {
-      publishedTime = publicationZonedDateTime.toFormat('h:mma').toLowerCase();
+      publishedTime = publicationZonedDateTime.toFormat("h:mma").toLowerCase();
     }
     return publishedTime;
   }
@@ -292,12 +365,22 @@ export class ListParseHelperService {
    * Function which extracts the date from a UTC Date Time in BST format.
    * @param publicationDatetime The publication date time to convert in UTC.
    */
-  public publicationDateInUkTime(publicationDatetime: string, language: string): string {
-    return DateTime.fromISO(publicationDatetime, {zone: this.timeZone}).setLocale(language).toFormat('dd MMMM yyyy');
+  public publicationDateInUkTime(
+    publicationDatetime: string,
+    language: string
+  ): string {
+    return DateTime.fromISO(publicationDatetime, { zone: this.timeZone })
+      .setLocale(language)
+      .toFormat("dd MMMM yyyy");
   }
 
-  public contentDateInUtcTime(contentDatetime: string, language: string): string {
-    return DateTime.fromISO(contentDatetime, {zone: 'utc'}).setLocale(language).toFormat('dd MMMM yyyy');
+  public contentDateInUtcTime(
+    contentDatetime: string,
+    language: string
+  ): string {
+    return DateTime.fromISO(contentDatetime, { zone: "utc" })
+      .setLocale(language)
+      .toFormat("dd MMMM yyyy");
   }
 
   /**
@@ -306,20 +389,26 @@ export class ListParseHelperService {
    * @param locationDetails The object to get the regional JoH from
    */
   public getRegionalJohFromLocationDetails(locationDetails: object): string {
-    let formattedJoh = '';
-    locationDetails['region']['regionalJOH']?.forEach(joh => {
+    let formattedJoh = "";
+    locationDetails["region"]["regionalJOH"]?.forEach((joh) => {
       if (formattedJoh.length > 0) {
-        formattedJoh += ', ';
+        formattedJoh += ", ";
       }
-      if (ListParseHelperService.writeStringIfValid(joh?.johKnownAs) !== '') {
-        formattedJoh += ListParseHelperService.writeStringIfValid(joh?.johKnownAs);
+      if (ListParseHelperService.writeStringIfValid(joh?.johKnownAs) !== "") {
+        formattedJoh += ListParseHelperService.writeStringIfValid(
+          joh?.johKnownAs
+        );
       }
 
-      if (ListParseHelperService.writeStringIfValid(joh?.johNameSurname) !== '') {
-        if (ListParseHelperService.writeStringIfValid(joh?.johKnownAs) !== '') {
-          formattedJoh += ' ';
+      if (
+        ListParseHelperService.writeStringIfValid(joh?.johNameSurname) !== ""
+      ) {
+        if (ListParseHelperService.writeStringIfValid(joh?.johKnownAs) !== "") {
+          formattedJoh += " ";
         }
-        formattedJoh += ListParseHelperService.writeStringIfValid(joh?.johNameSurname);
+        formattedJoh += ListParseHelperService.writeStringIfValid(
+          joh?.johNameSurname
+        );
       }
     });
     return formattedJoh;
@@ -330,24 +419,34 @@ export class ListParseHelperService {
    * @param session The session to get the judiciary from
    */
   public getJudiciaryNameSurname(session: object): string {
-    let judiciaryFormatted = '';
-    session['judiciary']?.forEach(judiciary => {
+    let judiciaryFormatted = "";
+    session["judiciary"]?.forEach((judiciary) => {
       if (judiciaryFormatted.length > 0) {
-        judiciaryFormatted += ', ';
+        judiciaryFormatted += ", ";
       }
 
-      if (ListParseHelperService.writeStringIfValid(judiciary?.johTitle) !== '') {
-        judiciaryFormatted += ListParseHelperService.writeStringIfValid(judiciary?.johTitle);
+      if (
+        ListParseHelperService.writeStringIfValid(judiciary?.johTitle) !== ""
+      ) {
+        judiciaryFormatted += ListParseHelperService.writeStringIfValid(
+          judiciary?.johTitle
+        );
       }
 
-      if (ListParseHelperService.writeStringIfValid(judiciary?.johNameSurname) !== '') {
-        if (ListParseHelperService.writeStringIfValid(judiciary?.johTitle) !== '') {
-          judiciaryFormatted += ' ';
+      if (
+        ListParseHelperService.writeStringIfValid(judiciary?.johNameSurname) !==
+        ""
+      ) {
+        if (
+          ListParseHelperService.writeStringIfValid(judiciary?.johTitle) !== ""
+        ) {
+          judiciaryFormatted += " ";
         }
-        judiciaryFormatted += ListParseHelperService.writeStringIfValid(judiciary?.johNameSurname);
+        judiciaryFormatted += ListParseHelperService.writeStringIfValid(
+          judiciary?.johNameSurname
+        );
       }
     });
     return judiciaryFormatted;
   }
-
 }

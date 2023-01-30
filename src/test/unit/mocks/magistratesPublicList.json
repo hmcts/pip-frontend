@@ -1,18 +1,16 @@
 {
   "document": {
     "version": "",
-    "publicationDate":"2020-09-13T23:30:52.123Z"
+    "publicationDate": "2020-09-13T23:30:52.123Z"
   },
   "venue": {
     "venueName": "PRESTON",
     "venueContact": {
-      "venueTelephone":"01772 844700",
+      "venueTelephone": "01772 844700",
       "venueEmail": "court1@moj.gov.u"
     },
     "venueAddress": {
-      "line": [
-        "THE LAW COURTS"
-      ],
+      "line": ["THE LAW COURTS"],
       "postCode": "PR1 2LL"
     }
   },
@@ -22,10 +20,7 @@
       "courtHouse": {
         "courtHouseName": "Court A",
         "courtHouseAddress": {
-          "line": [
-            "Address Line 1",
-            "Address Line 2"
-          ],
+          "line": ["Address Line 1", "Address Line 2"],
           "town": "Town A",
           "county": "County A",
           "postCode": "AA1 AA1"
@@ -36,9 +31,7 @@
             "session": [
               {
                 "sessionStartTime": "",
-                "sessionChannel": [
-                  "VIDEO HEARING"
-                ],
+                "sessionChannel": ["VIDEO HEARING"],
                 "judiciary": [
                   {
                     "johTitle": "Mr",
@@ -60,7 +53,7 @@
                             "caseName": "A1 Vs B1",
                             "caseNumber": "12345678",
                             "caseSequenceIndicator": "[2 of 3]",
-                            "caseLinked":[
+                            "caseLinked": [
                               {
                                 "caseId": "caseid111",
                                 "name": "casename111"
@@ -76,7 +69,7 @@
                             "caseNumber": "112233445"
                           }
                         ],
-                        "party":[
+                        "party": [
                           {
                             "partyRole": "PROSECUTING_AUTHORITY",
                             "organisationDetails": {
@@ -84,15 +77,15 @@
                             }
                           },
                           {
-                            "partyRole":"DEFENDANT",
-                            "individualDetails":{
-                              "individualForenames":"Defendant_FN",
-                              "individualSurname":"Defendant_SN"
+                            "partyRole": "DEFENDANT",
+                            "individualDetails": {
+                              "individualForenames": "Defendant_FN",
+                              "individualSurname": "Defendant_SN"
                             }
                           }
                         ],
                         "listingDetails": {
-                          "listingRepDeadline":"Listing details text"
+                          "listingRepDeadline": "Listing details text"
                         }
                       },
                       {
@@ -105,10 +98,7 @@
                         ]
                       }
                     ],
-                    "channel": [
-                      "Remote",
-                      "Teams"
-                    ]
+                    "channel": ["Remote", "Teams"]
                   },
                   {
                     "sittingStart": "2022-01-27T08:05:17.496185",
@@ -148,9 +138,7 @@
             "session": [
               {
                 "sessionStartTime": "",
-                "sessionChannel": [
-                  "VIDEO HEARING"
-                ],
+                "sessionChannel": ["VIDEO HEARING"],
                 "judiciary": [
                   {
                     "johTitle": "Mr",
@@ -172,7 +160,7 @@
                             "caseName": "A1 Vs B1",
                             "caseNumber": "12345678",
                             "caseSequenceIndicator": "[2 of 3]",
-                            "caseLinked":[
+                            "caseLinked": [
                               {
                                 "caseId": "caseid111",
                                 "name": "casename111"
@@ -188,7 +176,7 @@
                             "caseNumber": "112233445"
                           }
                         ],
-                        "party":[
+                        "party": [
                           {
                             "partyRole": "PROSECUTING_AUTHORITY",
                             "organisationDetails": {
@@ -196,14 +184,14 @@
                             }
                           },
                           {
-                            "partyRole":"DEFENDANT",
-                            "individualDetails":{
-                              "individualSurname":"DEFENDANT"
+                            "partyRole": "DEFENDANT",
+                            "individualDetails": {
+                              "individualSurname": "DEFENDANT"
                             }
                           }
                         ],
                         "listingDetails": {
-                          "listingRepDeadline":"Listing details text"
+                          "listingRepDeadline": "Listing details text"
                         }
                       },
                       {
@@ -216,10 +204,7 @@
                         ]
                       }
                     ],
-                    "channel": [
-                      "Remote",
-                      "Teams"
-                    ]
+                    "channel": ["Remote", "Teams"]
                   },
                   {
                     "sittingStart": "2022-01-27T08:05:17.496185",
@@ -261,10 +246,7 @@
       "courtHouse": {
         "courtHouseName": "Court B",
         "courtHouseAddress": {
-          "line": [
-            "Address Line 1",
-            "Address Line 2"
-          ],
+          "line": ["Address Line 1", "Address Line 2"],
           "town": "Town B",
           "county": "County B",
           "postCode": "BB1 BB1"
@@ -275,9 +257,7 @@
             "session": [
               {
                 "sessionStartTime": "",
-                "sessionChannel": [
-                  "VIDEO HEARING"
-                ],
+                "sessionChannel": ["VIDEO HEARING"],
                 "judiciary": [
                   {
                     "johTitle": "Mr",
@@ -300,10 +280,7 @@
                         ]
                       }
                     ],
-                    "channel": [
-                      "Remote",
-                      "Teams"
-                    ]
+                    "channel": ["Remote", "Teams"]
                   }
                 ]
               }
@@ -317,10 +294,7 @@
       "courtHouse": {
         "courtHouseName": "Court B",
         "courtHouseAddress": {
-          "line": [
-            "Address Line 1",
-            "Address Line 2"
-          ],
+          "line": ["Address Line 1", "Address Line 2"],
           "town": "Town B",
           "county": "County B",
           "postCode": "BB1 BB1"
@@ -331,9 +305,7 @@
             "session": [
               {
                 "sessionStartTime": "",
-                "sessionChannel": [
-                  "VIDEO HEARING"
-                ],
+                "sessionChannel": ["VIDEO HEARING"],
                 "judiciary": [
                   {
                     "johTitle": "Mr",
@@ -356,10 +328,7 @@
                         ]
                       }
                     ],
-                    "channel": [
-                      "Remote",
-                      "Teams"
-                    ]
+                    "channel": ["Remote", "Teams"]
                   }
                 ]
               }
@@ -373,10 +342,7 @@
       "courtHouse": {
         "courtHouseName": "Court B",
         "courtHouseAddress": {
-          "line": [
-            "Address Line 1",
-            "Address Line 2"
-          ],
+          "line": ["Address Line 1", "Address Line 2"],
           "town": "Town B",
           "county": "County B",
           "postCode": "BB1 BB1"
@@ -387,9 +353,7 @@
             "session": [
               {
                 "sessionStartTime": "",
-                "sessionChannel": [
-                  "VIDEO HEARING"
-                ],
+                "sessionChannel": ["VIDEO HEARING"],
                 "judiciary": [
                   {
                     "johTitle": "Mr",
@@ -412,10 +376,7 @@
                         ]
                       }
                     ],
-                    "channel": [
-                      "Remote",
-                      "Teams"
-                    ]
+                    "channel": ["Remote", "Teams"]
                   }
                 ]
               }
@@ -427,4 +388,3 @@
     }
   ]
 }
-

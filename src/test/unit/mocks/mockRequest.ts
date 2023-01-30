@@ -1,17 +1,17 @@
-import {PipRequest} from '../../../main/models/request/PipRequest';
+import { PipRequest } from "../../../main/models/request/PipRequest";
 
 export const mockRequest = (data: any): PipRequest => {
   const req: any = {
-    body: '',
+    body: "",
     i18n: {
-      getDataByLanguage: '',
+      getDataByLanguage: "",
     },
     user: {
-      id: '1',
-      username: '',
-      userType: 'media',
+      id: "1",
+      username: "",
+      userType: "media",
     },
-    lng: 'en',
+    lng: "en",
     params: {},
   };
   req.body = jest.fn().mockReturnValue(req);

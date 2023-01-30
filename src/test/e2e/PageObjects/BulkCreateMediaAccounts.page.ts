@@ -1,8 +1,8 @@
-import {CommonPage} from './Common.page';
-import {BulkCreateMediaAccountsConfirmationPage} from './BulkCreateMediaAccountsConfirmation.page';
+import { CommonPage } from "./Common.page";
+import { BulkCreateMediaAccountsConfirmationPage } from "./BulkCreateMediaAccountsConfirmation.page";
 
-const helpers = require('../Helpers/Selectors');
-const path = require('path');
+const helpers = require("../Helpers/Selectors");
+const path = require("path");
 
 export class BulkCreateMediaAccountsPage extends CommonPage {
   async uploadFile(): Promise<void> {
@@ -10,7 +10,10 @@ export class BulkCreateMediaAccountsPage extends CommonPage {
       console.log(`${helpers.BulkMediaAccountsFileUpload} not found`);
     });
 
-    const filePath = path.join(__dirname, '../../unit/mocks/testBulkMediaUpload.csv');
+    const filePath = path.join(
+      __dirname,
+      "../../unit/mocks/testBulkMediaUpload.csv"
+    );
     await $(helpers.BulkMediaAccountsFileUpload).setValue(filePath);
   }
 

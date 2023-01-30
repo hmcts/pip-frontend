@@ -1,9 +1,8 @@
-import { CommonPage } from './Common.page';
-import {SystemAdminDashboardPage} from './SystemAdminDashboard.page';
-const helpers = require('../Helpers/Selectors');
+import { CommonPage } from "./Common.page";
+import { SystemAdminDashboardPage } from "./SystemAdminDashboard.page";
+const helpers = require("../Helpers/Selectors");
 
 export class UpdateUserConfirmationPage extends CommonPage {
-
   async getPageTitle(): Promise<string> {
     $(helpers.userManagementPanelTitle).catch(() => {
       console.log(`${helpers.userManagementPanelTitle} not found`);

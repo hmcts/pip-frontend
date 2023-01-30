@@ -1,13 +1,12 @@
-import { CommonPage } from './Common.page';
-import { ManualUploadSummaryPage } from './ManualUploadSummary.page';
-const helpers = require('../Helpers/Selectors');
+import { CommonPage } from "./Common.page";
+import { ManualUploadSummaryPage } from "./ManualUploadSummary.page";
+const helpers = require("../Helpers/Selectors");
 
-const path = require('path');
+const path = require("path");
 
 export class ManualUploadPage extends CommonPage {
-
-  randomDay = ('0' + Math.floor((Math.random() * 25) + 1)).slice(-2).toString();
-  randomMonth = ('0' + Math.floor((Math.random() * 12) + 1)).slice(-2).toString();
+  randomDay = ("0" + Math.floor(Math.random() * 25 + 1)).slice(-2).toString();
+  randomMonth = ("0" + Math.floor(Math.random() * 12 + 1)).slice(-2).toString();
 
   async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitleXl).catch(() => {
@@ -30,7 +29,7 @@ export class ManualUploadPage extends CommonPage {
       console.log(`${helpers.fileUpload} not found`);
     });
 
-    const filePath = path.join(__dirname, '../../unit/mocks/testFile.pdf');
+    const filePath = path.join(__dirname, "../../unit/mocks/testFile.pdf");
 
     await $(helpers.fileUpload).setValue(filePath);
   }
@@ -40,8 +39,10 @@ export class ManualUploadPage extends CommonPage {
       console.log(`${helpers.SearchInput} not found`);
     });
 
-    await $(helpers.SearchInput).addValue('AA - E2E TEST COURT - DO NOT REMOVE');
-    await browser.keys('Escape');
+    await $(helpers.SearchInput).addValue(
+      "AA - E2E TEST COURT - DO NOT REMOVE"
+    );
+    await browser.keys("Escape");
   }
 
   async inputContentDateFrom(): Promise<void> {
@@ -57,7 +58,7 @@ export class ManualUploadPage extends CommonPage {
 
     await $(helpers.contentDateFromDay).addValue(this.randomDay);
     await $(helpers.contentDateFromMonth).addValue(this.randomMonth);
-    await $(helpers.contentDateFromYear).addValue('2021');
+    await $(helpers.contentDateFromYear).addValue("2021");
   }
 
   async inputDisplayDateFrom(): Promise<void> {
@@ -71,9 +72,9 @@ export class ManualUploadPage extends CommonPage {
       console.log(`${helpers.displayDateFromYear} not found`);
     });
 
-    await $(helpers.displayDateFromDay).addValue('01');
-    await $(helpers.displayDateFromMonth).addValue('01');
-    await $(helpers.displayDateFromYear).addValue('2022');
+    await $(helpers.displayDateFromDay).addValue("01");
+    await $(helpers.displayDateFromMonth).addValue("01");
+    await $(helpers.displayDateFromYear).addValue("2022");
   }
 
   async inputDisplayDateTo(): Promise<void> {
@@ -87,9 +88,9 @@ export class ManualUploadPage extends CommonPage {
       console.log(`${helpers.displayDateToYear} not found`);
     });
 
-    await $(helpers.displayDateToDay).addValue('01');
-    await $(helpers.displayDateToMonth).addValue('01');
-    await $(helpers.displayDateToYear).addValue('2024');
+    await $(helpers.displayDateToDay).addValue("01");
+    await $(helpers.displayDateToMonth).addValue("01");
+    await $(helpers.displayDateToYear).addValue("2024");
   }
 
   async clickContinue(): Promise<ManualUploadSummaryPage> {

@@ -1,10 +1,9 @@
-import { CommonPage } from './Common.page';
-import { CreateSystemAdminAccountSummaryPage } from './CreateSystemAdminAccountSummary.page';
+import { CommonPage } from "./Common.page";
+import { CreateSystemAdminAccountSummaryPage } from "./CreateSystemAdminAccountSummary.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class CreateSystemAdminAccountPage extends CommonPage {
-
   async completeForm(): Promise<void> {
     await this.inputFirstName();
     await this.inputLastName();
@@ -16,8 +15,8 @@ export class CreateSystemAdminAccountPage extends CommonPage {
       console.log(`${helpers.FirstNameInput} not found`);
     });
 
-    await $(helpers.FirstNameInput).setValue('Test');
-    await browser.keys('Escape');
+    await $(helpers.FirstNameInput).setValue("Test");
+    await browser.keys("Escape");
   }
 
   async inputLastName(): Promise<void> {
@@ -25,8 +24,8 @@ export class CreateSystemAdminAccountPage extends CommonPage {
       console.log(`${helpers.LastNameInput} not found`);
     });
 
-    await $(helpers.LastNameInput).setValue('Name');
-    await browser.keys('Escape');
+    await $(helpers.LastNameInput).setValue("Name");
+    await browser.keys("Escape");
   }
 
   async inputEmailAddress(): Promise<void> {
@@ -34,8 +33,8 @@ export class CreateSystemAdminAccountPage extends CommonPage {
       console.log(`${helpers.EmailInput} not found`);
     });
 
-    await $(helpers.EmailInput).setValue('ThisIsADummyAccount@justice.gov.uk');
-    await browser.keys('Escape');
+    await $(helpers.EmailInput).setValue("ThisIsADummyAccount@justice.gov.uk");
+    await browser.keys("Escape");
   }
 
   async clickContinue(): Promise<CreateSystemAdminAccountSummaryPage> {

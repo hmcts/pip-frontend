@@ -1,7 +1,7 @@
-import {CommonPage} from './Common.page';
-import {ListDownloadFilesPage} from './ListDownloadFiles.page';
+import { CommonPage } from "./Common.page";
+import { ListDownloadFilesPage } from "./ListDownloadFiles.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class ListDownloadDisclaimerPage extends CommonPage {
   async tickAgreeCheckbox(): Promise<boolean> {

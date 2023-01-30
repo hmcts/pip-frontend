@@ -1,11 +1,11 @@
-import { CommonPage } from './Common.page';
-import { AccountHomePage } from './AccountHome.page';
-import { CreateMediaAccountPage } from './CreateMediaAccount.page';
-import {AdminDashboardPage} from './AdminDashboard.page';
-import {CftAuthenticationFailedPage} from './CftAuthenticationFailed.page';
-import {SystemAdminDashboardPage} from './SystemAdminDashboard.page';
+import { CommonPage } from "./Common.page";
+import { AccountHomePage } from "./AccountHome.page";
+import { CreateMediaAccountPage } from "./CreateMediaAccount.page";
+import { AdminDashboardPage } from "./AdminDashboard.page";
+import { CftAuthenticationFailedPage } from "./CftAuthenticationFailed.page";
+import { SystemAdminDashboardPage } from "./SystemAdminDashboard.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class SignInPage extends CommonPage {
   async getPageTitle(): Promise<string> {
@@ -31,7 +31,7 @@ export class SignInPage extends CommonPage {
     const continueButton = await $(helpers.ContinueButton);
     continueButton.click();
 
-    return 'https://google.com';
+    return "https://google.com";
   }
 
   async clickContinueForRadio3(): Promise<void> {
@@ -49,7 +49,7 @@ export class SignInPage extends CommonPage {
 
     const inputField = await $(helpers[field]);
     await inputField.addValue(text);
-    await browser.keys('Escape');
+    await browser.keys("Escape");
   }
 
   async clickCreateAccount(): Promise<CreateMediaAccountPage> {

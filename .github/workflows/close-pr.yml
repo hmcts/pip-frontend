@@ -5,15 +5,15 @@ on:
       - closed
 
 permissions:
-      id-token: write
-      contents: read
+  id-token: write
+  contents: read
 
 jobs:
   deployment:
     runs-on: ubuntu-latest
     #environment: dev
     steps:
-      - name: 'Az CLI login'
+      - name: "Az CLI login"
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
@@ -23,7 +23,7 @@ jobs:
       - uses: Azure/get-keyvault-secrets@v1
         with:
           keyvault: "pip-bootstrap-stg-kv"
-          secrets: 'b2c-jenkins-tenant-id, b2c-jenkins-client-id, b2c-jenkins-client-secret'
+          secrets: "b2c-jenkins-tenant-id, b2c-jenkins-client-id, b2c-jenkins-client-secret"
         id: bootstrapKv
 
       - run: |

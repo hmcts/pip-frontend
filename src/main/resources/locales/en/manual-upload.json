@@ -12,15 +12,15 @@
     "to": "to",
     "classificationText": "Available to",
     "classification": [
-      {"text": "Public", "value": "PUBLIC"},
-      {"text": "Private - All verified users", "value": "PRIVATE"},
-      {"text": "Classified", "value": "CLASSIFIED"}
+      { "text": "Public", "value": "PUBLIC" },
+      { "text": "Private - All verified users", "value": "PRIVATE" },
+      { "text": "Classified", "value": "CLASSIFIED" }
     ],
     "languageText": "Language",
     "language": [
-      {"text": "English", "value": "ENGLISH"},
-      {"text": "Welsh", "value": "WELSH"},
-      {"text": "Bilingual English/Welsh", "value": "BI_LINGUAL"}
+      { "text": "English", "value": "ENGLISH" },
+      { "text": "Welsh", "value": "WELSH" },
+      { "text": "Bilingual English/Welsh", "value": "BI_LINGUAL" }
     ],
     "displayDateFrom": "Display file from",
     "displayDateFromHint": "For example, 27 01 2022",
@@ -29,13 +29,31 @@
   },
   "pageHelpHeading": "Page Help",
   "pageHelp": [
-    {"heading": "Lists", "text": "You must ensure that you only upload one file that contains all hearings for the Court or Tribunal name and List type. This should include all judges and court rooms in one document."},
-    {"heading": "Available to", "text": "You need to indicate which user group your document should be available to:"},
-    {"heading": "Public", "text": "Publication available to all users."},
-    {"heading": "Private", "text": "Publication available to all verified users e.g. Legal professionals and media."},
-    {"heading": "Classified", "text": "Publication only available to verified users who are in a group eligible to view that list e.g. SJP press list available to Media"},
-    {"heading": "Display from", "text": "This will be the date the publication is available from, if today's date is used it will be displayed immediately. If a date in the future is used, it will display from 00:01 of that date."},
-    {"heading": "Display to", "text": "This will be the last date the publication is available. It will be displayed until 23:59 of that date."}
+    {
+      "heading": "Lists",
+      "text": "You must ensure that you only upload one file that contains all hearings for the Court or Tribunal name and List type. This should include all judges and court rooms in one document."
+    },
+    {
+      "heading": "Available to",
+      "text": "You need to indicate which user group your document should be available to:"
+    },
+    { "heading": "Public", "text": "Publication available to all users." },
+    {
+      "heading": "Private",
+      "text": "Publication available to all verified users e.g. Legal professionals and media."
+    },
+    {
+      "heading": "Classified",
+      "text": "Publication only available to verified users who are in a group eligible to view that list e.g. SJP press list available to Media"
+    },
+    {
+      "heading": "Display from",
+      "text": "This will be the date the publication is available from, if today's date is used it will be displayed immediately. If a date in the future is used, it will display from 00:01 of that date."
+    },
+    {
+      "heading": "Display to",
+      "text": "This will be the last date the publication is available. It will be displayed until 23:59 of that date."
+    }
   ],
   "warning": "Warning",
   "warningText": "Prior to upload you must ensure the file is suitable for publication e.g. redaction of personal data has been done during the production of this file.",

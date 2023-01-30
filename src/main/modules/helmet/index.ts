@@ -1,13 +1,13 @@
-import * as express from 'express';
-import helmet = require('helmet');
+import * as express from "express";
+import helmet = require("helmet");
 
 export interface HelmetConfig {
   referrerPolicy: string;
 }
 
 const self = "'self'";
-const googleAnalyticsDomain = '*.google-analytics.com';
-const tagManager = ['*.googletagmanager.com', 'https://tagmanager.google.com'];
+const googleAnalyticsDomain = "*.google-analytics.com";
+const tagManager = ["*.googletagmanager.com", "https://tagmanager.google.com"];
 
 /**
  * Module that enables helmet in the application
@@ -29,19 +29,25 @@ export class Helmet {
         directives: {
           connectSrc: [self, googleAnalyticsDomain],
           defaultSrc: ["'none'"],
-          fontSrc: [self, 'data:'],
+          fontSrc: [self, "data:"],
           imgSrc: [self],
           objectSrc: [self],
-          scriptSrc: [self, ...tagManager, googleAnalyticsDomain, "'unsafe-inline'", "'unsafe-eval'"],
-          styleSrc: [self, 'https://pip-frontend.staging.platform.hmcts.net'],
+          scriptSrc: [
+            self,
+            ...tagManager,
+            googleAnalyticsDomain,
+            "'unsafe-inline'",
+            "'unsafe-eval'",
+          ],
+          styleSrc: [self, "https://pip-frontend.staging.platform.hmcts.net"],
         },
-      }),
+      })
     );
   }
 
   private setReferrerPolicy(app: express.Express, policy: string): void {
     if (!policy) {
-      throw new Error('Referrer policy configuration is required');
+      throw new Error("Referrer policy configuration is required");
     }
 
     app.use(helmet.referrerPolicy({ policy }));

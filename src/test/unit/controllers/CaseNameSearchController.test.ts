@@ -1,116 +1,161 @@
-import sinon from 'sinon';
-import { Response } from 'express';
-import CaseNameSearchController from '../../../main/controllers/CaseNameSearchController';
-import { mockRequest } from '../mocks/mockRequest';
-import {PublicationService} from '../../../main/service/publicationService';
+import sinon from "sinon";
+import { Response } from "express";
+import CaseNameSearchController from "../../../main/controllers/CaseNameSearchController";
+import { mockRequest } from "../mocks/mockRequest";
+import { PublicationService } from "../../../main/service/publicationService";
 
 const caseNameSearchController = new CaseNameSearchController();
-const publicationServiceStub = sinon.stub(PublicationService.prototype, 'getCasesByCaseName');
-publicationServiceStub.withArgs('').returns([]);
-publicationServiceStub.withArgs('meedoo').returns([{}]);
-publicationServiceStub.withArgs('bob').returns([]);
+const publicationServiceStub = sinon.stub(
+  PublicationService.prototype,
+  "getCasesByCaseName"
+);
+publicationServiceStub.withArgs("").returns([]);
+publicationServiceStub.withArgs("meedoo").returns([{}]);
+publicationServiceStub.withArgs("bob").returns([]);
 
-describe('Case name search controller', () => {
+describe("Case name search controller", () => {
   const i18n = {
-    'case-name-search': {},
+    "case-name-search": {},
   };
 
-  it('should render case name search page', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
+  it("should render case name search page", () => {
+    const response = {
+      render: () => {
+        return "";
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.user = {userId: '1'};
+    request.user = { userId: "1" };
     request.query = {};
     const expectedData = {
-      ...i18n['case-name-search'],
+      ...i18n["case-name-search"],
     };
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('case-name-search', expectedData);
+    responseMock
+      .expects("render")
+      .once()
+      .withArgs("case-name-search", expectedData);
     caseNameSearchController.get(request, response);
     responseMock.verify();
   });
 
-  it('should render case name search page if there are search errors', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
+  it("should render case name search page if there are search errors", () => {
+    const response = {
+      render: () => {
+        return "";
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.user = {userId: '1'};
-    request.query = {error: 'true'};
+    request.user = { userId: "1" };
+    request.query = { error: "true" };
     const expectedData = {
-      ...i18n['case-name-search'],
+      ...i18n["case-name-search"],
       noResultsError: true,
     };
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('case-name-search', expectedData);
+    responseMock
+      .expects("render")
+      .once()
+      .withArgs("case-name-search", expectedData);
     caseNameSearchController.get(request, response);
     responseMock.verify();
   });
 
-  it('should redirect to case name search results page if there are search results', async () => {
-    const response = { redirect: () => {return '';}} as unknown as Response;
+  it("should redirect to case name search results page if there are search results", async () => {
+    const response = {
+      redirect: () => {
+        return "";
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.user = {userId: '1'};
-    request.body = {'case-name': 'meedoo'};
+    request.user = { userId: "1" };
+    request.body = { "case-name": "meedoo" };
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('case-name-search-results?search=meedoo');
+    responseMock
+      .expects("redirect")
+      .once()
+      .withArgs("case-name-search-results?search=meedoo");
     return caseNameSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
   });
 
-  it('should render same page if there are no search results', async () => {
-    const response = { render: () => {return '';}} as unknown as Response;
+  it("should render same page if there are no search results", async () => {
+    const response = {
+      render: () => {
+        return "";
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.user = {userId: '1'};
-    request.body = {'case-name': 'bob'};
+    request.user = { userId: "1" };
+    request.body = { "case-name": "bob" };
     const expectedData = {
-      ...i18n['case-name-search'],
+      ...i18n["case-name-search"],
       noResultsError: true,
     };
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('case-name-search',  expectedData);
+    responseMock
+      .expects("render")
+      .once()
+      .withArgs("case-name-search", expectedData);
     return caseNameSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
   });
 
-  it('should render same page if no search term is entered', async () => {
-    const response = { render: () => {return '';}} as unknown as Response;
+  it("should render same page if no search term is entered", async () => {
+    const response = {
+      render: () => {
+        return "";
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.user = {userId: '1'};
+    request.user = { userId: "1" };
     request.body = {};
     const expectedData = {
-      ...i18n['case-name-search'],
+      ...i18n["case-name-search"],
       minimumCharacterError: true,
     };
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('case-name-search',  expectedData);
+    responseMock
+      .expects("render")
+      .once()
+      .withArgs("case-name-search", expectedData);
     return caseNameSearchController.post(request, response).then(() => {
       responseMock.verify();
     });
   });
 
-  it('should render same page if a search term of less than 3 characters is entered', async () => {
-    const response = { render: () => {return '';}} as unknown as Response;
+  it("should render same page if a search term of less than 3 characters is entered", async () => {
+    const response = {
+      render: () => {
+        return "";
+      },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.user = {userId: '1'};
-    request.body = {'case-name': 'bo'};
+    request.user = { userId: "1" };
+    request.body = { "case-name": "bo" };
     const expectedData = {
-      ...i18n['case-name-search'],
+      ...i18n["case-name-search"],
       minimumCharacterError: true,
     };
 
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('case-name-search',  expectedData);
+    responseMock
+      .expects("render")
+      .once()
+      .withArgs("case-name-search", expectedData);
     return caseNameSearchController.post(request, response).then(() => {
       responseMock.verify();
     });

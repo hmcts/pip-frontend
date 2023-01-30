@@ -1,10 +1,9 @@
-import {CommonPage} from './Common.page';
-import {MediaAccountRejectionConfirmationPage} from './MediaAccountRejectionConfirmation.page';
+import { CommonPage } from "./Common.page";
+import { MediaAccountRejectionConfirmationPage } from "./MediaAccountRejectionConfirmation.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class MediaAccountRejectionPage extends CommonPage {
-
   async selectYes(): Promise<void> {
     $(helpers.MediaAccountRejectionYes).catch(() => {
       console.log(`${helpers.MediaAccountRejectionYes} not found`);
@@ -21,5 +20,4 @@ export class MediaAccountRejectionPage extends CommonPage {
     await $(helpers.ContinueButton).click();
     return new MediaAccountRejectionConfirmationPage();
   }
-
 }

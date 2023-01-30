@@ -1,6 +1,6 @@
-import { CommonPage } from './Common.page';
+import { CommonPage } from "./Common.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class CaseEventGlossaryPage extends CommonPage {
   async termIsInView(): Promise<boolean> {

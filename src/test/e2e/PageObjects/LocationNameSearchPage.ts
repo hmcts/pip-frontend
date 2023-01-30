@@ -1,9 +1,9 @@
-import { CommonPage } from './Common.page';
-import { PendingSubscriptionsPage } from './PendingSubscriptions.page';
+import { CommonPage } from "./Common.page";
+import { PendingSubscriptionsPage } from "./PendingSubscriptions.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
-export class LocationNameSearchPage extends CommonPage{
+export class LocationNameSearchPage extends CommonPage {
   async getResults(): Promise<number> {
     $(helpers.CourtTableResults).catch(() => {
       console.log(`${helpers.CourtTableResults} not found`);

@@ -1,18 +1,24 @@
-import cookieManager from '@hmcts/cookie-manager';
+import cookieManager from "@hmcts/cookie-manager";
 
-cookieManager.on('UserPreferencesLoaded', (preferences) => {
+cookieManager.on("UserPreferencesLoaded", (preferences) => {
   const dataLayer = window.dataLayer || [];
-  dataLayer.push({'event': 'Cookie Preferences', 'cookiePreferences': preferences});
+  dataLayer.push({
+    event: "Cookie Preferences",
+    cookiePreferences: preferences,
+  });
 });
 
-cookieManager.on('UserPreferencesSaved', (preferences) => {
+cookieManager.on("UserPreferencesSaved", (preferences) => {
   const dataLayer = window.dataLayer || [];
   const dtrum = window.dtrum;
 
-  dataLayer.push({'event': 'Cookie Preferences', 'cookiePreferences': preferences});
+  dataLayer.push({
+    event: "Cookie Preferences",
+    cookiePreferences: preferences,
+  });
 
-  if(dtrum !== undefined) {
-    if(preferences.apm === 'on') {
+  if (dtrum !== undefined) {
+    if (preferences.apm === "on") {
       dtrum.enable();
       dtrum.enableSessionReplay();
     } else {
@@ -24,39 +30,27 @@ cookieManager.on('UserPreferencesSaved', (preferences) => {
 
 const config = {
   userPreferences: {
-    cookieName: 'court-and-tribunal-hearings-cookie-preferences',
+    cookieName: "court-and-tribunal-hearings-cookie-preferences",
   },
   cookieManifest: [
     {
-      categoryName: 'essential',
+      categoryName: "essential",
       optional: false,
       cookies: [
-        'i18next',
-        'formCookie',
-        'createAdminAccount',
-        'session.sig',
-        'session',
+        "i18next",
+        "formCookie",
+        "createAdminAccount",
+        "session.sig",
+        "session",
       ],
     },
     {
-      categoryName: 'analytics',
-      cookies: [
-        '_ga',
-        '_gid',
-        '_gat_UA-',
-        '_gat',
-      ],
+      categoryName: "analytics",
+      cookies: ["_ga", "_gid", "_gat_UA-", "_gat"],
     },
     {
-      categoryName: 'apm',
-      cookies: [
-        'dtCookie',
-        'dtLatC',
-        'dtPC',
-        'dtSa',
-        'rxVisitor',
-        'rxvt',
-      ],
+      categoryName: "apm",
+      cookies: ["dtCookie", "dtLatC", "dtPC", "dtSa", "rxVisitor", "rxvt"],
     },
   ],
 };

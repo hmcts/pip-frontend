@@ -1,7 +1,7 @@
-import { CommonPage } from './Common.page';
-import { RemoveListSearchResultsPage } from './RemoveListSearchResults.page';
+import { CommonPage } from "./Common.page";
+import { RemoveListSearchResultsPage } from "./RemoveListSearchResults.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class RemoveListSearchPage extends CommonPage {
   async enterText(text: string): Promise<void> {
@@ -11,7 +11,7 @@ export class RemoveListSearchPage extends CommonPage {
 
     const searchInput = await $(helpers.SearchInput);
     await searchInput.addValue(text);
-    await browser.keys('Escape');
+    await browser.keys("Escape");
   }
 
   async clickContinue(): Promise<RemoveListSearchResultsPage> {

@@ -1,11 +1,10 @@
-import { CommonPage } from './Common.page';
-import {ManualReferenceDataUploadSummaryPage} from './ManualReferenceDataUploadSummary.page';
-const helpers = require('../Helpers/Selectors');
+import { CommonPage } from "./Common.page";
+import { ManualReferenceDataUploadSummaryPage } from "./ManualReferenceDataUploadSummary.page";
+const helpers = require("../Helpers/Selectors");
 
-const path = require('path');
+const path = require("path");
 
 export class ManualReferenceDataUploadPage extends CommonPage {
-
   async getPageTitle(): Promise<string> {
     $(helpers.CommonPageTitleXl).catch(() => {
       console.log(`${helpers.CommonPageTitleXl} not found`);
@@ -23,7 +22,10 @@ export class ManualReferenceDataUploadPage extends CommonPage {
       console.log(`${helpers.referenceDataFileUpload} not found`);
     });
 
-    const filePath = path.join(__dirname, '../../unit/mocks/testReferenceData.csv');
+    const filePath = path.join(
+      __dirname,
+      "../../unit/mocks/testReferenceData.csv"
+    );
 
     await $(helpers.referenceDataFileUpload).setValue(filePath);
   }

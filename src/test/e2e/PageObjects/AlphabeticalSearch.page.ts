@@ -1,8 +1,8 @@
-import { CommonPage } from './Common.page';
-import { SummaryOfPublicationsPage } from './SummaryOfPublications.page';
-import { ViewOptionPage } from './ViewOption.page';
+import { CommonPage } from "./Common.page";
+import { SummaryOfPublicationsPage } from "./SummaryOfPublications.page";
+import { ViewOptionPage } from "./ViewOption.page";
 
-const helpers = require('../Helpers/Selectors');
+const helpers = require("../Helpers/Selectors");
 
 export class AlphabeticalSearchPage extends CommonPage {
   async clickApplyFiltersButton(): Promise<AlphabeticalSearchPage> {
@@ -56,5 +56,4 @@ export class AlphabeticalSearchPage extends CommonPage {
     await $(helpers.BannerHome).click();
     return new ViewOptionPage();
   }
-
 }
