@@ -127,7 +127,7 @@ describe("List Download Disclaimer Controller", () => {
   it("should render the error page if no file returned", () => {
     sinon.stub(ListDownloadService.prototype, "getFile").returns(null);
 
-    request.query = {artefactId: '123', type: 'pdf'};
+    request.query = { artefactId: "123", type: "pdf" };
     const responseMock = sinon.mock(response);
     responseMock.expects("render").once().withArgs("error", i18n.error);
 
@@ -135,5 +135,4 @@ describe("List Download Disclaimer Controller", () => {
       responseMock.verify();
     });
   });
-
 });

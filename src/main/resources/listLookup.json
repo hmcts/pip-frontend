@@ -101,7 +101,7 @@
     "url": "sscs-daily-list-additional-hearings",
     "jurisdictions": ["Social Security and Child Support"],
     "welshJurisdictions": ["Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant"],
-    "restrictedProvenances":  []
+    "restrictedProvenances": []
   },
   "COP_DAILY_CAUSE_LIST": {
     "friendlyName": "Court of Protection Daily Cause List",

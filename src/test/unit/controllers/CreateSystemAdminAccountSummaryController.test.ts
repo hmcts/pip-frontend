@@ -27,13 +27,11 @@ const invalidMockData = {
   firstName: "INVALID_DATA",
   userRoleObject: { mapping: "SYSTEM_ADMIN" },
 };
-createAccountStub
-  .withArgs(invalidMockData, validUserId)
-  .resolves({
-    error: "General Error",
-    duplicate: false,
-    aboveMaxSystemAdmin: false,
-  });
+createAccountStub.withArgs(invalidMockData, validUserId).resolves({
+  error: "General Error",
+  duplicate: false,
+  aboveMaxSystemAdmin: false,
+});
 
 const invalidMockDataDuplicate = {
   firstName: "IS_DUPLICATE_DATA",

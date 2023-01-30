@@ -524,12 +524,10 @@ describe("Account Management Requests", () => {
     });
 
     it("should return pi user id on success", async () => {
-      getStub
-        .withArgs(`${piAadUserEndpoint}${idtoUse}`)
-        .resolves({
-          status: 200,
-          data: { userId: "321", userProvenance: "userProvenance" },
-        });
+      getStub.withArgs(`${piAadUserEndpoint}${idtoUse}`).resolves({
+        status: 200,
+        data: { userId: "321", userProvenance: "userProvenance" },
+      });
       const response = await accountManagementRequests.getPiUserByAzureOid(
         idtoUse
       );
@@ -573,12 +571,10 @@ describe("Account Management Requests", () => {
     });
 
     it("should return pi user id on success", async () => {
-      getStub
-        .withArgs(`${cftIdamUserEndpoint}${idtoUse}`)
-        .resolves({
-          status: 200,
-          data: { userId: "321", userProvenance: "userProvenance" },
-        });
+      getStub.withArgs(`${cftIdamUserEndpoint}${idtoUse}`).resolves({
+        status: 200,
+        data: { userId: "321", userProvenance: "userProvenance" },
+      });
       const response = await accountManagementRequests.getPiUserByCftID(
         idtoUse
       );
@@ -812,12 +808,10 @@ describe("Account Management Requests", () => {
     });
 
     it("should return pi user on success", async () => {
-      getStub
-        .withArgs(`${getUserByUserIdEndpoint}${idtoUse}`)
-        .resolves({
-          status: 200,
-          data: { userId: "321", userProvenance: "userProvenance" },
-        });
+      getStub.withArgs(`${getUserByUserIdEndpoint}${idtoUse}`).resolves({
+        status: 200,
+        data: { userId: "321", userProvenance: "userProvenance" },
+      });
       const response = await accountManagementRequests.getUserByUserId(
         idtoUse,
         "1234"

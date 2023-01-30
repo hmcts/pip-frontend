@@ -11,8 +11,8 @@ const courtService = new LocationService();
 const helperService = new ListParseHelperService();
 const sscsListService = new SscsDailyListService();
 
-const sscsUrl = 'sscs-daily-list';
-const sscsAdditonalHearingsUrl = 'sscs-daily-list-additional-hearings';
+const sscsUrl = "sscs-daily-list";
+const sscsAdditonalHearingsUrl = "sscs-daily-list-additional-hearings";
 
 export default class SscsDailyListController {
   public async get(req: PipRequest, res: Response): Promise<void> {
@@ -39,14 +39,23 @@ export default class SscsDailyListController {
         req.lng
       );
 
-      const returnedCourt = await courtService.getLocationById(metaData['locationId']);
-      const courtName = courtService.findCourtName(returnedCourt, req.lng as string, 'sscs-daily-list');
-      const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
+      const returnedCourt = await courtService.getLocationById(
+        metaData["locationId"]
+      );
+      const courtName = courtService.findCourtName(
+        returnedCourt,
+        req.lng as string,
+        "sscs-daily-list"
+      );
+      const pageLanguage = publicationService.languageToLoadPageIn(
+        metaData.language,
+        req.lng
+      );
       const url = publicationService.getListTypes().get(metaData.listType).url;
 
       let languageResource = {
         ...req.i18n.getDataByLanguage(pageLanguage)[sscsUrl],
-        ...req.i18n.getDataByLanguage(pageLanguage)['list-template'],
+        ...req.i18n.getDataByLanguage(pageLanguage)["list-template"],
       };
 
       if (url === sscsAdditonalHearingsUrl) {

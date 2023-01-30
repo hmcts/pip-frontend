@@ -48,13 +48,14 @@ export class ListDownloadService {
    */
   public getFile(artefactId, fileType): string {
     if (artefactId && fileType) {
-
-      const jointPath = path.join(os.tmpdir(), `${artefactId}.${FileType[fileType.toUpperCase()]}`);
+      const jointPath = path.join(
+        os.tmpdir(),
+        `${artefactId}.${FileType[fileType.toUpperCase()]}`
+      );
 
       if (fs.existsSync(jointPath)) {
         return jointPath;
       }
-
     }
     return null;
   }

@@ -9,22 +9,29 @@ import os from "os";
 const listDownloadService = new ListDownloadService();
 const artefactId = "123";
 
-const downloadFilesStub = sinon.stub(ChannelManagementRequests.prototype, 'getStoredFiles');
-const statstub = sinon.stub(fs, 'statSync').returns({size: 1000});
-const existsSyncStub = sinon.stub(fs, 'existsSync');
+const downloadFilesStub = sinon.stub(
+  ChannelManagementRequests.prototype,
+  "getStoredFiles"
+);
+const statstub = sinon.stub(fs, "statSync").returns({ size: 1000 });
+const existsSyncStub = sinon.stub(fs, "existsSync");
 
-describe('List Download Service', () => {
-  describe('Get file', () => {
-    it('should return expected PDF file', async () => {
+describe("List Download Service", () => {
+  describe("Get file", () => {
+    it("should return expected PDF file", async () => {
       existsSyncStub.returns(true);
-      const response = await listDownloadService.getFile(artefactId, 'pdf');
-      expect(response).to.be.a('string').and.satisfy(msg => msg.endsWith(artefactId + '.pdf'));
+      const response = await listDownloadService.getFile(artefactId, "pdf");
+      expect(response)
+        .to.be.a("string")
+        .and.satisfy((msg) => msg.endsWith(artefactId + ".pdf"));
     });
 
-    it('should return expected excel file', async () => {
+    it("should return expected excel file", async () => {
       existsSyncStub.returns(true);
-      const response = await listDownloadService.getFile(artefactId, 'excel');
-      expect(response).to.be.a('string').and.satisfy(msg => msg.endsWith(artefactId + '.xlsx'));
+      const response = await listDownloadService.getFile(artefactId, "excel");
+      expect(response)
+        .to.be.a("string")
+        .and.satisfy((msg) => msg.endsWith(artefactId + ".xlsx"));
     });
 
     it("should not return file if no artefact ID provided", async () => {
@@ -37,26 +44,30 @@ describe('List Download Service', () => {
       expect(response).to.be.null;
     });
 
-    it('should not return file if the file does not exist', async () => {
+    it("should not return file if the file does not exist", async () => {
       existsSyncStub.returns(false);
       const response = await listDownloadService.getFile(artefactId, null);
       expect(response).to.be.null;
     });
   });
 
-  describe('Get file size', () => {
-    it('should return file size in KB', async () => {
+  describe("Get file size", () => {
+    it("should return file size in KB", async () => {
       existsSyncStub.returns(true);
-      statstub.withArgs(path.join(os.tmpdir(), `${artefactId}.pdf`)).returns({size: 1000});
-      const response = await listDownloadService.getFileSize(artefactId, 'pdf');
-      expect(response).to.equal('1.0KB');
+      statstub
+        .withArgs(path.join(os.tmpdir(), `${artefactId}.pdf`))
+        .returns({ size: 1000 });
+      const response = await listDownloadService.getFileSize(artefactId, "pdf");
+      expect(response).to.equal("1.0KB");
     });
 
-    it('should return file size in MB', async () => {
+    it("should return file size in MB", async () => {
       existsSyncStub.returns(true);
-      statstub.withArgs(path.join(os.tmpdir(), `${artefactId}.pdf`)).returns({size: 1000000});
-      const response = await listDownloadService.getFileSize(artefactId, 'pdf');
-      expect(response).to.equal('1.0MB');
+      statstub
+        .withArgs(path.join(os.tmpdir(), `${artefactId}.pdf`))
+        .returns({ size: 1000000 });
+      const response = await listDownloadService.getFileSize(artefactId, "pdf");
+      expect(response).to.equal("1.0MB");
     });
 
     it("should not return file size if no artefact ID provided", async () => {
