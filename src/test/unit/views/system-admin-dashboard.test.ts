@@ -55,12 +55,12 @@ describe('System Admin Dashboard page', () => {
     expect(description.innerHTML).contains('Create a new system admin user');
   });
 
-  it('bulk media upload card should have correct content and links', () => {
+  it('blob Explorer card should have correct content and links', () => {
     const cards = htmlRes.getElementsByClassName('account-card');
     const link = cards[5].getElementsByTagName('a')[0];
     const description = cards[5].getElementsByTagName('p')[1];
-    expect(link.innerHTML).contains('Bulk Create Media Accounts');
-    expect(link.getAttribute('href')).contains('bulk-create-media-accounts');
-    expect(description.innerHTML).contains('Upload a CSV file for bulk creation of media accounts');
+    expect(link.innerHTML).contains('Blob Explorer');
+    expect(link.getAttribute('href')).contains('blob-view-locations');
+    expect(description.innerHTML).contains('Discover content uploaded to all locations.');
   });
 });
