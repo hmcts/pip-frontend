@@ -451,7 +451,7 @@ describe('Verified user', () => {
     });
 
     describe('following the case name path', async () => {
-      const validCaseName = 'Anderson-v-Smith';
+      const validCaseName = 'A vs B';
       const casesCount = 1;
 
       before(async () => {
@@ -510,7 +510,7 @@ describe('Verified user', () => {
     });
 
     describe('following the case reference number path', () => {
-      const validSearchTerm = 'H01CF553';
+      const validSearchTerm = '12345678';
 
       before(async () => {
         await subscriptionAddPage.open('subscription-add');
