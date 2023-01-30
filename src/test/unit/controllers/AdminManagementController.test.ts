@@ -14,12 +14,26 @@ describe('Admin Management Controller', () => {
   request.query = {};
   request.user = {userId: '1'};
 
-  it('should render the admin management page', async () => {
+  it('should render the admin management page on success', async () => {
     const responseMock = sinon.mock(response);
 
     responseMock.expects('render').once().withArgs('admin-management', {
       ...i18n['admin-management'],
       noResultsError: false,
+    });
+
+    await adminManagementController.get(request, response);
+    responseMock.verify();
+  });
+
+  it('should render the admin management page on error', async () => {
+    const responseMock = sinon.mock(response);
+
+    request.query = {'error': 'true'};
+
+    responseMock.expects('render').once().withArgs('admin-management', {
+      ...i18n['admin-management'],
+      noResultsError: true,
     });
 
     await adminManagementController.get(request, response);
@@ -34,7 +48,7 @@ describe('Admin Management Controller', () => {
     request.body = { 'search-input': '12345678'};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('/admin-management?error=true');
+    responseMock.expects('redirect').once().withArgs('admin-management?error=true');
     await adminManagementController.post(request, response);
     responseMock.verify();
   });
@@ -46,7 +60,7 @@ describe('Admin Management Controller', () => {
     request.body = { 'search-input': ''};
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('/admin-management?error=true');
+    responseMock.expects('redirect').once().withArgs('admin-management?error=true');
     return adminManagementController.post(request, response).then(() => {
       responseMock.verify();
     });
