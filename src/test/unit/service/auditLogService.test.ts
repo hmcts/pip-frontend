@@ -60,7 +60,6 @@ describe('Audit log service', () => {
     expect(response['paginationData']['next'].href).to.equal('?page=3');
 
     // Audit log formatted table data
-
     expect(response['auditLogData'][0][1].text).to.contain('test@justice.gov.uk');
     expect(response['auditLogData'][0][1].text).to.contain('158f4249-a763-4a4a-866c-8e0dd5b3bdaf');
     expect(response['auditLogData'][0][2].text).to.equal('USER_MANAGEMENT');
