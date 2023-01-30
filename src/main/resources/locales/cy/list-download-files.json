@@ -1,8 +1,8 @@
 {
-  "title": "Download your file",
-  "heading": "Save your file somewhere you can find it. You may need to print it or show it to someone later.",
-  "pdfDownloadText": "Download this PDF (SIZE) to your device",
-  "excelDownloadText": "Download this Microsoft Excel spreadsheet (SIZE) to your device",
-  "contactText": "If you have any questions, call 0300 303 0656.",
+  "title": "Llwytho eich ffeil i lawr",
+  "heading": "Arbedwch eich ffeil yn rhywle y gellir cael hyd iddi. Efallai y bydd arnoch angen ei hargraffu neu ei dangos i rywun yn nes ymlaen.",
+  "pdfDownloadText": "Llwytho’r PDF (SIZE) yma ar eich dyfais",
+  "excelDownloadText": "Llwytho’r daenlen Microsoft Excel (SIZE) yma ar eich dyfais",
+  "contactText": "Os oes gennych gwestiwn, ffoniwch 0300 303 0656.",
   "backButton": "Yn ôl"
 }
