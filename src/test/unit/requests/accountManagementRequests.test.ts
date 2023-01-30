@@ -804,4 +804,122 @@ describe('Account Management Requests', () => {
       expect(response).toBe(null);
     });
   });
+
+  describe('Store Audit Action', () => {
+    beforeEach(() => {
+      sinon.restore();
+      postStub = sinon.stub(accountManagementApi, 'post');
+    });
+
+    const auditBody = {
+      'userId': '1234',
+      'userEmail': 'test@justice.gov.uk',
+      'action': 'ATTEMPT_CREATE_SYSTEM_ADMIN',
+      'details': 'Details text',
+    };
+
+    const mockResponseData = {
+      data: {
+        'userId': '1234',
+        'userEmail': 'test@justice.gov.uk',
+        'action': 'ATTEMPT_CREATE_SYSTEM_ADMIN',
+        'details': 'Details text',
+      },
+    };
+
+    it('should return audit log data', async () => {
+      postStub.withArgs('/audit', auditBody).returns(mockResponseData);
+
+      const response = await accountManagementRequests.storeAuditAction(auditBody);
+      expect(response).toStrictEqual(auditBody);
+    });
+
+    it('should return null on error response', async () => {
+      postStub.withArgs('/audit', auditBody).rejects({response: {status: 400}});
+
+      const response = await accountManagementRequests.storeAuditAction(auditBody);
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error request', async () => {
+      postStub.withArgs('/audit', auditBody).rejects(errorRequest);
+
+      const response = await accountManagementRequests.storeAuditAction(auditBody);
+      expect(response).toBe(null);
+    });
+
+    it('should return null on error message', async () => {
+      postStub.withArgs('/audit', auditBody).rejects(errorMessage);
+
+      const response = await accountManagementRequests.storeAuditAction(auditBody);
+      expect(response).toBe(null);
+    });
+  });
+
+  describe('Get all audit logs', () => {
+    beforeEach(() => {
+      sinon.restore();
+      getStub = sinon.stub(accountManagementApi, 'get');
+    });
+
+    const auditBody = {
+      'userId': '1234',
+      'userEmail': 'test@justice.gov.uk',
+      'action': 'ATTEMPT_CREATE_SYSTEM_ADMIN',
+      'details': 'Details text',
+    };
+
+    const mockResponseData = {
+      data: {
+        'userId': '1234',
+        'userEmail': 'test@justice.gov.uk',
+        'action': 'ATTEMPT_CREATE_SYSTEM_ADMIN',
+        'details': 'Details text',
+      },
+    };
+
+    it('should return data on success', async () => {
+      getStub.withArgs('/audit', {params: {pageSize: 25}}).resolves(mockResponseData);
+      const response = await accountManagementRequests.getAllAuditLogs(
+        {
+          params: {
+            pageSize: 25,
+          },
+        },'1234');
+      expect(response).toStrictEqual(auditBody);
+    });
+
+    it('should return empty array on error response', async () => {
+      getStub.withArgs('/audit', {params: {pageSize: 25}}).rejects(errorResponse);
+      const response = await accountManagementRequests.getAllAuditLogs(
+        {
+          params: {
+            pageSize: 25,
+          },
+        },'1234');
+      expect(response).toStrictEqual([]);
+    });
+
+    it('should return empty array on error request', async () => {
+      getStub.withArgs('/audit', {params: {pageSize: 25}}).rejects(errorRequest);
+      const response = await accountManagementRequests.getAllAuditLogs(
+        {
+          params: {
+            pageSize: 25,
+          },
+        },'1234');
+      expect(response).toStrictEqual([]);
+    });
+
+    it('should return empty array on error message', async () => {
+      getStub.withArgs('/audit', {params: {pageSize: 25}}).rejects(errorMessage);
+      const response = await accountManagementRequests.getAllAuditLogs(
+        {
+          params: {
+            pageSize: 25,
+          },
+        },'1234');
+      expect(response).toStrictEqual([]);
+    });
+  });
 });
