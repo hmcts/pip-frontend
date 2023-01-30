@@ -6,8 +6,8 @@ export interface HelmetConfig {
 }
 
 const self = "'self'";
-const googleAnalyticsDomain = "*.google-analytics.com";
-const tagManager = ["*.googletagmanager.com", "https://tagmanager.google.com"];
+const googleAnalyticsDomains = ['*.googletagmanager.com', 'https://tagmanager.google.com', '*.google-analytics.com'];
+const jsdelivrDomain = '*.jsdelivr.net';
 
 /**
  * Module that enables helmet in the application
@@ -27,19 +27,13 @@ export class Helmet {
     app.use(
       helmet.contentSecurityPolicy({
         directives: {
-          connectSrc: [self, googleAnalyticsDomain],
+          connectSrc: [self, ...googleAnalyticsDomains],
           defaultSrc: ["'none'"],
-          fontSrc: [self, "data:"],
-          imgSrc: [self],
+          fontSrc: [self, 'data:'],
+          imgSrc: [self, ...googleAnalyticsDomains],
           objectSrc: [self],
-          scriptSrc: [
-            self,
-            ...tagManager,
-            googleAnalyticsDomain,
-            "'unsafe-inline'",
-            "'unsafe-eval'",
-          ],
-          styleSrc: [self, "https://pip-frontend.staging.platform.hmcts.net"],
+          scriptSrc: [self, ...googleAnalyticsDomains, jsdelivrDomain, "'unsafe-eval'", "'unsafe-inline'"],
+          styleSrc: [self, process.env.FRONTEND_URL],
         },
       })
     );

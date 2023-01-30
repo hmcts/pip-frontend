@@ -13,19 +13,16 @@ export class ManualReferenceDataUploadPage extends CommonPage {
     return $(helpers.CommonPageTitleXl).getText();
   }
 
-  async completeForm(): Promise<void> {
-    await this.uploadFile();
+  async completeForm(referenceDatafile: string): Promise<void> {
+    await this.uploadFile(referenceDatafile);
   }
 
-  async uploadFile(): Promise<void> {
+  async uploadFile(referenceDatafile: string): Promise<void> {
     $(helpers.referenceDataFileUpload).catch(() => {
       console.log(`${helpers.referenceDataFileUpload} not found`);
     });
 
-    const filePath = path.join(
-      __dirname,
-      "../../unit/mocks/testReferenceData.csv"
-    );
+    const filePath = path.join(__dirname, '../../unit/mocks/' + referenceDatafile);
 
     await $(helpers.referenceDataFileUpload).setValue(filePath);
   }

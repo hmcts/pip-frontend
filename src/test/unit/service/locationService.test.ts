@@ -16,10 +16,11 @@ const rawData = fs.readFileSync(
 const hearingsData = JSON.parse(rawData);
 
 sinon.stub(courtRequest, "getAllLocations").returns(hearingsData);
+const stubCourt = sinon.stub(courtRequest, 'getLocation');
+const stubCourtByName = sinon.stub(courtRequest, 'getLocationByName');
+const stubCourtsFilter = sinon.stub(courtRequest, 'getFilteredCourts');
+const stubCourtDeletion = sinon.stub(courtRequest, 'deleteCourt');
 
-const stubCourt = sinon.stub(courtRequest, "getLocation");
-const stubCourtByName = sinon.stub(courtRequest, "getLocationByName");
-const stubCourtsFilter = sinon.stub(courtRequest, "getFilteredCourts");
 const validKeysCount = 26;
 const alphabet = [
   "A",
@@ -49,16 +50,20 @@ const alphabet = [
   "Y",
   "Z",
 ];
-const validCourt = "Abergavenny Magistrates' Court";
-const validWelshCourt = "Llys Ynadon y Fenni";
-const englishLanguage = "en";
-const welshLanguage = "cy";
-const englishLanguageFile = "sscs-daily-list";
-
-stubCourtsFilter.withArgs("", "Crown", englishLanguage).returns(hearingsData);
+const validCourt = 'Abergavenny Magistrates\' Court';
+const validWelshCourt = 'Llys Ynadon y Fenni';
+const englishLanguage = 'en';
+const welshLanguage = 'cy';
+const englishLanguageFile = 'sscs-daily-list';
+const deletionResponse = {isExists: true, errorMessage: 'test'};
+const requester = 'Test';
+stubCourtsFilter.withArgs('', 'Crown', englishLanguage).returns(hearingsData);
 stubCourt.withArgs(1).returns(hearingsData[0]);
 stubCourtByName.withArgs(validCourt).returns(hearingsData[0]);
 stubCourtByName.withArgs(validWelshCourt).returns(hearingsData[0]);
+stubCourtDeletion.withArgs(1, requester).returns(deletionResponse);
+stubCourtDeletion.withArgs(2, requester).returns(null);
+stubCourtDeletion.withArgs(3, requester).returns({isExists: false, errorMessage: ''});
 
 describe("Court Service", () => {
   it("should return all courts", async () => {
@@ -225,4 +230,5 @@ describe("Court Service", () => {
       courtService.sortCourtsAlphabetically([hearingsData[0]])
     ).to.deep.equal([hearingsData[0]]);
   });
+
 });

@@ -7,11 +7,10 @@ const locationService = new LocationService();
 
 export default class RemoveListSearchController {
   public async get(req: PipRequest, res: Response): Promise<void> {
-    const autocompleteList = await locationService.fetchAllLocations(
-      req.lng as string
-    );
-    res.render("remove-list-search", {
-      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)["remove-list-search"]),
+    const pageToLoad = req.path.slice(1, req.path.length);
+    const autocompleteList = await locationService.fetchAllLocations(req.lng as string);
+    res.render(pageToLoad, {
+      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[pageToLoad]),
       autocompleteList,
       invalidInputError: false,
       noResultsError: false,
@@ -19,30 +18,26 @@ export default class RemoveListSearchController {
   }
 
   public async post(req: PipRequest, res: Response): Promise<void> {
-    const searchInput = req.body["input-autocomplete"];
-    const autocompleteList = await locationService.fetchAllLocations(
-      req.lng as string
-    );
+    const pageToLoad = req.path.slice(1, req.path.length);
+    let resultPage = 'remove-list-search-results';
+    if (pageToLoad.includes('delete-court-reference-data')) {
+      resultPage = 'delete-court-reference-data-confirmation';
+    }
+    const searchInput = req.body['input-autocomplete'];
+    const autocompleteList = await locationService.fetchAllLocations(req.lng as string);
     if (searchInput && searchInput.length >= 3) {
-      const court = await locationService.getLocationByName(
-        searchInput,
-        req.lng as string
-      );
-      court
-        ? res.redirect(
-            `remove-list-search-results?locationId=${court.locationId}`
-          )
-        : res.render("remove-list-search", {
-            ...cloneDeep(
-              req.i18n.getDataByLanguage(req.lng)["remove-list-search"]
-            ),
-            autocompleteList,
-            invalidInputError: false,
-            noResultsError: true,
-          });
+      const court = await locationService.getLocationByName(searchInput, req.lng as string);
+      (court) ?
+        res.redirect(`${resultPage}?locationId=${court.locationId}`) :
+        res.render(pageToLoad, {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[pageToLoad]),
+          autocompleteList,
+          invalidInputError: false,
+          noResultsError: true,
+        });
     } else {
-      res.render("remove-list-search", {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)["remove-list-search"]),
+      res.render(pageToLoad, {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[pageToLoad]),
         autocompleteList,
         invalidInputError: true,
         noResultsError: false,

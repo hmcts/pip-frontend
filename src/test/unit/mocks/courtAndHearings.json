@@ -2,6 +2,7 @@
   {
     "locationId": 1,
     "name": "Abergavenny Magistrates' Court",
+    "locationType": "VENUE",
     "welshName": "Llys Ynadon y Fenni",
     "jurisdiction": "Magistrates",
     "region": "Bedford",
