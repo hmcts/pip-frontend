@@ -216,6 +216,12 @@ export default function(app: Application): void {
   app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
   app.get('/audit-log-viewer', isPermittedSystemAdmin, app.locals.container.cradle.auditLogViewerController.get);
 
+  app.get('/delete-court-reference-data', isPermittedSystemAdmin, app.locals.container.cradle.removeListSearchController.get);
+  app.post('/delete-court-reference-data', isPermittedSystemAdmin, app.locals.container.cradle.removeListSearchController.post);
+  app.get('/delete-court-reference-data-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get);
+  app.post('/delete-court-reference-data-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.post);
+  app.get('/delete-court-reference-data-success', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataSuccessController.get);
+
   //CFT Routes
   if (process.env.ENABLE_CFT === 'true') {
     app.get('/cft-login', app.locals.container.cradle.cftLoginController.get);

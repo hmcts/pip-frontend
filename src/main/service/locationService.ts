@@ -101,4 +101,15 @@ export class LocationService {
     return courtName;
   }
 
+  public formatCourtValue(court): any {
+    const courtItem = {...court};
+    courtItem.jurisdiction = court.jurisdiction.toString();
+    courtItem.region = court.region.toString();
+    return courtItem;
+  }
+
+  public async deleteLocationById(locationId: number, requester: string): Promise<object> {
+    return await locationRequest.deleteCourt(locationId, requester);
+  }
+
 }

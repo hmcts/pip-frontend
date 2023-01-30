@@ -13,6 +13,11 @@
       "link": "manual-reference-data-upload"
     },
     {
+      "title": "Delete Court",
+      "description": "Delete court from reference data",
+      "link": "delete-court-reference-data"
+    },
+    {
       "title": "Manage Third-Party Users",
       "description": "View and edit third-party users and subscriptions",
       "link": "manage-third-party-users"
