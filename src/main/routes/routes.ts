@@ -213,6 +213,7 @@ export default function(app: Application): void {
   app.post('/manage-third-party-users/subscriptions', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersSubscriptionsController.post);
   app.get('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.get);
   app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
+  app.get('/audit-log-viewer', isPermittedSystemAdmin, app.locals.container.cradle.auditLogViewerController.get);
 
   //CFT Routes
   if (process.env.ENABLE_CFT === 'true') {

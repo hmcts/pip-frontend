@@ -31,6 +31,11 @@
       "title": "Bulk Create Media Accounts",
       "description": "Upload a CSV file for bulk creation of media accounts",
       "link": "bulk-create-media-accounts"
+    },
+    {
+      "title": "Audit Log Viewer",
+      "description": "View audit logs on system admin actions",
+      "link": "audit-log-viewer"
     }
   ]
 }

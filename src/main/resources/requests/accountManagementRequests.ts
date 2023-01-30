@@ -373,4 +373,21 @@ export class AccountManagementRequests {
       return null;
     }
   }
+
+  public async getAllAuditLogs(params: object, adminUserId: string): Promise<any> {
+    try {
+      logger.info('All audit log data requested by Admin with ID: ' + adminUserId);
+      const response = await accountManagementApi.get('/audit', params);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        logger.error('Failed to get all audit logs', error.response.data);
+      } else if (error.request) {
+        logger.error('Request failed for getting all audit logs', error.request);
+      } else {
+        logger.error('Something went wrong trying to get all audit logs', error.message);
+      }
+      return [];
+    }
+  }
 }
