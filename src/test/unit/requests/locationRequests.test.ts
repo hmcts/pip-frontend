@@ -45,8 +45,6 @@ const dummyFile = new Blob(['testCsv']);
 const deletionResponse = {isExists: true, errorMessage: 'test'};
 const adminUserId = 'Test';
 
-describe('Location get requests', () => {
-
 describe("Location get requests", () => {
   beforeEach(() => {
     stub.withArgs('/locations/1').resolves({data: courtList[0]});
@@ -275,6 +273,6 @@ describe('Get locations csv', () => {
     stub.withArgs('/locations/download/csv').rejects(errorMessage);
     const response = await courtRequests.getLocationsCsv('1234');
     expect(response).toBe(null);
-    
+
   });
 });
