@@ -40,12 +40,21 @@ export class ListDownloadService {
     return response;
   }
 
+  /**
+   * Retrieves the file using the Artefact ID and File Type.
+   * @param artefactId The Artefact ID.
+   * @param fileType The File Type.
+   * @returns The path to the file, or null if the file does not exist in the tmp directory.
+   */
   public getFile(artefactId, fileType): string {
     if (artefactId && fileType) {
-      return path.join(
-        os.tmpdir(),
-        `${artefactId}.${FileType[fileType.toUpperCase()]}`
-      );
+
+      const jointPath = path.join(os.tmpdir(), `${artefactId}.${FileType[fileType.toUpperCase()]}`);
+
+      if (fs.existsSync(jointPath)) {
+        return jointPath;
+      }
+
     }
     return null;
   }

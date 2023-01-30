@@ -95,6 +95,14 @@
     "welshJurisdictions": ["Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant"],
     "restrictedProvenances": []
   },
+  "SSCS_DAILY_LIST_ADDITIONAL_HEARINGS": {
+    "friendlyName": "Social Security and Child Support Tribunal Daily List - Additional Hearings",
+    "shortenedFriendlyName": "SSCS Daily List - Additional Hearings",
+    "url": "sscs-daily-list-additional-hearings",
+    "jurisdictions": ["Social Security and Child Support"],
+    "welshJurisdictions": ["Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant"],
+    "restrictedProvenances":  []
+  },
   "COP_DAILY_CAUSE_LIST": {
     "friendlyName": "Court of Protection Daily Cause List",
     "shortenedFriendlyName": "COP Daily Cause List",

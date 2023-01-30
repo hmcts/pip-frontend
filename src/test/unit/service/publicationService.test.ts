@@ -105,7 +105,7 @@ describe("Publication service", () => {
 
   it("should return list types", () => {
     const listTypes = publicationService.getListTypes();
-    expect(listTypes.size).to.equal(18);
+    expect(listTypes.size).to.equal(19);
 
     const sjpResult = listTypes.get("SJP_PUBLIC_LIST");
     expect(sjpResult["friendlyName"]).to.equal(
