@@ -21,35 +21,27 @@ describe('Admin Management Controller', () => {
     responseMock.verify();
   });
 
-  it('should render admin management page if there are no results', async () => {
+  it('should redirect to admin management page if there are no results', async () => {
 
     stub.withArgs('12345678').resolves(null);
-    const response = { render: () => {return '';}} as unknown as Response;
+    const response = { redirect: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     request.body = { 'search-input': '12345678'};
     const responseMock = sinon.mock(response);
-    const expectedResults = {
-      ...i18n['admin-management'],
-      noResultsError: true,
-    };
 
-    responseMock.expects('render').once().withArgs('admin-management', expectedResults);
+    responseMock.expects('redirect').once().withArgs('/admin-management?error=true');
     await adminManagementController.post(request, response);
     responseMock.verify();
   });
 
   it('should render admin management page if no input is provided', () => {
     stub.withArgs('').resolves(null);
-    const response = { render: () => {return '';}} as unknown as Response;
+    const response = { redirect: () => {return '';}} as unknown as Response;
     const request = mockRequest(i18n);
     request.body = { 'search-input': ''};
     const responseMock = sinon.mock(response);
-    const expectedResults = {
-      ...i18n['admin-management'],
-      noResultsError: true,
-    };
 
-    responseMock.expects('render').once().withArgs('admin-management', expectedResults);
+    responseMock.expects('redirect').once().withArgs('/admin-management?error=true');
     return adminManagementController.post(request, response).then(() => {
       responseMock.verify();
     });

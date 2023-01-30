@@ -1,7 +1,6 @@
 import {PipRequest} from '../models/request/PipRequest';
 import {Response} from 'express';
 import {AccountManagementRequests} from '../resources/requests/accountManagementRequests';
-import {cloneDeep} from 'lodash';
 
 const accountManagementRequests = new AccountManagementRequests();
 export default class AdminManagementController {
@@ -23,16 +22,10 @@ export default class AdminManagementController {
 
       (searchResults) ?
         res.redirect(`manage-user?id=${searchResults.userId}`) :
-        res.render('admin-management', {
-          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin-management']),
-          noResultsError: true,
-        });
+        res.redirect('/admin-management?error=true');
     } else {
       console.log('Instead me made it here');
-      res.render('admin-management', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin-management']),
-        noResultsError: true,
-      });
+      res.redirect('/admin-management?error=true');
     }
   }
 }
