@@ -11,12 +11,17 @@ const i18n = {'admin-management': {}};
 describe('Admin Management Controller', () => {
   const response = { render: function() {return '';}} as unknown as Response;
   const request = mockRequest(i18n);
+  request.query = {};
   request.user = {userId: '1'};
 
   it('should render the admin management page', async () => {
     const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('admin-management', {...i18n['admin-management']});
+    responseMock.expects('render').once().withArgs('admin-management', {
+      ...i18n['admin-management'],
+      noResultsError: false,
+    });
+
     await adminManagementController.get(request, response);
     responseMock.verify();
   });
