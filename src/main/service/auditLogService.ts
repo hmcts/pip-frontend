@@ -54,7 +54,6 @@ export class AuditLogService {
    */
   private formatPageData(rawData: any) {
     const auditLogData = [];
-    console.log(rawData);
     if(rawData.length > 0) {
       rawData.forEach(auditLog => {
         const auditLogArray = [];
