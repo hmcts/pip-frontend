@@ -161,5 +161,4 @@
         "cookiejar": "2.1.4",
         "ua-parser-js": "1.0.33"
     },
-    "packageManager": "yarn@1.22.19"
 }
