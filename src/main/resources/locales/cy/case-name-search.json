@@ -1,16 +1,16 @@
 {
-  "title": "Tanysgrifio yn ôl enw’r achos",
-  "heading": "Beth yw enw’r achos?",
-  "backButton": "Yn ôl",
-  "inputLabel": "Er enghraifft, Smith.",
-  "error": {
-    "notFound": "Does yna ddim yn cyfateb i'r meini prawf",
-    "minimumCharacterError": "Please enter a minimum of 3 characters",
-    "title": "Mae yna broblem",
-    "input": "Darparwch enw cywir ar gyfer yr achos",
-    "line1": "Nid oes unrhyw ganlyniadau sy’n cyd-fynd â’r gofynion chwilio.",
-    "line2": "Gallwch:",
-    "liText1": "Gwiriwch eich sillafu",
-    "liText2": "Ychwanegu tanysgrifiad yn ôl math gwahanol"
-  }
+    "title": "Tanysgrifio yn ôl enw’r achos",
+    "heading": "Beth yw enw’r achos?",
+    "backButton": "Yn ôl",
+    "inputLabel": "Er enghraifft, Smith.",
+    "error": {
+        "notFound": "Does yna ddim yn cyfateb i'r meini prawf",
+        "minimumCharacterError": "Please enter a minimum of 3 characters",
+        "title": "Mae yna broblem",
+        "input": "Darparwch enw cywir ar gyfer yr achos",
+        "line1": "Nid oes unrhyw ganlyniadau sy’n cyd-fynd â’r gofynion chwilio.",
+        "line2": "Gallwch:",
+        "liText1": "Gwiriwch eich sillafu",
+        "liText2": "Ychwanegu tanysgrifiad yn ôl math gwahanol"
+    }
 }

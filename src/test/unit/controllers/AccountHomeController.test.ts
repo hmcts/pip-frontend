@@ -6,24 +6,28 @@ import sinon from 'sinon';
 const accountHomeController = new AccountHomeController();
 
 describe('Account home controller', () => {
-  it('should render account home page', () => {
-    const response = { render: () => {return '';}} as unknown as Response;
-    const request = mockRequest({'account-home': {}});
-    const responseMock = sinon.mock(response);
+    it('should render account home page', () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest({ 'account-home': {} });
+        const responseMock = sinon.mock(response);
 
-    const i18n = {
-      'account-home': {},
-    };
+        const i18n = {
+            'account-home': {},
+        };
 
-    request.query = {verified: 'false'};
+        request.query = { verified: 'false' };
 
-    const expectedData = {
-      ...i18n['account-home'],
-      showVerifiedBanner: 'false',
-    };
+        const expectedData = {
+            ...i18n['account-home'],
+            showVerifiedBanner: 'false',
+        };
 
-    responseMock.expects('render').once().withArgs('account-home', expectedData);
-    accountHomeController.get(request, response);
-    responseMock.verify();
-  });
+        responseMock.expects('render').once().withArgs('account-home', expectedData);
+        accountHomeController.get(request, response);
+        responseMock.verify();
+    });
 });

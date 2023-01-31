@@ -1,55 +1,55 @@
 {
-  "serviceNameText": "Gwrandawiadau llys a thribiwnlys",
-  "signInText": "Mewngofnodi",
-  "signOutText": "Allgofnodi",
-  "navLinks": {
-    "link1": "Tudalen hafan",
-    "link2": "Mewngofnodi",
-    "link3": "Allgofnodi",
-    "link4": "Tanysgrifiadau e-bost",
-    "link5": "Dod o hyd i lys neu dribiwnlys",
-    "link6": "Achosion Gweithdrefn Un Ynad",
-    "link7": "Upload",
-    "link8": "Review apps",
-    "link9": "Remove",
-    "link10": "Admin Dashboard"
-  },
-  "betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">adborth</a> yn ein helpu i’w wella <a class=\"languageHeader govuk-link\" href=\"javascript:void(0)\" onclick=\"changeLang('en')\">English</a>",
-  "betaHeadingAdmin": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">adborth</a> yn ein helpu i’w wella",
-  "footerLinks": [
-    {
-      "text": "Gymorth",
-      "href": "https://www.gov.uk/help"
+    "serviceNameText": "Gwrandawiadau llys a thribiwnlys",
+    "signInText": "Mewngofnodi",
+    "signOutText": "Allgofnodi",
+    "navLinks": {
+        "link1": "Tudalen hafan",
+        "link2": "Mewngofnodi",
+        "link3": "Allgofnodi",
+        "link4": "Tanysgrifiadau e-bost",
+        "link5": "Dod o hyd i lys neu dribiwnlys",
+        "link6": "Achosion Gweithdrefn Un Ynad",
+        "link7": "Upload",
+        "link8": "Review apps",
+        "link9": "Remove",
+        "link10": "Admin Dashboard"
     },
-    {
-      "text": "Preifatrwydd",
-      "href": "https://www.gov.uk/help/privacy-notice"
-    },
-    {
-      "text": "Cwcis",
-      "href": "/cookie-policy"
-    },
-    {
-      "text": "Datganiad hygyrchedd",
-      "href": "/accessibility-statement"
-    },
-    {
-      "text": "Cysylltwch",
-      "href": "https://www.gov.uk/contact"
-    },
-    {
-      "text": "Telerau ac amodau",
-      "href": "https://www.gov.uk/help/terms-conditions"
-    },
-    {
-      "text": "Cymraeg",
-      "href": "https://www.gov.uk/cymraeg"
-    },
-    {
-      "text": "Gwasanaeth Digidol y Llywodraeth",
-      "href": "https://www.gov.uk/government/organisations/government-digital-service"
-    }
-  ],
-  "continueButton": "Parhau",
-  "backToTop": "Yn ôl i frig y dudalen"
+    "betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">adborth</a> yn ein helpu i’w wella <a class=\"languageHeader govuk-link\" href=\"javascript:void(0)\" onclick=\"changeLang('en')\">English</a>",
+    "betaHeadingAdmin": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">adborth</a> yn ein helpu i’w wella",
+    "footerLinks": [
+        {
+            "text": "Gymorth",
+            "href": "https://www.gov.uk/help"
+        },
+        {
+            "text": "Preifatrwydd",
+            "href": "https://www.gov.uk/help/privacy-notice"
+        },
+        {
+            "text": "Cwcis",
+            "href": "/cookie-policy"
+        },
+        {
+            "text": "Datganiad hygyrchedd",
+            "href": "/accessibility-statement"
+        },
+        {
+            "text": "Cysylltwch",
+            "href": "https://www.gov.uk/contact"
+        },
+        {
+            "text": "Telerau ac amodau",
+            "href": "https://www.gov.uk/help/terms-conditions"
+        },
+        {
+            "text": "Cymraeg",
+            "href": "https://www.gov.uk/cymraeg"
+        },
+        {
+            "text": "Gwasanaeth Digidol y Llywodraeth",
+            "href": "https://www.gov.uk/government/organisations/government-digital-service"
+        }
+    ],
+    "continueButton": "Parhau",
+    "backToTop": "Yn ôl i frig y dudalen"
 }

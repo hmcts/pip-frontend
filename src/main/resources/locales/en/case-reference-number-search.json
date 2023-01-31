@@ -1,15 +1,15 @@
 {
-  "title": "Subscribe by case reference number or case ID",
-  "header": "What is the case reference number or case ID?",
-  "hint": "You must enter an exact match.",
-  "error": {
-    "title": "There is a problem",
-    "header": "Enter a valid case reference number",
-    "notfound": "There is nothing matching your criteria",
-    "line1": "There are no matching results.",
-    "line2": "You can:",
-    "liText1": "Double check your spelling",
-    "liText2": "Add subscription by an alternative type"
-  },
-  "backButton": "Back"
+    "title": "Subscribe by case reference number or case ID",
+    "header": "What is the case reference number or case ID?",
+    "hint": "You must enter an exact match.",
+    "error": {
+        "title": "There is a problem",
+        "header": "Enter a valid case reference number",
+        "notfound": "There is nothing matching your criteria",
+        "line1": "There are no matching results.",
+        "line2": "You can:",
+        "liText1": "Double check your spelling",
+        "liText2": "Add subscription by an alternative type"
+    },
+    "backButton": "Back"
 }

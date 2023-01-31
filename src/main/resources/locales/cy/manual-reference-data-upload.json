@@ -1,12 +1,12 @@
 {
-  "title": "Reference manual data upload",
-  "fileUploadText": "Manually upload a csv file (saved as Comma-separated Values .csv), max size 2MB",
-  "warning": "Warning",
-  "warningText": "Prior to upload you must ensure the file is suitable for location data upload e.g. file should be in correct formats.",
-  "downloadReferenceData": "Download current reference data",
-  "fileUploadErrors": {
-    "blank": "Please provide a file",
-    "typeError": "Please upload a valid file format",
-    "sizeError": "File too large, please upload file smaller than 2MB"
-  }
+    "title": "Reference manual data upload",
+    "fileUploadText": "Manually upload a csv file (saved as Comma-separated Values .csv), max size 2MB",
+    "warning": "Warning",
+    "warningText": "Prior to upload you must ensure the file is suitable for location data upload e.g. file should be in correct formats.",
+    "downloadReferenceData": "Download current reference data",
+    "fileUploadErrors": {
+        "blank": "Please provide a file",
+        "typeError": "Please upload a valid file format",
+        "sizeError": "File too large, please upload file smaller than 2MB"
+    }
 }

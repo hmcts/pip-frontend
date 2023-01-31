@@ -3,190 +3,190 @@
 // When the time comes to remove, delete this file, and the import statement in "bundles/index.js"
 // sass-lint:disable-all
 .govspeak p {
-  color: #0b0c0c;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: 400;
-  font-family: "GDS Transport", arial, sans-serif;
-  font-size: 19px;
-  line-height: 1.3158;
-  margin-top: 20px;
-  margin-bottom: 20px;
+    color: #0b0c0c;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
+    font-family: 'GDS Transport', arial, sans-serif;
+    font-size: 19px;
+    line-height: 1.3158;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .govspeak ul {
-  list-style-position: outside;
-  list-style-type: disc;
+    list-style-position: outside;
+    list-style-type: disc;
 }
 
 .govspeak li {
-  margin: 0 0 5px;
-  padding: 0;
-  font-size: 19px;
-  font-family: "GDS Transport", arial, sans-serif;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: 400;
-  color: #0b0c0c;
+    margin: 0 0 5px;
+    padding: 0;
+    font-size: 19px;
+    font-family: 'GDS Transport', arial, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
+    color: #0b0c0c;
 }
 
 .gem-c-document-list__item {
-  color: #0b0c0c;
-  font-family: "GDS Transport", arial, sans-serif;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: 400;
-  font-size: 19px;
-  line-height: 1.3158;
-  margin-bottom: 25px;
-  padding-top: 10px;
-  border-top: 1px solid #b1b4b6;
-  list-style: none;
+    color: #0b0c0c;
+    font-family: 'GDS Transport', arial, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 1.3158;
+    margin-bottom: 25px;
+    padding-top: 10px;
+    border-top: 1px solid #b1b4b6;
+    list-style: none;
 }
 
 .gem-c-contents-list__list-item--dashed {
-  position: relative;
-  padding-left: 25px;
-  padding-right: 25px;
-  padding-top: 7.5px;
-  line-height: 1.3;
-  list-style-type: none;
-  font-size: 16px;
-  color: #0b0c0c;
-  font-family: "GDS Transport", arial, sans-serif;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: 400;
+    position: relative;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 7.5px;
+    line-height: 1.3;
+    list-style-type: none;
+    font-size: 16px;
+    color: #0b0c0c;
+    font-family: 'GDS Transport', arial, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
 }
 
 .gem-c-contents-list__list-item--dashed::before {
-  content: "—";
-  position: absolute;
-  left: 0;
-  width: 20px;
-  overflow: hidden;
+    content: '—';
+    position: absolute;
+    left: 0;
+    width: 20px;
+    overflow: hidden;
 }
 
 .gem-c-contents-list__title {
-  font-size: 16px;
-  line-height: 1.5;
-  color: #0b0c0c;
-  font-family: "GDS Transport", arial, sans-serif;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #0b0c0c;
+    font-family: 'GDS Transport', arial, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
 }
 
 .gem-c-lead-paragraph {
-  color: #0b0c0c;
-  font-family: "GDS Transport", arial, sans-serif;
-  margin-top: 0;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 24px;
-  line-height: 1.25;
-  margin-bottom: 40px;
-  max-width: 30em;
+    color: #0b0c0c;
+    font-family: 'GDS Transport', arial, sans-serif;
+    margin-top: 0;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 24px;
+    line-height: 1.25;
+    margin-bottom: 40px;
+    max-width: 30em;
 }
 
 .metadata-logo-wrapper {
-  border-top: 1px solid #b1b4b6;
-  margin-left: 15px;
-  margin-right: 15px;
-  content: "";
-  clear: both;
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
+    border-top: 1px solid #b1b4b6;
+    margin-left: 15px;
+    margin-right: 15px;
+    content: '';
+    clear: both;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .govuk-grid-column-two-thirds {
-  width: 66.6666%;
-  float: left;
+    width: 66.6666%;
+    float: left;
 }
 
 .gem-c-metadata {
-  margin-right: -15px;
-  margin-left: -15px;
-  margin-bottom: 40px;
-  line-height: 1.25;
-  font-family: "GDS Transport", arial, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  color: #0b0c0c;
-  -moz-osx-font-smoothing: grayscale;
-  float: left;
-  width: 66.66%;
+    margin-right: -15px;
+    margin-left: -15px;
+    margin-bottom: 40px;
+    line-height: 1.25;
+    font-family: 'GDS Transport', arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #0b0c0c;
+    -moz-osx-font-smoothing: grayscale;
+    float: left;
+    width: 66.66%;
 }
 
 .group-title {
-  margin-top: 50px;
-  margin-bottom: 20px;
-  font-size: 27px;
-  line-height: 1.1111;
-  font-weight: 700;
-  font-family: "GDS Transport", arial, sans-serif;
-  -moz-osx-font-smoothing: grayscale;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-size: 27px;
+    line-height: 1.1111;
+    font-weight: 700;
+    font-family: 'GDS Transport', arial, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .app-c-published-dates {
-  padding-top: 10px;
-  border-top: 1px solid #b1b4b6;
-  direction: ltr;
-  line-height: 1.45em;
-  color: #0b0c0c;
+    padding-top: 10px;
+    border-top: 1px solid #b1b4b6;
+    direction: ltr;
+    line-height: 1.45em;
+    color: #0b0c0c;
 }
 
 .gem-c-related-navigation__sub-heading {
-  font-size: 19px;
-  line-height: 1.3158;
-  font-family: "GDS Transport", arial, sans-serif;
-  border-top: 0;
-  padding-top: 0;
-  margin-top: 15px;
-  margin-bottom: 10px;
-  color: #0b0c0c;
-  font-weight: 700;
+    font-size: 19px;
+    line-height: 1.3158;
+    font-family: 'GDS Transport', arial, sans-serif;
+    border-top: 0;
+    padding-top: 0;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: #0b0c0c;
+    font-weight: 700;
 }
 
 .gem-c-related-navigation__link {
-  line-height: 1.28;
-  font-size: 16px;
-  font-family: "GDS Transport", arial, sans-serif;
-  font-weight: 400;
-  margin-top: 15px;
+    line-height: 1.28;
+    font-size: 16px;
+    font-family: 'GDS Transport', arial, sans-serif;
+    font-weight: 400;
+    margin-top: 15px;
 }
 
 .gem-c-related-navigation {
-  border-top: 2px solid #1d70b8;
-  color: #0b0c0c;
-  font-family: "GDS Transport", arial, sans-serif;
-  text-decoration-skip-ink: none;
+    border-top: 2px solid #1d70b8;
+    color: #0b0c0c;
+    font-family: 'GDS Transport', arial, sans-serif;
+    text-decoration-skip-ink: none;
 }
 
 .gem-c-related-navigation__link-list {
-  font-family: "GDS Transport", arial, sans-serif;
-  color: #003078;
-  margin-bottom: 1.25em;
-  font-weight: bold;
-  font-size: 16px;
-  list-style-type: none;
-  text-decoration: underline;
-  text-underline-offset: 0.1em;
+    font-family: 'GDS Transport', arial, sans-serif;
+    color: #003078;
+    margin-bottom: 1.25em;
+    font-weight: bold;
+    font-size: 16px;
+    list-style-type: none;
+    text-decoration: underline;
+    text-underline-offset: 0.1em;
 }
 
 .gem-c-related-navigation__main-heading {
-  font-size: 19px;
-  font-family: "GDS Transport", arial, sans-serif;
-  line-height: 1.3158;
-  -moz-osx-font-smoothing: grayscale;
-  margin-top: 15px;
-  margin-bottom: 10px;
-  color: #0b0c0c;
+    font-size: 19px;
+    font-family: 'GDS Transport', arial, sans-serif;
+    line-height: 1.3158;
+    -moz-osx-font-smoothing: grayscale;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: #0b0c0c;
 }
 
 .no-wrap {
-  white-space: nowrap;
+    white-space: nowrap;
 }
 
 .bulk-delete-row {
-  padding-top: 8px;
+    padding-top: 8px;
 }
 
 .bulk-delete-checkbox {
-  margin-right: 8px;
+    margin-right: 8px;
 }

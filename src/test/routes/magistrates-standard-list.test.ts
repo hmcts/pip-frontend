@@ -14,14 +14,14 @@ const magsStandardListData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(magsStandardListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(magsStandardListData);
 sinon.stub(MagistratesStandardListService.prototype, 'manipulatedMagsStandardListData').resolves(magsStandardListData);
-sinon.stub(LocationService.prototype, 'getLocationById').resolves({name: 'courtName'});
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
 
 describe('Magistrate Standard List Page', () => {
-  describe('on GET', () => {
-    test('should return magistrate standard list page', async () => {
-      await request(app)
-        .get('/magistrates-standard-list?artefactId=test')
-        .expect((res) => expect(res.status).to.equal(200));
+    describe('on GET', () => {
+        test('should return magistrate standard list page', async () => {
+            await request(app)
+                .get('/magistrates-standard-list?artefactId=test')
+                .expect(res => expect(res.status).to.equal(200));
+        });
     });
-  });
 });

@@ -1,9 +1,9 @@
 {
-  "secrets": {
-    "pip-ss-kv": {
-      "CLIENT_ID": "1234",
-      "CLIENT_SECRET": "12345",
-      "CONFIG_ENDPOINT": "https://localhost"
+    "secrets": {
+        "pip-ss-kv": {
+            "CLIENT_ID": "1234",
+            "CLIENT_SECRET": "12345",
+            "CONFIG_ENDPOINT": "https://localhost"
+        }
     }
-  }
 }

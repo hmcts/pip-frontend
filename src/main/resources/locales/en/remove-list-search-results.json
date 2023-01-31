@@ -1,13 +1,21 @@
 {
-  "title": "Remove List Summary",
-  "error": {
-    "noResults": "There are no matching results",
-    "invalidInput": "Court or tribunal name must be 3 characters or more",
-    "summaryTitleText": "There is a problem"
-  },
-  "header": "Select content to remove",
-  "resultsMessage": "Showing RESULTS_COUNT result(s)",
-  "tableHeaders": ["List type", "Court or Tribunal Name", "Content Date", "Display Dates", "Language", "Sensitivity", "Actions"],
-  "rowAction": "Remove",
-  "languageItems": ["English", "Welsh", "Bilingual"]
+    "title": "Remove List Summary",
+    "error": {
+        "noResults": "There are no matching results",
+        "invalidInput": "Court or tribunal name must be 3 characters or more",
+        "summaryTitleText": "There is a problem"
+    },
+    "header": "Select content to remove",
+    "resultsMessage": "Showing RESULTS_COUNT result(s)",
+    "tableHeaders": [
+        "List type",
+        "Court or Tribunal Name",
+        "Content Date",
+        "Display Dates",
+        "Language",
+        "Sensitivity",
+        "Actions"
+    ],
+    "rowAction": "Remove",
+    "languageItems": ["English", "Welsh", "Bilingual"]
 }

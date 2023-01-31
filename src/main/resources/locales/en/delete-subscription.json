@@ -1,7 +1,7 @@
 {
-  "title": "Unsubscribe from Subscription",
-  "header": "Are you sure you want to remove this subscription?",
-  "radio1": "Yes",
-  "radio2": "No",
-  "backButton": "Back"
+    "title": "Unsubscribe from Subscription",
+    "header": "Are you sure you want to remove this subscription?",
+    "radio1": "Yes",
+    "radio2": "No",
+    "backButton": "Back"
 }

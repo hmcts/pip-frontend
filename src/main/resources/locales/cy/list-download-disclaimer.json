@@ -1,12 +1,12 @@
 {
-  "title": "Telerau ac Amodau",
-  "disclaimerLine1": "Fel un o ddefnyddwyr y gwasanaeth CaTH sydd wedi ei ddilysu rydych wedi eich awdurdodi i lwytho’r ffeil hon sy’n cynnwys data personol gwarchodedig i lawr.",
-  "disclaimerLine2": "Eich cyfrifoldeb chi yw sicrhau eich bod yn cydymffurfio ag unrhyw gyfyngiadau GDPR a/neu gyfyngiadau riportio gyda golwg ar gynnwys y ffeil hon.",
-  "disclaimerAgreement": "Ticiwch y blwch hwn, os gwelwch yn dda i gytuno i’r telerau ac amodau uchod",
-  "error": {
-    "title": "Mae yna broblem",
-    "text": "Rhaid ichi gytuno â’r telerau a’r amodau"
-  },
-  "continueButton": "Parhau",
-  "backButton": "Yn ôl"
+    "title": "Telerau ac Amodau",
+    "disclaimerLine1": "Fel un o ddefnyddwyr y gwasanaeth CaTH sydd wedi ei ddilysu rydych wedi eich awdurdodi i lwytho’r ffeil hon sy’n cynnwys data personol gwarchodedig i lawr.",
+    "disclaimerLine2": "Eich cyfrifoldeb chi yw sicrhau eich bod yn cydymffurfio ag unrhyw gyfyngiadau GDPR a/neu gyfyngiadau riportio gyda golwg ar gynnwys y ffeil hon.",
+    "disclaimerAgreement": "Ticiwch y blwch hwn, os gwelwch yn dda i gytuno i’r telerau ac amodau uchod",
+    "error": {
+        "title": "Mae yna broblem",
+        "text": "Rhaid ichi gytuno â’r telerau a’r amodau"
+    },
+    "continueButton": "Parhau",
+    "backButton": "Yn ôl"
 }

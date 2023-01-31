@@ -1,14 +1,14 @@
 {
-  "title": "Create System Admin Account Summary",
-  "header": "Check account details",
-  "actionName": "Change",
-  "firstNameKey": "First name",
-  "lastNameKey": "Last name",
-  "emailAddressKey": "Email address",
-  "userRoleKey": "User role",
-  "confirmButton": "Confirm",
-  "error": {
-    "title": "There is a problem",
-    "message": "A system error has occurred while submitting the application. Please try again"
-  }
+    "title": "Create System Admin Account Summary",
+    "header": "Check account details",
+    "actionName": "Change",
+    "firstNameKey": "First name",
+    "lastNameKey": "Last name",
+    "emailAddressKey": "Email address",
+    "userRoleKey": "User role",
+    "confirmButton": "Confirm",
+    "error": {
+        "title": "There is a problem",
+        "message": "A system error has occurred while submitting the application. Please try again"
+    }
 }

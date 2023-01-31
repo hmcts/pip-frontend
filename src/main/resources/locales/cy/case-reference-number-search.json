@@ -1,15 +1,15 @@
 {
-  "title": "Tanysgrifo gan ddefnyddio cyfeirnod yr achos neu rif adnabod yr achos ",
-  "header": "Beth yw cyfeirnod yr achos neu rif adnabod yr achos?",
-  "hint": "Rhaid i chi nodi cyfeirnod neu rif adnabod sy’n cyd-fynd yn berffaith ag achos.",
-  "error": {
-    "title": "Mae yna broblem",
-    "header": "Rhowch gyfeirnod achos dilys",
-    "notfound": "Does yna ddim yn cyfateb i'r meini prawf",
-    "line1": "Does yna ddim canlyniadau sy'n cyfateb.",
-    "line2": "Gallwch:",
-    "liText1": "Gwiriwch eich sillafu",
-    "liText2": "Ychwanegu tanysgrifiad yn ôl math gwahanol"
-  },
-  "backButton": "Yn ôl"
+    "title": "Tanysgrifo gan ddefnyddio cyfeirnod yr achos neu rif adnabod yr achos ",
+    "header": "Beth yw cyfeirnod yr achos neu rif adnabod yr achos?",
+    "hint": "Rhaid i chi nodi cyfeirnod neu rif adnabod sy’n cyd-fynd yn berffaith ag achos.",
+    "error": {
+        "title": "Mae yna broblem",
+        "header": "Rhowch gyfeirnod achos dilys",
+        "notfound": "Does yna ddim yn cyfateb i'r meini prawf",
+        "line1": "Does yna ddim canlyniadau sy'n cyfateb.",
+        "line2": "Gallwch:",
+        "liText1": "Gwiriwch eich sillafu",
+        "liText2": "Ychwanegu tanysgrifiad yn ôl math gwahanol"
+    },
+    "backButton": "Yn ôl"
 }

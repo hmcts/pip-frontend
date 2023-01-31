@@ -1,12 +1,12 @@
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../main/service/publicationService';
-import {LocationService} from '../../../main/service/locationService';
-import {ListParseHelperService} from '../../../main/service/listParseHelperService';
-import {Response} from 'express';
-import {mockRequest} from '../mocks/mockRequest';
-import {DateTime} from 'luxon';
+import { PublicationService } from '../../../main/service/publicationService';
+import { LocationService } from '../../../main/service/locationService';
+import { ListParseHelperService } from '../../../main/service/listParseHelperService';
+import { Response } from 'express';
+import { mockRequest } from '../mocks/mockRequest';
+import { DateTime } from 'luxon';
 import CopDailyCauseListController from '../../../main/controllers/CopDailyCauseListController';
 import { CopDailyListService } from '../../../main/service/listManipulation/CopDailyListService';
 
@@ -36,54 +36,59 @@ copDailyCauseListMetaDataStub.withArgs(artefactId).resolves(metaData);
 copDailyCauseListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
-  'cop-daily-cause-list': {},
-  'list-template': {},
+    'cop-daily-cause-list': {},
+    'list-template': {},
 };
 
 describe('Cop Daily Cause List Controller', () => {
-
-  const response = { render: () => {return '';}} as unknown as Response;
-  const request = mockRequest(i18n);
-  request.path = '/cop-daily-cause-list';
-
-  afterEach(() => {
-    sinon.restore();
-  });
-
-  it('should render the cop daily cause list page', async () => {
-    request.query = {artefactId: artefactId};
-    request.user = {userId: '1'};
-
-    const responseMock = sinon.mock(response);
-    const expectedData = {
-      ...i18n['cop-daily-cause-list'],
-      ...i18n['list-template'],
-      listData,
-      contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
-      publishedDate: '13 February 2022',
-      publishedTime: '9:30am',
-      courtName: 'Abergavenny Magistrates\' Court',
-      regionalJoh: 'Test JoH',
-      provenance: 'prov1',
-      bill: false,
-    };
-
-    responseMock.expects('render').once().withArgs('cop-daily-cause-list', expectedData);
-
-    await copDailyCauseListController.get(request, response);
-    return responseMock.verify();
-  });
-
-  it('should render error page if query param is empty', async () => {
+    const response = {
+        render: () => {
+            return '';
+        },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {};
-    request.user = {userId: '123'};
+    request.path = '/cop-daily-cause-list';
 
-    const responseMock = sinon.mock(response);
+    afterEach(() => {
+        sinon.restore();
+    });
 
-    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+    it('should render the cop daily cause list page', async () => {
+        request.query = { artefactId: artefactId };
+        request.user = { userId: '1' };
 
-    await copDailyCauseListController.get(request, response);
-    return responseMock.verify();
-  });
+        const responseMock = sinon.mock(response);
+        const expectedData = {
+            ...i18n['cop-daily-cause-list'],
+            ...i18n['list-template'],
+            listData,
+            contentDate: DateTime.fromISO(metaData['contentDate'], {
+                zone: 'utc',
+            }).toFormat('dd MMMM yyyy'),
+            publishedDate: '13 February 2022',
+            publishedTime: '9:30am',
+            courtName: "Abergavenny Magistrates' Court",
+            regionalJoh: 'Test JoH',
+            provenance: 'prov1',
+            bill: false,
+        };
+
+        responseMock.expects('render').once().withArgs('cop-daily-cause-list', expectedData);
+
+        await copDailyCauseListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render error page if query param is empty', async () => {
+        const request = mockRequest(i18n);
+        request.query = {};
+        request.user = { userId: '123' };
+
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+        await copDailyCauseListController.get(request, response);
+        return responseMock.verify();
+    });
 });
