@@ -6,7 +6,7 @@
 pre-push:
     commands:
         audit:
-            run: yarn audit
+            run: yarn audit | tail
 #     packages-audit:
 #       tags: frontend security
 #       run: yarn audit
