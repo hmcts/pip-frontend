@@ -6,16 +6,19 @@ import { cloneDeep } from 'lodash';
 const subscriptionService = new SubscriptionService();
 
 export default class SubscriptionManagementController {
-  public async get(req: PipRequest, res: Response): Promise<void> {
-    if (req.user) {
-      const subscriptionData = await subscriptionService.getSubscriptionDataForView(req.user['userId'], req.lng as string,
-        Object.keys(req.query)[0]);
-      res.render('subscription-management', {
-        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-management']),
-        ...subscriptionData,
-      });
-    } else {
-      res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+    public async get(req: PipRequest, res: Response): Promise<void> {
+        if (req.user) {
+            const subscriptionData = await subscriptionService.getSubscriptionDataForView(
+                req.user['userId'],
+                req.lng as string,
+                Object.keys(req.query)[0]
+            );
+            res.render('subscription-management', {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-management']),
+                ...subscriptionData,
+            });
+        } else {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        }
     }
-  }
 }

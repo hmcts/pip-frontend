@@ -1,0 +1,16 @@
+{
+    "header": "Are you sure you want to delete this court?",
+    "optionYes": "Yes",
+    "optionNo": "No",
+    "warning": "You are about to delete the following court:",
+    "error": {
+        "title": "There is a problem",
+        "text": "Please select an option"
+    },
+    "summaryListHeaders": {
+        "courtName": "Court or Tribunal name",
+        "locationType": "Location Type",
+        "jurisdiction": "Jurisdiction",
+        "region": "Region"
+    }
+}

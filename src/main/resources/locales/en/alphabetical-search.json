@@ -1,19 +1,19 @@
 {
-  "title": "Find a court or tribunal - alphabetical search",
-  "backToTop": "Back to top",
-  "heading": "Find a court or tribunal",
-  "filter": "Filter",
-  "clearAll": "Clear filters",
-  "selectedFilter": "Selected filter",
-  "hide" : "Hide Filters",
-  "show": "Show Filters",
-  "jurisdiction": "Type of court or tribunal",
-  "region": "Region",
-  "applyFiltersButton": "Apply filters",
-  "aria": {
-    "labelNav": "No courts/tribunals are available for the letter",
-    "labelNavHeader": "Alphabetical links to courts and tribunals",
-    "filterLabel": "Filter by Jurisdiction or region"
-  },
-  "backButton": "Back"
+    "title": "Find a court or tribunal - alphabetical search",
+    "backToTop": "Back to top",
+    "heading": "Find a court or tribunal",
+    "filter": "Filter",
+    "clearAll": "Clear filters",
+    "selectedFilter": "Selected filter",
+    "hide": "Hide Filters",
+    "show": "Show Filters",
+    "jurisdiction": "Type of court or tribunal",
+    "region": "Region",
+    "applyFiltersButton": "Apply filters",
+    "aria": {
+        "labelNav": "No courts/tribunals are available for the letter",
+        "labelNavHeader": "Alphabetical links to courts and tribunals",
+        "filterLabel": "Filter by Jurisdiction or region"
+    },
+    "backButton": "Back"
 }

@@ -1,17 +1,17 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "safari": "12",
-          "ie": "11",
-          "ios": "12.1"
-        },
-        "useBuiltIns": "entry",
-        "corejs": "3.16.2",
-        "modules": "commonjs"
-      }
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "targets": {
+                    "safari": "12",
+                    "ie": "11",
+                    "ios": "12.1"
+                },
+                "useBuiltIns": "entry",
+                "corejs": "3.16.2",
+                "modules": "commonjs"
+            }
+        ]
     ]
-  ]
 }

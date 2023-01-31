@@ -1,14 +1,14 @@
 {
-  "ts-node": {
-    "files": true
-  },
-  "compilerOptions": {
-    "target": "es2018",
-    "lib": ["es2018", "DOM"],
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "module": "commonjs",
-    "strictNullChecks": true,
-    "types": ["codeceptjs", "jest"]
-  }
+    "ts-node": {
+        "files": true
+    },
+    "compilerOptions": {
+        "target": "es2018",
+        "lib": ["es2018", "DOM"],
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "module": "commonjs",
+        "strictNullChecks": true,
+        "types": ["codeceptjs", "jest"]
+    }
 }

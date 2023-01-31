@@ -1,0 +1,11 @@
+{
+    "title": "Delete Court Reference data",
+    "error": {
+        "noResults": "There are no matching results",
+        "invalidInput": "Court or tribunal name must be 3 characters or more",
+        "summaryTitleText": "There is a problem"
+    },
+    "header": "Find the court to remove",
+    "inputMessage": "Search by court or tribunal name",
+    "inputHint": "For example, Blackburn Crown Court"
+}

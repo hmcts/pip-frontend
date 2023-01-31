@@ -15,13 +15,12 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').res
 sinon.stub(TribunalNationalListsService.prototype, 'manipulateData').resolves(careStandardsListData);
 
 describe('Care Standards List List Page', () => {
-  describe('on GET', () => {
-    test('should return care standards list page', async () => {
-      app.request['user'] = {userId: '2'};
-      await request(app)
-        .get('/care-standards-list?artefactId=test')
-        .expect((res) => expect(res.status).to.equal(200));
+    describe('on GET', () => {
+        test('should return care standards list page', async () => {
+            app.request['user'] = { userId: '2' };
+            await request(app)
+                .get('/care-standards-list?artefactId=test')
+                .expect(res => expect(res.status).to.equal(200));
+        });
     });
-  });
 });
-

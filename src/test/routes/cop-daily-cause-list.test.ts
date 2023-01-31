@@ -15,13 +15,12 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').res
 sinon.stub(CopDailyListService.prototype, 'manipulateCopDailyCauseList').resolves(copData);
 
 describe('Cop Daily Cause List Page', () => {
-  describe('on GET', () => {
-    test('should return cop daily cause list page', async () => {
-      app.request['user'] = {userId: '2'};
-      await request(app)
-        .get('/cop-daily-cause-list?artefactId=test')
-        .expect((res) => expect(res.status).to.equal(200));
+    describe('on GET', () => {
+        test('should return cop daily cause list page', async () => {
+            app.request['user'] = { userId: '2' };
+            await request(app)
+                .get('/cop-daily-cause-list?artefactId=test')
+                .expect(res => expect(res.status).to.equal(200));
+        });
     });
-  });
 });
-

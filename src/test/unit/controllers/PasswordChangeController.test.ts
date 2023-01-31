@@ -6,44 +6,48 @@ import PasswordChangeController from '../../../main/controllers/PasswordChangeCo
 const passwordChangeController = new PasswordChangeController();
 
 describe('Password Change Confirmation controller', () => {
-  const response = { render: () => {return '';}} as unknown as Response;
-  const request = mockRequest({'password-change-confirmation': {}});
+    const response = {
+        render: () => {
+            return '';
+        },
+    } as unknown as Response;
+    const request = mockRequest({ 'password-change-confirmation': {} });
 
-  it('should render password-change-confirmation for an admin', async () => {
-    request.params['isAdmin'] = 'true';
-    const responseMock = sinon.mock(response);
+    it('should render password-change-confirmation for an admin', async () => {
+        request.params['isAdmin'] = 'true';
+        const responseMock = sinon.mock(response);
 
-    const i18n = {
-      'password-change-confirmation': {},
-    };
+        const i18n = {
+            'password-change-confirmation': {},
+        };
 
-    const expectedData = {
-      ...i18n['password-change-confirmation'],
-      isAdmin: true,
-    };
+        const expectedData = {
+            ...i18n['password-change-confirmation'],
+            isAdmin: true,
+        };
 
-    responseMock.expects('render').once().withArgs('password-change-confirmation', expectedData);
+        responseMock.expects('render').once().withArgs('password-change-confirmation', expectedData);
 
-    await passwordChangeController.post(request, response);
-    await responseMock.verify();
-  });
+        await passwordChangeController.post(request, response);
+        await responseMock.verify();
+    });
 
-  it('should render password-change-confirmation for a media user', async () => {
-    request.params['isAdmin'] = 'false';
-    const responseMock = sinon.mock(response);
+    it('should render password-change-confirmation for a media user', async () => {
+        request.params['isAdmin'] = 'false';
+        const responseMock = sinon.mock(response);
 
-    const i18n = {
-      'password-change-confirmation': {},
-    };
+        const i18n = {
+            'password-change-confirmation': {},
+        };
 
-    const expectedData = {
-      ...i18n['password-change-confirmation'],
-      isAdmin: false,
-    };
+        const expectedData = {
+            ...i18n['password-change-confirmation'],
+            isAdmin: false,
+        };
 
-    responseMock.expects('render').once().withArgs('password-change-confirmation', expectedData);
+        responseMock.expects('render').once().withArgs('password-change-confirmation', expectedData);
 
-    await passwordChangeController.post(request, response);
-    await responseMock.verify();
-  });
+        await passwordChangeController.post(request, response);
+        await responseMock.verify();
+    });
 });

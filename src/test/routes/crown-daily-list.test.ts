@@ -17,15 +17,15 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').res
 sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilFamilyMixedListData').resolves(crownDailyData);
 sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').resolves(crownDailyData);
 sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').resolves(crownDailyData);
-sinon.stub(LocationService.prototype, 'getLocationById').resolves({name: 'courtName'});
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
 
 describe('Crown Daily List Page', () => {
-  describe('on GET', () => {
-    test('should return crown daily list page', async () => {
-      app.request['user'] = {userId: '2'};
-      await request(app)
-        .get('/crown-daily-list?artefactId=test')
-        .expect((res) => expect(res.status).to.equal(200));
+    describe('on GET', () => {
+        test('should return crown daily list page', async () => {
+            app.request['user'] = { userId: '2' };
+            await request(app)
+                .get('/crown-daily-list?artefactId=test')
+                .expect(res => expect(res.status).to.equal(200));
+        });
     });
-  });
 });

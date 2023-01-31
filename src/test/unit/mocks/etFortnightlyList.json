@@ -1,129 +1,119 @@
 [
-  {
-    "courtName": "Leicester Crown Court",
-    "days": [
-      [
-        {
-          "courtName": "Leicester Crown Court",
-          "sittingDate": "13 February 2022",
-          "sittingTime": "9:30am",
-          "addressLine": [
-            "5-7 Hill Street"
-          ],
-          "addressTown": "Leicester",
-          "addressCounty": "",
-          "addressPostCode": "L5 4UU",
-          "courtRoom": "Court 1",
-          "durationAsHours": 2,
-          "durationAsMinutes": 0,
-          "caseNumber": "12341234",
-          "caseSeparator": "[2 of 3]",
-          "claimant": "HRH G. Anderson",
-          "claimantRep": "Mr R. Hargreaves",
-          "respondent": "Capt. S. Jenkins, LEGALADVISOR: Dr M. Naylor",
-          "hearingType": "This is a hearing type",
-          "jurisdiction": "This is a case type",
-          "hearingPlatform": "This is a sitting channel"
-        }
-      ]
-    ]
-  },
-  {
-    "courtName": "Nottingham Justice Centre",
-    "days": [
-      [
-        {
-          "courtName": "Nottingham Justice Centre",
-          "sittingDate": "14 February 2022",
-          "sittingTime": "9:30am",
-          "addressLine": [
-            "1 Crown Road"
-          ],
-          "addressTown": "Nottingham",
-          "addressCounty": "",
-          "addressPostCode": "NG1 2FP",
-          "courtRoom": "Dynatrace Suite 2",
-          "durationAsHours": 0,
-          "durationAsMinutes": 3,
-          "caseNumber": "12341234",
-          "claimant": "Ms S. Ferguson",
-          "claimantRep": "Sir R. Savage",
-          "respondent": "Lord P. Sauvage, LEGALADVISOR: Dame H. Wiggins",
-          "hearingType": "Hearing Type 1",
-          "jurisdiction": "This is a case type",
-          "hearingPlatform": ""
-        }
-      ],
-      [
-        {
-          "courtName": "Nottingham Justice Centre",
-          "sittingDate": "13 February 2022",
-          "sittingTime": "3:30pm",
-          "addressLine": [
-            "1 Crown Road"
-          ],
-          "addressTown": "Nottingham",
-          "addressCounty": "",
-          "addressPostCode": "NG1 2FP",
-          "courtRoom": "Dynatrace Suite 2",
-          "durationAsHours": 1,
-          "durationAsMinutes": 25,
-          "caseNumber": "12341234",
-          "caseSeparator": "[2 of 3]",
-          "claimant": "Ms T. Telford",
-          "claimantRep": "Sir H. Lawrence",
-          "respondent": "Lord H. Bouffant, LEGALADVISOR: Dame H. Wiggins",
-          "hearingType": "Hearing Type 1",
-          "jurisdiction": "This is a case type",
-          "hearingPlatform": ""
-        }
-      ],
-      [
-        {
-          "courtName": "Nottingham Justice Centre",
-          "sittingDate": "15 February 2022",
-          "sittingTime": "9:30am",
-          "addressLine": [
-            "1 Crown Road"
-          ],
-          "addressTown": "Nottingham",
-          "addressCounty": "",
-          "addressPostCode": "NG1 2FP",
-          "courtRoom": "Jenkins Room 3",
-          "durationAsHours": 0,
-          "durationAsMinutes": 3,
-          "caseNumber": "12341234",
-          "caseSeparator": "[2 of 3]",
-          "claimant": "Ms S. Ferguson",
-          "claimantRep": "Sir R. Savage",
-          "respondent": "Lord P. Sauvage, LEGALADVISOR: Dame H. Wiggins",
-          "hearingType": "Hearing Type 1",
-          "jurisdiction": "This is a case type",
-          "hearingPlatform": ""
-        },
-        {
-          "courtName": "Nottingham Justice Centre",
-          "sittingDate": "15 February 2022",
-          "sittingTime": "3:30pm",
-          "addressLine": [
-            "1 Crown Road"
-          ],
-          "addressTown": "Nottingham",
-          "addressCounty": "",
-          "addressPostCode": "NG1 2FP",
-          "courtRoom": "Jenkins Room 3",
-          "durationAsHours": 1,
-          "durationAsMinutes": 25,
-          "caseNumber": "12341234",
-          "caseSeparator": "[2 of 3]",
-          "claimant": "Ms T. Telford",
-          "claimantRep": "Sir H. Lawrence",
-          "respondent": "Lord H. Bouffant, LEGALADVISOR: Dame H. Wiggins",
-          "hearingType": "Hearing Type 2",
-          "jurisdiction": "This is a case type",
-          "hearingPlatform": ""
-        }
-      ]
-    ]
-  }
+    {
+        "courtName": "Leicester Crown Court",
+        "days": [
+            [
+                {
+                    "courtName": "Leicester Crown Court",
+                    "sittingDate": "13 February 2022",
+                    "sittingTime": "9:30am",
+                    "addressLine": ["5-7 Hill Street"],
+                    "addressTown": "Leicester",
+                    "addressCounty": "",
+                    "addressPostCode": "L5 4UU",
+                    "courtRoom": "Court 1",
+                    "durationAsHours": 2,
+                    "durationAsMinutes": 0,
+                    "caseNumber": "12341234",
+                    "caseSeparator": "[2 of 3]",
+                    "claimant": "HRH G. Anderson",
+                    "claimantRep": "Mr R. Hargreaves",
+                    "respondent": "Capt. S. Jenkins, LEGALADVISOR: Dr M. Naylor",
+                    "hearingType": "This is a hearing type",
+                    "jurisdiction": "This is a case type",
+                    "hearingPlatform": "This is a sitting channel"
+                }
+            ]
+        ]
+    },
+    {
+        "courtName": "Nottingham Justice Centre",
+        "days": [
+            [
+                {
+                    "courtName": "Nottingham Justice Centre",
+                    "sittingDate": "14 February 2022",
+                    "sittingTime": "9:30am",
+                    "addressLine": ["1 Crown Road"],
+                    "addressTown": "Nottingham",
+                    "addressCounty": "",
+                    "addressPostCode": "NG1 2FP",
+                    "courtRoom": "Dynatrace Suite 2",
+                    "durationAsHours": 0,
+                    "durationAsMinutes": 3,
+                    "caseNumber": "12341234",
+                    "claimant": "Ms S. Ferguson",
+                    "claimantRep": "Sir R. Savage",
+                    "respondent": "Lord P. Sauvage, LEGALADVISOR: Dame H. Wiggins",
+                    "hearingType": "Hearing Type 1",
+                    "jurisdiction": "This is a case type",
+                    "hearingPlatform": ""
+                }
+            ],
+            [
+                {
+                    "courtName": "Nottingham Justice Centre",
+                    "sittingDate": "13 February 2022",
+                    "sittingTime": "3:30pm",
+                    "addressLine": ["1 Crown Road"],
+                    "addressTown": "Nottingham",
+                    "addressCounty": "",
+                    "addressPostCode": "NG1 2FP",
+                    "courtRoom": "Dynatrace Suite 2",
+                    "durationAsHours": 1,
+                    "durationAsMinutes": 25,
+                    "caseNumber": "12341234",
+                    "caseSeparator": "[2 of 3]",
+                    "claimant": "Ms T. Telford",
+                    "claimantRep": "Sir H. Lawrence",
+                    "respondent": "Lord H. Bouffant, LEGALADVISOR: Dame H. Wiggins",
+                    "hearingType": "Hearing Type 1",
+                    "jurisdiction": "This is a case type",
+                    "hearingPlatform": ""
+                }
+            ],
+            [
+                {
+                    "courtName": "Nottingham Justice Centre",
+                    "sittingDate": "15 February 2022",
+                    "sittingTime": "9:30am",
+                    "addressLine": ["1 Crown Road"],
+                    "addressTown": "Nottingham",
+                    "addressCounty": "",
+                    "addressPostCode": "NG1 2FP",
+                    "courtRoom": "Jenkins Room 3",
+                    "durationAsHours": 0,
+                    "durationAsMinutes": 3,
+                    "caseNumber": "12341234",
+                    "caseSeparator": "[2 of 3]",
+                    "claimant": "Ms S. Ferguson",
+                    "claimantRep": "Sir R. Savage",
+                    "respondent": "Lord P. Sauvage, LEGALADVISOR: Dame H. Wiggins",
+                    "hearingType": "Hearing Type 1",
+                    "jurisdiction": "This is a case type",
+                    "hearingPlatform": ""
+                },
+                {
+                    "courtName": "Nottingham Justice Centre",
+                    "sittingDate": "15 February 2022",
+                    "sittingTime": "3:30pm",
+                    "addressLine": ["1 Crown Road"],
+                    "addressTown": "Nottingham",
+                    "addressCounty": "",
+                    "addressPostCode": "NG1 2FP",
+                    "courtRoom": "Jenkins Room 3",
+                    "durationAsHours": 1,
+                    "durationAsMinutes": 25,
+                    "caseNumber": "12341234",
+                    "caseSeparator": "[2 of 3]",
+                    "claimant": "Ms T. Telford",
+                    "claimantRep": "Sir H. Lawrence",
+                    "respondent": "Lord H. Bouffant, LEGALADVISOR: Dame H. Wiggins",
+                    "hearingType": "Hearing Type 2",
+                    "jurisdiction": "This is a case type",
+                    "hearingPlatform": ""
+                }
+            ]
+        ]
+    }
 ]

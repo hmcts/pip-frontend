@@ -1,13 +1,13 @@
 {
-  "title": "What do you want to do?",
-  "radioLegend": "What do you want to do?",
-  "radio1": "Find a court or tribunal",
-  "radio2": "Find a Single Justice Procedure case",
-  "radio1Hint": "View time, location, type of hearings and more",
-  "radio2Hint": "TV licensing, minor traffic offences such as speeding and more",
-  "error": {
-    "title": "There is a problem",
-    "text": "An option must be selected"
-  },
-  "backButton": "Back"
+    "title": "What do you want to do?",
+    "radioLegend": "What do you want to do?",
+    "radio1": "Find a court or tribunal",
+    "radio2": "Find a Single Justice Procedure case",
+    "radio1Hint": "View time, location, type of hearings and more",
+    "radio2Hint": "TV licensing, minor traffic offences such as speeding and more",
+    "error": {
+        "title": "There is a problem",
+        "text": "An option must be selected"
+    },
+    "backButton": "Back"
 }
