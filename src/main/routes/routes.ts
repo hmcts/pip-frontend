@@ -106,6 +106,7 @@ export default function(app: Application): void {
   app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
   app.get('/sscs-daily-list', app.locals.container.cradle.sscsDailyListController.get);
+  app.get('/sscs-daily-list-additional-hearings', app.locals.container.cradle.sscsDailyListController.get);
   app.get('/cop-daily-cause-list', app.locals.container.cradle.copDailyCauseListController.get);
   app.get('/et-daily-list', app.locals.container.cradle.etDailyListController.get);
   app.get('/et-fortnightly-list', app.locals.container.cradle.etFortnightlyListController.get);
@@ -213,6 +214,12 @@ export default function(app: Application): void {
   app.post('/manage-third-party-users/subscriptions', isPermittedSystemAdmin, app.locals.container.cradle.manageThirdPartyUsersSubscriptionsController.post);
   app.get('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.get);
   app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
+
+  app.get('/delete-court-reference-data', isPermittedSystemAdmin, app.locals.container.cradle.removeListSearchController.get);
+  app.post('/delete-court-reference-data', isPermittedSystemAdmin, app.locals.container.cradle.removeListSearchController.post);
+  app.get('/delete-court-reference-data-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get);
+  app.post('/delete-court-reference-data-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.post);
+  app.get('/delete-court-reference-data-success', isPermittedSystemAdmin, app.locals.container.cradle.deleteCourtReferenceDataSuccessController.get);
 
   //CFT Routes
   if (process.env.ENABLE_CFT === 'true') {

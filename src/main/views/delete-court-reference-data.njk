@@ -1,0 +1,76 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+
+{% block content %}
+  {% if noResultsError or invalidInputError %}
+    {% set errorMessage = error.noResults if noResultsError else error.invalidInput %}
+    <div class="govuk-grid-row">
+      <div class="no_padding govuk-grid-column-three-quarters">
+        {{ govukErrorSummary({
+          titleText: error.summaryTitleText,
+          errorList: [
+            {
+              text: errorMessage,
+              href: "#search-input"
+            }
+          ]
+        }) }}
+      </div>
+    </div>
+  {% endif %}
+  {% set inputClasses = 'govuk-!-width-two-thirds govuk-input--error'
+    if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
+  {% set formGroupError = 'govuk-form-group--error'
+    if noResultsError or invalidInputError else 'govuk-form-group' %}
+  <form action="delete-court-reference-data" method="post">
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <div class="govuk-form-group govuk-!-width-one-half">
+      <h2 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--m" for="search-input">
+          {{ inputMessage }}
+        </label>
+      </h2>
+      <div class="{{ formGroupError }}">
+        <div id="search-input-hint" class="govuk-hint">
+          {{ inputHint }}
+        </div>
+        <div class="{{ inputClasses }} search-input-name" id="search-input-container"></div>
+      </div>
+    </div>
+    {{ submitButton(continueButton) }}
+  </form>
+{% endblock %}
+{% block bodyEnd %}
+  {% set optionList = [] %}
+  {% for item in autocompleteList %}
+    {% set _ = optionList.push(
+      item.name
+    ) %}
+  {% endfor %}
+
+  <script src="/assets/js/accessible-autocomplete.min.js"></script>
+  <script>
+    const element = document.querySelector('#search-input-container');
+    const source = {{ optionList | dump |safe }}
+      accessibleAutocomplete({
+        element: element,
+        id: 'search-input',
+        source: source,
+        displayMenu: 'overlay'
+      });
+    if (window.history.replaceState) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  {{ super() }}
+{% endblock %}

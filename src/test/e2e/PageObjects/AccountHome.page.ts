@@ -3,7 +3,6 @@ import { SubscriptionManagementPage } from './SubscriptionManagement.page';
 import { SearchPage } from './Search.page';
 import { SummaryOfPublicationsPage } from './SummaryOfPublications.page';
 import {SessionLoggedOutPage} from './SessionLoggedOut.page';
-import {ViewOptionPage} from './ViewOption.page';
 
 const helpers = require('../Helpers/Selectors');
 

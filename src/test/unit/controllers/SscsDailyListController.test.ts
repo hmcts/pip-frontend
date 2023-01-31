@@ -12,11 +12,26 @@ import { SscsDailyListService } from '../../../main/service/listManipulation/Ssc
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sscsDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
-const metaData = JSON.parse(rawMetaData)[0];
-
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
+
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+
+const metaDataSscs = JSON.parse(rawMetaData)[0];
+metaDataSscs.listType = 'SSCS_DAILY_LIST';
+
+const metaDataSscsAdditionalHearings = JSON.parse(rawMetaData)[0];
+metaDataSscsAdditionalHearings.listType = 'SSCS_DAILY_LIST_ADDITIONAL_HEARINGS';
+
+const contentDate = metaDataSscs['contentDate'];
+const userId = '1';
+const sscDailyListUrl = '/sscs-daily-list';
+const sscDailyListAdditionalHearingsUrl = '/sscs-daily-list-additional-hearings';
+
+const artefactIdMap = new Map<string, string>([
+  [sscDailyListUrl, 'abc'],
+  [sscDailyListAdditionalHearingsUrl, 'def'],
+]);
 
 const sscsDailyListController = new SscsDailyListController();
 
@@ -25,39 +40,35 @@ const sscsDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getI
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 sinon.stub(SscsDailyListService.prototype, 'manipulateSscsDailyListData').returns(listData);
 
-const artefactId = 'abc';
+sscsDailyListJsonStub.withArgs(artefactIdMap.get(sscDailyListUrl), userId).resolves(listData);
+sscsDailyListJsonStub.withArgs(artefactIdMap.get(sscDailyListAdditionalHearingsUrl), userId).resolves(listData);
+sscsDailyListJsonStub.withArgs('', userId).resolves([]);
 
-sscsDailyListJsonStub.withArgs(artefactId).resolves(listData);
-sscsDailyListJsonStub.withArgs('').resolves([]);
-
-sscsDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
-sscsDailyListMetaDataStub.withArgs('').resolves([]);
+sscsDailyListMetaDataStub.withArgs(artefactIdMap.get(sscDailyListUrl), userId).resolves(metaDataSscs);
+sscsDailyListMetaDataStub.withArgs(artefactIdMap.get(sscDailyListAdditionalHearingsUrl), userId).resolves(metaDataSscsAdditionalHearings);
+sscsDailyListMetaDataStub.withArgs('', userId).resolves([]);
 
 const i18n = {
-  'sscs-daily-list': {},
+  'sscs-daily-list': {'warning': 'warning1'},
+  'sscs-daily-list-additional-hearings': {'warning': 'warning2'},
   'list-template': {},
 };
 
-describe('Sscs Daily List Controller', () => {
+const response = { render: () => {return '';}} as unknown as Response;
+const request = mockRequest(i18n);
 
-  const response = { render: () => {return '';}} as unknown as Response;
-  const request = mockRequest(i18n);
-  request.path = '/sscs-daily-list';
-
-  afterEach(() => {
-    sinon.restore();
-  });
-
+describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])('Sscs Daily List Controller with path \'%s\'', url => {
   it('should render the sscs daily list page', async () => {
-    request.query = {artefactId: artefactId};
-    request.user = {userId: '1'};
+    request.path = url;
+    request.query = {artefactId: artefactIdMap.get(url)};
+    request.user = {userId: userId};
 
     const responseMock = sinon.mock(response);
     const expectedData = {
-      ...i18n['sscs-daily-list'],
+      ...i18n[url.substring(1)],
       ...i18n['list-template'],
       listData,
-      contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
+      contentDate: DateTime.fromISO(contentDate, {zone: 'utc'}).toFormat('dd MMMM yyyy'),
       publishedDate: '14 September 2020',
       courtName: 'Abergavenny Magistrates\' Court',
       publishedTime: '12:30am',
@@ -72,9 +83,9 @@ describe('Sscs Daily List Controller', () => {
   });
 
   it('should render error page if query param is empty', async () => {
-    const request = mockRequest(i18n);
+    request.path = url;
     request.query = {};
-    request.user = {userId: '123'};
+    request.user = {userId: userId};
 
     const responseMock = sinon.mock(response);
 
