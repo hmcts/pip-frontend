@@ -28,7 +28,6 @@
     "cichecks": "yarn && yarn build && yarn lint && yarn test && yarn test:routes &&  yarn test:a11y"
   },
   "dependencies": {
-    "@evilmartians/lefthook": "^1.2.8",
     "@hmcts/cookie-manager": "^1.0.0",
     "@hmcts/info-provider": "^1.0.0",
     "@hmcts/nodejs-healthcheck": "^1.8.0",
@@ -98,6 +97,7 @@
     "typescript": "^4.9.3"
   },
   "devDependencies": {
+    "@evilmartians/lefthook": "^1.2.8",
     "@babel/core": "^7.20.5",
     "@babel/eslint-parser": "7.19.1",
     "@babel/preset-env": "^7.20.2",
