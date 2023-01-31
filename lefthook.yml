@@ -3,8 +3,10 @@
 #   Refer for explanation to following link:
 #   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
 #
-# pre-push:
-#   commands:
+ pre-push:
+   commands:
+     audit:
+       run: yarn audit --groups dependencies --json | grep auditAdvisory > yarn-audit-known-issues
 #     packages-audit:
 #       tags: frontend security
 #       run: yarn audit
@@ -17,10 +19,13 @@
    commands:
      eslint:
        glob: "*.{js,ts,jsx,tsx}"
-       run: yarn eslint {staged_files}
+       run: yarn eslint --fix {staged_files}
      prettier:
-       run: yarn prettier {staged_files}
+       run: yarn prettier --write {staged_files}
+     stylelint:
+       run: yarn stylelint **/*.scss
+
    scripts:
-     "hello.py":
-       runner: python3
+#     "hello.py":
+#       runner: python3
 
