@@ -2,11 +2,11 @@ import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
 import IacDailyListController from '../../../main/controllers/IacDailyListController';
-import {PublicationService} from '../../../main/service/publicationService';
-import {IacDailyListService} from '../../../main/service/listManipulation/IacDailyListService';
-import {Response} from 'express';
-import {mockRequest} from '../mocks/mockRequest';
-import {DateTime} from 'luxon';
+import { PublicationService } from '../../../main/service/publicationService';
+import { IacDailyListService } from '../../../main/service/listManipulation/IacDailyListService';
+import { Response } from 'express';
+import { mockRequest } from '../mocks/mockRequest';
+import { DateTime } from 'luxon';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/iacDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -29,52 +29,57 @@ iacDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 iacDailyListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
-  'iac-daily-list': {},
-  'list-template': {},
+    'iac-daily-list': {},
+    'list-template': {},
 };
 
 describe('IAC Daily List Controller', () => {
-
-  const response = { render: () => {return '';}} as unknown as Response;
-  const request = mockRequest(i18n);
-  request.path = '/iac-daily-list';
-
-  afterEach(() => {
-    sinon.restore();
-  });
-
-  it('should render the IAC daily list page', async () => {
-    request.query = {artefactId: artefactId};
-    request.user = {userId: '1'};
-
-    const responseMock = sinon.mock(response);
-    const expectedData = {
-      ...i18n['iac-daily-list'],
-      ...i18n['list-template'],
-      listData,
-      contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
-      publishedDate: '31 August 2022',
-      publishedTime: '11am',
-      provenance: 'prov1',
-      bill: false,
-    };
-
-    responseMock.expects('render').once().withArgs('iac-daily-list', expectedData);
-
-    await iacDailyListController.get(request, response);
-    return responseMock.verify();
-  });
-
-  it('should render error page if query param is empty', async () => {
+    const response = {
+        render: () => {
+            return '';
+        },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {};
-    request.user = {userId: '123'};
+    request.path = '/iac-daily-list';
 
-    const responseMock = sinon.mock(response);
+    afterEach(() => {
+        sinon.restore();
+    });
 
-    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+    it('should render the IAC daily list page', async () => {
+        request.query = { artefactId: artefactId };
+        request.user = { userId: '1' };
 
-    await iacDailyListController.get(request, response);
-    return responseMock.verify();
-  });
+        const responseMock = sinon.mock(response);
+        const expectedData = {
+            ...i18n['iac-daily-list'],
+            ...i18n['list-template'],
+            listData,
+            contentDate: DateTime.fromISO(metaData['contentDate'], {
+                zone: 'utc',
+            }).toFormat('dd MMMM yyyy'),
+            publishedDate: '31 August 2022',
+            publishedTime: '11am',
+            provenance: 'prov1',
+            bill: false,
+        };
+
+        responseMock.expects('render').once().withArgs('iac-daily-list', expectedData);
+
+        await iacDailyListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render error page if query param is empty', async () => {
+        const request = mockRequest(i18n);
+        request.query = {};
+        request.user = { userId: '123' };
+
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+        await iacDailyListController.get(request, response);
+        return responseMock.verify();
+    });
 });

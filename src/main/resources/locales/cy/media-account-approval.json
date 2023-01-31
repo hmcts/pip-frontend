@@ -1,17 +1,17 @@
 {
-  "title": "Are you sure you want to approve this application?",
-  "tableCaption": "Applicant's Details",
-  "name": "Name",
-  "email": "Email",
-  "employer": "Employer",
-  "dateApplied": "Date applied",
-  "proofOfId": "Proof of ID",
-  "opensInWindowText": "opens in a new window",
-  "viewText": "View",
-  "radioAnswers": ["Yes", "No"],
-  "error": {
-    "title": "There is a problem",
-    "azureMessage": "There has been a problem creating the users account. Please try again, or if the problem persists contact [DTS service desk email].",
-    "radioMessage": "An option must be selected"
-  }
+    "title": "Are you sure you want to approve this application?",
+    "tableCaption": "Applicant's Details",
+    "name": "Name",
+    "email": "Email",
+    "employer": "Employer",
+    "dateApplied": "Date applied",
+    "proofOfId": "Proof of ID",
+    "opensInWindowText": "opens in a new window",
+    "viewText": "View",
+    "radioAnswers": ["Yes", "No"],
+    "error": {
+        "title": "There is a problem",
+        "azureMessage": "There has been a problem creating the users account. Please try again, or if the problem persists contact [DTS service desk email].",
+        "radioMessage": "An option must be selected"
+    }
 }

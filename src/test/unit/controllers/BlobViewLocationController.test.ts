@@ -1,71 +1,75 @@
-import {Response} from 'express';
-import {mockRequest} from '../mocks/mockRequest';
+import { Response } from 'express';
+import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
-import {LocationService} from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/locationService';
 import BlobViewLocationController from '../../../main/controllers/BlobViewLocationController';
-import {PublicationService} from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/publicationService';
 
 const blobViewController = new BlobViewLocationController();
 const i18n = {
-  'blob-view-controller': {},
+    'blob-view-controller': {},
 };
 
-const map = new Map<number, number>([[9, 1], [1, 1]]);
+const map = new Map<number, number>([
+    [9, 1],
+    [1, 1],
+]);
 const locStub = sinon.stub(LocationService.prototype, 'fetchAllLocations');
 const countStub = sinon.stub(PublicationService.prototype, 'getCountsOfPubsPerLocation');
 
 describe('Get publications', () => {
+    it('should render the blob locations listing page', async () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
 
-  it('should render the blob locations listing page', async () => {
+        countStub.resolves(map);
+        locStub.withArgs('en').resolves(JSON.parse('[{"name":"Single Justice Procedure", "locationId":9}]'));
+        const request = mockRequest(i18n);
+        request.query = { locationId: '1' };
+        request.user = { id: 1 };
 
-    const response = {
-      render: () => {
-        return '';
-      },
-    } as unknown as Response;
+        const responseMock = sinon.mock(response);
+        const expectedDictionary = new Map();
+        expectedDictionary.set('Single Justice Procedure', [9, 1]);
+        const expectedData = {
+            ...i18n['blob-view-locations'],
+            dictionaryOfLocations: expectedDictionary,
+        };
 
-    countStub.resolves(map);
-    locStub.withArgs('en').resolves(JSON.parse('[{"name":"Single Justice Procedure", "locationId":9}]'));
-    const request = mockRequest(i18n);
-    request.query = {locationId: '1'};
-    request.user = {id: 1};
+        responseMock.expects('render').once().withArgs('blob-view-locations', expectedData);
 
-    const responseMock = sinon.mock(response);
-    const expectedDictionary = new Map();
-    expectedDictionary.set('Single Justice Procedure', [9,1]);
-    const expectedData = {
-      ...i18n['blob-view-locations'],
-      dictionaryOfLocations: expectedDictionary,
-    };
+        await blobViewController.get(request, response);
+        responseMock.verify();
+    });
 
-    responseMock.expects('render').once().withArgs('blob-view-locations', expectedData);
+    it('should render the error screen if the count endpoint fails', async () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.user = { id: 1 };
+        locStub.withArgs('en').resolves(JSON.parse('[{"name":"Single Justice Procedure", "locationId":9}]'));
+        const responseMock = sinon.mock(response);
+        responseMock.expects('render').once().withArgs('error');
+        responseMock.verify;
+    });
 
-    await blobViewController.get(request, response);
-    responseMock.verify();
-  });
-
-  it('should render the error screen if the count endpoint fails', async () => {
-    const response = {
-      render: () => {
-        return '';
-      },
-    } as unknown as Response;
-    const request = mockRequest(i18n);
-    request.user = {id: 1};
-    locStub.withArgs('en').resolves(JSON.parse('[{"name":"Single Justice Procedure", "locationId":9}]'));
-    const responseMock = sinon.mock(response);
-    responseMock.expects('render').once().withArgs('error');
-    responseMock.verify;
-  });
-
-  it('should render the error screen if the fetchAllLocations endpoint fails', async () => {
-    const response = {render: () => {return '';},
-    } as unknown as Response;
-    countStub.resolves(map);
-    const request = mockRequest(i18n);
-    request.user = {id: 1};
-    const responseMock = sinon.mock(response);
-    responseMock.expects('render').once().withArgs('error');
-    responseMock.verify;
-  });
+    it('should render the error screen if the fetchAllLocations endpoint fails', async () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        countStub.resolves(map);
+        const request = mockRequest(i18n);
+        request.user = { id: 1 };
+        const responseMock = sinon.mock(response);
+        responseMock.expects('render').once().withArgs('error');
+        responseMock.verify;
+    });
 });

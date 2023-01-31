@@ -15,49 +15,50 @@ const sscsUrl = 'sscs-daily-list';
 const sscsAdditonalHearingsUrl = 'sscs-daily-list-additional-hearings';
 
 export default class SscsDailyListController {
+    public async get(req: PipRequest, res: Response): Promise<void> {
+        const artefactId = req.query.artefactId as string;
+        const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
+        const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-  public async get(req: PipRequest, res: Response): Promise<void> {
-    const artefactId = req.query.artefactId as string;
-    const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
-    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
+        if (searchResults && metaData) {
+            const manipulatedData = sscsListService.manipulateSscsDailyListData(JSON.stringify(searchResults));
 
-    if (searchResults && metaData) {
+            const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
+            const publishedDate = helperService.publicationDateInUkTime(
+                searchResults['document']['publicationDate'],
+                req.lng
+            );
 
-      const manipulatedData = sscsListService.manipulateSscsDailyListData(JSON.stringify(searchResults));
+            const returnedCourt = await courtService.getLocationById(metaData['locationId']);
+            const courtName = courtService.findCourtName(returnedCourt, req.lng as string, 'sscs-daily-list');
+            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
+            const url = publicationService.getListTypes().get(metaData.listType).url;
 
-      const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate'], req.lng);
+            let languageResource = {
+                ...req.i18n.getDataByLanguage(pageLanguage)[sscsUrl],
+                ...req.i18n.getDataByLanguage(pageLanguage)['list-template'],
+            };
 
-      const returnedCourt = await courtService.getLocationById(metaData['locationId']);
-      const courtName = courtService.findCourtName(returnedCourt, req.lng as string, 'sscs-daily-list');
-      const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-      const url = publicationService.getListTypes().get(metaData.listType).url;
+            if (url === sscsAdditonalHearingsUrl) {
+                languageResource = {
+                    ...cloneDeep(languageResource),
+                    ...req.i18n.getDataByLanguage(pageLanguage)[sscsAdditonalHearingsUrl],
+                };
+            }
 
-      let languageResource = {
-        ...req.i18n.getDataByLanguage(pageLanguage)[sscsUrl],
-        ...req.i18n.getDataByLanguage(pageLanguage)['list-template'],
-      };
+            res.render(sscsUrl, {
+                ...cloneDeep(languageResource),
 
-      if (url === sscsAdditonalHearingsUrl) {
-        languageResource = {
-          ...cloneDeep(languageResource),
-          ...req.i18n.getDataByLanguage(pageLanguage)[sscsAdditonalHearingsUrl],
-        };
-      }
-
-      res.render(sscsUrl, {
-        ...cloneDeep(languageResource),
-        listData: manipulatedData,
-        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
-        publishedDate: publishedDate,
-        publishedTime: publishedTime,
-        courtName: courtName,
-        provenance: metaData['provenance'],
-        bill: pageLanguage === 'bill',
-      });
-    } else {
-      res.render('error',
-        req.i18n.getDataByLanguage(req.lng).error);
+                listData: manipulatedData,
+                contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
+                publishedDate: publishedDate,
+                publishedTime: publishedTime,
+                courtName: courtName,
+                provenance: metaData['provenance'],
+                bill: pageLanguage === 'bill',
+            });
+        } else {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        }
     }
-  }
 }

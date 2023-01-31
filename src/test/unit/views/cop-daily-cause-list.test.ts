@@ -1,11 +1,11 @@
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../main/service/publicationService';
-import {LocationService} from '../../../main/service/locationService';
+import { PublicationService } from '../../../main/service/publicationService';
+import { LocationService } from '../../../main/service/locationService';
 import sinon from 'sinon';
 import request from 'supertest';
-import {app} from '../../../main/app';
-import {expect} from 'chai';
+import { app } from '../../../main/app';
+import { expect } from 'chai';
 
 const PAGE_URL = '/cop-daily-cause-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -31,54 +31,56 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').ret
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 
 describe('Cop daily cause list page', () => {
-  beforeAll(async () => {
-    await request(app).get(PAGE_URL).then(res => {
-      htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+    beforeAll(async () => {
+        await request(app)
+            .get(PAGE_URL)
+            .then(res => {
+                htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+            });
     });
-  });
 
-  it('should display header',  () => {
-    const header = htmlRes.getElementsByClassName(headingClass);
-    expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
-  });
+    it('should display header', () => {
+        const header = htmlRes.getElementsByClassName(headingClass);
+        expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+    });
 
-  it('should display summary',  () => {
-    const summary = htmlRes.getElementsByClassName(summaryHeading);
-    expect(summary[0].innerHTML).contains(summaryHeadingText, 'Could not find the display summary heading');
-  });
+    it('should display summary', () => {
+        const summary = htmlRes.getElementsByClassName(summaryHeading);
+        expect(summary[0].innerHTML).contains(summaryHeadingText, 'Could not find the display summary heading');
+    });
 
-  it('should display court email summary paragraph',  () => {
-    const summary = htmlRes.getElementsByClassName(summaryText);
-    expect(summary[0].innerHTML).contains('a@b.com', 'Could not find the court name in summary text');
-  });
+    it('should display court email summary paragraph', () => {
+        const summary = htmlRes.getElementsByClassName(summaryText);
+        expect(summary[0].innerHTML).contains('a@b.com', 'Could not find the court name in summary text');
+    });
 
-  it('should display court contact number summary paragraph',  () => {
-    const summary = htmlRes.getElementsByClassName(summaryText);
-    expect(summary[0].innerHTML).contains('+44 1234 1234 1234', 'Could not find the court name in summary text');
-  });
+    it('should display court contact number summary paragraph', () => {
+        const summary = htmlRes.getElementsByClassName(summaryText);
+        expect(summary[0].innerHTML).contains('+44 1234 1234 1234', 'Could not find the court name in summary text');
+    });
 
-  it('should display list for text', () => {
-    const listForText = htmlRes.getElementsByClassName(paragraphClass)[4];
-    expect(listForText.innerHTML).contains('List for');
-  });
+    it('should display list for text', () => {
+        const listForText = htmlRes.getElementsByClassName(paragraphClass)[4];
+        expect(listForText.innerHTML).contains('List for');
+    });
 
-  it('should display the search input box', () => {
-    const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
-    expect(searchInput[0].innerHTML).contains('Search Cases');
-  });
+    it('should display the search input box', () => {
+        const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+        expect(searchInput[0].innerHTML).contains('Search Cases');
+    });
 
-  it('should display last updated text', () => {
-    const listUpdatedText = htmlRes.getElementsByClassName(paragraphClass)[5];
-    expect(listUpdatedText.innerHTML).contains('Last updated');
-  });
+    it('should display last updated text', () => {
+        const listUpdatedText = htmlRes.getElementsByClassName(paragraphClass)[5];
+        expect(listUpdatedText.innerHTML).contains('Last updated');
+    });
 
-  it('should display the court name on the page', () => {
-    const courtNameText = htmlRes.getElementsByClassName(courtNameClass)[0];
-    expect(courtNameText.innerHTML).contains('Regional Venue North');
-  });
+    it('should display the court name on the page', () => {
+        const courtNameText = htmlRes.getElementsByClassName(courtNameClass)[0];
+        expect(courtNameText.innerHTML).contains('Regional Venue North');
+    });
 
-  it('should display data source text', () => {
-    const listForText = htmlRes.getElementsByClassName(paragraphClass)[6];
-    expect(listForText.innerHTML).contains('Data Source');
-  });
+    it('should display data source text', () => {
+        const listForText = htmlRes.getElementsByClassName(paragraphClass)[6];
+        expect(listForText.innerHTML).contains('Data Source');
+    });
 });

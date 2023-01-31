@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { LocationService } from '../../main/service/locationService';
 import { SummaryOfPublicationsService } from '../../main/service/summaryOfPublicationsService';
 import { ManualUploadService } from '../../main/service/manualUploadService';
-import {request as expressRequest} from 'express';
+import { request as expressRequest } from 'express';
 
 const URL = '/remove-list-search';
 
@@ -15,18 +15,18 @@ sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').withArgs([]
 courtServiceStub.withArgs('2').resolves(true);
 courtServiceStub.withArgs('888').resolves(false);
 
-expressRequest['user'] = {'roles': 'INTERNAL_SUPER_ADMIN_CTSC'};
+expressRequest['user'] = { roles: 'INTERNAL_SUPER_ADMIN_CTSC' };
 
 describe('Remove list summary page', () => {
-  test('should return remove list summary page page', async () => {
-    await request(app)
-      .get(URL+ '?locationId=2')
-      .expect((res) => expect(res.status).to.equal(200));
-  });
+    test('should return remove list summary page page', async () => {
+        await request(app)
+            .get(URL + '?locationId=2')
+            .expect(res => expect(res.status).to.equal(200));
+    });
 
-  test('should return error page', async () => {
-    await request(app)
-      .get(URL+ '?locationId=888')
-      .expect((res) => expect(res.status).to.equal(200));
-  });
+    test('should return error page', async () => {
+        await request(app)
+            .get(URL + '?locationId=888')
+            .expect(res => expect(res.status).to.equal(200));
+    });
 });

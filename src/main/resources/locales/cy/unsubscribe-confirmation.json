@@ -1,9 +1,13 @@
 {
-  "title": "Dilewyd y tanysgrifiad",
-  "message": "Mae eich tanysgrifiad wedi’i ddileu.",
-  "pStart": "I barhau, gallwch fynd i’ch",
-  "pEnd": "i:",
-  "yourAccount": "cyfrif",
-  "listItems": ["ychwanegu tanysgrifiad newydd", "rheoli eich tanysgrifiadau presennol", "dod o hyd i lys neu dribiwnlys"],
-  "backButton": "Yn ôl"
+    "title": "Dilewyd y tanysgrifiad",
+    "message": "Mae eich tanysgrifiad wedi’i ddileu.",
+    "pStart": "I barhau, gallwch fynd i’ch",
+    "pEnd": "i:",
+    "yourAccount": "cyfrif",
+    "listItems": [
+        "ychwanegu tanysgrifiad newydd",
+        "rheoli eich tanysgrifiadau presennol",
+        "dod o hyd i lys neu dribiwnlys"
+    ],
+    "backButton": "Yn ôl"
 }

@@ -1,14 +1,14 @@
 options:
-  max-warnings: 0
+    max-warnings: 0
 files:
-  include: 'src/**/*.scss'
+    include: 'src/**/*.scss'
 rules:
-  class-name-format:
-    - 0
-  placeholder-in-extend:
-    - 0
-  nesting-depth:
-    - 1
-    - max-depth: 4
-  no-vendor-prefixes:
-    - 0
+    class-name-format:
+        - 0
+    placeholder-in-extend:
+        - 0
+    nesting-depth:
+        - 1
+        - max-depth: 4
+    no-vendor-prefixes:
+        - 0

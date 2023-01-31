@@ -14,39 +14,43 @@ const civFamMixedService = new civilFamilyAndMixedListService();
 const crimeListsService = new CrimeListsService();
 
 export default class CrownDailyListController {
-  public async get(req: PipRequest, res: Response): Promise<void> {
-    const artefactId = req.query.artefactId as string;
-    const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
-    const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
+    public async get(req: PipRequest, res: Response): Promise<void> {
+        const artefactId = req.query.artefactId as string;
+        const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
+        const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-    if (searchResults && metaData) {
+        if (searchResults && metaData) {
+            // initial cleaning of data using mixed list service
+            let outputData = civFamMixedService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
+            outputData = crimeListsService.manipulatedCrimeListData(
+                JSON.stringify(outputData),
+                req.lng as string,
+                'crown-daily-list'
+            );
+            outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
 
-      // initial cleaning of data using mixed list service
-      let outputData = civFamMixedService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
-      outputData = crimeListsService.manipulatedCrimeListData(JSON.stringify(outputData),
-        req.lng as string, 'crown-daily-list');
-      outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
+            const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
+            const publishedDate = helperService.publicationDateInUkTime(
+                searchResults['document']['publicationDate'],
+                req.lng
+            );
+            const location = await locationService.getLocationById(metaData['locationId']);
+            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
-      const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
-      const publishedDate = helperService.publicationDateInUkTime(searchResults['document']['publicationDate'], req.lng);
-      const location = await locationService.getLocationById(metaData['locationId']);
-      const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-
-      res.render('crown-daily-list', {
-        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-daily-list']),
-        ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
-        listData: outputData,
-        contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
-        publishedDate: publishedDate,
-        publishedTime: publishedTime,
-        provenance: metaData['provenance'],
-        version: searchResults['document']['version'],
-        courtName: location.name,
-        bill: pageLanguage === 'bill',
-      });
-    } else {
-      res.render('error',
-        req.i18n.getDataByLanguage(req.lng).error);
+            res.render('crown-daily-list', {
+                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-daily-list']),
+                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+                listData: outputData,
+                contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
+                publishedDate: publishedDate,
+                publishedTime: publishedTime,
+                provenance: metaData['provenance'],
+                version: searchResults['document']['version'],
+                courtName: location.name,
+                bill: pageLanguage === 'bill',
+            });
+        } else {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        }
     }
-  }
 }

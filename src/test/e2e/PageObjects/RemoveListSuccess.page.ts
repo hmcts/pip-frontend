@@ -4,20 +4,20 @@ import { AdminDashboardPage } from './AdminDashboard.page';
 const helpers = require('../Helpers/Selectors');
 
 export class RemoveListSuccessPage extends CommonPage {
-  async getPanelTitle(): Promise<string> {
-    $(helpers.panelTitle).catch(() => {
-      console.log(`${helpers.panelTitle} not found`);
-    });
+    async getPanelTitle(): Promise<string> {
+        $(helpers.panelTitle).catch(() => {
+            console.log(`${helpers.panelTitle} not found`);
+        });
 
-    return $(helpers.panelTitle).getText();
-  }
+        return $(helpers.panelTitle).getText();
+    }
 
-  async clickHome(): Promise<AdminDashboardPage> {
-    $(helpers.panelHome).catch(() => {
-      console.log(`${helpers.panelHome} not found`);
-    });
+    async clickHome(): Promise<AdminDashboardPage> {
+        $(helpers.panelHome).catch(() => {
+            console.log(`${helpers.panelHome} not found`);
+        });
 
-    await $(helpers.panelHome).click();
-    return new AdminDashboardPage;
-  }
+        await $(helpers.panelHome).click();
+        return new AdminDashboardPage();
+    }
 }

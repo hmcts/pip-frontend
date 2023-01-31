@@ -1,25 +1,25 @@
 {
-  "title": "Eich tanysgrifiadau e-bost",
-  "newButton": "Ychwanegu tanysgrifiad e-bost",
-  "bulkDeleteButton": "Dileu swmp o danysgrifiadau",
-  "subNavigation": {
-    "header1": "Pob tanysgrifiad (",
-    "header2": "Tanysgrifiadau yn ôl achos (",
-    "header3": "Tanysgrifiadau yn ôl llys neu dribiwnlys ("
-  },
-  "noSubs": "Nid oes gennych unrhyw danysgrifiadau gweithredol",
-  "noSubsCase": "Nid oes gennych unrhyw danysgrifiadau yn ôl achos",
-  "noSubsCourt": "Nid oes gennych unrhyw danysgrifiadau yn ôl llys neu dribiwnlys",
-  "table": {
-    "header1": "Enw'r achos",
-    "header2": "Cyfeirnod yr achos",
-    "date": "Dyddiad wedi’i ychwanegu",
-    "actions": "Camau gweithredu"
-  },
-  "courtTable": {
-    "header1": "Enw’r llys neu’r tribiwnlys"
-  },
-  "unsubscribe": "dad-danysgrifio",
-  "backButton": "Yn ôl",
-  "configureListTypeButton": "Dewiswch pa fath o restri yr hoffech gael"
+    "title": "Eich tanysgrifiadau e-bost",
+    "newButton": "Ychwanegu tanysgrifiad e-bost",
+    "bulkDeleteButton": "Dileu swmp o danysgrifiadau",
+    "subNavigation": {
+        "header1": "Pob tanysgrifiad (",
+        "header2": "Tanysgrifiadau yn ôl achos (",
+        "header3": "Tanysgrifiadau yn ôl llys neu dribiwnlys ("
+    },
+    "noSubs": "Nid oes gennych unrhyw danysgrifiadau gweithredol",
+    "noSubsCase": "Nid oes gennych unrhyw danysgrifiadau yn ôl achos",
+    "noSubsCourt": "Nid oes gennych unrhyw danysgrifiadau yn ôl llys neu dribiwnlys",
+    "table": {
+        "header1": "Enw'r achos",
+        "header2": "Cyfeirnod yr achos",
+        "date": "Dyddiad wedi’i ychwanegu",
+        "actions": "Camau gweithredu"
+    },
+    "courtTable": {
+        "header1": "Enw’r llys neu’r tribiwnlys"
+    },
+    "unsubscribe": "dad-danysgrifio",
+    "backButton": "Yn ôl",
+    "configureListTypeButton": "Dewiswch pa fath o restri yr hoffech gael"
 }

@@ -1,0 +1,9 @@
+{
+    "title": "Court Reference Data Delete Successful",
+    "panelTitle": "Success",
+    "panelBodyMessage": "Court has been deleted",
+    "nextMessage": "What do you want to do next?",
+    "removeCourt": "Remove another court",
+    "uploadReferenceDataFile": "Upload Reference Data",
+    "homeLinkName": "Home"
+}

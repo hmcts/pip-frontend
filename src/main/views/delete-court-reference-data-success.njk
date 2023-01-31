@@ -1,0 +1,24 @@
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import successPanel %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  {{ successPanel(panelTitle, panelBodyMessage) }}
+  <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-top-6">{{ nextMessage }}</p>
+  <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link" href="delete-court-reference-data">{{ removeCourt }}</a></p>
+  <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link " href="manual-reference-data-upload">{{ uploadReferenceDataFile }}</a></p>
+  <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link" href="system-admin-dashboard">{{ homeLinkName }}</a></p>
+{% endblock %}
+{% block bodyEnd %}
+  {{ super() }}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+{% endblock %}

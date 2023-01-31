@@ -15,12 +15,11 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').res
 sinon.stub(TribunalNationalListsService.prototype, 'manipulateData').resolves(primaryHealthListData);
 
 describe('Primary Health List Page', () => {
-  describe('on GET', () => {
-    test('should return primary health list page', async () => {
-      await request(app)
-        .get('/primary-health-list?artefactId=test')
-        .expect((res) => expect(res.status).to.equal(200));
+    describe('on GET', () => {
+        test('should return primary health list page', async () => {
+            await request(app)
+                .get('/primary-health-list?artefactId=test')
+                .expect(res => expect(res.status).to.equal(200));
+        });
     });
-  });
 });
-
