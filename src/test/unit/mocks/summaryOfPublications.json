@@ -1,117 +1,109 @@
 [
-  {
-    "artefactId": "8bdbd58c-4c64-4a73-9e4f-d6409719c508",
-    "provenance": "Bradford Crown Court",
-    "sourceArtefactId": "PDF Upload",
-    "type": "LIST",
-    "sensitivity": "PUBLIC",
-    "language": "ENGLISH",
-    "search": {
-      "court-id": [
-        "Array"
-      ]
+    {
+        "artefactId": "8bdbd58c-4c64-4a73-9e4f-d6409719c508",
+        "provenance": "Bradford Crown Court",
+        "sourceArtefactId": "PDF Upload",
+        "type": "LIST",
+        "sensitivity": "PUBLIC",
+        "language": "ENGLISH",
+        "search": {
+            "court-id": ["Array"]
+        },
+        "displayFrom": "2022-02-02T12:52:01.907",
+        "displayTo": "2022-05-02T12:52:01.907",
+        "listType": "SJP_PRESS_LIST",
+        "locationId": "0",
+        "contentDate": "2022-02-02T12:52:01.907",
+        "isFlatFile": "true",
+        "payload": "ia"
     },
-    "displayFrom": "2022-02-02T12:52:01.907",
-    "displayTo": "2022-05-02T12:52:01.907",
-    "listType": "SJP_PRESS_LIST",
-    "locationId": "0",
-    "contentDate": "2022-02-02T12:52:01.907",
-    "isFlatFile": "true",
-    "payload": "ia"
-  },
-  {
-    "artefactId": "2bffe0d0-a051-4657-a643-ba42d4e2f05c",
-    "provenance": "Bradford Crown Court",
-    "sourceArtefactId": "This one is JSON",
-    "type": "LIST",
-    "sensitivity": "CLASSIFIED",
-    "language": "ENGLISH",
-    "search": {},
-    "displayFrom": "2022-02-02T12:59:09.908",
-    "displayTo": "2022-06-02T12:59:09.908",
-    "listType": "SJP_PUBLIC_LIST",
-    "locationId": "0",
-    "contentDate": "2022-02-02T12:59:09.908",
-    "isFlatFile": "false",
-    "payload": "uzh"
-  },
-  {
-    "artefactId": "4a87cd10-2c1c-4f0a-b59b-e293801ad845",
-    "provenance": "NOT_A_PDF",
-    "sourceArtefactId": "NOT_A_PDF",
-    "type": "GENERAL_PUBLICATION",
-    "sensitivity": "null",
-    "language": "ENGLISH",
-    "search": {},
-    "displayFrom": "2022-01-28T18:29:18.297",
-    "displayTo": "2022-03-28T18:29:18.297",
-    "listType": "SJP_PUBLIC_LIST",
-    "locationId": "0",
-    "contentDate": "2022-01-28T18:29:18.297",
-    "isFlatFile": "false",
-    "payload": "bleh"
-  },
-  {
-    "artefactId": "cdf9b054-7ad7-4191-9b87-ddabebd437c2",
-    "provenance": "MANUAL_UPLOAD",
-    "sourceArtefactId": "Family.docx",
-    "type": "LIST",
-    "sensitivity": "PUBLIC",
-    "language": "ENGLISH",
-    "search": {
-      "location-id": [
-        "5"
-      ]
+    {
+        "artefactId": "2bffe0d0-a051-4657-a643-ba42d4e2f05c",
+        "provenance": "Bradford Crown Court",
+        "sourceArtefactId": "This one is JSON",
+        "type": "LIST",
+        "sensitivity": "CLASSIFIED",
+        "language": "ENGLISH",
+        "search": {},
+        "displayFrom": "2022-02-02T12:59:09.908",
+        "displayTo": "2022-06-02T12:59:09.908",
+        "listType": "SJP_PUBLIC_LIST",
+        "locationId": "0",
+        "contentDate": "2022-02-02T12:59:09.908",
+        "isFlatFile": "false",
+        "payload": "uzh"
     },
-    "displayFrom": "2022-07-04T10:40:00",
-    "displayTo": "2022-12-31T10:55:00",
-    "listType": "FAMILY_DAILY_CAUSE_LIST",
-    "locationId": "5",
-    "contentDate": "2022-07-14T00:00:00",
-    "isFlatFile": true,
-    "payload": "http://127.0.0.1:10000/devstoreaccount1/artefact/8f0ada21-abe9-4e0a-a839-eb19c65c66c5",
-    "createdDate": "2022-08-03T20:20:10.682121"
-  },
-  {
-    "artefactId": "40ef9135-4538-4753-8b10-4e4bffdd0fd1",
-    "provenance": "MANUAL_UPLOAD",
-    "sourceArtefactId": "CivilAndFamily.pdf",
-    "type": "LIST",
-    "sensitivity": "PUBLIC",
-    "language": "ENGLISH",
-    "search": {
-      "location-id": [
-        "5"
-      ]
+    {
+        "artefactId": "4a87cd10-2c1c-4f0a-b59b-e293801ad845",
+        "provenance": "NOT_A_PDF",
+        "sourceArtefactId": "NOT_A_PDF",
+        "type": "GENERAL_PUBLICATION",
+        "sensitivity": "null",
+        "language": "ENGLISH",
+        "search": {},
+        "displayFrom": "2022-01-28T18:29:18.297",
+        "displayTo": "2022-03-28T18:29:18.297",
+        "listType": "SJP_PUBLIC_LIST",
+        "locationId": "0",
+        "contentDate": "2022-01-28T18:29:18.297",
+        "isFlatFile": "false",
+        "payload": "bleh"
     },
-    "displayFrom": "2022-07-04T10:40:00",
-    "displayTo": "2022-12-31T10:55:00",
-    "listType": "CIVIL_AND_FAMILY_DAILY_CAUSE_LIST",
-    "locationId": "5",
-    "contentDate": "2022-07-14T00:00:00",
-    "isFlatFile": true,
-    "payload": "http://127.0.0.1:10000/devstoreaccount1/artefact/8f0ada21-abe9-4e0a-a839-eb19c65c66c5",
-    "createdDate": "2022-08-03T20:20:10.682121"
-  },
-  {
-    "artefactId": "9d902ddf-2b59-4390-a327-2e475c7e88b2",
-    "provenance": "MANUAL_UPLOAD",
-    "sourceArtefactId": "Civil.docx",
-    "type": "LIST",
-    "sensitivity": "PUBLIC",
-    "language": "ENGLISH",
-    "search": {
-      "location-id": [
-        "5"
-      ]
+    {
+        "artefactId": "cdf9b054-7ad7-4191-9b87-ddabebd437c2",
+        "provenance": "MANUAL_UPLOAD",
+        "sourceArtefactId": "Family.docx",
+        "type": "LIST",
+        "sensitivity": "PUBLIC",
+        "language": "ENGLISH",
+        "search": {
+            "location-id": ["5"]
+        },
+        "displayFrom": "2022-07-04T10:40:00",
+        "displayTo": "2022-12-31T10:55:00",
+        "listType": "FAMILY_DAILY_CAUSE_LIST",
+        "locationId": "5",
+        "contentDate": "2022-07-14T00:00:00",
+        "isFlatFile": true,
+        "payload": "http://127.0.0.1:10000/devstoreaccount1/artefact/8f0ada21-abe9-4e0a-a839-eb19c65c66c5",
+        "createdDate": "2022-08-03T20:20:10.682121"
     },
-    "displayFrom": "2022-07-04T10:40:00",
-    "displayTo": "2022-12-31T10:55:00",
-    "listType": "CIVIL_DAILY_CAUSE_LIST",
-    "locationId": "5",
-    "contentDate": "2022-07-14T00:00:00",
-    "isFlatFile": true,
-    "payload": "http://127.0.0.1:10000/devstoreaccount1/artefact/8f0ada21-abe9-4e0a-a839-eb19c65c66c5",
-    "createdDate": "2022-08-03T20:20:10.682121"
-  }
+    {
+        "artefactId": "40ef9135-4538-4753-8b10-4e4bffdd0fd1",
+        "provenance": "MANUAL_UPLOAD",
+        "sourceArtefactId": "CivilAndFamily.pdf",
+        "type": "LIST",
+        "sensitivity": "PUBLIC",
+        "language": "ENGLISH",
+        "search": {
+            "location-id": ["5"]
+        },
+        "displayFrom": "2022-07-04T10:40:00",
+        "displayTo": "2022-12-31T10:55:00",
+        "listType": "CIVIL_AND_FAMILY_DAILY_CAUSE_LIST",
+        "locationId": "5",
+        "contentDate": "2022-07-14T00:00:00",
+        "isFlatFile": true,
+        "payload": "http://127.0.0.1:10000/devstoreaccount1/artefact/8f0ada21-abe9-4e0a-a839-eb19c65c66c5",
+        "createdDate": "2022-08-03T20:20:10.682121"
+    },
+    {
+        "artefactId": "9d902ddf-2b59-4390-a327-2e475c7e88b2",
+        "provenance": "MANUAL_UPLOAD",
+        "sourceArtefactId": "Civil.docx",
+        "type": "LIST",
+        "sensitivity": "PUBLIC",
+        "language": "ENGLISH",
+        "search": {
+            "location-id": ["5"]
+        },
+        "displayFrom": "2022-07-04T10:40:00",
+        "displayTo": "2022-12-31T10:55:00",
+        "listType": "CIVIL_DAILY_CAUSE_LIST",
+        "locationId": "5",
+        "contentDate": "2022-07-14T00:00:00",
+        "isFlatFile": true,
+        "payload": "http://127.0.0.1:10000/devstoreaccount1/artefact/8f0ada21-abe9-4e0a-a839-eb19c65c66c5",
+        "createdDate": "2022-08-03T20:20:10.682121"
+    }
 ]

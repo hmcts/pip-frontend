@@ -8,12 +8,10 @@ const javascript = path.resolve(root, 'all.js');
 const assets = path.resolve(root, 'assets');
 
 const copyGovukTemplateAssets = new CopyWebpackPlugin({
-  patterns: [
-    { from: 'src/main/assets/js/', to: 'assets/js' },
-  ],
+    patterns: [{ from: 'src/main/assets/js/', to: 'assets/js' }],
 });
 
 module.exports = {
-  paths: { template: root, sass, javascript, assets },
-  plugins: [copyGovukTemplateAssets],
+    paths: { template: root, sass, javascript, assets },
+    plugins: [copyGovukTemplateAssets],
 };

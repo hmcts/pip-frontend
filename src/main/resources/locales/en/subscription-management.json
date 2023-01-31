@@ -1,25 +1,25 @@
 {
-  "title": "Your email subscriptions",
-  "newButton": "Add email subscription",
-  "bulkDeleteButton": "Bulk unsubscribe",
-  "subNavigation": {
-    "header1": "All subscriptions (",
-    "header2": "Subscriptions by case (",
-    "header3": "Subscriptions by court or tribunal ("
-  },
-  "noSubs": "You do not have any active subscriptions",
-  "noSubsCase": "You currently have no subscriptions by case",
-  "noSubsCourt": "You currently have no subscriptions by court or tribunal",
-  "table": {
-    "header1": "Case name",
-    "header2": "Case reference number",
-    "date": "Date added",
-    "actions": "Actions"
-  },
-  "courtTable": {
-    "header1": "Court or tribunal name"
-  },
-  "unsubscribe": "Unsubscribe",
-  "backButton": "Back",
-  "configureListTypeButton": "Select which list types to receive"
+    "title": "Your email subscriptions",
+    "newButton": "Add email subscription",
+    "bulkDeleteButton": "Bulk unsubscribe",
+    "subNavigation": {
+        "header1": "All subscriptions (",
+        "header2": "Subscriptions by case (",
+        "header3": "Subscriptions by court or tribunal ("
+    },
+    "noSubs": "You do not have any active subscriptions",
+    "noSubsCase": "You currently have no subscriptions by case",
+    "noSubsCourt": "You currently have no subscriptions by court or tribunal",
+    "table": {
+        "header1": "Case name",
+        "header2": "Case reference number",
+        "date": "Date added",
+        "actions": "Actions"
+    },
+    "courtTable": {
+        "header1": "Court or tribunal name"
+    },
+    "unsubscribe": "Unsubscribe",
+    "backButton": "Back",
+    "configureListTypeButton": "Select which list types to receive"
 }
