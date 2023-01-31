@@ -1,6 +1,6 @@
-@import "node_modules/govuk-frontend/govuk/all";
-@import "accessible-autocomplete.min"; /* stylelint-disable-line */
-@import "node_modules/@ministryofjustice/frontend/moj/all";
+@import 'node_modules/govuk-frontend/govuk/all';
+@import 'accessible-autocomplete.min'; /* stylelint-disable-line */
+@import 'node_modules/@ministryofjustice/frontend/moj/all';
 
 $line-colour: #1d70b8;
 $text-disabled: #505a5f;
@@ -13,573 +13,573 @@ $callout-bg: #f0f4f5;
 
 // This allows the subscription drop down to not overlap
 @media (min-width: $min-width) {
-  .govuk-header__navigation--end {
-    padding-top: 1px;
-  }
+    .govuk-header__navigation--end {
+        padding-top: 1px;
+    }
 }
 
 // The below styling makes sure the subscription text doesn't overlap with the heading as the screen is made smaller
 // by increasing the minimum width
 @media (max-width: $min-width) {
-  .js-enabled {
-    .govuk-header__menu-button {
-      display: block;
-    }
+    .js-enabled {
+        .govuk-header__menu-button {
+            display: block;
+        }
 
-    .govuk-header__navigation {
-      display: none;
-      margin-bottom: 10px;
+        .govuk-header__navigation {
+            display: none;
+            margin-bottom: 10px;
+        }
     }
-  }
 }
 
 .js-enabled {
-  .govuk-header__navigation--open {
-    display: block;
-  }
+    .govuk-header__navigation--open {
+        display: block;
+    }
 }
 
 @media (max-width: $min-width) {
-  .govuk-header__navigation-item {
-    border: 0;
-    border-bottom: 1px solid $underline-colour;
-    display: block;
-    margin-right: 0;
-    padding: 10px 0;
-  }
+    .govuk-header__navigation-item {
+        border: 0;
+        border-bottom: 1px solid $underline-colour;
+        display: block;
+        margin-right: 0;
+        padding: 10px 0;
+    }
 }
 
 @media (max-width: $min-width) {
-  .govuk-header__content {
-    float: none;
-    padding-left: 0;
-    width: auto;
-  }
+    .govuk-header__content {
+        float: none;
+        padding-left: 0;
+        width: auto;
+    }
 }
 
 @media (min-width: $min-width) {
-  .govuk-header__content {
-    display: flex;
-  }
+    .govuk-header__content {
+        display: flex;
+    }
 }
 
 @media (min-width: $min-width) {
-  nav {
-    flex: 1;
-  }
+    nav {
+        flex: 1;
+    }
 }
 
 @media (max-width: $min-width) {
-  .govuk-header__navigation--end {
-    padding: 0;
-    text-align: left;
-  }
+    .govuk-header__navigation--end {
+        padding: 0;
+        text-align: left;
+    }
 }
 
 // End of header styling
 
 @media (min-width: $min-width) {
-  .offset-parent-box {
-    left: -10%;
-  }
+    .offset-parent-box {
+        left: -10%;
+    }
 }
 
 .moj-sub-navigation__item > a {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .text_disabled {
-  color: $text-disabled;
+    color: $text-disabled;
 }
 
 .width-column {
-  float: left;
-  text-align: center;
-  width: calc(100% / 26);
+    float: left;
+    text-align: center;
+    width: calc(100% / 26);
 }
 
 .two-rows-alphabet {
-  float: left;
-  width: calc(100% / 13);
+    float: left;
+    width: calc(100% / 13);
 }
 
 .layout-width-one-fifth {
-  float: left;
-  width: 20%;
+    float: left;
+    width: 20%;
 }
 
 .layout-width-four-fifths {
-  float: left;
-  width: 80%;
+    float: left;
+    width: 80%;
 }
 
 .layout-width-three-fifths {
-  float: left;
-  width: 60%;
+    float: left;
+    width: 60%;
 }
 
 .layout-width-two-fifths {
-  float: left;
-  width: 40%;
+    float: left;
+    width: 40%;
 }
 
 .parent-box {
-  min-height: 1px;
-  position: relative;
+    min-height: 1px;
+    position: relative;
 
-  .floating-back-to-top--fixed {
-    background-color: govuk-colour("light-grey");
-    padding: 5px;
-    position: fixed;
-    top: calc(100% - 30px);
-    width: 100%;
-    left: 0;
-  }
+    .floating-back-to-top--fixed {
+        background-color: govuk-colour('light-grey');
+        padding: 5px;
+        position: fixed;
+        top: calc(100% - 30px);
+        width: 100%;
+        left: 0;
+    }
 }
 
 .govuk-grid-row {
-  display: flex;
-  margin-left: 0;
-  margin-right: 0;
+    display: flex;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .app-back-to-top__icon {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 @media (min-width: 770px) {
-  .hide {
-    display: block;
-  }
+    .hide {
+        display: block;
+    }
 }
 
 .moj-button-menu {
-  display: none;
+    display: none;
 }
 
 .alphabetical-box {
-  .layout-width-three-fifths {
-    width: 100%;
-  }
+    .layout-width-three-fifths {
+        width: 100%;
+    }
 }
 
 @media (max-width: 770px) {
-  .hide {
-    display: none !important; // sass-lint:disable-line no-important
-    visibility: hidden;
-  }
-
-  .moj-button-menu {
-    display: block;
-  }
-
-  .moj-filter-layout {
-    &__filter {
-      width: 100%;
+    .hide {
+        display: none !important; // sass-lint:disable-line no-important
+        visibility: hidden;
     }
-  }
 
-  .filters {
-    &__innerButton {
-      display: block;
-      margin-left: 0;
-      margin-top: 0;
-      position: relative;
+    .moj-button-menu {
+        display: block;
     }
-  }
 
-  .alphabetical-box {
-    .layout-width-two-fifths {
-      width: 0;
+    .moj-filter-layout {
+        &__filter {
+            width: 100%;
+        }
     }
-  }
+
+    .filters {
+        &__innerButton {
+            display: block;
+            margin-left: 0;
+            margin-top: 0;
+            position: relative;
+        }
+    }
+
+    .alphabetical-box {
+        .layout-width-two-fifths {
+            width: 0;
+        }
+    }
 }
 
 // Styling for the Hearings List page
 .number_hearings {
-  text-align: right;
+    text-align: right;
 }
 
 .govuk-section-break--visible {
-  border-color: $line-colour;
+    border-color: $line-colour;
 }
 
 .right-align-text {
-  text-align: right;
+    text-align: right;
 }
 
 .centre-align-text {
-  text-align: center;
+    text-align: center;
 }
 
 // Styling for Search Results page
 .govuk-table__cell--no-line {
-  @extend %govuk-table__cell !optional;
+    @extend %govuk-table__cell !optional;
 
-  border-style: hidden;
-  font-weight: inherit;
+    border-style: hidden;
+    font-weight: inherit;
 }
 
 tbody {
-  .sjp-row {
-    th {
-      &:first-child {
-        width: 33px;
-      }
-    }
-
-    tr {
-      &:last-child {
+    .sjp-row {
         th {
-          &.govuk-table__cell--no-line {
-            border-bottom-style: solid;
-          }
+            &:first-child {
+                width: 33px;
+            }
         }
-      }
 
-      &:first-child {
-        th {
-          &.govuk-table__cell--no-line {
-            border-style: inherit;
-          }
+        tr {
+            &:last-child {
+                th {
+                    &.govuk-table__cell--no-line {
+                        border-bottom-style: solid;
+                    }
+                }
+            }
+
+            &:first-child {
+                th {
+                    &.govuk-table__cell--no-line {
+                        border-style: inherit;
+                    }
+                }
+            }
         }
-      }
-    }
 
-    td {
-      &.govuk-table__cell--no-line {
-        border-top: 1px solid $govuk-border-colour;
-      }
+        td {
+            &.govuk-table__cell--no-line {
+                border-top: 1px solid $govuk-border-colour;
+            }
 
-      &:nth-child(2) {
-        width: 16px;
-      }
+            &:nth-child(2) {
+                width: 16px;
+            }
+        }
     }
-  }
 }
 
 // remove padding from the three-quarters error summary
 .no_padding {
-  padding: 0;
+    padding: 0;
 }
 
 .table-column-court-number {
-  width: 12%;
+    width: 12%;
 }
 
 .table-header-bottom-align {
-  vertical-align: bottom;
+    vertical-align: bottom;
 }
 
 // Styling changes for the Azure OTP Logon Page
 
 .intro {
-  @extend %govuk-body !optional;
+    @extend %govuk-body !optional;
 }
 
 div {
-  .cards-wrapper {
-    display: flex;
-    flex-flow: row wrap;
-    flex-wrap: wrap;
+    .cards-wrapper {
+        display: flex;
+        flex-flow: row wrap;
+        flex-wrap: wrap;
 
-    > div {
-      flex: 33.33%;
-      max-width: 33.33%;
+        > div {
+            flex: 33.33%;
+            max-width: 33.33%;
+        }
+
+        .admin-card {
+            flex: 50%;
+            max-width: 50%;
+
+            @media (max-width: 640px) {
+                flex: 100%;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 640px) {
+            > div {
+                flex: 100%;
+                max-width: 100%;
+            }
+        }
     }
 
-    .admin-card {
-      flex: 50%;
-      max-width: 50%;
-
-      @media (max-width: 640px) {
-        flex: 100%;
-        max-width: 100%;
-      }
+    .verify {
+        label {
+            @extend %govuk-\!-margin-right-4 !optional;
+        }
     }
 
-    @media (max-width: 640px) {
-      > div {
-        flex: 100%;
-        max-width: 100%;
-      }
-    }
-  }
+    .attrEntry {
+        label {
+            @extend %govuk-body !optional;
+            @extend %govuk-\!-font-weight-bold !optional;
+        }
 
-  .verify {
-    label {
-      @extend %govuk-\!-margin-right-4 !optional;
-    }
-  }
+        div {
+            @extend %govuk-body !optional;
 
-  .attrEntry {
-    label {
-      @extend %govuk-body !optional;
-      @extend %govuk-\!-font-weight-bold !optional;
+            &.error {
+                color: $govuk-error-colour;
+            }
+        }
     }
-
-    div {
-      @extend %govuk-body !optional;
-
-      &.error {
-        color: $govuk-error-colour;
-      }
-    }
-  }
 }
 
 .buttons {
-  @extend %govuk-\!-margin-top-4 !optional;
+    @extend %govuk-\!-margin-top-4 !optional;
 
-  button {
-    @extend %govuk-button !optional;
-    @extend %govuk-\!-margin-right-4 !optional;
-  }
+    button {
+        @extend %govuk-button !optional;
+        @extend %govuk-\!-margin-right-4 !optional;
+    }
 }
 
 .error {
-  @extend %govuk-body !optional;
+    @extend %govuk-body !optional;
 
-  color: $govuk-error-colour;
+    color: $govuk-error-colour;
 }
 
 .verifying-modal {
-  display: none;
+    display: none;
 }
 
 .verifyInput {
-  @extend %govuk-input !optional;
-  @extend %govuk-\!-width-one-half !optional;
-  @extend %govuk-\!-margin-right-4 !optional;
-  @extend %govuk-\!-margin-top-4 !optional;
+    @extend %govuk-input !optional;
+    @extend %govuk-\!-width-one-half !optional;
+    @extend %govuk-\!-margin-right-4 !optional;
+    @extend %govuk-\!-margin-top-4 !optional;
 
-  &[aria-hidden="false"] {
-    // Important is required due to an inline style being applied
-    display: block !important; // sass-lint:disable-line no-important
-  }
+    &[aria-hidden='false'] {
+        // Important is required due to an inline style being applied
+        display: block !important; // sass-lint:disable-line no-important
+    }
 }
 
 .verifyButton {
-  @extend %govuk-\!-margin-top-4 !optional;
+    @extend %govuk-\!-margin-top-4 !optional;
 }
 
 .sendButton {
-  @extend %govuk-\!-margin-top-4 !optional;
+    @extend %govuk-\!-margin-top-4 !optional;
 }
 
 .textInput {
-  @extend %govuk-input !optional;
-  @extend %govuk-\!-width-one-half !optional;
+    @extend %govuk-input !optional;
+    @extend %govuk-\!-width-one-half !optional;
 }
 
 .helpLink {
-  display: none;
+    display: none;
 }
 
 .selection-counter-box {
-  background-color: govuk-colour("light-grey");
+    background-color: govuk-colour('light-grey');
 }
 
 .vertical-center-table-header {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 
 .hr-colour {
-  border-color: $govuk-border-colour;
+    border-color: $govuk-border-colour;
 }
 
 .with-background {
-  background-color: govuk-colour("white");
+    background-color: govuk-colour('white');
 }
 
 .pub-navigation {
-  .moj-sub-navigation__link {
-    font-size: 16px;
-  }
-
-  @media (min-width: 641px) {
-    .moj-sub-navigation__item {
-      &:last-child {
-        float: right;
-      }
+    .moj-sub-navigation__link {
+        font-size: 16px;
     }
-  }
+
+    @media (min-width: 641px) {
+        .moj-sub-navigation__item {
+            &:last-child {
+                float: right;
+            }
+        }
+    }
 }
 
 .govuk-phase-banner__text {
-  width: 100%;
+    width: 100%;
 
-  .languageHeader {
-    float: right;
-  }
+    .languageHeader {
+        float: right;
+    }
 }
 
 .govuk-input--error {
-  .autocomplete__input {
-    &:not(.autocomplete__input--focused) {
-      // Important is required due javascript overriding this as it is loaded after css rendering
-      border: solid 2px $govuk-error-colour !important; // sass-lint:disable-line no-important
+    .autocomplete__input {
+        &:not(.autocomplete__input--focused) {
+            // Important is required due javascript overriding this as it is loaded after css rendering
+            border: solid 2px $govuk-error-colour !important; // sass-lint:disable-line no-important
+        }
     }
-  }
 }
 
 .govuk-accordion__show-all {
-  margin-top: 25px !important;
+    margin-top: 25px !important;
 }
 
 @media (max-width: 640px) {
-  > div {
-    flex: 100%;
-    max-width: 100%;
-  }
+    > div {
+        flex: 100%;
+        max-width: 100%;
+    }
 }
 
 .account-card {
-  background-color: govuk-colour("light-grey");
-  border: solid 1px govuk-colour("mid-grey");
-  height: 100%;
-  padding: 0 1em;
-  min-height: 150px;
+    background-color: govuk-colour('light-grey');
+    border: solid 1px govuk-colour('mid-grey');
+    height: 100%;
+    padding: 0 1em;
+    min-height: 150px;
 }
 
 .search-input-name {
-  border: 0;
+    border: 0;
 }
 
 .no-border-bottom {
-  border-bottom: 0;
+    border-bottom: 0;
 }
 
 .govuk-accordion__controls {
-  margin-bottom: 20px;
-  text-align: right;
+    margin-bottom: 20px;
+    text-align: right;
 }
 
 .overflow-table {
-  overflow-x: auto;
+    overflow-x: auto;
 }
 
 // Admin css
 .admin-form-offset {
-  margin-right: 1em;
-  margin-top: 1.8em;
+    margin-right: 1em;
+    margin-top: 1.8em;
 }
 
 .admin-default-hide {
-  display: none;
+    display: none;
 }
 
 nav {
-  .moj-sub-navigation__item {
-    &:last-child {
-      margin-right: 0;
+    .moj-sub-navigation__item {
+        &:last-child {
+            margin-right: 0;
+        }
     }
-  }
 }
 
 .no-wrap {
-  white-space: nowrap;
+    white-space: nowrap;
 }
 
 .no-bullets-list {
-  list-style-type: none;
-  padding-left: 0;
+    list-style-type: none;
+    padding-left: 0;
 }
 
 .site-header {
-  position: relative;
-  top: 2em;
+    position: relative;
+    top: 2em;
 }
 
 .json-container {
-  background-color: black;
-  border: 1px dashed yellow;
-  border-radius: 1em;
+    background-color: black;
+    border: 1px dashed yellow;
+    border-radius: 1em;
 }
 
 .json-key {
-  color: indianred;
+    color: indianred;
 }
 
 .json-string {
-  color: darkkhaki;
+    color: darkkhaki;
 }
 
 .json-number {
-  color: deepskyblue;
+    color: deepskyblue;
 }
 
 .json-boolean {
-  color: mediumseagreen;
+    color: mediumseagreen;
 }
 
 .json-null {
-  color: darkorange;
+    color: darkorange;
 }
 
 .json-mark {
-  color: silver;
+    color: silver;
 }
 
 a.json-link {
-  color: mediumorchid;
+    color: mediumorchid;
 }
 
 a.json-link:visited {
-  color: slategray;
+    color: slategray;
 }
 
 a.json-link:hover {
-  color: violet;
+    color: violet;
 }
 
 a.json-link:active {
-  color: slategray;
+    color: slategray;
 }
 
 ol.json-lines > li::marker {
-  color: silver;
+    color: silver;
 }
 
 ol.json-lines > li:nth-child(odd) {
-  background-color: #222;
+    background-color: #222;
 }
 
 ol.json-lines > li:nth-child(even) {
-  background-color: #161616;
+    background-color: #161616;
 }
 
 ol.json-lines > li:hover {
-  background-color: dimgray;
+    background-color: dimgray;
 }
 
 .site-address {
-  margin-block-end: 0.5em;
+    margin-block-end: 0.5em;
 }
 
 .no-margin-bottom {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .govuk-callout {
-  background: $callout-bg;
-  margin-bottom: 40px;
-  padding: 15px;
+    background: $callout-bg;
+    margin-bottom: 40px;
+    padding: 15px;
 }
 
 .float-right {
-  float: right;
+    float: right;
 }
 
 .restriction-list-section {
-  background-color: #f3f2f1;
-  padding: 5px 10px;
+    background-color: #f3f2f1;
+    padding: 5px 10px;
 }
 
 .align-warning-icon {
-  margin-top: 5px;
+    margin-top: 5px;
 }
 
 .linked-cases-heading {
-  font-weight: 700;
+    font-weight: 700;
 }

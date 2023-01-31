@@ -1,24 +1,19 @@
 {
-  "title": "User Updated",
-  "message": "This user has been updated to a ROLE. They will need to sign in again for this to take effect",
-  "pStart": "To continue, you can go to the",
-  "pEnd": "in order to:",
-  "systemAdminText": "system admin dashboard",
-  "systemAdminLink": "system-admin-dashboard",
-  "adminText": "Admin Dashboard",
-  "adminLink": "admin-dashboard",
-  "systemAdminListItems": [
-    "upload reference data",
-    "upload bulk media users",
-    "extract artefact data",
-    "edit third party subscriptions",
-    "manage users"
-  ],
-  "adminListItems": [
-    "upload publications",
-    "remove publications",
-    "create new accounts",
-    "manage users"
-  ],
-  "backButton": "Back"
+    "title": "User Updated",
+    "message": "This user has been updated to a ROLE. They will need to sign in again for this to take effect",
+    "pStart": "To continue, you can go to the",
+    "pEnd": "in order to:",
+    "systemAdminText": "system admin dashboard",
+    "systemAdminLink": "system-admin-dashboard",
+    "adminText": "Admin Dashboard",
+    "adminLink": "admin-dashboard",
+    "systemAdminListItems": [
+        "upload reference data",
+        "upload bulk media users",
+        "extract artefact data",
+        "edit third party subscriptions",
+        "manage users"
+    ],
+    "adminListItems": ["upload publications", "remove publications", "create new accounts", "manage users"],
+    "backButton": "Back"
 }

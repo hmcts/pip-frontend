@@ -1,23 +1,23 @@
 {
-  "title": "Subscribe by court or tribunal name",
-  "backToTop": "Back to top",
-  "subHeading": "Subscribe to receive hearings list by court or tribunal",
-  "filter": "Filter",
-  "filterClear": "Clear filters",
-  "filterSelected": "Selected filter",
-  "userSelections": "Your selection(s)",
-  "selected": "selected",
-  "courtTableHeader": "Courts and tribunals in England and Wales",
-  "sjpTableHeader": "National lists",
-  "sjpSubscription": "Single Justice Procedure cases",
-  "hide": "Hide Filters",
-  "show": "Show Filters",
-  "ariaLabelNav": "No courts/tribunals are available for the letter",
-  "jurisdiction": "Type of court or tribunal",
-  "region": "Region",
-  "aria": {
-    "filterLabel": "Filter by Jurisdiction or region"
-  },
-  "backButton": "Back",
-  "applyFiltersButton": "Apply filters"
+    "title": "Subscribe by court or tribunal name",
+    "backToTop": "Back to top",
+    "subHeading": "Subscribe to receive hearings list by court or tribunal",
+    "filter": "Filter",
+    "filterClear": "Clear filters",
+    "filterSelected": "Selected filter",
+    "userSelections": "Your selection(s)",
+    "selected": "selected",
+    "courtTableHeader": "Courts and tribunals in England and Wales",
+    "sjpTableHeader": "National lists",
+    "sjpSubscription": "Single Justice Procedure cases",
+    "hide": "Hide Filters",
+    "show": "Show Filters",
+    "ariaLabelNav": "No courts/tribunals are available for the letter",
+    "jurisdiction": "Type of court or tribunal",
+    "region": "Region",
+    "aria": {
+        "filterLabel": "Filter by Jurisdiction or region"
+    },
+    "backButton": "Back",
+    "applyFiltersButton": "Apply filters"
 }

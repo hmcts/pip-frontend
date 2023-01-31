@@ -1,73 +1,73 @@
 {
-  "title": "Manual upload",
-  "fileUploadText": "Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB",
-  "form": {
-    "court": "Court name or Tribunal name",
-    "listType": "List type",
-    "contentDate": "Hearing start date",
-    "contentDateHint": "For example, 16 01 2022",
-    "day": "Day",
-    "month": "Month",
-    "year": "Year",
-    "to": "to",
-    "classificationText": "Available to",
-    "classification": [
-      { "text": "Public", "value": "PUBLIC" },
-      { "text": "Private - All verified users", "value": "PRIVATE" },
-      { "text": "Classified", "value": "CLASSIFIED" }
+    "title": "Manual upload",
+    "fileUploadText": "Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB",
+    "form": {
+        "court": "Court name or Tribunal name",
+        "listType": "List type",
+        "contentDate": "Hearing start date",
+        "contentDateHint": "For example, 16 01 2022",
+        "day": "Day",
+        "month": "Month",
+        "year": "Year",
+        "to": "to",
+        "classificationText": "Available to",
+        "classification": [
+            { "text": "Public", "value": "PUBLIC" },
+            { "text": "Private - All verified users", "value": "PRIVATE" },
+            { "text": "Classified", "value": "CLASSIFIED" }
+        ],
+        "languageText": "Language",
+        "language": [
+            { "text": "English", "value": "ENGLISH" },
+            { "text": "Welsh", "value": "WELSH" },
+            { "text": "Bilingual English/Welsh", "value": "BI_LINGUAL" }
+        ],
+        "displayDateFrom": "Display file from",
+        "displayDateFromHint": "For example, 27 01 2022",
+        "displayDateTo": "Display file to",
+        "displayDateToHint": "For example, 18 02 2022"
+    },
+    "pageHelpHeading": "Page Help",
+    "pageHelp": [
+        {
+            "heading": "Lists",
+            "text": "You must ensure that you only upload one file that contains all hearings for the Court or Tribunal name and List type. This should include all judges and court rooms in one document."
+        },
+        {
+            "heading": "Available to",
+            "text": "You need to indicate which user group your document should be available to:"
+        },
+        { "heading": "Public", "text": "Publication available to all users." },
+        {
+            "heading": "Private",
+            "text": "Publication available to all verified users e.g. Legal professionals and media."
+        },
+        {
+            "heading": "Classified",
+            "text": "Publication only available to verified users who are in a group eligible to view that list e.g. SJP press list available to Media"
+        },
+        {
+            "heading": "Display from",
+            "text": "This will be the date the publication is available from, if today's date is used it will be displayed immediately. If a date in the future is used, it will display from 00:01 of that date."
+        },
+        {
+            "heading": "Display to",
+            "text": "This will be the last date the publication is available. It will be displayed until 23:59 of that date."
+        }
     ],
-    "languageText": "Language",
-    "language": [
-      { "text": "English", "value": "ENGLISH" },
-      { "text": "Welsh", "value": "WELSH" },
-      { "text": "Bilingual English/Welsh", "value": "BI_LINGUAL" }
-    ],
-    "displayDateFrom": "Display file from",
-    "displayDateFromHint": "For example, 27 01 2022",
-    "displayDateTo": "Display file to",
-    "displayDateToHint": "For example, 18 02 2022"
-  },
-  "pageHelpHeading": "Page Help",
-  "pageHelp": [
-    {
-      "heading": "Lists",
-      "text": "You must ensure that you only upload one file that contains all hearings for the Court or Tribunal name and List type. This should include all judges and court rooms in one document."
+    "warning": "Warning",
+    "warningText": "Prior to upload you must ensure the file is suitable for publication e.g. redaction of personal data has been done during the production of this file.",
+    "courtSearchErrors": {
+        "notFound": "Please enter and select a valid court",
+        "minCharactersReq": "Court name must be three characters or more"
     },
-    {
-      "heading": "Available to",
-      "text": "You need to indicate which user group your document should be available to:"
+    "dateErrors": {
+        "blank": "Please enter a valid date",
+        "dateRange": "Please make sure 'to' date is after 'from' date"
     },
-    { "heading": "Public", "text": "Publication available to all users." },
-    {
-      "heading": "Private",
-      "text": "Publication available to all verified users e.g. Legal professionals and media."
-    },
-    {
-      "heading": "Classified",
-      "text": "Publication only available to verified users who are in a group eligible to view that list e.g. SJP press list available to Media"
-    },
-    {
-      "heading": "Display from",
-      "text": "This will be the date the publication is available from, if today's date is used it will be displayed immediately. If a date in the future is used, it will display from 00:01 of that date."
-    },
-    {
-      "heading": "Display to",
-      "text": "This will be the last date the publication is available. It will be displayed until 23:59 of that date."
+    "fileUploadErrors": {
+        "blank": "Please provide a file",
+        "typeError": "Please upload a valid file format",
+        "sizeError": "File too large, please upload file smaller than 2MB"
     }
-  ],
-  "warning": "Warning",
-  "warningText": "Prior to upload you must ensure the file is suitable for publication e.g. redaction of personal data has been done during the production of this file.",
-  "courtSearchErrors": {
-    "notFound": "Please enter and select a valid court",
-    "minCharactersReq": "Court name must be three characters or more"
-  },
-  "dateErrors": {
-    "blank": "Please enter a valid date",
-    "dateRange": "Please make sure 'to' date is after 'from' date"
-  },
-  "fileUploadErrors": {
-    "blank": "Please provide a file",
-    "typeError": "Please upload a valid file format",
-    "sizeError": "File too large, please upload file smaller than 2MB"
-  }
 }

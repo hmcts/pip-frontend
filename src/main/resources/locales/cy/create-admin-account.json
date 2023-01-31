@@ -1,16 +1,16 @@
 {
-  "title": "Create Admin Account",
-  "header": "Create admin account",
-  "fNameLabel": "First name",
-  "lNameLabel": "Last name",
-  "emailLabel": "Email address",
-  "userRoleLabel": "User role",
-  "errorTitle": "There is a problem",
-  "firstnameError": "Enter first name",
-  "surnameError": "Enter last name",
-  "roleError": "Select a role",
-  "emailErrors": {
-    "invalidEmailAddress": "There is a problem - Enter an email address in the correct format, like name@example.com",
-    "blank": "Enter email address"
-  }
+    "title": "Create Admin Account",
+    "header": "Create admin account",
+    "fNameLabel": "First name",
+    "lNameLabel": "Last name",
+    "emailLabel": "Email address",
+    "userRoleLabel": "User role",
+    "errorTitle": "There is a problem",
+    "firstnameError": "Enter first name",
+    "surnameError": "Enter last name",
+    "roleError": "Select a role",
+    "emailErrors": {
+        "invalidEmailAddress": "There is a problem - Enter an email address in the correct format, like name@example.com",
+        "blank": "Enter email address"
+    }
 }

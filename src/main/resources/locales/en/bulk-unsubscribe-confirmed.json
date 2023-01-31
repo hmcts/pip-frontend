@@ -1,13 +1,9 @@
 {
-  "title": "Subscription(s) removed",
-  "message": "Your subscription(s) has been removed.",
-  "pStart": "To continue, you can go to",
-  "pEnd": "in order to:",
-  "yourAccount": "your account",
-  "listItems": [
-    "add a new subscription",
-    "manage your current subscriptions",
-    "find a court or tribunal"
-  ],
-  "backButton": "Back"
+    "title": "Subscription(s) removed",
+    "message": "Your subscription(s) has been removed.",
+    "pStart": "To continue, you can go to",
+    "pEnd": "in order to:",
+    "yourAccount": "your account",
+    "listItems": ["add a new subscription", "manage your current subscriptions", "find a court or tribunal"],
+    "backButton": "Back"
 }
