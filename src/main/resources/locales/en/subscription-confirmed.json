@@ -1,11 +1,11 @@
 {
-    "title": "Subscription confirmation",
-    "header": "Subscription(s) confirmed",
-    "subheader": "Your subscription(s) has been added successfully",
-    "p1": "To continue, you can go to ",
-    "link_text": "your account",
-    "p2": " in order to:",
-    "addEmailSubscription": "add a new email subscription",
-    "manageYourCurrentSubscriptions": "manage your current email subscriptions",
-    "findCourt": "find a court or tribunal"
+  "title": "Subscription confirmation",
+  "header": "Subscription(s) confirmed",
+  "subheader": "Your subscription(s) has been added successfully",
+  "p1": "To continue, you can go to ",
+  "link_text": "your account",
+  "p2": " in order to:",
+  "addEmailSubscription": "add a new email subscription",
+  "manageYourCurrentSubscriptions": "manage your current email subscriptions",
+  "findCourt": "find a court or tribunal"
 }

@@ -1,11 +1,11 @@
 {
-    "title": "Canlyniad y chwilio",
-    "resultsCount": " Wedi dod i hyd i ganlyniad(au)",
-    "backButton": "Yn ôl",
-    "table": {
-        "column0Header": "Dewiswch Ganlyniad",
-        "column1Header": "Enw’r Achos",
-        "column2Header": "Cyfeirnod yr Achos"
-    },
-    "select": "Dewis"
+  "title": "Canlyniad y chwilio",
+  "resultsCount": " Wedi dod i hyd i ganlyniad(au)",
+  "backButton": "Yn ôl",
+  "table": {
+    "column0Header": "Dewiswch Ganlyniad",
+    "column1Header": "Enw’r Achos",
+    "column2Header": "Cyfeirnod yr Achos"
+  },
+  "select": "Dewis"
 }

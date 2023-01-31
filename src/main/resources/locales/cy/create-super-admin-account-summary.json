@@ -1,17 +1,17 @@
 {
-    "title": "Create Super Admin Account Summary",
-    "header": "Check account details",
-    "actionName": "Change",
-    "firstNameKey": "First name",
-    "lastNameKey": "Last name",
-    "emailAddressKey": "Email address",
-    "userRoleKey": "User role",
-    "confirmButton": "Confirm",
-    "panelTitle": "Account has been created",
-    "whatNextTitle": "What happens next",
-    "whatNextMessage": "This account will be created and the applicant will be notified to set up their account.",
-    "error": {
-        "title": "There is a problem",
-        "message": "This email already exists. The user should try signing in using this email or reset their password."
-    }
+  "title": "Create Super Admin Account Summary",
+  "header": "Check account details",
+  "actionName": "Change",
+  "firstNameKey": "First name",
+  "lastNameKey": "Last name",
+  "emailAddressKey": "Email address",
+  "userRoleKey": "User role",
+  "confirmButton": "Confirm",
+  "panelTitle": "Account has been created",
+  "whatNextTitle": "What happens next",
+  "whatNextMessage": "This account will be created and the applicant will be notified to set up their account.",
+  "error": {
+    "title": "There is a problem",
+    "message": "This email already exists. The user should try signing in using this email or reset their password."
+  }
 }

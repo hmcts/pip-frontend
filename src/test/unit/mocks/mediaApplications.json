@@ -1,42 +1,42 @@
 [
-    {
-        "id": "123",
-        "fullName": "bob smith",
-        "email": "bob@test.com",
-        "employer": "Daily Bugle",
-        "MediaLegalApplicationStatus": "PENDING",
-        "image": "asdf",
-        "requestDate": "2022-05-01T07:36:35",
-        "statusDate": "2022-05-01T07:36:35"
-    },
-    {
-        "id": "234",
-        "fullName": "jack jackson",
-        "email": "jack@test.com",
-        "employer": "Daily Bugle",
-        "MediaLegalApplicationStatus": "PENDING",
-        "image": "asdf",
-        "requestDate": "2022-03-05T07:36:35",
-        "statusDate": "2022-05-01T07:36:35"
-    },
-    {
-        "id": "312",
-        "fullName": "lightning mcqueen",
-        "email": "kachow@test.com",
-        "employer": "stanley cup",
-        "MediaLegalApplicationStatus": "PENDING",
-        "image": "asdf",
-        "requestDate": "2022-05-11T07:36:35",
-        "statusDate": "2022-05-01T07:36:35"
-    },
-    {
-        "id": "646",
-        "fullName": "Buzz lightyear",
-        "email": "buzz@test.com",
-        "employer": "Star command",
-        "MediaLegalApplicationStatus": "PENDING",
-        "image": "asdf",
-        "requestDate": "2023-05-01T07:36:35",
-        "statusDate": "2022-05-01T07:36:35"
-    }
+  {
+    "id": "123",
+    "fullName": "bob smith",
+    "email": "bob@test.com",
+    "employer": "Daily Bugle",
+    "MediaLegalApplicationStatus": "PENDING",
+    "image": "asdf",
+    "requestDate": "2022-05-01T07:36:35",
+    "statusDate": "2022-05-01T07:36:35"
+  },
+  {
+    "id": "234",
+    "fullName": "jack jackson",
+    "email": "jack@test.com",
+    "employer": "Daily Bugle",
+    "MediaLegalApplicationStatus": "PENDING",
+    "image": "asdf",
+    "requestDate": "2022-03-05T07:36:35",
+    "statusDate": "2022-05-01T07:36:35"
+  },
+  {
+    "id": "312",
+    "fullName": "lightning mcqueen",
+    "email": "kachow@test.com",
+    "employer": "stanley cup",
+    "MediaLegalApplicationStatus": "PENDING",
+    "image": "asdf",
+    "requestDate": "2022-05-11T07:36:35",
+    "statusDate": "2022-05-01T07:36:35"
+  },
+  {
+    "id": "646",
+    "fullName": "Buzz lightyear",
+    "email": "buzz@test.com",
+    "employer": "Star command",
+    "MediaLegalApplicationStatus": "PENDING",
+    "image": "asdf",
+    "requestDate": "2023-05-01T07:36:35",
+    "statusDate": "2022-05-01T07:36:35"
+  }
 ]

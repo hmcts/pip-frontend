@@ -1,11 +1,11 @@
 {
-    "title": "Search result",
-    "resultsCount": " result(s) successfully found",
-    "backButton": "Back",
-    "table": {
-        "column0Header": "Select a Result",
-        "column1Header": "Case Name",
-        "column2Header": "Case Reference Number"
-    },
-    "select": "Select"
+  "title": "Search result",
+  "resultsCount": " result(s) successfully found",
+  "backButton": "Back",
+  "table": {
+    "column0Header": "Select a Result",
+    "column1Header": "Case Name",
+    "column2Header": "Case Reference Number"
+  },
+  "select": "Select"
 }

@@ -1,16 +1,16 @@
 {
-    "title": "Subscribe by case name",
-    "heading": "What is the name of the case?",
-    "backButton": "Back",
-    "inputLabel": "For example, Smith.",
-    "error": {
-        "notFound": "There is nothing matching your criteria",
-        "minimumCharacterError": "Please enter a minimum of 3 characters",
-        "title": "There is a problem",
-        "input": "Please provide a correct case name",
-        "line1": "There are no matching results.",
-        "line2": "You can:",
-        "liText1": "Double check your spelling",
-        "liText2": "Add subscription by an alternative type"
-    }
+  "title": "Subscribe by case name",
+  "heading": "What is the name of the case?",
+  "backButton": "Back",
+  "inputLabel": "For example, Smith.",
+  "error": {
+    "notFound": "There is nothing matching your criteria",
+    "minimumCharacterError": "Please enter a minimum of 3 characters",
+    "title": "There is a problem",
+    "input": "Please provide a correct case name",
+    "line1": "There are no matching results.",
+    "line2": "You can:",
+    "liText1": "Double check your spelling",
+    "liText2": "Add subscription by an alternative type"
+  }
 }

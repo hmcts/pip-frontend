@@ -1,7 +1,7 @@
 {
-    "title": "Manage Third Party Subscriptions",
-    "heading": "Manage Third Party Subscriptions",
-    "channelText": "Please select a Channel",
-    "listTypeText": "Please select list types",
-    "saveSubscriptions": "Save Subscriptions"
+  "title": "Manage Third Party Subscriptions",
+  "heading": "Manage Third Party Subscriptions",
+  "channelText": "Please select a Channel",
+  "listTypeText": "Please select list types",
+  "saveSubscriptions": "Save Subscriptions"
 }

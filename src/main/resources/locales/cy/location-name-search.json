@@ -1,23 +1,23 @@
 {
-    "title": "Tanysgrifio yn ôl enw’r llys neu dribiwnlys",
-    "backToTop": "Yn ôl i frig y dudalen",
-    "subHeading": "Tanysgrifio i dderbyn rhestr wrandawiadau yn ôl llys neu dribiwnlys",
-    "filter": "Ffiltro",
-    "filterClear": "Clirio’r ffiltrau",
-    "filterSelected": "Ffiltyr a ddewiswyd",
-    "userSelections": "Eich dewisiadau",
-    "selected": "Wedi’i ddewis",
-    "courtTableHeader": "Llysoedd a Thribiwnlysoedd yng Nghymru a Lloegr",
-    "sjpTableHeader": "Rhestrau cenedlaethol",
-    "sjpSubscription": "Achosion Gweithdrefn Un Ynad",
-    "hide": "Cuddio’r ffiltrau",
-    "show": "Dangos y ffiltrau",
-    "ariaLabelNav": "Nid oes llys/tribiwnlys ar gael ar gyfer y llythyr",
-    "jurisdiction": "Math o lys neu dribiwnlys",
-    "region": "Rhanbarth",
-    "aria": {
-        "filterLabel": "Hidlo yn ôl awdurdodaeth neu ranbarth"
-    },
-    "backButton": "Yn ôl",
-    "applyFiltersButton": "Ffiltro"
+  "title": "Tanysgrifio yn ôl enw’r llys neu dribiwnlys",
+  "backToTop": "Yn ôl i frig y dudalen",
+  "subHeading": "Tanysgrifio i dderbyn rhestr wrandawiadau yn ôl llys neu dribiwnlys",
+  "filter": "Ffiltro",
+  "filterClear": "Clirio’r ffiltrau",
+  "filterSelected": "Ffiltyr a ddewiswyd",
+  "userSelections": "Eich dewisiadau",
+  "selected": "Wedi’i ddewis",
+  "courtTableHeader": "Llysoedd a Thribiwnlysoedd yng Nghymru a Lloegr",
+  "sjpTableHeader": "Rhestrau cenedlaethol",
+  "sjpSubscription": "Achosion Gweithdrefn Un Ynad",
+  "hide": "Cuddio’r ffiltrau",
+  "show": "Dangos y ffiltrau",
+  "ariaLabelNav": "Nid oes llys/tribiwnlys ar gael ar gyfer y llythyr",
+  "jurisdiction": "Math o lys neu dribiwnlys",
+  "region": "Rhanbarth",
+  "aria": {
+    "filterLabel": "Hidlo yn ôl awdurdodaeth neu ranbarth"
+  },
+  "backButton": "Yn ôl",
+  "applyFiltersButton": "Ffiltro"
 }

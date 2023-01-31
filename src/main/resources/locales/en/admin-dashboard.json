@@ -1,29 +1,29 @@
 {
-    "title": "Staff dashboard",
-    "heading": "Your Dashboard",
-    "uploadCard": {
-        "title": "Upload",
-        "description": "Upload a file to be published on the external facing Court and tribunal hearings service.",
-        "link": "manual-upload"
-    },
-    "removeCard": {
-        "title": "Remove",
-        "description": "Search by court or tribunal and remove a publication from the external facing Court and tribunal hearings service.",
-        "link": "remove-list-search"
-    },
-    "mediaCard": {
-        "title": "Manage media account request",
-        "description": "CTSC assess new media account applications.",
-        "link": "media-applications"
-    },
-    "newAccountCard": {
-        "title": "Create new account",
-        "description": "Create accounts for: CTSC Super Admin, Local Super Admin, CTSC Admin, Local Admin.",
-        "link": "create-admin-account"
-    },
-    "userManagementCard": {
-        "title": "User Management",
-        "description": "Update and delete users.",
-        "link": "admin-management"
-    }
+  "title": "Staff dashboard",
+  "heading": "Your Dashboard",
+  "uploadCard": {
+    "title": "Upload",
+    "description": "Upload a file to be published on the external facing Court and tribunal hearings service.",
+    "link": "manual-upload"
+  },
+  "removeCard": {
+    "title": "Remove",
+    "description": "Search by court or tribunal and remove a publication from the external facing Court and tribunal hearings service.",
+    "link": "remove-list-search"
+  },
+  "mediaCard": {
+    "title": "Manage media account request",
+    "description": "CTSC assess new media account applications.",
+    "link": "media-applications"
+  },
+  "newAccountCard": {
+    "title": "Create new account",
+    "description": "Create accounts for: CTSC Super Admin, Local Super Admin, CTSC Admin, Local Admin.",
+    "link": "create-admin-account"
+  },
+  "userManagementCard": {
+    "title": "User Management",
+    "description": "Update and delete users.",
+    "link": "admin-management"
+  }
 }

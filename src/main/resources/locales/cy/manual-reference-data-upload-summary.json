@@ -1,12 +1,12 @@
 {
-    "title": "Reference Manual Data Upload Summary",
-    "header": "Check upload details",
-    "actionName": "Change",
-    "fileKey": "File",
-    "documentTypeKey": "Document name",
-    "confirmButton": "Confirm",
-    "error": {
-        "title": "There is a problem",
-        "message": "Unable to upload reference data file, please verify that provided fields are correct"
-    }
+  "title": "Reference Manual Data Upload Summary",
+  "header": "Check upload details",
+  "actionName": "Change",
+  "fileKey": "File",
+  "documentTypeKey": "Document name",
+  "confirmButton": "Confirm",
+  "error": {
+    "title": "There is a problem",
+    "message": "Unable to upload reference data file, please verify that provided fields are correct"
+  }
 }

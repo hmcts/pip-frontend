@@ -1,14 +1,14 @@
 {
-    "title": "Dod o hyd i lys neu dribiwnlys - chwilio yn nhrefn yr wyddor",
-    "backToTop": "Yn ôl i frig y dudalen",
-    "heading": "Dod o hyd i lys neu dribiwnlys",
-    "filter": "Hidlydd",
-    "clearAll": "Clirio hidlwyr",
-    "selectedFilter": "Hidlwyr a ddewiswyd",
-    "hide": "Cuddio Hidlwyr",
-    "show": "Dangos Hidlwyr",
-    "jurisdiction": "Math o lys neu dribiwnlys",
-    "region": "Rhanbarth",
-    "applyFiltersButton": "Cadarnhau hidlwyr",
-    "backButton": "Yn ôl"
+  "title": "Dod o hyd i lys neu dribiwnlys - chwilio yn nhrefn yr wyddor",
+  "backToTop": "Yn ôl i frig y dudalen",
+  "heading": "Dod o hyd i lys neu dribiwnlys",
+  "filter": "Hidlydd",
+  "clearAll": "Clirio hidlwyr",
+  "selectedFilter": "Hidlwyr a ddewiswyd",
+  "hide": "Cuddio Hidlwyr",
+  "show": "Dangos Hidlwyr",
+  "jurisdiction": "Math o lys neu dribiwnlys",
+  "region": "Rhanbarth",
+  "applyFiltersButton": "Cadarnhau hidlwyr",
+  "backButton": "Yn ôl"
 }

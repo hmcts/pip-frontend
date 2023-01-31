@@ -1,13 +1,13 @@
-version: '2'
+version: "2"
 
 services:
-    pip-frontend:
-        build:
-            context: .
-            args:
-                - http_proxy
-                - https_proxy
-                - no_proxy
-        image: sdshmctspublic.azurecr.io/pip/frontend
-        ports:
-            - 8080:8080
+  pip-frontend:
+    build:
+      context: .
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    image: sdshmctspublic.azurecr.io/pip/frontend
+    ports:
+      - 8080:8080

@@ -1,16 +1,16 @@
 {
-    "title": "Ym mha lys neu dribiwnlys y mae gennych ddiddordeb?",
-    "error": {
-        "noResults": "Nid oes dim sy'n cyfateb i'ch meini prawf",
-        "summaryTitleText": "Mae problem",
-        "spanText": "Rhowch enw llys, tref neu ddinas",
-        "noResultsHeader": "Nid oes unrhyw ganlyniadau cyfatebol.",
-        "pText": "Gallwch:",
-        "li1Text": "Wirio eich sillafu",
-        "li2Text": "Dod o hyd i lys neu dribiwnlys gan ddefnyddio A - Y"
-    },
-    "inputHint": "Er enghraifft, Oxford Combined Court Centre",
-    "allCourtAndTribunalsText": "Eisiau gweld pob llys a thribiwnlys?",
-    "allCourtAndTribunalsLinkText": "Dewis o restr A-Y o lysoedd a thribiwnlysoedd",
-    "backButton": "Yn ôl"
+  "title": "Ym mha lys neu dribiwnlys y mae gennych ddiddordeb?",
+  "error": {
+    "noResults": "Nid oes dim sy'n cyfateb i'ch meini prawf",
+    "summaryTitleText": "Mae problem",
+    "spanText": "Rhowch enw llys, tref neu ddinas",
+    "noResultsHeader": "Nid oes unrhyw ganlyniadau cyfatebol.",
+    "pText": "Gallwch:",
+    "li1Text": "Wirio eich sillafu",
+    "li2Text": "Dod o hyd i lys neu dribiwnlys gan ddefnyddio A - Y"
+  },
+  "inputHint": "Er enghraifft, Oxford Combined Court Centre",
+  "allCourtAndTribunalsText": "Eisiau gweld pob llys a thribiwnlys?",
+  "allCourtAndTribunalsLinkText": "Dewis o restr A-Y o lysoedd a thribiwnlysoedd",
+  "backButton": "Yn ôl"
 }

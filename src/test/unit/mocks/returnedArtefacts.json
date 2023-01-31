@@ -1,51 +1,51 @@
 [
-    {
-        "artefactId": "123",
-        "provenance": "prov1",
-        "sourceArtefactId": "543",
-        "artefactType": "LIST",
-        "sensitivity": "PUBLIC",
-        "language": "ENGLISH",
-        "search": {
-            "cases": [
-                {
-                    "caseNumber": "635356",
-                    "caseName": "case name 1",
-                    "caseUrn": "38543"
-                }
-            ]
-        },
-        "displayFrom": "2022-02-14T14:14:59.73967",
-        "displayTo": "2052-02-14T14:14:59.73967",
-        "listType": "CROWN_WARNED_LIST",
-        "locationId": "123",
-        "contentDate": "2022-02-14T14:14:59.73967",
-        "isFlatFile": false,
-        "payload": "http://test.com"
+  {
+    "artefactId": "123",
+    "provenance": "prov1",
+    "sourceArtefactId": "543",
+    "artefactType": "LIST",
+    "sensitivity": "PUBLIC",
+    "language": "ENGLISH",
+    "search": {
+      "cases": [
+        {
+          "caseNumber": "635356",
+          "caseName": "case name 1",
+          "caseUrn": "38543"
+        }
+      ]
     },
-    {
-        "artefactId": "745",
-        "provenance": "prov2",
-        "sourceArtefactId": "43554",
-        "artefactType": "LIST",
-        "sensitivity": "PUBLIC",
-        "language": "ENGLISH",
-        "search": {
-            "cases": [
-                {
-                    "caseNumber": "85423",
-                    "caseName": "case name435",
-                    "caseUrn": "6434"
-                }
-            ]
-        },
-        "displayFrom": "2022-02-14T14:14:59.73967",
-        "displayTo": "2052-02-14T14:14:59.73967",
-        "listType": "SJP_PUBLIC_LIST",
-        "type": "GENERAL_PUBLICATION",
-        "locationId": "123",
-        "contentDate": "2022-02-14T14:14:59.73967",
-        "isFlatFile": false,
-        "payload": "http://test.com"
-    }
+    "displayFrom": "2022-02-14T14:14:59.73967",
+    "displayTo": "2052-02-14T14:14:59.73967",
+    "listType": "CROWN_WARNED_LIST",
+    "locationId": "123",
+    "contentDate": "2022-02-14T14:14:59.73967",
+    "isFlatFile": false,
+    "payload": "http://test.com"
+  },
+  {
+    "artefactId": "745",
+    "provenance": "prov2",
+    "sourceArtefactId": "43554",
+    "artefactType": "LIST",
+    "sensitivity": "PUBLIC",
+    "language": "ENGLISH",
+    "search": {
+      "cases": [
+        {
+          "caseNumber": "85423",
+          "caseName": "case name435",
+          "caseUrn": "6434"
+        }
+      ]
+    },
+    "displayFrom": "2022-02-14T14:14:59.73967",
+    "displayTo": "2052-02-14T14:14:59.73967",
+    "listType": "SJP_PUBLIC_LIST",
+    "type": "GENERAL_PUBLICATION",
+    "locationId": "123",
+    "contentDate": "2022-02-14T14:14:59.73967",
+    "isFlatFile": false,
+    "payload": "http://test.com"
+  }
 ]

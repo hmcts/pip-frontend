@@ -1,12 +1,12 @@
 {
-    "title": "Applicant's details",
-    "name": "Name",
-    "email": "Email",
-    "employer": "Employer",
-    "dateApplied": "Date applied",
-    "proofOfId": "Proof of ID",
-    "approveApplication": "Approve application",
-    "rejectApplication": "Reject application",
-    "opensInWindowText": "opens in a new window",
-    "viewText": "View"
+  "title": "Applicant's details",
+  "name": "Name",
+  "email": "Email",
+  "employer": "Employer",
+  "dateApplied": "Date applied",
+  "proofOfId": "Proof of ID",
+  "approveApplication": "Approve application",
+  "rejectApplication": "Reject application",
+  "opensInWindowText": "opens in a new window",
+  "viewText": "View"
 }

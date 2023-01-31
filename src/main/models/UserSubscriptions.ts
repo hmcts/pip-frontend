@@ -1,5 +1,5 @@
 export interface UserSubscriptions {
-    caseSubscriptions: any[];
-    listTypeSubscriptions: any[];
-    locationSubscriptions: any[];
+  caseSubscriptions: any[];
+  listTypeSubscriptions: any[];
+  locationSubscriptions: any[];
 }

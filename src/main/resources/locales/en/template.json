@@ -1,55 +1,55 @@
 {
-    "serviceNameText": "Court and tribunal hearings",
-    "signInText": "Sign in",
-    "signOutText": "Sign out",
-    "betaHeading": "This is a new service – your <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">feedback</a> will help us to improve it. <a class=\"languageHeader govuk-link\" href=\"javascript:void(0)\" onclick=\"changeLang('cy')\">Cymraeg</a>",
-    "betaHeadingAdmin": "This is a new service – your <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">feedback</a> will help us to improve it.",
-    "navLinks": {
-        "link1": "Home",
-        "link2": "Sign in",
-        "link3": "Sign out",
-        "link4": "Email subscriptions",
-        "link5": "Find a court or tribunal",
-        "link6": "Single Justice Procedure cases",
-        "link7": "Upload",
-        "link8": "Review apps",
-        "link9": "Remove",
-        "link10": "Admin Dashboard"
+  "serviceNameText": "Court and tribunal hearings",
+  "signInText": "Sign in",
+  "signOutText": "Sign out",
+  "betaHeading": "This is a new service – your <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">feedback</a> will help us to improve it. <a class=\"languageHeader govuk-link\" href=\"javascript:void(0)\" onclick=\"changeLang('cy')\">Cymraeg</a>",
+  "betaHeadingAdmin": "This is a new service – your <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=\">feedback</a> will help us to improve it.",
+  "navLinks": {
+    "link1": "Home",
+    "link2": "Sign in",
+    "link3": "Sign out",
+    "link4": "Email subscriptions",
+    "link5": "Find a court or tribunal",
+    "link6": "Single Justice Procedure cases",
+    "link7": "Upload",
+    "link8": "Review apps",
+    "link9": "Remove",
+    "link10": "Admin Dashboard"
+  },
+  "footerLinks": [
+    {
+      "text": "Help",
+      "href": "https://www.gov.uk/help"
     },
-    "footerLinks": [
-        {
-            "text": "Help",
-            "href": "https://www.gov.uk/help"
-        },
-        {
-            "text": "Privacy",
-            "href": "https://www.gov.uk/help/privacy-notice"
-        },
-        {
-            "text": "Cookies",
-            "href": "/cookie-policy"
-        },
-        {
-            "text": "Accessibility statement",
-            "href": "/accessibility-statement"
-        },
-        {
-            "text": "Contact",
-            "href": "https://www.gov.uk/contact"
-        },
-        {
-            "text": "Terms and conditions",
-            "href": "https://www.gov.uk/help/terms-conditions"
-        },
-        {
-            "text": "Welsh",
-            "href": "https://www.gov.uk/cymraeg"
-        },
-        {
-            "text": "Government Digital Service",
-            "href": "https://www.gov.uk/government/organisations/government-digital-service"
-        }
-    ],
-    "continueButton": "Continue",
-    "backToTop": "Back to top"
+    {
+      "text": "Privacy",
+      "href": "https://www.gov.uk/help/privacy-notice"
+    },
+    {
+      "text": "Cookies",
+      "href": "/cookie-policy"
+    },
+    {
+      "text": "Accessibility statement",
+      "href": "/accessibility-statement"
+    },
+    {
+      "text": "Contact",
+      "href": "https://www.gov.uk/contact"
+    },
+    {
+      "text": "Terms and conditions",
+      "href": "https://www.gov.uk/help/terms-conditions"
+    },
+    {
+      "text": "Welsh",
+      "href": "https://www.gov.uk/cymraeg"
+    },
+    {
+      "text": "Government Digital Service",
+      "href": "https://www.gov.uk/government/organisations/government-digital-service"
+    }
+  ],
+  "continueButton": "Continue",
+  "backToTop": "Back to top"
 }

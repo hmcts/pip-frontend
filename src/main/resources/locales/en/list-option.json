@@ -1,11 +1,11 @@
 {
-    "heading": "What do you want to view from",
-    "postHeading": "?",
-    "p1": "Select a category for the lists that you want to view:",
-    "p2": "lists",
-    "standardLists": "Standard Court Lists",
-    "publicLists": "Public Lists",
-    "dailyLists": "Daily Lists",
-    "warnedLists": "Warned Lists",
-    "firmedLists": "Firmed Lists"
+  "heading": "What do you want to view from",
+  "postHeading": "?",
+  "p1": "Select a category for the lists that you want to view:",
+  "p2": "lists",
+  "standardLists": "Standard Court Lists",
+  "publicLists": "Public Lists",
+  "dailyLists": "Daily Lists",
+  "warnedLists": "Warned Lists",
+  "firmedLists": "Firmed Lists"
 }

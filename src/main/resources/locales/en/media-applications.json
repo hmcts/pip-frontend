@@ -1,9 +1,9 @@
 {
-    "title": "Select application to assess",
-    "view": "View",
-    "table": {
-        "header1": "Name",
-        "header2": "Employer",
-        "header3": "Date applied"
-    }
+  "title": "Select application to assess",
+  "view": "View",
+  "table": {
+    "header1": "Name",
+    "header2": "Employer",
+    "header3": "Date applied"
+  }
 }

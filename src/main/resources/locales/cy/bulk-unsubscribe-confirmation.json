@@ -1,11 +1,11 @@
 {
-    "title": "Ydych chi’n siŵr eich bod eisiau dileu’r tanysgrifiadau hyn?",
-    "yes": "Ydw",
-    "no": "Nac ydw",
-    "error": {
-        "title": "Mae yna broblem",
-        "text": "Rhaid dewis opsiwn"
-    },
-    "continueButton": "Parhau",
-    "backButton": "Yn ôl"
+  "title": "Ydych chi’n siŵr eich bod eisiau dileu’r tanysgrifiadau hyn?",
+  "yes": "Ydw",
+  "no": "Nac ydw",
+  "error": {
+    "title": "Mae yna broblem",
+    "text": "Rhaid dewis opsiwn"
+  },
+  "continueButton": "Parhau",
+  "backButton": "Yn ôl"
 }

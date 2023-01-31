@@ -1,11 +1,11 @@
 {
-    "title": "Are you sure you want to remove these subscriptions?",
-    "yes": "Yes",
-    "no": "No",
-    "error": {
-        "title": "There is a problem",
-        "text": "An option must be selected"
-    },
-    "continueButton": "Continue",
-    "backButton": "Back"
+  "title": "Are you sure you want to remove these subscriptions?",
+  "yes": "Yes",
+  "no": "No",
+  "error": {
+    "title": "There is a problem",
+    "text": "An option must be selected"
+  },
+  "continueButton": "Continue",
+  "backButton": "Back"
 }

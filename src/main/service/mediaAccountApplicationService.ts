@@ -1,65 +1,90 @@
-import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
-import { CreateAccountService } from '../service/createAccountService';
-import { MediaAccount } from '../models/mediaAccount';
-import { DateTime } from 'luxon';
-import { LogHelper } from '../resources/logging/logHelper';
+import { AccountManagementRequests } from "../resources/requests/accountManagementRequests";
+import { CreateAccountService } from "../service/createAccountService";
+import { MediaAccount } from "../models/mediaAccount";
+import { DateTime } from "luxon";
+import { LogHelper } from "../resources/logging/logHelper";
 
 const accountManagementRequests = new AccountManagementRequests();
 const createAccountService = new CreateAccountService();
 const logHelper = new LogHelper();
 
 export class MediaAccountApplicationService {
-    public async getApplicationById(applicationId): Promise<MediaAccount | null> {
-        if (applicationId) {
-            const mediaAccount = await accountManagementRequests.getMediaApplicationById(applicationId);
-            if (mediaAccount) {
-                mediaAccount.requestDate = DateTime.fromISO(mediaAccount.requestDate).toFormat('dd MMM yyyy');
-                return mediaAccount;
-            }
-        }
-
-        return null;
+  public async getApplicationById(applicationId): Promise<MediaAccount | null> {
+    if (applicationId) {
+      const mediaAccount =
+        await accountManagementRequests.getMediaApplicationById(applicationId);
+      if (mediaAccount) {
+        mediaAccount.requestDate = DateTime.fromISO(
+          mediaAccount.requestDate
+        ).toFormat("dd MMM yyyy");
+        return mediaAccount;
+      }
     }
 
-    public async getApplicationByIdAndStatus(applicationId, status): Promise<MediaAccount | null> {
-        const mediaAccount = await this.getApplicationById(applicationId);
+    return null;
+  }
 
-        if (mediaAccount && mediaAccount.status === status) {
-            return mediaAccount;
-        }
+  public async getApplicationByIdAndStatus(
+    applicationId,
+    status
+  ): Promise<MediaAccount | null> {
+    const mediaAccount = await this.getApplicationById(applicationId);
 
-        return null;
+    if (mediaAccount && mediaAccount.status === status) {
+      return mediaAccount;
     }
 
-    public async getImageById(imageId): Promise<Blob> {
-        if (imageId) {
-            return accountManagementRequests.getMediaApplicationImageById(imageId);
-        }
+    return null;
+  }
 
-        return null;
+  public async getImageById(imageId): Promise<Blob> {
+    if (imageId) {
+      return accountManagementRequests.getMediaApplicationImageById(imageId);
     }
 
-    public async createAccountFromApplication(applicationId, adminId): Promise<MediaAccount> {
-        const mediaApplication = await this.getApplicationByIdAndStatus(applicationId, 'PENDING');
+    return null;
+  }
 
-        if (mediaApplication) {
-            const mediaAccount = {};
-            mediaAccount['emailAddress'] = mediaApplication.email;
-            mediaAccount['fullName'] = mediaApplication.fullName;
+  public async createAccountFromApplication(
+    applicationId,
+    adminId
+  ): Promise<MediaAccount> {
+    const mediaApplication = await this.getApplicationByIdAndStatus(
+      applicationId,
+      "PENDING"
+    );
 
-            logHelper.writeLog(adminId, 'APPROVED_MEDIA_ACCOUNT', mediaApplication.id);
+    if (mediaApplication) {
+      const mediaAccount = {};
+      mediaAccount["emailAddress"] = mediaApplication.email;
+      mediaAccount["fullName"] = mediaApplication.fullName;
 
-            await createAccountService.createMediaAccount(mediaAccount, adminId);
+      logHelper.writeLog(
+        adminId,
+        "APPROVED_MEDIA_ACCOUNT",
+        mediaApplication.id
+      );
 
-            return accountManagementRequests.updateMediaApplicationStatus(applicationId, 'APPROVED');
-        }
+      await createAccountService.createMediaAccount(mediaAccount, adminId);
 
-        return null;
+      return accountManagementRequests.updateMediaApplicationStatus(
+        applicationId,
+        "APPROVED"
+      );
     }
 
-    public async rejectApplication(applicationId, adminId): Promise<object | null> {
-        logHelper.writeLog(adminId, 'REJECT_MEDIA_ACCOUNT', applicationId);
+    return null;
+  }
 
-        return accountManagementRequests.updateMediaApplicationStatus(applicationId, 'REJECTED');
-    }
+  public async rejectApplication(
+    applicationId,
+    adminId
+  ): Promise<object | null> {
+    logHelper.writeLog(adminId, "REJECT_MEDIA_ACCOUNT", applicationId);
+
+    return accountManagementRequests.updateMediaApplicationStatus(
+      applicationId,
+      "REJECTED"
+    );
+  }
 }

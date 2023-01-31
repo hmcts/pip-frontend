@@ -1,10 +1,10 @@
 {
-    "title": "Search result",
-    "subheader": "1 result successfully found",
-    "table": {
-        "header1": "Unique reference number",
-        "header2": "Case reference number or case ID",
-        "header3": "Case name"
-    },
-    "backButton": "Back"
+  "title": "Search result",
+  "subheader": "1 result successfully found",
+  "table": {
+    "header1": "Unique reference number",
+    "header2": "Case reference number or case ID",
+    "header3": "Case name"
+  },
+  "backButton": "Back"
 }

@@ -1,18 +1,18 @@
 {
-    "header": "Are you sure you want to remove this publication?",
-    "optionYes": "Yes",
-    "optionNo": "No",
-    "warning": "You are about to remove the following publication:",
-    "error": {
-        "title": "There is a problem",
-        "text": "Please select an option"
-    },
-    "summaryListHeaders": {
-        "courtName": "Court or Tribunal name",
-        "publication": "List Type",
-        "contentDate": "Content Date",
-        "date": "Display Dates",
-        "language": "Language",
-        "sensitivity": "Sensitivity"
-    }
+  "header": "Are you sure you want to remove this publication?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "warning": "You are about to remove the following publication:",
+  "error": {
+    "title": "There is a problem",
+    "text": "Please select an option"
+  },
+  "summaryListHeaders": {
+    "courtName": "Court or Tribunal name",
+    "publication": "List Type",
+    "contentDate": "Content Date",
+    "date": "Display Dates",
+    "language": "Language",
+    "sensitivity": "Sensitivity"
+  }
 }

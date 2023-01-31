@@ -1,18 +1,18 @@
 [
-    {
-        "artefactId": "8bdbd58c-4c64-4a73-9e4f-d6409719c508",
-        "provenance": "Bradford Crown Court",
-        "sourceArtefactId": "PDF Upload",
-        "type": "LIST",
-        "sensitivity": "PUBLIC",
-        "language": "ENGLISH",
-        "search": {},
-        "displayFrom": "2022-02-02T12:52:01.907",
-        "displayTo": "2022-05-02T12:52:01.907",
-        "listType": "SJP_PUBLIC_LIST",
-        "locationId": "0",
-        "contentDate": "2022-02-02T12:52:01.907",
-        "isFlatFile": true,
-        "payload": "ia"
-    }
+  {
+    "artefactId": "8bdbd58c-4c64-4a73-9e4f-d6409719c508",
+    "provenance": "Bradford Crown Court",
+    "sourceArtefactId": "PDF Upload",
+    "type": "LIST",
+    "sensitivity": "PUBLIC",
+    "language": "ENGLISH",
+    "search": {},
+    "displayFrom": "2022-02-02T12:52:01.907",
+    "displayTo": "2022-05-02T12:52:01.907",
+    "listType": "SJP_PUBLIC_LIST",
+    "locationId": "0",
+    "contentDate": "2022-02-02T12:52:01.907",
+    "isFlatFile": true,
+    "payload": "ia"
+  }
 ]

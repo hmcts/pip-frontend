@@ -1,14 +1,14 @@
 {
-    "title": "Subscribe by unique reference number (URN)",
-    "header": "What is the unique reference number (URN)?",
-    "hint": "You must enter an exact match.",
-    "error": {
-        "title": "There is a problem",
-        "header": "There are no matching results.",
-        "notfound": "There is nothing matching your criteria",
-        "line1": "You can:",
-        "liText1": "Double check your spelling",
-        "liText2": "Add subscription by an alternative type"
-    },
-    "backButton": "Back"
+  "title": "Subscribe by unique reference number (URN)",
+  "header": "What is the unique reference number (URN)?",
+  "hint": "You must enter an exact match.",
+  "error": {
+    "title": "There is a problem",
+    "header": "There are no matching results.",
+    "notfound": "There is nothing matching your criteria",
+    "line1": "You can:",
+    "liText1": "Double check your spelling",
+    "liText2": "Add subscription by an alternative type"
+  },
+  "backButton": "Back"
 }

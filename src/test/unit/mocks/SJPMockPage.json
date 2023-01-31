@@ -1,118 +1,118 @@
 {
-    "document": {
-        "publicationDate": "2016-09-13T23:30:52.123Z",
-        "version": "3h;R(p1",
-        "documentName": "liv]"
-    },
-    "courtLists": [
-        {
-            "courtHouse": {
-                "courtRoom": [
-                    {
-                        "session": [
-                            {
-                                "sittings": [
-                                    {
-                                        "hearing": [
-                                            {
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTOR",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Danny",
-                                                            "individualSurname": "Thomas",
-                                                            "dateOfBirth": "25/07/1985",
-                                                            "formattedDateOfBirth": "25 July 1985",
-                                                            "address": {
-                                                                "town": "Swansea"
-                                                            }
-                                                        },
-                                                        "organisationDetails": {
-                                                            "organisationName": "qU8QlEo@"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "Prosecuter",
-                                                        "organisationDetails": {
-                                                            "organisationName": "qU8QlEo"
-                                                        }
-                                                    }
-                                                ],
-                                                "offence": [
-                                                    {
-                                                        "offenceTitle": "This is an offence title",
-                                                        "offenceWording": "This is offence wording",
-                                                        "reportingRestriction": true,
-                                                        "formattedReportingRestriction": "True"
-                                                    }
-                                                ],
-                                                "case": [
-                                                    {
-                                                        "caseUrn": "ABC12345"
-                                                    }
-                                                ]
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "hearing": [
-                                            {
-                                                "party": [
-                                                    {
-                                                        "partyRole": "ACCUSED",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Christopher",
-                                                            "individualSurname": "Robin",
-                                                            "dateOfBirth": "25/07/1985",
-                                                            "formattedDateOfBirth": "25 July 1985",
-                                                            "address": {
-                                                                "county": "London",
-                                                                "postCode": "E15 3AR",
-                                                                "town": "London"
-                                                            },
-                                                            "title": "Mr",
-                                                            "individualMiddleName": "W"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "PROSECUTOR",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Junaid",
-                                                            "individualSurname": "Thomas",
-                                                            "dateOfBirth": "25/07/1985",
-                                                            "formattedDateOfBirth": "25 July 1985",
-                                                            "address": {
-                                                                "town": "Swansea"
-                                                            }
-                                                        },
-                                                        "organisationDetails": {
-                                                            "organisationName": "qU8QlEo@"
-                                                        }
-                                                    }
-                                                ],
-                                                "offence": [
-                                                    {
-                                                        "offenceTitle": "This is an offence title",
-                                                        "offenceWording": "This is offence wording",
-                                                        "reportingRestriction": true,
-                                                        "formattedReportingRestriction": "True"
-                                                    }
-                                                ],
-                                                "case": [
-                                                    {
-                                                        "caseUrn": "ABC12345"
-                                                    }
-                                                ]
-                                            }
-                                        ]
-                                    }
-                                ]
+  "document": {
+    "publicationDate": "2016-09-13T23:30:52.123Z",
+    "version": "3h;R(p1",
+    "documentName": "liv]"
+  },
+  "courtLists": [
+    {
+      "courtHouse": {
+        "courtRoom": [
+          {
+            "session": [
+              {
+                "sittings": [
+                  {
+                    "hearing": [
+                      {
+                        "party": [
+                          {
+                            "partyRole": "PROSECUTOR",
+                            "individualDetails": {
+                              "individualForenames": "Danny",
+                              "individualSurname": "Thomas",
+                              "dateOfBirth": "25/07/1985",
+                              "formattedDateOfBirth": "25 July 1985",
+                              "address": {
+                                "town": "Swansea"
+                              }
+                            },
+                            "organisationDetails": {
+                              "organisationName": "qU8QlEo@"
                             }
+                          },
+                          {
+                            "partyRole": "Prosecuter",
+                            "organisationDetails": {
+                              "organisationName": "qU8QlEo"
+                            }
+                          }
+                        ],
+                        "offence": [
+                          {
+                            "offenceTitle": "This is an offence title",
+                            "offenceWording": "This is offence wording",
+                            "reportingRestriction": true,
+                            "formattedReportingRestriction": "True"
+                          }
+                        ],
+                        "case": [
+                          {
+                            "caseUrn": "ABC12345"
+                          }
                         ]
-                    }
+                      }
+                    ]
+                  },
+                  {
+                    "hearing": [
+                      {
+                        "party": [
+                          {
+                            "partyRole": "ACCUSED",
+                            "individualDetails": {
+                              "individualForenames": "Christopher",
+                              "individualSurname": "Robin",
+                              "dateOfBirth": "25/07/1985",
+                              "formattedDateOfBirth": "25 July 1985",
+                              "address": {
+                                "county": "London",
+                                "postCode": "E15 3AR",
+                                "town": "London"
+                              },
+                              "title": "Mr",
+                              "individualMiddleName": "W"
+                            }
+                          },
+                          {
+                            "partyRole": "PROSECUTOR",
+                            "individualDetails": {
+                              "individualForenames": "Junaid",
+                              "individualSurname": "Thomas",
+                              "dateOfBirth": "25/07/1985",
+                              "formattedDateOfBirth": "25 July 1985",
+                              "address": {
+                                "town": "Swansea"
+                              }
+                            },
+                            "organisationDetails": {
+                              "organisationName": "qU8QlEo@"
+                            }
+                          }
+                        ],
+                        "offence": [
+                          {
+                            "offenceTitle": "This is an offence title",
+                            "offenceWording": "This is offence wording",
+                            "reportingRestriction": true,
+                            "formattedReportingRestriction": "True"
+                          }
+                        ],
+                        "case": [
+                          {
+                            "caseUrn": "ABC12345"
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 ]
-            }
-        }
-    ],
-    "hearingCount": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "hearingCount": 2
 }

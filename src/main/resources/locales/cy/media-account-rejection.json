@@ -1,18 +1,18 @@
 {
-    "title": "Are you sure you want to reject this application?",
-    "backToTop": "Back to top",
-    "heading1": "Are you sure you want to reject this application?",
-    "tableCaption": "Applicant's Details",
-    "radioAnswers": ["Yes", "No"],
-    "name": "Name",
-    "email": "Email",
-    "employer": "Employer",
-    "dateApplied": "Date applied",
-    "proofOfId": "Proof of ID",
-    "opensInWindowText": "opens in a new window",
-    "viewText": "View",
-    "error": {
-        "title": "There is a problem",
-        "radioMessage": "An option must be selected"
-    }
+  "title": "Are you sure you want to reject this application?",
+  "backToTop": "Back to top",
+  "heading1": "Are you sure you want to reject this application?",
+  "tableCaption": "Applicant's Details",
+  "radioAnswers": ["Yes", "No"],
+  "name": "Name",
+  "email": "Email",
+  "employer": "Employer",
+  "dateApplied": "Date applied",
+  "proofOfId": "Proof of ID",
+  "opensInWindowText": "opens in a new window",
+  "viewText": "View",
+  "error": {
+    "title": "There is a problem",
+    "radioMessage": "An option must be selected"
+  }
 }

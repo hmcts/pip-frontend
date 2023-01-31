@@ -4,10 +4,10 @@
 
 The Publishing & Information Hub will be responsible for the following:
 
--   Receiving data from source systems, such as Schedule & Listing, via Hearings Management Interface
--   Publish lists, outcomes, judgements and management information onto GOV.UK
--   Provide functionality to display information in court and tribunals buildings on the relevant hardware
--   Comply with Open Justice procedures and business rules
+- Receiving data from source systems, such as Schedule & Listing, via Hearings Management Interface
+- Publish lists, outcomes, judgements and management information onto GOV.UK
+- Provide functionality to display information in court and tribunals buildings on the relevant hardware
+- Comply with Open Justice procedures and business rules
 
 ## Getting Started
 
@@ -15,9 +15,9 @@ The Publishing & Information Hub will be responsible for the following:
 
 Running the application requires the following tools to be installed in your environment:
 
--   [Node.js](https://nodejs.org/) v16.0.0 to v16.x.x (latest v16)
-    -   [yarn](https://yarnpkg.com/)
-    -   [Docker](https://www.docker.com)
+- [Node.js](https://nodejs.org/) v16.0.0 to v16.x.x (latest v16)
+  - [yarn](https://yarnpkg.com/)
+  - [Docker](https://www.docker.com)
 
 ### Authentication
 
@@ -203,12 +203,12 @@ included in this template app. Your njk file would look like this:
 This application uses [Helmet](https://helmetjs.github.io/), which adds various security-related HTTP headers
 to the responses. Apart from default Helmet functions, following headers are set:
 
--   [Referrer-Policy](https://helmetjs.github.io/docs/referrer-policy/)
--   [Content-Security-Policy](https://helmetjs.github.io/docs/csp/)
+- [Referrer-Policy](https://helmetjs.github.io/docs/referrer-policy/)
+- [Content-Security-Policy](https://helmetjs.github.io/docs/csp/)
 
 There is a configuration section related with those headers, where you can specify:
 
--   `referrerPolicy` - value of the `Referrer-Policy` header
+- `referrerPolicy` - value of the `Referrer-Policy` header
 
 Here's an example setup:
 

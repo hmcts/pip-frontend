@@ -1,20 +1,20 @@
 {
-    "title": "Confirm your email subscriptions",
-    "removeText": "Remove",
-    "table": {
-        "header1": "Unique reference number (URN)",
-        "header2": "Case reference number or case ID",
-        "header3": "Case name",
-        "header4": "Actions"
-    },
-    "buttonText": "Confirm Subscriptions",
-    "addOther_link": "/subscription-add",
-    "addOther_text": "Add another email Subscription",
-    "buttonAddText": "Add Subscriptions",
-    "error": {
-        "title": "There is a problem",
-        "message": "At least 1 subscription is needed."
-    },
-    "backButton": "Back",
-    "courtTribunalName": "Court or tribunal name"
+  "title": "Confirm your email subscriptions",
+  "removeText": "Remove",
+  "table": {
+    "header1": "Unique reference number (URN)",
+    "header2": "Case reference number or case ID",
+    "header3": "Case name",
+    "header4": "Actions"
+  },
+  "buttonText": "Confirm Subscriptions",
+  "addOther_link": "/subscription-add",
+  "addOther_text": "Add another email Subscription",
+  "buttonAddText": "Add Subscriptions",
+  "error": {
+    "title": "There is a problem",
+    "message": "At least 1 subscription is needed."
+  },
+  "backButton": "Back",
+  "courtTribunalName": "Court or tribunal name"
 }

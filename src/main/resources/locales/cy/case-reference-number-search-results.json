@@ -1,9 +1,9 @@
 {
-    "title": "Canlyniad y chwilio",
-    "subheader": "Wedi dod o hyd i 1 canlyniad",
-    "table": {
-        "header1": "Cyfeirnod yr achos",
-        "header2": "Enw'r achos"
-    },
-    "backButton": "Yn ôl"
+  "title": "Canlyniad y chwilio",
+  "subheader": "Wedi dod o hyd i 1 canlyniad",
+  "table": {
+    "header1": "Cyfeirnod yr achos",
+    "header2": "Enw'r achos"
+  },
+  "backButton": "Yn ôl"
 }

@@ -1,5 +1,5 @@
 export interface SearchObject {
-    caseNumber: string;
-    caseName: string;
-    caseUrn: string;
+  caseNumber: string;
+  caseName: string;
+  caseUrn: string;
 }

@@ -1,12 +1,12 @@
 {
-    "title": "Single Justice Procedure cases that are ready for hearing/Achosion Gweithdrefn Un Ynad sy'n barod ar gyfer gwrandawiad",
-    "listDetail": "List containing/Rhestr sy’n cynnwys CASES_COUNT case(s) generated on/a gynhyrchwyd ar",
-    "publishedAt": "at/yn",
-    "column1": "Name/Enw",
-    "column2": "Postcode/Cod post",
-    "column3": "Offence/Trosedd",
-    "column4": "Prosecutor/Erlynydd",
-    "backToTop": "Back to top/Yn ôl i frig y dudalen",
-    "backButton": "Back/Yn ôl",
-    "downloadButton": "Download a copy/Llwytho copi i lawr"
+  "title": "Single Justice Procedure cases that are ready for hearing/Achosion Gweithdrefn Un Ynad sy'n barod ar gyfer gwrandawiad",
+  "listDetail": "List containing/Rhestr sy’n cynnwys CASES_COUNT case(s) generated on/a gynhyrchwyd ar",
+  "publishedAt": "at/yn",
+  "column1": "Name/Enw",
+  "column2": "Postcode/Cod post",
+  "column3": "Offence/Trosedd",
+  "column4": "Prosecutor/Erlynydd",
+  "backToTop": "Back to top/Yn ôl i frig y dudalen",
+  "backButton": "Back/Yn ôl",
+  "downloadButton": "Download a copy/Llwytho copi i lawr"
 }
