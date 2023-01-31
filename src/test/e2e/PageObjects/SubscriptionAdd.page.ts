@@ -1,61 +1,61 @@
-import { SubscriptionUrnSearchPage } from "./SubscriptionUrnSearch.page";
-import { CaseNameSearchPage } from "./CaseNameSearch.page";
-import { LocationNameSearchPage } from "./LocationNameSearchPage";
-import { CaseReferenceNumberSearchPage } from "./CaseReferenceNumberSearch.page";
-import { CommonPage } from "./Common.page";
+import { SubscriptionUrnSearchPage } from './SubscriptionUrnSearch.page';
+import { CaseNameSearchPage } from './CaseNameSearch.page';
+import { LocationNameSearchPage } from './LocationNameSearchPage';
+import { CaseReferenceNumberSearchPage } from './CaseReferenceNumberSearch.page';
+import { CommonPage } from './Common.page';
 
-const helpers = require("../Helpers/Selectors");
+const helpers = require('../Helpers/Selectors');
 
 export class SubscriptionAddPage extends CommonPage {
-  async getPageTitle(): Promise<string> {
-    $(helpers.SubscriptionAddTitle).catch(() => {
-      console.log(`${helpers.SubscriptionAddTitle} not found`);
-    });
+    async getPageTitle(): Promise<string> {
+        $(helpers.SubscriptionAddTitle).catch(() => {
+            console.log(`${helpers.SubscriptionAddTitle} not found`);
+        });
 
-    return $(helpers.SubscriptionAddTitle).getText();
-  }
+        return $(helpers.SubscriptionAddTitle).getText();
+    }
 
-  async clickContinueForCaseName(): Promise<CaseNameSearchPage> {
-    $(helpers.ContinueButton).catch(() => {
-      console.log(`${helpers.ContinueButton} not found`);
-    });
+    async clickContinueForCaseName(): Promise<CaseNameSearchPage> {
+        $(helpers.ContinueButton).catch(() => {
+            console.log(`${helpers.ContinueButton} not found`);
+        });
 
-    await $(helpers.ContinueButton).click();
-    return new CaseNameSearchPage();
-  }
+        await $(helpers.ContinueButton).click();
+        return new CaseNameSearchPage();
+    }
 
-  async clickContinueForCaseReferenceNumberSearch(): Promise<CaseReferenceNumberSearchPage> {
-    $(helpers.ContinueButton).catch(() => {
-      console.log(`${helpers.ContinueButton} not found`);
-    });
+    async clickContinueForCaseReferenceNumberSearch(): Promise<CaseReferenceNumberSearchPage> {
+        $(helpers.ContinueButton).catch(() => {
+            console.log(`${helpers.ContinueButton} not found`);
+        });
 
-    await $(helpers.ContinueButton).click();
-    return new CaseReferenceNumberSearchPage();
-  }
+        await $(helpers.ContinueButton).click();
+        return new CaseReferenceNumberSearchPage();
+    }
 
-  async selectOption(optionName: string): Promise<void> {
-    $(helpers[optionName]).catch(() => {
-      console.log(`${helpers[optionName]} not found`);
-    });
+    async selectOption(optionName: string): Promise<void> {
+        $(helpers[optionName]).catch(() => {
+            console.log(`${helpers[optionName]} not found`);
+        });
 
-    await $(helpers[optionName]).click();
-  }
+        await $(helpers[optionName]).click();
+    }
 
-  async clickContinueForCourtOrTribunal(): Promise<LocationNameSearchPage> {
-    $(helpers.ContinueButton).catch(() => {
-      console.log(`${helpers.ContinueButton} not found`);
-    });
+    async clickContinueForCourtOrTribunal(): Promise<LocationNameSearchPage> {
+        $(helpers.ContinueButton).catch(() => {
+            console.log(`${helpers.ContinueButton} not found`);
+        });
 
-    await $(helpers.ContinueButton).click();
-    return new LocationNameSearchPage();
-  }
+        await $(helpers.ContinueButton).click();
+        return new LocationNameSearchPage();
+    }
 
-  async clickContinueForUrnSearch(): Promise<SubscriptionUrnSearchPage> {
-    $(helpers.ContinueButton).catch(() => {
-      console.log(`${helpers.ContinueButton} not found`);
-    });
+    async clickContinueForUrnSearch(): Promise<SubscriptionUrnSearchPage> {
+        $(helpers.ContinueButton).catch(() => {
+            console.log(`${helpers.ContinueButton} not found`);
+        });
 
-    await $(helpers.ContinueButton).click();
-    return new SubscriptionUrnSearchPage();
-  }
+        await $(helpers.ContinueButton).click();
+        return new SubscriptionUrnSearchPage();
+    }
 }

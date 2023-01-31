@@ -1,12 +1,7 @@
 {
-  "include": ["src/test/e2e/**/*.ts"],
-  "exclude": [],
-  "compilerOptions": {
-    "types": [
-      "node",
-      "webdriverio/async",
-      "@wdio/mocha-framework",
-      "expect-webdriverio"
-    ]
-  }
+    "include": ["src/test/e2e/**/*.ts"],
+    "exclude": [],
+    "compilerOptions": {
+        "types": ["node", "webdriverio/async", "@wdio/mocha-framework", "expect-webdriverio"]
+    }
 }

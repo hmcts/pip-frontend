@@ -1,126 +1,126 @@
 {
-  "title": "Datganiad hygyrchedd ar gyfer y gwasanaeth llysoedd a Thribiwnlysoedd",
-  "backButton": "Yn ôl",
-  "section1": {
-    "text1": "Mae'r datganiad hygyrchedd hwn yn berthnasol i gynnwys a gyhoeddir ar ",
-    "text2": "Mae'r gwasanaeth gwrandawiadau lysoedd a Thribiwnlysoedd yn darparu llwyfan cyhoeddi i alluogi i wybodaeth, megis rhestrau gwrandawiadau, a ddarperir gan GLlTEM gael ei rhannu, ei harddangos a'i diweddaru fel y bo'n briodol. Bydd yn galluogi arddangos gwybodaeth i ddefnyddwyr y llysoedd, yn gyson â gweithdrefnau awdurdodaethau a rheolau busnes. Mae'r gwasanaeth yn cefnogi ymrwymiad GLlTEM i gyfiawnder agored a darparu gwybodaeth dryloyw a chyson am lysoedd a thribiwnlysoedd ar draws awdurdodaethau.",
-    "text4": "Gwasanaeth Llysoedd a Thribiwnlysoedd EM sy’n gyfrifol am y wefan hon. Rydym eisiau i gymaint o bobl â phosibl allu defnyddio'r wefan hon, felly rydym wedi ceisio ei gwneud mor hygyrch â phosibl. Er enghraifft, golyga hyn y dylech allu:",
-    "text5": "Rydym hefyd wedi sicrhau ein bod wedi defnyddio iaith syml ar y wefan.",
-    "text6": "(mae'n agor mewn ffenestr newydd) gyngor ar wneud eich dyfais yn haws i'w defnyddio os oes gennych anabledd.",
-    "links": [
-      {
-        "link": "https://www.court-tribunal-hearings.service.gov.uk",
-        "text": "www.court-tribunal-hearings.service.gov.uk."
-      },
-      {
-        "link": "https://mcmw.abilitynet.org.uk/",
-        "text": "Mae gan AbilityNet "
-      }
-    ],
-    "list": [
-      "newid y lliwiau, y lefelau cyferbyniad a’r ffontiau",
-      "gwneud y testun hyd at 300% yn fwy heb iddo ddiflannu oddi ar y sgrin",
-      "mynd drwy'r rhan fwyaf o'r wefan gan ddefnyddio bysellfwrdd yn unig",
-      "mynd drwy'r rhan fwyaf o'r wefan gan ddefnyddio meddalwedd adnabod llais",
-      "gwrando ar y rhan fwyaf o'r wefan gan ddefnyddio darllenydd sgrin (gan gynnwys fersiynau diweddaraf JAWS, NVDA a VoiceOver)"
-    ]
-  },
-  "section2": {
-    "heading": "Pa mor hygyrch yw'r wefan hon",
-    "upperText": "Rydym yn gwybod nad yw rhai rhannau o’r wefan hon yn gwbl hygyrch, er enghraifft:",
-    "text": [
-      "Nid yw llawer o ddogfennau PDF a gyhoeddir yn y gwasanaeth hwn yn gwbl hygyrch i feddalwedd darllen sgrin gan fod y cynnwys heb ei dagio, heb ei deitlo ac nad yw'r tablau wedi'u marcio, mewn ffordd resymegol i alluogi defnyddwyr darllenwyr sgrin i fynd drwy’r ddogfen a nodi'r wybodaeth yn gywir. ",
-      "Nid yw'r tudalennau mewngofnodi ac ailosod cyfrinair ar gyfer rhywun sydd â chyfrif gwrandawiadau llys a thribiwnlys yn gwbl hygyrch i feddalwedd darllen sgrin gan nad yw penawdau ar y tudalennau hyn yn cael eu darllen allan.  Mae hyn yn golygu y gall defnyddwyr darllenwyr sgrin ei chael hi'n anodd adnabod pwrpas a strwythur rhesymegol y dudalen.",
-      "Mae'r cyferbyniad lliw yn ei gwneud hi'n anodd darllen testun mewn rhai rhannau o'r wefan.  "
-    ]
-  },
-  "section3": {
-    "heading": "Adborth a gwybodaeth gyswllt",
-    "text1": "Os oes angen gwybodaeth arnoch ar y wefan hon mewn fformat gwahanol fel PDF hygyrch, print bras, hawdd ei darllen neu Braille; ",
-    "text2": "Byddwn yn ystyried eich cais ac yn ymateb o fewn 10 diwrnod gwaith."
-  },
-  "ctscData": {
-    "heading": "Uned yr Iaith Gymraeg, Canolfan Gyfiawnder Caernarfon",
-    "phone": "Rhif ffôn: 0300 303 0656",
-    "openingHours": "Dydd Llun i ddydd Iau 9am - 5pm, dydd Gwener 9am - 4.30pm"
-  },
-  "section4": {
-    "heading": "Riportio problemau hygyrchedd gyda'r wefan hon",
-    "text1": "Rydym wastad yn ceisio gwella hygyrchedd y wefan hon. Os byddwch yn cael unrhyw broblemau nad ydynt wedi’u cynnwys ar y dudalen hon, neu’n credu nad ydym yn bodloni’r gofynion o ran hygyrchedd, cysylltwch ag:"
-  },
-  "section5": {
-    "heading": "Y Weithdrefn Orfodi",
-    "text1": "Y Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) sy’n gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018 (y ‘rheoliadau hygyrchedd’). Os nad ydych chi’n fodlon gyda’r ffordd rydym yn ymateb i’ch cwyn, ",
-    "links": [
-      {
-        "link": "https://www.equalityadvisoryservice.com/",
-        "text": "cysylltwch â’r Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS)."
-      }
-    ]
-  },
-  "section6": {
-    "heading": "Cysylltu â ni dros y ffôn neu ymweld â ni’n bersonol",
-    "text": [
-      "Rydym yn darparu gwasanaeth cyfnewid negeseuon testun ar gyfer pobl fyddar, pobl sydd â nam ar eu clyw a phobl sydd â nam ar eu lleferydd.",
-      "Mae yna ddolenni sain yn ein llysoedd a’n tribiwnlysoedd, neu os byddwch yn cysylltu â ni cyn eich ymweliad, gallwn drefnu cyfieithydd Iaith Arwyddion Prydain (BSL) ar eich cyfer.",
-      "Gwybodaeth am sut i gysylltu â ni gan ddefnyddio'r manylion cyswllt uchod."
-    ]
-  },
-  "section7": {
-    "heading": "Gwybodaeth dechnegol am hygyrchedd y wefan hon",
-    "text1": "Mae GLlTEM wedi ymrwymo i sicrhau bod ei wefannau yn hygyrch, a hynny yn unol â Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018."
-  },
-  "section8": {
-    "heading": "Statws cydymffurfiaeth",
-    "heading2": "Cynnwys anhygyrch",
-    "text1": "Mae’r wefan hon yn cydymffurfio’n rhannol â ",
-    "text2": "a hynny oherwydd yr enghreifftiau o beidio â chydymffurfio a restrir isod.",
-    "links": [
-      {
-        "link": "https://www.w3.org/TR/WCAG21/",
-        "text": "  safon AA Canllawiau Hygyrchedd Cynnwys Gwe fersiwn 2.1 "
-      }
-    ]
-  },
-  "section9": {
-    "preamble": "Mae’r cynnwys isod yn anhygyrch am y rhesymau canlynol.",
-    "subHeading": "Diffyg cydymffurfio â’r rheoliadau hygyrchedd",
-    "text": [
-      "Mae rhai rhestrau gwrandawiadau a gyflwynir o fewn y gwasanaeth wedi eu cyflwyno ac i’w gweld fel dogfen PDF neu Word (ffeiliau fflat). Gall y rhain fod yn anodd i ddefnyddwyr darllenwyr sgrin fynd drwyddynt gan fod y cynnwys heb ei dagio, heb ei deitlo ac nid yw’r tablau wedi’u marcio i alluogi defnyddwyr darllenwyr sgrin i fynd drwy’r ddogfen a nodi'r wybodaeth yn gywir.",
-      "Mae hyn yn methu gyda golwg ar WCAG 2.1 Maen prawf 2.4.2 (teitl y dudalen) ac 1.3.1 (gwybodaeth a pherthynas).",
-      "Bydd cynnydd yn cael ei adolygu'n barhaus, a bwriedir cynnal adolygiad llawn ym mis Rhagfyr 2022.",
-      "Nid yw sgriniau mewngofnodi ac anghofio cyfrinair ar gyfer aelod o'r cyfryngau (gyda chyfrif gwrandawiadau llys a thribiwnlys) yn gwbl hygyrch, gan nad yw penawdau'n cael eu darllen allan ac nid oes gan rai delweddau destun amgen.  ",
-      "Mae hyn yn methu gyda golwg ar WCAG 2.1 Maen prawf 1.3.1 (gwybodaeth a pherthynas).  Mae'r rhyngwyneb yn seiliedig ar drydydd parti allan o batrwm dylunio'r blwch. ",
-      "Byddwn yn ceisio datrys y mater hwn erbyn mis Rhagfyr 2022."
-    ]
-  },
-  "section10": {
-    "heading": "Beth rydym yn ei wneud i wella hygyrchedd",
-    "text": [
-      "Rydym yn bwriadu gwella hygyrchedd drwy ymgysylltu’n rhagweithiol â Rhaglen Ddiwygio GLlTEM  i sicrhau bod systemau sylfaenol yn cynhyrchu dogfennau hygyrch i'w cyhoeddi. Rydym wedi gofyn i wasanaethau ychwanegu gwaith at welliannau yn y dyfodol i ddiweddaru'r ffordd y maent yn cynhyrchu dogfennau i'w gwneud yn gwbl hygyrch.  ",
-      "Mae'r tîm gwasanaeth wedi derbyn fersiwn newydd o'r tudalennau mewngofnodi i ddatrys y mater o gydymffurfio â hygyrchedd.  Dylid rhoi hyn ar waith erbyn mis Rhagfyr 2022.",
-      "Byddwn yn cynnal profion hygyrchedd awtomataidd yn barhaus fel rhan o'n gweithgarwch datblygu."
-    ]
-  },
-  "section11": {
-    "heading": "Paratoi’r datganiad hygyrchedd hwn",
-    "smallHeading1": "Gweithdrefn brofi:",
-    "smallHeading2": "Profi gyda defnyddwyr:",
-    "smallHeading3": "Archwilio technegol:",
-    "text1": "Paratowyd y datganiad hwn ar 28 Ebrill 2022.   Fe'i hadolygwyd ddiwethaf ar 3 Mai 2022.",
-    "text2": "Profwyd y wefan hon yn fewnol ar bob cam o’i hadeiladu a bu’n destun profion ",
-    "text3": " drwy gydol mis Ebrill 2021 i fis Mawrth 2022.",
-    "text4": "Mae hwn yn dyfyniad o adroddiad y Cydgysylltydd sy'n esbonio eu methodoleg.",
-    "text6": "Profwyd y wefan hon ddiwethaf gan y Ganolfan Hygyrchedd Digidol (DAC) ar 1 Mawrth 2022 yn erbyn safonau WCAG 2.1.",
-    "text8": "“Mae'r gwasanaeth yn cael ei brofi gan dîm o archwilwyr a dadansoddwyr profiadol, llawer ohonynt yn unigolion anabl ac yn ddefnyddwyr technoleg addasol. Mae'r cyfuniad o adborth goddrychol gan ddefnyddwyr anabl ac archwiliadau technegol cynhwysfawr yn ein galluogi i fesur sut mae'r gwasanaeth yn perfformio'n dechnegol ac yn ymarferol, gan gynnig dimensiwn ychwanegol hanfodol i ganlyniadau ein profion na all dulliau eraill o brofi eu darparu.“",
-    "text9": "“Cynhaliwyd archwiliadau hygyrchedd â llaw gan dîm o unigolion anabl, gan ddefnyddio ystod o dechnolegau addasol (caledwedd a meddalwedd a gynlluniwyd i hwyluso'r defnydd o gyfrifiaduron gan bobl ag anableddau).“",
-    "text10": "“Mae archwilio technegol yn cynnwys cymhwyso nifer o ddulliau archwilio technegol a safonau asesu cydymffurfiaeth. Mae hyn, ynghyd â gwybodaeth helaeth am WCAG, y broses o’i roi ar waith ac ymarfer byd-eang ehangach, yn rhoi hygrededd ac ansawdd pellach i wefan DAC.”",
-    "links": [
-      { "link": "https://pa11y.org/", "text": "Pa11y" },
-      {
-        "link": "https://www.court-tribunal-hearings.service.gov.uk",
-        "text": "www.court-tribunal-hearings.service.gov.uk."
-      }
-    ]
-  }
+    "title": "Datganiad hygyrchedd ar gyfer y gwasanaeth llysoedd a Thribiwnlysoedd",
+    "backButton": "Yn ôl",
+    "section1": {
+        "text1": "Mae'r datganiad hygyrchedd hwn yn berthnasol i gynnwys a gyhoeddir ar ",
+        "text2": "Mae'r gwasanaeth gwrandawiadau lysoedd a Thribiwnlysoedd yn darparu llwyfan cyhoeddi i alluogi i wybodaeth, megis rhestrau gwrandawiadau, a ddarperir gan GLlTEM gael ei rhannu, ei harddangos a'i diweddaru fel y bo'n briodol. Bydd yn galluogi arddangos gwybodaeth i ddefnyddwyr y llysoedd, yn gyson â gweithdrefnau awdurdodaethau a rheolau busnes. Mae'r gwasanaeth yn cefnogi ymrwymiad GLlTEM i gyfiawnder agored a darparu gwybodaeth dryloyw a chyson am lysoedd a thribiwnlysoedd ar draws awdurdodaethau.",
+        "text4": "Gwasanaeth Llysoedd a Thribiwnlysoedd EM sy’n gyfrifol am y wefan hon. Rydym eisiau i gymaint o bobl â phosibl allu defnyddio'r wefan hon, felly rydym wedi ceisio ei gwneud mor hygyrch â phosibl. Er enghraifft, golyga hyn y dylech allu:",
+        "text5": "Rydym hefyd wedi sicrhau ein bod wedi defnyddio iaith syml ar y wefan.",
+        "text6": "(mae'n agor mewn ffenestr newydd) gyngor ar wneud eich dyfais yn haws i'w defnyddio os oes gennych anabledd.",
+        "links": [
+            {
+                "link": "https://www.court-tribunal-hearings.service.gov.uk",
+                "text": "www.court-tribunal-hearings.service.gov.uk."
+            },
+            {
+                "link": "https://mcmw.abilitynet.org.uk/",
+                "text": "Mae gan AbilityNet "
+            }
+        ],
+        "list": [
+            "newid y lliwiau, y lefelau cyferbyniad a’r ffontiau",
+            "gwneud y testun hyd at 300% yn fwy heb iddo ddiflannu oddi ar y sgrin",
+            "mynd drwy'r rhan fwyaf o'r wefan gan ddefnyddio bysellfwrdd yn unig",
+            "mynd drwy'r rhan fwyaf o'r wefan gan ddefnyddio meddalwedd adnabod llais",
+            "gwrando ar y rhan fwyaf o'r wefan gan ddefnyddio darllenydd sgrin (gan gynnwys fersiynau diweddaraf JAWS, NVDA a VoiceOver)"
+        ]
+    },
+    "section2": {
+        "heading": "Pa mor hygyrch yw'r wefan hon",
+        "upperText": "Rydym yn gwybod nad yw rhai rhannau o’r wefan hon yn gwbl hygyrch, er enghraifft:",
+        "text": [
+            "Nid yw llawer o ddogfennau PDF a gyhoeddir yn y gwasanaeth hwn yn gwbl hygyrch i feddalwedd darllen sgrin gan fod y cynnwys heb ei dagio, heb ei deitlo ac nad yw'r tablau wedi'u marcio, mewn ffordd resymegol i alluogi defnyddwyr darllenwyr sgrin i fynd drwy’r ddogfen a nodi'r wybodaeth yn gywir. ",
+            "Nid yw'r tudalennau mewngofnodi ac ailosod cyfrinair ar gyfer rhywun sydd â chyfrif gwrandawiadau llys a thribiwnlys yn gwbl hygyrch i feddalwedd darllen sgrin gan nad yw penawdau ar y tudalennau hyn yn cael eu darllen allan.  Mae hyn yn golygu y gall defnyddwyr darllenwyr sgrin ei chael hi'n anodd adnabod pwrpas a strwythur rhesymegol y dudalen.",
+            "Mae'r cyferbyniad lliw yn ei gwneud hi'n anodd darllen testun mewn rhai rhannau o'r wefan.  "
+        ]
+    },
+    "section3": {
+        "heading": "Adborth a gwybodaeth gyswllt",
+        "text1": "Os oes angen gwybodaeth arnoch ar y wefan hon mewn fformat gwahanol fel PDF hygyrch, print bras, hawdd ei darllen neu Braille; ",
+        "text2": "Byddwn yn ystyried eich cais ac yn ymateb o fewn 10 diwrnod gwaith."
+    },
+    "ctscData": {
+        "heading": "Uned yr Iaith Gymraeg, Canolfan Gyfiawnder Caernarfon",
+        "phone": "Rhif ffôn: 0300 303 0656",
+        "openingHours": "Dydd Llun i ddydd Iau 9am - 5pm, dydd Gwener 9am - 4.30pm"
+    },
+    "section4": {
+        "heading": "Riportio problemau hygyrchedd gyda'r wefan hon",
+        "text1": "Rydym wastad yn ceisio gwella hygyrchedd y wefan hon. Os byddwch yn cael unrhyw broblemau nad ydynt wedi’u cynnwys ar y dudalen hon, neu’n credu nad ydym yn bodloni’r gofynion o ran hygyrchedd, cysylltwch ag:"
+    },
+    "section5": {
+        "heading": "Y Weithdrefn Orfodi",
+        "text1": "Y Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) sy’n gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018 (y ‘rheoliadau hygyrchedd’). Os nad ydych chi’n fodlon gyda’r ffordd rydym yn ymateb i’ch cwyn, ",
+        "links": [
+            {
+                "link": "https://www.equalityadvisoryservice.com/",
+                "text": "cysylltwch â’r Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS)."
+            }
+        ]
+    },
+    "section6": {
+        "heading": "Cysylltu â ni dros y ffôn neu ymweld â ni’n bersonol",
+        "text": [
+            "Rydym yn darparu gwasanaeth cyfnewid negeseuon testun ar gyfer pobl fyddar, pobl sydd â nam ar eu clyw a phobl sydd â nam ar eu lleferydd.",
+            "Mae yna ddolenni sain yn ein llysoedd a’n tribiwnlysoedd, neu os byddwch yn cysylltu â ni cyn eich ymweliad, gallwn drefnu cyfieithydd Iaith Arwyddion Prydain (BSL) ar eich cyfer.",
+            "Gwybodaeth am sut i gysylltu â ni gan ddefnyddio'r manylion cyswllt uchod."
+        ]
+    },
+    "section7": {
+        "heading": "Gwybodaeth dechnegol am hygyrchedd y wefan hon",
+        "text1": "Mae GLlTEM wedi ymrwymo i sicrhau bod ei wefannau yn hygyrch, a hynny yn unol â Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018."
+    },
+    "section8": {
+        "heading": "Statws cydymffurfiaeth",
+        "heading2": "Cynnwys anhygyrch",
+        "text1": "Mae’r wefan hon yn cydymffurfio’n rhannol â ",
+        "text2": "a hynny oherwydd yr enghreifftiau o beidio â chydymffurfio a restrir isod.",
+        "links": [
+            {
+                "link": "https://www.w3.org/TR/WCAG21/",
+                "text": "  safon AA Canllawiau Hygyrchedd Cynnwys Gwe fersiwn 2.1 "
+            }
+        ]
+    },
+    "section9": {
+        "preamble": "Mae’r cynnwys isod yn anhygyrch am y rhesymau canlynol.",
+        "subHeading": "Diffyg cydymffurfio â’r rheoliadau hygyrchedd",
+        "text": [
+            "Mae rhai rhestrau gwrandawiadau a gyflwynir o fewn y gwasanaeth wedi eu cyflwyno ac i’w gweld fel dogfen PDF neu Word (ffeiliau fflat). Gall y rhain fod yn anodd i ddefnyddwyr darllenwyr sgrin fynd drwyddynt gan fod y cynnwys heb ei dagio, heb ei deitlo ac nid yw’r tablau wedi’u marcio i alluogi defnyddwyr darllenwyr sgrin i fynd drwy’r ddogfen a nodi'r wybodaeth yn gywir.",
+            "Mae hyn yn methu gyda golwg ar WCAG 2.1 Maen prawf 2.4.2 (teitl y dudalen) ac 1.3.1 (gwybodaeth a pherthynas).",
+            "Bydd cynnydd yn cael ei adolygu'n barhaus, a bwriedir cynnal adolygiad llawn ym mis Rhagfyr 2022.",
+            "Nid yw sgriniau mewngofnodi ac anghofio cyfrinair ar gyfer aelod o'r cyfryngau (gyda chyfrif gwrandawiadau llys a thribiwnlys) yn gwbl hygyrch, gan nad yw penawdau'n cael eu darllen allan ac nid oes gan rai delweddau destun amgen.  ",
+            "Mae hyn yn methu gyda golwg ar WCAG 2.1 Maen prawf 1.3.1 (gwybodaeth a pherthynas).  Mae'r rhyngwyneb yn seiliedig ar drydydd parti allan o batrwm dylunio'r blwch. ",
+            "Byddwn yn ceisio datrys y mater hwn erbyn mis Rhagfyr 2022."
+        ]
+    },
+    "section10": {
+        "heading": "Beth rydym yn ei wneud i wella hygyrchedd",
+        "text": [
+            "Rydym yn bwriadu gwella hygyrchedd drwy ymgysylltu’n rhagweithiol â Rhaglen Ddiwygio GLlTEM  i sicrhau bod systemau sylfaenol yn cynhyrchu dogfennau hygyrch i'w cyhoeddi. Rydym wedi gofyn i wasanaethau ychwanegu gwaith at welliannau yn y dyfodol i ddiweddaru'r ffordd y maent yn cynhyrchu dogfennau i'w gwneud yn gwbl hygyrch.  ",
+            "Mae'r tîm gwasanaeth wedi derbyn fersiwn newydd o'r tudalennau mewngofnodi i ddatrys y mater o gydymffurfio â hygyrchedd.  Dylid rhoi hyn ar waith erbyn mis Rhagfyr 2022.",
+            "Byddwn yn cynnal profion hygyrchedd awtomataidd yn barhaus fel rhan o'n gweithgarwch datblygu."
+        ]
+    },
+    "section11": {
+        "heading": "Paratoi’r datganiad hygyrchedd hwn",
+        "smallHeading1": "Gweithdrefn brofi:",
+        "smallHeading2": "Profi gyda defnyddwyr:",
+        "smallHeading3": "Archwilio technegol:",
+        "text1": "Paratowyd y datganiad hwn ar 28 Ebrill 2022.   Fe'i hadolygwyd ddiwethaf ar 3 Mai 2022.",
+        "text2": "Profwyd y wefan hon yn fewnol ar bob cam o’i hadeiladu a bu’n destun profion ",
+        "text3": " drwy gydol mis Ebrill 2021 i fis Mawrth 2022.",
+        "text4": "Mae hwn yn dyfyniad o adroddiad y Cydgysylltydd sy'n esbonio eu methodoleg.",
+        "text6": "Profwyd y wefan hon ddiwethaf gan y Ganolfan Hygyrchedd Digidol (DAC) ar 1 Mawrth 2022 yn erbyn safonau WCAG 2.1.",
+        "text8": "“Mae'r gwasanaeth yn cael ei brofi gan dîm o archwilwyr a dadansoddwyr profiadol, llawer ohonynt yn unigolion anabl ac yn ddefnyddwyr technoleg addasol. Mae'r cyfuniad o adborth goddrychol gan ddefnyddwyr anabl ac archwiliadau technegol cynhwysfawr yn ein galluogi i fesur sut mae'r gwasanaeth yn perfformio'n dechnegol ac yn ymarferol, gan gynnig dimensiwn ychwanegol hanfodol i ganlyniadau ein profion na all dulliau eraill o brofi eu darparu.“",
+        "text9": "“Cynhaliwyd archwiliadau hygyrchedd â llaw gan dîm o unigolion anabl, gan ddefnyddio ystod o dechnolegau addasol (caledwedd a meddalwedd a gynlluniwyd i hwyluso'r defnydd o gyfrifiaduron gan bobl ag anableddau).“",
+        "text10": "“Mae archwilio technegol yn cynnwys cymhwyso nifer o ddulliau archwilio technegol a safonau asesu cydymffurfiaeth. Mae hyn, ynghyd â gwybodaeth helaeth am WCAG, y broses o’i roi ar waith ac ymarfer byd-eang ehangach, yn rhoi hygrededd ac ansawdd pellach i wefan DAC.”",
+        "links": [
+            { "link": "https://pa11y.org/", "text": "Pa11y" },
+            {
+                "link": "https://www.court-tribunal-hearings.service.gov.uk",
+                "text": "www.court-tribunal-hearings.service.gov.uk."
+            }
+        ]
+    }
 }

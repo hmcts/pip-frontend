@@ -1,22 +1,22 @@
 {
-  "title": "Your account",
-  "cards": [
-    {
-      "title": "Court and tribunal hearings",
-      "description": "View time, location, type of hearings and more.",
-      "link": "search"
-    },
-    {
-      "title": "Single Justice Procedure cases",
-      "description": "Cases ready to be decided by a magistrate without a hearing. Includes TV licensing, minor traffic offences such as speeding and more.",
-      "link": "summary-of-publications?locationId=9"
-    },
-    {
-      "title": "Email subscriptions",
-      "description": "Get emails about hearings from different courts and tribunals and manage your subscriptions.",
-      "link": "subscription-management"
-    }
-  ],
-  "backButton": "Back",
-  "bannerText": "Your account has been verified."
+    "title": "Your account",
+    "cards": [
+        {
+            "title": "Court and tribunal hearings",
+            "description": "View time, location, type of hearings and more.",
+            "link": "search"
+        },
+        {
+            "title": "Single Justice Procedure cases",
+            "description": "Cases ready to be decided by a magistrate without a hearing. Includes TV licensing, minor traffic offences such as speeding and more.",
+            "link": "summary-of-publications?locationId=9"
+        },
+        {
+            "title": "Email subscriptions",
+            "description": "Get emails about hearings from different courts and tribunals and manage your subscriptions.",
+            "link": "subscription-management"
+        }
+    ],
+    "backButton": "Back",
+    "bannerText": "Your account has been verified."
 }

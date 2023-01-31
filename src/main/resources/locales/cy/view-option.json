@@ -1,13 +1,13 @@
 {
-  "title": "Beth ydych chi eisiau ei wneud?",
-  "radioLegend": "Beth ydych chi eisiau ei wneud?",
-  "radio1": "Dod o hyd i Lys neu Dribiwnlys",
-  "radio2": "Dod o hyd i achos Gweithdrefn Un Ynad",
-  "radio1Hint": "Gweld amser, lleoliad, math o wrandawiadau a mwy",
-  "radio2Hint": "Trwyddedu teledu, mân droseddau traffig megis goryrru a mwy",
-  "error": {
-    "title": "Mae problem",
-    "text": "An option must be selected"
-  },
-  "backButton": "Yn ôl"
+    "title": "Beth ydych chi eisiau ei wneud?",
+    "radioLegend": "Beth ydych chi eisiau ei wneud?",
+    "radio1": "Dod o hyd i Lys neu Dribiwnlys",
+    "radio2": "Dod o hyd i achos Gweithdrefn Un Ynad",
+    "radio1Hint": "Gweld amser, lleoliad, math o wrandawiadau a mwy",
+    "radio2Hint": "Trwyddedu teledu, mân droseddau traffig megis goryrru a mwy",
+    "error": {
+        "title": "Mae problem",
+        "text": "An option must be selected"
+    },
+    "backButton": "Yn ôl"
 }
