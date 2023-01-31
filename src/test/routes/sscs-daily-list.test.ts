@@ -12,8 +12,8 @@ const userId = '2';
 const sscDailyListUrl = '/sscs-daily-list';
 const sscDailyListAdditionalHearingsUrl = '/sscs-daily-list-additional-hearings';
 const artefactIdMap = new Map<string, string>([
-  [sscDailyListUrl, 'abc'],
-  [sscDailyListAdditionalHearingsUrl, 'def'],
+    [sscDailyListUrl, 'abc'],
+    [sscDailyListAdditionalHearingsUrl, 'def'],
 ]);
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/sscsDailyList.json'), 'utf-8');
@@ -31,16 +31,17 @@ sinon.stub(SscsDailyListService.prototype, 'manipulateSscsDailyListData').resolv
 
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 metadataStub.withArgs(artefactIdMap.get(sscDailyListUrl), userId).returns(metaDataSscs);
-metadataStub.withArgs(artefactIdMap.get(sscDailyListAdditionalHearingsUrl), userId).returns(metaDataSscsAdditionalHearings);
+metadataStub
+    .withArgs(artefactIdMap.get(sscDailyListAdditionalHearingsUrl), userId)
+    .returns(metaDataSscsAdditionalHearings);
 
-describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])('Sscs Daily List Page with path \'%s\'', url => {
-  describe('on GET', () => {
-    test('should return sscs daily list page', async () => {
-      app.request['user'] = {userId: userId};
-      await request(app)
-        .get(url + '?artefactId=' + artefactIdMap.get(url))
-        .expect((res) => expect(res.status).to.equal(200));
+describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs Daily List Page with path '%s'", url => {
+    describe('on GET', () => {
+        test('should return sscs daily list page', async () => {
+            app.request['user'] = { userId: userId };
+            await request(app)
+                .get(url + '?artefactId=' + artefactIdMap.get(url))
+                .expect(res => expect(res.status).to.equal(200));
+        });
     });
-  });
 });
-

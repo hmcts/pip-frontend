@@ -1,8 +1,8 @@
 {
-  "title": "Manage User",
-  "heading": "Manage ",
-  "WarningText": "Ensure authorisation has been granted before updating this user",
-  "WarningFallbackText": "Warning",
-  "buttonText": "Delete user",
-  "buttonClass": "govuk-button--warning"
+    "title": "Manage User",
+    "heading": "Manage ",
+    "WarningText": "Ensure authorisation has been granted before updating this user",
+    "WarningFallbackText": "Warning",
+    "buttonText": "Delete user",
+    "buttonClass": "govuk-button--warning"
 }

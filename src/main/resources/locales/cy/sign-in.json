@@ -1,16 +1,16 @@
 {
-  "title": "Sut hoffech chi fewngofnodi?",
-  "header": "Sut hoffech chi fewngofnodi?",
-  "radio1": "Gyda chyfrif MyHMCTS",
-  "radio2": "Gyda chyfrif Common Platform",
-  "radio2Hint": "Byddwch yn gallu mewngofnodi gyda chyfrif Platfform Cyffredin yn ddiweddarach eleni.",
-  "radio3": "Gyda chyfrif gwrandawiadau Llys a Thribiwnlys",
-  "accountInfo": "And oed gennych gyfrif?",
-  "accountInfo_link_text": "Creu cyfrif gwrandawiadau Llys a Thribiwnlys",
-  "accountInfo_link": "create-media-account",
-  "error": {
-    "title": "Mae yna broblem",
-    "noSelection": "Rhaid dewis opsiwn"
-  },
-  "backButton": "Yn ôl"
+    "title": "Sut hoffech chi fewngofnodi?",
+    "header": "Sut hoffech chi fewngofnodi?",
+    "radio1": "Gyda chyfrif MyHMCTS",
+    "radio2": "Gyda chyfrif Common Platform",
+    "radio2Hint": "Byddwch yn gallu mewngofnodi gyda chyfrif Platfform Cyffredin yn ddiweddarach eleni.",
+    "radio3": "Gyda chyfrif gwrandawiadau Llys a Thribiwnlys",
+    "accountInfo": "And oed gennych gyfrif?",
+    "accountInfo_link_text": "Creu cyfrif gwrandawiadau Llys a Thribiwnlys",
+    "accountInfo_link": "create-media-account",
+    "error": {
+        "title": "Mae yna broblem",
+        "noSelection": "Rhaid dewis opsiwn"
+    },
+    "backButton": "Yn ôl"
 }

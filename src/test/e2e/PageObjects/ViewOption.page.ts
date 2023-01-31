@@ -6,50 +6,50 @@ import { CommonPage } from './Common.page';
 const helpers = require('../Helpers/Selectors');
 
 export class ViewOptionPage extends CommonPage {
-  async getPageTitle(): Promise<string> {
-    $(helpers.ViewOptionsTitle).catch(() => {
-      console.log(`${helpers.ViewOptionsTitle} not found`);
-    });
+    async getPageTitle(): Promise<string> {
+        $(helpers.ViewOptionsTitle).catch(() => {
+            console.log(`${helpers.ViewOptionsTitle} not found`);
+        });
 
-    return $(helpers.ViewOptionsTitle).getText();
-  }
+        return $(helpers.ViewOptionsTitle).getText();
+    }
 
-  async clickContinueForSearch(): Promise<SearchPage> {
-    $(helpers.ContinueButton).catch(() => {
-      console.log(`${helpers.ContinueButton} not found`);
-    });
-    const continueButton = await $(helpers.ContinueButton);
-    continueButton.click();
+    async clickContinueForSearch(): Promise<SearchPage> {
+        $(helpers.ContinueButton).catch(() => {
+            console.log(`${helpers.ContinueButton} not found`);
+        });
+        const continueButton = await $(helpers.ContinueButton);
+        continueButton.click();
 
-    return new SearchPage();
-  }
+        return new SearchPage();
+    }
 
-  async clickContinueForLiveHearings(): Promise<LiveCaseCourtSearchControllerPage> {
-    $(helpers.ContinueButton).catch(() => {
-      console.log(`${helpers.ContinueButton} not found`);
-    });
-    const continueButton = await $(helpers.ContinueButton);
-    continueButton.click();
+    async clickContinueForLiveHearings(): Promise<LiveCaseCourtSearchControllerPage> {
+        $(helpers.ContinueButton).catch(() => {
+            console.log(`${helpers.ContinueButton} not found`);
+        });
+        const continueButton = await $(helpers.ContinueButton);
+        continueButton.click();
 
-    return new LiveCaseCourtSearchControllerPage();
-  }
+        return new LiveCaseCourtSearchControllerPage();
+    }
 
-  async clickContinueSingleJusticeProcedure(): Promise<SingleJusticeProcedurePage> {
-    $(helpers.ContinueButton).catch(() => {
-      console.log(`${helpers.ContinueButton} not found`);
-    });
-    const continueButton = await $(helpers.ContinueButton);
-    continueButton.click();
+    async clickContinueSingleJusticeProcedure(): Promise<SingleJusticeProcedurePage> {
+        $(helpers.ContinueButton).catch(() => {
+            console.log(`${helpers.ContinueButton} not found`);
+        });
+        const continueButton = await $(helpers.ContinueButton);
+        continueButton.click();
 
-    return new SingleJusticeProcedurePage();
-  }
+        return new SingleJusticeProcedurePage();
+    }
 
-  async clickFindACourtBannerLink(): Promise<SearchPage> {
-    $(helpers.BannerFindCourt).catch(() => {
-      console.log(`${helpers.BannerFindCourt} not found`);
-    });
+    async clickFindACourtBannerLink(): Promise<SearchPage> {
+        $(helpers.BannerFindCourt).catch(() => {
+            console.log(`${helpers.BannerFindCourt} not found`);
+        });
 
-    await $(helpers.BannerFindCourt).click();
-    return new SearchPage();
-  }
+        await $(helpers.BannerFindCourt).click();
+        return new SearchPage();
+    }
 }

@@ -1,10 +1,10 @@
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../main/service/publicationService';
-import {LocationService} from '../../../main/service/locationService';
-import {Response} from 'express';
-import {mockRequest} from '../mocks/mockRequest';
+import { PublicationService } from '../../../main/service/publicationService';
+import { LocationService } from '../../../main/service/locationService';
+import { Response } from 'express';
+import { mockRequest } from '../mocks/mockRequest';
 import EtFortnightlyListController from '../../../main/controllers/EtFortnightlyListController';
 import { EtListsService } from '../../../main/service/listManipulation/EtListsService';
 
@@ -36,55 +36,58 @@ etDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 etDailyListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
-  'et-daily-cause-list': {},
-  'list-template': {},
+    'et-daily-cause-list': {},
+    'list-template': {},
 };
 
 describe('Et Fortnightly List Controller', () => {
-
-  const response = { render: () => {return '';}} as unknown as Response;
-  const request = mockRequest(i18n);
-  request.path = '/et-fortnightly-list';
-
-  afterEach(() => {
-    sinon.restore();
-  });
-
-  it('should render the et fortnightly cause list page', async () => {
-    request.query = {artefactId: artefactId};
-    request.user = {userId: '1'};
-
-    const responseMock = sinon.mock(response);
-    const expectedData = {
-      ...i18n['et-fortnightly-list'],
-      ...i18n['list-template'],
-      tableData,
-      listData,
-      region: 'Bedford',
-      contentDate: '14 February 2022',
-      publishedDate: '13 February 2022',
-      publishedTime: '9:30am',
-      courtName: "Abergavenny Magistrates' Court",
-      provenance: 'prov1',
-      bill:false,
-    };
-
-    responseMock.expects('render').once().withArgs('et-fortnightly-list', expectedData);
-
-    await etDailyListController.get(request, response);
-    return responseMock.verify();
-  });
-
-  it('should render error page if query param is empty', async () => {
+    const response = {
+        render: () => {
+            return '';
+        },
+    } as unknown as Response;
     const request = mockRequest(i18n);
-    request.query = {};
-    request.user = {userId: '123'};
+    request.path = '/et-fortnightly-list';
 
-    const responseMock = sinon.mock(response);
+    afterEach(() => {
+        sinon.restore();
+    });
 
-    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+    it('should render the et fortnightly cause list page', async () => {
+        request.query = { artefactId: artefactId };
+        request.user = { userId: '1' };
 
-    await etDailyListController.get(request, response);
-    return responseMock.verify();
-  });
+        const responseMock = sinon.mock(response);
+        const expectedData = {
+            ...i18n['et-fortnightly-list'],
+            ...i18n['list-template'],
+            tableData,
+            listData,
+            region: 'Bedford',
+            contentDate: '14 February 2022',
+            publishedDate: '13 February 2022',
+            publishedTime: '9:30am',
+            courtName: "Abergavenny Magistrates' Court",
+            provenance: 'prov1',
+            bill: false,
+        };
+
+        responseMock.expects('render').once().withArgs('et-fortnightly-list', expectedData);
+
+        await etDailyListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render error page if query param is empty', async () => {
+        const request = mockRequest(i18n);
+        request.query = {};
+        request.user = { userId: '123' };
+
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+        await etDailyListController.get(request, response);
+        return responseMock.verify();
+    });
 });

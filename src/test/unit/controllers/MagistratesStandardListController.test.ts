@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import { mockRequest } from '../mocks/mockRequest';
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
 import { LocationService } from '../../../main/service/locationService';
 import MagistratesStandardListController from '../../../main/controllers/MagistratesStandardListController';
 import { MagistratesStandardListService } from '../../../main/service/listManipulation/MagistratesStandardListService';
@@ -37,66 +37,68 @@ magsStandardListMetaDataStub.withArgs('').resolves([]);
 
 const listPath = 'magistrates-standard-list';
 const i18n = {
-  listPath: {},
-  'list-template': {},
+    listPath: {},
+    'list-template': {},
 };
 
 describe('Magistrate Standard List Controller', () => {
+    const response = {
+        render: () => {
+            return '';
+        },
+    } as unknown as Response;
+    const request = mockRequest(i18n);
+    request.path = '/' + listPath;
 
-  const response = { render: () => {return '';}} as unknown as Response;
-  const request = mockRequest(i18n);
-  request.path = '/' + listPath;
+    afterEach(() => {
+        sinon.restore();
+    });
 
-  afterEach(() => {
-    sinon.restore();
-  });
+    it('should render the magistrate standard list page', async () => {
+        request.query = { artefactId: artefactId };
+        request.user = { userId: '1' };
 
-  it('should render the magistrate standard list page', async () =>  {
-    request.query = {artefactId: artefactId};
-    request.user = {userId: '1'};
+        const responseMock = sinon.mock(response);
 
-    const responseMock = sinon.mock(response);
+        const expectedData = {
+            ...i18n[listPath],
+            ...i18n['list-template'],
+            listData,
+            contentDate: DateTime.fromISO(metaData['contentDate'], {
+                zone: 'utc',
+            }).toFormat('dd MMMM yyyy'),
+            publishedDate: '14 September 2016',
+            courtName: "Abergavenny Magistrates' Court",
+            publishedTime: '12:30am',
+            provenance: 'prov1',
+            version: '1.0',
+            bill: false,
+        };
 
-    const expectedData = {
-      ...i18n[listPath],
-      ...i18n['list-template'],
-      listData,
-      contentDate: DateTime.fromISO(metaData['contentDate'], {zone: 'utc'}).toFormat('dd MMMM yyyy'),
-      publishedDate: '14 September 2016',
-      courtName: 'Abergavenny Magistrates\' Court',
-      publishedTime: '12:30am',
-      provenance: 'prov1',
-      version:'1.0',
-      bill: false,
-    };
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
-    responseMock.expects('render').once().withArgs(listPath, expectedData);
+        await magsStandardListController.get(request, response);
+        return responseMock.verify();
+    });
 
-    await magsStandardListController.get(request, response);
-    return responseMock.verify();
-  });
+    it('should render error page is query param is empty', async () => {
+        request.query = {};
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
 
-  it('should render error page is query param is empty', async () => {
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-    request.query = {};
-    request.user = {userId: '1'};
-    const responseMock = sinon.mock(response);
+        await magsStandardListController.get(request, response);
+        return responseMock.verify();
+    });
 
-    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+    it('should render error page if list is not allowed to view by the user', async () => {
+        request.query = { artefactId: artefactId };
+        const responseMock = sinon.mock(response);
 
-    await magsStandardListController.get(request, response);
-    return responseMock.verify();
-  });
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-  it('should render error page if list is not allowed to view by the user', async () => {
-
-    request.query = {artefactId: artefactId};
-    const responseMock = sinon.mock(response);
-
-    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
-
-    await magsStandardListController.get(request, response);
-    return responseMock.verify();
-  });
-
+        await magsStandardListController.get(request, response);
+        return responseMock.verify();
+    });
 });
