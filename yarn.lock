@@ -3966,16 +3966,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/selenium-standalone-service@npm:^8.2.3":
-  version: 8.2.3
-  resolution: "@wdio/selenium-standalone-service@npm:8.2.3"
+"@wdio/selenium-standalone-service@npm:^8.3.2":
+  version: 8.3.2
+  resolution: "@wdio/selenium-standalone-service@npm:8.3.2"
   dependencies:
     "@types/node": ^18.0.0
-    "@wdio/config": 8.2.3
+    "@wdio/config": 8.3.2
     "@wdio/logger": 8.1.0
-    "@wdio/types": 8.1.2
+    "@wdio/types": 8.3.0
     selenium-standalone: ^8.2.1
-  checksum: 38fb65b6b5d76a2a9911f6cee20a538d4393d312c263d6e6467ec845487e0a9f3ae9d0450e06bba0993cc24e53e158d929e11396d70234b0e36cb6a56d794fc7
+  checksum: 3242630f10643be1c28a86a8a32251e95c19c90ec5c303db6eb36251001b53303787fdc47db387ecfb2973097a988183f29e0ff17aeee62d6750ee481982e45a
   languageName: node
   linkType: hard
 
@@ -13462,7 +13462,7 @@ __metadata:
     "@wdio/cli": ^8.3.2
     "@wdio/local-runner": ^8.2.3
     "@wdio/mocha-framework": ^8.3.0
-    "@wdio/selenium-standalone-service": ^8.2.3
+    "@wdio/selenium-standalone-service": ^8.3.2
     "@wdio/spec-reporter": ^8.3.0
     accessible-autocomplete: ^2.0.3
     applicationinsights: ^2.4.0
