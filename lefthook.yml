@@ -4,16 +4,12 @@
 #   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
 #
 pre-push:
-    commands:
-        audit:
-            run: yarn audit | cat
-#     packages-audit:
-#       tags: frontend security
-#       run: yarn audit
-#     gems-audit:
-#       tags: backend security
-#       run: bundle audit
-#
+    scripts:
+        'check-for-unsuppressed-vulns.py':
+            runner: python3
+        commands:
+            audit:
+                run: yarn audit | cat
 pre-commit:
     parallel: true
     commands:
@@ -21,11 +17,7 @@ pre-commit:
             glob: '*.{js,ts,jsx,tsx}'
             run: yarn eslint --fix {staged_files}
         prettier:
+            glob: '*.{js,ts,jsx,tsx}'
             run: yarn prettier --write {staged_files}
         stylelint:
             run: yarn stylelint **/*.scss
-
-    scripts:
-#     "hello.py":
-#       runner: python3
-
