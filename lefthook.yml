@@ -17,7 +17,6 @@ pre-commit:
             glob: '*.{js,ts,jsx,tsx}'
             run: yarn eslint --fix {staged_files}
         prettier:
-            glob: '*.{js,ts,jsx,tsx}'
             run: yarn prettier --write {staged_files}
         stylelint:
             run: yarn stylelint **/*.scss
