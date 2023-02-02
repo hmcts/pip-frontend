@@ -21,6 +21,11 @@
             "title": "Blob Explorer",
             "description": "Discover content uploaded to all locations.",
             "link": "blob-view-locations"
+        },
+        {
+            "title": "Audit Log Viewer",
+            "description": "View audit logs on system admin actions",
+            "link": "audit-log-viewer"
         }
     ]
 }

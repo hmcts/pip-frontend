@@ -4,10 +4,12 @@ import { cloneDeep } from 'lodash';
 import { SubscriptionService } from '../service/subscriptionService';
 import { PublicationService } from '../service/publicationService';
 import { ThirdPartyService } from '../service/thirdPartyService';
+import { UserManagementService } from '../service/userManagementService';
 
 const thirdPartyService = new ThirdPartyService();
 const subscriptionsService = new SubscriptionService();
 const publicationService = new PublicationService();
+const userManagementService = new UserManagementService();
 
 export default class ManageThirdPartyUsersSubscriptionsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -48,6 +50,12 @@ export default class ManageThirdPartyUsersSubscriptionsController {
                 selectedUser,
                 selectedListTypes,
                 selectedChannel
+            );
+            await userManagementService.auditAction(
+                req.user['userId'],
+                req.user['email'],
+                'MANAGE_THIRD_PARTY_USER_SUBSCRIPTIONS',
+                'User requested to manage subscriptions of third party user with id: ' + selectedUser
             );
 
             res.render(
