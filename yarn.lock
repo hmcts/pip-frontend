@@ -3865,17 +3865,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/mocha-framework@npm:^8.2.1":
-  version: 8.2.3
-  resolution: "@wdio/mocha-framework@npm:8.2.3"
+"@wdio/mocha-framework@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "@wdio/mocha-framework@npm:8.3.0"
   dependencies:
     "@types/mocha": ^10.0.0
     "@types/node": ^18.0.0
     "@wdio/logger": 8.1.0
-    "@wdio/types": 8.1.2
-    "@wdio/utils": 8.2.3
+    "@wdio/types": 8.3.0
+    "@wdio/utils": 8.3.0
     mocha: ^10.0.0
-  checksum: 9af7630d669072ffbdf1c5b8fcd9893b3f1ce4c5fc1253f5981e2ce88cd0d83d54aa81f8ed9739fa14a502c7829b64299f7c4747ec2c827a0c71c05ea5263188
+  checksum: 36bf706ae98a465233aa377ef4e58288f2392802367b089838db43c5ceb11424de288825a4b91f26d910b865a4c51d9c126572cb4be3ecd4f72d2ae770ccaadb
   languageName: node
   linkType: hard
 
@@ -3979,6 +3979,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@wdio/types@npm:8.3.0":
+  version: 8.3.0
+  resolution: "@wdio/types@npm:8.3.0"
+  dependencies:
+    "@types/node": ^18.0.0
+  checksum: bad0260cc1e846a467d2ec6e21dd0bee8acb9bffb6778687d15edaccf82f987eb298dcf4c3df9130204a7ec54f6354abea5cbd4fbd6abcede96f526a452392b2
+  languageName: node
+  linkType: hard
+
 "@wdio/utils@npm:8.1.2":
   version: 8.1.2
   resolution: "@wdio/utils@npm:8.1.2"
@@ -4000,6 +4009,18 @@ __metadata:
     import-meta-resolve: ^2.2.0
     p-iteration: ^1.1.8
   checksum: e191a18f63a04222d46a87b969fd9afff7d789eb97f7cf1ffde5ad13323891aa6737c94dfe389d194d258ac675a91e49aa83aba4f062236cb19e0a8253c9c895
+  languageName: node
+  linkType: hard
+
+"@wdio/utils@npm:8.3.0":
+  version: 8.3.0
+  resolution: "@wdio/utils@npm:8.3.0"
+  dependencies:
+    "@wdio/logger": 8.1.0
+    "@wdio/types": 8.3.0
+    import-meta-resolve: ^2.2.0
+    p-iteration: ^1.1.8
+  checksum: e59580c14f5f2bc22a7a91ad28ae5f83c365691366ef91ee36eae38931612635ca5333e66cd38fccf0bc1c088d1f623ec4ae939b6ee7d1f635bb6c41c2c85e8f
   languageName: node
   linkType: hard
 
@@ -13372,7 +13393,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.45.0
     "@wdio/cli": ^8.2.3
     "@wdio/local-runner": ^8.2.3
-    "@wdio/mocha-framework": ^8.2.1
+    "@wdio/mocha-framework": ^8.3.0
     "@wdio/selenium-standalone-service": ^8.2.3
     "@wdio/spec-reporter": ^8.1.2
     accessible-autocomplete: ^2.0.3
