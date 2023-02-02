@@ -9076,10 +9076,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next-http-middleware@npm:^3.1.1":
-  version: 3.2.1
-  resolution: "i18next-http-middleware@npm:3.2.1"
-  checksum: 650b78608f0496032283bbebaa27fd5f8c830fdbc131b00d9bd2942c4d90476193e77cbf70ac8c22a72b60601ba1df1c75e491ca64bfe94336f295c1fb35bbf6
+"i18next-http-middleware@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "i18next-http-middleware@npm:3.2.2"
+  checksum: 51194e587974911f209ad3101611914fab5bb82dfe46190415163e7a0d291d0bb2197be80a2c5d91c914742969a2fd0e74ce5b0ee447d8e3cc74b749f75b17c2
   languageName: node
   linkType: hard
 
@@ -13403,7 +13403,7 @@ __metadata:
     helmet: ^4.2.0
     html-webpack-plugin: ^5.5.0
     i18next: ^22.0.8
-    i18next-http-middleware: ^3.1.1
+    i18next-http-middleware: ^3.2.2
     ioredis: ^5.2.4
     jest: ^27.5.1
     jest-environment-jsdom: ^27.5.1
