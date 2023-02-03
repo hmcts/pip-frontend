@@ -3887,7 +3887,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/mocha-framework@npm:^8.3.0":
+"@wdio/mocha-framework@npm:^8.2.1":
   version: 8.3.0
   resolution: "@wdio/mocha-framework@npm:8.3.0"
   dependencies:
@@ -3966,7 +3966,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/selenium-standalone-service@npm:^8.3.2":
+"@wdio/selenium-standalone-service@npm:^8.2.3":
   version: 8.3.2
   resolution: "@wdio/selenium-standalone-service@npm:8.3.2"
   dependencies:
@@ -3979,7 +3979,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/spec-reporter@npm:^8.3.0":
+"@wdio/spec-reporter@npm:^8.1.2":
   version: 8.3.0
   resolution: "@wdio/spec-reporter@npm:8.3.0"
   dependencies:
@@ -13461,9 +13461,9 @@ __metadata:
     "@typescript-eslint/parser": ^5.50.0
     "@wdio/cli": ^8.3.2
     "@wdio/local-runner": ^8.2.3
-    "@wdio/mocha-framework": ^8.3.0
-    "@wdio/selenium-standalone-service": ^8.3.2
-    "@wdio/spec-reporter": ^8.3.0
+    "@wdio/mocha-framework": ^8.2.1
+    "@wdio/selenium-standalone-service": ^8.2.3
+    "@wdio/spec-reporter": ^8.1.2
     accessible-autocomplete: ^2.0.3
     applicationinsights: ^2.4.0
     awilix: ^8.0.0
