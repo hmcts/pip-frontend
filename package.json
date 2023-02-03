@@ -21,7 +21,7 @@
         "test:a11y": "jest -c jest.a11y.config.js --maxWorkers 15",
         "sonar-scan": "sonar-scanner",
         "test:smoke": "NODE_TLS_REJECT_UNAUTHORIZED=0 && jest -c jest.smoke.config.js",
-        "test:functional": "npm-run-all -scl test:functional:old test:functional:min",
+        "test:functional": "npm-run-all -scl test:functional:old test:functional:all",
         "test:fullfunctional": "npm-run-all -scl test:functional:all",
         "test:functional:old": "USE_PROTOTYPE=true USE_HEADLESS=true npx wdio run wdio.conf.js",
         "test:functional:all": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs --config ./src/test/end-to-end/functional.conf.js run-workers 4",
