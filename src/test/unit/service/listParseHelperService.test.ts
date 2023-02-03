@@ -62,4 +62,35 @@ describe('List Helper service', () => {
             expect(hearing['case'][0]['formattedLinkedCases']).to.equal('');
         });
     });
+
+    describe('createIndividualDetails', () => {
+        it('should create individual details with full name', async () => {
+            const individualDetails = {
+                individualForenames: 'Forenames',
+                individualMiddleName: 'Middlename',
+                individualSurname: 'Surname',
+                title: 'Mr',
+            };
+            expect(listParseHelperService.createIndividualDetails(individualDetails, false)).to.equal(
+                'Mr Forenames Middlename Surname'
+            );
+        });
+
+        it('should create individual details with initial', async () => {
+            const individualDetails = {
+                individualForenames: 'Forenames',
+                individualMiddleName: 'Middlename',
+                individualSurname: 'Surname',
+                title: 'Mr',
+            };
+            expect(listParseHelperService.createIndividualDetails(individualDetails, true)).to.equal('Mr F. Surname');
+        });
+
+        it('should create individual details with surname only', async () => {
+            const individualDetails = {
+                individualSurname: 'Surname',
+            };
+            expect(listParseHelperService.createIndividualDetails(individualDetails, false)).to.equal('Surname');
+        });
+    });
 });

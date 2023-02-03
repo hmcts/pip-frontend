@@ -14,7 +14,7 @@ const civilAndFamilyDailyReferenceData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(civilAndFamilyDailyReferenceData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(civilAndFamilyDailyReferenceData);
 sinon
-    .stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilFamilyMixedListData')
+    .stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilListData')
     .resolves(civilAndFamilyDailyReferenceData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
 

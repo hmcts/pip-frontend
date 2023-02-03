@@ -21,7 +21,7 @@ export default class MagistratesPublicListController {
 
         if (searchResults && metaData) {
             // initial cleaning of data using mixed list service
-            let manipulatedData = civListsService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
+            let manipulatedData = civListsService.sculptedCivilListData(JSON.stringify(searchResults));
             manipulatedData = crimeListsService.manipulatedCrimeListData(
                 JSON.stringify(manipulatedData),
                 req.lng as string,
