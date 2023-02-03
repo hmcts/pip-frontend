@@ -1,9 +1,9 @@
 # On push to master trigger the action to update all PRs with their latest destination branch
 name: PR Auto Update
 on:
-  push:
-    branches:
-      - master
+    push:
+        branches:
+            - master
 jobs:
   autoupdate:
     name: autoupdate
