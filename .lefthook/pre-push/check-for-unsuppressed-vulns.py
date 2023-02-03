@@ -28,5 +28,11 @@ audit_results = read_in_json(True, audit)
 suppression_results = read_in_json(False, suppressions)
 
 for i, j in audit_results.items():
+  # just in case we have a changing resolution or cve code.
   if i not in suppression_results or j not in suppression_results.values():
     print(f"New unsuppressed advisory - {i} -> {j}")
+
+for i, j in suppression_results.items():
+  if i not in audit_results or j not in audit_results.values():
+    print(f"Unused suppression found - {i} -> {j}")
+
