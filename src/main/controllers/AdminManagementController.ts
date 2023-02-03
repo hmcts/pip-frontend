@@ -6,7 +6,10 @@ import { cloneDeep } from 'lodash';
 const accountManagementRequests = new AccountManagementRequests();
 export default class AdminManagementController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        res.render('admin-management', req.i18n.getDataByLanguage(req.lng)['admin-management']);
+        res.render('admin-management', {
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin-management']),
+            noResultsError: req.query['error'] === 'true',
+        });
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
@@ -21,15 +24,9 @@ export default class AdminManagementController {
 
             searchResults
                 ? res.redirect(`manage-user?id=${searchResults.userId}`)
-                : res.render('admin-management', {
-                      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin-management']),
-                      noResultsError: true,
-                  });
+                : res.redirect('admin-management?error=true');
         } else {
-            res.render('admin-management', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin-management']),
-                noResultsError: true,
-            });
+            res.redirect('admin-management?error=true');
         }
     }
 }
