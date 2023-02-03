@@ -11,8 +11,13 @@ import { civilFamilyAndMixedListService } from '../../main/service/listManipulat
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/civilAndFamilyDailyCauseList.json'), 'utf-8');
 const civilAndFamilyDailyReferenceData = JSON.parse(rawData);
+
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/returnedArtefacts.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST';
+
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(civilAndFamilyDailyReferenceData);
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(civilAndFamilyDailyReferenceData);
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metaData);
 sinon
     .stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilListData')
     .resolves(civilAndFamilyDailyReferenceData);
