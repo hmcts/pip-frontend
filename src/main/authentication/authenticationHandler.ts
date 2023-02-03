@@ -114,8 +114,8 @@ export async function mediaVerificationHandling(req, res): Promise<any> {
 }
 
 export async function processAdminAccountSignIn(req, res): Promise<any> {
+    await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
     if (checkRoles(req, allAdminRoles)) {
-        await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
         if (checkRoles(req, systemAdminRoles)) {
             res.redirect('/system-admin-dashboard');
         } else {
@@ -131,6 +131,7 @@ export async function processMediaAccountSignIn(req, res): Promise<any> {
     if (checkRoles(req, allAdminRoles)) {
         sessionManagement.logOut(req, res, true);
     } else {
+        await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
         res.redirect('/account-home');
     }
 }
