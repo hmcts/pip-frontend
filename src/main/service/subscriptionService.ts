@@ -563,7 +563,7 @@ export class SubscriptionService {
         return await subscriptionRequests.retrieveSubscriptionChannels();
     }
 
-  public async deleteLocationSubscription(locationId: number, requester: string): Promise<object> {
-    return await subscriptionRequests.deleteLocationSubscription(locationId, requester);
-  }
+    public async deleteLocationSubscription(locationId: number, requester: string): Promise<object> {
+        return await subscriptionRequests.deleteLocationSubscription(locationId, requester);
+    }
 }

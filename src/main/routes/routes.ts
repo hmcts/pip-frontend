@@ -544,19 +544,19 @@ export default function (app: Application): void {
         app.locals.container.cradle.deleteCourtReferenceDataSuccessController.get
     );
     app.get(
-      '/delete-court-subscription-confirmation',
-      isPermittedSystemAdmin,
-      app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.get
+        '/delete-court-subscription-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.get
     );
     app.post(
-      '/delete-court-subscription-confirmation',
-      isPermittedSystemAdmin,
-      app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post
+        '/delete-court-subscription-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post
     );
     app.get(
-      '/delete-court-subscription-success',
-      isPermittedSystemAdmin,
-      app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get
+        '/delete-court-subscription-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get
     );
 
     //CFT Routes
