@@ -14,6 +14,7 @@ describe('accessibility-statement', () => {
             .get(PAGE_URL)
             .then(res => {
                 htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+
             });
     });
 
