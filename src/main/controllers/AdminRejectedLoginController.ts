@@ -9,4 +9,5 @@ export default class AdminRejectedLoginController {
             frontendUrl: process.env.FRONTEND_URL,
         });
     }
+
 }
