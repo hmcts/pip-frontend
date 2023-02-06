@@ -4,7 +4,7 @@ import json
 print("Script running: Checking current vulnerabilities and comparing with current suppressions.")
 
 suppressions = "cat yarn-audit-known-issues"
-audit = "yarn audit --json"
+audit = "yarn npm audit --json"
 def read_in_json(audit, cmd):
   current_script = subprocess.Popen([cmd], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
   output = current_script.stdout.read().splitlines()
@@ -17,7 +17,8 @@ def read_in_json(audit, cmd):
     # yarn audit returns a final json lump at the end of all the advisories - a summary we don't want to use.
     iterator_final_val = -1
   for i in output[:iterator_final_val]:
-    current_advisory = json.loads(i.decode('utf-8'))
+    decoded_advisory = i.decode('utf-8')
+    current_advisory = json.loads(decoded_advisory)
     current_advisory_id = current_advisory['data']['resolution']['id']
     current_advisory_cve = current_advisory['data']['advisory']['cves']
     if current_advisory_id not in current_ids:
