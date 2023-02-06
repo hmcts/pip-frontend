@@ -45,8 +45,8 @@
                                 ],
                                 "sittings": [
                                     {
-                                        "sittingStart": "2022-07-27T09:40:17.496185",
-                                        "sittingEnd": "2022-07-27T10:45:17.496185",
+                                        "sittingStart": "2022-07-27T09:40:17.496185Z",
+                                        "sittingEnd": "2022-07-27T10:45:17.496185Z",
                                         "hearing": [
                                             {
                                                 "hearingType": "FMPO",
@@ -220,8 +220,8 @@
                                 ],
                                 "sittings": [
                                     {
-                                        "sittingStart": "2022-01-27T09:40:17.496185",
-                                        "sittingEnd": "2022-01-27T10:45:17.496185",
+                                        "sittingStart": "2022-01-27T09:40:17.496185Z",
+                                        "sittingEnd": "2022-01-27T10:45:17.496185Z",
                                         "hearing": [
                                             {
                                                 "hearingType": "FMPO",
