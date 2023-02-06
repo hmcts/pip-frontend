@@ -29,11 +29,11 @@ export default class DeleteCourtReferenceDataConfirmationController {
                     formData.locationId,
                     req.user?.['provenanceUserId']
                 );
-                if (response !== null && response['isExists']) {
+                if (response !== null && response['exists']) {
                     res.render('delete-court-reference-data-confirmation', {
                         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
                         court: locationService.formatCourtValue(court),
-                        apiError: response['isExists'],
+                        apiError: response['exists'],
                         errorMessage: response['errorMessage'],
                     });
                 } else if (response === null) {

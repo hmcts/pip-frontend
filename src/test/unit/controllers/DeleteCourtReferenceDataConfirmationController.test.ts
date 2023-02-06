@@ -12,9 +12,9 @@ const deleteCourtReferenceDataConfirmationController = new DeleteCourtReferenceD
 const court = { locationId: 1, jurisdiction: 'test', region: 'test' };
 sinon.stub(LocationService.prototype, 'formatCourtValue').returns(court);
 courtStub.withArgs('1').resolves(court);
-deleteStub.withArgs('1').resolves({ isExists: true, errorMessage: 'test' });
+deleteStub.withArgs('1').resolves({ exists: true, errorMessage: 'test' });
 deleteStub.withArgs('2').resolves(null);
-deleteStub.withArgs('3').resolves({ isExists: false, errorMessage: '' });
+deleteStub.withArgs('3').resolves({ exists: false, errorMessage: '' });
 
 const i18n = { 'delete-court-reference-data-confirmation': {} };
 

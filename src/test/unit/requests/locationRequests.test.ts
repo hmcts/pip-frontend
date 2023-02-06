@@ -39,7 +39,7 @@ const englishLanguage = 'en';
 const welshLanguage = 'cy';
 const dummyFile = new Blob(['testCsv']);
 
-const deletionResponse = { isExists: true, errorMessage: 'test' };
+const deletionResponse = { exists: true, errorMessage: 'test' };
 const adminUserId = 'Test';
 
 describe('Location get requests', () => {
@@ -124,7 +124,7 @@ describe('Location get requests', () => {
             .withArgs('/locations/1', {
                 headers: { 'x-provenance-user-id': adminUserId },
             })
-            .resolves({ data: { isExists: true, errorMessage: 'test' } });
+            .resolves({ data: { exists: true, errorMessage: 'test' } });
         courtDeleteStub
             .withArgs('/locations/2', {
                 headers: { 'x-provenance-user-id': adminUserId },
@@ -144,7 +144,7 @@ describe('Location get requests', () => {
             .withArgs('/locations/5', {
                 headers: { 'x-provenance-user-id': adminUserId },
             })
-            .resolves({ data: { isExists: false, errorMessage: '' } });
+            .resolves({ data: { exists: false, errorMessage: '' } });
     });
 
     it('should return court by court id', async () => {
@@ -272,9 +272,9 @@ describe('Location get requests', () => {
         expect(await courtRequests.deleteCourt(4, adminUserId)).toBe(null);
     });
 
-    it('should return isExists false if court is deleted', async () => {
+    it('should return exists false if court is deleted', async () => {
         const data = await courtRequests.deleteCourt(5, adminUserId);
-        expect(data['isExists']).toStrictEqual(false);
+        expect(data['exists']).toStrictEqual(false);
     });
 });
 

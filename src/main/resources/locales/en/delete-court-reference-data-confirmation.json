@@ -12,5 +12,6 @@
         "locationType": "Location Type",
         "jurisdiction": "Jurisdiction",
         "region": "Region"
-    }
+    },
+    "deleteSubcriptionText": "Click here to delete the all the subscription(s) for "
 }
