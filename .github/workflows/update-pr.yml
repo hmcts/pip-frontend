@@ -16,7 +16,3 @@ jobs:
                   MERGE_CONFLICT_ACTION: 'ignore' # Don't fail the action if there are merge conflicts on the branch
                   EXCLUDED_LABELS: 'dependencies' # Ignore all PRs that have at least one of these labels
                   PR_READY_STATE: 'ready_for_review' # The State the PR must be in for this action to run on it
-
-            # Test output when conflicts are detected on the PR.
-            - run: echo The Title of your PR is ${{ github.event.pull_request.title }} with a url of ${{ github.event.pull_request.html_url }}
-              if: ${{ steps.autoupdate.outputs.conflicted }}
