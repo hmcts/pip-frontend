@@ -6089,7 +6089,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"config@npm:^3.3.8":
+"config@npm:^3.3.9":
   version: 3.3.9
   resolution: "config@npm:3.3.9"
   dependencies:
@@ -13396,7 +13396,7 @@ __metadata:
     chai: ^4.3.7
     chai-as-promised: ^7.1.1
     codeceptjs: ^3.3.7
-    config: ^3.3.8
+    config: ^3.3.9
     cookie-parser: ^1.4.5
     cookie-session: ^1.4.0
     copy-webpack-plugin: ^11.0.0
