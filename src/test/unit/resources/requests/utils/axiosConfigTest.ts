@@ -2,6 +2,7 @@ import config from 'config';
 import sinon from 'sinon';
 
 describe('Testing environment variables', () => {
+    process.env.ALLOW_CONFIG_MUTATIONS = "true"
     const configSpy = sinon.spy(config, 'get');
 
     beforeEach(() => {
@@ -65,6 +66,7 @@ describe('Testing environment variables', () => {
     });
 
     afterAll(() => {
+        delete process.env.ALLOW_CONFIG_MUTATIONS
         delete process.env.TENANT_ID;
         delete process.env.CLIENT_ID_INTERNAL;
         delete process.env.CLIENT_SECRET_INTERNAL;
