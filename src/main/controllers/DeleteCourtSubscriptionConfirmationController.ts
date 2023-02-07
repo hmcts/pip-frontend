@@ -26,7 +26,7 @@ export default class DeleteCourtSubscriptionConfirmationController {
           } else {
             res.redirect('/delete-court-subscription-success');
           }
-        } if (formData['delete-choice'] == 'no') {
+        } else if (formData['delete-choice'] == 'no') {
           res.redirect('/delete-court-reference-data');
         } else {
         res.render('delete-court-reference-data-confirmation', {
