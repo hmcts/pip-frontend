@@ -51,6 +51,12 @@ export default class ManualReferenceDataUploadSummaryController {
             fileHandlingService.removeFileFromRedis(req.user['userId'], formData.fileName);
 
             if (response) {
+                await userManagementService.auditAction(
+                    req.user['userId'],
+                    req.user['email'],
+                    'REFERENCE_DATA_UPLOAD',
+                    'Reference data successfully uploaded'
+                );
                 res.clearCookie('formCookie');
                 res.redirect('manual-reference-data-upload-confirmation');
             } else {
