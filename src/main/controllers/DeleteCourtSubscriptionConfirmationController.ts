@@ -26,8 +26,15 @@ export default class DeleteCourtSubscriptionConfirmationController {
           } else {
             res.redirect('/delete-court-subscription-success');
           }
-        } else {
+        } if (formData['delete-choice'] == 'no') {
           res.redirect('/delete-court-reference-data');
-        }
+        } else {
+        res.render('delete-court-reference-data-confirmation', {
+          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
+          court: locationService.formatCourtValue(court),
+          apiError: false,
+          displayError: true,
+        });
+      }
     }
 }
