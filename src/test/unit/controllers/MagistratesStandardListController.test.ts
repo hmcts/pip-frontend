@@ -24,7 +24,7 @@ const magsStandardListController = new MagistratesStandardListController();
 const magsStandardListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const magsStandardListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilFamilyMixedListData').returns(listData);
+sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
 sinon.stub(MagistratesStandardListService.prototype, 'manipulatedMagsStandardListData').returns(listData);
 
 const artefactId = 'abc';

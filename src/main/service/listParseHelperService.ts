@@ -112,7 +112,7 @@ export class ListParseHelperService {
      * @param individualDetails
      * @param initialised
      */
-    private createIndividualDetails(individualDetails: any, initialised = false): string {
+    public createIndividualDetails(individualDetails: any, initialised = false): string {
         const title = ListParseHelperService.writeStringIfValid(individualDetails?.title);
         const forenames = ListParseHelperService.writeStringIfValid(individualDetails?.individualForenames);
         const forenameInitial = forenames.charAt(0);
