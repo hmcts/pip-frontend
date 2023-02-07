@@ -95,6 +95,18 @@ export class PublicationService {
         return new Map(Object.entries(listData));
     }
 
+  /**
+   * Service method that retrieves the default sensitivity for a list type
+   * @param listType The list type to retrieve the sensitivity for.
+   */
+  public getDefaultSensitivity(listType: string) {
+      const listMetadata = Object.entries(listData).find(([key]) => key === listType)
+      if (listMetadata && listMetadata[1]) {
+        return listMetadata[1]['defaultSensitivity'];
+      }
+      return "";
+    }
+
     /**
      * Function which takes in the list and users language.
      * Returns what language the page should be rendered in.

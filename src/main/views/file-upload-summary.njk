@@ -2,6 +2,7 @@
 {% from "./macros/common-components.njk" import goBack, submitButton %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 {% block pageTitle %}
     {{ title }}
@@ -11,6 +12,13 @@
     {{ goBack() }}
 {% endblock %}
 {% block content %}
+
+
+    {% if displaySensitivityMismatch %}
+      {{ govukWarningText({
+        text: sensitivityMismatch
+      }) }}
+    {% endif %}
     {% if displayError %}
         {{ govukErrorSummary({
             titleText: error.title,
