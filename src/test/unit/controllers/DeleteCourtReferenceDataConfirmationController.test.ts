@@ -16,7 +16,8 @@ deleteStub.withArgs('1').resolves({ exists: true, errorMessage: 'test' });
 deleteStub.withArgs('2').resolves(null);
 deleteStub.withArgs('3').resolves({ exists: false, errorMessage: '' });
 
-const i18n = { 'delete-court-reference-data-confirmation': {} };
+const pageName = 'delete-court-reference-data-confirmation'
+const i18n = { pageName: {} };
 
 describe('Delete Court Reference Data Controller', () => {
     it('should render the court reference data page', () => {
@@ -27,18 +28,41 @@ describe('Delete Court Reference Data Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.query = { locationId: '1' };
+      request.path = '/' + pageName;
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['delete-court-reference-data-confirmation'],
+            ...i18n[pageName],
             court: court,
             displayError: false,
         };
 
-        responseMock.expects('render').once().withArgs('delete-court-reference-data-confirmation', expectedData);
+        responseMock.expects('render').once().withArgs(pageName, expectedData);
         return deleteCourtReferenceDataConfirmationController.get(request, response).then(() => {
             responseMock.verify();
         });
     });
+
+  it('should render the court subscription deletion data page', () => {
+    const response = {
+      render: () => {
+        return '';
+      },
+    } as unknown as Response;
+    const request = mockRequest(i18n);
+    request.query = { locationId: '1' };
+    request.path = '/delete-court-subscription-confirmation';
+    const responseMock = sinon.mock(response);
+    const expectedData = {
+      ...i18n['delete-court-subscription-confirmation'],
+      court: court,
+      displayError: false,
+    };
+
+    responseMock.expects('render').once().withArgs('delete-court-subscription-confirmation', expectedData);
+    return deleteCourtReferenceDataConfirmationController.get(request, response).then(() => {
+      responseMock.verify();
+    });
+  });
 
     it('should render confirmation page if active artefact or subscription is available', () => {
         const response = {
@@ -50,13 +74,13 @@ describe('Delete Court Reference Data Controller', () => {
         request.body = { locationId: '1', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['delete-court-reference-data-confirmation'],
+            ...i18n[pageName],
             court: court,
             apiError: true,
             errorMessage: 'test',
         };
 
-        responseMock.expects('render').once().withArgs('delete-court-reference-data-confirmation', expectedData);
+        responseMock.expects('render').once().withArgs(pageName, expectedData);
         return deleteCourtReferenceDataConfirmationController.post(request, response).then(() => {
             responseMock.verify();
         });
@@ -72,13 +96,13 @@ describe('Delete Court Reference Data Controller', () => {
         request.body = { locationId: '2', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['delete-court-reference-data-confirmation'],
+            ...i18n[pageName],
             court: court,
             apiError: true,
             errorMessage: 'Unknown error when attempting to delete the court from reference data',
         };
 
-        responseMock.expects('render').once().withArgs('delete-court-reference-data-confirmation', expectedData);
+        responseMock.expects('render').once().withArgs(pageName, expectedData);
         return deleteCourtReferenceDataConfirmationController.post(request, response).then(() => {
             responseMock.verify();
         });
@@ -94,13 +118,13 @@ describe('Delete Court Reference Data Controller', () => {
         request.body = { locationId: '2', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['delete-court-reference-data-confirmation'],
+            ...i18n[pageName],
             court: court,
             apiError: true,
             errorMessage: 'Unknown error when attempting to delete the court from reference data',
         };
 
-        responseMock.expects('render').once().withArgs('delete-court-reference-data-confirmation', expectedData);
+        responseMock.expects('render').once().withArgs(pageName, expectedData);
         return deleteCourtReferenceDataConfirmationController.post(request, response).then(() => {
             responseMock.verify();
         });
