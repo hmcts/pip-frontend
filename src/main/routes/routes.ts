@@ -546,12 +546,12 @@ export default function (app: Application): void {
     app.get(
         '/delete-court-subscription-confirmation',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.get
+        app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get
     );
     app.post(
         '/delete-court-subscription-confirmation',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.post
+        app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post
     );
     app.get(
         '/delete-court-subscription-success',
