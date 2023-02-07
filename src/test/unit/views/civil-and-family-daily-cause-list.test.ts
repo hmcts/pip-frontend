@@ -25,6 +25,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/civilAndFamily
 const civilAndFamilyDailyCauseListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST';
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
@@ -167,5 +168,17 @@ describe('Civil And Family Daily Cause List page', () => {
     it('should display respondent', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[7].innerHTML).contains(applicantRespondent);
+    });
+
+    it('should display applicant petitioner using organisation', () => {
+        const rows = htmlRes.getElementsByClassName('govuk-table__row');
+        const cell = rows.item(4).children;
+        expect(cell[6].innerHTML).contains('Applicant org name, Legal Advisor: Applicant rep org name');
+    });
+
+    it('should display respondent using organisation', () => {
+        const rows = htmlRes.getElementsByClassName('govuk-table__row');
+        const cell = rows.item(4).children;
+        expect(cell[7].innerHTML).contains('Respondent org name, Legal Advisor: Respondent rep org name');
     });
 });

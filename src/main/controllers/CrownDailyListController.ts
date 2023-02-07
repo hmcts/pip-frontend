@@ -21,7 +21,7 @@ export default class CrownDailyListController {
 
         if (searchResults && metaData) {
             // initial cleaning of data using mixed list service
-            let outputData = civFamMixedService.sculptedCivilFamilyMixedListData(JSON.stringify(searchResults));
+            let outputData = civFamMixedService.sculptedCivilListData(JSON.stringify(searchResults));
             outputData = crimeListsService.manipulatedCrimeListData(
                 JSON.stringify(outputData),
                 req.lng as string,

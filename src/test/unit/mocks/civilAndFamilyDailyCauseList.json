@@ -45,8 +45,8 @@
                                 ],
                                 "sittings": [
                                     {
-                                        "sittingStart": "2022-07-27T09:40:17.496185",
-                                        "sittingEnd": "2022-07-27T10:45:17.496185",
+                                        "sittingStart": "2022-07-27T09:40:17.496185Z",
+                                        "sittingEnd": "2022-07-27T10:45:17.496185Z",
                                         "hearing": [
                                             {
                                                 "hearingType": "FMPO",
@@ -139,6 +139,43 @@
                                                         }
                                                     }
                                                 ]
+                                            },
+                                            {
+                                                "hearingType": "FMPO",
+                                                "case": [
+                                                    {
+                                                        "caseName": "ABCD",
+                                                        "caseNumber": "1234"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "APPLICANT_PETITIONER",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Applicant org name"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Respondent org name"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                                                        "friendlyRoleName": "Legal Advisor",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Applicant rep org name"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT_REPRESENTATIVE",
+                                                        "friendlyRoleName": "Legal Advisor",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Respondent rep org name"
+                                                        }
+                                                    }
+                                                ]
                                             }
                                         ],
                                         "channel": ["testSittingChannel"],
@@ -149,8 +186,7 @@
                                     }
                                 ]
                             }
-                        ],
-                        "totalHearing": 2
+                        ]
                     }
                 ]
             }
@@ -184,8 +220,8 @@
                                 ],
                                 "sittings": [
                                     {
-                                        "sittingStart": "2022-01-27T09:40:17.496185",
-                                        "sittingEnd": "2022-01-27T10:45:17.496185",
+                                        "sittingStart": "2022-01-27T09:40:17.496185Z",
+                                        "sittingEnd": "2022-01-27T10:45:17.496185Z",
                                         "hearing": [
                                             {
                                                 "hearingType": "FMPO",
@@ -240,8 +276,7 @@
                                     }
                                 ]
                             }
-                        ],
-                        "totalHearing": 2
+                        ]
                     }
                 ]
             }
