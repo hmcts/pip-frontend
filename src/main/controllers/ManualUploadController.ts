@@ -19,6 +19,7 @@ export default class ManualUploadController {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload']),
             formData: formData,
             listItems,
+            listTypeClassifications: manualUploadService.getSensitivityMappings(),
         };
         res.render('manual-upload', formValues);
     }
@@ -43,6 +44,7 @@ export default class ManualUploadController {
                 listItems,
                 errors,
                 formData: req.body,
+                listTypeClassifications: manualUploadService.getSensitivityMappings(),
             };
 
             if (errors.fileErrors || errors.formErrors) {

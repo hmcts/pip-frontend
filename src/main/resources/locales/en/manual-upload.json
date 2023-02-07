@@ -10,7 +10,7 @@
         "month": "Month",
         "year": "Year",
         "to": "to",
-        "classificationText": "Available to",
+        "classificationText": "Sensitivity",
         "classification": [
             { "text": "Public", "value": "PUBLIC" },
             { "text": "Private - All verified users", "value": "PRIVATE" },
@@ -34,7 +34,7 @@
             "text": "You must ensure that you only upload one file that contains all hearings for the Court or Tribunal name and List type. This should include all judges and court rooms in one document."
         },
         {
-            "heading": "Available to",
+            "heading": "Sensitivity",
             "text": "You need to indicate which user group your document should be available to:"
         },
         { "heading": "Public", "text": "Publication available to all users." },
@@ -65,6 +65,7 @@
         "blank": "Please enter a valid date",
         "dateRange": "Please make sure 'to' date is after 'from' date"
     },
+    "classificationError": "Please select a sensitivity",
     "fileUploadErrors": {
         "blank": "Please provide a file",
         "typeError": "Please upload a valid file format",

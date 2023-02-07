@@ -12,7 +12,10 @@ export default class ManualUploadSummaryController {
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
         formData.listTypeName = manualUploadService.getListItemName(formData.listType);
 
-        const sensitivityMismatch = manualUploadService.isSensitivityMismatch(formData.listType, formData.classification);
+        const sensitivityMismatch = manualUploadService.isSensitivityMismatch(
+            formData.listType,
+            formData.classification
+        );
 
         req.query?.error === 'true'
             ? res.render('file-upload-summary', {
@@ -41,7 +44,10 @@ export default class ManualUploadSummaryController {
 
         formData.listTypeName = manualUploadService.getListItemName(formData.listType);
 
-        const sensitivityMismatch = manualUploadService.isSensitivityMismatch(formData.listType, formData.classification);
+        const sensitivityMismatch = manualUploadService.isSensitivityMismatch(
+            formData.listType,
+            formData.classification
+        );
 
         if (req.query?.check === 'true') {
             res.render('file-upload-summary', {

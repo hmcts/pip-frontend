@@ -14,10 +14,25 @@
 {% block content %}
 
 
+
     {% if displaySensitivityMismatch %}
-      {{ govukWarningText({
-        text: sensitivityMismatch
+      <div class="govuk-callout" tabindex="0">
+        <h1 class="govuk-heading-m">{{ warning }}</h1>
+          {{ govukWarningText({
+            text: sensitivityMismatch
+          }) }}
+        </h1>
+      </div>
+
+      {{ govukErrorSummary({
+        titleText: warning,
+        errorList: [
+          {
+            text: sensitivityMismatch
+          }
+        ]
       }) }}
+
     {% endif %}
     {% if displayError %}
         {{ govukErrorSummary({
@@ -105,7 +120,7 @@
                 },
                 {
                     key: {
-                    text: availableToKey
+                    text: sensitivityKey
                 },
                     value: {
                     text: fileUploadData.classificationName
@@ -115,7 +130,7 @@
                         {
                             href: "manual-upload#classification",
                             text: actionName,
-                            visuallyHiddenText: availableToKey
+                            visuallyHiddenText: sensitivityKey
                         }
                     ]
                 }
