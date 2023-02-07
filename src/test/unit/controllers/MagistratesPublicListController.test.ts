@@ -24,7 +24,7 @@ const magistratesPublicListController = new MagistratesPublicListController();
 const magistratesPublicListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const magistratesPublicListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilFamilyMixedListData').returns(listData);
+sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').returns(listData);
 
 const artefactId = 'abc';
