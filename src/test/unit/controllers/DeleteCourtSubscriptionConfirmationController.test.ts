@@ -19,27 +19,6 @@ subDeleteStub.withArgs('2').resolves(null);
 const i18n = { 'delete-court-subscription-confirmation': {} };
 
 describe('Delete Court Subscription Controller', () => {
-    it('should render the court subscription page', () => {
-        const response = {
-            render: () => {
-                return '';
-            },
-        } as unknown as Response;
-        const request = mockRequest(i18n);
-        request.query = { locationId: '1' };
-        const responseMock = sinon.mock(response);
-        const expectedData = {
-            ...i18n['delete-court-subscription-confirmation'],
-            court: court,
-            displayError: false,
-        };
-
-        responseMock.expects('render').once().withArgs('delete-court-subscription-confirmation', expectedData);
-        return deleteCourtSubscriptionConfirmationController.get(request, response).then(() => {
-            responseMock.verify();
-        });
-    });
-
     it('should render confirmation page if unexpected error occurred', () => {
         const response = {
             render: () => {

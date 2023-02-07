@@ -8,10 +8,11 @@ const locationService = new LocationService();
 export default class DeleteCourtReferenceDataConfirmationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const locationId = req.query.locationId as unknown as number;
+        const pageToLoad = req.path.slice(1, req.path.length);
         if (locationId) {
             const court = await locationService.getLocationById(locationId);
-            res.render('delete-court-reference-data-confirmation', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
+            res.render(pageToLoad, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[pageToLoad]),
                 court: locationService.formatCourtValue(court),
                 displayError: false,
             });

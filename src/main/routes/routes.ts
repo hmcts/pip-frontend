@@ -551,7 +551,7 @@ export default function (app: Application): void {
     app.post(
         '/delete-court-subscription-confirmation',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post
+        app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.post
     );
     app.get(
         '/delete-court-subscription-success',

@@ -8,20 +8,6 @@ const locationService = new LocationService();
 const subscriptionsService = new SubscriptionService();
 
 export default class DeleteCourtSubscriptionConfirmationController {
-    public async get(req: PipRequest, res: Response): Promise<void> {
-        const locationId = req.query.locationId as unknown as number;
-        if (locationId) {
-            const court = await locationService.getLocationById(locationId);
-            res.render('delete-court-subscription-confirmation', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-subscription-confirmation']),
-                court: locationService.formatCourtValue(court),
-                displayError: false,
-            });
-        } else {
-            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-        }
-    }
-
     public async post(req: PipRequest, res: Response): Promise<void> {
         const formData = req.body;
         const court = await locationService.getLocationById(formData.locationId as unknown as number);
