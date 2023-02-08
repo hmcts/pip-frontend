@@ -13,8 +13,6 @@
 {% endblock %}
 {% block content %}
 
-
-
     {% if displaySensitivityMismatch %}
       <div class="govuk-callout" tabindex="0">
         <h1 class="govuk-heading-m">{{ warning }}</h1>
@@ -23,17 +21,8 @@
           }) }}
         </h1>
       </div>
-
-      {{ govukErrorSummary({
-        titleText: warning,
-        errorList: [
-          {
-            text: sensitivityMismatch
-          }
-        ]
-      }) }}
-
     {% endif %}
+
     {% if displayError %}
         {{ govukErrorSummary({
             titleText: error.title,

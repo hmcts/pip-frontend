@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import { ManualUploadService } from '../../../main/service/manualUploadService';
 import { LocationService } from '../../../main/service/locationService';
 import { DataManagementRequests } from '../../../main/resources/requests/dataManagementRequests';
+import { PublicationService } from '../../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
 
@@ -100,6 +101,39 @@ describe('Manual upload service', () => {
         });
     });
 
+    describe('Check for sensitivity mismatch', () => {
+        const stub = sinon.stub(PublicationService.prototype, 'getDefaultSensitivity');
+
+        it('should return true if sensitivity does not match default sensitivity', () => {
+            stub.returns('CLASSIFIED');
+            expect(manualUploadService.isSensitivityMismatch('SJP_PRESS_LIST', 'PUBLIC')).to.be.true;
+        });
+
+        it('should return false if sensitivity matches the default sensitivity', () => {
+            stub.returns('CLASSIFIED');
+            expect(manualUploadService.isSensitivityMismatch('SJP_PRESS_LIST', 'CLASSIFIED')).to.be.false;
+        });
+
+        it('should return false if blank mismatch provided', () => {
+            stub.returns('');
+            expect(manualUploadService.isSensitivityMismatch('SJP_PRESS_LIST', 'CLASSIFIED')).to.be.false;
+        });
+
+        it('should return false if null mismatch provided', () => {
+            stub.returns(null);
+            expect(manualUploadService.isSensitivityMismatch('SJP_PRESS_LIST', 'CLASSIFIED')).to.be.false;
+        });
+    });
+
+    describe('Get sensitivity mappings', () => {
+        it('should retrieve sensitivity mappings', () => {
+            const sensitivityMappings = manualUploadService.getSensitivityMappings();
+
+            expect(sensitivityMappings['SJP_PUBLIC_LIST']).to.equal('');
+            expect(sensitivityMappings['SJP_PRESS_LIST']).to.equal('CLASSIFIED');
+        });
+    });
+
     describe('Form validation', () => {
         courtService.withArgs('invalidCourt').resolves(null);
 
@@ -119,6 +153,7 @@ describe('Manual upload service', () => {
                 'display-date-to-day': '01',
                 'display-date-to-month': '01',
                 'display-date-to-year': '2022',
+                classification: 'PUBLIC',
             };
         });
 
@@ -246,6 +281,24 @@ describe('Manual upload service', () => {
             formValues['content-date-from-year'] = '2022';
             const data = await manualUploadService.buildDate(formValues, 'content-date-from');
             expect(data).to.equal('1/7/2022 00:00:00');
+        });
+
+        it('should return classification error when null', async () => {
+            formValues['classification'] = null;
+            const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
+            expect(errors['classificationError']).to.equal('true');
+        });
+
+        it('should return classification error when blank', async () => {
+            formValues['classification'] = '';
+            const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
+            expect(errors['classificationError']).to.equal('true');
+        });
+
+        it('should return classification error when not provided', async () => {
+            delete formValues['classification'];
+            const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
+            expect(errors['classificationError']).to.equal('true');
         });
     });
 

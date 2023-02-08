@@ -11,7 +11,7 @@
     "languageKey": "Language",
     "displayFileDatesKey": "Display file dates",
     "confirmButton": "Confirm",
-    "sensitivityMismatch": "Please ensure you have checked the sensitivity of the list you are about to publish. Being mindful of the data contained within it and the consequences if this was published incorrectly.",
+    "sensitivityMismatch": "Please ensure you have checked the sensitivity of the list you are about to publish, the data contained within it and the consequences if this is published incorrectly.",
     "warning": "Warning",
     "error": {
         "title": "There is a problem",
