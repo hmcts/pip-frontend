@@ -13,7 +13,7 @@ Scenario(
         I.see('Please enter your Email Address');
         I.see('Please enter your password');
     }
-);
+).tag('@Nightly');
 
 Scenario(
     'I as a system admin should be able to see proper error message when username or password is wrong',
@@ -21,7 +21,7 @@ Scenario(
         I.loginAsSystemAdmin('email@justice.gov.uk', 'password');
         I.see('Invalid username or password.');
     }
-);
+).tag('@Nightly');
 
 Scenario(
     'I as a system admin should be able to see proper error message when username is not a valid email address',
@@ -29,7 +29,7 @@ Scenario(
         I.loginAsSystemAdmin('email..@justice.gov.uk', 'password');
         I.see('Please enter a valid email address.');
     }
-);
+).tag('@Nightly');
 
 Scenario('I as a admin should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsAdmin();
@@ -44,7 +44,7 @@ Scenario(
         I.see('Please enter your Email Address');
         I.see('Please enter your password');
     }
-);
+).tag('@Nightly');
 
 Scenario(
     'I as a admin should be able to see proper error message when username or password is wrong',
@@ -52,7 +52,7 @@ Scenario(
         I.loginAsAdmin('email@justice.gov.uk', 'password');
         I.see('Invalid username or password.');
     }
-);
+).tag('@Nightly');
 
 Scenario(
     'I as a admin should be able to see proper error message when username is not a valid email address',
@@ -60,7 +60,7 @@ Scenario(
         I.loginAsAdmin('email..@justice.gov.uk', 'password');
         I.see('Please enter a valid email address.');
     }
-);
+).tag('@Nightly');
 
 Scenario('I as a media user should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsMediaUser();
@@ -75,7 +75,7 @@ Scenario(
         I.see('Please enter your Email Address');
         I.see('Please enter your password');
     }
-);
+).tag('@Nightly');
 
 Scenario(
     'I as a media user should be able to see proper error message when username or password is wrong',
@@ -83,7 +83,7 @@ Scenario(
         I.loginAsMediaUser('email@justice.gov.uk', 'password');
         I.see('Invalid username or password.');
     }
-);
+).tag('@Nightly');
 
 Scenario(
     'I as a media user should be able to see proper error message when username is not a valid email address',
@@ -91,4 +91,4 @@ Scenario(
         I.loginAsMediaUser('email..@justice.gov.uk', 'password');
         I.see('Please enter a valid email address.');
     }
-);
+).tag('@Nightly');
