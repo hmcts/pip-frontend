@@ -247,13 +247,6 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  {% set optionList = [] %}
-  {% for item in autocompleteList %}
-    {% set _ = optionList.push(
-      item.name
-    ) %}
-  {% endfor %}
-
   <script src="/assets/js/accessible-autocomplete.min.js"></script>
   <script>
     // removed whilst 1 list type is available, kept in as request to be able to switch back when needed
@@ -307,8 +300,6 @@
     document.getElementById('display-date-to-month').value = {{ populatedDisplayDateToMonth  | dump | safe }};
     document.getElementById('display-date-to-year').value = {{ populatedDisplayDateToYear  | dump | safe }};
 
-    console.log({{ populatedClassification | dump | safe }});
-
     const defaultVal = {{ defaultValue | dump | safe }}
 
     const element = document.querySelector('#search-input-container');
@@ -323,7 +314,6 @@
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
-
 
     function onListTypeChange() {
       let listType = document.getElementById('listType').value;
