@@ -3,8 +3,10 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { prettyPrintJson, FormatOptions } from 'pretty-print-json';
+import { LocationService } from '../service/locationService';
 
 const publicationService = new PublicationService();
+const locationService = new LocationService();
 export default class BlobViewJsonController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query['artefactId'];
@@ -20,7 +22,7 @@ export default class BlobViewJsonController {
                 req.query['artefactId'],
                 req.user?.['userId']
             );
-            const courtName = 'Abcd';
+            const courtName = (await locationService.getLocationById(parseInt(metadata.locationId.toString()))).name;
 
             const listUrl =
                 process.env.FRONTEND_URL + '/' + listTypes.get(metadata.listType)?.url + '?artefactId=' + artefactId;
