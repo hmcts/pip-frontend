@@ -18,8 +18,8 @@ export class ManualUploadPage extends CommonPage {
 
     async completeForm(): Promise<void> {
         await this.uploadFile();
-        await this.inputCourt();
         await this.inputSensitivity();
+        await this.inputCourt();
         await this.inputContentDateFrom();
         await this.inputDisplayDateFrom();
         await this.inputDisplayDateTo();
