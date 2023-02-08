@@ -36,11 +36,11 @@ export class ManualUploadPage extends CommonPage {
     }
 
     async inputSensitivity(): Promise<void> {
-        $(helpers.SensitivityInput).catch(() => {
-            console.log(`${helpers.SensitivityInput} not found`);
+        $(helpers.sensitivityInput).catch(() => {
+            console.log(`${helpers.sensitivityInput} not found`);
         });
 
-        await $(helpers.SensitivityInput).selectByAttribute('value', 'PUBLIC');
+        await $(helpers.sensitivityInput).selectByAttribute('value', 'PUBLIC');
         await browser.keys('Escape');
     }
 
