@@ -114,4 +114,8 @@ export class PublicationService {
             return userLanguage;
         }
     }
+
+  public async deleteLocationPublication(locationId: number, requester: string): Promise<object> {
+    return await publicationRequests.deleteLocationPublication(locationId, requester);
+  }
 }

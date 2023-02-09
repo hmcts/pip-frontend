@@ -3,9 +3,10 @@ import { Response } from 'express';
 
 export default class DeleteCourtSubscriptionSuccessController {
     public async get(req: PipRequest, res: Response): Promise<void> {
+        const pageToLoad = req.path.slice(1, req.path.length);
         res.render(
-            'delete-court-subscription-success',
-            req.i18n.getDataByLanguage(req.lng)['delete-court-subscription-success']
+            pageToLoad,
+            req.i18n.getDataByLanguage(req.lng)[pageToLoad]
         );
     }
 }

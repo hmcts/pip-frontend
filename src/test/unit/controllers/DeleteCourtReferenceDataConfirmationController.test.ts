@@ -17,32 +17,76 @@ deleteStub.withArgs('2').resolves(null);
 deleteStub.withArgs('3').resolves({ exists: false, errorMessage: '' });
 
 const pageName = 'delete-court-reference-data-confirmation'
-const i18n = { pageName: {} };
 
 describe('Delete Court Reference Data Controller', () => {
-    it('should render the court reference data page', () => {
-        const response = {
-            render: () => {
-                return '';
-            },
-        } as unknown as Response;
-        const request = mockRequest(i18n);
-        request.query = { locationId: '1' };
-      request.path = '/' + pageName;
-        const responseMock = sinon.mock(response);
-        const expectedData = {
-            ...i18n[pageName],
-            court: court,
-            displayError: false,
-        };
-
-        responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return deleteCourtReferenceDataConfirmationController.get(request, response).then(() => {
-            responseMock.verify();
-        });
+  it('should render the court reference data page', () => {
+    let i18n = { pageName: {} };
+    const response = {
+      render: () => {
+        return '';
+        },
+    } as unknown as Response;
+    const request = mockRequest(i18n);
+    request.query = { locationId: '1' };
+    request.path = '/' + pageName;
+    const responseMock = sinon.mock(response);
+    const expectedData = {
+      ...i18n[pageName],
+      court: court,
+      displayError: false,
+    };
+    responseMock.expects('render').once().withArgs(pageName, expectedData);
+    return deleteCourtReferenceDataConfirmationController.get(request, response).then(() => {
+      responseMock.verify();
     });
+  });
+
+  it('should render the court subscription data page', () => {
+    let i18n = { 'delete-court-subscription-confirmation': {} };
+    const response = {
+      render: () => {
+        return '';
+      },
+    } as unknown as Response;
+    const request = mockRequest(i18n);
+    request.query = { locationId: '1' };
+    request.path = '/delete-court-subscription-confirmation';
+    const responseMock = sinon.mock(response);
+    const expectedData = {
+      ...i18n['delete-court-subscription-confirmation'],
+      court: court,
+      displayError: false,
+    };
+    responseMock.expects('render').once().withArgs('delete-court-subscription-confirmation', expectedData);
+    return deleteCourtReferenceDataConfirmationController.get(request, response).then(() => {
+      responseMock.verify();
+    });
+  });
+
+  it('should render the court publication data page', () => {
+    let i18n = { 'delete-court-publication-confirmation': {} };
+    const response = {
+      render: () => {
+        return '';
+      },
+    } as unknown as Response;
+    const request = mockRequest(i18n);
+    request.query = { locationId: '1' };
+    request.path = '/delete-court-publication-confirmation';
+    const responseMock = sinon.mock(response);
+    const expectedData = {
+      ...i18n['delete-court-publication-confirmation'],
+      court: court,
+      displayError: false,
+    };
+    responseMock.expects('render').once().withArgs('delete-court-publication-confirmation', expectedData);
+    return deleteCourtReferenceDataConfirmationController.get(request, response).then(() => {
+      responseMock.verify();
+    });
+  });
 
   it('should render the court subscription deletion data page', () => {
+    let i18n = { 'delete-court-subscription-confirmation': {} };
     const response = {
       render: () => {
         return '';
@@ -65,6 +109,7 @@ describe('Delete Court Reference Data Controller', () => {
   });
 
     it('should render confirmation page if active artefact or subscription is available', () => {
+        let i18n = { pageName: {} };
         const response = {
             render: () => {
                 return '';
@@ -87,6 +132,7 @@ describe('Delete Court Reference Data Controller', () => {
     });
 
     it('should render confirmation page if unexpected error occurred', () => {
+        let i18n = { pageName: {} };
         const response = {
             render: () => {
                 return '';
@@ -109,6 +155,7 @@ describe('Delete Court Reference Data Controller', () => {
     });
 
     it('should render redirect to success page if court is deleted', () => {
+        let i18n = { pageName: {} };
         const response = {
             render: () => {
                 return '';
@@ -131,6 +178,7 @@ describe('Delete Court Reference Data Controller', () => {
     });
 
     it('should redirect to confirmation page if no option is selected', () => {
+        let i18n = { pageName: {} };
         const response = {
             redirect: () => {
                 return '';
@@ -147,6 +195,7 @@ describe('Delete Court Reference Data Controller', () => {
     });
 
     it('should render delete court reference data when No is selected', () => {
+        let i18n = { pageName: {} };
         const response = {
             redirect: () => {
                 return '';

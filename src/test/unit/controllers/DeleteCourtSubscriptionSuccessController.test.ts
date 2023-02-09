@@ -5,16 +5,16 @@ import DeleteCourtSubscriptionSuccessController from '../../../main/controllers/
 
 const deleteCourtSubscriptionSuccessController = new DeleteCourtSubscriptionSuccessController();
 
-const i18n = { 'delete-court-subscription-success': {} };
-
 describe('Delete Court Subscription Data Controller', () => {
     it('should render the court subscription list page', () => {
+        let i18n = { 'delete-court-subscription-success': {} };
         const response = {
             render: () => {
                 return '';
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
+        request.path = '/delete-court-subscription-success';
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n['delete-court-subscription-success'],
@@ -25,4 +25,24 @@ describe('Delete Court Subscription Data Controller', () => {
             responseMock.verify();
         });
     });
+
+  it('should render the court publication list page', () => {
+    let i18n = { 'delete-court-publication-success': {} };
+    const response = {
+      render: () => {
+        return '';
+      },
+    } as unknown as Response;
+    const request = mockRequest(i18n);
+    request.path = '/delete-court-publication-success';
+    const responseMock = sinon.mock(response);
+    const expectedData = {
+      ...i18n['delete-court-publication-success'],
+    };
+
+    responseMock.expects('render').once().withArgs('delete-court-publication-success', expectedData);
+    return deleteCourtSubscriptionSuccessController.get(request, response).then(() => {
+      responseMock.verify();
+    });
+  });
 });

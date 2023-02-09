@@ -16,7 +16,8 @@ courtStub.withArgs('1').resolves(court);
 subDeleteStub.withArgs('1').resolves('success');
 subDeleteStub.withArgs('2').resolves(null);
 
-const i18n = { 'delete-court-subscription-confirmation': {} };
+const pageName = 'delete-court-subscription-confirmation';
+const i18n = { pageName: {} };
 
 describe('Delete Court Subscription Controller', () => {
     it('should render confirmation page if unexpected error occurred', () => {
@@ -27,15 +28,16 @@ describe('Delete Court Subscription Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.body = { locationId: '2', 'delete-choice': 'yes' };
+        request.path = '/' + pageName;
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['delete-court-subscription-confirmation'],
+            ...i18n[pageName],
             court: court,
             apiError: true,
             errorMessage: 'Unknown error when attempting to delete all the subscription for the court',
         };
 
-        responseMock.expects('render').once().withArgs('delete-court-subscription-confirmation', expectedData);
+        responseMock.expects('render').once().withArgs(pageName, expectedData);
         return deleteCourtSubscriptionConfirmationController.post(request, response).then(() => {
             responseMock.verify();
         });
@@ -49,15 +51,16 @@ describe('Delete Court Subscription Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.body = { locationId: '2', 'delete-choice': 'yes' };
+        request.path = '/' + pageName;
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['delete-court-subscription-confirmation'],
+            ...i18n[pageName],
             court: court,
             apiError: true,
             errorMessage: 'Unknown error when attempting to delete all the subscription for the court',
         };
 
-        responseMock.expects('render').once().withArgs('delete-court-subscription-confirmation', expectedData);
+        responseMock.expects('render').once().withArgs(pageName, expectedData);
         return deleteCourtSubscriptionConfirmationController.post(request, response).then(() => {
             responseMock.verify();
         });
@@ -71,6 +74,7 @@ describe('Delete Court Subscription Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.body = { locationId: '3', 'delete-choice': 'yes' };
+        request.path = '/' + pageName;
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs('/delete-court-subscription-success');
@@ -87,6 +91,7 @@ describe('Delete Court Subscription Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.body = { locationId: '1', 'delete-choice': 'no' };
+        request.path = '/' + pageName;
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs('/delete-court-reference-data');
