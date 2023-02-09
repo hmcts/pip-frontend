@@ -2,8 +2,10 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
 import { cloneDeep } from 'lodash';
+import { UserManagementService } from '../service/userManagementService';
 
 const accountManagementRequests = new AccountManagementRequests();
+const userManagementService = new UserManagementService();
 
 export default class DeleteUserConfirmationController {
     public async post(req: PipRequest, res: Response): Promise<void> {
@@ -11,6 +13,12 @@ export default class DeleteUserConfirmationController {
             const deleteUserResponse = await accountManagementRequests.deleteUser(
                 req.body.user as string,
                 req.user['userId']
+            );
+            await userManagementService.auditAction(
+                req.user['userId'],
+                req.user['email'],
+                'DELETE_USER',
+                'User has been deleted, id: ' + req.body.user
             );
             deleteUserResponse
                 ? res.render('delete-user-confirmation', {

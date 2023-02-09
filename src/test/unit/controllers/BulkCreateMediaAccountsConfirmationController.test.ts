@@ -4,6 +4,7 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import { FileHandlingService } from '../../../main/service/fileHandlingService';
 import { CreateAccountService } from '../../../main/service/createAccountService';
+import { UserManagementService } from '../../../main/service/userManagementService';
 
 const bulkCreateMediaAccountsConfirmationController = new BulkCreateMediaAccountsConfirmationController();
 const bulkCreateAccountsConfirmationUrl = 'bulk-create-media-accounts-confirmation';
@@ -31,6 +32,7 @@ const mockAccountsWithHeader = [['email', 'firstName', 'surname'], ...mockAccoun
 const file = 'file';
 sinon.stub(FileHandlingService.prototype, 'readFileFromRedis').resolves(file);
 sinon.stub(FileHandlingService.prototype, 'readCsvToArray').returns(mockAccountsWithHeader);
+sinon.stub(UserManagementService.prototype, 'auditAction').returns(true);
 
 const createAccountsStub = sinon.stub(CreateAccountService.prototype, 'bulkCreateMediaAccounts');
 createAccountsStub.withArgs(file, fileName, '1').resolves(true);
