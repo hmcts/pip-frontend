@@ -28,11 +28,18 @@ export class UserManagementService {
         roles: string,
         provenances: string,
         queryUrl: string,
-        adminUserId: string
+        adminUserId: string,
+        adminUserEmail: string
     ) {
         const rawData = await accountManagementRequests.getAllAccountsExceptThirdParty(
             this.buildRequestParams(email, userId, userProvenanceId, roles, provenances, pageNumber),
             adminUserId
+        );
+        await this.auditAction(
+            adminUserId,
+            adminUserEmail,
+            'USER_MANAGEMENT_VIEW',
+            'All user data requested by this admin'
         );
 
         return {
@@ -378,5 +385,17 @@ export class UserManagementService {
         }
 
         return items;
+    }
+
+    /**
+     * Process a users action to be sent and stored.
+     */
+    public async auditAction(userId: string, userEmail: string, action: string, details: string): Promise<void> {
+        await accountManagementRequests.storeAuditAction({
+            userId: userId,
+            userEmail: userEmail,
+            action: action,
+            details: details,
+        });
     }
 }
