@@ -2,17 +2,18 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { LocationService } from '../service/locationService';
+import { UserManagementService } from '../service/userManagementService';
 
 const locationService = new LocationService();
+const userManagementService = new UserManagementService();
 
 export default class DeleteCourtReferenceDataConfirmationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const locationId = req.query.locationId as unknown as number;
-        const pageToLoad = req.path.slice(1, req.path.length);
         if (locationId) {
             const court = await locationService.getLocationById(locationId);
-            res.render(pageToLoad, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[pageToLoad]),
+            res.render('delete-court-reference-data-confirmation', {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
                 court: locationService.formatCourtValue(court),
                 displayError: false,
             });
@@ -30,14 +31,27 @@ export default class DeleteCourtReferenceDataConfirmationController {
                     formData.locationId,
                     req.user?.['provenanceUserId']
                 );
-                if (response !== null && response['exists']) {
+
+                if (response !== null && response['isExists']) {
+                    await userManagementService.auditAction(
+                        req.user['userId'],
+                        req.user['email'],
+                        'DELETE_LOCATION_ATTEMPT',
+                        'Location attempted to be deleted with id: ' + formData.locationId
+                    );
                     res.render('delete-court-reference-data-confirmation', {
                         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
                         court: locationService.formatCourtValue(court),
-                        apiError: response['exists'],
+                        apiError: response['isExists'],
                         errorMessage: response['errorMessage'],
                     });
                 } else if (response === null) {
+                    await userManagementService.auditAction(
+                        req.user['userId'],
+                        req.user['email'],
+                        'DELETE_LOCATION_ATTEMPT',
+                        'Location attempted to be deleted with id: ' + formData.locationId
+                    );
                     res.render('delete-court-reference-data-confirmation', {
                         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
                         court: locationService.formatCourtValue(court),
@@ -45,6 +59,12 @@ export default class DeleteCourtReferenceDataConfirmationController {
                         errorMessage: 'Unknown error when attempting to delete the court from reference data',
                     });
                 } else {
+                    await userManagementService.auditAction(
+                        req.user['userId'],
+                        req.user['email'],
+                        'DELETE_LOCATION_SUCCESS',
+                        'Location has been deleted with id: ' + formData.locationId
+                    );
                     res.redirect('/delete-court-reference-data-success');
                 }
                 break;

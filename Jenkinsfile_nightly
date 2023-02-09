@@ -11,6 +11,48 @@ def type = "nodejs"
 def product = "pip"
 def component = "frontend"
 
-withNightlyPipeline(type, product, component) {
+def setupTestSecrets() {
 
+  def bootstap_env = env.ENV == "prod" || env.ENV == "demo" || env.ENV == "sbox" ? env.ENV : "stg"
+
+  azureKeyVault(
+    keyVaultURL: "https://pip-bootstrap-${bootstap_env}-kv.vault.azure.net/",
+    secrets: [
+      secret('b2c-test-account', 'B2C_USERNAME'),
+      secret('b2c-test-account-pwd', 'B2C_PASSWORD'),
+      secret('b2c-test-admin-account', 'B2C_ADMIN_USERNAME'),
+      secret('b2c-test-admin-account-pwd', 'B2C_ADMIN_PASSWORD'),
+      secret('cft-valid-test-account', 'CFT_VALID_USERNAME'),
+      secret('cft-valid-test-account-password', 'CFT_VALID_PASSWORD'),
+      secret('cft-invalid-test-account', 'CFT_INVALID_USERNAME'),
+      secret('cft-invalid-test-account-password', 'CFT_INVALID_PASSWORD'),
+      secret('b2c-test-system-admin-account', 'B2C_SYSTEM_ADMIN_USERNAME'),
+      secret('b2c-test-system-admin-account-pwd', 'B2C_SYSTEM_ADMIN_PASSWORD')
+    ]) {
+    env.B2C_USERNAME = "${B2C_USERNAME}"
+    env.B2C_PASSWORD = "${B2C_PASSWORD}"
+    env.B2C_ADMIN_USERNAME = "${B2C_ADMIN_USERNAME}"
+    env.B2C_ADMIN_PASSWORD = "${B2C_ADMIN_PASSWORD}"
+    env.CFT_VALID_USERNAME = "${CFT_VALID_USERNAME}"
+    env.CFT_VALID_PASSWORD = "${CFT_VALID_PASSWORD}"
+    env.CFT_INVALID_USERNAME = "${CFT_INVALID_USERNAME}"
+    env.CFT_INVALID_PASSWORD = "${CFT_INVALID_PASSWORD}"
+    env.B2C_SYSTEM_ADMIN_USERNAME = "${B2C_SYSTEM_ADMIN_USERNAME}"
+    env.B2C_SYSTEM_ADMIN_PASSWORD = "${B2C_SYSTEM_ADMIN_PASSWORD}"
+  }
 }
+
+static Map<String, Object> secret(String secretName, String envVariable) {
+  [
+    $class     : 'AzureKeyVaultSecret',
+    secretType : 'Secret',
+    name       : secretName,
+    envVariable: envVariable
+  ]
+}
+
+withNightlyPipeline(type, product, component) {
+  setupTestSecrets()
+  enableFullFunctionalTest()
+}
+
