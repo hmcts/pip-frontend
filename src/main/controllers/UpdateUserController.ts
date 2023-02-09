@@ -13,6 +13,12 @@ export default class UpdateUserController {
         const userId = req.query.id as string;
         const userData = await accountManagementRequests.getUserByUserId(userId, req.user['userId']);
         const selectBoxData = userManagementService.buildUserUpdateSelectBox(userData.roles);
+        await userManagementService.auditAction(
+            req.user['userId'],
+            req.user['email'],
+            'MANAGE_USER',
+            'Update user page requested containing user: ' + userId
+        );
 
         res.render('update-user', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['update-user']),
