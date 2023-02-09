@@ -104,10 +104,10 @@ export class ManualUploadService {
             ),
             classificationError: formValues['classification'] ? null : 'true',
         };
-        if (!fields.courtError && !fields.contentDateError && !fields.displayDateError && !fields.classificationError) {
-            return null;
+        if (fields.courtError || fields.contentDateError || fields.displayDateError || fields.classificationError) {
+            return fields;
         }
-        return fields;
+        return null;
     }
 
     private async validateCourt(courtName: string, language: string, languageFile: string): Promise<string> {
