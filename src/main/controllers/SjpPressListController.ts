@@ -17,7 +17,7 @@ export default class SjpPressListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
         if (sjpData && metaData) {
-            const manipulatedData = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
+            const sjpCases = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
 
             const publishedTime = helperService.publicationTimeInUkTime(sjpData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -30,7 +30,8 @@ export default class SjpPressListController {
             res.render('single-justice-procedure-press', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press']),
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
-                sjpData: manipulatedData,
+                sjpData: sjpCases,
+                totalHearings: sjpCases.length,
                 publishedDateTime: publishedDate,
                 publishedTime: publishedTime,
                 contactDate: DateTime.fromISO(metaData['contentDate'], {

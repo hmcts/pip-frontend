@@ -153,88 +153,61 @@
     <div class="parent-box">
       <div class="overflow-table govuk-body search-area">
         {% set hearingCount = 0 %}
-        {% for courtList in sjpData['courtLists'] %}
-          {% for courtRoom in courtList['courtHouse']['courtRoom'] %}
-            {% for session in courtRoom['session'] %}
-              {% for sitting in session['sittings'] %}
-                {% for hearing in sitting['hearing'] %}
-                  {% set hearingCount = hearingCount + 1 %}
-                  <dl class="govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row">
-                      <dt class="govuk-summary-list__key">
-                        {{ name }}
-                      </dt>
-                      <dd class="govuk-summary-list__value">
-                        {% set individualTitle = '' %}
-                        {% if hearing['party'][0]['individualDetails']['title'] !== '' %}
-                          {% set individualTitle = hearing['party'][0]['individualDetails']['title'] %}
-                        {% endif %}
-                        {% set middleName = '' %}
-                        {% if hearing['party'][0]['individualDetails']['individualMiddleName'] !== '' %}
-                          {% set middleName = hearing['party'][0]['individualDetails']['individualMiddleName'] %}
-                        {% endif %}
-                        {{ individualTitle }} {{ hearing['party'][0]['individualDetails']['individualForenames'] }} {{ middleName }} {{ hearing['party'][0]['individualDetails']['individualSurname'] }}
-                      </dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                      <dt class="govuk-summary-list__key">
-                        {{ dateOfBirth }}
-                      </dt>
-                      <dd class="govuk-summary-list__value">
-                        {{ hearing['party'][0]['individualDetails']['formattedDateOfBirth'] }}
-                        ({{ hearing['party'][0]['individualDetails']['age'] }})
-                      </dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                      <dt class="govuk-summary-list__key">
-                        {{ reference }}
-                      </dt>
-                      <dd class="govuk-summary-list__value">
-                        {{ hearing['case'][0]['caseUrn'] }}
-                      </dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                      <dt class="govuk-summary-list__key">
-                        {{ address }}
-                      </dt>
-                      <dd class="govuk-summary-list__value">
-                        {% for line in hearing['party'][0]['individualDetails']['address']['line'] %}
-                          {% if line !== '' %}
-                            {{ line }}
-                          {% endif %}
-                        {% endfor %}
-                        {% if hearing['party'][0]['individualDetails']['address']['town'] !== '' %}
-                          {{ hearing['party'][0]['individualDetails']['address']['town'] }},
-                        {% endif %}
-                        {% if hearing['party'][0]['individualDetails']['address']['county'] !== '' %}
-                          {{ hearing['party'][0]['individualDetails']['address']['county'] }},
-                        {% endif %}
-                        {{ hearing['party'][0]['individualDetails']['address']['postCode'] }}
-                      </dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                      <dt class="govuk-summary-list__key">
-                        {{ prosecutor }}
-                      </dt>
-                      <dd class="govuk-summary-list__value">
-                        {{ hearing['party'][1]['organisationDetails']['organisationName'] }}
-                      </dd>
-                    </div>
 
-                    {% for offence in hearing['offence'] %}
-                      <p class="govuk-body">
-                        {{ reportingRestriction }} - {{ offence['formattedReportingRestriction'] }}<br/>
-                        {{ offence['offenceTitle'] }} - {{ offence['offenceWording'] }}
-                      </p>
-                    {% endfor %}
-                    {% if sjpData['hearingCount'] !== hearingCount %}
-                      <hr>
-                    {% endif %}
-                  </dl>
-                {% endfor %}
-              {% endfor %}
+        {% for sjpCase in sjpData %}
+          {% set hearingCount = hearingCount + 1 %}
+          <dl class="govuk-summary-list--no-border">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{ name }}
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ sjpCase.name }}
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{ dateOfBirth }}
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ sjpCase.dob }} ({{ sjpCase.age }})
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{ reference }}
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ sjpCase.caseUrn }}
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{ address }}
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ sjpCase.address }}
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{ prosecutor }}
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ sjpCase.organisationName }}
+              </dd>
+            </div>
+
+            {% for offence in sjpCase.offences %}
+              <p class="govuk-body">
+                {{ reportingRestriction }} - {{ offence.reportingRestrictionFlag }}<br/>
+                {{ offence.offenceTitle }} - {{ offence.offenceWording }}
+              </p>
             {% endfor %}
-          {% endfor %}
+            {% if totalHearings !== hearingCount %}
+              <hr>
+            {% endif %}
+          </dl>
         {% endfor %}
       </div>
       {{ super() }}
@@ -254,7 +227,6 @@
       var header = document.getElementsByClassName("govuk-header");
       var backLink = document.getElementsByClassName("govuk-back-link");
       var footer = document.getElementsByClassName("govuk-footer");
-
 
       element.classList.toggle("always-hide");
       navigation[0].classList.toggle("always-hide");
