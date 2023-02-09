@@ -47,20 +47,21 @@ export default class SjpPressListController {
     }
 
 
-    private generateFilters(jsonData) {
 
-      const filters = {
-        postcodeFilters: [],
-        prosecutorFilters: []
-      }
-
-      //Loop through Blob, and extract Postcode
-
-
-      //Loop through Blob, and extract prosecutors
-
-
-
-    }
+    // private generateFilters(jsonData) {
+    //
+    //   const filters = {
+    //     postcodeFilters: [],
+    //     prosecutorFilters: []
+    //   }
+    //
+    //   //Loop through Blob, and extract Postcode
+    //
+    //
+    //   //Loop through Blob, and extract prosecutors
+    //
+    //
+    //
+    // }
 
 }
