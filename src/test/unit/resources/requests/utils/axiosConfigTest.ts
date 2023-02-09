@@ -2,7 +2,7 @@ import config from 'config';
 import sinon from 'sinon';
 
 describe('Testing environment variables', () => {
-    process.env.ALLOW_CONFIG_MUTATIONS = "true"
+    process.env.ALLOW_CONFIG_MUTATIONS = 'true';
     const configSpy = sinon.spy(config, 'get');
 
     beforeEach(() => {
