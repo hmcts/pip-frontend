@@ -96,4 +96,42 @@ export class SjpPressListService {
         });
         return rows;
     }
+
+    public generateFilters(data): any {
+      let postcodes = new Set<string>();
+      let prosecutors = new Set<string>();
+
+      data.forEach(item => {
+        postcodes.add(item.postcode)
+        prosecutors.add(item.organisationName)
+      });
+
+      const sortedPostcodes = Array.from(postcodes).sort();
+      const sortedProsecutors = Array.from(prosecutors).sort();
+
+      const filterStructure = {
+        postcodes: [],
+        prosecutors: []
+      }
+
+      sortedPostcodes.forEach(postcode => {
+        filterStructure.postcodes.push({
+          value: postcode,
+          text: postcode,
+          checked: false
+        })
+      });
+
+      sortedProsecutors.forEach(prosecutor => {
+        filterStructure.prosecutors.push({
+          value: prosecutor,
+          text: prosecutor,
+          checked: false
+        })
+      })
+
+      return filterStructure;
+    }
+
+
 }

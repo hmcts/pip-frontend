@@ -43,8 +43,8 @@
 
   {{ searchInput(text = searchCases) }}
 
-  <button class="govuk-button govuk-button--secondary govuk-!-margin-top-5 hide-show-button" data-module="govuk-button" text="Show Filters">
-    Show Filters
+  <button class="govuk-button govuk-button--secondary govuk-!-margin-top-5 hide-show-button" data-module="govuk-button">
+    {{ show }}
   </button>
 
   <div class="govuk-grid-row">
@@ -57,26 +57,11 @@
             classes: "govuk-checkboxes--small",
             fieldset: {
               legend: {
-                text: 'Postcode',
+                text: postcode,
                 classes: 'govuk-fieldset__legend--m'
               }
             },
-            items: [
-              {
-                value: 'AA1 123',
-                text: 'AA1 123',
-                checked: true
-              },
-              {
-                value: 'BB1 234',
-                text: 'BB1 234',
-                checked: true
-              },
-              {
-                value: 'CC1 456',
-                text: 'CC1 456'
-              }
-            ]
+            items: filters.postcodes
           }) }}
 
           {{ govukCheckboxes({
@@ -85,41 +70,26 @@
             classes: "govuk-checkboxes--small",
             fieldset: {
               legend: {
-                text: 'Prosecutor',
+                text: prosecutor,
                 classes: 'govuk-fieldset__legend--m'
               }
             },
-            items: [
-              {
-                value: 'Prosecutor 1',
-                text: 'Prosecutor 1',
-                checked: true
-              },
-              {
-                value: 'Prosecutor 2',
-                text: 'Prosecutor 2'
-              },
-              {
-                value: 'Prosecutor 3',
-                text: 'Prosecutor 3',
-                checked: false
-              }
-            ]
+            items: filters.prosecutors
           }) }}
         {% endset -%}
 
         {{ mojFilter({
           heading: {
-            text: 'Filter'
+            text: filter
           },
           selectedFilters: {
 
             heading: {
-              text: 'Selected filters'
+              text: selectedFilters
             },
 
             clearLink: {
-              text: 'Clear filters'
+              text: clearFilters
             },
 
             categories: [
@@ -235,11 +205,9 @@
       backLink[0].classList.toggle("always-hide");
       footer[0].classList.toggle("always-hide");
       if (element.className.indexOf('always-hide') > 0) {
-        document.getElementsByClassName('hide-show-button')[0].innerHTML = 'Show Filters';
-        console.log('We made it into here')
+        document.getElementsByClassName('hide-show-button')[0].innerHTML = '{{ show }}';
       } else {
-        document.getElementsByClassName('hide-show-button')[0].innerHTML = 'Hide Filters';
-        console.log("We also made it into here")
+        document.getElementsByClassName('hide-show-button')[0].innerHTML = '{{ hide }}';
 
         //This ensures that focus works correctly for screen readers in the filter box.
         var elements = document.getElementsByClassName('govuk-heading-m');
@@ -250,5 +218,9 @@
     }
 
     document.getElementsByClassName('hide-show-button')[0].addEventListener("click", toggleFilters);
+
+    // Replace apply filters button with localisation text as currently unconfigurable
+    document.getElementsByClassName("moj-filter-layout__filter")[0].getElementsByTagName("button")[0].innerHTML = '{{ applyFilters }}';
+
   </script>
 {% endblock %}

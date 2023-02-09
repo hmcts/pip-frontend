@@ -18,7 +18,6 @@ export default class SjpPressListController {
 
         if (sjpData && metaData) {
             const sjpCases = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
-
             const publishedTime = helperService.publicationTimeInUkTime(sjpData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 sjpData['document']['publicationDate'],
@@ -41,6 +40,7 @@ export default class SjpPressListController {
                     .toFormat('d MMMM yyyy'),
                 artefactId: artefactId,
                 user: req.user,
+                filters: sjpPressListService.generateFilters(sjpCases)
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
