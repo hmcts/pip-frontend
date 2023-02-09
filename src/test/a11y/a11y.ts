@@ -88,6 +88,8 @@ const systemAdminRoutes = [
     '/bulk-create-media-accounts-confirmed',
     '/delete-court-subscription-confirmation',
     '/delete-court-subscription-success',
+    '/delete-court-publication-confirmation',
+    '/delete-court-publication-success',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');

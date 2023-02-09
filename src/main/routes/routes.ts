@@ -559,20 +559,20 @@ export default function (app: Application): void {
         app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get
     );
     app.get(
-      '/delete-court-publication-confirmation',
-      isPermittedSystemAdmin,
-      app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get
+        '/delete-court-publication-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get
     );
     app.post(
-      '/delete-court-publication-confirmation',
-      isPermittedSystemAdmin,
-      app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post
+        '/delete-court-publication-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post
     );
-  app.get(
-    '/delete-court-publication-success',
-    isPermittedSystemAdmin,
-    app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get
-  );
+    app.get(
+        '/delete-court-publication-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get
+    );
 
     //CFT Routes
     if (process.env.ENABLE_CFT === 'true') {

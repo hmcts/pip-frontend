@@ -7,7 +7,7 @@ const deleteCourtSubscriptionSuccessController = new DeleteCourtSubscriptionSucc
 
 describe('Delete Court Subscription Data Controller', () => {
     it('should render the court subscription list page', () => {
-        let i18n = { 'delete-court-subscription-success': {} };
+        const i18n = { 'delete-court-subscription-success': {} };
         const response = {
             render: () => {
                 return '';
@@ -26,23 +26,23 @@ describe('Delete Court Subscription Data Controller', () => {
         });
     });
 
-  it('should render the court publication list page', () => {
-    let i18n = { 'delete-court-publication-success': {} };
-    const response = {
-      render: () => {
-        return '';
-      },
-    } as unknown as Response;
-    const request = mockRequest(i18n);
-    request.path = '/delete-court-publication-success';
-    const responseMock = sinon.mock(response);
-    const expectedData = {
-      ...i18n['delete-court-publication-success'],
-    };
+    it('should render the court publication list page', () => {
+        const i18n = { 'delete-court-publication-success': {} };
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.path = '/delete-court-publication-success';
+        const responseMock = sinon.mock(response);
+        const expectedData = {
+            ...i18n['delete-court-publication-success'],
+        };
 
-    responseMock.expects('render').once().withArgs('delete-court-publication-success', expectedData);
-    return deleteCourtSubscriptionSuccessController.get(request, response).then(() => {
-      responseMock.verify();
+        responseMock.expects('render').once().withArgs('delete-court-publication-success', expectedData);
+        return deleteCourtSubscriptionSuccessController.get(request, response).then(() => {
+            responseMock.verify();
+        });
     });
-  });
 });
