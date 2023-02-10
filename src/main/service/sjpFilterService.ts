@@ -1,100 +1,98 @@
-import {FilterService} from './filterService';
+import { FilterService } from './filterService';
 
 const filterService = new FilterService();
 
 const replaceRegex = /[\s,]/g;
 
 export class SjpFilterService {
-  public generateFilters(allCases, filterValuesQuery, clearQuery): any {
-    let filterValues = filterService.stripFilters(filterValuesQuery);
-    if (clearQuery) {
-      filterValues = filterService.handleFilterClear(filterValues, clearQuery);
+    public generateFilters(allCases, filterValuesQuery, clearQuery): any {
+        let filterValues = filterService.stripFilters(filterValuesQuery);
+        if (clearQuery) {
+            filterValues = filterService.handleFilterClear(filterValues, clearQuery);
+        }
+
+        const filterOptions = this.buildFilterOptions(allCases, filterValues);
+
+        const caseList = filterValues.length == 0 ? allCases : this.filterCases(allCases, filterOptions);
+
+        return {
+            sjpCases: caseList,
+            filterOptions: filterOptions,
+        };
     }
 
-    const filterOptions = this.buildFilterOptions(allCases, filterValues);
+    private buildFilterOptions(data, filterValues): any {
+        const postcodes = new Set<string>();
+        const prosecutors = new Set<string>();
 
-    const caseList = filterValues.length == 0 ? allCases : this.filterCases(allCases, filterOptions);
+        data.forEach(item => {
+            postcodes.add(item.postcode);
+            prosecutors.add(item.organisationName);
+        });
 
-    return {
-      sjpCases: caseList,
-      filterOptions: filterOptions,
-    };
-  }
+        const sortedPostcodes = Array.from(postcodes).sort((a, b) => a.localeCompare(b, 'en', { numeric: true }));
+        const sortedProsecutors = Array.from(prosecutors).sort();
 
-  private buildFilterOptions(data, filterValues): any {
-    const postcodes = new Set<string>();
-    const prosecutors = new Set<string>();
+        const filterStructure = {
+            postcodes: [],
+            prosecutors: [],
+        };
 
-    data.forEach(item => {
-      postcodes.add(item.postcode);
-      prosecutors.add(item.organisationName);
-    });
+        sortedPostcodes.forEach(postcode => {
+            const formattedPostcode = postcode.replace(replaceRegex, '');
 
-    const sortedPostcodes = Array.from(postcodes).sort(
-      (a, b) => a.localeCompare(b, 'en', { numeric: true })
-    );
-    const sortedProsecutors = Array.from(prosecutors).sort();
+            filterStructure.postcodes.push({
+                value: formattedPostcode,
+                text: postcode,
+                checked: filterValues.includes(formattedPostcode),
+            });
+        });
 
-    const filterStructure = {
-      postcodes: [],
-      prosecutors: [],
-    };
+        sortedProsecutors.forEach(prosecutor => {
+            const formattedProsecutor = prosecutor.replace(replaceRegex, '');
 
-    sortedPostcodes.forEach(postcode => {
-      const formattedPostcode = postcode.replace(replaceRegex, '');
+            filterStructure.prosecutors.push({
+                value: formattedProsecutor,
+                text: prosecutor,
+                checked: filterValues.includes(formattedProsecutor),
+            });
+        });
 
-      filterStructure.postcodes.push({
-        value: formattedPostcode,
-        text: postcode,
-        checked: filterValues.includes(formattedPostcode),
-      });
-    });
+        return filterStructure;
+    }
 
-    sortedProsecutors.forEach(prosecutor => {
-      const formattedProsecutor = prosecutor.replace(replaceRegex, '');
+    private filterCases(allCases, filterOptions) {
+        const postcodeFilters = [];
+        const prosecutorFilters = [];
 
-      filterStructure.prosecutors.push({
-        value: formattedProsecutor,
-        text: prosecutor,
-        checked: filterValues.includes(formattedProsecutor),
-      });
-    });
+        filterOptions.postcodes.forEach(item => {
+            if (item.checked) {
+                postcodeFilters.push(item.value);
+            }
+        });
 
-    return filterStructure;
-  }
+        filterOptions.prosecutors.forEach(item => {
+            if (item.checked) {
+                prosecutorFilters.push(item.value);
+            }
+        });
 
-  private filterCases(allCases, filterOptions) {
-    const postcodeFilters = [];
-    const prosecutorFilters = [];
+        const filteredCases = [];
+        allCases.forEach(item => {
+            const formattedPostcode = item.postcode.replace(replaceRegex, '');
+            const formattedProsecutor = item.organisationName.replace(replaceRegex, '');
 
-    filterOptions.postcodes.forEach(item => {
-      if (item.checked) {
-        postcodeFilters.push(item.value);
-      }
-    });
+            if (postcodeFilters.length > 0 && prosecutorFilters.length > 0) {
+                if (postcodeFilters.includes(formattedPostcode) && prosecutorFilters.includes(formattedProsecutor)) {
+                    filteredCases.push(item);
+                }
+            } else if (postcodeFilters.length > 0 && postcodeFilters.includes(formattedPostcode)) {
+                filteredCases.push(item);
+            } else if (prosecutorFilters.length > 0 && prosecutorFilters.includes(formattedProsecutor)) {
+                filteredCases.push(item);
+            }
+        });
 
-    filterOptions.prosecutors.forEach(item => {
-      if (item.checked) {
-        prosecutorFilters.push(item.value);
-      }
-    });
-
-    const filteredCases = [];
-    allCases.forEach(item => {
-      const formattedPostcode = item.postcode.replace(replaceRegex, '');
-      const formattedProsecutor = item.organisationName.replace(replaceRegex, '');
-
-      if (postcodeFilters.length > 0 && prosecutorFilters.length > 0) {
-        if (postcodeFilters.includes(formattedPostcode) && prosecutorFilters.includes(formattedProsecutor)) {
-          filteredCases.push(item);
-        }
-      } else if (postcodeFilters.length > 0 && postcodeFilters.includes(formattedPostcode)) {
-        filteredCases.push(item);
-      } else if (prosecutorFilters.length > 0 && prosecutorFilters.includes(formattedProsecutor)) {
-        filteredCases.push(item);
-      }
-    });
-
-    return filteredCases;
-  }
+        return filteredCases;
+    }
 }
