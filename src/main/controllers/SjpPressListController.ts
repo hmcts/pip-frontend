@@ -20,7 +20,11 @@ export default class SjpPressListController {
 
         if (sjpData && metaData) {
             const allCases = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
-            const filter = sjpPressListService.generateFilters(allCases, req.query?.filterValues as string, req.query?.clear as string);
+            const filter = sjpPressListService.generateFilters(
+                allCases,
+                req.query?.filterValues as string,
+                req.query?.clear as string
+            );
 
             const publishedTime = helperService.publicationTimeInUkTime(sjpData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(

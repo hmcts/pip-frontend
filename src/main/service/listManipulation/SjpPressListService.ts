@@ -5,8 +5,6 @@ import { FilterService } from '../filterService';
 const listParseHelperService = new ListParseHelperService();
 const filterService = new FilterService();
 
-//const filterNames = ['Postcode', 'Prosecutor'];
-
 export class SjpPressListService {
     /**
      * Manipulate the sjpPressList json data for writing out on screen.
@@ -109,12 +107,11 @@ export class SjpPressListService {
 
         const filterOptions = this.buildFilterOptions(allCases, filterValues);
 
-        const caseList = filterValues.length == 0 ? allCases
-          : allCases;
+        const caseList = filterValues.length == 0 ? allCases : this.filterCases(allCases, filterOptions);
 
         return {
-          sjpCases: caseList,
-          filterOptions: filterOptions,
+            sjpCases: caseList,
+            filterOptions: filterOptions,
         };
     }
 
@@ -127,7 +124,9 @@ export class SjpPressListService {
             prosecutors.add(item.organisationName);
         });
 
-        const sortedPostcodes = Array.from(postcodes).sort();
+        const sortedPostcodes = Array.from(postcodes).sort(
+          (a, b) => a.localeCompare(b, 'en', { numeric: true })
+        );
         const sortedProsecutors = Array.from(prosecutors).sort();
 
         const filterStructure = {
@@ -162,31 +161,35 @@ export class SjpPressListService {
         return filterStructure;
     }
 
-    // private findAndSplitFilters(filterValues, filterOptions) {
-    //     const filterValueOptions = {};
-    //
-    //     const postcodeFilter = [];
-    //     const prosecutorFilter = [];
-    //
-    //     if (filterValues.length > 0) {
-    //         filterNames.forEach(filter => {
-    //             filterValues.forEach(value => {
-    //                 Object.keys(filterOptions[filter]).forEach(filterValue => {
-    //                     if (filterOptions[filter][filterValue].value === value) {
-    //                         if (filter === 'Postcode') {
-    //                             postcodeFilter.push(value);
-    //                         } else if (filter === 'Prosecutor') {
-    //                             prosecutorFilter.push(value);
-    //                         }
-    //                     }
-    //                 });
-    //             });
-    //         });
-    //     }
-    //
-    //     filterValueOptions['Postcode'] = postcodeFilter.toString();
-    //     filterValueOptions['Prosecutor'] = prosecutorFilter.toString();
-    //
-    //     return filterValueOptions;
-    // }
+    private filterCases(allCases, filterOptions) {
+        const postcodeFilters = [];
+        const prosecutorFilters = [];
+
+        filterOptions.postcodes.forEach(item => {
+            if (item.checked) {
+                postcodeFilters.push(item.value);
+            }
+        });
+
+        filterOptions.prosecutors.forEach(item => {
+            if (item.checked) {
+                prosecutorFilters.push(item.value);
+            }
+        });
+
+        const filteredCases = [];
+        allCases.forEach(item => {
+            if (postcodeFilters.length > 0 && prosecutorFilters.length > 0) {
+                if (postcodeFilters.includes(item.postcode) && prosecutorFilters.includes(item.organisationName)) {
+                    filteredCases.push(item);
+                }
+            } else if (postcodeFilters.length > 0 && postcodeFilters.includes(item.postcode)) {
+                filteredCases.push(item);
+            } else if (prosecutorFilters.length > 0 && prosecutorFilters.includes(item.organisationName)) {
+                filteredCases.push(item);
+            }
+        });
+
+        return filteredCases;
+    }
 }
