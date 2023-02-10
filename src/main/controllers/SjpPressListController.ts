@@ -6,7 +6,7 @@ import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { SjpPressListService } from '../service/listManipulation/SjpPressListService';
 import { FilterService } from '../service/filterService';
-import {SjpFilterService} from '../service/sjpFilterService';
+import { SjpFilterService } from '../service/sjpFilterService';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
