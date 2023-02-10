@@ -63,7 +63,7 @@
                 checked: item.checked
               }) %}
               {% if item.checked %}
-                {% set _ = checkedFilterItems.push({href: 'clear=' + item.value, text: item.text}) %}
+                {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
               {% endif %}
             {% endfor %}
 
@@ -193,7 +193,6 @@
   <script>
     // The following function is hiding content and navigation due to screen readers to read behind the visible panel
     function toggleFilters() {
-      console.log("here we are")
       var element = document.getElementById("filters");
       var navigation = document.getElementsByClassName("moj-sub-navigation pub-navigation govuk-!-margin-bottom-0");
       var skipLink = document.getElementsByClassName("govuk-skip-link");
@@ -225,19 +224,14 @@
     let currentQueryArray = window.location.search.split('&');
     tags.forEach(element => {
       element.href = '/sjp-press-list?artefactId=' + '{{ artefactId }}' + '&' + buildHref(element.href, currentQueryArray);
-      console.log(element.href)
     })
-    function buildHref(elementHref, currentQueryArray) {
 
+    function buildHref(elementHref, currentQueryArray) {
       const elementQueryString = elementHref.slice(elementHref.indexOf('?'), elementHref.length);
       const deleteVal = elementQueryString.split('=')[1];
       let href = currentQueryArray ? currentQueryArray[1].replace(deleteVal, '') + elementQueryString.replace('?', '&') : elementQueryString
       return href.replace(',,', ',');
     }
-
-
-
-
 
     document.getElementsByClassName('hide-show-button')[0].addEventListener("click", toggleFilters);
 
