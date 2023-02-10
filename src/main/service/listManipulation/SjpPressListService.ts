@@ -178,14 +178,22 @@ export class SjpPressListService {
         });
 
         const filteredCases = [];
+
+        const replaceRegexComma = /,/g;
+        const replaceRegexSpace = / /g;
+
         allCases.forEach(item => {
+
+            let formattedPostcode = item.postcode.replace(replaceRegexComma, '').replace(replaceRegexSpace, '');
+            let formattedProsecutor = item.organisationName.replace(replaceRegexComma, '').replace(replaceRegexSpace, '');
+
             if (postcodeFilters.length > 0 && prosecutorFilters.length > 0) {
-                if (postcodeFilters.includes(item.postcode) && prosecutorFilters.includes(item.organisationName)) {
+                if (postcodeFilters.includes(formattedPostcode) && prosecutorFilters.includes(formattedProsecutor)) {
                     filteredCases.push(item);
                 }
-            } else if (postcodeFilters.length > 0 && postcodeFilters.includes(item.postcode)) {
+            } else if (postcodeFilters.length > 0 && postcodeFilters.includes(formattedPostcode)) {
                 filteredCases.push(item);
-            } else if (prosecutorFilters.length > 0 && prosecutorFilters.includes(item.organisationName)) {
+            } else if (prosecutorFilters.length > 0 && prosecutorFilters.includes(formattedProsecutor)) {
                 filteredCases.push(item);
             }
         });
