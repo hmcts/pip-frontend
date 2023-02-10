@@ -224,12 +224,17 @@
     let currentQueryArray = window.location.search.split('&');
     tags.forEach(element => {
       element.href = '/sjp-press-list?artefactId=' + '{{ artefactId }}' + '&' + buildHref(element.href, currentQueryArray);
+      console.log(element.href)
     })
 
     function buildHref(elementHref, currentQueryArray) {
       const elementQueryString = elementHref.slice(elementHref.indexOf('?'), elementHref.length);
       const deleteVal = elementQueryString.split('=')[1];
-      let href = currentQueryArray ? currentQueryArray[1].replace(deleteVal, '') + elementQueryString.replace('?', '&') : elementQueryString
+
+      let currentFilterValues = currentQueryArray.find(item => item.startsWith('filterValues') || item.startsWith('?filterValues'))
+      currentFilterValues = currentFilterValues.startsWith('?') ? currentFilterValues.substring(1) : currentFilterValues;
+
+      let href = currentFilterValues ? currentFilterValues.replace(deleteVal, '') + elementQueryString.replace('?', '&') : elementQueryString
       return href.replace(',,', ',');
     }
 
