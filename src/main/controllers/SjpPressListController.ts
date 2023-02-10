@@ -5,10 +5,12 @@ import { DateTime } from 'luxon';
 import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { SjpPressListService } from '../service/listManipulation/SjpPressListService';
+import { FilterService } from '../service/filterService';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
 const sjpPressListService = new SjpPressListService();
+const filterService = new FilterService();
 
 export default class SjpPressListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -49,5 +51,10 @@ export default class SjpPressListController {
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
+    }
+
+    public async filterValues(req: PipRequest, res: Response): Promise<void> {
+        const filterValues = filterService.generateFilterKeyValues(req.body);
+        res.redirect(`sjp-press-list?artefactId=${req.query.artefactId}&filterValues=${filterValues}`);
     }
 }
