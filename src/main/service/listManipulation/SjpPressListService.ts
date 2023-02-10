@@ -124,7 +124,9 @@ export class SjpPressListService {
             prosecutors.add(item.organisationName);
         });
 
-        const sortedPostcodes = Array.from(postcodes).sort();
+        const sortedPostcodes = Array.from(postcodes).sort(
+          (a, b) => a.localeCompare(b, 'en', { numeric: true })
+        );
         const sortedProsecutors = Array.from(prosecutors).sort();
 
         const filterStructure = {
@@ -168,7 +170,6 @@ export class SjpPressListService {
         });
 
         const filteredCases = [];
-
         allCases.forEach(item => {
             if (postcodeFilters.length > 0 && prosecutorFilters.length > 0) {
                 if (postcodeFilters.includes(item.postcode) && prosecutorFilters.includes(item.organisationName)) {
