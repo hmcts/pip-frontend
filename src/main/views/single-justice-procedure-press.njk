@@ -63,7 +63,7 @@
                 checked: item.checked
               }) %}
               {% if item.checked %}
-                {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
+                {% set _ = checkedFilterItems.push({href: '?artefactId=' + artefactId + '&clear=' + item.value, text: item.text}) %}
               {% endif %}
             {% endfor %}
 
@@ -112,7 +112,7 @@
 
             clearLink: {
               text: clearFilters,
-              href: '?clear=all'
+              href: '?artefactId=' + artefactId + '&clear=all'
             },
 
             categories: checkedFilters
@@ -218,6 +218,19 @@
         elements[1].setAttribute("tabindex", "0");
         elements[0].focus();
       }
+    }
+
+    //Concat href to maintain filter values when clearing single
+    let tags = document.querySelectorAll('.moj-filter__tag');
+    let currentParam = window.location.search.split('&');
+    tags.forEach(element => {
+      const tmp = element.href.slice(element.href.indexOf('?'), element.href.length);
+      element.href = buildHref(tmp, currentParam);
+    })
+    function buildHref(filterToClear, currentPath) {
+      const deleteVal = filterToClear.split('=')[1];
+      let href = currentPath ? currentPath[0].replace(deleteVal, '') + filterToClear.replace('?', '&') : filterToClear
+      return href.replace(',,', ',');
     }
 
     document.getElementsByClassName('hide-show-button')[0].addEventListener("click", toggleFilters);
