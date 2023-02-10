@@ -78,6 +78,9 @@
           }) }}
         {% endset -%}
 
+      <div class="filter-form">
+        <form method="post" action="sjp-press-list?artefactId={{ artefactId }}" class="moj-filter-layout__filter layout-width-four-fifths"
+              autocomplete="off">
         {{ mojFilter({
           heading: {
             text: filter
@@ -118,6 +121,8 @@
           },
           optionsHtml: filterOptionsHtml
         }) }}
+        </form>
+      </div>
     </div>
     <div>
     <div class="parent-box">
