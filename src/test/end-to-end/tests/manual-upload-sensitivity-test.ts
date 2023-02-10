@@ -10,7 +10,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     const date = new Date();
 
     function monthFormatted(month) {
-        return month + 1 < 10 ? '0' + month : month;
+        return month + 1 < 10 ? '0' + (month+1) : (month+1);
     }
 
     function dayFormatted(day) {
@@ -48,14 +48,14 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     I.fillField('#search-input', 'Single Justice Procedure');
     I.selectOption(listTypeId, 'Crown Warned List');
 
-    I.fillField('#content-date-from-day', dayFormatted(date.getDay()));
+    I.fillField('#content-date-from-day', dayFormatted(date.getDate()));
     I.fillField('#content-date-from-month', monthFormatted(date.getMonth()));
     I.fillField('#content-date-from-year', date.getFullYear());
     I.selectOption(classificationId, 'Public');
-    I.fillField('#display-date-from-day', dayFormatted(date.getDay()));
+    I.fillField('#display-date-from-day', dayFormatted(date.getDate()));
     I.fillField('#display-date-from-month', monthFormatted(date.getMonth()));
     I.fillField('#display-date-from-year', date.getFullYear());
-    I.fillField('#display-date-to-day', dayFormatted(date.getDay() + 1));
+    I.fillField('#display-date-to-day', dayFormatted(date.getDate() + 1));
     I.fillField('#display-date-to-month', monthFormatted(date.getMonth()));
     I.fillField('#display-date-to-year', date.getFullYear());
     I.click('Continue');
