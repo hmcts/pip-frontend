@@ -101,21 +101,21 @@ export class SjpPressListService {
         return rows;
     }
 
-    public generateFilters(data, filterValuesQuery, clearQuery): any {
+    public generateFilters(allCases, filterValuesQuery, clearQuery): any {
         let filterValues = filterService.stripFilters(filterValuesQuery);
         if (clearQuery) {
             filterValues = filterService.handleFilterClear(filterValues, clearQuery);
         }
 
-        const filterOptions = this.buildFilterOptions(data, filterValues);
+        const filterOptions = this.buildFilterOptions(allCases, filterValues);
 
-        // let filters = {};
-        // if (filterValues.length > 0) {
-        //     filters = this.findAndSplitFilters(filterValues, filterOptions);
-        // }
-        // console.log(filters);
+        const caseList = filterValues.length == 0 ? allCases
+          : allCases;
 
-        return filterOptions;
+        return {
+          sjpCases: caseList,
+          filterOptions: filterOptions,
+        };
     }
 
     private buildFilterOptions(data, filterValues): any {

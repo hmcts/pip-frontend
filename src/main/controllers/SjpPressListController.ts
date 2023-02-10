@@ -19,7 +19,9 @@ export default class SjpPressListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
         if (sjpData && metaData) {
-            const sjpCases = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
+            const allCases = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
+            const filter = sjpPressListService.generateFilters(allCases, req.query?.filterValues as string, req.query?.clear as string);
+
             const publishedTime = helperService.publicationTimeInUkTime(sjpData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 sjpData['document']['publicationDate'],
@@ -31,8 +33,8 @@ export default class SjpPressListController {
             res.render('single-justice-procedure-press', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press']),
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
-                sjpData: sjpCases,
-                totalHearings: sjpCases.length,
+                sjpData: filter.sjpCases,
+                totalHearings: filter.sjpCases.length,
                 publishedDateTime: publishedDate,
                 publishedTime: publishedTime,
                 contactDate: DateTime.fromISO(metaData['contentDate'], {
@@ -42,11 +44,7 @@ export default class SjpPressListController {
                     .toFormat('d MMMM yyyy'),
                 artefactId: artefactId,
                 user: req.user,
-                filters: sjpPressListService.generateFilters(
-                    sjpCases,
-                    req.query?.filterValues as string,
-                    req.query?.clear as string
-                ),
+                filters: filter.filterOptions,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
