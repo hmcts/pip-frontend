@@ -41,7 +41,7 @@
     {% if apiError and "subscription" in errorMessage %}
       <p class="govuk-body">
         <a href="delete-court-subscription-confirmation?locationId={{ court.locationId }}" class="govuk-link govuk-body">
-          {{ deleteSubcriptionText }} {{ court.name }}</a>
+          {{ deleteSubscriptionText }} {{ court.name }}</a>
       </p>
     {% endif %}
     {{ govukWarningText({
