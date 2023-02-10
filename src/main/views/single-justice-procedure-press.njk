@@ -224,7 +224,6 @@
     let currentQueryArray = window.location.search.split('&');
     tags.forEach(element => {
       element.href = '/sjp-press-list?artefactId=' + '{{ artefactId }}' + '&' + buildHref(element.href, currentQueryArray);
-      console.log(element.href)
     })
 
     function buildHref(elementHref, currentQueryArray) {

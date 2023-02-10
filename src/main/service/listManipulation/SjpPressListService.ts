@@ -135,19 +135,27 @@ export class SjpPressListService {
             prosecutors: [],
         };
 
+        const replaceRegexComma = /,/g;
+        const replaceRegexSpace = / /g;
+
         sortedPostcodes.forEach(postcode => {
+            let formattedPostcode = postcode.replace(replaceRegexComma, '').replace(replaceRegexSpace, '');
+
+
             filterStructure.postcodes.push({
-                value: postcode,
+                value: formattedPostcode,
                 text: postcode,
-                checked: filterValues.includes(postcode),
+                checked: filterValues.includes(formattedPostcode),
             });
         });
 
         sortedProsecutors.forEach(prosecutor => {
+            let formattedProsecutor = prosecutor.replace(replaceRegexComma, '').replace(replaceRegexSpace, '');
+
             filterStructure.prosecutors.push({
-                value: prosecutor,
+                value: formattedProsecutor,
                 text: prosecutor,
-                checked: filterValues.includes(prosecutor),
+                checked: filterValues.includes(formattedProsecutor),
             });
         });
 
