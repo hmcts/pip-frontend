@@ -1,9 +1,7 @@
 import { DateTime } from 'luxon';
 import { ListParseHelperService } from '../listParseHelperService';
-import { FilterService } from '../filterService';
 
 const listParseHelperService = new ListParseHelperService();
-const filterService = new FilterService();
 
 export class SjpPressListService {
     /**
@@ -97,107 +95,5 @@ export class SjpPressListService {
             rows.push(row);
         });
         return rows;
-    }
-
-    public generateFilters(allCases, filterValuesQuery, clearQuery): any {
-        let filterValues = filterService.stripFilters(filterValuesQuery);
-        if (clearQuery) {
-            filterValues = filterService.handleFilterClear(filterValues, clearQuery);
-        }
-
-        const filterOptions = this.buildFilterOptions(allCases, filterValues);
-
-        const caseList = filterValues.length == 0 ? allCases : this.filterCases(allCases, filterOptions);
-
-        return {
-            sjpCases: caseList,
-            filterOptions: filterOptions,
-        };
-    }
-
-    private buildFilterOptions(data, filterValues): any {
-        const postcodes = new Set<string>();
-        const prosecutors = new Set<string>();
-
-        data.forEach(item => {
-            postcodes.add(item.postcode);
-            prosecutors.add(item.organisationName);
-        });
-
-        const sortedPostcodes = Array.from(postcodes).sort(
-          (a, b) => a.localeCompare(b, 'en', { numeric: true })
-        );
-        const sortedProsecutors = Array.from(prosecutors).sort();
-
-        const filterStructure = {
-            postcodes: [],
-            prosecutors: [],
-        };
-
-        const replaceRegexComma = /,/g;
-        const replaceRegexSpace = / /g;
-
-        sortedPostcodes.forEach(postcode => {
-            let formattedPostcode = postcode.replace(replaceRegexComma, '').replace(replaceRegexSpace, '');
-
-
-            filterStructure.postcodes.push({
-                value: formattedPostcode,
-                text: postcode,
-                checked: filterValues.includes(formattedPostcode),
-            });
-        });
-
-        sortedProsecutors.forEach(prosecutor => {
-            let formattedProsecutor = prosecutor.replace(replaceRegexComma, '').replace(replaceRegexSpace, '');
-
-            filterStructure.prosecutors.push({
-                value: formattedProsecutor,
-                text: prosecutor,
-                checked: filterValues.includes(formattedProsecutor),
-            });
-        });
-
-        return filterStructure;
-    }
-
-    private filterCases(allCases, filterOptions) {
-        const postcodeFilters = [];
-        const prosecutorFilters = [];
-
-        filterOptions.postcodes.forEach(item => {
-            if (item.checked) {
-                postcodeFilters.push(item.value);
-            }
-        });
-
-        filterOptions.prosecutors.forEach(item => {
-            if (item.checked) {
-                prosecutorFilters.push(item.value);
-            }
-        });
-
-        const filteredCases = [];
-
-        const replaceRegexComma = /,/g;
-        const replaceRegexSpace = / /g;
-
-        allCases.forEach(item => {
-
-            let formattedPostcode = item.postcode.replace(replaceRegexComma, '').replace(replaceRegexSpace, '');
-            let formattedProsecutor = item.organisationName.replace(replaceRegexComma, '').replace(replaceRegexSpace, '');
-
-            if (postcodeFilters.length > 0 && prosecutorFilters.length > 0) {
-                if (postcodeFilters.includes(formattedPostcode) && prosecutorFilters.includes(formattedProsecutor)) {
-                    filteredCases.push(item);
-                }
-            } else if (postcodeFilters.length > 0 && postcodeFilters.includes(formattedPostcode)) {
-                filteredCases.push(item);
-            } else if (prosecutorFilters.length > 0 && prosecutorFilters.includes(formattedProsecutor)) {
-                filteredCases.push(item);
-            }
-        });
-
-        return filteredCases;
     }
 }

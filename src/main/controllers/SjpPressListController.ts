@@ -6,10 +6,12 @@ import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { SjpPressListService } from '../service/listManipulation/SjpPressListService';
 import { FilterService } from '../service/filterService';
+import {SjpFilterService} from '../service/sjpFilterService';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
 const sjpPressListService = new SjpPressListService();
+const sjpFilterService = new SjpFilterService();
 const filterService = new FilterService();
 
 export default class SjpPressListController {
@@ -20,7 +22,7 @@ export default class SjpPressListController {
 
         if (sjpData && metaData) {
             const allCases = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
-            const filter = sjpPressListService.generateFilters(
+            const filter = sjpFilterService.generateFilters(
                 allCases,
                 req.query?.filterValues as string,
                 req.query?.clear as string
