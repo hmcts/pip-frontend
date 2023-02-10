@@ -10,9 +10,11 @@ import { SjpPressListService } from '../../main/service/listManipulation/SjpPres
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/SJPMockPage.json'), 'utf-8');
 const sjpPressData = JSON.parse(rawData);
+
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(sjpPressData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(sjpPressData);
-sinon.stub(SjpPressListService.prototype, 'formatSJPPressList').resolves(sjpPressData);
+sinon.stub(SjpPressListService.prototype, 'formatSJPPressList').resolves([]);
+sinon.stub(SjpPressListService.prototype, 'generateFilters').resolves({});
 
 describe('Single Justice Procedure Press Page', () => {
     describe('on GET', () => {

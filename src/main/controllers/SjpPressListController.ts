@@ -40,29 +40,10 @@ export default class SjpPressListController {
                     .toFormat('d MMMM yyyy'),
                 artefactId: artefactId,
                 user: req.user,
-                filters: sjpPressListService.generateFilters(sjpCases)
+                filters: sjpPressListService.generateFilters(sjpCases),
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
     }
-
-
-
-    // private generateFilters(jsonData) {
-    //
-    //   const filters = {
-    //     postcodeFilters: [],
-    //     prosecutorFilters: []
-    //   }
-    //
-    //   //Loop through Blob, and extract Postcode
-    //
-    //
-    //   //Loop through Blob, and extract prosecutors
-    //
-    //
-    //
-    // }
-
 }

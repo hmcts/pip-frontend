@@ -31,6 +31,68 @@ const i18n = {
     'list-template': {},
 };
 
+const sjpCases = [
+    {
+        name: 'Danny Thomas',
+        dob: '25 July 1985',
+        age: '37',
+        caseUrn: 'ABC12345',
+        address: 'Swansea, SA1 1AA',
+        postcode: 'SA1 1AA',
+        organisationName: 'qU8QlEo',
+        offences: [
+            {
+                reportingRestrictionFlag: 'True',
+                offenceTitle: 'This is an offence title',
+                offenceWording: 'This is offence wording',
+            },
+        ],
+    },
+    {
+        name: 'Mr Christopher W Robin',
+        dob: '25 July 1985',
+        age: '37',
+        caseUrn: 'ABC12345',
+        address: 'London, London, E15 3AR',
+        postcode: 'E15 3AR',
+        organisationName: 'qU8QlEo@',
+        offences: [
+            {
+                reportingRestrictionFlag: 'True',
+                offenceTitle: 'This is an offence title',
+                offenceWording: 'This is offence wording',
+            },
+        ],
+    },
+];
+
+const filters = {
+    postcodes: [
+        {
+            value: 'E15 3AR',
+            text: 'E15 3AR',
+            checked: false,
+        },
+        {
+            value: 'SA1 1AA',
+            text: 'SA1 1AA',
+            checked: false,
+        },
+    ],
+    prosecutors: [
+        {
+            value: 'qU8QlEo',
+            text: 'qU8QlEo',
+            checked: false,
+        },
+        {
+            value: 'qU8QlEo@',
+            text: 'qU8QlEo@',
+            checked: false,
+        },
+    ],
+};
+
 describe('SJP Press List Controller', () => {
     const response = {
         render: () => {
@@ -49,7 +111,8 @@ describe('SJP Press List Controller', () => {
         const expectedData = {
             ...i18n['single-justice-procedure-press'],
             ...i18n['list-template'],
-            sjpData: sjpData,
+            sjpData: sjpCases,
+            totalHearings: 2,
             publishedDateTime: '14 September 2016',
             publishedTime: '12:30am',
             contactDate: DateTime.fromISO(metaData['contentDate'], {
@@ -57,6 +120,7 @@ describe('SJP Press List Controller', () => {
             }).toFormat('d MMMM yyyy'),
             artefactId: 'abc',
             user: request.user,
+            filters: filters,
         };
 
         responseMock.expects('render').once().withArgs('single-justice-procedure-press', expectedData);

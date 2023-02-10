@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import {ListParseHelperService} from '../listParseHelperService';
+import { ListParseHelperService } from '../listParseHelperService';
 export class SjpPressListService {
     public listParseHelperService = new ListParseHelperService();
 
@@ -35,15 +35,14 @@ export class SjpPressListService {
                 address: this.buildAddress(party.individualDetails.address),
                 postcode: party.individualDetails.address.postCode,
                 organisationName: this.getOrganisationName(hearing),
-                offences: this.buildOffences(hearing.offence)
+                offences: this.buildOffences(hearing.offence),
             };
             rows.push(row);
         }
     }
 
     private formatDateOfBirth(individualDetails): string {
-        return DateTime.fromISO(individualDetails.dateOfBirth.split('/').reverse().join('-'))
-            .toFormat('d MMMM yyyy');
+        return DateTime.fromISO(individualDetails.dateOfBirth.split('/').reverse().join('-')).toFormat('d MMMM yyyy');
     }
 
     private buildAddress(address): string {
@@ -62,11 +61,11 @@ export class SjpPressListService {
             }
         }
 
-        if (address.town.length > 0) {
+        if (address.town?.length > 0) {
             formattedAddress += address.town + ', ';
         }
 
-        if (address.county.length > 0) {
+        if (address.county?.length > 0) {
             formattedAddress += address.county + ', ';
         }
 
@@ -74,7 +73,7 @@ export class SjpPressListService {
         return formattedAddress;
     }
 
-    private getOrganisationName(hearing) : string {
+    private getOrganisationName(hearing): string {
         if (hearing.party.length > 1) {
             return hearing.party[1].organisationDetails.organisationName;
         }
@@ -85,12 +84,12 @@ export class SjpPressListService {
         const rows = [];
         offences.forEach(offence => {
             const reportingRestriction = offence['reportingRestriction'].toString();
-            const formattedReportingRestriction = reportingRestriction.charAt(0).toUpperCase()
-                + reportingRestriction.slice(1);
+            const formattedReportingRestriction =
+                reportingRestriction.charAt(0).toUpperCase() + reportingRestriction.slice(1);
             const row = {
                 reportingRestrictionFlag: formattedReportingRestriction,
                 offenceTitle: offence.offenceTitle,
-                offenceWording: offence.offenceWording
+                offenceWording: offence.offenceWording,
             };
             rows.push(row);
         });
@@ -98,40 +97,38 @@ export class SjpPressListService {
     }
 
     public generateFilters(data): any {
-      let postcodes = new Set<string>();
-      let prosecutors = new Set<string>();
+        const postcodes = new Set<string>();
+        const prosecutors = new Set<string>();
 
-      data.forEach(item => {
-        postcodes.add(item.postcode)
-        prosecutors.add(item.organisationName)
-      });
+        data.forEach(item => {
+            postcodes.add(item.postcode);
+            prosecutors.add(item.organisationName);
+        });
 
-      const sortedPostcodes = Array.from(postcodes).sort();
-      const sortedProsecutors = Array.from(prosecutors).sort();
+        const sortedPostcodes = Array.from(postcodes).sort();
+        const sortedProsecutors = Array.from(prosecutors).sort();
 
-      const filterStructure = {
-        postcodes: [],
-        prosecutors: []
-      }
+        const filterStructure = {
+            postcodes: [],
+            prosecutors: [],
+        };
 
-      sortedPostcodes.forEach(postcode => {
-        filterStructure.postcodes.push({
-          value: postcode,
-          text: postcode,
-          checked: false
-        })
-      });
+        sortedPostcodes.forEach(postcode => {
+            filterStructure.postcodes.push({
+                value: postcode,
+                text: postcode,
+                checked: false,
+            });
+        });
 
-      sortedProsecutors.forEach(prosecutor => {
-        filterStructure.prosecutors.push({
-          value: prosecutor,
-          text: prosecutor,
-          checked: false
-        })
-      })
+        sortedProsecutors.forEach(prosecutor => {
+            filterStructure.prosecutors.push({
+                value: prosecutor,
+                text: prosecutor,
+                checked: false,
+            });
+        });
 
-      return filterStructure;
+        return filterStructure;
     }
-
-
 }

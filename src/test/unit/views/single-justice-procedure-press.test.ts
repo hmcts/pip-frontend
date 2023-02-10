@@ -17,10 +17,10 @@ const buttonClass = 'govuk-button';
 const expectedHeader = 'Single Justice Procedure cases - Press view';
 const summaryHeadingText = 'What are Single Justice Procedure cases?';
 const listText = 'List for 14 February 2022';
-const offenderName = 'Danny  Thomas';
+const offenderName = 'Danny Thomas';
 const offenderDateOfBirth = '25 July 1985';
 const offenderCaseNumber = 'ABC12345';
-const offenderAddress = 'Swansea';
+const offenderAddress = 'Swansea, SA1 1AA';
 const prosecutor = 'qU8QlEo';
 const reportingRestriction = 'Reporting Restriction - True';
 
@@ -106,7 +106,7 @@ describe('Single Justice Procedure List page', () => {
 
         it('should not display the download button', () => {
             const buttons = htmlRes.getElementsByClassName(buttonClass);
-            expect(buttons[0]).to.be.undefined;
+            expect(buttons[0].innerHTML).to.not.contains('Download a copy', 'The download button could be found');
         });
     });
 
@@ -142,7 +142,7 @@ describe('Single Justice Procedure List page', () => {
 
         it('should not display the download button', () => {
             const buttons = htmlRes.getElementsByClassName(buttonClass);
-            expect(buttons[0]).to.be.undefined;
+            expect(buttons[0].innerHTML).to.not.contains('Download a copy', 'The download button could be found');
         });
     });
 });
