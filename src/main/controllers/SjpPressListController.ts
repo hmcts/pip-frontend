@@ -44,8 +44,8 @@ export default class SjpPressListController {
                 user: req.user,
                 filters: sjpPressListService.generateFilters(
                     sjpCases,
-                    req.query?.clear as string,
-                    req.query?.filterValues as string
+                    req.query?.filterValues as string,
+                    req.query?.clear as string
                 ),
             });
         } else {
