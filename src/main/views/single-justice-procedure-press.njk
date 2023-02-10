@@ -49,36 +49,56 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-third govuk-!-padding-left-0 govuk-!-padding-right-4", id="filters">
-        {%- set filterOptionsHtml %}
-
-          {{ govukCheckboxes({
-            idPrefix: 'postcode',
-            name: 'postcode',
-            classes: "govuk-checkboxes--small",
-            fieldset: {
-              legend: {
-                text: postcode,
-                classes: 'govuk-fieldset__legend--m'
-              }
-            },
-            items: filters.postcodes
-          }) }}
-
-          {{ govukCheckboxes({
-            idPrefix: 'prosector',
-            name: 'prosecutor',
-            classes: "govuk-checkboxes--small",
-            fieldset: {
-              legend: {
-                text: prosecutor,
-                classes: 'govuk-fieldset__legend--m'
-              }
-            },
-            items: filters.prosecutors
-          }) }}
-        {% endset -%}
-
       <div class="filter-form">
+        {% set checkedFilters = [] %}
+        {% set toBeCreated = true %}
+        {% set filterOptionsHtml %}
+          {% for key, options in filters %}
+            {% set checkedFilterItems = [] %}
+            {% set items = [] %}
+            {% for item in options %}
+              {% set _ = items.push({
+                value: item.value,
+                text: item.text,
+                checked: item.checked
+              }) %}
+              {% if item.checked %}
+                {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
+              {% endif %}
+            {% endfor %}
+
+            {% set filterHeader = postcode if key == 'postcodes' else prosecutor %}
+            {% if checkedFilterItems | length > 0 %}
+              {% set _ = checkedFilters.push({heading: {text: filterHeader}, items: checkedFilterItems}) %}
+            {% endif %}
+
+            {% if toBeCreated %}
+              <div class="moj-button-menu filters__innerButton" id="innerButton">
+                <div class="moj-button-menu__wrapper">
+                  <a href="#" role="button" draggable="false"
+                     class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button"
+                     onclick="toggleFilters()">
+                    {{ hide }}
+                  </a>
+                </div>
+              </div>
+              {% set toBeCreated = false %}
+            {% endif %}
+
+            {{ govukCheckboxes({
+              idPrefix: key,
+              name: key,
+              classes: "govuk-checkboxes--small",
+              fieldset: {
+                legend: {
+                  text: filterHeader,
+                  classes: 'govuk-fieldset__legend--m'
+                }
+              },
+              items: items
+            }) }}
+          {% endfor %}
+        {% endset %}
         <form method="post" action="sjp-press-list?artefactId={{ artefactId }}" class="moj-filter-layout__filter layout-width-four-fifths"
               autocomplete="off">
         {{ mojFilter({
@@ -95,29 +115,7 @@
               href: '?clear=all'
             },
 
-            categories: [
-              {
-                heading: {
-                text: 'Type'
-              },
-                items: [{
-                href: '/path/to/remove/this',
-                text: 'Blue'
-              }, {
-                href: '/path/to/remove/this',
-                text: 'Yellow'
-              }]
-              },
-              {
-                heading: {
-                text: 'Status'
-              },
-                items: [{
-                href: '/path/to/remove/this',
-                text: 'Completed'
-              }]
-              }
-            ]
+            categories: checkedFilters
           },
           optionsHtml: filterOptionsHtml
         }) }}
