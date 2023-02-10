@@ -3,9 +3,11 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { LocationService } from '../service/locationService';
 import { SubscriptionService } from '../service/subscriptionService';
+import {UserManagementService} from "../service/userManagementService";
 
 const locationService = new LocationService();
 const subscriptionsService = new SubscriptionService();
+const userManagementService = new UserManagementService();
 
 export default class DeleteCourtSubscriptionConfirmationController {
     public async post(req: PipRequest, res: Response): Promise<void> {
@@ -24,6 +26,12 @@ export default class DeleteCourtSubscriptionConfirmationController {
               errorMessage: 'Unknown error when attempting to delete all the subscription for the court',
             });
           } else {
+            await userManagementService.auditAction(
+                req.user['userId'],
+                req.user['email'],
+                'DELETE_LOCATION_SUBSCRIPTION_SUCCESS',
+                response.toString()
+            );
             res.redirect('/delete-court-subscription-success');
           }
         } else if (formData['delete-choice'] == 'no') {
