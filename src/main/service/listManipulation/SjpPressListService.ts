@@ -1,8 +1,13 @@
 import { DateTime } from 'luxon';
 import { ListParseHelperService } from '../listParseHelperService';
-export class SjpPressListService {
-    public listParseHelperService = new ListParseHelperService();
+import { FilterService } from '../filterService';
 
+const listParseHelperService = new ListParseHelperService();
+const filterService = new FilterService();
+
+const filterNames = ['Postcode', 'Prosecutor'];
+
+export class SjpPressListService {
     /**
      * Manipulate the sjpPressList json data for writing out on screen.
      * @param sjpPressListJson
@@ -28,7 +33,7 @@ export class SjpPressListService {
         if (hearing.party) {
             const party = hearing.party[0];
             const row = {
-                name: this.listParseHelperService.createIndividualDetails(party.individualDetails),
+                name: listParseHelperService.createIndividualDetails(party.individualDetails),
                 dob: this.formatDateOfBirth(party.individualDetails),
                 age: party.individualDetails.age,
                 caseUrn: hearing.case[0].caseUrn,
@@ -96,7 +101,24 @@ export class SjpPressListService {
         return rows;
     }
 
-    public generateFilters(data): any {
+    public generateFilters(data, filterValuesQuery, clearQuery): any {
+        let filterValues = filterService.stripFilters(filterValuesQuery);
+        if (clearQuery) {
+            filterValues = filterService.handleFilterClear(filterValues, clearQuery);
+        }
+
+        const filterOptions = this.buildFilterOptions(data);
+
+        let filters = {};
+        if (filterValues.length > 0) {
+            filters = this.findAndSplitFilters(filterValues, filterOptions);
+        }
+        console.log(filters);
+
+        return filterOptions;
+    }
+
+    private buildFilterOptions(data): any {
         const postcodes = new Set<string>();
         const prosecutors = new Set<string>();
 
@@ -130,5 +152,33 @@ export class SjpPressListService {
         });
 
         return filterStructure;
+    }
+
+    private findAndSplitFilters(filterValues, filterOptions) {
+        const filterValueOptions = {};
+
+        const postcodeFilter = [];
+        const prosecutorFilter = [];
+
+        if (filterValues.length > 0) {
+            filterNames.forEach(filter => {
+                filterValues.forEach(value => {
+                    Object.keys(filterOptions[filter]).forEach(filterValue => {
+                        if (filterOptions[filter][filterValue].value === value) {
+                            if (filter === 'Postcode') {
+                                postcodeFilter.push(value);
+                            } else if (filter === 'Prosecutor') {
+                                prosecutorFilter.push(value);
+                            }
+                        }
+                    });
+                });
+            });
+        }
+
+        filterValueOptions['Postcode'] = postcodeFilter.toString();
+        filterValueOptions['Prosecutor'] = prosecutorFilter.toString();
+
+        return filterValueOptions;
     }
 }
