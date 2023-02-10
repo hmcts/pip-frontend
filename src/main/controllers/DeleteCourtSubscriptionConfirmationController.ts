@@ -4,10 +4,12 @@ import { cloneDeep } from 'lodash';
 import { LocationService } from '../service/locationService';
 import { SubscriptionService } from '../service/subscriptionService';
 import { PublicationService } from '../service/publicationService';
+import {UserManagementService} from "../service/userManagementService";
 
 const locationService = new LocationService();
 const subscriptionsService = new SubscriptionService();
 const publicationService = new PublicationService();
+const userManagementService = new UserManagementService();
 
 export default class DeleteCourtSubscriptionConfirmationController {
     public async post(req: PipRequest, res: Response): Promise<void> {
@@ -17,17 +19,20 @@ export default class DeleteCourtSubscriptionConfirmationController {
         if (formData['delete-choice'] == 'yes') {
             let response;
             let successPage;
+            let action;
             if (pageToLoad == 'delete-court-subscription-confirmation') {
                 response = await subscriptionsService.deleteLocationSubscription(
                     formData.locationId,
                     req.user?.['provenanceUserId']
                 );
+                action = 'DELETE_LOCATION_SUBSCRIPTION_SUCCESS';
                 successPage = '/delete-court-subscription-success';
             } else {
                 response = await publicationService.deleteLocationPublication(
                     formData.locationId,
                     req.user?.['provenanceUserId']
                 );
+                action = 'DELETE_LOCATION_PUBLICATION_SUCCESS';
                 successPage = '/delete-court-publication-success';
             }
             if (response === null) {
@@ -41,6 +46,12 @@ export default class DeleteCourtSubscriptionConfirmationController {
                             : 'Unknown error when attempting to delete all the artefact for the court',
                 });
             } else {
+                await userManagementService.auditAction(
+                    req.user['userId'],
+                    req.user['email'],
+                    action,
+                    response.toString()
+                );
                 res.redirect(successPage);
             }
         } else if (formData['delete-choice'] == 'no') {
