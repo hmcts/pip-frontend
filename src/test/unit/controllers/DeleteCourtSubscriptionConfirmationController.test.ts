@@ -63,14 +63,14 @@ describe('Delete Court Subscription Controller', () => {
         });
     });
 
-    it('should redirect to confirmation page if no option is selected', () => {
+    it('should redirect to success page', () => {
         const response = {
             redirect: () => {
                 return '';
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
-        request.body = { locationId: '3', 'delete-choice': 'yes' };
+        request.body = { locationId: '1', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs('/delete-court-subscription-success');
