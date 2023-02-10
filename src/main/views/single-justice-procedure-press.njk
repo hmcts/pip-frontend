@@ -63,7 +63,7 @@
                 checked: item.checked
               }) %}
               {% if item.checked %}
-                {% set _ = checkedFilterItems.push({href: '?artefactId=' + artefactId + '&clear=' + item.value, text: item.text}) %}
+                {% set _ = checkedFilterItems.push({href: 'clear=' + item.value, text: item.text}) %}
               {% endif %}
             {% endfor %}
 
@@ -222,16 +222,22 @@
 
     //Concat href to maintain filter values when clearing single
     let tags = document.querySelectorAll('.moj-filter__tag');
-    let currentParam = window.location.search.split('&');
+    let currentQueryArray = window.location.search.split('&');
     tags.forEach(element => {
-      const tmp = element.href.slice(element.href.indexOf('?'), element.href.length);
-      element.href = buildHref(tmp, currentParam);
+      element.href = '/sjp-press-list?artefactId=' + '{{ artefactId }}' + '&' + buildHref(element.href, currentQueryArray);
+      console.log(element.href)
     })
-    function buildHref(filterToClear, currentPath) {
-      const deleteVal = filterToClear.split('=')[1];
-      let href = currentPath ? currentPath[0].replace(deleteVal, '') + filterToClear.replace('?', '&') : filterToClear
+    function buildHref(elementHref, currentQueryArray) {
+
+      const elementQueryString = elementHref.slice(elementHref.indexOf('?'), elementHref.length);
+      const deleteVal = elementQueryString.split('=')[1];
+      let href = currentQueryArray ? currentQueryArray[1].replace(deleteVal, '') + elementQueryString.replace('?', '&') : elementQueryString
       return href.replace(',,', ',');
     }
+
+
+
+
 
     document.getElementsByClassName('hide-show-button')[0].addEventListener("click", toggleFilters);
 
