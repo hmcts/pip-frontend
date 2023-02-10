@@ -5,7 +5,7 @@ import { FilterService } from '../filterService';
 const listParseHelperService = new ListParseHelperService();
 const filterService = new FilterService();
 
-const filterNames = ['Postcode', 'Prosecutor'];
+//const filterNames = ['Postcode', 'Prosecutor'];
 
 export class SjpPressListService {
     /**
@@ -107,18 +107,18 @@ export class SjpPressListService {
             filterValues = filterService.handleFilterClear(filterValues, clearQuery);
         }
 
-        const filterOptions = this.buildFilterOptions(data);
+        const filterOptions = this.buildFilterOptions(data, filterValues);
 
-        let filters = {};
-        if (filterValues.length > 0) {
-            filters = this.findAndSplitFilters(filterValues, filterOptions);
-        }
-        console.log(filters);
+        // let filters = {};
+        // if (filterValues.length > 0) {
+        //     filters = this.findAndSplitFilters(filterValues, filterOptions);
+        // }
+        // console.log(filters);
 
         return filterOptions;
     }
 
-    private buildFilterOptions(data): any {
+    private buildFilterOptions(data, filterValues): any {
         const postcodes = new Set<string>();
         const prosecutors = new Set<string>();
 
@@ -139,7 +139,7 @@ export class SjpPressListService {
             filterStructure.postcodes.push({
                 value: postcode,
                 text: postcode,
-                checked: false,
+                checked: filterValues.includes(postcode),
             });
         });
 
@@ -147,38 +147,38 @@ export class SjpPressListService {
             filterStructure.prosecutors.push({
                 value: prosecutor,
                 text: prosecutor,
-                checked: false,
+                checked: filterValues.includes(prosecutor),
             });
         });
 
         return filterStructure;
     }
 
-    private findAndSplitFilters(filterValues, filterOptions) {
-        const filterValueOptions = {};
-
-        const postcodeFilter = [];
-        const prosecutorFilter = [];
-
-        if (filterValues.length > 0) {
-            filterNames.forEach(filter => {
-                filterValues.forEach(value => {
-                    Object.keys(filterOptions[filter]).forEach(filterValue => {
-                        if (filterOptions[filter][filterValue].value === value) {
-                            if (filter === 'Postcode') {
-                                postcodeFilter.push(value);
-                            } else if (filter === 'Prosecutor') {
-                                prosecutorFilter.push(value);
-                            }
-                        }
-                    });
-                });
-            });
-        }
-
-        filterValueOptions['Postcode'] = postcodeFilter.toString();
-        filterValueOptions['Prosecutor'] = prosecutorFilter.toString();
-
-        return filterValueOptions;
-    }
+    // private findAndSplitFilters(filterValues, filterOptions) {
+    //     const filterValueOptions = {};
+    //
+    //     const postcodeFilter = [];
+    //     const prosecutorFilter = [];
+    //
+    //     if (filterValues.length > 0) {
+    //         filterNames.forEach(filter => {
+    //             filterValues.forEach(value => {
+    //                 Object.keys(filterOptions[filter]).forEach(filterValue => {
+    //                     if (filterOptions[filter][filterValue].value === value) {
+    //                         if (filter === 'Postcode') {
+    //                             postcodeFilter.push(value);
+    //                         } else if (filter === 'Prosecutor') {
+    //                             prosecutorFilter.push(value);
+    //                         }
+    //                     }
+    //                 });
+    //             });
+    //         });
+    //     }
+    //
+    //     filterValueOptions['Postcode'] = postcodeFilter.toString();
+    //     filterValueOptions['Prosecutor'] = prosecutorFilter.toString();
+    //
+    //     return filterValueOptions;
+    // }
 }
