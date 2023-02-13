@@ -51,6 +51,8 @@ export default class SjpPressListController {
                 artefactId: artefactId,
                 user: req.user,
                 filters: filter.filterOptions,
+                showFilters: (req.query?.filterValues && (req.query.filterValues as string)
+                  .replace(',', '').length > 0)
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

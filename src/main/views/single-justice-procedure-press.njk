@@ -44,11 +44,11 @@
   {{ searchInput(text = searchCases) }}
 
   <button class="govuk-button govuk-button--secondary govuk-!-margin-top-5 hide-show-button" data-module="govuk-button">
-    {{ show }}
+    {% if showFilters %} {{ hide }} {% else %} {{ show }} {% endif %}
   </button>
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third govuk-!-padding-left-0 govuk-!-padding-right-4", id="filters">
+    <div class="govuk-grid-column-one-third govuk-!-padding-left-0 govuk-!-padding-right-4 {% if not showFilters %} always-hide {% endif %}", id="filters">
       <div class="filter-form">
         {% set checkedFilters = [] %}
         {% set toBeCreated = true %}
@@ -191,21 +191,12 @@
 {% block bodyEnd %}
   {{ super() }}
   <script>
+
     // The following function is hiding content and navigation due to screen readers to read behind the visible panel
     function toggleFilters() {
       var element = document.getElementById("filters");
-      var navigation = document.getElementsByClassName("moj-sub-navigation pub-navigation govuk-!-margin-bottom-0");
-      var skipLink = document.getElementsByClassName("govuk-skip-link");
-      var header = document.getElementsByClassName("govuk-header");
-      var backLink = document.getElementsByClassName("govuk-back-link");
-      var footer = document.getElementsByClassName("govuk-footer");
 
       element.classList.toggle("always-hide");
-      navigation[0].classList.toggle("always-hide");
-      skipLink[0].classList.toggle("always-hide");
-      header[0].classList.toggle("always-hide");
-      backLink[0].classList.toggle("always-hide");
-      footer[0].classList.toggle("always-hide");
       if (element.className.indexOf('always-hide') > 0) {
         document.getElementsByClassName('hide-show-button')[0].innerHTML = '{{ show }}';
       } else {
