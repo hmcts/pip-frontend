@@ -11,16 +11,24 @@ export default class ManualUploadSummaryController {
     public get(req: PipRequest, res: Response): void {
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
         formData.listTypeName = manualUploadService.getListItemName(formData.listType);
+
+        const sensitivityMismatch = manualUploadService.isSensitivityMismatch(
+            formData.listType,
+            formData.classification
+        );
+
         req.query?.error === 'true'
             ? res.render('file-upload-summary', {
                   ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['file-upload-summary']),
                   fileUploadData: {
                       ...manualUploadService.formatPublicationDates(formData, false),
                   },
+                  displaySensitivityMismatch: sensitivityMismatch,
                   displayError: true,
               })
             : res.render('file-upload-summary', {
                   ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['file-upload-summary']),
+                  displaySensitivityMismatch: sensitivityMismatch,
                   displayError: false,
                   fileUploadData: {
                       ...manualUploadService.formatPublicationDates(formData, false),
@@ -36,9 +44,15 @@ export default class ManualUploadSummaryController {
 
         formData.listTypeName = manualUploadService.getListItemName(formData.listType);
 
+        const sensitivityMismatch = manualUploadService.isSensitivityMismatch(
+            formData.listType,
+            formData.classification
+        );
+
         if (req.query?.check === 'true') {
             res.render('file-upload-summary', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['file-upload-summary']),
+                displaySensitivityMismatch: sensitivityMismatch,
                 displayError: false,
                 fileUploadData: {
                     ...manualUploadService.formatPublicationDates(formData, false),
@@ -58,6 +72,7 @@ export default class ManualUploadSummaryController {
                     fileUploadData: {
                         ...manualUploadService.formatPublicationDates(formData, false),
                     },
+                    displaySensitivityMismatch: sensitivityMismatch,
                     displayError: true,
                 });
             }
