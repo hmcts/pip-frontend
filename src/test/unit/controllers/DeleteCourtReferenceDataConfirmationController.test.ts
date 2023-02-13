@@ -16,7 +16,7 @@ deleteStub.withArgs('1').resolves({ exists: true, errorMessage: 'test' });
 deleteStub.withArgs('2').resolves(null);
 deleteStub.withArgs('3').resolves({ exists: false, errorMessage: '' });
 
-const pageName = 'delete-court-reference-data-confirmation'
+const pageName = 'delete-court-reference-data-confirmation';
 const i18n = { pageName: {} };
 
 describe('Delete Court Reference Data Controller', () => {
@@ -28,7 +28,7 @@ describe('Delete Court Reference Data Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.query = { locationId: '1' };
-      request.path = '/' + pageName;
+        request.path = '/' + pageName;
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n[pageName],
@@ -42,27 +42,27 @@ describe('Delete Court Reference Data Controller', () => {
         });
     });
 
-  it('should render the court subscription deletion data page', () => {
-    const response = {
-      render: () => {
-        return '';
-      },
-    } as unknown as Response;
-    const request = mockRequest(i18n);
-    request.query = { locationId: '1' };
-    request.path = '/delete-court-subscription-confirmation';
-    const responseMock = sinon.mock(response);
-    const expectedData = {
-      ...i18n['delete-court-subscription-confirmation'],
-      court: court,
-      displayError: false,
-    };
+    it('should render the court subscription deletion data page', () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.query = { locationId: '1' };
+        request.path = '/delete-court-subscription-confirmation';
+        const responseMock = sinon.mock(response);
+        const expectedData = {
+            ...i18n['delete-court-subscription-confirmation'],
+            court: court,
+            displayError: false,
+        };
 
-    responseMock.expects('render').once().withArgs('delete-court-subscription-confirmation', expectedData);
-    return deleteCourtReferenceDataConfirmationController.get(request, response).then(() => {
-      responseMock.verify();
+        responseMock.expects('render').once().withArgs('delete-court-subscription-confirmation', expectedData);
+        return deleteCourtReferenceDataConfirmationController.get(request, response).then(() => {
+            responseMock.verify();
+        });
     });
-  });
 
     it('should render confirmation page if active artefact or subscription is available', () => {
         const response = {
