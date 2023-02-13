@@ -54,6 +54,36 @@ export class ManualUploadService {
         return publicationService.getListTypes().get(itemValue).shortenedFriendlyName;
     }
 
+    /**
+     * This method checks if the sensitivity provided is a mismatch with the default sensitivity.
+     *
+     * Not all list types have a default sensitivity. If one is not provided, then true is always returned.
+     *
+     * @param listType The list type to check.
+     * @param sensitivity The sensitivity the user has provided.
+     * @returns boolean indicated whether the list type is a mismatch with the default sensitivity.
+     */
+    public isSensitivityMismatch(listType: string, sensitivity: string): boolean {
+        const defaultSensitivity = publicationService.getDefaultSensitivity(listType);
+        if (defaultSensitivity) {
+            return sensitivity !== defaultSensitivity;
+        }
+
+        return false;
+    }
+
+    public getSensitivityMappings() {
+        const listTypes = publicationService.getListTypes();
+
+        const listTypeMapping = {};
+
+        listTypes.forEach((value, key) => {
+            listTypeMapping[key] = value['defaultSensitivity'];
+        });
+
+        return listTypeMapping;
+    }
+
     private getJudgementOutcomesSubtypes(): Array<object> {
         return [{ text: 'SJP Media Register', value: 'SJP_MEDIA_REGISTER' }];
     }
@@ -72,11 +102,12 @@ export class ManualUploadService {
                 language,
                 languageFile
             ),
+            classificationError: formValues['classification'] ? null : 'true',
         };
-        if (!fields.courtError && !fields.contentDateError && !fields.displayDateError) {
-            return null;
+        if (fields.courtError || fields.contentDateError || fields.displayDateError || fields.classificationError) {
+            return fields;
         }
-        return fields;
+        return null;
     }
 
     private async validateCourt(courtName: string, language: string, languageFile: string): Promise<string> {

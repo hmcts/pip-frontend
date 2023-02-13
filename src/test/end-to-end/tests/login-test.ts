@@ -1,4 +1,4 @@
-Feature('Home page');
+Feature('Login');
 
 Scenario('I as a system admin should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsSystemAdmin();

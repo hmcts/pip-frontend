@@ -64,6 +64,7 @@
               <div id="list-question" class="govuk-!-margin-bottom-3 govuk-!-width-two-third">
                 {{ govukSelect({
                   classes: 'govuk-!-width-two-thirds',
+
                   id: "listType",
                   name: "listType",
                   label: {
@@ -125,6 +126,7 @@
                 </fieldset>
               </div>
             </div>
+            {% set availableToErrorMessage = {text: classificationError } if errors.formErrors.classificationError else '' %}
             {{ govukSelect({
               classes: 'govuk-!-width-one-half',
               id: "classification",
@@ -132,7 +134,8 @@
               label: {
                 text: form.classificationText
               },
-              items: form.classification
+              items: form.classification,
+              errorMessage: availableToErrorMessage
             }) }}
 
             {{ govukSelect({
@@ -244,13 +247,6 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  {% set optionList = [] %}
-  {% for item in autocompleteList %}
-    {% set _ = optionList.push(
-      item.name
-    ) %}
-  {% endfor %}
-
   <script src="/assets/js/accessible-autocomplete.min.js"></script>
   <script>
     // removed whilst 1 list type is available, kept in as request to be able to switch back when needed
@@ -282,7 +278,7 @@
     {% set populatedContentDateFromDay = formData['content-date-from-day'] if formData['content-date-from-day'] else '' %}
     {% set populatedContentDateFromMonth = formData['content-date-from-month'] if formData['content-date-from-month'] else '' %}
     {% set populatedContentDateFromYear = formData['content-date-from-year'] if formData['content-date-from-year'] else '' %}
-    {% set populatedClassification = formData['classification'] if formData['classification'] else 'PUBLIC' %}
+    {% set populatedClassification = formData['classification'] if formData['classification'] else '' %}
     {% set populatedLanguage = formData['language'] if formData['language'] else 'ENGLISH' %}
     {% set populatedDisplayDateFromDay = formData['display-date-from-day'] if formData['display-date-from-day'] else '' %}
     {% set populatedDisplayDateFromMonth = formData['display-date-from-month'] if formData['display-date-from-month'] else '' %}
@@ -318,6 +314,15 @@
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
+
+    function onListTypeChange() {
+      let listType = document.getElementById('listType').value;
+      let listTypeClassifications = {{ listTypeClassifications | dump | safe }}
+      document.getElementById('classification').value = listTypeClassifications[listType];
+
+    }
+
+    document.getElementById('listType').addEventListener("change", onListTypeChange)
 
     // Set first govuk-grid-row back to display block as custom scss is written to change it to flex as that is required on other pages
     // Block is required on this page so the help section goes underneath the form on mobile devices

@@ -23,7 +23,7 @@ const expectedListType = 'List type';
 const expectedHearingDates = 'Hearing start date';
 const expectedDisplayDateFrom = 'Display file from';
 const expectedDisplayDateTo = 'Display file to';
-const expectedClassification = 'Available to';
+const expectedClassification = 'Sensitivity';
 const expectedLanguage = 'Language';
 const buttonText = 'Continue';
 
@@ -39,7 +39,7 @@ const mockBodyData = {
     'content-date-from-day': '',
     'content-date-from-month': '',
     'content-date-from-year': '',
-    classification: 'PUBLIC',
+    classification: '',
     language: 'ENGLISH',
     'display-date-from-day': '',
     'display-date-from-month': '',
@@ -141,7 +141,7 @@ describe('Manual upload page', () => {
 
         it('should display the available to heading', () => {
             const heading = htmlRes.getElementsByTagName('h3')[1];
-            expect(heading.innerHTML).contains('Available to', 'Could not find available to heading');
+            expect(heading.innerHTML).contains('Sensitivity', 'Could not find available to heading');
         });
 
         it('should display the public heading', () => {
@@ -224,9 +224,17 @@ describe('Manual upload page', () => {
             );
         });
 
-        it('should display file from date error', () => {
+        it('should display sensitivity error', () => {
             const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
             expect(errorMessage[3].innerHTML).contains(
+                'Please select a sensitivity',
+                'Could not find sensitivity error'
+            );
+        });
+
+        it('should display file from date error', () => {
+            const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
+            expect(errorMessage[4].innerHTML).contains(
                 'Please enter a valid date',
                 'Could not find display file date error'
             );
