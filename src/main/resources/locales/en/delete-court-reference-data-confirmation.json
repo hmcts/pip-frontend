@@ -13,6 +13,6 @@
         "jurisdiction": "Jurisdiction",
         "region": "Region"
     },
-    "deleteSubscriptionText": "Click here to delete the all the subscription(s) for ",
-    "deletePublicationText": "Click here to delete the all the artefact(s) for "
+    "deleteSubscriptionText": "Click here to delete all the subscription(s) for ",
+    "deletePublicationText": "Click here to delete all the artefact(s) for "
 }
