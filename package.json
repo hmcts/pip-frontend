@@ -102,6 +102,7 @@
         "@babel/core": "^7.20.12",
         "@babel/eslint-parser": "7.19.1",
         "@babel/preset-env": "^7.20.2",
+        "@evilmartians/lefthook": "^1.2.8",
         "@types/chai-as-promised": "^7.1.1",
         "@types/copy-webpack-plugin": "^10.1.0",
         "@types/jest": "^27.5.1",
@@ -163,5 +164,5 @@
         "ua-parser-js": "1.0.33",
         "http-cache-semantics": "^4.1.1"
     },
-    "packageManager": "yarn@3.3.1"
+    "packageManager": "yarn@3.4.1"
 }
