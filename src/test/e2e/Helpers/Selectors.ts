@@ -100,6 +100,9 @@ module.exports = {
     // CourtNameSearch selectors
     ApplyFiltersButton: '.moj-filter__options > .govuk-button',
     ClearFiltersLink: '.moj-filter__heading-action > p > a',
+    RemoveFirstFilterLink: '.moj-filter__selected > .moj-filter-tags > li > a',
+    FilterTags: '.moj-filter__tag',
+
     CourtNameSearchContinueButton: '.moj-action-bar > .govuk-button',
     TribunalCourtCheckbox:
         '.govuk-table__body > tr > .govuk-table__cell > .govuk-checkboxes__item > .govuk-checkboxes__input',
@@ -176,6 +179,11 @@ module.exports = {
 
     // SJP public selector
     DownloadACopyButton: '#download-button',
+
+    // SJP press selector
+    PostcodeFilter: '#postcodes-2',
+    ProsecutorFilter: '#prosecutors-3',
+    SjpPressSummaryList: '.govuk-summary-list--no-border',
 
     // List download selector
     AgreeCheckBox: '#disclaimer-agreement',

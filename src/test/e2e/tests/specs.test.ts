@@ -28,7 +28,8 @@ import { RemoveListSuccessPage } from '../PageObjects/RemoveListSuccess.page';
 import { SearchPage } from '../PageObjects/Search.page';
 import { SignInPage } from '../PageObjects/SignIn.page';
 import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
-import { SJPPublicListPage } from '../PageObjects/SJPPublicList.page';
+import { SjpPublicListPage } from '../PageObjects/SjpPublicList.page';
+import {SjpPressListPage} from '../PageObjects/SjpPressList.page';
 import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
 import { SubscriptionConfigureListPage } from '../PageObjects/SubscriptionConfigureList.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
@@ -101,7 +102,8 @@ let createMediaAccountPage: CreateMediaAccountPage;
 let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let accountHomePage: AccountHomePage;
 let courtListPage: CourtListPage;
-let sjpPublicListPage: SJPPublicListPage;
+let sjpPublicListPage: SjpPublicListPage;
+let sjpPressListPage: SjpPressListPage;
 let listDownloadDisclaimerPage: ListDownloadDisclaimerPage;
 let listDownloadFilesPage: ListDownloadFilesPage;
 let signInPage: SignInPage;
@@ -267,6 +269,89 @@ describe('Unverified user', () => {
                     'Single Justice Procedure cases that are ready for hearing'
                 );
             });
+        });
+
+        describe('SJP list filtering', () => {
+          const searchTerm = 'AA - E2E TEST COURT - DO NOT REMOVE';
+          before(async () => {
+            await searchPage.open('/search');
+          });
+
+          it('should enter text and click continue', async () => {
+            await searchPage.enterText(searchTerm);
+            summaryOfPublicationsPage = await searchPage.clickContinue();
+            expect(await summaryOfPublicationsPage.getPageTitle()).toEqual(
+              'What do you want to view from ' + searchTerm + '?'
+            );
+          });
+
+          it('should select SJP press list publication with text', async () => {
+            sjpPressListPage = await summaryOfPublicationsPage.clickSelectedSjpPressListItem('Single Justice Procedure Press List 01 February 2023');
+            expect(await sjpPressListPage.getPageTitle()).toContain('Single Justice Procedure cases - Press view');
+            expect(await sjpPressListPage.summaryListItems).toBe(95);
+          });
+
+          it('should select Postcode and Prosecutor filters', async () => {
+            await sjpPressListPage.selectOption('PostcodeFilter');
+            await sjpPressListPage.selectOption('ProsecutorFilter');
+
+            expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeTruthy();
+            expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeTruthy();
+          });
+
+          it('should click the apply filters button', async () => {
+            sjpPressListPage = await sjpPressListPage.clickApplyFiltersButton();
+
+            expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeTruthy();
+            expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeTruthy();
+
+            expect(await sjpPressListPage.summaryListItems).toBe(2);
+            expect(await sjpPressListPage.filteredTags).toBe(2);
+          });
+
+          it('should clear all filters', async () => {
+            sjpPressListPage = await sjpPressListPage.clickClearFiltersLink();
+
+            expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeFalsy();
+            expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeFalsy();
+            expect(await sjpPressListPage.summaryListItems).toBe(95);
+          });
+
+          it('should re-select Postcode and Prosecutor filters then apply filters', async () => {
+            await sjpPressListPage.selectOption('PostcodeFilter');
+            await sjpPressListPage.selectOption('ProsecutorFilter');
+
+            expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeTruthy();
+            expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeTruthy();
+          });
+
+          it('should click the apply filters button again ', async () => {
+            sjpPressListPage = await sjpPressListPage.clickApplyFiltersButton();
+
+            expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeTruthy();
+            expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeTruthy();
+
+            expect(await sjpPressListPage.summaryListItems).toBe(2);
+            expect(await sjpPressListPage.filteredTags).toBe(2);
+          });
+
+          it('should remove Postcode filter', async () => {
+            sjpPressListPage = await sjpPressListPage.clickRemoveFirstFilterLink();
+
+            expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeFalsy();
+            expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeTruthy();
+            expect(await sjpPressListPage.summaryListItems).toBe(54);
+            expect(await sjpPressListPage.filteredTags).toBe(1);
+          });
+
+          it('should remove Prosecutor filter', async () => {
+            sjpPressListPage = await sjpPressListPage.clickRemoveFirstFilterLink();
+
+            expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeFalsy();
+            expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeFalsy();
+            expect(await sjpPressListPage.summaryListItems).toBe(95);
+            expect(await sjpPressListPage.filteredTags).toBe(0);
+          });
         });
 
         describe('sorting of list table', () => {
