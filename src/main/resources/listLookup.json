@@ -51,7 +51,7 @@
         "jurisdictions": ["Crown"],
         "welshJurisdictions": ["Llys y Goron"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "PRIVATE"
     },
     "MAGISTRATES_PUBLIC_LIST": {
         "friendlyName": "Magistrates Public List",
