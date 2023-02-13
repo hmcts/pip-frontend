@@ -44,6 +44,11 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     classification = await I.grabValueFrom(classificationId);
     Assert.equal(classification, sensitivityPrivate);
 
+    I.selectOption(listTypeId, 'Crown Firm List');
+
+    classification = await I.grabValueFrom(classificationId);
+    Assert.equal(classification, sensitivityPrivate);
+
     I.attachFile('manual-file-upload', '../unit/mocks/crownWarnedList.json');
     I.fillField('#search-input', 'Single Justice Procedure');
     I.selectOption(listTypeId, 'Crown Warned List');
