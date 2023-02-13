@@ -6,6 +6,12 @@ import ManualUploadController from '../../../main/controllers/ManualUploadContro
 import { FileHandlingService } from '../../../main/service/fileHandlingService';
 
 const manualUploadController = new ManualUploadController();
+
+const mockSensitivityMappings = {
+    SJP_PUBLIC_LIST: '',
+    SJP_PRESS_LIST: 'CLASSIFIED',
+};
+
 describe('Manual Upload Controller', () => {
     const i18n = {
         'manual-upload': {},
@@ -14,6 +20,8 @@ describe('Manual Upload Controller', () => {
     const request = mockRequest(i18n);
     const testFile = new File([''], 'test', { type: 'text/html' });
     sinon.stub(ManualUploadService.prototype, 'buildFormData').resolves({});
+    sinon.stub(ManualUploadService.prototype, 'getSensitivityMappings').returns(mockSensitivityMappings);
+
     describe('GET', () => {
         request['cookies'] = { formCookie: JSON.stringify({}) };
         const response = {
@@ -27,6 +35,7 @@ describe('Manual Upload Controller', () => {
                 ...i18n['manual-upload'],
                 listItems: {},
                 formData: {},
+                listTypeClassifications: mockSensitivityMappings,
             };
 
             responseMock.expects('render').once().withArgs('manual-upload', expectedData);
@@ -78,6 +87,7 @@ describe('Manual Upload Controller', () => {
                 listItems: {},
                 errors: { fileErrors: 'error', formErrors: 'error' },
                 formData: request.body,
+                listTypeClassifications: mockSensitivityMappings,
             };
 
             responseMock.expects('render').once().withArgs('manual-upload', expectedData);

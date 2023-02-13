@@ -10,7 +10,7 @@ const summaryKeys = [
     'File',
     'List type',
     'Hearing start date',
-    'Available to',
+    'Sensitivity',
     'Language',
     'Display file dates',
 ];
@@ -23,9 +23,10 @@ const manualUploadLinks = [
     '#language',
     '#display-date-from-day',
 ];
+
 const mockData = {
     artefactType: 'List',
-    classification: 'CLASSIFIED_CRIME',
+    classification: 'PUBLIC',
     'content-date-from': '01/01/2022',
     court: {
         courtName: 'Aberdeen Tribunal Hearing Centre',
@@ -35,9 +36,8 @@ const mockData = {
     fileName: 'Demo.pdf',
     language: 'English',
     listType: 'SJP_PUBLIC_LIST',
-    listTypeName: 'SJP Public List',
     languageName: 'English',
-    classificationName: 'Classified - verified Crime',
+    classificationName: 'Classified',
 };
 
 describe('File Upload Summary Page', () => {
@@ -88,13 +88,48 @@ describe('File Upload Summary Page', () => {
         const values = htmlRes.getElementsByClassName('govuk-summary-list__value');
         expect(values[0].innerHTML).to.contain(mockData.court.courtName, 'Court value not found');
         expect(values[1].innerHTML).to.contain(mockData.fileName, 'File value not found');
-        expect(values[2].innerHTML).to.contain(mockData.listTypeName, 'List type value not found');
+        expect(values[2].innerHTML).to.contain('SJP Public List', 'List type value not found');
         expect(values[3].innerHTML).to.contain(formatContentDate, 'Hearing start date value not found');
         expect(values[4].innerHTML).to.contain(mockData.classificationName, 'Classification values not found');
         expect(values[5].innerHTML).to.contain(mockData.languageName, 'Language value not found');
         expect(values[6].innerHTML).to.contain(
             `${formatDisplayFromDate} to ${formatDisplayToDate}`,
             'Display dates values not found'
+        );
+    });
+
+    it('should not contain the warning text as no mismatch', async () => {
+        const warningText = htmlRes.getElementsByClassName('govuk-warning-text');
+        expect(warningText.length).to.equal(0);
+    });
+});
+
+describe('File Upload Summary when classification mismatch', () => {
+    const clonedMockData = JSON.parse(JSON.stringify(mockData));
+    clonedMockData['listType'] = 'SJP_PRESS_LIST';
+
+    beforeAll(async () => {
+        app.request['user'] = { roles: 'SYSTEM_ADMIN' };
+        app.request['cookies'] = { formCookie: JSON.stringify(clonedMockData) };
+
+        await request(app)
+            .get(PAGE_URL)
+            .then(res => {
+                htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                htmlRes.getElementsByTagName('div')[0].remove();
+            });
+    });
+
+    it('should have the warning title', async () => {
+        const warningHeading = htmlRes.getElementsByClassName('govuk-heading-m');
+        expect(warningHeading[0].innerHTML).to.contain('Warning');
+    });
+
+    it('should have the warning message', async () => {
+        const warningText = htmlRes.getElementsByClassName('govuk-warning-text');
+        expect(warningText[0].innerHTML).to.contain(
+            'Please ensure you have checked the sensitivity of the list you are about to publish, ' +
+                'the data contained within it and the consequences if this is published incorrectly.'
         );
     });
 });
