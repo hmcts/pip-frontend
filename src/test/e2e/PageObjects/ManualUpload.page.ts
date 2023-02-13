@@ -18,6 +18,7 @@ export class ManualUploadPage extends CommonPage {
 
     async completeForm(): Promise<void> {
         await this.uploadFile();
+        await this.inputSensitivity();
         await this.inputCourt();
         await this.inputContentDateFrom();
         await this.inputDisplayDateFrom();
@@ -32,6 +33,15 @@ export class ManualUploadPage extends CommonPage {
         const filePath = path.join(__dirname, '../../unit/mocks/testFile.pdf');
 
         await $(helpers.fileUpload).setValue(filePath);
+    }
+
+    async inputSensitivity(): Promise<void> {
+        $(helpers.sensitivityInput).catch(() => {
+            console.log(`${helpers.sensitivityInput} not found`);
+        });
+
+        await $(helpers.sensitivityInput).selectByAttribute('value', 'PUBLIC');
+        await browser.keys('Escape');
     }
 
     async inputCourt(): Promise<void> {
