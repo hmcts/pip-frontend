@@ -256,7 +256,8 @@ describe('User management service', () => {
             'SYSTEM_ADMIN',
             'PI_AAD',
             '?page=2',
-            '1234'
+            '1234',
+            'test@justice.gov.uk'
         );
 
         // Pagination data

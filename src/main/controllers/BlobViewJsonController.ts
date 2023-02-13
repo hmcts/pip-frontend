@@ -4,9 +4,11 @@ import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { prettyPrintJson, FormatOptions } from 'pretty-print-json';
 import { LocationService } from '../service/locationService';
+import { UserManagementService } from '../service/userManagementService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
+const userManagementService = new UserManagementService();
 export default class BlobViewJsonController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query['artefactId'];
@@ -23,6 +25,12 @@ export default class BlobViewJsonController {
                 req.user?.['userId']
             );
             const courtName = (await locationService.getLocationById(parseInt(metadata.locationId.toString()))).name;
+            await userManagementService.auditAction(
+                req.user['userId'],
+                req.user['email'],
+                'VIEW_BLOB_EXPLORER',
+                'Requested to view artefact with id: ' + artefactId
+            );
 
             const listUrl =
                 process.env.FRONTEND_URL + '/' + listTypes.get(metadata.listType)?.url + '?artefactId=' + artefactId;
