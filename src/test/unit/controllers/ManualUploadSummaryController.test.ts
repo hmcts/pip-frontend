@@ -13,6 +13,7 @@ const mockData = {
     listTypeName: 'SJP Public List',
     language: 'English',
     languageName: 'English',
+    classification: 'PUBLIC',
 };
 const manualUploadSummaryController = new ManualUploadSummaryController();
 const uploadStub = sinon.stub(ManualUploadService.prototype, 'uploadPublication');
@@ -25,6 +26,8 @@ const removeFileStub = sinon.stub(FileHandlingService.prototype, 'removeFileFrom
 removeFileStub.resolves('');
 
 uploadStub.withArgs({ ...mockData, file: '', userId: '1' }, true).resolves(false);
+
+sinon.stub(ManualUploadService.prototype, 'isSensitivityMismatch').withArgs('SJP_PUBLIC_LIST', 'PUBLIC').returns(true);
 
 describe('Manual upload summary controller', () => {
     const i18n = { 'file-upload-summary': {} };
@@ -43,6 +46,7 @@ describe('Manual upload summary controller', () => {
                 ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['file-upload-summary']),
                 fileUploadData: mockData,
                 displayError: false,
+                displaySensitivityMismatch: true,
             };
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('file-upload-summary', options);
@@ -58,6 +62,7 @@ describe('Manual upload summary controller', () => {
                 ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['file-upload-summary']),
                 fileUploadData: mockData,
                 displayError: true,
+                displaySensitivityMismatch: true,
             };
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('file-upload-summary', options);
@@ -74,6 +79,7 @@ describe('Manual upload summary controller', () => {
                 ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['file-upload-summary']),
                 fileUploadData: mockData,
                 displayError: true,
+                displaySensitivityMismatch: true,
             };
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('file-upload-summary', options);
@@ -90,6 +96,7 @@ describe('Manual upload summary controller', () => {
                 ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['file-upload-summary']),
                 fileUploadData: mockData,
                 displayError: false,
+                displaySensitivityMismatch: true,
             };
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('file-upload-summary', options);

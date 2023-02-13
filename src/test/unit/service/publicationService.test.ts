@@ -184,4 +184,14 @@ describe('Publication service', () => {
             expect(payload).to.deep.equal(null);
         });
     });
+
+    describe('Get Default Sensitivity', () => {
+        it('return default sensitivity where there is a match', () => {
+            expect(publicationService.getDefaultSensitivity('SJP_PRESS_LIST')).to.equal('CLASSIFIED');
+        });
+
+        it('return blank string where there is no match', () => {
+            expect(publicationService.getDefaultSensitivity('UNKNOWN_LIST_TYPE')).to.equal('');
+        });
+    });
 });
