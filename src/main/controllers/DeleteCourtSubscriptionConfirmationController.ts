@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash';
 import { LocationService } from '../service/locationService';
 import { SubscriptionService } from '../service/subscriptionService';
 import { PublicationService } from '../service/publicationService';
-import {UserManagementService} from "../service/userManagementService";
+import { UserManagementService } from '../service/userManagementService';
 
 const locationService = new LocationService();
 const subscriptionsService = new SubscriptionService();
