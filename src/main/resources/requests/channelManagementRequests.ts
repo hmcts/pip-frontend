@@ -8,9 +8,9 @@ export class ChannelManagementRequests {
      * Request to channel management to retrieve the stored PDF and Excel files from Azure blob storage.
      * @param artefactId the artefact ID of the PDF and excel files in Azure blob storage.
      */
-    public async getStoredFiles(artefactId): Promise<object | null> {
+    public async getStoredFiles(artefactId, headers: object): Promise<object | null> {
         try {
-            const response = await channelManagementApi.get(`/publication/${artefactId}`);
+            const response = await channelManagementApi.get(`/publication/${artefactId}`, { headers });
             return response.data;
         } catch (error) {
             if (error.response) {
