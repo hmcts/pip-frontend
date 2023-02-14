@@ -7,7 +7,7 @@ import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
 import { SjpPressListService } from '../../main/service/listManipulation/SjpPressListService';
-import {SjpFilterService} from '../../main/service/sjpFilterService';
+import { SjpFilterService } from '../../main/service/sjpFilterService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/SJPMockPage.json'), 'utf-8');
 const sjpPressData = JSON.parse(rawData);
