@@ -42,11 +42,12 @@ describe('Delete Court Subscription Data Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
-        request.path = '/delete-court-publication-success';
+        request.path = '/delete-court-publication-success?locationId=1';
         request.query = { locationId: '1' };
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n['delete-court-publication-success'],
+            court: court,
         };
 
         responseMock.expects('render').once().withArgs('delete-court-publication-success?locationId=1', expectedData);
