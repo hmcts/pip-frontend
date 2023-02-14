@@ -364,13 +364,13 @@ describe('Unverified user', () => {
             });
 
             it('should search filters for postcodes', async () => {
-                await sjpPressListPage.enterTextToSearchFilters("BD1");
+                await sjpPressListPage.enterTextToSearchFilters('BD1');
 
                 expect(await sjpPressListPage.displayedFilters()).toBe(3);
             });
 
             it('should search filters for prosecutor', async () => {
-                await sjpPressListPage.enterTextToSearchFilters("tv");
+                await sjpPressListPage.enterTextToSearchFilters('tv');
 
                 expect(await sjpPressListPage.displayedFilters()).toBe(1);
             });

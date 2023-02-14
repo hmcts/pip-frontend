@@ -70,12 +70,11 @@ export class SjpPressListPage extends CommonPage {
         let displayedFilterCount = 0;
         const items = await $$(helpers.Filters);
 
-        for (let i =0; i< items.length; i++) {
-            const style = await items[i].getAttribute('style')
+        for (let i = 0; i < items.length; i++) {
+            const style = await items[i].getAttribute('style');
             if (!style || !style.includes('display: none')) {
                 displayedFilterCount++;
             }
-
         }
         return displayedFilterCount;
     }
