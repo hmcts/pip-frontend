@@ -42,7 +42,7 @@ describe('Delete Court Publication Confirmation', () => {
                 })
                 .expect(res => {
                     expect(res.status).to.equal(302);
-                    expect(res.header['location']).to.equal('/delete-court-publication-success');
+                    expect(res.header['location']).to.equal('/delete-court-publication-success?locationId=2');
                 });
         });
 
