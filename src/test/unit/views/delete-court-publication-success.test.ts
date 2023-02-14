@@ -45,11 +45,9 @@ describe('Delete Court Publication Success Page', () => {
         const links = htmlRes.getElementsByClassName('govuk-link ');
         expect(links[5].innerHTML).contains('Continue deletion of ');
         expect(links[5].getAttribute('href')).contains('delete-court-reference-data-confirmation');
-        expect(links[6].innerHTML).to.equal('Remove another court');
-        expect(links[6].getAttribute('href')).contains('delete-court-reference-data');
-        expect(links[7].innerHTML).to.equal('Upload Reference Data');
-        expect(links[7].getAttribute('href')).contains('manual-reference-data-upload');
-        expect(links[8].innerHTML).to.equal('Home');
-        expect(links[8].getAttribute('href')).contains('system-admin-dashboard');
+        expect(links[6].innerHTML).to.equal('Upload Reference Data');
+        expect(links[6].getAttribute('href')).contains('manual-reference-data-upload');
+        expect(links[7].innerHTML).to.equal('Home');
+        expect(links[7].getAttribute('href')).contains('system-admin-dashboard');
     });
 });
