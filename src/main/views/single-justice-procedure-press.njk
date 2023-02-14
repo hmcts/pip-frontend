@@ -64,13 +64,13 @@
                 name: 'search-filters'
             }) }}
           {% for key, options in filters %}
-          <div class="moj-button-menu__wrapper">
-              <a href="javascript:;" role="button" draggable="false"
-                 class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button"
-                 onclick="hideFilterSection('{{ key }}')" id="{{ key }}-button">
-                  Hide {{ key }}
-              </a>
-          </div>
+{#          <div class="moj-button-menu__wrapper">#}
+{#              <a href="javascript:;" role="button" draggable="false"#}
+{#                 class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button"#}
+{#                 onclick="hideFilterSection('{{ key }}')" id="{{ key }}-button">#}
+{#                  Hide {{ key }}#}
+{#              </a>#}
+{#          </div>#}
             {% set checkedFilterItems = [] %}
             {% set items = [] %}
             {% for item in options %}
@@ -101,14 +101,17 @@
               </div>
               {% set toBeCreated = false %}
             {% endif %}
-              <div class="govuk-form-group" id="{{ key }}-checkbox">
-                  <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+              <div class="govuk-form-group">
+                  <fieldset class="govuk-fieldset">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                           <h1 class="govuk-fieldset__heading">
-                              {{ filterHeader }}
+                              <a href="javascript:;" class="govuk-link" onclick="hideFilterSection('{{ key }}')">{{ filterHeader }}
+
+                              </a>
+                              <span class="govuk-body govuk-!-font-size-18 filter-colour" id="{{ key }}-link">&#9660</span>
                           </h1>
                       </legend>
-                      <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                      <div class="govuk-checkboxes govuk-checkboxes--small" id="{{ key }}-checkbox" data-module="govuk-checkboxes">
                           {% for item in items %}
                               <div class="govuk-checkboxes__item">
                                   <input class="govuk-checkboxes__input" name="{{ key }}" type="checkbox" value="{{ item.value }}" {% if item.checked %} checked {% endif %}>
@@ -233,15 +236,15 @@
 
     function hideFilterSection(key) {
         const section = document.getElementById(key + '-checkbox');
-        const button = document.getElementById(key + '-button');
+        const link = document.getElementById(key + '-link');
         section.classList.toggle("always-hide");
 
         const languageKey = key === 'postcodes' ? '{{ postcode }}' : '{{ prosecutor }}'
 
         if (section.classList.contains('always-hide')) {
-            button.innerHTML = '{{ showOnly }} ' + languageKey;
+            link.innerHTML = '&#9654;'
         } else {
-          button.innerHTML = '{{ hideOnly }} ' + languageKey;
+          link.innerHTML = '&#9660;'
         }
     }
 
