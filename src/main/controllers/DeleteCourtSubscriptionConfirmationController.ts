@@ -42,7 +42,7 @@ export default class DeleteCourtSubscriptionConfirmationController {
                     apiError: true,
                     errorMessage:
                         pageToLoad == 'delete-court-subscription-confirmation'
-                            ? 'Unknown error when attempting to delete all the subscription for the court'
+                            ? 'Unknown error when attempting to delete all the subscriptions for the court'
                             : 'Unknown error when attempting to delete all the artefact for the court',
                 });
             } else {

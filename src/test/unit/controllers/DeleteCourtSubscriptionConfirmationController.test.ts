@@ -34,7 +34,7 @@ describe('Delete Court Subscription Controller', () => {
             ...i18n[pageName],
             court: court,
             apiError: true,
-            errorMessage: 'Unknown error when attempting to delete all the subscription for the court',
+            errorMessage: 'Unknown error when attempting to delete all the subscriptions for the court',
         };
 
         responseMock.expects('render').once().withArgs(pageName, expectedData);
@@ -57,7 +57,7 @@ describe('Delete Court Subscription Controller', () => {
             ...i18n[pageName],
             court: court,
             apiError: true,
-            errorMessage: 'Unknown error when attempting to delete all the subscription for the court',
+            errorMessage: 'Unknown error when attempting to delete all the subscriptions for the court',
         };
 
         responseMock.expects('render').once().withArgs(pageName, expectedData);
