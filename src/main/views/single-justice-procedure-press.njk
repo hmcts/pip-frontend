@@ -4,6 +4,8 @@
 {%- from "moj/components/filter/macro.njk" import mojFilter -%}
 {%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
 {%- from "govuk/components/input/macro.njk" import govukInput -%}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+
 
 {% extends "list-template.njk" %}
 {% block pageTitle %}
@@ -62,6 +64,13 @@
                 name: 'search-filters'
             }) }}
           {% for key, options in filters %}
+          <div class="moj-button-menu__wrapper">
+              <a href="javascript:;" role="button" draggable="false"
+                 class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button"
+                 onclick="hideFilterSection('{{ key }}')" id="{{ key }}-button">
+                  Hide {{ key }}
+              </a>
+          </div>
             {% set checkedFilterItems = [] %}
             {% set items = [] %}
             {% for item in options %}
@@ -93,18 +102,27 @@
               {% set toBeCreated = false %}
             {% endif %}
 
-            {{ govukCheckboxes({
-              idPrefix: key,
-              name: key,
-              classes: "govuk-checkboxes--small",
-              fieldset: {
-                legend: {
-                  text: filterHeader,
-                  classes: 'govuk-fieldset__legend--m'
-                }
-              },
-              items: items
-            }) }}
+
+
+              <div class="govuk-form-group" id="{{ key }}-checkbox">
+                  <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                          <h1 class="govuk-fieldset__heading">
+                              {{ filterHeader }}
+                          </h1>
+                      </legend>
+                      <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                          {% for item in items %}
+                              <div class="govuk-checkboxes__item">
+                                  <input class="govuk-checkboxes__input" name="{{ key }}" type="checkbox" value="{{ item.value }}" {% if item.checked %} checked {% endif %}>
+                                  <label class="govuk-label govuk-checkboxes__label" for="{{ key }}">
+                                      {{ item.text }}
+                                  </label>
+                              </div>
+                          {% endfor %}
+                      </div>
+                  </fieldset>
+              </div>
           {% endfor %}
         {% endset %}
         <form method="post" action="sjp-press-list?artefactId={{ artefactId }}" class="moj-filter-layout__filter layout-width-four-fifths"
@@ -215,6 +233,20 @@
               }
           }
       }
+
+    function hideFilterSection(key) {
+        const section = document.getElementById(key + '-checkbox');
+        const button = document.getElementById(key + '-button');
+        section.classList.toggle("always-hide");
+
+        const languageKey = key === 'postcodes' ? '{{ postcode }}' : '{{ prosecutor }}'
+
+        if (section.classList.contains('always-hide')) {
+            button.innerHTML = '{{ show }} ' + languageKey;
+        } else {
+          button.innerHTML = '{{ hide }} ' + languageKey;
+        }
+    }
 
     // The following function is hiding content and navigation due to screen readers to read behind the visible panel
     function toggleFilters() {
