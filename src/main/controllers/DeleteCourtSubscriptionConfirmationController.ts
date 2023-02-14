@@ -32,7 +32,7 @@ export default class DeleteCourtSubscriptionConfirmationController {
                     'DELETE_LOCATION_SUBSCRIPTION_SUCCESS',
                     response.toString()
                 );
-                res.redirect('/delete-court-subscription-success');
+                res.redirect('/delete-court-subscription-success?locationId=' + formData.locationId);
             }
         } else if (formData['delete-choice'] == 'no') {
             res.redirect('/delete-court-reference-data');
