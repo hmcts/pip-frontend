@@ -293,6 +293,13 @@ describe('Unverified user', () => {
                 expect(await sjpPressListPage.summaryListItems).toBe(95);
             });
 
+            it('should display the filters after clicking the show filters button', async () => {
+                await sjpPressListPage.clickShowFiltersButton();
+
+                expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeFalsy();
+                expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeFalsy();
+            });
+
             it('should select Postcode and Prosecutor filters', async () => {
                 await sjpPressListPage.selectOption('PostcodeFilter');
                 await sjpPressListPage.selectOption('ProsecutorFilter');
@@ -320,6 +327,7 @@ describe('Unverified user', () => {
             });
 
             it('should re-select Postcode and Prosecutor filters then apply filters', async () => {
+                await sjpPressListPage.clickShowFiltersButton();
                 await sjpPressListPage.selectOption('PostcodeFilter');
                 await sjpPressListPage.selectOption('ProsecutorFilter');
 
@@ -327,7 +335,7 @@ describe('Unverified user', () => {
                 expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeTruthy();
             });
 
-            it('should click the apply filters button again ', async () => {
+            it('should click the apply filters button after re-selecting filters', async () => {
                 sjpPressListPage = await sjpPressListPage.clickApplyFiltersButton();
 
                 expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeTruthy();
@@ -353,6 +361,18 @@ describe('Unverified user', () => {
                 expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeFalsy();
                 expect(await sjpPressListPage.summaryListItems).toBe(95);
                 expect(await sjpPressListPage.filteredTags).toBe(0);
+            });
+
+            it('should search filters for postcodes', async () => {
+                await sjpPressListPage.enterTextToSearchFilters("BD1");
+
+                expect(await sjpPressListPage.displayedFilters()).toBe(3);
+            });
+
+            it('should search filters for prosecutor', async () => {
+                await sjpPressListPage.enterTextToSearchFilters("tv");
+
+                expect(await sjpPressListPage.displayedFilters()).toBe(1);
             });
         });
 

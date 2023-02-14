@@ -185,6 +185,9 @@ module.exports = {
     PostcodeFilter: '#postcodes-2',
     ProsecutorFilter: '#prosecutors-3',
     SjpPressSummaryList: '.govuk-summary-list--no-border',
+    ShowFiltersButton: '#show-filters',
+    SearchFilters: '#search-filters',
+    Filters: '.govuk-checkboxes__item',
 
     // List download selector
     AgreeCheckBox: '#disclaimer-agreement',
