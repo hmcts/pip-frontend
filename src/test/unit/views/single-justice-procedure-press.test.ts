@@ -187,7 +187,10 @@ describe('Single Justice Procedure List page', () => {
 
         it('should display the search filters box', () => {
             const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
-            expect(searchInput[1].innerHTML).contains('Search filters', 'Could not find the search filters search box title');
+            expect(searchInput[1].innerHTML).contains(
+                'Search filters',
+                'Could not find the search filters search box title'
+            );
         });
 
         it('should display the postcode section', () => {
@@ -200,5 +203,4 @@ describe('Single Justice Procedure List page', () => {
             expect(links[4].innerHTML).contains('Prosecutor', 'Could not find the prosecutor section');
         });
     });
-
 });
