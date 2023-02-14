@@ -34,7 +34,7 @@ describe('Delete Court Subscription Confirmation Page', () => {
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(
-                'Are you sure you want to delete all the subscription?',
+                'Are you sure you want to delete all the subscriptions?',
                 'Page title does not match header'
             );
         });
@@ -42,7 +42,7 @@ describe('Delete Court Subscription Confirmation Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName('govuk-heading-l');
             expect(header[0].innerHTML).contains(
-                'Are you sure you want to delete all the subscription?',
+                'Are you sure you want to delete all the subscriptions?',
                 'Could not find correct value in header'
             );
         });

@@ -23,7 +23,7 @@ export default class DeleteCourtSubscriptionConfirmationController {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-subscription-confirmation']),
                     court: locationService.formatCourtValue(court),
                     apiError: true,
-                    errorMessage: 'Unknown error when attempting to delete all the subscription for the court',
+                    errorMessage: 'Unknown error when attempting to delete all the subscriptions for the court',
                 });
             } else {
                 await userManagementService.auditAction(
