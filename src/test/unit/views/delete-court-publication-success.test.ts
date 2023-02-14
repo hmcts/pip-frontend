@@ -3,7 +3,7 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
-import {LocationService} from "../../../main/service/locationService";
+import { LocationService } from '../../../main/service/locationService';
 
 const PAGE_URL = '/delete-court-publication-success';
 
