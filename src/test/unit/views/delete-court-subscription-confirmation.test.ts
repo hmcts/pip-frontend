@@ -50,7 +50,7 @@ describe('Delete Court Subscription Confirmation Page', () => {
         it('should display warning message', () => {
             const warning = htmlRes.getElementsByClassName('govuk-warning-text__text')[0];
             expect(warning.innerHTML).contains(
-                'You are about to delete all the subscription for test court',
+                'You are about to delete all the subscriptions for test court',
                 'Could not find correct warning message'
             );
         });
