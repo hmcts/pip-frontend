@@ -239,9 +239,9 @@
         const languageKey = key === 'postcodes' ? '{{ postcode }}' : '{{ prosecutor }}'
 
         if (section.classList.contains('always-hide')) {
-            button.innerHTML = '{{ show }} ' + languageKey;
+            button.innerHTML = '{{ showOnly }} ' + languageKey;
         } else {
-          button.innerHTML = '{{ hide }} ' + languageKey;
+          button.innerHTML = '{{ hideOnly }} ' + languageKey;
         }
     }
 
