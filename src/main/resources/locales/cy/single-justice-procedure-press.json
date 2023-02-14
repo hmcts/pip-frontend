@@ -20,5 +20,6 @@
     "filter": "Hidlydd",
     "selectedFilters": "Hidlwyr a ddewiswyd",
     "clearFilters": "Clirio hidlwyr",
-    "applyFilters": "Cadarnhau hidlwyr"
+    "applyFilters": "Cadarnhau hidlwyr",
+    "searchFilters": "Search filters"
 }

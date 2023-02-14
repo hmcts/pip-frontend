@@ -20,5 +20,6 @@
     "filter": "Filter",
     "selectedFilters": "Selected filters",
     "clearFilters": "Clear filters",
-    "applyFilters": "Apply filters"
+    "applyFilters": "Apply filters",
+    "searchFilters": "Search filters"
 }
