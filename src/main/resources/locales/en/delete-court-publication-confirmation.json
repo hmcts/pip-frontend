@@ -1,8 +1,8 @@
 {
-    "header": "Are you sure you want to delete all the publication?",
+    "header": "Are you sure you want to delete all the publications?",
     "optionYes": "Yes",
     "optionNo": "No",
-    "warning": "You are about to delete all the publication for ",
+    "warning": "You are about to delete all the publications for ",
     "error": {
         "title": "There is a problem",
         "text": "Please select an option"

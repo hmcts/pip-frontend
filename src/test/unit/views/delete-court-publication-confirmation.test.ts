@@ -34,7 +34,7 @@ describe('Delete Court Publication Confirmation Page', () => {
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(
-                'Are you sure you want to delete all the publication?',
+                'Are you sure you want to delete all the publications?',
                 'Page title does not match header'
             );
         });
@@ -42,7 +42,7 @@ describe('Delete Court Publication Confirmation Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName('govuk-heading-l');
             expect(header[0].innerHTML).contains(
-                'Are you sure you want to delete all the publication?',
+                'Are you sure you want to delete all the publications?',
                 'Could not find correct value in header'
             );
         });
@@ -50,7 +50,7 @@ describe('Delete Court Publication Confirmation Page', () => {
         it('should display warning message', () => {
             const warning = htmlRes.getElementsByClassName('govuk-warning-text__text')[0];
             expect(warning.innerHTML).contains(
-                'You are about to delete all the publication',
+                'You are about to delete all the publications',
                 'Could not find correct warning message'
             );
         });
