@@ -1,9 +1,21 @@
+import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
+import { LocationService } from '../../../main/service/locationService';
 
 const PAGE_URL = '/delete-court-subscription-success';
+
+const court = {
+    locationId: 1,
+    name: 'test court',
+    locationType: 'location',
+    jurisdiction: 'testJ',
+    region: 'testR',
+};
+sinon.stub(LocationService.prototype, 'getLocationById').resolves(court);
+
 let htmlRes: Document;
 
 expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
@@ -31,11 +43,13 @@ describe('Delete Court Subscription Data Success Page', () => {
 
     it('should display links to other actions with correct paths', () => {
         const links = htmlRes.getElementsByClassName('govuk-link ');
-        expect(links[5].innerHTML).to.equal('Remove another court');
-        expect(links[5].getAttribute('href')).contains('delete-court-reference-data');
-        expect(links[6].innerHTML).to.equal('Upload Reference Data');
-        expect(links[6].getAttribute('href')).contains('manual-reference-data-upload');
-        expect(links[7].innerHTML).to.equal('Home');
-        expect(links[7].getAttribute('href')).contains('system-admin-dashboard');
+        expect(links[5].innerHTML).contains('Continue deletion of ');
+        expect(links[5].getAttribute('href')).contains('delete-court-reference-data-confirmation');
+        expect(links[6].innerHTML).to.equal('Remove another court');
+        expect(links[6].getAttribute('href')).contains('delete-court-reference-data');
+        expect(links[7].innerHTML).to.equal('Upload Reference Data');
+        expect(links[7].getAttribute('href')).contains('manual-reference-data-upload');
+        expect(links[8].innerHTML).to.equal('Home');
+        expect(links[8].getAttribute('href')).contains('system-admin-dashboard');
     });
 });

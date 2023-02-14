@@ -52,7 +52,7 @@ export default class DeleteCourtSubscriptionConfirmationController {
                     action,
                     response.toString()
                 );
-                res.redirect(successPage);
+                res.redirect(successPage + '?locationId=' + formData.locationId);
             }
         } else if (formData['delete-choice'] == 'no') {
             res.redirect('/delete-court-reference-data');

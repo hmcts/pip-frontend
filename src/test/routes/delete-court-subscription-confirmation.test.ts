@@ -43,7 +43,7 @@ describe('Delete Court Subscription Confirmation', () => {
                 })
                 .expect(res => {
                     expect(res.status).to.equal(302);
-                    expect(res.header['location']).to.equal('/delete-court-subscription-success');
+                    expect(res.header['location']).to.equal('/delete-court-subscription-success?locationId=2');
                 });
         });
 

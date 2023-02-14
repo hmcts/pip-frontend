@@ -77,7 +77,7 @@ describe('Delete Court Subscription Controller', () => {
         request.path = '/' + pageName;
         const responseMock = sinon.mock(response);
 
-        responseMock.expects('redirect').once().withArgs('/delete-court-subscription-success');
+        responseMock.expects('redirect').once().withArgs('/delete-court-subscription-success?locationId=1');
         return deleteCourtSubscriptionConfirmationController.post(request, response).then(() => {
             responseMock.verify();
         });
