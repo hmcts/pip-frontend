@@ -2,7 +2,7 @@ import { CommonPage } from './Common.page';
 import { CourtListPage } from './CourtList.page';
 import { SignInPage } from './SignIn.page';
 import { AccountHomePage } from './AccountHome.page';
-import {SjpPressListPage} from './SjpPressList.page';
+import { SjpPressListPage } from './SjpPressList.page';
 
 const helpers = require('../Helpers/Selectors');
 
@@ -35,16 +35,16 @@ export class SummaryOfPublicationsPage extends CommonPage {
         return new CourtListPage();
     }
 
-  async clickSelectedSjpPressListItem(startText): Promise<SjpPressListPage> {
-    const item = '*=' + startText;
-    $(item).catch(() => {
-      console.log(`${item} not found`);
-    });
+    async clickSelectedSjpPressListItem(startText): Promise<SjpPressListPage> {
+        const item = '*=' + startText;
+        $(item).catch(() => {
+            console.log(`${item} not found`);
+        });
 
-    await $(item).scrollIntoView();
-    await $(item).click();
-    return new SjpPressListPage();
-  }
+        await $(item).scrollIntoView();
+        await $(item).click();
+        return new SjpPressListPage();
+    }
 
     async clickSignInBannerLink(): Promise<SignInPage> {
         $(helpers.BannerSignIn).catch(() => {

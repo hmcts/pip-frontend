@@ -53,6 +53,14 @@
         {% set checkedFilters = [] %}
         {% set toBeCreated = true %}
         {% set filterOptionsHtml %}
+            {{ govukInput({
+                label: {
+                    text: 'Search Filters',
+                    classes: 'govuk-label--m'
+                },
+                id: 'search-filters',
+                name: 'search-filters'
+            }) }}
           {% for key, options in filters %}
             {% set checkedFilterItems = [] %}
             {% set items = [] %}
@@ -191,6 +199,22 @@
 {% block bodyEnd %}
   {{ super() }}
   <script>
+      var searchFilters = document.getElementById('search-filters');
+      searchFilters.addEventListener('keyup', searchFilterItems);
+
+      // This function is used to dynamically show/hide individual filter checkbox items based on the search box value
+      function searchFilterItems() {
+          var filters = document.getElementsByClassName('govuk-checkboxes__item');
+
+          for (var i = 0; i < filters.length; i++) {
+              localStorage.setItem('searchFiltersValue', searchFilters.value)
+              if (filters[i].innerText.toLowerCase().includes(searchFilters.value.toLowerCase())) {
+                  filters[i].style.removeProperty('display');
+              } else {
+                  filters[i].style.display = 'none'
+              }
+          }
+      }
 
     // The following function is hiding content and navigation due to screen readers to read behind the visible panel
     function toggleFilters() {
@@ -210,9 +234,12 @@
       }
     }
 
-    //Concat href to maintain filter values when clearing single
+    // Concat href to maintain filter values when clearing single
     let tags = document.querySelectorAll('.moj-filter__tag');
     let currentQueryArray = window.location.search.split('&');
+
+    const searchFiltersValue = localStorage.getItem('searchFiltersValue');
+    localStorage.removeItem('searchFiltersValue');
     tags.forEach(element => {
       element.href = '/sjp-press-list?artefactId=' + '{{ artefactId }}' + '&' + buildHref(element.href, currentQueryArray);
     })
@@ -224,7 +251,15 @@
       let currentFilterValues = currentQueryArray.find(item => item.startsWith('filterValues') || item.startsWith('?filterValues'))
       currentFilterValues = currentFilterValues.startsWith('?') ? currentFilterValues.substring(1) : currentFilterValues;
 
-      let href = currentFilterValues ? currentFilterValues.replace(deleteVal, '') + elementQueryString.replace('?', '&') : elementQueryString
+      // Need to remove the search box value from 'filterValues'
+      if (searchFiltersValue) {
+          const filterValuesPrefix = 'filterValues=' + searchFiltersValue + ',';
+          if (currentFilterValues.startsWith(filterValuesPrefix)) {
+              currentFilterValues = currentFilterValues.replace(filterValuesPrefix, 'filterValues=');
+          }
+      }
+
+      let href = currentFilterValues ? currentFilterValues.replace(deleteVal, '') + elementQueryString.replace('?', '&') : elementQueryString;
       return href.replace(',,', ',');
     }
 
