@@ -51,7 +51,7 @@ describe('SJP Press List Controller', () => {
             const request = mockRequest(i18n);
             request.user = { userId: '1' };
 
-            request.query = { artefactId: artefactId };
+            request.query = { artefactId: artefactId, filterValues: '123' };
 
             const responseMock = sinon.mock(response);
 
@@ -68,6 +68,7 @@ describe('SJP Press List Controller', () => {
                 artefactId: 'abc',
                 user: request.user,
                 filters: filter.filterOptions,
+                showFilters: true,
             };
 
             responseMock.expects('render').once().withArgs('single-justice-procedure-press', expectedData);
