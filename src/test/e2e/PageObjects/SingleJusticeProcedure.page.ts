@@ -1,6 +1,5 @@
 import { CommonPage } from './Common.page';
 import { SjpPublicListPage } from './SjpPublicList.page';
-import { SjpPressListPage } from './SjpPressList.page';
 
 const helpers = require('../Helpers/Selectors');
 

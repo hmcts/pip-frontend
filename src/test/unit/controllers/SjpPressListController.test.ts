@@ -46,39 +46,74 @@ describe('SJP Press List Controller', () => {
         },
     } as unknown as Response;
 
+    let request;
+
+    beforeEach(() => {
+        request = mockRequest(i18n);
+    });
+
+    const expectedData = {
+        ...i18n['single-justice-procedure-press'],
+        ...i18n['list-template'],
+        sjpData: filter.sjpCases,
+        totalHearings: 2,
+        publishedDateTime: '14 September 2016',
+        publishedTime: '12:30am',
+        contactDate: DateTime.fromISO(metaData['contentDate'], {
+            zone: 'utc',
+        }).toFormat('d MMMM yyyy'),
+        artefactId: 'abc',
+        user: {},
+        filters: filter.filterOptions,
+    };
+
     describe('get', () => {
         it('should render the SJP press list page', async () => {
-            const request = mockRequest(i18n);
             request.user = { userId: '1' };
 
             request.query = { artefactId: artefactId, filterValues: '123' };
 
+            const localExpectedData = { ...expectedData, user: request.user, showFilters: true };
+
             const responseMock = sinon.mock(response);
 
-            const expectedData = {
-                ...i18n['single-justice-procedure-press'],
-                ...i18n['list-template'],
-                sjpData: filter.sjpCases,
-                totalHearings: 2,
-                publishedDateTime: '14 September 2016',
-                publishedTime: '12:30am',
-                contactDate: DateTime.fromISO(metaData['contentDate'], {
-                    zone: 'utc',
-                }).toFormat('d MMMM yyyy'),
-                artefactId: 'abc',
-                user: request.user,
-                filters: filter.filterOptions,
-                showFilters: true,
-            };
+            responseMock.expects('render').once().withArgs('single-justice-procedure-press', localExpectedData);
 
-            responseMock.expects('render').once().withArgs('single-justice-procedure-press', expectedData);
+            await sjpPressListController.get(request, response);
+            return responseMock.verify();
+        });
+
+        it('should render the SJP press list page when no filter string provided', async () => {
+            request.user = { userId: '1' };
+
+            request.query = { artefactId: artefactId };
+
+            const localExpectedData = { ...expectedData, user: request.user, showFilters: false };
+
+            const responseMock = sinon.mock(response);
+
+            responseMock.expects('render').once().withArgs('single-justice-procedure-press', localExpectedData);
+
+            await sjpPressListController.get(request, response);
+            return responseMock.verify();
+        });
+
+        it('should render the SJP press list page when only clear string provided', async () => {
+            request.user = { userId: '1' };
+
+            request.query = { artefactId: artefactId, clear: 'all' };
+
+            const localExpectedData = { ...expectedData, user: request.user, showFilters: true };
+
+            const responseMock = sinon.mock(response);
+
+            responseMock.expects('render').once().withArgs('single-justice-procedure-press', localExpectedData);
 
             await sjpPressListController.get(request, response);
             return responseMock.verify();
         });
 
         it('should render error page is query param is empty', async () => {
-            const request = mockRequest(i18n);
             request.query = {};
             request.user = { userId: '1' };
 
@@ -91,7 +126,6 @@ describe('SJP Press List Controller', () => {
         });
 
         it('should render error page if list is not allowed to view by the user', async () => {
-            const request = mockRequest(i18n);
             request.query = {};
 
             const responseMock = sinon.mock(response);
@@ -105,7 +139,6 @@ describe('SJP Press List Controller', () => {
 
     describe('post', () => {
         it('should redirect to configure list page with correct filters', () => {
-            const request = mockRequest(i18n);
             request.query = { artefactId: artefactId };
 
             sinon.stub(FilterService.prototype, 'generateFilterKeyValues').withArgs(request.body).returns('TestValue');
