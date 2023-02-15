@@ -5,7 +5,6 @@ const filterService = new FilterService();
 const replaceRegex = /[\s,]/g;
 
 export class SjpFilterService {
-
     /**
      * This method generates the filter options, and filters the cases based on the selected options.
      * @param allCases The cases to filter.
@@ -74,7 +73,6 @@ export class SjpFilterService {
         return filterStructure;
     }
 
-
     /**
      * This method filters the cases for the SJP list based on the user selected options
      * @param allCases The cases to filter.
@@ -85,13 +83,17 @@ export class SjpFilterService {
         const postcodeFilters = [];
         const prosecutorFilters = [];
 
-        filterOptions.postcodes.filter(item => item.checked).forEach(item => {
-            postcodeFilters.push(item.value);
-        });
+        filterOptions.postcodes
+            .filter(item => item.checked)
+            .forEach(item => {
+                postcodeFilters.push(item.value);
+            });
 
-        filterOptions.prosecutors.filter(item => item.checked).forEach(item => {
-            prosecutorFilters.push(item.value);
-        });
+        filterOptions.prosecutors
+            .filter(item => item.checked)
+            .forEach(item => {
+                prosecutorFilters.push(item.value);
+            });
 
         const filteredCases = [];
         allCases.forEach(item => {

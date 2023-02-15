@@ -117,7 +117,7 @@
                               {% set checkboxCount = checkboxCount + 1 %}
                               <div class="govuk-checkboxes__item">
                                   <input class="govuk-checkboxes__input" id="{{ key }}-{{ checkboxCount }}" name="{{ key }}" type="checkbox" value="{{ item.value }}" {% if item.checked %} checked {% endif %}>
-                                  <label class="govuk-label govuk-checkboxes__label" for="{{ key }}">
+                                  <label class="govuk-label govuk-checkboxes__label" for="{{ key }}-{{ checkboxCount }}">
                                       {{ item.text }}
                                   </label>
                               </div>
