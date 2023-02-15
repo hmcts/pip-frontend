@@ -5,6 +5,13 @@ const filterService = new FilterService();
 const replaceRegex = /[\s,]/g;
 
 export class SjpFilterService {
+
+    /**
+     * This method generates the filter options, and filters the cases based on the selected options.
+     * @param allCases The cases to filter.
+     * @param filterValuesQuery The user selected filters.
+     * @param clearQuery Any filters the user has cleared.
+     */
     public generateFilters(allCases, filterValuesQuery, clearQuery): any {
         let filterValues = filterService.stripFilters(filterValuesQuery);
         if (clearQuery) {
@@ -21,6 +28,12 @@ export class SjpFilterService {
         };
     }
 
+    /**
+     * This method builds the filter options to display on the page.
+     * @param data The data to create the filter options from.
+     * @param filterValues The set of filter values.
+     * @private
+     */
     private buildFilterOptions(data, filterValues): any {
         const postcodes = new Set<string>();
         const prosecutors = new Set<string>();
@@ -61,20 +74,23 @@ export class SjpFilterService {
         return filterStructure;
     }
 
+
+    /**
+     * This method filters the cases for the SJP list based on the user selected options
+     * @param allCases The cases to filter.
+     * @param filterOptions The options that have been selected
+     * @private
+     */
     private filterCases(allCases, filterOptions) {
         const postcodeFilters = [];
         const prosecutorFilters = [];
 
-        filterOptions.postcodes.forEach(item => {
-            if (item.checked) {
-                postcodeFilters.push(item.value);
-            }
+        filterOptions.postcodes.filter(item => item.checked).forEach(item => {
+            postcodeFilters.push(item.value);
         });
 
-        filterOptions.prosecutors.forEach(item => {
-            if (item.checked) {
-                prosecutorFilters.push(item.value);
-            }
+        filterOptions.prosecutors.filter(item => item.checked).forEach(item => {
+            prosecutorFilters.push(item.value);
         });
 
         const filteredCases = [];
