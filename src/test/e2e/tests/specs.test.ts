@@ -327,7 +327,6 @@ describe('Unverified user', () => {
             });
 
             it('should re-select Postcode and Prosecutor filters then apply filters', async () => {
-                await sjpPressListPage.clickShowFiltersButton();
                 await sjpPressListPage.selectOption('PostcodeFilter');
                 await sjpPressListPage.selectOption('ProsecutorFilter');
 
