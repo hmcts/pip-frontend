@@ -226,14 +226,14 @@
       function searchFilterItems() {
           const filters = document.getElementsByClassName('govuk-checkboxes__item');
 
-          filters.forEach(filter => {
+          for (var i = 0; i < filters.length; i++) {
               localStorage.setItem('searchFiltersValue', searchFilters.value)
-              if (filter.innerText.toLowerCase().includes(searchFilters.value.toLowerCase())) {
-                  filter.style.removeProperty('display');
+              if (filters[i].innerText.toLowerCase().includes(searchFilters.value.toLowerCase())) {
+                  filters[i].style.removeProperty('display');
               } else {
-                  filter.style.display = 'none';
+                  filters[i].style.display = 'none';
               }
-          })
+          }
       }
 
       function hideFilterSection(key) {
