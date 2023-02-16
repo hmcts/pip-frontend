@@ -50,7 +50,7 @@ export class ManualUploadPage extends CommonPage {
             console.log(`${helpers.listTypeInput} not found`);
         });
 
-        await $(helpers.listTypeInput).selectByAttribute('value', 'EMPTY')
+        await $(helpers.listTypeInput).selectByAttribute('value', 'SJP_PUBLIC_LIST');
         await browser.keys('Escape');
     }
 
