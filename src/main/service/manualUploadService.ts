@@ -8,6 +8,7 @@ import { PublicationService } from './publicationService';
 const courtService = new LocationService();
 const dataManagementRequests = new DataManagementRequests();
 import { LanguageFileParser } from '../helpers/languageFileParser';
+
 const languageFileParser = new LanguageFileParser();
 const fileHandlingService = new FileHandlingService();
 const publicationService = new PublicationService();
@@ -45,6 +46,18 @@ export class ManualUploadService {
         const jsonArray = [] as Array<object>;
         publicationService.getListTypes().forEach((value, key) => {
             jsonArray.push({ value: key, text: value.shortenedFriendlyName });
+        });
+        jsonArray.push({ value: 'EMPTY', text: '<Please choose a list type>' });
+        jsonArray.sort((a, b) => {
+            const textA = a['text'].toUpperCase(); // ignore upper and lowercase
+            const textB = b['text'].toUpperCase(); // ignore upper and lowercase
+            if (textA < textB) {
+                return -1;
+            }
+            if (textA > textB) {
+                return 1;
+            }
+            return 0;
         });
 
         return jsonArray;
@@ -94,17 +107,18 @@ export class ManualUploadService {
             contentDateError: this.validateDate(
                 this.buildDate(formValues, 'content-date-from'),
                 language,
-                languageFile
+                languageFile,
             ),
             displayDateError: this.validateDates(
                 this.buildDate(formValues, 'display-date-from'),
                 this.buildDate(formValues, 'display-date-to'),
                 language,
-                languageFile
+                languageFile,
             ),
             classificationError: formValues['classification'] ? null : 'true',
+            listTypeError: formValues['listType'] != "EMPTY" ? null: 'true'
         };
-        if (fields.courtError || fields.contentDateError || fields.displayDateError || fields.classificationError) {
+        if (fields.courtError || fields.contentDateError || fields.displayDateError || fields.classificationError || fields.listTypeError) {
             return fields;
         }
         return null;
@@ -131,7 +145,7 @@ export class ManualUploadService {
                 body[`${fieldsetPrefix}-month`],
                 '/',
                 body[`${fieldsetPrefix}-year`],
-                ' 23:59:59'
+                ' 23:59:59',
             );
         } else if (fieldsetPrefix === 'display-date-from') {
             return body[`${fieldsetPrefix}-day`]?.concat(
@@ -139,7 +153,7 @@ export class ManualUploadService {
                 body[`${fieldsetPrefix}-month`],
                 '/',
                 body[`${fieldsetPrefix}-year`],
-                ' 00:00:01'
+                ' 00:00:01',
             );
         } else {
             return body[`${fieldsetPrefix}-day`]?.concat(
@@ -147,7 +161,7 @@ export class ManualUploadService {
                 body[`${fieldsetPrefix}-month`],
                 '/',
                 body[`${fieldsetPrefix}-year`],
-                ' 00:00:00'
+                ' 00:00:00',
             );
         }
     }
@@ -197,12 +211,12 @@ export class ManualUploadService {
         if (fileHandlingService.getFileExtension(data.fileName) === 'json') {
             return await dataManagementRequests.uploadJSONPublication(
                 data,
-                this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat))
+                this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
             );
         } else {
             return await dataManagementRequests.uploadPublication(
                 data,
-                this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat))
+                this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
             );
         }
     }

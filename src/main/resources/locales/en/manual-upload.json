@@ -61,6 +61,7 @@
         "notFound": "Please enter and select a valid court",
         "minCharactersReq": "Court name must be three characters or more"
     },
+    "listTypeError": "Please select a list type",
     "dateErrors": {
         "blank": "Please enter a valid date",
         "dateRange": "Please make sure 'to' date is after 'from' date"
