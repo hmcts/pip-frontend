@@ -38,6 +38,7 @@ export class PublicationRequests {
                 console.log(`ERROR: ${error.message}`);
             }
         }
+        return null;
     }
 
     public async getPublicationByCaseValue(
