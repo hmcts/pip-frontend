@@ -1,0 +1,24 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+#
+pre-push:
+    scripts:
+        'check-for-unsuppressed-vulns.py':
+            runner: python3
+        commands:
+            audit:
+                run: yarn audit | cat
+pre-commit:
+    parallel: true
+    commands:
+        eslint:
+            glob: '*.{js,ts,jsx,tsx}'
+            run: yarn eslint --fix {staged_files}
+        prettier:
+            glob: '*.{js,ts,jsx,tsx, md, yaml, yml, mdx, json}'
+            run: yarn prettier --write {staged_files}
+        stylelint:
+            glob: '**/*.scss'
+            run: yarn stylelint {staged_files}

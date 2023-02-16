@@ -43,8 +43,8 @@
                                 ],
                                 "sittings": [
                                     {
-                                        "sittingStart": "2022-07-27T09:40:17.496185",
-                                        "sittingEnd": "2022-07-27T10:45:17.496185",
+                                        "sittingStart": "2022-07-27T09:40:17.496Z",
+                                        "sittingEnd": "2022-07-27T10:45:17.496Z",
                                         "hearing": [
                                             {
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
@@ -101,8 +101,8 @@
                                         "channel": ["Remote", "Teams"]
                                     },
                                     {
-                                        "sittingStart": "2022-01-27T08:05:17.496185",
-                                        "sittingEnd": "2022-01-27T10:45:17.496185",
+                                        "sittingStart": "2022-01-27T08:05:17.496Z",
+                                        "sittingEnd": "2022-01-27T10:45:17.496Z",
                                         "hearing": [
                                             {
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
@@ -150,8 +150,8 @@
                                 ],
                                 "sittings": [
                                     {
-                                        "sittingStart": "2022-07-27T09:40:17.496185",
-                                        "sittingEnd": "2022-07-27T10:45:17.496185",
+                                        "sittingStart": "2022-07-27T09:40:17.496Z",
+                                        "sittingEnd": "2022-07-27T10:45:17.496Z",
                                         "hearing": [
                                             {
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
@@ -207,8 +207,8 @@
                                         "channel": ["Remote", "Teams"]
                                     },
                                     {
-                                        "sittingStart": "2022-01-27T08:05:17.496185",
-                                        "sittingEnd": "2022-01-27T10:45:17.496185",
+                                        "sittingStart": "2022-01-27T08:05:17.496Z",
+                                        "sittingEnd": "2022-01-27T10:45:17.496Z",
                                         "hearing": [
                                             {
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
@@ -266,8 +266,8 @@
                                 ],
                                 "sittings": [
                                     {
-                                        "sittingStart": "2022-01-27T09:00:17.496185",
-                                        "sittingEnd": "2022-01-27T10:30:17.496185",
+                                        "sittingStart": "2022-01-27T09:00:17.496Z",
+                                        "sittingEnd": "2022-01-27T10:30:17.496Z",
                                         "hearing": [
                                             {
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
@@ -314,8 +314,8 @@
                                 ],
                                 "sittings": [
                                     {
-                                        "sittingStart": "2022-01-27T13:00:17.496185",
-                                        "sittingEnd": "2022-01-27T14:00:17.496185",
+                                        "sittingStart": "2022-01-27T13:00:17.496Z",
+                                        "sittingEnd": "2022-01-27T14:00:17.496Z",
                                         "hearing": [
                                             {
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
@@ -362,8 +362,8 @@
                                 ],
                                 "sittings": [
                                     {
-                                        "sittingStart": "2022-01-27T15:00:17.496185",
-                                        "sittingEnd": "2022-01-27T15:30:17.496185",
+                                        "sittingStart": "2022-01-27T15:00:17.496Z",
+                                        "sittingEnd": "2022-01-27T15:30:17.496Z",
                                         "hearing": [
                                             {
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
