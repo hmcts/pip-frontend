@@ -171,11 +171,11 @@ describe('Manual upload service', () => {
             expect(errors['courtError']).to.equal('Please enter and select a valid court');
         });
 
-        it('should return missing list type error message', async() => {
+        it('should return missing list type error message', async () => {
             formValues['listType'] = 'EMPTY';
-            const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile)
-            expect(errors['listTypeError']).to.equal('true')
-        })
+            const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
+            expect(errors['listTypeError']).to.equal('true');
+        });
 
         it('should return invalid court error message', async () => {
             formValues['input-autocomplete'] = 'invalidCourt';

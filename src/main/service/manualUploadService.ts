@@ -107,18 +107,24 @@ export class ManualUploadService {
             contentDateError: this.validateDate(
                 this.buildDate(formValues, 'content-date-from'),
                 language,
-                languageFile,
+                languageFile
             ),
             displayDateError: this.validateDates(
                 this.buildDate(formValues, 'display-date-from'),
                 this.buildDate(formValues, 'display-date-to'),
                 language,
-                languageFile,
+                languageFile
             ),
             classificationError: formValues['classification'] ? null : 'true',
-            listTypeError: formValues['listType'] != "EMPTY" ? null: 'true'
+            listTypeError: formValues['listType'] != 'EMPTY' ? null : 'true',
         };
-        if (fields.courtError || fields.contentDateError || fields.displayDateError || fields.classificationError || fields.listTypeError) {
+        if (
+            fields.courtError ||
+            fields.contentDateError ||
+            fields.displayDateError ||
+            fields.classificationError ||
+            fields.listTypeError
+        ) {
             return fields;
         }
         return null;
@@ -145,7 +151,7 @@ export class ManualUploadService {
                 body[`${fieldsetPrefix}-month`],
                 '/',
                 body[`${fieldsetPrefix}-year`],
-                ' 23:59:59',
+                ' 23:59:59'
             );
         } else if (fieldsetPrefix === 'display-date-from') {
             return body[`${fieldsetPrefix}-day`]?.concat(
@@ -153,7 +159,7 @@ export class ManualUploadService {
                 body[`${fieldsetPrefix}-month`],
                 '/',
                 body[`${fieldsetPrefix}-year`],
-                ' 00:00:01',
+                ' 00:00:01'
             );
         } else {
             return body[`${fieldsetPrefix}-day`]?.concat(
@@ -161,7 +167,7 @@ export class ManualUploadService {
                 body[`${fieldsetPrefix}-month`],
                 '/',
                 body[`${fieldsetPrefix}-year`],
-                ' 00:00:00',
+                ' 00:00:00'
             );
         }
     }
@@ -211,12 +217,12 @@ export class ManualUploadService {
         if (fileHandlingService.getFileExtension(data.fileName) === 'json') {
             return await dataManagementRequests.uploadJSONPublication(
                 data,
-                this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
+                this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat))
             );
         } else {
             return await dataManagementRequests.uploadPublication(
                 data,
-                this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
+                this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat))
             );
         }
     }
