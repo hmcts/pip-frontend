@@ -1,124 +1,150 @@
 import sinon from 'sinon';
 import { Response } from 'express';
 import SubscriptionAddController from '../../../main/controllers/SubscriptionAddController';
-import {mockRequest} from '../mocks/mockRequest';
+import { mockRequest } from '../mocks/mockRequest';
 
 const subscriptionAddController = new SubscriptionAddController();
 
 describe('Subscriptions Add Controller', () => {
-  const i18n = {};
-  it('should render the subscription add page', () => {
+    const i18n = {};
+    it('should render the subscription add page', () => {
+        const response = {
+            render: function () {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.query = {};
 
-    const response = { render: function() {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
-    request.query = {};
+        const responseMock = sinon.mock(response);
 
-    const responseMock = sinon.mock(response);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('subscription-add', request.i18n.getDataByLanguage(request.lng)['subscription-add']);
 
-    responseMock.expects('render').once().withArgs('subscription-add', request.i18n.getDataByLanguage(request.lng)['subscription-add']);
+        subscriptionAddController.get(request, response);
 
-    subscriptionAddController.get(request, response);
+        responseMock.verify();
+    });
 
-    responseMock.verify();
-  });
+    it('should pass through error state if error query param is set', () => {
+        const response = {
+            render: function () {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.query = { error: 'true' };
 
-  it('should pass through error state if error query param is set', () => {
+        const responseMock = sinon.mock(response);
 
-    const response = { render: function() {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
-    request.query = {'error': 'true'};
+        const expectedData = {
+            ...i18n['subscription-add'],
+            selectionError: true,
+        };
 
-    const responseMock = sinon.mock(response);
+        responseMock.expects('render').once().withArgs('subscription-add', expectedData);
 
-    const expectedData = {
-      ...i18n['subscription-add'],
-      selectionError: true,
-    };
+        subscriptionAddController.get(request, response);
 
-    responseMock.expects('render').once().withArgs('subscription-add', expectedData);
+        responseMock.verify();
+    });
 
-    subscriptionAddController.get(request, response);
+    it("should render home page if choice is 'case-reference'", () => {
+        const response = {
+            redirect: function () {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.body = { 'subscription-choice': 'case-reference' };
 
-    responseMock.verify();
-  });
+        const responseMock = sinon.mock(response);
 
-  it('should render home page if choice is \'case-reference\'', () => {
+        responseMock.expects('redirect').once().withArgs('/case-reference-number-search');
 
-    const response = { redirect: function() {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
-    request.body = { 'subscription-choice': 'case-reference'};
+        subscriptionAddController.post(request, response);
 
-    const responseMock = sinon.mock(response);
+        responseMock.verify();
+    });
 
-    responseMock.expects('redirect').once().withArgs('/case-reference-number-search');
+    it("should render home page if choice is 'urn'", () => {
+        const response = {
+            redirect: function () {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.body = { 'subscription-choice': 'urn' };
 
-    subscriptionAddController.post(request, response);
+        const responseMock = sinon.mock(response);
 
-    responseMock.verify();
-  });
+        responseMock.expects('redirect').once().withArgs('/subscription-urn-search');
 
-  it('should render home page if choice is \'urn\'', () => {
+        subscriptionAddController.post(request, response);
 
-    const response = { redirect: function() {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
-    request.body = { 'subscription-choice': 'urn'};
+        responseMock.verify();
+    });
 
-    const responseMock = sinon.mock(response);
+    it("should render case name search page if choice is 'name'", () => {
+        const response = {
+            redirect: function () {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.body = { 'subscription-choice': 'name' };
 
-    responseMock.expects('redirect').once().withArgs('/subscription-urn-search');
+        const responseMock = sinon.mock(response);
 
-    subscriptionAddController.post(request, response);
+        responseMock.expects('redirect').once().withArgs('/case-name-search');
 
-    responseMock.verify();
-  });
+        subscriptionAddController.post(request, response);
 
-  it('should render case name search page if choice is \'name\'', () => {
-    const response = { redirect: function() {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
-    request.body = { 'subscription-choice': 'name'};
+        responseMock.verify();
+    });
 
-    const responseMock = sinon.mock(response);
+    it("should render home page if choice is 'court-or-tribunal'", () => {
+        const response = {
+            redirect: function () {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.body = { 'subscription-choice': 'court-or-tribunal' };
 
-    responseMock.expects('redirect').once().withArgs('/case-name-search');
+        const responseMock = sinon.mock(response);
 
-    subscriptionAddController.post(request, response);
+        responseMock.expects('redirect').once().withArgs('/location-name-search');
 
-    responseMock.verify();
-  });
+        subscriptionAddController.post(request, response);
 
-  it('should render home page if choice is \'court-or-tribunal\'', () => {
+        responseMock.verify();
+    });
 
-    const response = { redirect: function() {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
-    request.body = { 'subscription-choice': 'court-or-tribunal'};
+    it('should remain on page and pass error state if no option is selected', () => {
+        const subscriptionAddController = new SubscriptionAddController();
 
-    const responseMock = sinon.mock(response);
+        const response = {
+            render: function () {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.body = { 'subscription-choice': '' };
 
-    responseMock.expects('redirect').once().withArgs('/location-name-search');
+        const responseMock = sinon.mock(response);
 
-    subscriptionAddController.post(request, response);
+        const expectedData = {
+            ...i18n['subscription-add'],
+            selectionError: true,
+        };
 
-    responseMock.verify();
-  });
+        responseMock.expects('render').once().withArgs('subscription-add', expectedData);
 
-  it('should remain on page and pass error state if no option is selected', () => {
-    const subscriptionAddController = new SubscriptionAddController();
+        subscriptionAddController.post(request, response);
 
-    const response = { render: function() {return '';}} as unknown as Response;
-    const request = mockRequest(i18n);
-    request.body = { 'subscription-choice': ''};
-
-    const responseMock = sinon.mock(response);
-
-    const expectedData = {
-      ...i18n['subscription-add'],
-      selectionError: true,
-    };
-
-    responseMock.expects('render').once().withArgs('subscription-add', expectedData);
-
-    subscriptionAddController.post(request, response);
-
-    responseMock.verify();
-  });
+        responseMock.verify();
+    });
 });

@@ -11,18 +11,23 @@ import { civilFamilyAndMixedListService } from '../../main/service/listManipulat
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/dailyCauseList.json'), 'utf-8');
 const dailyReferenceData = JSON.parse(rawData);
+
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/returnedArtefacts.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'CIVIL_DAILY_CAUSE_LIST';
+
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(dailyReferenceData);
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(dailyReferenceData);
-sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilFamilyMixedListData').resolves(dailyReferenceData);
-sinon.stub(LocationService.prototype, 'getLocationById').resolves({name: 'courtName'});
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metaData);
+sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilListData').resolves(dailyReferenceData);
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
 
 describe('Daily Cause List Page', () => {
-  describe('on GET', () => {
-    test('should return daily cause list page', async () => {
-      app.request['user'] = {userId: '2'};
-      await request(app)
-        .get('/daily-cause-list?artefactId=test')
-        .expect((res) => expect(res.status).to.equal(200));
+    describe('on GET', () => {
+        test('should return daily cause list page', async () => {
+            app.request['user'] = { userId: '2' };
+            await request(app)
+                .get('/daily-cause-list?artefactId=test')
+                .expect(res => expect(res.status).to.equal(200));
+        });
     });
-  });
 });

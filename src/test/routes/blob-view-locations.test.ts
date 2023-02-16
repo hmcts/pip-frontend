@@ -25,6 +25,6 @@ describe('blob view locations page', () => {
       await request(app)
         .get('/blob-view-locations')
         .expect((res) => expect(res.status).to.equal(200));
+      });
     });
-  });
 });

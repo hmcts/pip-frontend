@@ -29,3 +29,12 @@ manualUpload/
 /coverage
 e2e-results/
 /functional-output/
+
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.yarn

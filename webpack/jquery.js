@@ -6,12 +6,10 @@ const root = path.resolve(packageJson, '..', 'dist');
 const javascript = path.resolve(root, 'jquery.js');
 
 const copyJqueryAssets = new CopyWebpackPlugin({
-  patterns: [
-    { from: javascript, to: 'assets/js' },
-  ],
+    patterns: [{ from: javascript, to: 'assets/js' }],
 });
 
 module.exports = {
-  paths: { template: root, javascript },
-  plugins: [copyJqueryAssets],
+    paths: { template: root, javascript },
+    plugins: [copyJqueryAssets],
 };

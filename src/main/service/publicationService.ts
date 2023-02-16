@@ -1,13 +1,12 @@
-import {PublicationRequests} from '../resources/requests/publicationRequests';
-import {Artefact} from '../models/Artefact';
-import {SearchObject} from '../models/searchObject';
-import {ListType} from '../models/listType';
+import { PublicationRequests } from '../resources/requests/publicationRequests';
+import { Artefact } from '../models/Artefact';
+import { SearchObject } from '../models/searchObject';
+import { ListType } from '../models/listType';
 
 const listData = require('../resources/listLookup.json');
 const publicationRequests = new PublicationRequests();
 
 export class PublicationService {
-
   public async getIndividualPublicationMetadata(artefactId, userId: string, admin = false): Promise<any> {
     return publicationRequests.getIndividualPublicationMetadata(artefactId, userId, admin);
   }
@@ -101,12 +100,12 @@ export class PublicationService {
    * @return Returns the language to render the page in options are: en, cy, bill
    */
   public languageToLoadPageIn(listLanguage: string, userLanguage: string): string {
-    if ((listLanguage === 'BI_LINGUAL') ||
-      (listLanguage === 'ENGLISH' && userLanguage !== 'en') ||
-      (listLanguage === 'WELSH' && userLanguage !== 'cy')) {
-      return 'bill';
-    } else {
-      return userLanguage;
-    }
+      if ((listLanguage === 'BI_LINGUAL') ||
+          (listLanguage === 'ENGLISH' && userLanguage !== 'en') ||
+          (listLanguage === 'WELSH' && userLanguage !== 'cy')) {
+          return 'bill';
+      } else {
+          return userLanguage;
+      }
   }
 }

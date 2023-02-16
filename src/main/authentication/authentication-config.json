@@ -1,7 +1,7 @@
 {
-  "RESPONSE_TYPE": "code",
-  "RESPONSE_MODE": "form_post",
-  "POLICY": "B2C_1_SignInUserFlow",
-  "ADMIN_POLICY": "B2C_1_SignInAdminUserFlow",
-  "FORGOT_PASSWORD_POLICY": "B2C_1A_DEMO_PASSWORDRESET_ACCOUNTEXISTS"
+    "RESPONSE_TYPE": "code",
+    "RESPONSE_MODE": "form_post",
+    "POLICY": "B2C_1_SignInUserFlow",
+    "ADMIN_POLICY": "B2C_1_SignInAdminUserFlow",
+    "FORGOT_PASSWORD_POLICY": "B2C_1A_DEMO_PASSWORDRESET_ACCOUNTEXISTS"
 }

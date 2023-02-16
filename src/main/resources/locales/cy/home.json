@@ -1,29 +1,27 @@
 {
-  "title": "Gwrandawiadau llys a thribiwnlys",
-  "message": "Gallwch ddefnyddio'r gwasanaeth hwn i gael gwybodaeth am:",
-  "betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=/\">adborth</a> yn ein helpu i’w wella",
-  "bullets": [
-    "Achosion Gweithdrefn Un Ynad, gan gynnwys trwyddedu teledu a mân droseddau traffig megis goryrru"
-  ],
-  "moreMessage": "Bydd mwy o lysoedd a thribiwnlysoedd ar gael ymhen amser.",
-  "legalMessage": "Gall gweithwyr proffesiynol ym maes y gyfraith a'r cyfryngau",
-  "signInLink": "Mewngofnodi",
-  "welshMessage": "Mae'r gwasanaeth hwn hefyd ar gael yn",
-  "languageLink": "Saesneg (English)",
-  "continue": "Parhau",
-  "beforeMessage": "Cyn i chi ddechrau",
-  "scoAndNI": "Os ydych yn byw yn Yr Alban neu Gogledd Iwerddon",
-  "contactMessage": "Cysylltwch â:",
-  "bulletOptions": [
-    {
-      "linkMessage": "gwefan Llysoedd Yr Alban",
-      "message": "ar gyfer rhai Llysoedd a Thribiwnlysoedd yn Yr Alban",
-      "link": "https://www.scotcourts.gov.uk/"
-    },
-    {
-      "linkMessage": "Gwasanaeth Llysoedd a Thribiwnlysoedd Gogledd Iwerddon",
-      "message": "ar gyfer llysoedd a thribiwnlysoedd yng Ngogledd Iwerddon",
-      "link": "https://www.courtsni.gov.uk/en-GB/ContactDetails/Pages/default.aspx"
-    }
-  ]
+    "title": "Gwrandawiadau llys a thribiwnlys",
+    "message": "Gallwch ddefnyddio'r gwasanaeth hwn i gael gwybodaeth am:",
+    "betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=/\">adborth</a> yn ein helpu i’w wella",
+    "bullets": ["Achosion Gweithdrefn Un Ynad, gan gynnwys trwyddedu teledu a mân droseddau traffig megis goryrru"],
+    "moreMessage": "Bydd mwy o lysoedd a thribiwnlysoedd ar gael ymhen amser.",
+    "legalMessage": "Gall gweithwyr proffesiynol ym maes y gyfraith a'r cyfryngau",
+    "signInLink": "Mewngofnodi",
+    "welshMessage": "Mae'r gwasanaeth hwn hefyd ar gael yn",
+    "languageLink": "Saesneg (English)",
+    "continue": "Parhau",
+    "beforeMessage": "Cyn i chi ddechrau",
+    "scoAndNI": "Os ydych yn byw yn Yr Alban neu Gogledd Iwerddon",
+    "contactMessage": "Cysylltwch â:",
+    "bulletOptions": [
+        {
+            "linkMessage": "gwefan Llysoedd Yr Alban",
+            "message": "ar gyfer rhai Llysoedd a Thribiwnlysoedd yn Yr Alban",
+            "link": "https://www.scotcourts.gov.uk/"
+        },
+        {
+            "linkMessage": "Gwasanaeth Llysoedd a Thribiwnlysoedd Gogledd Iwerddon",
+            "message": "ar gyfer llysoedd a thribiwnlysoedd yng Ngogledd Iwerddon",
+            "link": "https://www.courtsni.gov.uk/en-GB/ContactDetails/Pages/default.aspx"
+        }
+    ]
 }

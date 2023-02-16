@@ -17,46 +17,65 @@ cacheStub.withArgs('2', 'cases').resolves(['cached case']);
 cacheStub.withArgs('2', 'courts').resolves(['cached court']);
 cacheStub.withArgs('3', 'cases').resolves([]);
 cacheStub.withArgs('3', 'courts').resolves([]);
-const response = {render: () => {return '';}} as unknown as Response;
+const response = {
+    render: () => {
+        return '';
+    },
+} as unknown as Response;
 const i18n = {
-  'subscription-confirmed': {},
-  'error': {},
+    'subscription-confirmed': {},
+    error: {},
 };
 
 describe('Subscriptions Confirmed Controller', () => {
-  it('should render confirmed page if subscribed successfully', () => {
-    const request = mockRequest(i18n);
-    request.user = {userId: '1'};
-    const responseMock = sinon.mock(response);
+    it('should render confirmed page if subscribed successfully', () => {
+        const request = mockRequest(i18n);
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('subscription-confirmed', {...i18n['subscription-confirmed']});
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('subscription-confirmed', {
+                ...i18n['subscription-confirmed'],
+            });
 
-    subscriptionConfirmedController.post(request, response).then(() => {
-      responseMock.verify();
+        subscriptionConfirmedController.post(request, response).then(() => {
+            responseMock.verify();
+        });
     });
-  });
 
-  it('should render error page if subscription failed', () => {
-    const request = mockRequest(i18n);
-    request.user = {userId: '2'};
-    const responseMock = sinon.mock(response);
+    it('should render error page if subscription failed', () => {
+        const request = mockRequest(i18n);
+        request.user = { userId: '2' };
+        const responseMock = sinon.mock(response);
 
-    responseMock.expects('render').once().withArgs('error', {...i18n.error});
-    subscriptionConfirmedController.post(request, response).then(() => {
-      responseMock.verify();
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('error', { ...i18n.error });
+        subscriptionConfirmedController.post(request, response).then(() => {
+            responseMock.verify();
+        });
     });
-  });
 
-  it('should redirect to pending subscriptions if there are no cached subscriptions', () => {
-    const request = mockRequest(i18n);
-    request.user = {userId: '3'};
-    const response = {render: () => {return '';}, redirect: () => {return '';}} as unknown as Response;
-    const responseMock = sinon.mock(response);
+    it('should redirect to pending subscriptions if there are no cached subscriptions', () => {
+        const request = mockRequest(i18n);
+        request.user = { userId: '3' };
+        const response = {
+            render: () => {
+                return '';
+            },
+            redirect: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const responseMock = sinon.mock(response);
 
-    responseMock.expects('redirect').once().withArgs('pending-subscriptions?no-subscriptions=true');
+        responseMock.expects('redirect').once().withArgs('pending-subscriptions?no-subscriptions=true');
 
-    subscriptionConfirmedController.post(request, response).then(() => {
-      responseMock.verify();
+        subscriptionConfirmedController.post(request, response).then(() => {
+            responseMock.verify();
+        });
     });
-  });
 });

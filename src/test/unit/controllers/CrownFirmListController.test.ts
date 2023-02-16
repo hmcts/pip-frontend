@@ -1,13 +1,13 @@
 import sinon from 'sinon';
-import {Response} from 'express';
+import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../main/service/publicationService';
-import {mockRequest} from '../mocks/mockRequest';
-import {LocationService} from '../../../main/service/locationService';
-import {CrimeListsService} from '../../../main/service/listManipulation/CrimeListsService';
+import { PublicationService } from '../../../main/service/publicationService';
+import { mockRequest } from '../mocks/mockRequest';
+import { LocationService } from '../../../main/service/locationService';
+import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
 import CrownFirmListController from '../../../main/controllers/CrownFirmListController';
-import {CrownFirmListService} from '../../../main/service/listManipulation/crownFirmListService';
+import { CrownFirmListService } from '../../../main/service/listManipulation/crownFirmListService';
 import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 
 const fullyProcessedData = fs.readFileSync(path.resolve(__dirname, '../mocks/firmlistfullyprocessed.json'), 'utf-8');
@@ -27,7 +27,7 @@ const crownFirmListController = new CrownFirmListController();
 const crownFirmListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const crownFirmListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[6]);
-sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilFamilyMixedListData').returns(listData);
+sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').returns(listData);
 sinon.stub(CrownFirmListService.prototype, 'splitOutFirmListData').returns(listData);
@@ -41,73 +41,69 @@ crownFirmListMetaDataStub.withArgs(artefactId).resolves(metaData);
 crownFirmListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
-  'crown-firm-list': {},
-  'list-template': {},
+    'crown-firm-list': {},
+    'list-template': {},
 };
 
 describe('Crown Firm List Controller', () => {
+    const response = {
+        render: () => {
+            return '';
+        },
+    } as unknown as Response;
+    const request = mockRequest(i18n);
+    request.path = '/crown-firm-list';
 
-  const response = {
-    render: () => {
-      return '';
-    },
-  } as unknown as Response;
-  const request = mockRequest(i18n);
-  request.path = '/crown-firm-list';
+    afterEach(() => {
+        sinon.restore();
+    });
 
-  afterEach(() => {
-    sinon.restore();
-  });
+    it('should render the crown firm list page', async () => {
+        request.query = { artefactId: artefactId };
+        request.user = { userId: '1' };
 
-  it('should render the crown firm list page', async () => {
-    request.query = {artefactId: artefactId};
-    request.user = {userId: '1'};
+        const responseMock = sinon.mock(response);
 
-    const responseMock = sinon.mock(response);
+        const expectedData = {
+            ...i18n['crown-firm-list'],
+            ...i18n['list-template'],
+            listData,
+            allocated: JSON.parse(fullyProcessedData),
+            contentDate: '14 February 2022',
+            publishedDate: '03 March 2023',
+            startDate: '12 April 2023',
+            endDate: '15 April 2023',
+            publishedTime: '2:07pm',
+            provenance: 'prov1',
+            version: '3.4',
+            courtName: 'Altrincham County Court and Family Court',
+            bill: false,
+        };
 
-    const expectedData = {
-      ...i18n['crown-firm-list'],
-      ...i18n['list-template'],
-      listData,
-      allocated: JSON.parse(fullyProcessedData),
-      contentDate: '14 February 2022',
-      publishedDate: '03 March 2023',
-      startDate: '12 April 2023',
-      endDate: '15 April 2023',
-      publishedTime: '2:07pm',
-      provenance: 'prov1',
-      version: '3.4',
-      courtName: 'Altrincham County Court and Family Court',
-      bill: false,
-    };
+        responseMock.expects('render').once().withArgs('crown-firm-list', expectedData);
 
-    responseMock.expects('render').once().withArgs('crown-firm-list', expectedData);
+        await crownFirmListController.get(request, response);
+        return responseMock.verify();
+    });
 
-    await crownFirmListController.get(request, response);
-    return responseMock.verify();
-  });
+    it('should render error page is query param is empty', async () => {
+        request.query = {};
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
 
-  it('should render error page is query param is empty', async () => {
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-    request.query = {};
-    request.user = {userId: '1'};
-    const responseMock = sinon.mock(response);
+        await crownFirmListController.get(request, response);
+        return responseMock.verify();
+    });
 
-    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+    it('should render error page if list is not allowed to view by the user', async () => {
+        request.query = { artefactId: artefactId };
+        const responseMock = sinon.mock(response);
 
-    await crownFirmListController.get(request, response);
-    return responseMock.verify();
-  });
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-  it('should render error page if list is not allowed to view by the user', async () => {
-
-    request.query = {artefactId: artefactId};
-    const responseMock = sinon.mock(response);
-
-    responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
-
-    await crownFirmListController.get(request, response);
-    return responseMock.verify();
-  });
-
+        await crownFirmListController.get(request, response);
+        return responseMock.verify();
+    });
 });

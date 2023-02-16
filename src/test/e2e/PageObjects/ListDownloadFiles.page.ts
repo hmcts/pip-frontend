@@ -1,4 +1,3 @@
-import {CommonPage} from './Common.page';
+import { CommonPage } from './Common.page';
 
-export class ListDownloadFilesPage extends CommonPage {
-}
+export class ListDownloadFilesPage extends CommonPage {}
