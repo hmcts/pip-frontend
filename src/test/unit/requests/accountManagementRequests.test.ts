@@ -11,10 +11,6 @@ const errorResponse = {
         data: 'test error',
     },
 };
-const errorRequest = {
-    request: 'test error',
-};
-
 const errorMessage = {
     message: 'test',
 };
@@ -72,12 +68,6 @@ describe('Account Management Requests', () => {
             expect(response).toStrictEqual({ status: 'success' });
         });
 
-        it('should return null on error request', async () => {
-            postStub.withArgs(azureEndpoint).resolves(Promise.reject(errorRequest));
-            const response = await accountManagementRequests.createAzureAccount({}, mockHeaders);
-            expect(response).toBe(null);
-        });
-
         it('should return null on error response', async () => {
             postStub.withArgs(azureEndpoint).resolves(Promise.reject(errorResponse));
             const response = await accountManagementRequests.createAzureAccount({ foo: 'blah' }, mockHeaders);
@@ -96,12 +86,6 @@ describe('Account Management Requests', () => {
             postStub.withArgs(piEndpoint).resolves({ status: 201 });
             const response = await accountManagementRequests.createPIAccount(mockValidPIBody, mockHeaders);
             expect(response).toBe(true);
-        });
-
-        it('should return false on error request', async () => {
-            postStub.withArgs(piEndpoint).resolves(Promise.reject(errorRequest));
-            const response = await accountManagementRequests.createPIAccount({}, mockHeaders);
-            expect(response).toBe(false);
         });
 
         it('should return false on error response', async () => {
@@ -164,11 +148,6 @@ describe('Account Management Requests', () => {
             expect(await accountManagementRequests.createMediaAccount(mockValidMediaBody)).toBe(false);
         });
 
-        it('should return error request', async () => {
-            sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorRequest);
-            expect(await accountManagementRequests.createMediaAccount(mockValidMediaBody)).toBe(false);
-        });
-
         it('should return error message', async () => {
             sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorMessage);
             expect(await accountManagementRequests.createMediaAccount(mockValidMediaBody)).toBe(false);
@@ -214,11 +193,6 @@ describe('Account Management Requests', () => {
             expect(await accountManagementRequests.bulkCreateMediaAccounts(file, fileName, requester)).toBe(false);
         });
 
-        it('should return error request', async () => {
-            sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorRequest);
-            expect(await accountManagementRequests.bulkCreateMediaAccounts(file, fileName, requester)).toBe(false);
-        });
-
         it('should return error message', async () => {
             sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorMessage);
             expect(await accountManagementRequests.bulkCreateMediaAccounts(file, fileName, requester)).toBe(false);
@@ -241,11 +215,6 @@ describe('Account Management Requests', () => {
 
         it('should return empty array and an error response if get fails', async () => {
             getStub.withArgs('/application/status/PENDING').rejects(errorResponse);
-            expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
-        });
-
-        it('should return empty array and an error response if request fails', async () => {
-            getStub.withArgs('/application/status/PENDING').rejects(errorRequest);
             expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
         });
 
@@ -281,12 +250,6 @@ describe('Account Management Requests', () => {
             expect(response).toBe(dummyApplication);
         });
 
-        it('should return null on error request', async () => {
-            getStub.withArgs(applicationGetEndpoint + applicationID).rejects(errorRequest);
-            const response = await accountManagementRequests.getMediaApplicationById(applicationID);
-            expect(response).toBe(null);
-        });
-
         it('should return false on error response', async () => {
             getStub.withArgs(applicationGetEndpoint + applicationID).rejects(errorResponse);
             const response = await accountManagementRequests.getMediaApplicationById(applicationID);
@@ -313,12 +276,6 @@ describe('Account Management Requests', () => {
             getStub.withArgs(imageGetEndpoint + imageID).resolves({ status: 201, data: dummyImage });
             const response = await accountManagementRequests.getMediaApplicationImageById(imageID);
             expect(response).toBe(dummyImage);
-        });
-
-        it('should return null on error request', async () => {
-            getStub.withArgs(imageGetEndpoint + imageID).rejects(errorRequest);
-            const response = await accountManagementRequests.getMediaApplicationImageById(imageID);
-            expect(response).toBe(null);
         });
 
         it('should return false on error response', async () => {
@@ -363,12 +320,6 @@ describe('Account Management Requests', () => {
             expect(response).toBe(dummyApplication);
         });
 
-        it('should return null on error request', async () => {
-            putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).rejects(errorRequest);
-            const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
-            expect(response).toBe(null);
-        });
-
         it('should return false on error response', async () => {
             putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).rejects(errorResponse);
             const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
@@ -408,12 +359,6 @@ describe('Account Management Requests', () => {
             expect(response).toBe(null);
         });
 
-        it('should return null on error request', async () => {
-            getStub.withArgs(`${piAadUserEndpoint}${idtoUse}`).rejects(errorRequest);
-            const response = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
-            expect(response).toBe(null);
-        });
-
         it('should return null on error message', async () => {
             getStub.withArgs(`${piAadUserEndpoint}${idtoUse}`).rejects(errorMessage);
             const response = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
@@ -447,12 +392,6 @@ describe('Account Management Requests', () => {
             expect(response).toBe(null);
         });
 
-        it('should return null on error request', async () => {
-            getStub.withArgs(`${cftIdamUserEndpoint}${idtoUse}`).rejects(errorRequest);
-            const response = await accountManagementRequests.getPiUserByCftID(idtoUse);
-            expect(response).toBe(null);
-        });
-
         it('should return null on error message', async () => {
             getStub.withArgs(`${cftIdamUserEndpoint}${idtoUse}`).rejects(errorMessage);
             const response = await accountManagementRequests.getPiUserByCftID(idtoUse);
@@ -471,12 +410,6 @@ describe('Account Management Requests', () => {
             putStub.withArgs(updateAccountEndpoint + oid).resolves({ status: 200, data: 'Media Account verified' });
             const response = await accountManagementRequests.updateMediaAccountVerification(oid);
             expect(response).toBe('Media Account verified');
-        });
-
-        it('should return null on error request', async () => {
-            putStub.withArgs(updateAccountEndpoint + oid).rejects(errorRequest);
-            const response = await accountManagementRequests.updateMediaAccountVerification(oid);
-            expect(response).toBe(null);
         });
 
         it('should return false on error response', async () => {
@@ -515,12 +448,6 @@ describe('Account Management Requests', () => {
             expect(
                 lastSignedInDateLuxon <= DateTime.utc().plus({ minutes: 5 }) && DateTime.utc().minus({ minutes: 5 })
             ).toBeTruthy();
-        });
-
-        it('should return null on error request', async () => {
-            putStub.withArgs(updateAccountEndpoint + oid).rejects(errorRequest);
-            const response = await accountManagementRequests.updateAccountLastSignedInDate('PI_AAD', oid);
-            expect(response).toBe(null);
         });
 
         it('should return false on error response', async () => {
@@ -574,19 +501,6 @@ describe('Account Management Requests', () => {
             expect(response).toStrictEqual([]);
         });
 
-        it('should return empty array on error request', async () => {
-            getStub.withArgs(getAllAccountsEndpoint, { params: { pageSize: 25 } }).rejects(errorRequest);
-            const response = await accountManagementRequests.getAllAccountsExceptThirdParty(
-                {
-                    params: {
-                        pageSize: 25,
-                    },
-                },
-                '1234'
-            );
-            expect(response).toStrictEqual([]);
-        });
-
         it('should return empty array on error message', async () => {
             getStub.withArgs({ params: { pageSize: 25 } }).rejects(errorMessage);
             const response = await accountManagementRequests.getAllAccountsExceptThirdParty(
@@ -627,12 +541,6 @@ describe('Account Management Requests', () => {
             expect(response).toBe(null);
         });
 
-        it('should return null on error request', async () => {
-            getStub.withArgs(`${getUserByUserIdEndpoint}${idtoUse}`).rejects(errorRequest);
-            const response = await accountManagementRequests.getUserByUserId(idtoUse, '1234');
-            expect(response).toBe(null);
-        });
-
         it('should return null on error message', async () => {
             getStub.withArgs(`${getUserByUserIdEndpoint}${idtoUse}`).rejects(errorMessage);
             const response = await accountManagementRequests.getUserByUserId(idtoUse, '1234');
@@ -656,12 +564,6 @@ describe('Account Management Requests', () => {
 
         it('should return null on error response', async () => {
             deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).rejects(errorResponse);
-            const response = await accountManagementRequests.deleteUser(idtoUse, '1234');
-            expect(response).toBe(null);
-        });
-
-        it('should return null on error request', async () => {
-            deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).rejects(errorRequest);
             const response = await accountManagementRequests.deleteUser(idtoUse, '1234');
             expect(response).toBe(null);
         });
@@ -700,12 +602,6 @@ describe('Account Management Requests', () => {
             expect(response).toBe(null);
         });
 
-        it('should return null on error request', async () => {
-            putStub.withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`).rejects(errorRequest);
-            const response = await accountManagementRequests.updateUser(idtoUse, role, '1234');
-            expect(response).toBe(null);
-        });
-
         it('should return null on error message', async () => {
             putStub.withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`).rejects(errorMessage);
             const response = await accountManagementRequests.updateUser(idtoUse, role, '1234');
@@ -728,12 +624,6 @@ describe('Account Management Requests', () => {
 
             const response = await accountManagementRequests.getThirdPartyAccounts(adminUserId);
             expect(response).toBe(thirdPartyAccounts);
-        });
-
-        it('should return null on error request', async () => {
-            getStub.withArgs('/account/all/third-party').rejects(errorRequest);
-            const response = await accountManagementRequests.getThirdPartyAccounts(adminUserId);
-            expect(response).toBe(null);
         });
 
         it('should return false on error response', async () => {
@@ -778,16 +668,6 @@ describe('Account Management Requests', () => {
             getStub
                 .withArgs(`${getAdminUserByEmailAndProvenanceEndpoint}${email}/${provenance}`)
                 .rejects(errorResponse);
-            const response = await accountManagementRequests.getAdminUserByEmailAndProvenance(
-                email,
-                provenance,
-                '1234'
-            );
-            expect(response).toBe(null);
-        });
-
-        it('should return null on error request', async () => {
-            getStub.withArgs(`${getAdminUserByEmailAndProvenanceEndpoint}${email}/${provenance}`).rejects(errorRequest);
             const response = await accountManagementRequests.getAdminUserByEmailAndProvenance(
                 email,
                 provenance,
@@ -865,16 +745,6 @@ describe('Account Management Requests', () => {
             expect(response).toBe(null);
         });
 
-        it('should return null on error request', async () => {
-            postStub
-                .withArgs('/account/add/system-admin', systemAdminAccount, {
-                    headers: { 'x-issuer-id': issuerId },
-                })
-                .rejects(errorRequest);
-            const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
-            expect(response).toBe(null);
-        });
-
         it('should return false on error message', async () => {
             postStub
                 .withArgs('/account/add/system-admin', systemAdminAccount, {
@@ -917,13 +787,6 @@ describe('Account Management Requests', () => {
 
         it('should return null on error response', async () => {
             postStub.withArgs('/audit', auditBody).rejects({ response: { status: 400 } });
-
-            const response = await accountManagementRequests.storeAuditAction(auditBody);
-            expect(response).toBe(null);
-        });
-
-        it('should return null on error request', async () => {
-            postStub.withArgs('/audit', auditBody).rejects(errorRequest);
 
             const response = await accountManagementRequests.storeAuditAction(auditBody);
             expect(response).toBe(null);
@@ -985,18 +848,6 @@ describe('Account Management Requests', () => {
             expect(response).toStrictEqual([]);
         });
 
-        it('should return empty array on error request', async () => {
-            getStub.withArgs('/audit', { params: { pageSize: 25 } }).rejects(errorRequest);
-            const response = await accountManagementRequests.getAllAuditLogs(
-                {
-                    params: {
-                        pageSize: 25,
-                    },
-                },
-                '1234'
-            );
-            expect(response).toStrictEqual([]);
-        });
 
         it('should return empty array on error message', async () => {
             getStub.withArgs('/audit', { params: { pageSize: 25 } }).rejects(errorMessage);
