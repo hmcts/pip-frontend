@@ -144,12 +144,40 @@ describe('Account Management Requests', () => {
         });
 
         it('should return error response', async () => {
-            sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorResponse);
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return {
+                                    set(): any {
+                                        return { attach: sinon.stub().rejects(errorResponse) };
+                                    },
+                                };
+                            },
+                        };
+                    },
+                };
+            });
             expect(await accountManagementRequests.createMediaAccount(mockValidMediaBody)).toBe(false);
         });
 
         it('should return error message', async () => {
-            sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorMessage);
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return {
+                                    set(): any {
+                                        return { attach: sinon.stub().rejects(errorMessage) };
+                                    },
+                                };
+                            },
+                        };
+                    },
+                };
+            });
             expect(await accountManagementRequests.createMediaAccount(mockValidMediaBody)).toBe(false);
         });
     });
@@ -189,12 +217,40 @@ describe('Account Management Requests', () => {
         });
 
         it('should return error response', async () => {
-            sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorResponse);
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return {
+                                    set(): any {
+                                        return { attach: sinon.stub().rejects(errorResponse) };
+                                    },
+                                };
+                            },
+                        };
+                    },
+                };
+            });
             expect(await accountManagementRequests.bulkCreateMediaAccounts(file, fileName, requester)).toBe(false);
         });
 
         it('should return error message', async () => {
-            sinon.stub(superagent, 'post').withArgs(mockValidMediaBody).rejects(errorMessage);
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return {
+                                    set(): any {
+                                        return { attach: sinon.stub().rejects(errorMessage) };
+                                    },
+                                };
+                            },
+                        };
+                    },
+                };
+            });
             expect(await accountManagementRequests.bulkCreateMediaAccounts(file, fileName, requester)).toBe(false);
         });
     });
