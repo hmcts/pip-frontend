@@ -303,3 +303,27 @@ describe('archive publication', () => {
         expect(await pubRequests.archivePublication('abc3', 'joe@bloggs.com')).toBe(false);
     });
 });
+
+describe('Get noMatch publications', () => {
+    it('should return data on successful get', async () => {
+        dataManagementStub.withArgs('/publication/no-match').resolves(successResponse);
+        expect(await pubRequests.getNoMatchPublications()).toBe(successResponse.data);
+    });
+
+    it('should handle error response from returned service returning empty array', async () => {
+        dataManagementStub.withArgs('/publication/no-match').rejects(errorResponse);
+        expect(await pubRequests.getNoMatchPublications()).toStrictEqual([]);
+    });
+
+    it('should handle error request from returned service returning empty array', async () => {
+        dataManagementStub.withArgs('/publication/no-match').rejects(errorRequest);
+        expect(await pubRequests.getNoMatchPublications()).toStrictEqual([]);
+    });
+
+    it('should handle error request from returned service returning empty array', async () => {
+        dataManagementStub.withArgs('/publication/no-match').rejects(errorMessage);
+        expect(await pubRequests.getNoMatchPublications()).toStrictEqual([]);
+    });
+});
+
+
