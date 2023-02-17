@@ -16,7 +16,7 @@ export default class BlobViewPublicationsController {
 
             // reusing summary-of-pubs language file and service as this is essentially the same kind of page.
             // If the location being asked for is noMatch we do not need to request data from the API as it is not a real location
-            const noMatchArtefact = locationId.toString() === 'noMatch'
+            const noMatchArtefact = locationId.toString() === 'noMatch';
             if (!noMatchArtefact) {
                 court = await locationService.getLocationById(parseInt(locationId.toString()));
                 locationName = locationService.findCourtName(court, req.lng as string, 'summary-of-publications');

@@ -16,12 +16,10 @@ export default class BlobViewJsonController {
             const listTypes = publicationService.getListTypes();
             const options: FormatOptions = { indent: 3, lineNumbers: true };
 
-
             const data = await publicationService.getIndividualPublicationJson(
                 req.query['artefactId'],
                 req.user?.['userId']
             );
-
 
             const jsonData: string = prettyPrintJson.toHtml(data, options);
 
@@ -32,7 +30,7 @@ export default class BlobViewJsonController {
 
             const noMatchArtefact = metadata.locationId.toString().includes('NoMatch');
             let courtName = '';
-            if(!noMatchArtefact) {
+            if (!noMatchArtefact) {
                 courtName = (await locationService.getLocationById(parseInt(metadata.locationId.toString()))).name;
             } else {
                 courtName = 'No match artefacts';
@@ -56,7 +54,7 @@ export default class BlobViewJsonController {
                 metadata,
                 jsonData,
                 listUrl,
-                noMatchArtefact
+                noMatchArtefact,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
