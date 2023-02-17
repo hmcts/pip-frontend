@@ -35,17 +35,17 @@ describe('Channel Management requests', () => {
             expect(await channelManagementRequests.getStoredFiles('abc', { 'x-user-id': '1234' })).toEqual(dummyData);
         });
 
-        it('should return empty array and an error response if get fails', async () => {
+        it('should return null and an error response if get fails', async () => {
             getStub.withArgs(getStoredFilesEndpoint).rejects(errorResponse);
             expect(await channelManagementRequests.getStoredFiles('abc', { 'x-user-id': '1234' })).toEqual(null);
         });
 
-        it('should return empty array and an error response if request fails', async () => {
+        it('should return null and an error request if request fails', async () => {
             getStub.withArgs(getStoredFilesEndpoint).rejects(errorRequest);
             expect(await channelManagementRequests.getStoredFiles('abc', { 'x-user-id': '1234' })).toEqual(null);
         });
 
-        it('should return empty array and an error response if request fails', async () => {
+        it('should return null and an error message if request fails', async () => {
             getStub.withArgs(getStoredFilesEndpoint).rejects(errorMessage);
             expect(await channelManagementRequests.getStoredFiles('abc', { 'x-user-id': '1234' })).toEqual(null);
         });
