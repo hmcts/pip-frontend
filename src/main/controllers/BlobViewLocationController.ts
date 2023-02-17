@@ -13,8 +13,9 @@ export default class BlobViewLocationController {
         if (listOfLocations && counts) {
             const dictionaryOfLocations = new Map();
             for (const loc of listOfLocations) {
-                dictionaryOfLocations.set(loc.name, [loc.locationId, counts.get(loc.locationId)]);
+                dictionaryOfLocations.set(loc.name, [loc.locationId, counts.get(String(loc.locationId))]);
             }
+            dictionaryOfLocations.set('No match artefacts', ['noMatch', counts.get(String('noMatch'))]);
             res.render('blob-view-locations', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-locations']),
                 dictionaryOfLocations: dictionaryOfLocations,
