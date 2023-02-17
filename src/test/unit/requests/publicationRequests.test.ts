@@ -325,5 +325,3 @@ describe('Get noMatch publications', () => {
         expect(await pubRequests.getNoMatchPublications()).toStrictEqual([]);
     });
 });
-
-
