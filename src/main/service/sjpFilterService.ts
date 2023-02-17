@@ -80,21 +80,25 @@ export class SjpFilterService {
      * @private
      */
     private filterCases(allCases, filterOptions) {
-        const postcodeFilters = [];
-        const prosecutorFilters = [];
+        return this.doFiltering(
+            allCases,
+            this.getActiveFilters(filterOptions.postcodes),
+            this.getActiveFilters(filterOptions.prosecutors)
+        );
+    }
 
-        filterOptions.postcodes
+    private getActiveFilters(filterOptions): any {
+        const activeFilters = [];
+
+        filterOptions
             .filter(item => item.checked)
             .forEach(item => {
-                postcodeFilters.push(item.value);
+                activeFilters.push(item.value);
             });
+        return activeFilters;
+    }
 
-        filterOptions.prosecutors
-            .filter(item => item.checked)
-            .forEach(item => {
-                prosecutorFilters.push(item.value);
-            });
-
+    private doFiltering(allCases, postcodeFilters, prosecutorFilters) {
         const filteredCases = [];
         allCases.forEach(item => {
             const formattedPostcode = item.postcode.replace(replaceRegex, '');
