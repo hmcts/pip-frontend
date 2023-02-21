@@ -512,7 +512,7 @@ describe('Bulk Unsubscribe Page', () => {
             const subscriptionCaseRowCells = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__cell');
-            expect(subscriptionCaseRowCells[0].innerHTML).to.be.empty;
+            expect(subscriptionCaseRowCells[0].innerHTML).contains('<p class="govuk-body bulk-delete-row"></p>');
             expect(subscriptionCaseRowCells[1].innerHTML).contains('N363N6R4OG');
             expect(subscriptionCaseRowCells[2].innerHTML).contains(expectedRowDateAdded);
 
