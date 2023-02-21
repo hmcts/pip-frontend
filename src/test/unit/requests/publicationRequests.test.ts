@@ -164,7 +164,6 @@ describe('get individual publication metadata', () => {
         expect(message.length).toBe(totalCases);
     });
 
-
     it('should send an error to the log if error response exists', async () => {
         dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse').rejects(errorResponse);
         const response = await pubRequests.getIndividualPublicationMetadata(
@@ -274,11 +273,6 @@ describe('Get noMatch publications', () => {
 
     it('should handle error response from returned service returning empty array', async () => {
         dataManagementStub.withArgs('/publication/no-match').rejects(errorResponse);
-        expect(await pubRequests.getNoMatchPublications()).toStrictEqual([]);
-    });
-
-    it('should handle error request from returned service returning empty array', async () => {
-        dataManagementStub.withArgs('/publication/no-match').rejects(errorRequest);
         expect(await pubRequests.getNoMatchPublications()).toStrictEqual([]);
     });
 

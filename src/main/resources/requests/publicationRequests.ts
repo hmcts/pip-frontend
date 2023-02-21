@@ -144,8 +144,6 @@ export class PublicationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
