@@ -18,7 +18,7 @@ describe('Live case get requests', () => {
         expect(await liveCaseRequests.getLiveCases(1)).toBe(mockData.data);
     });
 
-    it('should return null if request fails', async () => {
+    it('should return null for error response', async () => {
         stub.resolves(Promise.reject({ response: { data: 'test error' } }));
         expect(await liveCaseRequests.getLiveCases(2)).toBe(null);
     });
