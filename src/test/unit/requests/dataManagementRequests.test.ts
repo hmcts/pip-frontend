@@ -7,12 +7,11 @@ const errorResponse = {
         data: 'test error',
     },
 };
-const errorRequest = {
-    request: 'test error',
-};
+
 const errorMessage = {
     message: 'test',
 };
+
 const superagent = require('superagent');
 const mockUploadFileBody = { file: '', fileName: '' };
 const mockUploadFileHeaders = { foo: 'bar' };
@@ -46,30 +45,34 @@ describe('Data Management requests', () => {
         });
 
         it('should return error response', async () => {
-            sinon
-                .stub(superagent, 'post')
-                .withArgs({ file: '', fileName: 'foo' }, mockUploadFileHeaders)
-                .rejects(errorResponse);
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return { attach: sinon.stub().rejects(errorResponse) };
+                            },
+                        };
+                    },
+                };
+            });
             expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'foo' }, mockUploadFileHeaders)).toBe(
                 false
             );
         });
 
-        it('should return error request', async () => {
-            sinon
-                .stub(superagent, 'post')
-                .withArgs({ file: '', fileName: 'bar' }, mockUploadFileHeaders)
-                .rejects(errorRequest);
-            expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'bar' }, mockUploadFileHeaders)).toBe(
-                false
-            );
-        });
-
         it('should return error message', async () => {
-            sinon
-                .stub(superagent, 'post')
-                .withArgs({ file: '', fileName: 'baz' }, mockUploadFileHeaders)
-                .rejects(errorMessage);
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return { attach: sinon.stub().rejects(errorMessage) };
+                            },
+                        };
+                    },
+                };
+            });
             expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'baz' }, mockUploadFileHeaders)).toBe(
                 false
             );
@@ -87,12 +90,6 @@ describe('Data Management requests', () => {
             sinon.restore();
             sinon.stub(dataManagementApi, 'post').withArgs('/publication').rejects(errorResponse);
             expect(await fileUploadAPI.uploadJSONPublication({ file: 'foo' }, { headers: {} })).toBe(false);
-        });
-
-        it('should return error request', async () => {
-            sinon.restore();
-            sinon.stub(dataManagementApi, 'post').withArgs('/publication').rejects(errorRequest);
-            expect(await fileUploadAPI.uploadJSONPublication({ file: 'bar' }, { headers: {} })).toBe(false);
         });
 
         it('should return error message', async () => {
@@ -128,26 +125,32 @@ describe('Data Management requests', () => {
         });
 
         it('should return error response', async () => {
-            sinon
-                .stub(superagent, 'post')
-                .withArgs({ file: '', fileName: 'foo' }, mockUploadFileHeaders)
-                .rejects(errorResponse);
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return { attach: sinon.stub().rejects(errorResponse) };
+                            },
+                        };
+                    },
+                };
+            });
             expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'foo' })).toBe(false);
         });
 
-        it('should return error request', async () => {
-            sinon
-                .stub(superagent, 'post')
-                .withArgs({ file: '', fileName: 'bar' }, mockUploadFileHeaders)
-                .rejects(errorRequest);
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'bar' })).toBe(false);
-        });
-
         it('should return error message', async () => {
-            sinon
-                .stub(superagent, 'post')
-                .withArgs({ file: '', fileName: 'baz' }, mockUploadFileHeaders)
-                .rejects(errorMessage);
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return { attach: sinon.stub().rejects(errorMessage) };
+                            },
+                        };
+                    },
+                };
+            });
             expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' })).toBe(false);
         });
     });

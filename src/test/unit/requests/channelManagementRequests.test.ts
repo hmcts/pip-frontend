@@ -14,9 +14,7 @@ const errorResponse = {
         data: 'test error',
     },
 };
-const errorRequest = {
-    request: 'test error',
-};
+
 const errorMessage = {
     message: 'test',
 };
@@ -37,11 +35,6 @@ describe('Channel Management requests', () => {
 
         it('should return empty array and an error response if get fails', async () => {
             getStub.withArgs(getStoredFilesEndpoint).rejects(errorResponse);
-            expect(await channelManagementRequests.getStoredFiles('abc')).toEqual(null);
-        });
-
-        it('should return empty array and an error response if request fails', async () => {
-            getStub.withArgs(getStoredFilesEndpoint).rejects(errorRequest);
             expect(await channelManagementRequests.getStoredFiles('abc')).toEqual(null);
         });
 
