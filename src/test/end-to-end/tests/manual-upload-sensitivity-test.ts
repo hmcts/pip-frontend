@@ -10,7 +10,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     const date = new Date();
 
     function monthFormatted(month) {
-        return month + 1 < 10 ? '0' + (month+1) : (month+1);
+        return month + 1 < 10 ? '0' + (month + 1) : month + 1;
     }
 
     function dayFormatted(day) {
