@@ -55,7 +55,7 @@ const mockCaseWithUrnOnly2 = [
         caseUrn: 'ABC',
     },
 ];
-const combinedMockCaseWithUrnOnly = [mockCaseWithUrnOnly[0], mockCaseWithUrnOnly2[0]]
+const combinedMockCaseWithUrnOnly = [mockCaseWithUrnOnly[0], mockCaseWithUrnOnly2[0]];
 
 const mockCourtJson = JSON.stringify(mockCourt);
 const mockCaseJson = JSON.stringify(mockCase);
@@ -75,7 +75,6 @@ describe('setPendingSubscriptions with valid user', () => {
     it('should set case number into cache', async () => {
         await pendingSubscriptionsFromCache.setPendingSubscriptions(mockCase, 'cases', mockUser.id);
         sinon.assert.calledWith(set, 'pending-cases-subscriptions-1', mockCaseJson);
-
     });
 
     it('should set court into cache', async () => {
