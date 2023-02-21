@@ -331,36 +331,46 @@ export class SubscriptionService {
     }
 
     public async subscribe(userId): Promise<boolean> {
-        let subscribed = true;
-        const casesType = 'cases';
-        const courtsType = 'courts';
-        const cachedCaseSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, casesType);
-        const cachedCourtSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, courtsType);
-        if (cachedCaseSubs) {
-            for (const cachedCase of cachedCaseSubs) {
-                const response = await subscriptionRequests.subscribe(
-                    this.createSubscriptionPayload(cachedCase, casesType, userId),
-                    userId
-                );
+        const cachedCaseSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, 'cases');
+        const caseSubscribed = cachedCaseSubs ? await this.subscribeByCase(userId, cachedCaseSubs) : true;
 
-                if (response) {
-                    const caseRef = cachedCase.caseNumber ? cachedCase.caseNumber : cachedCase.caseUrn;
-                    await this.removeFromCache({ case: caseRef }, userId);
-                } else {
-                    subscribed = response;
-                }
+        const cachedCourtSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, 'courts');
+        const courtSubscribed = cachedCourtSubs ? await this.subscribeByCourt(userId, cachedCourtSubs) : true;
+
+        return caseSubscribed && courtSubscribed;
+    }
+
+    private async subscribeByCase(userId, cachedCaseSubs) {
+        let subscribed = true;
+        for (const cachedCase of cachedCaseSubs) {
+            const response = await subscriptionRequests.subscribe(
+                this.createSubscriptionPayload(cachedCase, 'cases', userId),
+                userId
+            );
+
+            if (response) {
+                const caseRef = cachedCase.caseNumber ? cachedCase.caseNumber : cachedCase.caseUrn;
+                await this.removeFromCache({ case: caseRef }, userId);
+            } else {
+                subscribed = false;
             }
         }
-        if (cachedCourtSubs) {
-            for (const cachedCourt of cachedCourtSubs) {
-                cachedCourt['listType'] = await this.generateListTypesForNewSubscription(userId);
-                const response = await subscriptionRequests.subscribe(
-                    this.createSubscriptionPayload(cachedCourt, courtsType, userId),
-                    userId
-                );
-                response
-                    ? await this.removeFromCache({ court: cachedCourt.locationId }, userId)
-                    : (subscribed = response);
+        return subscribed;
+    }
+
+    private async subscribeByCourt(userId, cachedCourtSubs) {
+        let subscribed = true;
+        for (const cachedCourt of cachedCourtSubs) {
+            cachedCourt['listType'] = await this.generateListTypesForNewSubscription(userId);
+            const response = await subscriptionRequests.subscribe(
+                this.createSubscriptionPayload(cachedCourt, 'courts', userId),
+                userId
+            );
+
+            if (response) {
+                await this.removeFromCache({ court: cachedCourt.locationId }, userId);
+            } else {
+                subscribed = false;
             }
         }
         return subscribed;
