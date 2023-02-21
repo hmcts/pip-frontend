@@ -342,8 +342,13 @@ export class SubscriptionService {
                     this.createSubscriptionPayload(cachedCase, casesType, userId),
                     userId
                 );
-                const caseRef = cachedCase.caseNumber ? cachedCase.caseNumber : cachedCase.caseUrn;
-                response ? await this.removeFromCache({ case: caseRef }, userId) : (subscribed = response);
+
+                if (response) {
+                    const caseRef = cachedCase.caseNumber ? cachedCase.caseNumber : cachedCase.caseUrn;
+                    await this.removeFromCache({ case: caseRef }, userId);
+                } else {
+                    subscribed = response;
+                }
             }
         }
         if (cachedCourtSubs) {
