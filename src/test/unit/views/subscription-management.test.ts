@@ -82,7 +82,6 @@ userSubscriptionsStub.withArgs('5').returns({
     locationSubscriptions: [],
 });
 
-
 locationStub.withArgs(1).resolves({
     locationId: 1,
     name: 'Aberdeen Tribunal Hearing Centre',

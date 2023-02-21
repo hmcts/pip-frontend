@@ -39,7 +39,7 @@ export class PendingSubscriptionsFromCache {
     public async removeFromCache(removeObject, userId): Promise<void> {
         if (redisClient.status === 'ready' && userId) {
             if (removeObject.case) {
-                const cachedCases = await this.getPendingSubscriptions(userId, 'cases')
+                const cachedCases = await this.getPendingSubscriptions(userId, 'cases');
                 cachedCases.forEach((item, index) => {
                     if (item.caseNumber) {
                         this.removeFromSubscriptionSet(item.caseNumber, removeObject.case, index, cachedCases);

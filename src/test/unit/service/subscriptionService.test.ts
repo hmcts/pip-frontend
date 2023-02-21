@@ -148,11 +148,14 @@ deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
 deleteStub.withArgs('InValidSubscriptionId').resolves(null);
 bulkDeleteStub.withArgs(['ValidSubscriptionId']).resolves('Subscription was deleted');
 bulkDeleteStub.withArgs(['InValidSubscriptionId']).resolves(null);
-updateListTypeSubscriptionStub.withArgs(userIdWithSubscriptions, courtSubscriptionWithSingleListTypePayload)
+updateListTypeSubscriptionStub
+    .withArgs(userIdWithSubscriptions, courtSubscriptionWithSingleListTypePayload)
     .resolves(true);
-updateListTypeSubscriptionStub.withArgs(userIdWithSubscriptions, courtSubscriptionWithMultipleListTypePayload)
+updateListTypeSubscriptionStub
+    .withArgs(userIdWithSubscriptions, courtSubscriptionWithMultipleListTypePayload)
     .resolves(true);
-updateListTypeSubscriptionStub.withArgs(userIdWithSubscriptions, courtSubscriptionWithEmptyListTypePayload)
+updateListTypeSubscriptionStub
+    .withArgs(userIdWithSubscriptions, courtSubscriptionWithEmptyListTypePayload)
     .resolves(true);
 updateListTypeSubscriptionStub.withArgs(null, courtSubscriptionWithEmptyListTypePayload).resolves(false);
 
