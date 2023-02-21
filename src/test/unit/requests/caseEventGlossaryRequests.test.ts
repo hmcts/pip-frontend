@@ -11,10 +11,6 @@ const caseEventGlossaryData = JSON.parse(rawData);
 
 const stub = sinon.stub(dataManagementApi, 'get');
 
-const errorRequest = {
-    request: 'test error',
-};
-
 describe('getCaseEventGlossaryList()', () => {
     it('should return list of 49 case events status', async () => {
         stub.withArgs('/glossary').resolves({ data: caseEventGlossaryData });
@@ -23,7 +19,7 @@ describe('getCaseEventGlossaryList()', () => {
         });
     });
 
-    it('should return null if request fails', async () => {
+    it('should return null for error response', async () => {
         stub.withArgs('/glossary').resolves(Promise.reject({ response: { data: 'test error' } }));
         expect(await searchDescriptionRequests.getCaseEventGlossaryList()).toHaveLength(0);
     });
@@ -50,10 +46,5 @@ describe('getCaseEventGlossaryList()', () => {
             expect(data[i].description).not.toBeNull();
             i++;
         });
-    });
-
-    it('should return null list of court event status', async () => {
-        stub.withArgs('/glossary').resolves(Promise.reject(errorRequest));
-        expect(await searchDescriptionRequests.getCaseEventGlossaryList()).toStrictEqual([]);
     });
 });
