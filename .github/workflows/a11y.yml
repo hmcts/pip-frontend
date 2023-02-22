@@ -21,4 +21,6 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           # Defaults to the user or organization that owns the workflow file
           scope: '@octocat'
-      - run: yarn && yarn build && yarn test:a11y
+      - run: yarn 
+      - run: yarn build
+      - run: yarn test:a11y
