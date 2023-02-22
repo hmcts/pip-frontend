@@ -22,6 +22,15 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           # Defaults to the user or organization that owns the workflow file
           scope: '@octocat'
-      - run: yarn 
-      - run: yarn build
-      - run: yarn test:a11y
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # will run `yarn install` command
+      - name: Run build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build # will run `yarn build` command
+      - name: Run build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build # will run `yarn build` command
