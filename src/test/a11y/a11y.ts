@@ -1,6 +1,7 @@
 import { fail } from 'assert';
 
 const pa11y = require('pa11y');
+const console = require('console')
 import * as supertest from 'supertest';
 import { app } from '../../main/app';
 import fs from 'fs';
@@ -14,7 +15,6 @@ import { SjpRequests } from '../../main/resources/requests/sjpRequests';
 import { ManualUploadService } from '../../main/service/manualUploadService';
 import { PublicationRequests } from '../../main/resources/requests/publicationRequests';
 import { AccountManagementRequests } from '../../main/resources/requests/accountManagementRequests';
-
 const agent = supertest.agent(app);
 const routesNotTested = [
     '/health',
@@ -106,18 +106,8 @@ const liveCaseData = JSON.parse(rawDataLive).results;
 const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
 const sjpCases = JSON.parse(rawSJPData).results;
 const mediaApplications = JSON.parse(rawMediaApplications);
-const countPerLocation = [
-    {
-        locationId: 1,
-        totalArtefacts: 2,
-    },
-    {
-        locationId: 3,
-        totalArtefacts: 1,
-    },
-];
 
-sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns(countPerLocation);
+sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns('location,count\n1,2\n3,1\n');
 sinon.stub(LocationRequests.prototype, 'getLocation').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getFilteredCourts').returns(allCourtData);
@@ -217,13 +207,18 @@ function readRoutes(): string[] {
 function testAccessibility(url: string): void {
     describe(`Page ${url}`, () => {
         test('should have no accessibility errors', done => {
+            console.error(`${url} - starting test`)
             ensurePageCallWillSucceed(url)
                 .then(() => runPally(agent.get(url).url))
                 .then((result: Pa11yResult) => {
+                    console.error(`${url} - issues: ${result.issues}`)
                     expectNoErrors(result.issues);
                     done();
                 })
-                .catch((err: Error) => done(err));
+                .catch((err: Error) => {
+                    console.error(`${url} - error: ${err}`)
+                    done(err)
+                });
         });
     });
 }
