@@ -219,11 +219,6 @@ describe('delete location subscription', () => {
             })
             .rejects(errorResponse);
         deleteStub
-            .withArgs('/subscription/location/3', {
-                headers: { 'x-provenance-user-id': adminUserId },
-            })
-            .rejects(errorRequest);
-        deleteStub
             .withArgs('/subscription/location/4', {
                 headers: { 'x-provenance-user-id': adminUserId },
             })

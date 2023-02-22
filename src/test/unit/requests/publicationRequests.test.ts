@@ -282,11 +282,6 @@ describe('delete location publication', () => {
             })
             .rejects(errorResponse);
         dataManagementDeleteStub
-            .withArgs('/publication/3/deleteArtefacts', {
-                headers: { 'x-provenance-user-id': adminUserId },
-            })
-            .rejects(errorRequest);
-        dataManagementDeleteStub
             .withArgs('/publication/4/deleteArtefacts', {
                 headers: { 'x-provenance-user-id': adminUserId },
             })
