@@ -33,4 +33,4 @@ jobs:
       - name: Run test:routes
         uses: borales/actions-yarn@v4
         with:
-          cmd: test:routes # will run `yarn test:routes` command
+          cmd: test:routes --forceExit # will run `yarn test:routes` command
