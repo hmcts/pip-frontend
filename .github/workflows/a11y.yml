@@ -25,14 +25,10 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: install # will run `yarn install` command
-      - name: Run build
+      - name: Run webpack
         uses: borales/actions-yarn@v4
         with:
-          cmd: build # will run `yarn build` command
-      - name: Run yarn start
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: start
+          cmd: webpack # will run `yarn webpack` command
       - name: Run test:a11y
         uses: borales/actions-yarn@v4
         with:
