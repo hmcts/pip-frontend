@@ -176,6 +176,7 @@ export function ensurePageCallWillSucceed(url: string): Promise<void> {
 export function runPally(url: string): Pa11yResult {
     return pa11y(url, {
         hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
+	log: {debug: console.log, error: console.error, info: console.info}
     });
 }
 
