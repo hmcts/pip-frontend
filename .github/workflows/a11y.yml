@@ -19,4 +19,5 @@ jobs:
           # Defaults to the user or organization that owns the workflow file
           scope: '@octocat'
       - run: yarn
+      - run: yarn build
       - run: yarn test:a11y
