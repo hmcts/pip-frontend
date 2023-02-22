@@ -8,6 +8,7 @@ name: a11y tests
 env:
   CI: true
   NODE_OPTIONS: --max-old-space-size=4096
+  REDIS_SUPPRES: true
 jobs:
   build:
     name: Test
