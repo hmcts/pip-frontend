@@ -4,7 +4,7 @@ on:
   push:
   pull_request:
     types: [opened, synchronize, reopened]
-name: Route tests
+name: a11y tests
 env:
   CI: true
   REDIS_SUPPRESS: true
@@ -29,6 +29,10 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: build # will run `yarn build` command
+      - name: Run yarn start
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: start
       - name: Run test:a11y
         uses: borales/actions-yarn@v4
         with:
