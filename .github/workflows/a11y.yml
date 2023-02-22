@@ -5,6 +5,9 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 name: a11y tests
+env:
+  CI: true
+  NODE_OPTIONS: --max-old-space-size=4096
 jobs:
   build:
     name: Test
