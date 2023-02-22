@@ -9,8 +9,6 @@ export class LocationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -25,8 +23,6 @@ export class LocationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -47,8 +43,6 @@ export class LocationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -63,8 +57,6 @@ export class LocationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -81,8 +73,6 @@ export class LocationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -100,8 +90,6 @@ export class LocationRequests {
         } catch (error) {
             if (error.response) {
                 console.error('Failed to retrieve reference data csv - response', error.response.data);
-            } else if (error.request) {
-                console.error('Failed to retrieve reference data csv - request', error.request);
             } else {
                 console.error('Failed to retrieve reference data csv - message', error.message);
             }
