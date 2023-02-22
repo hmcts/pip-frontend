@@ -16,8 +16,6 @@ export class PublicationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -25,15 +23,13 @@ export class PublicationRequests {
         return null;
     }
 
-    public async getPubsPerLocation(): Promise<string> {
+    public async getPubsPerLocation(): Promise<any> {
         try {
             const response = await dataManagementApi.get('/publication/count-by-location');
             return response.data;
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -57,8 +53,6 @@ export class PublicationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -78,8 +72,6 @@ export class PublicationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -103,8 +95,6 @@ export class PublicationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -126,8 +116,6 @@ export class PublicationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -142,8 +130,6 @@ export class PublicationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
