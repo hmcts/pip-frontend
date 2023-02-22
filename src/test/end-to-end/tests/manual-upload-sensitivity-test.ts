@@ -1,9 +1,9 @@
 import Assert from 'assert';
-import {dayFormatted, monthFormatted} from '../shared/shared-functions';
+import { dayFormatted, monthFormatted } from '../shared/shared-functions';
 
 Feature('Manual upload sensitivity');
 
-Scenario('Manual upload sensitivity test', async ({I}) => {
+Scenario('Manual upload sensitivity test', async ({ I }) => {
     const classificationId = '#classification';
     const listTypeId = '#listType';
     const sensitivityClassified = 'CLASSIFIED';

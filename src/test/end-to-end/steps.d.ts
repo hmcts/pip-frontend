@@ -8,14 +8,11 @@ declare namespace CodeceptJS {
         current: any;
     }
 
-    interface Methods extends Playwright, TestingSupportApiHelper {
-    }
+    interface Methods extends Playwright, TestingSupportApiHelper {}
 
-    interface I extends ReturnType<stepsFile>, WithTranslation<Methods> {
-    }
+    interface I extends ReturnType<stepsFile>, WithTranslation<Methods> {}
 
     namespace Translation {
-        interface Actions {
-        }
+        interface Actions {}
     }
 }
