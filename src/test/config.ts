@@ -14,7 +14,7 @@ export const config = {
     ADMIN_PASSWORD: process.env.B2C_ADMIN_PASSWORD,
     MEDIA_USER_USERNAME: process.env.B2C_USERNAME,
     MEDIA_USER_PASSWORD: process.env.B2C_PASSWORD,
-    DATA_MANAGEMENT_BASE_URL:process.env.DATA_MANAGEMENT_URL,
+    DATA_MANAGEMENT_BASE_URL: process.env.DATA_MANAGEMENT_URL,
     TEST_SUITE_PREFIX: 'TEST_PIP_',
     TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
     TestSlowMo: 250,

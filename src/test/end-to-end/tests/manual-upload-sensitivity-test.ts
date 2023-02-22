@@ -1,21 +1,14 @@
 import Assert from 'assert';
+import {dayFormatted, monthFormatted} from '../shared/shared-functions';
 
 Feature('Manual upload sensitivity');
 
-Scenario('Manual upload sensitivity test', async ({ I }) => {
+Scenario('Manual upload sensitivity test', async ({I}) => {
     const classificationId = '#classification';
     const listTypeId = '#listType';
     const sensitivityClassified = 'CLASSIFIED';
     const sensitivityPrivate = 'PRIVATE';
     const date = new Date();
-
-    function monthFormatted(month) {
-        return month + 1 < 10 ? '0' + (month + 1) : month + 1;
-    }
-
-    function dayFormatted(day) {
-        return day + 1 < 10 ? '0' + day : day;
-    }
 
     I.loginAsAdmin();
     I.click('#card-manual-upload');
@@ -49,7 +42,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     classification = await I.grabValueFrom(classificationId);
     Assert.equal(classification, sensitivityPrivate);
 
-    I.attachFile('manual-file-upload', '../unit/mocks/crownWarnedList.json');
+    I.attachFile('#manual-file-upload', '../unit/mocks/crownWarnedList.json');
     I.fillField('#search-input', 'Single Justice Procedure');
     I.selectOption(listTypeId, 'Crown Warned List');
 

@@ -1,7 +1,7 @@
-import { join } from 'path';
-import { config as testConfig } from '../config';
+import {join} from 'path';
+import {config as testConfig} from '../config';
 
-const { setHeadlessWhen } = require('@codeceptjs/configure');
+const {setHeadlessWhen} = require('@codeceptjs/configure');
 
 setHeadlessWhen(testConfig.TestHeadlessBrowser);
 
