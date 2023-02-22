@@ -4,7 +4,7 @@ on:
   push:
   pull_request:
     types: [opened, synchronize, reopened]
-name: a11y tests
+name: Route tests
 env:
   CI: true
   NODE_OPTIONS: --max-old-space-size=4096
