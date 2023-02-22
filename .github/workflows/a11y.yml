@@ -30,7 +30,7 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: build # will run `yarn build` command
-      - name: Run test:a11y
+      - name: Run test:routes
         uses: borales/actions-yarn@v4
         with:
-          cmd: test:a11y # will run `yarn build` command
+          cmd: test:routes # will run `yarn test:routes` command
