@@ -31,7 +31,7 @@ Scenario(
         I.fillField('#display-date-to-year', date.getFullYear());
         I.click('Continue');
         I.click('Confirm');
-        I.see('Your file has been uploaded');
+        I.waitForText('Your file has been uploaded');
         I.click('Sign out');
 
         I.loginAsMediaUser();
@@ -42,7 +42,7 @@ Scenario(
         I.checkOption('//*[@id="100"]');
         I.click('Continue');
         I.click('Confirm Subscriptions');
-        I.see('Your subscription(s) has been added successfully');
+        I.waitForText('Your subscription(s) has been added successfully');
         I.click('Sign out');
 
         I.loginAsSystemAdmin();
@@ -51,33 +51,33 @@ Scenario(
         I.click('Continue');
         I.click('#delete-choice');
         I.click('Continue');
-        I.see('There is a problem');
+        I.waitForText('There is a problem');
         I.see('There are active artefacts for the given location.');
         I.click('Click here to delete all the artefact(s) for ' + LOCATION_NAME);
-        I.see('Are you sure you want to delete all the publications?');
+        I.waitForText('Are you sure you want to delete all the publications?');
         I.click('#delete-choice');
         I.click('Continue');
-        I.see('Success');
+        I.waitForText('Success');
         I.see('Court publication(s) has been deleted');
 
         I.click('Continue deletion of ' + LOCATION_NAME);
-        I.see('Are you sure you want to delete this court?');
+        I.waitForText('Are you sure you want to delete this court?');
         I.click('#delete-choice');
         I.click('Continue');
-        I.see('There is a problem');
+        I.waitForText('There is a problem');
         I.see('There are active subscriptions for the given location.');
         I.click('Click here to delete all the subscription(s) for ' + LOCATION_NAME);
-        I.see('Are you sure you want to delete all the subscriptions?');
+        I.waitForText('Are you sure you want to delete all the subscriptions?');
         I.click('#delete-choice');
         I.click('Continue');
-        I.see('Success');
+        I.waitForText('Success');
         I.see('Court subscription(s) has been deleted');
 
         I.click('Continue deletion of ' + LOCATION_NAME);
-        I.see('Are you sure you want to delete this court?');
+        I.waitForText('Are you sure you want to delete this court?');
         I.click('#delete-choice');
         I.click('Continue');
-        I.see('Success');
+        I.waitForText('Success');
         I.see('Court has been deleted');
     }
 );
