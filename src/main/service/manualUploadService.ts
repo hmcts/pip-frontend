@@ -48,17 +48,7 @@ export class ManualUploadService {
             jsonArray.push({ value: key, text: value.shortenedFriendlyName });
         });
         jsonArray.push({ value: 'EMPTY', text: '<Please choose a list type>' });
-        jsonArray.sort((a, b) => {
-            const textA = a['text'].toUpperCase(); // ignore upper and lowercase
-            const textB = b['text'].toUpperCase(); // ignore upper and lowercase
-            if (textA < textB) {
-                return -1;
-            }
-            if (textA > textB) {
-                return 1;
-            }
-            return 0;
-        });
+        jsonArray.sort((a,b) => a['text'].toUpperCase() > b['text'].toUpperCase() ? 1 : -1);
 
         return jsonArray;
     }
