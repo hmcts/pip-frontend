@@ -621,7 +621,9 @@ describe('Verified user', () => {
 
             it(`should display court subscription only`, async () => {
                 expect(await pendingSubscriptionsPage.SubscriptionTable).toBe(1);
-                expect(await pendingSubscriptionsPage.getSubscriptionTableColumnHeader()).toBe('Court or tribunal name');
+                expect(await pendingSubscriptionsPage.getSubscriptionTableColumnHeader()).toBe(
+                    'Court or tribunal name'
+                );
             });
         });
 
