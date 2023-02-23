@@ -19,7 +19,7 @@
   <p class="govuk-body">{{ listDetail | replace("CASES_COUNT", length) }} {{ publishedDateTime }} {{ publishedAt }} {{ publishedTime }}</p>
 
   {% if user.roles and user.roles in ['VERIFIED'] %}
-    {{ downloadButton(text = downloadButton) }}
+    {{ downloadButton(text = downloadButton, artefactId = artefactId) }}
   {% endif %}
 
   {{ searchInput(text = searchCases) }}
