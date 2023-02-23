@@ -164,7 +164,6 @@ describe('get individual publication metadata', () => {
         expect(message.length).toBe(totalCases);
     });
 
-
     it('should send an error to the log if error response exists', async () => {
         dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse').rejects(errorResponse);
         const response = await pubRequests.getIndividualPublicationMetadata(

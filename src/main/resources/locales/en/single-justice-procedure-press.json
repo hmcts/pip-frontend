@@ -10,16 +10,6 @@
     "dateOfBirth": "Date of birth",
     "reference": "Reference",
     "address": "Address",
-    "postcode": "Postcode",
     "prosecutor": "Prosecutor",
-    "reportingRestriction": "Reporting Restriction",
-    "backButton": "Back",
-    "downloadButton": "Download a copy",
-    "hide": "Hide Filters",
-    "show": "Show Filters",
-    "filter": "Filter",
-    "selectedFilters": "Selected filters",
-    "clearFilters": "Clear filters",
-    "applyFilters": "Apply filters",
-    "searchFilters": "Search filters"
+    "reportingRestriction": "Reporting Restriction"
 }

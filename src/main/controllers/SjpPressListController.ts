@@ -38,6 +38,7 @@ export default class SjpPressListController {
 
             res.render('single-justice-procedure-press', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press']),
+                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['sjp-common']),
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
                 sjpData: filter.sjpCases,
                 totalHearings: filter.sjpCases.length,
@@ -50,7 +51,7 @@ export default class SjpPressListController {
                     .toFormat('d MMMM yyyy'),
                 artefactId: artefactId,
                 user: req.user,
-                filters: filter.filterOptions,
+                filterOptions: filter.filterOptions,
                 showFilters: !!(!!req.query?.filterValues || req.query?.clear),
             });
         } else {

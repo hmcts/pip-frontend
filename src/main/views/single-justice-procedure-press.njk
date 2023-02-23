@@ -1,20 +1,18 @@
 {% from "./macros/common-components.njk" import goBack, searchInput %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
-{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
-{%- from "moj/components/filter/macro.njk" import mojFilter -%}
-{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
-{%- from "govuk/components/input/macro.njk" import govukInput -%}
-{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
-
+{% from "./macros/sjp-common.njk" import downloadButton, filterForm, filterManipulation %}
 
 {% extends "list-template.njk" %}
+{% set url = "sjp-press-list" %}
+
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
+
 {% block beforeContent %}
   {{ super() }}
   {{ goBack(text = backButton) }}
 {% endblock %}
+
 {% block content %}
   <h2 id='page-heading' class="govuk-heading-l">{{ header }}</h2>
 
@@ -34,127 +32,20 @@
   <p class="govuk-body">{{ published }} {{ publishedDateTime }} {{ publishedAt }} {{ publishedTime }}</p>
 
   {% if user.roles and user.roles in ['VERIFIED'] %}
-    {{ govukButton({
-      attributes: {
-        id: 'download-button'
-      },
-      text: downloadButton,
-      href: 'list-download-disclaimer?artefactId=' + artefactId
-    }) }}
+    {{ downloadButton(label = downloadButtonLabel, artefactId = artefactId) }}
   {% endif %}
 
   {{ searchInput(text = searchCases) }}
 
   <button class="govuk-button govuk-button--secondary govuk-!-margin-top-5 hide-show-button" id="show-filters" data-module="govuk-button">
-    {% if showFilters %} {{ hide }} {% else %} {{ show }} {% endif %}
+    {% if showFilters %} {{ filter.hide }} {% else %} {{ filter.show }} {% endif %}
   </button>
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third govuk-!-padding-left-0 govuk-!-padding-right-4 {% if not showFilters %} always-hide {% endif %}", id="filters">
-      <div class="filter-form">
-        {% set checkedFilters = [] %}
-        {% set toBeCreated = true %}
-        {% set filterOptionsHtml %}
-            {{ govukInput({
-                label: {
-                    text: searchFilters,
-                    classes: 'govuk-label--m'
-                },
-                id: 'search-filters',
-                name: 'search-filters'
-            }) }}
-          {% for key, options in filters %}
-{#          <div class="moj-button-menu__wrapper">#}
-{#              <a href="javascript:;" role="button" draggable="false"#}
-{#                 class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button"#}
-{#                 onclick="hideFilterSection('{{ key }}')" id="{{ key }}-button">#}
-{#                  Hide {{ key }}#}
-{#              </a>#}
-{#          </div>#}
-            {% set checkedFilterItems = [] %}
-            {% set items = [] %}
-            {% for item in options %}
-              {% set _ = items.push({
-                value: item.value,
-                text: item.text,
-                checked: item.checked
-              }) %}
-              {% if item.checked %}
-                {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
-              {% endif %}
-            {% endfor %}
-
-            {% set filterHeader = postcode if key == 'postcodes' else prosecutor %}
-            {% if checkedFilterItems | length > 0 %}
-              {% set _ = checkedFilters.push({heading: {text: filterHeader}, items: checkedFilterItems}) %}
-            {% endif %}
-
-            {% if toBeCreated %}
-              <div class="moj-button-menu filters__innerButton" id="innerButton">
-                <div class="moj-button-menu__wrapper">
-                  <a href="#" role="button" draggable="false"
-                     class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button"
-                     onclick="toggleFilters()">
-                    {{ hide }}
-                  </a>
-                </div>
-              </div>
-              {% set toBeCreated = false %}
-            {% endif %}
-              <div class="govuk-form-group">
-                  <fieldset class="govuk-fieldset">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                          <h1 class="govuk-fieldset__heading">
-                              <a href="javascript:;" class="govuk-link govuk-!-font-size-19" onclick="hideFilterSection('{{ key }}')">{{ filterHeader }}
-
-                              </a>
-                              <span class="govuk-body govuk-!-font-size-19 filter-colour" id="{{ key }}-link">&#9660</span>
-                          </h1>
-                      </legend>
-                      <div class="govuk-checkboxes govuk-checkboxes--small" id="{{ key }}-checkbox" data-module="govuk-checkboxes">
-                          {% set checkboxCount = 0 %}
-                          {% for item in items %}
-                              {% set checkboxCount = checkboxCount + 1 %}
-                              <div class="govuk-checkboxes__item">
-                                  <input class="govuk-checkboxes__input" id="{{ key }}-{{ checkboxCount }}" name="{{ key }}" type="checkbox" value="{{ item.value }}" {% if item.checked %} checked {% endif %}>
-                                  <label class="govuk-label govuk-checkboxes__label" for="{{ key }}-{{ checkboxCount }}">
-                                      {{ item.text }}
-                                  </label>
-                              </div>
-                          {% endfor %}
-                      </div>
-                  </fieldset>
-              </div>
-          {% endfor %}
-        {% endset %}
-        <form method="post" action="sjp-press-list?artefactId={{ artefactId }}" class="moj-filter-layout__filter layout-width-four-fifths"
-              autocomplete="off">
-        {{ mojFilter({
-          heading: {
-            text: filter
-          },
-          selectedFilters: {
-            heading: {
-              text: selectedFilters
-            },
-
-            clearLink: {
-              text: clearFilters,
-              href: '?artefactId=' + artefactId + '&clear=all'
-            },
-
-            categories: checkedFilters
-          },
-          optionsHtml: filterOptionsHtml
-        }) }}
-        </form>
-      </div>
-    </div>
-    <div>
+    {{ filterForm(url = url, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
     <div class="parent-box">
       <div class="overflow-table govuk-body search-area">
         {% set hearingCount = 0 %}
-
         {% for sjpCase in sjpData %}
           {% set hearingCount = hearingCount + 1 %}
           <dl class="govuk-summary-list--no-border">
@@ -213,85 +104,10 @@
       </div>
       {{ super() }}
     </div>
-    </div>
   </div>
 {% endblock %}
+
 {% block bodyEnd %}
-  {{ super() }}
-  <script>
-      var searchFilters = document.getElementById('search-filters');
-      searchFilters.addEventListener('keyup', searchFilterItems);
-
-      // This function is used to dynamically show/hide individual filter checkbox items based on the search box value
-      function searchFilterItems() {
-          const filters = document.getElementsByClassName('govuk-checkboxes__item');
-
-          for (var i = 0; i < filters.length; i++) {
-              localStorage.setItem('searchFiltersValue', searchFilters.value)
-              if (filters[i].innerText.toLowerCase().includes(searchFilters.value.toLowerCase())) {
-                  filters[i].style.removeProperty('display');
-              } else {
-                  filters[i].style.display = 'none';
-              }
-          }
-      }
-
-      function hideFilterSection(key) {
-          const section = document.getElementById(key + '-checkbox');
-          const link = document.getElementById(key + '-link');
-          section.classList.toggle("always-hide");
-          link.innerHTML = section.classList.contains('always-hide') ? '&#9654;' : '&#9660;'
-      }
-
-      // The following function is hiding content and navigation due to screen readers to read behind the visible panel
-      function toggleFilters() {
-          const element = document.getElementById("filters");
-
-          if (element.classList.toggle("always-hide")) {
-            document.getElementsByClassName('hide-show-button')[0].innerHTML = '{{ show }}';
-          } else {
-            document.getElementsByClassName('hide-show-button')[0].innerHTML = '{{ hide }}';
-
-            //This ensures that focus works correctly for screen readers in the filter box.
-            var elements = document.getElementsByClassName('govuk-heading-m');
-            elements[0].setAttribute("tabindex", "0");
-            elements[1].setAttribute("tabindex", "0");
-            elements[0].focus();
-          }
-      }
-
-      // Concat href to maintain filter values when clearing single
-      let tags = document.querySelectorAll('.moj-filter__tag');
-      let currentQueryArray = window.location.search.split('&');
-
-      const searchFiltersValue = localStorage.getItem('searchFiltersValue');
-      localStorage.removeItem('searchFiltersValue');
-      tags.forEach(element => {
-        element.href = '/sjp-press-list?artefactId=' + '{{ artefactId }}' + '&' + buildHref(element.href, currentQueryArray);
-      })
-
-      function buildHref(elementHref, currentQueryArray) {
-        const elementQueryString = elementHref.slice(elementHref.indexOf('?'), elementHref.length);
-        const deleteVal = elementQueryString.split('=')[1];
-
-        let currentFilterValues = currentQueryArray.find(item => item.startsWith('filterValues') || item.startsWith('?filterValues'))
-        currentFilterValues = currentFilterValues.startsWith('?') ? currentFilterValues.substring(1) : currentFilterValues;
-
-        // Need to remove the search box value from 'filterValues'
-        if (searchFiltersValue) {
-            const filterValuesPrefix = 'filterValues=' + searchFiltersValue + ',';
-            if (currentFilterValues.startsWith(filterValuesPrefix)) {
-                currentFilterValues = currentFilterValues.replace(filterValuesPrefix, 'filterValues=');
-            }
-        }
-
-        let href = currentFilterValues ? currentFilterValues.replace(deleteVal, '') + elementQueryString.replace('?', '&') : elementQueryString;
-        return href.replace(',,', ',');
-      }
-
-      document.getElementsByClassName('hide-show-button')[0].addEventListener("click", toggleFilters);
-
-      // Replace apply filters button with localisation text as currently unconfigurable
-      document.getElementsByClassName("moj-filter-layout__filter")[0].getElementsByTagName("button")[0].innerHTML = '{{ applyFilters }}';
-  </script>
+    {{ super() }}
+    {{ filterManipulation(url = url, artefactId = artefactId, filter = filter) }}
 {% endblock %}

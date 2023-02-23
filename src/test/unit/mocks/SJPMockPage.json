@@ -99,6 +99,11 @@
                                                         "offenceWording": "This is offence wording",
                                                         "reportingRestriction": true,
                                                         "formattedReportingRestriction": "True"
+                                                    },
+                                                    {
+                                                        "offenceTitle": "Another offence title",
+                                                        "offenceWording": "Another offence wording",
+                                                        "reportingRestriction": true
                                                     }
                                                 ],
                                                 "case": [

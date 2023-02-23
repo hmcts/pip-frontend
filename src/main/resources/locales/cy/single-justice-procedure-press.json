@@ -10,16 +10,6 @@
     "dateOfBirth": "Dyddiad geni",
     "reference": "Cyfeirnod",
     "address": "Cyfeiriad",
-    "postcode": "Cod post",
     "prosecutor": "Erlynydd",
-    "reportingRestriction": "Cyfyngiad adrodd",
-    "backButton": "Yn ôl",
-    "downloadButton": "Llwytho copi i lawr",
-    "hide": "Cuddio Hidlwyr",
-    "show": "Dangos Hidlwyr",
-    "filter": "Hidlydd",
-    "selectedFilters": "Hidlwyr a ddewiswyd",
-    "clearFilters": "Clirio hidlwyr",
-    "applyFilters": "Cadarnhau hidlwyr",
-    "searchFilters": "Search filters"
+    "reportingRestriction": "Cyfyngiad adrodd"
 }

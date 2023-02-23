@@ -54,6 +54,7 @@ describe('SJP Press List Controller', () => {
 
     const expectedData = {
         ...i18n['single-justice-procedure-press'],
+        ...i18n['sjp-common'],
         ...i18n['list-template'],
         sjpData: filter.sjpCases,
         totalHearings: 2,
@@ -63,14 +64,12 @@ describe('SJP Press List Controller', () => {
             zone: 'utc',
         }).toFormat('d MMMM yyyy'),
         artefactId: 'abc',
-        user: {},
-        filters: filter.filterOptions,
+        filterOptions: filter.filterOptions,
     };
 
     describe('get', () => {
-        it('should render the SJP press list page', async () => {
+        it('should render the SJP press list page when filter string is provided', async () => {
             request.user = { userId: '1' };
-
             request.query = { artefactId: artefactId, filterValues: '123' };
 
             const localExpectedData = { ...expectedData, user: request.user, showFilters: true };
@@ -85,7 +84,6 @@ describe('SJP Press List Controller', () => {
 
         it('should render the SJP press list page when no filter string provided', async () => {
             request.user = { userId: '1' };
-
             request.query = { artefactId: artefactId };
 
             const localExpectedData = { ...expectedData, user: request.user, showFilters: false };
@@ -100,7 +98,6 @@ describe('SJP Press List Controller', () => {
 
         it('should render the SJP press list page when only clear string provided', async () => {
             request.user = { userId: '1' };
-
             request.query = { artefactId: artefactId, clear: 'all' };
 
             const localExpectedData = { ...expectedData, user: request.user, showFilters: true };

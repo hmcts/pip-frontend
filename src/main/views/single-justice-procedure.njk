@@ -1,79 +1,53 @@
-{% from "./macros/common-components.njk" import goBack, backToTopButton, searchInput %}
+{% from "./macros/common-components.njk" import goBack, searchInput %}
+{% from "./macros/sjp-common.njk" import downloadButton, filterForm, filterManipulation %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% extends "list-template.njk" %}
+{% set url = "sjp-public-list" %}
+
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
+
 {% block beforeContent %}
   {{ super() }}
   {{ goBack(text = backButton) }}
 {% endblock %}
+
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ listDetail | replace("CASES_COUNT", length) }} {{ publishedDateTime }} {{ publishedAt }} {{ publishedTime }}</p>
 
   {% if user.roles and user.roles in ['VERIFIED'] %}
-    {{ govukButton({
-      attributes: {
-        id: 'download-button'
-      },
-      text: downloadButton,
-      href: 'list-download-disclaimer?artefactId=' + artefactId
-    }) }}
+    {{ downloadButton(text = downloadButton) }}
   {% endif %}
 
   {{ searchInput(text = searchCases) }}
-  <div class="parent-box govuk-!-margin-top-5 search-area">
-    <div class="overflow-table">
-      {% set sjpCase = [] %}
-      {% for courtList in sjpData['courtLists'] %}
-        {% for courtRoom in courtList['courtHouse']['courtRoom'] %}
-          {% for session in courtRoom['session'] %}
-            {% for sitting in session['sittings'] %}
-              {% for hearing in sitting['hearing'] | sort(attribute="Name") %}
-                {% set accused = '' %}
-                {% set postcode = '' %}
-                {% set prosecutor = '' %}
-                {% set offence = '' %}
-                {% for party in hearing['party'] %}
-                  {% if party.partyRole == "ACCUSED" %}
-                    {% set accused = [party.individualDetails.individualForenames, " ", party.individualDetails.individualSurname] | join %}
-                    {% set postcode = party.individualDetails.address.postCode %}
-                  {% elif party.partyRole == "PROSECUTOR" %}
-                    {% set prosecutor = party.organisationDetails.organisationName %}
-                  {% endif %}
-                {% endfor %}
 
-                {% for item in hearing['offence'] %}
-                  {% if offence | length %}
-                    {% set offence = [offence, ", ", item.offenceTitle] | join %}
-                  {% else %}
-                    {% set offence = item.offenceTitle %}
-                  {% endif %}
-                {% endfor %}
+  <button class="govuk-button govuk-button--secondary govuk-!-margin-top-5 hide-show-button" id="show-filters" data-module="govuk-button">
+    {% if showFilters %} {{ filter.hide }} {% else %} {{ filter.show }} {% endif %}
+  </button>
 
-                {% if accused and prosecutor and postcode and offence %}
-                  {% set _ = sjpCase.push([
-                    {
-                      text: accused
-                    },
-                    {
-                      text: postcode
-                    },
-                    {
-                      text: offence
-                    },
-                    {
-                      text: prosecutor
-                    }
-                  ]) %}
-                {% endif %}
-              {% endfor %}
-            {% endfor %}
-          {% endfor %}
-        {% endfor %}
+  <div class="govuk-grid-row">
+    {{ filterForm(url = url, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
+    <div class="parent-box govuk-!-margin-top-5 search-area">
+      <div class="overflow-table">
+      {% set sjpCases = [] %}
+      {% for sjpCase in sjpData %}
+        {% set _ = sjpCases.push([
+          {
+            text: sjpCase.name
+          },
+          {
+            text: sjpCase.postcode
+          },
+          {
+            text: sjpCase.offence
+          },
+          {
+            text: sjpCase.organisationName
+          }
+        ]) %}
       {% endfor %}
 
       {{ govukTable({
@@ -107,9 +81,15 @@
             }
           }
         ],
-        rows: sjpCase
+        rows: sjpCases
       }) }}
+      </div>
+      {{ super() }}
     </div>
-    {{ super() }}
   </div>
+{% endblock %}
+
+{% block bodyEnd %}
+    {{ super() }}
+    {{ filterManipulation(url = url, artefactId = artefactId, filter = filter) }}
 {% endblock %}
