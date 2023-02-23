@@ -68,12 +68,16 @@ module.exports = {
     CourtOrTribunalRadioButton: '#view-choice',
     SingleJusticeProcedureRadioButton: '#view-choice-2',
 
-    //SubscriptionAdd selectors
+    // SubscriptionAdd selectors
     SubscriptionAddTitle: 'h1.govuk-fieldset__heading',
     SubscriptionAddByCaseRefNumber: '#subscription-choice-1',
     SubscriptionAddByUniqueRefNumber: '#subscription-choice-2',
     SubscriptionAddByCaseName: '#subscription-choice-3',
     SubscriptionAddByCourtOrTribunal: '#subscription-choice-4',
+
+    // Pending subscription selectors
+    SubscriptionTableHeading: '.govuk-table__head',
+    SubscriptionTableHeader: '.govuk-table__header',
 
     // LiveCaseAlphabetSearch selectors
     LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',

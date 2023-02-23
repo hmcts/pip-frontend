@@ -569,6 +569,62 @@ describe('Verified user', () => {
             });
         });
 
+        // Test for URN subscription cache removal (PUB-1798)
+        describe('Add subscription record with URN only followed by court subscription', async () => {
+            const validSearchTerm = 'empty';
+
+            it("should select 'By unique reference number' option and navigate to search urn page", async () => {
+                await subscriptionUrnSearchPage.open('subscription-urn-search');
+                subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
+                expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual(
+                    'What is the unique reference number (URN)?'
+                );
+            });
+
+            it('should enter text and click continue', async () => {
+                await subscriptionUrnSearchPage.enterText(validSearchTerm);
+                subscriptionUrnSearchResultsPage = await subscriptionUrnSearchPage.clickContinue();
+                expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
+            });
+
+            it('should click continue to create subscription', async () => {
+                pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
+                expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
+            });
+
+            it('should subscribe', async () => {
+                subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
+                expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription(s) confirmed');
+            });
+
+            it('should open court or tribunal name search page', async () => {
+                await locationNameSearchPage.open('location-name-search');
+                locationNameSearchPage = await subscriptionAddPage.clickContinueForCourtOrTribunal();
+                expect(await locationNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
+            });
+
+            it('should select first jurisdiction filter', async () => {
+                await locationNameSearchPage.selectOption('JurisdictionFilter1');
+                expect(await locationNameSearchPage.jurisdictionChecked()).toBeTruthy();
+            });
+
+            it('should click on the apply filters button', async () => {
+                locationNameSearchPage = await locationNameSearchPage.clickApplyFiltersButton();
+                expect(await locationNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
+            });
+
+            it('should click continue to create subscription', async () => {
+                await locationNameSearchPage.tickCourtCheckbox();
+                pendingSubscriptionsPage = await locationNameSearchPage.clickContinue();
+                expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
+            });
+
+            it(`should display court subscription only`, async () => {
+                expect(await pendingSubscriptionsPage.SubscriptionTable).toBe(1);
+                expect(await pendingSubscriptionsPage.getSubscriptionTableColumnHeader()).toBe('Court or tribunal name');
+            });
+        });
+
         //TODO: To be expanded on as the E2E tests are created for the configure list flow
         describe('configure list subscriptions', async () => {
             before(async () => {
