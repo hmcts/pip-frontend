@@ -27,7 +27,6 @@ jobs:
         with:
           cmd: install # will run `yarn install` command
       - name: Run webpack
-
         with:
           cmd: webpack # will run `yarn webpack` command
       - name: install bits
