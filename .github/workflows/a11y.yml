@@ -32,6 +32,7 @@ jobs:
       - name: install bits
         run: sudo apt-get update && sudo apt-get install -y libgbm-dev
       - name: Run test:a11y
-        uses: borales/actions-yarn@v4
+        uses: tj-actions/puppeteer@v4
+        id: puppeteer
         with:
           cmd: jest -c jest.a11y.config.js --runInBand --forceExit # will run `yarn test:a11y` command
