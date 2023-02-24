@@ -6,11 +6,11 @@ import { PublicationRequests } from '../../main/resources/requests/publicationRe
 
 const countPerLocation = [
     {
-        locationId: 1,
+        locationId: '1',
         totalArtefacts: 2,
     },
     {
-        locationId: 3,
+        locationId: '3',
         totalArtefacts: 1,
     },
 ];

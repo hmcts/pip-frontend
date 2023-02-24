@@ -154,4 +154,18 @@ export class PublicationRequests {
             return null;
         }
     }
+
+    public async getNoMatchPublications(): Promise<Artefact[]> {
+        try {
+            const response = await dataManagementApi.get(`/publication/no-match`);
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+            } else {
+                console.log(`ERROR: ${error.message}`);
+            }
+        }
+        return [];
+    }
 }

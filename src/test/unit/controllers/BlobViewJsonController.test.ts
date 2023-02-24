@@ -48,6 +48,7 @@ describe('Get publication json', () => {
                 '   <li><span class=json-string>"{&bsol;&quot;danny&bsol;&quot;:true}"</span></li>\n' +
                 '</ol>',
             listUrl: 'https://localhost:8080/sjp-public-list?artefactId=1234',
+            noMatchArtefact: false,
         };
         responseMock.expects('render').once().withArgs('blob-view-json', expectedData);
         await blobViewController.get(request, response);
