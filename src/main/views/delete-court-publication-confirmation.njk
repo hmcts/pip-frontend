@@ -3,7 +3,6 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
@@ -38,63 +37,12 @@
     }) }}
   {% endif %}
   <div class="parent-box">
-    {% if apiError and "subscription" in errorMessage %}
-      <p class="govuk-body">
-        <a href="delete-court-subscription-confirmation?locationId={{ court.locationId }}" class="govuk-link govuk-body">
-          {{ deleteSubscriptionText }} {{ court.name }}</a>
-      </p>
-    {% endif %}
-    {% if apiError and "artefact" in errorMessage %}
-      <p class="govuk-body">
-        <a href="delete-court-publication-confirmation?locationId={{ court.locationId }}" class="govuk-link govuk-body">
-          {{ deletePublicationText }} {{ court.name }}</a>
-      </p>
-    {% endif %}
     {{ govukWarningText({
-      text: warning,
+      text: warning + court.name,
       iconFallbackText: "Warning"
     }) }}
-    {{ govukSummaryList({
-      rows: [
-        {
-          key: {
-          text: summaryListHeaders.courtName
-        },
-          value: {
-          text: court.name
-        }
-        },
-
-        {
-          key: {
-          text: summaryListHeaders.locationType
-        },
-          value: {
-          text: court.locationType
-        }
-        },
-
-        {
-          key: {
-          text: summaryListHeaders.jurisdiction
-        },
-          value: {
-          text: court.jurisdiction
-        }
-        },
-
-        {
-          key: {
-          text: summaryListHeaders.region
-        },
-          value: {
-          text: court.region
-        }
-        }
-      ]
-    }) }}
     <h2 class="govuk-heading-l">{{ header }}</h2>
-    <form action="delete-court-reference-data-confirmation" method="post">
+    <form action="delete-court-publication-confirmation" method="post">
       {{ govukInput({
         id: "locationId",
         name: "locationId",
