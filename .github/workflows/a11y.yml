@@ -30,8 +30,7 @@ jobs:
         with:
           cmd: webpack # will run `yarn webpack` command
       - name: install bits
-        with:
-          cmd: sudo apt-get update && sudo apt-get install -y libgbm-dev
+        run: sudo apt-get update && sudo apt-get install -y libgbm-dev
       - name: Run test:a11y
         uses: borales/actions-yarn@v4
         with:
