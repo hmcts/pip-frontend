@@ -14,21 +14,34 @@
 {% block content %}
   <div class="parent-box">
     <h1 class="govuk-heading-l">{{ title }}</h1>
-
     <div id="section1">
       <h2 class="govuk-heading-m">{{ locationName }}</h2>
       {% set headers = [] %}
-      {% for tableHeader in tableHeaders %}
-        {% set _ = headers.push({text:tableHeader}) %}
-      {% endfor %}
       {% set rows = [] %}
-      {% for pub in listOfPublications %}
-        {% set _ = rows.push([
-          {html: '<a class="govuk-link--no-underline" href="blob-view-json?artefactId='+pub.artefactId+'">'+pub.artefactId+'</a>'},
-          {text: pub.listType | listType},
-          {text: pub | dateRange}
-        ]) %}
-      {% endfor %}
+      {% if not noMatchArtefact %}
+        {% for tableHeader in tableHeaders %}
+          {% set _ = headers.push({text:tableHeader}) %}
+        {% endfor %}
+        {% for pub in listOfPublications %}
+          {% set _ = rows.push([
+            {html: '<a class="govuk-link--no-underline" href="blob-view-json?artefactId='+pub.artefactId+'">'+pub.artefactId+'</a>'},
+            {text: pub.listType | listType},
+            {text: pub | dateRange}
+          ]) %}
+        {% endfor %}
+      {% else %}
+        {% for tableHeader in noMatchTableHeaders %}
+          {% set _ = headers.push({text:tableHeader}) %}
+        {% endfor %}
+        {% for pub in listOfPublications %}
+          {% set _ = rows.push([
+            {html: '<a class="govuk-link--no-underline" href="blob-view-json?artefactId='+pub.artefactId+'">'+pub.artefactId+'</a>'},
+            {text: pub.locationId},
+            {text: pub.listType | listType},
+            {text: pub | dateRange}
+          ]) %}
+        {% endfor %}
+      {% endif %}
       {{ govukTable({
         caption: subHeading,
         captionClasses: "govuk-table__caption--m",
@@ -36,7 +49,6 @@
         rows: rows
       }) }}
     </div>
-
     {{ super() }}
   </div>
 {% endblock %}

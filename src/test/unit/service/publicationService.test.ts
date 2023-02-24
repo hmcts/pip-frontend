@@ -27,11 +27,11 @@ const returnedArtefact = [
 
 const countPerLocation = [
     {
-        locationId: 1,
+        locationId: '1',
         totalArtefacts: 2,
     },
     {
-        locationId: 3,
+        locationId: '3',
         totalArtefacts: 1,
     },
 ];
@@ -152,8 +152,8 @@ describe('Publication service', () => {
         it('should return a list of locationIds alongside the relevant number of publications', async () => {
             const data = await publicationService.getCountsOfPubsPerLocation();
             const expectedMap = new Map();
-            expectedMap.set(1, 2);
-            expectedMap.set(3, 1);
+            expectedMap.set('1', 2);
+            expectedMap.set('3', 1);
             expect(data).to.deep.equal(expectedMap);
         });
     });
