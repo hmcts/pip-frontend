@@ -33,4 +33,4 @@ jobs:
       - name: Run test:a11y
         uses: borales/actions-yarn@v4
         with:
-          cmd: test:a11y --runInBand --forceExit # will run `yarn test:a11y` command
+          cmd: test:a11y  # will run `yarn test:a11y` command

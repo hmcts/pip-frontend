@@ -1,7 +1,7 @@
 import { fail } from 'assert';
 
 const pa11y = require('pa11y');
-const console = require('console')
+const console = require('console');
 import * as supertest from 'supertest';
 import { app } from '../../main/app';
 import fs from 'fs';
@@ -176,9 +176,9 @@ export function ensurePageCallWillSucceed(url: string): Promise<void> {
 export function runPally(url: string): Pa11yResult {
     return pa11y(url, {
         hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
-	log: {debug: console.log, error: console.error, info: console.info},
+        log: { debug: console.log, error: console.error, info: console.info },
         includeWarnings: true,
-        includeNotices: true
+        includeNotices: true,
     });
 }
 
@@ -210,17 +210,17 @@ function readRoutes(): string[] {
 function testAccessibility(url: string): void {
     describe(`Page ${url}`, () => {
         test('should have no accessibility errors', done => {
-            console.error(`${url} - starting test`)
+            console.error(`${url} - starting test`);
             ensurePageCallWillSucceed(url)
                 .then(() => runPally(agent.get(url).url))
                 .then((result: Pa11yResult) => {
-                    console.error(`${url} - issues: ${result.issues}`)
+                    console.error(`${url} - issues: ${result.issues}`);
                     expectNoErrors(result.issues);
                     done();
                 })
                 .catch((err: Error) => {
-                    console.error(`${url} - error: ${err}`)
-                    done(err)
+                    console.error(`${url} - error: ${err}`);
+                    done(err);
                 });
         });
     });
