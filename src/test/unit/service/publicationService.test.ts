@@ -63,6 +63,11 @@ sinon.stub(publicationRequests, 'getPubsPerLocation').returns(countPerLocation);
 const validCourtName = 'PRESTON';
 const invalidCourtName = 'TEST';
 
+const requester = 'Test';
+const stubPublicationDeletion = sinon.stub(PublicationRequests.prototype, 'deleteLocationPublication');
+stubPublicationDeletion.withArgs(1, requester).returns('success');
+stubPublicationDeletion.withArgs(2, requester).returns(null);
+
 describe('Publication service', () => {
     it('should return array of Search Objects based on partial case name', async () => {
         const results = await publicationService.getCasesByCaseName(caseNameValue, userId);
@@ -176,6 +181,18 @@ describe('Publication service', () => {
 
         it('should return bilingual if the user is welsh and the list is bilingual', () => {
             expect(publicationService.languageToLoadPageIn('BI_LINGUAL', 'cy')).to.equal('bill');
+        });
+    });
+
+    describe('delete location publication', () => {
+        it('should return a message if location subscription is deleted', async () => {
+            const payload = await publicationService.deleteLocationPublication(1, requester);
+            expect(payload).to.deep.equal('success');
+        });
+
+        it('should return null if publication delete failed', async () => {
+            const payload = await publicationService.deleteLocationPublication(2, requester);
+            expect(payload).to.deep.equal(null);
         });
     });
 
