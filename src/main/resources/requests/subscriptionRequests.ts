@@ -9,8 +9,6 @@ export class SubscriptionRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -27,8 +25,6 @@ export class SubscriptionRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -45,8 +41,6 @@ export class SubscriptionRequests {
         } catch (error) {
             if (error.response) {
                 console.log('Failed to create subscription');
-            } else if (error.request) {
-                console.log('Request failed.');
             } else {
                 console.log('Unknown error while creating a subscription');
             }
@@ -61,8 +55,6 @@ export class SubscriptionRequests {
         } catch (error) {
             if (error.response) {
                 console.log('Failed to bulk delete subscriptions');
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -77,8 +69,6 @@ export class SubscriptionRequests {
         } catch (error) {
             if (error.response) {
                 console.log('Failed to configure list type for location subscription');
-            } else if (error.request) {
-                console.log('Request failed.');
             } else {
                 console.log('Unknown error while configuring list type for location subscription');
             }
@@ -93,12 +83,28 @@ export class SubscriptionRequests {
         } catch (error) {
             if (error.response) {
                 console.log('Failed to retrieve the list of channels');
-            } else if (error.request) {
-                console.log('Request failed.');
             } else {
                 console.log('Unknown error while attempting to retrieve the list of channels');
             }
         }
         return [];
+    }
+
+    public async deleteLocationSubscription(locationId: number, adminUserId: string): Promise<object> {
+        try {
+            const header = { headers: { 'x-provenance-user-id': adminUserId } };
+
+            const response = await subscriptionManagementApi.delete(`/subscription/location/${locationId}`, header);
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+            } else if (error.request) {
+                console.log(`Request failed. ${error.request}`);
+            } else {
+                console.log(`ERROR: ${error.message}`);
+            }
+            return null;
+        }
     }
 }

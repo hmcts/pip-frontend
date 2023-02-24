@@ -14,10 +14,6 @@ const errorResponse = {
     },
 };
 
-const errorRequest = {
-    request: 'test error',
-};
-
 const errorMessage = {
     message: 'test',
 };
@@ -39,14 +35,13 @@ const englishLanguage = 'en';
 const welshLanguage = 'cy';
 const dummyFile = new Blob(['testCsv']);
 
-const deletionResponse = { isExists: true, errorMessage: 'test' };
+const deletionResponse = { exists: true, errorMessage: 'test' };
 const adminUserId = 'Test';
 
 describe('Location get requests', () => {
     beforeEach(() => {
         stub.withArgs('/locations/1').resolves({ data: courtList[0] });
         stub.withArgs('/locations/2').rejects(errorResponse);
-        stub.withArgs('/locations/3').rejects(errorRequest);
         stub.withArgs('/locations/4').rejects(errorMessage);
         stub.withArgs('/locations/5').resolves({ data: courtList[4] });
 
@@ -54,14 +49,12 @@ describe('Location get requests', () => {
             data: courtList[0],
         });
         stub.withArgs('/locations/name/test/eng').rejects(errorResponse);
-        stub.withArgs('/locations/name/testReq/eng').rejects(errorRequest);
         stub.withArgs('/locations/name/testMes/eng').rejects(errorMessage);
 
         stub.withArgs(`/locations/name/${courtWelshNameSearch}/language/${welshLanguage}`).resolves({
             data: courtList[0],
         });
         stub.withArgs('/locations/name/test/cy').rejects(errorResponse);
-        stub.withArgs('/locations/name/testReq/cy').rejects(errorRequest);
         stub.withArgs('/locations/name/testMes/cy').rejects(errorMessage);
 
         stub.withArgs('/locations/filter', {
@@ -71,6 +64,7 @@ describe('Location get requests', () => {
                 language: englishLanguage,
             },
         }).resolves({ data: courtList });
+
         stub.withArgs('/locations/filter', {
             params: {
                 regions: test,
@@ -78,6 +72,7 @@ describe('Location get requests', () => {
                 language: englishLanguage,
             },
         }).rejects(errorResponse);
+
         stub.withArgs('/locations/filter', {
             params: {
                 regions: test,
@@ -85,13 +80,6 @@ describe('Location get requests', () => {
                 language: englishLanguage,
             },
         }).rejects(errorMessage);
-        stub.withArgs('/locations/filter', {
-            params: {
-                regions: test,
-                jurisdictions: 'foo',
-                language: englishLanguage,
-            },
-        }).rejects(errorRequest);
 
         stub.withArgs('/locations/filter', {
             params: {
@@ -100,9 +88,11 @@ describe('Location get requests', () => {
                 language: welshLanguage,
             },
         }).resolves({ data: courtList });
+
         stub.withArgs('/locations/filter', {
             params: { regions: test, jurisdictions: test, language: welshLanguage },
         }).rejects(errorResponse);
+
         stub.withArgs('/locations/filter', {
             params: {
                 regions: test,
@@ -110,13 +100,6 @@ describe('Location get requests', () => {
                 language: welshLanguage,
             },
         }).rejects(errorMessage);
-        stub.withArgs('/locations/filter', {
-            params: {
-                regions: test,
-                jurisdictions: 'foo',
-                language: welshLanguage,
-            },
-        }).rejects(errorRequest);
 
         stub.withArgs('/locations').resolves({ data: courtList });
 
@@ -124,27 +107,24 @@ describe('Location get requests', () => {
             .withArgs('/locations/1', {
                 headers: { 'x-provenance-user-id': adminUserId },
             })
-            .resolves({ data: { isExists: true, errorMessage: 'test' } });
+            .resolves({ data: { exists: true, errorMessage: 'test' } });
         courtDeleteStub
             .withArgs('/locations/2', {
                 headers: { 'x-provenance-user-id': adminUserId },
             })
             .rejects(errorResponse);
-        courtDeleteStub
-            .withArgs('/locations/3', {
-                headers: { 'x-provenance-user-id': adminUserId },
-            })
-            .rejects(errorRequest);
+
         courtDeleteStub
             .withArgs('/locations/4', {
                 headers: { 'x-provenance-user-id': adminUserId },
             })
             .rejects(errorMessage);
+
         courtDeleteStub
             .withArgs('/locations/5', {
                 headers: { 'x-provenance-user-id': adminUserId },
             })
-            .resolves({ data: { isExists: false, errorMessage: '' } });
+            .resolves({ data: { exists: false, errorMessage: '' } });
     });
 
     it('should return court by court id', async () => {
@@ -158,10 +138,6 @@ describe('Location get requests', () => {
 
     it('should return null if response fails ', async () => {
         expect(await courtRequests.getLocation(2)).toBe(null);
-    });
-
-    it('should return null if request fails', async () => {
-        expect(await courtRequests.getLocation(3)).toBe(null);
     });
 
     it('should return null if call fails', async () => {
@@ -192,20 +168,12 @@ describe('Location get requests', () => {
         expect(await courtRequests.getLocationByName('test', welshLanguage)).toBe(null);
     });
 
-    it('should return nul for Welsh search if request fails', async () => {
-        expect(await courtRequests.getLocationByName('testReq', welshLanguage)).toBe(null);
-    });
-
     it('should return null for Welsh search if call fails', async () => {
         expect(await courtRequests.getLocationByName('testMes', welshLanguage)).toBe(null);
     });
 
     it('should return list of courts based on search filter', async () => {
         expect(await courtRequests.getFilteredCourts(regions, jurisdictions, englishLanguage)).toBe(courtList);
-    });
-
-    it('should return null if request fails', async () => {
-        expect(await courtRequests.getFilteredCourts(test, test, englishLanguage)).toBe(null);
     });
 
     it('should return null if response fails', async () => {
@@ -233,17 +201,6 @@ describe('Location get requests', () => {
         expect(await courtRequests.getFilteredCourts(test, test, englishLanguage)).toBe(null);
     });
 
-    it('should return null list of courts for error request', async () => {
-        stub.withArgs('/locations').rejects(errorRequest);
-        expect(await courtRequests.getFilteredCourts(test, 'foo', englishLanguage)).toBe(null);
-    });
-
-    it('should return null list of courts for error request', async () => {
-        stub.withArgs('/locations').rejects(errorRequest);
-        stub.withArgs('allCourts').resolves(null);
-        expect(await courtRequests.getAllLocations()).toBe(null);
-    });
-
     it('should return null list of courts for errored call', async () => {
         stub.withArgs('/locations').rejects(errorMessage);
         stub.withArgs('allCourts').resolves(null);
@@ -265,16 +222,12 @@ describe('Location get requests', () => {
     });
 
     it('should return null if request fails', async () => {
-        expect(await courtRequests.deleteCourt(3, adminUserId)).toBe(null);
-    });
-
-    it('should return null if request fails', async () => {
         expect(await courtRequests.deleteCourt(4, adminUserId)).toBe(null);
     });
 
-    it('should return isExists false if court is deleted', async () => {
+    it('should return exists false if court is deleted', async () => {
         const data = await courtRequests.deleteCourt(5, adminUserId);
-        expect(data['isExists']).toStrictEqual(false);
+        expect(data['exists']).toStrictEqual(false);
     });
 });
 
@@ -284,16 +237,13 @@ describe('Get locations csv', () => {
         const response = await courtRequests.getLocationsCsv('1234');
         expect(response).toBe(dummyFile);
     });
-    it('should return null on error request', async () => {
-        stub.withArgs('/locations/download/csv').rejects(errorRequest);
-        const response = await courtRequests.getLocationsCsv('1234');
-        expect(response).toBe(null);
-    });
+
     it('should return false on error response', async () => {
         stub.withArgs('/locations/download/csv').rejects(errorResponse);
         const response = await courtRequests.getLocationsCsv('1234');
         expect(response).toBe(null);
     });
+
     it('should return false on error message', async () => {
         stub.withArgs('/locations/download/csv').rejects(errorMessage);
         const response = await courtRequests.getLocationsCsv('1234');

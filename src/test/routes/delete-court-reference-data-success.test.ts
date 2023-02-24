@@ -3,7 +3,7 @@ import { app } from '../../main/app';
 import request from 'supertest';
 import { request as expressRequest } from 'express';
 
-const PAGE_URL = '/delete-court-reference-data-success';
+const PAGE_URL = '/delete-court-reference-data-success?locationId=1';
 
 expressRequest['user'] = { userId: '1', roles: 'SYSTEM_ADMIN' };
 

@@ -87,6 +87,10 @@ const systemAdminRoutes = [
     '/bulk-create-media-accounts',
     '/bulk-create-media-accounts-confirmation',
     '/bulk-create-media-accounts-confirmed',
+    '/delete-court-subscription-confirmation',
+    '/delete-court-subscription-success',
+    '/delete-court-publication-confirmation',
+    '/delete-court-publication-success',
 ];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
@@ -106,8 +110,18 @@ const liveCaseData = JSON.parse(rawDataLive).results;
 const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
 const sjpCases = JSON.parse(rawSJPData).results;
 const mediaApplications = JSON.parse(rawMediaApplications);
+const countPerLocation = [
+    {
+        locationId: '1',
+        totalArtefacts: 2,
+    },
+    {
+        locationId: '3',
+        totalArtefacts: 1,
+    },
+];
 
-sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns('location,count\n1,2\n3,1\n');
+sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns(countPerLocation);
 sinon.stub(LocationRequests.prototype, 'getLocation').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getFilteredCourts').returns(allCourtData);

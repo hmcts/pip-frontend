@@ -25,6 +25,17 @@ const returnedArtefact = [
     },
 ];
 
+const countPerLocation = [
+    {
+        locationId: '1',
+        totalArtefacts: 2,
+    },
+    {
+        locationId: '3',
+        totalArtefacts: 1,
+    },
+];
+
 const publicationService = new PublicationService();
 const publicationRequestStub = sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue');
 publicationRequestStub.resolves(returnedArtefact);
@@ -48,9 +59,14 @@ stubMetaData.returns(metaData);
 const stubCourtPubs = sinon.stub(publicationRequests, 'getPublicationsByCourt');
 stubCourtPubs.withArgs('1', userId, false).resolves(returnedArtefact);
 stubCourtPubs.withArgs('2', userId, false).resolves([]);
-sinon.stub(publicationRequests, 'getPubsPerLocation').returns('location,count\n1,2\n3,1\n');
+sinon.stub(publicationRequests, 'getPubsPerLocation').returns(countPerLocation);
 const validCourtName = 'PRESTON';
 const invalidCourtName = 'TEST';
+
+const requester = 'Test';
+const stubPublicationDeletion = sinon.stub(PublicationRequests.prototype, 'deleteLocationPublication');
+stubPublicationDeletion.withArgs(1, requester).returns('success');
+stubPublicationDeletion.withArgs(2, requester).returns(null);
 
 describe('Publication service', () => {
     it('should return array of Search Objects based on partial case name', async () => {
@@ -136,8 +152,8 @@ describe('Publication service', () => {
         it('should return a list of locationIds alongside the relevant number of publications', async () => {
             const data = await publicationService.getCountsOfPubsPerLocation();
             const expectedMap = new Map();
-            expectedMap.set(1, 2);
-            expectedMap.set(3, 1);
+            expectedMap.set('1', 2);
+            expectedMap.set('3', 1);
             expect(data).to.deep.equal(expectedMap);
         });
     });
@@ -165,6 +181,18 @@ describe('Publication service', () => {
 
         it('should return bilingual if the user is welsh and the list is bilingual', () => {
             expect(publicationService.languageToLoadPageIn('BI_LINGUAL', 'cy')).to.equal('bill');
+        });
+    });
+
+    describe('delete location publication', () => {
+        it('should return a message if location subscription is deleted', async () => {
+            const payload = await publicationService.deleteLocationPublication(1, requester);
+            expect(payload).to.deep.equal('success');
+        });
+
+        it('should return null if publication delete failed', async () => {
+            const payload = await publicationService.deleteLocationPublication(2, requester);
+            expect(payload).to.deep.equal(null);
         });
     });
 
