@@ -6,23 +6,17 @@ on:
     types: [opened, synchronize, reopened]
 name: a11y tests
 env:
-  CI: true
   REDIS_SUPPRESS: true
 jobs:
   build:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: beta
       - uses: actions/checkout@v3
-      # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v3
         with:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
-          # Defaults to the user or organization that owns the workflow file
           scope: '@octocat'
       - name: Run install
         uses: borales/actions-yarn@v4
