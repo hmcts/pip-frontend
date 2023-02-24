@@ -30,7 +30,7 @@ jobs:
         with:
           cmd: webpack # will run `yarn webpack` command
       - name: install bits
-        run: pa11y http://example.com/
+        run: ldd chrome | grep not
       - name: Run test:a11y
         uses: borales/actions-yarn@v4
         with:
