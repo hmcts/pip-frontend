@@ -1,0 +1,9 @@
+{
+    "title": "Court Publication Delete Successful",
+    "panelTitle": "Success",
+    "panelBodyMessage": "Court publication(s) has been deleted",
+    "nextMessage": "What do you want to do next?",
+    "continueDeleteCourt": "Continue deletion of ",
+    "uploadReferenceDataFile": "Upload Reference Data",
+    "homeLinkName": "Home"
+}
