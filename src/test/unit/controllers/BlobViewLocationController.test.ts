@@ -10,9 +10,10 @@ const i18n = {
     'blob-view-controller': {},
 };
 
-const map = new Map<number, number>([
-    [9, 1],
-    [1, 1],
+const map = new Map<string, number>([
+    ['9', 1],
+    ['1', 1],
+    ['noMatch', 4],
 ]);
 const locStub = sinon.stub(LocationService.prototype, 'fetchAllLocations');
 const countStub = sinon.stub(PublicationService.prototype, 'getCountsOfPubsPerLocation');
@@ -34,6 +35,7 @@ describe('Get publications', () => {
         const responseMock = sinon.mock(response);
         const expectedDictionary = new Map();
         expectedDictionary.set('Single Justice Procedure', [9, 1]);
+        expectedDictionary.set('No match artefacts', ['noMatch', 4]);
         const expectedData = {
             ...i18n['blob-view-locations'],
             dictionaryOfLocations: expectedDictionary,
