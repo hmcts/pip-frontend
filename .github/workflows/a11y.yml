@@ -33,9 +33,6 @@ jobs:
         with:
           cmd: webpack # will run `yarn webpack` command
       - name: Run test:a11y
-      - uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: beta
-      - uses: borales/actions-yarn@v4
+        uses: borales/actions-yarn@v4
         with:
           cmd: test:a11y  # will run `yarn test:a11y` command
