@@ -179,7 +179,7 @@ export function runPally(url: string): Pa11yResult {
         log: { debug: console.log, error: console.error, info: console.info },
         includeWarnings: true,
         includeNotices: true,
-        chromeLaunchConfig: {"ignoreHTTPSErrors": false}
+        chromeLaunchConfig: { ignoreHTTPSErrors: false, dumpio: true },
     });
 }
 
