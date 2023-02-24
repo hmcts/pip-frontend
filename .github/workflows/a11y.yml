@@ -8,6 +8,7 @@ name: a11y tests
 env:
   CI: true
   REDIS_SUPPRESS: true
+  NODE_ENV: development
 jobs:
   build:
     name: Test
@@ -29,8 +30,6 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: webpack # will run `yarn webpack` command
-      - name: install bits
-        run: ldd chrome | grep not
       - name: Run test:a11y
         uses: borales/actions-yarn@v4
         with:
