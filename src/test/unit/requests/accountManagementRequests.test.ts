@@ -904,7 +904,6 @@ describe('Account Management Requests', () => {
             expect(response).toStrictEqual([]);
         });
 
-
         it('should return empty array on error message', async () => {
             getStub.withArgs('/audit', { params: { pageSize: 25 } }).rejects(errorMessage);
             const response = await accountManagementRequests.getAllAuditLogs(
