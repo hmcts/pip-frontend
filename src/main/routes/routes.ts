@@ -543,6 +543,36 @@ export default function (app: Application): void {
         isPermittedSystemAdmin,
         app.locals.container.cradle.deleteCourtReferenceDataSuccessController.get
     );
+    app.get(
+        '/delete-court-subscription-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get
+    );
+    app.post(
+        '/delete-court-subscription-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post
+    );
+    app.get(
+        '/delete-court-subscription-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get
+    );
+    app.get(
+        '/delete-court-publication-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get
+    );
+    app.post(
+        '/delete-court-publication-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post
+    );
+    app.get(
+        '/delete-court-publication-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get
+    );
     app.get('/audit-log-viewer', isPermittedSystemAdmin, app.locals.container.cradle.auditLogViewerController.get);
 
     //CFT Routes
