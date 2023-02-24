@@ -10,18 +10,30 @@ export default class BlobViewPublicationsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const locationId = req.query['locationId'];
         if (locationId) {
-            const court = await locationService.getLocationById(parseInt(locationId.toString()));
+            let court;
+            let locationName = '';
+            let listOfPublications = [];
+
             // reusing summary-of-pubs language file and service as this is essentially the same kind of page.
-            const locationName = locationService.findCourtName(court, req.lng as string, 'summary-of-publications');
-            const listOfPublications = await summaryOfPublicationsService.getPublications(
-                parseInt(locationId.toString()),
-                req.user?.['userId']
-            );
+            // If the location being asked for is noMatch we do not need to request data from the API as it is not a real location
+            const noMatchArtefact = locationId.toString() === 'noMatch';
+            if (!noMatchArtefact) {
+                court = await locationService.getLocationById(parseInt(locationId.toString()));
+                locationName = locationService.findCourtName(court, req.lng as string, 'summary-of-publications');
+                listOfPublications = await summaryOfPublicationsService.getPublications(
+                    parseInt(locationId.toString()),
+                    req.user?.['userId']
+                );
+            } else {
+                locationName = 'No match artefacts';
+                listOfPublications = await summaryOfPublicationsService.getNoMatchPublications();
+            }
 
             res.render('blob-view-publications', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-publications']),
                 listOfPublications: listOfPublications,
                 locationName,
+                noMatchArtefact,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
