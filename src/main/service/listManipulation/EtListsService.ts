@@ -12,8 +12,6 @@ export class EtListsService {
         jsonData['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
                 courtRoom['session'].forEach(session => {
-                    session['formattedJudiciary'] = this.helperService.getJudiciaryNameSurname(session);
-                    delete session['judiciary'];
                     session['sittings'].forEach(sitting => {
                         sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma', language);
                         this.helperService.calculateDuration(sitting);
