@@ -31,4 +31,6 @@ jobs:
         with:
           cmd: webpack # will run `yarn webpack` command
       - name: Run test:a11y
-        run: jest -c jest.a11y.config.js --runInBand --forceExit  # will run `yarn test:a11y` command
+      uses: borales/actions-yarn@v4
+        with:
+          cmd: jest -c jest.a11y.config.js --runInBand --forceExit  # will run `yarn test:a11y` command
