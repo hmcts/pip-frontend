@@ -26,11 +26,11 @@ jobs:
         with:
           cmd: install # will run `yarn install` command
       - name: Run webpack
+        uses: borales/actions-yarn@v4
         with:
           cmd: webpack # will run `yarn webpack` command
       - name: install bits
-        with:
-          cmd: pa11y http://example.com/
+        run: pa11y http://example.com/
       - name: Run test:a11y
         uses: borales/actions-yarn@v4
         with:
