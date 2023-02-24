@@ -4,7 +4,7 @@ on:
   push:
   pull_request:
     types: [opened, synchronize, reopened]
-name: Route tests
+name: a11y tests
 env:
   CI: true
   REDIS_SUPPRESS: true
@@ -25,11 +25,13 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: install # will run `yarn install` command
-      - name: Run build
+      - name: Run webpack
         uses: borales/actions-yarn@v4
         with:
-          cmd: build # will run `yarn build` command
+          cmd: webpack # will run `yarn webpack` command
+      - name: install bits
+        run: sudo apt-get update && sudo apt-get install -y libgbm-dev
       - name: Run test:a11y
         uses: borales/actions-yarn@v4
         with:
-          cmd: test:a11y --forceExit # will run `yarn test:a11y` command
+          cmd: jest -c jest.a11y.config.js --runInBand --forceExit # will run `yarn test:a11y` command
