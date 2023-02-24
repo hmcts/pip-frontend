@@ -8,7 +8,6 @@ name: a11y tests
 env:
   CI: true
   REDIS_SUPPRESS: true
-  NODE_ENV: development
 jobs:
   build:
     name: Test
@@ -33,4 +32,4 @@ jobs:
       - name: Run test:a11y
         uses: borales/actions-yarn@v4
         with:
-          cmd: jest -c jest.a11y.config.js --runInBand --forceExit  # will run `yarn test:a11y` command
+          cmd: test:a11y  # will run `yarn test:a11y` command
