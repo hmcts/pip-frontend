@@ -38,6 +38,7 @@ describe('Get publications', () => {
             ...i18n['blob-view-publications'],
             locationName: 'Missing Court',
             list_of_pubs: [],
+            noMatchArtefact: false,
         };
         responseMock.expects('render').once().withArgs('blob-view-publications', expectedData);
         responseMock.verify;
@@ -61,6 +62,7 @@ describe('Get publications (no stubs)', () => {
             ...i18n['blob-view-publications'],
             locationName: 'New Court',
             listOfPublications: sjpCases,
+            noMatchArtefact: false,
         };
         responseMock.expects('render').once().withArgs('blob-view-publications', expectedData);
         await blobViewController.get(request, response);
