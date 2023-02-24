@@ -34,4 +34,4 @@ jobs:
       - name: Run test:a11y
         uses: borales/actions-yarn@v4
         with:
-          cmd: test:a11y --forceExit # will run `yarn test:a11y` command
+          cmd: jest -c jest.a11y.config.js --runInBand --forceExit # will run `yarn test:a11y` command
