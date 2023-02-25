@@ -11,7 +11,7 @@ export class PublicationService {
         return publicationRequests.getIndividualPublicationMetadata(artefactId, userId, admin);
     }
 
-    public async getCountsOfPubsPerLocation(): Promise<Map<number, number>> {
+    public async getCountsOfPubsPerLocation(): Promise<Map<string, number>> {
         const response = await publicationRequests.getPubsPerLocation();
         const map = new Map();
         response.forEach(countPerLocation => {
@@ -123,5 +123,9 @@ export class PublicationService {
         } else {
             return userLanguage;
         }
+    }
+
+    public async deleteLocationPublication(locationId: number, requester: string): Promise<object> {
+        return await publicationRequests.deleteLocationPublication(locationId, requester);
     }
 }
