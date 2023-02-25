@@ -109,7 +109,7 @@ const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
 const sjpCases = JSON.parse(rawSJPData).results;
 const mediaApplications = JSON.parse(rawMediaApplications);
 
-sinon.stub(PublicationRequests.prototype, 'getIndividualPubMetadata').returns('');
+sinon.stub(PublicationRequests.prototype, 'getIndividualPublicationMetadata').returns('');
 sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns('location,count\n1,2\n3,1\n');
 sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns('');
 sinon.stub(LocationRequests.prototype, 'getLocation').returns(courtData);
