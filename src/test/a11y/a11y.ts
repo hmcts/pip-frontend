@@ -16,8 +16,8 @@ import { ManualUploadService } from '../../main/service/manualUploadService';
 import { PublicationRequests } from '../../main/resources/requests/publicationRequests';
 import { AccountManagementRequests } from '../../main/resources/requests/accountManagementRequests';
 import { SubscriptionRequests } from '../../main/resources/requests/subscriptionRequests';
-import {PublicationService} from '../../main/service/publicationService';
-import {LocationService} from '../../main/service/locationService';
+import { PublicationService } from '../../main/service/publicationService';
+import { LocationService } from '../../main/service/locationService';
 
 const agent = supertest.agent(app);
 const routesNotTested = [
@@ -283,7 +283,6 @@ describe('Accessibility URN Search Page Error States', () => {
             .catch((err: Error) => done(err));
     });
 });
-
 
 URL = '/case-name-search';
 
