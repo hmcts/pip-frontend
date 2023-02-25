@@ -6,7 +6,7 @@ name: routes tests
 env:
   REDIS_SUPPRESS: true
 #  prevents memory issues due to node's max heap size
-  NODE_OPTIONS: --max-old-space-size=4096
+  NODE_OPTIONS: --max-old-space-size=8192
 jobs:
   build:
     name: Test
