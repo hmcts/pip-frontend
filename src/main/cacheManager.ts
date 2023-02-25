@@ -26,9 +26,10 @@ if (process.env.REDIS_LOCAL) {
 }
 const redisClient = new ioRedis(connectionString, { connectTimeout: 10000 });
 
-logger.info('redis env var', redisCredentials.host);
-logger.info('redis env port', redisCredentials.port);
-
+if (!process.env.REDIS_SUPPRESS) {
+    logger.info('redis env var', redisCredentials.host);
+    logger.info('redis env port', redisCredentials.port);
+}
 redisClient.on('connect', () => {
     if (!process.env.REDIS_SUPPRESS) {
         logger.info('Connected to Redis');
@@ -43,7 +44,9 @@ redisClient.on('error', error => {
 });
 
 redisClient.on('ready', () => {
-    logger.info('redis ready');
+    if (!process.env.REDIS_SUPPRESS) {
+        logger.info('redis ready');
+    }
 });
 
 redisClient.on('close', () => {

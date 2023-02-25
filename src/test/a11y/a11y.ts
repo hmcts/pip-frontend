@@ -15,6 +15,8 @@ import { SjpRequests } from '../../main/resources/requests/sjpRequests';
 import { ManualUploadService } from '../../main/service/manualUploadService';
 import { PublicationRequests } from '../../main/resources/requests/publicationRequests';
 import { AccountManagementRequests } from '../../main/resources/requests/accountManagementRequests';
+import { SubscriptionRequests } from '../../main/resources/requests/subscriptionRequests';
+
 const agent = supertest.agent(app);
 const routesNotTested = [
     '/health',
@@ -107,7 +109,9 @@ const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
 const sjpCases = JSON.parse(rawSJPData).results;
 const mediaApplications = JSON.parse(rawMediaApplications);
 
+sinon.stub(PublicationRequests.prototype, 'getIndividualPubMetadata').returns('');
 sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns('location,count\n1,2\n3,1\n');
+sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns('');
 sinon.stub(LocationRequests.prototype, 'getLocation').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getFilteredCourts').returns(allCourtData);
@@ -212,7 +216,6 @@ function testAccessibility(url: string): void {
             ensurePageCallWillSucceed(url)
                 .then(() => runPally(agent.get(url).url))
                 .then((result: Pa11yResult) => {
-                    console.error(`${url} - issues: ${result.issues}`);
                     expectNoErrors(result.issues);
                     done();
                 })
