@@ -18,14 +18,14 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
           scope: '@octocat'
-      - name: Run test:routes
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: test:routes  # will run `yarn test:routes` command
       - name: Run install
         uses: borales/actions-yarn@v4
         with:
           cmd: install # will run `yarn install` command
+      - name: Run test:routes
+        uses: borales/actions-yarn@v4
+        with:
+            cmd: test:routes  # will run `yarn test:routes` command
       - name: Run webpack
         uses: borales/actions-yarn@v4
         with:
