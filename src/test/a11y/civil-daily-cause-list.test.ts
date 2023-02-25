@@ -1,7 +1,7 @@
 import * as supertest from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../main/app';
-import { ensurePageCallWillSucceed, expectNoErrors, Pa11yResult, runPally } from '../a11y/a11y';
+import { ensurePageCallWillSucceed, expectNoErrors, Pa11yResult, runPally } from './a11y';
 import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';

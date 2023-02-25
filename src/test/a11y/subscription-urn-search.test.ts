@@ -1,11 +1,11 @@
 import * as supertest from 'supertest';
 import { app } from '../../main/app';
-import { ensurePageCallWillSucceed, expectNoErrors, Pa11yResult, runPally } from '../a11y/a11y';
+import { ensurePageCallWillSucceed, expectNoErrors, Pa11yResult, runPally } from './a11y';
 const agent = supertest.agent(app);
 
-const URL = '/case-reference-number-search';
+const URL = '/subscription-urn-search';
 
-describe('Accessibility Case Reference Number Search Page Error States', () => {
+describe('Accessibility URN Search Page Error States', () => {
     test('should have no accessibility errors for no input data', done => {
         ensurePageCallWillSucceed(URL)
             .then(() => runPally(agent.post(URL).send({ 'search-input': '' }).url))

@@ -1,6 +1,6 @@
 import * as supertest from 'supertest';
 import { app } from '../../main/app';
-import { ensurePageCallWillSucceed, expectNoErrors, Pa11yResult, runPally } from '../a11y/a11y';
+import { ensurePageCallWillSucceed, expectNoErrors, Pa11yResult, runPally } from './a11y';
 const agent = supertest.agent(app);
 
 const URL = '/search';
