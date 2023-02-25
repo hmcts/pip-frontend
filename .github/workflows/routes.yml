@@ -1,0 +1,36 @@
+on:
+  # Trigger analysis when pushing in master or pull requests, and when creating
+  # a pull request.
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
+name: routes tests
+env:
+  REDIS_SUPPRESS: true
+jobs:
+  build:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@octocat'
+      - name: Run test:routes
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: test:routes  # will run `yarn test:routes` command
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # will run `yarn install` command
+      - name: Run webpack
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: webpack # will run `yarn webpack` command
+      - name: Run test:routes
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: test:routes  # will run `yarn test:routes` command

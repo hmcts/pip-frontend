@@ -108,9 +108,19 @@ const liveCaseData = JSON.parse(rawDataLive).results;
 const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
 const sjpCases = JSON.parse(rawSJPData).results;
 const mediaApplications = JSON.parse(rawMediaApplications);
+const countPerLocation = [
+    {
+        locationId: '1',
+        totalArtefacts: 2,
+    },
+    {
+        locationId: '3',
+        totalArtefacts: 1,
+    },
+];
 
 sinon.stub(PublicationRequests.prototype, 'getIndividualPublicationMetadata').returns('');
-sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns('location,count\n1,2\n3,1\n');
+sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns(countPerLocation);
 sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns('');
 sinon.stub(LocationRequests.prototype, 'getLocation').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(courtData);
