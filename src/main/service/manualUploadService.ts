@@ -8,6 +8,7 @@ import { PublicationService } from './publicationService';
 const courtService = new LocationService();
 const dataManagementRequests = new DataManagementRequests();
 import { LanguageFileParser } from '../helpers/languageFileParser';
+
 const languageFileParser = new LanguageFileParser();
 const fileHandlingService = new FileHandlingService();
 const publicationService = new PublicationService();
@@ -46,6 +47,8 @@ export class ManualUploadService {
         publicationService.getListTypes().forEach((value, key) => {
             jsonArray.push({ value: key, text: value.shortenedFriendlyName });
         });
+        jsonArray.push({ value: 'EMPTY', text: '<Please choose a list type>' });
+        jsonArray.sort((a,b) => a['text'].toUpperCase() > b['text'].toUpperCase() ? 1 : -1);
 
         return jsonArray;
     }
@@ -103,8 +106,15 @@ export class ManualUploadService {
                 languageFile
             ),
             classificationError: formValues['classification'] ? null : 'true',
+            listTypeError: formValues['listType'] != 'EMPTY' ? null : 'true',
         };
-        if (fields.courtError || fields.contentDateError || fields.displayDateError || fields.classificationError) {
+        if (
+            fields.courtError ||
+            fields.contentDateError ||
+            fields.displayDateError ||
+            fields.classificationError ||
+            fields.listTypeError
+        ) {
             return fields;
         }
         return null;
