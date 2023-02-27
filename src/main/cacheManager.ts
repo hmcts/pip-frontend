@@ -26,31 +26,31 @@ if (process.env.REDIS_LOCAL) {
 }
 const redisClient = new ioRedis(connectionString, { connectTimeout: 10000 });
 
-if (!process.env.REDIS_SUPPRESS) {
+if (!process.env.REDIS_SUPPRESS) { //NOSONAR
     logger.info('redis env var', redisCredentials.host);
     logger.info('redis env port', redisCredentials.port);
 }
 redisClient.on('connect', () => {
-    if (!process.env.REDIS_SUPPRESS) {
+    if (!process.env.REDIS_SUPPRESS) { //NOSONAR
         logger.info('Connected to Redis');
     }
 });
 
 redisClient.on('error', error => {
-    if (!process.env.REDIS_SUPPRESS) {
+    if (!process.env.REDIS_SUPPRESS) { //NOSONAR
         logger.error('Failed to connect to Redis', error.message);
         logger.info('Attempting to reconnect to Redis');
     }
 });
 
 redisClient.on('ready', () => {
-    if (!process.env.REDIS_SUPPRESS) {
+    if (!process.env.REDIS_SUPPRESS) { //NOSONAR
         logger.info('redis ready');
     }
 });
 
 redisClient.on('close', () => {
-    if (!process.env.REDIS_SUPPRESS) {
+    if (!process.env.REDIS_SUPPRESS) { //NOSONAR
         logger.info('connection closed');
     }
 });
