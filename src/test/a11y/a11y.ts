@@ -16,7 +16,7 @@ import { PublicationRequests } from '../../main/resources/requests/publicationRe
 import { AccountManagementRequests } from '../../main/resources/requests/accountManagementRequests';
 import { SubscriptionRequests } from '../../main/resources/requests/subscriptionRequests';
 import { PublicationService } from '../../main/service/publicationService';
-import { LocationService } from '../../main/service/locationService'
+import { LocationService } from '../../main/service/locationService';
 
 const agent = supertest.agent(app);
 const routesNotTested = [

@@ -1,7 +1,5 @@
 on:
     push:
-    pull_request:
-        types: [opened, synchronize, reopened]
 name: routes tests
 env:
     REDIS_SUPPRESS: true
