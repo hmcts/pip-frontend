@@ -1,5 +1,5 @@
 import { fail } from 'assert';
-
+const console = require('console');
 const pa11y = require('pa11y');
 import * as supertest from 'supertest';
 import { app } from '../../main/app';
@@ -14,6 +14,9 @@ import { SjpRequests } from '../../main/resources/requests/sjpRequests';
 import { ManualUploadService } from '../../main/service/manualUploadService';
 import { PublicationRequests } from '../../main/resources/requests/publicationRequests';
 import { AccountManagementRequests } from '../../main/resources/requests/accountManagementRequests';
+import { SubscriptionRequests } from '../../main/resources/requests/subscriptionRequests';
+import { PublicationService } from '../../main/service/publicationService';
+import { LocationService } from '../../main/service/locationService'
 
 const agent = supertest.agent(app);
 const routesNotTested = [
@@ -93,7 +96,7 @@ const systemAdminRoutes = [
     '/delete-court-publication-success',
 ];
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
+let rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
 const rawDataLive = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/liveCaseStatusUpdates.json'), 'utf-8');
 const rawDataCaseEventGlossary = fs.readFileSync(
     path.resolve(__dirname, '../unit/mocks/CaseEventGlossary.json'),
@@ -105,7 +108,7 @@ const rawPublicationData = JSON.parse(
 );
 const rawMediaApplications = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/mediaApplications.json'), 'utf-8');
 const allCourtData = JSON.parse(rawDataCourt);
-const courtData = allCourtData[0];
+let courtData = allCourtData[0];
 const liveCaseData = JSON.parse(rawDataLive).results;
 const caseEventGlossaryData = JSON.parse(rawDataCaseEventGlossary);
 const sjpCases = JSON.parse(rawSJPData).results;
@@ -122,6 +125,8 @@ const countPerLocation = [
 ];
 
 sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns(countPerLocation);
+sinon.stub(PublicationRequests.prototype, 'getIndividualPublicationMetadata').returns('');
+sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').returns('');
 sinon.stub(LocationRequests.prototype, 'getLocation').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getFilteredCourts').returns(allCourtData);
@@ -190,6 +195,7 @@ export function ensurePageCallWillSucceed(url: string): Promise<void> {
 export function runPally(url: string): Pa11yResult {
     return pa11y(url, {
         hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
+        chromeLaunchConfig: { headless: true, args: ['--no-sandbox'] },
     });
 }
 
@@ -221,13 +227,17 @@ function readRoutes(): string[] {
 function testAccessibility(url: string): void {
     describe(`Page ${url}`, () => {
         test('should have no accessibility errors', done => {
+            console.error(`${url} - starting test`);
             ensurePageCallWillSucceed(url)
                 .then(() => runPally(agent.get(url).url))
                 .then((result: Pa11yResult) => {
                     expectNoErrors(result.issues);
                     done();
                 })
-                .catch((err: Error) => done(err));
+                .catch((err: Error) => {
+                    console.error(`${url} - error: ${err}`);
+                    done(err);
+                });
         });
     });
 }
@@ -246,5 +256,126 @@ describe('Accessibility', () => {
     };
     readRoutes().forEach(route => {
         testAccessibility(route);
+    });
+});
+
+let URL = '/subscription-urn-search';
+
+describe('Accessibility URN Search Page Error States', () => {
+    test('should have no accessibility errors for no input data', done => {
+        ensurePageCallWillSucceed(URL)
+            .then(() => runPally(agent.post(URL).send({ 'search-input': '' }).url))
+            .then((result: Pa11yResult) => {
+                expectNoErrors(result.issues);
+                done();
+            })
+            .catch((err: Error) => done(err));
+    });
+
+    test('should have no accessibility errors for invalid input data', done => {
+        ensurePageCallWillSucceed(URL)
+            .then(() => runPally(agent.post(URL).send({ 'search-input': '123' }).url))
+            .then((result: Pa11yResult) => {
+                expectNoErrors(result.issues);
+                done();
+            })
+            .catch((err: Error) => done(err));
+    });
+});
+
+URL = '/case-name-search';
+
+const stub = sinon.stub(PublicationService.prototype, 'getCasesByCaseName');
+stub.withArgs('').returns([]);
+stub.withArgs('foo').returns([]);
+
+describe('Accessibility Case Name Search Page Error States', () => {
+    test('should have no accessibility errors for no input data', done => {
+        ensurePageCallWillSucceed(URL)
+            .then(() => runPally(agent.post(URL).send({ 'case-name': '' }).url))
+            .then((result: Pa11yResult) => {
+                expectNoErrors(result.issues);
+                done();
+            })
+            .catch((err: Error) => done(err));
+    });
+
+    test('should have no accessibility errors for invalid input data', done => {
+        ensurePageCallWillSucceed(URL)
+            .then(() => runPally(agent.post(URL).send({ 'case-name': 'foo' }).url))
+            .then((result: Pa11yResult) => {
+                expectNoErrors(result.issues);
+                done();
+            })
+            .catch((err: Error) => done(err));
+    });
+});
+
+URL = '/case-reference-number-search';
+
+describe('Accessibility Case Reference Number Search Page Error States', () => {
+    test('should have no accessibility errors for no input data', done => {
+        ensurePageCallWillSucceed(URL)
+            .then(() => runPally(agent.post(URL).send({ 'search-input': '' }).url))
+            .then((result: Pa11yResult) => {
+                expectNoErrors(result.issues);
+                done();
+            })
+            .catch((err: Error) => done(err));
+    });
+
+    test('should have no accessibility errors for invalid input data', done => {
+        ensurePageCallWillSucceed(URL)
+            .then(() => runPally(agent.post(URL).send({ 'search-input': '123' }).url))
+            .then((result: Pa11yResult) => {
+                expectNoErrors(result.issues);
+                done();
+            })
+            .catch((err: Error) => done(err));
+    });
+});
+
+URL = '/daily-cause-list?artefactId=abc';
+const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/dailyCauseList.json'), 'utf-8');
+const dailyCauseListData = JSON.parse(rawData);
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/returnedArtefacts.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData)[0];
+
+rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
+courtData = JSON.parse(rawDataCourt);
+
+describe('Accessibility Civil Daily Cause List Page Error States', () => {
+    beforeEach(() => {
+        sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(dailyCauseListData);
+        sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
+        sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
+    });
+
+    afterEach(() => {
+        sinon.restore();
+    });
+
+    test('should have no accessibility errors for input data', done => {
+        ensurePageCallWillSucceed(URL)
+            .then(() => runPally(agent.get(URL).url))
+            .then((result: Pa11yResult) => {
+                expectNoErrors(result.issues);
+                done();
+            })
+            .catch((err: Error) => done(err));
+    });
+});
+
+URL = '/search';
+
+describe('Accessibility Search Page Error States', () => {
+    test('should have no accessibility errors for no input and invalid data', done => {
+        ensurePageCallWillSucceed(URL)
+            .then(() => runPally(agent.post(URL).send({ 'input-autocomplete': '' }).url))
+            .then((result: Pa11yResult) => {
+                expectNoErrors(result.issues);
+                done();
+            })
+            .catch((err: Error) => done(err));
     });
 });
