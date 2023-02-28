@@ -9,6 +9,8 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     const sensitivityClassified = 'CLASSIFIED';
     const sensitivityPrivate = 'PRIVATE';
     const date = new Date();
+    const dayAfter = new Date();
+    dayAfter.setDate(dayAfter.getDate() + 1);
 
     I.loginAsAdmin();
     I.click('#card-manual-upload');
@@ -53,9 +55,9 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     I.fillField('#display-date-from-day', dayFormatted(date.getDate()));
     I.fillField('#display-date-from-month', monthFormatted(date.getMonth()));
     I.fillField('#display-date-from-year', date.getFullYear());
-    I.fillField('#display-date-to-day', dayFormatted(date.getDate() + 1));
-    I.fillField('#display-date-to-month', monthFormatted(date.getMonth()));
-    I.fillField('#display-date-to-year', date.getFullYear());
+    I.fillField('#display-date-to-day', dayFormatted(dayAfter.getDate()));
+    I.fillField('#display-date-to-month', monthFormatted(dayAfter.getMonth()));
+    I.fillField('#display-date-to-year', dayAfter.getFullYear());
     I.click('Continue');
     I.see(
         'Please ensure you have checked the sensitivity of the list you are about to publish, the data contained within it and the consequences if this is published incorrectly.'
