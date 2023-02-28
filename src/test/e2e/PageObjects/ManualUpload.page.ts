@@ -18,6 +18,7 @@ export class ManualUploadPage extends CommonPage {
 
     async completeForm(): Promise<void> {
         await this.uploadFile();
+        await this.inputlistType();
         await this.inputSensitivity();
         await this.inputCourt();
         await this.inputContentDateFrom();
@@ -41,6 +42,15 @@ export class ManualUploadPage extends CommonPage {
         });
 
         await $(helpers.sensitivityInput).selectByAttribute('value', 'PUBLIC');
+        await browser.keys('Escape');
+    }
+
+    async inputlistType(): Promise<void> {
+        $(helpers.listTypeInput).catch(() => {
+            console.log(`${helpers.listTypeInput} not found`);
+        });
+
+        await $(helpers.listTypeInput).selectByAttribute('value', 'SJP_PUBLIC_LIST');
         await browser.keys('Escape');
     }
 

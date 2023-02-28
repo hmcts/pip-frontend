@@ -15,16 +15,27 @@ export default class BlobViewJsonController {
         if (artefactId) {
             const listTypes = publicationService.getListTypes();
             const options: FormatOptions = { indent: 3, lineNumbers: true };
+
             const data = await publicationService.getIndividualPublicationJson(
                 req.query['artefactId'],
                 req.user?.['userId']
             );
+
             const jsonData: string = prettyPrintJson.toHtml(data, options);
+
             const metadata = await publicationService.getIndividualPublicationMetadata(
                 req.query['artefactId'],
                 req.user?.['userId']
             );
-            const courtName = (await locationService.getLocationById(parseInt(metadata.locationId.toString()))).name;
+
+            const noMatchArtefact = metadata.locationId.toString().includes('NoMatch');
+            let courtName = '';
+            if (!noMatchArtefact) {
+                courtName = (await locationService.getLocationById(parseInt(metadata.locationId.toString()))).name;
+            } else {
+                courtName = 'No match artefacts';
+            }
+
             await userManagementService.auditAction(
                 req.user['userId'],
                 req.user['email'],
@@ -34,6 +45,7 @@ export default class BlobViewJsonController {
 
             const listUrl =
                 process.env.FRONTEND_URL + '/' + listTypes.get(metadata.listType)?.url + '?artefactId=' + artefactId;
+
             res.render('blob-view-json', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-json']),
                 data,
@@ -42,6 +54,7 @@ export default class BlobViewJsonController {
                 metadata,
                 jsonData,
                 listUrl,
+                noMatchArtefact,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

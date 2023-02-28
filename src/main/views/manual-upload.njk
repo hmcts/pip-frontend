@@ -59,17 +59,17 @@
       {#          <option value="JUDGEMENT_AND_OUTCOME">Judgement and Outcomes</option>#}
       {#        </select>#}
       {#      </div>#}
-
-            <div class="govuk-form-group govuk-inset-text govuk-!-padding-right-0">
+              {% set listTypeErrorMessage = {text: listTypeError} if errors.formErrors.listTypeError else '' %}
+              <div class="govuk-form-group govuk-inset-text govuk-!-padding-right-0">
               <div id="list-question" class="govuk-!-margin-bottom-3 govuk-!-width-two-third">
                 {{ govukSelect({
                   classes: 'govuk-!-width-two-thirds',
-
                   id: "listType",
                   name: "listType",
                   label: {
                     text: form.listType
                   },
+                  errorMessage: listTypeErrorMessage,
                   items: listItems.listSubtypes
                 }) }}
               </div>
@@ -274,7 +274,7 @@
     {% endfor %}
 
     {% set defaultValue = formData['input-autocomplete'] if formData['input-autocomplete'] else '' %}
-    {% set populatedListType = formData['listType'] if formData['listType'] else 'SJP_PUBLIC_LIST' %}
+    {% set populatedListType = formData['listType'] if formData['listType'] else 'EMPTY' %}
     {% set populatedContentDateFromDay = formData['content-date-from-day'] if formData['content-date-from-day'] else '' %}
     {% set populatedContentDateFromMonth = formData['content-date-from-month'] if formData['content-date-from-month'] else '' %}
     {% set populatedContentDateFromYear = formData['content-date-from-year'] if formData['content-date-from-year'] else '' %}
