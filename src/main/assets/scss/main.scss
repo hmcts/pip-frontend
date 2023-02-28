@@ -163,6 +163,11 @@ $callout-bg: #f0f4f5;
     }
 }
 
+.always-hide {
+    display: none !important;
+    visibility: hidden;
+}
+
 @media (max-width: 770px) {
     .hide {
         display: none !important; // sass-lint:disable-line no-important
@@ -582,4 +587,8 @@ ol.json-lines > li:hover {
 
 .linked-cases-heading {
     font-weight: 700;
+}
+
+.filter-colour {
+    color: #1d70b8 !important;
 }

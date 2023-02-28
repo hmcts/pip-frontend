@@ -1,0 +1,15 @@
+{
+    "backButton": "Back",
+    "downloadButtonLabel": "Download a copy",
+    "filter": {
+        "postcode": "Postcode",
+        "prosecutor": "Prosecutor",
+        "hide": "Hide Filters",
+        "show": "Show Filters",
+        "heading": "Filter",
+        "selectedFilters": "Selected filters",
+        "clearFilters": "Clear filters",
+        "applyFilters": "Apply filters",
+        "searchFilters": "Search filters"
+    }
+}
