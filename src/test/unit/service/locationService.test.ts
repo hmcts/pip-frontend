@@ -52,7 +52,7 @@ const validWelshCourt = 'Llys Ynadon y Fenni';
 const englishLanguage = 'en';
 const welshLanguage = 'cy';
 const englishLanguageFile = 'sscs-daily-list';
-const deletionResponse = { isExists: true, errorMessage: 'test' };
+const deletionResponse = { exists: true, errorMessage: 'test' };
 const requester = 'Test';
 stubCourtsFilter.withArgs('', 'Crown', englishLanguage).returns(hearingsData);
 stubCourt.withArgs(1).returns(hearingsData[0]);
@@ -60,7 +60,7 @@ stubCourtByName.withArgs(validCourt).returns(hearingsData[0]);
 stubCourtByName.withArgs(validWelshCourt).returns(hearingsData[0]);
 stubCourtDeletion.withArgs(1, requester).returns(deletionResponse);
 stubCourtDeletion.withArgs(2, requester).returns(null);
-stubCourtDeletion.withArgs(3, requester).returns({ isExists: false, errorMessage: '' });
+stubCourtDeletion.withArgs(3, requester).returns({ exists: false, errorMessage: '' });
 
 describe('Court Service', () => {
     it('should return all courts', async () => {

@@ -12,8 +12,8 @@ const courtDeleteStub = sinon.stub(LocationService.prototype, 'deleteLocationByI
 courtStub.withArgs('2').resolves({ locationId: 2, jurisdiction: 'test', region: 'test' });
 courtStub.withArgs('3').resolves({ locationId: 3, jurisdiction: 'test', region: 'test' });
 
-courtDeleteStub.withArgs('2').resolves({ isExists: false, errorMessage: '' });
-courtDeleteStub.withArgs('3').resolves({ isExists: true, errorMessage: 'test' });
+courtDeleteStub.withArgs('2').resolves({ exists: false, errorMessage: '' });
+courtDeleteStub.withArgs('3').resolves({ exists: true, errorMessage: 'test' });
 
 describe('Delete Court Reference Data Confirmation', () => {
     app.request['user'] = {

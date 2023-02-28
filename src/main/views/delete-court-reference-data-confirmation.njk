@@ -38,6 +38,18 @@
     }) }}
   {% endif %}
   <div class="parent-box">
+    {% if apiError and "subscription" in errorMessage %}
+      <p class="govuk-body">
+        <a href="delete-court-subscription-confirmation?locationId={{ court.locationId }}" class="govuk-link govuk-body">
+          {{ deleteSubscriptionText }} {{ court.name }}</a>
+      </p>
+    {% endif %}
+    {% if apiError and "artefact" in errorMessage %}
+      <p class="govuk-body">
+        <a href="delete-court-publication-confirmation?locationId={{ court.locationId }}" class="govuk-link govuk-body">
+          {{ deletePublicationText }} {{ court.name }}</a>
+      </p>
+    {% endif %}
     {{ govukWarningText({
       text: warning,
       iconFallbackText: "Warning"

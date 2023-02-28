@@ -1,0 +1,80 @@
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+  {{ header }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+
+{% block content %}
+  {% if apiError %}
+    {{ govukErrorSummary({
+      titleText: error.title,
+      errorList: [
+        {
+          text: errorMessage,
+          href: "#delete-choice"
+        }
+      ]
+    }) }}
+  {% elseif displayError %}
+    {{ govukErrorSummary({
+      titleText: error.title,
+      errorList: [
+        {
+          text: error.text,
+          href: "#delete-choice"
+        }
+      ]
+    }) }}
+  {% endif %}
+  <div class="parent-box">
+    {{ govukWarningText({
+      text: warning + court.name,
+      iconFallbackText: "Warning"
+    }) }}
+    <h2 class="govuk-heading-l">{{ header }}</h2>
+    <form action="delete-court-subscription-confirmation" method="post">
+      {{ govukInput({
+        id: "locationId",
+        name: "locationId",
+        type: "hidden",
+        value: court.locationId
+      }) }}
+      {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "delete-choice",
+        name: "delete-choice",
+        items: [
+          {
+            value: "yes",
+            text: optionYes
+          },
+          {
+            value: "no",
+            text: optionNo
+          }
+        ]
+      }) }}
+      {{ submitButton(continueButton) }}
+    </form>
+    {{ super() }}
+  </div>
+{% endblock %}
+{% block bodyEnd %}
+  {{ super() }}
+  <script>
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
+{% endblock %}
+

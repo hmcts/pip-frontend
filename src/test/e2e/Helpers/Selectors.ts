@@ -149,6 +149,7 @@ module.exports = {
     displayDateToMonth: '#display-date-to-month',
     displayDateToYear: '#display-date-to-year',
     sensitivityInput: '#classification',
+    listTypeInput: '#listType',
 
     // Admin dashboard selectors
     UploadFile: '#card-manual-upload',
