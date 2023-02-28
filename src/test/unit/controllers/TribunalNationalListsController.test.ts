@@ -20,56 +20,81 @@ const courtData = JSON.parse(rawDataCourt);
 
 const tribunalNationalListsController = new TribunalNationalListsController();
 
-const primaryHealthListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
-const primaryHealthListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
+const tribunalNationalListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
+const tribunalNationalListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 sinon.stub(TribunalNationalListsService.prototype, 'manipulateData').returns(listData);
 
 const artefactId = 'abc';
 
-primaryHealthListJsonStub.withArgs(artefactId).resolves(listData);
-primaryHealthListJsonStub.withArgs('').resolves([]);
+tribunalNationalListJsonStub.withArgs(artefactId).resolves(listData);
+tribunalNationalListJsonStub.withArgs('').resolves([]);
 
-primaryHealthListMetaDataStub.withArgs(artefactId).resolves(metaData);
-primaryHealthListMetaDataStub.withArgs('').resolves([]);
+tribunalNationalListMetaDataStub.withArgs(artefactId).resolves(metaData);
+tribunalNationalListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
+    'care-standards-list': {},
     'primary-health-list': {},
-    'list-template': {},
+    'list-template': {testListTemplate: 'test'},
+    'open-justice-statement': {testStatement: 'test'},
 };
 
-describe('Primary Health List Controller', () => {
+describe('Tribunal National List Controller', () => {
     const response = {
         render: () => {
             return '';
         },
     } as unknown as Response;
-    const request = mockRequest(i18n);
-    request.path = '/primary-health-list';
 
-    afterEach(() => {
-        sinon.restore();
-    });
+    const expectedData = {
+        ...i18n['list-template'],
+        contentDate: DateTime.fromISO(metaData['contentDate'], {
+            zone: 'utc',
+        }).toFormat('dd MMMM yyyy'),
+        listData,
+        publishedDate: '04 October 2022',
+        publishedTime: '10am',
+        provenance: 'prov1',
+        courtName: 'Abergavenny Magistrates\' Court',
+        venueEmail: 'court1@moj.gov.uk',
+        venueTelephone: '01772 844700',
+        bill: false,
+    };
 
-    it('should render the primary health list list page', async () => {
+    it('should render the primary health list page', async () => {
+        const request = mockRequest(i18n);
+        request.path = '/primary-health-list';
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
 
         const responseMock = sinon.mock(response);
-        const expectedData = {
-            ...i18n['list-template'],
-            contentDate: DateTime.fromISO(metaData['contentDate'], {
-                zone: 'utc',
-            }).toFormat('dd MMMM yyyy'),
-            listData,
-            publishedDate: '04 October 2022',
-            publishedTime: '10am',
-            provenance: 'prov1',
-            bill: false,
-            venueEmail: 'court1@moj.gov.uk',
+
+        const expectedPrimaryHealthListData = {
+            ...i18n['primary-health-list'],
+            ...expectedData,
         };
 
-        responseMock.expects('render').once().withArgs('primary-health-list', expectedData);
+        responseMock.expects('render').once().withArgs('primary-health-list', expectedPrimaryHealthListData);
+
+        await tribunalNationalListsController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render the care standards list page', async () => {
+        const request = mockRequest(i18n);
+        request.path = '/care-standards-list';
+        request.query = { artefactId: artefactId };
+        request.user = { userId: '1' };
+
+        const responseMock = sinon.mock(response);
+        const expectedCareStandardsListData = {
+            ...i18n['care-standards-list'],
+            ...i18n['open-justice-statement'],
+            ...expectedData,
+        };
+
+        responseMock.expects('render').once().withArgs('care-standards-list', expectedCareStandardsListData);
 
         await tribunalNationalListsController.get(request, response);
         return responseMock.verify();

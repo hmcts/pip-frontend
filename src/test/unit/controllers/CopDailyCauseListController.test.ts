@@ -37,7 +37,8 @@ copDailyCauseListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
     'cop-daily-cause-list': {},
-    'list-template': {},
+    'list-template': {testListTemplate: 'test'},
+    'open-justice-statement': {testStatement: 'test'},
 };
 
 describe('Cop Daily Cause List Controller', () => {
@@ -61,6 +62,7 @@ describe('Cop Daily Cause List Controller', () => {
         const expectedData = {
             ...i18n['cop-daily-cause-list'],
             ...i18n['list-template'],
+            ...i18n['open-justice-statement'],
             listData,
             contentDate: DateTime.fromISO(metaData['contentDate'], {
                 zone: 'utc',
