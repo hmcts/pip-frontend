@@ -5,10 +5,14 @@ import { DateTime } from 'luxon';
 import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { SjpPressListService } from '../service/listManipulation/SjpPressListService';
+import { FilterService } from '../service/filterService';
+import { SjpFilterService } from '../service/sjpFilterService';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
 const sjpPressListService = new SjpPressListService();
+const sjpFilterService = new SjpFilterService();
+const filterService = new FilterService();
 
 export default class SjpPressListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -17,7 +21,12 @@ export default class SjpPressListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
         if (sjpData && metaData) {
-            const manipulatedData = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
+            const allCases = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
+            const filter = sjpFilterService.generateFilters(
+                allCases,
+                req.query?.filterValues as string,
+                req.query?.clear as string
+            );
 
             const publishedTime = helperService.publicationTimeInUkTime(sjpData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -29,8 +38,10 @@ export default class SjpPressListController {
 
             res.render('single-justice-procedure-press', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press']),
+                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['sjp-common']),
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
-                sjpData: manipulatedData,
+                sjpData: filter.sjpCases,
+                totalHearings: filter.sjpCases.length,
                 publishedDateTime: publishedDate,
                 publishedTime: publishedTime,
                 contactDate: DateTime.fromISO(metaData['contentDate'], {
@@ -40,9 +51,16 @@ export default class SjpPressListController {
                     .toFormat('d MMMM yyyy'),
                 artefactId: artefactId,
                 user: req.user,
+                filterOptions: filter.filterOptions,
+                showFilters: !!(!!req.query?.filterValues || req.query?.clear),
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
+    }
+
+    public async filterValues(req: PipRequest, res: Response): Promise<void> {
+        const filterValues = filterService.generateFilterKeyValues(req.body);
+        res.redirect(`sjp-press-list?artefactId=${req.query.artefactId}&filterValues=${filterValues}`);
     }
 }

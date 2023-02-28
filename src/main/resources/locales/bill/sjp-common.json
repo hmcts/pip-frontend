@@ -1,0 +1,15 @@
+{
+    "backButton": "Back/Yn ôl",
+    "downloadButtonLabel": "Download a copy/Llwytho copi i lawr",
+    "filter": {
+        "postcode": "Postcode/Cod post",
+        "prosecutor": "Prosecutor/Erlynydd",
+        "hide": "Hide Filters/Cuddio Hidlwyr",
+        "show": "Show Filters/Dangos Hidlwyr",
+        "heading": "Filter/Hidlydd",
+        "selectedFilters": "Selected filters/Hidlwyr a ddewiswyd",
+        "clearFilters": "Clear filter/Clirio hidlwyr",
+        "applyFilters": "Apply filters/Cadarnhau hidlwyr",
+        "searchFilters": "Search filters/Chwilio ffiltrau"
+    }
+}
