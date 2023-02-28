@@ -85,18 +85,18 @@ describe('List Download Service', () => {
                 excel: '456',
             };
             downloadFilesStub.withArgs(artefactId).resolves(expectedData);
-            const response = await listDownloadService.generateFiles(artefactId);
+            const response = await listDownloadService.generateFiles(artefactId, '1234');
             expect(response).to.equal(expectedData);
         });
 
         it('should not generate files if channel management endpoint returns null', async () => {
             downloadFilesStub.withArgs(artefactId).resolves(null);
-            const response = await listDownloadService.generateFiles(artefactId);
+            const response = await listDownloadService.generateFiles(artefactId, '1234');
             expect(response).to.be.null;
         });
 
         it('should not generate files if no artefact ID provided', async () => {
-            const response = await listDownloadService.generateFiles(null);
+            const response = await listDownloadService.generateFiles(null, '1234');
             expect(response).to.be.null;
         });
     });
