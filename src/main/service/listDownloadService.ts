@@ -13,8 +13,8 @@ enum FileType {
 }
 
 export class ListDownloadService {
-    public async generateFiles(artefactId): Promise<object | null> {
-        const response = await this.downloadFilesFromBlobStorage(artefactId);
+    public async generateFiles(artefactId, userId): Promise<object | null> {
+        const response = await this.downloadFilesFromBlobStorage(artefactId, userId);
 
         if (response) {
             const artefactData = JSON.parse(JSON.stringify(response));
@@ -67,9 +67,11 @@ export class ListDownloadService {
         return null;
     }
 
-    private async downloadFilesFromBlobStorage(artefactId): Promise<object> {
+    private async downloadFilesFromBlobStorage(artefactId, userId): Promise<object> {
         if (artefactId) {
-            return channelManagementRequests.getStoredFiles(artefactId);
+            return channelManagementRequests.getStoredFiles(artefactId, {
+                'x-user-id': userId,
+            });
         }
         return null;
     }
