@@ -17,14 +17,16 @@
                                             {
                                                 "party": [
                                                     {
-                                                        "partyRole": "PROSECUTOR",
+                                                        "partyRole": "ACCUSED",
                                                         "individualDetails": {
                                                             "individualForenames": "Danny",
                                                             "individualSurname": "Thomas",
                                                             "dateOfBirth": "25/07/1985",
+                                                            "age": "37",
                                                             "formattedDateOfBirth": "25 July 1985",
                                                             "address": {
-                                                                "town": "Swansea"
+                                                                "town": "Swansea",
+                                                                "postCode": "SA1 1AA"
                                                             }
                                                         },
                                                         "organisationDetails": {
@@ -32,7 +34,7 @@
                                                         }
                                                     },
                                                     {
-                                                        "partyRole": "Prosecuter",
+                                                        "partyRole": "PROSECUTOR",
                                                         "organisationDetails": {
                                                             "organisationName": "qU8QlEo"
                                                         }
@@ -64,6 +66,7 @@
                                                             "individualForenames": "Christopher",
                                                             "individualSurname": "Robin",
                                                             "dateOfBirth": "25/07/1985",
+                                                            "age": "37",
                                                             "formattedDateOfBirth": "25 July 1985",
                                                             "address": {
                                                                 "county": "London",
@@ -96,6 +99,11 @@
                                                         "offenceWording": "This is offence wording",
                                                         "reportingRestriction": true,
                                                         "formattedReportingRestriction": "True"
+                                                    },
+                                                    {
+                                                        "offenceTitle": "Another offence title",
+                                                        "offenceWording": "Another offence wording",
+                                                        "reportingRestriction": true
                                                     }
                                                 ],
                                                 "case": [
