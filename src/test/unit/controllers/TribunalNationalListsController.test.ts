@@ -36,8 +36,8 @@ tribunalNationalListMetaDataStub.withArgs('').resolves([]);
 const i18n = {
     'care-standards-list': {},
     'primary-health-list': {},
-    'list-template': {testListTemplate: 'test'},
-    'open-justice-statement': {testStatement: 'test'},
+    'list-template': { testListTemplate: 'test' },
+    'open-justice-statement': { testStatement: 'test' },
 };
 
 describe('Tribunal National List Controller', () => {
@@ -56,7 +56,7 @@ describe('Tribunal National List Controller', () => {
         publishedDate: '04 October 2022',
         publishedTime: '10am',
         provenance: 'prov1',
-        courtName: 'Abergavenny Magistrates\' Court',
+        courtName: "Abergavenny Magistrates' Court",
         venueEmail: 'court1@moj.gov.uk',
         venueTelephone: '01772 844700',
         bill: false,

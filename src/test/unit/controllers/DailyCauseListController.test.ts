@@ -46,8 +46,8 @@ dailyCauseListMetaDataStub.withArgs('').resolves([]);
 const i18n = {
     'daily-cause-list': {},
     'family-daily-cause-list': {},
-    'list-template': {testListTemplate: 'test'},
-    'open-justice-statement': {testStatement: 'test'},
+    'list-template': { testListTemplate: 'test' },
+    'open-justice-statement': { testStatement: 'test' },
 };
 
 describe('Daily Cause List Controller', () => {

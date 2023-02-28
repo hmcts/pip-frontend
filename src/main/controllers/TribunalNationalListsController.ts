@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { TribunalNationalListsService } from '../service/listManipulation/TribunalNationalListsService';
-import {LocationService} from '../service/locationService';
+import { LocationService } from '../service/locationService';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();

@@ -37,8 +37,8 @@ copDailyCauseListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
     'cop-daily-cause-list': {},
-    'list-template': {testListTemplate: 'test'},
-    'open-justice-statement': {testStatement: 'test'},
+    'list-template': { testListTemplate: 'test' },
+    'open-justice-statement': { testStatement: 'test' },
 };
 
 describe('Cop Daily Cause List Controller', () => {

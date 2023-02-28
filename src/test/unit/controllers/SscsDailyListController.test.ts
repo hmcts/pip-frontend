@@ -52,8 +52,8 @@ sscsDailyListMetaDataStub.withArgs('', userId).resolves([]);
 const i18n = {
     'sscs-daily-list': { warning: 'warning1' },
     'sscs-daily-list-additional-hearings': { warning: 'warning2' },
-    'list-template': {testListTemplate: 'test'},
-    'open-justice-statement': {testStatement: 'test'},
+    'list-template': { testListTemplate: 'test' },
+    'open-justice-statement': { testStatement: 'test' },
 };
 
 const response = {
