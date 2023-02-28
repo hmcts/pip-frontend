@@ -3,9 +3,15 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
+import { SjpPublicListService } from '../service/listManipulation/SjpPublicListService';
+import { SjpFilterService } from '../service/sjpFilterService';
+import { FilterService } from '../service/filterService';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
+const sjpPublicListService = new SjpPublicListService();
+const sjpFilterService = new SjpFilterService();
+const filterService = new FilterService();
 
 export default class SjpPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -14,40 +20,40 @@ export default class SjpPublicListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
         if (fileData && metaData) {
+            const allCases = sjpPublicListService.formatSjpPublicList(JSON.stringify(fileData));
+            const filter = sjpFilterService.generateFilters(
+                allCases,
+                req.query?.filterValues as string,
+                req.query?.clear as string
+            );
+
             const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 fileData['document']['publicationDate'],
                 req.lng
             );
-            const casesCount = SjpPublicListController.getCasesCount(fileData);
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
             res.render('single-justice-procedure', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure']),
+                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['sjp-common']),
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
-                sjpData: fileData,
-                length: casesCount,
+                sjpData: filter.sjpCases,
+                length: filter.sjpCases.length,
                 publishedDateTime: publishedDate,
                 publishedTime: publishedTime,
                 artefactId: artefactId,
                 user: req.user,
+                filterOptions: filter.filterOptions,
+                showFilters: !!(!!req.query?.filterValues || req.query?.clear),
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
     }
 
-    private static getCasesCount(sjpData: object): number {
-        let totalCases = 0;
-        sjpData['courtLists'].forEach(courtList => {
-            courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-                courtRoom['session'].forEach(session => {
-                    session['sittings'].forEach(sitting => {
-                        totalCases += sitting['hearing'].length;
-                    });
-                });
-            });
-        });
-        return totalCases;
+    public async filterValues(req: PipRequest, res: Response): Promise<void> {
+        const filterValues = filterService.generateFilterKeyValues(req.body);
+        res.redirect(`sjp-public-list?artefactId=${req.query.artefactId}&filterValues=${filterValues}`);
     }
 }
