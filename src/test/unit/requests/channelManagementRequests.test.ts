@@ -14,9 +14,7 @@ const errorResponse = {
         data: 'test error',
     },
 };
-const errorRequest = {
-    request: 'test error',
-};
+
 const errorMessage = {
     message: 'test',
 };
@@ -40,12 +38,7 @@ describe('Channel Management requests', () => {
             expect(await channelManagementRequests.getStoredFiles('abc', { 'x-user-id': '1234' })).toEqual(null);
         });
 
-        it('should return null and an error request if request fails', async () => {
-            getStub.withArgs(getStoredFilesEndpoint).rejects(errorRequest);
-            expect(await channelManagementRequests.getStoredFiles('abc', { 'x-user-id': '1234' })).toEqual(null);
-        });
-
-        it('should return null and an error message if request fails', async () => {
+        it('should return empty array and an error response if request fails', async () => {
             getStub.withArgs(getStoredFilesEndpoint).rejects(errorMessage);
             expect(await channelManagementRequests.getStoredFiles('abc', { 'x-user-id': '1234' })).toEqual(null);
         });

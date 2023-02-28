@@ -19,8 +19,6 @@ export class DataManagementRequests {
         } catch (error) {
             if (error.response) {
                 console.log('Failed to upload publication');
-            } else if (error.request) {
-                console.log('Request failed.');
             } else {
                 console.log('Unknown error when attempting to upload publication');
             }
@@ -35,8 +33,6 @@ export class DataManagementRequests {
         } catch (error) {
             if (error.response) {
                 console.log('Failed to upload publication');
-            } else if (error.request) {
-                console.log('Request failed.');
             } else {
                 console.log('Unknown error when attempting to upload publication');
             }
@@ -57,8 +53,6 @@ export class DataManagementRequests {
         } catch (error) {
             if (error.response) {
                 console.log('Failed to upload location data file');
-            } else if (error.request) {
-                console.log('Request failed.');
             } else {
                 console.log('Unknown error when attempting to upload location data file');
             }

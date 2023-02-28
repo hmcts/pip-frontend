@@ -84,10 +84,10 @@ describe('Manual upload service', () => {
 
         it('should build form data list subtypes', async () => {
             const data = await manualUploadService.buildFormData(englishLanguage);
-            expect(data['listSubtypes'].length).to.equal(19);
+            expect(data['listSubtypes'].length).to.equal(20);
             expect(data['listSubtypes'][0]).to.deep.equal({
-                text: 'SJP Public List',
-                value: 'SJP_PUBLIC_LIST',
+                text: '<Please choose a list type>',
+                value: 'EMPTY',
             });
         });
 
@@ -169,6 +169,12 @@ describe('Manual upload service', () => {
             formValues['input-autocomplete'] = 'invalidCourt';
             const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
             expect(errors['courtError']).to.equal('Please enter and select a valid court');
+        });
+
+        it('should return missing list type error message', async () => {
+            formValues['listType'] = 'EMPTY';
+            const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
+            expect(errors['listTypeError']).to.equal('true');
         });
 
         it('should return invalid court error message', async () => {

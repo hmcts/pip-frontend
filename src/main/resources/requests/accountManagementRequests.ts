@@ -22,8 +22,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to create azure account on response');
-            } else if (error.request) {
-                logger.error('Failed to create azure account on request');
             } else {
                 logger.error('Failed to create azure account with message');
             }
@@ -46,8 +44,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to create admin P&I on response');
-            } else if (error.request) {
-                logger.error('Failed to create admin P&I on request');
             } else {
                 logger.error('Failed to create admin P&I with message');
             }
@@ -71,8 +67,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to create media account on response');
-            } else if (error.request) {
-                logger.error('Failed to create media account on request');
             } else {
                 logger.error('Failed to create media account with message');
             }
@@ -92,9 +86,7 @@ export class AccountManagementRequests {
             return true;
         } catch (error) {
             if (error.response) {
-                logger.error(`Failed to bulk create media account on response. ${error.esponse.data}`);
-            } else if (error.request) {
-                logger.error(`Failed to bulk create media account on request. ${error.request}`);
+                logger.error(`Failed to bulk create media account on response. ${error.response.data}`);
             } else {
                 logger.error(`Failed to bulk create media account with message. ${error.message}`);
             }
@@ -110,8 +102,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to retrieve media application', error.response.data);
-            } else if (error.request) {
-                logger.error('Failed to retrieve media application', error.request);
             } else {
                 logger.error('Failed to retrieve media application', error.message);
             }
@@ -129,8 +119,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to retrieve media application image - response', error.response.data);
-            } else if (error.request) {
-                logger.error('Failed to retrieve media application image - request', error.request);
             } else {
                 logger.error('Failed to retrieve media application image - message', error.message);
             }
@@ -146,8 +134,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to update media application', error.response.data);
-            } else if (error.request) {
-                logger.error('Failed to update media application', error.request);
             } else {
                 logger.error('Failed to update media application', error.message);
             }
@@ -162,8 +148,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to GET media application requests', error.response.data);
-            } else if (error.request) {
-                logger.error('Request failed for media applications', error.request);
             } else {
                 logger.error('Something went wrong trying to get media applications', error.message);
             }
@@ -178,8 +162,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to GET PI user request', error.response.data);
-            } else if (error.request) {
-                logger.error('Request failed for Pi user', error.request);
             } else {
                 logger.error('Something went wrong trying to get the pi user from the oid', error.message);
             }
@@ -194,8 +176,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to GET PI user request', error.response.data);
-            } else if (error.request) {
-                logger.error('Request failed for Pi user', error.request);
             } else {
                 logger.error('Something went wrong trying to get the pi user from the uid', error.message);
             }
@@ -211,8 +191,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to GET third party users', error.response.data);
-            } else if (error.request) {
-                logger.error('Request failed to get third party user', error.request);
             } else {
                 logger.error('Something went wrong trying to get third party users', error.message);
             }
@@ -247,8 +225,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error(errorMessage, error.response.data);
-            } else if (error.request) {
-                logger.error(errorMessage, error.request);
             } else {
                 logger.error(errorMessage, error.message);
             }
@@ -264,8 +240,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to get all accounts', error.response.data);
-            } else if (error.request) {
-                logger.error('Request failed for getting all accounts', error.request);
             } else {
                 logger.error('Something went wrong trying to get all accounts', error.message);
             }
@@ -281,8 +255,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to GET PI user request', error.response.data);
-            } else if (error.request) {
-                logger.error('Request failed for Pi user', error.request);
             } else {
                 logger.error('Something went wrong trying to get the pi user from the user id', error.message);
             }
@@ -298,9 +270,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(error.request);
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -316,9 +285,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(error.request);
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -338,8 +304,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to GET PI user request', error.response.data);
-            } else if (error.request) {
-                logger.error('Request failed for Pi user', error.request);
             } else {
                 logger.error('Something went wrong trying to get the pi user from the user id', error.message);
             }
@@ -369,8 +333,6 @@ export class AccountManagementRequests {
                         'Request to create a system admin has failed with error code: ' + error.response.status
                     );
                 }
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -385,8 +347,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to post audit action', error.response.data);
-            } else if (error.request) {
-                logger.error('Request failed for posting audit action', error.request);
             } else {
                 logger.error('Something went wrong trying to post an audit action', error.message);
             }
@@ -402,8 +362,6 @@ export class AccountManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to get all audit logs', error.response.data);
-            } else if (error.request) {
-                logger.error('Request failed for getting all audit logs', error.request);
             } else {
                 logger.error('Something went wrong trying to get all audit logs', error.message);
             }

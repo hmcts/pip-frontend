@@ -15,8 +15,6 @@ export class ChannelManagementRequests {
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to get stored files from blob storage on response');
-            } else if (error.request) {
-                logger.error('Failed to get stored files from blob storage on request');
             } else {
                 logger.error('Failed to get stored files from blob storage with message');
             }

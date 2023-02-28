@@ -16,8 +16,6 @@ export class PublicationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -32,8 +30,6 @@ export class PublicationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -57,8 +53,6 @@ export class PublicationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -78,8 +72,6 @@ export class PublicationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -103,8 +95,6 @@ export class PublicationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -126,8 +116,6 @@ export class PublicationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
@@ -142,12 +130,42 @@ export class PublicationRequests {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
             } else {
                 console.log(`ERROR: ${error.message}`);
             }
         }
         return false;
+    }
+
+    public async deleteLocationPublication(locationId: number, adminUserId: string): Promise<object> {
+        try {
+            const header = { headers: { 'x-provenance-user-id': adminUserId } };
+
+            const response = await dataManagementApi.delete(`/publication/${locationId}/deleteArtefacts`, header);
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+            } else if (error.request) {
+                console.log(`Request failed. ${error.request}`);
+            } else {
+                console.log(`ERROR: ${error.message}`);
+            }
+            return null;
+        }
+    }
+
+    public async getNoMatchPublications(): Promise<Artefact[]> {
+        try {
+            const response = await dataManagementApi.get(`/publication/no-match`);
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+            } else {
+                console.log(`ERROR: ${error.message}`);
+            }
+        }
+        return [];
     }
 }

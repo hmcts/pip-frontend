@@ -72,6 +72,7 @@ const blankPayload = {
 };
 
 const user = {};
+const requester = 'Test';
 
 const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';
@@ -95,6 +96,7 @@ const updateListTypeSubscriptionStub = sinon.stub(
     SubscriptionRequests.prototype,
     'configureListTypeForLocationSubscriptions'
 );
+const deleteStubLocation = sinon.stub(SubscriptionRequests.prototype, 'deleteLocationSubscription');
 subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', '1').resolves(true);
 subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', '1').resolves(true);
 subscriptionStub.withArgs(blankPayload, 'courts', '1').resolves(false);
@@ -126,6 +128,8 @@ updateListTypeSubscriptionStub.withArgs('1', courtSubscriptionWithSingleListType
 updateListTypeSubscriptionStub.withArgs('1', courtSubscriptionWithMultipleListTypePayload).resolves(true);
 updateListTypeSubscriptionStub.withArgs('1', courtSubscriptionWithEmptyListTypePayload).resolves(true);
 updateListTypeSubscriptionStub.withArgs(null, courtSubscriptionWithEmptyListTypePayload).resolves(false);
+deleteStubLocation.withArgs(1, requester).returns('success');
+deleteStubLocation.withArgs(2, requester).returns(null);
 
 describe('getSubscriptionDataForView function', () => {
     locationStub.withArgs(1).resolves(mockCourt);
@@ -814,5 +818,17 @@ describe('generateListTypesForCourts', () => {
         const retrievedChannels = await subscriptionService.retrieveChannels();
 
         expect(retrievedChannels).toStrictEqual(['CHANNEL_A', 'CHANNEL_B']);
+    });
+});
+
+describe('delete location subscription', () => {
+    it('should return a message if location subscription is deleted', async () => {
+        const payload = await subscriptionService.deleteLocationSubscription(1, requester);
+        expect(payload).toEqual('success');
+    });
+
+    it('should return null if subscription delete failed', async () => {
+        const payload = await subscriptionService.deleteLocationSubscription(2, requester);
+        expect(payload).toEqual(null);
     });
 });

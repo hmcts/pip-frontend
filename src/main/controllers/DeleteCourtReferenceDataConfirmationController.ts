@@ -10,10 +10,11 @@ const userManagementService = new UserManagementService();
 export default class DeleteCourtReferenceDataConfirmationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const locationId = req.query.locationId as unknown as number;
+        const pageToLoad = req.path.slice(1, req.path.length);
         if (locationId) {
             const court = await locationService.getLocationById(locationId);
-            res.render('delete-court-reference-data-confirmation', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
+            res.render(pageToLoad, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[pageToLoad]),
                 court: locationService.formatCourtValue(court),
                 displayError: false,
             });
@@ -32,7 +33,7 @@ export default class DeleteCourtReferenceDataConfirmationController {
                     req.user?.['provenanceUserId']
                 );
 
-                if (response !== null && response['isExists']) {
+                if (response !== null && response['exists']) {
                     await userManagementService.auditAction(
                         req.user['userId'],
                         req.user['email'],
@@ -42,7 +43,7 @@ export default class DeleteCourtReferenceDataConfirmationController {
                     res.render('delete-court-reference-data-confirmation', {
                         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
                         court: locationService.formatCourtValue(court),
-                        apiError: response['isExists'],
+                        apiError: response['exists'],
                         errorMessage: response['errorMessage'],
                     });
                 } else if (response === null) {
