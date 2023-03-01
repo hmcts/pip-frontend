@@ -37,8 +37,12 @@ const mockPDF = new Blob(['testPDF']);
 const indivPubJsonObject = { data: mockPDF };
 const valid = 'valid';
 const invalid = 'invalid';
+const deletionResponse = 'success';
+const adminUserId = 'Test';
+
 const dataManagementStub = sinon.stub(dataManagementApi, 'get');
 const dataManagementArchiveStub = sinon.stub(dataManagementApi, 'put');
+const dataManagementDeleteStub = sinon.stub(dataManagementApi, 'delete');
 dataManagementStub.withArgs('/publication/locationId/valid').resolves(successResponse);
 
 const publicationRequests = new PublicationRequests();
@@ -164,7 +168,6 @@ describe('get individual publication metadata', () => {
         expect(message.length).toBe(totalCases);
     });
 
-
     it('should send an error to the log if error response exists', async () => {
         dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse').rejects(errorResponse);
         const response = await pubRequests.getIndividualPublicationMetadata(
@@ -263,5 +266,57 @@ describe('archive publication', () => {
 
     it('should handle error message', async () => {
         expect(await pubRequests.archivePublication('abc2', 'joe@bloggs.com')).toBe(false);
+    });
+});
+
+describe('Get noMatch publications', () => {
+    it('should return data on successful get', async () => {
+        dataManagementStub.withArgs('/publication/no-match').resolves(successResponse);
+        expect(await pubRequests.getNoMatchPublications()).toBe(successResponse.data);
+    });
+
+    it('should handle error response from returned service returning empty array', async () => {
+        dataManagementStub.withArgs('/publication/no-match').rejects(errorResponse);
+        expect(await pubRequests.getNoMatchPublications()).toStrictEqual([]);
+    });
+
+    it('should handle error request from returned service returning empty array', async () => {
+        dataManagementStub.withArgs('/publication/no-match').rejects(errorMessage);
+        expect(await pubRequests.getNoMatchPublications()).toStrictEqual([]);
+    });
+});
+
+describe('delete location publication', () => {
+    beforeEach(() => {
+        dataManagementDeleteStub
+            .withArgs('/publication/1/deleteArtefacts', {
+                headers: { 'x-provenance-user-id': adminUserId },
+            })
+            .resolves({ data: 'success' });
+        dataManagementDeleteStub
+            .withArgs('/publication/2/deleteArtefacts', {
+                headers: { 'x-provenance-user-id': adminUserId },
+            })
+            .rejects(errorResponse);
+        dataManagementDeleteStub
+            .withArgs('/publication/4/deleteArtefacts', {
+                headers: { 'x-provenance-user-id': adminUserId },
+            })
+            .rejects(errorMessage);
+    });
+    it('should delete the court publication', async () => {
+        expect(await publicationRequests.deleteLocationPublication(1, adminUserId)).toStrictEqual(deletionResponse);
+    });
+
+    it('should return null if response fails', async () => {
+        expect(await publicationRequests.deleteLocationPublication(2, adminUserId)).toBe(null);
+    });
+
+    it('should return null if request fails', async () => {
+        expect(await publicationRequests.deleteLocationPublication(3, adminUserId)).toBe(null);
+    });
+
+    it('should return null if request fails', async () => {
+        expect(await publicationRequests.deleteLocationPublication(4, adminUserId)).toBe(null);
     });
 });

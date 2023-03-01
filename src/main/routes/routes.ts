@@ -124,7 +124,9 @@ export default function (app: Application): void {
 
     // List Templates
     app.get('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.get);
+    app.post('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.filterValues);
     app.get('/sjp-press-list', app.locals.container.cradle.sjpPressListController.get);
+    app.post('/sjp-press-list', app.locals.container.cradle.sjpPressListController.filterValues);
     app.get('/civil-and-family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
     app.get('/crown-daily-list', app.locals.container.cradle.crownDailyListController.get);
     app.get('/crown-firm-list', app.locals.container.cradle.crownFirmListController.get);
@@ -542,6 +544,36 @@ export default function (app: Application): void {
         '/delete-court-reference-data-success',
         isPermittedSystemAdmin,
         app.locals.container.cradle.deleteCourtReferenceDataSuccessController.get
+    );
+    app.get(
+        '/delete-court-subscription-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get
+    );
+    app.post(
+        '/delete-court-subscription-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post
+    );
+    app.get(
+        '/delete-court-subscription-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get
+    );
+    app.get(
+        '/delete-court-publication-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get
+    );
+    app.post(
+        '/delete-court-publication-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post
+    );
+    app.get(
+        '/delete-court-publication-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get
     );
     app.get('/audit-log-viewer', isPermittedSystemAdmin, app.locals.container.cradle.auditLogViewerController.get);
 

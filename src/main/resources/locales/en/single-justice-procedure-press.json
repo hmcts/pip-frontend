@@ -11,7 +11,5 @@
     "reference": "Reference",
     "address": "Address",
     "prosecutor": "Prosecutor",
-    "reportingRestriction": "Reporting Restriction",
-    "backButton": "Back",
-    "downloadButton": "Download a copy"
+    "reportingRestriction": "Reporting Restriction"
 }

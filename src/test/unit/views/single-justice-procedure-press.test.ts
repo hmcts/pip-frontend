@@ -13,14 +13,17 @@ const listSummary = 'govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1
 const offenderInformationClass = 'govuk-summary-list__value';
 const reportingRestrictionClass = 'govuk-body';
 const buttonClass = 'govuk-button';
+const linkClass = 'govuk-link';
+const filterTitleClass = 'moj-filter__header-title';
+const selectedFiltersHeadingClass = 'govuk-heading-m';
 
 const expectedHeader = 'Single Justice Procedure cases - Press view';
 const summaryHeadingText = 'What are Single Justice Procedure cases?';
 const listText = 'List for 14 February 2022';
-const offenderName = 'Danny  Thomas';
+const offenderName = 'Danny Thomas';
 const offenderDateOfBirth = '25 July 1985';
 const offenderCaseNumber = 'ABC12345';
-const offenderAddress = 'Swansea';
+const offenderAddress = 'Swansea, SA1 1AA';
 const prosecutor = 'qU8QlEo';
 const reportingRestriction = 'Reporting Restriction - True';
 
@@ -104,9 +107,9 @@ describe('Single Justice Procedure List page', () => {
             );
         });
 
-        it('should not display the download button', () => {
+        it('should display the show filters button', () => {
             const buttons = htmlRes.getElementsByClassName(buttonClass);
-            expect(buttons[0]).to.be.undefined;
+            expect(buttons[0].innerHTML).contains('Show Filters', 'Could not find the show filters button');
         });
     });
 
@@ -142,7 +145,62 @@ describe('Single Justice Procedure List page', () => {
 
         it('should not display the download button', () => {
             const buttons = htmlRes.getElementsByClassName(buttonClass);
-            expect(buttons[0]).to.be.undefined;
+            expect(buttons[0].innerHTML).to.not.contains('Download a copy', 'The download button could be found');
+        });
+    });
+
+    describe('Request with filter values', () => {
+        beforeAll(async () => {
+            app.request['user'] = {};
+
+            await request(app)
+                .get(PAGE_URL + '&filterValues=AA1')
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    htmlRes.getElementsByTagName('div')[0].remove();
+                });
+        });
+        it('should display the hide filters button', () => {
+            const buttons = htmlRes.getElementsByClassName(buttonClass);
+            expect(buttons[0].innerHTML).contains('Hide Filters', 'Could not find the hide filters button');
+        });
+
+        it('should display the filter title', () => {
+            const title = htmlRes.getElementsByClassName(filterTitleClass);
+            expect(title[0].innerHTML).contains('Filter', 'Could not find the filter title');
+        });
+
+        it('should display the selected filters heading', () => {
+            const heading = htmlRes.getElementsByClassName(selectedFiltersHeadingClass);
+            expect(heading[0].innerHTML).contains('Filter', 'Could not find the selected filters heading');
+        });
+
+        it('should display the clear filters link', () => {
+            const links = htmlRes.getElementsByClassName(linkClass);
+            expect(links[2].innerHTML).contains('Clear filters', 'Could not find the clear filters link');
+        });
+
+        it('should display the apply filters button', () => {
+            const buttons = htmlRes.getElementsByClassName(buttonClass);
+            expect(buttons[1].innerHTML).contains('Apply filters', 'Could not find the apply filters button');
+        });
+
+        it('should display the search filters box', () => {
+            const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+            expect(searchInput[1].innerHTML).contains(
+                'Search filters',
+                'Could not find the search filters search box title'
+            );
+        });
+
+        it('should display the postcode section', () => {
+            const links = htmlRes.getElementsByClassName(linkClass);
+            expect(links[3].innerHTML).contains('Postcode', 'Could not find the postcode section');
+        });
+
+        it('should display the prosecutor section', () => {
+            const links = htmlRes.getElementsByClassName(linkClass);
+            expect(links[4].innerHTML).contains('Prosecutor', 'Could not find the prosecutor section');
         });
     });
 });

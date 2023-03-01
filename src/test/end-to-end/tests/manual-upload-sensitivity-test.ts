@@ -1,4 +1,5 @@
 import Assert from 'assert';
+import { dayFormatted, monthFormatted } from '../shared/shared-functions';
 
 Feature('Manual upload sensitivity');
 
@@ -8,14 +9,8 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     const sensitivityClassified = 'CLASSIFIED';
     const sensitivityPrivate = 'PRIVATE';
     const date = new Date();
-
-    function monthFormatted(month) {
-        return month + 1 < 10 ? '0' + (month + 1) : month + 1;
-    }
-
-    function dayFormatted(day) {
-        return day + 1 < 10 ? '0' + day : day;
-    }
+    const dayAfter = new Date();
+    dayAfter.setDate(dayAfter.getDate() + 1);
 
     I.loginAsAdmin();
     I.click('#card-manual-upload');
@@ -49,7 +44,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     classification = await I.grabValueFrom(classificationId);
     Assert.equal(classification, sensitivityPrivate);
 
-    I.attachFile('manual-file-upload', '../unit/mocks/crownWarnedList.json');
+    I.attachFile('#manual-file-upload', '../unit/mocks/crownWarnedList.json');
     I.fillField('#search-input', 'Single Justice Procedure');
     I.selectOption(listTypeId, 'Crown Warned List');
 
@@ -60,9 +55,9 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     I.fillField('#display-date-from-day', dayFormatted(date.getDate()));
     I.fillField('#display-date-from-month', monthFormatted(date.getMonth()));
     I.fillField('#display-date-from-year', date.getFullYear());
-    I.fillField('#display-date-to-day', dayFormatted(date.getDate() + 1));
-    I.fillField('#display-date-to-month', monthFormatted(date.getMonth()));
-    I.fillField('#display-date-to-year', date.getFullYear());
+    I.fillField('#display-date-to-day', dayFormatted(dayAfter.getDate()));
+    I.fillField('#display-date-to-month', monthFormatted(dayAfter.getMonth()));
+    I.fillField('#display-date-to-year', dayAfter.getFullYear());
     I.click('Continue');
     I.see(
         'Please ensure you have checked the sensitivity of the list you are about to publish, the data contained within it and the consequences if this is published incorrectly.'

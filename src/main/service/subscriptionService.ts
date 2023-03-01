@@ -579,4 +579,8 @@ export class SubscriptionService {
     public async retrieveChannels(): Promise<string[]> {
         return await subscriptionRequests.retrieveSubscriptionChannels();
     }
+
+    public async deleteLocationSubscription(locationId: number, requester: string): Promise<object> {
+        return await subscriptionRequests.deleteLocationSubscription(locationId, requester);
+    }
 }
