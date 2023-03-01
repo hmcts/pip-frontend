@@ -2,7 +2,6 @@ const { redisClient } = require('../../../cacheManager');
 
 export class PendingSubscriptionsFromCache {
     public async setPendingSubscriptions(subscriptions, subscriptionType, userId): Promise<void> {
-        const filter = subscriptionType === 'courts' ? 'locationId' : 'caseNumber';
         if (redisClient.status === 'ready') {
             let subscriptionsSet = [];
             const rawData = await redisClient.get(`pending-${subscriptionType}-subscriptions-${userId}`);
@@ -11,9 +10,14 @@ export class PendingSubscriptionsFromCache {
                 subscriptionsSet = cachedResults;
             }
             subscriptions.forEach(subscription => {
-                // check if already in the cache
-                if (!subscriptionsSet.some(cached => cached[filter] === subscription[filter])) {
-                    subscriptionsSet.push(subscription);
+                if (subscriptionType === 'courts') {
+                    this.addToSubscriptionSet(subscription, 'locationId', subscriptionsSet);
+                } else {
+                    if (subscription.caseNumber) {
+                        this.addToSubscriptionSet(subscription, 'caseNumber', subscriptionsSet);
+                    } else {
+                        this.addToSubscriptionSet(subscription, 'caseUrn', subscriptionsSet);
+                    }
                 }
             });
             await redisClient.set(
@@ -36,8 +40,14 @@ export class PendingSubscriptionsFromCache {
         if (redisClient.status === 'ready' && userId) {
             if (removeObject.case) {
                 const cachedCases = await this.getPendingSubscriptions(userId, 'cases');
-                const filteredCases = cachedCases.filter(c => c.caseNumber !== removeObject.case);
-                redisClient.set(`pending-cases-subscriptions-${userId}`, JSON.stringify(filteredCases));
+                cachedCases.forEach((item, index) => {
+                    if (item.caseNumber) {
+                        this.removeFromSubscriptionSet(item.caseNumber, removeObject.case, index, cachedCases);
+                    } else {
+                        this.removeFromSubscriptionSet(item.caseUrn, removeObject.case, index, cachedCases);
+                    }
+                });
+                redisClient.set(`pending-cases-subscriptions-${userId}`, JSON.stringify(cachedCases));
             }
 
             // as SJP locationId = 0 removeObject.court = 0 is evaluated as false, hence or (||) check
@@ -46,6 +56,18 @@ export class PendingSubscriptionsFromCache {
                 const filteredCourts = cachedCourts.filter(court => court.locationId !== parseInt(removeObject.court));
                 redisClient.set(`pending-courts-subscriptions-${userId}`, JSON.stringify(filteredCourts));
             }
+        }
+    }
+
+    private addToSubscriptionSet(subscription, filter, subscriptionsSet) {
+        if (!subscriptionsSet.some(cached => cached[filter] === subscription[filter])) {
+            subscriptionsSet.push(subscription);
+        }
+    }
+
+    private removeFromSubscriptionSet(itemCase, caseToRemove, index, subscriptionsSet) {
+        if (itemCase === caseToRemove) {
+            subscriptionsSet.splice(index, 1);
         }
     }
 }
