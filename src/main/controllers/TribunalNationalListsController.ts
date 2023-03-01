@@ -34,7 +34,7 @@ export default class TribunalNationalListsController {
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
-            const courtName = locationService.findCourtName(returnedCourt, req.lng as string, listToLoad);
+            const courtName = locationService.findCourtName(returnedCourt, req.lng, listToLoad);
 
             let languageResource = {
                 ...req.i18n.getDataByLanguage(pageLanguage)[listToLoad],
