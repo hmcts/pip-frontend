@@ -14,7 +14,7 @@ let htmlRes: Document;
 const subNavigationClass = 'moj-sub-navigation';
 const tabsClass = 'moj-sub-navigation__link';
 const caseNameColumn = 'Case name';
-const caseReferenceColumn = 'Case reference number';
+const caseReferenceColumn = 'Case reference number or unique reference number (URN)';
 const dateAddedColumn = 'Date added';
 const markForDeletionColumn = 'Select';
 const courtNameColumn = 'Court or tribunal name';
@@ -55,6 +55,19 @@ userSubscriptionsStub.withArgs('4').returns({
             locationId: 2,
         },
     ],
+});
+
+userSubscriptionsStub.withArgs('5').returns({
+    caseSubscriptions: [
+        {
+            subscriptionId: '5a45699f-47e3-4283-904a-581afe624155',
+            caseName: null,
+            caseNumber: null,
+            urn: 'N363N6R4OG',
+            dateAdded: '2022-01-14T11:30:12.357299',
+        },
+    ],
+    locationSubscriptions: [],
 });
 
 locationStub.withArgs(1).resolves({
@@ -456,6 +469,56 @@ describe('Bulk Unsubscribe Page', () => {
             const checkboxElement = subscriptionCaseRowCells[2].querySelector('input');
             expect(checkboxElement.getAttribute('type')).equal('checkbox');
             expect(checkboxElement.getAttribute('name')).equal('courtSubscription');
+        });
+    });
+
+    describe('with case URN subscriptions only', () => {
+        beforeAll(async () => {
+            app.request['user'] = { userId: '5', roles: 'VERIFIED' };
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    htmlRes.getElementsByTagName('div')[0].remove();
+                });
+        });
+
+        it('should display case subscriptions table with 4 columns', () => {
+            const casesHeaders = htmlRes.getElementById('cases-table').getElementsByClassName('govuk-table__header');
+            expect(casesHeaders.length).equal(4);
+        });
+
+        it('should have correct columns in the cases table', () => {
+            const caseHeaders = htmlRes.getElementById('cases-table').getElementsByClassName('govuk-table__header');
+            expect(caseHeaders[0].innerHTML).contains(caseNameColumn, 'Case name header is not present');
+            expect(caseHeaders[1].innerHTML).contains(caseReferenceColumn, 'Case reference header is not present');
+            expect(caseHeaders[2].innerHTML).contains(dateAddedColumn, 'Date added header is not present');
+            expect(caseHeaders[3].innerHTML).contains(markForDeletionColumn, 'Mark for deletion header is not present');
+        });
+
+        it('should not display court subscriptions table', () => {
+            const casesTable = htmlRes.getElementById('locations-table');
+            expect(casesTable).equal(null, 'Courts table should not present');
+        });
+
+        it('case table should have correct number of rows', () => {
+            const subscriptionsCaseRows = htmlRes
+                .getElementsByClassName('govuk-table__body')[0]
+                .getElementsByClassName('govuk-table__row');
+            expect(subscriptionsCaseRows.length).equal(1);
+        });
+
+        it('case table should have correct column values', () => {
+            const subscriptionCaseRowCells = htmlRes
+                .getElementsByClassName('govuk-table__body')[0]
+                .getElementsByClassName('govuk-table__cell');
+            expect(subscriptionCaseRowCells[0].innerHTML).contains('<p class="govuk-body bulk-delete-row"></p>');
+            expect(subscriptionCaseRowCells[1].innerHTML).contains('N363N6R4OG');
+            expect(subscriptionCaseRowCells[2].innerHTML).contains(expectedRowDateAdded);
+
+            const checkboxElement = subscriptionCaseRowCells[3].querySelector('input');
+            expect(checkboxElement.getAttribute('type')).equal('checkbox');
+            expect(checkboxElement.getAttribute('name')).equal('caseSubscription');
         });
     });
 

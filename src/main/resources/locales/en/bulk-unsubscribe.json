@@ -10,7 +10,7 @@
     "noSubsCourt": "You currently have no subscriptions by court or tribunal",
     "caseTable": {
         "caseName": "Case name",
-        "caseRef": "Case reference number",
+        "caseRef": "Case reference number or unique reference number (URN)",
         "date": "Date added",
         "deletion": "Select"
     },
