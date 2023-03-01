@@ -13,4 +13,17 @@ export class PendingSubscriptionsPage extends CommonPage {
         await button.click();
         return new SubscriptionConfirmedPage();
     }
+
+    get SubscriptionTable(): Promise<number> {
+        const items = $$(helpers.SubscriptionTableHeading);
+        return items.length;
+    }
+
+    async getSubscriptionTableColumnHeader(): Promise<string> {
+        $(helpers.SubscriptionTableHeader).catch(() => {
+            console.log(`${helpers.SubscriptionTableHeader} not found`);
+        });
+
+        return $(helpers.SubscriptionTableHeader).getText();
+    }
 }
