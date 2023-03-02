@@ -8,6 +8,8 @@ Scenario(
     'I as a system admin should be able to delete court only when there are no active subscriptions or artefacts',
     async ({ I }) => {
         const date = new Date();
+        const dayAfter = new Date();
+        dayAfter.setDate(dayAfter.getDate() + 1);
 
         I.loginAsSystemAdmin();
         I.click('#card-manual-reference-data-upload');
@@ -26,9 +28,10 @@ Scenario(
         I.fillField('#display-date-from-day', dayFormatted(date.getDate()));
         I.fillField('#display-date-from-month', monthFormatted(date.getMonth()));
         I.fillField('#display-date-from-year', date.getFullYear());
-        I.fillField('#display-date-to-day', dayFormatted(date.getDate() + 1));
-        I.fillField('#display-date-to-month', monthFormatted(date.getMonth()));
-        I.fillField('#display-date-to-year', date.getFullYear());
+
+        I.fillField('#display-date-to-day', dayFormatted(dayAfter.getDate()));
+        I.fillField('#display-date-to-month', monthFormatted(dayAfter.getMonth()));
+        I.fillField('#display-date-to-year', dayAfter.getFullYear());
         I.click('Continue');
         I.click('Confirm');
         I.waitForText('Your file has been uploaded');

@@ -15,7 +15,7 @@ export default class ListDownloadFilesController {
         const artefactId = req.query.artefactId;
 
         if (type === undefined) {
-            const response = await listDownloadService.generateFiles(artefactId);
+            const response = await listDownloadService.generateFiles(artefactId, req.user['userId']);
             if (response) {
                 const pdfFileSize = listDownloadService.getFileSize(artefactId, 'pdf');
                 const excelFileSize = listDownloadService.getFileSize(artefactId, 'excel');
