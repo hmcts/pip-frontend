@@ -2,5 +2,7 @@
     "title": "Update user",
     "header": "What role would you like EMAIL to have?",
     "subHeading": "This users current role is ROLE",
-    "backButton": "Back"
+    "backButton": "Back",
+    "errorTitle": "There is a problem",
+    "errorMessage": "You are unable to update the role for your own user"
 }

@@ -1,7 +1,6 @@
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
-import UpdateUserConfirmationController from '../../../main/controllers/UpdateUserConfirmationController';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 
 const stub = sinon.stub(AccountManagementRequests.prototype, 'updateUser');
