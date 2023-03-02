@@ -37,7 +37,8 @@ export default class TribunalNationalListsController {
             const courtName = locationService.findCourtName(returnedCourt, req.lng, listToLoad);
 
             res.render(listToLoad, {
-                // The 'open-justice-statement' resource needs to come before the list type resource so it is not overloaded vy
+                // The 'open-justice-statement' resource needs to come before the list type resource so it can be
+                // overwritten by existing list types with specific open justice statement.
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['open-justice-statement']),
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
