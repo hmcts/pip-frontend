@@ -28,7 +28,8 @@ import { RemoveListSuccessPage } from '../PageObjects/RemoveListSuccess.page';
 import { SearchPage } from '../PageObjects/Search.page';
 import { SignInPage } from '../PageObjects/SignIn.page';
 import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
-import { SJPPublicListPage } from '../PageObjects/SJPPublicList.page';
+import { SjpPublicListPage } from '../PageObjects/SjpPublicList.page';
+import { SjpPressListPage } from '../PageObjects/SjpPressList.page';
 import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
 import { SubscriptionConfigureListPage } from '../PageObjects/SubscriptionConfigureList.page';
 import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
@@ -101,7 +102,8 @@ let createMediaAccountPage: CreateMediaAccountPage;
 let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let accountHomePage: AccountHomePage;
 let courtListPage: CourtListPage;
-let sjpPublicListPage: SJPPublicListPage;
+let sjpPublicListPage: SjpPublicListPage;
+let sjpPressListPage: SjpPressListPage;
 let listDownloadDisclaimerPage: ListDownloadDisclaimerPage;
 let listDownloadFilesPage: ListDownloadFilesPage;
 let signInPage: SignInPage;
@@ -266,6 +268,110 @@ describe('Unverified user', () => {
                 expect(await sjpPublicListPage.getPageTitle()).toEqual(
                     'Single Justice Procedure cases that are ready for hearing'
                 );
+            });
+        });
+
+        describe('SJP list filtering', () => {
+            const searchTerm = 'AA - E2E TEST COURT - DO NOT REMOVE';
+            before(async () => {
+                await searchPage.open('/search');
+            });
+
+            it('should enter text and click continue', async () => {
+                await searchPage.enterText(searchTerm);
+                summaryOfPublicationsPage = await searchPage.clickContinue();
+                expect(await summaryOfPublicationsPage.getPageTitle()).toEqual(
+                    'What do you want to view from ' + searchTerm + '?'
+                );
+            });
+
+            it('should select SJP press list publication with text', async () => {
+                sjpPressListPage = await summaryOfPublicationsPage.clickSelectedSjpPressListItem(
+                    'Single Justice Procedure Press List 01 February 2023'
+                );
+                expect(await sjpPressListPage.getPageTitle()).toContain('Single Justice Procedure cases - Press view');
+                expect(await sjpPressListPage.summaryListItems).toBe(95);
+            });
+
+            it('should display the filters after clicking the show filters button', async () => {
+                await sjpPressListPage.clickShowFiltersButton();
+
+                expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeFalsy();
+                expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeFalsy();
+            });
+
+            it('should select Postcode and Prosecutor filters', async () => {
+                await sjpPressListPage.selectOption('PostcodeFilter');
+                await sjpPressListPage.selectOption('ProsecutorFilter');
+
+                expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeTruthy();
+                expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeTruthy();
+            });
+
+            it('should click the apply filters button', async () => {
+                sjpPressListPage = await sjpPressListPage.clickApplyFiltersButton();
+
+                expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeTruthy();
+                expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeTruthy();
+
+                expect(await sjpPressListPage.summaryListItems).toBe(2);
+                expect(await sjpPressListPage.filteredTags).toBe(2);
+            });
+
+            it('should clear all filters', async () => {
+                sjpPressListPage = await sjpPressListPage.clickClearFiltersLink();
+
+                expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeFalsy();
+                expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeFalsy();
+                expect(await sjpPressListPage.summaryListItems).toBe(95);
+            });
+
+            it('should re-select Postcode and Prosecutor filters then apply filters', async () => {
+                await sjpPressListPage.selectOption('PostcodeFilter');
+                await sjpPressListPage.selectOption('ProsecutorFilter');
+
+                expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeTruthy();
+                expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeTruthy();
+            });
+
+            it('should click the apply filters button after re-selecting filters', async () => {
+                sjpPressListPage = await sjpPressListPage.clickApplyFiltersButton();
+
+                expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeTruthy();
+                expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeTruthy();
+
+                expect(await sjpPressListPage.summaryListItems).toBe(2);
+                expect(await sjpPressListPage.filteredTags).toBe(2);
+            });
+
+            it('should remove Postcode filter', async () => {
+                sjpPressListPage = await sjpPressListPage.clickRemoveFirstFilterLink();
+
+                expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeFalsy();
+                expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeTruthy();
+                expect(await sjpPressListPage.summaryListItems).toBe(54);
+                expect(await sjpPressListPage.filteredTags).toBe(1);
+            });
+
+            it('should remove Prosecutor filter', async () => {
+                sjpPressListPage = await sjpPressListPage.clickRemoveFirstFilterLink();
+
+                expect(await sjpPressListPage.checkIfSelected('PostcodeFilter')).toBeFalsy();
+                expect(await sjpPressListPage.checkIfSelected('ProsecutorFilter')).toBeFalsy();
+                expect(await sjpPressListPage.summaryListItems).toBe(95);
+                expect(await sjpPressListPage.filteredTags).toBe(0);
+            });
+
+            it('should search filters for postcodes', async () => {
+                await sjpPressListPage.enterTextToSearchFilters('BD1');
+
+                expect(await sjpPressListPage.displayedFilters()).toBe(3);
+            });
+
+            it('should search filters for prosecutor', async () => {
+                await sjpPressListPage.enterTextToSearchFilters('tv');
+
+                expect(await sjpPressListPage.displayedFilters()).toBe(1);
             });
         });
 
@@ -566,6 +672,64 @@ describe('Verified user', () => {
             it('should subscribe', async () => {
                 subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
                 expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription(s) confirmed');
+            });
+        });
+
+        // Test for URN subscription cache removal (PUB-1798)
+        describe('Add subscription record with URN only followed by court subscription', async () => {
+            const validSearchTerm = 'empty';
+
+            it("should select 'By unique reference number' option and navigate to search urn page", async () => {
+                await subscriptionUrnSearchPage.open('subscription-urn-search');
+                subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
+                expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual(
+                    'What is the unique reference number (URN)?'
+                );
+            });
+
+            it('should enter text and click continue', async () => {
+                await subscriptionUrnSearchPage.enterText(validSearchTerm);
+                subscriptionUrnSearchResultsPage = await subscriptionUrnSearchPage.clickContinue();
+                expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
+            });
+
+            it('should click continue to create subscription', async () => {
+                pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
+                expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
+            });
+
+            it('should subscribe', async () => {
+                subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
+                expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription(s) confirmed');
+            });
+
+            it('should open court or tribunal name search page', async () => {
+                await locationNameSearchPage.open('location-name-search');
+                locationNameSearchPage = await subscriptionAddPage.clickContinueForCourtOrTribunal();
+                expect(await locationNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
+            });
+
+            it('should select first jurisdiction filter', async () => {
+                await locationNameSearchPage.selectOption('JurisdictionFilter1');
+                expect(await locationNameSearchPage.jurisdictionChecked()).toBeTruthy();
+            });
+
+            it('should click on the apply filters button', async () => {
+                locationNameSearchPage = await locationNameSearchPage.clickApplyFiltersButton();
+                expect(await locationNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
+            });
+
+            it('should click continue to create subscription', async () => {
+                await locationNameSearchPage.tickCourtCheckbox();
+                pendingSubscriptionsPage = await locationNameSearchPage.clickContinue();
+                expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
+            });
+
+            it(`should display court subscription only`, async () => {
+                expect(await pendingSubscriptionsPage.SubscriptionTable).toBe(1);
+                expect(await pendingSubscriptionsPage.getSubscriptionTableColumnHeader()).toBe(
+                    'Court or tribunal name'
+                );
             });
         });
 

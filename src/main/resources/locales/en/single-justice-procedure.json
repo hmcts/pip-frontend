@@ -5,8 +5,5 @@
     "column1": "Name",
     "column2": "Postcode",
     "column3": "Offence",
-    "column4": "Prosecutor",
-    "backToTop": "Back to top",
-    "backButton": "Back",
-    "downloadButton": "Download a copy"
+    "column4": "Prosecutor"
 }
