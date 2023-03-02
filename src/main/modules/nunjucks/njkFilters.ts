@@ -11,6 +11,11 @@ function createFilters(env) {
     const fs = require('fs');
     const listTypes = publicationService.getListTypes();
     const languageLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'languageLookup.json')));
+    const rejectReasonLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'media-account-rejection-reasons-lookup.json')))
+    env.addFilter('rejectReason', function (x) {
+        return rejectReasonLookup.get(x)
+    })
+
     // to get the pretty list type name
     env.addFilter('listType', function (x) {
         return listTypes.get(x)?.friendlyName;

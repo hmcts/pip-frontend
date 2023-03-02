@@ -1,0 +1,6 @@
+{
+    "bad-format": "Wrong input format",
+    "unreadable": "Readability issues / image quality",
+    "expired":"Expired date",
+    "not-press-pass": "Invalid document type - not a valid UK Press Card or work ID"
+}

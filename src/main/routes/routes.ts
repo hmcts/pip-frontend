@@ -139,6 +139,8 @@ export default function (app: Application): void {
     app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
     app.get('/primary-health-list', app.locals.container.cradle.tribunalNationalListsController.get);
     app.get('/magistrates-public-list', app.locals.container.cradle.magistratesPublicListController.get);
+    app.get('/media-account-rejection-reasons', app.locals.container.cradle.mediaAccountRejectionReasonsController.get)
+    app.post('/media-account-rejection-reasons', app.locals.container.cradle.mediaAccountRejectionReasonsController.post)
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);

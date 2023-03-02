@@ -45,20 +45,21 @@ export default class MediaAccountRejectionController {
         }
 
         if (rejected === 'Yes') {
-            return MediaAccountRejectionController.rejectionFlow(req, res, applicantId);
+            res.redirect('media-account-rejection-reasons?applicantId=' + applicantId);
+            // return MediaAccountRejectionController.rejectionFlow(req, res, applicantId);
         } else {
             return res.redirect('/media-account-review?applicantId=' + applicantId);
         }
     }
 
-    /**
-     * This handles the pages that render if the user has selected 'Reject' on the screen.
-     */
-    private static async rejectionFlow(req, res, applicantId): Promise<void> {
-        if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'])) {
-            return res.redirect('/media-account-rejection-confirmation?applicantId=' + applicantId);
-        } else {
-            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-        }
-    }
+//     /**
+//      * This handles the pages that render if the user has selected 'Reject' on the screen.
+//      */
+//     private static async rejectionFlow(req, res, applicantId): Promise<void> {
+//         if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'])) {
+//             return res.redirect('/media-account-rejection-confirmation?applicantId=' + applicantId);
+//         } else {
+//             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+//         }
+//     }
 }

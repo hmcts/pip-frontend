@@ -1,0 +1,80 @@
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+
+
+
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+    Media Account Rejection Reasons
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+{% block content %}
+
+    {% if displayAzureError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.azureMessage,
+                    href: "#"
+                }
+            ]
+        }) }}
+    {% endif %}
+
+    {% set other %}
+        {{ govukInput({
+            id: "optional-other",
+            name: "optional-other",
+            type: "text",
+            autocomplete: "text",
+            classes: "govuk-!-width-one-third",
+            label: {
+                text: "Add your own rejection reason in the box below:"
+            }
+        }) }}
+    {% endset -%}
+
+    {% set checkboxReasons = [] %}
+    {% for shortReason, reason in rejectReasons %}
+    {% set _ = checkboxReasons.push({value: shortReason, text: reason}) %}
+    {% endfor %}
+    {% set otherHtml = {html:other} %}
+    {% set otherBox =  {value: "other", text: "Other", conditional: otherHtml} %}
+    {% set _ = checkboxReasons.push(otherBox) %}
+
+
+<form method="post" action="/media-account-rejection-reasons?artefactId={{ artefactId }}">
+    <input type="hidden" id="applicantId" name="applicantId" value="{{ applicantId }}" >
+    {{ govukCheckboxes({
+        name: "rejection-reasons",
+        fieldset: {
+            legend: {
+                text: "Why are you rejecting this application?",
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        hint: {
+            text: "Select all that apply."
+        },
+        items: checkboxReasons
+    }) }}
+    {{ submitButton() }}
+</form>
+{% endblock %}
+{% block bodyEnd %}
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+    {{ super() }}
+{% endblock %}
