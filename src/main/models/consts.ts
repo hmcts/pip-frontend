@@ -28,7 +28,7 @@ export enum uploadType {
 }
 
 export const formattedRoles = {
-    VERIFIED: 'Verified',
+    VERIFIED: 'Media',
     INTERNAL_ADMIN_CTSC: 'CTSC Admin',
     INTERNAL_ADMIN_LOCAL: 'Local Admin',
     INTERNAL_SUPER_ADMIN_CTSC: 'CTSC Super Admin',
