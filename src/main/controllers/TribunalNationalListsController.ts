@@ -36,20 +36,11 @@ export default class TribunalNationalListsController {
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
             const courtName = locationService.findCourtName(returnedCourt, req.lng, listToLoad);
 
-            let languageResource = {
-                ...req.i18n.getDataByLanguage(pageLanguage)[listToLoad],
-                ...req.i18n.getDataByLanguage(pageLanguage)['list-template'],
-            };
-
-            if (listToLoad === 'care-standards-list') {
-                languageResource = {
-                    ...cloneDeep(languageResource),
-                    ...req.i18n.getDataByLanguage(pageLanguage)['open-justice-statement'],
-                };
-            }
-
             res.render(listToLoad, {
-                ...cloneDeep(languageResource),
+                // The 'open-justice-statement' resource needs to come before the list type resource so it is not overloaded vy
+                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['open-justice-statement']),
+                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
+                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 listData: manipulatedData,
                 publishedDate: publishedDate,
