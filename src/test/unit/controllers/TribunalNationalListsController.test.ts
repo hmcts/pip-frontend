@@ -48,6 +48,7 @@ describe('Tribunal National List Controller', () => {
     } as unknown as Response;
 
     const expectedData = {
+        ...i18n['open-justice-statement'],
         ...i18n['list-template'],
         contentDate: DateTime.fromISO(metaData['contentDate'], {
             zone: 'utc',
@@ -90,7 +91,6 @@ describe('Tribunal National List Controller', () => {
         const responseMock = sinon.mock(response);
         const expectedCareStandardsListData = {
             ...i18n['care-standards-list'],
-            ...i18n['open-justice-statement'],
             ...expectedData,
         };
 
