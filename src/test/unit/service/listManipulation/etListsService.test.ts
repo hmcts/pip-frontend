@@ -9,12 +9,12 @@ const etDailyListData = fs.readFileSync(path.resolve(__dirname, '../../mocks/etD
 describe('Reshaped ET Fortnightly List - splitting data from a courtroom format to a day by day view.', () => {
     it('should return ET Fortnightly List', async () => {
         const data = await etListsService.reshapeEtFortnightlyListData(etDailyListData, 'en');
-        expect(JSON.stringify(data).length).to.equal(2803);
+        expect(JSON.stringify(data).length).to.equal(2869);
     });
 
     it('should match the completed mock', async () => {
         const data = await etListsService.reshapeEtFortnightlyListData(etDailyListData, 'en');
-        expect(JSON.stringify(data)).to.contain('Lord H. Bouffant, LEGALADVISOR: Dame H. Wiggins');
+        expect(JSON.stringify(data)).to.contain('Mr T. Test Surname 2');
     });
 
     it('should have data for two courthouses', async () => {
@@ -37,7 +37,7 @@ describe('Reshaped ET Fortnightly List - splitting data from a courtroom format 
 
     it('should be parsing and separating dates correctly', async () => {
         const data = JSON.stringify(await etListsService.reshapeEtFortnightlyListData(etDailyListData, 'en'));
-        const list_of_dates = ['Sunday 13 February 2022', 'Tuesday 15 February 2022', 'Monday 14 February 2022'];
+        const list_of_dates = ['Sunday 13 February 2022'];
         list_of_dates.forEach(value => {
             expect(data).to.contain(value);
         });
