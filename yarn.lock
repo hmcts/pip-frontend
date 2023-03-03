@@ -3430,17 +3430,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/reporter@npm:8.3.0":
-  version: 8.3.0
-  resolution: "@wdio/reporter@npm:8.3.0"
+"@wdio/reporter@npm:8.4.0":
+  version: 8.4.0
+  resolution: "@wdio/reporter@npm:8.4.0"
   dependencies:
     "@types/node": ^18.0.0
     "@wdio/logger": 8.1.0
-    "@wdio/types": 8.3.0
+    "@wdio/types": 8.4.0
     diff: ^5.0.0
     object-inspect: ^1.12.0
     supports-color: 9.3.1
-  checksum: cc092c5a8b8a5b071ca2068730ae405ccafe128b184fda482407f85b953612f234b35a55c1bfc23d8563951856a5162d8cdcef2b274a711c3169dbf0d72e7ea4
+  checksum: c99145dab53fa78f1d2ad1dcdd72f6b37b88939eb9dd39b671a7896c4ee9cdc9e6b436ed4822632976ff57c77cc5cf356369c3f9727652420aa2fb59e52bee31
   languageName: node
   linkType: hard
 
@@ -3485,16 +3485,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/spec-reporter@npm:^8.1.2":
-  version: 8.3.0
-  resolution: "@wdio/spec-reporter@npm:8.3.0"
+"@wdio/spec-reporter@npm:^8.4.0":
+  version: 8.4.0
+  resolution: "@wdio/spec-reporter@npm:8.4.0"
   dependencies:
-    "@wdio/reporter": 8.3.0
-    "@wdio/types": 8.3.0
+    "@wdio/reporter": 8.4.0
+    "@wdio/types": 8.4.0
     chalk: ^5.1.2
     easy-table: ^1.2.0
     pretty-ms: ^7.0.0
-  checksum: ea1e3e1dba0fc07cf744ea61a0c4c7c85c1d00a4d4515995e7583eb1bc0201c7e5209e78876c4df23a423f89ab96a46baa50efec08a79427c2a0913274513945
+  checksum: 1987c1237489f87060330bc6c7798f154b189fa0ec79837b2475224993e0ac040588d05028c3a8e0e4229ebe56c478ba6e6d3383f40269b620719d5cc9707fd3
   languageName: node
   linkType: hard
 
@@ -3513,6 +3513,15 @@ __metadata:
   dependencies:
     "@types/node": ^18.0.0
   checksum: bad0260cc1e846a467d2ec6e21dd0bee8acb9bffb6778687d15edaccf82f987eb298dcf4c3df9130204a7ec54f6354abea5cbd4fbd6abcede96f526a452392b2
+  languageName: node
+  linkType: hard
+
+"@wdio/types@npm:8.4.0":
+  version: 8.4.0
+  resolution: "@wdio/types@npm:8.4.0"
+  dependencies:
+    "@types/node": ^18.0.0
+  checksum: 1c4b8c0814d54fcc7a41dd217c870cd2028ade32675b28b6139ceccf4b8b1139f6b28848b0a425123b4713d38fa01d4a061c2547c8ef35168a8073f44aa9c411
   languageName: node
   linkType: hard
 
@@ -12847,7 +12856,7 @@ __metadata:
     "@wdio/local-runner": ^8.2.3
     "@wdio/mocha-framework": ^8.2.1
     "@wdio/selenium-standalone-service": ^8.2.3
-    "@wdio/spec-reporter": ^8.1.2
+    "@wdio/spec-reporter": ^8.4.0
     accessible-autocomplete: ^2.0.3
     applicationinsights: ^2.4.0
     awilix: ^8.0.0
