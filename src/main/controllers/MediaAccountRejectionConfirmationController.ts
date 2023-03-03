@@ -8,11 +8,13 @@ const mediaAccountApplicationService = new MediaAccountApplicationService();
 
 export default class MediaAccountRejectionConfirmationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        if (req.query?.applicantId) {
+        if (req.query?.applicantId && req.query?.reasons) {
             const applicantData = await mediaAccountApplicationService.getApplicationById(req.query.applicantId);
+            const reasons = req.query.reasons
             return res.render(url, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
                 applicantData: applicantData,
+                reasons: reasons
             });
         }
         return res.render('error', req.i18n.getDataByLanguage(req.lng).error);

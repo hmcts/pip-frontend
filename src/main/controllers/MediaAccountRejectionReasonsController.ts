@@ -27,7 +27,7 @@ export default class MediaAccountRejectionReasonsController {
             const uri = new URL('/media-account-rejection-confirmation/', process.env.FRONTEND_URL);
             uri.searchParams.append('applicantId', applicantId);
             uri.searchParams.append('reasons', reasons);
-            return res.redirect(uri.href);
+            return res.redirect(uri.href)
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }

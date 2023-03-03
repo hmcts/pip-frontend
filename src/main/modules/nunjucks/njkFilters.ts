@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { PublicationService } from '../../service/publicationService';
 import { printableDuration } from './printableDuration';
 import { calculateDurationSortValue } from '../../helpers/dateTimeHelper';
+import { runtime } from 'nunjucks';
 const publicationService = new PublicationService();
 
 function createFilters(env) {
@@ -17,6 +18,19 @@ function createFilters(env) {
     env.addFilter('rejectReason', function (x) {
         return rejectReasonLookup.get(x);
     });
+
+    env.addFilter('mediaRejectionClean', function (csvList, nopadding) {
+        let output = "<ol>"
+        if (nopadding == true) {
+            output = "<ol class='govuk-list--number govuk-!-padding-left-4'>"
+        }
+        let cleanArray = csvList.split(',').map(x => rejectReasonLookup[x])
+        cleanArray.forEach(item => {
+            output += '<li>' + item + '</li>';
+        });
+        output += "</ol>"
+        return new runtime.SafeString(output);
+    })
 
     // to get the pretty list type name
     env.addFilter('listType', function (x) {
