@@ -4079,9 +4079,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"applicationinsights@npm:^2.4.0":
-  version: 2.4.1
-  resolution: "applicationinsights@npm:2.4.1"
+"applicationinsights@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "applicationinsights@npm:2.5.0"
   dependencies:
     "@azure/core-auth": ^1.4.0
     "@azure/core-rest-pipeline": ^1.10.0
@@ -4099,7 +4099,7 @@ __metadata:
   peerDependenciesMeta:
     applicationinsights-native-metrics:
       optional: true
-  checksum: c238c26dd32ebba0fe5ffcbee8826e634687a206e22b86d87e2a5bcebcbef9563420a1d5b41ea4e3860eb02bc5e157888966c5f3a329c6b8bc0bf491e6d21a5f
+  checksum: 992cc49a659598cfb76313dda4449902ef14f7d54d0f7b7530ad247535dd613f063c097f0b13735bb22c42c15d37ff727fa642f013916cd707b251825921f955
   languageName: node
   linkType: hard
 
@@ -12849,7 +12849,7 @@ __metadata:
     "@wdio/selenium-standalone-service": ^8.2.3
     "@wdio/spec-reporter": ^8.1.2
     accessible-autocomplete: ^2.0.3
-    applicationinsights: ^2.4.0
+    applicationinsights: ^2.5.0
     awilix: ^8.0.0
     axios: 1.2.2
     axios-oauth-client: ^1.5.0
