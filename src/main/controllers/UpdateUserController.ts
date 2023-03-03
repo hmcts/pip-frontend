@@ -26,7 +26,7 @@ export default class UpdateUserController {
             userId,
             email: userData.email,
             currentRole: formattedRoles[userData.roles],
-            error: false,
+            error: req.query.error === 'true',
         });
     }
 
@@ -37,35 +37,31 @@ export default class UpdateUserController {
             req.user['userId']
         );
 
-        await userManagementService.auditAction(
-            req.user['userId'],
-            req.user['email'],
-            'UPDATE_USER',
-            'User with id: ' + req.body.userId + ' has been updated to a: ' + req.body.updatedRole
-        );
-
         if (updateUserResponse === null) {
-            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-        } else if (updateUserResponse === 'FORBIDDEN') {
-            const userId = req.body.userId;
-            const userData = await accountManagementRequests.getUserByUserId(userId, req.user['userId']);
-            const selectBoxData = userManagementService.buildUserUpdateSelectBox(userData.roles);
             await userManagementService.auditAction(
                 req.user['userId'],
                 req.user['email'],
-                'MANAGE_USER',
-                'Update user page requested containing user: ' + userId
+                'UPDATE_USER',
+                'User with id: ' + req.body.userId + ' failed to be update to: ' + req.body.updatedRole
             );
 
-            res.render('update-user', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['update-user']),
-                selectBoxData,
-                userId,
-                email: userData.email,
-                currentRole: formattedRoles[userData.roles],
-                error: true,
-            });
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        } else if (updateUserResponse === 'FORBIDDEN') {
+            await userManagementService.auditAction(
+                req.user['userId'],
+                req.user['email'],
+                'UPDATE_USER',
+                'User has attempted to update their own role to: ' + req.body.updatedRole
+            );
+
+            res.redirect('/update-user?id=' + req.body.userId + '&error=true');
         } else {
+            await userManagementService.auditAction(
+                req.user['userId'],
+                req.user['email'],
+                'UPDATE_USER',
+                'User with id: ' + req.body.userId + ' has been updated to a: ' + req.body.updatedRole
+            );
             res.render('update-user-confirmation', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['update-user-confirmation']),
                 updatedRole: formattedRoles[req.body.updatedRole],
