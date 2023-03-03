@@ -86,7 +86,7 @@
         "nunjucks-date-filter": "^0.1.1",
         "passport-azure-ad": "4.3.3",
         "passport-custom": "^1.1.1",
-        "playwright": "^1.30.0",
+        "playwright": "^1.31.2",
         "postcss": "^8.4.21",
         "pretty-print-json": "^1.4.0",
         "require-directory": "^2.1.1",
