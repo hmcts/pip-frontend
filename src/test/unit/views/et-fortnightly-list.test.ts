@@ -128,7 +128,7 @@ describe('ET Fortnightly List page', () => {
 
     it('should display Claimant Name', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[4].innerHTML).contains('HRH');
+        expect(cell[4].innerHTML).contains('Rep');
     });
 
     it('should display Case Sequence Indicator if it is there', () => {
@@ -159,6 +159,6 @@ describe('ET Fortnightly List page', () => {
 
     it('should display Respondent', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[5].innerHTML).contains('Capt. S. Jenkins');
+        expect(cell[5].innerHTML).contains('Rep: Dr T. Test Surname 2');
     });
 });
