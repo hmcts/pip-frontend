@@ -5,4 +5,6 @@ export interface Location {
     location: string;
     region: Array<string>;
     welshName: string;
+    email: string;
+    contactNo: string;
 }

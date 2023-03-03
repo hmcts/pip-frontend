@@ -11,6 +11,8 @@ const publicationController = new SummaryOfPublicationsController();
 const i18n = {
     'list-option': {},
 };
+const court = { name: 'New Court', email: 'test@test.com', contactNo: '0123456789' };
+const sjpCourt = { name: 'Single Justice Procedure' };
 
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawSJPData).results;
@@ -19,7 +21,9 @@ const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublicati
 
 describe('Get publications', () => {
     CourtStub.withArgs(9).resolves(JSON.parse('{"name":"Single Justice Procedure"}'));
-    CourtStub.withArgs(1).resolves(JSON.parse('{"name":"New Court"}'));
+    CourtStub.withArgs(1).resolves(
+        JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}')
+    );
     SoPStub.withArgs(9).resolves(sjpCases);
     SoPStub.withArgs(1).resolves(sjpCases);
 
@@ -40,6 +44,7 @@ describe('Get publications', () => {
             ...i18n['summary-of-publications'],
             locationName: 'New Court',
             publications: sjpCases,
+            court,
             isSjp: false,
         };
 
@@ -66,6 +71,7 @@ describe('Get publications', () => {
             ...i18n['summary-of-publications'],
             locationName: 'Single Justice Procedure',
             publications: sjpCases,
+            court: sjpCourt,
             isSjp: true,
         };
 
