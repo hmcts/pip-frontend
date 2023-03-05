@@ -368,4 +368,18 @@ export class AccountManagementRequests {
             return [];
         }
     }
+
+    public async getAuditLogById(id: string): Promise<any> {
+        try {
+            const response = await accountManagementApi.get(`/audit/${id}`);
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                logger.error(`Failed to get audit log with id: ${id}`, error.response.data);
+            } else {
+                logger.error(`Something went wrong trying to get audit log with id: ${id}`, error.message);
+            }
+            return null;
+        }
+    }
 }

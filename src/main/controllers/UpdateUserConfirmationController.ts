@@ -16,8 +16,7 @@ export default class UpdateUserConfirmationController {
             req.user['userId']
         );
         await userManagementService.auditAction(
-            req.user['userId'],
-            req.user['email'],
+            req.user,
             'UPDATE_USER',
             'User with id: ' + req.body.userId + ' has been updated to a: ' + req.body.updatedRole
         );

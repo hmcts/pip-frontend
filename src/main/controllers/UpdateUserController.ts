@@ -14,8 +14,7 @@ export default class UpdateUserController {
         const userData = await accountManagementRequests.getUserByUserId(userId, req.user['userId']);
         const selectBoxData = userManagementService.buildUserUpdateSelectBox(userData.roles);
         await userManagementService.auditAction(
-            req.user['userId'],
-            req.user['email'],
+            req.user,
             'MANAGE_USER',
             'Update user page requested containing user: ' + userId
         );

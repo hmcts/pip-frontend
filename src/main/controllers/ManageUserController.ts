@@ -10,8 +10,7 @@ export default class ManageUserController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const userData = await accountManagementRequests.getUserByUserId(req.query.id as string, req.user['userId']);
         await userManagementService.auditAction(
-            req.user['userId'],
-            req.user['email'],
+            req.user,
             'MANAGE_USER',
             'Manage user page requested containing user: ' + req.query.id
         );

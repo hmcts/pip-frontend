@@ -576,6 +576,7 @@ export default function (app: Application): void {
         app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get
     );
     app.get('/audit-log-viewer', isPermittedSystemAdmin, app.locals.container.cradle.auditLogViewerController.get);
+    app.get('/audit-log-details', isPermittedSystemAdmin, app.locals.container.cradle.auditLogDetailsController.get);
 
     //CFT Routes
     if (process.env.ENABLE_CFT === 'true') {
