@@ -7,7 +7,7 @@ const mediaAccountApplicationService = new MediaAccountApplicationService();
 
 export default class MediaAccountRejectionController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const reasons = req.body['reasons']
+        const reasons = req.body['reasons'];
         const applicantId = req.body['applicantId'];
         const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
 
@@ -30,7 +30,14 @@ export default class MediaAccountRejectionController {
 
         const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
         if (applicantData) {
-            return MediaAccountRejectionController.applicationFoundFlow(req, res, rejected, applicantId, reasons, applicantData);
+            return MediaAccountRejectionController.applicationFoundFlow(
+                req,
+                res,
+                rejected,
+                applicantId,
+                reasons,
+                applicantData
+            );
         }
         res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
@@ -56,20 +63,20 @@ export default class MediaAccountRejectionController {
         }
     }
 
-        /**
-         * This handles the pages that render if the user has selected 'Reject' on the screen.
-         */
-        private static async rejectionFlow(req, res, applicantId, reasons): Promise<void> {
-            const applicantData = await mediaAccountApplicationService.getApplicationById(req.body.applicantId);
-            const url = 'media-account-rejection-confirmation'
-            if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'])) {
-                return res.render(url, {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
-                    applicantData,
-                    reasons: reasons,
-                });
-            } else {
-                res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-            }
+    /**
+     * This handles the pages that render if the user has selected 'Reject' on the screen.
+     */
+    private static async rejectionFlow(req, res, applicantId, reasons): Promise<void> {
+        const applicantData = await mediaAccountApplicationService.getApplicationById(req.body.applicantId);
+        const url = 'media-account-rejection-confirmation';
+        if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'])) {
+            return res.render(url, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
+                applicantData,
+                reasons: reasons,
+            });
+        } else {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
+    }
 }

@@ -26,22 +26,18 @@ export default class MediaAccountRejectionConfirmationController {
         const reasons = req.query.reasons;
         const python = `import os
         print(${reasons})
-        exit()`
+        exit()`;
         const pythonProcess = spawn('python3', ['-c', python]);
         let output = '';
-        pythonProcess.stdout.on('data', (data) => {
+        pythonProcess.stdout.on('data', data => {
             output += data;
-            console.log(data)
+            console.log(data);
         });
-        pythonProcess.on('close', (code) => {
+        pythonProcess.on('close', code => {
             console.log(`Python process exited with code ${code}`);
             res.send(output);
         });
 
-
         // Send the output back to the client
-
-
-
     }
 }

@@ -12,7 +12,7 @@ export default class MediaAccountRejectionReasonsController {
         const applicantId = req.query['applicantId'];
         const fs = require('fs');
         const rejectReasons = JSON.parse(
-            fs.readFileSync(path.resolve(__dirname, '../modules/nunjucks/media-account-rejection-reasons-lookup.json')),
+            fs.readFileSync(path.resolve(__dirname, '../modules/nunjucks/media-account-rejection-reasons-lookup.json'))
         );
         return res.render(url, {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
@@ -27,16 +27,19 @@ export default class MediaAccountRejectionReasonsController {
         const otherBox = req.body['optional-other'];
         const otherCheck = reasons.indexOf('other');
         if (otherCheck != -1) {
-            reasons[otherCheck] = otherBox
+            reasons[otherCheck] = otherBox;
         }
 
         if (reasons && applicantId) {
-            const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
+            const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
+                applicantId,
+                'PENDING'
+            );
             res.render('media-account-rejection', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection']),
                 applicantData,
                 applicantId,
-                reasons
+                reasons,
             });
             // if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'])) {
             //     const uri = new URL('/media-account-rejection-confirmation/', process.env.FRONTEND_URL);
