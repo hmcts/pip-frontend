@@ -70,6 +70,15 @@
       </dd>
       <dd class="govuk-summary-list__actions"></dd>
     </div>
+      <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+              Rejection Reasons
+          </dt>
+          <dd class="govuk-summary-list__value">
+              {{ reasons | mediaRejectionClean(true) }}
+          </dd>
+          <dd class="govuk-summary-list__actions"></dd>
+      </div>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         {{ proofOfId }}
@@ -84,8 +93,9 @@
       </dd>
     </div>
   </dl>
-  <form method="post">
-    <input type="hidden" id="applicantId" name="applicantId" value="{{ applicantData.id }}" }}>
+  <form method="post" action="/media-account-rejection?applicantId={{ applicantId }}">
+    <input type="hidden" id="applicantId" name="applicantId" value="{{ applicantData.id }}">
+    <input type="hidden" id="reasons" name="reasons" value="{{ reasons }}">
     {{ govukRadios({
       classes: "govuk-radios--inline",
       idPrefix: "reject-confirmation",

@@ -24,7 +24,10 @@ function createFilters(env) {
         if (nopadding == true) {
             output = "<ol class='govuk-list--number govuk-!-padding-left-4'>";
         }
-        const cleanArray = csvList.split(',').map(x => rejectReasonLookup[x]);
+        if (typeof csvList == 'string'){
+        csvList = csvList.split(',')
+        }
+        const cleanArray = csvList.map(x => rejectReasonLookup[x] ?? x);
         cleanArray.forEach(item => {
             output += '<li>' + item + '</li>';
         });

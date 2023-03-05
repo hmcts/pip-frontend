@@ -51,7 +51,7 @@
     {% set _ = checkboxReasons.push(otherBox) %}
 
 
-<form method="post" action="/media-account-rejection-reasons?artefactId={{ artefactId }}">
+<form method="post" action="/media-account-rejection-reasons?applicantId={{ applicantId }}">
     <input type="hidden" id="applicantId" name="applicantId" value="{{ applicantId }}" >
     {{ govukCheckboxes({
         name: "rejection-reasons",

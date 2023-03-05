@@ -364,6 +364,11 @@ export default function (app: Application): void {
         isPermittedMediaAccount,
         app.locals.container.cradle.mediaAccountRejectionConfirmationController.get
     );
+    app.post(
+        '/media-account-rejection-confirmation',
+        isPermittedMediaAccount,
+        app.locals.container.cradle.mediaAccountRejectionConfirmationController.post
+    );
     app.get(
         '/remove-list-confirmation',
         isPermittedManualUpload,
