@@ -20,17 +20,17 @@ function createFilters(env) {
     });
 
     env.addFilter('mediaRejectionClean', function (csvList, nopadding) {
-        let output = "<ol>"
+        let output = '<ol>';
         if (nopadding == true) {
-            output = "<ol class='govuk-list--number govuk-!-padding-left-4'>"
+            output = "<ol class='govuk-list--number govuk-!-padding-left-4'>";
         }
-        let cleanArray = csvList.split(',').map(x => rejectReasonLookup[x])
+        const cleanArray = csvList.split(',').map(x => rejectReasonLookup[x]);
         cleanArray.forEach(item => {
             output += '<li>' + item + '</li>';
         });
-        output += "</ol>"
+        output += '</ol>';
         return new runtime.SafeString(output);
-    })
+    });
 
     // to get the pretty list type name
     env.addFilter('listType', function (x) {
