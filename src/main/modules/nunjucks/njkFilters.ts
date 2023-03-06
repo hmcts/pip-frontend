@@ -14,39 +14,44 @@ function createFilters(env) {
     const listTypes = publicationService.getListTypes();
     const languageLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'languageLookup.json')));
     const rejectReasonLookup = JSON.parse(
-        fs.readFileSync(path.resolve(__dirname, 'media-account-rejection-reasons-lookup.json')),
+        fs.readFileSync(path.resolve(__dirname, 'media-account-rejection-reasons-lookup.json'))
     );
 
     // takes array or comma-separated string of rejection reason codes, transforms to an ordered list
-    // with optional padding.
+    // with optional padding depending on where it's being displayed.
     env.addFilter('mediaRejectionClean', (csvList, nopadding = false) => {
         csvList = Array.isArray(csvList) ? csvList : csvList.split(',');
-        const listItems = csvList.map(x => rejectReasonLookup[x] ?? x).map(x => `<li>${x}</li>`).join('');
-        return new runtime.SafeString(`<ol${nopadding ? ' class="govuk-list--number govuk-!-padding-left-4"' : ''}>${listItems}</ol>`);
+        const listItems = csvList
+            .map(x => rejectReasonLookup[x] ?? x)
+            .map(x => `<li>${x}</li>`)
+            .join('');
+        return new runtime.SafeString(
+            `<ol${nopadding ? ' class="govuk-list--number govuk-!-padding-left-4"' : ''}>${listItems}</ol>`
+        );
     });
 
     // to get the pretty list type name
-    env.addFilter('listType', function(x) {
+    env.addFilter('listType', function (x) {
         return listTypes.get(x)?.friendlyName;
     });
 
     // to get the list type url
-    env.addFilter('listUrl', function(x) {
+    env.addFilter('listUrl', function (x) {
         return listTypes.get(x)?.url;
     });
 
     // to return the prettier language name
-    env.addFilter('language', function(x) {
+    env.addFilter('language', function (x) {
         return languageLookup[x];
     });
 
     // to switch a string to titleCase (and remove extraneous underline in bilingual header)
-    env.addFilter('titleCase', function(x) {
+    env.addFilter('titleCase', function (x) {
         return x == 'BI_LINGUAL' ? 'Bilingual' : x.charAt(0).toUpperCase() + x.slice(1).toLowerCase();
     });
 
     // for calculating date ranges
-    env.addFilter('dateRange', function(x) {
+    env.addFilter('dateRange', function (x) {
         return (
             DateTime.fromISO(x.displayFrom, { zone: 'Europe/London' }).toFormat('dd MMM yyyy') +
             ' to ' +
@@ -55,27 +60,27 @@ function createFilters(env) {
     });
 
     // for emails to appear as govuk links
-    env.addFilter('emailLink', function(x) {
+    env.addFilter('emailLink', function (x) {
         return this.env.filters.safe('<a class=govuk-link href="mailto:' + x + '">' + x + '</a>');
     });
 
     // for phone numbers to display as links
-    env.addFilter('phoneLink', function(x) {
+    env.addFilter('phoneLink', function (x) {
         return this.env.filters.safe('<a class=govuk-link href="tel:' + x + '">' + x + '</a>');
     });
 
     // to transform duration in hours/mins into a multilingual single value.
-    env.addFilter('getDuration', function(hours, mins, language) {
+    env.addFilter('getDuration', function (hours, mins, language) {
         return [printableDuration(hours, 'hour', language), printableDuration(mins, 'min', language)].join(' ').trim();
     });
 
     // to convert the date string (in format DD/MM/YYYY) to a number value for sorting
-    env.addFilter('dateToSortValue', function(date) {
+    env.addFilter('dateToSortValue', function (date) {
         return date.split('/').reverse().join('');
     });
 
     // to convert the day and month name string (in format DD MMMM) to a number value for sorting
-    env.addFilter('dayMonthNameToSortValue', function(date) {
+    env.addFilter('dayMonthNameToSortValue', function (date) {
         const months = [
             'January',
             'February',
@@ -95,7 +100,7 @@ function createFilters(env) {
     });
 
     // To convert time in 12 hours format (ha or h:mma format) to a number value for sorting
-    env.addFilter('timeToSortValue', function(time) {
+    env.addFilter('timeToSortValue', function (time) {
         const timePart = time.slice(0, time.length - 2);
         const modifier = time.slice(time.length - 2);
         let [hours, minutes] = timePart.split(':');
@@ -112,7 +117,7 @@ function createFilters(env) {
         return parseInt(hours + minutes, 10);
     });
 
-    env.addFilter('durationToSortValue', function(hours, minutes) {
+    env.addFilter('durationToSortValue', function (hours, minutes) {
         return calculateDurationSortValue(0, hours, minutes);
     });
 }

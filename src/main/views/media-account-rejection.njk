@@ -1,6 +1,8 @@
 {% from "macros/common-components.njk" import goBack, submitButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
 {% extends "template.njk" %}
 {% block pageTitle %}
  Media Account Rejection
@@ -93,6 +95,13 @@
       </dd>
     </div>
   </dl>
+  {% set emailBuilder =  [emailTemplate.dear, applicantData.fullName, emailTemplate.introPara, emailTemplate.rejectText, reasonsCleaned, emailTemplate.end] | join(" ") %}
+
+  {{ govukDetails({
+    summaryText: "Preview email to applicant",
+    html:
+
+  }) }}
   <form method="post" action="/media-account-rejection?applicantId={{ applicantId }}">
     <input type="hidden" id="applicantId" name="applicantId" value="{{ applicantData.id }}">
     <input type="hidden" id="reasons" name="reasons" value="{{ reasons }}">

@@ -14,5 +14,11 @@
     "error": {
         "title": "There is a problem",
         "radioMessage": "An option must be selected"
+    },
+    "emailTemplate": {
+        "dear": "<p>Dear",
+        "introPara": "</p><p>Your request for a court and tribunal hearings account has been rejected for the following reason(s):</p>",
+        "rejectText": "<p>Reasons for rejection:</p>",
+        "end": "<p>You can access the court and tribunal service from the link below should you wish to make a new request.</p><p><a href='/create-media-account'>Court and tribunal hearings service</a></p><b>From</b><br> HM Courts & Tribunals Service"
     }
 }
