@@ -1,7 +1,6 @@
 {% from "macros/common-components.njk" import goBack, submitButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
-{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% extends "template.njk" %}
 
@@ -65,11 +64,6 @@
   <p class="govuk-body">{{ whatHappensNext1 }} <a href=mailto:{{ applicantData.email }}?subject={{ emailSubjectLine }}>{{ applicantData.email }}</a> {{ whatHappensNext2 }}</p>
 
   <h1 class = "govuk-heading-m">{{ emailTemplateHeader }}</h1>
-    {% set reasonsCleaned = reasons | mediaRejectionClean %}
-{% set emailBuilder =  [emailTemplateContent.dear, applicantData.fullName, emailTemplateContent.introPara, emailTemplateContent.rejectText, reasonsCleaned, emailTemplateContent.end] | join(" ") %}
-  {{ govukInsetText ({
-    html: emailBuilder
-  }) }}
     <form method='post' id="pythonForm">
         {{ submitButton() }}
 </form>

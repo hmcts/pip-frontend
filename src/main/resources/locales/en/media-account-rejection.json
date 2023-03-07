@@ -3,7 +3,10 @@
     "backToTop": "Back to top",
     "heading1": "Are you sure you want to reject this application?",
     "tableCaption": "Applicant's Details",
-    "radioAnswers": ["Yes", "No"],
+    "radioAnswers": [
+        "Yes",
+        "No"
+    ],
     "name": "Name",
     "email": "Email",
     "employer": "Employer",
@@ -16,6 +19,7 @@
         "radioMessage": "An option must be selected"
     },
     "emailTemplate": {
+        "heading": "<p><i>After you've completed this form, the applicant will be emailed the following:</i></p>",
         "dear": "<p>Dear",
         "introPara": "</p><p>Your request for a court and tribunal hearings account has been rejected for the following reason(s):</p>",
         "rejectText": "<p>Reasons for rejection:</p>",

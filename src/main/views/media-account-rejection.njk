@@ -95,11 +95,12 @@
       </dd>
     </div>
   </dl>
-  {% set emailBuilder =  [emailTemplate.dear, applicantData.fullName, emailTemplate.introPara, emailTemplate.rejectText, reasonsCleaned, emailTemplate.end] | join(" ") %}
+  {% set reasonsCleaned = reasons | mediaRejectionClean %}
+  {% set emailBuilder =  [emailTemplate.heading, emailTemplate.dear, applicantData.fullName, emailTemplate.introPara, emailTemplate.rejectText, reasonsCleaned, emailTemplate.end] | join(" ") %}
 
   {{ govukDetails({
     summaryText: "Preview email to applicant",
-    html:
+    html: emailBuilder
 
   }) }}
   <form method="post" action="/media-account-rejection?applicantId={{ applicantId }}">

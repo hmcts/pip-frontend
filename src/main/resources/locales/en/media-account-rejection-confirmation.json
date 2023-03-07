@@ -17,14 +17,7 @@
     "opensInWindowText": "opens in a new window",
     "viewText": "View",
     "whatHappensNextHeader": "What happens next",
-    "whatHappensNext1": "You now need to email the applicant [",
-    "whatHappensNext2": "] to notify them why their application cannot be progressed and to reapply once the issue has been rectified.",
-    "emailSubjectLine": "Your%20request%20for%20a%20Court%20and%20tribunal%20hearings%20account.",
-    "emailTemplateHeader": "Rejection Email Template",
-    "emailTemplateContent": {
-        "dear": "<p>Dear",
-        "introPara":"</p><p>Your request for a court and tribunal hearings account has been rejected for the following reason(s):</p>",
-        "rejectText":"<p>Reasons for rejection:</p>",
-        "end":"<p>You can access the court and tribunal service from the link below should you wish to make a new request.</p><p><a href='/create-media-account'>Court and tribunal hearings service</a></p><b>From</b><br> HM Courts & Tribunals Service"
-    }
+    "whatHappensNext1": "The applicant [",
+    "whatHappensNext2": "] will now be emailed to notify them why their application cannot be progressed and invited to reapply once the issue(s) are rectified.",
+    "emailSubjectLine": "Your%20request%20for%20a%20Court%20and%20tribunal%20hearings%20account."
 }
