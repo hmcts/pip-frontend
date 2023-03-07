@@ -294,13 +294,13 @@ export class AccountManagementRequests {
             });
             return response.data;
         } catch (error) {
-            if (error.response.status === 403) {
+            if (error.response && error.response.status === 403) {
                 logger.info('Admin user with ID: ' + adminUserId + ' has failed to update user with role');
                 return 'FORBIDDEN';
             } else if (error.response) {
-                console.log(error.response.data);
+                logger.info(error.response.data);
             } else {
-                console.log(`ERROR: ${error.message}`);
+                logger.info(`ERROR: ${error.message}`);
             }
             return null;
         }

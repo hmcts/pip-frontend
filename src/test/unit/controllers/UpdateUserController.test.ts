@@ -17,6 +17,7 @@ sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves({
 });
 
 sinon.stub(UserManagementService.prototype, 'buildUserUpdateSelectBox').returns('test');
+const auditStub = sinon.stub(UserManagementService.prototype, 'auditAction');
 
 describe('Update user controller', () => {
     const response = {
@@ -26,6 +27,10 @@ describe('Update user controller', () => {
     } as unknown as Response;
     const request = mockRequest(i18n);
     request.path = '/update-user';
+
+    afterEach(() => {
+        auditStub.resetHistory();
+    });
 
     it('should render the update user page', async () => {
         request.query = { id: '1234' };
@@ -43,6 +48,7 @@ describe('Update user controller', () => {
         responseMock.expects('render').once().withArgs('update-user', expectedData);
 
         await updateUserController.get(request, response);
+        sinon.assert.calledOnce(auditStub);
         return responseMock.verify();
     });
 
@@ -62,6 +68,7 @@ describe('Update user controller', () => {
         responseMock.expects('render').once().withArgs('update-user', expectedData);
 
         await updateUserController.get(request, response);
+        sinon.assert.calledOnce(auditStub);
         return responseMock.verify();
     });
 });
@@ -69,11 +76,19 @@ describe('Update user controller', () => {
 const stub = sinon.stub(AccountManagementRequests.prototype, 'updateUser');
 const validBody = { userId: '1234', updatedRole: 'SYSTEM_ADMIN' };
 const invalidBody = { userId: '1', updatedRole: 'WRONG_ROLE' };
+const forbiddenBody = { userId: '2', updatedRole: 'FORBIDDEN' };
+
+const adminId = '1234';
 
 describe('Update User Confirmation Controller', () => {
     beforeEach(() => {
-        stub.withArgs('1234', 'SYSTEM_ADMIN').resolves(true);
-        stub.withArgs('1', 'WRONG_ROLE').resolves(undefined);
+        stub.withArgs('1234', 'SYSTEM_ADMIN', adminId).resolves(true);
+        stub.withArgs('1', 'WRONG_ROLE', adminId).resolves(null);
+        stub.withArgs('2', 'FORBIDDEN', adminId).resolves('FORBIDDEN');
+    });
+
+    afterEach(() => {
+        auditStub.resetHistory();
     });
 
     const i18n = {
@@ -89,6 +104,7 @@ describe('Update User Confirmation Controller', () => {
         },
     } as unknown as Response;
     const request = mockRequest(i18n);
+    request.user = { userId: adminId };
 
     it('should render update user confirmation page if valid body data is provided', () => {
         request.body = validBody;
@@ -104,6 +120,7 @@ describe('Update User Confirmation Controller', () => {
             });
 
         return updateUserController.post(request, response).then(() => {
+            sinon.assert.calledOnce(auditStub);
             responseMock.verify();
         });
     });
@@ -118,6 +135,19 @@ describe('Update User Confirmation Controller', () => {
             .withArgs('error', { ...i18n.error });
 
         return updateUserController.post(request, response).then(() => {
+            sinon.assert.calledOnce(auditStub);
+            responseMock.verify();
+        });
+    });
+
+    it('should redirect to update-user when call is forbidden', () => {
+        request.body = forbiddenBody;
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('redirect').once().withArgs('/update-user?id=2&error=true');
+
+        return updateUserController.post(request, response).then(() => {
+            sinon.assert.calledOnce(auditStub);
             responseMock.verify();
         });
     });
