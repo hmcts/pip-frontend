@@ -3,9 +3,11 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { ManualUploadService } from '../service/manualUploadService';
 import { FileHandlingService } from '../service/fileHandlingService';
+import {UserManagementService} from "../service/userManagementService";
 
 const manualUploadService = new ManualUploadService();
 const fileHandlingService = new FileHandlingService();
+const userManagementService = new UserManagementService();
 
 export default class ManualUploadSummaryController {
     public get(req: PipRequest, res: Response): void {
@@ -64,6 +66,11 @@ export default class ManualUploadSummaryController {
             fileHandlingService.removeFileFromRedis(req.user['userId'], formData.fileName);
 
             if (response) {
+                await userManagementService.auditAction(
+                    req.user,
+                    'PUBLICATION_UPLOAD',
+                    `Publication for ${formData.listTypeName} successfully uploaded`
+                );
                 res.clearCookie('formCookie');
                 res.redirect('upload-confirmation');
             } else {
