@@ -42,7 +42,7 @@ export default class UpdateUserController {
                 req.user['userId'],
                 req.user['email'],
                 'UPDATE_USER',
-                'User with id: ' + req.body.userId + ' failed to be update to: ' + req.body.updatedRole
+                'User with id: ' + req.body.userId + ' failed to be updated to: ' + req.body.updatedRole
             );
 
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

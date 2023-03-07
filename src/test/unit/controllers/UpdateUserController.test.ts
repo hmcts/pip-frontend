@@ -19,6 +19,9 @@ sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves({
 sinon.stub(UserManagementService.prototype, 'buildUserUpdateSelectBox').returns('test');
 const auditStub = sinon.stub(UserManagementService.prototype, 'auditAction');
 
+const adminId = '1234';
+const email = 'test@test.com';
+
 describe('Update user controller', () => {
     const response = {
         render: () => {
@@ -31,6 +34,8 @@ describe('Update user controller', () => {
     afterEach(() => {
         auditStub.resetHistory();
     });
+
+    request.user = { userId: adminId, email: email };
 
     it('should render the update user page', async () => {
         request.query = { id: '1234' };
@@ -48,7 +53,13 @@ describe('Update user controller', () => {
         responseMock.expects('render').once().withArgs('update-user', expectedData);
 
         await updateUserController.get(request, response);
-        sinon.assert.calledOnce(auditStub);
+        sinon.assert.calledWith(
+            auditStub,
+            adminId,
+            email,
+            'MANAGE_USER',
+            'Update user page requested containing user: 1234'
+        );
         return responseMock.verify();
     });
 
@@ -68,7 +79,13 @@ describe('Update user controller', () => {
         responseMock.expects('render').once().withArgs('update-user', expectedData);
 
         await updateUserController.get(request, response);
-        sinon.assert.calledOnce(auditStub);
+        sinon.assert.calledWith(
+            auditStub,
+            adminId,
+            email,
+            'MANAGE_USER',
+            'Update user page requested containing user: 1234'
+        );
         return responseMock.verify();
     });
 });
@@ -77,8 +94,6 @@ const stub = sinon.stub(AccountManagementRequests.prototype, 'updateUser');
 const validBody = { userId: '1234', updatedRole: 'SYSTEM_ADMIN' };
 const invalidBody = { userId: '1', updatedRole: 'WRONG_ROLE' };
 const forbiddenBody = { userId: '2', updatedRole: 'FORBIDDEN' };
-
-const adminId = '1234';
 
 describe('Update User Confirmation Controller', () => {
     beforeEach(() => {
@@ -104,7 +119,7 @@ describe('Update User Confirmation Controller', () => {
         },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.user = { userId: adminId };
+    request.user = { userId: adminId, email: email };
 
     it('should render update user confirmation page if valid body data is provided', () => {
         request.body = validBody;
@@ -120,7 +135,13 @@ describe('Update User Confirmation Controller', () => {
             });
 
         return updateUserController.post(request, response).then(() => {
-            sinon.assert.calledOnce(auditStub);
+            sinon.assert.calledWith(
+                auditStub,
+                adminId,
+                email,
+                'UPDATE_USER',
+                'User with id: 1234 has been updated to a: SYSTEM_ADMIN'
+            );
             responseMock.verify();
         });
     });
@@ -135,7 +156,13 @@ describe('Update User Confirmation Controller', () => {
             .withArgs('error', { ...i18n.error });
 
         return updateUserController.post(request, response).then(() => {
-            sinon.assert.calledOnce(auditStub);
+            sinon.assert.calledWith(
+                auditStub,
+                adminId,
+                email,
+                'UPDATE_USER',
+                'User with id: 1 failed to be updated to: WRONG_ROLE'
+            );
             responseMock.verify();
         });
     });
@@ -147,7 +174,13 @@ describe('Update User Confirmation Controller', () => {
         responseMock.expects('redirect').once().withArgs('/update-user?id=2&error=true');
 
         return updateUserController.post(request, response).then(() => {
-            sinon.assert.calledOnce(auditStub);
+            sinon.assert.calledWith(
+                auditStub,
+                adminId,
+                email,
+                'UPDATE_USER',
+                'User has attempted to update their own role to: FORBIDDEN'
+            );
             responseMock.verify();
         });
     });
