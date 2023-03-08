@@ -1,7 +1,7 @@
 import config from 'config';
 import process from 'process';
 
-const appInsights = require("applicationinsights");
+const appInsights = require('applicationinsights');
 
 export class AppInsights {
     enable(): void {
