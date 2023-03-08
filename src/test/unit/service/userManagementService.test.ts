@@ -168,7 +168,7 @@ describe('User management service', () => {
         expect(response['rows'][1]['key']['text']).to.contain('Email');
         expect(response['rows'][1]['value']['text']).to.contain(testManageUserSummaryMedia.email);
         expect(response['rows'][2]['key']['text']).to.contain('Role');
-        expect(response['rows'][2]['value']['text']).to.contain('Media');
+        expect(response['rows'][2]['value']['text']).to.contain('Verified');
         expect(response['rows'][3]['key']['text']).to.contain('Provenance');
         expect(response['rows'][3]['value']['text']).to.contain('B2C');
         expect(response['rows'][4]['key']['text']).to.contain('Provenance ID');
@@ -270,7 +270,7 @@ describe('User management service', () => {
 
         // User data
         expect(response['userData'][0][0].text).to.equal('test1@email.com');
-        expect(response['userData'][0][1].text).to.equal('Media');
+        expect(response['userData'][0][1].text).to.equal('Verified');
         expect(response['userData'][0][2].text).to.equal('B2C');
         expect(response['userData'][0][3].html).to.equal(
             '<a class="govuk-link" id="manage-link" ' +
