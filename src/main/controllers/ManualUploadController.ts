@@ -7,12 +7,12 @@ import { uploadType } from '../models/consts';
 
 const manualUploadService = new ManualUploadService();
 const fileHandlingService = new FileHandlingService();
-let formCookie;
 
 export default class ManualUploadController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const listItems = await manualUploadService.buildFormData(req.lng as string);
-        const formData = req.cookies['formCookie'] != undefined ? JSON.parse(formCookie) : null;
+        const formCookie = req.cookies.formCookie
+        const formData = formCookie != undefined ? JSON.parse(formCookie) : null;
 
         const formValues = {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload']),
