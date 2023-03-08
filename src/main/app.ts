@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import * as process from 'process';
 import { I18next } from './modules/i18next';
 
@@ -61,13 +63,11 @@ app.use(
 
 // register regenerate & save after the cookieSession middleware initialization
 app.use(function (request, response, next) {
-    // @ts-ignore
     if (request.session && !request.session.regenerate) {
         request.session.regenerate = cb => {
             cb();
         };
     }
-    // @ts-ignore
     if (request.session && !request.session.save) {
         request.session.save = cb => {
             cb();

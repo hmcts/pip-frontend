@@ -43,7 +43,6 @@ module.exports = {
                 'linebreak-style': ['error', 'unix'],
                 '@typescript-eslint/no-var-requires': 0,
                 '@typescript-eslint/no-explicit-any': 0,
-                "@typescript-eslint/ban-ts-comment": "off"
             },
         },
     ],
