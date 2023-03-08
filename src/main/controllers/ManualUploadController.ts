@@ -12,8 +12,7 @@ let formCookie;
 export default class ManualUploadController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const listItems = await manualUploadService.buildFormData(req.lng as string);
-        formCookie = req.cookies['formCookie'];
-        const formData = formCookie ? JSON.parse(formCookie) : null;
+        const formData = req.cookies['formCookie'] != undefined ? JSON.parse(formCookie) : null;
 
         const formValues = {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload']),
