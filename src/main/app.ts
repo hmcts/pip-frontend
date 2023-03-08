@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import * as process from 'process';
 import { I18next } from './modules/i18next';
 
@@ -60,21 +58,6 @@ app.use(
         secure: true,
     })
 );
-
-// register regenerate & save after the cookieSession middleware initialization
-app.use(function (request, response, next) {
-    if (request.session && !request.session.regenerate) {
-        request.session.regenerate = cb => {
-            cb();
-        };
-    }
-    if (request.session && !request.session.save) {
-        request.session.save = cb => {
-            cb();
-        };
-    }
-    next();
-});
 
 logger.info('SESSION Secret', config.get('secrets.pip-ss-kv.SESSION_SECRET'));
 app.use(passport.initialize());
