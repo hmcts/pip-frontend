@@ -34,7 +34,7 @@ describe('Data Management requests', () => {
                     set(): any {
                         return {
                             set(): any {
-                                return { attach: sinon.stub().returns({ status: 200, data: { artefactId: '123' } }) };
+                                return { attach: sinon.stub().returns({ status: 200, body: { artefactId: '123' } }) };
                             },
                         };
                     },

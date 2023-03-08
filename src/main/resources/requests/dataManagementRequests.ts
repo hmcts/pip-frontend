@@ -15,7 +15,7 @@ export class DataManagementRequests {
                 .set('enctype', 'multipart/form-data')
                 .set({ ...headers, Authorization: 'Bearer ' + token.access_token })
                 .attach('file', body.file, body.fileName);
-            return response.data.artefactId;
+            return response.body.artefactId;
         } catch (error) {
             if (error.response) {
                 console.log('Failed to upload publication');
