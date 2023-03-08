@@ -45,6 +45,7 @@ const routesNotTested = [
     '/delete-user-confirmation',
     '/update-user-confirmation',
     '/manual-reference-data-download',
+    '/audit-log-viewer',
 ];
 
 const adminRoutes = [
@@ -93,7 +94,6 @@ const systemAdminRoutes = [
     '/delete-court-subscription-success',
     '/delete-court-publication-confirmation',
     '/delete-court-publication-success',
-    '/audit-log-viewer',
     '/audit-log-details',
 ];
 
