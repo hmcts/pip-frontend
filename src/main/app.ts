@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import * as process from 'process';
 import { I18next } from './modules/i18next';
 
@@ -21,7 +19,6 @@ import { Nunjucks } from './modules/nunjucks';
 import { AppInsights } from './modules/appinsights';
 
 const passport = require('passport');
-// const cookieSession = require('cookie-session');
 const { setupDev } = require('./development');
 import { Container } from './modules/awilix';
 import { PipRequest } from './models/request/PipRequest';
@@ -53,28 +50,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(
-//     cookieSession({
-//         name: 'session',
-//         keys: [config.get('secrets.pip-ss-kv.SESSION_SECRET')],
-//         secure: true,
-//     })
-// );
-var session = require('express-session')
-app.set('trust proxy', 1) // trust first proxy
-app.use(session({
-    secret: [config.get('secrets.pip-ss-kv.SESSION_SECRET')],
-    resave: false,
-    saveUninitialized: true,
-    name: 'session',
-    cookie: { secure: true }
-}))
+
+const session = require('express-session');
+app.set('trust proxy', 1); // trust first proxy
+app.use(
+    session({
+        secret: [config.get('secrets.pip-ss-kv.SESSION_SECRET')],
+        resave: false,
+        saveUninitialized: true,
+        name: 'session',
+        cookie: { secure: true },
+    })
+);
 
 logger.info('SESSION Secret', config.get('secrets.pip-ss-kv.SESSION_SECRET'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {
-    // req['sessionCookies'].secure = true;
     res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
     next();
 });
