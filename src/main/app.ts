@@ -58,6 +58,24 @@ app.use(
         secure: true,
     })
 );
+
+// register regenerate & save after the cookieSession middleware initialization
+app.use(function (request, response, next) {
+    // @ts-ignore
+    if (request.session && !request.session.regenerate) {
+        request.session.regenerate = cb => {
+            cb();
+        };
+    }
+    // @ts-ignore
+    if (request.session && !request.session.save) {
+        request.session.save = cb => {
+            cb();
+        };
+    }
+    next();
+});
+
 logger.info('SESSION Secret', config.get('secrets.pip-ss-kv.SESSION_SECRET'));
 app.use(passport.initialize());
 app.use(passport.session());
