@@ -12,7 +12,6 @@ export class AuditLogService {
         return [
             { text: 'Timestamp', classes: 'govuk-!-padding-top-0' },
             { text: 'Email', classes: 'govuk-!-padding-top-0' },
-            { text: 'Role', classes: 'govuk-!-padding-top-0' },
             { text: 'Action', classes: 'govuk-!-padding-top-0' },
             { text: '', classes: 'govuk-!-padding-top-0' },
         ];
@@ -93,7 +92,6 @@ export class AuditLogService {
                 const timestamp = this.formatDate(auditLog.timestamp);
                 auditLogArray.push({ text: timestamp });
                 auditLogArray.push({ text: auditLog.userEmail });
-                auditLogArray.push({ text: formattedRoles[auditLog.roles] });
                 auditLogArray.push({ text: auditLog.action });
                 auditLogArray.push({
                     html: `<a class="govuk-link" id="view-details-link" href="audit-log-details?id=${auditLog.id}&timestamp=${timestamp}">View</a>`,

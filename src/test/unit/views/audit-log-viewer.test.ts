@@ -41,13 +41,8 @@ describe('Audit Log Viewer Page', () => {
         expect(tableHeader[1].innerHTML).contains('Email', 'Could not find the header');
     });
 
-    it('Should display Role in table header', () => {
-        const tableHeader = htmlRes.getElementsByClassName(tableHeaderClass);
-        expect(tableHeader[2].innerHTML).contains('Role', 'Could not find the header');
-    });
-
     it('Should display Action in table header', () => {
         const tableHeader = htmlRes.getElementsByClassName(tableHeaderClass);
-        expect(tableHeader[3].innerHTML).contains('Action', 'Could not find the header');
+        expect(tableHeader[2].innerHTML).contains('Action', 'Could not find the header');
     });
 });

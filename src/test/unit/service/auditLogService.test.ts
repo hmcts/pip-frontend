@@ -52,11 +52,9 @@ describe('Audit log service', () => {
         expect(response[0].classes).to.equal('govuk-!-padding-top-0');
         expect(response[1].text).to.equal('Email');
         expect(response[1].classes).to.equal('govuk-!-padding-top-0');
-        expect(response[2].text).to.equal('Role');
+        expect(response[2].text).to.equal('Action');
         expect(response[2].classes).to.equal('govuk-!-padding-top-0');
-        expect(response[3].text).to.equal('Action');
-        expect(response[3].classes).to.equal('govuk-!-padding-top-0');
-        expect(response[4].text).to.be.empty;
+        expect(response[3].text).to.be.empty;
     });
 
     it('should return formatted data from the getFormattedAuditData function', async () => {
@@ -71,9 +69,8 @@ describe('Audit log service', () => {
         // Audit log formatted table data
         expect(response['auditLogData'][0][0].text).to.equal('26/01/2023 09:33:34');
         expect(response['auditLogData'][0][1].text).to.equal(testUserEmail);
-        expect(response['auditLogData'][0][2].text).to.equal('CTSC Super Admin');
-        expect(response['auditLogData'][0][3].text).to.equal('USER_MANAGEMENT');
-        expect(response['auditLogData'][0][4].html).to.contain(
+        expect(response['auditLogData'][0][2].text).to.equal('USER_MANAGEMENT');
+        expect(response['auditLogData'][0][3].html).to.contain(
             'audit-log-details?id=5c2c7849-f30f-40e1-b61b-8aea393fd9fe&timestamp=26/01/2023 09:33:34'
         );
     });
