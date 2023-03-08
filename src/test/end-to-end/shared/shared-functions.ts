@@ -3,5 +3,5 @@ export function monthFormatted(month) {
 }
 
 export function dayFormatted(day) {
-    return day + 1 < 10 ? '0' + day : day;
+    return day < 10 ? '0' + day : day;
 }
