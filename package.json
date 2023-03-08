@@ -25,7 +25,7 @@
         "test:fullfunctional": "npm-run-all -scl test:functional:all",
         "test:functional:old": "USE_PROTOTYPE=true USE_HEADLESS=true npx wdio run wdio.conf.js",
         "test:functional:all": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs --config ./src/test/end-to-end/functional.conf.js run-workers 4",
-        "test:functional:min": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs --config ./src/test/end-to-end/functional.conf.js run-workers 4 parallel  --grep \"(?=.*)^(?!.*@Nightly)\"",
+        "test:functional:min": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs --config ./src/test/end-to-end/functional.conf.js run-workers 4 parallel --verbose  --grep \"(?=.*)^(?!.*@Nightly)\"",
         "test:functional-dev": "npx wdio run wdio.conf.js",
         "cichecks": "yarn && yarn build && yarn lint && yarn test && yarn test:routes &&  yarn test:a11y"
     },
@@ -83,7 +83,7 @@
         "npm-run-all": "^4.1.5",
         "nunjucks": "^3.2.3",
         "nunjucks-date-filter": "^0.1.1",
-        "passport-azure-ad": "4.3.4",
+        "passport-azure-ad": "4.3.3",
         "passport-custom": "^1.1.1",
         "playwright": "^1.31.2",
         "postcss": "^8.4.21",
