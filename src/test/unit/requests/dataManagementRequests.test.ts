@@ -34,14 +34,14 @@ describe('Data Management requests', () => {
                     set(): any {
                         return {
                             set(): any {
-                                return { attach: sinon.stub().returns(true) };
+                                return { attach: sinon.stub().returns({ status: 200, data: { artefactId: '123' } }) };
                             },
                         };
                     },
                 };
             });
 
-            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders)).toBe(true);
+            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders)).toBe('123');
         });
 
         it('should return error response', async () => {
@@ -57,7 +57,7 @@ describe('Data Management requests', () => {
                 };
             });
             expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'foo' }, mockUploadFileHeaders)).toBe(
-                false
+                null
             );
         });
 
@@ -74,7 +74,7 @@ describe('Data Management requests', () => {
                 };
             });
             expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'baz' }, mockUploadFileHeaders)).toBe(
-                false
+                null
             );
         });
     });
@@ -82,20 +82,23 @@ describe('Data Management requests', () => {
     describe('upload json publication', () => {
         it('should return true on success', async () => {
             sinon.restore();
-            sinon.stub(dataManagementApi, 'post').withArgs('/publication', { file: '' }, {}).resolves(true);
-            expect(await fileUploadAPI.uploadJSONPublication({}, {})).toBe(true);
+            sinon
+                .stub(dataManagementApi, 'post')
+                .withArgs('/publication')
+                .resolves({ status: 200, data: { artefactId: '123' } });
+            expect(await fileUploadAPI.uploadJSONPublication({ file: '' }, {})).toBe('123');
         });
 
         it('should return error response', async () => {
             sinon.restore();
             sinon.stub(dataManagementApi, 'post').withArgs('/publication').rejects(errorResponse);
-            expect(await fileUploadAPI.uploadJSONPublication({ file: 'foo' }, { headers: {} })).toBe(false);
+            expect(await fileUploadAPI.uploadJSONPublication({ file: 'foo' }, { headers: {} })).toBe(null);
         });
 
         it('should return error message', async () => {
             sinon.restore();
             sinon.stub(dataManagementApi, 'post').withArgs('/publication').rejects(errorMessage);
-            expect(await fileUploadAPI.uploadJSONPublication({ file: 'baz' }, { headers: {} })).toBe(false);
+            expect(await fileUploadAPI.uploadJSONPublication({ file: 'baz' }, { headers: {} })).toBe(null);
         });
     });
 

@@ -5,7 +5,7 @@ import { LocationService } from '../service/locationService';
 import { PublicationService } from '../service/publicationService';
 import { ManualUploadService } from '../service/manualUploadService';
 import { DateTime } from 'luxon';
-import {UserManagementService} from "../service/userManagementService";
+import { UserManagementService } from '../service/userManagementService';
 
 const publicationService = new PublicationService();
 const courtService = new LocationService();
@@ -51,9 +51,9 @@ export default class RemoveListConfirmationController {
                     await userManagementService.auditAction(
                         req.user,
                         'DELETE_PUBLICATION',
-                        'Publication successfully deleted'
+                        `Publication with artefact id ${formData.artefactId} successfully deleted`
                     );
-                    res.redirect('/remove-list-success')
+                    res.redirect('/remove-list-success');
                 } else {
                     res.render('error', req.i18n.getDataByLanguage(req.lng).error);
                 }

@@ -2,7 +2,7 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { MediaAccountApplicationService } from '../service/mediaAccountApplicationService';
 import { cloneDeep } from 'lodash';
-import {UserManagementService} from "../service/userManagementService";
+import { UserManagementService } from '../service/userManagementService';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 const userManagementService = new UserManagementService();
@@ -61,7 +61,7 @@ export default class MediaAccountRejectionController {
             await userManagementService.auditAction(
                 req.user,
                 'REJECT_MEDIA_APPLICATION',
-                'Media application rejected'
+                `Media application with id ${applicantId} rejected`
             );
             return res.redirect('/media-account-rejection-confirmation?applicantId=' + applicantId);
         } else {

@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { ManualUploadService } from '../service/manualUploadService';
 import { FileHandlingService } from '../service/fileHandlingService';
-import {UserManagementService} from "../service/userManagementService";
+import { UserManagementService } from '../service/userManagementService';
 
 const manualUploadService = new ManualUploadService();
 const fileHandlingService = new FileHandlingService();
@@ -61,15 +61,15 @@ export default class ManualUploadSummaryController {
                 },
             });
         } else {
-            const response = await manualUploadService.uploadPublication({ ...formData, userEmail: userEmail }, true);
+            const artefactId = await manualUploadService.uploadPublication({ ...formData, userEmail: userEmail }, true);
 
             fileHandlingService.removeFileFromRedis(req.user['userId'], formData.fileName);
 
-            if (response) {
+            if (artefactId) {
                 await userManagementService.auditAction(
                     req.user,
                     'PUBLICATION_UPLOAD',
-                    `Publication for ${formData.listTypeName} successfully uploaded`
+                    `Publication with artefact id ${artefactId} successfully uploaded`
                 );
                 res.clearCookie('formCookie');
                 res.redirect('upload-confirmation');
