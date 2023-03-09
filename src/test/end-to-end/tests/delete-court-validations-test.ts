@@ -42,7 +42,7 @@ Scenario(
         I.click('Add email subscription');
         I.click('#subscription-choice-4');
         I.click('Continue');
-        I.checkOption('//*[@id="100"]');
+        I.checkOption('//*[@id="101"]');
         I.click('Continue');
         I.click('Confirm Subscriptions');
         I.waitForText('Your subscription(s) has been added successfully');
