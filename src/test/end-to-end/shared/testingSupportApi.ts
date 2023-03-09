@@ -1,7 +1,10 @@
 import superagent from 'superagent';
 import {config as testConfig} from '../../config';
 import fs from 'fs';
-import {getDataManagementCredentials} from '../../../main/resources/requests/utils/axiosConfig';
+import {
+    getDataManagementCredentials,
+    getSubscriptionManagementCredentials
+} from '../../../main/resources/requests/utils/axiosConfig';
 import path from 'path/posix';
 
 const createFile = (filePath, fileName) => {
@@ -42,6 +45,8 @@ export const deleteLocation = async (locationId: string) => {
 };
 
 export const createSubscription = async (locationId: string, locationName: string, userId: string) => {
+
+    const token = await getSubscriptionManagementCredentials();
     const payload = {
         channel: 'EMAIL',
         searchType: 'LOCATION_ID',
@@ -54,6 +59,7 @@ export const createSubscription = async (locationId: string, locationName: strin
         await superagent
             .post(`${testConfig.SUBSCRIPTION_MANAGEMENT_BASE_URL}/subscription`)
             .send(payload)
+            .set({Authorization: 'Bearer ' + token.access_token})
             .set('x-user-id', `${testConfig.TEST_USER_ID}`);
     } catch (e) {
         throw new Error(`Create subscription failed for: ${locationName}, http-status: ${e.response?.status}`);
@@ -61,17 +67,24 @@ export const createSubscription = async (locationId: string, locationName: strin
 };
 
 export const deleteSubscription = async (userId: string) => {
+    const token = await getSubscriptionManagementCredentials();
     try {
         await superagent
             .delete(`${testConfig.SUBSCRIPTION_MANAGEMENT_BASE_URL}/subscription/user/${userId}`)
+            .set({Authorization: 'Bearer ' + token.access_token})
             .set('x-user-id', `${testConfig.TEST_USER_ID}`);
     } catch (e) {
         throw new Error(`Delete subscription failed for: ${userId}, http-status: ${e.response?.status}`);
     }
 };
 
-export const uploadPublication = async (sensitivity: string, locationId: string, displayFrom: string, displayTo: string, language: string) => {
-
+export const uploadPublication = async (
+    sensitivity: string,
+    locationId: string,
+    displayFrom: string,
+    displayTo: string,
+    language: string
+) => {
     const token = await getDataManagementCredentials();
 
     const filePath = path.join(__dirname, '../../../test/unit/mocks/civilAndFamilyDailyCauseList.json');
@@ -97,9 +110,7 @@ export const uploadPublication = async (sensitivity: string, locationId: string,
     }
 };
 
-
 export const deletePublicationForCourt = async (locationId: string) => {
-
     const token = await getDataManagementCredentials();
     try {
         await superagent
@@ -110,6 +121,3 @@ export const deletePublicationForCourt = async (locationId: string) => {
         throw new Error(`Failed to delete artefact for: ${locationId}, http-status: ${e.response?.status}`);
     }
 };
-
-
-
