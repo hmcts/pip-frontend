@@ -15,7 +15,7 @@ export const config = {
     MEDIA_USER_USERNAME: process.env.B2C_USERNAME,
     MEDIA_USER_PASSWORD: process.env.B2C_PASSWORD,
     SYSTEM_ADMIN_PROVENANCE_ID: process.env.SYSTEM_ADMIN_PROVENANCE_ID,
-    VERIFIED_USER_ID: process.env.TEST_USER_ID,
+    VERIFIED_USER_ID: process.env.VERIFIED_USER_ID,
     DATA_MANAGEMENT_BASE_URL: process.env.DATA_MANAGEMENT_URL,
     SUBSCRIPTION_MANAGEMENT_BASE_URL: process.env.SUBSCRIPTION_MANAGEMENT_URL,
     TEST_SUITE_PREFIX: 'TEST_PIP_',
@@ -44,7 +44,8 @@ export const config = {
 config.helpers = {
     Playwright: {
         url: config.TEST_URL,
-        show: !config.TestHeadlessBrowser,
+        // show: !config.TestHeadlessBrowser,
+        show: true,
         browser: 'chromium',
         waitForTimeout: config.WaitForTimeout,
         waitForAction: 1000,
