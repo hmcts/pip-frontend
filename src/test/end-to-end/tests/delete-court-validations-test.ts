@@ -1,52 +1,24 @@
-import { dayFormatted, monthFormatted } from '../shared/shared-functions';
+import {DateTime} from 'luxon';
+import {
+    createLocation,
+    createSubscription,
+    uploadPublication,
+} from "../shared/testingSupportApi";
 
 Feature('Delete Location');
-
-const LOCATION_NAME = 'Test Court1';
-
 Scenario(
     'I as a system admin should be able to delete court only when there are no active subscriptions or artefacts',
-    async ({ I }) => {
-        const date = new Date();
-        const dayAfter = new Date();
-        dayAfter.setDate(dayAfter.getDate() + 1);
+    async ({I}) => {
+        const dt = DateTime.now().toISO({includeOffset: false});
+        const dt1 = DateTime.now().plus({days: 1}).toISO({includeOffset: false});
 
-        I.loginAsSystemAdmin();
-        I.click('#card-manual-reference-data-upload');
-        I.attachFile('#manual-reference-data-upload', './shared/mocks/delete-court-validations.csv');
-        I.click('Continue');
-        I.click('Confirm');
-        I.waitForText('Your file has been uploaded');
+        const LOCATION_ID = '101';
+        const LOCATION_NAME = 'TestCourt1';
+        const USER_ID = '0e68f98c-29c5-4eff-aa26-0a872ee8bf89';
 
-        I.click('Upload');
-        I.attachFile('#manual-file-upload', '../unit/mocks/crownWarnedList.json');
-        I.fillField('#search-input', LOCATION_NAME);
-        I.selectOption('#listType', 'Crown Warned List');
-        I.fillField('#content-date-from-day', dayFormatted(date.getDate()));
-        I.fillField('#content-date-from-month', monthFormatted(date.getMonth()));
-        I.fillField('#content-date-from-year', date.getFullYear());
-        I.fillField('#display-date-from-day', dayFormatted(date.getDate()));
-        I.fillField('#display-date-from-month', monthFormatted(date.getMonth()));
-        I.fillField('#display-date-from-year', date.getFullYear());
-
-        I.fillField('#display-date-to-day', dayFormatted(dayAfter.getDate()));
-        I.fillField('#display-date-to-month', monthFormatted(dayAfter.getMonth()));
-        I.fillField('#display-date-to-year', dayAfter.getFullYear());
-        I.click('Continue');
-        I.click('Confirm');
-        I.waitForText('Your file has been uploaded');
-        I.click('Sign out');
-
-        I.loginAsMediaUser();
-        I.click('Email subscriptions');
-        I.click('Add email subscription');
-        I.click('#subscription-choice-4');
-        I.click('Continue');
-        I.checkOption('//*[@id="101"]');
-        I.click('Continue');
-        I.click('Confirm Subscriptions');
-        I.waitForText('Your subscription(s) has been added successfully');
-        I.click('Sign out');
+        await createLocation('delete-court-validations.csv');
+        await createSubscription(LOCATION_ID, LOCATION_NAME, USER_ID);
+        await uploadPublication('PUBLIC', LOCATION_ID, dt, dt1, 'ENGLISH');
 
         I.loginAsSystemAdmin();
         I.click('Delete Court');
@@ -84,3 +56,16 @@ Scenario(
         I.see('Court has been deleted');
     }
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
