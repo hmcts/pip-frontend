@@ -61,7 +61,8 @@ export class PublicationService {
         const matches: SearchObject[] = [];
         artefacts.forEach(artefact => {
             artefact.search.cases.forEach(singleCase => {
-                if (singleCase.caseName.toLowerCase().includes(value.toLowerCase())) {
+                if (singleCase.caseName
+                    && singleCase.caseName.toLowerCase().includes(value.toLowerCase())) {
                     const alreadyExists = matches.find(
                         m =>
                             m.caseName === singleCase.caseName &&
