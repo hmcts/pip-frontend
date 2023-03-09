@@ -67,12 +67,11 @@ describe('Audit log service', () => {
         expect(response['paginationData']['next'].href).to.equal('?page=3');
 
         // Audit log formatted table data
-        expect(response['auditLogData'][0][0].text).to.equal('26/01/2023 09:33:34');
-        expect(response['auditLogData'][0][1].text).to.equal(testUserEmail);
-        expect(response['auditLogData'][0][2].text).to.equal('USER_MANAGEMENT');
-        expect(response['auditLogData'][0][3].html).to.contain(
-            'audit-log-details?id=5c2c7849-f30f-40e1-b61b-8aea393fd9fe&timestamp=26/01/2023 09:33:34'
-        );
+        const auditLogData = response['auditLogData'][0];
+        expect(auditLogData.id).to.equal('5c2c7849-f30f-40e1-b61b-8aea393fd9fe');
+        expect(auditLogData.email).to.equal(testUserEmail);
+        expect(auditLogData.action).to.equal('USER_MANAGEMENT');
+        expect(auditLogData.timestamp).to.equal('26/01/2023 09:33:34');
     });
 
     it('should build audit log details summary list', async () => {

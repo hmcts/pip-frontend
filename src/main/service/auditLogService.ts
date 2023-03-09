@@ -88,15 +88,12 @@ export class AuditLogService {
         const auditLogData = [];
         if (rawData.length > 0) {
             rawData.forEach(auditLog => {
-                const auditLogArray = [];
-                const timestamp = this.formatDate(auditLog.timestamp);
-                auditLogArray.push({ text: timestamp });
-                auditLogArray.push({ text: auditLog.userEmail });
-                auditLogArray.push({ text: auditLog.action });
-                auditLogArray.push({
-                    html: `<a class="govuk-link" id="view-details-link" href="audit-log-details?id=${auditLog.id}&timestamp=${timestamp}">View</a>`,
+                auditLogData.push({
+                    id: auditLog.id,
+                    email: auditLog.userEmail,
+                    action: auditLog.action,
+                    timestamp: this.formatDate(auditLog.timestamp),
                 });
-                auditLogData.push(auditLogArray);
             });
         }
         return auditLogData;
