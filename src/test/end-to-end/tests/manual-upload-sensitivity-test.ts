@@ -1,5 +1,5 @@
 import Assert from 'assert';
-import { dayFormatted, monthFormatted } from '../shared/shared-functions';
+import { padFormatted } from '../shared/shared-functions';
 
 Feature('Manual upload sensitivity');
 
@@ -48,15 +48,15 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     I.fillField('#search-input', 'Single Justice Procedure');
     I.selectOption(listTypeId, 'Crown Warned List');
 
-    I.fillField('#content-date-from-day', dayFormatted(date.getDate()));
-    I.fillField('#content-date-from-month', monthFormatted(date.getMonth()));
+    I.fillField('#content-date-from-day', padFormatted(date.getDate()));
+    I.fillField('#content-date-from-month', padFormatted(date.getMonth()));
     I.fillField('#content-date-from-year', date.getFullYear());
     I.selectOption(classificationId, 'Public');
-    I.fillField('#display-date-from-day', dayFormatted(date.getDate()));
-    I.fillField('#display-date-from-month', monthFormatted(date.getMonth()));
+    I.fillField('#display-date-from-day', padFormatted(date.getDate()));
+    I.fillField('#display-date-from-month', padFormatted(date.getMonth()));
     I.fillField('#display-date-from-year', date.getFullYear());
-    I.fillField('#display-date-to-day', dayFormatted(dayAfter.getDate()));
-    I.fillField('#display-date-to-month', monthFormatted(dayAfter.getMonth()));
+    I.fillField('#display-date-to-day', padFormatted(dayAfter.getDate()));
+    I.fillField('#display-date-to-month', padFormatted(dayAfter.getMonth()));
     I.fillField('#display-date-to-year', dayAfter.getFullYear());
     I.click('Continue');
     I.see(
