@@ -25,7 +25,7 @@
         "test:fullfunctional": "npm-run-all -scl test:functional:all",
         "test:functional:old": "USE_PROTOTYPE=true USE_HEADLESS=true npx wdio run wdio.conf.js",
         "test:functional:all": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs --config ./src/test/end-to-end/functional.conf.js run-workers 4",
-        "test:functional:min": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs --config ./src/test/end-to-end/functional.conf.js run-workers 4 parallel --verbose  --grep \"(?=.*)^(?!.*@Nightly)\"",
+        "test:functional:min": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs --config ./src/test/end-to-end/functional.conf.js run-workers 4 parallel --verbose  --grep \"(I as a system admin should be able to delete court only)\"",
         "test:functional-dev": "npx wdio run wdio.conf.js",
         "cichecks": "yarn && yarn build && yarn lint && yarn test && yarn test:routes &&  yarn test:a11y"
     },

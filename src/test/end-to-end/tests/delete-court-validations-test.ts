@@ -23,14 +23,14 @@ Scenario(
         I.fillField('#search-input', LOCATION_NAME);
         I.selectOption('#listType', 'Crown Warned List');
         I.fillField('#content-date-from-day', padFormatted(date.getDate()));
-        I.fillField('#content-date-from-month', padFormatted(date.getMonth()));
+        I.fillField('#content-date-from-month', padFormatted(date.getMonth() + 1));
         I.fillField('#content-date-from-year', date.getFullYear());
         I.fillField('#display-date-from-day', padFormatted(date.getDate()));
-        I.fillField('#display-date-from-month', padFormatted(date.getMonth()));
+        I.fillField('#display-date-from-month', padFormatted(date.getMonth() + 1));
         I.fillField('#display-date-from-year', date.getFullYear());
 
         I.fillField('#display-date-to-day', padFormatted(dayAfter.getDate()));
-        I.fillField('#display-date-to-month', padFormatted(dayAfter.getMonth()));
+        I.fillField('#display-date-to-month', padFormatted(dayAfter.getMonth() + 1));
         I.fillField('#display-date-to-year', dayAfter.getFullYear());
         I.click('Continue');
         I.click('Confirm');
