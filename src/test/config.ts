@@ -44,8 +44,7 @@ export const config = {
 config.helpers = {
     Playwright: {
         url: config.TEST_URL,
-        // show: !config.TestHeadlessBrowser,
-        show: true,
+        show: !config.TestHeadlessBrowser,
         browser: 'chromium',
         waitForTimeout: config.WaitForTimeout,
         waitForAction: 1000,
