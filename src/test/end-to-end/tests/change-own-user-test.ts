@@ -5,7 +5,7 @@ Feature('Change own user role');
 Scenario('I as an admin should be able to see an error message if I try to change my own user', async ({ I }) => {
     I.loginAsAdmin();
     I.click('#card-admin-management');
-    I.fillField('#search-input', testConfig.ADMIN_USERNAME as string);
+    I.fillField('#search-input', secret(testConfig.ADMIN_USERNAME as string));
     I.click('Continue');
     I.click('Change');
     I.click('Continue');
