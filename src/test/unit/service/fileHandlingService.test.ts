@@ -222,7 +222,7 @@ describe('File handling service', () => {
         });
 
         it('should return true for dot separated image file', () => {
-            expect(fileHandlingService.isValidFileType('f.i.l.e.png', uploadType.FILE)).toBe(true);
+            expect(fileHandlingService.isValidFileType('f.i.l.e.png', uploadType.IMAGE)).toBe(true);
         });
     });
 

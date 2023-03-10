@@ -29,7 +29,7 @@ export class MagistratesStandardListService {
                             languageFile
                         );
 
-                        allDefendants.push(this.processHearing(sitting, language));
+                        allDefendants.push(...this.processHearing(sitting, language));
                     });
                     session['defendants'] = this.combineDefendantSittings(allDefendants);
                 });
@@ -42,50 +42,48 @@ export class MagistratesStandardListService {
     private processHearing(sitting, language) {
         const allDefendants = [];
         sitting['hearing'].forEach(hearing => {
-            if (hearing?.party) {
-                hearing.party.forEach(party => {
-                    const allOffences = [];
-                    const hearingString = JSON.stringify(hearing);
-                    const hearingObject = JSON.parse(hearingString);
+            hearing?.party?.forEach(party => {
+                const allOffences = [];
+                const hearingString = JSON.stringify(hearing);
+                const hearingObject = JSON.parse(hearingString);
 
-                    this.manipulateHearingObject(hearingObject, party, language);
-                    if (hearingObject['defendantHeading'] !== '') {
-                        hearingObject['offence'].forEach(offence => {
-                            allOffences.push(
-                                this.formatOffence(
-                                    offence['offenceTitle'],
-                                    hearingObject['plea'],
-                                    'Need to confirm',
-                                    hearingObject['formattedConvictionDate'],
-                                    hearingObject['formattedAdjournedDate'],
-                                    offence['offenceWording']
-                                )
-                            );
-                        });
-
-                        allDefendants.push(
-                            this.formatDefendant(
-                                hearingObject['defendantHeading'],
-                                hearingObject['gender'],
-                                hearingObject['inCustody'],
-                                sitting['time'],
-                                sitting['formattedDuration'],
-                                hearingObject['caseSequenceIndicator'],
-                                hearingObject['defendantDateOfBirth'],
-                                hearingObject['age'],
-                                hearingObject['defendantAddress'],
-                                hearingObject['prosecutionAuthorityCode'],
-                                hearingObject['hearingNumber'],
-                                sitting['caseHearingChannel'],
-                                hearingObject['caseNumber'],
-                                hearingObject['hearingType'],
-                                hearingObject['panel'],
-                                allOffences
+                this.manipulateHearingObject(hearingObject, party, language);
+                if (hearingObject['defendantHeading'] !== '') {
+                    hearingObject['offence'].forEach(offence => {
+                        allOffences.push(
+                            this.formatOffence(
+                                offence['offenceTitle'],
+                                hearingObject['plea'],
+                                'Need to confirm',
+                                hearingObject['formattedConvictionDate'],
+                                hearingObject['formattedAdjournedDate'],
+                                offence['offenceWording']
                             )
                         );
-                    }
-                });
-            }
+                    });
+
+                    allDefendants.push(
+                        this.formatDefendant(
+                            hearingObject['defendantHeading'],
+                            hearingObject['gender'],
+                            hearingObject['inCustody'],
+                            sitting['time'],
+                            sitting['formattedDuration'],
+                            hearingObject['caseSequenceIndicator'],
+                            hearingObject['defendantDateOfBirth'],
+                            hearingObject['age'],
+                            hearingObject['defendantAddress'],
+                            hearingObject['prosecutionAuthorityCode'],
+                            hearingObject['hearingNumber'],
+                            sitting['caseHearingChannel'],
+                            hearingObject['caseNumber'],
+                            hearingObject['hearingType'],
+                            hearingObject['panel'],
+                            allOffences
+                        )
+                    );
+                }
+            });
         });
 
         return allDefendants;

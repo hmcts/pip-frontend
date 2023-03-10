@@ -1,6 +1,7 @@
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
 import { formattedProvenances, formattedRoles } from '../models/consts';
 import { DateTime } from 'luxon';
+import { UserSearchCriteria } from '../models/UserSearchCriteria';
 
 const accountManagementRequests = new AccountManagementRequests();
 export class UserManagementService {

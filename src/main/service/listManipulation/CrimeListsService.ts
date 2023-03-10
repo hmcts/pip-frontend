@@ -51,7 +51,7 @@ export class CrimeListsService {
         const defendantRepresentatives = [];
         const prosecutingAuthorities = [];
 
-        hearing?.party.forEach(party => {
+        hearing?.party?.forEach(party => {
             switch (party.partyRole) {
                 case 'DEFENDANT': {
                     this.pushIfExists(defendants, this.createIndividualDetails(party.individualDetails));

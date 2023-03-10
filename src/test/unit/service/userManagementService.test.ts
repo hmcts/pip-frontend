@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import { UserManagementService } from '../../../main/service/userManagementService';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { UserSearchCriteria } from '../../../main/models/UserSearchCriteria';
 
 const userManagementService = new UserManagementService();
 
@@ -248,13 +249,10 @@ describe('User management service', () => {
     });
 
     it('should return formatted data from the getFormattedData function', async () => {
+        const userSearchCriteria = new UserSearchCriteria(1, 'test', '', '', 'SYSTEM_ADMIN', 'PI_AAD');
+
         const response = await userManagementService.getFormattedData(
-            1,
-            'test',
-            '',
-            '',
-            'SYSTEM_ADMIN',
-            'PI_AAD',
+            userSearchCriteria,
             '?page=2',
             '1234',
             'test@justice.gov.uk'
