@@ -5,6 +5,7 @@ module.exports = {
     moduleFileExtensions: ['ts', 'js'],
     moduleNameMapper: {
         '^axios$': require.resolve('axios'),
+        '^uuid$': 'uuid',
     },
     modulePathIgnorePatterns: ['<rootDir>/src/test/unit/mocks'],
     testEnvironment: 'jsdom',
