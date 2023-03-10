@@ -58,6 +58,7 @@ app.use(
         secure: true,
     })
 );
+
 logger.info('SESSION Secret', config.get('secrets.pip-ss-kv.SESSION_SECRET'));
 app.use(passport.initialize());
 app.use(passport.session());
