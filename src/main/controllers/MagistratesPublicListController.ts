@@ -5,13 +5,13 @@ import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
-import { civilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
+import { CivilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
-const civListsService = new civilFamilyAndMixedListService();
+const civListsService = new CivilFamilyAndMixedListService();
 
 export default class MagistratesPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -24,7 +24,7 @@ export default class MagistratesPublicListController {
             let manipulatedData = civListsService.sculptedCivilListData(JSON.stringify(searchResults));
             manipulatedData = crimeListsService.manipulatedCrimeListData(
                 JSON.stringify(manipulatedData),
-                req.lng as string,
+                req.lng,
                 'magistrates-public-list'
             );
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);

@@ -26,7 +26,7 @@ export default class CopDailyCauseListController {
             );
 
             const returnedCourt = await courtService.getLocationById(metaData['locationId']);
-            const courtName = courtService.findCourtName(returnedCourt, req.lng as string, 'cop-daily-cause-list');
+            const courtName = courtService.findCourtName(returnedCourt, req.lng, 'cop-daily-cause-list');
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
             const regionalJoh = helperService.getRegionalJohFromLocationDetails(searchResults['locationDetails']);

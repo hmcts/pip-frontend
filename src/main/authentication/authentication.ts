@@ -26,33 +26,31 @@ function oidcSetup(): void {
     if (process.env.CLIENT_SECRET) {
         clientSecret = process.env.CLIENT_SECRET;
     } else {
-        clientSecret = config.get('secrets.pip-ss-kv.CLIENT_SECRET') as string;
+        clientSecret = config.get('secrets.pip-ss-kv.CLIENT_SECRET');
     }
 
     if (process.env.CLIENT_ID) {
         clientId = process.env.CLIENT_ID;
     } else {
-        clientId = config.get('secrets.pip-ss-kv.CLIENT_ID') as string;
+        clientId = config.get('secrets.pip-ss-kv.CLIENT_ID');
     }
 
     if (process.env.CONFIG_ENDPOINT) {
         identityMetadata = process.env.CONFIG_ENDPOINT;
     } else {
-        identityMetadata = config.get('secrets.pip-ss-kv.CONFIG_ENDPOINT') as string;
+        identityMetadata = config.get('secrets.pip-ss-kv.CONFIG_ENDPOINT');
     }
 
     if (process.env.CONFIG_ADMIN_ENDPOINT) {
         adminIdentityMetadata = process.env.CONFIG_ADMIN_ENDPOINT;
     } else {
-        adminIdentityMetadata = config.get('secrets.pip-ss-kv.CONFIG_ADMIN_ENDPOINT') as string;
+        adminIdentityMetadata = config.get('secrets.pip-ss-kv.CONFIG_ADMIN_ENDPOINT');
     }
 
     if (process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT) {
         mediaVerificationIdentityMetadata = process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT;
     } else {
-        mediaVerificationIdentityMetadata = config.get(
-            'secrets.pip-ss-kv.MEDIA_VERIFICATION_CONFIG_ENDPOINT'
-        ) as string;
+        mediaVerificationIdentityMetadata = config.get('secrets.pip-ss-kv.MEDIA_VERIFICATION_CONFIG_ENDPOINT');
     }
 
     logger.info('secret', clientSecret ? clientSecret.substring(0, 5) : 'client secret not set!');

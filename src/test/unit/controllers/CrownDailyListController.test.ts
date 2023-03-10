@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 import { LocationService } from '../../../main/service/locationService';
 import CrownDailyListController from '../../../main/controllers/CrownDailyListController';
 import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
-import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
+import { CivilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -24,7 +24,7 @@ const crownDailyListController = new CrownDailyListController();
 const crownDailyListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const crownDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
+sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').returns(listData);
 

@@ -19,7 +19,7 @@ export default class TribunalNationalListsController {
         if (searchResults && metaData) {
             const manipulatedData = tribunalNationalListsService.manipulateData(
                 JSON.stringify(searchResults),
-                req.lng as string,
+                req.lng,
                 listToLoad
             );
 

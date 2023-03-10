@@ -494,7 +494,7 @@ export class SubscriptionService {
 
     private async generateAppropriateListTypes(userId, userRole): Promise<Map<string, ListType>> {
         const userSubscriptions = await this.getSubscriptionsByUser(userId);
-        const listTypes = await publicationService.getListTypes();
+        const listTypes = publicationService.getListTypes();
 
         let selectedListTypes = [];
         if (userSubscriptions['locationSubscriptions'].length > 0) {
@@ -564,7 +564,7 @@ export class SubscriptionService {
     }
 
     private getAllJurisdictions(list: Map<string, ListType>, language: string): string[] {
-        const filterSet = new Set() as Set<string>;
+        const filterSet = new Set<string>();
         list.forEach(value => {
             if (language == 'en') {
                 value.jurisdictions.forEach(jurisdiction => filterSet.add(jurisdiction));

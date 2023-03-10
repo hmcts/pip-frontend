@@ -1,6 +1,4 @@
 import { Application } from 'express';
-import { infoRequestHandler } from '@hmcts/info-provider';
-import os from 'os';
 import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 import {
@@ -590,20 +588,7 @@ export default function (app: Application): void {
         app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
     }
 
-    app.get(
-        '/info',
-        infoRequestHandler({
-            extraBuildInfo: {
-                host: os.hostname(),
-                name: 'expressjs-template',
-                uptime: process.uptime(),
-            },
-            info: {
-                // TODO: add downstream info endpoints if your app has any
-            },
-        })
-    );
-
+    app.get('/info', app.locals.container.creadle.infoController.get);
     app.get('/robots.txt', function (_req, res) {
         res.type('text/plain');
         res.send('User-agent: *\nDisallow: /');

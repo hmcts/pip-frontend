@@ -15,7 +15,7 @@ let cftIdamClientSecret;
 if (process.env.CFT_IDAM_CLIENT_SECRET) {
     cftIdamClientSecret = process.env.CFT_IDAM_CLIENT_SECRET;
 } else {
-    cftIdamClientSecret = config.get('secrets.pip-ss-kv.CFT_IDAM_CLIENT_SECRET') as string;
+    cftIdamClientSecret = config.get('secrets.pip-ss-kv.CFT_IDAM_CLIENT_SECRET');
 }
 
 /**

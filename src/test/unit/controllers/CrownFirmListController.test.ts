@@ -8,7 +8,7 @@ import { LocationService } from '../../../main/service/locationService';
 import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
 import CrownFirmListController from '../../../main/controllers/CrownFirmListController';
 import { CrownFirmListService } from '../../../main/service/listManipulation/crownFirmListService';
-import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
+import { CivilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 
 const fullyProcessedData = fs.readFileSync(path.resolve(__dirname, '../mocks/firmlistfullyprocessed.json'), 'utf-8');
 const listData = JSON.parse(fullyProcessedData);
@@ -27,7 +27,7 @@ const crownFirmListController = new CrownFirmListController();
 const crownFirmListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const crownFirmListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[6]);
-sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
+sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').returns(listData);
 sinon.stub(CrownFirmListService.prototype, 'splitOutFirmListData').returns(listData);
