@@ -588,7 +588,7 @@ export default function (app: Application): void {
         app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
     }
 
-    app.get('/info', app.locals.container.creadle.infoController.get);
+    app.get('/info', app.locals.container.cradle.infoController.get);
     app.get('/robots.txt', function (_req, res) {
         res.type('text/plain');
         res.send('User-agent: *\nDisallow: /');

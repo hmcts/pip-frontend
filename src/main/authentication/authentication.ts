@@ -13,6 +13,53 @@ const logger = Logger.getLogger('authentication');
 const CustomStrategy = passportCustom.Strategy;
 const accountManagementRequests = new AccountManagementRequests();
 
+async function piAadVerifyFunction(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
+    const returnedUser = await accountManagementRequests.getPiUserByAzureOid(profile['oid']);
+
+    if (returnedUser) {
+        profile['roles'] = returnedUser['roles'];
+        profile['userProvenance'] = returnedUser['userProvenance'];
+        return done(null, profile);
+    } else {
+        return done(null, null);
+    }
+}
+
+async function serializeUser(foundUser, done) {
+    if (foundUser['flow'] === 'CFT') {
+        const user = await accountManagementRequests.getPiUserByCftID(foundUser['uid']);
+
+        if (!user) {
+            const piAccount = [
+                {
+                    userProvenance: 'CFT_IDAM',
+                    email: foundUser['sub'],
+                    roles: 'VERIFIED',
+                    provenanceUserId: foundUser['uid'],
+                    forenames: foundUser['given_name'],
+                    surname: foundUser['family_name'],
+                },
+            ];
+
+            await accountManagementRequests.createPIAccount(piAccount, '');
+        }
+        done(null, { uid: foundUser.uid, flow: 'CFT' });
+    } else {
+        done(null, { oid: foundUser.oid, flow: 'AAD' });
+    }
+}
+
+async function deserializeUser(userDetails, done) {
+    let user;
+    if (userDetails['flow'] === 'CFT') {
+        user = await accountManagementRequests.getPiUserByCftID(userDetails['uid']);
+    } else {
+        user = await accountManagementRequests.getPiUserByAzureOid(userDetails['oid']);
+    }
+
+    return done(null, user);
+}
+
 /**
  * This sets up the OIDC version of authentication, integrating with Azure.
  */
@@ -55,52 +102,9 @@ function oidcSetup(): void {
 
     logger.info('secret', clientSecret ? clientSecret.substring(0, 5) : 'client secret not set!');
 
-    const piAadVerifyFunction = async function (iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
-        const returnedUser = await accountManagementRequests.getPiUserByAzureOid(profile['oid']);
+    passport.serializeUser(serializeUser);
 
-        if (returnedUser) {
-            profile['roles'] = returnedUser['roles'];
-            profile['userProvenance'] = returnedUser['userProvenance'];
-            return done(null, profile);
-        } else {
-            return done(null, null);
-        }
-    };
-
-    passport.serializeUser(async function (foundUser, done) {
-        if (foundUser['flow'] === 'CFT') {
-            const user = await accountManagementRequests.getPiUserByCftID(foundUser['uid']);
-
-            if (!user) {
-                const piAccount = [
-                    {
-                        userProvenance: 'CFT_IDAM',
-                        email: foundUser['sub'],
-                        roles: 'VERIFIED',
-                        provenanceUserId: foundUser['uid'],
-                        forenames: foundUser['given_name'],
-                        surname: foundUser['family_name'],
-                    },
-                ];
-
-                await accountManagementRequests.createPIAccount(piAccount, '');
-            }
-            done(null, { uid: foundUser.uid, flow: 'CFT' });
-        } else {
-            done(null, { oid: foundUser.oid, flow: 'AAD' });
-        }
-    });
-
-    passport.deserializeUser(async function (userDetails, done) {
-        let user;
-        if (userDetails['flow'] === 'CFT') {
-            user = await accountManagementRequests.getPiUserByCftID(userDetails['uid']);
-        } else {
-            user = await accountManagementRequests.getPiUserByAzureOid(userDetails['oid']);
-        }
-
-        return done(null, user);
-    });
+    passport.deserializeUser(deserializeUser);
 
     passport.use(
         'login',

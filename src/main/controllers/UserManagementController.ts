@@ -14,12 +14,14 @@ export default class UserManagementController {
             res.redirect(`user-management?${filterValues}`);
         } else {
             const pageData = await userManagementService.getFormattedData(
-                parseInt(<string>req.query.page) || 1,
-                (req.query?.email as string) || '',
-                (req.query?.userId as string) || '',
-                (req.query?.userProvenanceId as string) || '',
-                (req.query?.roles as string) || '',
-                (req.query?.provenances as string) || '',
+                new UserSearchCriteria(
+                    req.query.page,
+                    req.query?.email,
+                    req.query?.userId,
+                    req.query?.userProvenanceId,
+                    req.query?.roles,
+                    req.query?.provenances
+                ),
                 req.url.split('/user-management')[1],
                 req.user['userId'],
                 req.user['email']
