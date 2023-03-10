@@ -55,16 +55,20 @@ describe('Get publication json', () => {
         responseMock.verify;
     });
 
-    it('should render the error screen if the various endpoints fail and nothing is returned to the controller', async () => {
+    it('should render the error screen if no artefact ID has been passed through', async () => {
         const response = {
             render: () => {
                 return '';
             },
         } as unknown as Response;
+
         const request = mockRequest(i18n);
         request.user = { id: 1 };
+        request.query = {};
         const responseMock = sinon.mock(response);
+
         responseMock.expects('render').once().withArgs('error');
+        await blobViewController.get(request, response);
         responseMock.verify;
     });
 });

@@ -9,9 +9,9 @@ const helperService = new ListParseHelperService();
 class CaseInformation {
     hearingDate: string;
     caseName: string;
-    durationAsDays: string;
-    durationAsHours: string;
-    durationAsMinutes: string;
+    durationAsDays: number;
+    durationAsHours: number;
+    durationAsMinutes: number;
     caseSequenceIndicator: string;
     hearingType: string;
     venueAddress: string;
@@ -19,7 +19,6 @@ class CaseInformation {
     constructor(
         hearingDate,
         caseName,
-        durationAsDays,
         durationAsHours,
         durationAsMinutes,
         caseSequenceIndicator,
@@ -28,7 +27,7 @@ class CaseInformation {
     ) {
         this.hearingDate = hearingDate;
         this.caseName = caseName;
-        this.durationAsDays = durationAsDays;
+        this.durationAsDays = durationAsHours >= 24 ? Math.floor(durationAsHours / 24) : 0;
         this.durationAsHours = durationAsHours;
         this.durationAsMinutes = durationAsMinutes;
         this.caseSequenceIndicator = caseSequenceIndicator;
@@ -61,11 +60,6 @@ export class TribunalNationalListsService {
                         helperService.calculateDuration(sitting);
                         const durationAsHours = sitting['durationAsHours'];
                         const durationAsMinutes = sitting['durationAsMinutes'];
-                        let durationAsDays = 0;
-
-                        if (durationAsHours >= 24) {
-                            durationAsDays = Math.floor(durationAsHours / 24);
-                        }
 
                         sitting['hearing'].forEach(hearing => {
                             const hearingType = hearing['hearingType'];
@@ -79,7 +73,6 @@ export class TribunalNationalListsService {
                                         new CaseInformation(
                                             hearingDate,
                                             caseName,
-                                            durationAsDays,
                                             durationAsHours,
                                             durationAsMinutes,
                                             caseSequenceIndicator,

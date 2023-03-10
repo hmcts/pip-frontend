@@ -18,14 +18,14 @@ export default class BlobViewJsonController {
 
             const data = await publicationService.getIndividualPublicationJson(
                 req.query['artefactId'],
-                req.user?.['userId']
+                req.user['userId']
             );
 
             const jsonData: string = prettyPrintJson.toHtml(data, options);
 
             const metadata = await publicationService.getIndividualPublicationMetadata(
                 req.query['artefactId'],
-                req.user?.['userId']
+                req.user['userId']
             );
 
             const noMatchArtefact = metadata.locationId.toString().includes('NoMatch');

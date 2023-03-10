@@ -47,17 +47,20 @@ describe('Get publications', () => {
         responseMock.verify();
     });
 
-    it('should render the error screen if the count endpoint fails', async () => {
+    it('should render the error screen if no location ID is provided', async () => {
         const response = {
             render: () => {
                 return '';
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
+
         request.user = { id: 1 };
-        locStub.withArgs('en').resolves(JSON.parse('[{"name":"Single Justice Procedure", "locationId":9}]'));
+        request.query = {};
+
         const responseMock = sinon.mock(response);
         responseMock.expects('render').once().withArgs('error');
+        await blobViewController.get(request, response);
         responseMock.verify;
     });
 
