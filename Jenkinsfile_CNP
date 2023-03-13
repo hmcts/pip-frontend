@@ -25,9 +25,23 @@ def setupTestSecrets() {
             secret('cft-invalid-test-account-password', 'CFT_INVALID_PASSWORD'),
             secret('b2c-test-system-admin-account', 'B2C_SYSTEM_ADMIN_USERNAME'),
             secret('b2c-test-system-admin-account-pwd', 'B2C_SYSTEM_ADMIN_PASSWORD'),
+            secret('app-pip-data-management-scope', 'DATA_MANAGEMENT_AZ_API'),
+            secret('app-pip-subscription-management-scope', 'SUBSCRIPTION_MANAGEMENT_AZ_API'),
             secret('b2c-test-system-admin-account-provenance-id', 'SYSTEM_ADMIN_PROVENANCE_ID'),
-            secret('test-user-id', 'VERIFIED_USER_ID')
-        ]) {
+            secret('test-user-id', 'VERIFIED_USER_ID'),
+            secret('app-tenant', 'TENANT_ID'),
+            secret('app-pip-publication-services-id', 'CLIENT_ID_INTERNAL'),
+            secret('app-pip-publication-services-pwd', 'CLIENT_SECRET_INTERNAL')
+        ])
+    azureKeyVault(
+        keyVaultURL: "https://pip-ss-kv-stg.vault.azure.net/",
+        secrets: [
+            secret('app-pip-frontend-id', 'CLIENT_ID_INTERNAL'),
+            secret('app-pip-frontend-pwd', 'CLIENT_SECRET_INTERNAL')
+        ])
+
+
+        {
         env.B2C_USERNAME = "${B2C_USERNAME}"
         env.B2C_PASSWORD = "${B2C_PASSWORD}"
         env.B2C_ADMIN_USERNAME = "${B2C_ADMIN_USERNAME}"
@@ -38,8 +52,13 @@ def setupTestSecrets() {
         env.CFT_INVALID_PASSWORD = "${CFT_INVALID_PASSWORD}"
         env.B2C_SYSTEM_ADMIN_USERNAME = "${B2C_SYSTEM_ADMIN_USERNAME}"
         env.B2C_SYSTEM_ADMIN_PASSWORD = "${B2C_SYSTEM_ADMIN_PASSWORD}"
+        env.DATA_MANAGEMENT_AZ_API = "${DATA_MANAGEMENT_AZ_API}"
+        env.SUBSCRIPTION_MANAGEMENT_AZ_API = "${SUBSCRIPTION_MANAGEMENT_AZ_API}"
         env.SYSTEM_ADMIN_PROVENANCE_ID = "${SYSTEM_ADMIN_PROVENANCE_ID}"
         env.VERIFIED_USER_ID = "${VERIFIED_USER_ID}"
+        env.TENANT_ID = "${TENANT_ID}"
+        env.CLIENT_ID_INTERNAL = "${CLIENT_ID_INTERNAL}"
+        env.CLIENT_SECRET_INTERNAL = "${CLIENT_SECRET_INTERNAL}"
     }
 }
 
