@@ -44,7 +44,7 @@ export const deleteLocation = async (locationId: string) => {
     }
 };
 
-export const createSubscription = async (locationId: string, locationName: string, userId: string) => {
+export const createSubscription = async (locationId: string, locationName: string) => {
     const token = await getSubscriptionManagementCredentials();
     const payload = {
         channel: 'EMAIL',
@@ -52,7 +52,7 @@ export const createSubscription = async (locationId: string, locationName: strin
         searchValue: locationId,
         locationName: locationName,
         listType: null,
-        userId: userId,
+        userId: testConfig.VERIFIED_USER_ID,
     };
     try {
         await superagent

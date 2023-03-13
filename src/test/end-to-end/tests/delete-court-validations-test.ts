@@ -10,11 +10,10 @@ Scenario(
 
         const LOCATION_ID = '201';
         const LOCATION_NAME = 'TestCourt201';
-        const USER_ID = '0e68f98c-29c5-4eff-aa26-0a872ee8bf89';
 
         await createLocation('delete-court-validations.csv');
         I.wait(10);
-        await createSubscription(LOCATION_ID, LOCATION_NAME, USER_ID);
+        await createSubscription(LOCATION_ID, LOCATION_NAME);
         await uploadPublication('PUBLIC', LOCATION_ID, dt, dt1, 'ENGLISH');
         I.wait(10);
 
