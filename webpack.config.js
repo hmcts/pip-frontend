@@ -28,7 +28,6 @@ module.exports = {
         cookies: path.resolve(sourcePath, 'cookie-preferences.ts'),
     },
     mode: devMode ? 'development' : 'production',
-
     module: {
         rules: [
             ...scss.rules,
