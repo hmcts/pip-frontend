@@ -17,6 +17,7 @@ Scenario(
         await createSubscription(LOCATION_ID, LOCATION_NAME, USER_ID);
         await uploadPublication('PUBLIC', LOCATION_ID, dt, dt1, 'ENGLISH');
         I.wait(10);
+
         I.loginAsSystemAdmin();
         I.click('Delete Court');
         I.fillField('#search-input', LOCATION_NAME);
