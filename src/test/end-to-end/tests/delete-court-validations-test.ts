@@ -5,8 +5,8 @@ Feature('Delete Location');
 Scenario(
     'I as a system admin should be able to delete court only when there are no active subscriptions or artefacts',
     async ({ I }) => {
-        const dt = DateTime.now().toISO({ includeOffset: false });
-        const dt1 = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
+        //const dt = DateTime.now().toISO({ includeOffset: false });
+        //const dt1 = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
 
         const LOCATION_ID = '201';
         const LOCATION_NAME = 'TestCourt201';
