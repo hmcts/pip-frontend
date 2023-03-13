@@ -3,8 +3,6 @@ import { DateTime } from 'luxon';
 import { PublicationService } from '../../service/publicationService';
 import { printableDuration } from './printableDuration';
 import { calculateDurationSortValue } from '../../helpers/dateTimeHelper';
-import { runtime } from 'nunjucks';
-
 const publicationService = new PublicationService();
 
 function createFilters(env) {
@@ -13,23 +11,6 @@ function createFilters(env) {
     const fs = require('fs');
     const listTypes = publicationService.getListTypes();
     const languageLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'languageLookup.json')));
-    const rejectReasonLookup = JSON.parse(
-        fs.readFileSync(path.resolve(__dirname, 'media-account-rejection-reasons-lookup.json'))
-    );
-
-    // takes array or comma-separated string of rejection reason codes, transforms to an ordered list
-    // with optional padding depending on where it's being displayed.
-    env.addFilter('mediaRejectionClean', (csvList, nopadding = false) => {
-        csvList = Array.isArray(csvList) ? csvList : csvList.split(',');
-        const listItems = csvList
-            .map(x => rejectReasonLookup[x] ?? x)
-            .map(x => `<li>${x}</li>`)
-            .join('');
-        return new runtime.SafeString(
-            `<ol${nopadding ? ' class="govuk-list--number govuk-!-padding-left-4"' : ''}>${listItems}</ol>`
-        );
-    });
-
     // to get the pretty list type name
     env.addFilter('listType', function (x) {
         return listTypes.get(x)?.friendlyName;
@@ -121,5 +102,4 @@ function createFilters(env) {
         return calculateDurationSortValue(0, hours, minutes);
     });
 }
-
 module.exports = createFilters;

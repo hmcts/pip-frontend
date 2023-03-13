@@ -1,6 +1,7 @@
 {% from "macros/common-components.njk" import goBack, submitButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% extends "template.njk" %}
 
@@ -50,22 +51,14 @@
         {{ applicantData.requestDate }}
       </dd>
     </div>
-      <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-              {{ tableHeaders[5] }}
-          </dt>
-          <dd class="govuk-summary-list__value">
-              {{ reasons | mediaRejectionClean(true) }}
-          </dd>
-      </div>
   </dl>
 
   <h1 class="govuk-heading-m">{{ whatHappensNextHeader }}</h1>
   <p class="govuk-body">{{ whatHappensNext1 }} <a href=mailto:{{ applicantData.email }}?subject={{ emailSubjectLine }}>{{ applicantData.email }}</a> {{ whatHappensNext2 }}</p>
 
   <h1 class = "govuk-heading-m">{{ emailTemplateHeader }}</h1>
-    <form method='post' id="pythonForm">
-        {{ submitButton() }}
-</form>
 
+  {{ govukInsetText ({
+    html: emailTemplateContent
+  }) }}
 {% endblock %}

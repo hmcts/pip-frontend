@@ -53,7 +53,7 @@ export default class MediaAccountReviewController {
     public reject(req: PipRequest, res: Response): void {
         const applicantId = req.body['applicantId'];
         if (applicantId) {
-            res.redirect('/media-account-rejection-reasons?applicantId=' + applicantId);
+            res.redirect('/media-account-rejection?applicantId=' + applicantId);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
