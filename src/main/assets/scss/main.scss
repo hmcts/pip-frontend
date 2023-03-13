@@ -1,5 +1,5 @@
-@import 'node_modules/govuk-frontend/govuk/all';
-@import 'accessible-autocomplete.min'; /* stylelint-disable-line */
+@use 'govuk-frontend';
+@use 'accessible-autocomplete.min';
 @import 'node_modules/@ministryofjustice/frontend/moj/all';
 
 $line-colour: #1d70b8;
@@ -283,12 +283,27 @@ tbody {
 }
 
 div {
+    .attrEntry {
+        label {
+            @extend %govuk-body !optional;
+            @extend %govuk-\!-font-weight-bold !optional;
+        }
+
+        div {
+            @extend %govuk-body !optional;
+
+            &.error {
+                color: $govuk-error-colour;
+            }
+        }
+    }
+
     .cards-wrapper {
         display: flex;
         flex-flow: row wrap;
         flex-wrap: wrap;
 
-        > div {
+        div div {
             flex: 33.33%;
             max-width: 33.33%;
         }
@@ -304,7 +319,7 @@ div {
         }
 
         @media (max-width: 640px) {
-            > div {
+            div div {
                 flex: 100%;
                 max-width: 100%;
             }
@@ -314,21 +329,6 @@ div {
     .verify {
         label {
             @extend %govuk-\!-margin-right-4 !optional;
-        }
-    }
-
-    .attrEntry {
-        label {
-            @extend %govuk-body !optional;
-            @extend %govuk-\!-font-weight-bold !optional;
-        }
-
-        div {
-            @extend %govuk-body !optional;
-
-            &.error {
-                color: $govuk-error-colour;
-            }
         }
     }
 }
@@ -433,7 +433,7 @@ div {
 }
 
 @media (max-width: 640px) {
-    > div {
+    div div {
         flex: 100%;
         max-width: 100%;
     }
