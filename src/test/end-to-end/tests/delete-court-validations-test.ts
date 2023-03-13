@@ -14,7 +14,7 @@ Scenario(
         await createLocation('delete-court-validations.csv');
         I.wait(10);
         await createSubscription(LOCATION_ID, LOCATION_NAME);
-        await uploadPublication('PUBLIC', LOCATION_ID, dt, dt1, 'ENGLISH');
+        await uploadPublication('PUBLIC', LOCATION_ID, '2023-03-13T01:00:00Z', '2023-03-14T01:00:00Z', 'ENGLISH');
         I.wait(10);
 
         I.loginAsSystemAdmin();
