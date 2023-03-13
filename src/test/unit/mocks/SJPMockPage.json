@@ -1,8 +1,8 @@
 {
     "document": {
         "publicationDate": "2016-09-13T23:30:52.123Z",
-        "version": "3h;R(p1",
-        "documentName": "liv]"
+        "version": "v1",
+        "documentName": "Document Name"
     },
     "courtLists": [
         {
@@ -19,24 +19,25 @@
                                                     {
                                                         "partyRole": "ACCUSED",
                                                         "individualDetails": {
-                                                            "individualForenames": "Danny",
-                                                            "individualSurname": "Thomas",
-                                                            "dateOfBirth": "25/07/1985",
-                                                            "age": "37",
-                                                            "formattedDateOfBirth": "25 July 1985",
+                                                            "individualForenames": "Test",
+                                                            "individualSurname": "Name",
+                                                            "dateOfBirth": "01/01/1801",
+                                                            "age": "200",
+                                                            "formattedDateOfBirth": "01 January 1801",
                                                             "address": {
-                                                                "town": "Swansea",
-                                                                "postCode": "SA1 1AA"
+                                                                "line": ["Line 1", "Line 2"],
+                                                                "town": "Test Town",
+                                                                "postCode": "AA1 AA1"
                                                             }
                                                         },
                                                         "organisationDetails": {
-                                                            "organisationName": "qU8QlEo@"
+                                                            "organisationName": "Organisation Name"
                                                         }
                                                     },
                                                     {
                                                         "partyRole": "PROSECUTOR",
                                                         "organisationDetails": {
-                                                            "organisationName": "qU8QlEo"
+                                                            "organisationName": "Organisation Name"
                                                         }
                                                     }
                                                 ],
@@ -50,7 +51,7 @@
                                                 ],
                                                 "case": [
                                                     {
-                                                        "caseUrn": "ABC12345"
+                                                        "caseUrn": "Case URN"
                                                     }
                                                 ]
                                             }
@@ -63,33 +64,70 @@
                                                     {
                                                         "partyRole": "ACCUSED",
                                                         "individualDetails": {
-                                                            "individualForenames": "Christopher",
-                                                            "individualSurname": "Robin",
-                                                            "dateOfBirth": "25/07/1985",
-                                                            "age": "37",
-                                                            "formattedDateOfBirth": "25 July 1985",
+                                                            "individualForenames": "Test",
+                                                            "individualSurname": "Name",
+                                                            "dateOfBirth": "01/01/1801",
+                                                            "age": "200",
+                                                            "formattedDateOfBirth": "01 January 1801",
                                                             "address": {
                                                                 "county": "London",
-                                                                "postCode": "E15 3AR",
+                                                                "postCode": "AA1 AA1",
                                                                 "town": "London"
                                                             },
                                                             "title": "Mr",
-                                                            "individualMiddleName": "W"
+                                                            "individualMiddleName": "Middle Name"
                                                         }
                                                     },
                                                     {
                                                         "partyRole": "PROSECUTOR",
                                                         "individualDetails": {
-                                                            "individualForenames": "Junaid",
-                                                            "individualSurname": "Thomas",
-                                                            "dateOfBirth": "25/07/1985",
-                                                            "formattedDateOfBirth": "25 July 1985",
+                                                            "individualForenames": "Test",
+                                                            "individualSurname": "Name",
+                                                            "dateOfBirth": "01/01/1801",
+                                                            "formattedDateOfBirth": "01 January 1801",
                                                             "address": {
-                                                                "town": "Swansea"
+                                                                "town": "Town"
                                                             }
                                                         },
                                                         "organisationDetails": {
-                                                            "organisationName": "qU8QlEo@"
+                                                            "organisationName": "Organisation Name"
+                                                        }
+                                                    }
+                                                ],
+                                                "offence": [
+                                                    {
+                                                        "offenceTitle": "This is an offence title",
+                                                        "offenceWording": "This is offence wording",
+                                                        "reportingRestriction": true,
+                                                        "formattedReportingRestriction": "True"
+                                                    },
+                                                    {
+                                                        "offenceTitle": "Another offence title",
+                                                        "offenceWording": "Another offence wording",
+                                                        "reportingRestriction": true
+                                                    }
+                                                ],
+                                                "case": [
+                                                    {
+                                                        "caseUrn": "ABC12345"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Test",
+                                                            "individualSurname": "Name",
+                                                            "dateOfBirth": "01/01/1801",
+                                                            "formattedDateOfBirth": "01 January 1801",
+                                                            "address": {
+                                                                "town": "Town"
+                                                            }
+                                                        },
+                                                        "organisationDetails": {
+                                                            "organisationName": "Organisation Name"
                                                         }
                                                     }
                                                 ],

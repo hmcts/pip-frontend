@@ -22,10 +22,14 @@ sinon.stub(UserManagementService.prototype, 'getFormattedData').returns({
 });
 
 sinon.stub(UserManagementService.prototype, 'getTableHeaders').returns('testHeader');
+sinon.stub(UserManagementService.prototype, 'generateFilterKeyValues').returns('ThisIsAFilter=Filter');
 
 describe('User management controller', () => {
     const response = {
         render: () => {
+            return '';
+        },
+        redirect: () => {
             return '';
         },
     } as unknown as Response;
@@ -53,6 +57,40 @@ describe('User management controller', () => {
         responseMock.expects('render').once().withArgs('user-management', expectedData);
 
         await userManagementController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should redirect to the user management page on clear', async () => {
+        const mockFilter = 'ThisIsAFilter=Filter';
+
+        sinon.stub(UserManagementService.prototype, 'handleFilterClearing').returns('success');
+
+        request.query = { clear: 'all' };
+        request.url = '/user-management';
+
+        const responseMock = sinon.mock(response);
+        responseMock
+            .expects('redirect')
+            .once()
+            .withArgs('user-management?' + mockFilter);
+
+        await userManagementController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should redirect to the user management page on post', async () => {
+        const mockFilter = 'ThisIsAFilter=Filter';
+
+        request.url = '/user-management';
+        request.body = 'FilterValues';
+
+        const responseMock = sinon.mock(response);
+        responseMock
+            .expects('redirect')
+            .once()
+            .withArgs('user-management?' + mockFilter);
+
+        await userManagementController.post(request, response);
         return responseMock.verify();
     });
 });

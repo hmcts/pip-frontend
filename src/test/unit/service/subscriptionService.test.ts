@@ -264,6 +264,40 @@ describe('getSubscriptionDataForView function', () => {
             expect(subscriptionData.locationTableData[1][0].text).toEqual("Barkingside Magistrates' Court");
             expect(subscriptionData.locationTableData[2][0].text).toEqual('Manchester Crown Court');
         });
+
+        it('should sort location when duplicate location subscription is set', async () => {
+            const locationDuplicateSubscription = fs.readFileSync(
+                path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptionsLocationDuplicate.json'),
+                'utf-8'
+            );
+            stubUserSubscription.withArgs('12341234').resolves(JSON.parse(locationDuplicateSubscription).data);
+
+            const result = await subscriptionService.getSubscriptionDataForView('12341234', 'en', 'location');
+            const subscriptionData = JSON.parse(JSON.stringify(result));
+            expect(subscriptionData.locationTableData[0][0].text).toEqual('Manchester Crown Court');
+            expect(subscriptionData.locationTableData[1][0].text).toEqual('Manchester Crown Court');
+        });
+
+        it('should sort case name when there are null in names and numbers/urns', async () => {
+            const locationDuplicateSubscription = fs.readFileSync(
+                path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptionsSingleCaseAndWithoutCaseName.json'),
+                'utf-8'
+            );
+            stubUserSubscription.withArgs('1948291848').resolves(JSON.parse(locationDuplicateSubscription).data);
+
+            const result = await subscriptionService.getSubscriptionDataForView('1948291848', 'en', 'case');
+            const subscriptionData = JSON.parse(JSON.stringify(result));
+            expect(subscriptionData.caseTableData[0][0].text).toBe('Case Name');
+            expect(subscriptionData.caseTableData[0][1].text).toEqual('1234');
+            expect(subscriptionData.caseTableData[1][0].text).toBe('Case Name');
+            expect(subscriptionData.caseTableData[1][1].text).toEqual('1234512345');
+            expect(subscriptionData.caseTableData[2][0].text).toBe('Case Name');
+            expect(subscriptionData.caseTableData[2][1].text).toEqual('1234512345');
+            expect(subscriptionData.caseTableData[3][0].text).toBe('Case Name');
+            expect(subscriptionData.caseTableData[3][1].text).toBeNull();
+            expect(subscriptionData.caseTableData[4][0].text).toBeNull();
+            expect(subscriptionData.caseTableData[4][1].text).toBeNull();
+        });
     });
 
     describe('for Bulk Unsubscribe page', () => {

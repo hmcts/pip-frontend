@@ -22,7 +22,7 @@ export default class BlobViewPublicationsController {
                 locationName = locationService.findCourtName(court, req.lng, 'summary-of-publications');
                 listOfPublications = await summaryOfPublicationsService.getPublications(
                     parseInt(locationId.toString()),
-                    req.user?.['userId']
+                    req.user['userId']
                 );
             } else {
                 locationName = 'No match artefacts';
