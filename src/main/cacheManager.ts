@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 
