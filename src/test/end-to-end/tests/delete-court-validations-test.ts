@@ -1,20 +1,21 @@
-import { DateTime } from 'luxon';
-import { createLocation, createSubscription, uploadPublication } from '../shared/testingSupportApi';
+import {DateTime} from 'luxon';
+import {createLocation, createSubscription, uploadPublication} from '../shared/testingSupportApi';
 
 Feature('Delete Location');
 Scenario(
     'I as a system admin should be able to delete court only when there are no active subscriptions or artefacts',
-    async ({ I }) => {
-        const displayFrom = DateTime.now().toISO({ includeOffset: false });
-        const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
+    async ({I}) => {
+        const displayFrom = DateTime.now().toISO({includeOffset: false});
+        const displayTo = DateTime.now().plus({days: 1}).toISO({includeOffset: false});
 
         const LOCATION_ID = '201';
         const LOCATION_NAME = 'TestCourt201';
+        const USER_ID = '0e68f98c-29c5-4eff-aa26-0a872ee8bf86';
 
         await createLocation('delete-court-validations.csv');
-        await createSubscription(LOCATION_ID, LOCATION_NAME);
+        await createSubscription(LOCATION_ID, LOCATION_NAME, USER_ID);
         await uploadPublication('PUBLIC', LOCATION_ID, displayFrom, displayTo, 'ENGLISH');
-        I.wait(5);
+
         I.loginAsSystemAdmin();
         I.click('Delete Court');
         I.fillField('#search-input', LOCATION_NAME);
