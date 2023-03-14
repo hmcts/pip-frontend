@@ -645,7 +645,7 @@ describe('generateListTypesForCourts', () => {
         expect(listTypes['COP_DAILY_CAUSE_LIST']).toBeDefined();
 
         const civilAndFamilyCauseList = listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'];
-        expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Civil and Family Daily Cause List');
+        expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Rhestr Achosion Dyddiol y Llys Sifil a Theulu');
         expect(civilAndFamilyCauseList['checked']).toBeTruthy();
 
         const civilDailyCauseList = listTypes['CIVIL_DAILY_CAUSE_LIST'];
@@ -722,7 +722,7 @@ describe('generateListTypesForCourts', () => {
         expect(listTypes['COP_DAILY_CAUSE_LIST']).toBeDefined();
 
         const civilAndFamilyCauseList = listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'];
-        expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Civil and Family Daily Cause List');
+        expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Rhestr Achosion Dyddiol y Llys Sifil a Theulu');
         expect(civilAndFamilyCauseList['checked']).toBeTruthy();
         expect(civilAndFamilyCauseList['hidden']).toBeFalsy();
 
