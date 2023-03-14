@@ -450,7 +450,7 @@ export class SubscriptionService {
         if (filterValues.length == 0) {
             for (const [listName, listType] of applicableListTypes) {
                 alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
-                    listFriendlyName: listType.friendlyName,
+                    listFriendlyName: language === 'en' ? listType.friendlyName : listType.welshFriendlyName,
                     checked: listType.checked,
                 };
             }
@@ -462,7 +462,7 @@ export class SubscriptionService {
                         : !listType.welshJurisdictions.some(jurisdiction => filterValues.includes(jurisdiction));
 
                 alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
-                    listFriendlyName: listType.friendlyName,
+                    listFriendlyName: language === 'en' ? listType.friendlyName : listType.welshFriendlyName,
                     checked: listType.checked,
                     hidden: hidden,
                 };
