@@ -4,7 +4,7 @@ import { I18next } from './modules/i18next';
 import * as propertiesVolume from '@hmcts/properties-volume';
 import config = require('config');
 propertiesVolume.addTo(config);
-import RedisStore from "connect-redis"
+import RedisStore from 'connect-redis';
 const { Logger } = require('@hmcts/nodejs-logging');
 import * as bodyParser from 'body-parser';
 
@@ -51,8 +51,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 const { redisClient } = require('./cacheManager');
-const session = require('express-session')
-app.set('trust proxy', 1) // trust first proxy
+const session = require('express-session');
+app.set('trust proxy', 1); // trust first proxy
 app.use(
     session({
         store: new RedisStore({ client: redisClient }),
