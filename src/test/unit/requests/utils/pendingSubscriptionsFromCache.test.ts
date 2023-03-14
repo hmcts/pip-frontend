@@ -68,8 +68,8 @@ getStub.withArgs('pending-cases-subscriptions-1').resolves(mockCaseJson);
 getStub.withArgs('pending-cases-subscriptions-2').resolves(mockCaseWithUrnOnlyJson);
 getStub.withArgs('pending-cases-subscriptions-3').resolves(mockCaseWithUrnOnlyJson);
 getStub.withArgs('pending-courts-subscriptions-2').resolves([]);
-sinon.stub(redisClient, 'status').value('ready');
 const set = sinon.stub(redisClient, 'set');
+redisClient['status'] = 'ready';
 
 describe('setPendingSubscriptions with valid user', () => {
     it('should set case number into cache', async () => {

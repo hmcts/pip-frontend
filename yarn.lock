@@ -12866,6 +12866,7 @@ __metadata:
     postcss: ^8.4.21
     prettier: ^2.8.4
     pretty-print-json: ^1.4.0
+    redis-mock: ^0.56.3
     request: ^2.88.2
     require-directory: ^2.1.1
     sass: ^1.58.3
@@ -13288,6 +13289,13 @@ __metadata:
   version: 1.2.0
   resolution: "redis-errors@npm:1.2.0"
   checksum: f28ac2692113f6f9c222670735aa58aeae413464fd58ccf3fce3f700cae7262606300840c802c64f2b53f19f65993da24dc918afc277e9e33ac1ff09edb394f4
+  languageName: node
+  linkType: hard
+
+"redis-mock@npm:^0.56.3":
+  version: 0.56.3
+  resolution: "redis-mock@npm:0.56.3"
+  checksum: 8c1293a59610c89a13849191de62aec9e68cb0a116e898b8fd5235235100f987caaeb5dacf56a076263474a2f556bd7fc2e7d2c52364a940f392dacb178b9ff4
   languageName: node
   linkType: hard
 

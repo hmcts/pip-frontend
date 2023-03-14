@@ -130,6 +130,7 @@
         "nodemon": "^2.0.21",
         "pa11y": "6.2.3",
         "prettier": "^2.8.4",
+        "redis-mock": "^0.56.3",
         "request": "^2.88.2",
         "sass": "^1.58.3",
         "sass-loader": "^13.2.0",

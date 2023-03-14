@@ -14,17 +14,24 @@ export function setRedisCredentials(): any {
 const redisCredentials = setRedisCredentials();
 
 const logger = Logger.getLogger('app');
-const ioRedis = require('ioredis');
 
-let connectionString = '';
-if (process.env.REDIS_LOCAL) {
-    // for running local dev environment (i.e. 'start:dev' profile)
-    connectionString = `redis://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
+let redisClient;
+if (!process.env.REDIS_HOST) {
+    const redis = require('redis-mock');
+    redisClient = redis.createClient();
 } else {
-    // double s is required when using TLS connection (i.e. 'start' profile)
-    connectionString = `rediss://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
+    const ioRedis = require('ioredis');
+
+    let connectionString = '';
+    if (process.env.REDIS_LOCAL) {
+        // for running local dev environment (i.e. 'start:dev' profile)
+        connectionString = `redis://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
+    } else {
+        // double s is required when using TLS connection (i.e. 'start' profile)
+        connectionString = `rediss://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
+    }
+    redisClient = new ioRedis(connectionString, { connectTimeout: 10000 });
 }
-const redisClient = new ioRedis(connectionString, { connectTimeout: 10000 });
 
 /* istanbul ignore next */
 if (!process.env.REDIS_SUPPRESS) {
