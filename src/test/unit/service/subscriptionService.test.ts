@@ -377,24 +377,24 @@ describe('getSubscriptionDataForView function', () => {
             const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'case');
             const subscriptionData = JSON.parse(JSON.stringify(result));
             const firstRow = subscriptionData.caseTableData[0];
-            expect(firstRow[0].text).toEqual('Ashely Barnes');
-            expect(firstRow[1].text).toEqual('T485914');
+            expect(firstRow[0].text).toEqual('Test Name');
+            expect(firstRow[1].text).toEqual('C123123');
 
             const secondRow = subscriptionData.caseTableData[1];
-            expect(secondRow[0].text).toEqual('Tom Clancy');
-            expect(secondRow[1].text).toEqual('T485911');
+            expect(secondRow[0].text).toEqual('Test Name 2');
+            expect(secondRow[1].text).toEqual('I123123');
 
             const thirdRow = subscriptionData.caseTableData[2];
-            expect(thirdRow[0].text).toEqual('Tom Clancy');
-            expect(thirdRow[1].text).toEqual('T485913');
+            expect(thirdRow[0].text).toEqual('Test Name 3');
+            expect(thirdRow[1].text).toEqual('B123123');
 
             const fourthRow = subscriptionData.caseTableData[3];
             expect(fourthRow[0].text).toBeNull();
-            expect(fourthRow[1].text).toEqual('T485910');
+            expect(fourthRow[1].text).toEqual('A123123');
 
             const fifthRow = subscriptionData.caseTableData[4];
             expect(fifthRow[0].text).toBeNull();
-            expect(fifthRow[1].text).toEqual('T485912');
+            expect(fifthRow[1].text).toEqual('D123123');
         });
 
         it('should sort location subscription data by court name', async () => {

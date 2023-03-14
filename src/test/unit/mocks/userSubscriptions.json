@@ -6,56 +6,56 @@
                 "caseName": null,
                 "caseNumber": "D123123",
                 "urn": "E123123",
-                "dateAdded": "2022-01-14T11:42:01.611085"
+                "dateAdded": "2022-08-01T01:10:10.111111"
             },
             {
                 "subscriptionId": "5a45699f-47e3-4283-904a-581afe624155",
                 "caseName": "Test Name",
                 "caseNumber": "C123123",
                 "urn": "K123123",
-                "dateAdded": "2022-01-14T11:30:12.357299"
+                "dateAdded": "2022-08-01T01:10:10.111111"
             },
             {
                 "subscriptionId": "252899d6-2b05-43ec-86e0-a438d3854fa8",
                 "caseName": "Test Name 2",
                 "caseNumber": "I123123",
                 "urn": "H123123",
-                "dateAdded": "2022-01-14T11:42:01.611085"
+                "dateAdded": "2022-08-01T01:10:10.111111"
             },
             {
                 "subscriptionId": "752899d6-2b05-43ec-86e0-a438d3854fa8",
                 "caseName": "Test Name 3",
                 "caseNumber": "B123123",
                 "urn": "F123123",
-                "dateAdded": "2022-01-14T11:42:01.611085"
+                "dateAdded": "2022-08-01T01:10:10.111111"
             },
             {
                 "subscriptionId": "352899d6-2b05-43ec-86e0-a438d3854fa8",
                 "caseName": null,
                 "caseNumber": "A123123",
                 "urn": "G123123",
-                "dateAdded": "2022-01-14T11:42:01.611085"
+                "dateAdded": "2022-08-01T01:10:10.111111"
             }
         ],
         "locationSubscriptions": [
             {
                 "subscriptionId": "f038b7ea-2972-4be4-a5ff-70abb4f78686",
                 "locationName": "Manchester Crown Court",
-                "dateAdded": "2022-01-14T11:42:57.847708",
+                "dateAdded": "2022-08-01T01:10:10.111111",
                 "listTypes": ["SJP_PUBLIC_LIST"],
                 "locationId": 2
             },
             {
                 "subscriptionId": "d5b65f6f-4c43-45f7-a52d-d2c5cf8ac0e6",
                 "locationName": "Aberdeen Tribunal Hearing Centre",
-                "dateAdded": "2022-01-14T13:33:25.398361",
+                "dateAdded": "2022-08-01T01:10:10.111111",
                 "listTypes": ["SJP_PUBLIC_LIST"],
                 "locationId": 1
             },
             {
                 "subscriptionId": "fffe29f8-52f4-4e7c-9eff-753d3b82244f",
                 "locationName": "Barkingside Magistrates' Court",
-                "dateAdded": "2022-01-14T13:39:02.708126",
+                "dateAdded": "2022-08-01T01:10:10.111111",
                 "listTypes": ["SJP_PUBLIC_LIST"],
                 "locationId": 3
             }
