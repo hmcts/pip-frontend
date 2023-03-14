@@ -4,7 +4,7 @@ import { I18next } from './modules/i18next';
 import * as propertiesVolume from '@hmcts/properties-volume';
 import config = require('config');
 propertiesVolume.addTo(config);
-
+import RedisStore from "connect-redis"
 const { Logger } = require('@hmcts/nodejs-logging');
 import * as bodyParser from 'body-parser';
 
@@ -19,7 +19,6 @@ import { Nunjucks } from './modules/nunjucks';
 import { AppInsights } from './modules/appinsights';
 
 const passport = require('passport');
-const cookieSession = require('cookie-session');
 const { setupDev } = require('./development');
 import { Container } from './modules/awilix';
 import { PipRequest } from './models/request/PipRequest';
@@ -51,11 +50,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+const { redisClient } = require('./cacheManager');
+const session = require('express-session')
+app.set('trust proxy', 1) // trust first proxy
 app.use(
-    cookieSession({
+    session({
+        store: new RedisStore({ client: redisClient }),
         name: 'session',
-        keys: [config.get('secrets.pip-ss-kv.SESSION_SECRET')],
-        secure: true,
+        secret: [config.get('secrets.pip-ss-kv.SESSION_SECRET')],
+        cookie: { secure: true },
+        resave: false, // required: force lightweight session keep alive (touch)
+        saveUninitialized: false, // recommended: only save session when data exists
     })
 );
 
@@ -63,7 +68,7 @@ logger.info('SESSION Secret', config.get('secrets.pip-ss-kv.SESSION_SECRET'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {
-    req['sessionCookies'].secure = true;
+    // req['sessionCookies'].secure = true;
     res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
     next();
 });
