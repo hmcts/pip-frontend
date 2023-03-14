@@ -32,9 +32,7 @@ def setupTestSecrets() {
             secret('app-tenant', 'TENANT_ID'),
             secret('app-pip-frontend-id', 'CLIENT_ID_INTERNAL'),
             secret('app-pip-frontend-pwd', 'CLIENT_SECRET_INTERNAL')
-        ])
-
-        {
+        ]) {
         env.B2C_USERNAME = "${B2C_USERNAME}"
         env.B2C_PASSWORD = "${B2C_PASSWORD}"
         env.B2C_ADMIN_USERNAME = "${B2C_ADMIN_USERNAME}"
