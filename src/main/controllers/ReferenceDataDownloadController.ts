@@ -13,7 +13,7 @@ export default class ReferenceDataDownloadController {
             'REFERENCE_DATA_DOWNLOAD',
             'Download of the reference data requested'
         );
-        const returnedData = await locationRequests.getLocationsCsv(req.user?.['userId']);
+        const returnedData = await locationRequests.getLocationsCsv(req.user['userId']);
 
         res.set('Content-Disposition', 'inline;filename=' + 'referenceData.csv');
         res.set('Content-Type', 'application/csv');

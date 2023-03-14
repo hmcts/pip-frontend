@@ -19,7 +19,7 @@ describe('formatSjpPublicList', () => {
 
     it('should return accused postcode', async () => {
         const data = await sjpPublicListService.formatSjpPublicList(rawSJPData);
-        expect(data[0].postcode).to.equal('AA1 AA1');
+        expect(data[0].postcode).to.equal('TEST POSTCODE');
     });
 
     it('should return prosecutor', async () => {

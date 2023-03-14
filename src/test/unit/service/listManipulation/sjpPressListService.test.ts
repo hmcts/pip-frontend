@@ -24,7 +24,7 @@ describe('formatSJPPressList', () => {
 
     it('should return age', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data[0].age).to.equal('200');
+        expect(data[0].age).to.equal(200);
     });
 
     it('should return case URN', async () => {
@@ -34,8 +34,8 @@ describe('formatSJPPressList', () => {
 
     it('should return formatted address and postcode', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data[0].address).to.equal('Line 1 Line 2, Test Town, AA1 AA1');
-        expect(data[0].postcode).to.equal('AA1 AA1');
+        expect(data[0].address).to.equal('Line 1 Line 2, Test Town, Test County, TEST POSTCODE');
+        expect(data[0].postcode).to.equal('TEST POSTCODE');
     });
 
     it('should return prosecutor', async () => {
