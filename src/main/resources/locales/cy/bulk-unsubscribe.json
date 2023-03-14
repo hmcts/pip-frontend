@@ -1,5 +1,5 @@
 {
-    "title": "Dileu swmp o danysgrifiadau",
+    "title": "Datdanysgrifio Swmp",
     "subNavigation": {
         "header1": "Pob tanysgrifiad (",
         "header2": "Tanysgrifiadau yn ôl achos (",
@@ -10,7 +10,7 @@
     "noSubsCourt": "Nid oes gennych unrhyw danysgrifiadau yn ôl llys neu dribiwnlys",
     "caseTable": {
         "caseName": "Enw'r achos",
-        "caseRef": "Cyfeirnod yr achos",
+        "caseRef": "Cyfeirnod yr achos neu cyfeirnod unigryw (URN)",
         "date": "Dyddiad wedi’i ychwanegu",
         "deletion": "Dewis"
     },

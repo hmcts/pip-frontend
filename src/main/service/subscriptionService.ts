@@ -41,15 +41,17 @@ const caseSubscriptionSorter = (a, b) => {
         result = a.caseName > b.caseName ? 1 : -1;
     }
 
+    const caseRefA = a.caseNumber ? a.caseNumber : a.urn;
+    const caseRefB = b.caseNumber ? b.caseNumber : b.urn;
     if (result === 0) {
-        if (a.caseNumber === b.caseNumber) {
+        if (caseRefA === caseRefB) {
             return 0;
-        } else if (a.caseNumber === null) {
+        } else if (caseRefA === null) {
             return 1;
-        } else if (b.caseNumber === null) {
+        } else if (caseRefB === null) {
             return -1;
         }
-        return a.caseNumber > b.caseNumber ? 1 : -1;
+        return caseRefA > caseRefB ? 1 : -1;
     }
     return result;
 };
@@ -154,12 +156,13 @@ export class SubscriptionService {
     }
 
     private generateCaseTableRow(subscription, fileJson): any {
+        const caseRef = subscription.caseNumber ? subscription.caseNumber : subscription.urn;
         return [
             {
                 text: subscription.caseName,
             },
             {
-                text: subscription.caseNumber,
+                text: caseRef,
             },
             {
                 text: DateTime.fromISO(subscription.dateAdded, {
@@ -179,14 +182,14 @@ export class SubscriptionService {
 
     private generateCaseTableRowForBulkDelete(subscription): any {
         const caseName = subscription.caseName === null ? '' : subscription.caseName;
-        const caseNumber = subscription.caseNumber === null ? '' : subscription.caseNumber;
-
+        let caseRef = subscription.caseNumber ? subscription.caseNumber : subscription.urn;
+        caseRef = caseRef === null ? '' : caseRef;
         return [
             {
                 html: `<p class="govuk-body bulk-delete-row">${caseName}</p>`,
             },
             {
-                html: `<p class="govuk-body bulk-delete-row">${caseNumber}</p>`,
+                html: `<p class="govuk-body bulk-delete-row">${caseRef}</p>`,
             },
             {
                 html:
@@ -328,32 +331,46 @@ export class SubscriptionService {
     }
 
     public async subscribe(userId): Promise<boolean> {
+        const cachedCaseSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, 'cases');
+        const caseSubscribed = cachedCaseSubs ? await this.subscribeByCase(userId, cachedCaseSubs) : true;
+
+        const cachedCourtSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, 'courts');
+        const courtSubscribed = cachedCourtSubs ? await this.subscribeByCourt(userId, cachedCourtSubs) : true;
+
+        return caseSubscribed && courtSubscribed;
+    }
+
+    private async subscribeByCase(userId, cachedCaseSubs) {
         let subscribed = true;
-        const casesType = 'cases';
-        const courtsType = 'courts';
-        const cachedCaseSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, casesType);
-        const cachedCourtSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, courtsType);
-        if (cachedCaseSubs) {
-            for (const cachedCase of cachedCaseSubs) {
-                const response = await subscriptionRequests.subscribe(
-                    this.createSubscriptionPayload(cachedCase, casesType, userId),
-                    userId
-                );
-                response
-                    ? await this.removeFromCache({ case: cachedCase.caseNumber }, userId)
-                    : (subscribed = response);
+        for (const cachedCase of cachedCaseSubs) {
+            const response = await subscriptionRequests.subscribe(
+                this.createSubscriptionPayload(cachedCase, 'cases', userId),
+                userId
+            );
+
+            if (response) {
+                const caseRef = cachedCase.caseNumber ? cachedCase.caseNumber : cachedCase.caseUrn;
+                await this.removeFromCache({ case: caseRef }, userId);
+            } else {
+                subscribed = false;
             }
         }
-        if (cachedCourtSubs) {
-            for (const cachedCourt of cachedCourtSubs) {
-                cachedCourt['listType'] = await this.generateListTypesForNewSubscription(userId);
-                const response = await subscriptionRequests.subscribe(
-                    this.createSubscriptionPayload(cachedCourt, courtsType, userId),
-                    userId
-                );
-                response
-                    ? await this.removeFromCache({ court: cachedCourt.locationId }, userId)
-                    : (subscribed = response);
+        return subscribed;
+    }
+
+    private async subscribeByCourt(userId, cachedCourtSubs) {
+        let subscribed = true;
+        for (const cachedCourt of cachedCourtSubs) {
+            cachedCourt['listType'] = await this.generateListTypesForNewSubscription(userId);
+            const response = await subscriptionRequests.subscribe(
+                this.createSubscriptionPayload(cachedCourt, 'courts', userId),
+                userId
+            );
+
+            if (response) {
+                await this.removeFromCache({ court: cachedCourt.locationId }, userId);
+            } else {
+                subscribed = false;
             }
         }
         return subscribed;
