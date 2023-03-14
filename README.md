@@ -11,6 +11,7 @@ The Publishing & Information Hub will be responsible for the following:
 
 ## Getting Started
 
+
 ### Prerequisites
 
 Running the application requires the following tools to be installed in your environment:
