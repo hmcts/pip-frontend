@@ -296,7 +296,7 @@ describe('getSubscriptionDataForView function', () => {
             expect(subscriptionData.caseTableData[3][0].text).toBe('Case Name');
             expect(subscriptionData.caseTableData[3][1].text).toBeNull();
             expect(subscriptionData.caseTableData[4][0].text).toBeNull();
-            expect(subscriptionData.caseTableData[4][1].text).toBeNull();
+            expect(subscriptionData.caseTableData[4][1].text).toBe('1234512346');
         });
     });
 
