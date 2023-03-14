@@ -443,8 +443,13 @@ export class SubscriptionService {
 
         const applicableListTypes = await this.generateAppropriateListTypes(userId, userRole);
 
-        const filterOptions = this.buildFilterValueOptions(applicableListTypes, filterValues, language);
+        return {
+            listOptions: this.generateAlphabetisedListTypes(filterValues, applicableListTypes, language),
+            filterOptions: this.buildFilterValueOptions(applicableListTypes, filterValues, language),
+        };
+    }
 
+    private generateAlphabetisedListTypes(filterValues, applicableListTypes, language) {
         const alphabetisedListTypes = AToZHelper.generateAlphabetObject();
 
         if (filterValues.length == 0) {
@@ -469,10 +474,7 @@ export class SubscriptionService {
             }
         }
 
-        return {
-            listOptions: alphabetisedListTypes,
-            filterOptions: filterOptions,
-        };
+        return alphabetisedListTypes;
     }
 
     private async generateAppropriateListTypes(userId, userRole): Promise<Map<string, ListType>> {
