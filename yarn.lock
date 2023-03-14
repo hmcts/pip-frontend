@@ -10771,6 +10771,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"magic-string@npm:^0.25.7":
+  version: 0.25.9
+  resolution: "magic-string@npm:0.25.9"
+  dependencies:
+    sourcemap-codec: ^1.4.8
+  checksum: 9a0e55a15c7303fc360f9572a71cffba1f61451bc92c5602b1206c9d17f492403bf96f946dfce7483e66822d6b74607262e24392e87b0ac27b786e69a40e9b1a
+  languageName: node
+  linkType: hard
+
 "make-dir@npm:^3.0.0, make-dir@npm:^3.0.2":
   version: 3.1.0
   resolution: "make-dir@npm:3.1.0"
