@@ -30,16 +30,9 @@ def setupTestSecrets() {
             secret('b2c-test-system-admin-account-provenance-id', 'SYSTEM_ADMIN_PROVENANCE_ID'),
             secret('test-user-id', 'VERIFIED_USER_ID'),
             secret('app-tenant', 'TENANT_ID'),
-            secret('app-pip-publication-services-id', 'CLIENT_ID_INTERNAL'),
-            secret('app-pip-publication-services-pwd', 'CLIENT_SECRET_INTERNAL')
-        ])
-    azureKeyVault(
-        keyVaultURL: "https://pip-ss-kv-stg.vault.azure.net/",
-        secrets: [
             secret('app-pip-frontend-id', 'CLIENT_ID_INTERNAL'),
             secret('app-pip-frontend-pwd', 'CLIENT_SECRET_INTERNAL')
         ])
-
 
         {
         env.B2C_USERNAME = "${B2C_USERNAME}"
