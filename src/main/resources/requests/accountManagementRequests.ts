@@ -2,6 +2,7 @@ import { accountManagementApi, accountManagementApiUrl, getAccountManagementCred
 import { Logger } from '@hmcts/nodejs-logging';
 import { MediaAccountApplication } from '../../models/MediaAccountApplication';
 import { DateTime } from 'luxon';
+import { StatusCodes } from 'http-status-codes';
 
 const superagent = require('superagent');
 const logger = Logger.getLogger('requests');
@@ -40,7 +41,7 @@ export class AccountManagementRequests {
                 headers: { 'x-issuer-id': requester },
             });
             logger.info('P&I account created');
-            return response.status === 201;
+            return response.status === StatusCodes.CREATED;
         } catch (error) {
             if (error.response) {
                 logger.error('Failed to create admin P&I on response');
@@ -175,7 +176,9 @@ export class AccountManagementRequests {
             return response.data;
         } catch (error) {
             if (error.response) {
-                logger.error('Failed to GET PI user request', error.response.data);
+                error.response.status === StatusCodes.NOT_FOUND
+                    ? logger.info(`Could not find CFT IDAM user with provenance user ID: ${uid}`)
+                    : logger.error('Failed to GET PI user request', error.response.data);
             } else {
                 logger.error('Something went wrong trying to get the pi user from the uid', error.message);
             }
@@ -339,7 +342,7 @@ export class AccountManagementRequests {
             return response.data;
         } catch (error) {
             if (error.response) {
-                if (error.response.status == 400) {
+                if (error.response.status == StatusCodes.BAD_REQUEST) {
                     error.response.data['error'] = true;
                     return error.response.data;
                 } else {
