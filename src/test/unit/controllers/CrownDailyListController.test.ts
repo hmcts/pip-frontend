@@ -25,7 +25,7 @@ const crownDailyListJsonStub = sinon.stub(PublicationService.prototype, 'getIndi
 const crownDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
-sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').returns(listData);
+sinon.stub(CrimeListsService.prototype, 'manipulateCrimeListData').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').returns(listData);
 
 const artefactId = 'abc';

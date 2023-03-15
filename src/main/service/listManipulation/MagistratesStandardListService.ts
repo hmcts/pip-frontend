@@ -42,7 +42,7 @@ export class MagistratesStandardListService {
     private processHearing(sitting, language) {
         const allDefendants = [];
         sitting['hearing'].forEach(hearing => {
-            hearing?.party?.forEach(party => {
+            hearing.party?.forEach(party => {
                 const allOffences = [];
                 const hearingString = JSON.stringify(hearing);
                 const hearingObject = JSON.parse(hearingString);

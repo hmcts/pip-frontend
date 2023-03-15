@@ -10,7 +10,7 @@ const separator = ', ';
  *   Magistrates Public List
  */
 export class CrimeListsService {
-    public manipulatedCrimeListData(crimeListData: string, language: string, languageFile: string): object {
+    public manipulateCrimeListData(crimeListData: string, language: string, languageFile: string): object {
         const crownDailyListData = JSON.parse(crimeListData);
         crownDailyListData['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
@@ -92,14 +92,13 @@ export class CrimeListsService {
         let linkedCases = '';
         let listingNotes = '';
 
-        hearing?.case.forEach(cases => {
+        hearing.case.forEach(cases => {
             linkedCases = '';
-            if (cases?.caseLinked) {
-                cases.caseLinked.forEach(caseLinked => {
-                    linkedCases += caseLinked.caseId.trim();
-                    linkedCases += helperService.stringDelimiter(linkedCases?.length, ',');
-                });
-            }
+            cases.caseLinked?.forEach(caseLinked => {
+                linkedCases += caseLinked.caseId.trim();
+                linkedCases += helperService.stringDelimiter(linkedCases?.length, ',');
+            });
+
             cases['linkedCases'] = linkedCases?.replace(/,\s*$/, '').trim();
         });
 
