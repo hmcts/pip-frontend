@@ -1218,6 +1218,7 @@ describe('System Admin level journeys', () => {
     describe('should open bulk create media accounts page', async () => {
         before(async () => {
             await systemAdminDashboard.open('/system-admin-dashboard');
+            systemAdminDashboard.removeOverlay();
         });
 
         it('should load the bulk create media accounts page', async () => {
