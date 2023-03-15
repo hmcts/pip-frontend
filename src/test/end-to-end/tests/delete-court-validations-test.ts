@@ -1,12 +1,12 @@
-import {DateTime} from 'luxon';
-import {createLocation, createSubscription, uploadPublication} from '../shared/testingSupportApi';
+import { DateTime } from 'luxon';
+import { createLocation, createSubscription, uploadPublication } from '../shared/testingSupportApi';
 
 Feature('Delete Location');
 Scenario(
     'I as a system admin should be able to delete court only when there are no active subscriptions or artefacts',
-    async ({I}) => {
-        const displayFrom = DateTime.now().toISO({includeOffset: false});
-        const displayTo = DateTime.now().plus({days: 1}).toISO({includeOffset: false});
+    async ({ I }) => {
+        const displayFrom = DateTime.now().toISO({ includeOffset: false });
+        const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
 
         const LOCATION_ID = '201';
         const LOCATION_NAME = 'TestCourt201';

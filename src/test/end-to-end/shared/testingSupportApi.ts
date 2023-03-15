@@ -1,5 +1,5 @@
 import superagent from 'superagent';
-import {config as testConfig} from '../../config';
+import { config as testConfig } from '../../config';
 import fs from 'fs';
 import {
     getDataManagementCredentials,
@@ -25,7 +25,7 @@ export const createLocation = async (csvFile: string) => {
         await superagent
             .post(`${testConfig.DATA_MANAGEMENT_BASE_URL}/locations/upload`)
             .set('enctype', 'multipart/form-data')
-            .set({Authorization: 'Bearer ' + token.access_token})
+            .set({ Authorization: 'Bearer ' + token.access_token })
             .attach('locationList', file.file.body, file.file.name);
     } catch (e) {
         throw new Error(`Failed to create location , http-status: ${e.response?.status}`);
@@ -38,7 +38,7 @@ export const deleteLocation = async (locationId: string) => {
         await superagent
             .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/locations/${locationId}`)
             .set('x-provenance-user-id', `${testConfig.SYSTEM_ADMIN_PROVENANCE_ID}`)
-            .set({Authorization: 'Bearer ' + token.access_token});
+            .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         throw new Error(`Failed to delete location with locationId: ${locationId}, http-status: ${e.response?.status}`);
     }
@@ -58,7 +58,7 @@ export const createSubscription = async (locationId: string, locationName: strin
         await superagent
             .post(`${testConfig.SUBSCRIPTION_MANAGEMENT_BASE_URL}/subscription`)
             .send(payload)
-            .set({Authorization: 'Bearer ' + token.access_token})
+            .set({ Authorization: 'Bearer ' + token.access_token })
             .set('x-user-id', `${testConfig.VERIFIED_USER_ID}`);
     } catch (e) {
         throw new Error(`Create subscription failed for: ${locationName}, http-status: ${e.response?.status}`);
@@ -70,7 +70,7 @@ export const deleteSubscription = async (userId: string) => {
     try {
         await superagent
             .delete(`${testConfig.SUBSCRIPTION_MANAGEMENT_BASE_URL}/subscription/user/${userId}`)
-            .set({Authorization: 'Bearer ' + token.access_token})
+            .set({ Authorization: 'Bearer ' + token.access_token })
             .set('x-user-id', `${testConfig.VERIFIED_USER_ID}`);
     } catch (e) {
         throw new Error(`Delete subscription failed for: ${userId}, http-status: ${e.response?.status}`);
@@ -102,7 +102,7 @@ export const uploadPublication = async (
             .set('x-court-id', locationId)
             .set('x-content-date', displayFrom)
             .set('Content-Type', 'application/json')
-            .set({Authorization: 'Bearer ' + token.access_token});
+            .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         throw new Error(`Failed to upload publication for: ${locationId}, http-status: ${e.response?.status}`);
     }
@@ -114,7 +114,7 @@ export const deletePublicationForCourt = async (locationId: string) => {
         await superagent
             .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/publication/${locationId}/deleteArtefacts`)
             .set('x-provenance-user-id', `${testConfig.SYSTEM_ADMIN_PROVENANCE_ID}`)
-            .set({Authorization: 'Bearer ' + token.access_token});
+            .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         throw new Error(`Failed to delete artefact for: ${locationId}, http-status: ${e.response?.status}`);
     }
