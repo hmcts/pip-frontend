@@ -52,7 +52,8 @@ sscsDailyListMetaDataStub.withArgs('', userId).resolves([]);
 const i18n = {
     'sscs-daily-list': { warning: 'warning1' },
     'sscs-daily-list-additional-hearings': { warning: 'warning2' },
-    'list-template': {},
+    'list-template': { testListTemplate: 'test' },
+    'open-justice-statement': { testStatement: 'test' },
 };
 
 const response = {
@@ -74,6 +75,7 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])(
             const expectedData = {
                 ...i18n[url.substring(1)],
                 ...i18n['list-template'],
+                ...i18n['open-justice-statement'],
                 listData,
                 contentDate: DateTime.fromISO(contentDate, { zone: 'utc' }).toFormat('dd MMMM yyyy'),
                 publishedDate: '14 September 2020',
