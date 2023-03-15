@@ -48,7 +48,7 @@ logger.info('policy', process.env.POLICY);
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser(config.get('secrets.pip-ss-kv.SESSION_SECRET')));
 app.use(express.static(path.join(__dirname, 'public')));
 const { redisClient } = require('./cacheManager');
 const session = require('express-session');
