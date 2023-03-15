@@ -37,6 +37,7 @@ export default class SscsDailyListController {
             let languageResource = {
                 ...req.i18n.getDataByLanguage(pageLanguage)[sscsUrl],
                 ...req.i18n.getDataByLanguage(pageLanguage)['list-template'],
+                ...req.i18n.getDataByLanguage(pageLanguage)['open-justice-statement'],
             };
 
             if (url === sscsAdditonalHearingsUrl) {
@@ -48,7 +49,6 @@ export default class SscsDailyListController {
 
             res.render(sscsUrl, {
                 ...cloneDeep(languageResource),
-
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,

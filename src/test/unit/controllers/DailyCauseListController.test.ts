@@ -46,7 +46,8 @@ dailyCauseListMetaDataStub.withArgs('').resolves([]);
 const i18n = {
     'daily-cause-list': {},
     'family-daily-cause-list': {},
-    'list-template': {},
+    'list-template': { testListTemplate: 'test' },
+    'open-justice-statement': { testStatement: 'test' },
 };
 
 describe('Daily Cause List Controller', () => {
@@ -67,6 +68,7 @@ describe('Daily Cause List Controller', () => {
         const expectedData = {
             ...i18n['family-daily-cause-list'],
             ...i18n['list-template'],
+            ...i18n['open-justice-statement'],
             listData,
             contentDate: DateTime.fromISO(metaDataFamily['contentDate'], {
                 zone: 'utc',
@@ -94,6 +96,7 @@ describe('Daily Cause List Controller', () => {
         const expectedData = {
             ...i18n['daily-cause-list'],
             ...i18n['list-template'],
+            ...i18n['open-justice-statement'],
             listData,
             contentDate: DateTime.fromISO(metaDataCivil['contentDate'], {
                 zone: 'utc',

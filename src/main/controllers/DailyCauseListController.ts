@@ -43,6 +43,7 @@ export default class DailyCauseListController {
             res.render(listToLoad, {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['open-justice-statement']),
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
