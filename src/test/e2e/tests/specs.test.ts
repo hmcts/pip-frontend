@@ -1234,7 +1234,6 @@ describe('System Admin level journeys', () => {
             );
         });
     });
-
     describe('sign out system admin dashboard', () => {
         before(async () => {
             await systemAdminDashboard.open('system-admin-dashboard');
