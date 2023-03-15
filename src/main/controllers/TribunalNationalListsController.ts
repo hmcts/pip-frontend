@@ -4,10 +4,12 @@ import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { TribunalNationalListsService } from '../service/listManipulation/TribunalNationalListsService';
+import { LocationService } from '../service/locationService';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
 const tribunalNationalListsService = new TribunalNationalListsService();
+const locationService = new LocationService();
 
 export default class TribunalNationalListsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -31,7 +33,13 @@ export default class TribunalNationalListsController {
 
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
+            const returnedCourt = await locationService.getLocationById(metaData['locationId']);
+            const courtName = locationService.findCourtName(returnedCourt, req.lng, listToLoad);
+
             res.render(listToLoad, {
+                // The 'open-justice-statement' resource needs to come before the list type resource so it can be
+                // overwritten by the statement in list types with specific open justice statement.
+                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['open-justice-statement']),
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
@@ -39,8 +47,10 @@ export default class TribunalNationalListsController {
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
                 provenance: metaData['provenance'],
-                bill: pageLanguage === 'bill',
+                courtName: courtName,
                 venueEmail: searchResults['venue']['venueContact']['venueEmail'],
+                venueTelephone: searchResults['venue']['venueContact']['venueTelephone'],
+                bill: pageLanguage === 'bill',
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
