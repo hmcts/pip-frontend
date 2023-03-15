@@ -68,7 +68,6 @@ describe('User management controller', () => {
     request.path = '/user-management';
 
     it('should render the user management page', async () => {
-        request.query = { clear: undefined };
         request.url = '/user-management';
 
         const responseMock = sinon.mock(response);

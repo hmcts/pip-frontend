@@ -9,14 +9,14 @@ export default class UserManagementController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         // If clear is in the query then call the handle function then redirect
         // to the page with the updated list of filter values
-        if (req.query.clear) {
+        if (req.query?.clear) {
             const responseBody = userManagementService.handleFilterClearing(req.query);
             const filterValues = userManagementService.generateFilterKeyValues(responseBody);
             res.redirect(`user-management?${filterValues}`);
         } else {
             const pageData = await userManagementService.getFormattedData(
                 new UserSearchCriteria(
-                    req.query.page,
+                    req.query?.page,
                     req.query?.email,
                     req.query?.userId,
                     req.query?.userProvenanceId,
