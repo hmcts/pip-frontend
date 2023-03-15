@@ -36,12 +36,16 @@
     </summary>
     <div class="govuk-details__text">
       <p>{{ importantInformationP1 }}</p>
-      <p>{{ importantInformationP2 | replace("NAME", courtName) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone'])}}</p>
+      <p>{{ importantInformationP2 | replace("NAME", courtName) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone']) }}</p>
       <p>{{ importantInformationP3 }}</p>
+      <p>{{ importantInformationP4 }}</p>
+      <p>{{ importantInformationP5 }} {{ openJusticeGuidance | urlize | safe }}.</p>
       {% if bill %}
-        <P>{{ importantInformationP4 }}</P>
-        <P>{{ importantInformationP5 | replace("NAME", courtName) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone'])}}</P>
         <P>{{ importantInformationP6 }}</P>
+        <P>{{ importantInformationP7 | replace("NAME", courtName) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone']) }}</P>
+        <P>{{ importantInformationP8 }}</P>
+        <P>{{ importantInformationP9 }}</P>
+        <p>{{ importantInformationP10 }} {{ openJusticeGuidance | urlize | safe }}.</p>
       {% endif %}
     </div>
   </details>
