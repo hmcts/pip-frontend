@@ -15,7 +15,7 @@ const crownDailyData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(crownDailyData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(crownDailyData);
 sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedCivilListData').resolves(crownDailyData);
-sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').resolves(crownDailyData);
+sinon.stub(CrimeListsService.prototype, 'manipulateCrimeListData').resolves(crownDailyData);
 sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').resolves(crownDailyData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
 
