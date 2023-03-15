@@ -58,7 +58,7 @@ app.use(
         store: new RedisStore({ client: redisClient }),
         name: 'session',
         secret: [config.get('secrets.pip-ss-kv.SESSION_SECRET')],
-        cookie: { secure: true, httpOnly: false },
+        cookie: { secure: false },
         resave: false, // required: force lightweight session keep alive (touch)
         saveUninitialized: false, // recommended: only save session when data exists
     })
