@@ -633,7 +633,14 @@ describe('Account Management Requests', () => {
 
     describe('Update user by user id', () => {
         const idtoUse = '123';
+        const adminIdToUse = '1234';
         const role = 'SYSTEM_ADMIN';
+
+        const errorResponseWith403 = {
+            response: {
+                status: 403,
+            },
+        };
 
         beforeEach(() => {
             sinon.restore();
@@ -641,11 +648,17 @@ describe('Account Management Requests', () => {
         });
 
         it('should return updated user on success', async () => {
-            putStub.withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`).resolves({
-                status: 200,
-                data: { userId: '321', userProvenance: 'userProvenance' },
-            });
-            const response = await accountManagementRequests.updateUser(idtoUse, role, '1234');
+            putStub
+                .withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`, null, {
+                    headers: {
+                        'x-admin-id': adminIdToUse,
+                    },
+                })
+                .resolves({
+                    status: 200,
+                    data: { userId: '321', userProvenance: 'userProvenance' },
+                });
+            const response = await accountManagementRequests.updateUser(idtoUse, role, adminIdToUse);
             expect(response).toStrictEqual({
                 userId: '321',
                 userProvenance: 'userProvenance',
@@ -654,14 +667,20 @@ describe('Account Management Requests', () => {
 
         it('should return null on error response', async () => {
             putStub.withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`).rejects(errorResponse);
-            const response = await accountManagementRequests.updateUser(idtoUse, role, '1234');
+            const response = await accountManagementRequests.updateUser(idtoUse, role, adminIdToUse);
             expect(response).toBe(null);
         });
 
         it('should return null on error message', async () => {
             putStub.withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`).rejects(errorMessage);
-            const response = await accountManagementRequests.updateUser(idtoUse, role, '1234');
+            const response = await accountManagementRequests.updateUser(idtoUse, role, adminIdToUse);
             expect(response).toBe(null);
+        });
+
+        it('should return FORBIDDEN if error response contains 403', async () => {
+            putStub.withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`).rejects(errorResponseWith403);
+            const response = await accountManagementRequests.updateUser(idtoUse, role, adminIdToUse);
+            expect(response).toBe('FORBIDDEN');
         });
     });
 

@@ -391,16 +391,12 @@ export default function (app: Application): void {
     );
     app.get('/manage-user', isPermittedAccountCreation, app.locals.container.cradle.manageUserController.get);
     app.get('/update-user', isPermittedAccountCreation, app.locals.container.cradle.updateUserController.get);
+    app.post('/update-user', isPermittedAccountCreation, app.locals.container.cradle.updateUserController.post);
     app.get('/delete-user', isPermittedAccountCreation, app.locals.container.cradle.deleteUserController.get);
     app.post(
         '/delete-user-confirmation',
         isPermittedAccountCreation,
         app.locals.container.cradle.deleteUserConfirmationController.post
-    );
-    app.post(
-        '/update-user-confirmation',
-        isPermittedAccountCreation,
-        app.locals.container.cradle.updateUserConfirmationController.post
     );
 
     //system-admin-restricted-paths
