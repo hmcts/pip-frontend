@@ -26,6 +26,7 @@
   {% include "webpack/css.njk" %}
 {% endblock %}
 
+
 {% block header %}
   {{ govukHeader({
     homepageUrl: "https://www.gov.uk/",
@@ -41,6 +42,13 @@
       window.location.search = searchParams.toString();
 
   }</script>
+    {% if branchName != 'master' %}
+    {{ govukPhaseBanner ({
+        tag: {
+            text: branchName
+        }
+    }) }}
+    {% endif %}
   {% if user.roles and 'ADMIN' in user.roles %}
     {% set betaDisplay = betaHeadingAdmin %}
   {% else %}
