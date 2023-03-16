@@ -4,6 +4,7 @@ import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 import { request as expressRequest } from 'express';
+import { UserManagementService } from '../../../main/service/userManagementService';
 
 const PAGE_URL = '/update-user?id=1234';
 const headingClass = 'govuk-heading-l';
@@ -11,7 +12,11 @@ const insetTextClass = 'govuk-inset-text';
 const roleSelectBoxClass = 'govuk-select';
 const buttonClass = 'govuk-button';
 let htmlRes: Document;
+const errorSummaryClass = 'govuk-error-summary';
+const errorSummaryTitleClass = 'govuk-error-summary__title';
+const errorSummaryBodyClass = 'govuk-error-summary__body';
 
+sinon.stub(UserManagementService.prototype, 'auditAction').resolves({});
 sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves({
     userId: '1234',
     userProvenance: 'PI_AAD',
@@ -57,5 +62,35 @@ describe('Update User Page', () => {
     it('should display the continue button', () => {
         const button = htmlRes.getElementsByClassName(buttonClass);
         expect(button[4].innerHTML).contains('Continue', 'Could not find the continue button');
+    });
+
+    it('should not display error summary on the initial load', () => {
+        const errorBox = htmlRes.getElementsByClassName(errorSummaryClass);
+        expect(errorBox.length).equal(0, 'Error summary should not be displayed');
+    });
+});
+
+describe('Update User Page with error', () => {
+    beforeAll(async () => {
+        expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
+
+        await request(app)
+            .get(PAGE_URL + '&error=true')
+            .then(res => {
+                htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+            });
+    });
+
+    it('should display same user error message', () => {
+        const errorSummary = htmlRes.getElementsByClassName(errorSummaryBodyClass);
+        expect(errorSummary[0].innerHTML).contains(
+            'You are unable to update the role for the same user you are logged in as',
+            'Could not find error message'
+        );
+    });
+
+    it('should display same user error title', () => {
+        const errorTitle = htmlRes.getElementsByClassName(errorSummaryTitleClass);
+        expect(errorTitle[0].innerHTML).contains('There is a problem', 'Could not find error title');
     });
 });

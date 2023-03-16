@@ -4,8 +4,9 @@ import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 import { request as expressRequest } from 'express';
+import { UserManagementService } from '../../../main/service/userManagementService';
 
-const PAGE_URL = '/update-user-confirmation';
+const PAGE_URL = '/update-user';
 const validBody = { userId: '1234', updatedRole: 'SYSTEM_ADMIN' };
 const panelHeadingClass = 'govuk-panel__title';
 const panelBodyClass = 'govuk-panel__body';
@@ -13,6 +14,7 @@ const linkClass = 'govuk-link';
 const listClass = 'govuk-list';
 let htmlRes: Document;
 
+sinon.stub(UserManagementService.prototype, 'auditAction').resolves({});
 const stub = sinon.stub(AccountManagementRequests.prototype, 'updateUser');
 stub.withArgs('1234', 'SYSTEM_ADMIN').resolves(true);
 
