@@ -6,10 +6,11 @@ import path from 'path';
 import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
 import { PublicationService } from '../../../main/service/publicationService';
 
-const caseNameValue = 'test';
 const caseNumberValue = '123';
 const caseUrnValue = '456';
-const caseName = 'test name 1';
+const fullCaseNameValue = 'test name 1';
+const partialCaseNameValue = 'test';
+const UppercaseCaseNameValue = 'TEST NAME 2';
 const userId = '123';
 
 const returnedArtefact = [
@@ -20,6 +21,9 @@ const returnedArtefact = [
                 { caseNumber: '123', caseName: 'test name 1', caseUrn: '321' },
                 { caseNumber: '321', caseName: 'NaMe TesT', caseUrn: '456' },
                 { caseNumber: '432', caseName: 'not in', caseUrn: '867' },
+                { caseNumber: '998', caseUrn: '888' },
+                { caseNumber: '999', caseName: 'test name 2' },
+                { caseName: 'test name 3', caseUrn: '889' },
             ],
         },
     },
@@ -70,15 +74,23 @@ stubPublicationDeletion.withArgs(2, requester).returns(null);
 
 describe('Publication service', () => {
     it('should return array of Search Objects based on partial case name', async () => {
-        const results = await publicationService.getCasesByCaseName(caseNameValue, userId);
-        expect(results.length).to.equal(2);
-        expect(results).not.contain(returnedArtefact[0].search.cases[2]);
+        const results = await publicationService.getCasesByCaseName(partialCaseNameValue, userId);
+        expect(results.length).to.equal(4);
+        expect(results)
+            .not.contain(returnedArtefact[0].search.cases[2])
+            .not.contain(returnedArtefact[0].search.cases[3]);
     });
 
     it('should return one case if it exists in multiple artefacts', async () => {
-        const results = await publicationService.getCasesByCaseName(caseName, userId);
+        const results = await publicationService.getCasesByCaseName(fullCaseNameValue, userId);
         expect(results.length).to.equal(1);
-        expect(results).to.contain(returnedArtefact[0].search.cases[0]);
+        expect(results[0]).to.equal(returnedArtefact[0].search.cases[0]);
+    });
+
+    it('should return search case for case name with mismatched casing', async () => {
+        const results = await publicationService.getCasesByCaseName(UppercaseCaseNameValue, userId);
+        expect(results.length).to.equal(1);
+        expect(results[0]).to.equal(returnedArtefact[0].search.cases[4]);
     });
 
     it('should return Search Object matching case number', async () => {
@@ -109,7 +121,7 @@ describe('Publication service', () => {
         expect(sjpResult['restrictedProvenances']).to.deep.equal([]);
     });
 
-    describe('getIndivPubJson Service', () => {
+    describe('getIndividualPublicationJson Service', () => {
         it('should return publication json', () => {
             return publicationService.getIndividualPublicationJson('', userId).then(data => {
                 expect(data['courtLists'].length).to.equal(4);
@@ -129,7 +141,7 @@ describe('Publication service', () => {
         });
     });
 
-    describe('getIndivPubMetadata Publication Service', () => {
+    describe('getIndividualPublicationMetadata Publication Service', () => {
         it('should return publication meta object', () => {
             return publicationService.getIndividualPublicationMetadata('', userId).then(data => {
                 expect(data['contentDate']).to.equal('2022-02-14T14:14:59.73967');
