@@ -42,7 +42,7 @@
       window.location.search = searchParams.toString();
 
   }</script>
-    {% if branchName != 'master' %}
+    {% if branchName and branchname != 'master' %}
     {{ govukPhaseBanner ({
         tag: {
             text: branchName

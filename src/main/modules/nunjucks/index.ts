@@ -32,8 +32,8 @@ export class Nunjucks {
         const addFilters = require('./njkFilters');
         addFilters(env);
         const gitBranchName = () => {
-            const headFilePath = path.join( __dirname,'../../../../', '.git', 'HEAD');
             try {
+                const headFilePath = path.join(__dirname, '../../../../', '.git', 'HEAD');
                 const headContents = fs.readFileSync(headFilePath, { encoding: 'utf8' });
                 const refPath = headContents.trim().replace('ref: ', '');
                 return path.basename(refPath);
@@ -45,7 +45,7 @@ export class Nunjucks {
         app.use((req, res, next) => {
             res.locals.pagePath = req.path;
             res.locals.lng = req['lng'];
-            res.locals.branchName = gitBranchName()
+            res.locals.branchName = gitBranchName();
             next();
         });
     }
