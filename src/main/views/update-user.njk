@@ -4,7 +4,7 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
-
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
@@ -18,11 +18,21 @@
 
 {% block content %}
   <div class="parent-box">
+      {% if error %}
+          {{ govukErrorSummary({
+              titleText: errorTitle,
+              errorList: [
+                  {
+                      text: errorMessage
+                  }
+              ]
+          }) }}
+      {% endif %}
     <h1 class="govuk-heading-l">{{ header | replace("EMAIL", email ) }}</h1>
     {{ govukInsetText({
       text: subHeading | replace("ROLE", currentRole )
     }) }}
-    <form action="update-user-confirmation" method="post">
+    <form action="update-user" method="post">
       {{ govukInput({
         id: "userId",
         name: "userId",
