@@ -666,6 +666,32 @@ describe('generateListTypesForCourts', () => {
         expect(civilFilter['checked']).toBeFalsy();
     });
 
+    it('Test sorting of lists in english', async () => {
+        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crown'] });
+
+        const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', '', '', 'en');
+
+        const listOptions = result['listOptions'];
+        const listTypes = listOptions['C'];
+        const keys = Object.keys(listTypes);
+
+        expect(keys[0]).toEqual('CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
+        expect(keys[5]).toEqual('CROWN_WARNED_LIST');
+    });
+
+    it('Test sorting of lists in welsh', async () => {
+        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crown'] });
+
+        const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', '', '', 'cy');
+
+        const listOptions = result['listOptions'];
+        const listTypes = listOptions['R'];
+        const keys = Object.keys(listTypes);
+
+        expect(keys[0]).toEqual('COP_DAILY_CAUSE_LIST');
+        expect(keys[7]).toEqual('MAGISTRATES_STANDARD_LIST');
+    });
+
     it('generate list types with no filters with no selected in Welsh', async () => {
         locationStub.withArgs(1).resolves({ jurisdiction: ['Civil'] });
 
@@ -675,9 +701,10 @@ describe('generateListTypesForCourts', () => {
         expect(result['filterOptions']).toBeDefined();
 
         const listOptions = result['listOptions'];
-        expect(listOptions['C']).toBeDefined();
+        expect(listOptions['R']).toBeDefined();
 
-        const listTypes = listOptions['C'];
+        const listTypes = listOptions['R'];
+
         expect(listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST']).toBeDefined();
         expect(listTypes['CIVIL_DAILY_CAUSE_LIST']).toBeDefined();
         expect(listTypes['COP_DAILY_CAUSE_LIST']).toBeDefined();
@@ -752,9 +779,9 @@ describe('generateListTypesForCourts', () => {
         expect(result['filterOptions']).toBeDefined();
 
         const listOptions = result['listOptions'];
-        expect(listOptions['C']).toBeDefined();
+        expect(listOptions['R']).toBeDefined();
 
-        const listTypes = listOptions['C'];
+        const listTypes = listOptions['R'];
         expect(listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST']).toBeDefined();
         expect(listTypes['CIVIL_DAILY_CAUSE_LIST']).toBeDefined();
         expect(listTypes['COP_DAILY_CAUSE_LIST']).toBeDefined();
