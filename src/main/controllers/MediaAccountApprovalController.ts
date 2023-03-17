@@ -2,8 +2,10 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { MediaAccountApplicationService } from '../service/mediaAccountApplicationService';
+import { UserManagementService } from '../service/userManagementService';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
+const userManagementService = new UserManagementService();
 
 export default class MediaAccountApprovalController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -56,6 +58,11 @@ export default class MediaAccountApprovalController {
      */
     private static async approvalFlow(req, res, applicantId, applicantData): Promise<void> {
         if (await mediaAccountApplicationService.createAccountFromApplication(applicantId, req.user?.['userId'])) {
+            await userManagementService.auditAction(
+                req.user,
+                'APPROVE_MEDIA_APPLICATION',
+                `Media application with id ${applicantId} approved`
+            );
             return res.redirect('/media-account-approval-confirmation?applicantId=' + applicantId);
         } else {
             return res.render('media-account-approval', {

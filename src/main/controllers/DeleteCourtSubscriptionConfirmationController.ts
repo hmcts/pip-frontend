@@ -46,12 +46,7 @@ export default class DeleteCourtSubscriptionConfirmationController {
                             : 'Unknown error when attempting to delete all the artefacts for the court',
                 });
             } else {
-                await userManagementService.auditAction(
-                    req.user['userId'],
-                    req.user['email'],
-                    action,
-                    response.toString()
-                );
+                await userManagementService.auditAction(req.user, action, response.toString());
                 res.redirect(successPage + '?locationId=' + formData.locationId);
             }
         } else if (formData['delete-choice'] == 'no') {
