@@ -282,6 +282,10 @@ tbody {
     @extend %govuk-body !optional;
 }
 
+#branch-bar .govuk-phase-banner__content {
+    display: block;
+}
+
 div {
     .cards-wrapper {
         display: flex;
