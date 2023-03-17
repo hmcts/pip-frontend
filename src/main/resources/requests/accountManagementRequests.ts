@@ -280,16 +280,30 @@ export class AccountManagementRequests {
         }
     }
 
-    public async updateUser(userId: string, role: string, adminUserId: string): Promise<object> {
+    public async updateUser(userId: string, role: string, adminUserId: string): Promise<object | string> {
         try {
-            logger.info('User with ID: ' + userId + ' role updated to ' + role + ' by Admin with ID: ' + adminUserId);
-            const response = await accountManagementApi.put(`/account/update/${userId}/${role}`);
+            logger.info(
+                'User with ID: ' +
+                    userId +
+                    ' role attempting to be updated to ' +
+                    role +
+                    ' by Admin with ID: ' +
+                    adminUserId
+            );
+            const response = await accountManagementApi.put(`/account/update/${userId}/${role}`, null, {
+                headers: {
+                    'x-admin-id': adminUserId,
+                },
+            });
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
+            if (error.response && error.response.status === 403) {
+                logger.info('Admin user with ID: ' + adminUserId + ' has failed to update user with role');
+                return 'FORBIDDEN';
+            } else if (error.response) {
+                logger.info(error.response.data);
             } else {
-                console.log(`ERROR: ${error.message}`);
+                logger.info(`ERROR: ${error.message}`);
             }
             return null;
         }
