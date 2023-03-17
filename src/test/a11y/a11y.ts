@@ -94,6 +94,7 @@ const systemAdminRoutes = [
     '/delete-court-subscription-success',
     '/delete-court-publication-confirmation',
     '/delete-court-publication-success',
+    '/audit-log-details',
 ];
 
 let rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');

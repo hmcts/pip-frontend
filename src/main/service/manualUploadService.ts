@@ -203,7 +203,7 @@ export class ManualUploadService {
         return { courtName: courtName, locationId: court?.locationId };
     }
 
-    public async uploadPublication(data: any, ISODateFormat: boolean): Promise<boolean> {
+    public async uploadPublication(data: any, ISODateFormat: boolean): Promise<string> {
         if (fileHandlingService.getFileExtension(data.fileName) === 'json') {
             return await dataManagementRequests.uploadJSONPublication(
                 data,

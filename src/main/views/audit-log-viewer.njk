@@ -16,9 +16,26 @@
       <h1 class="govuk-heading-l">{{ title }}</h1>
     </div>
     <div class="parent-box">
+      {% set tableRows = [] %}
+      {% for row in auditLogData %}
+        {% set _ = tableRows.push([
+          {
+            text: row.timestamp
+          },
+          {
+            text: row.email
+          },
+          {
+            text: row.action
+          },
+          {
+            html: "<a class='govuk-link' id='view-details-link' href='audit-log-details?id=" + row.id + "&timestamp=" + row.timestamp + "'>View</a>"
+          }
+        ]) %}
+      {% endfor %}
       {{ govukTable({
         head: header,
-        rows: auditLogData
+        rows: tableRows
       }) }}
       {{ govukPagination(paginationData) }}
     </div>
