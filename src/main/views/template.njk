@@ -42,10 +42,13 @@
       window.location.search = searchParams.toString();
 
   }</script>
-    {% if branchName and branchname != 'master' %}
+    {% if env != 'production' %}
     {{ govukPhaseBanner ({
         tag: {
             text: branchName
+        },
+        attributes: {
+            id: "branchBar"
         }
     }) }}
     {% endif %}

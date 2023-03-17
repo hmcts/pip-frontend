@@ -51,12 +51,12 @@ describe('View Option Page', () => {
         it('should display the beta header', () => {
             window.location.assign('http://localhost:8080/view-option');
             const betaHeader = htmlRes.getElementsByClassName('govuk-phase-banner');
-            expect(betaHeader[0].innerHTML).contains('beta', 'Could not locate beta heading.');
-            expect(betaHeader[0].innerHTML).contains(
+            expect(betaHeader[1].innerHTML).contains('beta', 'Could not locate beta heading.');
+            expect(betaHeader[1].innerHTML).contains(
                 'https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl',
                 'link is broken in the beta heading.'
             );
-            expect(betaHeader[0].innerHTML).contains('Cymraeg', 'Welsh toggle is not working!');
+            expect(betaHeader[1].innerHTML).contains('Cymraeg', 'Welsh toggle is not working!');
         });
 
         it('should display radio buttons with valid text', () => {

@@ -46,6 +46,7 @@ export class Nunjucks {
             res.locals.pagePath = req.path;
             res.locals.lng = req['lng'];
             res.locals.branchName = gitBranchName();
+            res.locals.env = process.env.NODE_ENV;
             next();
         });
     }

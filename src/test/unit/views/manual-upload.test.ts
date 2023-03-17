@@ -61,6 +61,7 @@ describe('Manual upload page', () => {
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                     htmlRes.getElementsByTagName('div')[0].remove();
+                    htmlRes.getElementById('branchBar').remove();
                     formElements = htmlRes.getElementById('form-wrapper');
                 });
         });
