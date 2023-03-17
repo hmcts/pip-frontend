@@ -1,0 +1,23 @@
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import goBack %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+
+{% block content %}
+    <div class="parent-box">
+        <h1 class="govuk-heading-l">{{ heading }} {{ timestamp }}</h1>
+        {{ govukSummaryList(formattedData)}}
+    </div>
+{% endblock %}
+
+{% block bodyEnd %}
+    {{ super() }}
+{% endblock %}

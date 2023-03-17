@@ -35,8 +35,7 @@ export default class DeleteCourtReferenceDataConfirmationController {
 
                 if (response !== null && response['exists']) {
                     await userManagementService.auditAction(
-                        req.user['userId'],
-                        req.user['email'],
+                        req.user,
                         'DELETE_LOCATION_ATTEMPT',
                         'Location attempted to be deleted with id: ' + formData.locationId
                     );
@@ -48,8 +47,7 @@ export default class DeleteCourtReferenceDataConfirmationController {
                     });
                 } else if (response === null) {
                     await userManagementService.auditAction(
-                        req.user['userId'],
-                        req.user['email'],
+                        req.user,
                         'DELETE_LOCATION_ATTEMPT',
                         'Location attempted to be deleted with id: ' + formData.locationId
                     );
@@ -61,8 +59,7 @@ export default class DeleteCourtReferenceDataConfirmationController {
                     });
                 } else {
                     await userManagementService.auditAction(
-                        req.user['userId'],
-                        req.user['email'],
+                        req.user,
                         'DELETE_LOCATION_SUCCESS',
                         'Location has been deleted with id: ' + formData.locationId
                     );
