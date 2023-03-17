@@ -36,18 +36,13 @@ describe('Audit Log Viewer Page', () => {
         expect(tableHeader[0].innerHTML).contains('Timestamp', 'Could not find the header');
     });
 
-    it('Should display Email/User ID in table header', () => {
+    it('Should display Email in table header', () => {
         const tableHeader = htmlRes.getElementsByClassName(tableHeaderClass);
-        expect(tableHeader[1].innerHTML).contains('Email/User ID', 'Could not find the header');
+        expect(tableHeader[1].innerHTML).contains('Email', 'Could not find the header');
     });
 
     it('Should display Action in table header', () => {
         const tableHeader = htmlRes.getElementsByClassName(tableHeaderClass);
         expect(tableHeader[2].innerHTML).contains('Action', 'Could not find the header');
-    });
-
-    it('Should display Details in table header', () => {
-        const tableHeader = htmlRes.getElementsByClassName(tableHeaderClass);
-        expect(tableHeader[3].innerHTML).contains('Details', 'Could not find the header');
     });
 });

@@ -2,6 +2,8 @@ import { AccountManagementRequests } from '../resources/requests/accountManageme
 
 const accountManagementRequests = new AccountManagementRequests();
 import { DateTime } from 'luxon';
+import { formattedProvenances, formattedRoles } from '../models/consts';
+
 export class AuditLogService {
     /**
      * Returns the headers for the audit log table.
@@ -9,9 +11,9 @@ export class AuditLogService {
     public getTableHeaders() {
         return [
             { text: 'Timestamp', classes: 'govuk-!-padding-top-0' },
-            { text: 'Email/User ID', classes: 'govuk-!-padding-top-0' },
+            { text: 'Email', classes: 'govuk-!-padding-top-0' },
             { text: 'Action', classes: 'govuk-!-padding-top-0' },
-            { text: 'Details', classes: 'govuk-!-padding-top-0' },
+            { text: '', classes: 'govuk-!-padding-top-0' },
         ];
     }
 
@@ -29,6 +31,29 @@ export class AuditLogService {
                 rawData?.last
             ),
             auditLogData: this.formatPageData(rawData?.content),
+        };
+    }
+
+    public async buildAuditLogDetailsSummaryList(id: string): Promise<object> {
+        const auditLog = await accountManagementRequests.getAuditLogById(id);
+        const rows = [];
+
+        if (auditLog) {
+            rows.push(this.buildSummaryListItem('User ID', auditLog.userId));
+            rows.push(this.buildSummaryListItem('Email', auditLog.userEmail));
+            rows.push(this.buildSummaryListItem('Role', formattedRoles[auditLog.roles]));
+            rows.push(this.buildSummaryListItem('Provenance', formattedProvenances[auditLog.userProvenance]));
+            rows.push(this.buildSummaryListItem('Action', auditLog.action));
+            rows.push(this.buildSummaryListItem('Details', auditLog.details));
+        }
+
+        return { rows };
+    }
+
+    private buildSummaryListItem(headingText: string, rowValue: string): object {
+        return {
+            key: { text: headingText },
+            value: { text: rowValue },
         };
     }
 
@@ -63,12 +88,12 @@ export class AuditLogService {
         const auditLogData = [];
         if (rawData.length > 0) {
             rawData.forEach(auditLog => {
-                const auditLogArray = [];
-                auditLogArray.push({ text: this.formatDate(auditLog.timestamp) });
-                auditLogArray.push({ text: auditLog.userEmail + '\n' + auditLog.userId });
-                auditLogArray.push({ text: auditLog.action });
-                auditLogArray.push({ text: auditLog.details });
-                auditLogData.push(auditLogArray);
+                auditLogData.push({
+                    id: auditLog.id,
+                    email: auditLog.userEmail,
+                    action: auditLog.action,
+                    timestamp: this.formatDate(auditLog.timestamp),
+                });
             });
         }
         return auditLogData;

@@ -65,9 +65,12 @@ const englishLanguage = 'en';
 const welshLanguage = 'cy';
 const languageFile = 'manual-upload';
 
+const jsonUploadArtefactId = '123';
+const fileUploadArtefactId = '456';
+
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtData);
-sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(true);
-sinon.stub(DataManagementRequests.prototype, 'uploadJSONPublication').resolves(true);
+sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(fileUploadArtefactId);
+sinon.stub(DataManagementRequests.prototype, 'uploadJSONPublication').resolves(jsonUploadArtefactId);
 sinon.stub(DataManagementRequests.prototype, 'uploadLocationFile').resolves(true);
 
 describe('Manual upload service', () => {
@@ -315,7 +318,7 @@ describe('Manual upload service', () => {
 
     it('should upload a publication', async () => {
         const fileUpload = await manualUploadService.uploadPublication(headers, true);
-        expect(fileUpload).to.be.true;
+        expect(fileUpload).to.equal(fileUploadArtefactId);
     });
 
     it('should upload a reference data file', async () => {
@@ -327,7 +330,7 @@ describe('Manual upload service', () => {
         const data = headers;
         data.fileName = 'test.json';
         const fileUpload = await manualUploadService.uploadPublication(data, true);
-        expect(fileUpload).to.be.true;
+        expect(fileUpload).to.equal(jsonUploadArtefactId);
     });
 
     it('should formatted date-from and date-to correctly', async () => {
