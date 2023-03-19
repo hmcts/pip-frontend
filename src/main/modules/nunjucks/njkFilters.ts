@@ -63,20 +63,7 @@ function createFilters(env) {
 
     // to convert the date string (in format D MMM YYYY) to a number value for sorting
     env.addFilter('dateWithShortMonthNameToSortValue', function (date) {
-        const months = [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-        ];
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
         const values = date.split(' ');
         const month = (months.indexOf(values[1]) + 1).toString();
