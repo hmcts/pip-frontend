@@ -85,8 +85,8 @@ describe('ET Fortnightly List page', () => {
 
     it('should display the site address line 1 for both sections', () => {
         const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
-        expect(siteAddress[1].innerHTML).contains('5-7 Hill Street', 'Could not find the address line 1 in section 1');
-        expect(siteAddress[5].innerHTML).contains('1 Crown Road', 'Could not find the address line 1 in section 2');
+        expect(siteAddress[1].innerHTML).contains('5 Test Street', 'Could not find the address line 1 in section 1');
+        expect(siteAddress[5].innerHTML).contains('Test Line 1', 'Could not find the address line 1 in section 2');
     });
 
     it('should display the site town for both sections', () => {
@@ -97,8 +97,8 @@ describe('ET Fortnightly List page', () => {
 
     it('should display the site postcode for both sections', () => {
         const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
-        expect(siteAddress[3].innerHTML).contains('L5 4UU', 'Could not find the postcode in section 1');
-        expect(siteAddress[7].innerHTML).contains('NG1 2FP', 'Could not find the postcode in section 2');
+        expect(siteAddress[3].innerHTML).contains('SW1H 9AJ', 'Could not find the postcode in section 1');
+        expect(siteAddress[7].innerHTML).contains('SW1H 9AJ', 'Could not find the postcode in section 2');
     });
 
     it('should display accordion open/close all', () => {
