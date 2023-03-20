@@ -4,12 +4,12 @@ import path from 'path';
 import { EtListsService } from '../../../../main/service/listManipulation/EtListsService';
 
 const etListsService = new EtListsService();
-const etDailyListData = fs.readFileSync(path.resolve(__dirname, '../../mocks/etDailyList-withdates.json'), 'utf-8');
+const etDailyListData = fs.readFileSync(path.resolve(__dirname, '../../mocks/etDailyList.json'), 'utf-8');
 
 describe('Reshaped ET Fortnightly List - splitting data from a courtroom format to a day by day view.', () => {
     it('should return ET Fortnightly List', async () => {
         const data = await etListsService.reshapeEtFortnightlyListData(etDailyListData, 'en');
-        expect(JSON.stringify(data).length).to.equal(2869);
+        expect(JSON.stringify(data).length).to.equal(2833);
     });
 
     it('should match the completed mock', async () => {
