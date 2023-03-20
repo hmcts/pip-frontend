@@ -25,7 +25,7 @@ readFileStub.resolves('');
 const removeFileStub = sinon.stub(FileHandlingService.prototype, 'removeFileFromRedis').resolves('');
 removeFileStub.resolves('');
 
-uploadStub.withArgs({ ...mockData, file: '', userId: '1' }, true).resolves(false);
+uploadStub.withArgs({ ...mockData, file: '', userId: '1' }, true).resolves(null);
 
 sinon.stub(ManualUploadService.prototype, 'isSensitivityMismatch').withArgs('SJP_PUBLIC_LIST', 'PUBLIC').returns(true);
 
@@ -120,7 +120,7 @@ describe('Manual upload summary controller', () => {
             req['cookies'] = { formCookie: JSON.stringify(mockData) };
             const responseMock = sinon.mock(res);
 
-            uploadStub.withArgs({ ...mockData, file: '', userEmail: '2' }, true).resolves(res);
+            uploadStub.withArgs({ ...mockData, file: '', userEmail: '2' }, true).resolves('1234');
 
             responseMock.expects('redirect').once().withArgs('upload-confirmation');
 

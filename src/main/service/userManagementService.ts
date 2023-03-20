@@ -28,19 +28,13 @@ export class UserManagementService {
         roles: string,
         provenances: string,
         queryUrl: string,
-        adminUserId: string,
-        adminUserEmail: string
+        adminUser: any
     ) {
         const rawData = await accountManagementRequests.getAllAccountsExceptThirdParty(
             this.buildRequestParams(email, userId, userProvenanceId, roles, provenances, pageNumber),
-            adminUserId
+            adminUser.userId
         );
-        await this.auditAction(
-            adminUserId,
-            adminUserEmail,
-            'USER_MANAGEMENT_VIEW',
-            'All user data requested by this admin'
-        );
+        await this.auditAction(adminUser, 'USER_MANAGEMENT_VIEW', 'All user data requested by this admin');
 
         return {
             paginationData: this.formatPaginationData(
@@ -390,10 +384,12 @@ export class UserManagementService {
     /**
      * Process a users action to be sent and stored.
      */
-    public async auditAction(userId: string, userEmail: string, action: string, details: string): Promise<void> {
+    public async auditAction(user: any, action: string, details: string): Promise<void> {
         await accountManagementRequests.storeAuditAction({
-            userId: userId,
-            userEmail: userEmail,
+            userId: user.userId,
+            userEmail: user.email,
+            roles: user.roles,
+            userProvenance: user.userProvenance,
             action: action,
             details: details,
         });

@@ -9,12 +9,13 @@ const userManagementService = new UserManagementService();
 export default class ManageUserController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const userData = await accountManagementRequests.getUserByUserId(req.query.id as string, req.user['userId']);
-        await userManagementService.auditAction(
-            req.user['userId'],
-            req.user['email'],
-            'MANAGE_USER',
-            'Manage user page requested containing user: ' + req.query.id
-        );
+        if (req.user['roles'] === 'SYSTEM_ADMIN') {
+            await userManagementService.auditAction(
+                req.user,
+                'MANAGE_USER',
+                'Manage user page requested containing user: ' + req.query.id
+            );
+        }
 
         const formattedData = userManagementService.buildManageUserSummaryList(userData);
         const hrefDeletion = '/delete-user?id=' + userData['userId'];

@@ -6,16 +6,16 @@ export class DataManagementRequests {
     public dataManagementAPI =
         process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net';
 
-    public async uploadPublication(body: any, headers: object): Promise<boolean> {
+    public async uploadPublication(body: any, headers: object): Promise<string> {
         const token = await getDataManagementCredentials();
 
         try {
-            await superagent
+            const response = await superagent
                 .post(`${this.dataManagementAPI}/publication`)
                 .set('enctype', 'multipart/form-data')
                 .set({ ...headers, Authorization: 'Bearer ' + token.access_token })
                 .attach('file', body.file, body.fileName);
-            return true;
+            return response.body.artefactId;
         } catch (error) {
             if (error.response) {
                 console.log('Failed to upload publication');
@@ -23,13 +23,13 @@ export class DataManagementRequests {
                 console.log('Unknown error when attempting to upload publication');
             }
         }
-        return false;
+        return null;
     }
 
-    public async uploadJSONPublication(body: any, headers: object): Promise<boolean> {
+    public async uploadJSONPublication(body: any, headers: object): Promise<string> {
         try {
-            await dataManagementApi.post('/publication', body.file, { headers });
-            return true;
+            const response = await dataManagementApi.post('/publication', body.file, { headers });
+            return response.data.artefactId;
         } catch (error) {
             if (error.response) {
                 console.log('Failed to upload publication');
@@ -37,7 +37,7 @@ export class DataManagementRequests {
                 console.log('Unknown error when attempting to upload publication');
             }
         }
-        return false;
+        return null;
     }
 
     public async uploadLocationFile(body: any): Promise<boolean> {
