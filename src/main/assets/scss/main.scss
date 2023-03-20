@@ -1,5 +1,5 @@
-@import 'node_modules/govuk-frontend/govuk/all';
-@import 'accessible-autocomplete.min'; /* stylelint-disable-line */
+@use 'govuk-frontend';
+@use 'accessible-autocomplete.min';
 @import 'node_modules/@ministryofjustice/frontend/moj/all';
 
 $line-colour: #1d70b8;
@@ -283,40 +283,6 @@ tbody {
 }
 
 div {
-    .cards-wrapper {
-        display: flex;
-        flex-flow: row wrap;
-        flex-wrap: wrap;
-
-        > div {
-            flex: 33.33%;
-            max-width: 33.33%;
-        }
-
-        .admin-card {
-            flex: 50%;
-            max-width: 50%;
-
-            @media (max-width: 640px) {
-                flex: 100%;
-                max-width: 100%;
-            }
-        }
-
-        @media (max-width: 640px) {
-            > div {
-                flex: 100%;
-                max-width: 100%;
-            }
-        }
-    }
-
-    .verify {
-        label {
-            @extend %govuk-\!-margin-right-4 !optional;
-        }
-    }
-
     .attrEntry {
         label {
             @extend %govuk-body !optional;
@@ -331,7 +297,38 @@ div {
             }
         }
     }
+
+    .cards-wrapper {
+        display: flex;
+        flex-flow: row wrap;
+        flex-wrap: wrap;
+    }
+
+    .cards-wrapper > div {
+        flex: 33.33%;
+        max-width: 33.33%;
+    }
+
+    .cards-wrapper .admin-card {
+        flex: 50%;
+        max-width: 50%;
+    }
+
+    @media (max-width: 640px) {
+        .cards-wrapper > div,
+        .cards-wrapper .admin-card {
+            flex: 100%;
+            max-width: 100%;
+        }
+    }
+
+    .verify {
+        label {
+            @extend %govuk-\!-margin-right-4 !optional;
+        }
+    }
 }
+
 
 .buttons {
     @extend %govuk-\!-margin-top-4 !optional;
@@ -433,7 +430,7 @@ div {
 }
 
 @media (max-width: 640px) {
-    > div {
+    div div {
         flex: 100%;
         max-width: 100%;
     }
