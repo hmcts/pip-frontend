@@ -898,11 +898,6 @@ describe('Admin level journeys', () => {
     });
 
     describe('Create new account', () => {
-        it('should open admin dashboard page', async () => {
-            await adminDashboard.open('/admin-dashboard');
-            expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
-        });
-
         it('should click on the create new account card', async () => {
             createAdminAccountPage = await adminDashboard.clickCreateNewAccountCard();
             expect(await createAdminAccountPage.getPageTitle()).toEqual('Create admin account');
@@ -921,6 +916,11 @@ describe('Admin level journeys', () => {
     });
 
     describe('Manual Upload', () => {
+        it('should open admin dashboard page', async () => {
+            await adminDashboard.open('/admin-dashboard');
+            expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
+        });
+
         it('should open manual upload page', async () => {
             manualUploadPage = await adminDashboard.clickUploadFileCard();
             expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
