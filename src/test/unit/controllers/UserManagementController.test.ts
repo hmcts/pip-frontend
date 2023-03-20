@@ -25,10 +25,9 @@ const formattedDataStub = sinon.stub(UserManagementService.prototype, 'getFormat
 
 formattedDataStub
     .withArgs(
-        new UserSearchCriteria(parseInt(testPage), testEmail, testUserId, testProvenanceId, testRoles, testProvenances),
+        new UserSearchCriteria(testPage, testEmail, testUserId, testProvenanceId, testRoles, testProvenances),
         testPath,
-        userId,
-        email
+        { userId: userId, email: email }
     )
     .returns({
         userData: 'otherData',
