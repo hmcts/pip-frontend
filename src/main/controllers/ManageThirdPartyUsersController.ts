@@ -10,8 +10,7 @@ const userManagementService = new UserManagementService();
 export default class ManageThirdPartyUsersController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         await userManagementService.auditAction(
-            req.user['userId'],
-            req.user['email'],
+            req.user,
             'VIEW_THIRD_PARTY_USERS',
             'User requested to view all third party users'
         );

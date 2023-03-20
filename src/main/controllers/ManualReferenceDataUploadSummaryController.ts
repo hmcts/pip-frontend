@@ -42,8 +42,7 @@ export default class ManualReferenceDataUploadSummaryController {
             });
 
             await userManagementService.auditAction(
-                req.user['userId'],
-                req.user['email'],
+                req.user,
                 'REFERENCE_DATA_UPLOAD',
                 'Upload of the reference data requested'
             );
@@ -52,8 +51,7 @@ export default class ManualReferenceDataUploadSummaryController {
 
             if (response) {
                 await userManagementService.auditAction(
-                    req.user['userId'],
-                    req.user['email'],
+                    req.user,
                     'REFERENCE_DATA_UPLOAD',
                     'Reference data successfully uploaded'
                 );

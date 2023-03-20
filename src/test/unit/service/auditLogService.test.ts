@@ -5,16 +5,23 @@ import sinon from 'sinon';
 
 const auditLogService = new AuditLogService();
 
+const testAuditLogId = '5c2c7849-f30f-40e1-b61b-8aea393fd9fe';
+const testUserId = '158f4249-a763-4a4a-866c-8e0dd5b3bdaf';
+const testUserEmail = 'test@justice.gov.uk';
+
+const testAuditLogContent = {
+    id: testAuditLogId,
+    timestamp: '2023-01-26T09:33:34.560132',
+    userId: testUserId,
+    userEmail: testUserEmail,
+    roles: 'INTERNAL_SUPER_ADMIN_CTSC',
+    userProvenance: 'PI_AAD',
+    action: 'USER_MANAGEMENT',
+    details: 'details test text here',
+};
+
 const testApiResponseData = {
-    content: [
-        {
-            timestamp: '2023-01-2609:33:34.560132',
-            userId: '158f4249-a763-4a4a-866c-8e0dd5b3bdaf',
-            userEmail: 'test@justice.gov.uk',
-            action: 'USER_MANAGEMENT',
-            details: 'details test text here',
-        },
-    ],
+    content: [testAuditLogContent],
     pageable: {
         sort: { empty: true, unsorted: true, sorted: false },
         offset: 5,
@@ -35,6 +42,7 @@ const testApiResponseData = {
 };
 
 sinon.stub(AccountManagementRequests.prototype, 'getAllAuditLogs').resolves(testApiResponseData);
+sinon.stub(AccountManagementRequests.prototype, 'getAuditLogById').resolves(testAuditLogContent);
 
 describe('Audit log service', () => {
     it('should return the correct table headers', () => {
@@ -42,12 +50,11 @@ describe('Audit log service', () => {
 
         expect(response[0].text).to.equal('Timestamp');
         expect(response[0].classes).to.equal('govuk-!-padding-top-0');
-        expect(response[1].text).to.equal('Email/User ID');
+        expect(response[1].text).to.equal('Email');
         expect(response[1].classes).to.equal('govuk-!-padding-top-0');
         expect(response[2].text).to.equal('Action');
         expect(response[2].classes).to.equal('govuk-!-padding-top-0');
-        expect(response[3].text).to.equal('Details');
-        expect(response[3].classes).to.equal('govuk-!-padding-top-0');
+        expect(response[3].text).to.be.empty;
     });
 
     it('should return formatted data from the getFormattedAuditData function', async () => {
@@ -60,9 +67,28 @@ describe('Audit log service', () => {
         expect(response['paginationData']['next'].href).to.equal('?page=3');
 
         // Audit log formatted table data
-        expect(response['auditLogData'][0][1].text).to.contain('test@justice.gov.uk');
-        expect(response['auditLogData'][0][1].text).to.contain('158f4249-a763-4a4a-866c-8e0dd5b3bdaf');
-        expect(response['auditLogData'][0][2].text).to.equal('USER_MANAGEMENT');
-        expect(response['auditLogData'][0][3].text).to.equal('details test text here');
+        const auditLogData = response['auditLogData'][0];
+        expect(auditLogData.id).to.equal('5c2c7849-f30f-40e1-b61b-8aea393fd9fe');
+        expect(auditLogData.email).to.equal(testUserEmail);
+        expect(auditLogData.action).to.equal('USER_MANAGEMENT');
+        expect(auditLogData.timestamp).to.equal('26/01/2023 09:33:34');
+    });
+
+    it('should build audit log details summary list', async () => {
+        const response = await auditLogService.buildAuditLogDetailsSummaryList(testAuditLogId);
+        const rows = response['rows'];
+
+        expect(rows[0].key.text).to.equal('User ID');
+        expect(rows[0].value.text).to.equal(testUserId);
+        expect(rows[1].key.text).to.equal('Email');
+        expect(rows[1].value.text).to.equal(testUserEmail);
+        expect(rows[2].key.text).to.equal('Role');
+        expect(rows[2].value.text).to.equal('CTSC Super Admin');
+        expect(rows[3].key.text).to.equal('Provenance');
+        expect(rows[3].value.text).to.equal('B2C');
+        expect(rows[4].key.text).to.equal('Action');
+        expect(rows[4].value.text).to.equal('USER_MANAGEMENT');
+        expect(rows[5].key.text).to.equal('Details');
+        expect(rows[5].value.text).to.equal('details test text here');
     });
 });

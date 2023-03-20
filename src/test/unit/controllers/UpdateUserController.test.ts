@@ -55,8 +55,7 @@ describe('Update user controller', () => {
         await updateUserController.get(request, response);
         sinon.assert.calledWith(
             auditStub,
-            adminId,
-            email,
+            request.user,
             'MANAGE_USER',
             'Update user page requested containing user: 1234'
         );
@@ -81,8 +80,7 @@ describe('Update user controller', () => {
         await updateUserController.get(request, response);
         sinon.assert.calledWith(
             auditStub,
-            adminId,
-            email,
+            request.user,
             'MANAGE_USER',
             'Update user page requested containing user: 1234'
         );
@@ -137,8 +135,7 @@ describe('Update User Confirmation Controller', () => {
         return updateUserController.post(request, response).then(() => {
             sinon.assert.calledWith(
                 auditStub,
-                adminId,
-                email,
+                request.user,
                 'UPDATE_USER',
                 'User with id: 1234 has been updated to a: SYSTEM_ADMIN'
             );
@@ -158,8 +155,7 @@ describe('Update User Confirmation Controller', () => {
         return updateUserController.post(request, response).then(() => {
             sinon.assert.calledWith(
                 auditStub,
-                adminId,
-                email,
+                request.user,
                 'UPDATE_USER',
                 'User with id: 1 failed to be updated to: WRONG_ROLE'
             );
@@ -176,8 +172,7 @@ describe('Update User Confirmation Controller', () => {
         return updateUserController.post(request, response).then(() => {
             sinon.assert.calledWith(
                 auditStub,
-                adminId,
-                email,
+                request.user,
                 'UPDATE_USER',
                 'User has attempted to update their own role to: FORBIDDEN'
             );

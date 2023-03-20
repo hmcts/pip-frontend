@@ -15,8 +15,7 @@ export default class DeleteUserConfirmationController {
                 req.user['userId']
             );
             await userManagementService.auditAction(
-                req.user['userId'],
-                req.user['email'],
+                req.user,
                 'DELETE_USER',
                 'User has been deleted, id: ' + req.body.user
             );

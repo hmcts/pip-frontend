@@ -37,8 +37,7 @@ export default class BlobViewJsonController {
             }
 
             await userManagementService.auditAction(
-                req.user['userId'],
-                req.user['email'],
+                req.user,
                 'VIEW_BLOB_EXPLORER',
                 'Requested to view artefact with id: ' + artefactId
             );

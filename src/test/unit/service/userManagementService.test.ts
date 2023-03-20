@@ -254,8 +254,10 @@ describe('User management service', () => {
         const response = await userManagementService.getFormattedData(
             userSearchCriteria,
             '?page=2',
-            '1234',
-            'test@justice.gov.uk'
+            {
+                userId: '1234',
+                email: 'test@justice.gov.uk',
+            }
         );
 
         // Pagination data

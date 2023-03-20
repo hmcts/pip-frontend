@@ -14,8 +14,7 @@ export default class UpdateUserController {
         const userData = await accountManagementRequests.getUserByUserId(userId, req.user['userId']);
         const selectBoxData = userManagementService.buildUserUpdateSelectBox(userData.roles);
         await userManagementService.auditAction(
-            req.user['userId'],
-            req.user['email'],
+            req.user,
             'MANAGE_USER',
             'Update user page requested containing user: ' + userId
         );
@@ -39,8 +38,7 @@ export default class UpdateUserController {
 
         if (updateUserResponse === null) {
             await userManagementService.auditAction(
-                req.user['userId'],
-                req.user['email'],
+                req.user,
                 'UPDATE_USER',
                 'User with id: ' + req.body.userId + ' failed to be updated to: ' + req.body.updatedRole
             );
@@ -48,8 +46,7 @@ export default class UpdateUserController {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else if (updateUserResponse === 'FORBIDDEN') {
             await userManagementService.auditAction(
-                req.user['userId'],
-                req.user['email'],
+                req.user,
                 'UPDATE_USER',
                 'User has attempted to update their own role to: ' + req.body.updatedRole
             );
@@ -57,8 +54,7 @@ export default class UpdateUserController {
             res.redirect('/update-user?id=' + req.body.userId + '&error=true');
         } else {
             await userManagementService.auditAction(
-                req.user['userId'],
-                req.user['email'],
+                req.user,
                 'UPDATE_USER',
                 'User with id: ' + req.body.userId + ' has been updated to a: ' + req.body.updatedRole
             );

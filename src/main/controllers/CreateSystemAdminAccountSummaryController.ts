@@ -27,8 +27,7 @@ export default class CreateSystemAdminAccountSummaryController {
         if (response) {
             if (response['error'] && !response['duplicate'] && !response['aboveMaxSystemAdmin']) {
                 await userManagementService.auditAction(
-                    req.user['userId'],
-                    req.user['email'],
+                    req.user,
                     'ATTEMPT_SYSTEM_ADMIN_CREATION',
                     'Attempted to create system admin account for: ' + formData['emailAddress']
                 );
@@ -39,8 +38,7 @@ export default class CreateSystemAdminAccountSummaryController {
                 });
             } else {
                 await userManagementService.auditAction(
-                    req.user['userId'],
-                    req.user['email'],
+                    req.user,
                     'SYSTEM_ADMIN_CREATION',
                     'System admin account created for: ' + formData['emailAddress']
                 );

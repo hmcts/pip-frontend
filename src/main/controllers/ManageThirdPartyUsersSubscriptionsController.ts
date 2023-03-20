@@ -52,8 +52,7 @@ export default class ManageThirdPartyUsersSubscriptionsController {
                 selectedChannel
             );
             await userManagementService.auditAction(
-                req.user['userId'],
-                req.user['email'],
+                req.user,
                 'MANAGE_THIRD_PARTY_USER_SUBSCRIPTIONS',
                 'User requested to manage subscriptions of third party user with id: ' + selectedUser
             );

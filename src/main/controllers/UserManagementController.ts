@@ -24,8 +24,7 @@ export default class UserManagementController {
                     req.query?.provenances
                 ),
                 req.url.split('/user-management')[1],
-                req.user['userId'],
-                req.user['email']
+                req.user
             );
 
             res.render('user-management', {
