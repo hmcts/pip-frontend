@@ -21,11 +21,7 @@ export class UserManagementService {
      * Returns all the formatted data the user management screen requires. Treat this like a parent method
      * for the entire service.
      */
-    public async getFormattedData(
-        query: UserSearchCriteria,
-        queryUrl: string,
-        adminUser: any
-    ) {
+    public async getFormattedData(query: UserSearchCriteria, queryUrl: string, adminUser: any) {
         const rawData = await accountManagementRequests.getAllAccountsExceptThirdParty(
             this.buildRequestParams(query),
             adminUser.userId

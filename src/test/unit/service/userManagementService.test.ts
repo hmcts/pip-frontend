@@ -251,14 +251,10 @@ describe('User management service', () => {
     it('should return formatted data from the getFormattedData function', async () => {
         const userSearchCriteria = new UserSearchCriteria(1, 'test', '', '', 'SYSTEM_ADMIN', 'PI_AAD');
 
-        const response = await userManagementService.getFormattedData(
-            userSearchCriteria,
-            '?page=2',
-            {
-                userId: '1234',
-                email: 'test@justice.gov.uk',
-            }
-        );
+        const response = await userManagementService.getFormattedData(userSearchCriteria, '?page=2', {
+            userId: '1234',
+            email: 'test@justice.gov.uk',
+        });
 
         // Pagination data
         expect(response['paginationData']['previous'].labelText).to.equal('1 of 10');
