@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 import { LocationService } from '../../../main/service/locationService';
 import MagistratesStandardListController from '../../../main/controllers/MagistratesStandardListController';
 import { MagistratesStandardListService } from '../../../main/service/listManipulation/MagistratesStandardListService';
-import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
+import { CivilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magsStandardList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -24,7 +24,7 @@ const magsStandardListController = new MagistratesStandardListController();
 const magsStandardListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const magsStandardListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
+sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
 sinon.stub(MagistratesStandardListService.prototype, 'manipulatedMagsStandardListData').returns(listData);
 
 const artefactId = 'abc';

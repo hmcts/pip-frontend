@@ -1,0 +1,42 @@
+{
+    "data": {
+        "caseSubscriptions": [
+            {
+                "subscriptionId": "5a45699f-47e3-4283-904a-581afe624155",
+                "caseName": null,
+                "caseNumber": "1234512346",
+                "urn": "URN12345",
+                "dateAdded": "2022-01-14T11:30:12.357299"
+            },
+            {
+                "subscriptionId": "5a45699f-47e3-4283-904a-581afe624155",
+                "caseName": "Case Name",
+                "caseNumber": "1234512345",
+                "urn": "URN12345",
+                "dateAdded": "2022-01-14T11:30:12.357299"
+            },
+            {
+                "subscriptionId": "5a45699f-47e3-4283-904a-581afe624155",
+                "caseName": "Case Name",
+                "caseNumber": "1234512345",
+                "urn": "URN12345",
+                "dateAdded": "2022-01-14T11:30:12.357299"
+            },
+            {
+                "subscriptionId": "5a45699f-47e3-4283-904a-581afe624155",
+                "caseName": "Case Name",
+                "caseNumber": null,
+                "urn": null,
+                "dateAdded": "2022-01-14T11:30:12.357299"
+            },
+            {
+                "subscriptionId": "5a45699f-47e3-4283-904a-581afe624155",
+                "caseName": "Case Name",
+                "caseNumber": null,
+                "urn": "1234",
+                "dateAdded": "2022-01-14T11:30:12.357299"
+            }
+        ],
+        "locationSubscriptions": []
+    }
+}

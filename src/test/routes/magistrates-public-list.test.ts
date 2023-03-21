@@ -13,7 +13,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/magistrat
 const crownDailyData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(crownDailyData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(crownDailyData);
-sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').resolves(crownDailyData);
+sinon.stub(CrimeListsService.prototype, 'manipulateCrimeListData').resolves(crownDailyData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
 
 describe('Magistrates Public List Page', () => {

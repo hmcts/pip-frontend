@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 import { LocationService } from '../../../main/service/locationService';
 import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
 import MagistratesPublicListController from '../../../main/controllers/MagistratesPublicListController';
-import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
+import { CivilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magistratesPublicList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -24,8 +24,8 @@ const magistratesPublicListController = new MagistratesPublicListController();
 const magistratesPublicListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const magistratesPublicListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
-sinon.stub(CrimeListsService.prototype, 'manipulatedCrimeListData').returns(listData);
+sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
+sinon.stub(CrimeListsService.prototype, 'manipulateCrimeListData').returns(listData);
 
 const artefactId = 'abc';
 

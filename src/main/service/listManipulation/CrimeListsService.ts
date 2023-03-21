@@ -10,7 +10,7 @@ const separator = ', ';
  *   Magistrates Public List
  */
 export class CrimeListsService {
-    public manipulatedCrimeListData(crimeListData: string, language: string, languageFile: string): object {
+    public manipulateCrimeListData(crimeListData: string, language: string, languageFile: string): object {
         const crownDailyListData = JSON.parse(crimeListData);
         crownDailyListData['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
@@ -40,41 +40,42 @@ export class CrimeListsService {
         return crownDailyListData;
     }
 
+    private pushIfExists(array, item) {
+        if (item.length > 0) {
+            array.push(item);
+        }
+    }
+
     public manipulateParty(hearing: any): void {
         const defendants = [];
         const defendantRepresentatives = [];
         const prosecutingAuthorities = [];
 
-        if (hearing?.party) {
-            hearing.party.forEach(party => {
-                switch (party.partyRole) {
-                    case 'DEFENDANT': {
-                        const defendant = this.createIndividualDetails(party.individualDetails);
-                        if (defendant.length > 0) {
-                            defendants.push(defendant);
-                        }
-                        break;
-                    }
-                    case 'DEFENDANT_REPRESENTATIVE': {
-                        const defendantRepresentative = this.createOrganisationDetails(party.organisationDetails);
-                        if (defendantRepresentative.length > 0) {
-                            defendantRepresentatives.push(defendantRepresentative);
-                        }
-                        break;
-                    }
-                    case 'PROSECUTING_AUTHORITY': {
-                        const prosecutingAuthority = this.createOrganisationDetails(party.organisationDetails);
-                        if (prosecutingAuthority.length > 0) {
-                            prosecutingAuthorities.push(prosecutingAuthority);
-                        }
-                        break;
-                    }
+        hearing?.party?.forEach(party => {
+            switch (party.partyRole) {
+                case 'DEFENDANT': {
+                    this.pushIfExists(defendants, this.createIndividualDetails(party.individualDetails));
+                    break;
                 }
-            });
-            hearing.defendant = defendants.join(separator);
-            hearing.defendantRepresentative = defendantRepresentatives.join(separator);
-            hearing.prosecutingAuthority = prosecutingAuthorities.join(separator);
-        }
+                case 'DEFENDANT_REPRESENTATIVE': {
+                    this.pushIfExists(
+                        defendantRepresentatives,
+                        this.createOrganisationDetails(party.organisationDetails)
+                    );
+                    break;
+                }
+                case 'PROSECUTING_AUTHORITY': {
+                    this.pushIfExists(
+                        prosecutingAuthorities,
+                        this.createOrganisationDetails(party.organisationDetails)
+                    );
+                    break;
+                }
+            }
+        });
+        hearing.defendant = defendants.join(separator);
+        hearing.defendantRepresentative = defendantRepresentatives.join(separator);
+        hearing.prosecutingAuthority = prosecutingAuthorities.join(separator);
     }
 
     public createIndividualDetails(individualDetails: any): string {
@@ -91,18 +92,15 @@ export class CrimeListsService {
         let linkedCases = '';
         let listingNotes = '';
 
-        if (hearing?.case) {
-            hearing.case.forEach(cases => {
-                linkedCases = '';
-                if (cases?.caseLinked) {
-                    cases.caseLinked.forEach(caseLinked => {
-                        linkedCases += caseLinked.caseId.trim();
-                        linkedCases += helperService.stringDelimiter(linkedCases?.length, ',');
-                    });
-                }
-                cases['linkedCases'] = linkedCases?.replace(/,\s*$/, '').trim();
+        hearing.case.forEach(cases => {
+            linkedCases = '';
+            cases.caseLinked?.forEach(caseLinked => {
+                linkedCases += caseLinked.caseId.trim();
+                linkedCases += helperService.stringDelimiter(linkedCases?.length, ',');
             });
-        }
+
+            cases['linkedCases'] = linkedCases?.replace(/,\s*$/, '').trim();
+        });
 
         if (hearing?.listingDetails) {
             listingNotes += hearing.listingDetails.listingRepDeadline.trim();

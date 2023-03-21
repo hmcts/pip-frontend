@@ -33,6 +33,7 @@ describe('Test logout', () => {
     it('should redirect for media user', () => {
         const responseMock = sinon.mock(res);
         responseMock.expects('redirect').once().withArgs(mediaLogOutUrl);
+        responseMock.expects('clearCookie').once().withArgs('session');
 
         const req = {
             user: { roles: 'VERIFIED', userProvenance: 'PI_AAD' },
@@ -61,6 +62,7 @@ describe('Test logout', () => {
     it('should redirect for CFT IDAM User', () => {
         const responseMock = sinon.mock(res);
         responseMock.expects('redirect').once().withArgs(cftIdamLogoutUrl);
+        responseMock.expects('clearCookie').once().withArgs('session');
 
         const req = {
             user: { roles: 'VERIFIED', userProvenance: 'CFT_IDAM' },

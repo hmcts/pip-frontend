@@ -9,7 +9,7 @@ export class AppInsights {
         if (process.env.INSTRUMENTATION_KEY) {
             appInsightsKey = process.env.INSTRUMENTATION_KEY;
         } else if (config.get('secrets.pip-ss-kv.INSTRUMENTATION_KEY')) {
-            appInsightsKey = config.get('secrets.pip-ss-kv.INSTRUMENTATION_KEY') as string;
+            appInsightsKey = config.get('secrets.pip-ss-kv.INSTRUMENTATION_KEY');
         }
 
         if (appInsightsKey) {

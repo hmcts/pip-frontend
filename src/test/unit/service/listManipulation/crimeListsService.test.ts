@@ -18,7 +18,7 @@ describe('Crime Data manipulation service', () => {
         });
 
         it('should formatted the case time in 12 hours format', async () => {
-            const data = await crimeListsService.manipulatedCrimeListData(
+            const data = await crimeListsService.manipulateCrimeListData(
                 JSON.stringify(crownDailyCause),
                 lng,
                 languageFile
@@ -32,7 +32,7 @@ describe('Crime Data manipulation service', () => {
         });
 
         it('should formatted the party information correctly for prosecution authority and defendant', async () => {
-            const data = await crimeListsService.manipulatedCrimeListData(
+            const data = await crimeListsService.manipulateCrimeListData(
                 JSON.stringify(crownDailyCause),
                 lng,
                 languageFile
@@ -50,7 +50,7 @@ describe('Crime Data manipulation service', () => {
         });
 
         it('should be able to find linked cases for a particular case', async () => {
-            const data = await crimeListsService.manipulatedCrimeListData(
+            const data = await crimeListsService.manipulateCrimeListData(
                 JSON.stringify(crownDailyCause),
                 lng,
                 languageFile
@@ -68,7 +68,7 @@ describe('Crime Data manipulation service', () => {
         });
 
         it('should be able to find listing notes for a particular hearing', async () => {
-            const data = await crimeListsService.manipulatedCrimeListData(
+            const data = await crimeListsService.manipulateCrimeListData(
                 JSON.stringify(crownDailyCause),
                 lng,
                 languageFile
