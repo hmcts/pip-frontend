@@ -19,7 +19,7 @@ const dateAddedColumn = 'Date added';
 const markForDeletionColumn = 'Select';
 const courtNameColumn = 'Court or tribunal name';
 
-const expectedRowDateAdded = DateTime.fromISO('2022-01-14T11:30:12.357299').toFormat('dd MMMM yyyy');
+const expectedRowDateAdded = DateTime.fromISO('2022-08-01T01:10:10.111111').toFormat('dd MMMM yyyy');
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData);
@@ -36,10 +36,10 @@ userSubscriptionsStub.withArgs('3').returns({
     caseSubscriptions: [
         {
             subscriptionId: '5a45699f-47e3-4283-904a-581afe624155',
-            caseName: 'Tom Clancy',
-            caseNumber: 'T485913',
-            urn: 'N363N6R4OG',
-            dateAdded: '2022-01-14T11:30:12.357299',
+            caseName: 'Test Name',
+            caseNumber: 'C123123',
+            urn: 'K123123',
+            dateAdded: '2022-08-01T01:10:10.111111',
         },
     ],
     locationSubscriptions: [],
@@ -51,7 +51,7 @@ userSubscriptionsStub.withArgs('4').returns({
         {
             subscriptionId: 'f038b7ea-2972-4be4-a5ff-70abb4f78686',
             locationName: 'Manchester Crown Court',
-            dateAdded: '2022-01-14T11:42:57.847708',
+            dateAdded: '2022-08-01T01:10:10.111111',
             locationId: 2,
         },
     ],
@@ -63,8 +63,8 @@ userSubscriptionsStub.withArgs('5').returns({
             subscriptionId: '5a45699f-47e3-4283-904a-581afe624155',
             caseName: null,
             caseNumber: null,
-            urn: 'N363N6R4OG',
-            dateAdded: '2022-01-14T11:30:12.357299',
+            urn: 'K123123',
+            dateAdded: '2022-08-01T01:10:10.111111',
         },
     ],
     locationSubscriptions: [],
@@ -196,8 +196,8 @@ describe('Bulk Unsubscribe Page', () => {
             const subscriptionCaseRowCells = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__cell');
-            expect(subscriptionCaseRowCells[0].innerHTML).contains('Ashely Barnes');
-            expect(subscriptionCaseRowCells[1].innerHTML).contains('T485914');
+            expect(subscriptionCaseRowCells[0].innerHTML).contains('Test Name');
+            expect(subscriptionCaseRowCells[1].innerHTML).contains('C123123');
             expect(subscriptionCaseRowCells[2].innerHTML).contains(expectedRowDateAdded);
 
             const checkboxElement = subscriptionCaseRowCells[3].querySelector('input');
@@ -210,14 +210,14 @@ describe('Bulk Unsubscribe Page', () => {
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__cell');
 
-            expect(subscriptionCaseRowCells[0].innerHTML).contains('Ashely Barnes');
-            expect(subscriptionCaseRowCells[1].innerHTML).contains('T485914');
-            expect(subscriptionCaseRowCells[4].innerHTML).contains('Tom Clancy');
-            expect(subscriptionCaseRowCells[5].innerHTML).contains('T485911');
-            expect(subscriptionCaseRowCells[8].innerHTML).contains('Tom Clancy');
-            expect(subscriptionCaseRowCells[9].innerHTML).contains('T485913');
-            expect(subscriptionCaseRowCells[13].innerHTML).contains('T485910');
-            expect(subscriptionCaseRowCells[17].innerHTML).contains('T485912');
+            expect(subscriptionCaseRowCells[0].innerHTML).contains('Test Name');
+            expect(subscriptionCaseRowCells[1].innerHTML).contains('C123123');
+            expect(subscriptionCaseRowCells[4].innerHTML).contains('Test Name 2');
+            expect(subscriptionCaseRowCells[5].innerHTML).contains('I123123');
+            expect(subscriptionCaseRowCells[8].innerHTML).contains('Test Name 3');
+            expect(subscriptionCaseRowCells[9].innerHTML).contains('B123123');
+            expect(subscriptionCaseRowCells[13].innerHTML).contains('A123123');
+            expect(subscriptionCaseRowCells[17].innerHTML).contains('D123123');
         });
 
         it('court table should have correct number of rows', () => {
@@ -375,8 +375,8 @@ describe('Bulk Unsubscribe Page', () => {
             const subscriptionCaseRowCells = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__cell');
-            expect(subscriptionCaseRowCells[0].innerHTML).contains('Tom Clancy');
-            expect(subscriptionCaseRowCells[1].innerHTML).contains('T485913');
+            expect(subscriptionCaseRowCells[0].innerHTML).contains('Test Name');
+            expect(subscriptionCaseRowCells[1].innerHTML).contains('C123123');
             expect(subscriptionCaseRowCells[2].innerHTML).contains(expectedRowDateAdded);
 
             const checkboxElement = subscriptionCaseRowCells[3].querySelector('input');
@@ -513,7 +513,7 @@ describe('Bulk Unsubscribe Page', () => {
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__cell');
             expect(subscriptionCaseRowCells[0].innerHTML).contains('<p class="govuk-body bulk-delete-row"></p>');
-            expect(subscriptionCaseRowCells[1].innerHTML).contains('N363N6R4OG');
+            expect(subscriptionCaseRowCells[1].innerHTML).contains('K123123');
             expect(subscriptionCaseRowCells[2].innerHTML).contains(expectedRowDateAdded);
 
             const checkboxElement = subscriptionCaseRowCells[3].querySelector('input');

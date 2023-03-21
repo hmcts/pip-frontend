@@ -20,11 +20,11 @@ const selectedFiltersHeadingClass = 'govuk-heading-m';
 const expectedHeader = 'Single Justice Procedure cases - Press view';
 const summaryHeadingText = 'What are Single Justice Procedure cases?';
 const listText = 'List for 14 February 2022';
-const offenderName = 'Danny Thomas';
-const offenderDateOfBirth = '25 July 1985';
-const offenderCaseNumber = 'ABC12345';
-const offenderAddress = 'Swansea, SA1 1AA';
-const prosecutor = 'qU8QlEo';
+const offenderName = 'Test Name';
+const offenderDateOfBirth = '1 January 1801';
+const offenderCaseNumber = 'Case URN';
+const offenderAddress = 'Line 1 Line 2, Test Town, Test County, TEST POSTCODE';
+const prosecutor = 'Organisation Name';
 const reportingRestriction = 'Reporting Restriction - True';
 
 let htmlRes: Document;

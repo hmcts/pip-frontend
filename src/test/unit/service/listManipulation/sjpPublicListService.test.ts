@@ -14,17 +14,17 @@ describe('formatSjpPublicList', () => {
 
     it('should return accused name', async () => {
         const data = await sjpPublicListService.formatSjpPublicList(rawSJPData);
-        expect(data[0].name).to.equal('Danny Thomas');
+        expect(data[0].name).to.equal('Test Name');
     });
 
     it('should return accused postcode', async () => {
         const data = await sjpPublicListService.formatSjpPublicList(rawSJPData);
-        expect(data[0].postcode).to.equal('SA1 1AA');
+        expect(data[0].postcode).to.equal('TEST POSTCODE');
     });
 
     it('should return prosecutor', async () => {
         const data = await sjpPublicListService.formatSjpPublicList(rawSJPData);
-        expect(data[0].organisationName).to.equal('qU8QlEo');
+        expect(data[0].organisationName).to.equal('Organisation Name');
     });
 
     it('should return single offence', async () => {

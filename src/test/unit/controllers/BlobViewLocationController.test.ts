@@ -54,10 +54,32 @@ describe('Get publications', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
+
         request.user = { id: 1 };
         locStub.withArgs('en').resolves(JSON.parse('[{"name":"Single Justice Procedure", "locationId":9}]'));
+        countStub.resolves(undefined);
+
         const responseMock = sinon.mock(response);
         responseMock.expects('render').once().withArgs('error');
+        await blobViewController.get(request, response);
+        responseMock.verify;
+    });
+
+    it('should render the error screen if the location endpoint fails', async () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+
+        request.user = { id: 1 };
+        locStub.withArgs('en').resolves(undefined);
+        countStub.resolves(map);
+
+        const responseMock = sinon.mock(response);
+        responseMock.expects('render').once().withArgs('error');
+        await blobViewController.get(request, response);
         responseMock.verify;
     });
 

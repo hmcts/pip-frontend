@@ -24,16 +24,16 @@ const caseReferenceColumn = 'Case reference number or unique reference number (U
 const dateAddedColumn = 'Date added';
 const actionsColumn = 'Actions';
 const courtNameColumn = 'Court or tribunal name';
-const expectedRowCaseName = 'Ashely Barnes';
-const expectedRowCaseReference = 'T485914';
-const expectedRowCaseUrn = 'N363N6R4OG';
-const expectedRowDateAdded = DateTime.fromISO('2022-01-14T11:30:12.357299').toFormat('dd MMMM yyyy');
+const expectedRowCaseName = 'Test Name';
+const expectedRowCaseReference = 'C123123';
+const expectedRowCaseUrn = 'K123123';
+const expectedRowDateAdded = DateTime.fromISO('2022-08-01T01:10:10.111111').toFormat('dd MMMM yyyy');
 const expectedRowCourtName = 'Aberdeen Tribunal Hearing Centre';
 const expectedCaseRowsCount = 5;
 const expectedCaseRowsCountWithoutLocation = 1;
 const expectedCourtRowsCount = 3;
 const expectedCourtRowsCountWithoutCaseSubs = 1;
-const expectedUnsubscribeLink = 'delete-subscription?subscription=252899d6-2b05-43ec-86e0-a438d3854fa8';
+const expectedUnsubscribeLink = 'delete-subscription?subscription=5a45699f-47e3-4283-904a-581afe624155';
 const pageHeader = 'Your email subscriptions';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
@@ -47,11 +47,11 @@ userSubscriptionsStub.withArgs('1').returns(subscriptionsData.data);
 userSubscriptionsStub.withArgs('3').returns({
     caseSubscriptions: [
         {
-            subscriptionId: '252899d6-2b05-43ec-86e0-a438d3854fa8',
-            caseName: 'Ashely Barnes',
-            caseNumber: 'T485914',
-            urn: 'N363N6R4OG',
-            dateAdded: '2022-01-14T11:30:12.357299',
+            subscriptionId: '5a45699f-47e3-4283-904a-581afe624155',
+            caseName: 'Test Name',
+            caseNumber: 'C123123',
+            urn: 'K123123',
+            dateAdded: '2022-08-01T01:10:10.111111',
         },
     ],
     locationSubscriptions: [],
@@ -63,7 +63,7 @@ userSubscriptionsStub.withArgs('4').returns({
         {
             subscriptionId: 'f038b7ea-2972-4be4-a5ff-70abb4f78686',
             locationName: 'Court 1',
-            dateAdded: '2022-01-14T11:42:57.847708',
+            dateAdded: '2022-08-01T01:10:10.111111',
             locationId: 1,
         },
     ],
@@ -75,8 +75,8 @@ userSubscriptionsStub.withArgs('5').returns({
             subscriptionId: '252899d6-2b05-43ec-86e0-a438d3854fa8',
             caseName: '',
             caseNumber: '',
-            urn: 'N363N6R4OG',
-            dateAdded: '2022-01-14T11:30:12.357299',
+            urn: 'K123123',
+            dateAdded: '2022-08-01T01:10:10.111111',
         },
     ],
     locationSubscriptions: [],
@@ -275,16 +275,16 @@ describe('Subscriptions Management Page', () => {
             .getElementsByClassName('govuk-table__body')[0]
             .getElementsByClassName('govuk-table__cell');
 
-        expect(subscriptionCaseRowCells[0].innerHTML).equal('Ashely Barnes');
-        expect(subscriptionCaseRowCells[1].innerHTML).equal('T485914');
-        expect(subscriptionCaseRowCells[4].innerHTML).equal('Tom Clancy');
-        expect(subscriptionCaseRowCells[5].innerHTML).equal('T485911');
-        expect(subscriptionCaseRowCells[8].innerHTML).equal('Tom Clancy');
-        expect(subscriptionCaseRowCells[9].innerHTML).equal('T485913');
+        expect(subscriptionCaseRowCells[0].innerHTML).equal('Test Name');
+        expect(subscriptionCaseRowCells[1].innerHTML).equal('C123123');
+        expect(subscriptionCaseRowCells[4].innerHTML).equal('Test Name 2');
+        expect(subscriptionCaseRowCells[5].innerHTML).equal('I123123');
+        expect(subscriptionCaseRowCells[8].innerHTML).equal('Test Name 3');
+        expect(subscriptionCaseRowCells[9].innerHTML).equal('B123123');
         expect(subscriptionCaseRowCells[12].innerHTML).equal('');
-        expect(subscriptionCaseRowCells[13].innerHTML).equal('T485910');
+        expect(subscriptionCaseRowCells[13].innerHTML).equal('A123123');
         expect(subscriptionCaseRowCells[16].innerHTML).equal('');
-        expect(subscriptionCaseRowCells[17].innerHTML).equal('T485912');
+        expect(subscriptionCaseRowCells[17].innerHTML).equal('D123123');
     });
 
     it('court table should have correct number of rows', () => {

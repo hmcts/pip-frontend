@@ -8,10 +8,7 @@ const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';
 const nonExistingUserId = '777';
 const subscriptionActions = new SubscriptionRequests();
-const mockedCaseSubscription = {
-    name: 'Wyman Inc Dispute',
-    reference: 'T485913',
-};
+const mockedCaseSubscription = 'D123123';
 const mockedCourtSubscription = {
     name: 'Manchester Crown Court',
     dateAdded: '2022-01-14T11:42:57.847708',
@@ -54,7 +51,7 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
 
     it('should have mocked object in the case subscriptions list', async () => {
         const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-        expect(userSubscriptions.caseSubscriptions[0].caseNumber).toBe(mockedCaseSubscription.reference);
+        expect(userSubscriptions.caseSubscriptions[0].caseNumber).toBe(mockedCaseSubscription);
     });
 
     it('should have mocked object in the court subscriptions list', async () => {

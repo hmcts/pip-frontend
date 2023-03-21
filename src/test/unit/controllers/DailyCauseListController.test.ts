@@ -7,7 +7,7 @@ import { PublicationService } from '../../../main/service/publicationService';
 import { mockRequest } from '../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { LocationService } from '../../../main/service/locationService';
-import { civilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
+import { CivilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -29,8 +29,8 @@ const dailyCauseListJsonStub = sinon.stub(PublicationService.prototype, 'getIndi
 const dailyCauseListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
-sinon.stub(civilFamilyAndMixedListService.prototype, 'sculptedFamilyMixedListData').returns(listData);
+sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
+sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedFamilyMixedListData').returns(listData);
 
 const artefactIdFamily = 'abc';
 const artefactIdCivil = 'def';
