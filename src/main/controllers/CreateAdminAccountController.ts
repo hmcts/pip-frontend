@@ -21,7 +21,7 @@ export default class CreateAdminAccountController {
         const formData = req.body;
         const formValidation = createAccountService.validateAdminFormFieldsWithRole(
             formData,
-            req.lng as string,
+            req.lng,
             'create-admin-account'
         );
         const isValidForm = Object.values(formValidation).every(o => o.message === null);

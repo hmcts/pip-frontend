@@ -9,38 +9,43 @@ const sjpPressListService = new SjpPressListService();
 describe('formatSJPPressList', () => {
     it('should return SJP Press List cases', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data.length).to.equal(2);
+        expect(data.length).to.equal(3);
     });
 
     it('should return accused name', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data[0].name).to.equal('Danny Thomas');
+        expect(data[0].name).to.equal('Test Name');
     });
 
     it('should return formatted date of birth', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data[0].dob).to.equal('25 July 1985');
+        expect(data[0].dob).to.equal('1 January 1801');
     });
 
     it('should return age', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data[0].age).to.equal('37');
+        expect(data[0].age).to.equal(200);
     });
 
     it('should return case URN', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data[0].caseUrn).to.equal('ABC12345');
+        expect(data[0].caseUrn).to.equal('Case URN');
     });
 
     it('should return formatted address and postcode', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data[0].address).to.equal('Swansea, SA1 1AA');
-        expect(data[0].postcode).to.equal('SA1 1AA');
+        expect(data[0].address).to.equal('Line 1 Line 2, Test Town, Test County, TEST POSTCODE');
+        expect(data[0].postcode).to.equal('TEST POSTCODE');
     });
 
     it('should return prosecutor', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data[0].organisationName).to.equal('qU8QlEo');
+        expect(data[0].organisationName).to.equal('Organisation Name');
+    });
+
+    it('should return prosecutor as blank when not set', async () => {
+        const data = await sjpPressListService.formatSJPPressList(rawSJPData);
+        expect(data[2].organisationName).to.equal('');
     });
 
     it('should return offences', async () => {

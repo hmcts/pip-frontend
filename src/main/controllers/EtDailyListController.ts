@@ -26,7 +26,7 @@ export default class EtDailyListController {
             );
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-            const courtName = locationService.findCourtName(returnedCourt, req.lng as string, 'et-daily-list');
+            const courtName = locationService.findCourtName(returnedCourt, req.lng, 'et-daily-list');
             res.render('et-daily-list', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['et-daily-list']),
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),

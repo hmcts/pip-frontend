@@ -10,7 +10,7 @@ export default class SubscriptionManagementController {
         if (req.user) {
             const subscriptionData = await subscriptionService.getSubscriptionDataForView(
                 req.user['userId'],
-                req.lng as string,
+                req.lng,
                 Object.keys(req.query)[0]
             );
             res.render('subscription-management', {

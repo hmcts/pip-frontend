@@ -5,12 +5,12 @@ import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
-import { civilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
+import { CivilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const helperService = new ListParseHelperService();
-const civFamMixedService = new civilFamilyAndMixedListService();
+const civFamMixedService = new CivilFamilyAndMixedListService();
 const crimeListsService = new CrimeListsService();
 
 export default class CrownDailyListController {
@@ -22,9 +22,9 @@ export default class CrownDailyListController {
         if (searchResults && metaData) {
             // initial cleaning of data using mixed list service
             let outputData = civFamMixedService.sculptedCivilListData(JSON.stringify(searchResults));
-            outputData = crimeListsService.manipulatedCrimeListData(
+            outputData = crimeListsService.manipulateCrimeListData(
                 JSON.stringify(outputData),
-                req.lng as string,
+                req.lng,
                 'crown-daily-list'
             );
             outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));

@@ -18,7 +18,7 @@ export default class RemoveListConfirmationController {
         if (artefactId) {
             const artefact = await publicationService.getIndividualPublicationMetadata(
                 artefactId,
-                req.user?.['userId'],
+                req.user['userId'],
                 true
             );
             artefact.listTypeName = manualUploadService.getListItemName(artefact.listType);

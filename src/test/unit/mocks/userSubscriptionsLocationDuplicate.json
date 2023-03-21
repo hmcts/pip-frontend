@@ -1,0 +1,21 @@
+{
+    "data": {
+        "locationSubscriptions": [
+            {
+                "subscriptionId": "f038b7ea-2972-4be4-a5ff-70abb4f78686",
+                "locationName": "Manchester Crown Court",
+                "dateAdded": "2022-01-14T11:42:57.847708",
+                "listTypes": ["SJP_PUBLIC_LIST"],
+                "locationId": 2
+            },
+            {
+                "subscriptionId": "f038b7ea-2972-4be4-a5ff-70abb4f78686",
+                "locationName": "Manchester Crown Court",
+                "dateAdded": "2022-01-14T11:42:57.847708",
+                "listTypes": ["SJP_PUBLIC_LIST"],
+                "locationId": 2
+            }
+        ],
+        "caseSubscriptions": []
+    }
+}

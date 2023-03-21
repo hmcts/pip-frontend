@@ -13,15 +13,15 @@ const i18n = {
 };
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawSJPData).results;
-const CourtStub = sinon.stub(LocationService.prototype, 'getLocationById');
-const SoPStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
 
 describe('Get publications', () => {
     it('should correctly render if location is passed and ref data exists', async () => {
-        CourtStub.withArgs(0).resolves(JSON.parse('{"name":"Single Justice Procedure"}'));
-        CourtStub.withArgs(1).resolves(JSON.parse('{"name":"New Court"}'));
-        SoPStub.withArgs(0).resolves(sjpCases);
-        SoPStub.withArgs(1).resolves(sjpCases);
+        sinon
+            .stub(LocationService.prototype, 'getLocationById')
+            .withArgs(1)
+            .resolves(JSON.parse('{"name":"New Court"}'));
+
+        sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs(1).resolves(sjpCases);
 
         const response = {
             render: () => {
@@ -43,10 +43,10 @@ describe('Get publications', () => {
         responseMock.expects('render').once().withArgs('blob-view-publications', expectedData);
         responseMock.verify;
     });
-});
 
-describe('Get publications (no stubs)', () => {
-    it('should render the missing court page if location is passed in the query but reference data is not found', async () => {
+    it('should render No Match artefacts if location ID equals noMatch', async () => {
+        sinon.stub(SummaryOfPublicationsService.prototype, 'getNoMatchPublications').resolves(sjpCases);
+
         const response = {
             render: () => {
                 return '';
@@ -54,22 +54,24 @@ describe('Get publications (no stubs)', () => {
         } as unknown as Response;
 
         const request = mockRequest(i18n);
-        request.query = { locationId: '1' };
-        request.user = { id: 1 };
+        request.query = { locationId: 'noMatch' };
+        request.user = { userId: 1 };
 
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n['blob-view-publications'],
-            locationName: 'New Court',
+            locationName: 'No match artefacts',
             listOfPublications: sjpCases,
-            noMatchArtefact: false,
+            noMatchArtefact: true,
         };
         responseMock.expects('render').once().withArgs('blob-view-publications', expectedData);
         await blobViewController.get(request, response);
         responseMock.verify();
     });
+});
 
-    it('should render the error screen if the various endpoints fail and nothing is returned to the controller', async () => {
+describe('Get publications (no stubs)', () => {
+    it('should render the error screen if artefact ID has not been provided', async () => {
         const response = {
             render: () => {
                 return '';
@@ -77,8 +79,11 @@ describe('Get publications (no stubs)', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.user = { id: 1 };
+        request.query = {};
+
         const responseMock = sinon.mock(response);
         responseMock.expects('render').once().withArgs('error');
+        await blobViewController.get(request, response);
         responseMock.verify;
     });
 });

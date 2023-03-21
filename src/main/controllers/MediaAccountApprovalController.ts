@@ -57,7 +57,7 @@ export default class MediaAccountApprovalController {
      * This handles the pages that render if the user has selected 'Approve' on the screen.
      */
     private static async approvalFlow(req, res, applicantId, applicantData): Promise<void> {
-        if (await mediaAccountApplicationService.createAccountFromApplication(applicantId, req.user?.['userId'])) {
+        if (await mediaAccountApplicationService.createAccountFromApplication(applicantId, req.user['userId'])) {
             await userManagementService.auditAction(
                 req.user,
                 'APPROVE_MEDIA_APPLICATION',
