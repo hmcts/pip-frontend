@@ -2,7 +2,7 @@ import { ListParseHelperService } from '../listParseHelperService';
 
 const helperService = new ListParseHelperService();
 
-export class civilFamilyAndMixedListService {
+export class CivilFamilyAndMixedListService {
     /**
      * Manipulate the civil json data for rendering to the screen.
      * @param list

@@ -4,7 +4,7 @@ import { CrimeListsService } from './CrimeListsService';
 import { ListParseHelperService } from '../listParseHelperService';
 
 const helperService = new ListParseHelperService();
-const dailyListService = new CrimeListsService();
+const crimeListsService = new CrimeListsService();
 
 export class CrownFirmListService {
     public timeZone = 'Europe/London';
@@ -44,8 +44,8 @@ export class CrownFirmListService {
                             sitting['durationAsMinutes'] as number
                         );
                         sitting['hearing'].forEach(hearing => {
-                            dailyListService.findLinkedCasesInformation(hearing);
-                            dailyListService.manipulateParty(hearing);
+                            crimeListsService.findLinkedCasesInformation(hearing);
+                            crimeListsService.manipulateParty(hearing);
                             hearing['case'].forEach(thisCase => {
                                 const row = {
                                     courtName: courtName,

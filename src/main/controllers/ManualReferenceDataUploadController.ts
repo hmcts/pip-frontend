@@ -20,7 +20,7 @@ export default class ManualReferenceDataUploadController {
             const errors = {
                 fileErrors: fileHandlingService.validateFileUpload(
                     req.file,
-                    req.lng as string,
+                    req.lng,
                     'manual-reference-data-upload',
                     uploadType.CSV
                 ),

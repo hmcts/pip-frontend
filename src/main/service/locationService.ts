@@ -18,27 +18,20 @@ export class LocationService {
     private initalizeLocationsForLanguage(locations: Array<Location>, language: string): Array<Location> {
         let locationsBaseOnLanguage = [];
 
-        switch (language) {
-            case 'cy': {
-                locations.forEach(value => {
-                    const locationInfo = {
-                        locationId: value['locationId'] != null ? value['locationId'] : value.locationId,
-                        name: value['welshName'] != null ? value['welshName'] : value.name,
-                        jurisdiction:
-                            value['welshJurisdiction'] != null ? value['welshJurisdiction'] : value.jurisdiction,
-                        region: value['welshRegion'] != null ? value['welshRegion'] : value.region,
-                        location: value.location,
-                    };
+        if (language === 'cy') {
+            locations.forEach(value => {
+                const locationInfo = {
+                    locationId: value['locationId'] != null ? value['locationId'] : value.locationId,
+                    name: value['welshName'] != null ? value['welshName'] : value.name,
+                    jurisdiction: value['welshJurisdiction'] != null ? value['welshJurisdiction'] : value.jurisdiction,
+                    region: value['welshRegion'] != null ? value['welshRegion'] : value.region,
+                    location: value.location,
+                };
 
-                    locationsBaseOnLanguage.push(locationInfo);
-                });
-                break;
-            }
-
-            default: {
-                locationsBaseOnLanguage = locations;
-                break;
-            }
+                locationsBaseOnLanguage.push(locationInfo);
+            });
+        } else {
+            locationsBaseOnLanguage = locations;
         }
 
         return locationsBaseOnLanguage;
@@ -94,18 +87,11 @@ export class LocationService {
             return languageFileParser.getText(fileJson, null, 'missingCourt');
         }
 
-        switch (language) {
-            case 'cy': {
-                courtName = location['welshName'] != null ? location['welshName'] : location.name;
-                break;
-            }
-
-            default: {
-                courtName = location.name;
-                break;
-            }
+        if (language === 'cy') {
+            courtName = location['welshName'] != null ? location['welshName'] : location.name;
+        } else {
+            courtName = location.name;
         }
-
         return courtName;
     }
 

@@ -8,7 +8,7 @@ const locationService = new LocationService();
 export default class RemoveListSearchController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const pageToLoad = req.path.slice(1, req.path.length);
-        const autocompleteList = await locationService.fetchAllLocations(req.lng as string);
+        const autocompleteList = await locationService.fetchAllLocations(req.lng);
         res.render(pageToLoad, {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[pageToLoad]),
             autocompleteList,
@@ -24,9 +24,9 @@ export default class RemoveListSearchController {
             resultPage = 'delete-court-reference-data-confirmation';
         }
         const searchInput = req.body['input-autocomplete'];
-        const autocompleteList = await locationService.fetchAllLocations(req.lng as string);
+        const autocompleteList = await locationService.fetchAllLocations(req.lng);
         if (searchInput && searchInput.length >= 3) {
-            const court = await locationService.getLocationByName(searchInput, req.lng as string);
+            const court = await locationService.getLocationByName(searchInput, req.lng);
             court
                 ? res.redirect(`${resultPage}?locationId=${court.locationId}`)
                 : res.render(pageToLoad, {
