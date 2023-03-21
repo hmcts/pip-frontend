@@ -16,7 +16,7 @@ export default class CreateMediaAccountController {
         const formValidation = createAccountService.validateFormFields(
             req.body,
             req.file,
-            req.lng as string,
+            req.lng,
             'create-media-account'
         );
         const isValidForm = Object.values(formValidation).every(o => o.message === null);

@@ -21,7 +21,7 @@ export default class CreateAdminAccountSummaryController {
 
     public async post(req: PipRequest, res: Response): Promise<void> {
         const formData = req.cookies?.createAdminAccount ? JSON.parse(req.cookies['createAdminAccount']) : {};
-        const response = await createAccountService.createAdminAccount(formData, req.user?.['userId']);
+        const response = await createAccountService.createAdminAccount(formData, req.user['userId']);
 
         if (response) {
             const roleName = formattedRoles[formData.userRoleObject.mapping];

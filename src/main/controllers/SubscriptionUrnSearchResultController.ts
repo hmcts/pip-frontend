@@ -10,10 +10,7 @@ export default class SubscriptionUrnSearchResultController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const searchInput = req.query['search-input'];
         if (searchInput && searchInput.length) {
-            const searchResults = await publicationService.getCaseByCaseUrn(
-                searchInput.toString(),
-                req.user?.['userId']
-            );
+            const searchResults = await publicationService.getCaseByCaseUrn(searchInput.toString(), req.user['userId']);
             searchResults
                 ? res.render('subscription-urn-search-results', {
                       ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-urn-search-results']),

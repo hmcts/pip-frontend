@@ -30,7 +30,7 @@ describe('Manage third party subscription', () => {
     const getChannelsListStub = sinon.stub(SubscriptionService.prototype, 'retrieveChannels');
 
     getThirdPartyUserByIdStub.withArgs(userId).resolves({ userId: userId });
-    getListTypesStub.resolves(
+    getListTypesStub.returns(
         new Map([
             ['LIST_A', { friendlyName: 'List A' }],
             ['LIST_B', { friendlyName: 'List B' }],

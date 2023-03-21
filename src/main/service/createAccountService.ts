@@ -213,7 +213,8 @@ export class CreateAccountService {
                 return languageFileParser.getText(fileJson, 'fileUploadErrors', 'tooManyAccountsError');
             }
 
-            if (JSON.stringify(rows[0].sort()) !== JSON.stringify(expectedHeader.sort())) {
+            const sortedFirstRow = rows[0].sort();
+            if (JSON.stringify(sortedFirstRow) !== JSON.stringify(expectedHeader.sort())) {
                 return languageFileParser.getText(fileJson, 'fileUploadErrors', 'headerError');
             }
 

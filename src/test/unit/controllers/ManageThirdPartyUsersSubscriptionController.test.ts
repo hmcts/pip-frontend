@@ -32,7 +32,7 @@ describe('Manage third party users subscription controller', () => {
         it('should render third party subscriptions page', async () => {
             request['query'] = { userId: userId };
             getThirdPartyUserByIdStub.withArgs(userId).resolves({ userId: userId });
-            getListTypesStub.resolves(['LIST_A', 'LIST_B']);
+            getListTypesStub.returns(['LIST_A', 'LIST_B']);
             getSubscriptionsByUserStub.withArgs(userId).resolves({ listTypeSubscriptions: [] });
             getChannelsListStub.resolves(['CHANNEL_A', 'EMAIL']);
             generateListTypesStub.withArgs(['LIST_A', 'LIST_B'], { listTypeSubscriptions: [] }).returns({});
@@ -68,7 +68,7 @@ describe('Manage third party users subscription controller', () => {
         it('should error page if no user is found', async () => {
             request['query'] = { userId: userId };
             getThirdPartyUserByIdStub.withArgs(userId).resolves(null);
-            getListTypesStub.resolves(['LIST_A', 'LIST_B']);
+            getListTypesStub.returns(['LIST_A', 'LIST_B']);
             getSubscriptionsByUserStub.withArgs(userId).resolves({ listTypeSubscriptions: [] });
             getChannelsListStub.resolves(['CHANNEL_A', 'EMAIL']);
 

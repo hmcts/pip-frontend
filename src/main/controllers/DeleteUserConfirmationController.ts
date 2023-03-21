@@ -26,7 +26,7 @@ export default class DeleteUserConfirmationController {
                   })
                 : res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
-            const hrefDeletion = ('/manage-user?id=' + req.body.user) as string;
+            const hrefDeletion = '/manage-user?id=' + req.body.user;
             res.redirect(hrefDeletion);
         }
     }
