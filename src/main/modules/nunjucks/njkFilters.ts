@@ -25,9 +25,7 @@ function createFilters(env) {
             .map(x => rejectReasonLookup[x] ?? x)
             .map(x => linkify(`<li><b>${x[0]}</b><br>${x[1]} </li>`))
             .join('');
-        return new runtime.SafeString(
-            `<ol${nopadding ? ' class="govuk-!-padding-left-4"' : ''}>${listItems}</ol>`
-    );
+        return new runtime.SafeString(`<ol${nopadding ? ' class="govuk-!-padding-left-4"' : ''}>${listItems}</ol>`);
     });
 
     // takes in a string and hunts for a url. If it finds one, it wraps it with link tags

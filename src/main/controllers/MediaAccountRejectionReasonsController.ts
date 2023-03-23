@@ -9,16 +9,22 @@ const url = 'media-account-rejection-reasons';
 
 export default class MediaAccountRejectionReasonsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const applicantId = req.query['applicantId'];
-        const fs = require('fs');
-        const rejectReasons = JSON.parse(
-            fs.readFileSync(path.resolve(__dirname, '../modules/nunjucks/media-account-rejection-reasons-lookup.json'))
-        );
-        return res.render(url, {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
-            applicantId,
-            rejectReasons,
-        });
+        if (req.query.applicantId) {
+            const applicantId = req.query.applicantId;
+
+            const fs = require('fs');
+            const rejectReasons = JSON.parse(
+                fs.readFileSync(path.resolve(__dirname, '../modules/nunjucks/media-account-rejection-reasons-lookup.json'))
+            );
+            return res.render(url, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
+                applicantId,
+                rejectReasons,
+            });
+        }
+        else {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        }
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
