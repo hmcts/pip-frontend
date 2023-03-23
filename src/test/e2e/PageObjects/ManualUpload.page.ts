@@ -76,7 +76,7 @@ export class ManualUploadPage extends CommonPage {
 
         await $(helpers.contentDateFromDay).addValue(this.randomDay);
         await $(helpers.contentDateFromMonth).addValue(this.randomMonth);
-        await $(helpers.contentDateFromYear).addValue('2021');
+        await $(helpers.contentDateFromYear).addValue('1999');
     }
 
     async inputDisplayDateFrom(): Promise<void> {

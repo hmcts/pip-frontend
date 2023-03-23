@@ -138,6 +138,8 @@ let manageThirdPartyUsersPage: ManageThirdPartyUsersPage;
 let bulkCreateMediaAccountsPage: BulkCreateMediaAccountsPage;
 let bulkCreateMediaAccountsConfirmationPage: BulkCreateMediaAccountsConfirmationPage;
 
+const testCourt = 'AA - E2E TEST COURT - DO NOT REMOVE';
+
 describe('Unverified user', () => {
     it("should open main page with 'See publications and information from a court or tribunal' title", async () => {
         await homePage.open('');
@@ -167,19 +169,17 @@ describe('Unverified user', () => {
         });
 
         describe('following the search court path', async () => {
-            const searchTerm = 'AA - E2E TEST COURT - DO NOT REMOVE';
-
             it('should enter text and click continue', async () => {
-                await searchPage.enterText(searchTerm);
+                await searchPage.enterText(testCourt);
                 summaryOfPublicationsPage = await searchPage.clickContinue();
                 expect(await summaryOfPublicationsPage.getPageTitle()).toEqual(
-                    'What do you want to view from ' + searchTerm + '?'
+                    'What do you want to view from ' + testCourt + '?'
                 );
             });
 
             it('should select the first publication', async () => {
                 courtListPage = await summaryOfPublicationsPage.clickSOPListItem();
-                expect(await courtListPage.getPageTitle()).toContain(searchTerm);
+                expect(await courtListPage.getPageTitle()).toContain(testCourt);
             });
         });
 
@@ -188,7 +188,6 @@ describe('Unverified user', () => {
                 await searchPage.open('/search');
             });
 
-            const searchTerm = 'AA - E2E TEST COURT - DO NOT REMOVE';
             it("should click on 'Select from an A-Z list of courts and tribunals' link ", async () => {
                 alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
                 expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
@@ -210,13 +209,13 @@ describe('Unverified user', () => {
             it('selecting first result should take you to to the summary of publications page', async () => {
                 summaryOfPublicationsPage = await alphabeticalSearchPage.selectFirstListResult();
                 expect(await summaryOfPublicationsPage.getPageTitle()).toEqual(
-                    'What do you want to view from ' + searchTerm + '?'
+                    'What do you want to view from ' + testCourt + '?'
                 );
             });
 
             it('should select the first publication', async () => {
                 courtListPage = await summaryOfPublicationsPage.clickSOPListItem();
-                expect(await courtListPage.getPageTitle()).toContain(searchTerm);
+                expect(await courtListPage.getPageTitle()).toContain(testCourt);
             });
         });
 
@@ -272,16 +271,15 @@ describe('Unverified user', () => {
         });
 
         describe('SJP list filtering', () => {
-            const searchTerm = 'AA - E2E TEST COURT - DO NOT REMOVE';
             before(async () => {
                 await searchPage.open('/search');
             });
 
             it('should enter text and click continue', async () => {
-                await searchPage.enterText(searchTerm);
+                await searchPage.enterText(testCourt);
                 summaryOfPublicationsPage = await searchPage.clickContinue();
                 expect(await summaryOfPublicationsPage.getPageTitle()).toEqual(
-                    'What do you want to view from ' + searchTerm + '?'
+                    'What do you want to view from ' + testCourt + '?'
                 );
             });
 
@@ -376,16 +374,15 @@ describe('Unverified user', () => {
         });
 
         describe('sorting of list table', () => {
-            const searchTerm = 'AA - E2E TEST COURT - DO NOT REMOVE';
             before(async () => {
                 await searchPage.open('/search');
             });
 
             it('should enter text and click continue', async () => {
-                await searchPage.enterText(searchTerm);
+                await searchPage.enterText(testCourt);
                 summaryOfPublicationsPage = await searchPage.clickContinue();
                 expect(await summaryOfPublicationsPage.getPageTitle()).toEqual(
-                    'What do you want to view from ' + searchTerm + '?'
+                    'What do you want to view from ' + testCourt + '?'
                 );
             });
 
@@ -900,39 +897,44 @@ describe('Admin level journeys', () => {
         expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
     });
 
-    describe('Manual Upload', () => {
-        it('should open manual upload page', async () => {
-            manualUploadPage = await adminDashboard.clickUploadFileCard();
-            expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
-        });
-        it('should complete form and open summary page', async () => {
-            await manualUploadPage.completeForm();
-            manualUploadSummaryPage = await manualUploadPage.clickContinue();
-            expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
-        });
-        it('should open upload confirmation page', async () => {
-            fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
-            expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
-        });
-    });
-
     describe('Create new account', () => {
-        it('should open admin dashboard page', async () => {
-            await adminDashboard.open('/admin-dashboard');
-            expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
-        });
         it('should click on the create new account card', async () => {
             createAdminAccountPage = await adminDashboard.clickCreateNewAccountCard();
             expect(await createAdminAccountPage.getPageTitle()).toEqual('Create admin account');
         });
+
         it('should complete form and open summary page', async () => {
             await createAdminAccountPage.completeForm();
             createAdminAccountSummaryPage = await createAdminAccountPage.clickContinue();
             expect(await createAdminAccountSummaryPage.getPageTitle()).toEqual('Check account details');
         });
+
         it('should click confirm and create user account', async () => {
             createAdminAccountSummaryPage = await createAdminAccountSummaryPage.clickConfirm();
             expect(await createAdminAccountSummaryPage.getPanelTitle()).toEqual('Account has been created');
+        });
+    });
+
+    describe('Manual Upload', () => {
+        it('should open admin dashboard page', async () => {
+            await adminDashboard.open('/admin-dashboard');
+            expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
+        });
+
+        it('should open manual upload page', async () => {
+            manualUploadPage = await adminDashboard.clickUploadFileCard();
+            expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
+        });
+
+        it('should complete form and open summary page', async () => {
+            await manualUploadPage.completeForm();
+            manualUploadSummaryPage = await manualUploadPage.clickContinue();
+            expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
+        });
+
+        it('should open upload confirmation page', async () => {
+            fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
+            expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
         });
     });
 
@@ -942,23 +944,31 @@ describe('Admin level journeys', () => {
             searchPublicationPage = await adminDashboard.clickRemoveCard();
             expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
         });
+
         it('should enter valid court in the search field, click continue and open search results page', async () => {
-            const searchTerm = 'AA - E2E TEST COURT - DO NOT REMOVE';
-            await searchPublicationPage.enterText(searchTerm);
+            await searchPublicationPage.enterText(testCourt);
             searchPublicationResultsPage = await searchPublicationPage.clickContinue();
             expect(await searchPublicationResultsPage.getPageTitle()).toEqual('Select content to remove');
         });
+
+        it('should sort the removal table by content date on ascending order', async () => {
+            await searchPublicationResultsPage.clickContentDateSortButton();
+            expect(await searchPublicationResultsPage.getFirstRowContentDate()).toContain('1999');
+        });
+
         it('should click on the first result and open confirmation page', async () => {
             publicationConfirmationPage = await searchPublicationResultsPage.clickRemoveOnFirstRecord();
             expect(await publicationConfirmationPage.getPageTitle()).toEqual(
                 'Are you sure you want to remove this publication?'
             );
         });
+
         it('should select yes option and remove publication', async () => {
             await publicationConfirmationPage.selectOption('remove-choice');
             removePublicationSuccessPage = await publicationConfirmationPage.clickContinueToRemovePublication();
             expect(await removePublicationSuccessPage.getPanelTitle()).toEqual('Success');
         });
+
         it('should click on the home link and open admin dashboard page', async () => {
             adminDashboard = await removePublicationSuccessPage.clickHome();
             expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
