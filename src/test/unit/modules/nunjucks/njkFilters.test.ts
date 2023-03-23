@@ -68,6 +68,18 @@ describe('Nunjucks Custom Filter Tests', function () {
         });
     });
 
+    describe('date with short month name to sort value filter', function () {
+        it('should return sort value', function () {
+            const result = env.renderString('{{ "20 Nov 2021"| dateWithShortMonthNameToSortValue }}', {});
+            expect(result).to.equal('20211120');
+        });
+
+        it('should return sort value with zero padding', function () {
+            const result = env.renderString('{{ "3 Jan 2021"| dateWithShortMonthNameToSortValue }}', {});
+            expect(result).to.equal('20210103');
+        });
+    });
+
     describe('day month name to sort value filter', function () {
         it('should return sort value', function () {
             const result = env.renderString('{{ "07 September"| dayMonthNameToSortValue }}', {});

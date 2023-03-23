@@ -12,6 +12,7 @@ function createFilters(env) {
     const fs = require('fs');
     const listTypes = publicationService.getListTypes();
     const languageLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'languageLookup.json')));
+
     // to get the pretty list type name
     env.addFilter('listType', function (x) {
         return listTypes.get(x)?.friendlyName;
@@ -59,6 +60,15 @@ function createFilters(env) {
     // to convert the date string (in format DD/MM/YYYY) to a number value for sorting
     env.addFilter('dateToSortValue', function (date) {
         return date.split('/').reverse().join('');
+    });
+
+    // to convert the date string (in format D MMM YYYY) to a number value for sorting
+    env.addFilter('dateWithShortMonthNameToSortValue', function (date) {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        const values = date.split(' ');
+        const month = (months.indexOf(values[1]) + 1).toString();
+        return values[2] + month.padStart(2, '0') + values[0].padStart(2, '0');
     });
 
     // to convert the day and month name string (in format DD MMMM) to a number value for sorting

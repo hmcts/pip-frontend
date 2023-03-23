@@ -12,4 +12,20 @@ export class RemoveListSearchResultsPage extends CommonPage {
         await $(helpers.SubscriptionManagementTableFirstResultUrl).click();
         return new RemoveListConfirmationPage();
     }
+
+    async clickContentDateSortButton(): Promise<void> {
+        $(helpers.RemovalTableContentDateButton).catch(() => {
+            console.log(`${helpers.RemovalTableContentDateButton} not found`);
+        });
+
+        await $(helpers.RemovalTableContentDateButton).click();
+    }
+
+    async getFirstRowContentDate(): Promise<string> {
+        $(helpers.RemovalTableFirstRowContentDateCell).catch(() => {
+            console.log(`${helpers.RemovalTableFirstRowContentDateCell} not found`);
+        });
+
+        return await $(helpers.RemovalTableFirstRowContentDateCell).getText();
+    }
 }
