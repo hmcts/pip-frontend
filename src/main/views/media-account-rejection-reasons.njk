@@ -2,12 +2,8 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-
-
-
-
-
 {% extends "template.njk" %}
+
 {% block pageTitle %}
     Media Account Rejection Reasons
 {% endblock %}
@@ -29,25 +25,11 @@
         }) }}
     {% endif %}
 
-    {% set other %}
-        {{ govukInput({
-            id: "optional-other",
-            name: "optional-other",
-            type: "text",
-            autocomplete: "text",
-            classes: "govuk-!-width-one-third",
-            label: {
-                text: "Add your own rejection reason in the box below:"
-            }
-        }) }}
-    {% endset -%}
-
     {% set checkboxReasons = [] %}
     {% for shortReason, reason in rejectReasons %}
     {% set _ = checkboxReasons.push({value: shortReason, text: reason}) %}
     {% endfor %}
     {% set otherHtml = {html:other} %}
-    {% set otherBox =  {value: "other", text: "Other", conditional: otherHtml} %}
     {% set _ = checkboxReasons.push(otherBox) %}
 
 

@@ -30,12 +30,15 @@ function createFilters(env) {
         );
     });
 
-    // linkify takes in a string and hunts for a url. If it finds one, it wraps it with link tags
+    // takes in a string and hunts for a url. If it finds one, it wraps it with link tags
     // Note: Output from this will need to be used in a "safestring" to render properly.
-    function linkify(inputString){
+    function linkify(inputString) {
         const urlRegex = /((https?:\/\/)[^\s]+)/g;
         // target is blank to open in new tab
-        return inputString.replace(urlRegex, '<a href="$1" class="govuk-link" target="_blank">$1 (opens in a new tab)</a>');
+        return inputString.replace(
+            urlRegex,
+            '<a href="$1" class="govuk-link" target="_blank">$1 (opens in a new tab)</a>'
+        );
     }
 
     // to get the pretty list type name
