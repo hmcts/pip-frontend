@@ -20,14 +20,8 @@ describe('Media Account Rejection Reasons Controller', () => {
             'The applicant is not an accredited member of the media.',
             'You can sign in with an existing MyHMCTS account. Or you can register your organisation at https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals',
         ],
-        expired: [
-            'ID provided has expired or is not a press ID.',
-            'Please provide a valid Press ID.',
-        ],
-        noMatch: [
-            'Details provided do not match.',
-            'The name, email address and Press ID do not match each other.',
-        ],
+        expired: ['ID provided has expired or is not a press ID.', 'Please provide a valid Press ID.'],
+        noMatch: ['Details provided do not match.', 'The name, email address and Press ID do not match each other.'],
     };
     const applicantData = {
         fullName: 'test user',
@@ -36,7 +30,6 @@ describe('Media Account Rejection Reasons Controller', () => {
     };
     const getApplicationStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationById');
     describe('GET request', () => {
-
         it('should render the media account rejection confirmation page', () => {
             getApplicationStub.withArgs(applicantId).resolves(applicantData);
 
@@ -64,7 +57,6 @@ describe('Media Account Rejection Reasons Controller', () => {
         });
 
         it('should render the error page if no applicant ID', () => {
-
             const applicantId = null;
             const response = {
                 render: () => {
@@ -82,7 +74,10 @@ describe('Media Account Rejection Reasons Controller', () => {
         });
     });
     describe('POST requests', () => {
-        const mediaAccountApplicationStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
+        const mediaAccountApplicationStub = sinon.stub(
+            MediaAccountApplicationService.prototype,
+            'getApplicationByIdAndStatus'
+        );
         it('should return a valid response with valid applicantId and valid reasons', () => {
             const request = mockRequest(i18n);
             const applicantId = 'validApplicantId';
@@ -106,7 +101,6 @@ describe('Media Account Rejection Reasons Controller', () => {
             mediaAccountRejectionReasonsController.post(request, response).then(() => {
                 responseMock.verify();
             });
-
         });
         it('should return a valid response with invalid applicantId and invalid reasons', () => {
             const request = mockRequest(i18n);
@@ -138,7 +132,6 @@ describe('Media Account Rejection Reasons Controller', () => {
             mediaAccountRejectionReasonsController.post(request, response).then(() => {
                 responseMock.verify();
             });
-
         });
     });
 });

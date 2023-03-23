@@ -14,15 +14,16 @@ export default class MediaAccountRejectionReasonsController {
 
             const fs = require('fs');
             const rejectReasons = JSON.parse(
-                fs.readFileSync(path.resolve(__dirname, '../modules/nunjucks/media-account-rejection-reasons-lookup.json'))
+                fs.readFileSync(
+                    path.resolve(__dirname, '../modules/nunjucks/media-account-rejection-reasons-lookup.json')
+                )
             );
             return res.render(url, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
                 applicantId,
                 rejectReasons,
             });
-        }
-        else {
+        } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
     }
