@@ -27,10 +27,9 @@
 
     {% set checkboxReasons = [] %}
     {% for shortReason, reason in rejectReasons %}
-    {% set _ = checkboxReasons.push({value: shortReason, text: reason}) %}
+    {% set _ = checkboxReasons.push({value: shortReason, text: reason[0]}) %}
     {% endfor %}
     {% set otherHtml = {html:other} %}
-    {% set _ = checkboxReasons.push(otherBox) %}
 
 
 <form method="post" action="/media-account-rejection-reasons?applicantId={{ applicantId }}">

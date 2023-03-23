@@ -24,11 +24,6 @@ export default class MediaAccountRejectionReasonsController {
     public async post(req: PipRequest, res: Response): Promise<void> {
         const applicantId = req.body['applicantId'];
         const reasons = req.body['rejection-reasons'];
-        const otherBox = req.body['optional-other'];
-        const otherCheck = reasons.indexOf('other');
-        if (otherCheck != -1) {
-            reasons[otherCheck] = otherBox;
-        }
 
         if (reasons && applicantId) {
             const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
@@ -41,11 +36,6 @@ export default class MediaAccountRejectionReasonsController {
                 applicantId,
                 reasons,
             });
-            // if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'])) {
-            //     const uri = new URL('/media-account-rejection-confirmation/', process.env.FRONTEND_URL);
-            //     uri.searchParams.append('applicantId', applicantId);
-            //     uri.searchParams.append('reasons', reasons);
-            //     return res.redirect(uri.href);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
