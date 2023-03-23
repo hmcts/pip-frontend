@@ -88,5 +88,14 @@ withPipeline(type, product, component) {
     onIthc {
         env.ENV = 'ithc'
     }
-
+    afterAlways('functionalTest') {
+        publishHTML target: [
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
+            reportDir            : "functional-output/functional/allure",
+            reportFiles          : "index.html",
+            reportName           : "Functional Test Report"
+        ]
+    }
 }

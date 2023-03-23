@@ -17,8 +17,7 @@ export default class ManageThirdPartyUsersViewController {
                 const subscriptions = await subscriptionsService.getSubscriptionsByUser(user.userId);
 
                 await userManagementService.auditAction(
-                    req.user['userId'],
-                    req.user['email'],
+                    req.user,
                     'MANAGE_THIRD_PARTY_USER_VIEW',
                     'User requested to view third party user with id: ' + user.userId
                 );

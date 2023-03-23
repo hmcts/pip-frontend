@@ -2,8 +2,10 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { MediaAccountApplicationService } from '../service/mediaAccountApplicationService';
 import { cloneDeep } from 'lodash';
+import { UserManagementService } from '../service/userManagementService';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
+const userManagementService = new UserManagementService();
 
 export default class MediaAccountRejectionController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -67,16 +69,23 @@ export default class MediaAccountRejectionController {
      * This handles the pages that render if the user has selected 'Reject' on the screen.
      */
     private static async rejectionFlow(req, res, applicantId, reasons): Promise<void> {
-        const applicantData = await mediaAccountApplicationService.getApplicationById(req.body.applicantId);
+        const applicantData = await mediaAccountApplicationService.getApplicationById(
+            req.body.applicantId);
         const url = 'media-account-rejection-confirmation';
         if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'])) {
+            await userManagementService.auditAction(
+                req.user,
+                'REJECT_MEDIA_APPLICATION',
+                `Media application with id ${applicantId} rejected`
+            );
             return res.render(url, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
                 applicantData,
                 reasons: reasons,
-            });
+            })
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
+
     }
 }

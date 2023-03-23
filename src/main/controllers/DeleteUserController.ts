@@ -13,8 +13,7 @@ export default class DeleteUserController {
         const userId = req.query.id as string;
         const userData = await accountManagementRequests.getUserByUserId(userId, req.user['userId']);
         await userManagementService.auditAction(
-            req.user['userId'],
-            req.user['email'],
+            req.user,
             'MANAGE_USER',
             'Delete user page requested containing user: ' + userId
         );

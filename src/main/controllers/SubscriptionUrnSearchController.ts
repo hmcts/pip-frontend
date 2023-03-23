@@ -14,7 +14,7 @@ export default class SubscriptionUrnSearchController {
         const searchInput = req.body['search-input'];
 
         if (searchInput && searchInput.length) {
-            const searchResults = await publicationService.getCaseByCaseUrn(searchInput, req.user?.['userId']);
+            const searchResults = await publicationService.getCaseByCaseUrn(searchInput, req.user['userId']);
 
             searchResults
                 ? res.redirect(`subscription-urn-search-results?search-input=${searchInput}`)

@@ -1,6 +1,4 @@
 import { Application } from 'express';
-import { infoRequestHandler } from '@hmcts/info-provider';
-import os from 'os';
 import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 import {
@@ -582,6 +580,7 @@ export default function (app: Application): void {
         app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get
     );
     app.get('/audit-log-viewer', isPermittedSystemAdmin, app.locals.container.cradle.auditLogViewerController.get);
+    app.get('/audit-log-details', isPermittedSystemAdmin, app.locals.container.cradle.auditLogDetailsController.get);
 
     //CFT Routes
     if (process.env.ENABLE_CFT === 'true') {
@@ -596,20 +595,7 @@ export default function (app: Application): void {
         app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
     }
 
-    app.get(
-        '/info',
-        infoRequestHandler({
-            extraBuildInfo: {
-                host: os.hostname(),
-                name: 'expressjs-template',
-                uptime: process.uptime(),
-            },
-            info: {
-                // TODO: add downstream info endpoints if your app has any
-            },
-        })
-    );
-
+    app.get('/info', app.locals.container.cradle.infoController.get);
     app.get('/robots.txt', function (_req, res) {
         res.type('text/plain');
         res.send('User-agent: *\nDisallow: /');

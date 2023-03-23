@@ -23,12 +23,20 @@ function createFilters(env) {
         csvList = Array.isArray(csvList) ? csvList : csvList.split(',');
         const listItems = csvList
             .map(x => rejectReasonLookup[x] ?? x)
-            .map(x => `<li>${x}</li>`)
+            .map(x => linkify(`<li><b>${x[0]}</b><br>${x[1]} </li>`))
             .join('');
         return new runtime.SafeString(
             `<ol${nopadding ? ' class="govuk-list--number govuk-!-padding-left-4"' : ''}>${listItems}</ol>`
         );
     });
+
+    // linkify takes in a string and hunts for a url. If it finds one, it wraps it with link tags
+    // Note: Output from this will need to be used in a "safestring" to render properly.
+    function linkify(inputString){
+        const urlRegex = /((https?:\/\/)[^\s]+)/g;
+        // target is blank to open in new tab
+        return inputString.replace(urlRegex, '<a href="$1" class="govuk-link" target="_blank">$1 (opens in a new tab)</a>');
+    }
 
     // to get the pretty list type name
     env.addFilter('listType', function (x) {
@@ -77,6 +85,15 @@ function createFilters(env) {
     // to convert the date string (in format DD/MM/YYYY) to a number value for sorting
     env.addFilter('dateToSortValue', function (date) {
         return date.split('/').reverse().join('');
+    });
+
+    // to convert the date string (in format D MMM YYYY) to a number value for sorting
+    env.addFilter('dateWithShortMonthNameToSortValue', function (date) {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        const values = date.split(' ');
+        const month = (months.indexOf(values[1]) + 1).toString();
+        return values[2] + month.padStart(2, '0') + values[0].padStart(2, '0');
     });
 
     // to convert the day and month name string (in format DD MMMM) to a number value for sorting

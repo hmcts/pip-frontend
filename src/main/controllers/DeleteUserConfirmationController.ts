@@ -15,8 +15,7 @@ export default class DeleteUserConfirmationController {
                 req.user['userId']
             );
             await userManagementService.auditAction(
-                req.user['userId'],
-                req.user['email'],
+                req.user,
                 'DELETE_USER',
                 'User has been deleted, id: ' + req.body.user
             );
@@ -27,7 +26,7 @@ export default class DeleteUserConfirmationController {
                   })
                 : res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
-            const hrefDeletion = ('/manage-user?id=' + req.body.user) as string;
+            const hrefDeletion = '/manage-user?id=' + req.body.user;
             res.redirect(hrefDeletion);
         }
     }

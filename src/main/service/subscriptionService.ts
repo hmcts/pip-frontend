@@ -458,16 +458,24 @@ export class SubscriptionService {
             filterValues = filterService.handleFilterClear(filterValues, clearQuery);
         }
 
-        const applicableListTypes = await this.generateAppropriateListTypes(userId, userRole);
+        const applicableListTypes = await this.generateAppropriateListTypes(userId, userRole, language);
 
-        const filterOptions = this.buildFilterValueOptions(applicableListTypes, filterValues, language);
+        return {
+            listOptions: this.generateAlphabetisedListTypes(filterValues, applicableListTypes, language),
+            filterOptions: this.buildFilterValueOptions(applicableListTypes, filterValues, language),
+        };
+    }
 
+    private generateAlphabetisedListTypes(filterValues, applicableListTypes, language) {
         const alphabetisedListTypes = AToZHelper.generateAlphabetObject();
+
+        const languageProperty = language === 'en' ? 'friendlyName' : 'welshFriendlyName';
 
         if (filterValues.length == 0) {
             for (const [listName, listType] of applicableListTypes) {
-                alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
-                    listFriendlyName: listType.friendlyName,
+                const listLocalisedName = listType[languageProperty];
+                alphabetisedListTypes[listLocalisedName.charAt(0).toUpperCase()][listName] = {
+                    listFriendlyName: listLocalisedName,
                     checked: listType.checked,
                 };
             }
@@ -478,23 +486,21 @@ export class SubscriptionService {
                         ? !listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction))
                         : !listType.welshJurisdictions.some(jurisdiction => filterValues.includes(jurisdiction));
 
-                alphabetisedListTypes[listName.charAt(0).toUpperCase()][listName] = {
-                    listFriendlyName: listType.friendlyName,
+                const listLocalisedName = listType[languageProperty];
+                alphabetisedListTypes[listLocalisedName.charAt(0).toUpperCase()][listName] = {
+                    listFriendlyName: listLocalisedName,
                     checked: listType.checked,
                     hidden: hidden,
                 };
             }
         }
 
-        return {
-            listOptions: alphabetisedListTypes,
-            filterOptions: filterOptions,
-        };
+        return alphabetisedListTypes;
     }
 
-    private async generateAppropriateListTypes(userId, userRole): Promise<Map<string, ListType>> {
+    private async generateAppropriateListTypes(userId, userRole, language): Promise<Map<string, ListType>> {
         const userSubscriptions = await this.getSubscriptionsByUser(userId);
-        const listTypes = await publicationService.getListTypes();
+        const listTypes = publicationService.getListTypes();
 
         let selectedListTypes = [];
         if (userSubscriptions['locationSubscriptions'].length > 0) {
@@ -509,7 +515,12 @@ export class SubscriptionService {
             }
         }
 
-        const sortedListTypes = new Map([...listTypes].sort());
+        const comparatorValue = language === 'en' ? 'friendlyName' : 'welshFriendlyName';
+
+        const sortedListTypes = new Map(
+            [...listTypes].sort((a, b) => a[1][comparatorValue].localeCompare(b[1][comparatorValue]))
+        );
+
         const applicableListTypes = new Map();
         for (const [listName, listType] of sortedListTypes) {
             if (
@@ -564,7 +575,7 @@ export class SubscriptionService {
     }
 
     private getAllJurisdictions(list: Map<string, ListType>, language: string): string[] {
-        const filterSet = new Set() as Set<string>;
+        const filterSet = new Set<string>();
         list.forEach(value => {
             if (language == 'en') {
                 value.jurisdictions.forEach(jurisdiction => filterSet.add(jurisdiction));

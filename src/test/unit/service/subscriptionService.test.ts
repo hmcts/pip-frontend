@@ -232,24 +232,24 @@ describe('getSubscriptionDataForView function', () => {
             const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'case');
             const subscriptionData = JSON.parse(JSON.stringify(result));
             const firstRow = subscriptionData.caseTableData[0];
-            expect(firstRow[0].text).toEqual('Ashely Barnes');
-            expect(firstRow[1].text).toEqual('T485914');
+            expect(firstRow[0].text).toEqual('Test Name');
+            expect(firstRow[1].text).toEqual('C123123');
 
             const secondRow = subscriptionData.caseTableData[1];
-            expect(secondRow[0].text).toEqual('Tom Clancy');
-            expect(secondRow[1].text).toEqual('T485911');
+            expect(secondRow[0].text).toEqual('Test Name 2');
+            expect(secondRow[1].text).toEqual('I123123');
 
             const thirdRow = subscriptionData.caseTableData[2];
-            expect(thirdRow[0].text).toEqual('Tom Clancy');
-            expect(thirdRow[1].text).toEqual('T485913');
+            expect(thirdRow[0].text).toEqual('Test Name 3');
+            expect(thirdRow[1].text).toEqual('B123123');
 
             const fourthRow = subscriptionData.caseTableData[3];
             expect(fourthRow[0].text).toBeNull();
-            expect(fourthRow[1].text).toEqual('T485910');
+            expect(fourthRow[1].text).toEqual('A123123');
 
             const fifthRow = subscriptionData.caseTableData[4];
             expect(fifthRow[0].text).toBeNull();
-            expect(fifthRow[1].text).toEqual('T485912');
+            expect(fifthRow[1].text).toEqual('D123123');
         });
 
         it('should sort location subscription data by court name', async () => {
@@ -263,6 +263,40 @@ describe('getSubscriptionDataForView function', () => {
             expect(subscriptionData.locationTableData[0][0].text).toEqual('Aberdeen Tribunal Hearing Centre');
             expect(subscriptionData.locationTableData[1][0].text).toEqual("Barkingside Magistrates' Court");
             expect(subscriptionData.locationTableData[2][0].text).toEqual('Manchester Crown Court');
+        });
+
+        it('should sort location when duplicate location subscription is set', async () => {
+            const locationDuplicateSubscription = fs.readFileSync(
+                path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptionsLocationDuplicate.json'),
+                'utf-8'
+            );
+            stubUserSubscription.withArgs('12341234').resolves(JSON.parse(locationDuplicateSubscription).data);
+
+            const result = await subscriptionService.getSubscriptionDataForView('12341234', 'en', 'location');
+            const subscriptionData = JSON.parse(JSON.stringify(result));
+            expect(subscriptionData.locationTableData[0][0].text).toEqual('Manchester Crown Court');
+            expect(subscriptionData.locationTableData[1][0].text).toEqual('Manchester Crown Court');
+        });
+
+        it('should sort case name when there are null in names and numbers/urns', async () => {
+            const locationDuplicateSubscription = fs.readFileSync(
+                path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptionsSingleCaseAndWithoutCaseName.json'),
+                'utf-8'
+            );
+            stubUserSubscription.withArgs('1948291848').resolves(JSON.parse(locationDuplicateSubscription).data);
+
+            const result = await subscriptionService.getSubscriptionDataForView('1948291848', 'en', 'case');
+            const subscriptionData = JSON.parse(JSON.stringify(result));
+            expect(subscriptionData.caseTableData[0][0].text).toBe('Case Name');
+            expect(subscriptionData.caseTableData[0][1].text).toEqual('1234');
+            expect(subscriptionData.caseTableData[1][0].text).toBe('Case Name');
+            expect(subscriptionData.caseTableData[1][1].text).toEqual('1234512345');
+            expect(subscriptionData.caseTableData[2][0].text).toBe('Case Name');
+            expect(subscriptionData.caseTableData[2][1].text).toEqual('1234512345');
+            expect(subscriptionData.caseTableData[3][0].text).toBe('Case Name');
+            expect(subscriptionData.caseTableData[3][1].text).toBeNull();
+            expect(subscriptionData.caseTableData[4][0].text).toBeNull();
+            expect(subscriptionData.caseTableData[4][1].text).toBe('1234512346');
         });
     });
 
@@ -343,24 +377,24 @@ describe('getSubscriptionDataForView function', () => {
             const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'case');
             const subscriptionData = JSON.parse(JSON.stringify(result));
             const firstRow = subscriptionData.caseTableData[0];
-            expect(firstRow[0].text).toEqual('Ashely Barnes');
-            expect(firstRow[1].text).toEqual('T485914');
+            expect(firstRow[0].text).toEqual('Test Name');
+            expect(firstRow[1].text).toEqual('C123123');
 
             const secondRow = subscriptionData.caseTableData[1];
-            expect(secondRow[0].text).toEqual('Tom Clancy');
-            expect(secondRow[1].text).toEqual('T485911');
+            expect(secondRow[0].text).toEqual('Test Name 2');
+            expect(secondRow[1].text).toEqual('I123123');
 
             const thirdRow = subscriptionData.caseTableData[2];
-            expect(thirdRow[0].text).toEqual('Tom Clancy');
-            expect(thirdRow[1].text).toEqual('T485913');
+            expect(thirdRow[0].text).toEqual('Test Name 3');
+            expect(thirdRow[1].text).toEqual('B123123');
 
             const fourthRow = subscriptionData.caseTableData[3];
             expect(fourthRow[0].text).toBeNull();
-            expect(fourthRow[1].text).toEqual('T485910');
+            expect(fourthRow[1].text).toEqual('A123123');
 
             const fifthRow = subscriptionData.caseTableData[4];
             expect(fifthRow[0].text).toBeNull();
-            expect(fifthRow[1].text).toEqual('T485912');
+            expect(fifthRow[1].text).toEqual('D123123');
         });
 
         it('should sort location subscription data by court name', async () => {
@@ -666,6 +700,32 @@ describe('generateListTypesForCourts', () => {
         expect(civilFilter['checked']).toBeFalsy();
     });
 
+    it('Test sorting of lists in english', async () => {
+        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crown'] });
+
+        const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', '', '', 'en');
+
+        const listOptions = result['listOptions'];
+        const listTypes = listOptions['C'];
+        const keys = Object.keys(listTypes);
+
+        expect(keys[0]).toEqual('CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
+        expect(keys[5]).toEqual('CROWN_WARNED_LIST');
+    });
+
+    it('Test sorting of lists in welsh', async () => {
+        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crown'] });
+
+        const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', '', '', 'cy');
+
+        const listOptions = result['listOptions'];
+        const listTypes = listOptions['R'];
+        const keys = Object.keys(listTypes);
+
+        expect(keys[0]).toEqual('COP_DAILY_CAUSE_LIST');
+        expect(keys[7]).toEqual('MAGISTRATES_STANDARD_LIST');
+    });
+
     it('generate list types with no filters with no selected in Welsh', async () => {
         locationStub.withArgs(1).resolves({ jurisdiction: ['Civil'] });
 
@@ -675,15 +735,16 @@ describe('generateListTypesForCourts', () => {
         expect(result['filterOptions']).toBeDefined();
 
         const listOptions = result['listOptions'];
-        expect(listOptions['C']).toBeDefined();
+        expect(listOptions['R']).toBeDefined();
 
-        const listTypes = listOptions['C'];
+        const listTypes = listOptions['R'];
+
         expect(listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST']).toBeDefined();
         expect(listTypes['CIVIL_DAILY_CAUSE_LIST']).toBeDefined();
         expect(listTypes['COP_DAILY_CAUSE_LIST']).toBeDefined();
 
         const civilAndFamilyCauseList = listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'];
-        expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Civil and Family Daily Cause List');
+        expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Rhestr Achosion Dyddiol y Llys Sifil a Theulu');
         expect(civilAndFamilyCauseList['checked']).toBeTruthy();
 
         const civilDailyCauseList = listTypes['CIVIL_DAILY_CAUSE_LIST'];
@@ -752,15 +813,15 @@ describe('generateListTypesForCourts', () => {
         expect(result['filterOptions']).toBeDefined();
 
         const listOptions = result['listOptions'];
-        expect(listOptions['C']).toBeDefined();
+        expect(listOptions['R']).toBeDefined();
 
-        const listTypes = listOptions['C'];
+        const listTypes = listOptions['R'];
         expect(listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST']).toBeDefined();
         expect(listTypes['CIVIL_DAILY_CAUSE_LIST']).toBeDefined();
         expect(listTypes['COP_DAILY_CAUSE_LIST']).toBeDefined();
 
         const civilAndFamilyCauseList = listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'];
-        expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Civil and Family Daily Cause List');
+        expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Rhestr Achosion Dyddiol y Llys Sifil a Theulu');
         expect(civilAndFamilyCauseList['checked']).toBeTruthy();
         expect(civilAndFamilyCauseList['hidden']).toBeFalsy();
 

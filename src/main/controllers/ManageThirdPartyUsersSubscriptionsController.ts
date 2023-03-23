@@ -15,7 +15,7 @@ export default class ManageThirdPartyUsersSubscriptionsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         if (req.query['userId']) {
             const user = await thirdPartyService.getThirdPartyUserById(req.query['userId'], req.user['userId']);
-            const listTypes = await publicationService.getListTypes();
+            const listTypes = publicationService.getListTypes();
             let subscriptionChannels = await subscriptionsService.retrieveChannels();
 
             if (user) {
@@ -52,8 +52,7 @@ export default class ManageThirdPartyUsersSubscriptionsController {
                 selectedChannel
             );
             await userManagementService.auditAction(
-                req.user['userId'],
-                req.user['email'],
+                req.user,
                 'MANAGE_THIRD_PARTY_USER_SUBSCRIPTIONS',
                 'User requested to manage subscriptions of third party user with id: ' + selectedUser
             );

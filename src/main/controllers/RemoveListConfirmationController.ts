@@ -5,10 +5,12 @@ import { LocationService } from '../service/locationService';
 import { PublicationService } from '../service/publicationService';
 import { ManualUploadService } from '../service/manualUploadService';
 import { DateTime } from 'luxon';
+import { UserManagementService } from '../service/userManagementService';
 
 const publicationService = new PublicationService();
 const courtService = new LocationService();
 const manualUploadService = new ManualUploadService();
+const userManagementService = new UserManagementService();
 
 export default class RemoveListConfirmationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -16,7 +18,7 @@ export default class RemoveListConfirmationController {
         if (artefactId) {
             const artefact = await publicationService.getIndividualPublicationMetadata(
                 artefactId,
-                req.user?.['userId'],
+                req.user['userId'],
                 true
             );
             artefact.listTypeName = manualUploadService.getListItemName(artefact.listType);
@@ -44,9 +46,17 @@ export default class RemoveListConfirmationController {
         switch (formData['remove-choice']) {
             case 'yes': {
                 const response = await publicationService.removePublication(formData.artefactId, req.user?.['userId']);
-                response
-                    ? res.redirect('/remove-list-success')
-                    : res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+
+                if (response) {
+                    await userManagementService.auditAction(
+                        req.user,
+                        'DELETE_PUBLICATION',
+                        `Publication with artefact id ${formData.artefactId} successfully deleted`
+                    );
+                    res.redirect('/remove-list-success');
+                } else {
+                    res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+                }
                 break;
             }
             case 'no': {

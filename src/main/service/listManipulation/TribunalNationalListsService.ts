@@ -4,6 +4,39 @@ import { calculateDurationSortValue, formatDate, formatDuration } from '../../he
 const helperService = new ListParseHelperService();
 
 /**
+ * Model class only used in this file, to hold case information.
+ */
+class CaseInformation {
+    hearingDate: string;
+    caseName: string;
+    durationAsDays: number;
+    durationAsHours: number;
+    durationAsMinutes: number;
+    caseSequenceIndicator: string;
+    hearingType: string;
+    venueAddress: string;
+
+    constructor(
+        hearingDate,
+        caseName,
+        durationAsHours,
+        durationAsMinutes,
+        caseSequenceIndicator,
+        hearingType,
+        venueAddress
+    ) {
+        this.hearingDate = hearingDate;
+        this.caseName = caseName;
+        this.durationAsDays = durationAsHours >= 24 ? Math.floor(durationAsHours / 24) : 0;
+        this.durationAsHours = durationAsHours;
+        this.durationAsMinutes = durationAsMinutes;
+        this.caseSequenceIndicator = caseSequenceIndicator;
+        this.hearingType = hearingType;
+        this.venueAddress = venueAddress;
+    }
+}
+
+/**
  * Service to manipulate the primary health list nunjucks template.
  */
 export class TribunalNationalListsService {
@@ -27,11 +60,6 @@ export class TribunalNationalListsService {
                         helperService.calculateDuration(sitting);
                         const durationAsHours = sitting['durationAsHours'];
                         const durationAsMinutes = sitting['durationAsMinutes'];
-                        let durationAsDays = 0;
-
-                        if (durationAsHours >= 24) {
-                            durationAsDays = Math.floor(durationAsHours / 24);
-                        }
 
                         sitting['hearing'].forEach(hearing => {
                             const hearingType = hearing['hearingType'];
@@ -42,14 +70,15 @@ export class TribunalNationalListsService {
 
                                 allData.push(
                                     this.formatCase(
-                                        hearingDate,
-                                        caseName,
-                                        durationAsDays,
-                                        durationAsHours,
-                                        durationAsMinutes,
-                                        caseSequenceIndicator,
-                                        hearingType,
-                                        venueAddress,
+                                        new CaseInformation(
+                                            hearingDate,
+                                            caseName,
+                                            durationAsHours,
+                                            durationAsMinutes,
+                                            caseSequenceIndicator,
+                                            hearingType,
+                                            venueAddress
+                                        ),
                                         language,
                                         languageFile
                                     )
@@ -66,39 +95,28 @@ export class TribunalNationalListsService {
     /**
      * Format the data into an object, then pass back for further processing.
      */
-    private formatCase(
-        hearingDate,
-        caseName,
-        durationAsDays,
-        durationAsHours,
-        durationAsMinutes,
-        caseSequenceIndicator,
-        hearingType,
-        venue,
-        language,
-        languageFile
-    ) {
+    private formatCase(caseInformation, language, languageFile) {
         return {
-            hearingDate: hearingDate,
-            caseName: caseName,
-            durationAsDays: durationAsDays,
-            durationAsHours: durationAsHours,
-            durationAsMinutes: durationAsMinutes,
+            hearingDate: caseInformation.hearingDate,
+            caseName: caseInformation.caseName,
+            durationAsDays: caseInformation.durationAsDays,
+            durationAsHours: caseInformation.durationAsHours,
+            durationAsMinutes: caseInformation.durationAsMinutes,
             formattedDuration: formatDuration(
-                durationAsDays as number,
-                durationAsHours as number,
-                durationAsMinutes as number,
+                caseInformation.durationAsDays as number,
+                caseInformation.durationAsHours as number,
+                caseInformation.durationAsMinutes as number,
                 language,
                 languageFile
             ),
             durationSortValue: calculateDurationSortValue(
-                durationAsDays as number,
-                durationAsHours as number,
-                durationAsMinutes as number
+                caseInformation.durationAsDays as number,
+                caseInformation.durationAsHours as number,
+                caseInformation.durationAsMinutes as number
             ),
-            caseSequenceIndicator: caseSequenceIndicator,
-            hearingType: hearingType,
-            venue: venue,
+            caseSequenceIndicator: caseInformation.caseSequenceIndicator,
+            hearingType: caseInformation.hearingType,
+            venue: caseInformation.venueAddress,
         };
     }
 

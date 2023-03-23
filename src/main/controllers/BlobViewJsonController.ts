@@ -18,14 +18,14 @@ export default class BlobViewJsonController {
 
             const data = await publicationService.getIndividualPublicationJson(
                 req.query['artefactId'],
-                req.user?.['userId']
+                req.user['userId']
             );
 
             const jsonData: string = prettyPrintJson.toHtml(data, options);
 
             const metadata = await publicationService.getIndividualPublicationMetadata(
                 req.query['artefactId'],
-                req.user?.['userId']
+                req.user['userId']
             );
 
             const noMatchArtefact = metadata.locationId.toString().includes('NoMatch');
@@ -37,8 +37,7 @@ export default class BlobViewJsonController {
             }
 
             await userManagementService.auditAction(
-                req.user['userId'],
-                req.user['email'],
+                req.user,
                 'VIEW_BLOB_EXPLORER',
                 'Requested to view artefact with id: ' + artefactId
             );

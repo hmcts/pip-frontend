@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import { UserManagementService } from '../../../main/service/userManagementService';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { UserSearchCriteria } from '../../../main/models/UserSearchCriteria';
 
 const userManagementService = new UserManagementService();
 
@@ -248,17 +249,12 @@ describe('User management service', () => {
     });
 
     it('should return formatted data from the getFormattedData function', async () => {
-        const response = await userManagementService.getFormattedData(
-            1,
-            'test',
-            '',
-            '',
-            'SYSTEM_ADMIN',
-            'PI_AAD',
-            '?page=2',
-            '1234',
-            'test@justice.gov.uk'
-        );
+        const userSearchCriteria = new UserSearchCriteria(1, 'test', '', '', 'SYSTEM_ADMIN', 'PI_AAD');
+
+        const response = await userManagementService.getFormattedData(userSearchCriteria, '?page=2', {
+            userId: '1234',
+            email: 'test@justice.gov.uk',
+        });
 
         // Pagination data
         expect(response['paginationData']['previous'].labelText).to.equal('1 of 10');

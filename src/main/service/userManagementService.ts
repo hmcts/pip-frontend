@@ -1,6 +1,7 @@
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
 import { formattedProvenances, formattedRoles } from '../models/consts';
 import { DateTime } from 'luxon';
+import { UserSearchCriteria } from '../models/UserSearchCriteria';
 
 const accountManagementRequests = new AccountManagementRequests();
 export class UserManagementService {
@@ -20,27 +21,13 @@ export class UserManagementService {
      * Returns all the formatted data the user management screen requires. Treat this like a parent method
      * for the entire service.
      */
-    public async getFormattedData(
-        pageNumber: number,
-        email: string,
-        userId: string,
-        userProvenanceId: string,
-        roles: string,
-        provenances: string,
-        queryUrl: string,
-        adminUserId: string,
-        adminUserEmail: string
-    ) {
+    public async getFormattedData(query: UserSearchCriteria, queryUrl: string, adminUser: any) {
         const rawData = await accountManagementRequests.getAllAccountsExceptThirdParty(
-            this.buildRequestParams(email, userId, userProvenanceId, roles, provenances, pageNumber),
-            adminUserId
+            this.buildRequestParams(query),
+            adminUser.userId
         );
-        await this.auditAction(
-            adminUserId,
-            adminUserEmail,
-            'USER_MANAGEMENT_VIEW',
-            'All user data requested by this admin'
-        );
+
+        await this.auditAction(adminUser, 'USER_MANAGEMENT_VIEW', 'All user data requested by this admin');
 
         return {
             paginationData: this.formatPaginationData(
@@ -51,22 +38,22 @@ export class UserManagementService {
                 queryUrl
             ),
             userData: this.formatPageData(rawData?.content),
-            emailFieldData: this.buildInputFieldObject('email', 'Email', email, false),
-            userIdFieldData: this.buildInputFieldObject('userId', 'User ID', userId, true),
+            emailFieldData: this.buildInputFieldObject('email', 'Email', query.email, false),
+            userIdFieldData: this.buildInputFieldObject('userId', 'User ID', query.userId, true),
             userProvenanceIdFieldData: this.buildInputFieldObject(
                 'userProvenanceId',
                 'User Provenance ID',
-                userProvenanceId,
+                query.userProvenanceId,
                 true
             ),
-            rolesFieldData: this.buildCheckboxesFieldObject('roles', 'Role', formattedRoles, roles),
+            rolesFieldData: this.buildCheckboxesFieldObject('roles', 'Role', formattedRoles, query.roles),
             provenancesFieldData: this.buildCheckboxesFieldObject(
                 'provenances',
                 'Provenance',
                 formattedProvenances,
-                provenances
+                query.provenances
             ),
-            categories: this.getCategories(email, userId, userProvenanceId, roles, provenances, queryUrl),
+            categories: this.getCategories(query, queryUrl),
         };
     }
 
@@ -90,23 +77,16 @@ export class UserManagementService {
     /**
      * Builds the request with the supplied filters to filter the API results.
      */
-    private buildRequestParams(
-        email: string,
-        userId: string,
-        userProvenanceId: string,
-        roles: string,
-        provenances: string,
-        pageNumber: number
-    ): object {
+    private buildRequestParams(query: UserSearchCriteria): object {
         return {
             params: {
                 pageSize: 25,
-                pageNumber: pageNumber - 1,
-                email: email,
-                userProvenanceId: userProvenanceId,
-                provenances: provenances,
-                roles: roles,
-                userId: userId,
+                pageNumber: query.page - 1,
+                email: query.email,
+                userProvenanceId: query.userProvenanceId,
+                provenances: query.provenances,
+                roles: query.roles,
+                userId: query.userId,
             },
         };
     }
@@ -223,24 +203,24 @@ export class UserManagementService {
     /**
      * Builds the category array with category objects.
      */
-    private getCategories(
-        email: string,
-        userId: string,
-        userProvenanceId: string,
-        roles: string,
-        provenances: string,
-        queryUrl: string
-    ) {
+    private getCategories(query: UserSearchCriteria, queryUrl: string) {
         const categoriesArray = [];
 
-        categoriesArray.push(this.buildCategoryObject('Email', email, queryUrl, 'email=', false));
-        categoriesArray.push(this.buildCategoryObject('User ID', userId, queryUrl, 'userId=', false));
+        categoriesArray.push(this.buildCategoryObject('Email', query.email, queryUrl, 'email=', false));
+        categoriesArray.push(this.buildCategoryObject('User ID', query.userId, queryUrl, 'userId=', false));
         categoriesArray.push(
-            this.buildCategoryObject('User Provenance ID', userProvenanceId, queryUrl, 'userProvenanceId=', false)
+            this.buildCategoryObject('User Provenance ID', query.userProvenanceId, queryUrl, 'userProvenanceId=', false)
         );
-        categoriesArray.push(this.buildCategoryObject('Role', roles, queryUrl, 'roles=', true, formattedRoles));
+        categoriesArray.push(this.buildCategoryObject('Role', query.roles, queryUrl, 'roles=', true, formattedRoles));
         categoriesArray.push(
-            this.buildCategoryObject('Provenance', provenances, queryUrl, 'provenances=', true, formattedProvenances)
+            this.buildCategoryObject(
+                'Provenance',
+                query.provenances,
+                queryUrl,
+                'provenances=',
+                true,
+                formattedProvenances
+            )
         );
 
         return categoriesArray;
@@ -390,10 +370,12 @@ export class UserManagementService {
     /**
      * Process a users action to be sent and stored.
      */
-    public async auditAction(userId: string, userEmail: string, action: string, details: string): Promise<void> {
+    public async auditAction(user: any, action: string, details: string): Promise<void> {
         await accountManagementRequests.storeAuditAction({
-            userId: userId,
-            userEmail: userEmail,
+            userId: user.userId,
+            userEmail: user.email,
+            roles: user.roles,
+            userProvenance: user.userProvenance,
             action: action,
             details: details,
         });

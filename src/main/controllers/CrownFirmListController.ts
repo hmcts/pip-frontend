@@ -6,13 +6,13 @@ import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { CrownFirmListService } from '../service/listManipulation/crownFirmListService';
 import { ListParseHelperService } from '../service/listParseHelperService';
-import { civilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
+import { CivilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const firmListService = new CrownFirmListService();
-const civilService = new civilFamilyAndMixedListService();
+const civilService = new CivilFamilyAndMixedListService();
 
 export default class CrownFirmListController {
     public async get(req: PipRequest, res: Response): Promise<void> {

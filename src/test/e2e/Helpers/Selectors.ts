@@ -223,6 +223,10 @@ module.exports = {
     // RemoveListSearch selectors
     'remove-choice': '#remove-choice',
 
+    // RemoveListSearchResults selectors
+    RemovalTableContentDateButton: 'thead > tr.govuk-table__row > th:nth-child(3) > button',
+    RemovalTableFirstRowContentDateCell: 'tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(3)',
+
     //MediaAccountRequests selectors
     MediaAccountView: 'a.govuk-table__cell:nth-last-child(1)',
 

@@ -55,10 +55,9 @@ export default class BulkCreateMediaAccountsConfirmationController {
 
         if (confirmed === 'Yes') {
             const file = await fileHandlingService.readFileFromRedis(req.user['userId'], fileName);
-            const success = await createAccountService.bulkCreateMediaAccounts(file, fileName, req.user?.['userId']);
+            const success = await createAccountService.bulkCreateMediaAccounts(file, fileName, req.user['userId']);
             await userManagementService.auditAction(
-                req.user['userId'],
-                req.user['email'],
+                req.user,
                 'BULK_MEDIA_UPLOAD',
                 'User uploaded a bulk list of media accounts'
             );
