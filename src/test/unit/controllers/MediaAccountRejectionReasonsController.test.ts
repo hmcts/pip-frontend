@@ -30,7 +30,7 @@ describe('Media Account Rejection Reasons Controller', () => {
     };
     const getApplicationStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationById');
     describe('GET request', () => {
-        it('should render the media account rejection confirmation page', () => {
+        it('should render the media account rejection reasons page', () => {
             getApplicationStub.withArgs(applicantId).resolves(applicantData);
 
             const response = {

@@ -3,7 +3,6 @@ module.exports = {
     roots: ['<rootDir>/src/test/routes'],
     testTimeout: 30000,
     testRegex: '(/src/test/.*|\\.(test|spec))\\.(ts|js)$',
-    moduleFileExtensions: ['ts', 'js'],
     moduleNameMapper: {
         '^axios$': require.resolve('axios'),
     },

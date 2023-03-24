@@ -1,25 +1,13 @@
+import { expect } from 'chai';
 import sinon from 'sinon';
-import { Response } from 'express';
-import { mockRequest } from '../mocks/mockRequest';
 import MediaAccountRejectionController from '../../../main/controllers/MediaAccountRejectionController';
 import { MediaAccountApplicationService } from '../../../main/service/mediaAccountApplicationService';
-import { cloneDeep } from 'lodash';
-const mediaAccountRejectionController = new MediaAccountRejectionController();
+import { UserManagementService } from '../../../main/service/userManagementService';
 
-const mediaAccountApplicationStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
-const mediaAccountRejectionStub = sinon.stub(MediaAccountApplicationService.prototype, 'rejectApplication');
-const i18n = {
-    'media-account-rejection': {},
-    'media-account-rejection-confirmation': {},
-    error: {},
-};
-
-describe('Media Account Rejection Controller', () => {
-    const applicantId = '1234';
-    const status = 'PENDING';
-    const adminUserId = '1234-1234-1234-1234';
-    const dummyApplication = {
-        id: '1234',
+describe('MediaAccountRejectionController', () => {
+    const controller = new MediaAccountRejectionController();
+    const applicantData = {
+        id: '123',
         fullName: 'Test Name',
         email: 'a@b.com',
         employer: 'Employer',
@@ -30,150 +18,200 @@ describe('Media Account Rejection Controller', () => {
         statusDate: '2022-05-09T00:00:01',
     };
 
-    const response = {
-        redirect: () => {
-            return '';
-        },
-        render: () => {
-            return '';
-        },
-        send: () => {
-            return '';
-        },
-        set: () => {
-            return '';
-        },
-    } as unknown as Response;
-
-    it('should render media-account-rejection page when applicant ID sent and found', async () => {
-        const responseMock = sinon.mock(response);
-
-        const request = mockRequest(i18n);
-        request['query'] = { applicantId: applicantId };
-
-        mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
-
-        responseMock
-            .expects('render')
-            .once()
-            .withArgs('media-account-rejection', {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-rejection']),
-                applicantData: dummyApplication,
-            });
-
-        await mediaAccountRejectionController.get(request, response);
-
-        responseMock.verify();
+    afterEach(() => {
+        sinon.restore();
     });
 
-    it('should render error page when applicant not found', async () => {
-        const responseMock = sinon.mock(response);
+    describe('#get()', () => {
+        it('should render media-account-rejection view when applicant data is found', async () => {
+            const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
+            const req = {
+                body: {
+                    reasons: 'Some reasons',
+                    applicantId: '123',
+                },
+                i18n: {
+                    getDataByLanguage: sinon.stub().returns({ 'media-account-rejection': {} }),
+                },
+                lng: 'en',
+            };
+            const res = {
+                render: sinon.spy(),
+            };
 
-        const request = mockRequest(i18n);
-        request['query'] = { applicantId: '1234' };
+            appIdAndStatus.withArgs('123', 'PENDING').resolves(applicantData);
 
-        mediaAccountApplicationStub.withArgs('1234', status).resolves(null);
+            await controller.get(req, res);
 
-        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+            expect(res.render.calledWith('media-account-rejection')).to.be.true;
+        });
 
-        await mediaAccountRejectionController.get(request, response);
+        it('should render error view when applicant data is not found', async () => {
+            const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
+            const req = {
+                body: {
+                    reasons: 'Some reasons',
+                    applicantId: '123',
+                },
+                i18n: {
+                    getDataByLanguage: sinon.stub().returns({ error: {} }),
+                },
+                lng: 'en',
+            };
+            const res = {
+                render: sinon.spy(),
+            };
 
-        responseMock.verify();
+            appIdAndStatus.resolves(null);
+
+            await controller.get(req, res);
+
+            expect(res.render.calledWith('error')).to.be.true;
+        });
     });
+    describe('#post()', () => {
+        it('should render error view when applicant data is not found', async () => {
+            const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
+            const req = {
+                query: {
+                    applicantId: '123',
+                },
+                body: {
+                    'reject-confirmation': 'Yes',
+                    reasons: 'Some reasons',
+                },
+                i18n: {
+                    getDataByLanguage: sinon.stub().returns({ error: {} }),
+                },
+                lng: 'en',
+            };
+            const res = {
+                render: sinon.spy(),
+            };
 
-    it('should render media-account-rejection-confirmation page if applicant found, approved, and successfully updated', async () => {
-        const responseMock = sinon.mock(response);
+            appIdAndStatus.resolves(null);
 
-        const request = mockRequest(i18n);
-        request['body'] = {
-            'reject-confirmation': 'Yes',
-            applicantId: applicantId,
-        };
-        request['user'] = { userId: adminUserId };
+            await controller.post(req, res);
 
-        mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
-        mediaAccountRejectionStub.withArgs(applicantId, adminUserId).resolves(dummyApplication);
-        responseMock
-            .expects('redirect')
-            .once()
-            .withArgs('/media-account-rejection-confirmation?applicantId=' + applicantId);
+            expect(res.render.calledWith('error')).to.be.true;
+        });
+        it('should redirect to media-account-review when rejected is No', async () => {
+            const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
 
-        await mediaAccountRejectionController.post(request, response);
+            const req = {
+                query: {
+                    applicantId: '123',
+                },
+                body: {
+                    'reject-confirmation': 'No',
+                    reasons: 'Some reasons',
+                },
+                i18n: {
+                    getDataByLanguage: sinon.stub().returns({}),
+                },
+                lng: 'en',
+            };
+            const res = {
+                redirect: sinon.spy(),
+            };
+            const applicantData = { id: '123', status: 'PENDING' };
 
-        responseMock.verify();
-    });
+            appIdAndStatus.withArgs('123', 'PENDING').resolves(applicantData);
+            await controller.post(req, res);
 
-    it('should render error page if no applicant is found', async () => {
-        const responseMock = sinon.mock(response);
+            expect(res.redirect.calledWith('/media-account-review?applicantId=123')).to.be.true;
+        });
+        it('should render media-account-rejection view with displayRadioError when rejected is not provided', async () => {
+            const req = {
+                query: {
+                    applicantId: '123',
+                },
+                body: {
+                    'reject-confirmation': undefined,
+                    reasons: 'Some reasons',
+                },
+                i18n: {
+                    getDataByLanguage: sinon.stub().returns({ 'media-account-rejection': {} }),
+                },
+                lng: 'en',
+            };
+            const res = {
+                render: sinon.spy(),
+            };
+            const applicantData = { id: '123', status: 'PENDING' };
 
-        const request = mockRequest(i18n);
-        request['body'] = { 'reject-confirmation': 'Yes' };
+            const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
+            appIdAndStatus.withArgs('123', 'PENDING').resolves(applicantData);
 
-        mediaAccountApplicationStub.withArgs('1234', status).resolves(null);
+            await controller.post(req, res);
 
-        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+            expect(res.render.calledWith('media-account-rejection', sinon.match.has('displayRadioError', true))).to.be
+                .true;
+        });
+        it('should render media-account-rejection-confirmation view when rejected is Yes and the application is rejected successfully', async () => {
+            const req = {
+                query: {
+                    applicantId: '123',
+                },
+                body: {
+                    'reject-confirmation': 'Yes',
+                    reasons: 'Some reasons',
+                },
+                i18n: {
+                    getDataByLanguage: sinon.stub().returns({ 'media-account-rejection-confirmation': {} }),
+                },
+                lng: 'en',
+                user: {
+                    userId: '456',
+                },
+            };
+            const res = {
+                render: sinon.spy(),
+            };
+            const applicantData = { id: '123', status: 'PENDING' };
+            const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
+            const rejectAppStub = sinon.stub(MediaAccountApplicationService.prototype, 'rejectApplication');
+            const userManStub = sinon.stub(UserManagementService.prototype, 'auditAction');
+            userManStub.resolves();
+            appIdAndStatus.resolves(applicantData);
+            rejectAppStub.resolves(true);
 
-        await mediaAccountRejectionController.post(request, response);
+            await controller.post(req, res);
 
-        responseMock.verify();
-    });
+            expect(res.render.calledWith('media-account-rejection-confirmation')).to.be.true;
+            expect(
+                userManStub.calledWith(req.user, 'REJECT_MEDIA_APPLICATION', 'Media application with id 123 rejected')
+            ).to.be.true;
+        });
+        it('should render error view when rejected is Yes and the application rejection fails', async () => {
+            const req = {
+                query: {
+                    applicantId: '123',
+                },
+                body: {
+                    'reject-confirmation': 'Yes',
+                    reasons: 'Some reasons',
+                },
+                i18n: {
+                    getDataByLanguage: sinon.stub().returns({ error: {} }),
+                },
+                lng: 'en',
+                user: {
+                    userId: '456',
+                },
+            };
+            const res = {
+                render: sinon.spy(),
+            };
+            const applicantData = { id: '123', status: 'PENDING' };
 
-    it('should render rejection page if applicant id found, but no radio button has been selected', async () => {
-        const responseMock = sinon.mock(response);
+            const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
+            const rejectAppStub = sinon.stub(MediaAccountApplicationService.prototype, 'rejectApplication');
+            appIdAndStatus.resolves(applicantData);
+            rejectAppStub.resolves(false);
+            await controller.post(req, res);
 
-        const request = mockRequest(i18n);
-        request['body'] = { applicantId: applicantId };
-        mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
-
-        responseMock
-            .expects('render')
-            .once()
-            .withArgs('media-account-rejection', {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-rejection']),
-                applicantData: dummyApplication,
-                displayRadioError: true,
-            });
-
-        await mediaAccountRejectionController.post(request, response);
-
-        responseMock.verify();
-    });
-
-    it('should render media-account-review page if No approval is given', async () => {
-        const responseMock = sinon.mock(response);
-
-        const request = mockRequest(i18n);
-        request['body'] = { 'reject-confirmation': 'No', applicantId: applicantId };
-
-        mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
-
-        responseMock
-            .expects('redirect')
-            .once()
-            .withArgs('/media-account-review?applicantId=' + applicantId);
-
-        await mediaAccountRejectionController.post(request, response);
-
-        responseMock.verify();
-    });
-
-    it('should render error page if failed to update application when approval is given', async () => {
-        const responseMock = sinon.mock(response);
-
-        const request = mockRequest(i18n);
-        request['body'] = {
-            'reject-confirmation': 'Yes',
-            applicantId: applicantId,
-        };
-        request['user'] = { userId: adminUserId };
-
-        mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
-        mediaAccountRejectionStub.withArgs(applicantId, adminUserId).resolves(null);
-
-        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
-
-        await mediaAccountRejectionController.post(request, response);
-
-        responseMock.verify();
+            expect(res.render.calledWith('error')).to.be.true;
+        });
     });
 });
