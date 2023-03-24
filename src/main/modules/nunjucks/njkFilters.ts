@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { PublicationService } from '../../service/publicationService';
 import { printableDuration } from './printableDuration';
 import { calculateDurationSortValue } from '../../helpers/dateTimeHelper';
+
 const publicationService = new PublicationService();
 
 function createFilters(env) {
@@ -112,4 +113,5 @@ function createFilters(env) {
         return calculateDurationSortValue(0, hours, minutes);
     });
 }
+
 module.exports = createFilters;
