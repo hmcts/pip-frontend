@@ -33,11 +33,12 @@ describe('Media Account Rejection Confirmation Controller', () => {
             const responseMock = sinon.mock(response);
 
             const request = mockRequest(i18n);
-            request.query = { applicantId: applicantId };
+            request.body = { applicantId: applicantId };
 
             const expectedData = {
                 ...i18n[url],
                 applicantData: applicantData,
+                reasons: undefined
             };
 
             responseMock.expects('render').once().withArgs(url, expectedData);
