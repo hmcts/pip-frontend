@@ -27,9 +27,9 @@ describe('Media Account Rejection', () => {
     getApplicationByIdStub.withArgs(applicationID, 'PENDING').resolves(dummyApplication);
 
     describe('on view approval', () => {
-        test('should return the media account rejection page', async () => {
+        test('should return the media account rejection reasons page', async () => {
             await request(app)
-                .get('/media-account-rejection?applicantId=' + applicationID)
+                .get('/media-account-rejection-reasons?applicantId=' + applicationID)
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
@@ -37,14 +37,14 @@ describe('Media Account Rejection', () => {
     describe('on submit approval', () => {
         test('should return success when rejection is accept', async () => {
             await request(app)
-                .post('/media-account-rejection?applicantId=' + applicationID)
+                .post('/media-account-rejection-reasons?applicantId=' + applicationID)
                 .send({ 'reject-confirmation': 'Yes' })
                 .expect(res => expect(res.status).to.equal(200));
         });
 
         test('should return success when approval is reject', async () => {
             await request(app)
-                .post('/media-account-rejection?applicantId=' + applicationID)
+                .post('/media-account-rejection-reasons?applicantId=' + applicationID)
                 .send({ 'reject-confirmation': 'No' })
                 .expect(res => expect(res.status).to.equal(200));
         });

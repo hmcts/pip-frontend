@@ -56,8 +56,7 @@ describe('Media Account Rejection Reasons Page', () => {
 
     it('should have the correct content for the govuk-label with class .govuk-checkboxes__label', () => {
         const labels = htmlRes.getElementsByClassName('govuk-label govuk-checkboxes__label');
-        const label = Array.from(labels).find(el =>
-            el.getAttribute('for') === 'rejection-reasons');
+        const label = Array.from(labels).find(el => el.getAttribute('for') === 'rejection-reasons');
         const content = label.textContent.trim();
 
         expect(content).to.contain('The applicant is not an accredited member of the media.');
@@ -65,8 +64,7 @@ describe('Media Account Rejection Reasons Page', () => {
 
     it('should have the correct content for the button with class .govuk-button', () => {
         const buttons = htmlRes.getElementsByClassName('govuk-button');
-        const button = Array.from(buttons).find(el =>
-            el.getAttribute('id') === 'button');
+        const button = Array.from(buttons).find(el => el.getAttribute('id') === 'button');
         const content = button.textContent.trim();
 
         expect(content).to.contain('Continue');
