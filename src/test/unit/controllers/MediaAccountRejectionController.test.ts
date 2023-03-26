@@ -5,7 +5,10 @@ import { MediaAccountApplicationService } from '../../../main/service/mediaAccou
 import { UserManagementService } from '../../../main/service/userManagementService';
 
 describe('MediaAccountRejectionController', () => {
-    const controller = new MediaAccountRejectionController();
+    // @ts-ignore: otherwise starts a whole chain of things
+    let controller;
+    // eslint-disable-next-line prefer-const
+    controller = new MediaAccountRejectionController();
     const applicantData = {
         id: '123',
         fullName: 'Test Name',
