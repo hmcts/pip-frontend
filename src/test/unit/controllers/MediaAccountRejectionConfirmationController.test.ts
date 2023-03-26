@@ -38,7 +38,7 @@ describe('Media Account Rejection Confirmation Controller', () => {
             const expectedData = {
                 ...i18n[url],
                 applicantData: applicantData,
-                reasons: undefined
+                reasons: undefined,
             };
 
             responseMock.expects('render').once().withArgs(url, expectedData);
