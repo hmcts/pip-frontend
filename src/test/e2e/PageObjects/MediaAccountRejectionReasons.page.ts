@@ -12,6 +12,14 @@ export class MediaAccountRejectionReasonsPage extends CommonPage {
         await $(helpers.MediaAccountDetailsNoMatch).click();
     }
 
+    async getFieldSetTitle(): Promise<string> {
+        $(helpers.fieldSetTitle).catch(() => {
+            console.log(`${helpers.fieldSetTitle} not found`);
+        });
+
+        return $(helpers.fieldSetTitle).getText();
+    }
+
     async clickContinue(): Promise<MediaAccountRejectionPage> {
         $(helpers.ContinueButton).catch(() => {
             console.log(`${helpers.ContinueButton} not found`);

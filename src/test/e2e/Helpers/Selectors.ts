@@ -19,7 +19,6 @@ module.exports = {
     ServiceLink: '#linkToService',
 
     // SearchOptions selectors
-    SearchOptionsTitle: 'h1.govuk-fieldset__heading',
     RadioButton: 'div.govuk-radios__item',
 
     // Sign-in routing
@@ -34,7 +33,7 @@ module.exports = {
     CftSignInButton: '.button',
 
     // Search selectors
-    SearchTitle: 'h1.govuk-label-wrapper',
+    fieldSetTitle: 'h1.govuk-label-wrapper',
     SearchResultTitle: 'h1.govuk-heading-l',
     SearchAToZLink: '#main-content a.govuk-link:nth-child(2)',
 
@@ -241,6 +240,7 @@ module.exports = {
     //MediaAccountRejectionReasonsPage
     MediaAccountDetailsNoMatch: '#rejection-reasons-2',
     MediaAccountRejectionContinue: '#button',
+    fieldSetTitle: 'h1.govuk-fieldset__heading',
 
     //MediaAccountRejectionPage
     MediaAccountRejectionYes: '#yes',
