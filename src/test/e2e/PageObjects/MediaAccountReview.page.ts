@@ -14,12 +14,12 @@ export class MediaAccountReviewPage extends CommonPage {
         return new MediaAccountApprovalPage();
     }
 
-    async clickRejectApplication(): Promise<MediaAccountRejectionPage> {
+    async clickRejectApplication(): Promise<MediaAccountRejectionReasonsPage> {
         await $(helpers.MediaAccountReviewReject).catch(() => {
             console.log(`${helpers.MediaAccountReviewReject} not found`);
         });
 
         await $(helpers.MediaAccountReviewReject).click();
-        return new MediaAccountRejectionPage();
+        return new MediaAccountRejectionReasonsPage();
     }
 }
