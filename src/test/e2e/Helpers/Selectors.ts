@@ -19,6 +19,7 @@ module.exports = {
     ServiceLink: '#linkToService',
 
     // SearchOptions selectors
+    SearchOptionsTitle: 'h1.govuk-fieldset__heading',
     RadioButton: 'div.govuk-radios__item',
 
     // Sign-in routing
