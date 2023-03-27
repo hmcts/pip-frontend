@@ -1013,7 +1013,7 @@ describe('Admin level journeys', () => {
         it('should select yes to reject application', async () => {
             await mediaAccountRejectionReasonsPage.selectReason();
             mediaAccountRejectionPage = await mediaAccountRejectionReasonsPage.clickContinue();
-            expect(await mediaAccountRejectionPage.getPanelTitle()).toEqual('Media Account Rejection');
+            expect(await mediaAccountRejectionPage.getPageTitle()).toEqual('Media Account Rejection');
         });
 
         it('should select yes to reject application', async () => {
