@@ -1,6 +1,6 @@
 import { CommonPage } from './Common.page';
 import { MediaAccountApprovalPage } from './MediaAccountApproval.page';
-import { MediaAccountRejectionPage } from './MediaAccountRejection.page';
+import { MediaAccountRejectionReasonsPage } from './MediaAccountRejectionReasons.page';
 
 const helpers = require('../Helpers/Selectors');
 
