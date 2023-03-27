@@ -80,6 +80,40 @@ describe('Account Management Requests', () => {
             expect(response).toBe(null);
         });
     });
+    describe('sendMediaApplicationRejectionEmail', () => {
+        const applicantId = 'testApplicantId';
+        const reasons = 'testReasons';
+        const rejectionEndpoint = `/application/reject/${applicantId}`;
+        const successResponse = { data: 'success' };
+
+        beforeEach(() => {
+            postStub.resetHistory();
+        });
+
+        it('should send media application rejection email successfully', async () => {
+            postStub.withArgs(rejectionEndpoint, { reasons }).resolves(successResponse);
+
+            const result = await accountManagementRequests.sendMediaApplicationRejectionEmail(applicantId, reasons);
+
+            expect(result).toEqual(successResponse.data);
+            expect(postStub.calledOnceWith(rejectionEndpoint, { reasons })).toBe(true);
+        });
+        it('should handle error response when sending media application rejection email fails', async () => {
+            postStub.withArgs(rejectionEndpoint, { reasons }).rejects(errorResponse);
+
+            const result = await accountManagementRequests.sendMediaApplicationRejectionEmail(applicantId, reasons);
+
+            expect(result).toBeNull();
+            expect(postStub.calledOnceWith(rejectionEndpoint, { reasons })).toBe(true);
+        });
+        it('should handle error message when sending media application rejection email fails', async () => {
+            postStub.withArgs(rejectionEndpoint, { reasons }).rejects(errorMessage);
+            const result = await accountManagementRequests.sendMediaApplicationRejectionEmail(applicantId, reasons);
+
+            expect(result).toBeNull();
+            expect(postStub.calledOnceWith(rejectionEndpoint, { reasons })).toBe(true);
+        });
+    });
 
     describe('Create P&I Account', () => {
         it('should return true on success', async () => {
@@ -937,38 +971,5 @@ describe('Account Management Requests', () => {
         });
     });
 
-    describe('sendMediaApplicationRejectionEmail', () => {
-        const applicantId = 'testApplicantId';
-        const reasons = 'testReasons';
-        const rejectionEndpoint = `/application/reject/${applicantId}`;
-        const successResponse = { data: 'success' };
 
-        afterEach(() => {
-            postStub.resetHistory();
-        });
-
-        it('should send media application rejection email successfully', async () => {
-            postStub.withArgs(rejectionEndpoint, { reasons }).resolves(successResponse);
-
-            const result = await accountManagementRequests.sendMediaApplicationRejectionEmail(applicantId, reasons);
-
-            expect(result).toEqual(successResponse.data);
-            expect(postStub.calledOnceWith(rejectionEndpoint, { reasons })).toBe(true);
-        });
-        it('should handle error response when sending media application rejection email fails', async () => {
-            postStub.withArgs(rejectionEndpoint, { reasons }).rejects(errorResponse);
-
-            const result = await accountManagementRequests.sendMediaApplicationRejectionEmail(applicantId, reasons);
-
-            expect(result).toBeNull();
-            expect(postStub.calledOnceWith(rejectionEndpoint, { reasons })).toBe(true);
-        });
-        it('should handle error message when sending media application rejection email fails', async () => {
-            postStub.withArgs(rejectionEndpoint, { reasons }).rejects(errorMessage);
-            const result = await accountManagementRequests.sendMediaApplicationRejectionEmail(applicantId, reasons);
-
-            expect(result).toBeNull();
-            expect(postStub.calledOnceWith(rejectionEndpoint, { reasons })).toBe(true);
-        });
-    });
 });
