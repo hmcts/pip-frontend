@@ -33,7 +33,7 @@ module.exports = {
     CftSignInButton: '.button',
 
     // Search selectors
-    fieldSetTitle: 'h1.govuk-label-wrapper',
+    SearchTitle: 'h1.govuk-label-wrapper',
     SearchResultTitle: 'h1.govuk-heading-l',
     SearchAToZLink: '#main-content a.govuk-link:nth-child(2)',
 

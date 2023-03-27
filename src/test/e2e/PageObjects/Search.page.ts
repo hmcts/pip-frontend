@@ -6,11 +6,11 @@ const helpers = require('../Helpers/Selectors');
 
 export class SearchPage extends CommonPage {
     async getPageTitle(): Promise<string> {
-        $(helpers.fieldSetTitle).catch(() => {
-            console.log(`${helpers.fieldSetTitle} not found`);
+        $(helpers.SearchTitle).catch(() => {
+            console.log(`${helpers.SearchTitle} not found`);
         });
 
-        return $(helpers.fieldSetTitle).getText();
+        return $(helpers.SearchTitle).getText();
     }
 
     async enterText(text: string): Promise<void> {
