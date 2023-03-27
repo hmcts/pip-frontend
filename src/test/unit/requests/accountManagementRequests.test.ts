@@ -502,7 +502,7 @@ describe('Account Management Requests', () => {
             const args = putStubForDateChecking.getCall(0).args;
             const lastSignedInDateLuxon = DateTime.fromISO(args[1]['lastSignedInDate'], { zone: 'utc' });
             expect(
-                lastSignedInDateLuxon <= DateTime.utc().plus({ minutes: 5 }) && DateTime.utc().minus({ minutes: 5 }),
+                lastSignedInDateLuxon <= DateTime.utc().plus({ minutes: 5 }) && DateTime.utc().minus({ minutes: 5 })
             ).toBeTruthy();
         });
 
@@ -536,7 +536,7 @@ describe('Account Management Requests', () => {
                         pageSize: 25,
                     },
                 },
-                '1234',
+                '1234'
             );
             expect(response).toStrictEqual({
                 userId: '321',
@@ -552,7 +552,7 @@ describe('Account Management Requests', () => {
                         pageSize: 25,
                     },
                 },
-                '1234',
+                '1234'
             );
             expect(response).toStrictEqual([]);
         });
@@ -565,7 +565,7 @@ describe('Account Management Requests', () => {
                         pageSize: 25,
                     },
                 },
-                '1234',
+                '1234'
             );
             expect(response).toStrictEqual([]);
         });
@@ -731,7 +731,7 @@ describe('Account Management Requests', () => {
             const response = await accountManagementRequests.getAdminUserByEmailAndProvenance(
                 email,
                 provenance,
-                '1234',
+                '1234'
             );
             expect(response).toStrictEqual({
                 userId: '321',
@@ -746,7 +746,7 @@ describe('Account Management Requests', () => {
             const response = await accountManagementRequests.getAdminUserByEmailAndProvenance(
                 email,
                 provenance,
-                '1234',
+                '1234'
             );
             expect(response).toBe(null);
         });
@@ -756,7 +756,7 @@ describe('Account Management Requests', () => {
             const response = await accountManagementRequests.getAdminUserByEmailAndProvenance(
                 email,
                 provenance,
-                '1234',
+                '1234'
             );
             expect(response).toBe(null);
         });
@@ -905,7 +905,7 @@ describe('Account Management Requests', () => {
                         pageSize: 25,
                     },
                 },
-                '1234',
+                '1234'
             );
             expect(response).toStrictEqual(auditBody);
         });
@@ -918,7 +918,7 @@ describe('Account Management Requests', () => {
                         pageSize: 25,
                     },
                 },
-                '1234',
+                '1234'
             );
             expect(response).toStrictEqual([]);
         });
@@ -931,7 +931,7 @@ describe('Account Management Requests', () => {
                         pageSize: 25,
                     },
                 },
-                '1234',
+                '1234'
             );
             expect(response).toStrictEqual([]);
         });

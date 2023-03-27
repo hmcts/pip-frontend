@@ -18,5 +18,5 @@ export default class MediaAccountRejectionConfirmationController {
             });
         }
         return res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-}
+    }
 }
