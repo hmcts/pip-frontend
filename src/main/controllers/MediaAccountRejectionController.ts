@@ -70,7 +70,7 @@ export default class MediaAccountRejectionController {
     private static async rejectionFlow(req, res, applicantId, reasons): Promise<void> {
         const applicantData = await mediaAccountApplicationService.getApplicationById(req.body.applicantId);
         const url = 'media-account-rejection-confirmation';
-        if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'])) {
+        if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'], reasons)) {
             await userManagementService.auditAction(
                 req.user,
                 'REJECT_MEDIA_APPLICATION',

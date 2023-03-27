@@ -18,6 +18,8 @@
         "test:unit": "jest",
         "test:failures": "jest -f",
         "test:controllers": "jest -- src/test/unit/controllers",
+        "test:controllers": "jest -- src/test/unit/controllers",
+        "test:controllers": "jest -- src/test/unit/controllers",
         "test:views": "jest -- src/test/unit/views",
         "test:coverage": "jest --coverage && jest -c jest.routes.config.js",
         "test:routes": "jest -c jest.routes.config.js --forceExit",

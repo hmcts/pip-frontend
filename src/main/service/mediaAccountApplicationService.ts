@@ -57,9 +57,15 @@ export class MediaAccountApplicationService {
         return null;
     }
 
-    public async rejectApplication(applicationId, adminId): Promise<object | null> {
+    public async rejectApplication(applicationId, adminId, reasons): Promise<object | null> {
         logHelper.writeLog(adminId, 'REJECT_MEDIA_ACCOUNT', applicationId);
-
-        return accountManagementRequests.updateMediaApplicationStatus(applicationId, 'REJECTED');
+        const emailResponse = await accountManagementRequests.sendMediaApplicationRejectionEmail(applicationId, reasons)
+        const updateStatus =accountManagementRequests.updateMediaApplicationStatus(applicationId, 'REJECTED');
+        if(emailResponse && updateStatus) {
+            return updateStatus;
+        }
+        else {
+            return null
+        }
     }
 }

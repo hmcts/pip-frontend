@@ -127,6 +127,21 @@ export class AccountManagementRequests {
         return null;
     }
 
+    public async sendMediaApplicationRejectionEmail(applicantId: string, reasons: string): Promise<MediaAccountApplication | null> {
+        try {
+            const response = await accountManagementApi.post(`/application/reject/${applicantId}`, { reasons });
+            logger.info(`Media account rejected - ${applicantId}`);
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                logger.error('Failed to send media application rejection email', error.response.data);
+            } else {
+                logger.error('Failed to send media application rejection email', error.message);
+            }
+            return null;
+        }
+    }
+
     public async updateMediaApplicationStatus(applicantId, status): Promise<MediaAccountApplication | null> {
         try {
             const response = await accountManagementApi.put('/application/' + applicantId + '/' + status);

@@ -1015,7 +1015,9 @@ describe('Admin level journeys', () => {
         it('should select yes to reject application', async () => {
             await mediaAccountRejectionReasonsPage.selectReason();
             mediaAccountRejectionPage = await mediaAccountRejectionReasonsPage.clickContinue();
-            expect(await mediaAccountRejectionPage.getPageTitle()).toEqual('Are you sure you want to reject this application?');
+            expect(await mediaAccountRejectionPage.getPageTitle()).toEqual(
+                'Are you sure you want to reject this application?'
+            );
         });
 
         it('should select yes to reject application', async () => {
