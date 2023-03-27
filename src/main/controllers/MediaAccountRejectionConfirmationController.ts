@@ -18,10 +18,5 @@ export default class MediaAccountRejectionConfirmationController {
             });
         }
         return res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-    }
-
-    public async post(req: PipRequest, res: Response): Promise<void> {
-        return res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-        // Send the output back to the client
-    }
+}
 }

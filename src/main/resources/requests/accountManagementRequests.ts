@@ -127,7 +127,10 @@ export class AccountManagementRequests {
         return null;
     }
 
-    public async sendMediaApplicationRejectionEmail(applicantId: string, reasons: string): Promise<MediaAccountApplication | null> {
+    public async sendMediaApplicationRejectionEmail(
+        applicantId: string,
+        reasons: string
+    ): Promise<MediaAccountApplication | null> {
         try {
             const response = await accountManagementApi.post(`/application/reject/${applicantId}`, { reasons });
             logger.info(`Media account rejected - ${applicantId}`);
