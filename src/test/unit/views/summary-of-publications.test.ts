@@ -11,6 +11,7 @@ courtStub.withArgs(10).resolves(JSON.parse('{"name":"New Court"}'));
 describe('Summary of publications page', () => {
     let htmlRes: Document;
 
+    const headingClass = 'govuk-heading-xl';
     const bodyClass = 'govuk-body';
 
     describe('SJP Summary of Pubs', () => {
@@ -65,6 +66,30 @@ describe('Summary of publications page', () => {
         it('should display the non SJP message', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
             expect(body[4].innerHTML).contains('Sorry, no lists found for this court', 'Non SJP is not displayed');
+        });
+    });
+
+    describe('Non SJP Summary of Pubs without locationId query parameter', () => {
+        const PAGE_URL = '/summary-of-publications';
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
+
+        it('should display error heading', () => {
+            const heading = htmlRes.getElementsByClassName(headingClass);
+            expect(heading[0].innerHTML).contains('Sorry, there is a problem with the service');
+        });
+
+        it('should display error messages', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[4].innerHTML).contains('Please try again later.');
+            expect(body[5].innerHTML).contains(
+                'If the problem persists please contact our courts and tribunals service centre on 0300 303 0656.'
+            );
         });
     });
 });
