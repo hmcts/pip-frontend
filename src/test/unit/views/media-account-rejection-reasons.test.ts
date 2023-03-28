@@ -4,8 +4,9 @@ import request from 'supertest';
 import { expect } from 'chai';
 import { MediaAccountApplicationService } from '../../../main/service/mediaAccountApplicationService';
 import { request as expressRequest } from 'express';
+import { randomUUID } from 'crypto';
 
-const applicationId = '1234';
+const applicationId = randomUUID();
 
 const PAGE_URL = '/media-account-rejection-reasons?applicantId=' + applicationId;
 

@@ -1,25 +1,20 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import path from 'path';
+import validator from 'validator';
 import { MediaAccountApplicationService } from '../service/mediaAccountApplicationService';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
-const url = 'media-account-rejection-reasons';
+const templateName = 'media-account-rejection-reasons';
+const rejectReasons = require('../resources/media-account-rejection-reasons-lookup.json');
 
 export default class MediaAccountRejectionReasonsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        if (req.query.applicantId) {
+        if (validator.isUUID(req.query.applicantId)) {
             const applicantId = req.query.applicantId;
 
-            const fs = require('fs');
-            const rejectReasons = JSON.parse(
-                fs.readFileSync(
-                    path.resolve(__dirname, '../modules/nunjucks/media-account-rejection-reasons-lookup.json')
-                )
-            );
-            return res.render(url, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
+            return res.render(templateName, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[templateName]),
                 applicantId,
                 rejectReasons,
             });

@@ -14,7 +14,7 @@
         "lint:fix": "prettier --write . && eslint --fix .",
         "build": "yarn webpack --config webpack.config.js",
         "build:prod": "NODE_ENV=production yarn webpack --mode production --config webpack.config.js",
-        "test": "npx if-env CI=true && exit 0 || yarn test:unit",
+        "test": "npx if-env CI=true && exit 0 || yarn test:unit --maxWorkers=50%",
         "test:unit": "jest",
         "test:failures": "jest -f",
         "test:controllers": "jest -- src/test/unit/controllers",
@@ -102,7 +102,8 @@
         "stylelint-config-standard-scss": "^7.0.1",
         "ts-node": "^10.9.1",
         "tsconfig-paths": "^4.1.2",
-        "typescript": "^4.9.5"
+        "typescript": "^4.9.5",
+        "validator": "^13.9.0"
     },
     "devDependencies": {
         "@babel/core": "^7.21.0",

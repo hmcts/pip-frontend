@@ -1,5 +1,8 @@
 module.exports = {
-    transformIgnorePatterns: ['/node_modules/(?!(axios)/)'],
+
+    cache: true,
+    cacheDirectory: "/tmp/jest-cache",
+transformIgnorePatterns: ['/node_modules/(?!(axios)/)'],
     roots: ['<rootDir>/src/test/unit'],
     testRegex: '(/src/test/.*|\\.(test|spec))\\.(ts|js)$',
     moduleNameMapper: {

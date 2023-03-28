@@ -970,6 +970,4 @@ describe('Account Management Requests', () => {
             expect(response).toStrictEqual([]);
         });
     });
-
-
 });

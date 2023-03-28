@@ -4,12 +4,12 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import { cloneDeep } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 
 const mediaAccountRejectionReasonsController = new MediaAccountRejectionReasonsController();
 
 describe('Media Account Rejection Reasons Controller', () => {
-    const applicantId = '123-456';
-    // const suffix = 'media-account-rejection-reasons?applicantId=123-456';
+    const applicantId = uuidv4();
     const url = 'media-account-rejection-reasons';
     const i18n = {
         url,
@@ -20,7 +20,7 @@ describe('Media Account Rejection Reasons Controller', () => {
             'The applicant is not an accredited member of the media.',
             'You can sign in with an existing MyHMCTS account. Or you can register your organisation at https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals',
         ],
-        expired: ['ID provided has expired or is not a press ID.', 'Please provide a valid Press ID.'],
+        expired: ['ID provided has expired or is not a Press ID.', 'Please provide a valid Press ID.'],
         noMatch: ['Details provided do not match.', 'The name, email address and Press ID do not match each other.'],
     };
     const applicantData = {
@@ -46,7 +46,7 @@ describe('Media Account Rejection Reasons Controller', () => {
             const { getDataByLanguage } = request.i18n;
             const expectedData = {
                 ...cloneDeep(getDataByLanguage(request.lng)[url]),
-                applicantId: '123-456',
+                applicantId:applicantId,
                 rejectReasons,
             };
 
@@ -57,7 +57,7 @@ describe('Media Account Rejection Reasons Controller', () => {
         });
 
         it('should render the error page if no applicant ID', () => {
-            const applicantId = null;
+            const applicantId = '';
             const response = {
                 render: () => {
                     return '';
