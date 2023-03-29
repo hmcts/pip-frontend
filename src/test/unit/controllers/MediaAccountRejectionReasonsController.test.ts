@@ -46,7 +46,7 @@ describe('Media Account Rejection Reasons Controller', () => {
             const { getDataByLanguage } = request.i18n;
             const expectedData = {
                 ...cloneDeep(getDataByLanguage(request.lng)[url]),
-                applicantId:applicantId,
+                applicantId: applicantId,
                 rejectReasons,
             };
 

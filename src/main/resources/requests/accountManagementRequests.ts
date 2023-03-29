@@ -127,28 +127,34 @@ export class AccountManagementRequests {
         return null;
     }
 
-    public async sendMediaApplicationRejectionEmail(
-        applicantId: string,
-        reasons: string
-    ): Promise<MediaAccountApplication | null> {
-        try {
-            const response = await accountManagementApi.post(`/application/reject/${applicantId}`, { reasons });
-            logger.info(`Media account rejected - ${applicantId}`);
-            return response.data;
-        } catch (error) {
-            if (error.response) {
-                logger.error('Failed to send media application rejection email', error.response.data);
-            } else {
-                logger.error('Failed to send media application rejection email', error.message);
-            }
-            return null;
-        }
-    }
+    // public async sendMediaApplicationRejectionEmail(
+    //     applicantId: string,
+    //     reasons: string
+    // ): Promise<MediaAccountApplication | null> {
+    //     try {
+    //         const response = await accountManagementApi.post(`/application/reject/${applicantId}`, { reasons });
+    //         logger.info(`Media account rejected - ${applicantId}`);
+    //         return response.data;
+    //     } catch (error) {
+    //         if (error.response) {
+    //             logger.error('Failed to send media application rejection email', error.response.data);
+    //         } else {
+    //             logger.error('Failed to send media application rejection email', error.message);
+    //         }
+    //         return null;
+    //     }
+    // }
 
-    public async updateMediaApplicationStatus(applicantId, status): Promise<MediaAccountApplication | null> {
+    public async updateMediaApplicationStatus(applicantId, status, reasons = null): Promise<MediaAccountApplication | null> {
         try {
-            const response = await accountManagementApi.put('/application/' + applicantId + '/' + status);
-            logger.info('Media Application updated - ' + applicantId);
+            let response;
+            if (reasons) {
+                response = await accountManagementApi.put('/application/' + applicantId + '/' + status, { reasons });
+                logger.info('Media Application updated and attempted email send - ' + applicantId);
+            } else {
+                response = await accountManagementApi.put('/application/' + applicantId + '/' + status);
+                logger.info('Media Application updated - ' + applicantId);
+            }
             return response.data;
         } catch (error) {
             if (error.response) {
@@ -228,7 +234,7 @@ export class AccountManagementRequests {
             userProvenance,
             oid,
             'lastSignedInDate',
-            'Failed to update account last signed in date'
+            'Failed to update account last signed in date',
         );
     }
 
@@ -236,7 +242,7 @@ export class AccountManagementRequests {
         userProvenance: string,
         oid: string,
         field: string,
-        errorMessage: string
+        errorMessage: string,
     ): Promise<string> {
         try {
             const map = {};
@@ -302,11 +308,11 @@ export class AccountManagementRequests {
         try {
             logger.info(
                 'User with ID: ' +
-                    userId +
-                    ' role attempting to be updated to ' +
-                    role +
-                    ' by Admin with ID: ' +
-                    adminUserId
+                userId +
+                ' role attempting to be updated to ' +
+                role +
+                ' by Admin with ID: ' +
+                adminUserId,
             );
             const response = await accountManagementApi.put(`/account/update/${userId}/${role}`, null, {
                 headers: {
@@ -330,7 +336,7 @@ export class AccountManagementRequests {
     public async getAdminUserByEmailAndProvenance(
         email: string,
         provenance: string,
-        adminUserId: string
+        adminUserId: string,
     ): Promise<any> {
         try {
             logger.info('Admin with ID: ' + adminUserId + 'requested user by email.');
@@ -365,7 +371,7 @@ export class AccountManagementRequests {
                     return error.response.data;
                 } else {
                     console.log(
-                        'Request to create a system admin has failed with error code: ' + error.response.status
+                        'Request to create a system admin has failed with error code: ' + error.response.status,
                     );
                 }
             } else {

@@ -140,7 +140,6 @@ export default function (app: Application): void {
     app.get('/primary-health-list', app.locals.container.cradle.tribunalNationalListsController.get);
     app.get('/magistrates-public-list', app.locals.container.cradle.magistratesPublicListController.get);
 
-
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
     app.get('/bulk-unsubscribe', isPermittedMedia, app.locals.container.cradle.bulkUnsubscribeController.get);
@@ -356,11 +355,12 @@ export default function (app: Application): void {
     app.get(
         '/media-account-rejection-reasons',
         isPermittedMediaAccount,
-        app.locals.container.cradle.mediaAccountRejectionReasonsController.get);
+        app.locals.container.cradle.mediaAccountRejectionReasonsController.get
+    );
     app.post(
         '/media-account-rejection-reasons',
         isPermittedMediaAccount,
-        app.locals.container.cradle.mediaAccountRejectionReasonsController.post,
+        app.locals.container.cradle.mediaAccountRejectionReasonsController.post
     );
     app.get(
         '/media-account-rejection-confirmation',
