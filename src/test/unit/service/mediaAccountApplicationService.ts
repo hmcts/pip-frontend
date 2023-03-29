@@ -97,7 +97,7 @@ describe('rejectApplication', () => {
     beforeEach(() => {
         updateMediaApplicationStatusStub = sinon.stub(
             AccountManagementRequests.prototype,
-            'updateMediaApplicationStatus',
+            'updateMediaApplicationStatus'
         );
     });
 
