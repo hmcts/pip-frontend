@@ -30,7 +30,7 @@ describe('MediaAccountRejectionController', () => {
             const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
             const req = {
                 body: {
-                    reasons: 'Some reasons',
+                    reasons: 'noMatch',
                     applicantId: '123',
                 },
                 i18n: {
@@ -72,6 +72,7 @@ describe('MediaAccountRejectionController', () => {
             expect(res.render.calledWith('error')).to.be.true;
         });
     });
+
     describe('#post()', () => {
         it('should render error view when applicant data is not found', async () => {
             const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
@@ -81,7 +82,7 @@ describe('MediaAccountRejectionController', () => {
                 },
                 body: {
                     'reject-confirmation': 'Yes',
-                    reasons: 'Some reasons',
+                    reasons: 'noMatch, expired',
                 },
                 i18n: {
                     getDataByLanguage: sinon.stub().returns({ error: {} }),
@@ -158,7 +159,7 @@ describe('MediaAccountRejectionController', () => {
                 },
                 body: {
                     'reject-confirmation': 'Yes',
-                    reasons: 'Some reasons',
+                    reasons: 'noMatch,expired',
                 },
                 i18n: {
                     getDataByLanguage: sinon.stub().returns({ 'media-account-rejection-confirmation': {} }),
@@ -193,7 +194,7 @@ describe('MediaAccountRejectionController', () => {
                 },
                 body: {
                     'reject-confirmation': 'Yes',
-                    reasons: 'Some reasons',
+                    reasons: 'expired,noMatch',
                 },
                 i18n: {
                     getDataByLanguage: sinon.stub().returns({ error: {} }),

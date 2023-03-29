@@ -6,6 +6,7 @@ import { UserManagementService } from '../service/userManagementService';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 const userManagementService = new UserManagementService();
+const rejectReasons = require('../../main/resources/media-account-rejection-reasons-lookup.json');
 
 export default class MediaAccountRejectionController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -64,13 +65,26 @@ export default class MediaAccountRejectionController {
         }
     }
 
+    private static getJson(key: string): string {
+        if (key in rejectReasons) {
+            const messageArray = rejectReasons[key];
+            return messageArray.join('\n');
+        } else {
+            throw new Error(`Invalid rejection reason chosen: ${key}`);
+        }
+    }
+
     /**
      * This handles the pages that render if the user has selected 'Reject' on the screen.
      */
     private static async rejectionFlow(req, res, applicantId, reasons): Promise<void> {
         const applicantData = await mediaAccountApplicationService.getApplicationById(req.body.applicantId);
         const url = 'media-account-rejection-confirmation';
-        if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'], reasons)) {
+        let ourReasons = '';
+        reasons.split(',').forEach(key => {
+            ourReasons += this.getJson(key);
+        });
+        if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'], ourReasons)) {
             await userManagementService.auditAction(
                 req.user,
                 'REJECT_MEDIA_APPLICATION',

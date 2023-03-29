@@ -10,7 +10,7 @@ const rejectReasons = require('../resources/media-account-rejection-reasons-look
 
 export default class MediaAccountRejectionReasonsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        if (validator.isUUID(req.query.applicantId)) {
+        if (req.query.applicantId && validator.isUUID(req.query.applicantId)) {
             const applicantId = req.query.applicantId;
 
             return res.render(templateName, {

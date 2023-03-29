@@ -15,14 +15,9 @@ describe('Media Account Rejection Reasons Controller', () => {
         url,
         error: {},
     };
-    const rejectReasons = {
-        notMedia: [
-            'The applicant is not an accredited member of the media.',
-            'You can sign in with an existing MyHMCTS account. Or you can register your organisation at https://www.gov.uk/guidance/myhmcts-online-case-management-for-legal-professionals',
-        ],
-        expired: ['ID provided has expired or is not a Press ID.', 'Please provide a valid Press ID.'],
-        noMatch: ['Details provided do not match.', 'The name, email address and Press ID do not match each other.'],
-    };
+
+    const rejectReasons = require('../../../main/resources/media-account-rejection-reasons-lookup.json');
+
     const applicantData = {
         fullName: 'test user',
         email: 'test@test.com',
@@ -82,7 +77,7 @@ describe('Media Account Rejection Reasons Controller', () => {
             const request = mockRequest(i18n);
             const applicantId = 'validApplicantId';
             mediaAccountApplicationStub.withArgs(applicantId, 'PENDING').resolves(applicantData);
-            const reasons = ['reason1', 'reason2'];
+            const reasons = ['noMatch', 'expired'];
             request.body = {
                 'rejection-reasons': reasons,
                 applicantId,
