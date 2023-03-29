@@ -82,7 +82,7 @@ export default class MediaAccountRejectionController {
         const url = 'media-account-rejection-confirmation';
         let ourReasons = '';
         reasons.split(',').forEach(key => {
-            ourReasons += this.getJson(key);
+            ourReasons += this.getJson(key) + ';';
         });
         if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'], ourReasons)) {
             await userManagementService.auditAction(
