@@ -23,7 +23,7 @@ describe('Session Logged out Page', () => {
     });
 
     it('should display page header', () => {
-        const header = htmlRes.getElementsByClassName('govuk-heading-l');
+        const header = htmlRes.getElementsByClassName('govuk-panel__title');
         expect(header[0].innerHTML).contains(expectedHeader, 'Page header does not match');
     });
 });
