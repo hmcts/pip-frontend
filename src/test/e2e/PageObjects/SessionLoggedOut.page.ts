@@ -3,7 +3,6 @@ import { CommonPage } from './Common.page';
 const helpers = require('../Helpers/Selectors');
 
 export class SessionLoggedOutPage extends CommonPage {
-
     async getPanelTitle(): Promise<string> {
         $(helpers.PanelTitle).catch(() => {
             console.log(`${helpers.PanelTitle} not found`);
@@ -11,6 +10,4 @@ export class SessionLoggedOutPage extends CommonPage {
 
         return $(helpers.PanelTitle).getText();
     }
-
-
 }
