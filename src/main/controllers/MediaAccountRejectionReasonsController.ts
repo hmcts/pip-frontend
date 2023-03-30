@@ -17,6 +17,7 @@ export default class MediaAccountRejectionReasonsController {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[templateName]),
                 applicantId,
                 rejectReasons,
+                showError: false
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
@@ -26,7 +27,6 @@ export default class MediaAccountRejectionReasonsController {
     public async post(req: PipRequest, res: Response): Promise<void> {
         const applicantId = req.body['applicantId'];
         const reasons = req.body['rejection-reasons'];
-
         if (reasons && applicantId) {
             const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
                 applicantId,
@@ -39,7 +39,12 @@ export default class MediaAccountRejectionReasonsController {
                 reasons,
             });
         } else {
-            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+           return res.render(templateName, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[templateName]),
+                applicantId,
+                rejectReasons,
+                showError: true
+            });
         }
     }
 }

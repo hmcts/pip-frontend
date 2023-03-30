@@ -43,6 +43,7 @@ describe('Media Account Rejection Reasons Controller', () => {
                 ...cloneDeep(getDataByLanguage(request.lng)[url]),
                 applicantId: applicantId,
                 rejectReasons,
+                showError: false
             };
 
             responseMock.expects('render').once().withArgs(url, expectedData);
@@ -104,9 +105,16 @@ describe('Media Account Rejection Reasons Controller', () => {
                     return '';
                 },
             } as unknown as Response;
+            const { getDataByLanguage } = request.i18n;
+            const expectedData = {
+                ...cloneDeep(getDataByLanguage(request.lng)[url]),
+                applicantId: undefined,
+                rejectReasons,
+                showError: true
+            };
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('error', {});
+            responseMock.expects('render').once().withArgs(url, expectedData);
             mediaAccountRejectionReasonsController.post(request, response).then(() => {
                 responseMock.verify();
             });
@@ -123,7 +131,14 @@ describe('Media Account Rejection Reasons Controller', () => {
             request.body = {
                 applicantId,
             };
-            responseMock.expects('render').once().withArgs('error', {});
+            const { getDataByLanguage } = request.i18n;
+            const expectedData = {
+                ...cloneDeep(getDataByLanguage(request.lng)[url]),
+                applicantId: applicantId,
+                rejectReasons,
+                showError: true
+            };
+            responseMock.expects('render').once().withArgs(url, expectedData);
             mediaAccountRejectionReasonsController.post(request, response).then(() => {
                 responseMock.verify();
             });

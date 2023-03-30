@@ -2,6 +2,7 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% extends "template.njk" %}
 
 {% block pageTitle %}
@@ -13,27 +14,29 @@
 {% endblock %}
 {% block content %}
 
-    {% if displayAzureError %}
-        {{ govukErrorSummary({
-            titleText: error.title,
-            errorList: [
-                {
-                    text: error.azureMessage,
-                    href: "#"
-                }
-            ]
-        }) }}
-    {% endif %}
-
     {% set checkboxReasons = [] %}
     {% for shortReason, reason in rejectReasons %}
     {% set _ = checkboxReasons.push({value: shortReason, text: reason[0]}) %}
     {% endfor %}
     {% set otherHtml = {html:other} %}
 
-
 <form method="post" action="/media-account-rejection-reasons?applicantId={{ applicantId }}">
     <input type="hidden" id="applicantId" name="applicantId" value="{{ applicantId }}" >
+    {% if showError %}
+        {% set errorMsg = {text: error.checkboxes} %}
+    {{ govukErrorSummary({
+        titleText: error.title,
+        errorList: [
+            {
+                text: error.checkboxes,
+                href: "#govuk-checkboxes"
+            }
+        ]
+    }) }}
+
+    {% else %}
+    {% set errorMsg = false %}
+    {% endif %}
     {{ govukCheckboxes({
         name: "rejection-reasons",
         fieldset: {
@@ -46,6 +49,7 @@
         hint: {
             text: selectAll
         },
+        errorMessage: errorMsg,
         items: checkboxReasons
     }) }}
     {{ submitButton() }}
