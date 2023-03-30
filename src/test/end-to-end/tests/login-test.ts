@@ -4,7 +4,7 @@ Scenario('I as a system admin should be able to sign-in with the valid credentia
     I.loginAsSystemAdmin();
     I.see('System Admin Dashboard');
     I.logout();
-});
+}).tag('@CrossBrowser');
 
 Scenario(
     'I as a system admin should be able to see proper error messages when username or password fields are empty',
@@ -35,7 +35,7 @@ Scenario('I as a admin should be able to sign-in with the valid credentials', as
     I.loginAsAdmin();
     I.see('Your Dashboard');
     I.logout();
-});
+}).tag('@CrossBrowser');
 
 Scenario(
     'I as a admin should be able to see proper error messages when username or password fields are empty',
@@ -66,7 +66,7 @@ Scenario('I as a media user should be able to sign-in with the valid credentials
     I.loginAsMediaUser();
     I.see('Your account');
     I.logout();
-});
+}).tag('@CrossBrowser');
 
 Scenario(
     'I as a media user should be able to see proper error messages when username or password fields are empty',
