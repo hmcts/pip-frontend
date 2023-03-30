@@ -65,14 +65,17 @@ export default class MediaAccountRejectionController {
         }
     }
 
-    private static getJson(key: string): string {
-        if (key in rejectReasons) {
-            const messageArray = rejectReasons[key];
-            return messageArray.join('\n');
-        } else {
+    private static getJsonSubset(keys) {
+        const keysArray = keys.split(",")
+        const subset = {}
+        keysArray.forEach((key) => {
+            if (key in rejectReasons) {
+                subset[key] = rejectReasons[key];
+            } else {
             throw new Error(`Invalid rejection reason chosen: ${key}`);
+        }})
+        return subset
         }
-    }
 
     /**
      * This handles the pages that render if the user has selected 'Reject' on the screen.
@@ -80,11 +83,7 @@ export default class MediaAccountRejectionController {
     private static async rejectionFlow(req, res, applicantId, reasons): Promise<void> {
         const applicantData = await mediaAccountApplicationService.getApplicationById(req.body.applicantId);
         const url = 'media-account-rejection-confirmation';
-        let ourReasons = '';
-        reasons.split(',').forEach(key => {
-            ourReasons += this.getJson(key) + ';';
-        });
-        if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'], ourReasons)) {
+        if (await mediaAccountApplicationService.rejectApplication(applicantId, req.user?.['userId'], this.getJsonSubset(reasons))) {
             await userManagementService.auditAction(
                 req.user,
                 'REJECT_MEDIA_APPLICATION',

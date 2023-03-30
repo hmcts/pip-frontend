@@ -81,6 +81,7 @@ describe('Account Management Requests', () => {
         });
     });
 
+
     describe('Create P&I Account', () => {
         it('should return true on success', async () => {
             postStub.withArgs(piEndpoint).resolves({ status: 201 });
@@ -366,9 +367,18 @@ describe('Account Management Requests', () => {
             requestDate: '2022-05-09T00:00:01',
             status: 'APPROVED',
             statusDate: '2022-05-09T00:00:01',
+            reasons: '{"reason1":["reason2", "reason3"], "reason4":["reason5"]}'
         };
 
         it('should return dummy application on success', async () => {
+            putStub
+                .withArgs(applicationGetEndpoint + applicationID + statusEndpoint)
+                .resolves({ status: 201, data: dummyApplication });
+            const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
+            expect(response).toBe(dummyApplication);
+        });
+
+        it('should return dummy application on success with reasons', async () => {
             putStub
                 .withArgs(applicationGetEndpoint + applicationID + statusEndpoint)
                 .resolves({ status: 201, data: dummyApplication });
