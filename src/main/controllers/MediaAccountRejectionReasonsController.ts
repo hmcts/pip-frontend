@@ -17,7 +17,7 @@ export default class MediaAccountRejectionReasonsController {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[templateName]),
                 applicantId,
                 rejectReasons,
-                showError: false
+                showError: false,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
@@ -39,11 +39,11 @@ export default class MediaAccountRejectionReasonsController {
                 reasons,
             });
         } else {
-           return res.render(templateName, {
+            return res.render(templateName, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[templateName]),
                 applicantId,
                 rejectReasons,
-                showError: true
+                showError: true,
             });
         }
     }

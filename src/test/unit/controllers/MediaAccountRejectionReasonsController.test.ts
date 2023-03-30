@@ -43,7 +43,7 @@ describe('Media Account Rejection Reasons Controller', () => {
                 ...cloneDeep(getDataByLanguage(request.lng)[url]),
                 applicantId: applicantId,
                 rejectReasons,
-                showError: false
+                showError: false,
             };
 
             responseMock.expects('render').once().withArgs(url, expectedData);
@@ -110,7 +110,7 @@ describe('Media Account Rejection Reasons Controller', () => {
                 ...cloneDeep(getDataByLanguage(request.lng)[url]),
                 applicantId: undefined,
                 rejectReasons,
-                showError: true
+                showError: true,
             };
 
             const responseMock = sinon.mock(response);
@@ -136,7 +136,7 @@ describe('Media Account Rejection Reasons Controller', () => {
                 ...cloneDeep(getDataByLanguage(request.lng)[url]),
                 applicantId: applicantId,
                 rejectReasons,
-                showError: true
+                showError: true,
             };
             responseMock.expects('render').once().withArgs(url, expectedData);
             mediaAccountRejectionReasonsController.post(request, response).then(() => {

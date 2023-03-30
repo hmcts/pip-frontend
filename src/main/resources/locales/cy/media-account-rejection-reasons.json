@@ -3,6 +3,6 @@
     "selectAll": "Select all that apply.",
     "error": {
         "title": "There is a problem",
-        "radioMessage": "An option must be selected"
+        "checkboxes": "An option must be selected"
     }
 }
