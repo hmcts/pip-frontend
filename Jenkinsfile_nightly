@@ -65,5 +65,16 @@ withNightlyPipeline(type, product, component) {
             reportName           : "Functional Test Report"
         ]
     }
+
+    afterAlways('crossBrowserTest') {
+        publishHTML target: [
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
+            reportDir            : "functional-output/cross-browser/allure",
+            reportFiles          : "index.html",
+            reportName           : "Cross Browser Test Report"
+        ]
+    }
 }
 

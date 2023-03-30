@@ -10,4 +10,4 @@ Scenario('I as an admin should be able to see an error message if I try to chang
     I.click('Change');
     I.click('Continue');
     I.see('You are unable to update the role for the same user you are logged in as');
-}).tag('@Nightly');
+}).tag('@Nightly').tag('@CrossBrowser');
