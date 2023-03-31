@@ -1,23 +1,31 @@
-# Publishing Information
+# pip-frontend
 
-## Purpose
+## Overview
+`pip-frontend` is a microservice that serves the frontend of the Court and Tribunal Hearings Service (known as CaTH hereafter). This project was formerly known as the Publications and Information Project within HMCTS.
 
-The Publishing & Information Hub will be responsible for the following:
+The frontend uses a [Node.js](https://nodejs.org/en) runtime environment, using [Express.js](https://expressjs.com/) as the web application framework.
+Our templating engine is [nunjucks](https://mozilla.github.io/nunjucks/).
 
--   Receiving data from source systems, such as Schedule & Listing, via Hearings Management Interface
--   Publish lists, outcomes, judgements and management information onto GOV.UK
--   Provide functionality to display information in court and tribunals buildings on the relevant hardware
--   Comply with Open Justice procedures and business rules
+It is connected to several other microservices in production:
+| Microservice  | Summary |
+| ------------- | ------------- |
+|pip-data-management|Communicates with [postgres](https://www.postgresql.org/) and [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) and controls file storage, file ingestion, reference data and validation|
+|pip-subscription-management|Handles all operations related to subscriptions, including all CRUD operations and the triggering of the fulfilment process.|
+|pip-channel-management|Handles operations related to retrieving subscription channels, and the generation of alternative publishing formats used throughout the subscription process (such as PDFs).|
+|pip-publication-services|Handles operations related to sending of notification emails to verified users, admin users and publication subscribers using [GOV.UK Notify](https://www.notifications.service.gov.uk/), as well as forwarding of publications to third-party publishers.|
+|pip-account-management|Handles operations related to accounts, including interaction with Azure B2C for PI_AAD users. It also manages the audit functionality.|
+
 
 ## Getting Started
 
 ### Prerequisites
+##### General
 
 Running the application requires the following tools to be installed in your environment:
 
--   [Node.js](https://nodejs.org/) v16.0.0 to v16.x.x (latest v16)
-    -   [yarn](https://yarnpkg.com/)
-    -   [Docker](https://www.docker.com)
+-   [Node.js](https://nodejs.org/) v16.0.0 to v19.x.x (last tested on v19.8.1)
+-   [yarn](https://yarnpkg.com/) v3+
+-   [Docker](https://www.docker.com)
 
 ### Authentication
 
