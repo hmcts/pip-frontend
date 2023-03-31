@@ -9,11 +9,11 @@ Our templating engine is [nunjucks](https://mozilla.github.io/nunjucks/).
 It is connected to several other microservices in production:
 | Microservice  | Summary |
 | ------------- | ------------- |
-|pip-data-management|Communicates with [postgres](https://www.postgresql.org/) and [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) and controls file storage, file ingestion, reference data and validation|
-|pip-subscription-management|Handles all operations related to subscriptions, including all CRUD operations and the triggering of the fulfilment process.|
-|pip-channel-management|Handles operations related to retrieving subscription channels, and the generation of alternative publishing formats used throughout the subscription process (such as PDFs).|
-|pip-publication-services|Handles operations related to sending of notification emails to verified users, admin users and publication subscribers using [GOV.UK Notify](https://www.notifications.service.gov.uk/), as well as forwarding of publications to third-party publishers.|
-|pip-account-management|Handles operations related to accounts, including interaction with Azure B2C for PI_AAD users. It also manages the audit functionality.|
+|pip-data-management (`port:8090`)|Communicates with [postgres](https://www.postgresql.org/) and [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) and controls file storage, file ingestion, reference data and validation|
+|pip-subscription-management (`port:4550`)|Handles all operations related to subscriptions, including all CRUD operations and the triggering of the fulfilment process.|
+|pip-channel-management(`port:8181`)|Handles operations related to retrieving subscription channels, and the generation of alternative publishing formats used throughout the subscription process (such as PDFs).|
+|pip-publication-services(`port:8081`)|Handles operations related to sending of notification emails to verified users, admin users and publication subscribers using [GOV.UK Notify](https://www.notifications.service.gov.uk/), as well as forwarding of publications to third-party publishers.|
+|pip-account-management(`port:6969`)|Handles operations related to accounts, including interaction with Azure B2C for PI_AAD users. It also manages the audit functionality.|
 
 
 ## Getting Started
@@ -23,9 +23,25 @@ It is connected to several other microservices in production:
 
 Running the application requires the following tools to be installed in your environment:
 
--   [Node.js](https://nodejs.org/) v16.0.0 to v19.x.x (last tested on v19.8.1)
--   [yarn](https://yarnpkg.com/) v3+
--   [Docker](https://www.docker.com)
+- [Node.js](https://nodejs.org/) v16.0.0 to v19.x.x (last tested on v19.8.1)
+- [yarn](https://yarnpkg.com/) v3+
+- [Docker](https://www.docker.com)
+
+##### Nice to haves
+- HTTP client of some description (e.g. [Curl](https://github.com/curl/curl)). You could also use any web browser (e.g. [Mozilla Firefox](https://www.mozilla.org/en-GB/firefox/new/), [Google Chrome](https://www.google.com/intl/en_uk/chrome/)) 
+- The service won't run particularly well without the attached services, so it's a good idea to have those running as well. `pip-account-management` and `pip-data-management` 
+
+
+### Installation
+#### Setup
+- Clone the repository
+- Ensure all required [environment variables](#environment-variables) have been set.
+- Use the terminal command `yarn install` to install all dependencies.
+- Use `yarn run build` to build the application.
+#### Running the application
+- Use `yarn start` to start the application (defaults to port `8080`)
+
+### Configuration
 
 ### Authentication
 
@@ -75,7 +91,7 @@ $ yarn install
 Bundle:
 
 ```bash
-$ yarn webpack
+$ yarn build
 ```
 
 Start Redis Locally:
