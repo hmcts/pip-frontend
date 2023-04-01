@@ -12658,10 +12658,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-print-json@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "pretty-print-json@npm:1.4.0"
-  checksum: e9a0896c6a6604967a2958a81f6a0a7bf878db856a6dfb987b27ab1d040a7607f01faeb636b5ebc22a9c08d00a13e8f02963d5a14c4016f95a8460a9c56d25fd
+"pretty-print-json@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "pretty-print-json@npm:1.4.1"
+  checksum: ac44db8ff4962083a77532d304c0f94abb1cb61dbfaaac6418068e740fe8c23a6ea8673626ee05df3235d5a1e6f807d868c8716155faaac06efb29d356ac8771
   languageName: node
   linkType: hard
 
@@ -12873,7 +12873,7 @@ __metadata:
     playwright: ^1.31.2
     postcss: ^8.4.21
     prettier: ^2.8.4
-    pretty-print-json: ^1.4.0
+    pretty-print-json: ^1.4.1
     request: ^2.88.2
     require-directory: ^2.1.1
     sass: ^1.58.3
