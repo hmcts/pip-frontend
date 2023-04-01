@@ -52,7 +52,7 @@
         "@types/nunjucks": "^3.2.2",
         "@types/require-directory": "^2.1.2",
         "@types/serve-favicon": "^2.5.3",
-        "@wdio/cli": "8.5.7",
+        "@wdio/cli": "8.6.9",
         "accessible-autocomplete": "^2.0.4",
         "applicationinsights": "^2.5.0",
         "awilix": "^8.0.0",
