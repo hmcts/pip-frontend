@@ -110,7 +110,7 @@
         "@evilmartians/lefthook": "^1.3.3",
         "@types/chai-as-promised": "^7.1.5",
         "@types/copy-webpack-plugin": "^10.1.0",
-        "@types/jest": "^29.4.0",
+        "@types/jest": "^29.5.0",
         "@types/mini-css-extract-plugin": "^2.5.1",
         "@types/supertest": "^2.0.12",
         "@types/webpack-dev-middleware": "^5.3.0",
