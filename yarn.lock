@@ -3607,6 +3607,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@wdio/config@npm:8.6.8":
+  version: 8.6.8
+  resolution: "@wdio/config@npm:8.6.8"
+  dependencies:
+    "@wdio/logger": 8.6.6
+    "@wdio/types": 8.6.8
+    "@wdio/utils": 8.6.8
+    decamelize: ^6.0.0
+    deepmerge-ts: ^5.0.0
+    glob: ^9.3.0
+    import-meta-resolve: ^2.1.0
+    read-pkg-up: ^9.1.0
+  checksum: 25cb67ea0f0ebd0fb6a249bf6ccf8becda5601f948454cd342684dbeace11fa7f6472708216d4221edc5d38e608c68083ffd3251c9b8e0797583bd18fd4058e1
+  languageName: node
+  linkType: hard
+
 "@wdio/globals@npm:8.5.7":
   version: 8.5.7
   resolution: "@wdio/globals@npm:8.5.7"
@@ -3662,6 +3678,18 @@ __metadata:
     loglevel-plugin-prefix: ^0.8.4
     strip-ansi: ^6.0.0
   checksum: 72d17b299bb305ccb797e2f0e3b37c2a9a5c67b4fdb77b1906a12f9175f092405b84b6d570d7fbe47fff4705ee5ce71734c579b992f6c899217ec37281aa8687
+  languageName: node
+  linkType: hard
+
+"@wdio/logger@npm:8.6.6":
+  version: 8.6.6
+  resolution: "@wdio/logger@npm:8.6.6"
+  dependencies:
+    chalk: ^5.1.2
+    loglevel: ^1.6.0
+    loglevel-plugin-prefix: ^0.8.4
+    strip-ansi: ^6.0.0
+  checksum: b17effd00f0b5f4450b83e4d65e0f29bc60bc19a53b9c44fc3569e14bd53bcf6c0dfc8da517ddf639da503c1e68491ec20f97fddbb78b34d8b20136f7a60a4fe
   languageName: node
   linkType: hard
 
@@ -3756,16 +3784,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/selenium-standalone-service@npm:^8.5.6":
-  version: 8.5.6
-  resolution: "@wdio/selenium-standalone-service@npm:8.5.6"
+"@wdio/selenium-standalone-service@npm:^8.6.8":
+  version: 8.6.8
+  resolution: "@wdio/selenium-standalone-service@npm:8.6.8"
   dependencies:
     "@types/node": ^18.0.0
-    "@wdio/config": 8.5.6
-    "@wdio/logger": 8.1.0
-    "@wdio/types": 8.4.0
+    "@wdio/config": 8.6.8
+    "@wdio/logger": 8.6.6
+    "@wdio/types": 8.6.8
     selenium-standalone: ^8.2.1
-  checksum: c3cee2874f1fe13487625aca3383e69011cec1983c4c01a8f913be268564ba510d9b7ca4d169e6233f6bfbbe0a0b75b79a4d5304d6cd92214edb7ee566ae2bc8
+  checksum: 6f1a819e1cec573a210dc541ab5700d3a4e80703eda3e25ce5a573a6890b557240f6676c0de63f28fb377a9904a534789e669da1a22f6971b004d262a9b72f39
   languageName: node
   linkType: hard
 
@@ -3800,6 +3828,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@wdio/types@npm:8.6.8":
+  version: 8.6.8
+  resolution: "@wdio/types@npm:8.6.8"
+  dependencies:
+    "@types/node": ^18.0.0
+  checksum: 16c6ce047738949ac2cca8b32f7ec5992e2304e27d8fa98e3f41ee3e3e3eb326a9b58cf32f7fb1a273b0cb4377b7953d442d779f6fdc15f24dba6b3857af90b1
+  languageName: node
+  linkType: hard
+
 "@wdio/utils@npm:8.3.0":
   version: 8.3.0
   resolution: "@wdio/utils@npm:8.3.0"
@@ -3821,6 +3858,18 @@ __metadata:
     import-meta-resolve: ^2.2.0
     p-iteration: ^1.1.8
   checksum: 0e78b18949597fba722b0109d277465fd55114fdecfb4a78461184dde3b23eb37ec3c302d61097b3b22984b1a543ad640be47db913ad526c021b7e563800a732
+  languageName: node
+  linkType: hard
+
+"@wdio/utils@npm:8.6.8":
+  version: 8.6.8
+  resolution: "@wdio/utils@npm:8.6.8"
+  dependencies:
+    "@wdio/logger": 8.6.6
+    "@wdio/types": 8.6.8
+    import-meta-resolve: ^2.2.0
+    p-iteration: ^1.1.8
+  checksum: d500fb8ef4b717e82d838654677d53759783b09fcf0a08be1a23940ef722a1bf48f5af3705fd6464217e71dd9eca5d953a615ddaa407d6b81e495146317a60ed
   languageName: node
   linkType: hard
 
@@ -6371,6 +6420,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"deepmerge-ts@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "deepmerge-ts@npm:5.0.0"
+  checksum: d3d9419e201c52c144fad35320abc7390d177ef0a7e83f7d14e10fdda97d8d7df69746a28d0028d661ca444bba55bbc494918496c54b73dd5c3a3385add2d2e9
+  languageName: node
+  linkType: hard
+
 "deepmerge@npm:^4.2.2":
   version: 4.3.0
   resolution: "deepmerge@npm:4.3.0"
@@ -8166,6 +8222,18 @@ __metadata:
     minipass: ^4.2.4
     path-scurry: ^1.6.1
   checksum: ef9b1c32491e6b532bdd0d2abcc3c9f48e83446609e11285869156982fc5a756dfbaa6f59f797712343bd1e22500ac15708692806633653fde4ef67c85e2aab7
+  languageName: node
+  linkType: hard
+
+"glob@npm:^9.3.0":
+  version: 9.3.2
+  resolution: "glob@npm:9.3.2"
+  dependencies:
+    fs.realpath: ^1.0.0
+    minimatch: ^7.4.1
+    minipass: ^4.2.4
+    path-scurry: ^1.6.1
+  checksum: f3d188e9f70e24fa729a63ca197bcdb36d838677abec1fb9bbfe4b7620063bf90dc0f8d195203d632abfdfa049fad0edf22f93c60076de67cef20c23bcbfaee8
   languageName: node
   linkType: hard
 
@@ -12818,7 +12886,7 @@ __metadata:
     "@wdio/cli": 8.5.7
     "@wdio/local-runner": ^8.5.7
     "@wdio/mocha-framework": ^8.5.6
-    "@wdio/selenium-standalone-service": ^8.5.6
+    "@wdio/selenium-standalone-service": ^8.6.8
     "@wdio/spec-reporter": ^8.4.0
     accessible-autocomplete: ^2.0.4
     allure-commandline: ^2.21.0
