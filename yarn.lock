@@ -2540,15 +2540,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ministryofjustice/frontend@npm:^1.6.4":
-  version: 1.6.4
-  resolution: "@ministryofjustice/frontend@npm:1.6.4"
+"@ministryofjustice/frontend@npm:^1.6.6":
+  version: 1.6.6
+  resolution: "@ministryofjustice/frontend@npm:1.6.6"
   dependencies:
     govuk-frontend: ^3.0.0 || ^4.0.0
     moment: ^2.27.0
   peerDependencies:
     jquery: ^3.6.0
-  checksum: 93fdbd16efefa9b402441024434ace80e15d59ef3849db34ca6915c69fc62aaee51771df2f145d9ad495f6acb1a6e26e463b3719a4acf7c438156e9757762c96
+  checksum: a45bb60ba39509e3a61ce73c960b7528b3dc67b06ba69df301b93dfb175ab69edff7cd27f1812f754e591f195d0653e62a7a1cbbba1bd178b6665e0f95466585
   languageName: node
   linkType: hard
 
@@ -12793,7 +12793,7 @@ __metadata:
     "@hmcts/nodejs-healthcheck": ^1.8.0
     "@hmcts/nodejs-logging": ^4.0.4
     "@hmcts/properties-volume": ^0.0.14
-    "@ministryofjustice/frontend": ^1.6.4
+    "@ministryofjustice/frontend": ^1.6.6
     "@types/chai-as-promised": ^7.1.5
     "@types/config": ^3.3.0
     "@types/cookie-parser": ^1.4.3
