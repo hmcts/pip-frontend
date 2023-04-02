@@ -2,6 +2,38 @@
 ![Light Mode Logo](lightLogo.png#gh-light-mode-only)
 ![Dark Mode Logo](darkLogo.jpg#gh-dark-mode-only)
 
+# Table of Contents
+
+1. [Overview](#overview)
+    1. [Features and functionality](#features-and-functionality)
+    2. [Architecture Diagram](#architecture-diagram)
+2. [Getting Started](#getting-started)
+    1. [Prerequisites](#prerequisites)
+        1. [General](#general)
+        2. [Nice to haves](#nice-to-haves)
+    2. [Installation](#installation)
+        1. [Setup](#setup)
+        2. [Running the application](#running-the-application)
+    3. [Configuration](#configuration)
+        1. [Environment Variables](#environment-variables)
+            1. [Get environment variables with python scripts](#get-environment-variables-with-python-scripts)
+            2. [Runtime secrets](#runtime-secrets)
+            3. [Additional test secrets](#additional-test-secrets)
+3. [Deployment](#deployment)
+4. [Monitoring and Logging](#monitoring-and-logging)
+5. [Security & Quality Considerations](#security-and-quality-considerations)
+6. [Test Suite](#test-suite)
+    1. [Unit tests](#unit-tests)
+        1. [Unit tests by type](#unit-tests-by-type)
+        2. [Re-running failed tests](#re-running-failed-tests)
+    2. [Route Tests](#route-tests)
+    3. [Accessibility (a11y) Tests](#accessibility-a11y-tests)
+    4. [Functional (E2E) Tests](#functional-e2e-tests)
+        1. [Justification for migration to CodeceptJS](#justification-for-migration-to-codeceptjs)
+        2. [Running e2e tests](#running-e2e-tests)
+7. [Contributing](#contributing)
+8. [License](#license)
+
 ## Overview
 `pip-frontend` is a microservice that serves the frontend of the Court and Tribunal Hearings Service (known as CaTH hereafter). This project was formerly known as the Publications and Information Project within HMCTS.
 
