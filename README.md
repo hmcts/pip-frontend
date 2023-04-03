@@ -59,7 +59,7 @@ Most of the communication with this service benefits from using secure authentic
 - View publications directly in the browser restricted to the user's account privileges.
 - Processes to manage creation of a new media account for a user with administrator oversight (approve/reject).
 - Tiered access to specific functionality and content within three main categories (media/administrator/system administrator), as well as unauthenticated functionality.
-- Management functionality for a maximum of 4 system administrators (set by environment variable). System admins are able to see audit actions by regular administrators, view underlying data, manage users etc. 
+- Management functionality for a maximum of 4 system administrators (set by environment variable). System admins are able to see audit actions by regular administrators, view underlying data, manage users etc.
 - Set up subscriptions to be notified via email when a new publication with given parameters is uploaded.
 - Includes a large collection of [custom nunjucks filters](./src/main/modules/nunjucks/njkFilters.ts) used for specific functionality within the application.
 
@@ -76,10 +76,10 @@ Running the application requires the following tools to be installed in your env
 - [Node.js](https://nodejs.org/) v16.0.0 to v19.x.x (last tested on v19.8.1)
 - [Yarn](https://yarnpkg.com/) v3+
 - [Docker](https://www.docker.com)
-- HTTP client of some description (e.g. [Curl](https://github.com/curl/curl)). You could also use any web browser (e.g. [Mozilla Firefox](https://www.mozilla.org/en-GB/firefox/new/), [Google Chrome](https://www.google.com/intl/en_uk/chrome/)) 
+- HTTP client of some description (e.g. [Curl](https://github.com/curl/curl)). You could also use any web browser (e.g. [Mozilla Firefox](https://www.mozilla.org/en-GB/firefox/new/), [Google Chrome](https://www.google.com/intl/en_uk/chrome/))
 
 ##### Nice to haves
-- The service won't run particularly well without the attached services, so it's a good idea to have those running as well. `pip-account-management` and `pip-data-management` in particular are necessary to get most of the site working as intended. 
+- The service won't run particularly well without the attached services, so it's a good idea to have those running as well. `pip-account-management` and `pip-data-management` in particular are necessary to get most of the site working as intended.
 - [pip-dev-env](https://github.com/hmcts/pip-dev-env) - This repo provides a development environment wherein ensure all microservices, as well as external services (e.g. postgres & redis) are all running in tandem within the service. It eases the development process and is particularly helpful when working with cross-service communication, as it also reduces strain on local performance from having many separate IDE windows open.
 
 ### Installation
@@ -97,7 +97,8 @@ Running the application requires the following tools to be installed in your env
 
 Environment variables are used by the service to control its behaviour in various ways.
 
-These variables can be found within various separate CaTH Azure keyvaults. You may need to obtain access to this via a support ticket.
+These variables can be found within the key vaults, and also passed in via SDS flux.
+
 - Runtime secrets are stored in `pip-ss-{env}-kv` (where {env} is the environment where the given instance is running (e.g. production, staging, test, sandbox)).
 - Test secrets are stored in `pip-bootstrap-{env}-kv` with the same convention.
 
@@ -106,38 +107,37 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 
 ##### Runtime secrets
 
-| Variable                         | Description                              | Required? |
-| -------------------------------- | ---------------------------------------- | --------- |
-| CLIENT_ID_INTERNAL               |`TODO`||
-| CLIENT_SECRET_INTERNAL           |`TODO`||
-| TENANT_GUID                      |`TODO`||
-| CLIENT_ID                        |Unique ID for the application within Azure AD. Used to identify the application during authentication.||
-| CLIENT_SECRET                    |Secret key for authentication requests to the service.|No|
-| ACCOUNT_MANAGEMENT_URL           |URL used for connecting to the pip-account-management service. Defaults to staging if not provided.|No|
-| DATA_MANAGEMENT_URL              |URL used for connecting to the pip-data-management service. Defaults to staging if not provided. |No|
-| SUBSCRIPTION_MANAGEMENT_URL      |URL used for connecting to the pip-subscription-management service. Defaults to staging if not provided. |No|
-| CHANNEL_MANAGEMENT_URL           |URL used for connecting to the pip-channel-management service. Defaults to staging if not provided. |No|
-| AUTH_RETURN_URL                  |URL used to redirect user to the service after authentication with Azure B2C. Defaults to staging if not provided.|No|
-| ADMIN_AUTH_RETURN_URL            |Same as above, but for admin sign in.|No|
-| MEDIA_VERIFICATION_RETURN_URL    |Same as above, but for after a media user verifies their account using the OTP process|No|
-| B2C_ADMIN_URL                    |URL used for routing to Azure from the service (for admin journey).|No|
-| B2C_URL                          |Same as above but for media journey.|No|
-| CONFIG_ADMIN_ENDPOINT            |URL that provides metadata about the B2C tenant's OpenID Connect configuration, such as the issuer URL, token signing keys, and supported scopes. This is for the admin journey.|No|
-| CONFIG_ENDPOINT                  |Same as above but for media journey.|No|
-| MEDIA_VERIFICATION_CONFIG_ENDPOINT|Same as above but for verification of media accounts.|No|
-| OIDC                             |Boolean referring to whether the service is running secure mode or not.|No|
-| SESSION_SECRET                   |Unique identifier or value that's used to identify a user's session - can really be any string if you're running locally.|Yes|
-| FRONTEND_URL                     |This is the host that the service uses to identify what it's running on. Defaults to staging, but you want it to be `https://localhost:8080` if you're running locally (in secure mode)|No|
-| REDIS_HOST                       |Hostname of utilised Redis instance|No|
-| REDIS_PORT                       |Port that utilised Redis instance is running on|No|
-| REDIS_LOCAL                      |Boolean to determine if Redis runs locally or not|No|
-| TENANT_ID                        |Directory unique ID assigned to our Azure AD tenant. Represents the organisation that owns and manages the Azure AD instance.|No|
-| DATA_MANAGEMENT_AZ_API           |Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-data-management service|No|
-| ACCOUNT_MANAGEMENT_AZ_API        |Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-account-management service|No|
-| SUBSCRIPTION_MANAGEMENT_AZ_API   |Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-subscription-management service|No|
-| ENABLE_CFT                       |Boolean determining whether CFT IDAM login is possible (defaults to false for local)|No|
-| CFT_REJECTED_ROLES_REGEX         | Allows you to override the rejected roles regex for CFT|No|
-| INSTRUMENTATION_KEY              | This is the instrumentation key used by the app to talk to Application Insights|No|
+| Variable                         | Description                                                                                                                                                                             | Required? |
+| -------------------------------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --------- |
+| CLIENT_ID_INTERNAL               | Unique ID for the application within Azure AD. Used to identify the application during service to service authentication.                                                               ||
+| CLIENT_SECRET_INTERNAL           | Secret key for authentication requests during service to service communication.                                                                                                         ||
+| CLIENT_ID                        | The client ID for the app (Azure B2C). Used during authentication of Azure B2C users.                                                                                                   ||
+| CLIENT_SECRET                    | The client secret for the app (Azure B2C). Used during authentication of Azure B2C users.                                                                                               |No|
+| ACCOUNT_MANAGEMENT_URL           | URL used for connecting to the pip-account-management service. Defaults to staging if not provided.                                                                                     |No|
+| DATA_MANAGEMENT_URL              | URL used for connecting to the pip-data-management service. Defaults to staging if not provided.                                                                                        |No|
+| SUBSCRIPTION_MANAGEMENT_URL      | URL used for connecting to the pip-subscription-management service. Defaults to staging if not provided.                                                                                |No|
+| CHANNEL_MANAGEMENT_URL           | URL used for connecting to the pip-channel-management service. Defaults to staging if not provided.                                                                                     |No|
+| AUTH_RETURN_URL                  | URL used to redirect user to the service after authentication with Azure B2C. Defaults to staging if not provided.                                                                      |No|
+| ADMIN_AUTH_RETURN_URL            | Same as above, but for admin sign in.                                                                                                                                                   |No|
+| MEDIA_VERIFICATION_RETURN_URL    | Same as above, but for after a media user verifies their account using the OTP process                                                                                                  |No|
+| B2C_ADMIN_URL                    | URL used for routing to Azure from the service (for admin journey).                                                                                                                     |No|
+| B2C_URL                          | Same as above but for media journey.                                                                                                                                                    |No|
+| CONFIG_ADMIN_ENDPOINT            | URL that provides metadata about the B2C tenant's OpenID Connect configuration, such as the issuer URL, token signing keys, and supported scopes. This is for the admin journey.        |No|
+| CONFIG_ENDPOINT                  | Same as above but for media journey.                                                                                                                                                    |No|
+| MEDIA_VERIFICATION_CONFIG_ENDPOINT| Same as above but for verification of media accounts.                                                                                                                                   |No|
+| OIDC                             | Boolean referring to whether the service is running secure mode or not.                                                                                                                 |No|
+| SESSION_SECRET                   | Unique identifier or value that's used to identify a user's session - can really be any string if you're running locally.                                                               |Yes|
+| FRONTEND_URL                     | This is the host that the service uses to identify what it's running on. Defaults to staging, but you want it to be `https://localhost:8080` if you're running locally (in secure mode) |No|
+| REDIS_HOST                       | Hostname of utilised Redis instance                                                                                                                                                     |No|
+| REDIS_PORT                       | Port that utilised Redis instance is running on                                                                                                                                         |No|
+| REDIS_LOCAL                      | Boolean to determine if Redis runs locally or not                                                                                                                                       |No|
+| TENANT_ID                        | Directory unique ID assigned to our Azure AD tenant. Represents the organisation that owns and manages the Azure AD instance.                                                           |No|
+| DATA_MANAGEMENT_AZ_API           | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-data-management service                                |No|
+| ACCOUNT_MANAGEMENT_AZ_API        | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-account-management service                             |No|
+| SUBSCRIPTION_MANAGEMENT_AZ_API   | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-subscription-management service                        |No|
+| ENABLE_CFT                       | Boolean determining whether CFT IDAM login is possible (defaults to false for local)                                                                                                    |No|
+| CFT_REJECTED_ROLES_REGEX         | Allows you to override the rejected roles regex for CFT                                                                                                                                 |No|
+| INSTRUMENTATION_KEY              | This is the instrumentation key used by the app to talk to Application Insights                                                                                                         |No|
 
 ##### Additional test secrets
 Secrets required for getting tests to run correctly can be found in the below table. They are all accessible from the bootstrap keyvault.
@@ -189,15 +189,15 @@ We use a few automated tools to ensure quality and security within the service. 
 ## Test Suite
 
 This microservice is comprehensively tested using unit, accessibility (a11y), routes and functional tests.
-You can run the entire set of tests (except e2e/functional tests) using `yarn cichecks`. 
+You can run the entire set of tests (except e2e/functional tests) using `yarn cichecks`.
 
 ### Unit tests
-Unit tests can be run on demand using `yarn test`. 
+Unit tests can be run on demand using `yarn test`.
 We are using [Jest](https://jestjs.io/) for most of our unit testing. Unit test config can be found in our [jest.config.js file](./jest.config.js)
 
 ##### Unit tests by type
-It is also possible to run specific types of unit tests using the following commands: 
-- `yarn test:services` 
+It is also possible to run specific types of unit tests using the following commands:
+- `yarn test:services`
 - `yarn test:controllers`
 - `yarn test:views`
 - `yarn test:requests`
@@ -207,7 +207,7 @@ You can rerun only the tests that failed in the previous test run using `yarn te
 This kind of workflow allows you to run the minimum number of unit tests after implementing new functionality (assuming you're not using TDD), repeating until they're all fixed.
 
 ### Route Tests
-We test all routes contained within the service's [routes file](./src/main/routes/routes.ts). 
+We test all routes contained within the service's [routes file](./src/main/routes/routes.ts).
 
 Route testing config can be found within the [jest.routes.config.js](./jest.routes.config.js).
 
