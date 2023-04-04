@@ -1,4 +1,6 @@
 {
-    "header": "Something went wrong",
+    "header": "Sorry, there is a problem with the service",
+    "retryMessage": "Please try again later.",
+    "contactUsMessage": "If the problem persists please contact our courts and tribunals service centre on 0300 303 0656.",
     "backButton": "Back"
 }
