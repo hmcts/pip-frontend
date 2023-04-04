@@ -1,4 +1,6 @@
 {
-    "header": "Mae rhywbeth wedi mynd o'i le",
+    "header": "Mae’n ddrwg gennym, mae yna broblem efo'r gwasanaeth",
+    "retryMessage": "Rhowch gynnig arall arni yn nes ymlaen.",
+    "contactUsMessage": "Os yw'r broblem yn parhau, cysylltwch â'n Canolfan Gwasanaethau’r Llysoedd a’r Tribiwnlysoedd ar 0300 303 0656.",
     "backButton": "Yn ôl"
 }
