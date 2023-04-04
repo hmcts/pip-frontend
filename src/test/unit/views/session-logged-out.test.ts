@@ -22,8 +22,8 @@ describe('Session Logged out Page', () => {
         expect(pageTitle).contains(expectedHeader, 'Page title does not match');
     });
 
-    it('should display page header', () => {
-        const header = htmlRes.getElementsByClassName('govuk-heading-l');
+    it('should display panel title', () => {
+        const header = htmlRes.getElementsByClassName('govuk-panel__title');
         expect(header[0].innerHTML).contains(expectedHeader, 'Page header does not match');
     });
 });
