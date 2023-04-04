@@ -476,7 +476,7 @@ describe('CFT IDAM user login', () => {
 
         it('should sign out and open session logged out page', async () => {
             sessionLoggedOutPage = await accountHomePage.clickSignOutForCftAccount();
-            expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
+            expect(await sessionLoggedOutPage.getPanelTitle()).toEqual('You have been signed out');
         });
     });
 
@@ -876,7 +876,7 @@ describe('Verified user', () => {
 
         it('should sign out and open session-logged-out page', async () => {
             sessionLoggedOutPage = await accountHomePage.clickSignOut();
-            expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
+            expect(await sessionLoggedOutPage.getPanelTitle()).toEqual('You have been signed out');
         });
     });
 });
@@ -1022,7 +1022,7 @@ describe('Admin level journeys', () => {
         });
         it('should sign out and open session-logged-out page', async () => {
             sessionLoggedOutPage = await adminDashboard.clickSignOut();
-            expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
+            expect(await sessionLoggedOutPage.getPanelTitle()).toEqual('You have been signed out');
         });
     });
 });
@@ -1250,7 +1250,7 @@ describe('System Admin level journeys', () => {
         });
         it('should sign out and open session-logged-out page', async () => {
             sessionLoggedOutPage = await systemAdminDashboard.clickSignOut();
-            expect(await sessionLoggedOutPage.getPageTitle()).toEqual('You have been signed out');
+            expect(await sessionLoggedOutPage.getPanelTitle()).toEqual('You have been signed out');
         });
     });
 });
