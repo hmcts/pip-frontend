@@ -156,7 +156,7 @@ Secrets required for getting tests to run correctly can be found in the below ta
 | B2C_SYSTEM_ADMIN_USERNAME      | B2C system administrator's username                                                                                                                              |
 | B2C_SYSTEM_ADMIN_PASSWORD      | B2C system administrator's password                                                                                                                              |
 | TEST_URL                       | The URL of the frontend service that the tests will run against                                                                                                  |
-| TEST_URL_HEADLESS              | Whether the E2E tests should run in headless mode. Default is true                                                                                               |
+| TEST_HEADLESS                  | Whether the E2E tests should run in headless mode. Default is true                                                                                               |
 | DATA_MANAGEMENT_URL            | URL for data management that the codecept tests use when creating test data                                                                                      |
 | SUBSCRIPTION_MANAGEMENT_URL    | URL for data management that the codecept tests use when creating test data                                                                                      |
 | SYSTEM_ADMIN_PROVENANCE_ID     | Test system admin ID, used during E2E tests                                                                                                                      |
