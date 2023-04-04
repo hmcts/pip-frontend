@@ -11,7 +11,13 @@ describe('Password Change Confirmation controller', () => {
             return '';
         },
     } as unknown as Response;
-    const request = mockRequest({ 'password-change-confirmation': {} });
+
+    const betaText = 'test beta text';
+    const i18n = {
+        'password-change-confirmation': {},
+        template: { betaHeadingAdmin: betaText },
+    };
+    const request = mockRequest(i18n);
 
     it('should render password-change-confirmation for an admin', async () => {
         request.params['isAdmin'] = 'true';
@@ -23,6 +29,7 @@ describe('Password Change Confirmation controller', () => {
 
         const expectedData = {
             ...i18n['password-change-confirmation'],
+            betaText: betaText,
             isAdmin: true,
         };
 
@@ -42,6 +49,7 @@ describe('Password Change Confirmation controller', () => {
 
         const expectedData = {
             ...i18n['password-change-confirmation'],
+            betaText: betaText,
             isAdmin: false,
         };
 
