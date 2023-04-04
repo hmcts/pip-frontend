@@ -135,9 +135,7 @@ export class AccountManagementRequests {
         try {
             let response;
             if (reasons) {
-                response = await accountManagementApi.put('/application/' + applicantId + '/' + status + '/reasons', {
-                    reasons,
-                });
+                response = await accountManagementApi.put('/application/' + applicantId + '/' + status + '/reasons', reasons);
                 logger.info('Media Application updated and attempted email send - ' + applicantId);
             } else {
                 response = await accountManagementApi.put('/application/' + applicantId + '/' + status);
