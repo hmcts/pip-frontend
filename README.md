@@ -21,8 +21,9 @@
             3. [Additional test secrets](#additional-test-secrets)
 3. [Deployment](#deployment)
 4. [Monitoring and Logging](#monitoring-and-logging)
-5. [Security & Quality Considerations](#security-and-quality-considerations)
-6. [Test Suite](#test-suite)
+5. [Nunjucks Filters](#nunjucks-filters)
+6. [Security & Quality Considerations](#security-and-quality-considerations)
+7. [Test Suite](#test-suite)
     1. [Unit tests](#unit-tests)
         1. [Unit tests by type](#unit-tests-by-type)
         2. [Re-running failed tests](#re-running-failed-tests)
@@ -31,8 +32,7 @@
     4. [Functional (E2E) Tests](#functional-e2e-tests)
         1. [Justification for migration to CodeceptJS](#justification-for-migration-to-codeceptjs)
         2. [Running e2e tests](#running-e2e-tests)
-7. [Contributing](#contributing)
-8. [License](#license)
+8. [Contributing](#contributing)[License](#license)
 
 ## Overview
 `pip-frontend` is a microservice that serves the frontend of the Court and Tribunal Hearings Service (known as CaTH hereafter). This project was formerly known as the Publications and Information Project within HMCTS.
@@ -41,6 +41,7 @@ The frontend uses a [Node.js](https://nodejs.org/en) runtime environment, using 
 Our templating engine is [nunjucks](https://mozilla.github.io/nunjucks/). We mostly use [TypeScript](https://www.typescriptlang.org/) for application code.
 
 It is connected to several other microservices in production (all written in Java/Spring Boot):
+
 | Microservice  | Summary |
 | ------------- | ------------- |
 |pip-data-management (`port:8090`)|Communicates with [postgres](https://www.postgresql.org/) and [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) and controls file storage, file ingestion, reference data and validation|
@@ -55,13 +56,12 @@ Most of the communication with this service benefits from using secure authentic
 ### Features and functionality
 - Viewable by users directly in either HTTP or HTTPS mode (default port: 8080)
 - Uploading of publication files using a web interface within the [manual upload](./src/main/views/manual-upload.njk) view.
-- Account setup, sign-in and user management functionality. Sign-in and password management is managed using Azure B2C user flows.
+- Account setup, sign-in and user management functionality. Sign-in and password management is managed using Azure B2C user flows for AAD users. We also allow sign in via CFT IDAM for certain user roles.
 - View publications directly in the browser restricted to the user's account privileges.
 - Processes to manage creation of a new media account for a user with administrator oversight (approve/reject).
 - Tiered access to specific functionality and content within three main categories (media/administrator/system administrator), as well as unauthenticated functionality.
 - Management functionality for a maximum of 4 system administrators (set by environment variable). System admins are able to see audit actions by regular administrators, view underlying data, manage users etc.
 - Set up subscriptions to be notified via email when a new publication with given parameters is uploaded.
-- Includes a large collection of [custom nunjucks filters](./src/main/modules/nunjucks/njkFilters.ts) used for specific functionality within the application.
 
 ### Architecture Diagram
 ![Frontend Architecture](frontend-arch.png)
@@ -107,53 +107,65 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 
 ##### Runtime secrets
 
-| Variable                         | Description                                                                                                                                                                             | Required? |
-| -------------------------------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --------- |
-| CLIENT_ID_INTERNAL               | Unique ID for the application within Azure AD. Used to identify the application during service to service authentication.                                                               ||
-| CLIENT_SECRET_INTERNAL           | Secret key for authentication requests during service to service communication.                                                                                                         ||
-| CLIENT_ID                        | The client ID for the app (Azure B2C). Used during authentication of Azure B2C users.                                                                                                   ||
-| CLIENT_SECRET                    | The client secret for the app (Azure B2C). Used during authentication of Azure B2C users.                                                                                               |No|
-| ACCOUNT_MANAGEMENT_URL           | URL used for connecting to the pip-account-management service. Defaults to staging if not provided.                                                                                     |No|
-| DATA_MANAGEMENT_URL              | URL used for connecting to the pip-data-management service. Defaults to staging if not provided.                                                                                        |No|
-| SUBSCRIPTION_MANAGEMENT_URL      | URL used for connecting to the pip-subscription-management service. Defaults to staging if not provided.                                                                                |No|
-| CHANNEL_MANAGEMENT_URL           | URL used for connecting to the pip-channel-management service. Defaults to staging if not provided.                                                                                     |No|
-| AUTH_RETURN_URL                  | URL used to redirect user to the service after authentication with Azure B2C. Defaults to staging if not provided.                                                                      |No|
-| ADMIN_AUTH_RETURN_URL            | Same as above, but for admin sign in.                                                                                                                                                   |No|
-| MEDIA_VERIFICATION_RETURN_URL    | Same as above, but for after a media user verifies their account using the OTP process                                                                                                  |No|
-| B2C_ADMIN_URL                    | URL used for routing to Azure from the service (for admin journey).                                                                                                                     |No|
-| B2C_URL                          | Same as above but for media journey.                                                                                                                                                    |No|
-| CONFIG_ADMIN_ENDPOINT            | URL that provides metadata about the B2C tenant's OpenID Connect configuration, such as the issuer URL, token signing keys, and supported scopes. This is for the admin journey.        |No|
-| CONFIG_ENDPOINT                  | Same as above but for media journey.                                                                                                                                                    |No|
-| MEDIA_VERIFICATION_CONFIG_ENDPOINT| Same as above but for verification of media accounts.                                                                                                                                   |No|
-| OIDC                             | Boolean referring to whether the service is running secure mode or not.                                                                                                                 |No|
-| SESSION_SECRET                   | Unique identifier or value that's used to identify a user's session - can really be any string if you're running locally.                                                               |Yes|
-| FRONTEND_URL                     | This is the host that the service uses to identify what it's running on. Defaults to staging, but you want it to be `https://localhost:8080` if you're running locally (in secure mode) |No|
-| REDIS_HOST                       | Hostname of utilised Redis instance                                                                                                                                                     |No|
-| REDIS_PORT                       | Port that utilised Redis instance is running on                                                                                                                                         |No|
-| REDIS_LOCAL                      | Boolean to determine if Redis runs locally or not                                                                                                                                       |No|
-| TENANT_ID                        | Directory unique ID assigned to our Azure AD tenant. Represents the organisation that owns and manages the Azure AD instance.                                                           |No|
-| DATA_MANAGEMENT_AZ_API           | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-data-management service                                |No|
-| ACCOUNT_MANAGEMENT_AZ_API        | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-account-management service                             |No|
-| SUBSCRIPTION_MANAGEMENT_AZ_API   | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-subscription-management service                        |No|
-| ENABLE_CFT                       | Boolean determining whether CFT IDAM login is possible (defaults to false for local)                                                                                                    |No|
-| CFT_REJECTED_ROLES_REGEX         | Allows you to override the rejected roles regex for CFT                                                                                                                                 |No|
-| INSTRUMENTATION_KEY              | This is the instrumentation key used by the app to talk to Application Insights                                                                                                         |No|
+| Variable                           | Description                                                                                                                                                                             | Required? |
+|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --------- |
+| CLIENT_ID_INTERNAL                 | Unique ID for the application within Azure AD. Used to identify the application during service to service authentication.                                                               ||
+| CLIENT_SECRET_INTERNAL             | Secret key for authentication requests during service to service communication.                                                                                                         ||
+| CLIENT_ID                          | The client ID for the app (Azure B2C). Used during authentication of Azure B2C users.                                                                                                   ||
+| CLIENT_SECRET                      | The client secret for the app (Azure B2C). Used during authentication of Azure B2C users.                                                                                               |No|
+| ACCOUNT_MANAGEMENT_URL             | URL used for connecting to the pip-account-management service. Defaults to staging if not provided.                                                                                     |No|
+| DATA_MANAGEMENT_URL                | URL used for connecting to the pip-data-management service. Defaults to staging if not provided.                                                                                        |No|
+| SUBSCRIPTION_MANAGEMENT_URL        | URL used for connecting to the pip-subscription-management service. Defaults to staging if not provided.                                                                                |No|
+| CHANNEL_MANAGEMENT_URL             | URL used for connecting to the pip-channel-management service. Defaults to staging if not provided.                                                                                     |No|
+| AUTH_RETURN_URL                    | URL used to redirect user to the service after authentication with Azure B2C. Defaults to staging if not provided.                                                                      |No|
+| ADMIN_AUTH_RETURN_URL              | Same as above, but for admin sign in.                                                                                                                                                   |No|
+| MEDIA_VERIFICATION_RETURN_URL      | Same as above, but for after a media user verifies their account using the OTP process                                                                                                  |No|
+| B2C_ADMIN_URL                      | URL used for routing to Azure from the service (for admin journey).                                                                                                                     |No|
+| B2C_URL                            | Same as above but for media journey.                                                                                                                                                    |No|
+| CONFIG_ADMIN_ENDPOINT              | URL that provides metadata about the B2C tenant's OpenID Connect configuration, such as the issuer URL, token signing keys, and supported scopes. This is for the admin journey.        |No|
+| CONFIG_ENDPOINT                    | Same as above but for media journey.                                                                                                                                                    |No|
+| MEDIA_VERIFICATION_CONFIG_ENDPOINT | Same as above but for verification of media accounts.                                                                                                                                   |No|
+| OIDC                               | Boolean referring to whether the service is running secure mode or not.                                                                                                                 |No|
+| SESSION_SECRET                     | Unique identifier or value that's used to identify a user's session - can really be any string if you're running locally.                                                               |Yes|
+| FRONTEND_URL                       | This is the host that the service uses to identify what it's running on. Defaults to staging, but you want it to be `https://localhost:8080` if you're running locally (in secure mode) |No|
+| REDIS_HOST                         | Hostname of utilised Redis instance                                                                                                                                                     |No|
+| REDIS_PORT                         | Port that utilised Redis instance is running on                                                                                                                                         |No|
+| REDIS_LOCAL                        | Boolean to determine if Redis runs locally or not                                                                                                                                       |No|
+| TENANT_ID                          | Directory unique ID assigned to our Azure AD tenant. Represents the organisation that owns and manages the Azure AD instance.                                                           |No|
+| DATA_MANAGEMENT_AZ_API             | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-data-management service                                |No|
+| ACCOUNT_MANAGEMENT_AZ_API          | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-account-management service                             |No|
+| SUBSCRIPTION_MANAGEMENT_AZ_API     | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-subscription-management service                        |No|
+| CHANNEL_MANAGEMENT_AZ_API          | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-channel-management service                             |No|
+| ENABLE_CFT                         | Boolean determining whether CFT IDAM login is possible (defaults to false for local)                                                                                                    |No|
+| CFT_REJECTED_ROLES_REGEX           | Allows you to override the rejected roles regex for CFT                                                                                                                                 |No|
+| INSTRUMENTATION_KEY                | This is the instrumentation key used by the app to talk to Application Insights                                                                                                         |No|
 
 ##### Additional test secrets
 Secrets required for getting tests to run correctly can be found in the below table. They are all accessible from the bootstrap keyvault.
 
-| Variable                     | Description                                |
-| ----------------------------| -------------------------------------------|
-| B2C_USERNAME                | User's username for B2C authentication     |
-| B2C_PASSWORD                | User's password for B2C authentication     |
-| B2C_ADMIN_USERNAME          | B2C administrator's username               |
-| B2C_ADMIN_PASSWORD          | B2C administrator's password               |
-| CFT_INVALID_USERNAME        | Invalid username for CFT authentication    |
-| CFT_VALID_USERNAME          | Valid username for CFT authentication      |
-| CFT_VALID_PASSWORD          | Valid password for CFT authentication      |
-| CFT_INVALID_PASSWORD        | Invalid password for CFT authentication    |
-| B2C_SYSTEM_ADMIN_USERNAME   | B2C system administrator's username        |
-| B2C_SYSTEM_ADMIN_PASSWORD   | B2C system administrator's password        |
+| Variable                       | Description                                                                                                                                                      |
+|--------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| B2C_USERNAME                   | User's username for B2C authentication                                                                                                                           |
+| B2C_PASSWORD                   | User's password for B2C authentication                                                                                                                           |
+| B2C_ADMIN_USERNAME             | B2C administrator's username                                                                                                                                     |
+| B2C_ADMIN_PASSWORD             | B2C administrator's password                                                                                                                                     |
+| CFT_INVALID_USERNAME           | Invalid username for CFT authentication                                                                                                                          |
+| CFT_VALID_USERNAME             | Valid username for CFT authentication                                                                                                                            |
+| CFT_VALID_PASSWORD             | Valid password for CFT authentication                                                                                                                            |
+| CFT_INVALID_PASSWORD           | Invalid password for CFT authentication                                                                                                                          |
+| B2C_SYSTEM_ADMIN_USERNAME      | B2C system administrator's username                                                                                                                              |
+| B2C_SYSTEM_ADMIN_PASSWORD      | B2C system administrator's password                                                                                                                              |
+| TEST_URL                       | The URL of the frontend service that the tests will run against                                                                                                  |
+| TEST_URL_HEADLESS              | Whether the E2E tests should run in headless mode. Default is true                                                                                               |
+| DATA_MANAGEMENT_URL            | URL for data management that the codecept tests use when creating test data                                                                                      |
+| SUBSCRIPTION_MANAGEMENT_URL    | URL for data management that the codecept tests use when creating test data                                                                                      |
+| SYSTEM_ADMIN_PROVENANCE_ID     | Test system admin ID, used during E2E tests                                                                                                                      |
+| VERIFIED_USER_ID               | Test verified ID, used during E2E tests                                                                                                                          |
+| CLIENT_ID_INTERNAL             | Unique ID for the application within Azure AD. Used to identify the application during service to service authentication.                                        |
+| CLIENT_SECRET_INTERNAL         | Secret key for authentication requests during service to service communication.                                                                                  |
+| DATA_MANAGEMENT_AZ_API         | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-data-management service         |
+| SUBSCRIPTION_MANAGEMENT_AZ_API | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-subscription-management service |
+| TENANT_ID                      | Directory unique ID assigned to our Azure AD tenant. Represents the organisation that owns and manages the Azure AD instance.                                    |
 
 ## Deployment
 We use [Jenkins](https://www.jenkins.io/) as our CI/CD system. The deployment of this can be controlled within our application logic using the various `Jenkinsfile`-prepended files within the root directory of the repository.
@@ -166,6 +178,10 @@ If your debugging leads you to conclude that you need to implement a pipeline fi
 We utilise [Azure Application Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) to store our logs. Ask a teammate for the specific resource in Azure to access these.
 
 In addition, this service is also monitored in production and staging environments by [Dynatrace](https://www.dynatrace.com/). The URL for viewing our specific Dynatrace instance can be had by asking a team member.
+
+## Nunjucks Filters
+
+The project includes a large collection of [custom nunjucks filters](./src/main/modules/nunjucks/njkFilters.ts) used for specific functionality within the application.
 
 ## Security & Quality Considerations
 We use a few automated tools to ensure quality and security within the service. A few examples can be found below:
@@ -233,13 +249,18 @@ We plan to migrate to using purely Codecept tests iteratively, slowly deprecatin
 - [Allure reporting](https://docs.qameta.io/allure/) in CodeceptJS allows developers to view detailed information about test cases, including test steps, screenshots, console logs, and error messages. The Allure report can help to identify trends in test results, identify areas of the application that require further testing or improvement, and provide a detailed view of the state of the test suite.
 
 #### Running e2e tests:
-Our legacy e2e tests can be run using:
+Our E2E tests can be run through a number of ways:
 
-`yarn test:functional` (headless) or `yarn test:functional-dev`
-
-New tests can be run using:
-
-`yarn test:functional:all`
+- `yarn test:functional` - Runs old and new (but not nightly) tests, and generates the allure report.
+- `yarn test:fullfunctional` - Runs all new tests and generates the allure report
+- `yarn test:functional:old` - Runs the old tests
+- `yarn test:functional:all` - Runs all new tests, including nightly
+- `yarn test:functional:min` - Runs new tests excluding nightly
+- `yarn test:functional:report` - Generates the allure report
+- `yarn test:functional-dev` - Runs the old tests in non-headless mode.
+- `yarn test:crossbrowser` - Runs all cross browser tests and generates the allure report
+- `yarn test:crossbrowser:all` - Runs all cross browser tests
+- `yarn test:crossbrowser:report` - Generates the report for the cross browser tests
 
 ## Contributing
 We are happy to accept third-party contributions. See [.github/CONTRIBUTING.md](./.github/CONTRIBUTING.md) for more details.
