@@ -1,8 +1,9 @@
 import fs from 'fs';
 import { randomData } from './random-data';
 import path from 'path/posix';
+import os from 'os';
 
-const mockLocationFilePrefix = 'mock-location';
+const mockLocationFilePrefix = 'mock-location-';
 
 const locationJsonData = (id, name) => {
     return [
@@ -34,20 +35,27 @@ const jsonToCsv = (json): string => {
     const replacer = (key, value) => value ?? '';
     const rows = json.map(row => objectKeys.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
     return [headers, ...rows].join('\n');
-}
+};
 
 export function generateTestLocation(): [string, string, string] {
     const [id, name] = generateTestLocationFields();
     const fileName = mockLocationFilePrefix + id + '.csv';
 
-    const filePath = path.join(__dirname, fileName);
+    const filePath = path.join(os.tmpdir(), fileName);
     const csvData = jsonToCsv(locationJsonData(id, name));
 
-    fs.writeFile(filePath, csvData, function (err) {
-        if (err) console.log('Failed to generate mock location test data');
-    });
+    try {
+        fs.writeFileSync(filePath, csvData);
+    } catch (err) {
+        console.log('Failed to generate mock location test data');
+    }
 
     return [id.toString(), name, fileName];
+}
+
+export function removeTestLocationFile(fileName) {
+    const filePath = path.join(os.tmpdir(), fileName);
+    fs.unlinkSync(filePath);
 }
 
 export function padFormatted(value) {

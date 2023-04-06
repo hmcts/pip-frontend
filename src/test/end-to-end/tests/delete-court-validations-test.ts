@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { createLocation, createSubscription, uploadPublication } from '../shared/testingSupportApi';
-import { generateTestLocation } from '../shared/shared-functions';
+import {generateTestLocation, removeTestLocationFile} from '../shared/shared-functions';
 
 Feature('Delete Location');
 Scenario(
@@ -10,9 +10,9 @@ Scenario(
         const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
 
         const USER_ID = '0e68f98c-29c5-4eff-aa26-0a872ee8bf86';
-        const [locationId, locationName, testLocationFileName] = generateTestLocation();
+        const [locationId, locationName, locationFileName] = generateTestLocation();
 
-        await createLocation(testLocationFileName);
+        await createLocation(locationFileName);
         await createSubscription(locationId, locationName, USER_ID);
         await uploadPublication('PUBLIC', locationId, displayFrom, displayTo, 'ENGLISH');
 
@@ -50,5 +50,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Success');
         I.see('Court has been deleted');
+
+        removeTestLocationFile(locationFileName);
     }
 );
