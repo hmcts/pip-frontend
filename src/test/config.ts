@@ -57,5 +57,5 @@ config.helpers = {
     TestingSupportApiHelper: {
         require: '../end-to-end/shared/helpers/testingSupportApiHelper.ts',
     },
-    FileSystem: {}
+    FileSystem: {},
 };
