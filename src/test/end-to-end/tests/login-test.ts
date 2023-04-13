@@ -69,7 +69,7 @@ Scenario.skip('I as a admin should be able to see the beta tag and feedback link
     I.executeScript('window.history.back();');
     I.click('Forgot your password?');
     I.seeBetaFeedbackOnPage('b2c/reset-pw');
-}).tag('@Nightly');
+});
 
 Scenario('I as a media user should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsMediaUser();
@@ -114,4 +114,4 @@ Scenario.skip(
         I.click('Forgot your password?');
         I.seeBetaFeedbackOnPage('b2c/reset-pw');
     }
-).tag('@Nightly');
+);
