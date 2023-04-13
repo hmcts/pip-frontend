@@ -104,7 +104,7 @@ describe('Flat File Controller', () => {
     });
 
     it('should render error page when is not flat file', () => {
-        metaStub.withArgs('0').resolves({ isFlatFile: false, sourceArtefactId: 'doc.pdf'});
+        metaStub.withArgs('0').resolves({ isFlatFile: false, sourceArtefactId: 'doc.pdf' });
         fileStub.withArgs('0').resolves(mockFile);
         const request = mockRequest(i18n);
         request.query = { artefactId: '0' };
@@ -116,5 +116,4 @@ describe('Flat File Controller', () => {
             responseMock.verify();
         });
     });
-
 });
