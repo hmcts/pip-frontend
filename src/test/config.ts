@@ -54,4 +54,8 @@ config.helpers = {
         waitForNavigation: 'domcontentloaded',
         ignoreHTTPSErrors: true,
     },
+    TestingSupportApiHelper: {
+        require: '../end-to-end/shared/helpers/testingSupportApiHelper.ts',
+    },
+    FileSystem: {},
 };
