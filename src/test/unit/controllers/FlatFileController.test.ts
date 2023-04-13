@@ -16,6 +16,9 @@ const response = {
     set: function () {
         return '';
     },
+    render: function () {
+        return '';
+    },
 } as unknown as Response;
 
 describe('Flat File Controller', () => {
@@ -53,6 +56,48 @@ describe('Flat File Controller', () => {
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
         responseMock.expects('send').once().withArgs(mockFile);
+        return flatFileController.get(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
+
+    it('should render error page when meta is null', () => {
+        metaStub.withArgs('0').resolves(null);
+        fileStub.withArgs('0').resolves(mockFile);
+        const request = mockRequest(i18n);
+        request.query = { artefactId: '0' };
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+        return flatFileController.get(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
+
+    it('should render error page when file is null', () => {
+        metaStub.withArgs('0').resolves({ isFlatFile: 'true', sourceArtefactId: 'doc.pdf' });
+        fileStub.withArgs('0').resolves(null);
+        const request = mockRequest(i18n);
+        request.query = { artefactId: '0' };
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+        return flatFileController.get(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
+
+    it('should render error page when source artefact ID does not exist in metadata', () => {
+        metaStub.withArgs('0').resolves({ isFlatFile: 'true' });
+        fileStub.withArgs('0').resolves(mockFile);
+        const request = mockRequest(i18n);
+        request.query = { artefactId: '0' };
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
         return flatFileController.get(request, response).then(() => {
             responseMock.verify();
         });

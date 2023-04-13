@@ -9,14 +9,19 @@ export default class FlatFileController {
         const artefactId = req.query['artefactId'];
         const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const fileData = await publicationService.getIndividualPublicationFile(artefactId, req.user?.['userId']);
-        res.set('Content-Disposition', 'inline;filename=' + metadata.sourceArtefactId);
-        if (metadata.sourceArtefactId.endsWith('.pdf')) {
-            res.set('Content-Type', 'application/pdf');
-        } else if (metadata.sourceArtefactId.endsWith('.json')) {
-            res.set('Content-Type', 'application/json');
+
+        if (metadata && fileData && metadata.sourceArtefactId) {
+            res.set('Content-Disposition', 'inline;filename=' + metadata.sourceArtefactId);
+            if (metadata.sourceArtefactId.endsWith('.pdf')) {
+                res.set('Content-Type', 'application/pdf');
+            } else if (metadata.sourceArtefactId.endsWith('.json')) {
+                res.set('Content-Type', 'application/json');
+            } else {
+                res.set('Content-Disposition', 'attachment;filename=' + metadata.sourceArtefactId);
+            }
+            res.send(fileData);
         } else {
-            res.set('Content-Disposition', 'attachment;filename=' + metadata.sourceArtefactId);
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
-        res.send(fileData);
     }
 }
