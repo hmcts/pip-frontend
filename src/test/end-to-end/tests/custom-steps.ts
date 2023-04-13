@@ -33,11 +33,9 @@ export = function () {
             this.click('Sign in');
         },
 
-        seeBetaFeedbackOnPage: function (
-            page
-        ) {
+        seeBetaFeedbackOnPage: function (page) {
             this.see('BETA');
-            this.click('feedback')
+            this.click('feedback');
             this.seeInCurrentUrl(`https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=${page}`);
         },
 
