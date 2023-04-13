@@ -62,6 +62,18 @@ Scenario(
     }
 ).tag('@Nightly');
 
+// TODO: to be enabled once the beta feedback changes on Azure pages has gone in
+Scenario.skip(
+    'I as a admin should be able to see the beta tag and feedback link when logging in',
+    async ({ I }) => {
+        I.amOnPage('/admin-dashboard');
+        I.seeBetaFeedbackOnPage('b2c/login');
+        I.executeScript("window.history.back();");
+        I.click('Forgot your password?');
+        I.seeBetaFeedbackOnPage('b2c/reset-pw');
+    }
+).tag('@Nightly');
+
 Scenario('I as a media user should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsMediaUser();
     I.see('Your account');
@@ -90,5 +102,19 @@ Scenario(
     async ({ I }) => {
         I.loginAsMediaUser('email..@justice.gov.uk', 'password');
         I.see('Please enter a valid email address.');
+    }
+).tag('@Nightly');
+
+// TODO: to be enabled once the beta feedback changes on Azure pages has gone in
+Scenario.skip(
+    'I as a media user should be able to see the beta tag and feedback link when logging in',
+    async ({ I }) => {
+        I.amOnPage('/sign-in');
+        I.click('With a Court and tribunal hearings account');
+        I.click('Continue');
+        I.seeBetaFeedbackOnPage('b2c/login');
+        I.executeScript("window.history.back();");
+        I.click('Forgot your password?');
+        I.seeBetaFeedbackOnPage('b2c/reset-pw');
     }
 ).tag('@Nightly');
