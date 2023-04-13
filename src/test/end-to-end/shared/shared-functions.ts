@@ -23,8 +23,8 @@ const locationJsonData = (id, name) => {
 };
 
 const generateTestLocationFields = (): [number, string] => {
-    // Generate a random test court ID between 200 and 1000000
-    const id = randomData.getRandomNumber(200, 1000000);
+    // Generate a random test court ID between 1000 and 9999999999
+    const id = randomData.getRandomNumber(1000, 9999999999);
     return [id, `TestCourt${id}`];
 };
 
