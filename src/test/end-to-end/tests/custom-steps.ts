@@ -38,8 +38,8 @@ export = function () {
             this.see('You have been signed out');
         },
 
-        createAdminAccount: function(firstName, lastName, email, role) {
-            this.amOnPage('/admin-dashboard')
+        createAdminAccount: function (firstName, lastName, email, role) {
+            this.amOnPage('/admin-dashboard');
             this.see('Your Dashboard');
             this.click('#card-create-admin-account');
             this.fillField('#firstName', firstName);
@@ -50,6 +50,6 @@ export = function () {
             this.see('Check account details');
             this.click('Confirm');
             this.see('Account has been created');
-        }
+        },
     });
 };

@@ -1,18 +1,17 @@
 import { config as testConfig } from '../../../config';
-import {randomData} from "../../shared/random-data";
+import { randomData } from '../../shared/random-data';
 
 Feature('System admin User Management');
 
 const testFirstName = 'System Admin Test First Name';
 const testLastName = 'System Admin Test Surname';
 
-
 const testEmailAddress = 'pip-e2e-test-admin-management-' + randomData.getRandomNumber(1, 10000) + '@hmcts.net';
 const systemAdminUsername = testConfig.SYSTEM_ADMIN_USERNAME as string;
 
 Scenario('I as a system admin should be able to update a users role and delete a user', async ({ I }) => {
     I.loginAsSystemAdmin();
-    I.click('Admin Dashboard')
+    I.click('Admin Dashboard');
     I.createAdminAccount(testFirstName, testLastName, testEmailAddress, 'Internal - Administrator - Local');
     I.click('Home');
     I.see('System Admin Dashboard');
