@@ -86,8 +86,10 @@ describe('Home page', () => {
 
         it('should display bullets', () => {
             const bullets = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByTagName('li');
-            expect(bullets[0].innerHTML).contains('Hearings in Civil and Family Courts in Milton Keynes, Oxford, Reading, High Wycombe and Slough',
-               'Could not find first bullet');
+            expect(bullets[0].innerHTML).contains(
+                'Hearings in Civil and Family Courts in Milton Keynes, Oxford, Reading, High Wycombe and Slough',
+                'Could not find first bullet'
+            );
             expect(bullets[1].innerHTML).contains(
                 'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
                 'Could not find second bullet'
@@ -199,7 +201,8 @@ describe('Home page', () => {
 
             expect(bullets[0].innerHTML).contains(
                 'Gwrandawiadau mewn Llysoedd Sifil a Theulu yn  Milton Keynes, Oxford, Reading, High Wycombe ac Slough',
-                'Could not find first bullet');
+                'Could not find first bullet'
+            );
 
             expect(bullets[1].innerHTML).contains(
                 'Achosion Gweithdrefn Un Ynad, gan gynnwys trwyddedu teledu a mân droseddau traffig megis goryrru',
