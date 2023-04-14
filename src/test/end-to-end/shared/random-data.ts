@@ -1,10 +1,14 @@
 import { config as testConfig } from '../../config';
 
-export const randomString = (length = 10) => {
+const randomNumber = (min = 1, max = 100) => {
+    return Math.floor(Math.random() * (max - min)) + min;
+};
+
+const randomString = (length = 10) => {
     return Math.random().toString(36).substring(2, length);
 };
 
-export const randomAlphabeticString = (length = 10) => {
+const randomAlphabeticString = (length = 10) => {
     let randomString = '';
     let randomAscii;
     for (let i = 0; i < length; i++) {
@@ -15,6 +19,7 @@ export const randomAlphabeticString = (length = 10) => {
 };
 
 export const randomData = {
+    getRandomNumber: randomNumber,
     getRandomString: randomString,
     getRandomAlphabeticString: randomAlphabeticString,
     getRandomEmailAddress: () => testConfig.TEST_SUITE_PREFIX + randomString() + '@justice.gov.uk',
