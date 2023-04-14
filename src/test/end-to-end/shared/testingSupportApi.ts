@@ -6,6 +6,7 @@ import {
     getSubscriptionManagementCredentials,
 } from '../../../main/resources/requests/utils/axiosConfig';
 import path from 'path/posix';
+import os from 'os';
 
 const createFile = (filePath, fileName) => {
     return {
@@ -19,7 +20,7 @@ const createFile = (filePath, fileName) => {
 export const createLocation = async (csvFile: string) => {
     const token = await getDataManagementCredentials();
 
-    const filePath = path.join(__dirname, './mocks/' + csvFile);
+    const filePath = path.join(os.tmpdir(), csvFile);
     const file = createFile(filePath, csvFile);
     try {
         await superagent
