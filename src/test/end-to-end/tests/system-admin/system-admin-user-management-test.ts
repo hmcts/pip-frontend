@@ -26,6 +26,7 @@ Scenario('I as a system admin should be able to update a users role and delete a
     I.selectOption('#updatedRole', 'CTSC Admin');
     I.click('Continue');
     I.see('User Updated');
+    I.see('This user has been updated to a CTSC Admin');
 
     I.click('Home');
     I.click('#card-user-management');
