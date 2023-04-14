@@ -2,7 +2,10 @@
     "title": "Court and tribunal hearings",
     "message": "You can use this service to get information about:",
     "betaHeading": "This is a new service – your <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=/\">feedback</a> will help us to improve it.",
-    "bullets": ["Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding"],
+    "bullets": [
+        "Hearings in Civil and Family Courts in Milton Keynes, Oxford, Reading, High Wycombe and Slough",
+        "Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding"
+    ],
     "moreMessage": "More courts and tribunals will become available over time.",
     "legalMessage": "Legal and media professionals can",
     "signInLink": "sign in",
