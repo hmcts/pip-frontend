@@ -105,13 +105,13 @@ Scenario('I as a system admin should be able to use the pagination on the user m
     I.click('#card-user-management');
     I.see('User Management');
 
-    I.see('Next')
+    I.see('Next');
     I.see('2 of');
-    I.click(".govuk-pagination__link");
+    I.click('.govuk-pagination__link');
 
     I.see('Previous');
     I.see('1 of');
-    I.click(".govuk-pagination__link");
+    I.click('.govuk-pagination__link');
 });
 
 Scenario('I as a system admin should not be able to change my own role', async ({ I }) => {
