@@ -88,6 +88,7 @@ Scenario('I as a system admin should be able to filter users correctly on the Us
     I.click('Clear filters');
 
     I.click('B2C');
+    I.fillField('#userId', userId);
     I.click('Apply filters');
     I.see(systemAdminUsername);
     I.click('Clear filters');
