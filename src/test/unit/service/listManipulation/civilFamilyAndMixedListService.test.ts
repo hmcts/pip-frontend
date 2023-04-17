@@ -6,10 +6,10 @@ import { CivilFamilyAndMixedListService } from '../../../../main/service/listMan
 const service = new CivilFamilyAndMixedListService();
 
 const expectedMultipleApplicant =
-    'Applicant Surname1, Surname2, LEGALADVISOR: Mr Individual Forenames Individual Middlename Individual Surname';
+    'Applicant Surname1, Surname2';
 const expectedMultipleRespondent =
-    'Respondent Surname1, Surname2, LEGALADVISOR: Mr Individual Forenames Individual Middlename Individual Surname';
-const expectedApplicant = 'Surname, LEGALADVISOR: Mr Individual Forenames Individual Middlename Individual Surname';
+    'Respondent Surname1, Surname2';
+const expectedApplicant = 'Surname';
 const expectedRespondent = expectedApplicant;
 const rawFamilyDailyCauseData = fs.readFileSync(
     path.resolve(__dirname, '../../mocks/familyDailyCauseList.json'),
@@ -169,18 +169,18 @@ describe('Tests for the civil, family and mixed lists service.', function () {
             ).to.equal(expectedRespondent);
         });
 
-        it('should build only the applicants and the respondents representative of the party', async () => {
+        it('should not build the applicants and the respondents of the party if not in data', async () => {
             const data = await service.sculptedFamilyMixedListData(rawFamilyDailyCausePartyMappingData);
             expect(
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1][
                     'applicant'
                 ]
-            ).to.equal('LEGALADVISOR: Individual Surname');
+            ).to.be.empty;
             expect(
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1][
                     'respondent'
                 ]
-            ).to.equal('LEGALADVISOR: Individual Surname');
+            ).to.be.empty;
         });
 
         it('should build only the applicants and the respondents of the party', async () => {
@@ -217,20 +217,20 @@ describe('Tests for the civil, family and mixed lists service.', function () {
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
                     'applicant'
                 ]
-            ).to.equal('Surname, LEGALADVISOR: Mr Forenames Middlename SurnameApplicant');
+            ).to.equal(expectedApplicant);
             expect(
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
                     'respondent'
                 ]
-            ).to.equal('Surname, LEGALADVISOR: Mr Forenames Middlename SurnameRespondent');
+            ).to.equal(expectedRespondent);
         });
 
         it('should return organisation details using family and mixed list method', async () => {
             const data = await service.sculptedFamilyMixedListData(rawFamilyDailyCauseData);
             const hearing =
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2];
-            expect(hearing['applicant']).to.equal('Applicant org name, LEGALADVISOR: Applicant rep org name');
-            expect(hearing['respondent']).to.equal('Respondent org name, LEGALADVISOR: Respondent rep org name');
+            expect(hearing['applicant']).to.equal('Applicant org name');
+            expect(hearing['respondent']).to.equal('Respondent org name');
         });
 
         it('should not return organisation details using civil list method', async () => {
