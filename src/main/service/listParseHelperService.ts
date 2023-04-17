@@ -29,6 +29,7 @@ export class ListParseHelperService {
         let defendant = '';
         let defendantRep = '';
         let appellantRepresentative = '';
+
         if (hearing?.party) {
             hearing.party.forEach(party => {
                 switch (ListParseHelperService.convertPartyRole(party.partyRole)) {
@@ -38,13 +39,11 @@ export class ListParseHelperService {
                         break;
                     }
                     case 'APPLICANT_PETITIONER_REPRESENTATIVE': {
-                        const applicantPetitionerDetails = this.createIndividualDetails(
+                        applicantRepresentative = this.createIndividualDetails(
                             party.individualDetails,
                             initialised
                         ).trim();
-                        if (applicantPetitionerDetails) {
-                            applicantRepresentative += 'LEGALADVISOR: ' + applicantPetitionerDetails + ', ';
-                        }
+                        applicantRepresentative += this.stringDelimiter(applicantRepresentative?.length, ',');
                         break;
                     }
                     case 'CLAIMANT_PETITIONER': {
@@ -66,13 +65,11 @@ export class ListParseHelperService {
                         break;
                     }
                     case 'RESPONDENT_REPRESENTATIVE': {
-                        const respondentDetails = this.createIndividualDetails(
+                        respondentRepresentative = this.createIndividualDetails(
                             party.individualDetails,
                             initialised
                         ).trim();
-                        if (respondentDetails) {
-                            respondentRepresentative += 'LEGALADVISOR: ' + respondentDetails + ', ';
-                        }
+                        respondentRepresentative += this.stringDelimiter(respondentRepresentative?.length, ',');
                         break;
                     }
                     case 'PROSECUTING_AUTHORITY': {
@@ -94,13 +91,13 @@ export class ListParseHelperService {
                     }
                 }
             });
+
             hearing['appellant'] = appellant?.replace(/,\s*$/, '').trim();
             hearing['appellantRepresentative'] = appellantRepresentative?.replace(/,\s*$/, '').trim();
-
-            applicant += applicantRepresentative;
-            respondent += respondentRepresentative;
             hearing['applicant'] = applicant?.replace(/,\s*$/, '').trim();
+            hearing['applicantRepresentative'] = applicantRepresentative?.replace(/,\s*$/, '').trim();
             hearing['respondent'] = respondent?.replace(/,\s*$/, '').trim();
+            hearing['respondentRepresentative'] = respondentRepresentative?.replace(/,\s*$/, '').trim();
             hearing['prosecutingAuthority'] = prosecutingAuthority?.replace(/,\s*$/, '').trim();
             hearing['defendant'] = defendant?.replace(/,\s*$/, '').trim();
             hearing['defendantRepresentative'] = defendantRep?.replace(/,\s*$/, '').trim();
