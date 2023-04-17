@@ -5,10 +5,8 @@ import { CivilFamilyAndMixedListService } from '../../../../main/service/listMan
 
 const service = new CivilFamilyAndMixedListService();
 
-const expectedMultipleApplicant =
-    'Applicant Surname1, Surname2';
-const expectedMultipleRespondent =
-    'Respondent Surname1, Surname2';
+const expectedMultipleApplicant = 'Applicant Surname1, Surname2';
+const expectedMultipleRespondent = 'Respondent Surname1, Surname2';
 const expectedApplicant = 'Surname';
 const expectedRespondent = expectedApplicant;
 const rawFamilyDailyCauseData = fs.readFileSync(
