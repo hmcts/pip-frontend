@@ -100,6 +100,20 @@ Scenario('I as a system admin should be able to filter users correctly on the Us
     I.see(systemAdminUsername);
 });
 
+Scenario('I as a system admin should be able to use the pagination on the user management page', async ({ I }) => {
+    I.loginAsSystemAdmin();
+    I.click('#card-user-management');
+    I.see('User Management');
+
+    I.see('Next')
+    I.see('2 of');
+    I.click(".govuk-pagination__link");
+
+    I.see('Previous');
+    I.see('1 of');
+    I.click(".govuk-pagination__link");
+});
+
 Scenario('I as a system admin should not be able to change my own role', async ({ I }) => {
     I.loginAsSystemAdmin();
     I.click('#card-user-management');
