@@ -96,7 +96,9 @@ Scenario('I as a system admin should be able to filter users correctly on the Us
     I.click('CFT IdAM');
     I.click('Apply filters');
     I.dontSee(systemAdminUsername);
-    I.click('.moj-filter__tag');
+    I.click(locate('.moj-filter__tag').at(1));
+    I.fillField('#userId', userId);
+    I.click('Apply filters');
     I.see(systemAdminUsername);
 });
 
