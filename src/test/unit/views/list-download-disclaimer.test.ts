@@ -32,7 +32,7 @@ describe('List Download Disclaimer Page', () => {
         it('should display the body text', () => {
             const bodyText = htmlRes.getElementsByClassName('govuk-body');
             expect(bodyText[0].innerHTML).contains(
-                'As a verified user of the CaTH service you are authorised to download this file containing personal protected data.',
+                'As a verified user of the court and tribunal hearings service you are authorised to download this file containing personal protected data.',
                 'Body text does not match'
             );
             expect(bodyText[1].innerHTML).contains(
