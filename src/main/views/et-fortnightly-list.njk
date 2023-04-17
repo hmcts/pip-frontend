@@ -105,8 +105,8 @@
                     {% else %}
                       <td class="govuk-table__cell">{{ record.claimant }}<br/>{{ rep }}: {{ noRep }}</td>
                     {% endif %}
-                    {% if record.respondentRepresentative | length %}
-                      <td class="govuk-table__cell">{{ record.respondent }}<br />{{ rep }}: {{ record.respondentRepresentative }}</td>
+                    {% if record.respondentRep | length %}
+                      <td class="govuk-table__cell">{{ record.respondent }}<br />{{ rep }}: {{ record.respondentRep }}</td>
                     {% else %}
                       <td class="govuk-table__cell">{{ record.respondent }}<br />{{ rep }}: {{ noRep }}</td>
                     {% endif %}

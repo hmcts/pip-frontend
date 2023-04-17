@@ -52,35 +52,31 @@ export class CivilFamilyAndMixedListService {
                 switch (ListParseHelperService.convertPartyRole(party.partyRole)) {
                     case 'APPLICANT_PETITIONER': {
                         applicant += this.createPartyDetails(party).trim();
-                        applicant += helperService.stringDelimiter(applicant?.length, ',');
+                        applicant += helperService.stringDelimiter(applicant.length, ',');
                         break;
                     }
                     case 'APPLICANT_PETITIONER_REPRESENTATIVE': {
-                        const applicantPetitionerDetails = this.createPartyDetails(party).trim();
-                        if (applicantPetitionerDetails) {
-                            applicantRepresentative += 'LEGALADVISOR: ' + applicantPetitionerDetails + ', ';
-                        }
+                        applicantRepresentative = this.createPartyDetails(party).trim();
+                        applicantRepresentative += helperService.stringDelimiter(applicantRepresentative.length, ',');
                         break;
                     }
                     case 'RESPONDENT': {
                         respondent += this.createPartyDetails(party).trim();
-                        respondent += helperService.stringDelimiter(respondent?.length, ',');
+                        respondent += helperService.stringDelimiter(respondent.length, ',');
                         break;
                     }
                     case 'RESPONDENT_REPRESENTATIVE': {
-                        const respondentDetails = this.createPartyDetails(party).trim();
-                        if (respondentDetails) {
-                            respondentRepresentative += 'LEGALADVISOR: ' + respondentDetails + ', ';
-                        }
+                        respondentRepresentative = this.createPartyDetails(party).trim();
+                        respondentRepresentative += helperService.stringDelimiter(respondentRepresentative.length, ',');
                         break;
                     }
                 }
             });
 
-            applicant += applicantRepresentative;
-            respondent += respondentRepresentative;
-            hearing['applicant'] = applicant?.replace(/,\s*$/, '').trim();
-            hearing['respondent'] = respondent?.replace(/,\s*$/, '').trim();
+            hearing['applicant'] = applicant.replace(/,\s*$/, '').trim();
+            hearing['applicantRepresentative'] = applicantRepresentative.replace(/,\s*$/, '').trim();
+            hearing['respondent'] = respondent.replace(/,\s*$/, '').trim();
+            hearing['respondentRepresentative'] = respondentRepresentative.replace(/,\s*$/, '').trim();
         }
     }
 
