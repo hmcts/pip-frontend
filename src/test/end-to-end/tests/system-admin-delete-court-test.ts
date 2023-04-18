@@ -90,8 +90,8 @@ Scenario(
         I.waitForText('Court or tribunal name must be 3 characters or more');
         I.fillField('#search-input', 'InvalidCourtName');
         I.click('Continue');
-        I.see('There is a problem');
-        I.see('There are no matching results');
+        I.waitForText('There is a problem');
+        I.waitForText('There are no matching results');
         I.fillField('#search-input', 'Single Justice Procedure');
         I.click('Continue');
         I.see('Are you sure you want to delete this court?');
