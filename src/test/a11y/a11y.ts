@@ -62,6 +62,7 @@ const adminRoutes = [
     '/media-account-approval',
     '/media-account-approval-confirmation',
     '/media-account-rejection',
+    '/media-account-rejection-reasons',
     '/media-account-rejection-confirmation',
     '/remove-list-confirmation',
     '/remove-list-search',

@@ -255,7 +255,7 @@ describe('Media Account Review Controller Test', () => {
         responseMock
             .expects('redirect')
             .once()
-            .withArgs('/media-account-rejection?applicantId=' + applicantId);
+            .withArgs('/media-account-rejection-reasons?applicantId=' + applicantId);
         await mediaAccountReviewController.reject(request, response);
 
         responseMock.verify();
