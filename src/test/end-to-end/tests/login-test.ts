@@ -62,8 +62,7 @@ Scenario(
     }
 ).tag('@Nightly');
 
-// TODO: to be enabled once the beta feedback changes on Azure pages has gone in
-Scenario.skip('I as a admin should be able to see the beta tag and feedback link when logging in', async ({ I }) => {
+Scenario('I as a admin should be able to see the beta tag and feedback link when logging in', async ({ I }) => {
     I.amOnPage('/admin-dashboard');
     I.seeBetaFeedbackOnPage('b2c/login');
     I.executeScript('window.history.back();');
@@ -102,8 +101,7 @@ Scenario(
     }
 ).tag('@Nightly');
 
-// TODO: to be enabled once the beta feedback changes on Azure pages has gone in
-Scenario.skip(
+Scenario(
     'I as a media user should be able to see the beta tag and feedback link when logging in',
     async ({ I }) => {
         I.amOnPage('/sign-in');
