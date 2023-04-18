@@ -64,6 +64,7 @@ Scenario(
 
 Scenario('I as a admin should be able to see the beta tag and feedback link when logging in', async ({ I }) => {
     I.amOnPage('/admin-dashboard');
+    I.waitForText('Sign in with your email address');
     I.seeBetaFeedbackOnPage('b2c/login');
     I.executeScript('window.history.back();');
     I.click('Forgot your password?');
@@ -101,15 +102,13 @@ Scenario(
     }
 ).tag('@Nightly');
 
-Scenario(
-    'I as a media user should be able to see the beta tag and feedback link when logging in',
-    async ({ I }) => {
-        I.amOnPage('/sign-in');
-        I.click('With a Court and tribunal hearings account');
-        I.click('Continue');
-        I.seeBetaFeedbackOnPage('b2c/login');
-        I.executeScript('window.history.back();');
-        I.click('Forgot your password?');
-        I.seeBetaFeedbackOnPage('b2c/reset-pw');
-    }
-);
+Scenario('I as a media user should be able to see the beta tag and feedback link when logging in', async ({ I }) => {
+    I.amOnPage('/sign-in');
+    I.click('With a Court and tribunal hearings account');
+    I.click('Continue');
+    I.waitForText('Sign in with your email address');
+    I.seeBetaFeedbackOnPage('b2c/login');
+    I.executeScript('window.history.back();');
+    I.click('Forgot your password?');
+    I.seeBetaFeedbackOnPage('b2c/reset-pw');
+});
