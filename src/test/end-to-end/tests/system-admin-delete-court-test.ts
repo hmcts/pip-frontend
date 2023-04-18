@@ -34,7 +34,7 @@ Scenario(
         I.waitForText('Are you sure you want to delete all the publications?');
         I.click('#delete-choice-2');
         I.click('Continue');
-        I.see('Find the court to remove');
+        I.waitForText('Find the court to remove');
 
         await tryToDeleteCourt();
         I.see('There are active artefacts for the given location.');
@@ -55,7 +55,7 @@ Scenario(
         I.waitForText('Are you sure you want to delete all the subscriptions?');
         I.click('#delete-choice-2');
         I.click('Continue');
-        I.see('Find the court to remove');
+        I.waitForText('Find the court to remove');
 
         await tryToDeleteCourt();
         I.see('There are active subscriptions for the given location.');
@@ -87,14 +87,14 @@ Scenario(
         I.see('Search by court or tribunal name');
         I.click('Continue');
         I.waitForText('There is a problem');
-        I.waitForText('Court or tribunal name must be 3 characters or more');
+        I.see('Court or tribunal name must be 3 characters or more');
         I.fillField('#search-input', 'InvalidCourtName');
         I.click('Continue');
         I.waitForText('There is a problem');
-        I.waitForText('There are no matching results');
+        I.see('There are no matching results');
         I.fillField('#search-input', 'Single Justice Procedure');
         I.click('Continue');
-        I.see('Are you sure you want to delete this court?');
+        I.waitForText('Are you sure you want to delete this court?');
         I.click('#delete-choice-2');
         I.click('Continue');
         I.see('Find the court to remove');
