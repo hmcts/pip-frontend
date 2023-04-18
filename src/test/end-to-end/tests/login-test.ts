@@ -110,5 +110,6 @@ Scenario('I as a media user should be able to see the beta tag and feedback link
     I.seeBetaFeedbackOnPage('b2c/login');
     I.executeScript('window.history.back();');
     I.click('Forgot your password?');
+    I.waitForText('Please provide the following details.');
     I.seeBetaFeedbackOnPage('b2c/reset-pw');
 });
