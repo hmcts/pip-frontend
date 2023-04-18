@@ -56,7 +56,7 @@ export class CivilFamilyAndMixedListService {
                         break;
                     }
                     case 'APPLICANT_PETITIONER_REPRESENTATIVE': {
-                        applicantRepresentative = this.createPartyDetails(party).trim();
+                        applicantRepresentative += this.createPartyDetails(party).trim();
                         applicantRepresentative += helperService.stringDelimiter(applicantRepresentative.length, ',');
                         break;
                     }
@@ -66,7 +66,7 @@ export class CivilFamilyAndMixedListService {
                         break;
                     }
                     case 'RESPONDENT_REPRESENTATIVE': {
-                        respondentRepresentative = this.createPartyDetails(party).trim();
+                        respondentRepresentative += this.createPartyDetails(party).trim();
                         respondentRepresentative += helperService.stringDelimiter(respondentRepresentative.length, ',');
                         break;
                     }

@@ -39,7 +39,7 @@ export class ListParseHelperService {
                         break;
                     }
                     case 'APPLICANT_PETITIONER_REPRESENTATIVE': {
-                        applicantRepresentative = this.createIndividualDetails(
+                        applicantRepresentative += this.createIndividualDetails(
                             party.individualDetails,
                             initialised
                         ).trim();
@@ -65,7 +65,7 @@ export class ListParseHelperService {
                         break;
                     }
                     case 'RESPONDENT_REPRESENTATIVE': {
-                        respondentRepresentative = this.createIndividualDetails(
+                        respondentRepresentative += this.createIndividualDetails(
                             party.individualDetails,
                             initialised
                         ).trim();
