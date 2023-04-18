@@ -55,10 +55,7 @@ jobs:
                       echo "Reply URLs contains $mediaSignInUrl, $adminSignInUrl, adminPasswordResetUrl" or mediaPasswordResetUrl"
                       readarray -t my_array < <(echo "$replyUrls" | jq -c '.[]')
                       for item in "${my_array[@]}"; do
-                          if [[ $item != "\"$mediaSignInUrl\""
-                              && $item != "\"$adminSignInUrl\""
-                              && $item != "\"$adminPasswordResetUrl\""
-                              && $item != "\"$mediaPasswordResetUrl\"" ]]; then
+                          if [[ $item != "\"$mediaSignInUrl\"" && $item != "\"$adminSignInUrl\"" && $item != "\"$adminPasswordResetUrl\"" && $item != "\"$mediaPasswordResetUrl\"" ]]; then
                               if [[ "$replayUrlsStr" != "" ]]; then
                                   replayUrlsStr="$replayUrlsStr,"
                               fi

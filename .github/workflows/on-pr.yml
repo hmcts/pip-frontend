@@ -53,10 +53,7 @@ jobs:
                   echo "Found Reply URLs"
                   echo $replyUrls
 
-                  if [[ "${replyUrls}" =~ "${mediaSignInUrl}"
-                    && "${replyUrls}" =~ "${adminSignInUrl}"
-                    && "${replyUrls}" =~ "${adminPasswordResetUrl}"
-                    && "${replyUrls}" =~ "${mediaPasswordResetUrl}"]]; then
+                  if [[ "${replyUrls}" =~ "${mediaSignInUrl}" && "${replyUrls}" =~ "${adminSignInUrl}" && "${replyUrls}" =~ "${adminPasswordResetUrl}" && "${replyUrls}" =~ "${mediaPasswordResetUrl}" ]]; then
                     echo "Reply URLs contain $mediaSignInUrl, $adminSignInUrl, adminPasswordResetUrl and mediaPasswordResetUrl"
                   elif [ -z $replyUrls ]; then
                     echo "No Reply URLs Found. ISSUE!!"
