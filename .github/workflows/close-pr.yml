@@ -29,6 +29,8 @@ jobs:
             - run: |
                   mediaSignInUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/login/return"
                   adminSignInUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/login/admin/return"
+                  adminPasswordResetUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/password-change-confirmation/true"
+                  mediaPasswordResetUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/password-change-confirmation/false"
                   targetAppName="pip-frontend-stg"
 
                   azureClientId="${B2C_CLIENT_ID}"
@@ -46,11 +48,17 @@ jobs:
 
                   echo "Found Reply URLs"
                   echo $replyUrls
-                  if [[ "${replyUrls}" =~ "${mediaSignInUrl}" || "${replyUrls}" =~ "${adminSignInUrl}" ]]; then
-                      echo "Reply URLs contains $mediaSignInUrl or $adminSignInUrl"
+                  if [[ "${replyUrls}" =~ "${mediaSignInUrl}"
+                      || "${replyUrls}" =~ "${adminSignInUrl}"
+                      || "${replyUrls}" =~ "${adminPasswordResetUrl}"
+                      || "${replyUrls}" =~ "${mediaPasswordResetUrl}" ]]; then
+                      echo "Reply URLs contains $mediaSignInUrl, $adminSignInUrl, adminPasswordResetUrl" or mediaPasswordResetUrl"
                       readarray -t my_array < <(echo "$replyUrls" | jq -c '.[]')
                       for item in "${my_array[@]}"; do
-                          if [[ $item != "\"$mediaSignInUrl\"" && $item != "\"$adminSignInUrl\"" ]]; then
+                          if [[ $item != "\"$mediaSignInUrl\""
+                              && $item != "\"$adminSignInUrl\""
+                              && $item != "\"$adminPasswordResetUrl\""
+                              && $item != "\"$mediaPasswordResetUrl\"" ]]; then
                               if [[ "$replayUrlsStr" != "" ]]; then
                                   replayUrlsStr="$replayUrlsStr,"
                               fi
@@ -68,7 +76,7 @@ jobs:
 
                       az rest --method PATCH --header "Content-Type=application/json" --uri $restUrl --body "{\"web\":{\"redirectUris\":[$replayUrlsStr]}}" #--debug
                   else
-                      echo "Reply URLs DOES NOT contains $mediaSignInUrl and $adminSignInUrl"
+                      echo "Reply URLs DOES NOT contains $mediaSignInUrl, $adminSignInUrl, adminPasswordResetUrl and mediaPasswordResetUrl"
                   fi
 
               env:
