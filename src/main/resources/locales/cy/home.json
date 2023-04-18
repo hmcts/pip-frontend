@@ -2,7 +2,10 @@
     "title": "Gwrandawiadau llys a thribiwnlys",
     "message": "Gallwch ddefnyddio'r gwasanaeth hwn i gael gwybodaeth am:",
     "betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=/\">adborth</a> yn ein helpu i’w wella",
-    "bullets": ["Achosion Gweithdrefn Un Ynad, gan gynnwys trwyddedu teledu a mân droseddau traffig megis goryrru"],
+    "bullets": [
+        "Gwrandawiadau mewn Llysoedd Sifil a Theulu yn  Milton Keynes, Oxford, Reading, High Wycombe ac Slough",
+        "Achosion Gweithdrefn Un Ynad, gan gynnwys trwyddedu teledu a mân droseddau traffig megis goryrru"
+    ],
     "moreMessage": "Bydd mwy o lysoedd a thribiwnlysoedd ar gael ymhen amser.",
     "legalMessage": "Gall gweithwyr proffesiynol ym maes y gyfraith a'r cyfryngau",
     "signInLink": "Mewngofnodi",
