@@ -1,0 +1,8 @@
+{
+    "heading1": "Why are you rejecting this application?",
+    "selectAll": "Select all that apply.",
+    "error": {
+        "title": "There is a problem",
+        "checkboxes": "An option must be selected"
+    }
+}

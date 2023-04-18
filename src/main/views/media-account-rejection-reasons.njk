@@ -1,0 +1,65 @@
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% extends "template.njk" %}
+
+{% block pageTitle %}
+    Media Account Rejection Reasons
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+{% block content %}
+
+    {% set checkboxReasons = [] %}
+    {% for shortReason, reason in rejectReasons %}
+    {% set _ = checkboxReasons.push({value: shortReason, text: reason[0]}) %}
+    {% endfor %}
+    {% set otherHtml = {html:other} %}
+
+<form method="post" action="/media-account-rejection-reasons?applicantId={{ applicantId }}">
+    <input type="hidden" id="applicantId" name="applicantId" value="{{ applicantId }}" >
+    {% if showError %}
+        {% set errorMsg = {text: error.checkboxes} %}
+    {{ govukErrorSummary({
+        titleText: error.title,
+        errorList: [
+            {
+                text: error.checkboxes,
+                href: "#govuk-checkboxes"
+            }
+        ]
+    }) }}
+
+    {% else %}
+    {% set errorMsg = false %}
+    {% endif %}
+    {{ govukCheckboxes({
+        name: "rejection-reasons",
+        fieldset: {
+            legend: {
+                text: heading1,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        hint: {
+            text: selectAll
+        },
+        errorMessage: errorMsg,
+        items: checkboxReasons
+    }) }}
+    {{ submitButton() }}
+</form>
+{% endblock %}
+{% block bodyEnd %}
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+    {{ super() }}
+{% endblock %}
