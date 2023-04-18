@@ -238,6 +238,11 @@ module.exports = {
     MediaAccountApprovalNo: '#no',
     MediaAccountApprovalSubmitButton: '.govuk-button',
 
+    //MediaAccountRejectionReasonsPage
+    MediaAccountDetailsNoMatch: '#rejection-reasons-2',
+    MediaAccountRejectionContinue: '#button',
+    fieldSetTitle: 'h1.govuk-fieldset__heading',
+
     //MediaAccountRejectionPage
     MediaAccountRejectionYes: '#yes',
     MediaAccountRejectionSubmitButton: '.govuk-button',

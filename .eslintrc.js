@@ -9,6 +9,7 @@ module.exports = {
     },
     rules: {
         'linebreak-style': ['error', 'unix'],
+
         semi: ['error', 'always'],
         'no-multiple-empty-lines': ['error', { max: 1 }],
         '@typescript-eslint/ban-types': [
@@ -40,6 +41,7 @@ module.exports = {
             },
             plugins: ['@typescript-eslint'],
             rules: {
+                '@typescript-eslint/ban-ts-comment': ['error', { 'ts-ignore': 'allow-with-description' }],
                 'linebreak-style': ['error', 'unix'],
                 '@typescript-eslint/no-var-requires': 0,
                 '@typescript-eslint/no-explicit-any': 0,
