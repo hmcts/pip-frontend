@@ -353,10 +353,21 @@ export default function (app: Application): void {
         app.locals.container.cradle.mediaAccountRejectionController.post
     );
     app.get(
+        '/media-account-rejection-reasons',
+        isPermittedMediaAccount,
+        app.locals.container.cradle.mediaAccountRejectionReasonsController.get
+    );
+    app.post(
+        '/media-account-rejection-reasons',
+        isPermittedMediaAccount,
+        app.locals.container.cradle.mediaAccountRejectionReasonsController.post
+    );
+    app.get(
         '/media-account-rejection-confirmation',
         isPermittedMediaAccount,
         app.locals.container.cradle.mediaAccountRejectionConfirmationController.get
     );
+
     app.get(
         '/remove-list-confirmation',
         isPermittedManualUpload,

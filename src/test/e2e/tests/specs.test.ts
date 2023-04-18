@@ -1,4 +1,5 @@
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
+import { AccountHomePage } from '../PageObjects/AccountHome.page';
 import { AdminDashboardPage } from '../PageObjects/AdminDashboard.page';
 import { SystemAdminDashboardPage } from '../PageObjects/SystemAdminDashboard.page';
 import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
@@ -63,6 +64,7 @@ import { ListDownloadDisclaimerPage } from '../PageObjects/ListDownloadDisclaime
 import { ListDownloadFilesPage } from '../PageObjects/ListDownloadFiles.page';
 import { BulkCreateMediaAccountsPage } from '../pageobjects/BulkCreateMediaAccounts.page';
 import { BulkCreateMediaAccountsConfirmationPage } from '../pageobjects/BulkCreateMediaAccountsConfirmation.page';
+import { MediaAccountRejectionReasonsPage } from '../pageobjects/MediaAccountRejectionReasons.page';
 
 const homePage = new HomePage();
 let subscriptionAddPage = new SubscriptionAddPage();
@@ -115,6 +117,7 @@ let mediaAccountRequestsPage: MediaAccountRequestsPage;
 let mediaAccountReviewPage: MediaAccountReviewPage;
 let mediaAccountApprovalPage: MediaAccountApprovalPage;
 let mediaAccountRejectionPage: MediaAccountRejectionPage;
+let mediaAccountRejectionReasonsPage: MediaAccountRejectionReasonsPage;
 let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
 let subscriptionConfigureListPage: SubscriptionConfigureListPage;
 let cftAuthenticationFailedPage: CftAuthenticationFailedPage;
@@ -995,7 +998,15 @@ describe('Admin level journeys', () => {
         });
 
         it('should select reject application', async () => {
-            mediaAccountRejectionPage = await mediaAccountReviewPage.clickRejectApplication();
+            mediaAccountRejectionReasonsPage = await mediaAccountReviewPage.clickRejectApplication();
+            expect(await mediaAccountRejectionReasonsPage.getFieldSetTitle()).toEqual(
+                'Why are you rejecting this application?'
+            );
+        });
+
+        it('should select reasons to reject application', async () => {
+            await mediaAccountRejectionReasonsPage.selectReason();
+            mediaAccountRejectionPage = await mediaAccountRejectionReasonsPage.clickContinue();
             expect(await mediaAccountRejectionPage.getPageTitle()).toEqual(
                 'Are you sure you want to reject this application?'
             );
