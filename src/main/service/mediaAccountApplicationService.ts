@@ -1,5 +1,5 @@
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
-import { CreateAccountService } from '../service/createAccountService';
+import { CreateAccountService } from './createAccountService';
 import { MediaAccount } from '../models/mediaAccount';
 import { DateTime } from 'luxon';
 import { LogHelper } from '../resources/logging/logHelper';
@@ -57,9 +57,13 @@ export class MediaAccountApplicationService {
         return null;
     }
 
-    public async rejectApplication(applicationId, adminId): Promise<object | null> {
+    public async rejectApplication(applicationId, adminId, reasons): Promise<object | null> {
         logHelper.writeLog(adminId, 'REJECT_MEDIA_ACCOUNT', applicationId);
-
-        return accountManagementRequests.updateMediaApplicationStatus(applicationId, 'REJECTED');
+        const updateStatus = accountManagementRequests.updateMediaApplicationStatus(applicationId, 'REJECTED', reasons);
+        if (updateStatus) {
+            return updateStatus;
+        } else {
+            return null;
+        }
     }
 }

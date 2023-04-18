@@ -127,10 +127,23 @@ export class AccountManagementRequests {
         return null;
     }
 
-    public async updateMediaApplicationStatus(applicantId, status): Promise<MediaAccountApplication | null> {
+    public async updateMediaApplicationStatus(
+        applicantId,
+        status,
+        reasons = null
+    ): Promise<MediaAccountApplication | null> {
         try {
-            const response = await accountManagementApi.put('/application/' + applicantId + '/' + status);
-            logger.info('Media Application updated - ' + applicantId);
+            let response;
+            if (reasons) {
+                response = await accountManagementApi.put(
+                    '/application/' + applicantId + '/' + status + '/reasons',
+                    reasons
+                );
+                logger.info('Media Application updated and attempted email send - ' + applicantId);
+            } else {
+                response = await accountManagementApi.put('/application/' + applicantId + '/' + status);
+                logger.info('Media Application updated - ' + applicantId);
+            }
             return response.data;
         } catch (error) {
             if (error.response) {

@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 import { MediaAccountApplicationService } from '../../../main/service/mediaAccountApplicationService';
 
-describe('Summary Of Publications Service', () => {
+describe('Media Account Application Service', () => {
     const applicationId = '1234';
     const imageId = '12345';
     const accountApplicationService = new MediaAccountApplicationService();
@@ -87,5 +87,47 @@ describe('Summary Of Publications Service', () => {
 
         const applicationImage = await accountApplicationService.getImageById(null);
         expect(applicationImage).toBe(null);
+    });
+});
+
+describe('rejectApplication', () => {
+    let updateMediaApplicationStatusStub;
+
+    const service = new MediaAccountApplicationService();
+    beforeEach(() => {
+        updateMediaApplicationStatusStub = sinon.stub(
+            AccountManagementRequests.prototype,
+            'updateMediaApplicationStatus'
+        );
+    });
+
+    afterEach(() => {
+        updateMediaApplicationStatusStub.restore();
+    });
+
+    it('should reject application and return updated status', async () => {
+        const applicationId = 1;
+        const adminId = 123;
+        const reasons = ['Reason 1', 'Reason 2'];
+
+        updateMediaApplicationStatusStub.resolves({ status: 'REJECTED' });
+
+        await service.rejectApplication(applicationId, adminId, reasons);
+
+        expect(updateMediaApplicationStatusStub.calledOnceWith(applicationId, 'REJECTED', reasons)).toBeTruthy;
+    });
+
+    it('should return null if any of the operations fail', async () => {
+        const applicationId = 1;
+        const adminId = 123;
+        const reasons = ['Reason 1', 'Reason 2'];
+
+        updateMediaApplicationStatusStub.resolves(null); // Simulating a failure
+
+        const service = new MediaAccountApplicationService();
+        const result = await service.rejectApplication(applicationId, adminId, reasons);
+
+        expect(updateMediaApplicationStatusStub.calledOnceWith(applicationId, 'REJECTED', reasons)).toBeTruthy;
+        expect(result).toBeNull;
     });
 });
