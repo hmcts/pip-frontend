@@ -28,7 +28,7 @@ describe('Admin rejected login page', () => {
             'Could not find body text'
         );
         expect(bodyText[5].innerHTML).contains(
-            'Please always sign in using the following link below to sign in as a CaTH Super Admin or Admin user',
+            'Please always sign in using the following link below to sign in as a court and tribunal hearings service Super Admin or Admin user',
             'Could not find body text'
         );
     });
