@@ -73,7 +73,7 @@ jobs:
 
                       az rest --method PATCH --header "Content-Type=application/json" --uri $restUrl --body "{\"web\":{\"redirectUris\":[$replayUrlsStr]}}" #--debug
                   else
-                      echo "Reply URLs DOES NOT contains $mediaSignInUrl, $adminSignInUrl, adminPasswordResetUrl and mediaPasswordResetUrl"
+                      echo "Reply URLs DOES NOT contains $mediaSignInUrl, $adminSignInUrl, $adminPasswordResetUrl and $mediaPasswordResetUrl"
                   fi
 
               env:
