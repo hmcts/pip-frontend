@@ -11,8 +11,13 @@ describe('Cancelled password reset controller', () => {
             return '';
         },
     } as unknown as Response;
-    const request = mockRequest({ 'cancelled-password-reset': {} });
-    const i18n = { 'cancelled-password-reset': {} };
+
+    const betaText = 'test beta text';
+    const i18n = {
+        'cancelled-password-reset': {},
+        template: { betaHeadingAdmin: betaText },
+    };
+    const request = mockRequest(i18n);
 
     it('should render cancelled password reset controller for admin', async () => {
         request['params']['isAdmin'] = 'true';
@@ -21,6 +26,7 @@ describe('Cancelled password reset controller', () => {
 
         const expectedData = {
             ...i18n['cancelled-password-reset'],
+            betaText: betaText,
             isAdmin: true,
         };
 
@@ -37,6 +43,7 @@ describe('Cancelled password reset controller', () => {
 
         const expectedData = {
             ...i18n['cancelled-password-reset'],
+            betaText: betaText,
             isAdmin: false,
         };
 
