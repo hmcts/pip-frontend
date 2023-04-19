@@ -1,4 +1,4 @@
-# pip-frontend.
+# pip-frontend
 ![Light Mode Logo](lightLogo.png#gh-light-mode-only)
 ![Dark Mode Logo](darkLogo.jpg#gh-dark-mode-only)
 
