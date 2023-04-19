@@ -1,17 +1,41 @@
-import path from 'path';
 import { DateTime } from 'luxon';
 import { PublicationService } from '../../service/publicationService';
 import { printableDuration } from './printableDuration';
 import { calculateDurationSortValue } from '../../helpers/dateTimeHelper';
+import { runtime } from 'nunjucks';
 
 const publicationService = new PublicationService();
 
 function createFilters(env) {
+    const rejectReasonLookupFile = require('../../resources/media-account-rejection-reasons-lookup.json');
+    const languageLookupFile = require('./languageLookup.json');
     const dateFilter = require('nunjucks-date-filter');
     env.addFilter('date', dateFilter);
-    const fs = require('fs');
     const listTypes = publicationService.getListTypes();
-    const languageLookup = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'languageLookup.json')));
+    const languageLookup = languageLookupFile;
+    const rejectReasonLookup = rejectReasonLookupFile;
+
+    // takes array or comma-separated string of rejection reason codes, transforms to an ordered list
+    // with optional padding depending on where it's being displayed.
+    env.addFilter('mediaRejectionClean', (csvList, nopadding = false) => {
+        csvList = Array.isArray(csvList) ? csvList : csvList.split(',');
+        const listItems = csvList
+            .map(x => rejectReasonLookup[x] ?? x)
+            .map(x => linkify(`<li><b>${x[0]}</b><br>${x[1]} </li>`))
+            .join('');
+        return new runtime.SafeString(`<ol${nopadding ? ' class="govuk-!-padding-left-4"' : ''}>${listItems}</ol>`);
+    });
+
+    // takes in a string and hunts for a url. If it finds one, it wraps it with link tags
+    // Note: Output from this will need to be used in a "safestring" to render properly.
+    function linkify(inputString) {
+        const urlRegex = /(https?:\/\/(?:www\.|(?!www))[^\s.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/gi;
+        // target is blank to open in new tab
+        return inputString.replace(
+            urlRegex,
+            '<a href="$1" class="govuk-link" target="_blank" rel="noopener noreferrer">$1 </a>(opens in a new window)'
+        );
+    }
 
     // to get the pretty list type name
     env.addFilter('listType', function (x) {
