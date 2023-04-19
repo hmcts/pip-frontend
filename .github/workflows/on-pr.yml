@@ -79,14 +79,14 @@ jobs:
                       if [[ ! ${replyUrlString: -1} == "," ]]; then
                         replyUrlString+=","
                       fi
-                      replyUrlString+="\"adminPasswordResetUrl\""
+                      replyUrlString+="\"$adminPasswordResetUrl\""
                     fi
 
                     if [[ ! "${replyUrls}" =~ "${mediaPasswordResetUrl}" ]]; then
                       if [[ ! ${replyUrlString: -1} == "," ]]; then
                         replyUrlString+=","
                       fi
-                      replyUrlString+="\"mediaPasswordResetUrl\""
+                      replyUrlString+="\"$mediaPasswordResetUrl\""
                     fi
 
                     echo "reply String: $replyUrlString"
