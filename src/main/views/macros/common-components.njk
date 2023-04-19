@@ -4,6 +4,7 @@
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
 {% macro submitButton(label = 'Continue', id = 'button', ariaLabel = 'Continue Button', disable = false) %}
     {{ govukButton({
@@ -81,4 +82,16 @@
   </script>
 {% endmacro %}
 
+{% macro betaLink(betaText) %}
+    {{ govukPhaseBanner({
+        tag: {
+            text: "beta"
+        },
+        html: betaText
+    }) }}
+    <script>
+        var link = document.getElementById("betalink")
+        link.href = link.href + window.location.pathname.substring(1)
+    </script>
+{% endmacro %}
 

@@ -33,6 +33,12 @@ export = function () {
             this.click('Sign in');
         },
 
+        seeBetaFeedbackOnPage: function (page) {
+            this.see('BETA');
+            this.click('feedback');
+            this.seeInCurrentUrl(`https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=${page}`);
+        },
+
         logout: function () {
             this.click('Sign out');
             this.see('You have been signed out');
