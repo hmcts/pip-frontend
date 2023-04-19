@@ -2,7 +2,7 @@
 {% from "govuk/components/header/macro.njk" import govukHeader %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 {% from "moj/components/sub-navigation/macro.njk" import mojSubNavigation %}
-{% from "./macros/common-components.njk" import backToTopButton %}
+{% from "./macros/common-components.njk" import backToTopButton, betaLink %}
 {% from "govuk/components/cookie-banner/macro.njk" import govukCookieBanner %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
@@ -57,16 +57,9 @@
   {% else %}
     {% set betaDisplay = betaHeading %}
   {% endif %}
-  {{ govukPhaseBanner({
-    tag: {
-      text: "beta"
-    },
-    html: betaDisplay
-  }) }}
-  <script>
-    var link = document.getElementById("betalink")
-    link.href = link.href + window.location.pathname.substring(1)
-  </script>
+
+  {{ betaLink(betaDisplay) }}
+
   {% if user.roles in ['SYSTEM_ADMIN'] %}
     {% set listItems = [
       {
