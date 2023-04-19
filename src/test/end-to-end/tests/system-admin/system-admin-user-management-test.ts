@@ -117,7 +117,7 @@ Scenario('I as a system admin should be able to use the pagination on the user m
     I.see('3 of');
 
     I.click('.govuk-pagination__link');
-    I.waitForText('2 of')
+    I.waitForText('2 of');
 });
 
 Scenario('I as a system admin should not be able to change my own role', async ({ I }) => {
