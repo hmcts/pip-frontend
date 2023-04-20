@@ -49,7 +49,7 @@ jobs:
                   echo "Found Reply URLs"
                   echo $replyUrls
                   if [[ "${replyUrls}" =~ "${mediaSignInUrl}" || "${replyUrls}" =~ "${adminSignInUrl}" || "${replyUrls}" =~ "${adminPasswordResetUrl}" || "${replyUrls}" =~ "${mediaPasswordResetUrl}" ]]; then
-                      echo "Reply URLs contains $mediaSignInUrl, $adminSignInUrl, adminPasswordResetUrl" or mediaPasswordResetUrl"
+                      echo "Reply URLs contains $mediaSignInUrl, $adminSignInUrl, $adminPasswordResetUrl or $mediaPasswordResetUrl"
                       readarray -t my_array < <(echo "$replyUrls" | jq -c '.[]')
                       for item in "${my_array[@]}"; do
                           if [[ $item != "\"$mediaSignInUrl\"" && $item != "\"$adminSignInUrl\"" && $item != "\"$adminPasswordResetUrl\"" && $item != "\"$mediaPasswordResetUrl\"" ]]; then
