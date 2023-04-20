@@ -84,7 +84,7 @@ Running the application requires the following tools to be installed in your env
 
 ### Installation
 #### Setup
-- Clone the repository
+- Clone the repository.
 - Ensure all required [environment variables](#environment-variables) have been set.
 - Use the terminal command `yarn install` to install all dependencies.
 - Use `yarn run build` to build the application.
