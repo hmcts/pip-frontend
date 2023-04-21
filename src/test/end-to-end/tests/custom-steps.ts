@@ -43,5 +43,14 @@ export = function () {
             this.click('Sign out');
             this.see('You have been signed out');
         },
+
+        createNewSystemAdminAndContinue: function (firstName, surname, email) {
+            this.click('Create System Admin');
+            this.waitForText('Create system admin account');
+            this.fillField('#firstName', firstName);
+            this.fillField('#lastName', surname);
+            this.fillField('#emailAddress', email);
+            this.click('Continue');
+        },
     });
 };

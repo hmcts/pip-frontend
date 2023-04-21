@@ -11,8 +11,6 @@ import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferen
 import { LocationNameSearchPage } from '../PageObjects/LocationNameSearchPage';
 import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
 import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
-import { CreateSystemAdminAccountPage } from '../PageObjects/CreateSystemAdminAccount.page';
-import { CreateSystemAdminAccountSummaryPage } from '../PageObjects/CreateSystemAdminAccountSummary.page';
 import { CourtListPage } from '../PageObjects/CourtList.page';
 import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
@@ -111,8 +109,6 @@ let listDownloadFilesPage: ListDownloadFilesPage;
 let signInPage: SignInPage;
 let createAdminAccountPage: CreateAdminAccountPage;
 let createAdminAccountSummaryPage: CreateAdminAccountSummaryPage;
-let createSystemAdminAccountPage: CreateSystemAdminAccountPage;
-let createSystemAdminAccountSummaryPage: CreateSystemAdminAccountSummaryPage;
 let searchPublicationPage: RemoveListSearchPage;
 let searchPublicationResultsPage: RemoveListSearchResultsPage;
 let publicationConfirmationPage: RemoveListConfirmationPage;
@@ -1048,19 +1044,6 @@ describe('System Admin level journeys', () => {
 
     it('should open admin dashboard page on successful sign in', async () => {
         expect(await systemAdminDashboard.getPageTitle()).toEqual('System Admin Dashboard');
-    });
-
-    describe('Create new system admin account', () => {
-        it('should click on the create new account card', async () => {
-            createSystemAdminAccountPage = await systemAdminDashboard.clickCreateNewAccountCard();
-            expect(await createSystemAdminAccountPage.getPageTitle()).toEqual('Create system admin account');
-        });
-
-        it('should complete form and open summary page', async () => {
-            await createSystemAdminAccountPage.completeForm();
-            createSystemAdminAccountSummaryPage = await createSystemAdminAccountPage.clickContinue();
-            expect(await createSystemAdminAccountSummaryPage.getPageTitle()).toEqual('Check account details');
-        });
     });
 
     describe('Reference Manual Upload', () => {

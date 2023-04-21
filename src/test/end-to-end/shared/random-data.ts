@@ -22,5 +22,6 @@ export const randomData = {
     getRandomNumber: randomNumber,
     getRandomString: randomString,
     getRandomAlphabeticString: randomAlphabeticString,
-    getRandomEmailAddress: () => testConfig.TEST_SUITE_PREFIX + randomString() + '@justice.gov.uk',
+    getRandomEmailAddress: testWorkerNumber =>
+        testConfig.TEST_SUITE_PREFIX + testWorkerNumber + randomString() + '@justice.gov.uk',
 };

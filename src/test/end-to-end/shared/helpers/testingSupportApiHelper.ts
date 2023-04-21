@@ -10,6 +10,8 @@ class TestingSupportApi extends Helper implements TestingSupportAPI {
     deleteSubscription = TestingSupportAPI.deleteSubscription;
     uploadPublication = TestingSupportAPI.uploadPublication;
     deletePublicationForCourt = TestingSupportAPI.deletePublicationForCourt;
+    createSystemAdminAccount = TestingSupportAPI.createSystemAdminAccount;
+    deleteAllAccountsByEmailAndRoles = TestingSupportAPI.deleteAllAccountsByEmailAndRoles;
 }
 
 export = TestingSupportApi;
