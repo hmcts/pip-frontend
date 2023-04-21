@@ -251,7 +251,7 @@ We plan to migrate to using purely Codecept tests iteratively, slowly deprecatin
 #### Running e2e tests:
 Our E2E tests can be run through a number of ways:
 
-- `yarn test:functional` - Runs old and new (but not nightly) tests, and generates the allure report.
+- `yarn test:functional` - Runs old and new (but not nightly) tests, and generates the allure report
 - `yarn test:fullfunctional` - Runs all new tests and generates the allure report
 - `yarn test:functional:old` - Runs the old tests
 - `yarn test:functional:all` - Runs all new tests, including nightly
