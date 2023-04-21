@@ -1,6 +1,6 @@
-import { randomData } from '../shared/random-data';
-import { createSystemAdminAccount, deleteAllAccountsByEmailAndRoles } from '../shared/testingSupportApi';
-import { config as testConfig } from '../../config';
+import { randomData } from '../../shared/random-data';
+import { createSystemAdminAccount, deleteAllAccountsByEmailAndRoles } from '../../shared/testingSupportApi';
+import { config as testConfig } from '../../../config';
 
 Feature('Create system admin');
 
