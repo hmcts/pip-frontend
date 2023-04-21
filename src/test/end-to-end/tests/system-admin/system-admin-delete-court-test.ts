@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
-import { createLocation, createSubscription, uploadPublication } from '../shared/testingSupportApi';
-import { generateTestLocation, removeTestLocationFile } from '../shared/shared-functions';
+import { createLocation, createSubscription, uploadPublication } from '../../shared/testingSupportApi';
+import { generateTestLocation, removeTestLocationFile } from '../../shared/shared-functions';
 
 Feature('Delete Location');
 
