@@ -139,7 +139,7 @@ export const createSystemAdminAccount = async (firstName: string, surname: strin
     } catch (e) {
         if (e.response?.badRequest) {
             e.response.body['error'] = true;
-            return e.response?.body
+            return e.response?.body;
         } else {
             throw new Error(`Create system admin account failed for: ${email}, http-status: ${e.response?.status}`);
         }
