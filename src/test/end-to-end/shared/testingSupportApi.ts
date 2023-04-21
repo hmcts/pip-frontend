@@ -137,7 +137,12 @@ export const createSystemAdminAccount = async (firstName: string, surname: strin
             .set({ Authorization: 'Bearer ' + token.access_token })
             .set('x-issuer-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`);
     } catch (e) {
-        throw new Error(`Create system admin account failed for: ${email}, http-status: ${e.response?.status}`);
+        if (e.response?.badRequest) {
+            e.response.body['error'] = true;
+            return e.response?.body
+        } else {
+            throw new Error(`Create system admin account failed for: ${email}, http-status: ${e.response?.status}`);
+        }
     }
 };
 

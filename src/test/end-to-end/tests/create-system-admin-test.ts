@@ -49,6 +49,20 @@ Scenario('I as a system admin should not be able to create duplicated system adm
 Scenario(
     'I as a system admin should not be able to create a new system admin if the maximum number of accounts has been reached',
     async ({ I }) => {
+        // Continue creating new system admins until we see the 'above max system admin' error
+        let response = await createSystemAdminAccount(
+            TEST_FIRST_NAME,
+            TEST_SURNAME,
+            randomData.getRandomEmailAddress(TEST_WORKER_NUMBER)
+        );
+        while (!response?.error && !response?.aboveMaxSystemAdmin) {
+            response = await createSystemAdminAccount(
+                TEST_FIRST_NAME,
+                TEST_SURNAME,
+                randomData.getRandomEmailAddress(TEST_WORKER_NUMBER)
+            );
+        }
+
         I.loginAsSystemAdmin();
         I.see('System Admin Dashboard');
         I.createNewSystemAdminAndContinue(
@@ -58,22 +72,6 @@ Scenario(
         );
         I.waitForText('Check account details');
         I.click('Confirm');
-
-        // Check and see if we have error on screen. If not, proceed to create more system admins
-        let elementCount = await I.grabNumberOfVisibleElements('.govuk-error-summary');
-        while (elementCount === 0) {
-            I.click('Home');
-            I.see('System Admin Dashboard');
-            I.createNewSystemAdminAndContinue(
-                TEST_FIRST_NAME,
-                TEST_SURNAME,
-                randomData.getRandomEmailAddress(TEST_WORKER_NUMBER)
-            );
-            I.waitForText('Check account details');
-            I.click('Confirm');
-            elementCount = await I.grabNumberOfVisibleElements('.govuk-error-summary');
-        }
-
         I.waitForText('Account has been rejected');
         I.see('The maximum number of System Admin accounts has been reached.');
     }
