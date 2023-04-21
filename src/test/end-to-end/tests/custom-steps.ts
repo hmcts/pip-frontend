@@ -44,6 +44,20 @@ export = function () {
             this.see('You have been signed out');
         },
 
+        createAdminAccount: function (firstName, lastName, email, role) {
+            this.amOnPage('/admin-dashboard');
+            this.see('Your Dashboard');
+            this.click('#card-create-admin-account');
+            this.fillField('#firstName', firstName);
+            this.fillField('#lastName', lastName);
+            this.fillField('#emailAddress', email);
+            this.click(role);
+            this.click('Continue');
+            this.see('Check account details');
+            this.click('Confirm');
+            this.see('Account has been created');
+        },
+
         createNewSystemAdminAndContinue: function (firstName, surname, email) {
             this.click('Create System Admin');
             this.waitForText('Create system admin account');

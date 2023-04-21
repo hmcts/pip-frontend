@@ -56,10 +56,6 @@ import { DeleteCourtReferenceSuccessPage } from '../PageObjects/DeleteCourtRefer
 import { BulkUnsubscribePage } from '../PageObjects/BulkUnsubscribe.page';
 import { BulkUnsubscribeConfirmationPage } from '../PageObjects/BulkUnsubscribeConfirmation.page';
 import { BulkUnsubscribeConfirmedPage } from '../PageObjects/BulkUnsubscribeConfirmed.page';
-import { UserManagementPage } from '../PageObjects/UserManagement.page';
-import { ManageUserPage } from '../PageObjects/ManageUser.page';
-import { UpdateUserPage } from '../PageObjects/UpdateUser.page';
-import { DeleteUserPage } from '../PageObjects/DeleteUser.page';
 import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPage';
 import { ManageThirdPartyUsersPage } from '../PageObjects/ManageThirdPartyUsers.page';
 import { ListDownloadDisclaimerPage } from '../PageObjects/ListDownloadDisclaimer.page';
@@ -127,10 +123,6 @@ let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
 let deleteCourtReferenceDataPage: DeleteCourtReferenceDataPage;
 let deleteCourtReferenceConfirmationPage: DeleteCourtReferenceConfirmationPage;
 let deleteCourtReferenceSuccessPage: DeleteCourtReferenceSuccessPage;
-let userManagementPage: UserManagementPage;
-let manageUserPage: ManageUserPage;
-let updateUserPage: UpdateUserPage;
-let deleteUserPage: DeleteUserPage;
 let blobViewLocationsPage: BlobViewLocationsPage;
 let blobViewPublicationsPage: BlobViewPublicationsPage;
 let manageThirdPartyUsersPage: ManageThirdPartyUsersPage;
@@ -1119,89 +1111,6 @@ describe('System Admin level journeys', () => {
         it('should open third party users page', async () => {
             manageThirdPartyUsersPage = await systemAdminDashboard.clickManageThirdPartyUsersCard();
             expect(await manageThirdPartyUsersPage.getPageTitle()).toEqual('Manage Third Party Users');
-        });
-    });
-
-    describe('User management journey', () => {
-        before(async () => {
-            await systemAdminDashboard.open('/system-admin-dashboard');
-        });
-
-        it('should open user management page', async () => {
-            userManagementPage = await systemAdminDashboard.clickUserManagementCard();
-            expect(await userManagementPage.getPageTitle()).toEqual('User Management');
-        });
-
-        it('should input email into the filter', async () => {
-            await userManagementPage.inputEmail();
-        });
-
-        it('should click the apply filter button', async () => {
-            await userManagementPage.clickFilterButton();
-        });
-
-        it('should click the manage link and be taken to the manage user page', async () => {
-            manageUserPage = await userManagementPage.clickManageLink();
-            expect(await manageUserPage.getPageTitle()).toEqual('Manage pip-auto-test-admin@hmcts.net');
-        });
-
-        it('should click the change link and load the update user page', async () => {
-            updateUserPage = await manageUserPage.clickChangeLink();
-            expect(await updateUserPage.getPageTitle()).toEqual(
-                'What role would you like pip-auto-test-admin@hmcts.net to have?'
-            );
-        });
-
-        it('should be able to update the users role', async () => {
-            await updateUserPage.selectUserRole();
-        });
-
-        it('should open the update users role confirmation page and click to go back to the dashboard', async () => {
-            const updateUserConfirmationPage = await updateUserPage.clickContinueButton();
-            expect(await updateUserConfirmationPage.getPageTitle()).toEqual('User Updated');
-            expect(await updateUserConfirmationPage.getPanelBody()).toEqual(
-                'This user has been updated to a Local Admin. ' +
-                    'They will need to sign in again for this to take effect'
-            );
-            const systemAdminDashboardPage = await updateUserConfirmationPage.clickDashboardLink();
-            expect(await systemAdminDashboardPage.getPageTitle()).toEqual('System Admin Dashboard');
-        });
-
-        it('should open the user management page again', async () => {
-            userManagementPage = await systemAdminDashboard.clickUserManagementCard();
-            expect(await userManagementPage.getPageTitle()).toEqual('User Management');
-        });
-
-        it('should input email into the filter again', async () => {
-            await userManagementPage.inputEmail();
-        });
-
-        it('should click the apply filter button again', async () => {
-            await userManagementPage.clickFilterButton();
-        });
-
-        it('should click the manage link and be taken to the manage user page again', async () => {
-            manageUserPage = await userManagementPage.clickManageLink();
-            expect(await manageUserPage.getPageTitle()).toEqual('Manage pip-auto-test-admin@hmcts.net');
-        });
-
-        it('should click the delete user button', async () => {
-            deleteUserPage = await manageUserPage.clickDeleteUserButton();
-            expect(await deleteUserPage.getPageTitle()).toEqual(
-                'Are you sure you want to delete pip-auto-test-admin@hmcts.net?'
-            );
-        });
-
-        it('should select the yes radio button to delete', async () => {
-            await deleteUserPage.selectOption('deleteUserConfirmRadioButton');
-        });
-
-        it('should open the delete user confirmation page', async () => {
-            const deleteUserConfirmationPage = await deleteUserPage.clickContinueButton();
-            expect(await deleteUserConfirmationPage.getPageTitle()).toEqual('User Deleted');
-            expect(await deleteUserConfirmationPage.getPanelBody()).toEqual(
-                'All data relating to the user has been deleted,' + ' including subscriptions for media users.'
-            );
         });
     });
 

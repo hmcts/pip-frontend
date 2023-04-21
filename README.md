@@ -274,16 +274,16 @@ We plan to migrate to using purely Codecept tests iteratively, slowly deprecatin
 
 Our E2E tests can be run through a number of ways:
 
--   `yarn test:functional` - Runs old and new (but not nightly) tests, and generates the allure report.
--   `yarn test:fullfunctional` - Runs all new tests and generates the allure report
--   `yarn test:functional:old` - Runs the old tests
--   `yarn test:functional:all` - Runs all new tests, including nightly
--   `yarn test:functional:min` - Runs new tests excluding nightly
--   `yarn test:functional:report` - Generates the allure report
--   `yarn test:functional-dev` - Runs the old tests in non-headless mode.
--   `yarn test:crossbrowser` - Runs all cross browser tests and generates the allure report
--   `yarn test:crossbrowser:all` - Runs all cross browser tests
--   `yarn test:crossbrowser:report` - Generates the report for the cross browser tests
+- `yarn test:functional` - Runs old and new (but not nightly) tests, and generates the allure report
+- `yarn test:fullfunctional` - Runs all new tests and generates the allure report
+- `yarn test:functional:old` - Runs the old tests
+- `yarn test:functional:all` - Runs all new tests, including nightly
+- `yarn test:functional:min` - Runs new tests excluding nightly
+- `yarn test:functional:report` - Generates the allure report
+- `yarn test:functional-dev` - Runs the old tests in non-headless mode.
+- `yarn test:crossbrowser` - Runs all cross browser tests and generates the allure report
+- `yarn test:crossbrowser:all` - Runs all cross browser tests
+- `yarn test:crossbrowser:report` - Generates the report for the cross browser tests
 
 ## Contributing
 
