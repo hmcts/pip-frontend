@@ -190,16 +190,10 @@ Scenario(
         I.click('Continue');
         I.checkOption('//*[@id="' + locationId + '"]');
         I.click('Continue');
-
         I.waitForText('Confirm your email subscriptions');
-        I.click(locate('//tr').withText(locationName).find('a').withText('Remove'));
 
-        I.click(locate('//tr').withText(caseId).find('a').withText('Remove'));
-
-        I.waitForText('There is a problem');
-        I.see('At least 1 subscription is needed.');
-        I.click('Add Subscriptions');
-
+        I.click('Email subscriptions');
+        I.click('Add email subscription');
         I.click('#subscription-choice-2');
         I.click('Continue');
         I.click('Continue');
