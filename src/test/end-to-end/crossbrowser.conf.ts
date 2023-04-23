@@ -4,7 +4,7 @@ import { container, event } from 'codeceptjs';
 
 export const config: CodeceptJS.MainConfig = {
     name: 'cross-browser',
-    tests: './tests/*-test.ts',
+    tests: './tests/**/*-test.ts',
     output: path.join(testConfig.TestFunctionalOutputPath, 'cross-browser/reports'),
     include: {
         I: './tests/custom-steps.ts',
