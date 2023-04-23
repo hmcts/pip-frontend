@@ -254,8 +254,7 @@ Scenario(
     }
 );
 
-Scenario('I as a verified user should be able to filter and select which list type to receive',
-    async ({I}) => {
+Scenario('I as a verified user should be able to filter and select which list type to receive', async ({ I }) => {
     const [locationId, locationName, locationFileName] = generateTestLocation();
     await createLocation(locationFileName);
 
@@ -268,7 +267,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.see('You can only search for information that is currently published.');
     I.click('#subscription-choice-4');
     I.click('Continue');
-    I.checkOption('//*[@id="' + locationId + '"]')
+    I.checkOption('//*[@id="' + locationId + '"]');
     I.click('Continue');
     I.click('Confirm Subscriptions');
     I.waitForText('Subscription(s) confirmed');
@@ -276,8 +275,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.click('Email subscriptions');
     I.click('Select which list types to receive');
     I.waitForText('Select List Types');
-    I.click(locate('//input')
-        .withAttr({value: 'Civil'}));
+    I.click(locate('//input').withAttr({ value: 'Civil' }));
     I.click('Apply filters');
     I.uncheckOption('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
     I.click('Continue');
@@ -288,13 +286,10 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.waitForText('Select List Types');
     I.dontSeeCheckboxIsChecked('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
     I.click('Email subscriptions');
-    I.click(locate('//tr')
-        .withText(locationName)
-        .find('a')
-        .withText('Unsubscribe'));
+    I.click(locate('//tr').withText(locationName).find('a').withText('Unsubscribe'));
     I.waitForText('Are you sure you want to remove this subscription?');
-    I.click('#unsubscribe-confirm')
-    I.click('Continue')
+    I.click('#unsubscribe-confirm');
+    I.click('Continue');
     I.waitForText('Your subscription has been removed.');
     I.deleteLocation(locationId);
     await removeTestLocationFile(locationFileName);
