@@ -49,12 +49,12 @@
                                         "sittingEnd": "2022-07-27T10:45:17.496Z",
                                         "hearing": [
                                             {
-                                                "hearingType": "FMPO",
+                                                "hearingType": "Hearing Type",
                                                 "case": [
                                                     {
                                                         "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
-                                                        "caseType": "type",
+                                                        "caseType": "Case Type",
                                                         "caseSequenceIndicator": "[2 of 3]"
                                                     },
                                                     {
@@ -98,7 +98,7 @@
                                                 ]
                                             },
                                             {
-                                                "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                                                "hearingType": "Hearing Type",
                                                 "case": [
                                                     {
                                                         "caseName": "A2 Vs B2",
@@ -141,7 +141,7 @@
                                                 ]
                                             },
                                             {
-                                                "hearingType": "FMPO",
+                                                "hearingType": "Hearing Type",
                                                 "case": [
                                                     {
                                                         "caseName": "ABCD",
@@ -224,12 +224,12 @@
                                         "sittingEnd": "2022-01-27T10:45:17.496Z",
                                         "hearing": [
                                             {
-                                                "hearingType": "FMPO",
+                                                "hearingType": "Hearing Type",
                                                 "case": [
                                                     {
                                                         "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
-                                                        "caseType": "type"
+                                                        "caseType": "Case Type"
                                                     }
                                                 ],
                                                 "party": [
