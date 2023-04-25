@@ -12,6 +12,7 @@
     "time": "Amser",
     "CaseRef": "Cyfeirnod yr Achos",
     "caseName": "Enw'r parti neu bartïon dan sylw",
+    "caseType": "Math o achos",
     "hearingType": "Math o wrandawiad",
     "location": "Lleoliad",
     "duration": "Hyd",
