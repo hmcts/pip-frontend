@@ -135,4 +135,32 @@ describe('Nunjucks Custom Filter Tests', function () {
             expect(result).to.equal('40');
         });
     });
+
+    describe('add representative to party', function () {
+        it('should return applicant and representative', function () {
+            const result = env.renderString(
+                '{{ "applicantName" | addRepresentativeToParty("repName", "Legal Advisor") }}',
+                {}
+            );
+            expect(result).to.equal('applicantName, Legal Advisor: repName');
+        });
+
+        it('should return applicant only', function () {
+            const result = env.renderString(
+                '{{ "applicantName" | addRepresentativeToParty("", "Legal Advisor") }}',
+                {}
+            );
+            expect(result).to.equal('applicantName');
+        });
+
+        it('should return representative only', function () {
+            const result = env.renderString('{{ "" | addRepresentativeToParty("repName", "Legal Advisor") }}', {});
+            expect(result).to.equal('Legal Advisor: repName');
+        });
+
+        it('should return empty string', function () {
+            const result = env.renderString('{{ "" | addRepresentativeToParty("", "Legal Advisor") }}', {});
+            expect(result).to.be.empty;
+        });
+    });
 });

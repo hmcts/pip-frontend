@@ -65,6 +65,7 @@ export class EtListsService {
                                     claimant: hearing['appellant'],
                                     claimantRep: hearing['appellantRepresentative'],
                                     respondent: hearing['respondent'],
+                                    respondentRep: hearing['respondentRepresentative'],
                                     hearingType: hearing['hearingType'],
                                     jurisdiction: thisCase['caseType'],
                                     hearingPlatform: sitting['caseHearingChannel'],
