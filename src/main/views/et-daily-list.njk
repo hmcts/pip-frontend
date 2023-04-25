@@ -104,7 +104,11 @@
                             {% else %}
                               <td class="govuk-table__cell">{{ hearing['appellant'] }}<br />{{ rep }}: {{ noRep }}</td>
                             {% endif %}
-                            <td class="govuk-table__cell">{{ hearing['respondent'] | replace('LEGALADVISOR', 'Rep') }}</td>
+                            {% if hearing['respondentRepresentative'] | length %}
+                              <td class="govuk-table__cell">{{ hearing['respondent'] }}<br />{{ rep }}: {{ hearing['respondentRepresentative'] }}</td>
+                            {% else %}
+                              <td class="govuk-table__cell">{{ hearing['respondent'] }}<br />{{ rep }}: {{ noRep }}</td>
+                            {% endif %}
                             <td class="govuk-table__cell">{{ hearing['hearingType'] }}</td>
                             <td class="govuk-table__cell">{{ case['caseType'] }}</td>
                             <td class="govuk-table__cell">{{ sitting['caseHearingChannel'] }}</td>
