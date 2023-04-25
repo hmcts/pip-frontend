@@ -96,6 +96,7 @@
                       <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ time }}</th>
                       <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ CaseRef }}</th>
                       <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ caseName }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ caseType }}</th>
                       <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ hearingType }}</th>
                       <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ location }}</th>
                       <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ duration }}</th>
@@ -118,6 +119,7 @@
                             {% else %}
                               <td class="govuk-table__cell no-wrap">{{ case['caseName'] }}</td>
                             {% endif %}
+                            <td class="govuk-table__cell no-wrap">{{ case['caseType'] }}</td>
                             <td class="govuk-table__cell no-wrap">{{ hearing['hearingType'] }}</td>
                             <td class="govuk-table__cell no-wrap">{{ sitting['caseHearingChannel'] }}</td>
                             <td class="govuk-table__cell no-wrap" data-sort-value="{{ durationSortValue }}">{{ duration }} </td>
