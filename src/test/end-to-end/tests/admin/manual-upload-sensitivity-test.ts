@@ -1,5 +1,5 @@
 import Assert from 'assert';
-import { padFormatted } from '../shared/shared-functions';
+import { padFormatted } from '../../shared/shared-functions';
 
 Feature('Manual upload sensitivity');
 

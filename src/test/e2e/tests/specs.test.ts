@@ -505,7 +505,7 @@ describe('CFT IDAM user login', () => {
         it('should open Authentication failed page', async () => {
             expect(await cftAuthenticationFailedPage.getParagraphText()).toBe(
                 'You have successfully signed into your MyHMCTS account.' +
-                    ' Unfortunately, your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
+                ' Unfortunately, your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
             );
         });
     });
@@ -1178,7 +1178,7 @@ describe('System Admin level journeys', () => {
             expect(await updateUserConfirmationPage.getPageTitle()).toEqual('User Updated');
             expect(await updateUserConfirmationPage.getPanelBody()).toEqual(
                 'This user has been updated to a Local Admin. ' +
-                    'They will need to sign in again for this to take effect'
+                'They will need to sign in again for this to take effect'
             );
             const systemAdminDashboardPage = await updateUserConfirmationPage.clickDashboardLink();
             expect(await systemAdminDashboardPage.getPageTitle()).toEqual('System Admin Dashboard');
