@@ -136,6 +136,18 @@ function createFilters(env) {
     env.addFilter('durationToSortValue', function (hours, minutes) {
         return calculateDurationSortValue(0, hours, minutes);
     });
+
+    env.addFilter('addRepresentativeToParty', function (party, representative, representativeKeyword) {
+        let result = party;
+        if (representative) {
+            if (party) {
+                result += ', ' + representativeKeyword + ': ' + representative;
+            } else {
+                result = representativeKeyword + ': ' + representative;
+            }
+        }
+        return result;
+    });
 }
 
 module.exports = createFilters;
