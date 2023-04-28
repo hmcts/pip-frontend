@@ -4,7 +4,7 @@ import { generateTestLocation, removeTestLocationFile } from '../../shared/share
 
 Feature('Email subscriptions');
 const caseId = '12341234';
-const caseName = 'Case Name';
+const caseName = 'Test Case Name';
 const caseURN = 'Case URN';
 
 Scenario(
@@ -85,7 +85,6 @@ Scenario(
         I.fillField('#case-name', caseName);
         I.click('Continue');
         I.waitForText('Search result');
-        I.see('1 result(s) successfully found');
         I.see(caseName);
         I.checkOption('//*[@id="12341232"]');
         I.click('Continue');

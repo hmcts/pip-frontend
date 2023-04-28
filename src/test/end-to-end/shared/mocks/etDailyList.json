@@ -97,7 +97,7 @@
 									"sittingEnd": "2022-02-13T09:33:32.123Z",
 									"hearing": [{
 										"case": [{
-                                            "caseName": "Case Name",
+                                            "caseName": "Test Case Name",
 											"caseNumber": "12341232",
 											"caseType": "This is a case type"
 										}],
