@@ -29,27 +29,26 @@ export class ListParseHelperService {
         let defendant = '';
         let defendantRep = '';
         let appellantRepresentative = '';
+
         if (hearing?.party) {
             hearing.party.forEach(party => {
                 switch (ListParseHelperService.convertPartyRole(party.partyRole)) {
                     case 'APPLICANT_PETITIONER': {
                         applicant += this.createIndividualDetails(party.individualDetails, initialised).trim();
-                        applicant += this.stringDelimiter(applicant?.length, ',');
+                        applicant += this.stringDelimiter(applicant.length, ',');
                         break;
                     }
                     case 'APPLICANT_PETITIONER_REPRESENTATIVE': {
-                        const applicantPetitionerDetails = this.createIndividualDetails(
+                        applicantRepresentative += this.createIndividualDetails(
                             party.individualDetails,
                             initialised
                         ).trim();
-                        if (applicantPetitionerDetails) {
-                            applicantRepresentative += 'LEGALADVISOR: ' + applicantPetitionerDetails + ', ';
-                        }
+                        applicantRepresentative += this.stringDelimiter(applicantRepresentative.length, ',');
                         break;
                     }
                     case 'CLAIMANT_PETITIONER': {
                         appellant += this.createIndividualDetails(party.individualDetails, initialised).trim();
-                        appellant += this.stringDelimiter(appellant?.length, ',');
+                        appellant += this.stringDelimiter(appellant.length, ',');
                         break;
                     }
                     case 'CLAIMANT_PETITIONER_REPRESENTATIVE': {
@@ -57,22 +56,20 @@ export class ListParseHelperService {
                             party.individualDetails,
                             initialised
                         ).trim();
-                        appellantRepresentative += this.stringDelimiter(appellantRepresentative?.length, ',');
+                        appellantRepresentative += this.stringDelimiter(appellantRepresentative.length, ',');
                         break;
                     }
                     case 'RESPONDENT': {
                         respondent += this.createIndividualDetails(party.individualDetails, initialised).trim();
-                        respondent += this.stringDelimiter(respondent?.length, ',');
+                        respondent += this.stringDelimiter(respondent.length, ',');
                         break;
                     }
                     case 'RESPONDENT_REPRESENTATIVE': {
-                        const respondentDetails = this.createIndividualDetails(
+                        respondentRepresentative += this.createIndividualDetails(
                             party.individualDetails,
                             initialised
                         ).trim();
-                        if (respondentDetails) {
-                            respondentRepresentative += 'LEGALADVISOR: ' + respondentDetails + ', ';
-                        }
+                        respondentRepresentative += this.stringDelimiter(respondentRepresentative.length, ',');
                         break;
                     }
                     case 'PROSECUTING_AUTHORITY': {
@@ -80,30 +77,30 @@ export class ListParseHelperService {
                             party.individualDetails,
                             initialised
                         ).trim();
-                        prosecutingAuthority += this.stringDelimiter(prosecutingAuthority?.length, ',');
+                        prosecutingAuthority += this.stringDelimiter(prosecutingAuthority.length, ',');
                         break;
                     }
                     case 'DEFENDANT': {
                         defendant += this.createIndividualDetails(party.individualDetails, initialised).trim();
-                        defendant += this.stringDelimiter(defendant?.length, ',');
+                        defendant += this.stringDelimiter(defendant.length, ',');
                         break;
                     }
                     case 'DEFENDANT_REPRESENTATIVE': {
                         defendantRep += this.createIndividualDetails(party.individualDetails, initialised).trim();
-                        defendantRep += this.stringDelimiter(defendant?.length, ',');
+                        defendantRep += this.stringDelimiter(defendant.length, ',');
                     }
                 }
             });
-            hearing['appellant'] = appellant?.replace(/,\s*$/, '').trim();
-            hearing['appellantRepresentative'] = appellantRepresentative?.replace(/,\s*$/, '').trim();
 
-            applicant += applicantRepresentative;
-            respondent += respondentRepresentative;
-            hearing['applicant'] = applicant?.replace(/,\s*$/, '').trim();
-            hearing['respondent'] = respondent?.replace(/,\s*$/, '').trim();
-            hearing['prosecutingAuthority'] = prosecutingAuthority?.replace(/,\s*$/, '').trim();
-            hearing['defendant'] = defendant?.replace(/,\s*$/, '').trim();
-            hearing['defendantRepresentative'] = defendantRep?.replace(/,\s*$/, '').trim();
+            hearing['appellant'] = appellant.replace(/,\s*$/, '').trim();
+            hearing['appellantRepresentative'] = appellantRepresentative.replace(/,\s*$/, '').trim();
+            hearing['applicant'] = applicant.replace(/,\s*$/, '').trim();
+            hearing['applicantRepresentative'] = applicantRepresentative?.replace(/,\s*$/, '').trim();
+            hearing['respondent'] = respondent.replace(/,\s*$/, '').trim();
+            hearing['respondentRepresentative'] = respondentRepresentative.replace(/,\s*$/, '').trim();
+            hearing['prosecutingAuthority'] = prosecutingAuthority.replace(/,\s*$/, '').trim();
+            hearing['defendant'] = defendant.replace(/,\s*$/, '').trim();
+            hearing['defendantRepresentative'] = defendantRep.replace(/,\s*$/, '').trim();
         }
     }
 

@@ -145,40 +145,45 @@ describe('Civil And Family Daily Cause List page', () => {
         expect(cell[2].innerHTML).equals('A2 Vs B2');
     });
 
+    it('should display Case Type', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[3].innerHTML).contains('Case Type');
+    });
+
     it('should display Hearing Type', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[3].innerHTML).contains('FMPO');
+        expect(cell[4].innerHTML).contains('Hearing Type');
     });
 
     it('should display Hearing platform', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[4].innerHTML).contains('testSittingChannel');
+        expect(cell[5].innerHTML).contains('testSittingChannel');
     });
 
     it('should display Hearing duration', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[5].innerHTML).contains('1 hour 5 mins');
+        expect(cell[6].innerHTML).contains('1 hour 5 mins');
     });
 
     it('should display Applicant/petitioner', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[6].innerHTML).contains(applicantRespondent);
+        expect(cell[7].innerHTML).contains(applicantRespondent);
     });
 
     it('should display respondent', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[7].innerHTML).contains(applicantRespondent);
+        expect(cell[8].innerHTML).contains(applicantRespondent);
     });
 
     it('should display applicant petitioner using organisation', () => {
         const rows = htmlRes.getElementsByClassName('govuk-table__row');
         const cell = rows.item(4).children;
-        expect(cell[6].innerHTML).contains('Applicant org name, Legal Advisor: Applicant rep org name');
+        expect(cell[7].innerHTML).contains('Applicant org name, Legal Advisor: Applicant rep org name');
     });
 
     it('should display respondent using organisation', () => {
         const rows = htmlRes.getElementsByClassName('govuk-table__row');
         const cell = rows.item(4).children;
-        expect(cell[7].innerHTML).contains('Respondent org name, Legal Advisor: Respondent rep org name');
+        expect(cell[8].innerHTML).contains('Respondent org name, Legal Advisor: Respondent rep org name');
     });
 });

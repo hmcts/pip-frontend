@@ -83,12 +83,14 @@ export const uploadPublication = async (
     locationId: string,
     displayFrom: string,
     displayTo: string,
-    language: string
+    language: string,
+    listName = 'civilAndFamilyDailyCauseList.json',
+    listType = 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'
 ) => {
     const token = await getDataManagementCredentials();
 
-    const filePath = path.join(__dirname, '../../../test/unit/mocks/civilAndFamilyDailyCauseList.json');
-    const file = createFile(filePath, 'civilAndFamilyDailyCauseList.json');
+    const filePath = path.join(__dirname, './mocks/' + listName);
+    const file = createFile(filePath, listName);
     try {
         await superagent
             .post(`${testConfig.DATA_MANAGEMENT_BASE_URL}/publication`)
@@ -99,7 +101,7 @@ export const uploadPublication = async (
             .set('x-language', language)
             .set('x-display-from', displayFrom)
             .set('x-display-to', displayTo)
-            .set('x-list-type', 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST')
+            .set('x-list-type', listType)
             .set('x-court-id', locationId)
             .set('x-content-date', displayFrom)
             .set('Content-Type', 'application/json')

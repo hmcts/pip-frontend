@@ -91,7 +91,7 @@
                           <td class="govuk-table__cell" data-sort-value="{{ sitting['sittingStartFormatted'] | timeToSortValue }}">{{ sitting['sittingStartFormatted'] }}</td>
                           <td class="govuk-table__cell">{{ case['caseNumber'] }}</td>
                           <td class="govuk-table__cell">{{ sitting['caseHearingChannel'] }}</td>
-                          <td class="govuk-table__cell">{{ hearing['applicant'] | replace("LEGALADVISOR", legalAdvisor) }}</td>
+                          <td class="govuk-table__cell">{{ hearing['applicant'] | addRepresentativeToParty(hearing['applicantRepresentative'], legalAdvisor) }}</td>
                           <td class="govuk-table__cell">{{ hearing['prosecutionAuthorityRefFormatted'] }}</td>
                           <td class="govuk-table__cell">{{ session['formattedJudiciary'] }}</td>
                         </tr>
