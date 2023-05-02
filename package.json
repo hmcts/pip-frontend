@@ -100,7 +100,7 @@
         "pretty-print-json": "^1.4.1",
         "require-directory": "^2.1.1",
         "serve-favicon": "^2.5.0",
-        "stylelint": "^15.4.0",
+        "stylelint": "^15.6.0",
         "stylelint-config-standard": "^32.0.0",
         "stylelint-config-standard-scss": "^7.0.1",
         "ts-node": "^10.9.1",
