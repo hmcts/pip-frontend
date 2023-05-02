@@ -19,8 +19,8 @@ import {
 import {
     manualUploadRoles,
     mediaAccountCreationRoles,
-    verifiedRoles
-} from '../../../main/authentication/authenticationHelper'
+    verifiedRoles,
+} from '../../../main/authentication/authenticationHelper';
 
 import request from 'supertest';
 import { app } from '../../../main/app';

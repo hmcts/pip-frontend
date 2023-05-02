@@ -1,5 +1,9 @@
-import {expect} from "chai";
-import {checkRoles, manualUploadRoles, mediaAccountCreationRoles} from "../../../main/authentication/authenticationHelper";
+import { expect } from 'chai';
+import {
+    checkRoles,
+    manualUploadRoles,
+    mediaAccountCreationRoles,
+} from '../../../main/authentication/authenticationHelper';
 
 describe('Test checking user roles', () => {
     it('check that check roles returns true when matched', () => {
