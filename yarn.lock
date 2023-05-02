@@ -9013,12 +9013,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^22.4.14":
-  version: 22.4.14
-  resolution: "i18next@npm:22.4.14"
+"i18next@npm:^22.4.15":
+  version: 22.4.15
+  resolution: "i18next@npm:22.4.15"
   dependencies:
     "@babel/runtime": ^7.20.6
-  checksum: 963b70c7e1fee9666ef4d9ea87a63d0c9483007e2a0ea9520356e43a2cd550f3eb1cab24c57a102f3e84fd737fdff41bafc953dafc3bd6589dc9ea52ddb49905
+  checksum: fced898227983e439c59e7aa6e7b87e53ad1b8a1c85f0613a968881418266e5336e9443831125590559796075d516fe3dbf8118679c894094a0a404be78b02a2
   languageName: node
   linkType: hard
 
@@ -13252,7 +13252,7 @@ __metadata:
     helmet: ^4.6.0
     html-webpack-plugin: ^5.5.0
     http-status-codes: ^2.2.0
-    i18next: ^22.4.14
+    i18next: ^22.4.15
     i18next-http-middleware: ^3.3.0
     ioredis: ^5.3.1
     jest: ^29.5.0
