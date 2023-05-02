@@ -4878,13 +4878,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"awilix@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "awilix@npm:8.0.0"
+"awilix@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "awilix@npm:8.0.1"
   dependencies:
     camel-case: ^4.1.2
     fast-glob: ^3.2.12
-  checksum: e9c7e0ec225d29696fba9fe4431aa29ca6a68252e9c63f82cc5e481cdccb6eafc969d85fdb4941cd1f82b127435b7f7c1013002a0868bc292c4a7855e9b374d0
+  checksum: 0cc2a236d219cf2b7ee4c20086d619739b53ff0555eccbedae5424c862f341fccfd1c113201c5ca9dafdf2392fd8054dc9d4f6b4a69704fa40b1bc682454a1c1
   languageName: node
   linkType: hard
 
@@ -13227,7 +13227,7 @@ __metadata:
     accessible-autocomplete: ^2.0.4
     allure-commandline: ^2.21.0
     applicationinsights: ^2.5.1
-    awilix: ^8.0.0
+    awilix: ^8.0.1
     axios: ^1.3.4
     axios-oauth-client: ^1.5.0
     axios-token-interceptor: ^0.2.0
