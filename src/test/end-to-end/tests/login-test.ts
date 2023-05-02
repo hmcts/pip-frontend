@@ -127,7 +127,7 @@ Scenario(
         );
         I.see('/sign-in');
     }
-).tag('@Testing');
+);
 
 Scenario(
     'I as a admin user should see the admin rejected login screen when logging in via the media flow',
@@ -139,4 +139,4 @@ Scenario(
         );
         I.see('/admin-dashboard');
     }
-).tag('@Testing');
+);
