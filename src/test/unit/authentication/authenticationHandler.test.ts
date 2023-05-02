@@ -23,6 +23,7 @@ import {
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import {SessionManagementService} from '../../../main/service/sessionManagementService';
 
 const updateMediaAccountVerification = sinon.stub(
     AccountManagementRequests.prototype,
@@ -299,6 +300,9 @@ describe('media verification handling', () => {
 });
 
 describe('process account sign-in', () => {
+
+    const sessionManagementServiceStub = sinon.stub(SessionManagementService.prototype, 'logOut');
+
     it('should redirect to admin dashboard for an admin user', async () => {
         const mockRedirectFunction = jest.fn(argument => argument);
         const req = { user: { roles: 'INTERNAL_SUPER_ADMIN_CTSC', oid: '1234' } };
@@ -323,16 +327,22 @@ describe('process account sign-in', () => {
         expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/system-admin-dashboard');
     });
 
-    it('should redirect to account home for a non admin user trying to login via admin flow', async () => {
-        const mockRedirectFunction = jest.fn(argument => argument);
+    it('should redirect to admin account reject screen for a non admin user trying to login via admin flow', async () => {
+        const req = { user: { roles: 'SYSTEM_ADMIN', oid: '1236' } };
+        const res = {};
+
+        await processMediaAccountSignIn(req, res);
+
+        expect(sessionManagementServiceStub.calledWith(req, res, true)).to.be.true;
+    });
+
+    it('should redirect to media account reject screen for a non admin user trying to login via admin flow', async () => {
         const req = { user: { roles: 'VERIFIED', oid: '1236' } };
-        const res = { redirect: mockRedirectFunction };
+        const res = {};
 
         await processAdminAccountSignIn(req, res);
 
-        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-        expect(updateAccountLastSignedInDate.calledWith('PI_AAD', '1236')).to.be.true;
-        expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
+        expect(sessionManagementServiceStub.calledWith(req, res, true)).to.be.true;
     });
 
     it('should redirect to account home for a media user', async () => {

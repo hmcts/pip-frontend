@@ -5,6 +5,8 @@ import { SessionManagementService } from '../service/sessionManagementService';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 
+const sessionManagement = new SessionManagementService();
+
 export const adminAccountCreationRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL'];
 export const manualUploadRoles = [
     'SYSTEM_ADMIN',
@@ -114,20 +116,19 @@ export async function mediaVerificationHandling(req, res): Promise<any> {
 }
 
 export async function processAdminAccountSignIn(req, res): Promise<any> {
-    await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
     if (checkRoles(req, allAdminRoles)) {
+        await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
         if (checkRoles(req, systemAdminRoles)) {
             res.redirect('/system-admin-dashboard');
         } else {
             res.redirect('/admin-dashboard');
         }
     } else {
-        res.redirect('/account-home');
+        sessionManagement.logOut(req, res, true);
     }
 }
 
 export async function processMediaAccountSignIn(req, res): Promise<any> {
-    const sessionManagement = new SessionManagementService();
     if (checkRoles(req, allAdminRoles)) {
         sessionManagement.logOut(req, res, true);
     } else {
