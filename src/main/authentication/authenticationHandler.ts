@@ -2,38 +2,11 @@ import config from 'config';
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
 import { B2C_URL, FRONTEND_URL, B2C_ADMIN_URL } from '../helpers/envUrls';
 import { SessionManagementService } from '../service/sessionManagementService';
+import {verifiedRoles, systemAdminRoles, allAdminRoles, adminAccountCreationRoles, manualUploadRoles, mediaAccountCreationRoles, checkRoles} from '../authentication/authenticationHelper'
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 
 const sessionManagement = new SessionManagementService();
-
-export const adminAccountCreationRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL'];
-export const manualUploadRoles = [
-    'SYSTEM_ADMIN',
-    'INTERNAL_SUPER_ADMIN_CTSC',
-    'INTERNAL_SUPER_ADMIN_LOCAL',
-    'INTERNAL_ADMIN_CTSC',
-    'INTERNAL_ADMIN_LOCAL',
-];
-export const mediaAccountCreationRoles = ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'];
-export const systemAdminRoles = ['SYSTEM_ADMIN'];
-export const allAdminRoles = [
-    'SYSTEM_ADMIN',
-    'INTERNAL_SUPER_ADMIN_CTSC',
-    'INTERNAL_SUPER_ADMIN_LOCAL',
-    'INTERNAL_ADMIN_CTSC',
-    'INTERNAL_ADMIN_LOCAL',
-];
-export const verifiedRoles = ['VERIFIED'];
-
-export function checkRoles(req, roles): boolean {
-    if (req.user) {
-        if (roles.includes(req.user['roles'])) {
-            return true;
-        }
-    }
-    return false;
-}
 
 export function isPermittedMedia(req: any, res, next) {
     return checkAuthenticatedMedia(req, res, next, verifiedRoles);

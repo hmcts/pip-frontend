@@ -1,4 +1,4 @@
-import {config as testConfig} from "../../config";
+import { config as testConfig } from '../../config';
 
 Feature('Login');
 
@@ -117,16 +117,26 @@ Scenario('I as a media user should be able to see the beta tag and feedback link
     I.seeBetaFeedbackOnPage('b2c/reset-pw');
 });
 
-Scenario('I as a media user should see the media rejected login screen when logging in via the admin flow', async ({ I }) => {
-    I.loginAsAdmin(testConfig.MEDIA_USER_USERNAME, testConfig.MEDIA_USER_PASSWORD);
-    I.waitForText('Sign in failed');
-    I.see('Please always sign in using the following link below to sign in with your court and tribunal hearings account.');
-    I.see('/sign-in');
-}).tag('@Testing');
+Scenario(
+    'I as a media user should see the media rejected login screen when logging in via the admin flow',
+    async ({ I }) => {
+        I.loginAsAdmin(testConfig.MEDIA_USER_USERNAME, testConfig.MEDIA_USER_PASSWORD);
+        I.waitForText('Sign in failed');
+        I.see(
+            'Please always sign in using the following link below to sign in with your court and tribunal hearings account.'
+        );
+        I.see('/sign-in');
+    }
+).tag('@Testing');
 
-Scenario('I as a admin user should see the admin rejected login screen when logging in via the media flow', async ({ I }) => {
-    I.loginAsMediaUser(testConfig.ADMIN_USERNAME, testConfig.ADMIN_PASSWORD);
-    I.waitForText('Sign in failed');
-    I.see('Please always sign in using the following link below to sign in as a court and tribunal hearings service Super Admin or Admin user');
-    I.see('/admin-dashboard');
-}).tag("@Testing");
+Scenario(
+    'I as a admin user should see the admin rejected login screen when logging in via the media flow',
+    async ({ I }) => {
+        I.loginAsMediaUser(testConfig.ADMIN_USERNAME, testConfig.ADMIN_PASSWORD);
+        I.waitForText('Sign in failed');
+        I.see(
+            'Please always sign in using the following link below to sign in as a court and tribunal hearings service Super Admin or Admin user'
+        );
+        I.see('/admin-dashboard');
+    }
+).tag('@Testing');

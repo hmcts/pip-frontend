@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { allAdminRoles, checkRoles } from '../authentication/authenticationHandler';
+import { allAdminRoles, checkRoles } from '../authentication/authenticationHelper';
 import { B2C_ADMIN_URL, B2C_URL, FRONTEND_URL } from '../helpers/envUrls';
 
 const authenticationConfig = require('../authentication/authentication-config.json');

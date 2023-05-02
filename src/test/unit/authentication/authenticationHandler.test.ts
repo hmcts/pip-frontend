@@ -1,10 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import {
-    checkRoles,
-    manualUploadRoles,
-    mediaAccountCreationRoles,
-    verifiedRoles,
     checkAuthenticatedMedia,
     checkAuthenticatedAdmin,
     isPermittedMedia,
@@ -20,6 +16,12 @@ import {
     checkPasswordReset,
 } from '../../../main/authentication/authenticationHandler';
 
+import {
+    manualUploadRoles,
+    mediaAccountCreationRoles,
+    verifiedRoles
+} from '../../../main/authentication/authenticationHelper'
+
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
@@ -33,26 +35,6 @@ updateMediaAccountVerification.resolves({});
 
 const updateAccountLastSignedInDate = sinon.stub(AccountManagementRequests.prototype, 'updateAccountLastSignedInDate');
 updateAccountLastSignedInDate.resolves({});
-
-describe('Test checking user roles', () => {
-    it('check that check roles returns true when matched', () => {
-        const req = { user: { roles: 'SYSTEM_ADMIN' } };
-        expect(checkRoles(req, manualUploadRoles)).to.be.true;
-    });
-
-    it('check that check roles returns false when matched', () => {
-        const req = { user: { roles: 'SYSTEM_ADMIN' } };
-        expect(checkRoles(req, mediaAccountCreationRoles)).to.be.false;
-    });
-
-    it('check that roles returns false when no user', () => {
-        expect(checkRoles({}, mediaAccountCreationRoles)).to.be.false;
-    });
-
-    it('check that roles returns false when no roles', () => {
-        expect(checkRoles({ user: {} }, mediaAccountCreationRoles)).to.be.false;
-    });
-});
 
 describe('Test Authenticated Admin', () => {
     it('check next is called if roles match', () => {
