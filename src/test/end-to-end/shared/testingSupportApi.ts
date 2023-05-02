@@ -4,6 +4,7 @@ import fs from 'fs';
 import {
     getDataManagementCredentials,
     getSubscriptionManagementCredentials,
+    getAccountManagementCredentials,
 } from '../../../main/resources/requests/utils/axiosConfig';
 import path from 'path/posix';
 import os from 'os';
@@ -120,5 +121,62 @@ export const deletePublicationForCourt = async (locationId: string) => {
             .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         throw new Error(`Failed to delete artefact for: ${locationId}, http-status: ${e.response?.status}`);
+    }
+};
+
+export const createSystemAdminAccount = async (firstName: string, surname: string, email: string) => {
+    const token = await getAccountManagementCredentials();
+    const systemAdminAccount = {
+        email: email,
+        firstName: firstName,
+        surname: surname,
+    };
+
+    try {
+        await superagent
+            .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/add/system-admin`)
+            .send(systemAdminAccount)
+            .set({ Authorization: 'Bearer ' + token.access_token })
+            .set('x-issuer-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`);
+    } catch (e) {
+        if (e.response?.badRequest) {
+            e.response.body['error'] = true;
+            return e.response?.body;
+        } else {
+            throw new Error(`Create system admin account failed for: ${email}, http-status: ${e.response?.status}`);
+        }
+    }
+};
+
+export const deleteAllAccountsByEmailAndRoles = async (email: string, roles: string) => {
+    const accounts = await getAllAccountsByEmailAndRoles(email, roles);
+    for (const account of accounts) {
+        await deleteAccountByUserId(account.userId);
+    }
+};
+
+const getAllAccountsByEmailAndRoles = async (email: string, roles: string) => {
+    const token = await getAccountManagementCredentials();
+    try {
+        const response = await superagent
+            .get(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/all`)
+            .query({ pageNumber: 0, pageSize: 25, email: email, roles: roles })
+            .set({ Authorization: 'Bearer ' + token.access_token });
+        return response.body?.content;
+    } catch (e) {
+        throw new Error(
+            `Get accounts by email and roles failed for: email: ${email}, roles: ${roles}, http-status: ${e.response?.status}`
+        );
+    }
+};
+
+const deleteAccountByUserId = async (userId: string) => {
+    const token = await getAccountManagementCredentials();
+    try {
+        await superagent
+            .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/delete/${userId}`)
+            .set({ Authorization: 'Bearer ' + token.access_token });
+    } catch (e) {
+        throw new Error(`Delete account failed for: ${userId}, http-status: ${e.response?.status}`);
     }
 };

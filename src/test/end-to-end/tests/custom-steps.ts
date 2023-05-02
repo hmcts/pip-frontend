@@ -57,5 +57,14 @@ export = function () {
             this.click('Confirm');
             this.see('Account has been created');
         },
+
+        createNewSystemAdminAndContinue: function (firstName, surname, email) {
+            this.click('Create System Admin');
+            this.waitForText('Create system admin account');
+            this.fillField('#firstName', firstName);
+            this.fillField('#lastName', surname);
+            this.fillField('#emailAddress', email);
+            this.click('Continue');
+        },
     });
 };
