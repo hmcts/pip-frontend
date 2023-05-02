@@ -4,24 +4,15 @@ import { AdminDashboardPage } from '../PageObjects/AdminDashboard.page';
 import { SystemAdminDashboardPage } from '../PageObjects/SystemAdminDashboard.page';
 import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
 import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
-import { CaseNameSearchPage } from '../PageObjects/CaseNameSearch.page';
-import { CaseNameSearchResultsPage } from '../PageObjects/CaseNameSearchResults.page';
-import { CaseReferenceNumberSearchPage } from '../PageObjects/CaseReferenceNumberSearch.page';
-import { CaseReferenceNumberSearchResultsPage } from '../PageObjects/CaseReferenceNumberSearchResults.page';
-import { LocationNameSearchPage } from '../PageObjects/LocationNameSearchPage';
 import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
 import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
-import { CreateSystemAdminAccountPage } from '../PageObjects/CreateSystemAdminAccount.page';
-import { CreateSystemAdminAccountSummaryPage } from '../PageObjects/CreateSystemAdminAccountSummary.page';
 import { CourtListPage } from '../PageObjects/CourtList.page';
-import { DeleteSubscriptionPage } from '../PageObjects/DeleteSubscription.page';
 import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { HomePage } from '../PageObjects/Home.page';
 import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
 import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
 import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
 import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
-import { PendingSubscriptionsPage } from '../PageObjects/PendingSubscriptions.page';
 import { RemoveListConfirmationPage } from '../PageObjects/RemoveListConfirmation.page';
 import { RemoveListSearchPage } from '../PageObjects/RemoveListSearch.page';
 import { RemoveListSearchResultsPage } from '../PageObjects/RemoveListSearchResults.page';
@@ -31,14 +22,8 @@ import { SignInPage } from '../PageObjects/SignIn.page';
 import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
 import { SjpPublicListPage } from '../PageObjects/SjpPublicList.page';
 import { SjpPressListPage } from '../PageObjects/SjpPressList.page';
-import { SubscriptionAddPage } from '../PageObjects/SubscriptionAdd.page';
-import { SubscriptionConfigureListPage } from '../PageObjects/SubscriptionConfigureList.page';
-import { SubscriptionConfirmedPage } from '../PageObjects/SubscriptionConfirmed.page';
 import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
-import { SubscriptionUrnSearchPage } from '../PageObjects/SubscriptionUrnSearch.page';
-import { SubscriptionUrnSearchResultsPage } from '../PageObjects/SubscriptionUrnSearchResults.page';
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
-import { UnsubscribeConfirmationPage } from '../PageObjects/UnsubscribeConfirmation.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
 import { MediaAccountRequestsPage } from '../PageObjects/MediaAccountRequests.page';
 import { MediaAccountReviewPage } from '../PageObjects/MediaAccountReview.page';
@@ -55,9 +40,6 @@ import { BlobViewLocationsPage } from '../pageobjects/BlobViewLocationsPage';
 import { DeleteCourtReferenceDataPage } from '../PageObjects/DeleteCourtReferenceData.page';
 import { DeleteCourtReferenceConfirmationPage } from '../PageObjects/DeleteCourtReferenceConfirmation.page';
 import { DeleteCourtReferenceSuccessPage } from '../PageObjects/DeleteCourtReferenceSuccess.page';
-import { BulkUnsubscribePage } from '../PageObjects/BulkUnsubscribe.page';
-import { BulkUnsubscribeConfirmationPage } from '../PageObjects/BulkUnsubscribeConfirmation.page';
-import { BulkUnsubscribeConfirmedPage } from '../PageObjects/BulkUnsubscribeConfirmed.page';
 import { UserManagementPage } from '../PageObjects/UserManagement.page';
 import { ManageUserPage } from '../PageObjects/ManageUser.page';
 import { UpdateUserPage } from '../PageObjects/UpdateUser.page';
@@ -71,7 +53,6 @@ import { BulkCreateMediaAccountsConfirmationPage } from '../pageobjects/BulkCrea
 import { MediaAccountRejectionReasonsPage } from '../pageobjects/MediaAccountRejectionReasons.page';
 
 const homePage = new HomePage();
-let subscriptionAddPage = new SubscriptionAddPage();
 let subscriptionManagementPage: SubscriptionManagementPage;
 const liveCaseCourtSearchControllerPage = new LiveCaseCourtSearchControllerPage();
 let viewOptionPage: ViewOptionPage;
@@ -80,23 +61,9 @@ let alphabeticalSearchPage: AlphabeticalSearchPage;
 let searchPage: SearchPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedurePage: SingleJusticeProcedurePage;
-let caseNameSearchPage: CaseNameSearchPage;
-let caseNameSearchResultsPage: CaseNameSearchResultsPage;
-let subscriptionUrnSearchResultsPage: SubscriptionUrnSearchResultsPage;
-let subscriptionUrnSearchPage: SubscriptionUrnSearchPage;
-let caseReferenceNumberSearchPage: CaseReferenceNumberSearchPage;
-let caseReferenceNumberSearchResultPage: CaseReferenceNumberSearchResultsPage;
-let locationNameSearchPage: LocationNameSearchPage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
-let deleteSubscriptionPage: DeleteSubscriptionPage;
-let bulkDeleteSubscriptionsPage: BulkUnsubscribePage;
-let bulkDeleteSubscriptionsConfirmationPage: BulkUnsubscribeConfirmationPage;
-let bulkDeleteSubscriptionsConfirmedPage: BulkUnsubscribeConfirmedPage;
-let unsubscribeConfirmationPage: UnsubscribeConfirmationPage;
 let manualUploadSummaryPage: ManualUploadSummaryPage;
 let fileUploadConfirmationPage: FileUploadConfirmationPage;
-let pendingSubscriptionsPage: PendingSubscriptionsPage;
-let subscriptionConfirmedPage: SubscriptionConfirmedPage;
 let manualUploadPage: ManualUploadPage;
 let adminDashboard = new AdminDashboardPage();
 let systemAdminDashboard = new SystemAdminDashboardPage();
@@ -111,8 +78,6 @@ let listDownloadFilesPage: ListDownloadFilesPage;
 let signInPage: SignInPage;
 let createAdminAccountPage: CreateAdminAccountPage;
 let createAdminAccountSummaryPage: CreateAdminAccountSummaryPage;
-let createSystemAdminAccountPage: CreateSystemAdminAccountPage;
-let createSystemAdminAccountSummaryPage: CreateSystemAdminAccountSummaryPage;
 let searchPublicationPage: RemoveListSearchPage;
 let searchPublicationResultsPage: RemoveListSearchResultsPage;
 let publicationConfirmationPage: RemoveListConfirmationPage;
@@ -123,7 +88,6 @@ let mediaAccountApprovalPage: MediaAccountApprovalPage;
 let mediaAccountRejectionPage: MediaAccountRejectionPage;
 let mediaAccountRejectionReasonsPage: MediaAccountRejectionReasonsPage;
 let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
-let subscriptionConfigureListPage: SubscriptionConfigureListPage;
 let cftAuthenticationFailedPage: CftAuthenticationFailedPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
 let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
@@ -539,268 +503,6 @@ describe('Verified user', () => {
         });
     });
 
-    describe('add subscription', async () => {
-        it('should click on Email Subscriptions and navigate to subscription management page', async () => {
-            subscriptionManagementPage = await accountHomePage.clickSubscriptionsCard();
-            expect(await subscriptionManagementPage.getPageTitle()).toBe('Your email subscriptions');
-        });
-
-        it('should navigate to add subscription page on button click', async () => {
-            subscriptionAddPage = await subscriptionManagementPage.clickAddNewSubscriptionButton();
-            expect(await subscriptionAddPage.getPageTitle()).toBe('How do you want to add an email subscription?');
-        });
-
-        describe('following the URN path', async () => {
-            const validSearchTerm = 'N363N6R4OG';
-            const expectedNumOfResults = 1;
-
-            it("should select 'By unique reference number' option and navigate to search urn page", async () => {
-                await subscriptionAddPage.selectOption('SubscriptionAddByUniqueRefNumber');
-                subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
-                expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual(
-                    'What is the unique reference number (URN)?'
-                );
-            });
-
-            it('should enter text and click continue', async () => {
-                await subscriptionUrnSearchPage.enterText(validSearchTerm);
-                subscriptionUrnSearchResultsPage = await subscriptionUrnSearchPage.clickContinue();
-                expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
-            });
-
-            it(`should display ${expectedNumOfResults} results`, async () => {
-                expect(await subscriptionUrnSearchResultsPage.getResults()).toBe(1);
-            });
-
-            it('should click continue to create subscription', async () => {
-                pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
-                expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
-            });
-        });
-
-        describe('following the case name path', async () => {
-            const validCaseName = 'C vs D';
-            const casesCount = 2;
-
-            before(async () => {
-                await subscriptionAddPage.open('/subscription-add');
-            });
-
-            it('should open case name search path', async () => {
-                await subscriptionAddPage.selectOption('SubscriptionAddByCaseName');
-                caseNameSearchPage = await subscriptionAddPage.clickContinueForCaseName();
-                expect(await caseNameSearchPage.getPageTitle()).toBe('What is the name of the case?');
-            });
-
-            it('should search for a valid case name and navigate to results page', async () => {
-                await caseNameSearchPage.enterText(validCaseName);
-                caseNameSearchResultsPage = await caseNameSearchPage.clickContinue();
-                expect(await caseNameSearchResultsPage.getPageTitle()).toBe('Search result');
-            });
-
-            it(`should display ${casesCount} result(s)`, async () => {
-                await caseNameSearchResultsPage.tickResultCheckbox();
-                expect(await caseNameSearchResultsPage.getResults()).toBe(casesCount);
-            });
-
-            it('should click continue to create subscription', async () => {
-                pendingSubscriptionsPage = await caseNameSearchResultsPage.clickContinue();
-                expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
-            });
-        });
-
-        describe('following court or tribunal path', async () => {
-            before(async () => {
-                await subscriptionAddPage.open('subscription-add');
-            });
-
-            it('should open court or tribunal name search page', async () => {
-                await subscriptionAddPage.selectOption('SubscriptionAddByCourtOrTribunal');
-                locationNameSearchPage = await subscriptionAddPage.clickContinueForCourtOrTribunal();
-                expect(await locationNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
-            });
-
-            it('should select first jurisdiction filter', async () => {
-                await locationNameSearchPage.selectOption('JurisdictionFilter1');
-                expect(await locationNameSearchPage.jurisdictionChecked()).toBeTruthy();
-            });
-
-            it('should click on the apply filters button', async () => {
-                locationNameSearchPage = await locationNameSearchPage.clickApplyFiltersButton();
-                expect(await locationNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
-            });
-
-            it('should click continue to create subscription', async () => {
-                await locationNameSearchPage.tickCourtCheckbox();
-                pendingSubscriptionsPage = await locationNameSearchPage.clickContinue();
-                expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
-            });
-        });
-
-        describe('following the case reference number path', () => {
-            const validSearchTerm = '12345678';
-
-            before(async () => {
-                await subscriptionAddPage.open('subscription-add');
-            });
-
-            it("should select 'By case reference number' option and navigate to search case number page", async () => {
-                await subscriptionAddPage.selectOption('SubscriptionAddByCaseRefNumber');
-                caseReferenceNumberSearchPage = await subscriptionAddPage.clickContinueForCaseReferenceNumberSearch();
-                expect(await caseReferenceNumberSearchPage.getPageTitle()).toEqual(
-                    'What is the case reference number or case ID?'
-                );
-            });
-
-            it('should enter text and click continue', async () => {
-                await caseReferenceNumberSearchPage.enterText(validSearchTerm);
-                caseReferenceNumberSearchResultPage = await caseReferenceNumberSearchPage.clickContinue();
-                expect(await caseReferenceNumberSearchResultPage.getPageTitle()).toEqual('Search result');
-            });
-
-            it('should click continue to create subscription', async () => {
-                pendingSubscriptionsPage = await caseReferenceNumberSearchResultPage.clickContinue();
-                expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
-            });
-        });
-
-        describe('add subscription', async () => {
-            before(async () => {
-                await pendingSubscriptionsPage.open('pending-subscriptions');
-            });
-
-            it('should subscribe', async () => {
-                subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
-                expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription(s) confirmed');
-            });
-        });
-
-        // Test for URN subscription cache removal (PUB-1798)
-        describe('Add subscription record with URN only followed by court subscription', async () => {
-            const validSearchTerm = 'empty';
-
-            it("should select 'By unique reference number' option and navigate to search urn page", async () => {
-                await subscriptionUrnSearchPage.open('subscription-urn-search');
-                subscriptionUrnSearchPage = await subscriptionAddPage.clickContinueForUrnSearch();
-                expect(await subscriptionUrnSearchPage.getPageTitle()).toEqual(
-                    'What is the unique reference number (URN)?'
-                );
-            });
-
-            it('should enter text and click continue', async () => {
-                await subscriptionUrnSearchPage.enterText(validSearchTerm);
-                subscriptionUrnSearchResultsPage = await subscriptionUrnSearchPage.clickContinue();
-                expect(await subscriptionUrnSearchResultsPage.getPageTitle()).toEqual('Search result');
-            });
-
-            it('should click continue to create subscription', async () => {
-                pendingSubscriptionsPage = await subscriptionUrnSearchResultsPage.clickContinue();
-                expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
-            });
-
-            it('should subscribe', async () => {
-                subscriptionConfirmedPage = await pendingSubscriptionsPage.clickContinue();
-                expect(await subscriptionConfirmedPage.getPanelTitle()).toEqual('Subscription(s) confirmed');
-            });
-
-            it('should open court or tribunal name search page', async () => {
-                await locationNameSearchPage.open('location-name-search');
-                locationNameSearchPage = await subscriptionAddPage.clickContinueForCourtOrTribunal();
-                expect(await locationNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
-            });
-
-            it('should select first jurisdiction filter', async () => {
-                await locationNameSearchPage.selectOption('JurisdictionFilter1');
-                expect(await locationNameSearchPage.jurisdictionChecked()).toBeTruthy();
-            });
-
-            it('should click on the apply filters button', async () => {
-                locationNameSearchPage = await locationNameSearchPage.clickApplyFiltersButton();
-                expect(await locationNameSearchPage.getPageTitle()).toBe('Subscribe by court or tribunal name');
-            });
-
-            it('should click continue to create subscription', async () => {
-                await locationNameSearchPage.tickCourtCheckbox();
-                pendingSubscriptionsPage = await locationNameSearchPage.clickContinue();
-                expect(await pendingSubscriptionsPage.getPageTitle()).toEqual('Confirm your email subscriptions');
-            });
-
-            it(`should display court subscription only`, async () => {
-                expect(await pendingSubscriptionsPage.SubscriptionTable).toBe(1);
-                expect(await pendingSubscriptionsPage.getSubscriptionTableColumnHeader()).toBe(
-                    'Court or tribunal name'
-                );
-            });
-        });
-
-        //TODO: To be expanded on as the E2E tests are created for the configure list flow
-        describe('configure list subscriptions', async () => {
-            before(async () => {
-                await subscriptionConfigureListPage.open('subscription-configure-list');
-            });
-
-            // it('should select first jurisdiction filter', async () => {
-            //   await subscriptionConfigureListPage.selectOption('JurisdictionFilter1');
-            //   expect(await subscriptionConfigureListPage.jurisdictionChecked()).toBeTruthy();
-            // });
-            //
-            // it('should click on the apply filters button', async () => {
-            //   subscriptionConfigureListPage = await subscriptionConfigureListPage.clickApplyFiltersButton();
-            //   expect(await subscriptionConfigureListPage.getPageTitle()).toBe('Select List Types');
-            // });
-        });
-
-        describe('remove subscription', async () => {
-            before(async () => {
-                await subscriptionManagementPage.open('subscription-management');
-            });
-
-            it('should click on the first unsubscribe record', async () => {
-                deleteSubscriptionPage = await subscriptionManagementPage.clickUnsubscribeFromFirstRecord();
-                expect(await deleteSubscriptionPage.getPageTitle()).toEqual(
-                    'Are you sure you want to remove this subscription?'
-                );
-            });
-
-            it('should select yes option and unsubscribe', async () => {
-                await deleteSubscriptionPage.selectOption('yesRadioButton');
-                unsubscribeConfirmationPage = await deleteSubscriptionPage.clickContinueForYes();
-                expect(await unsubscribeConfirmationPage.getPanelTitle()).toEqual('Subscription removed');
-            });
-        });
-
-        describe('bulk unsubscribe', async () => {
-            before(async () => {
-                await subscriptionManagementPage.open('subscription-management');
-            });
-
-            it('should navigate to bulk unsubscribe page on button click', async () => {
-                bulkDeleteSubscriptionsPage = await subscriptionManagementPage.clickBulkUnsubscribeButton();
-                expect(await bulkDeleteSubscriptionsPage.getPageTitle()).toBe('Bulk unsubscribe');
-            });
-
-            it('should select first court subscription', async () => {
-                await bulkDeleteSubscriptionsPage.selectOption('CourtSubscriptionCheckbox1');
-                expect(await bulkDeleteSubscriptionsPage.courtSubscriptionChecked()).toBeTruthy();
-            });
-
-            it('should click on the bulk unsubscribe button', async () => {
-                bulkDeleteSubscriptionsConfirmationPage =
-                    await bulkDeleteSubscriptionsPage.clickBulkUnsubscribeButton();
-                expect(await bulkDeleteSubscriptionsConfirmationPage.getPageTitle()).toBe(
-                    'Are you sure you want to remove these subscriptions?'
-                );
-            });
-
-            it('should select yes option to delete the subscription', async () => {
-                await bulkDeleteSubscriptionsConfirmationPage.selectOption('BulkUnsubscribeRadioYes');
-                bulkDeleteSubscriptionsConfirmedPage =
-                    await bulkDeleteSubscriptionsConfirmationPage.clickContinueForYes();
-                expect(await bulkDeleteSubscriptionsConfirmedPage.getPanelTitle()).toEqual('Subscription(s) removed');
-            });
-        });
-    });
-
     describe('SJP list download navigation', () => {
         before(async () => {
             await accountHomePage.open('account-home');
@@ -1048,19 +750,6 @@ describe('System Admin level journeys', () => {
 
     it('should open admin dashboard page on successful sign in', async () => {
         expect(await systemAdminDashboard.getPageTitle()).toEqual('System Admin Dashboard');
-    });
-
-    describe('Create new system admin account', () => {
-        it('should click on the create new account card', async () => {
-            createSystemAdminAccountPage = await systemAdminDashboard.clickCreateNewAccountCard();
-            expect(await createSystemAdminAccountPage.getPageTitle()).toEqual('Create system admin account');
-        });
-
-        it('should complete form and open summary page', async () => {
-            await createSystemAdminAccountPage.completeForm();
-            createSystemAdminAccountSummaryPage = await createSystemAdminAccountPage.clickContinue();
-            expect(await createSystemAdminAccountSummaryPage.getPageTitle()).toEqual('Check account details');
-        });
     });
 
     describe('Reference Manual Upload', () => {

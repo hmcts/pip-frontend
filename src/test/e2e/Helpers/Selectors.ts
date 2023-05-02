@@ -250,8 +250,7 @@ module.exports = {
     //MediaAccountRejectionConfirmationPage
     MediaAccountRejectionConfirmationPanelTitle: '.govuk-panel__title',
 
-    //CreateSystemAdminAccount selectors
-    CreateSystemAdminAccount: '#card-create-system-admin-account',
+    //System admin dashboard selectors
     ReferenceDataUploadFile: '#card-manual-reference-data-upload',
     ManageThirdPartyUsers: '#card-manage-third-party-users',
     referenceDataFileUpload: '#manual-reference-data-upload',
