@@ -23,7 +23,7 @@ import {
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
-import {SessionManagementService} from '../../../main/service/sessionManagementService';
+import { SessionManagementService } from '../../../main/service/sessionManagementService';
 
 const updateMediaAccountVerification = sinon.stub(
     AccountManagementRequests.prototype,
@@ -300,7 +300,6 @@ describe('media verification handling', () => {
 });
 
 describe('process account sign-in', () => {
-
     const sessionManagementServiceStub = sinon.stub(SessionManagementService.prototype, 'logOut');
 
     it('should redirect to admin dashboard for an admin user', async () => {

@@ -1,7 +1,7 @@
 import { mockRequest } from '../mocks/mockRequest';
 import { Response } from 'express';
 import sinon from 'sinon';
-import MediaRejectedLoginController from "../../../main/controllers/MediaRejectedLoginController";
+import MediaRejectedLoginController from '../../../main/controllers/MediaRejectedLoginController';
 
 const mediaRejectedLoginController = new MediaRejectedLoginController();
 

@@ -31,7 +31,6 @@ describe('Test logout', () => {
     const adminRejectedLoginUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}admin-rejected-login%3Flng%3Den`;
     const mediaRejectedLoginUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}media-rejected-login%3Flng%3Den`;
 
-
     it('should redirect for media user', () => {
         const responseMock = sinon.mock(res);
         responseMock.expects('redirect').once().withArgs(mediaLogOutUrl);
