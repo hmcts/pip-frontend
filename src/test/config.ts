@@ -15,11 +15,14 @@ export const config = {
     MEDIA_USER_USERNAME: process.env.B2C_USERNAME,
     MEDIA_USER_PASSWORD: process.env.B2C_PASSWORD,
     SYSTEM_ADMIN_PROVENANCE_ID: process.env.SYSTEM_ADMIN_PROVENANCE_ID,
+    SYSTEM_ADMIN_USER_ID: process.env.SYSTEM_ADMIN_USER_ID,
     VERIFIED_USER_ID: process.env.VERIFIED_USER_ID,
     DATA_MANAGEMENT_BASE_URL:
         process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net',
     SUBSCRIPTION_MANAGEMENT_BASE_URL:
         process.env.SUBSCRIPTION_MANAGEMENT_URL || 'https://pip-subscription-management.staging.platform.hmcts.net',
+    ACCOUNT_MANAGEMENT_BASE_URL:
+        process.env.ACCOUNT_MANAGEMENT_URL || 'https://pip-account-management.staging.platform.hmcts.net',
     TEST_SUITE_PREFIX: 'TEST_PIP_',
     TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
     TestSlowMo: 250,
