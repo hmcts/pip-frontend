@@ -1,5 +1,5 @@
-import {generateTestLocation, padFormatted, removeTestLocationFile} from '../../shared/shared-functions';
-import {createLocation} from '../../shared/testingSupportApi';
+import { generateTestLocation, padFormatted, removeTestLocationFile } from '../../shared/shared-functions';
+import { createLocation } from '../../shared/testingSupportApi';
 
 Feature('Manual upload flat file');
 
@@ -7,8 +7,8 @@ const flatFileName = new DataTable(['flatFileName']);
 flatFileName.add(['testFlatFile.pdf']);
 flatFileName.add(['testFlatFile.docx']);
 
-Data(flatFileName).Scenario('I as a admin user should be able to upload flat file successfully',
-    async ({I, current}) => {
+Data(flatFileName)
+    .Scenario('I as a admin user should be able to upload flat file successfully', async ({ I, current }) => {
         const listType = 'Civil And Family Daily Cause List';
         const [locationId, locationName, locationFileName] = generateTestLocation();
         const date = new Date();
@@ -56,4 +56,5 @@ Data(flatFileName).Scenario('I as a admin user should be able to upload flat fil
         I.deletePublicationForCourt(locationId);
         I.deleteLocation(locationId);
         removeTestLocationFile(locationFileName);
-    }).tag('@CrossBrowser');
+    })
+    .tag('@CrossBrowser');
