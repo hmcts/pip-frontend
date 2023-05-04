@@ -1,9 +1,9 @@
-import {generateTestLocation, padFormatted, removeTestLocationFile} from '../../shared/shared-functions';
-import {createLocation} from '../../shared/testingSupportApi';
+import { generateTestLocation, padFormatted, removeTestLocationFile } from '../../shared/shared-functions';
+import { createLocation } from '../../shared/testingSupportApi';
 
 Feature('Manual upload JSON');
 
-Scenario('I as a admin user should be able to upload json file successfully', async ({I}) => {
+Scenario('I as a admin user should be able to upload json file successfully', async ({ I }) => {
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
     const [locationId, locationName, locationFileName] = generateTestLocation();
@@ -54,7 +54,7 @@ Scenario('I as a admin user should be able to upload json file successfully', as
     removeTestLocationFile(locationFileName);
 }).tag('@CrossBrowser');
 
-Scenario('I as a admin user should see proper error messages related to manual upload', async ({I}) => {
+Scenario('I as a admin user should see proper error messages related to manual upload', async ({ I }) => {
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
     const [locationId, locationName, locationFileName] = generateTestLocation();
@@ -196,7 +196,7 @@ Scenario('I as a admin user should see proper error messages related to manual u
     removeTestLocationFile(locationFileName);
 });
 
-Scenario('I as a admin user should be able to change the data before confirming upload', async ({I}) => {
+Scenario('I as a admin user should be able to change the data before confirming upload', async ({ I }) => {
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
     const [locationId, locationName, locationFileName] = generateTestLocation();
