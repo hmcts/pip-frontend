@@ -97,7 +97,7 @@
         "passport-custom": "^1.1.1",
         "playwright": "^1.33.0",
         "postcss": "^8.4.23",
-        "pretty-print-json": "^1.5.0",
+        "pretty-print-json": "^2.0.1",
         "require-directory": "^2.1.1",
         "serve-favicon": "^2.5.0",
         "stylelint": "^15.6.1",
