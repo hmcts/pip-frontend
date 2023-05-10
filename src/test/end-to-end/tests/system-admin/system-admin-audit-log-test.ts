@@ -1,7 +1,11 @@
-import { generateTestLocation, getCurrentDate, removeTestLocationFile } from '../../shared/shared-functions';
+import {
+    generateTestLocation,
+    getCurrentDateWthFormat, getDateNowAndFuture,
+    padFormatted,
+    removeTestLocationFile
+} from '../../shared/shared-functions';
 import { config as testConfig } from '../../../config';
-import { createLocation, uploadPublication } from '../../shared/testingSupportApi';
-import { DateTime } from 'luxon';
+import { createLocation } from '../../shared/testingSupportApi';
 
 Feature('System admin audit log');
 
@@ -12,6 +16,11 @@ Scenario(
         I.see('System Admin Dashboard');
         I.click('#card-manage-third-party-users');
         I.click('Back');
+        I.see('System Admin Dashboard');
+
+        I.click('#card-user-management');
+        I.click('Back');
+        I.see('System Admin Dashboard');
 
         I.click('#card-audit-log-viewer');
         I.waitForText('System admin audit log');
@@ -20,26 +29,63 @@ Scenario(
         I.see('Action');
 
         I.click(locate('//tr').withText('VIEW_THIRD_PARTY_USERS').find('a').withText('View'));
-        I.waitForText('View audit log for ' + getCurrentDate('dd/MM/yyyy'));
+        I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
         I.see(testConfig.SYSTEM_ADMIN_USERNAME as string);
         I.see('System Admin');
         I.see('B2C');
         I.see('VIEW_THIRD_PARTY_USERS');
         I.see('User requested to view all third party users');
+
+        I.click('Home');
+        I.see('System Admin Dashboard');
+        I.click('#card-audit-log-viewer');
+        I.waitForText('System admin audit log');
+
+        I.click(locate('//tr').withText('USER_MANAGEMENT_VIEW').find('a').withText('View'));
+        I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
+        I.see(testConfig.SYSTEM_ADMIN_USERNAME as string);
+        I.see('System Admin');
+        I.see('B2C');
+        I.see('USER_MANAGEMENT_VIEW');
+        I.see('All user data requested by this admin');
+
         I.logout();
     }
 );
 
 Scenario('I as a system admin should be able to view audit log for admin delete publication action', async ({ I }) => {
     const listType = 'Civil And Family Daily Cause List';
-    const displayFrom = DateTime.now().toISO({ includeOffset: false });
-    const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
-
+    const fileName = 'civilAndFamilyDailyCauseList.json';
+    const [date, dayAfter] = getDateNowAndFuture();
     const [locationId, locationName, locationFileName] = generateTestLocation();
     await createLocation(locationFileName);
-    const artefactId = await uploadPublication('PUBLIC', locationId, displayFrom, displayTo, 'ENGLISH');
 
     I.loginAsAdmin();
+    I.see('Your Dashboard');
+
+    I.click('#card-manual-upload');
+    I.waitForText('Manual upload');
+    I.attachFile('#manual-file-upload', './shared/mocks/' + fileName);
+
+    I.fillField('#search-input', locationName);
+    I.selectOption('#listType', listType);
+    I.fillField('#content-date-from-day', padFormatted(date.getDate()));
+    I.fillField('#content-date-from-month', padFormatted(date.getMonth() + 1));
+    I.fillField('#content-date-from-year', date.getFullYear());
+    I.selectOption('#classification', 'Public');
+    I.fillField('#display-date-from-day', padFormatted(date.getDate()));
+    I.fillField('#display-date-from-month', padFormatted(date.getMonth() + 1));
+    I.fillField('#display-date-from-year', date.getFullYear());
+    I.fillField('#display-date-to-day', padFormatted(dayAfter.getDate()));
+    I.fillField('#display-date-to-month', padFormatted(dayAfter.getMonth() + 1));
+    I.fillField('#display-date-to-year', dayAfter.getFullYear());
+
+    I.click('Continue');
+    I.waitForText('Check upload details');
+    I.click('Confirm');
+    I.waitForText('Success');
+
+    I.click('Home');
     I.see('Your Dashboard');
     I.click('#card-remove-list-search');
     I.waitForText('Find content to remove');
@@ -57,19 +103,36 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
 
     I.loginAsSystemAdmin();
     I.see('System Admin Dashboard');
+
     I.click('#card-audit-log-viewer');
     I.waitForText('System admin audit log');
     I.see('Timestamp');
     I.see('Email');
     I.see('Action');
 
+    I.click(locate('//tr').withText('PUBLICATION_UPLOAD').find('a').withText('View'));
+    I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
+    I.see(testConfig.ADMIN_USERNAME as string);
+    I.see('CTSC Super Admin');
+    I.see('B2C');
+    I.see('PUBLICATION_UPLOAD');
+    I.see('Publication with artefact id');
+    I.see('successfully uploaded');
+
+    I.click('Home');
+    I.see('System Admin Dashboard');
+    I.click('#card-audit-log-viewer');
+    I.waitForText('System admin audit log');
+
     I.click(locate('//tr').withText('DELETE_PUBLICATION').find('a').withText('View'));
-    I.waitForText('View audit log for ' + getCurrentDate('dd/MM/yyyy'));
+    I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
     I.see(testConfig.ADMIN_USERNAME as string);
     I.see('CTSC Super Admin');
     I.see('B2C');
     I.see('DELETE_PUBLICATION');
-    I.see('Publication with artefact id ' + artefactId + ' successfully deleted');
+    I.see('Publication with artefact id');
+    I.see('successfully deleted');
+
     I.logout();
 
     I.deleteLocation(locationId);

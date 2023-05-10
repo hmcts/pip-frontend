@@ -1,4 +1,9 @@
-import { generateTestLocation, padFormatted, removeTestLocationFile } from '../../shared/shared-functions';
+import {
+    generateTestLocation,
+    getDateNowAndFuture,
+    padFormatted,
+    removeTestLocationFile
+} from '../../shared/shared-functions';
 import { createLocation } from '../../shared/testingSupportApi';
 
 Feature('Manual upload flat file');
@@ -11,9 +16,7 @@ Data(flatFileName)
     .Scenario('I as a admin user should be able to upload flat file successfully', async ({ I, current }) => {
         const listType = 'Civil And Family Daily Cause List';
         const [locationId, locationName, locationFileName] = generateTestLocation();
-        const date = new Date();
-        const dayAfter = new Date();
-        dayAfter.setDate(dayAfter.getDate() + 1);
+        const [date, dayAfter] = getDateNowAndFuture();
 
         await createLocation(locationFileName);
 
