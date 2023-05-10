@@ -74,7 +74,7 @@ describe('Case Reference Number Search Result Controller', () => {
 
     it('should render the error page if search type not provided', () => {
         const request = mockRequest(i18n);
-        request.query = {'search-input': validCaseNo};
+        request.query = { 'search-input': validCaseNo };
         request.user = { userId: '1' };
 
         const responseMock = sinon.mock(response);
