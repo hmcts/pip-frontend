@@ -25,16 +25,6 @@ describe('Subscriptions Add', () => {
                 });
         });
 
-        test('should return home page when selection is urn', async () => {
-            await request(app)
-                .post('/subscription-add')
-                .send({ 'subscription-choice': 'urn' })
-                .expect(res => {
-                    expect(res.status).to.equal(302);
-                    expect(res.header['location']).to.equal('/subscription-urn-search');
-                });
-        });
-
         test('should return home page when selection is name', async () => {
             await request(app)
                 .post('/subscription-add')

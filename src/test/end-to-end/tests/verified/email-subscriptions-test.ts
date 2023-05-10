@@ -34,7 +34,7 @@ Scenario(
         I.click('Add email subscription');
         I.waitForText('How do you want to add an email subscription?');
         I.see('You can only search for information that is currently published.');
-        I.click('#subscription-choice-4');
+        I.click('#subscription-choice-1');
         I.click('Continue');
         I.checkOption('//*[@id="' + locationId + '"]');
         I.click('Continue');
@@ -44,10 +44,10 @@ Scenario(
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
-        I.click('#subscription-choice-1');
+        I.click('#subscription-choice-2');
         I.click('Continue');
-        I.waitForText('What is the case reference number or case ID?');
-        I.see('You must enter an exact match.');
+        I.waitForText('What is the reference number?');
+        I.see('Please enter either a case reference number, case ID or unique reference number (URN). You must enter an exact match.');
         I.fillField('#search-input', caseId);
         I.click('Continue');
         I.waitForText('Search result');
@@ -63,8 +63,8 @@ Scenario(
         I.click('Add email subscription');
         I.click('#subscription-choice-2');
         I.click('Continue');
-        I.waitForText('What is the unique reference number (URN)?');
-        I.see('You must enter an exact match.');
+        I.waitForText('What is the reference number?');
+        I.see('Please enter either a case reference number, case ID or unique reference number (URN). You must enter an exact match.');
         I.fillField('#search-input', caseURN);
         I.click('Continue');
         I.waitForText('Search result');
@@ -165,7 +165,7 @@ Scenario(
         I.click('Add email subscription');
         I.waitForText('How do you want to add an email subscription?');
         I.see('You can only search for information that is currently published.');
-        I.click('#subscription-choice-4');
+        I.click('#subscription-choice-1');
         I.click('Continue');
         I.waitForText('Subscribe by court or tribunal name');
         I.click('Continue');
@@ -173,7 +173,7 @@ Scenario(
         I.see('At least 1 subscription is needed.');
 
         I.click('Add Subscriptions');
-        I.click('#subscription-choice-1');
+        I.click('#subscription-choice-2');
         I.click('Continue');
         I.waitForText('What is the case reference number or case ID?');
         I.fillField('#search-input', caseId);
@@ -185,7 +185,7 @@ Scenario(
         I.click('Add another email Subscription');
 
         I.waitForText('How do you want to add an email subscription?');
-        I.click('#subscription-choice-4');
+        I.click('#subscription-choice-1');
         I.click('Continue');
         I.checkOption('//*[@id="' + locationId + '"]');
         I.click('Continue');
@@ -200,7 +200,7 @@ Scenario(
         I.see('There is nothing matching your criteria');
         I.click('Add subscription by an alternative type');
 
-        I.click('#subscription-choice-1');
+        I.click('#subscription-choice-2');
         I.click('Continue');
         I.click('Continue');
         I.waitForText('There is a problem');
@@ -218,7 +218,7 @@ Scenario(
         I.see('There is nothing matching your criteria');
         I.click('Add subscription by an alternative type');
 
-        I.click('#subscription-choice-4');
+        I.click('#subscription-choice-1');
         I.click('Continue');
         I.click(locate('//input').withAttr({value: 'Civil'}));
         I.click(locate('//input').withAttr({value: 'South East'}));
@@ -258,7 +258,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.click('Add email subscription');
     I.waitForText('How do you want to add an email subscription?');
     I.see('You can only search for information that is currently published.');
-    I.click('#subscription-choice-4');
+    I.click('#subscription-choice-1');
     I.click('Continue');
     I.checkOption('//*[@id="' + locationId + '"]');
     I.click('Continue');

@@ -53,9 +53,9 @@
           <tbody class="govuk-table__body">
           {% for case in pendingSubscriptions.cases %}
             <tr class="govuk-table__row">
-              <td class="govuk-table__cell">{{ case.caseUrn }}</td>
+              <td class="govuk-table__cell">{{ case.caseName }}</td>
               <td class="govuk-table__cell">{{ case.caseNumber }}</td>
-              <td class="govuk-table__cell govuk-!-text-align-right">{{ case.caseName }}</td>
+              <td class="govuk-table__cell govuk-!-text-align-right">{{ case.caseUrn }}</td>
               <td class="govuk-table__cell govuk-!-text-align-right"><a href="/remove-subscription?case={{ case.caseNumber if (case.caseNumber | length > 0) else case.caseUrn }}">{{ removeText }}</a></td>
             </tr>
           {% endfor %}

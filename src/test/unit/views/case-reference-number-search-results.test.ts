@@ -7,9 +7,10 @@ import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 
 const searchTerm = '56-181-2097';
+const searchType = 'case-number';
 const numOfResults = '1';
 const resultFound = '1 result successfully found';
-const PAGE_URL = `/case-reference-number-search-results?search-input=${searchTerm}`;
+const PAGE_URL = `/case-reference-number-search-results?search-input=${searchTerm}&search-type=${searchType}`;
 
 const rowClass = 'govuk-table__row';
 
@@ -51,12 +52,12 @@ describe('Case Reference Search Results Page', () => {
 
     it('should display first table header', () => {
         const tableHeader1 = htmlRes.getElementsByClassName('govuk-table__head');
-        expect(tableHeader1[0].innerHTML).contains('Case reference number', 'Could not find text in first header');
+        expect(tableHeader1[0].innerHTML).contains('Case name', 'Could not find text in first header');
     });
 
     it('should display second table header', () => {
         const tableHeader2 = htmlRes.getElementsByClassName('govuk-table__head');
-        expect(tableHeader2[0].innerHTML).contains('Case name', 'Could not find text in second header');
+        expect(tableHeader2[0].innerHTML).contains('Reference number', 'Could not find text in second header');
     });
 
     it('should contain 2 rows including the header row', () => {
@@ -68,7 +69,7 @@ describe('Case Reference Search Results Page', () => {
         const rows = htmlRes.getElementsByClassName(rowClass);
         const items = rows.item(1).children;
 
-        expect(items[0].innerHTML).contains('635356', 'Case reference no does not exist');
-        expect(items[1].innerHTML).contains('case name 1', 'Case number does not exist');
+        expect(items[0].innerHTML).contains('case name 1', 'Case number does not exist');
+        expect(items[1].innerHTML).contains('635356', 'Case reference no does not exist');
     });
 });

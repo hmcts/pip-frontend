@@ -71,14 +71,14 @@ describe('Pending Subscriptions Page', () => {
         it('should display correct case table headers', () => {
             const tableHeaders = htmlRes.getElementsByClassName(tableHeaderClass);
             expect(tableHeaders[0].innerHTML).contains(
-                'Unique reference number (URN)',
+                'Case name',
                 'Could not find text in first header'
             );
             expect(tableHeaders[1].innerHTML).contains(
                 'Case reference number or case ID',
                 'Could not find text in second header'
             );
-            expect(tableHeaders[2].innerHTML).contains('Case name', 'Could not find text in third header');
+            expect(tableHeaders[2].innerHTML).contains('Unique reference number (URN)', 'Could not find text in third header');
             expect(tableHeaders[3].innerHTML).contains('Actions', 'Could not find text in fourth header');
         });
 
@@ -96,9 +96,9 @@ describe('Pending Subscriptions Page', () => {
                 .getElementsByClassName('govuk-table__row');
             const cells = rows[0].getElementsByClassName('govuk-table__cell');
             expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
-            expect(cells[0].innerHTML).contains(mockCase.caseUrn, 'First cell does not contain correct value');
+            expect(cells[0].innerHTML).contains(mockCase.caseName, 'First cell does not contain correct value');
             expect(cells[1].innerHTML).contains(mockCase.caseNumber, 'Second cell does not contain correct value');
-            expect(cells[2].innerHTML).contains(mockCase.caseName, 'Third cell does not contain correct value');
+            expect(cells[2].innerHTML).contains(mockCase.caseUrn, 'Third cell does not contain correct value');
             expect(cells[3].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
             expect(cells[3].querySelector('a').getAttribute('href')).equal(
                 `/remove-subscription?case=${mockCase.caseNumber}`
@@ -232,14 +232,14 @@ describe('Pending Subscriptions Page', () => {
         it('should display correct case table headers', () => {
             const tableHeaders = htmlRes.getElementsByClassName(tableHeaderClass);
             expect(tableHeaders[0].innerHTML).contains(
-                'Unique reference number (URN)',
+                'Case name',
                 'Could not find text in first header'
             );
             expect(tableHeaders[1].innerHTML).contains(
                 'Case reference number or case ID',
                 'Could not find text in second header'
             );
-            expect(tableHeaders[2].innerHTML).contains('Case name', 'Could not find text in third header');
+            expect(tableHeaders[2].innerHTML).contains('Unique reference number (URN)', 'Could not find text in third header');
             expect(tableHeaders[3].innerHTML).contains('Actions', 'Could not find text in fourth header');
         });
 
@@ -254,9 +254,9 @@ describe('Pending Subscriptions Page', () => {
                 .getElementsByClassName('govuk-table__row');
             const cells = rows[0].getElementsByClassName('govuk-table__cell');
             expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
-            expect(cells[0].innerHTML).contains(mockCase.caseUrn, 'First cell does not contain correct value');
+            expect(cells[0].innerHTML).contains(mockCase.caseName, 'First cell does not contain correct value');
             expect(cells[1].innerHTML).contains(mockCase.caseNumber, 'Second cell does not contain correct value');
-            expect(cells[2].innerHTML).contains(mockCase.caseName, 'Third cell does not contain correct value');
+            expect(cells[2].innerHTML).contains(mockCase.caseUrn, 'Third cell does not contain correct value');
             expect(cells[3].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
             expect(cells[3].querySelector('a').getAttribute('href')).equal(
                 `/remove-subscription?case=${mockCase.caseNumber}`

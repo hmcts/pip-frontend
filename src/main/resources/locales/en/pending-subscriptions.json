@@ -2,9 +2,9 @@
     "title": "Confirm your email subscriptions",
     "removeText": "Remove",
     "table": {
-        "header1": "Unique reference number (URN)",
+        "header1": "Case name",
         "header2": "Case reference number or case ID",
-        "header3": "Case name",
+        "header3": "Unique reference number (URN)",
         "header4": "Actions"
     },
     "buttonText": "Confirm Subscriptions",

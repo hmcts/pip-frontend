@@ -235,21 +235,6 @@ export default function (app: Application): void {
         isPermittedMedia,
         app.locals.container.cradle.subscriptionConfigureListConfirmedController.post
     );
-    app.get(
-        '/subscription-urn-search',
-        isPermittedMedia,
-        app.locals.container.cradle.subscriptionUrnSearchController.get
-    );
-    app.post(
-        '/subscription-urn-search',
-        isPermittedMedia,
-        app.locals.container.cradle.subscriptionUrnSearchController.post
-    );
-    app.get(
-        '/subscription-urn-search-results',
-        isPermittedMedia,
-        app.locals.container.cradle.subscriptionUrnSearchResultController.get
-    );
     app.get('/unsubscribe-confirmation', isPermittedMedia, reRenderView);
     app.post(
         '/unsubscribe-confirmation',

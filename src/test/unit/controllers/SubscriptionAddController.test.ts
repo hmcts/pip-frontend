@@ -69,24 +69,6 @@ describe('Subscriptions Add Controller', () => {
         responseMock.verify();
     });
 
-    it("should render home page if choice is 'urn'", () => {
-        const response = {
-            redirect: function () {
-                return '';
-            },
-        } as unknown as Response;
-        const request = mockRequest(i18n);
-        request.body = { 'subscription-choice': 'urn' };
-
-        const responseMock = sinon.mock(response);
-
-        responseMock.expects('redirect').once().withArgs('/subscription-urn-search');
-
-        subscriptionAddController.post(request, response);
-
-        responseMock.verify();
-    });
-
     it("should render case name search page if choice is 'name'", () => {
         const response = {
             redirect: function () {
