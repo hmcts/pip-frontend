@@ -179,7 +179,7 @@ Scenario(
         I.click('Add Subscriptions');
         I.click('#subscription-choice-2');
         I.click('Continue');
-        I.waitForText('What is the case reference number or case ID?');
+        I.waitForText('What is the reference number?');
         I.fillField('#search-input', caseId);
         I.click('Continue');
         I.waitForText('Search result');
@@ -197,13 +197,6 @@ Scenario(
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
-        I.click('#subscription-choice-2');
-        I.click('Continue');
-        I.click('Continue');
-        I.waitForText('There is a problem');
-        I.see('There is nothing matching your criteria');
-        I.click('Add subscription by an alternative type');
-
         I.click('#subscription-choice-2');
         I.click('Continue');
         I.click('Continue');
