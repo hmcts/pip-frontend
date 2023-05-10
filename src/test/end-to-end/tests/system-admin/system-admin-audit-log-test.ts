@@ -1,8 +1,9 @@
 import {
     generateTestLocation,
-    getCurrentDateWthFormat, getDateNowAndFuture,
+    getCurrentDateWthFormat,
+    getDateNowAndFuture,
     padFormatted,
-    removeTestLocationFile
+    removeTestLocationFile,
 } from '../../shared/shared-functions';
 import { config as testConfig } from '../../../config';
 import { createLocation } from '../../shared/testingSupportApi';

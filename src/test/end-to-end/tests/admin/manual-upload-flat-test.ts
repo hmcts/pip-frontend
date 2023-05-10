@@ -2,7 +2,7 @@ import {
     generateTestLocation,
     getDateNowAndFuture,
     padFormatted,
-    removeTestLocationFile
+    removeTestLocationFile,
 } from '../../shared/shared-functions';
 import { createLocation } from '../../shared/testingSupportApi';
 

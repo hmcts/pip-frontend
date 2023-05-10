@@ -1,5 +1,5 @@
 import Assert from 'assert';
-import {getDateNowAndFuture, padFormatted} from '../../shared/shared-functions';
+import { getDateNowAndFuture, padFormatted } from '../../shared/shared-functions';
 
 Feature('Manual upload sensitivity');
 
