@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 
 Feature('System admin audit log');
 
-Scenario.skip(
+Scenario(
     'I as a system admin should be able to view audit log for system admin view third-party users action',
     async ({ I }) => {
         I.loginAsSystemAdmin();
