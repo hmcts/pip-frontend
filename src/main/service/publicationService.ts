@@ -33,7 +33,6 @@ export class PublicationService {
         return this.getFuzzyCasesFromArtefact(artefacts, caseName);
     }
 
-
     public async getCaseByCaseNumber(caseNumber: string, userId: string): Promise<SearchObject> | null {
         const artefact = await publicationRequests.getPublicationByCaseValue('CASE_ID', caseNumber, userId);
         return this.getCaseFromArtefact(artefact[0], 'caseNumber', caseNumber);

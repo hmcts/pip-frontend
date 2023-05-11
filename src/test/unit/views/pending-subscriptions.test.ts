@@ -71,10 +71,7 @@ describe('Pending Subscriptions Page', () => {
         it('should display correct case table headers', () => {
             const tableHeaders = htmlRes.getElementsByClassName(tableHeaderClass);
             expect(tableHeaders[0].innerHTML).contains('Case name', 'Could not find text in first header');
-            expect(tableHeaders[1].innerHTML).contains(
-                'Reference number',
-                'Could not find text in second header'
-            );
+            expect(tableHeaders[1].innerHTML).contains('Reference number', 'Could not find text in second header');
             expect(tableHeaders[2].innerHTML).contains('Actions', 'Could not find text in fourth header');
         });
 
@@ -227,10 +224,7 @@ describe('Pending Subscriptions Page', () => {
         it('should display correct case table headers', () => {
             const tableHeaders = htmlRes.getElementsByClassName(tableHeaderClass);
             expect(tableHeaders[0].innerHTML).contains('Case name', 'Could not find text in first header');
-            expect(tableHeaders[1].innerHTML).contains(
-                'Reference number',
-                'Could not find text in second header'
-            );
+            expect(tableHeaders[1].innerHTML).contains('Reference number', 'Could not find text in second header');
             expect(tableHeaders[2].innerHTML).contains('Actions', 'Could not find text in fourth header');
         });
 
