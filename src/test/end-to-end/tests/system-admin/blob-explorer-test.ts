@@ -33,6 +33,10 @@ Scenario('I as a system admin should be able to discover content uploaded to all
     I.see('Link to rendered template');
     I.see('View Raw JSON Content');
 
+    I.click('.govuk-details__summary-text');
+    I.waitForText('document');
+    I.click('.govuk-details__summary-text');
+
     I.click('Link to rendered template');
     I.waitForText('Civil and Family Daily Cause List for ' + locationName);
 
