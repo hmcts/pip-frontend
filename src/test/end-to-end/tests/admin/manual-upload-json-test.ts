@@ -1,4 +1,9 @@
-import { generateTestLocation, padFormatted, removeTestLocationFile } from '../../shared/shared-functions';
+import {
+    generateTestLocation,
+    getDateNowAndFuture,
+    padFormatted,
+    removeTestLocationFile,
+} from '../../shared/shared-functions';
 import { createLocation } from '../../shared/testingSupportApi';
 
 Feature('Manual upload JSON');
@@ -7,9 +12,7 @@ Scenario('I as a admin user should be able to upload json file successfully', as
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
     const [locationId, locationName, locationFileName] = generateTestLocation();
-    const date = new Date();
-    const dayAfter = new Date();
-    dayAfter.setDate(dayAfter.getDate() + 1);
+    const [date, dayAfter] = getDateNowAndFuture();
 
     await createLocation(locationFileName);
 
@@ -58,9 +61,7 @@ Scenario('I as a admin user should see proper error messages related to manual u
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
     const [locationId, locationName, locationFileName] = generateTestLocation();
-    const date = new Date();
-    const dayAfter = new Date();
-    dayAfter.setDate(dayAfter.getDate() + 1);
+    const [date, dayAfter] = getDateNowAndFuture();
 
     await createLocation(locationFileName);
 
@@ -202,10 +203,7 @@ Scenario('I as a admin user should be able to change the data before confirming 
     const [locationId, locationName, locationFileName] = generateTestLocation();
 
     await createLocation(locationFileName);
-
-    const date = new Date();
-    const dayAfter = new Date();
-    dayAfter.setDate(dayAfter.getDate() + 1);
+    const [date, dayAfter] = getDateNowAndFuture();
 
     I.loginAsAdmin();
     I.click('#card-manual-upload');
