@@ -5,7 +5,7 @@
     "table": {
         "column0Header": "Select a Result",
         "column1Header": "Case Name",
-        "column2Header": "Case Reference Number"
+        "column2Header": "Reference Number"
     },
     "select": "Select"
 }

@@ -5,7 +5,7 @@
     "table": {
         "column0Header": "Dewiswch Ganlyniad",
         "column1Header": "Enw’r Achos",
-        "column2Header": "Cyfeirnod yr Achos"
+        "column2Header": "Reference Number"
     },
     "select": "Dewis"
 }

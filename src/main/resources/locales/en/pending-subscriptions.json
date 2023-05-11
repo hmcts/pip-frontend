@@ -3,9 +3,8 @@
     "removeText": "Remove",
     "table": {
         "header1": "Case name",
-        "header2": "Case reference number or case ID",
-        "header3": "Unique reference number (URN)",
-        "header4": "Actions"
+        "header2": "Reference number",
+        "header3": "Actions"
     },
     "buttonText": "Confirm Subscriptions",
     "addOther_link": "/subscription-add",
