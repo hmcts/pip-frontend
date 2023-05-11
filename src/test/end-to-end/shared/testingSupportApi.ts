@@ -93,7 +93,7 @@ export const uploadPublication = async (
     const filePath = path.join(__dirname, './mocks/' + listName);
     const file = createFile(filePath, listName);
     try {
-        await superagent
+        const response = await superagent
             .post(`${testConfig.DATA_MANAGEMENT_BASE_URL}/publication`)
             .send(JSON.parse(file.file.body.toString()))
             .set('x-provenance', 'MANUAL_UPLOAD')
@@ -107,6 +107,7 @@ export const uploadPublication = async (
             .set('x-content-date', displayFrom)
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + token.access_token });
+        return response.body?.artefactId;
     } catch (e) {
         throw new Error(`Failed to upload publication for: ${locationId}, http-status: ${e.response?.status}`);
     }

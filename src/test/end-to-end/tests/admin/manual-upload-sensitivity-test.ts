@@ -1,5 +1,5 @@
 import Assert from 'assert';
-import { padFormatted } from '../../shared/shared-functions';
+import { getDateNowAndFuture, padFormatted } from '../../shared/shared-functions';
 
 Feature('Manual upload sensitivity');
 
@@ -8,9 +8,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     const listTypeId = '#listType';
     const sensitivityClassified = 'CLASSIFIED';
     const sensitivityPrivate = 'PRIVATE';
-    const date = new Date();
-    const dayAfter = new Date();
-    dayAfter.setDate(dayAfter.getDate() + 1);
+    const [date, dayAfter] = getDateNowAndFuture();
 
     I.loginAsAdmin();
     I.click('#card-manual-upload');
