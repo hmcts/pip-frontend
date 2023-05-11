@@ -1,6 +1,6 @@
 import { config as testConfig } from '../../../config';
 
-Feature('Change own user role');
+Feature('Admin change own user role');
 
 Scenario('I as an admin should be able to see an error message if I try to change my own user', async ({ I }) => {
     I.loginAsAdmin();

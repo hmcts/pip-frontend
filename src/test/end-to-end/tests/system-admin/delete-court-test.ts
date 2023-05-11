@@ -26,7 +26,7 @@ Scenario(
         }
 
         I.loginAsSystemAdmin();
-        I.click('Delete Court');
+        I.click('System admin delete court');
 
         await tryToDeleteCourt();
         I.see('There are active artefacts for the given location.');
