@@ -2,6 +2,7 @@ import fs from 'fs';
 import { randomData } from './random-data';
 import path from 'path/posix';
 import os from 'os';
+import { DateTime } from 'luxon';
 
 const mockLocationFilePrefix = 'mock-location-';
 
@@ -60,4 +61,15 @@ export function removeTestLocationFile(fileName) {
 
 export function padFormatted(value) {
     return value.toString().padStart(2, '0');
+}
+
+export function getCurrentDateWthFormat(format): string {
+    return DateTime.now().setLocale('gb').toFormat('dd/MM/yyyy');
+}
+
+export function getDateNowAndFuture(): [Date, Date] {
+    const date = new Date();
+    const dayAfter = new Date();
+    dayAfter.setDate(dayAfter.getDate() + 1);
+    return [date, dayAfter];
 }
