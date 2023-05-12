@@ -1,12 +1,12 @@
-import {DateTime} from 'luxon';
-import {createLocation, uploadPublication} from '../../shared/testingSupportApi';
-import {generateTestLocation, removeTestLocationFile} from '../../shared/shared-functions';
+import { DateTime } from 'luxon';
+import { createLocation, uploadPublication } from '../../shared/testingSupportApi';
+import { generateTestLocation, removeTestLocationFile } from '../../shared/shared-functions';
 
 Feature('System admin blob explorer');
 
-Scenario('I as a system admin should be able to discover content uploaded to all locations.', async ({I}) => {
-    const displayFrom = DateTime.now().toISO({includeOffset: false});
-    const displayTo = DateTime.now().plus({days: 1}).toISO({includeOffset: false});
+Scenario('I as a system admin should be able to discover content uploaded to all locations.', async ({ I }) => {
+    const displayFrom = DateTime.now().toISO({ includeOffset: false });
+    const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
 
     const [locationId, locationName, locationFileName] = generateTestLocation();
 
