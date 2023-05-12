@@ -2,7 +2,7 @@
     "title": "Cadarnhewch eich tanysgrifiadau e-bost",
     "removeText": "Dileu",
     "table": {
-        "header1": "Cyfeirnod unigryw (URN)",
+        "header1": "Enw'r achos",
         "header2": "Reference number",
         "header3": "Camau gweithredu"
     },

@@ -7,7 +7,7 @@
     },
     "insetText": "Gallwch ond chwilio am wybodaeth sydd eisoes wedi’i chyhoeddi.",
     "radio1": "Yn ôl enw’r llys neu dribiwnlys",
-    "radio2": "Yn ôl cyfeirnod yr achos neu rif adnabod yr achos",
+    "radio2": "By case reference number, case ID or unique reference number (URN)",
     "radio3": "Yn ôl enw’r achos",
     "backButton": "Yn ôl"
 }
