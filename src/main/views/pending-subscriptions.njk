@@ -54,7 +54,7 @@
             <tr class="govuk-table__row">
               <td class="govuk-table__cell">{{ case.caseName }}</td>
               <td class="govuk-table__cell">{{ case.caseUrn if case.urnSearch else case.caseNumber }}</td>
-              <td class="govuk-table__cell govuk-!-text-align-right"><a href="/remove-subscription?case={{ case.caseNumber if (case.caseNumber | length > 0) else case.caseUrn }}">{{ removeText }}</a></td>
+              <td class="govuk-table__cell govuk-!-text-align-right"><a href="/remove-subscription?case-{{ 'urn=' + case.caseUrn if case.urnSearch else 'number=' + case.caseNumber }}">{{ removeText }}</a></td>
             </tr>
           {% endfor %}
           </tbody>

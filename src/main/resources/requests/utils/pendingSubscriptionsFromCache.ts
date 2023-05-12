@@ -35,16 +35,16 @@ export class PendingSubscriptionsFromCache {
         return cacheResult;
     }
 
-    // @param removeObject - post data object {case: 'id'} || {court: 'id'}
+    // @param removeObject - post data object {case-number: 'id'} || {case-urn: 'id'} || {court: 'id'}
     public async removeFromCache(removeObject, userId): Promise<void> {
         if (redisClient.status === 'ready' && userId) {
-            if (removeObject.case) {
+            if (removeObject['case-number'] || removeObject['case-urn']) {
                 const cachedCases = await this.getPendingSubscriptions(userId, 'cases');
                 cachedCases.forEach((item, index) => {
-                    if (item.caseNumber) {
-                        this.removeFromSubscriptionSet(item.caseNumber, removeObject.case, index, cachedCases);
+                    if (removeObject['case-number']) {
+                        this.removeFromSubscriptionSet(item.caseNumber, removeObject['case-number'], index, cachedCases);
                     } else {
-                        this.removeFromSubscriptionSet(item.caseUrn, removeObject.case, index, cachedCases);
+                        this.removeFromSubscriptionSet(item.caseUrn, removeObject['case-urn'], index, cachedCases);
                     }
                 });
                 redisClient.set(`pending-cases-subscriptions-${userId}`, JSON.stringify(cachedCases));

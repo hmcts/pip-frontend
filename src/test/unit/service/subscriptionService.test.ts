@@ -9,7 +9,6 @@ import { PublicationService } from '../../../main/service/publicationService';
 
 const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';
-const userIdWithUrnSubscription = '3';
 
 const mockCourt = {
     locationId: 1,
@@ -40,11 +39,11 @@ const mockCase = {
     locationId: 50,
     courtNumber: 1,
     date: '15/11/2021 10:00:00',
-    judge: 'His Honour Judge A Morley QC',
+    judge: 'JUDGE1234',
     platform: 'In person',
-    caseNumber: 'T485914',
-    caseName: 'Ashely Barnes',
-    caseUrn: 'IBRANE1BVW',
+    caseNumber: 'CASENUM1234',
+    caseName: 'CASENAME1234',
+    caseUrn: 'CASEURN1234',
     urnSearch: false,
 };
 const mockCaseWithUrnOnly = {
@@ -52,11 +51,11 @@ const mockCaseWithUrnOnly = {
     locationId: 50,
     courtNumber: 1,
     date: '15/11/2021 10:00:00',
-    judge: 'His Honour Judge A Morley QC',
+    judge: 'JUDGE1234',
     platform: 'In person',
     caseNumber: null,
     caseName: null,
-    caseUrn: 'IBRANE1BVW',
+    caseUrn: 'CASEURN1234',
     urnSearch: true,
 };
 const courtSubscriptionPayload = {
@@ -72,23 +71,15 @@ const courtSubscriptionWithMultipleListTypePayload = ['CIVIL_DAILY_CAUSE_LIST', 
 const courtSubscriptionWithEmptyListTypePayload = [];
 
 const caseSubscriptionPayload = {
-    caseName: 'Ashely Barnes',
-    caseNumber: 'T485914',
+    caseName: 'CASENAME1234',
+    caseNumber: 'CASENUM1234',
     channel: 'EMAIL',
     searchType: 'CASE_ID',
-    searchValue: 'T485914',
-    urn: 'IBRANE1BVW',
+    searchValue: 'CASENUM1234',
+    urn: 'CASEURN1234',
     userId: userIdWithSubscriptions,
 };
-const caseUrnSubscriptionPayload = {
-    caseName: null,
-    caseNumber: null,
-    channel: 'EMAIL',
-    searchType: 'CASE_URN',
-    searchValue: 'IBRANE1BVW',
-    urn: 'IBRANE1BVW',
-    userId: userIdWithUrnSubscription,
-};
+
 const blankPayload = {
     channel: 'EMAIL',
     searchType: '',
@@ -113,18 +104,16 @@ const publicationStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseN
 sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(mockCaseWithUrnOnly);
 const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
-const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
-const bulkDeleteStub = sinon.stub(SubscriptionRequests.prototype, 'bulkDeleteSubscriptions');
 const updateListTypeSubscriptionStub = sinon.stub(
     SubscriptionRequests.prototype,
     'configureListTypeForLocationSubscriptions'
 );
 const deleteStubLocation = sinon.stub(SubscriptionRequests.prototype, 'deleteLocationSubscription');
-subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', userIdWithSubscriptions).resolves(true);
-subscriptionStub.withArgs(caseUrnSubscriptionPayload, 'cases', userIdWithUrnSubscription).resolves(true);
-subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', userIdWithSubscriptions).resolves(true);
 subscriptionStub.withArgs(blankPayload, 'courts', userIdWithSubscriptions).resolves(false);
 subscriptionStub.withArgs(blankPayload, 'cases', userIdWithSubscriptions).resolves(false);
+
+removeStub.withArgs({ case: '888' }, userIdWithSubscriptions).resolves();
+removeStub.withArgs({ court: '111' }, userIdWithSubscriptions).resolves();
 
 locationStub.withArgs(1).resolves(mockCourt);
 locationStub.withArgs(2).resolves(mockCourt2);
@@ -142,14 +131,7 @@ cacheGetStub.withArgs(userIdWithSubscriptions, 'cases').resolves([mockCase]);
 cacheGetStub.withArgs(userIdWithSubscriptions, 'courts').resolves([mockCourt]);
 cacheGetStub.withArgs(userIdWithoutSubscriptions, 'cases').resolves([]);
 cacheGetStub.withArgs(userIdWithoutSubscriptions, 'courts').resolves([]);
-cacheGetStub.withArgs(userIdWithUrnSubscription, 'cases').resolves([mockCaseWithUrnOnly]);
-cacheGetStub.withArgs(userIdWithUrnSubscription, 'courts').resolves([]);
-removeStub.withArgs({ case: '888' }, userIdWithSubscriptions).resolves();
-removeStub.withArgs({ court: '111' }, userIdWithSubscriptions).resolves();
-deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
-deleteStub.withArgs('InValidSubscriptionId').resolves(null);
-bulkDeleteStub.withArgs(['ValidSubscriptionId']).resolves('Subscription was deleted');
-bulkDeleteStub.withArgs(['InValidSubscriptionId']).resolves(null);
+
 updateListTypeSubscriptionStub
     .withArgs(userIdWithSubscriptions, courtSubscriptionWithSingleListTypePayload)
     .resolves(true);
@@ -536,6 +518,40 @@ describe('getPendingSubscriptions function', () => {
 });
 
 describe('subscribe function', () => {
+
+    const userIdWithUrnSubscription = '3';
+    const userIdWithCaseSubscription = '4';
+    const userIdWithCourtSubscription = '5';
+
+    const subscribeMockCourt = {
+        locationId: 1,
+        name: 'Aberdeen Tribunal Hearing Centre',
+        welshName: 'Welsh court name test',
+        jurisdiction: 'Tribunal',
+        location: 'Scotland',
+        listType: ['SJP_PUBLIC_LIST'],
+    };
+
+    const caseUrnSubscriptionPayload = {
+        caseName: null,
+        caseNumber: null,
+        channel: 'EMAIL',
+        searchType: 'CASE_URN',
+        searchValue: 'CASEURN1234',
+        urn: 'CASEURN1234',
+        userId: userIdWithUrnSubscription,
+    };
+
+    cacheGetStub.withArgs(userIdWithUrnSubscription, 'cases').resolves([mockCaseWithUrnOnly]);
+    cacheGetStub.withArgs(userIdWithUrnSubscription, 'courts').resolves([]);
+    cacheGetStub.withArgs(userIdWithCaseSubscription, 'cases').resolves([mockCase]);
+    cacheGetStub.withArgs(userIdWithCaseSubscription, 'courts').resolves([]);
+    cacheGetStub.withArgs(userIdWithCourtSubscription, 'cases').resolves([]);
+    cacheGetStub.withArgs(userIdWithCourtSubscription, 'courts').resolves([subscribeMockCourt]);
+    subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', userIdWithSubscriptions).resolves(true);
+    subscriptionStub.withArgs(caseUrnSubscriptionPayload, 'cases', userIdWithUrnSubscription).resolves(true);
+    subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', userIdWithSubscriptions).resolves(true);
+
     it('should return true for successful subscription when no subscriptions', async () => {
         const subscriptionRes = await subscriptionService.subscribe(userIdWithoutSubscriptions);
         expect(subscriptionRes).toBe(true);
@@ -556,33 +572,72 @@ describe('subscribe function', () => {
         expect(subscriptionRes).toBe(true);
     });
 
-    it('should return true for successful subscription where no existing subs', async () => {
-        cacheGetStub.withArgs('3', 'courts').resolves([mockCourt]);
+    it('should return true for successful subscription where no existing subs - court subscription', async () => {
 
-        const courtWithoutExistingListType = {
+        const courtSubscription = {
             channel: 'EMAIL',
             searchType: 'LOCATION_ID',
-            searchValue: 1,
-            locationName: 'Aberdeen Tribunal Hearing Centre',
-            userId: '1',
+            searchValue: subscribeMockCourt.locationId,
+            locationName: subscribeMockCourt.name,
             listType: [],
+            userId: userIdWithCourtSubscription,
         };
 
-        subscriptionStub.withArgs(courtWithoutExistingListType).resolves(true);
+        subscriptionStub.withArgs(courtSubscription, userIdWithCourtSubscription).resolves(true);
 
-        const subscriptionRes = await subscriptionService.subscribe(userIdWithoutSubscriptions);
+        const subscriptionRes = await subscriptionService.subscribe(userIdWithCourtSubscription);
+        expect(subscriptionRes).toBe(true);
+    });
+
+    it('should return true for successful subscription where no existing subs - case number subscription', async () => {
+        const caseSubscription = {
+            channel: 'EMAIL',
+            searchType: 'CASE_ID',
+            searchValue: mockCase.caseNumber,
+            caseNumber: mockCase.caseNumber,
+            caseName: mockCase.caseName,
+            urn: mockCase.caseUrn,
+            userId: userIdWithCaseSubscription,
+        };
+
+        subscriptionStub.withArgs(caseSubscription, userIdWithCaseSubscription).resolves(true);
+
+        const subscriptionRes = await subscriptionService.subscribe(userIdWithCaseSubscription);
+
+        sinon.assert.calledWith(removeStub, {'case-number': mockCase.caseNumber}, userIdWithCaseSubscription);
+
+        expect(subscriptionRes).toBe(true);
+    });
+
+    it('should return true for successful subscription where no existing subs - case urn subscription', async () => {
+        const caseSubscription = {
+            channel: 'EMAIL',
+            searchType: 'CASE_URN',
+            searchValue: mockCaseWithUrnOnly.caseUrn,
+            caseNumber: mockCaseWithUrnOnly.caseNumber,
+            caseName: mockCaseWithUrnOnly.caseName,
+            urn: mockCaseWithUrnOnly.caseUrn,
+            userId: userIdWithUrnSubscription,
+        };
+
+        subscriptionStub.withArgs(caseSubscription, userIdWithUrnSubscription).resolves(true);
+
+        const subscriptionRes = await subscriptionService.subscribe(userIdWithUrnSubscription);
+
+        sinon.assert.calledWith(removeStub, {'case-urn': mockCaseWithUrnOnly.caseUrn}, userIdWithUrnSubscription);
+
         expect(subscriptionRes).toBe(true);
     });
 });
 
 describe('removeFromCache function', () => {
     it('should call a function to remove a case from the cache', async () => {
-        await pendingSubscriptionsFromCache.removeFromCache({ case: '888' }, userIdWithSubscriptions);
+        await subscriptionService.removeFromCache({ case: '888' }, userIdWithSubscriptions);
         sinon.assert.called(removeStub);
     });
 
     it('should call a function to remove a court from the cache', async () => {
-        await pendingSubscriptionsFromCache.removeFromCache({ court: '111' }, userIdWithSubscriptions);
+        await subscriptionService.removeFromCache({ court: '111' }, userIdWithSubscriptions);
         sinon.assert.called(removeStub);
     });
 });
@@ -630,7 +685,14 @@ describe('configureListTypeForLocationSubscriptions', () => {
     });
 });
 
+
 describe('unsubscribing', () => {
+
+    const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
+
+    deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
+    deleteStub.withArgs('InValidSubscriptionId').resolves(null);
+
     it('should return a message if subscription is deleted', async () => {
         const payload = await subscriptionService.unsubscribe('ValidSubscriptionId', '2345-2345');
         expect(payload).toEqual('Subscription was deleted');
@@ -643,6 +705,12 @@ describe('unsubscribing', () => {
 });
 
 describe('bulkDeleteSubscriptions', () => {
+
+    const bulkDeleteStub = sinon.stub(SubscriptionRequests.prototype, 'bulkDeleteSubscriptions');
+
+    bulkDeleteStub.withArgs(['ValidSubscriptionId']).resolves('Subscription was deleted');
+    bulkDeleteStub.withArgs(['InValidSubscriptionId']).resolves(null);
+
     it('should return a message if subscription is deleted', async () => {
         const payload = await subscriptionService.bulkDeleteSubscriptions(['ValidSubscriptionId']);
         expect(payload).toEqual('Subscription was deleted');
