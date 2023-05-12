@@ -12,7 +12,6 @@ const resultFound = '1 result successfully found';
 const CASE_NUMBER_PAGE_URL = `/case-reference-number-search-results?search-input=${searchTerm}&search-type=case-number`;
 const CASE_URN_PAGE_URL = `/case-reference-number-search-results?search-input=${searchTerm}&search-type=case-urn`;
 
-
 const rowClass = 'govuk-table__row';
 
 let htmlRes: Document;
