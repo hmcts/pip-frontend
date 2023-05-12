@@ -7,16 +7,9 @@ import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
 import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
 import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
 import { CourtListPage } from '../PageObjects/CourtList.page';
-// import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { HomePage } from '../PageObjects/Home.page';
 import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
 import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
-// import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
-// import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
-// import { RemoveListConfirmationPage } from '../PageObjects/RemoveListConfirmation.page';
-// import { RemoveListSearchPage } from '../PageObjects/RemoveListSearch.page';
-// import { RemoveListSearchResultsPage } from '../PageObjects/RemoveListSearchResults.page';
-// import { RemoveListSuccessPage } from '../PageObjects/RemoveListSuccess.page';
 import { SearchPage } from '../PageObjects/Search.page';
 import { SignInPage } from '../PageObjects/SignIn.page';
 import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
@@ -34,17 +27,6 @@ import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
 import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
 import { CftAuthenticationFailedPage } from '../PageObjects/CftAuthenticationFailed.page';
 import { SessionLoggedOutPage } from '../PageObjects/SessionLoggedOut.page';
-// import { ManualReferenceDataUploadPage } from '../PageObjects/ManualReferenceDataUpload.page';
-// import { ManualReferenceDataUploadSummaryPage } from '../PageObjects/ManualReferenceDataUploadSummary.page';
-// import { BlobViewLocationsPage } from '../pageobjects/BlobViewLocationsPage';
-// import { DeleteCourtReferenceDataPage } from '../PageObjects/DeleteCourtReferenceData.page';
-// import { DeleteCourtReferenceConfirmationPage } from '../PageObjects/DeleteCourtReferenceConfirmation.page';
-// import { DeleteCourtReferenceSuccessPage } from '../PageObjects/DeleteCourtReferenceSuccess.page';
-// import { UserManagementPage } from '../PageObjects/UserManagement.page';
-// import { ManageUserPage } from '../PageObjects/ManageUser.page';
-// import { UpdateUserPage } from '../PageObjects/UpdateUser.page';
-// import { DeleteUserPage } from '../PageObjects/DeleteUser.page';
-// import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPage';
 import { ManageThirdPartyUsersPage } from '../PageObjects/ManageThirdPartyUsers.page';
 import { ListDownloadDisclaimerPage } from '../PageObjects/ListDownloadDisclaimer.page';
 import { ListDownloadFilesPage } from '../PageObjects/ListDownloadFiles.page';
@@ -62,9 +44,6 @@ let searchPage: SearchPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedurePage: SingleJusticeProcedurePage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
-// let manualUploadSummaryPage: ManualUploadSummaryPage;
-// let fileUploadConfirmationPage: FileUploadConfirmationPage;
-// let manualUploadPage: ManualUploadPage;
 let adminDashboard = new AdminDashboardPage();
 let systemAdminDashboard = new SystemAdminDashboardPage();
 let createMediaAccountPage: CreateMediaAccountPage;
@@ -78,10 +57,6 @@ let listDownloadFilesPage: ListDownloadFilesPage;
 let signInPage: SignInPage;
 let createAdminAccountPage: CreateAdminAccountPage;
 let createAdminAccountSummaryPage: CreateAdminAccountSummaryPage;
-// let searchPublicationPage: RemoveListSearchPage;
-// let searchPublicationResultsPage: RemoveListSearchResultsPage;
-// let publicationConfirmationPage: RemoveListConfirmationPage;
-// let removePublicationSuccessPage: RemoveListSuccessPage;
 let mediaAccountRequestsPage: MediaAccountRequestsPage;
 let mediaAccountReviewPage: MediaAccountReviewPage;
 let mediaAccountApprovalPage: MediaAccountApprovalPage;
@@ -90,15 +65,6 @@ let mediaAccountRejectionReasonsPage: MediaAccountRejectionReasonsPage;
 let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
 let cftAuthenticationFailedPage: CftAuthenticationFailedPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
-// let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
-// let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
-// let deleteCourtReferenceDataPage: DeleteCourtReferenceDataPage;
-// let deleteCourtReferenceConfirmationPage: DeleteCourtReferenceConfirmationPage;
-// let deleteCourtReferenceSuccessPage: DeleteCourtReferenceSuccessPage;
-// let userManagementPage: UserManagementPage;
-// let manageUserPage: ManageUserPage;
-// let updateUserPage: UpdateUserPage;
-// let deleteUserPage: DeleteUserPage;
 let manageThirdPartyUsersPage: ManageThirdPartyUsersPage;
 let bulkCreateMediaAccountsPage: BulkCreateMediaAccountsPage;
 let bulkCreateMediaAccountsConfirmationPage: BulkCreateMediaAccountsConfirmationPage;
@@ -467,7 +433,7 @@ describe('CFT IDAM user login', () => {
         it('should open Authentication failed page', async () => {
             expect(await cftAuthenticationFailedPage.getParagraphText()).toBe(
                 'You have successfully signed into your MyHMCTS account.' +
-                ' Unfortunately, your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
+                    ' Unfortunately, your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
             );
         });
     });
@@ -690,7 +656,7 @@ describe('System Admin level journeys', () => {
         expect(await systemAdminDashboard.getPageTitle()).toEqual('System Admin Dashboard');
     });
 
-     describe('manage third party users dashboard', () => {
+    describe('manage third party users dashboard', () => {
         it('should open third party users page', async () => {
             manageThirdPartyUsersPage = await systemAdminDashboard.clickManageThirdPartyUsersCard();
             expect(await manageThirdPartyUsersPage.getPageTitle()).toEqual('Manage Third Party Users');
