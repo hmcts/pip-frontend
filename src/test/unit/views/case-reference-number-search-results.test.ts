@@ -7,10 +7,11 @@ import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 
 const searchTerm = '56-181-2097';
-const searchType = 'case-number';
 const numOfResults = '1';
 const resultFound = '1 result successfully found';
-const PAGE_URL = `/case-reference-number-search-results?search-input=${searchTerm}&search-type=${searchType}`;
+const CASE_NUMBER_PAGE_URL = `/case-reference-number-search-results?search-input=${searchTerm}&search-type=case-number`;
+const CASE_URN_PAGE_URL = `/case-reference-number-search-results?search-input=${searchTerm}&search-type=case-urn`;
+
 
 const rowClass = 'govuk-table__row';
 
@@ -19,15 +20,16 @@ let htmlRes: Document;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const subscriptionsData = JSON.parse(rawData)[0].search.cases[0];
 sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').returns(subscriptionsData);
+sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').returns(subscriptionsData);
 
 const pageTitleValue = 'Search result';
 
 app.request['user'] = { roles: 'VERIFIED' };
 
-describe('Case Reference Search Results Page', () => {
+describe('Case Reference Search Results Page - Number', () => {
     beforeAll(async () => {
         await request(app)
-            .get(PAGE_URL)
+            .get(CASE_NUMBER_PAGE_URL)
             .then(res => {
                 htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 htmlRes.getElementsByTagName('div')[0].remove();
@@ -71,5 +73,29 @@ describe('Case Reference Search Results Page', () => {
 
         expect(items[0].innerHTML).contains('case name 1', 'Case number does not exist');
         expect(items[1].innerHTML).contains('635356', 'Case reference no does not exist');
+    });
+});
+
+describe('Case Reference Search Results Page - URN', () => {
+    beforeAll(async () => {
+        await request(app)
+            .get(CASE_URN_PAGE_URL)
+            .then(res => {
+                htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                htmlRes.getElementsByTagName('div')[0].remove();
+            });
+    });
+
+    it('should contain 2 rows including the header row', () => {
+        const rows = htmlRes.getElementsByClassName(rowClass);
+        expect(rows.length).equal(2, 'Table did not contain expected number of rows');
+    });
+
+    it('should contain rows with correct values', () => {
+        const rows = htmlRes.getElementsByClassName(rowClass);
+        const items = rows.item(1).children;
+
+        expect(items[0].innerHTML).contains('case name 1', 'Case number does not exist');
+        expect(items[1].innerHTML).contains('38543', 'Case urn does not exist');
     });
 });
