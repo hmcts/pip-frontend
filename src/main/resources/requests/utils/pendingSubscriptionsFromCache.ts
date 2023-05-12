@@ -42,7 +42,12 @@ export class PendingSubscriptionsFromCache {
                 const cachedCases = await this.getPendingSubscriptions(userId, 'cases');
                 cachedCases.forEach((item, index) => {
                     if (removeObject['case-number']) {
-                        this.removeFromSubscriptionSet(item.caseNumber, removeObject['case-number'], index, cachedCases);
+                        this.removeFromSubscriptionSet(
+                            item.caseNumber,
+                            removeObject['case-number'],
+                            index,
+                            cachedCases
+                        );
                     } else {
                         this.removeFromSubscriptionSet(item.caseUrn, removeObject['case-urn'], index, cachedCases);
                     }

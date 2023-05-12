@@ -26,7 +26,7 @@ const mockUrnCase = {
     caseNumber: '11111111',
     caseName: 'CASENAME1234',
     caseUrn: 'A11112222',
-    urnSearch: true
+    urnSearch: true,
 };
 
 const mockCourt = {
@@ -105,7 +105,7 @@ describe('Pending Subscriptions Page', () => {
             expect(rows.length).equal(2, 'Case table did not contain expected number of rows');
         });
 
-        it ('should contain the correct data for the case number row', () => {
+        it('should contain the correct data for the case number row', () => {
             const rows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
@@ -119,7 +119,7 @@ describe('Pending Subscriptions Page', () => {
             );
         });
 
-        it ('should contain the correct data for the urn row', () => {
+        it('should contain the correct data for the urn row', () => {
             const rows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
@@ -131,7 +131,7 @@ describe('Pending Subscriptions Page', () => {
             expect(cells[2].querySelector('a').getAttribute('href')).equal(
                 `/remove-subscription?case-urn=${mockUrnCase.caseUrn}`
             );
-        })
+        });
 
         it('should contain 1 row in the court table with correct values', () => {
             const rows = htmlRes
@@ -276,7 +276,7 @@ describe('Pending Subscriptions Page', () => {
             expect(rows.length).equal(2, 'Case table did not contain expected number of rows');
         });
 
-        it ('should contain the correct data for the case number row', () => {
+        it('should contain the correct data for the case number row', () => {
             const rows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
@@ -290,7 +290,7 @@ describe('Pending Subscriptions Page', () => {
             );
         });
 
-        it ('should contain the correct data for the urn row', () => {
+        it('should contain the correct data for the urn row', () => {
             const rows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
@@ -302,7 +302,7 @@ describe('Pending Subscriptions Page', () => {
             expect(cells[2].querySelector('a').getAttribute('href')).equal(
                 `/remove-subscription?case-urn=${mockUrnCase.caseUrn}`
             );
-        })
+        });
 
         it('should not contain any row in the court table', () => {
             const rows = htmlRes.getElementsByClassName('govuk-table__body')[1];

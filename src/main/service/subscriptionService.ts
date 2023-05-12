@@ -349,7 +349,9 @@ export class SubscriptionService {
             );
 
             if (response) {
-                const caseRef = cachedCase.urnSearch ? {'case-urn': cachedCase.caseUrn} : {'case-number': cachedCase.caseNumber};
+                const caseRef = cachedCase.urnSearch
+                    ? { 'case-urn': cachedCase.caseUrn }
+                    : { 'case-number': cachedCase.caseNumber };
                 await this.removeFromCache(caseRef, userId);
             } else {
                 subscribed = false;

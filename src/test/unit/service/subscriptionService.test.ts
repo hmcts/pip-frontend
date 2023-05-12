@@ -518,7 +518,6 @@ describe('getPendingSubscriptions function', () => {
 });
 
 describe('subscribe function', () => {
-
     const userIdWithUrnSubscription = '3';
     const userIdWithCaseSubscription = '4';
     const userIdWithCourtSubscription = '5';
@@ -573,7 +572,6 @@ describe('subscribe function', () => {
     });
 
     it('should return true for successful subscription where no existing subs - court subscription', async () => {
-
         const courtSubscription = {
             channel: 'EMAIL',
             searchType: 'LOCATION_ID',
@@ -604,7 +602,7 @@ describe('subscribe function', () => {
 
         const subscriptionRes = await subscriptionService.subscribe(userIdWithCaseSubscription);
 
-        sinon.assert.calledWith(removeStub, {'case-number': mockCase.caseNumber}, userIdWithCaseSubscription);
+        sinon.assert.calledWith(removeStub, { 'case-number': mockCase.caseNumber }, userIdWithCaseSubscription);
 
         expect(subscriptionRes).toBe(true);
     });
@@ -624,7 +622,7 @@ describe('subscribe function', () => {
 
         const subscriptionRes = await subscriptionService.subscribe(userIdWithUrnSubscription);
 
-        sinon.assert.calledWith(removeStub, {'case-urn': mockCaseWithUrnOnly.caseUrn}, userIdWithUrnSubscription);
+        sinon.assert.calledWith(removeStub, { 'case-urn': mockCaseWithUrnOnly.caseUrn }, userIdWithUrnSubscription);
 
         expect(subscriptionRes).toBe(true);
     });
@@ -685,9 +683,7 @@ describe('configureListTypeForLocationSubscriptions', () => {
     });
 });
 
-
 describe('unsubscribing', () => {
-
     const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
 
     deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
@@ -705,7 +701,6 @@ describe('unsubscribing', () => {
 });
 
 describe('bulkDeleteSubscriptions', () => {
-
     const bulkDeleteStub = sinon.stub(SubscriptionRequests.prototype, 'bulkDeleteSubscriptions');
 
     bulkDeleteStub.withArgs(['ValidSubscriptionId']).resolves('Subscription was deleted');
