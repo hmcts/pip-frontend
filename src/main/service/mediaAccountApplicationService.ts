@@ -59,7 +59,7 @@ export class MediaAccountApplicationService {
 
     public async rejectApplication(applicationId, adminId, reasons): Promise<object | null> {
         logHelper.writeLog(adminId, 'REJECT_MEDIA_ACCOUNT', applicationId);
-        const updateStatus = accountManagementRequests.updateMediaApplicationStatus(applicationId, 'REJECTED', reasons);
+        const updateStatus = await accountManagementRequests.updateMediaApplicationStatus(applicationId, 'REJECTED', reasons);
         if (updateStatus) {
             return updateStatus;
         } else {
