@@ -14,7 +14,7 @@ export default class BlobViewJsonController {
         const artefactId = req.query['artefactId'];
         if (artefactId) {
             const listTypes = publicationService.getListTypes();
-            const options: FormatOptions = { indent: 3, lineNumbers: true };
+            const options: FormatOptions = { indent: 3, lineNumbers: true, trailingComma: false };
 
             const data = await publicationService.getIndividualPublicationJson(
                 req.query['artefactId'],
