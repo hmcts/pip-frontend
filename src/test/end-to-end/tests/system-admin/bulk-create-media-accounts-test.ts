@@ -31,6 +31,8 @@ Scenario(
         I.click('Home');
         I.waitForText('System Admin Dashboard');
         I.click('#card-user-management');
+        I.fillField('#email',validUser1);
+        I.click('Apply filters');
         I.click(locate('//tr').withText(validUser1).find('a').withText('Manage'));
         I.waitForText('Ensure authorisation has been granted before updating this user');
         I.click('Delete user');
@@ -41,6 +43,8 @@ Scenario(
         I.click('Home');
         I.waitForText('System Admin Dashboard');
         I.click('#card-user-management');
+        I.fillField('#email',validUser2);
+        I.click('Apply filters');
         I.click(locate('//tr').withText(validUser2).find('a').withText('Manage'));
         I.waitForText('Ensure authorisation has been granted before updating this user');
         I.click('Delete user');
