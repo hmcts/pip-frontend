@@ -34,7 +34,7 @@ export default class MagistratesPublicListController {
             );
             const location = await locationService.getLocationById(metaData['locationId']);
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-            const provenance = (metaData['provenance'] == "SNL") ? "List Assist" : metaData['provenance'];
+            const provenance = metaData['provenance'] == 'SNL' ? 'List Assist' : metaData['provenance'];
 
             res.render('magistrates-public-list', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['magistrates-public-list']),
