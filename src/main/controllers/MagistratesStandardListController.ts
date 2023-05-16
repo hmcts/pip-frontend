@@ -34,6 +34,7 @@ export default class MagistratesStandardListController {
             );
             const location = await locationService.getLocationById(metaData['locationId']);
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
+            const provenance = (metaData['provenance'] == "SNL") ? "List Assist" : metaData['provenance'];
 
             res.render('magistrates-standard-list', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['magistrates-standard-list']),
@@ -42,7 +43,7 @@ export default class MagistratesStandardListController {
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                provenance: metaData['provenance'],
+                provenance: provenance,
                 version: searchResults['document']['version'],
                 courtName: location.name,
                 bill: pageLanguage === 'bill',
