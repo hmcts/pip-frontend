@@ -63,8 +63,8 @@ export function padFormatted(value) {
     return value.toString().padStart(2, '0');
 }
 
-export function getCurrentDateWthFormat(format): string {
-    return DateTime.now().setLocale('gb').toFormat('dd/MM/yyyy');
+export function getCurrentDateWthFormat(format = 'dd/MM/yyyy'): string {
+    return DateTime.now().setLocale('gb').toFormat(format);
 }
 
 export function getDateNowAndFuture(): [Date, Date] {
