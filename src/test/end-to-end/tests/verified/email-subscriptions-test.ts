@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { createLocation, uploadPublication } from '../../shared/testingSupportApi';
 import { generateTestLocation, removeTestLocationFile } from '../../shared/shared-functions';
 
-Feature('Email subscriptions');
+Feature('Verified user email subscriptions');
 const caseId = '12341234';
 const caseName = 'Test Case Name';
 const caseURN = 'Case URN';

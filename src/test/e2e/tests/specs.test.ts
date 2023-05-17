@@ -7,16 +7,9 @@ import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
 import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
 import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
 import { CourtListPage } from '../PageObjects/CourtList.page';
-import { FileUploadConfirmationPage } from '../PageObjects/FileUploadConfirmation.page';
 import { HomePage } from '../PageObjects/Home.page';
 import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
 import { LiveCaseStatusPage } from '../PageObjects/LiveCaseStatus.page';
-import { ManualUploadPage } from '../PageObjects/ManualUpload.page';
-import { ManualUploadSummaryPage } from '../PageObjects/ManualUploadSummary.page';
-import { RemoveListConfirmationPage } from '../PageObjects/RemoveListConfirmation.page';
-import { RemoveListSearchPage } from '../PageObjects/RemoveListSearch.page';
-import { RemoveListSearchResultsPage } from '../PageObjects/RemoveListSearchResults.page';
-import { RemoveListSuccessPage } from '../PageObjects/RemoveListSuccess.page';
 import { SearchPage } from '../PageObjects/Search.page';
 import { SignInPage } from '../PageObjects/SignIn.page';
 import { SingleJusticeProcedurePage } from '../PageObjects/SingleJusticeProcedure.page';
@@ -34,17 +27,6 @@ import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
 import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
 import { CftAuthenticationFailedPage } from '../PageObjects/CftAuthenticationFailed.page';
 import { SessionLoggedOutPage } from '../PageObjects/SessionLoggedOut.page';
-import { ManualReferenceDataUploadPage } from '../PageObjects/ManualReferenceDataUpload.page';
-import { ManualReferenceDataUploadSummaryPage } from '../PageObjects/ManualReferenceDataUploadSummary.page';
-import { BlobViewLocationsPage } from '../pageobjects/BlobViewLocationsPage';
-import { DeleteCourtReferenceDataPage } from '../PageObjects/DeleteCourtReferenceData.page';
-import { DeleteCourtReferenceConfirmationPage } from '../PageObjects/DeleteCourtReferenceConfirmation.page';
-import { DeleteCourtReferenceSuccessPage } from '../PageObjects/DeleteCourtReferenceSuccess.page';
-import { UserManagementPage } from '../PageObjects/UserManagement.page';
-import { ManageUserPage } from '../PageObjects/ManageUser.page';
-import { UpdateUserPage } from '../PageObjects/UpdateUser.page';
-import { DeleteUserPage } from '../PageObjects/DeleteUser.page';
-import { BlobViewPublicationsPage } from '../pageobjects/BlobViewPublicationsPage';
 import { ManageThirdPartyUsersPage } from '../PageObjects/ManageThirdPartyUsers.page';
 import { ListDownloadDisclaimerPage } from '../PageObjects/ListDownloadDisclaimer.page';
 import { ListDownloadFilesPage } from '../PageObjects/ListDownloadFiles.page';
@@ -62,9 +44,6 @@ let searchPage: SearchPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedurePage: SingleJusticeProcedurePage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
-let manualUploadSummaryPage: ManualUploadSummaryPage;
-let fileUploadConfirmationPage: FileUploadConfirmationPage;
-let manualUploadPage: ManualUploadPage;
 let adminDashboard = new AdminDashboardPage();
 let systemAdminDashboard = new SystemAdminDashboardPage();
 let createMediaAccountPage: CreateMediaAccountPage;
@@ -78,10 +57,6 @@ let listDownloadFilesPage: ListDownloadFilesPage;
 let signInPage: SignInPage;
 let createAdminAccountPage: CreateAdminAccountPage;
 let createAdminAccountSummaryPage: CreateAdminAccountSummaryPage;
-let searchPublicationPage: RemoveListSearchPage;
-let searchPublicationResultsPage: RemoveListSearchResultsPage;
-let publicationConfirmationPage: RemoveListConfirmationPage;
-let removePublicationSuccessPage: RemoveListSuccessPage;
 let mediaAccountRequestsPage: MediaAccountRequestsPage;
 let mediaAccountReviewPage: MediaAccountReviewPage;
 let mediaAccountApprovalPage: MediaAccountApprovalPage;
@@ -90,17 +65,6 @@ let mediaAccountRejectionReasonsPage: MediaAccountRejectionReasonsPage;
 let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
 let cftAuthenticationFailedPage: CftAuthenticationFailedPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
-let manualReferenceDataUploadPage: ManualReferenceDataUploadPage;
-let manualReferenceDataUploadSummaryPage: ManualReferenceDataUploadSummaryPage;
-let deleteCourtReferenceDataPage: DeleteCourtReferenceDataPage;
-let deleteCourtReferenceConfirmationPage: DeleteCourtReferenceConfirmationPage;
-let deleteCourtReferenceSuccessPage: DeleteCourtReferenceSuccessPage;
-let userManagementPage: UserManagementPage;
-let manageUserPage: ManageUserPage;
-let updateUserPage: UpdateUserPage;
-let deleteUserPage: DeleteUserPage;
-let blobViewLocationsPage: BlobViewLocationsPage;
-let blobViewPublicationsPage: BlobViewPublicationsPage;
 let manageThirdPartyUsersPage: ManageThirdPartyUsersPage;
 let bulkCreateMediaAccountsPage: BulkCreateMediaAccountsPage;
 let bulkCreateMediaAccountsConfirmationPage: BulkCreateMediaAccountsConfirmationPage;
@@ -469,7 +433,7 @@ describe('CFT IDAM user login', () => {
         it('should open Authentication failed page', async () => {
             expect(await cftAuthenticationFailedPage.getParagraphText()).toBe(
                 'You have successfully signed into your MyHMCTS account.' +
-                ' Unfortunately, your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
+                    ' Unfortunately, your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
             );
         });
     });
@@ -620,66 +584,6 @@ describe('Admin level journeys', () => {
         });
     });
 
-    describe('Manual Upload', () => {
-        it('should open admin dashboard page', async () => {
-            await adminDashboard.open('/admin-dashboard');
-            expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
-        });
-
-        it('should open manual upload page', async () => {
-            manualUploadPage = await adminDashboard.clickUploadFileCard();
-            expect(await manualUploadPage.getPageTitle()).toEqual('Manual upload');
-        });
-
-        it('should complete form and open summary page', async () => {
-            await manualUploadPage.completeForm();
-            manualUploadSummaryPage = await manualUploadPage.clickContinue();
-            expect(await manualUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
-        });
-
-        it('should open upload confirmation page', async () => {
-            fileUploadConfirmationPage = await manualUploadSummaryPage.clickContinue();
-            expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
-        });
-    });
-
-    describe('Manual Removal', () => {
-        it('should open remove publication search page', async () => {
-            await adminDashboard.open('/admin-dashboard');
-            searchPublicationPage = await adminDashboard.clickRemoveCard();
-            expect(await searchPublicationPage.getPageTitle()).toEqual('Find content to remove');
-        });
-
-        it('should enter valid court in the search field, click continue and open search results page', async () => {
-            await searchPublicationPage.enterText(testCourt);
-            searchPublicationResultsPage = await searchPublicationPage.clickContinue();
-            expect(await searchPublicationResultsPage.getPageTitle()).toEqual('Select content to remove');
-        });
-
-        it('should sort the removal table by content date on ascending order', async () => {
-            await searchPublicationResultsPage.clickContentDateSortButton();
-            expect(await searchPublicationResultsPage.getFirstRowContentDate()).toContain('1999');
-        });
-
-        it('should click on the first result and open confirmation page', async () => {
-            publicationConfirmationPage = await searchPublicationResultsPage.clickRemoveOnFirstRecord();
-            expect(await publicationConfirmationPage.getPageTitle()).toEqual(
-                'Are you sure you want to remove this publication?'
-            );
-        });
-
-        it('should select yes option and remove publication', async () => {
-            await publicationConfirmationPage.selectOption('remove-choice');
-            removePublicationSuccessPage = await publicationConfirmationPage.clickContinueToRemovePublication();
-            expect(await removePublicationSuccessPage.getPanelTitle()).toEqual('Success');
-        });
-
-        it('should click on the home link and open admin dashboard page', async () => {
-            adminDashboard = await removePublicationSuccessPage.clickHome();
-            expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
-        });
-    });
-
     describe('Manage media account requests journey', () => {
         before(async () => {
             await adminDashboard.open('/admin-dashboard');
@@ -752,176 +656,10 @@ describe('System Admin level journeys', () => {
         expect(await systemAdminDashboard.getPageTitle()).toEqual('System Admin Dashboard');
     });
 
-    describe('Reference Manual Upload', () => {
-        before(async () => {
-            await systemAdminDashboard.open('/system-admin-dashboard');
-        });
-
-        it('should open reference manual upload page', async () => {
-            manualReferenceDataUploadPage = await systemAdminDashboard.clickReferenceDataUploadFileCard();
-            expect(await manualReferenceDataUploadPage.getPageTitle()).toEqual('Reference manual data upload');
-        });
-
-        it('should complete form and open summary page', async () => {
-            await manualReferenceDataUploadPage.completeForm('testReferenceData.csv');
-            manualReferenceDataUploadSummaryPage = await manualReferenceDataUploadPage.clickContinue();
-            expect(await manualReferenceDataUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
-        });
-        it('should open upload confirmation page', async () => {
-            fileUploadConfirmationPage = await manualReferenceDataUploadSummaryPage.clickContinue();
-            expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
-        });
-    });
-
-    describe('Delete Court In Reference Upload', () => {
-        before(async () => {
-            await systemAdminDashboard.open('/system-admin-dashboard');
-        });
-
-        it('should open reference manual upload page', async () => {
-            manualReferenceDataUploadPage = await systemAdminDashboard.clickReferenceDataUploadFileCard();
-            expect(await manualReferenceDataUploadPage.getPageTitle()).toEqual('Reference manual data upload');
-        });
-        it('should complete form and open summary page', async () => {
-            await manualReferenceDataUploadPage.completeForm('deleteReferenceDataCourt.csv');
-            manualReferenceDataUploadSummaryPage = await manualReferenceDataUploadPage.clickContinue();
-            expect(await manualReferenceDataUploadSummaryPage.getPageTitle()).toEqual('Check upload details');
-        });
-        it('should open upload confirmation page', async () => {
-            fileUploadConfirmationPage = await manualReferenceDataUploadSummaryPage.clickContinue();
-            expect(await fileUploadConfirmationPage.getPanelTitle()).toEqual('Success');
-        });
-
-        it('should open system admin dashboard page', async () => {
-            await systemAdminDashboard.open('/system-admin-dashboard');
-        });
-        it('should open delete reference data page', async () => {
-            deleteCourtReferenceDataPage = await systemAdminDashboard.clickDeleteCourtCard();
-            expect(await deleteCourtReferenceDataPage.getPageTitle()).toEqual('Find the court to remove');
-        });
-
-        it('should click on the first result and open confirmation page', async () => {
-            const searchTerm = 'Delete Court';
-            await deleteCourtReferenceDataPage.enterText(searchTerm);
-            deleteCourtReferenceConfirmationPage = await deleteCourtReferenceDataPage.clickContinue();
-            expect(await deleteCourtReferenceConfirmationPage.getPageTitle()).toEqual(
-                'Are you sure you want to delete this court?'
-            );
-        });
-
-        it('should select the radio button and open success page', async () => {
-            await deleteCourtReferenceConfirmationPage.selectOption('delete-choice');
-            deleteCourtReferenceSuccessPage = await deleteCourtReferenceConfirmationPage.clickContinueToDeleteCourt();
-            expect(await deleteCourtReferenceSuccessPage.getPageTitle()).toEqual('Success');
-        });
-
-        it('should click on the home link and open admin dashboard page', async () => {
-            systemAdminDashboard = await deleteCourtReferenceSuccessPage.clickHome();
-            expect(await systemAdminDashboard.getPageTitle()).toEqual('System Admin Dashboard');
-        });
-    });
-
     describe('manage third party users dashboard', () => {
         it('should open third party users page', async () => {
             manageThirdPartyUsersPage = await systemAdminDashboard.clickManageThirdPartyUsersCard();
             expect(await manageThirdPartyUsersPage.getPageTitle()).toEqual('Manage Third Party Users');
-        });
-    });
-
-    describe('User management journey', () => {
-        before(async () => {
-            await systemAdminDashboard.open('/system-admin-dashboard');
-        });
-
-        it('should open user management page', async () => {
-            userManagementPage = await systemAdminDashboard.clickUserManagementCard();
-            expect(await userManagementPage.getPageTitle()).toEqual('User Management');
-        });
-
-        it('should input email into the filter', async () => {
-            await userManagementPage.inputEmail();
-        });
-
-        it('should click the apply filter button', async () => {
-            await userManagementPage.clickFilterButton();
-        });
-
-        it('should click the manage link and be taken to the manage user page', async () => {
-            manageUserPage = await userManagementPage.clickManageLink();
-            expect(await manageUserPage.getPageTitle()).toEqual('Manage pip-auto-test-admin@hmcts.net');
-        });
-
-        it('should click the change link and load the update user page', async () => {
-            updateUserPage = await manageUserPage.clickChangeLink();
-            expect(await updateUserPage.getPageTitle()).toEqual(
-                'What role would you like pip-auto-test-admin@hmcts.net to have?'
-            );
-        });
-
-        it('should be able to update the users role', async () => {
-            await updateUserPage.selectUserRole();
-        });
-
-        it('should open the update users role confirmation page and click to go back to the dashboard', async () => {
-            const updateUserConfirmationPage = await updateUserPage.clickContinueButton();
-            expect(await updateUserConfirmationPage.getPageTitle()).toEqual('User Updated');
-            expect(await updateUserConfirmationPage.getPanelBody()).toEqual(
-                'This user has been updated to a Local Admin. ' +
-                'They will need to sign in again for this to take effect'
-            );
-            const systemAdminDashboardPage = await updateUserConfirmationPage.clickDashboardLink();
-            expect(await systemAdminDashboardPage.getPageTitle()).toEqual('System Admin Dashboard');
-        });
-
-        it('should open the user management page again', async () => {
-            userManagementPage = await systemAdminDashboard.clickUserManagementCard();
-            expect(await userManagementPage.getPageTitle()).toEqual('User Management');
-        });
-
-        it('should input email into the filter again', async () => {
-            await userManagementPage.inputEmail();
-        });
-
-        it('should click the apply filter button again', async () => {
-            await userManagementPage.clickFilterButton();
-        });
-
-        it('should click the manage link and be taken to the manage user page again', async () => {
-            manageUserPage = await userManagementPage.clickManageLink();
-            expect(await manageUserPage.getPageTitle()).toEqual('Manage pip-auto-test-admin@hmcts.net');
-        });
-
-        it('should click the delete user button', async () => {
-            deleteUserPage = await manageUserPage.clickDeleteUserButton();
-            expect(await deleteUserPage.getPageTitle()).toEqual(
-                'Are you sure you want to delete pip-auto-test-admin@hmcts.net?'
-            );
-        });
-
-        it('should select the yes radio button to delete', async () => {
-            await deleteUserPage.selectOption('deleteUserConfirmRadioButton');
-        });
-
-        it('should open the delete user confirmation page', async () => {
-            const deleteUserConfirmationPage = await deleteUserPage.clickContinueButton();
-            expect(await deleteUserConfirmationPage.getPageTitle()).toEqual('User Deleted');
-            expect(await deleteUserConfirmationPage.getPanelBody()).toEqual(
-                'All data relating to the user has been deleted,' + ' including subscriptions for media users.'
-            );
-        });
-    });
-
-    describe('should open blob view locations page', async () => {
-        before(async () => {
-            await systemAdminDashboard.open('/system-admin-dashboard?lng=en');
-        });
-        it('should load the blob view locations page', async () => {
-            blobViewLocationsPage = await systemAdminDashboard.clickBlobExplorerLocationsCard();
-            expect(await blobViewLocationsPage.getPageTitle()).toEqual('Blob Explorer - Locations');
-        });
-        it('should choose the first result', async () => {
-            blobViewPublicationsPage = await blobViewLocationsPage.selectFirstListResult();
-            expect(await blobViewPublicationsPage.getPageTitle()).toEqual('Blob Explorer - Publications');
         });
     });
 
