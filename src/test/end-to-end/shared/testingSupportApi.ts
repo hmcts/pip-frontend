@@ -125,6 +125,18 @@ export const deletePublicationForCourt = async (locationId: string) => {
     }
 };
 
+export const deletePublicationByArtefactId = async (artefactId: string) => {
+    const token = await getDataManagementCredentials();
+    try {
+        await superagent
+            .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/publication/${artefactId}`)
+            .set('x-issuer-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`)
+            .set({ Authorization: 'Bearer ' + token.access_token });
+    } catch (e) {
+        throw new Error(`Failed to delete artefact for: ${artefactId}, http-status: ${e.response?.status}`);
+    }
+};
+
 export const createSystemAdminAccount = async (firstName: string, surname: string, email: string) => {
     const token = await getAccountManagementCredentials();
     const systemAdminAccount = {
