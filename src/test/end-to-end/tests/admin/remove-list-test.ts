@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { createLocation, uploadPublication } from '../../shared/testingSupportApi';
 import { generateTestLocation, removeTestLocationFile } from '../../shared/shared-functions';
 
-Feature('Remove List');
+Feature('Admin remove list');
 const listType = 'Civil And Family Daily Cause List';
 const displayFrom = DateTime.now().toISO({ includeOffset: false });
 const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });

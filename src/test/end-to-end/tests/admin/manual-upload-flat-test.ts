@@ -6,7 +6,7 @@ import {
 } from '../../shared/shared-functions';
 import { createLocation } from '../../shared/testingSupportApi';
 
-Feature('Manual upload flat file');
+Feature('Admin manual upload flat file');
 
 const flatFileName = new DataTable(['flatFileName']);
 flatFileName.add(['testFlatFile.pdf']);
