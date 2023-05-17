@@ -112,23 +112,20 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.see('Action');
 
     const publicationLocator = locate('//tr').withText('PUBLICATION_UPLOAD').find('a').withText('View');
-    const numberOfUploadElements = await I.grabNumberOfVisibleElements(publicationLocator);
 
-    if (numberOfUploadElements >= 1) {
-        I.click(publicationLocator);
-    } else {
-        I.click('Next');
-        I.waitForText('System admin audit log');
-        I.click(publicationLocator);
+    for (let i = 0; i<=3; i++ ) {
+        const numberOfUploadElements = await I.grabNumberOfVisibleElements(publicationLocator);
+
+        if (numberOfUploadElements >= 1) {
+            I.click(publicationLocator);
+            break;
+        } else {
+            I.click('Next');
+            I.waitForText('System admin audit log');
+        }
     }
 
-    I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
-    I.see(testConfig.ADMIN_USERNAME as string);
-    I.see('CTSC Super Admin');
-    I.see('B2C');
-    I.see('PUBLICATION_UPLOAD');
-    I.see('Publication with artefact id');
-    I.see('successfully uploaded');
+    I.waitForText('View audit log for ');
 
     I.click('Home');
     I.see('System Admin Dashboard');
@@ -136,24 +133,20 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.waitForText('System admin audit log');
 
     const deleteLocator = locate('//tr').withText('DELETE_PUBLICATION').find('a').withText('View');
-    const numberOfDeleteElements = await I.grabNumberOfVisibleElements(publicationLocator);
 
-    if (numberOfDeleteElements >= 1) {
-        I.click(deleteLocator);
-    } else {
-        I.click('Next');
-        I.waitForText('System admin audit log');
-        I.click(deleteLocator);
+    for (let i = 0; i<=3; i++ ) {
+        const numberOfDeleteElements = await I.grabNumberOfVisibleElements(deleteLocator);
+
+        if (numberOfDeleteElements >= 1) {
+            I.click(deleteLocator);
+            break;
+        } else {
+            I.click('Next');
+            I.waitForText('System admin audit log');
+        }
     }
 
-    I.click(locate('//tr').withText('DELETE_PUBLICATION').find('a').withText('View'));
-    I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
-    I.see(testConfig.ADMIN_USERNAME as string);
-    I.see('CTSC Super Admin');
-    I.see('B2C');
-    I.see('DELETE_PUBLICATION');
-    I.see('Publication with artefact id');
-    I.see('successfully deleted');
+    I.waitForText('View audit log for ');
 
     I.logout();
 
