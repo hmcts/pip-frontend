@@ -111,7 +111,17 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.see('Email');
     I.see('Action');
 
-    I.click(locate('//tr').withText('PUBLICATION_UPLOAD').find('a').withText('View'));
+    const publicationLocator = locate('//tr').withText('PUBLICATION_UPLOAD').find('a').withText('View');
+    const numberOfUploadElements = await I.grabNumberOfVisibleElements(publicationLocator);
+
+    if (numberOfUploadElements >= 1) {
+        I.click(publicationLocator);
+    } else {
+        I.click("Next");
+        I.waitForText('System admin audit log');
+        I.click(publicationLocator);
+    }
+
     I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
     I.see(testConfig.ADMIN_USERNAME as string);
     I.see('CTSC Super Admin');
@@ -124,6 +134,18 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.see('System Admin Dashboard');
     I.click('#card-audit-log-viewer');
     I.waitForText('System admin audit log');
+
+
+    const deleteLocator = locate('//tr').withText('DELETE_PUBLICATION').find('a').withText('View');
+    const numberOfDeleteElements = await I.grabNumberOfVisibleElements(publicationLocator);
+
+    if (numberOfDeleteElements >= 1) {
+        I.click(deleteLocator);
+    } else {
+        I.click("Next");
+        I.waitForText('System admin audit log');
+        I.click(deleteLocator);
+    }
 
     I.click(locate('//tr').withText('DELETE_PUBLICATION').find('a').withText('View'));
     I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
@@ -138,4 +160,4 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
 
     I.deleteLocation(locationId);
     removeTestLocationFile(locationFileName);
-});
+}).tag("@Test");
