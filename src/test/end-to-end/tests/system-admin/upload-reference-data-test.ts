@@ -1,4 +1,4 @@
-Feature('Upload Reference Data');
+Feature('System admin upload reference data');
 
 const CSV_FILE_PATH = './shared/mocks/system-admin-upload-reference-data-test.csv';
 const INVALID_FILE_PATH = './shared/mocks/reference-data-invalid.csv';
