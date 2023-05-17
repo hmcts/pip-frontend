@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { createLocation, createSubscription, uploadPublication } from '../../shared/testingSupportApi';
 import { generateTestLocation, removeTestLocationFile } from '../../shared/shared-functions';
 
-Feature('Delete Location');
+Feature('System admin delete location');
 
 Scenario(
     'I as a system admin should be able to delete court only when there are no active subscriptions or artefacts',
