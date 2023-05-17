@@ -113,7 +113,7 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
 
     const publicationLocator = locate('//tr').withText('PUBLICATION_UPLOAD').find('a').withText('View');
 
-    for (let i = 0; i<=3; i++ ) {
+    for (let i = 0; i <= 3; i++) {
         const numberOfUploadElements = await I.grabNumberOfVisibleElements(publicationLocator);
 
         if (numberOfUploadElements >= 1) {
@@ -134,7 +134,7 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
 
     const deleteLocator = locate('//tr').withText('DELETE_PUBLICATION').find('a').withText('View');
 
-    for (let i = 0; i<=3; i++ ) {
+    for (let i = 0; i <= 3; i++) {
         const numberOfDeleteElements = await I.grabNumberOfVisibleElements(deleteLocator);
 
         if (numberOfDeleteElements >= 1) {
