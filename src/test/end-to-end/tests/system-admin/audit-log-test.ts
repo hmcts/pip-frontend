@@ -159,4 +159,4 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
 
     I.deleteLocation(locationId);
     removeTestLocationFile(locationFileName);
-}).tag('@Test');
+});
