@@ -117,7 +117,7 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     if (numberOfUploadElements >= 1) {
         I.click(publicationLocator);
     } else {
-        I.click("Next");
+        I.click('Next');
         I.waitForText('System admin audit log');
         I.click(publicationLocator);
     }
@@ -135,14 +135,13 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.click('#card-audit-log-viewer');
     I.waitForText('System admin audit log');
 
-
     const deleteLocator = locate('//tr').withText('DELETE_PUBLICATION').find('a').withText('View');
     const numberOfDeleteElements = await I.grabNumberOfVisibleElements(publicationLocator);
 
     if (numberOfDeleteElements >= 1) {
         I.click(deleteLocator);
     } else {
-        I.click("Next");
+        I.click('Next');
         I.waitForText('System admin audit log');
         I.click(deleteLocator);
     }
@@ -160,4 +159,4 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
 
     I.deleteLocation(locationId);
     removeTestLocationFile(locationFileName);
-}).tag("@Test");
+}).tag('@Test');
