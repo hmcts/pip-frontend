@@ -37,7 +37,7 @@ export default class DailyCauseListController {
             );
             const location = await locationService.getLocationById(metaData['locationId']);
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-            const provenance = metaData['provenance'] == 'SNL' ? 'ListAssist' : metaData['provenance'];
+            const provenance = metaData['provenance'] == 'SNL' ? 'LIST_ASSIST' : metaData['provenance'];
 
             res.render(listToLoad, {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),

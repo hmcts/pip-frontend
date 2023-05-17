@@ -27,7 +27,7 @@ export default class EtDailyListController {
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const courtName = locationService.findCourtName(returnedCourt, req.lng, 'et-daily-list');
-            const provenance = metaData['provenance'] == 'SNL' ? 'ListAssist' : metaData['provenance'];
+            const provenance = metaData['provenance'] == 'SNL' ? 'LIST_ASSIST' : metaData['provenance'];
 
             res.render('et-daily-list', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['et-daily-list']),
