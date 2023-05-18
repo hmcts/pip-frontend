@@ -25,7 +25,7 @@
             </tr>
             </thead>
             <tbody class="govuk-table__body">
-            {% for result in formattedResults.numberResults %}
+            {% for result in searchResults.numberResults %}
                     <tr class="govuk-table__row govuk-table__row--selected">
                         <td class="govuk-table__cell">
                             <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
@@ -42,7 +42,7 @@
                     </tr>
             {% endfor %}
 
-            {% for result in formattedResults.urnResults %}
+            {% for result in searchResults.urnResults %}
                 <tr class="govuk-table__row govuk-table__row--selected">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">

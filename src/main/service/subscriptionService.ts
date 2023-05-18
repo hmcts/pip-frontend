@@ -266,7 +266,6 @@ export class SubscriptionService {
             let locationIdsList = [];
             let caseDetailsList: object[];
             let courtDetailsList: object[];
-            let urnHearing;
             switch (selectionName) {
                 case 'case-number':
                 case 'case-number[]':
@@ -283,8 +282,8 @@ export class SubscriptionService {
                         ? (hearingIdsList = pendingSubscription[`${selectionName}`])
                         : hearingIdsList.push(pendingSubscription[`${selectionName}`]);
 
-                    urnHearing = await this.getCaseDetailsByUrn(hearingIdsList, user.userId);
-                    await this.setPendingSubscriptions([urnHearing], 'cases', user.userId);
+                    caseDetailsList = await this.getCaseDetailsByUrn(hearingIdsList, user.userId);
+                    await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
                     break;
                 case 'court-selections[]':
                     Array.isArray(pendingSubscription[`${selectionName}`])
