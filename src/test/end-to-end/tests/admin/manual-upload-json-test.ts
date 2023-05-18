@@ -6,7 +6,7 @@ import {
 } from '../../shared/shared-functions';
 import { createLocation } from '../../shared/testingSupportApi';
 
-Feature('Manual upload JSON');
+Feature('Admin manual upload JSON');
 
 Scenario('I as a admin user should be able to upload json file successfully', async ({ I }) => {
     const listType = 'Civil And Family Daily Cause List';

@@ -1,7 +1,7 @@
 import Assert from 'assert';
 import { getDateNowAndFuture, padFormatted } from '../../shared/shared-functions';
 
-Feature('Manual upload sensitivity');
+Feature('Admin manual upload sensitivity');
 
 Scenario('Manual upload sensitivity test', async ({ I }) => {
     const classificationId = '#classification';

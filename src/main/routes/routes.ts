@@ -79,6 +79,7 @@ export default function (app: Application): void {
     );
     app.get('/cancelled-password-reset/:isAdmin', app.locals.container.cradle.cancelledPasswordResetController.get);
     app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
+    app.get('/media-rejected-login', app.locals.container.cradle.mediaRejectedLoginController.get);
     app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/' }));
     app.get('/login', passport.authenticate('login', { failureRedirect: '/' }));
     app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/' }));
