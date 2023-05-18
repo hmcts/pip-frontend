@@ -1,0 +1,20 @@
+{% from "macros/common-components.njk" import goBack %}
+{% extends "template.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+  <ul class="moj-sub-navigation__list">
+    <li class="moj-sub-navigation__item">
+      <a class="moj-sub-navigation__link govuk-!-font-size-16t" href="/">{{ home }}</a>
+  </ul>
+  {{ goBack(text = backButton) }}
+{% endblock %}
+{% block pageTitle %}
+  {{ header }}
+{% endblock %}
+{% block content %}
+  <h1 class="govuk-heading-l">{{ header }}</h1>
+  <p class="govuk-body">{{ bodyText1 }}</p>
+  <p class="govuk-body">{{ bodyText2 }}</p>
+  <a href="{{ link }}" class="govuk-link govuk-body">{{ frontendUrl }}{{ link }}</a>
+{% endblock %}

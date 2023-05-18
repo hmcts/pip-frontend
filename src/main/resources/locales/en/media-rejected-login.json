@@ -1,0 +1,8 @@
+{
+    "home": "Home",
+    "header": "Sign in failed",
+    "bodyText1": "You have attempted to sign in as a member of HMCTS staff.",
+    "bodyText2": "Please always sign in using the following link below to sign in with your court and tribunal hearings account.",
+    "link": "/sign-in",
+    "backButton": "Back"
+}
