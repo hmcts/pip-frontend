@@ -33,6 +33,7 @@ Scenario('I as a verified user should be able to view all the single procedure c
     I.waitForText('Civil and Family Daily Cause List for Single Justice Procedure');
     I.see('12345678');
     I.see('A1 Vs B1');
+    I.logout();
 
     I.deletePublicationByArtefactId(artefactId);
 });
