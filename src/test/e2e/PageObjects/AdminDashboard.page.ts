@@ -6,7 +6,6 @@ import { SessionLoggedOutPage } from './SessionLoggedOut.page';
 const helpers = require('../Helpers/Selectors');
 
 export class AdminDashboardPage extends CommonPage {
-
     async clickCreateNewAccountCard(): Promise<CreateAdminAccountPage> {
         await $(helpers.CreateAdminAccount).catch(() => {
             console.log(`${helpers.CreateAdminAccount} not found`);
