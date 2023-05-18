@@ -14,7 +14,7 @@ export default class CaseNameSearchResultsController {
                 req.user?.['userId']
             );
 
-            const formattedResults = {'numberResults': [], 'urnResults': []};
+            const formattedResults = { numberResults: [], urnResults: [] };
             searchResults.forEach(searchResult => {
                 if (searchResult.caseNumber) {
                     formattedResults.numberResults.push(searchResult);
@@ -27,7 +27,7 @@ export default class CaseNameSearchResultsController {
             res.render('case-name-search-results', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-name-search-results']),
                 formattedResults,
-                numberOfResults: formattedResults.numberResults.length + formattedResults.urnResults.length
+                numberOfResults: formattedResults.numberResults.length + formattedResults.urnResults.length,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

@@ -71,7 +71,12 @@ export class PendingSubscriptionsFromCache {
     }
 
     private addToSubscriptionSetUrn(subscription, subscriptionsSet) {
-        if (!subscriptionsSet.some(cached => cached['caseUrn'] === subscription['caseUrn'] && cached['urnSearch'] === subscription['urnSearch'])) {
+        if (
+            !subscriptionsSet.some(
+                cached =>
+                    cached['caseUrn'] === subscription['caseUrn'] && cached['urnSearch'] === subscription['urnSearch']
+            )
+        ) {
             subscriptionsSet.push(subscription);
         }
     }
