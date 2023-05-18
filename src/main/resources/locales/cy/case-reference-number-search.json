@@ -1,7 +1,7 @@
 {
-    "title": "Tanysgrifo gan ddefnyddio cyfeirnod yr achos neu rif adnabod yr achos ",
-    "header": "Beth yw cyfeirnod yr achos neu rif adnabod yr achos?",
-    "hint": "Rhaid i chi nodi cyfeirnod neu rif adnabod sy’n cyd-fynd yn berffaith ag achos.",
+    "title": "Tanysgrifio yn ôl cyfeirnod yr achos, ID yr achos neu URN",
+    "header": "Beth yw’r cyfeirnod?",
+    "hint": "Rhowch gyfeirnod yr achos, ID yr achos neu gyfeirnod unigryw (URN). Mae’n rhaid ichi nodi’r union gyfeirnod neu ID.",
     "error": {
         "title": "Mae yna broblem",
         "header": "Rhowch gyfeirnod achos dilys",

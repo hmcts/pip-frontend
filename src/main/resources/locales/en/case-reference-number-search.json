@@ -1,7 +1,7 @@
 {
-    "title": "Subscribe by case reference number or case ID",
-    "header": "What is the case reference number or case ID?",
-    "hint": "You must enter an exact match.",
+    "title": "Subscribe by case reference number, case ID or URN",
+    "header": "What is the reference number?",
+    "hint": "Please enter either a case reference number, case ID or unique reference number (URN). You must enter an exact match.",
     "error": {
         "title": "There is a problem",
         "header": "Enter a valid case reference number",
