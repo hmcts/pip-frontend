@@ -2,36 +2,19 @@ import config from 'config';
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
 import { B2C_URL, FRONTEND_URL, B2C_ADMIN_URL } from '../helpers/envUrls';
 import { SessionManagementService } from '../service/sessionManagementService';
+import {
+    verifiedRoles,
+    systemAdminRoles,
+    allAdminRoles,
+    adminAccountCreationRoles,
+    manualUploadRoles,
+    mediaAccountCreationRoles,
+    checkRoles,
+} from '../authentication/authenticationHelper';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 
-export const adminAccountCreationRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL'];
-export const manualUploadRoles = [
-    'SYSTEM_ADMIN',
-    'INTERNAL_SUPER_ADMIN_CTSC',
-    'INTERNAL_SUPER_ADMIN_LOCAL',
-    'INTERNAL_ADMIN_CTSC',
-    'INTERNAL_ADMIN_LOCAL',
-];
-export const mediaAccountCreationRoles = ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'];
-export const systemAdminRoles = ['SYSTEM_ADMIN'];
-export const allAdminRoles = [
-    'SYSTEM_ADMIN',
-    'INTERNAL_SUPER_ADMIN_CTSC',
-    'INTERNAL_SUPER_ADMIN_LOCAL',
-    'INTERNAL_ADMIN_CTSC',
-    'INTERNAL_ADMIN_LOCAL',
-];
-export const verifiedRoles = ['VERIFIED'];
-
-export function checkRoles(req, roles): boolean {
-    if (req.user) {
-        if (roles.includes(req.user['roles'])) {
-            return true;
-        }
-    }
-    return false;
-}
+const sessionManagement = new SessionManagementService();
 
 export function isPermittedMedia(req: any, res, next) {
     return checkAuthenticatedMedia(req, res, next, verifiedRoles);
@@ -114,20 +97,19 @@ export async function mediaVerificationHandling(req, res): Promise<any> {
 }
 
 export async function processAdminAccountSignIn(req, res): Promise<any> {
-    await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
     if (checkRoles(req, allAdminRoles)) {
+        await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
         if (checkRoles(req, systemAdminRoles)) {
             res.redirect('/system-admin-dashboard');
         } else {
             res.redirect('/admin-dashboard');
         }
     } else {
-        res.redirect('/account-home');
+        sessionManagement.logOut(req, res, true);
     }
 }
 
 export async function processMediaAccountSignIn(req, res): Promise<any> {
-    const sessionManagement = new SessionManagementService();
     if (checkRoles(req, allAdminRoles)) {
         sessionManagement.logOut(req, res, true);
     } else {

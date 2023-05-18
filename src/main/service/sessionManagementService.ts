@@ -1,18 +1,18 @@
 import { DateTime } from 'luxon';
-import { allAdminRoles, checkRoles } from '../authentication/authenticationHandler';
+import { allAdminRoles, checkRoles } from '../authentication/authenticationHelper';
 import { B2C_ADMIN_URL, B2C_URL, FRONTEND_URL } from '../helpers/envUrls';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 const defaultSessionExpiry = 60 * 60 * 1000;
 
 export class SessionManagementService {
-    public logOut(req, res, adminWrongFlow, isSessionExpired = false): void {
+    public logOut(req, res, isWrongFlow, isSessionExpired = false): void {
         // For cookie-session, the request session needs to be destroyed by setting to null upon logout
         req.session = null;
 
         if (req.user['userProvenance'] == 'PI_AAD') {
             res.clearCookie('session');
-            res.redirect(this.logOutUrl(checkRoles(req, allAdminRoles), adminWrongFlow, isSessionExpired, req.lng));
+            res.redirect(this.logOutUrl(checkRoles(req, allAdminRoles), isWrongFlow, isSessionExpired, req.lng));
         } else {
             res.clearCookie('session');
             res.redirect('/session-logged-out?lng=' + req.lng);
@@ -46,31 +46,31 @@ export class SessionManagementService {
         return false;
     }
 
-    private logOutUrl(isAdmin: boolean, adminWrongFlow: boolean, isSessionExpired: boolean, language: string): string {
+    private logOutUrl(isAdmin: boolean, isWrongFlow: boolean, isSessionExpired: boolean, language: string): string {
         let b2cUrl;
         let b2cPolicy;
 
-        if (adminWrongFlow) {
-            b2cUrl = B2C_URL;
-            b2cPolicy = authenticationConfig.POLICY;
+        if (isWrongFlow) {
+            b2cUrl = isAdmin ? B2C_URL : B2C_ADMIN_URL;
+            b2cPolicy = isAdmin ? authenticationConfig.POLICY : authenticationConfig.ADMIN_POLICY;
         } else {
             b2cUrl = isAdmin ? B2C_ADMIN_URL : B2C_URL;
             b2cPolicy = isAdmin ? authenticationConfig.ADMIN_POLICY : authenticationConfig.POLICY;
         }
 
         const encodedSignOutRedirect = encodeURIComponent(
-            this.logOutRedirectUrl(isAdmin, adminWrongFlow, isSessionExpired, language)
+            this.logOutRedirectUrl(isAdmin, isWrongFlow, isSessionExpired, language)
         );
         return `${b2cUrl}/${b2cPolicy}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`;
     }
 
     private logOutRedirectUrl(
         isAdmin: boolean,
-        adminWrongFlow: boolean,
+        isWrongFlow: boolean,
         isSessionExpired: boolean,
         language: string
     ): string {
-        const url = new URL(`${FRONTEND_URL}/${this.getRedirectionPath(adminWrongFlow, isSessionExpired)}`);
+        const url = new URL(`${FRONTEND_URL}/${this.getRedirectionPath(isWrongFlow, isSessionExpired, isAdmin)}`);
         url.searchParams.append('lng', language);
 
         if (isSessionExpired) {
@@ -79,9 +79,9 @@ export class SessionManagementService {
         return url.toString();
     }
 
-    private getRedirectionPath(adminWrongFlow: boolean, isSessionExpired: boolean): string {
-        if (adminWrongFlow) {
-            return 'admin-rejected-login';
+    private getRedirectionPath(isWrongFlow: boolean, isSessionExpired: boolean, isAdmin: boolean): string {
+        if (isWrongFlow) {
+            return isAdmin ? 'admin-rejected-login' : 'media-rejected-login';
         } else if (isSessionExpired) {
             return 'session-expired';
         } else {
