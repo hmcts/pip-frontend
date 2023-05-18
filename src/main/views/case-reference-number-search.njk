@@ -1,5 +1,6 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "./macros/common-components.njk" import goBack, submitButton %}
 
 {% extends "template.njk" %}
@@ -40,13 +41,14 @@
             {{ header }}
           </label>
         </h1>
+        <div id="search-input-hint" class="govuk-hint">
+          {{ govukInsetText({
+              text: hint
+          }) }}
+        </div>
         <div class="{{ formGroupError }}">
           {% if noResultsError or invalidInputError %}
             <span class="govuk-error-message">{{ error.header }}</span>
-          {% else %}
-            <div id="search-input-hint" class="govuk-hint">
-              {{ hint }}
-            </div>
           {% endif %}
           <div class="govuk-!-width-one-third">
             <input class="{{ inputClasses }}" id="search-input" name="search-input" type="text"
