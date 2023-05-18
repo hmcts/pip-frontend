@@ -18,12 +18,6 @@ const mockCourt = [
 ];
 const mockCase = [
     {
-        hearingId: 5,
-        locationId: 50,
-        courtNumber: 1,
-        date: '15/11/2021 10:00:00',
-        judge: 'His Honour Judge A Morley QC',
-        platform: 'In person',
         caseNumber: 'CASENUMBER1234',
         caseName: 'Case Name',
         caseUrn: 'CASEURN12345',
@@ -31,28 +25,18 @@ const mockCase = [
 ];
 const mockCaseWithUrnOnly = [
     {
-        hearingId: 5,
-        locationId: 50,
-        courtNumber: 1,
-        date: '15/11/2021 10:00:00',
-        judge: 'His Honour Judge A Morley QC',
-        platform: 'In person',
         caseNumber: null,
         caseName: null,
         caseUrn: 'CASEURN1234',
+        urnSearch: true
     },
 ];
 const mockCaseWithUrnOnly2 = [
     {
-        hearingId: 5,
-        locationId: 50,
-        courtNumber: 1,
-        date: '15/11/2021 10:00:00',
-        judge: 'His Honour Judge A Morley QC',
-        platform: 'In person',
         caseNumber: null,
         caseName: null,
         caseUrn: 'ABC',
+        urnSearch: true
     },
 ];
 const combinedMockCaseWithUrnOnly = [mockCaseWithUrnOnly[0], mockCaseWithUrnOnly2[0]];

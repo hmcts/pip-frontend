@@ -14,7 +14,7 @@ let htmlRes: Document;
 const subNavigationClass = 'moj-sub-navigation';
 const tabsClass = 'moj-sub-navigation__link';
 const caseNameColumn = 'Case name';
-const caseReferenceColumn = 'Case reference number or unique reference number (URN)';
+const caseReferenceColumn = 'Reference number';
 const dateAddedColumn = 'Date added';
 const markForDeletionColumn = 'Select';
 const courtNameColumn = 'Court or tribunal name';
@@ -39,6 +39,7 @@ userSubscriptionsStub.withArgs('3').returns({
             caseName: 'Test Name',
             caseNumber: 'C123123',
             urn: 'K123123',
+            searchType: "CASE_ID",
             dateAdded: '2022-08-01T01:10:10.111111',
         },
     ],
@@ -64,6 +65,7 @@ userSubscriptionsStub.withArgs('5').returns({
             caseName: null,
             caseNumber: null,
             urn: 'K123123',
+            searchType: "CASE_URN",
             dateAdded: '2022-08-01T01:10:10.111111',
         },
     ],

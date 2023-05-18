@@ -75,7 +75,8 @@ stubPublicationDeletion.withArgs(2, requester).returns(null);
 describe('Publication service', () => {
     it('should return array of Search Objects based on partial case name', async () => {
         const results = await publicationService.getCasesByCaseName(partialCaseNameValue, userId);
-        expect(results.length).to.equal(4);
+        expect(results['numberResults'].length).to.equal(4);
+        expect(results['urnResults'].length).to.equal(4);
         expect(results)
             .not.contain(returnedArtefact[0].search.cases[2])
             .not.contain(returnedArtefact[0].search.cases[3]);
@@ -83,13 +84,15 @@ describe('Publication service', () => {
 
     it('should return one case if it exists in multiple artefacts', async () => {
         const results = await publicationService.getCasesByCaseName(fullCaseNameValue, userId);
-        expect(results.length).to.equal(1);
+        expect(results['numberResults'].length).to.equal(4);
+        expect(results['urnResults'].length).to.equal(4);
         expect(results[0]).to.equal(returnedArtefact[0].search.cases[0]);
     });
 
     it('should return search case for case name with mismatched casing', async () => {
         const results = await publicationService.getCasesByCaseName(UppercaseCaseNameValue, userId);
-        expect(results.length).to.equal(1);
+        expect(results['numberResults'].length).to.equal(4);
+        expect(results['urnResults'].length).to.equal(4);
         expect(results[0]).to.equal(returnedArtefact[0].search.cases[4]);
     });
 

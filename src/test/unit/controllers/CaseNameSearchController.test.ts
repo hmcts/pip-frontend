@@ -7,8 +7,9 @@ import { PublicationService } from '../../../main/service/publicationService';
 const caseNameSearchController = new CaseNameSearchController();
 const publicationServiceStub = sinon.stub(PublicationService.prototype, 'getCasesByCaseName');
 publicationServiceStub.withArgs('').returns([]);
-publicationServiceStub.withArgs('meedoo').returns([{}]);
-publicationServiceStub.withArgs('bob').returns([]);
+publicationServiceStub.withArgs('no-urn-results').returns({numberResults: [{}], urnResults: []});
+publicationServiceStub.withArgs('no-number-results').returns({numberResults: [], urnResults: [{}]});
+publicationServiceStub.withArgs('bob').returns({numberResults: [], urnResults: []});
 
 describe('Case name search controller', () => {
     const i18n = {
@@ -56,7 +57,7 @@ describe('Case name search controller', () => {
         responseMock.verify();
     });
 
-    it('should redirect to case name search results page if there are search results', async () => {
+    it('should redirect to case name search results page if there are search results - number', async () => {
         const response = {
             redirect: () => {
                 return '';
@@ -64,11 +65,29 @@ describe('Case name search controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.user = { userId: '1' };
-        request.body = { 'case-name': 'meedoo' };
+        request.body = { 'case-name': 'no-urn-results' };
 
         const responseMock = sinon.mock(response);
 
-        responseMock.expects('redirect').once().withArgs('case-name-search-results?search=meedoo');
+        responseMock.expects('redirect').once().withArgs('case-name-search-results?search=no-urn-results');
+        return caseNameSearchController.post(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
+
+    it('should redirect to case name search results page if there are search results - urn', async () => {
+        const response = {
+            redirect: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.user = { userId: '1' };
+        request.body = { 'case-name': 'no-number-results' };
+
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('redirect').once().withArgs('case-name-search-results?search=no-number-results');
         return caseNameSearchController.post(request, response).then(() => {
             responseMock.verify();
         });

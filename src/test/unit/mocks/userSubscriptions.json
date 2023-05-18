@@ -6,6 +6,7 @@
                 "caseName": null,
                 "caseNumber": "D123123",
                 "urn": "E123123",
+                "searchType": "CASE_ID",
                 "dateAdded": "2022-08-01T01:10:10.111111"
             },
             {
@@ -13,6 +14,7 @@
                 "caseName": "Test Name",
                 "caseNumber": "C123123",
                 "urn": "K123123",
+                "searchType": "CASE_ID",
                 "dateAdded": "2022-08-01T01:10:10.111111"
             },
             {
@@ -20,6 +22,7 @@
                 "caseName": "Test Name 2",
                 "caseNumber": "I123123",
                 "urn": "H123123",
+                "searchType": "CASE_ID",
                 "dateAdded": "2022-08-01T01:10:10.111111"
             },
             {
@@ -27,6 +30,7 @@
                 "caseName": "Test Name 3",
                 "caseNumber": "B123123",
                 "urn": "F123123",
+                "searchType": "CASE_ID",
                 "dateAdded": "2022-08-01T01:10:10.111111"
             },
             {
@@ -34,6 +38,7 @@
                 "caseName": null,
                 "caseNumber": "A123123",
                 "urn": "G123123",
+                "searchType": "CASE_ID",
                 "dateAdded": "2022-08-01T01:10:10.111111"
             }
         ],
