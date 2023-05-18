@@ -14,7 +14,7 @@ export class PendingSubscriptionsFromCache {
                     this.addToSubscriptionSet(subscription, 'locationId', subscriptionsSet);
                 } else {
                     if (subscription.urnSearch) {
-                        this.addToSubscriptionSetUrn(subscription, subscriptionsSet);
+                        this.addToSubscriptionSet(subscription, 'caseUrn', subscriptionsSet);
                     } else {
                         this.addToSubscriptionSet(subscription, 'caseNumber', subscriptionsSet);
                     }
@@ -65,16 +65,9 @@ export class PendingSubscriptionsFromCache {
     }
 
     private addToSubscriptionSet(subscription, filter, subscriptionsSet) {
-        if (!subscriptionsSet.some(cached => cached[filter] === subscription[filter])) {
-            subscriptionsSet.push(subscription);
-        }
-    }
-
-    private addToSubscriptionSetUrn(subscription, subscriptionsSet) {
         if (
             !subscriptionsSet.some(
-                cached =>
-                    cached['caseUrn'] === subscription['caseUrn'] && cached['urnSearch'] === subscription['urnSearch']
+                cached => cached[filter] === subscription[filter] && cached['urnSearch'] === subscription['urnSearch']
             )
         ) {
             subscriptionsSet.push(subscription);

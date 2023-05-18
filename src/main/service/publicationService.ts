@@ -28,9 +28,22 @@ export class PublicationService {
         return publicationRequests.getIndividualPublicationJson(artefactId, userId);
     }
 
-    public async getCasesByCaseName(caseName: string, userId: string): Promise<SearchObject[]> {
+    public async getCasesByCaseName(caseName: string, userId: string): Promise<object> {
         const artefacts = await publicationRequests.getPublicationByCaseValue('CASE_NAME', caseName, userId);
-        return this.getFuzzyCasesFromArtefact(artefacts, caseName);
+        const cases = this.getFuzzyCasesFromArtefact(artefacts, caseName);
+
+        const formattedResults = { numberResults: [], urnResults: [] };
+        cases.forEach(searchResult => {
+            if (searchResult.caseNumber) {
+                formattedResults.numberResults.push(searchResult);
+            }
+
+            if (searchResult.caseUrn) {
+                formattedResults.urnResults.push(searchResult);
+            }
+        });
+
+        return formattedResults;
     }
 
     public async getCaseByCaseNumber(caseNumber: string, userId: string): Promise<SearchObject> | null {

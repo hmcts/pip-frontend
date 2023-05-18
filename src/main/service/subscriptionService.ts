@@ -269,48 +269,29 @@ export class SubscriptionService {
             let urnHearing;
             switch (selectionName) {
                 case 'case-number':
-                    // pendingSubscription.selectionName gives undefined
+                case 'case-number[]':
                     Array.isArray(pendingSubscription[`${selectionName}`])
                         ? (hearingIdsList = pendingSubscription[`${selectionName}`])
                         : hearingIdsList.push(pendingSubscription[`${selectionName}`]);
-                    caseDetailsList = await this.getCaseDetailsByNumber(hearingIdsList, user);
-                    // set results into cache
-                    await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
-                    break;
-                case 'case-number[]':
-                    Array.isArray(pendingSubscription['case-number[]'])
-                        ? (hearingIdsList = pendingSubscription['case-number[]'])
-                        : hearingIdsList.push(pendingSubscription['case-number[]']);
 
                     caseDetailsList = await this.getCaseDetailsByNumber(hearingIdsList, user);
-
                     await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
                     break;
                 case 'urn':
-                    urnHearing = await publicationService.getCaseByCaseUrn(
-                        pendingSubscription[`${selectionName}`],
-                        user.userId
-                    );
-                    if (urnHearing) {
-                        urnHearing.urnSearch = true;
-                        await this.setPendingSubscriptions([urnHearing], 'cases', user.userId);
-                    }
-                    break;
                 case 'case-urn[]':
-                    Array.isArray(pendingSubscription['case-urn[]'])
-                        ? (hearingIdsList = pendingSubscription['case-urn[]'])
-                        : hearingIdsList.push(pendingSubscription['case-urn[]']);
+                    Array.isArray(pendingSubscription[`${selectionName}`])
+                        ? (hearingIdsList = pendingSubscription[`${selectionName}`])
+                        : hearingIdsList.push(pendingSubscription[`${selectionName}`]);
 
-                    caseDetailsList = await this.getCaseDetailsByUrn(hearingIdsList, user);
-
-                    await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
+                    urnHearing = await this.getCaseDetailsByUrn(hearingIdsList, user.userId);
+                    await this.setPendingSubscriptions([urnHearing], 'cases', user.userId);
                     break;
                 case 'court-selections[]':
                     Array.isArray(pendingSubscription[`${selectionName}`])
                         ? (locationIdsList = pendingSubscription[`${selectionName}`])
                         : locationIdsList.push(pendingSubscription[`${selectionName}`]);
+
                     courtDetailsList = await this.getCourtDetails(locationIdsList);
-                    // set results into cache
                     await this.setPendingSubscriptions(courtDetailsList, 'courts', user.userId);
                     break;
             }

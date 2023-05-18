@@ -14,20 +14,10 @@ export default class CaseNameSearchResultsController {
                 req.user?.['userId']
             );
 
-            const formattedResults = { numberResults: [], urnResults: [] };
-            searchResults.forEach(searchResult => {
-                if (searchResult.caseNumber) {
-                    formattedResults.numberResults.push(searchResult);
-                }
-
-                if (searchResult.caseUrn) {
-                    formattedResults.urnResults.push(searchResult);
-                }
-            });
             res.render('case-name-search-results', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-name-search-results']),
-                formattedResults,
-                numberOfResults: formattedResults.numberResults.length + formattedResults.urnResults.length,
+                searchResults,
+                numberOfResults: searchResults['numberResults'].length + searchResults['urnResults'].length,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
