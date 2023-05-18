@@ -70,10 +70,10 @@ module.exports = {
 
     // SubscriptionAdd selectors
     SubscriptionAddTitle: 'h1.govuk-fieldset__heading',
-    SubscriptionAddByCaseRefNumber: '#subscription-choice-1',
+    SubscriptionAddByCaseRefNumber: '#subscription-choice-2',
     SubscriptionAddByUniqueRefNumber: '#subscription-choice-2',
     SubscriptionAddByCaseName: '#subscription-choice-3',
-    SubscriptionAddByCourtOrTribunal: '#subscription-choice-4',
+    SubscriptionAddByCourtOrTribunal: '#subscription-choice-1',
 
     // Pending subscription selectors
     SubscriptionTableHeading: '.govuk-table__head',
