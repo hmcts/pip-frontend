@@ -9,9 +9,11 @@ import { PublicationService } from '../../../main/service/publicationService';
 const caseReferenceNumberSearchController = new CaseReferenceNumberSearchController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const subscriptionCaseResult = JSON.parse(rawData)[0].hearingList[0];
-const stub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
+const caseNumberStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
+const caseUrnStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn');
 
 const validCaseNo = '56-181-2097';
+const validCaseUrn = '123456';
 
 describe('Case Reference Number Search Controller', () => {
     let i18n = {};
@@ -41,7 +43,7 @@ describe('Case Reference Number Search Controller', () => {
     });
 
     it('should render case search page if there are no matching results', () => {
-        stub.withArgs(validCaseNo).returns(null);
+        caseNumberStub.withArgs(validCaseNo).returns(null);
 
         const response = {
             render: function () {
@@ -81,7 +83,7 @@ describe('Case Reference Number Search Controller', () => {
     });
 
     it('should render case search page if input is three characters long and partially correct', () => {
-        stub.withArgs('1234').returns(null);
+        caseNumberStub.withArgs('1234').returns(null);
 
         const response = {
             render: function () {
@@ -102,7 +104,7 @@ describe('Case Reference Number Search Controller', () => {
     });
 
     it('should render case search page if no input is provided', () => {
-        stub.withArgs('').returns(null);
+        caseNumberStub.withArgs('').returns(null);
 
         const response = {
             render: function () {
@@ -136,12 +138,40 @@ describe('Case Reference Number Search Controller', () => {
         request.body = { 'search-input': validCaseNo };
 
         const responseMock = sinon.mock(response);
-        stub.withArgs(validCaseNo).returns(subscriptionCaseResult);
+        caseNumberStub.withArgs(validCaseNo).returns(subscriptionCaseResult);
 
         responseMock
             .expects('redirect')
             .once()
-            .withArgs('case-reference-number-search-results?search-input=56-181-2097');
+            .withArgs(`case-reference-number-search-results?search-input=${validCaseNo}&search-type=case-number`);
+
+        return caseReferenceNumberSearchController.post(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
+
+    it('should redirect to case search results page with input as query if case urn is valid', () => {
+        const response = {
+            redirect: function () {
+                return '';
+            },
+            render: function () {
+                return '';
+            },
+        } as unknown as Response;
+
+        const request = mockRequest(i18n);
+        request.user = { userId: '1' };
+        request.body = { 'search-input': validCaseUrn };
+
+        const responseMock = sinon.mock(response);
+        caseNumberStub.withArgs(validCaseUrn).returns(null);
+        caseUrnStub.withArgs(validCaseUrn).returns(subscriptionCaseResult);
+
+        responseMock
+            .expects('redirect')
+            .once()
+            .withArgs(`case-reference-number-search-results?search-input=${validCaseUrn}&search-type=case-urn`);
 
         return caseReferenceNumberSearchController.post(request, response).then(() => {
             responseMock.verify();

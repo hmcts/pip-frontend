@@ -29,6 +29,7 @@ describe('Test logout', () => {
     const mediaSessionExpiredUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3Dsign-in`;
     const adminSessionExpiredUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3Dadmin-dashboard`;
     const adminRejectedLoginUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}admin-rejected-login%3Flng%3Den`;
+    const mediaRejectedLoginUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}media-rejected-login%3Flng%3Den`;
 
     it('should redirect for media user', () => {
         const responseMock = sinon.mock(res);
@@ -150,6 +151,20 @@ describe('Test logout', () => {
 
         const req = {
             user: { roles: 'INTERNAL_SUPER_ADMIN_CTSC', userProvenance: 'PI_AAD' },
+            lng: 'en',
+            session: {},
+        };
+        sessionManagementService.logOut(req, res, true, false);
+        expect(req.session).to.be.null;
+        responseMock.verify();
+    });
+
+    it('should redirect for media rejected login', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs(mediaRejectedLoginUrl);
+
+        const req = {
+            user: { roles: 'VERIFIED', userProvenance: 'PI_AAD' },
             lng: 'en',
             session: {},
         };

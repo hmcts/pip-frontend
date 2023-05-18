@@ -79,6 +79,7 @@ export default function (app: Application): void {
     );
     app.get('/cancelled-password-reset/:isAdmin', app.locals.container.cradle.cancelledPasswordResetController.get);
     app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
+    app.get('/media-rejected-login', app.locals.container.cradle.mediaRejectedLoginController.get);
     app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/' }));
     app.get('/login', passport.authenticate('login', { failureRedirect: '/' }));
     app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/' }));
@@ -234,21 +235,6 @@ export default function (app: Application): void {
         '/subscription-configure-list-confirmed',
         isPermittedMedia,
         app.locals.container.cradle.subscriptionConfigureListConfirmedController.post
-    );
-    app.get(
-        '/subscription-urn-search',
-        isPermittedMedia,
-        app.locals.container.cradle.subscriptionUrnSearchController.get
-    );
-    app.post(
-        '/subscription-urn-search',
-        isPermittedMedia,
-        app.locals.container.cradle.subscriptionUrnSearchController.post
-    );
-    app.get(
-        '/subscription-urn-search-results',
-        isPermittedMedia,
-        app.locals.container.cradle.subscriptionUrnSearchResultController.get
     );
     app.get('/unsubscribe-confirmation', isPermittedMedia, reRenderView);
     app.post(

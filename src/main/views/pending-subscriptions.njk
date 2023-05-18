@@ -47,16 +47,14 @@
             <th scope="col" class="govuk-table__header">{{ table.header1 }}</th>
             <th scope="col" class="govuk-table__header">{{ table.header2 }}</th>
             <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header3 }}</th>
-            <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header4 }}</th>
           </tr>
           </thead>
           <tbody class="govuk-table__body">
           {% for case in pendingSubscriptions.cases %}
             <tr class="govuk-table__row">
-              <td class="govuk-table__cell">{{ case.caseUrn }}</td>
-              <td class="govuk-table__cell">{{ case.caseNumber }}</td>
-              <td class="govuk-table__cell govuk-!-text-align-right">{{ case.caseName }}</td>
-              <td class="govuk-table__cell govuk-!-text-align-right"><a href="/remove-subscription?case={{ case.caseNumber if (case.caseNumber | length > 0) else case.caseUrn }}">{{ removeText }}</a></td>
+              <td class="govuk-table__cell">{{ case.caseName }}</td>
+              <td class="govuk-table__cell">{{ case.caseUrn if case.urnSearch else case.caseNumber }}</td>
+              <td class="govuk-table__cell govuk-!-text-align-right"><a href="/remove-subscription?case-{{ 'urn=' + case.caseUrn if case.urnSearch else 'number=' + case.caseNumber }}">{{ removeText }}</a></td>
             </tr>
           {% endfor %}
           </tbody>
@@ -68,7 +66,7 @@
           <thead class="govuk-table__head">
           <tr class="govuk-table__row">
             <th scope="col" class="govuk-table__header">{{ courtTribunalName }}</th>
-            <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header4 }}</th>
+            <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header3 }}</th>
           </tr>
           </thead>
           <tbody class="govuk-table__body">
