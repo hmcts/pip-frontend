@@ -13,7 +13,7 @@
 {% block content %}
   <div class="parent-box alphabetical-box">
     <h1 class="govuk-heading-l">{{ title }}</h1>
-    <p class="govuk-body govuk-!-font-weight-bold">{{ searchResults | length }} {{ resultsCount }}</p>
+    <p class="govuk-body govuk-!-font-weight-bold">{{ numberOfResults }} {{ resultsCount }}</p>
     <form action="pending-subscriptions" method="post" autocomplete="off">
         <table class="govuk-table govuk-!-width-two-thirds" data-module="moj-multi-select"
                >
@@ -25,21 +25,37 @@
             </tr>
             </thead>
             <tbody class="govuk-table__body">
-            {% for result in searchResults %}
+            {% for result in formattedResults.numberResults %}
+                    <tr class="govuk-table__row govuk-table__row--selected">
+                        <td class="govuk-table__cell">
+                            <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
+                                <input type="checkbox" class="govuk-checkboxes__input" id={{ result.caseNumber }}
+                                       value={{ result.caseNumber }}
+                                       name="case-number[]"/>
+                                <label class="govuk-label govuk-checkboxes__label" for="{{ result.caseNumber }}">
+                                    <span class="govuk-visually-hidden">{{ select }}</span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="govuk-table__cell govuk-!-padding-top-3">{{ result.caseName }}</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-padding-top-3">{{ result.caseNumber }}</td>
+                    </tr>
+            {% endfor %}
+
+            {% for result in formattedResults.urnResults %}
                 <tr class="govuk-table__row govuk-table__row--selected">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
-                            <input type="checkbox" class="govuk-checkboxes__input" id="{{ result.caseNumber }}"
-                                   value="{{ result.caseNumber }}"
-                                   name="hearing-selections[]"
-                            >
-                            <label class="govuk-label govuk-checkboxes__label" for="{{ result.caseNumber }}">
+                            <input type="checkbox" class="govuk-checkboxes__input" id={{ result.caseUrn }}
+                            value={{ result.caseUrn }}
+                                   name="case-urn[]"/>
+                            <label class="govuk-label govuk-checkboxes__label" for="{{ result.caseUrn }}">
                                 <span class="govuk-visually-hidden">{{ select }}</span>
                             </label>
                         </div>
                     </td>
                     <td class="govuk-table__cell govuk-!-padding-top-3">{{ result.caseName }}</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-padding-top-3">{{ result.caseNumber }}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-padding-top-3">{{ result.caseUrn }}</td>
                 </tr>
             {% endfor %}
             </tbody>

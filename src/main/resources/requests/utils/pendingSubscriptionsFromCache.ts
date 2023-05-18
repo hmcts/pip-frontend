@@ -13,10 +13,10 @@ export class PendingSubscriptionsFromCache {
                 if (subscriptionType === 'courts') {
                     this.addToSubscriptionSet(subscription, 'locationId', subscriptionsSet);
                 } else {
-                    if (subscription.caseNumber) {
-                        this.addToSubscriptionSet(subscription, 'caseNumber', subscriptionsSet);
+                    if (subscription.urnSearch) {
+                        this.addToSubscriptionSetUrn(subscription, subscriptionsSet);
                     } else {
-                        this.addToSubscriptionSet(subscription, 'caseUrn', subscriptionsSet);
+                        this.addToSubscriptionSet(subscription, 'caseNumber', subscriptionsSet);
                     }
                 }
             });
@@ -66,6 +66,12 @@ export class PendingSubscriptionsFromCache {
 
     private addToSubscriptionSet(subscription, filter, subscriptionsSet) {
         if (!subscriptionsSet.some(cached => cached[filter] === subscription[filter])) {
+            subscriptionsSet.push(subscription);
+        }
+    }
+
+    private addToSubscriptionSetUrn(subscription, subscriptionsSet) {
+        if (!subscriptionsSet.some(cached => cached['caseUrn'] === subscription['caseUrn'] && cached['urnSearch'] === subscription['urnSearch'])) {
             subscriptionsSet.push(subscription);
         }
     }

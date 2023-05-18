@@ -156,7 +156,7 @@ export class SubscriptionService {
     }
 
     private generateCaseTableRow(subscription, fileJson): any {
-        const caseRef = subscription.caseNumber ? subscription.caseNumber : subscription.urn;
+        const caseRef = subscription.searchType == 'CASE_ID' ? subscription.caseNumber : subscription.urn;
         return [
             {
                 text: subscription.caseName,
@@ -182,7 +182,7 @@ export class SubscriptionService {
 
     private generateCaseTableRowForBulkDelete(subscription): any {
         const caseName = subscription.caseName === null ? '' : subscription.caseName;
-        let caseRef = subscription.caseNumber ? subscription.caseNumber : subscription.urn;
+        let caseRef = subscription.searchType == 'CASE_ID' ? subscription.caseNumber : subscription.urn;
         caseRef = caseRef === null ? '' : caseRef;
         return [
             {
@@ -269,13 +269,22 @@ export class SubscriptionService {
             let urnHearing;
             switch (selectionName) {
                 case 'case-number':
-                case 'hearing-selections[]':
                     // pendingSubscription.selectionName gives undefined
                     Array.isArray(pendingSubscription[`${selectionName}`])
                         ? (hearingIdsList = pendingSubscription[`${selectionName}`])
                         : hearingIdsList.push(pendingSubscription[`${selectionName}`]);
-                    caseDetailsList = await this.getCaseDetails(hearingIdsList, user);
+                    caseDetailsList = await this.getCaseDetailsByNumber(hearingIdsList, user);
                     // set results into cache
+                    await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
+                    break;
+                case 'case-number[]':
+
+                    Array.isArray(pendingSubscription['case-number[]'])
+                        ? (hearingIdsList = pendingSubscription['case-number[]'])
+                        : hearingIdsList.push(pendingSubscription['case-number[]']);
+
+                    caseDetailsList = await this.getCaseDetailsByNumber(hearingIdsList, user);
+
                     await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
                     break;
                 case 'urn':
@@ -287,6 +296,15 @@ export class SubscriptionService {
                         urnHearing.urnSearch = true;
                         await this.setPendingSubscriptions([urnHearing], 'cases', user.userId);
                     }
+                    break;
+                case 'case-urn[]':
+                    Array.isArray(pendingSubscription['case-urn[]'])
+                        ? (hearingIdsList = pendingSubscription['case-urn[]'])
+                        : hearingIdsList.push(pendingSubscription['case-urn[]']);
+
+                    caseDetailsList = await this.getCaseDetailsByUrn(hearingIdsList, user);
+
+                    await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
                     break;
                 case 'court-selections[]':
                     Array.isArray(pendingSubscription[`${selectionName}`])
@@ -300,11 +318,23 @@ export class SubscriptionService {
         }
     }
 
-    public async getCaseDetails(cases, user): Promise<object[]> {
+    public async getCaseDetailsByNumber(cases, user): Promise<object[]> {
         const casesList = [];
         for (const caseNumber of cases) {
             const caseDetails = await publicationService.getCaseByCaseNumber(caseNumber, user.userId);
             if (caseDetails) {
+                casesList.push(caseDetails);
+            }
+        }
+        return casesList;
+    }
+
+    public async getCaseDetailsByUrn(cases, user): Promise<object[]> {
+        const casesList = [];
+        for (const caseUrn of cases) {
+            const caseDetails = await publicationService.getCaseByCaseUrn(caseUrn, user.userId);
+            if (caseDetails) {
+                caseDetails['urnSearch'] = true;
                 casesList.push(caseDetails);
             }
         }
