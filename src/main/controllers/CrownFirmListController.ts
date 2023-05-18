@@ -41,7 +41,6 @@ export default class CrownFirmListController {
             const endDate = DateTime.fromISO(dates[dates.length - 1], {
                 zone: 'Europe/London',
             }).toFormat('dd MMMM yyyy');
-            const provenance = metaData['provenance'] == 'SNL' ? 'LIST_ASSIST' : metaData['provenance'];
 
             res.render('crown-firm-list', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-firm-list']),
@@ -53,7 +52,7 @@ export default class CrownFirmListController {
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate,
                 publishedTime,
-                provenance: provenance,
+                provenance: metaData['provenance'],
                 version: jsonData['document']['version'],
                 courtName: location.name,
                 bill: pageLanguage === 'bill',

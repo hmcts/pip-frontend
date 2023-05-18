@@ -36,7 +36,6 @@ export default class CrownDailyListController {
             );
             const location = await locationService.getLocationById(metaData['locationId']);
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-            const provenance = metaData['provenance'] == 'SNL' ? 'LIST_ASSIST' : metaData['provenance'];
 
             res.render('crown-daily-list', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-daily-list']),
@@ -45,7 +44,7 @@ export default class CrownDailyListController {
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                provenance: provenance,
+                provenance: metaData['provenance'],
                 version: searchResults['document']['version'],
                 courtName: location.name,
                 bill: pageLanguage === 'bill',

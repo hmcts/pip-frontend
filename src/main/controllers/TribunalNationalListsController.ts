@@ -34,7 +34,6 @@ export default class TribunalNationalListsController {
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
             const courtName = locationService.findCourtName(returnedCourt, req.lng, listToLoad);
-            const provenance = metaData['provenance'] == 'SNL' ? 'LIST_ASSIST' : metaData['provenance'];
 
             res.render(listToLoad, {
                 // The 'open-justice-statement' resource needs to come before the list type resource so it can be
@@ -46,7 +45,7 @@ export default class TribunalNationalListsController {
                 listData: manipulatedData,
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                provenance: provenance,
+                provenance: metaData['provenance'],
                 courtName: courtName,
                 venueEmail: searchResults['venue']['venueContact']['venueEmail'],
                 venueTelephone: searchResults['venue']['venueContact']['venueTelephone'],

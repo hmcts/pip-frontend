@@ -23,7 +23,6 @@ export default class IacDailyListController {
                 req.lng
             );
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-            const provenance = metaData['provenance'] == 'SNL' ? 'LIST_ASSIST' : metaData['provenance'];
 
             res.render('iac-daily-list', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['iac-daily-list']),
@@ -32,7 +31,7 @@ export default class IacDailyListController {
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                provenance: provenance,
+                provenance: metaData['provenance'],
                 bill: pageLanguage === 'bill',
             });
         } else {

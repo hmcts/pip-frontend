@@ -28,7 +28,6 @@ export default class EtFortnightlyListController {
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const courtName = locationService.findCourtName(returnedCourt, req.lng, 'et-fortnightly-list');
-            const provenance = metaData['provenance'] == 'SNL' ? 'LIST_ASSIST' : metaData['provenance'];
 
             res.render('et-fortnightly-list', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['et-fortnightly-list']),
@@ -40,7 +39,7 @@ export default class EtFortnightlyListController {
                 region: returnedCourt.region,
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                provenance: provenance,
+                provenance: metaData['provenance'],
                 bill: pageLanguage === 'bill',
             });
         } else {

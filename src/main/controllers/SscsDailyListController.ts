@@ -33,7 +33,6 @@ export default class SscsDailyListController {
             const courtName = courtService.findCourtName(returnedCourt, req.lng, 'sscs-daily-list');
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const url = publicationService.getListTypes().get(metaData.listType).url;
-            const provenance = metaData['provenance'] == 'SNL' ? 'LIST_ASSIST' : metaData['provenance'];
 
             let languageResource = {
                 ...req.i18n.getDataByLanguage(pageLanguage)[sscsUrl],
@@ -55,7 +54,7 @@ export default class SscsDailyListController {
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
                 courtName: courtName,
-                provenance: provenance,
+                provenance: metaData['provenance'],
                 bill: pageLanguage === 'bill',
             });
         } else {

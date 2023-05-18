@@ -37,7 +37,6 @@ export default class DailyCauseListController {
             );
             const location = await locationService.getLocationById(metaData['locationId']);
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-            const provenance = metaData['provenance'] == 'SNL' ? 'LIST_ASSIST' : metaData['provenance'];
 
             res.render(listToLoad, {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
@@ -47,7 +46,7 @@ export default class DailyCauseListController {
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                provenance: provenance,
+                provenance: metaData['provenance'],
                 courtName: location.name,
                 bill: pageLanguage === 'bill',
             });
