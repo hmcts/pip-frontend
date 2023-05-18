@@ -12,7 +12,7 @@
     "noSubsCourt": "You currently have no subscriptions by court or tribunal",
     "table": {
         "header1": "Case name",
-        "header2": "Case reference number or unique reference number (URN)",
+        "header2": "Reference number",
         "date": "Date added",
         "actions": "Actions"
     },
