@@ -28,7 +28,7 @@ const mockCaseWithUrnOnly = [
         caseNumber: null,
         caseName: null,
         caseUrn: 'CASEURN1234',
-        urnSearch: true
+        urnSearch: true,
     },
 ];
 const mockCaseWithUrnOnly2 = [
@@ -36,7 +36,7 @@ const mockCaseWithUrnOnly2 = [
         caseNumber: null,
         caseName: null,
         caseUrn: 'ABC',
-        urnSearch: true
+        urnSearch: true,
     },
 ];
 const combinedMockCaseWithUrnOnly = [mockCaseWithUrnOnly[0], mockCaseWithUrnOnly2[0]];

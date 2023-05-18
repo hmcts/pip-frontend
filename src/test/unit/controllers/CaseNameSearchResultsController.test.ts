@@ -10,8 +10,8 @@ publicationServiceStub.withArgs('').returns([]);
 
 const foundResults = {
     numberResults: [{ caseName: 'numberResult', caseNumber: '321322' }],
-    urnResults: [{ caseName: 'urnResult', caseNumber: '321322' }]
-}
+    urnResults: [{ caseName: 'urnResult', caseNumber: '321322' }],
+};
 
 publicationServiceStub.withArgs('urnAndNumberResults').returns(foundResults);
 
@@ -32,7 +32,7 @@ describe('Case name search results controller', () => {
         const expectedData = {
             ...i18n['case-name-search'],
             searchResults: foundResults,
-            numberOfResults: 2
+            numberOfResults: 2,
         };
 
         const responseMock = sinon.mock(response);

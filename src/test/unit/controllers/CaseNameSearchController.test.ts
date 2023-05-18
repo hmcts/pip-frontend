@@ -7,9 +7,9 @@ import { PublicationService } from '../../../main/service/publicationService';
 const caseNameSearchController = new CaseNameSearchController();
 const publicationServiceStub = sinon.stub(PublicationService.prototype, 'getCasesByCaseName');
 publicationServiceStub.withArgs('').returns([]);
-publicationServiceStub.withArgs('no-urn-results').returns({numberResults: [{}], urnResults: []});
-publicationServiceStub.withArgs('no-number-results').returns({numberResults: [], urnResults: [{}]});
-publicationServiceStub.withArgs('bob').returns({numberResults: [], urnResults: []});
+publicationServiceStub.withArgs('no-urn-results').returns({ numberResults: [{}], urnResults: [] });
+publicationServiceStub.withArgs('no-number-results').returns({ numberResults: [], urnResults: [{}] });
+publicationServiceStub.withArgs('bob').returns({ numberResults: [], urnResults: [] });
 
 describe('Case name search controller', () => {
     const i18n = {
