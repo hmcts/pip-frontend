@@ -24,9 +24,9 @@ const mockCase = [
         date: '15/11/2021 10:00:00',
         judge: 'His Honour Judge A Morley QC',
         platform: 'In person',
-        caseNumber: 'T485914',
-        caseName: 'Ashely Barnes',
-        caseUrn: 'IBRANE1BVW',
+        caseNumber: 'CASENUMBER1234',
+        caseName: 'Case Name',
+        caseUrn: 'CASEURN12345',
     },
 ];
 const mockCaseWithUrnOnly = [
@@ -39,7 +39,7 @@ const mockCaseWithUrnOnly = [
         platform: 'In person',
         caseNumber: null,
         caseName: null,
-        caseUrn: 'IBRANE1BVW',
+        caseUrn: 'CASEURN1234',
     },
 ];
 const mockCaseWithUrnOnly2 = [
@@ -113,13 +113,13 @@ describe('removeFromCache', () => {
     });
 
     it('should remove a case number record from the cache', async () => {
-        await pendingSubscriptionsFromCache.removeFromCache({ case: 'T485914' }, '1');
+        await pendingSubscriptionsFromCache.removeFromCache({ 'case-number': 'CASENUMBER1234' }, '1');
         sinon.assert.calledWith(set, 'pending-cases-subscriptions-1', '[]');
         sinon.assert.called(getStub);
     });
 
     it('should remove a case URN record from the cache', async () => {
-        await pendingSubscriptionsFromCache.removeFromCache({ case: 'IBRANE1BVW' }, '2');
+        await pendingSubscriptionsFromCache.removeFromCache({ 'case-urn': 'CASEURN1234' }, '2');
         sinon.assert.calledWith(set, 'pending-cases-subscriptions-2', '[]');
         sinon.assert.called(getStub);
     });

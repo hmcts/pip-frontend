@@ -16,7 +16,7 @@ const errorSummaryTitleClass = 'govuk-error-summary__title';
 const errorSummaryBodyClass = 'govuk-error-summary__body';
 const formErrorClass = 'govuk-form-group--error';
 
-const expectedHeader = 'What is the case reference number or case ID?';
+const expectedHeader = 'What is the reference number?';
 const expectedButtonText = 'Continue';
 
 let htmlRes: Document;
@@ -28,7 +28,7 @@ stub.resolves(subscriptionsData);
 
 app.request['user'] = { roles: 'VERIFIED' };
 
-const pageTitleValue = 'Subscribe by case reference number or case ID';
+const pageTitleValue = 'Subscribe by case reference number, case ID or URN';
 
 describe('Case Reference Search Page', () => {
     beforeAll(async () => {
