@@ -39,7 +39,7 @@ export class PublicationService {
             }
 
             if (searchResult.caseUrn) {
-                let newSearchResult = JSON.parse(JSON.stringify(searchResult));
+                const newSearchResult = JSON.parse(JSON.stringify(searchResult));
                 newSearchResult['displayUrn'] = true;
                 formattedResults.push(newSearchResult);
             }

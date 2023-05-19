@@ -10,7 +10,7 @@ publicationServiceStub.withArgs('').returns([]);
 
 const foundResults = [
     { caseName: 'numberResult', caseNumber: '321322' },
-    { caseName: 'urnResult', caseNumber: '321322', displayUrn: true }
+    { caseName: 'urnResult', caseNumber: '321322', displayUrn: true },
 ];
 
 publicationServiceStub.withArgs('urnAndNumberResults').returns(foundResults);
@@ -31,7 +31,7 @@ describe('Case name search results controller', () => {
         request.query = { search: 'urnAndNumberResults' };
         const expectedData = {
             ...i18n['case-name-search'],
-            searchResults: foundResults
+            searchResults: foundResults,
         };
 
         const responseMock = sinon.mock(response);

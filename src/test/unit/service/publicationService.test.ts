@@ -30,12 +30,11 @@ const returnedArtefact = [
 ];
 
 const returnedCasesWithUrnFlag = [
-    { caseNumber: '123', caseName: 'test name 1', caseUrn: '321', displayUrn: true},
+    { caseNumber: '123', caseName: 'test name 1', caseUrn: '321', displayUrn: true },
     { caseNumber: '321', caseName: 'NaMe TesT', caseUrn: '456', displayUrn: true },
-    { caseNumber: '432', caseName: 'not in', caseUrn: '867', 'displayUrn': true },
+    { caseNumber: '432', caseName: 'not in', caseUrn: '867', displayUrn: true },
     { caseNumber: '998', caseUrn: '888', displayUrn: true },
-]
-
+];
 
 const countPerLocation = [
     {
