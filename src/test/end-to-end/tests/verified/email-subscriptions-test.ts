@@ -7,6 +7,9 @@ const caseId = '12341234';
 const caseName = 'Test Case Name';
 const caseURN = 'Case URN';
 
+const caseNameNumber = '12341232';
+const caseNameUrn = '18472381412'
+
 Scenario(
     'I as a verified user should be able to subscribe by court name, URN, case id and case name. Also ' +
         'should be able to remove subscription and bulk unsubscribe',
@@ -90,7 +93,10 @@ Scenario(
         I.click('Continue');
         I.waitForText('Search result');
         I.see(caseName);
+        I.see(caseNameNumber);
+        I.see(caseNameUrn)
         I.checkOption('//*[@id="12341232"]');
+        I.checkOption('//*[@id="18472381412"]');
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
@@ -103,12 +109,16 @@ Scenario(
         I.see(caseId);
         I.see(caseName);
         I.see(caseURN);
+        I.see(caseNameNumber);
+        I.see(caseNameUrn);
 
         I.click('Subscriptions by case');
         I.dontSee(locationName);
         I.see(caseId);
         I.see(caseName);
         I.see(caseURN);
+        I.see(caseNameNumber);
+        I.see(caseNameUrn);
 
         I.click('Subscriptions by court or tribunal');
         I.see(locationName);
@@ -131,6 +141,8 @@ Scenario(
 
         I.click(locate('//tr').withText(locationName).find('input').withAttr({ id: 'courtSubscription' }));
         I.click(locate('//tr').withText(caseId).find('input').withAttr({ id: 'caseSubscription' }));
+        I.click(locate('//tr').withText(caseNameNumber).find('input').withAttr({ id: 'caseSubscription' }));
+        I.click(locate('//tr').withText(caseNameUrn).find('input').withAttr({ id: 'caseSubscription' }));
 
         I.click('#bulk-unsubscribe-button');
         I.waitForText('Are you sure you want to remove these subscriptions?');

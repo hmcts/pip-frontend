@@ -99,6 +99,7 @@
 										"case": [{
                                             "caseName": "Test Case Name",
 											"caseNumber": "12341232",
+                                            "caseUrn": "18472381412",
 											"caseType": "This is a case type"
 										}],
 										"party": [{
