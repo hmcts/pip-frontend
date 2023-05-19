@@ -8,10 +8,10 @@ const caseNameSearchResultsController = new CaseNameSearchResultsController();
 const publicationServiceStub = sinon.stub(PublicationService.prototype, 'getCasesByCaseName');
 publicationServiceStub.withArgs('').returns([]);
 
-const foundResults = {
-    numberResults: [{ caseName: 'numberResult', caseNumber: '321322' }],
-    urnResults: [{ caseName: 'urnResult', caseNumber: '321322' }],
-};
+const foundResults = [
+    { caseName: 'numberResult', caseNumber: '321322' },
+    { caseName: 'urnResult', caseNumber: '321322', displayUrn: true }
+];
 
 publicationServiceStub.withArgs('urnAndNumberResults').returns(foundResults);
 
@@ -31,8 +31,7 @@ describe('Case name search results controller', () => {
         request.query = { search: 'urnAndNumberResults' };
         const expectedData = {
             ...i18n['case-name-search'],
-            searchResults: foundResults,
-            numberOfResults: 2,
+            searchResults: foundResults
         };
 
         const responseMock = sinon.mock(response);

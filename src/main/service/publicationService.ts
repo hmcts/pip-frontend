@@ -28,18 +28,20 @@ export class PublicationService {
         return publicationRequests.getIndividualPublicationJson(artefactId, userId);
     }
 
-    public async getCasesByCaseName(caseName: string, userId: string): Promise<object> {
+    public async getCasesByCaseName(caseName: string, userId: string): Promise<object[]> {
         const artefacts = await publicationRequests.getPublicationByCaseValue('CASE_NAME', caseName, userId);
         const cases = this.getFuzzyCasesFromArtefact(artefacts, caseName);
 
-        const formattedResults = { numberResults: [], urnResults: [] };
+        const formattedResults = [];
         cases.forEach(searchResult => {
             if (searchResult.caseNumber) {
-                formattedResults.numberResults.push(searchResult);
+                formattedResults.push(searchResult);
             }
 
             if (searchResult.caseUrn) {
-                formattedResults.urnResults.push(searchResult);
+                let newSearchResult = JSON.parse(JSON.stringify(searchResult));
+                newSearchResult['displayUrn'] = true;
+                formattedResults.push(newSearchResult);
             }
         });
 

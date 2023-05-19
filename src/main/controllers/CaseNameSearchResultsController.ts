@@ -17,7 +17,6 @@ export default class CaseNameSearchResultsController {
             res.render('case-name-search-results', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-name-search-results']),
                 searchResults,
-                numberOfResults: searchResults['numberResults'].length + searchResults['urnResults'].length,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

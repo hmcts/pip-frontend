@@ -137,11 +137,10 @@ Scenario(
 
         I.click('Email subscriptions');
         I.click('#bulk-unsubscribe-button');
-        I.click(locate('//tr').withText(caseName).find('input').withAttr({ id: 'caseSubscription' }));
 
+        I.click(locate('//tr').withText(caseName).find('input').withAttr({ id: 'caseSubscription' }));
         I.click(locate('//tr').withText(locationName).find('input').withAttr({ id: 'courtSubscription' }));
         I.click(locate('//tr').withText(caseId).find('input').withAttr({ id: 'caseSubscription' }));
-        I.click(locate('//tr').withText(caseNameNumber).find('input').withAttr({ id: 'caseSubscription' }));
         I.click(locate('//tr').withText(caseNameUrn).find('input').withAttr({ id: 'caseSubscription' }));
 
         I.click('#bulk-unsubscribe-button');

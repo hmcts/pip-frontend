@@ -410,7 +410,7 @@ describe('handleNewSubscription function', () => {
     });
 
     it('should add new case urn subscription', async () => {
-        const pendingSubscription = { urn: 'URNCASE1234' };
+        const pendingSubscription = { 'case-urn': 'URNCASE1234' };
         await subscriptionService.handleNewSubscription(pendingSubscription, user);
 
         sinon.assert.calledWith(cacheSetStub, [mockCaseWithUrnOnly], 'cases', user['userId']);

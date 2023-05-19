@@ -277,7 +277,7 @@ export class SubscriptionService {
                     caseDetailsList = await this.getCaseDetailsByNumber(hearingIdsList, user);
                     await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
                     break;
-                case 'urn':
+                case 'case-urn':
                 case 'case-urn[]':
                     Array.isArray(pendingSubscription[`${selectionName}`])
                         ? (hearingIdsList = pendingSubscription[`${selectionName}`])
