@@ -8,7 +8,7 @@ const caseName = 'Test Case Name';
 const caseURN = 'Case URN';
 
 const caseNameNumber = '12341232';
-const caseNameUrn = '18472381412'
+const caseNameUrn = '18472381412';
 
 Scenario(
     'I as a verified user should be able to subscribe by court name, URN, case id and case name. Also ' +
@@ -94,7 +94,7 @@ Scenario(
         I.waitForText('Search result');
         I.see(caseName);
         I.see(caseNameNumber);
-        I.see(caseNameUrn)
+        I.see(caseNameUrn);
         I.checkOption('//*[@id="12341232"]');
         I.checkOption('//*[@id="18472381412"]');
         I.click('Continue');
