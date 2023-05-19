@@ -117,7 +117,7 @@ describe('Bulk Unsubscribe Page', () => {
                 .getElementsByClassName(subNavigationClass)[1]
                 .getElementsByClassName(tabsClass);
             expect(subscriptionsTabs[0].innerHTML).contains(
-                'All subscriptions (8)',
+                'All subscriptions (9)',
                 'Could not find all subscriptions tab'
             );
             expect(subscriptionsTabs[0].getAttribute('href')).equal('?all', 'Tab does not contain proper link');
@@ -128,7 +128,7 @@ describe('Bulk Unsubscribe Page', () => {
                 .getElementsByClassName(subNavigationClass)[1]
                 .getElementsByClassName(tabsClass);
             expect(subscriptionsTabs[1].innerHTML).contains(
-                'Subscriptions by case (5)',
+                'Subscriptions by case (6)',
                 'Could not find case subscriptions tab'
             );
             expect(subscriptionsTabs[1].getAttribute('href')).equal('?case', 'Tab does not contain proper link');
@@ -191,7 +191,7 @@ describe('Bulk Unsubscribe Page', () => {
             const subscriptionsCaseRows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
-            expect(subscriptionsCaseRows.length).equal(5);
+            expect(subscriptionsCaseRows.length).equal(6);
         });
 
         it('case table should have correct column values', () => {
@@ -217,9 +217,13 @@ describe('Bulk Unsubscribe Page', () => {
             expect(subscriptionCaseRowCells[4].innerHTML).contains('Test Name 2');
             expect(subscriptionCaseRowCells[5].innerHTML).contains('I123123');
             expect(subscriptionCaseRowCells[8].innerHTML).contains('Test Name 3');
-            expect(subscriptionCaseRowCells[9].innerHTML).contains('B123123');
-            expect(subscriptionCaseRowCells[13].innerHTML).contains('A123123');
-            expect(subscriptionCaseRowCells[17].innerHTML).contains('D123123');
+            expect(subscriptionCaseRowCells[9].innerHTML).contains('1212121212');
+            expect(subscriptionCaseRowCells[12].innerHTML).contains('Test Name 3');
+            expect(subscriptionCaseRowCells[13].innerHTML).contains('B123123');
+            expect(subscriptionCaseRowCells[16].innerHTML).contains('');
+            expect(subscriptionCaseRowCells[17].innerHTML).contains('A123123');
+            expect(subscriptionCaseRowCells[20].innerHTML).contains('');
+            expect(subscriptionCaseRowCells[21].innerHTML).contains('D123123');
         });
 
         it('court table should have correct number of rows', () => {

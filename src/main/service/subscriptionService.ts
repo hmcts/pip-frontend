@@ -41,9 +41,10 @@ const caseSubscriptionSorter = (a, b) => {
         result = a.caseName > b.caseName ? 1 : -1;
     }
 
-    const caseRefA = a.caseNumber ? a.caseNumber : a.urn;
-    const caseRefB = b.caseNumber ? b.caseNumber : b.urn;
     if (result === 0) {
+        const caseRefA = a.searchType == 'CASE_ID' ? a.caseNumber : a.urn;
+        const caseRefB = b.searchType == 'CASE_ID' ? b.caseNumber : b.urn;
+
         if (caseRefA === caseRefB) {
             return 0;
         } else if (caseRefA === null) {
@@ -282,7 +283,7 @@ export class SubscriptionService {
                         ? (hearingIdsList = pendingSubscription[`${selectionName}`])
                         : hearingIdsList.push(pendingSubscription[`${selectionName}`]);
 
-                    caseDetailsList = await this.getCaseDetailsByUrn(hearingIdsList, user.userId);
+                    caseDetailsList = await this.getCaseDetailsByUrn(hearingIdsList, user);
                     await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
                     break;
                 case 'court-selections[]':
