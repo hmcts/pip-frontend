@@ -30,8 +30,6 @@ import { SessionLoggedOutPage } from '../PageObjects/SessionLoggedOut.page';
 import { ManageThirdPartyUsersPage } from '../PageObjects/ManageThirdPartyUsers.page';
 import { ListDownloadDisclaimerPage } from '../PageObjects/ListDownloadDisclaimer.page';
 import { ListDownloadFilesPage } from '../PageObjects/ListDownloadFiles.page';
-import { BulkCreateMediaAccountsPage } from '../pageobjects/BulkCreateMediaAccounts.page';
-import { BulkCreateMediaAccountsConfirmationPage } from '../pageobjects/BulkCreateMediaAccountsConfirmation.page';
 import { MediaAccountRejectionReasonsPage } from '../pageobjects/MediaAccountRejectionReasons.page';
 
 const homePage = new HomePage();
@@ -66,8 +64,6 @@ let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage
 let cftAuthenticationFailedPage: CftAuthenticationFailedPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
 let manageThirdPartyUsersPage: ManageThirdPartyUsersPage;
-let bulkCreateMediaAccountsPage: BulkCreateMediaAccountsPage;
-let bulkCreateMediaAccountsConfirmationPage: BulkCreateMediaAccountsConfirmationPage;
 
 const testCourt = 'AA - E2E TEST COURT - DO NOT REMOVE';
 
@@ -663,25 +659,6 @@ describe('System Admin level journeys', () => {
         });
     });
 
-    describe('should open bulk create media accounts page', async () => {
-        before(async () => {
-            await systemAdminDashboard.open('/system-admin-dashboard');
-            systemAdminDashboard.removeOverlay();
-        });
-
-        it('should load the bulk create media accounts page', async () => {
-            bulkCreateMediaAccountsPage = await systemAdminDashboard.clickBulkCreateMediaAccountsCard();
-            expect(await bulkCreateMediaAccountsPage.getPageTitle()).toEqual('Bulk create media accounts');
-        });
-
-        it('should upload file and open confirmation page', async () => {
-            await bulkCreateMediaAccountsPage.uploadFile();
-            bulkCreateMediaAccountsConfirmationPage = await bulkCreateMediaAccountsPage.clickContinue();
-            expect(await bulkCreateMediaAccountsConfirmationPage.getPageTitle()).toEqual(
-                'Create media accounts confirmation'
-            );
-        });
-    });
     describe('sign out system admin dashboard', () => {
         before(async () => {
             await systemAdminDashboard.open('system-admin-dashboard');
