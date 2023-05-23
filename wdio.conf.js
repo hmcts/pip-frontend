@@ -1,6 +1,6 @@
 const drivers = {
     chromiumedge: { version: 'latest' },
-    chrome: { version: '110.0.5481.77' },
+    chrome: { version: '113.0.5672.63' },
     firefox: { version: 'latest' },
 };
 

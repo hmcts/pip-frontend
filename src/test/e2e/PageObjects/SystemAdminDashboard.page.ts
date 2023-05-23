@@ -1,7 +1,7 @@
-import { CommonPage } from './Common.page';
-import { SessionLoggedOutPage } from './SessionLoggedOut.page';
-import { ManageThirdPartyUsersPage } from './ManageThirdPartyUsers.page';
-import { BulkCreateMediaAccountsPage } from './BulkCreateMediaAccounts.page';
+import {CommonPage} from './Common.page';
+import {SessionLoggedOutPage} from './SessionLoggedOut.page';
+import {ManageThirdPartyUsersPage} from './ManageThirdPartyUsers.page';
+
 
 const helpers = require('../Helpers/Selectors');
 
@@ -13,15 +13,6 @@ export class SystemAdminDashboardPage extends CommonPage {
 
         await $(helpers.ManageThirdPartyUsers).click();
         return new ManageThirdPartyUsersPage();
-    }
-
-    async clickBulkCreateMediaAccountsCard(): Promise<BulkCreateMediaAccountsPage> {
-        await $(helpers.BulkCreateMediaAccounts).catch(() => {
-            console.log(`${helpers.BulkCreateMediaAccounts} not found`);
-        });
-
-        await $(helpers.BulkCreateMediaAccounts).click();
-        return new BulkCreateMediaAccountsPage();
     }
 
     async clickSignOut(): Promise<SessionLoggedOutPage> {

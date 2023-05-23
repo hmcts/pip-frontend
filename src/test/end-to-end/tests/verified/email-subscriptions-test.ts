@@ -149,6 +149,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Subscription(s) removed');
         I.see('Your subscription(s) has been removed.');
+        I.logout();
 
         I.deletePublicationForCourt(locationId);
         I.deleteLocation(locationId);
@@ -248,6 +249,7 @@ Scenario(
         I.click('#bulk-unsubscribe-choice');
         I.click('Continue');
         I.waitForText('Subscription(s) removed');
+        I.logout();
 
         I.deletePublicationForCourt(locationId);
         I.deleteLocation(locationId);
@@ -294,6 +296,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.waitForText('Your subscription has been removed.');
     I.click('Email subscriptions');
     I.dontSee(locationName);
+    I.logout();
     I.deleteLocation(locationId);
     await removeTestLocationFile(locationFileName);
 });

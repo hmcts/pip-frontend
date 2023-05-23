@@ -29,6 +29,7 @@ Scenario('I as a system admin should be able to create a new system admin', asyn
     I.see(TEST_FIRST_NAME);
     I.see(TEST_SURNAME);
     I.see(email);
+    I.logout();
 });
 
 Scenario('I as a system admin should not be able to create duplicated system admin account', async ({ I }) => {
@@ -44,6 +45,7 @@ Scenario('I as a system admin should not be able to create duplicated system adm
     I.see(
         'This user already has an account. If the user requires a system admin account, their previous account will need to be deleted first before one can be created.'
     );
+    I.logout();
 });
 
 Scenario(
@@ -93,6 +95,7 @@ Scenario('I as a system admin should be able to see error messages when input fi
     I.createNewSystemAdminAndContinue(TEST_FIRST_NAME, TEST_SURNAME, testConfig.TEST_SUITE_PREFIX);
     I.waitForText('There is a problem');
     I.see('Enter an email address in the correct format, like name@example.com');
+    I.logout();
 });
 
 AfterSuite(async () => {
