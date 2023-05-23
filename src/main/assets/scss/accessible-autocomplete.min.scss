@@ -125,7 +125,7 @@ $autocomplete-box-shadow: rgba(0, 0, 0, 25.7%); /* stylelint-disable-line */
     cursor: not-allowed;
 }
 
-@media (width >= 641px) {
+@media (min-width: 641px) {
     .autocomplete__hint,
     .autocomplete__input,
     .autocomplete__option {
