@@ -61,13 +61,12 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     const [locationId, locationName, locationFileName] = generateTestLocation();
     await createLocation(locationFileName);
 
-    I.loginAsAdmin();
-    I.see('Your Dashboard');
-
+    I.loginAsSystemAdmin();
+    I.see('System Admin Dashboard');
+    I.click('Admin Dashboard');
     I.click('#card-manual-upload');
     I.waitForText('Manual upload');
     I.attachFile('#manual-file-upload', './shared/mocks/' + fileName);
-
     I.fillField('#search-input', locationName);
     I.selectOption('#listType', listType);
     I.fillField('#content-date-from-day', padFormatted(date.getDate()));
@@ -80,31 +79,12 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.fillField('#display-date-to-day', padFormatted(dayAfter.getDate()));
     I.fillField('#display-date-to-month', padFormatted(dayAfter.getMonth() + 1));
     I.fillField('#display-date-to-year', dayAfter.getFullYear());
-
     I.click('Continue');
     I.waitForText('Check upload details');
     I.click('Confirm');
     I.waitForText('Success');
 
     I.click('Home');
-    I.see('Your Dashboard');
-    I.click('#card-remove-list-search');
-    I.waitForText('Find content to remove');
-    I.see('Search by court or tribunal name');
-    I.fillField('#search-input', locationName);
-    I.click('Continue');
-
-    I.waitForText('Select content to remove');
-    I.click(locate('//tr').withText(listType).find('a').withText('Remove'));
-    I.waitForText('You are about to remove the following publication:');
-    I.click('#remove-choice');
-    I.click('Continue');
-    I.waitForText('Success');
-    I.logout();
-
-    I.loginAsSystemAdmin();
-    I.see('System Admin Dashboard');
-
     I.click('#card-audit-log-viewer');
     I.waitForText('System admin audit log');
     I.see('Timestamp');
@@ -125,7 +105,18 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
         }
     }
 
-    I.waitForText('View audit log for ');
+    I.click('Admin Dashboard');
+    I.click('#card-remove-list-search');
+    I.waitForText('Find content to remove');
+    I.see('Search by court or tribunal name');
+    I.fillField('#search-input', locationName);
+    I.click('Continue');
+    I.waitForText('Select content to remove');
+    I.click(locate('//tr').withText(listType).find('a').withText('Remove'));
+    I.waitForText('You are about to remove the following publication:');
+    I.click('#remove-choice');
+    I.click('Continue');
+    I.waitForText('Success');
 
     I.click('Home');
     I.see('System Admin Dashboard');
@@ -147,7 +138,6 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     }
 
     I.waitForText('View audit log for ');
-
     I.logout();
 
     I.deleteLocation(locationId);
