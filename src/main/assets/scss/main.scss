@@ -168,7 +168,7 @@ $callout-bg: #f0f4f5;
     visibility: hidden;
 }
 
-@media (width <= 770px) {
+@media (max-width: 770px) {
     .hide {
         display: none !important; // sass-lint:disable-line no-important
         visibility: hidden;
@@ -318,7 +318,7 @@ div {
         max-width: 50%;
     }
 
-    @media (width <= 640px) {
+    @media (max-width: 640px) {
         .cards-wrapper > div,
         .cards-wrapper .admin-card {
             flex: 100%;
@@ -402,7 +402,7 @@ div {
         font-size: 16px;
     }
 
-    @media (width >= 641px) {
+    @media (min-width: 641px) {
         .moj-sub-navigation__item {
             &:last-child {
                 float: right;
@@ -432,7 +432,7 @@ div {
     margin-top: 25px !important;
 }
 
-@media (width <= 640px) {
+@media (max-width: 640px) {
     div div {
         flex: 100%;
         max-width: 100%;
